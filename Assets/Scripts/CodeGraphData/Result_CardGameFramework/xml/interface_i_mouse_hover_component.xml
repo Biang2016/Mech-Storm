@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="interface_i_mouse_hover_component" kind="interface" prot="public">
+    <compoundname>IMouseHoverComponent</compoundname>
+    <derivedcompoundref refid="class_module_base" prot="public" virt="non-virtual">ModuleBase</derivedcompoundref>
+    <derivedcompoundref refid="class_slot_anchor" prot="public" virt="non-virtual">SlotAnchor</derivedcompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="interface_i_mouse_hover_component_1a03f527fc21e10d95dc6815866a7b70c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IMouseHoverComponent.MouseHoverComponent_OnMouseDragEnterImmediately</definition>
+        <argsstring>(Vector3 mousePosition)</argsstring>
+        <name>MouseHoverComponent_OnMouseDragEnterImmediately</name>
+        <reimplementedby refid="class_slot_anchor_1a6c566b9dc023b0a9b7c959fe344948e6">MouseHoverComponent_OnMouseDragEnterImmediately</reimplementedby>
+        <reimplementedby refid="class_module_base_1a448cc64590b4c0e2d4d185e860467893">MouseHoverComponent_OnMouseDragEnterImmediately</reimplementedby>
+        <param>
+          <type>Vector3</type>
+          <declname>mousePosition</declname>
+        </param>
+        <briefdescription>
+<para>此接口用于将除了MouseHoverComponent通用效果之外的效果还给调用者自行处理 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="99" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="interface_i_mouse_hover_component_1a63f61ec02e20188f3ab4d476fa298d89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IMouseHoverComponent.MouseHoverComponent_OnMouseEnterImmediately</definition>
+        <argsstring>(Vector3 mousePosition)</argsstring>
+        <name>MouseHoverComponent_OnMouseEnterImmediately</name>
+        <reimplementedby refid="class_slot_anchor_1adc9bd993644a846e7a6b2699e027cb37">MouseHoverComponent_OnMouseEnterImmediately</reimplementedby>
+        <reimplementedby refid="class_module_weapon_1a378429caf596e0309a26f353a8dca646">MouseHoverComponent_OnMouseEnterImmediately</reimplementedby>
+        <reimplementedby refid="class_module_base_1ab4144de08615cecdf7c0ad9c383f7b1e">MouseHoverComponent_OnMouseEnterImmediately</reimplementedby>
+        <reimplementedby refid="class_module_shield_1a4f06a3ab11c406a3ceef955691cfd553">MouseHoverComponent_OnMouseEnterImmediately</reimplementedby>
+        <param>
+          <type>Vector3</type>
+          <declname>mousePosition</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="100" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="interface_i_mouse_hover_component_1aac81475fa0ebd73b6951acb98647287e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IMouseHoverComponent.MouseHoverComponent_OnMouseEnter</definition>
+        <argsstring>(Vector3 mousePosition)</argsstring>
+        <name>MouseHoverComponent_OnMouseEnter</name>
+        <reimplementedby refid="class_slot_anchor_1a4d67997c78510fe9069d5ef9f1e4036f">MouseHoverComponent_OnMouseEnter</reimplementedby>
+        <reimplementedby refid="class_module_base_1a2ef05ce5ea386adefa93fb0ec94dc078">MouseHoverComponent_OnMouseEnter</reimplementedby>
+        <param>
+          <type>Vector3</type>
+          <declname>mousePosition</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="101" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="interface_i_mouse_hover_component_1a54a3bf57159f034a93c8a742ab0d10a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IMouseHoverComponent.MouseHoverComponent_OnMouseOver</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseOver</name>
+        <reimplementedby refid="class_slot_anchor_1abc69699b15439c2ec7d1f2019feb3b0a">MouseHoverComponent_OnMouseOver</reimplementedby>
+        <reimplementedby refid="class_module_weapon_1a875247ec005821762e07213fbfac9df8">MouseHoverComponent_OnMouseOver</reimplementedby>
+        <reimplementedby refid="class_module_base_1a44f0bdf95b974c5a12cd77fd15dad5cc">MouseHoverComponent_OnMouseOver</reimplementedby>
+        <reimplementedby refid="class_module_shield_1abdbef91e83b7a103549f757c14fb1e96">MouseHoverComponent_OnMouseOver</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="102" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="interface_i_mouse_hover_component_1a2d91b71f94d530bd6f5c365b21652d31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IMouseHoverComponent.MouseHoverComponent_OnMouseLeave</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseLeave</name>
+        <reimplementedby refid="class_slot_anchor_1afb4b856e350ece813d484fd0b2bcade0">MouseHoverComponent_OnMouseLeave</reimplementedby>
+        <reimplementedby refid="class_module_weapon_1a18170a14180e8036d902b7b90959f1fa">MouseHoverComponent_OnMouseLeave</reimplementedby>
+        <reimplementedby refid="class_module_base_1a78a8d6863f120ad960db75fb26c44813">MouseHoverComponent_OnMouseLeave</reimplementedby>
+        <reimplementedby refid="class_module_shield_1a6f6b111dd847cfad12b0bd781ae058c2">MouseHoverComponent_OnMouseLeave</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="interface_i_mouse_hover_component_1acbd1ed46f1b311a387488f543c602df6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IMouseHoverComponent.MouseHoverComponent_OnMouseLeaveImmediately</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseLeaveImmediately</name>
+        <reimplementedby refid="class_slot_anchor_1ac20241d7aa45240a40ac6b0d7cf65c49">MouseHoverComponent_OnMouseLeaveImmediately</reimplementedby>
+        <reimplementedby refid="class_module_weapon_1aefd7c1a54a947e3e1e58c769c8d794b2">MouseHoverComponent_OnMouseLeaveImmediately</reimplementedby>
+        <reimplementedby refid="class_module_base_1ae22763e44c441726038c6c43e6e70851">MouseHoverComponent_OnMouseLeaveImmediately</reimplementedby>
+        <reimplementedby refid="class_module_shield_1a31909952cfcbc9655b3949bffa9ff5c7">MouseHoverComponent_OnMouseLeaveImmediately</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="104" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="interface_i_mouse_hover_component_1a58c447da0331f33de85d482c35079080" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IMouseHoverComponent.MouseHoverComponent_OnMouseDragLeaveImmediately</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseDragLeaveImmediately</name>
+        <reimplementedby refid="class_slot_anchor_1a6b567888a5f8768efaa01fa78a34dbbd">MouseHoverComponent_OnMouseDragLeaveImmediately</reimplementedby>
+        <reimplementedby refid="class_module_base_1a08574bcc1d369968bd45502d69c67a07">MouseHoverComponent_OnMouseDragLeaveImmediately</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="105" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="302">
+        <label>SlotAnchor</label>
+        <link refid="class_slot_anchor"/>
+        <childnode refid="297" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="300">
+        <label>ModuleShield</label>
+        <link refid="class_module_shield"/>
+        <childnode refid="298" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="297">
+        <label>IMouseHoverComponent</label>
+        <link refid="interface_i_mouse_hover_component"/>
+      </node>
+      <node id="298">
+        <label>ModuleBase</label>
+        <link refid="class_module_base"/>
+        <childnode refid="297" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="299">
+        <label>ModuleRetinue</label>
+        <link refid="class_module_retinue"/>
+        <childnode refid="298" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="301">
+        <label>ModuleWeapon</label>
+        <link refid="class_module_weapon"/>
+        <childnode refid="298" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="94" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="93" bodyend="106"/>
+    <listofallmembers>
+      <member refid="interface_i_mouse_hover_component_1a03f527fc21e10d95dc6815866a7b70c9" prot="public" virt="non-virtual"><scope>IMouseHoverComponent</scope><name>MouseHoverComponent_OnMouseDragEnterImmediately</name></member>
+      <member refid="interface_i_mouse_hover_component_1a58c447da0331f33de85d482c35079080" prot="public" virt="non-virtual"><scope>IMouseHoverComponent</scope><name>MouseHoverComponent_OnMouseDragLeaveImmediately</name></member>
+      <member refid="interface_i_mouse_hover_component_1aac81475fa0ebd73b6951acb98647287e" prot="public" virt="non-virtual"><scope>IMouseHoverComponent</scope><name>MouseHoverComponent_OnMouseEnter</name></member>
+      <member refid="interface_i_mouse_hover_component_1a63f61ec02e20188f3ab4d476fa298d89" prot="public" virt="non-virtual"><scope>IMouseHoverComponent</scope><name>MouseHoverComponent_OnMouseEnterImmediately</name></member>
+      <member refid="interface_i_mouse_hover_component_1a2d91b71f94d530bd6f5c365b21652d31" prot="public" virt="non-virtual"><scope>IMouseHoverComponent</scope><name>MouseHoverComponent_OnMouseLeave</name></member>
+      <member refid="interface_i_mouse_hover_component_1acbd1ed46f1b311a387488f543c602df6" prot="public" virt="non-virtual"><scope>IMouseHoverComponent</scope><name>MouseHoverComponent_OnMouseLeaveImmediately</name></member>
+      <member refid="interface_i_mouse_hover_component_1a54a3bf57159f034a93c8a742ab0d10a6" prot="public" virt="non-virtual"><scope>IMouseHoverComponent</scope><name>MouseHoverComponent_OnMouseOver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

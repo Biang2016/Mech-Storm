@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_round_manager_8cs" kind="file">
+    <compoundname>RoundManager.cs</compoundname>
+    <innerclass refid="class_round_manager" prot="public">RoundManager</innerclass>
+    <innernamespace refid="namespace_unity_engine_1_1_u_i">UnityEngine::UI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/>UnityEngine;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.Collections;</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>UnityEngine.UI;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="class_round_manager" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_round_manager" kindref="compound">RoundManager</ref><sp/>:<sp/>MonoBehaviour</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="7" refid="class_round_manager_1a646aa2588d5345d6c83d8b2bf9102692" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_round_manager" kindref="compound">RoundManager</ref><sp/><ref refid="class_round_manager_1a646aa2588d5345d6c83d8b2bf9102692" kindref="member">rm</ref>;</highlight></codeline>
+<codeline lineno="8" refid="class_round_manager_1a8395e6635cd5367b584e5050fa6a1b05" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_round_manager" kindref="compound">RoundManager</ref><sp/><ref refid="class_round_manager_1a8395e6635cd5367b584e5050fa6a1b05" kindref="member">RM</ref><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="class_round_manager_1a646aa2588d5345d6c83d8b2bf9102692" kindref="member">rm</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1a646aa2588d5345d6c83d8b2bf9102692" kindref="member">rm</ref><sp/>=<sp/>FindObjectOfType(typeof(<ref refid="class_round_manager" kindref="compound">RoundManager</ref>))<sp/>as<sp/><ref refid="class_round_manager" kindref="compound">RoundManager</ref>;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_round_manager_1a646aa2588d5345d6c83d8b2bf9102692" kindref="member">rm</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="class_round_manager_1a9dc4982eccb098deb1b3f4f758179ff1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_round_manager_1a9dc4982eccb098deb1b3f4f758179ff1" kindref="member">RoundNumber</ref>;</highlight></codeline>
+<codeline lineno="18" refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="class_player" kindref="compound">Player</ref><sp/><ref refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" kindref="member">CurrentPlayer</ref>;</highlight></codeline>
+<codeline lineno="19" refid="class_round_manager_1ab9f6c7fda921ec8469da74b61d332db5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>GameObject<sp/><ref refid="class_round_manager_1ab9f6c7fda921ec8469da74b61d332db5" kindref="member">SelfTurnText</ref>;</highlight></codeline>
+<codeline lineno="20" refid="class_round_manager_1ae4ba184715f4887ac1197439339e142c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>GameObject<sp/><ref refid="class_round_manager_1ae4ba184715f4887ac1197439339e142c" kindref="member">EnemyTurnText</ref>;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="class_round_manager_1a07d2fe10fdf1700a0c19f4eb36236e1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Vector3<sp/><ref refid="class_round_manager_1a07d2fe10fdf1700a0c19f4eb36236e1a" kindref="member">selfTurnText_DefaultPosition</ref>;</highlight></codeline>
+<codeline lineno="23" refid="class_round_manager_1a66ea2c88263f83a4332c7f1be44638ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Vector3<sp/><ref refid="class_round_manager_1a66ea2c88263f83a4332c7f1be44638ad" kindref="member">enemyTurnText_DefaultPosition</ref>;</highlight></codeline>
+<codeline lineno="24" refid="class_round_manager_1a0e3e5b1e55c26209a438d715f0d0151b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Vector3<sp/><ref refid="class_round_manager_1a0e3e5b1e55c26209a438d715f0d0151b" kindref="member">farAwayPosition</ref>;</highlight></codeline>
+<codeline lineno="25" refid="class_round_manager_1a1ae4b42e7252a3983bf8121c91a61fa6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_round_manager_1a1ae4b42e7252a3983bf8121c91a61fa6" kindref="member">Awake</ref>()</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1a07d2fe10fdf1700a0c19f4eb36236e1a" kindref="member">selfTurnText_DefaultPosition</ref><sp/>=<sp/>SelfTurnText.transform.position;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1a66ea2c88263f83a4332c7f1be44638ad" kindref="member">enemyTurnText_DefaultPosition</ref><sp/>=<sp/>EnemyTurnText.transform.position;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1a0e3e5b1e55c26209a438d715f0d0151b" kindref="member">farAwayPosition</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>Vector3(-100,<sp/>-100,<sp/>-100);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="class_round_manager_1a9412ca1bc488d6cc4a7cf23a2e77c7b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_round_manager_1a9412ca1bc488d6cc4a7cf23a2e77c7b4" kindref="member">Start</ref>()</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" kindref="member">CurrentPlayer</ref><sp/>=<sp/>Random.Range(0,<sp/>2)<sp/>==<sp/>0<sp/>?<sp/><ref refid="class_game_manager" kindref="compound">GameManager</ref>.<ref refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" kindref="member">GM</ref>.<ref refid="class_game_manager_1a1f22d2186c87a8465b04e3b5a49fbf5d" kindref="member">SelfPlayer</ref><sp/>:<sp/><ref refid="class_game_manager" kindref="compound">GameManager</ref>.<ref refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" kindref="member">GM</ref>.<ref refid="class_game_manager_1a53a6be07979fa2f8f7275277bc75b3cb" kindref="member">EnemyPlayer</ref>;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" kindref="member">CurrentPlayer</ref>.<ref refid="class_player_1a4f97a60203d05ae00e7c223be3a7df7a" kindref="member">MyHandManager</ref>.<ref refid="class_hand_manager_1a4870b97ce970377c8015394682ecee33" kindref="member">GetACardByID</ref>(99);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.MyHandManager.DrawRetinueCard();</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.MyHandManager.DrawCards(2);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" kindref="member">switchPlayer</ref>();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.MyHandManager.GetACardByID(99);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.MyHandManager.DrawRetinueCard();</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.MyHandManager.DrawCards(3);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" kindref="member">switchPlayer</ref>();</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" kindref="member">BeginRound</ref>();</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="class_round_manager_1ad78bed8eb987e7238753d702d189b147" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_round_manager_1ad78bed8eb987e7238753d702d189b147" kindref="member">Update</ref>()</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" kindref="member">BeginRound</ref>()</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.IncreaseCostMax(1);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.AddAllCost();</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" kindref="member">CurrentPlayer</ref><sp/>==<sp/><ref refid="class_game_manager" kindref="compound">GameManager</ref>.<ref refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" kindref="member">GM</ref>.<ref refid="class_game_manager_1a1f22d2186c87a8465b04e3b5a49fbf5d" kindref="member">SelfPlayer</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SelfTurnText.transform.position<sp/>=<sp/><ref refid="class_round_manager_1a07d2fe10fdf1700a0c19f4eb36236e1a" kindref="member">selfTurnText_DefaultPosition</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnemyTurnText.transform.position<sp/>=<sp/><ref refid="class_round_manager_1a0e3e5b1e55c26209a438d715f0d0151b" kindref="member">farAwayPosition</ref>;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnemyTurnText.transform.position<sp/>=<sp/><ref refid="class_round_manager_1a66ea2c88263f83a4332c7f1be44638ad" kindref="member">enemyTurnText_DefaultPosition</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SelfTurnText.transform.position<sp/>=<sp/><ref refid="class_round_manager_1a0e3e5b1e55c26209a438d715f0d0151b" kindref="member">farAwayPosition</ref>;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.MyHandManager.DrawCard();</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.MyHandManager.BeginRound();</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.MyBattleGroundManager.BeginRound();</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="class_round_manager_1a7272fa59ae93c5467abc8ccd8d49c5c3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_round_manager_1a7272fa59ae93c5467abc8ccd8d49c5c3" kindref="member">EndRound</ref>()</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.MyHandManager.EndRound();</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentPlayer.MyBattleGroundManager.EndRound();</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" kindref="member">switchPlayer</ref>()</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" kindref="member">CurrentPlayer</ref><sp/>=<sp/><ref refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" kindref="member">CurrentPlayer</ref><sp/>==<sp/>GameManager.GM.SelfPlayer<sp/>?<sp/>GameManager.GM.EnemyPlayer<sp/>:<sp/>GameManager.GM.SelfPlayer;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="class_round_manager_1a9635622d6203f624f46ac4dd6ed1ebe0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_round_manager_1a9635622d6203f624f46ac4dd6ed1ebe0" kindref="member">OnEndRoundButtonClick</ref>()</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1a7272fa59ae93c5467abc8ccd8d49c5c3" kindref="member">EndRound</ref>();</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" kindref="member">switchPlayer</ref>();</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" kindref="member">BeginRound</ref>();</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_player_8cs" kind="file">
+    <compoundname>Player.cs</compoundname>
+    <innerclass refid="class_player" prot="public">Player</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0" prot="package" static="no">
+        <name>Players</name>
+        <enumvalue id="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0aad6e7652b1bdfb38783486c2c3d5e806" prot="public">
+          <name>Self</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0a8c6d21187fb58b7a079d70030686b33e" prot="public">
+          <name>Enemy</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="94" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="94" bodyend="97"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="class_player" refkind="compound"><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_player" kindref="compound">Player</ref><sp/>{</highlight></codeline>
+<codeline lineno="2" refid="class_player_1a3f605f44363e13589fdc486c362894a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6d" kindref="member">BoardAreaTypes</ref><sp/><ref refid="class_player_1a3f605f44363e13589fdc486c362894a1" kindref="member">MyBattleGroundArea</ref>;<sp/></highlight><highlight class="comment">//卡牌所属方的战场区</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3" refid="class_player_1a76d9429430586a601b7107349c9c541a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="class_battle_ground_manager" kindref="compound">BattleGroundManager</ref><sp/><ref refid="class_player_1a76d9429430586a601b7107349c9c541a" kindref="member">MyBattleGroundManager</ref>;<sp/></highlight><highlight class="comment">//卡牌所属方的战场区域管理器</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="class_player_1ab46108e9d5b6d71bf366b0943a71adb0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="class_card_deck_manager" kindref="compound">CardDeckManager</ref><sp/><ref refid="class_player_1ab46108e9d5b6d71bf366b0943a71adb0" kindref="member">MyCardDeckManager</ref>;<sp/></highlight><highlight class="comment">//卡牌所属方的牌堆管理器</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="class_player_1abc057783bafe08668e51762c92d120f5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6d" kindref="member">BoardAreaTypes</ref><sp/><ref refid="class_player_1abc057783bafe08668e51762c92d120f5" kindref="member">MyHandArea</ref>;<sp/></highlight><highlight class="comment">//卡牌所属的手部区</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="class_player_1a4f97a60203d05ae00e7c223be3a7df7a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="class_hand_manager" kindref="compound">HandManager</ref><sp/><ref refid="class_player_1a4f97a60203d05ae00e7c223be3a7df7a" kindref="member">MyHandManager</ref>;<sp/></highlight><highlight class="comment">//卡牌所属的手部区管理器</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="class_player_1aa6cdd6927d7639b4f8973c337724e35f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0" kindref="member">Players</ref><sp/><ref refid="class_player_1aa6cdd6927d7639b4f8973c337724e35f" kindref="member">WhichPlayer</ref>;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" kindref="member">Player</ref>(<ref refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0" kindref="member">Players</ref><sp/>whichPlayer)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1aa6cdd6927d7639b4f8973c337724e35f" kindref="member">WhichPlayer</ref><sp/>=<sp/>whichPlayer;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1abc057783bafe08668e51762c92d120f5" kindref="member">MyHandArea</ref><sp/>=<sp/>whichPlayer<sp/>==<sp/>Players.Self<sp/>?<sp/>BoardAreaTypes.SelfHandArea<sp/>:<sp/><ref refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6dabfd7d9b4cf5168bb3efb38eb7a0a151d" kindref="member">BoardAreaTypes.EnemyHandArea</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a3f605f44363e13589fdc486c362894a1" kindref="member">MyBattleGroundArea</ref><sp/>=<sp/>whichPlayer<sp/>==<sp/>Players.Self</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>BoardAreaTypes.SelfBattleGroundArea</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6da57995574655828190f78d321e371789f" kindref="member">BoardAreaTypes.EnemyBattleGroundArea</ref>;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a4f97a60203d05ae00e7c223be3a7df7a" kindref="member">MyHandManager</ref><sp/>=<sp/>whichPlayer<sp/>==<sp/>Players.Self</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>GameBoardManager.GBM.SelfHandManager</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>GameBoardManager.GBM.EnemyHandManager;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a76d9429430586a601b7107349c9c541a" kindref="member">MyBattleGroundManager</ref><sp/>=<sp/>whichPlayer<sp/>==<sp/>Players.Self</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>GameBoardManager.GBM.SelfBattleGroundManager</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>GameBoardManager.GBM.EnemyBattleGroundManager;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1ab46108e9d5b6d71bf366b0943a71adb0" kindref="member">MyCardDeckManager</ref><sp/>=<sp/>whichPlayer<sp/>==<sp/>Players.Self</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>GameBoardManager.GBM.SelfCardDeckManager</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>GameBoardManager.GBM.EnemyCardDeckManager;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MyHandManager.Player<sp/>=<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MyBattleGroundManager.Player<sp/>=<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MyCardDeckManager.Player<sp/>=<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref><sp/>=<sp/>GameManager.GM.BeginCost;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1add176144a0cc014a2bd474bc00e3c890" kindref="member">AddAllCost</ref>();</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#region<sp/>Cost</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/>set;<sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>{<sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">;<sp/>set;<sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="class_player_1ae1f4ce6294cc9244a4223104f3263835" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_player_1ae1f4ce6294cc9244a4223104f3263835" kindref="member">UseCost</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>useCostNumber)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>&gt;<sp/>useCostNumber)<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>-=<sp/>useCostNumber;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="class_player_1ad6f8948f78d17a21d9eea512a21ec627" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_player_1ad6f8948f78d17a21d9eea512a21ec627" kindref="member">AddCostWithoutLimit</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>addCostValue)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>+=<sp/>addCostValue;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="class_player_1a71304c87cd53259f8ce9236adfa086e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_player_1a71304c87cd53259f8ce9236adfa086e3" kindref="member">AddCostWithinMax</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>addCostValue)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref><sp/>-<sp/><ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>&gt;<sp/>addCostValue)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>+=<sp/>addCostValue;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>=<sp/><ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref>;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="class_player_1a824805c449531986e44008238bc40417" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_player_1a824805c449531986e44008238bc40417" kindref="member">UseAllCost</ref>()</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="class_player_1add176144a0cc014a2bd474bc00e3c890" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_player_1add176144a0cc014a2bd474bc00e3c890" kindref="member">AddAllCost</ref>()</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>=<sp/><ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref>;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="class_player_1a9a3fd49ccd1bf5f849438b407858a2d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_player_1a9a3fd49ccd1bf5f849438b407858a2d5" kindref="member">IncreaseCostMax</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>increaseValue)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref><sp/>+<sp/>increaseValue<sp/>&lt;=<sp/><ref refid="class_game_manager" kindref="compound">GameManager</ref>.<ref refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" kindref="member">GM</ref>.<ref refid="class_game_manager_1af6a7e66fc95ec65b374da106178dbf35" kindref="member">MaxCost</ref>)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref><sp/>+=<sp/>increaseValue;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref><sp/>=<sp/>GameManager.GM.MaxCost;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="class_player_1adf209bb1466a6978852c8a604ca30483" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_player_1adf209bb1466a6978852c8a604ca30483" kindref="member">DecreaseCostMax</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>decreaseValue)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref><sp/>&lt;=<sp/>decreaseValue)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref><sp/>-=<sp/>decreaseValue;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>&gt;<sp/><ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref>)<sp/><ref refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kindref="member">CostLeft</ref><sp/>=<sp/><ref refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kindref="member">CostMax</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#endregion</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94" refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0" kindref="member">Players</ref><sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0aad6e7652b1bdfb38783486c2c3d5e806" kindref="member">Self</ref><sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0a8c6d21187fb58b7a079d70030686b33e" kindref="member">Enemy</ref><sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs"/>
+  </compounddef>
+</doxygen>

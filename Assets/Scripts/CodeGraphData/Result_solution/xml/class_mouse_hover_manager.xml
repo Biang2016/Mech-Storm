@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_mouse_hover_manager" kind="class" prot="public">
+    <compoundname>MouseHoverManager</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_mouse_hover_manager_1ab0d41811312bc9a6686bd4a452604633" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MouseHoverManager.modulesLayer</definition>
+        <argsstring></argsstring>
+        <name>modulesLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="23" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="23" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_manager_1a8823d162d61f58f45f81ec77ed6f69cb" compoundref="_mouse_hover_manager_8cs" startline="11" endline="16">Awake</referencedby>
+        <referencedby refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" compoundref="_mouse_hover_manager_8cs" startline="39" endline="152">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_manager_1ae379c841550633eecfc957ec3ae3ba73" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MouseHoverManager.retinuesLayer</definition>
+        <argsstring></argsstring>
+        <name>retinuesLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="24" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="24" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_manager_1a8823d162d61f58f45f81ec77ed6f69cb" compoundref="_mouse_hover_manager_8cs" startline="11" endline="16">Awake</referencedby>
+        <referencedby refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" compoundref="_mouse_hover_manager_8cs" startline="39" endline="152">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_manager_1a25e14c01a3bc838df2a2e420dd674428" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MouseHoverManager.slotsLayer</definition>
+        <argsstring></argsstring>
+        <name>slotsLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="25" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="25" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_manager_1a8823d162d61f58f45f81ec77ed6f69cb" compoundref="_mouse_hover_manager_8cs" startline="11" endline="16">Awake</referencedby>
+        <referencedby refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" compoundref="_mouse_hover_manager_8cs" startline="39" endline="152">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_manager_1a0f82a4dc08f439caad44d04fea97d45b" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MouseHoverManager.mouseStopTimeTicker</definition>
+        <argsstring></argsstring>
+        <name>mouseStopTimeTicker</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="30" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="30" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" compoundref="_mouse_hover_manager_8cs" startline="39" endline="152">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_manager_1ac725d62dae60c60eea4558ed4213794b" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 MouseHoverManager.mouseLastPosition</definition>
+        <argsstring></argsstring>
+        <name>mouseLastPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="32" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="32" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" compoundref="_mouse_hover_manager_8cs" startline="39" endline="152">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_manager_1a310afbf629356a7ace6bed73cdd521d3" prot="private" static="no" mutable="no">
+        <type><ref refid="class_mouse_hover_component" kindref="compound">MouseHoverComponent</ref></type>
+        <definition>MouseHoverComponent MouseHoverManager.currentHover</definition>
+        <argsstring></argsstring>
+        <name>currentHover</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="34" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="34" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" compoundref="_mouse_hover_manager_8cs" startline="39" endline="152">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_manager_1a15a2329e81226c5f3df2b622a53bce1c" prot="private" static="no" mutable="no">
+        <type><ref refid="class_mouse_hover_component" kindref="compound">MouseHoverComponent</ref></type>
+        <definition>MouseHoverComponent MouseHoverManager.currentPressHover</definition>
+        <argsstring></argsstring>
+        <name>currentPressHover</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="35" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="35" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" compoundref="_mouse_hover_manager_8cs" startline="39" endline="152">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_manager_1a67580a6205447a5b32d43f86fcbe1b3e" prot="private" static="no" mutable="no">
+        <type><ref refid="class_mouse_hover_component" kindref="compound">MouseHoverComponent</ref></type>
+        <definition>MouseHoverComponent MouseHoverManager.currentFocus</definition>
+        <argsstring></argsstring>
+        <name>currentFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="36" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="36" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" compoundref="_mouse_hover_manager_8cs" startline="39" endline="152">Update</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_mouse_hover_manager_1ac7a2a7c99d6f95691e6820154b76657c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MouseHoverManager.mouseStopTimeThreshold</definition>
+        <argsstring></argsstring>
+        <name>mouseStopTimeThreshold</name>
+        <initializer>= 1.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="28" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="28" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" compoundref="_mouse_hover_manager_8cs" startline="39" endline="152">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_manager_1a23e2afbe3a8c0bb0c4737c08f57e09c1" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MouseHoverManager.mouseSpeedThreshold</definition>
+        <argsstring></argsstring>
+        <name>mouseSpeedThreshold</name>
+        <initializer>= 10f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="29" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="29" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" compoundref="_mouse_hover_manager_8cs" startline="39" endline="152">Update</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_mouse_hover_manager_1a8823d162d61f58f45f81ec77ed6f69cb" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MouseHoverManager.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+<para>鼠标放在某个物体上的效果管理器 每次只允许一个对象有效果 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="11" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="11" bodyend="16"/>
+        <references refid="class_mouse_hover_manager_1ab0d41811312bc9a6686bd4a452604633" compoundref="_mouse_hover_manager_8cs" startline="23">modulesLayer</references>
+        <references refid="class_mouse_hover_manager_1ae379c841550633eecfc957ec3ae3ba73" compoundref="_mouse_hover_manager_8cs" startline="24">retinuesLayer</references>
+        <references refid="class_mouse_hover_manager_1a25e14c01a3bc838df2a2e420dd674428" compoundref="_mouse_hover_manager_8cs" startline="25">slotsLayer</references>
+      </memberdef>
+      <memberdef kind="function" id="class_mouse_hover_manager_1a8fa9fd1be6dc7d8cb32642695a63a6de" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MouseHoverManager.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="18" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="18" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MouseHoverManager.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="39" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="39" bodyend="152"/>
+        <references refid="class_mouse_hover_manager_1a67580a6205447a5b32d43f86fcbe1b3e" compoundref="_mouse_hover_manager_8cs" startline="36">currentFocus</references>
+        <references refid="class_mouse_hover_manager_1a310afbf629356a7ace6bed73cdd521d3" compoundref="_mouse_hover_manager_8cs" startline="34">currentHover</references>
+        <references refid="class_mouse_hover_manager_1a15a2329e81226c5f3df2b622a53bce1c" compoundref="_mouse_hover_manager_8cs" startline="35">currentPressHover</references>
+        <references refid="class_mouse_hover_manager_1ab0d41811312bc9a6686bd4a452604633" compoundref="_mouse_hover_manager_8cs" startline="23">modulesLayer</references>
+        <references refid="class_mouse_hover_manager_1ac725d62dae60c60eea4558ed4213794b" compoundref="_mouse_hover_manager_8cs" startline="32">mouseLastPosition</references>
+        <references refid="class_mouse_hover_manager_1a23e2afbe3a8c0bb0c4737c08f57e09c1" compoundref="_mouse_hover_manager_8cs" startline="29">mouseSpeedThreshold</references>
+        <references refid="class_mouse_hover_manager_1ac7a2a7c99d6f95691e6820154b76657c" compoundref="_mouse_hover_manager_8cs" startline="28">mouseStopTimeThreshold</references>
+        <references refid="class_mouse_hover_manager_1a0f82a4dc08f439caad44d04fea97d45b" compoundref="_mouse_hover_manager_8cs" startline="30">mouseStopTimeTicker</references>
+        <references refid="class_mouse_hover_manager_1ae379c841550633eecfc957ec3ae3ba73" compoundref="_mouse_hover_manager_8cs" startline="24">retinuesLayer</references>
+        <references refid="class_mouse_hover_manager_1a25e14c01a3bc838df2a2e420dd674428" compoundref="_mouse_hover_manager_8cs" startline="25">slotsLayer</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="415">
+        <label>MouseHoverManager</label>
+        <link refid="class_mouse_hover_manager"/>
+        <childnode refid="416" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="416">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="417">
+        <label>MouseHoverManager</label>
+        <link refid="class_mouse_hover_manager"/>
+        <childnode refid="418" relation="public-inheritance">
+        </childnode>
+        <childnode refid="419" relation="usage">
+          <edgelabel>currentPressHover</edgelabel>
+          <edgelabel>currentFocus</edgelabel>
+          <edgelabel>currentHover</edgelabel>
+        </childnode>
+      </node>
+      <node id="420">
+        <label>IMouseHoverComponent</label>
+        <link refid="interface_i_mouse_hover_component"/>
+      </node>
+      <node id="419">
+        <label>MouseHoverComponent</label>
+        <link refid="class_mouse_hover_component"/>
+        <childnode refid="418" relation="public-inheritance">
+        </childnode>
+        <childnode refid="420" relation="usage">
+          <edgelabel>caller</edgelabel>
+        </childnode>
+      </node>
+      <node id="418">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" line="4" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/MouseHoverManager.cs" bodystart="4" bodyend="153"/>
+    <listofallmembers>
+      <member refid="class_mouse_hover_manager_1a8823d162d61f58f45f81ec77ed6f69cb" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>Awake</name></member>
+      <member refid="class_mouse_hover_manager_1a67580a6205447a5b32d43f86fcbe1b3e" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>currentFocus</name></member>
+      <member refid="class_mouse_hover_manager_1a310afbf629356a7ace6bed73cdd521d3" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>currentHover</name></member>
+      <member refid="class_mouse_hover_manager_1a15a2329e81226c5f3df2b622a53bce1c" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>currentPressHover</name></member>
+      <member refid="class_mouse_hover_manager_1ab0d41811312bc9a6686bd4a452604633" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>modulesLayer</name></member>
+      <member refid="class_mouse_hover_manager_1ac725d62dae60c60eea4558ed4213794b" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>mouseLastPosition</name></member>
+      <member refid="class_mouse_hover_manager_1a23e2afbe3a8c0bb0c4737c08f57e09c1" prot="public" virt="non-virtual"><scope>MouseHoverManager</scope><name>mouseSpeedThreshold</name></member>
+      <member refid="class_mouse_hover_manager_1ac7a2a7c99d6f95691e6820154b76657c" prot="public" virt="non-virtual"><scope>MouseHoverManager</scope><name>mouseStopTimeThreshold</name></member>
+      <member refid="class_mouse_hover_manager_1a0f82a4dc08f439caad44d04fea97d45b" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>mouseStopTimeTicker</name></member>
+      <member refid="class_mouse_hover_manager_1ae379c841550633eecfc957ec3ae3ba73" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>retinuesLayer</name></member>
+      <member refid="class_mouse_hover_manager_1a25e14c01a3bc838df2a2e420dd674428" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>slotsLayer</name></member>
+      <member refid="class_mouse_hover_manager_1a8fa9fd1be6dc7d8cb32642695a63a6de" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>Start</name></member>
+      <member refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" prot="private" virt="non-virtual"><scope>MouseHoverManager</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

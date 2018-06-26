@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_card_info___weapon" kind="class" prot="public">
+    <compoundname>CardInfo_Weapon</compoundname>
+    <basecompoundref refid="class_card_info___base" prot="public" virt="non-virtual">CardInfo_Base</basecompoundref>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_card_info___weapon_1aa2ada3b8c888d8abf7fc387f2e63bf0f" prot="package" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CardInfo_Weapon.Energy</definition>
+        <argsstring></argsstring>
+        <name>Energy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="73" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="73" bodyend="-1"/>
+        <referencedby refid="class_card_info___weapon_1ae01c3fb057c2d3eddac4a7a149e009d4" compoundref="_card_info_8cs" startline="65" endline="71">CardInfo_Weapon</referencedby>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">Clone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_info___weapon_1a05a96fe13d91486b6ffd70b66197b9d6" prot="package" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CardInfo_Weapon.EnergyMax</definition>
+        <argsstring></argsstring>
+        <name>EnergyMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="74" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="74" bodyend="-1"/>
+        <referencedby refid="class_card_info___weapon_1ae01c3fb057c2d3eddac4a7a149e009d4" compoundref="_card_info_8cs" startline="65" endline="71">CardInfo_Weapon</referencedby>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">Clone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_info___weapon_1a3c974b0e1715ababb4274a810819a497" prot="package" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CardInfo_Weapon.Attack</definition>
+        <argsstring></argsstring>
+        <name>Attack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="75" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="75" bodyend="-1"/>
+        <referencedby refid="class_card_info___weapon_1ae01c3fb057c2d3eddac4a7a149e009d4" compoundref="_card_info_8cs" startline="65" endline="71">CardInfo_Weapon</referencedby>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">Clone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_info___weapon_1ab02bf416f76dc491bb45f79171c0c8d8" prot="package" static="no" mutable="no">
+        <type><ref refid="_module_weapon_8cs_1a095ae9be41c95cab0ceb95c6dae270b8" kindref="member">WeaponType</ref></type>
+        <definition>WeaponType CardInfo_Weapon.M_WeaponType</definition>
+        <argsstring></argsstring>
+        <name>M_WeaponType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="76" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="76" bodyend="-1"/>
+        <referencedby refid="class_card_info___weapon_1ae01c3fb057c2d3eddac4a7a149e009d4" compoundref="_card_info_8cs" startline="65" endline="71">CardInfo_Weapon</referencedby>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">Clone</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-func">
+      <memberdef kind="function" id="class_card_info___weapon_1ae01c3fb057c2d3eddac4a7a149e009d4" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CardInfo_Weapon.CardInfo_Weapon</definition>
+        <argsstring>(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, int energy, int energyMax, int attack, WeaponType weaponType)</argsstring>
+        <name>CardInfo_Weapon</name>
+        <param>
+          <type>int</type>
+          <declname>cardID</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>cardName</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>cardDesc</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>cost</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>hasTarget</declname>
+        </param>
+        <param>
+          <type><ref refid="_card_info_8cs_1afd1799bce09ea90840acb65fb667e35f" kindref="member">CardTypes</ref></type>
+          <declname>cardType</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>energy</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>energyMax</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>attack</declname>
+        </param>
+        <param>
+          <type><ref refid="_module_weapon_8cs_1a095ae9be41c95cab0ceb95c6dae270b8" kindref="member">WeaponType</ref></type>
+          <declname>weaponType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="65" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="65" bodyend="71"/>
+        <references refid="class_card_info___weapon_1a3c974b0e1715ababb4274a810819a497" compoundref="_card_info_8cs" startline="75">Attack</references>
+        <references refid="class_card_info___weapon_1aa2ada3b8c888d8abf7fc387f2e63bf0f" compoundref="_card_info_8cs" startline="73">Energy</references>
+        <references refid="class_card_info___weapon_1a05a96fe13d91486b6ffd70b66197b9d6" compoundref="_card_info_8cs" startline="74">EnergyMax</references>
+        <references refid="class_card_info___weapon_1ab02bf416f76dc491bb45f79171c0c8d8" compoundref="_card_info_8cs" startline="76">M_WeaponType</references>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">Clone</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_card_info___weapon_1a34a2bce84071f0e8af230f667a5c4d36" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>string</type>
+        <definition>static string CardInfo_Weapon.textToVertical</definition>
+        <argsstring>(string text)</argsstring>
+        <name>textToVertical</name>
+        <param>
+          <type>string</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="78" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="78" bodyend="86"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override <ref refid="class_card_info___base" kindref="compound">CardInfo_Base</ref></type>
+        <definition>override CardInfo_Base CardInfo_Weapon.Clone</definition>
+        <argsstring>()</argsstring>
+        <name>Clone</name>
+        <reimplements refid="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea">Clone</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="88" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="88" bodyend="92"/>
+        <references refid="class_card_info___weapon_1a3c974b0e1715ababb4274a810819a497" compoundref="_card_info_8cs" startline="75">Attack</references>
+        <references refid="class_card_info___base_1a3f43915e514c2ca0fe79b9c3e5fc4775" compoundref="_card_info_8cs" startline="27">CardInfo_Base.CardDesc</references>
+        <references refid="class_card_info___base_1a3eac88d783986952c4fc088c47433c7b" compoundref="_card_info_8cs" startline="25">CardInfo_Base.CardID</references>
+        <references refid="class_card_info___weapon_1ae01c3fb057c2d3eddac4a7a149e009d4" compoundref="_card_info_8cs" startline="65" endline="71">CardInfo_Weapon</references>
+        <references refid="class_card_info___base_1aedf73a9c0861387c0421c647fc0fce27" compoundref="_card_info_8cs" startline="26">CardInfo_Base.CardName</references>
+        <references refid="class_card_info___base_1a229524b20f8888e027178156e30de923" compoundref="_card_info_8cs" startline="30">CardInfo_Base.CardType</references>
+        <references refid="class_card_info___base_1a40450fa880f7b03b229d22fb15203b04" compoundref="_card_info_8cs" startline="28">CardInfo_Base.Cost</references>
+        <references refid="class_card_info___weapon_1aa2ada3b8c888d8abf7fc387f2e63bf0f" compoundref="_card_info_8cs" startline="73">Energy</references>
+        <references refid="class_card_info___weapon_1a05a96fe13d91486b6ffd70b66197b9d6" compoundref="_card_info_8cs" startline="74">EnergyMax</references>
+        <references refid="class_card_info___base_1a7413ee18dae0615338e0d3ce225d2448" compoundref="_card_info_8cs" startline="29">CardInfo_Base.HasTarget</references>
+        <references refid="class_card_info___weapon_1ab02bf416f76dc491bb45f79171c0c8d8" compoundref="_card_info_8cs" startline="76">M_WeaponType</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="152">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="151">
+        <label>CardInfo_Weapon</label>
+        <link refid="class_card_info___weapon"/>
+        <childnode refid="152" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="154">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="153">
+        <label>CardInfo_Weapon</label>
+        <link refid="class_card_info___weapon"/>
+        <childnode refid="154" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="64" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="63" bodyend="93"/>
+    <listofallmembers>
+      <member refid="class_card_info___weapon_1a3c974b0e1715ababb4274a810819a497" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>Attack</name></member>
+      <member refid="class_card_info___base_1a3f43915e514c2ca0fe79b9c3e5fc4775" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>CardDesc</name></member>
+      <member refid="class_card_info___base_1a3eac88d783986952c4fc088c47433c7b" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>CardID</name></member>
+      <member refid="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>CardInfo_Base</name></member>
+      <member refid="class_card_info___weapon_1ae01c3fb057c2d3eddac4a7a149e009d4" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>CardInfo_Weapon</name></member>
+      <member refid="class_card_info___base_1aedf73a9c0861387c0421c647fc0fce27" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>CardName</name></member>
+      <member refid="class_card_info___base_1a229524b20f8888e027178156e30de923" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>CardType</name></member>
+      <member refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" prot="public" virt="virtual"><scope>CardInfo_Weapon</scope><name>Clone</name></member>
+      <member refid="class_card_info___base_1a40450fa880f7b03b229d22fb15203b04" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>Cost</name></member>
+      <member refid="class_card_info___weapon_1aa2ada3b8c888d8abf7fc387f2e63bf0f" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>Energy</name></member>
+      <member refid="class_card_info___weapon_1a05a96fe13d91486b6ffd70b66197b9d6" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>EnergyMax</name></member>
+      <member refid="class_card_info___base_1a7413ee18dae0615338e0d3ce225d2448" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>HasTarget</name></member>
+      <member refid="class_card_info___weapon_1ab02bf416f76dc491bb45f79171c0c8d8" prot="package" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>M_WeaponType</name></member>
+      <member refid="class_card_info___weapon_1a34a2bce84071f0e8af230f667a5c4d36" prot="public" virt="non-virtual"><scope>CardInfo_Weapon</scope><name>textToVertical</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

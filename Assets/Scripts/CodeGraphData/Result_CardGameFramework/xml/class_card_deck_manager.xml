@@ -1,0 +1,313 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_card_deck_manager" kind="class" prot="public">
+    <compoundname>CardDeckManager</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_card_deck_manager_1aad75cd47e0c55da13aed245a68fee3a3" prot="package" static="no" mutable="no">
+        <type><ref refid="class_player" kindref="compound">Player</ref></type>
+        <definition>Player CardDeckManager.Player</definition>
+        <argsstring></argsstring>
+        <name>Player</name>
+        <briefdescription>
+<para>本类中封装卡组操作的游戏逻辑高级功能 暂时将双方牌库写在此类中 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" line="11" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_card_deck_manager_1a463bdbf8d75051bb203ee46fa6766c33" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_card_deck_info" kindref="compound">CardDeckInfo</ref></type>
+        <definition>CardDeckInfo CardDeckManager.M_UnlockCards</definition>
+        <argsstring></argsstring>
+        <name>M_UnlockCards</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" line="13" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_deck_manager_1a9cb45be984fae5732389407af46ed2bb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_card_deck_info" kindref="compound">CardDeckInfo</ref></type>
+        <definition>CardDeckInfo CardDeckManager.M_LockCards</definition>
+        <argsstring></argsstring>
+        <name>M_LockCards</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" line="14" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_deck_manager_1abe42a579a413e6ee84815973678dedda" prot="public" static="no" mutable="no">
+        <type>List&lt; <ref refid="class_card_deck" kindref="compound">CardDeck</ref> &gt;</type>
+        <definition>List&lt;CardDeck&gt; CardDeckManager.M_CardDecks</definition>
+        <argsstring></argsstring>
+        <name>M_CardDecks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" line="16" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" prot="public" static="no" mutable="no">
+        <type><ref refid="class_card_deck" kindref="compound">CardDeck</ref></type>
+        <definition>CardDeck CardDeckManager.M_CurrentCardDeck</definition>
+        <argsstring></argsstring>
+        <name>M_CurrentCardDeck</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" line="18" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" bodystart="18" bodyend="-1"/>
+        <referencedby refid="class_card_deck_manager_1a5c494e06488351bfe2c3e4d357383b7d" compoundref="_card_deck_manager_8cs" startline="34" endline="41">DrawRetinueCard</referencedby>
+        <referencedby refid="class_card_deck_manager_1ac1781131f3a07f150120b1f8ef752693" compoundref="_card_deck_manager_8cs" startline="43" endline="50">DrawTop</referencedby>
+        <referencedby refid="class_card_deck_manager_1a70f0839f0daf424061101649f9b2f83d" compoundref="_card_deck_manager_8cs" startline="20" endline="27">Start</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_card_deck_manager_1a70f0839f0daf424061101649f9b2f83d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardDeckManager.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" line="20" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" bodystart="20" bodyend="27"/>
+        <references refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" compoundref="_game_manager_8cs" startline="5">GameManager.GM</references>
+        <references refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" compoundref="_card_deck_manager_8cs" startline="18">M_CurrentCardDeck</references>
+        <references refid="class_game_manager_1a1f22d2186c87a8465b04e3b5a49fbf5d" compoundref="_game_manager_8cs" startline="28">GameManager.SelfPlayer</references>
+      </memberdef>
+      <memberdef kind="function" id="class_card_deck_manager_1a4c15708d7f6d9dbd9b7e3b9e797e0357" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardDeckManager.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" line="29" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" bodystart="29" bodyend="32"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-func">
+      <memberdef kind="function" id="class_card_deck_manager_1a5c494e06488351bfe2c3e4d357383b7d" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_card_info___base" kindref="compound">CardInfo_Base</ref></type>
+        <definition>CardInfo_Base CardDeckManager.DrawRetinueCard</definition>
+        <argsstring>()</argsstring>
+        <name>DrawRetinueCard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" line="34" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" bodystart="34" bodyend="41"/>
+        <references refid="class_card_deck_1aed3e92284caf8d90d3f74f1128040b79" compoundref="_card_deck_8cs" startline="16">CardDeck.IsEmpty</references>
+        <references refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" compoundref="_card_deck_manager_8cs" startline="18">M_CurrentCardDeck</references>
+      </memberdef>
+      <memberdef kind="function" id="class_card_deck_manager_1ac1781131f3a07f150120b1f8ef752693" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_card_info___base" kindref="compound">CardInfo_Base</ref></type>
+        <definition>CardInfo_Base CardDeckManager.DrawTop</definition>
+        <argsstring>()</argsstring>
+        <name>DrawTop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" line="43" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" bodystart="43" bodyend="50"/>
+        <references refid="class_card_deck_1aed3e92284caf8d90d3f74f1128040b79" compoundref="_card_deck_8cs" startline="16">CardDeck.IsEmpty</references>
+        <references refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" compoundref="_card_deck_manager_8cs" startline="18">M_CurrentCardDeck</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="122">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="121">
+        <label>CardDeckManager</label>
+        <link refid="class_card_deck_manager"/>
+        <childnode refid="122" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="135">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="134">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="124" relation="public-inheritance">
+        </childnode>
+        <childnode refid="130" relation="public-inheritance">
+        </childnode>
+        <childnode refid="132" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+      </node>
+      <node id="130">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="132">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="124" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="137">
+        <label>BattleGroundManager</label>
+        <link refid="class_battle_ground_manager"/>
+        <childnode refid="124" relation="public-inheritance">
+        </childnode>
+        <childnode refid="127" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="133">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="124" relation="public-inheritance">
+        </childnode>
+        <childnode refid="130" relation="public-inheritance">
+        </childnode>
+        <childnode refid="132" relation="usage">
+          <edgelabel>childrenPool</edgelabel>
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="134" relation="usage">
+          <edgelabel>cardNumbers</edgelabel>
+        </childnode>
+      </node>
+      <node id="131">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="126">
+        <label>CardDeck</label>
+        <link refid="class_card_deck"/>
+        <childnode refid="125" relation="usage">
+          <edgelabel>M_CardDeckInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="128">
+        <label>HandManager</label>
+        <link refid="class_hand_manager"/>
+        <childnode refid="124" relation="public-inheritance">
+        </childnode>
+        <childnode refid="127" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="129" relation="usage">
+          <edgelabel>currentFocusCard</edgelabel>
+        </childnode>
+      </node>
+      <node id="129">
+        <label>Card</label>
+        <link refid="class_card"/>
+        <childnode refid="124" relation="public-inheritance">
+        </childnode>
+        <childnode refid="130" relation="public-inheritance">
+        </childnode>
+        <childnode refid="131" relation="public-inheritance">
+        </childnode>
+        <childnode refid="132" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="133" relation="usage">
+          <edgelabel>CardNumberSet_Cost</edgelabel>
+        </childnode>
+        <childnode refid="135" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+        </childnode>
+        <childnode refid="136" relation="usage">
+          <edgelabel>myColliderReplace</edgelabel>
+        </childnode>
+        <childnode refid="127" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="124">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="127">
+        <label>Player</label>
+        <link refid="class_player"/>
+        <childnode refid="128" relation="usage">
+          <edgelabel>MyHandManager</edgelabel>
+        </childnode>
+        <childnode refid="137" relation="usage">
+          <edgelabel>MyBattleGroundManager</edgelabel>
+        </childnode>
+        <childnode refid="123" relation="usage">
+          <edgelabel>MyCardDeckManager</edgelabel>
+        </childnode>
+      </node>
+      <node id="125">
+        <label>CardDeckInfo</label>
+        <link refid="struct_card_deck_info"/>
+      </node>
+      <node id="123">
+        <label>CardDeckManager</label>
+        <link refid="class_card_deck_manager"/>
+        <childnode refid="124" relation="public-inheritance">
+        </childnode>
+        <childnode refid="125" relation="usage">
+          <edgelabel>M_UnlockCards</edgelabel>
+          <edgelabel>M_LockCards</edgelabel>
+        </childnode>
+        <childnode refid="126" relation="usage">
+          <edgelabel>M_CurrentCardDeck</edgelabel>
+        </childnode>
+        <childnode refid="127" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="136">
+        <label>ColliderReplace</label>
+        <link refid="class_collider_replace"/>
+        <childnode refid="124" relation="public-inheritance">
+        </childnode>
+        <childnode refid="129" relation="usage">
+          <edgelabel>MyCallerCard</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" line="5" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs" bodystart="5" bodyend="51"/>
+    <listofallmembers>
+      <member refid="class_card_deck_manager_1a5c494e06488351bfe2c3e4d357383b7d" prot="package" virt="non-virtual"><scope>CardDeckManager</scope><name>DrawRetinueCard</name></member>
+      <member refid="class_card_deck_manager_1ac1781131f3a07f150120b1f8ef752693" prot="package" virt="non-virtual"><scope>CardDeckManager</scope><name>DrawTop</name></member>
+      <member refid="class_card_deck_manager_1abe42a579a413e6ee84815973678dedda" prot="public" virt="non-virtual"><scope>CardDeckManager</scope><name>M_CardDecks</name></member>
+      <member refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" prot="public" virt="non-virtual"><scope>CardDeckManager</scope><name>M_CurrentCardDeck</name></member>
+      <member refid="class_card_deck_manager_1a9cb45be984fae5732389407af46ed2bb" prot="public" virt="non-virtual"><scope>CardDeckManager</scope><name>M_LockCards</name></member>
+      <member refid="class_card_deck_manager_1a463bdbf8d75051bb203ee46fa6766c33" prot="public" virt="non-virtual"><scope>CardDeckManager</scope><name>M_UnlockCards</name></member>
+      <member refid="class_card_deck_manager_1aad75cd47e0c55da13aed245a68fee3a3" prot="package" virt="non-virtual"><scope>CardDeckManager</scope><name>Player</name></member>
+      <member refid="class_card_deck_manager_1a70f0839f0daf424061101649f9b2f83d" prot="private" virt="non-virtual"><scope>CardDeckManager</scope><name>Start</name></member>
+      <member refid="class_card_deck_manager_1a4c15708d7f6d9dbd9b7e3b9e797e0357" prot="private" virt="non-virtual"><scope>CardDeckManager</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_card_number_set" kind="class" prot="public">
+    <compoundname>CardNumberSet</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+    <basecompoundref refid="interface_i_game_object_pool" prot="public" virt="non-virtual">IGameObjectPool</basecompoundref>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" prot="public" static="no">
+        <name>TextAlign</name>
+        <enumvalue id="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcfa945d5e233cf7d6240f6b783b36a374ff" prot="public">
+          <name>Left</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcfa92b09c7c48c520c3c55e497875da437c" prot="public">
+          <name>Right</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcfa4f1f6016fc9f3f2353c0cc7c67b292bd" prot="public">
+          <name>Center</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="298" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="298" bodyend="302"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_card_number_set_1aff59a96ad656b8676072404da90cb676" prot="private" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool CardNumberSet.gameObjectPool</definition>
+        <argsstring></argsstring>
+        <name>gameObjectPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="8" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="8" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1ac6d5e9c546e7edaa8952d418f7e6e91e" compoundref="_card_number_set_8cs" startline="18" endline="22">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a015028b5cbdfe2f99933608954e4c5cc" prot="private" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool CardNumberSet.childrenPool</definition>
+        <argsstring></argsstring>
+        <name>childrenPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="16" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="16" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1adb6b43595bb963b9b93e59e9f630082c" compoundref="_card_number_set_8cs" startline="68" endline="114">setNumberSize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a0f7993e70cd4545a8f12853591c2e04b" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CardNumberSet.hasSign</definition>
+        <argsstring></argsstring>
+        <name>hasSign</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="37" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="37" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1ac6d5e9c546e7edaa8952d418f7e6e91e" compoundref="_card_number_set_8cs" startline="18" endline="22">Awake</referencedby>
+        <referencedby refid="class_card_number_set_1a2b89ea49e35958b0079b500903a7bfce" compoundref="_card_number_set_8cs" startline="39" endline="52">initiate</referencedby>
+        <referencedby refid="class_card_number_set_1a0ec1c0791974b262ff49e6b5853219e4" compoundref="_card_number_set_8cs" startline="10" endline="15">PoolRecycle</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a8c072756eb4e39fa74bcd37e5b16f6ad" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CardNumberSet.m_firstSign</definition>
+        <argsstring></argsstring>
+        <name>m_firstSign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="38" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="38" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1a2b89ea49e35958b0079b500903a7bfce" compoundref="_card_number_set_8cs" startline="39" endline="52">initiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1ad1eea94d843bd0f1eaf36c700f9e0cb9" prot="private" static="no" mutable="no">
+        <type><ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kindref="member">NumberSize</ref></type>
+        <definition>NumberSize CardNumberSet.myNumberSize</definition>
+        <argsstring></argsstring>
+        <name>myNumberSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="55" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1ac1f76b6e24f39be7969a40f138a1d273" prot="private" static="no" mutable="no">
+        <type><ref refid="class_card_number" kindref="compound">CardNumber</ref>[]</type>
+        <definition>CardNumber [] CardNumberSet.cardNumbers</definition>
+        <argsstring></argsstring>
+        <name>cardNumbers</name>
+        <initializer>= new <ref refid="class_card_number" kindref="compound">CardNumber</ref>[4]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="116" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="116" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1a2cebe8156f209062fb2dfb88f1659142" compoundref="_card_number_set_8cs" startline="178" endline="184">setFirstSign</referencedby>
+        <referencedby refid="class_card_number_set_1abd7ba93937a156a27615ede098f76534" compoundref="_card_number_set_8cs" startline="191" endline="208">setNumber</referencedby>
+        <referencedby refid="class_card_number_set_1adb6b43595bb963b9b93e59e9f630082c" compoundref="_card_number_set_8cs" startline="68" endline="114">setNumberSize</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1ae3b36fff8457705bc71a9b871e5acb6c" prot="private" static="no" mutable="no">
+        <type>int[]</type>
+        <definition>int [] CardNumberSet.digits</definition>
+        <argsstring></argsstring>
+        <name>digits</name>
+        <initializer>= new int[4]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="117" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="117" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1ab712bd82136d108585a3a487da8add13" compoundref="_card_number_set_8cs" startline="145" endline="176">setNumberSet</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a0b68e627c106420231370502d975aebe" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CardNumberSet.digitCount</definition>
+        <argsstring></argsstring>
+        <name>digitCount</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="118" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="118" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1a72440a9e3979084de5753050ff0353e0" compoundref="_card_number_set_8cs" startline="29" endline="35">initiate</referencedby>
+        <referencedby refid="class_card_number_set_1a2cebe8156f209062fb2dfb88f1659142" compoundref="_card_number_set_8cs" startline="178" endline="184">setFirstSign</referencedby>
+        <referencedby refid="class_card_number_set_1ab712bd82136d108585a3a487da8add13" compoundref="_card_number_set_8cs" startline="145" endline="176">setNumberSet</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a70fd4f8d8f4ecfef0e5a7ee51e223da4" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CardNumberSet.number</definition>
+        <argsstring></argsstring>
+        <name>number</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="121" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="121" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1a72440a9e3979084de5753050ff0353e0" compoundref="_card_number_set_8cs" startline="29" endline="35">initiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1ae7ed8bec69f7a9bb21a85aac0fc8a5ee" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_thousand_position_L</definition>
+        <argsstring></argsstring>
+        <name>digit4_thousand_position_L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="210" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="210" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1ae2f1327d0027084afb3d7a241cdbfbb4" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_hundreds_position_L</definition>
+        <argsstring></argsstring>
+        <name>digit4_hundreds_position_L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="211" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="211" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1aca86ba2fe96ab75c28a0f2ae21e27a0c" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_tens_position_L</definition>
+        <argsstring></argsstring>
+        <name>digit4_tens_position_L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="212" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="212" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1aa95577a05e7eb553eda3849f5630be05" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_unit_position_L</definition>
+        <argsstring></argsstring>
+        <name>digit4_unit_position_L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="213" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="213" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a4982546abb356d691028d7d838c394eb" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit3_hundreds_position_L</definition>
+        <argsstring></argsstring>
+        <name>digit3_hundreds_position_L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="215" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="215" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1ab9dacfa91de350e7ec1e75367952a32d" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit3_tens_position_L</definition>
+        <argsstring></argsstring>
+        <name>digit3_tens_position_L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="216" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="216" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1ae16cccd72b8c755a43676d006ba49449" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit3_unit_position_L</definition>
+        <argsstring></argsstring>
+        <name>digit3_unit_position_L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="217" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="217" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1aa41343dc89c6d3e54db8937e4c20563b" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit2_tens_position_L</definition>
+        <argsstring></argsstring>
+        <name>digit2_tens_position_L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="219" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="219" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a70bb276a10e457fc438a9d6c8a2cb3d7" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit2_unit_position_L</definition>
+        <argsstring></argsstring>
+        <name>digit2_unit_position_L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="220" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="220" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1afd318473ee786ee33d29dfe8f62ee170" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit1_unit_position_L</definition>
+        <argsstring></argsstring>
+        <name>digit1_unit_position_L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="222" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="222" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a6374132cc4ffdccd2dac9c0c0dbb4214" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_thousand_position_R</definition>
+        <argsstring></argsstring>
+        <name>digit4_thousand_position_R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="224" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="224" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a5762d2e12bc59808630789d79231d2b1" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_hundreds_position_R</definition>
+        <argsstring></argsstring>
+        <name>digit4_hundreds_position_R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="225" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="225" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1aa6ba618b8adfe7293619a00641de162e" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_tens_position_R</definition>
+        <argsstring></argsstring>
+        <name>digit4_tens_position_R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="226" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="226" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1af7b7834659319a0b1f4ada48b093ed32" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_unit_position_R</definition>
+        <argsstring></argsstring>
+        <name>digit4_unit_position_R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="227" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="227" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a358b4bd70c43710d57ff4f77e41f7104" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit3_hundreds_position_R</definition>
+        <argsstring></argsstring>
+        <name>digit3_hundreds_position_R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="229" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="229" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a773a2f140181e6efcd7d4442fbd2184f" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit3_tens_position_R</definition>
+        <argsstring></argsstring>
+        <name>digit3_tens_position_R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="230" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="230" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1aef43f5cd846fafd2a6a46916b21dd7d4" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit3_unit_position_R</definition>
+        <argsstring></argsstring>
+        <name>digit3_unit_position_R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="231" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="231" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a22410231ea404b72041acfcfa09af113" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit2_tens_position_R</definition>
+        <argsstring></argsstring>
+        <name>digit2_tens_position_R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="233" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="233" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1addc617eecaf84127dae8d9818da489f1" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit2_unit_position_R</definition>
+        <argsstring></argsstring>
+        <name>digit2_unit_position_R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="234" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="234" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a00853b29705bb149dbc4966b7ed53bd9" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit1_unit_position_R</definition>
+        <argsstring></argsstring>
+        <name>digit1_unit_position_R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="236" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="236" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a353bf9e9613e9a01e248a2d030a1a60e" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_thousand_position_C</definition>
+        <argsstring></argsstring>
+        <name>digit4_thousand_position_C</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="238" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="238" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a8158b1187fd8444c0b7fdef7bd1b9d41" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_hundreds_position_C</definition>
+        <argsstring></argsstring>
+        <name>digit4_hundreds_position_C</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="239" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="239" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1aa8741238bcce4f55b0f36698a4d3103c" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_tens_position_C</definition>
+        <argsstring></argsstring>
+        <name>digit4_tens_position_C</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="240" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="240" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a54556c88352436c61f99283d05db51b8" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit4_unit_position_C</definition>
+        <argsstring></argsstring>
+        <name>digit4_unit_position_C</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="241" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="241" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a97621bb97f7ab08b5c8a81dfe967975e" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit3_hundreds_position_C</definition>
+        <argsstring></argsstring>
+        <name>digit3_hundreds_position_C</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="243" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="243" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a2dfb1716b6f1ae6343381848ddb6460e" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit3_tens_position_C</definition>
+        <argsstring></argsstring>
+        <name>digit3_tens_position_C</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="244" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="244" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a09dd9aca8d8f5b557ddb002f32e2b9e1" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit3_unit_position_C</definition>
+        <argsstring></argsstring>
+        <name>digit3_unit_position_C</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="245" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="245" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a2d67c8087c87de5ce5d3083ef42c5399" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit2_tens_position_C</definition>
+        <argsstring></argsstring>
+        <name>digit2_tens_position_C</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="247" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="247" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a1d909398f2cc221281d208d121250d3a" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit2_unit_position_C</definition>
+        <argsstring></argsstring>
+        <name>digit2_unit_position_C</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="248" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="248" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a2f5e3f7a29617b42040e3f349e0939b3" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 CardNumberSet.digit1_unit_position_C</definition>
+        <argsstring></argsstring>
+        <name>digit1_unit_position_C</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="250" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="250" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a65c84b3f287c9330e6af5fe69da80353" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CardNumberSet.interval</definition>
+        <argsstring></argsstring>
+        <name>interval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="252" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="252" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</referencedby>
+        <referencedby refid="class_card_number_set_1adb6b43595bb963b9b93e59e9f630082c" compoundref="_card_number_set_8cs" startline="68" endline="114">setNumberSize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_set_1a3c06863ad215c0963666b490e289d8fd" prot="private" static="no" mutable="no">
+        <type><ref refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" kindref="member">TextAlign</ref></type>
+        <definition>TextAlign CardNumberSet.myTextAlign</definition>
+        <argsstring></argsstring>
+        <name>myTextAlign</name>
+        <initializer>= TextAlign.Right</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="304" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_card_number_set_1a8250fc50c7c43fa19f4964aff2fa77ae" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type><ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kindref="member">NumberSize</ref></type>
+        <definition>NumberSize CardNumberSet.MyNumberSize</definition>
+        <argsstring></argsstring>
+        <name>MyNumberSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="56" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="56" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1a72440a9e3979084de5753050ff0353e0" compoundref="_card_number_set_8cs" startline="29" endline="35">initiate</referencedby>
+        <referencedby refid="class_card_number_set_1a0ec1c0791974b262ff49e6b5853219e4" compoundref="_card_number_set_8cs" startline="10" endline="15">PoolRecycle</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_card_number_set_1a2aa744e76542243f5f2fefabe4899873" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int CardNumberSet.Number</definition>
+        <argsstring></argsstring>
+        <name>Number</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="122" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="122" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1a72440a9e3979084de5753050ff0353e0" compoundref="_card_number_set_8cs" startline="29" endline="35">initiate</referencedby>
+        <referencedby refid="class_card_number_set_1ab712bd82136d108585a3a487da8add13" compoundref="_card_number_set_8cs" startline="145" endline="176">setNumberSet</referencedby>
+        <referencedby refid="class_card_number_set_1adb6b43595bb963b9b93e59e9f630082c" compoundref="_card_number_set_8cs" startline="68" endline="114">setNumberSize</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_card_number_set_1a92e42cd2e50aaa3e6a522dd813cab0c9" prot="package" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type><ref refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" kindref="member">TextAlign</ref></type>
+        <definition>TextAlign CardNumberSet.MyTextAlign</definition>
+        <argsstring></argsstring>
+        <name>MyTextAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="305" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="305" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1a72440a9e3979084de5753050ff0353e0" compoundref="_card_number_set_8cs" startline="29" endline="35">initiate</referencedby>
+        <referencedby refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" compoundref="_card_number_set_8cs" startline="316" endline="371">setTextAlign</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_card_number_set_1a686df5fae556144a1493138bf87e3043" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CardNumberSet.IntervalFactor</definition>
+        <argsstring></argsstring>
+        <name>IntervalFactor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="67" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="67" bodyend="-1"/>
+        <referencedby refid="class_card_number_set_1adb6b43595bb963b9b93e59e9f630082c" compoundref="_card_number_set_8cs" startline="68" endline="114">setNumberSize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_card_number_set_1a0ec1c0791974b262ff49e6b5853219e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.PoolRecycle</definition>
+        <argsstring>()</argsstring>
+        <name>PoolRecycle</name>
+        <reimplements refid="interface_i_game_object_pool_1abd937ee991da187c1025929afc6c64b6">PoolRecycle</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="10" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="10" bodyend="15"/>
+        <references refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5ad491538da818a2ba11a3195ba035cfd3">Big</references>
+        <references refid="class_card_number_set_1a0f7993e70cd4545a8f12853591c2e04b" compoundref="_card_number_set_8cs" startline="37">hasSign</references>
+        <references refid="class_card_number_set_1a8250fc50c7c43fa19f4964aff2fa77ae" compoundref="_card_number_set_8cs" startline="56">MyNumberSize</references>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_set_1a72440a9e3979084de5753050ff0353e0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.initiate</definition>
+        <argsstring>(int number, NumberSize numberSize, TextAlign textAlign)</argsstring>
+        <name>initiate</name>
+        <param>
+          <type>int</type>
+          <declname>number</declname>
+        </param>
+        <param>
+          <type><ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kindref="member">NumberSize</ref></type>
+          <declname>numberSize</declname>
+        </param>
+        <param>
+          <type><ref refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" kindref="member">TextAlign</ref></type>
+          <declname>textAlign</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="29" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="29" bodyend="35"/>
+        <references refid="class_card_number_set_1a0b68e627c106420231370502d975aebe" compoundref="_card_number_set_8cs" startline="118">digitCount</references>
+        <references refid="class_card_number_set_1a8250fc50c7c43fa19f4964aff2fa77ae" compoundref="_card_number_set_8cs" startline="56">MyNumberSize</references>
+        <references refid="class_card_number_set_1a92e42cd2e50aaa3e6a522dd813cab0c9" compoundref="_card_number_set_8cs" startline="305">MyTextAlign</references>
+        <references refid="class_card_number_set_1a70fd4f8d8f4ecfef0e5a7ee51e223da4" compoundref="_card_number_set_8cs" startline="121">number</references>
+        <references refid="class_card_number_set_1a2aa744e76542243f5f2fefabe4899873" compoundref="_card_number_set_8cs" startline="122">Number</references>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_set_1a2b89ea49e35958b0079b500903a7bfce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.initiate</definition>
+        <argsstring>(char firstSign, int number, NumberSize numberSize, TextAlign textAlign)</argsstring>
+        <name>initiate</name>
+        <param>
+          <type>char</type>
+          <declname>firstSign</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>number</declname>
+        </param>
+        <param>
+          <type><ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kindref="member">NumberSize</ref></type>
+          <declname>numberSize</declname>
+        </param>
+        <param>
+          <type><ref refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" kindref="member">TextAlign</ref></type>
+          <declname>textAlign</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="39" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="39" bodyend="52"/>
+        <references refid="class_card_number_set_1a0b68e627c106420231370502d975aebe" compoundref="_card_number_set_8cs" startline="118">digitCount</references>
+        <references refid="class_card_number_set_1a0f7993e70cd4545a8f12853591c2e04b" compoundref="_card_number_set_8cs" startline="37">hasSign</references>
+        <references refid="class_card_number_set_1a8c072756eb4e39fa74bcd37e5b16f6ad" compoundref="_card_number_set_8cs" startline="38">m_firstSign</references>
+        <references refid="class_card_number_set_1a8250fc50c7c43fa19f4964aff2fa77ae" compoundref="_card_number_set_8cs" startline="56">MyNumberSize</references>
+        <references refid="class_card_number_set_1a92e42cd2e50aaa3e6a522dd813cab0c9" compoundref="_card_number_set_8cs" startline="305">MyTextAlign</references>
+        <references refid="class_card_number_set_1a70fd4f8d8f4ecfef0e5a7ee51e223da4" compoundref="_card_number_set_8cs" startline="121">number</references>
+        <references refid="class_card_number_set_1a2aa744e76542243f5f2fefabe4899873" compoundref="_card_number_set_8cs" startline="122">Number</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_card_number_set_1ac6d5e9c546e7edaa8952d418f7e6e91e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="18" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="18" bodyend="22"/>
+        <references refid="class_card_number_set_1aff59a96ad656b8676072404da90cb676" compoundref="_card_number_set_8cs" startline="8">gameObjectPool</references>
+        <references refid="class_card_number_set_1a0f7993e70cd4545a8f12853591c2e04b" compoundref="_card_number_set_8cs" startline="37">hasSign</references>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_set_1a09e0099de494ae381d04e22eeb030770" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="24" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="24" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_set_1adb6b43595bb963b9b93e59e9f630082c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.setNumberSize</definition>
+        <argsstring>(NumberSize value)</argsstring>
+        <name>setNumberSize</name>
+        <param>
+          <type><ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kindref="member">NumberSize</ref></type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="68" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="68" bodyend="114"/>
+        <references refid="class_card_number_set_1ac1f76b6e24f39be7969a40f138a1d273" compoundref="_card_number_set_8cs" startline="116">cardNumbers</references>
+        <references refid="class_card_number_set_1a015028b5cbdfe2f99933608954e4c5cc" compoundref="_card_number_set_8cs" startline="16">childrenPool</references>
+        <references refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" compoundref="_card_number_set_8cs" startline="253" endline="296">initiateDigitPlace</references>
+        <references refid="class_card_number_set_1a65c84b3f287c9330e6af5fe69da80353" compoundref="_card_number_set_8cs" startline="252">interval</references>
+        <references refid="class_card_number_set_1a686df5fae556144a1493138bf87e3043" compoundref="_card_number_set_8cs" startline="67">IntervalFactor</references>
+        <references refid="class_card_number_set_1a2aa744e76542243f5f2fefabe4899873" compoundref="_card_number_set_8cs" startline="122">Number</references>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_set_1ab712bd82136d108585a3a487da8add13" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.setNumberSet</definition>
+        <argsstring>()</argsstring>
+        <name>setNumberSet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="145" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="145" bodyend="176"/>
+        <references refid="class_card_number_set_1a0b68e627c106420231370502d975aebe" compoundref="_card_number_set_8cs" startline="118">digitCount</references>
+        <references refid="class_card_number_set_1ae3b36fff8457705bc71a9b871e5acb6c" compoundref="_card_number_set_8cs" startline="117">digits</references>
+        <references refid="class_card_number_set_1a2aa744e76542243f5f2fefabe4899873" compoundref="_card_number_set_8cs" startline="122">Number</references>
+        <references refid="class_card_number_set_1abd7ba93937a156a27615ede098f76534" compoundref="_card_number_set_8cs" startline="191" endline="208">setNumber</references>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_set_1a2cebe8156f209062fb2dfb88f1659142" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.setFirstSign</definition>
+        <argsstring>(char firstSign)</argsstring>
+        <name>setFirstSign</name>
+        <param>
+          <type>char</type>
+          <declname>firstSign</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="178" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="178" bodyend="184"/>
+        <references refid="class_card_number_set_1ac1f76b6e24f39be7969a40f138a1d273" compoundref="_card_number_set_8cs" startline="116">cardNumbers</references>
+        <references refid="class_card_number_set_1a0b68e627c106420231370502d975aebe" compoundref="_card_number_set_8cs" startline="118">digitCount</references>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_set_1a5ef36afbc7c8b031396d5c212c49d6ff" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.clearFisrSign</definition>
+        <argsstring>()</argsstring>
+        <name>clearFisrSign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="186" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="186" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_set_1abd7ba93937a156a27615ede098f76534" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.setNumber</definition>
+        <argsstring>(int digitPlace, int value)</argsstring>
+        <name>setNumber</name>
+        <param>
+          <type>int</type>
+          <declname>digitPlace</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="191" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="191" bodyend="208"/>
+        <references refid="class_card_number_set_1ac1f76b6e24f39be7969a40f138a1d273" compoundref="_card_number_set_8cs" startline="116">cardNumbers</references>
+        <referencedby refid="class_card_number_set_1ab712bd82136d108585a3a487da8add13" compoundref="_card_number_set_8cs" startline="145" endline="176">setNumberSet</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.initiateDigitPlace</definition>
+        <argsstring>()</argsstring>
+        <name>initiateDigitPlace</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="253" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="253" bodyend="296"/>
+        <references refid="class_card_number_set_1a2f5e3f7a29617b42040e3f349e0939b3" compoundref="_card_number_set_8cs" startline="250">digit1_unit_position_C</references>
+        <references refid="class_card_number_set_1afd318473ee786ee33d29dfe8f62ee170" compoundref="_card_number_set_8cs" startline="222">digit1_unit_position_L</references>
+        <references refid="class_card_number_set_1a00853b29705bb149dbc4966b7ed53bd9" compoundref="_card_number_set_8cs" startline="236">digit1_unit_position_R</references>
+        <references refid="class_card_number_set_1a2d67c8087c87de5ce5d3083ef42c5399" compoundref="_card_number_set_8cs" startline="247">digit2_tens_position_C</references>
+        <references refid="class_card_number_set_1aa41343dc89c6d3e54db8937e4c20563b" compoundref="_card_number_set_8cs" startline="219">digit2_tens_position_L</references>
+        <references refid="class_card_number_set_1a22410231ea404b72041acfcfa09af113" compoundref="_card_number_set_8cs" startline="233">digit2_tens_position_R</references>
+        <references refid="class_card_number_set_1a1d909398f2cc221281d208d121250d3a" compoundref="_card_number_set_8cs" startline="248">digit2_unit_position_C</references>
+        <references refid="class_card_number_set_1a70bb276a10e457fc438a9d6c8a2cb3d7" compoundref="_card_number_set_8cs" startline="220">digit2_unit_position_L</references>
+        <references refid="class_card_number_set_1addc617eecaf84127dae8d9818da489f1" compoundref="_card_number_set_8cs" startline="234">digit2_unit_position_R</references>
+        <references refid="class_card_number_set_1a97621bb97f7ab08b5c8a81dfe967975e" compoundref="_card_number_set_8cs" startline="243">digit3_hundreds_position_C</references>
+        <references refid="class_card_number_set_1a4982546abb356d691028d7d838c394eb" compoundref="_card_number_set_8cs" startline="215">digit3_hundreds_position_L</references>
+        <references refid="class_card_number_set_1a358b4bd70c43710d57ff4f77e41f7104" compoundref="_card_number_set_8cs" startline="229">digit3_hundreds_position_R</references>
+        <references refid="class_card_number_set_1a2dfb1716b6f1ae6343381848ddb6460e" compoundref="_card_number_set_8cs" startline="244">digit3_tens_position_C</references>
+        <references refid="class_card_number_set_1ab9dacfa91de350e7ec1e75367952a32d" compoundref="_card_number_set_8cs" startline="216">digit3_tens_position_L</references>
+        <references refid="class_card_number_set_1a773a2f140181e6efcd7d4442fbd2184f" compoundref="_card_number_set_8cs" startline="230">digit3_tens_position_R</references>
+        <references refid="class_card_number_set_1a09dd9aca8d8f5b557ddb002f32e2b9e1" compoundref="_card_number_set_8cs" startline="245">digit3_unit_position_C</references>
+        <references refid="class_card_number_set_1ae16cccd72b8c755a43676d006ba49449" compoundref="_card_number_set_8cs" startline="217">digit3_unit_position_L</references>
+        <references refid="class_card_number_set_1aef43f5cd846fafd2a6a46916b21dd7d4" compoundref="_card_number_set_8cs" startline="231">digit3_unit_position_R</references>
+        <references refid="class_card_number_set_1a8158b1187fd8444c0b7fdef7bd1b9d41" compoundref="_card_number_set_8cs" startline="239">digit4_hundreds_position_C</references>
+        <references refid="class_card_number_set_1ae2f1327d0027084afb3d7a241cdbfbb4" compoundref="_card_number_set_8cs" startline="211">digit4_hundreds_position_L</references>
+        <references refid="class_card_number_set_1a5762d2e12bc59808630789d79231d2b1" compoundref="_card_number_set_8cs" startline="225">digit4_hundreds_position_R</references>
+        <references refid="class_card_number_set_1aa8741238bcce4f55b0f36698a4d3103c" compoundref="_card_number_set_8cs" startline="240">digit4_tens_position_C</references>
+        <references refid="class_card_number_set_1aca86ba2fe96ab75c28a0f2ae21e27a0c" compoundref="_card_number_set_8cs" startline="212">digit4_tens_position_L</references>
+        <references refid="class_card_number_set_1aa6ba618b8adfe7293619a00641de162e" compoundref="_card_number_set_8cs" startline="226">digit4_tens_position_R</references>
+        <references refid="class_card_number_set_1a353bf9e9613e9a01e248a2d030a1a60e" compoundref="_card_number_set_8cs" startline="238">digit4_thousand_position_C</references>
+        <references refid="class_card_number_set_1ae7ed8bec69f7a9bb21a85aac0fc8a5ee" compoundref="_card_number_set_8cs" startline="210">digit4_thousand_position_L</references>
+        <references refid="class_card_number_set_1a6374132cc4ffdccd2dac9c0c0dbb4214" compoundref="_card_number_set_8cs" startline="224">digit4_thousand_position_R</references>
+        <references refid="class_card_number_set_1a54556c88352436c61f99283d05db51b8" compoundref="_card_number_set_8cs" startline="241">digit4_unit_position_C</references>
+        <references refid="class_card_number_set_1aa95577a05e7eb553eda3849f5630be05" compoundref="_card_number_set_8cs" startline="213">digit4_unit_position_L</references>
+        <references refid="class_card_number_set_1af7b7834659319a0b1f4ada48b093ed32" compoundref="_card_number_set_8cs" startline="227">digit4_unit_position_R</references>
+        <references refid="class_card_number_set_1a65c84b3f287c9330e6af5fe69da80353" compoundref="_card_number_set_8cs" startline="252">interval</references>
+        <referencedby refid="class_card_number_set_1adb6b43595bb963b9b93e59e9f630082c" compoundref="_card_number_set_8cs" startline="68" endline="114">setNumberSize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumberSet.setTextAlign</definition>
+        <argsstring>()</argsstring>
+        <name>setTextAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="316" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="316" bodyend="371"/>
+        <references refid="class_card_number_set_1ac1f76b6e24f39be7969a40f138a1d273" compoundref="_card_number_set_8cs" startline="116">cardNumbers</references>
+        <references refid="class_card_number_set_1a2f5e3f7a29617b42040e3f349e0939b3" compoundref="_card_number_set_8cs" startline="250">digit1_unit_position_C</references>
+        <references refid="class_card_number_set_1afd318473ee786ee33d29dfe8f62ee170" compoundref="_card_number_set_8cs" startline="222">digit1_unit_position_L</references>
+        <references refid="class_card_number_set_1a00853b29705bb149dbc4966b7ed53bd9" compoundref="_card_number_set_8cs" startline="236">digit1_unit_position_R</references>
+        <references refid="class_card_number_set_1a2d67c8087c87de5ce5d3083ef42c5399" compoundref="_card_number_set_8cs" startline="247">digit2_tens_position_C</references>
+        <references refid="class_card_number_set_1aa41343dc89c6d3e54db8937e4c20563b" compoundref="_card_number_set_8cs" startline="219">digit2_tens_position_L</references>
+        <references refid="class_card_number_set_1a22410231ea404b72041acfcfa09af113" compoundref="_card_number_set_8cs" startline="233">digit2_tens_position_R</references>
+        <references refid="class_card_number_set_1a1d909398f2cc221281d208d121250d3a" compoundref="_card_number_set_8cs" startline="248">digit2_unit_position_C</references>
+        <references refid="class_card_number_set_1a70bb276a10e457fc438a9d6c8a2cb3d7" compoundref="_card_number_set_8cs" startline="220">digit2_unit_position_L</references>
+        <references refid="class_card_number_set_1addc617eecaf84127dae8d9818da489f1" compoundref="_card_number_set_8cs" startline="234">digit2_unit_position_R</references>
+        <references refid="class_card_number_set_1a97621bb97f7ab08b5c8a81dfe967975e" compoundref="_card_number_set_8cs" startline="243">digit3_hundreds_position_C</references>
+        <references refid="class_card_number_set_1a4982546abb356d691028d7d838c394eb" compoundref="_card_number_set_8cs" startline="215">digit3_hundreds_position_L</references>
+        <references refid="class_card_number_set_1a358b4bd70c43710d57ff4f77e41f7104" compoundref="_card_number_set_8cs" startline="229">digit3_hundreds_position_R</references>
+        <references refid="class_card_number_set_1a2dfb1716b6f1ae6343381848ddb6460e" compoundref="_card_number_set_8cs" startline="244">digit3_tens_position_C</references>
+        <references refid="class_card_number_set_1ab9dacfa91de350e7ec1e75367952a32d" compoundref="_card_number_set_8cs" startline="216">digit3_tens_position_L</references>
+        <references refid="class_card_number_set_1a773a2f140181e6efcd7d4442fbd2184f" compoundref="_card_number_set_8cs" startline="230">digit3_tens_position_R</references>
+        <references refid="class_card_number_set_1a09dd9aca8d8f5b557ddb002f32e2b9e1" compoundref="_card_number_set_8cs" startline="245">digit3_unit_position_C</references>
+        <references refid="class_card_number_set_1ae16cccd72b8c755a43676d006ba49449" compoundref="_card_number_set_8cs" startline="217">digit3_unit_position_L</references>
+        <references refid="class_card_number_set_1aef43f5cd846fafd2a6a46916b21dd7d4" compoundref="_card_number_set_8cs" startline="231">digit3_unit_position_R</references>
+        <references refid="class_card_number_set_1a8158b1187fd8444c0b7fdef7bd1b9d41" compoundref="_card_number_set_8cs" startline="239">digit4_hundreds_position_C</references>
+        <references refid="class_card_number_set_1ae2f1327d0027084afb3d7a241cdbfbb4" compoundref="_card_number_set_8cs" startline="211">digit4_hundreds_position_L</references>
+        <references refid="class_card_number_set_1a5762d2e12bc59808630789d79231d2b1" compoundref="_card_number_set_8cs" startline="225">digit4_hundreds_position_R</references>
+        <references refid="class_card_number_set_1aa8741238bcce4f55b0f36698a4d3103c" compoundref="_card_number_set_8cs" startline="240">digit4_tens_position_C</references>
+        <references refid="class_card_number_set_1aca86ba2fe96ab75c28a0f2ae21e27a0c" compoundref="_card_number_set_8cs" startline="212">digit4_tens_position_L</references>
+        <references refid="class_card_number_set_1aa6ba618b8adfe7293619a00641de162e" compoundref="_card_number_set_8cs" startline="226">digit4_tens_position_R</references>
+        <references refid="class_card_number_set_1a353bf9e9613e9a01e248a2d030a1a60e" compoundref="_card_number_set_8cs" startline="238">digit4_thousand_position_C</references>
+        <references refid="class_card_number_set_1ae7ed8bec69f7a9bb21a85aac0fc8a5ee" compoundref="_card_number_set_8cs" startline="210">digit4_thousand_position_L</references>
+        <references refid="class_card_number_set_1a6374132cc4ffdccd2dac9c0c0dbb4214" compoundref="_card_number_set_8cs" startline="224">digit4_thousand_position_R</references>
+        <references refid="class_card_number_set_1a54556c88352436c61f99283d05db51b8" compoundref="_card_number_set_8cs" startline="241">digit4_unit_position_C</references>
+        <references refid="class_card_number_set_1aa95577a05e7eb553eda3849f5630be05" compoundref="_card_number_set_8cs" startline="213">digit4_unit_position_L</references>
+        <references refid="class_card_number_set_1af7b7834659319a0b1f4ada48b093ed32" compoundref="_card_number_set_8cs" startline="227">digit4_unit_position_R</references>
+        <references refid="class_card_number_set_1a0b68e627c106420231370502d975aebe" compoundref="_card_number_set_8cs" startline="118">digitCount</references>
+        <references refid="class_card_number_set_1a0f7993e70cd4545a8f12853591c2e04b" compoundref="_card_number_set_8cs" startline="37">hasSign</references>
+        <references refid="class_card_number_set_1a92e42cd2e50aaa3e6a522dd813cab0c9" compoundref="_card_number_set_8cs" startline="305">MyTextAlign</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="164">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="162">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="163" relation="public-inheritance">
+        </childnode>
+        <childnode refid="164" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="163">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="169">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="166" relation="public-inheritance">
+        </childnode>
+        <childnode refid="167" relation="public-inheritance">
+        </childnode>
+        <childnode refid="168" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+      </node>
+      <node id="167">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="168">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="166" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="165">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="166" relation="public-inheritance">
+        </childnode>
+        <childnode refid="167" relation="public-inheritance">
+        </childnode>
+        <childnode refid="168" relation="usage">
+          <edgelabel>childrenPool</edgelabel>
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="169" relation="usage">
+          <edgelabel>cardNumbers</edgelabel>
+        </childnode>
+      </node>
+      <node id="166">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" line="7" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumberSet.cs" bodystart="7" bodyend="373"/>
+    <listofallmembers>
+      <member refid="class_card_number_set_1ac6d5e9c546e7edaa8952d418f7e6e91e" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>Awake</name></member>
+      <member refid="class_card_number_set_1ac1f76b6e24f39be7969a40f138a1d273" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>cardNumbers</name></member>
+      <member refid="class_card_number_set_1a015028b5cbdfe2f99933608954e4c5cc" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>childrenPool</name></member>
+      <member refid="class_card_number_set_1a5ef36afbc7c8b031396d5c212c49d6ff" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>clearFisrSign</name></member>
+      <member refid="class_card_number_set_1a2f5e3f7a29617b42040e3f349e0939b3" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit1_unit_position_C</name></member>
+      <member refid="class_card_number_set_1afd318473ee786ee33d29dfe8f62ee170" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit1_unit_position_L</name></member>
+      <member refid="class_card_number_set_1a00853b29705bb149dbc4966b7ed53bd9" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit1_unit_position_R</name></member>
+      <member refid="class_card_number_set_1a2d67c8087c87de5ce5d3083ef42c5399" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit2_tens_position_C</name></member>
+      <member refid="class_card_number_set_1aa41343dc89c6d3e54db8937e4c20563b" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit2_tens_position_L</name></member>
+      <member refid="class_card_number_set_1a22410231ea404b72041acfcfa09af113" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit2_tens_position_R</name></member>
+      <member refid="class_card_number_set_1a1d909398f2cc221281d208d121250d3a" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit2_unit_position_C</name></member>
+      <member refid="class_card_number_set_1a70bb276a10e457fc438a9d6c8a2cb3d7" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit2_unit_position_L</name></member>
+      <member refid="class_card_number_set_1addc617eecaf84127dae8d9818da489f1" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit2_unit_position_R</name></member>
+      <member refid="class_card_number_set_1a97621bb97f7ab08b5c8a81dfe967975e" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit3_hundreds_position_C</name></member>
+      <member refid="class_card_number_set_1a4982546abb356d691028d7d838c394eb" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit3_hundreds_position_L</name></member>
+      <member refid="class_card_number_set_1a358b4bd70c43710d57ff4f77e41f7104" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit3_hundreds_position_R</name></member>
+      <member refid="class_card_number_set_1a2dfb1716b6f1ae6343381848ddb6460e" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit3_tens_position_C</name></member>
+      <member refid="class_card_number_set_1ab9dacfa91de350e7ec1e75367952a32d" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit3_tens_position_L</name></member>
+      <member refid="class_card_number_set_1a773a2f140181e6efcd7d4442fbd2184f" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit3_tens_position_R</name></member>
+      <member refid="class_card_number_set_1a09dd9aca8d8f5b557ddb002f32e2b9e1" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit3_unit_position_C</name></member>
+      <member refid="class_card_number_set_1ae16cccd72b8c755a43676d006ba49449" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit3_unit_position_L</name></member>
+      <member refid="class_card_number_set_1aef43f5cd846fafd2a6a46916b21dd7d4" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit3_unit_position_R</name></member>
+      <member refid="class_card_number_set_1a8158b1187fd8444c0b7fdef7bd1b9d41" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_hundreds_position_C</name></member>
+      <member refid="class_card_number_set_1ae2f1327d0027084afb3d7a241cdbfbb4" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_hundreds_position_L</name></member>
+      <member refid="class_card_number_set_1a5762d2e12bc59808630789d79231d2b1" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_hundreds_position_R</name></member>
+      <member refid="class_card_number_set_1aa8741238bcce4f55b0f36698a4d3103c" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_tens_position_C</name></member>
+      <member refid="class_card_number_set_1aca86ba2fe96ab75c28a0f2ae21e27a0c" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_tens_position_L</name></member>
+      <member refid="class_card_number_set_1aa6ba618b8adfe7293619a00641de162e" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_tens_position_R</name></member>
+      <member refid="class_card_number_set_1a353bf9e9613e9a01e248a2d030a1a60e" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_thousand_position_C</name></member>
+      <member refid="class_card_number_set_1ae7ed8bec69f7a9bb21a85aac0fc8a5ee" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_thousand_position_L</name></member>
+      <member refid="class_card_number_set_1a6374132cc4ffdccd2dac9c0c0dbb4214" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_thousand_position_R</name></member>
+      <member refid="class_card_number_set_1a54556c88352436c61f99283d05db51b8" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_unit_position_C</name></member>
+      <member refid="class_card_number_set_1aa95577a05e7eb553eda3849f5630be05" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_unit_position_L</name></member>
+      <member refid="class_card_number_set_1af7b7834659319a0b1f4ada48b093ed32" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digit4_unit_position_R</name></member>
+      <member refid="class_card_number_set_1a0b68e627c106420231370502d975aebe" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digitCount</name></member>
+      <member refid="class_card_number_set_1ae3b36fff8457705bc71a9b871e5acb6c" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>digits</name></member>
+      <member refid="class_card_number_set_1aff59a96ad656b8676072404da90cb676" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>gameObjectPool</name></member>
+      <member refid="class_card_number_set_1a0f7993e70cd4545a8f12853591c2e04b" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>hasSign</name></member>
+      <member refid="class_card_number_set_1a72440a9e3979084de5753050ff0353e0" prot="public" virt="non-virtual"><scope>CardNumberSet</scope><name>initiate</name></member>
+      <member refid="class_card_number_set_1a2b89ea49e35958b0079b500903a7bfce" prot="public" virt="non-virtual"><scope>CardNumberSet</scope><name>initiate</name></member>
+      <member refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>initiateDigitPlace</name></member>
+      <member refid="class_card_number_set_1a65c84b3f287c9330e6af5fe69da80353" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>interval</name></member>
+      <member refid="class_card_number_set_1a686df5fae556144a1493138bf87e3043" prot="public" virt="non-virtual"><scope>CardNumberSet</scope><name>IntervalFactor</name></member>
+      <member refid="class_card_number_set_1a8c072756eb4e39fa74bcd37e5b16f6ad" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>m_firstSign</name></member>
+      <member refid="class_card_number_set_1ad1eea94d843bd0f1eaf36c700f9e0cb9" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>myNumberSize</name></member>
+      <member refid="class_card_number_set_1a8250fc50c7c43fa19f4964aff2fa77ae" prot="public" virt="non-virtual"><scope>CardNumberSet</scope><name>MyNumberSize</name></member>
+      <member refid="class_card_number_set_1a3c06863ad215c0963666b490e289d8fd" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>myTextAlign</name></member>
+      <member refid="class_card_number_set_1a92e42cd2e50aaa3e6a522dd813cab0c9" prot="package" virt="non-virtual"><scope>CardNumberSet</scope><name>MyTextAlign</name></member>
+      <member refid="class_card_number_set_1a70fd4f8d8f4ecfef0e5a7ee51e223da4" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>number</name></member>
+      <member refid="class_card_number_set_1a2aa744e76542243f5f2fefabe4899873" prot="public" virt="non-virtual"><scope>CardNumberSet</scope><name>Number</name></member>
+      <member refid="class_card_number_set_1a0ec1c0791974b262ff49e6b5853219e4" prot="public" virt="non-virtual"><scope>CardNumberSet</scope><name>PoolRecycle</name></member>
+      <member refid="class_card_number_set_1a2cebe8156f209062fb2dfb88f1659142" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>setFirstSign</name></member>
+      <member refid="class_card_number_set_1abd7ba93937a156a27615ede098f76534" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>setNumber</name></member>
+      <member refid="class_card_number_set_1ab712bd82136d108585a3a487da8add13" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>setNumberSet</name></member>
+      <member refid="class_card_number_set_1adb6b43595bb963b9b93e59e9f630082c" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>setNumberSize</name></member>
+      <member refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>setTextAlign</name></member>
+      <member refid="class_card_number_set_1a09e0099de494ae381d04e22eeb030770" prot="private" virt="non-virtual"><scope>CardNumberSet</scope><name>Start</name></member>
+      <member refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" prot="public" virt="non-virtual"><scope>CardNumberSet</scope><name>TextAlign</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

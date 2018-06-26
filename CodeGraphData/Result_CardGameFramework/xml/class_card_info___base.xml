@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_card_info___base" kind="class" prot="public">
+    <compoundname>CardInfo_Base</compoundname>
+    <derivedcompoundref refid="class_card_info___retinue" prot="public" virt="non-virtual">CardInfo_Retinue</derivedcompoundref>
+    <derivedcompoundref refid="class_card_info___shield" prot="public" virt="non-virtual">CardInfo_Shield</derivedcompoundref>
+    <derivedcompoundref refid="class_card_info___weapon" prot="public" virt="non-virtual">CardInfo_Weapon</derivedcompoundref>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_card_info___base_1a3eac88d783986952c4fc088c47433c7b" prot="package" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CardInfo_Base.CardID</definition>
+        <argsstring></argsstring>
+        <name>CardID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="25" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="25" bodyend="-1"/>
+        <referencedby refid="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" compoundref="_card_info_8cs" startline="15" endline="23">CardInfo_Base</referencedby>
+        <referencedby refid="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea" compoundref="_card_info_8cs" startline="32" endline="36">Clone</referencedby>
+        <referencedby refid="class_card_info___retinue_1ad0dda73aef321d9f7ab26ddfabfce2ca" compoundref="_card_info_8cs" startline="56" endline="60">CardInfo_Retinue.Clone</referencedby>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">CardInfo_Weapon.Clone</referencedby>
+        <referencedby refid="class_card_info___shield_1af0a4800c9b72e02399cc44255faef603" compoundref="_card_info_8cs" startline="121" endline="125">CardInfo_Shield.Clone</referencedby>
+        <referencedby refid="class_module_shield_1a98bdf08329ea2656f9301af60e9bc1dc" compoundref="_module_shield_8cs" startline="54" endline="58">ModuleShield.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_weapon_1aff174fdcfbd469f4aa02c9fa1f6d354d" compoundref="_module_weapon_8cs" startline="55" endline="59">ModuleWeapon.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">ModuleRetinue.GetCurrentCardInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_info___base_1aedf73a9c0861387c0421c647fc0fce27" prot="package" static="no" mutable="no">
+        <type>string</type>
+        <definition>string CardInfo_Base.CardName</definition>
+        <argsstring></argsstring>
+        <name>CardName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="26" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="26" bodyend="-1"/>
+        <referencedby refid="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" compoundref="_card_info_8cs" startline="15" endline="23">CardInfo_Base</referencedby>
+        <referencedby refid="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea" compoundref="_card_info_8cs" startline="32" endline="36">Clone</referencedby>
+        <referencedby refid="class_card_info___retinue_1ad0dda73aef321d9f7ab26ddfabfce2ca" compoundref="_card_info_8cs" startline="56" endline="60">CardInfo_Retinue.Clone</referencedby>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">CardInfo_Weapon.Clone</referencedby>
+        <referencedby refid="class_card_info___shield_1af0a4800c9b72e02399cc44255faef603" compoundref="_card_info_8cs" startline="121" endline="125">CardInfo_Shield.Clone</referencedby>
+        <referencedby refid="class_module_shield_1a98bdf08329ea2656f9301af60e9bc1dc" compoundref="_module_shield_8cs" startline="54" endline="58">ModuleShield.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_weapon_1aff174fdcfbd469f4aa02c9fa1f6d354d" compoundref="_module_weapon_8cs" startline="55" endline="59">ModuleWeapon.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">ModuleRetinue.GetCurrentCardInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_info___base_1a3f43915e514c2ca0fe79b9c3e5fc4775" prot="package" static="no" mutable="no">
+        <type>string</type>
+        <definition>string CardInfo_Base.CardDesc</definition>
+        <argsstring></argsstring>
+        <name>CardDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="27" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="27" bodyend="-1"/>
+        <referencedby refid="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" compoundref="_card_info_8cs" startline="15" endline="23">CardInfo_Base</referencedby>
+        <referencedby refid="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea" compoundref="_card_info_8cs" startline="32" endline="36">Clone</referencedby>
+        <referencedby refid="class_card_info___retinue_1ad0dda73aef321d9f7ab26ddfabfce2ca" compoundref="_card_info_8cs" startline="56" endline="60">CardInfo_Retinue.Clone</referencedby>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">CardInfo_Weapon.Clone</referencedby>
+        <referencedby refid="class_card_info___shield_1af0a4800c9b72e02399cc44255faef603" compoundref="_card_info_8cs" startline="121" endline="125">CardInfo_Shield.Clone</referencedby>
+        <referencedby refid="class_module_shield_1a98bdf08329ea2656f9301af60e9bc1dc" compoundref="_module_shield_8cs" startline="54" endline="58">ModuleShield.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_weapon_1aff174fdcfbd469f4aa02c9fa1f6d354d" compoundref="_module_weapon_8cs" startline="55" endline="59">ModuleWeapon.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">ModuleRetinue.GetCurrentCardInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_info___base_1a40450fa880f7b03b229d22fb15203b04" prot="package" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CardInfo_Base.Cost</definition>
+        <argsstring></argsstring>
+        <name>Cost</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="28" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="28" bodyend="-1"/>
+        <referencedby refid="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" compoundref="_card_info_8cs" startline="15" endline="23">CardInfo_Base</referencedby>
+        <referencedby refid="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea" compoundref="_card_info_8cs" startline="32" endline="36">Clone</referencedby>
+        <referencedby refid="class_card_info___retinue_1ad0dda73aef321d9f7ab26ddfabfce2ca" compoundref="_card_info_8cs" startline="56" endline="60">CardInfo_Retinue.Clone</referencedby>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">CardInfo_Weapon.Clone</referencedby>
+        <referencedby refid="class_card_info___shield_1af0a4800c9b72e02399cc44255faef603" compoundref="_card_info_8cs" startline="121" endline="125">CardInfo_Shield.Clone</referencedby>
+        <referencedby refid="class_module_shield_1a98bdf08329ea2656f9301af60e9bc1dc" compoundref="_module_shield_8cs" startline="54" endline="58">ModuleShield.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_weapon_1aff174fdcfbd469f4aa02c9fa1f6d354d" compoundref="_module_weapon_8cs" startline="55" endline="59">ModuleWeapon.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">ModuleRetinue.GetCurrentCardInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_info___base_1a7413ee18dae0615338e0d3ce225d2448" prot="package" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CardInfo_Base.HasTarget</definition>
+        <argsstring></argsstring>
+        <name>HasTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="29" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="29" bodyend="-1"/>
+        <referencedby refid="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" compoundref="_card_info_8cs" startline="15" endline="23">CardInfo_Base</referencedby>
+        <referencedby refid="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea" compoundref="_card_info_8cs" startline="32" endline="36">Clone</referencedby>
+        <referencedby refid="class_card_info___retinue_1ad0dda73aef321d9f7ab26ddfabfce2ca" compoundref="_card_info_8cs" startline="56" endline="60">CardInfo_Retinue.Clone</referencedby>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">CardInfo_Weapon.Clone</referencedby>
+        <referencedby refid="class_card_info___shield_1af0a4800c9b72e02399cc44255faef603" compoundref="_card_info_8cs" startline="121" endline="125">CardInfo_Shield.Clone</referencedby>
+        <referencedby refid="class_module_shield_1a98bdf08329ea2656f9301af60e9bc1dc" compoundref="_module_shield_8cs" startline="54" endline="58">ModuleShield.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_weapon_1aff174fdcfbd469f4aa02c9fa1f6d354d" compoundref="_module_weapon_8cs" startline="55" endline="59">ModuleWeapon.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">ModuleRetinue.GetCurrentCardInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_info___base_1a229524b20f8888e027178156e30de923" prot="package" static="no" mutable="no">
+        <type><ref refid="_card_info_8cs_1afd1799bce09ea90840acb65fb667e35f" kindref="member">CardTypes</ref></type>
+        <definition>CardTypes CardInfo_Base.CardType</definition>
+        <argsstring></argsstring>
+        <name>CardType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="30" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="30" bodyend="-1"/>
+        <referencedby refid="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" compoundref="_card_info_8cs" startline="15" endline="23">CardInfo_Base</referencedby>
+        <referencedby refid="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea" compoundref="_card_info_8cs" startline="32" endline="36">Clone</referencedby>
+        <referencedby refid="class_card_info___retinue_1ad0dda73aef321d9f7ab26ddfabfce2ca" compoundref="_card_info_8cs" startline="56" endline="60">CardInfo_Retinue.Clone</referencedby>
+        <referencedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" compoundref="_card_info_8cs" startline="88" endline="92">CardInfo_Weapon.Clone</referencedby>
+        <referencedby refid="class_card_info___shield_1af0a4800c9b72e02399cc44255faef603" compoundref="_card_info_8cs" startline="121" endline="125">CardInfo_Shield.Clone</referencedby>
+        <referencedby refid="class_card_deck_1a4207176ac12108e093618e68ce05a64d" compoundref="_card_deck_8cs" startline="143" endline="156">CardDeck.GetARetinueCardToTheTop</referencedby>
+        <referencedby refid="class_module_shield_1a98bdf08329ea2656f9301af60e9bc1dc" compoundref="_module_shield_8cs" startline="54" endline="58">ModuleShield.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_weapon_1aff174fdcfbd469f4aa02c9fa1f6d354d" compoundref="_module_weapon_8cs" startline="55" endline="59">ModuleWeapon.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">ModuleRetinue.GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_card_1aaf7c9920c5556b9a93817bcee4db1933" compoundref="_card_8cs" startline="47" endline="67">Card.InstantiateCardByCardInfo</referencedby>
+        <referencedby refid="class_module_base_1a942b7d563d787a04df595e1e2a7f3c52" compoundref="_module_base_8cs" startline="93" endline="165">ModuleBase.ShowCardDetail</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-func">
+      <memberdef kind="function" id="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CardInfo_Base.CardInfo_Base</definition>
+        <argsstring>(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType)</argsstring>
+        <name>CardInfo_Base</name>
+        <param>
+          <type>int</type>
+          <declname>cardID</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>cardName</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>cardDesc</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>cost</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>hasTarget</declname>
+        </param>
+        <param>
+          <type><ref refid="_card_info_8cs_1afd1799bce09ea90840acb65fb667e35f" kindref="member">CardTypes</ref></type>
+          <declname>cardType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="15" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="15" bodyend="23"/>
+        <references refid="class_card_info___base_1a3f43915e514c2ca0fe79b9c3e5fc4775" compoundref="_card_info_8cs" startline="27">CardDesc</references>
+        <references refid="class_card_info___base_1a3eac88d783986952c4fc088c47433c7b" compoundref="_card_info_8cs" startline="25">CardID</references>
+        <references refid="class_card_info___base_1aedf73a9c0861387c0421c647fc0fce27" compoundref="_card_info_8cs" startline="26">CardName</references>
+        <references refid="class_card_info___base_1a229524b20f8888e027178156e30de923" compoundref="_card_info_8cs" startline="30">CardType</references>
+        <references refid="class_card_info___base_1a40450fa880f7b03b229d22fb15203b04" compoundref="_card_info_8cs" startline="28">Cost</references>
+        <references refid="class_card_info___base_1a7413ee18dae0615338e0d3ce225d2448" compoundref="_card_info_8cs" startline="29">HasTarget</references>
+        <referencedby refid="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea" compoundref="_card_info_8cs" startline="32" endline="36">Clone</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="class_card_info___base" kindref="compound">CardInfo_Base</ref></type>
+        <definition>virtual CardInfo_Base CardInfo_Base.Clone</definition>
+        <argsstring>()</argsstring>
+        <name>Clone</name>
+        <reimplementedby refid="class_card_info___retinue_1ad0dda73aef321d9f7ab26ddfabfce2ca">Clone</reimplementedby>
+        <reimplementedby refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154">Clone</reimplementedby>
+        <reimplementedby refid="class_card_info___shield_1af0a4800c9b72e02399cc44255faef603">Clone</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="32" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="32" bodyend="36"/>
+        <references refid="class_card_info___base_1a3f43915e514c2ca0fe79b9c3e5fc4775" compoundref="_card_info_8cs" startline="27">CardDesc</references>
+        <references refid="class_card_info___base_1a3eac88d783986952c4fc088c47433c7b" compoundref="_card_info_8cs" startline="25">CardID</references>
+        <references refid="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" compoundref="_card_info_8cs" startline="15" endline="23">CardInfo_Base</references>
+        <references refid="class_card_info___base_1aedf73a9c0861387c0421c647fc0fce27" compoundref="_card_info_8cs" startline="26">CardName</references>
+        <references refid="class_card_info___base_1a229524b20f8888e027178156e30de923" compoundref="_card_info_8cs" startline="30">CardType</references>
+        <references refid="class_card_info___base_1a40450fa880f7b03b229d22fb15203b04" compoundref="_card_info_8cs" startline="28">Cost</references>
+        <references refid="class_card_info___base_1a7413ee18dae0615338e0d3ce225d2448" compoundref="_card_info_8cs" startline="29">HasTarget</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="138">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="141">
+        <label>CardInfo_Weapon</label>
+        <link refid="class_card_info___weapon"/>
+        <childnode refid="138" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="139">
+        <label>CardInfo_Retinue</label>
+        <link refid="class_card_info___retinue"/>
+        <childnode refid="138" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="140">
+        <label>CardInfo_Shield</label>
+        <link refid="class_card_info___shield"/>
+        <childnode refid="138" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" line="14" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardInfo.cs" bodystart="13" bodyend="37"/>
+    <listofallmembers>
+      <member refid="class_card_info___base_1a3f43915e514c2ca0fe79b9c3e5fc4775" prot="package" virt="non-virtual"><scope>CardInfo_Base</scope><name>CardDesc</name></member>
+      <member refid="class_card_info___base_1a3eac88d783986952c4fc088c47433c7b" prot="package" virt="non-virtual"><scope>CardInfo_Base</scope><name>CardID</name></member>
+      <member refid="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" prot="package" virt="non-virtual"><scope>CardInfo_Base</scope><name>CardInfo_Base</name></member>
+      <member refid="class_card_info___base_1aedf73a9c0861387c0421c647fc0fce27" prot="package" virt="non-virtual"><scope>CardInfo_Base</scope><name>CardName</name></member>
+      <member refid="class_card_info___base_1a229524b20f8888e027178156e30de923" prot="package" virt="non-virtual"><scope>CardInfo_Base</scope><name>CardType</name></member>
+      <member refid="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea" prot="public" virt="virtual"><scope>CardInfo_Base</scope><name>Clone</name></member>
+      <member refid="class_card_info___base_1a40450fa880f7b03b229d22fb15203b04" prot="package" virt="non-virtual"><scope>CardInfo_Base</scope><name>Cost</name></member>
+      <member refid="class_card_info___base_1a7413ee18dae0615338e0d3ce225d2448" prot="package" virt="non-virtual"><scope>CardInfo_Base</scope><name>HasTarget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

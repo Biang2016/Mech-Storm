@@ -1,0 +1,810 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_hand_manager" kind="class" prot="public">
+    <compoundname>HandManager</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_hand_manager_1adc361afc2404179b54533c5e685969ad" prot="package" static="no" mutable="no">
+        <type><ref refid="class_player" kindref="compound">Player</ref></type>
+        <definition>Player HandManager.Player</definition>
+        <argsstring></argsstring>
+        <name>Player</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="7" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="7" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a119130c9237e86cea5531aaea371fa91" compoundref="_hand_manager_8cs" startline="62" endline="80">DrawCard</referencedby>
+        <referencedby refid="class_hand_manager_1a601e5dee17ca9089a419e3904a021595" compoundref="_hand_manager_8cs" startline="91" endline="102">DrawRetinueCard</referencedby>
+        <referencedby refid="class_hand_manager_1a4870b97ce970377c8015394682ecee33" compoundref="_hand_manager_8cs" startline="82" endline="89">GetACardByID</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_hand_manager_1a27064b005bd148c13ccc848fe9ed78ec" prot="private" static="no" mutable="no">
+        <type>float[]</type>
+        <definition>float [] HandManager.anglesDict</definition>
+        <argsstring></argsstring>
+        <name>anglesDict</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="9" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="9" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1af998ff3e973b98c521eae62641c22a9c" compoundref="_hand_manager_8cs" startline="18" endline="25">Awake</referencedby>
+        <referencedby refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1a616ccf6a3284c619453709211d138e15" prot="private" static="no" mutable="no">
+        <type>float[]</type>
+        <definition>float [] HandManager.horrizonDistanceDict</definition>
+        <argsstring></argsstring>
+        <name>horrizonDistanceDict</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="10" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="10" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1af998ff3e973b98c521eae62641c22a9c" compoundref="_hand_manager_8cs" startline="18" endline="25">Awake</referencedby>
+        <referencedby refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1afa114f24ff1b8be3f37568a12629c150" prot="private" static="no" mutable="no">
+        <type>List&lt; <ref refid="class_card" kindref="compound">Card</ref> &gt;</type>
+        <definition>List&lt;Card&gt; HandManager.cards</definition>
+        <argsstring></argsstring>
+        <name>cards</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="12" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="12" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1af998ff3e973b98c521eae62641c22a9c" compoundref="_hand_manager_8cs" startline="18" endline="25">Awake</referencedby>
+        <referencedby refid="class_hand_manager_1a08a6477c56bed9f760edec201c2f7990" compoundref="_hand_manager_8cs" startline="271" endline="274">BeginRound</referencedby>
+        <referencedby refid="class_hand_manager_1a7d83c0042b34447f078863949c406349" compoundref="_hand_manager_8cs" startline="104" endline="107">DropFirstCard</referencedby>
+        <referencedby refid="class_hand_manager_1a2d1751c760eec76bd4ae09479f9715d9" compoundref="_hand_manager_8cs" startline="276" endline="279">EndRound</referencedby>
+        <referencedby refid="class_hand_manager_1aa85b191eb2300a405a1e9f6d540c5961" compoundref="_hand_manager_8cs" startline="185" endline="188">RefreshAllCardUsable</referencedby>
+        <referencedby refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1a17a74790d7e5b00995ee15ef750f4202" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int HandManager.retinueLayer</definition>
+        <argsstring></argsstring>
+        <name>retinueLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="14" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="14" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1af998ff3e973b98c521eae62641c22a9c" compoundref="_hand_manager_8cs" startline="18" endline="25">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1ad5d02868c6ce362ad2c1f4d4ee57a42c" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int HandManager.cardLayer</definition>
+        <argsstring></argsstring>
+        <name>cardLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="15" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="15" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1af998ff3e973b98c521eae62641c22a9c" compoundref="_hand_manager_8cs" startline="18" endline="25">Awake</referencedby>
+        <referencedby refid="class_hand_manager_1a4e1ac791e66c626a77fdfae5ca22e193" compoundref="_hand_manager_8cs" startline="37" endline="52">CheckMousePosition</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1ab018f274c96ad12c22f801035a2026d3" prot="private" static="no" mutable="no">
+        <type>Quaternion</type>
+        <definition>Quaternion HandManager.defaultCardRotation</definition>
+        <argsstring></argsstring>
+        <name>defaultCardRotation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="118" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="118" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a36bfb5c49895d38dc31108d74fc78ed6" compoundref="_hand_manager_8cs" startline="223" endline="259">becomeBigger</referencedby>
+        <referencedby refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1a652e374b9fa6d6b3432fda21e8d9ff72" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool HandManager.isSet_defaultCardRotation</definition>
+        <argsstring></argsstring>
+        <name>isSet_defaultCardRotation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="119" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="119" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1a1bf2c3f689c0b2a93edbf6cd4866b43e" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 HandManager.defaultCardPosition</definition>
+        <argsstring></argsstring>
+        <name>defaultCardPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="120" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="120" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1a7bd05c2af7c6435d27e7c7282021fa97" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool HandManager.isSet_defaultCardPosition</definition>
+        <argsstring></argsstring>
+        <name>isSet_defaultCardPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="121" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="121" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1a3f191cc44b3c779f57dfdab088ee2ea5" prot="private" static="no" mutable="no">
+        <type><ref refid="class_card" kindref="compound">Card</ref></type>
+        <definition>Card HandManager.currentFocusCard</definition>
+        <argsstring></argsstring>
+        <name>currentFocusCard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="190" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="190" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a21abde0acb6ce84f6bb9474ff1f7957b" compoundref="_hand_manager_8cs" startline="201" endline="208">CardColliderReplaceOnMouseExit</referencedby>
+        <referencedby refid="class_hand_manager_1a18e83dae10a2cc6061640b5c5afb0c86" compoundref="_hand_manager_8cs" startline="191" endline="199">CardOnMouseEnter</referencedby>
+        <referencedby refid="class_hand_manager_1a4e1ac791e66c626a77fdfae5ca22e193" compoundref="_hand_manager_8cs" startline="37" endline="52">CheckMousePosition</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1ac0b2e84c840635faa05ec6b801a8221a" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool HandManager.isBeginDrag</definition>
+        <argsstring></argsstring>
+        <name>isBeginDrag</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="210" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="210" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a36bfb5c49895d38dc31108d74fc78ed6" compoundref="_hand_manager_8cs" startline="223" endline="259">becomeBigger</referencedby>
+        <referencedby refid="class_hand_manager_1a86f68de8a62b95f78e0a590929b63e51" compoundref="_hand_manager_8cs" startline="211" endline="214">BeginDrag</referencedby>
+        <referencedby refid="class_hand_manager_1a4e1ac791e66c626a77fdfae5ca22e193" compoundref="_hand_manager_8cs" startline="37" endline="52">CheckMousePosition</referencedby>
+        <referencedby refid="class_hand_manager_1abcc4139e2ffcc948ca4522c169c22e38" compoundref="_hand_manager_8cs" startline="216" endline="219">EndDrag</referencedby>
+        <referencedby refid="class_hand_manager_1a8b2fb6d5c57f3dfaa168816c28a0f76d" compoundref="_hand_manager_8cs" startline="261" endline="269">returnToSmaller</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_hand_manager_1a0e70db770453f2a8ee6f27367e06a278" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int HandManager.cardNumber</definition>
+        <argsstring></argsstring>
+        <name>cardNumber</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="11" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="11" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a119130c9237e86cea5531aaea371fa91" compoundref="_hand_manager_8cs" startline="62" endline="80">DrawCard</referencedby>
+        <referencedby refid="class_hand_manager_1a601e5dee17ca9089a419e3904a021595" compoundref="_hand_manager_8cs" startline="91" endline="102">DrawRetinueCard</referencedby>
+        <referencedby refid="class_hand_manager_1a3fa2c6dfc69e9ce87a7ef23d20591eb9" compoundref="_hand_manager_8cs" startline="109" endline="114">DropCard</referencedby>
+        <referencedby refid="class_hand_manager_1a4870b97ce970377c8015394682ecee33" compoundref="_hand_manager_8cs" startline="82" endline="89">GetACardByID</referencedby>
+        <referencedby refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1ad831474dac2ed6c540ec8bdd67a72efd" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float HandManager.HandCardSize</definition>
+        <argsstring></argsstring>
+        <name>HandCardSize</name>
+        <initializer>= 1.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="17" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="17" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_hand_manager_1a87228743636190e8675c0a2b98bdb3d7" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float HandManager.PullOutCardSize</definition>
+        <argsstring></argsstring>
+        <name>PullOutCardSize</name>
+        <initializer>= 3.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="221" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="221" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a36bfb5c49895d38dc31108d74fc78ed6" compoundref="_hand_manager_8cs" startline="223" endline="259">becomeBigger</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_hand_manager_1af998ff3e973b98c521eae62641c22a9c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="18" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="18" bodyend="25"/>
+        <references refid="class_hand_manager_1a27064b005bd148c13ccc848fe9ed78ec" compoundref="_hand_manager_8cs" startline="9">anglesDict</references>
+        <references refid="class_hand_manager_1ad5d02868c6ce362ad2c1f4d4ee57a42c" compoundref="_hand_manager_8cs" startline="15">cardLayer</references>
+        <references refid="class_hand_manager_1afa114f24ff1b8be3f37568a12629c150" compoundref="_hand_manager_8cs" startline="12">cards</references>
+        <references refid="class_hand_manager_1a616ccf6a3284c619453709211d138e15" compoundref="_hand_manager_8cs" startline="10">horrizonDistanceDict</references>
+        <references refid="class_hand_manager_1a17a74790d7e5b00995ee15ef750f4202" compoundref="_hand_manager_8cs" startline="14">retinueLayer</references>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a3966e3d660017861052b690e8c079cb7" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="27" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="27" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a0f53a5210deec9382214ee0bd600c792" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="32" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="32" bodyend="35"/>
+        <references refid="class_hand_manager_1a4e1ac791e66c626a77fdfae5ca22e193" compoundref="_hand_manager_8cs" startline="37" endline="52">CheckMousePosition</references>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a4e1ac791e66c626a77fdfae5ca22e193" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.CheckMousePosition</definition>
+        <argsstring>()</argsstring>
+        <name>CheckMousePosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="37" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="37" bodyend="52"/>
+        <references refid="class_hand_manager_1ad5d02868c6ce362ad2c1f4d4ee57a42c" compoundref="_hand_manager_8cs" startline="15">cardLayer</references>
+        <references refid="class_hand_manager_1a3f191cc44b3c779f57dfdab088ee2ea5" compoundref="_hand_manager_8cs" startline="190">currentFocusCard</references>
+        <references refid="class_hand_manager_1ac0b2e84c840635faa05ec6b801a8221a" compoundref="_hand_manager_8cs" startline="210">isBeginDrag</references>
+        <references refid="class_hand_manager_1a8b2fb6d5c57f3dfaa168816c28a0f76d" compoundref="_hand_manager_8cs" startline="261" endline="269">returnToSmaller</references>
+        <referencedby refid="class_hand_manager_1a0f53a5210deec9382214ee0bd600c792" compoundref="_hand_manager_8cs" startline="32" endline="35">Update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a36bfb5c49895d38dc31108d74fc78ed6" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.becomeBigger</definition>
+        <argsstring>(Card focusCard)</argsstring>
+        <name>becomeBigger</name>
+        <param>
+          <type><ref refid="class_card" kindref="compound">Card</ref></type>
+          <declname>focusCard</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="223" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="223" bodyend="259"/>
+        <references refid="class_game_manager_1aa8ae3b8dc2d8b89393eb819aaa575951" compoundref="_game_manager_8cs" startline="65">GameManager.CanTestEnemyCards</references>
+        <references refid="class_hand_manager_1ab018f274c96ad12c22f801035a2026d3" compoundref="_hand_manager_8cs" startline="118">defaultCardRotation</references>
+        <references refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" compoundref="_game_manager_8cs" startline="5">GameManager.GM</references>
+        <references refid="class_hand_manager_1ac0b2e84c840635faa05ec6b801a8221a" compoundref="_hand_manager_8cs" startline="210">isBeginDrag</references>
+        <references refid="class_hand_manager_1a87228743636190e8675c0a2b98bdb3d7" compoundref="_hand_manager_8cs" startline="221">PullOutCardSize</references>
+        <references refid="class_player_1aa6cdd6927d7639b4f8973c337724e35f" compoundref="_player_8cs" startline="7">Player.WhichPlayer</references>
+        <referencedby refid="class_hand_manager_1a18e83dae10a2cc6061640b5c5afb0c86" compoundref="_hand_manager_8cs" startline="191" endline="199">CardOnMouseEnter</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a8b2fb6d5c57f3dfaa168816c28a0f76d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.returnToSmaller</definition>
+        <argsstring>(Card lostFocusCard)</argsstring>
+        <name>returnToSmaller</name>
+        <param>
+          <type><ref refid="class_card" kindref="compound">Card</ref></type>
+          <declname>lostFocusCard</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="261" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="261" bodyend="269"/>
+        <references refid="class_game_manager_1aa8ae3b8dc2d8b89393eb819aaa575951" compoundref="_game_manager_8cs" startline="65">GameManager.CanTestEnemyCards</references>
+        <references refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" compoundref="_game_manager_8cs" startline="5">GameManager.GM</references>
+        <references refid="class_hand_manager_1ac0b2e84c840635faa05ec6b801a8221a" compoundref="_hand_manager_8cs" startline="210">isBeginDrag</references>
+        <references refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</references>
+        <references refid="class_player_1aa6cdd6927d7639b4f8973c337724e35f" compoundref="_player_8cs" startline="7">Player.WhichPlayer</references>
+        <referencedby refid="class_hand_manager_1a21abde0acb6ce84f6bb9474ff1f7957b" compoundref="_hand_manager_8cs" startline="201" endline="208">CardColliderReplaceOnMouseExit</referencedby>
+        <referencedby refid="class_hand_manager_1a18e83dae10a2cc6061640b5c5afb0c86" compoundref="_hand_manager_8cs" startline="191" endline="199">CardOnMouseEnter</referencedby>
+        <referencedby refid="class_hand_manager_1a4e1ac791e66c626a77fdfae5ca22e193" compoundref="_hand_manager_8cs" startline="37" endline="52">CheckMousePosition</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-func">
+      <memberdef kind="function" id="class_hand_manager_1affd66865ef211ca521b2fb86bc7c9a86" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.DrawCards</definition>
+        <argsstring>(int number)</argsstring>
+        <name>DrawCards</name>
+        <param>
+          <type>int</type>
+          <declname>number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="54" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="54" bodyend="60"/>
+        <references refid="class_hand_manager_1a119130c9237e86cea5531aaea371fa91" compoundref="_hand_manager_8cs" startline="62" endline="80">DrawCard</references>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a119130c9237e86cea5531aaea371fa91" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.DrawCard</definition>
+        <argsstring>()</argsstring>
+        <name>DrawCard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="62" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="62" bodyend="80"/>
+        <references refid="class_hand_manager_1a0e70db770453f2a8ee6f27367e06a278" compoundref="_hand_manager_8cs" startline="11">cardNumber</references>
+        <references refid="class_hand_manager_1adc361afc2404179b54533c5e685969ad" compoundref="_hand_manager_8cs" startline="7">Player</references>
+        <references refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</references>
+        <referencedby refid="class_hand_manager_1affd66865ef211ca521b2fb86bc7c9a86" compoundref="_hand_manager_8cs" startline="54" endline="60">DrawCards</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a4870b97ce970377c8015394682ecee33" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.GetACardByID</definition>
+        <argsstring>(int cardID)</argsstring>
+        <name>GetACardByID</name>
+        <param>
+          <type>int</type>
+          <declname>cardID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="82" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="82" bodyend="89"/>
+        <references refid="class_hand_manager_1a0e70db770453f2a8ee6f27367e06a278" compoundref="_hand_manager_8cs" startline="11">cardNumber</references>
+        <references refid="class_hand_manager_1adc361afc2404179b54533c5e685969ad" compoundref="_hand_manager_8cs" startline="7">Player</references>
+        <references refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</references>
+        <referencedby refid="class_round_manager_1a9412ca1bc488d6cc4a7cf23a2e77c7b4" compoundref="_round_manager_8cs" startline="32" endline="44">RoundManager.Start</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a601e5dee17ca9089a419e3904a021595" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.DrawRetinueCard</definition>
+        <argsstring>()</argsstring>
+        <name>DrawRetinueCard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="91" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="91" bodyend="102"/>
+        <references refid="class_hand_manager_1a0e70db770453f2a8ee6f27367e06a278" compoundref="_hand_manager_8cs" startline="11">cardNumber</references>
+        <references refid="class_hand_manager_1adc361afc2404179b54533c5e685969ad" compoundref="_hand_manager_8cs" startline="7">Player</references>
+        <references refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</references>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a7d83c0042b34447f078863949c406349" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.DropFirstCard</definition>
+        <argsstring>()</argsstring>
+        <name>DropFirstCard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="104" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="104" bodyend="107"/>
+        <references refid="class_hand_manager_1afa114f24ff1b8be3f37568a12629c150" compoundref="_hand_manager_8cs" startline="12">cards</references>
+        <references refid="class_hand_manager_1a3fa2c6dfc69e9ce87a7ef23d20591eb9" compoundref="_hand_manager_8cs" startline="109" endline="114">DropCard</references>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a3fa2c6dfc69e9ce87a7ef23d20591eb9" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.DropCard</definition>
+        <argsstring>(Card dropCard)</argsstring>
+        <name>DropCard</name>
+        <param>
+          <type><ref refid="class_card" kindref="compound">Card</ref></type>
+          <declname>dropCard</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="109" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="109" bodyend="114"/>
+        <references refid="class_hand_manager_1a0e70db770453f2a8ee6f27367e06a278" compoundref="_hand_manager_8cs" startline="11">cardNumber</references>
+        <references refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">RefreshCardsPlace</references>
+        <referencedby refid="class_hand_manager_1a7d83c0042b34447f078863949c406349" compoundref="_hand_manager_8cs" startline="104" endline="107">DropFirstCard</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a814a961eaabd58d302527885017b326e" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.RefreshCardsPlace</definition>
+        <argsstring>()</argsstring>
+        <name>RefreshCardsPlace</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="123" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="123" bodyend="183"/>
+        <references refid="class_hand_manager_1a27064b005bd148c13ccc848fe9ed78ec" compoundref="_hand_manager_8cs" startline="9">anglesDict</references>
+        <references refid="class_game_manager_1aa8ae3b8dc2d8b89393eb819aaa575951" compoundref="_game_manager_8cs" startline="65">GameManager.CanTestEnemyCards</references>
+        <references refid="class_hand_manager_1a0e70db770453f2a8ee6f27367e06a278" compoundref="_hand_manager_8cs" startline="11">cardNumber</references>
+        <references refid="class_hand_manager_1afa114f24ff1b8be3f37568a12629c150" compoundref="_hand_manager_8cs" startline="12">cards</references>
+        <references refid="class_hand_manager_1a1bf2c3f689c0b2a93edbf6cd4866b43e" compoundref="_hand_manager_8cs" startline="120">defaultCardPosition</references>
+        <references refid="class_hand_manager_1ab018f274c96ad12c22f801035a2026d3" compoundref="_hand_manager_8cs" startline="118">defaultCardRotation</references>
+        <references refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" compoundref="_game_manager_8cs" startline="5">GameManager.GM</references>
+        <references refid="class_hand_manager_1ad831474dac2ed6c540ec8bdd67a72efd" compoundref="_hand_manager_8cs" startline="17">HandCardSize</references>
+        <references refid="class_hand_manager_1a616ccf6a3284c619453709211d138e15" compoundref="_hand_manager_8cs" startline="10">horrizonDistanceDict</references>
+        <references refid="class_hand_manager_1a7bd05c2af7c6435d27e7c7282021fa97" compoundref="_hand_manager_8cs" startline="121">isSet_defaultCardPosition</references>
+        <references refid="class_hand_manager_1a652e374b9fa6d6b3432fda21e8d9ff72" compoundref="_hand_manager_8cs" startline="119">isSet_defaultCardRotation</references>
+        <references refid="class_player_1aa6cdd6927d7639b4f8973c337724e35f" compoundref="_player_8cs" startline="7">Player.WhichPlayer</references>
+        <referencedby refid="class_hand_manager_1a119130c9237e86cea5531aaea371fa91" compoundref="_hand_manager_8cs" startline="62" endline="80">DrawCard</referencedby>
+        <referencedby refid="class_hand_manager_1a601e5dee17ca9089a419e3904a021595" compoundref="_hand_manager_8cs" startline="91" endline="102">DrawRetinueCard</referencedby>
+        <referencedby refid="class_hand_manager_1a3fa2c6dfc69e9ce87a7ef23d20591eb9" compoundref="_hand_manager_8cs" startline="109" endline="114">DropCard</referencedby>
+        <referencedby refid="class_hand_manager_1a4870b97ce970377c8015394682ecee33" compoundref="_hand_manager_8cs" startline="82" endline="89">GetACardByID</referencedby>
+        <referencedby refid="class_hand_manager_1a8b2fb6d5c57f3dfaa168816c28a0f76d" compoundref="_hand_manager_8cs" startline="261" endline="269">returnToSmaller</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1aa85b191eb2300a405a1e9f6d540c5961" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.RefreshAllCardUsable</definition>
+        <argsstring>()</argsstring>
+        <name>RefreshAllCardUsable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="185" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="185" bodyend="188"/>
+        <references refid="class_hand_manager_1afa114f24ff1b8be3f37568a12629c150" compoundref="_hand_manager_8cs" startline="12">cards</references>
+        <references refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" compoundref="_player_8cs" startline="38">Player.CostLeft</references>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a18e83dae10a2cc6061640b5c5afb0c86" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.CardOnMouseEnter</definition>
+        <argsstring>(Card focusCard)</argsstring>
+        <name>CardOnMouseEnter</name>
+        <param>
+          <type><ref refid="class_card" kindref="compound">Card</ref></type>
+          <declname>focusCard</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="191" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="191" bodyend="199"/>
+        <references refid="class_hand_manager_1a36bfb5c49895d38dc31108d74fc78ed6" compoundref="_hand_manager_8cs" startline="223" endline="259">becomeBigger</references>
+        <references refid="class_hand_manager_1a3f191cc44b3c779f57dfdab088ee2ea5" compoundref="_hand_manager_8cs" startline="190">currentFocusCard</references>
+        <references refid="class_hand_manager_1a8b2fb6d5c57f3dfaa168816c28a0f76d" compoundref="_hand_manager_8cs" startline="261" endline="269">returnToSmaller</references>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a21abde0acb6ce84f6bb9474ff1f7957b" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.CardColliderReplaceOnMouseExit</definition>
+        <argsstring>(Card lostFocusCard)</argsstring>
+        <name>CardColliderReplaceOnMouseExit</name>
+        <param>
+          <type><ref refid="class_card" kindref="compound">Card</ref></type>
+          <declname>lostFocusCard</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="201" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="201" bodyend="208"/>
+        <references refid="class_hand_manager_1a3f191cc44b3c779f57dfdab088ee2ea5" compoundref="_hand_manager_8cs" startline="190">currentFocusCard</references>
+        <references refid="class_hand_manager_1a8b2fb6d5c57f3dfaa168816c28a0f76d" compoundref="_hand_manager_8cs" startline="261" endline="269">returnToSmaller</references>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a86f68de8a62b95f78e0a590929b63e51" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.BeginDrag</definition>
+        <argsstring>()</argsstring>
+        <name>BeginDrag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="211" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="211" bodyend="214"/>
+        <references refid="class_hand_manager_1ac0b2e84c840635faa05ec6b801a8221a" compoundref="_hand_manager_8cs" startline="210">isBeginDrag</references>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1abcc4139e2ffcc948ca4522c169c22e38" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.EndDrag</definition>
+        <argsstring>()</argsstring>
+        <name>EndDrag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="216" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="216" bodyend="219"/>
+        <references refid="class_hand_manager_1ac0b2e84c840635faa05ec6b801a8221a" compoundref="_hand_manager_8cs" startline="210">isBeginDrag</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_hand_manager_1a08a6477c56bed9f760edec201c2f7990" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.BeginRound</definition>
+        <argsstring>()</argsstring>
+        <name>BeginRound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="271" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="271" bodyend="274"/>
+        <references refid="class_hand_manager_1afa114f24ff1b8be3f37568a12629c150" compoundref="_hand_manager_8cs" startline="12">cards</references>
+      </memberdef>
+      <memberdef kind="function" id="class_hand_manager_1a2d1751c760eec76bd4ae09479f9715d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HandManager.EndRound</definition>
+        <argsstring>()</argsstring>
+        <name>EndRound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="276" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="276" bodyend="279"/>
+        <references refid="class_hand_manager_1afa114f24ff1b8be3f37568a12629c150" compoundref="_hand_manager_8cs" startline="12">cards</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="253">
+        <label>HandManager</label>
+        <link refid="class_hand_manager"/>
+        <childnode refid="254" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="254">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="268">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="267">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="256" relation="public-inheritance">
+        </childnode>
+        <childnode refid="263" relation="public-inheritance">
+        </childnode>
+        <childnode refid="265" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+      </node>
+      <node id="263">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="265">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="256" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="258">
+        <label>BattleGroundManager</label>
+        <link refid="class_battle_ground_manager"/>
+        <childnode refid="256" relation="public-inheritance">
+        </childnode>
+        <childnode refid="257" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="266">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="256" relation="public-inheritance">
+        </childnode>
+        <childnode refid="263" relation="public-inheritance">
+        </childnode>
+        <childnode refid="265" relation="usage">
+          <edgelabel>childrenPool</edgelabel>
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="267" relation="usage">
+          <edgelabel>cardNumbers</edgelabel>
+        </childnode>
+      </node>
+      <node id="264">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="261">
+        <label>CardDeck</label>
+        <link refid="class_card_deck"/>
+        <childnode refid="260" relation="usage">
+          <edgelabel>M_CardDeckInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="255">
+        <label>HandManager</label>
+        <link refid="class_hand_manager"/>
+        <childnode refid="256" relation="public-inheritance">
+        </childnode>
+        <childnode refid="257" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="262" relation="usage">
+          <edgelabel>currentFocusCard</edgelabel>
+        </childnode>
+      </node>
+      <node id="262">
+        <label>Card</label>
+        <link refid="class_card"/>
+        <childnode refid="256" relation="public-inheritance">
+        </childnode>
+        <childnode refid="263" relation="public-inheritance">
+        </childnode>
+        <childnode refid="264" relation="public-inheritance">
+        </childnode>
+        <childnode refid="265" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="266" relation="usage">
+          <edgelabel>CardNumberSet_Cost</edgelabel>
+        </childnode>
+        <childnode refid="268" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+        </childnode>
+        <childnode refid="269" relation="usage">
+          <edgelabel>myColliderReplace</edgelabel>
+        </childnode>
+        <childnode refid="257" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="256">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="257">
+        <label>Player</label>
+        <link refid="class_player"/>
+        <childnode refid="255" relation="usage">
+          <edgelabel>MyHandManager</edgelabel>
+        </childnode>
+        <childnode refid="258" relation="usage">
+          <edgelabel>MyBattleGroundManager</edgelabel>
+        </childnode>
+        <childnode refid="259" relation="usage">
+          <edgelabel>MyCardDeckManager</edgelabel>
+        </childnode>
+      </node>
+      <node id="260">
+        <label>CardDeckInfo</label>
+        <link refid="struct_card_deck_info"/>
+      </node>
+      <node id="259">
+        <label>CardDeckManager</label>
+        <link refid="class_card_deck_manager"/>
+        <childnode refid="256" relation="public-inheritance">
+        </childnode>
+        <childnode refid="260" relation="usage">
+          <edgelabel>M_UnlockCards</edgelabel>
+          <edgelabel>M_LockCards</edgelabel>
+        </childnode>
+        <childnode refid="261" relation="usage">
+          <edgelabel>M_CurrentCardDeck</edgelabel>
+        </childnode>
+        <childnode refid="257" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="269">
+        <label>ColliderReplace</label>
+        <link refid="class_collider_replace"/>
+        <childnode refid="256" relation="public-inheritance">
+        </childnode>
+        <childnode refid="262" relation="usage">
+          <edgelabel>MyCallerCard</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" line="6" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/HandManager.cs" bodystart="5" bodyend="281"/>
+    <listofallmembers>
+      <member refid="class_hand_manager_1a27064b005bd148c13ccc848fe9ed78ec" prot="private" virt="non-virtual"><scope>HandManager</scope><name>anglesDict</name></member>
+      <member refid="class_hand_manager_1af998ff3e973b98c521eae62641c22a9c" prot="private" virt="non-virtual"><scope>HandManager</scope><name>Awake</name></member>
+      <member refid="class_hand_manager_1a36bfb5c49895d38dc31108d74fc78ed6" prot="private" virt="non-virtual"><scope>HandManager</scope><name>becomeBigger</name></member>
+      <member refid="class_hand_manager_1a86f68de8a62b95f78e0a590929b63e51" prot="package" virt="non-virtual"><scope>HandManager</scope><name>BeginDrag</name></member>
+      <member refid="class_hand_manager_1a08a6477c56bed9f760edec201c2f7990" prot="public" virt="non-virtual"><scope>HandManager</scope><name>BeginRound</name></member>
+      <member refid="class_hand_manager_1a21abde0acb6ce84f6bb9474ff1f7957b" prot="package" virt="non-virtual"><scope>HandManager</scope><name>CardColliderReplaceOnMouseExit</name></member>
+      <member refid="class_hand_manager_1ad5d02868c6ce362ad2c1f4d4ee57a42c" prot="private" virt="non-virtual"><scope>HandManager</scope><name>cardLayer</name></member>
+      <member refid="class_hand_manager_1a0e70db770453f2a8ee6f27367e06a278" prot="public" virt="non-virtual"><scope>HandManager</scope><name>cardNumber</name></member>
+      <member refid="class_hand_manager_1a18e83dae10a2cc6061640b5c5afb0c86" prot="package" virt="non-virtual"><scope>HandManager</scope><name>CardOnMouseEnter</name></member>
+      <member refid="class_hand_manager_1afa114f24ff1b8be3f37568a12629c150" prot="private" virt="non-virtual"><scope>HandManager</scope><name>cards</name></member>
+      <member refid="class_hand_manager_1a4e1ac791e66c626a77fdfae5ca22e193" prot="private" virt="non-virtual"><scope>HandManager</scope><name>CheckMousePosition</name></member>
+      <member refid="class_hand_manager_1a3f191cc44b3c779f57dfdab088ee2ea5" prot="private" virt="non-virtual"><scope>HandManager</scope><name>currentFocusCard</name></member>
+      <member refid="class_hand_manager_1a1bf2c3f689c0b2a93edbf6cd4866b43e" prot="private" virt="non-virtual"><scope>HandManager</scope><name>defaultCardPosition</name></member>
+      <member refid="class_hand_manager_1ab018f274c96ad12c22f801035a2026d3" prot="private" virt="non-virtual"><scope>HandManager</scope><name>defaultCardRotation</name></member>
+      <member refid="class_hand_manager_1a119130c9237e86cea5531aaea371fa91" prot="package" virt="non-virtual"><scope>HandManager</scope><name>DrawCard</name></member>
+      <member refid="class_hand_manager_1affd66865ef211ca521b2fb86bc7c9a86" prot="package" virt="non-virtual"><scope>HandManager</scope><name>DrawCards</name></member>
+      <member refid="class_hand_manager_1a601e5dee17ca9089a419e3904a021595" prot="package" virt="non-virtual"><scope>HandManager</scope><name>DrawRetinueCard</name></member>
+      <member refid="class_hand_manager_1a3fa2c6dfc69e9ce87a7ef23d20591eb9" prot="package" virt="non-virtual"><scope>HandManager</scope><name>DropCard</name></member>
+      <member refid="class_hand_manager_1a7d83c0042b34447f078863949c406349" prot="package" virt="non-virtual"><scope>HandManager</scope><name>DropFirstCard</name></member>
+      <member refid="class_hand_manager_1abcc4139e2ffcc948ca4522c169c22e38" prot="package" virt="non-virtual"><scope>HandManager</scope><name>EndDrag</name></member>
+      <member refid="class_hand_manager_1a2d1751c760eec76bd4ae09479f9715d9" prot="public" virt="non-virtual"><scope>HandManager</scope><name>EndRound</name></member>
+      <member refid="class_hand_manager_1a4870b97ce970377c8015394682ecee33" prot="package" virt="non-virtual"><scope>HandManager</scope><name>GetACardByID</name></member>
+      <member refid="class_hand_manager_1ad831474dac2ed6c540ec8bdd67a72efd" prot="public" virt="non-virtual"><scope>HandManager</scope><name>HandCardSize</name></member>
+      <member refid="class_hand_manager_1a616ccf6a3284c619453709211d138e15" prot="private" virt="non-virtual"><scope>HandManager</scope><name>horrizonDistanceDict</name></member>
+      <member refid="class_hand_manager_1ac0b2e84c840635faa05ec6b801a8221a" prot="private" virt="non-virtual"><scope>HandManager</scope><name>isBeginDrag</name></member>
+      <member refid="class_hand_manager_1a7bd05c2af7c6435d27e7c7282021fa97" prot="private" virt="non-virtual"><scope>HandManager</scope><name>isSet_defaultCardPosition</name></member>
+      <member refid="class_hand_manager_1a652e374b9fa6d6b3432fda21e8d9ff72" prot="private" virt="non-virtual"><scope>HandManager</scope><name>isSet_defaultCardRotation</name></member>
+      <member refid="class_hand_manager_1adc361afc2404179b54533c5e685969ad" prot="package" virt="non-virtual"><scope>HandManager</scope><name>Player</name></member>
+      <member refid="class_hand_manager_1a87228743636190e8675c0a2b98bdb3d7" prot="public" virt="non-virtual"><scope>HandManager</scope><name>PullOutCardSize</name></member>
+      <member refid="class_hand_manager_1aa85b191eb2300a405a1e9f6d540c5961" prot="package" virt="non-virtual"><scope>HandManager</scope><name>RefreshAllCardUsable</name></member>
+      <member refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" prot="package" virt="non-virtual"><scope>HandManager</scope><name>RefreshCardsPlace</name></member>
+      <member refid="class_hand_manager_1a17a74790d7e5b00995ee15ef750f4202" prot="private" virt="non-virtual"><scope>HandManager</scope><name>retinueLayer</name></member>
+      <member refid="class_hand_manager_1a8b2fb6d5c57f3dfaa168816c28a0f76d" prot="private" virt="non-virtual"><scope>HandManager</scope><name>returnToSmaller</name></member>
+      <member refid="class_hand_manager_1a3966e3d660017861052b690e8c079cb7" prot="private" virt="non-virtual"><scope>HandManager</scope><name>Start</name></member>
+      <member refid="class_hand_manager_1a0f53a5210deec9382214ee0bd600c792" prot="private" virt="non-virtual"><scope>HandManager</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

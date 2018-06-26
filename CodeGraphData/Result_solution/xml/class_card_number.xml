@@ -1,0 +1,276 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_card_number" kind="class" prot="public">
+    <compoundname>CardNumber</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+    <basecompoundref refid="interface_i_game_object_pool" prot="public" virt="non-virtual">IGameObjectPool</basecompoundref>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_card_number_1a01b471937c85bce2d48039d26f936a24" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool CardNumber.gameObjectPool</definition>
+        <argsstring></argsstring>
+        <name>gameObjectPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="6" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="6" bodyend="-1"/>
+        <referencedby refid="class_card_number_1a0669e988e4ed4e103cbe6826b9788053" compoundref="_card_number_8cs" startline="17" endline="34">Awake</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_card_number_1a7ee396620c53de22730a7d78cebd1d5b" prot="private" static="no" mutable="no">
+        <type>MaterialPropertyBlock</type>
+        <definition>MaterialPropertyBlock CardNumber.materialPropertyBlock</definition>
+        <argsstring></argsstring>
+        <name>materialPropertyBlock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="14" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="14" bodyend="-1"/>
+        <referencedby refid="class_card_number_1a0669e988e4ed4e103cbe6826b9788053" compoundref="_card_number_8cs" startline="17" endline="34">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_1aa48db67ca27b1fe22b7cac46068e839a" prot="private" static="no" mutable="no">
+        <type>new Renderer</type>
+        <definition>new Renderer CardNumber.renderer</definition>
+        <argsstring></argsstring>
+        <name>renderer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="15" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="15" bodyend="-1"/>
+        <referencedby refid="class_card_number_1a0669e988e4ed4e103cbe6826b9788053" compoundref="_card_number_8cs" startline="17" endline="34">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_1ac02d8afdd6ffa83f02a76d366bda6170" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CardNumber.number</definition>
+        <argsstring></argsstring>
+        <name>number</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="47" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_1a5d82bfe5ee0c8625c9e3679920e75a6d" prot="private" static="no" mutable="no">
+        <type><ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kindref="member">NumberSize</ref></type>
+        <definition>NumberSize CardNumber.MyNumberSize</definition>
+        <argsstring></argsstring>
+        <name>MyNumberSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="67" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="67" bodyend="-1"/>
+        <referencedby refid="class_card_number_1a0669e988e4ed4e103cbe6826b9788053" compoundref="_card_number_8cs" startline="17" endline="34">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_1a85f021de5cab4fe4e8e073addedc3800" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CardNumber.hasSign</definition>
+        <argsstring></argsstring>
+        <name>hasSign</name>
+        <initializer>=false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="69" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="69" bodyend="-1"/>
+        <referencedby refid="class_card_number_1a7f8cfef2493717e750b9572ec9e185eb" compoundref="_card_number_8cs" startline="8" endline="12">PoolRecycle</referencedby>
+        <referencedby refid="class_card_number_1a29089e3816108af9b70b47535179f43c" compoundref="_card_number_8cs" startline="70" endline="87">SetSign</referencedby>
+        <referencedby refid="class_card_number_1af7d1bc63f14a05d1e2c9a1a8df595889" compoundref="_card_number_8cs" startline="36" endline="41">Start</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_card_number_1a505e8aaeadd65da75f30884604b15c9b" prot="public" static="no" mutable="no">
+        <type>Material[]</type>
+        <definition>Material [] CardNumber.NumberMaterial</definition>
+        <argsstring></argsstring>
+        <name>NumberMaterial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="43" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_card_number_1a56931d3e6826a5edc4a3153d27fce174" prot="public" static="no" mutable="no">
+        <type>Material[]</type>
+        <definition>Material [] CardNumber.NumberSignMaterial</definition>
+        <argsstring></argsstring>
+        <name>NumberSignMaterial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="45" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="45" bodyend="-1"/>
+        <referencedby refid="class_card_number_1a29089e3816108af9b70b47535179f43c" compoundref="_card_number_8cs" startline="70" endline="87">SetSign</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_card_number_1acc1e9c9ea19db93ddf9645865db35a60" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int CardNumber.Number</definition>
+        <argsstring></argsstring>
+        <name>Number</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="49" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="50" bodyend="-1"/>
+        <referencedby refid="class_card_number_1af7d1bc63f14a05d1e2c9a1a8df595889" compoundref="_card_number_8cs" startline="36" endline="41">Start</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_card_number_1a7f8cfef2493717e750b9572ec9e185eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumber.PoolRecycle</definition>
+        <argsstring>()</argsstring>
+        <name>PoolRecycle</name>
+        <reimplements refid="interface_i_game_object_pool_1abd937ee991da187c1025929afc6c64b6">PoolRecycle</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="8" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="8" bodyend="12"/>
+        <references refid="class_card_number_1a85f021de5cab4fe4e8e073addedc3800" compoundref="_card_number_8cs" startline="69">hasSign</references>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_1a29089e3816108af9b70b47535179f43c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumber.SetSign</definition>
+        <argsstring>(char sign)</argsstring>
+        <name>SetSign</name>
+        <param>
+          <type>char</type>
+          <declname>sign</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="70" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="70" bodyend="87"/>
+        <references refid="class_card_number_1a85f021de5cab4fe4e8e073addedc3800" compoundref="_card_number_8cs" startline="69">hasSign</references>
+        <references refid="class_card_number_1a56931d3e6826a5edc4a3153d27fce174" compoundref="_card_number_8cs" startline="45">NumberSignMaterial</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_card_number_1a0669e988e4ed4e103cbe6826b9788053" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumber.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="17" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="17" bodyend="34"/>
+        <references refid="class_card_number_1a01b471937c85bce2d48039d26f936a24" compoundref="_card_number_8cs" startline="6">gameObjectPool</references>
+        <references refid="class_card_number_1a7ee396620c53de22730a7d78cebd1d5b" compoundref="_card_number_8cs" startline="14">materialPropertyBlock</references>
+        <references refid="class_card_number_1a5d82bfe5ee0c8625c9e3679920e75a6d" compoundref="_card_number_8cs" startline="67">MyNumberSize</references>
+        <references refid="class_card_number_1aa48db67ca27b1fe22b7cac46068e839a" compoundref="_card_number_8cs" startline="15">renderer</references>
+      </memberdef>
+      <memberdef kind="function" id="class_card_number_1af7d1bc63f14a05d1e2c9a1a8df595889" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardNumber.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="36" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="36" bodyend="41"/>
+        <references refid="class_card_number_1a85f021de5cab4fe4e8e073addedc3800" compoundref="_card_number_8cs" startline="69">hasSign</references>
+        <references refid="class_card_number_1acc1e9c9ea19db93ddf9645865db35a60" compoundref="_card_number_8cs" startline="50">Number</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="155">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="156" relation="public-inheritance">
+        </childnode>
+        <childnode refid="157" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="157">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="156">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="158">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="159" relation="public-inheritance">
+        </childnode>
+        <childnode refid="160" relation="public-inheritance">
+        </childnode>
+        <childnode refid="161" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+      </node>
+      <node id="160">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="161">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="159" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="159">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" line="5" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/CardNumber.cs" bodystart="4" bodyend="88"/>
+    <listofallmembers>
+      <member refid="class_card_number_1a0669e988e4ed4e103cbe6826b9788053" prot="private" virt="non-virtual"><scope>CardNumber</scope><name>Awake</name></member>
+      <member refid="class_card_number_1a01b471937c85bce2d48039d26f936a24" prot="package" virt="non-virtual"><scope>CardNumber</scope><name>gameObjectPool</name></member>
+      <member refid="class_card_number_1a85f021de5cab4fe4e8e073addedc3800" prot="private" virt="non-virtual"><scope>CardNumber</scope><name>hasSign</name></member>
+      <member refid="class_card_number_1a7ee396620c53de22730a7d78cebd1d5b" prot="private" virt="non-virtual"><scope>CardNumber</scope><name>materialPropertyBlock</name></member>
+      <member refid="class_card_number_1a5d82bfe5ee0c8625c9e3679920e75a6d" prot="private" virt="non-virtual"><scope>CardNumber</scope><name>MyNumberSize</name></member>
+      <member refid="class_card_number_1ac02d8afdd6ffa83f02a76d366bda6170" prot="private" virt="non-virtual"><scope>CardNumber</scope><name>number</name></member>
+      <member refid="class_card_number_1acc1e9c9ea19db93ddf9645865db35a60" prot="public" virt="non-virtual"><scope>CardNumber</scope><name>Number</name></member>
+      <member refid="class_card_number_1a505e8aaeadd65da75f30884604b15c9b" prot="public" virt="non-virtual"><scope>CardNumber</scope><name>NumberMaterial</name></member>
+      <member refid="class_card_number_1a56931d3e6826a5edc4a3153d27fce174" prot="public" virt="non-virtual"><scope>CardNumber</scope><name>NumberSignMaterial</name></member>
+      <member refid="class_card_number_1a7f8cfef2493717e750b9572ec9e185eb" prot="public" virt="non-virtual"><scope>CardNumber</scope><name>PoolRecycle</name></member>
+      <member refid="class_card_number_1aa48db67ca27b1fe22b7cac46068e839a" prot="private" virt="non-virtual"><scope>CardNumber</scope><name>renderer</name></member>
+      <member refid="class_card_number_1a29089e3816108af9b70b47535179f43c" prot="public" virt="non-virtual"><scope>CardNumber</scope><name>SetSign</name></member>
+      <member refid="class_card_number_1af7d1bc63f14a05d1e2c9a1a8df595889" prot="private" virt="non-virtual"><scope>CardNumber</scope><name>Start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

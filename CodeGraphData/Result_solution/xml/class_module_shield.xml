@@ -1,0 +1,1228 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_module_shield" kind="class" prot="public">
+    <compoundname>ModuleShield</compoundname>
+    <basecompoundref refid="class_module_base" prot="public" virt="non-virtual">ModuleBase</basecompoundref>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_module_shield_1abd4672599bad479eb12401beaadbf63c" prot="package" static="no" mutable="no">
+        <type><ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref></type>
+        <definition>ModuleRetinue ModuleShield.M_ModuleRetinue</definition>
+        <argsstring></argsstring>
+        <name>M_ModuleRetinue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="22" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_module_shield_1a9824e98402f2b965c773bab385a81c1a" prot="public" static="no" mutable="no">
+        <type>TextMesh</type>
+        <definition>TextMesh ModuleShield.ShieldName</definition>
+        <argsstring></argsstring>
+        <name>ShieldName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="23" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a098d58669c52a402d76e80a323b062be" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleShield.M_Bloom</definition>
+        <argsstring></argsstring>
+        <name>M_Bloom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="24" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="24" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1ae31fa44225f3c6d4b92444f10b6b13b2" compoundref="_module_shield_8cs" startline="42" endline="52">Initiate</referencedby>
+        <referencedby refid="class_module_shield_1a4f06a3ab11c406a3ceef955691cfd553" compoundref="_module_shield_8cs" startline="237" endline="241">MouseHoverComponent_OnMouseEnterImmediately</referencedby>
+        <referencedby refid="class_module_shield_1a31909952cfcbc9655b3949bffa9ff5c7" compoundref="_module_shield_8cs" startline="253" endline="257">MouseHoverComponent_OnMouseLeaveImmediately</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a5bed91f46a0f612d27bd1d86daef8395" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleShield.Block_ShieldArmor</definition>
+        <argsstring></argsstring>
+        <name>Block_ShieldArmor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="26" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1abba75fe073e913f79c3017967a114346" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleShield.Block_ShieldArmorMax</definition>
+        <argsstring></argsstring>
+        <name>Block_ShieldArmorMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="30" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a4b4bf85dfd236e6428aac9cef9de9044" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleShield.Block_ShieldShield</definition>
+        <argsstring></argsstring>
+        <name>Block_ShieldShield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="34" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a77d8e141684325ded0d27a0ea4a564e8" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleShield.Block_ShieldShieldMax</definition>
+        <argsstring></argsstring>
+        <name>Block_ShieldShieldMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="38" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_module_shield_1a2d367ce112b38b0beff69119fa770b5e" prot="protected" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleShield.GoNumberSet_ShieldArmor</definition>
+        <argsstring></argsstring>
+        <name>GoNumberSet_ShieldArmor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="27" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a4fb32198c0c609a20a469e531f2100b2" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_card_number_set" kindref="compound">CardNumberSet</ref></type>
+        <definition>CardNumberSet ModuleShield.CardNumberSet_ShieldArmor</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSet_ShieldArmor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="28" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a15942c6d9ea777e17466f95438b6bd65" prot="protected" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleShield.GoNumberSet_ShieldArmorMax</definition>
+        <argsstring></argsstring>
+        <name>GoNumberSet_ShieldArmorMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="31" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1ae181b7f505df625b69810f24dca74c79" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_card_number_set" kindref="compound">CardNumberSet</ref></type>
+        <definition>CardNumberSet ModuleShield.CardNumberSet_ShieldArmorMax</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSet_ShieldArmorMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="32" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a8d8e44184844b99cad574205ee4649a0" prot="protected" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleShield.GoNumberSet_ShieldShield</definition>
+        <argsstring></argsstring>
+        <name>GoNumberSet_ShieldShield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="35" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a50a1acfe9edfc46dbc6b69c40ab37830" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_card_number_set" kindref="compound">CardNumberSet</ref></type>
+        <definition>CardNumberSet ModuleShield.CardNumberSet_ShieldShield</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSet_ShieldShield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="36" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a118e2bf643be57e7092d637320e4dc2d" prot="protected" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleShield.GoNumberSet_ShieldShieldMax</definition>
+        <argsstring></argsstring>
+        <name>GoNumberSet_ShieldShieldMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="39" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a655907126bace1e481a7a95ea79834f8" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_card_number_set" kindref="compound">CardNumberSet</ref></type>
+        <definition>CardNumberSet ModuleShield.CardNumberSet_ShieldShieldMax</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSet_ShieldShieldMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="40" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_module_shield_1a338b7e7393fa6de594798491c823bcae" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string ModuleShield.m_ShieldName</definition>
+        <argsstring></argsstring>
+        <name>m_ShieldName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="60" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1ac07bfc6775c01d93e6a7e57f4c845004" prot="private" static="no" mutable="no">
+        <type><ref refid="_module_shield_8cs_1ae2004e065c4cf39fc542e11bd74c5ae2" kindref="member">ShieldType</ref></type>
+        <definition>ShieldType ModuleShield.m_ShieldType</definition>
+        <argsstring></argsstring>
+        <name>m_ShieldType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="75" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1afb7d6a6d7ba2e5f7aba75ce3e83374b8" prot="private" static="no" mutable="no">
+        <type><ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kindref="member">NumberSize</ref></type>
+        <definition>NumberSize ModuleShield.my_NumberSize_Armor</definition>
+        <argsstring></argsstring>
+        <name>my_NumberSize_Armor</name>
+        <initializer>= <ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5a87f8a6ab85c9ced3702b4ea641ad4bb5" kindref="member">NumberSize.Medium</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="89" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="89" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a745d023c9e30c687704c581438b74524" prot="private" static="no" mutable="no">
+        <type><ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kindref="member">NumberSize</ref></type>
+        <definition>NumberSize ModuleShield.my_NumberSize_ArmorMax</definition>
+        <argsstring></argsstring>
+        <name>my_NumberSize_ArmorMax</name>
+        <initializer>= <ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5a87f8a6ab85c9ced3702b4ea641ad4bb5" kindref="member">NumberSize.Medium</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="90" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="90" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a77a32c7b013370e8d46ae6c645787f63" prot="private" static="no" mutable="no">
+        <type><ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kindref="member">NumberSize</ref></type>
+        <definition>NumberSize ModuleShield.my_NumberSize_Shield</definition>
+        <argsstring></argsstring>
+        <name>my_NumberSize_Shield</name>
+        <initializer>= <ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5a87f8a6ab85c9ced3702b4ea641ad4bb5" kindref="member">NumberSize.Medium</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="91" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="91" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1ad6cae5109ba18efdc56fb56b07cc5901" prot="private" static="no" mutable="no">
+        <type><ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kindref="member">NumberSize</ref></type>
+        <definition>NumberSize ModuleShield.my_NumberSize_ShieldMax</definition>
+        <argsstring></argsstring>
+        <name>my_NumberSize_ShieldMax</name>
+        <initializer>= <ref refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5a87f8a6ab85c9ced3702b4ea641ad4bb5" kindref="member">NumberSize.Medium</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="92" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="92" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a5902ac61a9876a79d5086aad57324389" prot="private" static="no" mutable="no">
+        <type><ref refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" kindref="member">CardNumberSet.TextAlign</ref></type>
+        <definition>CardNumberSet.TextAlign ModuleShield.my_TextAlign_Armor</definition>
+        <argsstring></argsstring>
+        <name>my_TextAlign_Armor</name>
+        <initializer>= CardNumberSet.TextAlign.Center</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="93" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="93" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a260a9fc21ae3210e32064eae4e459b45" prot="private" static="no" mutable="no">
+        <type><ref refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" kindref="member">CardNumberSet.TextAlign</ref></type>
+        <definition>CardNumberSet.TextAlign ModuleShield.my_TextAlign_ArmorMax</definition>
+        <argsstring></argsstring>
+        <name>my_TextAlign_ArmorMax</name>
+        <initializer>= CardNumberSet.TextAlign.Center</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="94" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="94" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1ab6368542d20975e944627e5d156107d5" prot="private" static="no" mutable="no">
+        <type><ref refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" kindref="member">CardNumberSet.TextAlign</ref></type>
+        <definition>CardNumberSet.TextAlign ModuleShield.my_TextAlign_Shield</definition>
+        <argsstring></argsstring>
+        <name>my_TextAlign_Shield</name>
+        <initializer>= CardNumberSet.TextAlign.Center</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="95" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="95" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a4b5af8ab368347ab9d04ed992e73b050" prot="private" static="no" mutable="no">
+        <type><ref refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" kindref="member">CardNumberSet.TextAlign</ref></type>
+        <definition>CardNumberSet.TextAlign ModuleShield.my_TextAlign_ShieldMax</definition>
+        <argsstring></argsstring>
+        <name>my_TextAlign_ShieldMax</name>
+        <initializer>= CardNumberSet.TextAlign.Center</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="96" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="96" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a238555752aa2ab95ce02322a529b746d" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ModuleShield.m_ShieldArmor</definition>
+        <argsstring></argsstring>
+        <name>m_ShieldArmor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="130" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a807ae6c19ff3d4adaa876349abbbcd22" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ModuleShield.m_ShieldArmorMax</definition>
+        <argsstring></argsstring>
+        <name>m_ShieldArmorMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="146" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a51a73c6d80364eb29ba379c1de7be973" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ModuleShield.m_ShieldShield</definition>
+        <argsstring></argsstring>
+        <name>m_ShieldShield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="159" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_shield_1a0249a67578e0fcdeab0963cc1e577c36" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ModuleShield.m_ShieldShieldMax</definition>
+        <argsstring></argsstring>
+        <name>m_ShieldShieldMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="174" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_module_shield_1acbdc364cd119613f6aba6862f51be3e7" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>string</type>
+        <definition>string ModuleShield.M_ShieldName</definition>
+        <argsstring></argsstring>
+        <name>M_ShieldName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="61" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="62" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1ae31fa44225f3c6d4b92444f10b6b13b2" compoundref="_module_shield_8cs" startline="42" endline="52">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_shield_1a47a216dc7528ffec8865eea9ff24cbd2" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type><ref refid="_module_shield_8cs_1ae2004e065c4cf39fc542e11bd74c5ae2" kindref="member">ShieldType</ref></type>
+        <definition>ShieldType ModuleShield.M_ShieldType</definition>
+        <argsstring></argsstring>
+        <name>M_ShieldType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="76" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="77" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1ae31fa44225f3c6d4b92444f10b6b13b2" compoundref="_module_shield_8cs" startline="42" endline="52">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_shield_1a2efa6dc2f6b2fbff07b6be78b3c21495" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int ModuleShield.M_ShieldArmor</definition>
+        <argsstring></argsstring>
+        <name>M_ShieldArmor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="131" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="132" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1ab07e6134485dca2ba76a200996cfdfe5" compoundref="_module_shield_8cs" startline="207" endline="221">ArmorBeAttacked</referencedby>
+        <referencedby refid="class_module_shield_1ae31fa44225f3c6d4b92444f10b6b13b2" compoundref="_module_shield_8cs" startline="42" endline="52">Initiate</referencedby>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+        <referencedby refid="class_module_shield_1a69c7cd4489a541ac44e986a9b4632de0" compoundref="_module_shield_8cs" startline="190" endline="205">ShieldBeAttacked</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_shield_1a6b2d1cd1583df72f752d8d177399e11b" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int ModuleShield.M_ShieldArmorMax</definition>
+        <argsstring></argsstring>
+        <name>M_ShieldArmorMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="147" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="147" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1ae31fa44225f3c6d4b92444f10b6b13b2" compoundref="_module_shield_8cs" startline="42" endline="52">Initiate</referencedby>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_shield_1ab65e1415fec997e1ddbe0781b8e9c5b6" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int ModuleShield.M_ShieldShield</definition>
+        <argsstring></argsstring>
+        <name>M_ShieldShield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="160" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="160" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1ab07e6134485dca2ba76a200996cfdfe5" compoundref="_module_shield_8cs" startline="207" endline="221">ArmorBeAttacked</referencedby>
+        <referencedby refid="class_module_shield_1ae31fa44225f3c6d4b92444f10b6b13b2" compoundref="_module_shield_8cs" startline="42" endline="52">Initiate</referencedby>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+        <referencedby refid="class_module_shield_1a69c7cd4489a541ac44e986a9b4632de0" compoundref="_module_shield_8cs" startline="190" endline="205">ShieldBeAttacked</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_shield_1a51343cec3af34f15d8a43a83f20e9374" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int ModuleShield.M_ShieldShieldMax</definition>
+        <argsstring></argsstring>
+        <name>M_ShieldShieldMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="175" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="175" bodyend="-1"/>
+        <referencedby refid="class_module_shield_1ae31fa44225f3c6d4b92444f10b6b13b2" compoundref="_module_shield_8cs" startline="42" endline="52">Initiate</referencedby>
+        <referencedby refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" compoundref="_module_shield_8cs" startline="114" endline="128">SetNoPreview</referencedby>
+        <referencedby refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" compoundref="_module_shield_8cs" startline="98" endline="112">SetPreview</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_module_shield_1aa24a5085d1af4f35a8b0572aa0227f3c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleShield.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="6" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="6" bodyend="9"/>
+        <references refid="class_module_base_1a3004f9a15f9b561ac8a48a987afcbc20" compoundref="_module_base_8cs" startline="8">ModuleBase.gameObjectPool</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1a0982deb8e04e964307eb47747806af93" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleShield.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="11" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="11" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1afeabb75bf8d6a55857390d2ab589cfd7" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleShield.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="16" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="16" bodyend="19"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_module_shield_1ae31fa44225f3c6d4b92444f10b6b13b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleShield.Initiate</definition>
+        <argsstring>(CardInfo_Base cardInfo, Player player)</argsstring>
+        <name>Initiate</name>
+        <reimplements refid="class_module_base_1a28c8a8b46907c75a385e063b3f1d31e6">Initiate</reimplements>
+        <param>
+          <type><ref refid="class_card_info___base" kindref="compound">CardInfo_Base</ref></type>
+          <declname>cardInfo</declname>
+        </param>
+        <param>
+          <type><ref refid="class_player" kindref="compound">Player</ref></type>
+          <declname>player</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="42" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="42" bodyend="52"/>
+        <references refid="class_module_shield_1a098d58669c52a402d76e80a323b062be" compoundref="_module_shield_8cs" startline="24">M_Bloom</references>
+        <references refid="class_module_shield_1a2efa6dc2f6b2fbff07b6be78b3c21495" compoundref="_module_shield_8cs" startline="132">M_ShieldArmor</references>
+        <references refid="class_module_shield_1a6b2d1cd1583df72f752d8d177399e11b" compoundref="_module_shield_8cs" startline="147">M_ShieldArmorMax</references>
+        <references refid="class_module_shield_1acbdc364cd119613f6aba6862f51be3e7" compoundref="_module_shield_8cs" startline="62">M_ShieldName</references>
+        <references refid="class_module_shield_1ab65e1415fec997e1ddbe0781b8e9c5b6" compoundref="_module_shield_8cs" startline="160">M_ShieldShield</references>
+        <references refid="class_module_shield_1a51343cec3af34f15d8a43a83f20e9374" compoundref="_module_shield_8cs" startline="175">M_ShieldShieldMax</references>
+        <references refid="class_module_shield_1a47a216dc7528ffec8865eea9ff24cbd2" compoundref="_module_shield_8cs" startline="77">M_ShieldType</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1a98bdf08329ea2656f9301af60e9bc1dc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override <ref refid="class_card_info___base" kindref="compound">CardInfo_Base</ref></type>
+        <definition>override CardInfo_Base ModuleShield.GetCurrentCardInfo</definition>
+        <argsstring>()</argsstring>
+        <name>GetCurrentCardInfo</name>
+        <reimplements refid="class_module_base_1a112d1b7a5557b812609f8a468c85c77b">GetCurrentCardInfo</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="54" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="54" bodyend="58"/>
+        <references refid="class_card_info___base_1a3f43915e514c2ca0fe79b9c3e5fc4775" compoundref="_card_info_8cs" startline="27">CardInfo_Base.CardDesc</references>
+        <references refid="class_card_info___base_1a3eac88d783986952c4fc088c47433c7b" compoundref="_card_info_8cs" startline="25">CardInfo_Base.CardID</references>
+        <references refid="class_module_base_1aaa3e4f9bee8e64b69641eb0118047f44" compoundref="_module_base_8cs" startline="33">ModuleBase.CardInfo</references>
+        <references refid="class_card_info___base_1aedf73a9c0861387c0421c647fc0fce27" compoundref="_card_info_8cs" startline="26">CardInfo_Base.CardName</references>
+        <references refid="class_card_info___base_1a229524b20f8888e027178156e30de923" compoundref="_card_info_8cs" startline="30">CardInfo_Base.CardType</references>
+        <references refid="class_card_info___base_1a40450fa880f7b03b229d22fb15203b04" compoundref="_card_info_8cs" startline="28">CardInfo_Base.Cost</references>
+        <references refid="class_card_info___base_1a7413ee18dae0615338e0d3ce225d2448" compoundref="_card_info_8cs" startline="29">CardInfo_Base.HasTarget</references>
+        <references refid="class_module_base_1a6ad7ab92a84787e2e715cf4bde0fb56b" compoundref="_module_base_8cs" startline="34">ModuleBase.ModuleCurrentCardInfo</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleShield.SetPreview</definition>
+        <argsstring>()</argsstring>
+        <name>SetPreview</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="98" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="98" bodyend="112"/>
+        <references refid="class_module_shield_1a2efa6dc2f6b2fbff07b6be78b3c21495" compoundref="_module_shield_8cs" startline="132">M_ShieldArmor</references>
+        <references refid="class_module_shield_1a6b2d1cd1583df72f752d8d177399e11b" compoundref="_module_shield_8cs" startline="147">M_ShieldArmorMax</references>
+        <references refid="class_module_shield_1ab65e1415fec997e1ddbe0781b8e9c5b6" compoundref="_module_shield_8cs" startline="160">M_ShieldShield</references>
+        <references refid="class_module_shield_1a51343cec3af34f15d8a43a83f20e9374" compoundref="_module_shield_8cs" startline="175">M_ShieldShieldMax</references>
+        <references refid="class_module_shield_1afb7d6a6d7ba2e5f7aba75ce3e83374b8" compoundref="_module_shield_8cs" startline="89">my_NumberSize_Armor</references>
+        <references refid="class_module_shield_1a745d023c9e30c687704c581438b74524" compoundref="_module_shield_8cs" startline="90">my_NumberSize_ArmorMax</references>
+        <references refid="class_module_shield_1a77a32c7b013370e8d46ae6c645787f63" compoundref="_module_shield_8cs" startline="91">my_NumberSize_Shield</references>
+        <references refid="class_module_shield_1ad6cae5109ba18efdc56fb56b07cc5901" compoundref="_module_shield_8cs" startline="92">my_NumberSize_ShieldMax</references>
+        <references refid="class_module_shield_1a5902ac61a9876a79d5086aad57324389" compoundref="_module_shield_8cs" startline="93">my_TextAlign_Armor</references>
+        <references refid="class_module_shield_1a260a9fc21ae3210e32064eae4e459b45" compoundref="_module_shield_8cs" startline="94">my_TextAlign_ArmorMax</references>
+        <references refid="class_module_shield_1ab6368542d20975e944627e5d156107d5" compoundref="_module_shield_8cs" startline="95">my_TextAlign_Shield</references>
+        <references refid="class_module_shield_1a4b5af8ab368347ab9d04ed992e73b050" compoundref="_module_shield_8cs" startline="96">my_TextAlign_ShieldMax</references>
+        <references refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5a2660064e68655415da2628c2ae2f7592">Small</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1a6dfc6b58232053be4941f43624650957" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleShield.SetNoPreview</definition>
+        <argsstring>()</argsstring>
+        <name>SetNoPreview</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="114" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="114" bodyend="128"/>
+        <references refid="class_module_shield_1a2efa6dc2f6b2fbff07b6be78b3c21495" compoundref="_module_shield_8cs" startline="132">M_ShieldArmor</references>
+        <references refid="class_module_shield_1a6b2d1cd1583df72f752d8d177399e11b" compoundref="_module_shield_8cs" startline="147">M_ShieldArmorMax</references>
+        <references refid="class_module_shield_1ab65e1415fec997e1ddbe0781b8e9c5b6" compoundref="_module_shield_8cs" startline="160">M_ShieldShield</references>
+        <references refid="class_module_shield_1a51343cec3af34f15d8a43a83f20e9374" compoundref="_module_shield_8cs" startline="175">M_ShieldShieldMax</references>
+        <references refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5a87f8a6ab85c9ced3702b4ea641ad4bb5">Medium</references>
+        <references refid="class_module_shield_1afb7d6a6d7ba2e5f7aba75ce3e83374b8" compoundref="_module_shield_8cs" startline="89">my_NumberSize_Armor</references>
+        <references refid="class_module_shield_1a745d023c9e30c687704c581438b74524" compoundref="_module_shield_8cs" startline="90">my_NumberSize_ArmorMax</references>
+        <references refid="class_module_shield_1a77a32c7b013370e8d46ae6c645787f63" compoundref="_module_shield_8cs" startline="91">my_NumberSize_Shield</references>
+        <references refid="class_module_shield_1ad6cae5109ba18efdc56fb56b07cc5901" compoundref="_module_shield_8cs" startline="92">my_NumberSize_ShieldMax</references>
+        <references refid="class_module_shield_1a5902ac61a9876a79d5086aad57324389" compoundref="_module_shield_8cs" startline="93">my_TextAlign_Armor</references>
+        <references refid="class_module_shield_1a260a9fc21ae3210e32064eae4e459b45" compoundref="_module_shield_8cs" startline="94">my_TextAlign_ArmorMax</references>
+        <references refid="class_module_shield_1ab6368542d20975e944627e5d156107d5" compoundref="_module_shield_8cs" startline="95">my_TextAlign_Shield</references>
+        <references refid="class_module_shield_1a4b5af8ab368347ab9d04ed992e73b050" compoundref="_module_shield_8cs" startline="96">my_TextAlign_ShieldMax</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1a69c7cd4489a541ac44e986a9b4632de0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int ModuleShield.ShieldBeAttacked</definition>
+        <argsstring>(int attackValue)</argsstring>
+        <name>ShieldBeAttacked</name>
+        <param>
+          <type>int</type>
+          <declname>attackValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="190" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="190" bodyend="205"/>
+        <references refid="class_module_shield_1a2efa6dc2f6b2fbff07b6be78b3c21495" compoundref="_module_shield_8cs" startline="132">M_ShieldArmor</references>
+        <references refid="class_module_shield_1ab65e1415fec997e1ddbe0781b8e9c5b6" compoundref="_module_shield_8cs" startline="160">M_ShieldShield</references>
+        <references refid="class_module_base_1a8abe2a0ed59a34a4ee3975f5e0f1dd73" compoundref="_module_base_8cs" startline="11" endline="31">ModuleBase.PoolRecycle</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1ab07e6134485dca2ba76a200996cfdfe5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int ModuleShield.ArmorBeAttacked</definition>
+        <argsstring>(int attackValue)</argsstring>
+        <name>ArmorBeAttacked</name>
+        <param>
+          <type>int</type>
+          <declname>attackValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="207" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="207" bodyend="221"/>
+        <references refid="class_module_shield_1a2efa6dc2f6b2fbff07b6be78b3c21495" compoundref="_module_shield_8cs" startline="132">M_ShieldArmor</references>
+        <references refid="class_module_shield_1ab65e1415fec997e1ddbe0781b8e9c5b6" compoundref="_module_shield_8cs" startline="160">M_ShieldShield</references>
+        <references refid="class_module_base_1a8abe2a0ed59a34a4ee3975f5e0f1dd73" compoundref="_module_base_8cs" startline="11" endline="31">ModuleBase.PoolRecycle</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1a65b7a92ec012525231ebe7016a05db6d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleShield.DragComponent_OnMouseUp</definition>
+        <argsstring>(BoardAreaTypes boardAreaType, List&lt; SlotAnchor &gt; slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)</argsstring>
+        <name>DragComponent_OnMouseUp</name>
+        <reimplements refid="class_module_base_1a94af5020595448dd0f7e3934d24555f8">DragComponent_OnMouseUp</reimplements>
+        <param>
+          <type><ref refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6d" kindref="member">BoardAreaTypes</ref></type>
+          <declname>boardAreaType</declname>
+        </param>
+        <param>
+          <type>List&lt; <ref refid="class_slot_anchor" kindref="compound">SlotAnchor</ref> &gt;</type>
+          <declname>slotAnchors</declname>
+        </param>
+        <param>
+          <type><ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref></type>
+          <declname>moduleRetinue</declname>
+        </param>
+        <param>
+          <type>Vector3</type>
+          <declname>dragLastPosition</declname>
+        </param>
+        <param>
+          <type>Vector3</type>
+          <declname>dragBeginPosition</declname>
+        </param>
+        <param>
+          <type>Quaternion</type>
+          <declname>dragBeginQuaternion</declname>
+        </param>
+        <briefdescription>
+<para>传达鼠标左键松开时的鼠标位置信息 </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>boardAreaType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>移动到了战场的哪个区域</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>slotAnchors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>移动到了哪个slot上</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>moduleRetinue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>移动到了哪个随从上</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dragLastPosition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>移动的最后位置</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dragBeginPosition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>移动的初始位置</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dragBeginQuaternion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>被拖动对象的初始旋转</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="223" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="223" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1a7368ef1426de28471920520506c878b7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleShield.DragComponent_SetStates</definition>
+        <argsstring>(ref bool canDrag, ref bool hasTarget)</argsstring>
+        <name>DragComponent_SetStates</name>
+        <reimplements refid="class_module_base_1a48067d070eb5ff497e1515a4772f3d9c">DragComponent_SetStates</reimplements>
+        <param>
+          <type>ref bool</type>
+          <declname>canDrag</declname>
+        </param>
+        <param>
+          <type>ref bool</type>
+          <declname>hasTarget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="231" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="231" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1a4f06a3ab11c406a3ceef955691cfd553" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleShield.MouseHoverComponent_OnMouseEnterImmediately</definition>
+        <argsstring>(Vector3 mousePosition)</argsstring>
+        <name>MouseHoverComponent_OnMouseEnterImmediately</name>
+        <reimplements refid="class_module_base_1ab4144de08615cecdf7c0ad9c383f7b1e">MouseHoverComponent_OnMouseEnterImmediately</reimplements>
+        <param>
+          <type>Vector3</type>
+          <declname>mousePosition</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="237" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="237" bodyend="241"/>
+        <references refid="class_module_shield_1a098d58669c52a402d76e80a323b062be" compoundref="_module_shield_8cs" startline="24">M_Bloom</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1abdbef91e83b7a103549f757c14fb1e96" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleShield.MouseHoverComponent_OnMouseOver</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseOver</name>
+        <reimplements refid="class_module_base_1a44f0bdf95b974c5a12cd77fd15dad5cc">MouseHoverComponent_OnMouseOver</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="243" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="243" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1a6f6b111dd847cfad12b0bd781ae058c2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleShield.MouseHoverComponent_OnMouseLeave</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseLeave</name>
+        <reimplements refid="class_module_base_1a78a8d6863f120ad960db75fb26c44813">MouseHoverComponent_OnMouseLeave</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="248" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="248" bodyend="251"/>
+      </memberdef>
+      <memberdef kind="function" id="class_module_shield_1a31909952cfcbc9655b3949bffa9ff5c7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleShield.MouseHoverComponent_OnMouseLeaveImmediately</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseLeaveImmediately</name>
+        <reimplements refid="class_module_base_1ae22763e44c441726038c6c43e6e70851">MouseHoverComponent_OnMouseLeaveImmediately</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="253" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="253" bodyend="257"/>
+        <references refid="class_module_shield_1a098d58669c52a402d76e80a323b062be" compoundref="_module_shield_8cs" startline="24">M_Bloom</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="356">
+        <label>ModuleShield</label>
+        <link refid="class_module_shield"/>
+        <childnode refid="357" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="359">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="360">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="361">
+        <label>IMouseHoverComponent</label>
+        <link refid="interface_i_mouse_hover_component"/>
+      </node>
+      <node id="358">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="357">
+        <label>ModuleBase</label>
+        <link refid="class_module_base"/>
+        <childnode refid="358" relation="public-inheritance">
+        </childnode>
+        <childnode refid="359" relation="public-inheritance">
+        </childnode>
+        <childnode refid="360" relation="public-inheritance">
+        </childnode>
+        <childnode refid="361" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="369">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="382">
+        <label>SlotAnchor</label>
+        <link refid="class_slot_anchor"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+        <childnode refid="367" relation="public-inheritance">
+        </childnode>
+        <childnode refid="380" relation="usage">
+          <edgelabel>M_ModuleRetinue</edgelabel>
+        </childnode>
+        <childnode refid="370" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="374">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+        <childnode refid="365" relation="public-inheritance">
+        </childnode>
+        <childnode refid="368" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+      </node>
+      <node id="362">
+        <label>ModuleShield</label>
+        <link refid="class_module_shield"/>
+        <childnode refid="363" relation="public-inheritance">
+        </childnode>
+        <childnode refid="373" relation="usage">
+          <edgelabel>CardNumberSet_ShieldShieldMax</edgelabel>
+          <edgelabel>my_TextAlign_Armor</edgelabel>
+          <edgelabel>my_TextAlign_Shield</edgelabel>
+          <edgelabel>my_TextAlign_ShieldMax</edgelabel>
+          <edgelabel>CardNumberSet_ShieldArmorMax</edgelabel>
+          <edgelabel>my_TextAlign_ArmorMax</edgelabel>
+          <edgelabel>CardNumberSet_ShieldShield</edgelabel>
+          <edgelabel>CardNumberSet_ShieldArmor</edgelabel>
+        </childnode>
+        <childnode refid="380" relation="usage">
+          <edgelabel>M_ModuleRetinue</edgelabel>
+        </childnode>
+      </node>
+      <node id="365">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="368">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="376">
+        <label>BattleGroundManager</label>
+        <link refid="class_battle_ground_manager"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+        <childnode refid="370" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="373">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+        <childnode refid="365" relation="public-inheritance">
+        </childnode>
+        <childnode refid="368" relation="usage">
+          <edgelabel>childrenPool</edgelabel>
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="374" relation="usage">
+          <edgelabel>cardNumbers</edgelabel>
+        </childnode>
+      </node>
+      <node id="366">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="379">
+        <label>CardDeck</label>
+        <link refid="class_card_deck"/>
+        <childnode refid="378" relation="usage">
+          <edgelabel>M_CardDeckInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="371">
+        <label>HandManager</label>
+        <link refid="class_hand_manager"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+        <childnode refid="370" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="372" relation="usage">
+          <edgelabel>currentFocusCard</edgelabel>
+        </childnode>
+      </node>
+      <node id="367">
+        <label>IMouseHoverComponent</label>
+        <link refid="interface_i_mouse_hover_component"/>
+      </node>
+      <node id="372">
+        <label>Card</label>
+        <link refid="class_card"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+        <childnode refid="365" relation="public-inheritance">
+        </childnode>
+        <childnode refid="366" relation="public-inheritance">
+        </childnode>
+        <childnode refid="368" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="373" relation="usage">
+          <edgelabel>CardNumberSet_Cost</edgelabel>
+        </childnode>
+        <childnode refid="369" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+        </childnode>
+        <childnode refid="375" relation="usage">
+          <edgelabel>myColliderReplace</edgelabel>
+        </childnode>
+        <childnode refid="370" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="364">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="363">
+        <label>ModuleBase</label>
+        <link refid="class_module_base"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+        <childnode refid="365" relation="public-inheritance">
+        </childnode>
+        <childnode refid="366" relation="public-inheritance">
+        </childnode>
+        <childnode refid="367" relation="public-inheritance">
+        </childnode>
+        <childnode refid="368" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="369" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+          <edgelabel>ModuleCurrentCardInfo</edgelabel>
+        </childnode>
+        <childnode refid="370" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="372" relation="usage">
+          <edgelabel>detailCard</edgelabel>
+          <edgelabel>detailCard_Weapon</edgelabel>
+          <edgelabel>detailCard_Shield</edgelabel>
+          <edgelabel>detailCard_Pack</edgelabel>
+          <edgelabel>detailCard_MA</edgelabel>
+        </childnode>
+      </node>
+      <node id="370">
+        <label>Player</label>
+        <link refid="class_player"/>
+        <childnode refid="371" relation="usage">
+          <edgelabel>MyHandManager</edgelabel>
+        </childnode>
+        <childnode refid="376" relation="usage">
+          <edgelabel>MyBattleGroundManager</edgelabel>
+        </childnode>
+        <childnode refid="377" relation="usage">
+          <edgelabel>MyCardDeckManager</edgelabel>
+        </childnode>
+      </node>
+      <node id="378">
+        <label>CardDeckInfo</label>
+        <link refid="struct_card_deck_info"/>
+      </node>
+      <node id="380">
+        <label>ModuleRetinue</label>
+        <link refid="class_module_retinue"/>
+        <childnode refid="363" relation="public-inheritance">
+        </childnode>
+        <childnode refid="381" relation="usage">
+          <edgelabel>m_Weapon</edgelabel>
+        </childnode>
+        <childnode refid="362" relation="usage">
+          <edgelabel>M_MA</edgelabel>
+          <edgelabel>M_Pack</edgelabel>
+          <edgelabel>m_Shield</edgelabel>
+        </childnode>
+        <childnode refid="373" relation="usage">
+          <edgelabel>CardNumberSet_RetinueLeftLife</edgelabel>
+          <edgelabel>CardNumberSet_RetinueAttack</edgelabel>
+          <edgelabel>CardNumberSet_RetinueArmor</edgelabel>
+          <edgelabel>CardNumberSet_RetinueShield</edgelabel>
+          <edgelabel>CardNumberSet_RetinueTotalLife</edgelabel>
+        </childnode>
+        <childnode refid="382" relation="usage">
+          <edgelabel>SlotAnchor1</edgelabel>
+          <edgelabel>SlotAnchor2</edgelabel>
+          <edgelabel>SlotAnchor3</edgelabel>
+          <edgelabel>SlotAnchor4</edgelabel>
+        </childnode>
+      </node>
+      <node id="381">
+        <label>ModuleWeapon</label>
+        <link refid="class_module_weapon"/>
+        <childnode refid="363" relation="public-inheritance">
+        </childnode>
+        <childnode refid="373" relation="usage">
+          <edgelabel>CardNumberSet_WeaponAttack</edgelabel>
+          <edgelabel>my_TextAlign_Energy</edgelabel>
+          <edgelabel>my_TextAlign_Attack</edgelabel>
+          <edgelabel>CardNumberSet_WeaponEnergy</edgelabel>
+        </childnode>
+        <childnode refid="380" relation="usage">
+          <edgelabel>M_ModuleRetinue</edgelabel>
+        </childnode>
+      </node>
+      <node id="377">
+        <label>CardDeckManager</label>
+        <link refid="class_card_deck_manager"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+        <childnode refid="378" relation="usage">
+          <edgelabel>M_UnlockCards</edgelabel>
+          <edgelabel>M_LockCards</edgelabel>
+        </childnode>
+        <childnode refid="379" relation="usage">
+          <edgelabel>M_CurrentCardDeck</edgelabel>
+        </childnode>
+        <childnode refid="370" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="375">
+        <label>ColliderReplace</label>
+        <link refid="class_collider_replace"/>
+        <childnode refid="364" relation="public-inheritance">
+        </childnode>
+        <childnode refid="372" relation="usage">
+          <edgelabel>MyCallerCard</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" line="5" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleShield.cs" bodystart="4" bodyend="261"/>
+    <listofallmembers>
+      <member refid="class_module_shield_1ab07e6134485dca2ba76a200996cfdfe5" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>ArmorBeAttacked</name></member>
+      <member refid="class_module_shield_1aa24a5085d1af4f35a8b0572aa0227f3c" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>Awake</name></member>
+      <member refid="class_module_shield_1a5bed91f46a0f612d27bd1d86daef8395" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>Block_ShieldArmor</name></member>
+      <member refid="class_module_shield_1abba75fe073e913f79c3017967a114346" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>Block_ShieldArmorMax</name></member>
+      <member refid="class_module_shield_1a4b4bf85dfd236e6428aac9cef9de9044" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>Block_ShieldShield</name></member>
+      <member refid="class_module_shield_1a77d8e141684325ded0d27a0ea4a564e8" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>Block_ShieldShieldMax</name></member>
+      <member refid="class_module_base_1aaa3e4f9bee8e64b69641eb0118047f44" prot="package" virt="non-virtual"><scope>ModuleShield</scope><name>CardInfo</name></member>
+      <member refid="class_module_shield_1a4fb32198c0c609a20a469e531f2100b2" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>CardNumberSet_ShieldArmor</name></member>
+      <member refid="class_module_shield_1ae181b7f505df625b69810f24dca74c79" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>CardNumberSet_ShieldArmorMax</name></member>
+      <member refid="class_module_shield_1a50a1acfe9edfc46dbc6b69c40ab37830" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>CardNumberSet_ShieldShield</name></member>
+      <member refid="class_module_shield_1a655907126bace1e481a7a95ea79834f8" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>CardNumberSet_ShieldShieldMax</name></member>
+      <member refid="class_module_base_1a52a38671fc2d0027c926d9fbe1ea2383" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>DragComponent_OnMouseDown</name></member>
+      <member refid="class_module_base_1a8fa7d35e030b5d3d63ff982ec3cb1d45" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>DragComponent_OnMousePressed</name></member>
+      <member refid="class_module_shield_1a65b7a92ec012525231ebe7016a05db6d" prot="public" virt="virtual"><scope>ModuleShield</scope><name>DragComponent_OnMouseUp</name></member>
+      <member refid="class_module_base_1aef9d3599dd224b958894bba73defb41a" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>DragComponent_SetHasTarget</name></member>
+      <member refid="class_module_shield_1a7368ef1426de28471920520506c878b7" prot="public" virt="virtual"><scope>ModuleShield</scope><name>DragComponent_SetStates</name></member>
+      <member refid="class_module_base_1a37a7381f59ad5f517ea8409101ea9955" prot="public" virt="virtual"><scope>ModuleShield</scope><name>DragComponnet_DragDistance</name></member>
+      <member refid="class_module_base_1a0f24beae98301ab4675af59f358c9a11" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>DragComponnet_DragOutEffects</name></member>
+      <member refid="class_module_base_1a3004f9a15f9b561ac8a48a987afcbc20" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>gameObjectPool</name></member>
+      <member refid="class_module_shield_1a98bdf08329ea2656f9301af60e9bc1dc" prot="public" virt="virtual"><scope>ModuleShield</scope><name>GetCurrentCardInfo</name></member>
+      <member refid="class_module_shield_1a2d367ce112b38b0beff69119fa770b5e" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>GoNumberSet_ShieldArmor</name></member>
+      <member refid="class_module_shield_1a15942c6d9ea777e17466f95438b6bd65" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>GoNumberSet_ShieldArmorMax</name></member>
+      <member refid="class_module_shield_1a8d8e44184844b99cad574205ee4649a0" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>GoNumberSet_ShieldShield</name></member>
+      <member refid="class_module_shield_1a118e2bf643be57e7092d637320e4dc2d" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>GoNumberSet_ShieldShieldMax</name></member>
+      <member refid="class_module_shield_1ae31fa44225f3c6d4b92444f10b6b13b2" prot="public" virt="virtual"><scope>ModuleShield</scope><name>Initiate</name></member>
+      <member refid="class_module_base_1abbc0d3888d87723f6ece08491cfb7c75" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>initiateNumbers</name></member>
+      <member refid="class_module_base_1a234ccfa1e275e4d2f4cc1bcafb3e06f8" prot="protected" virt="non-virtual"><scope>ModuleShield</scope><name>initiateNumbers</name></member>
+      <member refid="class_module_shield_1a098d58669c52a402d76e80a323b062be" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>M_Bloom</name></member>
+      <member refid="class_module_shield_1abd4672599bad479eb12401beaadbf63c" prot="package" virt="non-virtual"><scope>ModuleShield</scope><name>M_ModuleRetinue</name></member>
+      <member refid="class_module_shield_1a238555752aa2ab95ce02322a529b746d" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>m_ShieldArmor</name></member>
+      <member refid="class_module_shield_1a2efa6dc2f6b2fbff07b6be78b3c21495" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>M_ShieldArmor</name></member>
+      <member refid="class_module_shield_1a807ae6c19ff3d4adaa876349abbbcd22" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>m_ShieldArmorMax</name></member>
+      <member refid="class_module_shield_1a6b2d1cd1583df72f752d8d177399e11b" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>M_ShieldArmorMax</name></member>
+      <member refid="class_module_shield_1a338b7e7393fa6de594798491c823bcae" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>m_ShieldName</name></member>
+      <member refid="class_module_shield_1acbdc364cd119613f6aba6862f51be3e7" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>M_ShieldName</name></member>
+      <member refid="class_module_shield_1a51a73c6d80364eb29ba379c1de7be973" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>m_ShieldShield</name></member>
+      <member refid="class_module_shield_1ab65e1415fec997e1ddbe0781b8e9c5b6" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>M_ShieldShield</name></member>
+      <member refid="class_module_shield_1a51343cec3af34f15d8a43a83f20e9374" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>M_ShieldShieldMax</name></member>
+      <member refid="class_module_shield_1a0249a67578e0fcdeab0963cc1e577c36" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>m_ShieldShieldMax</name></member>
+      <member refid="class_module_shield_1a47a216dc7528ffec8865eea9ff24cbd2" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>M_ShieldType</name></member>
+      <member refid="class_module_shield_1ac07bfc6775c01d93e6a7e57f4c845004" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>m_ShieldType</name></member>
+      <member refid="class_module_base_1a6ad7ab92a84787e2e715cf4bde0fb56b" prot="package" virt="non-virtual"><scope>ModuleShield</scope><name>ModuleCurrentCardInfo</name></member>
+      <member refid="class_module_base_1a448cc64590b4c0e2d4d185e860467893" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>MouseHoverComponent_OnMouseDragEnterImmediately</name></member>
+      <member refid="class_module_base_1a08574bcc1d369968bd45502d69c67a07" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>MouseHoverComponent_OnMouseDragLeaveImmediately</name></member>
+      <member refid="class_module_base_1a2ef05ce5ea386adefa93fb0ec94dc078" prot="public" virt="virtual"><scope>ModuleShield</scope><name>MouseHoverComponent_OnMouseEnter</name></member>
+      <member refid="class_module_shield_1a4f06a3ab11c406a3ceef955691cfd553" prot="public" virt="virtual"><scope>ModuleShield</scope><name>MouseHoverComponent_OnMouseEnterImmediately</name></member>
+      <member refid="class_module_shield_1a6f6b111dd847cfad12b0bd781ae058c2" prot="public" virt="virtual"><scope>ModuleShield</scope><name>MouseHoverComponent_OnMouseLeave</name></member>
+      <member refid="class_module_shield_1a31909952cfcbc9655b3949bffa9ff5c7" prot="public" virt="virtual"><scope>ModuleShield</scope><name>MouseHoverComponent_OnMouseLeaveImmediately</name></member>
+      <member refid="class_module_shield_1abdbef91e83b7a103549f757c14fb1e96" prot="public" virt="virtual"><scope>ModuleShield</scope><name>MouseHoverComponent_OnMouseOver</name></member>
+      <member refid="class_module_shield_1afb7d6a6d7ba2e5f7aba75ce3e83374b8" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>my_NumberSize_Armor</name></member>
+      <member refid="class_module_shield_1a745d023c9e30c687704c581438b74524" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>my_NumberSize_ArmorMax</name></member>
+      <member refid="class_module_shield_1a77a32c7b013370e8d46ae6c645787f63" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>my_NumberSize_Shield</name></member>
+      <member refid="class_module_shield_1ad6cae5109ba18efdc56fb56b07cc5901" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>my_NumberSize_ShieldMax</name></member>
+      <member refid="class_module_shield_1a5902ac61a9876a79d5086aad57324389" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>my_TextAlign_Armor</name></member>
+      <member refid="class_module_shield_1a260a9fc21ae3210e32064eae4e459b45" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>my_TextAlign_ArmorMax</name></member>
+      <member refid="class_module_shield_1ab6368542d20975e944627e5d156107d5" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>my_TextAlign_Shield</name></member>
+      <member refid="class_module_shield_1a4b5af8ab368347ab9d04ed992e73b050" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>my_TextAlign_ShieldMax</name></member>
+      <member refid="class_module_base_1a15ba002aefd9cfabe243465ccff29f61" prot="package" virt="non-virtual"><scope>ModuleShield</scope><name>Player</name></member>
+      <member refid="class_module_base_1a8abe2a0ed59a34a4ee3975f5e0f1dd73" prot="public" virt="virtual"><scope>ModuleShield</scope><name>PoolRecycle</name></member>
+      <member refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>SetNoPreview</name></member>
+      <member refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>SetPreview</name></member>
+      <member refid="class_module_shield_1a69c7cd4489a541ac44e986a9b4632de0" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>ShieldBeAttacked</name></member>
+      <member refid="class_module_shield_1a9824e98402f2b965c773bab385a81c1a" prot="public" virt="non-virtual"><scope>ModuleShield</scope><name>ShieldName</name></member>
+      <member refid="class_module_shield_1a0982deb8e04e964307eb47747806af93" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>Start</name></member>
+      <member refid="class_module_shield_1afeabb75bf8d6a55857390d2ab589cfd7" prot="private" virt="non-virtual"><scope>ModuleShield</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

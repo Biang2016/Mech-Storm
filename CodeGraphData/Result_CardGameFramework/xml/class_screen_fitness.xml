@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_screen_fitness" kind="class" prot="public">
+    <compoundname>ScreenFitness</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_screen_fitness_1a9872f6547d98c95e00b345a9c13218c5" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScreenFitness.scaler</definition>
+        <argsstring></argsstring>
+        <name>scaler</name>
+        <initializer>= 16.0f / 8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenFitness.cs" line="8" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenFitness.cs" bodystart="8" bodyend="-1"/>
+        <referencedby refid="class_screen_fitness_1a5f2490776f69f66799a701cf3d177e2d" compoundref="_screen_fitness_8cs" startline="10" endline="24">Awake</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_screen_fitness_1a5f2490776f69f66799a701cf3d177e2d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ScreenFitness.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenFitness.cs" line="10" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenFitness.cs" bodystart="10" bodyend="24"/>
+        <references refid="class_screen_setting_1ad799d039b1140e273c85225566598866" compoundref="_screen_setting_8cs" startline="23">ScreenSetting.OriginalScreenHeight</references>
+        <references refid="class_screen_setting_1aebf5bc7df896fe7caa2ce99c37f4be4b" compoundref="_screen_setting_8cs" startline="16">ScreenSetting.OriginalScreenWidth</references>
+        <references refid="class_screen_fitness_1a9872f6547d98c95e00b345a9c13218c5" compoundref="_screen_fitness_8cs" startline="8">scaler</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="455">
+        <label>ScreenFitness</label>
+        <link refid="class_screen_fitness"/>
+        <childnode refid="456" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="456">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="457">
+        <label>ScreenFitness</label>
+        <link refid="class_screen_fitness"/>
+        <childnode refid="458" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="458">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenFitness.cs" line="6" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenFitness.cs" bodystart="5" bodyend="25"/>
+    <listofallmembers>
+      <member refid="class_screen_fitness_1a5f2490776f69f66799a701cf3d177e2d" prot="private" virt="non-virtual"><scope>ScreenFitness</scope><name>Awake</name></member>
+      <member refid="class_screen_fitness_1a9872f6547d98c95e00b345a9c13218c5" prot="private" virt="non-virtual"><scope>ScreenFitness</scope><name>scaler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

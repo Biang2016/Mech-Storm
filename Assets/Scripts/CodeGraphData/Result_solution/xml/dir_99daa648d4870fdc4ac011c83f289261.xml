@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_99daa648d4870fdc4ac011c83f289261" kind="dir">
+    <compoundname>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules</compoundname>
+    <innerfile refid="_module_base_8cs">ModuleBase.cs</innerfile>
+    <innerfile refid="_module_retinue_8cs">ModuleRetinue.cs</innerfile>
+    <innerfile refid="_module_shield_8cs">ModuleShield.cs</innerfile>
+    <innerfile refid="_module_weapon_8cs">ModuleWeapon.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/"/>
+  </compounddef>
+</doxygen>

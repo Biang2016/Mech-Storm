@@ -1,0 +1,285 @@
+fileFormatVersion: 2
+guid: f9de99dc293e3dc4ca95845c4d72a356
+timeCreated: 1528189503
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Box001
+    100002: Box002
+    100004: Camera001.Target
+    100006: Cylinder001
+    100008: Cylinder002
+    100010: Cylinder003
+    100012: Cylinder004
+    100014: Direct001.Target
+    100016: Plane001
+    100018: Sphere001
+    100020: Sphere002
+    100022: //RootNode
+    100024: Attack
+    100026: Cost
+    100028: Description
+    100030: Diamond
+    100032: Life
+    100034: MainBoard
+    100036: Margin
+    100038: Mask
+    100040: Camera001
+    100042: Category
+    100044: Direct001
+    100046: Picture
+    100048: NumberSet_LeftLife
+    100050: NumberSet_Small
+    100052: NumberSet_TotalLife
+    100054: NumberSset_Cost
+    100056: BigNumber
+    100058: MediumNumber
+    100060: SmallNumber
+    400000: Box001
+    400002: Box002
+    400004: Camera001.Target
+    400006: Cylinder001
+    400008: Cylinder002
+    400010: Cylinder003
+    400012: Cylinder004
+    400014: Direct001.Target
+    400016: Plane001
+    400018: Sphere001
+    400020: Sphere002
+    400022: //RootNode
+    400024: Attack
+    400026: Cost
+    400028: Description
+    400030: Diamond
+    400032: Life
+    400034: MainBoard
+    400036: Margin
+    400038: Mask
+    400040: Camera001
+    400042: Category
+    400044: Direct001
+    400046: Picture
+    400048: NumberSet_LeftLife
+    400050: NumberSet_Small
+    400052: NumberSet_TotalLife
+    400054: NumberSset_Cost
+    400056: BigNumber
+    400058: MediumNumber
+    400060: SmallNumber
+    2000000: Camera001
+    2300000: Box001
+    2300002: Box002
+    2300004: Cylinder001
+    2300006: Cylinder002
+    2300008: Cylinder003
+    2300010: Cylinder004
+    2300012: Plane001
+    2300014: Sphere001
+    2300016: Sphere002
+    2300018: Attack
+    2300020: Cost
+    2300022: Description
+    2300024: Diamond
+    2300026: Life
+    2300028: MainBoard
+    2300030: Margin
+    2300032: Mask
+    2300034: Category
+    2300036: Picture
+    2300038: //RootNode
+    2300040: NumberSet_LeftLife
+    2300042: NumberSet_Small
+    2300044: NumberSet_TotalLife
+    2300046: NumberSset_Cost
+    2300048: BigNumber
+    2300050: MediumNumber
+    2300052: SmallNumber
+    3300000: Box001
+    3300002: Box002
+    3300004: Cylinder001
+    3300006: Cylinder002
+    3300008: Cylinder003
+    3300010: Cylinder004
+    3300012: Plane001
+    3300014: Sphere001
+    3300016: Sphere002
+    3300018: Attack
+    3300020: Cost
+    3300022: Description
+    3300024: Diamond
+    3300026: Life
+    3300028: MainBoard
+    3300030: Margin
+    3300032: Mask
+    3300034: Category
+    3300036: Picture
+    3300038: //RootNode
+    3300040: NumberSet_LeftLife
+    3300042: NumberSet_Small
+    3300044: NumberSet_TotalLife
+    3300046: NumberSset_Cost
+    3300048: BigNumber
+    3300050: MediumNumber
+    3300052: SmallNumber
+    4300000: Box001
+    4300002: Cylinder001
+    4300004: Cylinder002
+    4300006: Sphere001
+    4300008: Cylinder003
+    4300010: Cylinder004
+    4300012: Box002
+    4300014: Sphere002
+    4300016: Plane001
+    4300018: MainBoard
+    4300020: Cost
+    4300022: Margin
+    4300024: Mask
+    4300026: Attack
+    4300028: Life
+    4300030: Description
+    4300032: Diamond
+    4300034: Picture
+    4300036: Category
+    4300038: NumberSet_LeftLife
+    4300040: NumberSet_TotalLife
+    4300042: NumberSet_Small
+    4300044: NumberSset_Cost
+    4300046: BigNumber
+    4300048: MediumNumber
+    4300050: SmallNumber
+    9500000: //RootNode
+    10800000: Direct001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 01 - Default
+    second: {fileID: 2100000, guid: 89b2b194bbf13c7438597cfebd9f0c79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 02 - Default
+    second: {fileID: 2100000, guid: 00ffabe64df4a344689a1c93c6a59780, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 03 - Default
+    second: {fileID: 2100000, guid: 410ec28b462ad5b4c98d27506dfee3db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 04 - Default
+    second: {fileID: 2100000, guid: ca7eeb69ff9c7b240a0d614ab078cc1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 05- Default
+    second: {fileID: 2100000, guid: 43bd36ee35455724ababb1e458982d40, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 07 - Default
+    second: {fileID: 2100000, guid: a1a87b94663808b46b18271b1ac0964e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 08 - Default
+    second: {fileID: 2100000, guid: 79055f7c0abdb574eaede53fbdf2a4a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 10 - Default
+    second: {fileID: 2100000, guid: 1bdcbebb37f89a94e809cc656e80a51f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 11 - Default
+    second: {fileID: 2100000, guid: 2259cc2a69ff22d47975f5536b51c338, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 12 - Default
+    second: {fileID: 2100000, guid: f4500b729b6afe5439e7d8a3a9852191, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 5bffd8be40ac93d4a9ec26246c5767fd, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

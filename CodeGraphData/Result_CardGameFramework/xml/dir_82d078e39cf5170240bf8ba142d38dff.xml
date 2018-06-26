@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_82d078e39cf5170240bf8ba142d38dff" kind="dir">
+    <compoundname>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts</compoundname>
+    <innerdir refid="dir_cbb08c8f1f9932f3bd29cda9528e4df3">F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card</innerdir>
+    <innerdir refid="dir_2ff1fcec74a5f4fe8bdb2fc80045ade2">F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow</innerdir>
+    <innerdir refid="dir_ccb4ea6c26b6ab7033509c905964de9d">F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager</innerdir>
+    <innerdir refid="dir_54b6021392fe659d1fa5642b74d5bad9">F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI</innerdir>
+    <innerfile refid="_game_object_pool_8cs">GameObjectPool.cs</innerfile>
+    <innerfile refid="_image_effect_blur_box_8cs">ImageEffectBlurBox.cs</innerfile>
+    <innerfile refid="_player_8cs">Player.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/"/>
+  </compounddef>
+</doxygen>

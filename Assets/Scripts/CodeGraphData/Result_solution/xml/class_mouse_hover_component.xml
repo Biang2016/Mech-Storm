@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_mouse_hover_component" kind="class" prot="public">
+    <compoundname>MouseHoverComponent</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_mouse_hover_component_1ac9ab558dc47d9232caa94cbca36725a1" prot="private" static="no" mutable="no">
+        <type><ref refid="interface_i_mouse_hover_component" kindref="compound">IMouseHoverComponent</ref></type>
+        <definition>IMouseHoverComponent MouseHoverComponent.caller</definition>
+        <argsstring></argsstring>
+        <name>caller</name>
+        <briefdescription>
+<para>鼠标悬停功能，应用于模块等 实现悬停过程中卡牌展示的功能 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="11" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="11" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_component_1a7491c3f03872e15819afd4139c52f89e" compoundref="_mouse_hover_component_8cs" startline="12" endline="15">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_component_1a56d68643e44d84568342e1b916c71727" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MouseHoverComponent.isOnFocus</definition>
+        <argsstring></argsstring>
+        <name>isOnFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="30" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_component_1a9042ba960c86b105be57d64d80371938" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MouseHoverComponent.isOnHover</definition>
+        <argsstring></argsstring>
+        <name>isOnHover</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="54" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mouse_hover_component_1a6c4d9f5a8edc1dad3e1259b7c137acec" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MouseHoverComponent.isOnPressHover</definition>
+        <argsstring></argsstring>
+        <name>isOnPressHover</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="73" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_mouse_hover_component_1adc3a1f13b91d6b0df17c78ac1197b6ff" prot="package" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>bool</type>
+        <definition>bool MouseHoverComponent.IsOnFocus</definition>
+        <argsstring></argsstring>
+        <name>IsOnFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="31" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="32" bodyend="-1"/>
+        <referencedby refid="class_mouse_hover_component_1a0d799b1562a6b287a166838bdc7d2295" compoundref="_mouse_hover_component_8cs" startline="22" endline="28">Update</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_mouse_hover_component_1af42456a396d0830f8d16b0b37ae7e953" prot="package" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>bool</type>
+        <definition>bool MouseHoverComponent.IsOnHover</definition>
+        <argsstring></argsstring>
+        <name>IsOnHover</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="55" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="property" id="class_mouse_hover_component_1a5c94bbe274ed8b47d0c1f1697ebd52f0" prot="package" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>bool</type>
+        <definition>bool MouseHoverComponent.IsOnPressHover</definition>
+        <argsstring></argsstring>
+        <name>IsOnPressHover</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="74" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_mouse_hover_component_1a7491c3f03872e15819afd4139c52f89e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MouseHoverComponent.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="12" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="12" bodyend="15"/>
+        <references refid="class_mouse_hover_component_1ac9ab558dc47d9232caa94cbca36725a1" compoundref="_mouse_hover_component_8cs" startline="11">caller</references>
+      </memberdef>
+      <memberdef kind="function" id="class_mouse_hover_component_1a26158ec6fd2c5062f506e6743795463a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MouseHoverComponent.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="17" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="17" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mouse_hover_component_1a0d799b1562a6b287a166838bdc7d2295" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MouseHoverComponent.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="22" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="22" bodyend="28"/>
+        <references refid="class_mouse_hover_component_1adc3a1f13b91d6b0df17c78ac1197b6ff" compoundref="_mouse_hover_component_8cs" startline="32">IsOnFocus</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="410">
+        <label>MouseHoverComponent</label>
+        <link refid="class_mouse_hover_component"/>
+        <childnode refid="411" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="411">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="414">
+        <label>IMouseHoverComponent</label>
+        <link refid="interface_i_mouse_hover_component"/>
+      </node>
+      <node id="412">
+        <label>MouseHoverComponent</label>
+        <link refid="class_mouse_hover_component"/>
+        <childnode refid="413" relation="public-inheritance">
+        </childnode>
+        <childnode refid="414" relation="usage">
+          <edgelabel>caller</edgelabel>
+        </childnode>
+      </node>
+      <node id="413">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" line="5" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/MouseHoverComponent.cs" bodystart="4" bodyend="91"/>
+    <listofallmembers>
+      <member refid="class_mouse_hover_component_1a7491c3f03872e15819afd4139c52f89e" prot="private" virt="non-virtual"><scope>MouseHoverComponent</scope><name>Awake</name></member>
+      <member refid="class_mouse_hover_component_1ac9ab558dc47d9232caa94cbca36725a1" prot="private" virt="non-virtual"><scope>MouseHoverComponent</scope><name>caller</name></member>
+      <member refid="class_mouse_hover_component_1a56d68643e44d84568342e1b916c71727" prot="private" virt="non-virtual"><scope>MouseHoverComponent</scope><name>isOnFocus</name></member>
+      <member refid="class_mouse_hover_component_1adc3a1f13b91d6b0df17c78ac1197b6ff" prot="package" virt="non-virtual"><scope>MouseHoverComponent</scope><name>IsOnFocus</name></member>
+      <member refid="class_mouse_hover_component_1a9042ba960c86b105be57d64d80371938" prot="private" virt="non-virtual"><scope>MouseHoverComponent</scope><name>isOnHover</name></member>
+      <member refid="class_mouse_hover_component_1af42456a396d0830f8d16b0b37ae7e953" prot="package" virt="non-virtual"><scope>MouseHoverComponent</scope><name>IsOnHover</name></member>
+      <member refid="class_mouse_hover_component_1a5c94bbe274ed8b47d0c1f1697ebd52f0" prot="package" virt="non-virtual"><scope>MouseHoverComponent</scope><name>IsOnPressHover</name></member>
+      <member refid="class_mouse_hover_component_1a6c4d9f5a8edc1dad3e1259b7c137acec" prot="private" virt="non-virtual"><scope>MouseHoverComponent</scope><name>isOnPressHover</name></member>
+      <member refid="class_mouse_hover_component_1a26158ec6fd2c5062f506e6743795463a" prot="private" virt="non-virtual"><scope>MouseHoverComponent</scope><name>Start</name></member>
+      <member refid="class_mouse_hover_component_1a0d799b1562a6b287a166838bdc7d2295" prot="private" virt="non-virtual"><scope>MouseHoverComponent</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

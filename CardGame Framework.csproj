@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DEF67929-C0B6-4BAF-AB41-6DF9F8B49FC9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectGenerator>VSTU</UnityProjectGenerator>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityVersion>2017.2.0f3</UnityVersion>
+    <RootNamespace></RootNamespace>
+    <LangVersion>4</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_2_0;UNITY_2017_2;UNITY_2017;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_2_0;UNITY_2017_2;UNITY_2017;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="Boo.Lang" />
+    <Reference Include="UnityScript.Lang" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEditor">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.WebModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.WebModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StyleSheetsModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.StyleSheetsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticlesLegacyModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.ParticlesLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Timeline">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIAutomation">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GoogleAudioSpatializer">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTracking">
+      <HintPath>C:/Program Files/Unity2017.2.0f/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>C:/Users/williamsxue/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Purchasing">
+      <HintPath>C:/Users/williamsxue/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Scripts\Card\CardInfo.cs" />
+    <Compile Include="Assets\Scripts\Card\CardNumber.cs" />
+    <Compile Include="Assets\Scripts\Card\CardNumberSet.cs" />
+    <Compile Include="Assets\Scripts\Card\Cards\CardBase.cs" />
+    <Compile Include="Assets\Scripts\Card\Cards\CardRetinue.cs" />
+    <Compile Include="Assets\Scripts\Card\Cards\CardShield.cs" />
+    <Compile Include="Assets\Scripts\Card\Cards\CardWeapon.cs" />
+    <Compile Include="Assets\Scripts\Card\ColliderReplace.cs" />
+    <Compile Include="Assets\Scripts\Card\Modules\ModuleBase.cs" />
+    <Compile Include="Assets\Scripts\Card\Modules\ModuleRetinue.cs" />
+    <Compile Include="Assets\Scripts\Card\Modules\ModuleShield.cs" />
+    <Compile Include="Assets\Scripts\Card\Modules\ModuleWeapon.cs" />
+    <Compile Include="Assets\Scripts\DragAndArrow\Arrow.cs" />
+    <Compile Include="Assets\Scripts\DragAndArrow\DragComponent.cs" />
+    <Compile Include="Assets\Scripts\DragAndArrow\MouseHoverComponent.cs" />
+    <Compile Include="Assets\Scripts\DragAndArrow\SlotAnchor.cs" />
+    <Compile Include="Assets\Scripts\GameObjectPool.cs" />
+    <Compile Include="Assets\Scripts\ImageEffectBlurBox.cs" />
+    <Compile Include="Assets\Scripts\Manager\BattleGroundManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\CardDeck.cs" />
+    <Compile Include="Assets\Scripts\Manager\CardDeckManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\CardPictureManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\DragManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\GameBoardManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\GameObjectPoolManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\HandManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\MouseHoverManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\RoundManager.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\UI\ScreenFitness.cs" />
+    <Compile Include="Assets\Scripts\UI\ScreenSetting.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Materials\BlurShader.shader" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_arrow_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_battle_ground_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_card_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_card___retinue_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_card___shield_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_card___weapon_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_card_deck_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_card_deck_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_card_info_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_card_number_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_card_number_set_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_card_picture_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_collider_replace_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_drag_component_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_drag_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_game_board_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_game_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_game_object_pool_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_game_object_pool_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_hand_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_image_effect_blur_box_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_module_base_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_module_retinue_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_module_shield_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_module_weapon_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_mouse_hover_component_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_mouse_hover_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_player_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_round_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_screen_fitness_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_screen_setting_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\_slot_anchor_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_all_cards.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_arrow.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_battle_ground_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card___retinue.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card___shield.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card___weapon.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card_deck.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card_deck_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card_info___base.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card_info___retinue.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card_info___shield.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card_info___weapon.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card_number.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card_number_set.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_card_picture_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_collider_replace.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_drag_component.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_drag_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_game_board_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_game_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_game_object_pool.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_game_object_pool_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_hand_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_image_effect_blur_box.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_module_base.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_module_retinue.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_module_shield.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_module_weapon.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_mouse_hover_component.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_mouse_hover_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_player.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_round_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_screen_fitness.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_screen_setting.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\class_slot_anchor.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_2fc25675635fb70436f9b9acda638cec.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_2ff1fcec74a5f4fe8bdb2fc80045ade2.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_3a581ba30d25676e4b797b1f96d53b45.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_54b6021392fe659d1fa5642b74d5bad9.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_810dc79324e7cb5c7d25189b2ae14153.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_82d078e39cf5170240bf8ba142d38dff.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_99daa648d4870fdc4ac011c83f289261.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_aa2a04215504c11d0e639595c14a0717.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_c3fdfd8dce47bba3b5e69d5c55f9aed2.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_cbb08c8f1f9932f3bd29cda9528e4df3.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\dir_ccb4ea6c26b6ab7033509c905964de9d.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\index.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\interface_i_drag_component.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\interface_i_game_object_pool.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\interface_i_mouse_hover_component.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\namespace_system.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\namespace_system_1_1_collections.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\namespace_system_1_1_collections_1_1_generic.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\namespace_system_1_1_linq.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\namespace_system_1_1_text.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\namespace_unity_engine.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\namespace_unity_engine_1_1_event_systems.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\namespace_unity_engine_1_1_u_i.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_CardGameFramework\xml\struct_card_deck_info.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_arrow_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_battle_ground_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_card_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_card___retinue_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_card___shield_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_card___weapon_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_card_deck_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_card_deck_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_card_info_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_card_number_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_card_number_set_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_card_picture_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_collider_replace_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_drag_component_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_drag_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_game_board_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_game_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_game_object_pool_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_game_object_pool_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_hand_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_image_effect_blur_box_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_module_base_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_module_retinue_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_module_shield_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_module_weapon_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_mouse_hover_component_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_mouse_hover_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_player_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_round_manager_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_screen_fitness_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_screen_setting_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\_slot_anchor_8cs.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_all_cards.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_arrow.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_battle_ground_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card___retinue.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card___shield.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card___weapon.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card_deck.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card_deck_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card_info___base.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card_info___retinue.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card_info___shield.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card_info___weapon.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card_number.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card_number_set.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_card_picture_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_collider_replace.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_drag_component.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_drag_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_game_board_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_game_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_game_object_pool.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_game_object_pool_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_hand_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_image_effect_blur_box.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_module_base.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_module_retinue.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_module_shield.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_module_weapon.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_mouse_hover_component.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_mouse_hover_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_player.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_round_manager.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_screen_fitness.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_screen_setting.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\class_slot_anchor.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_2fc25675635fb70436f9b9acda638cec.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_2ff1fcec74a5f4fe8bdb2fc80045ade2.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_3a581ba30d25676e4b797b1f96d53b45.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_54b6021392fe659d1fa5642b74d5bad9.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_810dc79324e7cb5c7d25189b2ae14153.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_82d078e39cf5170240bf8ba142d38dff.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_99daa648d4870fdc4ac011c83f289261.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_aa2a04215504c11d0e639595c14a0717.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_c3fdfd8dce47bba3b5e69d5c55f9aed2.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_cbb08c8f1f9932f3bd29cda9528e4df3.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\dir_ccb4ea6c26b6ab7033509c905964de9d.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\index.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\interface_i_drag_component.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\interface_i_game_object_pool.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\interface_i_mouse_hover_component.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\namespace_system.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\namespace_system_1_1_collections.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\namespace_system_1_1_collections_1_1_generic.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\namespace_system_1_1_linq.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\namespace_system_1_1_text.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\namespace_unity_engine.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\namespace_unity_engine_1_1_event_systems.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\namespace_unity_engine_1_1_u_i.xml" />
+    <None Include="Assets\Scripts\CodeGraphData\Result_solution\xml\struct_card_deck_info.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+</Project>

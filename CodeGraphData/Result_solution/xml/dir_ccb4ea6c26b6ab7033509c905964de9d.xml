@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_ccb4ea6c26b6ab7033509c905964de9d" kind="dir">
+    <compoundname>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager</compoundname>
+    <innerfile refid="_battle_ground_manager_8cs">BattleGroundManager.cs</innerfile>
+    <innerfile refid="_card_deck_8cs">CardDeck.cs</innerfile>
+    <innerfile refid="_card_deck_manager_8cs">CardDeckManager.cs</innerfile>
+    <innerfile refid="_card_picture_manager_8cs">CardPictureManager.cs</innerfile>
+    <innerfile refid="_drag_manager_8cs">DragManager.cs</innerfile>
+    <innerfile refid="_game_board_manager_8cs">GameBoardManager.cs</innerfile>
+    <innerfile refid="_game_manager_8cs">GameManager.cs</innerfile>
+    <innerfile refid="_game_object_pool_manager_8cs">GameObjectPoolManager.cs</innerfile>
+    <innerfile refid="_hand_manager_8cs">HandManager.cs</innerfile>
+    <innerfile refid="_mouse_hover_manager_8cs">MouseHoverManager.cs</innerfile>
+    <innerfile refid="_round_manager_8cs">RoundManager.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,389 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_drag_component" kind="class" prot="public">
+    <compoundname>DragComponent</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_drag_component_1ac47b2f6944962ac1fb3cb6cc0ca0c1a0" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DragComponent.retinuesLayer</definition>
+        <argsstring></argsstring>
+        <name>retinuesLayer</name>
+        <briefdescription>
+<para>可拖动功能，应用于卡片、人物、技能、随从、 实现拖动过程中卡牌跟随鼠标的一段动画 如果被拖动物体带target效果，则此组件只实现最初的卡牌跟随鼠标动画，由targetArrow终结此过程 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="14" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="14" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a62071a6e9e2d034fc67b69f6bbe1a603" compoundref="_drag_component_8cs" startline="18" endline="24">Awake</referencedby>
+        <referencedby refid="class_drag_component_1a53262f305921c5d36f3bd403d2870ad2" compoundref="_drag_component_8cs" startline="144" endline="155">checkMoveTorRetinue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1ab450019010e837543e0be5c52fd38498" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DragComponent.boardAreasLayer</definition>
+        <argsstring></argsstring>
+        <name>boardAreasLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="15" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="15" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a62071a6e9e2d034fc67b69f6bbe1a603" compoundref="_drag_component_8cs" startline="18" endline="24">Awake</referencedby>
+        <referencedby refid="class_drag_component_1a20ccaab7e6422242cb2f2336a99fcdc9" compoundref="_drag_component_8cs" startline="103" endline="128">checkAreas</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1a504356dfca7e70417741cd8fccddf5d3" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DragComponent.slotsLayer</definition>
+        <argsstring></argsstring>
+        <name>slotsLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="16" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="16" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a62071a6e9e2d034fc67b69f6bbe1a603" compoundref="_drag_component_8cs" startline="18" endline="24">Awake</referencedby>
+        <referencedby refid="class_drag_component_1a3c1562d4f7d615a67da12952d7c69eef" compoundref="_drag_component_8cs" startline="130" endline="141">checkMoveToSlot</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1a3999cd628b94e73190e72dcd3856f14f" prot="private" static="no" mutable="no">
+        <type><ref refid="interface_i_drag_component" kindref="compound">IDragComponent</ref></type>
+        <definition>IDragComponent DragComponent.caller</definition>
+        <argsstring></argsstring>
+        <name>caller</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="17" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="17" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a62071a6e9e2d034fc67b69f6bbe1a603" compoundref="_drag_component_8cs" startline="18" endline="24">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1ae8eda11b71b805f99b09f4ffd705f757" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool DragComponent.canDrag</definition>
+        <argsstring></argsstring>
+        <name>canDrag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="62" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="62" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1af2cca1a9cd4e33642540dc7319b5499c" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool DragComponent.hasTarget</definition>
+        <argsstring></argsstring>
+        <name>hasTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="63" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="63" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1a83635607a586b4f2c71103a637722f9c" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float DragComponent.dragDistance</definition>
+        <argsstring></argsstring>
+        <name>dragDistance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="64" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="64" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1acef1c4590846d53f3f0ae8c6b013d17e" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool DragComponent.isOnDrag</definition>
+        <argsstring></argsstring>
+        <name>isOnDrag</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="65" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1ab55bcdbf6309d68a0f02e01c0e2e40d1" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool DragComponent.isBegin</definition>
+        <argsstring></argsstring>
+        <name>isBegin</name>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="66" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="66" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1a400347e643e88dbf7fad0b1b3e5e24bd" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 DragComponent.dragBeginPosition</definition>
+        <argsstring></argsstring>
+        <name>dragBeginPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="67" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="67" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1a5d1ce6fa619773c58cb263d3215ec055" prot="private" static="no" mutable="no">
+        <type>Quaternion</type>
+        <definition>Quaternion DragComponent.dragBeginQuaternion</definition>
+        <argsstring></argsstring>
+        <name>dragBeginQuaternion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="68" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="68" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1adba2a4e09eb3bc32b5a00f26056a3555" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 DragComponent.dragLastPosition</definition>
+        <argsstring></argsstring>
+        <name>dragLastPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="69" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="69" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_drag_component_1a409328bcc805a217035296ce250a5382" prot="private" static="no" mutable="no">
+        <type><ref refid="class_arrow" kindref="compound">Arrow</ref></type>
+        <definition>Arrow DragComponent.arrow</definition>
+        <argsstring></argsstring>
+        <name>arrow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="70" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="70" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_drag_component_1a6b04f68091a49d94c0030965bc872e49" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>bool</type>
+        <definition>bool DragComponent.IsOnDrag</definition>
+        <argsstring></argsstring>
+        <name>IsOnDrag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="72" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="72" bodyend="-1"/>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_drag_component_1a62071a6e9e2d034fc67b69f6bbe1a603" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DragComponent.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="18" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="18" bodyend="24"/>
+        <references refid="class_drag_component_1ab450019010e837543e0be5c52fd38498" compoundref="_drag_component_8cs" startline="15">boardAreasLayer</references>
+        <references refid="class_drag_component_1a3999cd628b94e73190e72dcd3856f14f" compoundref="_drag_component_8cs" startline="17">caller</references>
+        <references refid="class_drag_component_1ac47b2f6944962ac1fb3cb6cc0ca0c1a0" compoundref="_drag_component_8cs" startline="14">retinuesLayer</references>
+        <references refid="class_drag_component_1a504356dfca7e70417741cd8fccddf5d3" compoundref="_drag_component_8cs" startline="16">slotsLayer</references>
+      </memberdef>
+      <memberdef kind="function" id="class_drag_component_1a865ff242bc623fd1e093f841896922ed" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DragComponent.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="26" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="26" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DragComponent.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="31" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="31" bodyend="60"/>
+        <references refid="class_drag_component_1a409328bcc805a217035296ce250a5382" compoundref="_drag_component_8cs" startline="70">arrow</references>
+        <references refid="class_drag_component_1ae8eda11b71b805f99b09f4ffd705f757" compoundref="_drag_component_8cs" startline="62">canDrag</references>
+        <references refid="class_drag_component_1a20ccaab7e6422242cb2f2336a99fcdc9" compoundref="_drag_component_8cs" startline="103" endline="128">checkAreas</references>
+        <references refid="class_drag_component_1a53262f305921c5d36f3bd403d2870ad2" compoundref="_drag_component_8cs" startline="144" endline="155">checkMoveTorRetinue</references>
+        <references refid="class_drag_component_1a3c1562d4f7d615a67da12952d7c69eef" compoundref="_drag_component_8cs" startline="130" endline="141">checkMoveToSlot</references>
+        <references refid="class_drag_component_1a400347e643e88dbf7fad0b1b3e5e24bd" compoundref="_drag_component_8cs" startline="67">dragBeginPosition</references>
+        <references refid="class_drag_component_1a5d1ce6fa619773c58cb263d3215ec055" compoundref="_drag_component_8cs" startline="68">dragBeginQuaternion</references>
+        <references refid="class_drag_component_1a83635607a586b4f2c71103a637722f9c" compoundref="_drag_component_8cs" startline="64">dragDistance</references>
+        <references refid="class_drag_component_1adba2a4e09eb3bc32b5a00f26056a3555" compoundref="_drag_component_8cs" startline="69">dragLastPosition</references>
+        <references refid="class_drag_component_1af2cca1a9cd4e33642540dc7319b5499c" compoundref="_drag_component_8cs" startline="63">hasTarget</references>
+        <references refid="class_drag_component_1ab55bcdbf6309d68a0f02e01c0e2e40d1" compoundref="_drag_component_8cs" startline="66">isBegin</references>
+        <references refid="class_drag_component_1a6b04f68091a49d94c0030965bc872e49" compoundref="_drag_component_8cs" startline="72">IsOnDrag</references>
+      </memberdef>
+      <memberdef kind="function" id="class_drag_component_1a20ccaab7e6422242cb2f2336a99fcdc9" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6d" kindref="member">BoardAreaTypes</ref></type>
+        <definition>BoardAreaTypes DragComponent.checkAreas</definition>
+        <argsstring>()</argsstring>
+        <name>checkAreas</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="103" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="103" bodyend="128"/>
+        <references refid="class_drag_component_1ab450019010e837543e0be5c52fd38498" compoundref="_drag_component_8cs" startline="15">boardAreasLayer</references>
+        <references refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6da57995574655828190f78d321e371789f">EnemyBattleGroundArea</references>
+        <references refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6dabfd7d9b4cf5168bb3efb38eb7a0a151d">EnemyHandArea</references>
+        <references refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6da52ef9633d88a7480b3a938ff9eaa2a25">Others</references>
+        <references refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6da258c3cdd75f36fd88bc1696ddac51360">SelfBattleGroundArea</references>
+        <references refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6dae4287ac4d2ee19346d369f2c4e8723ee">SelfHandArea</references>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_drag_component_1a3c1562d4f7d615a67da12952d7c69eef" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>List&lt; <ref refid="class_slot_anchor" kindref="compound">SlotAnchor</ref> &gt;</type>
+        <definition>List&lt;SlotAnchor&gt; DragComponent.checkMoveToSlot</definition>
+        <argsstring>()</argsstring>
+        <name>checkMoveToSlot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="130" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="130" bodyend="141"/>
+        <references refid="class_drag_component_1a504356dfca7e70417741cd8fccddf5d3" compoundref="_drag_component_8cs" startline="16">slotsLayer</references>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_drag_component_1a53262f305921c5d36f3bd403d2870ad2" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref></type>
+        <definition>ModuleRetinue DragComponent.checkMoveTorRetinue</definition>
+        <argsstring>()</argsstring>
+        <name>checkMoveTorRetinue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="144" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="144" bodyend="155"/>
+        <references refid="class_drag_component_1ac47b2f6944962ac1fb3cb6cc0ca0c1a0" compoundref="_drag_component_8cs" startline="14">retinuesLayer</references>
+        <referencedby refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" compoundref="_drag_component_8cs" startline="31" endline="60">Update</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="191">
+        <label>DragComponent</label>
+        <link refid="class_drag_component"/>
+        <childnode refid="192" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="192">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="197">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="193">
+        <label>DragComponent</label>
+        <link refid="class_drag_component"/>
+        <childnode refid="194" relation="public-inheritance">
+        </childnode>
+        <childnode refid="195" relation="usage">
+          <edgelabel>caller</edgelabel>
+        </childnode>
+        <childnode refid="196" relation="usage">
+          <edgelabel>arrow</edgelabel>
+        </childnode>
+      </node>
+      <node id="195">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="196">
+        <label>Arrow</label>
+        <link refid="class_arrow"/>
+        <childnode refid="194" relation="public-inheritance">
+        </childnode>
+        <childnode refid="197" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="194">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" line="7" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/DragComponent.cs" bodystart="6" bodyend="157"/>
+    <listofallmembers>
+      <member refid="class_drag_component_1a409328bcc805a217035296ce250a5382" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>arrow</name></member>
+      <member refid="class_drag_component_1a62071a6e9e2d034fc67b69f6bbe1a603" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>Awake</name></member>
+      <member refid="class_drag_component_1ab450019010e837543e0be5c52fd38498" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>boardAreasLayer</name></member>
+      <member refid="class_drag_component_1a3999cd628b94e73190e72dcd3856f14f" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>caller</name></member>
+      <member refid="class_drag_component_1ae8eda11b71b805f99b09f4ffd705f757" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>canDrag</name></member>
+      <member refid="class_drag_component_1a20ccaab7e6422242cb2f2336a99fcdc9" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>checkAreas</name></member>
+      <member refid="class_drag_component_1a53262f305921c5d36f3bd403d2870ad2" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>checkMoveTorRetinue</name></member>
+      <member refid="class_drag_component_1a3c1562d4f7d615a67da12952d7c69eef" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>checkMoveToSlot</name></member>
+      <member refid="class_drag_component_1a400347e643e88dbf7fad0b1b3e5e24bd" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>dragBeginPosition</name></member>
+      <member refid="class_drag_component_1a5d1ce6fa619773c58cb263d3215ec055" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>dragBeginQuaternion</name></member>
+      <member refid="class_drag_component_1a83635607a586b4f2c71103a637722f9c" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>dragDistance</name></member>
+      <member refid="class_drag_component_1adba2a4e09eb3bc32b5a00f26056a3555" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>dragLastPosition</name></member>
+      <member refid="class_drag_component_1af2cca1a9cd4e33642540dc7319b5499c" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>hasTarget</name></member>
+      <member refid="class_drag_component_1ab55bcdbf6309d68a0f02e01c0e2e40d1" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>isBegin</name></member>
+      <member refid="class_drag_component_1a6b04f68091a49d94c0030965bc872e49" prot="public" virt="non-virtual"><scope>DragComponent</scope><name>IsOnDrag</name></member>
+      <member refid="class_drag_component_1acef1c4590846d53f3f0ae8c6b013d17e" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>isOnDrag</name></member>
+      <member refid="class_drag_component_1ac47b2f6944962ac1fb3cb6cc0ca0c1a0" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>retinuesLayer</name></member>
+      <member refid="class_drag_component_1a504356dfca7e70417741cd8fccddf5d3" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>slotsLayer</name></member>
+      <member refid="class_drag_component_1a865ff242bc623fd1e093f841896922ed" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>Start</name></member>
+      <member refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" prot="private" virt="non-virtual"><scope>DragComponent</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

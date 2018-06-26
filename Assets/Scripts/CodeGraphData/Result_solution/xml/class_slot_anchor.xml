@@ -1,0 +1,550 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_slot_anchor" kind="class" prot="public">
+    <compoundname>SlotAnchor</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+    <basecompoundref refid="interface_i_mouse_hover_component" prot="public" virt="non-virtual">IMouseHoverComponent</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_slot_anchor_1a8c235185da9af7e01af7be9f46c11886" prot="public" static="no" mutable="no">
+        <type><ref refid="class_player" kindref="compound">Player</ref></type>
+        <definition>Player SlotAnchor.Player</definition>
+        <argsstring></argsstring>
+        <name>Player</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="7" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_slot_anchor_1a79cd925f08ee10c2a7858b3a50a71e88" prot="public" static="no" mutable="no">
+        <type><ref refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139c" kindref="member">SlotType</ref></type>
+        <definition>SlotType SlotAnchor.M_SlotType</definition>
+        <argsstring></argsstring>
+        <name>M_SlotType</name>
+        <initializer>= <ref refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca6adf97f83acf6453d4a6a4b1070f3754" kindref="member">SlotType.None</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="8" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="8" bodyend="-1"/>
+        <referencedby refid="class_slot_anchor_1a6c566b9dc023b0a9b7c959fe344948e6" compoundref="_slot_anchor_8cs" startline="43" endline="57">MouseHoverComponent_OnMouseDragEnterImmediately</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_slot_anchor_1ad0082717a987842b1c55653e84c5f0c7" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject SlotAnchor.OnHoverShowGO</definition>
+        <argsstring></argsstring>
+        <name>OnHoverShowGO</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="26" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="26" bodyend="-1"/>
+        <referencedby refid="class_slot_anchor_1a686be3ac62679ac155a4cad79719c1dc" compoundref="_slot_anchor_8cs" startline="35" endline="40">HideHoverShowGO</referencedby>
+        <referencedby refid="class_slot_anchor_1aee0af335d4a4a4beb71632693d114d19" compoundref="_slot_anchor_8cs" startline="28" endline="33">ShowHoverGO</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_slot_anchor_1a90ea0723f9cd5dd411b79724149914ef" prot="package" static="no" mutable="no">
+        <type><ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref></type>
+        <definition>ModuleRetinue SlotAnchor.M_ModuleRetinue</definition>
+        <argsstring></argsstring>
+        <name>M_ModuleRetinue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="9" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_slot_anchor_1a6753f1a5bb254c3228df5ea53bb13901" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="11" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="11" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_slot_anchor_1aa1f0f065e4a59701b7893b06ef63711a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="16" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="16" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_slot_anchor_1a835499eee749e70b25627ce4a0d4b74c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="21" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="21" bodyend="24"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_slot_anchor_1aee0af335d4a4a4beb71632693d114d19" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.ShowHoverGO</definition>
+        <argsstring>()</argsstring>
+        <name>ShowHoverGO</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="28" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="28" bodyend="33"/>
+        <references refid="class_slot_anchor_1ad0082717a987842b1c55653e84c5f0c7" compoundref="_slot_anchor_8cs" startline="26">OnHoverShowGO</references>
+        <referencedby refid="class_slot_anchor_1a6c566b9dc023b0a9b7c959fe344948e6" compoundref="_slot_anchor_8cs" startline="43" endline="57">MouseHoverComponent_OnMouseDragEnterImmediately</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_slot_anchor_1a686be3ac62679ac155a4cad79719c1dc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.HideHoverShowGO</definition>
+        <argsstring>()</argsstring>
+        <name>HideHoverShowGO</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="35" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="35" bodyend="40"/>
+        <references refid="class_slot_anchor_1ad0082717a987842b1c55653e84c5f0c7" compoundref="_slot_anchor_8cs" startline="26">OnHoverShowGO</references>
+        <referencedby refid="class_slot_anchor_1a6b567888a5f8768efaa01fa78a34dbbd" compoundref="_slot_anchor_8cs" startline="80" endline="83">MouseHoverComponent_OnMouseDragLeaveImmediately</referencedby>
+        <referencedby refid="class_slot_anchor_1ac20241d7aa45240a40ac6b0d7cf65c49" compoundref="_slot_anchor_8cs" startline="75" endline="78">MouseHoverComponent_OnMouseLeaveImmediately</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_slot_anchor_1a6c566b9dc023b0a9b7c959fe344948e6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.MouseHoverComponent_OnMouseDragEnterImmediately</definition>
+        <argsstring>(Vector3 mousePosition)</argsstring>
+        <name>MouseHoverComponent_OnMouseDragEnterImmediately</name>
+        <reimplements refid="interface_i_mouse_hover_component_1a03f527fc21e10d95dc6815866a7b70c9">MouseHoverComponent_OnMouseDragEnterImmediately</reimplements>
+        <param>
+          <type>Vector3</type>
+          <declname>mousePosition</declname>
+        </param>
+        <briefdescription>
+<para>此接口用于将除了MouseHoverComponent通用效果之外的效果还给调用者自行处理 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="43" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="43" bodyend="57"/>
+        <references refid="class_drag_manager_1a40944c03e8b1051d3c8f3459f7af8f3a" compoundref="_drag_manager_8cs" startline="36">DragManager.CurrentDrag</references>
+        <references refid="class_drag_manager_1a4f668413df8ad76ade43f5da25304bfd" compoundref="_drag_manager_8cs" startline="11">DragManager.DM</references>
+        <references refid="class_slot_anchor_1a79cd925f08ee10c2a7858b3a50a71e88" compoundref="_slot_anchor_8cs" startline="8">M_SlotType</references>
+        <references refid="class_slot_anchor_1aee0af335d4a4a4beb71632693d114d19" compoundref="_slot_anchor_8cs" startline="28" endline="33">ShowHoverGO</references>
+      </memberdef>
+      <memberdef kind="function" id="class_slot_anchor_1adc9bd993644a846e7a6b2699e027cb37" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.MouseHoverComponent_OnMouseEnterImmediately</definition>
+        <argsstring>(Vector3 mousePosition)</argsstring>
+        <name>MouseHoverComponent_OnMouseEnterImmediately</name>
+        <reimplements refid="interface_i_mouse_hover_component_1a63f61ec02e20188f3ab4d476fa298d89">MouseHoverComponent_OnMouseEnterImmediately</reimplements>
+        <param>
+          <type>Vector3</type>
+          <declname>mousePosition</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="59" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="59" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="class_slot_anchor_1a4d67997c78510fe9069d5ef9f1e4036f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.MouseHoverComponent_OnMouseEnter</definition>
+        <argsstring>(Vector3 mousePosition)</argsstring>
+        <name>MouseHoverComponent_OnMouseEnter</name>
+        <reimplements refid="interface_i_mouse_hover_component_1aac81475fa0ebd73b6951acb98647287e">MouseHoverComponent_OnMouseEnter</reimplements>
+        <param>
+          <type>Vector3</type>
+          <declname>mousePosition</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="63" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="63" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="class_slot_anchor_1abc69699b15439c2ec7d1f2019feb3b0a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.MouseHoverComponent_OnMouseOver</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseOver</name>
+        <reimplements refid="interface_i_mouse_hover_component_1a54a3bf57159f034a93c8a742ab0d10a6">MouseHoverComponent_OnMouseOver</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="67" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="67" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="class_slot_anchor_1afb4b856e350ece813d484fd0b2bcade0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.MouseHoverComponent_OnMouseLeave</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseLeave</name>
+        <reimplements refid="interface_i_mouse_hover_component_1a2d91b71f94d530bd6f5c365b21652d31">MouseHoverComponent_OnMouseLeave</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="71" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="71" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="class_slot_anchor_1ac20241d7aa45240a40ac6b0d7cf65c49" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.MouseHoverComponent_OnMouseLeaveImmediately</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseLeaveImmediately</name>
+        <reimplements refid="interface_i_mouse_hover_component_1acbd1ed46f1b311a387488f543c602df6">MouseHoverComponent_OnMouseLeaveImmediately</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="75" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="75" bodyend="78"/>
+        <references refid="class_slot_anchor_1a686be3ac62679ac155a4cad79719c1dc" compoundref="_slot_anchor_8cs" startline="35" endline="40">HideHoverShowGO</references>
+      </memberdef>
+      <memberdef kind="function" id="class_slot_anchor_1a6b567888a5f8768efaa01fa78a34dbbd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SlotAnchor.MouseHoverComponent_OnMouseDragLeaveImmediately</definition>
+        <argsstring>()</argsstring>
+        <name>MouseHoverComponent_OnMouseDragLeaveImmediately</name>
+        <reimplements refid="interface_i_mouse_hover_component_1a58c447da0331f33de85d482c35079080">MouseHoverComponent_OnMouseDragLeaveImmediately</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="80" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="80" bodyend="83"/>
+        <references refid="class_slot_anchor_1a686be3ac62679ac155a4cad79719c1dc" compoundref="_slot_anchor_8cs" startline="35" endline="40">HideHoverShowGO</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="463">
+        <label>SlotAnchor</label>
+        <link refid="class_slot_anchor"/>
+        <childnode refid="464" relation="public-inheritance">
+        </childnode>
+        <childnode refid="465" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="465">
+        <label>IMouseHoverComponent</label>
+        <link refid="interface_i_mouse_hover_component"/>
+      </node>
+      <node id="464">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="474">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="466">
+        <label>SlotAnchor</label>
+        <link refid="class_slot_anchor"/>
+        <childnode refid="467" relation="public-inheritance">
+        </childnode>
+        <childnode refid="468" relation="public-inheritance">
+        </childnode>
+        <childnode refid="469" relation="usage">
+          <edgelabel>M_ModuleRetinue</edgelabel>
+        </childnode>
+        <childnode refid="475" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="479">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="467" relation="public-inheritance">
+        </childnode>
+        <childnode refid="471" relation="public-inheritance">
+        </childnode>
+        <childnode refid="473" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+      </node>
+      <node id="486">
+        <label>ModuleShield</label>
+        <link refid="class_module_shield"/>
+        <childnode refid="470" relation="public-inheritance">
+        </childnode>
+        <childnode refid="478" relation="usage">
+          <edgelabel>CardNumberSet_ShieldShieldMax</edgelabel>
+          <edgelabel>my_TextAlign_Armor</edgelabel>
+          <edgelabel>my_TextAlign_Shield</edgelabel>
+          <edgelabel>my_TextAlign_ShieldMax</edgelabel>
+          <edgelabel>CardNumberSet_ShieldArmorMax</edgelabel>
+          <edgelabel>my_TextAlign_ArmorMax</edgelabel>
+          <edgelabel>CardNumberSet_ShieldShield</edgelabel>
+          <edgelabel>CardNumberSet_ShieldArmor</edgelabel>
+        </childnode>
+        <childnode refid="469" relation="usage">
+          <edgelabel>M_ModuleRetinue</edgelabel>
+        </childnode>
+      </node>
+      <node id="471">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="473">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="467" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="481">
+        <label>BattleGroundManager</label>
+        <link refid="class_battle_ground_manager"/>
+        <childnode refid="467" relation="public-inheritance">
+        </childnode>
+        <childnode refid="475" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="478">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="467" relation="public-inheritance">
+        </childnode>
+        <childnode refid="471" relation="public-inheritance">
+        </childnode>
+        <childnode refid="473" relation="usage">
+          <edgelabel>childrenPool</edgelabel>
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="479" relation="usage">
+          <edgelabel>cardNumbers</edgelabel>
+        </childnode>
+      </node>
+      <node id="472">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="484">
+        <label>CardDeck</label>
+        <link refid="class_card_deck"/>
+        <childnode refid="483" relation="usage">
+          <edgelabel>M_CardDeckInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="476">
+        <label>HandManager</label>
+        <link refid="class_hand_manager"/>
+        <childnode refid="467" relation="public-inheritance">
+        </childnode>
+        <childnode refid="475" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="477" relation="usage">
+          <edgelabel>currentFocusCard</edgelabel>
+        </childnode>
+      </node>
+      <node id="468">
+        <label>IMouseHoverComponent</label>
+        <link refid="interface_i_mouse_hover_component"/>
+      </node>
+      <node id="477">
+        <label>Card</label>
+        <link refid="class_card"/>
+        <childnode refid="467" relation="public-inheritance">
+        </childnode>
+        <childnode refid="471" relation="public-inheritance">
+        </childnode>
+        <childnode refid="472" relation="public-inheritance">
+        </childnode>
+        <childnode refid="473" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="478" relation="usage">
+          <edgelabel>CardNumberSet_Cost</edgelabel>
+        </childnode>
+        <childnode refid="474" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+        </childnode>
+        <childnode refid="480" relation="usage">
+          <edgelabel>myColliderReplace</edgelabel>
+        </childnode>
+        <childnode refid="475" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="467">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="470">
+        <label>ModuleBase</label>
+        <link refid="class_module_base"/>
+        <childnode refid="467" relation="public-inheritance">
+        </childnode>
+        <childnode refid="471" relation="public-inheritance">
+        </childnode>
+        <childnode refid="472" relation="public-inheritance">
+        </childnode>
+        <childnode refid="468" relation="public-inheritance">
+        </childnode>
+        <childnode refid="473" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="474" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+          <edgelabel>ModuleCurrentCardInfo</edgelabel>
+        </childnode>
+        <childnode refid="475" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="477" relation="usage">
+          <edgelabel>detailCard</edgelabel>
+          <edgelabel>detailCard_Weapon</edgelabel>
+          <edgelabel>detailCard_Shield</edgelabel>
+          <edgelabel>detailCard_Pack</edgelabel>
+          <edgelabel>detailCard_MA</edgelabel>
+        </childnode>
+      </node>
+      <node id="475">
+        <label>Player</label>
+        <link refid="class_player"/>
+        <childnode refid="476" relation="usage">
+          <edgelabel>MyHandManager</edgelabel>
+        </childnode>
+        <childnode refid="481" relation="usage">
+          <edgelabel>MyBattleGroundManager</edgelabel>
+        </childnode>
+        <childnode refid="482" relation="usage">
+          <edgelabel>MyCardDeckManager</edgelabel>
+        </childnode>
+      </node>
+      <node id="483">
+        <label>CardDeckInfo</label>
+        <link refid="struct_card_deck_info"/>
+      </node>
+      <node id="469">
+        <label>ModuleRetinue</label>
+        <link refid="class_module_retinue"/>
+        <childnode refid="470" relation="public-inheritance">
+        </childnode>
+        <childnode refid="485" relation="usage">
+          <edgelabel>m_Weapon</edgelabel>
+        </childnode>
+        <childnode refid="486" relation="usage">
+          <edgelabel>M_MA</edgelabel>
+          <edgelabel>M_Pack</edgelabel>
+          <edgelabel>m_Shield</edgelabel>
+        </childnode>
+        <childnode refid="478" relation="usage">
+          <edgelabel>CardNumberSet_RetinueLeftLife</edgelabel>
+          <edgelabel>CardNumberSet_RetinueAttack</edgelabel>
+          <edgelabel>CardNumberSet_RetinueArmor</edgelabel>
+          <edgelabel>CardNumberSet_RetinueShield</edgelabel>
+          <edgelabel>CardNumberSet_RetinueTotalLife</edgelabel>
+        </childnode>
+        <childnode refid="466" relation="usage">
+          <edgelabel>SlotAnchor1</edgelabel>
+          <edgelabel>SlotAnchor2</edgelabel>
+          <edgelabel>SlotAnchor3</edgelabel>
+          <edgelabel>SlotAnchor4</edgelabel>
+        </childnode>
+      </node>
+      <node id="485">
+        <label>ModuleWeapon</label>
+        <link refid="class_module_weapon"/>
+        <childnode refid="470" relation="public-inheritance">
+        </childnode>
+        <childnode refid="478" relation="usage">
+          <edgelabel>CardNumberSet_WeaponAttack</edgelabel>
+          <edgelabel>my_TextAlign_Energy</edgelabel>
+          <edgelabel>my_TextAlign_Attack</edgelabel>
+          <edgelabel>CardNumberSet_WeaponEnergy</edgelabel>
+        </childnode>
+        <childnode refid="469" relation="usage">
+          <edgelabel>M_ModuleRetinue</edgelabel>
+        </childnode>
+      </node>
+      <node id="482">
+        <label>CardDeckManager</label>
+        <link refid="class_card_deck_manager"/>
+        <childnode refid="467" relation="public-inheritance">
+        </childnode>
+        <childnode refid="483" relation="usage">
+          <edgelabel>M_UnlockCards</edgelabel>
+          <edgelabel>M_LockCards</edgelabel>
+        </childnode>
+        <childnode refid="484" relation="usage">
+          <edgelabel>M_CurrentCardDeck</edgelabel>
+        </childnode>
+        <childnode refid="475" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="480">
+        <label>ColliderReplace</label>
+        <link refid="class_collider_replace"/>
+        <childnode refid="467" relation="public-inheritance">
+        </childnode>
+        <childnode refid="477" relation="usage">
+          <edgelabel>MyCallerCard</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="6" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="5" bodyend="84"/>
+    <listofallmembers>
+      <member refid="class_slot_anchor_1a6753f1a5bb254c3228df5ea53bb13901" prot="private" virt="non-virtual"><scope>SlotAnchor</scope><name>Awake</name></member>
+      <member refid="class_slot_anchor_1a686be3ac62679ac155a4cad79719c1dc" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>HideHoverShowGO</name></member>
+      <member refid="class_slot_anchor_1a90ea0723f9cd5dd411b79724149914ef" prot="package" virt="non-virtual"><scope>SlotAnchor</scope><name>M_ModuleRetinue</name></member>
+      <member refid="class_slot_anchor_1a79cd925f08ee10c2a7858b3a50a71e88" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>M_SlotType</name></member>
+      <member refid="class_slot_anchor_1a6c566b9dc023b0a9b7c959fe344948e6" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>MouseHoverComponent_OnMouseDragEnterImmediately</name></member>
+      <member refid="class_slot_anchor_1a6b567888a5f8768efaa01fa78a34dbbd" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>MouseHoverComponent_OnMouseDragLeaveImmediately</name></member>
+      <member refid="class_slot_anchor_1a4d67997c78510fe9069d5ef9f1e4036f" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>MouseHoverComponent_OnMouseEnter</name></member>
+      <member refid="class_slot_anchor_1adc9bd993644a846e7a6b2699e027cb37" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>MouseHoverComponent_OnMouseEnterImmediately</name></member>
+      <member refid="class_slot_anchor_1afb4b856e350ece813d484fd0b2bcade0" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>MouseHoverComponent_OnMouseLeave</name></member>
+      <member refid="class_slot_anchor_1ac20241d7aa45240a40ac6b0d7cf65c49" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>MouseHoverComponent_OnMouseLeaveImmediately</name></member>
+      <member refid="class_slot_anchor_1abc69699b15439c2ec7d1f2019feb3b0a" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>MouseHoverComponent_OnMouseOver</name></member>
+      <member refid="class_slot_anchor_1ad0082717a987842b1c55653e84c5f0c7" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>OnHoverShowGO</name></member>
+      <member refid="class_slot_anchor_1a8c235185da9af7e01af7be9f46c11886" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>Player</name></member>
+      <member refid="class_slot_anchor_1aee0af335d4a4a4beb71632693d114d19" prot="public" virt="non-virtual"><scope>SlotAnchor</scope><name>ShowHoverGO</name></member>
+      <member refid="class_slot_anchor_1aa1f0f065e4a59701b7893b06ef63711a" prot="private" virt="non-virtual"><scope>SlotAnchor</scope><name>Start</name></member>
+      <member refid="class_slot_anchor_1a835499eee749e70b25627ce4a0d4b74c" prot="private" virt="non-virtual"><scope>SlotAnchor</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

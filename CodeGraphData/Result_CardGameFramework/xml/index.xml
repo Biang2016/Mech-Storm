@@ -1,0 +1,972 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.6">
+  <compound refid="class_all_cards" kind="class"><name>AllCards</name>
+    <member refid="class_all_cards_1a34ccce5bfdde856016f3eae422775e63" kind="variable"><name>CardDict</name></member>
+    <member refid="class_all_cards_1a92ec4d1503edc3dc7560a89437823a42" kind="function"><name>AllCards</name></member>
+    <member refid="class_all_cards_1acf9b3f11fe50149cda3f6d2ecf3bcfb4" kind="function"><name>GetCard</name></member>
+    <member refid="class_all_cards_1ae6a5bba96479983e0651763bb5a243e0" kind="function"><name>GetCards</name></member>
+  </compound>
+  <compound refid="class_arrow" kind="class"><name>Arrow</name>
+    <member refid="class_arrow_1aa4632bf0bbf95f4138b1433c67e066ba" kind="variable"><name>ArrowBody</name></member>
+    <member refid="class_arrow_1a587170ab2afd4eb50b626424cd66efc6" kind="variable"><name>defaultRotation</name></member>
+    <member refid="class_arrow_1ac626d695194909804834fcdaab137785" kind="variable"><name>defaultPosition_ArrowBody</name></member>
+    <member refid="class_arrow_1aa17f155781fcc6c63f698186143f74bd" kind="variable"><name>defaultRotation_ArrowBody</name></member>
+    <member refid="class_arrow_1a4a3b4d386aa07106326674a9db6f9039" kind="function"><name>PoolRecycle</name></member>
+    <member refid="class_arrow_1a5f4c21e9e3373117f6fdfe81d318c8cc" kind="function"><name>Initiate</name></member>
+    <member refid="class_arrow_1a811972a53f7529bf9b4de817b0d6c917" kind="function"><name>Awake</name></member>
+    <member refid="class_arrow_1a65ce0e1a14405dec237e13ee5631b07d" kind="function"><name>Start</name></member>
+    <member refid="class_arrow_1a98d2142ded67e21edd7f652a9c5f7d89" kind="function"><name>Update</name></member>
+  </compound>
+  <compound refid="class_battle_ground_manager" kind="class"><name>BattleGroundManager</name>
+    <member refid="class_battle_ground_manager_1a4c0c362d9fca7c8aeed6a270f0ba8535" kind="variable"><name>BattleGroundIsFull</name></member>
+    <member refid="class_battle_ground_manager_1a65a55c36dfe93ce16290ea36646a705a" kind="variable"><name>Player</name></member>
+    <member refid="class_battle_ground_manager_1a685273cf6f4250761f99ff19917dc895" kind="variable"><name>_defaultRetinuePosition</name></member>
+    <member refid="class_battle_ground_manager_1a3c5738410877295ccfad9ea8e689b0bd" kind="variable"><name>_maxRetinueNumber</name></member>
+    <member refid="class_battle_ground_manager_1a469f6519dde4cb2865f1267142b2551a" kind="variable"><name>_retinueCount</name></member>
+    <member refid="class_battle_ground_manager_1ad605d3d25fa8e12a1d53c94c720e7a36" kind="variable"><name>_retinueInterval</name></member>
+    <member refid="class_battle_ground_manager_1a4d6dae087003374bc0b957ec4dc44261" kind="variable"><name>_retinues</name></member>
+    <member refid="class_battle_ground_manager_1a2cc7d27dce4466b3c50f559bf9e3ad38" kind="function"><name>Awake</name></member>
+    <member refid="class_battle_ground_manager_1a2be3b8882a761aaecbc2dfcf6d905bcd" kind="function"><name>Start</name></member>
+    <member refid="class_battle_ground_manager_1a101709148409dabf3820e7c9081c161b" kind="function"><name>Update</name></member>
+    <member refid="class_battle_ground_manager_1ad74259199f0375a41da686e25e6098f1" kind="function"><name>Initiate</name></member>
+    <member refid="class_battle_ground_manager_1af8cd559930dd8cb0c5492817badc5aa7" kind="function"><name>AddRetinueByPosition</name></member>
+    <member refid="class_battle_ground_manager_1af046da1cd65963291d8ca8de0d0b576a" kind="function"><name>CheckRetinueOnPosition</name></member>
+    <member refid="class_battle_ground_manager_1aaaa3d6b520d1ca57a8fc431a5bd9a661" kind="function"><name>AddRetinue</name></member>
+    <member refid="class_battle_ground_manager_1afd7c38debfd243e0b80f8c4a92fd0f5d" kind="function"><name>RemoveRetinue</name></member>
+    <member refid="class_battle_ground_manager_1ae0fe8f26ad90002dab067360bbbf9e31" kind="function"><name>RefreshBattleGround</name></member>
+    <member refid="class_battle_ground_manager_1a6c0b36dfeb98317331a8c85289e778ab" kind="function"><name>BeginRound</name></member>
+    <member refid="class_battle_ground_manager_1ad207b333829ffdbb61b0a463a0f3a7d4" kind="function"><name>EndRound</name></member>
+  </compound>
+  <compound refid="class_card" kind="class"><name>Card</name>
+    <member refid="class_card_1aa6d823e87296efa58b3b20440587f558" kind="variable"><name>gameObjectPool</name></member>
+    <member refid="class_card_1a20b29dd0c4b7396387e7bbe4ce792f83" kind="variable"><name>GoNumberSet_Cost</name></member>
+    <member refid="class_card_1ad3993d170e539dadb6b0cae020bf936b" kind="variable"><name>CardNumberSet_Cost</name></member>
+    <member refid="class_card_1aac946ce45e1db8906035a434671be3b2" kind="variable"><name>Player</name></member>
+    <member refid="class_card_1ad90e849974b4780a3f731cd4cd519c39" kind="variable"><name>CardInfo</name></member>
+    <member refid="class_card_1aade5d59454192b13ce5b553d31d6c459" kind="variable"><name>myColliderReplace</name></member>
+    <member refid="class_card_1aeb517748b8e878a94f4220374857617f" kind="variable"><name>myCollider</name></member>
+    <member refid="class_card_1a356a08cf9faf1dfc6b62f4c83d18fb90" kind="variable"><name>Usable</name></member>
+    <member refid="class_card_1a5f06b707bdbf7d489f4e59bd70ed80c8" kind="variable"><name>Block_Cost</name></member>
+    <member refid="class_card_1ab8740b3b366ddc81731c951dbdf75984" kind="variable"><name>PictureBoxRenderer</name></member>
+    <member refid="class_card_1aad2292d7dc0567550ab377463a62dafa" kind="variable"><name>m_Cost</name></member>
+    <member refid="class_card_1a53a173e4d8ecc1f974c9788f787aa4ff" kind="property"><name>M_Cost</name></member>
+    <member refid="class_card_1a0f8f4a858812bbe72b0d3ae593a13e0d" kind="function"><name>PoolRecycle</name></member>
+    <member refid="class_card_1a3b528721c607a933c40e0ba9a0096cc6" kind="function"><name>Initiate</name></member>
+    <member refid="class_card_1a9aa016307520bcc5645a1bd1d00671ab" kind="function"><name>OnBeginRound</name></member>
+    <member refid="class_card_1a7c89a0d7b69cb699d5f2d9ddba16ec7d" kind="function"><name>OnEndRound</name></member>
+    <member refid="class_card_1a16f788f62bf5b669847742fa8e79906c" kind="function"><name>DragComponent_OnMouseDown</name></member>
+    <member refid="class_card_1a57822f4eb6d1b60387d6850a2ac8ee10" kind="function"><name>DragComponent_OnMousePressed</name></member>
+    <member refid="class_card_1ae1ace4cd695b08c20cff748a40cefce5" kind="function"><name>DragComponent_OnMouseUp</name></member>
+    <member refid="class_card_1a481a98b2c9db71dd0976e441c1d2d2a7" kind="function"><name>DragComponent_SetStates</name></member>
+    <member refid="class_card_1a18a7d27530be72ddd8df71b351a833cd" kind="function"><name>DragComponnet_DragDistance</name></member>
+    <member refid="class_card_1abeba3a29fdde354952d925a8c4aac759" kind="function"><name>DragComponnet_DragOutEffects</name></member>
+    <member refid="class_card_1a2a3cb8e8554bcfe6fbc167e93199aa0f" kind="function"><name>Awake</name></member>
+    <member refid="class_card_1a9d221373638aed5643049fe7ccf350ed" kind="function"><name>initiateNumbers</name></member>
+    <member refid="class_card_1aa913ea2010bdf35406af13fe6be04dd3" kind="function"><name>initiateNumbers</name></member>
+    <member refid="class_card_1af323ae559181ccee68cb389d70cde585" kind="function"><name>Start</name></member>
+    <member refid="class_card_1ae8d2334c263576f28d4e484b09f49bd0" kind="function"><name>Update</name></member>
+    <member refid="class_card_1ae16c6f299192ca2f08ae1760fa1be6ad" kind="function"><name>OnMouseEnter</name></member>
+    <member refid="class_card_1aaf7c9920c5556b9a93817bcee4db1933" kind="function"><name>InstantiateCardByCardInfo</name></member>
+    <member refid="class_card_1a462429319ddfe99909e0ade84d53d5bd" kind="function"><name>ResetColliderAndReplace</name></member>
+  </compound>
+  <compound refid="class_card___retinue" kind="class"><name>Card_Retinue</name>
+    <member refid="class_card___retinue_1a606ee63ef518e29d2690f9549cc42292" kind="variable"><name>TextMesh_RetinueName</name></member>
+    <member refid="class_card___retinue_1a366389ebc832faa39f38eaa64655e4bc" kind="variable"><name>TextMesh_RetinueDesc</name></member>
+    <member refid="class_card___retinue_1a92b71f8e7028013f5bc704d36babe380" kind="variable"><name>Block_RetinueLeftLife</name></member>
+    <member refid="class_card___retinue_1a895cf3cb0a66697603eb67055ff34da0" kind="variable"><name>Block_RetinueTotalLife</name></member>
+    <member refid="class_card___retinue_1a5004f058f59d5eb097304dbb59959272" kind="variable"><name>Block_RetinueAttack</name></member>
+    <member refid="class_card___retinue_1a39e50e2a1d8a8c1772491e676f1d65c4" kind="variable"><name>Block_RetinueShield</name></member>
+    <member refid="class_card___retinue_1a027d622d3a329b0dcf980f3682f97481" kind="variable"><name>Block_RetinueArmor</name></member>
+    <member refid="class_card___retinue_1a0d0ecf90cb156682350c79db29fdf210" kind="variable"><name>Slot1</name></member>
+    <member refid="class_card___retinue_1a1e79018b0aee0aabc6ac1c559845bb14" kind="variable"><name>Slot2</name></member>
+    <member refid="class_card___retinue_1ada258bf75708847392b3ba432b52e904" kind="variable"><name>Slot3</name></member>
+    <member refid="class_card___retinue_1aa98f6a18b343d3a2cd37735629532b9d" kind="variable"><name>Slot4</name></member>
+    <member refid="class_card___retinue_1a45551932b7b9b5cf9b576a3890ff368e" kind="variable"><name>GoNumberSet_RetinueLeftLife</name></member>
+    <member refid="class_card___retinue_1a0c3d22adf37cbbff2799ca017c8d7cc9" kind="variable"><name>CardNumberSet_RetinueLeftLife</name></member>
+    <member refid="class_card___retinue_1a43e9d3020c764fb46897b7ebcb301de8" kind="variable"><name>GoNumberSet_RetinueTotalLife</name></member>
+    <member refid="class_card___retinue_1a1b4fe0ccc6d332fecfd6820b9bf293eb" kind="variable"><name>CardNumberSet_RetinueTotalLife</name></member>
+    <member refid="class_card___retinue_1ac7e4b0c1544435e14f701a20ff9e7604" kind="variable"><name>m_RetinueName</name></member>
+    <member refid="class_card___retinue_1a00c94f3fe00be95cbdfdd054bfad2573" kind="variable"><name>m_RetinueDesc</name></member>
+    <member refid="class_card___retinue_1ac553d580a0104af0c33b222bd66954d6" kind="variable"><name>m_RetinueLeftLife</name></member>
+    <member refid="class_card___retinue_1a4618b4d35452612e2b9c7c70bb5aa70b" kind="variable"><name>m_RetinueTotalLife</name></member>
+    <member refid="class_card___retinue_1acdd8da41a603952f7609c33376d79fb0" kind="variable"><name>m_RetinueAttack</name></member>
+    <member refid="class_card___retinue_1a69a1d114c25f41532be094da4a0d18b6" kind="variable"><name>m_RetinueArmor</name></member>
+    <member refid="class_card___retinue_1ad87eb5c908fcfc1d155dabef3be0416a" kind="variable"><name>m_RetinueShield</name></member>
+    <member refid="class_card___retinue_1afd49571a58b2df998426b37440240101" kind="variable"><name>GoNumberSet_RetinueAttack</name></member>
+    <member refid="class_card___retinue_1a97f2657435422defb4e8e7430e900a47" kind="variable"><name>CardNumberSet_RetinueAttack</name></member>
+    <member refid="class_card___retinue_1a51661ee841bf4faafe7b46d6227be9af" kind="variable"><name>GoNumberSet_RetinueShield</name></member>
+    <member refid="class_card___retinue_1aa966bed9d5f5839785395635a90a653f" kind="variable"><name>CardNumberSet_RetinueShield</name></member>
+    <member refid="class_card___retinue_1ac775e63fd4c1e31e7e32a6aef3e68822" kind="variable"><name>GoNumberSet_RetinueArmor</name></member>
+    <member refid="class_card___retinue_1a1bb9975fedb3467cd37186bc1856a0d2" kind="variable"><name>CardNumberSet_RetinueArmor</name></member>
+    <member refid="class_card___retinue_1ac4f18c2b6490c32b231f810d92685392" kind="property"><name>M_RetinueName</name></member>
+    <member refid="class_card___retinue_1a12c2b4cddf1f9ed93b9365528f3ee9ac" kind="property"><name>M_RetinueDesc</name></member>
+    <member refid="class_card___retinue_1a39fca0fdcf83cf5da0a0a0c5110fe66d" kind="property"><name>M_RetinueLeftLife</name></member>
+    <member refid="class_card___retinue_1a2be5c1d52732ad7e8210dbfc6b67d695" kind="property"><name>M_RetinueTotalLife</name></member>
+    <member refid="class_card___retinue_1a68ead58c57e9baaab33b79a3dd7f41b6" kind="property"><name>M_RetinueAttack</name></member>
+    <member refid="class_card___retinue_1a5ad9e3c7b1e4a8909e3f5190310853ef" kind="property"><name>M_RetinueArmor</name></member>
+    <member refid="class_card___retinue_1a3fed1e00c3f37036c3635a30577bd7d9" kind="property"><name>M_RetinueShield</name></member>
+    <member refid="class_card___retinue_1a0cb68a2f9292ef9b8f020f5a6ff3f743" kind="variable"><name>Pack</name></member>
+    <member refid="class_card___retinue_1ab2399c3a683061003773c928c013c9f7" kind="variable"><name>Weapon</name></member>
+    <member refid="class_card___retinue_1ab08246e77d2eac247621068deb057632" kind="variable"><name>Shield</name></member>
+    <member refid="class_card___retinue_1a5ec9f2b7c43c46d21ce9d7e69c2a84cd" kind="variable"><name>MA</name></member>
+    <member refid="class_card___retinue_1a9258d6a50a4f66213bcdf3032c81d90a" kind="variable"><name>Energy</name></member>
+    <member refid="class_card___retinue_1ae4b4bd94a3cb40215827cfa36b2667d4" kind="function"><name>PoolRecycle</name></member>
+    <member refid="class_card___retinue_1aa19872ad93c8a7d005369412e2733a9f" kind="function"><name>Initiate</name></member>
+    <member refid="class_card___retinue_1acd7eb9eef8c11e3cff773b987a638e54" kind="function"><name>DragComponent_OnMouseUp</name></member>
+    <member refid="class_card___retinue_1acff8342a805d905b6d7c770447c5bb4e" kind="function"><name>DragComponent_SetStates</name></member>
+    <member refid="class_card___retinue_1adb861f410a252057a3e8bc00046ed9f6" kind="function"><name>Awake</name></member>
+    <member refid="class_card___retinue_1a9388be45c3a1b79b8b3e3d1f77201594" kind="function"><name>Start</name></member>
+    <member refid="class_card___retinue_1a4a63cd45491cea29673512c6a1b8fa0e" kind="function"><name>Update</name></member>
+    <member refid="class_card___retinue_1a5be0ab3dc2bd6e9c42a34f0ba926eaca" kind="function"><name>summonRetinue</name></member>
+  </compound>
+  <compound refid="class_card___shield" kind="class"><name>Card_Shield</name>
+    <member refid="class_card___shield_1a33034e3f47c0a90f74970c582f79a546" kind="variable"><name>ShieldName</name></member>
+    <member refid="class_card___shield_1a7f8c2a0892620c9793451e7c460d1086" kind="variable"><name>ShieldDesc</name></member>
+    <member refid="class_card___shield_1a65b62d473eb94835aa379f33c73fbaa5" kind="variable"><name>m_ShieldName</name></member>
+    <member refid="class_card___shield_1aea5a3203f249cd2477984202710e1345" kind="variable"><name>m_ShieldDesc</name></member>
+    <member refid="class_card___shield_1af972c56b01c84e4e09c5d56c96229f11" kind="property"><name>M_ShieldName</name></member>
+    <member refid="class_card___shield_1a4b9f165d530e9c195850b2ac1d1fe040" kind="property"><name>M_ShieldDesc</name></member>
+    <member refid="class_card___shield_1a1b833c41615e3ed3ccb999171eae4a44" kind="function"><name>Awake</name></member>
+    <member refid="class_card___shield_1afc71dac291aad75bd1ba6c0996807fc3" kind="function"><name>Start</name></member>
+    <member refid="class_card___shield_1a63e5ef35883d471b60f536047ec0f253" kind="function"><name>Update</name></member>
+    <member refid="class_card___shield_1a10e99780de860cf2bcd502b6fbd0a06d" kind="function"><name>summonShield</name></member>
+    <member refid="class_card___shield_1ac97e55569d39f3151db8d0e41482b699" kind="function"><name>Initiate</name></member>
+    <member refid="class_card___shield_1aebf88a6aa5a60fe04e3c87ebec5af61c" kind="function"><name>DragComponent_OnMouseUp</name></member>
+    <member refid="class_card___shield_1a2a4e61dda507857de46bc0bc24fd0eed" kind="function"><name>DragComponent_SetStates</name></member>
+    <member refid="class_card___shield_1aaf20d89e9935c48764521d3171947013" kind="function"><name>DragComponnet_DragDistance</name></member>
+  </compound>
+  <compound refid="class_card___weapon" kind="class"><name>Card_Weapon</name>
+    <member refid="class_card___weapon_1aab5c7c05bb8348ceedd86999a103f4e1" kind="variable"><name>WeaponName</name></member>
+    <member refid="class_card___weapon_1ad8a8b8b03839f5abe70aacf00c0c51eb" kind="variable"><name>WeaponDesc</name></member>
+    <member refid="class_card___weapon_1ae5a704d249656864c617a555a973a740" kind="variable"><name>m_WeaponName</name></member>
+    <member refid="class_card___weapon_1ae052e43002fbbad49d5dc93bd1fe2629" kind="variable"><name>m_WeaponDesc</name></member>
+    <member refid="class_card___weapon_1a642957b934824c2222f327e8d82b0395" kind="property"><name>M_WeaponName</name></member>
+    <member refid="class_card___weapon_1a4f062ebbfcf0ba78a1022c812c1f4679" kind="property"><name>M_WeaponDesc</name></member>
+    <member refid="class_card___weapon_1a93736f45dabdf9d981a98ea871b30020" kind="function"><name>Awake</name></member>
+    <member refid="class_card___weapon_1a2acd0cdf7be65574697433667441d41f" kind="function"><name>Start</name></member>
+    <member refid="class_card___weapon_1ae89961f8b71d516460f5bc97612a0607" kind="function"><name>Update</name></member>
+    <member refid="class_card___weapon_1a60c7365e924b6b8aa0278668edec69e7" kind="function"><name>summonWeapon</name></member>
+    <member refid="class_card___weapon_1a610e3b19b62d864242fde7883eb15df8" kind="function"><name>Initiate</name></member>
+    <member refid="class_card___weapon_1a29e27f28348b61ae8ee00750f4e6faf5" kind="function"><name>DragComponent_OnMouseUp</name></member>
+    <member refid="class_card___weapon_1ad1f686d2334cbc764180b2c2c7452cbd" kind="function"><name>DragComponent_SetStates</name></member>
+    <member refid="class_card___weapon_1a88021fd13a521502e666c00522288783" kind="function"><name>DragComponnet_DragDistance</name></member>
+  </compound>
+  <compound refid="class_card_deck" kind="class"><name>CardDeck</name>
+    <member refid="class_card_deck_1a4a6437b081d06e1c4897aae6029d8f4c" kind="variable"><name>M_CardDeckInfo</name></member>
+    <member refid="class_card_deck_1aed3e92284caf8d90d3f74f1128040b79" kind="variable"><name>IsEmpty</name></member>
+    <member refid="class_card_deck_1a3f0f63a863ed61d919f1a4fa2ef24367" kind="variable"><name>IsAbandonCardsEmpty</name></member>
+    <member refid="class_card_deck_1a43e81eb32e6f27ec7d1619adeea6fcc7" kind="variable"><name>Cards</name></member>
+    <member refid="class_card_deck_1a2973577b279db0faddfb8753aae8ba66" kind="variable"><name>AbandonCards</name></member>
+    <member refid="class_card_deck_1a3eb8976e4ad7a818dbf11554cbd44e2b" kind="function"><name>checkEmpty</name></member>
+    <member refid="class_card_deck_1a6ae072dc89e5d801b556e3f6177f96d2" kind="function"><name>CardDeck</name></member>
+    <member refid="class_card_deck_1a30046d3f85eee699ab0f52db98e6a368" kind="function"><name>FindATypeOfCard&lt; CardInfo_Type &gt;</name></member>
+    <member refid="class_card_deck_1a80cfd945067ab5cde69f72fab57490f0" kind="function"><name>FindATypeOfCards&lt; CardInfo_Type &gt;</name></member>
+    <member refid="class_card_deck_1aecc617c226708cbb61025551fddfab2c" kind="function"><name>DrawCardOnTop</name></member>
+    <member refid="class_card_deck_1ac8fe56fed322c88893ce5889f34e528d" kind="function"><name>DrawCardsOnTop</name></member>
+    <member refid="class_card_deck_1aefa856c7ba520ef4881b0232ec66d08b" kind="function"><name>AddCardToButtom</name></member>
+    <member refid="class_card_deck_1a8d1920fcb380ae20fc0aa4b58fbbc45b" kind="function"><name>GetFirstCardInfo</name></member>
+    <member refid="class_card_deck_1a1ed612eaa0ab5bc3d98cb45e9ca42d46" kind="function"><name>GetTopCardsInfo</name></member>
+    <member refid="class_card_deck_1a8a5c62dfab77bc7fb9ff662d819ab7d5" kind="function"><name>SuffleSelf</name></member>
+    <member refid="class_card_deck_1a4207176ac12108e093618e68ce05a64d" kind="function"><name>GetARetinueCardToTheTop</name></member>
+    <member refid="class_card_deck_1a48f53d08220f4ccb3b6992a67441ea49" kind="function"><name>AbandonCardRecycle</name></member>
+    <member refid="class_card_deck_1abd90419200b4bdc32534db6c1d074e9e" kind="function"><name>Suffle</name></member>
+  </compound>
+  <compound refid="struct_card_deck_info" kind="struct"><name>CardDeckInfo</name>
+    <member refid="struct_card_deck_info_1af0061e91097aeb494cfbb1d8695639a7" kind="variable"><name>CardNumber</name></member>
+    <member refid="struct_card_deck_info_1aa215c110d1d9a24fe874da9513f06e1e" kind="variable"><name>CardIDs</name></member>
+    <member refid="struct_card_deck_info_1a237cecd1ad85c60cc8366f63c3489ff8" kind="function"><name>CardDeckInfo</name></member>
+  </compound>
+  <compound refid="class_card_deck_manager" kind="class"><name>CardDeckManager</name>
+    <member refid="class_card_deck_manager_1aad75cd47e0c55da13aed245a68fee3a3" kind="variable"><name>Player</name></member>
+    <member refid="class_card_deck_manager_1a463bdbf8d75051bb203ee46fa6766c33" kind="variable"><name>M_UnlockCards</name></member>
+    <member refid="class_card_deck_manager_1a9cb45be984fae5732389407af46ed2bb" kind="variable"><name>M_LockCards</name></member>
+    <member refid="class_card_deck_manager_1abe42a579a413e6ee84815973678dedda" kind="variable"><name>M_CardDecks</name></member>
+    <member refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" kind="variable"><name>M_CurrentCardDeck</name></member>
+    <member refid="class_card_deck_manager_1a70f0839f0daf424061101649f9b2f83d" kind="function"><name>Start</name></member>
+    <member refid="class_card_deck_manager_1a4c15708d7f6d9dbd9b7e3b9e797e0357" kind="function"><name>Update</name></member>
+    <member refid="class_card_deck_manager_1a5c494e06488351bfe2c3e4d357383b7d" kind="function"><name>DrawRetinueCard</name></member>
+    <member refid="class_card_deck_manager_1ac1781131f3a07f150120b1f8ef752693" kind="function"><name>DrawTop</name></member>
+  </compound>
+  <compound refid="class_card_info___base" kind="class"><name>CardInfo_Base</name>
+    <member refid="class_card_info___base_1a3eac88d783986952c4fc088c47433c7b" kind="variable"><name>CardID</name></member>
+    <member refid="class_card_info___base_1aedf73a9c0861387c0421c647fc0fce27" kind="variable"><name>CardName</name></member>
+    <member refid="class_card_info___base_1a3f43915e514c2ca0fe79b9c3e5fc4775" kind="variable"><name>CardDesc</name></member>
+    <member refid="class_card_info___base_1a40450fa880f7b03b229d22fb15203b04" kind="variable"><name>Cost</name></member>
+    <member refid="class_card_info___base_1a7413ee18dae0615338e0d3ce225d2448" kind="variable"><name>HasTarget</name></member>
+    <member refid="class_card_info___base_1a229524b20f8888e027178156e30de923" kind="variable"><name>CardType</name></member>
+    <member refid="class_card_info___base_1a57cb4c2ab9c4df0c1049df2c262d4537" kind="function"><name>CardInfo_Base</name></member>
+    <member refid="class_card_info___base_1a2fce43e7798fcf0e182024a0aa4e62ea" kind="function"><name>Clone</name></member>
+  </compound>
+  <compound refid="class_card_info___retinue" kind="class"><name>CardInfo_Retinue</name>
+    <member refid="class_card_info___retinue_1ad21ddf202fbf7356024384c8fd7ec2b6" kind="variable"><name>Life</name></member>
+    <member refid="class_card_info___retinue_1a92e8602daced916f25873dbaf2fc972b" kind="variable"><name>TotalLife</name></member>
+    <member refid="class_card_info___retinue_1aed5184b89ed72ae1fe4bb8767a683b5a" kind="variable"><name>BasicAttack</name></member>
+    <member refid="class_card_info___retinue_1a39916026349b2f5889fee6d71fb12f22" kind="variable"><name>BasicShield</name></member>
+    <member refid="class_card_info___retinue_1a55349a1b9ff1967449c96dfc6955b9e2" kind="variable"><name>BasicArmor</name></member>
+    <member refid="class_card_info___retinue_1ad5422cccf97c7dd56987fc4545caf537" kind="function"><name>CardInfo_Retinue</name></member>
+    <member refid="class_card_info___retinue_1ad0dda73aef321d9f7ab26ddfabfce2ca" kind="function"><name>Clone</name></member>
+  </compound>
+  <compound refid="class_card_info___shield" kind="class"><name>CardInfo_Shield</name>
+    <member refid="class_card_info___shield_1a98387705a2f99c8e25e77cdc2d1b5c52" kind="variable"><name>M_ShieldType</name></member>
+    <member refid="class_card_info___shield_1a090ea26074b81426fd2c86dacea76a22" kind="variable"><name>Armor</name></member>
+    <member refid="class_card_info___shield_1a12f63acc60cbd1b41b1783b76cd690a9" kind="variable"><name>ArmorMax</name></member>
+    <member refid="class_card_info___shield_1ae31ddcd40ea4674f7fe52f36780ab1c4" kind="variable"><name>Shield</name></member>
+    <member refid="class_card_info___shield_1a1cf124543f807ac2b18fffc4496626c3" kind="variable"><name>ShieldMax</name></member>
+    <member refid="class_card_info___shield_1a5dcde1ddc9202f9c6708d2b5744731bd" kind="function"><name>CardInfo_Shield</name></member>
+    <member refid="class_card_info___shield_1ac0c4b5f04047c56999805745c6238b92" kind="function"><name>textToVertical</name></member>
+    <member refid="class_card_info___shield_1af0a4800c9b72e02399cc44255faef603" kind="function"><name>Clone</name></member>
+  </compound>
+  <compound refid="class_card_info___weapon" kind="class"><name>CardInfo_Weapon</name>
+    <member refid="class_card_info___weapon_1aa2ada3b8c888d8abf7fc387f2e63bf0f" kind="variable"><name>Energy</name></member>
+    <member refid="class_card_info___weapon_1a05a96fe13d91486b6ffd70b66197b9d6" kind="variable"><name>EnergyMax</name></member>
+    <member refid="class_card_info___weapon_1a3c974b0e1715ababb4274a810819a497" kind="variable"><name>Attack</name></member>
+    <member refid="class_card_info___weapon_1ab02bf416f76dc491bb45f79171c0c8d8" kind="variable"><name>M_WeaponType</name></member>
+    <member refid="class_card_info___weapon_1ae01c3fb057c2d3eddac4a7a149e009d4" kind="function"><name>CardInfo_Weapon</name></member>
+    <member refid="class_card_info___weapon_1a34a2bce84071f0e8af230f667a5c4d36" kind="function"><name>textToVertical</name></member>
+    <member refid="class_card_info___weapon_1a20942bb4dccf6bb5b2180f181281f154" kind="function"><name>Clone</name></member>
+  </compound>
+  <compound refid="class_card_number" kind="class"><name>CardNumber</name>
+    <member refid="class_card_number_1a01b471937c85bce2d48039d26f936a24" kind="variable"><name>gameObjectPool</name></member>
+    <member refid="class_card_number_1a7ee396620c53de22730a7d78cebd1d5b" kind="variable"><name>materialPropertyBlock</name></member>
+    <member refid="class_card_number_1aa48db67ca27b1fe22b7cac46068e839a" kind="variable"><name>renderer</name></member>
+    <member refid="class_card_number_1ac02d8afdd6ffa83f02a76d366bda6170" kind="variable"><name>number</name></member>
+    <member refid="class_card_number_1a5d82bfe5ee0c8625c9e3679920e75a6d" kind="variable"><name>MyNumberSize</name></member>
+    <member refid="class_card_number_1a85f021de5cab4fe4e8e073addedc3800" kind="variable"><name>hasSign</name></member>
+    <member refid="class_card_number_1a505e8aaeadd65da75f30884604b15c9b" kind="variable"><name>NumberMaterial</name></member>
+    <member refid="class_card_number_1a56931d3e6826a5edc4a3153d27fce174" kind="variable"><name>NumberSignMaterial</name></member>
+    <member refid="class_card_number_1acc1e9c9ea19db93ddf9645865db35a60" kind="property"><name>Number</name></member>
+    <member refid="class_card_number_1a7f8cfef2493717e750b9572ec9e185eb" kind="function"><name>PoolRecycle</name></member>
+    <member refid="class_card_number_1a29089e3816108af9b70b47535179f43c" kind="function"><name>SetSign</name></member>
+    <member refid="class_card_number_1a0669e988e4ed4e103cbe6826b9788053" kind="function"><name>Awake</name></member>
+    <member refid="class_card_number_1af7d1bc63f14a05d1e2c9a1a8df595889" kind="function"><name>Start</name></member>
+  </compound>
+  <compound refid="class_card_number_set" kind="class"><name>CardNumberSet</name>
+    <member refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcf" kind="enum"><name>TextAlign</name></member>
+    <member refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcfa945d5e233cf7d6240f6b783b36a374ff" kind="enumvalue"><name>Left</name></member>
+    <member refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcfa92b09c7c48c520c3c55e497875da437c" kind="enumvalue"><name>Right</name></member>
+    <member refid="class_card_number_set_1a28e47a5dac769ab3895e1db7a927adcfa4f1f6016fc9f3f2353c0cc7c67b292bd" kind="enumvalue"><name>Center</name></member>
+    <member refid="class_card_number_set_1aff59a96ad656b8676072404da90cb676" kind="variable"><name>gameObjectPool</name></member>
+    <member refid="class_card_number_set_1a015028b5cbdfe2f99933608954e4c5cc" kind="variable"><name>childrenPool</name></member>
+    <member refid="class_card_number_set_1a0f7993e70cd4545a8f12853591c2e04b" kind="variable"><name>hasSign</name></member>
+    <member refid="class_card_number_set_1a8c072756eb4e39fa74bcd37e5b16f6ad" kind="variable"><name>m_firstSign</name></member>
+    <member refid="class_card_number_set_1ad1eea94d843bd0f1eaf36c700f9e0cb9" kind="variable"><name>myNumberSize</name></member>
+    <member refid="class_card_number_set_1ac1f76b6e24f39be7969a40f138a1d273" kind="variable"><name>cardNumbers</name></member>
+    <member refid="class_card_number_set_1ae3b36fff8457705bc71a9b871e5acb6c" kind="variable"><name>digits</name></member>
+    <member refid="class_card_number_set_1a0b68e627c106420231370502d975aebe" kind="variable"><name>digitCount</name></member>
+    <member refid="class_card_number_set_1a70fd4f8d8f4ecfef0e5a7ee51e223da4" kind="variable"><name>number</name></member>
+    <member refid="class_card_number_set_1ae7ed8bec69f7a9bb21a85aac0fc8a5ee" kind="variable"><name>digit4_thousand_position_L</name></member>
+    <member refid="class_card_number_set_1ae2f1327d0027084afb3d7a241cdbfbb4" kind="variable"><name>digit4_hundreds_position_L</name></member>
+    <member refid="class_card_number_set_1aca86ba2fe96ab75c28a0f2ae21e27a0c" kind="variable"><name>digit4_tens_position_L</name></member>
+    <member refid="class_card_number_set_1aa95577a05e7eb553eda3849f5630be05" kind="variable"><name>digit4_unit_position_L</name></member>
+    <member refid="class_card_number_set_1a4982546abb356d691028d7d838c394eb" kind="variable"><name>digit3_hundreds_position_L</name></member>
+    <member refid="class_card_number_set_1ab9dacfa91de350e7ec1e75367952a32d" kind="variable"><name>digit3_tens_position_L</name></member>
+    <member refid="class_card_number_set_1ae16cccd72b8c755a43676d006ba49449" kind="variable"><name>digit3_unit_position_L</name></member>
+    <member refid="class_card_number_set_1aa41343dc89c6d3e54db8937e4c20563b" kind="variable"><name>digit2_tens_position_L</name></member>
+    <member refid="class_card_number_set_1a70bb276a10e457fc438a9d6c8a2cb3d7" kind="variable"><name>digit2_unit_position_L</name></member>
+    <member refid="class_card_number_set_1afd318473ee786ee33d29dfe8f62ee170" kind="variable"><name>digit1_unit_position_L</name></member>
+    <member refid="class_card_number_set_1a6374132cc4ffdccd2dac9c0c0dbb4214" kind="variable"><name>digit4_thousand_position_R</name></member>
+    <member refid="class_card_number_set_1a5762d2e12bc59808630789d79231d2b1" kind="variable"><name>digit4_hundreds_position_R</name></member>
+    <member refid="class_card_number_set_1aa6ba618b8adfe7293619a00641de162e" kind="variable"><name>digit4_tens_position_R</name></member>
+    <member refid="class_card_number_set_1af7b7834659319a0b1f4ada48b093ed32" kind="variable"><name>digit4_unit_position_R</name></member>
+    <member refid="class_card_number_set_1a358b4bd70c43710d57ff4f77e41f7104" kind="variable"><name>digit3_hundreds_position_R</name></member>
+    <member refid="class_card_number_set_1a773a2f140181e6efcd7d4442fbd2184f" kind="variable"><name>digit3_tens_position_R</name></member>
+    <member refid="class_card_number_set_1aef43f5cd846fafd2a6a46916b21dd7d4" kind="variable"><name>digit3_unit_position_R</name></member>
+    <member refid="class_card_number_set_1a22410231ea404b72041acfcfa09af113" kind="variable"><name>digit2_tens_position_R</name></member>
+    <member refid="class_card_number_set_1addc617eecaf84127dae8d9818da489f1" kind="variable"><name>digit2_unit_position_R</name></member>
+    <member refid="class_card_number_set_1a00853b29705bb149dbc4966b7ed53bd9" kind="variable"><name>digit1_unit_position_R</name></member>
+    <member refid="class_card_number_set_1a353bf9e9613e9a01e248a2d030a1a60e" kind="variable"><name>digit4_thousand_position_C</name></member>
+    <member refid="class_card_number_set_1a8158b1187fd8444c0b7fdef7bd1b9d41" kind="variable"><name>digit4_hundreds_position_C</name></member>
+    <member refid="class_card_number_set_1aa8741238bcce4f55b0f36698a4d3103c" kind="variable"><name>digit4_tens_position_C</name></member>
+    <member refid="class_card_number_set_1a54556c88352436c61f99283d05db51b8" kind="variable"><name>digit4_unit_position_C</name></member>
+    <member refid="class_card_number_set_1a97621bb97f7ab08b5c8a81dfe967975e" kind="variable"><name>digit3_hundreds_position_C</name></member>
+    <member refid="class_card_number_set_1a2dfb1716b6f1ae6343381848ddb6460e" kind="variable"><name>digit3_tens_position_C</name></member>
+    <member refid="class_card_number_set_1a09dd9aca8d8f5b557ddb002f32e2b9e1" kind="variable"><name>digit3_unit_position_C</name></member>
+    <member refid="class_card_number_set_1a2d67c8087c87de5ce5d3083ef42c5399" kind="variable"><name>digit2_tens_position_C</name></member>
+    <member refid="class_card_number_set_1a1d909398f2cc221281d208d121250d3a" kind="variable"><name>digit2_unit_position_C</name></member>
+    <member refid="class_card_number_set_1a2f5e3f7a29617b42040e3f349e0939b3" kind="variable"><name>digit1_unit_position_C</name></member>
+    <member refid="class_card_number_set_1a65c84b3f287c9330e6af5fe69da80353" kind="variable"><name>interval</name></member>
+    <member refid="class_card_number_set_1a3c06863ad215c0963666b490e289d8fd" kind="variable"><name>myTextAlign</name></member>
+    <member refid="class_card_number_set_1a8250fc50c7c43fa19f4964aff2fa77ae" kind="property"><name>MyNumberSize</name></member>
+    <member refid="class_card_number_set_1a2aa744e76542243f5f2fefabe4899873" kind="property"><name>Number</name></member>
+    <member refid="class_card_number_set_1a92e42cd2e50aaa3e6a522dd813cab0c9" kind="property"><name>MyTextAlign</name></member>
+    <member refid="class_card_number_set_1a686df5fae556144a1493138bf87e3043" kind="variable"><name>IntervalFactor</name></member>
+    <member refid="class_card_number_set_1a0ec1c0791974b262ff49e6b5853219e4" kind="function"><name>PoolRecycle</name></member>
+    <member refid="class_card_number_set_1a72440a9e3979084de5753050ff0353e0" kind="function"><name>initiate</name></member>
+    <member refid="class_card_number_set_1a2b89ea49e35958b0079b500903a7bfce" kind="function"><name>initiate</name></member>
+    <member refid="class_card_number_set_1ac6d5e9c546e7edaa8952d418f7e6e91e" kind="function"><name>Awake</name></member>
+    <member refid="class_card_number_set_1a09e0099de494ae381d04e22eeb030770" kind="function"><name>Start</name></member>
+    <member refid="class_card_number_set_1adb6b43595bb963b9b93e59e9f630082c" kind="function"><name>setNumberSize</name></member>
+    <member refid="class_card_number_set_1ab712bd82136d108585a3a487da8add13" kind="function"><name>setNumberSet</name></member>
+    <member refid="class_card_number_set_1a2cebe8156f209062fb2dfb88f1659142" kind="function"><name>setFirstSign</name></member>
+    <member refid="class_card_number_set_1a5ef36afbc7c8b031396d5c212c49d6ff" kind="function"><name>clearFisrSign</name></member>
+    <member refid="class_card_number_set_1abd7ba93937a156a27615ede098f76534" kind="function"><name>setNumber</name></member>
+    <member refid="class_card_number_set_1af5524828d25a9d2788c673cf93e9114e" kind="function"><name>initiateDigitPlace</name></member>
+    <member refid="class_card_number_set_1a74d7cbe255d6cdfdbc312797f03f904e" kind="function"><name>setTextAlign</name></member>
+  </compound>
+  <compound refid="class_card_picture_manager" kind="class"><name>CardPictureManager</name>
+    <member refid="class_card_picture_manager_1a79dcfffe9aebe2b35970055e0cfa73b1" kind="function"><name>Start</name></member>
+    <member refid="class_card_picture_manager_1a9a9125e924d3f60cde228f832200fa82" kind="function"><name>Update</name></member>
+    <member refid="class_card_picture_manager_1abc234ea1859f6c6304e9b80afd3eb7e0" kind="function"><name>ChangePicture</name></member>
+  </compound>
+  <compound refid="class_collider_replace" kind="class"><name>ColliderReplace</name>
+    <member refid="class_collider_replace_1a3ddf432f11657480d21b68fc0165fa02" kind="variable"><name>MyCallerCard</name></member>
+    <member refid="class_collider_replace_1a7a9dabcb761e1062852a5ca07e661311" kind="function"><name>Initiate</name></member>
+    <member refid="class_collider_replace_1a3d4cb78853406c6a146d86e658d29bbd" kind="function"><name>OnMouseExit</name></member>
+  </compound>
+  <compound refid="class_drag_component" kind="class"><name>DragComponent</name>
+    <member refid="class_drag_component_1ac47b2f6944962ac1fb3cb6cc0ca0c1a0" kind="variable"><name>retinuesLayer</name></member>
+    <member refid="class_drag_component_1ab450019010e837543e0be5c52fd38498" kind="variable"><name>boardAreasLayer</name></member>
+    <member refid="class_drag_component_1a504356dfca7e70417741cd8fccddf5d3" kind="variable"><name>slotsLayer</name></member>
+    <member refid="class_drag_component_1a3999cd628b94e73190e72dcd3856f14f" kind="variable"><name>caller</name></member>
+    <member refid="class_drag_component_1ae8eda11b71b805f99b09f4ffd705f757" kind="variable"><name>canDrag</name></member>
+    <member refid="class_drag_component_1af2cca1a9cd4e33642540dc7319b5499c" kind="variable"><name>hasTarget</name></member>
+    <member refid="class_drag_component_1a83635607a586b4f2c71103a637722f9c" kind="variable"><name>dragDistance</name></member>
+    <member refid="class_drag_component_1acef1c4590846d53f3f0ae8c6b013d17e" kind="variable"><name>isOnDrag</name></member>
+    <member refid="class_drag_component_1ab55bcdbf6309d68a0f02e01c0e2e40d1" kind="variable"><name>isBegin</name></member>
+    <member refid="class_drag_component_1a400347e643e88dbf7fad0b1b3e5e24bd" kind="variable"><name>dragBeginPosition</name></member>
+    <member refid="class_drag_component_1a5d1ce6fa619773c58cb263d3215ec055" kind="variable"><name>dragBeginQuaternion</name></member>
+    <member refid="class_drag_component_1adba2a4e09eb3bc32b5a00f26056a3555" kind="variable"><name>dragLastPosition</name></member>
+    <member refid="class_drag_component_1a409328bcc805a217035296ce250a5382" kind="variable"><name>arrow</name></member>
+    <member refid="class_drag_component_1a6b04f68091a49d94c0030965bc872e49" kind="property"><name>IsOnDrag</name></member>
+    <member refid="class_drag_component_1a62071a6e9e2d034fc67b69f6bbe1a603" kind="function"><name>Awake</name></member>
+    <member refid="class_drag_component_1a865ff242bc623fd1e093f841896922ed" kind="function"><name>Start</name></member>
+    <member refid="class_drag_component_1a181b67a1bcc43745f21e03ae85cdd861" kind="function"><name>Update</name></member>
+    <member refid="class_drag_component_1a20ccaab7e6422242cb2f2336a99fcdc9" kind="function"><name>checkAreas</name></member>
+    <member refid="class_drag_component_1a3c1562d4f7d615a67da12952d7c69eef" kind="function"><name>checkMoveToSlot</name></member>
+    <member refid="class_drag_component_1a53262f305921c5d36f3bd403d2870ad2" kind="function"><name>checkMoveTorRetinue</name></member>
+  </compound>
+  <compound refid="class_drag_manager" kind="class"><name>DragManager</name>
+    <member refid="class_drag_manager_1aacc47286c31986f1590c73281eb24ff4" kind="variable"><name>dm</name></member>
+    <member refid="class_drag_manager_1a4f668413df8ad76ade43f5da25304bfd" kind="property"><name>DM</name></member>
+    <member refid="class_drag_manager_1aefe6e18c9e7ca04aaa0a1f7ffca4128f" kind="variable"><name>modulesLayer</name></member>
+    <member refid="class_drag_manager_1a3b4af69ea0ad33f11feea736e3e3d5c8" kind="variable"><name>retinueLayer</name></member>
+    <member refid="class_drag_manager_1af924db1e548038fe644e48473b8da5b4" kind="variable"><name>cardLayer</name></member>
+    <member refid="class_drag_manager_1a40944c03e8b1051d3c8f3459f7af8f3a" kind="variable"><name>CurrentDrag</name></member>
+    <member refid="class_drag_manager_1af93affc23c45c7fc5285cc7b0dd6779b" kind="function"><name>Awake</name></member>
+    <member refid="class_drag_manager_1ad0e2dafe394c005343f7394b0d5d9247" kind="function"><name>Start</name></member>
+    <member refid="class_drag_manager_1a9e3dc1c13a7155df49690f59264c530e" kind="function"><name>Update</name></member>
+  </compound>
+  <compound refid="class_game_board_manager" kind="class"><name>GameBoardManager</name>
+    <member refid="class_game_board_manager_1a39d67a7fa446c2fd7376c121677b9a5d" kind="variable"><name>gbm</name></member>
+    <member refid="class_game_board_manager_1ace87e5b53baefe97990002fbf70106d7" kind="property"><name>GBM</name></member>
+    <member refid="class_game_board_manager_1abb91d40111c1e496a7d6662ad173647d" kind="variable"><name>SelfHandArea</name></member>
+    <member refid="class_game_board_manager_1a8ead14cb691e8a52679fe23f65571372" kind="variable"><name>EnemyHandArea</name></member>
+    <member refid="class_game_board_manager_1ad69171d2ec2b13df9f05575872878bee" kind="variable"><name>SelfBattleGround</name></member>
+    <member refid="class_game_board_manager_1a1c00544252bc323c090fe6705e6a981f" kind="variable"><name>EnemyBattleGround</name></member>
+    <member refid="class_game_board_manager_1a694d0bb92c65b1900685a22c80663f6a" kind="variable"><name>SelfCardDeck</name></member>
+    <member refid="class_game_board_manager_1a0a630fe1535b1aba6f0ac3320229eba7" kind="variable"><name>EnemyCardDeck</name></member>
+    <member refid="class_game_board_manager_1a53bae31e1922971f0d6caac986e42868" kind="variable"><name>CardDetailPreview</name></member>
+    <member refid="class_game_board_manager_1a7974ce1ce7ec91d2d552871927f13cea" kind="variable"><name>SelfHandManager</name></member>
+    <member refid="class_game_board_manager_1afcb76ef741557c0913b79283563d3805" kind="variable"><name>EnemyHandManager</name></member>
+    <member refid="class_game_board_manager_1a25227792deb339d10374341e6e8312ff" kind="variable"><name>SelfBattleGroundManager</name></member>
+    <member refid="class_game_board_manager_1a46fd629911db39f923fda918959ed11a" kind="variable"><name>EnemyBattleGroundManager</name></member>
+    <member refid="class_game_board_manager_1aa14cd1d2125d27b74d4b0675230d624c" kind="variable"><name>SelfCardDeckManager</name></member>
+    <member refid="class_game_board_manager_1aa7699597f20f8a6331ea337bcfec0866" kind="variable"><name>EnemyCardDeckManager</name></member>
+    <member refid="class_game_board_manager_1ac5355ee52c589daa2e9ba4351fe55dda" kind="function"><name>Awake</name></member>
+    <member refid="class_game_board_manager_1a3fb6ade17ab420907985ee11d77fca67" kind="function"><name>Start</name></member>
+    <member refid="class_game_board_manager_1a28de8ed8721d0cad8004436676926acc" kind="function"><name>Update</name></member>
+  </compound>
+  <compound refid="class_game_manager" kind="class"><name>GameManager</name>
+    <member refid="class_game_manager_1aa0674415d1b3c903504734b7124cc454" kind="variable"><name>_gm</name></member>
+    <member refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" kind="property"><name>GM</name></member>
+    <member refid="class_game_manager_1ad36d0865677fda153ea2d41ca4305b40" kind="variable"><name>MainAudioSource</name></member>
+    <member refid="class_game_manager_1aa8ae3b8dc2d8b89393eb819aaa575951" kind="variable"><name>CanTestEnemyCards</name></member>
+    <member refid="class_game_manager_1a2d3f9a55b97f027bd48166b828d314bc" kind="variable"><name>BeginCost</name></member>
+    <member refid="class_game_manager_1af6a7e66fc95ec65b374da106178dbf35" kind="variable"><name>MaxCost</name></member>
+    <member refid="class_game_manager_1a98649450cdba3a1d5e765638eaf9dc2e" kind="variable"><name>DetailCardSize</name></member>
+    <member refid="class_game_manager_1ae50ca80b7d1b9bcd8497921845d70516" kind="variable"><name>DetailCardModuleSize</name></member>
+    <member refid="class_game_manager_1af8cc4978eb1a1ac9aba14a650591b61f" kind="variable"><name>DetailCardSizeRetinue</name></member>
+    <member refid="class_game_manager_1a25a5b32c577912f8e1aaa4f28acb2354" kind="variable"><name>MaxRetinueNumber</name></member>
+    <member refid="class_game_manager_1a4f7190b7c5be1098a6df4131ae6eac37" kind="variable"><name>_rbe</name></member>
+    <member refid="class_game_manager_1af4faccaec8dc89b60f29e250dfe902a5" kind="variable"><name>AllCard</name></member>
+    <member refid="class_game_manager_1a1f22d2186c87a8465b04e3b5a49fbf5d" kind="variable"><name>SelfPlayer</name></member>
+    <member refid="class_game_manager_1a53a6be07979fa2f8f7275277bc75b3cb" kind="variable"><name>EnemyPlayer</name></member>
+    <member refid="class_game_manager_1aae126921bcfef7d0d805905891ca61be" kind="function"><name>PlayAudioClip</name></member>
+    <member refid="class_game_manager_1a8191a7b821bcb98bd7682adc7cf42f85" kind="function"><name>StartBlurBackGround</name></member>
+    <member refid="class_game_manager_1a8e6c4529ef7f47e70e0e058a5beae862" kind="function"><name>StopBlurBackGround</name></member>
+    <member refid="class_game_manager_1a2959177ee51ac31badbf8b1bc8f7f637" kind="function"><name>Awake</name></member>
+    <member refid="class_game_manager_1a5ccfacd027ad08eeb4ff1f25a7f59c98" kind="function"><name>Start</name></member>
+    <member refid="class_game_manager_1a44c79b205dec16bfe650e21259860c5b" kind="function"><name>Update</name></member>
+  </compound>
+  <compound refid="class_game_object_pool" kind="class"><name>GameObjectPool</name>
+    <member refid="class_game_object_pool_1af490e32ad0c61a6d7f1e5990cd498f10" kind="variable"><name>gameObjectPool</name></member>
+    <member refid="class_game_object_pool_1a9082a62cceb5b866e34336b383f4519f" kind="variable"><name>isUsed</name></member>
+    <member refid="class_game_object_pool_1a25673a2503ee68e0b96ce3599259a423" kind="variable"><name>gameObjectPrefab</name></member>
+    <member refid="class_game_object_pool_1ac189324b952273afefcf9e0626c49baf" kind="variable"><name>gameObjectDefaultPosition</name></member>
+    <member refid="class_game_object_pool_1aad10ffef5290f2e636fa4a1efff0c43f" kind="variable"><name>gameObjectDefaultRotation</name></member>
+    <member refid="class_game_object_pool_1ae887d4f763ec16781871af62dab67c82" kind="variable"><name>gameObjectDefaultScale</name></member>
+    <member refid="class_game_object_pool_1a811e1106b1a80f1a3a73c20046e8b42a" kind="variable"><name>capacity</name></member>
+    <member refid="class_game_object_pool_1a88b853c998b26f7e1b4750ae9ee782ec" kind="variable"><name>used</name></member>
+    <member refid="class_game_object_pool_1ae7b6382a353d92494a580426b1156a1f" kind="variable"><name>empty</name></member>
+    <member refid="class_game_object_pool_1ae2b5f619167dd2bc087cd20bec0a2406" kind="variable"><name>notUsed</name></member>
+    <member refid="class_game_object_pool_1ae8ff35aedc10d9ccfd98b1a94f63f003" kind="variable"><name>GameObjectPoolPosition</name></member>
+    <member refid="class_game_object_pool_1a5aedb955ac9a7b57280deb445436e63c" kind="function"><name>Initiate</name></member>
+    <member refid="class_game_object_pool_1ae796ec9c836e26182b37ba88589144ad" kind="function"><name>AllocateGameObject</name></member>
+    <member refid="class_game_object_pool_1a9d98a5621d06f770737d8a17954402e2" kind="function"><name>RecycleGameObject</name></member>
+    <member refid="class_game_object_pool_1ab566e96c07ef469e4a3b54fd011abe25" kind="function"><name>expandCapacity</name></member>
+  </compound>
+  <compound refid="class_game_object_pool_manager" kind="class"><name>GameObjectPoolManager</name>
+    <member refid="class_game_object_pool_manager_1a1f0a1870268eaa697fce45780ff0aa54" kind="variable"><name>gopm</name></member>
+    <member refid="class_game_object_pool_manager_1a7a915621a415e55184121037c6580538" kind="property"><name>GOPM</name></member>
+    <member refid="class_game_object_pool_manager_1a05b4d0ecdf8f7e0a7876cd6bc417638b" kind="variable"><name>ColliderReplacePool</name></member>
+    <member refid="class_game_object_pool_manager_1af73237ed87ce90975b319446ccccf7c6" kind="variable"><name>ColliderReplacePrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a3aad1226b83a7c9f8ef6e1f4eb98c913" kind="variable"><name>CardNumberSetPool</name></member>
+    <member refid="class_game_object_pool_manager_1a2eb8b149729a293dddc4c006dbe76343" kind="variable"><name>CardNumberSetPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a1cbb561a90d8887992cf1323a307a030" kind="variable"><name>CardSmallNumberPool</name></member>
+    <member refid="class_game_object_pool_manager_1a15482a4f4c280b91b0032eb9c065e7b5" kind="variable"><name>CardSmallNumberPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1afc19739b59da237cc7492113f351108b" kind="variable"><name>CardMediumNumberPool</name></member>
+    <member refid="class_game_object_pool_manager_1a9c7a16e0a01b70053d9358c83fe102a6" kind="variable"><name>CardMediumNumberPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a31a9e239be88b262db750b7b9f24dbe2" kind="variable"><name>CardBigNumberPool</name></member>
+    <member refid="class_game_object_pool_manager_1abbdcc765d36b56bd8bdf324660b639a4" kind="variable"><name>CardBigNumberPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1aeb8002291ebdd4cc03e1d08ae07c8f30" kind="variable"><name>ArrowPool</name></member>
+    <member refid="class_game_object_pool_manager_1a0623b8092a4dc56e3f7ce5c6307230ea" kind="variable"><name>ArrowPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a0ec983d2a99351793a28034cbabcf235" kind="variable"><name>ModuleRetinuePool</name></member>
+    <member refid="class_game_object_pool_manager_1a1a8f49f6e774a4856b8c5071d79b2e72" kind="variable"><name>ModuleRetinuePrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a18529f1b3fb35e260017a985faf38b76" kind="variable"><name>ModuleEnergyPool</name></member>
+    <member refid="class_game_object_pool_manager_1a27f31c153672f10a0123aee99326e1b1" kind="variable"><name>ModuleEnergyPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a534550407c775f1cfc12fa2e4f1a6c52" kind="variable"><name>ModuleMAPool</name></member>
+    <member refid="class_game_object_pool_manager_1a83c8d6bd769373e3b224137ebc0d1358" kind="variable"><name>ModuleMAPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1adc85f9c53306a5fed9d2c18df82d947c" kind="variable"><name>ModulePackPool</name></member>
+    <member refid="class_game_object_pool_manager_1aeb6c6bd0a42b72236a71aed756874b6a" kind="variable"><name>ModulePackPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a4dcdaca6160bb38035989220d3c156cc" kind="variable"><name>ModuleWeaponPool</name></member>
+    <member refid="class_game_object_pool_manager_1abbd068b11cebd1bd48dd933152093ed9" kind="variable"><name>ModuleWeaponPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1acebac5c781186823d5b7f5bbc7420617" kind="variable"><name>ModuleWeaponDetailPool</name></member>
+    <member refid="class_game_object_pool_manager_1a40d8f8d501d6ad08facb1fae6544e899" kind="variable"><name>ModuleWeaponDetailPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1ac421bffd5a4bf102985a5cd5dc4a689d" kind="variable"><name>ModuleShieldPool</name></member>
+    <member refid="class_game_object_pool_manager_1a7dbdb31285470c1a31cbcf09e7303728" kind="variable"><name>ModuleShieldPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1ade4dd0a14daf4bfa3a05f6ce985c0355" kind="variable"><name>ModuleShieldDetailPool</name></member>
+    <member refid="class_game_object_pool_manager_1ac7e9da48444f444b0d7db5876289fb6a" kind="variable"><name>ModuleShieldDetailPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a8be414131fbb763c844947096c8d0712" kind="variable"><name>RetinueCardPool</name></member>
+    <member refid="class_game_object_pool_manager_1aad295890027e6d839b3dede378255e29" kind="variable"><name>RetinueCardPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1ab438acaaa88b52268b570f44b42f0594" kind="variable"><name>WeaponCardPool</name></member>
+    <member refid="class_game_object_pool_manager_1a8e15268a9b6ef3e8afef022e93641eb1" kind="variable"><name>WeaponCardPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1ad5a580711414bd45b91493d69f799b45" kind="variable"><name>ShieldCardPool</name></member>
+    <member refid="class_game_object_pool_manager_1a13a0bddc509bf2773b11ef7734efde2d" kind="variable"><name>ShieldCardPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a3bc6efbc6447c0807aa0af608c4fcff2" kind="variable"><name>PackCardPool</name></member>
+    <member refid="class_game_object_pool_manager_1acf9bf6916f3cdf7947937d69c8490d59" kind="variable"><name>PackCardPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a7636306e2df18355deafbe7cc624c4ad" kind="variable"><name>MACardPool</name></member>
+    <member refid="class_game_object_pool_manager_1a7156fc31cd4473f3a49aeec37651b7b4" kind="variable"><name>MACardPrefab</name></member>
+    <member refid="class_game_object_pool_manager_1a76334bc505e93420351290433413e5b2" kind="variable"><name>Pool_ColliderReplacePool</name></member>
+    <member refid="class_game_object_pool_manager_1a914307db0dadcf8dc889d6b41e47b042" kind="variable"><name>Pool_CardNumberSetPool</name></member>
+    <member refid="class_game_object_pool_manager_1a82634583321c234a1ededcf9506c2bfd" kind="variable"><name>Pool_CardSmallNumberPool</name></member>
+    <member refid="class_game_object_pool_manager_1a4f87c98897ea33c3dd250e2d9a3e3417" kind="variable"><name>Pool_CardMediumNumberPool</name></member>
+    <member refid="class_game_object_pool_manager_1ae861ce3e2ece08228979d9a5732332e9" kind="variable"><name>Pool_CardBigNumberPool</name></member>
+    <member refid="class_game_object_pool_manager_1aed2e959d60020ca3002f5c7a2a050d0c" kind="variable"><name>Pool_ArrowPool</name></member>
+    <member refid="class_game_object_pool_manager_1aaf505c4237d8d005af0938545a9eef63" kind="variable"><name>Pool_ModuleRetinuePool</name></member>
+    <member refid="class_game_object_pool_manager_1a5a3d83db67c051051d51f701549deb8c" kind="variable"><name>Pool_ModuleEnergyPool</name></member>
+    <member refid="class_game_object_pool_manager_1aed74f8fe157fab283a51461e8db71e76" kind="variable"><name>Pool_ModuleMAPool</name></member>
+    <member refid="class_game_object_pool_manager_1a5adff725e90a8ad8c8a4d2e99d78a656" kind="variable"><name>Pool_ModulePackPool</name></member>
+    <member refid="class_game_object_pool_manager_1a4217b3c510b73c73851bd144ed666451" kind="variable"><name>Pool_ModuleWeaponPool</name></member>
+    <member refid="class_game_object_pool_manager_1a2e3fd41ade45ab4ac9b34ebaa4bc2d45" kind="variable"><name>Pool_ModuleWeaponDetailPool</name></member>
+    <member refid="class_game_object_pool_manager_1a4cc068219f808a635da811819a6e3dbc" kind="variable"><name>Pool_ModuleShieldPool</name></member>
+    <member refid="class_game_object_pool_manager_1a030129bb6c0db5651068c02fdd152aeb" kind="variable"><name>Pool_ModuleShieldDetailPool</name></member>
+    <member refid="class_game_object_pool_manager_1a80462fefde6c16f84358904851780e0a" kind="variable"><name>Pool_RetinueCardPool</name></member>
+    <member refid="class_game_object_pool_manager_1a049d0cbc71ad463698802800c901b705" kind="variable"><name>Pool_WeaponCardPool</name></member>
+    <member refid="class_game_object_pool_manager_1a9d45fe2c7a70af6dfea0a89d891f9af7" kind="variable"><name>Pool_ShieldCardPool</name></member>
+    <member refid="class_game_object_pool_manager_1a07f7b3094fdebb5d6b230c9b8ba4c45d" kind="variable"><name>Pool_PackCardPool</name></member>
+    <member refid="class_game_object_pool_manager_1aa06036c691b9bfaa0d67f8b7d508581c" kind="variable"><name>Pool_MACardPool</name></member>
+    <member refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" kind="function"><name>Awake</name></member>
+  </compound>
+  <compound refid="class_hand_manager" kind="class"><name>HandManager</name>
+    <member refid="class_hand_manager_1adc361afc2404179b54533c5e685969ad" kind="variable"><name>Player</name></member>
+    <member refid="class_hand_manager_1a27064b005bd148c13ccc848fe9ed78ec" kind="variable"><name>anglesDict</name></member>
+    <member refid="class_hand_manager_1a616ccf6a3284c619453709211d138e15" kind="variable"><name>horrizonDistanceDict</name></member>
+    <member refid="class_hand_manager_1afa114f24ff1b8be3f37568a12629c150" kind="variable"><name>cards</name></member>
+    <member refid="class_hand_manager_1a17a74790d7e5b00995ee15ef750f4202" kind="variable"><name>retinueLayer</name></member>
+    <member refid="class_hand_manager_1ad5d02868c6ce362ad2c1f4d4ee57a42c" kind="variable"><name>cardLayer</name></member>
+    <member refid="class_hand_manager_1ab018f274c96ad12c22f801035a2026d3" kind="variable"><name>defaultCardRotation</name></member>
+    <member refid="class_hand_manager_1a652e374b9fa6d6b3432fda21e8d9ff72" kind="variable"><name>isSet_defaultCardRotation</name></member>
+    <member refid="class_hand_manager_1a1bf2c3f689c0b2a93edbf6cd4866b43e" kind="variable"><name>defaultCardPosition</name></member>
+    <member refid="class_hand_manager_1a7bd05c2af7c6435d27e7c7282021fa97" kind="variable"><name>isSet_defaultCardPosition</name></member>
+    <member refid="class_hand_manager_1a3f191cc44b3c779f57dfdab088ee2ea5" kind="variable"><name>currentFocusCard</name></member>
+    <member refid="class_hand_manager_1ac0b2e84c840635faa05ec6b801a8221a" kind="variable"><name>isBeginDrag</name></member>
+    <member refid="class_hand_manager_1a0e70db770453f2a8ee6f27367e06a278" kind="variable"><name>cardNumber</name></member>
+    <member refid="class_hand_manager_1ad831474dac2ed6c540ec8bdd67a72efd" kind="variable"><name>HandCardSize</name></member>
+    <member refid="class_hand_manager_1a87228743636190e8675c0a2b98bdb3d7" kind="variable"><name>PullOutCardSize</name></member>
+    <member refid="class_hand_manager_1af998ff3e973b98c521eae62641c22a9c" kind="function"><name>Awake</name></member>
+    <member refid="class_hand_manager_1a3966e3d660017861052b690e8c079cb7" kind="function"><name>Start</name></member>
+    <member refid="class_hand_manager_1a0f53a5210deec9382214ee0bd600c792" kind="function"><name>Update</name></member>
+    <member refid="class_hand_manager_1a4e1ac791e66c626a77fdfae5ca22e193" kind="function"><name>CheckMousePosition</name></member>
+    <member refid="class_hand_manager_1a36bfb5c49895d38dc31108d74fc78ed6" kind="function"><name>becomeBigger</name></member>
+    <member refid="class_hand_manager_1a8b2fb6d5c57f3dfaa168816c28a0f76d" kind="function"><name>returnToSmaller</name></member>
+    <member refid="class_hand_manager_1affd66865ef211ca521b2fb86bc7c9a86" kind="function"><name>DrawCards</name></member>
+    <member refid="class_hand_manager_1a119130c9237e86cea5531aaea371fa91" kind="function"><name>DrawCard</name></member>
+    <member refid="class_hand_manager_1a4870b97ce970377c8015394682ecee33" kind="function"><name>GetACardByID</name></member>
+    <member refid="class_hand_manager_1a601e5dee17ca9089a419e3904a021595" kind="function"><name>DrawRetinueCard</name></member>
+    <member refid="class_hand_manager_1a7d83c0042b34447f078863949c406349" kind="function"><name>DropFirstCard</name></member>
+    <member refid="class_hand_manager_1a3fa2c6dfc69e9ce87a7ef23d20591eb9" kind="function"><name>DropCard</name></member>
+    <member refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" kind="function"><name>RefreshCardsPlace</name></member>
+    <member refid="class_hand_manager_1aa85b191eb2300a405a1e9f6d540c5961" kind="function"><name>RefreshAllCardUsable</name></member>
+    <member refid="class_hand_manager_1a18e83dae10a2cc6061640b5c5afb0c86" kind="function"><name>CardOnMouseEnter</name></member>
+    <member refid="class_hand_manager_1a21abde0acb6ce84f6bb9474ff1f7957b" kind="function"><name>CardColliderReplaceOnMouseExit</name></member>
+    <member refid="class_hand_manager_1a86f68de8a62b95f78e0a590929b63e51" kind="function"><name>BeginDrag</name></member>
+    <member refid="class_hand_manager_1abcc4139e2ffcc948ca4522c169c22e38" kind="function"><name>EndDrag</name></member>
+    <member refid="class_hand_manager_1a08a6477c56bed9f760edec201c2f7990" kind="function"><name>BeginRound</name></member>
+    <member refid="class_hand_manager_1a2d1751c760eec76bd4ae09479f9715d9" kind="function"><name>EndRound</name></member>
+  </compound>
+  <compound refid="interface_i_drag_component" kind="interface"><name>IDragComponent</name>
+    <member refid="interface_i_drag_component_1a522d2475f73f690a2ff6c40263e6a594" kind="function"><name>DragComponent_OnMouseDown</name></member>
+    <member refid="interface_i_drag_component_1ac6855d3f31c703120cf9df3d9e88bee9" kind="function"><name>DragComponent_OnMousePressed</name></member>
+    <member refid="interface_i_drag_component_1ad9bdc7e153b33d5d79e214541ad193c6" kind="function"><name>DragComponent_OnMouseUp</name></member>
+    <member refid="interface_i_drag_component_1a11062cb9bf213849c06faa58b76d2221" kind="function"><name>DragComponent_SetStates</name></member>
+    <member refid="interface_i_drag_component_1a1e12d323f9d0b5067001dff24abf2b2f" kind="function"><name>DragComponnet_DragDistance</name></member>
+    <member refid="interface_i_drag_component_1af38702398f0d3e612bb305225535ef57" kind="function"><name>DragComponnet_DragOutEffects</name></member>
+  </compound>
+  <compound refid="interface_i_game_object_pool" kind="interface"><name>IGameObjectPool</name>
+    <member refid="interface_i_game_object_pool_1abd937ee991da187c1025929afc6c64b6" kind="function"><name>PoolRecycle</name></member>
+  </compound>
+  <compound refid="class_image_effect_blur_box" kind="class"><name>ImageEffectBlurBox</name>
+    <member refid="class_image_effect_blur_box_1aebd77e87c0795bcf4c3f58fb66c0c278" kind="variable"><name>BlurBoxShader</name></member>
+    <member refid="class_image_effect_blur_box_1af2cc782eaaae43287d380b634401ca3a" kind="variable"><name>BlurSize</name></member>
+    <member refid="class_image_effect_blur_box_1a790fd5cb4fa59de51239877ea9cb9f7b" kind="variable"><name>BlurBoxMaterial</name></member>
+    <member refid="class_image_effect_blur_box_1aae24c82d437652d7711ca242277e41b3" kind="property"><name>material</name></member>
+    <member refid="class_image_effect_blur_box_1aed6897100ca9b5d56144ee575030ecd9" kind="function"><name>Start</name></member>
+    <member refid="class_image_effect_blur_box_1a6e483bb869ff1ea4d2f98f2ea7c968a9" kind="function"><name>DownSample4x</name></member>
+    <member refid="class_image_effect_blur_box_1ac1076e645a7a03356ab619de61b5bc57" kind="function"><name>OnRenderImage</name></member>
+    <member refid="class_image_effect_blur_box_1a5bd856f22d7f95309c74a6178de4a46e" kind="function"><name>Update</name></member>
+    <member refid="class_image_effect_blur_box_1ac4cfa04224019e0fb4461d874799131c" kind="function"><name>FourTapCone</name></member>
+    <member refid="class_image_effect_blur_box_1ab258125ad8465b19dbfb2af31e053c68" kind="function"><name>OnDisable</name></member>
+  </compound>
+  <compound refid="interface_i_mouse_hover_component" kind="interface"><name>IMouseHoverComponent</name>
+    <member refid="interface_i_mouse_hover_component_1a03f527fc21e10d95dc6815866a7b70c9" kind="function"><name>MouseHoverComponent_OnMouseDragEnterImmediately</name></member>
+    <member refid="interface_i_mouse_hover_component_1a63f61ec02e20188f3ab4d476fa298d89" kind="function"><name>MouseHoverComponent_OnMouseEnterImmediately</name></member>
+    <member refid="interface_i_mouse_hover_component_1aac81475fa0ebd73b6951acb98647287e" kind="function"><name>MouseHoverComponent_OnMouseEnter</name></member>
+    <member refid="interface_i_mouse_hover_component_1a54a3bf57159f034a93c8a742ab0d10a6" kind="function"><name>MouseHoverComponent_OnMouseOver</name></member>
+    <member refid="interface_i_mouse_hover_component_1a2d91b71f94d530bd6f5c365b21652d31" kind="function"><name>MouseHoverComponent_OnMouseLeave</name></member>
+    <member refid="interface_i_mouse_hover_component_1acbd1ed46f1b311a387488f543c602df6" kind="function"><name>MouseHoverComponent_OnMouseLeaveImmediately</name></member>
+    <member refid="interface_i_mouse_hover_component_1a58c447da0331f33de85d482c35079080" kind="function"><name>MouseHoverComponent_OnMouseDragLeaveImmediately</name></member>
+  </compound>
+  <compound refid="class_module_base" kind="class"><name>ModuleBase</name>
+    <member refid="class_module_base_1a3004f9a15f9b561ac8a48a987afcbc20" kind="variable"><name>gameObjectPool</name></member>
+    <member refid="class_module_base_1a15ba002aefd9cfabe243465ccff29f61" kind="variable"><name>Player</name></member>
+    <member refid="class_module_base_1aaa3e4f9bee8e64b69641eb0118047f44" kind="variable"><name>CardInfo</name></member>
+    <member refid="class_module_base_1a6ad7ab92a84787e2e715cf4bde0fb56b" kind="variable"><name>ModuleCurrentCardInfo</name></member>
+    <member refid="class_module_base_1ac480ee62a2b675ad460ade1cfc67cc03" kind="variable"><name>DetailCardSize</name></member>
+    <member refid="class_module_base_1a358e0b8adb0fd4b1f7be37389c71250e" kind="variable"><name>DetailCardModuleSize</name></member>
+    <member refid="class_module_base_1a29a31ac66b8b6944c5c9af74c2a125f6" kind="variable"><name>DetailCardSize_Retinue</name></member>
+    <member refid="class_module_base_1a2492b6e51c903f59f74731897bb4e5ad" kind="variable"><name>detailCard</name></member>
+    <member refid="class_module_base_1abbb62521ad2aa1baa75f3cc6a5d36807" kind="variable"><name>detailCard_Weapon</name></member>
+    <member refid="class_module_base_1a302915c1adec952511d8c53570bb7659" kind="variable"><name>detailCard_Shield</name></member>
+    <member refid="class_module_base_1aeac98da73290535b14bea9b2376e53d7" kind="variable"><name>detailCard_Pack</name></member>
+    <member refid="class_module_base_1ac6a5fb9cbbf4ce94650c73742a69d71b" kind="variable"><name>detailCard_MA</name></member>
+    <member refid="class_module_base_1a8abe2a0ed59a34a4ee3975f5e0f1dd73" kind="function"><name>PoolRecycle</name></member>
+    <member refid="class_module_base_1a28c8a8b46907c75a385e063b3f1d31e6" kind="function"><name>Initiate</name></member>
+    <member refid="class_module_base_1a112d1b7a5557b812609f8a468c85c77b" kind="function"><name>GetCurrentCardInfo</name></member>
+    <member refid="class_module_base_1a52a38671fc2d0027c926d9fbe1ea2383" kind="function"><name>DragComponent_OnMouseDown</name></member>
+    <member refid="class_module_base_1a8fa7d35e030b5d3d63ff982ec3cb1d45" kind="function"><name>DragComponent_OnMousePressed</name></member>
+    <member refid="class_module_base_1a94af5020595448dd0f7e3934d24555f8" kind="function"><name>DragComponent_OnMouseUp</name></member>
+    <member refid="class_module_base_1a48067d070eb5ff497e1515a4772f3d9c" kind="function"><name>DragComponent_SetStates</name></member>
+    <member refid="class_module_base_1a37a7381f59ad5f517ea8409101ea9955" kind="function"><name>DragComponnet_DragDistance</name></member>
+    <member refid="class_module_base_1a448cc64590b4c0e2d4d185e860467893" kind="function"><name>MouseHoverComponent_OnMouseDragEnterImmediately</name></member>
+    <member refid="class_module_base_1ab4144de08615cecdf7c0ad9c383f7b1e" kind="function"><name>MouseHoverComponent_OnMouseEnterImmediately</name></member>
+    <member refid="class_module_base_1a2ef05ce5ea386adefa93fb0ec94dc078" kind="function"><name>MouseHoverComponent_OnMouseEnter</name></member>
+    <member refid="class_module_base_1a44f0bdf95b974c5a12cd77fd15dad5cc" kind="function"><name>MouseHoverComponent_OnMouseOver</name></member>
+    <member refid="class_module_base_1a78a8d6863f120ad960db75fb26c44813" kind="function"><name>MouseHoverComponent_OnMouseLeave</name></member>
+    <member refid="class_module_base_1ae22763e44c441726038c6c43e6e70851" kind="function"><name>MouseHoverComponent_OnMouseLeaveImmediately</name></member>
+    <member refid="class_module_base_1a08574bcc1d369968bd45502d69c67a07" kind="function"><name>MouseHoverComponent_OnMouseDragLeaveImmediately</name></member>
+    <member refid="class_module_base_1aef9d3599dd224b958894bba73defb41a" kind="function"><name>DragComponent_SetHasTarget</name></member>
+    <member refid="class_module_base_1a0f24beae98301ab4675af59f358c9a11" kind="function"><name>DragComponnet_DragOutEffects</name></member>
+    <member refid="class_module_base_1a9c4be0e6c43a57c8f6a9644ecee8b602" kind="function"><name>Start</name></member>
+    <member refid="class_module_base_1a3cad76a015cfd29b7e83cb0978cb2f47" kind="function"><name>Update</name></member>
+    <member refid="class_module_base_1a942b7d563d787a04df595e1e2a7f3c52" kind="function"><name>ShowCardDetail</name></member>
+    <member refid="class_module_base_1aa2010aed387a78ddc287085afa7062f2" kind="function"><name>HideCardDetail</name></member>
+    <member refid="class_module_base_1abbc0d3888d87723f6ece08491cfb7c75" kind="function"><name>initiateNumbers</name></member>
+    <member refid="class_module_base_1a234ccfa1e275e4d2f4cc1bcafb3e06f8" kind="function"><name>initiateNumbers</name></member>
+  </compound>
+  <compound refid="class_module_retinue" kind="class"><name>ModuleRetinue</name>
+    <member refid="class_module_retinue_1a5b44b818e6f5ba88e89e4165d7bce2bb" kind="variable"><name>TextMesh_RetinueName</name></member>
+    <member refid="class_module_retinue_1af1f091b1f77c71411f9e5f0ee8ba87c7" kind="variable"><name>TextMesh_RetinueDesc</name></member>
+    <member refid="class_module_retinue_1ad70a2374fbf54dd79030cd59b0a53c79" kind="variable"><name>SlotAnchor1</name></member>
+    <member refid="class_module_retinue_1ae160637812905f4c3d0581e3800cf308" kind="variable"><name>SlotAnchor2</name></member>
+    <member refid="class_module_retinue_1a2f9e5a4f92465eaffe39b2877a20be72" kind="variable"><name>SlotAnchor3</name></member>
+    <member refid="class_module_retinue_1a9d8a7b4cf0752c1493e1018f727ebf98" kind="variable"><name>SlotAnchor4</name></member>
+    <member refid="class_module_retinue_1a385874c1d40682ab08d45465ff8f9581" kind="variable"><name>Block_RetinueLeftLife</name></member>
+    <member refid="class_module_retinue_1a9d1859c8b13a6c9ad848b019c21b25bd" kind="variable"><name>Block_RetinueTotalLife</name></member>
+    <member refid="class_module_retinue_1af5658a1d319dfda47f6551eafb647970" kind="variable"><name>Block_RetinueAttack</name></member>
+    <member refid="class_module_retinue_1a33523a63f5ccce3eab42c1c4f6a2c19c" kind="variable"><name>Block_RetinueShield</name></member>
+    <member refid="class_module_retinue_1a2e1c9b5454c4f61ad4f2a7e83fa10c8b" kind="variable"><name>Block_RetinueArmor</name></member>
+    <member refid="class_module_retinue_1aa9475f71d34ee6b8a1a95165f3bb69c4" kind="variable"><name>PictureBoxRenderer</name></member>
+    <member refid="class_module_retinue_1afa7d0a72444ab6a8ca124b399f632861" kind="variable"><name>M_Pack</name></member>
+    <member refid="class_module_retinue_1ad49db30e479ab1724f5d3b0151481376" kind="variable"><name>M_MA</name></member>
+    <member refid="class_module_retinue_1a727cb1aa7273b468212a0c6e451aff30" kind="variable"><name>GoNumberSet_RetinueLeftLife</name></member>
+    <member refid="class_module_retinue_1a2203443ce66331105680f79aa56ed2b3" kind="variable"><name>CardNumberSet_RetinueLeftLife</name></member>
+    <member refid="class_module_retinue_1a256caf2bc6846307cbb64133da4e9fac" kind="variable"><name>GoNumberSet_RetinueTotalLife</name></member>
+    <member refid="class_module_retinue_1a4165ccc02e9924a60462f4cfb5584fdb" kind="variable"><name>CardNumberSet_RetinueTotalLife</name></member>
+    <member refid="class_module_retinue_1a0c90a912c90e647fa6f91f0832234617" kind="variable"><name>GoNumberSet_RetinueAttack</name></member>
+    <member refid="class_module_retinue_1ae94cb4c7f2513d114727ee4e472f7163" kind="variable"><name>CardNumberSet_RetinueAttack</name></member>
+    <member refid="class_module_retinue_1a43fca22ea4fd4a5a7e5a7767481fa1e1" kind="variable"><name>GoNumberSet_RetinueShield</name></member>
+    <member refid="class_module_retinue_1adfd881245883e70d04079a924c3e6458" kind="variable"><name>CardNumberSet_RetinueShield</name></member>
+    <member refid="class_module_retinue_1a2f09a21202b105c918d70cd03f79013d" kind="variable"><name>GoNumberSet_RetinueArmor</name></member>
+    <member refid="class_module_retinue_1a305a32a571d5c7fe4fe6e3d70c9b0cdc" kind="variable"><name>CardNumberSet_RetinueArmor</name></member>
+    <member refid="class_module_retinue_1a370228b479672b99ea8371f41c5d9391" kind="variable"><name>m_RetinueName</name></member>
+    <member refid="class_module_retinue_1a6af43de0c8e5bedb9c6c60aa5c0e5654" kind="variable"><name>m_RetinueDesc</name></member>
+    <member refid="class_module_retinue_1a55d8af8d9ad3a857fa6f487622b56bd5" kind="variable"><name>m_RetinueLeftLife</name></member>
+    <member refid="class_module_retinue_1a0987dd910a859a3a1f7aa6c1ece37ef7" kind="variable"><name>m_RetinueTotalLife</name></member>
+    <member refid="class_module_retinue_1a780c57012895bcdc8435a574774df66c" kind="variable"><name>m_RetinueAttack</name></member>
+    <member refid="class_module_retinue_1ae9409eebf934353865a2ae0a1d6e87ec" kind="variable"><name>m_RetinueArmor</name></member>
+    <member refid="class_module_retinue_1afdb095e7523c31c12fabfa9899395aad" kind="variable"><name>m_RetinueShield</name></member>
+    <member refid="class_module_retinue_1a56c5ac403570239adb7e1110a723d236" kind="variable"><name>m_Weapon</name></member>
+    <member refid="class_module_retinue_1a487647f0ada945107dd142af2f1f1ad1" kind="variable"><name>m_Shield</name></member>
+    <member refid="class_module_retinue_1a33c2c01fb725097d6882c6812ae5d04a" kind="property"><name>M_RetinueName</name></member>
+    <member refid="class_module_retinue_1ad496ff68838433705cabb6438e57c1f2" kind="property"><name>M_RetinueDesc</name></member>
+    <member refid="class_module_retinue_1a2ad898b115be15e56061360cdf4e2791" kind="property"><name>M_RetinueLeftLife</name></member>
+    <member refid="class_module_retinue_1aedbbbe0571edfdf9204d6c1f16548a2d" kind="property"><name>M_RetinueTotalLife</name></member>
+    <member refid="class_module_retinue_1af72a896a6b14c9b746b35bb2bc038734" kind="property"><name>M_RetinueAttack</name></member>
+    <member refid="class_module_retinue_1ac0b699d92ea68084a424b9893b155c76" kind="property"><name>M_RetinueArmor</name></member>
+    <member refid="class_module_retinue_1aa36083072f9c0e0737d41fdd7dabb00b" kind="property"><name>M_RetinueShield</name></member>
+    <member refid="class_module_retinue_1afca94af6f635cd9f1f176c768a22be71" kind="property"><name>M_Weapon</name></member>
+    <member refid="class_module_retinue_1a156ed24b12370fbcd3b83e1bb399f66a" kind="property"><name>M_Shield</name></member>
+    <member refid="class_module_retinue_1a985ef041dd432e047221fcf31c25c2e3" kind="variable"><name>CanAttack</name></member>
+    <member refid="class_module_retinue_1a8eacdf70826b0ecc961cff72a24f2874" kind="function"><name>PoolRecycle</name></member>
+    <member refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" kind="function"><name>Initiate</name></member>
+    <member refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" kind="function"><name>GetCurrentCardInfo</name></member>
+    <member refid="class_module_retinue_1a99ea71951e166ff5eed8d466c2431213" kind="function"><name>OnBeginRound</name></member>
+    <member refid="class_module_retinue_1ad356e6dd6a603ea9248839ee4d85eba2" kind="function"><name>OnEndRound</name></member>
+    <member refid="class_module_retinue_1aa312a0bc018873e49ab3ce7f2db51157" kind="function"><name>BeAttacked</name></member>
+    <member refid="class_module_retinue_1aae798903c3fad26bde1b2f5b12e2efb0" kind="function"><name>AllModulesAttack</name></member>
+    <member refid="class_module_retinue_1ad0d23850821f8bcadc8e9748d1af565a" kind="function"><name>DragComponent_OnMouseUp</name></member>
+    <member refid="class_module_retinue_1a993ff79104fa77fef38b3ebfc6d43602" kind="function"><name>DragComponent_SetStates</name></member>
+    <member refid="class_module_retinue_1a804ff811af3ce50df6361ce587219611" kind="function"><name>DragComponnet_DragDistance</name></member>
+    <member refid="class_module_retinue_1a5ca130f42fa20cb77c4b6fb26bdb159c" kind="function"><name>Awake</name></member>
+    <member refid="class_module_retinue_1ade8da5b753cef1ae21e346e0f765b19b" kind="function"><name>Start</name></member>
+    <member refid="class_module_retinue_1a017997b10c0e67cdbf9832c96cb29cbc" kind="function"><name>Update</name></member>
+    <member refid="class_module_retinue_1a601e527ecd4e134a380abaecd5aeff49" kind="function"><name>On_WeaponDown</name></member>
+    <member refid="class_module_retinue_1a0fdbd5664627798625d7f403a6b45c54" kind="function"><name>On_WeaponEquiped</name></member>
+    <member refid="class_module_retinue_1a0bd342e7cd050e0613ef613da2ce007a" kind="function"><name>On_WeaponChanged</name></member>
+    <member refid="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" kind="function"><name>On_ShieldDown</name></member>
+    <member refid="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" kind="function"><name>On_ShieldEquiped</name></member>
+    <member refid="class_module_retinue_1a6d419c7c8497290b2777d787ef0a1ac8" kind="function"><name>On_ShieldChanged</name></member>
+  </compound>
+  <compound refid="class_module_shield" kind="class"><name>ModuleShield</name>
+    <member refid="class_module_shield_1abd4672599bad479eb12401beaadbf63c" kind="variable"><name>M_ModuleRetinue</name></member>
+    <member refid="class_module_shield_1a9824e98402f2b965c773bab385a81c1a" kind="variable"><name>ShieldName</name></member>
+    <member refid="class_module_shield_1a098d58669c52a402d76e80a323b062be" kind="variable"><name>M_Bloom</name></member>
+    <member refid="class_module_shield_1a5bed91f46a0f612d27bd1d86daef8395" kind="variable"><name>Block_ShieldArmor</name></member>
+    <member refid="class_module_shield_1abba75fe073e913f79c3017967a114346" kind="variable"><name>Block_ShieldArmorMax</name></member>
+    <member refid="class_module_shield_1a4b4bf85dfd236e6428aac9cef9de9044" kind="variable"><name>Block_ShieldShield</name></member>
+    <member refid="class_module_shield_1a77d8e141684325ded0d27a0ea4a564e8" kind="variable"><name>Block_ShieldShieldMax</name></member>
+    <member refid="class_module_shield_1a2d367ce112b38b0beff69119fa770b5e" kind="variable"><name>GoNumberSet_ShieldArmor</name></member>
+    <member refid="class_module_shield_1a4fb32198c0c609a20a469e531f2100b2" kind="variable"><name>CardNumberSet_ShieldArmor</name></member>
+    <member refid="class_module_shield_1a15942c6d9ea777e17466f95438b6bd65" kind="variable"><name>GoNumberSet_ShieldArmorMax</name></member>
+    <member refid="class_module_shield_1ae181b7f505df625b69810f24dca74c79" kind="variable"><name>CardNumberSet_ShieldArmorMax</name></member>
+    <member refid="class_module_shield_1a8d8e44184844b99cad574205ee4649a0" kind="variable"><name>GoNumberSet_ShieldShield</name></member>
+    <member refid="class_module_shield_1a50a1acfe9edfc46dbc6b69c40ab37830" kind="variable"><name>CardNumberSet_ShieldShield</name></member>
+    <member refid="class_module_shield_1a118e2bf643be57e7092d637320e4dc2d" kind="variable"><name>GoNumberSet_ShieldShieldMax</name></member>
+    <member refid="class_module_shield_1a655907126bace1e481a7a95ea79834f8" kind="variable"><name>CardNumberSet_ShieldShieldMax</name></member>
+    <member refid="class_module_shield_1a338b7e7393fa6de594798491c823bcae" kind="variable"><name>m_ShieldName</name></member>
+    <member refid="class_module_shield_1ac07bfc6775c01d93e6a7e57f4c845004" kind="variable"><name>m_ShieldType</name></member>
+    <member refid="class_module_shield_1afb7d6a6d7ba2e5f7aba75ce3e83374b8" kind="variable"><name>my_NumberSize_Armor</name></member>
+    <member refid="class_module_shield_1a745d023c9e30c687704c581438b74524" kind="variable"><name>my_NumberSize_ArmorMax</name></member>
+    <member refid="class_module_shield_1a77a32c7b013370e8d46ae6c645787f63" kind="variable"><name>my_NumberSize_Shield</name></member>
+    <member refid="class_module_shield_1ad6cae5109ba18efdc56fb56b07cc5901" kind="variable"><name>my_NumberSize_ShieldMax</name></member>
+    <member refid="class_module_shield_1a5902ac61a9876a79d5086aad57324389" kind="variable"><name>my_TextAlign_Armor</name></member>
+    <member refid="class_module_shield_1a260a9fc21ae3210e32064eae4e459b45" kind="variable"><name>my_TextAlign_ArmorMax</name></member>
+    <member refid="class_module_shield_1ab6368542d20975e944627e5d156107d5" kind="variable"><name>my_TextAlign_Shield</name></member>
+    <member refid="class_module_shield_1a4b5af8ab368347ab9d04ed992e73b050" kind="variable"><name>my_TextAlign_ShieldMax</name></member>
+    <member refid="class_module_shield_1a238555752aa2ab95ce02322a529b746d" kind="variable"><name>m_ShieldArmor</name></member>
+    <member refid="class_module_shield_1a807ae6c19ff3d4adaa876349abbbcd22" kind="variable"><name>m_ShieldArmorMax</name></member>
+    <member refid="class_module_shield_1a51a73c6d80364eb29ba379c1de7be973" kind="variable"><name>m_ShieldShield</name></member>
+    <member refid="class_module_shield_1a0249a67578e0fcdeab0963cc1e577c36" kind="variable"><name>m_ShieldShieldMax</name></member>
+    <member refid="class_module_shield_1acbdc364cd119613f6aba6862f51be3e7" kind="property"><name>M_ShieldName</name></member>
+    <member refid="class_module_shield_1a47a216dc7528ffec8865eea9ff24cbd2" kind="property"><name>M_ShieldType</name></member>
+    <member refid="class_module_shield_1a2efa6dc2f6b2fbff07b6be78b3c21495" kind="property"><name>M_ShieldArmor</name></member>
+    <member refid="class_module_shield_1a6b2d1cd1583df72f752d8d177399e11b" kind="property"><name>M_ShieldArmorMax</name></member>
+    <member refid="class_module_shield_1ab65e1415fec997e1ddbe0781b8e9c5b6" kind="property"><name>M_ShieldShield</name></member>
+    <member refid="class_module_shield_1a51343cec3af34f15d8a43a83f20e9374" kind="property"><name>M_ShieldShieldMax</name></member>
+    <member refid="class_module_shield_1aa24a5085d1af4f35a8b0572aa0227f3c" kind="function"><name>Awake</name></member>
+    <member refid="class_module_shield_1a0982deb8e04e964307eb47747806af93" kind="function"><name>Start</name></member>
+    <member refid="class_module_shield_1afeabb75bf8d6a55857390d2ab589cfd7" kind="function"><name>Update</name></member>
+    <member refid="class_module_shield_1ae31fa44225f3c6d4b92444f10b6b13b2" kind="function"><name>Initiate</name></member>
+    <member refid="class_module_shield_1a98bdf08329ea2656f9301af60e9bc1dc" kind="function"><name>GetCurrentCardInfo</name></member>
+    <member refid="class_module_shield_1a7b63e8c4f4f529f087c0eb82a08b5b0a" kind="function"><name>SetPreview</name></member>
+    <member refid="class_module_shield_1a6dfc6b58232053be4941f43624650957" kind="function"><name>SetNoPreview</name></member>
+    <member refid="class_module_shield_1a69c7cd4489a541ac44e986a9b4632de0" kind="function"><name>ShieldBeAttacked</name></member>
+    <member refid="class_module_shield_1ab07e6134485dca2ba76a200996cfdfe5" kind="function"><name>ArmorBeAttacked</name></member>
+    <member refid="class_module_shield_1a65b7a92ec012525231ebe7016a05db6d" kind="function"><name>DragComponent_OnMouseUp</name></member>
+    <member refid="class_module_shield_1a7368ef1426de28471920520506c878b7" kind="function"><name>DragComponent_SetStates</name></member>
+    <member refid="class_module_shield_1a4f06a3ab11c406a3ceef955691cfd553" kind="function"><name>MouseHoverComponent_OnMouseEnterImmediately</name></member>
+    <member refid="class_module_shield_1abdbef91e83b7a103549f757c14fb1e96" kind="function"><name>MouseHoverComponent_OnMouseOver</name></member>
+    <member refid="class_module_shield_1a6f6b111dd847cfad12b0bd781ae058c2" kind="function"><name>MouseHoverComponent_OnMouseLeave</name></member>
+    <member refid="class_module_shield_1a31909952cfcbc9655b3949bffa9ff5c7" kind="function"><name>MouseHoverComponent_OnMouseLeaveImmediately</name></member>
+  </compound>
+  <compound refid="class_module_weapon" kind="class"><name>ModuleWeapon</name>
+    <member refid="class_module_weapon_1af49cf5428f5fdfc2e874a86a1c9d5c56" kind="variable"><name>M_ModuleRetinue</name></member>
+    <member refid="class_module_weapon_1a090aecb92f6a14b184cf553954ee4438" kind="variable"><name>CanAttack</name></member>
+    <member refid="class_module_weapon_1a4baa527b189ae316fa98cc59e1fbb776" kind="variable"><name>WeaponName</name></member>
+    <member refid="class_module_weapon_1a04c8f467a0da35a2ffb659b6fb25ab88" kind="variable"><name>M_Bloom</name></member>
+    <member refid="class_module_weapon_1a7313957b2080f14c80e3ca88e464477f" kind="variable"><name>M_GunIcon</name></member>
+    <member refid="class_module_weapon_1a7bc319fb27200ae73e7e656564995c32" kind="variable"><name>M_SwordIcon</name></member>
+    <member refid="class_module_weapon_1a4fafcf8e118a090f999fb08c02847fdb" kind="variable"><name>Block_WeaponAttack</name></member>
+    <member refid="class_module_weapon_1ae38548dd330f5c29989e8ac2e1e3995d" kind="variable"><name>Block_WeaponEnergy</name></member>
+    <member refid="class_module_weapon_1a3d4dc819dfbb129b215044dc8ea5c9c2" kind="variable"><name>GoNumberSet_WeaponAttack</name></member>
+    <member refid="class_module_weapon_1a21dd7e1cf27e9055f557c0abddedf8b6" kind="variable"><name>CardNumberSet_WeaponAttack</name></member>
+    <member refid="class_module_weapon_1a019e0149b2856beac0a9fa4c02ed05dc" kind="variable"><name>GoNumberSet_WeaponEnergy</name></member>
+    <member refid="class_module_weapon_1aea657a6105cf36ece94974ac6202202f" kind="variable"><name>CardNumberSet_WeaponEnergy</name></member>
+    <member refid="class_module_weapon_1a4b5a5bf56a1a25dd3cbbb62a9f199ef1" kind="variable"><name>m_WeaponName</name></member>
+    <member refid="class_module_weapon_1ac09fb8ebeb04781fa5038daa220e5074" kind="variable"><name>m_WeaponType</name></member>
+    <member refid="class_module_weapon_1a0f9e2217b1b373c9a3c5743927068c68" kind="variable"><name>my_NumberSize_Attack</name></member>
+    <member refid="class_module_weapon_1a1a51ec53f3e2aca0ffccbe5421120aa3" kind="variable"><name>my_NumberSize_Energy</name></member>
+    <member refid="class_module_weapon_1a0e08ab559699492406c5a2d2d19125c5" kind="variable"><name>my_TextAlign_Attack</name></member>
+    <member refid="class_module_weapon_1aa221154ec6e1af45d0137b15ab91709c" kind="variable"><name>my_TextAlign_Energy</name></member>
+    <member refid="class_module_weapon_1a02ef2b56b5504017e33e6b9aee2d74ee" kind="variable"><name>m_WeaponAttack</name></member>
+    <member refid="class_module_weapon_1adc0ed651bcba02419c210933c92af62c" kind="variable"><name>m_WeaponEnergy</name></member>
+    <member refid="class_module_weapon_1a583e8a38aa47e9dc6c6ee4280344a634" kind="variable"><name>m_WeaponEnergyMax</name></member>
+    <member refid="class_module_weapon_1a5ffd683bbcd2c747ac68959e9a39c38e" kind="property"><name>M_WeaponName</name></member>
+    <member refid="class_module_weapon_1a92f9083492cb777042e2956ee8f4d173" kind="property"><name>M_WeaponType</name></member>
+    <member refid="class_module_weapon_1aeb7392d9381800e130bcc9a3f2832922" kind="property"><name>M_WeaponAttack</name></member>
+    <member refid="class_module_weapon_1af05b677028c98640f53533487733eb4d" kind="property"><name>M_WeaponEnergy</name></member>
+    <member refid="class_module_weapon_1a6869b51128df31e4acc38e7e038495dd" kind="property"><name>M_WeaponEnergyMax</name></member>
+    <member refid="class_module_weapon_1afade8f49ddd718b7815d417c318647c2" kind="function"><name>Awake</name></member>
+    <member refid="class_module_weapon_1a66b990a6c3466c76829e0e4b4c7ac36b" kind="function"><name>Start</name></member>
+    <member refid="class_module_weapon_1a38c6f505b7b4107052e89f09b1df411f" kind="function"><name>Update</name></member>
+    <member refid="class_module_weapon_1a4967d992cb9497c46d55368016ce865e" kind="function"><name>Initiate</name></member>
+    <member refid="class_module_weapon_1aff174fdcfbd469f4aa02c9fa1f6d354d" kind="function"><name>GetCurrentCardInfo</name></member>
+    <member refid="class_module_weapon_1a12da299e157895c30eecc884c0704b54" kind="function"><name>SetPreview</name></member>
+    <member refid="class_module_weapon_1a95ea9fc80c87bf61d16cc0b7e6c0694e" kind="function"><name>SetNoPreview</name></member>
+    <member refid="class_module_weapon_1a6fb9026d8fb43da1053fc5f5cd7a1d28" kind="function"><name>WeaponAttack</name></member>
+    <member refid="class_module_weapon_1aad6dea76dc8ed8af8c2f47fc64f10287" kind="function"><name>DragComponent_OnMouseUp</name></member>
+    <member refid="class_module_weapon_1a2db6bab069fe87909cd06ec46d5cb210" kind="function"><name>DragComponent_SetStates</name></member>
+    <member refid="class_module_weapon_1a378429caf596e0309a26f353a8dca646" kind="function"><name>MouseHoverComponent_OnMouseEnterImmediately</name></member>
+    <member refid="class_module_weapon_1a875247ec005821762e07213fbfac9df8" kind="function"><name>MouseHoverComponent_OnMouseOver</name></member>
+    <member refid="class_module_weapon_1a18170a14180e8036d902b7b90959f1fa" kind="function"><name>MouseHoverComponent_OnMouseLeave</name></member>
+    <member refid="class_module_weapon_1aefd7c1a54a947e3e1e58c769c8d794b2" kind="function"><name>MouseHoverComponent_OnMouseLeaveImmediately</name></member>
+  </compound>
+  <compound refid="class_mouse_hover_component" kind="class"><name>MouseHoverComponent</name>
+    <member refid="class_mouse_hover_component_1ac9ab558dc47d9232caa94cbca36725a1" kind="variable"><name>caller</name></member>
+    <member refid="class_mouse_hover_component_1a56d68643e44d84568342e1b916c71727" kind="variable"><name>isOnFocus</name></member>
+    <member refid="class_mouse_hover_component_1a9042ba960c86b105be57d64d80371938" kind="variable"><name>isOnHover</name></member>
+    <member refid="class_mouse_hover_component_1a6c4d9f5a8edc1dad3e1259b7c137acec" kind="variable"><name>isOnPressHover</name></member>
+    <member refid="class_mouse_hover_component_1adc3a1f13b91d6b0df17c78ac1197b6ff" kind="property"><name>IsOnFocus</name></member>
+    <member refid="class_mouse_hover_component_1af42456a396d0830f8d16b0b37ae7e953" kind="property"><name>IsOnHover</name></member>
+    <member refid="class_mouse_hover_component_1a5c94bbe274ed8b47d0c1f1697ebd52f0" kind="property"><name>IsOnPressHover</name></member>
+    <member refid="class_mouse_hover_component_1a7491c3f03872e15819afd4139c52f89e" kind="function"><name>Awake</name></member>
+    <member refid="class_mouse_hover_component_1a26158ec6fd2c5062f506e6743795463a" kind="function"><name>Start</name></member>
+    <member refid="class_mouse_hover_component_1a0d799b1562a6b287a166838bdc7d2295" kind="function"><name>Update</name></member>
+  </compound>
+  <compound refid="class_mouse_hover_manager" kind="class"><name>MouseHoverManager</name>
+    <member refid="class_mouse_hover_manager_1ab0d41811312bc9a6686bd4a452604633" kind="variable"><name>modulesLayer</name></member>
+    <member refid="class_mouse_hover_manager_1ae379c841550633eecfc957ec3ae3ba73" kind="variable"><name>retinuesLayer</name></member>
+    <member refid="class_mouse_hover_manager_1a25e14c01a3bc838df2a2e420dd674428" kind="variable"><name>slotsLayer</name></member>
+    <member refid="class_mouse_hover_manager_1a0f82a4dc08f439caad44d04fea97d45b" kind="variable"><name>mouseStopTimeTicker</name></member>
+    <member refid="class_mouse_hover_manager_1ac725d62dae60c60eea4558ed4213794b" kind="variable"><name>mouseLastPosition</name></member>
+    <member refid="class_mouse_hover_manager_1a310afbf629356a7ace6bed73cdd521d3" kind="variable"><name>currentHover</name></member>
+    <member refid="class_mouse_hover_manager_1a15a2329e81226c5f3df2b622a53bce1c" kind="variable"><name>currentPressHover</name></member>
+    <member refid="class_mouse_hover_manager_1a67580a6205447a5b32d43f86fcbe1b3e" kind="variable"><name>currentFocus</name></member>
+    <member refid="class_mouse_hover_manager_1ac7a2a7c99d6f95691e6820154b76657c" kind="variable"><name>mouseStopTimeThreshold</name></member>
+    <member refid="class_mouse_hover_manager_1a23e2afbe3a8c0bb0c4737c08f57e09c1" kind="variable"><name>mouseSpeedThreshold</name></member>
+    <member refid="class_mouse_hover_manager_1a8823d162d61f58f45f81ec77ed6f69cb" kind="function"><name>Awake</name></member>
+    <member refid="class_mouse_hover_manager_1a8fa9fd1be6dc7d8cb32642695a63a6de" kind="function"><name>Start</name></member>
+    <member refid="class_mouse_hover_manager_1a122810c1da1b3a8bf982ce93ad8f6945" kind="function"><name>Update</name></member>
+  </compound>
+  <compound refid="class_player" kind="class"><name>Player</name>
+    <member refid="class_player_1a3f605f44363e13589fdc486c362894a1" kind="variable"><name>MyBattleGroundArea</name></member>
+    <member refid="class_player_1a76d9429430586a601b7107349c9c541a" kind="variable"><name>MyBattleGroundManager</name></member>
+    <member refid="class_player_1ab46108e9d5b6d71bf366b0943a71adb0" kind="variable"><name>MyCardDeckManager</name></member>
+    <member refid="class_player_1abc057783bafe08668e51762c92d120f5" kind="variable"><name>MyHandArea</name></member>
+    <member refid="class_player_1a4f97a60203d05ae00e7c223be3a7df7a" kind="variable"><name>MyHandManager</name></member>
+    <member refid="class_player_1aa6cdd6927d7639b4f8973c337724e35f" kind="variable"><name>WhichPlayer</name></member>
+    <member refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" kind="property"><name>CostMax</name></member>
+    <member refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" kind="property"><name>CostLeft</name></member>
+    <member refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" kind="function"><name>Player</name></member>
+    <member refid="class_player_1ae1f4ce6294cc9244a4223104f3263835" kind="function"><name>UseCost</name></member>
+    <member refid="class_player_1ad6f8948f78d17a21d9eea512a21ec627" kind="function"><name>AddCostWithoutLimit</name></member>
+    <member refid="class_player_1a71304c87cd53259f8ce9236adfa086e3" kind="function"><name>AddCostWithinMax</name></member>
+    <member refid="class_player_1a824805c449531986e44008238bc40417" kind="function"><name>UseAllCost</name></member>
+    <member refid="class_player_1add176144a0cc014a2bd474bc00e3c890" kind="function"><name>AddAllCost</name></member>
+    <member refid="class_player_1a9a3fd49ccd1bf5f849438b407858a2d5" kind="function"><name>IncreaseCostMax</name></member>
+    <member refid="class_player_1adf209bb1466a6978852c8a604ca30483" kind="function"><name>DecreaseCostMax</name></member>
+  </compound>
+  <compound refid="class_round_manager" kind="class"><name>RoundManager</name>
+    <member refid="class_round_manager_1a646aa2588d5345d6c83d8b2bf9102692" kind="variable"><name>rm</name></member>
+    <member refid="class_round_manager_1a8395e6635cd5367b584e5050fa6a1b05" kind="property"><name>RM</name></member>
+    <member refid="class_round_manager_1a9dc4982eccb098deb1b3f4f758179ff1" kind="variable"><name>RoundNumber</name></member>
+    <member refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" kind="variable"><name>CurrentPlayer</name></member>
+    <member refid="class_round_manager_1ab9f6c7fda921ec8469da74b61d332db5" kind="variable"><name>SelfTurnText</name></member>
+    <member refid="class_round_manager_1ae4ba184715f4887ac1197439339e142c" kind="variable"><name>EnemyTurnText</name></member>
+    <member refid="class_round_manager_1a07d2fe10fdf1700a0c19f4eb36236e1a" kind="variable"><name>selfTurnText_DefaultPosition</name></member>
+    <member refid="class_round_manager_1a66ea2c88263f83a4332c7f1be44638ad" kind="variable"><name>enemyTurnText_DefaultPosition</name></member>
+    <member refid="class_round_manager_1a0e3e5b1e55c26209a438d715f0d0151b" kind="variable"><name>farAwayPosition</name></member>
+    <member refid="class_round_manager_1a1ae4b42e7252a3983bf8121c91a61fa6" kind="function"><name>Awake</name></member>
+    <member refid="class_round_manager_1a9412ca1bc488d6cc4a7cf23a2e77c7b4" kind="function"><name>Start</name></member>
+    <member refid="class_round_manager_1ad78bed8eb987e7238753d702d189b147" kind="function"><name>Update</name></member>
+    <member refid="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" kind="function"><name>switchPlayer</name></member>
+    <member refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" kind="function"><name>BeginRound</name></member>
+    <member refid="class_round_manager_1a7272fa59ae93c5467abc8ccd8d49c5c3" kind="function"><name>EndRound</name></member>
+    <member refid="class_round_manager_1a9635622d6203f624f46ac4dd6ed1ebe0" kind="function"><name>OnEndRoundButtonClick</name></member>
+  </compound>
+  <compound refid="class_screen_fitness" kind="class"><name>ScreenFitness</name>
+    <member refid="class_screen_fitness_1a9872f6547d98c95e00b345a9c13218c5" kind="variable"><name>scaler</name></member>
+    <member refid="class_screen_fitness_1a5f2490776f69f66799a701cf3d177e2d" kind="function"><name>Awake</name></member>
+  </compound>
+  <compound refid="class_screen_setting" kind="class"><name>ScreenSetting</name>
+    <member refid="class_screen_setting_1a11f551d39a266f6119c132a64861fb70" kind="variable"><name>initialized</name></member>
+    <member refid="class_screen_setting_1a8bc16b3030497349abdb3f196d4b214e" kind="variable"><name>designWidth</name></member>
+    <member refid="class_screen_setting_1a986cc87d13a5f46544347df5cc766066" kind="variable"><name>designHeight</name></member>
+    <member refid="class_screen_setting_1aa10b26c94ebd0008f1377179c74cb58f" kind="variable"><name>current</name></member>
+    <member refid="class_screen_setting_1a29d645966f9f3d48e28d7c36a36637ce" kind="variable"><name>scaleWidth</name></member>
+    <member refid="class_screen_setting_1a7f1298140c79a24cba783555736193c7" kind="variable"><name>scaleHeight</name></member>
+    <member refid="class_screen_setting_1a68458ada2c767eb50cc7ccb1da4e41c0" kind="variable"><name>originalScreenWidth</name></member>
+    <member refid="class_screen_setting_1a1316abf1fe033f85c7a78e117ad3a77b" kind="variable"><name>originalScreenHeight</name></member>
+    <member refid="class_screen_setting_1aebf5bc7df896fe7caa2ce99c37f4be4b" kind="property"><name>OriginalScreenWidth</name></member>
+    <member refid="class_screen_setting_1ad799d039b1140e273c85225566598866" kind="property"><name>OriginalScreenHeight</name></member>
+    <member refid="class_screen_setting_1a85735255d4168d08e015fed816e1fbdc" kind="function"><name>Start</name></member>
+    <member refid="class_screen_setting_1a1ce1cca3cb1c08406eb33a896de1acae" kind="function"><name>ScreenSettingCoroutine</name></member>
+    <member refid="class_screen_setting_1a19cd897088f775969519547d34481884" kind="function"><name>Update</name></member>
+    <member refid="class_screen_setting_1a51c023e26c130b2dbacdbf8977030df7" kind="function"><name>SaveOriginalScreenResolution</name></member>
+    <member refid="class_screen_setting_1a3d0f6e85464476ebd0e253bd639e03ad" kind="function"><name>setDesignContentScale</name></member>
+    <member refid="class_screen_setting_1ab927ea0f63168a36c408cfc74921197f" kind="function"><name>SetScreenTimeout</name></member>
+  </compound>
+  <compound refid="class_slot_anchor" kind="class"><name>SlotAnchor</name>
+    <member refid="class_slot_anchor_1a8c235185da9af7e01af7be9f46c11886" kind="variable"><name>Player</name></member>
+    <member refid="class_slot_anchor_1a79cd925f08ee10c2a7858b3a50a71e88" kind="variable"><name>M_SlotType</name></member>
+    <member refid="class_slot_anchor_1ad0082717a987842b1c55653e84c5f0c7" kind="variable"><name>OnHoverShowGO</name></member>
+    <member refid="class_slot_anchor_1a90ea0723f9cd5dd411b79724149914ef" kind="variable"><name>M_ModuleRetinue</name></member>
+    <member refid="class_slot_anchor_1a6753f1a5bb254c3228df5ea53bb13901" kind="function"><name>Awake</name></member>
+    <member refid="class_slot_anchor_1aa1f0f065e4a59701b7893b06ef63711a" kind="function"><name>Start</name></member>
+    <member refid="class_slot_anchor_1a835499eee749e70b25627ce4a0d4b74c" kind="function"><name>Update</name></member>
+    <member refid="class_slot_anchor_1aee0af335d4a4a4beb71632693d114d19" kind="function"><name>ShowHoverGO</name></member>
+    <member refid="class_slot_anchor_1a686be3ac62679ac155a4cad79719c1dc" kind="function"><name>HideHoverShowGO</name></member>
+    <member refid="class_slot_anchor_1a6c566b9dc023b0a9b7c959fe344948e6" kind="function"><name>MouseHoverComponent_OnMouseDragEnterImmediately</name></member>
+    <member refid="class_slot_anchor_1adc9bd993644a846e7a6b2699e027cb37" kind="function"><name>MouseHoverComponent_OnMouseEnterImmediately</name></member>
+    <member refid="class_slot_anchor_1a4d67997c78510fe9069d5ef9f1e4036f" kind="function"><name>MouseHoverComponent_OnMouseEnter</name></member>
+    <member refid="class_slot_anchor_1abc69699b15439c2ec7d1f2019feb3b0a" kind="function"><name>MouseHoverComponent_OnMouseOver</name></member>
+    <member refid="class_slot_anchor_1afb4b856e350ece813d484fd0b2bcade0" kind="function"><name>MouseHoverComponent_OnMouseLeave</name></member>
+    <member refid="class_slot_anchor_1ac20241d7aa45240a40ac6b0d7cf65c49" kind="function"><name>MouseHoverComponent_OnMouseLeaveImmediately</name></member>
+    <member refid="class_slot_anchor_1a6b567888a5f8768efaa01fa78a34dbbd" kind="function"><name>MouseHoverComponent_OnMouseDragLeaveImmediately</name></member>
+  </compound>
+  <compound refid="namespace_system" kind="namespace"><name>System</name>
+  </compound>
+  <compound refid="namespace_system_1_1_collections" kind="namespace"><name>System::Collections</name>
+  </compound>
+  <compound refid="namespace_system_1_1_collections_1_1_generic" kind="namespace"><name>System::Collections::Generic</name>
+  </compound>
+  <compound refid="namespace_system_1_1_linq" kind="namespace"><name>System::Linq</name>
+  </compound>
+  <compound refid="namespace_system_1_1_text" kind="namespace"><name>System::Text</name>
+  </compound>
+  <compound refid="namespace_unity_engine" kind="namespace"><name>UnityEngine</name>
+  </compound>
+  <compound refid="namespace_unity_engine_1_1_event_systems" kind="namespace"><name>UnityEngine::EventSystems</name>
+  </compound>
+  <compound refid="namespace_unity_engine_1_1_u_i" kind="namespace"><name>UnityEngine::UI</name>
+  </compound>
+  <compound refid="_card_8cs" kind="file"><name>Card.cs</name>
+  </compound>
+  <compound refid="_card___retinue_8cs" kind="file"><name>Card_Retinue.cs</name>
+  </compound>
+  <compound refid="_card___shield_8cs" kind="file"><name>Card_Shield.cs</name>
+  </compound>
+  <compound refid="_card___weapon_8cs" kind="file"><name>Card_Weapon.cs</name>
+  </compound>
+  <compound refid="_card_info_8cs" kind="file"><name>CardInfo.cs</name>
+    <member refid="_card_info_8cs_1afd1799bce09ea90840acb65fb667e35f" kind="enum"><name>CardTypes</name></member>
+    <member refid="_card_info_8cs_1afd1799bce09ea90840acb65fb667e35faab1fc152753dd7e518d4638c24a260ea" kind="enumvalue"><name>Retinue</name></member>
+    <member refid="_card_info_8cs_1afd1799bce09ea90840acb65fb667e35fa968ae4f03d7e0c30fe4eb26b83c855dd" kind="enumvalue"><name>Spell</name></member>
+    <member refid="_card_info_8cs_1afd1799bce09ea90840acb65fb667e35fa18c83669920215a818638ad0e5421e4b" kind="enumvalue"><name>Weapon</name></member>
+    <member refid="_card_info_8cs_1afd1799bce09ea90840acb65fb667e35fa970da5f1f2e32aeb9e488dd017160ab4" kind="enumvalue"><name>Shield</name></member>
+    <member refid="_card_info_8cs_1afd1799bce09ea90840acb65fb667e35fa4492081ca02b059f9e8af4ddaf0f7292" kind="enumvalue"><name>Pack</name></member>
+    <member refid="_card_info_8cs_1afd1799bce09ea90840acb65fb667e35fa2a6039655313bf5dab1e43523b62c374" kind="enumvalue"><name>MA</name></member>
+  </compound>
+  <compound refid="_card_number_8cs" kind="file"><name>CardNumber.cs</name>
+    <member refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5" kind="enum"><name>NumberSize</name></member>
+    <member refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5a2660064e68655415da2628c2ae2f7592" kind="enumvalue"><name>Small</name></member>
+    <member refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5a87f8a6ab85c9ced3702b4ea641ad4bb5" kind="enumvalue"><name>Medium</name></member>
+    <member refid="_card_number_8cs_1ae661d34d42d4bf177e1b95a483190dd5ad491538da818a2ba11a3195ba035cfd3" kind="enumvalue"><name>Big</name></member>
+  </compound>
+  <compound refid="_card_number_set_8cs" kind="file"><name>CardNumberSet.cs</name>
+  </compound>
+  <compound refid="_collider_replace_8cs" kind="file"><name>ColliderReplace.cs</name>
+  </compound>
+  <compound refid="_module_base_8cs" kind="file"><name>ModuleBase.cs</name>
+  </compound>
+  <compound refid="_module_retinue_8cs" kind="file"><name>ModuleRetinue.cs</name>
+  </compound>
+  <compound refid="_module_shield_8cs" kind="file"><name>ModuleShield.cs</name>
+    <member refid="_module_shield_8cs_1ae2004e065c4cf39fc542e11bd74c5ae2" kind="enum"><name>ShieldType</name></member>
+    <member refid="_module_shield_8cs_1ae2004e065c4cf39fc542e11bd74c5ae2ac77a8030f463c2c14aebd6452fc9f0a8" kind="enumvalue"><name>Armor</name></member>
+    <member refid="_module_shield_8cs_1ae2004e065c4cf39fc542e11bd74c5ae2a970da5f1f2e32aeb9e488dd017160ab4" kind="enumvalue"><name>Shield</name></member>
+    <member refid="_module_shield_8cs_1ae2004e065c4cf39fc542e11bd74c5ae2a699b4f79215d191584653efebf156e52" kind="enumvalue"><name>Mixed</name></member>
+  </compound>
+  <compound refid="_module_weapon_8cs" kind="file"><name>ModuleWeapon.cs</name>
+    <member refid="_module_weapon_8cs_1a095ae9be41c95cab0ceb95c6dae270b8" kind="enum"><name>WeaponType</name></member>
+    <member refid="_module_weapon_8cs_1a095ae9be41c95cab0ceb95c6dae270b8a6c198603789a4928477eccd5d550b6b2" kind="enumvalue"><name>Sword</name></member>
+    <member refid="_module_weapon_8cs_1a095ae9be41c95cab0ceb95c6dae270b8a25510a243582b6d2cb071f223eafdffc" kind="enumvalue"><name>Gun</name></member>
+  </compound>
+  <compound refid="_arrow_8cs" kind="file"><name>Arrow.cs</name>
+  </compound>
+  <compound refid="_drag_component_8cs" kind="file"><name>DragComponent.cs</name>
+  </compound>
+  <compound refid="_mouse_hover_component_8cs" kind="file"><name>MouseHoverComponent.cs</name>
+  </compound>
+  <compound refid="_slot_anchor_8cs" kind="file"><name>SlotAnchor.cs</name>
+    <member refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139c" kind="enum"><name>SlotType</name></member>
+    <member refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca6adf97f83acf6453d4a6a4b1070f3754" kind="enumvalue"><name>None</name></member>
+    <member refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca18c83669920215a818638ad0e5421e4b" kind="enumvalue"><name>Weapon</name></member>
+    <member refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca970da5f1f2e32aeb9e488dd017160ab4" kind="enumvalue"><name>Shield</name></member>
+    <member refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca4492081ca02b059f9e8af4ddaf0f7292" kind="enumvalue"><name>Pack</name></member>
+    <member refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca2a6039655313bf5dab1e43523b62c374" kind="enumvalue"><name>MA</name></member>
+  </compound>
+  <compound refid="_game_object_pool_8cs" kind="file"><name>GameObjectPool.cs</name>
+  </compound>
+  <compound refid="_image_effect_blur_box_8cs" kind="file"><name>ImageEffectBlurBox.cs</name>
+  </compound>
+  <compound refid="_battle_ground_manager_8cs" kind="file"><name>BattleGroundManager.cs</name>
+  </compound>
+  <compound refid="_card_deck_8cs" kind="file"><name>CardDeck.cs</name>
+  </compound>
+  <compound refid="_card_deck_manager_8cs" kind="file"><name>CardDeckManager.cs</name>
+  </compound>
+  <compound refid="_card_picture_manager_8cs" kind="file"><name>CardPictureManager.cs</name>
+  </compound>
+  <compound refid="_drag_manager_8cs" kind="file"><name>DragManager.cs</name>
+  </compound>
+  <compound refid="_game_board_manager_8cs" kind="file"><name>GameBoardManager.cs</name>
+    <member refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6d" kind="enum"><name>BoardAreaTypes</name></member>
+    <member refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6da52ef9633d88a7480b3a938ff9eaa2a25" kind="enumvalue"><name>Others</name></member>
+    <member refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6dae4287ac4d2ee19346d369f2c4e8723ee" kind="enumvalue"><name>SelfHandArea</name></member>
+    <member refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6dabfd7d9b4cf5168bb3efb38eb7a0a151d" kind="enumvalue"><name>EnemyHandArea</name></member>
+    <member refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6da258c3cdd75f36fd88bc1696ddac51360" kind="enumvalue"><name>SelfBattleGroundArea</name></member>
+    <member refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6da57995574655828190f78d321e371789f" kind="enumvalue"><name>EnemyBattleGroundArea</name></member>
+  </compound>
+  <compound refid="_game_manager_8cs" kind="file"><name>GameManager.cs</name>
+  </compound>
+  <compound refid="_game_object_pool_manager_8cs" kind="file"><name>GameObjectPoolManager.cs</name>
+  </compound>
+  <compound refid="_hand_manager_8cs" kind="file"><name>HandManager.cs</name>
+  </compound>
+  <compound refid="_mouse_hover_manager_8cs" kind="file"><name>MouseHoverManager.cs</name>
+  </compound>
+  <compound refid="_round_manager_8cs" kind="file"><name>RoundManager.cs</name>
+  </compound>
+  <compound refid="_player_8cs" kind="file"><name>Player.cs</name>
+    <member refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0" kind="enum"><name>Players</name></member>
+    <member refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0aad6e7652b1bdfb38783486c2c3d5e806" kind="enumvalue"><name>Self</name></member>
+    <member refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0a8c6d21187fb58b7a079d70030686b33e" kind="enumvalue"><name>Enemy</name></member>
+  </compound>
+  <compound refid="_screen_fitness_8cs" kind="file"><name>ScreenFitness.cs</name>
+  </compound>
+  <compound refid="_screen_setting_8cs" kind="file"><name>ScreenSetting.cs</name>
+  </compound>
+  <compound refid="dir_2fc25675635fb70436f9b9acda638cec" kind="dir"><name>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets</name>
+  </compound>
+  <compound refid="dir_cbb08c8f1f9932f3bd29cda9528e4df3" kind="dir"><name>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card</name>
+  </compound>
+  <compound refid="dir_c3fdfd8dce47bba3b5e69d5c55f9aed2" kind="dir"><name>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework</name>
+  </compound>
+  <compound refid="dir_aa2a04215504c11d0e639595c14a0717" kind="dir"><name>F:/CardGame Framework-20180625R1/CardGame Framework</name>
+  </compound>
+  <compound refid="dir_810dc79324e7cb5c7d25189b2ae14153" kind="dir"><name>F:/CardGame Framework-20180625R1</name>
+  </compound>
+  <compound refid="dir_2ff1fcec74a5f4fe8bdb2fc80045ade2" kind="dir"><name>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow</name>
+  </compound>
+  <compound refid="dir_3a581ba30d25676e4b797b1f96d53b45" kind="dir"><name>F:</name>
+  </compound>
+  <compound refid="dir_ccb4ea6c26b6ab7033509c905964de9d" kind="dir"><name>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager</name>
+  </compound>
+  <compound refid="dir_99daa648d4870fdc4ac011c83f289261" kind="dir"><name>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules</name>
+  </compound>
+  <compound refid="dir_82d078e39cf5170240bf8ba142d38dff" kind="dir"><name>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts</name>
+  </compound>
+  <compound refid="dir_54b6021392fe659d1fa5642b74d5bad9" kind="dir"><name>F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI</name>
+  </compound>
+</doxygenindex>

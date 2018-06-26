@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_screen_setting" kind="class" prot="public">
+    <compoundname>ScreenSetting</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_screen_setting_1a11f551d39a266f6119c132a64861fb70" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ScreenSetting.initialized</definition>
+        <argsstring></argsstring>
+        <name>initialized</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="8" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_screen_setting_1a8bc16b3030497349abdb3f196d4b214e" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ScreenSetting.designWidth</definition>
+        <argsstring></argsstring>
+        <name>designWidth</name>
+        <initializer>= 1366</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="9" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_screen_setting_1a986cc87d13a5f46544347df5cc766066" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ScreenSetting.designHeight</definition>
+        <argsstring></argsstring>
+        <name>designHeight</name>
+        <initializer>= 768</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="10" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_screen_setting_1aa10b26c94ebd0008f1377179c74cb58f" prot="private" static="no" mutable="no">
+        <type>EventSystem</type>
+        <definition>EventSystem ScreenSetting.current</definition>
+        <argsstring></argsstring>
+        <name>current</name>
+        <initializer>= null</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="30" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="30" bodyend="-1"/>
+        <referencedby refid="class_screen_setting_1a19cd897088f775969519547d34481884" compoundref="_screen_setting_8cs" startline="62" endline="74">Update</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_screen_setting_1a29d645966f9f3d48e28d7c36a36637ce" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ScreenSetting.scaleWidth</definition>
+        <argsstring></argsstring>
+        <name>scaleWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="11" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_screen_setting_1a7f1298140c79a24cba783555736193c7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ScreenSetting.scaleHeight</definition>
+        <argsstring></argsstring>
+        <name>scaleHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="12" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_screen_setting_1a68458ada2c767eb50cc7ccb1da4e41c0" prot="private" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int ScreenSetting.originalScreenWidth</definition>
+        <argsstring></argsstring>
+        <name>originalScreenWidth</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="13" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="13" bodyend="-1"/>
+        <referencedby refid="class_screen_setting_1a51c023e26c130b2dbacdbf8977030df7" compoundref="_screen_setting_8cs" startline="52" endline="60">SaveOriginalScreenResolution</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_screen_setting_1a1316abf1fe033f85c7a78e117ad3a77b" prot="private" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int ScreenSetting.originalScreenHeight</definition>
+        <argsstring></argsstring>
+        <name>originalScreenHeight</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="14" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="14" bodyend="-1"/>
+        <referencedby refid="class_screen_setting_1a51c023e26c130b2dbacdbf8977030df7" compoundref="_screen_setting_8cs" startline="52" endline="60">SaveOriginalScreenResolution</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_screen_setting_1aebf5bc7df896fe7caa2ce99c37f4be4b" prot="public" static="yes" readable="no" writable="no" gettable="yes" settable="no">
+        <type>int</type>
+        <definition>int ScreenSetting.OriginalScreenWidth</definition>
+        <argsstring></argsstring>
+        <name>OriginalScreenWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="15" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="16" bodyend="-1"/>
+        <referencedby refid="class_screen_fitness_1a5f2490776f69f66799a701cf3d177e2d" compoundref="_screen_fitness_8cs" startline="10" endline="24">ScreenFitness.Awake</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_screen_setting_1ad799d039b1140e273c85225566598866" prot="public" static="yes" readable="no" writable="no" gettable="yes" settable="no">
+        <type>int</type>
+        <definition>int ScreenSetting.OriginalScreenHeight</definition>
+        <argsstring></argsstring>
+        <name>OriginalScreenHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="22" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="23" bodyend="-1"/>
+        <referencedby refid="class_screen_fitness_1a5f2490776f69f66799a701cf3d177e2d" compoundref="_screen_fitness_8cs" startline="10" endline="24">ScreenFitness.Awake</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_screen_setting_1a85735255d4168d08e015fed816e1fbdc" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ScreenSetting.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="32" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="32" bodyend="35"/>
+        <references refid="class_screen_setting_1a1ce1cca3cb1c08406eb33a896de1acae" compoundref="_screen_setting_8cs" startline="37" endline="50">ScreenSettingCoroutine</references>
+      </memberdef>
+      <memberdef kind="function" id="class_screen_setting_1a1ce1cca3cb1c08406eb33a896de1acae" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IEnumerator</type>
+        <definition>IEnumerator ScreenSetting.ScreenSettingCoroutine</definition>
+        <argsstring>()</argsstring>
+        <name>ScreenSettingCoroutine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="37" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="37" bodyend="50"/>
+        <referencedby refid="class_screen_setting_1a85735255d4168d08e015fed816e1fbdc" compoundref="_screen_setting_8cs" startline="32" endline="35">Start</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_screen_setting_1a19cd897088f775969519547d34481884" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ScreenSetting.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="62" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="62" bodyend="74"/>
+        <references refid="class_screen_setting_1aa10b26c94ebd0008f1377179c74cb58f" compoundref="_screen_setting_8cs" startline="30">current</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_screen_setting_1a51c023e26c130b2dbacdbf8977030df7" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ScreenSetting.SaveOriginalScreenResolution</definition>
+        <argsstring>()</argsstring>
+        <name>SaveOriginalScreenResolution</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="52" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="52" bodyend="60"/>
+        <references refid="class_screen_setting_1a1316abf1fe033f85c7a78e117ad3a77b" compoundref="_screen_setting_8cs" startline="14">originalScreenHeight</references>
+        <references refid="class_screen_setting_1a68458ada2c767eb50cc7ccb1da4e41c0" compoundref="_screen_setting_8cs" startline="13">originalScreenWidth</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_screen_setting_1a3d0f6e85464476ebd0e253bd639e03ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ScreenSetting.setDesignContentScale</definition>
+        <argsstring>()</argsstring>
+        <name>setDesignContentScale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="76" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="76" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="class_screen_setting_1ab927ea0f63168a36c408cfc74921197f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ScreenSetting.SetScreenTimeout</definition>
+        <argsstring>(bool sys_default)</argsstring>
+        <name>SetScreenTimeout</name>
+        <param>
+          <type>bool</type>
+          <declname>sys_default</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="83" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="83" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="459">
+        <label>ScreenSetting</label>
+        <link refid="class_screen_setting"/>
+        <childnode refid="460" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="460">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="461">
+        <label>ScreenSetting</label>
+        <link refid="class_screen_setting"/>
+        <childnode refid="462" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="462">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" line="7" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/UI/ScreenSetting.cs" bodystart="6" bodyend="94"/>
+    <listofallmembers>
+      <member refid="class_screen_setting_1aa10b26c94ebd0008f1377179c74cb58f" prot="private" virt="non-virtual"><scope>ScreenSetting</scope><name>current</name></member>
+      <member refid="class_screen_setting_1a986cc87d13a5f46544347df5cc766066" prot="private" virt="non-virtual"><scope>ScreenSetting</scope><name>designHeight</name></member>
+      <member refid="class_screen_setting_1a8bc16b3030497349abdb3f196d4b214e" prot="private" virt="non-virtual"><scope>ScreenSetting</scope><name>designWidth</name></member>
+      <member refid="class_screen_setting_1a11f551d39a266f6119c132a64861fb70" prot="private" virt="non-virtual"><scope>ScreenSetting</scope><name>initialized</name></member>
+      <member refid="class_screen_setting_1ad799d039b1140e273c85225566598866" prot="public" virt="non-virtual"><scope>ScreenSetting</scope><name>OriginalScreenHeight</name></member>
+      <member refid="class_screen_setting_1a1316abf1fe033f85c7a78e117ad3a77b" prot="private" virt="non-virtual"><scope>ScreenSetting</scope><name>originalScreenHeight</name></member>
+      <member refid="class_screen_setting_1aebf5bc7df896fe7caa2ce99c37f4be4b" prot="public" virt="non-virtual"><scope>ScreenSetting</scope><name>OriginalScreenWidth</name></member>
+      <member refid="class_screen_setting_1a68458ada2c767eb50cc7ccb1da4e41c0" prot="private" virt="non-virtual"><scope>ScreenSetting</scope><name>originalScreenWidth</name></member>
+      <member refid="class_screen_setting_1a51c023e26c130b2dbacdbf8977030df7" prot="public" virt="non-virtual"><scope>ScreenSetting</scope><name>SaveOriginalScreenResolution</name></member>
+      <member refid="class_screen_setting_1a7f1298140c79a24cba783555736193c7" prot="public" virt="non-virtual"><scope>ScreenSetting</scope><name>scaleHeight</name></member>
+      <member refid="class_screen_setting_1a29d645966f9f3d48e28d7c36a36637ce" prot="public" virt="non-virtual"><scope>ScreenSetting</scope><name>scaleWidth</name></member>
+      <member refid="class_screen_setting_1a1ce1cca3cb1c08406eb33a896de1acae" prot="private" virt="non-virtual"><scope>ScreenSetting</scope><name>ScreenSettingCoroutine</name></member>
+      <member refid="class_screen_setting_1a3d0f6e85464476ebd0e253bd639e03ad" prot="public" virt="non-virtual"><scope>ScreenSetting</scope><name>setDesignContentScale</name></member>
+      <member refid="class_screen_setting_1ab927ea0f63168a36c408cfc74921197f" prot="public" virt="non-virtual"><scope>ScreenSetting</scope><name>SetScreenTimeout</name></member>
+      <member refid="class_screen_setting_1a85735255d4168d08e015fed816e1fbdc" prot="private" virt="non-virtual"><scope>ScreenSetting</scope><name>Start</name></member>
+      <member refid="class_screen_setting_1a19cd897088f775969519547d34481884" prot="private" virt="non-virtual"><scope>ScreenSetting</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

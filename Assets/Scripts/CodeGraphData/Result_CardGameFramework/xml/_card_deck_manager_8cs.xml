@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_card_deck_manager_8cs" kind="file">
+    <compoundname>CardDeckManager.cs</compoundname>
+    <innerclass refid="class_card_deck_manager" prot="public">CardDeckManager</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/>UnityEngine;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.Collections;</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.Collections.Generic;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="class_card_deck_manager" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_card_deck_manager" kindref="compound">CardDeckManager</ref><sp/>:<sp/>MonoBehaviour<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="class_card_deck_manager_1aad75cd47e0c55da13aed245a68fee3a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="class_player" kindref="compound">Player</ref><sp/><ref refid="class_card_deck_manager_1aad75cd47e0c55da13aed245a68fee3a3" kindref="member">Player</ref>;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="class_card_deck_manager_1a463bdbf8d75051bb203ee46fa6766c33" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="struct_card_deck_info" kindref="compound">CardDeckInfo</ref><sp/><ref refid="class_card_deck_manager_1a463bdbf8d75051bb203ee46fa6766c33" kindref="member">M_UnlockCards</ref>;</highlight></codeline>
+<codeline lineno="14" refid="class_card_deck_manager_1a9cb45be984fae5732389407af46ed2bb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="struct_card_deck_info" kindref="compound">CardDeckInfo</ref><sp/><ref refid="class_card_deck_manager_1a9cb45be984fae5732389407af46ed2bb" kindref="member">M_LockCards</ref>;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="class_card_deck_manager_1abe42a579a413e6ee84815973678dedda" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>List&lt;CardDeck&gt;<sp/><ref refid="class_card_deck_manager_1abe42a579a413e6ee84815973678dedda" kindref="member">M_CardDecks</ref>;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_card_deck" kindref="compound">CardDeck</ref><sp/><ref refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" kindref="member">M_CurrentCardDeck</ref>;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="class_card_deck_manager_1a70f0839f0daf424061101649f9b2f83d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_card_deck_manager_1a70f0839f0daf424061101649f9b2f83d" kindref="member">Start</ref>()</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_player" kindref="compound">Player</ref><sp/>==<sp/><ref refid="class_game_manager" kindref="compound">GameManager</ref>.<ref refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" kindref="member">GM</ref>.<ref refid="class_game_manager_1a1f22d2186c87a8465b04e3b5a49fbf5d" kindref="member">SelfPlayer</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" kindref="member">M_CurrentCardDeck</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_card_deck" kindref="compound">CardDeck</ref>(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="struct_card_deck_info" kindref="compound">CardDeckInfo</ref>(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">[]<sp/>{<sp/>1,<sp/>301,<sp/>300,<sp/>100,<sp/>100,<sp/>300,<sp/>000,<sp/>200,<sp/>301,<sp/>300,<sp/>100,<sp/>100,<sp/>300,<sp/>000,<sp/>200,<sp/>301,<sp/>300,<sp/>100,<sp/>100,<sp/>300,<sp/>000,<sp/>200<sp/>}));</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" kindref="member">M_CurrentCardDeck</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_card_deck" kindref="compound">CardDeck</ref>(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="struct_card_deck_info" kindref="compound">CardDeckInfo</ref>(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">[]<sp/>{<sp/>1,<sp/>301,<sp/>300,<sp/>100,<sp/>100,<sp/>300,<sp/>000,<sp/>200,<sp/>301,<sp/>300,<sp/>100,<sp/>100,<sp/>300,<sp/>000,<sp/>200,<sp/>301,<sp/>300,<sp/>100,<sp/>100,<sp/>300,<sp/>000,<sp/>200<sp/>}));</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="class_card_deck_manager_1a4c15708d7f6d9dbd9b7e3b9e797e0357" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_card_deck_manager_1a4c15708d7f6d9dbd9b7e3b9e797e0357" kindref="member">Update</ref>()</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="class_card_deck_manager_1a5c494e06488351bfe2c3e4d357383b7d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="class_card_info___base" kindref="compound">CardInfo_Base</ref><sp/><ref refid="class_card_deck_manager_1a5c494e06488351bfe2c3e4d357383b7d" kindref="member">DrawRetinueCard</ref>()</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" kindref="member">M_CurrentCardDeck</ref>.<ref refid="class_card_deck_1aed3e92284caf8d90d3f74f1128040b79" kindref="member">IsEmpty</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>M_CurrentCardDeck.AbandonCardRecycle();</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>M_CurrentCardDeck.SuffleSelf();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>M_CurrentCardDeck.FindATypeOfCard&lt;<ref refid="class_card_info___retinue" kindref="compound">CardInfo_Retinue</ref>&gt;();</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="class_card_deck_manager_1ac1781131f3a07f150120b1f8ef752693" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="class_card_info___base" kindref="compound">CardInfo_Base</ref><sp/><ref refid="class_card_deck_manager_1ac1781131f3a07f150120b1f8ef752693" kindref="member">DrawTop</ref>()</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_card_deck_manager_1a4ff0eb518a1c3bdcc71fc5395b684870" kindref="member">M_CurrentCardDeck</ref>.<ref refid="class_card_deck_1aed3e92284caf8d90d3f74f1128040b79" kindref="member">IsEmpty</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>M_CurrentCardDeck.AbandonCardRecycle();</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>M_CurrentCardDeck.SuffleSelf();</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>M_CurrentCardDeck.DrawCardOnTop();</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeckManager.cs"/>
+  </compounddef>
+</doxygen>

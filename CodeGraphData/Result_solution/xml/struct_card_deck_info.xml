@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="struct_card_deck_info" kind="struct" prot="public">
+    <compoundname>CardDeckInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_card_deck_info_1af0061e91097aeb494cfbb1d8695639a7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CardDeckInfo.CardNumber</definition>
+        <argsstring></argsstring>
+        <name>CardNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeck.cs" line="172" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeck.cs" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_card_deck_info_1aa215c110d1d9a24fe874da9513f06e1e" prot="public" static="no" mutable="no">
+        <type>int[]</type>
+        <definition>int [] CardDeckInfo.CardIDs</definition>
+        <argsstring></argsstring>
+        <name>CardIDs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeck.cs" line="174" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeck.cs" bodystart="174" bodyend="-1"/>
+        <referencedby refid="struct_card_deck_info_1a237cecd1ad85c60cc8366f63c3489ff8" compoundref="_card_deck_8cs" startline="176" endline="180">CardDeckInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_card_deck_info_1a237cecd1ad85c60cc8366f63c3489ff8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CardDeckInfo.CardDeckInfo</definition>
+        <argsstring>(int[] cardIDs)</argsstring>
+        <name>CardDeckInfo</name>
+        <param>
+          <type>int[]</type>
+          <declname>cardIDs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeck.cs" line="176" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeck.cs" bodystart="176" bodyend="180"/>
+        <references refid="struct_card_deck_info_1aa215c110d1d9a24fe874da9513f06e1e" compoundref="_card_deck_8cs" startline="174">CardIDs</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeck.cs" line="171" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardDeck.cs" bodystart="170" bodyend="181"/>
+    <listofallmembers>
+      <member refid="struct_card_deck_info_1a237cecd1ad85c60cc8366f63c3489ff8" prot="public" virt="non-virtual"><scope>CardDeckInfo</scope><name>CardDeckInfo</name></member>
+      <member refid="struct_card_deck_info_1aa215c110d1d9a24fe874da9513f06e1e" prot="public" virt="non-virtual"><scope>CardDeckInfo</scope><name>CardIDs</name></member>
+      <member refid="struct_card_deck_info_1af0061e91097aeb494cfbb1d8695639a7" prot="public" virt="non-virtual"><scope>CardDeckInfo</scope><name>CardNumber</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

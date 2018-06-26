@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_slot_anchor_8cs" kind="file">
+    <compoundname>SlotAnchor.cs</compoundname>
+    <innerclass refid="class_slot_anchor" prot="public">SlotAnchor</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139c" prot="public" static="no">
+        <name>SlotType</name>
+        <enumvalue id="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca6adf97f83acf6453d4a6a4b1070f3754" prot="public">
+          <name>None</name>
+          <initializer>=0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca18c83669920215a818638ad0e5421e4b" prot="public">
+          <name>Weapon</name>
+          <initializer>=1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca970da5f1f2e32aeb9e488dd017160ab4" prot="public">
+          <name>Shield</name>
+          <initializer>=2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca4492081ca02b059f9e8af4ddaf0f7292" prot="public">
+          <name>Pack</name>
+          <initializer>=3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca2a6039655313bf5dab1e43523b62c374" prot="public">
+          <name>MA</name>
+          <initializer>=4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" line="87" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs" bodystart="86" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">using</highlight><highlight class="normal"><sp/>UnityEngine;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System.Collections;</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>System;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="class_slot_anchor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_slot_anchor" kindref="compound">SlotAnchor</ref><sp/>:<sp/>MonoBehaviour,<ref refid="interface_i_mouse_hover_component" kindref="compound">IMouseHoverComponent</ref></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="7" refid="class_slot_anchor_1a8c235185da9af7e01af7be9f46c11886" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_player" kindref="compound">Player</ref><sp/><ref refid="class_slot_anchor_1a8c235185da9af7e01af7be9f46c11886" kindref="member">Player</ref>;</highlight></codeline>
+<codeline lineno="8" refid="class_slot_anchor_1a79cd925f08ee10c2a7858b3a50a71e88" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139c" kindref="member">SlotType</ref><sp/><ref refid="class_slot_anchor_1a79cd925f08ee10c2a7858b3a50a71e88" kindref="member">M_SlotType</ref><sp/>=<sp/><ref refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca6adf97f83acf6453d4a6a4b1070f3754" kindref="member">SlotType.None</ref>;</highlight></codeline>
+<codeline lineno="9" refid="class_slot_anchor_1a90ea0723f9cd5dd411b79724149914ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">internal</highlight><highlight class="normal"><sp/><ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref><sp/><ref refid="class_slot_anchor_1a90ea0723f9cd5dd411b79724149914ef" kindref="member">M_ModuleRetinue</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="class_slot_anchor_1a6753f1a5bb254c3228df5ea53bb13901" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1a6753f1a5bb254c3228df5ea53bb13901" kindref="member">Awake</ref>()</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="class_slot_anchor_1aa1f0f065e4a59701b7893b06ef63711a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1aa1f0f065e4a59701b7893b06ef63711a" kindref="member">Start</ref>()</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="class_slot_anchor_1a835499eee749e70b25627ce4a0d4b74c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1a835499eee749e70b25627ce4a0d4b74c" kindref="member">Update</ref>()</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="class_slot_anchor_1ad0082717a987842b1c55653e84c5f0c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>GameObject<sp/><ref refid="class_slot_anchor_1ad0082717a987842b1c55653e84c5f0c7" kindref="member">OnHoverShowGO</ref>;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="class_slot_anchor_1aee0af335d4a4a4beb71632693d114d19" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1aee0af335d4a4a4beb71632693d114d19" kindref="member">ShowHoverGO</ref>()</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_slot_anchor_1ad0082717a987842b1c55653e84c5f0c7" kindref="member">OnHoverShowGO</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OnHoverShowGO.SetActive(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="class_slot_anchor_1a686be3ac62679ac155a4cad79719c1dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1a686be3ac62679ac155a4cad79719c1dc" kindref="member">HideHoverShowGO</ref>()</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_slot_anchor_1ad0082717a987842b1c55653e84c5f0c7" kindref="member">OnHoverShowGO</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OnHoverShowGO.SetActive(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="class_slot_anchor_1a6c566b9dc023b0a9b7c959fe344948e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1a6c566b9dc023b0a9b7c959fe344948e6" kindref="member">MouseHoverComponent_OnMouseDragEnterImmediately</ref>(Vector3<sp/>mousePosition)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(<ref refid="class_slot_anchor_1a79cd925f08ee10c2a7858b3a50a71e88" kindref="member">M_SlotType</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>SlotType.Weapon:</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_drag_manager" kindref="compound">DragManager</ref>.<ref refid="class_drag_manager_1a4f668413df8ad76ade43f5da25304bfd" kindref="member">DM</ref>.<ref refid="class_drag_manager_1a40944c03e8b1051d3c8f3459f7af8f3a" kindref="member">CurrentDrag</ref>.GetComponent&lt;<ref refid="class_card___weapon" kindref="compound">Card_Weapon</ref>&gt;())<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_slot_anchor_1aee0af335d4a4a4beb71632693d114d19" kindref="member">ShowHoverGO</ref>();</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>SlotType.Shield:</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_drag_manager" kindref="compound">DragManager</ref>.<ref refid="class_drag_manager_1a4f668413df8ad76ade43f5da25304bfd" kindref="member">DM</ref>.<ref refid="class_drag_manager_1a40944c03e8b1051d3c8f3459f7af8f3a" kindref="member">CurrentDrag</ref>.GetComponent&lt;<ref refid="class_card___shield" kindref="compound">Card_Shield</ref>&gt;())<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_slot_anchor_1aee0af335d4a4a4beb71632693d114d19" kindref="member">ShowHoverGO</ref>();</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="class_slot_anchor_1adc9bd993644a846e7a6b2699e027cb37" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1adc9bd993644a846e7a6b2699e027cb37" kindref="member">MouseHoverComponent_OnMouseEnterImmediately</ref>(Vector3<sp/>mousePosition)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="class_slot_anchor_1a4d67997c78510fe9069d5ef9f1e4036f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1a4d67997c78510fe9069d5ef9f1e4036f" kindref="member">MouseHoverComponent_OnMouseEnter</ref>(Vector3<sp/>mousePosition)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="class_slot_anchor_1abc69699b15439c2ec7d1f2019feb3b0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1abc69699b15439c2ec7d1f2019feb3b0a" kindref="member">MouseHoverComponent_OnMouseOver</ref>()</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="class_slot_anchor_1afb4b856e350ece813d484fd0b2bcade0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1afb4b856e350ece813d484fd0b2bcade0" kindref="member">MouseHoverComponent_OnMouseLeave</ref>()</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="class_slot_anchor_1ac20241d7aa45240a40ac6b0d7cf65c49" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1ac20241d7aa45240a40ac6b0d7cf65c49" kindref="member">MouseHoverComponent_OnMouseLeaveImmediately</ref>()</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_slot_anchor_1a686be3ac62679ac155a4cad79719c1dc" kindref="member">HideHoverShowGO</ref>();</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="class_slot_anchor_1a6b567888a5f8768efaa01fa78a34dbbd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_slot_anchor_1a6b567888a5f8768efaa01fa78a34dbbd" kindref="member">MouseHoverComponent_OnMouseDragLeaveImmediately</ref>()</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_slot_anchor_1a686be3ac62679ac155a4cad79719c1dc" kindref="member">HideHoverShowGO</ref>();</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139c" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139c" kindref="member">SlotType</ref></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca6adf97f83acf6453d4a6a4b1070f3754" kindref="member">None</ref>=0,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca18c83669920215a818638ad0e5421e4b" kindref="member">Weapon</ref>=1,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca970da5f1f2e32aeb9e488dd017160ab4" kindref="member">Shield</ref>=2,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca4492081ca02b059f9e8af4ddaf0f7292" kindref="member">Pack</ref>=3,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_slot_anchor_8cs_1aeafc1557dae4f64aa9ad17d055f3139ca2a6039655313bf5dab1e43523b62c374" kindref="member">MA</ref>=4,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/DragAndArrow/SlotAnchor.cs"/>
+  </compounddef>
+</doxygen>

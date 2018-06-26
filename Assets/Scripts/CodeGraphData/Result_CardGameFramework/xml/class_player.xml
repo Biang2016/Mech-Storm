@@ -1,0 +1,462 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_player" kind="class" prot="public">
+    <compoundname>Player</compoundname>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_player_1a3f605f44363e13589fdc486c362894a1" prot="package" static="no" mutable="no">
+        <type><ref refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6d" kindref="member">BoardAreaTypes</ref></type>
+        <definition>BoardAreaTypes Player.MyBattleGroundArea</definition>
+        <argsstring></argsstring>
+        <name>MyBattleGroundArea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="2" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="2" bodyend="-1"/>
+        <referencedby refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" compoundref="_player_8cs" startline="10" endline="31">Player</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_player_1a76d9429430586a601b7107349c9c541a" prot="package" static="no" mutable="no">
+        <type><ref refid="class_battle_ground_manager" kindref="compound">BattleGroundManager</ref></type>
+        <definition>BattleGroundManager Player.MyBattleGroundManager</definition>
+        <argsstring></argsstring>
+        <name>MyBattleGroundManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="3" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="3" bodyend="-1"/>
+        <referencedby refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" compoundref="_player_8cs" startline="10" endline="31">Player</referencedby>
+        <referencedby refid="class_card___retinue_1a5be0ab3dc2bd6e9c42a34f0ba926eaca" compoundref="_card___retinue_8cs" startline="223" endline="235">Card_Retinue.summonRetinue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_player_1ab46108e9d5b6d71bf366b0943a71adb0" prot="package" static="no" mutable="no">
+        <type><ref refid="class_card_deck_manager" kindref="compound">CardDeckManager</ref></type>
+        <definition>CardDeckManager Player.MyCardDeckManager</definition>
+        <argsstring></argsstring>
+        <name>MyCardDeckManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="4" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="4" bodyend="-1"/>
+        <referencedby refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" compoundref="_player_8cs" startline="10" endline="31">Player</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_player_1abc057783bafe08668e51762c92d120f5" prot="package" static="no" mutable="no">
+        <type><ref refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6d" kindref="member">BoardAreaTypes</ref></type>
+        <definition>BoardAreaTypes Player.MyHandArea</definition>
+        <argsstring></argsstring>
+        <name>MyHandArea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="5" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="5" bodyend="-1"/>
+        <referencedby refid="class_card___shield_1aebf88a6aa5a60fe04e3c87ebec5af61c" compoundref="_card___shield_8cs" startline="62" endline="78">Card_Shield.DragComponent_OnMouseUp</referencedby>
+        <referencedby refid="class_card___weapon_1a29e27f28348b61ae8ee00750f4e6faf5" compoundref="_card___weapon_8cs" startline="62" endline="78">Card_Weapon.DragComponent_OnMouseUp</referencedby>
+        <referencedby refid="class_card___retinue_1acd7eb9eef8c11e3cff773b987a638e54" compoundref="_card___retinue_8cs" startline="199" endline="213">Card_Retinue.DragComponent_OnMouseUp</referencedby>
+        <referencedby refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" compoundref="_player_8cs" startline="10" endline="31">Player</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_player_1a4f97a60203d05ae00e7c223be3a7df7a" prot="package" static="no" mutable="no">
+        <type><ref refid="class_hand_manager" kindref="compound">HandManager</ref></type>
+        <definition>HandManager Player.MyHandManager</definition>
+        <argsstring></argsstring>
+        <name>MyHandManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="6" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="6" bodyend="-1"/>
+        <referencedby refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" compoundref="_player_8cs" startline="10" endline="31">Player</referencedby>
+        <referencedby refid="class_round_manager_1a9412ca1bc488d6cc4a7cf23a2e77c7b4" compoundref="_round_manager_8cs" startline="32" endline="44">RoundManager.Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_player_1aa6cdd6927d7639b4f8973c337724e35f" prot="package" static="no" mutable="no">
+        <type><ref refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0" kindref="member">Players</ref></type>
+        <definition>Players Player.WhichPlayer</definition>
+        <argsstring></argsstring>
+        <name>WhichPlayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="7" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="7" bodyend="-1"/>
+        <referencedby refid="class_hand_manager_1a36bfb5c49895d38dc31108d74fc78ed6" compoundref="_hand_manager_8cs" startline="223" endline="259">HandManager.becomeBigger</referencedby>
+        <referencedby refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" compoundref="_player_8cs" startline="10" endline="31">Player</referencedby>
+        <referencedby refid="class_hand_manager_1a814a961eaabd58d302527885017b326e" compoundref="_hand_manager_8cs" startline="123" endline="183">HandManager.RefreshCardsPlace</referencedby>
+        <referencedby refid="class_hand_manager_1a8b2fb6d5c57f3dfaa168816c28a0f76d" compoundref="_hand_manager_8cs" startline="261" endline="269">HandManager.returnToSmaller</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" prot="package" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int Player.CostMax</definition>
+        <argsstring></argsstring>
+        <name>CostMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="36" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="36" bodyend="-1"/>
+        <referencedby refid="class_player_1add176144a0cc014a2bd474bc00e3c890" compoundref="_player_8cs" startline="68" endline="71">AddAllCost</referencedby>
+        <referencedby refid="class_player_1a71304c87cd53259f8ce9236adfa086e3" compoundref="_player_8cs" startline="55" endline="61">AddCostWithinMax</referencedby>
+        <referencedby refid="class_player_1adf209bb1466a6978852c8a604ca30483" compoundref="_player_8cs" startline="81" endline="89">DecreaseCostMax</referencedby>
+        <referencedby refid="class_player_1a9a3fd49ccd1bf5f849438b407858a2d5" compoundref="_player_8cs" startline="73" endline="79">IncreaseCostMax</referencedby>
+        <referencedby refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" compoundref="_player_8cs" startline="10" endline="31">Player</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_player_1a88a3e2a696f26448bccad7b63226c0f0" prot="package" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int Player.CostLeft</definition>
+        <argsstring></argsstring>
+        <name>CostLeft</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="38" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="38" bodyend="-1"/>
+        <referencedby refid="class_player_1add176144a0cc014a2bd474bc00e3c890" compoundref="_player_8cs" startline="68" endline="71">AddAllCost</referencedby>
+        <referencedby refid="class_player_1a71304c87cd53259f8ce9236adfa086e3" compoundref="_player_8cs" startline="55" endline="61">AddCostWithinMax</referencedby>
+        <referencedby refid="class_player_1ad6f8948f78d17a21d9eea512a21ec627" compoundref="_player_8cs" startline="50" endline="53">AddCostWithoutLimit</referencedby>
+        <referencedby refid="class_player_1adf209bb1466a6978852c8a604ca30483" compoundref="_player_8cs" startline="81" endline="89">DecreaseCostMax</referencedby>
+        <referencedby refid="class_hand_manager_1aa85b191eb2300a405a1e9f6d540c5961" compoundref="_hand_manager_8cs" startline="185" endline="188">HandManager.RefreshAllCardUsable</referencedby>
+        <referencedby refid="class_player_1a824805c449531986e44008238bc40417" compoundref="_player_8cs" startline="63" endline="66">UseAllCost</referencedby>
+        <referencedby refid="class_player_1ae1f4ce6294cc9244a4223104f3263835" compoundref="_player_8cs" startline="40" endline="48">UseCost</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-func">
+      <memberdef kind="function" id="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Player.Player</definition>
+        <argsstring>(Players whichPlayer)</argsstring>
+        <name>Player</name>
+        <param>
+          <type><ref refid="_player_8cs_1a4d43548da44943138a3d6f5b6fc3bab0" kindref="member">Players</ref></type>
+          <declname>whichPlayer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="10" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="10" bodyend="31"/>
+        <references refid="class_player_1add176144a0cc014a2bd474bc00e3c890" compoundref="_player_8cs" startline="68" endline="71">AddAllCost</references>
+        <references refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" compoundref="_player_8cs" startline="36">CostMax</references>
+        <references refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6da57995574655828190f78d321e371789f">EnemyBattleGroundArea</references>
+        <references refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6dabfd7d9b4cf5168bb3efb38eb7a0a151d">EnemyHandArea</references>
+        <references refid="class_player_1a3f605f44363e13589fdc486c362894a1" compoundref="_player_8cs" startline="2">MyBattleGroundArea</references>
+        <references refid="class_player_1a76d9429430586a601b7107349c9c541a" compoundref="_player_8cs" startline="3">MyBattleGroundManager</references>
+        <references refid="class_player_1ab46108e9d5b6d71bf366b0943a71adb0" compoundref="_player_8cs" startline="4">MyCardDeckManager</references>
+        <references refid="class_player_1abc057783bafe08668e51762c92d120f5" compoundref="_player_8cs" startline="5">MyHandArea</references>
+        <references refid="class_player_1a4f97a60203d05ae00e7c223be3a7df7a" compoundref="_player_8cs" startline="6">MyHandManager</references>
+        <references refid="class_player_1aa6cdd6927d7639b4f8973c337724e35f" compoundref="_player_8cs" startline="7">WhichPlayer</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_player_1ae1f4ce6294cc9244a4223104f3263835" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Player.UseCost</definition>
+        <argsstring>(int useCostNumber)</argsstring>
+        <name>UseCost</name>
+        <param>
+          <type>int</type>
+          <declname>useCostNumber</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="40" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="40" bodyend="48"/>
+        <references refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" compoundref="_player_8cs" startline="38">CostLeft</references>
+      </memberdef>
+      <memberdef kind="function" id="class_player_1ad6f8948f78d17a21d9eea512a21ec627" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Player.AddCostWithoutLimit</definition>
+        <argsstring>(int addCostValue)</argsstring>
+        <name>AddCostWithoutLimit</name>
+        <param>
+          <type>int</type>
+          <declname>addCostValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="50" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="50" bodyend="53"/>
+        <references refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" compoundref="_player_8cs" startline="38">CostLeft</references>
+      </memberdef>
+      <memberdef kind="function" id="class_player_1a71304c87cd53259f8ce9236adfa086e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Player.AddCostWithinMax</definition>
+        <argsstring>(int addCostValue)</argsstring>
+        <name>AddCostWithinMax</name>
+        <param>
+          <type>int</type>
+          <declname>addCostValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="55" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="55" bodyend="61"/>
+        <references refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" compoundref="_player_8cs" startline="38">CostLeft</references>
+        <references refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" compoundref="_player_8cs" startline="36">CostMax</references>
+      </memberdef>
+      <memberdef kind="function" id="class_player_1a824805c449531986e44008238bc40417" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Player.UseAllCost</definition>
+        <argsstring>()</argsstring>
+        <name>UseAllCost</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="63" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="63" bodyend="66"/>
+        <references refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" compoundref="_player_8cs" startline="38">CostLeft</references>
+      </memberdef>
+      <memberdef kind="function" id="class_player_1add176144a0cc014a2bd474bc00e3c890" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Player.AddAllCost</definition>
+        <argsstring>()</argsstring>
+        <name>AddAllCost</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="68" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="68" bodyend="71"/>
+        <references refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" compoundref="_player_8cs" startline="38">CostLeft</references>
+        <references refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" compoundref="_player_8cs" startline="36">CostMax</references>
+        <referencedby refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" compoundref="_player_8cs" startline="10" endline="31">Player</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_player_1a9a3fd49ccd1bf5f849438b407858a2d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Player.IncreaseCostMax</definition>
+        <argsstring>(int increaseValue)</argsstring>
+        <name>IncreaseCostMax</name>
+        <param>
+          <type>int</type>
+          <declname>increaseValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="73" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="73" bodyend="79"/>
+        <references refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" compoundref="_player_8cs" startline="36">CostMax</references>
+        <references refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" compoundref="_game_manager_8cs" startline="5">GameManager.GM</references>
+        <references refid="class_game_manager_1af6a7e66fc95ec65b374da106178dbf35" compoundref="_game_manager_8cs" startline="68">GameManager.MaxCost</references>
+      </memberdef>
+      <memberdef kind="function" id="class_player_1adf209bb1466a6978852c8a604ca30483" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Player.DecreaseCostMax</definition>
+        <argsstring>(int decreaseValue)</argsstring>
+        <name>DecreaseCostMax</name>
+        <param>
+          <type>int</type>
+          <declname>decreaseValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="81" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="81" bodyend="89"/>
+        <references refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" compoundref="_player_8cs" startline="38">CostLeft</references>
+        <references refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" compoundref="_player_8cs" startline="36">CostMax</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="431">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="430">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="424" relation="public-inheritance">
+        </childnode>
+        <childnode refid="426" relation="public-inheritance">
+        </childnode>
+        <childnode refid="428" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+      </node>
+      <node id="426">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="428">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="424" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="433">
+        <label>BattleGroundManager</label>
+        <link refid="class_battle_ground_manager"/>
+        <childnode refid="424" relation="public-inheritance">
+        </childnode>
+        <childnode refid="422" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="429">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="424" relation="public-inheritance">
+        </childnode>
+        <childnode refid="426" relation="public-inheritance">
+        </childnode>
+        <childnode refid="428" relation="usage">
+          <edgelabel>childrenPool</edgelabel>
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="430" relation="usage">
+          <edgelabel>cardNumbers</edgelabel>
+        </childnode>
+      </node>
+      <node id="427">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="436">
+        <label>CardDeck</label>
+        <link refid="class_card_deck"/>
+        <childnode refid="435" relation="usage">
+          <edgelabel>M_CardDeckInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="423">
+        <label>HandManager</label>
+        <link refid="class_hand_manager"/>
+        <childnode refid="424" relation="public-inheritance">
+        </childnode>
+        <childnode refid="422" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="425" relation="usage">
+          <edgelabel>currentFocusCard</edgelabel>
+        </childnode>
+      </node>
+      <node id="425">
+        <label>Card</label>
+        <link refid="class_card"/>
+        <childnode refid="424" relation="public-inheritance">
+        </childnode>
+        <childnode refid="426" relation="public-inheritance">
+        </childnode>
+        <childnode refid="427" relation="public-inheritance">
+        </childnode>
+        <childnode refid="428" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="429" relation="usage">
+          <edgelabel>CardNumberSet_Cost</edgelabel>
+        </childnode>
+        <childnode refid="431" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+        </childnode>
+        <childnode refid="432" relation="usage">
+          <edgelabel>myColliderReplace</edgelabel>
+        </childnode>
+        <childnode refid="422" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="424">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="422">
+        <label>Player</label>
+        <link refid="class_player"/>
+        <childnode refid="423" relation="usage">
+          <edgelabel>MyHandManager</edgelabel>
+        </childnode>
+        <childnode refid="433" relation="usage">
+          <edgelabel>MyBattleGroundManager</edgelabel>
+        </childnode>
+        <childnode refid="434" relation="usage">
+          <edgelabel>MyCardDeckManager</edgelabel>
+        </childnode>
+      </node>
+      <node id="435">
+        <label>CardDeckInfo</label>
+        <link refid="struct_card_deck_info"/>
+      </node>
+      <node id="434">
+        <label>CardDeckManager</label>
+        <link refid="class_card_deck_manager"/>
+        <childnode refid="424" relation="public-inheritance">
+        </childnode>
+        <childnode refid="435" relation="usage">
+          <edgelabel>M_UnlockCards</edgelabel>
+          <edgelabel>M_LockCards</edgelabel>
+        </childnode>
+        <childnode refid="436" relation="usage">
+          <edgelabel>M_CurrentCardDeck</edgelabel>
+        </childnode>
+        <childnode refid="422" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="432">
+        <label>ColliderReplace</label>
+        <link refid="class_collider_replace"/>
+        <childnode refid="424" relation="public-inheritance">
+        </childnode>
+        <childnode refid="425" relation="usage">
+          <edgelabel>MyCallerCard</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" line="1" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Player.cs" bodystart="1" bodyend="92"/>
+    <listofallmembers>
+      <member refid="class_player_1add176144a0cc014a2bd474bc00e3c890" prot="public" virt="non-virtual"><scope>Player</scope><name>AddAllCost</name></member>
+      <member refid="class_player_1a71304c87cd53259f8ce9236adfa086e3" prot="public" virt="non-virtual"><scope>Player</scope><name>AddCostWithinMax</name></member>
+      <member refid="class_player_1ad6f8948f78d17a21d9eea512a21ec627" prot="public" virt="non-virtual"><scope>Player</scope><name>AddCostWithoutLimit</name></member>
+      <member refid="class_player_1a88a3e2a696f26448bccad7b63226c0f0" prot="package" virt="non-virtual"><scope>Player</scope><name>CostLeft</name></member>
+      <member refid="class_player_1a6bc85ffdbb24aad2f3b9af472b12a8fd" prot="package" virt="non-virtual"><scope>Player</scope><name>CostMax</name></member>
+      <member refid="class_player_1adf209bb1466a6978852c8a604ca30483" prot="public" virt="non-virtual"><scope>Player</scope><name>DecreaseCostMax</name></member>
+      <member refid="class_player_1a9a3fd49ccd1bf5f849438b407858a2d5" prot="public" virt="non-virtual"><scope>Player</scope><name>IncreaseCostMax</name></member>
+      <member refid="class_player_1a3f605f44363e13589fdc486c362894a1" prot="package" virt="non-virtual"><scope>Player</scope><name>MyBattleGroundArea</name></member>
+      <member refid="class_player_1a76d9429430586a601b7107349c9c541a" prot="package" virt="non-virtual"><scope>Player</scope><name>MyBattleGroundManager</name></member>
+      <member refid="class_player_1ab46108e9d5b6d71bf366b0943a71adb0" prot="package" virt="non-virtual"><scope>Player</scope><name>MyCardDeckManager</name></member>
+      <member refid="class_player_1abc057783bafe08668e51762c92d120f5" prot="package" virt="non-virtual"><scope>Player</scope><name>MyHandArea</name></member>
+      <member refid="class_player_1a4f97a60203d05ae00e7c223be3a7df7a" prot="package" virt="non-virtual"><scope>Player</scope><name>MyHandManager</name></member>
+      <member refid="class_player_1adcd8cd6f3e1180ced9bc65079d52b29f" prot="package" virt="non-virtual"><scope>Player</scope><name>Player</name></member>
+      <member refid="class_player_1a824805c449531986e44008238bc40417" prot="public" virt="non-virtual"><scope>Player</scope><name>UseAllCost</name></member>
+      <member refid="class_player_1ae1f4ce6294cc9244a4223104f3263835" prot="public" virt="non-virtual"><scope>Player</scope><name>UseCost</name></member>
+      <member refid="class_player_1aa6cdd6927d7639b4f8973c337724e35f" prot="package" virt="non-virtual"><scope>Player</scope><name>WhichPlayer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,454 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_round_manager" kind="class" prot="public">
+    <compoundname>RoundManager</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_round_manager_1a646aa2588d5345d6c83d8b2bf9102692" prot="private" static="yes" mutable="no">
+        <type><ref refid="class_round_manager" kindref="compound">RoundManager</ref></type>
+        <definition>RoundManager RoundManager.rm</definition>
+        <argsstring></argsstring>
+        <name>rm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="7" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_round_manager_1a8395e6635cd5367b584e5050fa6a1b05" prot="public" static="yes" readable="no" writable="no" gettable="yes" settable="no">
+        <type><ref refid="class_round_manager" kindref="compound">RoundManager</ref></type>
+        <definition>RoundManager RoundManager.RM</definition>
+        <argsstring></argsstring>
+        <name>RM</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="8" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_round_manager_1a9dc4982eccb098deb1b3f4f758179ff1" prot="package" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RoundManager.RoundNumber</definition>
+        <argsstring></argsstring>
+        <name>RoundNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="17" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" prot="package" static="no" mutable="no">
+        <type><ref refid="class_player" kindref="compound">Player</ref></type>
+        <definition>Player RoundManager.CurrentPlayer</definition>
+        <argsstring></argsstring>
+        <name>CurrentPlayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="18" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="18" bodyend="-1"/>
+        <referencedby refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" compoundref="_round_manager_8cs" startline="51" endline="67">BeginRound</referencedby>
+        <referencedby refid="class_round_manager_1a9412ca1bc488d6cc4a7cf23a2e77c7b4" compoundref="_round_manager_8cs" startline="32" endline="44">Start</referencedby>
+        <referencedby refid="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" compoundref="_round_manager_8cs" startline="75" endline="78">switchPlayer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_round_manager_1ab9f6c7fda921ec8469da74b61d332db5" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject RoundManager.SelfTurnText</definition>
+        <argsstring></argsstring>
+        <name>SelfTurnText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="19" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_round_manager_1ae4ba184715f4887ac1197439339e142c" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject RoundManager.EnemyTurnText</definition>
+        <argsstring></argsstring>
+        <name>EnemyTurnText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="20" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_round_manager_1a07d2fe10fdf1700a0c19f4eb36236e1a" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 RoundManager.selfTurnText_DefaultPosition</definition>
+        <argsstring></argsstring>
+        <name>selfTurnText_DefaultPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="22" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="22" bodyend="-1"/>
+        <referencedby refid="class_round_manager_1a1ae4b42e7252a3983bf8121c91a61fa6" compoundref="_round_manager_8cs" startline="25" endline="30">Awake</referencedby>
+        <referencedby refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" compoundref="_round_manager_8cs" startline="51" endline="67">BeginRound</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_round_manager_1a66ea2c88263f83a4332c7f1be44638ad" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 RoundManager.enemyTurnText_DefaultPosition</definition>
+        <argsstring></argsstring>
+        <name>enemyTurnText_DefaultPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="23" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="23" bodyend="-1"/>
+        <referencedby refid="class_round_manager_1a1ae4b42e7252a3983bf8121c91a61fa6" compoundref="_round_manager_8cs" startline="25" endline="30">Awake</referencedby>
+        <referencedby refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" compoundref="_round_manager_8cs" startline="51" endline="67">BeginRound</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_round_manager_1a0e3e5b1e55c26209a438d715f0d0151b" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 RoundManager.farAwayPosition</definition>
+        <argsstring></argsstring>
+        <name>farAwayPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="24" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="24" bodyend="-1"/>
+        <referencedby refid="class_round_manager_1a1ae4b42e7252a3983bf8121c91a61fa6" compoundref="_round_manager_8cs" startline="25" endline="30">Awake</referencedby>
+        <referencedby refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" compoundref="_round_manager_8cs" startline="51" endline="67">BeginRound</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_round_manager_1a1ae4b42e7252a3983bf8121c91a61fa6" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoundManager.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="25" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="25" bodyend="30"/>
+        <references refid="class_round_manager_1a66ea2c88263f83a4332c7f1be44638ad" compoundref="_round_manager_8cs" startline="23">enemyTurnText_DefaultPosition</references>
+        <references refid="class_round_manager_1a0e3e5b1e55c26209a438d715f0d0151b" compoundref="_round_manager_8cs" startline="24">farAwayPosition</references>
+        <references refid="class_round_manager_1a07d2fe10fdf1700a0c19f4eb36236e1a" compoundref="_round_manager_8cs" startline="22">selfTurnText_DefaultPosition</references>
+      </memberdef>
+      <memberdef kind="function" id="class_round_manager_1a9412ca1bc488d6cc4a7cf23a2e77c7b4" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoundManager.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="32" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="32" bodyend="44"/>
+        <references refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" compoundref="_round_manager_8cs" startline="51" endline="67">BeginRound</references>
+        <references refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" compoundref="_round_manager_8cs" startline="18">CurrentPlayer</references>
+        <references refid="class_game_manager_1a53a6be07979fa2f8f7275277bc75b3cb" compoundref="_game_manager_8cs" startline="29">GameManager.EnemyPlayer</references>
+        <references refid="class_hand_manager_1a4870b97ce970377c8015394682ecee33" compoundref="_hand_manager_8cs" startline="82" endline="89">HandManager.GetACardByID</references>
+        <references refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" compoundref="_game_manager_8cs" startline="5">GameManager.GM</references>
+        <references refid="class_player_1a4f97a60203d05ae00e7c223be3a7df7a" compoundref="_player_8cs" startline="6">Player.MyHandManager</references>
+        <references refid="class_game_manager_1a1f22d2186c87a8465b04e3b5a49fbf5d" compoundref="_game_manager_8cs" startline="28">GameManager.SelfPlayer</references>
+        <references refid="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" compoundref="_round_manager_8cs" startline="75" endline="78">switchPlayer</references>
+      </memberdef>
+      <memberdef kind="function" id="class_round_manager_1ad78bed8eb987e7238753d702d189b147" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoundManager.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="46" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="46" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoundManager.switchPlayer</definition>
+        <argsstring>()</argsstring>
+        <name>switchPlayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="75" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="75" bodyend="78"/>
+        <references refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" compoundref="_round_manager_8cs" startline="18">CurrentPlayer</references>
+        <referencedby refid="class_round_manager_1a9635622d6203f624f46ac4dd6ed1ebe0" compoundref="_round_manager_8cs" startline="80" endline="85">OnEndRoundButtonClick</referencedby>
+        <referencedby refid="class_round_manager_1a9412ca1bc488d6cc4a7cf23a2e77c7b4" compoundref="_round_manager_8cs" startline="32" endline="44">Start</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_round_manager_1a399b191a26400453f7f72b7830f06e51" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoundManager.BeginRound</definition>
+        <argsstring>()</argsstring>
+        <name>BeginRound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="51" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="51" bodyend="67"/>
+        <references refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" compoundref="_round_manager_8cs" startline="18">CurrentPlayer</references>
+        <references refid="class_round_manager_1a66ea2c88263f83a4332c7f1be44638ad" compoundref="_round_manager_8cs" startline="23">enemyTurnText_DefaultPosition</references>
+        <references refid="class_round_manager_1a0e3e5b1e55c26209a438d715f0d0151b" compoundref="_round_manager_8cs" startline="24">farAwayPosition</references>
+        <references refid="class_game_manager_1ae3d277aca9f7d9a311a8a868d4fcf520" compoundref="_game_manager_8cs" startline="5">GameManager.GM</references>
+        <references refid="class_game_manager_1a1f22d2186c87a8465b04e3b5a49fbf5d" compoundref="_game_manager_8cs" startline="28">GameManager.SelfPlayer</references>
+        <references refid="class_round_manager_1a07d2fe10fdf1700a0c19f4eb36236e1a" compoundref="_round_manager_8cs" startline="22">selfTurnText_DefaultPosition</references>
+        <referencedby refid="class_round_manager_1a9635622d6203f624f46ac4dd6ed1ebe0" compoundref="_round_manager_8cs" startline="80" endline="85">OnEndRoundButtonClick</referencedby>
+        <referencedby refid="class_round_manager_1a9412ca1bc488d6cc4a7cf23a2e77c7b4" compoundref="_round_manager_8cs" startline="32" endline="44">Start</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_round_manager_1a7272fa59ae93c5467abc8ccd8d49c5c3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoundManager.EndRound</definition>
+        <argsstring>()</argsstring>
+        <name>EndRound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="69" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="69" bodyend="73"/>
+        <referencedby refid="class_round_manager_1a9635622d6203f624f46ac4dd6ed1ebe0" compoundref="_round_manager_8cs" startline="80" endline="85">OnEndRoundButtonClick</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_round_manager_1a9635622d6203f624f46ac4dd6ed1ebe0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoundManager.OnEndRoundButtonClick</definition>
+        <argsstring>()</argsstring>
+        <name>OnEndRoundButtonClick</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="80" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="80" bodyend="85"/>
+        <references refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" compoundref="_round_manager_8cs" startline="51" endline="67">BeginRound</references>
+        <references refid="class_round_manager_1a7272fa59ae93c5467abc8ccd8d49c5c3" compoundref="_round_manager_8cs" startline="69" endline="73">EndRound</references>
+        <references refid="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" compoundref="_round_manager_8cs" startline="75" endline="78">switchPlayer</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="437">
+        <label>RoundManager</label>
+        <link refid="class_round_manager"/>
+        <childnode refid="438" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="438">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="449">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="448">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="440" relation="public-inheritance">
+        </childnode>
+        <childnode refid="444" relation="public-inheritance">
+        </childnode>
+        <childnode refid="446" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+      </node>
+      <node id="444">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="446">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="440" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="451">
+        <label>BattleGroundManager</label>
+        <link refid="class_battle_ground_manager"/>
+        <childnode refid="440" relation="public-inheritance">
+        </childnode>
+        <childnode refid="441" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="447">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="440" relation="public-inheritance">
+        </childnode>
+        <childnode refid="444" relation="public-inheritance">
+        </childnode>
+        <childnode refid="446" relation="usage">
+          <edgelabel>childrenPool</edgelabel>
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="448" relation="usage">
+          <edgelabel>cardNumbers</edgelabel>
+        </childnode>
+      </node>
+      <node id="445">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="454">
+        <label>CardDeck</label>
+        <link refid="class_card_deck"/>
+        <childnode refid="453" relation="usage">
+          <edgelabel>M_CardDeckInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="442">
+        <label>HandManager</label>
+        <link refid="class_hand_manager"/>
+        <childnode refid="440" relation="public-inheritance">
+        </childnode>
+        <childnode refid="441" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="443" relation="usage">
+          <edgelabel>currentFocusCard</edgelabel>
+        </childnode>
+      </node>
+      <node id="443">
+        <label>Card</label>
+        <link refid="class_card"/>
+        <childnode refid="440" relation="public-inheritance">
+        </childnode>
+        <childnode refid="444" relation="public-inheritance">
+        </childnode>
+        <childnode refid="445" relation="public-inheritance">
+        </childnode>
+        <childnode refid="446" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="447" relation="usage">
+          <edgelabel>CardNumberSet_Cost</edgelabel>
+        </childnode>
+        <childnode refid="449" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+        </childnode>
+        <childnode refid="450" relation="usage">
+          <edgelabel>myColliderReplace</edgelabel>
+        </childnode>
+        <childnode refid="441" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="439">
+        <label>RoundManager</label>
+        <link refid="class_round_manager"/>
+        <childnode refid="440" relation="public-inheritance">
+        </childnode>
+        <childnode refid="439" relation="usage">
+          <edgelabel>rm</edgelabel>
+        </childnode>
+        <childnode refid="441" relation="usage">
+          <edgelabel>CurrentPlayer</edgelabel>
+        </childnode>
+      </node>
+      <node id="440">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="441">
+        <label>Player</label>
+        <link refid="class_player"/>
+        <childnode refid="442" relation="usage">
+          <edgelabel>MyHandManager</edgelabel>
+        </childnode>
+        <childnode refid="451" relation="usage">
+          <edgelabel>MyBattleGroundManager</edgelabel>
+        </childnode>
+        <childnode refid="452" relation="usage">
+          <edgelabel>MyCardDeckManager</edgelabel>
+        </childnode>
+      </node>
+      <node id="453">
+        <label>CardDeckInfo</label>
+        <link refid="struct_card_deck_info"/>
+      </node>
+      <node id="452">
+        <label>CardDeckManager</label>
+        <link refid="class_card_deck_manager"/>
+        <childnode refid="440" relation="public-inheritance">
+        </childnode>
+        <childnode refid="453" relation="usage">
+          <edgelabel>M_UnlockCards</edgelabel>
+          <edgelabel>M_LockCards</edgelabel>
+        </childnode>
+        <childnode refid="454" relation="usage">
+          <edgelabel>M_CurrentCardDeck</edgelabel>
+        </childnode>
+        <childnode refid="441" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="450">
+        <label>ColliderReplace</label>
+        <link refid="class_collider_replace"/>
+        <childnode refid="440" relation="public-inheritance">
+        </childnode>
+        <childnode refid="443" relation="usage">
+          <edgelabel>MyCallerCard</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" line="6" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/RoundManager.cs" bodystart="5" bodyend="86"/>
+    <listofallmembers>
+      <member refid="class_round_manager_1a1ae4b42e7252a3983bf8121c91a61fa6" prot="private" virt="non-virtual"><scope>RoundManager</scope><name>Awake</name></member>
+      <member refid="class_round_manager_1a399b191a26400453f7f72b7830f06e51" prot="public" virt="non-virtual"><scope>RoundManager</scope><name>BeginRound</name></member>
+      <member refid="class_round_manager_1aa30ac0858b8886328e0d6507e8cdfc0a" prot="package" virt="non-virtual"><scope>RoundManager</scope><name>CurrentPlayer</name></member>
+      <member refid="class_round_manager_1a7272fa59ae93c5467abc8ccd8d49c5c3" prot="public" virt="non-virtual"><scope>RoundManager</scope><name>EndRound</name></member>
+      <member refid="class_round_manager_1ae4ba184715f4887ac1197439339e142c" prot="public" virt="non-virtual"><scope>RoundManager</scope><name>EnemyTurnText</name></member>
+      <member refid="class_round_manager_1a66ea2c88263f83a4332c7f1be44638ad" prot="private" virt="non-virtual"><scope>RoundManager</scope><name>enemyTurnText_DefaultPosition</name></member>
+      <member refid="class_round_manager_1a0e3e5b1e55c26209a438d715f0d0151b" prot="private" virt="non-virtual"><scope>RoundManager</scope><name>farAwayPosition</name></member>
+      <member refid="class_round_manager_1a9635622d6203f624f46ac4dd6ed1ebe0" prot="public" virt="non-virtual"><scope>RoundManager</scope><name>OnEndRoundButtonClick</name></member>
+      <member refid="class_round_manager_1a646aa2588d5345d6c83d8b2bf9102692" prot="private" virt="non-virtual"><scope>RoundManager</scope><name>rm</name></member>
+      <member refid="class_round_manager_1a8395e6635cd5367b584e5050fa6a1b05" prot="public" virt="non-virtual"><scope>RoundManager</scope><name>RM</name></member>
+      <member refid="class_round_manager_1a9dc4982eccb098deb1b3f4f758179ff1" prot="package" virt="non-virtual"><scope>RoundManager</scope><name>RoundNumber</name></member>
+      <member refid="class_round_manager_1ab9f6c7fda921ec8469da74b61d332db5" prot="public" virt="non-virtual"><scope>RoundManager</scope><name>SelfTurnText</name></member>
+      <member refid="class_round_manager_1a07d2fe10fdf1700a0c19f4eb36236e1a" prot="private" virt="non-virtual"><scope>RoundManager</scope><name>selfTurnText_DefaultPosition</name></member>
+      <member refid="class_round_manager_1a9412ca1bc488d6cc4a7cf23a2e77c7b4" prot="private" virt="non-virtual"><scope>RoundManager</scope><name>Start</name></member>
+      <member refid="class_round_manager_1a73862863b6e33563a6bb172841eaea0a" prot="private" virt="non-virtual"><scope>RoundManager</scope><name>switchPlayer</name></member>
+      <member refid="class_round_manager_1ad78bed8eb987e7238753d702d189b147" prot="private" virt="non-virtual"><scope>RoundManager</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,504 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_battle_ground_manager" kind="class" prot="public">
+    <compoundname>BattleGroundManager</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_battle_ground_manager_1a4c0c362d9fca7c8aeed6a270f0ba8535" prot="package" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool BattleGroundManager.BattleGroundIsFull</definition>
+        <argsstring></argsstring>
+        <name>BattleGroundIsFull</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="5" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="5" bodyend="-1"/>
+        <referencedby refid="class_battle_ground_manager_1aaaa3d6b520d1ca57a8fc431a5bd9a661" compoundref="_battle_ground_manager_8cs" startline="51" endline="58">AddRetinue</referencedby>
+        <referencedby refid="class_battle_ground_manager_1afd7c38debfd243e0b80f8c4a92fd0f5d" compoundref="_battle_ground_manager_8cs" startline="60" endline="69">RemoveRetinue</referencedby>
+        <referencedby refid="class_card___retinue_1a5be0ab3dc2bd6e9c42a34f0ba926eaca" compoundref="_card___retinue_8cs" startline="223" endline="235">Card_Retinue.summonRetinue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_battle_ground_manager_1a65a55c36dfe93ce16290ea36646a705a" prot="package" static="no" mutable="no">
+        <type><ref refid="class_player" kindref="compound">Player</ref></type>
+        <definition>Player BattleGroundManager.Player</definition>
+        <argsstring></argsstring>
+        <name>Player</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="9" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_battle_ground_manager_1a685273cf6f4250761f99ff19917dc895" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 BattleGroundManager._defaultRetinuePosition</definition>
+        <argsstring></argsstring>
+        <name>_defaultRetinuePosition</name>
+        <initializer>= Vector3.zero</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="6" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="6" bodyend="-1"/>
+        <referencedby refid="class_battle_ground_manager_1ae0fe8f26ad90002dab067360bbbf9e31" compoundref="_battle_ground_manager_8cs" startline="71" endline="79">RefreshBattleGround</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_battle_ground_manager_1a3c5738410877295ccfad9ea8e689b0bd" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int BattleGroundManager._maxRetinueNumber</definition>
+        <argsstring></argsstring>
+        <name>_maxRetinueNumber</name>
+        <initializer>= 7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="8" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="8" bodyend="-1"/>
+        <referencedby refid="class_battle_ground_manager_1aaaa3d6b520d1ca57a8fc431a5bd9a661" compoundref="_battle_ground_manager_8cs" startline="51" endline="58">AddRetinue</referencedby>
+        <referencedby refid="class_battle_ground_manager_1ad74259199f0375a41da686e25e6098f1" compoundref="_battle_ground_manager_8cs" startline="28" endline="31">Initiate</referencedby>
+        <referencedby refid="class_battle_ground_manager_1afd7c38debfd243e0b80f8c4a92fd0f5d" compoundref="_battle_ground_manager_8cs" startline="60" endline="69">RemoveRetinue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_battle_ground_manager_1a469f6519dde4cb2865f1267142b2551a" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int BattleGroundManager._retinueCount</definition>
+        <argsstring></argsstring>
+        <name>_retinueCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="10" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="10" bodyend="-1"/>
+        <referencedby refid="class_battle_ground_manager_1aaaa3d6b520d1ca57a8fc431a5bd9a661" compoundref="_battle_ground_manager_8cs" startline="51" endline="58">AddRetinue</referencedby>
+        <referencedby refid="class_battle_ground_manager_1af8cd559930dd8cb0c5492817badc5aa7" compoundref="_battle_ground_manager_8cs" startline="33" endline="40">AddRetinueByPosition</referencedby>
+        <referencedby refid="class_battle_ground_manager_1af046da1cd65963291d8ca8de0d0b576a" compoundref="_battle_ground_manager_8cs" startline="42" endline="49">CheckRetinueOnPosition</referencedby>
+        <referencedby refid="class_battle_ground_manager_1ae0fe8f26ad90002dab067360bbbf9e31" compoundref="_battle_ground_manager_8cs" startline="71" endline="79">RefreshBattleGround</referencedby>
+        <referencedby refid="class_battle_ground_manager_1afd7c38debfd243e0b80f8c4a92fd0f5d" compoundref="_battle_ground_manager_8cs" startline="60" endline="69">RemoveRetinue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_battle_ground_manager_1ad605d3d25fa8e12a1d53c94c720e7a36" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float BattleGroundManager._retinueInterval</definition>
+        <argsstring></argsstring>
+        <name>_retinueInterval</name>
+        <initializer>= 3.5f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="12" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="12" bodyend="-1"/>
+        <referencedby refid="class_battle_ground_manager_1af8cd559930dd8cb0c5492817badc5aa7" compoundref="_battle_ground_manager_8cs" startline="33" endline="40">AddRetinueByPosition</referencedby>
+        <referencedby refid="class_battle_ground_manager_1af046da1cd65963291d8ca8de0d0b576a" compoundref="_battle_ground_manager_8cs" startline="42" endline="49">CheckRetinueOnPosition</referencedby>
+        <referencedby refid="class_battle_ground_manager_1ae0fe8f26ad90002dab067360bbbf9e31" compoundref="_battle_ground_manager_8cs" startline="71" endline="79">RefreshBattleGround</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_battle_ground_manager_1a4d6dae087003374bc0b957ec4dc44261" prot="private" static="no" mutable="no">
+        <type>List&lt; <ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref> &gt;</type>
+        <definition>List&lt;ModuleRetinue&gt; BattleGroundManager._retinues</definition>
+        <argsstring></argsstring>
+        <name>_retinues</name>
+        <initializer>= new List&lt;<ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref>&gt;()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="13" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="13" bodyend="-1"/>
+        <referencedby refid="class_battle_ground_manager_1a6c0b36dfeb98317331a8c85289e778ab" compoundref="_battle_ground_manager_8cs" startline="81" endline="84">BeginRound</referencedby>
+        <referencedby refid="class_battle_ground_manager_1af046da1cd65963291d8ca8de0d0b576a" compoundref="_battle_ground_manager_8cs" startline="42" endline="49">CheckRetinueOnPosition</referencedby>
+        <referencedby refid="class_battle_ground_manager_1ad207b333829ffdbb61b0a463a0f3a7d4" compoundref="_battle_ground_manager_8cs" startline="86" endline="89">EndRound</referencedby>
+        <referencedby refid="class_battle_ground_manager_1ae0fe8f26ad90002dab067360bbbf9e31" compoundref="_battle_ground_manager_8cs" startline="71" endline="79">RefreshBattleGround</referencedby>
+        <referencedby refid="class_battle_ground_manager_1afd7c38debfd243e0b80f8c4a92fd0f5d" compoundref="_battle_ground_manager_8cs" startline="60" endline="69">RemoveRetinue</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_battle_ground_manager_1a2cc7d27dce4466b3c50f559bf9e3ad38" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BattleGroundManager.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="15" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="15" bodyend="18"/>
+        <references refid="class_battle_ground_manager_1ad74259199f0375a41da686e25e6098f1" compoundref="_battle_ground_manager_8cs" startline="28" endline="31">Initiate</references>
+      </memberdef>
+      <memberdef kind="function" id="class_battle_ground_manager_1a2be3b8882a761aaecbc2dfcf6d905bcd" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BattleGroundManager.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="20" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="20" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_battle_ground_manager_1a101709148409dabf3820e7c9081c161b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BattleGroundManager.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="24" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="24" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_battle_ground_manager_1ad74259199f0375a41da686e25e6098f1" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BattleGroundManager.Initiate</definition>
+        <argsstring>()</argsstring>
+        <name>Initiate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="28" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="28" bodyend="31"/>
+        <references refid="class_battle_ground_manager_1a3c5738410877295ccfad9ea8e689b0bd" compoundref="_battle_ground_manager_8cs" startline="8">_maxRetinueNumber</references>
+        <referencedby refid="class_battle_ground_manager_1a2cc7d27dce4466b3c50f559bf9e3ad38" compoundref="_battle_ground_manager_8cs" startline="15" endline="18">Awake</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-func">
+      <memberdef kind="function" id="class_battle_ground_manager_1af8cd559930dd8cb0c5492817badc5aa7" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BattleGroundManager.AddRetinueByPosition</definition>
+        <argsstring>(ModuleRetinue newRetinue, Vector3 dragLastPosition)</argsstring>
+        <name>AddRetinueByPosition</name>
+        <param>
+          <type><ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref></type>
+          <declname>newRetinue</declname>
+        </param>
+        <param>
+          <type>Vector3</type>
+          <declname>dragLastPosition</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="33" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="33" bodyend="40"/>
+        <references refid="class_battle_ground_manager_1a469f6519dde4cb2865f1267142b2551a" compoundref="_battle_ground_manager_8cs" startline="10">_retinueCount</references>
+        <references refid="class_battle_ground_manager_1ad605d3d25fa8e12a1d53c94c720e7a36" compoundref="_battle_ground_manager_8cs" startline="12">_retinueInterval</references>
+        <references refid="class_battle_ground_manager_1aaaa3d6b520d1ca57a8fc431a5bd9a661" compoundref="_battle_ground_manager_8cs" startline="51" endline="58">AddRetinue</references>
+      </memberdef>
+      <memberdef kind="function" id="class_battle_ground_manager_1af046da1cd65963291d8ca8de0d0b576a" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref></type>
+        <definition>ModuleRetinue BattleGroundManager.CheckRetinueOnPosition</definition>
+        <argsstring>(Vector3 dragLastPosition)</argsstring>
+        <name>CheckRetinueOnPosition</name>
+        <param>
+          <type>Vector3</type>
+          <declname>dragLastPosition</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="42" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="42" bodyend="49"/>
+        <references refid="class_battle_ground_manager_1a469f6519dde4cb2865f1267142b2551a" compoundref="_battle_ground_manager_8cs" startline="10">_retinueCount</references>
+        <references refid="class_battle_ground_manager_1ad605d3d25fa8e12a1d53c94c720e7a36" compoundref="_battle_ground_manager_8cs" startline="12">_retinueInterval</references>
+        <references refid="class_battle_ground_manager_1a4d6dae087003374bc0b957ec4dc44261" compoundref="_battle_ground_manager_8cs" startline="13">_retinues</references>
+      </memberdef>
+      <memberdef kind="function" id="class_battle_ground_manager_1aaaa3d6b520d1ca57a8fc431a5bd9a661" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BattleGroundManager.AddRetinue</definition>
+        <argsstring>(ModuleRetinue newRetinue, int index)</argsstring>
+        <name>AddRetinue</name>
+        <param>
+          <type><ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref></type>
+          <declname>newRetinue</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="51" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="51" bodyend="58"/>
+        <references refid="class_battle_ground_manager_1a3c5738410877295ccfad9ea8e689b0bd" compoundref="_battle_ground_manager_8cs" startline="8">_maxRetinueNumber</references>
+        <references refid="class_battle_ground_manager_1a469f6519dde4cb2865f1267142b2551a" compoundref="_battle_ground_manager_8cs" startline="10">_retinueCount</references>
+        <references refid="class_battle_ground_manager_1a4c0c362d9fca7c8aeed6a270f0ba8535" compoundref="_battle_ground_manager_8cs" startline="5">BattleGroundIsFull</references>
+        <references refid="class_battle_ground_manager_1ae0fe8f26ad90002dab067360bbbf9e31" compoundref="_battle_ground_manager_8cs" startline="71" endline="79">RefreshBattleGround</references>
+        <referencedby refid="class_battle_ground_manager_1af8cd559930dd8cb0c5492817badc5aa7" compoundref="_battle_ground_manager_8cs" startline="33" endline="40">AddRetinueByPosition</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_battle_ground_manager_1afd7c38debfd243e0b80f8c4a92fd0f5d" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BattleGroundManager.RemoveRetinue</definition>
+        <argsstring>(ModuleRetinue retinue)</argsstring>
+        <name>RemoveRetinue</name>
+        <param>
+          <type><ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref></type>
+          <declname>retinue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="60" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="60" bodyend="69"/>
+        <references refid="class_battle_ground_manager_1a3c5738410877295ccfad9ea8e689b0bd" compoundref="_battle_ground_manager_8cs" startline="8">_maxRetinueNumber</references>
+        <references refid="class_battle_ground_manager_1a469f6519dde4cb2865f1267142b2551a" compoundref="_battle_ground_manager_8cs" startline="10">_retinueCount</references>
+        <references refid="class_battle_ground_manager_1a4d6dae087003374bc0b957ec4dc44261" compoundref="_battle_ground_manager_8cs" startline="13">_retinues</references>
+        <references refid="class_battle_ground_manager_1a4c0c362d9fca7c8aeed6a270f0ba8535" compoundref="_battle_ground_manager_8cs" startline="5">BattleGroundIsFull</references>
+        <references refid="class_battle_ground_manager_1ae0fe8f26ad90002dab067360bbbf9e31" compoundref="_battle_ground_manager_8cs" startline="71" endline="79">RefreshBattleGround</references>
+      </memberdef>
+      <memberdef kind="function" id="class_battle_ground_manager_1ae0fe8f26ad90002dab067360bbbf9e31" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BattleGroundManager.RefreshBattleGround</definition>
+        <argsstring>()</argsstring>
+        <name>RefreshBattleGround</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="71" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="71" bodyend="79"/>
+        <references refid="class_battle_ground_manager_1a685273cf6f4250761f99ff19917dc895" compoundref="_battle_ground_manager_8cs" startline="6">_defaultRetinuePosition</references>
+        <references refid="class_battle_ground_manager_1a469f6519dde4cb2865f1267142b2551a" compoundref="_battle_ground_manager_8cs" startline="10">_retinueCount</references>
+        <references refid="class_battle_ground_manager_1ad605d3d25fa8e12a1d53c94c720e7a36" compoundref="_battle_ground_manager_8cs" startline="12">_retinueInterval</references>
+        <references refid="class_battle_ground_manager_1a4d6dae087003374bc0b957ec4dc44261" compoundref="_battle_ground_manager_8cs" startline="13">_retinues</references>
+        <referencedby refid="class_battle_ground_manager_1aaaa3d6b520d1ca57a8fc431a5bd9a661" compoundref="_battle_ground_manager_8cs" startline="51" endline="58">AddRetinue</referencedby>
+        <referencedby refid="class_battle_ground_manager_1afd7c38debfd243e0b80f8c4a92fd0f5d" compoundref="_battle_ground_manager_8cs" startline="60" endline="69">RemoveRetinue</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_battle_ground_manager_1a6c0b36dfeb98317331a8c85289e778ab" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BattleGroundManager.BeginRound</definition>
+        <argsstring>()</argsstring>
+        <name>BeginRound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="81" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="81" bodyend="84"/>
+        <references refid="class_battle_ground_manager_1a4d6dae087003374bc0b957ec4dc44261" compoundref="_battle_ground_manager_8cs" startline="13">_retinues</references>
+      </memberdef>
+      <memberdef kind="function" id="class_battle_ground_manager_1ad207b333829ffdbb61b0a463a0f3a7d4" prot="package" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BattleGroundManager.EndRound</definition>
+        <argsstring>()</argsstring>
+        <name>EndRound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="86" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="86" bodyend="89"/>
+        <references refid="class_battle_ground_manager_1a4d6dae087003374bc0b957ec4dc44261" compoundref="_battle_ground_manager_8cs" startline="13">_retinues</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="8">
+        <label>BattleGroundManager</label>
+        <link refid="class_battle_ground_manager"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="20">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="19">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="17">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>BattleGroundManager</label>
+        <link refid="class_battle_ground_manager"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>childrenPool</edgelabel>
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>cardNumbers</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="24">
+        <label>CardDeck</label>
+        <link refid="class_card_deck"/>
+        <childnode refid="23" relation="usage">
+          <edgelabel>M_CardDeckInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>HandManager</label>
+        <link refid="class_hand_manager"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>currentFocusCard</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>Card</label>
+        <link refid="class_card"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+        <childnode refid="16" relation="public-inheritance">
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>CardNumberSet_Cost</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>myColliderReplace</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="12">
+        <label>Player</label>
+        <link refid="class_player"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>MyHandManager</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>MyBattleGroundManager</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>MyCardDeckManager</edgelabel>
+        </childnode>
+      </node>
+      <node id="23">
+        <label>CardDeckInfo</label>
+        <link refid="struct_card_deck_info"/>
+      </node>
+      <node id="22">
+        <label>CardDeckManager</label>
+        <link refid="class_card_deck_manager"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>M_UnlockCards</edgelabel>
+          <edgelabel>M_LockCards</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>M_CurrentCardDeck</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="21">
+        <label>ColliderReplace</label>
+        <link refid="class_collider_replace"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>MyCallerCard</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" line="4" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/BattleGroundManager.cs" bodystart="4" bodyend="90"/>
+    <listofallmembers>
+      <member refid="class_battle_ground_manager_1a685273cf6f4250761f99ff19917dc895" prot="private" virt="non-virtual"><scope>BattleGroundManager</scope><name>_defaultRetinuePosition</name></member>
+      <member refid="class_battle_ground_manager_1a3c5738410877295ccfad9ea8e689b0bd" prot="private" virt="non-virtual"><scope>BattleGroundManager</scope><name>_maxRetinueNumber</name></member>
+      <member refid="class_battle_ground_manager_1a469f6519dde4cb2865f1267142b2551a" prot="private" virt="non-virtual"><scope>BattleGroundManager</scope><name>_retinueCount</name></member>
+      <member refid="class_battle_ground_manager_1ad605d3d25fa8e12a1d53c94c720e7a36" prot="private" virt="non-virtual"><scope>BattleGroundManager</scope><name>_retinueInterval</name></member>
+      <member refid="class_battle_ground_manager_1a4d6dae087003374bc0b957ec4dc44261" prot="private" virt="non-virtual"><scope>BattleGroundManager</scope><name>_retinues</name></member>
+      <member refid="class_battle_ground_manager_1aaaa3d6b520d1ca57a8fc431a5bd9a661" prot="package" virt="non-virtual"><scope>BattleGroundManager</scope><name>AddRetinue</name></member>
+      <member refid="class_battle_ground_manager_1af8cd559930dd8cb0c5492817badc5aa7" prot="package" virt="non-virtual"><scope>BattleGroundManager</scope><name>AddRetinueByPosition</name></member>
+      <member refid="class_battle_ground_manager_1a2cc7d27dce4466b3c50f559bf9e3ad38" prot="private" virt="non-virtual"><scope>BattleGroundManager</scope><name>Awake</name></member>
+      <member refid="class_battle_ground_manager_1a4c0c362d9fca7c8aeed6a270f0ba8535" prot="package" virt="non-virtual"><scope>BattleGroundManager</scope><name>BattleGroundIsFull</name></member>
+      <member refid="class_battle_ground_manager_1a6c0b36dfeb98317331a8c85289e778ab" prot="package" virt="non-virtual"><scope>BattleGroundManager</scope><name>BeginRound</name></member>
+      <member refid="class_battle_ground_manager_1af046da1cd65963291d8ca8de0d0b576a" prot="package" virt="non-virtual"><scope>BattleGroundManager</scope><name>CheckRetinueOnPosition</name></member>
+      <member refid="class_battle_ground_manager_1ad207b333829ffdbb61b0a463a0f3a7d4" prot="package" virt="non-virtual"><scope>BattleGroundManager</scope><name>EndRound</name></member>
+      <member refid="class_battle_ground_manager_1ad74259199f0375a41da686e25e6098f1" prot="private" virt="non-virtual"><scope>BattleGroundManager</scope><name>Initiate</name></member>
+      <member refid="class_battle_ground_manager_1a65a55c36dfe93ce16290ea36646a705a" prot="package" virt="non-virtual"><scope>BattleGroundManager</scope><name>Player</name></member>
+      <member refid="class_battle_ground_manager_1ae0fe8f26ad90002dab067360bbbf9e31" prot="package" virt="non-virtual"><scope>BattleGroundManager</scope><name>RefreshBattleGround</name></member>
+      <member refid="class_battle_ground_manager_1afd7c38debfd243e0b80f8c4a92fd0f5d" prot="package" virt="non-virtual"><scope>BattleGroundManager</scope><name>RemoveRetinue</name></member>
+      <member refid="class_battle_ground_manager_1a2be3b8882a761aaecbc2dfcf6d905bcd" prot="private" virt="non-virtual"><scope>BattleGroundManager</scope><name>Start</name></member>
+      <member refid="class_battle_ground_manager_1a101709148409dabf3820e7c9081c161b" prot="private" virt="non-virtual"><scope>BattleGroundManager</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

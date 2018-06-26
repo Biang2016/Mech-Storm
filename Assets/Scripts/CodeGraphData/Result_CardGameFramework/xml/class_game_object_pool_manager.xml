@@ -1,0 +1,984 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_game_object_pool_manager" kind="class" prot="public">
+    <compoundname>GameObjectPoolManager</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a1f0a1870268eaa697fce45780ff0aa54" prot="private" static="yes" mutable="no">
+        <type><ref refid="class_game_object_pool_manager" kindref="compound">GameObjectPoolManager</ref></type>
+        <definition>GameObjectPoolManager GameObjectPoolManager.gopm</definition>
+        <argsstring></argsstring>
+        <name>gopm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="7" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_game_object_pool_manager_1a7a915621a415e55184121037c6580538" prot="public" static="yes" readable="no" writable="no" gettable="yes" settable="no">
+        <type><ref refid="class_game_object_pool_manager" kindref="compound">GameObjectPoolManager</ref></type>
+        <definition>GameObjectPoolManager GameObjectPoolManager.GOPM</definition>
+        <argsstring></argsstring>
+        <name>GOPM</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="8" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a05b4d0ecdf8f7e0a7876cd6bc417638b" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ColliderReplacePool</definition>
+        <argsstring></argsstring>
+        <name>ColliderReplacePool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="20" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1af73237ed87ce90975b319446ccccf7c6" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ColliderReplacePrefab</definition>
+        <argsstring></argsstring>
+        <name>ColliderReplacePrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="22" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="22" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a3aad1226b83a7c9f8ef6e1f4eb98c913" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.CardNumberSetPool</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSetPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="24" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a2eb8b149729a293dddc4c006dbe76343" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.CardNumberSetPrefab</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSetPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="26" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="26" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a1cbb561a90d8887992cf1323a307a030" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.CardSmallNumberPool</definition>
+        <argsstring></argsstring>
+        <name>CardSmallNumberPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="28" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a15482a4f4c280b91b0032eb9c065e7b5" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.CardSmallNumberPrefab</definition>
+        <argsstring></argsstring>
+        <name>CardSmallNumberPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="30" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="30" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1afc19739b59da237cc7492113f351108b" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.CardMediumNumberPool</definition>
+        <argsstring></argsstring>
+        <name>CardMediumNumberPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="32" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a9c7a16e0a01b70053d9358c83fe102a6" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.CardMediumNumberPrefab</definition>
+        <argsstring></argsstring>
+        <name>CardMediumNumberPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="34" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="34" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a31a9e239be88b262db750b7b9f24dbe2" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.CardBigNumberPool</definition>
+        <argsstring></argsstring>
+        <name>CardBigNumberPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="36" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1abbdcc765d36b56bd8bdf324660b639a4" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.CardBigNumberPrefab</definition>
+        <argsstring></argsstring>
+        <name>CardBigNumberPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="38" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="38" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1aeb8002291ebdd4cc03e1d08ae07c8f30" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ArrowPool</definition>
+        <argsstring></argsstring>
+        <name>ArrowPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="40" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a0623b8092a4dc56e3f7ce5c6307230ea" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ArrowPrefab</definition>
+        <argsstring></argsstring>
+        <name>ArrowPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="42" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="42" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a0ec983d2a99351793a28034cbabcf235" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleRetinuePool</definition>
+        <argsstring></argsstring>
+        <name>ModuleRetinuePool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="44" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a1a8f49f6e774a4856b8c5071d79b2e72" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleRetinuePrefab</definition>
+        <argsstring></argsstring>
+        <name>ModuleRetinuePrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="46" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="46" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a18529f1b3fb35e260017a985faf38b76" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleEnergyPool</definition>
+        <argsstring></argsstring>
+        <name>ModuleEnergyPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="48" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a27f31c153672f10a0123aee99326e1b1" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleEnergyPrefab</definition>
+        <argsstring></argsstring>
+        <name>ModuleEnergyPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="50" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="50" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a534550407c775f1cfc12fa2e4f1a6c52" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleMAPool</definition>
+        <argsstring></argsstring>
+        <name>ModuleMAPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="52" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a83c8d6bd769373e3b224137ebc0d1358" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleMAPrefab</definition>
+        <argsstring></argsstring>
+        <name>ModuleMAPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="54" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="54" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1adc85f9c53306a5fed9d2c18df82d947c" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModulePackPool</definition>
+        <argsstring></argsstring>
+        <name>ModulePackPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="56" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1aeb6c6bd0a42b72236a71aed756874b6a" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModulePackPrefab</definition>
+        <argsstring></argsstring>
+        <name>ModulePackPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="58" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="58" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a4dcdaca6160bb38035989220d3c156cc" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleWeaponPool</definition>
+        <argsstring></argsstring>
+        <name>ModuleWeaponPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="60" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1abbd068b11cebd1bd48dd933152093ed9" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleWeaponPrefab</definition>
+        <argsstring></argsstring>
+        <name>ModuleWeaponPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="62" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="62" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1acebac5c781186823d5b7f5bbc7420617" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleWeaponDetailPool</definition>
+        <argsstring></argsstring>
+        <name>ModuleWeaponDetailPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="64" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a40d8f8d501d6ad08facb1fae6544e899" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleWeaponDetailPrefab</definition>
+        <argsstring></argsstring>
+        <name>ModuleWeaponDetailPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="66" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="66" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1ac421bffd5a4bf102985a5cd5dc4a689d" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleShieldPool</definition>
+        <argsstring></argsstring>
+        <name>ModuleShieldPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="68" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a7dbdb31285470c1a31cbcf09e7303728" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleShieldPrefab</definition>
+        <argsstring></argsstring>
+        <name>ModuleShieldPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="70" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="70" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1ade4dd0a14daf4bfa3a05f6ce985c0355" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleShieldDetailPool</definition>
+        <argsstring></argsstring>
+        <name>ModuleShieldDetailPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="72" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1ac7e9da48444f444b0d7db5876289fb6a" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ModuleShieldDetailPrefab</definition>
+        <argsstring></argsstring>
+        <name>ModuleShieldDetailPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="74" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="74" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a8be414131fbb763c844947096c8d0712" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.RetinueCardPool</definition>
+        <argsstring></argsstring>
+        <name>RetinueCardPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="76" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1aad295890027e6d839b3dede378255e29" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.RetinueCardPrefab</definition>
+        <argsstring></argsstring>
+        <name>RetinueCardPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="78" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="78" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1ab438acaaa88b52268b570f44b42f0594" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.WeaponCardPool</definition>
+        <argsstring></argsstring>
+        <name>WeaponCardPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="80" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a8e15268a9b6ef3e8afef022e93641eb1" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.WeaponCardPrefab</definition>
+        <argsstring></argsstring>
+        <name>WeaponCardPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="82" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="82" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1ad5a580711414bd45b91493d69f799b45" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ShieldCardPool</definition>
+        <argsstring></argsstring>
+        <name>ShieldCardPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="84" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a13a0bddc509bf2773b11ef7734efde2d" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.ShieldCardPrefab</definition>
+        <argsstring></argsstring>
+        <name>ShieldCardPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="86" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="86" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a3bc6efbc6447c0807aa0af608c4fcff2" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.PackCardPool</definition>
+        <argsstring></argsstring>
+        <name>PackCardPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="88" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1acf9bf6916f3cdf7947937d69c8490d59" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.PackCardPrefab</definition>
+        <argsstring></argsstring>
+        <name>PackCardPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="90" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="90" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a7636306e2df18355deafbe7cc624c4ad" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.MACardPool</definition>
+        <argsstring></argsstring>
+        <name>MACardPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="92" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a7156fc31cd4473f3a49aeec37651b7b4" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject GameObjectPoolManager.MACardPrefab</definition>
+        <argsstring></argsstring>
+        <name>MACardPrefab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="94" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="94" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a76334bc505e93420351290433413e5b2" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ColliderReplacePool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ColliderReplacePool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="21" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="21" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a914307db0dadcf8dc889d6b41e47b042" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_CardNumberSetPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_CardNumberSetPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="25" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="25" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a82634583321c234a1ededcf9506c2bfd" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_CardSmallNumberPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_CardSmallNumberPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="29" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="29" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a4f87c98897ea33c3dd250e2d9a3e3417" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_CardMediumNumberPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_CardMediumNumberPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="33" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="33" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1ae861ce3e2ece08228979d9a5732332e9" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_CardBigNumberPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_CardBigNumberPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="37" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="37" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1aed2e959d60020ca3002f5c7a2a050d0c" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ArrowPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ArrowPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="41" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="41" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1aaf505c4237d8d005af0938545a9eef63" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ModuleRetinuePool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ModuleRetinuePool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="45" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="45" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a5a3d83db67c051051d51f701549deb8c" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ModuleEnergyPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ModuleEnergyPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="49" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="49" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1aed74f8fe157fab283a51461e8db71e76" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ModuleMAPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ModuleMAPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="53" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="53" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a5adff725e90a8ad8c8a4d2e99d78a656" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ModulePackPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ModulePackPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="57" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="57" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a4217b3c510b73c73851bd144ed666451" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ModuleWeaponPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ModuleWeaponPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="61" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="61" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a2e3fd41ade45ab4ac9b34ebaa4bc2d45" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ModuleWeaponDetailPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ModuleWeaponDetailPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="65" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="65" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a4cc068219f808a635da811819a6e3dbc" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ModuleShieldPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ModuleShieldPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="69" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="69" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a030129bb6c0db5651068c02fdd152aeb" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ModuleShieldDetailPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ModuleShieldDetailPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="73" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="73" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a80462fefde6c16f84358904851780e0a" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_RetinueCardPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_RetinueCardPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="77" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="77" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a049d0cbc71ad463698802800c901b705" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_WeaponCardPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_WeaponCardPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="81" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="81" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a9d45fe2c7a70af6dfea0a89d891f9af7" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_ShieldCardPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_ShieldCardPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="85" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="85" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1a07f7b3094fdebb5d6b230c9b8ba4c45d" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_PackCardPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_PackCardPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="89" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="89" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_object_pool_manager_1aa06036c691b9bfaa0d67f8b7d508581c" prot="package" static="no" mutable="no">
+        <type><ref refid="class_game_object_pool" kindref="compound">GameObjectPool</ref></type>
+        <definition>GameObjectPool GameObjectPoolManager.Pool_MACardPool</definition>
+        <argsstring></argsstring>
+        <name>Pool_MACardPool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="93" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="93" bodyend="-1"/>
+        <referencedby refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" compoundref="_game_object_pool_manager_8cs" startline="96" endline="155">Awake</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GameObjectPoolManager.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="96" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="96" bodyend="155"/>
+        <references refid="class_game_object_pool_manager_1a0623b8092a4dc56e3f7ce5c6307230ea" compoundref="_game_object_pool_manager_8cs" startline="42">ArrowPrefab</references>
+        <references refid="class_game_object_pool_manager_1abbdcc765d36b56bd8bdf324660b639a4" compoundref="_game_object_pool_manager_8cs" startline="38">CardBigNumberPrefab</references>
+        <references refid="class_game_object_pool_manager_1a9c7a16e0a01b70053d9358c83fe102a6" compoundref="_game_object_pool_manager_8cs" startline="34">CardMediumNumberPrefab</references>
+        <references refid="class_game_object_pool_manager_1a2eb8b149729a293dddc4c006dbe76343" compoundref="_game_object_pool_manager_8cs" startline="26">CardNumberSetPrefab</references>
+        <references refid="class_game_object_pool_manager_1a15482a4f4c280b91b0032eb9c065e7b5" compoundref="_game_object_pool_manager_8cs" startline="30">CardSmallNumberPrefab</references>
+        <references refid="class_game_object_pool_manager_1af73237ed87ce90975b319446ccccf7c6" compoundref="_game_object_pool_manager_8cs" startline="22">ColliderReplacePrefab</references>
+        <references refid="class_game_object_pool_manager_1a7156fc31cd4473f3a49aeec37651b7b4" compoundref="_game_object_pool_manager_8cs" startline="94">MACardPrefab</references>
+        <references refid="class_game_object_pool_manager_1a27f31c153672f10a0123aee99326e1b1" compoundref="_game_object_pool_manager_8cs" startline="50">ModuleEnergyPrefab</references>
+        <references refid="class_game_object_pool_manager_1a83c8d6bd769373e3b224137ebc0d1358" compoundref="_game_object_pool_manager_8cs" startline="54">ModuleMAPrefab</references>
+        <references refid="class_game_object_pool_manager_1aeb6c6bd0a42b72236a71aed756874b6a" compoundref="_game_object_pool_manager_8cs" startline="58">ModulePackPrefab</references>
+        <references refid="class_game_object_pool_manager_1a1a8f49f6e774a4856b8c5071d79b2e72" compoundref="_game_object_pool_manager_8cs" startline="46">ModuleRetinuePrefab</references>
+        <references refid="class_game_object_pool_manager_1ac7e9da48444f444b0d7db5876289fb6a" compoundref="_game_object_pool_manager_8cs" startline="74">ModuleShieldDetailPrefab</references>
+        <references refid="class_game_object_pool_manager_1a7dbdb31285470c1a31cbcf09e7303728" compoundref="_game_object_pool_manager_8cs" startline="70">ModuleShieldPrefab</references>
+        <references refid="class_game_object_pool_manager_1a40d8f8d501d6ad08facb1fae6544e899" compoundref="_game_object_pool_manager_8cs" startline="66">ModuleWeaponDetailPrefab</references>
+        <references refid="class_game_object_pool_manager_1abbd068b11cebd1bd48dd933152093ed9" compoundref="_game_object_pool_manager_8cs" startline="62">ModuleWeaponPrefab</references>
+        <references refid="class_game_object_pool_manager_1acf9bf6916f3cdf7947937d69c8490d59" compoundref="_game_object_pool_manager_8cs" startline="90">PackCardPrefab</references>
+        <references refid="class_game_object_pool_manager_1aed2e959d60020ca3002f5c7a2a050d0c" compoundref="_game_object_pool_manager_8cs" startline="41">Pool_ArrowPool</references>
+        <references refid="class_game_object_pool_manager_1ae861ce3e2ece08228979d9a5732332e9" compoundref="_game_object_pool_manager_8cs" startline="37">Pool_CardBigNumberPool</references>
+        <references refid="class_game_object_pool_manager_1a4f87c98897ea33c3dd250e2d9a3e3417" compoundref="_game_object_pool_manager_8cs" startline="33">Pool_CardMediumNumberPool</references>
+        <references refid="class_game_object_pool_manager_1a914307db0dadcf8dc889d6b41e47b042" compoundref="_game_object_pool_manager_8cs" startline="25">Pool_CardNumberSetPool</references>
+        <references refid="class_game_object_pool_manager_1a82634583321c234a1ededcf9506c2bfd" compoundref="_game_object_pool_manager_8cs" startline="29">Pool_CardSmallNumberPool</references>
+        <references refid="class_game_object_pool_manager_1a76334bc505e93420351290433413e5b2" compoundref="_game_object_pool_manager_8cs" startline="21">Pool_ColliderReplacePool</references>
+        <references refid="class_game_object_pool_manager_1aa06036c691b9bfaa0d67f8b7d508581c" compoundref="_game_object_pool_manager_8cs" startline="93">Pool_MACardPool</references>
+        <references refid="class_game_object_pool_manager_1a5a3d83db67c051051d51f701549deb8c" compoundref="_game_object_pool_manager_8cs" startline="49">Pool_ModuleEnergyPool</references>
+        <references refid="class_game_object_pool_manager_1aed74f8fe157fab283a51461e8db71e76" compoundref="_game_object_pool_manager_8cs" startline="53">Pool_ModuleMAPool</references>
+        <references refid="class_game_object_pool_manager_1a5adff725e90a8ad8c8a4d2e99d78a656" compoundref="_game_object_pool_manager_8cs" startline="57">Pool_ModulePackPool</references>
+        <references refid="class_game_object_pool_manager_1aaf505c4237d8d005af0938545a9eef63" compoundref="_game_object_pool_manager_8cs" startline="45">Pool_ModuleRetinuePool</references>
+        <references refid="class_game_object_pool_manager_1a030129bb6c0db5651068c02fdd152aeb" compoundref="_game_object_pool_manager_8cs" startline="73">Pool_ModuleShieldDetailPool</references>
+        <references refid="class_game_object_pool_manager_1a4cc068219f808a635da811819a6e3dbc" compoundref="_game_object_pool_manager_8cs" startline="69">Pool_ModuleShieldPool</references>
+        <references refid="class_game_object_pool_manager_1a2e3fd41ade45ab4ac9b34ebaa4bc2d45" compoundref="_game_object_pool_manager_8cs" startline="65">Pool_ModuleWeaponDetailPool</references>
+        <references refid="class_game_object_pool_manager_1a4217b3c510b73c73851bd144ed666451" compoundref="_game_object_pool_manager_8cs" startline="61">Pool_ModuleWeaponPool</references>
+        <references refid="class_game_object_pool_manager_1a07f7b3094fdebb5d6b230c9b8ba4c45d" compoundref="_game_object_pool_manager_8cs" startline="89">Pool_PackCardPool</references>
+        <references refid="class_game_object_pool_manager_1a80462fefde6c16f84358904851780e0a" compoundref="_game_object_pool_manager_8cs" startline="77">Pool_RetinueCardPool</references>
+        <references refid="class_game_object_pool_manager_1a9d45fe2c7a70af6dfea0a89d891f9af7" compoundref="_game_object_pool_manager_8cs" startline="85">Pool_ShieldCardPool</references>
+        <references refid="class_game_object_pool_manager_1a049d0cbc71ad463698802800c901b705" compoundref="_game_object_pool_manager_8cs" startline="81">Pool_WeaponCardPool</references>
+        <references refid="class_game_object_pool_manager_1aad295890027e6d839b3dede378255e29" compoundref="_game_object_pool_manager_8cs" startline="78">RetinueCardPrefab</references>
+        <references refid="class_game_object_pool_manager_1a13a0bddc509bf2773b11ef7734efde2d" compoundref="_game_object_pool_manager_8cs" startline="86">ShieldCardPrefab</references>
+        <references refid="class_game_object_pool_manager_1a8e15268a9b6ef3e8afef022e93641eb1" compoundref="_game_object_pool_manager_8cs" startline="82">WeaponCardPrefab</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="249">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="248">
+        <label>GameObjectPoolManager</label>
+        <link refid="class_game_object_pool_manager"/>
+        <childnode refid="249" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="252">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="251" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="251">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="250">
+        <label>GameObjectPoolManager</label>
+        <link refid="class_game_object_pool_manager"/>
+        <childnode refid="251" relation="public-inheritance">
+        </childnode>
+        <childnode refid="252" relation="usage">
+          <edgelabel>Pool_ModuleShieldPool</edgelabel>
+          <edgelabel>Pool_CardSmallNumberPool</edgelabel>
+          <edgelabel>Pool_ModuleMAPool</edgelabel>
+          <edgelabel>Pool_WeaponCardPool</edgelabel>
+          <edgelabel>Pool_CardNumberSetPool</edgelabel>
+          <edgelabel>Pool_ModuleRetinuePool</edgelabel>
+          <edgelabel>Pool_ShieldCardPool</edgelabel>
+          <edgelabel>Pool_MACardPool</edgelabel>
+          <edgelabel>Pool_ModulePackPool</edgelabel>
+          <edgelabel>Pool_ColliderReplacePool</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+        <childnode refid="250" relation="usage">
+          <edgelabel>gopm</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="6" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="5" bodyend="157"/>
+    <listofallmembers>
+      <member refid="class_game_object_pool_manager_1aeb8002291ebdd4cc03e1d08ae07c8f30" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ArrowPool</name></member>
+      <member refid="class_game_object_pool_manager_1a0623b8092a4dc56e3f7ce5c6307230ea" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ArrowPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1a6443e55aae9ee0a32ba353df4b3afdaa" prot="private" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Awake</name></member>
+      <member refid="class_game_object_pool_manager_1a31a9e239be88b262db750b7b9f24dbe2" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>CardBigNumberPool</name></member>
+      <member refid="class_game_object_pool_manager_1abbdcc765d36b56bd8bdf324660b639a4" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>CardBigNumberPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1afc19739b59da237cc7492113f351108b" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>CardMediumNumberPool</name></member>
+      <member refid="class_game_object_pool_manager_1a9c7a16e0a01b70053d9358c83fe102a6" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>CardMediumNumberPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1a3aad1226b83a7c9f8ef6e1f4eb98c913" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>CardNumberSetPool</name></member>
+      <member refid="class_game_object_pool_manager_1a2eb8b149729a293dddc4c006dbe76343" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>CardNumberSetPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1a1cbb561a90d8887992cf1323a307a030" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>CardSmallNumberPool</name></member>
+      <member refid="class_game_object_pool_manager_1a15482a4f4c280b91b0032eb9c065e7b5" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>CardSmallNumberPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1a05b4d0ecdf8f7e0a7876cd6bc417638b" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ColliderReplacePool</name></member>
+      <member refid="class_game_object_pool_manager_1af73237ed87ce90975b319446ccccf7c6" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ColliderReplacePrefab</name></member>
+      <member refid="class_game_object_pool_manager_1a7a915621a415e55184121037c6580538" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>GOPM</name></member>
+      <member refid="class_game_object_pool_manager_1a1f0a1870268eaa697fce45780ff0aa54" prot="private" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>gopm</name></member>
+      <member refid="class_game_object_pool_manager_1a7636306e2df18355deafbe7cc624c4ad" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>MACardPool</name></member>
+      <member refid="class_game_object_pool_manager_1a7156fc31cd4473f3a49aeec37651b7b4" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>MACardPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1a18529f1b3fb35e260017a985faf38b76" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleEnergyPool</name></member>
+      <member refid="class_game_object_pool_manager_1a27f31c153672f10a0123aee99326e1b1" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleEnergyPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1a534550407c775f1cfc12fa2e4f1a6c52" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleMAPool</name></member>
+      <member refid="class_game_object_pool_manager_1a83c8d6bd769373e3b224137ebc0d1358" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleMAPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1adc85f9c53306a5fed9d2c18df82d947c" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModulePackPool</name></member>
+      <member refid="class_game_object_pool_manager_1aeb6c6bd0a42b72236a71aed756874b6a" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModulePackPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1a0ec983d2a99351793a28034cbabcf235" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleRetinuePool</name></member>
+      <member refid="class_game_object_pool_manager_1a1a8f49f6e774a4856b8c5071d79b2e72" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleRetinuePrefab</name></member>
+      <member refid="class_game_object_pool_manager_1ade4dd0a14daf4bfa3a05f6ce985c0355" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleShieldDetailPool</name></member>
+      <member refid="class_game_object_pool_manager_1ac7e9da48444f444b0d7db5876289fb6a" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleShieldDetailPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1ac421bffd5a4bf102985a5cd5dc4a689d" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleShieldPool</name></member>
+      <member refid="class_game_object_pool_manager_1a7dbdb31285470c1a31cbcf09e7303728" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleShieldPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1acebac5c781186823d5b7f5bbc7420617" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleWeaponDetailPool</name></member>
+      <member refid="class_game_object_pool_manager_1a40d8f8d501d6ad08facb1fae6544e899" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleWeaponDetailPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1a4dcdaca6160bb38035989220d3c156cc" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleWeaponPool</name></member>
+      <member refid="class_game_object_pool_manager_1abbd068b11cebd1bd48dd933152093ed9" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ModuleWeaponPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1a3bc6efbc6447c0807aa0af608c4fcff2" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>PackCardPool</name></member>
+      <member refid="class_game_object_pool_manager_1acf9bf6916f3cdf7947937d69c8490d59" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>PackCardPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1aed2e959d60020ca3002f5c7a2a050d0c" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ArrowPool</name></member>
+      <member refid="class_game_object_pool_manager_1ae861ce3e2ece08228979d9a5732332e9" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_CardBigNumberPool</name></member>
+      <member refid="class_game_object_pool_manager_1a4f87c98897ea33c3dd250e2d9a3e3417" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_CardMediumNumberPool</name></member>
+      <member refid="class_game_object_pool_manager_1a914307db0dadcf8dc889d6b41e47b042" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_CardNumberSetPool</name></member>
+      <member refid="class_game_object_pool_manager_1a82634583321c234a1ededcf9506c2bfd" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_CardSmallNumberPool</name></member>
+      <member refid="class_game_object_pool_manager_1a76334bc505e93420351290433413e5b2" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ColliderReplacePool</name></member>
+      <member refid="class_game_object_pool_manager_1aa06036c691b9bfaa0d67f8b7d508581c" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_MACardPool</name></member>
+      <member refid="class_game_object_pool_manager_1a5a3d83db67c051051d51f701549deb8c" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ModuleEnergyPool</name></member>
+      <member refid="class_game_object_pool_manager_1aed74f8fe157fab283a51461e8db71e76" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ModuleMAPool</name></member>
+      <member refid="class_game_object_pool_manager_1a5adff725e90a8ad8c8a4d2e99d78a656" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ModulePackPool</name></member>
+      <member refid="class_game_object_pool_manager_1aaf505c4237d8d005af0938545a9eef63" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ModuleRetinuePool</name></member>
+      <member refid="class_game_object_pool_manager_1a030129bb6c0db5651068c02fdd152aeb" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ModuleShieldDetailPool</name></member>
+      <member refid="class_game_object_pool_manager_1a4cc068219f808a635da811819a6e3dbc" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ModuleShieldPool</name></member>
+      <member refid="class_game_object_pool_manager_1a2e3fd41ade45ab4ac9b34ebaa4bc2d45" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ModuleWeaponDetailPool</name></member>
+      <member refid="class_game_object_pool_manager_1a4217b3c510b73c73851bd144ed666451" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ModuleWeaponPool</name></member>
+      <member refid="class_game_object_pool_manager_1a07f7b3094fdebb5d6b230c9b8ba4c45d" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_PackCardPool</name></member>
+      <member refid="class_game_object_pool_manager_1a80462fefde6c16f84358904851780e0a" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_RetinueCardPool</name></member>
+      <member refid="class_game_object_pool_manager_1a9d45fe2c7a70af6dfea0a89d891f9af7" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_ShieldCardPool</name></member>
+      <member refid="class_game_object_pool_manager_1a049d0cbc71ad463698802800c901b705" prot="package" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>Pool_WeaponCardPool</name></member>
+      <member refid="class_game_object_pool_manager_1a8be414131fbb763c844947096c8d0712" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>RetinueCardPool</name></member>
+      <member refid="class_game_object_pool_manager_1aad295890027e6d839b3dede378255e29" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>RetinueCardPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1ad5a580711414bd45b91493d69f799b45" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ShieldCardPool</name></member>
+      <member refid="class_game_object_pool_manager_1a13a0bddc509bf2773b11ef7734efde2d" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>ShieldCardPrefab</name></member>
+      <member refid="class_game_object_pool_manager_1ab438acaaa88b52268b570f44b42f0594" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>WeaponCardPool</name></member>
+      <member refid="class_game_object_pool_manager_1a8e15268a9b6ef3e8afef022e93641eb1" prot="public" virt="non-virtual"><scope>GameObjectPoolManager</scope><name>WeaponCardPrefab</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="interface_i_game_object_pool" kind="interface" prot="public">
+    <compoundname>IGameObjectPool</compoundname>
+    <derivedcompoundref refid="class_arrow" prot="public" virt="non-virtual">Arrow</derivedcompoundref>
+    <derivedcompoundref refid="class_card" prot="public" virt="non-virtual">Card</derivedcompoundref>
+    <derivedcompoundref refid="class_card_number" prot="public" virt="non-virtual">CardNumber</derivedcompoundref>
+    <derivedcompoundref refid="class_card_number_set" prot="public" virt="non-virtual">CardNumberSet</derivedcompoundref>
+    <derivedcompoundref refid="class_module_base" prot="public" virt="non-virtual">ModuleBase</derivedcompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="interface_i_game_object_pool_1abd937ee991da187c1025929afc6c64b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IGameObjectPool.PoolRecycle</definition>
+        <argsstring>()</argsstring>
+        <name>PoolRecycle</name>
+        <reimplementedby refid="class_arrow_1a4a3b4d386aa07106326674a9db6f9039">PoolRecycle</reimplementedby>
+        <reimplementedby refid="class_module_retinue_1a8eacdf70826b0ecc961cff72a24f2874">PoolRecycle</reimplementedby>
+        <reimplementedby refid="class_card___retinue_1ae4b4bd94a3cb40215827cfa36b2667d4">PoolRecycle</reimplementedby>
+        <reimplementedby refid="class_card_number_1a7f8cfef2493717e750b9572ec9e185eb">PoolRecycle</reimplementedby>
+        <reimplementedby refid="class_card_number_set_1a0ec1c0791974b262ff49e6b5853219e4">PoolRecycle</reimplementedby>
+        <reimplementedby refid="class_card_1a0f8f4a858812bbe72b0d3ae593a13e0d">PoolRecycle</reimplementedby>
+        <reimplementedby refid="class_module_base_1a8abe2a0ed59a34a4ee3975f5e0f1dd73">PoolRecycle</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="161" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="286">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="280" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="290">
+        <label>ModuleShield</label>
+        <link refid="class_module_shield"/>
+        <childnode refid="288" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="280">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="285">
+        <label>Card_Weapon</label>
+        <link refid="class_card___weapon"/>
+        <childnode refid="282" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="287">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="280" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="283">
+        <label>Card_Retinue</label>
+        <link refid="class_card___retinue"/>
+        <childnode refid="282" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="284">
+        <label>Card_Shield</label>
+        <link refid="class_card___shield"/>
+        <childnode refid="282" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="281">
+        <label>Arrow</label>
+        <link refid="class_arrow"/>
+        <childnode refid="280" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="282">
+        <label>Card</label>
+        <link refid="class_card"/>
+        <childnode refid="280" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="288">
+        <label>ModuleBase</label>
+        <link refid="class_module_base"/>
+        <childnode refid="280" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="289">
+        <label>ModuleRetinue</label>
+        <link refid="class_module_retinue"/>
+        <childnode refid="288" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="291">
+        <label>ModuleWeapon</label>
+        <link refid="class_module_weapon"/>
+        <childnode refid="288" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" line="160" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/GameObjectPoolManager.cs" bodystart="159" bodyend="162"/>
+    <listofallmembers>
+      <member refid="interface_i_game_object_pool_1abd937ee991da187c1025929afc6c64b6" prot="public" virt="non-virtual"><scope>IGameObjectPool</scope><name>PoolRecycle</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

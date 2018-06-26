@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_card_picture_manager" kind="class" prot="public">
+    <compoundname>CardPictureManager</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_card_picture_manager_1a79dcfffe9aebe2b35970055e0cfa73b1" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardPictureManager.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardPictureManager.cs" line="7" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardPictureManager.cs" bodystart="7" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_card_picture_manager_1a9a9125e924d3f60cde228f832200fa82" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CardPictureManager.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardPictureManager.cs" line="12" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardPictureManager.cs" bodystart="12" bodyend="15"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_card_picture_manager_1abc234ea1859f6c6304e9b80afd3eb7e0" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CardPictureManager.ChangePicture</definition>
+        <argsstring>(Renderer ren, int pictureID)</argsstring>
+        <name>ChangePicture</name>
+        <param>
+          <type>Renderer</type>
+          <declname>ren</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>pictureID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardPictureManager.cs" line="17" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardPictureManager.cs" bodystart="17" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="170">
+        <label>CardPictureManager</label>
+        <link refid="class_card_picture_manager"/>
+        <childnode refid="171" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="171">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="172">
+        <label>CardPictureManager</label>
+        <link refid="class_card_picture_manager"/>
+        <childnode refid="173" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="173">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardPictureManager.cs" line="5" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Manager/CardPictureManager.cs" bodystart="4" bodyend="26"/>
+    <listofallmembers>
+      <member refid="class_card_picture_manager_1abc234ea1859f6c6304e9b80afd3eb7e0" prot="public" virt="non-virtual"><scope>CardPictureManager</scope><name>ChangePicture</name></member>
+      <member refid="class_card_picture_manager_1a79dcfffe9aebe2b35970055e0cfa73b1" prot="private" virt="non-virtual"><scope>CardPictureManager</scope><name>Start</name></member>
+      <member refid="class_card_picture_manager_1a9a9125e924d3f60cde228f832200fa82" prot="private" virt="non-virtual"><scope>CardPictureManager</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

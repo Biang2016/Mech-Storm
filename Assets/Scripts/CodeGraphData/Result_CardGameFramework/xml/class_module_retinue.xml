@@ -1,0 +1,1446 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_module_retinue" kind="class" prot="public">
+    <compoundname>ModuleRetinue</compoundname>
+    <basecompoundref refid="class_module_base" prot="public" virt="non-virtual">ModuleBase</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_module_retinue_1a5b44b818e6f5ba88e89e4165d7bce2bb" prot="public" static="no" mutable="no">
+        <type>TextMesh</type>
+        <definition>TextMesh ModuleRetinue.TextMesh_RetinueName</definition>
+        <argsstring></argsstring>
+        <name>TextMesh_RetinueName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="46" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1af1f091b1f77c71411f9e5f0ee8ba87c7" prot="public" static="no" mutable="no">
+        <type>TextMesh</type>
+        <definition>TextMesh ModuleRetinue.TextMesh_RetinueDesc</definition>
+        <argsstring></argsstring>
+        <name>TextMesh_RetinueDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="48" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1ad70a2374fbf54dd79030cd59b0a53c79" prot="public" static="no" mutable="no">
+        <type><ref refid="class_slot_anchor" kindref="compound">SlotAnchor</ref></type>
+        <definition>SlotAnchor ModuleRetinue.SlotAnchor1</definition>
+        <argsstring></argsstring>
+        <name>SlotAnchor1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="50" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="50" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1ae160637812905f4c3d0581e3800cf308" prot="public" static="no" mutable="no">
+        <type><ref refid="class_slot_anchor" kindref="compound">SlotAnchor</ref></type>
+        <definition>SlotAnchor ModuleRetinue.SlotAnchor2</definition>
+        <argsstring></argsstring>
+        <name>SlotAnchor2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="51" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="51" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a2f9e5a4f92465eaffe39b2877a20be72" prot="public" static="no" mutable="no">
+        <type><ref refid="class_slot_anchor" kindref="compound">SlotAnchor</ref></type>
+        <definition>SlotAnchor ModuleRetinue.SlotAnchor3</definition>
+        <argsstring></argsstring>
+        <name>SlotAnchor3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="52" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="52" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a9d8a7b4cf0752c1493e1018f727ebf98" prot="public" static="no" mutable="no">
+        <type><ref refid="class_slot_anchor" kindref="compound">SlotAnchor</ref></type>
+        <definition>SlotAnchor ModuleRetinue.SlotAnchor4</definition>
+        <argsstring></argsstring>
+        <name>SlotAnchor4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="53" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="53" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a385874c1d40682ab08d45465ff8f9581" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleRetinue.Block_RetinueLeftLife</definition>
+        <argsstring></argsstring>
+        <name>Block_RetinueLeftLife</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="55" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a9d1859c8b13a6c9ad848b019c21b25bd" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleRetinue.Block_RetinueTotalLife</definition>
+        <argsstring></argsstring>
+        <name>Block_RetinueTotalLife</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="59" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1af5658a1d319dfda47f6551eafb647970" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleRetinue.Block_RetinueAttack</definition>
+        <argsstring></argsstring>
+        <name>Block_RetinueAttack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="63" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="63" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a0bd342e7cd050e0613ef613da2ce007a" compoundref="_module_retinue_8cs" startline="245" endline="249">On_WeaponChanged</referencedby>
+        <referencedby refid="class_module_retinue_1a601e527ecd4e134a380abaecd5aeff49" compoundref="_module_retinue_8cs" startline="233" endline="237">On_WeaponDown</referencedby>
+        <referencedby refid="class_module_retinue_1a0fdbd5664627798625d7f403a6b45c54" compoundref="_module_retinue_8cs" startline="239" endline="243">On_WeaponEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a33523a63f5ccce3eab42c1c4f6a2c19c" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleRetinue.Block_RetinueShield</definition>
+        <argsstring></argsstring>
+        <name>Block_RetinueShield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="67" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="67" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a6d419c7c8497290b2777d787ef0a1ac8" compoundref="_module_retinue_8cs" startline="286" endline="292">On_ShieldChanged</referencedby>
+        <referencedby refid="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" compoundref="_module_retinue_8cs" startline="270" endline="276">On_ShieldDown</referencedby>
+        <referencedby refid="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" compoundref="_module_retinue_8cs" startline="278" endline="284">On_ShieldEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a2e1c9b5454c4f61ad4f2a7e83fa10c8b" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleRetinue.Block_RetinueArmor</definition>
+        <argsstring></argsstring>
+        <name>Block_RetinueArmor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="71" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="71" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a6d419c7c8497290b2777d787ef0a1ac8" compoundref="_module_retinue_8cs" startline="286" endline="292">On_ShieldChanged</referencedby>
+        <referencedby refid="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" compoundref="_module_retinue_8cs" startline="270" endline="276">On_ShieldDown</referencedby>
+        <referencedby refid="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" compoundref="_module_retinue_8cs" startline="278" endline="284">On_ShieldEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1aa9475f71d34ee6b8a1a95165f3bb69c4" prot="public" static="no" mutable="no">
+        <type>Renderer</type>
+        <definition>Renderer ModuleRetinue.PictureBoxRenderer</definition>
+        <argsstring></argsstring>
+        <name>PictureBoxRenderer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="75" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="75" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1afa7d0a72444ab6a8ca124b399f632861" prot="public" static="no" mutable="no">
+        <type><ref refid="class_module_shield" kindref="compound">ModuleShield</ref></type>
+        <definition>ModuleShield ModuleRetinue.M_Pack</definition>
+        <argsstring></argsstring>
+        <name>M_Pack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="294" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="294" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a8eacdf70826b0ecc961cff72a24f2874" compoundref="_module_retinue_8cs" startline="7" endline="27">PoolRecycle</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1ad49db30e479ab1724f5d3b0151481376" prot="public" static="no" mutable="no">
+        <type><ref refid="class_module_shield" kindref="compound">ModuleShield</ref></type>
+        <definition>ModuleShield ModuleRetinue.M_MA</definition>
+        <argsstring></argsstring>
+        <name>M_MA</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="295" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="295" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a8eacdf70826b0ecc961cff72a24f2874" compoundref="_module_retinue_8cs" startline="7" endline="27">PoolRecycle</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_module_retinue_1a727cb1aa7273b468212a0c6e451aff30" prot="protected" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleRetinue.GoNumberSet_RetinueLeftLife</definition>
+        <argsstring></argsstring>
+        <name>GoNumberSet_RetinueLeftLife</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="56" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a2203443ce66331105680f79aa56ed2b3" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_card_number_set" kindref="compound">CardNumberSet</ref></type>
+        <definition>CardNumberSet ModuleRetinue.CardNumberSet_RetinueLeftLife</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSet_RetinueLeftLife</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="57" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a256caf2bc6846307cbb64133da4e9fac" prot="protected" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleRetinue.GoNumberSet_RetinueTotalLife</definition>
+        <argsstring></argsstring>
+        <name>GoNumberSet_RetinueTotalLife</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="60" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a4165ccc02e9924a60462f4cfb5584fdb" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_card_number_set" kindref="compound">CardNumberSet</ref></type>
+        <definition>CardNumberSet ModuleRetinue.CardNumberSet_RetinueTotalLife</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSet_RetinueTotalLife</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="61" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a0c90a912c90e647fa6f91f0832234617" prot="protected" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleRetinue.GoNumberSet_RetinueAttack</definition>
+        <argsstring></argsstring>
+        <name>GoNumberSet_RetinueAttack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="64" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="64" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a0bd342e7cd050e0613ef613da2ce007a" compoundref="_module_retinue_8cs" startline="245" endline="249">On_WeaponChanged</referencedby>
+        <referencedby refid="class_module_retinue_1a601e527ecd4e134a380abaecd5aeff49" compoundref="_module_retinue_8cs" startline="233" endline="237">On_WeaponDown</referencedby>
+        <referencedby refid="class_module_retinue_1a0fdbd5664627798625d7f403a6b45c54" compoundref="_module_retinue_8cs" startline="239" endline="243">On_WeaponEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1ae94cb4c7f2513d114727ee4e472f7163" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_card_number_set" kindref="compound">CardNumberSet</ref></type>
+        <definition>CardNumberSet ModuleRetinue.CardNumberSet_RetinueAttack</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSet_RetinueAttack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="65" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="65" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a0bd342e7cd050e0613ef613da2ce007a" compoundref="_module_retinue_8cs" startline="245" endline="249">On_WeaponChanged</referencedby>
+        <referencedby refid="class_module_retinue_1a601e527ecd4e134a380abaecd5aeff49" compoundref="_module_retinue_8cs" startline="233" endline="237">On_WeaponDown</referencedby>
+        <referencedby refid="class_module_retinue_1a0fdbd5664627798625d7f403a6b45c54" compoundref="_module_retinue_8cs" startline="239" endline="243">On_WeaponEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a43fca22ea4fd4a5a7e5a7767481fa1e1" prot="protected" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleRetinue.GoNumberSet_RetinueShield</definition>
+        <argsstring></argsstring>
+        <name>GoNumberSet_RetinueShield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="68" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="68" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a6d419c7c8497290b2777d787ef0a1ac8" compoundref="_module_retinue_8cs" startline="286" endline="292">On_ShieldChanged</referencedby>
+        <referencedby refid="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" compoundref="_module_retinue_8cs" startline="270" endline="276">On_ShieldDown</referencedby>
+        <referencedby refid="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" compoundref="_module_retinue_8cs" startline="278" endline="284">On_ShieldEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1adfd881245883e70d04079a924c3e6458" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_card_number_set" kindref="compound">CardNumberSet</ref></type>
+        <definition>CardNumberSet ModuleRetinue.CardNumberSet_RetinueShield</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSet_RetinueShield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="69" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="69" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a6d419c7c8497290b2777d787ef0a1ac8" compoundref="_module_retinue_8cs" startline="286" endline="292">On_ShieldChanged</referencedby>
+        <referencedby refid="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" compoundref="_module_retinue_8cs" startline="270" endline="276">On_ShieldDown</referencedby>
+        <referencedby refid="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" compoundref="_module_retinue_8cs" startline="278" endline="284">On_ShieldEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a2f09a21202b105c918d70cd03f79013d" prot="protected" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject ModuleRetinue.GoNumberSet_RetinueArmor</definition>
+        <argsstring></argsstring>
+        <name>GoNumberSet_RetinueArmor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="72" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="72" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a6d419c7c8497290b2777d787ef0a1ac8" compoundref="_module_retinue_8cs" startline="286" endline="292">On_ShieldChanged</referencedby>
+        <referencedby refid="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" compoundref="_module_retinue_8cs" startline="270" endline="276">On_ShieldDown</referencedby>
+        <referencedby refid="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" compoundref="_module_retinue_8cs" startline="278" endline="284">On_ShieldEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a305a32a571d5c7fe4fe6e3d70c9b0cdc" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_card_number_set" kindref="compound">CardNumberSet</ref></type>
+        <definition>CardNumberSet ModuleRetinue.CardNumberSet_RetinueArmor</definition>
+        <argsstring></argsstring>
+        <name>CardNumberSet_RetinueArmor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="73" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="73" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a6d419c7c8497290b2777d787ef0a1ac8" compoundref="_module_retinue_8cs" startline="286" endline="292">On_ShieldChanged</referencedby>
+        <referencedby refid="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" compoundref="_module_retinue_8cs" startline="270" endline="276">On_ShieldDown</referencedby>
+        <referencedby refid="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" compoundref="_module_retinue_8cs" startline="278" endline="284">On_ShieldEquiped</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_module_retinue_1a370228b479672b99ea8371f41c5d9391" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string ModuleRetinue.m_RetinueName</definition>
+        <argsstring></argsstring>
+        <name>m_RetinueName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="116" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a6af43de0c8e5bedb9c6c60aa5c0e5654" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string ModuleRetinue.m_RetinueDesc</definition>
+        <argsstring></argsstring>
+        <name>m_RetinueDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="127" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a55d8af8d9ad3a857fa6f487622b56bd5" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ModuleRetinue.m_RetinueLeftLife</definition>
+        <argsstring></argsstring>
+        <name>m_RetinueLeftLife</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="138" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a0987dd910a859a3a1f7aa6c1ece37ef7" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ModuleRetinue.m_RetinueTotalLife</definition>
+        <argsstring></argsstring>
+        <name>m_RetinueTotalLife</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="150" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a780c57012895bcdc8435a574774df66c" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ModuleRetinue.m_RetinueAttack</definition>
+        <argsstring></argsstring>
+        <name>m_RetinueAttack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="162" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1ae9409eebf934353865a2ae0a1d6e87ec" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ModuleRetinue.m_RetinueArmor</definition>
+        <argsstring></argsstring>
+        <name>m_RetinueArmor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="178" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1afdb095e7523c31c12fabfa9899395aad" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ModuleRetinue.m_RetinueShield</definition>
+        <argsstring></argsstring>
+        <name>m_RetinueShield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="194" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a56c5ac403570239adb7e1110a723d236" prot="private" static="no" mutable="no">
+        <type><ref refid="class_module_weapon" kindref="compound">ModuleWeapon</ref></type>
+        <definition>ModuleWeapon ModuleRetinue.m_Weapon</definition>
+        <argsstring></argsstring>
+        <name>m_Weapon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="214" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_module_retinue_1a487647f0ada945107dd142af2f1f1ad1" prot="private" static="no" mutable="no">
+        <type><ref refid="class_module_shield" kindref="compound">ModuleShield</ref></type>
+        <definition>ModuleShield ModuleRetinue.m_Shield</definition>
+        <argsstring></argsstring>
+        <name>m_Shield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="251" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_module_retinue_1a33c2c01fb725097d6882c6812ae5d04a" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>string</type>
+        <definition>string ModuleRetinue.M_RetinueName</definition>
+        <argsstring></argsstring>
+        <name>M_RetinueName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="117" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="117" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_retinue_1ad496ff68838433705cabb6438e57c1f2" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>string</type>
+        <definition>string ModuleRetinue.M_RetinueDesc</definition>
+        <argsstring></argsstring>
+        <name>M_RetinueDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="128" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="128" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_retinue_1a2ad898b115be15e56061360cdf4e2791" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int ModuleRetinue.M_RetinueLeftLife</definition>
+        <argsstring></argsstring>
+        <name>M_RetinueLeftLife</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="139" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="139" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1aa312a0bc018873e49ab3ce7f2db51157" compoundref="_module_retinue_8cs" startline="311" endline="357">BeAttacked</referencedby>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_retinue_1aedbbbe0571edfdf9204d6c1f16548a2d" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int ModuleRetinue.M_RetinueTotalLife</definition>
+        <argsstring></argsstring>
+        <name>M_RetinueTotalLife</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="151" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="151" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_retinue_1af72a896a6b14c9b746b35bb2bc038734" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int ModuleRetinue.M_RetinueAttack</definition>
+        <argsstring></argsstring>
+        <name>M_RetinueAttack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="163" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="163" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1aae798903c3fad26bde1b2f5b12e2efb0" compoundref="_module_retinue_8cs" startline="359" endline="369">AllModulesAttack</referencedby>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+        <referencedby refid="class_module_retinue_1a601e527ecd4e134a380abaecd5aeff49" compoundref="_module_retinue_8cs" startline="233" endline="237">On_WeaponDown</referencedby>
+        <referencedby refid="class_module_retinue_1a0fdbd5664627798625d7f403a6b45c54" compoundref="_module_retinue_8cs" startline="239" endline="243">On_WeaponEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_retinue_1ac0b699d92ea68084a424b9893b155c76" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int ModuleRetinue.M_RetinueArmor</definition>
+        <argsstring></argsstring>
+        <name>M_RetinueArmor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="179" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="179" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1aa312a0bc018873e49ab3ce7f2db51157" compoundref="_module_retinue_8cs" startline="311" endline="357">BeAttacked</referencedby>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+        <referencedby refid="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" compoundref="_module_retinue_8cs" startline="270" endline="276">On_ShieldDown</referencedby>
+        <referencedby refid="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" compoundref="_module_retinue_8cs" startline="278" endline="284">On_ShieldEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_retinue_1aa36083072f9c0e0737d41fdd7dabb00b" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type>int</type>
+        <definition>int ModuleRetinue.M_RetinueShield</definition>
+        <argsstring></argsstring>
+        <name>M_RetinueShield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="195" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="195" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1aa312a0bc018873e49ab3ce7f2db51157" compoundref="_module_retinue_8cs" startline="311" endline="357">BeAttacked</referencedby>
+        <referencedby refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" compoundref="_module_retinue_8cs" startline="110" endline="114">GetCurrentCardInfo</referencedby>
+        <referencedby refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" compoundref="_module_retinue_8cs" startline="77" endline="108">Initiate</referencedby>
+        <referencedby refid="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" compoundref="_module_retinue_8cs" startline="270" endline="276">On_ShieldDown</referencedby>
+        <referencedby refid="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" compoundref="_module_retinue_8cs" startline="278" endline="284">On_ShieldEquiped</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_retinue_1afca94af6f635cd9f1f176c768a22be71" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type><ref refid="class_module_weapon" kindref="compound">ModuleWeapon</ref></type>
+        <definition>ModuleWeapon ModuleRetinue.M_Weapon</definition>
+        <argsstring></argsstring>
+        <name>M_Weapon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="215" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="215" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1aae798903c3fad26bde1b2f5b12e2efb0" compoundref="_module_retinue_8cs" startline="359" endline="369">AllModulesAttack</referencedby>
+        <referencedby refid="class_module_retinue_1a99ea71951e166ff5eed8d466c2431213" compoundref="_module_retinue_8cs" startline="301" endline="305">OnBeginRound</referencedby>
+        <referencedby refid="class_module_retinue_1a8eacdf70826b0ecc961cff72a24f2874" compoundref="_module_retinue_8cs" startline="7" endline="27">PoolRecycle</referencedby>
+        <referencedby refid="class_card___weapon_1a60c7365e924b6b8aa0278668edec69e7" compoundref="_card___weapon_8cs" startline="93" endline="107">Card_Weapon.summonWeapon</referencedby>
+      </memberdef>
+      <memberdef kind="property" id="class_module_retinue_1a156ed24b12370fbcd3b83e1bb399f66a" prot="public" static="no" readable="no" writable="no" gettable="yes" settable="yes">
+        <type><ref refid="class_module_shield" kindref="compound">ModuleShield</ref></type>
+        <definition>ModuleShield ModuleRetinue.M_Shield</definition>
+        <argsstring></argsstring>
+        <name>M_Shield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="252" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="252" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1aa312a0bc018873e49ab3ce7f2db51157" compoundref="_module_retinue_8cs" startline="311" endline="357">BeAttacked</referencedby>
+        <referencedby refid="class_module_retinue_1a8eacdf70826b0ecc961cff72a24f2874" compoundref="_module_retinue_8cs" startline="7" endline="27">PoolRecycle</referencedby>
+        <referencedby refid="class_card___shield_1a10e99780de860cf2bcd502b6fbd0a06d" compoundref="_card___shield_8cs" startline="92" endline="106">Card_Shield.summonShield</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="class_module_retinue_1a985ef041dd432e047221fcf31c25c2e3" prot="package" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ModuleRetinue.CanAttack</definition>
+        <argsstring></argsstring>
+        <name>CanAttack</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="300" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="300" bodyend="-1"/>
+        <referencedby refid="class_module_retinue_1aae798903c3fad26bde1b2f5b12e2efb0" compoundref="_module_retinue_8cs" startline="359" endline="369">AllModulesAttack</referencedby>
+        <referencedby refid="class_module_retinue_1a993ff79104fa77fef38b3ebfc6d43602" compoundref="_module_retinue_8cs" startline="381" endline="385">DragComponent_SetStates</referencedby>
+        <referencedby refid="class_module_retinue_1a99ea71951e166ff5eed8d466c2431213" compoundref="_module_retinue_8cs" startline="301" endline="305">OnBeginRound</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_module_retinue_1a8eacdf70826b0ecc961cff72a24f2874" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleRetinue.PoolRecycle</definition>
+        <argsstring>()</argsstring>
+        <name>PoolRecycle</name>
+        <reimplements refid="class_module_base_1a8abe2a0ed59a34a4ee3975f5e0f1dd73">PoolRecycle</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="7" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="7" bodyend="27"/>
+        <references refid="class_module_retinue_1ad49db30e479ab1724f5d3b0151481376" compoundref="_module_retinue_8cs" startline="295">M_MA</references>
+        <references refid="class_module_retinue_1afa7d0a72444ab6a8ca124b399f632861" compoundref="_module_retinue_8cs" startline="294">M_Pack</references>
+        <references refid="class_module_retinue_1a156ed24b12370fbcd3b83e1bb399f66a" compoundref="_module_retinue_8cs" startline="252">M_Shield</references>
+        <references refid="class_module_retinue_1afca94af6f635cd9f1f176c768a22be71" compoundref="_module_retinue_8cs" startline="215">M_Weapon</references>
+        <referencedby refid="class_module_retinue_1aa312a0bc018873e49ab3ce7f2db51157" compoundref="_module_retinue_8cs" startline="311" endline="357">BeAttacked</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleRetinue.Initiate</definition>
+        <argsstring>(CardInfo_Base cardInfo, Player player)</argsstring>
+        <name>Initiate</name>
+        <reimplements refid="class_module_base_1a28c8a8b46907c75a385e063b3f1d31e6">Initiate</reimplements>
+        <param>
+          <type><ref refid="class_card_info___base" kindref="compound">CardInfo_Base</ref></type>
+          <declname>cardInfo</declname>
+        </param>
+        <param>
+          <type><ref refid="class_player" kindref="compound">Player</ref></type>
+          <declname>player</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="77" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="77" bodyend="108"/>
+        <references refid="class_module_retinue_1ac0b699d92ea68084a424b9893b155c76" compoundref="_module_retinue_8cs" startline="179">M_RetinueArmor</references>
+        <references refid="class_module_retinue_1af72a896a6b14c9b746b35bb2bc038734" compoundref="_module_retinue_8cs" startline="163">M_RetinueAttack</references>
+        <references refid="class_module_retinue_1ad496ff68838433705cabb6438e57c1f2" compoundref="_module_retinue_8cs" startline="128">M_RetinueDesc</references>
+        <references refid="class_module_retinue_1a2ad898b115be15e56061360cdf4e2791" compoundref="_module_retinue_8cs" startline="139">M_RetinueLeftLife</references>
+        <references refid="class_module_retinue_1a33c2c01fb725097d6882c6812ae5d04a" compoundref="_module_retinue_8cs" startline="117">M_RetinueName</references>
+        <references refid="class_module_retinue_1aa36083072f9c0e0737d41fdd7dabb00b" compoundref="_module_retinue_8cs" startline="195">M_RetinueShield</references>
+        <references refid="class_module_retinue_1aedbbbe0571edfdf9204d6c1f16548a2d" compoundref="_module_retinue_8cs" startline="151">M_RetinueTotalLife</references>
+        <references refid="class_module_retinue_1aa9475f71d34ee6b8a1a95165f3bb69c4" compoundref="_module_retinue_8cs" startline="75">PictureBoxRenderer</references>
+        <references refid="class_module_base_1a15ba002aefd9cfabe243465ccff29f61" compoundref="_module_base_8cs" startline="9">ModuleBase.Player</references>
+        <references refid="class_module_retinue_1ad70a2374fbf54dd79030cd59b0a53c79" compoundref="_module_retinue_8cs" startline="50">SlotAnchor1</references>
+        <references refid="class_module_retinue_1ae160637812905f4c3d0581e3800cf308" compoundref="_module_retinue_8cs" startline="51">SlotAnchor2</references>
+        <references refid="class_module_retinue_1a2f9e5a4f92465eaffe39b2877a20be72" compoundref="_module_retinue_8cs" startline="52">SlotAnchor3</references>
+        <references refid="class_module_retinue_1a9d8a7b4cf0752c1493e1018f727ebf98" compoundref="_module_retinue_8cs" startline="53">SlotAnchor4</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override <ref refid="class_card_info___base" kindref="compound">CardInfo_Base</ref></type>
+        <definition>override CardInfo_Base ModuleRetinue.GetCurrentCardInfo</definition>
+        <argsstring>()</argsstring>
+        <name>GetCurrentCardInfo</name>
+        <reimplements refid="class_module_base_1a112d1b7a5557b812609f8a468c85c77b">GetCurrentCardInfo</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="110" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="110" bodyend="114"/>
+        <references refid="class_card_info___base_1a3f43915e514c2ca0fe79b9c3e5fc4775" compoundref="_card_info_8cs" startline="27">CardInfo_Base.CardDesc</references>
+        <references refid="class_card_info___base_1a3eac88d783986952c4fc088c47433c7b" compoundref="_card_info_8cs" startline="25">CardInfo_Base.CardID</references>
+        <references refid="class_module_base_1aaa3e4f9bee8e64b69641eb0118047f44" compoundref="_module_base_8cs" startline="33">ModuleBase.CardInfo</references>
+        <references refid="class_card_info___base_1aedf73a9c0861387c0421c647fc0fce27" compoundref="_card_info_8cs" startline="26">CardInfo_Base.CardName</references>
+        <references refid="class_card_info___base_1a229524b20f8888e027178156e30de923" compoundref="_card_info_8cs" startline="30">CardInfo_Base.CardType</references>
+        <references refid="class_card_info___base_1a40450fa880f7b03b229d22fb15203b04" compoundref="_card_info_8cs" startline="28">CardInfo_Base.Cost</references>
+        <references refid="class_card_info___base_1a7413ee18dae0615338e0d3ce225d2448" compoundref="_card_info_8cs" startline="29">CardInfo_Base.HasTarget</references>
+        <references refid="class_module_retinue_1ac0b699d92ea68084a424b9893b155c76" compoundref="_module_retinue_8cs" startline="179">M_RetinueArmor</references>
+        <references refid="class_module_retinue_1af72a896a6b14c9b746b35bb2bc038734" compoundref="_module_retinue_8cs" startline="163">M_RetinueAttack</references>
+        <references refid="class_module_retinue_1a2ad898b115be15e56061360cdf4e2791" compoundref="_module_retinue_8cs" startline="139">M_RetinueLeftLife</references>
+        <references refid="class_module_retinue_1aa36083072f9c0e0737d41fdd7dabb00b" compoundref="_module_retinue_8cs" startline="195">M_RetinueShield</references>
+        <references refid="class_module_retinue_1aedbbbe0571edfdf9204d6c1f16548a2d" compoundref="_module_retinue_8cs" startline="151">M_RetinueTotalLife</references>
+        <references refid="class_module_base_1a6ad7ab92a84787e2e715cf4bde0fb56b" compoundref="_module_base_8cs" startline="34">ModuleBase.ModuleCurrentCardInfo</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a99ea71951e166ff5eed8d466c2431213" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.OnBeginRound</definition>
+        <argsstring>()</argsstring>
+        <name>OnBeginRound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="301" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="301" bodyend="305"/>
+        <references refid="class_module_retinue_1a985ef041dd432e047221fcf31c25c2e3" compoundref="_module_retinue_8cs" startline="300">CanAttack</references>
+        <references refid="class_module_retinue_1afca94af6f635cd9f1f176c768a22be71" compoundref="_module_retinue_8cs" startline="215">M_Weapon</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1ad356e6dd6a603ea9248839ee4d85eba2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.OnEndRound</definition>
+        <argsstring>()</argsstring>
+        <name>OnEndRound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="307" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="307" bodyend="309"/>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1aa312a0bc018873e49ab3ce7f2db51157" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.BeAttacked</definition>
+        <argsstring>(int attackNumber)</argsstring>
+        <name>BeAttacked</name>
+        <param>
+          <type>int</type>
+          <declname>attackNumber</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="311" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="311" bodyend="357"/>
+        <references refid="class_module_retinue_1ac0b699d92ea68084a424b9893b155c76" compoundref="_module_retinue_8cs" startline="179">M_RetinueArmor</references>
+        <references refid="class_module_retinue_1a2ad898b115be15e56061360cdf4e2791" compoundref="_module_retinue_8cs" startline="139">M_RetinueLeftLife</references>
+        <references refid="class_module_retinue_1aa36083072f9c0e0737d41fdd7dabb00b" compoundref="_module_retinue_8cs" startline="195">M_RetinueShield</references>
+        <references refid="class_module_retinue_1a156ed24b12370fbcd3b83e1bb399f66a" compoundref="_module_retinue_8cs" startline="252">M_Shield</references>
+        <references refid="class_module_retinue_1a8eacdf70826b0ecc961cff72a24f2874" compoundref="_module_retinue_8cs" startline="7" endline="27">PoolRecycle</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1aae798903c3fad26bde1b2f5b12e2efb0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>List&lt; int &gt;</type>
+        <definition>List&lt;int&gt; ModuleRetinue.AllModulesAttack</definition>
+        <argsstring>()</argsstring>
+        <name>AllModulesAttack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="359" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="359" bodyend="369"/>
+        <references refid="class_module_retinue_1a985ef041dd432e047221fcf31c25c2e3" compoundref="_module_retinue_8cs" startline="300">CanAttack</references>
+        <references refid="class_module_retinue_1af72a896a6b14c9b746b35bb2bc038734" compoundref="_module_retinue_8cs" startline="163">M_RetinueAttack</references>
+        <references refid="class_module_retinue_1afca94af6f635cd9f1f176c768a22be71" compoundref="_module_retinue_8cs" startline="215">M_Weapon</references>
+        <referencedby refid="class_module_retinue_1ad0d23850821f8bcadc8e9748d1af565a" compoundref="_module_retinue_8cs" startline="371" endline="379">DragComponent_OnMouseUp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1ad0d23850821f8bcadc8e9748d1af565a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleRetinue.DragComponent_OnMouseUp</definition>
+        <argsstring>(BoardAreaTypes boardAreaType, List&lt; SlotAnchor &gt; slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)</argsstring>
+        <name>DragComponent_OnMouseUp</name>
+        <reimplements refid="class_module_base_1a94af5020595448dd0f7e3934d24555f8">DragComponent_OnMouseUp</reimplements>
+        <param>
+          <type><ref refid="_game_board_manager_8cs_1a56cda479f260abae515e9f05f314dc6d" kindref="member">BoardAreaTypes</ref></type>
+          <declname>boardAreaType</declname>
+        </param>
+        <param>
+          <type>List&lt; <ref refid="class_slot_anchor" kindref="compound">SlotAnchor</ref> &gt;</type>
+          <declname>slotAnchors</declname>
+        </param>
+        <param>
+          <type><ref refid="class_module_retinue" kindref="compound">ModuleRetinue</ref></type>
+          <declname>moduleRetinue</declname>
+        </param>
+        <param>
+          <type>Vector3</type>
+          <declname>dragLastPosition</declname>
+        </param>
+        <param>
+          <type>Vector3</type>
+          <declname>dragBeginPosition</declname>
+        </param>
+        <param>
+          <type>Quaternion</type>
+          <declname>dragBeginQuaternion</declname>
+        </param>
+        <briefdescription>
+<para>传达鼠标左键松开时的鼠标位置信息 </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>boardAreaType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>移动到了战场的哪个区域</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>slotAnchors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>移动到了哪个slot上</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>moduleRetinue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>移动到了哪个随从上</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dragLastPosition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>移动的最后位置</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dragBeginPosition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>移动的初始位置</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dragBeginQuaternion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>被拖动对象的初始旋转</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="371" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="371" bodyend="379"/>
+        <references refid="class_module_retinue_1aae798903c3fad26bde1b2f5b12e2efb0" compoundref="_module_retinue_8cs" startline="359" endline="369">AllModulesAttack</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a993ff79104fa77fef38b3ebfc6d43602" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override void</type>
+        <definition>override void ModuleRetinue.DragComponent_SetStates</definition>
+        <argsstring>(ref bool canDrag, ref bool hasTarget)</argsstring>
+        <name>DragComponent_SetStates</name>
+        <reimplements refid="class_module_base_1a48067d070eb5ff497e1515a4772f3d9c">DragComponent_SetStates</reimplements>
+        <param>
+          <type>ref bool</type>
+          <declname>canDrag</declname>
+        </param>
+        <param>
+          <type>ref bool</type>
+          <declname>hasTarget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="381" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="381" bodyend="385"/>
+        <references refid="class_module_retinue_1a985ef041dd432e047221fcf31c25c2e3" compoundref="_module_retinue_8cs" startline="300">CanAttack</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a804ff811af3ce50df6361ce587219611" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>override float</type>
+        <definition>override float ModuleRetinue.DragComponnet_DragDistance</definition>
+        <argsstring>()</argsstring>
+        <name>DragComponnet_DragDistance</name>
+        <reimplements refid="class_module_base_1a37a7381f59ad5f517ea8409101ea9955">DragComponnet_DragDistance</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="387" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="387" bodyend="390"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_module_retinue_1a5ca130f42fa20cb77c4b6fb26bdb159c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="29" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="29" bodyend="32"/>
+        <references refid="class_module_base_1a3004f9a15f9b561ac8a48a987afcbc20" compoundref="_module_base_8cs" startline="8">ModuleBase.gameObjectPool</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1ade8da5b753cef1ae21e346e0f765b19b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="34" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="34" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a017997b10c0e67cdbf9832c96cb29cbc" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="39" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="39" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a601e527ecd4e134a380abaecd5aeff49" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.On_WeaponDown</definition>
+        <argsstring>()</argsstring>
+        <name>On_WeaponDown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="233" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="233" bodyend="237"/>
+        <references refid="class_module_retinue_1af5658a1d319dfda47f6551eafb647970" compoundref="_module_retinue_8cs" startline="63">Block_RetinueAttack</references>
+        <references refid="class_module_retinue_1ae94cb4c7f2513d114727ee4e472f7163" compoundref="_module_retinue_8cs" startline="65">CardNumberSet_RetinueAttack</references>
+        <references refid="class_module_retinue_1a0c90a912c90e647fa6f91f0832234617" compoundref="_module_retinue_8cs" startline="64">GoNumberSet_RetinueAttack</references>
+        <references refid="class_module_base_1abbc0d3888d87723f6ece08491cfb7c75" compoundref="_module_base_8cs" startline="47" endline="60">ModuleBase.initiateNumbers</references>
+        <references refid="class_module_retinue_1af72a896a6b14c9b746b35bb2bc038734" compoundref="_module_retinue_8cs" startline="163">M_RetinueAttack</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a0fdbd5664627798625d7f403a6b45c54" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.On_WeaponEquiped</definition>
+        <argsstring>()</argsstring>
+        <name>On_WeaponEquiped</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="239" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="239" bodyend="243"/>
+        <references refid="class_module_retinue_1af5658a1d319dfda47f6551eafb647970" compoundref="_module_retinue_8cs" startline="63">Block_RetinueAttack</references>
+        <references refid="class_module_retinue_1ae94cb4c7f2513d114727ee4e472f7163" compoundref="_module_retinue_8cs" startline="65">CardNumberSet_RetinueAttack</references>
+        <references refid="class_module_retinue_1a0c90a912c90e647fa6f91f0832234617" compoundref="_module_retinue_8cs" startline="64">GoNumberSet_RetinueAttack</references>
+        <references refid="class_module_base_1abbc0d3888d87723f6ece08491cfb7c75" compoundref="_module_base_8cs" startline="47" endline="60">ModuleBase.initiateNumbers</references>
+        <references refid="class_module_retinue_1af72a896a6b14c9b746b35bb2bc038734" compoundref="_module_retinue_8cs" startline="163">M_RetinueAttack</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a0bd342e7cd050e0613ef613da2ce007a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.On_WeaponChanged</definition>
+        <argsstring>()</argsstring>
+        <name>On_WeaponChanged</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="245" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="245" bodyend="249"/>
+        <references refid="class_module_retinue_1af5658a1d319dfda47f6551eafb647970" compoundref="_module_retinue_8cs" startline="63">Block_RetinueAttack</references>
+        <references refid="class_module_base_1aaa3e4f9bee8e64b69641eb0118047f44" compoundref="_module_base_8cs" startline="33">ModuleBase.CardInfo</references>
+        <references refid="class_module_retinue_1ae94cb4c7f2513d114727ee4e472f7163" compoundref="_module_retinue_8cs" startline="65">CardNumberSet_RetinueAttack</references>
+        <references refid="class_module_retinue_1a0c90a912c90e647fa6f91f0832234617" compoundref="_module_retinue_8cs" startline="64">GoNumberSet_RetinueAttack</references>
+        <references refid="class_module_base_1abbc0d3888d87723f6ece08491cfb7c75" compoundref="_module_base_8cs" startline="47" endline="60">ModuleBase.initiateNumbers</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.On_ShieldDown</definition>
+        <argsstring>()</argsstring>
+        <name>On_ShieldDown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="270" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="270" bodyend="276"/>
+        <references refid="class_module_retinue_1a2e1c9b5454c4f61ad4f2a7e83fa10c8b" compoundref="_module_retinue_8cs" startline="71">Block_RetinueArmor</references>
+        <references refid="class_module_retinue_1a33523a63f5ccce3eab42c1c4f6a2c19c" compoundref="_module_retinue_8cs" startline="67">Block_RetinueShield</references>
+        <references refid="class_module_retinue_1a305a32a571d5c7fe4fe6e3d70c9b0cdc" compoundref="_module_retinue_8cs" startline="73">CardNumberSet_RetinueArmor</references>
+        <references refid="class_module_retinue_1adfd881245883e70d04079a924c3e6458" compoundref="_module_retinue_8cs" startline="69">CardNumberSet_RetinueShield</references>
+        <references refid="class_module_retinue_1a2f09a21202b105c918d70cd03f79013d" compoundref="_module_retinue_8cs" startline="72">GoNumberSet_RetinueArmor</references>
+        <references refid="class_module_retinue_1a43fca22ea4fd4a5a7e5a7767481fa1e1" compoundref="_module_retinue_8cs" startline="68">GoNumberSet_RetinueShield</references>
+        <references refid="class_module_base_1abbc0d3888d87723f6ece08491cfb7c75" compoundref="_module_base_8cs" startline="47" endline="60">ModuleBase.initiateNumbers</references>
+        <references refid="class_module_retinue_1ac0b699d92ea68084a424b9893b155c76" compoundref="_module_retinue_8cs" startline="179">M_RetinueArmor</references>
+        <references refid="class_module_retinue_1aa36083072f9c0e0737d41fdd7dabb00b" compoundref="_module_retinue_8cs" startline="195">M_RetinueShield</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.On_ShieldEquiped</definition>
+        <argsstring>()</argsstring>
+        <name>On_ShieldEquiped</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="278" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="278" bodyend="284"/>
+        <references refid="class_module_retinue_1a2e1c9b5454c4f61ad4f2a7e83fa10c8b" compoundref="_module_retinue_8cs" startline="71">Block_RetinueArmor</references>
+        <references refid="class_module_retinue_1a33523a63f5ccce3eab42c1c4f6a2c19c" compoundref="_module_retinue_8cs" startline="67">Block_RetinueShield</references>
+        <references refid="class_module_retinue_1a305a32a571d5c7fe4fe6e3d70c9b0cdc" compoundref="_module_retinue_8cs" startline="73">CardNumberSet_RetinueArmor</references>
+        <references refid="class_module_retinue_1adfd881245883e70d04079a924c3e6458" compoundref="_module_retinue_8cs" startline="69">CardNumberSet_RetinueShield</references>
+        <references refid="class_module_retinue_1a2f09a21202b105c918d70cd03f79013d" compoundref="_module_retinue_8cs" startline="72">GoNumberSet_RetinueArmor</references>
+        <references refid="class_module_retinue_1a43fca22ea4fd4a5a7e5a7767481fa1e1" compoundref="_module_retinue_8cs" startline="68">GoNumberSet_RetinueShield</references>
+        <references refid="class_module_base_1abbc0d3888d87723f6ece08491cfb7c75" compoundref="_module_base_8cs" startline="47" endline="60">ModuleBase.initiateNumbers</references>
+        <references refid="class_module_retinue_1ac0b699d92ea68084a424b9893b155c76" compoundref="_module_retinue_8cs" startline="179">M_RetinueArmor</references>
+        <references refid="class_module_retinue_1aa36083072f9c0e0737d41fdd7dabb00b" compoundref="_module_retinue_8cs" startline="195">M_RetinueShield</references>
+      </memberdef>
+      <memberdef kind="function" id="class_module_retinue_1a6d419c7c8497290b2777d787ef0a1ac8" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ModuleRetinue.On_ShieldChanged</definition>
+        <argsstring>()</argsstring>
+        <name>On_ShieldChanged</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="286" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="286" bodyend="292"/>
+        <references refid="class_module_retinue_1a2e1c9b5454c4f61ad4f2a7e83fa10c8b" compoundref="_module_retinue_8cs" startline="71">Block_RetinueArmor</references>
+        <references refid="class_module_retinue_1a33523a63f5ccce3eab42c1c4f6a2c19c" compoundref="_module_retinue_8cs" startline="67">Block_RetinueShield</references>
+        <references refid="class_module_base_1aaa3e4f9bee8e64b69641eb0118047f44" compoundref="_module_base_8cs" startline="33">ModuleBase.CardInfo</references>
+        <references refid="class_module_retinue_1a305a32a571d5c7fe4fe6e3d70c9b0cdc" compoundref="_module_retinue_8cs" startline="73">CardNumberSet_RetinueArmor</references>
+        <references refid="class_module_retinue_1adfd881245883e70d04079a924c3e6458" compoundref="_module_retinue_8cs" startline="69">CardNumberSet_RetinueShield</references>
+        <references refid="class_module_retinue_1a2f09a21202b105c918d70cd03f79013d" compoundref="_module_retinue_8cs" startline="72">GoNumberSet_RetinueArmor</references>
+        <references refid="class_module_retinue_1a43fca22ea4fd4a5a7e5a7767481fa1e1" compoundref="_module_retinue_8cs" startline="68">GoNumberSet_RetinueShield</references>
+        <references refid="class_module_base_1abbc0d3888d87723f6ece08491cfb7c75" compoundref="_module_base_8cs" startline="47" endline="60">ModuleBase.initiateNumbers</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="332">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="333">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="334">
+        <label>IMouseHoverComponent</label>
+        <link refid="interface_i_mouse_hover_component"/>
+      </node>
+      <node id="331">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="330">
+        <label>ModuleBase</label>
+        <link refid="class_module_base"/>
+        <childnode refid="331" relation="public-inheritance">
+        </childnode>
+        <childnode refid="332" relation="public-inheritance">
+        </childnode>
+        <childnode refid="333" relation="public-inheritance">
+        </childnode>
+        <childnode refid="334" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="329">
+        <label>ModuleRetinue</label>
+        <link refid="class_module_retinue"/>
+        <childnode refid="330" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="342">
+        <label>CardInfo_Base</label>
+        <link refid="class_card_info___base"/>
+      </node>
+      <node id="355">
+        <label>SlotAnchor</label>
+        <link refid="class_slot_anchor"/>
+        <childnode refid="337" relation="public-inheritance">
+        </childnode>
+        <childnode refid="340" relation="public-inheritance">
+        </childnode>
+        <childnode refid="335" relation="usage">
+          <edgelabel>M_ModuleRetinue</edgelabel>
+        </childnode>
+        <childnode refid="343" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="347">
+        <label>CardNumber</label>
+        <link refid="class_card_number"/>
+        <childnode refid="337" relation="public-inheritance">
+        </childnode>
+        <childnode refid="338" relation="public-inheritance">
+        </childnode>
+        <childnode refid="341" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+      </node>
+      <node id="354">
+        <label>ModuleShield</label>
+        <link refid="class_module_shield"/>
+        <childnode refid="336" relation="public-inheritance">
+        </childnode>
+        <childnode refid="346" relation="usage">
+          <edgelabel>CardNumberSet_ShieldShieldMax</edgelabel>
+          <edgelabel>my_TextAlign_Armor</edgelabel>
+          <edgelabel>my_TextAlign_Shield</edgelabel>
+          <edgelabel>my_TextAlign_ShieldMax</edgelabel>
+          <edgelabel>CardNumberSet_ShieldArmorMax</edgelabel>
+          <edgelabel>my_TextAlign_ArmorMax</edgelabel>
+          <edgelabel>CardNumberSet_ShieldShield</edgelabel>
+          <edgelabel>CardNumberSet_ShieldArmor</edgelabel>
+        </childnode>
+        <childnode refid="335" relation="usage">
+          <edgelabel>M_ModuleRetinue</edgelabel>
+        </childnode>
+      </node>
+      <node id="338">
+        <label>IGameObjectPool</label>
+        <link refid="interface_i_game_object_pool"/>
+      </node>
+      <node id="341">
+        <label>GameObjectPool</label>
+        <link refid="class_game_object_pool"/>
+        <childnode refid="337" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="349">
+        <label>BattleGroundManager</label>
+        <link refid="class_battle_ground_manager"/>
+        <childnode refid="337" relation="public-inheritance">
+        </childnode>
+        <childnode refid="343" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="346">
+        <label>CardNumberSet</label>
+        <link refid="class_card_number_set"/>
+        <childnode refid="337" relation="public-inheritance">
+        </childnode>
+        <childnode refid="338" relation="public-inheritance">
+        </childnode>
+        <childnode refid="341" relation="usage">
+          <edgelabel>childrenPool</edgelabel>
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="347" relation="usage">
+          <edgelabel>cardNumbers</edgelabel>
+        </childnode>
+      </node>
+      <node id="339">
+        <label>IDragComponent</label>
+        <link refid="interface_i_drag_component"/>
+      </node>
+      <node id="352">
+        <label>CardDeck</label>
+        <link refid="class_card_deck"/>
+        <childnode refid="351" relation="usage">
+          <edgelabel>M_CardDeckInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="344">
+        <label>HandManager</label>
+        <link refid="class_hand_manager"/>
+        <childnode refid="337" relation="public-inheritance">
+        </childnode>
+        <childnode refid="343" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="345" relation="usage">
+          <edgelabel>currentFocusCard</edgelabel>
+        </childnode>
+      </node>
+      <node id="340">
+        <label>IMouseHoverComponent</label>
+        <link refid="interface_i_mouse_hover_component"/>
+      </node>
+      <node id="345">
+        <label>Card</label>
+        <link refid="class_card"/>
+        <childnode refid="337" relation="public-inheritance">
+        </childnode>
+        <childnode refid="338" relation="public-inheritance">
+        </childnode>
+        <childnode refid="339" relation="public-inheritance">
+        </childnode>
+        <childnode refid="341" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="346" relation="usage">
+          <edgelabel>CardNumberSet_Cost</edgelabel>
+        </childnode>
+        <childnode refid="342" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+        </childnode>
+        <childnode refid="348" relation="usage">
+          <edgelabel>myColliderReplace</edgelabel>
+        </childnode>
+        <childnode refid="343" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="337">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="336">
+        <label>ModuleBase</label>
+        <link refid="class_module_base"/>
+        <childnode refid="337" relation="public-inheritance">
+        </childnode>
+        <childnode refid="338" relation="public-inheritance">
+        </childnode>
+        <childnode refid="339" relation="public-inheritance">
+        </childnode>
+        <childnode refid="340" relation="public-inheritance">
+        </childnode>
+        <childnode refid="341" relation="usage">
+          <edgelabel>gameObjectPool</edgelabel>
+        </childnode>
+        <childnode refid="342" relation="usage">
+          <edgelabel>CardInfo</edgelabel>
+          <edgelabel>ModuleCurrentCardInfo</edgelabel>
+        </childnode>
+        <childnode refid="343" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+        <childnode refid="345" relation="usage">
+          <edgelabel>detailCard</edgelabel>
+          <edgelabel>detailCard_Weapon</edgelabel>
+          <edgelabel>detailCard_Shield</edgelabel>
+          <edgelabel>detailCard_Pack</edgelabel>
+          <edgelabel>detailCard_MA</edgelabel>
+        </childnode>
+      </node>
+      <node id="343">
+        <label>Player</label>
+        <link refid="class_player"/>
+        <childnode refid="344" relation="usage">
+          <edgelabel>MyHandManager</edgelabel>
+        </childnode>
+        <childnode refid="349" relation="usage">
+          <edgelabel>MyBattleGroundManager</edgelabel>
+        </childnode>
+        <childnode refid="350" relation="usage">
+          <edgelabel>MyCardDeckManager</edgelabel>
+        </childnode>
+      </node>
+      <node id="351">
+        <label>CardDeckInfo</label>
+        <link refid="struct_card_deck_info"/>
+      </node>
+      <node id="335">
+        <label>ModuleRetinue</label>
+        <link refid="class_module_retinue"/>
+        <childnode refid="336" relation="public-inheritance">
+        </childnode>
+        <childnode refid="353" relation="usage">
+          <edgelabel>m_Weapon</edgelabel>
+        </childnode>
+        <childnode refid="354" relation="usage">
+          <edgelabel>M_MA</edgelabel>
+          <edgelabel>M_Pack</edgelabel>
+          <edgelabel>m_Shield</edgelabel>
+        </childnode>
+        <childnode refid="346" relation="usage">
+          <edgelabel>CardNumberSet_RetinueLeftLife</edgelabel>
+          <edgelabel>CardNumberSet_RetinueAttack</edgelabel>
+          <edgelabel>CardNumberSet_RetinueArmor</edgelabel>
+          <edgelabel>CardNumberSet_RetinueShield</edgelabel>
+          <edgelabel>CardNumberSet_RetinueTotalLife</edgelabel>
+        </childnode>
+        <childnode refid="355" relation="usage">
+          <edgelabel>SlotAnchor1</edgelabel>
+          <edgelabel>SlotAnchor2</edgelabel>
+          <edgelabel>SlotAnchor3</edgelabel>
+          <edgelabel>SlotAnchor4</edgelabel>
+        </childnode>
+      </node>
+      <node id="353">
+        <label>ModuleWeapon</label>
+        <link refid="class_module_weapon"/>
+        <childnode refid="336" relation="public-inheritance">
+        </childnode>
+        <childnode refid="346" relation="usage">
+          <edgelabel>CardNumberSet_WeaponAttack</edgelabel>
+          <edgelabel>my_TextAlign_Energy</edgelabel>
+          <edgelabel>my_TextAlign_Attack</edgelabel>
+          <edgelabel>CardNumberSet_WeaponEnergy</edgelabel>
+        </childnode>
+        <childnode refid="335" relation="usage">
+          <edgelabel>M_ModuleRetinue</edgelabel>
+        </childnode>
+      </node>
+      <node id="350">
+        <label>CardDeckManager</label>
+        <link refid="class_card_deck_manager"/>
+        <childnode refid="337" relation="public-inheritance">
+        </childnode>
+        <childnode refid="351" relation="usage">
+          <edgelabel>M_UnlockCards</edgelabel>
+          <edgelabel>M_LockCards</edgelabel>
+        </childnode>
+        <childnode refid="352" relation="usage">
+          <edgelabel>M_CurrentCardDeck</edgelabel>
+        </childnode>
+        <childnode refid="343" relation="usage">
+          <edgelabel>Player</edgelabel>
+        </childnode>
+      </node>
+      <node id="348">
+        <label>ColliderReplace</label>
+        <link refid="class_collider_replace"/>
+        <childnode refid="337" relation="public-inheritance">
+        </childnode>
+        <childnode refid="345" relation="usage">
+          <edgelabel>MyCallerCard</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" line="5" column="1" bodyfile="F:/CardGame Framework-20180625R1/CardGame Framework/CardGame Framework/Assets/Scripts/Card/Modules/ModuleRetinue.cs" bodystart="5" bodyend="394"/>
+    <listofallmembers>
+      <member refid="class_module_retinue_1aae798903c3fad26bde1b2f5b12e2efb0" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>AllModulesAttack</name></member>
+      <member refid="class_module_retinue_1a5ca130f42fa20cb77c4b6fb26bdb159c" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>Awake</name></member>
+      <member refid="class_module_retinue_1aa312a0bc018873e49ab3ce7f2db51157" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>BeAttacked</name></member>
+      <member refid="class_module_retinue_1a2e1c9b5454c4f61ad4f2a7e83fa10c8b" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>Block_RetinueArmor</name></member>
+      <member refid="class_module_retinue_1af5658a1d319dfda47f6551eafb647970" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>Block_RetinueAttack</name></member>
+      <member refid="class_module_retinue_1a385874c1d40682ab08d45465ff8f9581" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>Block_RetinueLeftLife</name></member>
+      <member refid="class_module_retinue_1a33523a63f5ccce3eab42c1c4f6a2c19c" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>Block_RetinueShield</name></member>
+      <member refid="class_module_retinue_1a9d1859c8b13a6c9ad848b019c21b25bd" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>Block_RetinueTotalLife</name></member>
+      <member refid="class_module_retinue_1a985ef041dd432e047221fcf31c25c2e3" prot="package" virt="non-virtual"><scope>ModuleRetinue</scope><name>CanAttack</name></member>
+      <member refid="class_module_base_1aaa3e4f9bee8e64b69641eb0118047f44" prot="package" virt="non-virtual"><scope>ModuleRetinue</scope><name>CardInfo</name></member>
+      <member refid="class_module_retinue_1a305a32a571d5c7fe4fe6e3d70c9b0cdc" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>CardNumberSet_RetinueArmor</name></member>
+      <member refid="class_module_retinue_1ae94cb4c7f2513d114727ee4e472f7163" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>CardNumberSet_RetinueAttack</name></member>
+      <member refid="class_module_retinue_1a2203443ce66331105680f79aa56ed2b3" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>CardNumberSet_RetinueLeftLife</name></member>
+      <member refid="class_module_retinue_1adfd881245883e70d04079a924c3e6458" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>CardNumberSet_RetinueShield</name></member>
+      <member refid="class_module_retinue_1a4165ccc02e9924a60462f4cfb5584fdb" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>CardNumberSet_RetinueTotalLife</name></member>
+      <member refid="class_module_base_1a52a38671fc2d0027c926d9fbe1ea2383" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>DragComponent_OnMouseDown</name></member>
+      <member refid="class_module_base_1a8fa7d35e030b5d3d63ff982ec3cb1d45" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>DragComponent_OnMousePressed</name></member>
+      <member refid="class_module_retinue_1ad0d23850821f8bcadc8e9748d1af565a" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>DragComponent_OnMouseUp</name></member>
+      <member refid="class_module_base_1aef9d3599dd224b958894bba73defb41a" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>DragComponent_SetHasTarget</name></member>
+      <member refid="class_module_retinue_1a993ff79104fa77fef38b3ebfc6d43602" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>DragComponent_SetStates</name></member>
+      <member refid="class_module_retinue_1a804ff811af3ce50df6361ce587219611" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>DragComponnet_DragDistance</name></member>
+      <member refid="class_module_base_1a0f24beae98301ab4675af59f358c9a11" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>DragComponnet_DragOutEffects</name></member>
+      <member refid="class_module_base_1a3004f9a15f9b561ac8a48a987afcbc20" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>gameObjectPool</name></member>
+      <member refid="class_module_retinue_1a74bfcbc9e725d64df022b3ef08f349ea" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>GetCurrentCardInfo</name></member>
+      <member refid="class_module_retinue_1a2f09a21202b105c918d70cd03f79013d" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>GoNumberSet_RetinueArmor</name></member>
+      <member refid="class_module_retinue_1a0c90a912c90e647fa6f91f0832234617" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>GoNumberSet_RetinueAttack</name></member>
+      <member refid="class_module_retinue_1a727cb1aa7273b468212a0c6e451aff30" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>GoNumberSet_RetinueLeftLife</name></member>
+      <member refid="class_module_retinue_1a43fca22ea4fd4a5a7e5a7767481fa1e1" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>GoNumberSet_RetinueShield</name></member>
+      <member refid="class_module_retinue_1a256caf2bc6846307cbb64133da4e9fac" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>GoNumberSet_RetinueTotalLife</name></member>
+      <member refid="class_module_retinue_1a24d9f8ca2ef1472464d71d0c107adc4c" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>Initiate</name></member>
+      <member refid="class_module_base_1abbc0d3888d87723f6ece08491cfb7c75" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>initiateNumbers</name></member>
+      <member refid="class_module_base_1a234ccfa1e275e4d2f4cc1bcafb3e06f8" prot="protected" virt="non-virtual"><scope>ModuleRetinue</scope><name>initiateNumbers</name></member>
+      <member refid="class_module_retinue_1ad49db30e479ab1724f5d3b0151481376" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_MA</name></member>
+      <member refid="class_module_retinue_1afa7d0a72444ab6a8ca124b399f632861" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_Pack</name></member>
+      <member refid="class_module_retinue_1ae9409eebf934353865a2ae0a1d6e87ec" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>m_RetinueArmor</name></member>
+      <member refid="class_module_retinue_1ac0b699d92ea68084a424b9893b155c76" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_RetinueArmor</name></member>
+      <member refid="class_module_retinue_1af72a896a6b14c9b746b35bb2bc038734" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_RetinueAttack</name></member>
+      <member refid="class_module_retinue_1a780c57012895bcdc8435a574774df66c" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>m_RetinueAttack</name></member>
+      <member refid="class_module_retinue_1a6af43de0c8e5bedb9c6c60aa5c0e5654" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>m_RetinueDesc</name></member>
+      <member refid="class_module_retinue_1ad496ff68838433705cabb6438e57c1f2" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_RetinueDesc</name></member>
+      <member refid="class_module_retinue_1a55d8af8d9ad3a857fa6f487622b56bd5" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>m_RetinueLeftLife</name></member>
+      <member refid="class_module_retinue_1a2ad898b115be15e56061360cdf4e2791" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_RetinueLeftLife</name></member>
+      <member refid="class_module_retinue_1a370228b479672b99ea8371f41c5d9391" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>m_RetinueName</name></member>
+      <member refid="class_module_retinue_1a33c2c01fb725097d6882c6812ae5d04a" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_RetinueName</name></member>
+      <member refid="class_module_retinue_1afdb095e7523c31c12fabfa9899395aad" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>m_RetinueShield</name></member>
+      <member refid="class_module_retinue_1aa36083072f9c0e0737d41fdd7dabb00b" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_RetinueShield</name></member>
+      <member refid="class_module_retinue_1a0987dd910a859a3a1f7aa6c1ece37ef7" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>m_RetinueTotalLife</name></member>
+      <member refid="class_module_retinue_1aedbbbe0571edfdf9204d6c1f16548a2d" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_RetinueTotalLife</name></member>
+      <member refid="class_module_retinue_1a156ed24b12370fbcd3b83e1bb399f66a" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_Shield</name></member>
+      <member refid="class_module_retinue_1a487647f0ada945107dd142af2f1f1ad1" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>m_Shield</name></member>
+      <member refid="class_module_retinue_1a56c5ac403570239adb7e1110a723d236" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>m_Weapon</name></member>
+      <member refid="class_module_retinue_1afca94af6f635cd9f1f176c768a22be71" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>M_Weapon</name></member>
+      <member refid="class_module_base_1a6ad7ab92a84787e2e715cf4bde0fb56b" prot="package" virt="non-virtual"><scope>ModuleRetinue</scope><name>ModuleCurrentCardInfo</name></member>
+      <member refid="class_module_base_1a448cc64590b4c0e2d4d185e860467893" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>MouseHoverComponent_OnMouseDragEnterImmediately</name></member>
+      <member refid="class_module_base_1a08574bcc1d369968bd45502d69c67a07" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>MouseHoverComponent_OnMouseDragLeaveImmediately</name></member>
+      <member refid="class_module_base_1a2ef05ce5ea386adefa93fb0ec94dc078" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>MouseHoverComponent_OnMouseEnter</name></member>
+      <member refid="class_module_base_1ab4144de08615cecdf7c0ad9c383f7b1e" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>MouseHoverComponent_OnMouseEnterImmediately</name></member>
+      <member refid="class_module_base_1a78a8d6863f120ad960db75fb26c44813" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>MouseHoverComponent_OnMouseLeave</name></member>
+      <member refid="class_module_base_1ae22763e44c441726038c6c43e6e70851" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>MouseHoverComponent_OnMouseLeaveImmediately</name></member>
+      <member refid="class_module_base_1a44f0bdf95b974c5a12cd77fd15dad5cc" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>MouseHoverComponent_OnMouseOver</name></member>
+      <member refid="class_module_retinue_1a6d419c7c8497290b2777d787ef0a1ac8" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>On_ShieldChanged</name></member>
+      <member refid="class_module_retinue_1a5edf734fcbc11873641a22b29359f5aa" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>On_ShieldDown</name></member>
+      <member refid="class_module_retinue_1aca92e98fc9f510cce24877ddb53a22c9" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>On_ShieldEquiped</name></member>
+      <member refid="class_module_retinue_1a0bd342e7cd050e0613ef613da2ce007a" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>On_WeaponChanged</name></member>
+      <member refid="class_module_retinue_1a601e527ecd4e134a380abaecd5aeff49" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>On_WeaponDown</name></member>
+      <member refid="class_module_retinue_1a0fdbd5664627798625d7f403a6b45c54" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>On_WeaponEquiped</name></member>
+      <member refid="class_module_retinue_1a99ea71951e166ff5eed8d466c2431213" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>OnBeginRound</name></member>
+      <member refid="class_module_retinue_1ad356e6dd6a603ea9248839ee4d85eba2" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>OnEndRound</name></member>
+      <member refid="class_module_retinue_1aa9475f71d34ee6b8a1a95165f3bb69c4" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>PictureBoxRenderer</name></member>
+      <member refid="class_module_base_1a15ba002aefd9cfabe243465ccff29f61" prot="package" virt="non-virtual"><scope>ModuleRetinue</scope><name>Player</name></member>
+      <member refid="class_module_retinue_1a8eacdf70826b0ecc961cff72a24f2874" prot="public" virt="virtual"><scope>ModuleRetinue</scope><name>PoolRecycle</name></member>
+      <member refid="class_module_retinue_1ad70a2374fbf54dd79030cd59b0a53c79" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>SlotAnchor1</name></member>
+      <member refid="class_module_retinue_1ae160637812905f4c3d0581e3800cf308" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>SlotAnchor2</name></member>
+      <member refid="class_module_retinue_1a2f9e5a4f92465eaffe39b2877a20be72" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>SlotAnchor3</name></member>
+      <member refid="class_module_retinue_1a9d8a7b4cf0752c1493e1018f727ebf98" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>SlotAnchor4</name></member>
+      <member refid="class_module_retinue_1ade8da5b753cef1ae21e346e0f765b19b" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>Start</name></member>
+      <member refid="class_module_retinue_1af1f091b1f77c71411f9e5f0ee8ba87c7" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>TextMesh_RetinueDesc</name></member>
+      <member refid="class_module_retinue_1a5b44b818e6f5ba88e89e4165d7bce2bb" prot="public" virt="non-virtual"><scope>ModuleRetinue</scope><name>TextMesh_RetinueName</name></member>
+      <member refid="class_module_retinue_1a017997b10c0e67cdbf9832c96cb29cbc" prot="private" virt="non-virtual"><scope>ModuleRetinue</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
