@@ -216,7 +216,12 @@ public class ModuleShield : ModuleBase
                 M_ShieldArmor = 0;
             }
         }
-        if (M_ShieldShield == 0 && M_ShieldArmor == 0) PoolRecycle();
+
+        if (M_ShieldShield == 0 && M_ShieldArmor == 0)
+        {
+            M_ModuleRetinue.M_Shield = null;
+            PoolRecycle();
+        }
         return remainAttackValue;
     }
 

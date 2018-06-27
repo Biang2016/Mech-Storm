@@ -2,23 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModuleRetinue : ModuleBase {
-
+public class ModuleRetinue : ModuleBase
+{
     public override void PoolRecycle()
     {
-        if (M_Weapon) {
+        if (M_Weapon)
+        {
             M_Weapon.PoolRecycle();
             M_Weapon = null;
         }
-        if (M_Shield) {
+
+        if (M_Shield)
+        {
             M_Shield.PoolRecycle();
             M_Shield = null;
         }
-        if (M_Pack) {
+
+        if (M_Pack)
+        {
             M_Pack.PoolRecycle();
             M_Pack = null;
         }
-        if (M_MA) {
+
+        if (M_MA)
+        {
             M_MA.PoolRecycle();
             M_MA = null;
         }
@@ -33,12 +40,10 @@ public class ModuleRetinue : ModuleBase {
 
     void Start()
     {
-
     }
 
     void Update()
     {
-
     }
 
     #region 各模块
@@ -46,6 +51,7 @@ public class ModuleRetinue : ModuleBase {
     public TextMesh TextMesh_RetinueName;
 
     public TextMesh TextMesh_RetinueDesc;
+    public GameObject CardBloom;
 
     public SlotAnchor SlotAnchor1;
     public SlotAnchor SlotAnchor2;
@@ -72,36 +78,40 @@ public class ModuleRetinue : ModuleBase {
     protected GameObject GoNumberSet_RetinueArmor;
     protected CardNumberSet CardNumberSet_RetinueArmor;
 
-    public Renderer PictureBoxRenderer;//图片框
+    public Renderer PictureBoxRenderer; //图片框
 
     public override void Initiate(CardInfo_Base cardInfo, Player player)
     {
         base.Initiate(cardInfo, player);
-        M_RetinueName = ((CardInfo_Retinue)cardInfo).CardName;
-        M_RetinueDesc = ((CardInfo_Retinue)cardInfo).CardDesc;
-        M_RetinueLeftLife = ((CardInfo_Retinue)cardInfo).Life;
-        M_RetinueTotalLife = ((CardInfo_Retinue)cardInfo).Life;
-        M_RetinueAttack = ((CardInfo_Retinue)cardInfo).BasicAttack;
-        M_RetinueArmor = ((CardInfo_Retinue)cardInfo).BasicArmor;
-        M_RetinueShield = ((CardInfo_Retinue)cardInfo).BasicShield;
+        M_RetinueName = ((CardInfo_Retinue) cardInfo).CardName;
+        M_RetinueDesc = ((CardInfo_Retinue) cardInfo).CardDesc;
+        M_RetinueLeftLife = ((CardInfo_Retinue) cardInfo).Life;
+        M_RetinueTotalLife = ((CardInfo_Retinue) cardInfo).Life;
+        M_RetinueAttack = ((CardInfo_Retinue) cardInfo).BasicAttack;
+        M_RetinueArmor = ((CardInfo_Retinue) cardInfo).BasicArmor;
+        M_RetinueShield = ((CardInfo_Retinue) cardInfo).BasicShield;
         CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
 
-        if (SlotAnchor1) {
+        if (SlotAnchor1)
+        {
             SlotAnchor1.Player = Player;
             SlotAnchor1.M_ModuleRetinue = this;
         }
 
-        if (SlotAnchor2) {
+        if (SlotAnchor2)
+        {
             SlotAnchor2.Player = Player;
             SlotAnchor2.M_ModuleRetinue = this;
         }
 
-        if (SlotAnchor3) {
+        if (SlotAnchor3)
+        {
             SlotAnchor3.Player = Player;
             SlotAnchor3.M_ModuleRetinue = this;
         }
 
-        if (SlotAnchor4) {
+        if (SlotAnchor4)
+        {
             SlotAnchor4.Player = Player;
             SlotAnchor4.M_ModuleRetinue = this;
         }
@@ -114,33 +124,36 @@ public class ModuleRetinue : ModuleBase {
     }
 
     private string m_RetinueName;
-    public string M_RetinueName {
-        get {
-            return m_RetinueName;
-        }
-        set {
+
+    public string M_RetinueName
+    {
+        get { return m_RetinueName; }
+        set
+        {
             m_RetinueName = value;
             TextMesh_RetinueName.text = value;
         }
     }
 
     private string m_RetinueDesc;
-    public string M_RetinueDesc {
-        get {
-            return m_RetinueDesc;
-        }
-        set {
+
+    public string M_RetinueDesc
+    {
+        get { return m_RetinueDesc; }
+        set
+        {
             m_RetinueDesc = value;
             TextMesh_RetinueDesc.text = value;
         }
     }
 
     private int m_RetinueLeftLife;
-    public int M_RetinueLeftLife {
-        get {
-            return m_RetinueLeftLife;
-        }
-        set {
+
+    public int M_RetinueLeftLife
+    {
+        get { return m_RetinueLeftLife; }
+        set
+        {
             m_RetinueLeftLife = value;
             initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
             CardNumberSet_RetinueLeftLife.Number = m_RetinueLeftLife;
@@ -148,11 +161,12 @@ public class ModuleRetinue : ModuleBase {
     }
 
     private int m_RetinueTotalLife;
-    public int M_RetinueTotalLife {
-        get {
-            return m_RetinueTotalLife;
-        }
-        set {
+
+    public int M_RetinueTotalLife
+    {
+        get { return m_RetinueTotalLife; }
+        set
+        {
             m_RetinueTotalLife = value;
             initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife, '/');
             CardNumberSet_RetinueTotalLife.Number = m_RetinueTotalLife;
@@ -160,49 +174,64 @@ public class ModuleRetinue : ModuleBase {
     }
 
     private int m_RetinueAttack;
-    public int M_RetinueAttack {
-        get {
-            return m_RetinueAttack;
-        }
-        set {
+
+    public int M_RetinueAttack
+    {
+        get { return m_RetinueAttack; }
+        set
+        {
             m_RetinueAttack = value;
-            if (!M_Weapon) {
+            if (!M_Weapon)
+            {
                 initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack);
-            } else {
+            }
+            else
+            {
                 initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack, '+');
             }
+
             CardNumberSet_RetinueAttack.Number = m_RetinueAttack;
         }
     }
 
     private int m_RetinueArmor;
-    public int M_RetinueArmor {
-        get {
-            return m_RetinueArmor;
-        }
-        set {
+
+    public int M_RetinueArmor
+    {
+        get { return m_RetinueArmor; }
+        set
+        {
             m_RetinueArmor = value;
-            if (!M_Shield) {
+            if (!M_Shield)
+            {
                 initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueArmor);
-            } else {
+            }
+            else
+            {
                 initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueArmor, '+');
             }
+
             CardNumberSet_RetinueArmor.Number = m_RetinueArmor;
         }
     }
 
     private int m_RetinueShield;
-    public int M_RetinueShield {
-        get {
-            return m_RetinueShield;
-        }
-        set {
+
+    public int M_RetinueShield
+    {
+        get { return m_RetinueShield; }
+        set
+        {
             m_RetinueShield = value;
-            if (!M_Shield) {
+            if (!M_Shield)
+            {
                 initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueShield);
-            } else {
+            }
+            else
+            {
                 initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueShield, '+');
             }
+
             CardNumberSet_RetinueShield.Number = m_RetinueShield;
         }
     }
@@ -212,20 +241,27 @@ public class ModuleRetinue : ModuleBase {
     #region 拼装上的模块
 
     private ModuleWeapon m_Weapon;
-    public ModuleWeapon M_Weapon {
-        get {
-            return m_Weapon;
-        }
-        set {
-            if (m_Weapon && !value) {
+
+    public ModuleWeapon M_Weapon
+    {
+        get { return m_Weapon; }
+        set
+        {
+            if (m_Weapon && !value)
+            {
                 On_WeaponDown();
             }
-            if (!m_Weapon && value) {
+
+            if (!m_Weapon && value)
+            {
                 On_WeaponEquiped();
             }
-            if(!m_Weapon&&m_Weapon!= value) {
+
+            if (!m_Weapon && m_Weapon != value)
+            {
                 On_WeaponChanged();
             }
+
             m_Weapon = value;
         }
     }
@@ -242,27 +278,34 @@ public class ModuleRetinue : ModuleBase {
         CardNumberSet_RetinueAttack.Number = M_RetinueAttack;
     }
 
-    void On_WeaponChanged()//更换武器时机体基础攻击力恢复
+    void On_WeaponChanged() //更换武器时机体基础攻击力恢复
     {
         initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack, '+');
-        CardNumberSet_RetinueAttack.Number = ((CardInfo_Retinue)CardInfo).BasicAttack;
+        CardNumberSet_RetinueAttack.Number = ((CardInfo_Retinue) CardInfo).BasicAttack;
     }
 
     private ModuleShield m_Shield;
-    public ModuleShield M_Shield {
-        get {
-            return m_Shield;
-        }
-        set {
-            if (m_Shield && !value) {
+
+    public ModuleShield M_Shield
+    {
+        get { return m_Shield; }
+        set
+        {
+            if (m_Shield && !value)
+            {
                 On_ShieldDown();
             }
-            if (!m_Shield && value) {
+
+            if (!m_Shield && value)
+            {
                 On_ShieldEquiped();
             }
-            if (!m_Shield && m_Shield != value) {
+
+            if (!m_Shield && m_Shield != value)
+            {
                 On_ShieldChanged();
             }
+
             m_Shield = value;
         }
     }
@@ -283,12 +326,12 @@ public class ModuleRetinue : ModuleBase {
         CardNumberSet_RetinueShield.Number = M_RetinueShield;
     }
 
-    void On_ShieldChanged()//更换防具时机体基础护甲护盾恢复
+    void On_ShieldChanged() //更换防具时机体基础护甲护盾恢复
     {
         initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueArmor);
-        CardNumberSet_RetinueArmor.Number = ((CardInfo_Retinue)CardInfo).BasicArmor;
+        CardNumberSet_RetinueArmor.Number = ((CardInfo_Retinue) CardInfo).BasicArmor;
         initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueShield);
-        CardNumberSet_RetinueShield.Number = ((CardInfo_Retinue)CardInfo).BasicShield;
+        CardNumberSet_RetinueShield.Number = ((CardInfo_Retinue) CardInfo).BasicShield;
     }
 
     internal ModuleShield M_Pack;
@@ -297,7 +340,20 @@ public class ModuleRetinue : ModuleBase {
     #endregion
 
     #region 模块交互
-    internal bool CanAttack = false;
+
+    private bool canAttack = false;
+
+    internal bool CanAttack
+    {
+        get { return canAttack; }
+
+        set
+        {
+            canAttack = value;
+            CardBloom.SetActive(value);
+        }
+    }
+
     public void OnBeginRound()
     {
         CanAttack = true;
@@ -311,45 +367,58 @@ public class ModuleRetinue : ModuleBase {
     public void BeAttacked(int attackNumber)
     {
         int remainAttackNumber = attackNumber;
-        if (M_Shield != null) {
+        if (M_Shield != null)
+        {
             remainAttackNumber = M_Shield.ShieldBeAttacked(remainAttackNumber);
             if (remainAttackNumber == 0) return;
         }
 
-        if (M_RetinueShield > 0) {
-            if (M_RetinueShield > remainAttackNumber) {
+        if (M_RetinueShield > 0)
+        {
+            if (M_RetinueShield > remainAttackNumber)
+            {
                 M_RetinueShield--;
                 remainAttackNumber = 0;
                 return;
-            } else {
+            }
+            else
+            {
                 remainAttackNumber -= M_RetinueShield;
                 M_RetinueShield /= 2;
             }
         }
 
-        if (M_Shield != null) {
+        if (M_Shield != null)
+        {
             remainAttackNumber = M_Shield.ArmorBeAttacked(remainAttackNumber);
             if (remainAttackNumber == 0) return;
         }
 
-        if (M_RetinueArmor > 0) {
-            if (M_RetinueArmor > remainAttackNumber) {
+        if (M_RetinueArmor > 0)
+        {
+            if (M_RetinueArmor > remainAttackNumber)
+            {
                 M_RetinueArmor = M_RetinueArmor - remainAttackNumber;
                 remainAttackNumber = 0;
                 return;
-            } else {
+            }
+            else
+            {
                 remainAttackNumber -= M_RetinueArmor;
                 M_RetinueArmor = 0;
             }
         }
 
-        if (M_RetinueLeftLife <= remainAttackNumber) {
+        if (M_RetinueLeftLife <= remainAttackNumber)
+        {
             M_RetinueLeftLife -= M_RetinueLeftLife;
             remainAttackNumber -= M_RetinueLeftLife;
             Player.MyBattleGroundManager.RemoveRetinue(this);
             Player.MyBattleGroundManager.RefreshBattleGround();
             PoolRecycle();
-        } else {
+        }
+        else
+        {
             M_RetinueLeftLife -= remainAttackNumber;
             remainAttackNumber = 0;
             return;
@@ -359,11 +428,15 @@ public class ModuleRetinue : ModuleBase {
     public List<int> AllModulesAttack()
     {
         List<int> ASeriesOfAttacks = new List<int>();
-        if (M_Weapon) {
+        if (M_Weapon)
+        {
             ASeriesOfAttacks.AddRange(M_Weapon.WeaponAttack());
-        } else {
+        }
+        else
+        {
             ASeriesOfAttacks.Add(M_RetinueAttack);
         }
+
         CanAttack = false;
         return ASeriesOfAttacks;
     }
@@ -388,7 +461,6 @@ public class ModuleRetinue : ModuleBase {
     {
         return 0f;
     }
-
 
     #endregion
 }
