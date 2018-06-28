@@ -19,17 +19,17 @@ public class GameBoardManager : MonoBehaviour
     }
 
     public GameObject SelfHandArea;
-    internal HandManager SelfHandManager;
+    public HandManager SelfHandManager;
     public GameObject EnemyHandArea;
-    internal HandManager EnemyHandManager;
+    public HandManager EnemyHandManager;
     public GameObject SelfBattleGround;
-    internal BattleGroundManager SelfBattleGroundManager;
+    public BattleGroundManager SelfBattleGroundManager;
     public GameObject EnemyBattleGround;
-    internal BattleGroundManager EnemyBattleGroundManager;
+    public BattleGroundManager EnemyBattleGroundManager;
     public GameObject SelfCardDeck;
-    internal CardDeckManager SelfCardDeckManager;
+    public CardDeckManager SelfCardDeckManager;
     public GameObject EnemyCardDeck;
-    internal CardDeckManager EnemyCardDeckManager;
+    public CardDeckManager EnemyCardDeckManager;
     public GameObject CardDetailPreview;
 
     void Awake()

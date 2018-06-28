@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class CardNumberSet : MonoBehaviour, IGameObjectPool {
+public class CardNumberSet : MonoBehaviour, IGameObjectPool
+{
     GameObjectPool gameObjectPool;
 
     public void PoolRecycle()
     {
         hasSign = false;
         gameObjectPool.RecycleGameObject(gameObject);
-        MyNumberSize= NumberSize.Big;
+        MyNumberSize = NumberSize.Big;
     }
+
     GameObjectPool childrenPool;
 
     void Awake()
@@ -23,7 +25,6 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
 
     void Start()
     {
-
     }
 
     public void initiate(int number, NumberSize numberSize, TextAlign textAlign)
@@ -36,6 +37,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
 
     private bool hasSign = false;
     private char m_firstSign;
+
     public void initiate(char firstSign, int number, NumberSize numberSize, TextAlign textAlign)
     {
         m_firstSign = firstSign;
@@ -43,31 +45,36 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
 
         digitCount = 0;
         MyNumberSize = numberSize;
-        if (number > 999) {
+        if (number > 999)
+        {
             Debug.Log("有符号的数字不超过3位数");
             return;
         }
+
         Number = number;
         MyTextAlign = textAlign;
     }
 
     [SerializeField]
     private NumberSize myNumberSize;
-    public NumberSize MyNumberSize {
-        get {
-            return myNumberSize;
-        }
 
-        set {
+    public NumberSize MyNumberSize
+    {
+        get { return myNumberSize; }
+
+        set
+        {
             myNumberSize = value;
             setNumberSize(value);
         }
     }
 
-    public float IntervalFactor;
+    public float IntervalFactor = 0.07f;
+
     void setNumberSize(NumberSize value)
     {
-        switch (value) {
+        switch (value)
+        {
             case NumberSize.Small:
                 childrenPool = GameObjectPoolManager.GOPM.Pool_CardSmallNumberPool;
                 for (int i = 0; i < 4; i++)
@@ -78,6 +85,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
                         cardNumbers[i] = null;
                     }
                 }
+
                 interval = -0.6f * IntervalFactor;
                 Number = Number;
                 initiateDigitPlace();
@@ -92,6 +100,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
                         cardNumbers[i] = null;
                     }
                 }
+
                 interval = -0.9f * IntervalFactor;
                 Number = Number;
                 initiateDigitPlace();
@@ -106,6 +115,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
                         cardNumbers[i] = null;
                     }
                 }
+
                 interval = -1f * IntervalFactor;
                 Number = Number;
                 initiateDigitPlace();
@@ -119,25 +129,32 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
 
     [SerializeField]
     private int number;
-    public int Number {
-        get {
-            return number;
-        }
 
-        set {
-            if (value < 0) {
+    public int Number
+    {
+        get { return number; }
+
+        set
+        {
+            if (value < 0)
+            {
                 Debug.Log("CardNumberSet(" + name + ")" + ":number is set to " + value);
                 number = 0;
-            } else if (hasSign && value > 999) {
+            }
+            else if (hasSign && value > 999)
+            {
                 Debug.Log("有符号的数字不超过3位数");
                 number = 999;
-            } else if (value > 9999) {
+            }
+            else if (value > 9999)
+            {
                 Debug.Log("CardNumberSet(" + name + ")" + ":number is set to " + value);
                 number = 9999;
             }
+
             number = value;
             setNumberSet();
-            if(hasSign) setFirstSign(m_firstSign);
+            if (hasSign) setFirstSign(m_firstSign);
             setTextAlign();
         }
     }
@@ -148,25 +165,32 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
         digits[1] = Number % 1000 / 100;
         digits[2] = Number % 100 / 10;
         digits[3] = Number % 10;
-        if (digits[0] > 0) {
+        if (digits[0] > 0)
+        {
             setNumber(0, digits[0]);
             setNumber(1, digits[1]);
             setNumber(2, digits[2]);
             setNumber(3, digits[3]);
             digitCount = 4;
-        } else if (digits[1] > 0) {
+        }
+        else if (digits[1] > 0)
+        {
             setNumber(0, -1);
             setNumber(1, digits[1]);
             setNumber(2, digits[2]);
             setNumber(3, digits[3]);
             digitCount = 3;
-        } else if (digits[2] > 0) {
+        }
+        else if (digits[2] > 0)
+        {
             setNumber(0, -1);
             setNumber(1, -1);
             setNumber(2, digits[2]);
             setNumber(3, digits[3]);
             digitCount = 2;
-        } else if (digits[3] >= 0) {
+        }
+        else if (digits[3] >= 0)
+        {
             setNumber(0, -1);
             setNumber(1, -1);
             setNumber(2, -1);
@@ -177,15 +201,16 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
 
     void setFirstSign(char firstSign)
     {
-        if(!cardNumbers[3 - digitCount]) {
+        if (!cardNumbers[3 - digitCount])
+        {
             cardNumbers[3 - digitCount] = childrenPool.AllocateGameObject(transform).GetComponent<CardNumber>();
         }
+
         cardNumbers[3 - digitCount].SetSign(firstSign);
     }
 
     void clearFisrSign()
     {
-
     }
 
     void setNumber(int digitPlace, int value)
@@ -250,6 +275,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
     Vector3 digit1_unit_position_C;
 
     private float interval;
+
     void initiateDigitPlace()
     {
         digit4_thousand_position_L = new Vector3(interval * -4, 0f, 0f);
@@ -295,19 +321,21 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
         digit1_unit_position_C = new Vector3(interval * -0.5f, 0f, 0f);
     }
 
-    public enum TextAlign {
+    public enum TextAlign
+    {
         Left = 0,
         Right = 1,
         Center = 2
     }
 
     private TextAlign myTextAlign = TextAlign.Right;
-    internal TextAlign MyTextAlign {
-        get {
-            return myTextAlign;
-        }
 
-        set {
+    internal TextAlign MyTextAlign
+    {
+        get { return myTextAlign; }
+
+        set
+        {
             myTextAlign = value;
             setTextAlign();
         }
@@ -315,59 +343,83 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool {
 
     void setTextAlign()
     {
-        switch (MyTextAlign) {
+        switch (MyTextAlign)
+        {
             case TextAlign.Left:
-                if (digitCount == 4 || (digitCount == 3 && hasSign)) {
+                if (digitCount == 4 || (digitCount == 3 && hasSign))
+                {
                     cardNumbers[0].transform.localPosition = digit4_thousand_position_L;
                     cardNumbers[1].transform.localPosition = digit4_hundreds_position_L;
                     cardNumbers[2].transform.localPosition = digit4_tens_position_L;
                     cardNumbers[3].transform.localPosition = digit4_unit_position_L;
-                } else if (digitCount == 3 || (digitCount == 2 && hasSign)) {
+                }
+                else if (digitCount == 3 || (digitCount == 2 && hasSign))
+                {
                     cardNumbers[1].transform.localPosition = digit3_hundreds_position_L;
                     cardNumbers[2].transform.localPosition = digit3_tens_position_L;
                     cardNumbers[3].transform.localPosition = digit3_unit_position_L;
-                } else if (digitCount == 2 || (digitCount == 1 && hasSign)) {
+                }
+                else if (digitCount == 2 || (digitCount == 1 && hasSign))
+                {
                     cardNumbers[2].transform.localPosition = digit2_tens_position_L;
                     cardNumbers[3].transform.localPosition = digit2_unit_position_L;
-                } else {
+                }
+                else
+                {
                     cardNumbers[3].transform.localPosition = digit1_unit_position_L;
                 }
+
                 break;
             case TextAlign.Right:
-                if (digitCount == 4 || (digitCount == 3 && hasSign)) {
+                if (digitCount == 4 || (digitCount == 3 && hasSign))
+                {
                     cardNumbers[0].transform.localPosition = digit4_thousand_position_R;
                     cardNumbers[1].transform.localPosition = digit4_hundreds_position_R;
                     cardNumbers[2].transform.localPosition = digit4_tens_position_R;
                     cardNumbers[3].transform.localPosition = digit4_unit_position_R;
-                } else if (digitCount == 3 || (digitCount == 2 && hasSign)) {
+                }
+                else if (digitCount == 3 || (digitCount == 2 && hasSign))
+                {
                     cardNumbers[1].transform.localPosition = digit3_hundreds_position_R;
                     cardNumbers[2].transform.localPosition = digit3_tens_position_R;
                     cardNumbers[3].transform.localPosition = digit3_unit_position_R;
-                } else if (digitCount == 2 || (digitCount == 1 && hasSign)) {
+                }
+                else if (digitCount == 2 || (digitCount == 1 && hasSign))
+                {
                     cardNumbers[2].transform.localPosition = digit2_tens_position_R;
                     cardNumbers[3].transform.localPosition = digit2_unit_position_R;
-                } else {
+                }
+                else
+                {
                     cardNumbers[3].transform.localPosition = digit1_unit_position_R;
                 }
+
                 break;
             case TextAlign.Center:
-                if (digitCount == 4 || (digitCount == 3 && hasSign)) {
+                if (digitCount == 4 || (digitCount == 3 && hasSign))
+                {
                     cardNumbers[0].transform.localPosition = digit4_thousand_position_C;
                     cardNumbers[1].transform.localPosition = digit4_hundreds_position_C;
                     cardNumbers[2].transform.localPosition = digit4_tens_position_C;
                     cardNumbers[3].transform.localPosition = digit4_unit_position_C;
-                } else if (digitCount == 3 || (digitCount == 2 && hasSign)) {
+                }
+                else if (digitCount == 3 || (digitCount == 2 && hasSign))
+                {
                     cardNumbers[1].transform.localPosition = digit3_hundreds_position_C;
                     cardNumbers[2].transform.localPosition = digit3_tens_position_C;
                     cardNumbers[3].transform.localPosition = digit3_unit_position_C;
-                } else if (digitCount == 2 || (digitCount == 1 && hasSign)) {
+                }
+                else if (digitCount == 2 || (digitCount == 1 && hasSign))
+                {
                     cardNumbers[2].transform.localPosition = digit2_tens_position_C;
                     cardNumbers[3].transform.localPosition = digit2_unit_position_C;
-                } else {
+                }
+                else
+                {
                     cardNumbers[3].transform.localPosition = digit1_unit_position_C;
                 }
+
                 break;
         }
     }
-
 }

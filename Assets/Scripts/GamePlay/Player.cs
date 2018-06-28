@@ -1,4 +1,5 @@
-public class Player {
+public class Player
+{
     internal BoardAreaTypes MyBattleGroundArea; //卡牌所属方的战场区
     internal BattleGroundManager MyBattleGroundManager; //卡牌所属方的战场区域管理器
     internal CardDeckManager MyCardDeckManager; //卡牌所属方的牌堆管理器
@@ -11,18 +12,10 @@ public class Player {
     {
         WhichPlayer = whichPlayer;
         MyHandArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfHandArea : BoardAreaTypes.EnemyHandArea;
-        MyBattleGroundArea = whichPlayer == Players.Self
-            ? BoardAreaTypes.SelfBattleGroundArea
-            : BoardAreaTypes.EnemyBattleGroundArea;
-        MyHandManager = whichPlayer == Players.Self
-            ? GameBoardManager.GBM.SelfHandManager
-            : GameBoardManager.GBM.EnemyHandManager;
-        MyBattleGroundManager = whichPlayer == Players.Self
-            ? GameBoardManager.GBM.SelfBattleGroundManager
-            : GameBoardManager.GBM.EnemyBattleGroundManager;
-        MyCardDeckManager = whichPlayer == Players.Self
-            ? GameBoardManager.GBM.SelfCardDeckManager
-            : GameBoardManager.GBM.EnemyCardDeckManager;
+        MyBattleGroundArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfBattleGroundArea : BoardAreaTypes.EnemyBattleGroundArea;
+        MyHandManager = whichPlayer == Players.Self ? GameBoardManager.GBM.SelfHandManager : GameBoardManager.GBM.EnemyHandManager;
+        MyBattleGroundManager = whichPlayer == Players.Self ? GameBoardManager.GBM.SelfBattleGroundManager : GameBoardManager.GBM.EnemyBattleGroundManager;
+        MyCardDeckManager = whichPlayer == Players.Self ? GameBoardManager.GBM.SelfCardDeckManager : GameBoardManager.GBM.EnemyCardDeckManager;
         MyHandManager.Player = this;
         MyBattleGroundManager.Player = this;
         MyCardDeckManager.Player = this;
@@ -39,7 +32,8 @@ public class Player {
 
     public bool UseCost(int useCostNumber)
     {
-        if (CostLeft > useCostNumber) {
+        if (CostLeft > useCostNumber)
+        {
             CostLeft -= useCostNumber;
             return true;
         }
@@ -80,9 +74,12 @@ public class Player {
 
     public void DecreaseCostMax(int decreaseValue)
     {
-        if (CostMax <= decreaseValue) {
+        if (CostMax <= decreaseValue)
+        {
             CostMax = 0;
-        } else {
+        }
+        else
+        {
             CostMax -= decreaseValue;
             if (CostLeft > CostMax) CostLeft = CostMax;
         }
@@ -91,7 +88,8 @@ public class Player {
     #endregion
 }
 
-internal enum Players {
+internal enum Players
+{
     Self = 0,
     Enemy = 1
 }

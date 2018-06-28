@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4761368754380028}
   - component: {fileID: 65446152555547904}
-  - component: {fileID: 114261401832408216}
+  - component: {fileID: 114989874149612920}
   - component: {fileID: 114830629387253412}
   m_Layer: 8
   m_Name: WeaponCard
@@ -682,17 +682,6 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!114 &114261401832408216
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1581481781110654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e81d9933249f4da88f38a3d9650e963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114830629387253412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -710,6 +699,17 @@ MonoBehaviour:
   PictureBoxRenderer: {fileID: 23878625947819022}
   WeaponName: {fileID: 102162842127421964}
   WeaponDesc: {fileID: 102070581280812742}
+--- !u!114 &114989874149612920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581481781110654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f4ede2a2da2cb4a9fc06b68bd3967a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &224975544303358730
 RectTransform:
   m_ObjectHideFlags: 1

@@ -253,13 +253,11 @@ public class ModuleRetinue : ModuleBase
             {
                 On_WeaponDown();
             }
-
-            if (!m_Weapon && value)
+            else if (!m_Weapon && value)
             {
                 On_WeaponEquiped();
             }
-
-            if (m_Weapon && m_Weapon != value)
+            else if (m_Weapon != value)
             {
                 On_WeaponChanged(value);
                 return;
@@ -327,13 +325,11 @@ public class ModuleRetinue : ModuleBase
             {
                 On_ShieldDown();
             }
-
-            if (!m_Shield && value)
+            else if (!m_Shield && value)
             {
                 On_ShieldEquiped();
             }
-
-            if (!m_Shield && m_Shield != value)
+            else if (m_Shield != value)
             {
                 On_ShieldChanged();
             }
