@@ -219,6 +219,11 @@ public class ModuleWeapon : ModuleBase
         hasTarget = CardInfo.HasTarget;
     }
 
+
+    public override float DragComponnet_DragDistance()
+    {
+        return 0.2f;
+    }
     #endregion
 
     #region 交互UX

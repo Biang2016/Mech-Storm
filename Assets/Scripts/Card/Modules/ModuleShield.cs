@@ -43,10 +43,10 @@ public class ModuleShield : ModuleBase
         base.Initiate(cardInfo, player);
         M_ShieldName = CardInfo_Shield.textToVertical(((CardInfo_Shield) cardInfo).CardName);
         M_ShieldType = ((CardInfo_Shield) cardInfo).M_ShieldType;
-        M_ShieldArmor = ((CardInfo_Shield) cardInfo).Armor;
-        M_ShieldArmorMax = ((CardInfo_Shield) cardInfo).ArmorMax;
-        M_ShieldShield = ((CardInfo_Shield) cardInfo).Shield;
-        M_ShieldShieldMax = ((CardInfo_Shield) cardInfo).ShieldMax;
+        M_ShieldArmor = ((CardInfo_Shield) cardInfo).Armor + M_ModuleRetinue.M_RetinueArmor;
+        M_ShieldArmorMax = ((CardInfo_Shield) cardInfo).ArmorMax + M_ModuleRetinue.M_RetinueArmor;
+        M_ShieldShield = ((CardInfo_Shield) cardInfo).Shield + M_ModuleRetinue.M_RetinueShield;
+        M_ShieldShieldMax = ((CardInfo_Shield) cardInfo).ShieldMax + M_ModuleRetinue.M_RetinueShield;
         if (M_Bloom) M_Bloom.SetActive(false);
     }
 
@@ -128,7 +128,7 @@ public class ModuleShield : ModuleBase
         {
             m_ShieldArmor = value;
             initiateNumbers(ref GoNumberSet_ShieldArmor, ref CardNumberSet_ShieldArmor, my_NumberSize_Armor, my_TextAlign_Armor, Block_ShieldArmor);
-            CardNumberSet_ShieldArmor.Number = m_ShieldArmor + M_ModuleRetinue.M_RetinueArmor;
+            CardNumberSet_ShieldArmor.Number = m_ShieldArmor;
         }
     }
 
@@ -142,7 +142,7 @@ public class ModuleShield : ModuleBase
         {
             m_ShieldArmorMax = value;
             initiateNumbers(ref GoNumberSet_ShieldArmorMax, ref CardNumberSet_ShieldArmorMax, my_NumberSize_ArmorMax, my_TextAlign_ArmorMax, Block_ShieldArmorMax, '/');
-            CardNumberSet_ShieldArmorMax.Number = m_ShieldArmorMax + M_ModuleRetinue.M_RetinueArmor;
+            CardNumberSet_ShieldArmorMax.Number = m_ShieldArmorMax;
         }
     }
 
@@ -156,7 +156,7 @@ public class ModuleShield : ModuleBase
         {
             m_ShieldShield = value;
             initiateNumbers(ref GoNumberSet_ShieldShield, ref CardNumberSet_ShieldShield, my_NumberSize_Shield, my_TextAlign_Shield, Block_ShieldShield);
-            CardNumberSet_ShieldShield.Number = m_ShieldShield + M_ModuleRetinue.M_RetinueShield;
+            CardNumberSet_ShieldShield.Number = m_ShieldShield;
         }
     }
 
@@ -170,7 +170,7 @@ public class ModuleShield : ModuleBase
         {
             m_ShieldShieldMax = value;
             initiateNumbers(ref GoNumberSet_ShieldShieldMax, ref CardNumberSet_ShieldShieldMax, my_NumberSize_ShieldMax, my_TextAlign_ShieldMax, Block_ShieldShieldMax, '/');
-            CardNumberSet_ShieldShieldMax.Number = m_ShieldShieldMax + M_ModuleRetinue.M_RetinueShield;
+            CardNumberSet_ShieldShieldMax.Number = m_ShieldShieldMax;
         }
     }
 
@@ -197,7 +197,11 @@ public class ModuleShield : ModuleBase
             }
         }
 
-        if (M_ShieldShield == 0 && M_ShieldArmor == 0) PoolRecycle();
+        if (M_ShieldShield == 0 && M_ShieldArmor == 0)
+        {
+            M_ModuleRetinue.M_Shield = null;
+            PoolRecycle();
+        }
         return remainAttackValue;
     }
 

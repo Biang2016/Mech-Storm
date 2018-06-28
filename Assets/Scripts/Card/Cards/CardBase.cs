@@ -44,7 +44,7 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
     public GameObject Block_Cost;
     protected GameObject GoNumberSet_Cost;
     protected CardNumberSet CardNumberSet_Cost;
-    public Renderer PictureBoxRenderer; //图片框
+    public Renderer PictureBoxRenderer;
 
     public void ChangeColor(Color newColor)
     {

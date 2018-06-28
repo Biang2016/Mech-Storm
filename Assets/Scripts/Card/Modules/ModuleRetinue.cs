@@ -298,6 +298,7 @@ public class ModuleRetinue : ModuleBase
         }
         else
         {
+            newWeapon.CanAttack = m_Weapon.CanAttack;
             m_Weapon.PoolRecycle();
             m_Weapon = newWeapon;
             WeaponUpgrade((CardInfo_Weapon) m_Weapon.CardInfo); //如果武器相同获得升级
@@ -410,41 +411,39 @@ public class ModuleRetinue : ModuleBase
         {
             remainAttackNumber = M_Shield.ShieldBeAttacked(remainAttackNumber);
             if (remainAttackNumber == 0) return;
-        }
-
-        if (M_RetinueShield > 0)
-        {
-            if (M_RetinueShield > remainAttackNumber)
-            {
-                M_RetinueShield--;
-                remainAttackNumber = 0;
-                return;
-            }
-            else
-            {
-                remainAttackNumber -= M_RetinueShield;
-                M_RetinueShield /= 2;
-            }
-        }
-
-        if (M_Shield != null)
-        {
             remainAttackNumber = M_Shield.ArmorBeAttacked(remainAttackNumber);
             if (remainAttackNumber == 0) return;
         }
-
-        if (M_RetinueArmor > 0)
+        else
         {
-            if (M_RetinueArmor > remainAttackNumber)
+            if (M_RetinueShield > 0)
             {
-                M_RetinueArmor = M_RetinueArmor - remainAttackNumber;
-                remainAttackNumber = 0;
-                return;
+                if (M_RetinueShield > remainAttackNumber)
+                {
+                    M_RetinueShield--;
+                    remainAttackNumber = 0;
+                    return;
+                }
+                else
+                {
+                    remainAttackNumber -= M_RetinueShield;
+                    M_RetinueShield /= 2;
+                }
             }
-            else
+
+            if (M_RetinueArmor > 0)
             {
-                remainAttackNumber -= M_RetinueArmor;
-                M_RetinueArmor = 0;
+                if (M_RetinueArmor > remainAttackNumber)
+                {
+                    M_RetinueArmor = M_RetinueArmor - remainAttackNumber;
+                    remainAttackNumber = 0;
+                    return;
+                }
+                else
+                {
+                    remainAttackNumber -= M_RetinueArmor;
+                    M_RetinueArmor = 0;
+                }
             }
         }
 
@@ -498,7 +497,7 @@ public class ModuleRetinue : ModuleBase
 
     public override float DragComponnet_DragDistance()
     {
-        return 0f;
+        return 0.2f;
     }
 
     #endregion
