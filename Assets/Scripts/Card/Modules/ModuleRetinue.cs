@@ -390,8 +390,16 @@ public class ModuleRetinue : ModuleBase
 
     public void OnBeginRound()
     {
-        CanAttack = true;
-        if (M_Weapon) M_Weapon.CanAttack = true;
+        if (!M_Weapon && M_RetinueAttack != 0)
+        {
+            CanAttack = true;
+        }
+
+        if (M_Weapon && M_Weapon.M_WeaponAttack + M_RetinueAttack != 0)
+        {
+            CanAttack = true;
+            M_Weapon.CanAttack = true;
+        }
     }
 
     public void OnEndRound()

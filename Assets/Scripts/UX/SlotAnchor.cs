@@ -47,14 +47,16 @@ public class SlotAnchor : MonoBehaviour,IMouseHoverComponent
             switch (M_SlotType)
             {
                 case SlotType.Weapon:
-                    if (DragManager.DM.CurrentDrag.GetComponent<CardWeapon>())
+                    CardWeapon cw = DragManager.DM.CurrentDrag.GetComponent<CardWeapon>();
+                    if (cw&&cw.Player==Player)
                     {
                         ShowHoverGO();
                     }
 
                     break;
                 case SlotType.Shield:
-                    if (DragManager.DM.CurrentDrag.GetComponent<CardShield>())
+                    CardShield cs = DragManager.DM.CurrentDrag.GetComponent<CardShield>();
+                    if (cs&&cs.Player==Player)
                     {
                         ShowHoverGO();
                     }
