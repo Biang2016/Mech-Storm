@@ -208,8 +208,8 @@ public class AllCards
         CardDict.Add(101, new CardInfo_Weapon(101, "热能斧Ⅱ", "每次攻击积攒<color=#FFFF00>1</color>点能量\n攻击时每点能量可造成<color=#FFFF00>1</color>倍伤害\n最高充能<color=#FFFF00>5</color>", 1, true, CardTypes.Weapon, Color.red, -1, 1, 5, 1, WeaponType.Sword));
         CardDict.Add(200, new CardInfo_Weapon(200, "新兵步枪Ⅰ", "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>3</color>", 1, true, CardTypes.Weapon, Color.red, 201, 3, 3, 2, WeaponType.Gun));
         CardDict.Add(201, new CardInfo_Weapon(201, "新兵步枪Ⅱ", "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>5</color>", 1, true, CardTypes.Weapon, Color.red, -1, 5, 5, 2, WeaponType.Gun));
-        CardDict.Add(300, new CardInfo_Shield(300, "新兵护盾", "提供<color=#5000bd>4</color>点护盾\n受到大于护盾值攻击时耐久<color=#5000bd>减半</color>\n受到小于护盾值攻击时耐久<color=#5000bd>-1</color>", 1, true, CardTypes.Shield, Color.yellow, -1, ShieldType.Shield, 0, 0, 4, 4));
-        CardDict.Add(301, new CardInfo_Shield(301, "新兵盾牌", "提供<color=#5000bd>8</color>点护甲", 1, true, CardTypes.Shield, Color.yellow, -1, ShieldType.Armor, 8, 8, 0, 0));
+        CardDict.Add(300, new CardInfo_Shield(300, "新兵护盾", "提供<color=#5000bd>4</color>点护盾\n受到大于护盾值攻击时耐久<color=#5000bd>减半</color>\n受到小于护盾值攻击时耐久<color=#5000bd>-1</color>", 1, true, CardTypes.Shield, Color.yellow, -1, ShieldType.Shield, 0, 0, 2, 2));
+        CardDict.Add(301, new CardInfo_Shield(301, "新兵盾牌", "提供<color=#5000bd>8</color>点护甲", 1, true, CardTypes.Shield, Color.yellow, -1, ShieldType.Armor, 4, 4, 0, 0));
     }
 
     public CardInfo_Base GetCard(int cardID)
