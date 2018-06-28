@@ -691,7 +691,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 032094d0d9187c047939bc1c1cdc250e, type: 2}
+  - {fileID: 2100000, guid: 4f8bbdff3751122478466555702b3773, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1214,11 +1214,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1dbae2767e6fd408602333d346c5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainBoardRenderer: {fileID: 23192079862093196}
+  CardBloom: {fileID: 1501539127182856}
   Block_Cost: {fileID: 1479446008502060}
   PictureBoxRenderer: {fileID: 23194436200577498}
   TextMesh_RetinueName: {fileID: 102764405899591092}
   TextMesh_RetinueDesc: {fileID: 102436697963774500}
-  CardBloom: {fileID: 1501539127182856}
   Block_RetinueLeftLife: {fileID: 1939132855294242}
   Block_RetinueTotalLife: {fileID: 1482879392519310}
   Block_RetinueAttack: {fileID: 1174459025277394}

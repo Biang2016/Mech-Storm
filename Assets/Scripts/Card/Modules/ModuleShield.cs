@@ -10,15 +10,14 @@ public class ModuleShield : ModuleBase
 
     void Start()
     {
-
     }
 
     void Update()
     {
-
     }
 
-    #region 各模块
+    #region 各模块、自身数值和初始化
+
     internal ModuleRetinue M_ModuleRetinue;
     public TextMesh ShieldName;
     public GameObject M_Bloom;
@@ -42,28 +41,25 @@ public class ModuleShield : ModuleBase
     public override void Initiate(CardInfo_Base cardInfo, Player player)
     {
         base.Initiate(cardInfo, player);
-        M_ShieldName = CardInfo_Shield.textToVertical(((CardInfo_Shield)cardInfo).CardName);
-        M_ShieldType = ((CardInfo_Shield)cardInfo).M_ShieldType;
-        M_ShieldArmor = ((CardInfo_Shield)cardInfo).Armor;
-        M_ShieldArmorMax = ((CardInfo_Shield)cardInfo).ArmorMax;
-        M_ShieldShield = ((CardInfo_Shield)cardInfo).Shield;
-        M_ShieldShieldMax = ((CardInfo_Shield)cardInfo).ShieldMax;
+        M_ShieldName = CardInfo_Shield.textToVertical(((CardInfo_Shield) cardInfo).CardName);
+        M_ShieldType = ((CardInfo_Shield) cardInfo).M_ShieldType;
+        M_ShieldArmor = ((CardInfo_Shield) cardInfo).Armor;
+        M_ShieldArmorMax = ((CardInfo_Shield) cardInfo).ArmorMax;
+        M_ShieldShield = ((CardInfo_Shield) cardInfo).Shield;
+        M_ShieldShieldMax = ((CardInfo_Shield) cardInfo).ShieldMax;
         if (M_Bloom) M_Bloom.SetActive(false);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        ModuleCurrentCardInfo = new CardInfo_Shield(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType,((CardInfo_Shield)CardInfo).M_ShieldType, ((CardInfo_Shield)CardInfo).Armor, ((CardInfo_Shield)CardInfo).ArmorMax, ((CardInfo_Shield)CardInfo).Shield, ((CardInfo_Shield)CardInfo).ShieldMax);
-        return ModuleCurrentCardInfo;
+        return new CardInfo_Shield(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, ((CardInfo_Shield) CardInfo).M_ShieldType, ((CardInfo_Shield) CardInfo).Armor, ((CardInfo_Shield) CardInfo).ArmorMax, ((CardInfo_Shield) CardInfo).Shield, ((CardInfo_Shield) CardInfo).ShieldMax);
     }
 
     private string m_ShieldName;
+
     public string M_ShieldName
     {
-        get
-        {
-            return m_ShieldName;
-        }
+        get { return m_ShieldName; }
 
         set
         {
@@ -73,17 +69,12 @@ public class ModuleShield : ModuleBase
     }
 
     private ShieldType m_ShieldType;
+
     public ShieldType M_ShieldType
     {
-        get
-        {
-            return m_ShieldType;
-        }
+        get { return m_ShieldType; }
 
-        set
-        {
-            m_ShieldType = value;
-        }
+        set { m_ShieldType = value; }
     }
 
     private NumberSize my_NumberSize_Armor = NumberSize.Medium;
@@ -101,7 +92,7 @@ public class ModuleShield : ModuleBase
         my_NumberSize_ArmorMax = NumberSize.Small;
         my_NumberSize_Shield = NumberSize.Small;
         my_NumberSize_ShieldMax = NumberSize.Small;
-        my_TextAlign_Armor= CardNumberSet.TextAlign.Left;
+        my_TextAlign_Armor = CardNumberSet.TextAlign.Left;
         my_TextAlign_ArmorMax = CardNumberSet.TextAlign.Right;
         my_TextAlign_Shield = CardNumberSet.TextAlign.Left;
         my_TextAlign_ShieldMax = CardNumberSet.TextAlign.Right;
@@ -128,12 +119,10 @@ public class ModuleShield : ModuleBase
     }
 
     private int m_ShieldArmor;
-    public int M_ShieldArmor 
-        {
-        get
-        {
-            return m_ShieldArmor;
-        }
+
+    public int M_ShieldArmor
+    {
+        get { return m_ShieldArmor; }
 
         set
         {
@@ -144,24 +133,24 @@ public class ModuleShield : ModuleBase
     }
 
     private int m_ShieldArmorMax;
-    public int M_ShieldArmorMax {
-        get {
-            return m_ShieldArmorMax;
-        }
 
-        set {
+    public int M_ShieldArmorMax
+    {
+        get { return m_ShieldArmorMax; }
+
+        set
+        {
             m_ShieldArmorMax = value;
-            initiateNumbers(ref GoNumberSet_ShieldArmorMax, ref CardNumberSet_ShieldArmorMax, my_NumberSize_ArmorMax, my_TextAlign_ArmorMax, Block_ShieldArmorMax,'/');
+            initiateNumbers(ref GoNumberSet_ShieldArmorMax, ref CardNumberSet_ShieldArmorMax, my_NumberSize_ArmorMax, my_TextAlign_ArmorMax, Block_ShieldArmorMax, '/');
             CardNumberSet_ShieldArmorMax.Number = m_ShieldArmorMax + M_ModuleRetinue.M_RetinueArmor;
         }
     }
 
     private int m_ShieldShield;
-    public int M_ShieldShield {
-        get
-        {
-            return m_ShieldShield;
-        }
+
+    public int M_ShieldShield
+    {
+        get { return m_ShieldShield; }
 
         set
         {
@@ -172,12 +161,13 @@ public class ModuleShield : ModuleBase
     }
 
     private int m_ShieldShieldMax;
-    public int M_ShieldShieldMax {
-        get {
-            return m_ShieldShieldMax;
-        }
 
-        set {
+    public int M_ShieldShieldMax
+    {
+        get { return m_ShieldShieldMax; }
+
+        set
+        {
             m_ShieldShieldMax = value;
             initiateNumbers(ref GoNumberSet_ShieldShieldMax, ref CardNumberSet_ShieldShieldMax, my_NumberSize_ShieldMax, my_TextAlign_ShieldMax, Block_ShieldShieldMax, '/');
             CardNumberSet_ShieldShieldMax.Number = m_ShieldShieldMax + M_ModuleRetinue.M_RetinueShield;
@@ -187,14 +177,21 @@ public class ModuleShield : ModuleBase
     #endregion
 
     #region 模块交互
+
+    #region 攻击防御相关
+
     public int ShieldBeAttacked(int attackValue)
     {
         int remainAttackValue = attackValue;
-        if (M_ShieldShield > 0) {
-            if (M_ShieldShield > remainAttackValue) {
-                M_ShieldShield --;
+        if (M_ShieldShield > 0)
+        {
+            if (M_ShieldShield > remainAttackValue)
+            {
+                M_ShieldShield--;
                 remainAttackValue = 0;
-            } else {
+            }
+            else
+            {
                 remainAttackValue -= M_ShieldShield;
                 M_ShieldShield /= 2;
             }
@@ -207,11 +204,15 @@ public class ModuleShield : ModuleBase
     public int ArmorBeAttacked(int attackValue)
     {
         int remainAttackValue = attackValue;
-        if (M_ShieldArmor > 0) {
-            if (M_ShieldArmor >= remainAttackValue) {
+        if (M_ShieldArmor > 0)
+        {
+            if (M_ShieldArmor >= remainAttackValue)
+            {
                 M_ShieldArmor -= remainAttackValue;
                 remainAttackValue = 0;
-            } else {
+            }
+            else
+            {
                 remainAttackValue = remainAttackValue - M_ShieldArmor;
                 M_ShieldArmor = 0;
             }
@@ -222,15 +223,8 @@ public class ModuleShield : ModuleBase
             M_ModuleRetinue.M_Shield = null;
             PoolRecycle();
         }
-        return remainAttackValue;
-    }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,
-        ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,
-        Quaternion dragBeginQuaternion)
-    {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition,
-            dragBeginQuaternion);
+        return remainAttackValue;
     }
 
     public override void DragComponent_SetStates(ref bool canDrag, ref bool hasTarget)
@@ -239,20 +233,15 @@ public class ModuleShield : ModuleBase
         hasTarget = false;
     }
 
+    #endregion
+
+
+    #region 交互UX
+
     public override void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
     {
         base.MouseHoverComponent_OnMouseEnterImmediately(mousePosition);
         if (M_Bloom) M_Bloom.SetActive(true);
-    }
-
-    public override void MouseHoverComponent_OnMouseOver()
-    {
-        base.MouseHoverComponent_OnMouseOver();
-    }
-
-    public override void MouseHoverComponent_OnMouseLeave()
-    {
-        base.MouseHoverComponent_OnMouseLeave();
     }
 
     public override void MouseHoverComponent_OnMouseLeaveImmediately()
@@ -263,10 +252,12 @@ public class ModuleShield : ModuleBase
 
     #endregion
 
+    #endregion
 }
 
-public enum ShieldType {
-    Armor=0,
-    Shield=1,
-    Mixed=2
+public enum ShieldType
+{
+    Armor = 0,
+    Shield = 1,
+    Mixed = 2
 }

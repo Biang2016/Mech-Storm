@@ -40,19 +40,27 @@ public class SlotAnchor : MonoBehaviour,IMouseHoverComponent
     }
 
 
-    public void MouseHoverComponent_OnMouseDragEnterImmediately(Vector3 mousePosition)
+    public void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
-        switch (M_SlotType) {
-            case SlotType.Weapon:
-                if (DragManager.DM.CurrentDrag.GetComponent<CardWeapon>()) {
-                    ShowHoverGO();
-                }
-                break;
-            case SlotType.Shield:
-                if (DragManager.DM.CurrentDrag.GetComponent<CardShield>()) {
-                    ShowHoverGO();
-                }
-                break;
+        if (DragManager.DM.CurrentDrag)
+        {
+            switch (M_SlotType)
+            {
+                case SlotType.Weapon:
+                    if (DragManager.DM.CurrentDrag.GetComponent<CardWeapon>())
+                    {
+                        ShowHoverGO();
+                    }
+
+                    break;
+                case SlotType.Shield:
+                    if (DragManager.DM.CurrentDrag.GetComponent<CardShield>())
+                    {
+                        ShowHoverGO();
+                    }
+
+                    break;
+            }
         }
     }
 
@@ -77,7 +85,7 @@ public class SlotAnchor : MonoBehaviour,IMouseHoverComponent
         HideHoverShowGO();
     }
 
-    public void MouseHoverComponent_OnMouseDragLeaveImmediately()
+    public void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
         HideHoverShowGO();
     }

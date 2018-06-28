@@ -48,6 +48,7 @@ public class GameObjectPool : MonoBehaviour
                 else
                 {
                     gameObjectPool[i] = Instantiate(gameObjectPrefab, parent);
+                    gameObjectPool[i].name = gameObjectPrefab.name + "_" + i;
                     empty--;
                     used++;
                 }

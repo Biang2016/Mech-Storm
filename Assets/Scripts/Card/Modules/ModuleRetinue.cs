@@ -46,12 +46,13 @@ public class ModuleRetinue : ModuleBase
     {
     }
 
-    #region 各模块
+    #region 各模块、自身数值与初始化
 
     public TextMesh TextMesh_RetinueName;
-
     public TextMesh TextMesh_RetinueDesc;
+
     public GameObject CardBloom;
+    public GameObject CardDraggedHoverBloom;
 
     public SlotAnchor SlotAnchor1;
     public SlotAnchor SlotAnchor2;
@@ -78,7 +79,7 @@ public class ModuleRetinue : ModuleBase
     protected GameObject GoNumberSet_RetinueArmor;
     protected CardNumberSet CardNumberSet_RetinueArmor;
 
-    public Renderer PictureBoxRenderer; //图片框
+    public Renderer PictureBoxRenderer;
 
     public override void Initiate(CardInfo_Base cardInfo, Player player)
     {
@@ -119,8 +120,7 @@ public class ModuleRetinue : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        ModuleCurrentCardInfo = new CardInfo_Retinue(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, M_RetinueLeftLife, M_RetinueTotalLife, M_RetinueAttack, M_RetinueShield, M_RetinueArmor);
-        return ModuleCurrentCardInfo;
+        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, M_RetinueLeftLife, M_RetinueTotalLife, M_RetinueAttack, M_RetinueShield, M_RetinueArmor);
     }
 
     private string m_RetinueName;
@@ -240,6 +240,8 @@ public class ModuleRetinue : ModuleBase
 
     #region 拼装上的模块
 
+    #region 武器相关
+
     private ModuleWeapon m_Weapon;
 
     public ModuleWeapon M_Weapon
@@ -257,9 +259,10 @@ public class ModuleRetinue : ModuleBase
                 On_WeaponEquiped();
             }
 
-            if (!m_Weapon && m_Weapon != value)
+            if (m_Weapon && m_Weapon != value)
             {
-                On_WeaponChanged();
+                On_WeaponChanged(value);
+                return;
             }
 
             m_Weapon = value;
@@ -278,11 +281,39 @@ public class ModuleRetinue : ModuleBase
         CardNumberSet_RetinueAttack.Number = M_RetinueAttack;
     }
 
-    void On_WeaponChanged() //更换武器时机体基础攻击力恢复
+    void On_WeaponChanged(ModuleWeapon newWeapon)
     {
         initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack, '+');
-        CardNumberSet_RetinueAttack.Number = ((CardInfo_Retinue) CardInfo).BasicAttack;
+        CardNumberSet_RetinueAttack.Number = ((CardInfo_Retinue) CardInfo).BasicAttack; //更换武器时机体基础攻击力恢复
+
+        if (M_Weapon.CardInfo.CardID != newWeapon.CardInfo.CardID || (M_Weapon.CardInfo.CardID == newWeapon.CardInfo.CardID && newWeapon.CardInfo.UpgradeID == -1)) //如果武器不同或不可升级获得额外攻击次数
+        {
+            if (Player == RoundManager.RM.CurrentPlayer)
+            {
+                m_Weapon.PoolRecycle();
+                m_Weapon = newWeapon;
+                CanAttack = true;
+                m_Weapon.CanAttack = true;
+            }
+        }
+        else
+        {
+            m_Weapon.PoolRecycle();
+            m_Weapon = newWeapon;
+            WeaponUpgrade((CardInfo_Weapon) m_Weapon.CardInfo); //如果武器相同获得升级
+        }
     }
+
+    void WeaponUpgrade(CardInfo_Weapon oldWeaponCurrentInfo)
+    {
+        CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon) GameManager.GM.AllCard.GetCard(oldWeaponCurrentInfo.UpgradeID);
+        M_Weapon.Initiate(upgradeWeaponCardInfo, Player);
+    }
+
+    #endregion
+
+
+    #region 防具相关
 
     private ModuleShield m_Shield;
 
@@ -334,12 +365,17 @@ public class ModuleRetinue : ModuleBase
         CardNumberSet_RetinueShield.Number = ((CardInfo_Retinue) CardInfo).BasicShield;
     }
 
+    #endregion
+
+
     internal ModuleShield M_Pack;
     internal ModuleShield M_MA;
 
     #endregion
 
     #region 模块交互
+
+    #region 主动攻击
 
     private bool canAttack = false;
 
@@ -354,6 +390,7 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
+
     public void OnBeginRound()
     {
         CanAttack = true;
@@ -362,6 +399,8 @@ public class ModuleRetinue : ModuleBase
 
     public void OnEndRound()
     {
+        CanAttack = false;
+        if (M_Weapon) M_Weapon.CanAttack = false;
     }
 
     public void BeAttacked(int attackNumber)
@@ -461,6 +500,45 @@ public class ModuleRetinue : ModuleBase
     {
         return 0f;
     }
+
+    #endregion
+
+
+    #region 被敌方拖动鼠标Hover
+
+    private bool isBeDraggedHover = false;
+
+    public bool IsBeDraggedHover
+    {
+        get { return isBeDraggedHover; }
+
+        set
+        {
+            isBeDraggedHover = value;
+            CardDraggedHoverBloom.SetActive(value);
+        }
+    }
+
+    public override void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
+    {
+        base.MouseHoverComponent_OnMousePressEnterImmediately(mousePosition);
+        if (DragManager.DM.CurrentDrag)
+        {
+            ModuleRetinue mr = DragManager.DM.CurrentDrag.GetComponent<ModuleRetinue>();
+            if (mr.Player != Player && mr != this)
+            {
+                IsBeDraggedHover = true;
+            }
+        }
+    }
+
+    public override void MouseHoverComponent_OnMousePressLeaveImmediately()
+    {
+        base.MouseHoverComponent_OnMousePressLeaveImmediately();
+        IsBeDraggedHover = false;
+    }
+
+    #endregion
 
     #endregion
 }

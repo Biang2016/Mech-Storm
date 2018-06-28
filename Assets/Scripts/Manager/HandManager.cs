@@ -180,11 +180,13 @@ public class HandManager : MonoBehaviour
             }
             card.ResetColliderAndReplace();
         }
+
+        RefreshAllCardUsable();
     }
 
     internal void RefreshAllCardUsable() //刷新所有卡牌是否可用
     {
-        foreach (var card in cards) card.Usable = card.M_Cost <= Player.CostLeft;
+        foreach (var card in cards) card.Usable = (Player==RoundManager.RM.CurrentPlayer)&& card.M_Cost <= Player.CostLeft;
     }
 
     CardBase currentFocusCard;

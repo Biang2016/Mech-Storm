@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-internal class CardWeapon : CardBase {
+internal class CardWeapon : CardBase
+{
     protected override void Awake()
     {
         base.Awake();
@@ -10,38 +11,39 @@ internal class CardWeapon : CardBase {
 
     void Start()
     {
-
     }
 
     void Update()
     {
-
     }
 
     #region 卡牌上各模块
+
     public TextMesh WeaponName;
 
     public TextMesh WeaponDesc;
 
     private string m_WeaponName;
-    public string M_WeaponName {
-        get {
-            return m_WeaponName;
-        }
 
-        set {
+    public string M_WeaponName
+    {
+        get { return m_WeaponName; }
+
+        set
+        {
             m_WeaponName = value;
             WeaponName.text = M_WeaponName;
         }
     }
 
     private string m_WeaponDesc;
-    public string M_WeaponDesc {
-        get {
-            return m_WeaponDesc;
-        }
 
-        set {
+    public string M_WeaponDesc
+    {
+        get { return m_WeaponDesc; }
+
+        set
+        {
             m_WeaponDesc = value;
             WeaponDesc.text = M_WeaponDesc;
         }
@@ -67,8 +69,9 @@ internal class CardWeapon : CardBase {
 
         if (boardAreaType != Player.MyHandArea) //离开手牌区域
             foreach (var sa in slotAnchors)
-                if (sa.M_SlotType == SlotType.Weapon && sa.Player == Player) {
-                    summonWeapon(dragLastPosition, sa.M_ModuleRetinue);
+                if (sa.M_SlotType == SlotType.Weapon && sa.Player == Player)
+                {
+                    summonWeapon(sa.M_ModuleRetinue);
                     return;
                 }
 
@@ -88,21 +91,23 @@ internal class CardWeapon : CardBase {
     }
 
     #region 卡牌效果
+
     //装备武器
-    private void summonWeapon(Vector3 dragLastPosition, ModuleRetinue moduleRetinue)
+    private void summonWeapon(ModuleRetinue moduleRetinue)
     {
-        if (moduleRetinue == null) {
+        if (moduleRetinue == null)
+        {
             Debug.Log("No retinue on Place BUT SLOT HIT");
             return;
         }
 
-        if (!moduleRetinue.M_Weapon)
-            moduleRetinue.M_Weapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool
-                .AllocateGameObject(moduleRetinue.transform).GetComponent<ModuleWeapon>();
-        moduleRetinue.M_Weapon.M_ModuleRetinue = moduleRetinue;
-        moduleRetinue.M_Weapon.Initiate(CardInfo, Player);
+        ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(moduleRetinue.transform).GetComponent<ModuleWeapon>();
+        newModueWeapon.M_ModuleRetinue = moduleRetinue;
+        newModueWeapon.Initiate(CardInfo, Player);
+        moduleRetinue.M_Weapon = newModueWeapon;
         PoolRecycle();
         Player.MyHandManager.DropCard(this);
     }
+
     #endregion
 }

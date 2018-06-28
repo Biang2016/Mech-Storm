@@ -20,9 +20,9 @@ public class CardDeckManager : MonoBehaviour {
     void Start()
     {
         if (Player == GameManager.GM.SelfPlayer) {
-            M_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] { 1, 301, 300, 100, 100, 300, 000, 200, 301, 300, 100, 100, 300, 000, 200, 301, 300, 100, 100, 300, 000, 200 }));
+            M_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] { 1, 301, 300, 100, 100, 300, 0, 200, 301, 300, 100, 100, 300, 200, 301, 300, 100, 100, 300, 200 }));
         } else {
-            M_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] { 1, 301, 300, 100, 100, 300, 000, 200, 301, 300, 100, 100, 300, 000, 200, 301, 300, 100, 100, 300, 000, 200 }));
+            M_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] { 1, 301, 300, 100, 100, 300, 0, 200, 301, 300, 100, 100, 300, 200, 301, 300, 100, 100, 300, 200 }));
         }
     }
 

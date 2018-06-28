@@ -11,7 +11,6 @@ public class CardNumber : MonoBehaviour,IGameObjectPool
         gameObjectPool.RecycleGameObject(gameObject);
     }
 
-    MaterialPropertyBlock materialPropertyBlock;
     new Renderer renderer;
 
     void Awake()
@@ -29,7 +28,6 @@ public class CardNumber : MonoBehaviour,IGameObjectPool
                 break;
         }
 
-        materialPropertyBlock = new MaterialPropertyBlock();
         renderer = GetComponent<Renderer>();
     }
 

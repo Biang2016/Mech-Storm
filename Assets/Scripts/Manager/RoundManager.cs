@@ -60,7 +60,7 @@ public class RoundManager : MonoBehaviour
             SelfTurnText.transform.position = farAwayPosition;
         }
 
-        CurrentPlayer.MyHandManager.DrawCard();
+        CurrentPlayer.MyHandManager.DrawCards(GameManager.GM.DrawCardPerRound);
 
         CurrentPlayer.MyHandManager.BeginRound();
         CurrentPlayer.MyBattleGroundManager.BeginRound();

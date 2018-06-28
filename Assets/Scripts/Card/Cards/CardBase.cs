@@ -9,12 +9,16 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
     public virtual void PoolRecycle()
     {
         ResetColliderAndReplace();
-        if (GetComponent<DragComponent>()) {
+        if (GetComponent<DragComponent>())
+        {
             GetComponent<DragComponent>().enabled = true;
         }
-        if (GetComponent<BoxCollider>()) {
+
+        if (GetComponent<BoxCollider>())
+        {
             GetComponent<BoxCollider>().enabled = true;
         }
+
         gameObjectPool.RecycleGameObject(gameObject);
     }
 
@@ -27,23 +31,35 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     void Start()
     {
-
     }
 
     void Update()
     {
-
     }
 
     #region 卡牌上各模块
+
+    public Renderer MainBoardRenderer;
+    public GameObject CardBloom;
     public GameObject Block_Cost;
     protected GameObject GoNumberSet_Cost;
     protected CardNumberSet CardNumberSet_Cost;
-    public Renderer PictureBoxRenderer;//图片框
+    public Renderer PictureBoxRenderer; //图片框
+
+    public void ChangeColor(Color newColor)
+    {
+        if (MainBoardRenderer)
+        {
+            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+            MainBoardRenderer.GetPropertyBlock(mpb);
+            mpb.SetColor("_EmissionColor", newColor);
+            MainBoardRenderer.SetPropertyBlock(mpb);
+        }
+    }
 
     # endregion
 
-    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo,Transform parent,Player player)
+    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, Player player)
     {
         CardBase newCard;
         switch (cardInfo.CardType)
@@ -61,7 +77,9 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
                 newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
                 break;
         }
+
         newCard.Initiate(cardInfo, player);
+        newCard.ChangeColor(cardInfo.CardColor);
         return newCard;
     }
 
@@ -107,15 +125,13 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
     }
 
 
-
     #region 卡牌数值变化
+
     private int m_Cost;
+
     public int M_Cost
     {
-        get
-        {
-            return m_Cost;
-        }
+        get { return m_Cost; }
         set
         {
             m_Cost = value;
@@ -126,9 +142,24 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
     #endregion
 
     #region 卡牌交互
+
     internal ColliderReplace myColliderReplace;
     internal BoxCollider myCollider;
-    internal bool Usable;
+
+    private bool usable;
+
+    internal bool Usable
+    {
+        get { return usable; }
+
+        set
+        {
+            usable = value;
+            if (CardBloom) CardBloom.SetActive(value);
+        }
+    }
+
+
     public virtual void OnBeginRound()
     {
     }
@@ -143,6 +174,7 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
         {
             myCollider.enabled = true;
         }
+
         if (myColliderReplace)
         {
             GameObjectPoolManager.GOPM.Pool_ColliderReplacePool.RecycleGameObject(myColliderReplace.gameObject);
@@ -152,7 +184,7 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     private void OnMouseEnter()
     {
-        Player.MyHandManager.CardOnMouseEnter(this);//通知手牌管理器该聚焦本牌了
+        Player.MyHandManager.CardOnMouseEnter(this); //通知手牌管理器该聚焦本牌了
     }
 
     public void DragComponent_OnMouseDown()
@@ -162,7 +194,6 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue)
     {
-
     }
 
     public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,
@@ -190,5 +221,13 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
     }
 
     #endregion
-}
 
+    #region  Utils
+
+    public static void RepairDisplayCardOutOfView(CardBase targetCard)//检查卡牌是否在视野外，如果是则复位
+    {
+
+    }
+
+    #endregion
+}

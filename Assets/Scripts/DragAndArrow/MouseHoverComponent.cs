@@ -80,11 +80,11 @@ public class MouseHoverComponent : MonoBehaviour
             if (!isOnPressHover && value) {
                 Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 isOnPressHover = value;
-                caller.MouseHoverComponent_OnMouseDragEnterImmediately(cameraPosition);
+                caller.MouseHoverComponent_OnMousePressEnterImmediately(cameraPosition);
             }
             if (IsOnPressHover && !value) {
                 isOnPressHover = value;
-                caller.MouseHoverComponent_OnMouseDragLeaveImmediately();
+                caller.MouseHoverComponent_OnMousePressLeaveImmediately();
             }
         }
     }
@@ -96,11 +96,11 @@ public interface IMouseHoverComponent
     /// 此接口用于将除了MouseHoverComponent通用效果之外的效果还给调用者自行处理
     /// </summary>
 
-    void MouseHoverComponent_OnMouseDragEnterImmediately(Vector3 mousePosition);
+    void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition);
     void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition);
     void MouseHoverComponent_OnMouseEnter(Vector3 mousePosition);
     void MouseHoverComponent_OnMouseOver();
     void MouseHoverComponent_OnMouseLeave();
     void MouseHoverComponent_OnMouseLeaveImmediately();
-    void MouseHoverComponent_OnMouseDragLeaveImmediately();
+    void MouseHoverComponent_OnMousePressLeaveImmediately();
 }

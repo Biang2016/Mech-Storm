@@ -73,5 +73,7 @@ public class GameManager : MonoBehaviour {
 
     public int MaxRetinueNumber = 7;
 
+    public int DrawCardPerRound = 2;
+
     #endregion
 }

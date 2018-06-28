@@ -52,7 +52,6 @@ internal class CardRetinue : CardBase
     public TextMesh TextMesh_RetinueName;
 
     public TextMesh TextMesh_RetinueDesc;
-    public GameObject CardBloom;
 
     public GameObject Block_RetinueLeftLife;
     GameObject GoNumberSet_RetinueLeftLife;
