@@ -26,13 +26,43 @@ public class Player
 
     #region Cost
 
-    internal int CostMax { get; set; }
+    private int costMax;
+    internal int CostMax
+    {
+        get { return costMax; }
+        set
+        {
+            costMax = value;
+            OnCostChanged();
+        }
+    }
 
-    internal int CostLeft { get; set; }
+    private int costLeft;
+    internal int CostLeft
+    {
+        get { return costLeft; }
+        set
+        {
+            costLeft = value;
+            OnCostChanged();
+        }
+    }
+
+    private void OnCostChanged()
+    {
+        if (this == GameManager.GM.SelfPlayer)
+        {
+            RoundManager.RM.SelfCostText.text = "Cost: " + CostLeft + "/" + CostMax;
+        }
+        else if (this == GameManager.GM.EnemyPlayer)
+        {
+            RoundManager.RM.EnemyCostText.text = "Cost: " + CostLeft + "/" + CostMax;
+        }
+    }
 
     public bool UseCost(int useCostNumber)
     {
-        if (CostLeft > useCostNumber)
+        if (CostLeft >= useCostNumber)
         {
             CostLeft -= useCostNumber;
             return true;

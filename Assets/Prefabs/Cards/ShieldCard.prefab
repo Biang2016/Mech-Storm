@@ -36,8 +36,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4824366687561978}
   - component: {fileID: 65927682291296918}
-  - component: {fileID: 114033420284229046}
   - component: {fileID: 114555658069233974}
+  - component: {fileID: 114868643765437194}
   m_Layer: 8
   m_Name: ShieldCard
   m_TagString: Card
@@ -682,17 +682,6 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!114 &114033420284229046
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1269394147484668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95f4ede2a2da2cb4a9fc06b68bd3967a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114555658069233974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -710,6 +699,17 @@ MonoBehaviour:
   PictureBoxRenderer: {fileID: 23093013362717960}
   ShieldName: {fileID: 102900064219924946}
   ShieldDesc: {fileID: 102382916022694814}
+--- !u!114 &114868643765437194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1269394147484668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69ab291b718e7434e98961d2d505d697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &224556569506312186
 RectTransform:
   m_ObjectHideFlags: 1

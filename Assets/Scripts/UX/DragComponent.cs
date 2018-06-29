@@ -79,16 +79,23 @@ public class DragComponent : MonoBehaviour
         {
             CardBase possibleCard = GetComponent<CardBase>();
             ModuleBase possibleModuleBase = GetComponent<ModuleBase>();
-            if (possibleCard && possibleCard.Player == RoundManager.RM.CurrentPlayer ||
-                possibleModuleBase && possibleModuleBase.Player == RoundManager.RM.CurrentPlayer)
+            if (possibleCard && possibleCard.Player == RoundManager.RM.CurrentPlayer || possibleModuleBase && possibleModuleBase.Player == RoundManager.RM.CurrentPlayer)
             {
-                isOnDrag = value;
                 if (value) //鼠标按下
                 {
-                    dragLastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    caller.DragComponent_OnMouseDown();
                     caller.DragComponent_SetStates(ref canDrag, ref hasTarget);
-                    dragDistance = caller.DragComponnet_DragDistance();
+                    if (canDrag)
+                    {
+                        dragLastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        caller.DragComponent_OnMouseDown();
+                        dragDistance = caller.DragComponnet_DragDistance();
+                        isOnDrag = value;
+                    }
+                    else
+                    {
+                        isOnDrag = false;
+                        DragManager.DM.CurrentDrag = null;
+                    }
                 }
                 else //鼠标放开
                 {
@@ -99,6 +106,12 @@ public class DragComponent : MonoBehaviour
                         dragLastPosition = Vector3.zero;
                         isBegin = true;
                         if (arrow) arrow.PoolRecycle();
+                        isOnDrag = value;
+                    }
+                    else
+                    {
+                        isOnDrag = false;
+                        DragManager.DM.CurrentDrag = null;
                     }
                 }
             }

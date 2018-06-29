@@ -189,6 +189,11 @@ public class HandManager : MonoBehaviour
         foreach (var card in cards) card.Usable = (Player==RoundManager.RM.CurrentPlayer)&& card.M_Cost <= Player.CostLeft;
     }
 
+    internal void SetAllCardUnusable() //禁用所有手牌
+    {
+        foreach (var card in cards) card.Usable = false;
+    }
+
     CardBase currentFocusCard;
     internal void CardOnMouseEnter(CardBase focusCard)
     {
@@ -273,11 +278,13 @@ public class HandManager : MonoBehaviour
     public void BeginRound()
     {
         foreach (var card in cards) card.OnBeginRound();
+        RefreshAllCardUsable();
     }
 
     public void EndRound()
     {
         foreach (var card in cards) card.OnEndRound();
+        SetAllCardUnusable();
     }
 
 }

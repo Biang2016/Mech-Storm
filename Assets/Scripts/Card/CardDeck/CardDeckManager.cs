@@ -15,22 +15,26 @@ public class CardDeckManager : MonoBehaviour
 
     public List<CardDeck> M_CardDecks;
 
-    public CardDeck M_CurrentCardDeck;
+    private CardDeck m_CurrentCardDeck;
 
-    void Start()
+    public CardDeck M_CurrentCardDeck
     {
-        if (Player == GameManager.GM.SelfPlayer)
+        get
         {
-            M_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] {0, 1, 100, 200, 200, 300, 301, 100, 200, 200, 300, 301}));
-        }
-        else
-        {
-            M_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] {0, 1, 100, 200, 200, 300, 301, 100, 200, 200, 300, 301}));
-        }
-    }
+            if (m_CurrentCardDeck == null)
+            {
+                if (Player == GameManager.GM.SelfPlayer)
+                {
+                    m_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] {0, 1, 100, 200, 200, 300, 301, 100, 200, 200, 300, 301}));
+                }
+                else
+                {
+                    m_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] {0, 1, 100, 200, 200, 300, 301, 100, 200, 200, 300, 301}));
+                }
+            }
 
-    void Update()
-    {
+            return m_CurrentCardDeck;
+        }
     }
 
     internal CardInfo_Base DrawRetinueCard()

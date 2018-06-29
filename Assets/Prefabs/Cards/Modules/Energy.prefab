@@ -21,8 +21,6 @@ GameObject:
   - component: {fileID: 4980026679179858}
   - component: {fileID: 33765430030157256}
   - component: {fileID: 23574956385153810}
-  - component: {fileID: 114903525261633796}
-  - component: {fileID: 114435422214555504}
   m_Layer: 12
   m_Name: Energy
   m_TagString: Untagged
@@ -84,26 +82,3 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1444268312890240}
   m_Mesh: {fileID: 4300018, guid: f9de99dc293e3dc4ca95845c4d72a356, type: 3}
---- !u!114 &114435422214555504
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1444268312890240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e81d9933249f4da88f38a3d9650e963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114903525261633796
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1444268312890240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c6e327c19e5fd14fbc5fca580595d2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOnHover: 0

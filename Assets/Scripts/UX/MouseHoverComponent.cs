@@ -8,7 +8,9 @@ public class MouseHoverComponent : MonoBehaviour
     /// 实现悬停过程中卡牌展示的功能
     /// </summary>
 
-    IMouseHoverComponent caller;
+    private IMouseHoverComponent caller;
+    
+
     void Awake()
     {
         caller = GetComponent<IMouseHoverComponent>();
@@ -16,7 +18,6 @@ public class MouseHoverComponent : MonoBehaviour
 
     void Start()
     {
-        
     }
 
     void Update()
@@ -28,12 +29,10 @@ public class MouseHoverComponent : MonoBehaviour
     }
 
     private bool isOnFocus;
+
     internal bool IsOnFocus
     {
-        get
-        {
-            return isOnFocus;
-        }
+        get { return isOnFocus; }
 
         set
         {
@@ -43,6 +42,7 @@ public class MouseHoverComponent : MonoBehaviour
                 isOnFocus = value;
                 caller.MouseHoverComponent_OnMouseEnter(cameraPosition);
             }
+
             if (IsOnFocus && !value)
             {
                 isOnFocus = value;
@@ -52,18 +52,22 @@ public class MouseHoverComponent : MonoBehaviour
     }
 
     private bool isOnHover;
-    internal bool IsOnHover {
-        get {
-            return isOnHover;
-        }
 
-        set {
-            if (!isOnHover && value) {
+    internal bool IsOnHover
+    {
+        get { return isOnHover; }
+
+        set
+        {
+            if (!isOnHover && value)
+            {
                 Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 isOnHover = value;
                 caller.MouseHoverComponent_OnMouseEnterImmediately(cameraPosition);
             }
-            if (IsOnHover && !value) {
+
+            if (IsOnHover && !value)
+            {
                 isOnHover = value;
                 caller.MouseHoverComponent_OnMouseLeaveImmediately();
             }
@@ -71,18 +75,22 @@ public class MouseHoverComponent : MonoBehaviour
     }
 
     private bool isOnPressHover;
-    internal bool IsOnPressHover {
-        get {
-            return isOnPressHover;
-        }
 
-        set {
-            if (!isOnPressHover && value) {
+    internal bool IsOnPressHover
+    {
+        get { return isOnPressHover; }
+
+        set
+        {
+            if (!isOnPressHover && value)
+            {
                 Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 isOnPressHover = value;
                 caller.MouseHoverComponent_OnMousePressEnterImmediately(cameraPosition);
             }
-            if (IsOnPressHover && !value) {
+
+            if (IsOnPressHover && !value)
+            {
                 isOnPressHover = value;
                 caller.MouseHoverComponent_OnMousePressLeaveImmediately();
             }
@@ -95,8 +103,8 @@ public interface IMouseHoverComponent
     /// <summary>
     /// 此接口用于将除了MouseHoverComponent通用效果之外的效果还给调用者自行处理
     /// </summary>
-
     void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition);
+
     void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition);
     void MouseHoverComponent_OnMouseEnter(Vector3 mousePosition);
     void MouseHoverComponent_OnMouseOver();

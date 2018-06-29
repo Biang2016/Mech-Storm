@@ -199,17 +199,144 @@ public class AllCards
 {
     public Dictionary<int, CardInfo_Base> CardDict = new Dictionary<int, CardInfo_Base>();
 
+    private void addCard(CardInfo_Base cardInfo)
+    {
+        CardDict.Add(cardInfo.CardID,cardInfo);
+    }
+
     public AllCards()
     {
-        CardDict.Add(99, new CardInfo_Retinue(99, "英雄", "死了游戏结束", 1, false, CardTypes.Retinue, Color.blue, -1, 50, 50, 0, 0, 0));
-        CardDict.Add(0, new CardInfo_Retinue(0, "海牛高达", "暂无", 1, false, CardTypes.Retinue, Color.blue, -1, 2, 2, 2, 2, 2));
-        CardDict.Add(1, new CardInfo_Retinue(1, "GAT-X105E", "暂无", 1, false, CardTypes.Retinue, Color.blue, -1, 2, 2, 1, 3, 3));
-        CardDict.Add(100, new CardInfo_Weapon(100, "热能斧Ⅰ", "每次攻击积攒<color=#FFFF00>1</color>点能量\n攻击时每点能量可造成<color=#FFFF00>1</color>倍伤害\n最高充能<color=#FFFF00>3</color>", 1, true, CardTypes.Weapon, Color.red, 101, 1, 3, 1, WeaponType.Sword));
-        CardDict.Add(101, new CardInfo_Weapon(101, "热能斧Ⅱ", "每次攻击积攒<color=#FFFF00>1</color>点能量\n攻击时每点能量可造成<color=#FFFF00>1</color>倍伤害\n最高充能<color=#FFFF00>5</color>", 1, true, CardTypes.Weapon, Color.red, -1, 1, 5, 1, WeaponType.Sword));
-        CardDict.Add(200, new CardInfo_Weapon(200, "新兵步枪Ⅰ", "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>3</color>", 1, true, CardTypes.Weapon, Color.red, 201, 3, 3, 2, WeaponType.Gun));
-        CardDict.Add(201, new CardInfo_Weapon(201, "新兵步枪Ⅱ", "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>5</color>", 1, true, CardTypes.Weapon, Color.red, -1, 5, 5, 2, WeaponType.Gun));
-        CardDict.Add(300, new CardInfo_Shield(300, "新兵护盾", "提供<color=#5000bd>4</color>点护盾\n受到大于护盾值攻击时耐久<color=#5000bd>减半</color>\n受到小于护盾值攻击时耐久<color=#5000bd>-1</color>", 1, true, CardTypes.Shield, Color.yellow, -1, ShieldType.Shield, 0, 0, 2, 2));
-        CardDict.Add(301, new CardInfo_Shield(301, "新兵盾牌", "提供<color=#5000bd>8</color>点护甲", 1, true, CardTypes.Shield, Color.yellow, -1, ShieldType.Armor, 4, 4, 0, 0));
+        addCard(
+            new CardInfo_Retinue(
+                cardID: 99,
+                cardName: "英雄",
+                cardDesc: "死了游戏结束",
+                cost: 0,
+                hasTarget: false,
+                cardType: CardTypes.Retinue,
+                cardColor: Color.blue,
+                upgreaCardID: -1,
+                life: 50,
+                totalLife: 50,
+                basicAttack: 0,
+                basicShield: 0,
+                basicArmor: 0));
+        addCard(
+            new CardInfo_Retinue(
+                cardID: 0,
+                cardName: "海牛高达",
+                cardDesc: "暂无",
+                cost: 2,
+                hasTarget: false,
+                cardType: CardTypes.Retinue,
+                cardColor: Color.blue,
+                upgreaCardID: -1,
+                life: 2,
+                totalLife: 2,
+                basicAttack: 2,
+                basicShield: 2,
+                basicArmor: 2));
+        addCard(
+            new CardInfo_Retinue(
+                cardID: 1,
+                cardName: "GAT-X105E",
+                cardDesc: "暂无",
+                cost: 2,
+                hasTarget: false,
+                cardType: CardTypes.Retinue,
+                cardColor: Color.blue,
+                upgreaCardID: -1,
+                life: 2,
+                totalLife: 2,
+                basicAttack: 1,
+                basicShield: 3,
+                basicArmor: 3));
+        addCard(
+            new CardInfo_Weapon(
+                cardID: 100,
+                cardName: "热能斧Ⅰ",
+                cardDesc: "每次攻击积攒<color=#FFFF00>1</color>点能量\n攻击时每点能量可造成<color=#FFFF00>1</color>倍伤害\n最高充能<color=#FFFF00>3</color>",
+                cost: 1,
+                hasTarget: true,
+                cardType: CardTypes.Weapon,
+                cardColor: Color.red,
+                upgreaCardID: 101,
+                energy: 1,
+                energyMax: 3,
+                attack: 1,
+                weaponType: WeaponType.Sword));
+        addCard(
+            new CardInfo_Weapon(
+                cardID: 101,
+                cardName: "热能斧Ⅱ",
+                cardDesc: "每次攻击积攒<color=#FFFF00>1</color>点能量\n攻击时每点能量可造成<color=#FFFF00>1</color>倍伤害\n最高充能<color=#FFFF00>5</color>",
+                cost: 3,
+                hasTarget: true,
+                cardType: CardTypes.Weapon,
+                cardColor: Color.red,
+                upgreaCardID: -1,
+                energy: 1,
+                energyMax: 5,
+                attack: 1,
+                weaponType: WeaponType.Sword));
+        addCard(
+            new CardInfo_Weapon(
+                cardID: 200,
+                cardName: "新兵步枪Ⅰ",
+                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>3</color>",
+                cost: 2,
+                hasTarget: true,
+                cardType: CardTypes.Weapon,
+                cardColor: Color.red,
+                upgreaCardID: 201,
+                energy: 3,
+                energyMax: 3,
+                attack: 2,
+                weaponType: WeaponType.Gun));
+        addCard(
+            new CardInfo_Weapon(
+                cardID: 201,
+                cardName: "新兵步枪Ⅱ",
+                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>5</color>",
+                cost: 3,
+                hasTarget: true,
+                cardType: CardTypes.Weapon,
+                cardColor: Color.red,
+                upgreaCardID: -1,
+                energy: 5,
+                energyMax: 5,
+                attack: 2,
+                weaponType: WeaponType.Gun));
+        addCard(
+            new CardInfo_Shield(
+                cardID: 300,
+                cardName: "新兵护盾",
+                cardDesc: "提供<color=#5000bd>4</color>点护盾\n受到大于护盾值攻击时耐久<color=#5000bd>减半</color>\n受到小于护盾值攻击时耐久<color=#5000bd>-1</color>",
+                cost: 1,
+                hasTarget: true,
+                cardType: CardTypes.Shield,
+                cardColor: Color.yellow,
+                upgreaCardID: -1,
+                shielType: ShieldType.Shield,
+                armor: 0,
+                armorMax: 0,
+                shield: 2,
+                shieldMax: 2));
+        addCard(
+            new CardInfo_Shield(
+                cardID: 301,
+                cardName: "新兵盾牌",
+                cardDesc: "提供<color=#5000bd>8</color>点护甲",
+                cost: 1,
+                hasTarget: true,
+                cardType: CardTypes.Shield,
+                cardColor: Color.yellow,
+                upgreaCardID: -1,
+                shielType: ShieldType.Armor,
+                armor: 4,
+                armorMax: 4,
+                shield: 0,
+                shieldMax: 0));
     }
 
     public CardInfo_Base GetCard(int cardID)

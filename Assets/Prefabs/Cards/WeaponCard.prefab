@@ -121,8 +121,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4761368754380028}
   - component: {fileID: 65446152555547904}
-  - component: {fileID: 114989874149612920}
   - component: {fileID: 114830629387253412}
+  - component: {fileID: 114910235152336950}
   m_Layer: 8
   m_Name: WeaponCard
   m_TagString: Card
@@ -699,7 +699,7 @@ MonoBehaviour:
   PictureBoxRenderer: {fileID: 23878625947819022}
   WeaponName: {fileID: 102162842127421964}
   WeaponDesc: {fileID: 102070581280812742}
---- !u!114 &114989874149612920
+--- !u!114 &114910235152336950
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -707,7 +707,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1581481781110654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95f4ede2a2da2cb4a9fc06b68bd3967a, type: 3}
+  m_Script: {fileID: 11500000, guid: 69ab291b718e7434e98961d2d505d697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &224975544303358730

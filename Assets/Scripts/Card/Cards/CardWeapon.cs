@@ -64,8 +64,7 @@ internal class CardWeapon : CardBase
         ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,
         Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition,
-            dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition,dragBeginQuaternion);
 
         if (boardAreaType != Player.MyHandArea) //离开手牌区域
             foreach (var sa in slotAnchors)
@@ -79,11 +78,6 @@ internal class CardWeapon : CardBase
         Player.MyHandManager.RefreshCardsPlace();
     }
 
-    public override void DragComponent_SetStates(ref bool canDrag, ref bool hasTarget)
-    {
-        canDrag = true;
-        hasTarget = CardInfo.HasTarget;
-    }
 
     public override float DragComponnet_DragDistance()
     {
@@ -95,6 +89,7 @@ internal class CardWeapon : CardBase
     //装备武器
     private void summonWeapon(ModuleRetinue moduleRetinue)
     {
+        Player.UseCost(M_Cost);
         if (moduleRetinue == null)
         {
             Debug.Log("No retinue on Place BUT SLOT HIT");

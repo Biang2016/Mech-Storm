@@ -119,8 +119,8 @@ GameObject:
   - component: {fileID: 4851044664945298}
   - component: {fileID: 114310859938269628}
   - component: {fileID: 65101073395848692}
-  - component: {fileID: 114285780950084820}
-  - component: {fileID: 114502620660840194}
+  - component: {fileID: 114321063401111608}
+  - component: {fileID: 114774957418447206}
   m_Layer: 12
   m_Name: Weapon
   m_TagString: Untagged
@@ -487,17 +487,6 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 16777215
---- !u!114 &114285780950084820
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1846465197272344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95f4ede2a2da2cb4a9fc06b68bd3967a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114310859938269628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -516,7 +505,7 @@ MonoBehaviour:
   M_SwordIcon: {fileID: 1895536683752740}
   Block_WeaponAttack: {fileID: 1065055627049492}
   Block_WeaponEnergy: {fileID: 1128905146651086}
---- !u!114 &114502620660840194
+--- !u!114 &114321063401111608
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -524,6 +513,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1846465197272344}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca56e2737242ebd44915ebda12e2b573, type: 3}
+  m_Script: {fileID: 11500000, guid: 69ab291b718e7434e98961d2d505d697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114774957418447206
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846465197272344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

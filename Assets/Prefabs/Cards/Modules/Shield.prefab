@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4554393921882572}
-  - component: {fileID: 114133901098468258}
-  - component: {fileID: 114671964788724282}
   - component: {fileID: 65940766639525404}
+  - component: {fileID: 114313992795482676}
+  - component: {fileID: 114462520089237860}
   - component: {fileID: 114005542974490046}
   m_Layer: 12
   m_Name: Shield
@@ -563,7 +563,7 @@ MonoBehaviour:
   Block_ShieldArmorMax: {fileID: 1833237873168330}
   Block_ShieldShield: {fileID: 1994281720931086}
   Block_ShieldShieldMax: {fileID: 1829474806151710}
---- !u!114 &114133901098468258
+--- !u!114 &114313992795482676
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -571,10 +571,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1023920357079246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95f4ede2a2da2cb4a9fc06b68bd3967a, type: 3}
+  m_Script: {fileID: 11500000, guid: 69ab291b718e7434e98961d2d505d697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114671964788724282
+--- !u!114 &114462520089237860
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -582,6 +582,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1023920357079246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca56e2737242ebd44915ebda12e2b573, type: 3}
+  m_Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

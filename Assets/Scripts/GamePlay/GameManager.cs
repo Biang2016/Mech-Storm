@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
     private static GameManager _gm;
-    public static GameManager GM {
-        get {
+
+    public static GameManager GM
+    {
+        get
+        {
             if (!_gm) _gm = FindObjectOfType<GameManager>();
             return _gm;
         }
     }
-    
+
+
     #region 其他
+
     public AudioSource MainAudioSource;
     private ImageEffectBlurBox _rbe;
 
@@ -41,12 +47,12 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
+        RoundManager.RM.GameStart();
     }
 
     private void Update()
     {
     }
-
 
 
     public void StartBlurBackGround()
@@ -72,6 +78,7 @@ public class GameManager : MonoBehaviour {
     public float DetailCardSizeRetinue = 4.0f;
 
     public int MaxRetinueNumber = 7;
+    public float RetinueInterval = 3.5f;
 
     public int DrawCardPerRound = 2;
 

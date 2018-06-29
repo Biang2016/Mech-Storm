@@ -196,12 +196,9 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
     {
     }
 
-    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,
-        ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,
-        Quaternion dragBeginQuaternion)
+    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         Player.MyHandManager.EndDrag();
-        Player.UseCost(M_Cost);
     }
 
     public virtual void DragComponent_SetStates(ref bool canDrag, ref bool hasTarget)
@@ -224,9 +221,8 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     #region  Utils
 
-    public static void RepairDisplayCardOutOfView(CardBase targetCard)//检查卡牌是否在视野外，如果是则复位
+    public static void RepairDisplayCardOutOfView(CardBase targetCard) //检查卡牌是否在视野外，如果是则复位
     {
-
     }
 
     #endregion

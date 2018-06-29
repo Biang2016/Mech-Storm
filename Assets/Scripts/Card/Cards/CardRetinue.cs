@@ -211,16 +211,13 @@ internal class CardRetinue : CardBase
         }
     }
 
-    public override void DragComponent_SetStates(ref bool canDrag, ref bool hasTarget)
-    {
-        canDrag = true;
-        hasTarget = CardInfo.HasTarget;
-    }
 
     #region 卡牌效果
     //召唤随从
     private void summonRetinue(Vector3 dragLastPosition)
     {
+        Player.UseCost(M_Cost);
+
         if (Player.MyBattleGroundManager.BattleGroundIsFull) {
             Player.MyHandManager.RefreshCardsPlace();
             return;
