@@ -75,5 +75,7 @@ public class GameManager : MonoBehaviour {
 
     public int DrawCardPerRound = 2;
 
+    public float RetinueDetailPreviewDelaySeconds = 0.7f;
+
     #endregion
 }

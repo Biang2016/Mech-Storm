@@ -164,9 +164,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4906573502351264}
-  - component: {fileID: 114826834536601562}
   - component: {fileID: 65921240915669306}
-  - component: {fileID: 114322266581753294}
+  - component: {fileID: 114939910681190732}
+  - component: {fileID: 114374196535144776}
   - component: {fileID: 114361206584978110}
   m_Layer: 12
   m_Name: ShieldDetail
@@ -545,17 +545,6 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!114 &114322266581753294
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1999415462189058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e81d9933249f4da88f38a3d9650e963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114361206584978110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -574,7 +563,7 @@ MonoBehaviour:
   Block_ShieldArmorMax: {fileID: 1068066808744298}
   Block_ShieldShield: {fileID: 1630339829897516}
   Block_ShieldShieldMax: {fileID: 1948203892802316}
---- !u!114 &114826834536601562
+--- !u!114 &114374196535144776
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -582,6 +571,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1999415462189058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c6e327c19e5fd14fbc5fca580595d2c, type: 3}
+  m_Script: {fileID: 11500000, guid: ca56e2737242ebd44915ebda12e2b573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114939910681190732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999415462189058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f4ede2a2da2cb4a9fc06b68bd3967a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

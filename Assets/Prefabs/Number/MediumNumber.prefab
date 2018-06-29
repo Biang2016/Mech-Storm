@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4107457413092756}
   - component: {fileID: 33403824430876608}
   - component: {fileID: 23273694879637782}
-  - component: {fileID: 114394103644647830}
+  - component: {fileID: 114251346086974614}
   m_Layer: 8
   m_Name: MediumNumber
   m_TagString: Card
@@ -83,7 +83,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1162047962945294}
   m_Mesh: {fileID: 4300010, guid: 6702244e7f4f80044bf520023a9821ca, type: 3}
---- !u!114 &114394103644647830
+--- !u!114 &114251346086974614
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -91,10 +91,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1162047962945294}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 925f9cbd5415c4ec79c6333a72c4b8fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c3c403cf870afe45b1fcf548e435295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectPool: {fileID: 0}
   NumberMaterial:
   - {fileID: 2100000, guid: dd6406f582060104bb31eafcc7a45dea, type: 2}
   - {fileID: 2100000, guid: a0097637a3673ff419be556deaa6b872, type: 2}

@@ -21,11 +21,11 @@ public class CardDeckManager : MonoBehaviour
     {
         if (Player == GameManager.GM.SelfPlayer)
         {
-            M_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] {0, 1, 100, 200, 200, 300, 301}));
+            M_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] {0, 1, 100, 200, 200, 300, 301, 100, 200, 200, 300, 301}));
         }
         else
         {
-            M_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] {0, 1, 100, 200, 200, 300, 301}));
+            M_CurrentCardDeck = new CardDeck(new CardDeckInfo(new int[] {0, 1, 100, 200, 200, 300, 301, 100, 200, 200, 300, 301}));
         }
     }
 
