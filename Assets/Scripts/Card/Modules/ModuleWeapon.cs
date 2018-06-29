@@ -56,7 +56,7 @@ public class ModuleWeapon : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Weapon(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, M_WeaponEnergy, M_WeaponEnergyMax, M_WeaponAttack, M_WeaponType);
+        return new CardInfo_Weapon(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_WeaponEnergy, M_WeaponEnergyMax, M_WeaponAttack, M_WeaponType);
     }
 
     private string m_WeaponName;
@@ -186,11 +186,13 @@ public class ModuleWeapon : ModuleBase
                 if (M_WeaponEnergy < M_WeaponEnergyMax) M_WeaponEnergy++;
                 return aSeriesOfAttacks;
             case WeaponType.Gun:
-                for (int i = 0; i < M_WeaponEnergy; i++)
+                int tmp = M_WeaponEnergy;
+                for (int i = 0; i < tmp; i++)
                 {
                     aSeriesOfAttacks.Add(M_WeaponAttack + M_ModuleRetinue.M_RetinueAttack);
                     M_WeaponEnergy--;
                 }
+
                 return aSeriesOfAttacks;
             default:
                 return aSeriesOfAttacks;
@@ -198,12 +200,9 @@ public class ModuleWeapon : ModuleBase
     }
 
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,
-        ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,
-        Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition,
-            dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         if (moduleRetinue && moduleRetinue.Player != Player)
         {
             var aSeriesOfAttacks = WeaponAttack();
@@ -223,6 +222,7 @@ public class ModuleWeapon : ModuleBase
     {
         return 0.2f;
     }
+
     #endregion
 
     #region 交互UX

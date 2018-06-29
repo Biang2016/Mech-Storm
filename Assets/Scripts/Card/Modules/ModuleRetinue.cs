@@ -48,6 +48,52 @@ public class ModuleRetinue : ModuleBase
 
     #region 各模块、自身数值与初始化
 
+    public GameObject Star4;
+
+    public override int Stars
+    {
+        get { return stars; }
+
+        set
+        {
+            stars = value;
+            switch (value)
+            {
+                case 0:
+                    if (Star1) Star1.SetActive(false);
+                    if (Star2) Star2.SetActive(false);
+                    if (Star3) Star3.SetActive(false);
+                    if (Star4) Star4.SetActive(false);
+                    break;
+                case 1:
+                    if (Star1) Star1.SetActive(true);
+                    if (Star2) Star2.SetActive(false);
+                    if (Star3) Star3.SetActive(false);
+                    if (Star4) Star4.SetActive(false);
+                    break;
+                case 2:
+                    if (Star1) Star1.SetActive(false);
+                    if (Star2) Star2.SetActive(true);
+                    if (Star3) Star3.SetActive(false);
+                    if (Star4) Star4.SetActive(false);
+                    break;
+                case 3:
+                    if (Star1) Star1.SetActive(false);
+                    if (Star2) Star2.SetActive(false);
+                    if (Star3) Star3.SetActive(true);
+                    if (Star4) Star4.SetActive(false);
+                    break;
+                case 4:
+                    if (Star1) Star1.SetActive(false);
+                    if (Star2) Star2.SetActive(false);
+                    if (Star3) Star3.SetActive(false);
+                    if (Star4) Star4.SetActive(true);
+                    break;
+                default: break;
+            }
+        }
+    }
+
     public TextMesh TextMesh_RetinueName;
     public TextMesh TextMesh_RetinueDesc;
 
@@ -92,6 +138,7 @@ public class ModuleRetinue : ModuleBase
         M_RetinueArmor = ((CardInfo_Retinue) cardInfo).BasicArmor;
         M_RetinueShield = ((CardInfo_Retinue) cardInfo).BasicShield;
         CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
+        ChangeCardDragBloomColor(GameManager.GM.CardDragBloomColor);
 
         if (SlotAnchor1)
         {
@@ -118,9 +165,22 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
+    private void ChangeCardDragBloomColor(Color color)
+    {
+        if (CardDraggedHoverBloom)
+        {
+            Renderer rd = CardDraggedHoverBloom.GetComponent<Renderer>();
+            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+            rd.GetPropertyBlock(mpb);
+            mpb.SetColor("_Color", color);
+            mpb.SetColor("_EmissionColor", color);
+            rd.SetPropertyBlock(mpb);
+        }
+    }
+
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, M_RetinueLeftLife, M_RetinueTotalLife, M_RetinueAttack, M_RetinueShield, M_RetinueArmor);
+        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_RetinueLeftLife, M_RetinueTotalLife, M_RetinueAttack, M_RetinueShield, M_RetinueArmor);
     }
 
     private string m_RetinueName;
@@ -296,10 +356,12 @@ public class ModuleRetinue : ModuleBase
         }
         else
         {
+            int energyTmp = m_Weapon.M_WeaponEnergy;
             newWeapon.CanAttack = m_Weapon.CanAttack;
             m_Weapon.PoolRecycle();
             m_Weapon = newWeapon;
             WeaponUpgrade((CardInfo_Weapon) m_Weapon.CardInfo); //如果武器相同获得升级
+            m_Weapon.M_WeaponEnergy = energyTmp;
         }
     }
 

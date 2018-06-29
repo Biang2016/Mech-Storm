@@ -298,11 +298,11 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 178378907}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 254.5, y: -100, z: 0}
+  m_LocalPosition: {x: 232.5, y: -100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331394035}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 266136432}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eb82a161a8a4d24eb1dad194738a475, type: 3}
+  m_Script: {fileID: 11500000, guid: 4181d44f582ec5144a82fdeebd4d0c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &454225280
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 454225280}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eb82a161a8a4d24eb1dad194738a475, type: 3}
+  m_Script: {fileID: 11500000, guid: 4181d44f582ec5144a82fdeebd4d0c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &461983581
@@ -546,7 +546,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331394035}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &461983583
 MonoBehaviour:
@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 786276423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1d010e35173afa4aab0aff2cd7a4403, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f4e3e1b8ce30634b8340993ab23397a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &867999987
@@ -1151,7 +1151,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 870312488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aeff3bb93e224844a7a29f4b79d878c, type: 3}
+  m_Script: {fileID: 11500000, guid: bc72083be1e125046b0ad63e501404fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1114627837
@@ -1375,11 +1375,11 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1167729804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 254.5, y: 60, z: 0}
+  m_LocalPosition: {x: 232.5, y: 60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331394035}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -1493,11 +1493,11 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1237769549}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 254.5, y: 100, z: 0}
+  m_LocalPosition: {x: 232.5, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331394035}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -1670,15 +1670,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1331394031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 254.5, y: 195.5, z: 0}
+  m_LocalPosition: {x: 232.5, y: 309, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1167729805}
   - {fileID: 1556441496}
-  - {fileID: 461983582}
-  - {fileID: 1442608239}
+  - {fileID: 1167729805}
   - {fileID: 178378908}
   - {fileID: 1237769550}
+  - {fileID: 461983582}
+  - {fileID: 1442608239}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1846,12 +1846,12 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1442608238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 254.5, y: 0, z: 0}
+  m_LocalPosition: {x: 232.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 146080620}
   m_Father: {fileID: 1331394035}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -2099,11 +2099,11 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1556441495}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 254.5, y: -60, z: 0}
+  m_LocalPosition: {x: 232.5, y: -60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331394035}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -2209,7 +2209,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1573142218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9941f1277a5f2164bb154e27f74844d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 06676390af035794b9f021944876d7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SelfHandManager: {fileID: 1745078664}
@@ -2522,11 +2522,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1745078660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f30aab20a6d93ee4394294241a7c237f, type: 3}
+  m_Script: {fileID: 11500000, guid: 83f896d1bd1d1c44a8d04ee25ddfee28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardNumber: 0
-  HandCardSize: 1
   PullOutCardSize: 3
 --- !u!1 &1777286357
 GameObject:
@@ -2630,7 +2629,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1803726601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76238ce607409ab4fabdd303eebf21b4, type: 3}
+  m_Script: {fileID: 11500000, guid: b4257f3ebf1c3584198327f662295aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SelfTurnText: {fileID: 1556441495}
@@ -2697,11 +2696,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1842917176}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f30aab20a6d93ee4394294241a7c237f, type: 3}
+  m_Script: {fileID: 11500000, guid: 83f896d1bd1d1c44a8d04ee25ddfee28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardNumber: 0
-  HandCardSize: 1
   PullOutCardSize: 3
 --- !u!1 &2039888136
 GameObject:
@@ -2744,27 +2742,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 2039888136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c24225faeb7cb644eae10d93a9fdf62a, type: 3}
+  m_Script: {fileID: 11500000, guid: ee4d656c32ead244b80463d6a1ff043a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainAudioSource: {fileID: 1165756316}
+  MainAudioSource: {fileID: 0}
   CanTestEnemyCards: 1
   BeginCost: 0
   MaxCost: 20
+  CostIncrease: 1
+  HandCardSize: 1.3
+  HandCardInterval: 1.5
+  HandCardRotate: 0.8
+  HandCardOffset: 0.3
   DetailCardSize: 3
   DetailCardModuleSize: 2.5
   DetailCardSizeRetinue: 4
+  MaxHandCard: 30
+  DrawCardPerRound: 1
+  FirstDrawCard: 1
+  SecondDrawCard: 2
   MaxRetinueNumber: 7
   RetinueInterval: 3.5
-  DrawCardPerRound: 2
-  MaxHandCard: 30
   RetinueDetailPreviewDelaySeconds: 0.7
-  HeroColor: {r: 1, g: 1, b: 1, a: 1}
-  RetinueColor: {r: 0, g: 0.42068934, b: 1, a: 1}
-  WeaponSwordColor: {r: 1, g: 0.2205882, b: 0.2205882, a: 1}
-  WeaponGunColor: {r: 1, g: 0.6598377, b: 0.051470578, a: 1}
-  ShieldShieldColor: {r: 0.7058823, g: 1, b: 0.14705884, a: 1}
-  ShieldArmorColor: {r: 0.95943207, g: 1, b: 0.7058823, a: 1}
+  HeroColor: {r: 0.5588235, g: 0.5588235, b: 0.5588235, a: 1}
+  RetinueColor: {r: 0, g: 0.2965517, b: 1, a: 1}
+  WeaponSwordColor: {r: 1, g: 0, b: 0.6000004, a: 1}
+  WeaponGunColor: {r: 1, g: 0, b: 0, a: 1}
+  ShieldShieldColor: {r: 0.8620689, g: 1, b: 0, a: 1}
+  ShieldArmorColor: {r: 1, g: 0.5586207, b: 0, a: 1}
+  CardBloomColor: {r: 0, g: 1, b: 0.17241383, a: 1}
+  CardDragBloomColor: {r: 0.3241377, g: 0, b: 1, a: 1}
 --- !u!1 &2103034572
 GameObject:
   m_ObjectHideFlags: 0

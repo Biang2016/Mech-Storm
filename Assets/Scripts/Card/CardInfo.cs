@@ -13,7 +13,7 @@ internal enum CardTypes
 
 public class CardInfo_Base
 {
-    internal CardInfo_Base(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgreaCardID)
+    internal CardInfo_Base(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgradeCardID,int cardLevel)
     {
         CardID = cardID;
         CardName = cardName;
@@ -22,7 +22,8 @@ public class CardInfo_Base
         HasTarget = hasTarget;
         CardType = cardType;
         CardColor = cardColor;
-        UpgradeID = upgreaCardID;
+        UpgradeID = upgradeCardID;
+        CardLevel = cardLevel;
     }
 
     internal int CardID;
@@ -33,17 +34,18 @@ public class CardInfo_Base
     internal CardTypes CardType;
     internal Color CardColor;
     internal int UpgradeID;
+    internal int CardLevel;
 
     public virtual CardInfo_Base Clone()
     {
-        CardInfo_Base cb = new CardInfo_Base(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID);
+        CardInfo_Base cb = new CardInfo_Base(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID,CardLevel);
         return cb;
     }
 }
 
 public class CardInfo_Retinue : CardInfo_Base
 {
-    internal CardInfo_Retinue(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgreaCardID, int life, int totalLife, int basicAttack, int basicShield, int basicArmor) : base(cardID, cardName, cardDesc, cost, hasTarget, cardType, cardColor, upgreaCardID)
+    internal CardInfo_Retinue(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgradeCardID,int cardLevel, int life, int totalLife, int basicAttack, int basicShield, int basicArmor) : base(cardID, cardName, cardDesc, cost, hasTarget, cardType, cardColor, upgradeCardID, cardLevel)
     {
         Life = life;
         TotalLife = totalLife;
@@ -60,14 +62,14 @@ public class CardInfo_Retinue : CardInfo_Base
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID, Life, TotalLife, BasicAttack, BasicShield, BasicArmor);
+        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID,CardLevel, Life, TotalLife, BasicAttack, BasicShield, BasicArmor);
         return cb;
     }
 }
 
 public class CardInfo_Weapon : CardInfo_Base
 {
-    internal CardInfo_Weapon(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgreaCardID, int energy, int energyMax, int attack, WeaponType weaponType) : base(cardID, cardName, cardDesc, cost, hasTarget, cardType, cardColor, upgreaCardID)
+    internal CardInfo_Weapon(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgradeCardID,int cardLevel, int energy, int energyMax, int attack, WeaponType weaponType) : base(cardID, cardName, cardDesc, cost, hasTarget, cardType, cardColor, upgradeCardID, cardLevel)
     {
         Energy = energy;
         EnergyMax = energyMax;
@@ -94,14 +96,14 @@ public class CardInfo_Weapon : CardInfo_Base
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Weapon cb = new CardInfo_Weapon(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID, Energy, EnergyMax, Attack, M_WeaponType);
+        CardInfo_Weapon cb = new CardInfo_Weapon(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID, CardLevel, Energy, EnergyMax, Attack, M_WeaponType);
         return cb;
     }
 }
 
 public class CardInfo_Shield : CardInfo_Base
 {
-    internal CardInfo_Shield(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgreaCardID, ShieldType shielType, int armor, int armorMax, int shield, int shieldMax) : base(cardID, cardName, cardDesc, cost, hasTarget, cardType, cardColor, upgreaCardID)
+    internal CardInfo_Shield(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgradeCardID,int cardLevel, ShieldType shielType, int armor, int armorMax, int shield, int shieldMax) : base(cardID, cardName, cardDesc, cost, hasTarget, cardType, cardColor, upgradeCardID, cardLevel)
     {
         M_ShieldType = shielType;
         Armor = armor;
@@ -130,7 +132,7 @@ public class CardInfo_Shield : CardInfo_Base
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Shield cb = new CardInfo_Shield(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID, M_ShieldType, Armor, ArmorMax, Shield, ShieldMax);
+        CardInfo_Shield cb = new CardInfo_Shield(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID,CardLevel, M_ShieldType, Armor, ArmorMax, Shield, ShieldMax);
         return cb;
     }
 }

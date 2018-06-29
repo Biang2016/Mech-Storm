@@ -39,6 +39,57 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     #region 卡牌上各模块
 
+    public GameObject Star1;
+    public GameObject Star2;
+    public GameObject Star3;
+    public GameObject Star4;
+    [SerializeField]
+    protected int stars;
+
+    public int Stars
+    {
+        get { return stars; }
+
+        set
+        {
+            stars = value;
+            switch (value)
+            {
+                case 0:
+                    if (Star1) Star1.SetActive(false);
+                    if (Star2) Star2.SetActive(false);
+                    if (Star3) Star3.SetActive(false);
+                    if (Star4) Star4.SetActive(false);
+                    break;
+                case 1:
+                    if (Star1) Star1.SetActive(true);
+                    if (Star2) Star2.SetActive(false);
+                    if (Star3) Star3.SetActive(false);
+                    if (Star4) Star4.SetActive(false);
+                    break;
+                case 2:
+                    if (Star1) Star1.SetActive(false);
+                    if (Star2) Star2.SetActive(true);
+                    if (Star3) Star3.SetActive(false);
+                    if (Star4) Star4.SetActive(false);
+                    break;
+                case 3:
+                    if (Star1) Star1.SetActive(false);
+                    if (Star2) Star2.SetActive(false);
+                    if (Star3) Star3.SetActive(true);
+                    if (Star4) Star4.SetActive(false);
+                    break;
+                case 4:
+                    if (Star1) Star1.SetActive(false);
+                    if (Star2) Star2.SetActive(false);
+                    if (Star3) Star3.SetActive(false);
+                    if (Star4) Star4.SetActive(true);
+                    break;
+                default: break;
+            }
+        }
+    }
+
     public Renderer MainBoardRenderer;
     public GameObject CardBloom;
     public GameObject Block_Cost;
@@ -55,6 +106,19 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
             mpb.SetColor("_Color", newColor);
             mpb.SetColor("_EmissionColor", newColor);
             MainBoardRenderer.SetPropertyBlock(mpb);
+        }
+    }
+
+    private void ChangeCardBloomColor(Color color)
+    {
+        if (CardBloom)
+        {
+            Renderer rd = CardBloom.GetComponent<Renderer>();
+            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+            rd.GetPropertyBlock(mpb);
+            mpb.SetColor("_Color", color);
+            mpb.SetColor("_EmissionColor", color);
+            rd.SetPropertyBlock(mpb);
         }
     }
 
@@ -78,7 +142,7 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
                 newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
                 break;
         }
-
+        
         newCard.Initiate(cardInfo, player);
         newCard.ChangeColor(cardInfo.CardColor);
         return newCard;
@@ -121,6 +185,9 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
         initiateNumbers(ref GoNumberSet_Cost, ref CardNumberSet_Cost, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Cost);
         M_Cost = CardInfo.Cost;
         CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
+        ChangeCardBloomColor(GameManager.GM.CardBloomColor);
+        Stars = cardInfo.CardLevel;
+
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Rotate(Vector3.up, 180);
     }

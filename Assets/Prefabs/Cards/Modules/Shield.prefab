@@ -772,6 +772,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd196764b3cfd5d4c84a4b223622a017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Star1: {fileID: 1682791063803984}
+  Star2: {fileID: 1241058973732846}
+  Star3: {fileID: 1378463658559476}
   MainBoardRenderer: {fileID: 23678766043628728}
   ShieldName: {fileID: 102369230193945580}
   M_Bloom: {fileID: 1634093315377984}

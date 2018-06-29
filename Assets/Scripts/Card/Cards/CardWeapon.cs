@@ -60,11 +60,9 @@ internal class CardWeapon : CardBase
         M_WeaponDesc = CardInfo.CardDesc;
     }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,
-        ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,
-        Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition,dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
         if (boardAreaType != Player.MyHandArea) //离开手牌区域
             foreach (var sa in slotAnchors)
