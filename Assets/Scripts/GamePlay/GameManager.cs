@@ -81,8 +81,16 @@ public class GameManager : MonoBehaviour
     public float RetinueInterval = 3.5f;
 
     public int DrawCardPerRound = 2;
+    public int MaxHandCard = 20;
 
     public float RetinueDetailPreviewDelaySeconds = 0.7f;
+
+    public Color HeroColor;
+    public Color RetinueColor;
+    public Color WeaponSwordColor;
+    public Color WeaponGunColor;
+    public Color ShieldShieldColor;
+    public Color ShieldArmorColor;
 
     #endregion
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 /// <summary>
 /// 鼠标放在某个物体上的效果管理器
@@ -68,6 +69,7 @@ public class MouseHoverManager : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit raycast;
                 Physics.Raycast(ray, out raycast, 10f, Layer);
+                Debug.DrawLine(ray.origin - 3 * ray.direction, ray.origin + 5 * ray.direction, Color.white);
                 if (raycast.collider != null)
                 {
                     MouseHoverComponent mouseHoverComponent = raycast.collider.gameObject.GetComponent<MouseHoverComponent>();
@@ -131,6 +133,7 @@ public class MouseHoverManager : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit raycast;
                 Physics.Raycast(ray, out raycast, 10f, Layer);
+                Debug.DrawLine(ray.origin - 3 * ray.direction, ray.origin + 5 * ray.direction, Color.yellow);
                 if (raycast.collider != null)
                 {
                     MouseHoverComponent mouseHoverComponent = raycast.collider.gameObject.GetComponent<MouseHoverComponent>();
@@ -222,6 +225,7 @@ public class MouseHoverManager : MonoBehaviour
                         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                         RaycastHit raycast;
                         Physics.Raycast(ray, out raycast, 10f, Layer);
+                        Debug.DrawLine(ray.origin - 3 * ray.direction, ray.origin + 5 * ray.direction, Color.red, 1f);
                         if (raycast.collider != null)
                         {
                             MouseHoverComponent mouseHoverComponent = raycast.collider.gameObject.GetComponent<MouseHoverComponent>();

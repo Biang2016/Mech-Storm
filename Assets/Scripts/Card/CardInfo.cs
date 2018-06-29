@@ -13,7 +13,7 @@ internal enum CardTypes
 
 public class CardInfo_Base
 {
-    internal CardInfo_Base(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType,Color cardColor,int upgreaCardID)
+    internal CardInfo_Base(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgreaCardID)
     {
         CardID = cardID;
         CardName = cardName;
@@ -60,7 +60,7 @@ public class CardInfo_Retinue : CardInfo_Base
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, CardName, CardDesc, Cost, HasTarget, CardType,CardColor, UpgradeID, Life, TotalLife, BasicAttack, BasicShield, BasicArmor);
+        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID, Life, TotalLife, BasicAttack, BasicShield, BasicArmor);
         return cb;
     }
 }
@@ -83,22 +83,25 @@ public class CardInfo_Weapon : CardInfo_Base
     public static string textToVertical(string text)
     {
         StringBuilder sb = new StringBuilder();
-        foreach(char ch in text) {
+        foreach (char ch in text)
+        {
             sb.Append(ch);
             sb.Append("\n");
         }
+
         return sb.ToString().Trim('\n');
     }
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Weapon cb = new CardInfo_Weapon(CardID, CardName, CardDesc, Cost, HasTarget, CardType,CardColor, UpgradeID, Energy, EnergyMax, Attack, M_WeaponType);
+        CardInfo_Weapon cb = new CardInfo_Weapon(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID, Energy, EnergyMax, Attack, M_WeaponType);
         return cb;
     }
 }
 
-public class CardInfo_Shield : CardInfo_Base {
-    internal CardInfo_Shield(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgreaCardID, ShieldType shielType, int armor,int armorMax, int shield, int shieldMax) : base(cardID, cardName, cardDesc, cost, hasTarget, cardType, cardColor, upgreaCardID)
+public class CardInfo_Shield : CardInfo_Base
+{
+    internal CardInfo_Shield(int cardID, string cardName, string cardDesc, int cost, bool hasTarget, CardTypes cardType, Color cardColor, int upgreaCardID, ShieldType shielType, int armor, int armorMax, int shield, int shieldMax) : base(cardID, cardName, cardDesc, cost, hasTarget, cardType, cardColor, upgreaCardID)
     {
         M_ShieldType = shielType;
         Armor = armor;
@@ -116,17 +119,18 @@ public class CardInfo_Shield : CardInfo_Base {
     public static string textToVertical(string text)
     {
         StringBuilder sb = new StringBuilder();
-        foreach (char ch in text) {
+        foreach (char ch in text)
+        {
             sb.Append(ch);
             sb.Append("\n");
         }
+
         return sb.ToString().Trim('\n');
     }
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Shield cb = new CardInfo_Shield(CardID, CardName, CardDesc, Cost, HasTarget, CardType,CardColor, UpgradeID, M_ShieldType, Armor, ArmorMax, Shield, ShieldMax);
+        CardInfo_Shield cb = new CardInfo_Shield(CardID, CardName, CardDesc, Cost, HasTarget, CardType, CardColor, UpgradeID, M_ShieldType, Armor, ArmorMax, Shield, ShieldMax);
         return cb;
     }
 }
-

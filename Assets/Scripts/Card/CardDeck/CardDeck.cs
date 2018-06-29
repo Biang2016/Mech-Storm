@@ -201,7 +201,7 @@ public class AllCards
 
     private void addCard(CardInfo_Base cardInfo)
     {
-        CardDict.Add(cardInfo.CardID,cardInfo);
+        CardDict.Add(cardInfo.CardID, cardInfo);
     }
 
     public AllCards()
@@ -214,7 +214,7 @@ public class AllCards
                 cost: 0,
                 hasTarget: false,
                 cardType: CardTypes.Retinue,
-                cardColor: Color.blue,
+                cardColor: GameManager.GM.HeroColor,
                 upgreaCardID: -1,
                 life: 50,
                 totalLife: 50,
@@ -229,7 +229,7 @@ public class AllCards
                 cost: 2,
                 hasTarget: false,
                 cardType: CardTypes.Retinue,
-                cardColor: Color.blue,
+                cardColor: GameManager.GM.RetinueColor,
                 upgreaCardID: -1,
                 life: 2,
                 totalLife: 2,
@@ -244,7 +244,7 @@ public class AllCards
                 cost: 2,
                 hasTarget: false,
                 cardType: CardTypes.Retinue,
-                cardColor: Color.blue,
+                cardColor: GameManager.GM.RetinueColor,
                 upgreaCardID: -1,
                 life: 2,
                 totalLife: 2,
@@ -259,7 +259,7 @@ public class AllCards
                 cost: 1,
                 hasTarget: true,
                 cardType: CardTypes.Weapon,
-                cardColor: Color.red,
+                cardColor: GameManager.GM.WeaponSwordColor,
                 upgreaCardID: 101,
                 energy: 1,
                 energyMax: 3,
@@ -273,21 +273,35 @@ public class AllCards
                 cost: 3,
                 hasTarget: true,
                 cardType: CardTypes.Weapon,
-                cardColor: Color.red,
-                upgreaCardID: -1,
+                cardColor: GameManager.GM.WeaponSwordColor,
+                upgreaCardID: 102,
                 energy: 1,
                 energyMax: 5,
                 attack: 1,
                 weaponType: WeaponType.Sword));
         addCard(
             new CardInfo_Weapon(
+                cardID: 102,
+                cardName: "热能斧Ⅲ",
+                cardDesc: "每次攻击积攒<color=#FFFF00>1</color>点能量\n攻击时每点能量可造成<color=#FFFF00>1</color>倍伤害\n最高充能<color=#FFFF00>7</color>",
+                cost: 5,
+                hasTarget: true,
+                cardType: CardTypes.Weapon,
+                cardColor: GameManager.GM.WeaponSwordColor,
+                upgreaCardID: -1,
+                energy: 1,
+                energyMax: 7,
+                attack: 1,
+                weaponType: WeaponType.Sword));
+        addCard(
+            new CardInfo_Weapon(
                 cardID: 200,
                 cardName: "新兵步枪Ⅰ",
-                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>3</color>",
+                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>3</color>\n每发弹药造成<color=#FFFF00>2</color>点伤害",
                 cost: 2,
                 hasTarget: true,
                 cardType: CardTypes.Weapon,
-                cardColor: Color.red,
+                cardColor: GameManager.GM.WeaponGunColor,
                 upgreaCardID: 201,
                 energy: 3,
                 energyMax: 3,
@@ -297,26 +311,40 @@ public class AllCards
             new CardInfo_Weapon(
                 cardID: 201,
                 cardName: "新兵步枪Ⅱ",
-                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>5</color>",
+                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>5</color>\n每发弹药造成<color=#FFFF00>2</color>点伤害",
                 cost: 3,
                 hasTarget: true,
                 cardType: CardTypes.Weapon,
-                cardColor: Color.red,
-                upgreaCardID: -1,
+                cardColor: GameManager.GM.WeaponGunColor,
+                upgreaCardID: 202,
                 energy: 5,
                 energyMax: 5,
                 attack: 2,
                 weaponType: WeaponType.Gun));
         addCard(
+            new CardInfo_Weapon(
+                cardID: 202,
+                cardName: "新兵步枪Ⅲ",
+                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>8</color>\n每发弹药造成<color=#FFFF00>2</color>点伤害",
+                cost: 5,
+                hasTarget: true,
+                cardType: CardTypes.Weapon,
+                cardColor: GameManager.GM.WeaponGunColor,
+                upgreaCardID: -1,
+                energy: 8,
+                energyMax: 8,
+                attack: 2,
+                weaponType: WeaponType.Gun));
+        addCard(
             new CardInfo_Shield(
                 cardID: 300,
-                cardName: "新兵护盾",
+                cardName: "新兵护盾Ⅰ",
                 cardDesc: "提供<color=#5000bd>4</color>点护盾\n受到大于护盾值攻击时耐久<color=#5000bd>减半</color>\n受到小于护盾值攻击时耐久<color=#5000bd>-1</color>",
                 cost: 1,
                 hasTarget: true,
                 cardType: CardTypes.Shield,
-                cardColor: Color.yellow,
-                upgreaCardID: -1,
+                cardColor: GameManager.GM.ShieldShieldColor,
+                upgreaCardID: 302,
                 shielType: ShieldType.Shield,
                 armor: 0,
                 armorMax: 0,
@@ -325,16 +353,46 @@ public class AllCards
         addCard(
             new CardInfo_Shield(
                 cardID: 301,
-                cardName: "新兵盾牌",
-                cardDesc: "提供<color=#5000bd>8</color>点护甲",
+                cardName: "新兵护盾Ⅱ",
+                cardDesc: "提供<color=#5000bd>6</color>点护盾\n受到大于护盾值攻击时耐久<color=#5000bd>减半</color>\n受到小于护盾值攻击时耐久<color=#5000bd>-1</color>",
+                cost: 2,
+                hasTarget: true,
+                cardType: CardTypes.Shield,
+                cardColor: GameManager.GM.ShieldShieldColor,
+                upgreaCardID: -1,
+                shielType: ShieldType.Shield,
+                armor: 0,
+                armorMax: 0,
+                shield: 6,
+                shieldMax: 6));
+        addCard(
+            new CardInfo_Shield(
+                cardID: 350,
+                cardName: "新兵盾牌Ⅰ",
+                cardDesc: "提供<color=#5000bd>4</color>点护甲",
                 cost: 1,
                 hasTarget: true,
                 cardType: CardTypes.Shield,
-                cardColor: Color.yellow,
-                upgreaCardID: -1,
+                cardColor: GameManager.GM.ShieldArmorColor,
+                upgreaCardID: 303,
                 shielType: ShieldType.Armor,
                 armor: 4,
                 armorMax: 4,
+                shield: 0,
+                shieldMax: 0));
+        addCard(
+            new CardInfo_Shield(
+                cardID: 351,
+                cardName: "新兵盾牌Ⅱ",
+                cardDesc: "提供<color=#5000bd>10</color>点护甲",
+                cost: 2,
+                hasTarget: true,
+                cardType: CardTypes.Shield,
+                cardColor: GameManager.GM.ShieldArmorColor,
+                upgreaCardID: -1,
+                shielType: ShieldType.Armor,
+                armor: 10,
+                armorMax: 10,
                 shield: 0,
                 shieldMax: 0));
     }
@@ -360,5 +418,12 @@ public class AllCards
         }
 
         return res;
+    }
+
+    public static Color HTMLColorToColor(string htmlColor)
+    {
+        Color cl = new Color();
+        ColorUtility.TryParseHtmlString(htmlColor, out cl);
+        return cl;
     }
 }

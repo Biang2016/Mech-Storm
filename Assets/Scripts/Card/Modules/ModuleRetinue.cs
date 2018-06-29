@@ -415,6 +415,10 @@ public class ModuleRetinue : ModuleBase
         {
             remainAttackNumber = M_Shield.ShieldBeAttacked(remainAttackNumber);
             if (remainAttackNumber == 0) return;
+        }
+
+        if (M_Shield != null)
+        {
             remainAttackNumber = M_Shield.ArmorBeAttacked(remainAttackNumber);
             if (remainAttackNumber == 0) return;
         }

@@ -52,6 +52,7 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
         {
             MaterialPropertyBlock mpb = new MaterialPropertyBlock();
             MainBoardRenderer.GetPropertyBlock(mpb);
+            mpb.SetColor("_Color", newColor);
             mpb.SetColor("_EmissionColor", newColor);
             MainBoardRenderer.SetPropertyBlock(mpb);
         }

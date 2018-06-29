@@ -195,9 +195,7 @@ internal class CardRetinue : CardBase
 
     # endregion
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,
-        ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,
-        Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition,
             dragBeginQuaternion);

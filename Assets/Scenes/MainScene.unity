@@ -154,8 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &119165107
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,8 +198,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &146080619
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +298,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 178378907}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 349, y: -100, z: 0}
+  m_LocalPosition: {x: 254.5, y: -100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331394035}
@@ -390,8 +390,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &266136432
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,8 +622,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &579128317
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,8 +856,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &620757379
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,8 +940,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &705605140
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,8 +984,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &709781836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,8 +1028,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &786276423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,8 +1112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &870312488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,8 +1196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1165149597
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,8 +1240,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1165756315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,7 +1375,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1167729804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 349, y: 60, z: 0}
+  m_LocalPosition: {x: 254.5, y: 60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331394035}
@@ -1467,8 +1467,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1237769549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1493,7 +1493,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1237769549}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 349, y: 100, z: 0}
+  m_LocalPosition: {x: 254.5, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331394035}
@@ -1585,8 +1585,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1331394031
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,7 +1670,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1331394031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 349, y: 216.5, z: 0}
+  m_LocalPosition: {x: 254.5, y: 195.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1167729805}
@@ -1846,7 +1846,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1442608238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 349, y: 0, z: 0}
+  m_LocalPosition: {x: 254.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 146080620}
@@ -1985,8 +1985,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1458579915
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,8 +2029,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1550423332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,8 +2073,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1556441495
 GameObject:
   m_ObjectHideFlags: 0
@@ -2099,7 +2099,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1556441495}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 349, y: -60, z: 0}
+  m_LocalPosition: {x: 254.5, y: -60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331394035}
@@ -2212,17 +2212,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9941f1277a5f2164bb154e27f74844d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelfHandArea: {fileID: 1745078660}
   SelfHandManager: {fileID: 1745078664}
-  EnemyHandArea: {fileID: 1842917176}
   EnemyHandManager: {fileID: 1842917180}
-  SelfBattleGround: {fileID: 454225280}
   SelfBattleGroundManager: {fileID: 454225284}
-  EnemyBattleGround: {fileID: 266136432}
   EnemyBattleGroundManager: {fileID: 266136436}
-  SelfCardDeck: {fileID: 1652677441}
   SelfCardDeckManager: {fileID: 1652677443}
-  EnemyCardDeck: {fileID: 620757379}
   EnemyCardDeckManager: {fileID: 620757381}
   CardDetailPreview: {fileID: 1350442890}
 --- !u!33 &1573142221
@@ -2294,8 +2288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1652677441
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,8 +2372,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1732714582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2422,8 +2416,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1734146715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2466,8 +2460,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0
 --- !u!1 &1745078660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,7 +2757,14 @@ MonoBehaviour:
   MaxRetinueNumber: 7
   RetinueInterval: 3.5
   DrawCardPerRound: 2
+  MaxHandCard: 30
   RetinueDetailPreviewDelaySeconds: 0.7
+  HeroColor: {r: 1, g: 1, b: 1, a: 1}
+  RetinueColor: {r: 0, g: 0.42068934, b: 1, a: 1}
+  WeaponSwordColor: {r: 1, g: 0.2205882, b: 0.2205882, a: 1}
+  WeaponGunColor: {r: 1, g: 0.6598377, b: 0.051470578, a: 1}
+  ShieldShieldColor: {r: 0.7058823, g: 1, b: 0.14705884, a: 1}
+  ShieldArmorColor: {r: 0.95943207, g: 1, b: 0.7058823, a: 1}
 --- !u!1 &2103034572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2900,5 +2901,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 0
   used: 0
-  empty: 0
   notUsed: 0
+  empty: 0

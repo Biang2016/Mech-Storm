@@ -186,12 +186,11 @@ public class ModuleWeapon : ModuleBase
                 if (M_WeaponEnergy < M_WeaponEnergyMax) M_WeaponEnergy++;
                 return aSeriesOfAttacks;
             case WeaponType.Gun:
-                for (var i = 0; i < M_WeaponEnergy; i++)
+                for (int i = 0; i < M_WeaponEnergy; i++)
                 {
-                    aSeriesOfAttacks.Add((M_WeaponAttack + M_ModuleRetinue.M_RetinueAttack) * M_WeaponEnergy);
-                    if (M_WeaponEnergy > 0) M_WeaponEnergy = 0;
+                    aSeriesOfAttacks.Add(M_WeaponAttack + M_ModuleRetinue.M_RetinueAttack);
+                    M_WeaponEnergy--;
                 }
-
                 return aSeriesOfAttacks;
             default:
                 return aSeriesOfAttacks;

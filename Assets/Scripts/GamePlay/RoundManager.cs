@@ -26,15 +26,8 @@ public class RoundManager : MonoBehaviour
     public Text SelfCostText;
     public Text EnemyCostText;
 
-    Vector3 selfTurnText_DefaultPosition;
-    Vector3 enemyTurnText_DefaultPosition;
-    Vector3 farAwayPosition;
-
     void Awake()
     {
-        selfTurnText_DefaultPosition = SelfTurnText.transform.position;
-        enemyTurnText_DefaultPosition = EnemyTurnText.transform.position;
-        farAwayPosition = new Vector3(-100, -100, -100);
     }
 
     private void Start()
@@ -59,6 +52,7 @@ public class RoundManager : MonoBehaviour
         EndRound();
         switchPlayer();
         BeginRound();
+        DrawCardPhase();
     }
 
 
@@ -68,20 +62,77 @@ public class RoundManager : MonoBehaviour
         CurrentPlayer.AddAllCost();
         if (CurrentPlayer == GameManager.GM.SelfPlayer)
         {
-            SelfTurnText.transform.position = selfTurnText_DefaultPosition;
-            EnemyTurnText.transform.position = farAwayPosition;
+            SelfTurnText.SetActive(true);
+            EnemyTurnText.SetActive(false);
         }
         else
         {
-            EnemyTurnText.transform.position = enemyTurnText_DefaultPosition;
-            SelfTurnText.transform.position = farAwayPosition;
+            EnemyTurnText.SetActive(true);
+            SelfTurnText.SetActive(false);
         }
 
-        CurrentPlayer.MyHandManager.DrawCards(GameManager.GM.DrawCardPerRound);
 
         CurrentPlayer.MyHandManager.BeginRound();
         CurrentPlayer.MyBattleGroundManager.BeginRound();
     }
+
+    public void DrawCardPhase() //抽牌阶段
+    {
+        CurrentPlayer.MyHandManager.DrawCards(GameManager.GM.DrawCardPerRound);
+    }
+
+    public void DropCardPhase() //弃牌阶段
+    {
+    }
+
+    #region 回调函数
+
+    public void OnDrawACard() //每次抽调用
+    {
+
+    }
+
+    public void OnPlayACard() //每次出牌调用
+    {
+
+    }
+
+    public void OnBeforeAttack() //每次执行攻击前调用
+    {
+
+    }
+
+    public void OnArmorDamage() //每次护甲扣血
+    {
+
+    }
+
+    public void OnShieldDamage() //每次护盾扣血
+    {
+
+    }
+
+    public void OnRetinueDamage() //每次随从扣血
+    {
+
+    }
+
+    public void OnLifeDamage() //每次英雄扣血
+    {
+
+    }
+
+    public void OnDamage() //每次造成伤害
+    {
+
+    }
+
+    public void OnAfterAttack() //每次执行攻击后调用
+    {
+
+    }
+
+    #endregion
 
     public void EndRound()
     {
@@ -96,8 +147,23 @@ public class RoundManager : MonoBehaviour
 
     public void OnEndRoundButtonClick()
     {
+        DropCardPhase();
         EndRound();
         switchPlayer();
         BeginRound();
+        DrawCardPhase();
     }
+}
+
+public interface IRoundPhaseCallBack
+{
+    void OnDrawACard(); //每次抽调用
+    void OnPlayACard(); //每次出牌调用
+    void OnBeforeAttack(); //每次执行攻击前调用
+    void OnArmorDamage(); //每次护甲扣血
+    void OnShieldDamage(); //每次护盾扣血
+    void OnRetinueDamage(); //每次随从扣血
+    void OnLifeDamage(); //每次英雄扣血
+    void OnDamage(); //每次造成伤害
+    void OnAfterAttack(); //每次执行攻击后调用
 }

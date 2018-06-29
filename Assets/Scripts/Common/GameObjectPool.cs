@@ -2,15 +2,17 @@
 
 public class GameObjectPool : MonoBehaviour
 {
-    GameObject[] gameObjectPool;
-    bool[] isUsed;
+    GameObject[] gameObjectPool; //对象池
+    bool[] isUsed;//已使用的对象
     //Todo Temp public
-    public int capacity;
-    public int used;
-    public int empty;
-    public int notUsed;
+    public int capacity; //对象池容量，根据场景中可能出现的最多数量的该对象预估一个容量
+    public int used; //已使用多少个对象
+    public int notUsed; //多少个对象已实例化但未使用
+    public int empty; //对象池中未实例化的空位置的个数
 
     GameObject gameObjectPrefab;
+
+    //记录对象原始的位置、旋转、缩放，以便还原
     Vector3 gameObjectDefaultPosition;
     Quaternion gameObjectDefaultRotation;
     Vector3 gameObjectDefaultScale;
@@ -48,7 +50,7 @@ public class GameObjectPool : MonoBehaviour
                 else
                 {
                     gameObjectPool[i] = Instantiate(gameObjectPrefab, parent);
-                    gameObjectPool[i].name = gameObjectPrefab.name + "_" + i;
+                    gameObjectPool[i].name = gameObjectPrefab.name + "_" + i;//便于调试的时候分辨对象
                     empty--;
                     used++;
                 }
