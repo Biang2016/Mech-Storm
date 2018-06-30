@@ -258,7 +258,7 @@ public class AllCards
             new CardInfo_Weapon(
                 cardID: 100,
                 cardName: "热能斧Ⅰ",
-                cardDesc: "每次攻击积攒<color=#FFFF00>1</color>点能量\n攻击时每点能量可造成<color=#FFFF00>1</color>倍伤害\n最高充能<color=#FFFF00>3</color>",
+                cardDesc: "每次攻击积攒<color=#FFFF00>1</color>点能量\n每点能量可造成<color=#FFFF00>1</color>点伤害\n最高充能<color=#FFFF00>3</color>\n能量<color=#FFFF00>+1</color>",
                 cost: 1,
                 hasTarget: true,
                 cardType: CardTypes.Weapon,
@@ -273,14 +273,14 @@ public class AllCards
             new CardInfo_Weapon(
                 cardID: 101,
                 cardName: "热能斧Ⅱ",
-                cardDesc: "每次攻击积攒<color=#FFFF00>1</color>点能量\n攻击时每点能量可造成<color=#FFFF00>1</color>倍伤害\n最高充能<color=#FFFF00>5</color>",
+                cardDesc: "每次攻击积攒<color=#FFFF00>1</color>点能量\n每点能量可造成<color=#FFFF00>1</color>点伤害\n最高充能<color=#FFFF00>5</color>\n能量<color=#FFFF00>+2</color>",
                 cost: 3,
                 hasTarget: true,
                 cardType: CardTypes.Weapon,
                 cardColor: GameManager.GM.WeaponSwordColor,
                 upgradeCardID: 102,
                 cardLevel: 2,
-                energy: 1,
+                energy: 2,
                 energyMax: 5,
                 attack: 1,
                 weaponType: WeaponType.Sword));
@@ -288,22 +288,22 @@ public class AllCards
             new CardInfo_Weapon(
                 cardID: 102,
                 cardName: "热能斧Ⅲ",
-                cardDesc: "每次攻击积攒<color=#FFFF00>1</color>点能量\n攻击时每点能量可造成<color=#FFFF00>1</color>倍伤害\n最高充能<color=#FFFF00>7</color>",
+                cardDesc: "每次攻击积攒<color=#FFFF00>1</color>点能量\n每点能量可造成<color=#FFFF00>2</color>点伤害\n最高充能<color=#FFFF00>7</color>\n能量<color=#FFFF00>+4</color>",
                 cost: 5,
                 hasTarget: true,
                 cardType: CardTypes.Weapon,
                 cardColor: GameManager.GM.WeaponSwordColor,
                 upgradeCardID: -1,
                 cardLevel: 3,
-                energy: 1,
+                energy: 4,
                 energyMax: 7,
-                attack: 1,
+                attack: 2,
                 weaponType: WeaponType.Sword));
         addCard(
             new CardInfo_Weapon(
                 cardID: 200,
                 cardName: "新兵步枪Ⅰ",
-                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>3</color>\n每发弹药造成<color=#FFFF00>2</color>点伤害",
+                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n每发弹药造成<color=#FFFF00>1</color>点伤害\n弹药数<color=#FFFF00>3</color>",
                 cost: 2,
                 hasTarget: true,
                 cardType: CardTypes.Weapon,
@@ -312,13 +312,13 @@ public class AllCards
                 cardLevel: 1,
                 energy: 3,
                 energyMax: 3,
-                attack: 2,
+                attack: 1,
                 weaponType: WeaponType.Gun));
         addCard(
             new CardInfo_Weapon(
                 cardID: 201,
                 cardName: "新兵步枪Ⅱ",
-                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>5</color>\n每发弹药造成<color=#FFFF00>2</color>点伤害",
+                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n每发弹药造成<color=#FFFF00>1</color>点伤害\n弹药数<color=#FFFF00>5</color>",
                 cost: 3,
                 hasTarget: true,
                 cardType: CardTypes.Weapon,
@@ -327,13 +327,13 @@ public class AllCards
                 cardLevel: 2,
                 energy: 5,
                 energyMax: 5,
-                attack: 2,
+                attack: 1,
                 weaponType: WeaponType.Gun));
         addCard(
             new CardInfo_Weapon(
                 cardID: 202,
                 cardName: "新兵步枪Ⅲ",
-                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n弹药数<color=#FFFF00>8</color>\n每发弹药造成<color=#FFFF00>2</color>点伤害",
+                cardDesc: "攻击时打出<color=#FFFF00>所有</color>弹药\n每发弹药造成<color=#FFFF00>1</color>点伤害\n弹药数<color=#FFFF00>8</color>",
                 cost: 5,
                 hasTarget: true,
                 cardType: CardTypes.Weapon,
@@ -342,7 +342,7 @@ public class AllCards
                 cardLevel: 3,
                 energy: 8,
                 energyMax: 8,
-                attack: 2,
+                attack: 1,
                 weaponType: WeaponType.Gun));
         addCard(
             new CardInfo_Shield(
@@ -463,6 +463,29 @@ public class AllCards
         }
 
         return res;
+    }
+
+    public bool IsASeries(CardInfo_Base card1, CardInfo_Base card2)
+    {
+        if (card1.CardID == card2.CardID) return true;
+        int level1 = card1.CardLevel;
+        int level2 = card2.CardLevel;
+        if (level1 > level2)
+        {
+            return IsASeries(card2, card1);
+        }
+
+        int tmpUpgradeID = card1.UpgradeID;
+        while (tmpUpgradeID != -1)
+        {
+            tmpUpgradeID = GameManager.GM.AllCard.GetCard(tmpUpgradeID).UpgradeID;
+            if (tmpUpgradeID == card2.CardID)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static Color HTMLColorToColor(string htmlColor)

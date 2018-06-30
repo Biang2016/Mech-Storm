@@ -39,8 +39,8 @@ public class ModuleWeapon : ModuleBase
         M_WeaponName = CardInfo_Weapon.textToVertical(((CardInfo_Weapon) cardInfo).CardName);
         M_WeaponType = ((CardInfo_Weapon) cardInfo).M_WeaponType;
         M_WeaponAttack = ((CardInfo_Weapon) cardInfo).Attack;
-        M_WeaponEnergy = ((CardInfo_Weapon) cardInfo).Energy;
         M_WeaponEnergyMax = ((CardInfo_Weapon) cardInfo).EnergyMax;
+        M_WeaponEnergy = ((CardInfo_Weapon) cardInfo).Energy;
         if (M_Bloom) M_Bloom.SetActive(false);
         if (M_WeaponType == WeaponType.Gun)
         {
@@ -136,7 +136,7 @@ public class ModuleWeapon : ModuleBase
 
         set
         {
-            m_WeaponEnergy = value;
+            m_WeaponEnergy = Mathf.Min(value,M_WeaponEnergyMax);
             if (M_WeaponType == WeaponType.Sword)
             {
                 initiateNumbers(ref GoNumberSet_WeaponEnergy, ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy, 'x');

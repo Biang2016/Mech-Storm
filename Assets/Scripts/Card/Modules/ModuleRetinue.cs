@@ -344,7 +344,7 @@ public class ModuleRetinue : ModuleBase
         initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack, '+');
         CardNumberSet_RetinueAttack.Number = ((CardInfo_Retinue) CardInfo).BasicAttack; //更换武器时机体基础攻击力恢复
 
-        if (M_Weapon.CardInfo.CardID != newWeapon.CardInfo.CardID || (M_Weapon.CardInfo.CardID == newWeapon.CardInfo.CardID && newWeapon.CardInfo.UpgradeID == -1)) //如果武器不同或不可升级获得额外攻击次数
+        if (!GameManager.GM.AllCard.IsASeries(M_Weapon.CardInfo, newWeapon.CardInfo)) //如果武器不是一个系列或不可升级，则获得额外攻击次数
         {
             if (Player == RoundManager.RM.CurrentPlayer)
             {
@@ -356,19 +356,46 @@ public class ModuleRetinue : ModuleBase
         }
         else
         {
-            int energyTmp = m_Weapon.M_WeaponEnergy;
             newWeapon.CanAttack = m_Weapon.CanAttack;
             m_Weapon.PoolRecycle();
             m_Weapon = newWeapon;
-            WeaponUpgrade((CardInfo_Weapon) m_Weapon.CardInfo); //如果武器相同获得升级
-            m_Weapon.M_WeaponEnergy = energyTmp;
+            if (M_Weapon.CardInfo.CardID == newWeapon.CardInfo.CardID)//同系列相同等级卡
+            {
+                WeaponUpgrade((CardInfo_Weapon)m_Weapon.GetCurrentCardInfo(),(CardInfo_Weapon)newWeapon.CardInfo);
+            }
+            else
+            {
+                WeaponSupply((CardInfo_Weapon)newWeapon.CardInfo);//同系列不同等级卡
+            }
         }
     }
 
-    void WeaponUpgrade(CardInfo_Weapon oldWeaponCurrentInfo)
+
+    void WeaponUpgrade(CardInfo_Weapon oldWeaponCurrentInfo, CardInfo_Weapon newWeaponInfo)//武器系列和等级相同获得升级
     {
         CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon) GameManager.GM.AllCard.GetCard(oldWeaponCurrentInfo.UpgradeID);
         M_Weapon.Initiate(upgradeWeaponCardInfo, Player);
+        if (M_Weapon.M_WeaponType == WeaponType.Sword)
+        {
+            //M_Weapon.M_WeaponEnergy += oldWeaponCurrentInfo.Energy;//武器能量叠加
+            M_Weapon.M_WeaponAttack = oldWeaponCurrentInfo.Attack+ newWeaponInfo.Attack;//武器伤害叠加
+        }
+        else if (M_Weapon.M_WeaponType == WeaponType.Gun)
+        {
+            M_Weapon.M_WeaponEnergy = oldWeaponCurrentInfo.Energy+ newWeaponInfo.Energy;//枪弹药叠加
+            M_Weapon.M_WeaponAttack = oldWeaponCurrentInfo.Attack+ newWeaponInfo.Attack;//枪伤害叠加
+        }
+    }
+    void WeaponSupply(CardInfo_Weapon newWeaponInfo)//武器系列相同，但等级不同，获得补给
+    {
+        if (M_Weapon.M_WeaponType == WeaponType.Sword)
+        {
+            M_Weapon.M_WeaponEnergy += newWeaponInfo.Energy;//武器能量叠加，攻击力为新武器的攻击力，不叠加
+        }
+        else if (M_Weapon.M_WeaponType == WeaponType.Gun)
+        {
+            M_Weapon.M_WeaponEnergy += newWeaponInfo.Energy;//枪弹药叠加，攻击力为新武器的攻击力，不叠加
+        }
     }
 
     #endregion
