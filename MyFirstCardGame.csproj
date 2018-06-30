@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -235,8 +237,10 @@
     <Compile Include="Assets\Scripts\Card\Modules\ModuleWeapon.cs" />
     <Compile Include="Assets\Scripts\Card\Number\CardNumber.cs" />
     <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
+    <Compile Include="Assets\Scripts\Card\Slots\Slot.cs" />
     <Compile Include="Assets\Scripts\Common\GameObjectPool.cs" />
     <Compile Include="Assets\Scripts\Common\GameObjectPoolManager.cs" />
+    <Compile Include="Assets\Scripts\Common\Initialization.cs" />
     <Compile Include="Assets\Scripts\GamePlay\BattleGroundManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\GameBoardManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\GameManager.cs" />

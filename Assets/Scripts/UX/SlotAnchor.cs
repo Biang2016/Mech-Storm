@@ -4,13 +4,12 @@ using System;
 
 public class SlotAnchor : MonoBehaviour,IMouseHoverComponent
 {
-    public Player Player;
-    public SlotType M_SlotType = SlotType.None;
+    public Slot M_Slot;
     internal ModuleRetinue M_ModuleRetinue;
 
     private void Awake()
     {
-
+        M_Slot = GetComponent<Slot>();
     }
 
     void Start()
@@ -44,11 +43,11 @@ public class SlotAnchor : MonoBehaviour,IMouseHoverComponent
     {
         if (DragManager.DM.CurrentDrag)
         {
-            switch (M_SlotType)
+            switch (M_Slot.M_SlotType)
             {
                 case SlotType.Weapon:
                     CardWeapon cw = DragManager.DM.CurrentDrag.GetComponent<CardWeapon>();
-                    if (cw&&cw.Player==Player)
+                    if (cw&&cw.Player== M_Slot.Player)
                     {
                         ShowHoverGO();
                     }
@@ -56,7 +55,7 @@ public class SlotAnchor : MonoBehaviour,IMouseHoverComponent
                     break;
                 case SlotType.Shield:
                     CardShield cs = DragManager.DM.CurrentDrag.GetComponent<CardShield>();
-                    if (cs&&cs.Player==Player)
+                    if (cs&&cs.Player== M_Slot.Player)
                     {
                         ShowHoverGO();
                     }
@@ -93,11 +92,3 @@ public class SlotAnchor : MonoBehaviour,IMouseHoverComponent
     }
 }
 
-public enum SlotType
-{
-    None=0,
-    Weapon=1,
-    Shield=2,
-    Pack=3,
-    MA=4,
-}

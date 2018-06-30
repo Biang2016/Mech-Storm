@@ -91,7 +91,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1480162088776078
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1796454837169634
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,6 +714,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8340d3662948a294bbd6d5e692d80a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Star1: {fileID: 1230034399444624}
+  Star2: {fileID: 1585609167538132}
+  Star3: {fileID: 1480162088776078}
+  stars: 0
   MainBoardRenderer: {fileID: 23759429155995086}
   WeaponName: {fileID: 102871059373692676}
   M_Bloom: {fileID: 1155764812670948}

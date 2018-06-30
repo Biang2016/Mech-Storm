@@ -14,8 +14,6 @@ public class HandManager : MonoBehaviour
     int retinueLayer;
     int cardLayer;
 
-    public float HandCardSize = 1.0f;
-
     private void Awake()
     {
         cards = new List<CardBase>();
@@ -138,15 +136,15 @@ public class HandManager : MonoBehaviour
             isSet_defaultCardPosition = true;
         }
 
-        float angle = anglesDict[cardNumber - 1];
-        float horrizonDist = horrizonDistanceDict[cardNumber - 1];
+        float angle = anglesDict[cardNumber - 1] * GameManager.GM.HandCardRotate;
+        float horrizonDist = horrizonDistanceDict[cardNumber - 1] * GameManager.GM.HandCardInterval;
         int count = 0;
         foreach (CardBase card in cards)
         {
             count++;
             card.transform.rotation = defaultCardRotation;
             card.transform.position = defaultCardPosition;
-            card.transform.localScale = Vector3.one * HandCardSize;
+            card.transform.localScale = Vector3.one * GameManager.GM.HandCardSize;
             float rotateAngle = angle / cardNumber * (((cardNumber - 1) / 2.0f + 1) - count);
             if (Player.WhichPlayer == Players.Self)
             {
@@ -166,10 +164,10 @@ public class HandManager : MonoBehaviour
 
             card.transform.position = new Vector3(card.transform.position.x, 2f, card.transform.position.z);
             float horrizonDistance = horrizonDist / cardNumber * (((cardNumber - 1) / 2.0f + 1) - count);
-            card.transform.Translate(Vector3.right * horrizonDistance * HandCardSize); //向水平向错开，体现手牌展开感
+            card.transform.Translate(Vector3.right * horrizonDistance * GameManager.GM.HandCardSize); //向水平向错开，体现手牌展开感
             float distCardsFromCenter = Mathf.Abs(((cardNumber - 1) / 2.0f + 1) - count); //与中心距离几张卡牌
             float factor = (cardNumber - distCardsFromCenter) / cardNumber; //某临时参数
-            card.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * HandCardSize + Vector3.back * cardNumber / 20 * 0.6f); //向垂直向错开，体现卡片弧线感
+            card.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.GM.HandCardSize + Vector3.back * cardNumber / 20 * GameManager.GM.HandCardOffset); //向垂直向错开，体现卡片弧线感
             card.transform.Translate(Vector3.up * 0.1f * (cardNumber - count)); //向上错开，体现卡片前后感
             card.transform.Rotate(Vector3.down, rotateAngle); //卡片微小旋转
             card.ResetColliderAndReplace();

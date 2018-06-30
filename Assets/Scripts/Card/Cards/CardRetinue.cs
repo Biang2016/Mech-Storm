@@ -6,10 +6,6 @@ internal class CardRetinue : CardBase
     public override void PoolRecycle()
     {
         base.PoolRecycle();
-        Slot1.SetActive(true);
-        Slot2.SetActive(true);
-        Slot3.SetActive(true);
-        Slot4.SetActive(true);
 
         if (Weapon) {
             Weapon.PoolRecycle();
@@ -83,6 +79,16 @@ internal class CardRetinue : CardBase
         M_RetinueAttack = ((CardInfo_Retinue)cardInfo).BasicAttack;
         M_RetinueArmor = ((CardInfo_Retinue)cardInfo).BasicArmor;
         M_RetinueShield = ((CardInfo_Retinue)cardInfo).BasicShield;
+
+
+        Slot1.Player = Player;
+        Slot1.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot1;
+        Slot2.Player = Player;
+        Slot2.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot2;
+        Slot3.Player = Player;
+        Slot3.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot3;
+        Slot4.Player = Player;
+        Slot4.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot4;
     }
 
     private string m_RetinueName;
@@ -183,13 +189,13 @@ internal class CardRetinue : CardBase
 
     #region 拼装上的模块
 
-    public GameObject Slot1;//武器插槽
-    public GameObject Slot2;//防具插槽
-    public GameObject Slot3;//飞行背包插槽
-    public GameObject Slot4;//MA插槽
-    internal GameObject Pack;//飞行背包
-    internal ModuleWeapon Weapon;//武器
-    internal ModuleShield Shield;//防具
+    public Slot Slot1;
+    public Slot Slot2;
+    public Slot Slot3;
+    public Slot Slot4;
+    internal GameObject Pack;
+    internal ModuleWeapon Weapon;
+    internal ModuleShield Shield;
     internal GameObject MA;//飞行踏板/机动堡垒
     internal GameObject Energy;//能量槽
 

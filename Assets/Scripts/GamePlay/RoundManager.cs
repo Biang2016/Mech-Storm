@@ -43,12 +43,12 @@ public class RoundManager : MonoBehaviour
         CurrentPlayer = Random.Range(0, 2) == 0 ? GameManager.GM.SelfPlayer : GameManager.GM.EnemyPlayer;
         CurrentPlayer.MyHandManager.GetACardByID(99);
         CurrentPlayer.MyHandManager.DrawRetinueCard();
-        CurrentPlayer.MyHandManager.DrawCards(2);
+        CurrentPlayer.MyHandManager.DrawCards(GameManager.GM.FirstDrawCard);
         EndRound();
         switchPlayer();
         CurrentPlayer.MyHandManager.GetACardByID(99);
         CurrentPlayer.MyHandManager.DrawRetinueCard();
-        CurrentPlayer.MyHandManager.DrawCards(3);
+        CurrentPlayer.MyHandManager.DrawCards(GameManager.GM.SecondDrawCard);
         EndRound();
         switchPlayer();
         BeginRound();
@@ -58,7 +58,7 @@ public class RoundManager : MonoBehaviour
 
     public void BeginRound()
     {
-        CurrentPlayer.IncreaseCostMax(1);
+        CurrentPlayer.IncreaseCostMax(GameManager.GM.CostIncrease);
         CurrentPlayer.AddAllCost();
         if (CurrentPlayer == GameManager.GM.SelfPlayer)
         {

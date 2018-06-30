@@ -66,9 +66,9 @@ internal class CardShield : CardBase
 
         if (boardAreaType != Player.MyHandArea) //离开手牌区域
             foreach (var sa in slotAnchors)
-                if (sa.M_SlotType == SlotType.Shield && sa.Player == Player)
+                if (sa.M_Slot.M_SlotType == SlotType.Shield && sa.M_Slot.Player == Player)
                 {
-                    summonShield(dragLastPosition, sa.M_ModuleRetinue);
+                    summonShield(sa.M_ModuleRetinue);
                     return;
                 }
 
@@ -85,7 +85,7 @@ internal class CardShield : CardBase
     #region 卡牌效果
 
     //装备武器
-    private void summonShield(Vector3 dragLastPosition, ModuleRetinue moduleRetinue)
+    private void summonShield(ModuleRetinue moduleRetinue)
     {
         Player.UseCost(M_Cost);
         if (moduleRetinue == null)

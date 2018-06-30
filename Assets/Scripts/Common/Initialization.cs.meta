@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 36bc6c31dd4d0894d84a3bcec09c28a6
+timeCreated: 1530338215
+licenseType: Pro
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - GameManager: {fileID: 114461730492134136, guid: 5962351f92575d5479c41be8f950ae51,
+      type: 2}
+  - GameBoardManager: {fileID: 114531326437372940, guid: 1b1b8d3a20f161c42bfb346a8ccbbc5c,
+      type: 2}
+  - UICanvas: {fileID: 1984665311014428, guid: e07ce52022ba0d044a95b69e2bf7858f, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

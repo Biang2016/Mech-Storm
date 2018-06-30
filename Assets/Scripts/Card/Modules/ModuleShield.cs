@@ -52,7 +52,7 @@ public class ModuleShield : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Shield(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, ((CardInfo_Shield) CardInfo).M_ShieldType, ((CardInfo_Shield) CardInfo).Armor, ((CardInfo_Shield) CardInfo).ArmorMax, ((CardInfo_Shield) CardInfo).Shield, ((CardInfo_Shield) CardInfo).ShieldMax);
+        return new CardInfo_Shield(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel,((CardInfo_Shield) CardInfo).M_ShieldType, ((CardInfo_Shield) CardInfo).Armor, ((CardInfo_Shield) CardInfo).ArmorMax, ((CardInfo_Shield) CardInfo).Shield, ((CardInfo_Shield) CardInfo).ShieldMax);
     }
 
     private string m_ShieldName;
@@ -178,6 +178,46 @@ public class ModuleShield : ModuleBase
 
     #region 模块交互
 
+
+    #region  防具更换
+
+    public void ChangeShield(ModuleShield newShield, ref ModuleShield resultShield)
+    {
+        if (GameManager.GM.AllCard.IsASeries(CardInfo, newShield.CardInfo))
+        {
+            if (CardInfo.CardLevel == newShield.CardInfo.CardLevel)
+            {
+                CardInfo_Shield m_currentInfo = (CardInfo_Shield) GetCurrentCardInfo();
+                CardInfo_Shield upgradeShieldCardInfo = (CardInfo_Shield) GameManager.GM.AllCard.GetCard(CardInfo.UpgradeID);
+                Initiate(upgradeShieldCardInfo, Player);
+                M_ShieldShield = m_currentInfo.Shield + ((CardInfo_Shield) newShield.CardInfo).Shield;
+                M_ShieldArmor = m_currentInfo.Armor + ((CardInfo_Shield) newShield.CardInfo).Armor;
+                newShield.PoolRecycle();
+                resultShield = this;
+            }
+            else if (CardInfo.CardLevel > newShield.CardInfo.CardLevel)
+            {
+                M_ShieldShield = M_ShieldShield + ((CardInfo_Shield) newShield.CardInfo).Shield;
+                M_ShieldArmor = M_ShieldArmor + ((CardInfo_Shield) newShield.CardInfo).Armor;
+                newShield.PoolRecycle();
+                resultShield = this;
+            }
+            else
+            {
+                resultShield = newShield;
+                newShield.M_ShieldShield = M_ShieldShield + ((CardInfo_Shield) newShield.CardInfo).Shield;
+                newShield.M_ShieldArmor = M_ShieldArmor + ((CardInfo_Shield) newShield.CardInfo).Shield;
+                PoolRecycle();
+            }
+        }
+        else
+        {
+            resultShield = newShield;
+            PoolRecycle();
+        }
+    }
+
+    #endregion
     #region 攻击防御相关
 
     public int ShieldBeAttacked(int attackValue)

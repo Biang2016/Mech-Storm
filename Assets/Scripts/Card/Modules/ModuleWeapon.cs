@@ -39,8 +39,8 @@ public class ModuleWeapon : ModuleBase
         M_WeaponName = CardInfo_Weapon.textToVertical(((CardInfo_Weapon) cardInfo).CardName);
         M_WeaponType = ((CardInfo_Weapon) cardInfo).M_WeaponType;
         M_WeaponAttack = ((CardInfo_Weapon) cardInfo).Attack;
-        M_WeaponEnergy = ((CardInfo_Weapon) cardInfo).Energy;
         M_WeaponEnergyMax = ((CardInfo_Weapon) cardInfo).EnergyMax;
+        M_WeaponEnergy = ((CardInfo_Weapon) cardInfo).Energy;
         if (M_Bloom) M_Bloom.SetActive(false);
         if (M_WeaponType == WeaponType.Gun)
         {
@@ -56,7 +56,7 @@ public class ModuleWeapon : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Weapon(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, M_WeaponEnergy, M_WeaponEnergyMax, M_WeaponAttack, M_WeaponType);
+        return new CardInfo_Weapon(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_WeaponEnergy, M_WeaponEnergyMax, M_WeaponAttack, M_WeaponType);
     }
 
     private string m_WeaponName;
@@ -136,7 +136,7 @@ public class ModuleWeapon : ModuleBase
 
         set
         {
-            m_WeaponEnergy = value;
+            m_WeaponEnergy = Mathf.Min(value, M_WeaponEnergyMax);
             if (M_WeaponType == WeaponType.Sword)
             {
                 initiateNumbers(ref GoNumberSet_WeaponEnergy, ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy, 'x');
@@ -171,6 +171,52 @@ public class ModuleWeapon : ModuleBase
 
     #region 模块交互
 
+    #region  武器更换
+
+    public void ChangeWeapon(ModuleWeapon newWeapon, ref ModuleWeapon resultWeapon)
+    {
+        if (GameManager.GM.AllCard.IsASeries(CardInfo, newWeapon.CardInfo))
+        {
+            if (CardInfo.CardLevel == newWeapon.CardInfo.CardLevel)
+            {
+                CardInfo_Weapon m_currentInfo = (CardInfo_Weapon) GetCurrentCardInfo();
+                CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon) GameManager.GM.AllCard.GetCard(CardInfo.UpgradeID);
+                Initiate(upgradeWeaponCardInfo, Player);
+                M_WeaponAttack = m_currentInfo.Attack + ((CardInfo_Weapon) newWeapon.CardInfo).Attack;
+                M_WeaponEnergy = m_currentInfo.Energy + ((CardInfo_Weapon) newWeapon.CardInfo).Energy;
+                newWeapon.PoolRecycle();
+                resultWeapon = this;
+            }
+            else if (CardInfo.CardLevel > newWeapon.CardInfo.CardLevel)
+            {
+                M_WeaponAttack = M_WeaponAttack + ((CardInfo_Weapon) newWeapon.CardInfo).Attack;
+                M_WeaponEnergy = M_WeaponEnergy + ((CardInfo_Weapon) newWeapon.CardInfo).Energy;
+                newWeapon.PoolRecycle();
+                resultWeapon = this;
+            }
+            else
+            {
+                resultWeapon = newWeapon;
+                newWeapon.M_WeaponAttack = M_WeaponAttack + ((CardInfo_Weapon) newWeapon.CardInfo).Attack;
+                newWeapon.M_WeaponEnergy = M_WeaponEnergy + ((CardInfo_Weapon) newWeapon.CardInfo).Energy;
+                PoolRecycle();
+            }
+        }
+        else
+        {
+            resultWeapon = newWeapon;
+            if (RoundManager.RM.CurrentPlayer == Player)
+            {
+                M_ModuleRetinue.CanAttack = true;
+                newWeapon.CanAttack = true;
+            }
+
+            PoolRecycle();
+        }
+    }
+
+    #endregion
+
     #region 攻击相关
 
     internal bool CanAttack;
@@ -186,11 +232,19 @@ public class ModuleWeapon : ModuleBase
                 if (M_WeaponEnergy < M_WeaponEnergyMax) M_WeaponEnergy++;
                 return aSeriesOfAttacks;
             case WeaponType.Gun:
-                for (int i = 0; i < M_WeaponEnergy; i++)
+                int tmp = M_WeaponEnergy;
+                for (int i = 0; i < tmp; i++)
                 {
                     aSeriesOfAttacks.Add(M_WeaponAttack + M_ModuleRetinue.M_RetinueAttack);
                     M_WeaponEnergy--;
                 }
+
+                if (M_WeaponEnergy == 0)
+                {
+                    M_ModuleRetinue.CanAttack = false;
+                    CanAttack = false;
+                }
+
                 return aSeriesOfAttacks;
             default:
                 return aSeriesOfAttacks;
@@ -198,12 +252,9 @@ public class ModuleWeapon : ModuleBase
     }
 
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,
-        ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,
-        Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition,
-            dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         if (moduleRetinue && moduleRetinue.Player != Player)
         {
             var aSeriesOfAttacks = WeaponAttack();
@@ -223,6 +274,7 @@ public class ModuleWeapon : ModuleBase
     {
         return 0.2f;
     }
+
     #endregion
 
     #region 交互UX
