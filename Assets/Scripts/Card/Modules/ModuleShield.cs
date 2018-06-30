@@ -52,7 +52,7 @@ public class ModuleShield : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Shield(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel,((CardInfo_Shield) CardInfo).M_ShieldType, ((CardInfo_Shield) CardInfo).Armor, ((CardInfo_Shield) CardInfo).ArmorMax, ((CardInfo_Shield) CardInfo).Shield, ((CardInfo_Shield) CardInfo).ShieldMax);
+        return new CardInfo_Shield(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, ((CardInfo_Shield) CardInfo).M_ShieldType, ((CardInfo_Shield) CardInfo).Armor, ((CardInfo_Shield) CardInfo).ArmorMax, ((CardInfo_Shield) CardInfo).Shield, ((CardInfo_Shield) CardInfo).ShieldMax);
     }
 
     private string m_ShieldName;
@@ -178,7 +178,6 @@ public class ModuleShield : ModuleBase
 
     #region 模块交互
 
-
     #region  防具更换
 
     public void ChangeShield(ModuleShield newShield, ref ModuleShield resultShield)
@@ -218,6 +217,7 @@ public class ModuleShield : ModuleBase
     }
 
     #endregion
+
     #region 攻击防御相关
 
     public int ShieldBeAttacked(int attackValue)
@@ -242,6 +242,7 @@ public class ModuleShield : ModuleBase
             M_ModuleRetinue.M_Shield = null;
             PoolRecycle();
         }
+
         return remainAttackValue;
     }
 

@@ -1957,18 +1957,18 @@ MonoBehaviour:
   MaxRetinueNumber: 7
   RetinueInterval: 3.5
   RetinueDetailPreviewDelaySeconds: 0.7
-  HeroColor: {r: 0.66176474, g: 0.66176474, b: 0.66176474, a: 1}
-  RetinueColor: {r: 0.007352948, g: 0.5070996, b: 1, a: 1}
-  WeaponSwordColor: {r: 0.986207, g: 0, b: 1, a: 1}
-  WeaponGunColor: {r: 1, g: 0, b: 0, a: 1}
-  ShieldShieldColor: {r: 0.8206897, g: 1, b: 0, a: 1}
+  HeroColor: {r: 0.41176468, g: 0.41176468, b: 0.41176468, a: 1}
+  RetinueColor: {r: 0.25, g: 0.6275863, b: 1, a: 1}
+  WeaponSwordColor: {r: 0.8405284, g: 0.47875214, b: 0.8455882, a: 1}
+  WeaponGunColor: {r: 0.9264706, g: 0.4408722, b: 0.40873703, a: 1}
+  ShieldShieldColor: {r: 0.9077079, g: 1, b: 0.4852941, a: 1}
   ShieldArmorColor: {r: 1, g: 0.6413793, b: 0, a: 1}
   CardBloomColor: {r: 0, g: 1, b: 0.17241383, a: 1}
   CardDragBloomColor: {r: 0.65517235, g: 0, b: 1, a: 1}
-  Slot1Color: {r: 1, g: 0, b: 0, a: 1}
+  Slot1Color: {r: 1, g: 0.2794118, b: 0.2794118, a: 1}
   Slot2Color: {r: 0.9862069, g: 1, b: 0, a: 1}
   Slot3Color: {r: 0, g: 1, b: 0.21379304, a: 1}
-  Slot4Color: {r: 0.034482956, g: 0, b: 1, a: 1}
+  Slot4Color: {r: 0.102941155, g: 1, b: 1, a: 1}
 --- !u!114 &114750379545994066
 MonoBehaviour:
   m_ObjectHideFlags: 1

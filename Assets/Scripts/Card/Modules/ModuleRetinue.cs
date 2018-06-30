@@ -416,7 +416,7 @@ public class ModuleRetinue : ModuleBase
 
     #region 模块交互
 
-    #region 主动攻击
+    #region 攻击
 
     private bool canAttack = false;
 
