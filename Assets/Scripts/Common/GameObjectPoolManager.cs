@@ -37,9 +37,13 @@ public class GameObjectPoolManager : MonoBehaviour
     internal GameObjectPool Pool_CardBigNumberPool;
     public GameObject CardBigNumberPrefab;
 
-    public GameObject ArrowPool;
-    internal GameObjectPool Pool_ArrowPool;
-    public GameObject ArrowPrefab;
+    public GameObject ArrowAimingPool;
+    internal GameObjectPool Pool_ArrowAimingPool;
+    public GameObject ArrowAimingPrefab;
+
+    public GameObject ArrowArrowPool;
+    internal GameObjectPool Pool_ArrowArrowPool;
+    public GameObject ArrowArrowPrefab;
 
     public GameObject ModuleRetinuePool;
     internal GameObjectPool Pool_ModuleRetinuePool;
@@ -110,8 +114,11 @@ public class GameObjectPoolManager : MonoBehaviour
         Pool_CardBigNumberPool = CardBigNumberPool.GetComponent<GameObjectPool>();
         Pool_CardBigNumberPool.Initiate(CardBigNumberPrefab, 180);
 
-        Pool_ArrowPool = ArrowPool.GetComponent<GameObjectPool>();
-        Pool_ArrowPool.Initiate(ArrowPrefab, 2);
+        Pool_ArrowArrowPool = ArrowArrowPool.GetComponent<GameObjectPool>();
+        Pool_ArrowArrowPool.Initiate(ArrowArrowPrefab, 2);
+
+        Pool_ArrowAimingPool = ArrowAimingPool.GetComponent<GameObjectPool>();
+        Pool_ArrowAimingPool.Initiate(ArrowAimingPrefab, 2);
 
         Pool_ModuleRetinuePool = ModuleRetinuePool.GetComponent<GameObjectPool>();
         Pool_ModuleRetinuePool.Initiate(ModuleRetinuePrefab, 14);

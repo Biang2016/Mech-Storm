@@ -46,7 +46,7 @@ public class DragComponent : MonoBehaviour
             {
                 if (!arrow)
                 {
-                    arrow = GameObjectPoolManager.GOPM.Pool_ArrowPool.AllocateGameObject(GameBoardManager.GBM.transform).GetComponent<Arrow>();
+                    arrow = GameObjectPoolManager.GOPM.Pool_ArrowArrowPool.AllocateGameObject(GameBoardManager.GBM.transform).GetComponent<Arrow>();
                 }
 
                 arrow.Initiate(dragBeginPosition, cameraPosition);

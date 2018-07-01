@@ -8,7 +8,7 @@ public class HandManager : MonoBehaviour
 
     float[] anglesDict; //每张牌之间的夹角
     float[] horrizonDistanceDict; //每张牌之间的距离
-    public int cardNumber = 0; //手牌数
+    private int cardNumber = 0; //手牌数
     List<CardBase> cards;
 
     int retinueLayer;
@@ -220,8 +220,6 @@ public class HandManager : MonoBehaviour
         isBeginDrag = false;
     }
 
-    public float PullOutCardSize = 3.0f;
-
     //鼠标悬停手牌放大效果
     void becomeBigger(CardBase focusCard)
     {
@@ -231,7 +229,7 @@ public class HandManager : MonoBehaviour
             ColliderReplace colliderReplace = GameObjectPoolManager.GOPM.Pool_ColliderReplacePool.AllocateGameObject(GameBoardManager.GBM.transform).GetComponent<ColliderReplace>();
             colliderReplace.Initiate(focusCard);
             //本卡牌变大，旋转至正位
-            focusCard.transform.localScale = Vector3.one * PullOutCardSize;
+            focusCard.transform.localScale = Vector3.one *GameManager.GM.PullOutCardSize;
             focusCard.transform.rotation = defaultCardRotation;
             if (Player.WhichPlayer == Players.Self)
             {
