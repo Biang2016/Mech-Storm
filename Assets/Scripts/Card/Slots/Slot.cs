@@ -4,7 +4,9 @@ using System.Collections;
 public class Slot : MonoBehaviour
 {
     public Player Player;
-    [SerializeField] private SlotType m_SlotType = SlotType.None;
+
+    [SerializeField]
+    private SlotType m_SlotType = SlotType.None;
 
     public SlotType M_SlotType
     {
@@ -14,6 +16,14 @@ public class Slot : MonoBehaviour
         {
             m_SlotType = value;
             ChangeSlotColor(value);
+            if (value != SlotType.None)
+            {
+                gameObject.SetActive(true);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 

@@ -4,10 +4,8 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _gm;
 
-    public static GameManager GM
-    {
-        get
-        {
+    public static GameManager GM {
+        get {
             if (!_gm) _gm = FindObjectOfType<GameManager>();
             return _gm;
         }
