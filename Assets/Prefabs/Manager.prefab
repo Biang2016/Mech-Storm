@@ -317,9 +317,9 @@ GameObject:
   - component: {fileID: 4224617258569046}
   - component: {fileID: 33840405044010854}
   - component: {fileID: 23919037495021204}
-  - component: {fileID: 114282003668719162}
+  - component: {fileID: 114299083133942444}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -333,7 +333,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4371234718321240}
-  - component: {fileID: 114702585797951454}
+  - component: {fileID: 114716167821534438}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -710,6 +710,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4554858061452760}
+  - component: {fileID: 114385245977232542}
   m_Layer: 0
   m_Name: ArrowAimingPool
   m_TagString: Untagged
@@ -1446,7 +1447,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1224962395127494}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f4e3e1b8ce30634b8340993ab23397a, type: 3}
+  m_Script: {fileID: 11500000, guid: d1d010e35173afa4aab0aff2cd7a4403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114148628565438860
@@ -1495,7 +1496,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1290575610463506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4181d44f582ec5144a82fdeebd4d0c20, type: 3}
+  m_Script: {fileID: 11500000, guid: 0eb82a161a8a4d24eb1dad194738a475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114221316457917748
@@ -1554,7 +1555,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1365156434687298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc72083be1e125046b0ad63e501404fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 2aeff3bb93e224844a7a29f4b79d878c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114256581117918792
@@ -1628,7 +1629,7 @@ MonoBehaviour:
   MACardPool: {fileID: 1169814900940980}
   MACardPrefab: {fileID: 1581481781110654, guid: 00a4922be29717441943cceeefce637f,
     type: 2}
---- !u!114 &114282003668719162
+--- !u!114 &114299083133942444
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1636,16 +1637,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1293189360616058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06676390af035794b9f021944876d7f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 9941f1277a5f2164bb154e27f74844d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelfHandManager: {fileID: 114608229116178954}
-  EnemyHandManager: {fileID: 114908101910082066}
-  SelfBattleGroundManager: {fileID: 114198357844264076}
-  EnemyBattleGroundManager: {fileID: 114325717159447346}
-  SelfCardDeckManager: {fileID: 114440847590658338}
-  EnemyCardDeckManager: {fileID: 114177711115141394}
-  CardDetailPreview: {fileID: 1448159046179144}
 --- !u!114 &114313104334973380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1672,7 +1666,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1410219774330760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4181d44f582ec5144a82fdeebd4d0c20, type: 3}
+  m_Script: {fileID: 11500000, guid: 0eb82a161a8a4d24eb1dad194738a475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114326550067653298
@@ -1681,6 +1675,21 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275974317287128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 0
+  used: 0
+  notUsed: 0
+  empty: 0
+--- !u!114 &114385245977232542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1928106914819416}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
@@ -1847,7 +1856,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013492078678246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83f896d1bd1d1c44a8d04ee25ddfee28, type: 3}
+  m_Script: {fileID: 11500000, guid: f30aab20a6d93ee4394294241a7c237f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114651200412133188
@@ -1958,15 +1967,30 @@ MonoBehaviour:
   used: 0
   notUsed: 0
   empty: 0
---- !u!114 &114702585797951454
+--- !u!114 &114715626860000754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1395812357214434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 0
+  used: 0
+  notUsed: 0
+  empty: 0
+--- !u!114 &114716167821534438
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1308845307724798}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee4d656c32ead244b80463d6a1ff043a, type: 3}
+  m_Script: {fileID: 11500000, guid: c24225faeb7cb644eae10d93a9fdf62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MainAudioSource: {fileID: 0}
@@ -1989,33 +2013,18 @@ MonoBehaviour:
   MaxRetinueNumber: 7
   RetinueInterval: 3.5
   RetinueDetailPreviewDelaySeconds: 0.7
-  HeroColor: {r: 0.3455882, g: 0.3455882, b: 0.3455882, a: 1}
-  RetinueColor: {r: 0.1102941, g: 0.3741379, b: 1, a: 1}
-  WeaponSwordColor: {r: 0.8088235, g: 0.32115054, b: 0.674293, a: 1}
-  WeaponGunColor: {r: 1, g: 0.1102941, b: 0.1102941, a: 1}
-  ShieldShieldColor: {r: 1, g: 0.64137936, b: 0, a: 1}
-  ShieldArmorColor: {r: 1, g: 0.93103456, b: 0, a: 1}
-  CardBloomColor: {r: 0, g: 1, b: 0.006896496, a: 1}
-  CardDragBloomColor: {r: 0.97794116, g: 0, b: 0.70816416, a: 1}
-  Slot1Color: {r: 1, g: 0, b: 0, a: 1}
-  Slot2Color: {r: 1, g: 0.93103456, b: 0, a: 1}
-  Slot3Color: {r: 0, g: 1, b: 0.006896496, a: 1}
-  Slot4Color: {r: 0.1102941, g: 0.3741379, b: 1, a: 1}
---- !u!114 &114715626860000754
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1395812357214434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capacity: 0
-  used: 0
-  notUsed: 0
-  empty: 0
+  HeroColor: {r: 0, g: 0, b: 0, a: 0}
+  RetinueColor: {r: 0, g: 0, b: 0, a: 0}
+  WeaponSwordColor: {r: 0, g: 0, b: 0, a: 0}
+  WeaponGunColor: {r: 0, g: 0, b: 0, a: 0}
+  ShieldShieldColor: {r: 0, g: 0, b: 0, a: 0}
+  ShieldArmorColor: {r: 0, g: 0, b: 0, a: 0}
+  CardBloomColor: {r: 0, g: 0, b: 0, a: 0}
+  CardDragBloomColor: {r: 0, g: 0, b: 0, a: 0}
+  Slot1Color: {r: 0, g: 0, b: 0, a: 0}
+  Slot2Color: {r: 0, g: 0, b: 0, a: 0}
+  Slot3Color: {r: 0, g: 0, b: 0, a: 0}
+  Slot4Color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114739457369237742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2106,7 +2115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1021414482998542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4257f3ebf1c3584198327f662295aae, type: 3}
+  m_Script: {fileID: 11500000, guid: 76238ce607409ab4fabdd303eebf21b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SelfTurnText: {fileID: 1844123751400448}
@@ -2175,7 +2184,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1584859436148366}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83f896d1bd1d1c44a8d04ee25ddfee28, type: 3}
+  m_Script: {fileID: 11500000, guid: f30aab20a6d93ee4394294241a7c237f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114926336404642360

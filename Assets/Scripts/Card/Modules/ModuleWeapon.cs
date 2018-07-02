@@ -56,7 +56,7 @@ public class ModuleWeapon : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Weapon(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_WeaponEnergy, M_WeaponEnergyMax, M_WeaponAttack, M_WeaponType);
+        return new CardInfo_Weapon(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_WeaponEnergy, M_WeaponEnergyMax, M_WeaponAttack, M_WeaponType);
     }
 
     private string m_WeaponName;
@@ -263,10 +263,10 @@ public class ModuleWeapon : ModuleBase
         }
     }
 
-    public override void DragComponent_SetStates(ref bool canDrag, ref bool hasTarget)
+    public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
         canDrag = CanAttack;
-        hasTarget = CardInfo.HasTarget;
+        dragPurpose =DragPurpose.Attack;
     }
 
 

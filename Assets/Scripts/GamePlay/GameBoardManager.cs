@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameBoardManager : MonoBehaviour
 {
-
     private static GameBoardManager gbm;
+
     public static GameBoardManager GBM
     {
         get
@@ -14,20 +14,28 @@ public class GameBoardManager : MonoBehaviour
             {
                 gbm = FindObjectOfType(typeof(GameBoardManager)) as GameBoardManager;
             }
+
             return gbm;
         }
     }
 
-    public HandManager SelfHandManager;
-    public HandManager EnemyHandManager;
-    public BattleGroundManager SelfBattleGroundManager;
-    public BattleGroundManager EnemyBattleGroundManager;
-    public CardDeckManager SelfCardDeckManager;
-    public CardDeckManager EnemyCardDeckManager;
-    public GameObject CardDetailPreview;
+    internal HandManager SelfHandManager;
+    internal HandManager EnemyHandManager;
+    internal BattleGroundManager SelfBattleGroundManager;
+    internal BattleGroundManager EnemyBattleGroundManager;
+    internal CardDeckManager SelfCardDeckManager;
+    internal CardDeckManager EnemyCardDeckManager;
+    internal GameObject CardDetailPreview;
 
     void Awake()
     {
+        SelfHandManager = transform.Find("SelfHandArea").GetComponent<HandManager>();
+        EnemyHandManager = transform.Find("EnemyHandArea").GetComponent<HandManager>();
+        SelfBattleGroundManager = transform.Find("SelfBattleGroundArea").GetComponent<BattleGroundManager>();
+        EnemyBattleGroundManager = transform.Find("EnemyBattleGroundArea").GetComponent<BattleGroundManager>();
+        SelfCardDeckManager = transform.Find("SelfCardDeck").GetComponent<CardDeckManager>();
+        EnemyCardDeckManager = transform.Find("EnemyCardDeck").GetComponent<CardDeckManager>();
+        CardDetailPreview = transform.Find("CardDetailPreview").gameObject;
     }
 
     void Start()

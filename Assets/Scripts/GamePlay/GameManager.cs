@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        initializeColors();
     }
 
     private void Start()
@@ -102,6 +102,21 @@ public class GameManager : MonoBehaviour
     public Color CardBloomColor;
     public Color CardDragBloomColor;
 
+    private void initializeColors()
+    {
+        HeroColor = AllCards.HTMLColorToColor("#787878FF");
+        RetinueColor = AllCards.HTMLColorToColor("#5BAEF4FF");
+        WeaponSwordColor = AllCards.HTMLColorToColor("#FF229DFF");
+        WeaponGunColor = AllCards.HTMLColorToColor("#FF0000FF");
+        ShieldShieldColor = AllCards.HTMLColorToColor("#E6FF00FF");
+        ShieldArmorColor = AllCards.HTMLColorToColor("#FF8E00FF");
+        CardBloomColor = AllCards.HTMLColorToColor("#00FF41FF");
+        CardDragBloomColor = AllCards.HTMLColorToColor("#FF04F8FB");
+        Slot1Color = AllCards.HTMLColorToColor("#FF0000FF");
+        Slot2Color = AllCards.HTMLColorToColor("#FFED00FF");
+        Slot3Color = AllCards.HTMLColorToColor("#00FF6BFF");
+        Slot4Color = AllCards.HTMLColorToColor("#2D37FFFF");
+    }
 
     public Color Slot1Color;
     public Color Slot2Color;

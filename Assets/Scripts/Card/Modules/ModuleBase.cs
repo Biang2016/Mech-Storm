@@ -285,10 +285,10 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
     }
 
-    public virtual void DragComponent_SetStates(ref bool canDrag, ref bool hasTarget)
+    public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
         canDrag = true;
-        hasTarget = CardInfo.HasTarget;
+        dragPurpose = CardInfo.DragPurpose;
     }
 
     public virtual float DragComponnet_DragDistance()

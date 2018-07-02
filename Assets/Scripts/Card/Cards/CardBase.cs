@@ -269,10 +269,10 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
         Player.MyHandManager.EndDrag();
     }
 
-    public virtual void DragComponent_SetStates(ref bool canDrag, ref bool hasTarget)
+    public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
         canDrag = Usable;
-        hasTarget = CardInfo.HasTarget;
+        dragPurpose = CardInfo.DragPurpose;
     }
 
     public virtual float DragComponnet_DragDistance()

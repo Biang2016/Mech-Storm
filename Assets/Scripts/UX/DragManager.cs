@@ -34,6 +34,8 @@ public class DragManager : MonoBehaviour
     int cardLayer;
 
     internal DragComponent CurrentDrag;
+    internal Arrow CurrentArrow;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))

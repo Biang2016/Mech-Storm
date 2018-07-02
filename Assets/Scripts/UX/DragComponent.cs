@@ -42,34 +42,44 @@ public class DragComponent : MonoBehaviour
                 isBegin = false;
             }
 
-            if (hasTarget && (transform.position - dragBeginPosition).magnitude > dragDistance) //如果是有目标拖拽物，拖拽超出限定范围变为箭头
-            {
-                if (!arrow)
-                {
-                    arrow = GameObjectPoolManager.GOPM.Pool_ArrowArrowPool.AllocateGameObject(GameBoardManager.GBM.transform).GetComponent<Arrow>();
-                }
 
-                arrow.Initiate(dragBeginPosition, cameraPosition);
-                caller.DragComponnet_DragOutEffects();
-                //Debug.Log(caller);
-            }
-            else //拖拽物体本身
+            switch (dragPurpose)
             {
-                transform.position = transform.position + cameraPosition - dragLastPosition;
-                dragLastPosition = cameraPosition;
+                case DragPurpose.Equip:
+                    if ((transform.position - dragBeginPosition).magnitude < dragDistance) //拖拽物体本身 
+                    {
+                        transform.position = transform.position + cameraPosition - dragLastPosition;
+                        dragLastPosition = cameraPosition;
+                    }
+                    else //拖拽一定距离产生效果
+                    {
+                        if (!DragManager.DM.CurrentArrow || !(DragManager.DM.CurrentArrow is ArrowArrow)) DragManager.DM.CurrentArrow = GameObjectPoolManager.GOPM.Pool_ArrowArrowPool.AllocateGameObject(DragManager.DM.transform).GetComponent<ArrowArrow>();
+                        DragManager.DM.CurrentArrow.Render(dragBeginPosition, cameraPosition);
+                        caller.DragComponnet_DragOutEffects();
+                    }
+
+                    break;
+                case DragPurpose.Summon:
+                    transform.position = transform.position + cameraPosition - dragLastPosition;
+                    dragLastPosition = cameraPosition;
+                    break;
+                case DragPurpose.Attack:
+                    if (!DragManager.DM.CurrentArrow || !(DragManager.DM.CurrentArrow is ArrowAiming)) DragManager.DM.CurrentArrow = GameObjectPoolManager.GOPM.Pool_ArrowAimingPool.AllocateGameObject(DragManager.DM.transform).GetComponent<ArrowAiming>();
+                    DragManager.DM.CurrentArrow.Render(dragBeginPosition, cameraPosition);
+                    caller.DragComponnet_DragOutEffects();
+                    break;
             }
         }
     }
 
     bool canDrag;
-    bool hasTarget;
+    private DragPurpose dragPurpose;
     float dragDistance;
     private bool isOnDrag = false;
     bool isBegin = true;
     Vector3 dragBeginPosition;
     Quaternion dragBeginQuaternion;
     Vector3 dragLastPosition;
-    Arrow arrow;
 
     public bool IsOnDrag
     {
@@ -83,7 +93,7 @@ public class DragComponent : MonoBehaviour
             {
                 if (value) //鼠标按下
                 {
-                    caller.DragComponent_SetStates(ref canDrag, ref hasTarget);
+                    caller.DragComponent_SetStates(ref canDrag, ref dragPurpose);
                     if (canDrag)
                     {
                         dragLastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -105,7 +115,7 @@ public class DragComponent : MonoBehaviour
                         caller.DragComponent_OnMouseUp(checkAreas(), checkMoveToSlot(), checkMoveTorRetinue(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
                         dragLastPosition = Vector3.zero;
                         isBegin = true;
-                        if (arrow) arrow.PoolRecycle();
+                        if (DragManager.DM.CurrentArrow) DragManager.DM.CurrentArrow.PoolRecycle();
                         isOnDrag = value;
                     }
                     else
@@ -208,7 +218,15 @@ public interface IDragComponent
         ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,
         Quaternion dragBeginQuaternion);
 
-    void DragComponent_SetStates(ref bool canDrag, ref bool hasTarget);
+    void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose);
     float DragComponnet_DragDistance();
     void DragComponnet_DragOutEffects();
+}
+
+public enum DragPurpose
+{
+    None = 0,
+    Summon = 1,
+    Equip = 2,
+    Attack = 3,
 }

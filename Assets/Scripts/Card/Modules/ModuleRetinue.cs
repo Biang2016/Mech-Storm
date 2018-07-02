@@ -185,7 +185,7 @@ public class ModuleRetinue : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.HasTarget, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_RetinueLeftLife, M_RetinueTotalLife, M_RetinueAttack, M_RetinueShield, M_RetinueArmor, ((CardInfo_Retinue) CardInfo).Slot1, ((CardInfo_Retinue) CardInfo).Slot2, ((CardInfo_Retinue) CardInfo).Slot3, ((CardInfo_Retinue) CardInfo).Slot4);
+        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_RetinueLeftLife, M_RetinueTotalLife, M_RetinueAttack, M_RetinueShield, M_RetinueArmor, ((CardInfo_Retinue) CardInfo).Slot1, ((CardInfo_Retinue) CardInfo).Slot2, ((CardInfo_Retinue) CardInfo).Slot3, ((CardInfo_Retinue) CardInfo).Slot4);
     }
 
     private string m_RetinueName;
@@ -541,10 +541,10 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    public override void DragComponent_SetStates(ref bool canDrag, ref bool hasTarget)
+    public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
         canDrag = CanAttack;
-        hasTarget = true;
+        dragPurpose = DragPurpose.Attack;
     }
 
     public override float DragComponnet_DragDistance()
@@ -579,6 +579,7 @@ public class ModuleRetinue : ModuleBase
             if (mr.Player != Player && mr != this)
             {
                 IsBeDraggedHover = true;
+                ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true;
             }
         }
     }
@@ -587,6 +588,7 @@ public class ModuleRetinue : ModuleBase
     {
         base.MouseHoverComponent_OnMousePressLeaveImmediately();
         IsBeDraggedHover = false;
+        ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = false;
     }
 
     #endregion
