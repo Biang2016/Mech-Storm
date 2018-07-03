@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ModuleShield : ModuleBase
@@ -21,6 +22,8 @@ public class ModuleShield : ModuleBase
     internal ModuleRetinue M_ModuleRetinue;
     public TextMesh ShieldName;
     public GameObject M_Bloom;
+    public Animator M_ShieldHitAnim;
+    public Animator M_ArmorHitAnim;
 
     public GameObject Block_ShieldArmor;
     protected GameObject GoNumberSet_ShieldArmor;
@@ -235,12 +238,14 @@ public class ModuleShield : ModuleBase
                 remainAttackValue -= M_ShieldShield;
                 M_ShieldShield /= 2;
             }
+
+            M_ShieldHitAnim.SetTrigger("BeHit");
         }
 
         if (M_ShieldShield == 0 && M_ShieldArmor == 0)
         {
             M_ModuleRetinue.M_Shield = null;
-            PoolRecycle();
+            StartCoroutine(DelayPoolRecycle());
         }
 
         return remainAttackValue;
@@ -261,15 +266,23 @@ public class ModuleShield : ModuleBase
                 remainAttackValue = remainAttackValue - M_ShieldArmor;
                 M_ShieldArmor = 0;
             }
+
+            M_ArmorHitAnim.SetTrigger("BeHit");
         }
 
         if (M_ShieldShield == 0 && M_ShieldArmor == 0)
         {
             M_ModuleRetinue.M_Shield = null;
-            PoolRecycle();
+            StartCoroutine(DelayPoolRecycle());
         }
 
         return remainAttackValue;
+    }
+
+    IEnumerator DelayPoolRecycle()
+    {
+        yield return new WaitForSeconds(0.5F);
+        PoolRecycle();
     }
 
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
