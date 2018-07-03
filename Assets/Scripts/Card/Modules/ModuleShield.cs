@@ -225,58 +225,87 @@ public class ModuleShield : ModuleBase
 
     public int ShieldBeAttacked(int attackValue)
     {
+        bool isTrigger = false;
+        bool isDead = false;
+        //虚假计算
         int remainAttackValue = attackValue;
-        if (M_ShieldShield > 0)
+        if (remainAttackValue == 0) return 0;
+        if (m_ShieldShield > 0)
         {
-            if (M_ShieldShield > remainAttackValue)
+            if (m_ShieldShield > remainAttackValue)
             {
-                M_ShieldShield--;
+                m_ShieldShield--;
                 remainAttackValue = 0;
             }
             else
             {
-                remainAttackValue -= M_ShieldShield;
-                M_ShieldShield /= 2;
+                remainAttackValue -= m_ShieldShield;
+                m_ShieldShield /= 2;
             }
 
-            M_ShieldHitAnim.SetTrigger("BeHit");
+            isTrigger = true;
         }
 
-        if (M_ShieldShield == 0 && M_ShieldArmor == 0)
+        if (m_ShieldShield == 0 && m_ShieldArmor == 0)
         {
+            isDead = true;
             M_ModuleRetinue.M_Shield = null;
-            StartCoroutine(DelayPoolRecycle());
         }
+
+        BattleEffectsManager.BEM.BattleEffects.Enqueue(Co_ShieldBeAttacked(isTrigger, isDead));
 
         return remainAttackValue;
     }
 
+    IEnumerator Co_ShieldBeAttacked(bool isTrigger, bool isDead)
+    {
+        M_ShieldShield = M_ShieldShield;
+        if (isTrigger) M_ShieldHitAnim.SetTrigger("BeHit");
+        yield return new WaitForSeconds(0.2F);
+        if (isDead) yield return StartCoroutine(DelayPoolRecycle());
+        yield return null;
+        BattleEffectsManager.BEM.IsExcuting = false;
+    }
+
     public int ArmorBeAttacked(int attackValue)
     {
+        bool isTrigger = false;
+        bool isDead = false;
         int remainAttackValue = attackValue;
-        if (M_ShieldArmor > 0)
+        if (remainAttackValue == 0) return 0;
+        if (m_ShieldArmor > 0)
         {
-            if (M_ShieldArmor >= remainAttackValue)
+            if (m_ShieldArmor >= remainAttackValue)
             {
-                M_ShieldArmor -= remainAttackValue;
+                m_ShieldArmor -= remainAttackValue;
                 remainAttackValue = 0;
             }
             else
             {
-                remainAttackValue = remainAttackValue - M_ShieldArmor;
-                M_ShieldArmor = 0;
+                remainAttackValue = remainAttackValue - m_ShieldArmor;
+                m_ShieldArmor = 0;
             }
 
-            M_ArmorHitAnim.SetTrigger("BeHit");
+            isTrigger = true;
         }
 
         if (M_ShieldShield == 0 && M_ShieldArmor == 0)
         {
+            isDead = true;
             M_ModuleRetinue.M_Shield = null;
-            StartCoroutine(DelayPoolRecycle());
         }
 
+        BattleEffectsManager.BEM.BattleEffects.Enqueue(Co_ArmorBeAttacked(isTrigger, isDead));
         return remainAttackValue;
+    }
+
+    IEnumerator Co_ArmorBeAttacked(bool isTrigger, bool isDead)
+    {
+        M_ShieldArmor = M_ShieldArmor;
+        if (isTrigger) M_ArmorHitAnim.SetTrigger("BeHit");
+        yield return new WaitForSeconds(0.2F);
+        if (isDead) yield return StartCoroutine(DelayPoolRecycle());
+        BattleEffectsManager.BEM.IsExcuting = false;
     }
 
     IEnumerator DelayPoolRecycle()

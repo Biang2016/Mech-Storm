@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -99,6 +100,9 @@ public class ModuleRetinue : ModuleBase
 
     public GameObject CardBloom;
     public GameObject CardDraggedHoverBloom;
+    public Animator ShieldIconHit;
+    public Animator ArmorIconHit;
+    public Animator CardLifeHit;
 
     public SlotAnchor SlotAnchor1;
     public SlotAnchor SlotAnchor2;
@@ -470,7 +474,9 @@ public class ModuleRetinue : ModuleBase
         {
             if (M_RetinueShield > 0)
             {
-                if (M_RetinueShield > remainAttackNumber)
+                ShieldIconHit.SetTrigger("BeHit");
+
+                if (M_RetinueShield >= remainAttackNumber)
                 {
                     M_RetinueShield--;
                     remainAttackNumber = 0;
@@ -485,7 +491,9 @@ public class ModuleRetinue : ModuleBase
 
             if (M_RetinueArmor > 0)
             {
-                if (M_RetinueArmor > remainAttackNumber)
+                ArmorIconHit.SetTrigger("BeHit");
+
+                if (M_RetinueArmor >= remainAttackNumber)
                 {
                     M_RetinueArmor = M_RetinueArmor - remainAttackNumber;
                     remainAttackNumber = 0;
@@ -499,13 +507,14 @@ public class ModuleRetinue : ModuleBase
             }
         }
 
+        CardLifeHit.SetTrigger("BeHit");
         if (M_RetinueLeftLife <= remainAttackNumber)
         {
             M_RetinueLeftLife -= M_RetinueLeftLife;
             remainAttackNumber -= M_RetinueLeftLife;
             Player.MyBattleGroundManager.RemoveRetinue(this);
             Player.MyBattleGroundManager.RefreshBattleGround();
-            PoolRecycle();
+            StartCoroutine(DelayPoolRecycle());
         }
         else
         {
@@ -529,6 +538,11 @@ public class ModuleRetinue : ModuleBase
 
         CanAttack = false;
         return ASeriesOfAttacks;
+    }
+    IEnumerator DelayPoolRecycle()
+    {
+        yield return new WaitForSeconds(0.5F);
+        PoolRecycle();
     }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)

@@ -19,7 +19,7 @@ public class MouseHoverManager : MonoBehaviour
     {
         hi_ModulesHoverShowBloom = new HoverImmediately(modulesLayer);
         phi_SlotsPressHoverShowBloom = new PressHoverImmediately(slotsLayer);
-        hd_ModulesFocusShowPreview = new Focus(modulesLayer | retinuesLayer, GameManager.GM.RetinueDetailPreviewDelaySeconds, 10f);
+        hd_ModulesFocusShowPreview = new Focus(modulesLayer | retinuesLayer, GameManager.GM.RetinueDetailPreviewDelaySeconds,100f);
         hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer);
     }
 

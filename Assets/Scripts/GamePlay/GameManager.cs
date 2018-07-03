@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
 
     public int MaxHandCard = 20;
-    public int DrawCardPerRound = 2;
+    public int DrawCardPerRound = 1;
     public int FirstDrawCard = 2;
     public int SecondDrawCard = 3;
 
