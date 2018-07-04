@@ -97,6 +97,7 @@ internal class CardWeapon : CardBase
         ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(moduleRetinue.transform).GetComponent<ModuleWeapon>();
         newModueWeapon.M_ModuleRetinue = moduleRetinue;
         newModueWeapon.Initiate(CardInfo, Player);
+        BattleOperationRecord.BOP.Operations.Add(new OperationEquip(Player, GameObjectID, new List<int> {newModueWeapon.GameObjectID}, OperationType.Equip, CardInfo.CardID, CardInfo.CardType, moduleRetinue));
         moduleRetinue.M_Weapon = newModueWeapon;
         PoolRecycle();
         Player.MyHandManager.DropCard(this);

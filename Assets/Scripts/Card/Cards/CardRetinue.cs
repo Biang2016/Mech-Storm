@@ -6,23 +6,30 @@ internal class CardRetinue : CardBase
     public override void PoolRecycle()
     {
         base.PoolRecycle();
-
-        if (Weapon) {
+        if (Weapon)
+        {
             Weapon.PoolRecycle();
             Weapon = null;
         }
-        if (Shield) {
+
+        if (Shield)
+        {
             Shield.PoolRecycle();
             Shield = null;
         }
-        if (Pack) {
+
+        if (Pack)
+        {
             //Pack.PoolRecycle();
             Pack = null;
         }
-        if (MA) {
+
+        if (MA)
+        {
             //MA.PoolRecycle();
             MA = null;
         }
+
         if (Pack) Pack = null;
         if (MA) MA = null;
     }
@@ -35,12 +42,10 @@ internal class CardRetinue : CardBase
 
     void Start()
     {
-
     }
 
     void Update()
     {
-
     }
 
     #region 卡牌上各模块
@@ -72,14 +77,13 @@ internal class CardRetinue : CardBase
     public override void Initiate(CardInfo_Base cardInfo, Player player)
     {
         base.Initiate(cardInfo, player);
-        M_RetinueName = ((CardInfo_Retinue)cardInfo).CardName;
-        M_RetinueDesc = ((CardInfo_Retinue)cardInfo).CardDesc;
-        M_RetinueLeftLife = ((CardInfo_Retinue)CardInfo).Life;
-        M_RetinueTotalLife = ((CardInfo_Retinue)CardInfo).Life;
-        M_RetinueAttack = ((CardInfo_Retinue)cardInfo).BasicAttack;
-        M_RetinueArmor = ((CardInfo_Retinue)cardInfo).BasicArmor;
-        M_RetinueShield = ((CardInfo_Retinue)cardInfo).BasicShield;
-
+        M_RetinueName = ((CardInfo_Retinue) cardInfo).CardName;
+        M_RetinueDesc = ((CardInfo_Retinue) cardInfo).CardDesc;
+        M_RetinueLeftLife = ((CardInfo_Retinue) CardInfo).Life;
+        M_RetinueTotalLife = ((CardInfo_Retinue) CardInfo).Life;
+        M_RetinueAttack = ((CardInfo_Retinue) cardInfo).BasicAttack;
+        M_RetinueArmor = ((CardInfo_Retinue) cardInfo).BasicArmor;
+        M_RetinueShield = ((CardInfo_Retinue) cardInfo).BasicShield;
 
         Slot1.Player = Player;
         Slot1.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot1;
@@ -92,12 +96,10 @@ internal class CardRetinue : CardBase
     }
 
     private string m_RetinueName;
+
     public string M_RetinueName
     {
-        get
-        {
-            return m_RetinueName;
-        }
+        get { return m_RetinueName; }
         set
         {
             m_RetinueName = value;
@@ -106,12 +108,10 @@ internal class CardRetinue : CardBase
     }
 
     private string m_RetinueDesc;
+
     public string M_RetinueDesc
     {
-        get
-        {
-            return m_RetinueDesc;
-        }
+        get { return m_RetinueDesc; }
         set
         {
             m_RetinueDesc = value;
@@ -120,12 +120,10 @@ internal class CardRetinue : CardBase
     }
 
     private int m_RetinueLeftLife;
+
     public int M_RetinueLeftLife
     {
-        get
-        {
-            return m_RetinueLeftLife;
-        }
+        get { return m_RetinueLeftLife; }
         set
         {
             m_RetinueLeftLife = value;
@@ -135,26 +133,25 @@ internal class CardRetinue : CardBase
     }
 
     private int m_RetinueTotalLife;
+
     public int M_RetinueTotalLife
     {
-        get
-        {
-            return m_RetinueTotalLife;
-        }
+        get { return m_RetinueTotalLife; }
         set
         {
             m_RetinueTotalLife = value;
-            initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife,'/');
+            initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife, '/');
             CardNumberSet_RetinueTotalLife.Number = m_RetinueTotalLife;
         }
     }
 
     private int m_RetinueAttack;
-    public int M_RetinueAttack {
-        get {
-            return m_RetinueAttack;
-        }
-        set {
+
+    public int M_RetinueAttack
+    {
+        get { return m_RetinueAttack; }
+        set
+        {
             m_RetinueAttack = value;
             initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_RetinueAttack, '+');
             CardNumberSet_RetinueAttack.Number = m_RetinueAttack;
@@ -162,11 +159,12 @@ internal class CardRetinue : CardBase
     }
 
     private int m_RetinueArmor;
-    public int M_RetinueArmor {
-        get {
-            return m_RetinueArmor;
-        }
-        set {
+
+    public int M_RetinueArmor
+    {
+        get { return m_RetinueArmor; }
+        set
+        {
             m_RetinueArmor = value;
             initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_RetinueArmor, '+');
             CardNumberSet_RetinueArmor.Number = m_RetinueArmor;
@@ -174,11 +172,12 @@ internal class CardRetinue : CardBase
     }
 
     private int m_RetinueShield;
-    public int M_RetinueShield {
-        get {
-            return m_RetinueShield;
-        }
-        set {
+
+    public int M_RetinueShield
+    {
+        get { return m_RetinueShield; }
+        set
+        {
             m_RetinueShield = value;
             initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_RetinueShield, '+');
             CardNumberSet_RetinueShield.Number = m_RetinueShield;
@@ -196,12 +195,12 @@ internal class CardRetinue : CardBase
     internal GameObject Pack;
     internal ModuleWeapon Weapon;
     internal ModuleShield Shield;
-    internal GameObject MA;//飞行踏板/机动堡垒
-    internal GameObject Energy;//能量槽
+    internal GameObject MA; //飞行踏板/机动堡垒
+    internal GameObject Energy; //能量槽
 
     # endregion
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition,
             dragBeginQuaternion);
@@ -209,7 +208,9 @@ internal class CardRetinue : CardBase
         if (boardAreaType != Player.MyHandArea) //脱手即出牌
         {
             summonRetinue(dragLastPosition);
-        } else {
+        }
+        else
+        {
             transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
             Player.MyHandManager.RefreshCardsPlace();
         }
@@ -217,24 +218,25 @@ internal class CardRetinue : CardBase
 
 
     #region 卡牌效果
+
     //召唤随从
     private void summonRetinue(Vector3 dragLastPosition)
     {
         Player.UseCost(M_Cost);
 
-        if (Player.MyBattleGroundManager.BattleGroundIsFull) {
+        if (Player.MyBattleGroundManager.BattleGroundIsFull)
+        {
             Player.MyHandManager.RefreshCardsPlace();
             return;
         }
 
         PoolRecycle();
-        var retinueObj = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(Player.MyBattleGroundManager.transform).GetComponent<ModuleRetinue>();
+        ModuleRetinue retinueObj = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(Player.MyBattleGroundManager.transform).GetComponent<ModuleRetinue>();
         retinueObj.Initiate(CardInfo, Player);
+        BattleOperationRecord.BOP.Operations.Add(new OperationSummon(Player, GameObjectID, new List<int> {retinueObj.GameObjectID}, OperationType.Summon, CardInfo.CardID));
         Player.MyBattleGroundManager.AddRetinueByPosition(retinueObj, dragLastPosition);
         Player.MyHandManager.DropCard(this);
     }
 
     #endregion
 }
-
-

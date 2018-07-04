@@ -5,11 +5,13 @@ using System.Collections.Generic;
 
 public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponent, IMouseHoverComponent
 {
+    internal int GameObjectID;
     protected GameObjectPool gameObjectPool;
     internal Player Player;
 
     public virtual void PoolRecycle()
     {
+        GameObjectID = -1;
         if (GetComponent<DragComponent>())
         {
             GetComponent<DragComponent>().enabled = true;

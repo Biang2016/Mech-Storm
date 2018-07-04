@@ -259,9 +259,9 @@ public class ModuleShield : ModuleBase
 
     IEnumerator Co_ShieldBeAttacked(bool isTrigger, bool isDead)
     {
-        M_ShieldShield = M_ShieldShield;
         if (isTrigger) M_ShieldHitAnim.SetTrigger("BeHit");
-        yield return new WaitForSeconds(0.2F);
+        yield return new WaitForSeconds(1F);
+        M_ShieldShield = M_ShieldShield;
         if (isDead) yield return StartCoroutine(DelayPoolRecycle());
         yield return null;
         BattleEffectsManager.BEM.IsExcuting = false;
@@ -301,9 +301,9 @@ public class ModuleShield : ModuleBase
 
     IEnumerator Co_ArmorBeAttacked(bool isTrigger, bool isDead)
     {
-        M_ShieldArmor = M_ShieldArmor;
         if (isTrigger) M_ArmorHitAnim.SetTrigger("BeHit");
-        yield return new WaitForSeconds(0.2F);
+        yield return new WaitForSeconds(1F);
+        M_ShieldArmor = M_ShieldArmor;
         if (isDead) yield return StartCoroutine(DelayPoolRecycle());
         BattleEffectsManager.BEM.IsExcuting = false;
     }

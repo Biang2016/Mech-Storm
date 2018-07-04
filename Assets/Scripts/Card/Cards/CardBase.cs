@@ -3,11 +3,13 @@ using UnityEngine;
 
 internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 {
+    internal int GameObjectID;
     protected GameObjectPool gameObjectPool;
     internal Player Player;
 
     public virtual void PoolRecycle()
     {
+        GameObjectID = -1;
         ResetColliderAndReplace();
         if (GetComponent<DragComponent>())
         {
@@ -21,6 +23,7 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
         gameObjectPool.RecycleGameObject(gameObject);
     }
+
 
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
 
@@ -180,6 +183,8 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     public virtual void Initiate(CardInfo_Base cardInfo, Player player)
     {
+        GameObjectID = -1;
+
         Player = player;
         CardInfo = cardInfo;
         initiateNumbers(ref GoNumberSet_Cost, ref CardNumberSet_Cost, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Cost);

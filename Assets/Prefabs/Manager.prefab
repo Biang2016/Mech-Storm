@@ -2284,7 +2284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainAudioSource: {fileID: 0}
   CanTestEnemyCards: 1
-  BeginCost: 0
+  BeginCost: 20
   MaxCost: 20
   CostIncrease: 1
   HandCardSize: 1.5

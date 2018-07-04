@@ -101,6 +101,8 @@ internal class CardShield : CardBase
 
         moduleRetinue.M_Shield.M_ModuleRetinue = moduleRetinue;
         moduleRetinue.M_Shield.Initiate(CardInfo, Player);
+        BattleOperationRecord.BOP.Operations.Add(new OperationEquip(Player, GameObjectID, new List<int> {moduleRetinue.M_Shield.GameObjectID}, OperationType.Equip, CardInfo.CardID, CardInfo.CardType, moduleRetinue));
+
         PoolRecycle();
         Player.MyHandManager.DropCard(this);
     }
