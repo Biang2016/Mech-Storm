@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -255,6 +257,20 @@
     <Compile Include="Assets\Scripts\GamePlay\HandManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Player.cs" />
     <Compile Include="Assets\Scripts\GamePlay\RoundManager.cs" />
+    <Compile Include="Assets\Scripts\Network\Common\DataHolder.cs" />
+    <Compile Include="Assets\Scripts\Network\Common\DataStream.cs" />
+    <Compile Include="Assets\Scripts\Network\Ends\Client.cs" />
+    <Compile Include="Assets\Scripts\Network\Ends\Server.cs" />
+    <Compile Include="Assets\Scripts\Network\Ends\NetworkManager.cs" />
+    <Compile Include="Assets\Scripts\Network\Game\RequestResponse\TestConnectRequest.cs" />
+    <Compile Include="Assets\Scripts\Network\Game\RequestResponse\EntryGameRequest.cs" />
+    <Compile Include="Assets\Scripts\Network\Game\RequestResponse\TestConnectResponse.cs" />
+    <Compile Include="Assets\Scripts\Network\Game\RequestResponse\EntryGameResponse.cs" />
+    <Compile Include="Assets\Scripts\Network\Game\RequestResponse\RegisterResp.cs" />
+    <Compile Include="Assets\Scripts\Network\Game\RequestResponse\Request.cs" />
+    <Compile Include="Assets\Scripts\Network\Game\RequestResponse\Response.cs" />
+    <Compile Include="Assets\Scripts\Network\Protocol\NetProtocols.cs" />
+    <Compile Include="Assets\Scripts\Network\Protocol\ProtoManager.cs" />
     <Compile Include="Assets\Scripts\UI\ImageEffectBlurBox.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenFitness.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenSetting.cs" />
