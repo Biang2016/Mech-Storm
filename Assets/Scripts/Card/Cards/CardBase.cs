@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
+internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 {
     internal int GameObjectID;
     protected GameObjectPool gameObjectPool;
-    internal Player Player;
+    internal ClientPlayer ClientPlayer;
 
     public virtual void PoolRecycle()
     {
@@ -127,7 +127,7 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     # endregion
 
-    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, Player player)
+    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, ClientPlayer clientPlayer)
     {
         CardBase newCard;
         switch (cardInfo.CardType)
@@ -146,7 +146,7 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
                 break;
         }
         
-        newCard.Initiate(cardInfo, player);
+        newCard.Initiate(cardInfo, clientPlayer);
         newCard.ChangeColor(cardInfo.CardColor);
         return newCard;
     }
@@ -181,11 +181,11 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
         }
     }
 
-    public virtual void Initiate(CardInfo_Base cardInfo, Player player)
+    public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         GameObjectID = -1;
 
-        Player = player;
+        ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
         initiateNumbers(ref GoNumberSet_Cost, ref CardNumberSet_Cost, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Cost);
         M_Cost = CardInfo.Cost;
@@ -257,12 +257,12 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     private void OnMouseEnter()
     {
-        Player.MyHandManager.CardOnMouseEnter(this); //通知手牌管理器该聚焦本牌了
+        ClientPlayer.MyHandManager.CardOnMouseEnter(this); //通知手牌管理器该聚焦本牌了
     }
 
     public void DragComponent_OnMouseDown()
     {
-        Player.MyHandManager.BeginDrag();
+        ClientPlayer.MyHandManager.BeginDrag();
     }
 
     public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue)
@@ -271,7 +271,7 @@ internal class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        Player.MyHandManager.EndDrag();
+        ClientPlayer.MyHandManager.EndDrag();
     }
 
     public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)

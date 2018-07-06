@@ -17,6 +17,6 @@ public class ColliderReplace : MonoBehaviour
 
     private void OnMouseExit()
     {
-        MyCallerCard.Player.MyHandManager.CardColliderReplaceOnMouseExit(MyCallerCard);
+        MyCallerCard.ClientPlayer.MyHandManager.CardColliderReplaceOnMouseExit(MyCallerCard);
     }
 }

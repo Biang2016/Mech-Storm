@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36bc6c31dd4d0894d84a3bcec09c28a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Manager: {fileID: 1462513656364958, guid: 72b6b10d107893b42aaa7ece140e6992, type: 2}
+  Manager: {fileID: 1879006651088290, guid: 8e89b4d3b31ea174ca07e91c54b710c3, type: 2}
 --- !u!4 &1605920170
 Transform:
   m_ObjectHideFlags: 0
@@ -561,6 +561,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad88f6fa77913a74fa2ae7bb0d5c8346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ip: 127.0.0.1
+  port: 9999
 --- !u!4 &1947968869
 Transform:
   m_ObjectHideFlags: 0

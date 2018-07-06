@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using UnityEngine;
-
 
 public class Client : MonoBehaviour
 {
@@ -23,11 +18,22 @@ public class Client : MonoBehaviour
         }
     }
 
+    public ProtoManager ClientProtoManager;
+    private Socket ServerSocket;
+    bool isStopReceive = true;
+
+    public delegate void ConnectCallback();
+
+    ConnectCallback connectDelegate = null;
+    ConnectCallback connectFailedDelegate = null;
+
+    private DataHolder mDataHolder = new DataHolder();
+    Queue<byte[]> receiveDataQueue = new Queue<byte[]>();
+    Queue<Request> sendDataQueue = new Queue<Request>();
+
     void Awake()
     {
-        ClientProtoManager = new ProtoManager();
-        ClientProtoManager.AddRespDelegate(NetProtocols.ENTRY_GAME, Response);
-        ClientProtoManager.AddRespDelegate(NetProtocols.TEST_CONNECT, Response);
+        OnRestartProtocols();
     }
 
     //接收到数据放入数据队列，按顺序取出
@@ -49,19 +55,18 @@ public class Client : MonoBehaviour
         Closed();
     }
 
-    public ProtoManager ClientProtoManager;
-    private Socket ServerSocket;
-    bool isStopReceive = true;
-
-    public delegate void ConnectCallback();
-
-    ConnectCallback connectDelegate = null;
-    ConnectCallback connectFailedDelegate = null;
-
-    private DataHolder mDataHolder = new DataHolder();
-    Queue<byte[]> receiveDataQueue = new Queue<byte[]>();
-    Queue<Request> sendDataQueue = new Queue<Request>();
-
+    public void OnRestartProtocols()
+    {
+        ClientProtoManager = new ProtoManager();
+        ClientProtoManager.AddProtocol<EntryGameResponse>(NetProtocols.ENTRY_GAME);
+        ClientProtoManager.AddProtocol<TestConnectResponse>(NetProtocols.TEST_CONNECT);
+        ClientProtoManager.AddProtocol<PlayerResponse>(NetProtocols.PLAYER);
+        ClientProtoManager.AddProtocol<PlayerCostResponse>(NetProtocols.PLAYER_COST_CHANGE);
+        ClientProtoManager.AddRespDelegate(NetProtocols.ENTRY_GAME, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.TEST_CONNECT, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.PLAYER, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.PLAYER_COST_CHANGE, Response);
+    }
 
     #region 连接
 
@@ -101,8 +106,6 @@ public class Client : MonoBehaviour
             thread.IsBackground = true;
             thread.Start();
         }
-
-        RegisterResp.RegisterAll();
     }
 
     private void ConnectedCallback(IAsyncResult asyncConnect)
@@ -144,7 +147,6 @@ public class Client : MonoBehaviour
     }
 
     #endregion
-
 
     #region 接收
 
@@ -200,6 +202,17 @@ public class Client : MonoBehaviour
         Log += "收到服务器信息：[协议]" + r.GetProtocolName() + "[内容]";
         Log += r.DeserializeLog();
         Debug.Log(Log);
+
+        if (r is PlayerResponse)
+        {
+            PlayerResponse resp = (PlayerResponse) r;
+            GameManager.GM.InitializePlayers(resp);
+        }
+        else if (r is PlayerCostResponse)
+        {
+            PlayerCostResponse resp = (PlayerCostResponse) r;
+            GameManager.GM.SetPlayersCost(resp);
+        }
     }
 
     #endregion

@@ -20,7 +20,7 @@ public class RoundManager : MonoBehaviour
     }
 
     internal int RoundNumber;
-    internal Player CurrentPlayer;
+    internal ClientPlayer CurrentClientPlayer;
     public GameObject SelfTurnText;
     public GameObject EnemyTurnText;
     public Text SelfCostText;
@@ -40,15 +40,15 @@ public class RoundManager : MonoBehaviour
 
     public void GameStart()
     {
-        CurrentPlayer = Random.Range(0, 2) == 0 ? GameManager.GM.SelfPlayer : GameManager.GM.EnemyPlayer;
-        CurrentPlayer.MyHandManager.GetACardByID(99);
-        CurrentPlayer.MyHandManager.DrawRetinueCard();
-        CurrentPlayer.MyHandManager.DrawCards(GameManager.GM.FirstDrawCard);
+        CurrentClientPlayer = Random.Range(0, 2) == 0 ? GameManager.GM.SelfClientPlayer : GameManager.GM.EnemyClientPlayer;
+        CurrentClientPlayer.MyHandManager.GetACardByID(99);
+        CurrentClientPlayer.MyHandManager.DrawRetinueCard();
+        CurrentClientPlayer.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
         EndRound();
         switchPlayer();
-        CurrentPlayer.MyHandManager.GetACardByID(99);
-        CurrentPlayer.MyHandManager.DrawRetinueCard();
-        CurrentPlayer.MyHandManager.DrawCards(GameManager.GM.SecondDrawCard);
+        CurrentClientPlayer.MyHandManager.GetACardByID(99);
+        CurrentClientPlayer.MyHandManager.DrawRetinueCard();
+        CurrentClientPlayer.MyHandManager.DrawCards(GamePlaySettings.SecondDrawCard);
         EndRound();
         switchPlayer();
         BeginRound();
@@ -58,9 +58,9 @@ public class RoundManager : MonoBehaviour
 
     public void BeginRound()
     {
-        CurrentPlayer.IncreaseCostMax(GameManager.GM.CostIncrease);
-        CurrentPlayer.AddAllCost();
-        if (CurrentPlayer == GameManager.GM.SelfPlayer)
+        CurrentClientPlayer.IncreaseCostMax(GamePlaySettings.CostIncrease);
+        CurrentClientPlayer.AddAllCost();
+        if (CurrentClientPlayer == GameManager.GM.SelfClientPlayer)
         {
             SelfTurnText.SetActive(true);
             EnemyTurnText.SetActive(false);
@@ -72,62 +72,62 @@ public class RoundManager : MonoBehaviour
         }
 
 
-        CurrentPlayer.MyHandManager.BeginRound();
-        CurrentPlayer.MyBattleGroundManager.BeginRound();
+        CurrentClientPlayer.MyHandManager.BeginRound();
+        CurrentClientPlayer.MyBattleGroundManager.BeginRound();
     }
 
-    public void DrawCardPhase() //³éÅÆ½×¶Î
+    public void DrawCardPhase() //ï¿½ï¿½ï¿½Æ½×¶ï¿½
     {
-        CurrentPlayer.MyHandManager.DrawCards(GameManager.GM.DrawCardPerRound);
+        CurrentClientPlayer.MyHandManager.DrawCards(GamePlaySettings.DrawCardPerRound);
     }
 
-    public void DropCardPhase() //ÆúÅÆ½×¶Î
+    public void DropCardPhase() //ï¿½ï¿½ï¿½Æ½×¶ï¿½
     {
     }
 
-    #region »Øµ÷º¯Êý
+    #region ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 
-    public void OnDrawACard() //Ã¿´Î³éµ÷ÓÃ
-    {
-
-    }
-
-    public void OnPlayACard() //Ã¿´Î³öÅÆµ÷ÓÃ
+    public void OnDrawACard() //Ã¿ï¿½Î³ï¿½ï¿½ï¿½ï¿½
     {
 
     }
 
-    public void OnBeforeAttack() //Ã¿´ÎÖ´ÐÐ¹¥»÷Ç°µ÷ÓÃ
+    public void OnPlayACard() //Ã¿ï¿½Î³ï¿½ï¿½Æµï¿½ï¿½ï¿½
     {
 
     }
 
-    public void OnArmorDamage() //Ã¿´Î»¤¼×¿ÛÑª
+    public void OnBeforeAttack() //Ã¿ï¿½ï¿½Ö´ï¿½Ð¹ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
     {
 
     }
 
-    public void OnShieldDamage() //Ã¿´Î»¤¶Ü¿ÛÑª
+    public void OnArmorDamage() //Ã¿ï¿½Î»ï¿½ï¿½×¿ï¿½Ñª
     {
 
     }
 
-    public void OnRetinueDamage() //Ã¿´ÎËæ´Ó¿ÛÑª
+    public void OnShieldDamage() //Ã¿ï¿½Î»ï¿½ï¿½Ü¿ï¿½Ñª
     {
 
     }
 
-    public void OnLifeDamage() //Ã¿´ÎÓ¢ÐÛ¿ÛÑª
+    public void OnRetinueDamage() //Ã¿ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½Ñª
     {
 
     }
 
-    public void OnDamage() //Ã¿´ÎÔì³ÉÉËº¦
+    public void OnLifeDamage() //Ã¿ï¿½ï¿½Ó¢ï¿½Û¿ï¿½Ñª
     {
 
     }
 
-    public void OnAfterAttack() //Ã¿´ÎÖ´ÐÐ¹¥»÷ºóµ÷ÓÃ
+    public void OnDamage() //Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
+    {
+
+    }
+
+    public void OnAfterAttack() //Ã¿ï¿½ï¿½Ö´ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
 
     }
@@ -136,13 +136,13 @@ public class RoundManager : MonoBehaviour
 
     public void EndRound()
     {
-        CurrentPlayer.MyHandManager.EndRound();
-        CurrentPlayer.MyBattleGroundManager.EndRound();
+        CurrentClientPlayer.MyHandManager.EndRound();
+        CurrentClientPlayer.MyBattleGroundManager.EndRound();
     }
 
     void switchPlayer()
     {
-        CurrentPlayer = CurrentPlayer == GameManager.GM.SelfPlayer ? GameManager.GM.EnemyPlayer : GameManager.GM.SelfPlayer;
+        CurrentClientPlayer = CurrentClientPlayer == GameManager.GM.SelfClientPlayer ? GameManager.GM.EnemyClientPlayer : GameManager.GM.SelfClientPlayer;
     }
 
     public void OnEndRoundButtonClick()
@@ -157,13 +157,13 @@ public class RoundManager : MonoBehaviour
 
 public interface IRoundPhaseCallBack
 {
-    void OnDrawACard(); //Ã¿´Î³éµ÷ÓÃ
-    void OnPlayACard(); //Ã¿´Î³öÅÆµ÷ÓÃ
-    void OnBeforeAttack(); //Ã¿´ÎÖ´ÐÐ¹¥»÷Ç°µ÷ÓÃ
-    void OnArmorDamage(); //Ã¿´Î»¤¼×¿ÛÑª
-    void OnShieldDamage(); //Ã¿´Î»¤¶Ü¿ÛÑª
-    void OnRetinueDamage(); //Ã¿´ÎËæ´Ó¿ÛÑª
-    void OnLifeDamage(); //Ã¿´ÎÓ¢ÐÛ¿ÛÑª
-    void OnDamage(); //Ã¿´ÎÔì³ÉÉËº¦
-    void OnAfterAttack(); //Ã¿´ÎÖ´ÐÐ¹¥»÷ºóµ÷ÓÃ
+    void OnDrawACard(); //Ã¿ï¿½Î³ï¿½ï¿½ï¿½ï¿½
+    void OnPlayACard(); //Ã¿ï¿½Î³ï¿½ï¿½Æµï¿½ï¿½ï¿½
+    void OnBeforeAttack(); //Ã¿ï¿½ï¿½Ö´ï¿½Ð¹ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+    void OnArmorDamage(); //Ã¿ï¿½Î»ï¿½ï¿½×¿ï¿½Ñª
+    void OnShieldDamage(); //Ã¿ï¿½Î»ï¿½ï¿½Ü¿ï¿½Ñª
+    void OnRetinueDamage(); //Ã¿ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½Ñª
+    void OnLifeDamage(); //Ã¿ï¿½ï¿½Ó¢ï¿½Û¿ï¿½Ñª
+    void OnDamage(); //Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
+    void OnAfterAttack(); //Ã¿ï¿½ï¿½Ö´ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }

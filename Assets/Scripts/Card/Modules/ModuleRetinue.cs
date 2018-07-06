@@ -131,9 +131,9 @@ public class ModuleRetinue : ModuleBase
 
     public Renderer PictureBoxRenderer;
 
-    public override void Initiate(CardInfo_Base cardInfo, Player player)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
-        base.Initiate(cardInfo, player);
+        base.Initiate(cardInfo, clientPlayer);
         M_RetinueName = ((CardInfo_Retinue) cardInfo).CardName;
         M_RetinueDesc = ((CardInfo_Retinue) cardInfo).CardDesc;
         M_RetinueLeftLife = ((CardInfo_Retinue) cardInfo).Life;
@@ -146,28 +146,28 @@ public class ModuleRetinue : ModuleBase
 
         if (SlotAnchor1)
         {
-            SlotAnchor1.M_Slot.Player = Player;
+            SlotAnchor1.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor1.M_ModuleRetinue = this;
             SlotAnchor1.M_Slot.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot1;
         }
 
         if (SlotAnchor2)
         {
-            SlotAnchor2.M_Slot.Player = Player;
+            SlotAnchor2.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor2.M_ModuleRetinue = this;
             SlotAnchor2.M_Slot.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot2;
         }
 
         if (SlotAnchor3)
         {
-            SlotAnchor3.M_Slot.Player = Player;
+            SlotAnchor3.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor3.M_ModuleRetinue = this;
             SlotAnchor3.M_Slot.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot3;
         }
 
         if (SlotAnchor4)
         {
-            SlotAnchor4.M_Slot.Player = Player;
+            SlotAnchor4.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor4.M_ModuleRetinue = this;
             SlotAnchor4.M_Slot.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot4;
         }
@@ -495,7 +495,7 @@ public class ModuleRetinue : ModuleBase
 
                 if (M_RetinueArmor >= remainAttackNumber)
                 {
-                    M_RetinueArmor = M_RetinueArmor - remainAttackNumber;
+                    M_RetinueArmor = (int) (M_RetinueArmor - remainAttackNumber);
                     remainAttackNumber = 0;
                     return;
                 }
@@ -512,8 +512,8 @@ public class ModuleRetinue : ModuleBase
         {
             M_RetinueLeftLife -= M_RetinueLeftLife;
             remainAttackNumber -= M_RetinueLeftLife;
-            Player.MyBattleGroundManager.RemoveRetinue(this);
-            Player.MyBattleGroundManager.RefreshBattleGround();
+            ClientPlayer.MyBattleGroundManager.RemoveRetinue(this);
+            ClientPlayer.MyBattleGroundManager.RefreshBattleGround();
             StartCoroutine(DelayPoolRecycle());
         }
         else
@@ -539,6 +539,7 @@ public class ModuleRetinue : ModuleBase
         CanAttack = false;
         return ASeriesOfAttacks;
     }
+
     IEnumerator DelayPoolRecycle()
     {
         yield return new WaitForSeconds(0.5F);
@@ -548,7 +549,7 @@ public class ModuleRetinue : ModuleBase
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
-        if (moduleRetinue && moduleRetinue.Player != Player)
+        if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer)
         {
             var aSeriesOfAttacks = AllModulesAttack();
             foreach (var attackNumber in aSeriesOfAttacks) moduleRetinue.BeAttacked(attackNumber);
@@ -590,7 +591,7 @@ public class ModuleRetinue : ModuleBase
         if (DragManager.DM.CurrentDrag)
         {
             ModuleRetinue mr = DragManager.DM.CurrentDrag.GetComponent<ModuleRetinue>();
-            if (mr.Player != Player && mr != this)
+            if (mr.ClientPlayer != ClientPlayer && mr != this)
             {
                 IsBeDraggedHover = true;
                 ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true;

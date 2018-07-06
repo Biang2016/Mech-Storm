@@ -89,7 +89,7 @@ public class DragComponent : MonoBehaviour
         {
             CardBase possibleCard = GetComponent<CardBase>();
             ModuleBase possibleModuleBase = GetComponent<ModuleBase>();
-            if (possibleCard && possibleCard.Player == RoundManager.RM.CurrentPlayer || possibleModuleBase && possibleModuleBase.Player == RoundManager.RM.CurrentPlayer)
+            if (possibleCard && possibleCard.ClientPlayer == RoundManager.RM.CurrentClientPlayer || possibleModuleBase && possibleModuleBase.ClientPlayer == RoundManager.RM.CurrentClientPlayer)
             {
                 if (value) //鼠标按下
                 {
@@ -223,10 +223,3 @@ public interface IDragComponent
     void DragComponnet_DragOutEffects();
 }
 
-public enum DragPurpose
-{
-    None = 0,
-    Summon = 1,
-    Equip = 2,
-    Attack = 3,
-}

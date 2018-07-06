@@ -41,9 +41,9 @@ public class ModuleShield : ModuleBase
     protected GameObject GoNumberSet_ShieldShieldMax;
     protected CardNumberSet CardNumberSet_ShieldShieldMax;
 
-    public override void Initiate(CardInfo_Base cardInfo, Player player)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
-        base.Initiate(cardInfo, player);
+        base.Initiate(cardInfo, clientPlayer);
         M_ShieldName = CardInfo_Shield.textToVertical(((CardInfo_Shield) cardInfo).CardName);
         M_ShieldType = ((CardInfo_Shield) cardInfo).M_ShieldType;
         M_ShieldArmor = ((CardInfo_Shield) cardInfo).Armor + M_ModuleRetinue.M_RetinueArmor;
@@ -191,7 +191,7 @@ public class ModuleShield : ModuleBase
             {
                 CardInfo_Shield m_currentInfo = (CardInfo_Shield) GetCurrentCardInfo();
                 CardInfo_Shield upgradeShieldCardInfo = (CardInfo_Shield) GameManager.GM.AllCard.GetCard(CardInfo.UpgradeID);
-                Initiate(upgradeShieldCardInfo, Player);
+                Initiate(upgradeShieldCardInfo, ClientPlayer);
                 M_ShieldShield = m_currentInfo.Shield + ((CardInfo_Shield) newShield.CardInfo).Shield;
                 M_ShieldArmor = m_currentInfo.Armor + ((CardInfo_Shield) newShield.CardInfo).Armor;
                 newShield.PoolRecycle();
@@ -342,9 +342,3 @@ public class ModuleShield : ModuleBase
     #endregion
 }
 
-public enum ShieldType
-{
-    Armor = 0,
-    Shield = 1,
-    Mixed = 2
-}

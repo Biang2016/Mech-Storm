@@ -47,7 +47,7 @@ public class SlotAnchor : MonoBehaviour,IMouseHoverComponent
             {
                 case SlotType.Weapon:
                     CardWeapon cw = DragManager.DM.CurrentDrag.GetComponent<CardWeapon>();
-                    if (cw&&cw.Player== M_Slot.Player)
+                    if (cw&&cw.ClientPlayer== M_Slot.ClientPlayer)
                     {
                         ShowHoverGO();
                     }
@@ -55,7 +55,7 @@ public class SlotAnchor : MonoBehaviour,IMouseHoverComponent
                     break;
                 case SlotType.Shield:
                     CardShield cs = DragManager.DM.CurrentDrag.GetComponent<CardShield>();
-                    if (cs&&cs.Player== M_Slot.Player)
+                    if (cs&&cs.ClientPlayer== M_Slot.ClientPlayer)
                     {
                         ShowHoverGO();
                     }

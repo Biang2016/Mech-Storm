@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HandManager : MonoBehaviour
 {
-    internal Player Player;
+    internal ClientPlayer ClientPlayer;
 
     float[] anglesDict; //每张牌之间的夹角
     float[] horrizonDistanceDict; //每张牌之间的距离
@@ -49,71 +49,6 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    internal void DrawCards(int number)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            DrawCard();
-        }
-    }
-
-    internal void DrawCard()
-    {
-        if (cardNumber >= GameManager.GM.MaxHandCard)
-        {
-            //无法抽牌
-        }
-        else
-        {
-            CardInfo_Base newCardInfo = Player.MyCardDeckManager.DrawTop();
-            if (newCardInfo == null)
-            {
-                Debug.Log("No Card");
-                return;
-            }
-
-            CardBase newCard = CardBase.InstantiateCardByCardInfo(newCardInfo, transform, Player);
-            cards.Add(newCard);
-            cardNumber++;
-            RefreshCardsPlace();
-        }
-    }
-
-    internal void GetACardByID(int cardID)
-    {
-        CardInfo_Base cardInfo = GameManager.GM.AllCard.GetCard(cardID);
-        CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, Player);
-        cards.Add(newCard);
-        cardNumber++;
-        RefreshCardsPlace();
-    }
-
-    internal void DrawRetinueCard()
-    {
-        CardInfo_Base newCardInfo = Player.MyCardDeckManager.DrawRetinueCard();
-        if (newCardInfo == null)
-        {
-            Debug.Log("No Card");
-            return;
-        }
-
-        CardBase newCard = CardBase.InstantiateCardByCardInfo(newCardInfo, transform, Player);
-        cards.Add(newCard);
-        cardNumber++;
-        RefreshCardsPlace();
-    }
-
-    internal void DropFirstCard()
-    {
-        DropCard(cards[0]);
-    }
-
-    internal void DropCard(CardBase dropCard)
-    {
-        cards.Remove(dropCard);
-        cardNumber--;
-        RefreshCardsPlace();
-    }
 
 
     Quaternion defaultCardRotation;
@@ -146,7 +81,7 @@ public class HandManager : MonoBehaviour
             card.transform.position = defaultCardPosition;
             card.transform.localScale = Vector3.one * GameManager.GM.HandCardSize;
             float rotateAngle = angle / cardNumber * (((cardNumber - 1) / 2.0f + 1) - count);
-            if (Player.WhichPlayer == Players.Self)
+            if (ClientPlayer.WhichPlayer == Players.Self)
             {
                 //card.transform.Rotate(Vector3.up * 180);
             }
@@ -178,7 +113,7 @@ public class HandManager : MonoBehaviour
 
     internal void RefreshAllCardUsable() //刷新所有卡牌是否可用
     {
-        foreach (var card in cards) card.Usable = (Player == RoundManager.RM.CurrentPlayer) && card.M_Cost <= Player.CostLeft;
+        foreach (var card in cards) card.Usable = (ClientPlayer == RoundManager.RM.CurrentClientPlayer) && card.M_Cost <= ClientPlayer.CostLeft;
     }
 
     internal void SetAllCardUnusable() //禁用所有手牌
@@ -223,7 +158,7 @@ public class HandManager : MonoBehaviour
     //鼠标悬停手牌放大效果
     void becomeBigger(CardBase focusCard)
     {
-        if (!isBeginDrag && (GameManager.GM.CanTestEnemyCards || Player.WhichPlayer == Players.Self))
+        if (!isBeginDrag && (GameManager.GM.CanTestEnemyCards || ClientPlayer.WhichPlayer == Players.Self))
         {
             //用一个BoxCollider代替原来的位置
             ColliderReplace colliderReplace = GameObjectPoolManager.GOPM.Pool_ColliderReplacePool.AllocateGameObject(GameBoardManager.GBM.transform).GetComponent<ColliderReplace>();
@@ -231,7 +166,7 @@ public class HandManager : MonoBehaviour
             //本卡牌变大，旋转至正位
             focusCard.transform.localScale = Vector3.one *GameManager.GM.PullOutCardSize;
             focusCard.transform.rotation = defaultCardRotation;
-            if (Player.WhichPlayer == Players.Self)
+            if (ClientPlayer.WhichPlayer == Players.Self)
             {
                 //focusCard.transform.Rotate(Vector3.up * 180);
                 focusCard.transform.position = new Vector3(focusCard.transform.position.x, 2f, focusCard.transform.position.z);
@@ -260,7 +195,7 @@ public class HandManager : MonoBehaviour
 
     void returnToSmaller(CardBase lostFocusCard)
     {
-        if (!isBeginDrag && (GameManager.GM.CanTestEnemyCards || Player.WhichPlayer == Players.Self))
+        if (!isBeginDrag && (GameManager.GM.CanTestEnemyCards || ClientPlayer.WhichPlayer == Players.Self))
         {
             //一旦替身BoxCollider失焦，恢复原手牌位置
             lostFocusCard.transform.localScale = Vector3.one;

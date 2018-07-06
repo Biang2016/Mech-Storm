@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Slot : MonoBehaviour
 {
-    public Player Player;
+    public ClientPlayer ClientPlayer;
 
     [SerializeField]
     private SlotType m_SlotType = SlotType.None;
@@ -67,11 +67,3 @@ public class Slot : MonoBehaviour
     }
 }
 
-public enum SlotType
-{
-    None = 0,
-    Weapon = 1,
-    Shield = 2,
-    Pack = 3,
-    MA = 4,
-}

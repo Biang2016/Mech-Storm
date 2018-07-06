@@ -33,9 +33,9 @@ public class ModuleWeapon : ModuleBase
     protected GameObject GoNumberSet_WeaponEnergy;
     protected CardNumberSet CardNumberSet_WeaponEnergy;
 
-    public override void Initiate(CardInfo_Base cardInfo, Player player)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
-        base.Initiate(cardInfo, player);
+        base.Initiate(cardInfo, clientPlayer);
         M_WeaponName = CardInfo_Weapon.textToVertical(((CardInfo_Weapon) cardInfo).CardName);
         M_WeaponType = ((CardInfo_Weapon) cardInfo).M_WeaponType;
         M_WeaponAttack = ((CardInfo_Weapon) cardInfo).Attack;
@@ -181,7 +181,7 @@ public class ModuleWeapon : ModuleBase
             {
                 CardInfo_Weapon m_currentInfo = (CardInfo_Weapon) GetCurrentCardInfo();
                 CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon) GameManager.GM.AllCard.GetCard(CardInfo.UpgradeID);
-                Initiate(upgradeWeaponCardInfo, Player);
+                Initiate(upgradeWeaponCardInfo, ClientPlayer);
                 M_WeaponAttack = m_currentInfo.Attack + ((CardInfo_Weapon) newWeapon.CardInfo).Attack;
                 M_WeaponEnergy = m_currentInfo.Energy + ((CardInfo_Weapon) newWeapon.CardInfo).Energy;
                 newWeapon.PoolRecycle();
@@ -205,7 +205,7 @@ public class ModuleWeapon : ModuleBase
         else
         {
             resultWeapon = newWeapon;
-            if (RoundManager.RM.CurrentPlayer == Player)
+            if (RoundManager.RM.CurrentClientPlayer == ClientPlayer)
             {
                 M_ModuleRetinue.CanAttack = true;
                 newWeapon.CanAttack = true;
@@ -224,7 +224,7 @@ public class ModuleWeapon : ModuleBase
     public List<int> WeaponAttack()
     {
         CanAttack = false;
-        var aSeriesOfAttacks = new List<int>();
+        List<int> aSeriesOfAttacks = new List<int>();
         switch (M_WeaponType)
         {
             case WeaponType.Sword:
@@ -255,11 +255,11 @@ public class ModuleWeapon : ModuleBase
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
-        if (moduleRetinue && moduleRetinue.Player != Player)
+        if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer)
         {
-            var aSeriesOfAttacks = WeaponAttack();
+            List<int> aSeriesOfAttacks = WeaponAttack();
             M_ModuleRetinue.CanAttack = false;
-            foreach (var attackNumber in aSeriesOfAttacks) moduleRetinue.BeAttacked(attackNumber);
+            foreach (int attackNumber in aSeriesOfAttacks) moduleRetinue.BeAttacked(attackNumber);
         }
     }
 
@@ -294,10 +294,4 @@ public class ModuleWeapon : ModuleBase
     #endregion
 
     #endregion
-}
-
-public enum WeaponType
-{
-    Sword = 0,
-    Gun = 1,
 }

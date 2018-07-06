@@ -51,10 +51,10 @@ internal class CardShield : CardBase
 
     # endregion
 
-    public override void Initiate(CardInfo_Base cardInfo, Player player)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
-        base.Initiate(cardInfo, player);
-        Player = player;
+        base.Initiate(cardInfo, clientPlayer);
+        ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
         M_ShieldName = CardInfo.CardName;
         M_ShieldDesc = CardInfo.CardDesc;
@@ -64,16 +64,16 @@ internal class CardShield : CardBase
     {
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
-        if (boardAreaType != Player.MyHandArea) //离开手牌区域
+        if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (var sa in slotAnchors)
-                if (sa.M_Slot.M_SlotType == SlotType.Shield && sa.M_Slot.Player == Player)
+                if (sa.M_Slot.M_SlotType == SlotType.Shield && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
                     summonShield(sa.M_ModuleRetinue);
                     return;
                 }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        Player.MyHandManager.RefreshCardsPlace();
+        ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 
 
@@ -87,7 +87,7 @@ internal class CardShield : CardBase
     //装备武器
     private void summonShield(ModuleRetinue moduleRetinue)
     {
-        Player.UseCost(M_Cost);
+        ClientPlayer.UseCost(M_Cost);
         if (moduleRetinue == null)
         {
             Debug.Log("No retinue on Place BUT SLOT HIT");
@@ -100,11 +100,11 @@ internal class CardShield : CardBase
         }
 
         moduleRetinue.M_Shield.M_ModuleRetinue = moduleRetinue;
-        moduleRetinue.M_Shield.Initiate(CardInfo, Player);
-        BattleOperationRecord.BOP.Operations.Add(new OperationEquip(Player, GameObjectID, new List<int> {moduleRetinue.M_Shield.GameObjectID}, OperationType.Equip, CardInfo.CardID, CardInfo.CardType, moduleRetinue));
+        moduleRetinue.M_Shield.Initiate(CardInfo, ClientPlayer);
+        BattleOperationRecord.BOP.Operations.Add(new OperationEquip(ClientPlayer, GameObjectID, new List<int> {moduleRetinue.M_Shield.GameObjectID}, OperationType.Equip, CardInfo.CardID, CardInfo.CardType, moduleRetinue));
 
         PoolRecycle();
-        Player.MyHandManager.DropCard(this);
+        ClientPlayer.MyHandManager.DropCard(this);
     }
 
     #endregion

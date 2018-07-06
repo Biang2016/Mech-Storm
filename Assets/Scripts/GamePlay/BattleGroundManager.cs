@@ -6,7 +6,7 @@ public class BattleGroundManager : MonoBehaviour
     internal bool BattleGroundIsFull;
     private Vector3 _defaultRetinuePosition = Vector3.zero;
 
-    internal Player Player;
+    internal ClientPlayer ClientPlayer;
     private int _retinueCount;
 
     private List<ModuleRetinue> _retinues = new List<ModuleRetinue>();
@@ -26,17 +26,21 @@ public class BattleGroundManager : MonoBehaviour
 
     internal void AddRetinueByPosition(ModuleRetinue newRetinue, Vector3 dragLastPosition)
     {
-        var index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.GM.RetinueInterval - (_retinueCount + 1) % 2 * 0.5f) +
-                                     (_retinueCount / 2 + 1));
+        int index = ComputePosition(dragLastPosition);
+        AddRetinue(newRetinue, (int) index);
+    }
+
+    internal int ComputePosition(Vector3 dragLastPosition)
+    {
+        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.GM.RetinueInterval - (_retinueCount + 1) % 2 * 0.5f) + (_retinueCount / 2 + 1));
         if (index < 0) index = 0;
         if (index >= _retinueCount) index = _retinueCount;
-        AddRetinue(newRetinue, index);
+        return index;
     }
 
     internal ModuleRetinue CheckRetinueOnPosition(Vector3 dragLastPosition)
     {
-        var index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.GM.RetinueInterval - (_retinueCount + 1) % 2 * 0.5f) +
-                                     (_retinueCount / 2 + 1));
+        var index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.GM.RetinueInterval - (_retinueCount + 1) % 2 * 0.5f) + (_retinueCount / 2 + 1));
         if (index < 0 || index >= _retinueCount)
             return null;
         return _retinues[index];
@@ -45,9 +49,9 @@ public class BattleGroundManager : MonoBehaviour
     internal void AddRetinue(ModuleRetinue newRetinue, int index)
     {
         newRetinue.transform.Rotate(Vector3.up, 180);
-        if (index < 0 || index >= GameManager.GM.MaxRetinueNumber) Debug.Log("Retinue index out of bound");
+        if (index < 0 || index >= GamePlaySettings.MaxRetinueNumber) Debug.Log("Retinue index out of bound");
         _retinues.Insert(index, newRetinue);
-        BattleGroundIsFull |= ++_retinueCount == GameManager.GM.MaxRetinueNumber;
+        BattleGroundIsFull |= ++_retinueCount == GamePlaySettings.MaxRetinueNumber;
         RefreshBattleGround();
     }
 
@@ -56,7 +60,7 @@ public class BattleGroundManager : MonoBehaviour
         if (_retinues.Contains(retinue))
         {
             _retinues.Remove(retinue);
-            BattleGroundIsFull |= --_retinueCount == GameManager.GM.MaxRetinueNumber;
+            BattleGroundIsFull |= --_retinueCount == GamePlaySettings.MaxRetinueNumber;
             RefreshBattleGround();
         }
         else

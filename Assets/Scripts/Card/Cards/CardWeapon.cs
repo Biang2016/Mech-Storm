@@ -51,10 +51,10 @@ internal class CardWeapon : CardBase
 
     # endregion
 
-    public override void Initiate(CardInfo_Base cardInfo, Player player)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
-        base.Initiate(cardInfo, player);
-        Player = player;
+        base.Initiate(cardInfo, clientPlayer);
+        ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
         M_WeaponName = CardInfo.CardName;
         M_WeaponDesc = CardInfo.CardDesc;
@@ -64,16 +64,16 @@ internal class CardWeapon : CardBase
     {
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
-        if (boardAreaType != Player.MyHandArea) //离开手牌区域
+        if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (var sa in slotAnchors)
-                if (sa.M_Slot.M_SlotType == SlotType.Weapon && sa.M_Slot.Player == Player)
+                if (sa.M_Slot.M_SlotType == SlotType.Weapon && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
                     summonWeapon(sa.M_ModuleRetinue);
                     return;
                 }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        Player.MyHandManager.RefreshCardsPlace();
+        ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 
 
@@ -87,7 +87,7 @@ internal class CardWeapon : CardBase
     //装备武器
     private void summonWeapon(ModuleRetinue moduleRetinue)
     {
-        Player.UseCost(M_Cost);
+        ClientPlayer.UseCost(M_Cost);
         if (moduleRetinue == null)
         {
             Debug.Log("No retinue on Place BUT SLOT HIT");
@@ -96,11 +96,11 @@ internal class CardWeapon : CardBase
 
         ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(moduleRetinue.transform).GetComponent<ModuleWeapon>();
         newModueWeapon.M_ModuleRetinue = moduleRetinue;
-        newModueWeapon.Initiate(CardInfo, Player);
-        BattleOperationRecord.BOP.Operations.Add(new OperationEquip(Player, GameObjectID, new List<int> {newModueWeapon.GameObjectID}, OperationType.Equip, CardInfo.CardID, CardInfo.CardType, moduleRetinue));
+        newModueWeapon.Initiate(CardInfo, ClientPlayer);
+        BattleOperationRecord.BOP.Operations.Add(new OperationEquip(ClientPlayer, GameObjectID, new List<int> {newModueWeapon.GameObjectID}, OperationType.Equip, CardInfo.CardID, CardInfo.CardType, moduleRetinue));
         moduleRetinue.M_Weapon = newModueWeapon;
         PoolRecycle();
-        Player.MyHandManager.DropCard(this);
+        ClientPlayer.MyHandManager.DropCard(this);
     }
 
     #endregion

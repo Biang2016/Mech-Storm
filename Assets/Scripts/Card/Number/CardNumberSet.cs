@@ -55,8 +55,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool
         MyTextAlign = textAlign;
     }
 
-    [SerializeField]
-    private NumberSize myNumberSize;
+    [SerializeField] private NumberSize myNumberSize;
 
     public NumberSize MyNumberSize
     {
@@ -127,8 +126,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool
     int[] digits = new int[4];
     private int digitCount = 0;
 
-    [SerializeField]
-    private int number;
+    [SerializeField] private int number;
 
     public int Number
     {
@@ -161,10 +159,10 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool
 
     void setNumberSet()
     {
-        digits[0] = Number / 1000;
-        digits[1] = Number % 1000 / 100;
-        digits[2] = Number % 100 / 10;
-        digits[3] = Number % 10;
+        digits[0] = (int) (Number / 1000);
+        digits[1] = (int) (Number % 1000 / 100);
+        digits[2] = (int) (Number % 100 / 10);
+        digits[3] = (int) (Number % 10);
         if (digits[0] > 0)
         {
             setNumber(0, digits[0]);
@@ -219,7 +217,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool
         {
             if (value == -1) return;
             cardNumbers[digitPlace] = childrenPool.AllocateGameObject(transform).GetComponent<CardNumber>();
-            cardNumbers[digitPlace].Number = value;
+            cardNumbers[digitPlace].Number = (int) value;
         }
         else if (value == -1)
         {
@@ -228,7 +226,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool
         }
         else
         {
-            cardNumbers[digitPlace].Number = value;
+            cardNumbers[digitPlace].Number = (int) value;
         }
     }
 
