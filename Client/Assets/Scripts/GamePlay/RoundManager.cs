@@ -40,7 +40,6 @@ public class RoundManager : MonoBehaviour
 
     public void GameStart()
     {
-        CurrentClientPlayer = Random.Range(0, 2) == 0 ? GameManager.GM.SelfClientPlayer : GameManager.GM.EnemyClientPlayer;
         CurrentClientPlayer.MyHandManager.GetACardByID(99);
         CurrentClientPlayer.MyHandManager.DrawRetinueCard();
         CurrentClientPlayer.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
@@ -53,6 +52,11 @@ public class RoundManager : MonoBehaviour
         switchPlayer();
         BeginRound();
         DrawCardPhase();
+    }
+  
+    public void SetPlayerTurn(PlayerTurnResponse r)
+    {
+        CurrentClientPlayer = r.clientId == NetworkManager.NM.SelfClientId ? GameManager.GM.SelfClientPlayer : GameManager.GM.EnemyClientPlayer;
     }
 
 
@@ -89,47 +93,38 @@ public class RoundManager : MonoBehaviour
 
     public void OnDrawACard() //ÿ�γ����
     {
-
     }
 
     public void OnPlayACard() //ÿ�γ��Ƶ���
     {
-
     }
 
     public void OnBeforeAttack() //ÿ��ִ�й���ǰ����
     {
-
     }
 
     public void OnArmorDamage() //ÿ�λ��׿�Ѫ
     {
-
     }
 
     public void OnShieldDamage() //ÿ�λ��ܿ�Ѫ
     {
-
     }
 
     public void OnRetinueDamage() //ÿ����ӿ�Ѫ
     {
-
     }
 
     public void OnLifeDamage() //ÿ��Ӣ�ۿ�Ѫ
     {
-
     }
 
     public void OnDamage() //ÿ������˺�
     {
-
     }
 
     public void OnAfterAttack() //ÿ��ִ�й��������
     {
-
     }
 
     #endregion

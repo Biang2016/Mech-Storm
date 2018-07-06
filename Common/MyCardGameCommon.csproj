@@ -56,12 +56,12 @@
     <Compile Include="Net\RequestResponse\CardDeckResponse.cs" />
     <Compile Include="Net\RequestResponse\DrawCardRequest.cs" />
     <Compile Include="Net\RequestResponse\DrawCardResponse.cs" />
+    <Compile Include="Net\RequestResponse\ClientEndRoundRequest.cs" />
     <Compile Include="Net\RequestResponse\PlayerTurnRequest.cs" />
+    <Compile Include="Net\RequestResponse\ClientEndRoundResponse.cs" />
     <Compile Include="Net\RequestResponse\PlayerTurnResponse.cs" />
     <Compile Include="Net\RequestResponse\SummonRetinueResponse.cs" />
     <Compile Include="Net\RequestResponse\SummonRetinueRequest.cs" />
-    <Compile Include="Net\RequestResponse\GetACardRequest.cs" />
-    <Compile Include="Net\RequestResponse\GetACardResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Net\DataStream\DataHolder.cs" />
     <Compile Include="Net\DataStream\DataStream.cs" />

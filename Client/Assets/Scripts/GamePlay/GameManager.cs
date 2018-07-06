@@ -23,11 +23,11 @@ public class GameManager : MonoBehaviour
     {
         AllCard = new AllCards();
         _rbe = Camera.main.GetComponent<ImageEffectBlurBox>();
-        RoundManager.RM.GameStart();
     }
 
     private void Update()
     {
+
     }
 
 
@@ -80,25 +80,8 @@ public class GameManager : MonoBehaviour
     public float RetinueInterval = 3.5f;
     public float RetinueDetailPreviewDelaySeconds = 0.7f;
 
-    public Color HeroColor;
-    public Color RetinueColor;
-    public Color WeaponSwordColor;
-    public Color WeaponGunColor;
-    public Color ShieldShieldColor;
-    public Color ShieldArmorColor;
-    public Color CardBloomColor;
-    public Color CardDragBloomColor;
-
     private void initializeColors()
     {
-        HeroColor = HTMLColorToColor("#787878FF");
-        RetinueColor = HTMLColorToColor("#5BAEF4FF");
-        WeaponSwordColor = HTMLColorToColor("#FF229DFF");
-        WeaponGunColor = HTMLColorToColor("#FF0000FF");
-        ShieldShieldColor = HTMLColorToColor("#E6FF00FF");
-        ShieldArmorColor = HTMLColorToColor("#FF8E00FF");
-        CardBloomColor = HTMLColorToColor("#00FF41FF");
-        CardDragBloomColor = HTMLColorToColor("#FF04F8FB");
         Slot1Color = HTMLColorToColor("#FF0000FF");
         Slot2Color = HTMLColorToColor("#FFED00FF");
         Slot3Color = HTMLColorToColor("#00FF6BFF");

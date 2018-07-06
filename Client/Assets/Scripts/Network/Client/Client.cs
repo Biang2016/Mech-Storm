@@ -212,6 +212,10 @@ public class Client : MonoBehaviour
         {
             PlayerCostResponse resp = (PlayerCostResponse) r;
             GameManager.GM.SetPlayersCost(resp);
+        }else if (r is PlayerTurnResponse)
+        {
+            PlayerTurnResponse resp = (PlayerTurnResponse) r;
+            RoundManager.RM.SetPlayerTurn(resp);
         }
     }
 

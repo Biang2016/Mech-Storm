@@ -36,8 +36,6 @@ public class ServerHandManager
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
             cards.Add(newCard);
             cardNumber++;
-            DrawCardRequest request = new DrawCardRequest(ServerPlayer.ClientId, newCardInfo.CardID);
-            Server.SV.SendMessage(request, ServerPlayer.ClientId);
         }
     }
 
@@ -45,10 +43,9 @@ public class ServerHandManager
     {
         CardInfo_Base cardInfo = AllCards.AC.GetCard(cardID);
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer);
+        ServerPlayer.MyCardDeckManager.OnPlayerGetCard(cardID);
         cards.Add(newCard);
         cardNumber++;
-        GetACardRequest request1 = new GetACardRequest(ServerPlayer.ClientId, 99);
-        Server.SV.SendMessage(request1, ServerPlayer.ClientId);
     }
 
     internal void DrawRetinueCard()
@@ -90,7 +87,7 @@ public class ServerHandManager
 
     public void RefreshAllCardUsable() //刷新所有卡牌是否可用
     {
-        foreach (ServerCardBase card in cards) card.Usable = (ServerPlayer == RoundManager.RM.CurrentClientPlayer) && card.M_Cost <= ClientPlayer.CostLeft;
+        foreach (ServerCardBase card in cards) card.Usable = (ServerPlayer == ServerPlayer.MyGameManager.CurrentPlayer) && card.M_Cost <= ClientPlayer.CostLeft;
     }
 
     public void SetAllCardUnusable() //禁用所有手牌

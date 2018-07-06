@@ -3,43 +3,52 @@ using System.Collections;
 
 public class ServerGameManager
 {
-    private int PlayerAClientId;
-    private int PlayerBClientId;
+    public ClientAndCardDeckInfo ClientA;
+    public ClientAndCardDeckInfo ClientB;
     public ServerPlayer PlayerA;
     public ServerPlayer PlayerB;
 
-    public ServerGameManager(int clientId1, int clientId2)
+    public ServerGameManager(ClientAndCardDeckInfo clientA, ClientAndCardDeckInfo clientB)
     {
-        PlayerAClientId = clientId1;
-        PlayerBClientId = clientId2;
+        ClientA = clientA;
+        ClientB = clientB;
     }
 
     public void StartGame()
     {
-        Debug.Log("StartGameSuccess! Between: " + PlayerAClientId + " and " + PlayerBClientId);
+        Debug.Log("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
         InitializePlayers();
     }
 
-    private ServerPlayer CurrentPlayer;
+    public ServerPlayer CurrentPlayer;
 
     private void InitializePlayers()
     {
-        PlayerRequest request1 = new PlayerRequest(PlayerAClientId, 0, 20);
+        PlayerRequest request1 = new PlayerRequest(ClientA.ClientId, 0, 20);
         BroadcastBothPlayers(request1);
-        PlayerA = new ServerPlayer(PlayerAClientId, 0, 20);
-        PlayerRequest request2 = new PlayerRequest(PlayerBClientId, 0, 20);
+        PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, 20);
+        PlayerA.MyCardDeckManager.M_CurrentCardDeck=new CardDeck(ClientA.CardDeckInfo);
+        PlayerRequest request2 = new PlayerRequest(ClientB.ClientId, 0, 20);
         BroadcastBothPlayers(request2);
-        PlayerB = new ServerPlayer(PlayerAClientId, 0, 20);
-        CurrentPlayer = Random.Range(0, 2) == 0 ? PlayerA : PlayerB;
+        PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, 20);
+        PlayerB.MyCardDeckManager.M_CurrentCardDeck=new CardDeck(ClientB.CardDeckInfo);
+        GameBegin();
     }
+
 
     void switchPlayer()
     {
         CurrentPlayer = CurrentPlayer == PlayerA ? PlayerB : PlayerA;
+        PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
+        BroadcastBothPlayers(request);
     }
 
     public void GameBegin()
     {
+        CurrentPlayer = Random.Range(0, 2) == 0 ? PlayerA : PlayerB;
+        PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
+        BroadcastBothPlayers(request);
+
         OnGameBigin();
         OnGameBigin();
 
@@ -58,12 +67,8 @@ public class ServerGameManager
         //发英雄牌
         CurrentPlayer.MyHandManager.GetACardByID(99);
 
-        //分配卡组
-        CardDeckInfo cardDeckInfo = new CardDeckInfo(new int[] {0, 1, 100, 101, 200, 201, 300, 301}); //Todo
-        CurrentPlayer.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(cardDeckInfo);
-
         //抽随从牌
-        CurrentPlayer.MyCardDeckManager.DrawRetinueCard();
+        CurrentPlayer.MyHandManager.DrawRetinueCard();
 
         switchPlayer();
     }
@@ -72,8 +77,6 @@ public class ServerGameManager
     {
         CurrentPlayer.IncreaseCostMax(GamePlaySettings.CostIncrease);
         CurrentPlayer.AddAllCost();
-        PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
-        BroadcastBothPlayers(request);
         CurrentPlayer.MyHandManager.BeginRound();
         CurrentPlayer.MyBattleGroundManager.BeginRound();
     }
@@ -87,6 +90,14 @@ public class ServerGameManager
     {
         CurrentPlayer.MyHandManager.EndRound();
         CurrentPlayer.MyBattleGroundManager.EndRound();
+    }
+
+    public void OnEndRound()
+    {
+        EndRound();
+        switchPlayer();
+        BeginRound();
+        DrawCardPhase();
     }
 
     #region Utils

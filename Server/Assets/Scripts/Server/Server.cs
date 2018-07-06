@@ -187,7 +187,13 @@ public class Server : MonoBehaviour
 
         if (r is EntryGameResponse)
         {
-            sgmm.AddClient(r);
+            EntryGameResponse resp = (EntryGameResponse) r;
+            sgmm.AddClient(resp.clientId);
+        }
+        else if (r is CardDeckResponse)
+        {
+            CardDeckResponse resp = (CardDeckResponse) r;
+            sgmm.ReceivePlayerCardDeckInfo(resp.clientId,resp.cardDeckInfo);
         }
     }
 

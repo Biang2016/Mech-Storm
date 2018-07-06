@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class GetACardResponse : Response
+public class ClientEndRoundResponse : Response
 {
     public int clientId;
-    public int cardId;
 
     public override int GetProtocol()
     {
-        return NetProtocols.GET_A_CARD;
+        return NetProtocols.CLIENT_END_ROUND;
     }
 
     public override string GetProtocolName()
@@ -20,14 +19,12 @@ public class GetACardResponse : Response
     {
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
-        cardId = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
     {
         string log = "";
         log += "[clientId]" + clientId;
-        log += "[cardId]" + cardId;
         return log;
     }
 }

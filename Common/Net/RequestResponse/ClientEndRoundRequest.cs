@@ -1,26 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class GetACardRequest : Request
+public class ClientEndRoundRequest : Request
 {
     public int clientId;
-    public int cardId;
 
     public override int GetProtocol()
     {
-        return NetProtocols.GET_A_CARD;
+        return NetProtocols.CLIENT_END_ROUND;
     }
 
-    public GetACardRequest(int clientId,int cardId)
+    public ClientEndRoundRequest(int clientId)
     {
-        this.clientId = clientId;
-        this.cardId = cardId;
+        clientId = clientId;
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
         writer.WriteSInt32(clientId);
-        writer.WriteSInt32(cardId);
     }
 }

@@ -5,6 +5,7 @@ public class DrawCardResponse : Response
 {
     public int clientId;
     public int cardId;
+    public bool isShow;
 
     public override int GetProtocol()
     {
@@ -20,14 +21,25 @@ public class DrawCardResponse : Response
     {
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
-        cardId = reader.ReadSInt32();
+        if (reader.ReadByte() == 0x01)
+        {
+            isShow = true;
+        }
+        else
+        {
+            isShow = false;
+            cardId = reader.ReadSInt32();
+        }
     }
 
     public override string DeserializeLog()
     {
         string log = "";
         log += "[clientId]" + clientId;
-        log += "[cardId]" + cardId;
+        if (isShow)
+        {
+            log += "[cardId]" + cardId;
+        }
         return log;
     }
 }

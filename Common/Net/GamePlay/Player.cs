@@ -76,24 +76,5 @@ public class Player
         CostLeft = CostMax;
     }
 
-    public void IncreaseCostMax(int increaseValue)
-    {
-        if (CostMax + increaseValue <= GamePlaySettings.MaxCost)
-            CostMax += increaseValue;
-        else
-            CostMax = GamePlaySettings.MaxCost;
-    }
 
-    public void DecreaseCostMax(int decreaseValue)
-    {
-        if (CostMax <= decreaseValue)
-        {
-            CostMax = 0;
-        }
-        else
-        {
-            CostMax -= decreaseValue;
-            if (CostLeft > CostMax) CostLeft = CostMax;
-        }
-    }
 }

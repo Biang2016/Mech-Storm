@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+/// <summary>
+/// 本类中封装卡组操作的游戏逻辑高级功能
+/// </summary>
 public class ServerCardDeckManager
 {
-    /// <summary>
-    /// 本类中封装卡组操作的游戏逻辑高级功能
-    /// 暂时将双方牌库写在此类中
-    /// </summary>
-    /// 
     public ServerPlayer ServerPlayer;
 
     public CardDeckInfo M_UnlockCards;
@@ -20,12 +18,7 @@ public class ServerCardDeckManager
     public CardDeck M_CurrentCardDeck
     {
         get { return m_CurrentCardDeck; }
-        set
-        {
-            m_CurrentCardDeck = value;
-            CardDeckRequest cdRequest = new CardDeckRequest(ServerPlayer.ClientId, value.M_CardDeckInfo);
-            Server.SV.SendMessage(cdRequest, ServerPlayer.ClientId);
-        }
+        set { m_CurrentCardDeck = value; }
     }
 
     public CardInfo_Base DrawRetinueCard()
@@ -50,8 +43,15 @@ public class ServerCardDeckManager
         }
 
         CardInfo_Base newCardInfoBase = M_CurrentCardDeck.DrawCardOnTop();
-        DrawCardRequest request = new DrawCardRequest(ServerPlayer.ClientId, newCardInfoBase.CardID);
-        Server.SV.SendMessage(request, ServerPlayer.ClientId);
+        OnPlayerGetCard(newCardInfoBase.CardID);
         return newCardInfoBase;
+    }
+
+    public void OnPlayerGetCard(int cardId)
+    {
+        DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, cardId, true);
+        DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, cardId, false);
+        Server.SV.SendMessage(request1, ServerPlayer.ClientId);
+        Server.SV.SendMessage(request2, ServerPlayer.EnemyClientId);
     }
 }

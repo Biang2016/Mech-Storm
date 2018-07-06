@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class NetworkManager : MonoBehaviour
     }
 
     public int SelfClientId;
+    public List<int> SelfCardDeckInfo = new List<int>();
 
     public void Awake()
     {
@@ -49,6 +51,21 @@ public class NetworkManager : MonoBehaviour
 
         string clientIdStr = CreateTextField("客户ID");
         SelfClientId = int.Parse(clientIdStr);
+
+        string cardDeckInfo = CreateTextField("卡组信息");
+
+        if (CreateBtn("确认卡组"))
+        {
+            List<string> tmp = clientIdStr.Split(',').ToList();
+            SelfCardDeckInfo.Clear();
+            foreach (string s in tmp)
+            {
+                SelfCardDeckInfo.Add(int.Parse(s));
+            }
+
+            CardDeckRequest req = new CardDeckRequest(SelfClientId, new CardDeckInfo(SelfCardDeckInfo.ToArray()));
+            Client.CS.SendMessage(req);
+        }
 
         if (CreateBtn("客户端请求开始匹配"))
         {

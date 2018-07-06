@@ -9,7 +9,7 @@ public class CardDeck
     /// <summary>
     /// 本类中封装卡组操作的基本功能
     /// </summary>
-    public CardDeckInfo M_CardDeckInfo;
+    private CardDeckInfo M_CardDeckInfo;
 
     private List<CardInfo_Base> Cards;
     private List<CardInfo_Base> AbandonCards = new List<CardInfo_Base>();
