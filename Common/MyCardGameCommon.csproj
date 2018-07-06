@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{36665E3C-C981-4D6F-98A9-010A9AC2F3C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyCardGameCommon</RootNamespace>
+    <AssemblyName>MyCardGameCommon</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity2017.2.0f\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Net\GamePlay\CardDeck\CardDeck.cs" />
+    <Compile Include="Net\GamePlay\CardDeck\CardPictureManager.cs" />
+    <Compile Include="Net\GamePlay\CardInfo.cs" />
+    <Compile Include="Net\GamePlay\DragPurpose.cs" />
+    <Compile Include="Net\GamePlay\Player.cs" />
+    <Compile Include="Net\GamePlay\Shield.cs" />
+    <Compile Include="Net\GamePlay\Slot.cs" />
+    <Compile Include="Net\GamePlay\Weapon.cs" />
+    <Compile Include="Net\RequestResponse\CardDeckRequest.cs" />
+    <Compile Include="Net\RequestResponse\CardDeckResponse.cs" />
+    <Compile Include="Net\RequestResponse\DrawCardRequest.cs" />
+    <Compile Include="Net\RequestResponse\DrawCardResponse.cs" />
+    <Compile Include="Net\RequestResponse\PlayerTurnRequest.cs" />
+    <Compile Include="Net\RequestResponse\PlayerTurnResponse.cs" />
+    <Compile Include="Net\RequestResponse\SummonRetinueResponse.cs" />
+    <Compile Include="Net\RequestResponse\SummonRetinueRequest.cs" />
+    <Compile Include="Net\RequestResponse\GetACardRequest.cs" />
+    <Compile Include="Net\RequestResponse\GetACardResponse.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Net\DataStream\DataHolder.cs" />
+    <Compile Include="Net\DataStream\DataStream.cs" />
+    <Compile Include="Net\Protocol\NetProtocols.cs" />
+    <Compile Include="Net\Protocol\ProtoManager.cs" />
+    <Compile Include="Net\RequestResponse\EntryGameRequest.cs" />
+    <Compile Include="Net\RequestResponse\EntryGameResponse.cs" />
+    <Compile Include="Net\RequestResponse\PlayerCostRequest.cs" />
+    <Compile Include="Net\RequestResponse\PlayerCostResponse.cs" />
+    <Compile Include="Net\RequestResponse\PlayerRequest.cs" />
+    <Compile Include="Net\RequestResponse\PlayerResponse.cs" />
+    <Compile Include="Net\RequestResponse\Request.cs" />
+    <Compile Include="Net\RequestResponse\Response.cs" />
+    <Compile Include="Net\RequestResponse\TestConnectRequest.cs" />
+    <Compile Include="Net\RequestResponse\TestConnectResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyCardGameServer\MyCardGameServer.csproj">
+      <Project>{968F3147-3981-F3EC-4100-8B3D4CC1C64A}</Project>
+      <Name>MyCardGameServer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
