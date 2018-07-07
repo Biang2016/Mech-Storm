@@ -20,7 +20,10 @@ public class RoundManager : MonoBehaviour
     }
 
     internal int RoundNumber;
+    internal ClientPlayer SelfClientPlayer;
+    internal ClientPlayer EnemyClientPlayer;
     internal ClientPlayer CurrentClientPlayer;
+
     public GameObject SelfTurnText;
     public GameObject EnemyTurnText;
     public Text SelfCostText;
@@ -38,33 +41,49 @@ public class RoundManager : MonoBehaviour
     {
     }
 
-    public void GameStart()
+    #region 响应
+
+    public void InitializePlayers(PlayerResponse r)
     {
-        CurrentClientPlayer.MyHandManager.GetACardByID(99);
-        CurrentClientPlayer.MyHandManager.DrawRetinueCard();
-        CurrentClientPlayer.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
-        EndRound();
-        switchPlayer();
-        CurrentClientPlayer.MyHandManager.GetACardByID(99);
-        CurrentClientPlayer.MyHandManager.DrawRetinueCard();
-        CurrentClientPlayer.MyHandManager.DrawCards(GamePlaySettings.SecondDrawCard);
-        EndRound();
-        switchPlayer();
-        BeginRound();
-        DrawCardPhase();
-    }
-  
-    public void SetPlayerTurn(PlayerTurnResponse r)
-    {
-        CurrentClientPlayer = r.clientId == NetworkManager.NM.SelfClientId ? GameManager.GM.SelfClientPlayer : GameManager.GM.EnemyClientPlayer;
+        if (r.ClinetId == NetworkManager.NM.SelfClientId)
+        {
+            SelfClientPlayer = new ClientPlayer(r.CostMax, r.CostLeft, Players.Self);
+        }
+        else
+        {
+            EnemyClientPlayer = new ClientPlayer(r.CostMax, r.CostLeft, Players.Enemy);
+        }
     }
 
-
-    public void BeginRound()
+    public void SetPlayersCost(PlayerCostResponse r)
     {
-        CurrentClientPlayer.IncreaseCostMax(GamePlaySettings.CostIncrease);
-        CurrentClientPlayer.AddAllCost();
-        if (CurrentClientPlayer == GameManager.GM.SelfClientPlayer)
+        if (r.clinetId == NetworkManager.NM.SelfClientId)
+        {
+            SelfClientPlayer.DoChangeCost(r);
+        }
+        else
+        {
+            EnemyClientPlayer.DoChangeCost(r);
+        }
+    }
+
+    public void InitializeGame()
+    {
+        RoundNumber = 0;
+        CurrentClientPlayer = null;
+        SelfCostText.text = "";
+        EnemyCostText.text = "";
+    }
+
+    public void SetPlayerTurn(PlayerTurnResponse r) //服务器说某玩家回合开始
+    {
+        if (CurrentClientPlayer != null)
+        {
+            EndRound();
+        }
+
+        CurrentClientPlayer = r.clientId == NetworkManager.NM.SelfClientId ? SelfClientPlayer : EnemyClientPlayer;
+        if (CurrentClientPlayer == SelfClientPlayer)
         {
             SelfTurnText.SetActive(true);
             EnemyTurnText.SetActive(false);
@@ -75,59 +94,38 @@ public class RoundManager : MonoBehaviour
             SelfTurnText.SetActive(false);
         }
 
+        BeginRound();
+    }
 
+    public void BeginRound()
+    {
         CurrentClientPlayer.MyHandManager.BeginRound();
         CurrentClientPlayer.MyBattleGroundManager.BeginRound();
     }
 
-    public void DrawCardPhase() //���ƽ׶�
+    public void OnPlayerSummonRetinue(SummonRetinueResponse resp)
     {
-        CurrentClientPlayer.MyHandManager.DrawCards(GamePlaySettings.DrawCardPerRound);
+        if (resp.clientId == NetworkManager.NM.SelfClientId)
+        {
+            SelfClientPlayer.MyHandManager.SummonRetinue(resp.handCardIndex,resp.battleGroundIndex);
+        }
+        else
+        {
+            EnemyClientPlayer.MyHandManager.SummonRetinue(resp.handCardIndex, resp.battleGroundIndex);
+        }
     }
 
-    public void DropCardPhase() //���ƽ׶�
+    public void OnPlayerDrawCard(DrawCardResponse resp)
     {
+        if (resp.isShow)
+        {
+            CurrentClientPlayer.MyHandManager.GetCard(resp.cardId);
+        }
+        else
+        {
+            CurrentClientPlayer.MyHandManager.GetCard(-1); //空白牌，隐藏防止对方知道
+        }
     }
-
-    #region �ص�����
-
-    public void OnDrawACard() //ÿ�γ����
-    {
-    }
-
-    public void OnPlayACard() //ÿ�γ��Ƶ���
-    {
-    }
-
-    public void OnBeforeAttack() //ÿ��ִ�й���ǰ����
-    {
-    }
-
-    public void OnArmorDamage() //ÿ�λ��׿�Ѫ
-    {
-    }
-
-    public void OnShieldDamage() //ÿ�λ��ܿ�Ѫ
-    {
-    }
-
-    public void OnRetinueDamage() //ÿ����ӿ�Ѫ
-    {
-    }
-
-    public void OnLifeDamage() //ÿ��Ӣ�ۿ�Ѫ
-    {
-    }
-
-    public void OnDamage() //ÿ������˺�
-    {
-    }
-
-    public void OnAfterAttack() //ÿ��ִ�й��������
-    {
-    }
-
-    #endregion
 
     public void EndRound()
     {
@@ -135,30 +133,15 @@ public class RoundManager : MonoBehaviour
         CurrentClientPlayer.MyBattleGroundManager.EndRound();
     }
 
-    void switchPlayer()
-    {
-        CurrentClientPlayer = CurrentClientPlayer == GameManager.GM.SelfClientPlayer ? GameManager.GM.EnemyClientPlayer : GameManager.GM.SelfClientPlayer;
-    }
+    #endregion
+
+    #region 交互
 
     public void OnEndRoundButtonClick()
     {
-        DropCardPhase();
-        EndRound();
-        switchPlayer();
-        BeginRound();
-        DrawCardPhase();
+        ClientEndRoundRequest request = new ClientEndRoundRequest(NetworkManager.NM.SelfClientId);
+        Client.CS.SendMessage(request);
     }
-}
 
-public interface IRoundPhaseCallBack
-{
-    void OnDrawACard(); //ÿ�γ����
-    void OnPlayACard(); //ÿ�γ��Ƶ���
-    void OnBeforeAttack(); //ÿ��ִ�й���ǰ����
-    void OnArmorDamage(); //ÿ�λ��׿�Ѫ
-    void OnShieldDamage(); //ÿ�λ��ܿ�Ѫ
-    void OnRetinueDamage(); //ÿ����ӿ�Ѫ
-    void OnLifeDamage(); //ÿ��Ӣ�ۿ�Ѫ
-    void OnDamage(); //ÿ������˺�
-    void OnAfterAttack(); //ÿ��ִ�й��������
+    #endregion
 }

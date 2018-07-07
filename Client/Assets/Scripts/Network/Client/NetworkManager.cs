@@ -27,7 +27,9 @@ public class NetworkManager : MonoBehaviour
     {
     }
 
-    int high;
+    private int high;
+    private string clientIdStr = "";
+    private string cardDeckInfo = "";
 
     void OnGUI()
     {
@@ -49,14 +51,20 @@ public class NetworkManager : MonoBehaviour
         //    Server.SV.SendMessage(req);
         //}
 
-        string clientIdStr = CreateTextField("客户ID");
-        SelfClientId = int.Parse(clientIdStr);
+        clientIdStr = CreateTextField("客户ID", clientIdStr);
 
-        string cardDeckInfo = CreateTextField("卡组信息");
+        if (CreateBtn("注册客户ID"))
+        {
+            SelfClientId = int.Parse(clientIdStr);
+            ClientIdRequest req = new ClientIdRequest(SelfClientId, ClientIdPurpose.RegisterClientId);
+            Client.CS.SendMessage(req);
+        }
+
+        cardDeckInfo = CreateTextField("卡组信息", cardDeckInfo);
 
         if (CreateBtn("确认卡组"))
         {
-            List<string> tmp = clientIdStr.Split(',').ToList();
+            List<string> tmp = cardDeckInfo.Split(',').ToList();
             SelfCardDeckInfo.Clear();
             foreach (string s in tmp)
             {
@@ -69,18 +77,17 @@ public class NetworkManager : MonoBehaviour
 
         if (CreateBtn("客户端请求开始匹配"))
         {
-            EntryGameRequest req = new EntryGameRequest(SelfClientId);
+            ClientIdRequest req = new ClientIdRequest(SelfClientId, ClientIdPurpose.MatchGames);
             Client.CS.SendMessage(req);
         }
     }
 
-    private string CreateTextField(string textTitle)
+    private string CreateTextField(string textTitle, string contentStr)
     {
         GUI.Label(new Rect(20, high + 5, 50, 30), textTitle);
-        string str = "";
-        str = GUI.TextField(new Rect(70, high, 100, 30), str);
+        contentStr = GUI.TextField(new Rect(70, high, 100, 30), contentStr);
         high += 35;
-        return str;
+        return contentStr;
     }
 
     public bool CreateBtn(string btnname)
@@ -93,6 +100,6 @@ public class NetworkManager : MonoBehaviour
 
     public void ConnectCallBack()
     {
-        Debug.Log("Connect success!");
+        Debug.Log("连接服务器成功!");
     }
 }

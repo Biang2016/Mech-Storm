@@ -9,7 +9,6 @@ public class Player
     {
         CostMax = costMax;
         CostLeft = costLeft;
-        AddAllCost();
     }
 
     private int costMax;
@@ -40,41 +39,23 @@ public class Player
     {
     }
 
-
-
-    public bool UseCost(int useCostNumber)
+    public void AddCost(int addCostNumber)
     {
-        if (CostLeft >= useCostNumber)
-        {
-            CostLeft -= useCostNumber;
-            return true;
-        }
-
-        return false;
+        CostLeft += addCostNumber;
     }
 
-    public void AddCostWithoutLimit(int addCostValue)
+    public void UseCost(int useCostNumber)
     {
-        CostLeft += addCostValue;
+        CostLeft -= useCostNumber;
     }
 
-    public void AddCostWithinMax(int addCostValue)
+    public void AddCostMax(int addCostNumber)
     {
-        if (CostMax - CostLeft > addCostValue)
-            CostLeft += addCostValue;
-        else
-            CostLeft = CostMax;
+        CostMax += addCostNumber;
     }
 
-    public void UseAllCost()
+    public void ReduceCostMax(int useCostNumber)
     {
-        CostLeft = 0;
+        CostMax -= useCostNumber;
     }
-
-    public void AddAllCost()
-    {
-        CostLeft = CostMax;
-    }
-
-
 }

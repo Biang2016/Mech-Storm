@@ -234,6 +234,27 @@ public class AllCards
 
         addCard(
             new CardInfo_Retinue(
+                cardID: -1,
+                cardName: "空牌",
+                cardDesc: "",
+                cost: 0,
+                dragPurpose: DragPurpose.Summon,
+                cardType: CardTypes.Retinue,
+                cardColor: HeroColor,
+                upgradeCardID: -1,
+                cardLevel: 0,
+                life: 0,
+                totalLife: 0,
+                basicAttack: 0,
+                basicShield: 0,
+                basicArmor: 0,
+                slot1: SlotType.None,
+                slot2: SlotType.None,
+                slot3: SlotType.None,
+                slot4: SlotType.None
+            ));
+        addCard(
+            new CardInfo_Retinue(
                 cardID: 99,
                 cardName: "假装这是英雄",
                 cardDesc: "它死了就输了",

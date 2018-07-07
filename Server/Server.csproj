@@ -239,7 +239,6 @@
     <Compile Include="Assets\Scripts\Server\GamePlay\ServerGameManager.cs" />
     <Compile Include="Assets\Scripts\Server\GamePlay\ServerGameMatchManager.cs" />
     <Compile Include="Assets\Scripts\Server\GamePlay\ServerHandManager.cs" />
-    <Compile Include="Assets\Scripts\Server\GamePlaySettings.cs" />
     <Compile Include="Assets\Scripts\Server\Server.cs" />
     <Compile Include="Assets\Scripts\Server\ServerPlayer.cs" />
   </ItemGroup>

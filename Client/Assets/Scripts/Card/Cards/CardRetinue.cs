@@ -202,7 +202,7 @@ internal class CardRetinue : CardBase
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition,dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
         if (boardAreaType != ClientPlayer.MyHandArea) //脱手即出牌
         {
@@ -221,39 +221,16 @@ internal class CardRetinue : CardBase
     //召唤随从
     private void summonRetinueRequest(Vector3 dragLastPosition)
     {
-        int index= ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-
-        ClientPlayer.UseCost(M_Cost);
-
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
         {
             ClientPlayer.MyHandManager.RefreshCardsPlace();
             return;
         }
 
-        PoolRecycle();
-        ModuleRetinue retinueObj = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(ClientPlayer.MyBattleGroundManager.transform).GetComponent<ModuleRetinue>();
-        retinueObj.Initiate(CardInfo, ClientPlayer);
-        BattleOperationRecord.BOP.Operations.Add(new OperationSummon(ClientPlayer, GameObjectID, new List<int> {retinueObj.GameObjectID}, OperationType.Summon, CardInfo.CardID));
-        ClientPlayer.MyBattleGroundManager.AddRetinueByPosition(retinueObj, dragLastPosition);
-        ClientPlayer.MyHandManager.DropCard(this);
-    }
-
-    //召唤随从
-    private void summonRetinue(Vector3 dragLastPosition)
-    {
-        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
-        {
-            ClientPlayer.MyHandManager.RefreshCardsPlace();
-            return;
-        }
-
-        PoolRecycle();
-        ModuleRetinue retinueObj = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(ClientPlayer.MyBattleGroundManager.transform).GetComponent<ModuleRetinue>();
-        retinueObj.Initiate(CardInfo, ClientPlayer);
-        BattleOperationRecord.BOP.Operations.Add(new OperationSummon(ClientPlayer, GameObjectID, new List<int> {retinueObj.GameObjectID}, OperationType.Summon, CardInfo.CardID));
-        ClientPlayer.MyBattleGroundManager.AddRetinueByPosition(retinueObj, dragLastPosition);
-        ClientPlayer.MyHandManager.DropCard(this);
+        int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
+        int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
+        SummonRetinueRequest request = new SummonRetinueRequest(NetworkManager.NM.SelfClientId, (CardInfo_Retinue) CardInfo, handCardIndex, battleGroundIndex);
+        Client.CS.SendMessage(request);
     }
 
     #endregion

@@ -87,7 +87,7 @@ public class ServerHandManager
 
     public void RefreshAllCardUsable() //刷新所有卡牌是否可用
     {
-        foreach (ServerCardBase card in cards) card.Usable = (ServerPlayer == ServerPlayer.MyGameManager.CurrentPlayer) && card.M_Cost <= ClientPlayer.CostLeft;
+        foreach (ServerCardBase card in cards) card.Usable = (ServerPlayer == ServerPlayer.MyGameManager.CurrentPlayer) && card.M_Cost <= ServerPlayer.CostLeft;
     }
 
     public void SetAllCardUnusable() //禁用所有手牌

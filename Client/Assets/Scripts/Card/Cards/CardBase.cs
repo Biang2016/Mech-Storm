@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
+public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 {
     internal int GameObjectID;
     protected GameObjectPool gameObjectPool;
@@ -46,6 +46,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     public GameObject Star2;
     public GameObject Star3;
     public GameObject Star4;
+
     [SerializeField]
     protected int stars;
 
@@ -145,7 +146,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
                 newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
                 break;
         }
-        
+
         newCard.Initiate(cardInfo, clientPlayer);
         newCard.ChangeColor(cardInfo.CardColor);
         return newCard;

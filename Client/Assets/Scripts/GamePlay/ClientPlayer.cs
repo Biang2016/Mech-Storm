@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class ClientPlayer : Player
 {
@@ -17,21 +18,19 @@ public class ClientPlayer : Player
         MyBattleGroundArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfBattleGroundArea : BoardAreaTypes.EnemyBattleGroundArea;
         MyHandManager = whichPlayer == Players.Self ? GameBoardManager.GBM.SelfHandManager : GameBoardManager.GBM.EnemyHandManager;
         MyBattleGroundManager = whichPlayer == Players.Self ? GameBoardManager.GBM.SelfBattleGroundManager : GameBoardManager.GBM.EnemyBattleGroundManager;
-        MyCardDeckManager = whichPlayer == Players.Self ? GameBoardManager.GBM.SelfCardDeckManager : GameBoardManager.GBM.EnemyCardDeckManager;
         MyHandManager.ClientPlayer = this;
         MyBattleGroundManager.ClientPlayer = this;
-        MyCardDeckManager.Player = this;
     }
 
     #region Cost
 
     public override void OnCostChanged()
     {
-        if (this == GameManager.GM.SelfClientPlayer)
+        if (this == RoundManager.RM.SelfClientPlayer)
         {
             RoundManager.RM.SelfCostText.text = "Cost: " + CostLeft + "/" + CostMax;
         }
-        else if (this == GameManager.GM.EnemyClientPlayer)
+        else if (this == RoundManager.RM.EnemyClientPlayer)
         {
             RoundManager.RM.EnemyCostText.text = "Cost: " + CostLeft + "/" + CostMax;
         }
@@ -39,22 +38,59 @@ public class ClientPlayer : Player
 
     public void DoChangeCost(PlayerCostResponse resp)
     {
-        switch (resp.Sign)
+        if (resp.change == CostChangeFlag.Both)
         {
-            case 1:
-                AddCostWithinMax(resp.AddCost);
-                break;
-            case -1:
-                UseCost(resp.AddCost);
-                break;
-            case 2:
-                AddAllCost();
-                break;
-            case -2:
-                UseAllCost();
-                break;
-            default:
-                break;
+            switch (resp.sign_left)
+            {
+                case 1:
+                    AddCost(resp.addCost_left);
+                    break;
+                case -1:
+                    UseCost(resp.addCost_left);
+                    break;
+                default:
+                    break;
+            }
+
+            switch (resp.sign_max)
+            {
+                case 1:
+                    AddCostMax(resp.addCost_max);
+                    break;
+                case -1:
+                    ReduceCostMax(resp.addCost_max);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else if (resp.change == CostChangeFlag.Left)
+        {
+            switch (resp.sign_left)
+            {
+                case 1:
+                    AddCost(resp.addCost_left);
+                    break;
+                case -1:
+                    UseCost(resp.addCost_left);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else if (resp.change == CostChangeFlag.Max)
+        {
+            switch (resp.sign_max)
+            {
+                case 1:
+                    AddCostMax(resp.addCost_max);
+                    break;
+                case -1:
+                    ReduceCostMax(resp.addCost_max);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

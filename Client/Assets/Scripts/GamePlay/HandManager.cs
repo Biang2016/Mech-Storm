@@ -32,6 +32,63 @@ public class HandManager : MonoBehaviour
         CheckMousePosition();
     }
 
+    #region 响应
+
+    public void GetCard(int cardId)
+    {
+        CardInfo_Base newCardInfoBase = AllCards.AC.GetCard(cardId);
+        CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer);
+        cards.Add(newCardBase);
+        RefreshCardsPlace();
+    }
+
+    public int GetCardIndex(CardBase card)
+    {
+        int index = -1;
+        foreach (CardBase card_b in cards)
+        {
+            index++;
+            if (card == card_b)
+            {
+                return index;
+            }
+        }
+
+        return -1;
+    }
+
+    public void DropCard(int index)
+    {
+        cards.RemoveAt(index);
+        RefreshCardsPlace();
+    }
+
+    //召唤随从
+    public void SummonRetinue(int handCardIndex, int battleGroundIndex)
+    {
+        cards[handCardIndex].PoolRecycle();
+        ModuleRetinue retinueObj = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(ClientPlayer.MyBattleGroundManager.transform).GetComponent<ModuleRetinue>();
+        retinueObj.Initiate(cards[handCardIndex].CardInfo, ClientPlayer);
+        ClientPlayer.MyBattleGroundManager.AddRetinue(retinueObj, battleGroundIndex);
+        DropCard(handCardIndex);
+    }
+
+    public void BeginRound()
+    {
+        foreach (var card in cards) card.OnBeginRound();
+        RefreshAllCardUsable();
+    }
+
+    public void EndRound()
+    {
+        foreach (var card in cards) card.OnEndRound();
+        SetAllCardUnusable();
+    }
+
+    #endregion
+
+    #region 交互
+
     private void CheckMousePosition() //检查鼠标是否还停留在某张牌上，如果否，取消放大效果
     {
         if (!isBeginDrag)
@@ -48,8 +105,6 @@ public class HandManager : MonoBehaviour
             }
         }
     }
-
-
 
     Quaternion defaultCardRotation;
     bool isSet_defaultCardRotation;
@@ -164,7 +219,7 @@ public class HandManager : MonoBehaviour
             ColliderReplace colliderReplace = GameObjectPoolManager.GOPM.Pool_ColliderReplacePool.AllocateGameObject(GameBoardManager.GBM.transform).GetComponent<ColliderReplace>();
             colliderReplace.Initiate(focusCard);
             //本卡牌变大，旋转至正位
-            focusCard.transform.localScale = Vector3.one *GameManager.GM.PullOutCardSize;
+            focusCard.transform.localScale = Vector3.one * GameManager.GM.PullOutCardSize;
             focusCard.transform.rotation = defaultCardRotation;
             if (ClientPlayer.WhichPlayer == Players.Self)
             {
@@ -203,15 +258,5 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    public void BeginRound()
-    {
-        foreach (var card in cards) card.OnBeginRound();
-        RefreshAllCardUsable();
-    }
-
-    public void EndRound()
-    {
-        foreach (var card in cards) card.OnEndRound();
-        SetAllCardUnusable();
-    }
+    #endregion
 }

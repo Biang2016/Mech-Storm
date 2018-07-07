@@ -87,20 +87,19 @@ internal class CardWeapon : CardBase
     //装备武器
     private void summonWeapon(ModuleRetinue moduleRetinue)
     {
-        ClientPlayer.UseCost(M_Cost);
-        if (moduleRetinue == null)
-        {
-            Debug.Log("No retinue on Place BUT SLOT HIT");
-            return;
-        }
+        //ClientPlayer.UseCost(M_Cost);
+        //if (moduleRetinue == null)
+        //{
+        //    Debug.Log("No retinue on Place BUT SLOT HIT");
+        //    return;
+        //}
 
-        ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(moduleRetinue.transform).GetComponent<ModuleWeapon>();
-        newModueWeapon.M_ModuleRetinue = moduleRetinue;
-        newModueWeapon.Initiate(CardInfo, ClientPlayer);
-        BattleOperationRecord.BOP.Operations.Add(new OperationEquip(ClientPlayer, GameObjectID, new List<int> {newModueWeapon.GameObjectID}, OperationType.Equip, CardInfo.CardID, CardInfo.CardType, moduleRetinue));
-        moduleRetinue.M_Weapon = newModueWeapon;
-        PoolRecycle();
-        ClientPlayer.MyHandManager.DropCard(this);
+        //ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(moduleRetinue.transform).GetComponent<ModuleWeapon>();
+        //newModueWeapon.M_ModuleRetinue = moduleRetinue;
+        //newModueWeapon.Initiate(CardInfo, ClientPlayer);
+        //moduleRetinue.M_Weapon = newModueWeapon;
+        //PoolRecycle();
+        //ClientPlayer.MyHandManager.DropCard(this);
     }
 
     #endregion

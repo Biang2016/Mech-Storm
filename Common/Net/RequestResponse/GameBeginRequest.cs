@@ -1,23 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class EntryGameRequest : Request
+public class GameBeginRequest : Request
 {
-    public int clientId;
-
     public override int GetProtocol()
     {
-        return NetProtocols.ENTRY_GAME;
+        return NetProtocols.GAME_BEGIN;
     }
 
-    public EntryGameRequest(int clientId)
+    public GameBeginRequest()
     {
-        this.clientId = clientId;
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(clientId);
+       
     }
 }

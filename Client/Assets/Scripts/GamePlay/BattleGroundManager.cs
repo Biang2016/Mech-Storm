@@ -23,13 +23,6 @@ public class BattleGroundManager : MonoBehaviour
     {
     }
 
-
-    internal void AddRetinueByPosition(ModuleRetinue newRetinue, Vector3 dragLastPosition)
-    {
-        int index = ComputePosition(dragLastPosition);
-        AddRetinue(newRetinue, (int) index);
-    }
-
     internal int ComputePosition(Vector3 dragLastPosition)
     {
         int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.GM.RetinueInterval - (_retinueCount + 1) % 2 * 0.5f) + (_retinueCount / 2 + 1));

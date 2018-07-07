@@ -24,13 +24,13 @@ public class ServerGameManager
 
     private void InitializePlayers()
     {
-        PlayerRequest request1 = new PlayerRequest(ClientA.ClientId, 0, 20);
+        PlayerRequest request1 = new PlayerRequest(ClientA.ClientId, 0, 1);
         BroadcastBothPlayers(request1);
-        PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, 20);
+        PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, 1);
         PlayerA.MyCardDeckManager.M_CurrentCardDeck=new CardDeck(ClientA.CardDeckInfo);
-        PlayerRequest request2 = new PlayerRequest(ClientB.ClientId, 0, 20);
+        PlayerRequest request2 = new PlayerRequest(ClientB.ClientId, 0, 1);
         BroadcastBothPlayers(request2);
-        PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, 20);
+        PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, 1);
         PlayerB.MyCardDeckManager.M_CurrentCardDeck=new CardDeck(ClientB.CardDeckInfo);
         GameBegin();
     }
@@ -104,8 +104,8 @@ public class ServerGameManager
 
     private void BroadcastBothPlayers(Request r)
     {
-        Server.SV.SendMessage(r, PlayerAClientId);
-        Server.SV.SendMessage(r, PlayerBClientId);
+        Server.SV.SendMessage(r, PlayerA.ClientId);
+        Server.SV.SendMessage(r, PlayerB.ClientId);
     }
 
     #endregion

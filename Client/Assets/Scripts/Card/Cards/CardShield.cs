@@ -87,24 +87,23 @@ internal class CardShield : CardBase
     //装备武器
     private void summonShield(ModuleRetinue moduleRetinue)
     {
-        ClientPlayer.UseCost(M_Cost);
-        if (moduleRetinue == null)
-        {
-            Debug.Log("No retinue on Place BUT SLOT HIT");
-            return;
-        }
+        //ClientPlayer.UseCost(M_Cost);
+        //if (moduleRetinue == null)
+        //{
+        //    Debug.Log("No retinue on Place BUT SLOT HIT");
+        //    return;
+        //}
 
-        if (!moduleRetinue.M_Shield)
-        {
-            moduleRetinue.M_Shield = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool.AllocateGameObject(moduleRetinue.transform).GetComponent<ModuleShield>();
-        }
+        //if (!moduleRetinue.M_Shield)
+        //{
+        //    moduleRetinue.M_Shield = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool.AllocateGameObject(moduleRetinue.transform).GetComponent<ModuleShield>();
+        //}
 
-        moduleRetinue.M_Shield.M_ModuleRetinue = moduleRetinue;
-        moduleRetinue.M_Shield.Initiate(CardInfo, ClientPlayer);
-        BattleOperationRecord.BOP.Operations.Add(new OperationEquip(ClientPlayer, GameObjectID, new List<int> {moduleRetinue.M_Shield.GameObjectID}, OperationType.Equip, CardInfo.CardID, CardInfo.CardType, moduleRetinue));
+        //moduleRetinue.M_Shield.M_ModuleRetinue = moduleRetinue;
+        //moduleRetinue.M_Shield.Initiate(CardInfo, ClientPlayer);
 
-        PoolRecycle();
-        ClientPlayer.MyHandManager.DropCard(this);
+        //PoolRecycle();
+        //ClientPlayer.MyHandManager.DropCard(this);
     }
 
     #endregion

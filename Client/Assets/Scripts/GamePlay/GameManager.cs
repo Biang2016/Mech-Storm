@@ -27,40 +27,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
     }
 
 
     #region GamePlay
 
     internal AllCards AllCard;
-
-    internal ClientPlayer SelfClientPlayer;
-    internal ClientPlayer EnemyClientPlayer;
-
-    public void InitializePlayers(PlayerResponse r)
-    {
-        if (r.ClinetId == NetworkManager.NM.SelfClientId)
-        {
-            SelfClientPlayer = new ClientPlayer(r.CostMax, r.CostLeft, Players.Self);
-        }
-        else
-        {
-            EnemyClientPlayer= new ClientPlayer(r.CostMax, r.CostLeft, Players.Enemy);
-        }
-    }
-
-    public void SetPlayersCost(PlayerCostResponse r)
-    {
-        if (r.ClinetId == NetworkManager.NM.SelfClientId)
-        {
-            SelfClientPlayer.DoChangeCost(r);
-        }
-        else
-        {
-            EnemyClientPlayer.DoChangeCost(r);
-        }
-    }
 
     #endregion
 
@@ -82,12 +54,16 @@ public class GameManager : MonoBehaviour
 
     private void initializeColors()
     {
+        CardBloomColor = HTMLColorToColor("#FF0000FF");
+        CardBloomColor = HTMLColorToColor("#FF0000FF");
         Slot1Color = HTMLColorToColor("#FF0000FF");
         Slot2Color = HTMLColorToColor("#FFED00FF");
         Slot3Color = HTMLColorToColor("#00FF6BFF");
         Slot4Color = HTMLColorToColor("#2D37FFFF");
     }
 
+    public Color CardBloomColor;
+    public Color CardDragBloomColor;
     public Color Slot1Color;
     public Color Slot2Color;
     public Color Slot3Color;

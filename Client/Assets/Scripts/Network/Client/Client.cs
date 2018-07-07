@@ -58,14 +58,30 @@ public class Client : MonoBehaviour
     public void OnRestartProtocols()
     {
         ClientProtoManager = new ProtoManager();
-        ClientProtoManager.AddProtocol<EntryGameResponse>(NetProtocols.ENTRY_GAME);
         ClientProtoManager.AddProtocol<TestConnectResponse>(NetProtocols.TEST_CONNECT);
+        ClientProtoManager.AddProtocol<ClientIdResponse>(NetProtocols.SEND_CLIENT_ID);
+        ClientProtoManager.AddProtocol<ServerInfoResponse>(NetProtocols.INFO_NUMBER);
+        ClientProtoManager.AddProtocol<ServerWarningResponse>(NetProtocols.WARNING_NUMBER);
+        ClientProtoManager.AddProtocol<GameBeginResponse>(NetProtocols.GAME_BEGIN);
         ClientProtoManager.AddProtocol<PlayerResponse>(NetProtocols.PLAYER);
         ClientProtoManager.AddProtocol<PlayerCostResponse>(NetProtocols.PLAYER_COST_CHANGE);
-        ClientProtoManager.AddRespDelegate(NetProtocols.ENTRY_GAME, Response);
+        ClientProtoManager.AddProtocol<DrawCardResponse>(NetProtocols.DRAW_CARD);
+        ClientProtoManager.AddProtocol<SummonRetinueResponse>(NetProtocols.SUMMON_RETINUE);
+        ClientProtoManager.AddProtocol<PlayerTurnResponse>(NetProtocols.PLAYER_TURN);
+        ClientProtoManager.AddProtocol<ClientEndRoundResponse>(NetProtocols.CLIENT_END_ROUND);
+        ClientProtoManager.AddProtocol<CardDeckResponse>(NetProtocols.CARD_DECK_INFO);
         ClientProtoManager.AddRespDelegate(NetProtocols.TEST_CONNECT, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.SEND_CLIENT_ID, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.INFO_NUMBER, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.WARNING_NUMBER, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.GAME_BEGIN, Response);
         ClientProtoManager.AddRespDelegate(NetProtocols.PLAYER, Response);
         ClientProtoManager.AddRespDelegate(NetProtocols.PLAYER_COST_CHANGE, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.DRAW_CARD, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.SUMMON_RETINUE, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.PLAYER_TURN, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.CLIENT_END_ROUND, Response);
+        ClientProtoManager.AddRespDelegate(NetProtocols.CARD_DECK_INFO, Response);
     }
 
     #region 连接
@@ -202,20 +218,34 @@ public class Client : MonoBehaviour
         Log += "收到服务器信息：[协议]" + r.GetProtocolName() + "[内容]";
         Log += r.DeserializeLog();
         Debug.Log(Log);
-
-        if (r is PlayerResponse)
+        if (r is GameBeginResponse)
+        {
+            RoundManager.RM.InitializeGame();
+        }
+        else if (r is PlayerResponse)
         {
             PlayerResponse resp = (PlayerResponse) r;
-            GameManager.GM.InitializePlayers(resp);
+            RoundManager.RM.InitializePlayers(resp);
         }
         else if (r is PlayerCostResponse)
         {
             PlayerCostResponse resp = (PlayerCostResponse) r;
-            GameManager.GM.SetPlayersCost(resp);
-        }else if (r is PlayerTurnResponse)
+            RoundManager.RM.SetPlayersCost(resp);
+        }
+        else if (r is PlayerTurnResponse)
         {
             PlayerTurnResponse resp = (PlayerTurnResponse) r;
             RoundManager.RM.SetPlayerTurn(resp);
+        }
+        else if (r is DrawCardResponse)
+        {
+            DrawCardResponse resp = (DrawCardResponse) r;
+            RoundManager.RM.OnPlayerDrawCard(resp);
+        }
+        else if (r is SummonRetinueResponse)
+        {
+            SummonRetinueResponse resp = (SummonRetinueResponse) r;
+            RoundManager.RM.OnPlayerSummonRetinue(resp);
         }
     }
 

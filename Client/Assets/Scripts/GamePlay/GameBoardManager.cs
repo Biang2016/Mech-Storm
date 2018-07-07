@@ -23,8 +23,6 @@ public class GameBoardManager : MonoBehaviour
     internal HandManager EnemyHandManager;
     internal BattleGroundManager SelfBattleGroundManager;
     internal BattleGroundManager EnemyBattleGroundManager;
-    internal CardDeckManager SelfCardDeckManager;
-    internal CardDeckManager EnemyCardDeckManager;
     internal GameObject CardDetailPreview;
 
     void Awake()
@@ -33,8 +31,6 @@ public class GameBoardManager : MonoBehaviour
         EnemyHandManager = transform.Find("EnemyHandArea").GetComponent<HandManager>();
         SelfBattleGroundManager = transform.Find("SelfBattleGroundArea").GetComponent<BattleGroundManager>();
         EnemyBattleGroundManager = transform.Find("EnemyBattleGroundArea").GetComponent<BattleGroundManager>();
-        SelfCardDeckManager = transform.Find("SelfCardDeck").GetComponent<CardDeckManager>();
-        EnemyCardDeckManager = transform.Find("EnemyCardDeck").GetComponent<CardDeckManager>();
         CardDetailPreview = transform.Find("CardDetailPreview").gameObject;
     }
 

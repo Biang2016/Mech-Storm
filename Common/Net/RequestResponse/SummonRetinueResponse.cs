@@ -5,7 +5,8 @@ public class SummonRetinueResponse : Response
 {
     public int clientId;
     public CardInfo_Retinue cardInfo;
-    public int retinuePlaceIndex;
+    public int handCardIndex;
+    public int battleGroundIndex;
 
     public override int GetProtocol()
     {
@@ -22,7 +23,8 @@ public class SummonRetinueResponse : Response
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
         cardInfo = (CardInfo_Retinue) AllCards.AC.GetCard(reader.ReadSInt32());
-        retinuePlaceIndex = reader.ReadSInt32();
+        handCardIndex = reader.ReadSInt32();
+        battleGroundIndex = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
@@ -30,7 +32,8 @@ public class SummonRetinueResponse : Response
         string log = "";
         log += "[clientId]" + clientId;
         log += "[cardInfo.CardID]" + cardInfo.CardID;
-        log += "[retinuePlaceIndex]" + retinuePlaceIndex;
+        log += "[handCardIndex]" + handCardIndex;
+        log += "[battleGroundIndex]" + battleGroundIndex;
         return log;
     }
 }

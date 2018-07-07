@@ -52,12 +52,9 @@ public class Server : MonoBehaviour
             Response response = ServerProtoManager.TryDeserialize(receiveDataQueue.Dequeue());
         }
 
-        if (sendDataQueueDict.Count > 0)
+        foreach (KeyValuePair<int, Queue<Request>> kv in sendDataQueueDict)
         {
-            foreach (KeyValuePair<int, Queue<Request>> kv in sendDataQueueDict)
-            {
-                BroadCast(kv.Key);
-            }
+            Send(kv.Key);
         }
     }
 
@@ -74,14 +71,30 @@ public class Server : MonoBehaviour
     public void OnRestartProtocols()
     {
         ServerProtoManager = new ProtoManager();
-        ServerProtoManager.AddProtocol<EntryGameResponse>(NetProtocols.ENTRY_GAME);
         ServerProtoManager.AddProtocol<TestConnectResponse>(NetProtocols.TEST_CONNECT);
+        ServerProtoManager.AddProtocol<ClientIdResponse>(NetProtocols.SEND_CLIENT_ID);
+        ServerProtoManager.AddProtocol<ServerInfoResponse>(NetProtocols.INFO_NUMBER);
+        ServerProtoManager.AddProtocol<ServerWarningResponse>(NetProtocols.WARNING_NUMBER);
+        ServerProtoManager.AddProtocol<GameBeginResponse>(NetProtocols.GAME_BEGIN);
         ServerProtoManager.AddProtocol<PlayerResponse>(NetProtocols.PLAYER);
         ServerProtoManager.AddProtocol<PlayerCostResponse>(NetProtocols.PLAYER_COST_CHANGE);
-        ServerProtoManager.AddRespDelegate(NetProtocols.ENTRY_GAME, Response);
+        ServerProtoManager.AddProtocol<DrawCardResponse>(NetProtocols.DRAW_CARD);
+        ServerProtoManager.AddProtocol<SummonRetinueResponse>(NetProtocols.SUMMON_RETINUE);
+        ServerProtoManager.AddProtocol<PlayerTurnResponse>(NetProtocols.PLAYER_TURN);
+        ServerProtoManager.AddProtocol<ClientEndRoundResponse>(NetProtocols.CLIENT_END_ROUND);
+        ServerProtoManager.AddProtocol<CardDeckResponse>(NetProtocols.CARD_DECK_INFO);
         ServerProtoManager.AddRespDelegate(NetProtocols.TEST_CONNECT, Response);
+        ServerProtoManager.AddRespDelegate(NetProtocols.SEND_CLIENT_ID, Response);
+        ServerProtoManager.AddRespDelegate(NetProtocols.INFO_NUMBER, Response);
+        ServerProtoManager.AddRespDelegate(NetProtocols.WARNING_NUMBER, Response);
+        ServerProtoManager.AddRespDelegate(NetProtocols.GAME_BEGIN, Response);
         ServerProtoManager.AddRespDelegate(NetProtocols.PLAYER, Response);
         ServerProtoManager.AddRespDelegate(NetProtocols.PLAYER_COST_CHANGE, Response);
+        ServerProtoManager.AddRespDelegate(NetProtocols.DRAW_CARD, Response);
+        ServerProtoManager.AddRespDelegate(NetProtocols.SUMMON_RETINUE, Response);
+        ServerProtoManager.AddRespDelegate(NetProtocols.PLAYER_TURN, Response);
+        ServerProtoManager.AddRespDelegate(NetProtocols.CLIENT_END_ROUND, Response);
+        ServerProtoManager.AddRespDelegate(NetProtocols.CARD_DECK_INFO, Response);
     }
 
     public void Closed()
@@ -127,7 +140,7 @@ public class Server : MonoBehaviour
         clientList.Add(clientData);
         IPEndPoint point = client.RemoteEndPoint as IPEndPoint;
         Debug.Log(point.Address + ":【" + point.Port + "】连接成功");
-        Debug.Log("[S]ClientListCount:" + clientList.Count);
+        Debug.Log("[S]客户端总数:" + clientList.Count);
 
         Thread threadReceive = new Thread(ReceiveSocket);
         threadReceive.IsBackground = true;
@@ -146,7 +159,7 @@ public class Server : MonoBehaviour
             if (!clientData.Client.Connected)
             {
                 //与客户端连接失败跳出循环  
-                Debug.Log("[S]Failed to clientSocket.");
+                Debug.Log("[S]连接客户端失败,客户端ID" + clientData.ClientId);
                 clientData.Client.Close();
                 break;
             }
@@ -158,7 +171,7 @@ public class Server : MonoBehaviour
                 if (i <= 0)
                 {
                     clientData.Client.Close();
-                    Debug.Log("[S]Socket.Close();");
+                    Debug.Log("[S]客户端关闭,客户端ID" + clientData.ClientId);
                     break;
                 }
 
@@ -185,15 +198,27 @@ public class Server : MonoBehaviour
         Log += r.DeserializeLog();
         Debug.Log(Log);
 
-        if (r is EntryGameResponse)
+        if (r is ClientIdResponse)
         {
-            EntryGameResponse resp = (EntryGameResponse) r;
-            sgmm.AddClient(resp.clientId);
+            ClientIdResponse resp = (ClientIdResponse) r;
+            if (resp.purpose == ClientIdPurpose.RegisterClientId)
+            {
+                sgmm.OnClientRegister(resp.clientId);
+            }
+            else if (resp.purpose == ClientIdPurpose.MatchGames)
+            {
+                sgmm.OnClientMatchGames(resp.clientId);
+            }
         }
         else if (r is CardDeckResponse)
         {
             CardDeckResponse resp = (CardDeckResponse) r;
-            sgmm.ReceivePlayerCardDeckInfo(resp.clientId,resp.cardDeckInfo);
+            sgmm.OnReceiveCardDeckInfo(resp.clientId, resp.cardDeckInfo);
+        }
+        else if (r is ClientEndRoundResponse)
+        {
+            ClientEndRoundResponse resp = (ClientEndRoundResponse) r;
+            sgmm.PlayerGamesDictionary[resp.clientId].OnEndRound();
         }
     }
 
@@ -210,11 +235,11 @@ public class Server : MonoBehaviour
         }
         else
         {
-            Debug.Log("No ClientId：" + clientId);
+            Debug.Log("发送消息失败，客户端未连接到服务器,客户端ID" + clientId);
         }
     }
 
-    public void BroadCast(int clientId)
+    public void Send(int clientId)
     {
         if (sendDataQueueDict.ContainsKey(clientId))
         {
@@ -228,7 +253,7 @@ public class Server : MonoBehaviour
         }
         else
         {
-            Debug.Log("No ClientId：" + clientId);
+            Debug.Log("发送消息失败，客户端未连接到服务器,客户端ID" + clientId);
         }
     }
 
@@ -297,7 +322,7 @@ public class Server : MonoBehaviour
 
     private void SendCallback(IAsyncResult asyncConnect)
     {
-        Debug.Log("[S]Send success");
+        Debug.Log("[S]发送信息成功");
     }
 
     #endregion

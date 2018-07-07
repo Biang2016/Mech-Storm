@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerCostResponse : Response
 {
-    public int ClinetId;
-    public int Sign; //+2加满，+1增加，-1减少，-2扣光
-    public int AddCost;
+    public int clinetId;
+    public CostChangeFlag change; //0x00为都改变，0x01为left改变，0x02为max改变
+    public int sign_left; //Sign为+1则为增加，为-1则为消耗
+    public int addCost_left;
+    public int sign_max; //Sign为+1则为增加，为-1则为消耗
+    public int addCost_max;
 
     public override int GetProtocol()
     {
@@ -20,17 +24,36 @@ public class PlayerCostResponse : Response
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        ClinetId = reader.ReadSInt32();
-        Sign = reader.ReadSInt16();
-        AddCost = reader.ReadSInt32();
+        clinetId = reader.ReadSInt32();
+        change = (CostChangeFlag) (reader.ReadByte());
+        if (change == CostChangeFlag.Both)
+        {
+            sign_left = reader.ReadSInt32();
+            addCost_left = reader.ReadSInt32();
+            sign_max = reader.ReadSInt32();
+            addCost_max = reader.ReadSInt32();
+        }
+        else if (change == CostChangeFlag.Left)
+        {
+            sign_left = reader.ReadSInt32();
+            addCost_left = reader.ReadSInt32();
+        }
+        else if (change == CostChangeFlag.Max)
+        {
+            sign_max = reader.ReadSInt32();
+            addCost_max = reader.ReadSInt32();
+        }
     }
 
     public override string DeserializeLog()
     {
         string log = "";
-        log += "[ClinetId]" + ClinetId;
-        log += "[Sign]" + Sign;
-        log += "[AddCost]" + AddCost;
+        log += "[clinetId]" + clinetId;
+        log += "[change]" + change;
+        log += "[sign_left]" + sign_left;
+        log += "[addCost_left]" + addCost_left;
+        log += "[sign_max]" + sign_max;
+        log += "[addCost_max]" + addCost_max;
         return log;
     }
 }

@@ -241,12 +241,9 @@
     <Compile Include="Assets\Scripts\Card\Number\CardNumber.cs" />
     <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
     <Compile Include="Assets\Scripts\Card\Slots\Slot.cs" />
-    <Compile Include="Assets\Scripts\Common\BattleOperationRecord.cs" />
     <Compile Include="Assets\Scripts\Common\GameObjectPool.cs" />
     <Compile Include="Assets\Scripts\Common\GameObjectPoolManager.cs" />
     <Compile Include="Assets\Scripts\Common\Initialization.cs" />
-    <Compile Include="Assets\Scripts\Common\Operation.cs" />
-    <Compile Include="Assets\Scripts\Common\PreComputeBattle.cs" />
     <Compile Include="Assets\Scripts\GamePlay\BattleEffectsManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\BattleGroundManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\ClientPlayer.cs" />
