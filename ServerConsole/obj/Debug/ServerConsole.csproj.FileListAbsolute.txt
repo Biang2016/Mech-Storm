@@ -1,0 +1,8 @@
+F:\MyCardGame\ServerConsole\obj\Debug\ServerConsole.csprojAssemblyReference.cache
+F:\MyCardGame\ServerConsole\obj\Debug\ServerConsole.csproj.CoreCompileInputs.cache
+F:\MyCardGame\ServerConsole\bin\Debug\ServerConsole.exe
+F:\MyCardGame\ServerConsole\bin\Debug\ServerConsole.pdb
+F:\MyCardGame\ServerConsole\bin\Debug\MyCardGameCommon.dll
+F:\MyCardGame\ServerConsole\obj\Debug\ServerConsole.csproj.CopyComplete
+F:\MyCardGame\ServerConsole\obj\Debug\ServerConsole.exe
+F:\MyCardGame\ServerConsole\obj\Debug\ServerConsole.pdb

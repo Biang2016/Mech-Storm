@@ -1,76 +1,74 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using UnityEngine;
 
-public class Server
+class Server
 {
-    public static int Main(string[] args)
-    {
-        return 0;
-    }
-
     private static Server _sv;
 
     public static Server SV
     {
         get
         {
-            if (!_sv) _sv = FindObjectOfType<Server>();
+            if (_sv == null)
+            {
+                _sv = new Server("127.0.0.1", 9999);
+            }
+
             return _sv;
         }
+        set { _sv = value; }
     }
 
-    string ip = "127.0.0.1";
-    int port = 9999;
-
+    public string IP;
+    public int Port;
     private Socket severSocket;
     private List<ClientData> clientList = new List<ClientData>();
-
-    Queue<byte[]> receiveDataQueue = new Queue<byte[]>();
-    Dictionary<int, Queue<Request>> sendDataQueueDict = new Dictionary<int, Queue<Request>>();
-
+    private Dictionary<ClientData, int> clientDataIdDict = new Dictionary<ClientData, int>();
+    private Queue<byte[]> receiveDataQueue = new Queue<byte[]>();
+    private Dictionary<int, Queue<Request>> sendDataQueueDict = new Dictionary<int, Queue<Request>>();
     public ProtoManager ServerProtoManager;
     private ServerGameMatchManager sgmm;
 
+    public Server(string ip, int port)
+    {
+        IP = ip;
+        Port = port;
+    }
 
-    void Awake()
+    public void Start()
     {
         OnRestartProtocols();
         sgmm = new ServerGameMatchManager();
+        StartSeverSocket();
+        Thread threadReceiveAndSend = new Thread(ReceiveAndSendMsg);
+        threadReceiveAndSend.IsBackground = true;
+        threadReceiveAndSend.Start();
     }
 
-    void Start()
+    private void ReceiveAndSendMsg()
     {
-        StartSever();
-    }
-
-    //接收到数据放入数据队列，按顺序取出
-    void Update()
-    {
-        if (receiveDataQueue.Count > 0)
+        while (true)
         {
-            Response response = ServerProtoManager.TryDeserialize(receiveDataQueue.Dequeue());
+            if (receiveDataQueue.Count > 0)
+            {
+                ServerProtoManager.TryDeserialize(receiveDataQueue.Dequeue());
+            }
+
+            foreach (KeyValuePair<int, Queue<Request>> kv in sendDataQueueDict)
+            {
+                SendToClient(kv.Key);
+            }
         }
-
-        foreach (KeyValuePair<int, Queue<Request>> kv in sendDataQueueDict)
-        {
-            Send(kv.Key);
-        }
-    }
-
-    private void OnDisable()
-    {
-        Closed();
-    }
-
-    void OnDestroy()
-    {
-        Closed();
     }
 
     public void OnRestartProtocols()
@@ -102,7 +100,7 @@ public class Server
         ServerProtoManager.AddRespDelegate(NetProtocols.CARD_DECK_INFO, Response);
     }
 
-    public void Closed()
+    public void Stop()
     {
         foreach (ClientData clientData in clientList)
         {
@@ -110,22 +108,23 @@ public class Server
             {
                 clientData.Client.Shutdown(SocketShutdown.Both);
                 clientData.Client.Close();
+                Console.WriteLine("客户" + clientData.ClientId + "退出");
             }
         }
 
         clientList.Clear();
     }
 
-    public void StartSever()
+    public void StartSeverSocket()
     {
         try
         {
             severSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             //将服务器的ip捆绑
-            severSocket.Bind(new IPEndPoint(IPAddress.Parse(ip), port));
+            severSocket.Bind(new IPEndPoint(IPAddress.Parse(IP), Port));
             //为服务器sokect添加监听
             severSocket.Listen(10);
-            Debug.Log("[S]服务器启动成功");
+            Console.WriteLine("[S]服务器启动成功");
             clientList = new List<ClientData>();
             //开始服务器时 一般接受一个服务就会被挂起所以要用多线程来解决
             Thread threadAccept = new Thread(Accept);
@@ -134,7 +133,7 @@ public class Server
         }
         catch
         {
-            Debug.Log("[S]创建服务器失败");
+            Console.WriteLine("[S]创建服务器失败");
         }
     }
 
@@ -143,9 +142,10 @@ public class Server
         Socket client = severSocket.Accept();
         ClientData clientData = new ClientData(client, 0, new DataHolder(), false);
         clientList.Add(clientData);
+        clientDataIdDict.Add(clientData, 0);
         IPEndPoint point = client.RemoteEndPoint as IPEndPoint;
-        Debug.Log(point.Address + ":【" + point.Port + "】连接成功");
-        Debug.Log("[S]客户端总数:" + clientList.Count);
+        Console.WriteLine(point.Address + ":【" + point.Port + "】连接成功");
+        Console.WriteLine("[S]客户端总数:" + clientList.Count);
 
         Thread threadReceive = new Thread(ReceiveSocket);
         threadReceive.IsBackground = true;
@@ -155,6 +155,7 @@ public class Server
 
     #region 接收
 
+    //接收客户端Socket连接请求
     private void ReceiveSocket(object obj)
     {
         ClientData clientData = obj as ClientData;
@@ -164,7 +165,7 @@ public class Server
             if (!clientData.Client.Connected)
             {
                 //与客户端连接失败跳出循环  
-                Debug.Log("[S]连接客户端失败,客户端ID" + clientData.ClientId);
+                Console.WriteLine("[S]连接客户端失败,客户端ID" + clientData.ClientId);
                 clientData.Client.Close();
                 break;
             }
@@ -176,7 +177,7 @@ public class Server
                 if (i <= 0)
                 {
                     clientData.Client.Close();
-                    Debug.Log("[S]客户端关闭,客户端ID" + clientData.ClientId);
+                    Console.WriteLine("[S]客户端关闭,客户端ID" + clientData.ClientId);
                     break;
                 }
 
@@ -189,7 +190,7 @@ public class Server
             }
             catch (Exception e)
             {
-                Debug.Log("[S]Failed to ServerSocket error." + e);
+                Console.WriteLine("[S]Failed to ServerSocket error." + e);
                 clientData.Client.Close();
                 break;
             }
@@ -201,13 +202,14 @@ public class Server
         string Log = "";
         Log += "服务器收到信息：[协议]" + r.GetProtocolName() + "[内容]";
         Log += r.DeserializeLog();
-        Debug.Log(Log);
+        Console.WriteLine(Log);
 
         if (r is ClientIdResponse)
         {
             ClientIdResponse resp = (ClientIdResponse) r;
             if (resp.purpose == ClientIdPurpose.RegisterClientId)
             {
+                sendDataQueueDict.Add(resp.clientId, new Queue<Request>());
                 sgmm.OnClientRegister(resp.clientId);
             }
             else if (resp.purpose == ClientIdPurpose.MatchGames)
@@ -232,6 +234,7 @@ public class Server
 
     #region 发送信息
 
+    //将要发送的信息送入队列
     public void SendMessage(Request req, int clientId)
     {
         if (sendDataQueueDict.ContainsKey(clientId))
@@ -240,60 +243,50 @@ public class Server
         }
         else
         {
-            Debug.Log("发送消息失败，客户端未连接到服务器,客户端ID" + clientId);
+            Console.WriteLine("发送消息失败，客户端未连接到服务器,客户端ID" + clientId);
         }
     }
 
-    public void Send(int clientId)
+    //处理特定客户端的信息队列
+    private void SendToClient(int clientId)
     {
         if (sendDataQueueDict.ContainsKey(clientId))
         {
-            Request req = sendDataQueueDict[clientId].Dequeue();
-            foreach (ClientData clientData in clientList)
+            while (sendDataQueueDict[clientId].Count > 0)
             {
-                Thread threadSend = new Thread(Send);
+                Request req = sendDataQueueDict[clientId].Dequeue();
+                Thread threadSend = new Thread(DoSendToClient);
                 threadSend.IsBackground = true;
                 threadSend.Start(new SendMsg(clientData.Client, req));
             }
         }
         else
         {
-            Debug.Log("发送消息失败，客户端未连接到服务器,客户端ID" + clientId);
+            Console.WriteLine("发送消息失败，客户端未连接到服务器,客户端ID" + clientId);
         }
     }
 
-    public class SendMsg
-    {
-        public SendMsg(Socket client, Request req)
-        {
-            Client = client;
-            Req = req;
-        }
-
-        public Socket Client;
-        public Request Req;
-    }
 
     //对特定客户端发送信息
-    private void Send(object obj)
+    private void DoSendToClient(object obj)
     {
         SendMsg sendMsg = (SendMsg) obj;
 
         if (sendMsg == null)
         {
-            Debug.Log("[S]sendMsg is null");
+            Console.WriteLine("[S]sendMsg is null");
             return;
         }
 
         if (sendMsg.Client == null)
         {
-            Debug.Log("[S]client socket is null");
+            Console.WriteLine("[S]client socket is null");
             return;
         }
 
         if (!sendMsg.Client.Connected)
         {
-            Debug.Log("[S]Not connected to client socket");
+            Console.WriteLine("[S]Not connected to client socket");
             sendMsg.Client.Close();
             return;
         }
@@ -316,18 +309,18 @@ public class Server
             bool success = asyncSend.AsyncWaitHandle.WaitOne(5000, true);
             if (!success)
             {
-                Closed();
+                Stop();
             }
         }
         catch (Exception e)
         {
-            Debug.Log("[S]Send error : " + e.ToString());
+            Console.WriteLine("[S]Send error : " + e.ToString());
         }
     }
 
     private void SendCallback(IAsyncResult asyncConnect)
     {
-        Debug.Log("[S]发送信息成功");
+        Console.WriteLine("[S]发送信息成功");
     }
 
     #endregion
@@ -347,4 +340,16 @@ public class ClientData
         DataHolder = dataHolder;
         IsStopReceive = isStopReceive;
     }
+}
+
+public class SendMsg
+{
+    public SendMsg(Socket client, Request req)
+    {
+        Client = client;
+        Req = req;
+    }
+
+    public Socket Client;
+    public Request Req;
 }
