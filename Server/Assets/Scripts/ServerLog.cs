@@ -5,12 +5,16 @@ using System.Text;
 
 static class ServerLog
 {
-    
-
     public static void Print(string log)
     {
-        Console.WriteLine(log);
-        //Debug.Log(log);
+        LogQueue.Enqueue(log);
     }
 
+    static Queue<string> LogQueue = new Queue<string>();
+
+    public static void Update(){
+        if(LogQueue.Count>0){
+            Console.WriteLine(LogQueue.Dequeue());
+        }
+    }
 }

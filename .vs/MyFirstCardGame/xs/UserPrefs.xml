@@ -1,0 +1,49 @@
+﻿<Properties StartupConfiguration="{36E231EC-EF58-48B3-AD3B-47926ECC1442}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Server/Assets/Scripts/Server.cs">
+    <Files>
+      <File FileName="Server/Assets/Scripts/Server.cs" Line="49" Column="5" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="MyFirstCardGame" expanded="True">
+            <Node name="Client" expanded="True">
+              <Node name="Assets" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="Card" expanded="True">
+                    <Node name="Cards" expanded="True" />
+                    <Node name="Modules" expanded="True" />
+                  </Node>
+                  <Node name="GamePlay" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+            <Node name="Common" expanded="True">
+              <Node name="Net" expanded="True">
+                <Node name="GamePlay" expanded="True">
+                  <Node name="CardDeck" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+            <Node name="Server" expanded="True">
+              <Node name="Assets" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="GamePlay" expanded="True" />
+                  <Node name="Server.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.ItemProperties.Server PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Client PreferredExecutionTarget="Unity.Editor" />
+</Properties>

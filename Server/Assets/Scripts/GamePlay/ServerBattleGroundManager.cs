@@ -10,6 +10,10 @@ public class ServerBattleGroundManager
     private int _retinueCount;
     private List<ServerRetinue> _retinues = new List<ServerRetinue>();
 
+    public ServerBattleGroundManager(ServerPlayer serverPlayer){
+        ServerPlayer = serverPlayer;
+    }
+
     internal void BeginRound()
     {
         foreach (ServerRetinue mr in _retinues)

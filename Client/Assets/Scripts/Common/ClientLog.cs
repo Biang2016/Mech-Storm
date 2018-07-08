@@ -23,11 +23,20 @@ class ClientLog : MonoBehaviour
     {
         _cl = FindObjectOfType<ClientLog>();
         LogText.text = "";
+        LogMessages = new Queue<string>();
     }
 
-
+    Queue<string> LogMessages;
     public void Print(string log)
     {
-        LogText.text += log + "\n";
+        LogMessages.Enqueue(log);
+    }
+
+    private void Update()
+    {
+        while (LogMessages.Count > 0)
+        {
+            LogText.text += LogMessages.Dequeue() + "\n";
+        }
     }
 }

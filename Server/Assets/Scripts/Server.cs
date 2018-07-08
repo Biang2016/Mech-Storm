@@ -1,6 +1,4 @@
-﻿//#define Console
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +10,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-//using UnityEngine;
 
-
-class Server : MonoBehaviour
-//class Server
+class Server
 {
     private static Server _sv;
 
@@ -26,11 +21,7 @@ class Server : MonoBehaviour
         {
             if (_sv == null)
             {
-# if Console
                 _sv = new Server("127.0.0.1", 9999);
-#else
-                _sv = FindObjectOfType<Server>();
-#endif
             }
 
             return _sv;
@@ -50,24 +41,21 @@ class Server : MonoBehaviour
     public ProtoManager ServerProtoManager;
     private ServerGameMatchManager sgmm;
 
-#if Console
     public Server(string ip, int port)
     {
         IP = ip;
         Port = port;
     }
-#endif
 
     public void Start()
     {
+        AllCards tmp = AllCards.AC;
         OnRestartProtocols();
         sgmm = new ServerGameMatchManager();
         StartSeverSocket();
-#if Console
         Thread threadReceiveAndSend = new Thread(ReceiveAndSendMsg);
         threadReceiveAndSend.IsBackground = true;
         threadReceiveAndSend.Start();
-#endif
     }
 
     void Update()
@@ -83,7 +71,6 @@ class Server : MonoBehaviour
         }
     }
 
-#if Console
     private void ReceiveAndSendMsg()
     {
         while (true)
@@ -91,7 +78,6 @@ class Server : MonoBehaviour
             Update();
         }
     }
-#endif
 
     public void OnRestartProtocols()
     {

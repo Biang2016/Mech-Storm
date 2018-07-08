@@ -18,8 +18,9 @@ public class ServerPlayer : Player
     {
         ClientId = clientId;
         EnemyClientId = enemyClientId;
-        MyHandManager = new ServerHandManager();
-        MyBattleGroundManager = new ServerBattleGroundManager();
+        MyHandManager = new ServerHandManager(this);
+        MyCardDeckManager = new ServerCardDeckManager(this);
+        MyBattleGroundManager = new ServerBattleGroundManager(this);
     }
 
     public void AddCostWithoutLimit(int addCostValue)

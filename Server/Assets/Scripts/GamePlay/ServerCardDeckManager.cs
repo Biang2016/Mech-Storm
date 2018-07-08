@@ -13,6 +13,12 @@ public class ServerCardDeckManager
     public CardDeckInfo M_UnlockCards;
     public CardDeckInfo M_LockCards;
     public List<CardDeck> M_CardDecks;
+
+    public ServerCardDeckManager(ServerPlayer serverPlayer)
+    {
+        ServerPlayer = serverPlayer;
+    }
+
     private CardDeck m_CurrentCardDeck;
 
     public CardDeck M_CurrentCardDeck

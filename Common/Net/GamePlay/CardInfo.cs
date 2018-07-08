@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using UnityEngine;
 
 public enum CardTypes
 {
@@ -13,7 +12,7 @@ public enum CardTypes
 
 public class CardInfo_Base
 {
-    public CardInfo_Base(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, Color cardColor, int upgradeCardID,int cardLevel)
+    public CardInfo_Base(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID,int cardLevel)
     {
         CardID = cardID;
         CardName = cardName;
@@ -32,7 +31,7 @@ public class CardInfo_Base
     public int Cost;
     public DragPurpose DragPurpose;
     public CardTypes CardType;
-    public Color CardColor;
+    public string CardColor;
     public int UpgradeID;
     public int CardLevel;
 
@@ -45,7 +44,7 @@ public class CardInfo_Base
 
 public class CardInfo_Retinue : CardInfo_Base
 {
-    public CardInfo_Retinue(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, Color cardColor, int upgradeCardID,int cardLevel, int life, int totalLife, int basicAttack, int basicShield, int basicArmor,SlotType slot1,SlotType slot2,SlotType slot3,SlotType slot4) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
+    public CardInfo_Retinue(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID,int cardLevel, int life, int totalLife, int basicAttack, int basicShield, int basicArmor,SlotType slot1,SlotType slot2,SlotType slot3,SlotType slot4) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
     {
         Life = life;
         TotalLife = totalLife;
@@ -77,7 +76,7 @@ public class CardInfo_Retinue : CardInfo_Base
 
 public class CardInfo_Weapon : CardInfo_Base
 {
-    public CardInfo_Weapon(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, Color cardColor, int upgradeCardID,int cardLevel, int energy, int energyMax, int attack, WeaponType weaponType) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
+    public CardInfo_Weapon(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID,int cardLevel, int energy, int energyMax, int attack, WeaponType weaponType) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
     {
         Energy = energy;
         EnergyMax = energyMax;
@@ -111,7 +110,7 @@ public class CardInfo_Weapon : CardInfo_Base
 
 public class CardInfo_Shield : CardInfo_Base
 {
-    public CardInfo_Shield(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, Color cardColor, int upgradeCardID,int cardLevel, ShieldType shielType, int armor, int armorMax, int shield, int shieldMax) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
+    public CardInfo_Shield(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID,int cardLevel, ShieldType shielType, int armor, int armorMax, int shield, int shieldMax) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
     {
         M_ShieldType = shielType;
         Armor = armor;

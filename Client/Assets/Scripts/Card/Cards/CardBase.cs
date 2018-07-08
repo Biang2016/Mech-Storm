@@ -148,7 +148,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
         }
 
         newCard.Initiate(cardInfo, clientPlayer);
-        newCard.ChangeColor(cardInfo.CardColor);
+        newCard.ChangeColor(HTMLColorToColor(cardInfo.CardColor));
         return newCard;
     }
 
@@ -297,6 +297,13 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     public static void RepairDisplayCardOutOfView(CardBase targetCard) //检查卡牌是否在视野外，如果是则复位
     {
+    }
+
+    public static Color HTMLColorToColor(string htmlColor)
+    {
+        Color cl = new Color();
+        ColorUtility.TryParseHtmlString(htmlColor, out cl);
+        return cl;
     }
 
     #endregion

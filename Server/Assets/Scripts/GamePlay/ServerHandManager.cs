@@ -7,7 +7,12 @@ public class ServerHandManager
 {
     public ServerPlayer ServerPlayer;
     private int cardNumber = 0; //手牌数
-    List<ServerCardBase> cards;
+    List<ServerCardBase> cards = new List<ServerCardBase>();
+
+    public ServerHandManager(ServerPlayer serverPlayer)
+    {
+        ServerPlayer = serverPlayer;
+    }
 
     internal void DrawCards(int number)
     {

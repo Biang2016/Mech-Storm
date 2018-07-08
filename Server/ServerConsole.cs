@@ -13,6 +13,7 @@ class ServerConsole
             {
                 break;
             }
+            ServerLog.Update();
         }
 
         Server.SV.Stop();

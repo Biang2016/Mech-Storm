@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnityEngine;
 
 public class CardDeck
 {
@@ -37,7 +36,7 @@ public class CardDeck
         {
             if (cb is CardInfo_Type)
             {
-                return (CardInfo_Type) cb;
+                return (CardInfo_Type)cb;
             }
         }
 
@@ -53,7 +52,7 @@ public class CardDeck
             if (cb is CardInfo_Type)
             {
                 count++;
-                resList.Add((CardInfo_Type) cb);
+                resList.Add((CardInfo_Type)cb);
                 if (count >= cardNumber)
                 {
                     break;
@@ -136,8 +135,8 @@ public class CardDeck
     {
         for (int i = 0; i < targetCardList.Count * 3; i++)
         {
-            int cardNum1 = UnityEngine.Random.Range(0, targetCardList.Count);
-            int cardNum2 = UnityEngine.Random.Range(0, targetCardList.Count);
+            int cardNum1 = new Random().Next(0, targetCardList.Count);
+            int cardNum2 = new Random().Next(0, targetCardList.Count);
             if (cardNum1 != cardNum2)
             {
                 CardInfo_Base tmp = targetCardList[cardNum1];
@@ -203,7 +202,7 @@ public class AllCards
     {
         get
         {
-            if (_ac != null) _ac = new AllCards();
+            if (_ac == null) _ac = new AllCards();
             return _ac;
         }
     }
@@ -216,22 +215,15 @@ public class AllCards
         CardDict.Add(cardInfo.CardID, cardInfo);
     }
 
-    public Color HeroColor;
-    public Color RetinueColor;
-    public Color WeaponSwordColor;
-    public Color WeaponGunColor;
-    public Color ShieldShieldColor;
-    public Color ShieldArmorColor;
+    public string HeroColor = "#787878FF";
+    public string RetinueColor = "#5BAEF4FF";
+    public string WeaponSwordColor = "#FF229DFF";
+    public string WeaponGunColor = "#FF0000FF";
+    public string ShieldShieldColor = "#E6FF00FF";
+    public string ShieldArmorColor = "#FF8E00FF";
 
     public AllCards()
     {
-        HeroColor = HTMLColorToColor("#787878FF");
-        RetinueColor = HTMLColorToColor("#5BAEF4FF");
-        WeaponSwordColor = HTMLColorToColor("#FF229DFF");
-        WeaponGunColor = HTMLColorToColor("#FF0000FF");
-        ShieldShieldColor = HTMLColorToColor("#E6FF00FF");
-        ShieldArmorColor = HTMLColorToColor("#FF8E00FF");
-
         addCard(
             new CardInfo_Retinue(
                 cardID: -1,
@@ -544,17 +536,10 @@ public class AllCards
                 return true;
             }
 
-            tmpUpgradeID = AllCards.AC.GetCard((int) tmpUpgradeID).UpgradeID;
+            tmpUpgradeID = AllCards.AC.GetCard((int)tmpUpgradeID).UpgradeID;
         }
 
         return false;
     }
 
-
-    public static Color HTMLColorToColor(string htmlColor)
-    {
-        Color cl = new Color();
-        ColorUtility.TryParseHtmlString(htmlColor, out cl);
-        return cl;
-    }
 }
