@@ -9,6 +9,7 @@ UnityGenerated/
 [Ll]ibrary/
 UWP/
 .vs/
+bin/
 UnityPackageManager/
 
 # Unity3D Generated File On Crash Reports
