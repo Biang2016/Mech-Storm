@@ -19,6 +19,10 @@ public abstract class Request
         writer.WriteSInt32(GetProtocol());
     }
 
+    public virtual void Deserialize(DataStream reader){
+
+    }
+
     public virtual string DeserializeLog()
     {
         return "";

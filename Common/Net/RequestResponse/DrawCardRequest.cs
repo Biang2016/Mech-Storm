@@ -7,9 +7,9 @@ public class DrawCardRequest : Request
     public int cardId;
     public bool isShow;
 
-    public override int GetProtocol()
+    public DrawCardRequest()
     {
-        return NetProtocols.DRAW_CARD;
+
     }
 
     public DrawCardRequest(int clientId, int cardId, bool isShow)
@@ -17,6 +17,16 @@ public class DrawCardRequest : Request
         this.clientId = clientId;
         this.cardId = cardId;
         this.isShow = isShow;
+    }
+
+    public override int GetProtocol()
+    {
+        return NetProtocols.DRAW_CARD;
+    }
+
+    public override string GetProtocolName()
+    {
+        return "DRAW_CARD";
     }
 
     public override void Serialize(DataStream writer)
@@ -33,5 +43,31 @@ public class DrawCardRequest : Request
         {
             writer.WriteByte(0x00);
         }
+    }
+
+    public override void Deserialize(DataStream reader)
+    {
+        base.Deserialize(reader);
+        clientId = reader.ReadSInt32();
+        if (reader.ReadByte() == 0x01)
+        {
+            isShow = true;
+        }
+        else
+        {
+            isShow = false;
+            cardId = reader.ReadSInt32();
+        }
+    }
+
+    public override string DeserializeLog()
+    {
+        string log = "";
+        log += "[clientId]" + clientId;
+        if (isShow)
+        {
+            log += "[cardId]" + cardId;
+        }
+        return log;
     }
 }

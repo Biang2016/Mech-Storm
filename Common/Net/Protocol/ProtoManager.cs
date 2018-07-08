@@ -5,20 +5,20 @@ using System.Net.Sockets;
 
 public class ProtoManager
 {
-    private Dictionary<int, Func<DataStream, Response>> mProtocolMapping;
+    private Dictionary<int, Func<DataStream, Request>> mProtocolMapping;
 
-    public delegate void responseDelegate(Socket socket,Response response);
+    public delegate void requestDelegate(Socket socket,Request request);
 
-    private Dictionary<int, List<responseDelegate>> mDelegateMapping;
+    private Dictionary<int, List<requestDelegate>> mDelegateMapping;
 
     public ProtoManager()
     {
-        mProtocolMapping = new Dictionary<int, Func<DataStream, Response>>();
-        mDelegateMapping = new Dictionary<int, List<responseDelegate>>();
+        mProtocolMapping = new Dictionary<int, Func<DataStream, Request>>();
+        mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
     }
 
 
-    public void AddProtocol<T>(int protocol) where T : Response, new()
+    public void AddProtocol<T>(int protocol) where T : Request, new()
     {
         if (mProtocolMapping.ContainsKey(protocol))
         {
@@ -39,9 +39,9 @@ public class ProtoManager
     /// </summary>
     /// <param name="protocol">Protocol.</param>
     /// <param name="d">D.</param>
-    public void AddRespDelegate(int protocol, responseDelegate d)
+    public void AddRequestDelegate(int protocol, requestDelegate d)
     {
-        List<responseDelegate> dels;
+        List<requestDelegate> dels;
         if (mDelegateMapping.ContainsKey(protocol))
         {
             dels = mDelegateMapping[protocol];
@@ -55,39 +55,39 @@ public class ProtoManager
         }
         else
         {
-            dels = new List<responseDelegate>();
+            dels = new List<requestDelegate>();
             mDelegateMapping.Add(protocol, dels);
         }
 
         dels.Add(d);
     }
 
-    public void DelRespDelegate(int protocol, responseDelegate d)
+    public void DelRespDelegate(int protocol, requestDelegate d)
     {
         if (mDelegateMapping.ContainsKey(protocol))
         {
-            List<responseDelegate> dels = mDelegateMapping[protocol];
+            List<requestDelegate> dels = mDelegateMapping[protocol];
             dels.Remove(d);
         }
     }
 
-    public Response TryDeserialize(ClientData clientData)
+    public Request TryDeserialize(ClientData clientData)
     {
         DataStream stream = new DataStream(clientData.DataHolder.mRecvData, true);
 
         int protocol = stream.ReadSInt32();
-        Response response = null;
+        Request request = null;
         if (mProtocolMapping.ContainsKey(protocol))
         {
-            response = mProtocolMapping[protocol](stream);
-            if (response != null)
+            request = mProtocolMapping[protocol](stream);
+            if (request != null)
             {
                 if (mDelegateMapping.ContainsKey(protocol))
                 {
-                    List<responseDelegate> dels = mDelegateMapping[protocol];
-                    foreach (responseDelegate del in dels)
+                    List<requestDelegate> dels = mDelegateMapping[protocol];
+                    foreach (requestDelegate del in dels)
                     {
-                        del(clientData.Socket, response);
+                        del(clientData.Socket, request);
                     }
                 }
             }
@@ -97,7 +97,7 @@ public class ProtoManager
             //Debug.Log("no register protocol : " + protocol + "!please reg to RegisterResp.");
         }
 
-        return response;
+        return request;
     }
 }
 

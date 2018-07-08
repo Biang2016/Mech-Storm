@@ -10,6 +10,10 @@ public class PlayerCostRequest : Request
     public int sign_max; //Sign为+1则为增加，为-1则为消耗
     public int addCost_max;
 
+    public PlayerCostRequest(){
+        
+    }
+
     public PlayerCostRequest(int clinetId, CostChangeFlag change, int sign_left, int addCost_left, int sign_max, int addCost_max)
     {
         this.clinetId = clinetId;
@@ -25,12 +29,17 @@ public class PlayerCostRequest : Request
         return NetProtocols.PLAYER_COST_CHANGE;
     }
 
+	public override string GetProtocolName()
+	{
+        return "PLAYER_COST_CHANGE";
+	}
 
-    public override void Serialize(DataStream writer)
+
+	public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
         writer.WriteSInt32(clinetId);
-        writer.WriteByte((byte) change);
+        writer.WriteByte((byte)change);
         if (change == CostChangeFlag.Both)
         {
             writer.WriteSInt32(sign_left);
@@ -48,6 +57,18 @@ public class PlayerCostRequest : Request
             writer.WriteSInt32(sign_max);
             writer.WriteSInt32(addCost_max);
         }
+    }
+
+    public override string DeserializeLog()
+    {
+        string log = "";
+        log += "[clinetId]" + clinetId;
+        log += "[change]" + change;
+        log += "[sign_left]" + sign_left;
+        log += "[addCost_left]" + addCost_left;
+        log += "[sign_max]" + sign_max;
+        log += "[addCost_max]" + addCost_max;
+        return log;
     }
 }
 public enum CostChangeFlag

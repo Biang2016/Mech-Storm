@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 
 class Server
@@ -67,7 +60,7 @@ class Server
 
         foreach (KeyValuePair<int, Queue<Request>> kv in sendDataQueueDict)
         {
-            SendToClient(kv.Key);
+            SendQueueToClient(kv.Key);
         }
     }
 
@@ -82,30 +75,30 @@ class Server
     public void OnRestartProtocols()
     {
         ServerProtoManager = new ProtoManager();
-        ServerProtoManager.AddProtocol<TestConnectResponse>(NetProtocols.TEST_CONNECT);
-        ServerProtoManager.AddProtocol<ClientIdResponse>(NetProtocols.SEND_CLIENT_ID);
-        ServerProtoManager.AddProtocol<ServerInfoResponse>(NetProtocols.INFO_NUMBER);
-        ServerProtoManager.AddProtocol<ServerWarningResponse>(NetProtocols.WARNING_NUMBER);
-        ServerProtoManager.AddProtocol<GameBeginResponse>(NetProtocols.GAME_BEGIN);
-        ServerProtoManager.AddProtocol<PlayerResponse>(NetProtocols.PLAYER);
-        ServerProtoManager.AddProtocol<PlayerCostResponse>(NetProtocols.PLAYER_COST_CHANGE);
-        ServerProtoManager.AddProtocol<DrawCardResponse>(NetProtocols.DRAW_CARD);
-        ServerProtoManager.AddProtocol<SummonRetinueResponse>(NetProtocols.SUMMON_RETINUE);
-        ServerProtoManager.AddProtocol<PlayerTurnResponse>(NetProtocols.PLAYER_TURN);
-        ServerProtoManager.AddProtocol<ClientEndRoundResponse>(NetProtocols.CLIENT_END_ROUND);
-        ServerProtoManager.AddProtocol<CardDeckResponse>(NetProtocols.CARD_DECK_INFO);
-        ServerProtoManager.AddRespDelegate(NetProtocols.TEST_CONNECT, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.SEND_CLIENT_ID, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.INFO_NUMBER, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.WARNING_NUMBER, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.GAME_BEGIN, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.PLAYER, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.PLAYER_COST_CHANGE, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.DRAW_CARD, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.SUMMON_RETINUE, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.PLAYER_TURN, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.CLIENT_END_ROUND, Response);
-        ServerProtoManager.AddRespDelegate(NetProtocols.CARD_DECK_INFO, Response);
+        ServerProtoManager.AddProtocol<TestConnectRequest>(NetProtocols.TEST_CONNECT);
+        ServerProtoManager.AddProtocol<ClientIdRequest>(NetProtocols.SEND_CLIENT_ID);
+        ServerProtoManager.AddProtocol<ServerInfoRequest>(NetProtocols.INFO_NUMBER);
+        ServerProtoManager.AddProtocol<ServerWarningRequest>(NetProtocols.WARNING_NUMBER);
+        ServerProtoManager.AddProtocol<GameBeginRequest>(NetProtocols.GAME_BEGIN);
+        ServerProtoManager.AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
+        ServerProtoManager.AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
+        ServerProtoManager.AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
+        ServerProtoManager.AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE);
+        ServerProtoManager.AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
+        ServerProtoManager.AddProtocol<ClientEndRoundRequest>(NetProtocols.CLIENT_END_ROUND);
+        ServerProtoManager.AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.TEST_CONNECT, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.SEND_CLIENT_ID, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.INFO_NUMBER, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.WARNING_NUMBER, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.GAME_BEGIN, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.PLAYER, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.PLAYER_COST_CHANGE, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.DRAW_CARD, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.SUMMON_RETINUE, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.PLAYER_TURN, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.CLIENT_END_ROUND, Response);
+        ServerProtoManager.AddRequestDelegate(NetProtocols.CARD_DECK_INFO, Response);
     }
 
     public void Stop()
@@ -204,20 +197,31 @@ class Server
         }
     }
 
-    void Response(Socket socket, Response r)
+    void Response(Socket socket, Request r)
     {
         string Log = "";
         Log += "服务器收到信息：[协议]" + r.GetProtocolName() + "[内容]";
         Log += r.DeserializeLog();
         ServerLog.Print(Log);
 
-        if (r is ClientIdResponse)
+        if (r is ClientIdRequest)
         {
-            ClientIdResponse resp = (ClientIdResponse) r;
+            ClientIdRequest resp = (ClientIdRequest)r;
             if (resp.purpose == ClientIdPurpose.RegisterClientId)
             {
-                socketDict.Add(resp.clientId, socket);
-                sendDataQueueDict.Add(resp.clientId, new Queue<Request>());
+                if (!socketDict.ContainsKey(resp.clientId))
+                {
+                    socketDict.Add(resp.clientId, socket);
+                }
+                else if (socketDict[resp.clientId] != socket)
+                {
+                    ServerWarningRequest request = new ServerWarningRequest(WarningNumbers.WARNING_NO_CLIENT_ID_EXISTED);
+                    SendMessageToSocket(request, socket);
+                }
+                if (!sendDataQueueDict.ContainsKey(resp.clientId))
+                {
+                    sendDataQueueDict.Add(resp.clientId, new Queue<Request>());
+                }
                 sgmm.OnClientRegister(resp.clientId);
             }
             else if (resp.purpose == ClientIdPurpose.MatchGames)
@@ -225,15 +229,15 @@ class Server
                 sgmm.OnClientMatchGames(resp.clientId);
             }
         }
-        else if (r is CardDeckResponse)
+        else if (r is CardDeckRequest)
         {
-            CardDeckResponse resp = (CardDeckResponse) r;
-            sgmm.OnReceiveCardDeckInfo(resp.clientId, resp.cardDeckInfo);
+            CardDeckRequest req = (CardDeckRequest)r;
+            sgmm.OnReceiveCardDeckInfo(req.clientId, req.cardDeckInfo);
         }
-        else if (r is ClientEndRoundResponse)
+        else if (r is ClientEndRoundRequest)
         {
-            ClientEndRoundResponse resp = (ClientEndRoundResponse) r;
-            sgmm.PlayerGamesDictionary[resp.clientId].OnEndRound();
+            ClientEndRoundRequest request = (ClientEndRoundRequest)r;
+            sgmm.PlayerGamesDictionary[request.clientId].OnEndRound();
         }
     }
 
@@ -243,20 +247,27 @@ class Server
     #region 发送信息
 
     //将要发送的信息送入队列
-    public void SendMessage(Request req, int clientId)
+    public void SendMessageToClientId(Request req, int clientId)
     {
-        if (sendDataQueueDict.ContainsKey(clientId))
-        {
+        //if (sendDataQueueDict.ContainsKey(clientId))
+        //{
             sendDataQueueDict[clientId].Enqueue(req);
-        }
-        else
-        {
-            ServerLog.Print("发送消息失败，客户端未连接到服务器,客户端ID" + clientId);
-        }
+        //}
+        //else
+        //{
+        //    ServerLog.Print("发送消息失败，客户端未连接到服务器,客户端ID" + clientId);
+        //}
+    }
+
+    private void SendMessageToSocket(Request req, Socket socket)
+    {
+        Thread threadSend = new Thread(DoSendToClient);
+        threadSend.IsBackground = true;
+        threadSend.Start(new SendMsg(socket, req));
     }
 
     //处理特定客户端的信息队列
-    private void SendToClient(int clientId)
+    private void SendQueueToClient(int clientId)
     {
         if (sendDataQueueDict.ContainsKey(clientId))
         {
@@ -278,7 +289,7 @@ class Server
     //对特定客户端发送信息
     private void DoSendToClient(object obj)
     {
-        SendMsg sendMsg = (SendMsg) obj;
+        SendMsg sendMsg = (SendMsg)obj;
 
         if (sendMsg == null)
         {
@@ -301,6 +312,11 @@ class Server
 
         try
         {
+            string log = "";
+            log += "[S]发送信息给" + sendMsg.Client.RemoteEndPoint + "：[协议]" + sendMsg.Req.GetProtocolName() + "[内容]";
+            log += sendMsg.Req.DeserializeLog();
+            ServerLog.Print(log);
+
             DataStream bufferWriter = new DataStream(true);
             sendMsg.Req.Serialize(bufferWriter);
             byte[] msg = bufferWriter.ToByteArray();
@@ -308,11 +324,10 @@ class Server
             byte[] buffer = new byte[msg.Length + 4];
             DataStream writer = new DataStream(buffer, true);
 
-            writer.WriteInt32((uint) msg.Length); //增加数据长度
+            writer.WriteInt32((uint)msg.Length); //增加数据长度
             writer.WriteRaw(msg);
 
             byte[] data = writer.ToByteArray();
-
             IAsyncResult asyncSend = sendMsg.Client.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), sendMsg.Client);
             bool success = asyncSend.AsyncWaitHandle.WaitOne(5000, true);
             if (!success)

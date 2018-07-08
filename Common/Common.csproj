@@ -52,20 +52,12 @@
     <Compile Include="Net\Protocol\InfoNumbers.cs" />
     <Compile Include="Net\Protocol\WarningNumbers.cs" />
     <Compile Include="Net\RequestResponse\CardDeckRequest.cs" />
-    <Compile Include="Net\RequestResponse\CardDeckResponse.cs" />
     <Compile Include="Net\RequestResponse\GameBeginRequest.cs" />
-    <Compile Include="Net\RequestResponse\GameBeginResponse.cs" />
     <Compile Include="Net\RequestResponse\ServerInfoRequest.cs" />
     <Compile Include="Net\RequestResponse\ServerWarningRequest.cs" />
-    <Compile Include="Net\RequestResponse\ServerInfoResponse.cs" />
-    <Compile Include="Net\RequestResponse\ServerWarningResponse.cs" />
     <Compile Include="Net\RequestResponse\DrawCardRequest.cs" />
-    <Compile Include="Net\RequestResponse\DrawCardResponse.cs" />
     <Compile Include="Net\RequestResponse\ClientEndRoundRequest.cs" />
     <Compile Include="Net\RequestResponse\PlayerTurnRequest.cs" />
-    <Compile Include="Net\RequestResponse\ClientEndRoundResponse.cs" />
-    <Compile Include="Net\RequestResponse\PlayerTurnResponse.cs" />
-    <Compile Include="Net\RequestResponse\SummonRetinueResponse.cs" />
     <Compile Include="Net\RequestResponse\SummonRetinueRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Net\DataStream\DataHolder.cs" />
@@ -73,15 +65,10 @@
     <Compile Include="Net\Protocol\NetProtocols.cs" />
     <Compile Include="Net\Protocol\ProtoManager.cs" />
     <Compile Include="Net\RequestResponse\ClientIdRequest.cs" />
-    <Compile Include="Net\RequestResponse\ClientIdResponse.cs" />
     <Compile Include="Net\RequestResponse\PlayerCostRequest.cs" />
-    <Compile Include="Net\RequestResponse\PlayerCostResponse.cs" />
     <Compile Include="Net\RequestResponse\PlayerRequest.cs" />
-    <Compile Include="Net\RequestResponse\PlayerResponse.cs" />
     <Compile Include="Net\RequestResponse\Request.cs" />
-    <Compile Include="Net\RequestResponse\Response.cs" />
     <Compile Include="Net\RequestResponse\TestConnectRequest.cs" />
-    <Compile Include="Net\RequestResponse\TestConnectResponse.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

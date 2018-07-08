@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{36E231EC-EF58-48B3-AD3B-47926ECC1442}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Server/Assets/Scripts/Server.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Server/Assets/Scripts/GamePlay/ServerGameManager.cs">
     <Files>
-      <File FileName="Server/Assets/Scripts/Server.cs" Line="49" Column="5" />
+      <File FileName="Server/Assets/Scripts/Server.cs" Line="254" Column="1" />
+      <File FileName="Server/Assets/Scripts/GamePlay/ServerGameManager.cs" Line="27" Column="81" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -10,26 +11,26 @@
             <Node name="Client" expanded="True">
               <Node name="Assets" expanded="True">
                 <Node name="Scripts" expanded="True">
-                  <Node name="Card" expanded="True">
-                    <Node name="Cards" expanded="True" />
-                    <Node name="Modules" expanded="True" />
-                  </Node>
+                  <Node name="Common" expanded="True" />
                   <Node name="GamePlay" expanded="True" />
+                  <Node name="Network" expanded="True">
+                    <Node name="Client" expanded="True" />
+                  </Node>
                 </Node>
               </Node>
             </Node>
             <Node name="Common" expanded="True">
               <Node name="Net" expanded="True">
-                <Node name="GamePlay" expanded="True">
-                  <Node name="CardDeck" expanded="True" />
-                </Node>
+                <Node name="Protocol" expanded="True" />
+                <Node name="RequestResponse" expanded="True" />
               </Node>
             </Node>
             <Node name="Server" expanded="True">
               <Node name="Assets" expanded="True">
                 <Node name="Scripts" expanded="True">
-                  <Node name="GamePlay" expanded="True" />
-                  <Node name="Server.cs" selected="True" />
+                  <Node name="GamePlay" expanded="True">
+                    <Node name="ServerGameManager.cs" selected="True" />
+                  </Node>
                 </Node>
               </Node>
             </Node>
@@ -45,5 +46,4 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.Client PreferredExecutionTarget="Unity.Editor" />
 </Properties>
