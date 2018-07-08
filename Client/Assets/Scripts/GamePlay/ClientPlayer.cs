@@ -36,57 +36,57 @@ public class ClientPlayer : Player
         }
     }
 
-    public void DoChangeCost(PlayerCostResponse resp)
+    public void DoChangeCost(PlayerCostRequest request)
     {
-        if (resp.change == CostChangeFlag.Both)
+        if (request.change == CostChangeFlag.Both)
         {
-            switch (resp.sign_left)
+            switch (request.sign_left)
             {
                 case 1:
-                    AddCost(resp.addCost_left);
+                    AddCost(request.addCost_left);
                     break;
                 case -1:
-                    UseCost(resp.addCost_left);
+                    UseCost(request.addCost_left);
                     break;
                 default:
                     break;
             }
 
-            switch (resp.sign_max)
+            switch (request.sign_max)
             {
                 case 1:
-                    AddCostMax(resp.addCost_max);
+                    AddCostMax(request.addCost_max);
                     break;
                 case -1:
-                    ReduceCostMax(resp.addCost_max);
+                    ReduceCostMax(request.addCost_max);
                     break;
                 default:
                     break;
             }
         }
-        else if (resp.change == CostChangeFlag.Left)
+        else if (request.change == CostChangeFlag.Left)
         {
-            switch (resp.sign_left)
+            switch (request.sign_left)
             {
                 case 1:
-                    AddCost(resp.addCost_left);
+                    AddCost(request.addCost_left);
                     break;
                 case -1:
-                    UseCost(resp.addCost_left);
+                    UseCost(request.addCost_left);
                     break;
                 default:
                     break;
             }
         }
-        else if (resp.change == CostChangeFlag.Max)
+        else if (request.change == CostChangeFlag.Max)
         {
-            switch (resp.sign_max)
+            switch (request.sign_max)
             {
                 case 1:
-                    AddCostMax(resp.addCost_max);
+                    AddCostMax(request.addCost_max);
                     break;
                 case -1:
-                    ReduceCostMax(resp.addCost_max);
+                    ReduceCostMax(request.addCost_max);
                     break;
                 default:
                     break;

@@ -43,19 +43,19 @@ public class RoundManager : MonoBehaviour
 
     #region 响应
 
-    public void InitializePlayers(PlayerResponse r)
+    public void InitializePlayers(PlayerRequest r)
     {
-        if (r.ClinetId == NetworkManager.NM.SelfClientId)
+        if (r.clientId == NetworkManager.NM.SelfClientId)
         {
-            SelfClientPlayer = new ClientPlayer(r.CostMax, r.CostLeft, Players.Self);
+            SelfClientPlayer = new ClientPlayer(r.costMax, r.costLeft, Players.Self);
         }
         else
         {
-            EnemyClientPlayer = new ClientPlayer(r.CostMax, r.CostLeft, Players.Enemy);
+            EnemyClientPlayer = new ClientPlayer(r.costMax, r.costLeft, Players.Enemy);
         }
     }
 
-    public void SetPlayersCost(PlayerCostResponse r)
+    public void SetPlayersCost(PlayerCostRequest r)
     {
         if (r.clinetId == NetworkManager.NM.SelfClientId)
         {
@@ -75,7 +75,7 @@ public class RoundManager : MonoBehaviour
         EnemyCostText.text = "";
     }
 
-    public void SetPlayerTurn(PlayerTurnResponse r) //服务器说某玩家回合开始
+    public void SetPlayerTurn(PlayerTurnRequest r) //服务器说某玩家回合开始
     {
         if (CurrentClientPlayer != null)
         {
@@ -103,11 +103,11 @@ public class RoundManager : MonoBehaviour
         CurrentClientPlayer.MyBattleGroundManager.BeginRound();
     }
 
-    public void OnPlayerSummonRetinue(SummonRetinueResponse resp)
+    public void OnPlayerSummonRetinue(SummonRetinueRequest resp)
     {
         if (resp.clientId == NetworkManager.NM.SelfClientId)
         {
-            SelfClientPlayer.MyHandManager.SummonRetinue(resp.handCardIndex,resp.battleGroundIndex);
+            SelfClientPlayer.MyHandManager.SummonRetinue(resp.handCardIndex, resp.battleGroundIndex);
         }
         else
         {
@@ -115,7 +115,7 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    public void OnPlayerDrawCard(DrawCardResponse resp)
+    public void OnPlayerDrawCard(DrawCardRequest resp)
     {
         if (resp.isShow)
         {

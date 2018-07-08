@@ -17,12 +17,9 @@ class ClientLog : MonoBehaviour
         }
     }
 
-    public Text LogText;
-
     void Awake()
     {
         _cl = FindObjectOfType<ClientLog>();
-        LogText.text = "";
         LogMessages = new Queue<string>();
     }
 
@@ -36,7 +33,9 @@ class ClientLog : MonoBehaviour
     {
         while (LogMessages.Count > 0)
         {
-            LogText.text += LogMessages.Dequeue() + "\n";
+            string tmp = LogMessages.Dequeue();
+            Debug.Log(tmp);
+            Console.WriteLine(tmp);
         }
     }
 }
