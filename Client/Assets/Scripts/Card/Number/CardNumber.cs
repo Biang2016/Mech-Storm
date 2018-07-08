@@ -78,7 +78,7 @@ public class CardNumber : MonoBehaviour,IGameObjectPool
             case '=': signIndex = 4; break;
             case '.': signIndex = 5; break;
             default:
-                Debug.Log("无此符号");
+                ClientLog.CL.Print("无此符号");
                 signIndex = 0; break;
         }
         renderer.material = NumberSignMaterial[signIndex];

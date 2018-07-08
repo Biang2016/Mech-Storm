@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 
 /// <summary>
 /// 鼠标放在某个物体上的效果管理器

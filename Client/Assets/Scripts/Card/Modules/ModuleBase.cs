@@ -147,7 +147,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
         else
         {
-            Debug.Log("No MainBoardRenderer");
+            ClientLog.CL.Print("No MainBoardRenderer");
         }
     }
 

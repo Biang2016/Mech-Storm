@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MyCardGameCommon">
-      <HintPath>Plugins\MyCardGameCommon.dll</HintPath>
+    <Reference Include="MyCardGameCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assets\Plugins\MyCardGameCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,20 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card\Cards\ServerCardBase.cs" />
-    <Compile Include="Card\Cards\ServerCardRetinue.cs" />
-    <Compile Include="Card\Cards\ServerCardShield.cs" />
-    <Compile Include="Card\Cards\ServerCardWeapon.cs" />
-    <Compile Include="Card\Modules\ServerRetinue.cs" />
-    <Compile Include="GamePlay\ServerBattleGroundManager.cs" />
-    <Compile Include="GamePlay\ServerCardDeckManager.cs" />
-    <Compile Include="GamePlay\ServerGameManager.cs" />
-    <Compile Include="GamePlay\ServerGameMatchManager.cs" />
-    <Compile Include="GamePlay\ServerHandManager.cs" />
-    <Compile Include="Server.cs" />
+    <Compile Include="Assets\Scripts\Card\Cards\ServerCardBase.cs" />
+    <Compile Include="Assets\Scripts\Card\Cards\ServerCardRetinue.cs" />
+    <Compile Include="Assets\Scripts\Card\Cards\ServerCardShield.cs" />
+    <Compile Include="Assets\Scripts\Card\Cards\ServerCardWeapon.cs" />
+    <Compile Include="Assets\Scripts\Card\Modules\ServerRetinue.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\ServerBattleGroundManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\ServerCardDeckManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\ServerGameManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\ServerGameMatchManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\ServerHandManager.cs" />
+    <Compile Include="Assets\Scripts\Server.cs" />
     <Compile Include="ServerConsole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerPlayer.cs" />
+    <Compile Include="Assets\Scripts\ServerLog.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\ServerPlayer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

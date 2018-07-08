@@ -27,8 +27,8 @@ public class Client : MonoBehaviour
     ConnectCallback connectDelegate = null;
     ConnectCallback connectFailedDelegate = null;
 
-    private DataHolder mDataHolder = new DataHolder();
-    Queue<byte[]> receiveDataQueue = new Queue<byte[]>();
+    private ClientData clientData;
+    Queue<ClientData> receiveDataQueue = new Queue<ClientData>();
     Queue<Request> sendDataQueue = new Queue<Request>();
 
     void Awake()
@@ -121,6 +121,7 @@ public class Client : MonoBehaviour
             Thread thread = new Thread(new ThreadStart(ReceiveSocket));
             thread.IsBackground = true;
             thread.Start();
+            clientData = new ClientData(null,0, new DataHolder(), isStopReceive);
         }
     }
 
@@ -155,7 +156,7 @@ public class Client : MonoBehaviour
         if (ServerSocket != null && ServerSocket.Connected)
         {
             ServerSocket.Shutdown(SocketShutdown.Both);
-            Debug.Log("[C]Socket close");
+            ClientLog.CL.Print("[C]Socket close");
             ServerSocket.Close();
         }
 
@@ -168,13 +169,13 @@ public class Client : MonoBehaviour
 
     private void ReceiveSocket()
     {
-        mDataHolder.Reset();
+        clientData.DataHolder.Reset();
         while (!isStopReceive)
         {
             if (!ServerSocket.Connected)
             {
                 //与服务器断开连接跳出循环  
-                Debug.Log("[C]Failed to clientSocket server.");
+                ClientLog.CL.Print("[C]Failed to clientSocket server.");
                 ServerSocket.Close();
                 break;
             }
@@ -191,33 +192,33 @@ public class Client : MonoBehaviour
                 if (i <= 0)
                 {
                     ServerSocket.Close();
-                    Debug.Log("[C]Socket.Close();");
+                    ClientLog.CL.Print("[C]Socket.Close();");
                     break;
                 }
 
-                mDataHolder.PushData(bytes, i);
+                clientData.DataHolder.PushData(bytes, i);
 
-                while (mDataHolder.IsFinished())
+                while (clientData.DataHolder.IsFinished())
                 {
-                    receiveDataQueue.Enqueue(mDataHolder.mRecvData);
-                    mDataHolder.RemoveFromHead();
+                    receiveDataQueue.Enqueue(clientData);
+                    clientData.DataHolder.RemoveFromHead();
                 }
             }
             catch (Exception e)
             {
-                Debug.Log("[C]Failed to clientSocket error." + e);
+                ClientLog.CL.Print("[C]Failed to clientSocket error." + e);
                 ServerSocket.Close();
                 break;
             }
         }
     }
 
-    void Response(Response r)
+    void Response(Socket socket, Response r)
     {
         string Log = "";
         Log += "收到服务器信息：[协议]" + r.GetProtocolName() + "[内容]";
         Log += r.DeserializeLog();
-        Debug.Log(Log);
+        ClientLog.CL.Print(Log);
         if (r is GameBeginResponse)
         {
             RoundManager.RM.InitializeGame();
@@ -262,13 +263,13 @@ public class Client : MonoBehaviour
     {
         if (ServerSocket == null)
         {
-            Debug.Log("[C]Server socket is null");
+            ClientLog.CL.Print("[C]Server socket is null");
             return;
         }
 
         if (!ServerSocket.Connected)
         {
-            Debug.Log("[C]Not connected to server socket");
+            ClientLog.CL.Print("[C]Not connected to server socket");
             Closed();
             return;
         }
@@ -298,13 +299,13 @@ public class Client : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("[C]Send error : " + e.ToString());
+            ClientLog.CL.Print("[C]Send error : " + e.ToString());
         }
     }
 
     private void SendCallback(IAsyncResult asyncConnect)
     {
-        Debug.Log("[C]Send success");
+        ClientLog.CL.Print("[C]Send success");
     }
 
     #endregion

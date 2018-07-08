@@ -100,6 +100,6 @@ public class NetworkManager : MonoBehaviour
 
     public void ConnectCallBack()
     {
-        Debug.Log("连接服务器成功!");
+        ClientLog.CL.Print("连接服务器成功!");
     }
 }

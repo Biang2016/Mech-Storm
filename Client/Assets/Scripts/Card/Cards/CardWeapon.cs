@@ -90,7 +90,7 @@ internal class CardWeapon : CardBase
         //ClientPlayer.UseCost(M_Cost);
         //if (moduleRetinue == null)
         //{
-        //    Debug.Log("No retinue on Place BUT SLOT HIT");
+        //    ClientLog.CL.Print("No retinue on Place BUT SLOT HIT");
         //    return;
         //}
 

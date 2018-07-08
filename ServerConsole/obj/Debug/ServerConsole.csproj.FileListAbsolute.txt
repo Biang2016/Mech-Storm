@@ -6,3 +6,11 @@ F:\MyCardGame\ServerConsole\bin\Debug\MyCardGameCommon.dll
 F:\MyCardGame\ServerConsole\obj\Debug\ServerConsole.csproj.CopyComplete
 F:\MyCardGame\ServerConsole\obj\Debug\ServerConsole.exe
 F:\MyCardGame\ServerConsole\obj\Debug\ServerConsole.pdb
+G:\项目\CardGame\MyFirstCardGame\ServerConsole\obj\Debug\ServerConsole.csprojAssemblyReference.cache
+G:\项目\CardGame\MyFirstCardGame\ServerConsole\obj\Debug\ServerConsole.csproj.CoreCompileInputs.cache
+G:\项目\CardGame\MyFirstCardGame\ServerConsole\obj\Debug\ServerConsole.exe
+G:\项目\CardGame\MyFirstCardGame\ServerConsole\obj\Debug\ServerConsole.pdb
+G:\项目\CardGame\MyFirstCardGame\ServerConsole\bin\Debug\ServerConsole.exe
+G:\项目\CardGame\MyFirstCardGame\ServerConsole\bin\Debug\ServerConsole.pdb
+G:\项目\CardGame\MyFirstCardGame\ServerConsole\bin\Debug\MyCardGameCommon.dll
+G:\项目\CardGame\MyFirstCardGame\ServerConsole\obj\Debug\ServerConsole.csproj.CopyComplete

@@ -47,7 +47,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool
         MyNumberSize = numberSize;
         if (number > 999)
         {
-            Debug.Log("有符号的数字不超过3位数");
+            ClientLog.CL.Print("有符号的数字不超过3位数");
             return;
         }
 
@@ -136,17 +136,17 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool
         {
             if (value < 0)
             {
-                Debug.Log("CardNumberSet(" + name + ")" + ":number is set to " + value);
+                ClientLog.CL.Print("CardNumberSet(" + name + ")" + ":number is set to " + value);
                 number = 0;
             }
             else if (hasSign && value > 999)
             {
-                Debug.Log("有符号的数字不超过3位数");
+                ClientLog.CL.Print("有符号的数字不超过3位数");
                 number = 999;
             }
             else if (value > 9999)
             {
-                Debug.Log("CardNumberSet(" + name + ")" + ":number is set to " + value);
+                ClientLog.CL.Print("CardNumberSet(" + name + ")" + ":number is set to " + value);
                 number = 9999;
             }
 

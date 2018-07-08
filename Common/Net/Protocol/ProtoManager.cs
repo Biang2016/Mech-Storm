@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 
 public class ProtoManager
 {
     private Dictionary<int, Func<DataStream, Response>> mProtocolMapping;
 
-    public delegate void responseDelegate(Response response);
+    public delegate void responseDelegate(Socket socket,Response response);
 
     private Dictionary<int, List<responseDelegate>> mDelegateMapping;
 
@@ -70,23 +71,23 @@ public class ProtoManager
         }
     }
 
-    public Response TryDeserialize(byte[] buffer)
+    public Response TryDeserialize(ClientData clientData)
     {
-        DataStream stream = new DataStream(buffer, true);
+        DataStream stream = new DataStream(clientData.DataHolder.mRecvData, true);
 
         int protocol = stream.ReadSInt32();
-        Response ret = null;
+        Response response = null;
         if (mProtocolMapping.ContainsKey(protocol))
         {
-            ret = mProtocolMapping[protocol](stream);
-            if (ret != null)
+            response = mProtocolMapping[protocol](stream);
+            if (response != null)
             {
                 if (mDelegateMapping.ContainsKey(protocol))
                 {
                     List<responseDelegate> dels = mDelegateMapping[protocol];
                     foreach (responseDelegate del in dels)
                     {
-                        del(ret);
+                        del(clientData.Socket, response);
                     }
                 }
             }
@@ -96,6 +97,22 @@ public class ProtoManager
             //Debug.Log("no register protocol : " + protocol + "!please reg to RegisterResp.");
         }
 
-        return ret;
+        return response;
+    }
+}
+
+public class ClientData
+{
+    public Socket Socket;
+    public int ClientId;
+    public DataHolder DataHolder;
+    public bool IsStopReceive;
+
+    public ClientData(Socket socket, int clientId, DataHolder dataHolder, bool isStopReceive)
+    {
+        Socket = socket;
+        ClientId = clientId;
+        DataHolder = dataHolder;
+        IsStopReceive = isStopReceive;
     }
 }

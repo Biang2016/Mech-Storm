@@ -42,7 +42,7 @@ public class BattleGroundManager : MonoBehaviour
     internal void AddRetinue(ModuleRetinue newRetinue, int index)
     {
         newRetinue.transform.Rotate(Vector3.up, 180);
-        if (index < 0 || index >= GamePlaySettings.MaxRetinueNumber) Debug.Log("Retinue index out of bound");
+        if (index < 0 || index >= GamePlaySettings.MaxRetinueNumber) ClientLog.CL.Print("Retinue index out of bound");
         _retinues.Insert(index, newRetinue);
         BattleGroundIsFull |= ++_retinueCount == GamePlaySettings.MaxRetinueNumber;
         RefreshBattleGround();
