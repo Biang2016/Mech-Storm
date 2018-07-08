@@ -62,12 +62,12 @@ public class PlayerCostRequest : Request
     public override string DeserializeLog()
     {
         string log = "";
-        log += "[clinetId]" + clinetId;
-        log += "[change]" + change;
-        log += "[sign_left]" + sign_left;
-        log += "[addCost_left]" + addCost_left;
-        log += "[sign_max]" + sign_max;
-        log += "[addCost_max]" + addCost_max;
+        log += " [clinetId] " + clinetId;
+        log += " [change] " + change;
+        log += " [sign_left] " + sign_left;
+        log += " [addCost_left] " + addCost_left;
+        log += " [sign_max] " + sign_max;
+        log += " [addCost_max] " + addCost_max;
         return log;
     }
 }

@@ -57,8 +57,8 @@ public class ClientIdRequest : Request
     public override string DeserializeLog()
     {
         string log = "";
-        log += "[clientId]" + clientId;
-        log += "[purpose]" + purpose;
+        log += " [clientId] " + clientId;
+        log += " [purpose] " + purpose;
         return log;
     }
 }

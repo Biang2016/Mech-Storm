@@ -51,10 +51,10 @@ public class SummonRetinueRequest : Request
     public override string DeserializeLog()
     {
         string log = "";
-        log += "[clientId]" + clientId;
-        log += "[cardInfo.CardID]" + cardInfo.CardID;
-        log += "[handCardIndex]" + handCardIndex;
-        log += "[battleGroundIndex]" + battleGroundIndex;
+        log += " [clientId] " + clientId;
+        log += " [cardInfo.CardID] " + cardInfo.CardID;
+        log += " [handCardIndex] " + handCardIndex;
+        log += " [battleGroundIndex] " + battleGroundIndex;
         return log;
     }
 }

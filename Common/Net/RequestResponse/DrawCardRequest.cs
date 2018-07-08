@@ -63,10 +63,10 @@ public class DrawCardRequest : Request
     public override string DeserializeLog()
     {
         string log = "";
-        log += "[clientId]" + clientId;
+        log += " [clientId] " + clientId;
         if (isShow)
         {
-            log += "[cardId]" + cardId;
+            log += " [cardId] " + cardId;
         }
         return log;
     }

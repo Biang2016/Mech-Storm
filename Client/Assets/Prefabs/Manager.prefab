@@ -346,7 +346,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224730075648255998}
-  - component: {fileID: 114592081556125728}
+  - component: {fileID: 114562125956420140}
   m_Layer: 5
   m_Name: DebugConsole
   m_TagString: Untagged
@@ -1912,22 +1912,7 @@ MonoBehaviour:
   MACardPool: {fileID: 1806243501781136}
   MACardPrefab: {fileID: 1581481781110654, guid: 00a4922be29717441943cceeefce637f,
     type: 2}
---- !u!114 &114586915256630562
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1447578811867086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capacity: 0
-  used: 0
-  notUsed: 0
-  empty: 0
---- !u!114 &114592081556125728
+--- !u!114 &114562125956420140
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1943,6 +1928,21 @@ MonoBehaviour:
   shakeAcceleration: 3
   restrictLogCount: 1
   maxLogs: 1000
+--- !u!114 &114586915256630562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1447578811867086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 0
+  used: 0
+  notUsed: 0
+  empty: 0
 --- !u!114 &114596643101398096
 MonoBehaviour:
   m_ObjectHideFlags: 1

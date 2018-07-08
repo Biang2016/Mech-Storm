@@ -44,7 +44,7 @@ public class ServerInfoRequest : Request
         {
             if ((int)(fi.GetRawConstantValue()) == infoNumber)
             {
-                log += "[infoNumber]" + fi.Name;
+                log += " [infoNumber] " + fi.Name;
                 break;
             }
         }

@@ -40,7 +40,7 @@ public class TestConnectRequest : Request
     public override string DeserializeLog()
     {
         string log = "";
-        log += "[testNumber]" + testNumber;
+        log += " [testNumber] " + testNumber;
         return log;
     }
 }

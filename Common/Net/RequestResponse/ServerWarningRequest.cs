@@ -43,7 +43,7 @@ public class ServerWarningRequest : Request
         {
             if ((int)(fi.GetRawConstantValue()) == warningNumber)
             {
-                log += "[warningNumber]" + fi.Name;
+                log += " [warningNumber] " + fi.Name;
                 break;
             }
         }

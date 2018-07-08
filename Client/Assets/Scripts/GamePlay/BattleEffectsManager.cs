@@ -15,6 +15,11 @@ public class BattleEffectsManager : MonoBehaviour
         }
     }
 
+    private BattleEffectsManager()
+    {
+
+    }
+
     //管理战斗时的各种协程
     internal bool IsExcuting = false;
 

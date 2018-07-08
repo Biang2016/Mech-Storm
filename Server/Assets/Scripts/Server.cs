@@ -22,14 +22,18 @@ class Server
         set { _sv = value; }
     }
 
+    private Server()
+    {
+    }
+
     public string IP;
     public int Port;
     private Socket severSocket;
     private List<ClientData> clientList = new List<ClientData>();
-    private Dictionary<int, Socket> socketDict = new Dictionary<int, Socket>();
+    private Dictionary<int, Socket> socketDict = new Dictionary<int, Socket>();//Key: clientID, value: socket
 
     private Queue<ClientData> receiveDataQueue = new Queue<ClientData>();
-    private Dictionary<int, Queue<Request>> sendDataQueueDict = new Dictionary<int, Queue<Request>>();
+    private Dictionary<int, Queue<Request>> sendDataQueueDict = new Dictionary<int, Queue<Request>>();//Key: clientID, value: requestsFromClient
 
     public ProtoManager ServerProtoManager;
     private ServerGameMatchManager sgmm;
@@ -109,7 +113,7 @@ class Server
             {
                 clientData.Socket.Shutdown(SocketShutdown.Both);
                 clientData.Socket.Close();
-                ServerLog.Print("客户" + clientData.ClientId + "退出");
+                ServerLog.PrintClientStates("客户" + clientData.ClientId + "退出");
             }
         }
 
@@ -125,7 +129,7 @@ class Server
             severSocket.Bind(new IPEndPoint(IPAddress.Parse(IP), Port));
             //为服务器sokect添加监听
             severSocket.Listen(10);
-            ServerLog.Print("[S]服务器启动成功");
+            ServerLog.PrintServerStates("------------------ Server Start ------------------\n");
             clientList = new List<ClientData>();
             //开始服务器时 一般接受一个服务就会被挂起所以要用多线程来解决
             Thread threadAccept = new Thread(Accept);
@@ -134,7 +138,7 @@ class Server
         }
         catch
         {
-            ServerLog.Print("[S]创建服务器失败");
+            ServerLog.Print("Server start failed!");
         }
     }
 
@@ -144,8 +148,7 @@ class Server
         ClientData clientData = new ClientData(client, 0, new DataHolder(), false);
         clientList.Add(clientData);
         IPEndPoint point = client.RemoteEndPoint as IPEndPoint;
-        ServerLog.Print(point.Address + ":【" + point.Port + "】连接成功");
-        ServerLog.Print("[S]客户端总数:" + clientList.Count);
+        ServerLog.PrintClientStates(point.Address + ":" + point.Port + " connected. Client count: " + clientList.Count);
 
         Thread threadReceive = new Thread(ReceiveSocket);
         threadReceive.IsBackground = true;
@@ -165,7 +168,7 @@ class Server
             if (!clientData.Socket.Connected)
             {
                 //与客户端连接失败跳出循环  
-                ServerLog.Print("[S]连接客户端失败,客户端ID" + clientData.ClientId);
+                ServerLog.PrintClientStates("连接客户端失败,ID: " + clientData.ClientId + " IP: " + clientData.Socket.RemoteEndPoint);
                 clientData.Socket.Close();
                 break;
             }
@@ -177,7 +180,7 @@ class Server
                 if (i <= 0)
                 {
                     clientData.Socket.Close();
-                    ServerLog.Print("[S]客户端关闭,客户端ID" + clientData.ClientId);
+                    ServerLog.PrintClientStates("客户端关闭,ID: " + clientData.ClientId + " IP: " + clientData.Socket.RemoteEndPoint);
                     break;
                 }
 
@@ -190,7 +193,7 @@ class Server
             }
             catch (Exception e)
             {
-                ServerLog.Print("[S]Failed to ServerSocket error." + e);
+                ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientData.ClientId + " IP: " + clientData.Socket.RemoteEndPoint);
                 clientData.Socket.Close();
                 break;
             }
@@ -200,13 +203,13 @@ class Server
     void Response(Socket socket, Request r)
     {
         string Log = "";
-        Log += "服务器收到信息：[协议]" + r.GetProtocolName() + "[内容]";
+        Log += "GetFrom    " + socket.RemoteEndPoint + "    [" + r.GetProtocolName() + "]    ";
         Log += r.DeserializeLog();
-        ServerLog.Print(Log);
+        ServerLog.PrintReceive(Log);
 
         if (r is ClientIdRequest)
         {
-            ClientIdRequest resp = (ClientIdRequest)r;
+            ClientIdRequest resp = (ClientIdRequest) r;
             if (resp.purpose == ClientIdPurpose.RegisterClientId)
             {
                 if (!socketDict.ContainsKey(resp.clientId))
@@ -218,10 +221,12 @@ class Server
                     ServerWarningRequest request = new ServerWarningRequest(WarningNumbers.WARNING_NO_CLIENT_ID_EXISTED);
                     SendMessageToSocket(request, socket);
                 }
+
                 if (!sendDataQueueDict.ContainsKey(resp.clientId))
                 {
                     sendDataQueueDict.Add(resp.clientId, new Queue<Request>());
                 }
+
                 sgmm.OnClientRegister(resp.clientId);
             }
             else if (resp.purpose == ClientIdPurpose.MatchGames)
@@ -231,12 +236,12 @@ class Server
         }
         else if (r is CardDeckRequest)
         {
-            CardDeckRequest req = (CardDeckRequest)r;
+            CardDeckRequest req = (CardDeckRequest) r;
             sgmm.OnReceiveCardDeckInfo(req.clientId, req.cardDeckInfo);
         }
         else if (r is ClientEndRoundRequest)
         {
-            ClientEndRoundRequest request = (ClientEndRoundRequest)r;
+            ClientEndRoundRequest request = (ClientEndRoundRequest) r;
             sgmm.PlayerGamesDictionary[request.clientId].OnEndRound();
         }
     }
@@ -249,14 +254,14 @@ class Server
     //将要发送的信息送入队列
     public void SendMessageToClientId(Request req, int clientId)
     {
-        //if (sendDataQueueDict.ContainsKey(clientId))
-        //{
+        if (sendDataQueueDict.ContainsKey(clientId))
+        {
             sendDataQueueDict[clientId].Enqueue(req);
-        //}
-        //else
-        //{
-        //    ServerLog.Print("发送消息失败，客户端未连接到服务器,客户端ID" + clientId);
-        //}
+        }
+        else
+        {
+            ServerLog.PrintError("发送消息失败，客户端未连接到服务器,ID: " + clientId + " IP: " + socketDict[clientId].RemoteEndPoint);
+        }
     }
 
     private void SendMessageToSocket(Request req, Socket socket)
@@ -281,7 +286,7 @@ class Server
         }
         else
         {
-            ServerLog.Print("发送消息失败，客户端未连接到服务器,客户端ID" + clientId);
+            ServerLog.Print("发送消息队列失败，客户端未连接到服务器,ID" + clientId + " IP: " + socketDict[clientId].RemoteEndPoint);
         }
     }
 
@@ -289,23 +294,23 @@ class Server
     //对特定客户端发送信息
     private void DoSendToClient(object obj)
     {
-        SendMsg sendMsg = (SendMsg)obj;
+        SendMsg sendMsg = (SendMsg) obj;
 
         if (sendMsg == null)
         {
-            ServerLog.Print("[S]sendMsg is null");
+            ServerLog.PrintError("SendMsg is null");
             return;
         }
 
         if (sendMsg.Client == null)
         {
-            ServerLog.Print("[S]client socket is null");
+            ServerLog.PrintError("Client socket is null");
             return;
         }
 
         if (!sendMsg.Client.Connected)
         {
-            ServerLog.Print("[S]Not connected to client socket");
+            ServerLog.PrintError("Not connected to client socket");
             sendMsg.Client.Close();
             return;
         }
@@ -313,9 +318,9 @@ class Server
         try
         {
             string log = "";
-            log += "[S]发送信息给" + sendMsg.Client.RemoteEndPoint + "：[协议]" + sendMsg.Req.GetProtocolName() + "[内容]";
+            log += "SendTo    " + sendMsg.Client.RemoteEndPoint + "    [" + sendMsg.Req.GetProtocolName() + "]    ";
             log += sendMsg.Req.DeserializeLog();
-            ServerLog.Print(log);
+            ServerLog.PrintSend(log);
 
             DataStream bufferWriter = new DataStream(true);
             sendMsg.Req.Serialize(bufferWriter);
@@ -324,7 +329,7 @@ class Server
             byte[] buffer = new byte[msg.Length + 4];
             DataStream writer = new DataStream(buffer, true);
 
-            writer.WriteInt32((uint)msg.Length); //增加数据长度
+            writer.WriteInt32((uint) msg.Length); //增加数据长度
             writer.WriteRaw(msg);
 
             byte[] data = writer.ToByteArray();
@@ -337,13 +342,13 @@ class Server
         }
         catch (Exception e)
         {
-            ServerLog.Print("[S]Send error : " + e.ToString());
+            ServerLog.PrintError("Send error : " + e);
         }
     }
 
     private void SendCallback(IAsyncResult asyncConnect)
     {
-        ServerLog.Print("[S]发送信息成功");
+        //ServerLog.Print("发送信息成功");
     }
 
     #endregion

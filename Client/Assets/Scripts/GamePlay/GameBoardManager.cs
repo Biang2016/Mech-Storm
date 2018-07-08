@@ -19,6 +19,11 @@ public class GameBoardManager : MonoBehaviour
         }
     }
 
+    private GameBoardManager()
+    {
+
+    }
+
     internal HandManager SelfHandManager;
     internal HandManager EnemyHandManager;
     internal BattleGroundManager SelfBattleGroundManager;

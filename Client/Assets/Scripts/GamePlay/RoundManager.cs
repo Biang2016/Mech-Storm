@@ -19,6 +19,11 @@ public class RoundManager : MonoBehaviour
         }
     }
 
+    private RoundManager()
+    {
+
+    }
+
     internal int RoundNumber;
     internal ClientPlayer SelfClientPlayer;
     internal ClientPlayer EnemyClientPlayer;

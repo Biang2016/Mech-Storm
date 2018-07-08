@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
-using UnityEngine.UI;
 
 class ClientLog : MonoBehaviour
 {
@@ -11,31 +8,82 @@ class ClientLog : MonoBehaviour
 
     public static ClientLog CL
     {
-        get
-        {
-            return _cl;
-        }
+        get { return _cl; }
+    }
+
+    private ClientLog()
+    {
     }
 
     void Awake()
     {
         _cl = FindObjectOfType<ClientLog>();
-        LogMessages = new Queue<string>();
+        LogMessages = new Queue<Log>();
     }
 
-    Queue<string> LogMessages;
-    public void Print(string log)
-    {
-        LogMessages.Enqueue(log);
-    }
+    Queue<Log> LogMessages;
 
     private void Update()
     {
         while (LogMessages.Count > 0)
         {
-            string tmp = LogMessages.Dequeue();
-            Debug.Log(tmp);
-            Console.WriteLine(tmp);
+            Log tmp = LogMessages.Dequeue();
+            Debug.Log(tmp.LogStr);
+            Console.ForegroundColor = tmp.ConsoleColor;
+            Console.WriteLine(tmp.LogStr, tmp.ConsoleColor);
         }
+    }
+
+    public void Print(string logStr)
+    {
+        Print(logStr, ConsoleColor.White);
+    }
+
+    public void Print(string logStr, ConsoleColor consoleColor)
+    {
+        Log log = new Log(logStr, consoleColor);
+        LogMessages.Enqueue(log);
+    }
+
+    public void PrintWarning(string logStr)
+    {
+        Print(logStr, ConsoleColor.Yellow);
+    }
+
+    public void PrintError(string logStr)
+    {
+        Print(logStr, ConsoleColor.Red);
+    }
+
+    public void PrintClientStates(string logStr)
+    {
+        Print(logStr, ConsoleColor.Green);
+    }
+
+    public void PrintServerStates(string logStr)
+    {
+        Print(logStr, ConsoleColor.DarkGray);
+    }
+
+    public void PrintReceive(string logStr)
+    {
+        Print(logStr, ConsoleColor.Blue);
+    }
+
+    public void PrintSend(string logStr)
+    {
+        Print(logStr, ConsoleColor.Magenta);
+    }
+}
+
+class Log
+{
+    public string LogStr;
+    public ConsoleColor ConsoleColor;
+
+    public Log(string logStr, ConsoleColor consoleColor)
+    {
+        LogStr = logStr;
+        ConsoleColor = consoleColor;
     }
 }

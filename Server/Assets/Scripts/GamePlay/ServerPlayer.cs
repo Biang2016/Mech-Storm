@@ -27,7 +27,7 @@ public class ServerPlayer : Player
     public void AddCostWithoutLimit(int addCostValue)
     {
         CostLeft += addCostValue;
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 0, 0, 1, addCostValue);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 1, addCostValue, 0, 0);
         Server.SV.SendMessageToClientId(request, ClientId);
         Server.SV.SendMessageToClientId(request, EnemyClientId);
     }
@@ -39,7 +39,7 @@ public class ServerPlayer : Player
             CostLeft += addCostValue;
         else
             CostLeft = CostMax;
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 0, 0, 1, CostLeft - costLeftBefore);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 1, CostLeft - costLeftBefore, 0, 0);
         Server.SV.SendMessageToClientId(request, ClientId);
         Server.SV.SendMessageToClientId(request, EnemyClientId);
     }
@@ -48,7 +48,7 @@ public class ServerPlayer : Player
     {
         int costLeftBefore = CostLeft;
         CostLeft = CostMax;
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 0, 0, 1, CostLeft - costLeftBefore);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 1, CostLeft - costLeftBefore, 0, 0);
         Server.SV.SendMessageToClientId(request, ClientId);
         Server.SV.SendMessageToClientId(request, EnemyClientId);
     }
@@ -57,7 +57,7 @@ public class ServerPlayer : Player
     {
         int costLeftBefore = CostLeft;
         CostLeft = 0;
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 0, 0, -1, costLeftBefore - CostLeft);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, -1, costLeftBefore - CostLeft, 0, 0);
         Server.SV.SendMessageToClientId(request, ClientId);
         Server.SV.SendMessageToClientId(request, EnemyClientId);
     }

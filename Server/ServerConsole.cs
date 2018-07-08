@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 class ServerConsole
 {
     static void Main(string[] args)
@@ -9,10 +8,6 @@ class ServerConsole
 
         while (true)
         {
-            if (Console.ReadLine()=="Exit")
-            {
-                break;
-            }
             ServerLog.Update();
         }
 

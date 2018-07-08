@@ -118,10 +118,10 @@ public class Client : MonoBehaviour
         {
             //与socket建立连接成功，开启线程接受服务端数据。  
             isStopReceive = false;
+            clientData = new ClientData(null, 0, new DataHolder(), isStopReceive);
             Thread thread = new Thread(new ThreadStart(ReceiveSocket));
             thread.IsBackground = true;
             thread.Start();
-            clientData = new ClientData(null, 0, new DataHolder(), isStopReceive);
         }
     }
 
@@ -156,7 +156,7 @@ public class Client : MonoBehaviour
         if (ServerSocket != null && ServerSocket.Connected)
         {
             ServerSocket.Shutdown(SocketShutdown.Both);
-            ClientLog.CL.Print("[C]Socket close");
+            ClientLog.CL.PrintError("[C]Socket close");
             ServerSocket.Close();
         }
 
@@ -175,7 +175,7 @@ public class Client : MonoBehaviour
             if (!ServerSocket.Connected)
             {
                 //与服务器断开连接跳出循环  
-                ClientLog.CL.Print("[C]连接服务器失败.");
+                ClientLog.CL.PrintError("[C]连接服务器失败.");
                 ServerSocket.Close();
                 break;
             }
@@ -192,7 +192,7 @@ public class Client : MonoBehaviour
                 if (i <= 0)
                 {
                     ServerSocket.Close();
-                    ClientLog.CL.Print("[C]Socket.Close();");
+                    ClientLog.CL.PrintError("[C]Socket.Close();");
                     break;
                 }
 
@@ -206,7 +206,7 @@ public class Client : MonoBehaviour
             }
             catch (Exception e)
             {
-                ClientLog.CL.Print("[C]Failed to clientSocket error." + e);
+                ClientLog.CL.PrintError("[C]Failed to clientSocket error." + e);
                 ServerSocket.Close();
                 break;
             }
@@ -216,9 +216,9 @@ public class Client : MonoBehaviour
     void Response(Socket socket, Request r)
     {
         string Log = "";
-        Log += "收到服务器信息：[协议]" + r.GetProtocolName() + "[内容]";
+        Log += "Server：[" + r.GetProtocolName() + "]    ";
         Log += r.DeserializeLog();
-        ClientLog.CL.Print(Log);
+        ClientLog.CL.PrintReceive(Log);
         if (r is GameBeginRequest)
         {
             RoundManager.RM.InitializeGame();
@@ -263,13 +263,13 @@ public class Client : MonoBehaviour
     {
         if (ServerSocket == null)
         {
-            ClientLog.CL.Print("[C]Server socket is null");
+            ClientLog.CL.PrintError("[C]Server socket is null");
             return;
         }
 
         if (!ServerSocket.Connected)
         {
-            ClientLog.CL.Print("[C]Not connected to server socket");
+            ClientLog.CL.PrintError("[C]Not connected to server socket");
             Closed();
             return;
         }
@@ -299,13 +299,13 @@ public class Client : MonoBehaviour
         }
         catch (Exception e)
         {
-            ClientLog.CL.Print("[C]Send error : " + e.ToString());
+            ClientLog.CL.PrintError("[C]Send error : " + e.ToString());
         }
     }
 
     private void SendCallback(IAsyncResult asyncConnect)
     {
-        ClientLog.CL.Print("[C]Send success");
+        //ClientLog.CL.Print("[C]Send success");
     }
 
     #endregion

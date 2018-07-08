@@ -24,10 +24,15 @@ public class PlayerRequest : Request
         return NetProtocols.PLAYER;
     }
 
+    public override string GetProtocolName()
+    {
+        return "PLAYER";
+    }
+
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt64(clientId);
+        writer.WriteSInt32(clientId);
         writer.WriteSInt32(costLeft);
         writer.WriteSInt32(costMax);
     }
@@ -43,9 +48,9 @@ public class PlayerRequest : Request
     public override string DeserializeLog()
     {
         string log = "";
-        log += "[clientId]" + clientId;
-        log += "[costLeft]" + costLeft;
-        log += "[costMax]" + costMax;
+        log += " [clientId] " + clientId;
+        log += " [costLeft] " + costLeft;
+        log += " [costMax] " + costMax;
         return log;
     }
 }

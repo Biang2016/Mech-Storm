@@ -39,7 +39,7 @@ public class PlayerTurnRequest : Request
     public override string DeserializeLog()
     {
         string log = "";
-        log += "[clientId]" + clientId;
+        log += " [clientId] " + clientId;
         return log;
     }
 }

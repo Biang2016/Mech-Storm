@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private GameManager()
+    {
+
+    }
+
 
     private void Awake()
     {
