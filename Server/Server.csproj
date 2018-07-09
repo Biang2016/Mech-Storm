@@ -47,6 +47,7 @@
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardShield.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardWeapon.cs" />
     <Compile Include="Assets\Scripts\Card\Modules\ServerRetinue.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\ClientProxy.cs" />
     <Compile Include="Assets\Scripts\GamePlay\ServerBattleGroundManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\ServerCardDeckManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\ServerGameManager.cs" />

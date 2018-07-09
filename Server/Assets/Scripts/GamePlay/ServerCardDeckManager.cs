@@ -58,7 +58,7 @@ public class ServerCardDeckManager
     {
         DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, cardId, true);
         DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, cardId, false);
-        Server.SV.SendMessageToClientId(request1, ServerPlayer.ClientId);
-        Server.SV.SendMessageToClientId(request2, ServerPlayer.EnemyClientId);
+        Server.SV.SendRequest(request1, ServerPlayer.ClientId);
+        Server.SV.SendRequest(request2, ServerPlayer.EnemyClientId);
     }
 }

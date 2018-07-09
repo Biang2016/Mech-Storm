@@ -71,9 +71,9 @@ public class ProtoManager
         }
     }
 
-    public Request TryDeserialize(ClientData clientData)
+    public Request TryDeserialize(DataHolder dataHolder,Socket socket)
     {
-        DataStream stream = new DataStream(clientData.DataHolder.mRecvData, true);
+        DataStream stream = new DataStream(dataHolder.mRecvData, true);
 
         int protocol = stream.ReadSInt32();
         Request request = null;
@@ -87,7 +87,7 @@ public class ProtoManager
                     List<requestDelegate> dels = mDelegateMapping[protocol];
                     foreach (requestDelegate del in dels)
                     {
-                        del(clientData.Socket, request);
+                        del(socket, request);
                     }
                 }
             }
@@ -98,21 +98,5 @@ public class ProtoManager
         }
 
         return request;
-    }
-}
-
-public class ClientData
-{
-    public Socket Socket;
-    public int ClientId;
-    public DataHolder DataHolder;
-    public bool IsStopReceive;
-
-    public ClientData(Socket socket, int clientId, DataHolder dataHolder, bool isStopReceive)
-    {
-        Socket = socket;
-        ClientId = clientId;
-        DataHolder = dataHolder;
-        IsStopReceive = isStopReceive;
     }
 }

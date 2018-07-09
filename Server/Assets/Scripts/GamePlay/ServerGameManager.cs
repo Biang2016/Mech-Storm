@@ -136,8 +136,8 @@ public class ServerGameManager
 
     private void BroadcastBothPlayers(Request r)
     {
-        Server.SV.SendMessageToClientId(r, PlayerA.ClientId);
-        Server.SV.SendMessageToClientId(r, PlayerB.ClientId);
+        Server.SV.SendRequest(r, PlayerA.ClientId);
+        Server.SV.SendRequest(r, PlayerB.ClientId);
     }
 
     #endregion

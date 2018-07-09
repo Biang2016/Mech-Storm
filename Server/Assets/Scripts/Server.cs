@@ -26,53 +26,55 @@ class Server
     {
     }
 
-    public string IP;
-    public int Port;
-    private Socket severSocket;
-    private List<ClientData> clientList = new List<ClientData>();
-    private Dictionary<int, Socket> socketDict = new Dictionary<int, Socket>(); //Key: clientID, value: socket
-
-    private Queue<ClientData> receiveDataQueue = new Queue<ClientData>();
-    private Dictionary<int, Queue<Request>> sendDataQueueDict = new Dictionary<int, Queue<Request>>(); //Key: clientID, value: requestsFromClient
-
-    public ProtoManager ServerProtoManager;
-    private ServerGameMatchManager sgmm;
-
     public Server(string ip, int port)
     {
         IP = ip;
         Port = port;
     }
 
+    public string IP;
+    public int Port;
+    private Socket severSocket;
+    public ProtoManager ServerProtoManager;
+    private Dictionary<int, ClientProxy> ClientsDict = new Dictionary<int, ClientProxy>();
+    private Queue<ClientProxy> receiveDataQueue = new Queue<ClientProxy>();
+
+    public ServerGameMatchManager SGMM;
+
+
     public void Start()
     {
         AllCards tmp = AllCards.AC;
+        SGMM = new ServerGameMatchManager();
+
         OnRestartProtocols();
-        sgmm = new ServerGameMatchManager();
         StartSeverSocket();
+
         Thread threadReceiveAndSend = new Thread(ReceiveAndSendMsg);
         threadReceiveAndSend.IsBackground = true;
         threadReceiveAndSend.Start();
-    }
-
-    void Update()
-    {
-        if (receiveDataQueue.Count > 0)
-        {
-            ServerProtoManager.TryDeserialize(receiveDataQueue.Dequeue());
-        }
-
-        foreach (KeyValuePair<int, Queue<Request>> kv in sendDataQueueDict)
-        {
-            SendQueueToClient(kv.Key);
-        }
     }
 
     private void ReceiveAndSendMsg()
     {
         while (true)
         {
-            Update();
+            if (receiveDataQueue.Count > 0)
+            {
+                ClientProxy clientProxy = receiveDataQueue.Dequeue();
+                ServerProtoManager.TryDeserialize(clientProxy.DataHolder, clientProxy.Socket);
+            }
+
+            foreach (KeyValuePair<int, ClientProxy> kv in ClientsDict)
+            {
+                while (kv.Value.SendRequestsQueue.Count > 0)
+                {
+                    ServerRequestBase req = kv.Value.SendRequestsQueue.Dequeue();
+                    Thread threadSend = new Thread(DoSendToClient);
+                    threadSend.IsBackground = true;
+                    threadSend.Start(new SendMsg(kv.Value.Socket, req));
+                }
+            }
         }
     }
 
@@ -107,17 +109,18 @@ class Server
 
     public void Stop()
     {
-        foreach (ClientData clientData in clientList)
+        foreach (KeyValuePair<int, ClientProxy> kv in ClientsDict)
         {
-            if (clientData.Socket != null && clientData.Socket.Connected)
+            ClientProxy clientProxy = kv.Value;
+            if (clientProxy.Socket != null && clientProxy.Socket.Connected)
             {
-                clientData.Socket.Shutdown(SocketShutdown.Both);
-                clientData.Socket.Close();
-                ServerLog.PrintClientStates("客户" + clientData.ClientId + "退出");
+                clientProxy.Socket.Shutdown(SocketShutdown.Both);
+                clientProxy.Socket.Close();
+                ServerLog.PrintClientStates("客户" + clientProxy.ClientId + "退出");
             }
         }
 
-        clientList.Clear();
+        ClientsDict.Clear();
     }
 
     public void StartSeverSocket()
@@ -130,7 +133,6 @@ class Server
             //为服务器sokect添加监听
             severSocket.Listen(10);
             ServerLog.PrintServerStates("------------------ Server Start ------------------\n");
-            clientList = new List<ClientData>();
             //开始服务器时 一般接受一个服务就会被挂起所以要用多线程来解决
             Thread threadAccept = new Thread(Accept);
             threadAccept.IsBackground = true;
@@ -142,19 +144,25 @@ class Server
         }
     }
 
+    private int clientIdGenerator = 0;
+
+    int GenerateClientId()
+    {
+        return clientIdGenerator++;
+    }
+
     public void Accept()
     {
-        Socket client = severSocket.Accept();
-        ClientData clientData = new ClientData(client, 0, new DataHolder(), false);
-        clientList.Add(clientData);
-        IPEndPoint point = client.RemoteEndPoint as IPEndPoint;
-        ServerLog.PrintClientStates(point.Address + ":" + point.Port + " connected. Client count: " + clientList.Count);
-        ServerInfoRequest request = new ServerInfoRequest(InfoNumbers.INFO_IS_CONNECT);
-        Server.SV.SendMessageToSocket(request, client);
+        Socket socket = severSocket.Accept();
+        int clientId = GenerateClientId();
+        ClientProxy clientProxy = new ClientProxy(socket, clientId, false);
+        ClientsDict.Add(clientId, clientProxy);
+        IPEndPoint point = socket.RemoteEndPoint as IPEndPoint;
+        ServerLog.PrintClientStates(point.Address + ":" + point.Port + " connected. Client count: " + ClientsDict.Count);
 
         Thread threadReceive = new Thread(ReceiveSocket);
         threadReceive.IsBackground = true;
-        threadReceive.Start(clientData);
+        threadReceive.Start(clientProxy);
         Accept();
     }
 
@@ -163,40 +171,40 @@ class Server
     //接收客户端Socket连接请求
     private void ReceiveSocket(object obj)
     {
-        ClientData clientData = obj as ClientData;
-        clientData.DataHolder.Reset();
-        while (!clientData.IsStopReceive)
+        ClientProxy clientProxy = obj as ClientProxy;
+        clientProxy.DataHolder.Reset();
+        while (!clientProxy.IsStopReceive)
         {
-            if (!clientData.Socket.Connected)
+            if (!clientProxy.Socket.Connected)
             {
                 //与客户端连接失败跳出循环  
-                ServerLog.PrintClientStates("连接客户端失败,ID: " + clientData.ClientId + " IP: " + clientData.Socket.RemoteEndPoint);
-                clientData.Socket.Close();
+                ServerLog.PrintClientStates("连接客户端失败,ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
+                clientProxy.Socket.Close();
                 break;
             }
 
             try
             {
                 byte[] bytes = new byte[1024];
-                int i = clientData.Socket.Receive(bytes);
+                int i = clientProxy.Socket.Receive(bytes);
                 if (i <= 0)
                 {
-                    clientData.Socket.Close();
-                    ServerLog.PrintClientStates("客户端关闭,ID: " + clientData.ClientId + " IP: " + clientData.Socket.RemoteEndPoint);
+                    clientProxy.Socket.Close();
+                    ServerLog.PrintClientStates("客户端关闭,ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
                     break;
                 }
 
-                clientData.DataHolder.PushData(bytes, i);
-                while (clientData.DataHolder.IsFinished())
+                clientProxy.DataHolder.PushData(bytes, i);
+                while (clientProxy.DataHolder.IsFinished())
                 {
-                    receiveDataQueue.Enqueue(clientData);
-                    clientData.DataHolder.RemoveFromHead();
+                    receiveDataQueue.Enqueue(clientProxy);
+                    clientProxy.DataHolder.RemoveFromHead();
                 }
             }
             catch (Exception e)
             {
-                ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientData.ClientId);
-                clientData.Socket.Close();
+                ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId);
+                clientProxy.Socket.Close();
                 break;
             }
         }
@@ -204,57 +212,17 @@ class Server
 
     void Response(Socket socket, Request r)
     {
-        string Log = "";
-        Log += "GetFrom    " + socket.RemoteEndPoint + "    [" + r.GetProtocolName() + "]    ";
-        Log += r.DeserializeLog();
-        ServerLog.PrintReceive(Log);
-        if (r is ClientInfoRequest)
-        {
-            ClientInfoRequest request = (ClientInfoRequest) r;
-            if (request.infoNumber == InfoNumbers.INFO_BEGIN_GAME) sgmm.TryInitialized(request.clientId);
-        }
-        else if (r is ClientIdRequest)
-        {
-            ClientIdRequest resp = (ClientIdRequest) r;
-            if (resp.purpose == ClientIdPurpose.RegisterClientId)
-            {
-                if (!socketDict.ContainsKey(resp.clientId))
-                {
-                    socketDict.Add(resp.clientId, socket);
-                }
-                else if (socketDict[resp.clientId] != socket)
-                {
-                    ServerWarningRequest request = new ServerWarningRequest(WarningNumbers.WARNING_NO_CLIENT_ID_EXISTED);
-                    SendMessageToSocket(request, socket);
-                }
+        //统一日志打出
+        ServerLog.PrintReceive("GetFrom    " + socket.RemoteEndPoint + "    [" + r.GetProtocolName() + "]    " + r.DeserializeLog());
 
-                if (!sendDataQueueDict.ContainsKey(resp.clientId))
-                {
-                    sendDataQueueDict.Add(resp.clientId, new Queue<Request>());
-                    ServerInfoRequest request = new ServerInfoRequest(InfoNumbers.INFO_SEND_CLIENT_ID_SUC);
-                    SendMessageToClientId(request, resp.clientId);
-                }
-
-                sgmm.OnClientRegister(resp.clientId);
-            }
-            else if (resp.purpose == ClientIdPurpose.MatchGames)
+        if (r is ClientRequestBase)
+        {
+            ClientRequestBase request = (ClientRequestBase) r;
+            if (ClientsDict.ContainsKey(request.clientId))
             {
-                sgmm.OnClientMatchGames(resp.clientId);
+                ClientsDict[request.clientId].ReceiveRequestsQueue.Enqueue(request);
+                ClientsDict[request.clientId].Response();
             }
-        }else if (r is GameStateRequest)
-        {
-            GameStateRequest request = (GameStateRequest) r;
-            sgmm.TryGameBegin(request.clientId);
-        }
-        else if (r is CardDeckRequest)
-        {
-            CardDeckRequest request = (CardDeckRequest) r;
-            sgmm.OnReceiveCardDeckInfo(request.clientId, request.cardDeckInfo);
-        }
-        else if (r is ClientEndRoundRequest)
-        {
-            ClientEndRoundRequest request = (ClientEndRoundRequest) r;
-            sgmm.TryEndRound(request.clientId);
         }
     }
 
@@ -262,46 +230,6 @@ class Server
 
 
     #region 发送信息
-
-    //将要发送的信息送入队列
-    public void SendMessageToClientId(Request req, int clientId)
-    {
-        if (sendDataQueueDict.ContainsKey(clientId))
-        {
-            sendDataQueueDict[clientId].Enqueue(req);
-        }
-        else
-        {
-            ServerLog.PrintError("发送消息失败，客户端未连接到服务器,ID: " + clientId + " IP: " + socketDict[clientId].RemoteEndPoint);
-        }
-    }
-
-    private void SendMessageToSocket(Request req, Socket socket)
-    {
-        Thread threadSend = new Thread(DoSendToClient);
-        threadSend.IsBackground = true;
-        threadSend.Start(new SendMsg(socket, req));
-    }
-
-    //处理特定客户端的信息队列
-    private void SendQueueToClient(int clientId)
-    {
-        if (sendDataQueueDict.ContainsKey(clientId))
-        {
-            while (sendDataQueueDict[clientId].Count > 0)
-            {
-                Request req = sendDataQueueDict[clientId].Dequeue();
-                Thread threadSend = new Thread(DoSendToClient);
-                threadSend.IsBackground = true;
-                threadSend.Start(new SendMsg(socketDict[clientId], req));
-            }
-        }
-        else
-        {
-            ServerLog.Print("发送消息队列失败，客户端未连接到服务器,ID" + clientId + " IP: " + socketDict[clientId].RemoteEndPoint);
-        }
-    }
-
 
     //对特定客户端发送信息
     private void DoSendToClient(object obj)

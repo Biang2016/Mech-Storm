@@ -37,7 +37,7 @@ class ServerGameMatchManager
         }
 
         ServerInfoRequest request = new ServerInfoRequest(InfoNumbers.INFO_SEND_CLIENT_CARDDECK_SUC);
-        Server.SV.SendMessageToClientId(request, clientId);
+        Server.SV.SendRequest(request, clientId);
     }
 
     public void OnClientMatchGames(int clientId)
@@ -45,17 +45,17 @@ class ServerGameMatchManager
         if (!preparingClientIds.Contains(clientId))
         {
             ServerWarningRequest request = new ServerWarningRequest(WarningNumbers.WARNING_NO_CLIENT_ID);
-            Server.SV.SendMessageToClientId(request, clientId);
+            Server.SV.SendRequest(request, clientId);
         }
         else if (!ClientsDecksDict.ContainsKey(clientId))
         {
             ServerWarningRequest request = new ServerWarningRequest(WarningNumbers.WARNING_NO_CLIENT_CARDDECK);
-            Server.SV.SendMessageToClientId(request, clientId);
+            Server.SV.SendRequest(request, clientId);
         }
         else
         {
             ServerInfoRequest request = new ServerInfoRequest(InfoNumbers.INFO_IS_MATCHING);
-            Server.SV.SendMessageToClientId(request, clientId);
+            Server.SV.SendRequest(request, clientId);
             preparingClientIds.Remove(clientId);
             matchingClientIds.Enqueue(ClientsDecksDict[clientId]);
             if (matchingClientIds.Count == 2)
@@ -69,8 +69,8 @@ class ServerGameMatchManager
                 PlayerGamesDictionary.Add(playerB.ClientId, sgm);
 
                 GameStateRequest r2 = new GameStateRequest();
-                Server.SV.SendMessageToClientId(r2, playerA.ClientId);
-                Server.SV.SendMessageToClientId(r2, playerB.ClientId);
+                Server.SV.SendRequest(r2, playerA.ClientId);
+                Server.SV.SendRequest(r2, playerB.ClientId);
             }
         }
     }
