@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 /// <summary>
 /// 本类中封装卡组操作的游戏逻辑高级功能

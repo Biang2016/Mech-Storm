@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Threading;
 
 public class ServerGameManager
 {
     public ClientAndCardDeckInfo ClientA;
     public ClientAndCardDeckInfo ClientB;
+    public ServerPlayer CurrentPlayer;
     public ServerPlayer PlayerA;
     public ServerPlayer PlayerB;
 
@@ -15,16 +17,27 @@ public class ServerGameManager
         ClientB = clientB;
     }
 
-    public void StartGame()
+    private bool isInitialized = false;
+    private bool isPlayerAReady_Initialized = false;
+    private bool isPlayerBReady_Initialized = false;
+
+    public void TryInitialized(int ReadyClientId)
     {
-        ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
-        InitializePlayers();
+        if (isInitialized) return;
+        if (ReadyClientId == ClientA.ClientId) isPlayerAReady_Initialized = true;
+        if (ReadyClientId == ClientB.ClientId) isPlayerBReady_Initialized = true;
+        if (isPlayerAReady_Initialized && isPlayerBReady_Initialized)
+        {
+            Thread sgmThread = new Thread(Initialized);
+            sgmThread.IsBackground = true;
+            sgmThread.Start();
+        }
     }
 
-    public ServerPlayer CurrentPlayer;
-
-    private void InitializePlayers()
+    private void Initialized()
     {
+        isInitialized = true;
+        ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
         PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, 1, this);
         PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CardDeckInfo);
         PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, 1, this);
@@ -35,49 +48,63 @@ public class ServerGameManager
 
         PlayerRequest request2 = new PlayerRequest(ClientB.ClientId, 0, 1);
         BroadcastBothPlayers(request2);
-
-        GameBegin();
     }
 
 
-    void switchPlayer()
+    private bool isGameBegin = false;
+    private bool isPlayerAReady_GameBegin = false;
+    private bool isPlayerBReady_GameBegin = false;
+
+    public void TryGameBegin(int clientId)
+    {
+        if (isGameBegin) return;
+        if (clientId == ClientA.ClientId) isPlayerAReady_GameBegin = true;
+        if (clientId == ClientB.ClientId) isPlayerBReady_GameBegin = true;
+        if (isPlayerAReady_GameBegin && isPlayerBReady_GameBegin) GameBegin();
+    }
+
+    void GameBegin()
+    {
+        isGameBegin = true;
+        CurrentPlayer = new Random().Next(0, 2) == 0 ? PlayerA : PlayerB;
+        PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
+        BroadcastBothPlayers(request);
+
+        //发英雄牌
+        CurrentPlayer.MyHandManager.GetACardByID(99);
+        //抽随从牌
+        CurrentPlayer.MyHandManager.DrawRetinueCard();
+        OnSwitchPlayer();
+        
+        //发英雄牌
+        CurrentPlayer.MyHandManager.GetACardByID(99);
+        //抽随从牌
+        CurrentPlayer.MyHandManager.DrawRetinueCard();
+        OnSwitchPlayer();
+
+        CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
+        EndRound();
+        OnSwitchPlayer();
+        CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.SecondDrawCard);
+        EndRound();
+        OnSwitchPlayer();
+        OnBeginRound();
+        OnDrawCardPhase();
+    }
+
+    void OnGameBigin()
+    {
+
+    }
+
+    void OnSwitchPlayer()
     {
         CurrentPlayer = CurrentPlayer == PlayerA ? PlayerB : PlayerA;
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
         BroadcastBothPlayers(request);
     }
 
-    public void GameBegin()
-    {
-        CurrentPlayer = new Random().Next(0, 2) == 0 ? PlayerA : PlayerB;
-        PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
-        BroadcastBothPlayers(request);
-
-        OnGameBigin();
-        OnGameBigin();
-
-        CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
-        EndRound();
-        switchPlayer();
-        CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.SecondDrawCard);
-        EndRound();
-        switchPlayer();
-        BeginRound();
-        DrawCardPhase();
-    }
-
-    private void OnGameBigin()
-    {
-        //发英雄牌
-        CurrentPlayer.MyHandManager.GetACardByID(99);
-
-        //抽随从牌
-        CurrentPlayer.MyHandManager.DrawRetinueCard();
-
-        switchPlayer();
-    }
-
-    public void BeginRound()
+    void OnBeginRound()
     {
         CurrentPlayer.IncreaseCostMax(GamePlaySettings.CostIncrease);
         CurrentPlayer.AddAllCost();
@@ -85,24 +112,25 @@ public class ServerGameManager
         CurrentPlayer.MyBattleGroundManager.BeginRound();
     }
 
-    public void DrawCardPhase()
+    void OnDrawCardPhase()
     {
         CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.DrawCardPerRound);
     }
 
     public void EndRound()
     {
+        OnEndRound();
+        OnSwitchPlayer();
+        OnBeginRound();
+        OnDrawCardPhase();
+    }
+
+    void OnEndRound()
+    {
         CurrentPlayer.MyHandManager.EndRound();
         CurrentPlayer.MyBattleGroundManager.EndRound();
     }
 
-    public void OnEndRound()
-    {
-        EndRound();
-        switchPlayer();
-        BeginRound();
-        DrawCardPhase();
-    }
 
     #region Utils
 

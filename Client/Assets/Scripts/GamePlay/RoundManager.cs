@@ -72,7 +72,7 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    public void InitializeGame()
+    public void Initialize()
     {
         RoundNumber = 0;
         CurrentClientPlayer = null;

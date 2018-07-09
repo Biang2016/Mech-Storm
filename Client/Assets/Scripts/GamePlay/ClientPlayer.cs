@@ -9,8 +9,6 @@ public class ClientPlayer : Player
     internal BoardAreaTypes MyHandArea; //卡牌所属的手部区
     internal Players WhichPlayer;
 
-    //internal Queue<PlayerCostRequest> PlayerCostRequests = new Queue<PlayerCostRequest>();
-
     internal ClientPlayer(int costMax, int costLeft, Players whichPlayer) : base(costMax, costLeft)
     {
         WhichPlayer = whichPlayer;

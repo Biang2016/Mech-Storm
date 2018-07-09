@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 class ServerGameMatchManager
 {
@@ -34,6 +35,7 @@ class ServerGameMatchManager
         {
             ClientsDecksDict.Add(clientId, ccd);
         }
+
         ServerInfoRequest request = new ServerInfoRequest(InfoNumbers.INFO_SEND_CLIENT_CARDDECK_SUC);
         Server.SV.SendMessageToClientId(request, clientId);
     }
@@ -63,13 +65,38 @@ class ServerGameMatchManager
                 ClientAndCardDeckInfo playerB = matchingClientIds.Dequeue();
                 ServerGameManager sgm = new ServerGameManager(playerA, playerB);
                 SMGS.Add(sgm);
-
                 PlayerGamesDictionary.Add(playerA.ClientId, sgm);
                 PlayerGamesDictionary.Add(playerB.ClientId, sgm);
-                ServerInfoRequest r = new ServerInfoRequest(InfoNumbers.INFO_BEGIN_GAME);
-                Server.SV.SendMessageToClientId(r, clientId);
-                sgm.StartGame();
+
+                GameStateRequest r2 = new GameStateRequest();
+                Server.SV.SendMessageToClientId(r2, playerA.ClientId);
+                Server.SV.SendMessageToClientId(r2, playerB.ClientId);
             }
+        }
+    }
+
+    public void TryInitialized(int clientId)
+    {
+        if (PlayerGamesDictionary.ContainsKey(clientId) && PlayerGamesDictionary[clientId] != null)
+        {
+            PlayerGamesDictionary[clientId].TryInitialized(clientId);
+        }
+    }
+
+    public void TryGameBegin(int clientId)
+    {
+        if (PlayerGamesDictionary.ContainsKey(clientId) && PlayerGamesDictionary[clientId] != null)
+        {
+            PlayerGamesDictionary[clientId].TryGameBegin(clientId);
+        }
+    }
+
+    //下发结束回合请求
+    public void TryEndRound(int clientId)
+    {
+        if (PlayerGamesDictionary.ContainsKey(clientId) && PlayerGamesDictionary[clientId] != null)
+        {
+            PlayerGamesDictionary[clientId].EndRound();
         }
     }
 

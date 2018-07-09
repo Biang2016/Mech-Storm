@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Remoting;
+using System.Text;
 using System.Threading;
 using UnityEngine;
 
@@ -62,7 +64,7 @@ public class Client : MonoBehaviour
         ClientProtoManager.AddProtocol<ClientIdRequest>(NetProtocols.SEND_CLIENT_ID);
         ClientProtoManager.AddProtocol<ServerInfoRequest>(NetProtocols.INFO_NUMBER);
         ClientProtoManager.AddProtocol<ServerWarningRequest>(NetProtocols.WARNING_NUMBER);
-        ClientProtoManager.AddProtocol<GameBeginRequest>(NetProtocols.GAME_BEGIN);
+        ClientProtoManager.AddProtocol<GameStateRequest>(NetProtocols.GAME_BEGIN);
         ClientProtoManager.AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
         ClientProtoManager.AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
         ClientProtoManager.AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
@@ -167,6 +169,17 @@ public class Client : MonoBehaviour
 
     #region 接收
 
+    enum ClientStates
+    {
+        Connected = 1 << 0,
+        Registered = 1 << 1,
+        SubmitCardDeck = 1 << 2,
+        Matching = 1 << 3,
+        Playing = 1 << 4,
+    }
+
+    private int clientStates = 0;
+
     private void ReceiveSocket()
     {
         clientData.DataHolder.Reset();
@@ -219,33 +232,56 @@ public class Client : MonoBehaviour
         Log += "Server：[" + r.GetProtocolName() + "]    ";
         Log += r.DeserializeLog();
         ClientLog.CL.PrintReceive(Log);
-        if (r is GameBeginRequest)
+        if (r is ServerInfoRequest) //接收服务器回执信息
         {
-            RoundManager.RM.InitializeGame();
+            ServerInfoRequest request = (ServerInfoRequest) r;
+            if (request.infoNumber == InfoNumbers.INFO_IS_CONNECT) clientStates |= (int) ClientStates.Connected;
+            if (request.infoNumber == InfoNumbers.INFO_SEND_CLIENT_ID_SUC) clientStates |= (int) ClientStates.Registered;
+            if (request.infoNumber == InfoNumbers.INFO_SEND_CLIENT_CARDDECK_SUC) clientStates |= (int) ClientStates.SubmitCardDeck;
+            if (request.infoNumber == InfoNumbers.INFO_IS_MATCHING) clientStates |= (int) ClientStates.Matching;
+            int tmp = clientStates;
+            StringBuilder sb = new StringBuilder();
+            while (tmp > 0)
+            {
+                sb.Append(tmp % 2);
+                tmp >>= 1;
+            }
+
+            ClientLog.CL.PrintClientStates("Client states: " + sb.ToString());
+        }
+        else if (r is ServerWarningRequest) //接收服务器回执警告
+        {
+        }
+        else if (r is GameStateRequest)
+        {
+            clientStates |= (int) ClientStates.Playing;
+            RoundManager.RM.Initialize();
+            ClientInfoRequest request = new ClientInfoRequest(NetworkManager.NM.SelfClientId, InfoNumbers.INFO_BEGIN_GAME);
+            SendMessage(request);
         }
         else if (r is PlayerRequest)
         {
-            PlayerRequest request = (PlayerRequest)r;
+            PlayerRequest request = (PlayerRequest) r;
             RoundManager.RM.InitializePlayers(request);
         }
         else if (r is PlayerCostRequest)
         {
-            PlayerCostRequest request = (PlayerCostRequest)r;
+            PlayerCostRequest request = (PlayerCostRequest) r;
             RoundManager.RM.SetPlayersCost(request);
         }
         else if (r is PlayerTurnRequest)
         {
-            PlayerTurnRequest request = (PlayerTurnRequest)r;
+            PlayerTurnRequest request = (PlayerTurnRequest) r;
             RoundManager.RM.SetPlayerTurn(request);
         }
         else if (r is DrawCardRequest)
         {
-            DrawCardRequest request = (DrawCardRequest)r;
+            DrawCardRequest request = (DrawCardRequest) r;
             RoundManager.RM.OnPlayerDrawCard(request);
         }
         else if (r is SummonRetinueRequest)
         {
-            SummonRetinueRequest request = (SummonRetinueRequest)r;
+            SummonRetinueRequest request = (SummonRetinueRequest) r;
             RoundManager.RM.OnPlayerSummonRetinue(request);
         }
     }
@@ -285,7 +321,7 @@ public class Client : MonoBehaviour
             byte[] buffer = new byte[msg.Length + 4];
             DataStream writer = new DataStream(buffer, true);
 
-            writer.WriteInt32((uint)msg.Length); //增加数据长度
+            writer.WriteInt32((uint) msg.Length); //增加数据长度
             writer.WriteRaw(msg);
 
             byte[] data = writer.ToByteArray();

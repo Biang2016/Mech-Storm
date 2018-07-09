@@ -52,7 +52,8 @@
     <Compile Include="Net\Protocol\InfoNumbers.cs" />
     <Compile Include="Net\Protocol\WarningNumbers.cs" />
     <Compile Include="Net\RequestResponse\CardDeckRequest.cs" />
-    <Compile Include="Net\RequestResponse\GameBeginRequest.cs" />
+    <Compile Include="Net\RequestResponse\GameStateRequest.cs" />
+    <Compile Include="Net\RequestResponse\ClientInfoRequest.cs" />
     <Compile Include="Net\RequestResponse\ServerInfoRequest.cs" />
     <Compile Include="Net\RequestResponse\ServerWarningRequest.cs" />
     <Compile Include="Net\RequestResponse\DrawCardRequest.cs" />

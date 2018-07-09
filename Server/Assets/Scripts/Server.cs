@@ -30,10 +30,10 @@ class Server
     public int Port;
     private Socket severSocket;
     private List<ClientData> clientList = new List<ClientData>();
-    private Dictionary<int, Socket> socketDict = new Dictionary<int, Socket>();//Key: clientID, value: socket
+    private Dictionary<int, Socket> socketDict = new Dictionary<int, Socket>(); //Key: clientID, value: socket
 
     private Queue<ClientData> receiveDataQueue = new Queue<ClientData>();
-    private Dictionary<int, Queue<Request>> sendDataQueueDict = new Dictionary<int, Queue<Request>>();//Key: clientID, value: requestsFromClient
+    private Dictionary<int, Queue<Request>> sendDataQueueDict = new Dictionary<int, Queue<Request>>(); //Key: clientID, value: requestsFromClient
 
     public ProtoManager ServerProtoManager;
     private ServerGameMatchManager sgmm;
@@ -83,7 +83,7 @@ class Server
         ServerProtoManager.AddProtocol<ClientIdRequest>(NetProtocols.SEND_CLIENT_ID);
         ServerProtoManager.AddProtocol<ServerInfoRequest>(NetProtocols.INFO_NUMBER);
         ServerProtoManager.AddProtocol<ServerWarningRequest>(NetProtocols.WARNING_NUMBER);
-        ServerProtoManager.AddProtocol<GameBeginRequest>(NetProtocols.GAME_BEGIN);
+        ServerProtoManager.AddProtocol<GameStateRequest>(NetProtocols.GAME_BEGIN);
         ServerProtoManager.AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
         ServerProtoManager.AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
         ServerProtoManager.AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
@@ -149,6 +149,8 @@ class Server
         clientList.Add(clientData);
         IPEndPoint point = client.RemoteEndPoint as IPEndPoint;
         ServerLog.PrintClientStates(point.Address + ":" + point.Port + " connected. Client count: " + clientList.Count);
+        ServerInfoRequest request = new ServerInfoRequest(InfoNumbers.INFO_IS_CONNECT);
+        Server.SV.SendMessageToSocket(request, client);
 
         Thread threadReceive = new Thread(ReceiveSocket);
         threadReceive.IsBackground = true;
@@ -193,7 +195,7 @@ class Server
             }
             catch (Exception e)
             {
-                ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientData.ClientId + " IP: " + clientData.Socket.RemoteEndPoint);
+                ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientData.ClientId);
                 clientData.Socket.Close();
                 break;
             }
@@ -206,8 +208,12 @@ class Server
         Log += "GetFrom    " + socket.RemoteEndPoint + "    [" + r.GetProtocolName() + "]    ";
         Log += r.DeserializeLog();
         ServerLog.PrintReceive(Log);
-
-        if (r is ClientIdRequest)
+        if (r is ClientInfoRequest)
+        {
+            ClientInfoRequest request = (ClientInfoRequest) r;
+            if (request.infoNumber == InfoNumbers.INFO_BEGIN_GAME) sgmm.TryInitialized(request.clientId);
+        }
+        else if (r is ClientIdRequest)
         {
             ClientIdRequest resp = (ClientIdRequest) r;
             if (resp.purpose == ClientIdPurpose.RegisterClientId)
@@ -225,6 +231,8 @@ class Server
                 if (!sendDataQueueDict.ContainsKey(resp.clientId))
                 {
                     sendDataQueueDict.Add(resp.clientId, new Queue<Request>());
+                    ServerInfoRequest request = new ServerInfoRequest(InfoNumbers.INFO_SEND_CLIENT_ID_SUC);
+                    SendMessageToClientId(request, resp.clientId);
                 }
 
                 sgmm.OnClientRegister(resp.clientId);
@@ -233,16 +241,20 @@ class Server
             {
                 sgmm.OnClientMatchGames(resp.clientId);
             }
+        }else if (r is GameStateRequest)
+        {
+            GameStateRequest request = (GameStateRequest) r;
+            sgmm.TryGameBegin(request.clientId);
         }
         else if (r is CardDeckRequest)
         {
-            CardDeckRequest req = (CardDeckRequest) r;
-            sgmm.OnReceiveCardDeckInfo(req.clientId, req.cardDeckInfo);
+            CardDeckRequest request = (CardDeckRequest) r;
+            sgmm.OnReceiveCardDeckInfo(request.clientId, request.cardDeckInfo);
         }
         else if (r is ClientEndRoundRequest)
         {
             ClientEndRoundRequest request = (ClientEndRoundRequest) r;
-            sgmm.PlayerGamesDictionary[request.clientId].OnEndRound();
+            sgmm.TryEndRound(request.clientId);
         }
     }
 
