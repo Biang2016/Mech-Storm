@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class SummonRetinueRequest : Request
+public class SummonRetinueRequest : ClientRequestBase
 {
     public int clientId;
     public CardInfo_Retinue cardInfo;
@@ -43,7 +43,7 @@ public class SummonRetinueRequest : Request
     {
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
-        cardInfo = (CardInfo_Retinue)AllCards.AC.GetCard(reader.ReadSInt32());
+        cardInfo = (CardInfo_Retinue)AllCards.GetCard(reader.ReadSInt32());
         handCardIndex = reader.ReadSInt32();
         battleGroundIndex = reader.ReadSInt32();
     }

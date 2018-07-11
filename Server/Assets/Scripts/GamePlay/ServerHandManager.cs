@@ -45,7 +45,7 @@ public class ServerHandManager
 
     internal void GetACardByID(int cardID)
     {
-        CardInfo_Base cardInfo = AllCards.AC.GetCard(cardID);
+        CardInfo_Base cardInfo = AllCards.GetCard(cardID);
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer);
         ServerPlayer.MyCardDeckManager.OnPlayerGetCard(cardID);
         cards.Add(newCard);

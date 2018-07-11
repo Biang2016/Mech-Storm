@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        AllCard = new AllCards();
         _rbe = Camera.main.GetComponent<ImageEffectBlurBox>();
     }
 
@@ -36,8 +35,6 @@ public class GameManager : MonoBehaviour
 
 
     #region GamePlay
-
-    internal AllCards AllCard;
 
     #endregion
 

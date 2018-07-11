@@ -25,9 +25,9 @@ public class CardDeck
     public CardDeck(CardDeckInfo cdi)
     {
         M_CardDeckInfo = cdi;
-        Cards = AllCards.AC.GetCards(M_CardDeckInfo.CardIDs);
+        Cards = AllCards.GetCards(M_CardDeckInfo.CardIDs);
         checkEmpty();
-        SuffleSelf();
+        //SuffleSelf();
     }
 
     public CardInfo_Type FindATypeOfCard<CardInfo_Type>() where CardInfo_Type : CardInfo_Base
@@ -194,39 +194,27 @@ public struct CardDeckInfo
     }
 }
 
-public class AllCards
+public static class AllCards
 {
-    private static AllCards _ac;
+    public static Dictionary<int, CardInfo_Base> CardDict = new Dictionary<int, CardInfo_Base>();
 
-    public static AllCards AC
-    {
-        get
-        {
-            if (_ac == null) _ac = new AllCards();
-            return _ac;
-        }
-    }
-
-
-    public Dictionary<int, CardInfo_Base> CardDict = new Dictionary<int, CardInfo_Base>();
-
-    private void addCard(CardInfo_Base cardInfo)
+    private static void addCard(CardInfo_Base cardInfo)
     {
         CardDict.Add(cardInfo.CardID, cardInfo);
     }
 
-    public string HeroColor = "#787878FF";
-    public string RetinueColor = "#5BAEF4FF";
-    public string WeaponSwordColor = "#FF229DFF";
-    public string WeaponGunColor = "#FF0000FF";
-    public string ShieldShieldColor = "#E6FF00FF";
-    public string ShieldArmorColor = "#FF8E00FF";
+    public static string HeroColor = "#787878FF";
+    public static string RetinueColor = "#5BAEF4FF";
+    public static string WeaponSwordColor = "#FF229DFF";
+    public static string WeaponGunColor = "#FF0000FF";
+    public static string ShieldShieldColor = "#E6FF00FF";
+    public static string ShieldArmorColor = "#FF8E00FF";
 
-    public AllCards()
+    public static void AddAllCards()
     {
         addCard(
             new CardInfo_Retinue(
-                cardID: -1,
+                cardID: 999,
                 cardName: "空牌",
                 cardDesc: "",
                 cost: 0,
@@ -495,7 +483,7 @@ public class AllCards
                 shieldMax: 0));
     }
 
-    public CardInfo_Base GetCard(int cardID)
+    public static CardInfo_Base GetCard(int cardID)
     {
         if (CardDict.ContainsKey(cardID))
         {
@@ -507,7 +495,7 @@ public class AllCards
         }
     }
 
-    public List<CardInfo_Base> GetCards(int[] cardIDs)
+    public static List<CardInfo_Base> GetCards(int[] cardIDs)
     {
         List<CardInfo_Base> res = new List<CardInfo_Base>();
         foreach (int cardID in cardIDs)
@@ -518,7 +506,7 @@ public class AllCards
         return res;
     }
 
-    public bool IsASeries(CardInfo_Base card1, CardInfo_Base card2)
+    public static bool IsASeries(CardInfo_Base card1, CardInfo_Base card2)
     {
         if (card1.CardID == card2.CardID) return true;
         int level1 = card1.CardLevel;
@@ -536,7 +524,7 @@ public class AllCards
                 return true;
             }
 
-            tmpUpgradeID = AllCards.AC.GetCard((int)tmpUpgradeID).UpgradeID;
+            tmpUpgradeID = GetCard((int)tmpUpgradeID).UpgradeID;
         }
 
         return false;

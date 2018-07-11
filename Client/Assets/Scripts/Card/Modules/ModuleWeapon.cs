@@ -175,12 +175,12 @@ public class ModuleWeapon : ModuleBase
 
     public void ChangeWeapon(ModuleWeapon newWeapon, ref ModuleWeapon resultWeapon)
     {
-        if (GameManager.GM.AllCard.IsASeries(CardInfo, newWeapon.CardInfo))
+        if (AllCards.IsASeries(CardInfo, newWeapon.CardInfo))
         {
             if (CardInfo.CardLevel == newWeapon.CardInfo.CardLevel)
             {
                 CardInfo_Weapon m_currentInfo = (CardInfo_Weapon) GetCurrentCardInfo();
-                CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon) GameManager.GM.AllCard.GetCard(CardInfo.UpgradeID);
+                CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon) AllCards.GetCard(CardInfo.UpgradeID);
                 Initiate(upgradeWeaponCardInfo, ClientPlayer);
                 M_WeaponAttack = m_currentInfo.Attack + ((CardInfo_Weapon) newWeapon.CardInfo).Attack;
                 M_WeaponEnergy = m_currentInfo.Energy + ((CardInfo_Weapon) newWeapon.CardInfo).Energy;

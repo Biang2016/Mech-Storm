@@ -5,40 +5,72 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-class ClientProxy
+public class ClientProxy : ProxyBase
 {
-    //发包读包基础
-    public Socket Socket;
-    public int ClientId;
-    public DataHolder DataHolder = new DataHolder();
-    public bool IsStopReceive;
+    public Queue<ServerRequestBase> SendRequestsQueue = new Queue<ServerRequestBase>();
+    public Queue<ClientRequestBase> ReceiveRequestsQueue = new Queue<ClientRequestBase>();
 
-    ////收到请求队列
-    //public Queue<ServerRequestBase> SendRequestsQueue = new Queue<ServerRequestBase>();
-    //public Queue<ClientRequestBase> ReceiveRequestsQueue = new Queue<ClientRequestBase>();
-
-    public int ClientStates;
-    public ServerGameMatchManager MyServerGameMatchManager;
     public ServerGameManager MyServerGameManager;
+    public ServerCardDeckManager MyServerCardDeckManager;
 
-    public ClientProxy(Socket socket, int clientId, bool isStopReceive)
+    public CardDeckInfo CardDeckInfo;
+
+    public ServerPlayer MyServerPlayer;
+
+    public ClientProxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
-        Socket = socket;
-        ClientId = clientId;
-        IsStopReceive = isStopReceive;
         ClientIdRequest request = new ClientIdRequest(clientId);
         SendRequestsQueue.Enqueue(request);
+        ClientState = ClientStates.GetId;
+        Thread sendMessageThread = new Thread(SendMessage);
+        sendMessageThread.IsBackground = true;
+        sendMessageThread.Start();
     }
 
-    public virtual void Response()
+    private void SendMessage()
     {
-        //while (ReceiveRequestsQueue.Count>0)
-        //{
-        //    ClientRequestBase request = (ClientRequestBase) ReceiveRequestsQueue.Dequeue();
-        //    if(request is )
-        //}
+        while (true)
+        {
+            Thread.Sleep(50);
+
+            lock (SendRequestsQueue)
+            {
+                if (SendRequestsQueue.Count > 0)
+                {
+                    Server.SV.DoSendToClient(new SendMsg(Socket, SendRequestsQueue.Dequeue()));
+                }
+            }
+        }
     }
 
+    public override void Response()
+    {
+        while (ReceiveRequestsQueue.Count > 0)
+        {
+            ClientRequestBase r = ReceiveRequestsQueue.Dequeue();
+            if (r is CardDeckRequest)
+            {
+                if (ClientState == ClientStates.GetId)
+                {
+                    CardDeckRequest request = (CardDeckRequest) r;
+                    CardDeckInfo = request.cardDeckInfo;
+                    ClientState = ClientStates.SubmitCardDeck;
+                }
+            }
+            else if (r is MatchRequest)
+            {
+                if (ClientState == ClientStates.SubmitCardDeck)
+                {
+                    ClientState = ClientStates.Matching;
+                    Server.SV.SGMM.OnClientMatchGames(this);
+                }
+            }else if (r is ResetClientRequest)
+            {
 
-
+            }else if (r is ClientEndRoundRequest)
+            {
+                MyServerGameManager.EndRound();
+            }
+        }
+    }
 }

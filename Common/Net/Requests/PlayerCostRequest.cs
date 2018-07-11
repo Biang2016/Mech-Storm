@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerCostRequest : Request
+public class PlayerCostRequest : ServerRequestBase
 {
     public int clinetId;
     public CostChangeFlag change; //0x00为都改变，0x01为left改变，0x02为max改变
@@ -10,8 +10,8 @@ public class PlayerCostRequest : Request
     public int sign_max; //Sign为+1则为增加，为-1则为消耗
     public int addCost_max;
 
-    public PlayerCostRequest(){
-        
+    public PlayerCostRequest()
+    {
     }
 
     public PlayerCostRequest(int clinetId, CostChangeFlag change, int sign_left, int addCost_left, int sign_max, int addCost_max)
@@ -29,17 +29,17 @@ public class PlayerCostRequest : Request
         return NetProtocols.PLAYER_COST_CHANGE;
     }
 
-	public override string GetProtocolName()
-	{
+    public override string GetProtocolName()
+    {
         return "PLAYER_COST_CHANGE";
-	}
+    }
 
 
-	public override void Serialize(DataStream writer)
+    public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
         writer.WriteSInt32(clinetId);
-        writer.WriteByte((byte)change);
+        writer.WriteByte((byte) change);
         if (change == CostChangeFlag.Both)
         {
             writer.WriteSInt32(sign_left);
@@ -59,6 +59,30 @@ public class PlayerCostRequest : Request
         }
     }
 
+    public override void Deserialize(DataStream reader)
+    {
+        base.Deserialize(reader);
+        clinetId = reader.ReadSInt32();
+        change = (CostChangeFlag) reader.ReadByte();
+        if (change == CostChangeFlag.Both)
+        {
+            sign_left = reader.ReadSInt32();
+            addCost_left = reader.ReadSInt32();
+            sign_max = reader.ReadSInt32();
+            addCost_max = reader.ReadSInt32();
+        }
+        else if (change == CostChangeFlag.Left)
+        {
+            sign_left = reader.ReadSInt32();
+            addCost_left = reader.ReadSInt32();
+        }
+        else if (change == CostChangeFlag.Max)
+        {
+            sign_max = reader.ReadSInt32();
+            addCost_max = reader.ReadSInt32();
+        }
+    }
+
     public override string DeserializeLog()
     {
         string log = "";
@@ -71,6 +95,7 @@ public class PlayerCostRequest : Request
         return log;
     }
 }
+
 public enum CostChangeFlag
 {
     Both = 0x00,

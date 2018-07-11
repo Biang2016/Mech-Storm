@@ -19,11 +19,6 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    private RoundManager()
-    {
-
-    }
-
     internal int RoundNumber;
     internal ClientPlayer SelfClientPlayer;
     internal ClientPlayer EnemyClientPlayer;
@@ -34,43 +29,7 @@ public class RoundManager : MonoBehaviour
     public Text SelfCostText;
     public Text EnemyCostText;
 
-    void Awake()
-    {
-    }
-
-    private void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
     #region 响应
-
-    public void InitializePlayers(PlayerRequest r)
-    {
-        if (r.clientId == NetworkManager.NM.SelfClientId)
-        {
-            SelfClientPlayer = new ClientPlayer(r.costMax, r.costLeft, Players.Self);
-        }
-        else
-        {
-            EnemyClientPlayer = new ClientPlayer(r.costMax, r.costLeft, Players.Enemy);
-        }
-    }
-
-    public void SetPlayersCost(PlayerCostRequest r)
-    {
-        if (r.clinetId == NetworkManager.NM.SelfClientId)
-        {
-            SelfClientPlayer.DoChangeCost(r);
-        }
-        else
-        {
-            EnemyClientPlayer.DoChangeCost(r);
-        }
-    }
 
     public void Initialize()
     {
@@ -80,6 +39,32 @@ public class RoundManager : MonoBehaviour
         EnemyCostText.text = "";
     }
 
+    public void InitializePlayers(PlayerRequest r)
+    {
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            SelfClientPlayer = new ClientPlayer(r.costMax, r.costLeft, Players.Self);
+            SelfClientPlayer.OnCostChanged();
+        }
+        else
+        {
+            EnemyClientPlayer = new ClientPlayer(r.costMax, r.costLeft, Players.Enemy);
+            EnemyClientPlayer.OnCostChanged();
+        }
+    }
+
+    public void SetPlayersCost(PlayerCostRequest r)
+    {
+        if (r.clinetId == Client.CS.Proxy.ClientId)
+        {
+            SelfClientPlayer.DoChangeCost(r);
+        }
+        else
+        {
+            EnemyClientPlayer.DoChangeCost(r);
+        }
+    }
+
     public void SetPlayerTurn(PlayerTurnRequest r) //服务器说某玩家回合开始
     {
         if (CurrentClientPlayer != null)
@@ -87,16 +72,18 @@ public class RoundManager : MonoBehaviour
             EndRound();
         }
 
-        CurrentClientPlayer = r.clientId == NetworkManager.NM.SelfClientId ? SelfClientPlayer : EnemyClientPlayer;
+        CurrentClientPlayer = r.clientId == Client.CS.Proxy.ClientId ? SelfClientPlayer : EnemyClientPlayer;
         if (CurrentClientPlayer == SelfClientPlayer)
         {
+            ClientLog.CL.PrintClientStates("MyRound");
             SelfTurnText.SetActive(true);
             EnemyTurnText.SetActive(false);
         }
         else
         {
-            EnemyTurnText.SetActive(true);
+            ClientLog.CL.PrintClientStates("EnemyRound");
             SelfTurnText.SetActive(false);
+            EnemyTurnText.SetActive(true);
         }
 
         BeginRound();
@@ -110,7 +97,7 @@ public class RoundManager : MonoBehaviour
 
     public void OnPlayerSummonRetinue(SummonRetinueRequest resp)
     {
-        if (resp.clientId == NetworkManager.NM.SelfClientId)
+        if (resp.clientId == Client.CS.Proxy.ClientId)
         {
             SelfClientPlayer.MyHandManager.SummonRetinue(resp.handCardIndex, resp.battleGroundIndex);
         }
@@ -122,13 +109,13 @@ public class RoundManager : MonoBehaviour
 
     public void OnPlayerDrawCard(DrawCardRequest resp)
     {
-        if (resp.isShow)
+        if (resp.clientId == Client.CS.Proxy.ClientId)
         {
-            CurrentClientPlayer.MyHandManager.GetCard(resp.cardId);
+            SelfClientPlayer.MyHandManager.GetCard(resp.cardId);
         }
         else
         {
-            CurrentClientPlayer.MyHandManager.GetCard(-1); //空白牌，隐藏防止对方知道
+            EnemyClientPlayer.MyHandManager.GetCard(999); //空白牌，隐藏防止对方知道
         }
     }
 
@@ -144,8 +131,15 @@ public class RoundManager : MonoBehaviour
 
     public void OnEndRoundButtonClick()
     {
-        ClientEndRoundRequest request = new ClientEndRoundRequest(NetworkManager.NM.SelfClientId);
-        Client.CS.SendMessage(request);
+        if (CurrentClientPlayer == SelfClientPlayer)
+        {
+            ClientEndRoundRequest request = new ClientEndRoundRequest(Client.CS.Proxy.ClientId);
+            Client.CS.SendMessage(request);
+        }
+        else
+        {
+            ClientLog.CL.PrintWarning("不是你的回合");
+        }
     }
 
     #endregion

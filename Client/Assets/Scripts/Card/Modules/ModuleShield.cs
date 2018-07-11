@@ -185,12 +185,12 @@ public class ModuleShield : ModuleBase
 
     public void ChangeShield(ModuleShield newShield, ref ModuleShield resultShield)
     {
-        if (GameManager.GM.AllCard.IsASeries(CardInfo, newShield.CardInfo))
+        if (AllCards.IsASeries(CardInfo, newShield.CardInfo))
         {
             if (CardInfo.CardLevel == newShield.CardInfo.CardLevel)
             {
                 CardInfo_Shield m_currentInfo = (CardInfo_Shield) GetCurrentCardInfo();
-                CardInfo_Shield upgradeShieldCardInfo = (CardInfo_Shield) GameManager.GM.AllCard.GetCard(CardInfo.UpgradeID);
+                CardInfo_Shield upgradeShieldCardInfo = (CardInfo_Shield) AllCards.GetCard(CardInfo.UpgradeID);
                 Initiate(upgradeShieldCardInfo, ClientPlayer);
                 M_ShieldShield = m_currentInfo.Shield + ((CardInfo_Shield) newShield.CardInfo).Shield;
                 M_ShieldArmor = m_currentInfo.Armor + ((CardInfo_Shield) newShield.CardInfo).Armor;

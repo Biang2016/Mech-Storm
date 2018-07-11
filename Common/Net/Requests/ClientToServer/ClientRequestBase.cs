@@ -7,6 +7,16 @@ public class ClientRequestBase : Request
 {
     public int clientId;
 
+    public ClientRequestBase()
+    {
+
+    }
+
+    public ClientRequestBase(int clientId)
+    {
+        this.clientId = clientId;
+    }
+
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);

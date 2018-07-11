@@ -37,43 +37,33 @@ class Server
     private Socket severSocket;
     public ProtoManager ServerProtoManager;
     private Dictionary<int, ClientProxy> ClientsDict = new Dictionary<int, ClientProxy>();
-    private Queue<ClientProxy> receiveDataQueue = new Queue<ClientProxy>();
+    private Queue<ReceiveSocketData> receiveDataQueue = new Queue<ReceiveSocketData>();
 
     public ServerGameMatchManager SGMM;
 
 
     public void Start()
     {
-        AllCards tmp = AllCards.AC;
+        AllCards.AddAllCards();
+        ServerLog.PrintServerStates("CardDeck Loaded");
         SGMM = new ServerGameMatchManager();
 
         OnRestartProtocols();
         StartSeverSocket();
 
-        Thread threadReceiveAndSend = new Thread(ReceiveAndSendMsg);
-        threadReceiveAndSend.IsBackground = true;
-        threadReceiveAndSend.Start();
+        Thread threadReceive = new Thread(ReceiveMessage);
+        threadReceive.IsBackground = true;
+        threadReceive.Start();
     }
 
-    private void ReceiveAndSendMsg()
+    private void ReceiveMessage()
     {
         while (true)
         {
             if (receiveDataQueue.Count > 0)
             {
-                ClientProxy clientProxy = receiveDataQueue.Dequeue();
-                ServerProtoManager.TryDeserialize(clientProxy.DataHolder, clientProxy.Socket);
-            }
-
-            foreach (KeyValuePair<int, ClientProxy> kv in ClientsDict)
-            {
-                while (kv.Value.SendRequestsQueue.Count > 0)
-                {
-                    ServerRequestBase req = kv.Value.SendRequestsQueue.Dequeue();
-                    Thread threadSend = new Thread(DoSendToClient);
-                    threadSend.IsBackground = true;
-                    threadSend.Start(new SendMsg(kv.Value.Socket, req));
-                }
+                ReceiveSocketData rsd = receiveDataQueue.Dequeue();
+                ServerProtoManager.TryDeserialize(rsd.Data, rsd.Socket);
             }
         }
     }
@@ -81,30 +71,10 @@ class Server
     public void OnRestartProtocols()
     {
         ServerProtoManager = new ProtoManager();
-        ServerProtoManager.AddProtocol<TestConnectRequest>(NetProtocols.TEST_CONNECT);
-        ServerProtoManager.AddProtocol<ClientIdRequest>(NetProtocols.SEND_CLIENT_ID);
-        ServerProtoManager.AddProtocol<ServerInfoRequest>(NetProtocols.INFO_NUMBER);
-        ServerProtoManager.AddProtocol<ServerWarningRequest>(NetProtocols.WARNING_NUMBER);
-        ServerProtoManager.AddProtocol<GameStateRequest>(NetProtocols.GAME_BEGIN);
-        ServerProtoManager.AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
-        ServerProtoManager.AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
-        ServerProtoManager.AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
-        ServerProtoManager.AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE);
-        ServerProtoManager.AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
-        ServerProtoManager.AddProtocol<ClientEndRoundRequest>(NetProtocols.CLIENT_END_ROUND);
-        ServerProtoManager.AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.TEST_CONNECT, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.SEND_CLIENT_ID, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.INFO_NUMBER, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.WARNING_NUMBER, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.GAME_BEGIN, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.PLAYER, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.PLAYER_COST_CHANGE, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.DRAW_CARD, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.SUMMON_RETINUE, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.PLAYER_TURN, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.CLIENT_END_ROUND, Response);
-        ServerProtoManager.AddRequestDelegate(NetProtocols.CARD_DECK_INFO, Response);
+        foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
+        {
+            ServerProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
+        }
     }
 
     public void Stop()
@@ -197,7 +167,8 @@ class Server
                 clientProxy.DataHolder.PushData(bytes, i);
                 while (clientProxy.DataHolder.IsFinished())
                 {
-                    receiveDataQueue.Enqueue(clientProxy);
+                    ReceiveSocketData rsd = new ReceiveSocketData(clientProxy.Socket, clientProxy.DataHolder.mRecvData);
+                    receiveDataQueue.Enqueue(rsd);
                     clientProxy.DataHolder.RemoveFromHead();
                 }
             }
@@ -232,7 +203,7 @@ class Server
     #region 发送信息
 
     //对特定客户端发送信息
-    private void DoSendToClient(object obj)
+    public void DoSendToClient(object obj)
     {
         SendMsg sendMsg = (SendMsg) obj;
 
@@ -274,7 +245,7 @@ class Server
 
             byte[] data = writer.ToByteArray();
             IAsyncResult asyncSend = sendMsg.Client.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), sendMsg.Client);
-            bool success = asyncSend.AsyncWaitHandle.WaitOne(5000, true);
+            bool success = asyncSend.AsyncWaitHandle.WaitOne(500, true);
             if (!success)
             {
                 Stop();
@@ -305,4 +276,16 @@ public class SendMsg
 
     public Socket Client;
     public Request Req;
+}
+
+public struct ReceiveSocketData
+{
+    public Socket Socket;
+    public byte[] Data;
+
+    public ReceiveSocketData(Socket socket, byte[] data)
+    {
+        Socket = socket;
+        Data = data;
+    }
 }

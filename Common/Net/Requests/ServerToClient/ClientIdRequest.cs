@@ -24,6 +24,12 @@ public class ClientIdRequest : ServerRequestBase
         return "SEND_CLIENT_ID";
     }
 
+    public override void Serialize(DataStream writer)
+    {
+        base.Serialize(writer);
+        writer.WriteSInt32(givenClientId);
+    }
+
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);

@@ -29,9 +29,8 @@ public class Client : MonoBehaviour
     ConnectCallback connectDelegate = null;
     ConnectCallback connectFailedDelegate = null;
 
-    private ClientData clientData;
-    Queue<ClientData> receiveDataQueue = new Queue<ClientData>();
-    Queue<Request> sendDataQueue = new Queue<Request>();
+    public Proxy Proxy;
+    Queue<ReceiveSocketData> receiveDataQueue = new Queue<ReceiveSocketData>();
 
     void Awake()
     {
@@ -41,14 +40,18 @@ public class Client : MonoBehaviour
     //接收到数据放入数据队列，按顺序取出
     void Update()
     {
-        if (receiveDataQueue.Count > 0)
+        if (Proxy != null)
         {
-            Request request = ClientProtoManager.TryDeserialize(receiveDataQueue.Dequeue());
-        }
+            if (receiveDataQueue.Count > 0)
+            {
+                ReceiveSocketData rsd = receiveDataQueue.Dequeue();
+                ClientProtoManager.TryDeserialize(rsd.Data, rsd.Socket);
+            }
 
-        if (sendDataQueue.Count > 0)
-        {
-            Send();
+            if (Proxy.SendRequestsQueue.Count > 0)
+            {
+                Send();
+            }
         }
     }
 
@@ -60,30 +63,10 @@ public class Client : MonoBehaviour
     public void OnRestartProtocols()
     {
         ClientProtoManager = new ProtoManager();
-        ClientProtoManager.AddProtocol<TestConnectRequest>(NetProtocols.TEST_CONNECT);
-        ClientProtoManager.AddProtocol<ClientIdRequest>(NetProtocols.SEND_CLIENT_ID);
-        ClientProtoManager.AddProtocol<ServerInfoRequest>(NetProtocols.INFO_NUMBER);
-        ClientProtoManager.AddProtocol<ServerWarningRequest>(NetProtocols.WARNING_NUMBER);
-        ClientProtoManager.AddProtocol<GameStateRequest>(NetProtocols.GAME_BEGIN);
-        ClientProtoManager.AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
-        ClientProtoManager.AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
-        ClientProtoManager.AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
-        ClientProtoManager.AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE);
-        ClientProtoManager.AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
-        ClientProtoManager.AddProtocol<ClientEndRoundRequest>(NetProtocols.CLIENT_END_ROUND);
-        ClientProtoManager.AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.TEST_CONNECT, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.SEND_CLIENT_ID, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.INFO_NUMBER, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.WARNING_NUMBER, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.GAME_BEGIN, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.PLAYER, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.PLAYER_COST_CHANGE, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.DRAW_CARD, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.SUMMON_RETINUE, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.PLAYER_TURN, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.CLIENT_END_ROUND, Response);
-        ClientProtoManager.AddRequestDelegate(NetProtocols.CARD_DECK_INFO, Response);
+        foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
+        {
+            ClientProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
+        }
     }
 
     #region 连接
@@ -120,7 +103,7 @@ public class Client : MonoBehaviour
         {
             //与socket建立连接成功，开启线程接受服务端数据。  
             isStopReceive = false;
-            clientData = new ClientData(null, 0, new DataHolder(), isStopReceive);
+            Proxy = new Proxy(ServerSocket, 0, false);
             Thread thread = new Thread(new ThreadStart(ReceiveSocket));
             thread.IsBackground = true;
             thread.Start();
@@ -169,20 +152,11 @@ public class Client : MonoBehaviour
 
     #region 接收
 
-    enum ClientStates
-    {
-        Connected = 1 << 0,
-        Registered = 1 << 1,
-        SubmitCardDeck = 1 << 2,
-        Matching = 1 << 3,
-        Playing = 1 << 4,
-    }
-
     private int clientStates = 0;
 
     private void ReceiveSocket()
     {
-        clientData.DataHolder.Reset();
+        Proxy.DataHolder.Reset();
         while (!isStopReceive)
         {
             if (!ServerSocket.Connected)
@@ -209,12 +183,13 @@ public class Client : MonoBehaviour
                     break;
                 }
 
-                clientData.DataHolder.PushData(bytes, i);
+                Proxy.DataHolder.PushData(bytes, i);
 
-                while (clientData.DataHolder.IsFinished())
+                while (Proxy.DataHolder.IsFinished())
                 {
-                    receiveDataQueue.Enqueue(clientData);
-                    clientData.DataHolder.RemoveFromHead();
+                    ReceiveSocketData rsd = new ReceiveSocketData(Proxy.Socket, Proxy.DataHolder.mRecvData);
+                    receiveDataQueue.Enqueue(rsd);
+                    Proxy.DataHolder.RemoveFromHead();
                 }
             }
             catch (Exception e)
@@ -228,61 +203,13 @@ public class Client : MonoBehaviour
 
     void Response(Socket socket, Request r)
     {
-        string Log = "";
-        Log += "Server：[" + r.GetProtocolName() + "]    ";
-        Log += r.DeserializeLog();
+        string Log = "Server：[" + r.GetProtocolName() + "]    " + r.DeserializeLog();
         ClientLog.CL.PrintReceive(Log);
-        if (r is ServerInfoRequest) //接收服务器回执信息
-        {
-            ServerInfoRequest request = (ServerInfoRequest) r;
-            if (request.infoNumber == InfoNumbers.INFO_IS_CONNECT) clientStates |= (int) ClientStates.Connected;
-            if (request.infoNumber == InfoNumbers.INFO_SEND_CLIENT_ID_SUC) clientStates |= (int) ClientStates.Registered;
-            if (request.infoNumber == InfoNumbers.INFO_SEND_CLIENT_CARDDECK_SUC) clientStates |= (int) ClientStates.SubmitCardDeck;
-            if (request.infoNumber == InfoNumbers.INFO_IS_MATCHING) clientStates |= (int) ClientStates.Matching;
-            int tmp = clientStates;
-            StringBuilder sb = new StringBuilder();
-            while (tmp > 0)
-            {
-                sb.Append(tmp % 2);
-                tmp >>= 1;
-            }
 
-            ClientLog.CL.PrintClientStates("Client states: " + sb.ToString());
-        }
-        else if (r is ServerWarningRequest) //接收服务器回执警告
+        if (r is ServerRequestBase)
         {
-        }
-        else if (r is GameStateRequest)
-        {
-            clientStates |= (int) ClientStates.Playing;
-            RoundManager.RM.Initialize();
-            ClientInfoRequest request = new ClientInfoRequest(NetworkManager.NM.SelfClientId, InfoNumbers.INFO_BEGIN_GAME);
-            SendMessage(request);
-        }
-        else if (r is PlayerRequest)
-        {
-            PlayerRequest request = (PlayerRequest) r;
-            RoundManager.RM.InitializePlayers(request);
-        }
-        else if (r is PlayerCostRequest)
-        {
-            PlayerCostRequest request = (PlayerCostRequest) r;
-            RoundManager.RM.SetPlayersCost(request);
-        }
-        else if (r is PlayerTurnRequest)
-        {
-            PlayerTurnRequest request = (PlayerTurnRequest) r;
-            RoundManager.RM.SetPlayerTurn(request);
-        }
-        else if (r is DrawCardRequest)
-        {
-            DrawCardRequest request = (DrawCardRequest) r;
-            RoundManager.RM.OnPlayerDrawCard(request);
-        }
-        else if (r is SummonRetinueRequest)
-        {
-            SummonRetinueRequest request = (SummonRetinueRequest) r;
-            RoundManager.RM.OnPlayerSummonRetinue(request);
+            Proxy.ReceiveRequestsQueue.Enqueue((ServerRequestBase) r);
+            Proxy.Response();
         }
     }
 
@@ -290,9 +217,9 @@ public class Client : MonoBehaviour
 
     #region 发送
 
-    public void SendMessage(Request req)
+    public void SendMessage(ClientRequestBase req)
     {
-        sendDataQueue.Enqueue(req);
+        Proxy.SendRequestsQueue.Enqueue(req);
     }
 
     private void Send()
@@ -312,25 +239,28 @@ public class Client : MonoBehaviour
 
         try
         {
-            Request req = sendDataQueue.Dequeue();
-
-            DataStream bufferWriter = new DataStream(true);
-            req.Serialize(bufferWriter);
-            byte[] msg = bufferWriter.ToByteArray();
-
-            byte[] buffer = new byte[msg.Length + 4];
-            DataStream writer = new DataStream(buffer, true);
-
-            writer.WriteInt32((uint) msg.Length); //增加数据长度
-            writer.WriteRaw(msg);
-
-            byte[] data = writer.ToByteArray();
-
-            IAsyncResult asyncSend = ServerSocket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), ServerSocket);
-            bool success = asyncSend.AsyncWaitHandle.WaitOne(5000, true);
-            if (!success)
+            if (Proxy.SendRequestsQueue.Count > 0)
             {
-                Closed();
+                Request req = Proxy.SendRequestsQueue.Dequeue();
+
+                DataStream bufferWriter = new DataStream(true);
+                req.Serialize(bufferWriter);
+                byte[] msg = bufferWriter.ToByteArray();
+
+                byte[] buffer = new byte[msg.Length + 4];
+                DataStream writer = new DataStream(buffer, true);
+
+                writer.WriteSInt32(msg.Length); //增加数据长度
+                writer.WriteRaw(msg);
+
+                byte[] data = writer.ToByteArray();
+
+                IAsyncResult asyncSend = ServerSocket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), ServerSocket);
+                bool success = asyncSend.AsyncWaitHandle.WaitOne(5000, true);
+                if (!success)
+                {
+                    Closed();
+                }
             }
         }
         catch (Exception e)
@@ -345,4 +275,16 @@ public class Client : MonoBehaviour
     }
 
     #endregion
+}
+
+public struct ReceiveSocketData
+{
+    public Socket Socket;
+    public byte[] Data;
+
+    public ReceiveSocketData(Socket socket, byte[] data)
+    {
+        Socket = socket;
+        Data = data;
+    }
 }

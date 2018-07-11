@@ -8,7 +8,6 @@ public class HandManager : MonoBehaviour
 
     float[] anglesDict; //每张牌之间的夹角
     float[] horrizonDistanceDict; //每张牌之间的距离
-    private int cardNumber = 0; //手牌数
     List<CardBase> cards;
 
     int retinueLayer;
@@ -36,7 +35,7 @@ public class HandManager : MonoBehaviour
 
     public void GetCard(int cardId)
     {
-        CardInfo_Base newCardInfoBase = AllCards.AC.GetCard(cardId);
+        CardInfo_Base newCardInfoBase = AllCards.GetCard(cardId);
         CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer);
         cards.Add(newCardBase);
         RefreshCardsPlace();
@@ -113,7 +112,7 @@ public class HandManager : MonoBehaviour
 
     internal void RefreshCardsPlace() //重置所有手牌位置
     {
-        if (cardNumber == 0) return;
+        if (cards.Count == 0) return;
         if (!isSet_defaultCardRotation)
         {
             defaultCardRotation = cards[0].transform.rotation;
@@ -126,8 +125,8 @@ public class HandManager : MonoBehaviour
             isSet_defaultCardPosition = true;
         }
 
-        float angle = anglesDict[cardNumber - 1] * GameManager.GM.HandCardRotate;
-        float horrizonDist = horrizonDistanceDict[cardNumber - 1] * GameManager.GM.HandCardInterval;
+        float angle = anglesDict[cards.Count - 1] * GameManager.GM.HandCardRotate;
+        float horrizonDist = horrizonDistanceDict[cards.Count - 1] * GameManager.GM.HandCardInterval;
         int count = 0;
         foreach (CardBase card in cards)
         {
@@ -135,7 +134,7 @@ public class HandManager : MonoBehaviour
             card.transform.rotation = defaultCardRotation;
             card.transform.position = defaultCardPosition;
             card.transform.localScale = Vector3.one * GameManager.GM.HandCardSize;
-            float rotateAngle = angle / cardNumber * (((cardNumber - 1) / 2.0f + 1) - count);
+            float rotateAngle = angle / cards.Count * (((cards.Count - 1) / 2.0f + 1) - count);
             if (ClientPlayer.WhichPlayer == Players.Self)
             {
                 //card.transform.Rotate(Vector3.up * 180);
@@ -153,12 +152,12 @@ public class HandManager : MonoBehaviour
             }
 
             card.transform.position = new Vector3(card.transform.position.x, 2f, card.transform.position.z);
-            float horrizonDistance = horrizonDist / cardNumber * (((cardNumber - 1) / 2.0f + 1) - count);
+            float horrizonDistance = horrizonDist / cards.Count * (((cards.Count - 1) / 2.0f + 1) - count);
             card.transform.Translate(Vector3.right * horrizonDistance * GameManager.GM.HandCardSize); //向水平向错开，体现手牌展开感
-            float distCardsFromCenter = Mathf.Abs(((cardNumber - 1) / 2.0f + 1) - count); //与中心距离几张卡牌
-            float factor = (cardNumber - distCardsFromCenter) / cardNumber; //某临时参数
-            card.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.GM.HandCardSize + Vector3.back * cardNumber / 20 * GameManager.GM.HandCardOffset); //向垂直向错开，体现卡片弧线感
-            card.transform.Translate(Vector3.up * 0.1f * (cardNumber - count)); //向上错开，体现卡片前后感
+            float distCardsFromCenter = Mathf.Abs(((cards.Count - 1) / 2.0f + 1) - count); //与中心距离几张卡牌
+            float factor = (cards.Count - distCardsFromCenter) / cards.Count; //某临时参数
+            card.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.GM.HandCardSize + Vector3.back * cards.Count / 20 * GameManager.GM.HandCardOffset); //向垂直向错开，体现卡片弧线感
+            card.transform.Translate(Vector3.up * 0.1f * (cards.Count - count)); //向上错开，体现卡片前后感
             card.transform.Rotate(Vector3.down, rotateAngle); //卡片微小旋转
             card.ResetColliderAndReplace();
         }
@@ -168,7 +167,18 @@ public class HandManager : MonoBehaviour
 
     internal void RefreshAllCardUsable() //刷新所有卡牌是否可用
     {
-        foreach (var card in cards) card.Usable = (ClientPlayer == RoundManager.RM.CurrentClientPlayer) && card.M_Cost <= ClientPlayer.CostLeft;
+        foreach (var card in cards)
+        {
+            if (ClientPlayer == RoundManager.RM.CurrentClientPlayer)
+            {
+                card.Usable = (ClientPlayer == RoundManager.RM.EnemyClientPlayer) && (GameManager.GM.CanTestEnemyCards) && (card.M_Cost <= ClientPlayer.CostLeft);
+                card.Usable |= (ClientPlayer == RoundManager.RM.SelfClientPlayer) && (card.M_Cost <= ClientPlayer.CostLeft);
+            }
+            else
+            {
+                card.Usable = false;
+            }
+        }
     }
 
     internal void SetAllCardUnusable() //禁用所有手牌
