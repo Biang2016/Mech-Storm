@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class ClientEndRoundRequest : Request
+public class ClientEndRoundRequest : ClientRequestBase
 {
     public int clientId;
 

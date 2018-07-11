@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerCostRequest : Request
+public class PlayerCostRequest : ServerRequestBase
 {
     public int clinetId;
     public CostChangeFlag change; //0x00为都改变，0x01为left改变，0x02为max改变

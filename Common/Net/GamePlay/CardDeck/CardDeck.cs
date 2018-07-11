@@ -226,7 +226,7 @@ public class AllCards
     {
         addCard(
             new CardInfo_Retinue(
-                cardID: -1,
+                cardID: 999,
                 cardName: "空牌",
                 cardDesc: "",
                 cost: 0,

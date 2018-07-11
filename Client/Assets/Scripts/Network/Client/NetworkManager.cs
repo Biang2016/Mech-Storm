@@ -39,27 +39,6 @@ public class NetworkManager : MonoBehaviour
             Client.CS.Connect("127.0.0.1", 9999, ConnectCallBack, null);
         }
 
-        //if (CreateBtn("发送测试请求"))
-        //{
-        //    TestConnectRequest req = new TestConnectRequest(123);
-        //    Client.CS.SendMessage(req);
-        //}
-
-        //if (CreateBtn("服务器测试广播"))
-        //{
-        //    TestConnectRequest req = new TestConnectRequest(456);
-        //    Server.SV.SendMessage(req);
-        //}
-
-        clientIdStr = CreateTextField("客户ID", clientIdStr);
-
-        if (CreateBtn("注册客户ID"))
-        {
-            SelfClientId = int.Parse(clientIdStr);
-            ClientIdRequest req = new ClientIdRequest(SelfClientId, ClientIdPurpose.RegisterClientId);
-            Client.CS.SendMessage(req);
-        }
-
         cardDeckInfo = CreateTextField("卡组信息", cardDeckInfo);
 
         if (CreateBtn("确认卡组"))
@@ -70,15 +49,12 @@ public class NetworkManager : MonoBehaviour
             {
                 SelfCardDeckInfo.Add(int.Parse(s));
             }
-
-            CardDeckRequest req = new CardDeckRequest(SelfClientId, new CardDeckInfo(SelfCardDeckInfo.ToArray()));
-            Client.CS.SendMessage(req);
+            Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(SelfCardDeckInfo.ToArray()));
         }
 
-        if (CreateBtn("客户端请求开始匹配"))
+        if (CreateBtn("开始匹配"))
         {
-            ClientIdRequest req = new ClientIdRequest(SelfClientId, ClientIdPurpose.MatchGames);
-            Client.CS.SendMessage(req);
+            Client.CS.Proxy.OnBeginMatch();
         }
     }
 

@@ -7,7 +7,7 @@ public class ProtoManager
 {
     private Dictionary<int, Func<DataStream, Request>> mProtocolMapping;
 
-    public delegate void requestDelegate(Socket socket,Request request);
+    public delegate void requestDelegate(Socket socket, Request request);
 
     private Dictionary<int, List<requestDelegate>> mDelegateMapping;
 
@@ -15,6 +15,19 @@ public class ProtoManager
     {
         mProtocolMapping = new Dictionary<int, Func<DataStream, Request>>();
         mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
+
+        AddProtocol<TestConnectRequest>(NetProtocols.TEST_CONNECT);
+        AddProtocol<ClientIdRequest>(NetProtocols.SEND_CLIENT_ID);
+        AddProtocol<ServerInfoRequest>(NetProtocols.INFO_NUMBER);
+        AddProtocol<ServerWarningRequest>(NetProtocols.WARNING_NUMBER);
+        AddProtocol<MatchRequest>(NetProtocols.Match);
+        AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
+        AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
+        AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
+        AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE);
+        AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
+        AddProtocol<ClientEndRoundRequest>(NetProtocols.CLIENT_END_ROUND);
+        AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);
     }
 
 
@@ -71,9 +84,9 @@ public class ProtoManager
         }
     }
 
-    public Request TryDeserialize(DataHolder dataHolder,Socket socket)
+    public Request TryDeserialize(byte[] data, Socket socket)
     {
-        DataStream stream = new DataStream(dataHolder.mRecvData, true);
+        DataStream stream = new DataStream(data, true);
 
         int protocol = stream.ReadSInt32();
         Request request = null;
@@ -94,7 +107,7 @@ public class ProtoManager
         }
         else
         {
-            //Debug.Log("no register protocol : " + protocol + "!please reg to RegisterResp.");
+            throw new Exception("no register protocol : " + protocol + "!please reg to RegisterResp.");
         }
 
         return request;

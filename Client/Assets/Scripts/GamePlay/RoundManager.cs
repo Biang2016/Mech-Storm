@@ -19,11 +19,6 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    private RoundManager()
-    {
-
-    }
-
     internal int RoundNumber;
     internal ClientPlayer SelfClientPlayer;
     internal ClientPlayer EnemyClientPlayer;
@@ -34,19 +29,15 @@ public class RoundManager : MonoBehaviour
     public Text SelfCostText;
     public Text EnemyCostText;
 
-    void Awake()
-    {
-    }
-
-    private void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
     #region 响应
+
+    public void Initialize()
+    {
+        RoundNumber = 0;
+        CurrentClientPlayer = null;
+        SelfCostText.text = "";
+        EnemyCostText.text = "";
+    }
 
     public void InitializePlayers(PlayerRequest r)
     {
@@ -70,14 +61,6 @@ public class RoundManager : MonoBehaviour
         {
             EnemyClientPlayer.DoChangeCost(r);
         }
-    }
-
-    public void Initialize()
-    {
-        RoundNumber = 0;
-        CurrentClientPlayer = null;
-        SelfCostText.text = "";
-        EnemyCostText.text = "";
     }
 
     public void SetPlayerTurn(PlayerTurnRequest r) //服务器说某玩家回合开始
@@ -122,13 +105,13 @@ public class RoundManager : MonoBehaviour
 
     public void OnPlayerDrawCard(DrawCardRequest resp)
     {
-        if (resp.isShow)
+        if (resp.clientId == NetworkManager.NM.SelfClientId)
         {
-            CurrentClientPlayer.MyHandManager.GetCard(resp.cardId);
+            SelfClientPlayer.MyHandManager.GetCard(resp.cardId);
         }
         else
         {
-            CurrentClientPlayer.MyHandManager.GetCard(-1); //空白牌，隐藏防止对方知道
+            EnemyClientPlayer.MyHandManager.GetCard(999); //空白牌，隐藏防止对方知道
         }
     }
 

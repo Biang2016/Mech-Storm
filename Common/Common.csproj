@@ -48,19 +48,20 @@
     <Compile Include="Net\GamePlay\Shield.cs" />
     <Compile Include="Net\GamePlay\Slot.cs" />
     <Compile Include="Net\GamePlay\Weapon.cs" />
+    <Compile Include="Net\Protocol\ProxyBase.cs" />
     <Compile Include="Net\Protocol\GamePlaySettings.cs" />
     <Compile Include="Net\Protocol\InfoNumbers.cs" />
     <Compile Include="Net\Protocol\WarningNumbers.cs" />
-    <Compile Include="Net\Requests\CardDeckRequest.cs" />
+    <Compile Include="Net\Requests\ClientToServer\MatchRequest.cs" />
+    <Compile Include="Net\Requests\ClientToServer\CardDeckRequest.cs" />
     <Compile Include="Net\Requests\ClientToServer\ClientRequestBase.cs" />
-    <Compile Include="Net\Requests\GameStateRequest.cs" />
     <Compile Include="Net\Requests\ClientInfoRequest.cs" />
-    <Compile Include="Net\Requests\ServerInfoRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ServerInfoRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ServerRequestBase.cs" />
-    <Compile Include="Net\Requests\ServerWarningRequest.cs" />
-    <Compile Include="Net\Requests\DrawCardRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ServerWarningRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\DrawCardRequest.cs" />
     <Compile Include="Net\Requests\ClientEndRoundRequest.cs" />
-    <Compile Include="Net\Requests\PlayerTurnRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\PlayerTurnRequest.cs" />
     <Compile Include="Net\Requests\SummonRetinueRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Net\DataStream\DataHolder.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Net\Protocol\ProtoManager.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientIdRequest.cs" />
     <Compile Include="Net\Requests\PlayerCostRequest.cs" />
-    <Compile Include="Net\Requests\PlayerRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\PlayerRequest.cs" />
     <Compile Include="Net\Requests\Request.cs" />
     <Compile Include="Net\Requests\TestConnectRequest.cs" />
   </ItemGroup>
