@@ -52,6 +52,7 @@
     <Compile Include="Net\Protocol\GamePlaySettings.cs" />
     <Compile Include="Net\Protocol\InfoNumbers.cs" />
     <Compile Include="Net\Protocol\WarningNumbers.cs" />
+    <Compile Include="Net\Requests\ClientToServer\ResetClientRequest.cs" />
     <Compile Include="Net\Requests\ClientToServer\MatchRequest.cs" />
     <Compile Include="Net\Requests\ClientToServer\CardDeckRequest.cs" />
     <Compile Include="Net\Requests\ClientToServer\ClientRequestBase.cs" />

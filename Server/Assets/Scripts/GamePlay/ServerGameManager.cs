@@ -38,10 +38,10 @@ public class ServerGameManager
         PlayerA.MyEnemyPlayer = PlayerB;
         PlayerB.MyEnemyPlayer = PlayerA;
 
-        PlayerRequest request1 = new PlayerRequest(ClientA.ClientId, 0, 1);
+        PlayerRequest request1 = new PlayerRequest(ClientA.ClientId, 0, GamePlaySettings.BeginCost);
         BroadcastBothPlayers(request1);
 
-        PlayerRequest request2 = new PlayerRequest(ClientB.ClientId, 0, 1);
+        PlayerRequest request2 = new PlayerRequest(ClientB.ClientId, 0, GamePlaySettings.BeginCost);
         BroadcastBothPlayers(request2);
 
         GameBegin();
@@ -50,26 +50,24 @@ public class ServerGameManager
     void GameBegin()
     {
         CurrentPlayer = new Random().Next(0, 2) == 0 ? PlayerA : PlayerB;
+        //发英雄牌
+        PlayerA.MyHandManager.GetACardByID(99);
+        //抽随从牌
+        PlayerA.MyHandManager.DrawRetinueCard();
+
+        //发英雄牌
+        PlayerB.MyHandManager.GetACardByID(99);
+        //抽随从牌
+        PlayerB.MyHandManager.DrawRetinueCard();
+
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
         BroadcastBothPlayers(request);
 
-        //发英雄牌
-        CurrentPlayer.MyHandManager.GetACardByID(99);
-        //抽随从牌
-        CurrentPlayer.MyHandManager.DrawRetinueCard();
-        OnSwitchPlayer();
-
-        //发英雄牌
-        CurrentPlayer.MyHandManager.GetACardByID(99);
-        //抽随从牌
-        CurrentPlayer.MyHandManager.DrawRetinueCard();
-        OnSwitchPlayer();
-
         CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
-        EndRound();
+        OnEndRound();
         OnSwitchPlayer();
         CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.SecondDrawCard);
-        EndRound();
+        OnEndRound();
         OnSwitchPlayer();
         OnBeginRound();
         OnDrawCardPhase();

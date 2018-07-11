@@ -59,9 +59,8 @@ static class ServerLog
                 if (tmp != null)
                 {
                     Console.ForegroundColor = tmp.ConsoleColor;
-                    Console.WriteLine(tmp.LogStr);
+                    Console.WriteLine(DateTime.Now.ToLongTimeString() + "  " + tmp.LogStr);
                 }
-                
             }
         }
     }

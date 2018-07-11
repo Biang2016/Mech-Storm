@@ -20,11 +20,11 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    public int SelfClientId;
     public List<int> SelfCardDeckInfo = new List<int>();
 
     public void Awake()
     {
+        AllCards.AddAllCards();
     }
 
     private int high;
@@ -55,6 +55,11 @@ public class NetworkManager : MonoBehaviour
         if (CreateBtn("开始匹配"))
         {
             Client.CS.Proxy.OnBeginMatch();
+        }
+
+        if (CreateBtn("重置游戏"))
+        {
+            Client.CS.Proxy.ReSetClient();
         }
     }
 

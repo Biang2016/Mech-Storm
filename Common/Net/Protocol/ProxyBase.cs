@@ -26,9 +26,10 @@ public abstract class ProxyBase
 
     public enum ClientStates
     {
-        GetId = 0,
-        SubmitCardDeck = 1,
-        Matching = 2,
-        Playing = 3,
+        Nothing = 0,
+        GetId = 1,
+        SubmitCardDeck = 2,
+        Matching = 3,
+        Playing = 4,
     }
 }

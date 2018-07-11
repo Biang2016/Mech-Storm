@@ -44,7 +44,8 @@ class Server
 
     public void Start()
     {
-        AllCards tmp = AllCards.AC;
+        AllCards.AddAllCards();
+        ServerLog.PrintServerStates("CardDeck Loaded");
         SGMM = new ServerGameMatchManager();
 
         OnRestartProtocols();
@@ -244,7 +245,7 @@ class Server
 
             byte[] data = writer.ToByteArray();
             IAsyncResult asyncSend = sendMsg.Client.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), sendMsg.Client);
-            bool success = asyncSend.AsyncWaitHandle.WaitOne(5000, true);
+            bool success = asyncSend.AsyncWaitHandle.WaitOne(500, true);
             if (!success)
             {
                 Stop();

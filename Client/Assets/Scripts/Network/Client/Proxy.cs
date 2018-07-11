@@ -47,21 +47,22 @@ public class Proxy : ProxyBase
     public override void Response()
     {
         ServerRequestBase r = ReceiveRequestsQueue.Dequeue();
-        if (r is ServerInfoRequest) //接收服务器回执信息
-        {
-            ServerInfoRequest request = (ServerInfoRequest) r;
-            if (request.infoNumber == InfoNumbers.INFO_SEND_CLIENT_CARDDECK_SUC) ClientState = ClientStates.SubmitCardDeck;
-            if (request.infoNumber == InfoNumbers.INFO_IS_MATCHING) ClientState = ClientStates.Matching;
-        }
-        else if (r is ServerWarningRequest) //接收服务器回执警告
+        if (r is ServerWarningRequest) //接收服务器回执警告
         {
         }
         else if (r is ClientIdRequest)
         {
-            ClientIdRequest request = (ClientIdRequest) r;
-            ClientId = request.givenClientId;
-            ClientState = ClientStates.GetId;
-            ClientLog.CL.PrintClientStates("Client states: " + ClientState);
+            if (Client.CS.Proxy.ClientState == ClientStates.Nothing)
+            {
+                ClientIdRequest request = (ClientIdRequest) r;
+                ClientId = request.givenClientId;
+                ClientState = ClientStates.GetId;
+                ClientLog.CL.PrintClientStates("Client states: " + ClientState);
+            }
+            else
+            {
+                ClientLog.CL.PrintError("请重置游戏");
+            }
         }
         else if (r is PlayerRequest)
         {
@@ -79,4 +80,10 @@ public class Proxy : ProxyBase
     }
 
 
+    public void ReSetClient()
+    {
+        Client.CS.Proxy.ClientState = ClientStates.Nothing;
+        ResetClientRequest request = new ResetClientRequest();
+        Client.CS.SendMessage(request);
+    }
 }

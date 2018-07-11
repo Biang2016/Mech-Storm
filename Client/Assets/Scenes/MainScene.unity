@@ -320,7 +320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb19961f58d819c489038f016eda3e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelfClientId: 0
   SelfCardDeckInfo: 
 --- !u!4 &1367921000
 Transform:

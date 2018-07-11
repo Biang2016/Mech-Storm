@@ -43,7 +43,7 @@ public class SummonRetinueRequest : ClientRequestBase
     {
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
-        cardInfo = (CardInfo_Retinue)AllCards.AC.GetCard(reader.ReadSInt32());
+        cardInfo = (CardInfo_Retinue)AllCards.GetCard(reader.ReadSInt32());
         handCardIndex = reader.ReadSInt32();
         battleGroundIndex = reader.ReadSInt32();
     }

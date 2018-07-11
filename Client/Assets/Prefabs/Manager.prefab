@@ -1756,7 +1756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24cc96475ca7924583382f0174de03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanTestEnemyCards: 1
+  CanTestEnemyCards: 0
   HandCardSize: 1.5
   HandCardInterval: 1
   HandCardRotate: 1
