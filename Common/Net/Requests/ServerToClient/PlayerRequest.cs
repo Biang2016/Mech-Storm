@@ -47,7 +47,7 @@ public class PlayerRequest : ServerRequestBase
 
     public override string DeserializeLog()
     {
-        string log = "";
+        string log = base.DeserializeLog();
         log += " [clientId] " + clientId;
         log += " [costLeft] " + costLeft;
         log += " [costMax] " + costMax;

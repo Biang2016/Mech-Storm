@@ -101,7 +101,7 @@ class Server
             //将服务器的ip捆绑
             severSocket.Bind(new IPEndPoint(IPAddress.Parse(IP), Port));
             //为服务器sokect添加监听
-            severSocket.Listen(10);
+            severSocket.Listen(200);
             ServerLog.PrintServerStates("------------------ Server Start ------------------\n");
             //开始服务器时 一般接受一个服务就会被挂起所以要用多线程来解决
             Thread threadAccept = new Thread(Accept);

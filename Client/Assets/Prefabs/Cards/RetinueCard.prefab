@@ -1553,7 +1553,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1520339174807222}
-  m_Text: "\u5361\u724C\u540D\u5B57123123"
+  m_Text: "\u5361\u724C\u540D"
   m_OffsetZ: 0
   m_CharacterSize: 8
   m_LineSpacing: 1

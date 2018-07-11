@@ -38,7 +38,7 @@ public class ServerWarningRequest : ServerRequestBase
 
     public override string DeserializeLog()
     {
-        string log = "";
+        string log = base.DeserializeLog();
         foreach (System.Reflection.FieldInfo fi in typeof(WarningNumbers).GetFields())
         {
             if ((int)(fi.GetRawConstantValue()) == warningNumber)

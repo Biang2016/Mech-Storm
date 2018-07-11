@@ -61,7 +61,7 @@ public class DrawCardRequest : ServerRequestBase
 
     public override string DeserializeLog()
     {
-        string log = "";
+        string log = base.DeserializeLog();
         log += " [clientId] " + clientId;
         if (isShow)
         {

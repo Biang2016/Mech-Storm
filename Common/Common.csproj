@@ -61,7 +61,7 @@
     <Compile Include="Net\Requests\ServerToClient\ServerRequestBase.cs" />
     <Compile Include="Net\Requests\ServerToClient\ServerWarningRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\DrawCardRequest.cs" />
-    <Compile Include="Net\Requests\ClientEndRoundRequest.cs" />
+    <Compile Include="Net\Requests\ClientToServer\ClientEndRoundRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\PlayerTurnRequest.cs" />
     <Compile Include="Net\Requests\SummonRetinueRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Net\Protocol\NetProtocols.cs" />
     <Compile Include="Net\Protocol\ProtoManager.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientIdRequest.cs" />
-    <Compile Include="Net\Requests\PlayerCostRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\PlayerCostRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\PlayerRequest.cs" />
     <Compile Include="Net\Requests\Request.cs" />
     <Compile Include="Net\Requests\TestConnectRequest.cs" />

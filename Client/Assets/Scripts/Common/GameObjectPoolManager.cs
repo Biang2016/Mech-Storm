@@ -97,6 +97,10 @@ public class GameObjectPoolManager : MonoBehaviour
     internal GameObjectPool Pool_MACardPool;
     public GameObject MACardPrefab;
 
+    public GameObject BackCardPool;
+    internal GameObjectPool Pool_BackCardPool;
+    public GameObject BackCardPrefab;
+
     void Awake()
     {
         Pool_ColliderReplacePool = ColliderReplacePool.GetComponent<GameObjectPool>();
@@ -158,6 +162,9 @@ public class GameObjectPoolManager : MonoBehaviour
 
         Pool_MACardPool = MACardPool.GetComponent<GameObjectPool>();
         Pool_MACardPool.Initiate(MACardPrefab, 30);
+
+        Pool_BackCardPool = BackCardPool.GetComponent<GameObjectPool>();
+        Pool_BackCardPool.Initiate(BackCardPrefab, 30);
 
     }
 

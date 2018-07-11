@@ -36,7 +36,6 @@ public class ServerHandManager
                 ServerLog.Print("No Card");
                 return;
             }
-
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
             cards.Add(newCard);
             cardNumber++;

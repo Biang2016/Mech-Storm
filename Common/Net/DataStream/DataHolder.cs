@@ -4,7 +4,7 @@ using System;
 
 public class DataHolder
 {
-    public byte[] mRecvDataCache; //use array as buffer for efficiency consideration
+    public byte[] mRecvDataCache=new byte[4096]; //use array as buffer for efficiency consideration
     public byte[] mRecvData;
 
     private int mTail = -1;

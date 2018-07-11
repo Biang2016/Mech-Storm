@@ -80,10 +80,12 @@ class Log
 {
     public string LogStr;
     public ConsoleColor ConsoleColor;
+    public string Time;
 
     public Log(string logStr, ConsoleColor consoleColor)
     {
-        LogStr = logStr;
         ConsoleColor = consoleColor;
+        Time = System.DateTime.Now.ToLongTimeString();
+        LogStr = Time + "  " + logStr;
     }
 }
