@@ -16,7 +16,7 @@ public class SummonRetinueRequest : ClientRequestBase
     public SummonRetinueRequest(int clientId, CardInfo_Retinue cardInfo, int handCardIndex, int battleGroundIndex)
     {
         this.clientId = clientId;
-        this.cardInfo = cardInfo;
+        this.cardInfo = (CardInfo_Retinue)cardInfo.Clone();
         this.handCardIndex = handCardIndex;
         this.battleGroundIndex = battleGroundIndex;
     }

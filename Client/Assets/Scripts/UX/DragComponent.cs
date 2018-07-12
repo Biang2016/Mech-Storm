@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class DragComponent : MonoBehaviour
+internal class DragComponent : MonoBehaviour
 {
     /// <summary>
     /// 可拖动功能，应用于卡片、人物、技能、随从、
@@ -189,7 +189,7 @@ public class DragComponent : MonoBehaviour
     }
 }
 
-public interface IDragComponent
+internal interface IDragComponent
 {
     /// <summary>
     ///     此接口用于将除了DragComponent通用效果之外的效果还给调用者自行处理

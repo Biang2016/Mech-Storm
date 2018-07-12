@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameObjectPoolManager : MonoBehaviour
+internal class GameObjectPoolManager : MonoBehaviour
 {
     private static GameObjectPoolManager gopm;
     public static GameObjectPoolManager GOPM

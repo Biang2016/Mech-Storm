@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class SlotAnchor : MonoBehaviour,IMouseHoverComponent
+internal class SlotAnchor : MonoBehaviour,IMouseHoverComponent
 {
     public Slot M_Slot;
     internal ModuleRetinue M_ModuleRetinue;

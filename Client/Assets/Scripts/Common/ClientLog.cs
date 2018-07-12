@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ClientLog : MonoBehaviour
+internal class ClientLog : MonoBehaviour
 {
     private static ClientLog _cl;
 

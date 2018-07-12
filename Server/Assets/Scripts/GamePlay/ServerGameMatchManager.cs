@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-class ServerGameMatchManager
+internal class ServerGameMatchManager
 {
     List<ServerGameManager> SMGS = new List<ServerGameManager>();
     Dictionary<int, ServerGameManager> clientGameMapping = new Dictionary<int, ServerGameManager>(); //玩家和游戏的映射关系

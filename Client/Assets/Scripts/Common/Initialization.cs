@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Initialization : MonoBehaviour
+internal class Initialization : MonoBehaviour
 {
     [SerializeField] private GameObject Manager;
     private GameManager GameManager;

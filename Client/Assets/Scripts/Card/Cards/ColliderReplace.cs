@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ColliderReplace : MonoBehaviour
+internal class ColliderReplace : MonoBehaviour
 {
     internal CardBase MyCallerCard;
 

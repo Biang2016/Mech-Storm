@@ -4,7 +4,7 @@ using System;
 
 [ExecuteInEditMode]
 [AddComponentMenu("PengLu/ImageEffect/Blurbox")]
-public class ImageEffectBlurBox : MonoBehaviour {
+internal class ImageEffectBlurBox : MonoBehaviour {
     #region Variables  
     public Shader BlurBoxShader = null;
     private Material BlurBoxMaterial = null;

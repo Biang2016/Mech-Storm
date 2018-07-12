@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CardPictureManager : MonoBehaviour
+internal class CardPictureManager : MonoBehaviour
 {
 
     void Start()

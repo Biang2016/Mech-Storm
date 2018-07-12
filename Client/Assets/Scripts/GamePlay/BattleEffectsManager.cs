@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class BattleEffectsManager : MonoBehaviour
+internal class BattleEffectsManager : MonoBehaviour
 {
     private static BattleEffectsManager _bem;
 

@@ -8,7 +8,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class Client : MonoBehaviour
+internal class Client : MonoBehaviour
 {
     private static Client _cs;
 

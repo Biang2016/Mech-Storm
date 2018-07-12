@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ModuleWeapon : ModuleBase
+internal class ModuleWeapon : ModuleBase
 {
     void Awake()
     {

@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-public class ClientProxy : ProxyBase
+internal class ClientProxy : ProxyBase
 {
     public Queue<ServerRequestBase> SendRequestsQueue = new Queue<ServerRequestBase>();
     public Queue<ClientRequestBase> ReceiveRequestsQueue = new Queue<ClientRequestBase>();
@@ -47,11 +47,16 @@ public class ClientProxy : ProxyBase
         }
     }
 
+    /// <summary>
+    /// 此类中处理进入游戏前的所有Request
+    /// 进入游戏后将所有Request发给ServerGameManager处理
+    /// </summary>
     public override void Response()
     {
         while (ReceiveRequestsQueue.Count > 0)
         {
             ClientRequestBase r = ReceiveRequestsQueue.Dequeue();
+            //以下是进入游戏前的请求
             if (r is CardDeckRequest)
             {
                 if (ClientState == ClientStates.GetId)
@@ -71,10 +76,22 @@ public class ClientProxy : ProxyBase
             }
             else if (r is ResetClientRequest)
             {
+
             }
+            //以下是进入游戏后的请求
             else if (r is ClientEndRoundRequest)
             {
-                MyServerGameManager.EndRound();
+                if (ClientState == ClientStates.Playing)
+                {
+                    MyServerGameManager.OnEndRoundRequest((ClientEndRoundRequest) r);
+                }
+            }
+            else if (r is SummonRetinueRequest)
+            {
+                if (ClientState == ClientStates.Playing)
+                {
+                    MyServerGameManager.OnClientSummonRetinueRequest((SummonRetinueRequest)r);
+                }
             }
         }
     }

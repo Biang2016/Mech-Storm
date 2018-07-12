@@ -16,7 +16,6 @@ public class ProtoManager
         mProtocolMapping = new Dictionary<int, Func<DataStream, Request>>();
         mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
 
-        AddProtocol<TestConnectRequest>(NetProtocols.TEST_CONNECT);
         AddProtocol<ClientIdRequest>(NetProtocols.SEND_CLIENT_ID);
         AddProtocol<ServerInfoRequest>(NetProtocols.INFO_NUMBER);
         AddProtocol<ServerWarningRequest>(NetProtocols.WARNING_NUMBER);
@@ -25,6 +24,7 @@ public class ProtoManager
         AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
         AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
         AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE);
+        AddProtocol<SummonRetinueRequest_Response>(NetProtocols.SUMMON_RETINUE_RESPONSE);
         AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
         AddProtocol<ClientEndRoundRequest>(NetProtocols.CLIENT_END_ROUND);
         AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);

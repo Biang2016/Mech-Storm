@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class RoundManager : MonoBehaviour
+internal class RoundManager : MonoBehaviour
 {
     private static RoundManager rm;
 
@@ -95,15 +95,17 @@ public class RoundManager : MonoBehaviour
         CurrentClientPlayer.MyBattleGroundManager.BeginRound();
     }
 
-    public void OnPlayerSummonRetinue(SummonRetinueRequest resp)
+    public void OnPlayerSummonRetinue(SummonRetinueRequest_Response resp)
     {
         if (resp.clientId == Client.CS.Proxy.ClientId)
         {
-            SelfClientPlayer.MyHandManager.SummonRetinue(resp.handCardIndex, resp.battleGroundIndex);
+            SelfClientPlayer.MyHandManager.SummonRetinue(resp.handCardIndex);
+            SelfClientPlayer.MyBattleGroundManager.AddRetinue(resp);
         }
         else
         {
-            EnemyClientPlayer.MyHandManager.SummonRetinue(resp.handCardIndex, resp.battleGroundIndex);
+            EnemyClientPlayer.MyHandManager.SummonRetinue(resp.handCardIndex);
+            EnemyClientPlayer.MyBattleGroundManager.AddRetinue(resp);
         }
     }
 

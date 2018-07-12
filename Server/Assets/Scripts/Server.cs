@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
-class Server
+internal class Server
 {
     private static Server _sv;
 

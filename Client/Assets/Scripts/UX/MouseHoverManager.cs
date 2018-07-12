@@ -5,7 +5,7 @@ using System.Collections;
 /// 鼠标放在某个物体上的效果管理器
 /// 每次只允许一个对象有效果
 /// </summary>
-public class MouseHoverManager : MonoBehaviour
+internal class MouseHoverManager : MonoBehaviour
 {
     void Awake()
     {

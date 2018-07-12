@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Slot : MonoBehaviour
+internal class Slot : MonoBehaviour
 {
     public ClientPlayer ClientPlayer;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandManager : MonoBehaviour
+internal class HandManager : MonoBehaviour
 {
     internal ClientPlayer ClientPlayer;
 
@@ -62,13 +62,9 @@ public class HandManager : MonoBehaviour
         RefreshCardsPlace();
     }
 
-    //召唤随从
-    public void SummonRetinue(int handCardIndex, int battleGroundIndex)
+    public void SummonRetinue(int handCardIndex)
     {
         cards[handCardIndex].PoolRecycle();
-        ModuleRetinue retinueObj = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(ClientPlayer.MyBattleGroundManager.transform).GetComponent<ModuleRetinue>();
-        retinueObj.Initiate(cards[handCardIndex].CardInfo, ClientPlayer);
-        ClientPlayer.MyBattleGroundManager.AddRetinue(retinueObj, battleGroundIndex);
         DropCard(handCardIndex);
     }
 

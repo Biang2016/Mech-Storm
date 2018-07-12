@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DragManager : MonoBehaviour
+internal class DragManager : MonoBehaviour
 {
     /// <summary>
     /// 一次拖动一个卡牌、随从、英雄

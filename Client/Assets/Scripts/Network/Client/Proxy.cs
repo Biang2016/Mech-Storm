@@ -4,10 +4,11 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 
-public class Proxy : ProxyBase
+internal class Proxy : ProxyBase
 {
     public Queue<ClientRequestBase> SendRequestsQueue = new Queue<ClientRequestBase>();
     public Queue<ServerRequestBase> ReceiveRequestsQueue = new Queue<ServerRequestBase>();
+
 
 
     public Proxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
@@ -76,6 +77,9 @@ public class Proxy : ProxyBase
         else if (r is DrawCardRequest)
         {
             RoundManager.RM.OnPlayerDrawCard((DrawCardRequest) r);
+        }else if (r is SummonRetinueRequest_Response)
+        {
+            RoundManager.RM.OnPlayerSummonRetinue((SummonRetinueRequest_Response) r);
         }
     }
 

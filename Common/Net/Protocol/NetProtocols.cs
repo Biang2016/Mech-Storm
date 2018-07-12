@@ -14,6 +14,7 @@ public class NetProtocols
     public const int PLAYER_COST_CHANGE = 0x00000102; //英雄费用信息
     public const int DRAW_CARD = 0x00000103; //抽一张牌
     public const int SUMMON_RETINUE = 0x00000105; //召唤随从
+    public const int SUMMON_RETINUE_RESPONSE = 0x00000109; //召唤随从_服务器响应
     public const int PLAYER_TURN = 0x00000106; //切换玩家
     public const int CLIENT_END_ROUND = 0x00000107; //切换玩家
     public const int CARD_DECK_INFO = 0x00000108; //卡组信息

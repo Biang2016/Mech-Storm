@@ -7,7 +7,7 @@ using System.Threading;
 /// <summary>
 /// 本类中封装卡组操作的游戏逻辑高级功能
 /// </summary>
-public class ServerCardDeckManager
+internal class ServerCardDeckManager
 {
     public ServerPlayer ServerPlayer;
 

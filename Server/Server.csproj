@@ -40,13 +40,19 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>C:\Program Files\Unity2017.2.0f\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardBase.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardShield.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardWeapon.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ServerRetinue.cs" />
+    <Compile Include="Assets\Scripts\Card\Modules\ServerModuleShield.cs" />
+    <Compile Include="Assets\Scripts\Card\Modules\ServerModuleWeapon.cs" />
+    <Compile Include="Assets\Scripts\Card\Modules\ServerModuleBase.cs" />
+    <Compile Include="Assets\Scripts\Card\Modules\ServerModuleRetinue.cs" />
     <Compile Include="Assets\Scripts\GamePlay\ClientProxy.cs" />
     <Compile Include="Assets\Scripts\GamePlay\ServerBattleGroundManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\ServerCardDeckManager.cs" />

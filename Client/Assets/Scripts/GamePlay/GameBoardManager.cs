@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameBoardManager : MonoBehaviour
+internal class GameBoardManager : MonoBehaviour
 {
     private static GameBoardManager gbm;
 

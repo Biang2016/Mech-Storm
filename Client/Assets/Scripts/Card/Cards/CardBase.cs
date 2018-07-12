@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
+internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 {
-    internal int GameObjectID;
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
 
     public virtual void PoolRecycle()
     {
-        GameObjectID = -1;
         ResetColliderAndReplace();
         if (GetComponent<DragComponent>())
         {
@@ -184,8 +182,6 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
 
     public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
-        GameObjectID = -1;
-
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
         initiateNumbers(ref GoNumberSet_Cost, ref CardNumberSet_Cost, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Cost);

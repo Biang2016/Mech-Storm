@@ -13,7 +13,17 @@ public abstract class ProxyBase
     public DataHolder DataHolder = new DataHolder();
     public bool IsStopReceive;
 
-    public ClientStates ClientState;
+    private ClientStates clientState;
+
+    public ClientStates ClientState
+    {
+        get => clientState;
+        set
+        {
+            clientState = value;
+
+        }
+    }
 
     protected ProxyBase(Socket socket, int clientId, bool isStopReceive)
     {
@@ -21,6 +31,7 @@ public abstract class ProxyBase
         ClientId = clientId;
         IsStopReceive = isStopReceive;
     }
+
 
     public abstract void Response();
 

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-class ServerCardRetinue : ServerCardBase
+internal class ServerCardRetinue : ServerCardBase
 {
-
-
 }

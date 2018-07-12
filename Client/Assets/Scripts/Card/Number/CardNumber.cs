@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CardNumber : MonoBehaviour,IGameObjectPool
+internal class CardNumber : MonoBehaviour,IGameObjectPool
 {
     internal GameObjectPool gameObjectPool;
 

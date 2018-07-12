@@ -3,7 +3,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Threading;
 
-public class ServerGameManager
+internal class ServerGameManager
 {
     public ClientProxy ClientA;
     public ClientProxy ClientB;
@@ -25,6 +25,9 @@ public class ServerGameManager
 
     private void Initialized()
     {
+        ClientA.ClientState = ProxyBase.ClientStates.Playing;
+        ClientB.ClientState = ProxyBase.ClientStates.Playing;
+
         ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
         PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, 1, this);
         PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CardDeckInfo);
@@ -95,6 +98,32 @@ public class ServerGameManager
     void OnDrawCardPhase()
     {
         CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.DrawCardPerRound);
+    }
+
+    public void OnClientSummonRetinueRequest(SummonRetinueRequest summonRetinueRequest)
+    {
+        ClientProxy cp = summonRetinueRequest.clientId == ClientA.ClientId ? ClientA : ClientB;
+        if (cp.MyServerPlayer.MyBattleGroundManager.BattleGroundIsFull)
+        {
+            return;
+        }
+        else
+        {
+            if (cp.MyServerPlayer.MyBattleGroundManager.SummonRetinue(summonRetinueRequest))
+            {
+                cp.MyServerPlayer.MyHandManager.DropCardAt(summonRetinueRequest.handCardIndex);
+            }
+            SummonRetinueRequest_Response request =new SummonRetinueRequest_Response(summonRetinueRequest.clientId,summonRetinueRequest.cardInfo,summonRetinueRequest.handCardIndex,summonRetinueRequest.battleGroundIndex);
+            cp.SendRequestsQueue.Enqueue(request);
+        }
+    }
+
+    public void OnEndRoundRequest(ClientEndRoundRequest r)
+    {
+        if (CurrentPlayer.ClientId == r.clientId)
+        {
+            EndRound();
+        }
     }
 
     public void EndRound()

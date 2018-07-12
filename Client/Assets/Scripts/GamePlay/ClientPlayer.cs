@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClientPlayer : Player
+internal class ClientPlayer : Player
 {
     public BoardAreaTypes MyBattleGroundArea; //卡牌所属方的战场区
     public HandManager MyHandManager; //卡牌所属的手部区管理器

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class NetworkManager : MonoBehaviour
+internal class NetworkManager : MonoBehaviour
 {
     private static NetworkManager _nm;
 

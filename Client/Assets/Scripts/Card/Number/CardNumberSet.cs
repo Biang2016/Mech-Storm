@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class CardNumberSet : MonoBehaviour, IGameObjectPool
+internal class CardNumberSet : MonoBehaviour, IGameObjectPool
 {
     GameObjectPool gameObjectPool;
 

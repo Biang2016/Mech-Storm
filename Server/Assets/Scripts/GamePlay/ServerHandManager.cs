@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class ServerHandManager
+internal class ServerHandManager
 {
     public ServerPlayer ServerPlayer;
-    private int cardNumber = 0; //手牌数
     List<ServerCardBase> cards = new List<ServerCardBase>();
 
     public ServerHandManager(ServerPlayer serverPlayer)
@@ -16,7 +15,7 @@ public class ServerHandManager
 
     internal void DrawCard()
     {
-        if (cardNumber >= GamePlaySettings.MaxHandCard)
+        if (cards.Count >= GamePlaySettings.MaxHandCard)
         {
             //无法抽牌
         }
@@ -31,7 +30,6 @@ public class ServerHandManager
 
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
             cards.Add(newCard);
-            cardNumber++;
         }
     }
 
@@ -39,7 +37,7 @@ public class ServerHandManager
     internal void DrawCards(int cardNumber)
     {
         List<CardInfo_Base> newCardsInfo = ServerPlayer.MyCardDeckManager.DrawCardsOnTop(cardNumber);
-        if(newCardsInfo.Count!=cardNumber)ServerLog.PrintError("!!!");
+        if (newCardsInfo.Count != cardNumber) ServerLog.PrintError("!!!");
         foreach (CardInfo_Base cardInfoBase in newCardsInfo)
         {
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfoBase, ServerPlayer);
@@ -58,7 +56,6 @@ public class ServerHandManager
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer);
         ServerPlayer.MyCardDeckManager.OnPlayerGetCard(cardID);
         cards.Add(newCard);
-        cardNumber++;
     }
 
     internal void DrawRetinueCard()
@@ -72,7 +69,6 @@ public class ServerHandManager
 
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
         cards.Add(newCard);
-        cardNumber++;
     }
 
     internal void DropFirstCard()
@@ -83,7 +79,11 @@ public class ServerHandManager
     internal void DropCard(ServerCardBase dropCard)
     {
         cards.Remove(dropCard);
-        cardNumber--;
+    }
+
+    internal void DropCardAt(int index)
+    {
+        cards.RemoveAt(index);
     }
 
     public void BeginRound()

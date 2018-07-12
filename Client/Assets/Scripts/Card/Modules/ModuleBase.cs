@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponent, IMouseHoverComponent
+internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponent, IMouseHoverComponent
 {
     internal int GameObjectID;
     protected GameObjectPool gameObjectPool;

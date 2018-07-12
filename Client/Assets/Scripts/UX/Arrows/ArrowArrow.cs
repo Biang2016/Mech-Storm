@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public class ArrowArrow : Arrow
+internal class ArrowArrow : Arrow
 {
     void Awake()
     {

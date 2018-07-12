@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public abstract class Arrow : MonoBehaviour, IGameObjectPool
+internal abstract class Arrow : MonoBehaviour, IGameObjectPool
 {
     public virtual void PoolRecycle()
     {
