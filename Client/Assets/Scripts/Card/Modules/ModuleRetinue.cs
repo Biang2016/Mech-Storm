@@ -431,7 +431,7 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             canAttack = value;
-            CardBloom.SetActive(value);
+            CardBloom.SetActive(value && (GameManager.GM.CanTestEnemyCards || RoundManager.RM.SelfClientPlayer == RoundManager.RM.CurrentClientPlayer));
         }
     }
 

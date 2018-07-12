@@ -23,18 +23,18 @@ internal class ServerGameManager
         sgmThread.Start();
     }
 
+    private bool isStopped = false;
+
     public void OnStopGame(ClientProxy clientProxy)
     {
-        if (clientProxy == ClientA)
-        {
-            GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
-            ClientB.SendMessage(request);
-        }
-        else
-        {
-            GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
-            ClientA.SendMessage(request);
-        }
+        if (isStopped) return;
+        isStopped = true;
+        ClientA.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
+        ClientB.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
+
+        GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
+        ClientA.SendMessage(request);
+        ClientB.SendMessage(request);
 
         Server.SV.SGMM.StopGame(this);
         Server.SV.SGMM.KickOutClient(ClientA);
@@ -142,7 +142,7 @@ internal class ServerGameManager
                 cp.MyServerPlayer.MyHandManager.DropCardAt(summonRetinueRequest.handCardIndex);
             }
 
-            cp.MyServerPlayer.AddCostWithinMax(summonRetinueRequest.cardInfo.Cost);
+            cp.MyServerPlayer.UseCostAboveZero(summonRetinueRequest.cardInfo.Cost);
             SummonRetinueRequest_Response request = new SummonRetinueRequest_Response(summonRetinueRequest.clientId, summonRetinueRequest.cardInfo, summonRetinueRequest.handCardIndex, summonRetinueRequest.battleGroundIndex);
             BroadcastBothPlayers(request);
         }

@@ -40,7 +40,7 @@ internal class GameManager : MonoBehaviour
 
     #region 游戏全局参数
 
-    public bool CanTestEnemyCards = false; //开启敌方卡牌可见、可操作
+    public bool CanTestEnemyCards = true; //开启敌方卡牌可见、可操作
 
     public float HandCardSize = 1.0f;
     public float HandCardInterval = 1.0f;

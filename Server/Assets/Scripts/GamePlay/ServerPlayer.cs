@@ -27,14 +27,9 @@ internal class ServerPlayer : Player
 
     public void OnDestroyed()
     {
-        MyClientProxy = null;
-        MyEnemyPlayer = null;
         MyGameManager = null;
-        MyHandManager.ServerPlayer = null;
         MyHandManager = null;
-        MyCardDeckManager.ServerPlayer = null;
         MyCardDeckManager = null;
-        MyBattleGroundManager.ServerPlayer = null;
         MyBattleGroundManager = null;
     }
 

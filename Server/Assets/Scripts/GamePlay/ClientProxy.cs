@@ -33,6 +33,7 @@ internal class ClientProxy : ProxyBase
     }
 
     private bool isClosed = false;
+
     public void OnClose()
     {
         if (isClosed) return;
@@ -48,10 +49,15 @@ internal class ClientProxy : ProxyBase
         {
             MyServerGameManager.OnStopGame(this);
         }
+
+        MyServerGameManager = null;
+        SendRequestsQueue.Clear();
+        ReceiveRequestsQueue.Clear();
     }
 
     public void SendMessage(ServerRequestBase request)
     {
+        if (isClosed) return;
         SendRequestsQueue.Enqueue(request);
     }
 
@@ -77,6 +83,7 @@ internal class ClientProxy : ProxyBase
 
     public void ReceiveMessage(ClientRequestBase request)
     {
+        if (isClosed) return;
         ReceiveRequestsQueue.Enqueue(request);
         Response();
     }
@@ -107,7 +114,8 @@ internal class ClientProxy : ProxyBase
                     ClientState = ClientStates.Matching;
                     Server.SV.SGMM.OnClientMatchGames(this);
                 }
-            }else if (r is CancelMatchRequest)
+            }
+            else if (r is CancelMatchRequest)
             {
                 if (ClientState == ClientStates.Matching)
                 {
@@ -135,7 +143,7 @@ internal class ClientProxy : ProxyBase
             {
                 if (ClientState == ClientStates.Playing)
                 {
-                    MyServerGameManager.OnStopGame(this);
+                    if (MyServerGameManager != null) MyServerGameManager.OnStopGame(this);
                 }
             }
         }

@@ -153,7 +153,8 @@ internal class HandManager : MonoBehaviour
                 }
                 else
                 {
-                    card.transform.Rotate(Vector3.forward * 180);
+                    //card.transform.Rotate(Vector3.forward * 180);
+                    card.transform.Rotate(Vector3.right * 180);
                 }
             }
 

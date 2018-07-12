@@ -81,6 +81,7 @@ internal class NetworkManager : MonoBehaviour
                 if (CreateBtn("退出比赛"))
                 {
                     Client.CS.Proxy.LeaveGame();
+                    RoundManager.RM.OnGameStop();
                 }
             }
         }

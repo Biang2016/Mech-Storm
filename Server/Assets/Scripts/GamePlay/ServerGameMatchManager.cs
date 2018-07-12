@@ -13,9 +13,9 @@ internal class ServerGameMatchManager
     public void OnClientMatchGames(ClientProxy clientProxy)
     {
         matchingClients.Add(clientProxy);
+        ServerLog.Print("Add Player Success: [ClientId] " + clientProxy.ClientId + ". Matching queue: " + matchingClients.Count);
         if (matchingClients.Count == 2)
         {
-            ServerLog.Print("Add Player Success: [ClientId] " + clientProxy.ClientId + ". Matching queue: " + matchingClients.Count);
             ClientProxy clientA = matchingClients[0];
             ClientProxy clientB = matchingClients[1];
             ServerGameManager sgm = new ServerGameManager(clientA, clientB);
@@ -41,6 +41,8 @@ internal class ServerGameMatchManager
         if (clientGameMapping.ContainsKey(clientProxy.ClientId))
         {
             clientGameMapping.Remove(clientProxy.ClientId);
+            matchingClients.Remove(clientProxy);
+            ServerLog.Print("Player kickout: [ClientId] " + clientProxy.ClientId + ". Matching queue: " + matchingClients.Count);
         }
     }
 }

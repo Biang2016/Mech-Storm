@@ -26,6 +26,7 @@ internal class RoundManager : MonoBehaviour
 
     public GameObject SelfTurnText;
     public GameObject EnemyTurnText;
+    public GameObject EndRoundButton;
     public Text SelfCostText;
     public Text EnemyCostText;
 
@@ -35,12 +36,30 @@ internal class RoundManager : MonoBehaviour
     {
         RoundNumber = 0;
         CurrentClientPlayer = null;
+
+        SelfTurnText.SetActive(false);
+        EnemyTurnText.SetActive(false);
+        EndRoundButton.SetActive(false);
         SelfCostText.text = "";
         EnemyCostText.text = "";
     }
 
     public void OnGameStop()
     {
+        CardBase[] cardPreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
+        foreach (CardBase cardPreview in cardPreviews)
+        {
+            cardPreview.PoolRecycle();
+        }
+
+        ModuleBase[] modulePreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<ModuleBase>();
+        foreach (ModuleBase modulePreview in modulePreviews)
+        {
+            modulePreview.PoolRecycle();
+        }
+
+        GameBoardManager.GBM.CardDetailPreview.transform.DetachChildren();
+
         GameBoardManager.GBM.SelfBattleGroundManager.Reset();
         GameBoardManager.GBM.EnemyBattleGroundManager.Reset();
         GameBoardManager.GBM.SelfHandManager.Reset();
@@ -70,10 +89,12 @@ internal class RoundManager : MonoBehaviour
         if (r.clinetId == Client.CS.Proxy.ClientId)
         {
             SelfClientPlayer.DoChangeCost(r);
+            SelfClientPlayer.MyHandManager.RefreshAllCardUsable();
         }
         else
         {
             EnemyClientPlayer.DoChangeCost(r);
+            EnemyClientPlayer.MyHandManager.RefreshAllCardUsable();
         }
     }
 
@@ -89,12 +110,14 @@ internal class RoundManager : MonoBehaviour
         {
             ClientLog.CL.PrintClientStates("MyRound");
             SelfTurnText.SetActive(true);
+            EndRoundButton.SetActive(true);
             EnemyTurnText.SetActive(false);
         }
         else
         {
             ClientLog.CL.PrintClientStates("EnemyRound");
             SelfTurnText.SetActive(false);
+            EndRoundButton.SetActive(false);
             EnemyTurnText.SetActive(true);
         }
 

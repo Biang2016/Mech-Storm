@@ -100,7 +100,6 @@ internal class Proxy : ProxyBase
         LeaveGameRequest request = new LeaveGameRequest();
         SendMessage(request);
         ClientState = ClientStates.SubmitCardDeck;
-        //...
     }
 
 
