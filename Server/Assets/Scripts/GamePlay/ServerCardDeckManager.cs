@@ -37,11 +37,11 @@ public class ServerCardDeckManager
         }
 
         M_CurrentCardDeck.GetARetinueCardToTheTop();
-        CardInfo_Base newCardInfoBase = DrawTop();
+        CardInfo_Base newCardInfoBase = DrawCardOnTop();
         return newCardInfoBase;
     }
 
-    public CardInfo_Base DrawTop()
+    public CardInfo_Base DrawCardOnTop()
     {
         if (M_CurrentCardDeck.IsEmpty)
         {
@@ -54,10 +54,37 @@ public class ServerCardDeckManager
         return newCardInfoBase;
     }
 
+    public List<CardInfo_Base> DrawCardsOnTop(int cardNumber)
+    {
+        if (M_CurrentCardDeck.IsEmpty)
+        {
+            M_CurrentCardDeck.AbandonCardRecycle();
+            M_CurrentCardDeck.SuffleSelf();
+        }
+
+        List<CardInfo_Base> newCardInfoBases = M_CurrentCardDeck.DrawCardsOnTop(cardNumber);
+        List<int> cardIds = new List<int>();
+        foreach (CardInfo_Base newCardInfoBase in newCardInfoBases)
+        {
+            cardIds.Add(newCardInfoBase.CardID);
+        }
+
+        OnPlayerGetCards(cardIds);
+        return newCardInfoBases;
+    }
+
     public void OnPlayerGetCard(int cardId)
     {
         DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, cardId, true);
         DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, cardId, false);
+        ServerPlayer.MyClientProxy.SendRequestsQueue.Enqueue(request1);
+        ServerPlayer.MyEnemyPlayer.MyClientProxy.SendRequestsQueue.Enqueue(request2);
+    }
+
+    public void OnPlayerGetCards(List<int> cardIds)
+    {
+        DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, cardIds, true);
+        DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, cardIds, false);
         ServerPlayer.MyClientProxy.SendRequestsQueue.Enqueue(request1);
         ServerPlayer.MyEnemyPlayer.MyClientProxy.SendRequestsQueue.Enqueue(request2);
     }

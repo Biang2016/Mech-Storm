@@ -51,16 +51,13 @@ static class ServerLog
 
     public static void Update()
     {
-        lock (LogQueue)
+        if (LogQueue.Count > 0) 
         {
-            while (LogQueue.Count > 0)
+            Log tmp = LogQueue.Dequeue();
+            if (tmp != null)
             {
-                Log tmp = LogQueue.Dequeue();
-                if (tmp != null)
-                {
-                    Console.ForegroundColor = tmp.ConsoleColor;
-                    Console.WriteLine(tmp.Time + "  " + tmp.LogStr);
-                }
+                Console.ForegroundColor = tmp.ConsoleColor;
+                Console.WriteLine(tmp.Time + "  " + tmp.LogStr);
             }
         }
     }

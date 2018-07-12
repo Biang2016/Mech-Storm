@@ -206,7 +206,6 @@ class Server
     public void DoSendToClient(object obj)
     {
         SendMsg sendMsg = (SendMsg) obj;
-
         if (sendMsg == null)
         {
             ServerLog.PrintError("SendMsg is null");

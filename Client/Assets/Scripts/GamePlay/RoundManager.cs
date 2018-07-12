@@ -111,11 +111,17 @@ public class RoundManager : MonoBehaviour
     {
         if (resp.clientId == Client.CS.Proxy.ClientId)
         {
-            SelfClientPlayer.MyHandManager.GetCard(resp.cardId);
+            foreach (int respCardId in resp.cardIds)
+            {
+                SelfClientPlayer.MyHandManager.GetCard(respCardId);
+            }
         }
         else
         {
-            EnemyClientPlayer.MyHandManager.GetCard(999); //空白牌，隐藏防止对方知道
+            for (int i = 0; i < resp.cardCount; i++)
+            {
+                EnemyClientPlayer.MyHandManager.GetCard(999); //空白牌，隐藏防止对方知道
+            }
         }
     }
 

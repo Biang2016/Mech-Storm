@@ -31,13 +31,17 @@ public class ClientProxy : ProxyBase
     {
         while (true)
         {
-            Thread.Sleep(50);
-
-            lock (SendRequestsQueue)
+            if (SendRequestsQueue.Count > 0)
             {
-                if (SendRequestsQueue.Count > 0)
+                lock (SendRequestsQueue)
                 {
-                    Server.SV.DoSendToClient(new SendMsg(Socket, SendRequestsQueue.Dequeue()));
+                    if (SendRequestsQueue.Count > 0)
+                    {
+                        Thread thread = new Thread(Server.SV.DoSendToClient);
+                        SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue());
+                        thread.IsBackground = true;
+                        thread.Start(msg);
+                    }
                 }
             }
         }
@@ -64,10 +68,11 @@ public class ClientProxy : ProxyBase
                     ClientState = ClientStates.Matching;
                     Server.SV.SGMM.OnClientMatchGames(this);
                 }
-            }else if (r is ResetClientRequest)
+            }
+            else if (r is ResetClientRequest)
             {
-
-            }else if (r is ClientEndRoundRequest)
+            }
+            else if (r is ClientEndRoundRequest)
             {
                 MyServerGameManager.EndRound();
             }

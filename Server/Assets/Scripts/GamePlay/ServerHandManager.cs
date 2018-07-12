@@ -14,14 +14,6 @@ public class ServerHandManager
         ServerPlayer = serverPlayer;
     }
 
-    internal void DrawCards(int number)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            DrawCard();
-        }
-    }
-
     internal void DrawCard()
     {
         if (cardNumber >= GamePlaySettings.MaxHandCard)
@@ -30,15 +22,33 @@ public class ServerHandManager
         }
         else
         {
-            CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawTop();
+            CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawCardOnTop();
             if (newCardInfo == null)
             {
                 ServerLog.Print("No Card");
                 return;
             }
+
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
             cards.Add(newCard);
             cardNumber++;
+        }
+    }
+
+
+    internal void DrawCards(int cardNumber)
+    {
+        List<CardInfo_Base> newCardsInfo = ServerPlayer.MyCardDeckManager.DrawCardsOnTop(cardNumber);
+        if(newCardsInfo.Count!=cardNumber)ServerLog.PrintError("!!!");
+        foreach (CardInfo_Base cardInfoBase in newCardsInfo)
+        {
+            ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfoBase, ServerPlayer);
+            cards.Add(newCard);
+            cardNumber++;
+            if (cardNumber >= GamePlaySettings.MaxHandCard)
+            {
+                break;
+            }
         }
     }
 

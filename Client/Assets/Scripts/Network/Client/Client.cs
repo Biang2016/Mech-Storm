@@ -6,6 +6,7 @@ using System.Runtime.Remoting;
 using System.Text;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Client : MonoBehaviour
 {
@@ -50,7 +51,10 @@ public class Client : MonoBehaviour
 
             if (Proxy.SendRequestsQueue.Count > 0)
             {
-                Send();
+                ClientRequestBase request = Proxy.SendRequestsQueue.Dequeue();
+                Thread thread =new Thread(Send);
+                thread.IsBackground = true;
+                thread.Start(request);
             }
         }
     }
@@ -222,8 +226,10 @@ public class Client : MonoBehaviour
         Proxy.SendRequestsQueue.Enqueue(req);
     }
 
-    private void Send()
+    private void Send(object obj)
     {
+        ClientRequestBase request = (ClientRequestBase) obj;
+
         if (ServerSocket == null)
         {
             ClientLog.CL.PrintError("[C]Server socket is null");
@@ -239,28 +245,23 @@ public class Client : MonoBehaviour
 
         try
         {
-            if (Proxy.SendRequestsQueue.Count > 0)
+            DataStream bufferWriter = new DataStream(true);
+            request.Serialize(bufferWriter);
+            byte[] msg = bufferWriter.ToByteArray();
+
+            byte[] buffer = new byte[msg.Length + 4];
+            DataStream writer = new DataStream(buffer, true);
+
+            writer.WriteSInt32(msg.Length); //增加数据长度
+            writer.WriteRaw(msg);
+
+            byte[] data = writer.ToByteArray();
+
+            IAsyncResult asyncSend = ServerSocket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), ServerSocket);
+            bool success = asyncSend.AsyncWaitHandle.WaitOne(5000, true);
+            if (!success)
             {
-                Request req = Proxy.SendRequestsQueue.Dequeue();
-
-                DataStream bufferWriter = new DataStream(true);
-                req.Serialize(bufferWriter);
-                byte[] msg = bufferWriter.ToByteArray();
-
-                byte[] buffer = new byte[msg.Length + 4];
-                DataStream writer = new DataStream(buffer, true);
-
-                writer.WriteSInt32(msg.Length); //增加数据长度
-                writer.WriteRaw(msg);
-
-                byte[] data = writer.ToByteArray();
-
-                IAsyncResult asyncSend = ServerSocket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), ServerSocket);
-                bool success = asyncSend.AsyncWaitHandle.WaitOne(5000, true);
-                if (!success)
-                {
-                    Closed();
-                }
+                Closed();
             }
         }
         catch (Exception e)
