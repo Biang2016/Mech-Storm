@@ -49,13 +49,7 @@ internal class Client : MonoBehaviour
                 ClientProtoManager.TryDeserialize(rsd.Data, rsd.Socket);
             }
 
-            if (Proxy.SendRequestsQueue.Count > 0)
-            {
-                ClientRequestBase request = Proxy.SendRequestsQueue.Dequeue();
-                Thread thread =new Thread(Send);
-                thread.IsBackground = true;
-                thread.Start(request);
-            }
+            Proxy.Send();
         }
     }
 
@@ -212,8 +206,7 @@ internal class Client : MonoBehaviour
 
         if (r is ServerRequestBase)
         {
-            Proxy.ReceiveRequestsQueue.Enqueue((ServerRequestBase) r);
-            Proxy.Response();
+            Proxy.ReceiveMessage((ServerRequestBase) r);
         }
     }
 
@@ -221,12 +214,7 @@ internal class Client : MonoBehaviour
 
     #region 发送
 
-    public void SendMessage(ClientRequestBase req)
-    {
-        Proxy.SendRequestsQueue.Enqueue(req);
-    }
-
-    private void Send(object obj)
+    public void Send(object obj)
     {
         ClientRequestBase request = (ClientRequestBase) obj;
 

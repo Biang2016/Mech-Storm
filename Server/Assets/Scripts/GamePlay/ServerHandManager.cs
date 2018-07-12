@@ -37,7 +37,6 @@ internal class ServerHandManager
     internal void DrawCards(int cardNumber)
     {
         List<CardInfo_Base> newCardsInfo = ServerPlayer.MyCardDeckManager.DrawCardsOnTop(cardNumber);
-        if (newCardsInfo.Count != cardNumber) ServerLog.PrintError("!!!");
         foreach (CardInfo_Base cardInfoBase in newCardsInfo)
         {
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfoBase, ServerPlayer);

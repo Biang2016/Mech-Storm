@@ -34,32 +34,55 @@ internal class NetworkManager : MonoBehaviour
     void OnGUI()
     {
         high = 10;
-        if (CreateBtn("连接到服务器"))
+        if (Client.CS.Proxy == null || Client.CS.Proxy.ClientState == ProxyBase.ClientStates.Nothing)
         {
-            Client.CS.Connect("127.0.0.1", 9999, ConnectCallBack, null);
-        }
-
-        cardDeckInfo = CreateTextField("卡组信息", cardDeckInfo);
-
-        if (CreateBtn("确认卡组"))
-        {
-            List<string> tmp = cardDeckInfo.Split(',').ToList();
-            SelfCardDeckInfo.Clear();
-            foreach (string s in tmp)
+            if (CreateBtn("连接到服务器"))
             {
-                SelfCardDeckInfo.Add(int.Parse(s));
+                Client.CS.Connect("127.0.0.1", 9999, ConnectCallBack, null);
             }
-            Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(SelfCardDeckInfo.ToArray()));
         }
-
-        if (CreateBtn("开始匹配"))
+        else
         {
-            Client.CS.Proxy.OnBeginMatch();
-        }
+            if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.GetId || Client.CS.Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck)
+            {
+                cardDeckInfo = CreateTextField("卡组信息", cardDeckInfo);
 
-        if (CreateBtn("重置游戏"))
-        {
-            Client.CS.Proxy.ReSetClient();
+                if (CreateBtn("确认卡组"))
+                {
+                    List<string> tmp = cardDeckInfo.Split(',').ToList();
+                    SelfCardDeckInfo.Clear();
+                    foreach (string s in tmp)
+                    {
+                        SelfCardDeckInfo.Add(int.Parse(s));
+                    }
+
+                    Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(SelfCardDeckInfo.ToArray()));
+                }
+            }
+
+            if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck)
+            {
+                if (CreateBtn("开始匹配"))
+                {
+                    Client.CS.Proxy.OnBeginMatch();
+                }
+            }
+
+            if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.Matching)
+            {
+                if (CreateBtn("取消匹配"))
+                {
+                    Client.CS.Proxy.CancelMatch();
+                }
+            }
+
+            if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.Playing)
+            {
+                if (CreateBtn("退出比赛"))
+                {
+                    Client.CS.Proxy.LeaveGame();
+                }
+            }
         }
     }
 

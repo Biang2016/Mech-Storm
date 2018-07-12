@@ -33,6 +33,16 @@ internal class HandManager : MonoBehaviour
 
     #region 响应
 
+    public void Reset()
+    {
+        foreach (CardBase cardBase in cards)
+        {
+            cardBase.PoolRecycle();
+        }
+        cards.Clear();
+        ClientPlayer = null;
+    }
+
     public void GetCard(int cardId)
     {
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardId);

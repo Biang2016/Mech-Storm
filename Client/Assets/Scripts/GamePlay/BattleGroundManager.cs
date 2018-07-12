@@ -21,6 +21,17 @@ internal class BattleGroundManager : MonoBehaviour
     {
     }
 
+    public void Reset()
+    {
+        foreach (ModuleRetinue moduleRetinue in Retinues)
+        {
+            moduleRetinue.PoolRecycle();
+        }
+
+        ClientPlayer = null;
+        Retinues.Clear();
+    }
+
     internal int ComputePosition(Vector3 dragLastPosition)
     {
         int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.GM.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));

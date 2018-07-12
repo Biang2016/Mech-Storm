@@ -22,7 +22,7 @@ internal class ClientPlayer : Player
 
     #region Cost
 
-    public override void OnCostChanged()
+    protected override void OnCostChanged()
     {
         if (this == RoundManager.RM.SelfClientPlayer)
         {

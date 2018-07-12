@@ -39,17 +39,29 @@ internal class RoundManager : MonoBehaviour
         EnemyCostText.text = "";
     }
 
+    public void OnGameStop()
+    {
+        GameBoardManager.GBM.SelfBattleGroundManager.Reset();
+        GameBoardManager.GBM.EnemyBattleGroundManager.Reset();
+        GameBoardManager.GBM.SelfHandManager.Reset();
+        GameBoardManager.GBM.EnemyHandManager.Reset();
+        SelfClientPlayer = null;
+        EnemyClientPlayer = null;
+        CurrentClientPlayer = null;
+        SelfCostText.text = "";
+        EnemyCostText.text = "";
+        RoundNumber = 0;
+    }
+
     public void InitializePlayers(PlayerRequest r)
     {
         if (r.clientId == Client.CS.Proxy.ClientId)
         {
             SelfClientPlayer = new ClientPlayer(r.costMax, r.costLeft, Players.Self);
-            SelfClientPlayer.OnCostChanged();
         }
         else
         {
             EnemyClientPlayer = new ClientPlayer(r.costMax, r.costLeft, Players.Enemy);
-            EnemyClientPlayer.OnCostChanged();
         }
     }
 
@@ -142,7 +154,7 @@ internal class RoundManager : MonoBehaviour
         if (CurrentClientPlayer == SelfClientPlayer)
         {
             ClientEndRoundRequest request = new ClientEndRoundRequest(Client.CS.Proxy.ClientId);
-            Client.CS.SendMessage(request);
+            Client.CS.Proxy.SendMessage(request);
         }
         else
         {

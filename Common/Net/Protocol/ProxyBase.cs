@@ -13,15 +13,14 @@ public abstract class ProxyBase
     public DataHolder DataHolder = new DataHolder();
     public bool IsStopReceive;
 
-    private ClientStates clientState;
+    protected ClientStates clientState;
 
-    public ClientStates ClientState
+    public virtual ClientStates ClientState
     {
         get => clientState;
         set
         {
             clientState = value;
-
         }
     }
 
@@ -33,7 +32,7 @@ public abstract class ProxyBase
     }
 
 
-    public abstract void Response();
+    protected abstract void Response();
 
     public enum ClientStates
     {

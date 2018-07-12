@@ -8,25 +8,40 @@ internal class ServerGameMatchManager
 {
     List<ServerGameManager> SMGS = new List<ServerGameManager>();
     Dictionary<int, ServerGameManager> clientGameMapping = new Dictionary<int, ServerGameManager>(); //玩家和游戏的映射关系
-    Queue<ClientProxy> matchingClients = new Queue<ClientProxy>(); //匹配中的玩家
+    List<ClientProxy> matchingClients = new List<ClientProxy>(); //匹配中的玩家
 
     public void OnClientMatchGames(ClientProxy clientProxy)
     {
-        matchingClients.Enqueue(clientProxy);
+        matchingClients.Add(clientProxy);
         if (matchingClients.Count == 2)
         {
-            ServerLog.Print("Add Player Success:" + clientProxy.ClientId);
-            ClientProxy playerA = matchingClients.Dequeue();
-            ClientProxy playerB = matchingClients.Dequeue();
-            ServerGameManager sgm = new ServerGameManager(playerA, playerB);
+            ServerLog.Print("Add Player Success: [ClientId] " + clientProxy.ClientId + ". Matching queue: " + matchingClients.Count);
+            ClientProxy clientA = matchingClients[0];
+            ClientProxy clientB = matchingClients[1];
+            ServerGameManager sgm = new ServerGameManager(clientA, clientB);
             SMGS.Add(sgm);
-            clientGameMapping.Add(playerA.ClientId, sgm);
-            clientGameMapping.Add(playerB.ClientId, sgm);
+            clientGameMapping.Add(clientA.ClientId, sgm);
+            clientGameMapping.Add(clientB.ClientId, sgm);
         }
     }
 
-    public void KickOutClient()
+    public void OnClientCancelMatch(ClientProxy clientProxy)
     {
+        matchingClients.Remove(clientProxy);
+        ServerLog.Print("Player cancel match: [ClientId] " + clientProxy.ClientId + ". Matching queue: " + matchingClients.Count);
+    }
+
+    public void StopGame(ServerGameManager serverGameManager)
+    {
+        SMGS.Remove(serverGameManager);
+    }
+
+    public void KickOutClient(ClientProxy clientProxy)
+    {
+        if (clientGameMapping.ContainsKey(clientProxy.ClientId))
+        {
+            clientGameMapping.Remove(clientProxy.ClientId);
+        }
     }
 }
 

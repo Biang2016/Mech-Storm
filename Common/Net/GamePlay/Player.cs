@@ -7,8 +7,9 @@ public class Player
 {
     public Player(int costMax, int costLeft)
     {
-        CostMax = costMax;
-        CostLeft = costLeft;
+        this.costMax = costMax;
+        this.costLeft = costLeft;
+        OnCostChanged();
     }
 
     private int costMax;
@@ -16,11 +17,6 @@ public class Player
     public int CostMax
     {
         get { return costMax; }
-        set
-        {
-            costMax = value;
-            OnCostChanged();
-        }
     }
 
     private int costLeft;
@@ -28,34 +24,33 @@ public class Player
     public int CostLeft
     {
         get { return costLeft; }
-        set
-        {
-            costLeft = value;
-            OnCostChanged();
-        }
     }
 
-    public virtual void OnCostChanged()
+    protected virtual void OnCostChanged()
     {
     }
 
-    public void AddCost(int addCostNumber)
+    protected virtual void AddCost(int addCostNumber)
     {
-        CostLeft += addCostNumber;
+        costLeft += addCostNumber;
+        OnCostChanged();
     }
 
-    public void UseCost(int useCostNumber)
+    protected virtual void UseCost(int useCostNumber)
     {
-        CostLeft -= useCostNumber;
+        costLeft -= useCostNumber;
+        OnCostChanged();
     }
 
-    public void AddCostMax(int addCostNumber)
+    protected virtual void AddCostMax(int addCostNumber)
     {
-        CostMax += addCostNumber;
+        costMax += addCostNumber;
+        OnCostChanged();
     }
 
-    public void ReduceCostMax(int useCostNumber)
+    protected virtual void ReduceCostMax(int useCostNumber)
     {
-        CostMax -= useCostNumber;
+        costMax -= useCostNumber;
+        OnCostChanged();
     }
 }

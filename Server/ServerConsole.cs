@@ -10,7 +10,5 @@ class ServerConsole
         {
             ServerLog.Update();
         }
-
-        Server.SV.Stop();
     }
 }

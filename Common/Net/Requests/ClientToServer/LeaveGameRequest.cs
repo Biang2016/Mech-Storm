@@ -1,24 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class ClientEndRoundRequest : ClientRequestBase
+public class LeaveGameRequest : ClientRequestBase
 {
-    public ClientEndRoundRequest()
+    public LeaveGameRequest()
     {
     }
 
-    public ClientEndRoundRequest(int clientId) : base(clientId)
+    public LeaveGameRequest(int clientId) : base(clientId)
     {
     }
 
     public override int GetProtocol()
     {
-        return NetProtocols.CLIENT_END_ROUND;
+        return NetProtocols.LEAVE_GAME;
     }
 
     public override string GetProtocolName()
     {
-        return "CLIENT_END_ROUND";
+        return "LEAVE_GAME";
     }
 
     public override void Serialize(DataStream writer)

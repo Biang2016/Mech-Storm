@@ -10,8 +10,6 @@ internal class ServerPlayer : Player
 
     public int ClientId;
     public int EnemyClientId;
-    public int CostMax;
-    public int CostLeft;
     public ServerGameManager MyGameManager;
     public ServerHandManager MyHandManager;
     public ServerCardDeckManager MyCardDeckManager;
@@ -27,42 +25,67 @@ internal class ServerPlayer : Player
         MyBattleGroundManager = new ServerBattleGroundManager(this);
     }
 
+    public void OnDestroyed()
+    {
+        MyClientProxy = null;
+        MyEnemyPlayer = null;
+        MyGameManager = null;
+        MyHandManager.ServerPlayer = null;
+        MyHandManager = null;
+        MyCardDeckManager.ServerPlayer = null;
+        MyCardDeckManager = null;
+        MyBattleGroundManager.ServerPlayer = null;
+        MyBattleGroundManager = null;
+    }
+
     public void AddCostWithoutLimit(int addCostValue)
     {
-        CostLeft += addCostValue;
+        AddCost(addCostValue);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 1, addCostValue, 0, 0);
-        MyClientProxy.SendRequestsQueue.Enqueue(request);
-        MyEnemyPlayer.MyClientProxy.SendRequestsQueue.Enqueue(request);
+        MyClientProxy.SendMessage(request);
+        MyEnemyPlayer.MyClientProxy.SendMessage(request);
     }
 
     public void AddCostWithinMax(int addCostValue)
     {
         int costLeftBefore = CostLeft;
         if (CostMax - CostLeft > addCostValue)
-            CostLeft += addCostValue;
+            AddCost(addCostValue);
         else
-            CostLeft = CostMax;
+            AddCost(CostMax - CostLeft);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 1, CostLeft - costLeftBefore, 0, 0);
-        MyClientProxy.SendRequestsQueue.Enqueue(request);
-        MyEnemyPlayer.MyClientProxy.SendRequestsQueue.Enqueue(request);
+        MyClientProxy.SendMessage(request);
+        MyEnemyPlayer.MyClientProxy.SendMessage(request);
+    }
+
+    public void UseCostAboveZero(int useCostValue)
+    {
+        int costLeftBefore = CostLeft;
+        if (CostLeft > useCostValue)
+            UseCost(useCostValue);
+        else
+            UseCost(CostLeft);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, -1, costLeftBefore - CostLeft, 0, 0);
+        MyClientProxy.SendMessage(request);
+        MyEnemyPlayer.MyClientProxy.SendMessage(request);
     }
 
     public void AddAllCost()
     {
         int costLeftBefore = CostLeft;
-        CostLeft = CostMax;
+        AddCost(CostMax - CostLeft);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 1, CostLeft - costLeftBefore, 0, 0);
-        MyClientProxy.SendRequestsQueue.Enqueue(request);
-        MyEnemyPlayer.MyClientProxy.SendRequestsQueue.Enqueue(request);
+        MyClientProxy.SendMessage(request);
+        MyEnemyPlayer.MyClientProxy.SendMessage(request);
     }
 
     public void UseAllCost()
     {
         int costLeftBefore = CostLeft;
-        CostLeft = 0;
+        UseCost(CostLeft);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, -1, costLeftBefore - CostLeft, 0, 0);
-        MyClientProxy.SendRequestsQueue.Enqueue(request);
-        MyEnemyPlayer.MyClientProxy.SendRequestsQueue.Enqueue(request);
+        MyClientProxy.SendMessage(request);
+        MyEnemyPlayer.MyClientProxy.SendMessage(request);
     }
 
 
@@ -70,29 +93,23 @@ internal class ServerPlayer : Player
     {
         int costMaxBefore = CostMax;
         if (CostMax + increaseValue <= GamePlaySettings.MaxCost)
-            CostMax += increaseValue;
+            AddCostMax(increaseValue);
         else
-            CostMax = GamePlaySettings.MaxCost;
+            AddCostMax(GamePlaySettings.MaxCost - CostMax);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Max, 0, 0, 1, CostMax - costMaxBefore);
-        MyClientProxy.SendRequestsQueue.Enqueue(request);
-        MyEnemyPlayer.MyClientProxy.SendRequestsQueue.Enqueue(request);
+        MyClientProxy.SendMessage(request);
+        MyEnemyPlayer.MyClientProxy.SendMessage(request);
     }
 
     public void DecreaseCostMax(int decreaseValue)
     {
         int costMaxBefore = CostMax;
         if (CostMax <= decreaseValue)
-        {
-            CostMax = 0;
-        }
+            ReduceCostMax(CostMax);
         else
-        {
-            CostMax -= decreaseValue;
-            if (CostLeft > CostMax) CostLeft = CostMax;
-        }
-
+            ReduceCostMax(decreaseValue);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Max, 0, 0, -1, costMaxBefore - CostMax);
-        MyClientProxy.SendRequestsQueue.Enqueue(request);
-        MyEnemyPlayer.MyClientProxy.SendRequestsQueue.Enqueue(request);
+        MyClientProxy.SendMessage(request);
+        MyEnemyPlayer.MyClientProxy.SendMessage(request);
     }
 }

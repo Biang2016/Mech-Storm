@@ -16,18 +16,22 @@ public class ProtoManager
         mProtocolMapping = new Dictionary<int, Func<DataStream, Request>>();
         mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
 
+        AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);
+        AddProtocol<ClientEndRoundRequest>(NetProtocols.CLIENT_END_ROUND);
+        AddProtocol<LeaveGameRequest>(NetProtocols.LEAVE_GAME);
+        AddProtocol<MatchRequest>(NetProtocols.Match);
+        AddProtocol<CancelMatchRequest>(NetProtocols.CANCEL_MATCH);
+        AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE);
+
         AddProtocol<ClientIdRequest>(NetProtocols.SEND_CLIENT_ID);
+        AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
+        AddProtocol<GameStopByLeaveRequest>(NetProtocols.GAME_STOP_BY_LEAVE);
+        AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
+        AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
+        AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
         AddProtocol<ServerInfoRequest>(NetProtocols.INFO_NUMBER);
         AddProtocol<ServerWarningRequest>(NetProtocols.WARNING_NUMBER);
-        AddProtocol<MatchRequest>(NetProtocols.Match);
-        AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
-        AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
-        AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
-        AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE);
         AddProtocol<SummonRetinueRequest_Response>(NetProtocols.SUMMON_RETINUE_RESPONSE);
-        AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
-        AddProtocol<ClientEndRoundRequest>(NetProtocols.CLIENT_END_ROUND);
-        AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);
     }
 
 

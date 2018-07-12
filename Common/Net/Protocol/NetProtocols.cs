@@ -2,9 +2,10 @@
 
 public class NetProtocols
 {
-    public const int TEST_CONNECT = 0x00000001; //连接测试
     public const int SEND_CLIENT_ID = 0x00000002; //发送客户端Id
-    public const int RESET_GAME = 0x00000005; //请求重置游戏
+    public const int GAME_STOP_BY_LEAVE = 0x00000006; //由于玩家离开导致游戏结束
+    public const int LEAVE_GAME = 0x00000007; //玩家离开游戏
+    public const int CANCEL_MATCH = 0x00000008; //玩家取消匹配
 
     public const int INFO_NUMBER = 0x00000003; //服务端信息
     public const int WARNING_NUMBER = 0x00000004; //服务端警示

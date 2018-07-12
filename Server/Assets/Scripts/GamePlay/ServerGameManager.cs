@@ -23,17 +23,43 @@ internal class ServerGameManager
         sgmThread.Start();
     }
 
+    public void OnStopGame(ClientProxy clientProxy)
+    {
+        if (clientProxy == ClientA)
+        {
+            GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
+            ClientB.SendMessage(request);
+        }
+        else
+        {
+            GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
+            ClientA.SendMessage(request);
+        }
+
+        Server.SV.SGMM.StopGame(this);
+        Server.SV.SGMM.KickOutClient(ClientA);
+        Server.SV.SGMM.KickOutClient(ClientB);
+
+        ClientA = null;
+        ClientB = null;
+        CurrentPlayer = null;
+        if (PlayerA != null) PlayerA.OnDestroyed();
+        if (PlayerB != null) PlayerB.OnDestroyed();
+        PlayerA = null;
+        PlayerB = null;
+    }
+
     private void Initialized()
     {
         ClientA.ClientState = ProxyBase.ClientStates.Playing;
         ClientB.ClientState = ProxyBase.ClientStates.Playing;
 
         ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
-        PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, 1, this);
+        PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, 0, this);
         PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CardDeckInfo);
         PlayerA.MyClientProxy = ClientA;
         ClientA.MyServerPlayer = PlayerA;
-        PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, 1, this);
+        PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, 0, this);
         PlayerB.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientB.CardDeckInfo);
         PlayerB.MyClientProxy = ClientB;
         ClientB.MyServerPlayer = PlayerB;
@@ -53,6 +79,7 @@ internal class ServerGameManager
     void GameBegin()
     {
         CurrentPlayer = new Random().Next(0, 2) == 0 ? PlayerA : PlayerB;
+        bool isPlayerAFirst = CurrentPlayer == PlayerA;
         //发英雄牌
         PlayerA.MyHandManager.GetACardByID(99);
         //抽随从牌
@@ -66,18 +93,19 @@ internal class ServerGameManager
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
         BroadcastBothPlayers(request);
 
-        CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
-        OnEndRound();
-        OnSwitchPlayer();
-        CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.SecondDrawCard);
-        OnEndRound();
-        OnSwitchPlayer();
+        if (isPlayerAFirst)
+        {
+            PlayerA.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
+            PlayerB.MyHandManager.DrawCards(GamePlaySettings.SecondDrawCard);
+        }
+        else
+        {
+            PlayerB.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
+            PlayerA.MyHandManager.DrawCards(GamePlaySettings.SecondDrawCard);
+        }
+
         OnBeginRound();
         OnDrawCardPhase();
-    }
-
-    void OnGameBigin()
-    {
     }
 
     void OnSwitchPlayer()
@@ -113,8 +141,10 @@ internal class ServerGameManager
             {
                 cp.MyServerPlayer.MyHandManager.DropCardAt(summonRetinueRequest.handCardIndex);
             }
-            SummonRetinueRequest_Response request =new SummonRetinueRequest_Response(summonRetinueRequest.clientId,summonRetinueRequest.cardInfo,summonRetinueRequest.handCardIndex,summonRetinueRequest.battleGroundIndex);
-            cp.SendRequestsQueue.Enqueue(request);
+
+            cp.MyServerPlayer.AddCostWithinMax(summonRetinueRequest.cardInfo.Cost);
+            SummonRetinueRequest_Response request = new SummonRetinueRequest_Response(summonRetinueRequest.clientId, summonRetinueRequest.cardInfo, summonRetinueRequest.handCardIndex, summonRetinueRequest.battleGroundIndex);
+            BroadcastBothPlayers(request);
         }
     }
 
@@ -128,16 +158,11 @@ internal class ServerGameManager
 
     public void EndRound()
     {
-        OnEndRound();
+        CurrentPlayer.MyHandManager.EndRound();
+        CurrentPlayer.MyBattleGroundManager.EndRound();
         OnSwitchPlayer();
         OnBeginRound();
         OnDrawCardPhase();
-    }
-
-    void OnEndRound()
-    {
-        CurrentPlayer.MyHandManager.EndRound();
-        CurrentPlayer.MyBattleGroundManager.EndRound();
     }
 
 
@@ -145,8 +170,8 @@ internal class ServerGameManager
 
     private void BroadcastBothPlayers(ServerRequestBase r)
     {
-        PlayerA.MyClientProxy.SendRequestsQueue.Enqueue(r);
-        PlayerB.MyClientProxy.SendRequestsQueue.Enqueue(r);
+        PlayerA.MyClientProxy.SendMessage(r);
+        PlayerB.MyClientProxy.SendMessage(r);
     }
 
     #endregion

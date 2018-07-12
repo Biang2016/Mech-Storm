@@ -7,24 +7,52 @@ using System.Threading;
 
 internal class ClientProxy : ProxyBase
 {
-    public Queue<ServerRequestBase> SendRequestsQueue = new Queue<ServerRequestBase>();
-    public Queue<ClientRequestBase> ReceiveRequestsQueue = new Queue<ClientRequestBase>();
+    private Queue<ServerRequestBase> SendRequestsQueue = new Queue<ServerRequestBase>();
+    private Queue<ClientRequestBase> ReceiveRequestsQueue = new Queue<ClientRequestBase>();
 
     public ServerGameManager MyServerGameManager;
-    public ServerCardDeckManager MyServerCardDeckManager;
 
     public CardDeckInfo CardDeckInfo;
 
     public ServerPlayer MyServerPlayer;
 
+    public override ClientStates ClientState
+    {
+        get { return clientState; }
+        set { clientState = value; }
+    }
+
     public ClientProxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
         ClientIdRequest request = new ClientIdRequest(clientId);
-        SendRequestsQueue.Enqueue(request);
+        SendMessage(request);
         ClientState = ClientStates.GetId;
         Thread sendMessageThread = new Thread(SendMessage);
         sendMessageThread.IsBackground = true;
         sendMessageThread.Start();
+    }
+
+    private bool isClosed = false;
+    public void OnClose()
+    {
+        if (isClosed) return;
+        isClosed = true;
+        Server.SV.ClientsDict.Remove(ClientId);
+        if (Socket != null)
+        {
+            Socket.Close();
+        }
+
+        MyServerPlayer = null;
+        if (MyServerGameManager != null)
+        {
+            MyServerGameManager.OnStopGame(this);
+        }
+    }
+
+    public void SendMessage(ServerRequestBase request)
+    {
+        SendRequestsQueue.Enqueue(request);
     }
 
     private void SendMessage()
@@ -47,11 +75,17 @@ internal class ClientProxy : ProxyBase
         }
     }
 
+    public void ReceiveMessage(ClientRequestBase request)
+    {
+        ReceiveRequestsQueue.Enqueue(request);
+        Response();
+    }
+
     /// <summary>
     /// 此类中处理进入游戏前的所有Request
     /// 进入游戏后将所有Request发给ServerGameManager处理
     /// </summary>
-    public override void Response()
+    protected override void Response()
     {
         while (ReceiveRequestsQueue.Count > 0)
         {
@@ -59,7 +93,7 @@ internal class ClientProxy : ProxyBase
             //以下是进入游戏前的请求
             if (r is CardDeckRequest)
             {
-                if (ClientState == ClientStates.GetId)
+                if (ClientState == ClientStates.GetId || ClientState == ClientStates.SubmitCardDeck)
                 {
                     CardDeckRequest request = (CardDeckRequest) r;
                     CardDeckInfo = request.cardDeckInfo;
@@ -73,11 +107,15 @@ internal class ClientProxy : ProxyBase
                     ClientState = ClientStates.Matching;
                     Server.SV.SGMM.OnClientMatchGames(this);
                 }
-            }
-            else if (r is ResetClientRequest)
+            }else if (r is CancelMatchRequest)
             {
-
+                if (ClientState == ClientStates.Matching)
+                {
+                    ClientState = ClientStates.SubmitCardDeck;
+                    Server.SV.SGMM.OnClientCancelMatch(this);
+                }
             }
+
             //以下是进入游戏后的请求
             else if (r is ClientEndRoundRequest)
             {
@@ -90,7 +128,14 @@ internal class ClientProxy : ProxyBase
             {
                 if (ClientState == ClientStates.Playing)
                 {
-                    MyServerGameManager.OnClientSummonRetinueRequest((SummonRetinueRequest)r);
+                    MyServerGameManager.OnClientSummonRetinueRequest((SummonRetinueRequest) r);
+                }
+            }
+            else if (r is LeaveGameRequest)
+            {
+                if (ClientState == ClientStates.Playing)
+                {
+                    MyServerGameManager.OnStopGame(this);
                 }
             }
         }

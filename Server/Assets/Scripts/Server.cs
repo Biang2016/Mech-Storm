@@ -36,7 +36,7 @@ internal class Server
     public int Port;
     private Socket severSocket;
     public ProtoManager ServerProtoManager;
-    private Dictionary<int, ClientProxy> ClientsDict = new Dictionary<int, ClientProxy>();
+    public Dictionary<int, ClientProxy> ClientsDict = new Dictionary<int, ClientProxy>();
     private Queue<ReceiveSocketData> receiveDataQueue = new Queue<ReceiveSocketData>();
 
     public ServerGameMatchManager SGMM;
@@ -84,9 +84,10 @@ internal class Server
             ClientProxy clientProxy = kv.Value;
             if (clientProxy.Socket != null && clientProxy.Socket.Connected)
             {
+                ServerLog.PrintClientStates("客户" + clientProxy.ClientId + "退出");
                 clientProxy.Socket.Shutdown(SocketShutdown.Both);
                 clientProxy.Socket.Close();
-                ServerLog.PrintClientStates("客户" + clientProxy.ClientId + "退出");
+                clientProxy.OnClose();
             }
         }
 
@@ -149,7 +150,7 @@ internal class Server
             {
                 //与客户端连接失败跳出循环  
                 ServerLog.PrintClientStates("连接客户端失败,ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
-                clientProxy.Socket.Close();
+                clientProxy.OnClose();
                 break;
             }
 
@@ -159,7 +160,7 @@ internal class Server
                 int i = clientProxy.Socket.Receive(bytes);
                 if (i <= 0)
                 {
-                    clientProxy.Socket.Close();
+                    clientProxy.OnClose();
                     ServerLog.PrintClientStates("客户端关闭,ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
                     break;
                 }
@@ -172,10 +173,10 @@ internal class Server
                     clientProxy.DataHolder.RemoveFromHead();
                 }
             }
-            catch (Exception e)
+            catch
             {
                 ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId);
-                clientProxy.Socket.Close();
+                clientProxy.OnClose();
                 break;
             }
         }
@@ -191,8 +192,7 @@ internal class Server
             ClientRequestBase request = (ClientRequestBase) r;
             if (ClientsDict.ContainsKey(request.clientId))
             {
-                ClientsDict[request.clientId].ReceiveRequestsQueue.Enqueue(request);
-                ClientsDict[request.clientId].Response();
+                ClientsDict[request.clientId].ReceiveMessage(request);
             }
         }
     }
@@ -244,7 +244,7 @@ internal class Server
 
             byte[] data = writer.ToByteArray();
             IAsyncResult asyncSend = sendMsg.Client.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), sendMsg.Client);
-            bool success = asyncSend.AsyncWaitHandle.WaitOne(500, true);
+            bool success = asyncSend.AsyncWaitHandle.WaitOne(1000, true);
             if (!success)
             {
                 Stop();

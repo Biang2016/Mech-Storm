@@ -3,70 +3,65 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 internal class Proxy : ProxyBase
 {
-    public Queue<ClientRequestBase> SendRequestsQueue = new Queue<ClientRequestBase>();
-    public Queue<ServerRequestBase> ReceiveRequestsQueue = new Queue<ServerRequestBase>();
+    private Queue<ClientRequestBase> SendRequestsQueue = new Queue<ClientRequestBase>();
+    private Queue<ServerRequestBase> ReceiveRequestsQueue = new Queue<ServerRequestBase>();
 
-
+    public override ClientStates ClientState
+    {
+        get { return clientState; }
+        set
+        {
+            clientState = value;
+            ClientLog.CL.PrintClientStates("Client states: " + ClientState);
+        }
+    }
 
     public Proxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
     }
 
-    public void OnSendCardDeck(CardDeckInfo cardDeckInfo)
+    #region 收发基础组件
+
+    public void Send() //每帧调用
     {
-        if (Client.CS.Proxy.ClientState == ClientStates.GetId)
+        if (SendRequestsQueue.Count > 0)
         {
-            CardDeckRequest req = new CardDeckRequest(ClientId, cardDeckInfo);
-            Client.CS.SendMessage(req);
-            Client.CS.Proxy.ClientState = ClientStates.SubmitCardDeck;
-            ClientLog.CL.PrintClientStates("Client states: " + Client.CS.Proxy.ClientState);
-        }
-        else
-        {
-            ClientLog.CL.PrintWarning("请连接服务器");
+            ClientRequestBase request = SendRequestsQueue.Dequeue();
+            Thread thread = new Thread(Client.CS.Send);
+            thread.IsBackground = true;
+            thread.Start(request);
         }
     }
 
-    public void OnBeginMatch()
+    public void SendMessage(ClientRequestBase request)
     {
-        if (Client.CS.Proxy.ClientState == ClientStates.SubmitCardDeck)
-        {
-            MatchRequest req = new MatchRequest(ClientId);
-            Client.CS.SendMessage(req);
-            Client.CS.Proxy.ClientState = ClientStates.Matching;
-            ClientLog.CL.PrintClientStates("Client states: " + Client.CS.Proxy.ClientState);
-        }
-        else
-        {
-            ClientLog.CL.PrintWarning("请发送卡组");
-        }
+        SendRequestsQueue.Enqueue(request);
     }
 
-    public override void Response()
+    public void ReceiveMessage(ServerRequestBase request)
+    {
+        ReceiveRequestsQueue.Enqueue(request);
+        Response();
+    }
+
+    #endregion
+
+    protected override void Response()
     {
         ServerRequestBase r = ReceiveRequestsQueue.Dequeue();
-        if (r is ServerWarningRequest) //接收服务器回执警告
+        if (r is ClientIdRequest)
         {
-        }
-        else if (r is ClientIdRequest)
-        {
-            if (Client.CS.Proxy.ClientState == ClientStates.Nothing)
-            {
-                ClientIdRequest request = (ClientIdRequest) r;
-                ClientId = request.givenClientId;
-                ClientState = ClientStates.GetId;
-                ClientLog.CL.PrintClientStates("Client states: " + ClientState);
-            }
-            else
-            {
-                ClientLog.CL.PrintError("请重置游戏");
-            }
+            ClientIdRequest request = (ClientIdRequest) r;
+            ClientId = request.givenClientId;
+            ClientState = ClientStates.GetId;
         }
         else if (r is PlayerRequest)
         {
+            ClientState = ClientStates.Playing;
             RoundManager.RM.Initialize();
             RoundManager.RM.InitializePlayers((PlayerRequest) r);
         }
@@ -74,20 +69,52 @@ internal class Proxy : ProxyBase
         {
             RoundManager.RM.SetPlayerTurn((PlayerTurnRequest) r);
         }
+        else if (r is PlayerCostRequest)
+        {
+            RoundManager.RM.SetPlayersCost((PlayerCostRequest) r);
+        }
         else if (r is DrawCardRequest)
         {
             RoundManager.RM.OnPlayerDrawCard((DrawCardRequest) r);
-        }else if (r is SummonRetinueRequest_Response)
+        }
+        else if (r is SummonRetinueRequest_Response)
         {
             RoundManager.RM.OnPlayerSummonRetinue((SummonRetinueRequest_Response) r);
         }
+
+        if (r is GameStopByLeaveRequest)
+        {
+            RoundManager.RM.OnGameStop();
+        }
+    }
+
+    public void CancelMatch()
+    {
+        CancelMatchRequest request = new CancelMatchRequest(ClientId);
+        SendMessage(request);
+        ClientState = ClientStates.SubmitCardDeck;
+    }
+
+    public void LeaveGame()
+    {
+        LeaveGameRequest request = new LeaveGameRequest();
+        SendMessage(request);
+        ClientState = ClientStates.SubmitCardDeck;
+        //...
     }
 
 
-    public void ReSetClient()
+    public void OnSendCardDeck(CardDeckInfo cardDeckInfo)
     {
-        Client.CS.Proxy.ClientState = ClientStates.Nothing;
-        ResetClientRequest request = new ResetClientRequest();
-        Client.CS.SendMessage(request);
+        CardDeckRequest req = new CardDeckRequest(ClientId, cardDeckInfo);
+        SendMessage(req);
+        ClientState = ClientStates.SubmitCardDeck;
+    }
+
+    public void OnBeginMatch()
+    {
+        MatchRequest req = new MatchRequest(ClientId);
+        SendMessage(req);
+        ClientState = ClientStates.Matching;
     }
 }

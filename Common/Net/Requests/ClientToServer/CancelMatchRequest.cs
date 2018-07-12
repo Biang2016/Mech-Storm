@@ -1,24 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class ResetClientRequest : ClientRequestBase
+public class CancelMatchRequest : ClientRequestBase
 {
-    public ResetClientRequest() : base()
+    public CancelMatchRequest()
     {
     }
 
-    public ResetClientRequest(int clientId) : base(clientId)
+    public CancelMatchRequest(int clientId) : base(clientId)
     {
     }
 
     public override int GetProtocol()
     {
-        return NetProtocols.RESET_GAME;
+        return NetProtocols.CANCEL_MATCH;
     }
 
     public override string GetProtocolName()
     {
-        return "RESET_GAME";
+        return "CANCEL_MATCH";
     }
 
     public override void Serialize(DataStream writer)
