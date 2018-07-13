@@ -28,25 +28,18 @@ internal class ServerGameManager
     public void OnStopGame(ClientProxy clientProxy)
     {
         if (isStopped) return;
-        isStopped = true;
         ClientA.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
         ClientB.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
 
         GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
-        ClientA.SendMessage(request);
-        ClientB.SendMessage(request);
+        BroadcastBothPlayers(request);
 
-        Server.SV.SGMM.StopGame(this);
-        Server.SV.SGMM.KickOutClient(ClientA);
-        Server.SV.SGMM.KickOutClient(ClientB);
+        Server.SV.SGMM.RemoveGame(this, ClientA, ClientB);
 
-        ClientA = null;
-        ClientB = null;
-        CurrentPlayer = null;
-        if (PlayerA != null) PlayerA.OnDestroyed();
-        if (PlayerB != null) PlayerB.OnDestroyed();
-        PlayerA = null;
-        PlayerB = null;
+        PlayerA?.OnDestroyed();
+        PlayerB?.OnDestroyed();
+
+        isStopped = true;
     }
 
     private void Initialized()
@@ -58,11 +51,9 @@ internal class ServerGameManager
         PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, 0, this);
         PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CardDeckInfo);
         PlayerA.MyClientProxy = ClientA;
-        ClientA.MyServerPlayer = PlayerA;
         PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, 0, this);
         PlayerB.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientB.CardDeckInfo);
         PlayerB.MyClientProxy = ClientB;
-        ClientB.MyServerPlayer = PlayerB;
 
         PlayerA.MyEnemyPlayer = PlayerB;
         PlayerB.MyEnemyPlayer = PlayerA;
@@ -130,25 +121,25 @@ internal class ServerGameManager
 
     public void OnClientSummonRetinueRequest(SummonRetinueRequest summonRetinueRequest)
     {
-        ClientProxy cp = summonRetinueRequest.clientId == ClientA.ClientId ? ClientA : ClientB;
-        if (cp.MyServerPlayer.MyBattleGroundManager.BattleGroundIsFull)
+        ServerPlayer sp = summonRetinueRequest.clientId == PlayerA.ClientId ? PlayerA : PlayerB;
+        if (sp.MyBattleGroundManager.BattleGroundIsFull)
         {
             return;
         }
         else
         {
-            if (cp.MyServerPlayer.MyBattleGroundManager.SummonRetinue(summonRetinueRequest))
+            if (sp.MyBattleGroundManager.SummonRetinue(summonRetinueRequest))
             {
-                cp.MyServerPlayer.MyHandManager.DropCardAt(summonRetinueRequest.handCardIndex);
+                sp.MyHandManager.DropCardAt(summonRetinueRequest.handCardIndex);
             }
 
-            cp.MyServerPlayer.UseCostAboveZero(summonRetinueRequest.cardInfo.Cost);
+            sp.UseCostAboveZero(summonRetinueRequest.cardInfo.Cost);
             SummonRetinueRequest_Response request = new SummonRetinueRequest_Response(summonRetinueRequest.clientId, summonRetinueRequest.cardInfo, summonRetinueRequest.handCardIndex, summonRetinueRequest.battleGroundIndex);
             BroadcastBothPlayers(request);
         }
     }
 
-    public void OnEndRoundRequest(ClientEndRoundRequest r)
+    public void OnEndRoundRequest(EndRoundRequest r)
     {
         if (CurrentPlayer.ClientId == r.clientId)
         {

@@ -34,10 +34,10 @@ internal class Server
 
     public string IP;
     public int Port;
-    private Socket severSocket;
-    public ProtoManager ServerProtoManager;
+    private Socket SeverSocket;
+    private ProtoManager ServerProtoManager;
     public Dictionary<int, ClientProxy> ClientsDict = new Dictionary<int, ClientProxy>();
-    private Queue<ReceiveSocketData> receiveDataQueue = new Queue<ReceiveSocketData>();
+    private Queue<ReceiveSocketData> ReceiveDataQueue = new Queue<ReceiveSocketData>();
 
     public ServerGameMatchManager SGMM;
 
@@ -56,19 +56,7 @@ internal class Server
         threadReceive.Start();
     }
 
-    private void ReceiveMessage()
-    {
-        while (true)
-        {
-            if (receiveDataQueue.Count > 0)
-            {
-                ReceiveSocketData rsd = receiveDataQueue.Dequeue();
-                ServerProtoManager.TryDeserialize(rsd.Data, rsd.Socket);
-            }
-        }
-    }
-
-    public void OnRestartProtocols()
+    private void OnRestartProtocols()
     {
         ServerProtoManager = new ProtoManager();
         foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
@@ -77,6 +65,19 @@ internal class Server
         }
     }
 
+    private void ReceiveMessage()
+    {
+        while (true)
+        {
+            if (ReceiveDataQueue.Count > 0)
+            {
+                ReceiveSocketData rsd = ReceiveDataQueue.Dequeue();
+                ServerProtoManager.TryDeserialize(rsd.Data, rsd.Socket);
+            }
+        }
+    }
+
+
     public void Stop()
     {
         foreach (KeyValuePair<int, ClientProxy> kv in ClientsDict)
@@ -84,25 +85,33 @@ internal class Server
             ClientProxy clientProxy = kv.Value;
             if (clientProxy.Socket != null && clientProxy.Socket.Connected)
             {
-                ServerLog.PrintClientStates("客户" + clientProxy.ClientId + "退出");
-                clientProxy.Socket.Shutdown(SocketShutdown.Both);
-                clientProxy.Socket.Close();
-                clientProxy.OnClose();
+                ServerLog.PrintClientStates("客户端 " + clientProxy.ClientId + " 退出");
+                ClientProxyClose(clientProxy);
             }
         }
 
         ClientsDict.Clear();
     }
 
+    /// <summary>
+    /// 所有的客户端提前异常退出、正常退出都走此方法
+    /// </summary>
+    /// <param name="clientProxy"></param>
+    public void ClientProxyClose(ClientProxy clientProxy)
+    {
+        clientProxy.OnClose();
+        ClientsDict.Remove(clientProxy.ClientId);
+    }
+
     public void StartSeverSocket()
     {
         try
         {
-            severSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            SeverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             //将服务器的ip捆绑
-            severSocket.Bind(new IPEndPoint(IPAddress.Parse(IP), Port));
+            SeverSocket.Bind(new IPEndPoint(IPAddress.Parse(IP), Port));
             //为服务器sokect添加监听
-            severSocket.Listen(200);
+            SeverSocket.Listen(200);
             ServerLog.PrintServerStates("------------------ Server Start ------------------\n");
             //开始服务器时 一般接受一个服务就会被挂起所以要用多线程来解决
             Thread threadAccept = new Thread(Accept);
@@ -111,7 +120,7 @@ internal class Server
         }
         catch
         {
-            ServerLog.Print("Server start failed!");
+            ServerLog.PrintError("Server start failed!");
         }
     }
 
@@ -124,12 +133,12 @@ internal class Server
 
     public void Accept()
     {
-        Socket socket = severSocket.Accept();
+        Socket socket = SeverSocket.Accept();
         int clientId = GenerateClientId();
         ClientProxy clientProxy = new ClientProxy(socket, clientId, false);
         ClientsDict.Add(clientId, clientProxy);
         IPEndPoint point = socket.RemoteEndPoint as IPEndPoint;
-        ServerLog.PrintClientStates(point.Address + ":" + point.Port + " connected. Client count: " + ClientsDict.Count);
+        ServerLog.PrintClientStates("新的客户端连接 " + point.Address + ":" + point.Port + "  客户端总数: " + ClientsDict.Count);
 
         Thread threadReceive = new Thread(ReceiveSocket);
         threadReceive.IsBackground = true;
@@ -150,7 +159,7 @@ internal class Server
             {
                 //与客户端连接失败跳出循环  
                 ServerLog.PrintClientStates("连接客户端失败,ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
-                clientProxy.OnClose();
+                ClientProxyClose(clientProxy);
                 break;
             }
 
@@ -160,8 +169,8 @@ internal class Server
                 int i = clientProxy.Socket.Receive(bytes);
                 if (i <= 0)
                 {
-                    clientProxy.OnClose();
                     ServerLog.PrintClientStates("客户端关闭,ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
+                    ClientProxyClose(clientProxy);
                     break;
                 }
 
@@ -169,14 +178,14 @@ internal class Server
                 while (clientProxy.DataHolder.IsFinished())
                 {
                     ReceiveSocketData rsd = new ReceiveSocketData(clientProxy.Socket, clientProxy.DataHolder.mRecvData);
-                    receiveDataQueue.Enqueue(rsd);
+                    ReceiveDataQueue.Enqueue(rsd);
                     clientProxy.DataHolder.RemoveFromHead();
                 }
             }
             catch
             {
                 ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId);
-                clientProxy.OnClose();
+                ClientProxyClose(clientProxy);
                 break;
             }
         }
@@ -247,12 +256,12 @@ internal class Server
             bool success = asyncSend.AsyncWaitHandle.WaitOne(1000, true);
             if (!success)
             {
-                Stop();
+                ServerLog.PrintError("发送失败");
             }
         }
         catch (Exception e)
         {
-            ServerLog.PrintError("Send error : " + e);
+            ServerLog.PrintError("Send Exception : " + e);
         }
     }
 

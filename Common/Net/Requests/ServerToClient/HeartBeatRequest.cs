@@ -1,24 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class ClientEndRoundRequest : ClientRequestBase
+public class HeartBeatRequest : ServerRequestBase
 {
-    public ClientEndRoundRequest()
-    {
-    }
-
-    public ClientEndRoundRequest(int clientId) : base(clientId)
+    public HeartBeatRequest()
     {
     }
 
     public override int GetProtocol()
     {
-        return NetProtocols.CLIENT_END_ROUND;
+        return NetProtocols.HEART_BEAT;
     }
 
     public override string GetProtocolName()
     {
-        return "CLIENT_END_ROUND";
+        return "HEART_BEAT";
     }
 
     public override void Serialize(DataStream writer)

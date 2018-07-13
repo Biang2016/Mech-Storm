@@ -45,6 +45,7 @@ internal class HandManager : MonoBehaviour
 
     public void GetCard(int cardId)
     {
+        if (ClientPlayer == null) return;
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardId);
         CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer);
         cards.Add(newCardBase);
@@ -118,6 +119,7 @@ internal class HandManager : MonoBehaviour
 
     internal void RefreshCardsPlace() //重置所有手牌位置
     {
+        if (ClientPlayer == null) return;
         if (cards.Count == 0) return;
         if (!isSet_defaultCardRotation)
         {
@@ -174,6 +176,7 @@ internal class HandManager : MonoBehaviour
 
     internal void RefreshAllCardUsable() //刷新所有卡牌是否可用
     {
+        if (ClientPlayer == null) return;
         foreach (var card in cards)
         {
             if (ClientPlayer == RoundManager.RM.CurrentClientPlayer)
@@ -230,6 +233,7 @@ internal class HandManager : MonoBehaviour
     //鼠标悬停手牌放大效果
     void becomeBigger(CardBase focusCard)
     {
+        if (ClientPlayer == null) return;
         if (!isBeginDrag && (GameManager.GM.CanTestEnemyCards || ClientPlayer.WhichPlayer == Players.Self))
         {
             //用一个BoxCollider代替原来的位置
@@ -267,6 +271,7 @@ internal class HandManager : MonoBehaviour
 
     void returnToSmaller(CardBase lostFocusCard)
     {
+        if (ClientPlayer == null) return;
         if (!isBeginDrag && (GameManager.GM.CanTestEnemyCards || ClientPlayer.WhichPlayer == Players.Self))
         {
             //一旦替身BoxCollider失焦，恢复原手牌位置

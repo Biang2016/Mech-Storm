@@ -50,6 +50,7 @@ internal class BattleGroundManager : MonoBehaviour
 
     public void AddRetinue(SummonRetinueRequest_Response r)
     {
+        if (ClientPlayer == null) return;
         ModuleRetinue retinue = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(transform).GetComponent<ModuleRetinue>();
         retinue.Initiate(r.cardInfo, ClientPlayer);
         retinue.transform.Rotate(Vector3.up, 180);

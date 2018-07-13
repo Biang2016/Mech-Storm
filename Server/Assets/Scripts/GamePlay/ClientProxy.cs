@@ -14,12 +14,10 @@ internal class ClientProxy : ProxyBase
 
     public CardDeckInfo CardDeckInfo;
 
-    public ServerPlayer MyServerPlayer;
-
     public override ClientStates ClientState
     {
-        get { return clientState; }
-        set { clientState = value; }
+        get => clientState;
+        set => clientState = value;
     }
 
     public ClientProxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
@@ -37,22 +35,19 @@ internal class ClientProxy : ProxyBase
     public void OnClose()
     {
         if (isClosed) return;
-        isClosed = true;
-        Server.SV.ClientsDict.Remove(ClientId);
+
+        MyServerGameManager?.OnStopGame(this);//先结束对应的游戏
+
         if (Socket != null)
         {
+            if (Socket.Connected) Socket.Shutdown(SocketShutdown.Both);
             Socket.Close();
         }
 
-        MyServerPlayer = null;
-        if (MyServerGameManager != null)
-        {
-            MyServerGameManager.OnStopGame(this);
-        }
-
-        MyServerGameManager = null;
         SendRequestsQueue.Clear();
         ReceiveRequestsQueue.Clear();
+
+        isClosed = true;
     }
 
     public void SendMessage(ServerRequestBase request)
@@ -97,53 +92,50 @@ internal class ClientProxy : ProxyBase
         while (ReceiveRequestsQueue.Count > 0)
         {
             ClientRequestBase r = ReceiveRequestsQueue.Dequeue();
-            //以下是进入游戏前的请求
-            if (r is CardDeckRequest)
+            switch (r)
             {
-                if (ClientState == ClientStates.GetId || ClientState == ClientStates.SubmitCardDeck)
-                {
-                    CardDeckRequest request = (CardDeckRequest) r;
-                    CardDeckInfo = request.cardDeckInfo;
-                    ClientState = ClientStates.SubmitCardDeck;
-                }
-            }
-            else if (r is MatchRequest)
-            {
-                if (ClientState == ClientStates.SubmitCardDeck)
-                {
-                    ClientState = ClientStates.Matching;
-                    Server.SV.SGMM.OnClientMatchGames(this);
-                }
-            }
-            else if (r is CancelMatchRequest)
-            {
-                if (ClientState == ClientStates.Matching)
-                {
-                    ClientState = ClientStates.SubmitCardDeck;
-                    Server.SV.SGMM.OnClientCancelMatch(this);
-                }
+                //以下是进入游戏前的请求
+                case CardDeckRequest _:
+                    if (ClientState == ClientStates.GetId || ClientState == ClientStates.SubmitCardDeck)
+                    {
+                        CardDeckRequest request = (CardDeckRequest) r;
+                        CardDeckInfo = request.cardDeckInfo;
+                        ClientState = ClientStates.SubmitCardDeck;
+                    }
+
+                    break;
+                case MatchRequest _:
+                    if (ClientState == ClientStates.SubmitCardDeck)
+                    {
+                        ClientState = ClientStates.Matching;
+                        Server.SV.SGMM.OnClientMatchGames(this);
+                    }
+
+                    break;
+                case CancelMatchRequest _:
+                    if (ClientState == ClientStates.Matching)
+                    {
+                        ClientState = ClientStates.SubmitCardDeck;
+                        Server.SV.SGMM.OnClientCancelMatch(this);
+                    }
+
+                    break;
             }
 
-            //以下是进入游戏后的请求
-            else if (r is ClientEndRoundRequest)
+            if (ClientState == ClientStates.Playing)
             {
-                if (ClientState == ClientStates.Playing)
+                switch (r)
                 {
-                    MyServerGameManager.OnEndRoundRequest((ClientEndRoundRequest) r);
-                }
-            }
-            else if (r is SummonRetinueRequest)
-            {
-                if (ClientState == ClientStates.Playing)
-                {
-                    MyServerGameManager.OnClientSummonRetinueRequest((SummonRetinueRequest) r);
-                }
-            }
-            else if (r is LeaveGameRequest)
-            {
-                if (ClientState == ClientStates.Playing)
-                {
-                    if (MyServerGameManager != null) MyServerGameManager.OnStopGame(this);
+                    case EndRoundRequest _:
+                        MyServerGameManager?.OnEndRoundRequest((EndRoundRequest) r);
+                        break;
+                    case SummonRetinueRequest _:
+                        MyServerGameManager?.OnClientSummonRetinueRequest((SummonRetinueRequest) r);
+                        break;
+                    //正常退出游戏请求
+                    case LeaveGameRequest _:
+                        MyServerGameManager?.OnStopGame(this);
+                        break;
                 }
             }
         }

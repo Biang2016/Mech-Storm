@@ -84,7 +84,17 @@ internal class Proxy : ProxyBase
 
         if (r is GameStopByLeaveRequest)
         {
+            GameStopByLeaveRequest request = (GameStopByLeaveRequest) r;
+            if (request.clientId == ClientId)
+            {
+                ClientLog.CL.PrintClientStates(request.clientId + "你退出了比赛");
+            }
+            else
+            {
+                ClientLog.CL.PrintReceive(request.clientId + "你的对手退出了比赛");
+            }
             RoundManager.RM.OnGameStop();
+            ClientState = ClientStates.SubmitCardDeck;
         }
     }
 

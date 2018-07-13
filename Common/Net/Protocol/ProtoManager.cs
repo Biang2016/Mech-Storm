@@ -17,7 +17,7 @@ public class ProtoManager
         mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
 
         AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);
-        AddProtocol<ClientEndRoundRequest>(NetProtocols.CLIENT_END_ROUND);
+        AddProtocol<EndRoundRequest>(NetProtocols.END_ROUND);
         AddProtocol<LeaveGameRequest>(NetProtocols.LEAVE_GAME);
         AddProtocol<MatchRequest>(NetProtocols.Match);
         AddProtocol<CancelMatchRequest>(NetProtocols.CANCEL_MATCH);
@@ -29,8 +29,6 @@ public class ProtoManager
         AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
         AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
         AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
-        AddProtocol<ServerInfoRequest>(NetProtocols.INFO_NUMBER);
-        AddProtocol<ServerWarningRequest>(NetProtocols.WARNING_NUMBER);
         AddProtocol<SummonRetinueRequest_Response>(NetProtocols.SUMMON_RETINUE_RESPONSE);
     }
 

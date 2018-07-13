@@ -176,7 +176,7 @@ internal class RoundManager : MonoBehaviour
     {
         if (CurrentClientPlayer == SelfClientPlayer)
         {
-            ClientEndRoundRequest request = new ClientEndRoundRequest(Client.CS.Proxy.ClientId);
+            EndRoundRequest request = new EndRoundRequest(Client.CS.Proxy.ClientId);
             Client.CS.Proxy.SendMessage(request);
         }
         else
