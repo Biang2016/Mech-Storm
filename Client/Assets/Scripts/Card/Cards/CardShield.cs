@@ -66,7 +66,7 @@ internal class CardShield : CardBase
 
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (var sa in slotAnchors)
-                if (sa.M_Slot.M_SlotType == SlotType.Shield && sa.M_Slot.ClientPlayer == ClientPlayer)
+                if (sa.M_Slot.MSlotTypes == SlotTypes.Shield && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
                     summonShieldRequest(sa.M_ModuleRetinue);
                     return;

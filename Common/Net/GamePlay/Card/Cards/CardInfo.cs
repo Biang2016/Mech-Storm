@@ -44,7 +44,7 @@ public class CardInfo_Base
 
 public class CardInfo_Retinue : CardInfo_Base
 {
-    public CardInfo_Retinue(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID,int cardLevel, int life, int totalLife, int basicAttack, int basicShield, int basicArmor,SlotType slot1,SlotType slot2,SlotType slot3,SlotType slot4) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
+    public CardInfo_Retinue(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID,int cardLevel, int life, int totalLife, int basicAttack, int basicShield, int basicArmor,SlotTypes slot1,SlotTypes slot2,SlotTypes slot3,SlotTypes slot4) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
     {
         Life = life;
         TotalLife = totalLife;
@@ -62,10 +62,10 @@ public class CardInfo_Retinue : CardInfo_Base
     public int BasicAttack;
     public int BasicShield;
     public int BasicArmor;
-    public SlotType Slot1;
-    public SlotType Slot2;
-    public SlotType Slot3;
-    public SlotType Slot4;
+    public SlotTypes Slot1;
+    public SlotTypes Slot2;
+    public SlotTypes Slot3;
+    public SlotTypes Slot4;
 
     public override CardInfo_Base Clone()
     {

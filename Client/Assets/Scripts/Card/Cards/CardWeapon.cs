@@ -66,7 +66,7 @@ internal class CardWeapon : CardBase
 
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (SlotAnchor sa in slotAnchors)
-                if (sa.M_Slot.M_SlotType == SlotType.Weapon && sa.M_Slot.ClientPlayer == ClientPlayer)
+                if (sa.M_Slot.MSlotTypes == SlotTypes.Weapon && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
                     summonWeaponRequest(sa.M_ModuleRetinue);
                     return;

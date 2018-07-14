@@ -148,28 +148,28 @@ internal class ModuleRetinue : ModuleBase
         {
             SlotAnchor1.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor1.M_ModuleRetinue = this;
-            SlotAnchor1.M_Slot.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot1;
+            SlotAnchor1.M_Slot.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot1;
         }
 
         if (SlotAnchor2)
         {
             SlotAnchor2.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor2.M_ModuleRetinue = this;
-            SlotAnchor2.M_Slot.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot2;
+            SlotAnchor2.M_Slot.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot2;
         }
 
         if (SlotAnchor3)
         {
             SlotAnchor3.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor3.M_ModuleRetinue = this;
-            SlotAnchor3.M_Slot.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot3;
+            SlotAnchor3.M_Slot.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot3;
         }
 
         if (SlotAnchor4)
         {
             SlotAnchor4.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor4.M_ModuleRetinue = this;
-            SlotAnchor4.M_Slot.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot4;
+            SlotAnchor4.M_Slot.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot4;
         }
     }
 

@@ -6,17 +6,17 @@ internal class Slot : MonoBehaviour
     public ClientPlayer ClientPlayer;
 
     [SerializeField]
-    private SlotType m_SlotType = SlotType.None;
+    private SlotTypes _mSlotTypes = SlotTypes.None;
 
-    public SlotType M_SlotType
+    public SlotTypes MSlotTypes
     {
-        get { return m_SlotType; }
+        get { return _mSlotTypes; }
 
         set
         {
-            m_SlotType = value;
+            _mSlotTypes = value;
             ChangeSlotColor(value);
-            if (value != SlotType.None)
+            if (value != SlotTypes.None)
             {
                 gameObject.SetActive(true);
             }
@@ -35,26 +35,26 @@ internal class Slot : MonoBehaviour
     {
     }
 
-    private void ChangeSlotColor(SlotType slotType)
+    private void ChangeSlotColor(SlotTypes slotTypes)
     {
         Renderer rd = GetComponent<Renderer>();
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
         rd.GetPropertyBlock(mpb);
-        switch (slotType)
+        switch (slotTypes)
         {
-            case SlotType.Weapon:
+            case SlotTypes.Weapon:
                 mpb.SetColor("_Color", GameManager.GM.Slot1Color);
                 mpb.SetColor("_EmissionColor", GameManager.GM.Slot1Color);
                 break;
-            case SlotType.Shield:
+            case SlotTypes.Shield:
                 mpb.SetColor("_Color", GameManager.GM.Slot2Color);
                 mpb.SetColor("_EmissionColor", GameManager.GM.Slot2Color);
                 break;
-            case SlotType.Pack:
+            case SlotTypes.Pack:
                 mpb.SetColor("_Color", GameManager.GM.Slot3Color);
                 mpb.SetColor("_EmissionColor", GameManager.GM.Slot3Color);
                 break;
-            case SlotType.MA:
+            case SlotTypes.MA:
                 mpb.SetColor("_Color", GameManager.GM.Slot4Color);
                 mpb.SetColor("_EmissionColor", GameManager.GM.Slot4Color);
                 break;

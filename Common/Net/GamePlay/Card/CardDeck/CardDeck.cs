@@ -228,10 +228,10 @@ public static class AllCards
                 basicAttack: 0,
                 basicShield: 0,
                 basicArmor: 0,
-                slot1: SlotType.None,
-                slot2: SlotType.None,
-                slot3: SlotType.None,
-                slot4: SlotType.None
+                slot1: SlotTypes.None,
+                slot2: SlotTypes.None,
+                slot3: SlotTypes.None,
+                slot4: SlotTypes.None
             ));
         addCard(
             new CardInfo_Retinue(
@@ -249,10 +249,10 @@ public static class AllCards
                 basicAttack: 0,
                 basicShield: 0,
                 basicArmor: 0,
-                slot1: SlotType.None,
-                slot2: SlotType.None,
-                slot3: SlotType.None,
-                slot4: SlotType.None
+                slot1: SlotTypes.None,
+                slot2: SlotTypes.None,
+                slot3: SlotTypes.None,
+                slot4: SlotTypes.None
             ));
         addCard(
             new CardInfo_Retinue(
@@ -270,10 +270,10 @@ public static class AllCards
                 basicAttack: 1,
                 basicShield: 0,
                 basicArmor: 0,
-                slot1: SlotType.Weapon,
-                slot2: SlotType.Shield,
-                slot3: SlotType.Pack,
-                slot4: SlotType.MA
+                slot1: SlotTypes.Weapon,
+                slot2: SlotTypes.Shield,
+                slot3: SlotTypes.Pack,
+                slot4: SlotTypes.MA
             ));
         addCard(
             new CardInfo_Retinue(
@@ -291,10 +291,10 @@ public static class AllCards
                 basicAttack: 0,
                 basicShield: 3,
                 basicArmor: 3,
-                slot1: SlotType.Weapon,
-                slot2: SlotType.Shield,
-                slot3: SlotType.Pack,
-                slot4: SlotType.MA));
+                slot1: SlotTypes.Weapon,
+                slot2: SlotTypes.Shield,
+                slot3: SlotTypes.Pack,
+                slot4: SlotTypes.MA));
         addCard(
             new CardInfo_Weapon(
                 cardID: 100,

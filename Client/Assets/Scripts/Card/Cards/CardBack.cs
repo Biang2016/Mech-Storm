@@ -60,13 +60,13 @@ internal class CardBack : CardBase
         M_RetinueShield = ((CardInfo_Retinue) cardInfo).BasicShield;
 
         Slot1.ClientPlayer = ClientPlayer;
-        Slot1.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot1;
+        Slot1.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot1;
         Slot2.ClientPlayer = ClientPlayer;
-        Slot2.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot2;
+        Slot2.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot2;
         Slot3.ClientPlayer = ClientPlayer;
-        Slot3.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot3;
+        Slot3.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot3;
         Slot4.ClientPlayer = ClientPlayer;
-        Slot4.M_SlotType = ((CardInfo_Retinue) cardInfo).Slot4;
+        Slot4.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot4;
     }
 
     private string m_RetinueName;

@@ -43,9 +43,9 @@ internal class SlotAnchor : MonoBehaviour,IMouseHoverComponent
     {
         if (DragManager.DM.CurrentDrag)
         {
-            switch (M_Slot.M_SlotType)
+            switch (M_Slot.MSlotTypes)
             {
-                case SlotType.Weapon:
+                case SlotTypes.Weapon:
                     CardWeapon cw = DragManager.DM.CurrentDrag.GetComponent<CardWeapon>();
                     if (cw&&cw.ClientPlayer== M_Slot.ClientPlayer)
                     {
@@ -53,7 +53,7 @@ internal class SlotAnchor : MonoBehaviour,IMouseHoverComponent
                     }
 
                     break;
-                case SlotType.Shield:
+                case SlotTypes.Shield:
                     CardShield cs = DragManager.DM.CurrentDrag.GetComponent<CardShield>();
                     if (cs&&cs.ClientPlayer== M_Slot.ClientPlayer)
                     {
