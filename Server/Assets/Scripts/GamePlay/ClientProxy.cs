@@ -25,9 +25,6 @@ internal class ClientProxy : ProxyBase
         ClientIdRequest request = new ClientIdRequest(clientId);
         SendMessage(request);
         ClientState = ClientStates.GetId;
-        Thread sendMessageThread = new Thread(SendMessage);
-        sendMessageThread.IsBackground = true;
-        sendMessageThread.Start();
     }
 
     private bool isClosed = false;
@@ -36,7 +33,7 @@ internal class ClientProxy : ProxyBase
     {
         if (isClosed) return;
 
-        MyServerGameManager?.OnStopGame(this);//先结束对应的游戏
+        MyServerGameManager?.OnStopGame(this); //先结束对应的游戏
 
         if (Socket != null)
         {
@@ -54,24 +51,26 @@ internal class ClientProxy : ProxyBase
     {
         if (isClosed) return;
         SendRequestsQueue.Enqueue(request);
+        OnSendMessage();
+    }
+
+    private void OnSendMessage()
+    {
+        Thread sendMessageThread = new Thread(SendMessage);
+        sendMessageThread.IsBackground = true;
+        sendMessageThread.Start();
     }
 
     private void SendMessage()
     {
-        while (true)
+        lock (SendRequestsQueue)
         {
             if (SendRequestsQueue.Count > 0)
             {
-                lock (SendRequestsQueue)
-                {
-                    if (SendRequestsQueue.Count > 0)
-                    {
-                        Thread thread = new Thread(Server.SV.DoSendToClient);
-                        SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue());
-                        thread.IsBackground = true;
-                        thread.Start(msg);
-                    }
-                }
+                Thread thread = new Thread(Server.SV.DoSendToClient);
+                SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue());
+                thread.IsBackground = true;
+                thread.Start(msg);
             }
         }
     }

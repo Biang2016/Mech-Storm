@@ -1,19 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 internal static class ServerLog
 {
-    public static void Print(string logStr)
-    {
-        Print(logStr, ConsoleColor.White);
-    }
+    static Queue<Log> LogQueue = new Queue<Log>();
 
     public static void Print(string logStr, ConsoleColor consoleColor)
     {
         Log log = new Log(logStr, consoleColor);
         LogQueue.Enqueue(log);
+
+        Log tmp = LogQueue.Dequeue();
+        if (tmp != null)
+        {
+            Console.ForegroundColor = tmp.ConsoleColor;
+            Console.WriteLine(tmp.Time + "  " + tmp.LogStr);
+        }
+    }
+
+    public static void Print(string logStr)
+    {
+        Print(logStr, ConsoleColor.White);
     }
 
     public static void PrintWarning(string logStr)
@@ -44,22 +51,6 @@ internal static class ServerLog
     public static void PrintSend(string logStr)
     {
         Print(logStr, ConsoleColor.Magenta);
-    }
-
-
-    static Queue<Log> LogQueue = new Queue<Log>();
-
-    public static void Update()
-    {
-        if (LogQueue.Count > 0)
-        {
-            Log tmp = LogQueue.Dequeue();
-            if (tmp != null)
-            {
-                Console.ForegroundColor = tmp.ConsoleColor;
-                Console.WriteLine(tmp.Time + "  " + tmp.LogStr);
-            }
-        }
     }
 }
 

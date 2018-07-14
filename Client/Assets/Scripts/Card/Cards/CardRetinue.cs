@@ -206,12 +206,6 @@ internal class CardRetinue : CardBase
 
         if (boardAreaType != ClientPlayer.MyHandArea) //脱手即出牌
         {
-            if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
-            {
-                ClientPlayer.MyHandManager.RefreshCardsPlace();
-                return;
-            }
-
             summonRetinueRequest(dragLastPosition);
         }
         else
@@ -227,6 +221,11 @@ internal class CardRetinue : CardBase
     //召唤随从
     private void summonRetinueRequest(Vector3 dragLastPosition)
     {
+        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
+        {
+            ClientPlayer.MyHandManager.RefreshCardsPlace();
+            return;
+        }
         int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
         SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, (CardInfo_Retinue) CardInfo, handCardIndex, battleGroundIndex);

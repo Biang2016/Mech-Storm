@@ -42,6 +42,8 @@ internal class RoundManager : MonoBehaviour
         SelfTurnText.SetActive(false);
         EnemyTurnText.SetActive(false);
         EndRoundButton.SetActive(false);
+        SelfCostText.gameObject.SetActive(true);
+        EnemyCostText.gameObject.SetActive(true);
         SelfCostText.text = "";
         EnemyCostText.text = "";
     }

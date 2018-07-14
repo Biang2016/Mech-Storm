@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<AllCards>
+  <Card id="999">
+    <baseInfo cardName="空牌" cardDesc="" cost="0" dragPurpose="Summon" cardType="Retinue" cardColor="HeroColor" />
+    <upgradeInfo upgradeCardID="-1" cardLevel="0" />
+    <lifeInfo life="0" totalLife="0" />
+    <battleInfo basicAttack="0" basicShield="0" basicArmor="0" />
+    <slotInfo slot1="None" slot2="None" slot3="None" slot4="None"/>
+  </Card>
+</AllCards>

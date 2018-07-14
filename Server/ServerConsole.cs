@@ -5,10 +5,10 @@ class ServerConsole
     static void Main(string[] args)
     {
         Server.SV.Start();
-
-        while (true)
+        while (Console.ReadLine() != "Exit")
         {
-            ServerLog.Update();
+            
         }
+        Server.SV.Stop();
     }
 }

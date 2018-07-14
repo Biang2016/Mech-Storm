@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel.Design.Serialization;
+using System.Xml;
+using MyCardGameCommon;
 
 public class CardDeck
 {
@@ -36,7 +38,7 @@ public class CardDeck
         {
             if (cb is CardInfo_Type)
             {
-                return (CardInfo_Type)cb;
+                return (CardInfo_Type) cb;
             }
         }
 
@@ -52,7 +54,7 @@ public class CardDeck
             if (cb is CardInfo_Type)
             {
                 count++;
-                resList.Add((CardInfo_Type)cb);
+                resList.Add((CardInfo_Type) cb);
                 if (count >= cardNumber)
                 {
                     break;
@@ -133,7 +135,7 @@ public class CardDeck
 
     public static void Suffle(List<CardInfo_Base> targetCardList)
     {
-        for (int i = 0; i < targetCardList.Count * 3; i++)
+        for (int i = 0; i < targetCardList.Count * 1; i++)
         {
             int cardNum1 = new Random().Next(0, targetCardList.Count);
             int cardNum2 = new Random().Next(0, targetCardList.Count);
@@ -212,6 +214,45 @@ public static class AllCards
 
     public static void AddAllCards()
     {
+        XmlDocument doc = new XmlDocument();
+        string text = CardResource.Cards;
+        doc.LoadXml(text);
+        XmlElement allCards = doc.DocumentElement;
+        for (int i = 0; i < allCards.ChildNodes.Count; i++)
+        {
+            XmlNode card = allCards.ChildNodes.Item(i);
+            for (int j = 0; j < card.ChildNodes.Count; j++)
+            {
+                XmlNode cardInfo = card.ChildNodes[j];
+                if (cardInfo.Name == "baseInfo")
+                {
+
+                }
+            }
+
+            addCard(
+                new CardInfo_Retinue(
+                    cardID: int.Parse(node.Attributes["id"].Value),
+                    cardName:,
+                    cardDesc: "",
+                    cost: 0,
+                    dragPurpose: DragPurpose.Summon,
+                    cardType: CardTypes.Retinue,
+                    cardColor: HeroColor,
+                    upgradeCardID: -1,
+                    cardLevel: 0,
+                    life: 0,
+                    totalLife: 0,
+                    basicAttack: 0,
+                    basicShield: 0,
+                    basicArmor: 0,
+                    slot1: SlotTypes.None,
+                    slot2: SlotTypes.None,
+                    slot3: SlotTypes.None,
+                    slot4: SlotTypes.None
+                ));
+        }
+
         addCard(
             new CardInfo_Retinue(
                 cardID: 999,
@@ -524,10 +565,9 @@ public static class AllCards
                 return true;
             }
 
-            tmpUpgradeID = GetCard((int)tmpUpgradeID).UpgradeID;
+            tmpUpgradeID = GetCard((int) tmpUpgradeID).UpgradeID;
         }
 
         return false;
     }
-
 }

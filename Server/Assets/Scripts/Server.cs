@@ -50,10 +50,6 @@ internal class Server
 
         OnRestartProtocols();
         StartSeverSocket();
-
-        Thread threadReceive = new Thread(ReceiveMessage);
-        threadReceive.IsBackground = true;
-        threadReceive.Start();
     }
 
     private void OnRestartProtocols()
@@ -65,33 +61,6 @@ internal class Server
         }
     }
 
-    private void ReceiveMessage()
-    {
-        while (true)
-        {
-            if (ReceiveDataQueue.Count > 0)
-            {
-                ReceiveSocketData rsd = ReceiveDataQueue.Dequeue();
-                ServerProtoManager.TryDeserialize(rsd.Data, rsd.Socket);
-            }
-        }
-    }
-
-
-    public void Stop()
-    {
-        foreach (KeyValuePair<int, ClientProxy> kv in ClientsDict)
-        {
-            ClientProxy clientProxy = kv.Value;
-            if (clientProxy.Socket != null && clientProxy.Socket.Connected)
-            {
-                ServerLog.PrintClientStates("客户端 " + clientProxy.ClientId + " 退出");
-                ClientProxyClose(clientProxy);
-            }
-        }
-
-        ClientsDict.Clear();
-    }
 
     /// <summary>
     /// 所有的客户端提前异常退出、正常退出都走此方法
@@ -146,6 +115,21 @@ internal class Server
         Accept();
     }
 
+    public void Stop()
+    {
+        foreach (KeyValuePair<int, ClientProxy> kv in ClientsDict)
+        {
+            ClientProxy clientProxy = kv.Value;
+            if (clientProxy.Socket != null && clientProxy.Socket.Connected)
+            {
+                ServerLog.PrintClientStates("客户端 " + clientProxy.ClientId + " 退出");
+                ClientProxyClose(clientProxy);
+            }
+        }
+
+        ClientsDict.Clear();
+    }
+
     #region 接收
 
     //接收客户端Socket连接请求
@@ -180,6 +164,7 @@ internal class Server
                     ReceiveSocketData rsd = new ReceiveSocketData(clientProxy.Socket, clientProxy.DataHolder.mRecvData);
                     ReceiveDataQueue.Enqueue(rsd);
                     clientProxy.DataHolder.RemoveFromHead();
+                    OnReceiveMessage();
                 }
             }
             catch
@@ -191,7 +176,23 @@ internal class Server
         }
     }
 
-    void Response(Socket socket, RequestBase r)
+    private void OnReceiveMessage()
+    {
+        Thread threadReceive = new Thread(ReceiveMessage);
+        threadReceive.IsBackground = true;
+        threadReceive.Start();
+    }
+
+    private void ReceiveMessage()
+    {
+        if (ReceiveDataQueue.Count > 0)
+        {
+            ReceiveSocketData rsd = ReceiveDataQueue.Dequeue();
+            ServerProtoManager.TryDeserialize(rsd.Data, rsd.Socket);
+        }
+    }
+
+    private void Response(Socket socket, RequestBase r)
     {
         //统一日志打出
         ServerLog.PrintReceive("GetFrom    " + socket.RemoteEndPoint + "    [" + r.GetProtocolName() + "]    " + r.DeserializeLog());
@@ -274,7 +275,7 @@ internal class Server
 }
 
 
-public class SendMsg
+internal class SendMsg
 {
     public SendMsg(Socket client, RequestBase req)
     {
@@ -286,7 +287,7 @@ public class SendMsg
     public RequestBase Req;
 }
 
-public struct ReceiveSocketData
+internal struct ReceiveSocketData
 {
     public Socket Socket;
     public byte[] Data;

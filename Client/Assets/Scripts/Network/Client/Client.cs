@@ -192,8 +192,9 @@ internal class Client : MonoBehaviour
             }
             catch (Exception e)
             {
-                ClientLog.CL.PrintError("[C]Failed to clientSocket error." + e);
+                ClientLog.CL.PrintError("[C]Failed to clientSocket error. " + e);
                 ServerSocket.Close();
+                Proxy.ClientState = ProxyBase.ClientStates.Nothing;
                 break;
             }
         }

@@ -26,12 +26,12 @@ internal class NetworkManager : MonoBehaviour
 
     List<int> SelfCardDeckInfo = new List<int>();
 
-    public void Awake()
+    void Awake()
     {
         AllCards.AddAllCards();
     }
 
-    public void Start()
+    void Start()
     {
         TryConnectToServer();
         StartCoroutine(CheckConnection());
@@ -44,7 +44,7 @@ internal class NetworkManager : MonoBehaviour
             Client.CS.Connect("127.0.0.1", 9999, ConnectCallBack, null);
             if (Client.CS.Proxy.Socket.Connected)
             {
-                StartCoroutine(ShowInfoPanel("连接服务器成功", 1f, 1f));
+                ShowInfoPanel("连接服务器成功", 0f, 1f);
             }
         }
     }
@@ -61,11 +61,11 @@ internal class NetworkManager : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 if (Client.CS.Proxy.Socket.Connected)
                 {
-                    StartCoroutine(ShowInfoPanel("重连服务器成功", 0f, 1f));
+                    ShowInfoPanel("连接服务器成功", 0f, 1f);
                 }
                 else
                 {
-                    if (!isReconnecting) StartCoroutine(ShowInfoPanel("正在连接服务器", 0f, float.PositiveInfinity));
+                    if (!isReconnecting) ShowInfoPanel("正在连接服务器", 0f, float.PositiveInfinity);
                     isReconnecting = true;
                 }
             }
@@ -74,11 +74,27 @@ internal class NetworkManager : MonoBehaviour
         }
     }
 
-    IEnumerator ShowInfoPanel(string text, float delay, float last)
+    void ConnectCallBack()
+    {
+        ClientLog.CL.Print("连接服务器成功!");
+    }
+
+    void ShowInfoPanel(string text, float delay, float last)
+    {
+        StopAllCoroutines();
+        Start();
+        StartCoroutine(Co_ShowInfoPanel(text, delay, last));
+    }
+
+    IEnumerator Co_ShowInfoPanel(string text, float delay, float last)
     {
         yield return new WaitForSeconds(delay);
         InfoText.text = text;
-        if (InfoPanelAnimator.GetBool("isShow")) InfoPanelAnimator.SetTrigger("Shut");
+        if (InfoPanelAnimator.GetBool("isShow"))
+        {
+            InfoPanelAnimator.SetTrigger("Shut");
+        }
+
         InfoPanelAnimator.SetBool("isShow", true);
         if (!float.IsPositiveInfinity(last))
         {
@@ -88,7 +104,7 @@ internal class NetworkManager : MonoBehaviour
         else
         {
             int dotCount = 0;
-            while (!Client.CS.Proxy.Socket.Connected)
+            while (true)
             {
                 InfoText.text += ".";
                 yield return new WaitForSeconds(0.5f);
@@ -124,6 +140,7 @@ internal class NetworkManager : MonoBehaviour
                 }
 
                 Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(SelfCardDeckInfo.ToArray()));
+                ShowInfoPanel("更新卡组成功", 0, 1f);
             }
         }
 
@@ -132,6 +149,8 @@ internal class NetworkManager : MonoBehaviour
             if (CreateBtn("开始匹配"))
             {
                 Client.CS.Proxy.OnBeginMatch();
+                ClientLog.CL.Print("开始匹配");
+                ShowInfoPanel("匹配中", 0, float.PositiveInfinity);
             }
         }
 
@@ -140,6 +159,8 @@ internal class NetworkManager : MonoBehaviour
             if (CreateBtn("取消匹配"))
             {
                 Client.CS.Proxy.CancelMatch();
+                ClientLog.CL.Print("取消匹配");
+                ShowInfoPanel("取消匹配", 0, 1f);
             }
         }
 
@@ -149,6 +170,8 @@ internal class NetworkManager : MonoBehaviour
             {
                 Client.CS.Proxy.LeaveGame();
                 RoundManager.RM.OnGameStop();
+                ClientLog.CL.Print("您已退出比赛");
+                ShowInfoPanel("您已退出比赛", 0, 1f);
             }
         }
     }
@@ -161,16 +184,10 @@ internal class NetworkManager : MonoBehaviour
         return contentStr;
     }
 
-    public bool CreateBtn(string btnname)
+    private bool CreateBtn(string btnname)
     {
         bool b = GUI.Button(new Rect(20, high, 150, 30), btnname);
         high += 35;
         return b;
-    }
-
-
-    public void ConnectCallBack()
-    {
-        ClientLog.CL.Print("连接服务器成功!");
     }
 }
