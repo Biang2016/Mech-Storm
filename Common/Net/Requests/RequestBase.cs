@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 
-public abstract class Request
+public abstract class RequestBase
 {
     public string CreateAt;
 
-    protected Request()
+    protected RequestBase()
     {
         CreateAt = System.DateTime.Now.ToLongTimeString();
     }

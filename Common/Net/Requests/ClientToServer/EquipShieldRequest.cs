@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class EquipShieldRequest : ClientRequestBase
+public class EquipShieldRequest : ClientRequestBaseBase
 {
     public CardInfo_Shield cardInfo;
     public int handCardIndex;

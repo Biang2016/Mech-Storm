@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class DrawCardRequest : ServerRequestBase
+public class DrawCardRequest : ServerRequestBaseBase
 {
     public int clientId;
     public int cardCount;

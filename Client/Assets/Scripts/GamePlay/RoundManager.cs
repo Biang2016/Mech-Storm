@@ -189,11 +189,11 @@ internal class RoundManager : MonoBehaviour
     public void OnRetinueAttributesChange(RetinueAttributesRequest r)
     {
         ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex);
-        retinue.M_RetinueLeftLife += r.addLeftLife;
-        retinue.M_RetinueTotalLife += r.addMaxLife;
         retinue.M_RetinueAttack += r.addAttack;
         retinue.M_RetinueArmor += r.addArmor;
         retinue.M_RetinueShield += r.addShield;
+        retinue.M_RetinueTotalLife += r.addMaxLife;
+        retinue.M_RetinueLeftLife += r.addLeftLife;
     }
 
     public void OnShieldAttributesChange(ShieldAttributesRequest r)

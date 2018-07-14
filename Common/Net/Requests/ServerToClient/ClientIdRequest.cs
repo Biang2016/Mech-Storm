@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class ClientIdRequest : ServerRequestBase
+public class ClientIdRequest : ServerRequestBaseBase
 {
     public int givenClientId;
 

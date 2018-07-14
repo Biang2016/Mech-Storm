@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Security.AccessControl;
 
-public class RetinueAttackRetinueRequest_Response : ServerRequestBase
+public class RetinueAttackRetinueRequest_Response : ServerRequestBaseBase
 {
     public int AttackRetinueClientId;
     public int AttackRetinuePlaceIndex;

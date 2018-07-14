@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class ClientRequestBase : Request
+public class ClientRequestBaseBase : RequestBase
 {
     public int clientId;
 
-    public ClientRequestBase()
+    public ClientRequestBaseBase()
     {
 
     }
 
-    public ClientRequestBase(int clientId)
+    public ClientRequestBaseBase(int clientId)
     {
         this.clientId = clientId;
     }

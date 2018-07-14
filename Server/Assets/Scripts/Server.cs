@@ -191,14 +191,14 @@ internal class Server
         }
     }
 
-    void Response(Socket socket, Request r)
+    void Response(Socket socket, RequestBase r)
     {
         //统一日志打出
         ServerLog.PrintReceive("GetFrom    " + socket.RemoteEndPoint + "    [" + r.GetProtocolName() + "]    " + r.DeserializeLog());
 
-        if (r is ClientRequestBase)
+        if (r is ClientRequestBaseBase)
         {
-            ClientRequestBase request = (ClientRequestBase) r;
+            ClientRequestBaseBase request = (ClientRequestBaseBase) r;
             if (ClientsDict.ContainsKey(request.clientId))
             {
                 ClientsDict[request.clientId].ReceiveMessage(request);
@@ -276,14 +276,14 @@ internal class Server
 
 public class SendMsg
 {
-    public SendMsg(Socket client, Request req)
+    public SendMsg(Socket client, RequestBase req)
     {
         Client = client;
         Req = req;
     }
 
     public Socket Client;
-    public Request Req;
+    public RequestBase Req;
 }
 
 public struct ReceiveSocketData

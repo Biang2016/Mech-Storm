@@ -5,15 +5,15 @@ using System.Net.Sockets;
 
 public class ProtoManager
 {
-    private Dictionary<int, Func<DataStream, Request>> mProtocolMapping;
+    private Dictionary<int, Func<DataStream, RequestBase>> mProtocolMapping;
 
-    public delegate void requestDelegate(Socket socket, Request request);
+    public delegate void requestDelegate(Socket socket, RequestBase requestBase);
 
     private Dictionary<int, List<requestDelegate>> mDelegateMapping;
 
     public ProtoManager()
     {
-        mProtocolMapping = new Dictionary<int, Func<DataStream, Request>>();
+        mProtocolMapping = new Dictionary<int, Func<DataStream, RequestBase>>();
         mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
 
         #region  OutGame
@@ -74,7 +74,7 @@ public class ProtoManager
     }
 
 
-    public void AddProtocol<T>(int protocol) where T : Request, new()
+    public void AddProtocol<T>(int protocol) where T : RequestBase, new()
     {
         if (mProtocolMapping.ContainsKey(protocol))
         {
@@ -127,23 +127,23 @@ public class ProtoManager
         }
     }
 
-    public Request TryDeserialize(byte[] data, Socket socket)
+    public RequestBase TryDeserialize(byte[] data, Socket socket)
     {
         DataStream stream = new DataStream(data, true);
 
         int protocol = stream.ReadSInt32();
-        Request request = null;
+        RequestBase requestBase = null;
         if (mProtocolMapping.ContainsKey(protocol))
         {
-            request = mProtocolMapping[protocol](stream);
-            if (request != null)
+            requestBase = mProtocolMapping[protocol](stream);
+            if (requestBase != null)
             {
                 if (mDelegateMapping.ContainsKey(protocol))
                 {
                     List<requestDelegate> dels = mDelegateMapping[protocol];
                     foreach (requestDelegate del in dels)
                     {
-                        del(socket, request);
+                        del(socket, requestBase);
                     }
                 }
             }
@@ -153,6 +153,6 @@ public class ProtoManager
             throw new Exception("no register protocol : " + protocol + "!please reg to RegisterResp.");
         }
 
-        return request;
+        return requestBase;
     }
 }

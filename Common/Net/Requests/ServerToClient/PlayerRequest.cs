@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerRequest : ServerRequestBase
+public class PlayerRequest : ServerRequestBaseBase
 {
     public int clientId;
     public int costLeft;

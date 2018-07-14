@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class CancelMatchRequest : ClientRequestBase
+public class CancelMatchRequest : ClientRequestBaseBase
 {
     public CancelMatchRequest()
     {

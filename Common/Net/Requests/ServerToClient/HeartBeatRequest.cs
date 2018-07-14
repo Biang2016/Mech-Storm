@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class HeartBeatRequest : ServerRequestBase
+public class HeartBeatRequest : ServerRequestBaseBase
 {
     public HeartBeatRequest()
     {

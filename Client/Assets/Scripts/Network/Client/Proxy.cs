@@ -7,8 +7,8 @@ using System.Threading;
 
 internal class Proxy : ProxyBase
 {
-    private Queue<ClientRequestBase> SendRequestsQueue = new Queue<ClientRequestBase>();
-    private Queue<ServerRequestBase> ReceiveRequestsQueue = new Queue<ServerRequestBase>();
+    private Queue<ClientRequestBaseBase> SendRequestsQueue = new Queue<ClientRequestBaseBase>();
+    private Queue<ServerRequestBaseBase> ReceiveRequestsQueue = new Queue<ServerRequestBaseBase>();
 
     public override ClientStates ClientState
     {
@@ -30,19 +30,19 @@ internal class Proxy : ProxyBase
     {
         if (SendRequestsQueue.Count > 0)
         {
-            ClientRequestBase request = SendRequestsQueue.Dequeue();
+            ClientRequestBaseBase request = SendRequestsQueue.Dequeue();
             Thread thread = new Thread(Client.CS.Send);
             thread.IsBackground = true;
             thread.Start(request);
         }
     }
 
-    public void SendMessage(ClientRequestBase request)
+    public void SendMessage(ClientRequestBaseBase request)
     {
         SendRequestsQueue.Enqueue(request);
     }
 
-    public void ReceiveMessage(ServerRequestBase request)
+    public void ReceiveMessage(ServerRequestBaseBase request)
     {
         ReceiveRequestsQueue.Enqueue(request);
         Response();
@@ -52,7 +52,7 @@ internal class Proxy : ProxyBase
 
     protected override void Response()
     {
-        ServerRequestBase r = ReceiveRequestsQueue.Dequeue();
+        ServerRequestBaseBase r = ReceiveRequestsQueue.Dequeue();
         if (r is ClientIdRequest)
         {
             ClientIdRequest request = (ClientIdRequest) r;

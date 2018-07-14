@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class WeaponAttributesRequest : ServerRequestBase
+public class WeaponAttributesRequest : ServerRequestBaseBase
 {
     public int clinetId;
     public int retinuePlaceIndex;

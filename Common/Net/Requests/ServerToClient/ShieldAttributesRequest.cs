@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class ShieldAttributesRequest : ServerRequestBase
+public class ShieldAttributesRequest : ServerRequestBaseBase
 {
     public int clinetId;
     public int retinuePlaceIndex;
