@@ -37,7 +37,7 @@ internal class ServerPlayer : Player
     public void AddCostWithoutLimit(int addCostValue)
     {
         AddCost(addCostValue);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 1, addCostValue, 0, 0);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: addCostValue);
         MyClientProxy?.SendMessage(request);
         MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
     }
@@ -49,7 +49,7 @@ internal class ServerPlayer : Player
             AddCost(addCostValue);
         else
             AddCost(CostMax - CostLeft);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 1, CostLeft - costLeftBefore, 0, 0);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
         MyClientProxy?.SendMessage(request);
         MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
     }
@@ -58,10 +58,10 @@ internal class ServerPlayer : Player
     {
         int costLeftBefore = CostLeft;
         if (CostLeft > useCostValue)
-            UseCost(useCostValue);
+            AddCost(-useCostValue);
         else
-            UseCost(CostLeft);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, -1, costLeftBefore - CostLeft, 0, 0);
+            AddCost(-CostLeft);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
         MyClientProxy?.SendMessage(request);
         MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
     }
@@ -70,7 +70,7 @@ internal class ServerPlayer : Player
     {
         int costLeftBefore = CostLeft;
         AddCost(CostMax - CostLeft);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, 1, CostLeft - costLeftBefore, 0, 0);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
         MyClientProxy?.SendMessage(request);
         MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
     }
@@ -78,8 +78,8 @@ internal class ServerPlayer : Player
     public void UseAllCost()
     {
         int costLeftBefore = CostLeft;
-        UseCost(CostLeft);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Left, -1, costLeftBefore - CostLeft, 0, 0);
+        AddCost(-CostLeft);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
         MyClientProxy?.SendMessage(request);
         MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
     }
@@ -92,7 +92,7 @@ internal class ServerPlayer : Player
             AddCostMax(increaseValue);
         else
             AddCostMax(GamePlaySettings.MaxCost - CostMax);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Max, 0, 0, 1, CostMax - costMaxBefore);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
         MyClientProxy?.SendMessage(request);
         MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
     }
@@ -101,10 +101,10 @@ internal class ServerPlayer : Player
     {
         int costMaxBefore = CostMax;
         if (CostMax <= decreaseValue)
-            ReduceCostMax(CostMax);
+            AddCostMax(-CostMax);
         else
-            ReduceCostMax(decreaseValue);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, CostChangeFlag.Max, 0, 0, -1, costMaxBefore - CostMax);
+            AddCostMax(-decreaseValue);
+        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
         MyClientProxy?.SendMessage(request);
         MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
     }

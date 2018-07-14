@@ -33,7 +33,7 @@ internal class DragComponent : MonoBehaviour
         if (!canDrag) return;
         if (IsOnDrag)
         {
-            caller.DragComponent_OnMousePressed(checkAreas(), checkMoveToSlot(), checkMoveTorRetinue()); //将鼠标悬停的区域告知拖动对象主体
+            caller.DragComponent_OnMousePressed(checkAreas(), checkMoveToSlot(), checkMoveToRetinue()); //将鼠标悬停的区域告知拖动对象主体
             Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (isBegin)
             {
@@ -112,7 +112,7 @@ internal class DragComponent : MonoBehaviour
                     if (canDrag)
                     {
                         //将鼠标放开的区域告知拖动对象主体，并提供拖动起始姿态信息以供还原
-                        caller.DragComponent_OnMouseUp(checkAreas(), checkMoveToSlot(), checkMoveTorRetinue(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+                        caller.DragComponent_OnMouseUp(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
                         dragLastPosition = Vector3.zero;
                         isBegin = true;
                         if (DragManager.DM.CurrentArrow) DragManager.DM.CurrentArrow.PoolRecycle();
@@ -174,7 +174,7 @@ internal class DragComponent : MonoBehaviour
     }
 
 
-    private ModuleRetinue checkMoveTorRetinue() //检查鼠标悬停在哪个Retinue上
+    private ModuleRetinue checkMoveToRetinue() //检查鼠标悬停在哪个Retinue上
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;

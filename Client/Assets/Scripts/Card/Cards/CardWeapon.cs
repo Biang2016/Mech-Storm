@@ -65,10 +65,10 @@ internal class CardWeapon : CardBase
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
-            foreach (var sa in slotAnchors)
+            foreach (SlotAnchor sa in slotAnchors)
                 if (sa.M_Slot.M_SlotType == SlotType.Weapon && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
-                    summonWeapon(sa.M_ModuleRetinue);
+                    summonWeaponRequest(sa.M_ModuleRetinue);
                     return;
                 }
 
@@ -85,21 +85,12 @@ internal class CardWeapon : CardBase
     #region 卡牌效果
 
     //装备武器
-    private void summonWeapon(ModuleRetinue moduleRetinue)
+    private void summonWeaponRequest(ModuleRetinue moduleRetinue)
     {
-        //ClientPlayer.UseCost(M_Cost);
-        //if (moduleRetinue == null)
-        //{
-        //    ClientLog.CL.Print("No retinue on Place BUT SLOT HIT");
-        //    return;
-        //}
-
-        //ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(moduleRetinue.transform).GetComponent<ModuleWeapon>();
-        //newModueWeapon.M_ModuleRetinue = moduleRetinue;
-        //newModueWeapon.Initiate(CardInfo, ClientPlayer);
-        //moduleRetinue.M_Weapon = newModueWeapon;
-        //PoolRecycle();
-        //ClientPlayer.MyHandManager.DropCard(this);
+        int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
+        int battleGroundIndex = ClientPlayer.MyBattleGroundManager.GetRetinuePlaceIndex(moduleRetinue);
+        EquipWeaponRequest request = new EquipWeaponRequest(Client.CS.Proxy.ClientId, (CardInfo_Weapon) CardInfo, handCardIndex, battleGroundIndex, 0);
+        Client.CS.Proxy.SendMessage(request);
     }
 
     #endregion

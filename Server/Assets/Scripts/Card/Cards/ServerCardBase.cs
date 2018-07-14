@@ -7,6 +7,9 @@ internal abstract class ServerCardBase
 {
     internal ServerPlayer ServerPlayer;
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
+
+    #region 属性
+
     private int m_Cost;
 
     public int M_Cost
@@ -15,6 +18,13 @@ internal abstract class ServerCardBase
         set { m_Cost = value; }
     }
 
+    private int m_CardPlaceIndex;
+
+    public int M_CardPlaceIndex
+    {
+        get { return m_CardPlaceIndex; }
+        set { m_CardPlaceIndex = value; }
+    }
 
     private bool usable;
 
@@ -33,6 +43,8 @@ internal abstract class ServerCardBase
 
         set { stars = value; }
     }
+
+    #endregion
 
     public static ServerCardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {

@@ -8,6 +8,7 @@ internal class ClientPlayer : Player
     internal BattleGroundManager MyBattleGroundManager; //卡牌所属方的战场区域管理器
     internal BoardAreaTypes MyHandArea; //卡牌所属的手部区
     internal Players WhichPlayer;
+    public int ClientId;
 
     internal ClientPlayer(int costMax, int costLeft, Players whichPlayer) : base(costMax, costLeft)
     {
@@ -36,59 +37,18 @@ internal class ClientPlayer : Player
 
     public void DoChangeCost(PlayerCostRequest request)
     {
-        if (request.change == CostChangeFlag.Both)
+        if (request.change == PlayerCostRequest.CostChangeFlag.Both)
         {
-            switch (request.sign_left)
-            {
-                case 1:
-                    AddCost(request.addCost_left);
-                    break;
-                case -1:
-                    UseCost(request.addCost_left);
-                    break;
-                default:
-                    break;
-            }
-
-            switch (request.sign_max)
-            {
-                case 1:
-                    AddCostMax(request.addCost_max);
-                    break;
-                case -1:
-                    ReduceCostMax(request.addCost_max);
-                    break;
-                default:
-                    break;
-            }
+            AddCost(request.addCost_left);
+            AddCostMax(request.addCost_max);
         }
-        else if (request.change == CostChangeFlag.Left)
+        else if (request.change == PlayerCostRequest.CostChangeFlag.Left)
         {
-            switch (request.sign_left)
-            {
-                case 1:
-                    AddCost(request.addCost_left);
-                    break;
-                case -1:
-                    UseCost(request.addCost_left);
-                    break;
-                default:
-                    break;
-            }
+            AddCost(request.addCost_left);
         }
-        else if (request.change == CostChangeFlag.Max)
+        else if (request.change == PlayerCostRequest.CostChangeFlag.Max)
         {
-            switch (request.sign_max)
-            {
-                case 1:
-                    AddCostMax(request.addCost_max);
-                    break;
-                case -1:
-                    ReduceCostMax(request.addCost_max);
-                    break;
-                default:
-                    break;
-            }
+            AddCostMax(request.addCost_max);
         }
     }
 

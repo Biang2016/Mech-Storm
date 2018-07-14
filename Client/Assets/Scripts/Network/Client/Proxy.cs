@@ -81,18 +81,42 @@ internal class Proxy : ProxyBase
         {
             RoundManager.RM.OnPlayerSummonRetinue((SummonRetinueRequest_Response) r);
         }
-
-        if (r is GameStopByLeaveRequest)
+        else if (r is EquipWeaponRequest_Response)
+        {
+            RoundManager.RM.OnPlayerEquipWeapon((EquipWeaponRequest_Response) r);
+        }
+        else if (r is EquipShieldRequest_Response)
+        {
+            RoundManager.RM.OnPlayerEquipShield((EquipShieldRequest_Response) r);
+        }
+        else if (r is RetinueAttackRetinueRequest_Response)
+        {
+            RoundManager.RM.OnRetinueAttackRetinue((RetinueAttackRetinueRequest_Response) r);
+        }
+        else if (r is WeaponAttributesRequest)
+        {
+            RoundManager.RM.OnWeaponAttributesChange((WeaponAttributesRequest) r);
+        }
+        else if (r is RetinueAttributesRequest)
+        {
+            RoundManager.RM.OnRetinueAttributesChange((RetinueAttributesRequest) r);
+        }
+        else if (r is ShieldAttributesRequest)
+        {
+            RoundManager.RM.OnShieldAttributesChange((ShieldAttributesRequest) r);
+        }
+        else if (r is GameStopByLeaveRequest)
         {
             GameStopByLeaveRequest request = (GameStopByLeaveRequest) r;
             if (request.clientId == ClientId)
             {
-                ClientLog.CL.PrintClientStates(request.clientId + "你退出了比赛");
+                ClientLog.CL.PrintClientStates("你 " + request.clientId + " 退出了比赛");
             }
             else
             {
-                ClientLog.CL.PrintReceive(request.clientId + "你的对手退出了比赛");
+                ClientLog.CL.PrintReceive("你的对手 " + request.clientId + " 退出了比赛");
             }
+
             RoundManager.RM.OnGameStop();
             ClientState = ClientStates.SubmitCardDeck;
         }

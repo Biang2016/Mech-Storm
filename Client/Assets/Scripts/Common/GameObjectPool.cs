@@ -40,7 +40,7 @@ internal class GameObjectPool : MonoBehaviour
             {
                 if (gameObjectPool[i])
                 {
-                    gameObjectPool[i].transform.parent = parent;
+                    gameObjectPool[i].transform.SetParent(parent);
                     gameObjectPool[i].transform.localPosition = gameObjectDefaultPosition;
                     gameObjectPool[i].transform.localRotation = gameObjectDefaultRotation;
                     gameObjectPool[i].transform.localScale = gameObjectDefaultScale;
@@ -69,7 +69,7 @@ internal class GameObjectPool : MonoBehaviour
             if (gameObjectPool[i] == recGameObject)
             {
                 isUsed[i] = false;
-                recGameObject.transform.parent = transform;
+                recGameObject.transform.SetParent(transform);
                 recGameObject.transform.localPosition = gameObjectDefaultPosition;
                 used--;
                 notUsed++;

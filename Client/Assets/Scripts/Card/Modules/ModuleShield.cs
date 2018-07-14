@@ -58,28 +58,6 @@ internal class ModuleShield : ModuleBase
         return new CardInfo_Shield(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, ((CardInfo_Shield) CardInfo).M_ShieldType, ((CardInfo_Shield) CardInfo).Armor, ((CardInfo_Shield) CardInfo).ArmorMax, ((CardInfo_Shield) CardInfo).Shield, ((CardInfo_Shield) CardInfo).ShieldMax);
     }
 
-    private string m_ShieldName;
-
-    public string M_ShieldName
-    {
-        get { return m_ShieldName; }
-
-        set
-        {
-            m_ShieldName = value;
-            ShieldName.text = m_ShieldName;
-        }
-    }
-
-    private ShieldType m_ShieldType;
-
-    public ShieldType M_ShieldType
-    {
-        get { return m_ShieldType; }
-
-        set { m_ShieldType = value; }
-    }
-
     private NumberSize my_NumberSize_Armor = NumberSize.Medium;
     private NumberSize my_NumberSize_ArmorMax = NumberSize.Medium;
     private NumberSize my_NumberSize_Shield = NumberSize.Medium;
@@ -121,6 +99,32 @@ internal class ModuleShield : ModuleBase
         M_ShieldShieldMax = M_ShieldShieldMax;
     }
 
+    #endregion
+
+    #region 属性
+
+    private string m_ShieldName;
+
+    public string M_ShieldName
+    {
+        get { return m_ShieldName; }
+
+        set
+        {
+            m_ShieldName = value;
+            ShieldName.text = m_ShieldName;
+        }
+    }
+
+    private ShieldType m_ShieldType;
+
+    public ShieldType M_ShieldType
+    {
+        get { return m_ShieldType; }
+
+        set { m_ShieldType = value; }
+    }
+
     private int m_ShieldArmor;
 
     public int M_ShieldArmor
@@ -129,6 +133,7 @@ internal class ModuleShield : ModuleBase
 
         set
         {
+            if (m_ShieldArmor > value) BattleEffectsManager.BEM.BattleEffects.Enqueue(Co_ArmorBeAttacked(value <= 0));
             m_ShieldArmor = value;
             initiateNumbers(ref GoNumberSet_ShieldArmor, ref CardNumberSet_ShieldArmor, my_NumberSize_Armor, my_TextAlign_Armor, Block_ShieldArmor);
             CardNumberSet_ShieldArmor.Number = m_ShieldArmor;
@@ -157,6 +162,7 @@ internal class ModuleShield : ModuleBase
 
         set
         {
+            if (m_ShieldShield > value) BattleEffectsManager.BEM.BattleEffects.Enqueue(Co_ShieldBeAttacked(value <= 0));
             m_ShieldShield = value;
             initiateNumbers(ref GoNumberSet_ShieldShield, ref CardNumberSet_ShieldShield, my_NumberSize_Shield, my_TextAlign_Shield, Block_ShieldShield);
             CardNumberSet_ShieldShield.Number = m_ShieldShield;
@@ -223,43 +229,9 @@ internal class ModuleShield : ModuleBase
 
     #region 攻击防御相关
 
-    public int ShieldBeAttacked(int attackValue)
+    IEnumerator Co_ShieldBeAttacked(bool isDead)
     {
-        bool isTrigger = false;
-        bool isDead = false;
-        //虚假计算
-        int remainAttackValue = attackValue;
-        if (remainAttackValue == 0) return 0;
-        if (m_ShieldShield > 0)
-        {
-            if (m_ShieldShield > remainAttackValue)
-            {
-                m_ShieldShield--;
-                remainAttackValue = 0;
-            }
-            else
-            {
-                remainAttackValue -= m_ShieldShield;
-                m_ShieldShield /= 2;
-            }
-
-            isTrigger = true;
-        }
-
-        if (m_ShieldShield == 0 && m_ShieldArmor == 0)
-        {
-            isDead = true;
-            M_ModuleRetinue.M_Shield = null;
-        }
-
-        BattleEffectsManager.BEM.BattleEffects.Enqueue(Co_ShieldBeAttacked(isTrigger, isDead));
-
-        return remainAttackValue;
-    }
-
-    IEnumerator Co_ShieldBeAttacked(bool isTrigger, bool isDead)
-    {
-        if (isTrigger) M_ShieldHitAnim.SetTrigger("BeHit");
+        M_ShieldHitAnim.SetTrigger("BeHit");
         yield return new WaitForSeconds(1F);
         M_ShieldShield = M_ShieldShield;
         if (isDead) yield return StartCoroutine(DelayPoolRecycle());
@@ -267,43 +239,10 @@ internal class ModuleShield : ModuleBase
         BattleEffectsManager.BEM.IsExcuting = false;
     }
 
-    public int ArmorBeAttacked(int attackValue)
+    IEnumerator Co_ArmorBeAttacked(bool isDead)
     {
-        bool isTrigger = false;
-        bool isDead = false;
-        int remainAttackValue = attackValue;
-        if (remainAttackValue == 0) return 0;
-        if (m_ShieldArmor > 0)
-        {
-            if (m_ShieldArmor >= remainAttackValue)
-            {
-                m_ShieldArmor -= remainAttackValue;
-                remainAttackValue = 0;
-            }
-            else
-            {
-                remainAttackValue = remainAttackValue - m_ShieldArmor;
-                m_ShieldArmor = 0;
-            }
-
-            isTrigger = true;
-        }
-
-        if (M_ShieldShield == 0 && M_ShieldArmor == 0)
-        {
-            isDead = true;
-            M_ModuleRetinue.M_Shield = null;
-        }
-
-        BattleEffectsManager.BEM.BattleEffects.Enqueue(Co_ArmorBeAttacked(isTrigger, isDead));
-        return remainAttackValue;
-    }
-
-    IEnumerator Co_ArmorBeAttacked(bool isTrigger, bool isDead)
-    {
-        if (isTrigger) M_ArmorHitAnim.SetTrigger("BeHit");
+        M_ArmorHitAnim.SetTrigger("BeHit");
         yield return new WaitForSeconds(1F);
-        M_ShieldArmor = M_ShieldArmor;
         if (isDead) yield return StartCoroutine(DelayPoolRecycle());
         BattleEffectsManager.BEM.IsExcuting = false;
     }
@@ -321,7 +260,6 @@ internal class ModuleShield : ModuleBase
     }
 
     #endregion
-
 
     #region 交互UX
 
@@ -341,4 +279,3 @@ internal class ModuleShield : ModuleBase
 
     #endregion
 }
-

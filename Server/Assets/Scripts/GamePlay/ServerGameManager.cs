@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
@@ -8,6 +9,7 @@ internal class ServerGameManager
     public ClientProxy ClientA;
     public ClientProxy ClientB;
     public ServerPlayer CurrentPlayer;
+    public ServerPlayer IdlePlayer;
     public ServerPlayer PlayerA;
     public ServerPlayer PlayerB;
 
@@ -70,6 +72,7 @@ internal class ServerGameManager
     void GameBegin()
     {
         CurrentPlayer = new Random().Next(0, 2) == 0 ? PlayerA : PlayerB;
+        IdlePlayer = CurrentPlayer == PlayerA ? PlayerB : PlayerA;
         bool isPlayerAFirst = CurrentPlayer == PlayerA;
         //发英雄牌
         PlayerA.MyHandManager.GetACardByID(99);
@@ -102,6 +105,7 @@ internal class ServerGameManager
     void OnSwitchPlayer()
     {
         CurrentPlayer = CurrentPlayer == PlayerA ? PlayerB : PlayerA;
+        IdlePlayer = IdlePlayer == PlayerA ? PlayerB : PlayerA;
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
         BroadcastBothPlayers(request);
     }
@@ -119,23 +123,46 @@ internal class ServerGameManager
         CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.DrawCardPerRound);
     }
 
-    public void OnClientSummonRetinueRequest(SummonRetinueRequest summonRetinueRequest)
+    public void OnClientSummonRetinueRequest(SummonRetinueRequest r)
     {
-        ServerPlayer sp = summonRetinueRequest.clientId == PlayerA.ClientId ? PlayerA : PlayerB;
-        if (sp.MyBattleGroundManager.BattleGroundIsFull)
-        {
-            return;
-        }
-        else
-        {
-            if (sp.MyBattleGroundManager.SummonRetinue(summonRetinueRequest))
-            {
-                sp.MyHandManager.DropCardAt(summonRetinueRequest.handCardIndex);
-            }
+        ServerPlayer sp = GetPlayerByClientId(r.clientId);
+        sp.MyBattleGroundManager.SummonRetinue(r);
+        sp.MyHandManager.DropCardAt(r.handCardIndex);
+        sp.UseCostAboveZero(r.cardInfo.Cost);
+        SummonRetinueRequest_Response request = new SummonRetinueRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex);
+        BroadcastBothPlayers(request);
+    }
 
-            sp.UseCostAboveZero(summonRetinueRequest.cardInfo.Cost);
-            SummonRetinueRequest_Response request = new SummonRetinueRequest_Response(summonRetinueRequest.clientId, summonRetinueRequest.cardInfo, summonRetinueRequest.handCardIndex, summonRetinueRequest.battleGroundIndex);
-            BroadcastBothPlayers(request);
+    public void OnClientEquipWeaponRequest(EquipWeaponRequest r)
+    {
+        ServerPlayer sp = GetPlayerByClientId(r.clientId);
+        sp.MyBattleGroundManager.EquipWeapon(r);
+        sp.MyHandManager.DropCardAt(r.handCardIndex);
+        sp.UseCostAboveZero(r.cardInfo.Cost);
+        EquipWeaponRequest_Response request = new EquipWeaponRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex, r.weaponPlaceIndex);
+        BroadcastBothPlayers(request);
+    }
+    public void OnClientEquipShieldRequest(EquipShieldRequest r)
+    {
+        ServerPlayer sp = GetPlayerByClientId(r.clientId);
+        sp.MyBattleGroundManager.EquipShield(r);
+        sp.MyHandManager.DropCardAt(r.handCardIndex);
+        sp.UseCostAboveZero(r.cardInfo.Cost);
+        EquipShieldRequest_Response request = new EquipShieldRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex, r.shieldPlaceIndex);
+        BroadcastBothPlayers(request);
+    }
+
+    public void OnClientRetinueAttackRetinueRequest(RetinueAttackRetinueRequest r)
+    {
+        ServerModuleRetinue attackRetinue = GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinuePlaceIndex);
+        ServerModuleRetinue beAttackedRetinue = GetPlayerByClientId(r.BeAttackedRetinueClientId).MyBattleGroundManager.GetRetinue(r.BeAttackedRetinuePlaceIndex);
+
+        RetinueAttackRetinueRequest_Response request = new RetinueAttackRetinueRequest_Response(r.AttackRetinueClientId, r.AttackRetinuePlaceIndex, r.BeAttackedRetinueClientId, r.BeAttackedRetinuePlaceIndex);
+        BroadcastBothPlayers(request);
+        List<int> attackSeries = attackRetinue.AllModulesAttack();
+        foreach (int attack in attackSeries)
+        {
+            beAttackedRetinue.BeAttacked(attack);
         }
     }
 
@@ -163,6 +190,34 @@ internal class ServerGameManager
     {
         PlayerA.MyClientProxy.SendMessage(r);
         PlayerB.MyClientProxy.SendMessage(r);
+    }
+
+    public ClientProxy GetClientProxyByClientId(int clientId)
+    {
+        if (ClientA.ClientId == clientId)
+        {
+            return ClientA;
+        }
+        else if (ClientB.ClientId == clientId)
+        {
+            return ClientB;
+        }
+
+        return null;
+    }
+
+    public ServerPlayer GetPlayerByClientId(int clientId)
+    {
+        if (PlayerA.ClientId == clientId)
+        {
+            return PlayerA;
+        }
+        else if (PlayerB.ClientId == clientId)
+        {
+            return PlayerB;
+        }
+
+        return null;
     }
 
     #endregion

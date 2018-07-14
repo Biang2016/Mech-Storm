@@ -36,21 +36,9 @@ public class Player
         OnCostChanged();
     }
 
-    protected virtual void UseCost(int useCostNumber)
-    {
-        costLeft -= useCostNumber;
-        OnCostChanged();
-    }
-
     protected virtual void AddCostMax(int addCostNumber)
     {
         costMax += addCostNumber;
-        OnCostChanged();
-    }
-
-    protected virtual void ReduceCostMax(int useCostNumber)
-    {
-        costMax -= useCostNumber;
         OnCostChanged();
     }
 }

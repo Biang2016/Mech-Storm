@@ -16,20 +16,61 @@ public class ProtoManager
         mProtocolMapping = new Dictionary<int, Func<DataStream, Request>>();
         mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
 
-        AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);
-        AddProtocol<EndRoundRequest>(NetProtocols.END_ROUND);
-        AddProtocol<LeaveGameRequest>(NetProtocols.LEAVE_GAME);
-        AddProtocol<MatchRequest>(NetProtocols.Match);
-        AddProtocol<CancelMatchRequest>(NetProtocols.CANCEL_MATCH);
-        AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE);
+        #region  OutGame
+
+        #region Server
 
         AddProtocol<ClientIdRequest>(NetProtocols.SEND_CLIENT_ID);
-        AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
+        AddProtocol<HeartBeatRequest>(NetProtocols.HEART_BEAT);
         AddProtocol<GameStopByLeaveRequest>(NetProtocols.GAME_STOP_BY_LEAVE);
-        AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
+
+        #endregion
+
+        #region Client
+
+        AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);
+        AddProtocol<MatchRequest>(NetProtocols.Match);
+        AddProtocol<CancelMatchRequest>(NetProtocols.CANCEL_MATCH);
+        AddProtocol<LeaveGameRequest>(NetProtocols.LEAVE_GAME);
+
+        #endregion
+
+        #endregion
+
+        #region InGame
+
+        #region Server
+
         AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
         AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
+        AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
+        AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
+
         AddProtocol<SummonRetinueRequest_Response>(NetProtocols.SUMMON_RETINUE_RESPONSE);
+        AddProtocol<EquipWeaponRequest_Response>(NetProtocols.EQUIP_WEAPON_RESPONSE);
+        AddProtocol<EquipShieldRequest_Response>(NetProtocols.EQUIP_SHIELD_RESPONSE);
+
+        AddProtocol<RetinueAttackRetinueRequest_Response>(NetProtocols.RETINUE_ATTACK_RETINUE_RESPONSE);
+
+        AddProtocol<WeaponAttributesRequest>(NetProtocols.WEAPON_ATTRIBUTES_CHANGE);
+        AddProtocol<ShieldAttributesRequest>(NetProtocols.SHIELD_ATTRIBUTES_CHANGE);
+        AddProtocol<RetinueAttributesRequest>(NetProtocols.RETINUE_ATTRIBUTES_CHANGE);
+
+        #endregion
+
+        #region Client
+
+        AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE);
+        AddProtocol<EquipWeaponRequest>(NetProtocols.EQUIP_WEAPON);
+        AddProtocol<EquipShieldRequest>(NetProtocols.EQUIP_SHIELD);
+
+        AddProtocol<RetinueAttackRetinueRequest>(NetProtocols.RETINUE_ATTACK_RETINUE);
+
+        AddProtocol<EndRoundRequest>(NetProtocols.END_ROUND);
+
+        #endregion
+
+        #endregion
     }
 
 

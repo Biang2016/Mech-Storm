@@ -68,7 +68,7 @@ internal class CardShield : CardBase
             foreach (var sa in slotAnchors)
                 if (sa.M_Slot.M_SlotType == SlotType.Shield && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
-                    summonShield(sa.M_ModuleRetinue);
+                    summonShieldRequest(sa.M_ModuleRetinue);
                     return;
                 }
 
@@ -85,25 +85,12 @@ internal class CardShield : CardBase
     #region 卡牌效果
 
     //装备武器
-    private void summonShield(ModuleRetinue moduleRetinue)
+    private void summonShieldRequest(ModuleRetinue moduleRetinue)
     {
-        //ClientPlayer.UseCost(M_Cost);
-        //if (moduleRetinue == null)
-        //{
-        //    ClientLog.CL.Print("No retinue on Place BUT SLOT HIT");
-        //    return;
-        //}
-
-        //if (!moduleRetinue.M_Shield)
-        //{
-        //    moduleRetinue.M_Shield = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool.AllocateGameObject(moduleRetinue.transform).GetComponent<ModuleShield>();
-        //}
-
-        //moduleRetinue.M_Shield.M_ModuleRetinue = moduleRetinue;
-        //moduleRetinue.M_Shield.Initiate(CardInfo, ClientPlayer);
-
-        //PoolRecycle();
-        //ClientPlayer.MyHandManager.DropCard(this);
+        int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
+        int battleGroundIndex = ClientPlayer.MyBattleGroundManager.GetRetinuePlaceIndex(moduleRetinue);
+        EquipShieldRequest request = new EquipShieldRequest(Client.CS.Proxy.ClientId, (CardInfo_Shield) CardInfo, handCardIndex, battleGroundIndex, 0);
+        Client.CS.Proxy.SendMessage(request);
     }
 
     #endregion

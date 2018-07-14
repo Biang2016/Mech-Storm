@@ -192,6 +192,7 @@ internal class ModuleRetinue : ModuleBase
         return new CardInfo_Retinue(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_RetinueLeftLife, M_RetinueTotalLife, M_RetinueAttack, M_RetinueShield, M_RetinueArmor, ((CardInfo_Retinue) CardInfo).Slot1, ((CardInfo_Retinue) CardInfo).Slot2, ((CardInfo_Retinue) CardInfo).Slot3, ((CardInfo_Retinue) CardInfo).Slot4);
     }
 
+
     private string m_RetinueName;
 
     public string M_RetinueName
@@ -223,9 +224,17 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueLeftLife; }
         set
         {
+            if (m_RetinueLeftLife > value) CardLifeHit.SetTrigger("BeHit");
             m_RetinueLeftLife = value;
             initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
             CardNumberSet_RetinueLeftLife.Number = m_RetinueLeftLife;
+
+            if (m_RetinueLeftLife <= 0)
+            {
+                ClientPlayer.MyBattleGroundManager.RemoveRetinue(this);
+                ClientPlayer.MyBattleGroundManager.RefreshBattleGround();
+                StartCoroutine(DelayPoolRecycle());
+            }
         }
     }
 
@@ -270,6 +279,7 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueArmor; }
         set
         {
+            if (m_RetinueArmor > value) ArmorIconHit.SetTrigger("BeHit");
             m_RetinueArmor = value;
             if (!M_Shield)
             {
@@ -291,6 +301,8 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueShield; }
         set
         {
+            if (m_RetinueShield > value) ShieldIconHit.SetTrigger("BeHit");
+
             m_RetinueShield = value;
             if (!M_Shield)
             {
@@ -456,88 +468,14 @@ internal class ModuleRetinue : ModuleBase
         if (M_Weapon) M_Weapon.CanAttack = false;
     }
 
-    public void BeAttacked(int attackNumber)
+    public void AllModulesAttack()
     {
-        int remainAttackNumber = attackNumber;
-        if (M_Shield != null)
-        {
-            remainAttackNumber = M_Shield.ShieldBeAttacked(remainAttackNumber);
-            if (remainAttackNumber == 0) return;
-        }
-
-        if (M_Shield != null)
-        {
-            remainAttackNumber = M_Shield.ArmorBeAttacked(remainAttackNumber);
-            if (remainAttackNumber == 0) return;
-        }
-        else
-        {
-            if (M_RetinueShield > 0)
-            {
-                ShieldIconHit.SetTrigger("BeHit");
-
-                if (M_RetinueShield >= remainAttackNumber)
-                {
-                    M_RetinueShield--;
-                    remainAttackNumber = 0;
-                    return;
-                }
-                else
-                {
-                    remainAttackNumber -= M_RetinueShield;
-                    M_RetinueShield /= 2;
-                }
-            }
-
-            if (M_RetinueArmor > 0)
-            {
-                ArmorIconHit.SetTrigger("BeHit");
-
-                if (M_RetinueArmor >= remainAttackNumber)
-                {
-                    M_RetinueArmor = (int) (M_RetinueArmor - remainAttackNumber);
-                    remainAttackNumber = 0;
-                    return;
-                }
-                else
-                {
-                    remainAttackNumber -= M_RetinueArmor;
-                    M_RetinueArmor = 0;
-                }
-            }
-        }
-
-        CardLifeHit.SetTrigger("BeHit");
-        if (M_RetinueLeftLife <= remainAttackNumber)
-        {
-            M_RetinueLeftLife -= M_RetinueLeftLife;
-            remainAttackNumber -= M_RetinueLeftLife;
-            ClientPlayer.MyBattleGroundManager.RemoveRetinue(this);
-            ClientPlayer.MyBattleGroundManager.RefreshBattleGround();
-            StartCoroutine(DelayPoolRecycle());
-        }
-        else
-        {
-            M_RetinueLeftLife -= remainAttackNumber;
-            remainAttackNumber = 0;
-            return;
-        }
-    }
-
-    public List<int> AllModulesAttack()
-    {
-        List<int> ASeriesOfAttacks = new List<int>();
         if (M_Weapon)
         {
-            ASeriesOfAttacks.AddRange(M_Weapon.WeaponAttack());
-        }
-        else
-        {
-            ASeriesOfAttacks.Add(M_RetinueAttack);
+            M_Weapon.WeaponAttack();
         }
 
         CanAttack = false;
-        return ASeriesOfAttacks;
     }
 
     IEnumerator DelayPoolRecycle()
@@ -551,8 +489,8 @@ internal class ModuleRetinue : ModuleBase
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer)
         {
-            var aSeriesOfAttacks = AllModulesAttack();
-            foreach (var attackNumber in aSeriesOfAttacks) moduleRetinue.BeAttacked(attackNumber);
+            RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.CS.Proxy.ClientId, ClientPlayer.ClientId, M_RetinuePlaceIndex, RoundManager.RM.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinuePlaceIndex);
+            Client.CS.Proxy.SendMessage(request);
         }
     }
 

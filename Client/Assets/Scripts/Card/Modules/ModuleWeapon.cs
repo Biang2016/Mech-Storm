@@ -59,28 +59,6 @@ internal class ModuleWeapon : ModuleBase
         return new CardInfo_Weapon(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_WeaponEnergy, M_WeaponEnergyMax, M_WeaponAttack, M_WeaponType);
     }
 
-    private string m_WeaponName;
-
-    public string M_WeaponName
-    {
-        get { return m_WeaponName; }
-
-        set
-        {
-            m_WeaponName = value;
-            WeaponName.text = m_WeaponName;
-        }
-    }
-
-    private WeaponType m_WeaponType;
-
-    public WeaponType M_WeaponType
-    {
-        get { return m_WeaponType; }
-
-        set { m_WeaponType = value; }
-    }
-
     private NumberSize my_NumberSize_Attack = NumberSize.Big;
     private NumberSize my_NumberSize_Energy = NumberSize.Medium;
     private CardNumberSet.TextAlign my_TextAlign_Attack = CardNumberSet.TextAlign.Center;
@@ -105,6 +83,33 @@ internal class ModuleWeapon : ModuleBase
         M_WeaponEnergy = M_WeaponEnergy;
         M_WeaponEnergy = M_WeaponEnergy;
     }
+
+    #region 属性
+
+    private string m_WeaponName;
+
+    public string M_WeaponName
+    {
+        get { return m_WeaponName; }
+
+        set
+        {
+            m_WeaponName = value;
+            WeaponName.text = m_WeaponName;
+        }
+    }
+
+    private WeaponType m_WeaponType;
+
+    public WeaponType M_WeaponType
+    {
+        get { return m_WeaponType; }
+
+        set { m_WeaponType = value; }
+    }
+
+    #endregion
+
 
     private int m_WeaponAttack;
 
@@ -221,54 +226,27 @@ internal class ModuleWeapon : ModuleBase
 
     internal bool CanAttack;
 
-    public List<int> WeaponAttack()
+    public void WeaponAttack()
     {
         CanAttack = false;
-        List<int> aSeriesOfAttacks = new List<int>();
-        switch (M_WeaponType)
-        {
-            case WeaponType.Sword:
-                aSeriesOfAttacks.Add((M_WeaponAttack + M_ModuleRetinue.M_RetinueAttack) * M_WeaponEnergy);
-                if (M_WeaponEnergy < M_WeaponEnergyMax) M_WeaponEnergy++;
-                return aSeriesOfAttacks;
-            case WeaponType.Gun:
-                int tmp = M_WeaponEnergy;
-                for (int i = 0; i < tmp; i++)
-                {
-                    aSeriesOfAttacks.Add(M_WeaponAttack + M_ModuleRetinue.M_RetinueAttack);
-                    M_WeaponEnergy--;
-                }
-
-                if (M_WeaponEnergy == 0)
-                {
-                    M_ModuleRetinue.CanAttack = false;
-                    CanAttack = false;
-                }
-
-                return aSeriesOfAttacks;
-            default:
-                return aSeriesOfAttacks;
-        }
     }
-
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
-        if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer)
-        {
-            List<int> aSeriesOfAttacks = WeaponAttack();
-            M_ModuleRetinue.CanAttack = false;
-            foreach (int attackNumber in aSeriesOfAttacks) moduleRetinue.BeAttacked(attackNumber);
-        }
+        //if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer)
+        //{
+        //    List<int> aSeriesOfAttacks = WeaponAttack();
+        //    M_ModuleRetinue.CanAttack = false;
+        //    foreach (int attackNumber in aSeriesOfAttacks) moduleRetinue.BeAttacked(attackNumber);
+        //}
     }
 
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
         canDrag = CanAttack;
-        dragPurpose =DragPurpose.Attack;
+        dragPurpose = DragPurpose.Attack;
     }
-
 
     public override float DragComponnet_DragDistance()
     {

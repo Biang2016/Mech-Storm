@@ -7,7 +7,6 @@ internal class ServerModuleRetinue : ServerModuleBase
 {
     public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
-        base.Initiate(cardInfo, serverPlayer);
         M_RetinueName = ((CardInfo_Retinue) cardInfo).CardName;
         M_RetinueDesc = ((CardInfo_Retinue) cardInfo).CardDesc;
         M_RetinueLeftLife = ((CardInfo_Retinue) cardInfo).Life;
@@ -15,6 +14,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         M_RetinueAttack = ((CardInfo_Retinue) cardInfo).BasicAttack;
         M_RetinueArmor = ((CardInfo_Retinue) cardInfo).BasicArmor;
         M_RetinueShield = ((CardInfo_Retinue) cardInfo).BasicShield;
+        base.Initiate(cardInfo, serverPlayer);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
@@ -43,7 +43,17 @@ internal class ServerModuleRetinue : ServerModuleBase
     public int M_RetinueLeftLife
     {
         get { return m_RetinueLeftLife; }
-        set { m_RetinueLeftLife = value; }
+        set
+        {
+            int before = m_RetinueLeftLife;
+            m_RetinueLeftLife = value;
+            if (isInitialized && before != m_RetinueLeftLife)
+            {
+                RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.LeftLife, addLeftLife: m_RetinueLeftLife - before);
+                ServerPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+            }
+        }
     }
 
     private int m_RetinueTotalLife;
@@ -51,7 +61,17 @@ internal class ServerModuleRetinue : ServerModuleBase
     public int M_RetinueTotalLife
     {
         get { return m_RetinueTotalLife; }
-        set { m_RetinueTotalLife = value; }
+        set
+        {
+            int before = m_RetinueTotalLife;
+            m_RetinueTotalLife = value;
+            if (isInitialized && before != m_RetinueTotalLife)
+            {
+                RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.MaxLife, addMaxLife: m_RetinueTotalLife - before);
+                ServerPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+            }
+        }
     }
 
     private int m_RetinueAttack;
@@ -59,7 +79,17 @@ internal class ServerModuleRetinue : ServerModuleBase
     public int M_RetinueAttack
     {
         get { return m_RetinueAttack; }
-        set { m_RetinueAttack = value; }
+        set
+        {
+            int before = m_RetinueAttack;
+            m_RetinueAttack = value;
+            if (isInitialized && before != m_RetinueAttack)
+            {
+                RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.Attack, addAttack: m_RetinueAttack - before);
+                ServerPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+            }
+        }
     }
 
     private int m_RetinueArmor;
@@ -67,7 +97,17 @@ internal class ServerModuleRetinue : ServerModuleBase
     public int M_RetinueArmor
     {
         get { return m_RetinueArmor; }
-        set { m_RetinueArmor = value; }
+        set
+        {
+            int before = m_RetinueArmor;
+            m_RetinueArmor = value;
+            if (isInitialized && before != m_RetinueArmor)
+            {
+                RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.Armor, addArmor: m_RetinueArmor - before);
+                ServerPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+            }
+        }
     }
 
     private int m_RetinueShield;
@@ -75,7 +115,17 @@ internal class ServerModuleRetinue : ServerModuleBase
     public int M_RetinueShield
     {
         get { return m_RetinueShield; }
-        set { m_RetinueShield = value; }
+        set
+        {
+            int before = m_RetinueShield;
+            m_RetinueShield = value;
+            if (isInitialized && before != m_RetinueShield)
+            {
+                RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.Shield, addShield: m_RetinueShield - before);
+                ServerPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+            }
+        }
     }
 
     #region 拼装上的模块

@@ -29,12 +29,12 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
         if (this is ModuleWeapon)
         {
-            ((ModuleWeapon)this).SetNoPreview();
+            ((ModuleWeapon) this).SetNoPreview();
         }
 
         if (this is ModuleShield)
         {
-            ((ModuleShield)this).SetNoPreview();
+            ((ModuleShield) this).SetNoPreview();
         }
 
         gameObjectPool.RecycleGameObject(gameObject);
@@ -91,13 +91,24 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
     public abstract CardInfo_Base GetCurrentCardInfo();
 
+    #region 属性
+
+    private int m_RetinuePlaceIndex;
+
+    public int M_RetinuePlaceIndex
+    {
+        get { return m_RetinuePlaceIndex; }
+        set { m_RetinuePlaceIndex = value; }
+    }
+
+    #endregion
+
     #region 各模块
 
     public GameObject Star1;
     public GameObject Star2;
     public GameObject Star3;
-    [SerializeField]
-    protected int stars;
+    [SerializeField] protected int stars;
 
     public virtual int Stars
     {
@@ -153,6 +164,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
     #endregion
 
+
     #region 模块交互
 
     private CardBase detailCard;
@@ -167,28 +179,28 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
         switch (CardInfo.CardType)
         {
             case CardTypes.Retinue:
-                detailCard = (CardRetinue)CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
+                detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
                 detailCard.transform.localScale = Vector3.one * GameManager.GM.DetailCardSizeRetinue;
                 detailCard.transform.position = new Vector3(mousePosition.x, 8f, mousePosition.z);
                 detailCard.transform.Translate(Vector3.left * 5f);
                 detailCard.GetComponent<BoxCollider>().enabled = false;
                 detailCard.GetComponent<DragComponent>().enabled = false;
 
-                if (((ModuleRetinue)this).M_Weapon)
+                if (((ModuleRetinue) this).M_Weapon)
                 {
-                    if (!((CardRetinue)detailCard).Weapon)
+                    if (!((CardRetinue) detailCard).Weapon)
                     {
-                        ((CardRetinue)detailCard).Weapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleWeapon>();
+                        ((CardRetinue) detailCard).Weapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleWeapon>();
                     }
 
-                    CardInfo_Base cw = ((ModuleRetinue)this).M_Weapon.GetCurrentCardInfo();
-                    ((CardRetinue)detailCard).Weapon.M_ModuleRetinue = (ModuleRetinue)this;
-                    ((CardRetinue)detailCard).Weapon.Initiate(((ModuleRetinue)this).M_Weapon.GetCurrentCardInfo(), ClientPlayer);
-                    ((CardRetinue)detailCard).Weapon.GetComponent<DragComponent>().enabled = false;
-                    ((CardRetinue)detailCard).Weapon.GetComponent<MouseHoverComponent>().enabled = false;
-                    ((CardRetinue)detailCard).Weapon.SetPreview();
+                    CardInfo_Base cw = ((ModuleRetinue) this).M_Weapon.GetCurrentCardInfo();
+                    ((CardRetinue) detailCard).Weapon.M_ModuleRetinue = (ModuleRetinue) this;
+                    ((CardRetinue) detailCard).Weapon.Initiate(((ModuleRetinue) this).M_Weapon.GetCurrentCardInfo(), ClientPlayer);
+                    ((CardRetinue) detailCard).Weapon.GetComponent<DragComponent>().enabled = false;
+                    ((CardRetinue) detailCard).Weapon.GetComponent<MouseHoverComponent>().enabled = false;
+                    ((CardRetinue) detailCard).Weapon.SetPreview();
 
-                    detailCard_Weapon = (CardWeapon)CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
+                    detailCard_Weapon = (CardWeapon) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
                     detailCard_Weapon.transform.localScale = Vector3.one * GameManager.GM.DetailCardModuleSize;
                     detailCard_Weapon.transform.position = new Vector3(mousePosition.x, 2f, mousePosition.z);
                     detailCard_Weapon.transform.Translate(Vector3.right * 0.5f);
@@ -197,32 +209,32 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                     detailCard_Weapon.GetComponent<BoxCollider>().enabled = false;
                 }
 
-                if (((ModuleRetinue)this).M_Shield)
+                if (((ModuleRetinue) this).M_Shield)
                 {
-                    if (!((CardRetinue)detailCard).Shield)
+                    if (!((CardRetinue) detailCard).Shield)
                     {
-                        ((CardRetinue)detailCard).Shield = GameObjectPoolManager.GOPM.Pool_ModuleShieldDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleShield>();
+                        ((CardRetinue) detailCard).Shield = GameObjectPoolManager.GOPM.Pool_ModuleShieldDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleShield>();
                     }
 
-                    CardInfo_Base cw = ((ModuleRetinue)this).M_Shield.GetCurrentCardInfo();
-                    ((CardRetinue)detailCard).Shield.M_ModuleRetinue = (ModuleRetinue)this;
-                    ((CardRetinue)detailCard).Shield.Initiate(((ModuleRetinue)this).M_Shield.GetCurrentCardInfo(), ClientPlayer);
-                    ((CardRetinue)detailCard).Shield.GetComponent<DragComponent>().enabled = false;
-                    ((CardRetinue)detailCard).Shield.GetComponent<MouseHoverComponent>().enabled = false;
+                    CardInfo_Base cw = ((ModuleRetinue) this).M_Shield.GetCurrentCardInfo();
+                    ((CardRetinue) detailCard).Shield.M_ModuleRetinue = (ModuleRetinue) this;
+                    ((CardRetinue) detailCard).Shield.Initiate(((ModuleRetinue) this).M_Shield.GetCurrentCardInfo(), ClientPlayer);
+                    ((CardRetinue) detailCard).Shield.GetComponent<DragComponent>().enabled = false;
+                    ((CardRetinue) detailCard).Shield.GetComponent<MouseHoverComponent>().enabled = false;
 
-                    detailCard_Shield = (CardShield)CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
+                    detailCard_Shield = (CardShield) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
                     detailCard_Shield.transform.localScale = Vector3.one * GameManager.GM.DetailCardModuleSize;
                     detailCard_Shield.transform.position = new Vector3(mousePosition.x, 2f, mousePosition.z);
                     detailCard_Shield.transform.Translate(Vector3.right * 0.5f);
                     detailCard_Shield.transform.Translate(Vector3.forward * 3f);
                     detailCard_Shield.transform.Translate(Vector3.up * 5f);
                     detailCard_Shield.GetComponent<BoxCollider>().enabled = false;
-                    ((CardRetinue)detailCard).Shield.SetPreview();
+                    ((CardRetinue) detailCard).Shield.SetPreview();
                 }
 
                 break;
             case CardTypes.Weapon:
-                detailCard = (CardWeapon)CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
+                detailCard = (CardWeapon) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
                 detailCard.transform.localScale = Vector3.one * GameManager.GM.DetailCardSize;
                 detailCard.transform.position = new Vector3(mousePosition.x, 2f, mousePosition.z);
                 detailCard.transform.Translate(Vector3.left * 3.5f);
@@ -230,7 +242,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                 detailCard.GetComponent<BoxCollider>().enabled = false;
                 break;
             case CardTypes.Shield:
-                detailCard = (CardShield)CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
+                detailCard = (CardShield) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
                 detailCard.transform.localScale = Vector3.one * GameManager.GM.DetailCardSize;
                 detailCard.transform.position = new Vector3(mousePosition.x, 2f, mousePosition.z);
                 detailCard.transform.Translate(Vector3.left * 3.5f);

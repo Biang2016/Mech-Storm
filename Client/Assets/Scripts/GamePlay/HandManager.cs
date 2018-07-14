@@ -73,7 +73,7 @@ internal class HandManager : MonoBehaviour
         RefreshCardsPlace();
     }
 
-    public void SummonRetinue(int handCardIndex)
+    public void UseCard(int handCardIndex)
     {
         cards[handCardIndex].PoolRecycle();
         DropCard(handCardIndex);

@@ -38,6 +38,100 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
     }
 
+
+    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, ClientPlayer clientPlayer)
+    {
+        CardBase newCard;
+        switch (cardInfo.CardType)
+        {
+            case CardTypes.Retinue:
+                newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                break;
+            case CardTypes.Weapon:
+                newCard = GameObjectPoolManager.GOPM.Pool_WeaponCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
+                break;
+            case CardTypes.Shield:
+                newCard = GameObjectPoolManager.GOPM.Pool_ShieldCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
+                break;
+            default:
+                newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                break;
+        }
+
+        newCard.Initiate(cardInfo, clientPlayer);
+        newCard.ChangeColor(HTMLColorToColor(cardInfo.CardColor));
+        return newCard;
+    }
+
+    protected void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block)
+    {
+        if (!Number)
+        {
+            Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
+            cardNumberSet = Number.GetComponent<CardNumberSet>();
+            cardNumberSet.initiate(0, numberType, textAlign);
+        }
+        else
+        {
+            cardNumberSet = Number.GetComponent<CardNumberSet>();
+            cardNumberSet.initiate(0, numberType, textAlign);
+        }
+    }
+
+    protected void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block, char firstSign)
+    {
+        if (!Number)
+        {
+            Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
+            cardNumberSet = Number.GetComponent<CardNumberSet>();
+            cardNumberSet.initiate(firstSign, 0, numberType, textAlign);
+        }
+        else
+        {
+            cardNumberSet = Number.GetComponent<CardNumberSet>();
+            cardNumberSet.initiate(firstSign, 0, numberType, textAlign);
+        }
+    }
+
+    public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
+    {
+        ClientPlayer = clientPlayer;
+        CardInfo = cardInfo;
+        initiateNumbers(ref GoNumberSet_Cost, ref CardNumberSet_Cost, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Cost);
+        M_Cost = CardInfo.Cost;
+        CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
+        ChangeCardBloomColor(GameManager.GM.CardBloomColor);
+        Stars = cardInfo.CardLevel;
+
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.Rotate(Vector3.up, 180);
+    }
+
+
+    #region 属性
+
+    private int m_Cost;
+
+    public int M_Cost
+    {
+        get { return m_Cost; }
+        set
+        {
+            m_Cost = value;
+            CardNumberSet_Cost.Number = value;
+        }
+    }
+
+    private int m_CardPlaceIndex;
+
+    public int M_CardPlaceIndex
+    {
+        get { return m_CardPlaceIndex; }
+        set { m_CardPlaceIndex = value; }
+    }
+
+    #endregion
+
     #region 卡牌上各模块
 
     public GameObject Star1;
@@ -45,8 +139,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     public GameObject Star3;
     public GameObject Star4;
 
-    [SerializeField]
-    protected int stars;
+    [SerializeField] protected int stars;
 
     public int Stars
     {
@@ -125,91 +218,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     }
 
     # endregion
-
-    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, ClientPlayer clientPlayer)
-    {
-        CardBase newCard;
-        switch (cardInfo.CardType)
-        {
-            case CardTypes.Retinue:
-                newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                break;
-            case CardTypes.Weapon:
-                newCard = GameObjectPoolManager.GOPM.Pool_WeaponCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
-                break;
-            case CardTypes.Shield:
-                newCard = GameObjectPoolManager.GOPM.Pool_ShieldCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
-                break;
-            default:
-                newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                break;
-        }
-
-        newCard.Initiate(cardInfo, clientPlayer);
-        newCard.ChangeColor(HTMLColorToColor(cardInfo.CardColor));
-        return newCard;
-    }
-
-    protected void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block)
-    {
-        if (!Number)
-        {
-            Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign);
-        }
-        else
-        {
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign);
-        }
-    }
-
-    protected void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block, char firstSign)
-    {
-        if (!Number)
-        {
-            Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign);
-        }
-        else
-        {
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign);
-        }
-    }
-
-    public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
-    {
-        ClientPlayer = clientPlayer;
-        CardInfo = cardInfo;
-        initiateNumbers(ref GoNumberSet_Cost, ref CardNumberSet_Cost, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Cost);
-        M_Cost = CardInfo.Cost;
-        CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
-        ChangeCardBloomColor(GameManager.GM.CardBloomColor);
-        Stars = cardInfo.CardLevel;
-
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-        transform.Rotate(Vector3.up, 180);
-    }
-
-
-    #region 卡牌数值变化
-
-    private int m_Cost;
-
-    public int M_Cost
-    {
-        get { return m_Cost; }
-        set
-        {
-            m_Cost = value;
-            CardNumberSet_Cost.Number = value;
-        }
-    }
-
-    #endregion
 
     #region 卡牌交互
 

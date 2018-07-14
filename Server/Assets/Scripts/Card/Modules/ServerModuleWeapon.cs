@@ -3,24 +3,34 @@ using UnityEngine;
 
 internal class ServerModuleWeapon : ServerModuleBase
 {
-
     #region 各模块、自身数值和初始化
 
     internal ServerModuleRetinue M_ModuleRetinue;
 
     public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
-        base.Initiate(cardInfo, serverPlayer);
         M_WeaponName = CardInfo_Weapon.textToVertical(((CardInfo_Weapon) cardInfo).CardName);
         M_WeaponType = ((CardInfo_Weapon) cardInfo).M_WeaponType;
         M_WeaponAttack = ((CardInfo_Weapon) cardInfo).Attack;
         M_WeaponEnergyMax = ((CardInfo_Weapon) cardInfo).EnergyMax;
         M_WeaponEnergy = ((CardInfo_Weapon) cardInfo).Energy;
+        base.Initiate(cardInfo, serverPlayer);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
         return new CardInfo_Weapon(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_WeaponEnergy, M_WeaponEnergyMax, M_WeaponAttack, M_WeaponType);
+    }
+
+
+    #region 属性
+
+    private int m_WeaponPlaceIndex;
+
+    public int M_WeaponPlaceIndex
+    {
+        get { return m_WeaponPlaceIndex; }
+        set { m_WeaponPlaceIndex = value; }
     }
 
     private string m_WeaponName;
@@ -29,10 +39,7 @@ internal class ServerModuleWeapon : ServerModuleBase
     {
         get { return m_WeaponName; }
 
-        set
-        {
-            m_WeaponName = value;
-        }
+        set { m_WeaponName = value; }
     }
 
     private WeaponType m_WeaponType;
@@ -52,7 +59,14 @@ internal class ServerModuleWeapon : ServerModuleBase
 
         set
         {
+            int before = m_WeaponAttack;
             m_WeaponAttack = value;
+            if (isInitialized && before != m_WeaponAttack)
+            {
+                WeaponAttributesRequest request = new WeaponAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_WeaponPlaceIndex, WeaponAttributesRequest.WeaponAttributesChangeFlag.Attack, m_WeaponAttack - before, 0);
+                ServerPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+            }
         }
     }
 
@@ -64,7 +78,14 @@ internal class ServerModuleWeapon : ServerModuleBase
 
         set
         {
+            int before = m_WeaponEnergy;
             m_WeaponEnergy = Mathf.Min(value, M_WeaponEnergyMax);
+            if (isInitialized && before != m_WeaponEnergy)
+            {
+                WeaponAttributesRequest request = new WeaponAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_WeaponPlaceIndex, WeaponAttributesRequest.WeaponAttributesChangeFlag.Energy, 0, m_WeaponEnergy - before);
+                ServerPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+            }
         }
     }
 
@@ -76,6 +97,8 @@ internal class ServerModuleWeapon : ServerModuleBase
 
         set { m_WeaponEnergyMax = value; }
     }
+
+    #endregion
 
     #endregion
 
@@ -162,5 +185,6 @@ internal class ServerModuleWeapon : ServerModuleBase
     }
 
     #endregion
+
     #endregion
 }

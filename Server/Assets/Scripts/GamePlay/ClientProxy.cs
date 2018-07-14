@@ -132,9 +132,17 @@ internal class ClientProxy : ProxyBase
                     case SummonRetinueRequest _:
                         MyServerGameManager?.OnClientSummonRetinueRequest((SummonRetinueRequest) r);
                         break;
-                    //正常退出游戏请求
-                    case LeaveGameRequest _:
+                    case EquipWeaponRequest _:
+                        MyServerGameManager?.OnClientEquipWeaponRequest((EquipWeaponRequest) r);
+                        break;
+                    case EquipShieldRequest _:
+                        MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest) r);
+                        break;
+                    case LeaveGameRequest _: //正常退出游戏请求
                         MyServerGameManager?.OnStopGame(this);
+                        break;
+                    case RetinueAttackRetinueRequest _:
+                        MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest) r);
                         break;
                 }
             }

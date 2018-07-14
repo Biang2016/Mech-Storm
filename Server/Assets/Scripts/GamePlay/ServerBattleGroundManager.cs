@@ -14,23 +14,41 @@ internal class ServerBattleGroundManager
         ServerPlayer = serverPlayer;
     }
 
-    public bool SummonRetinue(SummonRetinueRequest request)
+    public ServerModuleRetinue GetRetinue(int retinuePlaceIndex)
     {
-        if (Retinues.Count == GamePlaySettings.MaxRetinueNumber)
-        {
-            BattleGroundIsFull = true;
-            return false;
-        }
-        else
-        {
-            ServerModuleRetinue retinue = new ServerModuleRetinue();
-            CardInfo_Retinue cardInfoRetinue = request.cardInfo;
-            retinue.Initiate(cardInfoRetinue, ServerPlayer);
-            Retinues.Insert(request.battleGroundIndex, retinue);
+        return Retinues[retinuePlaceIndex];
+    }
 
+    public void SummonRetinue(SummonRetinueRequest r)
+    {
+        ServerModuleRetinue retinue = new ServerModuleRetinue();
+        CardInfo_Retinue cardInfoRetinue = r.cardInfo;
+        retinue.Initiate(cardInfoRetinue, ServerPlayer);
+        retinue.M_RetinuePlaceIndex = r.battleGroundIndex;
+        Retinues.Insert(r.battleGroundIndex, retinue);
+        if (Retinues.Count == GamePlaySettings.MaxRetinueNumber) BattleGroundIsFull = true;
+    }
 
-            return true;
-        }
+    public void EquipWeapon(EquipWeaponRequest r)
+    {
+        ServerModuleWeapon weapon = new ServerModuleWeapon();
+        CardInfo_Weapon cardInfo_Weapon = r.cardInfo;
+        ServerModuleRetinue retinue = GetRetinue(r.battleGroundIndex);
+        weapon.M_ModuleRetinue = retinue;
+        weapon.M_RetinuePlaceIndex = r.battleGroundIndex;
+        weapon.Initiate(cardInfo_Weapon, ServerPlayer);
+        retinue.M_Weapon = weapon;
+    }
+
+    public void EquipShield(EquipShieldRequest r)
+    {
+        ServerModuleShield shield = new ServerModuleShield();
+        CardInfo_Shield cardInfoShield = r.cardInfo;
+        ServerModuleRetinue retinue = GetRetinue(r.battleGroundIndex);
+        shield.M_ModuleRetinue = retinue;
+        shield.M_RetinuePlaceIndex = r.battleGroundIndex;
+        shield.Initiate(cardInfoShield, ServerPlayer);
+        retinue.M_Shield = shield;
     }
 
     public void RemoveRetinue(ServerModuleRetinue retinue)
