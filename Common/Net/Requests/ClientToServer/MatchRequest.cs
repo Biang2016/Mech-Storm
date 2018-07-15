@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class MatchRequest : ClientRequestBaseBase
+public class MatchRequest : ClientRequestBase
 {
     public MatchRequest() : base()
     {

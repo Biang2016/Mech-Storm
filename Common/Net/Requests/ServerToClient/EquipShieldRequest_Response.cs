@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class EquipShieldRequest_Response : ServerRequestBaseBase
+public class EquipShieldRequest_Response : ServerRequestBase
 {
     public int clientId;
     public CardInfo_Shield cardInfo;

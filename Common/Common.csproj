@@ -62,14 +62,14 @@
     <Compile Include="Net\Requests\ClientToServer\CancelMatchRequest.cs" />
     <Compile Include="Net\Requests\ClientToServer\MatchRequest.cs" />
     <Compile Include="Net\Requests\ClientToServer\CardDeckRequest.cs" />
-    <Compile Include="Net\Requests\ClientToServer\ClientRequestBaseBase.cs" />
+    <Compile Include="Net\Requests\ClientToServer\ClientRequestBase.cs" />
     <Compile Include="Net\Requests\ClientToServer\LeaveGameRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\HeartBeatRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\GameStopByLeaveRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\RetinueAttributesRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ShieldAttributesRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\WeaponAttributesRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ServerRequestBaseBase.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ServerRequestBase.cs" />
     <Compile Include="Net\Requests\ServerToClient\DrawCardRequest.cs" />
     <Compile Include="Net\Requests\ClientToServer\EndRoundRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\PlayerTurnRequest.cs" />

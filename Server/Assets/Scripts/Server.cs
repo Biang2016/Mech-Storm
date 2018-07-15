@@ -68,6 +68,7 @@ internal class Server
     /// <param name="clientProxy"></param>
     public void ClientProxyClose(ClientProxy clientProxy)
     {
+        SGMM.OnClientCancelMatch(clientProxy);
         clientProxy.OnClose();
         ClientsDict.Remove(clientProxy.ClientId);
     }
@@ -197,9 +198,9 @@ internal class Server
         //统一日志打出
         ServerLog.PrintReceive("GetFrom    " + socket.RemoteEndPoint + "    [" + r.GetProtocolName() + "]    " + r.DeserializeLog());
 
-        if (r is ClientRequestBaseBase)
+        if (r is ClientRequestBase)
         {
-            ClientRequestBaseBase request = (ClientRequestBaseBase) r;
+            ClientRequestBase request = (ClientRequestBase) r;
             if (ClientsDict.ContainsKey(request.clientId))
             {
                 ClientsDict[request.clientId].ReceiveMessage(request);

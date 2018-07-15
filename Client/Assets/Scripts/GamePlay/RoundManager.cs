@@ -31,6 +31,11 @@ internal class RoundManager : MonoBehaviour
     public Text SelfCostText;
     public Text EnemyCostText;
 
+    void Awake()
+    {
+        rm = FindObjectOfType(typeof(RoundManager)) as RoundManager;
+    }
+
     #region 响应
 
     public void Initialize()
@@ -48,17 +53,20 @@ internal class RoundManager : MonoBehaviour
         EnemyCostText.text = "";
     }
 
-    bool isStop = false;
-    public void StopGame(){
-        isStop = true;
-    }
-
     private void Update()
     {
-        if(isStop){
+        if (isStop)
+        {
             OnGameStop();
             isStop = false;
         }
+    }
+
+    bool isStop = false;
+
+    public void StopGame()
+    {
+        isStop = true;
     }
 
     private void OnGameStop()
@@ -93,6 +101,8 @@ internal class RoundManager : MonoBehaviour
         EndRoundButton.SetActive(false);
         SelfCostText.gameObject.SetActive(false);
         EnemyCostText.gameObject.SetActive(false);
+
+        BattleEffectsManager.BEM.AllEffectsEnd();
     }
 
     public void InitializePlayers(PlayerRequest r)
@@ -109,8 +119,9 @@ internal class RoundManager : MonoBehaviour
         }
     }
 
-    public void SetPlayersCost(PlayerCostRequest r)
+    public void SetPlayersCost(ServerRequestBase req)
     {
+        PlayerCostRequest r = (PlayerCostRequest) req;
         if (r.clinetId == Client.CS.Proxy.ClientId)
         {
             SelfClientPlayer.DoChangeCost(r);
@@ -123,8 +134,9 @@ internal class RoundManager : MonoBehaviour
         }
     }
 
-    public void SetPlayerTurn(PlayerTurnRequest r) //服务器说某玩家回合开始
+    public void SetPlayerTurn(ServerRequestBase req) //服务器说某玩家回合开始
     {
+        PlayerTurnRequest r = (PlayerTurnRequest) req;
         if (CurrentClientPlayer != null)
         {
             EndRound();
@@ -156,36 +168,40 @@ internal class RoundManager : MonoBehaviour
         CurrentClientPlayer.MyBattleGroundManager.BeginRound();
     }
 
-    public void OnPlayerSummonRetinue(SummonRetinueRequest_Response r)
+    public void OnPlayerSummonRetinue(ServerRequestBase req)
     {
+        SummonRetinueRequest_Response r = (SummonRetinueRequest_Response) req;
         GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
         GetPlayerByClientId(r.clientId).MyBattleGroundManager.AddRetinue(r);
     }
 
-    public void OnPlayerEquipWeapon(EquipWeaponRequest_Response r)
+    public void OnPlayerEquipWeapon(ServerRequestBase req)
     {
+        EquipWeaponRequest_Response r = (EquipWeaponRequest_Response) req;
         GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
         GetPlayerByClientId(r.clientId).MyBattleGroundManager.EquipWeapon(r);
     }
 
-    public void OnPlayerEquipShield(EquipShieldRequest_Response r)
+    public void OnPlayerEquipShield(ServerRequestBase req)
     {
+        EquipShieldRequest_Response r = (EquipShieldRequest_Response) req;
         GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
         GetPlayerByClientId(r.clientId).MyBattleGroundManager.EquipShield(r);
     }
 
-    public void OnPlayerDrawCard(DrawCardRequest resp)
+    public void OnPlayerDrawCard(ServerRequestBase req)
     {
-        if (resp.clientId == Client.CS.Proxy.ClientId)
+        DrawCardRequest r = (DrawCardRequest) req;
+        if (r.clientId == Client.CS.Proxy.ClientId)
         {
-            foreach (int respCardId in resp.cardIds)
+            foreach (int respCardId in r.cardIds)
             {
                 SelfClientPlayer.MyHandManager.GetCard(respCardId);
             }
         }
         else
         {
-            for (int i = 0; i < resp.cardCount; i++)
+            for (int i = 0; i < r.cardCount; i++)
             {
                 EnemyClientPlayer.MyHandManager.GetCard(999); //空白牌，隐藏防止对方知道
             }
@@ -194,20 +210,23 @@ internal class RoundManager : MonoBehaviour
 
     #region 战斗核心
 
-    public void OnRetinueAttackRetinue(RetinueAttackRetinueRequest_Response r)
+    public void OnRetinueAttackRetinue(ServerRequestBase req)
     {
+        RetinueAttackRetinueRequest_Response r = (RetinueAttackRetinueRequest_Response) req;
         GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinuePlaceIndex).AllModulesAttack();
     }
 
-    public void OnWeaponAttributesChange(WeaponAttributesRequest r)
+    public void OnWeaponAttributesChange(ServerRequestBase req)
     {
+        WeaponAttributesRequest r = (WeaponAttributesRequest) req;
         ModuleWeapon weapon = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Weapon;
         weapon.M_WeaponAttack += r.addAttack;
         weapon.M_WeaponEnergy += r.addEnergy;
     }
 
-    public void OnRetinueAttributesChange(RetinueAttributesRequest r)
+    public void OnRetinueAttributesChange(ServerRequestBase req)
     {
+        RetinueAttributesRequest r = (RetinueAttributesRequest) req;
         ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex);
         retinue.M_RetinueAttack += r.addAttack;
         retinue.M_RetinueArmor += r.addArmor;
@@ -216,8 +235,9 @@ internal class RoundManager : MonoBehaviour
         retinue.M_RetinueLeftLife += r.addLeftLife;
     }
 
-    public void OnShieldAttributesChange(ShieldAttributesRequest r)
+    public void OnShieldAttributesChange(ServerRequestBase req)
     {
+        ShieldAttributesRequest r = (ShieldAttributesRequest) req;
         ModuleShield shield = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Shield;
         shield.M_ShieldArmor += r.addArmor;
         shield.M_ShieldArmorMax += r.addArmorMax;

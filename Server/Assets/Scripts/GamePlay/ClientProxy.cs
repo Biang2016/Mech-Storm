@@ -7,8 +7,8 @@ using System.Threading;
 
 internal class ClientProxy : ProxyBase
 {
-    private Queue<ServerRequestBaseBase> SendRequestsQueue = new Queue<ServerRequestBaseBase>();
-    private Queue<ClientRequestBaseBase> ReceiveRequestsQueue = new Queue<ClientRequestBaseBase>();
+    private Queue<ServerRequestBase> SendRequestsQueue = new Queue<ServerRequestBase>();
+    private Queue<ClientRequestBase> ReceiveRequestsQueue = new Queue<ClientRequestBase>();
 
     public ServerGameManager MyServerGameManager;
 
@@ -46,7 +46,7 @@ internal class ClientProxy : ProxyBase
         isClosed = true;
     }
 
-    public void SendMessage(ServerRequestBaseBase request)
+    public void SendMessage(ServerRequestBase request)
     {
         if (isClosed) return;
         SendRequestsQueue.Enqueue(request);
@@ -74,7 +74,7 @@ internal class ClientProxy : ProxyBase
         }
     }
 
-    public void ReceiveMessage(ClientRequestBaseBase request)
+    public void ReceiveMessage(ClientRequestBase request)
     {
         if (isClosed) return;
         ReceiveRequestsQueue.Enqueue(request);
@@ -89,7 +89,7 @@ internal class ClientProxy : ProxyBase
     {
         while (ReceiveRequestsQueue.Count > 0)
         {
-            ClientRequestBaseBase r = ReceiveRequestsQueue.Dequeue();
+            ClientRequestBase r = ReceiveRequestsQueue.Dequeue();
             switch (r)
             {
                 //以下是进入游戏前的请求

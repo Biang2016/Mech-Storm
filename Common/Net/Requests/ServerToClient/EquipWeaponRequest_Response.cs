@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class EquipWeaponRequest_Response : ServerRequestBaseBase
+public class EquipWeaponRequest_Response : ServerRequestBase
 {
     public int clientId;
     public CardInfo_Weapon cardInfo;

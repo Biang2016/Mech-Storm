@@ -234,7 +234,7 @@ internal class ModuleShield : ModuleBase
         M_ShieldHitAnim.SetTrigger("BeHit");
         yield return new WaitForSeconds(1F);
         M_ShieldShield = M_ShieldShield;
-        if (isDead) yield return StartCoroutine(DelayPoolRecycle());
+        if (isDead) PoolRecycle();
         yield return null;
         BattleEffectsManager.BEM.EffectEnd();
     }
@@ -243,7 +243,7 @@ internal class ModuleShield : ModuleBase
     {
         M_ArmorHitAnim.SetTrigger("BeHit");
         yield return new WaitForSeconds(1F);
-        if (isDead) yield return StartCoroutine(DelayPoolRecycle());
+        if (isDead) PoolRecycle();
         BattleEffectsManager.BEM.EffectEnd();
     }
 

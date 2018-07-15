@@ -7,8 +7,8 @@ using System.Threading;
 
 internal class Proxy : ProxyBase
 {
-    private Queue<ClientRequestBaseBase> SendRequestsQueue = new Queue<ClientRequestBaseBase>();
-    private Queue<ServerRequestBaseBase> ReceiveRequestsQueue = new Queue<ServerRequestBaseBase>();
+    private Queue<ClientRequestBase> SendRequestsQueue = new Queue<ClientRequestBase>();
+    private Queue<ServerRequestBase> ReceiveRequestsQueue = new Queue<ServerRequestBase>();
 
     public override ClientStates ClientState
     {
@@ -30,19 +30,19 @@ internal class Proxy : ProxyBase
     {
         if (SendRequestsQueue.Count > 0)
         {
-            ClientRequestBaseBase request = SendRequestsQueue.Dequeue();
+            ClientRequestBase request = SendRequestsQueue.Dequeue();
             Thread thread = new Thread(Client.CS.Send);
             thread.IsBackground = true;
             thread.Start(request);
         }
     }
 
-    public void SendMessage(ClientRequestBaseBase request)
+    public void SendMessage(ClientRequestBase request)
     {
         SendRequestsQueue.Enqueue(request);
     }
 
-    public void ReceiveMessage(ServerRequestBaseBase request)
+    public void ReceiveMessage(ServerRequestBase request)
     {
         ReceiveRequestsQueue.Enqueue(request);
         Response();
@@ -52,7 +52,7 @@ internal class Proxy : ProxyBase
 
     protected override void Response()
     {
-        ServerRequestBaseBase r = ReceiveRequestsQueue.Dequeue();
+        ServerRequestBase r = ReceiveRequestsQueue.Dequeue();
         if (r is ClientIdRequest)
         {
             ClientIdRequest request = (ClientIdRequest) r;
@@ -68,43 +68,43 @@ internal class Proxy : ProxyBase
         }
         else if (r is PlayerTurnRequest)
         {
-            RoundManager.RM.SetPlayerTurn((PlayerTurnRequest) r);
+            BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(RoundManager.RM.SetPlayerTurn, r));
         }
         else if (r is PlayerCostRequest)
         {
-            RoundManager.RM.SetPlayersCost((PlayerCostRequest) r);
+            BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(RoundManager.RM.SetPlayersCost, r));
         }
         else if (r is DrawCardRequest)
         {
-            RoundManager.RM.OnPlayerDrawCard((DrawCardRequest) r);
+            BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(RoundManager.RM.OnPlayerDrawCard, r));
         }
         else if (r is SummonRetinueRequest_Response)
         {
-            RoundManager.RM.OnPlayerSummonRetinue((SummonRetinueRequest_Response) r);
+            BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(RoundManager.RM.OnPlayerSummonRetinue, r));
         }
         else if (r is EquipWeaponRequest_Response)
         {
-            RoundManager.RM.OnPlayerEquipWeapon((EquipWeaponRequest_Response) r);
+            BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(RoundManager.RM.OnPlayerEquipWeapon, r));
         }
         else if (r is EquipShieldRequest_Response)
         {
-            RoundManager.RM.OnPlayerEquipShield((EquipShieldRequest_Response) r);
+            BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(RoundManager.RM.OnPlayerEquipShield, r));
         }
         else if (r is RetinueAttackRetinueRequest_Response)
         {
-            RoundManager.RM.OnRetinueAttackRetinue((RetinueAttackRetinueRequest_Response) r);
+            BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(RoundManager.RM.OnRetinueAttackRetinue, r));
         }
         else if (r is WeaponAttributesRequest)
         {
-            RoundManager.RM.OnWeaponAttributesChange((WeaponAttributesRequest) r);
+            BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(RoundManager.RM.OnWeaponAttributesChange, r));
         }
         else if (r is RetinueAttributesRequest)
         {
-            RoundManager.RM.OnRetinueAttributesChange((RetinueAttributesRequest) r);
+            BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(RoundManager.RM.OnRetinueAttributesChange, r));
         }
         else if (r is ShieldAttributesRequest)
         {
-            RoundManager.RM.OnShieldAttributesChange((ShieldAttributesRequest) r);
+            BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(RoundManager.RM.OnShieldAttributesChange, r));
         }
         else if (r is GameStopByLeaveRequest)
         {

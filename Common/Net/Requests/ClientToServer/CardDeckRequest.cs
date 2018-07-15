@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class CardDeckRequest : ClientRequestBaseBase
+public class CardDeckRequest : ClientRequestBase
 {
     public CardDeckInfo cardDeckInfo;
 

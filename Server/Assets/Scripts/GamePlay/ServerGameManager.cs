@@ -186,7 +186,7 @@ internal class ServerGameManager
 
     #region Utils
 
-    private void BroadcastBothPlayers(ServerRequestBaseBase r)
+    private void BroadcastBothPlayers(ServerRequestBase r)
     {
         PlayerA.MyClientProxy.SendMessage(r);
         PlayerB.MyClientProxy.SendMessage(r);

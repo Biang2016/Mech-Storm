@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class RetinueAttributesRequest : ServerRequestBaseBase
+public class RetinueAttributesRequest : ServerRequestBase
 {
     public int clinetId;
     public int retinuePlaceIndex;

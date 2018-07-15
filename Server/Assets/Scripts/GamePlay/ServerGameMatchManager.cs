@@ -30,8 +30,11 @@ internal class ServerGameMatchManager
 
     public void OnClientCancelMatch(ClientProxy clientProxy)
     {
-        matchingClients.Remove(clientProxy);
-        ServerLog.PrintServerStates("玩家 " + clientProxy.ClientId + " 取消匹配. 当前 " + matchingClients.Count + " 人在匹配中");
+        if (matchingClients.Contains(clientProxy))
+        {
+            matchingClients.Remove(clientProxy);
+            ServerLog.PrintServerStates("玩家 " + clientProxy.ClientId + " 取消匹配. 当前 " + matchingClients.Count + " 人在匹配中");
+        }
     }
 
     public void RemoveGame(ServerGameManager serverGameManager, ClientProxy clientA, ClientProxy clientB)

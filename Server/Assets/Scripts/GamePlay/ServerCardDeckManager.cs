@@ -33,7 +33,6 @@ internal class ServerCardDeckManager
         if (M_CurrentCardDeck.IsEmpty)
         {
             M_CurrentCardDeck.AbandonCardRecycle();
-            M_CurrentCardDeck.SuffleSelf();
         }
 
         M_CurrentCardDeck.GetARetinueCardToTheTop();
@@ -46,7 +45,6 @@ internal class ServerCardDeckManager
         if (M_CurrentCardDeck.IsEmpty)
         {
             M_CurrentCardDeck.AbandonCardRecycle();
-            M_CurrentCardDeck.SuffleSelf();
         }
 
         CardInfo_Base newCardInfoBase = M_CurrentCardDeck.DrawCardOnTop();
@@ -59,7 +57,6 @@ internal class ServerCardDeckManager
         if (M_CurrentCardDeck.IsEmpty)
         {
             M_CurrentCardDeck.AbandonCardRecycle();
-            M_CurrentCardDeck.SuffleSelf();
         }
 
         List<CardInfo_Base> newCardInfoBases = M_CurrentCardDeck.DrawCardsOnTop(cardNumber);

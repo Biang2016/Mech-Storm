@@ -209,9 +209,9 @@ internal class Client : MonoBehaviour
         string Log = "Server：[" + r.GetProtocolName() + "]    " + r.DeserializeLog();
         ClientLog.CL.PrintReceive(Log);
 
-        if (r is ServerRequestBaseBase)
+        if (r is ServerRequestBase)
         {
-            Proxy.ReceiveMessage((ServerRequestBaseBase) r);
+            Proxy.ReceiveMessage((ServerRequestBase) r);
         }
     }
 
@@ -221,7 +221,7 @@ internal class Client : MonoBehaviour
 
     public void Send(object obj)
     {
-        ClientRequestBaseBase request = (ClientRequestBaseBase) obj;
+        ClientRequestBase request = (ClientRequestBase) obj;
 
         if (ServerSocket == null)
         {

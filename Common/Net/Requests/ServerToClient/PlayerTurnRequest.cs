@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerTurnRequest : ServerRequestBaseBase
+public class PlayerTurnRequest : ServerRequestBase
 {
     public int clientId;
 

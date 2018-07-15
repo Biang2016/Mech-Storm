@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class GameStopByLeaveRequest : ServerRequestBaseBase
+public class GameStopByLeaveRequest : ServerRequestBase
 {
     public int clientId;
 

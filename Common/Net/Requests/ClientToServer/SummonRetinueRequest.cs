@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class SummonRetinueRequest : ClientRequestBaseBase
+public class SummonRetinueRequest : ClientRequestBase
 {
     public CardInfo_Retinue cardInfo;
     public int handCardIndex;
