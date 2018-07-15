@@ -56,8 +56,8 @@ internal class CardWeapon : CardBase
         base.Initiate(cardInfo, clientPlayer);
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
-        M_WeaponName = CardInfo.CardName;
-        M_WeaponDesc = CardInfo.CardDesc;
+        M_WeaponName = CardInfo.BaseInfo.CardName;
+        M_WeaponDesc = CardInfo.BaseInfo.CardDesc;
     }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)

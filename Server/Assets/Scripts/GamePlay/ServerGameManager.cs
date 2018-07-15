@@ -128,7 +128,7 @@ internal class ServerGameManager
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         sp.MyBattleGroundManager.SummonRetinue(r);
         sp.MyHandManager.DropCardAt(r.handCardIndex);
-        sp.UseCostAboveZero(r.cardInfo.Cost);
+        sp.UseCostAboveZero(r.cardInfo.BaseInfo.Cost);
         SummonRetinueRequest_Response request = new SummonRetinueRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex);
         BroadcastBothPlayers(request);
     }
@@ -138,7 +138,7 @@ internal class ServerGameManager
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         sp.MyBattleGroundManager.EquipWeapon(r);
         sp.MyHandManager.DropCardAt(r.handCardIndex);
-        sp.UseCostAboveZero(r.cardInfo.Cost);
+        sp.UseCostAboveZero(r.cardInfo.BaseInfo.Cost);
         EquipWeaponRequest_Response request = new EquipWeaponRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex, r.weaponPlaceIndex);
         BroadcastBothPlayers(request);
     }
@@ -147,7 +147,7 @@ internal class ServerGameManager
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         sp.MyBattleGroundManager.EquipShield(r);
         sp.MyHandManager.DropCardAt(r.handCardIndex);
-        sp.UseCostAboveZero(r.cardInfo.Cost);
+        sp.UseCostAboveZero(r.cardInfo.BaseInfo.Cost);
         EquipShieldRequest_Response request = new EquipShieldRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex, r.shieldPlaceIndex);
         BroadcastBothPlayers(request);
     }

@@ -7,19 +7,19 @@ internal class ServerModuleRetinue : ServerModuleBase
 {
     public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
-        M_RetinueName = ((CardInfo_Retinue) cardInfo).CardName;
-        M_RetinueDesc = ((CardInfo_Retinue) cardInfo).CardDesc;
-        M_RetinueLeftLife = ((CardInfo_Retinue) cardInfo).Life;
-        M_RetinueTotalLife = ((CardInfo_Retinue) cardInfo).Life;
-        M_RetinueAttack = ((CardInfo_Retinue) cardInfo).BasicAttack;
-        M_RetinueArmor = ((CardInfo_Retinue) cardInfo).BasicArmor;
-        M_RetinueShield = ((CardInfo_Retinue) cardInfo).BasicShield;
+        M_RetinueName = cardInfo.BaseInfo.CardName;
+        M_RetinueDesc = cardInfo.BaseInfo.CardDesc;
+        M_RetinueLeftLife = cardInfo.LifeInfo.Life;
+        M_RetinueTotalLife = cardInfo.LifeInfo.Life;
+        M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
+        M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
+        M_RetinueShield = cardInfo.BattleInfo.BasicShield;
         base.Initiate(cardInfo, serverPlayer);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_RetinueLeftLife, M_RetinueTotalLife, M_RetinueAttack, M_RetinueShield, M_RetinueArmor, ((CardInfo_Retinue) CardInfo).Slot1, ((CardInfo_Retinue) CardInfo).Slot2, ((CardInfo_Retinue) CardInfo).Slot3, ((CardInfo_Retinue) CardInfo).Slot4);
+        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.LifeInfo, CardInfo.BattleInfo, CardInfo.SlotInfo);
     }
 
     private string m_RetinueName;
@@ -287,7 +287,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 if (M_RetinueArmor >= remainAttackNumber)
                 {
-                    M_RetinueArmor = (int) (M_RetinueArmor - remainAttackNumber);
+                    M_RetinueArmor = (int)(M_RetinueArmor - remainAttackNumber);
                     remainAttackNumber = 0;
                     return;
                 }

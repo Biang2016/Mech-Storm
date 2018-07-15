@@ -62,6 +62,7 @@ internal class Proxy : ProxyBase
         else if (r is PlayerRequest)
         {
             ClientState = ClientStates.Playing;
+            NetworkManager.NM.SuccessMatched();
             RoundManager.RM.Initialize();
             RoundManager.RM.InitializePlayers((PlayerRequest) r);
         }
@@ -117,7 +118,7 @@ internal class Proxy : ProxyBase
                 ClientLog.CL.PrintReceive("你的对手 " + request.clientId + " 退出了比赛");
             }
 
-            RoundManager.RM.OnGameStop();
+            RoundManager.RM.StopGame();
             ClientState = ClientStates.SubmitCardDeck;
         }
     }

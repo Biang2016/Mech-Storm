@@ -44,18 +44,18 @@ internal class ModuleShield : ModuleBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_ShieldName = CardInfo_Shield.textToVertical(((CardInfo_Shield) cardInfo).CardName);
-        M_ShieldType = ((CardInfo_Shield) cardInfo).M_ShieldType;
-        M_ShieldArmor = ((CardInfo_Shield) cardInfo).Armor + M_ModuleRetinue.M_RetinueArmor;
-        M_ShieldArmorMax = ((CardInfo_Shield) cardInfo).ArmorMax + M_ModuleRetinue.M_RetinueArmor;
-        M_ShieldShield = ((CardInfo_Shield) cardInfo).Shield + M_ModuleRetinue.M_RetinueShield;
-        M_ShieldShieldMax = ((CardInfo_Shield) cardInfo).ShieldMax + M_ModuleRetinue.M_RetinueShield;
+        M_ShieldName = CardInfo_Base.textToVertical(cardInfo.BaseInfo.CardName);
+        M_ShieldType = cardInfo.ShieldInfo.ShieldType;
+        M_ShieldArmor = cardInfo.ShieldInfo.Armor + M_ModuleRetinue.M_RetinueArmor;
+        M_ShieldArmorMax = cardInfo.ShieldInfo.ArmorMax + M_ModuleRetinue.M_RetinueArmor;
+        M_ShieldShield = cardInfo.ShieldInfo.Shield + M_ModuleRetinue.M_RetinueShield;
+        M_ShieldShieldMax = cardInfo.ShieldInfo.ShieldMax + M_ModuleRetinue.M_RetinueShield;
         if (M_Bloom) M_Bloom.SetActive(false);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Shield(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, ((CardInfo_Shield) CardInfo).M_ShieldType, ((CardInfo_Shield) CardInfo).Armor, ((CardInfo_Shield) CardInfo).ArmorMax, ((CardInfo_Shield) CardInfo).Shield, ((CardInfo_Shield) CardInfo).ShieldMax);
+        return new CardInfo_Shield(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo, CardInfo.ShieldInfo);
     }
 
     private NumberSize my_NumberSize_Armor = NumberSize.Medium;
@@ -116,9 +116,9 @@ internal class ModuleShield : ModuleBase
         }
     }
 
-    private ShieldType m_ShieldType;
+    private ShieldTypes m_ShieldType;
 
-    public ShieldType M_ShieldType
+    public ShieldTypes M_ShieldType
     {
         get { return m_ShieldType; }
 
@@ -133,7 +133,7 @@ internal class ModuleShield : ModuleBase
 
         set
         {
-            if (m_ShieldArmor > value) BattleEffectsManager.BEM.BattleEffects.Enqueue(Co_ArmorBeAttacked(value <= 0));
+            if (m_ShieldArmor > value) BattleEffectsManager.BEM.EffectsShow(Co_ArmorBeAttacked(value <= 0));
             m_ShieldArmor = value;
             initiateNumbers(ref GoNumberSet_ShieldArmor, ref CardNumberSet_ShieldArmor, my_NumberSize_Armor, my_TextAlign_Armor, Block_ShieldArmor);
             CardNumberSet_ShieldArmor.Number = m_ShieldArmor;
@@ -162,7 +162,7 @@ internal class ModuleShield : ModuleBase
 
         set
         {
-            if (m_ShieldShield > value) BattleEffectsManager.BEM.BattleEffects.Enqueue(Co_ShieldBeAttacked(value <= 0));
+            if (m_ShieldShield > value) BattleEffectsManager.BEM.EffectsShow(Co_ShieldBeAttacked(value <= 0));
             m_ShieldShield = value;
             initiateNumbers(ref GoNumberSet_ShieldShield, ref CardNumberSet_ShieldShield, my_NumberSize_Shield, my_TextAlign_Shield, Block_ShieldShield);
             CardNumberSet_ShieldShield.Number = m_ShieldShield;
@@ -193,28 +193,28 @@ internal class ModuleShield : ModuleBase
     {
         if (AllCards.IsASeries(CardInfo, newShield.CardInfo))
         {
-            if (CardInfo.CardLevel == newShield.CardInfo.CardLevel)
+            if (CardInfo.UpgradeInfo.CardLevel == newShield.CardInfo.UpgradeInfo.CardLevel)
             {
                 CardInfo_Shield m_currentInfo = (CardInfo_Shield) GetCurrentCardInfo();
-                CardInfo_Shield upgradeShieldCardInfo = (CardInfo_Shield) AllCards.GetCard(CardInfo.UpgradeID);
+                CardInfo_Shield upgradeShieldCardInfo = (CardInfo_Shield) AllCards.GetCard(CardInfo.UpgradeInfo.UpgradeCardID);
                 Initiate(upgradeShieldCardInfo, ClientPlayer);
-                M_ShieldShield = m_currentInfo.Shield + ((CardInfo_Shield) newShield.CardInfo).Shield;
-                M_ShieldArmor = m_currentInfo.Armor + ((CardInfo_Shield) newShield.CardInfo).Armor;
+                M_ShieldShield = m_currentInfo.ShieldInfo.Shield + ((CardInfo_Shield) newShield.CardInfo).ShieldInfo.Shield;
+                M_ShieldArmor = m_currentInfo.ShieldInfo.Armor + ((CardInfo_Shield) newShield.CardInfo).ShieldInfo.Armor;
                 newShield.PoolRecycle();
                 resultShield = this;
             }
-            else if (CardInfo.CardLevel > newShield.CardInfo.CardLevel)
+            else if (CardInfo.UpgradeInfo.CardLevel > newShield.CardInfo.UpgradeInfo.CardLevel)
             {
-                M_ShieldShield = M_ShieldShield + ((CardInfo_Shield) newShield.CardInfo).Shield;
-                M_ShieldArmor = M_ShieldArmor + ((CardInfo_Shield) newShield.CardInfo).Armor;
+                M_ShieldShield = M_ShieldShield + newShield.CardInfo.ShieldInfo.Shield;
+                M_ShieldArmor = M_ShieldArmor + newShield.CardInfo.ShieldInfo.Armor;
                 newShield.PoolRecycle();
                 resultShield = this;
             }
             else
             {
                 resultShield = newShield;
-                newShield.M_ShieldShield = M_ShieldShield + ((CardInfo_Shield) newShield.CardInfo).Shield;
-                newShield.M_ShieldArmor = M_ShieldArmor + ((CardInfo_Shield) newShield.CardInfo).Shield;
+                newShield.M_ShieldShield = M_ShieldShield + newShield.CardInfo.ShieldInfo.Shield;
+                newShield.M_ShieldArmor = M_ShieldArmor + newShield.CardInfo.ShieldInfo.Shield;
                 PoolRecycle();
             }
         }
@@ -236,7 +236,7 @@ internal class ModuleShield : ModuleBase
         M_ShieldShield = M_ShieldShield;
         if (isDead) yield return StartCoroutine(DelayPoolRecycle());
         yield return null;
-        BattleEffectsManager.BEM.IsExcuting = false;
+        BattleEffectsManager.BEM.EffectEnd();
     }
 
     IEnumerator Co_ArmorBeAttacked(bool isDead)
@@ -244,7 +244,7 @@ internal class ModuleShield : ModuleBase
         M_ArmorHitAnim.SetTrigger("BeHit");
         yield return new WaitForSeconds(1F);
         if (isDead) yield return StartCoroutine(DelayPoolRecycle());
-        BattleEffectsManager.BEM.IsExcuting = false;
+        BattleEffectsManager.BEM.EffectEnd();
     }
 
     IEnumerator DelayPoolRecycle()
@@ -256,7 +256,7 @@ internal class ModuleShield : ModuleBase
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
         canDrag = false;
-        dragPurpose = CardInfo.DragPurpose;
+        dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 
     #endregion

@@ -42,7 +42,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, ClientPlayer clientPlayer)
     {
         CardBase newCard;
-        switch (cardInfo.CardType)
+        switch (cardInfo.BaseInfo.CardType)
         {
             case CardTypes.Retinue:
                 newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
@@ -59,7 +59,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
 
         newCard.Initiate(cardInfo, clientPlayer);
-        newCard.ChangeColor(HTMLColorToColor(cardInfo.CardColor));
+        newCard.ChangeColor(HTMLColorToColor(cardInfo.BaseInfo.CardColor));
         return newCard;
     }
 
@@ -98,10 +98,10 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
         initiateNumbers(ref GoNumberSet_Cost, ref CardNumberSet_Cost, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Cost);
-        M_Cost = CardInfo.Cost;
+        M_Cost = CardInfo.BaseInfo.Cost;
         CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
         ChangeCardBloomColor(GameManager.GM.CardBloomColor);
-        Stars = cardInfo.CardLevel;
+        Stars = cardInfo.UpgradeInfo.CardLevel;
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Rotate(Vector3.up, 180);
@@ -282,7 +282,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
         canDrag = Usable;
-        dragPurpose = CardInfo.DragPurpose;
+        dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 
     public virtual float DragComponnet_DragDistance()

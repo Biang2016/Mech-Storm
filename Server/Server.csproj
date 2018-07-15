@@ -43,6 +43,9 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>C:\softwares\Unity3D 2017.2.0f3\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>Assets\Plugins\UnityEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardBase.cs" />

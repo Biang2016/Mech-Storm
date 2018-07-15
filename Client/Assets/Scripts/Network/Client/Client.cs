@@ -141,6 +141,7 @@ internal class Client : MonoBehaviour
             ServerSocket.Shutdown(SocketShutdown.Both);
             ClientLog.CL.PrintError("[C]Socket close");
             ServerSocket.Close();
+            RoundManager.RM.StopGame();
         }
 
         ServerSocket = null;
@@ -162,6 +163,7 @@ internal class Client : MonoBehaviour
                 //与服务器断开连接跳出循环  
                 ClientLog.CL.PrintError("[C]连接服务器失败.");
                 ServerSocket.Close();
+                RoundManager.RM.StopGame();
                 break;
             }
 
@@ -177,6 +179,7 @@ internal class Client : MonoBehaviour
                 if (i <= 0)
                 {
                     ServerSocket.Close();
+                    RoundManager.RM.StopGame();
                     ClientLog.CL.PrintError("[C]Socket.Close();");
                     break;
                 }
@@ -195,6 +198,7 @@ internal class Client : MonoBehaviour
                 ClientLog.CL.PrintError("[C]Failed to clientSocket error. " + e);
                 ServerSocket.Close();
                 Proxy.ClientState = ProxyBase.ClientStates.Nothing;
+                RoundManager.RM.StopGame();
                 break;
             }
         }
@@ -256,6 +260,7 @@ internal class Client : MonoBehaviour
         catch (Exception e)
         {
             ClientLog.CL.PrintError("[C]Send error : " + e.ToString());
+            RoundManager.RM.StopGame();
         }
     }
 

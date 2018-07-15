@@ -25,13 +25,7 @@ internal class ClientLog : MonoBehaviour
 
     private void Update()
     {
-        while (LogMessages.Count > 0)
-        {
-            Log tmp = LogMessages.Dequeue();
-            Debug.Log(tmp.LogStr);
-            Console.ForegroundColor = tmp.ConsoleColor;
-            Console.WriteLine(tmp.LogStr, tmp.ConsoleColor);
-        }
+
     }
 
     public void Print(string logStr)
@@ -43,6 +37,21 @@ internal class ClientLog : MonoBehaviour
     {
         Log log = new Log(logStr, consoleColor);
         LogMessages.Enqueue(log);
+        DoPrint();
+    }
+
+    public void DoPrint()
+    {
+        if (LogMessages.Count > 0)
+        {
+            Log log = LogMessages.Dequeue();
+            if (log != null)
+            {
+                Debug.Log(log.LogStr);
+                Console.ForegroundColor = log.ConsoleColor;
+                Console.WriteLine(log.LogStr, log.ConsoleColor);
+            }
+        }
     }
 
     public void PrintWarning(string logStr)

@@ -49,7 +49,7 @@ internal abstract class ServerCardBase
     public static ServerCardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
         ServerCardBase newCard;
-        switch (cardInfo.CardType)
+        switch (cardInfo.BaseInfo.CardType)
         {
             case CardTypes.Retinue:
                 newCard = new ServerCardRetinue();
@@ -73,8 +73,8 @@ internal abstract class ServerCardBase
     {
         ServerPlayer = serverPlayer;
         CardInfo = cardInfo;
-        M_Cost = CardInfo.Cost;
-        Stars = cardInfo.CardLevel;
+        M_Cost = CardInfo.BaseInfo.Cost;
+        Stars = cardInfo.UpgradeInfo.CardLevel;
     }
 
     public virtual void OnBeginRound()

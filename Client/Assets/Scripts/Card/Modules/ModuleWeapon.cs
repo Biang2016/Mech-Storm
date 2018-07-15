@@ -36,18 +36,18 @@ internal class ModuleWeapon : ModuleBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_WeaponName = CardInfo_Weapon.textToVertical(((CardInfo_Weapon) cardInfo).CardName);
-        M_WeaponType = ((CardInfo_Weapon) cardInfo).M_WeaponType;
-        M_WeaponAttack = ((CardInfo_Weapon) cardInfo).Attack;
-        M_WeaponEnergyMax = ((CardInfo_Weapon) cardInfo).EnergyMax;
-        M_WeaponEnergy = ((CardInfo_Weapon) cardInfo).Energy;
+        M_WeaponName = CardInfo_Base.textToVertical(cardInfo.BaseInfo.CardName);
+        M_WeaponType = cardInfo.WeaponInfo.WeaponType;
+        M_WeaponAttack = cardInfo.WeaponInfo.Attack;
+        M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;
+        M_WeaponEnergy = cardInfo.WeaponInfo.Energy;
         if (M_Bloom) M_Bloom.SetActive(false);
-        if (M_WeaponType == WeaponType.Gun)
+        if (M_WeaponType == WeaponTypes.Gun)
         {
             if (M_GunIcon) M_GunIcon.SetActive(true);
             if (M_SwordIcon) M_SwordIcon.SetActive(false);
         }
-        else if (M_WeaponType == WeaponType.Sword)
+        else if (M_WeaponType == WeaponTypes.Sword)
         {
             if (M_GunIcon) M_GunIcon.SetActive(false);
             if (M_SwordIcon) M_SwordIcon.SetActive(true);
@@ -56,7 +56,7 @@ internal class ModuleWeapon : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Weapon(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_WeaponEnergy, M_WeaponEnergyMax, M_WeaponAttack, M_WeaponType);
+        return new CardInfo_Weapon(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo,CardInfo.WeaponInfo);
     }
 
     private NumberSize my_NumberSize_Attack = NumberSize.Big;
@@ -99,9 +99,9 @@ internal class ModuleWeapon : ModuleBase
         }
     }
 
-    private WeaponType m_WeaponType;
+    private WeaponTypes m_WeaponType;
 
-    public WeaponType M_WeaponType
+    public WeaponTypes M_WeaponType
     {
         get { return m_WeaponType; }
 
@@ -142,11 +142,11 @@ internal class ModuleWeapon : ModuleBase
         set
         {
             m_WeaponEnergy = Mathf.Min(value, M_WeaponEnergyMax);
-            if (M_WeaponType == WeaponType.Sword)
+            if (M_WeaponType == WeaponTypes.Sword)
             {
                 initiateNumbers(ref GoNumberSet_WeaponEnergy, ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy, 'x');
             }
-            else if (M_WeaponType == WeaponType.Gun)
+            else if (M_WeaponType == WeaponTypes.Gun)
             {
                 initiateNumbers(ref GoNumberSet_WeaponEnergy, ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy, 'x');
             }
@@ -182,28 +182,28 @@ internal class ModuleWeapon : ModuleBase
     {
         if (AllCards.IsASeries(CardInfo, newWeapon.CardInfo))
         {
-            if (CardInfo.CardLevel == newWeapon.CardInfo.CardLevel)
+            if (CardInfo.UpgradeInfo.CardLevel == newWeapon.CardInfo.UpgradeInfo.CardLevel)
             {
                 CardInfo_Weapon m_currentInfo = (CardInfo_Weapon) GetCurrentCardInfo();
-                CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon) AllCards.GetCard(CardInfo.UpgradeID);
+                CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon) AllCards.GetCard(CardInfo.UpgradeInfo.UpgradeCardID);
                 Initiate(upgradeWeaponCardInfo, ClientPlayer);
-                M_WeaponAttack = m_currentInfo.Attack + ((CardInfo_Weapon) newWeapon.CardInfo).Attack;
-                M_WeaponEnergy = m_currentInfo.Energy + ((CardInfo_Weapon) newWeapon.CardInfo).Energy;
+                M_WeaponAttack = m_currentInfo.WeaponInfo.Attack + newWeapon.CardInfo.WeaponInfo.Attack;
+                M_WeaponEnergy = m_currentInfo.WeaponInfo.Energy + newWeapon.CardInfo.WeaponInfo.Energy;
                 newWeapon.PoolRecycle();
                 resultWeapon = this;
             }
-            else if (CardInfo.CardLevel > newWeapon.CardInfo.CardLevel)
+            else if (CardInfo.UpgradeInfo.CardLevel > newWeapon.CardInfo.UpgradeInfo.CardLevel)
             {
-                M_WeaponAttack = M_WeaponAttack + ((CardInfo_Weapon) newWeapon.CardInfo).Attack;
-                M_WeaponEnergy = M_WeaponEnergy + ((CardInfo_Weapon) newWeapon.CardInfo).Energy;
+                M_WeaponAttack = M_WeaponAttack + newWeapon.CardInfo.WeaponInfo.Attack;
+                M_WeaponEnergy = M_WeaponEnergy + newWeapon.CardInfo.WeaponInfo.Energy;
                 newWeapon.PoolRecycle();
                 resultWeapon = this;
             }
             else
             {
                 resultWeapon = newWeapon;
-                newWeapon.M_WeaponAttack = M_WeaponAttack + ((CardInfo_Weapon) newWeapon.CardInfo).Attack;
-                newWeapon.M_WeaponEnergy = M_WeaponEnergy + ((CardInfo_Weapon) newWeapon.CardInfo).Energy;
+                newWeapon.M_WeaponAttack = M_WeaponAttack + newWeapon.CardInfo.WeaponInfo.Attack;
+                newWeapon.M_WeaponEnergy = M_WeaponEnergy + newWeapon.CardInfo.WeaponInfo.Energy;
                 PoolRecycle();
             }
         }

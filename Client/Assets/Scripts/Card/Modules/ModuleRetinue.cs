@@ -134,13 +134,13 @@ internal class ModuleRetinue : ModuleBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_RetinueName = ((CardInfo_Retinue) cardInfo).CardName;
-        M_RetinueDesc = ((CardInfo_Retinue) cardInfo).CardDesc;
-        M_RetinueLeftLife = ((CardInfo_Retinue) cardInfo).Life;
-        M_RetinueTotalLife = ((CardInfo_Retinue) cardInfo).Life;
-        M_RetinueAttack = ((CardInfo_Retinue) cardInfo).BasicAttack;
-        M_RetinueArmor = ((CardInfo_Retinue) cardInfo).BasicArmor;
-        M_RetinueShield = ((CardInfo_Retinue) cardInfo).BasicShield;
+        M_RetinueName = cardInfo.BaseInfo.CardName;
+        M_RetinueDesc = cardInfo.BaseInfo.CardDesc;
+        M_RetinueLeftLife = cardInfo.LifeInfo.Life;
+        M_RetinueTotalLife = cardInfo.LifeInfo.TotalLife;
+        M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
+        M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
+        M_RetinueShield = cardInfo.BattleInfo.BasicShield;
         CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
         ChangeCardDragBloomColor(GameManager.GM.CardDragBloomColor);
 
@@ -148,28 +148,28 @@ internal class ModuleRetinue : ModuleBase
         {
             SlotAnchor1.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor1.M_ModuleRetinue = this;
-            SlotAnchor1.M_Slot.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot1;
+            SlotAnchor1.M_Slot.MSlotTypes = cardInfo.SlotInfo.Slot1;
         }
 
         if (SlotAnchor2)
         {
             SlotAnchor2.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor2.M_ModuleRetinue = this;
-            SlotAnchor2.M_Slot.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot2;
+            SlotAnchor2.M_Slot.MSlotTypes = cardInfo.SlotInfo.Slot2;
         }
 
         if (SlotAnchor3)
         {
             SlotAnchor3.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor3.M_ModuleRetinue = this;
-            SlotAnchor3.M_Slot.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot3;
+            SlotAnchor3.M_Slot.MSlotTypes = cardInfo.SlotInfo.Slot3;
         }
 
         if (SlotAnchor4)
         {
             SlotAnchor4.M_Slot.ClientPlayer = ClientPlayer;
             SlotAnchor4.M_ModuleRetinue = this;
-            SlotAnchor4.M_Slot.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot4;
+            SlotAnchor4.M_Slot.MSlotTypes = cardInfo.SlotInfo.Slot4;
         }
     }
 
@@ -189,7 +189,7 @@ internal class ModuleRetinue : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, M_RetinueLeftLife, M_RetinueTotalLife, M_RetinueAttack, M_RetinueShield, M_RetinueArmor, ((CardInfo_Retinue) CardInfo).Slot1, ((CardInfo_Retinue) CardInfo).Slot2, ((CardInfo_Retinue) CardInfo).Slot3, ((CardInfo_Retinue) CardInfo).Slot4);
+        return new CardInfo_Retinue(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo,CardInfo.LifeInfo,CardInfo.BattleInfo,CardInfo.SlotInfo);
     }
 
 
@@ -363,7 +363,7 @@ internal class ModuleRetinue : ModuleBase
     void On_WeaponChanged(ModuleWeapon newWeapon)
     {
         initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack, '+');
-        CardNumberSet_RetinueAttack.Number = ((CardInfo_Retinue) CardInfo).BasicAttack; //更换武器时机体基础攻击力恢复
+        CardNumberSet_RetinueAttack.Number = CardInfo.BattleInfo.BasicAttack; //更换武器时机体基础攻击力恢复
         M_Weapon.ChangeWeapon(newWeapon, ref m_Weapon);
     }
 
@@ -416,9 +416,9 @@ internal class ModuleRetinue : ModuleBase
     void On_ShieldChanged(ModuleShield newShield) //更换防具时机体基础护甲护盾恢复
     {
         initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueArmor);
-        CardNumberSet_RetinueArmor.Number = ((CardInfo_Retinue) CardInfo).BasicArmor;
+        CardNumberSet_RetinueArmor.Number = CardInfo.BattleInfo.BasicArmor;
         initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueShield);
-        CardNumberSet_RetinueShield.Number = ((CardInfo_Retinue) CardInfo).BasicShield;
+        CardNumberSet_RetinueShield.Number = CardInfo.BattleInfo.BasicShield;
         M_Shield.ChangeShield(newShield, ref m_Shield);
     }
 

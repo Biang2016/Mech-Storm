@@ -9,12 +9,19 @@ internal static class ServerLog
     {
         Log log = new Log(logStr, consoleColor);
         LogQueue.Enqueue(log);
+        DoPrint();
+    }
 
-        Log tmp = LogQueue.Dequeue();
-        if (tmp != null)
+    private static void DoPrint()
+    {
+        if (LogQueue.Count > 0)
         {
-            Console.ForegroundColor = tmp.ConsoleColor;
-            Console.WriteLine(tmp.Time + "  " + tmp.LogStr);
+            Log tmp = LogQueue.Dequeue();
+            if (tmp != null)
+            {
+                Console.ForegroundColor = tmp.ConsoleColor;
+                Console.WriteLine(tmp.Time + "  " + tmp.LogStr);
+            }
         }
     }
 

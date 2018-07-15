@@ -48,7 +48,20 @@ internal class RoundManager : MonoBehaviour
         EnemyCostText.text = "";
     }
 
-    public void OnGameStop()
+    bool isStop = false;
+    public void StopGame(){
+        isStop = true;
+    }
+
+    private void Update()
+    {
+        if(isStop){
+            OnGameStop();
+            isStop = false;
+        }
+    }
+
+    private void OnGameStop()
     {
         CardBase[] cardPreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
         foreach (CardBase cardPreview in cardPreviews)
@@ -75,6 +88,11 @@ internal class RoundManager : MonoBehaviour
         SelfCostText.text = "";
         EnemyCostText.text = "";
         RoundNumber = 0;
+        SelfTurnText.SetActive(false);
+        EnemyTurnText.SetActive(false);
+        EndRoundButton.SetActive(false);
+        SelfCostText.gameObject.SetActive(false);
+        EnemyCostText.gameObject.SetActive(false);
     }
 
     public void InitializePlayers(PlayerRequest r)

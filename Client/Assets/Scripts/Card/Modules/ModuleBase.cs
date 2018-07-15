@@ -85,8 +85,8 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     {
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
-        ChangeColor(CardBase.HTMLColorToColor(cardInfo.CardColor));
-        Stars = cardInfo.CardLevel;
+        ChangeColor(CardBase.HTMLColorToColor(cardInfo.BaseInfo.CardColor));
+        Stars = cardInfo.UpgradeInfo.CardLevel;
     }
 
     public abstract CardInfo_Base GetCurrentCardInfo();
@@ -176,7 +176,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
     private void ShowCardDetail(Vector3 mousePosition) //鼠标悬停放大查看原卡牌信息
     {
-        switch (CardInfo.CardType)
+        switch (CardInfo.BaseInfo.CardType)
         {
             case CardTypes.Retinue:
                 detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer);
@@ -302,7 +302,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
         canDrag = true;
-        dragPurpose = CardInfo.DragPurpose;
+        dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 
     public virtual float DragComponnet_DragDistance()

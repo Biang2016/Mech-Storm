@@ -56,8 +56,8 @@ internal class CardShield : CardBase
         base.Initiate(cardInfo, clientPlayer);
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
-        M_ShieldName = CardInfo.CardName;
-        M_ShieldDesc = CardInfo.CardDesc;
+        M_ShieldName = CardInfo.BaseInfo.CardName;
+        M_ShieldDesc = CardInfo.BaseInfo.CardDesc;
     }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)

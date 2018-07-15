@@ -37,7 +37,6 @@ internal class ClientProxy : ProxyBase
 
         if (Socket != null)
         {
-            if (Socket.Connected) Socket.Shutdown(SocketShutdown.Both);
             Socket.Close();
         }
 

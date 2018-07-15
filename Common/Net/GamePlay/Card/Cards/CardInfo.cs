@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-internal enum CardTypes
+public enum CardTypes
 {
     Retinue = 0,
     Spell = 1,
@@ -10,7 +10,7 @@ internal enum CardTypes
     MA = 5,
 }
 
-internal class CardInfo_Base
+public abstract class CardInfo_Base
 {
     public CardInfo_Base(int cardID, BaseInfo baseInfo)
     {
@@ -20,16 +20,29 @@ internal class CardInfo_Base
 
     public int CardID;
     public BaseInfo BaseInfo;
+    public UpgradeInfo UpgradeInfo;
+    public LifeInfo LifeInfo;
+    public BattleInfo BattleInfo;
+    public SlotInfo SlotInfo;
+    public WeaponInfo WeaponInfo;
+    public ShieldInfo ShieldInfo;
 
+    public abstract CardInfo_Base Clone();
 
-    public virtual CardInfo_Base Clone()
+    public static string textToVertical(string text)
     {
-        CardInfo_Base cb = new CardInfo_Base(CardID, BaseInfo);
-        return cb;
+        StringBuilder sb = new StringBuilder();
+        foreach (char ch in text)
+        {
+            sb.Append(ch);
+            sb.Append("\n");
+        }
+
+        return sb.ToString().Trim('\n');
     }
 }
 
-internal class CardInfo_Retinue : CardInfo_Base
+public class CardInfo_Retinue : CardInfo_Base
 {
     public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo) : base(cardID, baseInfo)
     {
@@ -39,12 +52,6 @@ internal class CardInfo_Retinue : CardInfo_Base
         SlotInfo = slotInfo;
     }
 
-    public UpgradeInfo UpgradeInfo;
-    public LifeInfo LifeInfo;
-    public BattleInfo BattleInfo;
-    public SlotInfo SlotInfo;
-
-
     public override CardInfo_Base Clone()
     {
         CardInfo_Retinue cb = new CardInfo_Retinue(CardID, BaseInfo, UpgradeInfo, LifeInfo, BattleInfo, SlotInfo);
@@ -52,77 +59,37 @@ internal class CardInfo_Retinue : CardInfo_Base
     }
 }
 
-internal class CardInfo_Weapon : CardInfo_Base
+public class CardInfo_Weapon : CardInfo_Base
 {
-    public CardInfo_Weapon(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID, int cardLevel, int energy, int energyMax, int attack, WeaponType weaponType) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
+    public CardInfo_Weapon(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, WeaponInfo weaponInfo) : base(cardID, baseInfo)
     {
-        Energy = energy;
-        EnergyMax = energyMax;
-        Attack = attack;
-        M_WeaponType = weaponType;
-    }
-
-    public int Energy;
-    public int EnergyMax;
-    public int Attack;
-    public WeaponType M_WeaponType;
-
-    public static string textToVertical(string text)
-    {
-        StringBuilder sb = new StringBuilder();
-        foreach (char ch in text)
-        {
-            sb.Append(ch);
-            sb.Append("\n");
-        }
-
-        return sb.ToString().Trim('\n');
+        WeaponInfo = weaponInfo;
+        UpgradeInfo = upgradeInfo;
     }
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Weapon cb = new CardInfo_Weapon(CardID, CardName, CardDesc, Cost, DragPurpose, CardType, CardColor, UpgradeID, CardLevel, Energy, EnergyMax, Attack, M_WeaponType);
+        CardInfo_Weapon cb = new CardInfo_Weapon(CardID, BaseInfo, UpgradeInfo, WeaponInfo);
         return cb;
     }
 }
 
-internal class CardInfo_Shield : CardInfo_Base
+public class CardInfo_Shield : CardInfo_Base
 {
-    public CardInfo_Shield(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID, int cardLevel, ShieldType shielType, int armor, int armorMax, int shield, int shieldMax) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
+    public CardInfo_Shield(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, ShieldInfo shieldInfo) : base(cardID, baseInfo)
     {
-        M_ShieldType = shielType;
-        Armor = armor;
-        ArmorMax = armorMax;
-        Shield = shield;
-        ShieldMax = shieldMax;
-    }
-
-    public ShieldType M_ShieldType;
-    public int Armor;
-    public int ArmorMax;
-    public int Shield;
-    public int ShieldMax;
-
-    public static string textToVertical(string text)
-    {
-        StringBuilder sb = new StringBuilder();
-        foreach (char ch in text)
-        {
-            sb.Append(ch);
-            sb.Append("\n");
-        }
-
-        return sb.ToString().Trim('\n');
+        UpgradeInfo = upgradeInfo;
+        ShieldInfo = shieldInfo;
     }
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Shield cb = new CardInfo_Shield(CardID, CardName, CardDesc, Cost, DragPurpose, CardType, CardColor, UpgradeID, CardLevel, M_ShieldType, Armor, ArmorMax, Shield, ShieldMax);
+        CardInfo_Shield cb = new CardInfo_Shield(CardID, BaseInfo, UpgradeInfo, ShieldInfo);
         return cb;
     }
 }
 
-internal struct BaseInfo
+public struct BaseInfo
 {
     public string CardName;
     public string CardDesc;
@@ -130,31 +97,100 @@ internal struct BaseInfo
     public DragPurpose DragPurpose;
     public CardTypes CardType;
     public string CardColor;
+
+    public BaseInfo(string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor)
+    {
+        CardName = cardName;
+        CardDesc = cardDesc;
+        Cost = cost;
+        DragPurpose = dragPurpose;
+        CardType = cardType;
+        CardColor = cardColor;
+    }
 }
 
-internal struct UpgradeInfo
+public struct UpgradeInfo
 {
     public int UpgradeCardID;
     public int CardLevel;
+
+    public UpgradeInfo(int upgradeCardID, int cardLevel)
+    {
+        UpgradeCardID = upgradeCardID;
+        CardLevel = cardLevel;
+    }
 }
 
-internal struct LifeInfo
+public struct LifeInfo
 {
     public int Life;
     public int TotalLife;
+
+    public LifeInfo(int life, int totalLife)
+    {
+        Life = life;
+        TotalLife = totalLife;
+    }
 }
 
-internal struct BattleInfo
+public struct BattleInfo
 {
     public int BasicAttack;
     public int BasicShield;
     public int BasicArmor;
+
+    public BattleInfo(int basicAttack, int basicShield, int basicArmor)
+    {
+        BasicAttack = basicAttack;
+        BasicShield = basicShield;
+        BasicArmor = basicArmor;
+    }
 }
 
-internal struct SlotInfo
+public struct SlotInfo
 {
     public SlotTypes Slot1;
     public SlotTypes Slot2;
     public SlotTypes Slot3;
     public SlotTypes Slot4;
+
+    public SlotInfo(SlotTypes slot1, SlotTypes slot2, SlotTypes slot3, SlotTypes slot4)
+    {
+        Slot1 = slot1;
+        Slot2 = slot2;
+        Slot3 = slot3;
+        Slot4 = slot4;
+    }
+}
+public struct WeaponInfo
+{
+    public int Energy;
+    public int EnergyMax;
+    public int Attack;
+    public WeaponTypes WeaponType;
+
+    public WeaponInfo(int energy, int energyMax, int attack, WeaponTypes weaponType)
+    {
+        Energy = energy;
+        EnergyMax = energyMax;
+        Attack = attack;
+        WeaponType = weaponType;
+    }
+}
+public struct ShieldInfo
+{
+    public int Armor;
+    public int ArmorMax;
+    public int Shield;
+    public int ShieldMax;
+    public ShieldTypes ShieldType;
+
+    public ShieldInfo(int armor, int armorMax, int shield, int shieldMax, ShieldTypes shieldType)
+    {
+        Armor = armor;
+        ArmorMax = armorMax;
+        Shield = shield;
+        ShieldMax = shieldMax;
+        ShieldType = shieldType;
+    }
 }

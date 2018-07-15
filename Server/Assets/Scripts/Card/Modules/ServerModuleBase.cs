@@ -12,7 +12,7 @@ internal abstract class ServerModuleBase
     {
         ServerPlayer = serverPlayer;
         CardInfo = cardInfo;
-        Stars = cardInfo.CardLevel;
+        Stars = cardInfo.UpgradeInfo.CardLevel;
         isInitialized = true;
     }
 

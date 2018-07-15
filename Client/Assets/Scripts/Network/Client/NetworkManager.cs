@@ -45,6 +45,7 @@ internal class NetworkManager : MonoBehaviour
             if (Client.CS.Proxy.Socket.Connected)
             {
                 ShowInfoPanel("连接服务器成功", 0f, 1f);
+                isReconnecting = false;
             }
         }
     }
@@ -62,11 +63,15 @@ internal class NetworkManager : MonoBehaviour
                 if (Client.CS.Proxy.Socket.Connected)
                 {
                     ShowInfoPanel("连接服务器成功", 0f, 1f);
+                    isReconnecting = false;
                 }
                 else
                 {
-                    if (!isReconnecting) ShowInfoPanel("正在连接服务器", 0f, float.PositiveInfinity);
-                    isReconnecting = true;
+                    if (!isReconnecting)
+                    {
+                        ShowInfoPanel("正在连接服务器", 0f, float.PositiveInfinity);
+                        isReconnecting = true;
+                    }
                 }
             }
 
@@ -79,11 +84,15 @@ internal class NetworkManager : MonoBehaviour
         ClientLog.CL.Print("连接服务器成功!");
     }
 
+    IEnumerator ShowInfoPanelCoroutine;
     void ShowInfoPanel(string text, float delay, float last)
     {
-        StopAllCoroutines();
-        Start();
-        StartCoroutine(Co_ShowInfoPanel(text, delay, last));
+        if (ShowInfoPanelCoroutine != null)
+        {
+            StopCoroutine(ShowInfoPanelCoroutine);
+        }
+        ShowInfoPanelCoroutine = Co_ShowInfoPanel(text, delay, last);
+        StartCoroutine(ShowInfoPanelCoroutine);
     }
 
     IEnumerator Co_ShowInfoPanel(string text, float delay, float last)
@@ -116,6 +125,10 @@ internal class NetworkManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SuccessMatched(){
+        ShowInfoPanel("匹配成功，开始比赛", 0, 1f);
     }
 
     private int high;
@@ -169,7 +182,7 @@ internal class NetworkManager : MonoBehaviour
             if (CreateBtn("退出比赛"))
             {
                 Client.CS.Proxy.LeaveGame();
-                RoundManager.RM.OnGameStop();
+                RoundManager.RM.StopGame();
                 ClientLog.CL.Print("您已退出比赛");
                 ShowInfoPanel("您已退出比赛", 0, 1f);
             }

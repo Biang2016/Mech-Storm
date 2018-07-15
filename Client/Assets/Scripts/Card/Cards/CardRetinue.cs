@@ -77,22 +77,22 @@ internal class CardRetinue : CardBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_RetinueName = ((CardInfo_Retinue) cardInfo).CardName;
-        M_RetinueDesc = ((CardInfo_Retinue) cardInfo).CardDesc;
-        M_RetinueLeftLife = ((CardInfo_Retinue) CardInfo).Life;
-        M_RetinueTotalLife = ((CardInfo_Retinue) CardInfo).Life;
-        M_RetinueAttack = ((CardInfo_Retinue) cardInfo).BasicAttack;
-        M_RetinueArmor = ((CardInfo_Retinue) cardInfo).BasicArmor;
-        M_RetinueShield = ((CardInfo_Retinue) cardInfo).BasicShield;
+        M_RetinueName = cardInfo.BaseInfo.CardName;
+        M_RetinueDesc = (cardInfo).BaseInfo.CardDesc;
+        M_RetinueLeftLife = cardInfo.LifeInfo.Life;
+        M_RetinueTotalLife = cardInfo.LifeInfo.TotalLife;
+        M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
+        M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
+        M_RetinueShield = cardInfo.BattleInfo.BasicShield;
 
         Slot1.ClientPlayer = ClientPlayer;
-        Slot1.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot1;
+        Slot1.MSlotTypes = cardInfo.SlotInfo.Slot1;
         Slot2.ClientPlayer = ClientPlayer;
-        Slot2.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot2;
+        Slot2.MSlotTypes = cardInfo.SlotInfo.Slot2;
         Slot3.ClientPlayer = ClientPlayer;
-        Slot3.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot3;
+        Slot3.MSlotTypes = cardInfo.SlotInfo.Slot3;
         Slot4.ClientPlayer = ClientPlayer;
-        Slot4.MSlotTypes = ((CardInfo_Retinue) cardInfo).Slot4;
+        Slot4.MSlotTypes = cardInfo.SlotInfo.Slot4;
     }
 
     private string m_RetinueName;

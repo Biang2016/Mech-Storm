@@ -9,18 +9,18 @@ internal class ServerModuleShield : ServerModuleBase
 
     public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
-        M_ShieldName = CardInfo_Shield.textToVertical(((CardInfo_Shield) cardInfo).CardName);
-        M_ShieldType = ((CardInfo_Shield) cardInfo).M_ShieldType;
-        M_ShieldArmor = ((CardInfo_Shield) cardInfo).Armor + M_ModuleRetinue.M_RetinueArmor;
-        M_ShieldArmorMax = ((CardInfo_Shield) cardInfo).ArmorMax + M_ModuleRetinue.M_RetinueArmor;
-        M_ShieldShield = ((CardInfo_Shield) cardInfo).Shield + M_ModuleRetinue.M_RetinueShield;
-        M_ShieldShieldMax = ((CardInfo_Shield) cardInfo).ShieldMax + M_ModuleRetinue.M_RetinueShield;
+        M_ShieldName = CardInfo_Base.textToVertical(((CardInfo_Shield)cardInfo).BaseInfo.CardName);
+        M_ShieldType = cardInfo.ShieldInfo.ShieldType;
+        M_ShieldArmor = cardInfo.ShieldInfo.Armor + M_ModuleRetinue.M_RetinueArmor;
+        M_ShieldArmorMax = cardInfo.ShieldInfo.ArmorMax + M_ModuleRetinue.M_RetinueArmor;
+        M_ShieldShield = cardInfo.ShieldInfo.Shield + M_ModuleRetinue.M_RetinueShield;
+        M_ShieldShieldMax = cardInfo.ShieldInfo.ShieldMax + M_ModuleRetinue.M_RetinueShield;
         base.Initiate(cardInfo, serverPlayer);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Shield(CardInfo.CardID, CardInfo.CardName, CardInfo.CardDesc, CardInfo.Cost, CardInfo.DragPurpose, CardInfo.CardType, CardInfo.CardColor, CardInfo.UpgradeID, CardInfo.CardLevel, ((CardInfo_Shield) CardInfo).M_ShieldType, ((CardInfo_Shield) CardInfo).Armor, ((CardInfo_Shield) CardInfo).ArmorMax, ((CardInfo_Shield) CardInfo).Shield, ((CardInfo_Shield) CardInfo).ShieldMax);
+        return new CardInfo_Shield(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.ShieldInfo);
     }
 
     #region 属性
@@ -42,9 +42,9 @@ internal class ServerModuleShield : ServerModuleBase
         set { m_ShieldName = value; }
     }
 
-    private ShieldType m_ShieldType;
+    private ShieldTypes m_ShieldType;
 
-    public ShieldType M_ShieldType
+    public ShieldTypes M_ShieldType
     {
         get { return m_ShieldType; }
 
@@ -118,7 +118,7 @@ internal class ServerModuleShield : ServerModuleBase
         {
             int before = m_ShieldShieldMax;
             m_ShieldShieldMax = value;
-            if (isInitialized&&before !=m_ShieldShieldMax)
+            if (isInitialized && before != m_ShieldShieldMax)
             {
                 ShieldAttributesRequest request = new ShieldAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_ShieldPlaceIndex, ShieldAttributesRequest.ShieldAttributesChangeFlag.ShieldMax, addShieldMax: m_ShieldShieldMax - before);
                 ServerPlayer.MyClientProxy.SendMessage(request);
@@ -139,28 +139,28 @@ internal class ServerModuleShield : ServerModuleBase
     {
         if (AllCards.IsASeries(CardInfo, newShield.CardInfo))
         {
-            if (CardInfo.CardLevel == newShield.CardInfo.CardLevel)
+            if (CardInfo.UpgradeInfo.CardLevel == newShield.CardInfo.UpgradeInfo.CardLevel)
             {
-                CardInfo_Shield m_currentInfo = (CardInfo_Shield) GetCurrentCardInfo();
-                CardInfo_Shield upgradeShieldCardInfo = (CardInfo_Shield) AllCards.GetCard(CardInfo.UpgradeID);
+                CardInfo_Shield m_currentInfo = (CardInfo_Shield)GetCurrentCardInfo();
+                CardInfo_Shield upgradeShieldCardInfo = (CardInfo_Shield)AllCards.GetCard(CardInfo.UpgradeInfo.UpgradeCardID);
                 Initiate(upgradeShieldCardInfo, ServerPlayer);
-                M_ShieldShield = m_currentInfo.Shield + ((CardInfo_Shield) newShield.CardInfo).Shield;
-                M_ShieldArmor = m_currentInfo.Armor + ((CardInfo_Shield) newShield.CardInfo).Armor;
+                M_ShieldShield = m_currentInfo.ShieldInfo.Shield + newShield.CardInfo.ShieldInfo.Shield;
+                M_ShieldArmor = m_currentInfo.ShieldInfo.Armor + newShield.CardInfo.ShieldInfo.Armor;
                 //newShield.PoolRecycle();
                 resultShield = this;
             }
-            else if (CardInfo.CardLevel > newShield.CardInfo.CardLevel)
+            else if (CardInfo.UpgradeInfo.CardLevel > newShield.CardInfo.UpgradeInfo.CardLevel)
             {
-                M_ShieldShield = M_ShieldShield + ((CardInfo_Shield) newShield.CardInfo).Shield;
-                M_ShieldArmor = M_ShieldArmor + ((CardInfo_Shield) newShield.CardInfo).Armor;
+                M_ShieldShield = M_ShieldShield + newShield.CardInfo.ShieldInfo.Shield;
+                M_ShieldArmor = M_ShieldArmor + newShield.CardInfo.ShieldInfo.Armor;
                 //newShield.PoolRecycle();
                 resultShield = this;
             }
             else
             {
                 resultShield = newShield;
-                newShield.M_ShieldShield = M_ShieldShield + ((CardInfo_Shield) newShield.CardInfo).Shield;
-                newShield.M_ShieldArmor = M_ShieldArmor + ((CardInfo_Shield) newShield.CardInfo).Shield;
+                newShield.M_ShieldShield = M_ShieldShield + newShield.CardInfo.ShieldInfo.Shield;
+                newShield.M_ShieldArmor = M_ShieldArmor + newShield.CardInfo.ShieldInfo.Shield;
                 //PoolRecycle();
             }
         }
@@ -177,9 +177,6 @@ internal class ServerModuleShield : ServerModuleBase
 
     public int ShieldBeAttacked(int attackValue)
     {
-        bool isTrigger = false;
-        bool isDead = false;
-
         int remainAttackValue = attackValue;
         if (remainAttackValue == 0) return 0;
         if (M_ShieldShield > 0)
@@ -194,13 +191,10 @@ internal class ServerModuleShield : ServerModuleBase
                 remainAttackValue -= M_ShieldShield;
                 M_ShieldShield /= 2;
             }
-
-            isTrigger = true;
         }
 
         if (M_ShieldShield == 0 && M_ShieldArmor == 0)
         {
-            isDead = true;
             M_ModuleRetinue.M_Shield = null;
         }
 
@@ -209,8 +203,6 @@ internal class ServerModuleShield : ServerModuleBase
 
     public int ArmorBeAttacked(int attackValue)
     {
-        bool isTrigger = false;
-        bool isDead = false;
         int remainAttackValue = attackValue;
         if (remainAttackValue == 0) return 0;
         if (M_ShieldArmor > 0)
@@ -225,13 +217,10 @@ internal class ServerModuleShield : ServerModuleBase
                 remainAttackValue = remainAttackValue - M_ShieldArmor;
                 M_ShieldArmor = 0;
             }
-
-            isTrigger = true;
         }
 
         if (M_ShieldShield == 0 && M_ShieldArmor == 0)
         {
-            isDead = true;
             M_ModuleRetinue.M_Shield = null;
         }
 

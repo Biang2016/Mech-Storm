@@ -21,10 +21,23 @@ internal class BattleEffectsManager : MonoBehaviour
     }
 
     //管理战斗时的各种协程
-    internal bool IsExcuting = false;
+    private bool IsExcuting = false;
 
-    internal Queue<IEnumerator> BattleEffects = new Queue<IEnumerator>();
+    private Queue<IEnumerator> BattleEffects = new Queue<IEnumerator>();
 
+    public void EffectsShow(IEnumerator enumerator)
+    {
+        BattleEffects.Enqueue(enumerator);
+    }
+
+    public void EffectEnd(){
+        IsExcuting = false;
+    }
+
+    public void AllEffectsEnd(){
+        BattleEffects.Clear();
+        StopAllCoroutines();
+    }
 
     void Start()
     {
@@ -34,7 +47,8 @@ internal class BattleEffectsManager : MonoBehaviour
     {
         if (!IsExcuting && BattleEffects.Count != 0)
         {
-            StartCoroutine(BattleEffects.Dequeue());
+            IEnumerator effect = BattleEffects.Dequeue();
+            StartCoroutine(effect);
             IsExcuting = true;
         }
     }

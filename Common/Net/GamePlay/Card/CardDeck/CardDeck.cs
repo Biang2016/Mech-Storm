@@ -38,7 +38,7 @@ public class CardDeck
         {
             if (cb is CardInfo_Type)
             {
-                return (CardInfo_Type) cb;
+                return (CardInfo_Type)cb;
             }
         }
 
@@ -54,7 +54,7 @@ public class CardDeck
             if (cb is CardInfo_Type)
             {
                 count++;
-                resList.Add((CardInfo_Type) cb);
+                resList.Add((CardInfo_Type)cb);
                 if (count >= cardNumber)
                 {
                     break;
@@ -157,7 +157,7 @@ public class CardDeck
         CardInfo_Base target_cb = null;
         foreach (CardInfo_Base cb in Cards)
         {
-            if (cb.CardType == CardTypes.Retinue)
+            if (cb.BaseInfo.CardType == CardTypes.Retinue)
             {
                 target_cb = cb;
                 break;
@@ -205,10 +205,7 @@ public static class AllCards
         CardDict.Add(cardInfo.CardID, cardInfo);
     }
 
-    public static string HeroColor = "#787878FF";
     public static string RetinueColor = "#5BAEF4FF";
-    public static string WeaponSwordColor = "#FF229DFF";
-    public static string WeaponGunColor = "#FF0000FF";
     public static string ShieldShieldColor = "#E6FF00FF";
     public static string ShieldArmorColor = "#FF8E00FF";
 
@@ -221,307 +218,90 @@ public static class AllCards
         for (int i = 0; i < allCards.ChildNodes.Count; i++)
         {
             XmlNode card = allCards.ChildNodes.Item(i);
+            BaseInfo baseInfo = new BaseInfo();
+            UpgradeInfo upgradeInfo = new UpgradeInfo();
+            LifeInfo lifeInfo = new LifeInfo();
+            BattleInfo battleInfo = new BattleInfo();
+            SlotInfo slotInfo = new SlotInfo();
+            WeaponInfo weaponInfo = new WeaponInfo();
+            ShieldInfo shieldInfo = new ShieldInfo();
+
             for (int j = 0; j < card.ChildNodes.Count; j++)
             {
                 XmlNode cardInfo = card.ChildNodes[j];
-                if (cardInfo.Name == "baseInfo")
+                switch (cardInfo.Attributes["name"].Value)
                 {
-
+                    case "baseInfo":
+                        baseInfo = new BaseInfo(cardInfo.Attributes["cardName"].Value,
+                                                        cardInfo.Attributes["cardDesc"].Value,
+                                                        int.Parse(cardInfo.Attributes["cost"].Value),
+                                                        (DragPurpose)Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
+                                                        (CardTypes)Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value),
+                                                        cardInfo.Attributes["cardColor"].Value);
+                        break;
+                    case "upgradeInfo":
+                        upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value),
+                                                                 int.Parse(cardInfo.Attributes["cardLevel"].Value));
+                        break;
+                    case "lifeInfo":
+                        lifeInfo = new LifeInfo(int.Parse(cardInfo.Attributes["life"].Value),
+                                                                 int.Parse(cardInfo.Attributes["totalLife"].Value));
+                        break;
+                    case "battleInfo":
+                        battleInfo = new BattleInfo(int.Parse(cardInfo.Attributes["basicAttack"].Value),
+                                                            int.Parse(cardInfo.Attributes["basicShield"].Value),
+                                                            int.Parse(cardInfo.Attributes["basicArmor"].Value));
+                        break;
+                    case "slotInfo":
+                        slotInfo = new SlotInfo((SlotTypes)Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
+                                                      (SlotTypes)Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot2"].Value),
+                                                      (SlotTypes)Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot3"].Value),
+                                                      (SlotTypes)Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot4"].Value));
+                        break;
+                    case "weaponInfo":
+                        weaponInfo = new WeaponInfo(int.Parse(cardInfo.Attributes["energy"].Value),
+                                                int.Parse(cardInfo.Attributes["energyMax"].Value),
+                                                int.Parse(cardInfo.Attributes["attack"].Value),
+                                                (WeaponTypes)Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value));
+                        break;
+                    case "shieldInfo":
+                        shieldInfo = new ShieldInfo(int.Parse(cardInfo.Attributes["armor"].Value),
+                                                    int.Parse(cardInfo.Attributes["armorMax"].Value),
+                                                    int.Parse(cardInfo.Attributes["shield"].Value),
+                                                    int.Parse(cardInfo.Attributes["shieldMax"].Value),
+                                                    (ShieldTypes)Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value));
+                        break;
+                    default: break;
                 }
             }
 
-            addCard(
-                new CardInfo_Retinue(
-                    cardID: int.Parse(card.Attributes["id"].Value),
-                    cardName:,
-                    cardDesc: "",
-                    cost: 0,
-                    dragPurpose: DragPurpose.Summon,
-                    cardType: CardTypes.Retinue,
-                    cardColor: HeroColor,
-                    upgradeCardID: -1,
-                    cardLevel: 0,
-                    life: 0,
-                    totalLife: 0,
-                    basicAttack: 0,
-                    basicShield: 0,
-                    basicArmor: 0,
-                    slot1: SlotTypes.None,
-                    slot2: SlotTypes.None,
-                    slot3: SlotTypes.None,
-                    slot4: SlotTypes.None
-                ));
+            switch (baseInfo.CardType)
+            {
+                case CardTypes.Retinue:
+                    addCard(new CardInfo_Retinue(
+                            cardID: int.Parse(card.Attributes["id"].Value),
+                            baseInfo: baseInfo,
+                            upgradeInfo: upgradeInfo,
+                            lifeInfo: lifeInfo,
+                            battleInfo: battleInfo,
+                            slotInfo: slotInfo));
+                    break;
+                case CardTypes.Weapon:
+                    addCard(new CardInfo_Weapon(
+                            cardID: int.Parse(card.Attributes["id"].Value),
+                            baseInfo: baseInfo,
+                            upgradeInfo: upgradeInfo,
+                            weaponInfo: weaponInfo));
+                    break;
+                case CardTypes.Shield:
+                    addCard(new CardInfo_Shield(
+                            cardID: int.Parse(card.Attributes["id"].Value),
+                            baseInfo: baseInfo,
+                            upgradeInfo: upgradeInfo,
+                            shieldInfo: shieldInfo));
+                    break;
+            }
         }
-
-        addCard(
-            new CardInfo_Retinue(
-                cardID: 999,
-                cardName: "空牌",
-                cardDesc: "",
-                cost: 0,
-                dragPurpose: DragPurpose.Summon,
-                cardType: CardTypes.Retinue,
-                cardColor: HeroColor,
-                upgradeCardID: -1,
-                cardLevel: 0,
-                life: 0,
-                totalLife: 0,
-                basicAttack: 0,
-                basicShield: 0,
-                basicArmor: 0,
-                slot1: SlotTypes.None,
-                slot2: SlotTypes.None,
-                slot3: SlotTypes.None,
-                slot4: SlotTypes.None
-            ));
-        addCard(
-            new CardInfo_Retinue(
-                cardID: 99,
-                cardName: "假装这是英雄",
-                cardDesc: "它死了就输了",
-                cost: 0,
-                dragPurpose: DragPurpose.Summon,
-                cardType: CardTypes.Retinue,
-                cardColor: HeroColor,
-                upgradeCardID: -1,
-                cardLevel: 0,
-                life: 50,
-                totalLife: 50,
-                basicAttack: 0,
-                basicShield: 0,
-                basicArmor: 0,
-                slot1: SlotTypes.None,
-                slot2: SlotTypes.None,
-                slot3: SlotTypes.None,
-                slot4: SlotTypes.None
-            ));
-        addCard(
-            new CardInfo_Retinue(
-                cardID: 0,
-                cardName: "突击敢达",
-                cardDesc: "具有初始攻击加成\n装备武器后如虎添翼",
-                cost: 2,
-                dragPurpose: DragPurpose.Summon,
-                cardType: CardTypes.Retinue,
-                cardColor: RetinueColor,
-                upgradeCardID: -1,
-                cardLevel: 0,
-                life: 6,
-                totalLife: 6,
-                basicAttack: 1,
-                basicShield: 0,
-                basicArmor: 0,
-                slot1: SlotTypes.Weapon,
-                slot2: SlotTypes.Shield,
-                slot3: SlotTypes.Pack,
-                slot4: SlotTypes.MA
-            ));
-        addCard(
-            new CardInfo_Retinue(
-                cardID: 1,
-                cardName: "守卫者",
-                cardDesc: "身披护盾的守卫者\n可抵御大量伤害",
-                cost: 2,
-                dragPurpose: DragPurpose.Summon,
-                cardType: CardTypes.Retinue,
-                cardColor: RetinueColor,
-                upgradeCardID: -1,
-                cardLevel: 0,
-                life: 5,
-                totalLife: 5,
-                basicAttack: 0,
-                basicShield: 3,
-                basicArmor: 3,
-                slot1: SlotTypes.Weapon,
-                slot2: SlotTypes.Shield,
-                slot3: SlotTypes.Pack,
-                slot4: SlotTypes.MA));
-        addCard(
-            new CardInfo_Weapon(
-                cardID: 100,
-                cardName: "热能斧Ⅰ",
-                cardDesc: "伤害<color=#FFFF00>1</color>\n能量<color=#FFFF00>1/3</color>",
-                cost: 1,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Weapon,
-                cardColor: WeaponSwordColor,
-                upgradeCardID: 101,
-                cardLevel: 1,
-                energy: 1,
-                energyMax: 3,
-                attack: 1,
-                weaponType: WeaponType.Sword));
-        addCard(
-            new CardInfo_Weapon(
-                cardID: 101,
-                cardName: "热能斧Ⅱ",
-                cardDesc: "伤害<color=#FFFF00>1</color>\n能量<color=#FFFF00>2/5</color>",
-                cost: 3,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Weapon,
-                cardColor: WeaponSwordColor,
-                upgradeCardID: 102,
-                cardLevel: 2,
-                energy: 2,
-                energyMax: 5,
-                attack: 1,
-                weaponType: WeaponType.Sword));
-        addCard(
-            new CardInfo_Weapon(
-                cardID: 102,
-                cardName: "热能斧Ⅲ",
-                cardDesc: "伤害<color=#FFFF00>2</color>\n能量<color=#FFFF00>4/7</color>",
-                cost: 5,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Weapon,
-                cardColor: WeaponSwordColor,
-                upgradeCardID: -1,
-                cardLevel: 3,
-                energy: 4,
-                energyMax: 7,
-                attack: 2,
-                weaponType: WeaponType.Sword));
-        addCard(
-            new CardInfo_Weapon(
-                cardID: 200,
-                cardName: "新兵步枪Ⅰ",
-                cardDesc: "伤害<color=#FFFF00>1</color>\n弹药数<color=#FFFF00>3/3</color>",
-                cost: 2,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Weapon,
-                cardColor: WeaponGunColor,
-                upgradeCardID: 201,
-                cardLevel: 1,
-                energy: 3,
-                energyMax: 3,
-                attack: 1,
-                weaponType: WeaponType.Gun));
-        addCard(
-            new CardInfo_Weapon(
-                cardID: 201,
-                cardName: "新兵步枪Ⅱ",
-                cardDesc: "伤害<color=#FFFF00>1</color>\n弹药数<color=#FFFF00>5/5</color>",
-                cost: 3,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Weapon,
-                cardColor: WeaponGunColor,
-                upgradeCardID: 202,
-                cardLevel: 2,
-                energy: 5,
-                energyMax: 5,
-                attack: 1,
-                weaponType: WeaponType.Gun));
-        addCard(
-            new CardInfo_Weapon(
-                cardID: 202,
-                cardName: "新兵步枪Ⅲ",
-                cardDesc: "伤害<color=#FFFF00>1</color>\n弹药数<color=#FFFF00>8/8</color>",
-                cost: 5,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Weapon,
-                cardColor: WeaponGunColor,
-                upgradeCardID: -1,
-                cardLevel: 3,
-                energy: 8,
-                energyMax: 8,
-                attack: 1,
-                weaponType: WeaponType.Gun));
-        addCard(
-            new CardInfo_Shield(
-                cardID: 300,
-                cardName: "新兵护盾Ⅰ",
-                cardDesc: "提供<color=#67c8ff>4</color>点护盾",
-                cost: 2,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Shield,
-                cardColor: ShieldShieldColor,
-                upgradeCardID: 302,
-                cardLevel: 1,
-                shielType: ShieldType.Shield,
-                armor: 0,
-                armorMax: 0,
-                shield: 4,
-                shieldMax: 4));
-        addCard(
-            new CardInfo_Shield(
-                cardID: 301,
-                cardName: "新兵护盾Ⅱ",
-                cardDesc: "提供<color=#67c8ff>6</color>点护盾",
-                cost: 3,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Shield,
-                cardColor: ShieldShieldColor,
-                upgradeCardID: 302,
-                cardLevel: 2,
-                shielType: ShieldType.Shield,
-                armor: 0,
-                armorMax: 0,
-                shield: 6,
-                shieldMax: 6));
-        addCard(
-            new CardInfo_Shield(
-                cardID: 302,
-                cardName: "新兵护盾Ⅲ",
-                cardDesc: "提供<color=#67c8ff>8</color>点护盾",
-                cost: 4,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Shield,
-                cardColor: ShieldShieldColor,
-                upgradeCardID: -1,
-                cardLevel: 3,
-                shielType: ShieldType.Shield,
-                armor: 0,
-                armorMax: 0,
-                shield: 8,
-                shieldMax: 8));
-        addCard(
-            new CardInfo_Shield(
-                cardID: 350,
-                cardName: "新兵盾牌Ⅰ",
-                cardDesc: "提供<color=#67c8ff>4</color>点护甲",
-                cost: 1,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Shield,
-                cardColor: ShieldArmorColor,
-                upgradeCardID: 303,
-                cardLevel: 1,
-                shielType: ShieldType.Armor,
-                armor: 4,
-                armorMax: 4,
-                shield: 0,
-                shieldMax: 0));
-        addCard(
-            new CardInfo_Shield(
-                cardID: 351,
-                cardName: "新兵盾牌Ⅱ",
-                cardDesc: "提供<color=#67c8ff>6</color>点护甲",
-                cost: 2,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Shield,
-                cardColor: ShieldArmorColor,
-                upgradeCardID: 352,
-                cardLevel: 2,
-                shielType: ShieldType.Armor,
-                armor: 6,
-                armorMax: 6,
-                shield: 0,
-                shieldMax: 0));
-        addCard(
-            new CardInfo_Shield(
-                cardID: 352,
-                cardName: "新兵盾牌Ⅲ",
-                cardDesc: "提供<color=#67c8ff>8</color>点护甲",
-                cost: 3,
-                dragPurpose: DragPurpose.Equip,
-                cardType: CardTypes.Shield,
-                cardColor: ShieldArmorColor,
-                upgradeCardID: -1,
-                cardLevel: 3,
-                shielType: ShieldType.Armor,
-                armor: 8,
-                armorMax: 8,
-                shield: 0,
-                shieldMax: 0));
     }
 
     public static CardInfo_Base GetCard(int cardID)
@@ -550,14 +330,14 @@ public static class AllCards
     public static bool IsASeries(CardInfo_Base card1, CardInfo_Base card2)
     {
         if (card1.CardID == card2.CardID) return true;
-        int level1 = card1.CardLevel;
-        int level2 = card2.CardLevel;
+        int level1 = card1.UpgradeInfo.CardLevel;
+        int level2 = card2.UpgradeInfo.CardLevel;
         if (level1 > level2)
         {
             return IsASeries(card2, card1);
         }
 
-        int tmpUpgradeID = card1.UpgradeID;
+        int tmpUpgradeID = card1.UpgradeInfo.UpgradeCardID;
         while (tmpUpgradeID != -1)
         {
             if (tmpUpgradeID == card2.CardID)
@@ -565,7 +345,7 @@ public static class AllCards
                 return true;
             }
 
-            tmpUpgradeID = GetCard((int) tmpUpgradeID).UpgradeID;
+            tmpUpgradeID = GetCard((int)tmpUpgradeID).UpgradeInfo.UpgradeCardID;
         }
 
         return false;
