@@ -232,7 +232,7 @@ public static class AllCards
 
             addCard(
                 new CardInfo_Retinue(
-                    cardID: int.Parse(node.Attributes["id"].Value),
+                    cardID: int.Parse(card.Attributes["id"].Value),
                     cardName:,
                     cardDesc: "",
                     cost: 0,

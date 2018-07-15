@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-public enum CardTypes
+internal enum CardTypes
 {
     Retinue = 0,
     Spell = 1,
@@ -10,73 +10,51 @@ public enum CardTypes
     MA = 5,
 }
 
-public class CardInfo_Base
+internal class CardInfo_Base
 {
-    public CardInfo_Base(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID,int cardLevel)
+    public CardInfo_Base(int cardID, BaseInfo baseInfo)
     {
         CardID = cardID;
-        CardName = cardName;
-        CardDesc = cardDesc;
-        Cost = cost;
-        DragPurpose = dragPurpose;
-        CardType = cardType;
-        CardColor = cardColor;
-        UpgradeID = upgradeCardID;
-        CardLevel = cardLevel;
+        BaseInfo = baseInfo;
     }
 
     public int CardID;
-    public string CardName;
-    public string CardDesc;
-    public int Cost;
-    public DragPurpose DragPurpose;
-    public CardTypes CardType;
-    public string CardColor;
-    public int UpgradeID;
-    public int CardLevel;
+    public BaseInfo BaseInfo;
+
 
     public virtual CardInfo_Base Clone()
     {
-        CardInfo_Base cb = new CardInfo_Base(CardID, CardName, CardDesc, Cost, DragPurpose, CardType, CardColor, UpgradeID,CardLevel);
+        CardInfo_Base cb = new CardInfo_Base(CardID, BaseInfo);
         return cb;
     }
 }
 
-public class CardInfo_Retinue : CardInfo_Base
+internal class CardInfo_Retinue : CardInfo_Base
 {
-    public CardInfo_Retinue(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID,int cardLevel, int life, int totalLife, int basicAttack, int basicShield, int basicArmor,SlotTypes slot1,SlotTypes slot2,SlotTypes slot3,SlotTypes slot4) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo) : base(cardID, baseInfo)
     {
-        Life = life;
-        TotalLife = totalLife;
-        BasicAttack = basicAttack;
-        BasicShield = basicShield;
-        BasicArmor = basicArmor;
-        Slot1 = slot1;
-        Slot2 = slot2;
-        Slot3 = slot3;
-        Slot4 = slot4;
+        UpgradeInfo = upgradeInfo;
+        LifeInfo = lifeInfo;
+        BattleInfo = battleInfo;
+        SlotInfo = slotInfo;
     }
 
-    public int Life;
-    public int TotalLife;
-    public int BasicAttack;
-    public int BasicShield;
-    public int BasicArmor;
-    public SlotTypes Slot1;
-    public SlotTypes Slot2;
-    public SlotTypes Slot3;
-    public SlotTypes Slot4;
+    public UpgradeInfo UpgradeInfo;
+    public LifeInfo LifeInfo;
+    public BattleInfo BattleInfo;
+    public SlotInfo SlotInfo;
+
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, CardName, CardDesc, Cost, DragPurpose, CardType, CardColor, UpgradeID,CardLevel, Life, TotalLife, BasicAttack, BasicShield, BasicArmor,Slot1,Slot2,Slot3,Slot4);
+        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, BaseInfo, UpgradeInfo, LifeInfo, BattleInfo, SlotInfo);
         return cb;
     }
 }
 
-public class CardInfo_Weapon : CardInfo_Base
+internal class CardInfo_Weapon : CardInfo_Base
 {
-    public CardInfo_Weapon(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID,int cardLevel, int energy, int energyMax, int attack, WeaponType weaponType) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
+    public CardInfo_Weapon(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID, int cardLevel, int energy, int energyMax, int attack, WeaponType weaponType) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
     {
         Energy = energy;
         EnergyMax = energyMax;
@@ -108,9 +86,9 @@ public class CardInfo_Weapon : CardInfo_Base
     }
 }
 
-public class CardInfo_Shield : CardInfo_Base
+internal class CardInfo_Shield : CardInfo_Base
 {
-    public CardInfo_Shield(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID,int cardLevel, ShieldType shielType, int armor, int armorMax, int shield, int shieldMax) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
+    public CardInfo_Shield(int cardID, string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, int upgradeCardID, int cardLevel, ShieldType shielType, int armor, int armorMax, int shield, int shieldMax) : base(cardID, cardName, cardDesc, cost, dragPurpose, cardType, cardColor, upgradeCardID, cardLevel)
     {
         M_ShieldType = shielType;
         Armor = armor;
@@ -139,7 +117,44 @@ public class CardInfo_Shield : CardInfo_Base
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Shield cb = new CardInfo_Shield(CardID, CardName, CardDesc, Cost, DragPurpose, CardType, CardColor, UpgradeID,CardLevel, M_ShieldType, Armor, ArmorMax, Shield, ShieldMax);
+        CardInfo_Shield cb = new CardInfo_Shield(CardID, CardName, CardDesc, Cost, DragPurpose, CardType, CardColor, UpgradeID, CardLevel, M_ShieldType, Armor, ArmorMax, Shield, ShieldMax);
         return cb;
     }
+}
+
+internal struct BaseInfo
+{
+    public string CardName;
+    public string CardDesc;
+    public int Cost;
+    public DragPurpose DragPurpose;
+    public CardTypes CardType;
+    public string CardColor;
+}
+
+internal struct UpgradeInfo
+{
+    public int UpgradeCardID;
+    public int CardLevel;
+}
+
+internal struct LifeInfo
+{
+    public int Life;
+    public int TotalLife;
+}
+
+internal struct BattleInfo
+{
+    public int BasicAttack;
+    public int BasicShield;
+    public int BasicArmor;
+}
+
+internal struct SlotInfo
+{
+    public SlotTypes Slot1;
+    public SlotTypes Slot2;
+    public SlotTypes Slot3;
+    public SlotTypes Slot4;
 }
