@@ -27,6 +27,7 @@ public class NetProtocols
 
     #region Server
 
+    public const int GAME_START = 0x00000200; //开始游戏信息大包
     public const int PLAYER = 0x00000201; //英雄信息
     public const int PLAYER_TURN = 0x00000202; //切换玩家
     public const int DRAW_CARD = 0x00000203; //抽一张牌
@@ -41,6 +42,8 @@ public class NetProtocols
     public const int RETINUE_ATTRIBUTES_CHANGE = 0x00000209; //随从数值变化
     public const int WEAPON_ATTRIBUTES_CHANGE = 0x00000210; //武器模块数值变化
     public const int SHIELD_ATTRIBUTES_CHANGE = 0x00000211; //防具模块数值变化
+
+    public const int END_ROUND_RESPONSE = 0x00000299; //结束回合
 
     #endregion
 

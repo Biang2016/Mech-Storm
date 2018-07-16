@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-public class ProtoManager
+public static class ProtoManager
 {
-    private Dictionary<int, Func<DataStream, RequestBase>> mProtocolMapping;
+    private static Dictionary<int, Func<DataStream, RequestBase>> mProtocolMapping;
 
     public delegate void requestDelegate(Socket socket, RequestBase requestBase);
 
-    private Dictionary<int, List<requestDelegate>> mDelegateMapping;
+    private static Dictionary<int, List<requestDelegate>> mDelegateMapping;
 
-    public ProtoManager()
+    static ProtoManager()
     {
         mProtocolMapping = new Dictionary<int, Func<DataStream, RequestBase>>();
         mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
@@ -41,6 +41,7 @@ public class ProtoManager
 
         #region Server
 
+        AddProtocol<GameStart_Response>(NetProtocols.GAME_START);
         AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
         AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
         AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
@@ -55,6 +56,8 @@ public class ProtoManager
         AddProtocol<WeaponAttributesRequest>(NetProtocols.WEAPON_ATTRIBUTES_CHANGE);
         AddProtocol<ShieldAttributesRequest>(NetProtocols.SHIELD_ATTRIBUTES_CHANGE);
         AddProtocol<RetinueAttributesRequest>(NetProtocols.RETINUE_ATTRIBUTES_CHANGE);
+
+        AddProtocol<EndRoundRequest_Response>(NetProtocols.END_ROUND_RESPONSE);
 
         #endregion
 
@@ -74,7 +77,7 @@ public class ProtoManager
     }
 
 
-    public void AddProtocol<T>(int protocol) where T : RequestBase, new()
+    public static void AddProtocol<T>(int protocol) where T : RequestBase, new()
     {
         if (mProtocolMapping.ContainsKey(protocol))
         {
@@ -95,7 +98,7 @@ public class ProtoManager
     /// </summary>
     /// <param name="protocol">Protocol.</param>
     /// <param name="d">D.</param>
-    public void AddRequestDelegate(int protocol, requestDelegate d)
+    public static void AddRequestDelegate(int protocol, requestDelegate d)
     {
         List<requestDelegate> dels;
         if (mDelegateMapping.ContainsKey(protocol))
@@ -118,7 +121,7 @@ public class ProtoManager
         dels.Add(d);
     }
 
-    public void DelRespDelegate(int protocol, requestDelegate d)
+    public static void DelRespDelegate(int protocol, requestDelegate d)
     {
         if (mDelegateMapping.ContainsKey(protocol))
         {
@@ -127,7 +130,7 @@ public class ProtoManager
         }
     }
 
-    public RequestBase TryDeserialize(byte[] data, Socket socket)
+    public static RequestBase TryDeserialize(byte[] data, Socket socket)
     {
         DataStream stream = new DataStream(data, true);
 
@@ -136,7 +139,7 @@ public class ProtoManager
         if (mProtocolMapping.ContainsKey(protocol))
         {
             requestBase = mProtocolMapping[protocol](stream);
-            if (requestBase != null)
+            if (requestBase != null && socket != null)
             {
                 if (mDelegateMapping.ContainsKey(protocol))
                 {

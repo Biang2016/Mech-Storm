@@ -74,15 +74,15 @@ internal class ServerCardDeckManager
     {
         DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, cardId, true);
         DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, cardId, false);
-        ServerPlayer?.MyClientProxy?.SendMessage(request1);
-        ServerPlayer?.MyEnemyPlayer?.MyClientProxy?.SendMessage(request2);
+        ServerPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request1);
+        ServerPlayer?.MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request2);
     }
 
     public void OnPlayerGetCards(List<int> cardIds)
     {
         DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, cardIds, true);
         DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, cardIds, false);
-        ServerPlayer?.MyClientProxy?.SendMessage(request1);
-        ServerPlayer?.MyEnemyPlayer?.MyClientProxy?.SendMessage(request2);
+        ServerPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request1);
+        ServerPlayer?.MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request2);
     }
 }

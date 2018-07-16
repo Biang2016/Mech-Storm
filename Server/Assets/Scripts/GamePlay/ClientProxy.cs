@@ -81,6 +81,8 @@ internal class ClientProxy : ProxyBase
         Response();
     }
 
+    public ClientOperationResponseBase CurrentClientRequestResponse;//目前正在生成的响应包
+
     /// <summary>
     /// 此类中处理进入游戏前的所有Request
     /// 进入游戏后将所有Request发给ServerGameManager处理
@@ -125,6 +127,7 @@ internal class ClientProxy : ProxyBase
                 switch (r)
                 {
                     case EndRoundRequest _:
+                        ClientRequestResponse = new ServerRequestBase();
                         MyServerGameManager?.OnEndRoundRequest((EndRoundRequest) r);
                         break;
                     case SummonRetinueRequest _:

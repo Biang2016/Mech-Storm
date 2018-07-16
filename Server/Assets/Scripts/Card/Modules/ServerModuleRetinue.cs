@@ -50,8 +50,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             if (isInitialized && before != m_RetinueLeftLife)
             {
                 RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.LeftLife, addLeftLife: m_RetinueLeftLife - before);
-                ServerPlayer.MyClientProxy.SendMessage(request);
-                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -68,8 +67,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             if (isInitialized && before != m_RetinueTotalLife)
             {
                 RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.MaxLife, addMaxLife: m_RetinueTotalLife - before);
-                ServerPlayer.MyClientProxy.SendMessage(request);
-                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -86,8 +84,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             if (isInitialized && before != m_RetinueAttack)
             {
                 RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.Attack, addAttack: m_RetinueAttack - before);
-                ServerPlayer.MyClientProxy.SendMessage(request);
-                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -104,8 +101,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             if (isInitialized && before != m_RetinueArmor)
             {
                 RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.Armor, addArmor: m_RetinueArmor - before);
-                ServerPlayer.MyClientProxy.SendMessage(request);
-                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -122,8 +118,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             if (isInitialized && before != m_RetinueShield)
             {
                 RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.Shield, addShield: m_RetinueShield - before);
-                ServerPlayer.MyClientProxy.SendMessage(request);
-                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }

@@ -9,15 +9,9 @@ public abstract class RequestBase
         CreateAt = System.DateTime.Now.ToLongTimeString();
     }
 
-    public virtual int GetProtocol()
-    {
-        return 0;
-    }
+    public abstract int GetProtocol();
 
-    public virtual string GetProtocolName()
-    {
-        return "NoName";
-    }
+    public abstract string GetProtocolName();
 
     public virtual void Serialize(DataStream writer)
     {

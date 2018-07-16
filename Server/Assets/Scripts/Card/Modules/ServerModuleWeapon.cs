@@ -64,8 +64,7 @@ internal class ServerModuleWeapon : ServerModuleBase
             if (isInitialized && before != m_WeaponAttack)
             {
                 WeaponAttributesRequest request = new WeaponAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_WeaponPlaceIndex, WeaponAttributesRequest.WeaponAttributesChangeFlag.Attack, m_WeaponAttack - before, 0);
-                ServerPlayer.MyClientProxy.SendMessage(request);
-                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyEnemyPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -83,8 +82,7 @@ internal class ServerModuleWeapon : ServerModuleBase
             if (isInitialized && before != m_WeaponEnergy)
             {
                 WeaponAttributesRequest request = new WeaponAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_WeaponPlaceIndex, WeaponAttributesRequest.WeaponAttributesChangeFlag.Energy, 0, m_WeaponEnergy - before);
-                ServerPlayer.MyClientProxy.SendMessage(request);
-                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyEnemyPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }

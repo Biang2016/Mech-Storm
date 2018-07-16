@@ -38,8 +38,7 @@ internal class ServerPlayer : Player
     {
         AddCost(addCostValue);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: addCostValue);
-        MyClientProxy?.SendMessage(request);
-        MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
+        BroadCastRequest(request);
     }
 
     public void AddCostWithinMax(int addCostValue)
@@ -50,8 +49,7 @@ internal class ServerPlayer : Player
         else
             AddCost(CostMax - CostLeft);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
-        MyClientProxy?.SendMessage(request);
-        MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
+        BroadCastRequest(request);
     }
 
     public void UseCostAboveZero(int useCostValue)
@@ -62,9 +60,10 @@ internal class ServerPlayer : Player
         else
             AddCost(-CostLeft);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
-        MyClientProxy?.SendMessage(request);
-        MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
+        BroadCastRequest(request);
     }
+
+
 
     public void AddAllCost()
     {
@@ -80,8 +79,7 @@ internal class ServerPlayer : Player
         int costLeftBefore = CostLeft;
         AddCost(-CostLeft);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
-        MyClientProxy?.SendMessage(request);
-        MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
+        BroadCastRequest(request);
     }
 
 
@@ -93,8 +91,7 @@ internal class ServerPlayer : Player
         else
             AddCostMax(GamePlaySettings.MaxCost - CostMax);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
-        MyClientProxy?.SendMessage(request);
-        MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
+        BroadCastRequest(request);
     }
 
     public void DecreaseCostMax(int decreaseValue)
@@ -105,7 +102,12 @@ internal class ServerPlayer : Player
         else
             AddCostMax(-decreaseValue);
         PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
-        MyClientProxy?.SendMessage(request);
-        MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
+        BroadCastRequest(request);
+    }
+
+    private void BroadCastRequest(PlayerCostRequest request)
+    {
+        MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request);
+        MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request);
     }
 }

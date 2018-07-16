@@ -133,20 +133,7 @@ internal class Proxy : ProxyBase
 
     private void Response_GameStopByLeaveRequest(Socket socket, object obj)
     {
-        ServerRequestBase r = (ServerRequestBase) obj;
-        ClientLog.CL.PrintReceive("Server：[" + r.GetProtocolName() + "]    " + r.DeserializeLog());
-        GameStopByLeaveRequest request = (GameStopByLeaveRequest) r;
-        if (request.clientId == ClientId)
-        {
-            ClientLog.CL.PrintClientStates("你 " + request.clientId + " 退出了比赛");
-        }
-        else
-        {
-            ClientLog.CL.PrintReceive("你的对手 " + request.clientId + " 退出了比赛");
-        }
-
-        RoundManager.RM.StopGame();
-        ClientState = ClientStates.SubmitCardDeck;
+        ExcuteResponse(RoundManager.RM.OnGameStopByLeave, obj);
     }
 
     private static void ExcuteResponse(BattleEffectsManager.BattleResponse responseMethod, object obj)

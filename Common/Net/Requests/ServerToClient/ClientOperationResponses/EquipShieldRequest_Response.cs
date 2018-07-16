@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class EquipShieldRequest_Response : ServerRequestBase
+public class EquipShieldRequest_Response : ClientOperationResponseBase
 {
     public int clientId;
     public CardInfo_Shield cardInfo;
@@ -54,7 +54,7 @@ public class EquipShieldRequest_Response : ServerRequestBase
 
     public override string DeserializeLog()
     {
-        string log = "";
+        string log = base.DeserializeLog();
         log += " [clientId] " + clientId;
         log += " [cardInfo.CardID] " + cardInfo.CardID;
         log += " [handCardIndex] " + handCardIndex;

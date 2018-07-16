@@ -64,8 +64,7 @@ internal class ServerModuleShield : ServerModuleBase
             if (isInitialized && before != m_ShieldArmor)
             {
                 ShieldAttributesRequest request = new ShieldAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_ShieldPlaceIndex, ShieldAttributesRequest.ShieldAttributesChangeFlag.Armor, addArmor: m_ShieldArmor - before);
-                ServerPlayer.MyClientProxy.SendMessage(request);
-                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -83,8 +82,7 @@ internal class ServerModuleShield : ServerModuleBase
             if (isInitialized && before != m_ShieldArmorMax)
             {
                 ShieldAttributesRequest request = new ShieldAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_ShieldPlaceIndex, ShieldAttributesRequest.ShieldAttributesChangeFlag.ArmorMax, addArmorMax: m_ShieldArmorMax - before);
-                ServerPlayer.MyClientProxy.SendMessage(request);
-                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -102,8 +100,7 @@ internal class ServerModuleShield : ServerModuleBase
             if (isInitialized && before != m_ShieldShield)
             {
                 ShieldAttributesRequest request = new ShieldAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_ShieldPlaceIndex, ShieldAttributesRequest.ShieldAttributesChangeFlag.Shield, addShield: m_ShieldShield - before);
-                ServerPlayer.MyClientProxy.SendMessage(request);
-                ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -121,7 +118,6 @@ internal class ServerModuleShield : ServerModuleBase
             if (isInitialized && before != m_ShieldShieldMax)
             {
                 ShieldAttributesRequest request = new ShieldAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_ShieldPlaceIndex, ShieldAttributesRequest.ShieldAttributesChangeFlag.ShieldMax, addShieldMax: m_ShieldShieldMax - before);
-                ServerPlayer.MyClientProxy.SendMessage(request);
                 ServerPlayer.MyEnemyPlayer.MyClientProxy.SendMessage(request);
             }
         }

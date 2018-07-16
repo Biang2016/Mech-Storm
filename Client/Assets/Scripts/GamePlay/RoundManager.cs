@@ -207,7 +207,20 @@ internal class RoundManager : MonoBehaviour
             }
         }
     }
-
+    public void OnGameStopByLeave(ServerRequestBase req)
+    {
+        GameStopByLeaveRequest r = (GameStopByLeaveRequest)req;
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            ClientLog.CL.PrintClientStates("你 " + r.clientId + " 退出了比赛");
+        }
+        else
+        {
+            ClientLog.CL.PrintReceive("你的对手 " + r.clientId + " 退出了比赛");
+        }
+        OnGameStop();
+        Client.CS.Proxy.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
+    }
     #region 战斗核心
 
     public void OnRetinueAttackRetinue(ServerRequestBase req)
@@ -284,4 +297,6 @@ internal class RoundManager : MonoBehaviour
     }
 
     #endregion
+
+
 }
