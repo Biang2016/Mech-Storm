@@ -35,7 +35,8 @@ internal class Client : MonoBehaviour
 
     void Awake()
     {
-        OnRestartProtocols();
+        ClientProtoManager = new ProtoManager();
+        //OnRestartProtocols();
     }
 
     //接收到数据放入数据队列，按顺序取出
@@ -60,11 +61,10 @@ internal class Client : MonoBehaviour
 
     public void OnRestartProtocols()
     {
-        ClientProtoManager = new ProtoManager();
-        foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
-        {
-            ClientProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
-        }
+        //foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
+        //{
+        //    ClientProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
+        //}
     }
 
     #region 连接
@@ -206,13 +206,6 @@ internal class Client : MonoBehaviour
 
     void Response(Socket socket, RequestBase r)
     {
-        string Log = "Server：[" + r.GetProtocolName() + "]    " + r.DeserializeLog();
-        ClientLog.CL.PrintReceive(Log);
-
-        if (r is ServerRequestBase)
-        {
-            Proxy.ReceiveMessage((ServerRequestBase) r);
-        }
     }
 
     #endregion

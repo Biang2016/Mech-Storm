@@ -56,8 +56,9 @@ internal class GameManager : MonoBehaviour
 
     private void initializeColors()
     {
-        CardBloomColor = HTMLColorToColor("#FF0000FF");
-        CardBloomColor = HTMLColorToColor("#FF0000FF");
+        CardBloomColor = HTMLColorToColor("#00FF6BFF");
+        RetinueBloomColor = HTMLColorToColor("#06FF00FF");
+        RetinueOnHoverBloomColor = HTMLColorToColor("#FF0000FF");
         Slot1Color = HTMLColorToColor("#FF0000FF");
         Slot2Color = HTMLColorToColor("#FFED00FF");
         Slot3Color = HTMLColorToColor("#00FF6BFF");
@@ -65,7 +66,8 @@ internal class GameManager : MonoBehaviour
     }
 
     public Color CardBloomColor;
-    public Color CardDragBloomColor;
+    public Color RetinueBloomColor;
+    public Color RetinueOnHoverBloomColor;
     public Color Slot1Color;
     public Color Slot2Color;
     public Color Slot3Color;

@@ -98,8 +98,8 @@ internal class ModuleRetinue : ModuleBase
     public TextMesh TextMesh_RetinueName;
     public TextMesh TextMesh_RetinueDesc;
 
-    public GameObject CardBloom;
-    public GameObject CardDraggedHoverBloom;
+    public GameObject RetinueBloom;
+    public GameObject OnHoverBloom;
     public Animator ShieldIconHit;
     public Animator ArmorIconHit;
     public Animator CardLifeHit;
@@ -142,7 +142,8 @@ internal class ModuleRetinue : ModuleBase
         M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
         M_RetinueShield = cardInfo.BattleInfo.BasicShield;
         CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
-        ChangeCardDragBloomColor(GameManager.GM.CardDragBloomColor);
+        ChangeOnHoverBloomColor(GameManager.GM.RetinueOnHoverBloomColor);
+        ChangeRetinueBloomColor(GameManager.GM.RetinueBloomColor);
 
         if (SlotAnchor1)
         {
@@ -174,11 +175,23 @@ internal class ModuleRetinue : ModuleBase
     }
 
 
-    private void ChangeCardDragBloomColor(Color color)
+    private void ChangeOnHoverBloomColor(Color color)
     {
-        if (CardDraggedHoverBloom)
+        if (OnHoverBloom)
         {
-            Renderer rd = CardDraggedHoverBloom.GetComponent<Renderer>();
+            Renderer rd = OnHoverBloom.GetComponent<Renderer>();
+            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+            rd.GetPropertyBlock(mpb);
+            mpb.SetColor("_Color", color);
+            mpb.SetColor("_EmissionColor", color);
+            rd.SetPropertyBlock(mpb);
+        }
+    }
+    private void ChangeRetinueBloomColor(Color color)
+    {
+        if (RetinueBloom)
+        {
+            Renderer rd = RetinueBloom.GetComponent<Renderer>();
             MaterialPropertyBlock mpb = new MaterialPropertyBlock();
             rd.GetPropertyBlock(mpb);
             mpb.SetColor("_Color", color);
@@ -443,7 +456,7 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             canAttack = value;
-            CardBloom.SetActive(value && (GameManager.GM.CanTestEnemyCards || RoundManager.RM.SelfClientPlayer == RoundManager.RM.CurrentClientPlayer));
+            RetinueBloom.SetActive(value && (GameManager.GM.CanTestEnemyCards || RoundManager.RM.SelfClientPlayer == RoundManager.RM.CurrentClientPlayer));
         }
     }
 
@@ -519,7 +532,7 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             isBeDraggedHover = value;
-            CardDraggedHoverBloom.SetActive(value);
+            OnHoverBloom.SetActive(value);
         }
     }
 
