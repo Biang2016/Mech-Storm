@@ -16,12 +16,12 @@ public class ClientIdRequest : ServerRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.SEND_CLIENT_ID;
+        return NetProtocols.CLIENT_ID_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "SEND_CLIENT_ID";
+        return "CLIENT_ID_REQUEST";
     }
 
     public override void Serialize(DataStream writer)
@@ -39,7 +39,7 @@ public class ClientIdRequest : ServerRequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [givenClientId] " + givenClientId;
+        log += " [givenClientId]=" + givenClientId;
         return log;
     }
 }

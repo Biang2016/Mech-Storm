@@ -35,7 +35,6 @@ internal class Server
     public string IP;
     public int Port;
     private Socket SeverSocket;
-    private ProtoManager ServerProtoManager;
     public Dictionary<int, ClientProxy> ClientsDict = new Dictionary<int, ClientProxy>();
     private Queue<ReceiveSocketData> ReceiveDataQueue = new Queue<ReceiveSocketData>();
 
@@ -54,10 +53,9 @@ internal class Server
 
     private void OnRestartProtocols()
     {
-        ServerProtoManager = new ProtoManager();
         foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
         {
-            ServerProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
+            ProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
         }
     }
 
@@ -189,14 +187,15 @@ internal class Server
         if (ReceiveDataQueue.Count > 0)
         {
             ReceiveSocketData rsd = ReceiveDataQueue.Dequeue();
-            ServerProtoManager.TryDeserialize(rsd.Data, rsd.Socket);
+            DataStream stream = new DataStream(rsd.Data, true);
+            ProtoManager.TryDeserialize(stream, rsd.Socket);
         }
     }
 
     private void Response(Socket socket, RequestBase r)
     {
         //统一日志打出
-        ServerLog.PrintReceive("GetFrom    " + socket.RemoteEndPoint + "    [" + r.GetProtocolName() + "]    " + r.DeserializeLog());
+        ServerLog.PrintReceive("GetFrom " + socket.RemoteEndPoint + r.DeserializeLog());
 
         if (r is ClientRequestBase)
         {
@@ -238,11 +237,6 @@ internal class Server
 
         try
         {
-            string log = "";
-            log += "SendTo    " + sendMsg.Client.RemoteEndPoint + "    [" + sendMsg.Req.GetProtocolName() + "]    ";
-            log += sendMsg.Req.DeserializeLog();
-            ServerLog.PrintSend(log);
-
             DataStream bufferWriter = new DataStream(true);
             sendMsg.Req.Serialize(bufferWriter);
             byte[] msg = bufferWriter.ToByteArray();
@@ -260,6 +254,9 @@ internal class Server
             {
                 ServerLog.PrintError("发送失败");
             }
+
+            string log = "SendTo " + sendMsg.Client.RemoteEndPoint + sendMsg.Req.DeserializeLog();
+            ServerLog.PrintSend(log);
         }
         catch (Exception e)
         {

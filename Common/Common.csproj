@@ -68,9 +68,9 @@
     <Compile Include="Net\Requests\ClientToServer\OutGame\LeaveGameRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\OutGame\HeartBeatRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\OutGame\GameStopByLeaveRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttributesRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\ShieldAttributesRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\WeaponAttributesRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttributesChangeRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\ShieldAttributesChangeRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\WeaponAttributesChangeRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponseBase.cs" />
     <Compile Include="Net\Requests\ServerToClient\ServerRequestBase.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\DrawCardRequest.cs" />
@@ -84,8 +84,8 @@
     <Compile Include="Net\Protocol\NetProtocols.cs" />
     <Compile Include="Net\Protocol\ProtoManager.cs" />
     <Compile Include="Net\Requests\ServerToClient\OutGame\ClientIdRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\PlayerCostRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\OutGame\PlayerRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\PlayerCostChangeRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\OutGame\SetPlayerRequest.cs" />
     <Compile Include="Net\Requests\RequestBase.cs" />
   </ItemGroup>
   <ItemGroup>

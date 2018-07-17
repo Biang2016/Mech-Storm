@@ -49,7 +49,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             m_RetinueLeftLife = value;
             if (isInitialized && before != m_RetinueLeftLife)
             {
-                RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.LeftLife, addLeftLife: m_RetinueLeftLife - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.LeftLife, addLeftLife: m_RetinueLeftLife - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -66,7 +66,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             m_RetinueTotalLife = value;
             if (isInitialized && before != m_RetinueTotalLife)
             {
-                RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.MaxLife, addMaxLife: m_RetinueTotalLife - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.MaxLife, addMaxLife: m_RetinueTotalLife - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -83,7 +83,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             m_RetinueAttack = value;
             if (isInitialized && before != m_RetinueAttack)
             {
-                RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.Attack, addAttack: m_RetinueAttack - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Attack, addAttack: m_RetinueAttack - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -100,7 +100,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             m_RetinueArmor = value;
             if (isInitialized && before != m_RetinueArmor)
             {
-                RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.Armor, addArmor: m_RetinueArmor - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Armor, addArmor: m_RetinueArmor - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -117,7 +117,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             m_RetinueShield = value;
             if (isInitialized && before != m_RetinueShield)
             {
-                RetinueAttributesRequest request = new RetinueAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesRequest.RetinueAttributesChangeFlag.Shield, addShield: m_RetinueShield - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Shield, addShield: m_RetinueShield - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }

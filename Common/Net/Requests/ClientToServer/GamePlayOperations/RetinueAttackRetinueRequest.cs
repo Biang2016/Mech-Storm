@@ -23,12 +23,12 @@ public class RetinueAttackRetinueRequest : ClientRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.RETINUE_ATTACK_RETINUE;
+        return NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "RETINUE_ATTACK_RETINUE";
+        return "RETINUE_ATTACK_RETINUE_REQUEST";
     }
 
     public override void Serialize(DataStream writer)
@@ -52,10 +52,10 @@ public class RetinueAttackRetinueRequest : ClientRequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [AttackRetinueClientId] " + AttackRetinueClientId;
-        log += " [RetinuePlaceIndex] " + AttackRetinuePlaceIndex;
-        log += " [BeAttackedRetinueClientId] " + BeAttackedRetinueClientId;
-        log += " [BeAttackedRetinuePlaceIndex] " + BeAttackedRetinuePlaceIndex;
+        log += " [AttackRetinueClientId]=" + AttackRetinueClientId;
+        log += " [RetinuePlaceIndex]=" + AttackRetinuePlaceIndex;
+        log += " [BeAttackedRetinueClientId]=" + BeAttackedRetinueClientId;
+        log += " [BeAttackedRetinuePlaceIndex]=" + BeAttackedRetinuePlaceIndex;
         return log;
     }
 }

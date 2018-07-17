@@ -21,7 +21,7 @@ internal class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        initializeColors();
+        //initializeColors();
     }
 
     private void Start()
@@ -56,7 +56,7 @@ internal class GameManager : MonoBehaviour
 
     private void initializeColors()
     {
-        CardBloomColor = HTMLColorToColor("#00FF6BFF");
+        CardBloomColor = HTMLColorToColor("#FF8500");
         RetinueBloomColor = HTMLColorToColor("#06FF00FF");
         RetinueOnHoverBloomColor = HTMLColorToColor("#FF0000FF");
         Slot1Color = HTMLColorToColor("#FF0000FF");

@@ -13,12 +13,12 @@ public class EndRoundRequest : ClientRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.END_ROUND;
+        return NetProtocols.END_ROUND_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "END_ROUND";
+        return "END_ROUND_REQUEST";
     }
 
     public override void Serialize(DataStream writer)

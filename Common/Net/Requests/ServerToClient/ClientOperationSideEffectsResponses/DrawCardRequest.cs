@@ -5,7 +5,7 @@ public class DrawCardRequest : ServerRequestBase
 {
     public int clientId;
     public int cardCount;
-    public int[] cardIds;
+    public List<int> cardIds=new List<int>();
     public bool isShow;
 
     public DrawCardRequest()
@@ -15,34 +15,32 @@ public class DrawCardRequest : ServerRequestBase
     public DrawCardRequest(int clientId, int cardId, bool isShow)
     {
         this.clientId = clientId;
-        this.cardCount = 1;
-        this.cardIds = new int[] {cardId};
+        this.cardIds.Add(cardId);
         this.isShow = isShow;
     }
 
     public DrawCardRequest(int clientId, List<int> cardIds, bool isShow)
     {
         this.clientId = clientId;
-        this.cardCount = cardIds.Count;
-        this.cardIds = cardIds.ToArray();
+        this.cardIds.AddRange(cardIds.ToArray());
         this.isShow = isShow;
     }
 
     public override int GetProtocol()
     {
-        return NetProtocols.DRAW_CARD;
+        return NetProtocols.SE_DRAW_CARD;
     }
 
     public override string GetProtocolName()
     {
-        return "DRAW_CARD";
+        return "SE_DRAW_CARD";
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
         writer.WriteSInt32(clientId);
-        writer.WriteSInt32(cardCount);
+        writer.WriteSInt32(cardIds.Count);
         if (isShow)
         {
             writer.WriteByte(0x01);
@@ -65,10 +63,9 @@ public class DrawCardRequest : ServerRequestBase
         if (reader.ReadByte() == 0x01)
         {
             isShow = true;
-            cardIds = new int[cardCount];
             for (int i = 0; i < cardCount; i++)
             {
-                cardIds[i] = reader.ReadSInt32();
+                cardIds.Add(reader.ReadSInt32());
             }
         }
         else
@@ -80,11 +77,11 @@ public class DrawCardRequest : ServerRequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clientId] " + clientId;
-        log += " [cardCount] " + cardCount;
+        log += " [clientId]=" + clientId;
+        log += " [cardCount]=" + cardCount;
         if (isShow)
         {
-            log += " [cardId] ";
+            log += " [cardId]=";
             foreach (int cardId in cardIds)
             {
                 log += cardId + ", ";

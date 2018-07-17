@@ -13,12 +13,12 @@ public class CancelMatchRequest : ClientRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.CANCEL_MATCH;
+        return NetProtocols.CANCEL_MATCH_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "CANCEL_MATCH";
+        return "CANCEL_MATCH_REQUEST";
     }
 
     public override void Serialize(DataStream writer)

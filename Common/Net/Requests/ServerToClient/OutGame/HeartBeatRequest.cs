@@ -9,12 +9,12 @@ public class HeartBeatRequest : ServerRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.HEART_BEAT;
+        return NetProtocols.HEART_BEAT_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "HEART_BEAT";
+        return "HEART_BEAT_REQUEST";
     }
 
     public override void Serialize(DataStream writer)

@@ -11,7 +11,6 @@ internal class Proxy : ProxyBase
 
     protected override void Response()
     {
-        
     }
 
     public override ClientStates ClientState
@@ -26,25 +25,8 @@ internal class Proxy : ProxyBase
 
     public Proxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
-        //Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.HEART_BEAT, Response);
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.SEND_CLIENT_ID, Response_ClientIdRequest);
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.GAME_STOP_BY_LEAVE, Response_GameStopByLeaveRequest);
-
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.PLAYER, Response_PlayerRequest);
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.PLAYER_TURN, Response_PlayerTurnRequest);
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.DRAW_CARD, Response_DrawCardRequest);
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.PLAYER_COST_CHANGE, Response_PlayerCostRequest);
-
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.SUMMON_RETINUE_RESPONSE, Response_SummonRetinueRequest_R);
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.EQUIP_WEAPON_RESPONSE, Response_EquipWeaponRequest_R);
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.EQUIP_SHIELD_RESPONSE, Response_EquipShieldRequest_R);
-
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.RETINUE_ATTACK_RETINUE_RESPONSE, Response_RetinueAttackRetinueRequest_R);
-
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.RETINUE_ATTRIBUTES_CHANGE, Response_RetinueAttributesRequest);
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.WEAPON_ATTRIBUTES_CHANGE, Response_WeaponAttributesRequest);
-        Client.CS.ClientProtoManager.AddRequestDelegate(NetProtocols.SHIELD_ATTRIBUTES_CHANGE, Response_ShieldAttributesRequest);
     }
+
 
     #region 收发基础组件
 
@@ -64,84 +46,103 @@ internal class Proxy : ProxyBase
         SendRequestsQueue.Enqueue(request);
     }
 
+    public void Response(Socket socket, RequestBase r)
+    {
+        ClientLog.CL.PrintReceive("Server: " + r.DeserializeLog());
+
+        switch (r.GetProtocol())
+        {
+            #region OutGame
+
+            case NetProtocols.CLIENT_ID_REQUEST:
+            {
+                ClientIdRequest request = (ClientIdRequest) r;
+                ClientId = request.givenClientId;
+                ClientState = ClientStates.GetId;
+                break;
+            }
+            case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:
+            {
+                GameStopByLeaveRequest request = (GameStopByLeaveRequest) r;
+                RoundManager.RM.OnGameStopByLeave(request);
+                break;
+            }
+
+            #endregion
+
+            #region OperationResponses
+
+            case NetProtocols.GAME_START_RESPONSE:
+            {
+                GameStart_Response request = (GameStart_Response) r;
+                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
+                {
+                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
+                }
+
+                break;
+            }
+
+            case NetProtocols.END_ROUND_REQUEST_RESPONSE:
+            {
+                EndRoundRequest_Response request = (EndRoundRequest_Response) r;
+                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
+                {
+                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
+                }
+
+                break;
+            }
+            case NetProtocols.SUMMON_RETINUE_REQUEST_RESPONSE:
+            {
+                SummonRetinueRequest_Response request = (SummonRetinueRequest_Response) r;
+                RoundManager.RM.OnPlayerSummonRetinue(request);
+                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
+                {
+                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
+                }
+
+                break;
+            }
+            case NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE:
+            {
+                RetinueAttackRetinueRequest_Response request = (RetinueAttackRetinueRequest_Response) r;
+                RoundManager.RM.OnRetinueAttackRetinue(request);
+                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
+                {
+                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
+                }
+
+                break;
+            }
+            case NetProtocols.EQUIP_WEAPON_REQUEST_RESPONSE:
+            {
+                EquipWeaponRequest_Response request = (EquipWeaponRequest_Response) r;
+                RoundManager.RM.OnPlayerEquipWeapon(request);
+                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
+                {
+                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
+                }
+
+                break;
+            }
+            case NetProtocols.EQUIP_SHIELD_REQUEST_RESPONSE:
+            {
+                EquipShieldRequest_Response request = (EquipShieldRequest_Response) r;
+                RoundManager.RM.OnPlayerEquipShield(request);
+                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
+                {
+                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
+                }
+
+                break;
+            }
+
+            #endregion
+        }
+    }
+
     #endregion
-
-    private void Response_ClientIdRequest(Socket socket, object obj)
-    {
-        ClientIdRequest request = (ClientIdRequest) obj;
-        ClientId = request.givenClientId;
-        ClientState = ClientStates.GetId;
-    }
-
-    private void Response_PlayerRequest(Socket socket, object obj)
-    {
-        ClientState = ClientStates.Playing;
-        NetworkManager.NM.SuccessMatched();
-        RoundManager.RM.Initialize();
-        RoundManager.RM.InitializePlayers((PlayerRequest) obj);
-    }
-
-    private void Response_PlayerTurnRequest(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.SetPlayerTurn, obj);
-    }
-
-    private void Response_PlayerCostRequest(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.SetPlayersCost, obj);
-    }
-
-    private void Response_DrawCardRequest(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.OnPlayerDrawCard, obj);
-    }
-
-    private void Response_SummonRetinueRequest_R(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.OnPlayerSummonRetinue, obj);
-    }
-
-    private void Response_EquipWeaponRequest_R(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.OnPlayerEquipWeapon, obj);
-    }
-
-    private void Response_EquipShieldRequest_R(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.OnPlayerEquipShield, obj);
-    }
-
-    private void Response_RetinueAttackRetinueRequest_R(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.OnRetinueAttackRetinue, obj);
-    }
-
-    private void Response_WeaponAttributesRequest(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.OnWeaponAttributesChange, obj);
-    }
-
-    private void Response_ShieldAttributesRequest(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.OnShieldAttributesChange, obj);
-    }
-
-    private void Response_RetinueAttributesRequest(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.OnRetinueAttributesChange, obj);
-    }
-
-    private void Response_GameStopByLeaveRequest(Socket socket, object obj)
-    {
-        ExcuteResponse(RoundManager.RM.OnGameStopByLeave, obj);
-    }
-
-    private static void ExcuteResponse(BattleEffectsManager.BattleResponse responseMethod, object obj)
-    {
-        ServerRequestBase request = (ServerRequestBase) obj;
-        ClientLog.CL.PrintReceive("Server：[" + request.GetProtocolName() + "]    " + request.DeserializeLog());
-        BattleEffectsManager.BEM.ResponseExcuteQueue.Enqueue(new BattleEffectsManager.ResponseAndMethod(responseMethod, request));
-    }
 
     public void CancelMatch()
     {

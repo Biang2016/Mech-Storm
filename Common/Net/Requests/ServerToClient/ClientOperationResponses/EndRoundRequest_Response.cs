@@ -10,11 +10,11 @@ public class EndRoundRequest_Response : ClientOperationResponseBase
     }
     public override int GetProtocol()
     {
-        return NetProtocols.END_ROUND_RESPONSE;
+        return NetProtocols.END_ROUND_REQUEST_RESPONSE;
     }
     public override string GetProtocolName()
     {
-        return "END_ROUND_RESPONSE";
+        return "END_ROUND_REQUEST_RESPONSE";
     }
     public override string DeserializeLog()
     {

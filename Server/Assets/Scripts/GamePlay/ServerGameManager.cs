@@ -25,25 +25,6 @@ internal class ServerGameManager
         sgmThread.Start();
     }
 
-    private bool isStopped = false;
-
-    public void OnStopGame(ClientProxy clientProxy)
-    {
-        if (isStopped) return;
-        ClientA.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
-        ClientB.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
-
-        GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
-        BroadcastRequest(request);
-
-        Server.SV.SGMM.RemoveGame(this, ClientA, ClientB);
-
-        PlayerA?.OnDestroyed();
-        PlayerB?.OnDestroyed();
-
-        isStopped = true;
-    }
-
     #region 游戏初始化
 
     private void Initialized()
@@ -65,9 +46,9 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponse = new GameStart_Response();
         ClientB.CurrentClientRequestResponse = new GameStart_Response();
 
-        PlayerRequest request1 = new PlayerRequest(ClientA.ClientId, 0, GamePlaySettings.BeginCost);
+        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.ClientId, 0, GamePlaySettings.BeginCost);
         Broadcast_AddRequestToOperationResponse(request1);
-        PlayerRequest request2 = new PlayerRequest(ClientB.ClientId, 0, GamePlaySettings.BeginCost);
+        SetPlayerRequest request2 = new SetPlayerRequest(ClientB.ClientId, 0, GamePlaySettings.BeginCost);
         Broadcast_AddRequestToOperationResponse(request2);
 
         GameBegin();
@@ -159,6 +140,7 @@ internal class ServerGameManager
         Broadcast_SendOperationResponse();
     }
 
+
     public void OnClientEquipWeaponRequest(EquipWeaponRequest r)
     {
         ClientA.CurrentClientRequestResponse = new EquipWeaponRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex, r.weaponPlaceIndex);
@@ -215,6 +197,30 @@ internal class ServerGameManager
         Broadcast_SendOperationResponse();
     }
 
+    private bool isStopped = false;
+
+    public void OnLeaveGameRequest(LeaveGameRequest r)
+    {
+        OnStopGame(GetClientProxyByClientId(r.clientId));
+    }
+
+    public void OnStopGame(ClientProxy clientProxy)
+    {
+        if (isStopped) return;
+        ClientA.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
+        ClientB.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
+
+        GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
+        BroadcastRequest(request);
+
+        Server.SV.SGMM.RemoveGame(this, ClientA, ClientB);
+
+        PlayerA?.OnDestroyed();
+        PlayerB?.OnDestroyed();
+
+        isStopped = true;
+    }
+
     #endregion
 
 
@@ -229,7 +235,7 @@ internal class ServerGameManager
     private void Broadcast_SendOperationResponse()
     {
         ClientA.SendMessage(ClientA.CurrentClientRequestResponse);
-        ClientB.SendMessage(ClientA.CurrentClientRequestResponse);
+        ClientB.SendMessage(ClientB.CurrentClientRequestResponse);
         ClientA.CurrentClientRequestResponse = null;
         ClientB.CurrentClientRequestResponse = null;
     }

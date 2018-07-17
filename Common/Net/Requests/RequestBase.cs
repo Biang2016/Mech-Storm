@@ -26,7 +26,8 @@ public abstract class RequestBase
 
     public virtual string DeserializeLog()
     {
-        string log = " [CreateAt] " + CreateAt;
+        string log = " <" + GetProtocolName() + "> ";
+        log += " [CreateAt]=" + CreateAt;
         return log;
     }
 }

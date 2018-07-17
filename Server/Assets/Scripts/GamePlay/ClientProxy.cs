@@ -127,7 +127,6 @@ internal class ClientProxy : ProxyBase
                 switch (r)
                 {
                     case EndRoundRequest _:
-                        ClientRequestResponse = new ServerRequestBase();
                         MyServerGameManager?.OnEndRoundRequest((EndRoundRequest) r);
                         break;
                     case SummonRetinueRequest _:
@@ -140,7 +139,7 @@ internal class ClientProxy : ProxyBase
                         MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest) r);
                         break;
                     case LeaveGameRequest _: //正常退出游戏请求
-                        MyServerGameManager?.OnStopGame(this);
+                        MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest)r);
                         break;
                     case RetinueAttackRetinueRequest _:
                         MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest) r);

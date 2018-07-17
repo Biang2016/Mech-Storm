@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class ClientRequestBase : RequestBase
+public abstract class ClientRequestBase : RequestBase
 {
     public int clientId;
 
@@ -32,7 +32,7 @@ public class ClientRequestBase : RequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clientId] " + clientId;
+        log += " [clientId]=" + clientId;
         return log;
     }
 }

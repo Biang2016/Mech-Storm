@@ -22,12 +22,12 @@ public class SummonRetinueRequest_Response : ClientOperationResponseBase
     }
     public override int GetProtocol()
     {
-        return NetProtocols.SUMMON_RETINUE_RESPONSE;
+        return NetProtocols.SUMMON_RETINUE_REQUEST_RESPONSE;
     }
 
 	public override string GetProtocolName()
 	{
-        return "SUMMON_RETINUE_RESPONSE";
+        return "SUMMON_RETINUE_REQUEST_RESPONSE";
 	}
 
     public override void Serialize(DataStream writer)
@@ -51,10 +51,10 @@ public class SummonRetinueRequest_Response : ClientOperationResponseBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clientId] " + clientId;
-        log += " [cardInfo.CardID] " + cardInfo.CardID;
-        log += " [handCardIndex] " + handCardIndex;
-        log += " [battleGroundIndex] " + battleGroundIndex;
+        log += " [clientId]=" + clientId;
+        log += " [cardInfo.CardID]=" + cardInfo.CardID;
+        log += " [handCardIndex]=" + handCardIndex;
+        log += " [battleGroundIndex]=" + battleGroundIndex;
         return log;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class RetinueAttributesRequest : ServerRequestBase
+public class RetinueAttributesChangeRequest : ServerRequestBase
 {
     public int clinetId;
     public int retinuePlaceIndex;
@@ -12,11 +12,11 @@ public class RetinueAttributesRequest : ServerRequestBase
     public int addArmor;
     public int addShield;
 
-    public RetinueAttributesRequest()
+    public RetinueAttributesChangeRequest()
     {
     }
 
-    public RetinueAttributesRequest(int clinetId, int retinuePlaceIndex, RetinueAttributesChangeFlag change, int addLeftLife = 0, int addMaxLife = 0, int addAttack = 0, int addArmor = 0, int addShield = 0)
+    public RetinueAttributesChangeRequest(int clinetId, int retinuePlaceIndex, RetinueAttributesChangeFlag change, int addLeftLife = 0, int addMaxLife = 0, int addAttack = 0, int addArmor = 0, int addShield = 0)
     {
         this.clinetId = clinetId;
         this.retinuePlaceIndex = retinuePlaceIndex;
@@ -30,12 +30,12 @@ public class RetinueAttributesRequest : ServerRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.RETINUE_ATTRIBUTES_CHANGE;
+        return NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE;
     }
 
     public override string GetProtocolName()
     {
-        return "RETINUE_ATTRIBUTES_CHANGE";
+        return "SE_RETINUE_ATTRIBUTES_CHANGE";
     }
 
 
@@ -114,35 +114,35 @@ public class RetinueAttributesRequest : ServerRequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clinetId] " + clinetId;
-        log += " [retinuePlaceIndex] " + retinuePlaceIndex;
+        log += " [clinetId]=" + clinetId;
+        log += " [retinuePlaceIndex]=" + retinuePlaceIndex;
         if (change == RetinueAttributesChangeFlag.ALL)
         {
-            log += " [addLeftLife] " + addLeftLife;
-            log += " [addMaxLife] " + addMaxLife;
-            log += " [addAttack] " + addAttack;
-            log += " [addArmor] " + addArmor;
-            log += " [addShield] " + addShield;
+            log += " [addLeftLife]=" + addLeftLife;
+            log += " [addMaxLife]=" + addMaxLife;
+            log += " [addAttack]=" + addAttack;
+            log += " [addArmor]=" + addArmor;
+            log += " [addShield]=" + addShield;
         }
         else if (change == RetinueAttributesChangeFlag.LeftLife)
         {
-            log += " [addLeftLife] " + addLeftLife;
+            log += " [addLeftLife]=" + addLeftLife;
         }
         else if (change == RetinueAttributesChangeFlag.MaxLife)
         {
-            log += " [addMaxLife] " + addMaxLife;
+            log += " [addMaxLife]=" + addMaxLife;
         }
         else if (change == RetinueAttributesChangeFlag.Attack)
         {
-            log += " [addAttack] " + addAttack;
+            log += " [addAttack]=" + addAttack;
         }
         else if (change == RetinueAttributesChangeFlag.Armor)
         {
-            log += " [addArmor] " + addArmor;
+            log += " [addArmor]=" + addArmor;
         }
         else if (change == RetinueAttributesChangeFlag.Shield)
         {
-            log += " [addShield] " + addShield;
+            log += " [addShield]=" + addShield;
         }
 
         return log;

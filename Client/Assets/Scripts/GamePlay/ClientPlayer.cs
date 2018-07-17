@@ -35,18 +35,18 @@ internal class ClientPlayer : Player
         }
     }
 
-    public void DoChangeCost(PlayerCostRequest request)
+    public void DoChangeCost(PlayerCostChangeRequest request)
     {
-        if (request.change == PlayerCostRequest.CostChangeFlag.Both)
+        if (request.change == PlayerCostChangeRequest.CostChangeFlag.Both)
         {
             AddCost(request.addCost_left);
             AddCostMax(request.addCost_max);
         }
-        else if (request.change == PlayerCostRequest.CostChangeFlag.Left)
+        else if (request.change == PlayerCostChangeRequest.CostChangeFlag.Left)
         {
             AddCost(request.addCost_left);
         }
-        else if (request.change == PlayerCostRequest.CostChangeFlag.Max)
+        else if (request.change == PlayerCostChangeRequest.CostChangeFlag.Max)
         {
             AddCostMax(request.addCost_max);
         }

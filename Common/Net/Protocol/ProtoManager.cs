@@ -20,18 +20,18 @@ public static class ProtoManager
 
         #region Server
 
-        AddProtocol<ClientIdRequest>(NetProtocols.SEND_CLIENT_ID);
-        AddProtocol<HeartBeatRequest>(NetProtocols.HEART_BEAT);
-        AddProtocol<GameStopByLeaveRequest>(NetProtocols.GAME_STOP_BY_LEAVE);
+        AddProtocol<ClientIdRequest>(NetProtocols.CLIENT_ID_REQUEST);
+        AddProtocol<HeartBeatRequest>(NetProtocols.HEART_BEAT_REQUEST);
+        AddProtocol<GameStopByLeaveRequest>(NetProtocols.GAME_STOP_BY_LEAVE_REQUEST);
 
         #endregion
 
         #region Client
 
-        AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_INFO);
-        AddProtocol<MatchRequest>(NetProtocols.Match);
-        AddProtocol<CancelMatchRequest>(NetProtocols.CANCEL_MATCH);
-        AddProtocol<LeaveGameRequest>(NetProtocols.LEAVE_GAME);
+        AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_REQUEST);
+        AddProtocol<MatchRequest>(NetProtocols.MATCH_REQUEST);
+        AddProtocol<CancelMatchRequest>(NetProtocols.CANCEL_MATCH_REQUEST);
+        AddProtocol<LeaveGameRequest>(NetProtocols.LEAVE_GAME_REQUEST);
 
         #endregion
 
@@ -41,35 +41,35 @@ public static class ProtoManager
 
         #region Server
 
-        AddProtocol<GameStart_Response>(NetProtocols.GAME_START);
-        AddProtocol<PlayerRequest>(NetProtocols.PLAYER);
-        AddProtocol<PlayerTurnRequest>(NetProtocols.PLAYER_TURN);
-        AddProtocol<DrawCardRequest>(NetProtocols.DRAW_CARD);
-        AddProtocol<PlayerCostRequest>(NetProtocols.PLAYER_COST_CHANGE);
+        AddProtocol<GameStart_Response>(NetProtocols.GAME_START_RESPONSE);
+        AddProtocol<SetPlayerRequest>(NetProtocols.SE_SET_PLAYER);
+        AddProtocol<PlayerTurnRequest>(NetProtocols.SE_PLAYER_TURN);
+        AddProtocol<DrawCardRequest>(NetProtocols.SE_DRAW_CARD);
+        AddProtocol<PlayerCostChangeRequest>(NetProtocols.SE_PLAYER_COST_CHANGE);
 
-        AddProtocol<SummonRetinueRequest_Response>(NetProtocols.SUMMON_RETINUE_RESPONSE);
-        AddProtocol<EquipWeaponRequest_Response>(NetProtocols.EQUIP_WEAPON_RESPONSE);
-        AddProtocol<EquipShieldRequest_Response>(NetProtocols.EQUIP_SHIELD_RESPONSE);
+        AddProtocol<SummonRetinueRequest_Response>(NetProtocols.SUMMON_RETINUE_REQUEST_RESPONSE);
+        AddProtocol<EquipWeaponRequest_Response>(NetProtocols.EQUIP_WEAPON_REQUEST_RESPONSE);
+        AddProtocol<EquipShieldRequest_Response>(NetProtocols.EQUIP_SHIELD_REQUEST_RESPONSE);
 
-        AddProtocol<RetinueAttackRetinueRequest_Response>(NetProtocols.RETINUE_ATTACK_RETINUE_RESPONSE);
+        AddProtocol<RetinueAttackRetinueRequest_Response>(NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE);
 
-        AddProtocol<WeaponAttributesRequest>(NetProtocols.WEAPON_ATTRIBUTES_CHANGE);
-        AddProtocol<ShieldAttributesRequest>(NetProtocols.SHIELD_ATTRIBUTES_CHANGE);
-        AddProtocol<RetinueAttributesRequest>(NetProtocols.RETINUE_ATTRIBUTES_CHANGE);
+        AddProtocol<WeaponAttributesChangeRequest>(NetProtocols.SE_WEAPON_ATTRIBUTES_CHANGE);
+        AddProtocol<ShieldAttributesChangeRequest>(NetProtocols.SE_SHIELD_ATTRIBUTES_CHANGE);
+        AddProtocol<RetinueAttributesChangeRequest>(NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE);
 
-        AddProtocol<EndRoundRequest_Response>(NetProtocols.END_ROUND_RESPONSE);
+        AddProtocol<EndRoundRequest_Response>(NetProtocols.END_ROUND_REQUEST_RESPONSE);
 
         #endregion
 
         #region Client
 
-        AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE);
-        AddProtocol<EquipWeaponRequest>(NetProtocols.EQUIP_WEAPON);
-        AddProtocol<EquipShieldRequest>(NetProtocols.EQUIP_SHIELD);
+        AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE_REQUEST);
+        AddProtocol<EquipWeaponRequest>(NetProtocols.EQUIP_WEAPON_REQUEST);
+        AddProtocol<EquipShieldRequest>(NetProtocols.EQUIP_SHIELD_REQUEST);
 
-        AddProtocol<RetinueAttackRetinueRequest>(NetProtocols.RETINUE_ATTACK_RETINUE);
+        AddProtocol<RetinueAttackRetinueRequest>(NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST);
 
-        AddProtocol<EndRoundRequest>(NetProtocols.END_ROUND);
+        AddProtocol<EndRoundRequest>(NetProtocols.END_ROUND_REQUEST);
 
         #endregion
 
@@ -130,10 +130,8 @@ public static class ProtoManager
         }
     }
 
-    public static RequestBase TryDeserialize(byte[] data, Socket socket)
+    public static RequestBase TryDeserialize(DataStream stream, Socket socket)
     {
-        DataStream stream = new DataStream(data, true);
-
         int protocol = stream.ReadSInt32();
         RequestBase requestBase = null;
         if (mProtocolMapping.ContainsKey(protocol))

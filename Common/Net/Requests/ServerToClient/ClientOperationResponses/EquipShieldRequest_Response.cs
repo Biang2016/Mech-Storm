@@ -24,12 +24,12 @@ public class EquipShieldRequest_Response : ClientOperationResponseBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.EQUIP_SHIELD_RESPONSE;
+        return NetProtocols.EQUIP_SHIELD_REQUEST_RESPONSE;
     }
 
     public override string GetProtocolName()
     {
-        return "EQUIP_SHIELD_RESPONSE";
+        return "EQUIP_SHIELD_REQUEST_RESPONSE";
     }
 
     public override void Serialize(DataStream writer)
@@ -55,11 +55,11 @@ public class EquipShieldRequest_Response : ClientOperationResponseBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clientId] " + clientId;
-        log += " [cardInfo.CardID] " + cardInfo.CardID;
-        log += " [handCardIndex] " + handCardIndex;
-        log += " [battleGroundIndex] " + battleGroundIndex;
-        log += " [shieldPlaceIndex] " + shieldPlaceIndex;
+        log += " [clientId]=" + clientId;
+        log += " [cardInfo.CardID]=" + cardInfo.CardID;
+        log += " [handCardIndex]=" + handCardIndex;
+        log += " [battleGroundIndex]=" + battleGroundIndex;
+        log += " [shieldPlaceIndex]=" + shieldPlaceIndex;
         return log;
     }
 }

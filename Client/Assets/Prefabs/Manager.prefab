@@ -1898,12 +1898,13 @@ MonoBehaviour:
   DetailCardSizeRetinue: 4
   RetinueInterval: 3.5
   RetinueDetailPreviewDelaySeconds: 0.7
-  CardBloomColor: {r: 0, g: 0, b: 0, a: 0}
-  CardDragBloomColor: {r: 0, g: 0, b: 0, a: 0}
-  Slot1Color: {r: 0, g: 0, b: 0, a: 0}
-  Slot2Color: {r: 0, g: 0, b: 0, a: 0}
-  Slot3Color: {r: 0, g: 0, b: 0, a: 0}
-  Slot4Color: {r: 0, g: 0, b: 0, a: 0}
+  CardBloomColor: {r: 1, g: 1, b: 1, a: 1}
+  RetinueBloomColor: {r: 0, g: 1, b: 0.030817509, a: 1}
+  RetinueOnHoverBloomColor: {r: 1, g: 0, b: 0, a: 1}
+  Slot1Color: {r: 1, g: 0, b: 0, a: 1}
+  Slot2Color: {r: 1, g: 0.7795245, b: 0, a: 1}
+  Slot3Color: {r: 0, g: 1, b: 0.065164566, a: 1}
+  Slot4Color: {r: 0, g: 0.04445076, b: 1, a: 1}
   MainAudioSource: {fileID: 0}
 --- !u!114 &114393662073655784
 MonoBehaviour:

@@ -36,7 +36,105 @@ internal class RoundManager : MonoBehaviour
         rm = FindObjectOfType(typeof(RoundManager)) as RoundManager;
     }
 
-    #region 响应
+
+    private void Update()
+    {
+        if (isStop)
+        {
+            OnGameStop();
+            isStop = false;
+        }
+    }
+
+    #region OperationResponses
+
+    public void OnPlayerSummonRetinue(SummonRetinueRequest_Response r)
+    {
+        GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
+        GetPlayerByClientId(r.clientId).MyBattleGroundManager.AddRetinue(r);
+    }
+
+    public void OnPlayerEquipWeapon(EquipWeaponRequest_Response r)
+    {
+        GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
+        GetPlayerByClientId(r.clientId).MyBattleGroundManager.EquipWeapon(r);
+    }
+
+    public void OnPlayerEquipShield(EquipShieldRequest_Response r)
+    {
+        GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
+        GetPlayerByClientId(r.clientId).MyBattleGroundManager.EquipShield(r);
+    }
+
+    public void OnGameStopByLeave(GameStopByLeaveRequest r)
+    {
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            ClientLog.CL.PrintClientStates("你 " + r.clientId + " 退出了比赛");
+        }
+        else
+        {
+            ClientLog.CL.PrintReceive("你的对手 " + r.clientId + " 退出了比赛");
+        }
+
+        OnGameStop();
+        Client.CS.Proxy.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
+    }
+
+    public void OnRetinueAttackRetinue(RetinueAttackRetinueRequest_Response r)
+    {
+        GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinuePlaceIndex).AllModulesAttack();
+    }
+
+    #endregion
+
+
+    #region SideEffects
+
+    public void ResponseToSideEffects(ServerRequestBase se)
+    {
+        switch (se.GetProtocol())
+        {
+            case NetProtocols.SE_SET_PLAYER:
+            {
+                Client.CS.Proxy.ClientState = ProxyBase.ClientStates.Playing;
+                NetworkManager.NM.SuccessMatched();
+                Initialize();
+                RM.InitializePlayers((SetPlayerRequest) se);
+                break;
+            }
+            case NetProtocols.SE_PLAYER_TURN:
+            {
+                SetPlayerTurn((PlayerTurnRequest) se);
+                break;
+            }
+            case NetProtocols.SE_PLAYER_COST_CHANGE:
+            {
+                SetPlayersCost((PlayerCostChangeRequest) se);
+                break;
+            }
+            case NetProtocols.SE_DRAW_CARD:
+            {
+                OnPlayerDrawCard((DrawCardRequest) se);
+                break;
+            }
+            case NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE:
+            {
+                OnRetinueAttributesChange((RetinueAttributesChangeRequest) se);
+                break;
+            }
+            case NetProtocols.SE_WEAPON_ATTRIBUTES_CHANGE:
+            {
+                OnWeaponAttributesChange((WeaponAttributesChangeRequest) se);
+                break;
+            }
+            case NetProtocols.SE_SHIELD_ATTRIBUTES_CHANGE:
+            {
+                OnShieldAttributesChange((ShieldAttributesChangeRequest) se);
+                break;
+            }
+        }
+    }
 
     public void Initialize()
     {
@@ -53,59 +151,7 @@ internal class RoundManager : MonoBehaviour
         EnemyCostText.text = "";
     }
 
-    private void Update()
-    {
-        if (isStop)
-        {
-            OnGameStop();
-            isStop = false;
-        }
-    }
-
-    bool isStop = false;
-
-    public void StopGame()
-    {
-        isStop = true;
-    }
-
-    private void OnGameStop()
-    {
-        CardBase[] cardPreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
-        foreach (CardBase cardPreview in cardPreviews)
-        {
-            cardPreview.PoolRecycle();
-        }
-
-        ModuleBase[] modulePreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<ModuleBase>();
-        foreach (ModuleBase modulePreview in modulePreviews)
-        {
-            modulePreview.PoolRecycle();
-        }
-
-        GameBoardManager.GBM.CardDetailPreview.transform.DetachChildren();
-
-        GameBoardManager.GBM.SelfBattleGroundManager.Reset();
-        GameBoardManager.GBM.EnemyBattleGroundManager.Reset();
-        GameBoardManager.GBM.SelfHandManager.Reset();
-        GameBoardManager.GBM.EnemyHandManager.Reset();
-        SelfClientPlayer = null;
-        EnemyClientPlayer = null;
-        CurrentClientPlayer = null;
-        IdleClientPlayer = null;
-        SelfCostText.text = "";
-        EnemyCostText.text = "";
-        RoundNumber = 0;
-        SelfTurnText.SetActive(false);
-        EnemyTurnText.SetActive(false);
-        EndRoundButton.SetActive(false);
-        SelfCostText.gameObject.SetActive(false);
-        EnemyCostText.gameObject.SetActive(false);
-
-        BattleEffectsManager.BEM.AllEffectsEnd();
-    }
-
-    public void InitializePlayers(PlayerRequest r)
+    public void InitializePlayers(SetPlayerRequest r)
     {
         if (r.clientId == Client.CS.Proxy.ClientId)
         {
@@ -121,7 +167,7 @@ internal class RoundManager : MonoBehaviour
 
     public void SetPlayersCost(ServerRequestBase req)
     {
-        PlayerCostRequest r = (PlayerCostRequest) req;
+        PlayerCostChangeRequest r = (PlayerCostChangeRequest) req;
         if (r.clinetId == Client.CS.Proxy.ClientId)
         {
             SelfClientPlayer.DoChangeCost(r);
@@ -168,25 +214,17 @@ internal class RoundManager : MonoBehaviour
         CurrentClientPlayer.MyBattleGroundManager.BeginRound();
     }
 
-    public void OnPlayerSummonRetinue(ServerRequestBase req)
+    public void EndRound()
     {
-        SummonRetinueRequest_Response r = (SummonRetinueRequest_Response) req;
-        GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
-        GetPlayerByClientId(r.clientId).MyBattleGroundManager.AddRetinue(r);
+        CurrentClientPlayer.MyHandManager.EndRound();
+        CurrentClientPlayer.MyBattleGroundManager.EndRound();
     }
 
-    public void OnPlayerEquipWeapon(ServerRequestBase req)
-    {
-        EquipWeaponRequest_Response r = (EquipWeaponRequest_Response) req;
-        GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
-        GetPlayerByClientId(r.clientId).MyBattleGroundManager.EquipWeapon(r);
-    }
+    bool isStop = false;
 
-    public void OnPlayerEquipShield(ServerRequestBase req)
+    public void StopGame()
     {
-        EquipShieldRequest_Response r = (EquipShieldRequest_Response) req;
-        GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
-        GetPlayerByClientId(r.clientId).MyBattleGroundManager.EquipShield(r);
+        isStop = true;
     }
 
     public void OnPlayerDrawCard(ServerRequestBase req)
@@ -207,39 +245,18 @@ internal class RoundManager : MonoBehaviour
             }
         }
     }
-    public void OnGameStopByLeave(ServerRequestBase req)
-    {
-        GameStopByLeaveRequest r = (GameStopByLeaveRequest)req;
-        if (r.clientId == Client.CS.Proxy.ClientId)
-        {
-            ClientLog.CL.PrintClientStates("你 " + r.clientId + " 退出了比赛");
-        }
-        else
-        {
-            ClientLog.CL.PrintReceive("你的对手 " + r.clientId + " 退出了比赛");
-        }
-        OnGameStop();
-        Client.CS.Proxy.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
-    }
-    #region 战斗核心
 
-    public void OnRetinueAttackRetinue(ServerRequestBase req)
-    {
-        RetinueAttackRetinueRequest_Response r = (RetinueAttackRetinueRequest_Response) req;
-        GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinuePlaceIndex).AllModulesAttack();
-    }
 
     public void OnWeaponAttributesChange(ServerRequestBase req)
     {
-        WeaponAttributesRequest r = (WeaponAttributesRequest) req;
+        WeaponAttributesChangeRequest r = (WeaponAttributesChangeRequest) req;
         ModuleWeapon weapon = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Weapon;
         weapon.M_WeaponAttack += r.addAttack;
         weapon.M_WeaponEnergy += r.addEnergy;
     }
 
-    public void OnRetinueAttributesChange(ServerRequestBase req)
+    public void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
     {
-        RetinueAttributesRequest r = (RetinueAttributesRequest) req;
         ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex);
         retinue.M_RetinueAttack += r.addAttack;
         retinue.M_RetinueArmor += r.addArmor;
@@ -248,9 +265,8 @@ internal class RoundManager : MonoBehaviour
         retinue.M_RetinueLeftLife += r.addLeftLife;
     }
 
-    public void OnShieldAttributesChange(ServerRequestBase req)
+    public void OnShieldAttributesChange(ShieldAttributesChangeRequest r)
     {
-        ShieldAttributesRequest r = (ShieldAttributesRequest) req;
         ModuleShield shield = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Shield;
         shield.M_ShieldArmor += r.addArmor;
         shield.M_ShieldArmorMax += r.addArmorMax;
@@ -258,16 +274,45 @@ internal class RoundManager : MonoBehaviour
         shield.M_ShieldShieldMax += r.addShieldMax;
     }
 
-    #endregion
 
-
-    public void EndRound()
+    private void OnGameStop()
     {
-        CurrentClientPlayer.MyHandManager.EndRound();
-        CurrentClientPlayer.MyBattleGroundManager.EndRound();
+        CardBase[] cardPreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
+        foreach (CardBase cardPreview in cardPreviews)
+        {
+            cardPreview.PoolRecycle();
+        }
+
+        ModuleBase[] modulePreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<ModuleBase>();
+        foreach (ModuleBase modulePreview in modulePreviews)
+        {
+            modulePreview.PoolRecycle();
+        }
+
+        GameBoardManager.GBM.CardDetailPreview.transform.DetachChildren();
+
+        GameBoardManager.GBM.SelfBattleGroundManager.Reset();
+        GameBoardManager.GBM.EnemyBattleGroundManager.Reset();
+        GameBoardManager.GBM.SelfHandManager.Reset();
+        GameBoardManager.GBM.EnemyHandManager.Reset();
+        SelfClientPlayer = null;
+        EnemyClientPlayer = null;
+        CurrentClientPlayer = null;
+        IdleClientPlayer = null;
+        SelfCostText.text = "";
+        EnemyCostText.text = "";
+        RoundNumber = 0;
+        SelfTurnText.SetActive(false);
+        EnemyTurnText.SetActive(false);
+        EndRoundButton.SetActive(false);
+        SelfCostText.gameObject.SetActive(false);
+        EnemyCostText.gameObject.SetActive(false);
+
+        BattleEffectsManager.BEM.AllEffectsEnd();
     }
 
     #endregion
+
 
     #region 交互
 
@@ -297,6 +342,4 @@ internal class RoundManager : MonoBehaviour
     }
 
     #endregion
-
-
 }

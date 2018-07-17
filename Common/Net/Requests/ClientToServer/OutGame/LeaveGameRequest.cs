@@ -13,12 +13,12 @@ public class LeaveGameRequest : ClientRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.LEAVE_GAME;
+        return NetProtocols.LEAVE_GAME_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "LEAVE_GAME";
+        return "LEAVE_GAME_REQUEST";
     }
 
     public override void Serialize(DataStream writer)

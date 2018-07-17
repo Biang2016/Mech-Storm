@@ -16,12 +16,12 @@ public class GameStopByLeaveRequest : ServerRequestBase
     }
     public override int GetProtocol()
     {
-        return NetProtocols.GAME_STOP_BY_LEAVE;
+        return NetProtocols.GAME_STOP_BY_LEAVE_REQUEST;
     }
 
 	public override string GetProtocolName()
 	{
-        return "GAME_STOP_BY_LEAVE";
+        return "GAME_STOP_BY_LEAVE_REQUEST";
 	}
 
     public override void Serialize(DataStream writer)
@@ -39,7 +39,7 @@ public class GameStopByLeaveRequest : ServerRequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clientId] " + clientId;
+        log += " [clientId]=" + clientId;
         return log;
     }
 }

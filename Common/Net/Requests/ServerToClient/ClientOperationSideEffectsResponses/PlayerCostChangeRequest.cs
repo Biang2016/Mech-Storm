@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerCostRequest : ServerRequestBase
+public class PlayerCostChangeRequest : ServerRequestBase
 {
     public int clinetId;
     public CostChangeFlag change; //0x00为都改变，0x01为left改变，0x02为max改变
     public int addCost_left;
     public int addCost_max;
 
-    public PlayerCostRequest()
+    public PlayerCostChangeRequest()
     {
     }
 
-    public PlayerCostRequest(int clinetId, CostChangeFlag change, int addCost_left = 0, int addCost_max = 0)
+    public PlayerCostChangeRequest(int clinetId, CostChangeFlag change, int addCost_left = 0, int addCost_max = 0)
     {
         this.clinetId = clinetId;
         this.change = change;
@@ -22,12 +22,12 @@ public class PlayerCostRequest : ServerRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.PLAYER_COST_CHANGE;
+        return NetProtocols.SE_PLAYER_COST_CHANGE;
     }
 
     public override string GetProtocolName()
     {
-        return "PLAYER_COST_CHANGE";
+        return "SE_PLAYER_COST_CHANGE";
     }
 
 
@@ -74,10 +74,10 @@ public class PlayerCostRequest : ServerRequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clinetId] " + clinetId;
-        log += " [change] " + change;
-        log += " [addCost_left] " + addCost_left;
-        log += " [addCost_max] " + addCost_max;
+        log += " [clinetId]=" + clinetId;
+        log += " [change]=" + change;
+        log += " [addCost_left]=" + addCost_left;
+        log += " [addCost_max]=" + addCost_max;
         return log;
     }
 

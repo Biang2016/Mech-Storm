@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class WeaponAttributesRequest : ServerRequestBase
+public class WeaponAttributesChangeRequest : ServerRequestBase
 {
     public int clinetId;
     public int retinuePlaceIndex;
@@ -10,11 +10,11 @@ public class WeaponAttributesRequest : ServerRequestBase
     public int addAttack;
     public int addEnergy;
 
-    public WeaponAttributesRequest()
+    public WeaponAttributesChangeRequest()
     {
     }
 
-    public WeaponAttributesRequest(int clinetId, int retinuePlaceIndex, int weaponPlaceIndex, WeaponAttributesChangeFlag change, int addAttack = 0, int addEnergy = 0)
+    public WeaponAttributesChangeRequest(int clinetId, int retinuePlaceIndex, int weaponPlaceIndex, WeaponAttributesChangeFlag change, int addAttack = 0, int addEnergy = 0)
     {
         this.clinetId = clinetId;
         this.retinuePlaceIndex = retinuePlaceIndex;
@@ -26,12 +26,12 @@ public class WeaponAttributesRequest : ServerRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.WEAPON_ATTRIBUTES_CHANGE;
+        return NetProtocols.SE_WEAPON_ATTRIBUTES_CHANGE;
     }
 
     public override string GetProtocolName()
     {
-        return "WEAPON_ATTRIBUTES_CHANGE";
+        return "SE_WEAPON_ATTRIBUTES_CHANGE";
     }
 
     public override void Serialize(DataStream writer)
@@ -81,21 +81,21 @@ public class WeaponAttributesRequest : ServerRequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clinetId] " + clinetId;
-        log += " [retinuePlaceIndex] " + retinuePlaceIndex;
-        log += " [weaponPlaceIndex] " + weaponPlaceIndex;
+        log += " [clinetId]=" + clinetId;
+        log += " [retinuePlaceIndex]=" + retinuePlaceIndex;
+        log += " [weaponPlaceIndex]=" + weaponPlaceIndex;
         if (change == WeaponAttributesChangeFlag.Both)
         {
-            log += " [addAttack] " + addAttack;
-            log += " [addEnergy] " + addEnergy;
+            log += " [addAttack]=" + addAttack;
+            log += " [addEnergy]=" + addEnergy;
         }
         else if (change == WeaponAttributesChangeFlag.Attack)
         {
-            log += " [addAttack] " + addAttack;
+            log += " [addAttack]=" + addAttack;
         }
         else if (change == WeaponAttributesChangeFlag.Energy)
         {
-            log += " [addEnergy] " + addEnergy;
+            log += " [addEnergy]=" + addEnergy;
         }
 
         return log;

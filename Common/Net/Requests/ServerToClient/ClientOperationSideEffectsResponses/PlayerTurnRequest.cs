@@ -16,12 +16,12 @@ public class PlayerTurnRequest : ServerRequestBase
     }
     public override int GetProtocol()
     {
-        return NetProtocols.PLAYER_TURN;
+        return NetProtocols.SE_PLAYER_TURN;
     }
 
 	public override string GetProtocolName()
 	{
-        return "PLAYER_TURN";
+        return "SE_PLAYER_TURN";
 	}
 
     public override void Serialize(DataStream writer)
@@ -39,7 +39,7 @@ public class PlayerTurnRequest : ServerRequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clientId] " + clientId;
+        log += " [clientId]=" + clientId;
         return log;
     }
 }

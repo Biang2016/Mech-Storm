@@ -37,7 +37,7 @@ internal class ServerPlayer : Player
     public void AddCostWithoutLimit(int addCostValue)
     {
         AddCost(addCostValue);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: addCostValue);
+        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: addCostValue);
         BroadCastRequest(request);
     }
 
@@ -48,7 +48,7 @@ internal class ServerPlayer : Player
             AddCost(addCostValue);
         else
             AddCost(CostMax - CostLeft);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
         BroadCastRequest(request);
     }
 
@@ -59,7 +59,7 @@ internal class ServerPlayer : Player
             AddCost(-useCostValue);
         else
             AddCost(-CostLeft);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
         BroadCastRequest(request);
     }
 
@@ -69,16 +69,15 @@ internal class ServerPlayer : Player
     {
         int costLeftBefore = CostLeft;
         AddCost(CostMax - CostLeft);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
-        MyClientProxy?.SendMessage(request);
-        MyEnemyPlayer?.MyClientProxy?.SendMessage(request);
+        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+        BroadCastRequest(request);
     }
 
     public void UseAllCost()
     {
         int costLeftBefore = CostLeft;
         AddCost(-CostLeft);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
         BroadCastRequest(request);
     }
 
@@ -90,7 +89,7 @@ internal class ServerPlayer : Player
             AddCostMax(increaseValue);
         else
             AddCostMax(GamePlaySettings.MaxCost - CostMax);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
+        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
         BroadCastRequest(request);
     }
 
@@ -101,11 +100,11 @@ internal class ServerPlayer : Player
             AddCostMax(-CostMax);
         else
             AddCostMax(-decreaseValue);
-        PlayerCostRequest request = new PlayerCostRequest(ClientId, PlayerCostRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
+        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
         BroadCastRequest(request);
     }
 
-    private void BroadCastRequest(PlayerCostRequest request)
+    private void BroadCastRequest(PlayerCostChangeRequest request)
     {
         MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request);
         MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request);

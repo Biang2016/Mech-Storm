@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerRequest : ServerRequestBase
+public class SetPlayerRequest : ServerRequestBase
 {
     public int clientId;
     public int costLeft;
     public int costMax;
 
-    public PlayerRequest()
+    public SetPlayerRequest()
     {
 
     }
 
-    public PlayerRequest(int clientId, int costLeft, int costMax)
+    public SetPlayerRequest(int clientId, int costLeft, int costMax)
     {
         this.clientId = clientId;
         this.costLeft = costLeft;
@@ -21,12 +21,12 @@ public class PlayerRequest : ServerRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.PLAYER;
+        return NetProtocols.SE_SET_PLAYER;
     }
 
     public override string GetProtocolName()
     {
-        return "PLAYER";
+        return "SE_SET_PLAYER";
     }
 
     public override void Serialize(DataStream writer)
@@ -48,9 +48,9 @@ public class PlayerRequest : ServerRequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clientId] " + clientId;
-        log += " [costLeft] " + costLeft;
-        log += " [costMax] " + costMax;
+        log += " [clientId]=" + clientId;
+        log += " [costLeft]=" + costLeft;
+        log += " [costMax]=" + costMax;
         return log;
     }
 }

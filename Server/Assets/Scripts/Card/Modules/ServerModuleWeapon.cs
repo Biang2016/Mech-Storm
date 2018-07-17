@@ -63,7 +63,7 @@ internal class ServerModuleWeapon : ServerModuleBase
             m_WeaponAttack = value;
             if (isInitialized && before != m_WeaponAttack)
             {
-                WeaponAttributesRequest request = new WeaponAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_WeaponPlaceIndex, WeaponAttributesRequest.WeaponAttributesChangeFlag.Attack, m_WeaponAttack - before, 0);
+                WeaponAttributesChangeRequest request = new WeaponAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_WeaponPlaceIndex, WeaponAttributesChangeRequest.WeaponAttributesChangeFlag.Attack, m_WeaponAttack - before, 0);
                 ServerPlayer.MyEnemyPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -81,7 +81,7 @@ internal class ServerModuleWeapon : ServerModuleBase
             m_WeaponEnergy = Mathf.Min(value, M_WeaponEnergyMax);
             if (isInitialized && before != m_WeaponEnergy)
             {
-                WeaponAttributesRequest request = new WeaponAttributesRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_WeaponPlaceIndex, WeaponAttributesRequest.WeaponAttributesChangeFlag.Energy, 0, m_WeaponEnergy - before);
+                WeaponAttributesChangeRequest request = new WeaponAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, M_WeaponPlaceIndex, WeaponAttributesChangeRequest.WeaponAttributesChangeFlag.Energy, 0, m_WeaponEnergy - before);
                 ServerPlayer.MyEnemyPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }

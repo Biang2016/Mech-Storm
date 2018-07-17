@@ -10,11 +10,11 @@ public class GameStart_Response : ClientOperationResponseBase
     }
     public override int GetProtocol()
     {
-        return NetProtocols.GAME_START;
+        return NetProtocols.GAME_START_RESPONSE;
     }
     public override string GetProtocolName()
     {
-        return "GAME_START";
+        return "GAME_START_RESPONSE";
     }
     public override string DeserializeLog()
     {

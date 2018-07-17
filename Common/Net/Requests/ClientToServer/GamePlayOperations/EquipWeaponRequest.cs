@@ -22,12 +22,12 @@ public class EquipWeaponRequest : ClientRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.EQUIP_WEAPON;
+        return NetProtocols.EQUIP_WEAPON_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "EQUIP_WEAPON";
+        return "EQUIP_WEAPON_REQUEST";
     }
 
     public override void Serialize(DataStream writer)
@@ -51,10 +51,10 @@ public class EquipWeaponRequest : ClientRequestBase
     public override string DeserializeLog()
     {
         string log = "";
-        log += " [cardInfo.CardID] " + cardInfo.CardID;
-        log += " [handCardIndex] " + handCardIndex;
-        log += " [battleGroundIndex] " + battleGroundIndex;
-        log += " [weaponPlaceIndex] " + weaponPlaceIndex;
+        log += " [cardInfo.CardID]=" + cardInfo.CardID;
+        log += " [handCardIndex]=" + handCardIndex;
+        log += " [battleGroundIndex]=" + battleGroundIndex;
+        log += " [weaponPlaceIndex]=" + weaponPlaceIndex;
         return log;
     }
 }

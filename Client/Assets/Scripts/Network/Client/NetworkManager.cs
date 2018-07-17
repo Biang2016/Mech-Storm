@@ -56,6 +56,7 @@ internal class NetworkManager : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(2f);
             if (!Client.CS.Proxy.Socket.Connected)
             {
                 Client.CS.Connect("127.0.0.1", 9999, ConnectCallBack, null);
@@ -74,8 +75,6 @@ internal class NetworkManager : MonoBehaviour
                     }
                 }
             }
-
-            yield return new WaitForSeconds(2f);
         }
     }
 

@@ -21,9 +21,10 @@ public abstract class ClientOperationResponseBase : ServerRequestBase
     {
         base.Deserialize(reader);
         int sideEffestCount = reader.ReadSInt32();
+
         for (int i = 0; i < sideEffestCount; i++)
         {
-            ServerRequestBase request = (ServerRequestBase)ProtoManager.TryDeserialize(reader.ToByteArray(), null);
+            ServerRequestBase request = (ServerRequestBase)ProtoManager.TryDeserialize(reader, null);
             SideEffects.Add(request);
         }
     }

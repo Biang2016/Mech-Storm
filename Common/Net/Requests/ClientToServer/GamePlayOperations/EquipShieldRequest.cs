@@ -22,12 +22,12 @@ public class EquipShieldRequest : ClientRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.EQUIP_SHIELD;
+        return NetProtocols.EQUIP_SHIELD_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "EQUIP_SHIELD";
+        return "EQUIP_SHIELD_REQUEST";
     }
 
     public override void Serialize(DataStream writer)
@@ -51,10 +51,10 @@ public class EquipShieldRequest : ClientRequestBase
     public override string DeserializeLog()
     {
         string log = "";
-        log += " [cardInfo.CardID] " + cardInfo.CardID;
-        log += " [handCardIndex] " + handCardIndex;
-        log += " [battleGroundIndex] " + battleGroundIndex;
-        log += " [shieldPlaceIndex] " + shieldPlaceIndex;
+        log += " [cardInfo.CardID]=" + cardInfo.CardID;
+        log += " [handCardIndex]=" + handCardIndex;
+        log += " [battleGroundIndex]=" + battleGroundIndex;
+        log += " [shieldPlaceIndex]=" + shieldPlaceIndex;
         return log;
     }
 }

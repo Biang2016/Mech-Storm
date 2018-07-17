@@ -48,8 +48,8 @@ internal class ClientLog : MonoBehaviour
             if (log != null)
             {
                 Debug.Log(log.LogStr);
-                Console.ForegroundColor = log.ConsoleColor;
-                Console.WriteLine(log.LogStr, log.ConsoleColor);
+                //Console.ForegroundColor = log.ConsoleColor;
+                //Console.WriteLine(log.LogStr, log.ConsoleColor);
             }
         }
     }

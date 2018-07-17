@@ -20,12 +20,12 @@ public class SummonRetinueRequest : ClientRequestBase
     }
     public override int GetProtocol()
     {
-        return NetProtocols.SUMMON_RETINUE;
+        return NetProtocols.SUMMON_RETINUE_REQUEST;
     }
 
 	public override string GetProtocolName()
 	{
-        return "SUMMON_RETINUE";
+        return "SUMMON_RETINUE_REQUEST";
 	}
 
     public override void Serialize(DataStream writer)
@@ -47,9 +47,9 @@ public class SummonRetinueRequest : ClientRequestBase
     public override string DeserializeLog()
     {
         string log = "";
-        log += " [cardInfo.CardID] " + cardInfo.CardID;
-        log += " [handCardIndex] " + handCardIndex;
-        log += " [battleGroundIndex] " + battleGroundIndex;
+        log += " [cardInfo.CardID]=" + cardInfo.CardID;
+        log += " [handCardIndex]=" + handCardIndex;
+        log += " [battleGroundIndex]=" + battleGroundIndex;
         return log;
     }
 }

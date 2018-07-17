@@ -13,12 +13,12 @@ public class MatchRequest : ClientRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.Match;
+        return NetProtocols.MATCH_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "Match";
+        return "MATCH_REQUEST";
     }
 
     public override void Serialize(DataStream writer)

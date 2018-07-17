@@ -21,7 +21,6 @@ internal class Client : MonoBehaviour
         }
     }
 
-    public ProtoManager ClientProtoManager;
     private Socket ServerSocket;
     bool isStopReceive = true;
 
@@ -35,8 +34,7 @@ internal class Client : MonoBehaviour
 
     void Awake()
     {
-        ClientProtoManager = new ProtoManager();
-        //OnRestartProtocols();
+        OnRestartProtocols();
     }
 
     //接收到数据放入数据队列，按顺序取出
@@ -47,7 +45,8 @@ internal class Client : MonoBehaviour
             if (receiveDataQueue.Count > 0)
             {
                 ReceiveSocketData rsd = receiveDataQueue.Dequeue();
-                ClientProtoManager.TryDeserialize(rsd.Data, rsd.Socket);
+                DataStream stream =new DataStream(rsd.Data,true);
+                ProtoManager.TryDeserialize(stream, rsd.Socket);
             }
 
             Proxy.Send();
@@ -61,10 +60,10 @@ internal class Client : MonoBehaviour
 
     public void OnRestartProtocols()
     {
-        //foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
-        //{
-        //    ClientProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
-        //}
+        foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
+        {
+            ProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
+        }
     }
 
     #region 连接
@@ -151,6 +150,11 @@ internal class Client : MonoBehaviour
 
     #region 接收
 
+    private void Response(Socket socket, RequestBase requestbase)
+    {
+        Proxy.Response(socket, requestbase);
+    }
+
     private int clientStates = 0;
 
     private void ReceiveSocket()
@@ -204,10 +208,6 @@ internal class Client : MonoBehaviour
         }
     }
 
-    void Response(Socket socket, RequestBase r)
-    {
-    }
-
     #endregion
 
     #region 发送
@@ -249,6 +249,9 @@ internal class Client : MonoBehaviour
             {
                 Closed();
             }
+
+            string log = "SendToServer: " + request.DeserializeLog();
+            ClientLog.CL.PrintSend(log);
         }
         catch (Exception e)
         {

@@ -16,12 +16,12 @@ public class CardDeckRequest : ClientRequestBase
 
     public override int GetProtocol()
     {
-        return NetProtocols.CARD_DECK_INFO;
+        return NetProtocols.CARD_DECK_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "CARD_DECK_INFO";
+        return "CARD_DECK_REQUEST";
     }
 
     public override void Serialize(DataStream writer)
@@ -50,7 +50,7 @@ public class CardDeckRequest : ClientRequestBase
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [CardIDs] ";
+        log += " [CardIDs]=";
         foreach (int cardID in cardDeckInfo.CardIDs)
         {
             log += cardID + " ";
