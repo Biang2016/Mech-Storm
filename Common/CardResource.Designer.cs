@@ -62,28 +62,32 @@ namespace MyCardGameCommon {
         
         /// <summary>
         ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///
         ///&lt;AllCards&gt;
-        ///  &lt;Card id=&quot;999&quot;&gt;
-        ///    &lt;baseInfo&gt;&lt;/baseInfo&gt;
-        ///    &lt;cardName&gt;空牌&lt;/cardName&gt;
-        ///    &lt;cardDesc&gt;&lt;/cardDesc&gt;
-        ///    &lt;cost&gt;0&lt;/cost&gt;
-        ///    &lt;dragPurpose&gt;Summon&lt;/dragPurpose&gt;
-        ///    &lt;cardType&gt;Retinue&lt;/cardType&gt;
-        ///    &lt;cardColor&gt;HeroColor&lt;/cardColor&gt;
-        ///    &lt;upgradeCardID&gt;卡牌名字&lt;/upgradeCardID&gt;
-        ///    &lt;cardLevel&gt;0&lt;/cardLevel&gt;
-        ///    &lt;life&gt;0&lt;/life&gt;
-        ///    &lt;totalLife&gt;0&lt;/totalLife&gt;
-        ///    &lt;basicAttack&gt;0&lt;/basicAttack&gt;
-        ///    &lt;basicShield&gt;0&lt;/basicShield&gt;
-        ///    &lt;basicArmor&gt;0&lt;/basicArmor&gt;
-        ///     [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///    &lt;Card id=&quot;999&quot;&gt;
+        ///        &lt;CardInfo name=&quot;baseInfo&quot; cardName=&quot;空牌&quot; cardDesc=&quot;&quot; cost=&quot;0&quot; dragPurpose=&quot;Summon&quot; cardType=&quot;Retinue&quot; cardColor=&quot;#787878FF&quot; /&gt;
+        ///        &lt;CardInfo name=&quot;upgradeInfo&quot; upgradeCardID=&quot;-1&quot; cardLevel=&quot;0&quot; /&gt;
+        ///        &lt;CardInfo name=&quot;lifeInfo&quot; life=&quot;0&quot; totalLife=&quot;0&quot; /&gt;
+        ///        &lt;CardInfo name=&quot;battleInfo&quot; basicAttack=&quot;0&quot; basicShield=&quot;0&quot; basicArmor=&quot;0&quot; /&gt;
+        ///        &lt;CardInfo name=&quot;slotInfo&quot; slot1=&quot;None&quot; slot2=&quot;None&quot; slot3=&quot;None&quot; slot4=&quot;No [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string Cards {
             get {
                 return ResourceManager.GetString("Cards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;AllSideEffects&gt;
+        ///  &lt;SideEffect id=&quot;0&quot;&gt;
+        ///        &lt;SideEffectInfo name=&quot;KillAllInBattleGround&quot; cardDesc=&quot;杀死场上所有随从&quot; dragPurpose=&quot;Summon&quot; cardType=&quot;Retinue&quot; cardColor=&quot;#787878FF&quot; /&gt;
+        ///    &lt;/SideEffect&gt;
+        ///    
+        ///&lt;/AllSideEffects&gt; 的本地化字符串。
+        /// </summary>
+        internal static string SideEffects {
+            get {
+                return ResourceManager.GetString("SideEffects", resourceCulture);
             }
         }
     }

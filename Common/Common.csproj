@@ -44,7 +44,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CardResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Net\GamePlay\Card\CardDeck\AllCards.cs" />
     <Compile Include="Net\GamePlay\Card\CardDeck\CardDeck.cs" />
+    <Compile Include="Net\GamePlay\Card\CardDeck\SideEffects.cs" />
     <Compile Include="Net\GamePlay\Card\Cards\CardInfo.cs" />
     <Compile Include="Net\GamePlay\DragPurpose.cs" />
     <Compile Include="Net\GamePlay\Player.cs" />
@@ -101,6 +103,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CardResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Net\GamePlay\Card\CardDeck\SideEffects.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

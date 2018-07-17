@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <AllSideEffects>
-  <SideEffect id="0">
-        <SideEffectInfo name="KillAllInBattleGround" cardDesc="杀死场上所有随从" dragPurpose="Summon" cardType="Retinue" cardColor="#787878FF" />
-    </SideEffect>
-    
+  <SideEffect id="0" name="KillAllInBattleGround" desc="杀死场上所有随从"/>
+
 </AllSideEffects>
