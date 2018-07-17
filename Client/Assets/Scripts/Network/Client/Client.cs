@@ -251,7 +251,7 @@ internal class Client : MonoBehaviour
             }
 
             string log = "SendToServer: " + request.DeserializeLog();
-            ClientLog.CL.PrintSend(log);
+            ClientLog.CL.Print(log);
         }
         catch (Exception e)
         {

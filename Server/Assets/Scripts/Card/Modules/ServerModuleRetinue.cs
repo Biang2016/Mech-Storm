@@ -22,6 +22,8 @@ internal class ServerModuleRetinue : ServerModuleBase
         return new CardInfo_Retinue(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.LifeInfo, CardInfo.BattleInfo, CardInfo.SlotInfo);
     }
 
+    #region 属性
+
     private string m_RetinueName;
 
     public string M_RetinueName
@@ -51,6 +53,11 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.LeftLife, addLeftLife: m_RetinueLeftLife - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+            }
+
+            if (before > m_RetinueLeftLife)
+            {
+                OnBeDamaged(before - m_RetinueLeftLife);
             }
         }
     }
@@ -122,6 +129,8 @@ internal class ServerModuleRetinue : ServerModuleBase
             }
         }
     }
+
+    #endregion
 
     #region 拼装上的模块
 
@@ -227,28 +236,9 @@ internal class ServerModuleRetinue : ServerModuleBase
         set { canAttack = value; }
     }
 
-    public void OnBeginRound()
-    {
-        if (M_Weapon == null && M_RetinueAttack != 0)
-        {
-            CanAttack = true;
-        }
-
-        if (M_Weapon != null && M_Weapon.M_WeaponAttack + M_RetinueAttack != 0)
-        {
-            CanAttack = true;
-            M_Weapon.CanAttack = true;
-        }
-    }
-
-    public void OnEndRound()
-    {
-        CanAttack = false;
-        if (M_Weapon != null) M_Weapon.CanAttack = false;
-    }
-
     public void BeAttacked(int attackNumber)
     {
+        OnBeAttacked();
         int remainAttackNumber = attackNumber;
         if (M_Shield != null)
         {
@@ -282,7 +272,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 if (M_RetinueArmor >= remainAttackNumber)
                 {
-                    M_RetinueArmor = (int)(M_RetinueArmor - remainAttackNumber);
+                    M_RetinueArmor = (int) (M_RetinueArmor - remainAttackNumber);
                     remainAttackNumber = 0;
                     return;
                 }
@@ -298,6 +288,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             M_RetinueLeftLife -= M_RetinueLeftLife;
             remainAttackNumber -= M_RetinueLeftLife;
+            OnDie();
             ServerPlayer.MyBattleGroundManager.RemoveRetinue(this);
         }
         else
@@ -310,6 +301,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public List<int> AllModulesAttack()
     {
+        OnAttack();
         List<int> ASeriesOfAttacks = new List<int>();
         if (M_Weapon != null)
         {
@@ -321,8 +313,58 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
 
         CanAttack = false;
+
+        foreach (int aSeriesOfAttack in ASeriesOfAttacks)
+        {
+            OnMakeDamage(aSeriesOfAttack);
+        }
+
         return ASeriesOfAttacks;
     }
+
+    #region 特效、技能
+
+    public void OnDie()
+    {
+    }
+
+    public void OnAttack()
+    {
+    }
+
+    public void OnMakeDamage(int damage)
+    {
+    }
+
+    public void OnBeAttacked()
+    {
+    }
+
+    public void OnBeDamaged(int damage)
+    {
+    }
+
+    public void OnBeginRound()
+    {
+        if (M_Weapon == null && M_RetinueAttack != 0)
+        {
+            CanAttack = true;
+        }
+
+        if (M_Weapon != null && M_Weapon.M_WeaponAttack + M_RetinueAttack != 0)
+        {
+            CanAttack = true;
+            M_Weapon.CanAttack = true;
+        }
+    }
+
+    public void OnEndRound()
+    {
+        CanAttack = false;
+        if (M_Weapon != null) M_Weapon.CanAttack = false;
+    }
+
+    #endregion
 
     #endregion
 }

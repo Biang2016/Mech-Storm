@@ -14,10 +14,8 @@ internal class ServerBattleGroundManager
         ServerPlayer = serverPlayer;
     }
 
-    public ServerModuleRetinue GetRetinue(int retinuePlaceIndex)
-    {
-        return Retinues[retinuePlaceIndex];
-    }
+
+    #region SideEffects
 
     public void SummonRetinue(SummonRetinueRequest r)
     {
@@ -51,6 +49,30 @@ internal class ServerBattleGroundManager
         retinue.M_Shield = shield;
     }
 
+    public void KillAllInBattleGround() //杀死清场
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        {
+            serverModuleRetinue.OnDie();
+        }
+
+        Retinues.Clear();
+    }
+
+    public void AddLifeForSomeRetinue(int retinuePlaceIndex, int addLife) //增加某随从生命
+    {
+        Retinues[retinuePlaceIndex].M_RetinueLeftLife += addLife;
+    }
+
+    #endregion
+
+    #region Utils
+
+    public ServerModuleRetinue GetRetinue(int retinuePlaceIndex)
+    {
+        return Retinues[retinuePlaceIndex];
+    }
+
     public void RemoveRetinue(ServerModuleRetinue retinue)
     {
         Retinues.Remove(retinue);
@@ -60,6 +82,9 @@ internal class ServerBattleGroundManager
         }
     }
 
+    #endregion
+
+    #region GameProcess
 
     internal void BeginRound()
     {
@@ -76,4 +101,6 @@ internal class ServerBattleGroundManager
             mr.OnEndRound();
         }
     }
+
+    #endregion
 }

@@ -21,23 +21,22 @@ internal class ClientLog : MonoBehaviour
         LogMessages = new Queue<Log>();
     }
 
-    Queue<Log> LogMessages;
-
-    private void Update()
+    void Update()
     {
-
+        DoPrint();
     }
+
+    Queue<Log> LogMessages;
 
     public void Print(string logStr)
     {
-        Print(logStr, ConsoleColor.White);
+        Print(logStr, Color.white);
     }
 
-    public void Print(string logStr, ConsoleColor consoleColor)
+    public void Print(string logStr, Color color)
     {
-        Log log = new Log(logStr, consoleColor);
+        Log log = new Log(logStr, color);
         LogMessages.Enqueue(log);
-        DoPrint();
     }
 
     public void DoPrint()
@@ -47,54 +46,52 @@ internal class ClientLog : MonoBehaviour
             Log log = LogMessages.Dequeue();
             if (log != null)
             {
-                Debug.Log(log.LogStr);
-                //Console.ForegroundColor = log.ConsoleColor;
-                //Console.WriteLine(log.LogStr, log.ConsoleColor);
+                Debug.Log("<color=#" + log.Color + ">" + log.LogStr + "</color>");
             }
         }
     }
 
     public void PrintWarning(string logStr)
     {
-        Print(logStr, ConsoleColor.Yellow);
+        Print(logStr, Color.yellow);
     }
 
     public void PrintError(string logStr)
     {
-        Print(logStr, ConsoleColor.Red);
+        Print(logStr, Color.red);
     }
 
     public void PrintClientStates(string logStr)
     {
-        Print(logStr, ConsoleColor.Green);
+        Print(logStr, Color.green);
     }
 
     public void PrintServerStates(string logStr)
     {
-        Print(logStr, ConsoleColor.DarkGray);
+        Print(logStr, Color.gray);
     }
 
     public void PrintReceive(string logStr)
     {
-        Print(logStr, ConsoleColor.Blue);
+        Print(logStr, new Color(0.5f,0.5f,1f));
     }
 
     public void PrintSend(string logStr)
     {
-        Print(logStr, ConsoleColor.Magenta);
+        Print(logStr, Color.magenta);
     }
 }
 
 class Log
 {
     public string LogStr;
-    public ConsoleColor ConsoleColor;
+    public string Color;
     public string Time;
 
-    public Log(string logStr, ConsoleColor consoleColor)
+    public Log(string logStr, Color color)
     {
-        ConsoleColor = consoleColor;
-        Time = System.DateTime.Now.ToLongTimeString();
+        Color = ColorUtility.ToHtmlStringRGB(color);
+        Time = DateTime.Now.ToLongTimeString();
         LogStr = Time + "  " + logStr;
     }
 }
