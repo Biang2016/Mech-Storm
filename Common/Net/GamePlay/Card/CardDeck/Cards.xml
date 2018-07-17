@@ -17,14 +17,14 @@
     </Card>  
     
     <Card id="0">
-        <CardInfo name="baseInfo" cardName="突击敢达" cardDesc="具有初始攻击加成\\n装备武器后如虎添翼" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4FF" />
+        <CardInfo name="baseInfo" cardName="突击敢达" cardDesc="具有初始攻击加成\n装备武器后如虎添翼" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4FF" />
         <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="0" />
         <CardInfo name="lifeInfo" life="6" totalLife="6" />
         <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
         <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     </Card>
     <Card id="1">
-        <CardInfo name="baseInfo" cardName="守卫者" cardDesc="身披护盾的守卫者\\n可抵御大量伤害" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4FF" />
+        <CardInfo name="baseInfo" cardName="守卫者" cardDesc="身披护盾的守卫者\n可抵御大量伤害" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4FF" />
         <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="0" />
         <CardInfo name="lifeInfo" life="5" totalLife="5" />
         <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="3" />

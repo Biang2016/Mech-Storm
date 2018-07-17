@@ -233,7 +233,7 @@ public static class AllCards
                 {
                     case "baseInfo":
                         baseInfo = new BaseInfo(cardInfo.Attributes["cardName"].Value,
-                                                        cardInfo.Attributes["cardDesc"].Value,
+                                                        cardInfo.Attributes["cardDesc"].Value.Replace("\\n","\n"),
                                                         int.Parse(cardInfo.Attributes["cost"].Value),
                                                         (DragPurpose)Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
                                                         (CardTypes)Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value),

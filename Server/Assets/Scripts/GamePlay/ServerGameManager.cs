@@ -223,7 +223,6 @@ internal class ServerGameManager
 
     #endregion
 
-
     #region Utils
 
     public void Broadcast_AddRequestToOperationResponse(ServerRequestBase request)
