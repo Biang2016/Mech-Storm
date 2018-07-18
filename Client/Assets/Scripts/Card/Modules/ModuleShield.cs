@@ -55,7 +55,7 @@ internal class ModuleShield : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Shield(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo, CardInfo.ShieldInfo);
+        return new CardInfo_Shield(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo, CardInfo.ShieldInfo,CardInfo.SideEffects_OnDie);
     }
 
     private NumberSize my_NumberSize_Armor = NumberSize.Medium;

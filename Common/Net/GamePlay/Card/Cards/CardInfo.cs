@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 public enum CardTypes
 {
@@ -27,6 +28,8 @@ public abstract class CardInfo_Base
     public WeaponInfo WeaponInfo;
     public ShieldInfo ShieldInfo;
 
+    public List<SideEffectBase> SideEffects_OnDie;
+
     public abstract CardInfo_Base Clone();
 
     public static string textToVertical(string text)
@@ -44,47 +47,67 @@ public abstract class CardInfo_Base
 
 public class CardInfo_Retinue : CardInfo_Base
 {
-    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo) : base(cardID, baseInfo)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo,List<SideEffectBase> sideEffects_OnDie) : base(cardID, baseInfo)
     {
         UpgradeInfo = upgradeInfo;
         LifeInfo = lifeInfo;
         BattleInfo = battleInfo;
         SlotInfo = slotInfo;
+        SideEffects_OnDie = sideEffects_OnDie;
     }
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, BaseInfo, UpgradeInfo, LifeInfo, BattleInfo, SlotInfo);
+        List<SideEffectBase> new_SideEffects_OnDie=new List<SideEffectBase>();
+        foreach (SideEffectBase sideEffectBase in SideEffects_OnDie)
+        {
+            new_SideEffects_OnDie.Add(sideEffectBase.Clone());
+        }
+        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, BaseInfo, UpgradeInfo, LifeInfo, BattleInfo, SlotInfo, new_SideEffects_OnDie);
         return cb;
     }
 }
 
 public class CardInfo_Weapon : CardInfo_Base
 {
-    public CardInfo_Weapon(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, WeaponInfo weaponInfo) : base(cardID, baseInfo)
+    public CardInfo_Weapon(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, WeaponInfo weaponInfo, List<SideEffectBase> sideEffects_OnDie) : base(cardID, baseInfo)
     {
         WeaponInfo = weaponInfo;
         UpgradeInfo = upgradeInfo;
+        SideEffects_OnDie = sideEffects_OnDie;
     }
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Weapon cb = new CardInfo_Weapon(CardID, BaseInfo, UpgradeInfo, WeaponInfo);
+        List<SideEffectBase> new_SideEffects_OnDie = new List<SideEffectBase>();
+        foreach (SideEffectBase sideEffectBase in SideEffects_OnDie)
+        {
+            new_SideEffects_OnDie.Add(sideEffectBase.Clone());
+        }
+
+        CardInfo_Weapon cb = new CardInfo_Weapon(CardID, BaseInfo, UpgradeInfo, WeaponInfo, new_SideEffects_OnDie);
         return cb;
     }
 }
 
 public class CardInfo_Shield : CardInfo_Base
 {
-    public CardInfo_Shield(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, ShieldInfo shieldInfo) : base(cardID, baseInfo)
+    public CardInfo_Shield(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, ShieldInfo shieldInfo, List<SideEffectBase> sideEffects_OnDie) : base(cardID, baseInfo)
     {
         UpgradeInfo = upgradeInfo;
         ShieldInfo = shieldInfo;
+        SideEffects_OnDie = sideEffects_OnDie;
     }
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Shield cb = new CardInfo_Shield(CardID, BaseInfo, UpgradeInfo, ShieldInfo);
+        List<SideEffectBase> new_SideEffects_OnDie = new List<SideEffectBase>();
+        foreach (SideEffectBase sideEffectBase in SideEffects_OnDie)
+        {
+            new_SideEffects_OnDie.Add(sideEffectBase.Clone());
+        }
+
+        CardInfo_Shield cb = new CardInfo_Shield(CardID, BaseInfo, UpgradeInfo, ShieldInfo, new_SideEffects_OnDie);
         return cb;
     }
 }

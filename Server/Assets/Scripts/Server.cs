@@ -43,6 +43,7 @@ internal class Server
 
     public void Start()
     {
+        AllSideEffects.AddAllSideEffects();
         AllCards.AddAllCards();
         ServerLog.PrintServerStates("CardDeck Loaded");
         SGMM = new ServerGameMatchManager();

@@ -56,7 +56,7 @@ internal class ModuleWeapon : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Weapon(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo,CardInfo.WeaponInfo);
+        return new CardInfo_Weapon(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo,CardInfo.WeaponInfo,CardInfo.SideEffects_OnDie);
     }
 
     private NumberSize my_NumberSize_Attack = NumberSize.Big;

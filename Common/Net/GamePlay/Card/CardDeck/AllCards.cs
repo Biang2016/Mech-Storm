@@ -31,6 +31,8 @@ public static class AllCards
             WeaponInfo weaponInfo = new WeaponInfo();
             ShieldInfo shieldInfo = new ShieldInfo();
 
+            List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
+
             for (int j = 0; j < card.ChildNodes.Count; j++)
             {
                 XmlNode cardInfo = card.ChildNodes[j];
@@ -76,7 +78,23 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["shieldMax"].Value),
                             (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value));
                         break;
-                    default: break;
+                    case "sideEffectsInfo":
+                        List<SideEffectBase> sideEffects;
+                        switch (cardInfo.Attributes["happenTime"].Value)
+                        {
+                            case "OnDie":
+                                sideEffects = SideEffects_OnDie;
+                                for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
+                                {
+                                    XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
+                                    SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value];
+                                    sideEffects.Add(sideEffect);
+                                }
+
+                                break;
+                        }
+
+                        break;
                 }
             }
 
@@ -89,21 +107,24 @@ public static class AllCards
                         upgradeInfo: upgradeInfo,
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
-                        slotInfo: slotInfo));
+                        slotInfo: slotInfo,
+                        sideEffects_OnDie: SideEffects_OnDie));
                     break;
                 case CardTypes.Weapon:
                     addCard(new CardInfo_Weapon(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        weaponInfo: weaponInfo));
+                        weaponInfo: weaponInfo,
+                        sideEffects_OnDie: SideEffects_OnDie));
                     break;
                 case CardTypes.Shield:
                     addCard(new CardInfo_Shield(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        shieldInfo: shieldInfo));
+                        shieldInfo: shieldInfo,
+                        sideEffects_OnDie:SideEffects_OnDie));
                     break;
             }
         }

@@ -20,7 +20,7 @@ internal class ServerModuleShield : ServerModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Shield(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.ShieldInfo);
+        return new CardInfo_Shield(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.ShieldInfo,CardInfo.SideEffects_OnDie);
     }
 
     #region 属性

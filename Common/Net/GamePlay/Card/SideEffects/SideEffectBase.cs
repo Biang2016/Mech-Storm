@@ -20,5 +20,24 @@ public class SideEffectBase
             Name = name;
             Value = value;
         }
+
+        public Param Clone()
+        {
+            return new Param(Name, Value);
+        }
+    }
+
+    public SideEffectBase Clone()
+    {
+        SideEffectBase newSideEffectBase = new SideEffectBase();
+        newSideEffectBase.SideEffectID = SideEffectID;
+        newSideEffectBase.Name = Name;
+        newSideEffectBase.Desc = Desc;
+        foreach (Param param in Params)
+        {
+            newSideEffectBase.Params.Add(param.Clone());
+        }
+
+        return newSideEffectBase;
     }
 }
