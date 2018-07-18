@@ -41,11 +41,9 @@ public static class ProtoManager
 
         #region Server
 
+        #region OperationResponse
+
         AddProtocol<GameStart_Response>(NetProtocols.GAME_START_RESPONSE);
-        AddProtocol<SetPlayerRequest>(NetProtocols.SE_SET_PLAYER);
-        AddProtocol<PlayerTurnRequest>(NetProtocols.SE_PLAYER_TURN);
-        AddProtocol<DrawCardRequest>(NetProtocols.SE_DRAW_CARD);
-        AddProtocol<PlayerCostChangeRequest>(NetProtocols.SE_PLAYER_COST_CHANGE);
 
         AddProtocol<SummonRetinueRequest_Response>(NetProtocols.SUMMON_RETINUE_REQUEST_RESPONSE);
         AddProtocol<EquipWeaponRequest_Response>(NetProtocols.EQUIP_WEAPON_REQUEST_RESPONSE);
@@ -53,11 +51,36 @@ public static class ProtoManager
 
         AddProtocol<RetinueAttackRetinueRequest_Response>(NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE);
 
+        AddProtocol<EndRoundRequest_Response>(NetProtocols.END_ROUND_REQUEST_RESPONSE);
+
+        #endregion
+
+        #region SideEffects
+
+        AddProtocol<SetPlayerRequest>(NetProtocols.SE_SET_PLAYER);
+
+        AddProtocol<PlayerTurnRequest>(NetProtocols.SE_PLAYER_TURN);
+        AddProtocol<PlayerCostChangeRequest>(NetProtocols.SE_PLAYER_COST_CHANGE);
+
         AddProtocol<WeaponAttributesChangeRequest>(NetProtocols.SE_WEAPON_ATTRIBUTES_CHANGE);
         AddProtocol<ShieldAttributesChangeRequest>(NetProtocols.SE_SHIELD_ATTRIBUTES_CHANGE);
         AddProtocol<RetinueAttributesChangeRequest>(NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE);
 
-        AddProtocol<EndRoundRequest_Response>(NetProtocols.END_ROUND_REQUEST_RESPONSE);
+        AddProtocol<RetinueDieRequest>(NetProtocols.SE_RETINUE_DIE);
+
+        AddProtocol<BattleGroundAddRetinueRequest>(NetProtocols.SE_BATTLEGROUND_ADD_RETINUE);
+        AddProtocol<BattleGroundRemoveRetinueRequest>(NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE);
+
+        AddProtocol<DrawCardRequest>(NetProtocols.SE_DRAW_CARD);
+        AddProtocol<DropCardRequest>(NetProtocols.SE_DROP_CARD);
+        AddProtocol<UseCardRequest>(NetProtocols.SE_USE_CARD);
+
+        AddProtocol<EquipWeaponServerRequest>(NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST);
+        AddProtocol<EquipShieldServerRequest>(NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST);
+
+        AddProtocol<RetinueAttackRetinueServerRequest>(NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST);
+
+        #endregion
 
         #endregion
 

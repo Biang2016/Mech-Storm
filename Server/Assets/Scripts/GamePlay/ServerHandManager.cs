@@ -70,19 +70,28 @@ internal class ServerHandManager
         cards.Add(newCard);
     }
 
-    internal void DropFirstCard()
+    internal void DropCardAt(int index)
     {
-        DropCard(cards[0]);
+        DropCard(cards[index]);
     }
 
     internal void DropCard(ServerCardBase dropCard)
     {
+        DropCardRequest request = new DropCardRequest(ServerPlayer.ClientId, cards.IndexOf(dropCard));
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         cards.Remove(dropCard);
     }
 
-    internal void DropCardAt(int index)
+    internal void UseCardAt(int index)
     {
-        cards.RemoveAt(index);
+        UseCard(cards[index]);
+    }
+
+    internal void UseCard(ServerCardBase useCard)
+    {
+        UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, cards.IndexOf(useCard));
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+        cards.Remove(useCard);
     }
 
     public void BeginRound()

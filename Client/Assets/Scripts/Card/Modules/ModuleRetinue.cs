@@ -187,6 +187,7 @@ internal class ModuleRetinue : ModuleBase
             rd.SetPropertyBlock(mpb);
         }
     }
+
     private void ChangeRetinueBloomColor(Color color)
     {
         if (RetinueBloom)
@@ -202,7 +203,7 @@ internal class ModuleRetinue : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Retinue(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo,CardInfo.LifeInfo,CardInfo.BattleInfo,CardInfo.SlotInfo);
+        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.LifeInfo, CardInfo.BattleInfo, CardInfo.SlotInfo);
     }
 
 
@@ -241,13 +242,6 @@ internal class ModuleRetinue : ModuleBase
             m_RetinueLeftLife = value;
             initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
             CardNumberSet_RetinueLeftLife.Number = m_RetinueLeftLife;
-
-            if (m_RetinueLeftLife <= 0)
-            {
-                ClientPlayer.MyBattleGroundManager.RemoveRetinue(this);
-                ClientPlayer.MyBattleGroundManager.RefreshBattleGround();
-                StartCoroutine(DelayPoolRecycle());
-            }
         }
     }
 
@@ -461,26 +455,6 @@ internal class ModuleRetinue : ModuleBase
     }
 
 
-    public void OnBeginRound()
-    {
-        if (!M_Weapon && M_RetinueAttack != 0)
-        {
-            CanAttack = true;
-        }
-
-        if (M_Weapon && M_Weapon.M_WeaponAttack + M_RetinueAttack != 0)
-        {
-            CanAttack = true;
-            M_Weapon.CanAttack = true;
-        }
-    }
-
-    public void OnEndRound()
-    {
-        CanAttack = false;
-        if (M_Weapon) M_Weapon.CanAttack = false;
-    }
-
     public void AllModulesAttack()
     {
         if (M_Weapon)
@@ -558,6 +532,54 @@ internal class ModuleRetinue : ModuleBase
     }
 
     #endregion
+
+    #endregion
+
+    #region 特效
+
+    public void OnSummoned()
+    {
+    }
+
+    public void OnDie()
+    {
+    }
+
+    public void OnAttack()
+    {
+    }
+
+    public void OnMakeDamage(int damage)
+    {
+    }
+
+    public void OnBeAttacked()
+    {
+    }
+
+    public void OnBeDamaged(int damage)
+    {
+    }
+
+    public void OnBeginRound()
+    {
+        if (!M_Weapon && M_RetinueAttack != 0)
+        {
+            CanAttack = true;
+        }
+
+        if (M_Weapon && M_Weapon.M_WeaponAttack + M_RetinueAttack != 0)
+        {
+            CanAttack = true;
+            M_Weapon.CanAttack = true;
+        }
+    }
+
+    public void OnEndRound()
+    {
+        CanAttack = false;
+        if (M_Weapon) M_Weapon.CanAttack = false;
+    }
 
     #endregion
 }

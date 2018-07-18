@@ -59,6 +59,11 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 OnBeDamaged(before - m_RetinueLeftLife);
             }
+
+            if (m_RetinueLeftLife <= 0)
+            {
+                OnDie();
+            }
         }
     }
 
@@ -324,8 +329,14 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     #region 特效、技能
 
+    public void OnSummoned()
+    {
+    }
+
     public void OnDie()
     {
+        RetinueDieRequest request = new RetinueDieRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     public void OnAttack()

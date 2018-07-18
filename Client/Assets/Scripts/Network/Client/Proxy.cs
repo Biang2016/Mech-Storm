@@ -49,96 +49,33 @@ internal class Proxy : ProxyBase
     public void Response(Socket socket, RequestBase r)
     {
         ClientLog.CL.PrintReceive("Server: " + r.DeserializeLog());
-
-        switch (r.GetProtocol())
+        if (!(r is ClientOperationResponseBase))
         {
-            #region OutGame
-
-            case NetProtocols.CLIENT_ID_REQUEST:
+            switch (r.GetProtocol())
             {
-                ClientIdRequest request = (ClientIdRequest) r;
-                ClientId = request.givenClientId;
-                ClientState = ClientStates.GetId;
-                break;
-            }
-            case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:
-            {
-                GameStopByLeaveRequest request = (GameStopByLeaveRequest) r;
-                RoundManager.RM.OnGameStopByLeave(request);
-                break;
-            }
 
-            #endregion
-
-            #region OperationResponses
-
-            case NetProtocols.GAME_START_RESPONSE:
-            {
-                GameStart_Response request = (GameStart_Response) r;
-                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
+                case NetProtocols.CLIENT_ID_REQUEST:
                 {
-                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
+                    ClientIdRequest request = (ClientIdRequest) r;
+                    ClientId = request.givenClientId;
+                    ClientState = ClientStates.GetId;
+                    break;
                 }
-
-                break;
-            }
-
-            case NetProtocols.END_ROUND_REQUEST_RESPONSE:
-            {
-                EndRoundRequest_Response request = (EndRoundRequest_Response) r;
-                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
+                case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:
                 {
-                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
+                    GameStopByLeaveRequest request = (GameStopByLeaveRequest) r;
+                    RoundManager.RM.OnGameStopByLeave(request);
+                    break;
                 }
-
-                break;
             }
-            case NetProtocols.SUMMON_RETINUE_REQUEST_RESPONSE:
+        }
+        else
+        {
+            ClientOperationResponseBase request = (ClientOperationResponseBase) r;
+            foreach (ServerRequestBase requestSideEffect in request.SideEffects)
             {
-                SummonRetinueRequest_Response request = (SummonRetinueRequest_Response) r;
-                RoundManager.RM.OnPlayerSummonRetinue(request);
-                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
-                {
-                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
-                }
-
-                break;
+                RoundManager.RM.ResponseToSideEffects(requestSideEffect);
             }
-            case NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE:
-            {
-                RetinueAttackRetinueRequest_Response request = (RetinueAttackRetinueRequest_Response) r;
-                RoundManager.RM.OnRetinueAttackRetinue(request);
-                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
-                {
-                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
-                }
-
-                break;
-            }
-            case NetProtocols.EQUIP_WEAPON_REQUEST_RESPONSE:
-            {
-                EquipWeaponRequest_Response request = (EquipWeaponRequest_Response) r;
-                RoundManager.RM.OnPlayerEquipWeapon(request);
-                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
-                {
-                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
-                }
-
-                break;
-            }
-            case NetProtocols.EQUIP_SHIELD_REQUEST_RESPONSE:
-            {
-                EquipShieldRequest_Response request = (EquipShieldRequest_Response) r;
-                RoundManager.RM.OnPlayerEquipShield(request);
-                foreach (ServerRequestBase requestSideEffect in request.SideEffects)
-                {
-                    RoundManager.RM.ResponseToSideEffects(requestSideEffect);
-                }
-
-                break;
-            }
-
-            #endregion
         }
     }
 

@@ -67,9 +67,9 @@ internal class HandManager : MonoBehaviour
         return -1;
     }
 
-    public void DropCard(int index)
+    public void DropCard(int handCardIndex)
     {
-        cards.RemoveAt(index);
+        cards.RemoveAt(handCardIndex);
         RefreshCardsPlace();
     }
 

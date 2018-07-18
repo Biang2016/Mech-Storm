@@ -48,24 +48,6 @@ internal class RoundManager : MonoBehaviour
 
     #region OperationResponses
 
-    public void OnPlayerSummonRetinue(SummonRetinueRequest_Response r)
-    {
-        GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
-        GetPlayerByClientId(r.clientId).MyBattleGroundManager.AddRetinue(r);
-    }
-
-    public void OnPlayerEquipWeapon(EquipWeaponRequest_Response r)
-    {
-        GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
-        GetPlayerByClientId(r.clientId).MyBattleGroundManager.EquipWeapon(r);
-    }
-
-    public void OnPlayerEquipShield(EquipShieldRequest_Response r)
-    {
-        GetPlayerByClientId(r.clientId).MyHandManager.UseCard(r.handCardIndex);
-        GetPlayerByClientId(r.clientId).MyBattleGroundManager.EquipShield(r);
-    }
-
     public void OnGameStopByLeave(GameStopByLeaveRequest r)
     {
         if (r.clientId == Client.CS.Proxy.ClientId)
@@ -79,11 +61,6 @@ internal class RoundManager : MonoBehaviour
 
         OnGameStop();
         Client.CS.Proxy.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
-    }
-
-    public void OnRetinueAttackRetinue(RetinueAttackRetinueRequest_Response r)
-    {
-        GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinuePlaceIndex).AllModulesAttack();
     }
 
     #endregion
@@ -100,9 +77,10 @@ internal class RoundManager : MonoBehaviour
                 Client.CS.Proxy.ClientState = ProxyBase.ClientStates.Playing;
                 NetworkManager.NM.SuccessMatched();
                 Initialize();
-                RM.InitializePlayers((SetPlayerRequest) se);
+                InitializePlayers((SetPlayerRequest) se);
                 break;
             }
+
             case NetProtocols.SE_PLAYER_TURN:
             {
                 SetPlayerTurn((PlayerTurnRequest) se);
@@ -113,11 +91,7 @@ internal class RoundManager : MonoBehaviour
                 SetPlayersCost((PlayerCostChangeRequest) se);
                 break;
             }
-            case NetProtocols.SE_DRAW_CARD:
-            {
-                OnPlayerDrawCard((DrawCardRequest) se);
-                break;
-            }
+
             case NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE:
             {
                 OnRetinueAttributesChange((RetinueAttributesChangeRequest) se);
@@ -133,10 +107,60 @@ internal class RoundManager : MonoBehaviour
                 OnShieldAttributesChange((ShieldAttributesChangeRequest) se);
                 break;
             }
+
+            case NetProtocols.SE_RETINUE_DIE:
+            {
+                OnRetinueDie((RetinueDieRequest) se);
+                break;
+            }
+
+            case NetProtocols.SE_BATTLEGROUND_ADD_RETINUE:
+            {
+                OnBattleGroundAddRetinue((BattleGroundAddRetinueRequest) se);
+                break;
+            }
+            case NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE:
+            {
+                OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest) se);
+                break;
+            }
+
+            case NetProtocols.SE_DRAW_CARD:
+            {
+                OnPlayerDrawCard((DrawCardRequest) se);
+                break;
+            }
+            case NetProtocols.SE_DROP_CARD:
+            {
+                OnPlayerDropCard((DropCardRequest) se);
+                break;
+            }
+            case NetProtocols.SE_USE_CARD:
+            {
+                OnPlayerUseCard((UseCardRequest) se);
+                break;
+            }
+
+            case NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST:
+            {
+                OnEquipWeapon((EquipWeaponServerRequest) se);
+                break;
+            }
+            case NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST:
+            {
+                OnEquipShield((EquipShieldServerRequest) se);
+                break;
+            }
+            case NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST:
+            {
+                OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) se);
+                break;
+            }
         }
     }
 
-    public void Initialize()
+
+    private void Initialize()
     {
         RoundNumber = 0;
         CurrentClientPlayer = null;
@@ -151,7 +175,7 @@ internal class RoundManager : MonoBehaviour
         EnemyCostText.text = "";
     }
 
-    public void InitializePlayers(SetPlayerRequest r)
+    private void InitializePlayers(SetPlayerRequest r)
     {
         if (r.clientId == Client.CS.Proxy.ClientId)
         {
@@ -165,9 +189,8 @@ internal class RoundManager : MonoBehaviour
         }
     }
 
-    public void SetPlayersCost(ServerRequestBase req)
+    private void SetPlayersCost(PlayerCostChangeRequest r)
     {
-        PlayerCostChangeRequest r = (PlayerCostChangeRequest) req;
         if (r.clinetId == Client.CS.Proxy.ClientId)
         {
             SelfClientPlayer.DoChangeCost(r);
@@ -180,9 +203,8 @@ internal class RoundManager : MonoBehaviour
         }
     }
 
-    public void SetPlayerTurn(ServerRequestBase req) //服务器说某玩家回合开始
+    private void SetPlayerTurn(PlayerTurnRequest r) //服务器说某玩家回合开始
     {
-        PlayerTurnRequest r = (PlayerTurnRequest) req;
         if (CurrentClientPlayer != null)
         {
             EndRound();
@@ -208,13 +230,13 @@ internal class RoundManager : MonoBehaviour
         BeginRound();
     }
 
-    public void BeginRound()
+    private void BeginRound()
     {
         CurrentClientPlayer.MyHandManager.BeginRound();
         CurrentClientPlayer.MyBattleGroundManager.BeginRound();
     }
 
-    public void EndRound()
+    private void EndRound()
     {
         CurrentClientPlayer.MyHandManager.EndRound();
         CurrentClientPlayer.MyBattleGroundManager.EndRound();
@@ -227,9 +249,83 @@ internal class RoundManager : MonoBehaviour
         isStop = true;
     }
 
-    public void OnPlayerDrawCard(ServerRequestBase req)
+
+    private void OnWeaponAttributesChange(ServerRequestBase req)
     {
-        DrawCardRequest r = (DrawCardRequest) req;
+        WeaponAttributesChangeRequest r = (WeaponAttributesChangeRequest) req;
+        ModuleWeapon weapon = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Weapon;
+        weapon.M_WeaponAttack += r.addAttack;
+        weapon.M_WeaponEnergy += r.addEnergy;
+    }
+
+    private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
+    {
+        ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex);
+        retinue.M_RetinueAttack += r.addAttack;
+        retinue.M_RetinueArmor += r.addArmor;
+        retinue.M_RetinueShield += r.addShield;
+        retinue.M_RetinueTotalLife += r.addMaxLife;
+        retinue.M_RetinueLeftLife += r.addLeftLife;
+    }
+
+    private void OnShieldAttributesChange(ShieldAttributesChangeRequest r)
+    {
+        ModuleShield shield = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Shield;
+        shield.M_ShieldArmor += r.addArmor;
+        shield.M_ShieldArmorMax += r.addArmorMax;
+        shield.M_ShieldShield += r.addShield;
+        shield.M_ShieldShieldMax += r.addShieldMax;
+    }
+
+    private void OnRetinueDie(RetinueDieRequest r)
+    {
+        BattleGroundManager bgm;
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            bgm = SelfClientPlayer.MyBattleGroundManager;
+        }
+        else
+        {
+            bgm = EnemyClientPlayer.MyBattleGroundManager;
+        }
+
+        ModuleRetinue retinue = bgm.GetRetinue(r.retinuePlaceIndex);
+        retinue.OnDie();
+    }
+
+    private void OnBattleGroundAddRetinue(BattleGroundAddRetinueRequest r)
+    {
+        BattleGroundManager bgm;
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            bgm = SelfClientPlayer.MyBattleGroundManager;
+        }
+        else
+        {
+            bgm = EnemyClientPlayer.MyBattleGroundManager;
+        }
+
+        bgm.AddRetinue(r.cardInfo, r.battleGroundIndex);
+    }
+
+    private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
+    {
+        BattleGroundManager bgm;
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            bgm = SelfClientPlayer.MyBattleGroundManager;
+        }
+        else
+        {
+            bgm = EnemyClientPlayer.MyBattleGroundManager;
+        }
+
+        bgm.RemoveRetinue(r.battleGroundIndex);
+    }
+
+
+    private void OnPlayerDrawCard(DrawCardRequest r)
+    {
         if (r.clientId == Client.CS.Proxy.ClientId)
         {
             foreach (int respCardId in r.cardIds)
@@ -246,34 +342,58 @@ internal class RoundManager : MonoBehaviour
         }
     }
 
-
-    public void OnWeaponAttributesChange(ServerRequestBase req)
+    private void OnPlayerDropCard(DropCardRequest r)
     {
-        WeaponAttributesChangeRequest r = (WeaponAttributesChangeRequest) req;
-        ModuleWeapon weapon = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Weapon;
-        weapon.M_WeaponAttack += r.addAttack;
-        weapon.M_WeaponEnergy += r.addEnergy;
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            SelfClientPlayer.MyHandManager.DropCard(r.handCardIndex);
+        }
+        else
+        {
+            EnemyClientPlayer.MyHandManager.DropCard(r.handCardIndex);
+        }
     }
 
-    public void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
+    private void OnPlayerUseCard(UseCardRequest r)
     {
-        ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex);
-        retinue.M_RetinueAttack += r.addAttack;
-        retinue.M_RetinueArmor += r.addArmor;
-        retinue.M_RetinueShield += r.addShield;
-        retinue.M_RetinueTotalLife += r.addMaxLife;
-        retinue.M_RetinueLeftLife += r.addLeftLife;
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            SelfClientPlayer.MyHandManager.UseCard(r.handCardIndex);
+        }
+        else
+        {
+            EnemyClientPlayer.MyHandManager.UseCard(r.handCardIndex);
+        }
     }
 
-    public void OnShieldAttributesChange(ShieldAttributesChangeRequest r)
+    private void OnEquipWeapon(EquipWeaponServerRequest r)
     {
-        ModuleShield shield = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Shield;
-        shield.M_ShieldArmor += r.addArmor;
-        shield.M_ShieldArmorMax += r.addArmorMax;
-        shield.M_ShieldShield += r.addShield;
-        shield.M_ShieldShieldMax += r.addShieldMax;
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            SelfClientPlayer.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.battleGroundIndex);
+        }
+        else
+        {
+            EnemyClientPlayer.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.battleGroundIndex);
+        }
     }
 
+    private void OnEquipShield(EquipShieldServerRequest r)
+    {
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            SelfClientPlayer.MyBattleGroundManager.EquipShield(r.cardInfo, r.battleGroundIndex);
+        }
+        else
+        {
+            EnemyClientPlayer.MyBattleGroundManager.EquipShield(r.cardInfo, r.battleGroundIndex);
+        }
+    }
+
+    public void OnRetinueAttackRetinue(RetinueAttackRetinueServerRequest r)
+    {
+        GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinuePlaceIndex).AllModulesAttack();
+    }
 
     private void OnGameStop()
     {

@@ -22,6 +22,9 @@
         <CardInfo name="lifeInfo" life="6" totalLife="6" />
         <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
         <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
+        <CardInfo name="sideEffectsInfo" happenTime="OnDie">
+          <SideEffect name="KillAllInBattleGround"></SideEffect>
+        </CardInfo>
     </Card>
     <Card id="1">
         <CardInfo name="baseInfo" cardName="守卫者" cardDesc="身披护盾的守卫者\n可抵御大量伤害" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4FF" />
@@ -29,6 +32,9 @@
         <CardInfo name="lifeInfo" life="5" totalLife="5" />
         <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="3" />
         <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
+        <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+          <SideEffect name="AddLifeForSomeRetinue" value="1" retinuePlayer="self" retinuePlaceIndex="-2"></SideEffect>
+        </CardInfo>
     </Card>
     
     <Card id="100">

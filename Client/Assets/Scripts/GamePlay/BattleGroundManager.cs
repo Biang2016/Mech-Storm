@@ -32,10 +32,6 @@ internal class BattleGroundManager : MonoBehaviour
         Retinues.Clear();
     }
 
-    public ModuleRetinue GetRetinue(int retinuePlaceIndex)
-    {
-        return Retinues[retinuePlaceIndex];
-    }
 
     internal int ComputePosition(Vector3 dragLastPosition)
     {
@@ -53,56 +49,43 @@ internal class BattleGroundManager : MonoBehaviour
         return Retinues[index];
     }
 
-    public void AddRetinue(SummonRetinueRequest_Response r)
+    public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex)
     {
         if (ClientPlayer == null) return;
         ModuleRetinue retinue = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(transform).GetComponent<ModuleRetinue>();
-        retinue.Initiate(r.cardInfo, ClientPlayer);
+        retinue.Initiate(retinueCardInfo, ClientPlayer);
         retinue.transform.Rotate(Vector3.up, 180);
-        if (r.battleGroundIndex < 0 || r.battleGroundIndex >= GamePlaySettings.MaxRetinueNumber) ClientLog.CL.Print("Retinue index out of bound");
-        Retinues.Insert(r.battleGroundIndex, retinue);
-        retinue.M_RetinuePlaceIndex = r.battleGroundIndex;
-        BattleGroundIsFull |= Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+        Retinues.Insert(retinuePlaceIndex, retinue);
+        retinue.M_RetinuePlaceIndex = retinuePlaceIndex;
+        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
         RefreshBattleGround();
     }
 
 
-    public int GetRetinuePlaceIndex(ModuleRetinue moduleRetinue)
+    public void RemoveRetinue(int retinuePlaceIndex)
     {
-        return Retinues.IndexOf(moduleRetinue);
+        Retinues.RemoveAt(retinuePlaceIndex);
+        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+        RefreshBattleGround();
     }
 
-    public void RemoveRetinue(ModuleRetinue retinue)
+    public void EquipWeapon(CardInfo_Weapon cardInfo, int battleGroundIndex)
     {
-        if (Retinues.Contains(retinue))
-        {
-            Retinues.Remove(retinue);
-            BattleGroundIsFull |= Retinues.Count == GamePlaySettings.MaxRetinueNumber;
-            RefreshBattleGround();
-        }
-        else
-        {
-            Debug.LogWarning("战场上不存在该对象 " + retinue);
-        }
-    }
-
-    public void EquipWeapon(EquipWeaponRequest_Response r)
-    {
-        ModuleRetinue retinue = GetRetinue(r.battleGroundIndex);
+        ModuleRetinue retinue = GetRetinue(battleGroundIndex);
         ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(retinue.transform).GetComponent<ModuleWeapon>();
         newModueWeapon.M_ModuleRetinue = retinue;
-        newModueWeapon.M_RetinuePlaceIndex = r.battleGroundIndex;
-        newModueWeapon.Initiate(r.cardInfo, ClientPlayer);
+        newModueWeapon.M_RetinuePlaceIndex = battleGroundIndex;
+        newModueWeapon.Initiate(cardInfo, ClientPlayer);
         retinue.M_Weapon = newModueWeapon;
     }
 
-    public void EquipShield(EquipShieldRequest_Response r)
+    public void EquipShield(CardInfo_Shield cardInfo, int battleGroundIndex)
     {
-        ModuleRetinue retinue = GetRetinue(r.battleGroundIndex);
+        ModuleRetinue retinue = GetRetinue(battleGroundIndex);
         ModuleShield newModuleShield = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool.AllocateGameObject(retinue.transform).GetComponent<ModuleShield>();
         newModuleShield.M_ModuleRetinue = retinue;
-        newModuleShield.M_RetinuePlaceIndex = r.battleGroundIndex;
-        newModuleShield.Initiate(r.cardInfo, ClientPlayer);
+        newModuleShield.M_RetinuePlaceIndex = battleGroundIndex;
+        newModuleShield.Initiate(cardInfo, ClientPlayer);
         retinue.M_Shield = newModuleShield;
     }
 
@@ -117,6 +100,23 @@ internal class BattleGroundManager : MonoBehaviour
         }
     }
 
+
+    #region Utils
+
+    public ModuleRetinue GetRetinue(int retinuePlaceIndex)
+    {
+        return Retinues[retinuePlaceIndex];
+    }
+
+    public int GetRetinuePlaceIndex(ModuleRetinue moduleRetinue)
+    {
+        return Retinues.IndexOf(moduleRetinue);
+    }
+
+    #endregion
+
+    #region GameProcess
+
     internal void BeginRound()
     {
         foreach (var mr in Retinues) mr.OnBeginRound();
@@ -126,4 +126,6 @@ internal class BattleGroundManager : MonoBehaviour
     {
         foreach (var mr in Retinues) mr.OnEndRound();
     }
+
+    #endregion
 }

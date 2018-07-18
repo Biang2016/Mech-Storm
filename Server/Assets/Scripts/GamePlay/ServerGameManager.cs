@@ -129,12 +129,12 @@ internal class ServerGameManager
 
     public void OnClientSummonRetinueRequest(SummonRetinueRequest r)
     {
-        ClientA.CurrentClientRequestResponse = new SummonRetinueRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex);
-        ClientB.CurrentClientRequestResponse = new SummonRetinueRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex);
+        ClientA.CurrentClientRequestResponse = new SummonRetinueRequest_Response();
+        ClientB.CurrentClientRequestResponse = new SummonRetinueRequest_Response();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
-        sp.MyBattleGroundManager.SummonRetinue(r);
-        sp.MyHandManager.DropCardAt(r.handCardIndex);
+        sp.MyBattleGroundManager.AddRetinue(r.cardInfo, r.battleGroundIndex);
+        sp.MyHandManager.UseCardAt(r.handCardIndex);
         sp.UseCostAboveZero(r.cardInfo.BaseInfo.Cost);
 
         Broadcast_SendOperationResponse();
@@ -143,12 +143,12 @@ internal class ServerGameManager
 
     public void OnClientEquipWeaponRequest(EquipWeaponRequest r)
     {
-        ClientA.CurrentClientRequestResponse = new EquipWeaponRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex, r.weaponPlaceIndex);
-        ClientB.CurrentClientRequestResponse = new EquipWeaponRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex, r.weaponPlaceIndex);
+        ClientA.CurrentClientRequestResponse = new EquipWeaponRequest_Response();
+        ClientB.CurrentClientRequestResponse = new EquipWeaponRequest_Response();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         sp.MyBattleGroundManager.EquipWeapon(r);
-        sp.MyHandManager.DropCardAt(r.handCardIndex);
+        sp.MyHandManager.UseCardAt(r.handCardIndex);
         sp.UseCostAboveZero(r.cardInfo.BaseInfo.Cost);
 
         Broadcast_SendOperationResponse();
@@ -156,12 +156,12 @@ internal class ServerGameManager
 
     public void OnClientEquipShieldRequest(EquipShieldRequest r)
     {
-        ClientA.CurrentClientRequestResponse = new EquipShieldRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex, r.shieldPlaceIndex);
-        ClientB.CurrentClientRequestResponse = new EquipShieldRequest_Response(r.clientId, r.cardInfo, r.handCardIndex, r.battleGroundIndex, r.shieldPlaceIndex);
+        ClientA.CurrentClientRequestResponse = new EquipShieldRequest_Response();
+        ClientB.CurrentClientRequestResponse = new EquipShieldRequest_Response();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         sp.MyBattleGroundManager.EquipShield(r);
-        sp.MyHandManager.DropCardAt(r.handCardIndex);
+        sp.MyHandManager.UseCardAt(r.handCardIndex);
         sp.UseCostAboveZero(r.cardInfo.BaseInfo.Cost);
 
         Broadcast_SendOperationResponse();
@@ -169,8 +169,11 @@ internal class ServerGameManager
 
     public void OnClientRetinueAttackRetinueRequest(RetinueAttackRetinueRequest r)
     {
-        ClientA.CurrentClientRequestResponse = new RetinueAttackRetinueRequest_Response(r.AttackRetinueClientId, r.AttackRetinuePlaceIndex, r.BeAttackedRetinueClientId, r.BeAttackedRetinuePlaceIndex);
-        ClientB.CurrentClientRequestResponse = new RetinueAttackRetinueRequest_Response(r.AttackRetinueClientId, r.AttackRetinuePlaceIndex, r.BeAttackedRetinueClientId, r.BeAttackedRetinuePlaceIndex);
+        ClientA.CurrentClientRequestResponse = new RetinueAttackRetinueRequest_Response();
+        ClientB.CurrentClientRequestResponse = new RetinueAttackRetinueRequest_Response();
+
+        RetinueAttackRetinueServerRequest request = new RetinueAttackRetinueServerRequest(r.AttackRetinueClientId, r.AttackRetinuePlaceIndex, r.BeAttackedRetinueClientId, r.BeAttackedRetinuePlaceIndex);
+        Broadcast_AddRequestToOperationResponse(request);
 
         ServerModuleRetinue attackRetinue = GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinuePlaceIndex);
         ServerModuleRetinue beAttackedRetinue = GetPlayerByClientId(r.BeAttackedRetinueClientId).MyBattleGroundManager.GetRetinue(r.BeAttackedRetinuePlaceIndex);
@@ -222,6 +225,92 @@ internal class ServerGameManager
     }
 
     #endregion
+
+
+    #region SideEffects
+
+    public void SE_SummonRetinue(ServerPlayer invokePlayer, string player, int cardId, int retinuePlaceIndex)
+    {
+        CardInfo_Retinue retinueCardInfo = (CardInfo_Retinue) AllCards.GetCard(cardId);
+        switch (player)
+        {
+            case "self":
+            {
+                invokePlayer.MyBattleGroundManager.AddRetinue(retinueCardInfo, retinuePlaceIndex);
+                break;
+            }
+            case "enemy":
+            {
+                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.AddRetinue(retinueCardInfo, retinuePlaceIndex);
+                break;
+            }
+            case "all":
+            {
+                invokePlayer.MyBattleGroundManager.AddRetinue(retinueCardInfo, retinuePlaceIndex);
+                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.AddRetinue(retinueCardInfo, retinuePlaceIndex);
+                break;
+            }
+        }
+    }
+
+    public void SE_EquipWeapon(EquipWeaponRequest r)
+    {
+        //Todo
+    }
+
+    public void SE_EquipShield(EquipShieldRequest r)
+    {
+        //Todo
+    }
+
+    public void SE_KillAllInBattleGround(ServerPlayer invokePlayer, string player) //杀死清场
+    {
+        switch (player)
+        {
+            case "self":
+            {
+                invokePlayer.MyBattleGroundManager.KillAllInBattleGround();
+                break;
+            }
+            case "enemy":
+            {
+                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.KillAllInBattleGround();
+                break;
+            }
+            case "all":
+            {
+                invokePlayer.MyBattleGroundManager.KillAllInBattleGround();
+                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.KillAllInBattleGround();
+                break;
+            }
+        }
+    }
+
+    public void SE_AddLifeForSomeRetinue(ServerPlayer invokePlayer, string player, int retinuePlaceIndex, int value) //增加某随从生命
+    {
+        switch (player)
+        {
+            case "self":
+            {
+                invokePlayer.MyBattleGroundManager.AddLifeForSomeRetinue(retinuePlaceIndex, value);
+                break;
+            }
+            case "enemy":
+            {
+                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.AddLifeForSomeRetinue(retinuePlaceIndex, value);
+                break;
+            }
+            case "all":
+            {
+                invokePlayer.MyBattleGroundManager.AddLifeForSomeRetinue(retinuePlaceIndex, value);
+                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.AddLifeForSomeRetinue(retinuePlaceIndex, value);
+                break;
+            }
+        }
+    }
+
+    #endregion
+
 
     #region Utils
 

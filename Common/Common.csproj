@@ -46,8 +46,9 @@
     </Compile>
     <Compile Include="Net\GamePlay\Card\CardDeck\AllCards.cs" />
     <Compile Include="Net\GamePlay\Card\CardDeck\CardDeck.cs" />
-    <Compile Include="Net\GamePlay\Card\CardDeck\SideEffects.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\AllSideEffects.cs" />
     <Compile Include="Net\GamePlay\Card\Cards\CardInfo.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffectBase.cs" />
     <Compile Include="Net\GamePlay\DragPurpose.cs" />
     <Compile Include="Net\GamePlay\Player.cs" />
     <Compile Include="Net\GamePlay\Shield.cs" />
@@ -57,6 +58,10 @@
     <Compile Include="Net\Protocol\GamePlaySettings.cs" />
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EquipShieldRequest_Response.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttackRetinueServerRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\UseCardRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\EquipShieldRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\EquipWeaponRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EquipWeaponRequest_Response.cs" />
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\EquipWeaponRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EndRoundRequest_Response.cs" />
@@ -68,6 +73,10 @@
     <Compile Include="Net\Requests\ClientToServer\OutGame\CardDeckRequest.cs" />
     <Compile Include="Net\Requests\ClientToServer\ClientRequestBase.cs" />
     <Compile Include="Net\Requests\ClientToServer\OutGame\LeaveGameRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\BattleGroundRemoveRetinueRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\DropCardRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\BattleGroundAddRetinueRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueDieRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\OutGame\HeartBeatRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\OutGame\GameStopByLeaveRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttributesChangeRequest.cs" />
@@ -105,9 +114,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Net\GamePlay\Card\CardDeck\SideEffects.xml">
+    <Resource Include="Net\GamePlay\Card\SideEffects\SideEffects.xml">
       <SubType>Designer</SubType>
-    </Content>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
