@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using System.Xml;
-using MyCardGameCommon;
+using MyCardGameCommon.Net.GamePlay.Card;
 
-public class AllSideEffects
+public static class AllSideEffects
 {
     public static Dictionary<int, SideEffectBase> SideEffectsDict = new Dictionary<int, SideEffectBase>();
     public static Dictionary<string, SideEffectBase> SideEffectsNameDict = new Dictionary<string, SideEffectBase>();
@@ -17,35 +16,21 @@ public class AllSideEffects
 
     public static void AddAllSideEffects()
     {
+        Assembly assembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
+
         XmlDocument doc = new XmlDocument();
         string text = CardResource.SideEffects;
         doc.LoadXml(text);
         XmlElement allSideEffects = doc.DocumentElement;
         for (int i = 0; i < allSideEffects.ChildNodes.Count; i++)
         {
-            SideEffectBase sideEffect = new SideEffectBase();
             XmlNode sideEffectNode = allSideEffects.ChildNodes.Item(i);
 
-            sideEffect.SideEffectID = int.Parse(sideEffectNode.Attributes["id"].Value);
-            sideEffect.Name = sideEffectNode.Attributes["name"].Value;
-            sideEffect.Desc = sideEffectNode.Attributes["desc"].Value;
-            for (int j = 0; j < sideEffectNode.ChildNodes.Count; j++)
-            {
-                XmlNode param = sideEffectNode.ChildNodes[j];
-                switch (param.Attributes["type"].Value)
-                {
-                    case "int":
-                        sideEffect.Params.Add(new SideEffectBase.Param(param.Attributes["name"].Value, int.Parse(param.Attributes["value"].Value)));
-                        break;
-                    case "string":
-                        sideEffect.Params.Add(new SideEffectBase.Param(param.Attributes["name"].Value, param.Attributes["value"].Value));
-                        break;
-                    default: break;
-                }
-            }
-
-            addSideEffect(sideEffect);
+            SideEffectBase se = (SideEffectBase) assembly.CreateInstance(sideEffectNode.Attributes["name"].Value);
+            se.SideEffectID = int.Parse(sideEffectNode.Attributes["id"].Value);
+            se.Name = sideEffectNode.Attributes["name"].Value;
+            se.Desc = sideEffectNode.Attributes["desc"].Value;
+            addSideEffect(se);
         }
     }
 }
-

@@ -203,7 +203,7 @@ internal class ModuleRetinue : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.LifeInfo, CardInfo.BattleInfo, CardInfo.SlotInfo,CardInfo.SideEffects_OnDie);
+        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.LifeInfo, CardInfo.BattleInfo, CardInfo.SlotInfo,CardInfo.SideEffects_OnDie,CardInfo.SideEffects_OnSummoned);
     }
 
 
@@ -543,6 +543,10 @@ internal class ModuleRetinue : ModuleBase
 
     public void OnDie()
     {
+        foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnDie)
+        {
+            
+        }
     }
 
     public void OnAttack()

@@ -14,15 +14,24 @@ internal class ServerModuleRetinue : ServerModuleBase
         M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
         M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
         M_RetinueShield = cardInfo.BattleInfo.BasicShield;
+        M_IsDead = false;
         base.Initiate(cardInfo, serverPlayer);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.LifeInfo, CardInfo.BattleInfo, CardInfo.SlotInfo,CardInfo.SideEffects_OnDie);
+        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.LifeInfo, CardInfo.BattleInfo, CardInfo.SlotInfo, CardInfo.SideEffects_OnDie,CardInfo.SideEffects_OnSummoned);
     }
 
     #region 属性
+
+    private bool m_IsDead;
+
+    public bool M_IsDead
+    {
+        get { return m_IsDead; }
+        set { m_IsDead = value; }
+    }
 
     private string m_RetinueName;
 
@@ -63,6 +72,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             if (m_RetinueLeftLife <= 0)
             {
                 OnDie();
+                ServerPlayer.MyBattleGroundManager.RemoveRetinue(this);
             }
         }
     }
@@ -293,8 +303,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             M_RetinueLeftLife -= M_RetinueLeftLife;
             remainAttackNumber -= M_RetinueLeftLife;
-            OnDie();
-            ServerPlayer.MyBattleGroundManager.RemoveRetinue(this);
         }
         else
         {
@@ -327,14 +335,27 @@ internal class ServerModuleRetinue : ServerModuleBase
         return ASeriesOfAttacks;
     }
 
+    #endregion
+
     #region 特效、技能
 
     public void OnSummoned()
     {
+        foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnSummoned)
+        {
+            sideEffectBase.Excute(ServerPlayer);
+        }
     }
 
     public void OnDie()
     {
+        if(M_IsDead)return;
+        M_IsDead = true;
+        foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnDie)
+        {
+            sideEffectBase.Excute(ServerPlayer);
+        }
+
         RetinueDieRequest request = new RetinueDieRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
@@ -374,8 +395,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         CanAttack = false;
         if (M_Weapon != null) M_Weapon.CanAttack = false;
     }
-
-    #endregion
 
     #endregion
 }

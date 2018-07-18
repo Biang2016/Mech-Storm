@@ -29,6 +29,7 @@ public abstract class CardInfo_Base
     public ShieldInfo ShieldInfo;
 
     public List<SideEffectBase> SideEffects_OnDie;
+    public List<SideEffectBase> SideEffects_OnSummoned;
 
     public abstract CardInfo_Base Clone();
 
@@ -47,13 +48,14 @@ public abstract class CardInfo_Base
 
 public class CardInfo_Retinue : CardInfo_Base
 {
-    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo,List<SideEffectBase> sideEffects_OnDie) : base(cardID, baseInfo)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo,List<SideEffectBase> sideEffects_OnDie,List<SideEffectBase> sideEffects_OnSummoned) : base(cardID, baseInfo)
     {
         UpgradeInfo = upgradeInfo;
         LifeInfo = lifeInfo;
         BattleInfo = battleInfo;
         SlotInfo = slotInfo;
         SideEffects_OnDie = sideEffects_OnDie;
+        SideEffects_OnSummoned = sideEffects_OnSummoned;
     }
 
     public override CardInfo_Base Clone()
@@ -63,7 +65,7 @@ public class CardInfo_Retinue : CardInfo_Base
         {
             new_SideEffects_OnDie.Add(sideEffectBase.Clone());
         }
-        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, BaseInfo, UpgradeInfo, LifeInfo, BattleInfo, SlotInfo, new_SideEffects_OnDie);
+        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, BaseInfo, UpgradeInfo, LifeInfo, BattleInfo, SlotInfo, new_SideEffects_OnDie, SideEffects_OnSummoned);
         return cb;
     }
 }

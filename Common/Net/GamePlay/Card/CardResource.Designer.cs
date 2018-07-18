@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyCardGameCommon {
+namespace MyCardGameCommon.Net.GamePlay.Card {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MyCardGameCommon {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyCardGameCommon.CardResource", typeof(CardResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyCardGameCommon.Net.GamePlay.Card.CardResource", typeof(CardResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -80,14 +80,14 @@ namespace MyCardGameCommon {
         ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///
         ///&lt;AllSideEffects&gt;
-        ///  &lt;SideEffect id=&quot;0&quot; name=&quot;KillAllInBattleGround&quot; desc=&quot;杀死场上所有随从&quot;/&gt;
-        ///  &lt;SideEffect id=&quot;1&quot; name=&quot;AddLifeForSomeRetinue&quot; desc=&quot;使一个随从获得生命增加&quot;&gt;
-        ///    &lt;params name=&quot;retinuePlayer&quot; type=&quot;string&quot;&gt;&lt;/params&gt;&lt;!--self/enemy/all--&gt;
-        ///    &lt;params name=&quot;retinuePlaceIndex&quot; type=&quot;int&quot;&gt;&lt;/params&gt;&lt;!--负1代表可鼠标选择对象，负2代表随机,0~6代表7个随从位--&gt;
-        ///    &lt;params name=&quot;value&quot; type=&quot;int&quot;&gt;&lt;/params&gt;
+        ///  &lt;SideEffect id=&quot;0&quot; name=&quot;KillAllInBattleGround&quot; desc=&quot;杀死场上所有随从&quot;&gt;
+        ///    &lt;params name=&quot;WhoseBattleGround&quot; type=&quot;string&quot;&gt;&lt;/params&gt;
         ///  &lt;/SideEffect&gt;
-        ///
-        ///&lt;/AllSideEffects&gt; 的本地化字符串。
+        ///  &lt;SideEffect id=&quot;1&quot; name=&quot;AddLifeForSomeRetinue&quot; desc=&quot;使一个随从获得生命增加&quot;&gt;
+        ///    &lt;params name=&quot;RetinuePlayer&quot; type=&quot;string&quot;&gt;&lt;/params&gt;&lt;!--self/enemy/all--&gt;
+        ///    &lt;params name=&quot;RetinuePlaceIndex&quot; type=&quot;int&quot;&gt;&lt;/params&gt;&lt;!--负1代表可鼠标选择对象，负2代表随机,0~6代表7个随从位--&gt;
+        ///    &lt;params name=&quot;Value&quot; type=&quot;int&quot;&gt;&lt;/params&gt;
+        ///  &lt;/SideEffec [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string SideEffects {
             get {

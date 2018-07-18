@@ -24,6 +24,7 @@ internal class ServerBattleGroundManager
         retinue.M_RetinuePlaceIndex = retinuePlaceIndex;
         Retinues.Insert(retinuePlaceIndex, retinue);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+        retinue.OnSummoned();
 
         BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
@@ -32,10 +33,11 @@ internal class ServerBattleGroundManager
 
     public void RemoveRetinue(ServerModuleRetinue retinue)
     {
+        int battleGroundIndex = Retinues.IndexOf(retinue);
         Retinues.Remove(retinue);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
 
-        BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(ServerPlayer.ClientId, Retinues.IndexOf(retinue));
+        BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(ServerPlayer.ClientId, battleGroundIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
@@ -67,12 +69,11 @@ internal class ServerBattleGroundManager
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
-
     public void KillAllInBattleGround() //杀死本方清场
     {
-        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        for (int i = 0; i < Retinues.Count; i++)
         {
-            serverModuleRetinue.OnDie();
+            deadRetinueQueue.Enqueue(Retinues[i]);
         }
 
         while (Retinues.Count > 0)

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
+using System.Reflection;
 using System.Xml;
-using MyCardGameCommon;
+using MyCardGameCommon.Net.GamePlay.Card;
 
 public static class AllCards
 {
@@ -32,6 +31,7 @@ public static class AllCards
             ShieldInfo shieldInfo = new ShieldInfo();
 
             List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
+            List<SideEffectBase> SideEffects_OnSummoned = new List<SideEffectBase>();
 
             for (int j = 0; j < card.ChildNodes.Count; j++)
             {
@@ -79,19 +79,38 @@ public static class AllCards
                             (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value));
                         break;
                     case "sideEffectsInfo":
-                        List<SideEffectBase> sideEffects;
+                        List<SideEffectBase> sideEffects = new List<SideEffectBase>();
                         switch (cardInfo.Attributes["happenTime"].Value)
                         {
                             case "OnDie":
                                 sideEffects = SideEffects_OnDie;
-                                for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
-                                {
-                                    XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
-                                    SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value];
-                                    sideEffects.Add(sideEffect);
-                                }
-
                                 break;
+                            case "OnSummoned":
+                                sideEffects = SideEffects_OnSummoned;
+                                break;
+                        }
+
+                        for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
+                        {
+                            XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
+                            SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
+                            for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
+                            {
+                                if (sideEffectInfo.Attributes[l].Name == "name") continue;
+                                XmlAttribute attr = sideEffectInfo.Attributes[l];
+                                FieldInfo fi = sideEffect.GetType().GetField(attr.Name);
+                                switch (fi.FieldType.Name.ToString())
+                                {
+                                    case "Int32":
+                                        fi.SetValue(sideEffect, int.Parse(attr.Value));
+                                        break;
+                                    case "String":
+                                        fi.SetValue(sideEffect, attr.Value);
+                                        break;
+                                }
+                            }
+
+                            sideEffects.Add(sideEffect);
                         }
 
                         break;
@@ -108,7 +127,8 @@ public static class AllCards
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
                         slotInfo: slotInfo,
-                        sideEffects_OnDie: SideEffects_OnDie));
+                        sideEffects_OnDie: SideEffects_OnDie,
+                        sideEffects_OnSummoned: SideEffects_OnSummoned));
                     break;
                 case CardTypes.Weapon:
                     addCard(new CardInfo_Weapon(
@@ -124,7 +144,7 @@ public static class AllCards
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         shieldInfo: shieldInfo,
-                        sideEffects_OnDie:SideEffects_OnDie));
+                        sideEffects_OnDie: SideEffects_OnDie));
                     break;
             }
         }

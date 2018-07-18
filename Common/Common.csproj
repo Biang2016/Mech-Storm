@@ -39,13 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardResource.Designer.cs">
+    <Compile Include="Net\GamePlay\Card\CardDeck\AllCards.cs" />
+    <Compile Include="Net\GamePlay\Card\CardDeck\CardDeck.cs" />
+    <Compile Include="Net\GamePlay\Card\CardResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CardResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Net\GamePlay\Card\CardDeck\AllCards.cs" />
-    <Compile Include="Net\GamePlay\Card\CardDeck\CardDeck.cs" />
     <Compile Include="Net\GamePlay\Card\SideEffects\AllSideEffects.cs" />
     <Compile Include="Net\GamePlay\Card\Cards\CardInfo.cs" />
     <Compile Include="Net\GamePlay\Card\SideEffects\SideEffectBase.cs" />
@@ -108,7 +108,7 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CardResource.resx">
+    <EmbeddedResource Include="Net\GamePlay\Card\CardResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CardResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
