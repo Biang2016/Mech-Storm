@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <AllSideEffects>
-  <SideEffect id="0" name="KillAllInBattleGround" desc="杀死场上所有随从">
-    <params name="WhoseBattleGround" type="string"></params>
+  <SideEffect id="0" name="KillAllInBattleGround" desc="破坏{0}场上所有机甲">
+    <params name="WhoseBattleGround" type="string"></params><!--我方/敌方/（空指全场）-->
   </SideEffect>
-  <SideEffect id="1" name="AddLifeForSomeRetinue" desc="使一个随从获得生命增加">
-    <params name="RetinuePlayer" type="string"></params><!--self/enemy/all-->
-    <params name="RetinuePlaceIndex" type="int"></params><!--负1代表可鼠标选择对象，负2代表随机,0~6代表7个随从位-->
+  <SideEffect id="1" name="AddLifeForSomeRetinue" desc="使{0}一个{1}机甲生命增加{2}">
+    <params name="RetinuePlayer" type="string"></params><!--我方/敌方/（空指全场）-->
+    <params name="Select" type="string"></params><!--"随机/指定"-->
     <params name="Value" type="int"></params>
   </SideEffect>
 

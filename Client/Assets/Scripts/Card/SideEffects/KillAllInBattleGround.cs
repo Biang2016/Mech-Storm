@@ -9,29 +9,34 @@ internal class KillAllInBattleGround : SideEffectBase
 
     public override SideEffectBase Clone()
     {
-        KillAllInBattleGround newKillAllInBattleGround = new KillAllInBattleGround();
-        newKillAllInBattleGround.SideEffectID = SideEffectID;
-        newKillAllInBattleGround.Name = Name;
-        newKillAllInBattleGround.Desc = Desc;
-        newKillAllInBattleGround.WhoseBattleGround = WhoseBattleGround;
-        return newKillAllInBattleGround;
+        KillAllInBattleGround newSE = new KillAllInBattleGround();
+        newSE.SideEffectID = SideEffectID;
+        newSE.Name = Name;
+        newSE.Desc = Desc;
+        newSE.WhoseBattleGround = WhoseBattleGround;
+
+        return newSE;
+    }
+
+    public override void RefreshDesc()
+    {
+        Desc = String.Format(Desc, WhoseBattleGround);
     }
 
     public override void Excute(object Player)
     {
-        base.Excute(Player);
         ClientPlayer player = (ClientPlayer) Player;
         switch (WhoseBattleGround)
         {
-            case "self":
+            case "我方":
                 
 
                 break;
-            case "enemy":
+            case "敌方":
                 
 
                 break;
-            case "all":
+            case "":
                 
 
                 break;

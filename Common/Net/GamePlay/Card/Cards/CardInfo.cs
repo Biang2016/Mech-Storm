@@ -13,7 +13,7 @@ public enum CardTypes
 
 public abstract class CardInfo_Base
 {
-    public CardInfo_Base(int cardID, BaseInfo baseInfo)
+    protected CardInfo_Base(int cardID, BaseInfo baseInfo)
     {
         CardID = cardID;
         BaseInfo = baseInfo;
@@ -48,7 +48,7 @@ public abstract class CardInfo_Base
 
 public class CardInfo_Retinue : CardInfo_Base
 {
-    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo,List<SideEffectBase> sideEffects_OnDie,List<SideEffectBase> sideEffects_OnSummoned) : base(cardID, baseInfo)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo, List<SideEffectBase> sideEffects_OnDie, List<SideEffectBase> sideEffects_OnSummoned) : base(cardID, baseInfo)
     {
         UpgradeInfo = upgradeInfo;
         LifeInfo = lifeInfo;
@@ -56,16 +56,47 @@ public class CardInfo_Retinue : CardInfo_Base
         SlotInfo = slotInfo;
         SideEffects_OnDie = sideEffects_OnDie;
         SideEffects_OnSummoned = sideEffects_OnSummoned;
+
+        if (BattleInfo.BasicAttack != 0) BaseInfo.CardDesc += "攻击力 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicAttack) + "\n";
+        if (BattleInfo.BasicArmor != 0) BaseInfo.CardDesc += "护甲 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicArmor) + "\n";
+        if (BattleInfo.BasicShield != 0) BaseInfo.CardDesc += "护盾 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicShield) + "\n";
+
+
+        if (SideEffects_OnDie.Count > 0)
+        {
+            BaseInfo.CardDesc += "亡语:";
+            foreach (SideEffectBase se in SideEffects_OnDie)
+            {
+                BaseInfo.CardDesc += se.Desc + ";\n";
+            }
+        }
+
+
+        if (SideEffects_OnSummoned.Count > 0)
+        {
+            BaseInfo.CardDesc += "战吼:";
+            foreach (SideEffectBase se in SideEffects_OnSummoned)
+            {
+                BaseInfo.CardDesc += se.Desc + ";\n";
+            }
+        }
     }
 
     public override CardInfo_Base Clone()
     {
-        List<SideEffectBase> new_SideEffects_OnDie=new List<SideEffectBase>();
+        List<SideEffectBase> new_SideEffects_OnDie = new List<SideEffectBase>();
         foreach (SideEffectBase sideEffectBase in SideEffects_OnDie)
         {
             new_SideEffects_OnDie.Add(sideEffectBase.Clone());
         }
-        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, BaseInfo, UpgradeInfo, LifeInfo, BattleInfo, SlotInfo, new_SideEffects_OnDie, SideEffects_OnSummoned);
+
+        List<SideEffectBase> new_SideEffects_OnSummoned = new List<SideEffectBase>();
+        foreach (SideEffectBase sideEffectBase in new_SideEffects_OnSummoned)
+        {
+            new_SideEffects_OnSummoned.Add(sideEffectBase.Clone());
+        }
+
+        CardInfo_Retinue cb = new CardInfo_Retinue(CardID, BaseInfo, UpgradeInfo, LifeInfo, BattleInfo, SlotInfo, new_SideEffects_OnDie, new_SideEffects_OnSummoned);
         return cb;
     }
 }
@@ -77,6 +108,17 @@ public class CardInfo_Weapon : CardInfo_Base
         WeaponInfo = weaponInfo;
         UpgradeInfo = upgradeInfo;
         SideEffects_OnDie = sideEffects_OnDie;
+
+        if (WeaponInfo.WeaponType == WeaponTypes.Sword)
+        {
+            BaseInfo.CardDesc += "攻击力: " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Attack.ToString()) + " 点\n";
+            BaseInfo.CardDesc += "充能: " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax) + "\n";
+        }
+        else if (WeaponInfo.WeaponType == WeaponTypes.Gun)
+        {
+            BaseInfo.CardDesc += "<b>弹丸伤害</b>: " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Attack.ToString()) + " 点\n";
+            BaseInfo.CardDesc += "弹药: " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax) + "\n";
+        }
     }
 
     public override CardInfo_Base Clone()
@@ -99,6 +141,15 @@ public class CardInfo_Shield : CardInfo_Base
         UpgradeInfo = upgradeInfo;
         ShieldInfo = shieldInfo;
         SideEffects_OnDie = sideEffects_OnDie;
+
+        if (ShieldInfo.ShieldType == ShieldTypes.Armor)
+        {
+            BaseInfo.CardDesc += "阻挡 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, ShieldInfo.Armor.ToString()) + " 点伤害\n";
+        }
+        else if (ShieldInfo.ShieldType == ShieldTypes.Shield)
+        {
+            BaseInfo.CardDesc += "受到的伤害减少 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, ShieldInfo.Shield.ToString()) + " 点\n";
+        }
     }
 
     public override CardInfo_Base Clone()
@@ -122,8 +173,9 @@ public struct BaseInfo
     public DragPurpose DragPurpose;
     public CardTypes CardType;
     public string CardColor;
+    public string HightLightColor;
 
-    public BaseInfo(string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor)
+    public BaseInfo(string cardName, string cardDesc, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
     {
         CardName = cardName;
         CardDesc = cardDesc;
@@ -131,6 +183,12 @@ public struct BaseInfo
         DragPurpose = dragPurpose;
         CardType = cardType;
         CardColor = cardColor;
+        HightLightColor = hightLightColor;
+    }
+
+    public static string AddHightLightColorToText(string hightLightColor, string hightLightText)
+    {
+        return "<color=\"" + hightLightColor + "\">" + hightLightText + "</color>";
     }
 }
 
@@ -187,6 +245,7 @@ public struct SlotInfo
         Slot4 = slot4;
     }
 }
+
 public struct WeaponInfo
 {
     public int Energy;
@@ -202,6 +261,7 @@ public struct WeaponInfo
         WeaponType = weaponType;
     }
 }
+
 public struct ShieldInfo
 {
     public int Armor;

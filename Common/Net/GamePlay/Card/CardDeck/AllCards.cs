@@ -44,7 +44,8 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["cost"].Value),
                             (DragPurpose) Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
                             (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value),
-                            cardInfo.Attributes["cardColor"].Value);
+                            cardInfo.Attributes["cardColor"].Value, cardInfo.Attributes["hightLightColor"].Value
+                            );
                         break;
                     case "upgradeInfo":
                         upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value),
@@ -110,6 +111,7 @@ public static class AllCards
                                 }
                             }
 
+                            sideEffect.RefreshDesc();
                             sideEffects.Add(sideEffect);
                         }
 

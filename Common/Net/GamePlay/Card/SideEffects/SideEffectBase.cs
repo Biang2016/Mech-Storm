@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class SideEffectBase
+public abstract class SideEffectBase
 {
     public Player Player;
 
@@ -11,16 +11,9 @@ public class SideEffectBase
     public string Name;
     public string Desc;
 
-    public virtual SideEffectBase Clone()
-    {
-        SideEffectBase newSideEffectBase = new SideEffectBase();
-        newSideEffectBase.SideEffectID = SideEffectID;
-        newSideEffectBase.Name = Name;
-        newSideEffectBase.Desc = Desc;
-        return newSideEffectBase;
-    }
+    public abstract SideEffectBase Clone();
 
-    public virtual void Excute(object Player)
-    {
-    }
+    public abstract void RefreshDesc();
+
+    public abstract void Excute(object Player);
 }

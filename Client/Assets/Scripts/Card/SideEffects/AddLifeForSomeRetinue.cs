@@ -6,37 +6,41 @@ using System.Text;
 internal class AddLifeForSomeRetinue : SideEffectBase
 {
     public string RetinuePlayer;
-    public int RetinuePlaceIndex;
+    public string Select;
     public int Value;
-
 
     public override SideEffectBase Clone()
     {
-        AddLifeForSomeRetinue newAddLifeForSomeRetinue = new AddLifeForSomeRetinue();
-        newAddLifeForSomeRetinue.SideEffectID = SideEffectID;
-        newAddLifeForSomeRetinue.Name = Name;
-        newAddLifeForSomeRetinue.Desc = Desc;
-        newAddLifeForSomeRetinue.RetinuePlayer = RetinuePlayer;
-        newAddLifeForSomeRetinue.RetinuePlaceIndex = RetinuePlaceIndex;
-        newAddLifeForSomeRetinue.Value = Value;
-        return newAddLifeForSomeRetinue;
+        AddLifeForSomeRetinue newSE = new AddLifeForSomeRetinue();
+        newSE.SideEffectID = SideEffectID;
+        newSE.Name = Name;
+        newSE.Desc = Desc;
+        newSE.RetinuePlayer = RetinuePlayer;
+        newSE.Select = Select;
+        newSE.Value = Value;
+
+        return newSE;
+    }
+
+    public override void RefreshDesc()
+    {
+        Desc = String.Format(Desc, RetinuePlayer, Select, Value);
     }
 
     public override void Excute(object Player)
     {
-        base.Excute(Player);
         ClientPlayer player = (ClientPlayer) Player;
         switch (RetinuePlayer)
         {
-            case "self":
+            case "我方":
                 
 
                 break;
-            case "enemy":
+            case "地方":
                 
 
                 break;
-            case "all":
+            case "":
                 
 
                 break;

@@ -153,8 +153,8 @@ internal class CardRetinue : CardBase
         set
         {
             m_RetinueAttack = value;
-            initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_RetinueAttack, '+');
-            CardNumberSet_RetinueAttack.Number = m_RetinueAttack;
+            //initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_RetinueAttack, '+');
+            //CardNumberSet_RetinueAttack.Number = m_RetinueAttack;
         }
     }
 
@@ -166,8 +166,8 @@ internal class CardRetinue : CardBase
         set
         {
             m_RetinueArmor = value;
-            initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_RetinueArmor, '+');
-            CardNumberSet_RetinueArmor.Number = m_RetinueArmor;
+            //initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_RetinueArmor, '+');
+            //CardNumberSet_RetinueArmor.Number = m_RetinueArmor;
         }
     }
 
@@ -179,8 +179,8 @@ internal class CardRetinue : CardBase
         set
         {
             m_RetinueShield = value;
-            initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_RetinueShield, '+');
-            CardNumberSet_RetinueShield.Number = m_RetinueShield;
+            //initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_RetinueShield, '+');
+            //CardNumberSet_RetinueShield.Number = m_RetinueShield;
         }
     }
 
