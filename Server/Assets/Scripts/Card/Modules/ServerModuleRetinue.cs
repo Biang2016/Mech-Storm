@@ -14,13 +14,24 @@ internal class ServerModuleRetinue : ServerModuleBase
         M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
         M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
         M_RetinueShield = cardInfo.BattleInfo.BasicShield;
+
         M_IsDead = false;
         base.Initiate(cardInfo, serverPlayer);
+
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnDie)
+        {
+            se.Player = ServerPlayer;
+        }
+
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
+        {
+            se.Player = ServerPlayer;
+        }
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.LifeInfo, CardInfo.BattleInfo, CardInfo.SlotInfo, CardInfo.SideEffects_OnDie,CardInfo.SideEffects_OnSummoned);
+        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.LifeInfo, CardInfo.BattleInfo, CardInfo.SlotInfo, CardInfo.SideEffects_OnDie, CardInfo.SideEffects_OnSummoned);
     }
 
     #region 属性
@@ -341,23 +352,43 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public void OnSummoned()
     {
-        foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnSummoned)
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
         {
-            sideEffectBase.Excute(ServerPlayer);
+            ServerPlayer.MyGameManager.EnqueueSideEffect(se);
         }
+
+        ServerPlayer.MyGameManager.ExecuteAllSideEffects();
     }
 
-    public void OnDie()
+    public void OnDie() //被单杀触发
     {
-        if(M_IsDead)return;
-        M_IsDead = true;
-        foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnDie)
+        if (M_IsDead) return;
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnDie)
         {
-            sideEffectBase.Excute(ServerPlayer);
+            ServerPlayer.MyGameManager.EnqueueSideEffect(se);
         }
 
         RetinueDieRequest request = new RetinueDieRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+
+        ServerPlayer.MyGameManager.ExecuteAllSideEffects();
+
+        M_IsDead = true;
+    }
+
+    public void OnDieTogather() //被群杀时触发
+    {
+        if (M_IsDead) return;
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnDie)
+        {
+            ServerPlayer.MyGameManager.EnqueueSideEffect(se);
+        }
+        //先入队死亡效果，但不触发，等到所有被群杀的随从的死亡效果都入队之后再触发
+
+        RetinueDieRequest request = new RetinueDieRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+
+        M_IsDead = true;
     }
 
     public void OnAttack()

@@ -34,6 +34,7 @@ internal class ServerBattleGroundManager
     public void RemoveRetinue(ServerModuleRetinue retinue)
     {
         int battleGroundIndex = Retinues.IndexOf(retinue);
+        if (battleGroundIndex == -1) return;
         Retinues.Remove(retinue);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
 
@@ -73,8 +74,10 @@ internal class ServerBattleGroundManager
     {
         for (int i = 0; i < Retinues.Count; i++)
         {
-            deadRetinueQueue.Enqueue(Retinues[i]);
+            Retinues[i].OnDieTogather();
         }
+
+        ServerPlayer.MyGameManager.ExecuteAllSideEffects();//触发全部死亡效果
 
         while (Retinues.Count > 0)
         {

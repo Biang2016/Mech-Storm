@@ -229,83 +229,18 @@ internal class ServerGameManager
 
     #region SideEffects
 
-    public void SE_SummonRetinue(ServerPlayer invokePlayer, string player, int cardId, int retinuePlaceIndex)
+    Queue<SideEffectBase> SideEffectQueue=new Queue<SideEffectBase>();
+
+    public void EnqueueSideEffect(SideEffectBase se)
     {
-        CardInfo_Retinue retinueCardInfo = (CardInfo_Retinue) AllCards.GetCard(cardId);
-        switch (player)
+        SideEffectQueue.Enqueue(se);
+    }
+    public void ExecuteAllSideEffects()
+    {
+        while (SideEffectQueue.Count>0)
         {
-            case "self":
-            {
-                invokePlayer.MyBattleGroundManager.AddRetinue(retinueCardInfo, retinuePlaceIndex);
-                break;
-            }
-            case "enemy":
-            {
-                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.AddRetinue(retinueCardInfo, retinuePlaceIndex);
-                break;
-            }
-            case "all":
-            {
-                invokePlayer.MyBattleGroundManager.AddRetinue(retinueCardInfo, retinuePlaceIndex);
-                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.AddRetinue(retinueCardInfo, retinuePlaceIndex);
-                break;
-            }
-        }
-    }
-
-    public void SE_EquipWeapon(EquipWeaponRequest r)
-    {
-        //Todo
-    }
-
-    public void SE_EquipShield(EquipShieldRequest r)
-    {
-        //Todo
-    }
-
-    public void SE_KillAllInBattleGround(ServerPlayer invokePlayer, string player) //杀死清场
-    {
-        switch (player)
-        {
-            case "self":
-            {
-                invokePlayer.MyBattleGroundManager.KillAllInBattleGround();
-                break;
-            }
-            case "enemy":
-            {
-                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.KillAllInBattleGround();
-                break;
-            }
-            case "all":
-            {
-                invokePlayer.MyBattleGroundManager.KillAllInBattleGround();
-                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.KillAllInBattleGround();
-                break;
-            }
-        }
-    }
-
-    public void SE_AddLifeForSomeRetinue(ServerPlayer invokePlayer, string player, int retinuePlaceIndex, int value) //增加某随从生命
-    {
-        switch (player)
-        {
-            case "self":
-            {
-                invokePlayer.MyBattleGroundManager.AddLifeForSomeRetinue(retinuePlaceIndex, value);
-                break;
-            }
-            case "enemy":
-            {
-                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.AddLifeForSomeRetinue(retinuePlaceIndex, value);
-                break;
-            }
-            case "all":
-            {
-                invokePlayer.MyBattleGroundManager.AddLifeForSomeRetinue(retinuePlaceIndex, value);
-                invokePlayer.MyEnemyPlayer.MyBattleGroundManager.AddLifeForSomeRetinue(retinuePlaceIndex, value);
-                break;
-            }
+            SideEffectBase se = SideEffectQueue.Dequeue();
+            se.Excute(se.Player);
         }
     }
 

@@ -5,6 +5,8 @@ using System.Text;
 
 public class SideEffectBase
 {
+    public Player Player;
+
     public int SideEffectID;
     public string Name;
     public string Desc;

@@ -64,6 +64,8 @@ internal class BattleGroundManager : MonoBehaviour
 
     public void RemoveRetinue(int retinuePlaceIndex)
     {
+        ModuleRetinue retinue = Retinues[retinuePlaceIndex];
+        retinue.PoolRecycle();
         Retinues.RemoveAt(retinuePlaceIndex);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
         RefreshBattleGround();

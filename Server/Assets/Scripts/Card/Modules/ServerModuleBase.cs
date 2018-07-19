@@ -11,7 +11,7 @@ internal abstract class ServerModuleBase
     public virtual void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
         ServerPlayer = serverPlayer;
-        CardInfo = cardInfo;
+        CardInfo = cardInfo.Clone();
         Stars = cardInfo.UpgradeInfo.CardLevel;
         isInitialized = true;
     }
