@@ -140,8 +140,8 @@ internal class CardRetinue : CardBase
         set
         {
             m_RetinueTotalLife = value;
-            initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife, '/');
-            CardNumberSet_RetinueTotalLife.Number = m_RetinueTotalLife;
+            //initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife, '/');
+            //CardNumberSet_RetinueTotalLife.Number = m_RetinueTotalLife;
         }
     }
 
