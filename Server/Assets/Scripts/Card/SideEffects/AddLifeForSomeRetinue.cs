@@ -33,14 +33,30 @@ internal class AddLifeForSomeRetinue : SideEffectBase
         switch (RetinuePlayer)
         {
             case "我方":
-                //player.MyBattleGroundManager.GetRetinue(RetinuePlaceIndex).M_RetinueLeftLife += Value;
+                DoAddLife(player);
                 break;
             case "敌方":
-                //player.MyEnemyPlayer.MyBattleGroundManager.GetRetinue(RetinuePlaceIndex).M_RetinueLeftLife += Value;
+                DoAddLife(player.MyEnemyPlayer);
                 break;
             case "":
-                //player.MyBattleGroundManager.GetRetinue(RetinuePlaceIndex).M_RetinueLeftLife += Value;
-                //player.MyEnemyPlayer.MyBattleGroundManager.GetRetinue(RetinuePlaceIndex).M_RetinueLeftLife += Value;
+                DoAddLife(player);
+                DoAddLife(player.MyEnemyPlayer);
+                break;
+        }
+    }
+
+    private void DoAddLife(ServerPlayer player)
+    {
+        ServerModuleRetinue retinue;
+        switch (Select)
+        {
+            case "随机":
+                retinue = player.MyBattleGroundManager.GetRandomRetinue();
+                retinue.M_RetinueLeftLife += Value;
+                break;
+            case "指定":
+                //retinue = player.MyBattleGroundManager.GetRandomRetinue();
+                //retinue.M_RetinueLeftLife += Value;
                 break;
         }
     }

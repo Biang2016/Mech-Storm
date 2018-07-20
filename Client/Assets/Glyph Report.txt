@@ -1,6 +1,0 @@
-Font: Adobe Heiti Std  Pt. Size: 69
-Characters packed: 98/99
-
-Missing Characters
-----------------------------------------
-ID: 8203	Hex: 200B	Char [​]

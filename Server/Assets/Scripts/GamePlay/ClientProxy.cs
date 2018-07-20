@@ -66,10 +66,17 @@ internal class ClientProxy : ProxyBase
         {
             if (SendRequestsQueue.Count > 0)
             {
-                Thread thread = new Thread(Server.SV.DoSendToClient);
-                SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue());
-                thread.IsBackground = true;
-                thread.Start(msg);
+                try
+                {
+                    Thread thread = new Thread(Server.SV.DoSendToClient);
+                    SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue());
+                    thread.IsBackground = true;
+                    thread.Start(msg);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
     }

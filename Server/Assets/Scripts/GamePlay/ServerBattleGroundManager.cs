@@ -77,7 +77,7 @@ internal class ServerBattleGroundManager
             Retinues[i].OnDieTogather();
         }
 
-        ServerPlayer.MyGameManager.ExecuteAllSideEffects();//触发全部死亡效果
+        ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
 
         while (Retinues.Count > 0)
         {
@@ -97,6 +97,19 @@ internal class ServerBattleGroundManager
     public ServerModuleRetinue GetRetinue(int retinuePlaceIndex)
     {
         return Retinues[retinuePlaceIndex];
+    }
+
+    public ServerModuleRetinue GetRandomRetinue()
+    {
+        Random rd = new Random();
+        if (Retinues.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return Retinues[rd.Next(0, Retinues.Count)];
+        }
     }
 
     #endregion

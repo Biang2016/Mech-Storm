@@ -75,6 +75,11 @@ internal class ServerModuleRetinue : ServerModuleBase
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
 
+            if (before < m_RetinueLeftLife)
+            {
+                OnBeHealed(m_RetinueLeftLife - before);
+            }
+
             if (before > m_RetinueLeftLife)
             {
                 OnBeDamaged(before - m_RetinueLeftLife);
@@ -404,6 +409,10 @@ internal class ServerModuleRetinue : ServerModuleBase
     }
 
     public void OnBeDamaged(int damage)
+    {
+    }
+
+    public void OnBeHealed(int healValue)
     {
     }
 
