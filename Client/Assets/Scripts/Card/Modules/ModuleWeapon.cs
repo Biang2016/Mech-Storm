@@ -38,7 +38,7 @@ internal class ModuleWeapon : ModuleBase
         base.Initiate(cardInfo, clientPlayer);
         M_WeaponName = CardInfo_Base.textToVertical(cardInfo.BaseInfo.CardName);
         M_WeaponType = cardInfo.WeaponInfo.WeaponType;
-        M_WeaponAttack = cardInfo.WeaponInfo.Attack;
+        M_WeaponAttack = cardInfo.WeaponInfo.Attack + (M_ModuleRetinue != null ? M_ModuleRetinue.M_RetinueAttack : 0);
         M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;
         M_WeaponEnergy = cardInfo.WeaponInfo.Energy;
         if (M_Bloom) M_Bloom.SetActive(false);
@@ -56,7 +56,7 @@ internal class ModuleWeapon : ModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Weapon(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo,CardInfo.WeaponInfo,CardInfo.SideEffects_OnDie);
+        return new CardInfo_Weapon(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.WeaponInfo, CardInfo.SideEffects_OnDie);
     }
 
     private NumberSize my_NumberSize_Attack = NumberSize.Big;
@@ -110,6 +110,7 @@ internal class ModuleWeapon : ModuleBase
 
     #endregion
 
+    // 装备武器逻辑，如果基础伤害为3，装备武器后伤害写在武器上（瞬时效果，不持续），不装备武器伤害写在面板上
 
     private int m_WeaponAttack;
 
@@ -121,7 +122,7 @@ internal class ModuleWeapon : ModuleBase
         {
             m_WeaponAttack = value;
             initiateNumbers(ref GoNumberSet_WeaponAttack, ref CardNumberSet_WeaponAttack, my_NumberSize_Attack, my_TextAlign_Attack, Block_WeaponAttack);
-            CardNumberSet_WeaponAttack.Number = m_WeaponAttack + M_ModuleRetinue.M_RetinueAttack;
+            CardNumberSet_WeaponAttack.Number = m_WeaponAttack;
             if (m_WeaponAttack + M_ModuleRetinue.M_RetinueAttack == 0)
             {
                 GetComponent<DragComponent>().enabled = false;
@@ -184,8 +185,8 @@ internal class ModuleWeapon : ModuleBase
         {
             if (CardInfo.UpgradeInfo.CardLevel == newWeapon.CardInfo.UpgradeInfo.CardLevel)
             {
-                CardInfo_Weapon m_currentInfo = (CardInfo_Weapon) GetCurrentCardInfo();
-                CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon) AllCards.GetCard(CardInfo.UpgradeInfo.UpgradeCardID);
+                CardInfo_Weapon m_currentInfo = (CardInfo_Weapon)GetCurrentCardInfo();
+                CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon)AllCards.GetCard(CardInfo.UpgradeInfo.UpgradeCardID);
                 Initiate(upgradeWeaponCardInfo, ClientPlayer);
                 M_WeaponAttack = m_currentInfo.WeaponInfo.Attack + newWeapon.CardInfo.WeaponInfo.Attack;
                 M_WeaponEnergy = m_currentInfo.WeaponInfo.Energy + newWeapon.CardInfo.WeaponInfo.Energy;
@@ -210,12 +211,6 @@ internal class ModuleWeapon : ModuleBase
         else
         {
             resultWeapon = newWeapon;
-            if (RoundManager.RM.CurrentClientPlayer == ClientPlayer)
-            {
-                M_ModuleRetinue.CanAttack = true;
-                newWeapon.CanAttack = true;
-            }
-
             PoolRecycle();
         }
     }
@@ -224,11 +219,9 @@ internal class ModuleWeapon : ModuleBase
 
     #region 攻击相关
 
-    internal bool CanAttack;
-
     public void WeaponAttack()
     {
-        CanAttack = false;
+        M_ModuleRetinue.CanAttack_Weapon = false;
     }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
@@ -244,7 +237,7 @@ internal class ModuleWeapon : ModuleBase
 
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        canDrag = CanAttack;
+        canDrag = M_ModuleRetinue.CanAttack_Weapon;
         dragPurpose = DragPurpose.Attack;
     }
 

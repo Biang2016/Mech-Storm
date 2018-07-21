@@ -272,7 +272,6 @@ internal class RoundManager : MonoBehaviour
     {
         ModuleShield shield = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Shield;
         shield.M_ShieldArmor += r.addArmor;
-        shield.M_ShieldArmorMax += r.addArmorMax;
         shield.M_ShieldShield += r.addShield;
         shield.M_ShieldShieldMax += r.addShieldMax;
     }

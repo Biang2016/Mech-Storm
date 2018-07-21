@@ -29,10 +29,6 @@ internal class ModuleShield : ModuleBase
     protected GameObject GoNumberSet_ShieldArmor;
     protected CardNumberSet CardNumberSet_ShieldArmor;
 
-    public GameObject Block_ShieldArmorMax;
-    protected GameObject GoNumberSet_ShieldArmorMax;
-    protected CardNumberSet CardNumberSet_ShieldArmorMax;
-
     public GameObject Block_ShieldShield;
     protected GameObject GoNumberSet_ShieldShield;
     protected CardNumberSet CardNumberSet_ShieldShield;
@@ -46,16 +42,15 @@ internal class ModuleShield : ModuleBase
         base.Initiate(cardInfo, clientPlayer);
         M_ShieldName = CardInfo_Base.textToVertical(cardInfo.BaseInfo.CardName);
         M_ShieldType = cardInfo.ShieldInfo.ShieldType;
-        M_ShieldArmor = cardInfo.ShieldInfo.Armor + M_ModuleRetinue.M_RetinueArmor;
-        M_ShieldArmorMax = cardInfo.ShieldInfo.ArmorMax + M_ModuleRetinue.M_RetinueArmor;
-        M_ShieldShield = cardInfo.ShieldInfo.Shield + M_ModuleRetinue.M_RetinueShield;
-        M_ShieldShieldMax = cardInfo.ShieldInfo.ShieldMax + M_ModuleRetinue.M_RetinueShield;
+        M_ShieldArmor = cardInfo.ShieldInfo.Armor + (M_ModuleRetinue != null ? M_ModuleRetinue.M_RetinueArmor : 0);
+        M_ShieldShield = cardInfo.ShieldInfo.Shield + (M_ModuleRetinue != null ? M_ModuleRetinue.M_RetinueShield : 0);
+        M_ShieldShieldMax = cardInfo.ShieldInfo.ShieldMax + (M_ModuleRetinue != null ? M_ModuleRetinue.M_RetinueShield : 0);
         if (M_Bloom) M_Bloom.SetActive(false);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Shield(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo, CardInfo.ShieldInfo,CardInfo.SideEffects_OnDie);
+        return new CardInfo_Shield(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.ShieldInfo, CardInfo.SideEffects_OnDie);
     }
 
     private NumberSize my_NumberSize_Armor = NumberSize.Medium;
@@ -78,7 +73,6 @@ internal class ModuleShield : ModuleBase
         my_TextAlign_Shield = CardNumberSet.TextAlign.Left;
         my_TextAlign_ShieldMax = CardNumberSet.TextAlign.Right;
         M_ShieldArmor = M_ShieldArmor;
-        M_ShieldArmorMax = M_ShieldArmorMax;
         M_ShieldShield = M_ShieldShield;
         M_ShieldShieldMax = M_ShieldShieldMax;
     }
@@ -94,7 +88,6 @@ internal class ModuleShield : ModuleBase
         my_TextAlign_Shield = CardNumberSet.TextAlign.Center;
         my_TextAlign_ShieldMax = CardNumberSet.TextAlign.Center;
         M_ShieldArmor = M_ShieldArmor;
-        M_ShieldArmorMax = M_ShieldArmorMax;
         M_ShieldShield = M_ShieldShield;
         M_ShieldShieldMax = M_ShieldShieldMax;
     }
@@ -140,20 +133,6 @@ internal class ModuleShield : ModuleBase
         }
     }
 
-    private int m_ShieldArmorMax;
-
-    public int M_ShieldArmorMax
-    {
-        get { return m_ShieldArmorMax; }
-
-        set
-        {
-            m_ShieldArmorMax = value;
-            initiateNumbers(ref GoNumberSet_ShieldArmorMax, ref CardNumberSet_ShieldArmorMax, my_NumberSize_ArmorMax, my_TextAlign_ArmorMax, Block_ShieldArmorMax, '/');
-            CardNumberSet_ShieldArmorMax.Number = m_ShieldArmorMax;
-        }
-    }
-
     private int m_ShieldShield;
 
     public int M_ShieldShield
@@ -195,11 +174,11 @@ internal class ModuleShield : ModuleBase
         {
             if (CardInfo.UpgradeInfo.CardLevel == newShield.CardInfo.UpgradeInfo.CardLevel)
             {
-                CardInfo_Shield m_currentInfo = (CardInfo_Shield) GetCurrentCardInfo();
-                CardInfo_Shield upgradeShieldCardInfo = (CardInfo_Shield) AllCards.GetCard(CardInfo.UpgradeInfo.UpgradeCardID);
+                CardInfo_Shield m_currentInfo = (CardInfo_Shield)GetCurrentCardInfo();
+                CardInfo_Shield upgradeShieldCardInfo = (CardInfo_Shield)AllCards.GetCard(CardInfo.UpgradeInfo.UpgradeCardID);
                 Initiate(upgradeShieldCardInfo, ClientPlayer);
-                M_ShieldShield = m_currentInfo.ShieldInfo.Shield + ((CardInfo_Shield) newShield.CardInfo).ShieldInfo.Shield;
-                M_ShieldArmor = m_currentInfo.ShieldInfo.Armor + ((CardInfo_Shield) newShield.CardInfo).ShieldInfo.Armor;
+                M_ShieldShield = m_currentInfo.ShieldInfo.Shield + newShield.CardInfo.ShieldInfo.Shield;
+                M_ShieldArmor = m_currentInfo.ShieldInfo.Armor + newShield.CardInfo.ShieldInfo.Armor;
                 newShield.PoolRecycle();
                 resultShield = this;
             }

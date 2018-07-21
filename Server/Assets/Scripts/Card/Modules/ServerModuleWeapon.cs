@@ -9,17 +9,17 @@ internal class ServerModuleWeapon : ServerModuleBase
 
     public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
-        M_WeaponName = CardInfo_Base.textToVertical(((CardInfo_Weapon) cardInfo).BaseInfo.CardName);
-        M_WeaponType = ((CardInfo_Weapon) cardInfo).WeaponInfo.WeaponType;
-        M_WeaponAttack = ((CardInfo_Weapon) cardInfo).WeaponInfo.Attack;
-        M_WeaponEnergyMax = ((CardInfo_Weapon) cardInfo).WeaponInfo.EnergyMax;
-        M_WeaponEnergy = ((CardInfo_Weapon) cardInfo).WeaponInfo.Energy;
+        M_WeaponName = CardInfo_Base.textToVertical(cardInfo.BaseInfo.CardName);
+        M_WeaponType = cardInfo.WeaponInfo.WeaponType;
+        M_WeaponAttack = cardInfo.WeaponInfo.Attack;
+        M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;
+        M_WeaponEnergy = cardInfo.WeaponInfo.Energy;
         base.Initiate(cardInfo, serverPlayer);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Weapon(CardInfo.CardID,CardInfo.BaseInfo,CardInfo.UpgradeInfo,CardInfo.WeaponInfo,CardInfo.SideEffects_OnDie);
+        return new CardInfo_Weapon(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.WeaponInfo, CardInfo.SideEffects_OnDie);
     }
 
 
@@ -110,8 +110,8 @@ internal class ServerModuleWeapon : ServerModuleBase
         {
             if (CardInfo.UpgradeInfo.CardLevel == newWeapon.CardInfo.UpgradeInfo.CardLevel)
             {
-                CardInfo_Weapon m_currentInfo = (CardInfo_Weapon) GetCurrentCardInfo();
-                CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon) AllCards.GetCard(CardInfo.UpgradeInfo.UpgradeCardID);
+                CardInfo_Weapon m_currentInfo = (CardInfo_Weapon)GetCurrentCardInfo();
+                CardInfo_Weapon upgradeWeaponCardInfo = (CardInfo_Weapon)AllCards.GetCard(CardInfo.UpgradeInfo.UpgradeCardID);
                 Initiate(upgradeWeaponCardInfo, ServerPlayer);
                 M_WeaponAttack = m_currentInfo.WeaponInfo.Attack + newWeapon.CardInfo.WeaponInfo.Attack;
                 M_WeaponEnergy = m_currentInfo.WeaponInfo.Energy + newWeapon.CardInfo.WeaponInfo.Energy;

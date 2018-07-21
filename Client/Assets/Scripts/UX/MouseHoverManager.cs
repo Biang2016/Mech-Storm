@@ -44,7 +44,7 @@ internal class MouseHoverManager : MonoBehaviour
         if (DragManager.DM.CurrentDrag)
         {
             ModuleRetinue mr = DragManager.DM.CurrentDrag.GetComponent<ModuleRetinue>();
-            if (mr && mr.CanAttack)
+            if (mr)
             {
                 hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
             }
