@@ -29,14 +29,6 @@ internal abstract class ServerModuleBase
         set { stars = value; }
     }
 
-    private int m_RetinuePlaceIndex;
-
-    public int M_RetinuePlaceIndex
-    {
-        get { return m_RetinuePlaceIndex; }
-        set { m_RetinuePlaceIndex = value; }
-    }
-
     #endregion
 
     #region 各模块

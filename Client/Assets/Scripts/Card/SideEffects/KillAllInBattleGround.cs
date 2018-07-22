@@ -3,41 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-internal class KillAllInBattleGround : SideEffectBase
+internal class KillAllInBattleGround : KillAllInBattleGround_Base
 {
-    public string WhoseBattleGround;
+    public KillAllInBattleGround()
+    {
+    }
 
     public override SideEffectBase Clone()
     {
-        KillAllInBattleGround newSE = new KillAllInBattleGround();
-        newSE.SideEffectID = SideEffectID;
-        newSE.Name = Name;
-        newSE.Desc = Desc;
-        newSE.WhoseBattleGround = WhoseBattleGround;
-
-        return newSE;
+        KillAllInBattleGround se = (KillAllInBattleGround)base.Clone();
+        se.Info = Info;
+        return se;
     }
 
     public override void RefreshDesc()
     {
-        Desc = String.Format(Desc, WhoseBattleGround);
+        Desc = String.Format(Desc, Info.WhoseBattleGround);
     }
 
     public override void Excute(object Player)
     {
-        ClientPlayer player = (ClientPlayer) Player;
-        switch (WhoseBattleGround)
+        ClientPlayer player = (ClientPlayer)Player;
+        switch (Info.WhoseBattleGround)
         {
             case "我方":
-                
+
 
                 break;
             case "敌方":
-                
+
 
                 break;
             case "":
-                
+
 
                 break;
         }

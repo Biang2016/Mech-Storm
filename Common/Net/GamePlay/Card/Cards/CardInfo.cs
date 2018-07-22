@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 public enum CardTypes
@@ -11,14 +13,8 @@ public enum CardTypes
     MA = 5,
 }
 
-public abstract class CardInfo_Base
+public class CardInfo_Base
 {
-    protected CardInfo_Base(int cardID, BaseInfo baseInfo)
-    {
-        CardID = cardID;
-        BaseInfo = baseInfo;
-    }
-
     public int CardID;
     public BaseInfo BaseInfo;
     public UpgradeInfo UpgradeInfo;
@@ -31,7 +27,116 @@ public abstract class CardInfo_Base
     public List<SideEffectBase> SideEffects_OnDie;
     public List<SideEffectBase> SideEffects_OnSummoned;
 
-    public abstract CardInfo_Base Clone();
+    public CardInfo_Base() { }
+
+    protected CardInfo_Base(int cardID, BaseInfo baseInfo)
+    {
+        CardID = cardID;
+        BaseInfo = baseInfo;
+    }
+
+    public virtual CardInfo_Base Clone()
+    {
+        return new CardInfo_Base(CardID, BaseInfo);
+    }
+
+    public void Serialize(DataStream writer)
+    {
+        writer.WriteString8(GetType().ToString());
+        writer.WriteSInt32(CardID);
+        BaseInfo.Serialize(writer);
+        if (!UpgradeInfo.Equals(null))
+        {
+            writer.WriteByte(0x01);
+            UpgradeInfo.Serialize(writer);
+        }
+        else
+        {
+            writer.WriteByte(0x00);
+        }
+        if (!LifeInfo.Equals(null))
+        {
+            writer.WriteByte(0x01);
+            LifeInfo.Serialize(writer);
+        }
+        else
+        {
+            writer.WriteByte(0x00);
+        }
+        if (!BattleInfo.Equals(null))
+        {
+            writer.WriteByte(0x01);
+            BattleInfo.Serialize(writer);
+        }
+        else
+        {
+            writer.WriteByte(0x00);
+        }
+        if (!SlotInfo.Equals(null))
+        {
+            writer.WriteByte(0x01);
+            SlotInfo.Serialize(writer);
+        }
+        else
+        {
+            writer.WriteByte(0x00);
+        }
+        if (!WeaponInfo.Equals(null))
+        {
+            writer.WriteByte(0x01);
+            WeaponInfo.Serialize(writer);
+        }
+        else
+        {
+            writer.WriteByte(0x00);
+        }
+        if (!ShieldInfo.Equals(null))
+        {
+            writer.WriteByte(0x01);
+            ShieldInfo.Serialize(writer);
+        }
+        else
+        {
+            writer.WriteByte(0x00);
+        }
+    }
+
+    public static CardInfo_Base Deserialze(DataStream reader)
+    {
+        string myType = reader.ReadString8();
+        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
+        CardInfo_Base newCardInfo_Base = (CardInfo_Base)assembly.CreateInstance(myType);
+
+        newCardInfo_Base.CardID = reader.ReadSInt32();
+        newCardInfo_Base.BaseInfo = BaseInfo.Deserialze(reader);
+
+        if (reader.ReadByte() == 0x01)
+        {
+            newCardInfo_Base.UpgradeInfo = UpgradeInfo.Deserialze(reader);
+        }
+        if (reader.ReadByte() == 0x01)
+        {
+            newCardInfo_Base.LifeInfo = LifeInfo.Deserialze(reader);
+        }
+        if (reader.ReadByte() == 0x01)
+        {
+            newCardInfo_Base.BattleInfo = BattleInfo.Deserialze(reader);
+        }
+        if (reader.ReadByte() == 0x01)
+        {
+            newCardInfo_Base.SlotInfo = SlotInfo.Deserialze(reader);
+        }
+        if (reader.ReadByte() == 0x01)
+        {
+            newCardInfo_Base.WeaponInfo = WeaponInfo.Deserialze(reader);
+        }
+        if (reader.ReadByte() == 0x01)
+        {
+            newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
+        }
+
+        return newCardInfo_Base;
+    }
 
     public static string textToVertical(string text)
     {
@@ -48,6 +153,8 @@ public abstract class CardInfo_Base
 
 public class CardInfo_Retinue : CardInfo_Base
 {
+    public CardInfo_Retinue() { }
+
     public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo, List<SideEffectBase> sideEffects_OnDie, List<SideEffectBase> sideEffects_OnSummoned) : base(cardID, baseInfo)
     {
         UpgradeInfo = upgradeInfo;
@@ -103,6 +210,8 @@ public class CardInfo_Retinue : CardInfo_Base
 
 public class CardInfo_Weapon : CardInfo_Base
 {
+    public CardInfo_Weapon() { }
+
     public CardInfo_Weapon(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, WeaponInfo weaponInfo, List<SideEffectBase> sideEffects_OnDie) : base(cardID, baseInfo)
     {
         WeaponInfo = weaponInfo;
@@ -136,6 +245,8 @@ public class CardInfo_Weapon : CardInfo_Base
 
 public class CardInfo_Shield : CardInfo_Base
 {
+    public CardInfo_Shield() { }
+
     public CardInfo_Shield(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, ShieldInfo shieldInfo, List<SideEffectBase> sideEffects_OnDie) : base(cardID, baseInfo)
     {
         UpgradeInfo = upgradeInfo;
@@ -190,6 +301,29 @@ public struct BaseInfo
     {
         return "<color=\"" + hightLightColor + "\">" + hightLightText + "</color>";
     }
+
+    public void Serialize(DataStream writer)
+    {
+        writer.WriteString8(CardName);
+        writer.WriteString8(CardDesc);
+        writer.WriteSInt32(Cost);
+        writer.WriteSInt32((int)DragPurpose);
+        writer.WriteSInt32((int)CardType);
+        writer.WriteString8(CardColor);
+        writer.WriteString8(HightLightColor);
+    }
+
+    public static BaseInfo Deserialze(DataStream reader)
+    {
+        string CardName = reader.ReadString8();
+        string CardDesc = reader.ReadString8();
+        int Cost = reader.ReadSInt32();
+        DragPurpose DragPurpose = (DragPurpose)reader.ReadSInt32();
+        CardTypes CardType = (CardTypes)reader.ReadSInt32();
+        string CardColor = reader.ReadString8();
+        string HightLightColor = reader.ReadString8();
+        return new BaseInfo(CardName, CardDesc, Cost, DragPurpose, CardType, CardColor, HightLightColor);
+    }
 }
 
 public struct UpgradeInfo
@@ -201,6 +335,19 @@ public struct UpgradeInfo
     {
         UpgradeCardID = upgradeCardID;
         CardLevel = cardLevel;
+    }
+
+    public void Serialize(DataStream writer)
+    {
+        writer.WriteSInt32(UpgradeCardID);
+        writer.WriteSInt32(CardLevel);
+    }
+
+    public static UpgradeInfo Deserialze(DataStream reader)
+    {
+        int UpgradeCardID = reader.ReadSInt32();
+        int CardLevel = reader.ReadSInt32();
+        return new UpgradeInfo(UpgradeCardID, CardLevel);
     }
 }
 
@@ -214,6 +361,19 @@ public struct LifeInfo
         Life = life;
         TotalLife = totalLife;
     }
+
+    public void Serialize(DataStream writer)
+    {
+        writer.WriteSInt32(Life);
+        writer.WriteSInt32(TotalLife);
+    }
+    public static LifeInfo Deserialze(DataStream reader)
+    {
+        int Life = reader.ReadSInt32();
+        int TotalLife = reader.ReadSInt32();
+        return new LifeInfo(Life, TotalLife);
+    }
+
 }
 
 public struct BattleInfo
@@ -227,6 +387,19 @@ public struct BattleInfo
         BasicAttack = basicAttack;
         BasicShield = basicShield;
         BasicArmor = basicArmor;
+    }
+    public void Serialize(DataStream writer)
+    {
+        writer.WriteSInt32(BasicAttack);
+        writer.WriteSInt32(BasicShield);
+        writer.WriteSInt32(BasicArmor);
+    }
+    public static BattleInfo Deserialze(DataStream reader)
+    {
+        int BasicAttack = reader.ReadSInt32();
+        int BasicShield = reader.ReadSInt32();
+        int BasicArmor = reader.ReadSInt32();
+        return new BattleInfo(BasicAttack, BasicShield, BasicArmor);
     }
 }
 
@@ -244,6 +417,23 @@ public struct SlotInfo
         Slot3 = slot3;
         Slot4 = slot4;
     }
+    public void Serialize(DataStream writer)
+    {
+        writer.WriteSInt32((int)Slot1);
+        writer.WriteSInt32((int)Slot2);
+        writer.WriteSInt32((int)Slot3);
+        writer.WriteSInt32((int)Slot4);
+    }
+    public static SlotInfo Deserialze(DataStream reader)
+    {
+        SlotTypes Slot1 = (SlotTypes)reader.ReadSInt32();
+        SlotTypes Slot2 = (SlotTypes)reader.ReadSInt32();
+        SlotTypes Slot3 = (SlotTypes)reader.ReadSInt32();
+        SlotTypes Slot4 = (SlotTypes)reader.ReadSInt32();
+        return new SlotInfo(Slot1, Slot2, Slot3, Slot4);
+    }
+
+
 }
 
 public struct WeaponInfo
@@ -260,22 +450,53 @@ public struct WeaponInfo
         Attack = attack;
         WeaponType = weaponType;
     }
+
+    public void Serialize(DataStream writer)
+    {
+        writer.WriteSInt32(Energy);
+        writer.WriteSInt32(EnergyMax);
+        writer.WriteSInt32(Attack);
+        writer.WriteSInt32((int)WeaponType);
+    }
+
+    public static WeaponInfo Deserialze(DataStream reader)
+    {
+        int Energy = reader.ReadSInt32();
+        int EnergyMax = reader.ReadSInt32();
+        int Attack = reader.ReadSInt32();
+        WeaponTypes WeaponType = (WeaponTypes)reader.ReadSInt32();
+        return new WeaponInfo(Energy, EnergyMax, Attack, WeaponType);
+    }
+
+
 }
 
 public struct ShieldInfo
 {
     public int Armor;
-    public int ArmorMax;
     public int Shield;
-    public int ShieldMax;
     public ShieldTypes ShieldType;
 
-    public ShieldInfo(int armor, int armorMax, int shield, int shieldMax, ShieldTypes shieldType)
+    public ShieldInfo(int armor, int shield, ShieldTypes shieldType)
     {
         Armor = armor;
-        ArmorMax = armorMax;
         Shield = shield;
-        ShieldMax = shieldMax;
         ShieldType = shieldType;
     }
+    public void Serialize(DataStream writer)
+    {
+        writer.WriteSInt32(Armor);
+        writer.WriteSInt32(Shield);
+        writer.WriteSInt32((int)ShieldType);
+    }
+
+    public static ShieldInfo Deserialze(DataStream reader)
+    {
+        int Armor = reader.ReadSInt32();
+        int Shield = reader.ReadSInt32();
+        ShieldTypes ShieldType = (ShieldTypes)reader.ReadSInt32();
+        return new ShieldInfo(Armor, Shield, ShieldType);
+    }
+
+
 }

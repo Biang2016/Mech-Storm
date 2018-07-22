@@ -48,8 +48,6 @@ public class NetProtocols
     public const int SE_PLAYER_COST_CHANGE = 0x00000209; //英雄费用信息
 
     public const int SE_RETINUE_ATTRIBUTES_CHANGE = 0x00000210; //随从数值变化
-    public const int SE_WEAPON_ATTRIBUTES_CHANGE = 0x00000211; //武器模块数值变化
-    public const int SE_SHIELD_ATTRIBUTES_CHANGE = 0x00000212; //防具模块数值变化
 
     public const int SE_RETINUE_DIE = 0x00000213; //随从死亡
 

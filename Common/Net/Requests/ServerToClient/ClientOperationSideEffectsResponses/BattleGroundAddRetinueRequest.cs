@@ -32,7 +32,7 @@ public class BattleGroundAddRetinueRequest : ServerRequestBase
     {
         base.Serialize(writer);
         writer.WriteSInt32(clientId);
-        writer.WriteSInt32(cardInfo.CardID);
+        cardInfo.Serialize(writer);
         writer.WriteSInt32(battleGroundIndex);
     }
 
@@ -40,7 +40,7 @@ public class BattleGroundAddRetinueRequest : ServerRequestBase
     {
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
-        cardInfo = (CardInfo_Retinue) AllCards.GetCard(reader.ReadSInt32());
+        cardInfo = (CardInfo_Retinue)(CardInfo_Base.Deserialze(reader));
         battleGroundIndex = reader.ReadSInt32();
     }
 

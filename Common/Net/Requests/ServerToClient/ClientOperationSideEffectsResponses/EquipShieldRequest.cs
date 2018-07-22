@@ -34,7 +34,15 @@ public class EquipShieldServerRequest : ServerRequestBase
     {
         base.Serialize(writer);
         writer.WriteSInt32(clientId);
-        writer.WriteSInt32(cardInfo.CardID);
+        if (cardInfo == null)
+        {
+            writer.WriteByte(0x00);
+        }
+        else
+        {
+            writer.WriteByte(0x01);
+            cardInfo.Serialize(writer);
+        }
         writer.WriteSInt32(battleGroundIndex);
         writer.WriteSInt32(shieldPlaceIndex);
     }
@@ -43,7 +51,10 @@ public class EquipShieldServerRequest : ServerRequestBase
     {
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
-        cardInfo = (CardInfo_Shield) AllCards.GetCard(reader.ReadSInt32());
+        if (reader.ReadByte() == 0x01)
+        {
+            cardInfo = (CardInfo_Shield)(CardInfo_Base.Deserialze(reader));
+        }
         battleGroundIndex = reader.ReadSInt32();
         shieldPlaceIndex = reader.ReadSInt32();
     }
@@ -52,7 +63,14 @@ public class EquipShieldServerRequest : ServerRequestBase
     {
         string log = base.DeserializeLog();
         log += " [clientId]=" + clientId;
-        log += " [cardInfo.CardID]=" + cardInfo.CardID;
+        if (cardInfo == null)
+        {
+            log += " [ShieldDown] ";
+        }
+        else
+        {
+            log += " [cardInfo.CardID]=" + cardInfo.CardID;
+        }
         log += " [battleGroundIndex]=" + battleGroundIndex;
         log += " [shieldPlaceIndex]=" + shieldPlaceIndex;
         return log;

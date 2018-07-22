@@ -46,9 +46,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CardResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Net\GamePlay\Card\SideEffects\AllSideEffects.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffectsBase\AllSideEffects.cs" />
     <Compile Include="Net\GamePlay\Card\Cards\CardInfo.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffectBase.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffectBase.cs" />
     <Compile Include="Net\GamePlay\DragPurpose.cs" />
     <Compile Include="Net\GamePlay\Player.cs" />
     <Compile Include="Net\GamePlay\Shield.cs" />
@@ -80,8 +80,6 @@
     <Compile Include="Net\Requests\ServerToClient\OutGame\HeartBeatRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\OutGame\GameStopByLeaveRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttributesChangeRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\ShieldAttributesChangeRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\WeaponAttributesChangeRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponseBase.cs" />
     <Compile Include="Net\Requests\ServerToClient\ServerRequestBase.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\DrawCardRequest.cs" />
@@ -96,11 +94,14 @@
     <Compile Include="Net\Protocol\ProtoManager.cs" />
     <Compile Include="Net\Requests\ServerToClient\OutGame\ClientIdRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\PlayerCostChangeRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\OutGame\SetPlayerRequest.cs" />
     <Compile Include="Net\Requests\RequestBase.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\KillAllInBattleGround_Base.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\AddLifeForSomeRetinue_Base.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\SetPlayerRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\GamePlay\Card\Modules\" />
+    <Folder Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Net\GamePlay\Card\CardDeck\Cards.xml">
@@ -114,7 +115,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Net\GamePlay\Card\SideEffects\SideEffects.xml">
+    <Resource Include="Net\GamePlay\Card\SideEffectsBase\SideEffects.xml">
       <SubType>Designer</SubType>
     </Resource>
   </ItemGroup>

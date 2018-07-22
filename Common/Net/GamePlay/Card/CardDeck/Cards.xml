@@ -56,7 +56,7 @@
     <Card id="200">
         <CardInfo name="baseInfo" cardName="新兵步枪Ⅰ" cardDesc="" cost="2" dragPurpose="Equip" cardType="Weapon" cardColor="#FF0000FF" hightLightColor="#FFFF00"/>
         <CardInfo name="upgradeInfo" upgradeCardID="201" cardLevel="1" />
-        <CardInfo name="weaponInfo" energy="1" energyMax="3" attack="1" weaponType="Gun" />
+        <CardInfo name="weaponInfo" energy="3" energyMax="3" attack="1" weaponType="Gun" />
     </Card>
     <Card id="201">
         <CardInfo name="baseInfo" cardName="新兵步枪Ⅱ" cardDesc="" cost="3" dragPurpose="Equip" cardType="Weapon" cardColor="#FF0000FF" hightLightColor="#FFFF00"/>
@@ -72,32 +72,32 @@
     <Card id="300">
         <CardInfo name="baseInfo" cardName="新兵护盾Ⅰ" cardDesc="" cost="2" dragPurpose="Equip" cardType="Shield" cardColor="#E6FF00FF" hightLightColor="#67c8ff"/>
         <CardInfo name="upgradeInfo" upgradeCardID="302" cardLevel="1" />
-        <CardInfo name="shieldInfo" armor="0" armorMax="0" shield="4" shieldMax="4" shieldType="Shield" />
+        <CardInfo name="shieldInfo" armor="0" shield="4" shieldType="Shield" />
     </Card>
     <Card id="301">
         <CardInfo name="baseInfo" cardName="新兵护盾Ⅱ" cardDesc="" cost="3" dragPurpose="Equip" cardType="Shield" cardColor="#E6FF00FF" hightLightColor="#67c8ff"/>
         <CardInfo name="upgradeInfo" upgradeCardID="302" cardLevel="2" />
-        <CardInfo name="shieldInfo" armor="0" armorMax="0" shield="6" shieldMax="6" shieldType="Shield" />
+        <CardInfo name="shieldInfo" armor="0" shield="6" shieldType="Shield" />
     </Card>
     <Card id="302">
         <CardInfo name="baseInfo" cardName="新兵护盾Ⅲ" cardDesc="" cost="4" dragPurpose="Equip" cardType="Shield" cardColor="#E6FF00FF" hightLightColor="#67c8ff"/>
         <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="3" />
-        <CardInfo name="shieldInfo" armor="0" armorMax="0" shield="8" shieldMax="8" shieldType="Shield" />
+        <CardInfo name="shieldInfo" armor="0" shield="8" shieldType="Shield" />
     </Card>
     
     <Card id="350">
         <CardInfo name="baseInfo" cardName="新兵盾牌Ⅰ" cardDesc="" cost="1" dragPurpose="Equip" cardType="Shield" cardColor="#FF8E00FF" hightLightColor="#67c8ff"/>
         <CardInfo name="upgradeInfo" upgradeCardID="351" cardLevel="1" />
-        <CardInfo name="shieldInfo" armor="4" armorMax="4" shield="0" shieldMax="0" shieldType="Armor" />
+        <CardInfo name="shieldInfo" armor="4" shield="0" shieldType="Armor" />
     </Card>
     <Card id="351">
         <CardInfo name="baseInfo" cardName="新兵盾牌Ⅱ" cardDesc="" cost="2" dragPurpose="Equip" cardType="Shield" cardColor="#FF8E00FF" hightLightColor="#67c8ff"/>
         <CardInfo name="upgradeInfo" upgradeCardID="352" cardLevel="2" />
-        <CardInfo name="shieldInfo" armor="6" armorMax="6" shield="0" shieldMax="0" shieldType="Armor" />
+        <CardInfo name="shieldInfo" armor="6" shield="0" shieldType="Armor" />
     </Card>
     <Card id="352">
         <CardInfo name="baseInfo" cardName="新兵盾牌Ⅲ" cardDesc="" cost="3" dragPurpose="Equip" cardType="Shield" cardColor="#FF8E00FF" hightLightColor="#67c8ff"/>
         <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="3" />
-        <CardInfo name="shieldInfo" armor="8" armorMax="8" shield="0" shieldMax="0" shieldType="Armor" />
+        <CardInfo name="shieldInfo" armor="8" shield="0" shieldType="Armor" />
     </Card>
 </AllCards>

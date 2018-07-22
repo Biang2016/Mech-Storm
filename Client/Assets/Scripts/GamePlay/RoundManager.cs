@@ -73,89 +73,79 @@ internal class RoundManager : MonoBehaviour
         switch (se.GetProtocol())
         {
             case NetProtocols.SE_SET_PLAYER:
-            {
-                Client.CS.Proxy.ClientState = ProxyBase.ClientStates.Playing;
-                NetworkManager.NM.SuccessMatched();
-                Initialize();
-                InitializePlayers((SetPlayerRequest) se);
-                break;
-            }
+                {
+                    Client.CS.Proxy.ClientState = ProxyBase.ClientStates.Playing;
+                    NetworkManager.NM.SuccessMatched();
+                    Initialize();
+                    InitializePlayers((SetPlayerRequest)se);
+                    break;
+                }
 
             case NetProtocols.SE_PLAYER_TURN:
-            {
-                SetPlayerTurn((PlayerTurnRequest) se);
-                break;
-            }
+                {
+                    SetPlayerTurn((PlayerTurnRequest)se);
+                    break;
+                }
             case NetProtocols.SE_PLAYER_COST_CHANGE:
-            {
-                SetPlayersCost((PlayerCostChangeRequest) se);
-                break;
-            }
+                {
+                    SetPlayersCost((PlayerCostChangeRequest)se);
+                    break;
+                }
 
             case NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE:
-            {
-                OnRetinueAttributesChange((RetinueAttributesChangeRequest) se);
-                break;
-            }
-            case NetProtocols.SE_WEAPON_ATTRIBUTES_CHANGE:
-            {
-                OnWeaponAttributesChange((WeaponAttributesChangeRequest) se);
-                break;
-            }
-            case NetProtocols.SE_SHIELD_ATTRIBUTES_CHANGE:
-            {
-                OnShieldAttributesChange((ShieldAttributesChangeRequest) se);
-                break;
-            }
+                {
+                    OnRetinueAttributesChange((RetinueAttributesChangeRequest)se);
+                    break;
+                }
 
             case NetProtocols.SE_RETINUE_DIE:
-            {
-                OnRetinueDie((RetinueDieRequest) se);
-                break;
-            }
+                {
+                    OnRetinueDie((RetinueDieRequest)se);
+                    break;
+                }
 
             case NetProtocols.SE_BATTLEGROUND_ADD_RETINUE:
-            {
-                OnBattleGroundAddRetinue((BattleGroundAddRetinueRequest) se);
-                break;
-            }
+                {
+                    OnBattleGroundAddRetinue((BattleGroundAddRetinueRequest)se);
+                    break;
+                }
             case NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE:
-            {
-                OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest) se);
-                break;
-            }
+                {
+                    OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest)se);
+                    break;
+                }
 
             case NetProtocols.SE_DRAW_CARD:
-            {
-                OnPlayerDrawCard((DrawCardRequest) se);
-                break;
-            }
+                {
+                    OnPlayerDrawCard((DrawCardRequest)se);
+                    break;
+                }
             case NetProtocols.SE_DROP_CARD:
-            {
-                OnPlayerDropCard((DropCardRequest) se);
-                break;
-            }
+                {
+                    OnPlayerDropCard((DropCardRequest)se);
+                    break;
+                }
             case NetProtocols.SE_USE_CARD:
-            {
-                OnPlayerUseCard((UseCardRequest) se);
-                break;
-            }
+                {
+                    OnPlayerUseCard((UseCardRequest)se);
+                    break;
+                }
 
             case NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST:
-            {
-                OnEquipWeapon((EquipWeaponServerRequest) se);
-                break;
-            }
+                {
+                    OnEquipWeapon((EquipWeaponServerRequest)se);
+                    break;
+                }
             case NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST:
-            {
-                OnEquipShield((EquipShieldServerRequest) se);
-                break;
-            }
+                {
+                    OnEquipShield((EquipShieldServerRequest)se);
+                    break;
+                }
             case NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST:
-            {
-                OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) se);
-                break;
-            }
+                {
+                    OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest)se);
+                    break;
+                }
         }
     }
 
@@ -249,31 +239,16 @@ internal class RoundManager : MonoBehaviour
         isStop = true;
     }
 
-
-    private void OnWeaponAttributesChange(ServerRequestBase req)
-    {
-        WeaponAttributesChangeRequest r = (WeaponAttributesChangeRequest) req;
-        ModuleWeapon weapon = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Weapon;
-        weapon.M_WeaponAttack += r.addAttack;
-        weapon.M_WeaponEnergy += r.addEnergy;
-    }
-
     private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
     {
         ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex);
         retinue.M_RetinueAttack += r.addAttack;
+        retinue.M_RetinueWeaponEnergy += r.addWeaponEnergy;
+        retinue.M_RetinueWeaponEnergyMax += r.addWeaponEnergyMax;
         retinue.M_RetinueArmor += r.addArmor;
         retinue.M_RetinueShield += r.addShield;
         retinue.M_RetinueTotalLife += r.addMaxLife;
         retinue.M_RetinueLeftLife += r.addLeftLife;
-    }
-
-    private void OnShieldAttributesChange(ShieldAttributesChangeRequest r)
-    {
-        ModuleShield shield = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex).M_Shield;
-        shield.M_ShieldArmor += r.addArmor;
-        shield.M_ShieldShield += r.addShield;
-        shield.M_ShieldShieldMax += r.addShieldMax;
     }
 
     private void OnRetinueDie(RetinueDieRequest r)

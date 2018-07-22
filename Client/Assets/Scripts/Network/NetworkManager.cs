@@ -127,7 +127,8 @@ internal class NetworkManager : MonoBehaviour
         }
     }
 
-    public void SuccessMatched(){
+    public void SuccessMatched()
+    {
         ShowInfoPanel("匹配成功，开始比赛", 0, 1f);
     }
 
@@ -145,14 +146,15 @@ internal class NetworkManager : MonoBehaviour
 
             if (CreateBtn("确认卡组"))
             {
-                List<string> tmp = cardDeckInfo.Split(',').ToList();
-                SelfCardDeckInfo.Clear();
-                foreach (string s in tmp)
-                {
-                    SelfCardDeckInfo.Add(int.Parse(s));
-                }
+                //List<string> tmp = cardDeckInfo.Split(',').ToList();
+                //SelfCardDeckInfo.Clear();
+                //foreach (string s in tmp)
+                //{
+                //    SelfCardDeckInfo.Add(int.Parse(s));
+                //}
 
-                Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(SelfCardDeckInfo.ToArray()));
+                //Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(SelfCardDeckInfo.ToArray()));
+                Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(new int[] { 0, 1, 100,101,102, 200,201,202, 300, 350 }));
                 ShowInfoPanel("更新卡组成功", 0, 1f);
             }
         }

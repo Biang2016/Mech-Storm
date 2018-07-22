@@ -45,7 +45,7 @@ internal class Client : MonoBehaviour
             if (receiveDataQueue.Count > 0)
             {
                 ReceiveSocketData rsd = receiveDataQueue.Dequeue();
-                DataStream stream =new DataStream(rsd.Data,true);
+                DataStream stream = new DataStream(rsd.Data, true);
                 ProtoManager.TryDeserialize(stream, rsd.Socket);
             }
 
@@ -62,7 +62,7 @@ internal class Client : MonoBehaviour
     {
         foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
         {
-            ProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
+            ProtoManager.AddRequestDelegate((int)fi.GetRawConstantValue(), Response);
         }
     }
 
@@ -214,7 +214,7 @@ internal class Client : MonoBehaviour
 
     public void Send(object obj)
     {
-        ClientRequestBase request = (ClientRequestBase) obj;
+        ClientRequestBase request = (ClientRequestBase)obj;
 
         if (ServerSocket == null)
         {
@@ -250,7 +250,7 @@ internal class Client : MonoBehaviour
                 Closed();
             }
 
-            string log = "SendToServer: " + request.DeserializeLog();
+            string log = "SendToServer: <" + request.GetProtocolName() + "> " + request.DeserializeLog();
             ClientLog.CL.Print(log);
         }
         catch (Exception e)

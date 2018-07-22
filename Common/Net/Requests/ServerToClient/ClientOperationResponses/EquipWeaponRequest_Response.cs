@@ -20,7 +20,6 @@ public class EquipWeaponRequest_Response : ClientOperationResponseBase
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-     
     }
 
     public override void Deserialize(DataStream reader)

@@ -46,9 +46,9 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponse = new GameStart_Response();
         ClientB.CurrentClientRequestResponse = new GameStart_Response();
 
-        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.ClientId, 0, GamePlaySettings.BeginCost);
+        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.ClientId, GamePlaySettings.BeginCost, GamePlaySettings.BeginCost);
         Broadcast_AddRequestToOperationResponse(request1);
-        SetPlayerRequest request2 = new SetPlayerRequest(ClientB.ClientId, 0, GamePlaySettings.BeginCost);
+        SetPlayerRequest request2 = new SetPlayerRequest(ClientB.ClientId, GamePlaySettings.BeginCost, GamePlaySettings.BeginCost);
         Broadcast_AddRequestToOperationResponse(request2);
 
         GameBegin();

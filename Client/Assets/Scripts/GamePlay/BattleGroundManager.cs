@@ -76,7 +76,6 @@ internal class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(battleGroundIndex);
         ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(retinue.transform).GetComponent<ModuleWeapon>();
         newModueWeapon.M_ModuleRetinue = retinue;
-        newModueWeapon.M_RetinuePlaceIndex = battleGroundIndex;
         newModueWeapon.Initiate(cardInfo, ClientPlayer);
         retinue.M_Weapon = newModueWeapon;
     }
@@ -86,7 +85,6 @@ internal class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(battleGroundIndex);
         ModuleShield newModuleShield = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool.AllocateGameObject(retinue.transform).GetComponent<ModuleShield>();
         newModuleShield.M_ModuleRetinue = retinue;
-        newModuleShield.M_RetinuePlaceIndex = battleGroundIndex;
         newModuleShield.Initiate(cardInfo, ClientPlayer);
         retinue.M_Shield = newModuleShield;
     }

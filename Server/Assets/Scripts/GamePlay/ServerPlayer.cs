@@ -37,8 +37,11 @@ internal class ServerPlayer : Player
     public void AddCostWithoutLimit(int addCostValue)
     {
         AddCost(addCostValue);
-        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: addCostValue);
-        BroadCastRequest(request);
+        if (addCostValue != 0)
+        {
+            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: addCostValue);
+            BroadCastRequest(request);
+        }
     }
 
     public void AddCostWithinMax(int addCostValue)
@@ -48,8 +51,11 @@ internal class ServerPlayer : Player
             AddCost(addCostValue);
         else
             AddCost(CostMax - CostLeft);
-        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
-        BroadCastRequest(request);
+        if (addCostValue != 0)
+        {
+            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+            BroadCastRequest(request);
+        }
     }
 
     public void UseCostAboveZero(int useCostValue)
@@ -59,8 +65,11 @@ internal class ServerPlayer : Player
             AddCost(-useCostValue);
         else
             AddCost(-CostLeft);
-        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
-        BroadCastRequest(request);
+        if (useCostValue != 0)
+        {
+            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+            BroadCastRequest(request);
+        }
     }
 
 
@@ -69,16 +78,22 @@ internal class ServerPlayer : Player
     {
         int costLeftBefore = CostLeft;
         AddCost(CostMax - CostLeft);
-        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
-        BroadCastRequest(request);
+        if (CostLeft - costLeftBefore != 0)
+        {
+            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+            BroadCastRequest(request);
+        }
     }
 
     public void UseAllCost()
     {
         int costLeftBefore = CostLeft;
         AddCost(-CostLeft);
-        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
-        BroadCastRequest(request);
+        if (CostLeft - costLeftBefore != 0)
+        {
+            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+            BroadCastRequest(request);
+        }
     }
 
 
@@ -89,8 +104,11 @@ internal class ServerPlayer : Player
             AddCostMax(increaseValue);
         else
             AddCostMax(GamePlaySettings.MaxCost - CostMax);
-        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
-        BroadCastRequest(request);
+        if (increaseValue != 0)
+        {
+            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
+            BroadCastRequest(request);
+        }
     }
 
     public void DecreaseCostMax(int decreaseValue)
@@ -100,8 +118,11 @@ internal class ServerPlayer : Player
             AddCostMax(-CostMax);
         else
             AddCostMax(-decreaseValue);
-        PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
-        BroadCastRequest(request);
+        if (decreaseValue != 0)
+        {
+            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
+            BroadCastRequest(request);
+        }
     }
 
     private void BroadCastRequest(PlayerCostChangeRequest request)

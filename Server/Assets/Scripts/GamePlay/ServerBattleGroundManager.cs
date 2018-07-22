@@ -48,12 +48,9 @@ internal class ServerBattleGroundManager
         CardInfo_Weapon cardInfo_Weapon = r.cardInfo;
         ServerModuleRetinue retinue = GetRetinue(r.battleGroundIndex);
         weapon.M_ModuleRetinue = retinue;
-        weapon.M_RetinuePlaceIndex = r.battleGroundIndex;
+        weapon.M_WeaponPlaceIndex = r.weaponPlaceIndex;
         weapon.Initiate(cardInfo_Weapon, ServerPlayer);
         retinue.M_Weapon = weapon;
-
-        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, cardInfo_Weapon, r.battleGroundIndex, r.weaponPlaceIndex);
-        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     public void EquipShield(EquipShieldRequest r)
@@ -62,12 +59,9 @@ internal class ServerBattleGroundManager
         CardInfo_Shield cardInfo_Shield = r.cardInfo;
         ServerModuleRetinue retinue = GetRetinue(r.battleGroundIndex);
         shield.M_ModuleRetinue = retinue;
-        shield.M_RetinuePlaceIndex = r.battleGroundIndex;
+        shield.M_ShieldPlaceIndex = r.shieldPlaceIndex;
         shield.Initiate(cardInfo_Shield, ServerPlayer);
         retinue.M_Shield = shield;
-
-        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, cardInfo_Shield, r.battleGroundIndex, r.shieldPlaceIndex);
-        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     public void KillAllInBattleGround() //杀死本方清场

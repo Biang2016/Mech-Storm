@@ -36,6 +36,14 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     #region 属性
 
+    private int m_RetinuePlaceIndex;
+
+    public int M_RetinuePlaceIndex
+    {
+        get { return m_RetinuePlaceIndex; }
+        set { m_RetinuePlaceIndex = value; }
+    }
+
     private bool m_IsDead;
 
     public bool M_IsDead
@@ -119,9 +127,54 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             int before = m_RetinueAttack;
             m_RetinueAttack = value;
+            if (M_Weapon != null)
+            {
+                M_Weapon.CardInfo.WeaponInfo.Attack = value;
+            }
             if (isInitialized && before != m_RetinueAttack)
             {
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Attack, addAttack: m_RetinueAttack - before);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+            }
+        }
+    }
+
+    private int m_RetinueWeaponEnergy;
+
+    public int M_RetinueWeaponEnergy
+    {
+        get { return m_RetinueWeaponEnergy; }
+        set
+        {
+            int before = m_RetinueWeaponEnergy;
+            m_RetinueWeaponEnergy = value;
+            if (M_Weapon != null)
+            {
+                M_Weapon.CardInfo.WeaponInfo.Energy = value;
+            }
+            if (isInitialized && before != m_RetinueWeaponEnergy)
+            {
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.WeaponEnergy, addWeaponEnergy: m_RetinueWeaponEnergy - before);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+            }
+        }
+    }
+    private int m_RetinueWeaponEnergyMax;
+
+    public int M_RetinueWeaponEnergyMax
+    {
+        get { return m_RetinueWeaponEnergyMax; }
+        set
+        {
+            int before = m_RetinueWeaponEnergyMax;
+            m_RetinueWeaponEnergyMax = value;
+            if (M_Weapon != null)
+            {
+                M_Weapon.CardInfo.WeaponInfo.EnergyMax = value;
+            }
+            if (isInitialized && before != m_RetinueWeaponEnergyMax)
+            {
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.WeaponEnergyMax, addWeaponEnergyMax: m_RetinueWeaponEnergyMax - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -136,6 +189,10 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             int before = m_RetinueArmor;
             m_RetinueArmor = value;
+            if (M_Shield != null)
+            {
+                M_Shield.CardInfo.ShieldInfo.Armor = value;
+            }
             if (isInitialized && before != m_RetinueArmor)
             {
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Armor, addArmor: m_RetinueArmor - before);
@@ -153,6 +210,10 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             int before = m_RetinueShield;
             m_RetinueShield = value;
+            if (M_Shield != null)
+            {
+                M_Shield.CardInfo.ShieldInfo.Shield = value;
+            }
             if (isInitialized && before != m_RetinueShield)
             {
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Shield, addShield: m_RetinueShield - before);
@@ -180,29 +241,58 @@ internal class ServerModuleRetinue : ServerModuleBase
             }
             else if (m_Weapon == null && value != null)
             {
-                On_WeaponEquiped();
+                On_WeaponEquiped(value);
             }
             else if (m_Weapon != value)
             {
                 On_WeaponChanged(value);
                 return;
             }
-
-            m_Weapon = value;
         }
     }
 
     void On_WeaponDown()
     {
+        m_Weapon = null;
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinuePlaceIndex, 0);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
-    void On_WeaponEquiped()
+    void On_WeaponEquiped(ServerModuleWeapon newWeapon)
     {
+        m_Weapon = newWeapon;
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon)newWeapon.GetCurrentCardInfo(), M_RetinuePlaceIndex, newWeapon.M_WeaponPlaceIndex);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+
+        M_RetinueAttack += newWeapon.CardInfo.WeaponInfo.Attack;
+        M_RetinueWeaponEnergy += newWeapon.CardInfo.WeaponInfo.Energy;
+        M_RetinueWeaponEnergyMax += newWeapon.CardInfo.WeaponInfo.EnergyMax;
     }
 
     void On_WeaponChanged(ServerModuleWeapon newWeapon)
     {
-        M_Weapon.ChangeWeapon(newWeapon, ref m_Weapon);
+        if (AllCards.IsASeries(m_Weapon.CardInfo, newWeapon.CardInfo))//同类型+1/+1
+        {
+            if (newWeapon.CardInfo.UpgradeInfo.CardLevel > m_Weapon.CardInfo.UpgradeInfo.CardLevel)
+            {
+                m_Weapon = newWeapon;
+                EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon)newWeapon.GetCurrentCardInfo(), M_RetinuePlaceIndex, newWeapon.M_WeaponPlaceIndex);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+            }
+            M_RetinueAttack += 1;
+            M_RetinueWeaponEnergy += 1;
+            M_RetinueWeaponEnergyMax += 1;
+        }
+        else//不同类型替换
+        {
+            m_Weapon = newWeapon;
+            EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon)newWeapon.GetCurrentCardInfo(), M_RetinuePlaceIndex, newWeapon.M_WeaponPlaceIndex);
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+
+            M_RetinueAttack = CardInfo.BattleInfo.BasicAttack + newWeapon.CardInfo.WeaponInfo.Attack;
+            M_RetinueWeaponEnergy = newWeapon.CardInfo.WeaponInfo.Energy;
+            M_RetinueWeaponEnergyMax = newWeapon.CardInfo.WeaponInfo.EnergyMax;
+        }
     }
 
     #endregion
@@ -223,29 +313,55 @@ internal class ServerModuleRetinue : ServerModuleBase
             }
             else if (m_Shield == null && value != null)
             {
-                On_ShieldEquiped();
+                On_ShieldEquiped(value);
             }
             else if (m_Shield != value)
             {
                 On_ShieldChanged(value);
                 return;
             }
-
-            m_Shield = value;
         }
     }
 
     void On_ShieldDown()
     {
+        m_Shield = null;
+        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_RetinuePlaceIndex, 0);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
-    void On_ShieldEquiped()
+    void On_ShieldEquiped(ServerModuleShield newShield)
     {
+        m_Shield = newShield;
+        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield)newShield.GetCurrentCardInfo(), M_RetinuePlaceIndex, newShield.M_ShieldPlaceIndex);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+
+        M_RetinueArmor += newShield.CardInfo.ShieldInfo.Armor;
+        M_RetinueShield += newShield.CardInfo.ShieldInfo.Shield;
     }
 
     void On_ShieldChanged(ServerModuleShield newShield) //更换防具时机体基础护甲护盾恢复
     {
-        M_Shield.ChangeShield(newShield, ref m_Shield);
+        if (AllCards.IsASeries(m_Shield.CardInfo, newShield.CardInfo))//同类型直接叠加
+        {
+            if (newShield.CardInfo.UpgradeInfo.CardLevel > m_Shield.CardInfo.UpgradeInfo.CardLevel)
+            {
+                m_Shield = newShield;
+                EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield)newShield.GetCurrentCardInfo(), M_RetinuePlaceIndex, newShield.M_ShieldPlaceIndex);
+                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+            }
+            M_RetinueShield += newShield.CardInfo.ShieldInfo.Shield;
+            M_RetinueArmor += newShield.CardInfo.ShieldInfo.Armor;
+        }
+        else//不同类型替换
+        {
+            m_Shield = newShield;
+            EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield)newShield.GetCurrentCardInfo(), M_RetinuePlaceIndex, newShield.M_ShieldPlaceIndex);
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+
+            M_RetinueShield = CardInfo.BattleInfo.BasicShield + newShield.CardInfo.ShieldInfo.Shield;
+            M_RetinueArmor = CardInfo.BattleInfo.BasicArmor + newShield.CardInfo.ShieldInfo.Armor;
+        }
     }
 
     #endregion
@@ -258,60 +374,38 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     #region 模块交互
 
-    private bool canAttack = false;
-
-    internal bool CanAttack
-    {
-        get { return canAttack; }
-
-        set { canAttack = value; }
-    }
-
     public void BeAttacked(int attackNumber)
     {
         OnBeAttacked();
         int remainAttackNumber = attackNumber;
-        if (M_Shield != null)
-        {
-            remainAttackNumber = M_Shield.ShieldBeAttacked(remainAttackNumber);
-            if (remainAttackNumber == 0) return;
-        }
 
-        if (M_Shield != null)
+        if (M_RetinueShield > 0)
         {
-            remainAttackNumber = M_Shield.ArmorBeAttacked(remainAttackNumber);
-            if (remainAttackNumber == 0) return;
-        }
-        else
-        {
-            if (M_RetinueShield > 0)
+            if (M_RetinueShield >= remainAttackNumber)
             {
-                if (M_RetinueShield >= remainAttackNumber)
-                {
-                    M_RetinueShield--;
-                    remainAttackNumber = 0;
-                    return;
-                }
-                else
-                {
-                    remainAttackNumber -= M_RetinueShield;
-                    M_RetinueShield /= 2;
-                }
+                M_RetinueShield--;
+                remainAttackNumber = 0;
+                return;
             }
-
-            if (M_RetinueArmor > 0)
+            else
             {
-                if (M_RetinueArmor >= remainAttackNumber)
-                {
-                    M_RetinueArmor = (int) (M_RetinueArmor - remainAttackNumber);
-                    remainAttackNumber = 0;
-                    return;
-                }
-                else
-                {
-                    remainAttackNumber -= M_RetinueArmor;
-                    M_RetinueArmor = 0;
-                }
+                remainAttackNumber -= M_RetinueShield;
+                M_RetinueShield /= 2;
+            }
+        }
+
+        if (M_RetinueArmor > 0)
+        {
+            if (M_RetinueArmor >= remainAttackNumber)
+            {
+                M_RetinueArmor = (int)(M_RetinueArmor - remainAttackNumber);
+                remainAttackNumber = 0;
+                return;
+            }
+            else
+            {
+                remainAttackNumber -= M_RetinueArmor;
+                M_RetinueArmor = 0;
             }
         }
 
@@ -328,20 +422,33 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
     }
 
-    public List<int> AllModulesAttack()
+    public List<int> AllModulesAttack()//全模块攻击
     {
         OnAttack();
         List<int> ASeriesOfAttacks = new List<int>();
+
         if (M_Weapon != null)
         {
-            ASeriesOfAttacks.AddRange(M_Weapon.WeaponAttack());
+            switch (M_Weapon.M_WeaponType)
+            {
+                case WeaponTypes.Sword:
+                    ASeriesOfAttacks.Add(M_RetinueAttack * M_RetinueWeaponEnergy);
+                    if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
+                    break;
+                case WeaponTypes.Gun:
+                    int tmp = M_RetinueWeaponEnergy;
+                    for (int i = 0; i < tmp; i++)
+                    {
+                        ASeriesOfAttacks.Add(M_RetinueAttack);
+                        M_RetinueWeaponEnergy--;
+                    }
+                    break;
+            }
         }
         else
         {
             ASeriesOfAttacks.Add(M_RetinueAttack);
         }
-
-        CanAttack = false;
 
         foreach (int aSeriesOfAttack in ASeriesOfAttacks)
         {
@@ -418,22 +525,11 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public void OnBeginRound()
     {
-        if (M_Weapon == null && M_RetinueAttack != 0)
-        {
-            CanAttack = true;
-        }
 
-        if (M_Weapon != null && M_Weapon.M_WeaponAttack + M_RetinueAttack != 0)
-        {
-            CanAttack = true;
-            M_Weapon.CanAttack = true;
-        }
     }
 
     public void OnEndRound()
     {
-        CanAttack = false;
-        if (M_Weapon != null) M_Weapon.CanAttack = false;
     }
 
     #endregion

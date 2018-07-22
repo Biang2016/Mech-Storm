@@ -5,10 +5,12 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
 {
     public int clinetId;
     public int retinuePlaceIndex;
-    public RetinueAttributesChangeFlag change; 
+    public RetinueAttributesChangeFlag change;
     public int addLeftLife;
     public int addMaxLife;
     public int addAttack;
+    public int addWeaponEnergy;
+    public int addWeaponEnergyMax;
     public int addArmor;
     public int addShield;
 
@@ -16,7 +18,7 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
     {
     }
 
-    public RetinueAttributesChangeRequest(int clinetId, int retinuePlaceIndex, RetinueAttributesChangeFlag change, int addLeftLife = 0, int addMaxLife = 0, int addAttack = 0, int addArmor = 0, int addShield = 0)
+    public RetinueAttributesChangeRequest(int clinetId, int retinuePlaceIndex, RetinueAttributesChangeFlag change, int addLeftLife = 0, int addMaxLife = 0, int addAttack = 0, int addWeaponEnergy = 0, int addWeaponEnergyMax = 0, int addArmor = 0, int addShield = 0)
     {
         this.clinetId = clinetId;
         this.retinuePlaceIndex = retinuePlaceIndex;
@@ -24,6 +26,8 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
         this.addLeftLife = addLeftLife;
         this.addMaxLife = addMaxLife;
         this.addAttack = addAttack;
+        this.addWeaponEnergy = addWeaponEnergy;
+        this.addWeaponEnergyMax = addWeaponEnergyMax;
         this.addArmor = addArmor;
         this.addShield = addShield;
     }
@@ -44,12 +48,14 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
         base.Serialize(writer);
         writer.WriteSInt32(clinetId);
         writer.WriteSInt32(retinuePlaceIndex);
-        writer.WriteByte((byte) change);
+        writer.WriteByte((byte)change);
         if (change == RetinueAttributesChangeFlag.ALL)
         {
             writer.WriteSInt32(addLeftLife);
             writer.WriteSInt32(addMaxLife);
             writer.WriteSInt32(addAttack);
+            writer.WriteSInt32(addWeaponEnergy);
+            writer.WriteSInt32(addWeaponEnergyMax);
             writer.WriteSInt32(addArmor);
             writer.WriteSInt32(addShield);
         }
@@ -64,6 +70,14 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
         else if (change == RetinueAttributesChangeFlag.Attack)
         {
             writer.WriteSInt32(addAttack);
+        }
+        else if (change == RetinueAttributesChangeFlag.WeaponEnergy)
+        {
+            writer.WriteSInt32(addWeaponEnergy);
+        }
+        else if (change == RetinueAttributesChangeFlag.WeaponEnergyMax)
+        {
+            writer.WriteSInt32(addWeaponEnergyMax);
         }
         else if (change == RetinueAttributesChangeFlag.Armor)
         {
@@ -80,12 +94,14 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
         base.Deserialize(reader);
         clinetId = reader.ReadSInt32();
         retinuePlaceIndex = reader.ReadSInt32();
-        change = (RetinueAttributesChangeFlag) reader.ReadByte();
+        change = (RetinueAttributesChangeFlag)reader.ReadByte();
         if (change == RetinueAttributesChangeFlag.ALL)
         {
             addLeftLife = reader.ReadSInt32();
             addMaxLife = reader.ReadSInt32();
             addAttack = reader.ReadSInt32();
+            addWeaponEnergy = reader.ReadSInt32();
+            addWeaponEnergyMax = reader.ReadSInt32();
             addArmor = reader.ReadSInt32();
             addShield = reader.ReadSInt32();
         }
@@ -100,6 +116,14 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
         else if (change == RetinueAttributesChangeFlag.Attack)
         {
             addAttack = reader.ReadSInt32();
+        }
+        else if (change == RetinueAttributesChangeFlag.WeaponEnergy)
+        {
+            addWeaponEnergy = reader.ReadSInt32();
+        }
+        else if (change == RetinueAttributesChangeFlag.WeaponEnergyMax)
+        {
+            addWeaponEnergyMax = reader.ReadSInt32();
         }
         else if (change == RetinueAttributesChangeFlag.Armor)
         {
@@ -121,6 +145,8 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
             log += " [addLeftLife]=" + addLeftLife;
             log += " [addMaxLife]=" + addMaxLife;
             log += " [addAttack]=" + addAttack;
+            log += " [addWeaponEnergy]=" + addWeaponEnergy;
+            log += " [addWeaponEnergyMax]=" + addWeaponEnergyMax;
             log += " [addArmor]=" + addArmor;
             log += " [addShield]=" + addShield;
         }
@@ -135,6 +161,14 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
         else if (change == RetinueAttributesChangeFlag.Attack)
         {
             log += " [addAttack]=" + addAttack;
+        }
+        else if (change == RetinueAttributesChangeFlag.WeaponEnergy)
+        {
+            log += " [addWeaponEnergy]=" + addWeaponEnergy;
+        }
+        else if (change == RetinueAttributesChangeFlag.WeaponEnergyMax)
+        {
+            log += " [addWeaponEnergyMax]=" + addWeaponEnergyMax;
         }
         else if (change == RetinueAttributesChangeFlag.Armor)
         {
@@ -154,7 +188,9 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
         LeftLife = 0x01,
         MaxLife = 0x02,
         Attack = 0x03,
-        Armor = 0x04,
-        Shield = 0x05,
+        WeaponEnergy = 0x04,
+        WeaponEnergyMax = 0x05,
+        Armor = 0x06,
+        Shield = 0x07,
     }
 }

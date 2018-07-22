@@ -89,20 +89,6 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
         Stars = cardInfo.UpgradeInfo.CardLevel;
     }
 
-    public abstract CardInfo_Base GetCurrentCardInfo();
-
-    #region 属性
-
-    private int m_RetinuePlaceIndex;
-
-    public int M_RetinuePlaceIndex
-    {
-        get { return m_RetinuePlaceIndex; }
-        set { m_RetinuePlaceIndex = value; }
-    }
-
-    #endregion
-
     #region 各模块
 
     public GameObject Star1;
@@ -193,9 +179,9 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                         ((CardRetinue) detailCard).Weapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleWeapon>();
                     }
 
-                    CardInfo_Base cw = ((ModuleRetinue) this).M_Weapon.GetCurrentCardInfo();
+                    CardInfo_Base cw = ((ModuleRetinue) this).M_Weapon.CardInfo;
                     ((CardRetinue) detailCard).Weapon.M_ModuleRetinue = (ModuleRetinue) this;
-                    ((CardRetinue) detailCard).Weapon.Initiate(((ModuleRetinue) this).M_Weapon.GetCurrentCardInfo(), ClientPlayer);
+                    ((CardRetinue) detailCard).Weapon.Initiate(((ModuleRetinue) this).M_Weapon.CardInfo, ClientPlayer);
                     ((CardRetinue) detailCard).Weapon.GetComponent<DragComponent>().enabled = false;
                     ((CardRetinue) detailCard).Weapon.GetComponent<MouseHoverComponent>().enabled = false;
                     ((CardRetinue) detailCard).Weapon.SetPreview();
@@ -216,9 +202,9 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                         ((CardRetinue) detailCard).Shield = GameObjectPoolManager.GOPM.Pool_ModuleShieldDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleShield>();
                     }
 
-                    CardInfo_Base cw = ((ModuleRetinue) this).M_Shield.GetCurrentCardInfo();
+                    CardInfo_Base cw = ((ModuleRetinue) this).M_Shield.CardInfo;
                     ((CardRetinue) detailCard).Shield.M_ModuleRetinue = (ModuleRetinue) this;
-                    ((CardRetinue) detailCard).Shield.Initiate(((ModuleRetinue) this).M_Shield.GetCurrentCardInfo(), ClientPlayer);
+                    ((CardRetinue) detailCard).Shield.Initiate(((ModuleRetinue) this).M_Shield.CardInfo, ClientPlayer);
                     ((CardRetinue) detailCard).Shield.GetComponent<DragComponent>().enabled = false;
                     ((CardRetinue) detailCard).Shield.GetComponent<MouseHoverComponent>().enabled = false;
 

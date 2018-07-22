@@ -69,7 +69,7 @@ internal class ClientProxy : ProxyBase
                 try
                 {
                     Thread thread = new Thread(Server.SV.DoSendToClient);
-                    SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue());
+                    SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue(),ClientId);
                     thread.IsBackground = true;
                     thread.Start(msg);
                 }
