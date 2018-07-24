@@ -93,13 +93,14 @@ public static class AllCards
                         {
                             XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
                             SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
+                            FieldInfo fi_info = sideEffect.GetType().GetField("Info");
+                            Assembly assembly = Assembly.GetAssembly(fi_info.FieldType);
+                            var info = assembly.CreateInstance(fi_info.FieldType.ToString());
+
                             for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
                             {
                                 if (sideEffectInfo.Attributes[l].Name == "name") continue;
                                 XmlAttribute attr = sideEffectInfo.Attributes[l];
-                                FieldInfo fi_info = sideEffect.GetType().GetField("Info");
-                                Assembly assembly = Assembly.GetAssembly(fi_info.FieldType);
-                                var info = assembly.CreateInstance(fi_info.FieldType.ToString());
                                 FieldInfo fi = info.GetType().GetField(attr.Name);
                                 switch (fi.FieldType.Name)
                                 {

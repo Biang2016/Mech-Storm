@@ -72,8 +72,8 @@ sideEffect全部改为结构体，并增加序列化方法 --OK
 7.24下午
 召唤随从时随从的移动动画 --OK
 
-
-sideEffect序列化问题
+7.24晚上
+sideEffect序列化问题有bug
 
 
 

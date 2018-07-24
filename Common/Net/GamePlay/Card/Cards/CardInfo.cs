@@ -70,7 +70,7 @@ public class CardInfo_Base
     public static CardInfo_Base Deserialze(DataStream reader)
     {
         string myType = reader.ReadString8();
-        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
+        Assembly assembly = Assembly.GetAssembly(typeof(CardInfo_Base)); // 获取当前程序集 
         CardInfo_Base newCardInfo_Base = (CardInfo_Base) assembly.CreateInstance(myType);
 
         newCardInfo_Base.CardID = reader.ReadSInt32();

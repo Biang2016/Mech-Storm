@@ -46,8 +46,55 @@ internal class Client : MonoBehaviour
             if (receiveDataQueue.Count > 0)
             {
                 ReceiveSocketData rsd = receiveDataQueue.Dequeue();
-                DataStream stream = new DataStream(rsd.Data, true);
-                ProtoManager.TryDeserialize(stream, rsd.Socket);
+                DataStream reader = new DataStream(rsd.Data, true);
+
+                //if (reader.ReadSInt32() == 0x00000201)
+                //{
+                //   string CreateAt = reader.ReadString8();
+                //    int sideEffestCount = reader.ReadSInt32();
+                //    for (int j = 0; j < sideEffestCount; j++)
+                //    {
+                //       int pro= reader.ReadSInt32();
+                //        CreateAt = reader.ReadString8();
+                //        int clientId = reader.ReadSInt32();
+
+
+                //        string myType = reader.ReadString8();
+                //        Assembly assembly = Assembly.GetAssembly(typeof(CardInfo_Base)); // 获取当前程序集 
+                //        CardInfo_Base newCardInfo_Base = (CardInfo_Base)assembly.CreateInstance(myType);
+
+                //        newCardInfo_Base.CardID = reader.ReadSInt32();
+                //        newCardInfo_Base.BaseInfo = BaseInfo.Deserialze(reader);
+                //        newCardInfo_Base.UpgradeInfo = UpgradeInfo.Deserialze(reader);
+                //        newCardInfo_Base.LifeInfo = LifeInfo.Deserialze(reader);
+                //        newCardInfo_Base.BattleInfo = BattleInfo.Deserialze(reader);
+                //        newCardInfo_Base.SlotInfo = SlotInfo.Deserialze(reader);
+                //        newCardInfo_Base.WeaponInfo = WeaponInfo.Deserialze(reader);
+                //        newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
+
+                //        List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
+                //        int SE_OnDie_count = reader.ReadSInt32();
+                //        for (int i = 0; i < SE_OnDie_count; i++)
+                //        {
+                //            SideEffects_OnDie.Add(SideEffectBase.BaseDeserialze(reader));
+                //        }
+
+                //        List<SideEffectBase> SideEffects_OnSummoned = new List<SideEffectBase>();
+                //        int SE_OnSummon_count = reader.ReadSInt32();
+                //        for (int i = 0; i < SE_OnSummon_count; i++)
+                //        {
+                //            SideEffects_OnSummoned.Add(SideEffectBase.BaseDeserialze(reader));
+                //        }
+
+                //        int battleGroundIndex = reader.ReadSInt32();
+
+                //    }
+
+
+                //}
+
+                //reader.Position = 0;
+                ProtoManager.TryDeserialize(reader, rsd.Socket);
             }
 
             Proxy.Send();
