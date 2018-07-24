@@ -57,7 +57,7 @@ internal class CardWeapon : CardBase
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
         M_WeaponName = CardInfo.BaseInfo.CardName;
-        M_WeaponDesc = CardInfo.BaseInfo.CardDesc;
+        M_WeaponDesc = ((CardInfo_Weapon) cardInfo).GetCardDescShow();
     }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
@@ -89,7 +89,7 @@ internal class CardWeapon : CardBase
     {
         int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.GetRetinuePlaceIndex(moduleRetinue);
-        EquipWeaponRequest request = new EquipWeaponRequest(Client.CS.Proxy.ClientId, (CardInfo_Weapon) CardInfo, handCardIndex, battleGroundIndex, 0);
+        EquipWeaponRequest request = new EquipWeaponRequest(Client.CS.Proxy.ClientId, handCardIndex, battleGroundIndex, 0);
         Client.CS.Proxy.SendMessage(request);
     }
 

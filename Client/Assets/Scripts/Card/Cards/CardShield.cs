@@ -57,7 +57,7 @@ internal class CardShield : CardBase
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
         M_ShieldName = CardInfo.BaseInfo.CardName;
-        M_ShieldDesc = CardInfo.BaseInfo.CardDesc;
+        M_ShieldDesc = ((CardInfo_Shield) cardInfo).GetCardDescShow();
     }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
@@ -89,7 +89,7 @@ internal class CardShield : CardBase
     {
         int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.GetRetinuePlaceIndex(moduleRetinue);
-        EquipShieldRequest request = new EquipShieldRequest(Client.CS.Proxy.ClientId, (CardInfo_Shield) CardInfo, handCardIndex, battleGroundIndex, 0);
+        EquipShieldRequest request = new EquipShieldRequest(Client.CS.Proxy.ClientId, handCardIndex, battleGroundIndex, 0);
         Client.CS.Proxy.SendMessage(request);
     }
 

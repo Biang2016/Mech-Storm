@@ -60,8 +60,8 @@
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EquipShieldRequest_Response.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttackRetinueServerRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\UseCardRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\EquipShieldRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\EquipWeaponRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\EquipShieldServerRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\EquipWeaponServerRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EquipWeaponRequest_Response.cs" />
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\EquipWeaponRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EndRoundRequest_Response.cs" />
@@ -101,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\GamePlay\Card\Modules\" />
-    <Folder Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Net\GamePlay\Card\CardDeck\Cards.xml">

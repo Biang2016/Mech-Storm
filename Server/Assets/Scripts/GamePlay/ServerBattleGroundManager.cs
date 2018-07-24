@@ -45,7 +45,7 @@ internal class ServerBattleGroundManager
     public void EquipWeapon(EquipWeaponRequest r)
     {
         ServerModuleWeapon weapon = new ServerModuleWeapon();
-        CardInfo_Weapon cardInfo_Weapon = r.cardInfo;
+        CardInfo_Weapon cardInfo_Weapon = (CardInfo_Weapon) ServerPlayer.MyHandManager.GetHandCardInfo(r.handCardIndex);
         ServerModuleRetinue retinue = GetRetinue(r.battleGroundIndex);
         weapon.M_ModuleRetinue = retinue;
         weapon.M_WeaponPlaceIndex = r.weaponPlaceIndex;
@@ -56,7 +56,7 @@ internal class ServerBattleGroundManager
     public void EquipShield(EquipShieldRequest r)
     {
         ServerModuleShield shield = new ServerModuleShield();
-        CardInfo_Shield cardInfo_Shield = r.cardInfo;
+        CardInfo_Shield cardInfo_Shield = (CardInfo_Shield) ServerPlayer.MyHandManager.GetHandCardInfo(r.handCardIndex);
         ServerModuleRetinue retinue = GetRetinue(r.battleGroundIndex);
         shield.M_ModuleRetinue = retinue;
         shield.M_ShieldPlaceIndex = r.shieldPlaceIndex;

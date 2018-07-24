@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4283525656828372}
   m_Layer: 12
-  m_Name: Block_Energy
+  m_Name: Block_EnergyMax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,6 +112,21 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
+  m_IsActive: 1
+--- !u!1 &1644558577024490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4601240735827142}
+  m_Layer: 12
+  m_Name: Block_Energy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1651782024518438
 GameObject:
@@ -207,7 +222,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206212424129516}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4121863544773884
 Transform:
@@ -220,7 +235,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206212424129516}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4206212424129516
 Transform:
@@ -235,6 +250,7 @@ Transform:
   - {fileID: 4677530123201876}
   - {fileID: 4232416698937974}
   - {fileID: 4455968054283760}
+  - {fileID: 4601240735827142}
   - {fileID: 4283525656828372}
   - {fileID: 4038861939770780}
   - {fileID: 4121863544773884}
@@ -265,11 +281,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1433666953002260}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.787, y: 0.1, z: -0.368}
+  m_LocalPosition: {x: 0.775, y: 0.1, z: -0.368}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206212424129516}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4438252820593250
 Transform:
@@ -282,7 +298,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206212424129516}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4455968054283760
 Transform:
@@ -297,6 +313,19 @@ Transform:
   m_Father: {fileID: 4206212424129516}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4601240735827142
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1644558577024490}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.8, y: 0.1, z: -0.368}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4206212424129516}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4663013542436960
 Transform:
   m_ObjectHideFlags: 1
@@ -308,7 +337,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206212424129516}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4677530123201876
 Transform:
@@ -334,7 +363,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206212424129516}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4947359300490166
 Transform:
@@ -347,7 +376,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206212424129516}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23120446554240298
 MeshRenderer:
@@ -362,6 +391,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 33763d93a378cbb4da0b4d802f21232b, type: 2}
   m_StaticBatchInfo:
@@ -396,6 +426,7 @@ MeshRenderer:
   m_MotionVectors: 2
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 91845329d44870045873b7d1e10a1bfd, type: 3}
   m_StaticBatchInfo:
@@ -430,6 +461,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 54f8d55d42f44334eaba9d4c18060885, type: 2}
   m_StaticBatchInfo:
@@ -464,6 +496,7 @@ MeshRenderer:
   m_MotionVectors: 2
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 3176a2338a0614b44a3ac65f6fedbf4e, type: 2}
   m_StaticBatchInfo:
@@ -498,6 +531,7 @@ MeshRenderer:
   m_MotionVectors: 2
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: e0f8d753baab25b4fbe59a3485c46414, type: 2}
   m_StaticBatchInfo:
@@ -532,6 +566,7 @@ MeshRenderer:
   m_MotionVectors: 2
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d8452d9f6ac42e248bc9512f551ad331, type: 2}
   m_StaticBatchInfo:
@@ -566,6 +601,7 @@ MeshRenderer:
   m_MotionVectors: 2
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 1e6d6f1e6fb25bd429fc8ac1455ec1f6, type: 2}
   m_StaticBatchInfo:
@@ -600,6 +636,7 @@ MeshRenderer:
   m_MotionVectors: 2
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: cd5b00b67c4d2044eb1b245f5197b51c, type: 2}
   m_StaticBatchInfo:
@@ -739,10 +776,12 @@ MonoBehaviour:
   Star1: {fileID: 1766466625789874}
   Star2: {fileID: 1915071226139808}
   Star3: {fileID: 1462451512633524}
+  stars: 0
   MainBoardRenderer: {fileID: 23604138235080326}
   WeaponName: {fileID: 102447113085749540}
   M_Bloom: {fileID: 0}
   M_GunIcon: {fileID: 1651782024518438}
   M_SwordIcon: {fileID: 1359469632689400}
   Block_WeaponAttack: {fileID: 1863932641605330}
-  Block_WeaponEnergy: {fileID: 1433666953002260}
+  Block_WeaponEnergy: {fileID: 1644558577024490}
+  Block_WeaponEnergyMax: {fileID: 1433666953002260}

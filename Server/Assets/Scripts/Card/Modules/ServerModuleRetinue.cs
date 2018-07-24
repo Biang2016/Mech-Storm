@@ -8,7 +8,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
         M_RetinueName = cardInfo.BaseInfo.CardName;
-        M_RetinueDesc = cardInfo.BaseInfo.CardDesc;
+        M_RetinueDesc = cardInfo.BaseInfo.CardDescRaw;
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
         M_RetinueTotalLife = cardInfo.LifeInfo.Life;
         M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;

@@ -149,7 +149,6 @@ internal class ServerGameManager
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         sp.MyBattleGroundManager.EquipWeapon(r);
         sp.MyHandManager.UseCardAt(r.handCardIndex);
-        sp.UseCostAboveZero(r.cardInfo.BaseInfo.Cost);
 
         Broadcast_SendOperationResponse();
     }
@@ -162,7 +161,6 @@ internal class ServerGameManager
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         sp.MyBattleGroundManager.EquipShield(r);
         sp.MyHandManager.UseCardAt(r.handCardIndex);
-        sp.UseCostAboveZero(r.cardInfo.BaseInfo.Cost);
 
         Broadcast_SendOperationResponse();
     }

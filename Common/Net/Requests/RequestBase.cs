@@ -16,12 +16,12 @@ public abstract class RequestBase
     public virtual void Serialize(DataStream writer)
     {
         writer.WriteSInt32(GetProtocol());
-        writer.WriteString16(CreateAt);
+        writer.WriteString8(CreateAt);
     }
 
     public virtual void Deserialize(DataStream reader)
     {
-        CreateAt = reader.ReadString16();
+        CreateAt = reader.ReadString8();
     }
 
     public virtual string DeserializeLog()

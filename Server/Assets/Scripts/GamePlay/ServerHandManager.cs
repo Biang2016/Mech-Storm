@@ -84,6 +84,7 @@ internal class ServerHandManager
 
     internal void UseCardAt(int index)
     {
+        ServerPlayer.UseCostAboveZero(cards[index].CardInfo.BaseInfo.Cost);
         UseCard(cards[index]);
     }
 
@@ -92,6 +93,11 @@ internal class ServerHandManager
         UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, cards.IndexOf(useCard));
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         cards.Remove(useCard);
+    }
+
+    internal CardInfo_Base GetHandCardInfo(int handCardIndex)
+    {
+        return cards[handCardIndex].CardInfo;
     }
 
     public void BeginRound()

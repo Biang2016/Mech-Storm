@@ -33,6 +33,10 @@ internal class ModuleWeapon : ModuleBase
     protected GameObject GoNumberSet_WeaponEnergy;
     protected CardNumberSet CardNumberSet_WeaponEnergy;
 
+    public GameObject Block_WeaponEnergyMax;
+    protected GameObject GoNumberSet_WeaponEnergyMax;
+    protected CardNumberSet CardNumberSet_WeaponEnergyMax;
+
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
@@ -125,9 +129,10 @@ internal class ModuleWeapon : ModuleBase
             m_WeaponAttack = value;
             if (Block_WeaponAttack)
             {
-                initiateNumbers(ref GoNumberSet_WeaponAttack, ref CardNumberSet_WeaponAttack, my_NumberSize_Attack, my_TextAlign_Attack, Block_WeaponAttack);
+                initiateNumbers(ref GoNumberSet_WeaponAttack, ref CardNumberSet_WeaponAttack, my_NumberSize_Attack, my_TextAlign_Attack, Block_WeaponAttack, '+');
                 CardNumberSet_WeaponAttack.Number = M_ModuleRetinue.M_RetinueAttack;
             }
+
             if (M_ModuleRetinue.M_RetinueAttack == 0)
             {
                 GetComponent<DragComponent>().enabled = false;
@@ -150,14 +155,7 @@ internal class ModuleWeapon : ModuleBase
             m_WeaponEnergy = Mathf.Min(value, M_WeaponEnergyMax);
             if (Block_WeaponEnergy)
             {
-                if (M_WeaponType == WeaponTypes.Sword)
-                {
-                    initiateNumbers(ref GoNumberSet_WeaponEnergy, ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy, 'x');
-                }
-                else if (M_WeaponType == WeaponTypes.Gun)
-                {
-                    initiateNumbers(ref GoNumberSet_WeaponEnergy, ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy, 'x');
-                }
+                initiateNumbers(ref GoNumberSet_WeaponEnergy, ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy);
                 CardNumberSet_WeaponEnergy.Number = m_WeaponEnergy;
             }
 
@@ -178,7 +176,15 @@ internal class ModuleWeapon : ModuleBase
     {
         get { return m_WeaponEnergyMax; }
 
-        set { m_WeaponEnergyMax = value; }
+        set
+        {
+            m_WeaponEnergyMax = Mathf.Min(value, M_WeaponEnergyMax);
+            if (Block_WeaponEnergyMax)
+            {
+                initiateNumbers(ref GoNumberSet_WeaponEnergyMax, ref CardNumberSet_WeaponEnergyMax, my_NumberSize_EnergyMax, my_TextAlign_EnergyMax, Block_WeaponEnergyMax, '/');
+                CardNumberSet_WeaponEnergy.Number = m_WeaponEnergyMax;
+            }
+        }
     }
 
     #endregion

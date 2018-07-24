@@ -62,7 +62,7 @@ internal class CardRetinue : CardBase
     {
         base.Initiate(cardInfo, clientPlayer);
         M_RetinueName = cardInfo.BaseInfo.CardName;
-        M_RetinueDesc = (cardInfo).BaseInfo.CardDesc;
+        M_RetinueDesc = ((CardInfo_Retinue) cardInfo).GetCardDescShow();
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
         M_RetinueTotalLife = cardInfo.LifeInfo.TotalLife;
         M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
