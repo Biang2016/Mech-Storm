@@ -102,8 +102,9 @@ internal class ModuleRetinue : ModuleBase
 
     public TextMesh TextMesh_RetinueName;
 
-    public GameObject RetinueBloom;
-    public GameObject OnHoverBloom;
+    public Renderer RetinueBloom;
+    public Renderer OnHoverBloom;
+    public Renderer SideEffcetBloom;
     public Animator ShieldIconHit;
     public Animator ArmorIconHit;
     public Animator CardLifeHit;
@@ -153,8 +154,8 @@ internal class ModuleRetinue : ModuleBase
         M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
         M_RetinueShield = cardInfo.BattleInfo.BasicShield;
         CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
-        ChangeOnHoverBloomColor(GameManager.GM.RetinueOnHoverBloomColor);
-        ChangeRetinueBloomColor(GameManager.GM.RetinueBloomColor);
+        ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnHoverBloomColor);
+        ChangeBloomColor(RetinueBloom, GameManager.GM.RetinueBloomColor);
 
         if (SlotAnchor1)
         {
@@ -186,24 +187,10 @@ internal class ModuleRetinue : ModuleBase
     }
 
 
-    private void ChangeOnHoverBloomColor(Color color)
+    private void ChangeBloomColor(Renderer rd, Color color)
     {
         if (OnHoverBloom)
         {
-            Renderer rd = OnHoverBloom.GetComponent<Renderer>();
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            rd.GetPropertyBlock(mpb);
-            mpb.SetColor("_Color", color);
-            mpb.SetColor("_EmissionColor", color);
-            rd.SetPropertyBlock(mpb);
-        }
-    }
-
-    private void ChangeRetinueBloomColor(Color color)
-    {
-        if (RetinueBloom)
-        {
-            Renderer rd = RetinueBloom.GetComponent<Renderer>();
             MaterialPropertyBlock mpb = new MaterialPropertyBlock();
             rd.GetPropertyBlock(mpb);
             mpb.SetColor("_Color", color);
@@ -515,7 +502,7 @@ internal class ModuleRetinue : ModuleBase
         {
         }
 
-        RetinueBloom.SetActive(canAttack && (GameManager.GM.CanTestEnemyCards || RoundManager.RM.SelfClientPlayer == RoundManager.RM.CurrentClientPlayer));
+        RetinueBloom.gameObject.SetActive(canAttack && (GameManager.GM.CanTestEnemyCards || RoundManager.RM.SelfClientPlayer == RoundManager.RM.CurrentClientPlayer));
         return canAttack;
     }
 
@@ -574,7 +561,7 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             isBeDraggedHover = value;
-            OnHoverBloom.SetActive(value);
+            OnHoverBloom.gameObject.SetActive(value);
         }
     }
 
@@ -614,7 +601,17 @@ internal class ModuleRetinue : ModuleBase
     {
         foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnDie)
         {
+            BattleEffectsManager.BEM.EffectsShow(ShowSideEffectBloom(Color.white,0.2f));
         }
+    }
+
+    IEnumerator ShowSideEffectBloom(Color color,float duration)
+    {
+        SideEffcetBloom.gameObject.SetActive(true);
+        ChangeBloomColor(SideEffcetBloom, color);
+        yield return new WaitForSeconds(duration);
+        SideEffcetBloom.gameObject.SetActive(false);
+        BattleEffectsManager.BEM.EffectEnd();
     }
 
     public void OnAttack()

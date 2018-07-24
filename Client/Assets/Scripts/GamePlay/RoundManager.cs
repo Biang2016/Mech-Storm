@@ -169,12 +169,12 @@ internal class RoundManager : MonoBehaviour
     {
         if (r.clientId == Client.CS.Proxy.ClientId)
         {
-            SelfClientPlayer = new ClientPlayer(r.costMax, r.costLeft, Players.Self);
+            SelfClientPlayer = new ClientPlayer(r.costLeft, r.costMax,  Players.Self);
             SelfClientPlayer.ClientId = r.clientId;
         }
         else
         {
-            EnemyClientPlayer = new ClientPlayer(r.costMax, r.costLeft, Players.Enemy);
+            EnemyClientPlayer = new ClientPlayer(r.costLeft, r.costMax, Players.Enemy);
             EnemyClientPlayer.ClientId = r.clientId;
         }
     }

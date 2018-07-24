@@ -30,6 +30,7 @@ internal class BattleGroundManager : MonoBehaviour
         }
 
         ClientPlayer = null;
+        previewRetinuePlace = -1;
         Retinues.Clear();
     }
 
@@ -63,6 +64,12 @@ internal class BattleGroundManager : MonoBehaviour
         retinue.transform.Rotate(Vector3.up, 180);
         Retinues.Insert(retinuePlaceIndex, retinue);
         retinue.M_RetinuePlaceIndex = retinuePlaceIndex;
+
+        foreach (ModuleRetinue moduleRetinue in Retinues)
+        {
+            moduleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(moduleRetinue);
+        }
+
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
         SetNewRetinuePlace(retinuePlaceIndex);
         BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim());
@@ -94,6 +101,12 @@ internal class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = Retinues[retinuePlaceIndex];
         retinue.PoolRecycle();
         Retinues.RemoveAt(retinuePlaceIndex);
+
+        foreach (ModuleRetinue moduleRetinue in Retinues)
+        {
+            moduleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(moduleRetinue);
+        }
+
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
         BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim());
     }

@@ -154,8 +154,7 @@ internal class NetworkManager : MonoBehaviour
                 //}
 
                 //Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(SelfCardDeckInfo.ToArray()));
-                Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(new int[] { 0, 1,1,1,1,1,1,0,1,0,99 }));
-                //Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(new int[] { 0, 1,1,1,1,1,1,0,1,0,99, 100,101,102, 200,201,202, 300, 350 }));
+                Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(new int[] { 0, 0, 1, 0, 100, 101, 102, 200, 201, 202, 300, 350 }));
                 ShowInfoPanel("更新卡组成功", 0, 1f);
             }
         }

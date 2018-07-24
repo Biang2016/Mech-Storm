@@ -26,6 +26,11 @@ internal class ServerBattleGroundManager
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
         retinue.OnSummoned();
 
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        {
+            serverModuleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(serverModuleRetinue);
+        }
+
         BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
@@ -37,6 +42,11 @@ internal class ServerBattleGroundManager
         if (battleGroundIndex == -1) return;
         Retinues.Remove(retinue);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        {
+            serverModuleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(serverModuleRetinue);
+        }
 
         BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(ServerPlayer.ClientId, battleGroundIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);

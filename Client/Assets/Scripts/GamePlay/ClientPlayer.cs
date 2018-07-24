@@ -10,7 +10,7 @@ internal class ClientPlayer : Player
     internal Players WhichPlayer;
     public int ClientId;
 
-    internal ClientPlayer(int costMax, int costLeft, Players whichPlayer) : base(costMax, costLeft)
+    internal ClientPlayer(int costLeft, int costMax, Players whichPlayer) : base(costLeft, costMax)
     {
         WhichPlayer = whichPlayer;
         MyHandArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfHandArea : BoardAreaTypes.EnemyHandArea;
