@@ -38,7 +38,8 @@ public class SideEffectBase
     //序列化时无视player，也就是说效果是无关玩家的
     public virtual void Serialze(DataStream writer)
     {
-        writer.WriteString8(GetType().ToString());
+        string type = GetType().ToString();
+        writer.WriteString8(type);
         writer.WriteSInt32(SideEffectID);
         writer.WriteString8(Name);
         writer.WriteString8(Desc);
@@ -47,7 +48,8 @@ public class SideEffectBase
     public static SideEffectBase BaseDeserialze(DataStream reader)
     {
         Assembly assembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
-        SideEffectBase se = (SideEffectBase)assembly.CreateInstance(reader.ReadString8());
+        string type = reader.ReadString8();
+        SideEffectBase se = (SideEffectBase)assembly.CreateInstance(type);
         se.Deserialze(reader);
         return se;
     }

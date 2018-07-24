@@ -44,6 +44,7 @@ public class CardInfo_Base
 
     public void Serialize(DataStream writer)
     {
+        string type = GetType().ToString();
         writer.WriteString8(GetType().ToString());
         writer.WriteSInt32(CardID);
         BaseInfo.Serialize(writer);
@@ -53,6 +54,17 @@ public class CardInfo_Base
         SlotInfo.Serialize(writer);
         WeaponInfo.Serialize(writer);
         ShieldInfo.Serialize(writer);
+
+        writer.WriteSInt32(SideEffects_OnDie.Count);
+        foreach (SideEffectBase se in SideEffects_OnDie)
+        {
+            se.Serialze(writer);
+        }
+        writer.WriteSInt32(SideEffects_OnSummoned.Count);
+        foreach (SideEffectBase se in SideEffects_OnSummoned)
+        {
+            se.Serialze(writer);
+        }
     }
 
     public static CardInfo_Base Deserialze(DataStream reader)
@@ -69,6 +81,23 @@ public class CardInfo_Base
         newCardInfo_Base.SlotInfo = SlotInfo.Deserialze(reader);
         newCardInfo_Base.WeaponInfo = WeaponInfo.Deserialze(reader);
         newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
+
+        List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
+       int SE_OnDie_count= reader.ReadSInt32();
+        for (int i = 0; i < SE_OnDie_count; i++)
+        {
+            SideEffects_OnDie.Add(SideEffectBase.BaseDeserialze(reader));
+        }
+
+        List<SideEffectBase> SideEffects_OnSummoned = new List<SideEffectBase>();
+        int SE_OnSummon_count = reader.ReadSInt32();
+        for (int i = 0; i < SE_OnSummon_count; i++)
+        {
+            SideEffects_OnSummoned.Add(SideEffectBase.BaseDeserialze(reader));
+        }
+
+        newCardInfo_Base.SideEffects_OnDie = SideEffects_OnDie;
+        newCardInfo_Base.SideEffects_OnSummoned = SideEffects_OnSummoned;
 
         return newCardInfo_Base;
     }
