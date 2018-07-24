@@ -5,7 +5,7 @@ using System.Text;
 
 public class Player
 {
-    public Player(int costMax, int costLeft)
+    public Player(int costLeft, int costMax)
     {
         this.costMax = costMax;
         this.costLeft = costLeft;

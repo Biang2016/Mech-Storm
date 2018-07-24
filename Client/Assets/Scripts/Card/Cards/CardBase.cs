@@ -270,7 +270,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         ClientPlayer.MyHandManager.BeginDrag();
     }
 
-    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue)
+    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
     {
     }
 

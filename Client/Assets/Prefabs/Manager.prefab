@@ -210,6 +210,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1275658806143860
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4239593099606058}
+  - component: {fileID: 114108660362033580}
+  m_Layer: 0
+  m_Name: ModuleRetinuePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1290647991833502
 GameObject:
   m_ObjectHideFlags: 1
@@ -254,22 +270,6 @@ GameObject:
   - component: {fileID: 114429229581052432}
   m_Layer: 0
   m_Name: CardNumberSetPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1330251822056786
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4417302527727990}
-  - component: {fileID: 114034740657091122}
-  m_Layer: 0
-  m_Name: ModuleRetinuePool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -939,6 +939,19 @@ Transform:
   m_Father: {fileID: 4372146023617770}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4239593099606058
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275658806143860}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4400246195090270}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4258911241148926
 Transform:
   m_ObjectHideFlags: 1
@@ -1060,7 +1073,7 @@ Transform:
   - {fileID: 4333794468382394}
   - {fileID: 4571245414790376}
   - {fileID: 4477412894372050}
-  - {fileID: 4417302527727990}
+  - {fileID: 4239593099606058}
   - {fileID: 4042558094107468}
   - {fileID: 4073389916720172}
   - {fileID: 4647748311715832}
@@ -1076,19 +1089,6 @@ Transform:
   - {fileID: 4774547472833194}
   m_Father: {fileID: 4347551674176472}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4417302527727990
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1330251822056786}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4436316594727012
 Transform:
@@ -1549,21 +1549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46f2ff503822dd4daa3b78fa96d08e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114034740657091122
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1330251822056786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capacity: 0
-  used: 0
-  notUsed: 0
-  empty: 0
 --- !u!114 &114072289950661098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1598,6 +1583,21 @@ MonoBehaviour:
   EndRoundButton: {fileID: 1146126675338798}
   SelfCostText: {fileID: 114751571161850844}
   EnemyCostText: {fileID: 114167507194065106}
+--- !u!114 &114108660362033580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275658806143860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 0
+  used: 0
+  notUsed: 0
+  empty: 0
 --- !u!114 &114155848080695312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2032,8 +2032,11 @@ MonoBehaviour:
   ArrowArrowPool: {fileID: 1447578811867086}
   ArrowArrowPrefab: {fileID: 1870061392325090, guid: d79ec68b5d3a87348872ff2ec1d0775a,
     type: 2}
-  ModuleRetinuePool: {fileID: 1330251822056786}
+  ModuleRetinuePool: {fileID: 1275658806143860}
   ModuleRetinuePrefab: {fileID: 1517867073301580, guid: 449d55f000c8cdf40bc992ec6f66596b,
+    type: 2}
+  ModuleRetinuePlaceHolderPool: {fileID: 0}
+  ModuleRetinuePlaceHolderPrefab: {fileID: 1595168235929676, guid: 3b68e9b55e4f1004dbfd697754802671,
     type: 2}
   ModuleEnergyPool: {fileID: 1602816552895560}
   ModuleEnergyPrefab: {fileID: 1444268312890240, guid: cbdb79b7d038e3e43a433b1b68d1e6ec,

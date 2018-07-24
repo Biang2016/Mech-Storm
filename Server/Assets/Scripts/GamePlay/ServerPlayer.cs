@@ -15,7 +15,7 @@ internal class ServerPlayer : Player
     public ServerCardDeckManager MyCardDeckManager;
     public ServerBattleGroundManager MyBattleGroundManager;
 
-    public ServerPlayer(int clientId, int enemyClientId, int costMax, int costLeft, ServerGameManager serverGameManager) : base(costMax, costLeft)
+    public ServerPlayer(int clientId, int enemyClientId, int costLeft, int costMax,  ServerGameManager serverGameManager) : base(costLeft, costMax)
     {
         ClientId = clientId;
         EnemyClientId = enemyClientId;
@@ -71,7 +71,6 @@ internal class ServerPlayer : Player
             BroadCastRequest(request);
         }
     }
-
 
 
     public void AddAllCost()

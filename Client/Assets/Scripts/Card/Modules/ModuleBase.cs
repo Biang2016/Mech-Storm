@@ -277,7 +277,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     {
     }
 
-    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue)
+    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
     {
     }
 

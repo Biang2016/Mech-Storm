@@ -47,6 +47,11 @@ internal class ModuleRetinue : ModuleBase
     {
     }
 
+    public void SetGoPool(GameObjectPool pool)
+    {
+        gameObjectPool = pool;
+    }
+
     #region 各模块、自身数值与初始化
 
     public GameObject Star4;

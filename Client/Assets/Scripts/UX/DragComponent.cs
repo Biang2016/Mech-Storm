@@ -33,7 +33,6 @@ internal class DragComponent : MonoBehaviour
         if (!canDrag) return;
         if (IsOnDrag)
         {
-            caller.DragComponent_OnMousePressed(checkAreas(), checkMoveToSlot(), checkMoveToRetinue()); //将鼠标悬停的区域告知拖动对象主体
             Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (isBegin)
             {
@@ -41,7 +40,6 @@ internal class DragComponent : MonoBehaviour
                 dragBeginQuaternion = transform.rotation;
                 isBegin = false;
             }
-
 
             switch (dragPurpose)
             {
@@ -69,6 +67,8 @@ internal class DragComponent : MonoBehaviour
                     caller.DragComponnet_DragOutEffects();
                     break;
             }
+
+            caller.DragComponent_OnMousePressed(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(),dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
         }
     }
 
@@ -202,8 +202,9 @@ internal interface IDragComponent
     /// <param name="boardAreaType">移动到了战场的哪个区域</param>
     /// <param name="slotAnchors">移动到了哪个slot上</param>
     /// <param name="moduleRetinue">移动到了哪个随从上</param>
+    /// <param name="dragLastPosition"></param>
     void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,
-        ModuleRetinue moduleRetinue);
+        ModuleRetinue moduleRetinue, Vector3 dragLastPosition);
 
     /// <summary>
     ///     传达鼠标左键松开时的鼠标位置信息

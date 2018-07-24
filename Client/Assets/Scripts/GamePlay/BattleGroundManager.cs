@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 internal class BattleGroundManager : MonoBehaviour
@@ -52,15 +53,41 @@ internal class BattleGroundManager : MonoBehaviour
     public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex)
     {
         if (ClientPlayer == null) return;
+        if (previewRetinuePlace != -1)
+        {
+            previewRetinuePlace = -1;
+        }
+
         ModuleRetinue retinue = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(transform).GetComponent<ModuleRetinue>();
         retinue.Initiate(retinueCardInfo, ClientPlayer);
         retinue.transform.Rotate(Vector3.up, 180);
         Retinues.Insert(retinuePlaceIndex, retinue);
         retinue.M_RetinuePlaceIndex = retinuePlaceIndex;
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
-        RefreshBattleGround();
+        SetNewRetinuePlace(retinuePlaceIndex);
+        BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim());
     }
 
+    private int previewRetinuePlace;
+
+    public void AddRetinuePreview(int placeIndex)
+    {
+        if (Retinues.Count == 0) return;
+        if (previewRetinuePlace == -1 || previewRetinuePlace != placeIndex)
+        {
+            previewRetinuePlace = placeIndex;
+            BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim());
+        }
+    }
+
+    public void RemoveRetinuePreview()
+    {
+        if (previewRetinuePlace != -1)
+        {
+            previewRetinuePlace = -1;
+            BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim());
+        }
+    }
 
     public void RemoveRetinue(int retinuePlaceIndex)
     {
@@ -68,7 +95,7 @@ internal class BattleGroundManager : MonoBehaviour
         retinue.PoolRecycle();
         Retinues.RemoveAt(retinuePlaceIndex);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
-        RefreshBattleGround();
+        BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim());
     }
 
     public void EquipWeapon(CardInfo_Weapon cardInfo, int battleGroundIndex)
@@ -89,15 +116,59 @@ internal class BattleGroundManager : MonoBehaviour
         retinue.M_Shield = newModuleShield;
     }
 
-    internal void RefreshBattleGround()
+    internal void SetNewRetinuePlace(int retinueIndex)
     {
-        var count = 0;
-        foreach (var retinue in Retinues)
+        Retinues[retinueIndex].transform.localPosition = _defaultRetinuePosition;
+        Retinues[retinueIndex].transform.transform.Translate(Vector3.left * (retinueIndex - Retinues.Count / 2.0f + 0.5f) * GameManager.GM.RetinueInterval, Space.Self);
+    }
+
+    IEnumerator Co_RefreshBattleGroundAnim()
+    {
+        float duration = 0.1f;
+        float tick = 0;
+
+        Vector3[] translations = new Vector3[Retinues.Count];
+
+        int actualPlaceCount = previewRetinuePlace == -1 ? Retinues.Count : Retinues.Count + 1;
+
+        List<ModuleRetinue> movingRetinues = new List<ModuleRetinue>();
+
+        for (int i = 0; i < Retinues.Count; i++)
         {
-            retinue.transform.localPosition = _defaultRetinuePosition;
-            retinue.transform.Translate(Vector3.left * (count - Retinues.Count / 2.0f + 0.5f) * GameManager.GM.RetinueInterval);
-            count++;
+            movingRetinues.Add(Retinues[i]);
+
+            int actualPlace = i;
+            if (previewRetinuePlace != -1 && i >= previewRetinuePlace)
+            {
+                actualPlace += 1;
+            }
+
+            Vector3 ori = Retinues[i].transform.localPosition;
+            Vector3 offset = Vector3.left * (actualPlace - actualPlaceCount / 2.0f + 0.5f) * GameManager.GM.RetinueInterval;
+
+            Retinues[i].transform.localPosition = _defaultRetinuePosition;
+            Retinues[i].transform.Translate(offset, Space.Self);
+
+            translations[i] = Retinues[i].transform.localPosition - ori;
+            Retinues[i].transform.localPosition = ori;
         }
+
+
+        while (tick <= duration)
+        {
+            float timeDelta = Mathf.Min(duration - tick, Time.deltaTime);
+
+            for (int i = 0; i < movingRetinues.Count; i++)
+            {
+                movingRetinues[i].transform.localPosition += translations[i] * timeDelta / duration;
+            }
+
+            tick += Time.deltaTime;
+
+            yield return null;
+        }
+
+        BattleEffectsManager.BEM.EffectEnd();
     }
 
 

@@ -108,10 +108,7 @@ internal class CardRetinue : CardBase
     public int M_RetinueLeftLife
     {
         get { return m_RetinueLeftLife; }
-        set
-        {
-            m_RetinueLeftLife = value;
-        }
+        set { m_RetinueLeftLife = value; }
     }
 
     private int m_RetinueTotalLife;
@@ -132,10 +129,7 @@ internal class CardRetinue : CardBase
     public int M_RetinueAttack
     {
         get { return m_RetinueAttack; }
-        set
-        {
-            m_RetinueAttack = value;
-        }
+        set { m_RetinueAttack = value; }
     }
 
     private int m_RetinueArmor;
@@ -143,10 +137,7 @@ internal class CardRetinue : CardBase
     public int M_RetinueArmor
     {
         get { return m_RetinueArmor; }
-        set
-        {
-            m_RetinueArmor = value;
-        }
+        set { m_RetinueArmor = value; }
     }
 
     private int m_RetinueShield;
@@ -154,10 +145,7 @@ internal class CardRetinue : CardBase
     public int M_RetinueShield
     {
         get { return m_RetinueShield; }
-        set
-        {
-            m_RetinueShield = value;
-        }
+        set { m_RetinueShield = value; }
     }
 
     #endregion
@@ -176,6 +164,21 @@ internal class CardRetinue : CardBase
 
     # endregion
 
+    public override void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
+    {
+        base.DragComponent_OnMousePressed(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition);
+
+        if (boardAreaType == ClientPlayer.MyBattleGroundArea && !ClientPlayer.MyBattleGroundManager.BattleGroundIsFull) //拖随从牌到战场区域
+        {
+            int previewPosition = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
+            ClientPlayer.MyBattleGroundManager.AddRetinuePreview(previewPosition);
+        }
+        else //离开战场区域
+        {
+            ClientPlayer.MyBattleGroundManager.RemoveRetinuePreview();
+        }
+    }
+
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
@@ -186,6 +189,7 @@ internal class CardRetinue : CardBase
         }
         else
         {
+            ClientPlayer.MyBattleGroundManager.RemoveRetinuePreview();
             transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
             ClientPlayer.MyHandManager.RefreshCardsPlace();
         }
@@ -202,6 +206,7 @@ internal class CardRetinue : CardBase
             ClientPlayer.MyHandManager.RefreshCardsPlace();
             return;
         }
+
         int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
         SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, (CardInfo_Retinue) CardInfo, handCardIndex, battleGroundIndex);
