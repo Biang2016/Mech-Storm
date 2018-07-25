@@ -21,11 +21,11 @@ internal class ServerBattleGroundManager
     {
         ServerModuleRetinue retinue = new ServerModuleRetinue();
 
-        //byte[] tempBytes = new byte[4096];
-        //DataStream tmp = new DataStream(tempBytes, true);
-        //retinueCardInfo.Serialize(tmp);
-        //tmp.Position = 0;
-        //var abc = CardInfo_Base.Deserialze(tmp);
+        byte[] tempBytes = new byte[4096];
+        DataStream tmp = new DataStream(tempBytes, true);
+        retinueCardInfo.Serialize(tmp);
+        tmp.Position = 0;
+        var abc = CardInfo_Base.Deserialze(tmp);
 
 
         retinue.Initiate(retinueCardInfo, ServerPlayer);

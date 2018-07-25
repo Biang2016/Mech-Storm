@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 internal class KillAllInBattleGround : KillAllInBattleGround_Base
@@ -11,8 +12,15 @@ internal class KillAllInBattleGround : KillAllInBattleGround_Base
 
     public override SideEffectBase Clone()
     {
-        KillAllInBattleGround se = (KillAllInBattleGround)base.Clone();
-        se.Info = Info;
+        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
+        string type = GetType().ToString();
+        SideEffectBase se = (SideEffectBase) assembly.CreateInstance(type);
+        se.SideEffectID = SideEffectID;
+        se.Name = Name;
+        se.Desc = Desc;
+
+        //KillAllInBattleGround se = (KillAllInBattleGround)base.Clone();
+        //se.Info = Info;
         return se;
     }
 

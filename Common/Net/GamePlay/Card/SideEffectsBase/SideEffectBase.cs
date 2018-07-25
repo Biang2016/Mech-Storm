@@ -27,7 +27,7 @@ public class SideEffectBase
     //克隆时无视player，也就是说效果是无关玩家的
     public virtual SideEffectBase Clone()
     {
-        Assembly assembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
+        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
         SideEffectBase se = (SideEffectBase)assembly.CreateInstance(GetType().ToString());
         se.SideEffectID = SideEffectID;
         se.Name = Name;
@@ -47,7 +47,7 @@ public class SideEffectBase
 
     public static SideEffectBase BaseDeserialze(DataStream reader)
     {
-        Assembly assembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
+        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
         string type = reader.ReadString8();
         SideEffectBase se = (SideEffectBase)assembly.CreateInstance(type);
         se.Deserialze(reader);
