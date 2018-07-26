@@ -208,7 +208,7 @@ internal class Client : MonoBehaviour
             catch (Exception e)
             {
                 ClientLog.CL.PrintError("[C]Failed to clientSocket error. " + e);
-                ServerSocket.Close();
+                if (ServerSocket!=null) ServerSocket.Close();
                 Proxy.ClientState = ProxyBase.ClientStates.Nothing;
                 RoundManager.RM.StopGame();
                 break;

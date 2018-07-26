@@ -24,7 +24,7 @@ internal class ServerGameMatchManager
             SMGS.Add(sgm);
             clientGameMapping.Add(clientA.ClientId, sgm);
             clientGameMapping.Add(clientB.ClientId, sgm);
-            ServerLog.PrintServerStates("玩家 " + clientA.ClientId + " 和 " + clientB.ClientId + " 开始游戏,当前 " + matchingClients.Count + " 人在游戏中");
+            ServerLog.PrintServerStates("玩家 " + clientA.ClientId + " 和 " + clientB.ClientId + " 开始游戏,当前 " + clientGameMapping.Count + " 人在游戏中," + matchingClients.Count + " 人在匹配中");
         }
     }
 
@@ -33,7 +33,7 @@ internal class ServerGameMatchManager
         if (matchingClients.Contains(clientProxy))
         {
             matchingClients.Remove(clientProxy);
-            ServerLog.PrintServerStates("玩家 " + clientProxy.ClientId + " 取消匹配. 当前 " + matchingClients.Count + " 人在匹配中");
+            ServerLog.PrintServerStates("玩家 " + clientProxy.ClientId + " 取消匹配. 当前 " + clientGameMapping.Count + " 人在游戏中," + matchingClients.Count + " 人在匹配中");
         }
     }
 
@@ -42,6 +42,20 @@ internal class ServerGameMatchManager
         SMGS.Remove(serverGameManager);
         clientGameMapping.Remove(clientA.ClientId);
         clientGameMapping.Remove(clientB.ClientId);
-        ServerLog.PrintServerStates("玩家 " + clientA.ClientId + " 和 " + clientB.ClientId + " 停止游戏,当前 " + matchingClients.Count + " 人在游戏中");
+        ServerLog.PrintServerStates("玩家 " + clientA.ClientId + " 和 " + clientB.ClientId + " 停止游戏,当前 " + clientGameMapping.Count + " 人在游戏中," + matchingClients.Count + " 人在匹配中");
+    }
+
+    public void RemoveGame(ClientProxy client)
+    {
+        if (clientGameMapping.ContainsKey(client.ClientId))
+        {
+            ServerGameManager sgm = clientGameMapping[client.ClientId];
+            SMGS.Remove(sgm);
+            int a = sgm.ClientA.ClientId;
+            int b = sgm.ClientB.ClientId;
+            clientGameMapping.Remove(a);
+            clientGameMapping.Remove(b);
+            ServerLog.PrintServerStates("玩家 " + a + " 和 " + b + " 停止游戏,当前 " + clientGameMapping.Count + " 人在游戏中," + matchingClients.Count + " 人在匹配中");
+        }
     }
 }

@@ -103,21 +103,27 @@ internal class ClientProxy : ProxyBase
             {
                 //以下是进入游戏前的请求
                 case CardDeckRequest _:
+                    if (ClientState == ClientStates.Playing)
+                    {
+                        Server.SV.SGMM.RemoveGame(this);
+                    }
                     if (ClientState == ClientStates.GetId || ClientState == ClientStates.SubmitCardDeck)
                     {
                         CardDeckRequest request = (CardDeckRequest) r;
                         CardDeckInfo = request.cardDeckInfo;
                         ClientState = ClientStates.SubmitCardDeck;
                     }
-
                     break;
                 case MatchRequest _:
+                    if (ClientState == ClientStates.Playing)
+                    {
+                        Server.SV.SGMM.RemoveGame(this);
+                    }
                     if (ClientState == ClientStates.SubmitCardDeck)
                     {
                         ClientState = ClientStates.Matching;
                         Server.SV.SGMM.OnClientMatchGames(this);
                     }
-
                     break;
                 case CancelMatchRequest _:
                     if (ClientState == ClientStates.Matching)

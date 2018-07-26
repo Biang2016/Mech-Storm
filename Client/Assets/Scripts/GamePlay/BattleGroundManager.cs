@@ -32,6 +32,7 @@ internal class BattleGroundManager : MonoBehaviour
         ClientPlayer = null;
         previewRetinuePlace = -1;
         Retinues.Clear();
+        removeRetinues.Clear();
     }
 
 
@@ -116,6 +117,7 @@ internal class BattleGroundManager : MonoBehaviour
         foreach (ModuleRetinue removeRetinue in removeRetinues)
         {
             Retinues.Remove(removeRetinue);
+            ClientLog.CL.Print("remove:" + removeRetinue.M_RetinuePlaceIndex);
         }
 
         removeRetinues.Clear();
@@ -219,7 +221,6 @@ internal class BattleGroundManager : MonoBehaviour
 
         BattleEffectsManager.BEM.EffectEnd();
     }
-
 
     #region Utils
 

@@ -595,6 +595,7 @@ internal class ModuleRetinue : ModuleBase
 
     public void OnSummoned()
     {
+        CheckCanAttack();
     }
 
     public void OnDieSideEffects()
