@@ -10,13 +10,6 @@ internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
 
     }
 
-    public override SideEffectBase Clone()
-    {
-        AddLifeForSomeRetinue se = (AddLifeForSomeRetinue)base.Clone();
-        se.Info = Info;
-        return se;
-    }
-
     public override void RefreshDesc()
     {
         Desc = String.Format(Desc, Info.RetinuePlayer, Info.Select, Info.Value);

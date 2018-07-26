@@ -233,6 +233,7 @@ internal class ServerGameManager
     {
         SideEffectQueue.Enqueue(se);
     }
+
     public void ExecuteAllSideEffects()
     {
         while (SideEffectQueue.Count>0)
@@ -240,6 +241,30 @@ internal class ServerGameManager
             SideEffectBase se = SideEffectQueue.Dequeue();
             se.Excute(se.Player);
         }
+
+        SendAllDieInfos();
+    }
+
+    List<RetinuePlaceInfo> RetinueDieList = new List<RetinuePlaceInfo>();
+
+    public void AddDieTogatherRetinuesInfo(RetinuePlaceInfo dieInfo)
+    {
+        RetinueDieList.Add(dieInfo);
+    }
+
+    public void SendAllDieInfos()
+    {
+        if (RetinueDieList.Count == 0) return;
+        List<RetinuePlaceInfo> tmp = new List<RetinuePlaceInfo>();
+        foreach (RetinuePlaceInfo info in RetinueDieList)
+        {
+            tmp.Add(info);
+        }
+        RetinueDieRequest request1=new RetinueDieRequest(tmp);
+        Broadcast_AddRequestToOperationResponse(request1);
+        BattleGroundRemoveRetinueRequest request2 = new BattleGroundRemoveRetinueRequest(tmp);
+        Broadcast_AddRequestToOperationResponse(request2);
+        RetinueDieList.Clear();
     }
 
     #endregion

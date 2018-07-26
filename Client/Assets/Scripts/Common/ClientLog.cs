@@ -80,6 +80,11 @@ internal class ClientLog : MonoBehaviour
     {
         Print(logStr, Color.magenta);
     }
+
+    public void PrintBattleEffects(string logStr)
+    {
+        Print(logStr, GameManager.HTMLColorToColor("#00FFDB"));
+    }
 }
 
 class Log

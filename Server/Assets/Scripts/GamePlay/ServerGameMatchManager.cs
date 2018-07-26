@@ -45,15 +45,3 @@ internal class ServerGameMatchManager
         ServerLog.PrintServerStates("玩家 " + clientA.ClientId + " 和 " + clientB.ClientId + " 停止游戏,当前 " + matchingClients.Count + " 人在游戏中");
     }
 }
-
-public class ClientAndCardDeckInfo
-{
-    public int ClientId;
-    public CardDeckInfo CardDeckInfo;
-
-    public ClientAndCardDeckInfo(int clientId, CardDeckInfo cardDeckInfo)
-    {
-        ClientId = clientId;
-        CardDeckInfo = cardDeckInfo;
-    }
-}

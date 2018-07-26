@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-public class SideEffectBase
+public class SideEffectBase:ICloneable
 {
     public Player Player;
 
@@ -14,7 +14,6 @@ public class SideEffectBase
 
     public SideEffectBase()
     {
-
     }
 
     public SideEffectBase(int sideEffectID, string name, string desc)
@@ -24,15 +23,9 @@ public class SideEffectBase
         Desc = desc;
     }
 
-    //克隆时无视player，也就是说效果是无关玩家的
-    public virtual SideEffectBase Clone()
+    object ICloneable.Clone()
     {
-        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-        SideEffectBase se = (SideEffectBase)assembly.CreateInstance(GetType().ToString());
-        se.SideEffectID = SideEffectID;
-        se.Name = Name;
-        se.Desc = Desc;
-        return se;
+        return MemberwiseClone();
     }
 
     //序列化时无视player，也就是说效果是无关玩家的
@@ -47,9 +40,8 @@ public class SideEffectBase
 
     public static SideEffectBase BaseDeserialze(DataStream reader)
     {
-        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
         string type = reader.ReadString8();
-        SideEffectBase se = (SideEffectBase)assembly.CreateInstance(type);
+        SideEffectBase se = SideEffectManager.GetNewSideEffec(type);
         se.Deserialze(reader);
         return se;
     }
@@ -63,11 +55,11 @@ public class SideEffectBase
 
     public virtual void RefreshDesc()
     {
-
     }
 
     public virtual void Excute(object Player)
     {
-
     }
+
+
 }

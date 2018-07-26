@@ -10,20 +10,6 @@ internal class KillAllInBattleGround : KillAllInBattleGround_Base
     {
     }
 
-    public override SideEffectBase Clone()
-    {
-        Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-        string type = GetType().ToString();
-        SideEffectBase se = (SideEffectBase) assembly.CreateInstance(type);
-        se.SideEffectID = SideEffectID;
-        se.Name = Name;
-        se.Desc = Desc;
-
-        //KillAllInBattleGround se = (KillAllInBattleGround)base.Clone();
-        //se.Info = Info;
-        return se;
-    }
-
     public override void RefreshDesc()
     {
         Desc = String.Format(Desc, Info.WhoseBattleGround);

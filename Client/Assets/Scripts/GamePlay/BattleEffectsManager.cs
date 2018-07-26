@@ -27,15 +27,17 @@ internal class BattleEffectsManager : MonoBehaviour
     {
         if (!IsExcuting && BattleEffects.Count != 0)
         {
-            IEnumerator effect = BattleEffects.Dequeue();
-            StartCoroutine(effect);
+            SideEffect se = BattleEffects.Dequeue();
+            StartCoroutine(se.Enumerator);
             IsExcuting = true;
+            ClientLog.CL.PrintBattleEffects(se.MethodName);
         }
 
         if (ResponseExcuteQueue.Count != 0)
         {
             ResponseAndMethod responseAndMethod = ResponseExcuteQueue.Dequeue();
             responseAndMethod.BattleResponse(responseAndMethod.Request);
+            ClientLog.CL.PrintBattleEffects(responseAndMethod.MethodName);
         }
     }
 
@@ -49,12 +51,7 @@ internal class BattleEffectsManager : MonoBehaviour
     {
         public BattleResponse BattleResponse;
         public ServerRequestBase Request;
-
-        public ResponseAndMethod(BattleResponse battleResponse, ServerRequestBase request)
-        {
-            BattleResponse = battleResponse;
-            Request = request;
-        }
+        public string MethodName;
     }
 
     #endregion
@@ -64,11 +61,24 @@ internal class BattleEffectsManager : MonoBehaviour
 
     private bool IsExcuting = false;
 
-    private Queue<IEnumerator> BattleEffects = new Queue<IEnumerator>();
+    private Queue<SideEffect> BattleEffects = new Queue<SideEffect>();
 
-    public void EffectsShow(IEnumerator enumerator)
+    private class SideEffect
     {
-        BattleEffects.Enqueue(enumerator);
+        public IEnumerator Enumerator;
+        public string MethodName;
+
+        public SideEffect(IEnumerator enumerator, string methodName)
+        {
+            Enumerator = enumerator;
+            MethodName = methodName;
+        }
+    }
+
+    public void EffectsShow(IEnumerator enumerator,string methodName)
+    {
+        SideEffect se=new SideEffect(enumerator,methodName);
+        BattleEffects.Enqueue(se);
     }
 
     public void EffectEnd()

@@ -167,13 +167,14 @@ public class CardInfo_Retinue : CardInfo_Base
         List<SideEffectBase> new_SideEffects_OnDie = new List<SideEffectBase>();
         foreach (SideEffectBase sideEffectBase in SideEffects_OnDie)
         {
-            new_SideEffects_OnDie.Add(sideEffectBase.Clone());
+
+            new_SideEffects_OnDie.Add((SideEffectBase)((ICloneable)sideEffectBase).Clone());
         }
 
         List<SideEffectBase> new_SideEffects_OnSummoned = new List<SideEffectBase>();
         foreach (SideEffectBase sideEffectBase in new_SideEffects_OnSummoned)
         {
-            new_SideEffects_OnSummoned.Add(sideEffectBase.Clone());
+            new_SideEffects_OnSummoned.Add((SideEffectBase) ((ICloneable) sideEffectBase).Clone());
         }
 
         CardInfo_Retinue cb = new CardInfo_Retinue(CardID, BaseInfo, UpgradeInfo, LifeInfo, BattleInfo, SlotInfo, new_SideEffects_OnDie, new_SideEffects_OnSummoned);
@@ -217,7 +218,7 @@ public class CardInfo_Weapon : CardInfo_Base
         List<SideEffectBase> new_SideEffects_OnDie = new List<SideEffectBase>();
         foreach (SideEffectBase sideEffectBase in SideEffects_OnDie)
         {
-            new_SideEffects_OnDie.Add(sideEffectBase.Clone());
+            new_SideEffects_OnDie.Add((SideEffectBase) ((ICloneable) sideEffectBase).Clone());
         }
 
         CardInfo_Weapon cb = new CardInfo_Weapon(CardID, BaseInfo, UpgradeInfo, WeaponInfo, new_SideEffects_OnDie);
@@ -259,7 +260,7 @@ public class CardInfo_Shield : CardInfo_Base
         List<SideEffectBase> new_SideEffects_OnDie = new List<SideEffectBase>();
         foreach (SideEffectBase sideEffectBase in SideEffects_OnDie)
         {
-            new_SideEffects_OnDie.Add(sideEffectBase.Clone());
+            new_SideEffects_OnDie.Add((SideEffectBase) ((ICloneable) sideEffectBase).Clone());
         }
 
         CardInfo_Shield cb = new CardInfo_Shield(CardID, BaseInfo, UpgradeInfo, ShieldInfo, new_SideEffects_OnDie);

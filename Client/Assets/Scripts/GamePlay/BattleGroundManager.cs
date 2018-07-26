@@ -72,7 +72,7 @@ internal class BattleGroundManager : MonoBehaviour
 
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
         SetNewRetinuePlace(retinuePlaceIndex);
-        BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim());
+        BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
     }
 
     private int previewRetinuePlace;
@@ -83,7 +83,7 @@ internal class BattleGroundManager : MonoBehaviour
         if (previewRetinuePlace == -1 || previewRetinuePlace != placeIndex)
         {
             previewRetinuePlace = placeIndex;
-            BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim());
+            BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
         }
     }
 
@@ -92,23 +92,59 @@ internal class BattleGroundManager : MonoBehaviour
         if (previewRetinuePlace != -1)
         {
             previewRetinuePlace = -1;
-            BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim());
+            BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
         }
     }
 
     public void RemoveRetinue(int retinuePlaceIndex)
     {
+        BattleEffectsManager.BEM.EffectsShow(Co_RemoveRetinue(retinuePlaceIndex), "Co_RemoveRetinue");
+        BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
+    }
+
+    List<ModuleRetinue> removeRetinues = new List<ModuleRetinue>();
+
+    public void RemoveRetinueTogatherAdd(int retinuePlaceIndex)
+    {
         ModuleRetinue retinue = Retinues[retinuePlaceIndex];
         retinue.PoolRecycle();
-        Retinues.RemoveAt(retinuePlaceIndex);
+        removeRetinues.Add(retinue);
+    }
 
+    public void RemoveRetinueTogather()
+    {
+        foreach (ModuleRetinue removeRetinue in removeRetinues)
+        {
+            Retinues.Remove(removeRetinue);
+        }
+
+        removeRetinues.Clear();
+
+        foreach (ModuleRetinue moduleRetinue in Retinues)
+        {
+            moduleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(moduleRetinue);
+        }
+        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+    }
+
+    public void RemoveRetinueTogatherEnd()
+    {
+        BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
+    }
+
+    IEnumerator Co_RemoveRetinue(int retinuePlaceIndex)
+    {
+        ModuleRetinue retinue = Retinues[retinuePlaceIndex];
+        retinue.PoolRecycle();
+        Retinues.Remove(retinue);
         foreach (ModuleRetinue moduleRetinue in Retinues)
         {
             moduleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(moduleRetinue);
         }
 
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
-        BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim());
+        yield return null;
+        BattleEffectsManager.BEM.EffectEnd();
     }
 
     public void EquipWeapon(CardInfo_Weapon cardInfo, int battleGroundIndex)
@@ -137,7 +173,7 @@ internal class BattleGroundManager : MonoBehaviour
 
     IEnumerator Co_RefreshBattleGroundAnim()
     {
-        float duration = 0.1f;
+        float duration = 0.05f;
         float tick = 0;
 
         Vector3[] translations = new Vector3[Retinues.Count];

@@ -226,7 +226,7 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueLeftLife; }
         set
         {
-            if (m_RetinueLeftLife > value) BattleEffectsManager.BEM.EffectsShow(Co_LifeBeAttacked());
+            if (m_RetinueLeftLife > value) BattleEffectsManager.BEM.EffectsShow(Co_LifeBeAttacked(), "Co_LifeBeAttacked");
             m_RetinueLeftLife = value;
             initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
             CardNumberSet_RetinueLeftLife.Number = m_RetinueLeftLife;
@@ -315,7 +315,7 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueArmor; }
         set
         {
-            if (m_RetinueArmor > value) BattleEffectsManager.BEM.EffectsShow(Co_ArmorBeAttacked());
+            if (m_RetinueArmor > value) BattleEffectsManager.BEM.EffectsShow(Co_ArmorBeAttacked(), "Co_ArmorBeAttacked");
             m_RetinueArmor = value;
             if (M_Shield)
             {
@@ -348,7 +348,7 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueShield; }
         set
         {
-            if (m_RetinueShield > value) BattleEffectsManager.BEM.EffectsShow(Co_ShieldBeAttacked());
+            if (m_RetinueShield > value) BattleEffectsManager.BEM.EffectsShow(Co_ShieldBeAttacked(), "Co_ShieldBeAttacked");
             m_RetinueShield = value;
             if (M_Shield)
             {
@@ -597,15 +597,15 @@ internal class ModuleRetinue : ModuleBase
     {
     }
 
-    public void OnDie()
+    public void OnDieSideEffects()
     {
         foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnDie)
         {
-            BattleEffectsManager.BEM.EffectsShow(ShowSideEffectBloom(Color.white,0.2f));
+            BattleEffectsManager.BEM.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 0.5f), "ShowSideEffectBloom");
         }
     }
 
-    IEnumerator ShowSideEffectBloom(Color color,float duration)
+    IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
     {
         SideEffcetBloom.gameObject.SetActive(true);
         ChangeBloomColor(SideEffcetBloom, color);

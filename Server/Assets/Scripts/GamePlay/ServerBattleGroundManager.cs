@@ -43,7 +43,6 @@ internal class ServerBattleGroundManager
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
-
     public void RemoveRetinue(ServerModuleRetinue retinue)
     {
         int battleGroundIndex = Retinues.IndexOf(retinue);
@@ -56,8 +55,21 @@ internal class ServerBattleGroundManager
             serverModuleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(serverModuleRetinue);
         }
 
-        BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(ServerPlayer.ClientId, battleGroundIndex);
+        BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(new List<RetinuePlaceInfo> {new RetinuePlaceInfo(ServerPlayer.ClientId, battleGroundIndex)});
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+    }
+
+    public void RemoveRetinueTogather(ServerModuleRetinue retinue)//群杀时采用的方法
+    {
+        int battleGroundIndex = Retinues.IndexOf(retinue);
+        if (battleGroundIndex == -1) return;
+        Retinues.Remove(retinue);
+        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        {
+            serverModuleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(serverModuleRetinue);
+        }
     }
 
     public void EquipWeapon(EquipWeaponRequest r)
@@ -91,9 +103,10 @@ internal class ServerBattleGroundManager
 
         ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
 
+
         while (Retinues.Count > 0)
         {
-            RemoveRetinue(Retinues[0]);
+            RemoveRetinueTogather(Retinues[0]);
         }
     }
 

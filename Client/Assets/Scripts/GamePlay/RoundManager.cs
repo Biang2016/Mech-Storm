@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 internal class RoundManager : MonoBehaviour
@@ -73,79 +74,79 @@ internal class RoundManager : MonoBehaviour
         switch (se.GetProtocol())
         {
             case NetProtocols.SE_SET_PLAYER:
-                {
-                    Client.CS.Proxy.ClientState = ProxyBase.ClientStates.Playing;
-                    NetworkManager.NM.SuccessMatched();
-                    Initialize();
-                    InitializePlayers((SetPlayerRequest)se);
-                    break;
-                }
+            {
+                Client.CS.Proxy.ClientState = ProxyBase.ClientStates.Playing;
+                NetworkManager.NM.SuccessMatched();
+                Initialize();
+                InitializePlayers((SetPlayerRequest) se);
+                break;
+            }
 
             case NetProtocols.SE_PLAYER_TURN:
-                {
-                    SetPlayerTurn((PlayerTurnRequest)se);
-                    break;
-                }
+            {
+                SetPlayerTurn((PlayerTurnRequest) se);
+                break;
+            }
             case NetProtocols.SE_PLAYER_COST_CHANGE:
-                {
-                    SetPlayersCost((PlayerCostChangeRequest)se);
-                    break;
-                }
+            {
+                SetPlayersCost((PlayerCostChangeRequest) se);
+                break;
+            }
 
             case NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE:
-                {
-                    OnRetinueAttributesChange((RetinueAttributesChangeRequest)se);
-                    break;
-                }
+            {
+                OnRetinueAttributesChange((RetinueAttributesChangeRequest) se);
+                break;
+            }
 
             case NetProtocols.SE_RETINUE_DIE:
-                {
-                    OnRetinueDie((RetinueDieRequest)se);
-                    break;
-                }
+            {
+                OnRetinueDie((RetinueDieRequest) se);
+                break;
+            }
 
             case NetProtocols.SE_BATTLEGROUND_ADD_RETINUE:
-                {
-                    OnBattleGroundAddRetinue((BattleGroundAddRetinueRequest)se);
-                    break;
-                }
+            {
+                OnBattleGroundAddRetinue((BattleGroundAddRetinueRequest) se);
+                break;
+            }
             case NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE:
-                {
-                    OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest)se);
-                    break;
-                }
+            {
+                OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest) se);
+                break;
+            }
 
             case NetProtocols.SE_DRAW_CARD:
-                {
-                    OnPlayerDrawCard((DrawCardRequest)se);
-                    break;
-                }
+            {
+                OnPlayerDrawCard((DrawCardRequest) se);
+                break;
+            }
             case NetProtocols.SE_DROP_CARD:
-                {
-                    OnPlayerDropCard((DropCardRequest)se);
-                    break;
-                }
+            {
+                OnPlayerDropCard((DropCardRequest) se);
+                break;
+            }
             case NetProtocols.SE_USE_CARD:
-                {
-                    OnPlayerUseCard((UseCardRequest)se);
-                    break;
-                }
+            {
+                OnPlayerUseCard((UseCardRequest) se);
+                break;
+            }
 
             case NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST:
-                {
-                    OnEquipWeapon((EquipWeaponServerRequest)se);
-                    break;
-                }
+            {
+                OnEquipWeapon((EquipWeaponServerRequest) se);
+                break;
+            }
             case NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST:
-                {
-                    OnEquipShield((EquipShieldServerRequest)se);
-                    break;
-                }
+            {
+                OnEquipShield((EquipShieldServerRequest) se);
+                break;
+            }
             case NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST:
-                {
-                    OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest)se);
-                    break;
-                }
+            {
+                OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) se);
+                break;
+            }
         }
     }
 
@@ -169,7 +170,7 @@ internal class RoundManager : MonoBehaviour
     {
         if (r.clientId == Client.CS.Proxy.ClientId)
         {
-            SelfClientPlayer = new ClientPlayer(r.costLeft, r.costMax,  Players.Self);
+            SelfClientPlayer = new ClientPlayer(r.costLeft, r.costMax, Players.Self);
             SelfClientPlayer.ClientId = r.clientId;
         }
         else
@@ -253,18 +254,55 @@ internal class RoundManager : MonoBehaviour
 
     private void OnRetinueDie(RetinueDieRequest r)
     {
+        List<ModuleRetinue> dieRetinues = new List<ModuleRetinue>();
         BattleGroundManager bgm;
-        if (r.clientId == Client.CS.Proxy.ClientId)
+        foreach (RetinuePlaceInfo info in r.retinueInfos)
         {
-            bgm = SelfClientPlayer.MyBattleGroundManager;
-        }
-        else
-        {
-            bgm = EnemyClientPlayer.MyBattleGroundManager;
+            if (info.clientId == Client.CS.Proxy.ClientId)
+            {
+                bgm = SelfClientPlayer.MyBattleGroundManager;
+            }
+            else
+            {
+                bgm = EnemyClientPlayer.MyBattleGroundManager;
+            }
+
+            ModuleRetinue retinue = bgm.GetRetinue(info.retinuePlaceIndex);
+            dieRetinues.Add(retinue);
         }
 
-        ModuleRetinue retinue = bgm.GetRetinue(r.retinuePlaceIndex);
-        retinue.OnDie();
+        foreach (ModuleRetinue moduleRetinue in dieRetinues)
+        {
+            moduleRetinue.OnDieSideEffects();
+        }
+
+        BattleEffectsManager.BEM.EffectsShow(Co_RetinueDieShock(dieRetinues), "Co_RetinueDieShock");
+    }
+
+    IEnumerator Co_RetinueDieShock(List<ModuleRetinue> dieRetinues)//随从一起死亡效果
+    {
+        int shockTimes = 3;
+        for (int i = 0; i < shockTimes; i++)
+        {
+            foreach (ModuleRetinue moduleRetinue in dieRetinues)
+            {
+                moduleRetinue.transform.Rotate(Vector3.up, 3, Space.Self);
+            }
+
+            yield return new WaitForSeconds(0.04f);
+            foreach (ModuleRetinue moduleRetinue in dieRetinues)
+            {
+                moduleRetinue.transform.Rotate(Vector3.up, -6, Space.Self);
+            }
+
+            yield return new WaitForSeconds(0.04f);
+            foreach (ModuleRetinue moduleRetinue in dieRetinues)
+            {
+                moduleRetinue.transform.Rotate(Vector3.up, 3, Space.Self);
+            }
+        }
+
+        BattleEffectsManager.BEM.EffectEnd();
     }
 
     private void OnBattleGroundAddRetinue(BattleGroundAddRetinueRequest r)
@@ -284,19 +322,36 @@ internal class RoundManager : MonoBehaviour
 
     private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
     {
-        BattleGroundManager bgm;
-        if (r.clientId == Client.CS.Proxy.ClientId)
-        {
-            bgm = SelfClientPlayer.MyBattleGroundManager;
-        }
-        else
-        {
-            bgm = EnemyClientPlayer.MyBattleGroundManager;
-        }
-
-        bgm.RemoveRetinue(r.battleGroundIndex);
+        BattleEffectsManager.BEM.EffectsShow(Co_RetinueRemoveFromBattleGround(r.retinueInfos), "Co_RetinueRemoveFromBattleGround");
     }
 
+    IEnumerator Co_RetinueRemoveFromBattleGround(List<RetinuePlaceInfo> removeRetinues) //随从一起移除战场
+    {
+        BattleGroundManager bgm;
+        foreach (RetinuePlaceInfo info in removeRetinues)
+        {
+            if (info.clientId == Client.CS.Proxy.ClientId)
+            {
+                bgm = SelfClientPlayer.MyBattleGroundManager;
+            }
+            else
+            {
+                bgm = EnemyClientPlayer.MyBattleGroundManager;
+            }
+
+            bgm.RemoveRetinueTogatherAdd(info.retinuePlaceIndex);
+        }
+
+        SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogather();
+        EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogather();
+
+        SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
+        EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
+
+        BattleEffectsManager.BEM.EffectEnd();
+
+        yield return null;
+    }
 
     private void OnPlayerDrawCard(DrawCardRequest r)
     {

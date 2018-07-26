@@ -49,6 +49,7 @@ internal class Server
         SGMM = new ServerGameMatchManager();
 
         OnRestartProtocols();
+        OnRestartSideEffects();
         StartSeverSocket();
     }
 
@@ -60,6 +61,11 @@ internal class Server
         }
     }
 
+    private void OnRestartSideEffects()
+    {
+        SideEffectManager.AddSideEffectTypes<KillAllInBattleGround>();
+        SideEffectManager.AddSideEffectTypes<AddLifeForSomeRetinue>();
+    }
 
     /// <summary>
     /// 所有的客户端提前异常退出、正常退出都走此方法

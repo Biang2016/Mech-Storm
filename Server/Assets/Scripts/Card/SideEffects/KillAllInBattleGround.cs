@@ -9,13 +9,6 @@ internal class KillAllInBattleGround : KillAllInBattleGround_Base
     {
     }
 
-    public override SideEffectBase Clone()
-    {
-        KillAllInBattleGround se = (KillAllInBattleGround)base.Clone();
-        se.Info = Info;
-        return se;
-    }
-
     public override void RefreshDesc()
     {
         Desc = String.Format(Desc, Info);

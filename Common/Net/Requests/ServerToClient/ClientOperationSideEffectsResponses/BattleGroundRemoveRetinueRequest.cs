@@ -3,17 +3,15 @@ using System.Collections.Generic;
 
 public class BattleGroundRemoveRetinueRequest : ServerRequestBase
 {
-    public int clientId;
-    public int battleGroundIndex;
+    public List<RetinuePlaceInfo> retinueInfos = new List<RetinuePlaceInfo>();
 
     public BattleGroundRemoveRetinueRequest()
     {
     }
 
-    public BattleGroundRemoveRetinueRequest(int clientId, int battleGroundIndex)
+    public BattleGroundRemoveRetinueRequest(List<RetinuePlaceInfo> retinueInfos)
     {
-        this.clientId = clientId;
-        this.battleGroundIndex = battleGroundIndex;
+        this.retinueInfos = retinueInfos;
     }
 
     public override int GetProtocol()
@@ -29,22 +27,35 @@ public class BattleGroundRemoveRetinueRequest : ServerRequestBase
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(clientId);
-        writer.WriteSInt32(battleGroundIndex);
+        writer.WriteSInt32(retinueInfos.Count);
+        foreach (RetinuePlaceInfo info in retinueInfos)
+        {
+            writer.WriteSInt32(info.clientId);
+            writer.WriteSInt32(info.retinuePlaceIndex);
+        }
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        clientId = reader.ReadSInt32();
-        battleGroundIndex = reader.ReadSInt32();
+        int count = reader.ReadSInt32();
+        for (int i = 0; i < count; i++)
+        {
+            int clientId = reader.ReadSInt32();
+            int retinuePlaceIndex = reader.ReadSInt32();
+            RetinuePlaceInfo info = new RetinuePlaceInfo(clientId, retinuePlaceIndex);
+            retinueInfos.Add(info);
+        }
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [battleGroundIndex]=" + battleGroundIndex;
+        log += " [retinueInfos]= cid->retinuePlaceIndex: ";
+        foreach (RetinuePlaceInfo info in retinueInfos)
+        {
+            log += info.clientId + "->" + info.retinuePlaceIndex + ", ";
+        }
         return log;
     }
 }

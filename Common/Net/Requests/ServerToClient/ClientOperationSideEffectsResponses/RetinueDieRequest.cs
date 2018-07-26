@@ -3,17 +3,15 @@ using System.Collections.Generic;
 
 public class RetinueDieRequest : ServerRequestBase
 {
-    public int clientId;
-    public int retinuePlaceIndex;
+    public List<RetinuePlaceInfo> retinueInfos = new List<RetinuePlaceInfo>();
 
     public RetinueDieRequest()
     {
     }
 
-    public RetinueDieRequest(int clinetId, int retinuePlaceIndex)
+    public RetinueDieRequest(List<RetinuePlaceInfo> retinueInfos)
     {
-        this.clientId = clinetId;
-        this.retinuePlaceIndex = retinuePlaceIndex;
+        this.retinueInfos = retinueInfos;
     }
 
     public override int GetProtocol()
@@ -30,22 +28,36 @@ public class RetinueDieRequest : ServerRequestBase
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(clientId);
-        writer.WriteSInt32(retinuePlaceIndex);
+        writer.WriteSInt32(retinueInfos.Count);
+        foreach (RetinuePlaceInfo info in retinueInfos)
+        {
+            writer.WriteSInt32(info.clientId);
+            writer.WriteSInt32(info.retinuePlaceIndex);
+        }
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        clientId = reader.ReadSInt32();
-        retinuePlaceIndex = reader.ReadSInt32();
+        int count = reader.ReadSInt32();
+        for (int i = 0; i < count; i++)
+        {
+            int clientId = reader.ReadSInt32();
+            int retinuePlaceIndex = reader.ReadSInt32();
+            RetinuePlaceInfo info = new RetinuePlaceInfo(clientId, retinuePlaceIndex);
+            retinueInfos.Add(info);
+        }
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clinetId]=" + clientId;
-        log += " [retinuePlaceIndex]=" + retinuePlaceIndex;
+        log += " [retinueInfos]= cid->retinuePlaceIndex: ";
+        foreach (RetinuePlaceInfo info in retinueInfos)
+        {
+            log += info.clientId + "->" + info.retinuePlaceIndex + ", ";
+        }
+
         return log;
     }
 }

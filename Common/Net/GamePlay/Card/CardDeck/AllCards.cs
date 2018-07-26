@@ -42,10 +42,10 @@ public static class AllCards
                         baseInfo = new BaseInfo(cardInfo.Attributes["cardName"].Value,
                             cardInfo.Attributes["cardDesc"].Value.Replace("\\n", "\n"),
                             int.Parse(cardInfo.Attributes["cost"].Value),
-                            (DragPurpose)Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
-                            (CardTypes)Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value),
+                            (DragPurpose) Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
+                            (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value),
                             cardInfo.Attributes["cardColor"].Value, cardInfo.Attributes["hightLightColor"].Value
-                            );
+                        );
                         break;
                     case "upgradeInfo":
                         upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value),
@@ -61,21 +61,21 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["basicArmor"].Value));
                         break;
                     case "slotInfo":
-                        slotInfo = new SlotInfo((SlotTypes)Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
-                            (SlotTypes)Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot2"].Value),
-                            (SlotTypes)Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot3"].Value),
-                            (SlotTypes)Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot4"].Value));
+                        slotInfo = new SlotInfo((SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
+                            (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot2"].Value),
+                            (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot3"].Value),
+                            (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot4"].Value));
                         break;
                     case "weaponInfo":
                         weaponInfo = new WeaponInfo(int.Parse(cardInfo.Attributes["energy"].Value),
                             int.Parse(cardInfo.Attributes["energyMax"].Value),
                             int.Parse(cardInfo.Attributes["attack"].Value),
-                            (WeaponTypes)Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value));
+                            (WeaponTypes) Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value));
                         break;
                     case "shieldInfo":
                         shieldInfo = new ShieldInfo(int.Parse(cardInfo.Attributes["armor"].Value),
                             int.Parse(cardInfo.Attributes["shield"].Value),
-                            (ShieldTypes)Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value));
+                            (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value));
                         break;
                     case "sideEffectsInfo":
                         List<SideEffectBase> sideEffects = new List<SideEffectBase>();
@@ -92,7 +92,7 @@ public static class AllCards
                         for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
                         {
                             XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
-                            SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
+                            SideEffectBase sideEffect = (SideEffectBase) ((ICloneable) AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value]).Clone();
                             FieldInfo fi_info = sideEffect.GetType().GetField("Info");
                             Assembly assembly = Assembly.GetAssembly(fi_info.FieldType);
                             var info = assembly.CreateInstance(fi_info.FieldType.ToString());
@@ -111,6 +111,7 @@ public static class AllCards
                                         fi.SetValue(info, attr.Value);
                                         break;
                                 }
+
                                 fi_info.SetValue(sideEffect, info);
                             }
 
@@ -196,7 +197,7 @@ public static class AllCards
                 return true;
             }
 
-            tmpUpgradeID = GetCard((int)tmpUpgradeID).UpgradeInfo.UpgradeCardID;
+            tmpUpgradeID = GetCard((int) tmpUpgradeID).UpgradeInfo.UpgradeCardID;
         }
 
         return false;
