@@ -145,7 +145,7 @@ public class CardInfo_Retinue : CardInfo_Base
             CardDescShow += "亡语:";
             foreach (SideEffectBase se in SideEffects_OnDie)
             {
-                CardDescShow += se.Desc + ";\n";
+                CardDescShow += se.GenerateDesc() + ";\n";
             }
         }
 
@@ -155,7 +155,7 @@ public class CardInfo_Retinue : CardInfo_Base
             CardDescShow += "战吼:";
             foreach (SideEffectBase se in SideEffects_OnSummoned)
             {
-                CardDescShow += se.Desc + ";\n";
+                CardDescShow += se.GenerateDesc() + ";\n";
             }
         }
 

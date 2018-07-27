@@ -7,17 +7,16 @@ internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
 {
     public AddLifeForSomeRetinue()
     {
-
     }
 
-    public override void RefreshDesc()
+    public override string GenerateDesc()
     {
-        Desc = String.Format(Desc, Info.RetinuePlayer, Info.Select, Info.Value);
+        return String.Format(DescRaw, Info.RetinuePlayer, Info.Select, Info.Value);
     }
 
     public override void Excute(object Player)
     {
-        ServerPlayer player = (ServerPlayer)Player;
+        ServerPlayer player = (ServerPlayer) Player;
         switch (Info.RetinuePlayer)
         {
             case "我方":

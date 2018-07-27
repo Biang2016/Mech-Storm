@@ -10,9 +10,9 @@ internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
 
     }
 
-    public override void RefreshDesc()
+    public override string GenerateDesc()
     {
-        Desc = String.Format(Desc, Info.RetinuePlayer, Info.Select, Info.Value);
+        return String.Format(DescRaw, Info.RetinuePlayer, Info.Select, Info.Value);
     }
 
     public override void Excute(object Player)

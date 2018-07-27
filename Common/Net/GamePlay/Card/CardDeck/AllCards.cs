@@ -115,7 +115,6 @@ public static class AllCards
                                 fi_info.SetValue(sideEffect, info);
                             }
 
-                            sideEffect.RefreshDesc();
                             sideEffects.Add(sideEffect);
                         }
 

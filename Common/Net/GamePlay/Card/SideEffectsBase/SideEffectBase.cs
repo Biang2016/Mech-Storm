@@ -10,7 +10,7 @@ public class SideEffectBase:ICloneable
 
     public int SideEffectID;
     public string Name;
-    public string Desc;
+    public string DescRaw;
 
     public SideEffectBase()
     {
@@ -20,7 +20,7 @@ public class SideEffectBase:ICloneable
     {
         SideEffectID = sideEffectID;
         Name = name;
-        Desc = desc;
+        DescRaw = desc;
     }
 
     object ICloneable.Clone()
@@ -35,7 +35,7 @@ public class SideEffectBase:ICloneable
         writer.WriteString8(type);
         writer.WriteSInt32(SideEffectID);
         writer.WriteString8(Name);
-        writer.WriteString8(Desc);
+        writer.WriteString8(DescRaw);
     }
 
     public static SideEffectBase BaseDeserialze(DataStream reader)
@@ -50,11 +50,12 @@ public class SideEffectBase:ICloneable
     {
         SideEffectID = reader.ReadSInt32();
         Name = reader.ReadString8();
-        Desc = reader.ReadString8();
+        DescRaw = reader.ReadString8();
     }
 
-    public virtual void RefreshDesc()
+    public virtual string GenerateDesc()
     {
+        return "";
     }
 
     public virtual void Excute(object Player)

@@ -10,9 +10,9 @@ internal class KillAllInBattleGround : KillAllInBattleGround_Base
     {
     }
 
-    public override void RefreshDesc()
+    public override String GenerateDesc()
     {
-        Desc = String.Format(Desc, Info.WhoseBattleGround);
+        return String.Format(DescRaw, Info.WhoseBattleGround);
     }
 
     public override void Excute(object Player)

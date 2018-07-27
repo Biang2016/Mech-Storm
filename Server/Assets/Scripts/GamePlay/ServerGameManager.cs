@@ -133,9 +133,10 @@ internal class ServerGameManager
         ClientB.CurrentClientRequestResponse = new SummonRetinueRequest_Response();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
-        sp.MyBattleGroundManager.AddRetinue(r.cardInfo, r.battleGroundIndex);
+        CardInfo_Retinue info = (CardInfo_Retinue) sp.MyHandManager.GetHandCardInfo(r.handCardIndex);
+        sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex);
         sp.MyHandManager.UseCardAt(r.handCardIndex);
-        sp.UseCostAboveZero(r.cardInfo.BaseInfo.Cost);
+        sp.UseCostAboveZero(info.BaseInfo.Cost);
 
         Broadcast_SendOperationResponse();
     }
@@ -227,7 +228,7 @@ internal class ServerGameManager
 
     #region SideEffects
 
-    Queue<SideEffectBase> SideEffectQueue=new Queue<SideEffectBase>();
+    Queue<SideEffectBase> SideEffectQueue = new Queue<SideEffectBase>();
 
     public void EnqueueSideEffect(SideEffectBase se)
     {
@@ -236,7 +237,7 @@ internal class ServerGameManager
 
     public void ExecuteAllSideEffects()
     {
-        while (SideEffectQueue.Count>0)
+        while (SideEffectQueue.Count > 0)
         {
             SideEffectBase se = SideEffectQueue.Dequeue();
             se.Excute(se.Player);
@@ -260,7 +261,8 @@ internal class ServerGameManager
         {
             tmp.Add(info);
         }
-        RetinueDieRequest request1=new RetinueDieRequest(tmp);
+
+        RetinueDieRequest request1 = new RetinueDieRequest(tmp);
         Broadcast_AddRequestToOperationResponse(request1);
         BattleGroundRemoveRetinueRequest request2 = new BattleGroundRemoveRetinueRequest(tmp);
         Broadcast_AddRequestToOperationResponse(request2);

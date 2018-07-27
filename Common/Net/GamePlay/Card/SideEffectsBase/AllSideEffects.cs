@@ -29,7 +29,7 @@ public static class AllSideEffects
             SideEffectBase se = (SideEffectBase) assembly.CreateInstance(sideEffectNode.Attributes["name"].Value);
             se.SideEffectID = int.Parse(sideEffectNode.Attributes["id"].Value);
             se.Name = sideEffectNode.Attributes["name"].Value;
-            se.Desc = sideEffectNode.Attributes["desc"].Value;
+            se.DescRaw = sideEffectNode.Attributes["desc"].Value;
             addSideEffect(se);
         }
     }
