@@ -39,6 +39,7 @@ internal class HandManager : MonoBehaviour
         {
             cardBase.PoolRecycle();
         }
+
         cards.Clear();
         ClientPlayer = null;
     }
@@ -207,6 +208,8 @@ internal class HandManager : MonoBehaviour
 
         currentFocusCard = focusCard;
         becomeBigger(focusCard);
+        if (currentFocusCard is CardWeapon) ClientPlayer.MyBattleGroundManager.ShowSlotBlooms(SlotTypes.Weapon);
+        if (currentFocusCard is CardShield) ClientPlayer.MyBattleGroundManager.ShowSlotBlooms(SlotTypes.Shield);
     }
 
     internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard)
@@ -216,6 +219,8 @@ internal class HandManager : MonoBehaviour
         {
             currentFocusCard = null;
         }
+
+        if (!Input.GetMouseButton(0)) ClientPlayer.MyBattleGroundManager.StopShowSlotBlooms();
     }
 
     bool isBeginDrag = false;

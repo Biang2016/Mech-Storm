@@ -126,6 +126,7 @@ internal class BattleGroundManager : MonoBehaviour
         {
             moduleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(moduleRetinue);
         }
+
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
     }
 
@@ -220,6 +221,22 @@ internal class BattleGroundManager : MonoBehaviour
         }
 
         BattleEffectsManager.BEM.EffectEnd();
+    }
+
+    public void ShowSlotBlooms(SlotTypes slotType)
+    {
+        foreach (ModuleRetinue retinue in Retinues)
+        {
+            retinue.ShowSlotBloom(slotType);
+        }
+    }
+
+    public void StopShowSlotBlooms()
+    {
+        foreach (ModuleRetinue retinue in Retinues)
+        {
+            retinue.StopShowSlotBloom();
+        }
     }
 
     #region Utils

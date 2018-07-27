@@ -49,8 +49,6 @@ internal class CardWeapon : CardBase
         }
     }
 
-    # endregion
-
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
@@ -59,6 +57,10 @@ internal class CardWeapon : CardBase
         M_WeaponName = CardInfo.BaseInfo.CardName;
         M_WeaponDesc = ((CardInfo_Weapon) cardInfo).GetCardDescShow();
     }
+
+    #endregion
+
+    #region 卡牌交互
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
@@ -69,10 +71,12 @@ internal class CardWeapon : CardBase
                 if (sa.M_Slot.MSlotTypes == SlotTypes.Weapon && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
                     summonWeaponRequest(sa.M_ModuleRetinue);
+                    ClientPlayer.MyBattleGroundManager.StopShowSlotBlooms();
                     return;
                 }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
+        ClientPlayer.MyBattleGroundManager.StopShowSlotBlooms();
         ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 
@@ -92,6 +96,8 @@ internal class CardWeapon : CardBase
         EquipWeaponRequest request = new EquipWeaponRequest(Client.CS.Proxy.ClientId, handCardIndex, battleGroundIndex, 0);
         Client.CS.Proxy.SendMessage(request);
     }
+
+    #endregion
 
     #endregion
 }

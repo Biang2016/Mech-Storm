@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent
+internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,IMouseHoverComponent
 {
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
@@ -260,12 +260,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
     }
 
-    private void OnMouseEnter()
-    {
-        ClientPlayer.MyHandManager.CardOnMouseEnter(this); //通知手牌管理器该聚焦本牌了
-    }
-
-    public void DragComponent_OnMouseDown()
+    public virtual void DragComponent_OnMouseDown()
     {
         ClientPlayer.MyHandManager.BeginDrag();
     }
@@ -290,11 +285,39 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         return 1f;
     }
 
-    public void DragComponnet_DragOutEffects()
+    public virtual void DragComponnet_DragOutEffects()
     {
         transform.position = GameObjectPool.GameObjectPoolPosition;
     }
 
+    public virtual void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
+    {
+    }
+
+    public virtual void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
+    {
+        ClientPlayer.MyHandManager.CardOnMouseEnter(this);
+    }
+
+    public virtual void MouseHoverComponent_OnMouseEnter(Vector3 mousePosition)
+    {
+    }
+
+    public virtual void MouseHoverComponent_OnMouseOver()
+    {
+    }
+
+    public virtual void MouseHoverComponent_OnMouseLeave()
+    {
+    }
+
+    public virtual void MouseHoverComponent_OnMouseLeaveImmediately()
+    {
+    }
+
+    public virtual void MouseHoverComponent_OnMousePressLeaveImmediately()
+    {
+    }
     #endregion
 
     #region  Utils
@@ -311,4 +334,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     }
 
     #endregion
+
+
 }

@@ -9,6 +9,7 @@ internal class MouseHoverManager : MonoBehaviour
 {
     void Awake()
     {
+        cardsLayer = 1 << LayerMask.NameToLayer("Cards");
         modulesLayer = 1 << LayerMask.NameToLayer("Modules");
         retinuesLayer = 1 << LayerMask.NameToLayer("Retinues");
         slotsLayer = 1 << LayerMask.NameToLayer("Slots");
@@ -17,20 +18,20 @@ internal class MouseHoverManager : MonoBehaviour
     void Start()
     {
         hi_ModulesHoverShowBloom = new HoverImmediately(modulesLayer);
+        hi_CardHover = new HoverImmediately(cardsLayer);
         phi_SlotsPressHoverShowBloom = new PressHoverImmediately(slotsLayer);
         hd_ModulesFocusShowPreview = new Focus(modulesLayer | retinuesLayer, GameManager.GM.RetinueDetailPreviewDelaySeconds,100f);
         hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer);
     }
 
+    int cardsLayer;
     int modulesLayer;
     int retinuesLayer;
     int slotsLayer;
 
-    static MouseHoverComponent currentHover; //鼠标悬停目标，立即生效
-    static MouseHoverComponent currentPressHover; //鼠标拖动至的目标，立即生效
-    static MouseHoverComponent currentFocus; //鼠标悬停目标，超过一定时间且移动幅度不太大时生效
 
     private HoverImmediately hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
+    private HoverImmediately hi_CardHover; //当鼠标移到牌上
     private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
     private Focus hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
     private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
@@ -38,6 +39,7 @@ internal class MouseHoverManager : MonoBehaviour
     void Update()
     {
         hi_ModulesHoverShowBloom.Check<ModuleBase>();
+        hi_CardHover.Check<CardBase>();
         phi_SlotsPressHoverShowBloom.Check<SlotAnchor>();
         hd_ModulesFocusShowPreview.Check<ModuleBase>();
 
@@ -60,6 +62,8 @@ internal class MouseHoverManager : MonoBehaviour
         }
 
         private int Layer;
+
+        MouseHoverComponent currentHover; //鼠标悬停目标，立即生效
 
         public void Check<T>() where T : Component
         {
@@ -125,6 +129,8 @@ internal class MouseHoverManager : MonoBehaviour
 
         private int Layer;
 
+        MouseHoverComponent currentPressHover; //鼠标拖动至的目标，立即生效
+
         public void Check<T>() where T : Component
         {
             if (Input.GetMouseButton(0))
@@ -184,6 +190,7 @@ internal class MouseHoverManager : MonoBehaviour
     {
         Vector3 mouseLastPosition;
         private float mouseStopTimeTicker = 0;
+        MouseHoverComponent currentFocus; //鼠标悬停目标，超过一定时间且移动幅度不太大时生效
 
         public Focus(int layer, float delaySeconds, float mouseSpeedThreshold)
         {

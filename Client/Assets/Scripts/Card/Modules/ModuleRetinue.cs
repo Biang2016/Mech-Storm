@@ -584,7 +584,10 @@ internal class ModuleRetinue : ModuleBase
             if (mr.ClientPlayer != ClientPlayer && mr != this)
             {
                 IsBeDraggedHover = true;
-                ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true;
+                if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
+                {
+                    ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true;
+                }
             }
         }
     }
@@ -593,7 +596,10 @@ internal class ModuleRetinue : ModuleBase
     {
         base.MouseHoverComponent_OnMousePressLeaveImmediately();
         IsBeDraggedHover = false;
-        ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = false;
+        if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
+        {
+            ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = false;
+        }
     }
 
     #endregion
@@ -622,6 +628,58 @@ internal class ModuleRetinue : ModuleBase
         yield return new WaitForSeconds(duration);
         SideEffcetBloom.gameObject.SetActive(false);
         BattleEffectsManager.BEM.EffectEnd();
+    }
+
+    private IEnumerator currentShowSlotBloom;
+    private SlotAnchor currentShowSlotAnchor;
+
+    public void ShowSlotBloom(SlotTypes slotType)
+    {
+        StopShowSlotBloom();
+        if (SlotAnchor1.M_Slot.MSlotTypes == slotType)
+        {
+            currentShowSlotBloom = Co_ShowSlotBloom(SlotAnchor1);
+        }
+
+        if (SlotAnchor2.M_Slot.MSlotTypes == slotType)
+        {
+            currentShowSlotBloom = Co_ShowSlotBloom(SlotAnchor2);
+        }
+
+        if (SlotAnchor3.M_Slot.MSlotTypes == slotType)
+        {
+            currentShowSlotBloom = Co_ShowSlotBloom(SlotAnchor3);
+        }
+
+        if (SlotAnchor4.M_Slot.MSlotTypes == slotType)
+        {
+            currentShowSlotBloom = Co_ShowSlotBloom(SlotAnchor4);
+        }
+
+        if (currentShowSlotBloom != null) StartCoroutine(currentShowSlotBloom);
+    }
+
+    public void StopShowSlotBloom()
+    {
+        if (currentShowSlotBloom != null)
+        {
+            StopCoroutine(currentShowSlotBloom);
+            currentShowSlotAnchor.HideHoverShowGO();
+            currentShowSlotBloom = null;
+            currentShowSlotAnchor = null;
+        }
+    }
+
+    IEnumerator Co_ShowSlotBloom(SlotAnchor sa)
+    {
+        currentShowSlotAnchor = sa;
+        while (true)
+        {
+            sa.ShowHoverGO();
+            yield return new WaitForSeconds(0.4f);
+            sa.HideHoverShowGO();
+            yield return new WaitForSeconds(0.4f);
+        }
     }
 
     public void OnAttack()

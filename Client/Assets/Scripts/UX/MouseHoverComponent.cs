@@ -7,9 +7,8 @@ internal class MouseHoverComponent : MonoBehaviour
     /// 鼠标悬停功能，应用于模块等
     /// 实现悬停过程中卡牌展示的功能
     /// </summary>
-
     private IMouseHoverComponent caller;
-    
+
 
     void Awake()
     {
@@ -43,7 +42,7 @@ internal class MouseHoverComponent : MonoBehaviour
                 caller.MouseHoverComponent_OnMouseEnter(cameraPosition);
             }
 
-            if (IsOnFocus && !value)
+            else if (isOnFocus && !value)
             {
                 isOnFocus = value;
                 caller.MouseHoverComponent_OnMouseLeave();
@@ -66,7 +65,7 @@ internal class MouseHoverComponent : MonoBehaviour
                 caller.MouseHoverComponent_OnMouseEnterImmediately(cameraPosition);
             }
 
-            if (IsOnHover && !value)
+            else if (isOnHover && !value)
             {
                 isOnHover = value;
                 caller.MouseHoverComponent_OnMouseLeaveImmediately();
@@ -89,7 +88,7 @@ internal class MouseHoverComponent : MonoBehaviour
                 caller.MouseHoverComponent_OnMousePressEnterImmediately(cameraPosition);
             }
 
-            if (IsOnPressHover && !value)
+            else if (isOnPressHover && !value)
             {
                 isOnPressHover = value;
                 caller.MouseHoverComponent_OnMousePressLeaveImmediately();
