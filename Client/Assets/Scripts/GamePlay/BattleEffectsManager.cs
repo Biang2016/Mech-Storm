@@ -90,6 +90,7 @@ internal class BattleEffectsManager : MonoBehaviour
     {
         BattleEffects.Clear();
         StopAllCoroutines();
+        IsExcuting = false;
     }
 
     #endregion

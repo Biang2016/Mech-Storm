@@ -17,7 +17,12 @@ internal class ClientProxy : ProxyBase
     public override ClientStates ClientState
     {
         get => clientState;
-        set => clientState = value;
+        set
+        {
+            ClientStates before = ClientState;
+            clientState = value;
+            ServerLog.PrintClientStates("客户 " + ClientId + " 状态切换: " + before + " -> " + ClientState);
+        }
     }
 
     public ClientProxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
@@ -69,7 +74,7 @@ internal class ClientProxy : ProxyBase
                 try
                 {
                     Thread thread = new Thread(Server.SV.DoSendToClient);
-                    SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue(),ClientId);
+                    SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue(), ClientId);
                     thread.IsBackground = true;
                     thread.Start(msg);
                 }
@@ -88,7 +93,7 @@ internal class ClientProxy : ProxyBase
         Response();
     }
 
-    public ClientOperationResponseBase CurrentClientRequestResponse;//目前正在生成的响应包
+    public ClientOperationResponseBase CurrentClientRequestResponse; //目前正在生成的响应包
 
     /// <summary>
     /// 此类中处理进入游戏前的所有Request
@@ -103,29 +108,36 @@ internal class ClientProxy : ProxyBase
             {
                 //以下是进入游戏前的请求
                 case CardDeckRequest _:
+                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
                     }
+
                     if (ClientState == ClientStates.GetId || ClientState == ClientStates.SubmitCardDeck)
                     {
                         CardDeckRequest request = (CardDeckRequest) r;
                         CardDeckInfo = request.cardDeckInfo;
                         ClientState = ClientStates.SubmitCardDeck;
                     }
+
                     break;
                 case MatchRequest _:
+                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
                     }
+
                     if (ClientState == ClientStates.SubmitCardDeck)
                     {
                         ClientState = ClientStates.Matching;
                         Server.SV.SGMM.OnClientMatchGames(this);
                     }
+
                     break;
                 case CancelMatchRequest _:
+                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
                     if (ClientState == ClientStates.Matching)
                     {
                         ClientState = ClientStates.SubmitCardDeck;
@@ -152,7 +164,7 @@ internal class ClientProxy : ProxyBase
                         MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest) r);
                         break;
                     case LeaveGameRequest _: //正常退出游戏请求
-                        MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest)r);
+                        MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
                         break;
                     case RetinueAttackRetinueRequest _:
                         MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest) r);

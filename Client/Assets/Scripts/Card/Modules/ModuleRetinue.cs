@@ -144,8 +144,11 @@ internal class ModuleRetinue : ModuleBase
 
     public Renderer PictureBoxRenderer;
 
+    private bool isInitializing = false;
+
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
+        isInitializing = true;
         base.Initiate(cardInfo, clientPlayer);
         M_RetinueName = cardInfo.BaseInfo.CardName;
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
@@ -184,6 +187,9 @@ internal class ModuleRetinue : ModuleBase
             SlotAnchor4.M_ModuleRetinue = this;
             SlotAnchor4.M_Slot.MSlotTypes = cardInfo.SlotInfo.Slot4;
         }
+
+        isInitializing = false;
+        isFirstRound = true;
     }
 
 
@@ -226,7 +232,7 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueLeftLife; }
         set
         {
-            if (m_RetinueLeftLife > value) BattleEffectsManager.BEM.EffectsShow(Co_LifeBeAttacked(), "Co_LifeBeAttacked");
+            if (!isInitializing && m_RetinueLeftLife > value) BattleEffectsManager.BEM.EffectsShow(Co_LifeBeAttacked(), "Co_LifeBeAttacked");
             m_RetinueLeftLife = value;
             initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
             CardNumberSet_RetinueLeftLife.Number = m_RetinueLeftLife;
@@ -315,7 +321,7 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueArmor; }
         set
         {
-            if (m_RetinueArmor > value) BattleEffectsManager.BEM.EffectsShow(Co_ArmorBeAttacked(), "Co_ArmorBeAttacked");
+            if (!isInitializing && m_RetinueArmor > value) BattleEffectsManager.BEM.EffectsShow(Co_ArmorBeAttacked(), "Co_ArmorBeAttacked");
             m_RetinueArmor = value;
             if (M_Shield)
             {
@@ -348,7 +354,7 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueShield; }
         set
         {
-            if (m_RetinueShield > value) BattleEffectsManager.BEM.EffectsShow(Co_ShieldBeAttacked(), "Co_ShieldBeAttacked");
+            if (!isInitializing && m_RetinueShield > value) BattleEffectsManager.BEM.EffectsShow(Co_ShieldBeAttacked(), "Co_ShieldBeAttacked");
             m_RetinueShield = value;
             if (M_Shield)
             {
@@ -485,8 +491,11 @@ internal class ModuleRetinue : ModuleBase
     public bool CanAttack_Pack;
     public bool CanAttack_MA;
 
+    public bool isFirstRound = true; //是否是召唤的第一回合
+
     private bool CheckCanAttack()
     {
+        if (isFirstRound) return false;
         bool canAttack = !M_Weapon && CanAttack_Self && M_RetinueAttack != 0;
         if (M_Weapon && CanAttack_Weapon && M_Weapon.M_WeaponAttack != 0)
         {
@@ -643,6 +652,7 @@ internal class ModuleRetinue : ModuleBase
 
     public void OnEndRound()
     {
+        isFirstRound = false;
     }
 
     #endregion
