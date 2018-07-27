@@ -65,7 +65,6 @@ internal class BattleGroundManager : MonoBehaviour
         retinue.transform.Rotate(Vector3.up, 180);
         Retinues.Insert(retinuePlaceIndex, retinue);
         retinue.M_RetinuePlaceIndex = retinuePlaceIndex;
-
         foreach (ModuleRetinue moduleRetinue in Retinues)
         {
             moduleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(moduleRetinue);
@@ -74,6 +73,7 @@ internal class BattleGroundManager : MonoBehaviour
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
         SetNewRetinuePlace(retinuePlaceIndex);
         BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
+        retinue.OnSummoned();
     }
 
     private int previewRetinuePlace;

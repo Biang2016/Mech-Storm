@@ -20,14 +20,6 @@ internal class ServerBattleGroundManager
     public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex)
     {
         ServerModuleRetinue retinue = new ServerModuleRetinue();
-
-        byte[] tempBytes = new byte[4096];
-        DataStream tmp = new DataStream(tempBytes, true);
-        retinueCardInfo.Serialize(tmp);
-        tmp.Position = 0;
-        var abc = CardInfo_Base.Deserialze(tmp);
-
-
         retinue.Initiate(retinueCardInfo, ServerPlayer);
         retinue.M_RetinuePlaceIndex = retinuePlaceIndex;
         Retinues.Insert(retinuePlaceIndex, retinue);

@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: f9de99dc293e3dc4ca95845c4d72a356
-timeCreated: 1528189503
-licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -36,6 +34,7 @@ ModelImporter:
     100056: BigNumber
     100058: MediumNumber
     100060: SmallNumber
+    100062: SwordMask
     400000: Box001
     400002: Box002
     400004: Camera001.Target
@@ -67,6 +66,7 @@ ModelImporter:
     400056: BigNumber
     400058: MediumNumber
     400060: SmallNumber
+    400062: SwordMask
     2000000: Camera001
     2300000: Box001
     2300002: Box002
@@ -95,6 +95,7 @@ ModelImporter:
     2300048: BigNumber
     2300050: MediumNumber
     2300052: SmallNumber
+    2300054: SwordMask
     3300000: Box001
     3300002: Box002
     3300004: Cylinder001
@@ -122,6 +123,7 @@ ModelImporter:
     3300048: BigNumber
     3300050: MediumNumber
     3300052: SmallNumber
+    3300054: SwordMask
     4300000: Box001
     4300002: Cylinder001
     4300004: Cylinder002
@@ -148,6 +150,7 @@ ModelImporter:
     4300046: BigNumber
     4300048: MediumNumber
     4300050: SmallNumber
+    4300052: SwordMask
     9500000: //RootNode
     10800000: Direct001
   externalObjects:
@@ -224,6 +227,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -248,6 +252,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

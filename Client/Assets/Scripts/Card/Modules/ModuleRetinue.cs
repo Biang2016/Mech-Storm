@@ -37,6 +37,7 @@ internal class ModuleRetinue : ModuleBase
     void Awake()
     {
         gameObjectPool = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool;
+        SwordMaskDefaultPosition = SwordBarMask.transform.localPosition;
     }
 
     void Start()
@@ -147,6 +148,9 @@ internal class ModuleRetinue : ModuleBase
     public GameObject ArmorFill;
     public GameObject ShieldBar;
     public GameObject SwordBar;
+    public GameObject SwordBarMask;
+    private float SwordMaskFullOffset = 0.451f;
+    private Vector3 SwordMaskDefaultPosition;
 
     private bool isInitializing = false;
 
@@ -311,6 +315,8 @@ internal class ModuleRetinue : ModuleBase
                     if (!SwordBar.activeSelf) SwordBar.SetActive(true);
                 }
             }
+
+            RefreshSwordBarMask();
         }
     }
 
@@ -329,6 +335,21 @@ internal class ModuleRetinue : ModuleBase
             m_RetinueWeaponEnergyMax = value;
             initiateNumbers(ref GoNumberSet_RetinueWeaponEnergyMax, ref CardNumberSet_RetinueWeaponEnergyMax, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueWeaponEnergyMax, '/');
             CardNumberSet_RetinueWeaponEnergyMax.Number = m_RetinueWeaponEnergyMax;
+
+            RefreshSwordBarMask();
+        }
+    }
+
+    private void RefreshSwordBarMask()
+    {
+        if (M_RetinueWeaponEnergyMax != 0)
+        {
+            SwordBarMask.transform.localPosition = SwordMaskDefaultPosition;
+            SwordBarMask.transform.Translate(Vector3.back * SwordMaskFullOffset*2 * M_RetinueWeaponEnergy / M_RetinueWeaponEnergyMax, Space.Self);
+        }
+        else
+        {
+            SwordBarMask.transform.localPosition = SwordMaskDefaultPosition;
         }
     }
 
@@ -648,6 +669,10 @@ internal class ModuleRetinue : ModuleBase
     public void OnSummoned()
     {
         CheckCanAttack();
+        foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnSummoned)
+        {
+            BattleEffectsManager.BEM.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#64FFDB"), 0.5f), "ShowSideEffectBloom");
+        }
     }
 
     public void OnDieSideEffects()

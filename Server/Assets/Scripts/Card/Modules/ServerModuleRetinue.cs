@@ -504,8 +504,8 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);
         }
-        
-        ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(new RetinuePlaceInfo(ServerPlayer.ClientId,M_RetinuePlaceIndex));//入队死亡信息，整个结算结束后一并发送request
+
+        ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(new RetinuePlaceInfo(ServerPlayer.ClientId, M_RetinuePlaceIndex)); //入队死亡信息，整个结算结束后一并发送request
         M_IsDead = true;
     }
 

@@ -103,6 +103,9 @@
     <Compile Include="Assets\Scripts\UX\SlotAnchor.cs" />
     <None Include="Assets\LearnShader\ShaderTest.shader" />
     <None Include="Assets\Materials\GameBoardMaterials\BlurShader.shader" />
+    <None Include="Assets\Materials\BarStencil\Bar.shader" />
+    <None Include="Assets\Materials\BarStencil\BarStandard.shader" />
+    <None Include="Assets\Materials\BarStencil\BarMask.shader" />
     <Reference Include="Unity.2D.Animation.Runtime">
       <HintPath>F:/MyCardGame/Client/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
     </Reference>

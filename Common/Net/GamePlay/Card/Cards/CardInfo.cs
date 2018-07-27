@@ -45,7 +45,7 @@ public class CardInfo_Base
     public void Serialize(DataStream writer)
     {
         string type = GetType().ToString();
-        writer.WriteString8(GetType().ToString());
+        writer.WriteString8(type);
         writer.WriteSInt32(CardID);
         BaseInfo.Serialize(writer);
         UpgradeInfo.Serialize(writer);
@@ -172,7 +172,7 @@ public class CardInfo_Retinue : CardInfo_Base
         }
 
         List<SideEffectBase> new_SideEffects_OnSummoned = new List<SideEffectBase>();
-        foreach (SideEffectBase sideEffectBase in new_SideEffects_OnSummoned)
+        foreach (SideEffectBase sideEffectBase in SideEffects_OnSummoned)
         {
             new_SideEffects_OnSummoned.Add((SideEffectBase) ((ICloneable) sideEffectBase).Clone());
         }

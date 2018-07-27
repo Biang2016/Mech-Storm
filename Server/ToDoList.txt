@@ -86,7 +86,11 @@ sideEffect序列化问题有bug
 修复了第一回合随从就能进攻的bug
 修复了卡牌描述显示错误的bug
 增加选中、hover装备牌显示对应slotbloom的功能
+优化retinue面板数值显示
+制作了SwordBar的mask
+添加了AddRetinueLife技能
 
+slot 和 slotAnchor合并
 
 卡牌描述里自动换行处理、自动文本大小
 

@@ -112,6 +112,7 @@ internal class ClientProxy : ProxyBase
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
+                        ClientState = ClientStates.GetId;
                     }
 
                     if (ClientState == ClientStates.GetId || ClientState == ClientStates.SubmitCardDeck)
@@ -127,6 +128,7 @@ internal class ClientProxy : ProxyBase
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
+                        ClientState = ClientStates.SubmitCardDeck;
                     }
 
                     if (ClientState == ClientStates.SubmitCardDeck)
@@ -138,6 +140,12 @@ internal class ClientProxy : ProxyBase
                     break;
                 case CancelMatchRequest _:
                     ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
+                    if (ClientState == ClientStates.Playing)
+                    {
+                        Server.SV.SGMM.RemoveGame(this);
+                        ClientState = ClientStates.Matching;
+                    }
+
                     if (ClientState == ClientStates.Matching)
                     {
                         ClientState = ClientStates.SubmitCardDeck;
