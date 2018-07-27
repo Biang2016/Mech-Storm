@@ -69,10 +69,12 @@ internal class CardShield : CardBase
                 if (sa.M_Slot.MSlotTypes == SlotTypes.Shield && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
                     summonShieldRequest(sa.M_ModuleRetinue);
+                    ClientPlayer.MyBattleGroundManager.StopShowSlotBlooms();
                     return;
                 }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
+        ClientPlayer.MyBattleGroundManager.StopShowSlotBlooms();
         ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 

@@ -144,6 +144,10 @@ internal class ModuleRetinue : ModuleBase
 
     public Renderer PictureBoxRenderer;
 
+    public GameObject ArmorFill;
+    public GameObject ShieldBar;
+    public GameObject SwordBar;
+
     private bool isInitializing = false;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
@@ -156,6 +160,8 @@ internal class ModuleRetinue : ModuleBase
         M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
         M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
         M_RetinueShield = cardInfo.BattleInfo.BasicShield;
+        M_RetinueWeaponEnergy = 0;
+        M_RetinueWeaponEnergyMax = 0;
         CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
         ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnHoverBloomColor);
         ChangeBloomColor(RetinueBloom, GameManager.GM.RetinueBloomColor);
@@ -293,6 +299,18 @@ internal class ModuleRetinue : ModuleBase
 
             initiateNumbers(ref GoNumberSet_RetinueWeaponEnergy, ref CardNumberSet_RetinueWeaponEnergy, NumberSize.Medium, CardNumberSet.TextAlign.Left, Block_RetinueWeaponEnergy);
             CardNumberSet_RetinueWeaponEnergy.Number = m_RetinueWeaponEnergy;
+
+            if (SwordBar)
+            {
+                if (m_RetinueWeaponEnergy == 0)
+                {
+                    SwordBar.SetActive(false);
+                }
+                else
+                {
+                    if (!SwordBar.activeSelf) SwordBar.SetActive(true);
+                }
+            }
         }
     }
 
@@ -337,6 +355,15 @@ internal class ModuleRetinue : ModuleBase
             {
                 CardNumberSet_RetinueArmor.Number = m_RetinueArmor;
             }
+
+            if (m_RetinueArmor == 0)
+            {
+                if (ArmorFill) ArmorFill.SetActive(false);
+            }
+            else
+            {
+                if (ArmorFill && !ArmorFill.activeSelf) ArmorFill.SetActive(true);
+            }
         }
     }
 
@@ -369,6 +396,16 @@ internal class ModuleRetinue : ModuleBase
             else
             {
                 CardNumberSet_RetinueShield.Number = m_RetinueShield;
+            }
+
+
+            if (m_RetinueShield == 0)
+            {
+                if (ShieldBar) ShieldBar.SetActive(false);
+            }
+            else
+            {
+                if (ShieldBar && !ShieldBar.activeSelf) ShieldBar.SetActive(true);
             }
         }
     }
@@ -496,8 +533,8 @@ internal class ModuleRetinue : ModuleBase
     private bool CheckCanAttack()
     {
         if (isFirstRound) return false;
-        bool canAttack = !M_Weapon && CanAttack_Self && M_RetinueAttack != 0;
-        if (M_Weapon && CanAttack_Weapon && M_Weapon.M_WeaponAttack != 0)
+        bool canAttack = false;
+        if (CanAttack_Self && M_Weapon && CanAttack_Weapon && M_Weapon.M_WeaponAttack != 0 && M_RetinueWeaponEnergy > 0)
         {
             canAttack = true;
         }

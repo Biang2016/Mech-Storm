@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 65040203961350606}
   - component: {fileID: 114344122467470286}
   - component: {fileID: 114737248657093440}
+  - component: {fileID: 114278940025908338}
   m_Layer: 8
   m_Name: RetinueCard
   m_TagString: Card
@@ -1546,6 +1547,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mSlotTypes: 0
+--- !u!114 &114278940025908338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1093372767002052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114279553799914154
 MonoBehaviour:
   m_ObjectHideFlags: 1

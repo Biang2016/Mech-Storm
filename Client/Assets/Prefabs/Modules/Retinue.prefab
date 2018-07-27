@@ -709,7 +709,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1381838738798928}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.292, y: 0.02, z: 0.56}
+  m_LocalPosition: {x: 0.292, y: 0.02, z: 0.534}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children: []
   m_Father: {fileID: 4389823789822908}
@@ -891,7 +891,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1689302088787208}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.015, z: 0}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4389823789822908}
@@ -904,7 +904,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1517867073301580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1211996, y: -4.755421, z: -1.4072855}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4348435769471214}
@@ -2703,11 +2703,15 @@ MonoBehaviour:
   Block_RetinueShield: {fileID: 1616526082676832}
   Block_RetinueArmor: {fileID: 1381838738798928}
   PictureBoxRenderer: {fileID: 23523349721931090}
+  ArmorFill: {fileID: 1327442383361756}
+  ShieldBar: {fileID: 1991036516327290}
+  SwordBar: {fileID: 1142600874657134}
   CanAttack_Self: 0
   CanAttack_Weapon: 0
   CanAttack_Shield: 0
   CanAttack_Pack: 0
   CanAttack_MA: 0
+  isFirstRound: 1
 --- !u!114 &114246604267631448
 MonoBehaviour:
   m_ObjectHideFlags: 1
