@@ -25,11 +25,19 @@ internal class BattleEffectsManager : MonoBehaviour
 
     void Update()
     {
-        if (!IsExcuting && BattleEffects.Count != 0)
+        if (!IsExcuting_Main && BattleEffects_Main.Count != 0)
         {
-            SideEffect se = BattleEffects.Dequeue();
+            SideEffect se = BattleEffects_Main.Dequeue();
             StartCoroutine(se.Enumerator);
-            IsExcuting = true;
+            IsExcuting_Main = true;
+            ClientLog.CL.PrintBattleEffects(se.MethodName);
+        }
+
+        if (!IsExcuting_Sub && BattleEffects_Sub.Count != 0)
+        {
+            SideEffect se = BattleEffects_Sub.Dequeue();
+            StartCoroutine(se.Enumerator);
+            IsExcuting_Sub = true;
             ClientLog.CL.PrintBattleEffects(se.MethodName);
         }
 
@@ -59,9 +67,9 @@ internal class BattleEffectsManager : MonoBehaviour
 
     #region 协程效果的队列（如战斗特效）
 
-    private bool IsExcuting = false;
+    public bool IsExcuting_Main = false;
 
-    private Queue<SideEffect> BattleEffects = new Queue<SideEffect>();
+    private Queue<SideEffect> BattleEffects_Main = new Queue<SideEffect>();
 
     private class SideEffect
     {
@@ -78,19 +86,45 @@ internal class BattleEffectsManager : MonoBehaviour
     public void EffectsShow(IEnumerator enumerator,string methodName)
     {
         SideEffect se=new SideEffect(enumerator,methodName);
-        BattleEffects.Enqueue(se);
+        BattleEffects_Main.Enqueue(se);
     }
 
     public void EffectEnd()
     {
-        IsExcuting = false;
+        IsExcuting_Main = false;
     }
 
     public void AllEffectsEnd()
     {
-        BattleEffects.Clear();
+        BattleEffects_Main.Clear();
         StopAllCoroutines();
-        IsExcuting = false;
+        IsExcuting_Main = false;
+    }
+
+    #endregion
+
+    #region 协程效果的队列2（如战斗特效）
+
+    public bool IsExcuting_Sub = false;
+
+    private Queue<SideEffect> BattleEffects_Sub = new Queue<SideEffect>();
+
+    public void EffectsShow_Sub(IEnumerator enumerator,string methodName)
+    {
+        SideEffect se=new SideEffect(enumerator,methodName);
+        BattleEffects_Sub.Enqueue(se);
+    }
+
+    public void EffectEnd_Sub()
+    {
+        IsExcuting_Sub = false;
+    }
+
+    public void AllEffectsEnd_Sub()
+    {
+        BattleEffects_Sub.Clear();
+        StopAllCoroutines();
+        IsExcuting_Sub = false;
     }
 
     #endregion

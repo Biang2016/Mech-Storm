@@ -671,7 +671,7 @@ internal class ModuleRetinue : ModuleBase
         CheckCanAttack();
         foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnSummoned)
         {
-            BattleEffectsManager.BEM.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#64FFDB"), 0.5f), "ShowSideEffectBloom");
+            BattleEffectsManager.BEM.EffectsShow_Sub(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#64FFDB"), 0.5f), "ShowSideEffectBloom");
         }
     }
 
@@ -742,6 +742,7 @@ internal class ModuleRetinue : ModuleBase
             sa.HideHoverShowGO();
             yield return new WaitForSeconds(0.4f);
         }
+        BattleEffectsManager.BEM.EffectEnd();
     }
 
     public void OnAttack()
