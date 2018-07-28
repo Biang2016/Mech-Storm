@@ -14,4 +14,6 @@ public class GamePlaySettings
     public static int BeginCost = 20;
     public static int MaxCost = 20;
     public static int CostIncrease = 1;
+
+    public static bool SuffleCardDeck = false;
 }

@@ -188,8 +188,11 @@ internal class ServerGameManager
         RetinueAttackRetinueServerRequest request = new RetinueAttackRetinueServerRequest(r.AttackRetinueClientId, r.AttackRetinueId, r.BeAttackedRetinueClientId, r.BeAttackedRetinueId);
         Broadcast_AddRequestToOperationResponse(request);
 
-        ServerModuleRetinue attackRetinue = GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
-        ServerModuleRetinue beAttackedRetinue = GetPlayerByClientId(r.BeAttackedRetinueClientId).MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
+        ServerPlayer cpat = GetPlayerByClientId(r.AttackRetinueClientId);
+        ServerPlayer cpba = GetPlayerByClientId(r.BeAttackedRetinueClientId);
+
+        ServerModuleRetinue attackRetinue = cpat.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
+        ServerModuleRetinue beAttackedRetinue = cpba.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
 
         List<int> attackSeries = attackRetinue.AllModulesAttack();
         foreach (int attack in attackSeries)

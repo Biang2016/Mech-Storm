@@ -4,24 +4,24 @@ using System.Collections.Generic;
 public class DrawCardRequest : ServerRequestBase
 {
     public int clientId;
-    public List<int> cardIds = new List<int>();
+    public List<CardIdAndInstanceId> cardInfos = new List<CardIdAndInstanceId>();
     public bool isShow;
 
     public DrawCardRequest()
     {
     }
 
-    public DrawCardRequest(int clientId, int cardId, bool isShow)
+    public DrawCardRequest(int clientId, CardIdAndInstanceId cardInfo, bool isShow)
     {
         this.clientId = clientId;
-        this.cardIds.Add(cardId);
+        this.cardInfos.Add(cardInfo);
         this.isShow = isShow;
     }
 
-    public DrawCardRequest(int clientId, List<int> cardIds, bool isShow)
+    public DrawCardRequest(int clientId, List<CardIdAndInstanceId> cardInfos, bool isShow)
     {
         this.clientId = clientId;
-        this.cardIds.AddRange(cardIds.ToArray());
+        this.cardInfos.AddRange(cardInfos.ToArray());
         this.isShow = isShow;
     }
 
@@ -39,18 +39,23 @@ public class DrawCardRequest : ServerRequestBase
     {
         base.Serialize(writer);
         writer.WriteSInt32(clientId);
-        writer.WriteSInt32(cardIds.Count);
+        writer.WriteSInt32(cardInfos.Count);
         if (isShow)
         {
             writer.WriteByte(0x01);
-            foreach (int cardId in cardIds)
+            foreach (CardIdAndInstanceId cardInfo in cardInfos)
             {
-                writer.WriteSInt32(cardId);
+                writer.WriteSInt32(cardInfo.CardId);
+                writer.WriteSInt32(cardInfo.CardInstanceId);
             }
         }
         else
         {
             writer.WriteByte(0x00);
+            foreach (CardIdAndInstanceId cardInfo in cardInfos)
+            {
+                writer.WriteSInt32(cardInfo.CardInstanceId);
+            }
         }
     }
 
@@ -64,12 +69,19 @@ public class DrawCardRequest : ServerRequestBase
             isShow = true;
             for (int i = 0; i < cardCount; i++)
             {
-                cardIds.Add(reader.ReadSInt32());
+                int cardId = reader.ReadSInt32();
+                int cardInstanceId = reader.ReadSInt32();
+                cardInfos.Add(new CardIdAndInstanceId(cardId, cardInstanceId));
             }
         }
         else
         {
             isShow = false;
+            for (int i = 0; i < cardCount; i++)
+            {
+                int cardInstanceId = reader.ReadSInt32();
+                cardInfos.Add(new CardIdAndInstanceId(999, cardInstanceId));
+            }
         }
     }
 
@@ -77,16 +89,28 @@ public class DrawCardRequest : ServerRequestBase
     {
         string log = base.DeserializeLog();
         log += " [clientId]=" + clientId;
-        log += " [cardCount]=" + cardIds.Count;
+        log += " [cardCount]=" + cardInfos.Count;
         if (isShow)
         {
-            log += " [cardId]=";
-            foreach (int cardId in cardIds)
+            log += " [cardInfo]=";
+            foreach (CardIdAndInstanceId cardInfo in cardInfos)
             {
-                log += cardId + ", ";
+                log += cardInfo.CardId + "[" + cardInfo.CardInstanceId + "], ";
             }
         }
 
         return log;
+    }
+
+    public struct CardIdAndInstanceId
+    {
+        public int CardId;
+        public int CardInstanceId;
+
+        public CardIdAndInstanceId(int cardId, int cardInstanceId)
+        {
+            CardId = cardId;
+            CardInstanceId = cardInstanceId;
+        }
     }
 }

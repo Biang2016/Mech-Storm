@@ -29,7 +29,7 @@ public class CardDeck
         M_CardDeckInfo = cdi;
         Cards = AllCards.GetCards(M_CardDeckInfo.CardIDs);
         checkEmpty();
-        //SuffleSelf();
+        if (GamePlaySettings.SuffleCardDeck) SuffleSelf();
     }
 
     public CardInfo_Type FindATypeOfCard<CardInfo_Type>() where CardInfo_Type : CardInfo_Base
@@ -38,7 +38,7 @@ public class CardDeck
         {
             if (cb is CardInfo_Type)
             {
-                return (CardInfo_Type)cb;
+                return (CardInfo_Type) cb;
             }
         }
 
@@ -54,7 +54,7 @@ public class CardDeck
             if (cb is CardInfo_Type)
             {
                 count++;
-                resList.Add((CardInfo_Type)cb);
+                resList.Add((CardInfo_Type) cb);
                 if (count >= cardNumber)
                 {
                     break;
@@ -195,4 +195,3 @@ public struct CardDeckInfo
         CardNumber = cardIDs.Length;
     }
 }
-

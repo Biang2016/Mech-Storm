@@ -219,6 +219,7 @@ internal class ModuleRetinue : ModuleBase
         }
     }
 
+    [SerializeField]
     private int m_RetinueID;
 
     public int M_RetinueID

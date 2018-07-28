@@ -89,8 +89,7 @@ internal class CardShield : CardBase
     //装备武器
     private void summonShieldRequest(ModuleRetinue moduleRetinue)
     {
-        int battleGroundIndex = ClientPlayer.MyBattleGroundManager.GetRetinuePlaceIndex(moduleRetinue);
-        EquipShieldRequest request = new EquipShieldRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, 0);
+        EquipShieldRequest request = new EquipShieldRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, moduleRetinue.M_RetinueID, 0);
         Client.CS.Proxy.SendMessage(request);
     }
 

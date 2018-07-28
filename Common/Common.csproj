@@ -52,9 +52,9 @@
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffectManager.cs" />
     <Compile Include="Net\GamePlay\DragPurpose.cs" />
     <Compile Include="Net\GamePlay\Player.cs" />
-    <Compile Include="Net\GamePlay\Shield.cs" />
-    <Compile Include="Net\GamePlay\Slot.cs" />
-    <Compile Include="Net\GamePlay\Weapon.cs" />
+    <Compile Include="Net\GamePlay\ShieldTypes.cs" />
+    <Compile Include="Net\GamePlay\SlotTypes.cs" />
+    <Compile Include="Net\GamePlay\WeaponTypes.cs" />
     <Compile Include="Net\Protocol\ProxyBase.cs" />
     <Compile Include="Net\Protocol\GamePlaySettings.cs" />
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />

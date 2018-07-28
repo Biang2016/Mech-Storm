@@ -38,10 +38,12 @@ internal class ServerHandManager
     internal void DrawCards(int cardNumber)
     {
         List<CardInfo_Base> newCardsInfo = ServerPlayer.MyCardDeckManager.DrawCardsOnTop(cardNumber);
+        List<DrawCardRequest.CardIdAndInstanceId> infos = new List<DrawCardRequest.CardIdAndInstanceId>();
         foreach (CardInfo_Base cardInfoBase in newCardsInfo)
         {
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfoBase, ServerPlayer);
             newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
+            infos.Add(new DrawCardRequest.CardIdAndInstanceId(cardInfoBase.CardID, newCard.M_CardInstanceId));
             cards.Add(newCard);
             cardNumber++;
             if (cardNumber >= GamePlaySettings.MaxHandCard)
@@ -49,29 +51,42 @@ internal class ServerHandManager
                 break;
             }
         }
+
+        OnPlayerGetCards(infos);
     }
 
     internal void GetACardByID(int cardID)
     {
         CardInfo_Base cardInfo = AllCards.GetCard(cardID);
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer);
-        ServerPlayer.MyCardDeckManager.OnPlayerGetCard(cardID);
         newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
+        OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         cards.Add(newCard);
     }
 
     internal void DrawRetinueCard()
     {
         CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawRetinueCard();
-        if (newCardInfo == null)
-        {
-            ServerLog.Print("No Card");
-            return;
-        }
-
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
         newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
+        OnPlayerGetCard(newCardInfo.CardID, newCard.M_CardInstanceId);
         cards.Add(newCard);
+    }
+
+    public void OnPlayerGetCard(int cardId, int cardInstanceId)
+    {
+        DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, new DrawCardRequest.CardIdAndInstanceId(cardId, cardInstanceId), true);
+        DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, new DrawCardRequest.CardIdAndInstanceId(cardId, cardInstanceId), false);
+        ServerPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request1);
+        ServerPlayer?.MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request2);
+    }
+
+    public void OnPlayerGetCards(List<DrawCardRequest.CardIdAndInstanceId> cardInfos)
+    {
+        DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, cardInfos, true);
+        DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, cardInfos, false);
+        ServerPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request1);
+        ServerPlayer?.MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request2);
     }
 
     internal void DropCard(int cardInstanceId)
@@ -95,7 +110,7 @@ internal class ServerHandManager
 
     internal void UseCard(ServerCardBase useCard)
     {
-        UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, cards.IndexOf(useCard));
+        UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         cards.Remove(useCard);
     }

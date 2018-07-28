@@ -91,9 +91,7 @@ internal class CardWeapon : CardBase
     //装备武器
     private void summonWeaponRequest(ModuleRetinue moduleRetinue)
     {
-        int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
-        int battleGroundIndex = ClientPlayer.MyBattleGroundManager.GetRetinuePlaceIndex(moduleRetinue);
-        EquipWeaponRequest request = new EquipWeaponRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, 0);
+        EquipWeaponRequest request = new EquipWeaponRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, moduleRetinue.M_RetinueID, 0);
         Client.CS.Proxy.SendMessage(request);
     }
 

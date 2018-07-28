@@ -44,11 +44,12 @@ internal class HandManager : MonoBehaviour
         ClientPlayer = null;
     }
 
-    public void GetCard(int cardId)
+    public void GetCard(int cardId, int cardInstanceId)
     {
         if (ClientPlayer == null) return;
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardId);
         CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer);
+        newCardBase.M_CardInstanceId = cardInstanceId;
         cards.Add(newCardBase);
         RefreshCardsPlace();
     }

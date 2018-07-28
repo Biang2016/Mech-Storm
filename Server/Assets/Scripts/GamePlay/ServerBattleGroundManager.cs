@@ -41,14 +41,6 @@ internal class ServerBattleGroundManager
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
-    public void RemoveRetinueTogather(ServerModuleRetinue retinue) //群杀时采用的方法
-    {
-        int battleGroundIndex = Retinues.IndexOf(retinue);
-        if (battleGroundIndex == -1) return;
-        Retinues.Remove(retinue);
-        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
-    }
-
     public void EquipWeapon(EquipWeaponRequest r)
     {
         ServerModuleWeapon weapon = new ServerModuleWeapon();
@@ -83,8 +75,10 @@ internal class ServerBattleGroundManager
 
         while (Retinues.Count > 0)
         {
-            RemoveRetinueTogather(Retinues[0]);
+            Retinues.Clear();
         }
+
+        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
     }
 
     public void AddLifeForRandomRetinue(int value) //本方增加随机随从生命
@@ -103,9 +97,17 @@ internal class ServerBattleGroundManager
 
     #region Utils
 
-    public ServerModuleRetinue GetRetinue(int retinuePlaceIndex)
+    public ServerModuleRetinue GetRetinue(int retinueId)
     {
-        return Retinues[retinuePlaceIndex];
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        {
+            if (serverModuleRetinue.M_RetinueID == retinueId)
+            {
+                return serverModuleRetinue;
+            }
+        }
+
+        return null;
     }
 
     public ServerModuleRetinue GetRandomRetinue()

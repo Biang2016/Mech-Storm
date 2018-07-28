@@ -226,16 +226,9 @@ internal class RoundManager : MonoBehaviour
 
     private void SetPlayersCost(PlayerCostChangeRequest r)
     {
-        if (r.clinetId == Client.CS.Proxy.ClientId)
-        {
-            SelfClientPlayer.DoChangeCost(r);
-            SelfClientPlayer.MyHandManager.RefreshAllCardUsable();
-        }
-        else
-        {
-            EnemyClientPlayer.DoChangeCost(r);
-            EnemyClientPlayer.MyHandManager.RefreshAllCardUsable();
-        }
+        ClientPlayer cp = GetPlayerByClientId(r.clinetId);
+        cp.DoChangeCost(r);
+        cp.MyHandManager.RefreshAllCardUsable();
     }
 
     private void SetPlayerTurn(PlayerTurnRequest r) //服务器说某玩家回合开始
@@ -352,32 +345,14 @@ internal class RoundManager : MonoBehaviour
 
     private void OnBattleGroundAddRetinue_PrePass(BattleGroundAddRetinueRequest r)
     {
-        BattleGroundManager bgm;
-        if (r.clientId == Client.CS.Proxy.ClientId)
-        {
-            bgm = SelfClientPlayer.MyBattleGroundManager;
-        }
-        else
-        {
-            bgm = EnemyClientPlayer.MyBattleGroundManager;
-        }
-
-        bgm.AddRetinue_PrePass(r.cardInfo, r.battleGroundIndex,r.retinueId);
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyBattleGroundManager.AddRetinue_PrePass(r.cardInfo, r.battleGroundIndex, r.retinueId);
     }
 
     private void OnBattleGroundAddRetinue(BattleGroundAddRetinueRequest r)
     {
-        BattleGroundManager bgm;
-        if (r.clientId == Client.CS.Proxy.ClientId)
-        {
-            bgm = SelfClientPlayer.MyBattleGroundManager;
-        }
-        else
-        {
-            bgm = EnemyClientPlayer.MyBattleGroundManager;
-        }
-
-        bgm.AddRetinue(r.cardInfo, r.battleGroundIndex,r.retinueId);
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyBattleGroundManager.AddRetinue(r.cardInfo, r.battleGroundIndex, r.retinueId);
     }
 
     private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
@@ -412,68 +387,35 @@ internal class RoundManager : MonoBehaviour
 
     private void OnPlayerDrawCard(DrawCardRequest r)
     {
-        if (r.clientId == Client.CS.Proxy.ClientId)
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        foreach (DrawCardRequest.CardIdAndInstanceId respCardId in r.cardInfos)
         {
-            foreach (int respCardId in r.cardIds)
-            {
-                SelfClientPlayer.MyHandManager.GetCard(respCardId);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < r.cardIds.Count; i++)
-            {
-                EnemyClientPlayer.MyHandManager.GetCard(999); //空白牌，隐藏防止对方知道
-            }
+            cp.MyHandManager.GetCard(respCardId.CardId, respCardId.CardInstanceId);
         }
     }
 
     private void OnPlayerDropCard(DropCardRequest r)
     {
-        if (r.clientId == Client.CS.Proxy.ClientId)
-        {
-            SelfClientPlayer.MyHandManager.DropCard(r.handCardInstanceId);
-        }
-        else
-        {
-            EnemyClientPlayer.MyHandManager.DropCard(r.handCardInstanceId);
-        }
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyHandManager.DropCard(r.handCardInstanceId);
     }
 
     private void OnPlayerUseCard(UseCardRequest r)
     {
-        if (r.clientId == Client.CS.Proxy.ClientId)
-        {
-            SelfClientPlayer.MyHandManager.UseCard(r.handCardInstanceId);
-        }
-        else
-        {
-            EnemyClientPlayer.MyHandManager.UseCard(r.handCardInstanceId);
-        }
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyHandManager.UseCard(r.handCardInstanceId);
     }
 
     private void OnEquipWeapon(EquipWeaponServerRequest r)
     {
-        if (r.clientId == Client.CS.Proxy.ClientId)
-        {
-            SelfClientPlayer.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.retinueId);
-        }
-        else
-        {
-            EnemyClientPlayer.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.retinueId);
-        }
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.retinueId);
     }
 
     private void OnEquipShield(EquipShieldServerRequest r)
     {
-        if (r.clientId == Client.CS.Proxy.ClientId)
-        {
-            SelfClientPlayer.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId);
-        }
-        else
-        {
-            EnemyClientPlayer.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId);
-        }
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId);
     }
 
     public void OnRetinueAttackRetinue(RetinueAttackRetinueServerRequest r)
