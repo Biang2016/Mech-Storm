@@ -4,8 +4,7 @@ using System.Collections.Generic;
 public class DrawCardRequest : ServerRequestBase
 {
     public int clientId;
-    public int cardCount;
-    public List<int> cardIds=new List<int>();
+    public List<int> cardIds = new List<int>();
     public bool isShow;
 
     public DrawCardRequest()
@@ -59,7 +58,7 @@ public class DrawCardRequest : ServerRequestBase
     {
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
-        cardCount = reader.ReadSInt32();
+        int cardCount = reader.ReadSInt32();
         if (reader.ReadByte() == 0x01)
         {
             isShow = true;
@@ -78,7 +77,7 @@ public class DrawCardRequest : ServerRequestBase
     {
         string log = base.DeserializeLog();
         log += " [clientId]=" + clientId;
-        log += " [cardCount]=" + cardCount;
+        log += " [cardCount]=" + cardIds.Count;
         if (isShow)
         {
             log += " [cardId]=";

@@ -100,7 +100,7 @@ internal class ModuleShield : ModuleBase
 
         set
         {
-            if (m_ShieldArmor > value) BattleEffectsManager.BEM.EffectsShow(Co_ArmorBeAttacked(value <= 0), "Co_ArmorBeAttacked");
+            if (m_ShieldArmor > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ArmorBeAttacked(value <= 0), "Co_ArmorBeAttacked");
             m_ShieldArmor = value;
             if (Block_ShieldArmor)
             {
@@ -118,7 +118,7 @@ internal class ModuleShield : ModuleBase
 
         set
         {
-            if (m_ShieldShield > value) BattleEffectsManager.BEM.EffectsShow(Co_ShieldBeAttacked(value <= 0), "Co_ShieldBeAttacked");
+            if (m_ShieldShield > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShieldBeAttacked(value <= 0), "Co_ShieldBeAttacked");
             m_ShieldShield = value;
             if (Block_ShieldShield)
             {
@@ -136,15 +136,15 @@ internal class ModuleShield : ModuleBase
 
     IEnumerator Co_ShieldBeAttacked(bool isDead)
     {
-        if (isDead) BattleEffectsManager.BEM.EffectsShow(Co_DelayPoolRecycle(), "Co_ShieldBeAttacked");
-        BattleEffectsManager.BEM.EffectEnd();
+        if (isDead) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_DelayPoolRecycle(), "Co_ShieldBeAttacked");
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
         yield return null;
     }
 
     IEnumerator Co_ArmorBeAttacked(bool isDead)
     {
-        if (isDead) BattleEffectsManager.BEM.EffectsShow(Co_DelayPoolRecycle(), "Co_ArmorBeAttacked");
-        BattleEffectsManager.BEM.EffectEnd();
+        if (isDead) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_DelayPoolRecycle(), "Co_ArmorBeAttacked");
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
         yield return null;
     }
 

@@ -122,6 +122,14 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
     }
 
+    private int m_CardInstanceId;
+
+    public int M_CardInstanceId
+    {
+        get { return m_CardInstanceId; }
+        set { m_CardInstanceId = value; }
+    }
+
     private int m_CardPlaceIndex;
 
     public int M_CardPlaceIndex

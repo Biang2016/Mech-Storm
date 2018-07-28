@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-internal class SlotAnchor : MonoBehaviour,IMouseHoverComponent
+internal class SlotAnchor : MonoBehaviour, IMouseHoverComponent
 {
     public Slot M_Slot;
     internal ModuleRetinue M_ModuleRetinue;
@@ -14,27 +14,27 @@ internal class SlotAnchor : MonoBehaviour,IMouseHoverComponent
 
     void Start()
     {
-
     }
 
     void Update()
     {
-
     }
 
-    public GameObject OnHoverShowGO;
+    public Renderer OnHoverShowBloom;
 
     public void ShowHoverGO()
     {
-        if (OnHoverShowGO) {
-            OnHoverShowGO.SetActive(true);
+        if (OnHoverShowBloom)
+        {
+            OnHoverShowBloom.enabled = true;
         }
     }
 
     public void HideHoverShowGO()
     {
-        if (OnHoverShowGO) {
-            OnHoverShowGO.SetActive(false);
+        if (OnHoverShowBloom)
+        {
+            OnHoverShowBloom.enabled = false;
         }
     }
 
@@ -47,7 +47,7 @@ internal class SlotAnchor : MonoBehaviour,IMouseHoverComponent
             {
                 case SlotTypes.Weapon:
                     CardWeapon cw = DragManager.DM.CurrentDrag.GetComponent<CardWeapon>();
-                    if (cw&&cw.ClientPlayer== M_Slot.ClientPlayer)
+                    if (cw && cw.ClientPlayer == M_Slot.ClientPlayer)
                     {
                         ShowHoverGO();
                     }
@@ -55,7 +55,7 @@ internal class SlotAnchor : MonoBehaviour,IMouseHoverComponent
                     break;
                 case SlotTypes.Shield:
                     CardShield cs = DragManager.DM.CurrentDrag.GetComponent<CardShield>();
-                    if (cs&&cs.ClientPlayer== M_Slot.ClientPlayer)
+                    if (cs && cs.ClientPlayer == M_Slot.ClientPlayer)
                     {
                         ShowHoverGO();
                     }
@@ -91,4 +91,3 @@ internal class SlotAnchor : MonoBehaviour,IMouseHoverComponent
         HideHoverShowGO();
     }
 }
-

@@ -18,12 +18,12 @@ internal abstract class ServerCardBase
         set { m_Cost = value; }
     }
 
-    private int m_CardPlaceIndex;
+    private int m_CardInstanceId;
 
-    public int M_CardPlaceIndex
+    public int M_CardInstanceId
     {
-        get { return m_CardPlaceIndex; }
-        set { m_CardPlaceIndex = value; }
+        get { return m_CardInstanceId; }
+        set { m_CardInstanceId = value; }
     }
 
     private bool usable;

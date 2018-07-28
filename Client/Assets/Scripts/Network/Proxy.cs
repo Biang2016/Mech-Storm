@@ -72,6 +72,10 @@ internal class Proxy : ProxyBase
         else
         {
             ClientOperationResponseBase request = (ClientOperationResponseBase) r;
+            foreach (ServerRequestBase requestSideEffect in request.SideEffects)//请求预处理，提取关键信息，如随从死亡、弃牌等会影响客户端交互的信息
+            {
+                RoundManager.RM.ResponseToSideEffects_PrePass(requestSideEffect);
+            }
             foreach (ServerRequestBase requestSideEffect in request.SideEffects)
             {
                 RoundManager.RM.ResponseToSideEffects(requestSideEffect);

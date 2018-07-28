@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,18 +11,6 @@ internal class BattleGroundManager : MonoBehaviour
     internal ClientPlayer ClientPlayer;
     private List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
 
-    private void Awake()
-    {
-    }
-
-    private void Start()
-    {
-    }
-
-    private void Update()
-    {
-    }
-
     public void Reset()
     {
         foreach (ModuleRetinue moduleRetinue in Retinues)
@@ -32,9 +21,8 @@ internal class BattleGroundManager : MonoBehaviour
         ClientPlayer = null;
         previewRetinuePlace = -1;
         Retinues.Clear();
-        removeRetinues.Clear();
+        RemoveRetinues.Clear();
     }
-
 
     internal int ComputePosition(Vector3 dragLastPosition)
     {
@@ -52,7 +40,7 @@ internal class BattleGroundManager : MonoBehaviour
         return Retinues[index];
     }
 
-    public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex)
+    public void AddRetinue_PrePass(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex, int retinueId)
     {
         if (ClientPlayer == null) return;
         if (previewRetinuePlace != -1)
@@ -64,15 +52,16 @@ internal class BattleGroundManager : MonoBehaviour
         retinue.Initiate(retinueCardInfo, ClientPlayer);
         retinue.transform.Rotate(Vector3.up, 180);
         Retinues.Insert(retinuePlaceIndex, retinue);
-        retinue.M_RetinuePlaceIndex = retinuePlaceIndex;
-        foreach (ModuleRetinue moduleRetinue in Retinues)
-        {
-            moduleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(moduleRetinue);
-        }
+        retinue.M_RetinueID = retinueId;
 
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
-        SetNewRetinuePlace(retinuePlaceIndex);
-        BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
+    }
+
+    public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex, int retinueId)
+    {
+        ModuleRetinue retinue = GetRetinue(retinueId);
+        SetNewRetinuePlace(retinue);
+        BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue), "Co_RefreshBattleGroundAnim");
         retinue.OnSummoned();
     }
 
@@ -84,7 +73,7 @@ internal class BattleGroundManager : MonoBehaviour
         if (previewRetinuePlace == -1 || previewRetinuePlace != placeIndex)
         {
             previewRetinuePlace = placeIndex;
-            BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
+            BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue), "Co_RefreshBattleGroundAnim");
         }
     }
 
@@ -93,88 +82,61 @@ internal class BattleGroundManager : MonoBehaviour
         if (previewRetinuePlace != -1)
         {
             previewRetinuePlace = -1;
-            BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
         }
     }
 
-    public void RemoveRetinue(int retinuePlaceIndex)
+    public void RemoveRetinue(int retinueId)
     {
-        BattleEffectsManager.BEM.EffectsShow(Co_RemoveRetinue(retinuePlaceIndex), "Co_RemoveRetinue");
-        BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RemoveRetinue(GetRetinue(retinueId)), "Co_RemoveRetinue");
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
     }
 
-    List<ModuleRetinue> removeRetinues = new List<ModuleRetinue>();
+    List<ModuleRetinue> RemoveRetinues = new List<ModuleRetinue>(); //即将要被移除的随从名单
 
-    public void RemoveRetinueTogatherAdd(int retinuePlaceIndex)
+    public void RemoveRetinueTogatherAdd(int retinueId)
     {
-        ModuleRetinue retinue = Retinues[retinuePlaceIndex];
+        ModuleRetinue retinue = GetRetinue(retinueId);
         retinue.PoolRecycle();
-        removeRetinues.Add(retinue);
+        RemoveRetinues.Add(retinue);
     }
 
     public void RemoveRetinueTogather()
     {
-        foreach (ModuleRetinue removeRetinue in removeRetinues)
+        foreach (ModuleRetinue removeRetinue in RemoveRetinues)
         {
             Retinues.Remove(removeRetinue);
-            ClientLog.CL.Print("remove:" + removeRetinue.M_RetinuePlaceIndex);
+            ClientLog.CL.Print("remove:" + removeRetinue.M_RetinueID);
         }
 
-        removeRetinues.Clear();
-
-        foreach (ModuleRetinue moduleRetinue in Retinues)
-        {
-            moduleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(moduleRetinue);
-        }
+        RemoveRetinues.Clear();
 
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
     }
 
     public void RemoveRetinueTogatherEnd()
     {
-        BattleEffectsManager.BEM.EffectsShow(Co_RefreshBattleGroundAnim(), "Co_RefreshBattleGroundAnim");
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
     }
 
-    IEnumerator Co_RemoveRetinue(int retinuePlaceIndex)
+    IEnumerator Co_RemoveRetinue(ModuleRetinue retinue)
     {
-        ModuleRetinue retinue = Retinues[retinuePlaceIndex];
         retinue.PoolRecycle();
         Retinues.Remove(retinue);
-        foreach (ModuleRetinue moduleRetinue in Retinues)
-        {
-            moduleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(moduleRetinue);
-        }
 
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
         yield return null;
-        BattleEffectsManager.BEM.EffectEnd();
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
-    public void EquipWeapon(CardInfo_Weapon cardInfo, int battleGroundIndex)
+
+    internal void SetNewRetinuePlace(ModuleRetinue retinue)
     {
-        ModuleRetinue retinue = GetRetinue(battleGroundIndex);
-        ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(retinue.transform).GetComponent<ModuleWeapon>();
-        newModueWeapon.M_ModuleRetinue = retinue;
-        newModueWeapon.Initiate(cardInfo, ClientPlayer);
-        retinue.M_Weapon = newModueWeapon;
+        retinue.transform.localPosition = _defaultRetinuePosition;
+        retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.GM.RetinueInterval, Space.Self);
     }
 
-    public void EquipShield(CardInfo_Shield cardInfo, int battleGroundIndex)
-    {
-        ModuleRetinue retinue = GetRetinue(battleGroundIndex);
-        ModuleShield newModuleShield = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool.AllocateGameObject(retinue.transform).GetComponent<ModuleShield>();
-        newModuleShield.M_ModuleRetinue = retinue;
-        newModuleShield.Initiate(cardInfo, ClientPlayer);
-        retinue.M_Shield = newModuleShield;
-    }
-
-    internal void SetNewRetinuePlace(int retinueIndex)
-    {
-        Retinues[retinueIndex].transform.localPosition = _defaultRetinuePosition;
-        Retinues[retinueIndex].transform.transform.Translate(Vector3.left * (retinueIndex - Retinues.Count / 2.0f + 0.5f) * GameManager.GM.RetinueInterval, Space.Self);
-    }
-
-    IEnumerator Co_RefreshBattleGroundAnim()
+    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects)
     {
         float duration = 0.05f;
         float tick = 0;
@@ -220,30 +182,120 @@ internal class BattleGroundManager : MonoBehaviour
             yield return null;
         }
 
-        BattleEffectsManager.BEM.EffectEnd();
+        myParentEffects.EffectEnd();
     }
 
-    public void ShowSlotBlooms(SlotTypes slotType)
+    #region 装备牌相关操作会显示提示性Slot边框
+
+    List<SlotAnchor> relatedSlotAnchors = new List<SlotAnchor>();
+
+    private IEnumerator currentShowSlotBloom;
+
+    int tmp;
+
+    public void ShowTipSlotBlooms(SlotTypes slotType)
     {
+        StopShowSlotBloom();
         foreach (ModuleRetinue retinue in Retinues)
         {
-            retinue.ShowSlotBloom(slotType);
+            if (retinue.SlotAnchor1.M_Slot.MSlotTypes == slotType)
+            {
+                relatedSlotAnchors.Add(retinue.SlotAnchor1);
+            }
+
+            if (retinue.SlotAnchor2.M_Slot.MSlotTypes == slotType)
+            {
+                relatedSlotAnchors.Add(retinue.SlotAnchor2);
+            }
+
+            if (retinue.SlotAnchor3.M_Slot.MSlotTypes == slotType)
+            {
+                relatedSlotAnchors.Add(retinue.SlotAnchor3);
+            }
+
+            if (retinue.SlotAnchor4.M_Slot.MSlotTypes == slotType)
+            {
+                relatedSlotAnchors.Add(retinue.SlotAnchor4);
+            }
+        }
+
+        currentShowSlotBloom = Co_ShowSlotBloom();
+        BattleEffectsManager.BEM.Effect_TipSlotBloom.EffectsShow(currentShowSlotBloom, "Co_ShowSlotBloom");
+    }
+
+    IEnumerator Co_ShowSlotBloom()
+    {
+        while (true)
+        {
+            foreach (SlotAnchor sa in relatedSlotAnchors)
+            {
+                sa.ShowHoverGO();
+            }
+
+            yield return new WaitForSeconds(0.4f);
+            foreach (SlotAnchor sa in relatedSlotAnchors)
+            {
+                sa.HideHoverShowGO();
+            }
+
+            yield return new WaitForSeconds(0.4f);
         }
     }
 
-    public void StopShowSlotBlooms()
+    public void StopShowSlotBloom()
     {
-        foreach (ModuleRetinue retinue in Retinues)
+        if (currentShowSlotBloom != null)
         {
-            retinue.StopShowSlotBloom();
+            BattleEffectsManager.SideEffect cur_Effect = BattleEffectsManager.BEM.Effect_TipSlotBloom.GetCurrentSideEffect();
+            if (cur_Effect != null && cur_Effect.Enumerator == currentShowSlotBloom)
+            {
+                BattleEffectsManager.BEM.Effect_TipSlotBloom.EffectEnd();
+                currentShowSlotBloom = null;
+            }
         }
+
+        foreach (SlotAnchor sa in relatedSlotAnchors)
+        {
+            sa.HideHoverShowGO();
+        }
+
+        relatedSlotAnchors.Clear();
     }
+
+    #endregion
+
+    public void EquipWeapon(CardInfo_Weapon cardInfo, int retinueId)
+    {
+        ModuleRetinue retinue = GetRetinue(retinueId);
+        ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(retinue.transform).GetComponent<ModuleWeapon>();
+        newModueWeapon.M_ModuleRetinue = retinue;
+        newModueWeapon.Initiate(cardInfo, ClientPlayer);
+        retinue.M_Weapon = newModueWeapon;
+    }
+
+    public void EquipShield(CardInfo_Shield cardInfo, int retinueId)
+    {
+        ModuleRetinue retinue = GetRetinue(retinueId);
+        ModuleShield newModuleShield = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool.AllocateGameObject(retinue.transform).GetComponent<ModuleShield>();
+        newModuleShield.M_ModuleRetinue = retinue;
+        newModuleShield.Initiate(cardInfo, ClientPlayer);
+        retinue.M_Shield = newModuleShield;
+    }
+
 
     #region Utils
 
-    public ModuleRetinue GetRetinue(int retinuePlaceIndex)
+    public ModuleRetinue GetRetinue(int retinueId)
     {
-        return Retinues[retinuePlaceIndex];
+        foreach (ModuleRetinue moduleRetinue in Retinues)
+        {
+            if (moduleRetinue.M_RetinueID == retinueId)
+            {
+                return moduleRetinue;
+            }
+        }
+
+        return null;
     }
 
     public int GetRetinuePlaceIndex(ModuleRetinue moduleRetinue)

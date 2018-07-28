@@ -52,7 +52,6 @@
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffectManager.cs" />
     <Compile Include="Net\GamePlay\DragPurpose.cs" />
     <Compile Include="Net\GamePlay\Player.cs" />
-    <Compile Include="Net\GamePlay\RetinuePlaceInfo.cs" />
     <Compile Include="Net\GamePlay\Shield.cs" />
     <Compile Include="Net\GamePlay\Slot.cs" />
     <Compile Include="Net\GamePlay\Weapon.cs" />

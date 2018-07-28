@@ -71,12 +71,12 @@ internal class CardWeapon : CardBase
                 if (sa.M_Slot.MSlotTypes == SlotTypes.Weapon && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
                     summonWeaponRequest(sa.M_ModuleRetinue);
-                    ClientPlayer.MyBattleGroundManager.StopShowSlotBlooms();
+                    ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
                     return;
                 }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        ClientPlayer.MyBattleGroundManager.StopShowSlotBlooms();
+        ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
         ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 
@@ -93,7 +93,7 @@ internal class CardWeapon : CardBase
     {
         int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.GetRetinuePlaceIndex(moduleRetinue);
-        EquipWeaponRequest request = new EquipWeaponRequest(Client.CS.Proxy.ClientId, handCardIndex, battleGroundIndex, 0);
+        EquipWeaponRequest request = new EquipWeaponRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, 0);
         Client.CS.Proxy.SendMessage(request);
     }
 

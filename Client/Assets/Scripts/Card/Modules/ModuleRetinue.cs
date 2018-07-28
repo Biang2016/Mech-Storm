@@ -38,6 +38,7 @@ internal class ModuleRetinue : ModuleBase
     {
         gameObjectPool = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool;
         SwordMaskDefaultPosition = SwordBarMask.transform.localPosition;
+        LifeBarMaskDefaultPosition = LifeBarMask.transform.localPosition;
     }
 
     void Start()
@@ -151,6 +152,9 @@ internal class ModuleRetinue : ModuleBase
     public GameObject SwordBarMask;
     private float SwordMaskFullOffset = 0.451f;
     private Vector3 SwordMaskDefaultPosition;
+    public GameObject LifeBarMask;
+    private float LifeBarMaskFullOffset = 1f;
+    private Vector3 LifeBarMaskDefaultPosition;
 
     private bool isInitializing = false;
 
@@ -215,12 +219,12 @@ internal class ModuleRetinue : ModuleBase
         }
     }
 
-    private int m_RetinuePlaceIndex;
+    private int m_RetinueID;
 
-    public int M_RetinuePlaceIndex
+    public int M_RetinueID
     {
-        get { return m_RetinuePlaceIndex; }
-        set { m_RetinuePlaceIndex = value; }
+        get { return m_RetinueID; }
+        set { m_RetinueID = value; }
     }
 
     private string m_RetinueName;
@@ -242,10 +246,11 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueLeftLife; }
         set
         {
-            if (!isInitializing && m_RetinueLeftLife > value) BattleEffectsManager.BEM.EffectsShow(Co_LifeBeAttacked(), "Co_LifeBeAttacked");
+            if (!isInitializing && m_RetinueLeftLife > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_LifeBeAttacked(), "Co_LifeBeAttacked");
             m_RetinueLeftLife = value;
             initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
             CardNumberSet_RetinueLeftLife.Number = m_RetinueLeftLife;
+            RefreshLifeBarMask();
         }
     }
 
@@ -253,7 +258,7 @@ internal class ModuleRetinue : ModuleBase
     {
         CardLifeHit.SetTrigger("BeHit");
         yield return new WaitForSeconds(0.1f);
-        BattleEffectsManager.BEM.EffectEnd();
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     private int m_RetinueTotalLife;
@@ -266,9 +271,22 @@ internal class ModuleRetinue : ModuleBase
             m_RetinueTotalLife = value;
             initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife, '/');
             CardNumberSet_RetinueTotalLife.Number = m_RetinueTotalLife;
+            RefreshLifeBarMask();
         }
     }
 
+    private void RefreshLifeBarMask()
+    {
+        if (M_RetinueTotalLife != 0)
+        {
+            LifeBarMask.transform.localPosition = LifeBarMaskDefaultPosition;
+            LifeBarMask.transform.Translate(Vector3.left * LifeBarMaskFullOffset * 2 * M_RetinueLeftLife / M_RetinueTotalLife, Space.Self);
+        }
+        else
+        {
+            LifeBarMask.transform.localPosition = LifeBarMaskDefaultPosition;
+        }
+    }
 
     private int m_RetinueAttack;
 
@@ -345,7 +363,7 @@ internal class ModuleRetinue : ModuleBase
         if (M_RetinueWeaponEnergyMax != 0)
         {
             SwordBarMask.transform.localPosition = SwordMaskDefaultPosition;
-            SwordBarMask.transform.Translate(Vector3.back * SwordMaskFullOffset*2 * M_RetinueWeaponEnergy / M_RetinueWeaponEnergyMax, Space.Self);
+            SwordBarMask.transform.Translate(Vector3.back * SwordMaskFullOffset * 2 * M_RetinueWeaponEnergy / M_RetinueWeaponEnergyMax, Space.Self);
         }
         else
         {
@@ -360,7 +378,7 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueArmor; }
         set
         {
-            if (!isInitializing && m_RetinueArmor > value) BattleEffectsManager.BEM.EffectsShow(Co_ArmorBeAttacked(), "Co_ArmorBeAttacked");
+            if (!isInitializing && m_RetinueArmor > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ArmorBeAttacked(), "Co_ArmorBeAttacked");
             m_RetinueArmor = value;
             if (M_Shield)
             {
@@ -392,7 +410,7 @@ internal class ModuleRetinue : ModuleBase
     {
         ArmorIconHit.SetTrigger("BeHit");
         yield return new WaitForSeconds(0.1f);
-        BattleEffectsManager.BEM.EffectEnd();
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     private int m_RetinueShield;
@@ -402,7 +420,7 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueShield; }
         set
         {
-            if (!isInitializing && m_RetinueShield > value) BattleEffectsManager.BEM.EffectsShow(Co_ShieldBeAttacked(), "Co_ShieldBeAttacked");
+            if (!isInitializing && m_RetinueShield > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShieldBeAttacked(), "Co_ShieldBeAttacked");
             m_RetinueShield = value;
             if (M_Shield)
             {
@@ -435,7 +453,7 @@ internal class ModuleRetinue : ModuleBase
     {
         ShieldIconHit.SetTrigger("BeHit");
         yield return new WaitForSeconds(0.1f);
-        BattleEffectsManager.BEM.EffectEnd();
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     #endregion
@@ -598,7 +616,7 @@ internal class ModuleRetinue : ModuleBase
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer)
         {
-            RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.CS.Proxy.ClientId, ClientPlayer.ClientId, M_RetinuePlaceIndex, RoundManager.RM.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinuePlaceIndex);
+            RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.CS.Proxy.ClientId, ClientPlayer.ClientId, M_RetinueID, RoundManager.RM.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
             Client.CS.Proxy.SendMessage(request);
         }
     }
@@ -671,7 +689,7 @@ internal class ModuleRetinue : ModuleBase
         CheckCanAttack();
         foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnSummoned)
         {
-            BattleEffectsManager.BEM.EffectsShow_Sub(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#64FFDB"), 0.5f), "ShowSideEffectBloom");
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#64FFDB"), 1f), "ShowSideEffectBloom");
         }
     }
 
@@ -679,7 +697,7 @@ internal class ModuleRetinue : ModuleBase
     {
         foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnDie)
         {
-            BattleEffectsManager.BEM.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 0.5f), "ShowSideEffectBloom");
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 1f), "ShowSideEffectBloom");
         }
     }
 
@@ -689,60 +707,7 @@ internal class ModuleRetinue : ModuleBase
         ChangeBloomColor(SideEffcetBloom, color);
         yield return new WaitForSeconds(duration);
         SideEffcetBloom.gameObject.SetActive(false);
-        BattleEffectsManager.BEM.EffectEnd();
-    }
-
-    private IEnumerator currentShowSlotBloom;
-    private SlotAnchor currentShowSlotAnchor;
-
-    public void ShowSlotBloom(SlotTypes slotType)
-    {
-        StopShowSlotBloom();
-        if (SlotAnchor1.M_Slot.MSlotTypes == slotType)
-        {
-            currentShowSlotBloom = Co_ShowSlotBloom(SlotAnchor1);
-        }
-
-        if (SlotAnchor2.M_Slot.MSlotTypes == slotType)
-        {
-            currentShowSlotBloom = Co_ShowSlotBloom(SlotAnchor2);
-        }
-
-        if (SlotAnchor3.M_Slot.MSlotTypes == slotType)
-        {
-            currentShowSlotBloom = Co_ShowSlotBloom(SlotAnchor3);
-        }
-
-        if (SlotAnchor4.M_Slot.MSlotTypes == slotType)
-        {
-            currentShowSlotBloom = Co_ShowSlotBloom(SlotAnchor4);
-        }
-
-        if (currentShowSlotBloom != null) StartCoroutine(currentShowSlotBloom);
-    }
-
-    public void StopShowSlotBloom()
-    {
-        if (currentShowSlotBloom != null)
-        {
-            StopCoroutine(currentShowSlotBloom);
-            currentShowSlotAnchor.HideHoverShowGO();
-            currentShowSlotBloom = null;
-            currentShowSlotAnchor = null;
-        }
-    }
-
-    IEnumerator Co_ShowSlotBloom(SlotAnchor sa)
-    {
-        currentShowSlotAnchor = sa;
-        while (true)
-        {
-            sa.ShowHoverGO();
-            yield return new WaitForSeconds(0.4f);
-            sa.HideHoverShowGO();
-            yield return new WaitForSeconds(0.4f);
-        }
-        BattleEffectsManager.BEM.EffectEnd();
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     public void OnAttack()

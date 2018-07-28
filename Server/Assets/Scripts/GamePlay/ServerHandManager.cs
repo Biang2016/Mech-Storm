@@ -29,6 +29,7 @@ internal class ServerHandManager
             }
 
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
+            newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
             cards.Add(newCard);
         }
     }
@@ -40,6 +41,7 @@ internal class ServerHandManager
         foreach (CardInfo_Base cardInfoBase in newCardsInfo)
         {
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfoBase, ServerPlayer);
+            newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
             cards.Add(newCard);
             cardNumber++;
             if (cardNumber >= GamePlaySettings.MaxHandCard)
@@ -54,6 +56,7 @@ internal class ServerHandManager
         CardInfo_Base cardInfo = AllCards.GetCard(cardID);
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer);
         ServerPlayer.MyCardDeckManager.OnPlayerGetCard(cardID);
+        newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
         cards.Add(newCard);
     }
 
@@ -67,12 +70,13 @@ internal class ServerHandManager
         }
 
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
+        newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
         cards.Add(newCard);
     }
 
-    internal void DropCardAt(int index)
+    internal void DropCard(int cardInstanceId)
     {
-        DropCard(cards[index]);
+        DropCard(GetCardByCardInstanceId(cardInstanceId));
     }
 
     internal void DropCard(ServerCardBase dropCard)
@@ -82,10 +86,11 @@ internal class ServerHandManager
         cards.Remove(dropCard);
     }
 
-    internal void UseCardAt(int index)
+    internal void UseCard(int cardInstanceId)
     {
-        ServerPlayer.UseCostAboveZero(cards[index].CardInfo.BaseInfo.Cost);
-        UseCard(cards[index]);
+        ServerCardBase card = GetCardByCardInstanceId(cardInstanceId);
+        ServerPlayer.UseCostAboveZero(card.CardInfo.BaseInfo.Cost);
+        UseCard(card);
     }
 
     internal void UseCard(ServerCardBase useCard)
@@ -95,10 +100,6 @@ internal class ServerHandManager
         cards.Remove(useCard);
     }
 
-    internal CardInfo_Base GetHandCardInfo(int handCardIndex)
-    {
-        return cards[handCardIndex].CardInfo;
-    }
 
     public void BeginRound()
     {
@@ -121,4 +122,34 @@ internal class ServerHandManager
     {
         foreach (ServerCardBase card in cards) card.Usable = false;
     }
+
+    #region Utils
+
+    internal ServerCardBase GetCardByCardInstanceId(int cardInstanceId)
+    {
+        foreach (ServerCardBase serverCardBase in cards)
+        {
+            if (serverCardBase.M_CardInstanceId == cardInstanceId)
+            {
+                return serverCardBase;
+            }
+        }
+
+        return null;
+    }
+
+    internal CardInfo_Base GetHandCardInfo(int cardInstanceId)
+    {
+        foreach (ServerCardBase serverCardBase in cards)
+        {
+            if (serverCardBase.M_CardInstanceId == cardInstanceId)
+            {
+                return serverCardBase.CardInfo;
+            }
+        }
+
+        return null;
+    }
+
+    #endregion
 }

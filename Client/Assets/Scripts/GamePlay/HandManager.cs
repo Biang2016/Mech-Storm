@@ -68,16 +68,19 @@ internal class HandManager : MonoBehaviour
         return -1;
     }
 
-    public void DropCard(int handCardIndex)
+    public void DropCard(int handCardInstanceId)
     {
-        cards.RemoveAt(handCardIndex);
+        CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
+        cards.Remove(cardBase);
         RefreshCardsPlace();
     }
 
-    public void UseCard(int handCardIndex)
+    public void UseCard(int handCardInstanceId)
     {
-        cards[handCardIndex].PoolRecycle();
-        DropCard(handCardIndex);
+        CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
+        cardBase.PoolRecycle();
+        cards.Remove(cardBase);
+        RefreshCardsPlace();
     }
 
     public void BeginRound()
@@ -208,8 +211,8 @@ internal class HandManager : MonoBehaviour
 
         currentFocusCard = focusCard;
         becomeBigger(focusCard);
-        if (currentFocusCard is CardWeapon) ClientPlayer.MyBattleGroundManager.ShowSlotBlooms(SlotTypes.Weapon);
-        if (currentFocusCard is CardShield) ClientPlayer.MyBattleGroundManager.ShowSlotBlooms(SlotTypes.Shield);
+        if (currentFocusCard is CardWeapon) ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Weapon);
+        if (currentFocusCard is CardShield) ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Shield);
     }
 
     internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard)
@@ -220,7 +223,7 @@ internal class HandManager : MonoBehaviour
             currentFocusCard = null;
         }
 
-        if (!Input.GetMouseButton(0)) ClientPlayer.MyBattleGroundManager.StopShowSlotBlooms();
+        if (!Input.GetMouseButton(0)) ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
     }
 
     bool isBeginDrag = false;
@@ -283,6 +286,23 @@ internal class HandManager : MonoBehaviour
             lostFocusCard.transform.localScale = Vector3.one;
             RefreshCardsPlace();
         }
+    }
+
+    #endregion
+
+    #region Utils
+
+    public CardBase GetCardByCardInstanceId(int cardInstanceId)
+    {
+        foreach (CardBase cardBase in cards)
+        {
+            if (cardBase.M_CardInstanceId == cardInstanceId)
+            {
+                return cardBase;
+            }
+        }
+
+        return null;
     }
 
     #endregion

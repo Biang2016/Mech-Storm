@@ -6,16 +6,18 @@ public class BattleGroundAddRetinueRequest : ServerRequestBase
     public int clientId;
     public CardInfo_Retinue cardInfo;
     public int battleGroundIndex;
+    public int retinueId;
 
     public BattleGroundAddRetinueRequest()
     {
     }
 
-    public BattleGroundAddRetinueRequest(int clientId, CardInfo_Retinue cardInfo, int battleGroundIndex)
+    public BattleGroundAddRetinueRequest(int clientId, CardInfo_Retinue cardInfo, int battleGroundIndex, int retinueId)
     {
         this.clientId = clientId;
         this.cardInfo = cardInfo;
         this.battleGroundIndex = battleGroundIndex;
+        this.retinueId = retinueId;
     }
 
     public override int GetProtocol()
@@ -34,6 +36,7 @@ public class BattleGroundAddRetinueRequest : ServerRequestBase
         writer.WriteSInt32(clientId);
         cardInfo.Serialize(writer);
         writer.WriteSInt32(battleGroundIndex);
+        writer.WriteSInt32(retinueId);
     }
 
     public override void Deserialize(DataStream reader)
@@ -42,6 +45,7 @@ public class BattleGroundAddRetinueRequest : ServerRequestBase
         clientId = reader.ReadSInt32();
         cardInfo = (CardInfo_Retinue)(CardInfo_Base.Deserialze(reader));
         battleGroundIndex = reader.ReadSInt32();
+        retinueId = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
@@ -50,6 +54,7 @@ public class BattleGroundAddRetinueRequest : ServerRequestBase
         log += " [clientId]=" + clientId;
         log += " [cardInfo.CardID]=" + cardInfo.CardID;
         log += " [battleGroundIndex]=" + battleGroundIndex;
+        log += " [retinueId]=" + retinueId;
         return log;
     }
 }

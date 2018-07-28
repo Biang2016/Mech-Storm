@@ -69,12 +69,12 @@ internal class CardShield : CardBase
                 if (sa.M_Slot.MSlotTypes == SlotTypes.Shield && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
                     summonShieldRequest(sa.M_ModuleRetinue);
-                    ClientPlayer.MyBattleGroundManager.StopShowSlotBlooms();
+                    ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
                     return;
                 }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        ClientPlayer.MyBattleGroundManager.StopShowSlotBlooms();
+        ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
         ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 
@@ -89,9 +89,8 @@ internal class CardShield : CardBase
     //装备武器
     private void summonShieldRequest(ModuleRetinue moduleRetinue)
     {
-        int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.GetRetinuePlaceIndex(moduleRetinue);
-        EquipShieldRequest request = new EquipShieldRequest(Client.CS.Proxy.ClientId, handCardIndex, battleGroundIndex, 0);
+        EquipShieldRequest request = new EquipShieldRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, 0);
         Client.CS.Proxy.SendMessage(request);
     }
 

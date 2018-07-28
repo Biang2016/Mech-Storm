@@ -34,13 +34,10 @@ internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
 
     private void DoAddLife(ServerPlayer player)
     {
-        ServerModuleRetinue retinue;
         switch (Info.Select)
         {
             case "随机":
-                retinue = player.MyBattleGroundManager.GetRandomRetinue();
-                retinue.M_RetinueLeftLife += Info.Value;
-                retinue.M_RetinueTotalLife += Info.Value;
+                player.MyBattleGroundManager.AddLifeForRandomRetinue(Info.Value);
                 break;
             case "指定":
                 //retinue = player.MyBattleGroundManager.GetRandomRetinue();

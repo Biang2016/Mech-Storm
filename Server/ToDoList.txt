@@ -90,6 +90,11 @@ sideEffect序列化问题有bug
 制作了SwordBar的mask
 添加了AddRetinueLife技能
 
+7.28
+选中、hover装备牌时的动画提到一个单独的动画序列，避免冲突
+制作了LifeBar的mask
+将retinue和card的placeindex全部替换为id，还没改完
+
 slot 和 slotAnchor合并
 
 卡牌描述里自动换行处理、自动文本大小

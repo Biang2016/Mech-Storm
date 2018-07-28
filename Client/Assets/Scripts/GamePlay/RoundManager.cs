@@ -150,6 +150,50 @@ internal class RoundManager : MonoBehaviour
         }
     }
 
+    public void ResponseToSideEffects_PrePass(ServerRequestBase se)
+    {
+        switch (se.GetProtocol())
+        {
+            case NetProtocols.SE_BATTLEGROUND_ADD_RETINUE:
+            {
+                OnBattleGroundAddRetinue_PrePass((BattleGroundAddRetinueRequest) se);
+                break;
+            }
+            //case NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE:
+            //{
+            //    OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest) se);
+            //    break;
+            //}
+
+            //case NetProtocols.SE_DRAW_CARD:
+            //{
+            //    OnPlayerDrawCard((DrawCardRequest) se);
+            //    break;
+            //}
+            //case NetProtocols.SE_DROP_CARD:
+            //{
+            //    OnPlayerDropCard((DropCardRequest) se);
+            //    break;
+            //}
+
+            //case NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST:
+            //{
+            //    OnEquipWeapon((EquipWeaponServerRequest) se);
+            //    break;
+            //}
+            //case NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST:
+            //{
+            //    OnEquipShield((EquipShieldServerRequest) se);
+            //    break;
+            //}
+            //case NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST:
+            //{
+            //    OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) se);
+            //    break;
+            //}
+        }
+    }
+
 
     private void Initialize()
     {
@@ -242,7 +286,7 @@ internal class RoundManager : MonoBehaviour
 
     private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
     {
-        ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinuePlaceIndex);
+        ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinueId);
         retinue.M_RetinueAttack += r.addAttack;
         retinue.M_RetinueWeaponEnergy += r.addWeaponEnergy;
         retinue.M_RetinueWeaponEnergyMax += r.addWeaponEnergyMax;
@@ -255,20 +299,21 @@ internal class RoundManager : MonoBehaviour
     private void OnRetinueDie(RetinueDieRequest r)
     {
         List<ModuleRetinue> dieRetinues = new List<ModuleRetinue>();
-        BattleGroundManager bgm;
-        foreach (RetinuePlaceInfo info in r.retinueInfos)
+        foreach (int retinueId in r.retinueIds)
         {
-            if (info.clientId == Client.CS.Proxy.ClientId)
+            ModuleRetinue retinue = SelfClientPlayer.MyBattleGroundManager.GetRetinue(retinueId);
+            if (retinue != null)
             {
-                bgm = SelfClientPlayer.MyBattleGroundManager;
+                dieRetinues.Add(retinue);
             }
             else
             {
-                bgm = EnemyClientPlayer.MyBattleGroundManager;
+                retinue = EnemyClientPlayer.MyBattleGroundManager.GetRetinue(retinueId);
+                if (retinue != null)
+                {
+                    dieRetinues.Add(retinue);
+                }
             }
-
-            ModuleRetinue retinue = bgm.GetRetinue(info.retinuePlaceIndex);
-            dieRetinues.Add(retinue);
         }
 
         foreach (ModuleRetinue moduleRetinue in dieRetinues)
@@ -276,10 +321,10 @@ internal class RoundManager : MonoBehaviour
             moduleRetinue.OnDieSideEffects();
         }
 
-        BattleEffectsManager.BEM.EffectsShow(Co_RetinueDieShock(dieRetinues), "Co_RetinueDieShock");
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueDieShock(dieRetinues), "Co_RetinueDieShock");
     }
 
-    IEnumerator Co_RetinueDieShock(List<ModuleRetinue> dieRetinues)//随从一起死亡效果
+    IEnumerator Co_RetinueDieShock(List<ModuleRetinue> dieRetinues) //随从一起死亡效果
     {
         int shockTimes = 3;
         for (int i = 0; i < shockTimes; i++)
@@ -302,7 +347,22 @@ internal class RoundManager : MonoBehaviour
             }
         }
 
-        BattleEffectsManager.BEM.EffectEnd();
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
+    private void OnBattleGroundAddRetinue_PrePass(BattleGroundAddRetinueRequest r)
+    {
+        BattleGroundManager bgm;
+        if (r.clientId == Client.CS.Proxy.ClientId)
+        {
+            bgm = SelfClientPlayer.MyBattleGroundManager;
+        }
+        else
+        {
+            bgm = EnemyClientPlayer.MyBattleGroundManager;
+        }
+
+        bgm.AddRetinue_PrePass(r.cardInfo, r.battleGroundIndex,r.retinueId);
     }
 
     private void OnBattleGroundAddRetinue(BattleGroundAddRetinueRequest r)
@@ -317,29 +377,26 @@ internal class RoundManager : MonoBehaviour
             bgm = EnemyClientPlayer.MyBattleGroundManager;
         }
 
-        bgm.AddRetinue(r.cardInfo, r.battleGroundIndex);
+        bgm.AddRetinue(r.cardInfo, r.battleGroundIndex,r.retinueId);
     }
 
     private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
     {
-        BattleEffectsManager.BEM.EffectsShow(Co_RetinueRemoveFromBattleGround(r.retinueInfos), "Co_RetinueRemoveFromBattleGround");
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround(r.retinueIds), "Co_RetinueRemoveFromBattleGround");
     }
 
-    IEnumerator Co_RetinueRemoveFromBattleGround(List<RetinuePlaceInfo> removeRetinues) //随从一起移除战场
+    IEnumerator Co_RetinueRemoveFromBattleGround(List<int> removeRetinues) //随从一起移除战场
     {
-        BattleGroundManager bgm;
-        foreach (RetinuePlaceInfo info in removeRetinues)
+        foreach (int retinueId in removeRetinues)
         {
-            if (info.clientId == Client.CS.Proxy.ClientId)
+            if (SelfClientPlayer.MyBattleGroundManager.GetRetinue(retinueId) != null)
             {
-                bgm = SelfClientPlayer.MyBattleGroundManager;
+                SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherAdd(retinueId);
             }
-            else
+            else if (EnemyClientPlayer.MyBattleGroundManager.GetRetinue(retinueId) != null)
             {
-                bgm = EnemyClientPlayer.MyBattleGroundManager;
+                EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherAdd(retinueId);
             }
-
-            bgm.RemoveRetinueTogatherAdd(info.retinuePlaceIndex);
         }
 
         SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogather();
@@ -348,7 +405,7 @@ internal class RoundManager : MonoBehaviour
         SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
         EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
 
-        BattleEffectsManager.BEM.EffectEnd();
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
 
         yield return null;
     }
@@ -364,7 +421,7 @@ internal class RoundManager : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < r.cardCount; i++)
+            for (int i = 0; i < r.cardIds.Count; i++)
             {
                 EnemyClientPlayer.MyHandManager.GetCard(999); //空白牌，隐藏防止对方知道
             }
@@ -375,11 +432,11 @@ internal class RoundManager : MonoBehaviour
     {
         if (r.clientId == Client.CS.Proxy.ClientId)
         {
-            SelfClientPlayer.MyHandManager.DropCard(r.handCardIndex);
+            SelfClientPlayer.MyHandManager.DropCard(r.handCardInstanceId);
         }
         else
         {
-            EnemyClientPlayer.MyHandManager.DropCard(r.handCardIndex);
+            EnemyClientPlayer.MyHandManager.DropCard(r.handCardInstanceId);
         }
     }
 
@@ -387,11 +444,11 @@ internal class RoundManager : MonoBehaviour
     {
         if (r.clientId == Client.CS.Proxy.ClientId)
         {
-            SelfClientPlayer.MyHandManager.UseCard(r.handCardIndex);
+            SelfClientPlayer.MyHandManager.UseCard(r.handCardInstanceId);
         }
         else
         {
-            EnemyClientPlayer.MyHandManager.UseCard(r.handCardIndex);
+            EnemyClientPlayer.MyHandManager.UseCard(r.handCardInstanceId);
         }
     }
 
@@ -399,11 +456,11 @@ internal class RoundManager : MonoBehaviour
     {
         if (r.clientId == Client.CS.Proxy.ClientId)
         {
-            SelfClientPlayer.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.battleGroundIndex);
+            SelfClientPlayer.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.retinueId);
         }
         else
         {
-            EnemyClientPlayer.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.battleGroundIndex);
+            EnemyClientPlayer.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.retinueId);
         }
     }
 
@@ -411,17 +468,17 @@ internal class RoundManager : MonoBehaviour
     {
         if (r.clientId == Client.CS.Proxy.ClientId)
         {
-            SelfClientPlayer.MyBattleGroundManager.EquipShield(r.cardInfo, r.battleGroundIndex);
+            SelfClientPlayer.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId);
         }
         else
         {
-            EnemyClientPlayer.MyBattleGroundManager.EquipShield(r.cardInfo, r.battleGroundIndex);
+            EnemyClientPlayer.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId);
         }
     }
 
     public void OnRetinueAttackRetinue(RetinueAttackRetinueServerRequest r)
     {
-        GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinuePlaceIndex).AllModulesAttack();
+        GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinueId).AllModulesAttack();
     }
 
     private void OnGameStop()
@@ -457,7 +514,8 @@ internal class RoundManager : MonoBehaviour
         SelfCostText.gameObject.SetActive(false);
         EnemyCostText.gameObject.SetActive(false);
 
-        BattleEffectsManager.BEM.AllEffectsEnd();
+        BattleEffectsManager.BEM.Effect_Main.AllEffectsEnd();
+        BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();
     }
 
     #endregion

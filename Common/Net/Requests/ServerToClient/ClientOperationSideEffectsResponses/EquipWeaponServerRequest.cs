@@ -5,18 +5,18 @@ public class EquipWeaponServerRequest : ServerRequestBase
 {
     public int clientId;
     public CardInfo_Weapon cardInfo;
-    public int battleGroundIndex;
+    public int retinueId;
     public int weaponPlaceIndex;
 
     public EquipWeaponServerRequest()
     {
     }
 
-    public EquipWeaponServerRequest(int clientId, CardInfo_Weapon cardInfo, int battleGroundIndex, int weaponPlaceIndex)
+    public EquipWeaponServerRequest(int clientId, CardInfo_Weapon cardInfo, int retinueId, int weaponPlaceIndex)
     {
         this.clientId = clientId;
         this.cardInfo = cardInfo;
-        this.battleGroundIndex = battleGroundIndex;
+        this.retinueId = retinueId;
         this.weaponPlaceIndex = weaponPlaceIndex;
     }
 
@@ -43,7 +43,7 @@ public class EquipWeaponServerRequest : ServerRequestBase
             writer.WriteByte(0x01);
             cardInfo.Serialize(writer);
         }
-        writer.WriteSInt32(battleGroundIndex);
+        writer.WriteSInt32(retinueId);
         writer.WriteSInt32(weaponPlaceIndex);
     }
 
@@ -55,7 +55,7 @@ public class EquipWeaponServerRequest : ServerRequestBase
         {
             cardInfo = (CardInfo_Weapon)(CardInfo_Base.Deserialze(reader));
         }
-        battleGroundIndex = reader.ReadSInt32();
+        retinueId = reader.ReadSInt32();
         weaponPlaceIndex = reader.ReadSInt32();
     }
 
@@ -71,7 +71,7 @@ public class EquipWeaponServerRequest : ServerRequestBase
         {
             log += " [cardInfo.CardID]=" + cardInfo.CardID;
         }
-        log += " [battleGroundIndex]=" + battleGroundIndex;
+        log += " [retinueId]=" + retinueId;
         log += " [weaponPlaceIndex]=" + weaponPlaceIndex;
         return log;
     }

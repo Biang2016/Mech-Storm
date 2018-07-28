@@ -36,12 +36,12 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     #region 属性
 
-    private int m_RetinuePlaceIndex;
+    private int m_RetinueID;
 
-    public int M_RetinuePlaceIndex
+    public int M_RetinueID
     {
-        get { return m_RetinuePlaceIndex; }
-        set { m_RetinuePlaceIndex = value; }
+        get { return m_RetinueID; }
+        set { m_RetinueID = value; }
     }
 
     private bool m_IsDead;
@@ -79,7 +79,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             m_RetinueLeftLife = value;
             if (isInitialized && before != m_RetinueLeftLife)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.LeftLife, addLeftLife: m_RetinueLeftLife - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.LeftLife, addLeftLife: m_RetinueLeftLife - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
 
@@ -112,7 +112,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             m_RetinueTotalLife = value;
             if (isInitialized && before != m_RetinueTotalLife)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.MaxLife, addMaxLife: m_RetinueTotalLife - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.MaxLife, addMaxLife: m_RetinueTotalLife - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -134,7 +134,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueAttack)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Attack, addAttack: m_RetinueAttack - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Attack, addAttack: m_RetinueAttack - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -156,7 +156,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueWeaponEnergy)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.WeaponEnergy, addWeaponEnergy: m_RetinueWeaponEnergy - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.WeaponEnergy, addWeaponEnergy: m_RetinueWeaponEnergy - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -178,7 +178,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueWeaponEnergyMax)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.WeaponEnergyMax, addWeaponEnergyMax: m_RetinueWeaponEnergyMax - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.WeaponEnergyMax, addWeaponEnergyMax: m_RetinueWeaponEnergyMax - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -200,7 +200,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueArmor)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Armor, addArmor: m_RetinueArmor - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Armor, addArmor: m_RetinueArmor - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -222,7 +222,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueShield)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinuePlaceIndex, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Shield, addShield: m_RetinueShield - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Shield, addShield: m_RetinueShield - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -260,14 +260,14 @@ internal class ServerModuleRetinue : ServerModuleBase
     void On_WeaponDown()
     {
         m_Weapon = null;
-        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinuePlaceIndex, 0);
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     void On_WeaponEquiped(ServerModuleWeapon newWeapon)
     {
         m_Weapon = newWeapon;
-        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinuePlaceIndex, newWeapon.M_WeaponPlaceIndex);
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         M_RetinueAttack += newWeapon.CardInfo.WeaponInfo.Attack;
@@ -282,7 +282,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             if (newWeapon.CardInfo.UpgradeInfo.CardLevel > m_Weapon.CardInfo.UpgradeInfo.CardLevel)
             {
                 m_Weapon = newWeapon;
-                EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinuePlaceIndex, newWeapon.M_WeaponPlaceIndex);
+                EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
 
@@ -293,7 +293,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         else //不同类型替换
         {
             m_Weapon = newWeapon;
-            EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinuePlaceIndex, newWeapon.M_WeaponPlaceIndex);
+            EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
             M_RetinueAttack = CardInfo.BattleInfo.BasicAttack + newWeapon.CardInfo.WeaponInfo.Attack;
@@ -333,14 +333,14 @@ internal class ServerModuleRetinue : ServerModuleBase
     void On_ShieldDown()
     {
         m_Shield = null;
-        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_RetinuePlaceIndex, 0);
+        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     void On_ShieldEquiped(ServerModuleShield newShield)
     {
         m_Shield = newShield;
-        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinuePlaceIndex, newShield.M_ShieldPlaceIndex);
+        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         M_RetinueArmor += newShield.CardInfo.ShieldInfo.Armor;
@@ -354,7 +354,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             if (newShield.CardInfo.UpgradeInfo.CardLevel > m_Shield.CardInfo.UpgradeInfo.CardLevel)
             {
                 m_Shield = newShield;
-                EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinuePlaceIndex, newShield.M_ShieldPlaceIndex);
+                EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
 
@@ -364,7 +364,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         else //不同类型替换
         {
             m_Shield = newShield;
-            EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinuePlaceIndex, newShield.M_ShieldPlaceIndex);
+            EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
             M_RetinueShield = CardInfo.BattleInfo.BasicShield + newShield.CardInfo.ShieldInfo.Shield;
@@ -489,7 +489,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);
         }
 
-        RetinueDieRequest request = new RetinueDieRequest(new List<RetinuePlaceInfo> {new RetinuePlaceInfo(ServerPlayer.ClientId, M_RetinuePlaceIndex)});
+        RetinueDieRequest request = new RetinueDieRequest(new List<int> {M_RetinueID});
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         ServerPlayer.MyGameManager.ExecuteAllSideEffects();
@@ -505,7 +505,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);
         }
 
-        ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(new RetinuePlaceInfo(ServerPlayer.ClientId, M_RetinuePlaceIndex)); //入队死亡信息，整个结算结束后一并发送request
+        ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID); //入队死亡信息，整个结算结束后一并发送request
         M_IsDead = true;
     }
 

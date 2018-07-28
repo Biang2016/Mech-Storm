@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class RetinueAttributesChangeRequest : ServerRequestBase
 {
     public int clinetId;
-    public int retinuePlaceIndex;
+    public int retinueId;
     public RetinueAttributesChangeFlag change;
     public int addLeftLife;
     public int addMaxLife;
@@ -18,10 +18,10 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
     {
     }
 
-    public RetinueAttributesChangeRequest(int clinetId, int retinuePlaceIndex, RetinueAttributesChangeFlag change, int addLeftLife = 0, int addMaxLife = 0, int addAttack = 0, int addWeaponEnergy = 0, int addWeaponEnergyMax = 0, int addArmor = 0, int addShield = 0)
+    public RetinueAttributesChangeRequest(int clinetId, int retinueId, RetinueAttributesChangeFlag change, int addLeftLife = 0, int addMaxLife = 0, int addAttack = 0, int addWeaponEnergy = 0, int addWeaponEnergyMax = 0, int addArmor = 0, int addShield = 0)
     {
         this.clinetId = clinetId;
-        this.retinuePlaceIndex = retinuePlaceIndex;
+        this.retinueId = retinueId;
         this.change = change;
         this.addLeftLife = addLeftLife;
         this.addMaxLife = addMaxLife;
@@ -47,7 +47,7 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
     {
         base.Serialize(writer);
         writer.WriteSInt32(clinetId);
-        writer.WriteSInt32(retinuePlaceIndex);
+        writer.WriteSInt32(retinueId);
         writer.WriteByte((byte)change);
         if (change == RetinueAttributesChangeFlag.ALL)
         {
@@ -93,7 +93,7 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
     {
         base.Deserialize(reader);
         clinetId = reader.ReadSInt32();
-        retinuePlaceIndex = reader.ReadSInt32();
+        retinueId = reader.ReadSInt32();
         change = (RetinueAttributesChangeFlag)reader.ReadByte();
         if (change == RetinueAttributesChangeFlag.ALL)
         {
@@ -139,7 +139,7 @@ public class RetinueAttributesChangeRequest : ServerRequestBase
     {
         string log = base.DeserializeLog();
         log += " [clinetId]=" + clinetId;
-        log += " [retinuePlaceIndex]=" + retinuePlaceIndex;
+        log += " [retinueId]=" + retinueId;
         if (change == RetinueAttributesChangeFlag.ALL)
         {
             log += " [addLeftLife]=" + addLeftLife;

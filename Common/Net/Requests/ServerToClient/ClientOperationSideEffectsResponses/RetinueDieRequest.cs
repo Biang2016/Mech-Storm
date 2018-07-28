@@ -3,15 +3,18 @@ using System.Collections.Generic;
 
 public class RetinueDieRequest : ServerRequestBase
 {
-    public List<RetinuePlaceInfo> retinueInfos = new List<RetinuePlaceInfo>();
+    public List<int> retinueIds = new List<int>();
 
     public RetinueDieRequest()
     {
     }
 
-    public RetinueDieRequest(List<RetinuePlaceInfo> retinueInfos)
+    public RetinueDieRequest(List<int> retinueIds)
     {
-        this.retinueInfos = retinueInfos;
+        foreach (int retinueId in retinueIds)
+        {
+            this.retinueIds.Add(retinueId);
+        }
     }
 
     public override int GetProtocol()
@@ -28,11 +31,10 @@ public class RetinueDieRequest : ServerRequestBase
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(retinueInfos.Count);
-        foreach (RetinuePlaceInfo info in retinueInfos)
+        writer.WriteSInt32(retinueIds.Count);
+        foreach (int retinueId in retinueIds)
         {
-            writer.WriteSInt32(info.clientId);
-            writer.WriteSInt32(info.retinuePlaceIndex);
+            writer.WriteSInt32(retinueId);
         }
     }
 
@@ -42,20 +44,18 @@ public class RetinueDieRequest : ServerRequestBase
         int count = reader.ReadSInt32();
         for (int i = 0; i < count; i++)
         {
-            int clientId = reader.ReadSInt32();
-            int retinuePlaceIndex = reader.ReadSInt32();
-            RetinuePlaceInfo info = new RetinuePlaceInfo(clientId, retinuePlaceIndex);
-            retinueInfos.Add(info);
+            int retinueId = reader.ReadSInt32();
+            retinueIds.Add(retinueId);
         }
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [retinueInfos]= cid->retinuePlaceIndex: ";
-        foreach (RetinuePlaceInfo info in retinueInfos)
+        log += " [retinueInfos]= ";
+        foreach (int retinueId in retinueIds)
         {
-            log += info.clientId + "->" + info.retinuePlaceIndex + ", ";
+            log += retinueId + ", ";
         }
 
         return log;

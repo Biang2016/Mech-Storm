@@ -27,6 +27,20 @@ internal class ServerGameManager
 
     #region 游戏初始化
 
+    private int gameRetinueIdGenerator = 0;
+
+    public int GeneratorNewRetinueId()
+    {
+        return gameRetinueIdGenerator++;
+    }
+
+    private int gameCardInstanceIdGenerator = 0;
+
+    public int GeneratorNewCardInstanceId()
+    {
+        return gameCardInstanceIdGenerator++;
+    }
+
     private void Initialized()
     {
         ClientA.ClientState = ProxyBase.ClientStates.Playing;
@@ -133,9 +147,9 @@ internal class ServerGameManager
         ClientB.CurrentClientRequestResponse = new SummonRetinueRequest_Response();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
-        CardInfo_Retinue info = (CardInfo_Retinue) sp.MyHandManager.GetHandCardInfo(r.handCardIndex);
+        CardInfo_Retinue info = (CardInfo_Retinue) sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
         sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex);
-        sp.MyHandManager.UseCardAt(r.handCardIndex);
+        sp.MyHandManager.UseCard(r.handCardInstanceId);
         sp.UseCostAboveZero(info.BaseInfo.Cost);
 
         Broadcast_SendOperationResponse();
@@ -149,7 +163,7 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         sp.MyBattleGroundManager.EquipWeapon(r);
-        sp.MyHandManager.UseCardAt(r.handCardIndex);
+        sp.MyHandManager.UseCard(r.handCardInstanceId);
 
         Broadcast_SendOperationResponse();
     }
@@ -161,7 +175,7 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         sp.MyBattleGroundManager.EquipShield(r);
-        sp.MyHandManager.UseCardAt(r.handCardIndex);
+        sp.MyHandManager.UseCard((int) r.handCardInstanceId);
 
         Broadcast_SendOperationResponse();
     }
@@ -171,11 +185,11 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponse = new RetinueAttackRetinueRequest_Response();
         ClientB.CurrentClientRequestResponse = new RetinueAttackRetinueRequest_Response();
 
-        RetinueAttackRetinueServerRequest request = new RetinueAttackRetinueServerRequest(r.AttackRetinueClientId, r.AttackRetinuePlaceIndex, r.BeAttackedRetinueClientId, r.BeAttackedRetinuePlaceIndex);
+        RetinueAttackRetinueServerRequest request = new RetinueAttackRetinueServerRequest(r.AttackRetinueClientId, r.AttackRetinueId, r.BeAttackedRetinueClientId, r.BeAttackedRetinueId);
         Broadcast_AddRequestToOperationResponse(request);
 
-        ServerModuleRetinue attackRetinue = GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinuePlaceIndex);
-        ServerModuleRetinue beAttackedRetinue = GetPlayerByClientId(r.BeAttackedRetinueClientId).MyBattleGroundManager.GetRetinue(r.BeAttackedRetinuePlaceIndex);
+        ServerModuleRetinue attackRetinue = GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
+        ServerModuleRetinue beAttackedRetinue = GetPlayerByClientId(r.BeAttackedRetinueClientId).MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
 
         List<int> attackSeries = attackRetinue.AllModulesAttack();
         foreach (int attack in attackSeries)
@@ -246,27 +260,27 @@ internal class ServerGameManager
         SendAllDieInfos();
     }
 
-    List<RetinuePlaceInfo> RetinueDieList = new List<RetinuePlaceInfo>();
+    List<int> DieRetinueList = new List<int>();
 
-    public void AddDieTogatherRetinuesInfo(RetinuePlaceInfo dieInfo)
+    public void AddDieTogatherRetinuesInfo(int dieRetinueId)
     {
-        RetinueDieList.Add(dieInfo);
+        DieRetinueList.Add(dieRetinueId);
     }
 
     public void SendAllDieInfos()
     {
-        if (RetinueDieList.Count == 0) return;
-        List<RetinuePlaceInfo> tmp = new List<RetinuePlaceInfo>();
-        foreach (RetinuePlaceInfo info in RetinueDieList)
+        if (DieRetinueList.Count == 0) return;
+        List<int> tmp = new List<int>();
+        foreach (int id in DieRetinueList)
         {
-            tmp.Add(info);
+            tmp.Add(id);
         }
 
         RetinueDieRequest request1 = new RetinueDieRequest(tmp);
         Broadcast_AddRequestToOperationResponse(request1);
         BattleGroundRemoveRetinueRequest request2 = new BattleGroundRemoveRetinueRequest(tmp);
         Broadcast_AddRequestToOperationResponse(request2);
-        RetinueDieList.Clear();
+        DieRetinueList.Clear();
     }
 
     #endregion

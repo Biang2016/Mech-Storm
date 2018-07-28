@@ -20,18 +20,13 @@ internal class ServerBattleGroundManager
     public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex)
     {
         ServerModuleRetinue retinue = new ServerModuleRetinue();
+        retinue.M_RetinueID = ServerPlayer.MyGameManager.GeneratorNewRetinueId();
         retinue.Initiate(retinueCardInfo, ServerPlayer);
-        retinue.M_RetinuePlaceIndex = retinuePlaceIndex;
         Retinues.Insert(retinuePlaceIndex, retinue);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
         retinue.OnSummoned();
 
-        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
-        {
-            serverModuleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(serverModuleRetinue);
-        }
-
-        BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex);
+        BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex, retinue.M_RetinueID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
@@ -42,33 +37,23 @@ internal class ServerBattleGroundManager
         Retinues.Remove(retinue);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
 
-        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
-        {
-            serverModuleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(serverModuleRetinue);
-        }
-
-        BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(new List<RetinuePlaceInfo> {new RetinuePlaceInfo(ServerPlayer.ClientId, battleGroundIndex)});
+        BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(new List<int> {retinue.M_RetinueID});
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
-    public void RemoveRetinueTogather(ServerModuleRetinue retinue)//群杀时采用的方法
+    public void RemoveRetinueTogather(ServerModuleRetinue retinue) //群杀时采用的方法
     {
         int battleGroundIndex = Retinues.IndexOf(retinue);
         if (battleGroundIndex == -1) return;
         Retinues.Remove(retinue);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
-
-        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
-        {
-            serverModuleRetinue.M_RetinuePlaceIndex = Retinues.IndexOf(serverModuleRetinue);
-        }
     }
 
     public void EquipWeapon(EquipWeaponRequest r)
     {
         ServerModuleWeapon weapon = new ServerModuleWeapon();
-        CardInfo_Weapon cardInfo_Weapon = (CardInfo_Weapon) ServerPlayer.MyHandManager.GetHandCardInfo(r.handCardIndex);
-        ServerModuleRetinue retinue = GetRetinue(r.battleGroundIndex);
+        CardInfo_Weapon cardInfo_Weapon = (CardInfo_Weapon) ServerPlayer.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        ServerModuleRetinue retinue = GetRetinue(r.retinueId);
         weapon.M_ModuleRetinue = retinue;
         weapon.M_WeaponPlaceIndex = r.weaponPlaceIndex;
         weapon.Initiate(cardInfo_Weapon, ServerPlayer);
@@ -78,8 +63,8 @@ internal class ServerBattleGroundManager
     public void EquipShield(EquipShieldRequest r)
     {
         ServerModuleShield shield = new ServerModuleShield();
-        CardInfo_Shield cardInfo_Shield = (CardInfo_Shield) ServerPlayer.MyHandManager.GetHandCardInfo(r.handCardIndex);
-        ServerModuleRetinue retinue = GetRetinue(r.battleGroundIndex);
+        CardInfo_Shield cardInfo_Shield = (CardInfo_Shield) ServerPlayer.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        ServerModuleRetinue retinue = GetRetinue(r.retinueID);
         shield.M_ModuleRetinue = retinue;
         shield.M_ShieldPlaceIndex = r.shieldPlaceIndex;
         shield.Initiate(cardInfo_Shield, ServerPlayer);
@@ -102,9 +87,16 @@ internal class ServerBattleGroundManager
         }
     }
 
-    public void AddLifeForSomeRetinue(int retinuePlaceIndex, int value) //本方增加某随从生命
+    public void AddLifeForRandomRetinue(int value) //本方增加随机随从生命
     {
-        Retinues[retinuePlaceIndex].M_RetinueLeftLife += value;
+        ServerModuleRetinue retinue = GetRandomRetinue();
+        AddLifeForSomeRetinue(retinue, value);
+    }
+
+    public void AddLifeForSomeRetinue(ServerModuleRetinue retinue, int value) //本方增加某随从生命
+    {
+        retinue.M_RetinueLeftLife += value;
+        retinue.M_RetinueTotalLife += value;
     }
 
     #endregion

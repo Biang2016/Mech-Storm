@@ -5,18 +5,18 @@ public class EquipShieldServerRequest : ServerRequestBase
 {
     public int clientId;
     public CardInfo_Shield cardInfo;
-    public int battleGroundIndex;
+    public int retinueId;
     public int shieldPlaceIndex;
 
     public EquipShieldServerRequest()
     {
     }
 
-    public EquipShieldServerRequest(int clientId, CardInfo_Shield cardInfo, int battleGroundIndex, int shieldPlaceIndex)
+    public EquipShieldServerRequest(int clientId, CardInfo_Shield cardInfo, int retinueId, int shieldPlaceIndex)
     {
         this.clientId = clientId;
         this.cardInfo = cardInfo;
-        this.battleGroundIndex = battleGroundIndex;
+        this.retinueId = retinueId;
         this.shieldPlaceIndex = shieldPlaceIndex;
     }
 
@@ -43,7 +43,7 @@ public class EquipShieldServerRequest : ServerRequestBase
             writer.WriteByte(0x01);
             cardInfo.Serialize(writer);
         }
-        writer.WriteSInt32(battleGroundIndex);
+        writer.WriteSInt32(retinueId);
         writer.WriteSInt32(shieldPlaceIndex);
     }
 
@@ -55,7 +55,7 @@ public class EquipShieldServerRequest : ServerRequestBase
         {
             cardInfo = (CardInfo_Shield)(CardInfo_Base.Deserialze(reader));
         }
-        battleGroundIndex = reader.ReadSInt32();
+        retinueId = reader.ReadSInt32();
         shieldPlaceIndex = reader.ReadSInt32();
     }
 
@@ -71,7 +71,7 @@ public class EquipShieldServerRequest : ServerRequestBase
         {
             log += " [cardInfo.CardID]=" + cardInfo.CardID;
         }
-        log += " [battleGroundIndex]=" + battleGroundIndex;
+        log += " [retinueId]=" + retinueId;
         log += " [shieldPlaceIndex]=" + shieldPlaceIndex;
         return log;
     }

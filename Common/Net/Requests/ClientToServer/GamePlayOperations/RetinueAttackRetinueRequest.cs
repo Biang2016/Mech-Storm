@@ -5,20 +5,20 @@ using System.Security.AccessControl;
 public class RetinueAttackRetinueRequest : ClientRequestBase
 {
     public int AttackRetinueClientId;
-    public int AttackRetinuePlaceIndex;
+    public int AttackRetinueId;
     public int BeAttackedRetinueClientId;
-    public int BeAttackedRetinuePlaceIndex;
+    public int BeAttackedRetinueId;
 
     public RetinueAttackRetinueRequest()
     {
     }
 
-    public RetinueAttackRetinueRequest(int clientId, int attackRetinueClientId, int retinuePlaceIndex, int beAttackedRetinueClientId, int beAttackedRetinuePlaceIndex) : base(clientId)
+    public RetinueAttackRetinueRequest(int clientId, int attackRetinueClientId, int retinueId, int beAttackedRetinueClientId, int beAttackedRetinueId) : base(clientId)
     {
         AttackRetinueClientId = attackRetinueClientId;
-        AttackRetinuePlaceIndex = retinuePlaceIndex;
+        AttackRetinueId = retinueId;
         BeAttackedRetinueClientId = beAttackedRetinueClientId;
-        BeAttackedRetinuePlaceIndex = beAttackedRetinuePlaceIndex;
+        BeAttackedRetinueId = beAttackedRetinueId;
     }
 
     public override int GetProtocol()
@@ -35,27 +35,27 @@ public class RetinueAttackRetinueRequest : ClientRequestBase
     {
         base.Serialize(writer);
         writer.WriteSInt32(AttackRetinueClientId);
-        writer.WriteSInt32(AttackRetinuePlaceIndex);
+        writer.WriteSInt32(AttackRetinueId);
         writer.WriteSInt32(BeAttackedRetinueClientId);
-        writer.WriteSInt32(BeAttackedRetinuePlaceIndex);
+        writer.WriteSInt32(BeAttackedRetinueId);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         AttackRetinueClientId = reader.ReadSInt32();
-        AttackRetinuePlaceIndex = reader.ReadSInt32();
+        AttackRetinueId = reader.ReadSInt32();
         BeAttackedRetinueClientId = reader.ReadSInt32();
-        BeAttackedRetinuePlaceIndex = reader.ReadSInt32();
+        BeAttackedRetinueId = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
         log += " [AttackRetinueClientId]=" + AttackRetinueClientId;
-        log += " [RetinuePlaceIndex]=" + AttackRetinuePlaceIndex;
+        log += " [AttackRetinueId]=" + AttackRetinueId;
         log += " [BeAttackedRetinueClientId]=" + BeAttackedRetinueClientId;
-        log += " [BeAttackedRetinuePlaceIndex]=" + BeAttackedRetinuePlaceIndex;
+        log += " [BeAttackedRetinueId]=" + BeAttackedRetinueId;
         return log;
     }
 }

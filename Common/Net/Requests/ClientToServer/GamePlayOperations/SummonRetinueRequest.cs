@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class SummonRetinueRequest : ClientRequestBase
 {
-    public int handCardIndex;
+    public int handCardInstanceId;
     public int battleGroundIndex;
 
     public SummonRetinueRequest()
@@ -11,9 +11,9 @@ public class SummonRetinueRequest : ClientRequestBase
 
     }
 
-    public SummonRetinueRequest(int clientId,  int handCardIndex, int battleGroundIndex):base(clientId)
+    public SummonRetinueRequest(int clientId,  int handCardInstanceId, int battleGroundIndex):base(clientId)
     {
-        this.handCardIndex = handCardIndex;
+        this.handCardInstanceId = handCardInstanceId;
         this.battleGroundIndex = battleGroundIndex;
     }
     public override int GetProtocol()
@@ -29,21 +29,21 @@ public class SummonRetinueRequest : ClientRequestBase
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(handCardIndex);
+        writer.WriteSInt32(handCardInstanceId);
         writer.WriteSInt32(battleGroundIndex);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        handCardIndex = reader.ReadSInt32();
+        handCardInstanceId = reader.ReadSInt32();
         battleGroundIndex = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
     {
         string log = "";
-        log += " [handCardIndex]=" + handCardIndex;
+        log += " [handCardInstanceId]=" + handCardInstanceId;
         log += " [battleGroundIndex]=" + battleGroundIndex;
         return log;
     }

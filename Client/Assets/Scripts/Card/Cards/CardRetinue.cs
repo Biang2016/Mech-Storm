@@ -207,9 +207,8 @@ internal class CardRetinue : CardBase
             return;
         }
 
-        int handCardIndex = ClientPlayer.MyHandManager.GetCardIndex(this);
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, handCardIndex, battleGroundIndex);
+        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex);
         Client.CS.Proxy.SendMessage(request);
     }
 

@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 public class EquipShieldRequest : ClientRequestBase
 {
-    public int handCardIndex;
-    public int battleGroundIndex;
+    public int handCardInstanceId;
+    public int retinueID;
     public int shieldPlaceIndex;
 
     public EquipShieldRequest()
     {
     }
 
-    public EquipShieldRequest(int clientId, int handCardIndex, int battleGroundIndex, int shieldPlaceIndex) :base(clientId)
+    public EquipShieldRequest(int clientId, int handCardInstanceId, int retinueId, int shieldPlaceIndex) :base(clientId)
     {
-        this.handCardIndex = handCardIndex;
-        this.battleGroundIndex = battleGroundIndex;
+        this.handCardInstanceId = handCardInstanceId;
+        this.retinueID = retinueId;
         this.shieldPlaceIndex = shieldPlaceIndex;
     }
 
@@ -31,24 +31,24 @@ public class EquipShieldRequest : ClientRequestBase
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(handCardIndex);
-        writer.WriteSInt32(battleGroundIndex);
+        writer.WriteSInt32(handCardInstanceId);
+        writer.WriteSInt32(retinueID);
         writer.WriteSInt32(shieldPlaceIndex);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        handCardIndex = reader.ReadSInt32();
-        battleGroundIndex = reader.ReadSInt32();
+        handCardInstanceId = reader.ReadSInt32();
+        retinueID = reader.ReadSInt32();
         shieldPlaceIndex = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
     {
         string log = "";
-        log += " [handCardIndex]=" + handCardIndex;
-        log += " [battleGroundIndex]=" + battleGroundIndex;
+        log += " [handCardInstanceId]=" + handCardInstanceId;
+        log += " [retinueID]=" + retinueID;
         log += " [shieldPlaceIndex]=" + shieldPlaceIndex;
         return log;
     }
