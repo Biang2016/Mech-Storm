@@ -95,7 +95,8 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (m_RetinueLeftLife <= 0)
             {
-                OnDie();
+                OnDieTogather();
+                ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
                 ServerPlayer.MyBattleGroundManager.RemoveRetinue(this);
             }
         }
@@ -481,23 +482,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         ServerPlayer.MyGameManager.ExecuteAllSideEffects();
     }
 
-    public void OnDie() //被单杀触发
-    {
-        if (M_IsDead) return;
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnDie)
-        {
-            ServerPlayer.MyGameManager.EnqueueSideEffect(se);
-        }
-
-        RetinueDieRequest request = new RetinueDieRequest(new List<int> {M_RetinueID});
-        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-
-        M_IsDead = true;
-        ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID); 
-        ServerPlayer.MyGameManager.ExecuteAllSideEffects();
-    }
-
-    public void OnDieTogather() //被群杀时触发
+    public void OnDieTogather() //被杀时触发
     {
         if (M_IsDead) return;
         foreach (SideEffectBase se in CardInfo.SideEffects_OnDie) //先入队死亡效果，但不触发，等到所有被群杀的随从的死亡效果都入队之后再触发

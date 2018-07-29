@@ -159,11 +159,11 @@ internal class RoundManager : MonoBehaviour
                 OnBattleGroundAddRetinue_PrePass((BattleGroundAddRetinueRequest) se);
                 break;
             }
-            //case NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE:
-            //{
-            //    OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest) se);
-            //    break;
-            //}
+            case NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE:
+            {
+                OnBattleGroundRemoveRetinue_PrePass((BattleGroundRemoveRetinueRequest) se);
+                break;
+            }
 
             //case NetProtocols.SE_DRAW_CARD:
             //{
@@ -355,14 +355,9 @@ internal class RoundManager : MonoBehaviour
         cp.MyBattleGroundManager.AddRetinue(r.cardInfo, r.battleGroundIndex, r.retinueId);
     }
 
-    private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
+    private void OnBattleGroundRemoveRetinue_PrePass(BattleGroundRemoveRetinueRequest r)
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround(r.retinueIds), "Co_RetinueRemoveFromBattleGround");
-    }
-
-    IEnumerator Co_RetinueRemoveFromBattleGround(List<int> removeRetinues) //随从一起移除战场
-    {
-        foreach (int retinueId in removeRetinues)
+        foreach (int retinueId in r.retinueIds)
         {
             if (SelfClientPlayer.MyBattleGroundManager.GetRetinue(retinueId) != null)
             {
@@ -373,7 +368,15 @@ internal class RoundManager : MonoBehaviour
                 EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherAdd(retinueId);
             }
         }
+    }
 
+    private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
+    {
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround(), "Co_RetinueRemoveFromBattleGround");
+    }
+
+    IEnumerator Co_RetinueRemoveFromBattleGround() //随从一起移除战场
+    {
         SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogather();
         EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogather();
 

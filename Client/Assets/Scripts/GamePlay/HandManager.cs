@@ -154,15 +154,8 @@ internal class HandManager : MonoBehaviour
             }
             else
             {
-                if (GameManager.GM.CanTestEnemyCards)
-                {
-                    card.transform.Rotate(Vector3.up * 180);
-                }
-                else
-                {
-                    //card.transform.Rotate(Vector3.forward * 180);
-                    card.transform.Rotate(Vector3.right * 180);
-                }
+                //card.transform.Rotate(Vector3.forward * 180);
+                card.transform.Rotate(Vector3.right * 180);
             }
 
             card.transform.position = new Vector3(card.transform.position.x, 2f, card.transform.position.z);
@@ -186,8 +179,7 @@ internal class HandManager : MonoBehaviour
         {
             if (ClientPlayer == RoundManager.RM.CurrentClientPlayer)
             {
-                card.Usable = (ClientPlayer == RoundManager.RM.EnemyClientPlayer) && (GameManager.GM.CanTestEnemyCards) && (card.M_Cost <= ClientPlayer.CostLeft);
-                card.Usable |= (ClientPlayer == RoundManager.RM.SelfClientPlayer) && (card.M_Cost <= ClientPlayer.CostLeft);
+                card.Usable = (ClientPlayer == RoundManager.RM.SelfClientPlayer) && (card.M_Cost <= ClientPlayer.CostLeft);
             }
             else
             {
@@ -243,7 +235,7 @@ internal class HandManager : MonoBehaviour
     void becomeBigger(CardBase focusCard)
     {
         if (ClientPlayer == null) return;
-        if (!isBeginDrag && (GameManager.GM.CanTestEnemyCards || ClientPlayer.WhichPlayer == Players.Self))
+        if (!isBeginDrag && ClientPlayer.WhichPlayer == Players.Self)
         {
             //用一个BoxCollider代替原来的位置
             ColliderReplace colliderReplace = GameObjectPoolManager.GOPM.Pool_ColliderReplacePool.AllocateGameObject(GameBoardManager.GBM.transform).GetComponent<ColliderReplace>();
@@ -260,28 +252,13 @@ internal class HandManager : MonoBehaviour
                 //本卡牌BoxCollider失效
                 focusCard.GetComponent<BoxCollider>().enabled = false;
             }
-            else
-            {
-                if (GameManager.GM.CanTestEnemyCards)
-                {
-                    //focusCard.transform.Rotate(Vector3.up * 180);
-                    focusCard.transform.position = new Vector3(focusCard.transform.position.x, 2f, focusCard.transform.position.z);
-                    focusCard.transform.Translate(Vector3.up * 5f);
-                    focusCard.transform.Translate(Vector3.forward * 4f);
-                    //本卡牌BoxCollider失效
-                    focusCard.GetComponent<BoxCollider>().enabled = false;
-                }
-                else
-                {
-                }
-            }
         }
     }
 
     void returnToSmaller(CardBase lostFocusCard)
     {
         if (ClientPlayer == null) return;
-        if (!isBeginDrag && (GameManager.GM.CanTestEnemyCards || ClientPlayer.WhichPlayer == Players.Self))
+        if (!isBeginDrag && ClientPlayer.WhichPlayer == Players.Self)
         {
             //一旦替身BoxCollider失焦，恢复原手牌位置
             lostFocusCard.transform.localScale = Vector3.one;

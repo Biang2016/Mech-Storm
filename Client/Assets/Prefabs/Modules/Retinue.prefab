@@ -237,7 +237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1346162165601484
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1689302088787208
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1998134016347754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2854,6 +2854,8 @@ MonoBehaviour:
   SwordBar: {fileID: 1687050067522014}
   SwordBarMask: {fileID: 1453715835541756}
   LifeBarMask: {fileID: 1142600874657134}
+  m_RetinueID: 0
+  CannotAttackBecauseDie: 0
   CanAttack_Self: 0
   CanAttack_Weapon: 0
   CanAttack_Shield: 0

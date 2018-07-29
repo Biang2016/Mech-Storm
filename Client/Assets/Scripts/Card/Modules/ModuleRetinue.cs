@@ -39,6 +39,15 @@ internal class ModuleRetinue : ModuleBase
         gameObjectPool = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool;
         SwordMaskDefaultPosition = SwordBarMask.transform.localPosition;
         LifeBarMaskDefaultPosition = LifeBarMask.transform.localPosition;
+
+        initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
+        initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife, '/');
+        initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack);
+        initiateNumbers(ref GoNumberSet_RetinueWeaponEnergy, ref CardNumberSet_RetinueWeaponEnergy, NumberSize.Medium, CardNumberSet.TextAlign.Left, Block_RetinueWeaponEnergy);
+        initiateNumbers(ref GoNumberSet_RetinueWeaponEnergyMax, ref CardNumberSet_RetinueWeaponEnergyMax, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueWeaponEnergyMax, '/');
+        initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Medium, CardNumberSet.TextAlign.Center, Block_RetinueArmor);
+        initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Small, CardNumberSet.TextAlign.Center, Block_RetinueShield);
+
     }
 
     void Start()
@@ -204,6 +213,8 @@ internal class ModuleRetinue : ModuleBase
 
         isInitializing = false;
         isFirstRound = true;
+        CannotAttackBecauseDie = false;
+        IsDead = false;
     }
 
 
@@ -257,9 +268,7 @@ internal class ModuleRetinue : ModuleBase
         {
             if (!isInitializing && m_RetinueLeftLife > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_LifeBeAttacked(), "Co_LifeBeAttacked");
             m_RetinueLeftLife = value;
-            initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
-            CardNumberSet_RetinueLeftLife.Number = m_RetinueLeftLife;
-            RefreshLifeBarMask();
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueLifeChange(m_RetinueLeftLife, m_RetinueTotalLife), "Co_RetinueLifeChange");
         }
     }
 
@@ -278,18 +287,25 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             m_RetinueTotalLife = value;
-            initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife, '/');
-            CardNumberSet_RetinueTotalLife.Number = m_RetinueTotalLife;
-            RefreshLifeBarMask();
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueLifeChange(m_RetinueLeftLife, m_RetinueTotalLife), "Co_RetinueLifeChange");
         }
     }
 
-    private void RefreshLifeBarMask()
+    IEnumerator Co_RetinueLifeChange(int leftLifeValue, int totalLifeValue)
     {
-        if (M_RetinueTotalLife != 0)
+        CardNumberSet_RetinueLeftLife.Number = leftLifeValue;
+        CardNumberSet_RetinueTotalLife.Number = totalLifeValue;
+        RefreshLifeBarMask(leftLifeValue, totalLifeValue);
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
+    private void RefreshLifeBarMask(int leftLifeValue, int totalLifeValue)
+    {
+        if (totalLifeValue != 0)
         {
             LifeBarMask.transform.localPosition = LifeBarMaskDefaultPosition;
-            LifeBarMask.transform.Translate(Vector3.left * LifeBarMaskFullOffset * 2 * M_RetinueLeftLife / M_RetinueTotalLife, Space.Self);
+            LifeBarMask.transform.Translate(Vector3.left * LifeBarMaskFullOffset * 2 * leftLifeValue / totalLifeValue, Space.Self);
         }
         else
         {
@@ -310,9 +326,16 @@ internal class ModuleRetinue : ModuleBase
                 M_Weapon.M_WeaponAttack = value;
             }
 
-            initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack);
-            CardNumberSet_RetinueAttack.Number = m_RetinueAttack;
+            CheckCanAttack();
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueAttackChange(m_RetinueAttack), "Co_RetinueAttackChange");
         }
+    }
+
+    IEnumerator Co_RetinueAttackChange(int retinueAttackValue)
+    {
+        CardNumberSet_RetinueAttack.Number = retinueAttackValue;
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     private int m_RetinueWeaponEnergy;
@@ -328,24 +351,11 @@ internal class ModuleRetinue : ModuleBase
                 M_Weapon.M_WeaponEnergy = value;
             }
 
-            initiateNumbers(ref GoNumberSet_RetinueWeaponEnergy, ref CardNumberSet_RetinueWeaponEnergy, NumberSize.Medium, CardNumberSet.TextAlign.Left, Block_RetinueWeaponEnergy);
-            CardNumberSet_RetinueWeaponEnergy.Number = m_RetinueWeaponEnergy;
-
-            if (SwordBar)
-            {
-                if (m_RetinueWeaponEnergy == 0)
-                {
-                    SwordBar.SetActive(false);
-                }
-                else
-                {
-                    if (!SwordBar.activeSelf) SwordBar.SetActive(true);
-                }
-            }
-
-            RefreshSwordBarMask();
+            CheckCanAttack();
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax), "Co_RetinueWeaponEnergyChange");
         }
     }
+
 
     private int m_RetinueWeaponEnergyMax;
 
@@ -354,25 +364,45 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueWeaponEnergyMax; }
         set
         {
+            m_RetinueWeaponEnergyMax = value;
             if (M_Weapon)
             {
                 M_Weapon.M_WeaponEnergyMax = value;
             }
 
-            m_RetinueWeaponEnergyMax = value;
-            initiateNumbers(ref GoNumberSet_RetinueWeaponEnergyMax, ref CardNumberSet_RetinueWeaponEnergyMax, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueWeaponEnergyMax, '/');
-            CardNumberSet_RetinueWeaponEnergyMax.Number = m_RetinueWeaponEnergyMax;
-
-            RefreshSwordBarMask();
+            CheckCanAttack();
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax), "Co_RetinueWeaponEnergyChange");
         }
     }
 
-    private void RefreshSwordBarMask()
+    IEnumerator Co_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
-        if (M_RetinueWeaponEnergyMax != 0)
+        CardNumberSet_RetinueWeaponEnergy.Number = retinueWeaponEnergyValue;
+        CardNumberSet_RetinueWeaponEnergyMax.Number = m_RetinueWeaponEnergyMax;
+
+        if (SwordBar)
+        {
+            if (retinueWeaponEnergyValue == 0)
+            {
+                SwordBar.SetActive(false);
+            }
+            else
+            {
+                if (!SwordBar.activeSelf) SwordBar.SetActive(true);
+            }
+        }
+
+        RefreshSwordBarMask(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue);
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
+    private void RefreshSwordBarMask(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
+    {
+        if (retinueWeaponEnergyMaxValue != 0)
         {
             SwordBarMask.transform.localPosition = SwordMaskDefaultPosition;
-            SwordBarMask.transform.Translate(Vector3.back * SwordMaskFullOffset * 2 * M_RetinueWeaponEnergy / M_RetinueWeaponEnergyMax, Space.Self);
+            SwordBarMask.transform.Translate(Vector3.back * SwordMaskFullOffset * 2 * retinueWeaponEnergyValue / retinueWeaponEnergyMaxValue, Space.Self);
         }
         else
         {
@@ -394,24 +424,7 @@ internal class ModuleRetinue : ModuleBase
                 M_Shield.M_ShieldArmor = value;
             }
 
-            initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Medium, CardNumberSet.TextAlign.Center, Block_RetinueArmor);
-            if (M_Shield)
-            {
-                CardNumberSet_RetinueArmor.Number = M_Shield.M_ShieldArmor;
-            }
-            else
-            {
-                CardNumberSet_RetinueArmor.Number = m_RetinueArmor;
-            }
-
-            if (m_RetinueArmor == 0)
-            {
-                if (ArmorFill) ArmorFill.SetActive(false);
-            }
-            else
-            {
-                if (ArmorFill && !ArmorFill.activeSelf) ArmorFill.SetActive(true);
-            }
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueArmorChange(m_RetinueArmor), "Co_RetinueArmorChange");
         }
     }
 
@@ -421,6 +434,24 @@ internal class ModuleRetinue : ModuleBase
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
+
+    IEnumerator Co_RetinueArmorChange(int retinueArmorValue)
+    {
+        CardNumberSet_RetinueArmor.Number = retinueArmorValue;
+
+        if (retinueArmorValue == 0)
+        {
+            if (ArmorFill) ArmorFill.SetActive(false);
+        }
+        else
+        {
+            if (ArmorFill && !ArmorFill.activeSelf) ArmorFill.SetActive(true);
+        }
+
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
 
     private int m_RetinueShield;
 
@@ -436,25 +467,7 @@ internal class ModuleRetinue : ModuleBase
                 M_Shield.M_ShieldShield = value;
             }
 
-            initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Small, CardNumberSet.TextAlign.Center, Block_RetinueShield);
-            if (M_Shield)
-            {
-                CardNumberSet_RetinueShield.Number = M_Shield.M_ShieldShield;
-            }
-            else
-            {
-                CardNumberSet_RetinueShield.Number = m_RetinueShield;
-            }
-
-
-            if (m_RetinueShield == 0)
-            {
-                if (ShieldBar) ShieldBar.SetActive(false);
-            }
-            else
-            {
-                if (ShieldBar && !ShieldBar.activeSelf) ShieldBar.SetActive(true);
-            }
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueShieldChange(m_RetinueShield), "Co_RetinueShieldChange");
         }
     }
 
@@ -462,6 +475,23 @@ internal class ModuleRetinue : ModuleBase
     {
         ShieldIconHit.SetTrigger("BeHit");
         yield return new WaitForSeconds(0.1f);
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
+    IEnumerator Co_RetinueShieldChange(int retinueShieldValue)
+    {
+        CardNumberSet_RetinueShield.Number = retinueShieldValue;
+
+        if (retinueShieldValue == 0)
+        {
+            if (ShieldBar) ShieldBar.SetActive(false);
+        }
+        else
+        {
+            if (ShieldBar && !ShieldBar.activeSelf) ShieldBar.SetActive(true);
+        }
+
+        yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
@@ -495,8 +525,6 @@ internal class ModuleRetinue : ModuleBase
                 m_Weapon = value;
                 On_WeaponChanged();
             }
-
-            CheckCanAttack();
         }
     }
 
@@ -506,10 +534,12 @@ internal class ModuleRetinue : ModuleBase
 
     void On_WeaponEquiped()
     {
+        CheckCanAttack();
     }
 
     void On_WeaponChanged()
     {
+        CheckCanAttack();
     }
 
     #endregion
@@ -570,6 +600,7 @@ internal class ModuleRetinue : ModuleBase
 
     #region 攻击
 
+    public bool CannotAttackBecauseDie;
     public bool CanAttack_Self;
     public bool CanAttack_Weapon;
     public bool CanAttack_Shield;
@@ -580,23 +611,29 @@ internal class ModuleRetinue : ModuleBase
 
     private bool CheckCanAttack()
     {
-        if (isFirstRound) return false;
         bool canAttack = false;
-        if (CanAttack_Self && M_Weapon && CanAttack_Weapon && M_Weapon.M_WeaponAttack != 0 && M_RetinueWeaponEnergy > 0)
+        if (isFirstRound || CannotAttackBecauseDie)
         {
-            canAttack = true;
+            canAttack = false;
         }
-        else if (M_Shield && CanAttack_Shield)
+        else
         {
-        }
-        else if (M_Pack && CanAttack_Pack)
-        {
-        }
-        else if (M_MA && CanAttack_MA)
-        {
+            if (RoundManager.RM.CurrentClientPlayer == RoundManager.RM.SelfClientPlayer && CanAttack_Self && M_Weapon && CanAttack_Weapon && M_Weapon.M_WeaponAttack != 0 && M_RetinueWeaponEnergy > 0)
+            {
+                canAttack = true;
+            }
+            else if (M_Shield && CanAttack_Shield)
+            {
+            }
+            else if (M_Pack && CanAttack_Pack)
+            {
+            }
+            else if (M_MA && CanAttack_MA)
+            {
+            }
         }
 
-        RetinueBloom.gameObject.SetActive(canAttack && (GameManager.GM.CanTestEnemyCards || RoundManager.RM.SelfClientPlayer == RoundManager.RM.CurrentClientPlayer));
+        RetinueBloom.gameObject.SetActive(canAttack);
         return canAttack;
     }
 
@@ -623,7 +660,7 @@ internal class ModuleRetinue : ModuleBase
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
-        if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer)
+        if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer && !RoundManager.RM.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(moduleRetinue))
         {
             RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.CS.Proxy.ClientId, ClientPlayer.ClientId, M_RetinueID, RoundManager.RM.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
             Client.CS.Proxy.SendMessage(request);
@@ -655,7 +692,7 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             isBeDraggedHover = value;
-            OnHoverBloom.gameObject.SetActive(value);
+            if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this)) OnHoverBloom.gameObject.SetActive(value);
         }
     }
 
@@ -671,7 +708,7 @@ internal class ModuleRetinue : ModuleBase
                 IsBeDraggedHover = true;
                 if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
                 {
-                    ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true;
+                    ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true; //箭头动画
                 }
             }
         }
@@ -683,7 +720,7 @@ internal class ModuleRetinue : ModuleBase
         IsBeDraggedHover = false;
         if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
         {
-            ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = false;
+            ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = false; //箭头动画
         }
     }
 

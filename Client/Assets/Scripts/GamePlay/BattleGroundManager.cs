@@ -92,12 +92,12 @@ internal class BattleGroundManager : MonoBehaviour
         BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
     }
 
-    List<ModuleRetinue> RemoveRetinues = new List<ModuleRetinue>(); //即将要被移除的随从名单
+    public List<ModuleRetinue> RemoveRetinues = new List<ModuleRetinue>(); //即将要被移除的随从名单
 
     public void RemoveRetinueTogatherAdd(int retinueId)
     {
         ModuleRetinue retinue = GetRetinue(retinueId);
-        retinue.PoolRecycle();
+        retinue.CannotAttackBecauseDie = true;
         RemoveRetinues.Add(retinue);
     }
 
@@ -105,6 +105,7 @@ internal class BattleGroundManager : MonoBehaviour
     {
         foreach (ModuleRetinue removeRetinue in RemoveRetinues)
         {
+            removeRetinue.PoolRecycle();
             Retinues.Remove(removeRetinue);
             ClientLog.CL.Print("remove:" + removeRetinue.M_RetinueID);
         }

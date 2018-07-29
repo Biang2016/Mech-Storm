@@ -98,6 +98,7 @@ sideEffect序列化问题有bug
 7.29
 retinue和card的placeindex替换为id遗留的bug全部改完
 动画序列的bug修改完毕
+随从数值更改放入动画序列
 
 slot 和 slotAnchor合并
 
