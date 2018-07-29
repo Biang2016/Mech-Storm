@@ -492,9 +492,9 @@ internal class ServerModuleRetinue : ServerModuleBase
         RetinueDieRequest request = new RetinueDieRequest(new List<int> {M_RetinueID});
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
-        ServerPlayer.MyGameManager.ExecuteAllSideEffects();
-
         M_IsDead = true;
+        ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID); 
+        ServerPlayer.MyGameManager.ExecuteAllSideEffects();
     }
 
     public void OnDieTogather() //被群杀时触发

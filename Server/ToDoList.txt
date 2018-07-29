@@ -95,6 +95,10 @@ sideEffect序列化问题有bug
 制作了LifeBar的mask
 将retinue和card的placeindex全部替换为id，还没改完
 
+7.29
+retinue和card的placeindex替换为id遗留的bug全部改完
+动画序列的bug修改完毕
+
 slot 和 slotAnchor合并
 
 卡牌描述里自动换行处理、自动文本大小

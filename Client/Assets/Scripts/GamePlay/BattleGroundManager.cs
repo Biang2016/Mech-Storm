@@ -182,6 +182,8 @@ internal class BattleGroundManager : MonoBehaviour
             yield return null;
         }
 
+        yield return null;
+
         myParentEffects.EffectEnd();
     }
 
@@ -250,6 +252,7 @@ internal class BattleGroundManager : MonoBehaviour
             if (cur_Effect != null && cur_Effect.Enumerator == currentShowSlotBloom)
             {
                 BattleEffectsManager.BEM.Effect_TipSlotBloom.EffectEnd();
+                ClientLog.CL.PrintWarning("Stop Effect_TipSlotBloom");
                 currentShowSlotBloom = null;
             }
         }

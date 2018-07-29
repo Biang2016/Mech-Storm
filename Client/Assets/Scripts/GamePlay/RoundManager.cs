@@ -380,9 +380,8 @@ internal class RoundManager : MonoBehaviour
         SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
         EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
 
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
-
         yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     private void OnPlayerDrawCard(DrawCardRequest r)

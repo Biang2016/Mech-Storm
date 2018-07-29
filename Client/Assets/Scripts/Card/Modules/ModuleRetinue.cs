@@ -240,6 +240,14 @@ internal class ModuleRetinue : ModuleBase
         }
     }
 
+    private bool isDead;
+
+    public bool IsDead
+    {
+        get { return isDead; }
+        set { isDead = value; }
+    }
+
     private int m_RetinueLeftLife;
 
     public int M_RetinueLeftLife
@@ -696,10 +704,13 @@ internal class ModuleRetinue : ModuleBase
 
     public void OnDieSideEffects()
     {
+        if (IsDead) return;
         foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnDie)
         {
             BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 1f), "ShowSideEffectBloom");
         }
+
+        IsDead = true;
     }
 
     IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
