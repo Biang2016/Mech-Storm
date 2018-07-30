@@ -1023,7 +1023,7 @@ TextMesh:
   m_GameObject: {fileID: 1923300744319080}
   m_Text: "\u5361\u724C\u63CF\u8FF0\u5361\u724C\u63CF\u8FF0\u5361\u724C\u63CF\u8FF0\u5361\u5361\n\u724C\u63CF\u8FF0\u5361\u724C\u63CF\u8FF0\u5361\u724C\u63CF\u8FF0\u724C\n\u63CF\u8FF0\u5361\u724C\u63CF\u8FF0\u5361\u724C\u63CF\u8FF0\n12312313"
   m_OffsetZ: 0
-  m_CharacterSize: 8
+  m_CharacterSize: 10
   m_LineSpacing: 0.6
   m_Anchor: 4
   m_Alignment: 1
