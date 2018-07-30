@@ -85,12 +85,14 @@ internal class NetworkManager : MonoBehaviour
     }
 
     IEnumerator ShowInfoPanelCoroutine;
+
     void ShowInfoPanel(string text, float delay, float last)
     {
         if (ShowInfoPanelCoroutine != null)
         {
             StopCoroutine(ShowInfoPanelCoroutine);
         }
+
         ShowInfoPanelCoroutine = Co_ShowInfoPanel(text, delay, last);
         StartCoroutine(ShowInfoPanelCoroutine);
     }
@@ -154,7 +156,7 @@ internal class NetworkManager : MonoBehaviour
                 //}
 
                 //Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(SelfCardDeckInfo.ToArray()));
-                Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(new int[] { 0, 0, 1, 0, 100, 101, 300, 200, 201, 202,  350, 102}));
+                Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(new int[] {0, 0, 1, 0, 100, 101, 300, 301, 350, 351, 302, 200, 201, 202, 350, 102}));
                 ShowInfoPanel("更新卡组成功", 0, 1f);
             }
         }

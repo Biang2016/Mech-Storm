@@ -119,7 +119,6 @@ internal class BattleEffectsManager : MonoBehaviour
         {
             ClientLog.CL.PrintWarning("end");
 
-            Debug.Assert(CurrentEffect != null);
             if (CurrentEffect != null)
             {
                 if (CurrentEffect.Enumerator != null)

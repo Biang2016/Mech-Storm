@@ -35,6 +35,8 @@ ModelImporter:
     100058: MediumNumber
     100060: SmallNumber
     100062: SwordMask
+    100064: ArmorFill
+    100066: ShieldBar
     400000: Box001
     400002: Box002
     400004: Camera001.Target
@@ -67,6 +69,8 @@ ModelImporter:
     400058: MediumNumber
     400060: SmallNumber
     400062: SwordMask
+    400064: ArmorFill
+    400066: ShieldBar
     2000000: Camera001
     2300000: Box001
     2300002: Box002
@@ -96,6 +100,8 @@ ModelImporter:
     2300050: MediumNumber
     2300052: SmallNumber
     2300054: SwordMask
+    2300056: ArmorFill
+    2300058: ShieldBar
     3300000: Box001
     3300002: Box002
     3300004: Cylinder001
@@ -124,6 +130,8 @@ ModelImporter:
     3300050: MediumNumber
     3300052: SmallNumber
     3300054: SwordMask
+    3300056: ArmorFill
+    3300058: ShieldBar
     4300000: Box001
     4300002: Cylinder001
     4300004: Cylinder002
@@ -151,6 +159,8 @@ ModelImporter:
     4300048: MediumNumber
     4300050: SmallNumber
     4300052: SwordMask
+    4300054: ShieldBar
+    4300056: ArmorFill
     9500000: //RootNode
     10800000: Direct001
   externalObjects:

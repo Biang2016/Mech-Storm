@@ -31,6 +31,10 @@ internal class ModuleRetinue : ModuleBase
             M_MA = null;
         }
 
+        ArmorFill.gameObject.SetActive(false);
+        ShieldBar.gameObject.SetActive(false);
+        SwordBar.gameObject.SetActive(false);
+
         base.PoolRecycle();
     }
 
@@ -47,7 +51,6 @@ internal class ModuleRetinue : ModuleBase
         initiateNumbers(ref GoNumberSet_RetinueWeaponEnergyMax, ref CardNumberSet_RetinueWeaponEnergyMax, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueWeaponEnergyMax, '/');
         initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Medium, CardNumberSet.TextAlign.Center, Block_RetinueArmor);
         initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Small, CardNumberSet.TextAlign.Center, Block_RetinueShield);
-
     }
 
     void Start()
@@ -155,8 +158,8 @@ internal class ModuleRetinue : ModuleBase
 
     public Renderer PictureBoxRenderer;
 
-    public GameObject ArmorFill;
-    public GameObject ShieldBar;
+    public Animator ArmorFill;
+    public Animator ShieldBar;
     public GameObject SwordBar;
     public GameObject SwordBarMask;
     private float SwordMaskFullOffset = 0.451f;
@@ -164,6 +167,7 @@ internal class ModuleRetinue : ModuleBase
     public GameObject LifeBarMask;
     private float LifeBarMaskFullOffset = 1f;
     private Vector3 LifeBarMaskDefaultPosition;
+    public Animator LifeIncreaseArrow;
 
     private bool isInitializing = false;
 
@@ -230,8 +234,7 @@ internal class ModuleRetinue : ModuleBase
         }
     }
 
-    [SerializeField]
-    private int m_RetinueID;
+    [SerializeField] private int m_RetinueID;
 
     public int M_RetinueID
     {
@@ -266,16 +269,31 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueLeftLife; }
         set
         {
-            if (!isInitializing && m_RetinueLeftLife > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_LifeBeAttacked(), "Co_LifeBeAttacked");
+            if (!isInitializing)
+            {
+                if (m_RetinueLeftLife > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_LifeBeAttacked(value, m_RetinueTotalLife), "Co_LifeBeAttacked");
+                else if (m_RetinueLeftLife < value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_LifeAdded(value, m_RetinueTotalLife), "Co_LifeAdded");
+            }
+
             m_RetinueLeftLife = value;
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueLifeChange(m_RetinueLeftLife, m_RetinueTotalLife), "Co_RetinueLifeChange");
         }
     }
 
-    IEnumerator Co_LifeBeAttacked()
+    IEnumerator Co_LifeBeAttacked(int leftLifeValue, int totalLifeValue)
     {
         CardLifeHit.SetTrigger("BeHit");
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
+        retinueLifeChange(leftLifeValue, totalLifeValue);
+        yield return new WaitForSeconds(0.05f);
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
+    IEnumerator Co_LifeAdded(int leftLifeValue, int totalLifeValue)
+    {
+        LifeIncreaseArrow.SetTrigger("LifeAdd");
+        yield return new WaitForSeconds(0.05f);
+        retinueLifeChange(leftLifeValue, totalLifeValue);
+        yield return new WaitForSeconds(0.05f);
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
@@ -287,17 +305,15 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             m_RetinueTotalLife = value;
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueLifeChange(m_RetinueLeftLife, m_RetinueTotalLife), "Co_RetinueLifeChange");
+            retinueLifeChange(m_RetinueLeftLife, m_RetinueTotalLife);
         }
     }
 
-    IEnumerator Co_RetinueLifeChange(int leftLifeValue, int totalLifeValue)
+    private void retinueLifeChange(int leftLifeValue, int totalLifeValue)
     {
         CardNumberSet_RetinueLeftLife.Number = leftLifeValue;
         CardNumberSet_RetinueTotalLife.Number = totalLifeValue;
         RefreshLifeBarMask(leftLifeValue, totalLifeValue);
-        yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     private void RefreshLifeBarMask(int leftLifeValue, int totalLifeValue)
@@ -356,7 +372,6 @@ internal class ModuleRetinue : ModuleBase
         }
     }
 
-
     private int m_RetinueWeaponEnergyMax;
 
     public int M_RetinueWeaponEnergyMax
@@ -377,9 +392,6 @@ internal class ModuleRetinue : ModuleBase
 
     IEnumerator Co_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
-        CardNumberSet_RetinueWeaponEnergy.Number = retinueWeaponEnergyValue;
-        CardNumberSet_RetinueWeaponEnergyMax.Number = m_RetinueWeaponEnergyMax;
-
         if (SwordBar)
         {
             if (retinueWeaponEnergyValue == 0)
@@ -393,6 +405,10 @@ internal class ModuleRetinue : ModuleBase
         }
 
         RefreshSwordBarMask(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue);
+
+        CardNumberSet_RetinueWeaponEnergy.Number = retinueWeaponEnergyValue;
+        CardNumberSet_RetinueWeaponEnergyMax.Number = m_RetinueWeaponEnergyMax;
+
         yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
@@ -417,41 +433,51 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueArmor; }
         set
         {
-            if (!isInitializing && m_RetinueArmor > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ArmorBeAttacked(), "Co_ArmorBeAttacked");
+            if (!isInitializing && m_RetinueArmor > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ArmorBeAttacked(value), "Co_ArmorBeAttacked");
+            else if (m_RetinueArmor < value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ArmorAdded(value), "Co_ArmorAdded");
+
             m_RetinueArmor = value;
             if (M_Shield)
             {
                 M_Shield.M_ShieldArmor = value;
             }
-
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueArmorChange(m_RetinueArmor), "Co_RetinueArmorChange");
         }
     }
 
-    IEnumerator Co_ArmorBeAttacked()
+    IEnumerator Co_ArmorBeAttacked(int armorValue)
     {
-        ArmorIconHit.SetTrigger("BeHit");
-        yield return new WaitForSeconds(0.1f);
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
-    }
-
-    IEnumerator Co_RetinueArmorChange(int retinueArmorValue)
-    {
-        CardNumberSet_RetinueArmor.Number = retinueArmorValue;
-
-        if (retinueArmorValue == 0)
+        if (armorValue == 0)
         {
-            if (ArmorFill) ArmorFill.SetActive(false);
+            if (ArmorFill) ArmorFill.gameObject.SetActive(false);
         }
         else
         {
-            if (ArmorFill && !ArmorFill.activeSelf) ArmorFill.SetActive(true);
+            if (ArmorFill && !ArmorFill.gameObject.activeSelf) ArmorFill.gameObject.SetActive(true);
         }
 
-        yield return null;
+        ArmorIconHit.SetTrigger("BeHit");
+        ArmorFill.SetTrigger("ArmorAdd");
+        yield return new WaitForSeconds(0.1f);
+        CardNumberSet_RetinueArmor.Number = armorValue;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
+    IEnumerator Co_ArmorAdded(int armorValue)
+    {
+        if (armorValue == 0)
+        {
+            if (ArmorFill) ArmorFill.gameObject.SetActive(false);
+        }
+        else
+        {
+            if (ArmorFill && !ArmorFill.gameObject.activeSelf) ArmorFill.gameObject.SetActive(true);
+        }
+
+        ArmorFill.SetTrigger("ArmorAdd");
+        yield return new WaitForSeconds(0.1f);
+        CardNumberSet_RetinueArmor.Number = armorValue;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
 
     private int m_RetinueShield;
 
@@ -460,38 +486,49 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueShield; }
         set
         {
-            if (!isInitializing && m_RetinueShield > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShieldBeAttacked(), "Co_ShieldBeAttacked");
+            if (!isInitializing && m_RetinueShield > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShieldBeAttacked(value), "Co_ShieldBeAttacked");
+            else if (m_RetinueShield < value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShieldAdded(value), "Co_ShieldAdded");
+
             m_RetinueShield = value;
             if (M_Shield)
             {
                 M_Shield.M_ShieldShield = value;
             }
-
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueShieldChange(m_RetinueShield), "Co_RetinueShieldChange");
         }
     }
 
-    IEnumerator Co_ShieldBeAttacked()
+    IEnumerator Co_ShieldBeAttacked(int shieldValue)
     {
-        ShieldIconHit.SetTrigger("BeHit");
-        yield return new WaitForSeconds(0.1f);
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
-    }
-
-    IEnumerator Co_RetinueShieldChange(int retinueShieldValue)
-    {
-        CardNumberSet_RetinueShield.Number = retinueShieldValue;
-
-        if (retinueShieldValue == 0)
+        if (shieldValue == 0)
         {
-            if (ShieldBar) ShieldBar.SetActive(false);
+            if (ShieldBar) ShieldBar.gameObject.SetActive(false);
         }
         else
         {
-            if (ShieldBar && !ShieldBar.activeSelf) ShieldBar.SetActive(true);
+            if (ShieldBar && !ShieldBar.gameObject.activeSelf) ShieldBar.gameObject.SetActive(true);
         }
 
-        yield return null;
+        ShieldIconHit.SetTrigger("BeHit");
+        ShieldBar.SetTrigger("ShieldAdd");
+        yield return new WaitForSeconds(0.1f);
+        CardNumberSet_RetinueShield.Number = shieldValue;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
+    IEnumerator Co_ShieldAdded(int shieldValue)
+    {
+        if (shieldValue == 0)
+        {
+            if (ShieldBar) ShieldBar.gameObject.SetActive(false);
+        }
+        else
+        {
+            if (ShieldBar && !ShieldBar.gameObject.activeSelf) ShieldBar.gameObject.SetActive(true);
+        }
+
+        ShieldBar.SetTrigger("ShieldAdd");
+        yield return new WaitForSeconds(0.1f);
+        CardNumberSet_RetinueShield.Number = shieldValue;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
@@ -735,7 +772,7 @@ internal class ModuleRetinue : ModuleBase
         CheckCanAttack();
         foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnSummoned)
         {
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#64FFDB"), 1f), "ShowSideEffectBloom");
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#64FFDB"), 0.2f), "ShowSideEffectBloom");
         }
     }
 
@@ -744,7 +781,7 @@ internal class ModuleRetinue : ModuleBase
         if (IsDead) return;
         foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnDie)
         {
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 1f), "ShowSideEffectBloom");
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 0.2f), "ShowSideEffectBloom");
         }
 
         IsDead = true;
