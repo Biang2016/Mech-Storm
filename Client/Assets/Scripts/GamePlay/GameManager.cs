@@ -21,7 +21,7 @@ internal class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        //initializeColors();
+        initializeColors();
     }
 
     private void Start()
@@ -54,13 +54,17 @@ internal class GameManager : MonoBehaviour
 
     private void initializeColors()
     {
-        CardBloomColor = HTMLColorToColor("#FF8500");
-        RetinueBloomColor = HTMLColorToColor("#06FF00FF");
-        RetinueOnHoverBloomColor = HTMLColorToColor("#FF0000FF");
-        Slot1Color = HTMLColorToColor("#FF0000FF");
-        Slot2Color = HTMLColorToColor("#FFED00FF");
-        Slot3Color = HTMLColorToColor("#00FF6BFF");
-        Slot4Color = HTMLColorToColor("#2D37FFFF");
+        CardBloomColor = HTMLColorToColor("#FFFFFF");
+        RetinueBloomColor = HTMLColorToColor("#06FF00");
+        RetinueOnHoverBloomColor = HTMLColorToColor("#FF0000");
+        Slot1Color = HTMLColorToColor("#FF0000");
+        Slot2Color = HTMLColorToColor("#FFED00");
+        Slot3Color = HTMLColorToColor("#00FF6B");
+        Slot4Color = HTMLColorToColor("#2D37FF");
+
+        InjuredLifeNumberColor = HTMLColorToColor("#FF3041");
+        DefaultLifeNumberColor = HTMLColorToColor("#FFFFFF");
+        OverFlowTotalLifeColor = HTMLColorToColor("#00FF28");
     }
 
     public Color CardBloomColor;
@@ -70,6 +74,10 @@ internal class GameManager : MonoBehaviour
     public Color Slot2Color;
     public Color Slot3Color;
     public Color Slot4Color;
+
+    public Color DefaultLifeNumberColor;
+    public Color InjuredLifeNumberColor;
+    public Color OverFlowTotalLifeColor;
 
     public static Color HTMLColorToColor(string htmlColor)
     {

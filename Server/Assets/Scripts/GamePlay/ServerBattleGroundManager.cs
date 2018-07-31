@@ -89,8 +89,8 @@ internal class ServerBattleGroundManager
 
     public void AddLifeForSomeRetinue(ServerModuleRetinue retinue, int value) //本方增加某随从生命
     {
-        retinue.M_RetinueLeftLife += value;
         retinue.M_RetinueTotalLife += value;
+        retinue.M_RetinueLeftLife += value;
     }
 
     #endregion

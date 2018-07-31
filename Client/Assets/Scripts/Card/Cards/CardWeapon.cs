@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 internal class CardWeapon : CardBase
 {
@@ -21,7 +22,7 @@ internal class CardWeapon : CardBase
 
     public TextMesh WeaponName;
 
-    public TextMesh WeaponDesc;
+    public Text WeaponDesc;
 
     private string m_WeaponName;
 

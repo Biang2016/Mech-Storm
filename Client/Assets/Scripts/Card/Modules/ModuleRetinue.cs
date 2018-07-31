@@ -45,7 +45,7 @@ internal class ModuleRetinue : ModuleBase
         LifeBarMaskDefaultPosition = LifeBarMask.transform.localPosition;
 
         initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
-        initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife, '/');
+        initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Big, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife, '/');
         initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack);
         initiateNumbers(ref GoNumberSet_RetinueWeaponEnergy, ref CardNumberSet_RetinueWeaponEnergy, NumberSize.Medium, CardNumberSet.TextAlign.Left, Block_RetinueWeaponEnergy);
         initiateNumbers(ref GoNumberSet_RetinueWeaponEnergyMax, ref CardNumberSet_RetinueWeaponEnergyMax, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueWeaponEnergyMax, '/');
@@ -157,6 +157,8 @@ internal class ModuleRetinue : ModuleBase
     protected CardNumberSet CardNumberSet_RetinueArmor;
 
     public Renderer PictureBoxRenderer;
+
+    public TextMesh DamageNumberTextMesh;
 
     public Animator ArmorFill;
     public Animator ShieldBar;
@@ -276,6 +278,15 @@ internal class ModuleRetinue : ModuleBase
             }
 
             m_RetinueLeftLife = value;
+
+            if (M_RetinueLeftLife < M_RetinueTotalLife)
+            {
+                CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.InjuredLifeNumberColor);
+            }
+            else
+            {
+                CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.DefaultLifeNumberColor);
+            }
         }
     }
 
@@ -305,6 +316,24 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             m_RetinueTotalLife = value;
+            if (M_RetinueTotalLife > CardInfo.LifeInfo.TotalLife)
+            {
+                CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.GM.OverFlowTotalLifeColor);
+            }
+            else
+            {
+                CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.GM.DefaultLifeNumberColor);
+            }
+
+            if (M_RetinueLeftLife < M_RetinueTotalLife)
+            {
+                CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.InjuredLifeNumberColor);
+            }
+            else
+            {
+                CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.DefaultLifeNumberColor);
+            }
+
             retinueLifeChange(m_RetinueLeftLife, m_RetinueTotalLife);
         }
     }
@@ -688,6 +717,11 @@ internal class ModuleRetinue : ModuleBase
         CheckCanAttack();
     }
 
+    public int CalculateAttack()
+    {
+        return M_RetinueAttack * M_RetinueWeaponEnergy;
+    }
+
     IEnumerator DelayPoolRecycle()
     {
         yield return new WaitForSeconds(0.5F);
@@ -702,6 +736,8 @@ internal class ModuleRetinue : ModuleBase
             RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.CS.Proxy.ClientId, ClientPlayer.ClientId, M_RetinueID, RoundManager.RM.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
             Client.CS.Proxy.SendMessage(request);
         }
+
+        DragoutDamage = 0;
     }
 
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
@@ -714,6 +750,14 @@ internal class ModuleRetinue : ModuleBase
     {
         return 0.2f;
     }
+
+    public override void DragComponnet_DragOutEffects()
+    {
+        base.DragComponnet_DragOutEffects();
+        DragoutDamage = CalculateAttack();
+    }
+
+    public static int DragoutDamage = 0; //鼠标拖动时附带的预计伤害
 
     #endregion
 
@@ -747,6 +791,8 @@ internal class ModuleRetinue : ModuleBase
                 {
                     ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true; //箭头动画
                 }
+
+                DamageNumberTextMesh.text = DragoutDamage == 0 ? "" : "-" + DragoutDamage;
             }
         }
     }
@@ -759,6 +805,8 @@ internal class ModuleRetinue : ModuleBase
         {
             ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = false; //箭头动画
         }
+
+        DamageNumberTextMesh.text = "";
     }
 
     #endregion

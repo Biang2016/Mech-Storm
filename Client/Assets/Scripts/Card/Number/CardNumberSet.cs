@@ -230,6 +230,14 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
         }
     }
 
+    public void SetNumberSetColor(Color color)
+    {
+        foreach (CardNumber cardNumber in cardNumbers)
+        {
+            if (cardNumber) cardNumber.SetNumberColor(color);
+        }
+    }
+
     Vector3 digit4_thousand_position_L;
     Vector3 digit4_hundreds_position_L;
     Vector3 digit4_tens_position_L;

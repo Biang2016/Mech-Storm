@@ -27,7 +27,8 @@ SubShader {
         };  
   
         sampler2D _MainTex;  
-        half4 _MainTex_TexelSize;  
+        half4 _MainTex_Texel
+			;  
         half4 _BlurOffsets;  
           
         v2f vert (appdata_t v)  

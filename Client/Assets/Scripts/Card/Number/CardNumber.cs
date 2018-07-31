@@ -8,10 +8,11 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
     public void PoolRecycle()
     {
         hasSign = false;
+        SetNumberColor(GameManager.GM.DefaultLifeNumberColor);
         gameObjectPool.RecycleGameObject(gameObject);
     }
 
-    new Renderer renderer;
+    public Renderer Renderer;
 
     void Awake()
     {
@@ -27,8 +28,6 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
                 gameObjectPool = GameObjectPoolManager.GOPM.Pool_CardBigNumberPool;
                 break;
         }
-
-        renderer = GetComponent<Renderer>();
     }
 
     void Start()
@@ -56,7 +55,7 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
             if (value < 10 && value >= 0)
             {
                 number = value;
-                renderer.material = NumberMaterial[value];
+                Renderer.material = NumberMaterial[value];
             }
         }
     }
@@ -81,7 +80,17 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
                 ClientLog.CL.Print("无此符号");
                 signIndex = 0; break;
         }
-        renderer.material = NumberSignMaterial[signIndex];
+
+        Renderer.material = NumberSignMaterial[signIndex];
+    }
+
+    public void SetNumberColor(Color color)
+    {
+        MaterialPropertyBlock mpb=new MaterialPropertyBlock();
+        Renderer.GetPropertyBlock(mpb);
+        mpb.SetColor("_MainTex",color);
+        mpb.SetColor("_EmissionColor", color);
+        Renderer.SetPropertyBlock(mpb);
     }
 }
 

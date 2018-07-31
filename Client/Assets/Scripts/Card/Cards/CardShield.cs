@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 internal class CardShield : CardBase
 {
@@ -21,7 +22,7 @@ internal class CardShield : CardBase
 
     public TextMesh ShieldName;
 
-    public TextMesh ShieldDesc;
+    public Text ShieldDesc;
 
     private string m_ShieldName;
 

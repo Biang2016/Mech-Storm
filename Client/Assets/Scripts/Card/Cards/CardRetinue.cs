@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 internal class CardRetinue : CardBase
 {
@@ -52,7 +53,7 @@ internal class CardRetinue : CardBase
 
     public TextMesh TextMesh_RetinueName;
 
-    public TextMesh TextMesh_RetinueDesc;
+    public Text Text_RetinueDesc;
 
     public GameObject Block_RetinueTotalLife;
     GameObject GoNumberSet_RetinueTotalLife;
@@ -99,7 +100,7 @@ internal class CardRetinue : CardBase
         set
         {
             m_RetinueDesc = value;
-            TextMesh_RetinueDesc.text = value;
+            Text_RetinueDesc.text = value;
         }
     }
 
