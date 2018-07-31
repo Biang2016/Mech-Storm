@@ -110,7 +110,7 @@ internal class ServerHandManager
 
     internal void UseCard(ServerCardBase useCard)
     {
-        UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId);
+        UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone());
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         cards.Remove(useCard);
     }

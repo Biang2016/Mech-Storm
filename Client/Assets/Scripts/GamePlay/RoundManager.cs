@@ -405,7 +405,7 @@ internal class RoundManager : MonoBehaviour
     private void OnPlayerUseCard(UseCardRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyHandManager.UseCard(r.handCardInstanceId);
+        cp.MyHandManager.UseCard(r.handCardInstanceId, r.cardInfo);
     }
 
     private void OnEquipWeapon(EquipWeaponServerRequest r)

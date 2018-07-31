@@ -15,13 +15,12 @@ internal class GameManager : MonoBehaviour
 
     private GameManager()
     {
-
     }
 
 
     private void Awake()
     {
-        initializeColors();
+        initialize();
     }
 
     private void Start()
@@ -52,7 +51,9 @@ internal class GameManager : MonoBehaviour
     public float RetinueInterval = 3.5f;
     public float RetinueDetailPreviewDelaySeconds = 0.7f;
 
-    private void initializeColors()
+    public Vector3 CardShowPosition;
+
+    private void initialize()
     {
         CardBloomColor = HTMLColorToColor("#FFFFFF");
         RetinueBloomColor = HTMLColorToColor("#06FF00");
@@ -65,6 +66,8 @@ internal class GameManager : MonoBehaviour
         InjuredLifeNumberColor = HTMLColorToColor("#FF0015");
         DefaultLifeNumberColor = HTMLColorToColor("#FFFFFF");
         OverFlowTotalLifeColor = HTMLColorToColor("#00FF28");
+
+        CardShowPosition = new Vector3(10, 0, 0);
     }
 
     public Color CardBloomColor;

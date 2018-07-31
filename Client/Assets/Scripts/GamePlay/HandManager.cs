@@ -72,16 +72,48 @@ internal class HandManager : MonoBehaviour
     public void DropCard(int handCardInstanceId)
     {
         CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
+        cardBase.PoolRecycle();
         cards.Remove(cardBase);
         RefreshCardsPlace();
     }
 
-    public void UseCard(int handCardInstanceId)
+    public void UseCard(int handCardInstanceId,CardInfo_Base cardInfo)
     {
         CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
-        cardBase.PoolRecycle();
         cards.Remove(cardBase);
         RefreshCardsPlace();
+        if (ClientPlayer != RoundManager.RM.SelfClientPlayer)
+        {
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_UseCardShow(cardBase, cardInfo), "Co_UseCardShow");
+        }
+        else
+        {
+            cardBase.PoolRecycle();
+        }
+    }
+
+    IEnumerator Co_UseCardShow(CardBase cardBase, CardInfo_Base cardInfo)
+    {
+        Vector3 oldPosition = cardBase.transform.position;
+        Quaternion oldRotation = cardBase.transform.localRotation;
+        Vector3 targetPosition = GameManager.GM.CardShowPosition;
+        Quaternion targetRotation = defaultCardRotation;
+        cardBase.Initiate(cardInfo,ClientPlayer);
+        float duration = 0.3f;
+        float tick = 0;
+        while (tick < duration)
+        {
+            tick += Time.deltaTime;
+            cardBase.transform.position = Vector3.Lerp(oldPosition, targetPosition, tick / duration);
+            cardBase.transform.localRotation = Quaternion.Lerp(oldRotation, targetRotation, tick / duration);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.7f);
+
+        cardBase.PoolRecycle();
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     public void BeginRound()
