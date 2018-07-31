@@ -823,7 +823,7 @@ internal class ModuleRetinue : ModuleBase
         CheckCanAttack();
         foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnSummoned)
         {
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#64FFDB"), 0.2f), "ShowSideEffectBloom");
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#64FFDB"), 0.5f), "ShowSideEffectBloom");
         }
     }
 
@@ -832,7 +832,7 @@ internal class ModuleRetinue : ModuleBase
         if (IsDead) return;
         foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnDie)
         {
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 0.2f), "ShowSideEffectBloom");
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 0.5f), "ShowSideEffectBloom");
         }
 
         IsDead = true;

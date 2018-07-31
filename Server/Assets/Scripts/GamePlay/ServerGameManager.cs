@@ -226,7 +226,9 @@ internal class ServerGameManager
     public void OnStopGame(ClientProxy clientProxy)
     {
         if (isStopped) return;
+        if (ClientA == null) ServerLog.Print(ClientA.ClientId + "   ClientA==null");
         ClientA.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
+        if (ClientB == null) ServerLog.Print(ClientB.ClientId + "   ClientB==null");
         ClientB.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
 
         GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
