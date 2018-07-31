@@ -4,6 +4,12 @@ using UnityEngine;
 
 internal class ModuleShield : ModuleBase
 {
+    public override void PoolRecycle()
+    {
+        base.PoolRecycle();
+        ShieldEquipedAnim.SetTrigger("Hide");
+    }
+
     void Awake()
     {
         gameObjectPool = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool;
@@ -30,6 +36,8 @@ internal class ModuleShield : ModuleBase
     public GameObject Block_ShieldShield;
     protected GameObject GoNumberSet_ShieldShield;
     protected CardNumberSet CardNumberSet_ShieldShield;
+
+    public Animator ShieldEquipedAnim;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {

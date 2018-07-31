@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114313992795482676}
   - component: {fileID: 114462520089237860}
   - component: {fileID: 114005542974490046}
+  - component: {fileID: 95637243469078672}
   m_Layer: 12
   m_Name: Shield
   m_TagString: Untagged
@@ -486,6 +487,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.35, y: 0.13, z: 1.08}
   m_Center: {x: 0.72, y: 0, z: 0.26}
+--- !u!95 &95637243469078672
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1023920357079246}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 70b868ba833b17848b9fd929cb475c3b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!102 &102369230193945580
 TextMesh:
   serializedVersion: 3
@@ -527,6 +546,7 @@ MonoBehaviour:
   M_Bloom: {fileID: 1634093315377984}
   Block_ShieldArmor: {fileID: 0}
   Block_ShieldShield: {fileID: 0}
+  ShieldEquipedAnim: {fileID: 95637243469078672}
 --- !u!114 &114313992795482676
 MonoBehaviour:
   m_ObjectHideFlags: 1

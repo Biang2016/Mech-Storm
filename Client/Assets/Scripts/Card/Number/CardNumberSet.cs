@@ -16,6 +16,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
     }
 
     GameObjectPool childrenPool;
+    public Animator NumberSetChangeAnim;
 
     void Awake()
     {
@@ -150,6 +151,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
                 number = 9999;
             }
 
+            if (number != value) NumberSetChangeAnim.SetTrigger("NumberChange");
             number = value;
             setNumberSet();
             if (hasSign) setFirstSign(m_firstSign);
@@ -237,6 +239,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
             if (cardNumber) cardNumber.SetNumberColor(color);
         }
     }
+
 
     Vector3 digit4_thousand_position_L;
     Vector3 digit4_hundreds_position_L;

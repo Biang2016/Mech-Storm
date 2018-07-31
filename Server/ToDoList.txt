@@ -104,8 +104,8 @@ retinue和card的placeindex替换为id遗留的bug全部改完
 生命数值动画、变色
 受攻击hover显示预计伤害量
 护甲护盾值增加、受攻击动画
-
 weapon装备动画
+shield装备动画
 
 slot 和 slotAnchor合并
 

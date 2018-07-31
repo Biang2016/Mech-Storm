@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4188262499949230}
   - component: {fileID: 114290296155602018}
+  - component: {fileID: 95390999365484476}
   m_Layer: 8
   m_Name: NumberSet
   m_TagString: Untagged
@@ -40,17 +41,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &95390999365484476
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330873586267810}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c59169c8e9f9276419dd0b156652e7eb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114290296155602018
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330873586267810}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c3f5d44abb8b5c47b471ed638b08766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NumberSetChangeAnim: {fileID: 95390999365484476}
   myNumberSize: 0
   IntervalFactor: 0.07
   number: 0

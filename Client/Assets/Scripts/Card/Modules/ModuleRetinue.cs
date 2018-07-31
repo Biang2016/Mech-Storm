@@ -278,15 +278,6 @@ internal class ModuleRetinue : ModuleBase
             }
 
             m_RetinueLeftLife = value;
-
-            if (M_RetinueLeftLife < M_RetinueTotalLife)
-            {
-                CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.InjuredLifeNumberColor);
-            }
-            else
-            {
-                CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.DefaultLifeNumberColor);
-            }
         }
     }
 
@@ -316,32 +307,40 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             m_RetinueTotalLife = value;
-            if (M_RetinueTotalLife > CardInfo.LifeInfo.TotalLife)
-            {
-                CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.GM.OverFlowTotalLifeColor);
-            }
-            else
-            {
-                CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.GM.DefaultLifeNumberColor);
-            }
-
-            if (M_RetinueLeftLife < M_RetinueTotalLife)
-            {
-                CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.InjuredLifeNumberColor);
-            }
-            else
-            {
-                CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.DefaultLifeNumberColor);
-            }
-
-            retinueLifeChange(m_RetinueLeftLife, m_RetinueTotalLife);
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_TotalLifeAdded(m_RetinueLeftLife, value), "Co_TotalLifeAdded");
         }
+    }
+
+    IEnumerator Co_TotalLifeAdded(int leftLifeValue, int totalLifeValue)
+    {
+        if (totalLifeValue > CardInfo.LifeInfo.TotalLife)
+        {
+            CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.GM.OverFlowTotalLifeColor);
+        }
+        else
+        {
+            CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.GM.DefaultLifeNumberColor);
+        }
+
+        retinueLifeChange(leftLifeValue, totalLifeValue);
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     private void retinueLifeChange(int leftLifeValue, int totalLifeValue)
     {
+        if (leftLifeValue < totalLifeValue)
+        {
+            CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.InjuredLifeNumberColor);
+        }
+        else
+        {
+            CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.DefaultLifeNumberColor);
+        }
+
         CardNumberSet_RetinueLeftLife.Number = leftLifeValue;
         CardNumberSet_RetinueTotalLife.Number = totalLifeValue;
+
         RefreshLifeBarMask(leftLifeValue, totalLifeValue);
     }
 
@@ -606,6 +605,7 @@ internal class ModuleRetinue : ModuleBase
 
     void On_WeaponChanged()
     {
+        M_Weapon.WeaponEquipAnim.SetTrigger("WeaponEquiped");
         CheckCanAttack();
     }
 
@@ -649,10 +649,12 @@ internal class ModuleRetinue : ModuleBase
 
     void On_ShieldEquiped()
     {
+        M_Shield.ShieldEquipedAnim.SetTrigger("ShieldEquiped");
     }
 
     void On_ShieldChanged()
     {
+        M_Shield.ShieldEquipedAnim.SetTrigger("ShieldEquiped");
     }
 
     #endregion
