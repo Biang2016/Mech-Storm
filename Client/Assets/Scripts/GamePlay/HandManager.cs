@@ -77,11 +77,10 @@ internal class HandManager : MonoBehaviour
         RefreshCardsPlace();
     }
 
-    public void UseCard(int handCardInstanceId,CardInfo_Base cardInfo)
+    public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo)
     {
         CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
         cards.Remove(cardBase);
-        RefreshCardsPlace();
         if (ClientPlayer != RoundManager.RM.SelfClientPlayer)
         {
             BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_UseCardShow(cardBase, cardInfo), "Co_UseCardShow");
@@ -89,6 +88,7 @@ internal class HandManager : MonoBehaviour
         else
         {
             cardBase.PoolRecycle();
+            RefreshCardsPlace();
         }
     }
 
@@ -97,22 +97,30 @@ internal class HandManager : MonoBehaviour
         Vector3 oldPosition = cardBase.transform.position;
         Quaternion oldRotation = cardBase.transform.localRotation;
         Vector3 targetPosition = GameManager.GM.CardShowPosition;
-        Quaternion targetRotation = defaultCardRotation;
-        cardBase.Initiate(cardInfo,ClientPlayer);
+        Quaternion targetRotation = RoundManager.RM.EnemyClientPlayer.MyHandManager.DefaultCardRotation;
+        Vector3 oldScale = cardBase.transform.localScale;
+        Vector3 targetScale = cardBase.transform.localScale * 1.5f;
+
+        cardBase.PoolRecycle();
+        CardBase showCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer);
+
+        showCard.transform.position = oldPosition;
+        showCard.transform.localRotation = oldRotation;
+
         float duration = 0.3f;
         float tick = 0;
         while (tick < duration)
         {
             tick += Time.deltaTime;
-            cardBase.transform.position = Vector3.Lerp(oldPosition, targetPosition, tick / duration);
-            cardBase.transform.localRotation = Quaternion.Lerp(oldRotation, targetRotation, tick / duration);
+            showCard.transform.position = Vector3.Lerp(oldPosition, targetPosition, tick / duration);
+            showCard.transform.localRotation = Quaternion.Slerp(oldRotation, targetRotation, tick / duration);
+            showCard.transform.localScale = Vector3.Lerp(oldScale, targetScale, tick / duration);
             yield return null;
         }
+        RefreshCardsPlace();
 
         yield return new WaitForSeconds(0.7f);
-
-        cardBase.PoolRecycle();
-        yield return null;
+        showCard.PoolRecycle();
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
@@ -144,12 +152,13 @@ internal class HandManager : MonoBehaviour
                 if (currentFocusCard)
                 {
                     returnToSmaller(currentFocusCard);
+                    currentFocusCard = null;
                 }
             }
         }
     }
 
-    Quaternion defaultCardRotation;
+    public Quaternion DefaultCardRotation;
     bool isSet_defaultCardRotation;
     Vector3 defaultCardPosition;
     bool isSet_defaultCardPosition;
@@ -160,7 +169,7 @@ internal class HandManager : MonoBehaviour
         if (cards.Count == 0) return;
         if (!isSet_defaultCardRotation)
         {
-            defaultCardRotation = cards[0].transform.rotation;
+            DefaultCardRotation = cards[0].transform.rotation;
             isSet_defaultCardRotation = true;
         }
 
@@ -176,7 +185,7 @@ internal class HandManager : MonoBehaviour
         foreach (CardBase card in cards)
         {
             count++;
-            card.transform.rotation = defaultCardRotation;
+            card.transform.rotation = DefaultCardRotation;
             card.transform.position = defaultCardPosition;
             card.transform.localScale = Vector3.one * GameManager.GM.HandCardSize;
             float rotateAngle = angle / cards.Count * (((cards.Count - 1) / 2.0f + 1) - count);
@@ -274,7 +283,7 @@ internal class HandManager : MonoBehaviour
             colliderReplace.Initiate(focusCard);
             //本卡牌变大，旋转至正位
             focusCard.transform.localScale = Vector3.one * GameManager.GM.PullOutCardSize;
-            focusCard.transform.rotation = defaultCardRotation;
+            focusCard.transform.rotation = DefaultCardRotation;
             if (ClientPlayer.WhichPlayer == Players.Self)
             {
                 //focusCard.transform.Rotate(Vector3.up * 180);

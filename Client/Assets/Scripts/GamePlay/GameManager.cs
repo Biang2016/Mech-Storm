@@ -67,7 +67,7 @@ internal class GameManager : MonoBehaviour
         DefaultLifeNumberColor = HTMLColorToColor("#FFFFFF");
         OverFlowTotalLifeColor = HTMLColorToColor("#00FF28");
 
-        CardShowPosition = new Vector3(10, 0, 0);
+        CardShowPosition = new Vector3(10, 3, 0);
     }
 
     public Color CardBloomColor;

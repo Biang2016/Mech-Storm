@@ -328,12 +328,6 @@
  <Reference Include="MyCardGameCommon">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
  </Reference>
- <Reference Include="TextMeshPro-2017.3-Editor">
- <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
- </Reference>
- <Reference Include="TextMeshPro-2017.3-Runtime">
- <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/Biang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
  </Reference>
