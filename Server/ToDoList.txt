@@ -105,6 +105,8 @@ retinue和card的placeindex替换为id遗留的bug全部改完
 受攻击hover显示预计伤害量
 护甲护盾值增加、受攻击动画
 
+weapon装备动画
+
 slot 和 slotAnchor合并
 
 卡牌描述里自动换行处理、自动文本大小

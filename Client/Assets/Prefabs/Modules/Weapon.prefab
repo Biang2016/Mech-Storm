@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 65101073395848692}
   - component: {fileID: 114321063401111608}
   - component: {fileID: 114774957418447206}
+  - component: {fileID: 95186566290709824}
   m_Layer: 12
   m_Name: Weapon
   m_TagString: Untagged
@@ -486,6 +487,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.29, y: 0.13, z: 0.94}
   m_Center: {x: 0.72, y: 0, z: -0.58}
+--- !u!95 &95186566290709824
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846465197272344}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5689c4c248e103d4594ffb5629c8d985, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!102 &102871059373692676
 TextMesh:
   serializedVersion: 3
@@ -529,6 +548,8 @@ MonoBehaviour:
   M_SwordIcon: {fileID: 0}
   Block_WeaponAttack: {fileID: 0}
   Block_WeaponEnergy: {fileID: 0}
+  Block_WeaponEnergyMax: {fileID: 0}
+  WeaponEquipAnim: {fileID: 95186566290709824}
 --- !u!114 &114321063401111608
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -600,6 +600,7 @@ internal class ModuleRetinue : ModuleBase
 
     void On_WeaponEquiped()
     {
+        M_Weapon.WeaponEquipAnim.SetTrigger("WeaponEquiped");
         CheckCanAttack();
     }
 

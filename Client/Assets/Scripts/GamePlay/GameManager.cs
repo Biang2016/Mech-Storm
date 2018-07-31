@@ -62,7 +62,7 @@ internal class GameManager : MonoBehaviour
         Slot3Color = HTMLColorToColor("#00FF6B");
         Slot4Color = HTMLColorToColor("#2D37FF");
 
-        InjuredLifeNumberColor = HTMLColorToColor("#FF3041");
+        InjuredLifeNumberColor = HTMLColorToColor("#FF0015");
         DefaultLifeNumberColor = HTMLColorToColor("#FFFFFF");
         OverFlowTotalLifeColor = HTMLColorToColor("#00FF28");
     }

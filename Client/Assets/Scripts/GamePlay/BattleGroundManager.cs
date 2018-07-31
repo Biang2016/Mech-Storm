@@ -270,20 +270,34 @@ internal class BattleGroundManager : MonoBehaviour
 
     public void EquipWeapon(CardInfo_Weapon cardInfo, int retinueId)
     {
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_EquipWeapon(cardInfo, retinueId), "Co_EquipWeapon");
+    }
+
+    IEnumerator Co_EquipWeapon(CardInfo_Weapon cardInfo, int retinueId)
+    {
         ModuleRetinue retinue = GetRetinue(retinueId);
         ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(retinue.transform).GetComponent<ModuleWeapon>();
         newModueWeapon.M_ModuleRetinue = retinue;
         newModueWeapon.Initiate(cardInfo, ClientPlayer);
         retinue.M_Weapon = newModueWeapon;
+        yield return new WaitForSeconds(0.2f);
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     public void EquipShield(CardInfo_Shield cardInfo, int retinueId)
+    {
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_EquipShield(cardInfo, retinueId), "Co_EquipShield");
+    }
+
+    IEnumerator Co_EquipShield(CardInfo_Shield cardInfo, int retinueId)
     {
         ModuleRetinue retinue = GetRetinue(retinueId);
         ModuleShield newModuleShield = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool.AllocateGameObject(retinue.transform).GetComponent<ModuleShield>();
         newModuleShield.M_ModuleRetinue = retinue;
         newModuleShield.Initiate(cardInfo, ClientPlayer);
         retinue.M_Shield = newModuleShield;
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
 

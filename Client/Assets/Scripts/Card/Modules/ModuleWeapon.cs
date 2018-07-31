@@ -3,6 +3,12 @@ using UnityEngine;
 
 internal class ModuleWeapon : ModuleBase
 {
+    public override void PoolRecycle()
+    {
+        base.PoolRecycle();
+        WeaponEquipAnim.SetTrigger("Hide");
+    }
+
     void Awake()
     {
         gameObjectPool = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool;
@@ -24,7 +30,6 @@ internal class ModuleWeapon : ModuleBase
     public GameObject M_GunIcon;
     public GameObject M_SwordIcon;
 
-
     public GameObject Block_WeaponAttack;
     protected GameObject GoNumberSet_WeaponAttack;
     protected CardNumberSet CardNumberSet_WeaponAttack;
@@ -36,6 +41,8 @@ internal class ModuleWeapon : ModuleBase
     public GameObject Block_WeaponEnergyMax;
     protected GameObject GoNumberSet_WeaponEnergyMax;
     protected CardNumberSet CardNumberSet_WeaponEnergyMax;
+
+    public Animator WeaponEquipAnim;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
