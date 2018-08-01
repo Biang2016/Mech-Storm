@@ -279,6 +279,11 @@ internal class RoundManager : MonoBehaviour
 
     private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
     {
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(NewMethod(r), "NewMethod");
+    }
+
+    IEnumerator NewMethod(RetinueAttributesChangeRequest r)
+    {
         ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinueId);
         retinue.M_RetinueAttack += r.addAttack;
         retinue.M_RetinueWeaponEnergy += r.addWeaponEnergy;
@@ -287,6 +292,8 @@ internal class RoundManager : MonoBehaviour
         retinue.M_RetinueShield += r.addShield;
         retinue.M_RetinueTotalLife += r.addMaxLife;
         retinue.M_RetinueLeftLife += r.addLeftLife;
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     private void OnRetinueDie(RetinueDieRequest r)
@@ -352,7 +359,7 @@ internal class RoundManager : MonoBehaviour
     private void OnBattleGroundAddRetinue(BattleGroundAddRetinueRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.AddRetinue(r.battleGroundIndex, r.retinueId);
+        cp.MyBattleGroundManager.AddRetinue(r.battleGroundIndex);
     }
 
     private void OnBattleGroundRemoveRetinue_PrePass(BattleGroundRemoveRetinueRequest r)

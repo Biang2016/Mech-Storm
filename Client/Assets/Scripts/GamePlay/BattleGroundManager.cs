@@ -63,12 +63,9 @@ internal class BattleGroundManager : MonoBehaviour
 
     private Queue<ModuleRetinue> addPrePassRetinueQueue = new Queue<ModuleRetinue>();
 
-    public void AddRetinue(int retinuePlaceIndex, int retinueId)
+    public void AddRetinue(int retinuePlaceIndex)
     {
-        ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(SetNewRetinuePlace(retinue, retinuePlaceIndex), "EffectsShow");
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
-        retinue.OnSummoned();
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main, retinuePlaceIndex), "Co_RefreshBattleGroundAnim");
     }
 
     private int previewRetinuePlace;
@@ -138,18 +135,21 @@ internal class BattleGroundManager : MonoBehaviour
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
-
-    IEnumerator SetNewRetinuePlace(ModuleRetinue retinue, int retinuePlaceIndex)
-    {
-        Retinues.Insert(retinuePlaceIndex, retinue);
-        retinue.transform.localPosition = _defaultRetinuePosition;
-        retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.GM.RetinueInterval, Space.Self);
-        yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
-    }
-
     IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects)
     {
+        return Co_RefreshBattleGroundAnim(myParentEffects, -1);
+    }
+
+    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects,int retinuePlaceIndex)
+    {
+        if (retinuePlaceIndex != -1)
+        {
+            ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
+            Retinues.Insert(retinuePlaceIndex, retinue);
+            retinue.transform.localPosition = _defaultRetinuePosition;
+            retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.GM.RetinueInterval, Space.Self);
+        }
+
         float duration = 0.05f;
         float tick = 0;
 
