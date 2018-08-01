@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,IMouseHoverComponent
+internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent, IMouseHoverComponent
 {
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
@@ -19,15 +19,20 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             GetComponent<BoxCollider>().enabled = true;
         }
 
+        CanBecomeBigger = true;
+        Usable = false;
         gameObjectPool.RecycleGameObject(gameObject);
+        DragComponent.enabled = true;
     }
 
 
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
+    internal DragComponent DragComponent;
 
     protected virtual void Awake()
     {
         myCollider = GetComponent<BoxCollider>();
+        DragComponent = GetComponent<DragComponent>();
     }
 
     void Start()
@@ -232,6 +237,8 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     internal ColliderReplace myColliderReplace;
     internal BoxCollider myCollider;
 
+    internal bool CanBecomeBigger = true;
+
     private bool usable;
 
     internal bool Usable
@@ -304,7 +311,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public virtual void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
     {
-        ClientPlayer.MyHandManager.CardOnMouseEnter(this);
+        if (CanBecomeBigger) ClientPlayer.MyHandManager.CardOnMouseEnter(this);
     }
 
     public virtual void MouseHoverComponent_OnMouseEnter(Vector3 mousePosition)
@@ -326,6 +333,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     public virtual void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
     }
+
     #endregion
 
     #region  Utils
@@ -342,6 +350,4 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     }
 
     #endregion
-
-
 }

@@ -49,6 +49,8 @@ internal class CardRetinue : CardBase
     {
     }
 
+    private DragComponent dragComponent;
+
     #region 卡牌上各模块
 
     public TextMesh TextMesh_RetinueName;
@@ -58,6 +60,7 @@ internal class CardRetinue : CardBase
     public GameObject Block_RetinueTotalLife;
     GameObject GoNumberSet_RetinueTotalLife;
     CardNumberSet CardNumberSet_RetinueTotalLife;
+
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
@@ -209,7 +212,7 @@ internal class CardRetinue : CardBase
         }
 
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex);
+        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z));
         Client.CS.Proxy.SendMessage(request);
     }
 

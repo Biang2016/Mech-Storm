@@ -346,13 +346,13 @@ internal class RoundManager : MonoBehaviour
     private void OnBattleGroundAddRetinue_PrePass(BattleGroundAddRetinueRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.AddRetinue_PrePass(r.cardInfo, r.battleGroundIndex, r.retinueId);
+        cp.MyBattleGroundManager.AddRetinue_PrePass(r.cardInfo, r.retinueId);
     }
 
     private void OnBattleGroundAddRetinue(BattleGroundAddRetinueRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.AddRetinue(r.cardInfo, r.battleGroundIndex, r.retinueId);
+        cp.MyBattleGroundManager.AddRetinue(r.battleGroundIndex, r.retinueId);
     }
 
     private void OnBattleGroundRemoveRetinue_PrePass(BattleGroundRemoveRetinueRequest r)
@@ -405,7 +405,7 @@ internal class RoundManager : MonoBehaviour
     private void OnPlayerUseCard(UseCardRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyHandManager.UseCard(r.handCardInstanceId, r.cardInfo);
+        cp.MyHandManager.UseCard(r.handCardInstanceId, r.cardInfo, new Vector3(r.lastDragPosition.x, r.lastDragPosition.y, r.lastDragPosition.z));
     }
 
     private void OnEquipWeapon(EquipWeaponServerRequest r)

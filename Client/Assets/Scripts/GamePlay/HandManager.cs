@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ internal class HandManager : MonoBehaviour
     float[] anglesDict; //每张牌之间的夹角
     float[] horrizonDistanceDict; //每张牌之间的距离
     List<CardBase> cards;
+    private CardBase currentShowCard;
 
     int retinueLayer;
     int cardLayer;
@@ -41,6 +43,7 @@ internal class HandManager : MonoBehaviour
         }
 
         cards.Clear();
+        if (currentShowCard) currentShowCard.PoolRecycle();
         ClientPlayer = null;
     }
 
@@ -77,16 +80,17 @@ internal class HandManager : MonoBehaviour
         RefreshCardsPlace();
     }
 
-    public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo)
+    public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo, Vector3 lastDragPosition)
     {
         CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
-        cards.Remove(cardBase);
-        if (ClientPlayer != RoundManager.RM.SelfClientPlayer)
+
+        if (ClientPlayer == RoundManager.RM.EnemyClientPlayer)
         {
             BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_UseCardShow(cardBase, cardInfo), "Co_UseCardShow");
         }
         else
         {
+            cards.Remove(cardBase);
             cardBase.PoolRecycle();
             RefreshCardsPlace();
         }
@@ -94,34 +98,57 @@ internal class HandManager : MonoBehaviour
 
     IEnumerator Co_UseCardShow(CardBase cardBase, CardInfo_Base cardInfo)
     {
+        cards.Remove(cardBase);
         Vector3 oldPosition = cardBase.transform.position;
-        Quaternion oldRotation = cardBase.transform.localRotation;
+        Quaternion oldRotation = cardBase.transform.rotation;
         Vector3 targetPosition = GameManager.GM.CardShowPosition;
-        Quaternion targetRotation = RoundManager.RM.EnemyClientPlayer.MyHandManager.DefaultCardRotation;
-        Vector3 oldScale = cardBase.transform.localScale;
-        Vector3 targetScale = cardBase.transform.localScale * 1.5f;
-
+        Quaternion targetRotation = Quaternion.Euler(0, 180, 0);
         cardBase.PoolRecycle();
-        CardBase showCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer);
 
-        showCard.transform.position = oldPosition;
-        showCard.transform.localRotation = oldRotation;
+        currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer);
+        currentShowCard.DragComponent.enabled = false;
 
-        float duration = 0.3f;
+        currentShowCard.transform.position = oldPosition;
+        currentShowCard.transform.rotation = oldRotation;
+        currentShowCard.CanBecomeBigger = false;
+        currentShowCard.Usable = false;
+
+        float duration = GameManager.GM.ShowCardFlyTime;
+        float rotateDuration = GameManager.GM.ShowCardRotateDuration;
         float tick = 0;
-        while (tick < duration)
+        float tickRotate = 0;
+        while (true)
         {
+            if (tick > duration && tickRotate > rotateDuration) break;
+
             tick += Time.deltaTime;
-            showCard.transform.position = Vector3.Lerp(oldPosition, targetPosition, tick / duration);
-            showCard.transform.localRotation = Quaternion.Slerp(oldRotation, targetRotation, tick / duration);
-            showCard.transform.localScale = Vector3.Lerp(oldScale, targetScale, tick / duration);
+            if (tick < duration)
+            {
+                currentShowCard.transform.position = Vector3.Lerp(oldPosition, targetPosition, tick / duration);
+            }
+
+            tickRotate += Time.deltaTime;
+            if (tickRotate < rotateDuration)
+            {
+                currentShowCard.transform.rotation = Quaternion.Slerp(oldRotation, targetRotation, tickRotate / rotateDuration);
+            }
+
             yield return null;
         }
-        RefreshCardsPlace();
 
-        yield return new WaitForSeconds(0.7f);
-        showCard.PoolRecycle();
+        currentShowCard.transform.position = targetPosition;
+        currentShowCard.transform.rotation = targetRotation;
+
+        RefreshCardsPlace();
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(SubCo_ShowCardForTime(currentShowCard, GameManager.GM.ShowCardDuration));
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
+    IEnumerator SubCo_ShowCardForTime(CardBase showCard, float f)
+    {
+        yield return new WaitForSeconds(f);
+        showCard.PoolRecycle();
     }
 
     public void BeginRound()

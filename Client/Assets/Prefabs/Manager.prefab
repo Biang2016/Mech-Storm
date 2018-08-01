@@ -1887,7 +1887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24cc96475ca7924583382f0174de03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanTestEnemyCards: 0
   HandCardSize: 1.5
   HandCardInterval: 1
   HandCardRotate: 1
@@ -1898,6 +1897,10 @@ MonoBehaviour:
   DetailCardSizeRetinue: 4
   RetinueInterval: 3.5
   RetinueDetailPreviewDelaySeconds: 0.7
+  CardShowPosition: {x: 0, y: 0, z: 0}
+  ShowCardDuration: 0.7
+  ShowCardRotateDuration: 0.1
+  ShowCardFlyTime: 0.2
   CardBloomColor: {r: 1, g: 1, b: 1, a: 1}
   RetinueBloomColor: {r: 0, g: 1, b: 0.030817509, a: 1}
   RetinueOnHoverBloomColor: {r: 1, g: 0, b: 0, a: 1}
@@ -1905,6 +1908,9 @@ MonoBehaviour:
   Slot2Color: {r: 1, g: 0.7795245, b: 0, a: 1}
   Slot3Color: {r: 0, g: 1, b: 0.065164566, a: 1}
   Slot4Color: {r: 0, g: 0.04445076, b: 1, a: 1}
+  DefaultLifeNumberColor: {r: 0, g: 0, b: 0, a: 0}
+  InjuredLifeNumberColor: {r: 0, g: 0, b: 0, a: 0}
+  OverFlowTotalLifeColor: {r: 0, g: 0, b: 0, a: 0}
   MainAudioSource: {fileID: 0}
 --- !u!114 &114393662073655784
 MonoBehaviour:
@@ -1985,6 +1991,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f82076f9d056f8428cf094bfd958a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isExecuting_Main: 0
+  isExecuting_RefreshBattleGroundOnAddRetinue: 0
+  isExecuting_TipSlotBloom: 0
+  isExecuting_UsedCardShow: 0
 --- !u!114 &114469768276572664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2034,9 +2044,6 @@ MonoBehaviour:
     type: 2}
   ModuleRetinuePool: {fileID: 1275658806143860}
   ModuleRetinuePrefab: {fileID: 1517867073301580, guid: 449d55f000c8cdf40bc992ec6f66596b,
-    type: 2}
-  ModuleRetinuePlaceHolderPool: {fileID: 0}
-  ModuleRetinuePlaceHolderPrefab: {fileID: 1595168235929676, guid: 3b68e9b55e4f1004dbfd697754802671,
     type: 2}
   ModuleEnergyPool: {fileID: 1602816552895560}
   ModuleEnergyPrefab: {fileID: 1444268312890240, guid: cbdb79b7d038e3e43a433b1b68d1e6ec,
@@ -2201,6 +2208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30aab20a6d93ee4394294241a7c237f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCardRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114694611612356974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2302,6 +2310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb82a161a8a4d24eb1dad194738a475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RemoveRetinues: []
 --- !u!114 &114751571161850844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2346,6 +2355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30aab20a6d93ee4394294241a7c237f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCardRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114801873040815488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2489,6 +2499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb82a161a8a4d24eb1dad194738a475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RemoveRetinues: []
 --- !u!114 &114951500224659334
 MonoBehaviour:
   m_ObjectHideFlags: 1

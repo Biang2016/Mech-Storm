@@ -202,7 +202,7 @@ internal class CardBack : CardBase
         }
 
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex);
+        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex,new MyCardGameCommon.Vector3(dragLastPosition.x,dragLastPosition.y,dragLastPosition.z));
         Client.CS.Proxy.SendMessage(request);
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MyCardGameCommon;
 
 public class BattleGroundAddRetinueRequest : ServerRequestBase
 {
@@ -43,7 +44,7 @@ public class BattleGroundAddRetinueRequest : ServerRequestBase
     {
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
-        cardInfo = (CardInfo_Retinue)(CardInfo_Base.Deserialze(reader));
+        cardInfo = (CardInfo_Retinue) (CardInfo_Base.Deserialze(reader));
         battleGroundIndex = reader.ReadSInt32();
         retinueId = reader.ReadSInt32();
     }

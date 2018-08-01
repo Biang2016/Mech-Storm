@@ -6,7 +6,7 @@ internal class ModuleWeapon : ModuleBase
     public override void PoolRecycle()
     {
         base.PoolRecycle();
-        WeaponEquipAnim.SetTrigger("Hide");
+        if(WeaponEquipAnim) WeaponEquipAnim.SetTrigger("Hide");
     }
 
     void Awake()

@@ -18,6 +18,7 @@ internal class CardShield : CardBase
     {
     }
 
+
     #region 卡牌上各模块
 
     public TextMesh ShieldName;
@@ -69,7 +70,7 @@ internal class CardShield : CardBase
             foreach (var sa in slotAnchors)
                 if (sa.M_Slot.MSlotTypes == SlotTypes.Shield && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
-                    summonShieldRequest(sa.M_ModuleRetinue);
+                    summonShieldRequest(sa.M_ModuleRetinue, dragLastPosition);
                     ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
                     return;
                 }
@@ -88,9 +89,9 @@ internal class CardShield : CardBase
     #region 卡牌效果
 
     //装备武器
-    private void summonShieldRequest(ModuleRetinue moduleRetinue)
+    private void summonShieldRequest(ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
     {
-        EquipShieldRequest request = new EquipShieldRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, moduleRetinue.M_RetinueID, 0);
+        EquipShieldRequest request = new EquipShieldRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, moduleRetinue.M_RetinueID, 0, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z));
         Client.CS.Proxy.SendMessage(request);
     }
 

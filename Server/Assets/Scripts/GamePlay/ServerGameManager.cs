@@ -148,9 +148,8 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Retinue info = (CardInfo_Retinue) sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId,r.lastDragPosition);
         sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex);
-        sp.MyHandManager.UseCard(r.handCardInstanceId);
-        sp.UseCostAboveZero(info.BaseInfo.Cost);
 
         Broadcast_SendOperationResponse();
     }
@@ -162,8 +161,9 @@ internal class ServerGameManager
         ClientB.CurrentClientRequestResponse = new EquipWeaponRequest_Response();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
-        sp.MyBattleGroundManager.EquipWeapon(r);
-        sp.MyHandManager.UseCard(r.handCardInstanceId);
+        CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId,r.lastDragPosition);
+        sp.MyBattleGroundManager.EquipWeapon(r, cardInfo);
 
         Broadcast_SendOperationResponse();
     }
@@ -174,8 +174,9 @@ internal class ServerGameManager
         ClientB.CurrentClientRequestResponse = new EquipShieldRequest_Response();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
-        sp.MyBattleGroundManager.EquipShield(r);
-        sp.MyHandManager.UseCard((int) r.handCardInstanceId);
+        CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId,r.lastDragPosition);
+        sp.MyBattleGroundManager.EquipShield(r, cardInfo);
 
         Broadcast_SendOperationResponse();
     }

@@ -7,7 +7,7 @@ internal class ModuleShield : ModuleBase
     public override void PoolRecycle()
     {
         base.PoolRecycle();
-        ShieldEquipedAnim.SetTrigger("Hide");
+        if (ShieldEquipedAnim) ShieldEquipedAnim.SetTrigger("Hide");
     }
 
     void Awake()

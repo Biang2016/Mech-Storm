@@ -1,21 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MyCardGameCommon;
 
 public class EquipShieldRequest : ClientRequestBase
 {
     public int handCardInstanceId;
     public int retinueID;
     public int shieldPlaceIndex;
+    public Vector3 lastDragPosition;
 
     public EquipShieldRequest()
     {
     }
 
-    public EquipShieldRequest(int clientId, int handCardInstanceId, int retinueId, int shieldPlaceIndex) :base(clientId)
+    public EquipShieldRequest(int clientId, int handCardInstanceId, int retinueID, int shieldPlaceIndex, Vector3 lastDragPosition) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
-        this.retinueID = retinueId;
+        this.retinueID = retinueID;
         this.shieldPlaceIndex = shieldPlaceIndex;
+        this.lastDragPosition = lastDragPosition;
     }
 
     public override int GetProtocol()
@@ -34,6 +37,7 @@ public class EquipShieldRequest : ClientRequestBase
         writer.WriteSInt32(handCardInstanceId);
         writer.WriteSInt32(retinueID);
         writer.WriteSInt32(shieldPlaceIndex);
+        lastDragPosition.Serialize(writer);
     }
 
     public override void Deserialize(DataStream reader)
@@ -42,6 +46,7 @@ public class EquipShieldRequest : ClientRequestBase
         handCardInstanceId = reader.ReadSInt32();
         retinueID = reader.ReadSInt32();
         shieldPlaceIndex = reader.ReadSInt32();
+        lastDragPosition = Vector3.Deserialize(reader);
     }
 
     public override string DeserializeLog()
@@ -50,6 +55,7 @@ public class EquipShieldRequest : ClientRequestBase
         log += " [handCardInstanceId]=" + handCardInstanceId;
         log += " [retinueID]=" + retinueID;
         log += " [shieldPlaceIndex]=" + shieldPlaceIndex;
+        log += " [lastDragPosition]=" + lastDragPosition;
         return log;
     }
 }

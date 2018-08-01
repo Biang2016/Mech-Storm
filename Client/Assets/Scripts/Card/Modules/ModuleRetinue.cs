@@ -218,8 +218,15 @@ internal class ModuleRetinue : ModuleBase
         }
 
         isInitializing = false;
+
         isFirstRound = true;
         CannotAttackBecauseDie = false;
+        CanAttack_Self = false;
+        CanAttack_Weapon = false;
+        CanAttack_Shield = false;
+        CanAttack_Pack = false;
+        CanAttack_MA = false;
+
         IsDead = false;
     }
 
@@ -876,6 +883,7 @@ internal class ModuleRetinue : ModuleBase
     public void OnEndRound()
     {
         isFirstRound = false;
+        CheckCanAttack();
     }
 
     #endregion

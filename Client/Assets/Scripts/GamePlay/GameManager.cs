@@ -39,6 +39,8 @@ internal class GameManager : MonoBehaviour
 
     #region 游戏全局参数
 
+    public bool  UseInspectorParams = false;
+
     public float HandCardSize = 1.0f;
     public float HandCardInterval = 1.0f;
     public float HandCardRotate = 1.0f;
@@ -51,10 +53,15 @@ internal class GameManager : MonoBehaviour
     public float RetinueInterval = 3.5f;
     public float RetinueDetailPreviewDelaySeconds = 0.7f;
 
-    public Vector3 CardShowPosition;
+    internal Vector3 CardShowPosition;
+
+    public float ShowCardDuration = 0.7f;
+    public float ShowCardRotateDuration = 0.1f;
+    public float ShowCardFlyTime = 0.2f;
 
     private void initialize()
     {
+        if (UseInspectorParams) return;
         CardBloomColor = HTMLColorToColor("#FFFFFF");
         RetinueBloomColor = HTMLColorToColor("#06FF00");
         RetinueOnHoverBloomColor = HTMLColorToColor("#FF0000");

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MyCardGameCommon;
 
 internal class ServerHandManager
 {
@@ -101,16 +102,16 @@ internal class ServerHandManager
         cards.Remove(dropCard);
     }
 
-    internal void UseCard(int cardInstanceId)
+    internal void UseCard(int cardInstanceId,Vector3 lastDragPosition)
     {
         ServerCardBase card = GetCardByCardInstanceId(cardInstanceId);
         ServerPlayer.UseCostAboveZero(card.CardInfo.BaseInfo.Cost);
-        UseCard(card);
+        UseCard(card, lastDragPosition);
     }
 
-    internal void UseCard(ServerCardBase useCard)
+    internal void UseCard(ServerCardBase useCard, Vector3 lastDragPosition)
     {
-        UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone());
+        UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone(), lastDragPosition);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         cards.Remove(useCard);
     }

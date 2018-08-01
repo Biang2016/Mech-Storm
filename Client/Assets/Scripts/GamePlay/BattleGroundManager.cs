@@ -10,6 +10,7 @@ internal class BattleGroundManager : MonoBehaviour
 
     internal ClientPlayer ClientPlayer;
     private List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
+    private int retinueCount;
 
     public void Reset()
     {
@@ -21,6 +22,7 @@ internal class BattleGroundManager : MonoBehaviour
         ClientPlayer = null;
         previewRetinuePlace = -1;
         Retinues.Clear();
+        retinueCount = 0;
         RemoveRetinues.Clear();
     }
 
@@ -40,7 +42,7 @@ internal class BattleGroundManager : MonoBehaviour
         return Retinues[index];
     }
 
-    public void AddRetinue_PrePass(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex, int retinueId)
+    public void AddRetinue_PrePass(CardInfo_Retinue retinueCardInfo, int retinueId)
     {
         if (ClientPlayer == null) return;
         if (previewRetinuePlace != -1)
@@ -49,19 +51,23 @@ internal class BattleGroundManager : MonoBehaviour
         }
 
         ModuleRetinue retinue = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(transform).GetComponent<ModuleRetinue>();
+        retinue.transform.position = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.transform.position;
         retinue.Initiate(retinueCardInfo, ClientPlayer);
         retinue.transform.Rotate(Vector3.up, 180);
-        Retinues.Insert(retinuePlaceIndex, retinue);
         retinue.M_RetinueID = retinueId;
+        addPrePassRetinueQueue.Enqueue(retinue);
 
-        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+        retinueCount++;
+        BattleGroundIsFull = retinueCount >= GamePlaySettings.MaxRetinueNumber;
     }
 
-    public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex, int retinueId)
+    private Queue<ModuleRetinue> addPrePassRetinueQueue = new Queue<ModuleRetinue>();
+
+    public void AddRetinue(int retinuePlaceIndex, int retinueId)
     {
-        ModuleRetinue retinue = GetRetinue(retinueId);
-        SetNewRetinuePlace(retinue);
-        BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue), "Co_RefreshBattleGroundAnim");
+        ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(SetNewRetinuePlace(retinue, retinuePlaceIndex), "EffectsShow");
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
         retinue.OnSummoned();
     }
 
@@ -107,12 +113,13 @@ internal class BattleGroundManager : MonoBehaviour
         {
             removeRetinue.PoolRecycle();
             Retinues.Remove(removeRetinue);
+            retinueCount--;
             ClientLog.CL.Print("remove:" + removeRetinue.M_RetinueID);
         }
 
         RemoveRetinues.Clear();
 
-        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+        BattleGroundIsFull = retinueCount >= GamePlaySettings.MaxRetinueNumber;
     }
 
     public void RemoveRetinueTogatherEnd()
@@ -124,17 +131,21 @@ internal class BattleGroundManager : MonoBehaviour
     {
         retinue.PoolRecycle();
         Retinues.Remove(retinue);
+        retinueCount--;
 
-        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+        BattleGroundIsFull = retinueCount >= GamePlaySettings.MaxRetinueNumber;
         yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
 
-    internal void SetNewRetinuePlace(ModuleRetinue retinue)
+    IEnumerator SetNewRetinuePlace(ModuleRetinue retinue, int retinuePlaceIndex)
     {
+        Retinues.Insert(retinuePlaceIndex, retinue);
         retinue.transform.localPosition = _defaultRetinuePosition;
         retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.GM.RetinueInterval, Space.Self);
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects)

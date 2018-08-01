@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MyCardGameCommon;
 
 internal class ServerBattleGroundManager
 {
@@ -41,10 +42,10 @@ internal class ServerBattleGroundManager
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
-    public void EquipWeapon(EquipWeaponRequest r)
+    public void EquipWeapon(EquipWeaponRequest r, CardInfo_Base cardInfo)
     {
         ServerModuleWeapon weapon = new ServerModuleWeapon();
-        CardInfo_Weapon cardInfo_Weapon = (CardInfo_Weapon) ServerPlayer.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        CardInfo_Weapon cardInfo_Weapon = (CardInfo_Weapon) cardInfo;
         ServerModuleRetinue retinue = GetRetinue(r.retinueId);
         weapon.M_ModuleRetinue = retinue;
         weapon.M_WeaponPlaceIndex = r.weaponPlaceIndex;
@@ -52,10 +53,10 @@ internal class ServerBattleGroundManager
         retinue.M_Weapon = weapon;
     }
 
-    public void EquipShield(EquipShieldRequest r)
+    public void EquipShield(EquipShieldRequest r, CardInfo_Base cardInfo)
     {
         ServerModuleShield shield = new ServerModuleShield();
-        CardInfo_Shield cardInfo_Shield = (CardInfo_Shield) ServerPlayer.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        CardInfo_Shield cardInfo_Shield = (CardInfo_Shield) cardInfo;
         ServerModuleRetinue retinue = GetRetinue(r.retinueID);
         shield.M_ModuleRetinue = retinue;
         shield.M_ShieldPlaceIndex = r.shieldPlaceIndex;

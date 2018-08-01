@@ -88,6 +88,7 @@
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\PlayerTurnRequest.cs" />
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\SummonRetinueRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\SummonRetinueRequest_Response.cs" />
+    <Compile Include="Net\Requests\Vector3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Net\DataStream\DataHolder.cs" />
     <Compile Include="Net\DataStream\DataStream.cs" />

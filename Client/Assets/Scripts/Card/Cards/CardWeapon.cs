@@ -71,7 +71,7 @@ internal class CardWeapon : CardBase
             foreach (SlotAnchor sa in slotAnchors)
                 if (sa.M_Slot.MSlotTypes == SlotTypes.Weapon && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
-                    summonWeaponRequest(sa.M_ModuleRetinue);
+                    summonWeaponRequest(sa.M_ModuleRetinue, dragLastPosition);
                     ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
                     return;
                 }
@@ -90,9 +90,9 @@ internal class CardWeapon : CardBase
     #region 卡牌效果
 
     //装备武器
-    private void summonWeaponRequest(ModuleRetinue moduleRetinue)
+    private void summonWeaponRequest(ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
     {
-        EquipWeaponRequest request = new EquipWeaponRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, moduleRetinue.M_RetinueID, 0);
+        EquipWeaponRequest request = new EquipWeaponRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, moduleRetinue.M_RetinueID, 0, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z));
         Client.CS.Proxy.SendMessage(request);
     }
 
