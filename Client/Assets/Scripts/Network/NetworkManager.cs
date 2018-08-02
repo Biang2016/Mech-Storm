@@ -38,6 +38,11 @@ internal class NetworkManager : MonoBehaviour
         StartCoroutine(CheckConnection());
     }
 
+    void Update()
+    {
+
+    }
+
     void TryConnectToServer()
     {
         if (Client.CS.Proxy == null || Client.CS.Proxy.ClientState == ProxyBase.ClientStates.Nothing)
@@ -86,7 +91,7 @@ internal class NetworkManager : MonoBehaviour
 
     IEnumerator ShowInfoPanelCoroutine;
 
-    void ShowInfoPanel(string text, float delay, float last)
+    public void ShowInfoPanel(string text, float delay, float last)
     {
         if (ShowInfoPanelCoroutine != null)
         {
@@ -142,25 +147,6 @@ internal class NetworkManager : MonoBehaviour
     {
         high = 10;
 
-        if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.GetId || Client.CS.Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck)
-        {
-            cardDeckInfo = CreateTextField("卡组信息", cardDeckInfo);
-
-            if (CreateBtn("确认卡组"))
-            {
-                //List<string> tmp = cardDeckInfo.Split(',').ToList();
-                //SelfCardDeckInfo.Clear();
-                //foreach (string s in tmp)
-                //{
-                //    SelfCardDeckInfo.Add(int.Parse(s));
-                //}
-
-                //Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(SelfCardDeckInfo.ToArray()));
-                Client.CS.Proxy.OnSendCardDeck(new CardDeckInfo(new int[] {0, 0, 1, 0, 100, 101, 300, 301, 350, 351, 200, 201, 202, 350, 102}));
-                ShowInfoPanel("更新卡组成功", 0, 1f);
-            }
-        }
-
         if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck)
         {
             if (CreateBtn("开始匹配"))
@@ -183,6 +169,11 @@ internal class NetworkManager : MonoBehaviour
 
         if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.Playing)
         {
+            if (CreateBtn("查看卡组"))
+            {
+                SelectCardDeckManager.SCDM.ShowWindow();
+            }
+
             if (CreateBtn("退出比赛"))
             {
                 Client.CS.Proxy.LeaveGame();

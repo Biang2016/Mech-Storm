@@ -6,26 +6,34 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
     private Renderer m_Renderer;
+    private bool IsCardSelect;
 
     public virtual void PoolRecycle()
     {
-        ResetColliderAndReplace();
-        if (GetComponent<DragComponent>())
+        if (!IsCardSelect)
         {
-            GetComponent<DragComponent>().enabled = true;
-        }
+            ResetColliderAndReplace();
+            if (GetComponent<DragComponent>())
+            {
+                GetComponent<DragComponent>().enabled = true;
+            }
 
-        if (GetComponent<BoxCollider>())
+            if (GetComponent<BoxCollider>())
+            {
+                GetComponent<BoxCollider>().enabled = true;
+            }
+
+            CanBecomeBigger = true;
+            Usable = false;
+            transform.localScale = Vector3.one * 2;
+            transform.rotation = Quaternion.Euler(0, -180, 0);
+            gameObjectPool.RecycleGameObject(gameObject);
+            DragComponent.enabled = true;
+        }
+        else
         {
-            GetComponent<BoxCollider>().enabled = true;
-        }
 
-        CanBecomeBigger = true;
-        Usable = false;
-        transform.localScale = Vector3.one * 2;
-        transform.rotation = Quaternion.Euler(0, -180, 0);
-        gameObjectPool.RecycleGameObject(gameObject);
-        DragComponent.enabled = true;
+        }
     }
 
 
@@ -86,9 +94,13 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
                     newCard = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
                     break;
             }
+
+            newCard.DragComponent.enabled = false;
+            newCard.transform.localScale = Vector3.one * 120;
+            newCard.transform.rotation = Quaternion.Euler(90, 180, 0);
         }
 
-
+        newCard.IsCardSelect = isCardSelect;
         newCard.Initiate(cardInfo, clientPlayer);
         newCard.ChangeColor(HTMLColorToColor(cardInfo.BaseInfo.CardColor));
         return newCard;

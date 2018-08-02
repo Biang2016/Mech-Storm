@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4036001690421296}
   - component: {fileID: 33026963933258860}
   - component: {fileID: 23083157301898828}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Star4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4806452619104652}
   - component: {fileID: 33489191144387372}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Block_Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,12 +51,12 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4824366687561978}
+  - component: {fileID: 224920895489775144}
   - component: {fileID: 65927682291296918}
   - component: {fileID: 114555658069233974}
   - component: {fileID: 114868643765437194}
   - component: {fileID: 114487014102208516}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: ShieldCardSelect
   m_TagString: Card
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4965088294005274}
   - component: {fileID: 23972018734949308}
   - component: {fileID: 33719269628427750}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: NameBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4883455938665896}
   - component: {fileID: 23421122714116528}
   - component: {fileID: 102900064219924946}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: WeaponName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 4343623579991438}
   - component: {fileID: 33107666853111662}
   - component: {fileID: 23910218010759206}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Star1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 224203818755897200}
   - component: {fileID: 222274083724845622}
   - component: {fileID: 114469008544034056}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 4090321975002160}
   - component: {fileID: 33545310715168424}
   - component: {fileID: 23093013362717960}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: PictureBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 4267024696679984}
   - component: {fileID: 33965345471667340}
   - component: {fileID: 23352502762099588}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: MainBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 4068736338682956}
   - component: {fileID: 33122305539184728}
   - component: {fileID: 23485934040203146}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: CardBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 4447280516840332}
   - component: {fileID: 33031881403646684}
   - component: {fileID: 23739634578944012}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 4711950767434430}
   - component: {fileID: 33345222249152030}
   - component: {fileID: 23565987845535784}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Star3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 4202729276720910}
   - component: {fileID: 33609025515318984}
   - component: {fileID: 23041046767612906}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Star2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 4630223113413302}
   - component: {fileID: 33000460820780082}
   - component: {fileID: 23961947589823098}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: CardShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 223821254326635124}
   - component: {fileID: 114465071543042668}
   - component: {fileID: 114632615318734968}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4068736338682956
@@ -291,7 +291,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.01, z: -0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4090321975002160
@@ -304,7 +304,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4202729276720910
@@ -317,7 +317,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4267024696679984
@@ -330,7 +330,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4343623579991438
@@ -343,7 +343,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4447280516840332
@@ -356,7 +356,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4630223113413302
@@ -369,7 +369,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4711950767434430
@@ -382,7 +382,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4806452619104652
@@ -395,34 +395,8 @@ Transform:
   m_LocalPosition: {x: -0.51, y: 0.04, z: -1.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4824366687561978
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1269394147484668}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_Children:
-  - {fileID: 4267024696679984}
-  - {fileID: 4090321975002160}
-  - {fileID: 4447280516840332}
-  - {fileID: 4806452619104652}
-  - {fileID: 4883455938665896}
-  - {fileID: 224256087293386348}
-  - {fileID: 4965088294005274}
-  - {fileID: 4630223113413302}
-  - {fileID: 4068736338682956}
-  - {fileID: 4343623579991438}
-  - {fileID: 4202729276720910}
-  - {fileID: 4711950767434430}
-  - {fileID: 4036001690421296}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4883455938665896
 Transform:
@@ -434,7 +408,7 @@ Transform:
   m_LocalPosition: {x: 0.178, y: 0.04, z: 0.249}
   m_LocalScale: {x: 0.0050000055, y: 0.0050000018, z: 0.0050000018}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!4 &4965088294005274
@@ -447,7 +421,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23041046767612906
@@ -815,7 +789,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: c8b0ac08d04f7ac439a8014d7d35fa77, type: 2}
+  - {fileID: 2100000, guid: e62aff5cd924a4943b665d7f845a87c7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1114,11 +1088,42 @@ RectTransform:
   m_LocalScale: {x: 0.5000005, y: 0.50000024, z: 0.50000024}
   m_Children:
   - {fileID: 224203818755897200}
-  m_Father: {fileID: 4824366687561978}
+  m_Father: {fileID: 224920895489775144}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.02}
+  m_AnchoredPosition: {x: 0, y: 0.020000458}
   m_SizeDelta: {x: 2, y: 0.9}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224920895489775144
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1269394147484668}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children:
+  - {fileID: 4267024696679984}
+  - {fileID: 4090321975002160}
+  - {fileID: 4447280516840332}
+  - {fileID: 4806452619104652}
+  - {fileID: 4883455938665896}
+  - {fileID: 224256087293386348}
+  - {fileID: 4965088294005274}
+  - {fileID: 4630223113413302}
+  - {fileID: 4068736338682956}
+  - {fileID: 4343623579991438}
+  - {fileID: 4202729276720910}
+  - {fileID: 4711950767434430}
+  - {fileID: 4036001690421296}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
