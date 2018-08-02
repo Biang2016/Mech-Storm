@@ -195,11 +195,7 @@ internal class ServerGameManager
         ServerModuleRetinue attackRetinue = cpat.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
         ServerModuleRetinue beAttackedRetinue = cpba.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
 
-        List<int> attackSeries = attackRetinue.AllModulesAttack();
-        foreach (int attack in attackSeries)
-        {
-            beAttackedRetinue.BeAttacked(attack);
-        }
+        attackRetinue.AllModulesAttack(beAttackedRetinue);
 
         Broadcast_SendOperationResponse();
     }

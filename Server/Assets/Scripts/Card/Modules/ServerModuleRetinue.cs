@@ -431,24 +431,26 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
     }
 
-    public List<int> AllModulesAttack() //全模块攻击
+    public void AllModulesAttack(ServerModuleRetinue targetModuleRetinue) //全模块攻击
     {
         OnAttack();
-        List<int> ASeriesOfAttacks = new List<int>();
 
         if (M_Weapon != null)
         {
             switch (M_Weapon.M_WeaponType)
             {
                 case WeaponTypes.Sword:
-                    ASeriesOfAttacks.Add(M_RetinueAttack * M_RetinueWeaponEnergy);
+                    int damage = M_RetinueAttack * M_RetinueWeaponEnergy;
+                    targetModuleRetinue.BeAttacked(damage);
+                    OnMakeDamage(damage);
                     if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
                     break;
                 case WeaponTypes.Gun:
                     int tmp = M_RetinueWeaponEnergy;
                     for (int i = 0; i < tmp; i++)
                     {
-                        ASeriesOfAttacks.Add(M_RetinueAttack);
+                        targetModuleRetinue.BeAttacked(M_RetinueAttack);
+                        OnMakeDamage(M_RetinueAttack);
                         M_RetinueWeaponEnergy--;
                     }
 
@@ -457,15 +459,8 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
         else
         {
-            ASeriesOfAttacks.Add(M_RetinueAttack);
+            targetModuleRetinue.BeAttacked(M_RetinueAttack);
         }
-
-        foreach (int aSeriesOfAttack in ASeriesOfAttacks)
-        {
-            OnMakeDamage(aSeriesOfAttack);
-        }
-
-        return ASeriesOfAttacks;
     }
 
     #endregion
@@ -477,7 +472,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
         {
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);
-            RetinueEffectRequest request=new RetinueEffectRequest(ServerPlayer.ClientId,M_RetinueID, RetinueEffectRequest.EffectType.OnSummon);
+            RetinueEffectRequest request = new RetinueEffectRequest(ServerPlayer.ClientId, M_RetinueID, RetinueEffectRequest.EffectType.OnSummon);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         }
 
@@ -490,7 +485,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         foreach (SideEffectBase se in CardInfo.SideEffects_OnDie) //先入队死亡效果，但不触发，等到所有被群杀的随从的死亡效果都入队之后再触发
         {
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);
-            RetinueEffectRequest request=new RetinueEffectRequest(ServerPlayer.ClientId,M_RetinueID, RetinueEffectRequest.EffectType.OnDie);
+            RetinueEffectRequest request = new RetinueEffectRequest(ServerPlayer.ClientId, M_RetinueID, RetinueEffectRequest.EffectType.OnDie);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         }
 
