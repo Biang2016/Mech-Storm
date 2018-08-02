@@ -291,7 +291,6 @@ internal class ModuleRetinue : ModuleBase
     IEnumerator Co_LifeBeAttacked(int leftLifeValue, int totalLifeValue)
     {
         CardLifeHit.SetTrigger("BeHit");
-        yield return new WaitForSeconds(0.05f);
         retinueLifeChange(leftLifeValue, totalLifeValue);
         yield return new WaitForSeconds(0.05f);
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
@@ -300,7 +299,6 @@ internal class ModuleRetinue : ModuleBase
     IEnumerator Co_LifeAdded(int leftLifeValue, int totalLifeValue)
     {
         LifeIncreaseArrow.SetTrigger("LifeAdd");
-        yield return new WaitForSeconds(0.05f);
         retinueLifeChange(leftLifeValue, totalLifeValue);
         yield return new WaitForSeconds(0.05f);
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
@@ -427,6 +425,14 @@ internal class ModuleRetinue : ModuleBase
 
     IEnumerator Co_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
+        StartCoroutine(SubCo_RetinueWeaponEnergyChange(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue));
+        
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
+    IEnumerator SubCo_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
+    {
         if (SwordBar)
         {
             if (retinueWeaponEnergyValue == 0)
@@ -443,9 +449,7 @@ internal class ModuleRetinue : ModuleBase
 
         CardNumberSet_RetinueWeaponEnergy.Number = retinueWeaponEnergyValue;
         CardNumberSet_RetinueWeaponEnergyMax.Number = m_RetinueWeaponEnergyMax;
-
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     private void RefreshSwordBarMask(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)

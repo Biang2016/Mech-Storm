@@ -9,7 +9,7 @@ internal class BattleGroundManager : MonoBehaviour
     private Vector3 _defaultRetinuePosition = Vector3.zero;
 
     internal ClientPlayer ClientPlayer;
-    private List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
+    public List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
     private int retinueCount;
 
     public void Reset()
@@ -317,6 +317,14 @@ internal class BattleGroundManager : MonoBehaviour
     public ModuleRetinue GetRetinue(int retinueId)
     {
         foreach (ModuleRetinue moduleRetinue in Retinues)
+        {
+            if (moduleRetinue.M_RetinueID == retinueId)
+            {
+                return moduleRetinue;
+            }
+        }
+
+        foreach (ModuleRetinue moduleRetinue in addPrePassRetinueQueue)//预加载的随从也要遍历一遍
         {
             if (moduleRetinue.M_RetinueID == retinueId)
             {

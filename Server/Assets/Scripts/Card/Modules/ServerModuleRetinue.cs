@@ -392,14 +392,14 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             if (M_RetinueShield >= remainAttackNumber)
             {
-                M_RetinueShield--;
+                M_RetinueShield = M_RetinueShield - remainAttackNumber;
                 remainAttackNumber = 0;
                 return;
             }
             else
             {
                 remainAttackNumber -= M_RetinueShield;
-                M_RetinueShield /= 2;
+                M_RetinueShield = 0;
             }
         }
 
@@ -407,7 +407,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             if (M_RetinueArmor >= remainAttackNumber)
             {
-                M_RetinueArmor = (int) (M_RetinueArmor - remainAttackNumber);
+                M_RetinueArmor = M_RetinueArmor - remainAttackNumber;
                 remainAttackNumber = 0;
                 return;
             }

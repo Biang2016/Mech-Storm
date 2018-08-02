@@ -11,6 +11,7 @@ internal class HandManager : MonoBehaviour
     float[] horrizonDistanceDict; //每张牌之间的距离
     List<CardBase> cards;
     private CardBase currentShowCard;
+    private CardBase lastShowCard;
 
     int retinueLayer;
     int cardLayer;
@@ -80,6 +81,7 @@ internal class HandManager : MonoBehaviour
         RefreshCardsPlace();
     }
 
+
     public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo, Vector3 lastDragPosition)
     {
         CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
@@ -96,7 +98,19 @@ internal class HandManager : MonoBehaviour
         }
     }
 
+    private float lastUseCardShowTime;
+    private float useCardShowIntervalMinimum = 1f;
+
     IEnumerator Co_UseCardShow(CardBase cardBase, CardInfo_Base cardInfo)
+    {
+        if (Time.time - lastUseCardShowTime < useCardShowIntervalMinimum) yield return new WaitForSeconds(useCardShowIntervalMinimum - (Time.time - lastUseCardShowTime));
+        lastUseCardShowTime = Time.time;
+        StartCoroutine(SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.GM.ShowCardDuration));
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
+    IEnumerator SubCo_ShowCardForTime(CardBase cardBase, CardInfo_Base cardInfo, float f)
     {
         cards.Remove(cardBase);
         Vector3 oldPosition = cardBase.transform.position;
@@ -105,6 +119,7 @@ internal class HandManager : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, 180, 0);
         cardBase.PoolRecycle();
 
+        if (currentShowCard) lastShowCard = currentShowCard;
         currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer);
         currentShowCard.DragComponent.enabled = false;
 
@@ -136,19 +151,14 @@ internal class HandManager : MonoBehaviour
             yield return null;
         }
 
+        if(lastShowCard) lastShowCard.PoolRecycle();
+
         currentShowCard.transform.position = targetPosition;
         currentShowCard.transform.rotation = targetRotation;
 
         RefreshCardsPlace();
-        yield return new WaitForSeconds(1f);
-        StartCoroutine(SubCo_ShowCardForTime(currentShowCard, GameManager.GM.ShowCardDuration));
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
-    }
-
-    IEnumerator SubCo_ShowCardForTime(CardBase showCard, float f)
-    {
         yield return new WaitForSeconds(f);
-        showCard.PoolRecycle();
+        currentShowCard.PoolRecycle();
     }
 
     public void BeginRound()
@@ -272,8 +282,11 @@ internal class HandManager : MonoBehaviour
 
         currentFocusCard = focusCard;
         becomeBigger(focusCard);
-        if (currentFocusCard is CardWeapon) ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Weapon);
-        if (currentFocusCard is CardShield) ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Shield);
+        if (ClientPlayer == RoundManager.RM.SelfClientPlayer)
+        {
+            if (currentFocusCard is CardWeapon) ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Weapon);
+            if (currentFocusCard is CardShield) ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Shield);
+        }
     }
 
     internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard)

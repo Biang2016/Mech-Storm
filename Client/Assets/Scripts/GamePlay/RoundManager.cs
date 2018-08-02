@@ -233,6 +233,11 @@ internal class RoundManager : MonoBehaviour
 
     private void SetPlayerTurn(PlayerTurnRequest r) //服务器说某玩家回合开始
     {
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_SetPlayerTurn(r), "Co_SetPlayerTurn");
+    }
+
+    IEnumerator Co_SetPlayerTurn(PlayerTurnRequest r)
+    {
         if (CurrentClientPlayer != null)
         {
             EndRound();
@@ -256,6 +261,8 @@ internal class RoundManager : MonoBehaviour
         }
 
         BeginRound();
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     private void BeginRound()
@@ -279,11 +286,6 @@ internal class RoundManager : MonoBehaviour
 
     private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(NewMethod(r), "NewMethod");
-    }
-
-    IEnumerator NewMethod(RetinueAttributesChangeRequest r)
-    {
         ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinueId);
         retinue.M_RetinueAttack += r.addAttack;
         retinue.M_RetinueWeaponEnergy += r.addWeaponEnergy;
@@ -292,8 +294,6 @@ internal class RoundManager : MonoBehaviour
         retinue.M_RetinueShield += r.addShield;
         retinue.M_RetinueTotalLife += r.addMaxLife;
         retinue.M_RetinueLeftLife += r.addLeftLife;
-        yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     private void OnRetinueDie(RetinueDieRequest r)
