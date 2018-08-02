@@ -11,6 +11,9 @@ public static class ProtoManager
 
     private static Dictionary<int, List<requestDelegate>> mDelegateMapping;
 
+    /// <summary>
+    /// 所有协议在此注册
+    /// </summary>
     static ProtoManager()
     {
         mProtocolMapping = new Dictionary<int, Func<DataStream, RequestBase>>();
@@ -80,6 +83,7 @@ public static class ProtoManager
         AddProtocol<EquipShieldServerRequest>(NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST);
 
         AddProtocol<RetinueAttackRetinueServerRequest>(NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST);
+        AddProtocol<RetinueEffectRequest>(NetProtocols.SE_RETINUE_EFFECT);
         #endregion
         #endregion
         #endregion

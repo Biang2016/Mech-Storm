@@ -59,6 +59,7 @@
     <Compile Include="Net\Protocol\GamePlaySettings.cs" />
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EquipShieldRequest_Response.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueEffectRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttackRetinueServerRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\UseCardRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\EquipShieldServerRequest.cs" />

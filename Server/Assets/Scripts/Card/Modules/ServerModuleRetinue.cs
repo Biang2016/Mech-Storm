@@ -477,6 +477,8 @@ internal class ServerModuleRetinue : ServerModuleBase
         foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
         {
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);
+            RetinueEffectRequest request=new RetinueEffectRequest(ServerPlayer.ClientId,M_RetinueID, RetinueEffectRequest.EffectType.OnSummon);
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         }
 
         ServerPlayer.MyGameManager.ExecuteAllSideEffects();
@@ -488,6 +490,8 @@ internal class ServerModuleRetinue : ServerModuleBase
         foreach (SideEffectBase se in CardInfo.SideEffects_OnDie) //先入队死亡效果，但不触发，等到所有被群杀的随从的死亡效果都入队之后再触发
         {
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);
+            RetinueEffectRequest request=new RetinueEffectRequest(ServerPlayer.ClientId,M_RetinueID, RetinueEffectRequest.EffectType.OnDie);
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         }
 
         ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID); //入队死亡信息，整个结算结束后一并发送request

@@ -426,7 +426,7 @@ internal class ModuleRetinue : ModuleBase
     IEnumerator Co_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
         StartCoroutine(SubCo_RetinueWeaponEnergyChange(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue));
-        
+
         yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
@@ -829,24 +829,25 @@ internal class ModuleRetinue : ModuleBase
 
     #region 特效
 
-    public void OnSummoned()
+    public void OnSummon()
     {
         CheckCanAttack();
-        foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnSummoned)
-        {
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#64FFDB"), 0.5f), "ShowSideEffectBloom");
-        }
     }
 
-    public void OnDieSideEffects()
+    public void OnSummonShowEffects()
+    {
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#00FFDA"), 0.5f), "ShowSideEffectBloom");
+    }
+
+    public void OnDie()
     {
         if (IsDead) return;
-        foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnDie)
-        {
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 0.5f), "ShowSideEffectBloom");
-        }
-
         IsDead = true;
+    }
+
+    public void OnDieShowEffects()
+    {
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 0.5f), "ShowSideEffectBloom");
     }
 
     IEnumerator Co_ShowSideEffectBloom(Color color, float duration)

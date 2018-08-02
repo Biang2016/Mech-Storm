@@ -62,6 +62,7 @@ public class NetProtocols
     public const int SE_EQUIP_SHIELD_SERVER_REQUEST = 0x00000220; //装备防具
 
     public const int SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST = 0x00000221; //随从攻击随从
+    public const int SE_RETINUE_EFFECT = 0x00000222; //随从特效
 
     #endregion
 

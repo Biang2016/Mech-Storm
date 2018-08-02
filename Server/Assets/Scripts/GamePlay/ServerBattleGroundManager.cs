@@ -23,12 +23,13 @@ internal class ServerBattleGroundManager
         ServerModuleRetinue retinue = new ServerModuleRetinue();
         retinue.M_RetinueID = ServerPlayer.MyGameManager.GeneratorNewRetinueId();
         retinue.Initiate(retinueCardInfo, ServerPlayer);
-        retinue.OnSummoned();
-        Retinues.Insert(retinuePlaceIndex, retinue);
-        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
-
+      
         BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex, retinue.M_RetinueID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+
+        retinue.OnSummoned();//先战吼，再进战场
+        Retinues.Insert(retinuePlaceIndex, retinue);
+        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
     }
 
     public void RemoveRetinue(ServerModuleRetinue retinue)

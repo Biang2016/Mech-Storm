@@ -147,8 +147,14 @@ internal class RoundManager : MonoBehaviour
                 OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) se);
                 break;
             }
+            case NetProtocols.SE_RETINUE_EFFECT:
+            {
+                OnRetinueEffect((RetinueEffectRequest) se);
+                break;
+            }
         }
     }
+
 
     public void ResponseToSideEffects_PrePass(ServerRequestBase se)
     {
@@ -318,7 +324,7 @@ internal class RoundManager : MonoBehaviour
 
         foreach (ModuleRetinue moduleRetinue in dieRetinues)
         {
-            moduleRetinue.OnDieSideEffects();
+            moduleRetinue.OnDie();
         }
 
         BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueDieShock(dieRetinues), "Co_RetinueDieShock");
@@ -430,6 +436,20 @@ internal class RoundManager : MonoBehaviour
     public void OnRetinueAttackRetinue(RetinueAttackRetinueServerRequest r)
     {
         GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinueId).AllModulesAttack();
+    }
+
+    private void OnRetinueEffect(RetinueEffectRequest r)
+    {
+        ModuleRetinue retinue = GetPlayerByClientId(r.clientId).MyBattleGroundManager.GetRetinue(r.retinueId);
+        switch (r.effectType)
+        {
+            case RetinueEffectRequest.EffectType.OnSummon:
+                retinue.OnSummonShowEffects();
+                break;
+            case RetinueEffectRequest.EffectType.OnDie:
+                retinue.OnDieShowEffects();
+                break;
+        }
     }
 
     private void OnGameStop()

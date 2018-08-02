@@ -142,10 +142,11 @@ internal class BattleGroundManager : MonoBehaviour
 
     IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects,int retinuePlaceIndex)
     {
-        if (retinuePlaceIndex != -1)
+        if (retinuePlaceIndex != -1)//新增随从
         {
             ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
             Retinues.Insert(retinuePlaceIndex, retinue);
+            retinue.OnSummon();
             retinue.transform.localPosition = _defaultRetinuePosition;
             retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.GM.RetinueInterval, Space.Self);
         }
