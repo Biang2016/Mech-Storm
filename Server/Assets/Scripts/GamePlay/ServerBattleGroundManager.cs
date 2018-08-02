@@ -20,12 +20,13 @@ internal class ServerBattleGroundManager
 
     public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex)
     {
-        ServerModuleRetinue retinue = new ServerModuleRetinue();
-        retinue.M_RetinueID = ServerPlayer.MyGameManager.GeneratorNewRetinueId();
-        retinue.Initiate(retinueCardInfo, ServerPlayer);
-      
-        BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex, retinue.M_RetinueID);
+        int retinueId = ServerPlayer.MyGameManager.GeneratorNewRetinueId();
+        BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex, retinueId);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+
+        ServerModuleRetinue retinue = new ServerModuleRetinue();
+        retinue.M_RetinueID = retinueId;
+        retinue.Initiate(retinueCardInfo, ServerPlayer);
 
         retinue.OnSummoned();//先战吼，再进战场
         Retinues.Insert(retinuePlaceIndex, retinue);

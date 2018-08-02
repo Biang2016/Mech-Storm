@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4600468866543474}
   - component: {fileID: 33180715897337040}
   - component: {fileID: 23838496357435246}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: CardShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4659013287479820}
   - component: {fileID: 33078293514623988}
   - component: {fileID: 23378509062485422}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: NameBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,6 +148,7 @@ MeshRenderer:
   m_MotionVectors: 2
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 4f8bbdff3751122478466555702b3773, type: 2}
   m_StaticBatchInfo:
@@ -182,6 +183,7 @@ MeshRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: c8b0ac08d04f7ac439a8014d7d35fa77, type: 2}
   m_StaticBatchInfo:
@@ -216,6 +218,7 @@ MeshRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 7e5dd788e83900f4eb7e1d82502fc33e, type: 2}
   m_StaticBatchInfo:
@@ -302,12 +305,8 @@ MonoBehaviour:
   Block_Cost: {fileID: 0}
   PictureBoxRenderer: {fileID: 0}
   TextMesh_RetinueName: {fileID: 0}
-  TextMesh_RetinueDesc: {fileID: 0}
-  Block_RetinueLeftLife: {fileID: 0}
+  Text_RetinueDesc: {fileID: 0}
   Block_RetinueTotalLife: {fileID: 0}
-  Block_RetinueAttack: {fileID: 0}
-  Block_RetinueShield: {fileID: 0}
-  Block_RetinueArmor: {fileID: 0}
   Slot1: {fileID: 0}
   Slot2: {fileID: 0}
   Slot3: {fileID: 0}

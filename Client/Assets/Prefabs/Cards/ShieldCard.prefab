@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4036001690421296}
   - component: {fileID: 33026963933258860}
   - component: {fileID: 23083157301898828}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Star4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 4343623579991438}
   - component: {fileID: 33107666853111662}
   - component: {fileID: 23910218010759206}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Star1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 224203818755897200}
   - component: {fileID: 222274083724845622}
   - component: {fileID: 114469008544034056}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 4068736338682956}
   - component: {fileID: 33122305539184728}
   - component: {fileID: 23485934040203146}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: CardBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 4711950767434430}
   - component: {fileID: 33345222249152030}
   - component: {fileID: 23565987845535784}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Star3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 4202729276720910}
   - component: {fileID: 33609025515318984}
   - component: {fileID: 23041046767612906}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Star2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 4630223113413302}
   - component: {fileID: 33000460820780082}
   - component: {fileID: 23961947589823098}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: CardShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 223821254326635124}
   - component: {fileID: 114465071543042668}
   - component: {fileID: 114632615318734968}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

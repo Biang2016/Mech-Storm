@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4722337372219988}
   - component: {fileID: 33181407963612914}
   - component: {fileID: 23235608376454700}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Star3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 224070259326007464}
   - component: {fileID: 222073190233823052}
   - component: {fileID: 114335236041071780}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4751741163104648}
   - component: {fileID: 33069065594128570}
   - component: {fileID: 23772161660082958}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Star1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 223362788361099622}
   - component: {fileID: 114491106190595660}
   - component: {fileID: 114887373602314114}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 4199430363371088}
   - component: {fileID: 33113290823230774}
   - component: {fileID: 23765105107962030}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Star4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 4069805106836792}
   - component: {fileID: 33071380754845716}
   - component: {fileID: 23813667797871046}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: CardBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 4951553131337496}
   - component: {fileID: 33076878243368272}
   - component: {fileID: 23824680852387384}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: CardShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 4575777985239504}
   - component: {fileID: 33483990213315622}
   - component: {fileID: 23836770165204306}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Star2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

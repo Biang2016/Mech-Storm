@@ -1,8 +1,9 @@
-﻿Shader "Custom/BarStandard"
+﻿Shader "Custom/Standard_BeMasked"
 {
 	//------------------------------------【属性值】------------------------------------
 	Properties
 	{
+		_MaskRef("MaskRef", Float) = 1
 		//主颜色
 		_Color("Color", Color) = (1,1,1,1)
 		//主纹理
@@ -56,6 +57,7 @@
 		[HideInInspector] _SrcBlend("__src", Float) = 1.0
 		[HideInInspector] _DstBlend("__dst", Float) = 0.0
 		[HideInInspector] _ZWrite("__zw", Float) = 1.0
+
 	}
 
 		//===========开始CG着色器语言编写模块===========
@@ -94,7 +96,7 @@
 		ZWrite[_ZWrite]
 
 		Stencil{
-		Ref 1
+		Ref [_MaskRef]
 		Comp Equal
 	}
 
@@ -154,11 +156,6 @@
 		//设置深度测试模式：小于等于
 		ZTest LEqual
 
-			Stencil{
-			Ref 1
-			Comp Equal
-		}
-
 		//===========开启CG着色器语言编写模块===========
 		CGPROGRAM
 
@@ -206,11 +203,6 @@
 		ZWrite On
 		//设置深度测试模式：小于等于
 		ZTest LEqual
-
-			Stencil{
-			Ref 1
-			Comp Equal
-		}
 
 		//===========开启CG着色器语言编写模块===========
 		CGPROGRAM
@@ -296,7 +288,7 @@
 		Cull Off
 
 			Stencil{
-			Ref 1
+			Ref [_MaskRef]
 			Comp Equal
 		}
 
@@ -343,7 +335,10 @@
 		Blend[_SrcBlend][_DstBlend]
 		// 根据_ZWrite参数，设置深度写入模式开关与否
 		ZWrite[_ZWrite]
-
+			Stencil{
+			Ref [_MaskRef]
+			Comp Equal
+		}
 		//===========开启CG着色器语言编写模块===========
 		CGPROGRAM
 		//着色器编译目标：Model 2.0

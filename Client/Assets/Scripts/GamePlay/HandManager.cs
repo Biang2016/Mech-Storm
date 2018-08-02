@@ -52,7 +52,7 @@ internal class HandManager : MonoBehaviour
     {
         if (ClientPlayer == null) return;
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardId);
-        CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer);
+        CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
         newCardBase.M_CardInstanceId = cardInstanceId;
         cards.Add(newCardBase);
         RefreshCardsPlace();
@@ -105,22 +105,28 @@ internal class HandManager : MonoBehaviour
     {
         if (Time.time - lastUseCardShowTime < useCardShowIntervalMinimum) yield return new WaitForSeconds(useCardShowIntervalMinimum - (Time.time - lastUseCardShowTime));
         lastUseCardShowTime = Time.time;
-        StartCoroutine(SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.GM.ShowCardDuration));
+        if (current_SubCo_ShowCardForTime != null) StopCoroutine(current_SubCo_ShowCardForTime);
+        current_SubCo_ShowCardForTime = SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.GM.ShowCardDuration);
+        StartCoroutine(current_SubCo_ShowCardForTime);
         yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
+
+    private IEnumerator current_SubCo_ShowCardForTime;
 
     IEnumerator SubCo_ShowCardForTime(CardBase cardBase, CardInfo_Base cardInfo, float f)
     {
         cards.Remove(cardBase);
         Vector3 oldPosition = cardBase.transform.position;
         Quaternion oldRotation = cardBase.transform.rotation;
+        Vector3 oldScale = cardBase.transform.localScale;
         Vector3 targetPosition = GameManager.GM.CardShowPosition;
         Quaternion targetRotation = Quaternion.Euler(0, 180, 0);
+        Vector3 targetScale = Vector3.one * GameManager.GM.CardShowScale;
         cardBase.PoolRecycle();
 
         if (currentShowCard) lastShowCard = currentShowCard;
-        currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer);
+        currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer, false);
         currentShowCard.DragComponent.enabled = false;
 
         currentShowCard.transform.position = oldPosition;
@@ -140,6 +146,7 @@ internal class HandManager : MonoBehaviour
             if (tick < duration)
             {
                 currentShowCard.transform.position = Vector3.Lerp(oldPosition, targetPosition, tick / duration);
+                currentShowCard.transform.localScale = Vector3.Lerp(oldScale, targetScale, tick / duration);
             }
 
             tickRotate += Time.deltaTime;
@@ -151,7 +158,7 @@ internal class HandManager : MonoBehaviour
             yield return null;
         }
 
-        if(lastShowCard) lastShowCard.PoolRecycle();
+        if (lastShowCard) lastShowCard.PoolRecycle();
 
         currentShowCard.transform.position = targetPosition;
         currentShowCard.transform.rotation = targetRotation;

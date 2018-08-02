@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,6 +40,7 @@ internal class CardRetinue : CardBase
     {
         base.Awake();
         gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueCardPool;
+        Text_RetinueDesc.canvas.overrideSorting = true;
     }
 
     void Start()

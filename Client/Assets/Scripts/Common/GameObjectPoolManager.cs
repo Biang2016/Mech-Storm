@@ -101,6 +101,18 @@ internal class GameObjectPoolManager : MonoBehaviour
     internal GameObjectPool Pool_BackCardPool;
     public GameObject BackCardPrefab;
 
+    public GameObject RetinueSelectCardPool;
+    internal GameObjectPool Pool_RetinueSelectCardPool;
+    public GameObject RetinueSelectCardPrefab;
+
+    public GameObject WeaponSelectCardPool;
+    internal GameObjectPool Pool_WeaponSelectCardPool;
+    public GameObject WeaponSelectCardPrefab;
+
+    public GameObject ShieldSelectCardPool;
+    internal GameObjectPool Pool_ShieldSelectCardPool;
+    public GameObject ShieldSelectCardPrefab;
+
     void Awake()
     {
         Pool_ColliderReplacePool = ColliderReplacePool.GetComponent<GameObjectPool>();
@@ -166,6 +178,14 @@ internal class GameObjectPoolManager : MonoBehaviour
         Pool_BackCardPool = BackCardPool.GetComponent<GameObjectPool>();
         Pool_BackCardPool.Initiate(BackCardPrefab, 30);
 
+        Pool_RetinueSelectCardPool = RetinueSelectCardPool.GetComponent<GameObjectPool>();
+        Pool_RetinueSelectCardPool.Initiate(RetinueSelectCardPrefab, 30);
+
+        Pool_WeaponSelectCardPool = WeaponSelectCardPool.GetComponent<GameObjectPool>();
+        Pool_WeaponSelectCardPool.Initiate(WeaponSelectCardPrefab, 30);
+
+        Pool_ShieldSelectCardPool = ShieldSelectCardPool.GetComponent<GameObjectPool>();
+        Pool_ShieldSelectCardPool.Initiate(ShieldSelectCardPrefab, 30);
     }
 
 }

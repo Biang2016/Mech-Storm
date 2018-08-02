@@ -1,4 +1,8 @@
-﻿Shader "Custom/BarMask" {
+﻿Shader "Custom/Mask" {
+	Properties{
+		_MaskRef("MaskRef", Float) = 1
+	}
+
 	SubShader{
 		Tags{ "RenderType" = "Opaque" "Queue" = "Geometry-1" }
 
@@ -26,7 +30,7 @@
 
 			Stencil
 		{
-			Ref 1
+			Ref [_MaskRef]
 			Comp Always
 			Pass Replace
 		}

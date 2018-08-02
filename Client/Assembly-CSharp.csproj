@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\GamePlay\GameManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\HandManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\RoundManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\SelectCardDeckManager.cs" />
     <Compile Include="Assets\Scripts\Network\Client.cs" />
     <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Network\Proxy.cs" />
@@ -102,9 +103,8 @@
     <Compile Include="Assets\Scripts\UX\MouseHoverManager.cs" />
     <Compile Include="Assets\Scripts\UX\SlotAnchor.cs" />
     <None Include="Assets\Materials\GameBoardMaterials\BlurShader.shader" />
-    <None Include="Assets\Materials\BarStencil\Bar.shader" />
-    <None Include="Assets\Materials\BarStencil\BarStandard.shader" />
-    <None Include="Assets\Materials\BarStencil\BarMask.shader" />
+    <None Include="Assets\Materials\Stencil\Standard_BeMasked.shader" />
+    <None Include="Assets\Materials\Stencil\Mask.shader" />
     <Reference Include="Unity.2D.Animation.Runtime">
       <HintPath>F:/MyCardGame/Client/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
     </Reference>

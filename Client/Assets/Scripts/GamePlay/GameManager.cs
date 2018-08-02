@@ -40,6 +40,7 @@ internal class GameManager : MonoBehaviour
     #region 游戏全局参数
 
     public bool  UseInspectorParams = false;
+    public bool  ShowBEMMessages = false;
 
     public float HandCardSize = 1.0f;
     public float HandCardInterval = 1.0f;
@@ -54,6 +55,7 @@ internal class GameManager : MonoBehaviour
     public float RetinueDetailPreviewDelaySeconds = 0.7f;
 
     internal Vector3 CardShowPosition;
+    public float CardShowScale=2f;
 
     public float ShowCardDuration = 0.7f;
     public float ShowCardRotateDuration = 0.1f;

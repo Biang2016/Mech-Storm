@@ -292,7 +292,7 @@ internal class ModuleRetinue : ModuleBase
     {
         CardLifeHit.SetTrigger("BeHit");
         retinueLifeChange(leftLifeValue, totalLifeValue);
-        yield return new WaitForSeconds(0.05f);
+        yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
@@ -300,7 +300,7 @@ internal class ModuleRetinue : ModuleBase
     {
         LifeIncreaseArrow.SetTrigger("LifeAdd");
         retinueLifeChange(leftLifeValue, totalLifeValue);
-        yield return new WaitForSeconds(0.05f);
+        yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
@@ -425,12 +425,15 @@ internal class ModuleRetinue : ModuleBase
 
     IEnumerator Co_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
-        StartCoroutine(SubCo_RetinueWeaponEnergyChange(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue));
-
+        if(current_SubCo_RetinueWeaponEnergyChange!=null)StopCoroutine(current_SubCo_RetinueWeaponEnergyChange);
+        current_SubCo_RetinueWeaponEnergyChange = SubCo_RetinueWeaponEnergyChange(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue);
+        StartCoroutine(current_SubCo_RetinueWeaponEnergyChange);
         yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
+
+    private IEnumerator current_SubCo_RetinueWeaponEnergyChange;
     IEnumerator SubCo_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
         if (SwordBar)
@@ -496,7 +499,7 @@ internal class ModuleRetinue : ModuleBase
 
         ArmorIconHit.SetTrigger("BeHit");
         ArmorFill.SetTrigger("ArmorAdd");
-        yield return new WaitForSeconds(0.1f);
+        yield return null;
         CardNumberSet_RetinueArmor.Number = armorValue;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
@@ -513,7 +516,7 @@ internal class ModuleRetinue : ModuleBase
         }
 
         ArmorFill.SetTrigger("ArmorAdd");
-        yield return new WaitForSeconds(0.1f);
+        yield return null;
         CardNumberSet_RetinueArmor.Number = armorValue;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
@@ -549,7 +552,7 @@ internal class ModuleRetinue : ModuleBase
 
         ShieldIconHit.SetTrigger("BeHit");
         ShieldBar.SetTrigger("ShieldAdd");
-        yield return new WaitForSeconds(0.1f);
+        yield return null;
         CardNumberSet_RetinueShield.Number = shieldValue;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
@@ -566,7 +569,7 @@ internal class ModuleRetinue : ModuleBase
         }
 
         ShieldBar.SetTrigger("ShieldAdd");
-        yield return new WaitForSeconds(0.1f);
+        yield return null;
         CardNumberSet_RetinueShield.Number = shieldValue;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }

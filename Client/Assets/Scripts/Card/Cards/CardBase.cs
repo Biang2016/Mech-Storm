@@ -5,6 +5,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 {
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
+    private Renderer m_Renderer;
 
     public virtual void PoolRecycle()
     {
@@ -21,6 +22,8 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
         CanBecomeBigger = true;
         Usable = false;
+        transform.localScale = Vector3.one * 2;
+        transform.rotation = Quaternion.Euler(0, -180, 0);
         gameObjectPool.RecycleGameObject(gameObject);
         DragComponent.enabled = true;
     }
@@ -33,6 +36,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
         myCollider = GetComponent<BoxCollider>();
         DragComponent = GetComponent<DragComponent>();
+        m_Renderer = GetComponent<Renderer>();
     }
 
     void Start()
@@ -44,24 +48,46 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     }
 
 
-    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, ClientPlayer clientPlayer)
+    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, ClientPlayer clientPlayer, bool isCardSelect)
     {
         CardBase newCard;
-        switch (cardInfo.BaseInfo.CardType)
+        if (!isCardSelect)
         {
-            case CardTypes.Retinue:
-                newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                break;
-            case CardTypes.Weapon:
-                newCard = GameObjectPoolManager.GOPM.Pool_WeaponCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
-                break;
-            case CardTypes.Shield:
-                newCard = GameObjectPoolManager.GOPM.Pool_ShieldCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
-                break;
-            default:
-                newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                break;
+            switch (cardInfo.BaseInfo.CardType)
+            {
+                case CardTypes.Retinue:
+                    newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    break;
+                case CardTypes.Weapon:
+                    newCard = GameObjectPoolManager.GOPM.Pool_WeaponCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
+                    break;
+                case CardTypes.Shield:
+                    newCard = GameObjectPoolManager.GOPM.Pool_ShieldCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
+                    break;
+                default:
+                    newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    break;
+            }
         }
+        else
+        {
+            switch (cardInfo.BaseInfo.CardType)
+            {
+                case CardTypes.Retinue:
+                    newCard = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    break;
+                case CardTypes.Weapon:
+                    newCard = GameObjectPoolManager.GOPM.Pool_WeaponSelectCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
+                    break;
+                case CardTypes.Shield:
+                    newCard = GameObjectPoolManager.GOPM.Pool_ShieldSelectCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
+                    break;
+                default:
+                    newCard = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    break;
+            }
+        }
+
 
         newCard.Initiate(cardInfo, clientPlayer);
         newCard.ChangeColor(HTMLColorToColor(cardInfo.BaseInfo.CardColor));

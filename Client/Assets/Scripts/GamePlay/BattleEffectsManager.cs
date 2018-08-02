@@ -73,7 +73,7 @@ internal class BattleEffectsManager : MonoBehaviour
                 BEM.StartCoroutine(se.Enumerator);
                 CurrentEffect = se;
                 IsExcuting = true;
-                ClientLog.CL.PrintBattleEffectsStart("+ [" + Name + "] StartEffect: " + se.MethodName + " id: " + se.EffectId);
+                if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintBattleEffectsStart("+ [" + Name + "] StartEffect: " + se.MethodName + " id: " + se.EffectId);
             }
         }
 
