@@ -38,6 +38,7 @@ internal class MouseHoverManager : MonoBehaviour
 
     void Update()
     {
+        if (SelectCardDeckManager.SCDM.IsShowing()) return;
         hi_ModulesHoverShowBloom.Check<ModuleBase>();
         hi_CardHover.Check<CardBase>();
         phi_SlotsPressHoverShowBloom.Check<SlotAnchor>();

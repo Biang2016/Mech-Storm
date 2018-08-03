@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4188262499949230}
   - component: {fileID: 114290296155602018}
   - component: {fileID: 95390999365484476}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: NumberSet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumberSetChangeAnim: {fileID: 95390999365484476}
+  IsSelect: 0
   myNumberSize: 0
   IntervalFactor: 0.07
   number: 0

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33403824430876608}
   - component: {fileID: 23273694879637782}
   - component: {fileID: 114037781503857874}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: SmallNumber
   m_TagString: Card
   m_Icon: {fileID: 0}
@@ -114,4 +114,23 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 2bc8564af8ca1ed459b6fea9e4429f50, type: 2}
   - {fileID: 2100000, guid: 2b6a526a82129be40ac54cd5228c33e8, type: 2}
   - {fileID: 2100000, guid: e6a86a32730c56a43b3e02543e309127, type: 2}
+  NumberMaterial_Select:
+  - {fileID: 2100000, guid: 2f7fb3728ed2a6e4fbb296e72eee89de, type: 2}
+  - {fileID: 2100000, guid: 6f5e5988f79a88845a924430e107ab87, type: 2}
+  - {fileID: 2100000, guid: b23e0f0480983f64abd7888cf97117b1, type: 2}
+  - {fileID: 2100000, guid: efe992af954bdea428b7d26c8fefd3fd, type: 2}
+  - {fileID: 2100000, guid: 642878271de088741a827b655b0cf2a0, type: 2}
+  - {fileID: 2100000, guid: 80566bdbf19b7504699e2720993d8651, type: 2}
+  - {fileID: 2100000, guid: 7f8b7eb7bf5292941b819ae1a5ef5425, type: 2}
+  - {fileID: 2100000, guid: 66f9a19e418a5cd419db9bc52a3b8855, type: 2}
+  - {fileID: 2100000, guid: 9d1ac9d2dd9bee4499202a8be5313ff0, type: 2}
+  - {fileID: 2100000, guid: a1a7fc564fdeea44c962c67ef6dd7584, type: 2}
+  NumberSignMaterial_Select:
+  - {fileID: 2100000, guid: 4991bb4ceb419834380c03006c8ba6fa, type: 2}
+  - {fileID: 2100000, guid: 464d02d87ac0dfd46bff505f6966c3f6, type: 2}
+  - {fileID: 2100000, guid: a8f2a45ccc88427428282a13000148d4, type: 2}
+  - {fileID: 2100000, guid: 914942062b9ed624c9e360a041a9c64b, type: 2}
+  - {fileID: 2100000, guid: 0099b5ad8754bbc4ab14ccba77266741, type: 2}
+  - {fileID: 2100000, guid: bd092491fdd6ad54da1c1291e6944c90, type: 2}
   MyNumberSize: 0
+  IsSelect: 0

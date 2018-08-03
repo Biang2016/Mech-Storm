@@ -185,7 +185,7 @@ internal class ModuleRetinue : ModuleBase
         M_RetinueShield = cardInfo.BattleInfo.BasicShield;
         M_RetinueWeaponEnergy = 0;
         M_RetinueWeaponEnergyMax = 0;
-        CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
+        ChangePicture(CardInfo.CardID);
         ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnHoverBloomColor);
         ChangeBloomColor(RetinueBloom, GameManager.GM.RetinueBloomColor);
 
@@ -895,4 +895,15 @@ internal class ModuleRetinue : ModuleBase
     }
 
     #endregion
+
+    public void ChangePicture(int pictureID)
+    {
+        Texture tx = (Texture) Resources.Load(string.Format("{0:000}", pictureID));
+        if (tx == null) Debug.LogError("所选卡片没有图片资源：" + pictureID);
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        PictureBoxRenderer.GetPropertyBlock(mpb);
+        mpb.SetTexture("_MainTex", tx);
+        mpb.SetTexture("_EmissionMap", tx);
+        PictureBoxRenderer.SetPropertyBlock(mpb);
+    }
 }

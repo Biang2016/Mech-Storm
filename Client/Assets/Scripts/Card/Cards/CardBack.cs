@@ -48,9 +48,9 @@ internal class CardBack : CardBase
     protected GameObject GoNumberSet_RetinueArmor;
     protected CardNumberSet CardNumberSet_RetinueArmor;
 
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer,bool isCardSelect)
     {
-        base.Initiate(cardInfo, clientPlayer);
+        base.Initiate(cardInfo, clientPlayer,isCardSelect);
         M_RetinueName = cardInfo.BaseInfo.CardName;
         M_RetinueDesc = ((CardInfo_Retinue)cardInfo).GetCardDescShow();
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;

@@ -57,12 +57,12 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
         {
             Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
             cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign);
+            cardNumberSet.initiate(0, numberType, textAlign, false);
         }
         else
         {
             cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign);
+            cardNumberSet.initiate(0, numberType, textAlign,false);
         }
     }
 
@@ -72,12 +72,12 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
         {
             Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
             cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign);
+            cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);
         }
         else
         {
             cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign);
+            cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);
         }
     }
 

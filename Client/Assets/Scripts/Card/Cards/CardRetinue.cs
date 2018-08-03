@@ -36,13 +36,6 @@ internal class CardRetinue : CardBase
         if (MA) MA = null;
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-        gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueCardPool;
-        Text_RetinueDesc.canvas.overrideSorting = true;
-    }
-
     void Start()
     {
     }
@@ -51,11 +44,9 @@ internal class CardRetinue : CardBase
     {
     }
 
-    private DragComponent dragComponent;
-
     #region 卡牌上各模块
 
-    public TextMesh TextMesh_RetinueName;
+    public Text Text_RetinueName;
 
     public Text Text_RetinueDesc;
 
@@ -64,9 +55,9 @@ internal class CardRetinue : CardBase
     CardNumberSet CardNumberSet_RetinueTotalLife;
 
 
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
-        base.Initiate(cardInfo, clientPlayer);
+        base.Initiate(cardInfo, clientPlayer,isCardSelect);
         M_RetinueName = cardInfo.BaseInfo.CardName;
         M_RetinueDesc = ((CardInfo_Retinue) cardInfo).GetCardDescShow();
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
@@ -93,7 +84,7 @@ internal class CardRetinue : CardBase
         set
         {
             m_RetinueName = value;
-            TextMesh_RetinueName.text = value;
+            Text_RetinueName.text = value;
         }
     }
 

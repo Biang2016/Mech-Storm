@@ -28,8 +28,9 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
     {
     }
 
-    public void initiate(int number, NumberSize numberSize, TextAlign textAlign)
+    public void initiate(int number, NumberSize numberSize, TextAlign textAlign, bool isSelect)
     {
+        IsSelect = isSelect;
         digitCount = 0;
         MyNumberSize = numberSize;
         Number = number;
@@ -37,10 +38,12 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
     }
 
     private bool hasSign = false;
+    public bool IsSelect;
     private char m_firstSign;
 
-    public void initiate(char firstSign, int number, NumberSize numberSize, TextAlign textAlign)
+    public void initiate(char firstSign, int number, NumberSize numberSize, TextAlign textAlign, bool isSelect)
     {
+        IsSelect = isSelect;
         m_firstSign = firstSign;
         hasSign = true;
 
@@ -159,6 +162,19 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
         }
     }
 
+    public void Clear()
+    {
+        foreach (CardNumber cardNumber in cardNumbers)
+        {
+            if (cardNumber) cardNumber.PoolRecycle();
+        }
+
+        cardNumbers[0] = null;
+        cardNumbers[1] = null;
+        cardNumbers[2] = null;
+        cardNumbers[3] = null;
+    }
+
     void setNumberSet()
     {
         digits[0] = (int) (Number / 1000);
@@ -206,6 +222,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
             cardNumbers[3 - digitCount] = childrenPool.AllocateGameObject(transform).GetComponent<CardNumber>();
         }
 
+        cardNumbers[3 - digitCount].IsSelect = IsSelect;
         cardNumbers[3 - digitCount].SetSign(firstSign);
     }
 
@@ -219,6 +236,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
         {
             if (value == -1) return;
             cardNumbers[digitPlace] = childrenPool.AllocateGameObject(transform).GetComponent<CardNumber>();
+            cardNumbers[digitPlace].IsSelect = IsSelect;
             cardNumbers[digitPlace].Number = (int) value;
         }
         else if (value == -1)
@@ -228,7 +246,8 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
         }
         else
         {
-            cardNumbers[digitPlace].Number = (int) value;
+            cardNumbers[digitPlace].IsSelect = IsSelect;
+            cardNumbers[digitPlace].Number = value;
         }
     }
 

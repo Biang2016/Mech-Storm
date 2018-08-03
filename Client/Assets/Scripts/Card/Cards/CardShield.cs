@@ -7,7 +7,6 @@ internal class CardShield : CardBase
     protected override void Awake()
     {
         base.Awake();
-        gameObjectPool = GameObjectPoolManager.GOPM.Pool_ShieldCardPool;
     }
 
     void Start()
@@ -21,7 +20,7 @@ internal class CardShield : CardBase
 
     #region 卡牌上各模块
 
-    public TextMesh ShieldName;
+    public Text ShieldName;
 
     public Text ShieldDesc;
 
@@ -53,9 +52,9 @@ internal class CardShield : CardBase
 
     # endregion
 
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
-        base.Initiate(cardInfo, clientPlayer);
+        base.Initiate(cardInfo, clientPlayer, isCardSelect);
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
         M_ShieldName = CardInfo.BaseInfo.CardName;

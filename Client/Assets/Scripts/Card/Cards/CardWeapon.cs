@@ -7,7 +7,6 @@ internal class CardWeapon : CardBase
     protected override void Awake()
     {
         base.Awake();
-        gameObjectPool = GameObjectPoolManager.GOPM.Pool_WeaponCardPool;
     }
 
     void Start()
@@ -20,7 +19,7 @@ internal class CardWeapon : CardBase
 
     #region 卡牌上各模块
 
-    public TextMesh WeaponName;
+    public Text WeaponName;
 
     public Text WeaponDesc;
 
@@ -50,9 +49,9 @@ internal class CardWeapon : CardBase
         }
     }
 
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer,bool isCardSelect)
     {
-        base.Initiate(cardInfo, clientPlayer);
+        base.Initiate(cardInfo, clientPlayer, isCardSelect);
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
         M_WeaponName = CardInfo.BaseInfo.CardName;

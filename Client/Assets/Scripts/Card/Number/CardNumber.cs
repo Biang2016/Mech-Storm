@@ -41,6 +41,10 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
 
     public Material[] NumberSignMaterial;
 
+    public Material[] NumberMaterial_Select;
+
+    public Material[] NumberSignMaterial_Select;
+
     int number;
 
     public int Number
@@ -55,13 +59,16 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
             if (value < 10 && value >= 0)
             {
                 number = value;
-                Renderer.material = NumberMaterial[value];
+                if (!IsSelect) Renderer.material = NumberMaterial[value];
+                else Renderer.material = NumberMaterial_Select[value];
             }
         }
     }
 
     [SerializeField]
     private NumberSize MyNumberSize;
+
+    public bool IsSelect;//是否是选择卡牌面板上的数字（需换材质）
 
     private bool hasSign=false;
     public void SetSign(char sign)
@@ -81,7 +88,8 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
                 signIndex = 0; break;
         }
 
-        Renderer.material = NumberSignMaterial[signIndex];
+        if (!IsSelect) Renderer.material = NumberSignMaterial[signIndex];
+        else Renderer.material = NumberSignMaterial_Select[signIndex];
     }
 
     public void SetNumberColor(Color color)

@@ -87,6 +87,7 @@ internal class ServerBattleGroundManager
     public void AddLifeForRandomRetinue(int value) //本方增加随机随从生命
     {
         ServerModuleRetinue retinue = GetRandomRetinue();
+        if (retinue == null) return;
         AddLifeForSomeRetinue(retinue, value);
     }
 

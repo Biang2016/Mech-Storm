@@ -38,6 +38,7 @@ internal class DragManager : MonoBehaviour
 
     void Update()
     {
+        if (SelectCardDeckManager.SCDM.IsShowing()) return;
         if (Input.GetMouseButtonDown(0))
         {
             if (!CurrentDrag) {

@@ -6,7 +6,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
     private Renderer m_Renderer;
-    private bool IsCardSelect;
+    protected bool IsCardSelect;
 
     public virtual void PoolRecycle()
     {
@@ -25,14 +25,14 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
             CanBecomeBigger = true;
             Usable = false;
+            gameObjectPool.RecycleGameObject(gameObject);
             transform.localScale = Vector3.one * 2;
             transform.rotation = Quaternion.Euler(0, -180, 0);
-            gameObjectPool.RecycleGameObject(gameObject);
             DragComponent.enabled = true;
         }
         else
         {
-
+            gameObjectPool.RecycleGameObject(gameObject);
         }
     }
 
@@ -65,17 +65,23 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             {
                 case CardTypes.Retinue:
                     newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueCardPool;
                     break;
                 case CardTypes.Weapon:
                     newCard = GameObjectPoolManager.GOPM.Pool_WeaponCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
+                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_WeaponCardPool;
                     break;
                 case CardTypes.Shield:
                     newCard = GameObjectPoolManager.GOPM.Pool_ShieldCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
+                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_ShieldCardPool;
                     break;
                 default:
                     newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueCardPool;
                     break;
             }
+
+            newCard.ChangeCardBloomColor(GameManager.GM.CardBloomColor);
         }
         else
         {
@@ -83,25 +89,29 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             {
                 case CardTypes.Retinue:
                     newCard = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool;
                     break;
                 case CardTypes.Weapon:
                     newCard = GameObjectPoolManager.GOPM.Pool_WeaponSelectCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
+                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_WeaponSelectCardPool;
                     break;
                 case CardTypes.Shield:
                     newCard = GameObjectPoolManager.GOPM.Pool_ShieldSelectCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
+                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_ShieldSelectCardPool;
                     break;
                 default:
                     newCard = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool;
                     break;
             }
 
-            newCard.DragComponent.enabled = false;
             newCard.transform.localScale = Vector3.one * 120;
             newCard.transform.rotation = Quaternion.Euler(90, 180, 0);
+            newCard.ChangeCardBloomColor(HTMLColorToColor("#A1F7FF"));
         }
 
         newCard.IsCardSelect = isCardSelect;
-        newCard.Initiate(cardInfo, clientPlayer);
+        newCard.Initiate(cardInfo, clientPlayer, isCardSelect);
         newCard.ChangeColor(HTMLColorToColor(cardInfo.BaseInfo.CardColor));
         return newCard;
     }
@@ -112,12 +122,12 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         {
             Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
             cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign);
+            cardNumberSet.initiate(0, numberType, textAlign, IsCardSelect);
         }
         else
         {
             cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign);
+            cardNumberSet.initiate(0, numberType, textAlign, IsCardSelect);
         }
     }
 
@@ -127,23 +137,29 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         {
             Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
             cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign);
+            cardNumberSet.initiate(firstSign, 0, numberType, textAlign, IsCardSelect);
         }
         else
         {
             cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign);
+            cardNumberSet.initiate(firstSign, 0, numberType, textAlign, IsCardSelect);
         }
     }
 
-    public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
+    public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
+        IsCardSelect = isCardSelect;
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
         initiateNumbers(ref GoNumberSet_Cost, ref CardNumberSet_Cost, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Cost);
+        if (Block_Count)
+        {
+            initiateNumbers(ref GoNumberSet_Count, ref CardNumberSet_Count, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Count, 'x');
+            CardNumberSet_Count.Clear();
+        }
+
         M_Cost = CardInfo.BaseInfo.Cost;
-        CardPictureManager.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
-        ChangeCardBloomColor(GameManager.GM.CardBloomColor);
+        ChangePicture(CardInfo.CardID);
         Stars = cardInfo.UpgradeInfo.CardLevel;
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -238,10 +254,29 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public Renderer MainBoardRenderer;
     public GameObject CardBloom;
+    public Renderer PictureBoxRenderer;
+
     public GameObject Block_Cost;
     protected GameObject GoNumberSet_Cost;
     protected CardNumberSet CardNumberSet_Cost;
-    public Renderer PictureBoxRenderer;
+
+    public GameObject Block_Count;
+    protected GameObject GoNumberSet_Count;
+    protected CardNumberSet CardNumberSet_Count;
+
+    public void BeDimColor()
+    {
+        Color color = HTMLColorToColor(CardInfo.BaseInfo.CardColor);
+        ChangeColor(new Color(color.r / 2, color.g / 2, color.b / 2, color.a));
+        ChangePictureColor(new Color(0.5f, 0.5f, 0.5f));
+    }
+
+    public void BeBrightColor()
+    {
+        Color color = HTMLColorToColor(CardInfo.BaseInfo.CardColor);
+        ChangeColor(color);
+        ChangePictureColor(Color.white);
+    }
 
     public void ChangeColor(Color newColor)
     {
@@ -255,7 +290,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
     }
 
-    private void ChangeCardBloomColor(Color color)
+    public void ChangeCardBloomColor(Color color)
     {
         if (CardBloom)
         {
@@ -265,6 +300,38 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             mpb.SetColor("_Color", color);
             mpb.SetColor("_EmissionColor", color);
             rd.SetPropertyBlock(mpb);
+        }
+    }
+
+    public void ChangePicture(int pictureID)
+    {
+        Texture tx = (Texture) Resources.Load(string.Format("{0:000}", pictureID));
+        if (tx == null) Debug.LogError("所选卡片没有图片资源：" + pictureID);
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        PictureBoxRenderer.GetPropertyBlock(mpb);
+        mpb.SetTexture("_MainTex", tx);
+        mpb.SetTexture("_EmissionMap", tx);
+        PictureBoxRenderer.SetPropertyBlock(mpb);
+    }
+
+    public void ChangePictureColor(Color newColor)
+    {
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        PictureBoxRenderer.GetPropertyBlock(mpb);
+        mpb.SetColor("_Color", newColor);
+        mpb.SetColor("_EmissionColor", newColor);
+        PictureBoxRenderer.SetPropertyBlock(mpb);
+    }
+
+    public void SetBlockCountValue(int value)
+    {
+        if (value == 0)
+        {
+            CardNumberSet_Count.Clear();
+        }
+        else if (value > 0)
+        {
+            CardNumberSet_Count.Number = value;
         }
     }
 
