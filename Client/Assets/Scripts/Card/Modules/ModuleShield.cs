@@ -62,6 +62,7 @@ internal class ModuleShield : ModuleBase
         my_TextAlign_Shield = CardNumberSet.TextAlign.Left;
         M_ShieldArmor = M_ShieldArmor;
         M_ShieldShield = M_ShieldShield;
+        if (M_Bloom) M_Bloom.SetActive(true);
     }
 
     public void SetNoPreview()

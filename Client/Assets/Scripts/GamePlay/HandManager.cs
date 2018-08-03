@@ -32,6 +32,7 @@ internal class HandManager : MonoBehaviour
     void Update()
     {
         CheckMousePosition();
+        Update_CheckSlotBloomTipOff();
     }
 
     #region 响应
@@ -249,7 +250,7 @@ internal class HandManager : MonoBehaviour
             float distCardsFromCenter = Mathf.Abs(((cards.Count - 1) / 2.0f + 1) - count); //与中心距离几张卡牌
             float factor = (cards.Count - distCardsFromCenter) / cards.Count; //某临时参数
             card.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.GM.HandCardSize + Vector3.back * cards.Count / 20 * GameManager.GM.HandCardOffset); //向垂直向错开，体现卡片弧线感
-            card.transform.Translate(Vector3.up * 0.1f * (cards.Count - count)); //向上错开，体现卡片前后感
+            card.transform.Translate(Vector3.up * 0.1f * (cards.Count - count) * (ClientPlayer == RoundManager.RM.EnemyClientPlayer ? -1 : 1)); //向上错开，体现卡片前后感
             card.transform.Rotate(Vector3.down, rotateAngle); //卡片微小旋转
             card.ResetColliderAndReplace();
         }
@@ -279,6 +280,7 @@ internal class HandManager : MonoBehaviour
     }
 
     CardBase currentFocusCard;
+    CardBase currentFocusEquipmentCard;
 
     internal void CardOnMouseEnter(CardBase focusCard)
     {
@@ -291,20 +293,53 @@ internal class HandManager : MonoBehaviour
         becomeBigger(focusCard);
         if (ClientPlayer == RoundManager.RM.SelfClientPlayer)
         {
-            if (currentFocusCard is CardWeapon) ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Weapon);
-            if (currentFocusCard is CardShield) ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Shield);
+            if (currentFocusCard is CardWeapon)
+            {
+                ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Weapon);
+                currentFocusEquipmentCard = currentFocusCard;
+            }
+
+            if (currentFocusCard is CardShield)
+            {
+                ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Shield);
+                currentFocusEquipmentCard = currentFocusCard;
+            }
         }
     }
 
     internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard)
     {
         returnToSmaller(lostFocusCard);
-        if (currentFocusCard == lostFocusCard)
+        if (currentFocusEquipmentCard == lostFocusCard)
         {
-            currentFocusCard = null;
+            currentFocusEquipmentCard = null;
         }
 
         if (!Input.GetMouseButton(0)) ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
+    }
+
+    internal void Update_CheckSlotBloomTipOff()
+    {
+        if (!Input.GetMouseButton(0) && currentFocusEquipmentCard)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycast;
+            Physics.Raycast(ray, out raycast, 10f, cardLayer);
+            if (raycast.collider != null)
+            {
+                ColliderReplace collider = raycast.collider.gameObject.GetComponent<ColliderReplace>();
+                if (!collider)
+                {
+                    ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
+                    currentFocusEquipmentCard = null;
+                }
+            }
+            else
+            {
+                ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
+                currentFocusEquipmentCard = null;
+            }
+        }
     }
 
     bool isBeginDrag = false;

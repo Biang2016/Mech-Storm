@@ -207,6 +207,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                     ((CardRetinue) detailCard).Shield.Initiate(((ModuleRetinue) this).M_Shield.CardInfo, ClientPlayer);
                     ((CardRetinue) detailCard).Shield.GetComponent<DragComponent>().enabled = false;
                     ((CardRetinue) detailCard).Shield.GetComponent<MouseHoverComponent>().enabled = false;
+                    ((CardRetinue)detailCard).Shield.SetPreview();
 
                     detailCard_Shield = (CardShield) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer, false);
                     detailCard_Shield.transform.localScale = Vector3.one * GameManager.GM.DetailCardModuleSize;
@@ -215,7 +216,6 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                     detailCard_Shield.transform.Translate(Vector3.forward * 3f);
                     detailCard_Shield.transform.Translate(Vector3.up * 5f);
                     detailCard_Shield.GetComponent<BoxCollider>().enabled = false;
-                    ((CardRetinue) detailCard).Shield.SetPreview();
                 }
 
                 break;

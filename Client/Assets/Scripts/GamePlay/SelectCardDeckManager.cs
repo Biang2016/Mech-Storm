@@ -160,7 +160,7 @@ public class SelectCardDeckManager : MonoBehaviour
             newSC.CardButton.onClick.RemoveAllListeners();
             newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card); });
             Color cardColor = GameManager.HTMLColorToColor(card.CardInfo.BaseInfo.CardColor);
-            newSC.CardButton.image.color = new Color(cardColor.r, cardColor.g, cardColor.b, 0.5f);
+            newSC.CardButton.image.color = new Color(cardColor.r, cardColor.g, cardColor.b, 1f);
 
             SelectedCards.Add(card.CardInfo.CardID, newSC);
             card.SetBlockCountValue(1);
@@ -188,8 +188,31 @@ public class SelectCardDeckManager : MonoBehaviour
             SelectedCards[card.CardInfo.CardID].PoolRecycle();
             SelectedCards.Remove(card.CardInfo.CardID);
             card.BeDimColor();
-
             card.CardBloom.SetActive(false);
+        }
+    }
+
+    public void SelectAllCard()
+    {
+        foreach (CardBase cardBase in allCards.Values)
+        {
+            if (SelectedCards.ContainsKey(cardBase.CardInfo.CardID)) continue;
+            SelectCard(cardBase);
+        }
+    }
+
+    public void UnSelectAllCard()
+    {
+        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        {
+            kv.Value.BeDimColor();
+            kv.Value.CardBloom.SetActive(false);
+            kv.Value.SetBlockCountValue(0);
+            if (SelectedCards.ContainsKey(kv.Key))
+            {
+                SelectedCards[kv.Key].PoolRecycle();
+                SelectedCards.Remove(kv.Key);
+            }
         }
     }
 
@@ -200,23 +223,35 @@ public class SelectCardDeckManager : MonoBehaviour
     private CardBase CurrentPreviewCard;
     private CardBase PreviewCard;
 
-    [SerializeField] private Transform Content;
-    [SerializeField] private Transform SelectionContent;
+    [SerializeField]
+    private Transform Content;
 
-    [SerializeField] private Canvas Canvas;
-    [SerializeField] private Canvas Canvas_BG;
-    [SerializeField] private Transform PreviewContent;
+    [SerializeField]
+    private Transform SelectionContent;
 
-    [SerializeField] private Button ConfirmButton;
+    [SerializeField]
+    private Canvas Canvas;
 
-    [SerializeField] private Button CloseButton;
+    [SerializeField]
+    private Canvas Canvas_BG;
 
-    [SerializeField] private Camera Camera;
+    [SerializeField]
+    private Transform PreviewContent;
 
-    private List<CardBase> allCards = new List<CardBase>();
+    [SerializeField]
+    private Button ConfirmButton;
+
+    [SerializeField]
+    private Button CloseButton;
+
+    [SerializeField]
+    private Camera Camera;
+
+    private Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>();
     private Dictionary<int, SelectCard> SelectedCards = new Dictionary<int, SelectCard>();
 
-    [SerializeField] private Transform SelectCardPrefab;
+    [SerializeField]
+    private Transform SelectCardPrefab;
 
     private void ShowPreviewCard(CardBase card)
     {
@@ -255,19 +290,21 @@ public class SelectCardDeckManager : MonoBehaviour
         isSelecting = Client.CS.Proxy.ClientState == ProxyBase.ClientStates.GetId || Client.CS.Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck;
         ConfirmButton.gameObject.SetActive(isSelecting);
         CloseButton.gameObject.SetActive(!isSelecting);
+        GameManager.GM.StartBlurBackGround();
     }
 
     public void HideWindow()
     {
         Canvas.enabled = false;
         Canvas_BG.enabled = false;
+        GameManager.GM.StopBlurBackGround();
     }
 
     public void AddAllCards()
     {
         foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
-            if (cardInfo.CardID == 999) continue;
+            if (cardInfo.CardID == 999|| cardInfo.CardID == 99) continue;
             AddCardIntoCardSelectWindow(cardInfo);
         }
     }
@@ -278,7 +315,7 @@ public class SelectCardDeckManager : MonoBehaviour
         newCard.transform.localScale = Vector3.one * 120;
         newCard.transform.rotation = Quaternion.Euler(90, 180, 0);
         newCard.BeDimColor();
-        allCards.Add(newCard);
+        allCards.Add(newCard.CardInfo.CardID, newCard);
     }
 
     public void ConfirmSubmitCardDeck()

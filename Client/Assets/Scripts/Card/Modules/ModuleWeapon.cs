@@ -50,8 +50,8 @@ internal class ModuleWeapon : ModuleBase
         M_WeaponName = CardInfo_Base.textToVertical(cardInfo.BaseInfo.CardName);
         M_WeaponType = cardInfo.WeaponInfo.WeaponType;
         M_WeaponAttack = cardInfo.WeaponInfo.Attack;
-        M_WeaponEnergy = cardInfo.WeaponInfo.Energy;
         M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;
+        M_WeaponEnergy = cardInfo.WeaponInfo.Energy;
 
         if (M_Bloom) M_Bloom.SetActive(false);
         if (M_WeaponType == WeaponTypes.Gun)
@@ -82,8 +82,9 @@ internal class ModuleWeapon : ModuleBase
         my_NumberSize_EnergyMax = NumberSize.Small;
         my_TextAlign_EnergyMax = CardNumberSet.TextAlign.Right;
         M_WeaponAttack = M_WeaponAttack;
-        M_WeaponEnergy = M_WeaponEnergy;
         M_WeaponEnergyMax = M_WeaponEnergyMax;
+        M_WeaponEnergy = M_WeaponEnergy;
+        if (M_Bloom) M_Bloom.SetActive(true);
     }
 
     public void SetNoPreview()
@@ -95,8 +96,8 @@ internal class ModuleWeapon : ModuleBase
         my_NumberSize_EnergyMax = NumberSize.Medium;
         my_TextAlign_EnergyMax = CardNumberSet.TextAlign.Right;
         M_WeaponEnergy = M_WeaponEnergy;
-        M_WeaponEnergy = M_WeaponEnergy;
         M_WeaponEnergyMax = M_WeaponEnergyMax;
+        M_WeaponEnergy = M_WeaponEnergy;
     }
 
     #region 属性
@@ -185,11 +186,11 @@ internal class ModuleWeapon : ModuleBase
 
         set
         {
-            m_WeaponEnergyMax = Mathf.Min(value, M_WeaponEnergyMax);
+            m_WeaponEnergyMax = value;
             if (Block_WeaponEnergyMax)
             {
                 initiateNumbers(ref GoNumberSet_WeaponEnergyMax, ref CardNumberSet_WeaponEnergyMax, my_NumberSize_EnergyMax, my_TextAlign_EnergyMax, Block_WeaponEnergyMax, '/');
-                CardNumberSet_WeaponEnergy.Number = m_WeaponEnergyMax;
+                CardNumberSet_WeaponEnergyMax.Number = m_WeaponEnergyMax;
             }
         }
     }
