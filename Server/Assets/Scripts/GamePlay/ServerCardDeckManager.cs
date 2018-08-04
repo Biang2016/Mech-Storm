@@ -32,19 +32,26 @@ internal class ServerCardDeckManager
     {
         if (M_CurrentCardDeck.IsEmpty)
         {
-            M_CurrentCardDeck.AbandonCardRecycle();
+            return null;
         }
 
-        M_CurrentCardDeck.GetARetinueCardToTheTop();
-        CardInfo_Base newCardInfoBase = DrawCardOnTop();
-        return newCardInfoBase;
+        bool success = M_CurrentCardDeck.GetARetinueCardToTheTop();
+        if (success)
+        {
+            CardInfo_Base newCardInfoBase = DrawCardOnTop();
+            return newCardInfoBase;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public CardInfo_Base DrawCardOnTop()
     {
         if (M_CurrentCardDeck.IsEmpty)
         {
-            M_CurrentCardDeck.AbandonCardRecycle();
+            return null;
         }
 
         CardInfo_Base newCardInfoBase = M_CurrentCardDeck.DrawCardOnTop();
@@ -55,7 +62,7 @@ internal class ServerCardDeckManager
     {
         if (M_CurrentCardDeck.IsEmpty)
         {
-            M_CurrentCardDeck.AbandonCardRecycle();
+            return null;
         }
 
         List<CardInfo_Base> newCardInfoBases = M_CurrentCardDeck.DrawCardsOnTop(cardNumber);
@@ -64,6 +71,12 @@ internal class ServerCardDeckManager
         {
             cardIds.Add(newCardInfoBase.CardID);
         }
+
         return newCardInfoBases;
+    }
+
+    public void BeginRound()
+    {
+        M_CurrentCardDeck.AbandonCardRecycle();
     }
 }

@@ -47,11 +47,14 @@ internal class ServerGameManager
         ClientB.ClientState = ProxyBase.ClientStates.Playing;
 
         ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
+
         PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginCost, this);
-        PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CardDeckInfo);
+        PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CardDeckInfo, PlayerA.OnCardDeckLeftChange);
         PlayerA.MyClientProxy = ClientA;
+
         PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, GamePlaySettings.BeginCost, this);
-        PlayerB.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientB.CardDeckInfo);
+        PlayerB.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientB.CardDeckInfo, PlayerB.OnCardDeckLeftChange);
+        PlayerB.MyCardDeckManager.M_CurrentCardDeck.CardDeckCountChangeHandler += PlayerB.OnCardDeckLeftChange;
         PlayerB.MyClientProxy = ClientB;
 
         PlayerA.MyEnemyPlayer = PlayerB;
@@ -75,18 +78,20 @@ internal class ServerGameManager
         CurrentPlayer = new Random().Next(0, 2) == 0 ? PlayerA : PlayerB;
         IdlePlayer = CurrentPlayer == PlayerA ? PlayerB : PlayerA;
         bool isPlayerAFirst = CurrentPlayer == PlayerA;
-        //发英雄牌
-        PlayerA.MyHandManager.GetACardByID(99);
-        //抽随从牌
-        PlayerA.MyHandManager.DrawRetinueCard();
-
-        //发英雄牌
-        PlayerB.MyHandManager.GetACardByID(99);
-        //抽随从牌
-        PlayerB.MyHandManager.DrawRetinueCard();
 
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
         Broadcast_AddRequestToOperationResponse(request);
+
+        CardInfo_Retinue cardInfo_Retinue;
+        while ((cardInfo_Retinue = PlayerA.MyHandManager.PickRetinueCard()) != null)
+        {
+            PlayerA.MyBattleGroundManager.AddRetinue(cardInfo_Retinue);
+        }
+
+        while ((cardInfo_Retinue = PlayerB.MyHandManager.PickRetinueCard()) != null)
+        {
+            PlayerB.MyBattleGroundManager.AddRetinue(cardInfo_Retinue);
+        }
 
         if (isPlayerAFirst)
         {
@@ -119,6 +124,7 @@ internal class ServerGameManager
     {
         CurrentPlayer.IncreaseCostMax(GamePlaySettings.CostIncrease);
         CurrentPlayer.AddAllCost();
+        CurrentPlayer.MyCardDeckManager.BeginRound();
         CurrentPlayer.MyHandManager.BeginRound();
         CurrentPlayer.MyBattleGroundManager.BeginRound();
     }
@@ -139,6 +145,7 @@ internal class ServerGameManager
 
     #endregion
 
+
     #region ClientOperationResponses
 
     public void OnClientSummonRetinueRequest(SummonRetinueRequest r)
@@ -148,7 +155,7 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Retinue info = (CardInfo_Retinue) sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId,r.lastDragPosition);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
         sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex);
 
         Broadcast_SendOperationResponse();
@@ -162,7 +169,7 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId,r.lastDragPosition);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
         sp.MyBattleGroundManager.EquipWeapon(r, cardInfo);
 
         Broadcast_SendOperationResponse();
@@ -175,7 +182,7 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId,r.lastDragPosition);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
         sp.MyBattleGroundManager.EquipShield(r, cardInfo);
 
         Broadcast_SendOperationResponse();
@@ -195,7 +202,7 @@ internal class ServerGameManager
         ServerModuleRetinue attackRetinue = cpat.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
         ServerModuleRetinue beAttackedRetinue = cpba.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
 
-        attackRetinue.AllModulesAttack(beAttackedRetinue);
+        attackRetinue.Attack(beAttackedRetinue, true);
 
         Broadcast_SendOperationResponse();
     }

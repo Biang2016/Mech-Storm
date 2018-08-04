@@ -54,15 +54,16 @@ public class NetProtocols
     public const int SE_BATTLEGROUND_ADD_RETINUE = 0x00000214; //战场增加随从
     public const int SE_BATTLEGROUND_REMOVE_RETINUE = 0x00000215; //战场减少随从
 
-    public const int SE_DRAW_CARD = 0x00000216; //抽一张牌
-    public const int SE_DROP_CARD = 0x00000217; //手牌弃牌
-    public const int SE_USE_CARD = 0x00000218; //手牌用牌
+    public const int SE_CARDDECT_LEFT_CHANGE = 0x00000216; //发送剩余牌数
+    public const int SE_DRAW_CARD = 0x00000217; //抽一张牌
+    public const int SE_DROP_CARD = 0x00000218; //手牌弃牌
+    public const int SE_USE_CARD = 0x00000219; //手牌用牌
 
-    public const int SE_EQUIP_WEAPON_SERVER_REQUEST = 0x00000219; //装备武器
-    public const int SE_EQUIP_SHIELD_SERVER_REQUEST = 0x00000220; //装备防具
+    public const int SE_EQUIP_WEAPON_SERVER_REQUEST = 0x00000220; //装备武器
+    public const int SE_EQUIP_SHIELD_SERVER_REQUEST = 0x00000221; //装备防具
 
-    public const int SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST = 0x00000221; //随从攻击随从
-    public const int SE_RETINUE_EFFECT = 0x00000222; //随从特效
+    public const int SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST = 0x00000222; //随从攻击随从
+    public const int SE_RETINUE_EFFECT = 0x00000223; //随从特效
 
     #endregion
 

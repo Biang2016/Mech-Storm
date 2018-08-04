@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 internal class ServerModuleRetinue : ServerModuleBase
 {
@@ -207,6 +208,10 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
     }
 
+    public int ShieldStayRoundsLeft;
+
+    public int RetinueShieldFull;
+
     private int m_RetinueShield;
 
     public int M_RetinueShield
@@ -214,6 +219,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         get { return m_RetinueShield; }
         set
         {
+            RetinueShieldFull = Mathf.Max(value, RetinueShieldFull);
             int before = m_RetinueShield;
             m_RetinueShield = value;
             if (M_Shield != null)
@@ -431,11 +437,11 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
     }
 
-    public void AllModulesAttack(ServerModuleRetinue targetModuleRetinue) //全模块攻击
+    public void Attack(ServerModuleRetinue targetModuleRetinue, bool beHarm)
     {
         OnAttack();
 
-        if (M_Weapon != null)
+        if (M_Weapon != null && M_RetinueWeaponEnergy != 0) //有武器避免反击
         {
             switch (M_Weapon.M_WeaponType)
             {
@@ -457,9 +463,10 @@ internal class ServerModuleRetinue : ServerModuleBase
                     break;
             }
         }
-        else
+        else //如果没有武器，则受到反击
         {
             targetModuleRetinue.BeAttacked(M_RetinueAttack);
+            if (beHarm) targetModuleRetinue.Attack(this, false); //对方反击不受到反击
         }
     }
 
@@ -519,6 +526,15 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public void OnEndRound()
     {
+        if (ShieldStayRoundsLeft > 1)
+        {
+            ShieldStayRoundsLeft--;
+        }
+        else
+        {
+            ShieldStayRoundsLeft = 0;
+            RetinueShieldFull = 0;
+        }
     }
 
     #endregion

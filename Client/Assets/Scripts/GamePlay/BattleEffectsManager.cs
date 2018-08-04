@@ -99,7 +99,7 @@ internal class BattleEffectsManager : MonoBehaviour
 
         public void EffectEnd()
         {
-            ClientLog.CL.PrintWarning("end");
+            if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintWarning("end");
 
             if (CurrentEffect != null)
             {
@@ -108,23 +108,23 @@ internal class BattleEffectsManager : MonoBehaviour
                     try
                     {
                         BEM.StopCoroutine(CurrentEffect.Enumerator);
-                        ClientLog.CL.PrintBattleEffectsEnd("- [" + Name + "] EndEffect: " + CurrentEffect.MethodName + " id: " + CurrentEffect.EffectId);
+                        if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintBattleEffectsEnd("- [" + Name + "] EndEffect: " + CurrentEffect.MethodName + " id: " + CurrentEffect.EffectId);
                     }
                     catch (Exception e)
                     {
-                        ClientLog.CL.PrintWarning(e.ToString());
+                        if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintWarning(e.ToString());
                     }
                 }
                 else
                 {
-                    ClientLog.CL.PrintWarning("CurrentEffect.Enumerator = null");
+                    if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintWarning("CurrentEffect.Enumerator = null");
                 }
 
                 CurrentEffect = null;
             }
             else
             {
-                ClientLog.CL.PrintWarning("CurrentEffect = null");
+                if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintWarning("CurrentEffect = null");
             }
 
             IsExcuting = false;

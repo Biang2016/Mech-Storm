@@ -26,17 +26,20 @@ internal class RoundManager : MonoBehaviour
     internal ClientPlayer CurrentClientPlayer;
     internal ClientPlayer IdleClientPlayer;
 
+    public Canvas BattleCanvas;
     public GameObject SelfTurnText;
     public GameObject EnemyTurnText;
     public GameObject EndRoundButton;
     public Text SelfCostText;
     public Text EnemyCostText;
+    public Text SelfCardLeftText;
+    public Text EnemyCardLeftText;
 
     void Awake()
     {
         rm = FindObjectOfType(typeof(RoundManager)) as RoundManager;
+        BattleCanvas.gameObject.SetActive(false);
     }
-
 
     private void Update()
     {
@@ -69,7 +72,7 @@ internal class RoundManager : MonoBehaviour
 
     #region SideEffects
 
-    public void ResponseToSideEffects(ServerRequestBase se)
+    public void ResponseToSideEffects_PrePass(ServerRequestBase se) //第一轮
     {
         switch (se.GetProtocol())
         {
@@ -81,85 +84,6 @@ internal class RoundManager : MonoBehaviour
                 InitializePlayers((SetPlayerRequest) se);
                 break;
             }
-
-            case NetProtocols.SE_PLAYER_TURN:
-            {
-                SetPlayerTurn((PlayerTurnRequest) se);
-                break;
-            }
-            case NetProtocols.SE_PLAYER_COST_CHANGE:
-            {
-                SetPlayersCost((PlayerCostChangeRequest) se);
-                break;
-            }
-
-            case NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE:
-            {
-                OnRetinueAttributesChange((RetinueAttributesChangeRequest) se);
-                break;
-            }
-
-            case NetProtocols.SE_RETINUE_DIE:
-            {
-                OnRetinueDie((RetinueDieRequest) se);
-                break;
-            }
-
-            case NetProtocols.SE_BATTLEGROUND_ADD_RETINUE:
-            {
-                OnBattleGroundAddRetinue((BattleGroundAddRetinueRequest) se);
-                break;
-            }
-            case NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE:
-            {
-                OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest) se);
-                break;
-            }
-
-            case NetProtocols.SE_DRAW_CARD:
-            {
-                OnPlayerDrawCard((DrawCardRequest) se);
-                break;
-            }
-            case NetProtocols.SE_DROP_CARD:
-            {
-                OnPlayerDropCard((DropCardRequest) se);
-                break;
-            }
-            case NetProtocols.SE_USE_CARD:
-            {
-                OnPlayerUseCard((UseCardRequest) se);
-                break;
-            }
-
-            case NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST:
-            {
-                OnEquipWeapon((EquipWeaponServerRequest) se);
-                break;
-            }
-            case NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST:
-            {
-                OnEquipShield((EquipShieldServerRequest) se);
-                break;
-            }
-            case NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST:
-            {
-                OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) se);
-                break;
-            }
-            case NetProtocols.SE_RETINUE_EFFECT:
-            {
-                OnRetinueEffect((RetinueEffectRequest) se);
-                break;
-            }
-        }
-    }
-
-
-    public void ResponseToSideEffects_PrePass(ServerRequestBase se)
-    {
-        switch (se.GetProtocol())
-        {
             case NetProtocols.SE_BATTLEGROUND_ADD_RETINUE:
             {
                 OnBattleGroundAddRetinue_PrePass((BattleGroundAddRetinueRequest) se);
@@ -200,6 +124,88 @@ internal class RoundManager : MonoBehaviour
         }
     }
 
+    public void ResponseToSideEffects(ServerRequestBase se)
+    {
+        switch (se.GetProtocol())
+        {
+            case NetProtocols.SE_PLAYER_TURN:
+            {
+                SetPlayerTurn((PlayerTurnRequest) se);
+                break;
+            }
+            case NetProtocols.SE_PLAYER_COST_CHANGE:
+            {
+                SetPlayersCost((PlayerCostChangeRequest) se);
+                break;
+            }
+
+            case NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE:
+            {
+                OnRetinueAttributesChange((RetinueAttributesChangeRequest) se);
+                break;
+            }
+
+            case NetProtocols.SE_RETINUE_DIE:
+            {
+                OnRetinueDie((RetinueDieRequest) se);
+                break;
+            }
+
+            case NetProtocols.SE_BATTLEGROUND_ADD_RETINUE:
+            {
+                OnBattleGroundAddRetinue((BattleGroundAddRetinueRequest) se);
+                break;
+            }
+            case NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE:
+            {
+                OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest) se);
+                break;
+            }
+
+            case NetProtocols.SE_CARDDECT_LEFT_CHANGE:
+            {
+                OnCardDeckLeftChange((CardDeckLeftChangeRequest) se);
+                break;
+            }
+            case NetProtocols.SE_DRAW_CARD:
+            {
+                OnPlayerDrawCard((DrawCardRequest) se);
+                break;
+            }
+            case NetProtocols.SE_DROP_CARD:
+            {
+                OnPlayerDropCard((DropCardRequest) se);
+                break;
+            }
+            case NetProtocols.SE_USE_CARD:
+            {
+                OnPlayerUseCard((UseCardRequest) se);
+                break;
+            }
+
+            case NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST:
+            {
+                OnEquipWeapon((EquipWeaponServerRequest) se);
+                break;
+            }
+            case NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST:
+            {
+                OnEquipShield((EquipShieldServerRequest) se);
+                break;
+            }
+            case NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST:
+            {
+                OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) se);
+                break;
+            }
+            case NetProtocols.SE_RETINUE_EFFECT:
+            {
+                OnRetinueEffect((RetinueEffectRequest) se);
+                break;
+            }
+        }
+    }
+
 
     private void Initialize()
     {
@@ -207,13 +213,18 @@ internal class RoundManager : MonoBehaviour
         CurrentClientPlayer = null;
         IdleClientPlayer = null;
 
+        BattleCanvas.gameObject.SetActive(true);
         SelfTurnText.SetActive(false);
         EnemyTurnText.SetActive(false);
         EndRoundButton.SetActive(false);
         SelfCostText.gameObject.SetActive(true);
         EnemyCostText.gameObject.SetActive(true);
+        SelfCardLeftText.gameObject.SetActive(true);
+        EnemyCardLeftText.gameObject.SetActive(true);
         SelfCostText.text = "";
         EnemyCostText.text = "";
+        SelfCardLeftText.text = "牌库剩余: ";
+        EnemyCardLeftText.text = "牌库剩余: ";
     }
 
     private void InitializePlayers(SetPlayerRequest r)
@@ -400,6 +411,20 @@ internal class RoundManager : MonoBehaviour
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
+    private void OnCardDeckLeftChange(CardDeckLeftChangeRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_OnCardDeckLeftChange(cp, r.left), "Co_OnCardDeckLeftChange");
+    }
+
+    IEnumerator Co_OnCardDeckLeftChange(ClientPlayer cp, int left)
+    {
+        if (cp == SelfClientPlayer) SelfCardLeftText.text = "牌库剩余: " + left;
+        else EnemyCardLeftText.text = "牌库剩余: " + left;
+        yield return null;
+        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+    }
+
     private void OnPlayerDrawCard(DrawCardRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
@@ -484,6 +509,7 @@ internal class RoundManager : MonoBehaviour
         EndRoundButton.SetActive(false);
         SelfCostText.gameObject.SetActive(false);
         EnemyCostText.gameObject.SetActive(false);
+        BattleCanvas.gameObject.SetActive(false);
 
         BattleEffectsManager.BEM.Effect_Main.AllEffectsEnd();
         BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();

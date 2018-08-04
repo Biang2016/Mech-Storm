@@ -12,11 +12,15 @@ public class CardDeck
     /// </summary>
     private CardDeckInfo M_CardDeckInfo;
 
-    private List<CardInfo_Base> Cards;
+    private List<CardInfo_Base> Cards = new List<CardInfo_Base>();
     private List<CardInfo_Base> AbandonCards = new List<CardInfo_Base>();
 
     public bool IsEmpty = false;
     public bool IsAbandonCardsEmpty = false;
+
+    public delegate void OnCardDeckCountChange(int count);
+
+    public OnCardDeckCountChange CardDeckCountChangeHandler;
 
     private void checkEmpty()
     {
@@ -24,12 +28,47 @@ public class CardDeck
         IsAbandonCardsEmpty = AbandonCards.Count == 0;
     }
 
-    public CardDeck(CardDeckInfo cdi)
+    public CardDeck(CardDeckInfo cdi, OnCardDeckCountChange handler)
     {
         M_CardDeckInfo = cdi;
-        Cards = AllCards.GetCards(M_CardDeckInfo.CardIDs);
+        CardDeckCountChangeHandler = handler;
+        AddCards(AllCards.GetCards(M_CardDeckInfo.CardIDs));
         checkEmpty();
         if (GamePlaySettings.SuffleCardDeck) SuffleSelf();
+    }
+
+    private void AddCard(CardInfo_Base cardInfo)
+    {
+        Cards.Add(cardInfo);
+        CardDeckCountChangeHandler(Cards.Count);
+    }
+
+    private void AddCard(CardInfo_Base cardInfo, int index)
+    {
+        Cards.Insert(index, cardInfo);
+        CardDeckCountChangeHandler(Cards.Count);
+    }
+
+    private void AddCards(List<CardInfo_Base> cardInfos)
+    {
+        Cards.AddRange(cardInfos);
+        CardDeckCountChangeHandler(Cards.Count);
+    }
+
+    private void RemoveCard(CardInfo_Base cardInfo)
+    {
+        Cards.Remove(cardInfo);
+        CardDeckCountChangeHandler(Cards.Count);
+    }
+
+    private void RemoveCards(List<CardInfo_Base> cardInfos)
+    {
+        foreach (CardInfo_Base cardInfoBase in cardInfos)
+        {
+            Cards.Remove(cardInfoBase);
+        }
+
+        CardDeckCountChangeHandler(Cards.Count);
     }
 
     public CardInfo_Type FindATypeOfCard<CardInfo_Type>() where CardInfo_Type : CardInfo_Base
@@ -70,7 +109,7 @@ public class CardDeck
         if (Cards.Count > 0)
         {
             CardInfo_Base res = Cards[0];
-            Cards.Remove(res);
+            RemoveCard(res);
             AbandonCards.Add(res);
             checkEmpty();
             return res;
@@ -91,7 +130,7 @@ public class CardDeck
 
         foreach (CardInfo_Base cb in resList)
         {
-            Cards.Remove(cb);
+            RemoveCard(cb);
             AbandonCards.Add(cb);
             checkEmpty();
         }
@@ -101,7 +140,7 @@ public class CardDeck
 
     public void AddCardToButtom(CardInfo_Base newCard)
     {
-        Cards.Add(newCard);
+        AddCard(newCard);
         checkEmpty();
     }
 
@@ -152,12 +191,12 @@ public class CardDeck
         }
     }
 
-    public void GetARetinueCardToTheTop()
+    public bool GetARetinueCardToTheTop()
     {
         CardInfo_Base target_cb = null;
         foreach (CardInfo_Base cb in Cards)
         {
-            if (cb.BaseInfo.CardType == CardTypes.Retinue)
+            if (cb.BaseInfo.CardType == CardTypes.Retinue && !cb.BattleInfo.IsSodier)
             {
                 target_cb = cb;
                 break;
@@ -166,20 +205,24 @@ public class CardDeck
 
         if (target_cb != null)
         {
-            Cards.Remove(target_cb);
-            Cards.Add(target_cb);
+            RemoveCard(target_cb);
+            AddCard(target_cb, 0);
+            return true;
         }
+
+        return false;
     }
 
     public void AbandonCardRecycle()
     {
-        Suffle(AbandonCards);
         foreach (CardInfo_Base ac in AbandonCards)
         {
-            Cards.Add(ac);
+            AddCard(ac);
         }
 
         checkEmpty();
+        AbandonCards.Clear();
+        Suffle(Cards);
     }
 }
 

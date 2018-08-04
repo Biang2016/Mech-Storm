@@ -203,23 +203,6 @@ internal class ModuleWeapon : ModuleBase
 
     public void WeaponAttack()
     {
-        M_ModuleRetinue.CanAttack_Weapon = false;
-    }
-
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
-    {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
-    }
-
-    public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
-    {
-        canDrag = M_ModuleRetinue.CanAttack_Weapon;
-        dragPurpose = DragPurpose.Attack;
-    }
-
-    public override float DragComponnet_DragDistance()
-    {
-        return 0.2f;
     }
 
     #endregion

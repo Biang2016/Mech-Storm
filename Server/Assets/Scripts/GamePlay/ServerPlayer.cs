@@ -15,7 +15,7 @@ internal class ServerPlayer : Player
     public ServerCardDeckManager MyCardDeckManager;
     public ServerBattleGroundManager MyBattleGroundManager;
 
-    public ServerPlayer(int clientId, int enemyClientId, int costLeft, int costMax,  ServerGameManager serverGameManager) : base(costLeft, costMax)
+    public ServerPlayer(int clientId, int enemyClientId, int costLeft, int costMax, ServerGameManager serverGameManager) : base(costLeft, costMax)
     {
         ClientId = clientId;
         EnemyClientId = enemyClientId;
@@ -124,7 +124,13 @@ internal class ServerPlayer : Player
         }
     }
 
-    private void BroadCastRequest(PlayerCostChangeRequest request)
+    public void OnCardDeckLeftChange(int count)
+    {
+        CardDeckLeftChangeRequest request = new CardDeckLeftChangeRequest(ClientId, count);
+        BroadCastRequest(request);
+    }
+
+    private void BroadCastRequest(ServerRequestBase request)
     {
         MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request);
         MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request);

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 internal class ModuleRetinue : ModuleBase
 {
@@ -162,6 +163,7 @@ internal class ModuleRetinue : ModuleBase
 
     public Animator ArmorFill;
     public Animator ShieldBar;
+    public Image ShieldBarImage;
     public GameObject SwordBar;
     public GameObject SwordBarMask;
     private float SwordMaskFullOffset = 0.451f;
@@ -222,10 +224,6 @@ internal class ModuleRetinue : ModuleBase
         isFirstRound = true;
         CannotAttackBecauseDie = false;
         CanAttack_Self = false;
-        CanAttack_Weapon = false;
-        CanAttack_Shield = false;
-        CanAttack_Pack = false;
-        CanAttack_MA = false;
 
         IsDead = false;
     }
@@ -243,7 +241,8 @@ internal class ModuleRetinue : ModuleBase
         }
     }
 
-    [SerializeField] private int m_RetinueID;
+    [SerializeField]
+    private int m_RetinueID;
 
     public int M_RetinueID
     {
@@ -425,7 +424,7 @@ internal class ModuleRetinue : ModuleBase
 
     IEnumerator Co_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
-        if(current_SubCo_RetinueWeaponEnergyChange!=null)StopCoroutine(current_SubCo_RetinueWeaponEnergyChange);
+        if (current_SubCo_RetinueWeaponEnergyChange != null) StopCoroutine(current_SubCo_RetinueWeaponEnergyChange);
         current_SubCo_RetinueWeaponEnergyChange = SubCo_RetinueWeaponEnergyChange(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue);
         StartCoroutine(current_SubCo_RetinueWeaponEnergyChange);
         yield return null;
@@ -434,6 +433,7 @@ internal class ModuleRetinue : ModuleBase
 
 
     private IEnumerator current_SubCo_RetinueWeaponEnergyChange;
+
     IEnumerator SubCo_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
         if (SwordBar)
@@ -521,6 +521,9 @@ internal class ModuleRetinue : ModuleBase
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
+    [SerializeField]
+    private int RetinueShieldFull;
+
     private int m_RetinueShield;
 
     public int M_RetinueShield
@@ -529,7 +532,10 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             if (!isInitializing && m_RetinueShield > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShieldBeAttacked(value), "Co_ShieldBeAttacked");
-            else if (m_RetinueShield < value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShieldAdded(value), "Co_ShieldAdded");
+            else if (m_RetinueShield < value)
+            {
+                BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShieldAdded(value), "Co_ShieldAdded");
+            }
 
             m_RetinueShield = value;
             if (M_Shield)
@@ -541,35 +547,36 @@ internal class ModuleRetinue : ModuleBase
 
     IEnumerator Co_ShieldBeAttacked(int shieldValue)
     {
-        if (shieldValue == 0)
-        {
-            if (ShieldBar) ShieldBar.gameObject.SetActive(false);
-        }
-        else
-        {
-            if (ShieldBar && !ShieldBar.gameObject.activeSelf) ShieldBar.gameObject.SetActive(true);
-        }
-
         ShieldIconHit.SetTrigger("BeHit");
         ShieldBar.SetTrigger("ShieldAdd");
         yield return null;
+        if (shieldValue == 0)
+        {
+            if (ShieldBar) ShieldBarImage.fillAmount = 0;
+        }
+        else
+        {
+            if (ShieldBar) ShieldBarImage.fillAmount = (float) shieldValue / (float) RetinueShieldFull;
+        }
+
         CardNumberSet_RetinueShield.Number = shieldValue;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
     IEnumerator Co_ShieldAdded(int shieldValue)
     {
+        RetinueShieldFull = Mathf.Max(RetinueShieldFull, shieldValue);
+        ShieldBar.SetTrigger("ShieldAdd");
+        yield return null;
         if (shieldValue == 0)
         {
-            if (ShieldBar) ShieldBar.gameObject.SetActive(false);
+            if (ShieldBar) ShieldBarImage.fillAmount = 0;
         }
         else
         {
-            if (ShieldBar && !ShieldBar.gameObject.activeSelf) ShieldBar.gameObject.SetActive(true);
+            if (ShieldBar) ShieldBarImage.fillAmount = 1;
         }
 
-        ShieldBar.SetTrigger("ShieldAdd");
-        yield return null;
         CardNumberSet_RetinueShield.Number = shieldValue;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
@@ -685,10 +692,6 @@ internal class ModuleRetinue : ModuleBase
 
     public bool CannotAttackBecauseDie;
     public bool CanAttack_Self;
-    public bool CanAttack_Weapon;
-    public bool CanAttack_Shield;
-    public bool CanAttack_Pack;
-    public bool CanAttack_MA;
 
     public bool isFirstRound = true; //是否是召唤的第一回合
 
@@ -701,18 +704,9 @@ internal class ModuleRetinue : ModuleBase
         }
         else
         {
-            if (RoundManager.RM.CurrentClientPlayer == RoundManager.RM.SelfClientPlayer && CanAttack_Self && M_Weapon && CanAttack_Weapon && M_Weapon.M_WeaponAttack != 0 && M_RetinueWeaponEnergy > 0)
+            if (RoundManager.RM.CurrentClientPlayer == RoundManager.RM.SelfClientPlayer && CanAttack_Self)
             {
                 canAttack = true;
-            }
-            else if (M_Shield && CanAttack_Shield)
-            {
-            }
-            else if (M_Pack && CanAttack_Pack)
-            {
-            }
-            else if (M_MA && CanAttack_MA)
-            {
             }
         }
 
@@ -881,10 +875,6 @@ internal class ModuleRetinue : ModuleBase
     public void OnBeginRound()
     {
         CanAttack_Self = true;
-        CanAttack_Weapon = true;
-        CanAttack_Shield = true;
-        CanAttack_Pack = true;
-        CanAttack_MA = true;
         CheckCanAttack();
     }
 

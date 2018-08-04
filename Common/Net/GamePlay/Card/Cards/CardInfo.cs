@@ -60,6 +60,7 @@ public class CardInfo_Base
         {
             se.Serialze(writer);
         }
+
         writer.WriteSInt32(SideEffects_OnSummoned.Count);
         foreach (SideEffectBase se in SideEffects_OnSummoned)
         {
@@ -83,7 +84,7 @@ public class CardInfo_Base
         newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
 
         List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
-       int SE_OnDie_count= reader.ReadSInt32();
+        int SE_OnDie_count = reader.ReadSInt32();
         for (int i = 0; i < SE_OnDie_count; i++)
         {
             SideEffects_OnDie.Add(SideEffectBase.BaseDeserialze(reader));
@@ -167,8 +168,7 @@ public class CardInfo_Retinue : CardInfo_Base
         List<SideEffectBase> new_SideEffects_OnDie = new List<SideEffectBase>();
         foreach (SideEffectBase sideEffectBase in SideEffects_OnDie)
         {
-
-            new_SideEffects_OnDie.Add((SideEffectBase)((ICloneable)sideEffectBase).Clone());
+            new_SideEffects_OnDie.Add((SideEffectBase) ((ICloneable) sideEffectBase).Clone());
         }
 
         List<SideEffectBase> new_SideEffects_OnSummoned = new List<SideEffectBase>();
@@ -373,12 +373,14 @@ public struct BattleInfo
     public int BasicAttack;
     public int BasicShield;
     public int BasicArmor;
+    public bool IsSodier;
 
-    public BattleInfo(int basicAttack, int basicShield, int basicArmor)
+    public BattleInfo(int basicAttack, int basicShield, int basicArmor, bool isSodier)
     {
         BasicAttack = basicAttack;
         BasicShield = basicShield;
         BasicArmor = basicArmor;
+        IsSodier = isSodier;
     }
 
     public void Serialize(DataStream writer)
@@ -386,6 +388,7 @@ public struct BattleInfo
         writer.WriteSInt32(BasicAttack);
         writer.WriteSInt32(BasicShield);
         writer.WriteSInt32(BasicArmor);
+        writer.WriteByte(IsSodier ? (byte) 0x01 : (byte) 0x00);
     }
 
     public static BattleInfo Deserialze(DataStream reader)
@@ -393,7 +396,8 @@ public struct BattleInfo
         int BasicAttack = reader.ReadSInt32();
         int BasicShield = reader.ReadSInt32();
         int BasicArmor = reader.ReadSInt32();
-        return new BattleInfo(BasicAttack, BasicShield, BasicArmor);
+        bool IsSodier = reader.ReadByte() == 0x01;
+        return new BattleInfo(BasicAttack, BasicShield, BasicArmor, IsSodier);
     }
 }
 

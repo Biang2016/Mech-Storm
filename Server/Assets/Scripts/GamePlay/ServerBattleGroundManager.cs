@@ -18,6 +18,11 @@ internal class ServerBattleGroundManager
 
     #region SideEffects
 
+    public void AddRetinue(CardInfo_Retinue retinueCardInfo)
+    {
+        AddRetinue(retinueCardInfo, Retinues.Count);
+    }
+
     public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex)
     {
         int retinueId = ServerPlayer.MyGameManager.GeneratorNewRetinueId();
@@ -28,7 +33,7 @@ internal class ServerBattleGroundManager
         retinue.M_RetinueID = retinueId;
         retinue.Initiate(retinueCardInfo, ServerPlayer);
 
-        retinue.OnSummoned();//先战吼，再进战场
+        retinue.OnSummoned(); //先战吼，再进战场
         Retinues.Insert(retinuePlaceIndex, retinue);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
     }

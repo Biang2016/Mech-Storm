@@ -68,10 +68,20 @@ internal class ServerHandManager
     internal void DrawRetinueCard()
     {
         CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawRetinueCard();
+        if (newCardInfo == null) return;
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
         newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
         OnPlayerGetCard(newCardInfo.CardID, newCard.M_CardInstanceId);
         cards.Add(newCard);
+    }
+
+    internal CardInfo_Retinue PickRetinueCard()
+    {
+        CardInfo_Retinue newCardInfo = (CardInfo_Retinue) ServerPlayer.MyCardDeckManager.DrawRetinueCard();
+        if (newCardInfo == null) return null;
+        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
+        newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
+        return newCardInfo;
     }
 
     public void OnPlayerGetCard(int cardId, int cardInstanceId)
@@ -84,6 +94,7 @@ internal class ServerHandManager
 
     public void OnPlayerGetCards(List<DrawCardRequest.CardIdAndInstanceId> cardInfos)
     {
+        if (cardInfos.Count == 0) return;
         DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, cardInfos, true);
         DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, cardInfos, false);
         ServerPlayer?.MyClientProxy?.CurrentClientRequestResponse.SideEffects.Add(request1);
@@ -102,7 +113,7 @@ internal class ServerHandManager
         cards.Remove(dropCard);
     }
 
-    internal void UseCard(int cardInstanceId,Vector3 lastDragPosition)
+    internal void UseCard(int cardInstanceId, Vector3 lastDragPosition)
     {
         ServerCardBase card = GetCardByCardInstanceId(cardInstanceId);
         ServerPlayer.UseCostAboveZero(card.CardInfo.BaseInfo.Cost);

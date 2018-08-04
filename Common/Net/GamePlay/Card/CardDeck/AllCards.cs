@@ -58,7 +58,8 @@ public static class AllCards
                     case "battleInfo":
                         battleInfo = new BattleInfo(int.Parse(cardInfo.Attributes["basicAttack"].Value),
                             int.Parse(cardInfo.Attributes["basicShield"].Value),
-                            int.Parse(cardInfo.Attributes["basicArmor"].Value));
+                            int.Parse(cardInfo.Attributes["basicArmor"].Value),
+                            cardInfo.Attributes["isSodier"].Value=="True");
                         break;
                     case "slotInfo":
                         slotInfo = new SlotInfo((SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
