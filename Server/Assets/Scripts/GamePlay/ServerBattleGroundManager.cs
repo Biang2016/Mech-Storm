@@ -73,13 +73,19 @@ internal class ServerBattleGroundManager
 
     public void KillAllInBattleGround() //杀死本方清场
     {
+        List<ServerModuleRetinue> dieRetinues=new List<ServerModuleRetinue>();
         for (int i = 0; i < Retinues.Count; i++)
         {
-            Retinues[i].OnDieTogather();
+            dieRetinues.Add(Retinues[i]);
+        }
+        dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID));//按照上场顺序加入死亡队列
+
+        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
+        {
+            serverModuleRetinue.OnDieTogather();
         }
 
         ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
-
 
         while (Retinues.Count > 0)
         {

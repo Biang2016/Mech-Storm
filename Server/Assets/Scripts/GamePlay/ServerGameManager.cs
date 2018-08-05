@@ -202,8 +202,8 @@ internal class ServerGameManager
         ServerModuleRetinue attackRetinue = cpat.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
         ServerModuleRetinue beAttackedRetinue = cpba.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
 
-        attackRetinue.Attack(beAttackedRetinue, true);
-
+        attackRetinue.Attack(beAttackedRetinue, false);
+ 
         Broadcast_SendOperationResponse();
     }
 
@@ -292,6 +292,8 @@ internal class ServerGameManager
         DieRetinueList.Clear();
     }
 
+    public int DamageTogatherRequestId;
+
     #endregion
 
 
@@ -302,6 +304,7 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponse.SideEffects.Add(request);
         ClientB.CurrentClientRequestResponse.SideEffects.Add(request);
     }
+
 
     private void Broadcast_SendOperationResponse()
     {

@@ -69,6 +69,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         set { m_RetinueDesc = value; }
     }
 
+
     private int m_RetinueLeftLife;
 
     public int M_RetinueLeftLife
@@ -82,6 +83,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.LeftLife, addLeftLife: m_RetinueLeftLife - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+                if (ServerPlayer.MyGameManager.DamageTogatherRequestId == -1) ServerPlayer.MyGameManager.DamageTogatherRequestId = request.RequestId;
             }
 
             if (before < m_RetinueLeftLife)
@@ -98,7 +100,6 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 OnDieTogather();
                 ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
-                ServerPlayer.MyBattleGroundManager.RemoveRetinue(this);
             }
         }
     }
@@ -389,7 +390,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     #region 模块交互
 
-    public void BeAttacked(int attackNumber)
+    public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理(这里是被攻击，指的是攻击动作，不是掉血事件)
     {
         OnBeAttacked();
         int remainAttackNumber = attackNumber;
@@ -398,14 +399,14 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             if (M_RetinueShield >= remainAttackNumber)
             {
-                M_RetinueShield = M_RetinueShield - remainAttackNumber;
+                m_RetinueShield = M_RetinueShield - remainAttackNumber;
                 remainAttackNumber = 0;
                 return;
             }
             else
             {
                 remainAttackNumber -= M_RetinueShield;
-                M_RetinueShield = 0;
+                m_RetinueShield = 0;
             }
         }
 
@@ -413,43 +414,44 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             if (M_RetinueArmor >= remainAttackNumber)
             {
-                M_RetinueArmor = M_RetinueArmor - remainAttackNumber;
+                m_RetinueArmor = M_RetinueArmor - remainAttackNumber;
                 remainAttackNumber = 0;
                 return;
             }
             else
             {
                 remainAttackNumber -= M_RetinueArmor;
-                M_RetinueArmor = 0;
+                m_RetinueArmor = 0;
             }
         }
 
         if (M_RetinueLeftLife <= remainAttackNumber)
         {
-            M_RetinueLeftLife -= M_RetinueLeftLife;
+            m_RetinueLeftLife -= M_RetinueLeftLife;
             remainAttackNumber -= M_RetinueLeftLife;
         }
         else
         {
-            M_RetinueLeftLife -= remainAttackNumber;
+            m_RetinueLeftLife -= remainAttackNumber;
             remainAttackNumber = 0;
             return;
         }
     }
 
-    public void Attack(ServerModuleRetinue targetModuleRetinue, bool beHarm)
+    public void Attack(ServerModuleRetinue targetModuleRetinue, bool isStrickBack)
     {
         OnAttack();
+        int damage = 0;
 
         if (M_Weapon != null && M_RetinueWeaponEnergy != 0) //有武器避免反击
         {
             switch (M_Weapon.M_WeaponType)
             {
                 case WeaponTypes.Sword:
-                    int damage = M_RetinueAttack * M_RetinueWeaponEnergy;
+                    damage = M_RetinueAttack * M_RetinueWeaponEnergy;
                     targetModuleRetinue.BeAttacked(damage);
                     OnMakeDamage(damage);
-                    if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
+                    if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) m_RetinueWeaponEnergy++;
                     break;
                 case WeaponTypes.Gun:
                     int tmp = M_RetinueWeaponEnergy;
@@ -457,7 +459,7 @@ internal class ServerModuleRetinue : ServerModuleBase
                     {
                         targetModuleRetinue.BeAttacked(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
-                        M_RetinueWeaponEnergy--;
+                        m_RetinueWeaponEnergy--;
                     }
 
                     break;
@@ -465,8 +467,40 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
         else //如果没有武器，则受到反击
         {
-            targetModuleRetinue.BeAttacked(M_RetinueAttack);
-            if (beHarm) targetModuleRetinue.Attack(this, false); //对方反击不受到反击
+            damage = M_RetinueAttack;
+            targetModuleRetinue.BeAttacked(damage);
+            OnMakeDamage(damage);
+            if (!isStrickBack) targetModuleRetinue.Attack(this, true); //攻击对方且接受对方反击，但反击不能再反击
+        }
+
+        //死亡结算
+        if (isStrickBack) return; //逻辑集中在攻击方处理，反击方不处理后续效果
+
+
+        if (M_RetinueLeftLife == 0 && targetModuleRetinue.M_RetinueLeftLife != 0) //攻击方挂了
+        {
+            OnDieTogather();
+            ServerPlayer.MyGameManager.ExecuteAllSideEffects();
+        }
+        else if (M_RetinueLeftLife != 0 && targetModuleRetinue.M_RetinueLeftLife == 0) //反击方挂了
+        {
+            targetModuleRetinue.OnDieTogather();
+            ServerPlayer.MyGameManager.ExecuteAllSideEffects();
+        }
+        else if (M_RetinueLeftLife == 0 && targetModuleRetinue.M_RetinueLeftLife == 0) //全挂了
+        {
+            if (M_RetinueID > targetModuleRetinue.M_RetinueID) //随从上场顺序决定死亡顺序
+            {
+                OnDieTogather();
+                targetModuleRetinue.OnDieTogather();
+            }
+            else
+            {
+                targetModuleRetinue.OnDieTogather();
+                OnDieTogather();
+            }
+
+            ServerPlayer.MyGameManager.ExecuteAllSideEffects();
         }
     }
 

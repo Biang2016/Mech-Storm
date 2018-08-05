@@ -223,7 +223,7 @@ internal class ModuleRetinue : ModuleBase
 
         isFirstRound = true;
         CannotAttackBecauseDie = false;
-        CanAttack_Self = false;
+        CanAttackThisRound = false;
 
         IsDead = false;
     }
@@ -399,7 +399,6 @@ internal class ModuleRetinue : ModuleBase
                 M_Weapon.M_WeaponEnergy = value;
             }
 
-            CheckCanAttack();
             BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax), "Co_RetinueWeaponEnergyChange");
         }
     }
@@ -417,7 +416,6 @@ internal class ModuleRetinue : ModuleBase
                 M_Weapon.M_WeaponEnergyMax = value;
             }
 
-            CheckCanAttack();
             BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax), "Co_RetinueWeaponEnergyChange");
         }
     }
@@ -690,53 +688,118 @@ internal class ModuleRetinue : ModuleBase
 
     #region 攻击
 
-    public bool CannotAttackBecauseDie;
-    public bool CanAttack_Self;
-
     public bool isFirstRound = true; //是否是召唤的第一回合
+    public bool CannotAttackBecauseDie = false; //是否已预先判定死亡
+    public bool CanAttackThisRound; //本回合攻击
+    public bool CanCharge = false; //冲锋
+    public bool EndRound = false; //回合结束后
 
     private bool CheckCanAttack()
     {
-        bool canAttack = false;
-        if (isFirstRound || CannotAttackBecauseDie)
-        {
-            canAttack = false;
-        }
-        else
-        {
-            if (RoundManager.RM.CurrentClientPlayer == RoundManager.RM.SelfClientPlayer && CanAttack_Self)
-            {
-                canAttack = true;
-            }
-        }
+        bool canAttack = true;
+        canAttack &= RoundManager.RM.CurrentClientPlayer == ClientPlayer;
+        canAttack &= ClientPlayer == RoundManager.RM.SelfClientPlayer;
+        canAttack &= !isFirstRound || (isFirstRound && CanCharge);
+        canAttack &= (!CannotAttackBecauseDie);
+        canAttack &= (CanAttackThisRound);
+        canAttack &= (M_RetinueAttack > 0);
+        canAttack &= !EndRound;
 
         RetinueBloom.gameObject.SetActive(canAttack);
         return canAttack;
     }
 
-    public void AllModulesAttack()
+    public void Attack(ModuleRetinue targetRetinue, bool beHarm)
     {
-        if (M_Weapon)
+        OnAttack(); //随从特效
+        if (M_Weapon) M_Weapon.OnAttack(); //武器特效
+        int damage;
+        if (M_Weapon && M_RetinueWeaponEnergy != 0) //有武器避免反击
         {
-            M_Weapon.WeaponAttack();
+            switch (M_Weapon.M_WeaponType)
+            {
+                case WeaponTypes.Sword:
+                    damage = M_RetinueAttack * M_RetinueWeaponEnergy;
+                    targetRetinue.BeAttacked(damage);
+                    OnMakeDamage(damage);
+                    if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
+                    break;
+                case WeaponTypes.Gun:
+                    int tmp = M_RetinueWeaponEnergy;
+                    for (int i = 0; i < tmp; i++)
+                    {
+                        targetRetinue.BeAttacked(M_RetinueAttack);
+                        OnMakeDamage(M_RetinueAttack);
+                        M_RetinueWeaponEnergy--;
+                    }
+
+                    break;
+            }
+        }
+        else //如果没有武器，则受到反击
+        {
+            damage = M_RetinueAttack;
+            targetRetinue.BeAttacked(damage);
+            OnMakeDamage(damage);
+            if (beHarm) targetRetinue.Attack(this, false); //攻击对方且接受对方反击
+        }
+
+        CanAttackThisRound = false;
+        CheckCanAttack();
+    }
+
+    public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理(这里是被攻击，指的是攻击动作，不是掉血事件)
+    {
+        OnBeAttacked();
+        int remainAttackNumber = attackNumber;
+
+        if (M_RetinueShield > 0)
+        {
+            if (M_RetinueShield >= remainAttackNumber)
+            {
+                M_RetinueShield = M_RetinueShield - remainAttackNumber;
+                remainAttackNumber = 0;
+                return;
+            }
+            else
+            {
+                remainAttackNumber -= M_RetinueShield;
+                M_RetinueShield = 0;
+            }
+        }
+
+        if (M_RetinueArmor > 0)
+        {
+            if (M_RetinueArmor >= remainAttackNumber)
+            {
+                M_RetinueArmor = M_RetinueArmor - remainAttackNumber;
+                remainAttackNumber = 0;
+                return;
+            }
+            else
+            {
+                remainAttackNumber -= M_RetinueArmor;
+                M_RetinueArmor = 0;
+            }
+        }
+
+        if (M_RetinueLeftLife <= remainAttackNumber)
+        {
+            M_RetinueLeftLife -= M_RetinueLeftLife;
+            remainAttackNumber -= M_RetinueLeftLife;
         }
         else
         {
-            CanAttack_Self = false;
+            M_RetinueLeftLife -= remainAttackNumber;
+            remainAttackNumber = 0;
+            return;
         }
-
-        CheckCanAttack();
     }
 
     public int CalculateAttack()
     {
-        return M_RetinueAttack * M_RetinueWeaponEnergy;
-    }
-
-    IEnumerator DelayPoolRecycle()
-    {
-        yield return new WaitForSeconds(0.5F);
-        PoolRecycle();
+        if (M_RetinueWeaponEnergy != 0) return M_RetinueAttack * M_RetinueWeaponEnergy;
+        else return M_RetinueAttack;
     }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
@@ -844,7 +907,7 @@ internal class ModuleRetinue : ModuleBase
 
     public void OnDieShowEffects()
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#FFC609"), 0.5f), "ShowSideEffectBloom");
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#000000"), 0.5f), "ShowSideEffectBloom");
     }
 
     IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
@@ -874,14 +937,16 @@ internal class ModuleRetinue : ModuleBase
 
     public void OnBeginRound()
     {
-        CanAttack_Self = true;
+        EndRound = false;
+        CanAttackThisRound = true;
         CheckCanAttack();
     }
 
     public void OnEndRound()
     {
-        isFirstRound = false;
+        EndRound = true;
         CheckCanAttack();
+        isFirstRound = false;
     }
 
     #endregion

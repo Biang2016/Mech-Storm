@@ -11,7 +11,7 @@ public class GamePlaySettings
     public static int SecondDrawCard = 6;
     public static int MaxRetinueNumber = 7;
 
-    public static int BeginCost = 1;
+    public static int BeginCost = 20;
     public static int MaxCost = 30;
     public static int CostIncrease = 1;
 

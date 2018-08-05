@@ -37,7 +37,7 @@ public class NetProtocols
 
     public const int RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE = 0x00000204; //随从攻击随从_服务器响应
 
-    public const int END_ROUND_REQUEST_RESPONSE = 0x00000205; //结束回合_服务器响应
+    public const int END_ROUND_REQUEST_RESPONSE = 0x00000206; //结束回合_服务器响应
     #endregion
 
     #region SideEffects
@@ -63,7 +63,7 @@ public class NetProtocols
     public const int SE_EQUIP_SHIELD_SERVER_REQUEST = 0x00000221; //装备防具
 
     public const int SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST = 0x00000222; //随从攻击随从
-    public const int SE_RETINUE_EFFECT = 0x00000223; //随从特效
+    public const int SE_RETINUE_EFFECT = 0x00000224; //随从特效
 
     #endregion
 

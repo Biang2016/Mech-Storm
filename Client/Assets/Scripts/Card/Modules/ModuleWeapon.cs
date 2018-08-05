@@ -201,7 +201,7 @@ internal class ModuleWeapon : ModuleBase
 
     #region 攻击相关
 
-    public void WeaponAttack()
+    public void OnAttack()//特效
     {
     }
 

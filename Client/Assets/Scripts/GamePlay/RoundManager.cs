@@ -460,7 +460,11 @@ internal class RoundManager : MonoBehaviour
 
     public void OnRetinueAttackRetinue(RetinueAttackRetinueServerRequest r)
     {
-        GetPlayerByClientId(r.AttackRetinueClientId).MyBattleGroundManager.GetRetinue(r.AttackRetinueId).AllModulesAttack();
+        ClientPlayer cp_attack = GetPlayerByClientId(r.AttackRetinueClientId);
+        ClientPlayer cp_beAttack = GetPlayerByClientId(r.BeAttackedRetinueClientId);
+        ModuleRetinue attackRetinue = cp_attack.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
+        ModuleRetinue beAttackRetinue = cp_beAttack.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
+        attackRetinue.Attack(beAttackRetinue,true);
     }
 
     private void OnRetinueEffect(RetinueEffectRequest r)
