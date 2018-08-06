@@ -13,6 +13,7 @@ public class CardDeck
     private CardDeckInfo M_CardDeckInfo;
 
     private List<CardInfo_Base> Cards = new List<CardInfo_Base>();
+    public List<CardInfo_Base> BeginRetinueCards = new List<CardInfo_Base>();
     private List<CardInfo_Base> AbandonCards = new List<CardInfo_Base>();
 
     public bool IsEmpty = false;
@@ -32,32 +33,42 @@ public class CardDeck
     {
         M_CardDeckInfo = cdi;
         CardDeckCountChangeHandler = handler;
-        AddCards(AllCards.GetCards(M_CardDeckInfo.CardIDs));
+        AppendCards(AllCards.GetCards(M_CardDeckInfo.CardIDs));
+        AppendRetinueCards(AllCards.GetCards(M_CardDeckInfo.BeginRetinueIDs));
         checkEmpty();
         if (GamePlaySettings.SuffleCardDeck) SuffleSelf();
-    }
-
-    private void AddCard(CardInfo_Base cardInfo)
-    {
-        Cards.Add(cardInfo);
-        CardDeckCountChangeHandler(Cards.Count);
     }
 
     private void AddCard(CardInfo_Base cardInfo, int index)
     {
         Cards.Insert(index, cardInfo);
+        checkEmpty();
         CardDeckCountChangeHandler(Cards.Count);
     }
 
-    private void AddCards(List<CardInfo_Base> cardInfos)
+    private void AppendCard(CardInfo_Base cardInfo)
+    {
+        Cards.Add(cardInfo);
+        checkEmpty();
+        CardDeckCountChangeHandler(Cards.Count);
+    }
+
+    private void AppendCards(List<CardInfo_Base> cardInfos)
     {
         Cards.AddRange(cardInfos);
+        checkEmpty();
         CardDeckCountChangeHandler(Cards.Count);
+    }
+
+    private void AppendRetinueCards(List<CardInfo_Base> retinueCardInfos)
+    {
+        BeginRetinueCards.AddRange(retinueCardInfos);
     }
 
     private void RemoveCard(CardInfo_Base cardInfo)
     {
         Cards.Remove(cardInfo);
+        checkEmpty();
         CardDeckCountChangeHandler(Cards.Count);
     }
 
@@ -68,6 +79,7 @@ public class CardDeck
             Cards.Remove(cardInfoBase);
         }
 
+        checkEmpty();
         CardDeckCountChangeHandler(Cards.Count);
     }
 
@@ -138,11 +150,6 @@ public class CardDeck
         return resList;
     }
 
-    public void AddCardToButtom(CardInfo_Base newCard)
-    {
-        AddCard(newCard);
-        checkEmpty();
-    }
 
     public CardInfo_Base GetFirstCardInfo()
     {
@@ -191,7 +198,7 @@ public class CardDeck
         }
     }
 
-    public bool GetARetinueCardToTheTop()
+    public bool GetASodiersCardToTheTop()
     {
         CardInfo_Base target_cb = null;
         foreach (CardInfo_Base cb in Cards)
@@ -217,7 +224,7 @@ public class CardDeck
     {
         foreach (CardInfo_Base ac in AbandonCards)
         {
-            AddCard(ac);
+            AppendCard(ac);
         }
 
         checkEmpty();
@@ -232,9 +239,12 @@ public struct CardDeckInfo
 
     public int[] CardIDs;
 
-    public CardDeckInfo(int[] cardIDs)
+    public int[] BeginRetinueIDs;
+
+    public CardDeckInfo(int[] cardIDs, int[] beginRetinueIDs)
     {
         CardIDs = cardIDs;
         CardNumber = cardIDs.Length;
+        BeginRetinueIDs = beginRetinueIDs;
     }
 }

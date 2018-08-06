@@ -102,6 +102,13 @@ internal class ServerBattleGroundManager
         AddLifeForSomeRetinue(retinue, value);
     }
 
+    public void AddLifeForSomeRetinue(int retinueId, int value) //本方增加某随从生命
+    {
+        ServerModuleRetinue retinue = GetRetinue(retinueId);
+        retinue.M_RetinueTotalLife += value;
+        retinue.M_RetinueLeftLife += value;
+    }
+
     public void AddLifeForSomeRetinue(ServerModuleRetinue retinue, int value) //本方增加某随从生命
     {
         retinue.M_RetinueTotalLife += value;

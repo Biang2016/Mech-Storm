@@ -61,10 +61,11 @@ internal class Server
         }
     }
 
-    private void OnRestartSideEffects()
+    private void OnRestartSideEffects()//所有的副作用在此注册
     {
         SideEffectManager.AddSideEffectTypes<KillAllInBattleGround>();
         SideEffectManager.AddSideEffectTypes<AddLifeForSomeRetinue>();
+        SideEffectManager.AddSideEffectTypes<AddLifeForRandomRetinue>();
     }
 
     /// <summary>

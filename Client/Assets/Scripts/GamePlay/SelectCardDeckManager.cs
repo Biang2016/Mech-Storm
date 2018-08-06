@@ -196,32 +196,17 @@ public class SelectCardDeckManager : MonoBehaviour
     {
         if (!isSelecting) return;
         bool isRetinue = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSodier;
-        if (SelectedCards.ContainsKey(card.CardInfo.CardID))
+        if (isRetinue)
         {
-            int count = ++SelectedCards[card.CardInfo.CardID].Count;
-            card.SetBlockCountValue(count);
-            if (isRetinue)
+            if (SelectedRetinues.ContainsKey(card.CardInfo.CardID))
             {
-                ++SelectedRetinues[card.CardInfo.CardID].Count;
-                RetinueCardCount++;
+                int count = ++SelectedRetinues[card.CardInfo.CardID].Count;
+                card.SetBlockCountValue(count);
             }
-        }
-        else
-        {
-            SelectCard newSC = GenerateNewSelectCard(card, SelectionContent);
-            SelectedCards.Add(card.CardInfo.CardID, newSC);
-
-            List<SelectCard> SCs = SelectionContent.GetComponentsInChildren<SelectCard>(true).ToList();
-            SCs.Sort((a, b) => a.Cost.CompareTo(b.Cost));
-            SelectionContent.DetachChildren();
-            foreach (SelectCard selectCard in SCs)
-            {
-                selectCard.transform.SetParent(SelectionContent);
-            }
-
-            if (isRetinue)
+            else
             {
                 SelectCard retinueSelect = GenerateNewSelectCard(card, RetinueContent);
+                List<SelectCard> SCs = SelectionContent.GetComponentsInChildren<SelectCard>(true).ToList();
                 SelectedRetinues.Add(card.CardInfo.CardID, retinueSelect);
                 SCs = RetinueContent.GetComponentsInChildren<SelectCard>(true).ToList();
                 SCs.Sort((a, b) => a.Cost.CompareTo(b.Cost));
@@ -231,15 +216,40 @@ public class SelectCardDeckManager : MonoBehaviour
                     selectCard.transform.SetParent(RetinueContent);
                 }
 
-                RetinueCardCount++;
+                card.SetBlockCountValue(1);
+                card.BeBrightColor();
+                card.CardBloom.SetActive(true);
             }
 
-            card.SetBlockCountValue(1);
-            card.BeBrightColor();
-            card.CardBloom.SetActive(true);
+            RetinueCardCount++;
         }
+        else
+        {
+            if (SelectedCards.ContainsKey(card.CardInfo.CardID))
+            {
+                int count = ++SelectedCards[card.CardInfo.CardID].Count;
+                card.SetBlockCountValue(count);
+            }
+            else
+            {
+                SelectCard newSC = GenerateNewSelectCard(card, SelectionContent);
+                SelectedCards.Add(card.CardInfo.CardID, newSC);
 
-        SelectCardCount++;
+                List<SelectCard> SCs = SelectionContent.GetComponentsInChildren<SelectCard>(true).ToList();
+                SCs.Sort((a, b) => a.Cost.CompareTo(b.Cost));
+                SelectionContent.DetachChildren();
+                foreach (SelectCard selectCard in SCs)
+                {
+                    selectCard.transform.SetParent(SelectionContent);
+                }
+
+                card.SetBlockCountValue(1);
+                card.BeBrightColor();
+                card.CardBloom.SetActive(true);
+            }
+
+            SelectCardCount++;
+        }
     }
 
     private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)
@@ -266,24 +276,29 @@ public class SelectCardDeckManager : MonoBehaviour
         if (isRetinue)
         {
             SelectedRetinues[card.CardInfo.CardID].Count--;
-            RetinueCardCount--;
-        }
-
-        if (SelectedCards[card.CardInfo.CardID].Count == 0)
-        {
-            SelectedCards[card.CardInfo.CardID].PoolRecycle();
-            SelectedCards.Remove(card.CardInfo.CardID);
-            if (isRetinue)
+            if (SelectedRetinues[card.CardInfo.CardID].Count == 0)
             {
                 SelectedRetinues[card.CardInfo.CardID].PoolRecycle();
                 SelectedRetinues.Remove(card.CardInfo.CardID);
+                card.BeDimColor();
+                card.CardBloom.SetActive(false);
             }
 
-            card.BeDimColor();
-            card.CardBloom.SetActive(false);
+            RetinueCardCount--;
         }
+        else
+        {
+            SelectedCards[card.CardInfo.CardID].Count--;
+            if (SelectedCards[card.CardInfo.CardID].Count == 0)
+            {
+                SelectedCards[card.CardInfo.CardID].PoolRecycle();
+                SelectedCards.Remove(card.CardInfo.CardID);
+                card.BeDimColor();
+                card.CardBloom.SetActive(false);
+            }
 
-        SelectCardCount--;
+            SelectCardCount--;
+        }
     }
 
     public void SelectAllCard()
@@ -324,47 +339,33 @@ public class SelectCardDeckManager : MonoBehaviour
     #endregion
 
 
-    [SerializeField]
-    private Transform AllCardsContent;
+    [SerializeField] private Transform AllCardsContent;
 
-    [SerializeField]
-    private Transform RetinueContent;
+    [SerializeField] private Transform RetinueContent;
 
-    [SerializeField]
-    private Transform SelectionContent;
+    [SerializeField] private Transform SelectionContent;
 
-    [SerializeField]
-    private Canvas Canvas;
+    [SerializeField] private Canvas Canvas;
 
-    [SerializeField]
-    private Canvas Canvas_BG;
+    [SerializeField] private Canvas Canvas_BG;
 
-    [SerializeField]
-    private Transform PreviewContent;
+    [SerializeField] private Transform PreviewContent;
 
-    [SerializeField]
-    private Button ConfirmButton;
+    [SerializeField] private Button ConfirmButton;
 
-    [SerializeField]
-    private Button CloseButton;
+    [SerializeField] private Button CloseButton;
 
-    [SerializeField]
-    private Button SelectAllButton;
+    [SerializeField] private Button SelectAllButton;
 
-    [SerializeField]
-    private Button UnSelectAllButton;
+    [SerializeField] private Button UnSelectAllButton;
 
-    [SerializeField]
-    private Text CountNumberText;
+    [SerializeField] private Text CountNumberText;
 
-    [SerializeField]
-    private Text RetinueCountNumberText;
+    [SerializeField] private Text RetinueCountNumberText;
 
-    [SerializeField]
-    private Camera Camera;
+    [SerializeField] private Camera Camera;
 
-    [SerializeField]
-    private Transform SelectCardPrefab;
+    [SerializeField] private Transform SelectCardPrefab;
 
     private void ShowPreviewCard(CardBase card)
     {
@@ -446,7 +447,16 @@ public class SelectCardDeckManager : MonoBehaviour
             }
         }
 
-        CardDeckInfo cdi = new CardDeckInfo(cardIds.ToArray());
+        List<int> retinueIds = new List<int>();
+        foreach (KeyValuePair<int, SelectCard> kv in SelectedRetinues)
+        {
+            for (int i = 0; i < kv.Value.Count; i++)
+            {
+                retinueIds.Add(kv.Key);
+            }
+        }
+
+        CardDeckInfo cdi = new CardDeckInfo(cardIds.ToArray(), retinueIds.ToArray());
         Client.CS.Proxy.OnSendCardDeck(cdi);
         NetworkManager.NM.ShowInfoPanel("更新卡组成功", 0, 1f);
         HideWindow();

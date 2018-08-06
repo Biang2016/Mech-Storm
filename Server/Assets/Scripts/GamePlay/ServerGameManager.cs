@@ -82,15 +82,13 @@ internal class ServerGameManager
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
         Broadcast_AddRequestToOperationResponse(request);
 
-        CardInfo_Retinue cardInfo_Retinue;
-        while ((cardInfo_Retinue = PlayerA.MyHandManager.PickRetinueCard()) != null)
+        foreach (CardInfo_Base cardInfo in PlayerA.MyCardDeckManager.M_CurrentCardDeck.BeginRetinueCards)
         {
-            PlayerA.MyBattleGroundManager.AddRetinue(cardInfo_Retinue);
+            PlayerA.MyBattleGroundManager.AddRetinue((CardInfo_Retinue)cardInfo);
         }
-
-        while ((cardInfo_Retinue = PlayerB.MyHandManager.PickRetinueCard()) != null)
+        foreach (CardInfo_Base cardInfo in PlayerB.MyCardDeckManager.M_CurrentCardDeck.BeginRetinueCards)
         {
-            PlayerB.MyBattleGroundManager.AddRetinue(cardInfo_Retinue);
+            PlayerB.MyBattleGroundManager.AddRetinue((CardInfo_Retinue)cardInfo);
         }
 
         if (isPlayerAFirst)

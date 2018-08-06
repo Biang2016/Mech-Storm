@@ -24,7 +24,7 @@ internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
 
 
                 break;
-            case "地方":
+            case "敌方":
 
 
                 break;

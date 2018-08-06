@@ -28,14 +28,14 @@ internal class ServerCardDeckManager
         set { m_CurrentCardDeck = value; }
     }
 
-    public CardInfo_Base DrawRetinueCard()
+    public CardInfo_Base DrawSodierCard()
     {
         if (M_CurrentCardDeck.IsEmpty)
         {
             return null;
         }
 
-        bool success = M_CurrentCardDeck.GetARetinueCardToTheTop();
+        bool success = M_CurrentCardDeck.GetASodiersCardToTheTop();
         if (success)
         {
             CardInfo_Base newCardInfoBase = DrawCardOnTop();

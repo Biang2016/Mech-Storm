@@ -156,8 +156,7 @@ internal class CardRetinue : CardBase
     internal GameObject Pack;
     internal ModuleWeapon Weapon;
     internal ModuleShield Shield;
-    internal GameObject MA; //飞行踏板/机动堡垒
-    internal GameObject Energy; //能量槽
+    internal GameObject MA;
 
     # endregion
 

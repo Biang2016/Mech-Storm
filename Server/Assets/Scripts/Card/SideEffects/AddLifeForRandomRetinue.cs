@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
+internal class AddLifeForRandomRetinue : AddLifeForSomeRetinue_Base
 {
-    public AddLifeForSomeRetinue()
+    public AddLifeForRandomRetinue()
     {
     }
 
@@ -13,8 +13,6 @@ internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
     {
         return String.Format(DescRaw, Info.RetinuePlayer, Info.Value);
     }
-
-    public int RetinueId;
 
     public override void Excute(object Player)
     {
@@ -36,6 +34,6 @@ internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
 
     private void DoAddLife(ServerPlayer player)
     {
-        player.MyBattleGroundManager.AddLifeForSomeRetinue(RetinueId, Info.Value);
+        player.MyBattleGroundManager.AddLifeForRandomRetinue(Info.Value);
     }
 }

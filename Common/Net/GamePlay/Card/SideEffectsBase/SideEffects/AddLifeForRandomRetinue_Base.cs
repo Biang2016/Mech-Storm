@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class AddLifeForSomeRetinue_Base : TargetSideEffect
+public class AddLifeForRandomRetinue_Base : SideEffectBase
 {
-    public AddLifeForSomeRetinue_Info Info;
+    public AddLifeForRandomRetinue_Info Info;
 
     public override void Serialze(DataStream writer)
     {
@@ -20,7 +20,7 @@ public class AddLifeForSomeRetinue_Base : TargetSideEffect
     }
 }
 
-public struct AddLifeForSomeRetinue_Info
+public struct AddLifeForRandomRetinue_Info
 {
     public string RetinuePlayer;//限定范围为哪一方
     public int Value;

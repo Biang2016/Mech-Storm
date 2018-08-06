@@ -32,6 +32,12 @@ public class CardDeckRequest : ClientRequestBase
         {
             writer.WriteSInt32(cardID);
         }
+
+        writer.WriteSInt32(cardDeckInfo.BeginRetinueIDs.Length);
+        foreach (int retinueID in cardDeckInfo.BeginRetinueIDs)
+        {
+            writer.WriteSInt32(retinueID);
+        }
     }
 
     public override void Deserialize(DataStream reader)
@@ -44,7 +50,14 @@ public class CardDeckRequest : ClientRequestBase
             cardIDs[i] = reader.ReadSInt32();
         }
 
-        cardDeckInfo = new CardDeckInfo(cardIDs);
+        int beginRetinueIDSize = reader.ReadSInt32();
+        int[] beginRetinueIDs = new int[beginRetinueIDSize];
+        for (int i = 0; i < beginRetinueIDSize; i++)
+        {
+            beginRetinueIDs[i] = reader.ReadSInt32();
+        }
+
+        cardDeckInfo = new CardDeckInfo(cardIDs, beginRetinueIDs);
     }
 
     public override string DeserializeLog()
@@ -52,6 +65,11 @@ public class CardDeckRequest : ClientRequestBase
         string log = base.DeserializeLog();
         log += " [CardIDs]=";
         foreach (int cardID in cardDeckInfo.CardIDs)
+        {
+            log += cardID + " ";
+        }
+        log += " [BeginRetinueIDs]=";
+        foreach (int cardID in cardDeckInfo.BeginRetinueIDs)
         {
             log += cardID + " ";
         }

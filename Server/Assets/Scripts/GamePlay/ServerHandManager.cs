@@ -65,23 +65,14 @@ internal class ServerHandManager
         cards.Add(newCard);
     }
 
-    internal void DrawRetinueCard()
+    internal void DrawSodierCard()
     {
-        CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawRetinueCard();
+        CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawSodierCard();
         if (newCardInfo == null) return;
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
         newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
         OnPlayerGetCard(newCardInfo.CardID, newCard.M_CardInstanceId);
         cards.Add(newCard);
-    }
-
-    internal CardInfo_Retinue PickRetinueCard()
-    {
-        CardInfo_Retinue newCardInfo = (CardInfo_Retinue) ServerPlayer.MyCardDeckManager.DrawRetinueCard();
-        if (newCardInfo == null) return null;
-        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
-        newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
-        return newCardInfo;
     }
 
     public void OnPlayerGetCard(int cardId, int cardInstanceId)
