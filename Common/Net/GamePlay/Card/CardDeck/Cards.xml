@@ -15,7 +15,7 @@
         <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" isSodier="False" />
         <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
         <CardInfo name="sideEffectsInfo" happenTime="OnDie">
-          <SideEffect name="KillAllInBattleGround" WhoseBattleGround="敌方"></SideEffect>
+          <SideEffect name="KillAllInBattleGround" IsNeedChoise="False" M_TargetRange="SelfBattleGround"></SideEffect>
         </CardInfo>
     </Card>
     <Card id="1">
@@ -24,9 +24,6 @@
         <CardInfo name="lifeInfo" life="5" totalLife="5" />
         <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="3" isSodier="False"  />
         <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
-        <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
-          <SideEffect name="AddLifeForSomeRetinue" RetinuePlayer="我方" Select="随机" Value="1"></SideEffect>
-        </CardInfo>
     </Card>
     <Card id="2">
         <CardInfo name="baseInfo" cardName="侦查用飞行器" cardDesc="" cost="1" dragPurpose="Summon" cardType="Retinue" cardColor="#CBCBCB" hightLightColor="#FFFF00"/>
@@ -34,6 +31,9 @@
         <CardInfo name="lifeInfo" life="3" totalLife="3" />
         <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" isSodier="True"  />
         <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
+        <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+          <SideEffect name="AddLifeForSomeRetinue" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="1"></SideEffect>
+        </CardInfo>
     </Card>
     
     <Card id="100">

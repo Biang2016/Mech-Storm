@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Card\Modules\ModuleWeapon.cs" />
     <Compile Include="Assets\Scripts\Card\Number\CardNumber.cs" />
     <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\AddLifeForRandomRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\AddLifeForSomeRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\KillAllInBattleGround.cs" />
     <Compile Include="Assets\Scripts\Card\Slots\Slot.cs" />

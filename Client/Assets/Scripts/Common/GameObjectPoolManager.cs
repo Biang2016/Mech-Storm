@@ -5,6 +5,7 @@ using UnityEngine;
 internal class GameObjectPoolManager : MonoBehaviour
 {
     private static GameObjectPoolManager gopm;
+
     public static GameObjectPoolManager GOPM
     {
         get
@@ -13,6 +14,7 @@ internal class GameObjectPoolManager : MonoBehaviour
             {
                 gopm = FindObjectOfType(typeof(GameObjectPoolManager)) as GameObjectPoolManager;
             }
+
             return gopm;
         }
     }
@@ -76,6 +78,10 @@ internal class GameObjectPoolManager : MonoBehaviour
     public GameObject ModuleShieldDetailPool;
     internal GameObjectPool Pool_ModuleShieldDetailPool;
     public GameObject ModuleShieldDetailPrefab;
+
+    public GameObject CardBackPool;
+    internal GameObjectPool Pool_CardBackPool;
+    public GameObject CardBackPrefab;
 
     public GameObject RetinueCardPool;
     internal GameObjectPool Pool_RetinueCardPool;
@@ -164,6 +170,9 @@ internal class GameObjectPoolManager : MonoBehaviour
         Pool_ModuleShieldDetailPool = ModuleShieldDetailPool.GetComponent<GameObjectPool>();
         Pool_ModuleShieldDetailPool.Initiate(ModuleShieldDetailPrefab, 3);
 
+        Pool_CardBackPool = CardBackPool.GetComponent<GameObjectPool>();
+        Pool_CardBackPool.Initiate(CardBackPrefab, 30);
+
         Pool_RetinueCardPool = RetinueCardPool.GetComponent<GameObjectPool>();
         Pool_RetinueCardPool.Initiate(RetinueCardPrefab, 30);
 
@@ -194,7 +203,6 @@ internal class GameObjectPoolManager : MonoBehaviour
         Pool_SelectCardPool = SelectCardPool.GetComponent<GameObjectPool>();
         Pool_SelectCardPool.Initiate(SelectCardPrefab, 20);
     }
-
 }
 
 public interface IGameObjectPool

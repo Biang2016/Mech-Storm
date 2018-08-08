@@ -508,10 +508,14 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     #region 特效、技能
 
-    public void OnSummoned()
+    public void OnSummoned(int targetRetinueId)
     {
         foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
         {
+            if (se is TargetSideEffect)
+            {
+                ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
+            }
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);
             RetinueEffectRequest request = new RetinueEffectRequest(ServerPlayer.ClientId, M_RetinueID, RetinueEffectRequest.EffectType.OnSummon);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);

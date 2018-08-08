@@ -11,21 +11,29 @@ internal class KillAllInBattleGround : KillAllInBattleGround_Base
 
     public override string GenerateDesc()
     {
-        return String.Format(DescRaw, Info);
+        return String.Format(DescRaw, GetChineseDescOfTargetRange(M_TargetRange));
     }
 
     public override void Excute(object Player)
     {
         ServerPlayer player = (ServerPlayer)Player;
-        switch (Info.WhoseBattleGround)
+        switch (M_TargetRange)
         {
-            case "我方":
+            case TargetRange.SelfBattleGround:
                 player.MyBattleGroundManager.KillAllInBattleGround();
                 break;
-            case "敌方":
+            case TargetRange.EnemyBattleGround:
                 player.MyEnemyPlayer.MyBattleGroundManager.KillAllInBattleGround();
                 break;
-            case "":
+            case TargetRange.SelfHeros:
+                break;
+            case TargetRange.EnemyHeros:
+                break;
+            case TargetRange.SelfShip:
+                break;
+            case TargetRange.EnemyShip:
+                break;
+            case TargetRange.All:
                 player.MyBattleGroundManager.KillAllInBattleGround();
                 player.MyEnemyPlayer.MyBattleGroundManager.KillAllInBattleGround();
                 break;

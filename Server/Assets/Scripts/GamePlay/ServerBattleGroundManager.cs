@@ -20,10 +20,10 @@ internal class ServerBattleGroundManager
 
     public void AddRetinue(CardInfo_Retinue retinueCardInfo)
     {
-        AddRetinue(retinueCardInfo, Retinues.Count);
+        AddRetinue(retinueCardInfo, Retinues.Count, -2);
     }
 
-    public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex)
+    public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex, int targetRetinueId)
     {
         int retinueId = ServerPlayer.MyGameManager.GeneratorNewRetinueId();
         BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex, retinueId);
@@ -33,7 +33,7 @@ internal class ServerBattleGroundManager
         retinue.M_RetinueID = retinueId;
         retinue.Initiate(retinueCardInfo, ServerPlayer);
 
-        retinue.OnSummoned(); //先战吼，再进战场
+        retinue.OnSummoned(targetRetinueId); //先战吼，再进战场
         Retinues.Insert(retinuePlaceIndex, retinue);
         BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
     }
@@ -73,12 +73,13 @@ internal class ServerBattleGroundManager
 
     public void KillAllInBattleGround() //杀死本方清场
     {
-        List<ServerModuleRetinue> dieRetinues=new List<ServerModuleRetinue>();
+        List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
         for (int i = 0; i < Retinues.Count; i++)
         {
             dieRetinues.Add(Retinues[i]);
         }
-        dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID));//按照上场顺序加入死亡队列
+
+        dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
 
         foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
         {
@@ -105,8 +106,11 @@ internal class ServerBattleGroundManager
     public void AddLifeForSomeRetinue(int retinueId, int value) //本方增加某随从生命
     {
         ServerModuleRetinue retinue = GetRetinue(retinueId);
-        retinue.M_RetinueTotalLife += value;
-        retinue.M_RetinueLeftLife += value;
+        if (retinue != null)
+        {
+            retinue.M_RetinueTotalLife += value;
+            retinue.M_RetinueLeftLife += value;
+        }
     }
 
     public void AddLifeForSomeRetinue(ServerModuleRetinue retinue, int value) //本方增加某随从生命

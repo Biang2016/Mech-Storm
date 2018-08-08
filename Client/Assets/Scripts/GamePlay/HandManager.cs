@@ -389,6 +389,25 @@ internal class HandManager : MonoBehaviour
         }
     }
 
+    #region 预召唤带有指定目标的随从
+
+    private CardRetinue currentSummonRetinuePreviewCard;
+    private int summonRetinuePreviewCardIndex;
+
+    public void SetCurrentSummonRetinuePreviewCard(CardRetinue retinueCard)
+    {
+        currentSummonRetinuePreviewCard = retinueCard;
+        summonRetinuePreviewCardIndex = cards.IndexOf(currentSummonRetinuePreviewCard);
+        currentSummonRetinuePreviewCard.gameObject.SetActive(false);
+    }
+
+    public void CancelSummonRetinuePreview()
+    {
+        currentSummonRetinuePreviewCard.gameObject.SetActive(true);
+    }
+
+    #endregion
+
     #endregion
 
     #region Utils

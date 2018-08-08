@@ -26,6 +26,8 @@ internal class BattleGroundManager : MonoBehaviour
         RemoveRetinues.Clear();
     }
 
+    #region 位置计算
+
     internal int ComputePosition(Vector3 dragLastPosition)
     {
         int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.GM.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
@@ -42,9 +44,13 @@ internal class BattleGroundManager : MonoBehaviour
         return Retinues[index];
     }
 
-    public void AddRetinue_PrePass(CardInfo_Retinue retinueCardInfo, int retinueId)
+    #endregion
+
+    #region 召唤随从
+
+    public ModuleRetinue AddRetinue_PrePass(CardInfo_Retinue retinueCardInfo, int retinueId)
     {
-        if (ClientPlayer == null) return;
+        if (ClientPlayer == null) return null;
         if (previewRetinuePlace != -1)
         {
             previewRetinuePlace = -1;
@@ -59,7 +65,10 @@ internal class BattleGroundManager : MonoBehaviour
 
         retinueCount++;
         BattleGroundIsFull = retinueCount >= GamePlaySettings.MaxRetinueNumber;
+
+        return retinue;
     }
+
 
     private Queue<ModuleRetinue> addPrePassRetinueQueue = new Queue<ModuleRetinue>();
 
@@ -67,6 +76,10 @@ internal class BattleGroundManager : MonoBehaviour
     {
         BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main, retinuePlaceIndex), "Co_RefreshBattleGroundAnim");
     }
+
+    #endregion
+
+    #region 召唤预览
 
     private int previewRetinuePlace;
 
@@ -80,6 +93,7 @@ internal class BattleGroundManager : MonoBehaviour
         }
     }
 
+
     public void RemoveRetinuePreview()
     {
         if (previewRetinuePlace != -1)
@@ -88,6 +102,42 @@ internal class BattleGroundManager : MonoBehaviour
             BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
         }
     }
+
+    #endregion
+
+    #region 能指定目标的随从的预召唤
+
+    public delegate void SummonRetinueTarget(int targetRetinueId);
+
+    private CardRetinue currentSummonPreviewRetinueCard;
+    private ModuleRetinue currentSummonPreviewRetinue;
+
+    public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex,TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的随从的召唤预览、显示指定箭头
+    {
+        currentSummonPreviewRetinueCard = retinueCard;
+        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, -1);
+        currentSummonPreviewRetinue = retinue;
+        AddRetinue(retinuePlaceIndex);
+        DragManager.DM.SummonRetinueTargetHandler = SummonRetinueTargetConfirm;
+        DragManager.DM.StartArrowAiming(retinue, targetRange);
+    }
+
+    public void SummonRetinueTargetConfirm(int targetRetinueId)
+    {
+        if (targetRetinueId == -2) //未选择目标
+        {
+            RemoveRetinue(-1);
+            ClientPlayer.MyHandManager.CancelSummonRetinuePreview();
+        }
+        else
+        {
+            int battleGroundIndex = Retinues.IndexOf(currentSummonPreviewRetinue);
+            SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, currentSummonPreviewRetinueCard.M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(0, 0, 0), targetRetinueId);
+            Client.CS.Proxy.SendMessage(request);
+        }
+    }
+
+    #endregion
 
     public void RemoveRetinue(int retinueId)
     {
@@ -140,9 +190,9 @@ internal class BattleGroundManager : MonoBehaviour
         return Co_RefreshBattleGroundAnim(myParentEffects, -1);
     }
 
-    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects,int retinuePlaceIndex)
+    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects, int retinuePlaceIndex)
     {
-        if (retinuePlaceIndex != -1)//新增随从
+        if (retinuePlaceIndex != -1) //新增随从
         {
             ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
             Retinues.Insert(retinuePlaceIndex, retinue);
@@ -325,7 +375,7 @@ internal class BattleGroundManager : MonoBehaviour
             }
         }
 
-        foreach (ModuleRetinue moduleRetinue in addPrePassRetinueQueue)//预加载的随从也要遍历一遍
+        foreach (ModuleRetinue moduleRetinue in addPrePassRetinueQueue) //预加载的随从也要遍历一遍
         {
             if (moduleRetinue.M_RetinueID == retinueId)
             {

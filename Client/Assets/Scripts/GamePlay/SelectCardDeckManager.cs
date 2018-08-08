@@ -206,9 +206,8 @@ public class SelectCardDeckManager : MonoBehaviour
             else
             {
                 SelectCard retinueSelect = GenerateNewSelectCard(card, RetinueContent);
-                List<SelectCard> SCs = SelectionContent.GetComponentsInChildren<SelectCard>(true).ToList();
                 SelectedRetinues.Add(card.CardInfo.CardID, retinueSelect);
-                SCs = RetinueContent.GetComponentsInChildren<SelectCard>(true).ToList();
+                List<SelectCard> SCs = RetinueContent.GetComponentsInChildren<SelectCard>(true).ToList();
                 SCs.Sort((a, b) => a.Cost.CompareTo(b.Cost));
                 RetinueContent.DetachChildren();
                 foreach (SelectCard selectCard in SCs)
@@ -234,7 +233,6 @@ public class SelectCardDeckManager : MonoBehaviour
             {
                 SelectCard newSC = GenerateNewSelectCard(card, SelectionContent);
                 SelectedCards.Add(card.CardInfo.CardID, newSC);
-
                 List<SelectCard> SCs = SelectionContent.GetComponentsInChildren<SelectCard>(true).ToList();
                 SCs.Sort((a, b) => a.Cost.CompareTo(b.Cost));
                 SelectionContent.DetachChildren();
@@ -271,11 +269,10 @@ public class SelectCardDeckManager : MonoBehaviour
         if (!isSelecting) return;
         bool isRetinue = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSodier;
 
-        int count = --SelectedCards[card.CardInfo.CardID].Count;
-        card.SetBlockCountValue(count);
         if (isRetinue)
         {
-            SelectedRetinues[card.CardInfo.CardID].Count--;
+            int count = --SelectedRetinues[card.CardInfo.CardID].Count;
+            card.SetBlockCountValue(count);
             if (SelectedRetinues[card.CardInfo.CardID].Count == 0)
             {
                 SelectedRetinues[card.CardInfo.CardID].PoolRecycle();
@@ -288,7 +285,8 @@ public class SelectCardDeckManager : MonoBehaviour
         }
         else
         {
-            SelectedCards[card.CardInfo.CardID].Count--;
+            int count = --SelectedCards[card.CardInfo.CardID].Count;
+            card.SetBlockCountValue(count);
             if (SelectedCards[card.CardInfo.CardID].Count == 0)
             {
                 SelectedCards[card.CardInfo.CardID].PoolRecycle();

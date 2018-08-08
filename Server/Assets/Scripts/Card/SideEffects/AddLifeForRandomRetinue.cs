@@ -11,29 +11,57 @@ internal class AddLifeForRandomRetinue : AddLifeForSomeRetinue_Base
 
     public override string GenerateDesc()
     {
-        return String.Format(DescRaw, Info.RetinuePlayer, Info.Value);
+        return String.Format(DescRaw, GetChineseDescOfTargetRange(M_TargetRange), Value);
     }
 
     public override void Excute(object Player)
     {
         ServerPlayer player = (ServerPlayer) Player;
-        switch (Info.RetinuePlayer)
+        switch (M_TargetRange)
         {
-            case "我方":
-                DoAddLife(player);
+            case TargetRange.SelfBattleGround:
+                DoAddLifeForRetinue(player);
                 break;
-            case "敌方":
-                DoAddLife(player.MyEnemyPlayer);
+            case TargetRange.EnemyBattleGround:
+                DoAddLifeForRetinue(player.MyEnemyPlayer);
                 break;
-            case "":
-                DoAddLife(player);
-                DoAddLife(player.MyEnemyPlayer);
+            case TargetRange.SelfHeros:
+                DoAddLifeForRetinue(player);
+                break;
+            case TargetRange.EnemyHeros:
+                DoAddLifeForRetinue(player.MyEnemyPlayer);
+                break;
+            case TargetRange.SelfShip:
+                DoAddShipLife(player);
+                break;
+            case TargetRange.EnemyShip:
+                DoAddShipLife(player.MyEnemyPlayer);
+                break;
+            case TargetRange.All:
+                if (TargetRetinueId >= 0) //随从
+                {
+                    DoAddLifeForRetinue(player);
+                    DoAddLifeForRetinue(player.MyEnemyPlayer);
+                }
+                else if (TargetRetinueId == -1) //SelfShip
+                {
+                    DoAddShipLife(player);
+                }
+                else if (TargetRetinueId == -2) //EnemyShip
+                {
+                    DoAddShipLife(player.MyEnemyPlayer);
+                }
+
                 break;
         }
     }
 
-    private void DoAddLife(ServerPlayer player)
+    private void DoAddLifeForRetinue(ServerPlayer player)
     {
-        player.MyBattleGroundManager.AddLifeForRandomRetinue(Info.Value);
+        player.MyBattleGroundManager.AddLifeForRandomRetinue(Value);
+    }
+
+    private void DoAddShipLife(ServerPlayer player)
+    {
     }
 }

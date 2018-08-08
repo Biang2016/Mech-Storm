@@ -72,6 +72,7 @@ internal class Client : MonoBehaviour
     {
         SideEffectManager.AddSideEffectTypes<KillAllInBattleGround>();
         SideEffectManager.AddSideEffectTypes<AddLifeForSomeRetinue>();
+        SideEffectManager.AddSideEffectTypes<AddLifeForRandomRetinue>();
     }
 
     #region 连接

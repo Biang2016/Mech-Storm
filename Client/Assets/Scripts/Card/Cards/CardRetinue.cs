@@ -57,7 +57,7 @@ internal class CardRetinue : CardBase
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
-        base.Initiate(cardInfo, clientPlayer,isCardSelect);
+        base.Initiate(cardInfo, clientPlayer, isCardSelect);
         M_RetinueName = cardInfo.BaseInfo.CardName;
         M_RetinueDesc = ((CardInfo_Retinue) cardInfo).GetCardDescShow();
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
@@ -179,15 +179,43 @@ internal class CardRetinue : CardBase
     {
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
-        if (boardAreaType != ClientPlayer.MyHandArea) //脱手即出牌
+        bool summonTarget = false; //召唤时是否需要指定目标
+        TargetSideEffect.TargetRange TargetRange = TargetSideEffect.TargetRange.None; //指定目标所属范围
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
         {
-            summonRetinueRequest(dragLastPosition);
+            if (se is TargetSideEffect)
+            {
+                summonTarget = true;
+                TargetRange = ((TargetSideEffect) se).M_TargetRange;
+            }
+        }
+
+        if (!summonTarget) //无指定目标的副作用
+        {
+            if (boardAreaType != ClientPlayer.MyHandArea) //脱手即出牌
+            {
+                summonRetinueRequest(dragLastPosition, -2);
+            }
+            else
+            {
+                ClientPlayer.MyBattleGroundManager.RemoveRetinuePreview();
+                transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
+                ClientPlayer.MyHandManager.RefreshCardsPlace();
+            }
         }
         else
         {
-            ClientPlayer.MyBattleGroundManager.RemoveRetinuePreview();
-            transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-            ClientPlayer.MyHandManager.RefreshCardsPlace();
+            if (boardAreaType != ClientPlayer.MyHandArea) //脱手即假召唤，开始展示指定目标箭头
+            {
+                ClientPlayer.MyHandManager.SetCurrentSummonRetinuePreviewCard(this);
+                summonRetinuePreview(dragLastPosition, TargetRange);
+            }
+            else
+            {
+                ClientPlayer.MyBattleGroundManager.RemoveRetinuePreview();
+                transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
+                ClientPlayer.MyHandManager.RefreshCardsPlace();
+            }
         }
     }
 
@@ -195,7 +223,7 @@ internal class CardRetinue : CardBase
     #region 卡牌效果
 
     //召唤随从
-    private void summonRetinueRequest(Vector3 dragLastPosition)
+    private void summonRetinueRequest(Vector3 dragLastPosition, int targetRetinueId)
     {
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
         {
@@ -204,8 +232,22 @@ internal class CardRetinue : CardBase
         }
 
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z));
+        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId);
         Client.CS.Proxy.SendMessage(request);
+    }
+
+
+    //假召唤随从
+    private void summonRetinuePreview(Vector3 dragLastPosition, TargetSideEffect.TargetRange targetRange)
+    {
+        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
+        {
+            ClientPlayer.MyHandManager.RefreshCardsPlace();
+            return;
+        }
+
+        int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
+        ClientPlayer.MyBattleGroundManager.SummonRetinuePreview(this, battleGroundIndex, targetRange);
     }
 
     #endregion

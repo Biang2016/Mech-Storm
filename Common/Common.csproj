@@ -48,8 +48,10 @@
     </Compile>
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\AllSideEffects.cs" />
     <Compile Include="Net\GamePlay\Card\Cards\CardInfo.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffectBase.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\Base\TargetSideEffect.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\Base\SideEffectBase.cs" />
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffectManager.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\AddLifeForRandomRetinue_Base.cs" />
     <Compile Include="Net\GamePlay\DragPurpose.cs" />
     <Compile Include="Net\GamePlay\Player.cs" />
     <Compile Include="Net\GamePlay\ShieldTypes.cs" />

@@ -2,11 +2,17 @@
 
 <AllSideEffects>
   <SideEffect id="0" name="KillAllInBattleGround" desc="破坏{0}场上所有机甲">
-    <params name="WhoseBattleGround" type="string"></params><!--我方/敌方/（空指全场）-->
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
   </SideEffect>
-  <SideEffect id="1" name="AddLifeForSomeRetinue" desc="使{0}一个{1}机甲生命增加{2}">
-    <params name="RetinuePlayer" type="string"></params><!--我方/敌方/（空指全场）-->
-    <params name="Select" type="string"></params><!--"随机/指定"-->
+  <SideEffect id="1" name="AddLifeForSomeRetinue" desc="使{0}一个机甲生命增加{1}">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="2" name="AddLifeForRandomRetinue" desc="使{0}一个随机机甲生命增加{1}">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
 

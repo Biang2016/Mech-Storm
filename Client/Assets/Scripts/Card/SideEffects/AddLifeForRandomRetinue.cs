@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
+internal class AddLifeForRandomRetinue : AddLifeForRandomRetinue_Base
 {
-    public AddLifeForSomeRetinue()
+    public AddLifeForRandomRetinue()
     {
     }
 
@@ -16,6 +16,5 @@ internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
 
     public override void Excute(object Player)
     {
-        
     }
 }

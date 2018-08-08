@@ -53,6 +53,7 @@
     <Compile Include="Assets\Scripts\Card\Modules\ServerModuleWeapon.cs" />
     <Compile Include="Assets\Scripts\Card\Modules\ServerModuleBase.cs" />
     <Compile Include="Assets\Scripts\Card\Modules\ServerModuleRetinue.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\AddLifeForRandomRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\AddLifeForSomeRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\KillAllInBattleGround.cs" />
     <Compile Include="Assets\Scripts\GamePlay\ClientProxy.cs" />

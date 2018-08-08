@@ -154,7 +154,7 @@ internal class ServerGameManager
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Retinue info = (CardInfo_Retinue) sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
         sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
-        sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex);
+        sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex,r.targetRetinueId);
 
         Broadcast_SendOperationResponse();
     }
