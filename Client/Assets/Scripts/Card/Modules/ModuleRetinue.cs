@@ -908,6 +908,31 @@ internal class ModuleRetinue : ModuleBase
 
     #region 其他鼠标Hover效果
 
+    private bool isBeHover = false;
+
+    public bool IsBeHover
+    {
+        get { return isBeHover; }
+
+        set
+        {
+            IsBeHover = value;
+            if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this))
+            {
+                if (ClientPlayer == RoundManager.RM.EnemyClientPlayer)
+                {
+                    ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnEnemyHoverBloomColor);
+                }
+                else
+                {
+                    ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnSelfHoverBloomColor);
+                }
+
+                OnHoverBloom.gameObject.SetActive(value);
+            }
+        }
+    }
+
     public override void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
     {
         base.MouseHoverComponent_OnMouseEnterImmediately(mousePosition);
@@ -918,17 +943,15 @@ internal class ModuleRetinue : ModuleBase
             {
                 if (targetRange == TargetSideEffect.TargetRange.EnemyBattleGround || (targetRange == TargetSideEffect.TargetRange.EnemySodiers && CardInfo.BattleInfo.IsSodier) || targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.BattleInfo.IsSodier)
                 {
-                    ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnEnemyHoverBloomColor);
-                    OnHoverBloom.gameObject.SetActive(true);
+                    IsBeHover = true;
                 }
             }
             else
             {
-                if (ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue == this) return;
+                if (ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue == this) return; //不可指向自己
                 if (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSodiers && CardInfo.BattleInfo.IsSodier) || (targetRange == TargetSideEffect.TargetRange.SelfHeros && !CardInfo.BattleInfo.IsSodier))
                 {
-                    ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnSelfHoverBloomColor);
-                    OnHoverBloom.gameObject.SetActive(true);
+                    IsBeHover = true;
                 }
             }
         }
@@ -937,7 +960,7 @@ internal class ModuleRetinue : ModuleBase
     public override void MouseHoverComponent_OnMouseLeaveImmediately()
     {
         base.MouseHoverComponent_OnMouseLeaveImmediately();
-        OnHoverBloom.gameObject.SetActive(false);
+        IsBeHover = false;
     }
 
     #endregion

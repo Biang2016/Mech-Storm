@@ -35,6 +35,7 @@ public static class ProtoManager
         AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE_REQUEST);
         AddProtocol<EquipWeaponRequest>(NetProtocols.EQUIP_WEAPON_REQUEST);
         AddProtocol<EquipShieldRequest>(NetProtocols.EQUIP_SHIELD_REQUEST);
+        AddProtocol<UseSpellCardRequest>(NetProtocols.USE_SPELLCARD_REQUEST);
 
         AddProtocol<RetinueAttackRetinueRequest>(NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST);
 
@@ -63,6 +64,7 @@ public static class ProtoManager
         AddProtocol<SummonRetinueRequest_Response>(NetProtocols.SUMMON_RETINUE_REQUEST_RESPONSE);
         AddProtocol<EquipWeaponRequest_Response>(NetProtocols.EQUIP_WEAPON_REQUEST_RESPONSE);
         AddProtocol<EquipShieldRequest_Response>(NetProtocols.EQUIP_SHIELD_REQUEST_RESPONSE);
+        AddProtocol<UseSpellCardRequset_Response>(NetProtocols.USE_SPELLCARD_REQUEST_RESPONSE);
 
         AddProtocol<RetinueAttackRetinueRequest_Response>(NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE);
 
@@ -91,6 +93,7 @@ public static class ProtoManager
 
         AddProtocol<EquipWeaponServerRequest>(NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST);
         AddProtocol<EquipShieldServerRequest>(NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST);
+        AddProtocol<UseSpellCardServerRequset>(NetProtocols.SE_USE_SPELLCARD_SERVER_REQUEST);
 
         AddProtocol<RetinueAttackRetinueServerRequest>(NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST);
         AddProtocol<RetinueEffectRequest>(NetProtocols.SE_RETINUE_EFFECT);

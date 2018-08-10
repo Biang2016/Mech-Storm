@@ -193,6 +193,19 @@ internal class ServerGameManager
         Broadcast_SendOperationResponse();
     }
 
+    public void OnClientUseSpellCardRequest(UseSpellCardRequest r)
+    {
+        ClientA.CurrentClientRequestResponse = new UseSpellCardRequset_Response();
+        ClientB.CurrentClientRequestResponse = new UseSpellCardRequset_Response();
+
+        ServerPlayer sp = GetPlayerByClientId(r.clientId);
+        CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
+        sp.MyBattleGroundManager.UseSpellCard(r, cardInfo);
+
+        Broadcast_SendOperationResponse();
+    }
+
     public void OnClientRetinueAttackRetinueRequest(RetinueAttackRetinueRequest r)
     {
         ClientA.CurrentClientRequestResponse = new RetinueAttackRetinueRequest_Response();

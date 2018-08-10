@@ -171,6 +171,9 @@ internal class ClientProxy : ProxyBase
                     case EquipShieldRequest _:
                         MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest) r);
                         break;
+                    case UseSpellCardRequest _:
+                        MyServerGameManager?.OnClientUseSpellCardRequest((UseSpellCardRequest) r);
+                        break;
                     case LeaveGameRequest _: //正常退出游戏请求
                         MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
                         break;

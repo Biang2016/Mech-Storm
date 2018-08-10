@@ -51,7 +51,7 @@ public class EquipWeaponRequest : ClientRequestBase
 
     public override string DeserializeLog()
     {
-        string log = "";
+        string log = base.DeserializeLog();
         log += " [handCardInstanceId]=" + handCardInstanceId;
         log += " [retinueId]=" + retinueId;
         log += " [weaponPlaceIndex]=" + weaponPlaceIndex;

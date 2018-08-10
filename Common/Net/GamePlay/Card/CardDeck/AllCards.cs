@@ -152,6 +152,13 @@ public static class AllCards
                         shieldInfo: shieldInfo,
                         sideEffects_OnDie: SideEffects_OnDie));
                     break;
+                case CardTypes.Spell:
+                    addCard(new CardInfo_Spell(
+                        cardID: int.Parse(card.Attributes["id"].Value),
+                        baseInfo: baseInfo,
+                        upgradeInfo: upgradeInfo,
+                        sideEffects: SideEffects_OnSummoned));
+                    break;
             }
         }
     }

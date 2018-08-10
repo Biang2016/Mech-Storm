@@ -60,6 +60,9 @@ internal abstract class ServerCardBase
             case CardTypes.Shield:
                 newCard = new ServerCardShield();
                 break;
+            case CardTypes.Spell:
+                newCard = new ServerCardSpell();
+                break;
             default:
                 newCard = new ServerCardRetinue();
                 break;

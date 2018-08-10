@@ -95,6 +95,10 @@ internal class GameObjectPoolManager : MonoBehaviour
     internal GameObjectPool Pool_ShieldCardPool;
     public GameObject ShieldCardPrefab;
 
+    public GameObject SpellCardPool;
+    internal GameObjectPool Pool_SpellCardPool;
+    public GameObject SpellCardPrefab;
+
     public GameObject PackCardPool;
     internal GameObjectPool Pool_PackCardPool;
     public GameObject PackCardPrefab;
@@ -118,6 +122,10 @@ internal class GameObjectPoolManager : MonoBehaviour
     public GameObject ShieldSelectCardPool;
     internal GameObjectPool Pool_ShieldSelectCardPool;
     public GameObject ShieldSelectCardPrefab;
+
+    public GameObject SpellSelectCardPool;
+    internal GameObjectPool Pool_SpellSelectCardPool;
+    public GameObject SpellSelectCardPrefab;
 
     public GameObject SelectCardPool;
     internal GameObjectPool Pool_SelectCardPool;
@@ -182,6 +190,9 @@ internal class GameObjectPoolManager : MonoBehaviour
         Pool_ShieldCardPool = ShieldCardPool.GetComponent<GameObjectPool>();
         Pool_ShieldCardPool.Initiate(ShieldCardPrefab, 30);
 
+        Pool_SpellCardPool = SpellCardPool.GetComponent<GameObjectPool>();
+        Pool_SpellCardPool.Initiate(SpellCardPrefab, 30);
+
         Pool_PackCardPool = PackCardPool.GetComponent<GameObjectPool>();
         Pool_PackCardPool.Initiate(PackCardPrefab, 30);
 
@@ -199,6 +210,9 @@ internal class GameObjectPoolManager : MonoBehaviour
 
         Pool_ShieldSelectCardPool = ShieldSelectCardPool.GetComponent<GameObjectPool>();
         Pool_ShieldSelectCardPool.Initiate(ShieldSelectCardPrefab, 30);
+
+        Pool_SpellSelectCardPool = SpellSelectCardPool.GetComponent<GameObjectPool>();
+        Pool_SpellSelectCardPool.Initiate(SpellSelectCardPrefab, 30);
 
         Pool_SelectCardPool = SelectCardPool.GetComponent<GameObjectPool>();
         Pool_SelectCardPool.Initiate(SelectCardPrefab, 20);

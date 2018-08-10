@@ -34,8 +34,9 @@ public class NetProtocols
     public const int SUMMON_RETINUE_REQUEST_RESPONSE = 0x00000201; //召唤随从_服务器响应
     public const int EQUIP_WEAPON_REQUEST_RESPONSE = 0x00000202; //装备武器_服务器响应
     public const int EQUIP_SHIELD_REQUEST_RESPONSE = 0x00000203; //装备防具_服务器响应
+    public const int USE_SPELLCARD_REQUEST_RESPONSE = 0x00000204; //使用法术_服务器响应
 
-    public const int RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE = 0x00000204; //随从攻击随从_服务器响应
+    public const int RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE = 0x00000205; //随从攻击随从_服务器响应
 
     public const int END_ROUND_REQUEST_RESPONSE = 0x00000206; //结束回合_服务器响应
     #endregion
@@ -61,8 +62,9 @@ public class NetProtocols
 
     public const int SE_EQUIP_WEAPON_SERVER_REQUEST = 0x00000220; //装备武器
     public const int SE_EQUIP_SHIELD_SERVER_REQUEST = 0x00000221; //装备防具
+    public const int SE_USE_SPELLCARD_SERVER_REQUEST = 0x00000222; //使用法术
 
-    public const int SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST = 0x00000222; //随从攻击随从
+    public const int SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST = 0x00000223; //随从攻击随从
     public const int SE_RETINUE_EFFECT = 0x00000224; //随从特效
 
     #endregion
@@ -76,10 +78,11 @@ public class NetProtocols
     public const int SUMMON_RETINUE_REQUEST = 0x00000301; //召唤随从
     public const int EQUIP_WEAPON_REQUEST = 0x00000302; //装备武器
     public const int EQUIP_SHIELD_REQUEST = 0x00000303; //装备防具
+    public const int USE_SPELLCARD_REQUEST = 0x00000304; //使用法术
 
-    public const int RETINUE_ATTACK_RETINUE_REQUEST = 0x00000304; //随从攻击随从
+    public const int RETINUE_ATTACK_RETINUE_REQUEST = 0x00000305; //随从攻击随从
 
-    public const int END_ROUND_REQUEST = 0x00000305; //结束回合
+    public const int END_ROUND_REQUEST = 0x00000306; //结束回合
 
     #endregion
 

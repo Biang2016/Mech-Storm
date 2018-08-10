@@ -66,9 +66,23 @@ internal class DragComponent : MonoBehaviour
                     DragManager.DM.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                     caller.DragComponnet_DragOutEffects();
                     break;
+                case DragPurpose.Spell:
+                    if ((transform.position - dragBeginPosition).magnitude < dragDistance) //拖拽物体本身 
+                    {
+                        transform.position = transform.position + cameraPosition - dragLastPosition;
+                        dragLastPosition = cameraPosition;
+                    }
+                    else //拖拽一定距离产生效果
+                    {
+                        if (!DragManager.DM.CurrentArrow || !(DragManager.DM.CurrentArrow is ArrowAiming)) DragManager.DM.CurrentArrow = GameObjectPoolManager.GOPM.Pool_ArrowAimingPool.AllocateGameObject(DragManager.DM.transform).GetComponent<ArrowAiming>();
+                        DragManager.DM.CurrentArrow.Render(dragBeginPosition, cameraPosition);
+                        caller.DragComponnet_DragOutEffects();
+                    }
+
+                    break;
             }
 
-            caller.DragComponent_OnMousePressed(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(),dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
+            caller.DragComponent_OnMousePressed(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
         }
     }
 
@@ -223,4 +237,3 @@ internal interface IDragComponent
     float DragComponnet_DragDistance();
     void DragComponnet_DragOutEffects();
 }
-

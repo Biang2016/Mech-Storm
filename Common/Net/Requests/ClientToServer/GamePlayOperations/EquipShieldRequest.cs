@@ -51,7 +51,7 @@ public class EquipShieldRequest : ClientRequestBase
 
     public override string DeserializeLog()
     {
-        string log = "";
+        string log = base.DeserializeLog();
         log += " [handCardInstanceId]=" + handCardInstanceId;
         log += " [retinueID]=" + retinueID;
         log += " [shieldPlaceIndex]=" + shieldPlaceIndex;

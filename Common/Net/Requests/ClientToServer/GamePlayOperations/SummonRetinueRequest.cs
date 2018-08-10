@@ -59,7 +59,7 @@ public class SummonRetinueRequest : ClientRequestBase
 
     public override string DeserializeLog()
     {
-        string log = "";
+        string log = base.DeserializeLog();
         log += " [handCardInstanceId]=" + handCardInstanceId;
         log += " [battleGroundIndex]=" + battleGroundIndex;
         log += " [lastDragPosition]=" + lastDragPosition;

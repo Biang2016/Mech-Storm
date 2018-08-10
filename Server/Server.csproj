@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardBase.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardRetinue.cs" />
+    <Compile Include="Assets\Scripts\Card\Cards\ServerCardSpell.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardShield.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\ServerCardWeapon.cs" />
     <Compile Include="Assets\Scripts\Card\Modules\ServerModuleShield.cs" />

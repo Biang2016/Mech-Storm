@@ -57,6 +57,10 @@ public class TargetSideEffect : SideEffectBase
                 return "我方英雄";
             case TargetRange.EnemyHeros:
                 return "敌方英雄";
+            case TargetRange.SelfSodiers:
+                return "我方士兵";
+            case TargetRange.EnemySodiers:
+                return "敌方士兵";
             case TargetRange.SelfShip:
                 return "我方飞船";
             case TargetRange.EnemyShip:

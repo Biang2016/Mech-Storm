@@ -62,7 +62,10 @@
     <Compile Include="Net\Protocol\ProxyBase.cs" />
     <Compile Include="Net\Protocol\GamePlaySettings.cs" />
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />
+    <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\UseSpellCardRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EquipShieldRequest_Response.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\UseSpellCardServerRequset.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\UseSpellCardRequset_Response.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\CardDeckLeftChangeRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueEffectRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttackRetinueServerRequest.cs" />

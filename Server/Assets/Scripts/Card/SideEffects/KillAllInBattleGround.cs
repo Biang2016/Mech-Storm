@@ -26,8 +26,16 @@ internal class KillAllInBattleGround : KillAllInBattleGround_Base
                 player.MyEnemyPlayer.MyBattleGroundManager.KillAllInBattleGround();
                 break;
             case TargetRange.SelfHeros:
+                player.MyBattleGroundManager.KillAllHerosInBattleGround();
                 break;
             case TargetRange.EnemyHeros:
+                player.MyEnemyPlayer.MyBattleGroundManager.KillAllHerosInBattleGround();
+                break;
+            case TargetRange.SelfSodiers:
+                player.MyBattleGroundManager.KillAllSodiersInBattleGround();
+                break;
+            case TargetRange.EnemySodiers:
+                player.MyEnemyPlayer.MyBattleGroundManager.KillAllSodiersInBattleGround();
                 break;
             case TargetRange.SelfShip:
                 break;

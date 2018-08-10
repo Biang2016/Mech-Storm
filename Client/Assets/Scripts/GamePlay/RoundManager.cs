@@ -193,6 +193,11 @@ internal class RoundManager : MonoBehaviour
                 OnEquipShield((EquipShieldServerRequest) se);
                 break;
             }
+            case NetProtocols.SE_USE_SPELLCARD_SERVER_REQUEST:
+            {
+                OnUseSpellCard((UseSpellCardServerRequset) se);
+                break;
+            }
             case NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST:
             {
                 OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) se);
@@ -379,10 +384,6 @@ internal class RoundManager : MonoBehaviour
         if (cp == SelfClientPlayer && r.clientRetinueTempId >= 0) return;
         else
         {
-            //if (r.clientRetinueTempId >= 0)
-            //{
-
-            //}
             cp.MyBattleGroundManager.AddRetinue(r.battleGroundIndex);
 
         }
@@ -465,6 +466,12 @@ internal class RoundManager : MonoBehaviour
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         cp.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId);
+    }
+
+    private void OnUseSpellCard(UseSpellCardServerRequset r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        //Todo
     }
 
     public void OnRetinueAttackRetinue(RetinueAttackRetinueServerRequest r)

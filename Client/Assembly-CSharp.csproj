@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Card\Cards\CardBase.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\CardRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\CardShield.cs" />
+    <Compile Include="Assets\Scripts\Card\Cards\CardSpell.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\CardWeapon.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\ColliderReplace.cs" />
     <Compile Include="Assets\Scripts\Card\Modules\ModuleBase.cs" />

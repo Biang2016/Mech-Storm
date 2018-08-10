@@ -111,7 +111,7 @@ internal class DragManager : MonoBehaviour
 
     private void SummonPreviewDrag()
     {
-        if (!CurrentArrow || !(CurrentArrow is ArrowArrow)) CurrentArrow = GameObjectPoolManager.GOPM.Pool_ArrowArrowPool.AllocateGameObject(transform).GetComponent<ArrowArrow>();
+        if (!CurrentArrow || !(CurrentArrow is ArrowAiming)) CurrentArrow = GameObjectPoolManager.GOPM.Pool_ArrowAimingPool.AllocateGameObject(transform).GetComponent<ArrowAiming>();
         Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CurrentArrow.Render(CurrentSummonPreviewRetinue.transform.position, cameraPosition);
         if (Input.GetMouseButtonUp(0))

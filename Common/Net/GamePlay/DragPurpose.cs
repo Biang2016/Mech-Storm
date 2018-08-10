@@ -9,4 +9,5 @@ public enum DragPurpose
     Summon = 1,
     Equip = 2,
     Attack = 3,
+    Spell = 4,
 }

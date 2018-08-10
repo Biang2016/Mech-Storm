@@ -6,7 +6,21 @@ using MyCardGameCommon;
 
 internal class ServerBattleGroundManager
 {
+    private int retinueCount;
+
+    public int RetinueCount
+    {
+        get { return retinueCount; }
+        set
+        {
+            retinueCount = value;
+            BattleGroundIsFull = retinueCount == GamePlaySettings.MaxRetinueNumber;
+            BattleGroundIsEmpty = retinueCount == 0;
+        }
+    }
+
     public bool BattleGroundIsFull;
+    public bool BattleGroundIsEmpty;
     public ServerPlayer ServerPlayer;
     private List<ServerModuleRetinue> Retinues = new List<ServerModuleRetinue>();
 
@@ -36,7 +50,7 @@ internal class ServerBattleGroundManager
 
         retinue.OnSummoned(targetRetinueId); //先战吼，再进战场
         Retinues.Insert(retinuePlaceIndex, retinue);
-        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+        RetinueCount = Retinues.Count;
     }
 
     public void RemoveRetinue(ServerModuleRetinue retinue)
@@ -44,7 +58,7 @@ internal class ServerBattleGroundManager
         int battleGroundIndex = Retinues.IndexOf(retinue);
         if (battleGroundIndex == -1) return;
         Retinues.Remove(retinue);
-        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+        RetinueCount = Retinues.Count;
 
         BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(new List<int> {retinue.M_RetinueID});
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
@@ -72,6 +86,25 @@ internal class ServerBattleGroundManager
         retinue.M_Shield = shield;
     }
 
+    public void UseSpellCard(UseSpellCardRequest r, CardInfo_Base cardInfo)
+    {
+        int targetRetinueId = r.targetRetinueId;
+        if (r.isTargetRetinueIdTempId)
+        {
+            targetRetinueId = GetRetinueIdByClientRetinueTempId(r.targetRetinueId);
+        }
+
+        foreach (SideEffectBase se in cardInfo.SideEffects_OnSummoned)
+        {
+            if (se is TargetSideEffect)
+            {
+                ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
+            }
+
+            se.Excute(ServerPlayer);
+        }
+    }
+
     public void KillAllInBattleGround() //杀死本方清场
     {
         List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
@@ -89,12 +122,56 @@ internal class ServerBattleGroundManager
 
         ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
 
-        while (Retinues.Count > 0)
+        Retinues.Clear();
+        RetinueCount = Retinues.Count;
+    }
+
+    public void KillAllHerosInBattleGround() //杀死本方所有英雄
+    {
+        List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
+        for (int i = 0; i < Retinues.Count; i++)
         {
-            Retinues.Clear();
+            if (!Retinues[i].CardInfo.BattleInfo.IsSodier) dieRetinues.Add(Retinues[i]);
         }
 
-        BattleGroundIsFull = Retinues.Count == GamePlaySettings.MaxRetinueNumber;
+        dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
+
+        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
+        {
+            serverModuleRetinue.OnDieTogather();
+        }
+
+        ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
+
+        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
+        {
+            Retinues.Remove(serverModuleRetinue);
+            RetinueCount = Retinues.Count;
+        }
+    }
+
+    public void KillAllSodiersInBattleGround() //杀死本方所有士兵
+    {
+        List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
+        for (int i = 0; i < Retinues.Count; i++)
+        {
+            if (Retinues[i].CardInfo.BattleInfo.IsSodier) dieRetinues.Add(Retinues[i]);
+        }
+
+        dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
+
+        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
+        {
+            serverModuleRetinue.OnDieTogather();
+        }
+
+        ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
+
+        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
+        {
+            Retinues.Remove(serverModuleRetinue);
+            RetinueCount = Retinues.Count;
+        }
     }
 
     public void AddLifeForRandomRetinue(int value) //本方增加随机随从生命

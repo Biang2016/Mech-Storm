@@ -78,6 +78,10 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
                     newCard = GameObjectPoolManager.GOPM.Pool_ShieldCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
                     newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_ShieldCardPool;
                     break;
+                case CardTypes.Spell:
+                    newCard = GameObjectPoolManager.GOPM.Pool_SpellCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
+                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_SpellCardPool;
+                    break;
                 default:
                     newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
                     newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueCardPool;
@@ -101,6 +105,10 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
                 case CardTypes.Shield:
                     newCard = GameObjectPoolManager.GOPM.Pool_ShieldSelectCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
                     newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_ShieldSelectCardPool;
+                    break;
+                case CardTypes.Spell:
+                    newCard = GameObjectPoolManager.GOPM.Pool_SpellSelectCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
+                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_SpellSelectCardPool;
                     break;
                 default:
                     newCard = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();

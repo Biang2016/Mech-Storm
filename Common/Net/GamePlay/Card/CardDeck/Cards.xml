@@ -9,17 +9,17 @@
     </Card>
     
     <Card id="0">
-        <CardInfo name="baseInfo" cardName="突击敢达" cardDesc="" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4" hightLightColor="#FFFF00"/>
+        <CardInfo name="baseInfo" cardName="强袭自由敢达" cardDesc="" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4" hightLightColor="#FFFF00"/>
         <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="0" />
         <CardInfo name="lifeInfo" life="6" totalLife="6" />
         <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" isSodier="False" />
         <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
         <CardInfo name="sideEffectsInfo" happenTime="OnDie">
-          <SideEffect name="KillAllInBattleGround" IsNeedChoise="False" M_TargetRange="SelfBattleGround"></SideEffect>
+          <SideEffect name="KillAllInBattleGround" IsNeedChoise="False" M_TargetRange="EnemySodiers"></SideEffect>
         </CardInfo>
     </Card>
     <Card id="1">
-        <CardInfo name="baseInfo" cardName="守卫者" cardDesc="" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4" hightLightColor="#FFFF00"/>
+        <CardInfo name="baseInfo" cardName="强袭敢达" cardDesc="" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4" hightLightColor="#FFFF00"/>
         <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="0" />
         <CardInfo name="lifeInfo" life="5" totalLife="5" />
         <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="3" isSodier="False"  />
@@ -139,5 +139,13 @@
         <CardInfo name="baseInfo" cardName="新兵盾牌Ⅲ" cardDesc="" cost="3" dragPurpose="Equip" cardType="Shield" cardColor="#FF8E00" hightLightColor="#67c8FF"/>
         <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="3" />
         <CardInfo name="shieldInfo" armor="8" shield="0" shieldType="Armor" />
+    </Card>
+
+    <Card id="600">
+        <CardInfo name="baseInfo" cardName="火神扫射" cardDesc="" cost="1" dragPurpose="Spell" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#080090"/>
+        <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="1" />
+        <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+          <SideEffect name="DamageSomeRetinue" IsNeedChoise="True" M_TargetRange="All" Value="2"></SideEffect>
+        </CardInfo>
     </Card>
 </AllCards>
