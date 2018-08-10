@@ -48,6 +48,8 @@
     </Compile>
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\AllSideEffects.cs" />
     <Compile Include="Net\GamePlay\Card\Cards\CardInfo.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\HealSomeRetinue_Base.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\DamageSomeRetinue_Base.cs" />
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\Base\TargetSideEffect.cs" />
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\Base\SideEffectBase.cs" />
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffectManager.cs" />

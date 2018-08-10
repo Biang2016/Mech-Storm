@@ -370,13 +370,22 @@ internal class RoundManager : MonoBehaviour
     private void OnBattleGroundAddRetinue_PrePass(BattleGroundAddRetinueRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.AddRetinue_PrePass(r.cardInfo, r.retinueId);
+        cp.MyBattleGroundManager.AddRetinue_PrePass(r.cardInfo, r.retinueId, r.clientRetinueTempId);
     }
 
     private void OnBattleGroundAddRetinue(BattleGroundAddRetinueRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.AddRetinue(r.battleGroundIndex);
+        if (cp == SelfClientPlayer && r.clientRetinueTempId >= 0) return;
+        else
+        {
+            //if (r.clientRetinueTempId >= 0)
+            //{
+
+            //}
+            cp.MyBattleGroundManager.AddRetinue(r.battleGroundIndex);
+
+        }
     }
 
     private void OnBattleGroundRemoveRetinue_PrePass(BattleGroundRemoveRetinueRequest r)
@@ -464,7 +473,7 @@ internal class RoundManager : MonoBehaviour
         ClientPlayer cp_beAttack = GetPlayerByClientId(r.BeAttackedRetinueClientId);
         ModuleRetinue attackRetinue = cp_attack.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
         ModuleRetinue beAttackRetinue = cp_beAttack.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
-        attackRetinue.Attack(beAttackRetinue,true);
+        attackRetinue.Attack(beAttackRetinue, true);
     }
 
     private void OnRetinueEffect(RetinueEffectRequest r)

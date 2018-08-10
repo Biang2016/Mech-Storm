@@ -37,6 +37,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
             ((ModuleShield) this).SetNoPreview();
         }
 
+        gameObject.SetActive(true);
         gameObjectPool.RecycleGameObject(gameObject);
     }
 
@@ -306,6 +307,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
     public virtual void MouseHoverComponent_OnMouseEnter(Vector3 mousePosition)
     {
+        if (DragManager.DM.IsSummonPreview) return;
         ShowCardDetail(mousePosition);
         GameManager.GM.StartBlurBackGround();
     }
@@ -316,6 +318,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
     public virtual void MouseHoverComponent_OnMouseLeave()
     {
+        if (DragManager.DM.IsSummonPreview) return;
         HideCardDetail();
         GameManager.GM.StopBlurBackGround();
     }

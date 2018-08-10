@@ -45,6 +45,15 @@ internal class ServerModuleRetinue : ServerModuleBase
         set { m_RetinueID = value; }
     }
 
+
+    private int m_UsedClientRetinueTempId;
+
+    public int M_UsedClientRetinueTempId //曾用过的客户端临时Id
+    {
+        get { return m_UsedClientRetinueTempId; }
+        set { m_UsedClientRetinueTempId = value; }
+    }
+
     private bool m_IsDead;
 
     public bool M_IsDead
@@ -516,6 +525,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
             }
+
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);
             RetinueEffectRequest request = new RetinueEffectRequest(ServerPlayer.ClientId, M_RetinueID, RetinueEffectRequest.EffectType.OnSummon);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);

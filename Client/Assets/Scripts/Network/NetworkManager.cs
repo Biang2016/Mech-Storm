@@ -81,6 +81,8 @@ internal class NetworkManager : MonoBehaviour
                     }
                 }
             }
+
+            yield return null;
         }
     }
 

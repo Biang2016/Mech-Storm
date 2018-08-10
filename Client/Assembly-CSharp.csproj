@@ -73,6 +73,8 @@
     <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\AddLifeForRandomRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\AddLifeForSomeRetinue.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\DamageSomeRetinue.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\HealSomeRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\KillAllInBattleGround.cs" />
     <Compile Include="Assets\Scripts\Card\Slots\Slot.cs" />
     <Compile Include="Assets\Scripts\Common\ClientLog.cs" />

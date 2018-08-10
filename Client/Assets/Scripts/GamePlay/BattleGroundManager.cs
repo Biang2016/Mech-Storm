@@ -6,11 +6,24 @@ using UnityEngine;
 internal class BattleGroundManager : MonoBehaviour
 {
     internal bool BattleGroundIsFull;
+    internal bool BattleGroundIsEmpty = true;
     private Vector3 _defaultRetinuePosition = Vector3.zero;
 
     internal ClientPlayer ClientPlayer;
     public List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
+
     private int retinueCount;
+
+    private int RetinueCount //接到协议就计算随从数量，不会等到动画放完
+    {
+        get { return retinueCount; }
+        set
+        {
+            retinueCount = value;
+            BattleGroundIsFull = retinueCount >= GamePlaySettings.MaxRetinueNumber;
+            BattleGroundIsEmpty = retinueCount == 0;
+        }
+    }
 
     public void Reset()
     {
@@ -20,9 +33,9 @@ internal class BattleGroundManager : MonoBehaviour
         }
 
         ClientPlayer = null;
-        previewRetinuePlace = -1;
+        previewRetinuePlace = (int) previewRetinuePlaces.NoPreviewRetinueNow;
         Retinues.Clear();
-        retinueCount = 0;
+        RetinueCount = 0;
         RemoveRetinues.Clear();
     }
 
@@ -46,27 +59,44 @@ internal class BattleGroundManager : MonoBehaviour
 
     #endregion
 
-    #region 召唤随从
+    #region 召唤和移除
 
-    public ModuleRetinue AddRetinue_PrePass(CardInfo_Retinue retinueCardInfo, int retinueId)
+    public ModuleRetinue AddRetinue_PrePass(CardInfo_Retinue retinueCardInfo, int retinueId, int clientRetinueTempId)
     {
         if (ClientPlayer == null) return null;
-        if (previewRetinuePlace != -1)
+        if (previewRetinuePlace != (int) previewRetinuePlaces.NoPreviewRetinueNow)
         {
-            previewRetinuePlace = -1;
+            previewRetinuePlace = (int) previewRetinuePlaces.NoPreviewRetinueNow;
         }
 
-        ModuleRetinue retinue = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(transform).GetComponent<ModuleRetinue>();
-        retinue.transform.position = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.transform.position;
-        retinue.Initiate(retinueCardInfo, ClientPlayer);
-        retinue.transform.Rotate(Vector3.up, 180);
-        retinue.M_RetinueID = retinueId;
-        addPrePassRetinueQueue.Enqueue(retinue);
+        bool isSummonedBeforeByPreview = false;
+        if (clientRetinueTempId >= 0)
+        {
+            foreach (ModuleRetinue moduleRetinue in Retinues)
+            {
+                if (moduleRetinue.M_ClientTempRetinueID == clientRetinueTempId) //匹配
+                {
+                    moduleRetinue.M_RetinueID = retinueId; //赋予正常ID
+                    moduleRetinue.M_ClientTempRetinueID = (int) ModuleRetinue.ClientTempRetinueID.Normal; //恢复普通
+                    isSummonedBeforeByPreview = true;
+                    break;
+                }
+            }
+        }
 
-        retinueCount++;
-        BattleGroundIsFull = retinueCount >= GamePlaySettings.MaxRetinueNumber;
+        if (!isSummonedBeforeByPreview)
+        {
+            ModuleRetinue retinue = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(transform).GetComponent<ModuleRetinue>();
+            retinue.transform.position = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.transform.position;
+            retinue.Initiate(retinueCardInfo, ClientPlayer);
+            retinue.transform.Rotate(Vector3.up, 180);
+            retinue.M_RetinueID = retinueId;
+            addPrePassRetinueQueue.Enqueue(retinue);
+            RetinueCount++;
+            return retinue;
+        }
 
-        return retinue;
+        return null;
     }
 
 
@@ -76,68 +106,6 @@ internal class BattleGroundManager : MonoBehaviour
     {
         BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main, retinuePlaceIndex), "Co_RefreshBattleGroundAnim");
     }
-
-    #endregion
-
-    #region 召唤预览
-
-    private int previewRetinuePlace;
-
-    public void AddRetinuePreview(int placeIndex)
-    {
-        if (Retinues.Count == 0) return;
-        if (previewRetinuePlace == -1 || previewRetinuePlace != placeIndex)
-        {
-            previewRetinuePlace = placeIndex;
-            BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue), "Co_RefreshBattleGroundAnim");
-        }
-    }
-
-
-    public void RemoveRetinuePreview()
-    {
-        if (previewRetinuePlace != -1)
-        {
-            previewRetinuePlace = -1;
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
-        }
-    }
-
-    #endregion
-
-    #region 能指定目标的随从的预召唤
-
-    public delegate void SummonRetinueTarget(int targetRetinueId);
-
-    private CardRetinue currentSummonPreviewRetinueCard;
-    private ModuleRetinue currentSummonPreviewRetinue;
-
-    public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex,TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的随从的召唤预览、显示指定箭头
-    {
-        currentSummonPreviewRetinueCard = retinueCard;
-        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, -1);
-        currentSummonPreviewRetinue = retinue;
-        AddRetinue(retinuePlaceIndex);
-        DragManager.DM.SummonRetinueTargetHandler = SummonRetinueTargetConfirm;
-        DragManager.DM.StartArrowAiming(retinue, targetRange);
-    }
-
-    public void SummonRetinueTargetConfirm(int targetRetinueId)
-    {
-        if (targetRetinueId == -2) //未选择目标
-        {
-            RemoveRetinue(-1);
-            ClientPlayer.MyHandManager.CancelSummonRetinuePreview();
-        }
-        else
-        {
-            int battleGroundIndex = Retinues.IndexOf(currentSummonPreviewRetinue);
-            SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, currentSummonPreviewRetinueCard.M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(0, 0, 0), targetRetinueId);
-            Client.CS.Proxy.SendMessage(request);
-        }
-    }
-
-    #endregion
 
     public void RemoveRetinue(int retinueId)
     {
@@ -151,6 +119,7 @@ internal class BattleGroundManager : MonoBehaviour
     {
         ModuleRetinue retinue = GetRetinue(retinueId);
         retinue.CannotAttackBecauseDie = true;
+        RetinueCount--;
         RemoveRetinues.Add(retinue);
     }
 
@@ -160,13 +129,10 @@ internal class BattleGroundManager : MonoBehaviour
         {
             removeRetinue.PoolRecycle();
             Retinues.Remove(removeRetinue);
-            retinueCount--;
             ClientLog.CL.Print("remove:" + removeRetinue.M_RetinueID);
         }
 
         RemoveRetinues.Clear();
-
-        BattleGroundIsFull = retinueCount >= GamePlaySettings.MaxRetinueNumber;
     }
 
     public void RemoveRetinueTogatherEnd()
@@ -178,23 +144,119 @@ internal class BattleGroundManager : MonoBehaviour
     {
         retinue.PoolRecycle();
         Retinues.Remove(retinue);
-        retinueCount--;
-
-        BattleGroundIsFull = retinueCount >= GamePlaySettings.MaxRetinueNumber;
+        RetinueCount--;
         yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
-    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects)
+    #endregion
+
+    #region 出牌召唤预览
+
+    private int previewRetinuePlace;
+
+    private enum previewRetinuePlaces
     {
-        return Co_RefreshBattleGroundAnim(myParentEffects, -1);
+        NoPreviewRetinueNow = -1
+    }
+
+    public void AddRetinuePreview(int placeIndex)
+    {
+        if (Retinues.Count == 0) return;
+        if (previewRetinuePlace == (int) previewRetinuePlaces.NoPreviewRetinueNow || previewRetinuePlace != placeIndex)
+        {
+            previewRetinuePlace = placeIndex;
+            BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue), "Co_RefreshBattleGroundAnim");
+        }
+    }
+
+
+    public void RemoveRetinuePreview()
+    {
+        if (previewRetinuePlace != (int) previewRetinuePlaces.NoPreviewRetinueNow)
+        {
+            previewRetinuePlace = (int) previewRetinuePlaces.NoPreviewRetinueNow;
+            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
+        }
+    }
+
+    #endregion
+
+    #region 能指定目标的随从的预召唤
+
+    private static int clientRetinueTempId = 0;
+
+    public static int GenerateClientRetinueTempId()
+    {
+        return clientRetinueTempId++;
+    }
+
+    public delegate void SummonRetinueTarget(int targetRetinueId, bool isClientRetinueTempId = false);
+
+    private CardRetinue currentSummonPreviewRetinueCard;
+    public ModuleRetinue CurrentSummonPreviewRetinue;
+
+    public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的随从的召唤预览、显示指定箭头
+    {
+        currentSummonPreviewRetinueCard = retinueCard;
+        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int) ModuleRetinue.ClientTempRetinueID.SummonPreviewNotConfirm);
+        CurrentSummonPreviewRetinue = retinue;
+        AddRetinue(retinuePlaceIndex);
+        DragManager.DM.SummonRetinueTargetHandler = SummonRetinueTargetConfirm;
+        DragManager.DM.StartArrowAiming(retinue, targetRange);
+    }
+
+    public void SummonRetinueTargetConfirm(int targetRetinueId, bool isClientRetinueTempId)
+    {
+        if (targetRetinueId == (int) DragManager.TargetSelect.None) //未选择目标
+        {
+            RemoveRetinue((int) ModuleRetinue.RetinueID.Empty);
+            ClientPlayer.MyHandManager.CancelSummonRetinuePreview();
+        }
+        else
+        {
+            StartCoroutine(Co_RetrySummonRequest(CurrentSummonPreviewRetinue, currentSummonPreviewRetinueCard.M_CardInstanceId, targetRetinueId, isClientRetinueTempId));
+        }
+    }
+
+    IEnumerator Co_RetrySummonRequest(ModuleRetinue retinue, int cardInstanceId, int targetRetinueId, bool isClientRetinueTempId)
+    {
+        while (true)
+        {
+            int battleGroundIndex = Retinues.IndexOf(retinue); //确定的时候再获取位置信息（召唤的过程中可能会有协议没有跑完，会有随从生成）
+            if (battleGroundIndex != -1)
+            {
+                retinue.M_ClientTempRetinueID = GenerateClientRetinueTempId();
+                SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, cardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(0, 0, 0), targetRetinueId, isClientRetinueTempId, retinue.M_ClientTempRetinueID);
+                Client.CS.Proxy.SendMessage(request);
+                break;
+            }
+
+            yield return null;
+        }
+
+        yield return null;
+    }
+
+    #endregion
+
+
+    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects) //不新增随从,刷新
+    {
+        return Co_RefreshBattleGroundAnim(myParentEffects, (int) retinuePlaceIndex.NoNewRetinue);
+    }
+
+    private enum retinuePlaceIndex
+    {
+        NoNewRetinue = -1,
     }
 
     IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects, int retinuePlaceIndex)
     {
-        if (retinuePlaceIndex != -1) //新增随从
+        if (retinuePlaceIndex != (int) BattleGroundManager.retinuePlaceIndex.NoNewRetinue) //新增随从
         {
             ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
+
             Retinues.Insert(retinuePlaceIndex, retinue);
             retinue.OnSummon();
             retinue.transform.localPosition = _defaultRetinuePosition;
@@ -206,7 +268,7 @@ internal class BattleGroundManager : MonoBehaviour
 
         Vector3[] translations = new Vector3[Retinues.Count];
 
-        int actualPlaceCount = previewRetinuePlace == -1 ? Retinues.Count : Retinues.Count + 1;
+        int actualPlaceCount = previewRetinuePlace == (int) previewRetinuePlaces.NoPreviewRetinueNow ? Retinues.Count : Retinues.Count + 1;
 
         List<ModuleRetinue> movingRetinues = new List<ModuleRetinue>();
 
@@ -215,7 +277,7 @@ internal class BattleGroundManager : MonoBehaviour
             movingRetinues.Add(Retinues[i]);
 
             int actualPlace = i;
-            if (previewRetinuePlace != -1 && i >= previewRetinuePlace)
+            if (previewRetinuePlace != (int) previewRetinuePlaces.NoPreviewRetinueNow && i >= previewRetinuePlace)
             {
                 actualPlace += 1;
             }
@@ -255,8 +317,6 @@ internal class BattleGroundManager : MonoBehaviour
     List<SlotAnchor> relatedSlotAnchors = new List<SlotAnchor>();
 
     private IEnumerator currentShowSlotBloom;
-
-    int tmp;
 
     public void ShowTipSlotBlooms(SlotTypes slotType)
     {

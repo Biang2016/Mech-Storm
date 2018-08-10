@@ -35,6 +35,47 @@
           <SideEffect name="AddLifeForSomeRetinue" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="1"></SideEffect>
         </CardInfo>
     </Card>
+    <Card id="3">
+        <CardInfo name="baseInfo" cardName="RX-782" cardDesc="" cost="5" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4" hightLightColor="#FFFF00"/>
+        <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="0" />
+        <CardInfo name="lifeInfo" life="6" totalLife="6" />
+        <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" isSodier="False"  />
+        <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
+    </Card>
+    <Card id="4">
+        <CardInfo name="baseInfo" cardName="胖胖" cardDesc="" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#CBCBCB" hightLightColor="#FFFF00"/>
+        <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="0" />
+        <CardInfo name="lifeInfo" life="4" totalLife="4" />
+        <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSodier="True"  />
+        <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
+    </Card>
+    <Card id="5">
+        <CardInfo name="baseInfo" cardName="不知道叫啥" cardDesc="" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#5BAEF4" hightLightColor="#FFFF00"/>
+        <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="0" />
+        <CardInfo name="lifeInfo" life="4" totalLife="4" />
+        <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSodier="False"  />
+        <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
+    </Card>
+    <Card id="6">
+        <CardInfo name="baseInfo" cardName="炸弹" cardDesc="" cost="3" dragPurpose="Summon" cardType="Retinue" cardColor="#CBCBCB" hightLightColor="#FFFF00"/>
+        <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="0" />
+        <CardInfo name="lifeInfo" life="1" totalLife="1" />
+        <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSodier="True"  />
+        <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
+        <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+          <SideEffect name="DamageSomeRetinue" IsNeedChoise="True" M_TargetRange="EnemyBattleGround" Value="4"></SideEffect>
+        </CardInfo>
+    </Card>
+    <Card id="7">
+        <CardInfo name="baseInfo" cardName="战场小黄" cardDesc="" cost="2" dragPurpose="Summon" cardType="Retinue" cardColor="#CBCBCB" hightLightColor="#FFFF00"/>
+        <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="0" />
+        <CardInfo name="lifeInfo" life="1" totalLife="1" />
+        <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSodier="True"  />
+        <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
+        <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+          <SideEffect name="HealSomeRetinue" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="3"></SideEffect>
+        </CardInfo>
+    </Card>
     
     <Card id="100">
         <CardInfo name="baseInfo" cardName="热能斧Ⅰ" cardDesc="" cost="1" dragPurpose="Equip" cardType="Weapon" cardColor="#FF229D" hightLightColor="#FFFF00"/>

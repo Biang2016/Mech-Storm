@@ -84,11 +84,12 @@ internal class ServerGameManager
 
         foreach (CardInfo_Base cardInfo in PlayerA.MyCardDeckManager.M_CurrentCardDeck.BeginRetinueCards)
         {
-            PlayerA.MyBattleGroundManager.AddRetinue((CardInfo_Retinue)cardInfo);
+            PlayerA.MyBattleGroundManager.AddRetinue((CardInfo_Retinue) cardInfo);
         }
+
         foreach (CardInfo_Base cardInfo in PlayerB.MyCardDeckManager.M_CurrentCardDeck.BeginRetinueCards)
         {
-            PlayerB.MyBattleGroundManager.AddRetinue((CardInfo_Retinue)cardInfo);
+            PlayerB.MyBattleGroundManager.AddRetinue((CardInfo_Retinue) cardInfo);
         }
 
         if (isPlayerAFirst)
@@ -154,7 +155,13 @@ internal class ServerGameManager
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Retinue info = (CardInfo_Retinue) sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
         sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
-        sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex,r.targetRetinueId);
+        int targetRetinueId = r.targetRetinueId;
+        if (r.isTargetRetinueIdTempId)
+        {
+            targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.targetRetinueId);
+        }
+
+        sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex, targetRetinueId, r.clientRetinueTempId);
 
         Broadcast_SendOperationResponse();
     }
@@ -201,7 +208,7 @@ internal class ServerGameManager
         ServerModuleRetinue beAttackedRetinue = cpba.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
 
         attackRetinue.Attack(beAttackedRetinue, false);
- 
+
         Broadcast_SendOperationResponse();
     }
 

@@ -20,17 +20,18 @@ internal class ServerBattleGroundManager
 
     public void AddRetinue(CardInfo_Retinue retinueCardInfo)
     {
-        AddRetinue(retinueCardInfo, Retinues.Count, -2);
+        AddRetinue(retinueCardInfo, Retinues.Count, -2, -1);
     }
 
-    public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex, int targetRetinueId)
+    public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex, int targetRetinueId, int clientRetinueTempId)
     {
         int retinueId = ServerPlayer.MyGameManager.GeneratorNewRetinueId();
-        BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex, retinueId);
+        BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex, retinueId, clientRetinueTempId);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         ServerModuleRetinue retinue = new ServerModuleRetinue();
         retinue.M_RetinueID = retinueId;
+        retinue.M_UsedClientRetinueTempId = clientRetinueTempId;
         retinue.Initiate(retinueCardInfo, ServerPlayer);
 
         retinue.OnSummoned(targetRetinueId); //先战吼，再进战场
@@ -113,10 +114,30 @@ internal class ServerBattleGroundManager
         }
     }
 
+
     public void AddLifeForSomeRetinue(ServerModuleRetinue retinue, int value) //本方增加某随从生命
     {
         retinue.M_RetinueTotalLife += value;
         retinue.M_RetinueLeftLife += value;
+    }
+
+    public void HealSomeRetinue(int retinueId, int value) //治疗本方某随从
+    {
+        ServerModuleRetinue retinue = GetRetinue(retinueId);
+        if (retinue != null)
+        {
+            int healAmount = Math.Min(value, retinue.M_RetinueTotalLife - retinue.M_RetinueLeftLife);
+            retinue.M_RetinueLeftLife += healAmount;
+        }
+    }
+
+    public void DamageSomeRetinue(int retinueId, int value) //本方对某随从造成伤害
+    {
+        ServerModuleRetinue retinue = GetRetinue(retinueId);
+        if (retinue != null)
+        {
+            retinue.M_RetinueLeftLife -= value;
+        }
     }
 
     #endregion
@@ -134,6 +155,19 @@ internal class ServerBattleGroundManager
         }
 
         return null;
+    }
+
+    public int GetRetinueIdByClientRetinueTempId(int clientRetinueTempId)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        {
+            if (serverModuleRetinue.M_UsedClientRetinueTempId == clientRetinueTempId)
+            {
+                return serverModuleRetinue.M_RetinueID;
+            }
+        }
+
+        return -1;
     }
 
     public ServerModuleRetinue GetRandomRetinue()

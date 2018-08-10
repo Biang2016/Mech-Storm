@@ -106,7 +106,11 @@ internal class HandManager : MonoBehaviour
     {
         if (Time.time - lastUseCardShowTime < useCardShowIntervalMinimum) yield return new WaitForSeconds(useCardShowIntervalMinimum - (Time.time - lastUseCardShowTime));
         lastUseCardShowTime = Time.time;
-        if (current_SubCo_ShowCardForTime != null) StopCoroutine(current_SubCo_ShowCardForTime);
+        while (current_SubCo_ShowCardForTime != null)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
         current_SubCo_ShowCardForTime = SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.GM.ShowCardDuration);
         StartCoroutine(current_SubCo_ShowCardForTime);
         yield return null;
@@ -134,6 +138,9 @@ internal class HandManager : MonoBehaviour
         currentShowCard.transform.rotation = oldRotation;
         currentShowCard.CanBecomeBigger = false;
         currentShowCard.Usable = false;
+
+        currentShowCard.ChangeCardBloomColor(GameManager.HTMLColorToColor("#FFFFFF"));
+        currentShowCard.CardBloom.SetActive(true);
 
         float duration = GameManager.GM.ShowCardFlyTime;
         float rotateDuration = GameManager.GM.ShowCardRotateDuration;
@@ -163,10 +170,12 @@ internal class HandManager : MonoBehaviour
 
         currentShowCard.transform.position = targetPosition;
         currentShowCard.transform.rotation = targetRotation;
+        currentShowCard.transform.localScale = targetScale;
 
         RefreshCardsPlace();
         yield return new WaitForSeconds(f);
         currentShowCard.PoolRecycle();
+        current_SubCo_ShowCardForTime = null;
     }
 
     public void BeginRound()
@@ -266,6 +275,7 @@ internal class HandManager : MonoBehaviour
             if (ClientPlayer == RoundManager.RM.CurrentClientPlayer)
             {
                 card.Usable = (ClientPlayer == RoundManager.RM.SelfClientPlayer) && (card.M_Cost <= ClientPlayer.CostLeft);
+                if (card is CardRetinue) card.Usable &= !ClientPlayer.MyBattleGroundManager.BattleGroundIsFull;
             }
             else
             {

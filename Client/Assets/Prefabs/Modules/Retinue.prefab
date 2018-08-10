@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 33642990646434352}
   - component: {fileID: 23297141656776142}
   m_Layer: 9
-  m_Name: RetinueBloom
+  m_Name: RetinueCanAttackBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3032,7 +3032,7 @@ MonoBehaviour:
   MainBoardRenderer: {fileID: 23028197765640498}
   Star4: {fileID: 1346162165601484}
   TextMesh_RetinueName: {fileID: 102409462651317214}
-  RetinueBloom: {fileID: 23297141656776142}
+  RetinueCanAttackBloom: {fileID: 23297141656776142}
   OnHoverBloom: {fileID: 23708662108721906}
   SideEffcetBloom: {fileID: 23823971775441934}
   ShieldIconHit: {fileID: 95184642074789090}
@@ -3059,14 +3059,13 @@ MonoBehaviour:
   LifeBarMask: {fileID: 1142600874657134}
   LifeIncreaseArrow: {fileID: 95578862162121222}
   m_RetinueID: 0
+  m_ClientTempRetinueID: 0
   RetinueShieldFull: 0
-  CannotAttackBecauseDie: 0
-  CanAttack_Self: 0
-  CanAttack_Weapon: 0
-  CanAttack_Shield: 0
-  CanAttack_Pack: 0
-  CanAttack_MA: 0
   isFirstRound: 1
+  CannotAttackBecauseDie: 0
+  CanAttackThisRound: 0
+  CanCharge: 0
+  EndRound: 0
 --- !u!114 &114246604267631448
 MonoBehaviour:
   m_ObjectHideFlags: 1

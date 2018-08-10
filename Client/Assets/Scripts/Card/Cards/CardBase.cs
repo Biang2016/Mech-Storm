@@ -34,6 +34,9 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         {
             gameObjectPool.RecycleGameObject(gameObject);
         }
+
+        gameObject.SetActive(true);
+        CardBloom.SetActive(false);
     }
 
 

@@ -20,8 +20,9 @@ internal class MouseHoverManager : MonoBehaviour
         hi_ModulesHoverShowBloom = new HoverImmediately(modulesLayer);
         hi_CardHover = new HoverImmediately(cardsLayer);
         phi_SlotsPressHoverShowBloom = new PressHoverImmediately(slotsLayer);
-        hd_ModulesFocusShowPreview = new Focus(modulesLayer | retinuesLayer, GameManager.GM.RetinueDetailPreviewDelaySeconds,100f);
+        hd_ModulesFocusShowPreview = new Focus(modulesLayer | retinuesLayer, GameManager.GM.RetinueDetailPreviewDelaySeconds, 100f);
         hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer);
+        hi_RetinueHoverShowTargetedBloom = new HoverImmediately(retinuesLayer);
     }
 
     int cardsLayer;
@@ -35,6 +36,7 @@ internal class MouseHoverManager : MonoBehaviour
     private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
     private Focus hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
     private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
+    private HoverImmediately hi_RetinueHoverShowTargetedBloom; //当鼠标移到到随从上时显示被瞄准的轮廓荧光
 
     void Update()
     {
@@ -51,6 +53,11 @@ internal class MouseHoverManager : MonoBehaviour
             {
                 hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
             }
+        }
+
+        if (DragManager.DM.IsSummonPreview)
+        {
+            hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();
         }
     }
 

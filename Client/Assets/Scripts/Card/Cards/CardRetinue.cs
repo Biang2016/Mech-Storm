@@ -194,7 +194,7 @@ internal class CardRetinue : CardBase
         {
             if (boardAreaType != ClientPlayer.MyHandArea) //脱手即出牌
             {
-                summonRetinueRequest(dragLastPosition, -2);
+                summonRetinueRequest(dragLastPosition, (int) TargetRetinueSelect.None);
             }
             else
             {
@@ -207,7 +207,6 @@ internal class CardRetinue : CardBase
         {
             if (boardAreaType != ClientPlayer.MyHandArea) //脱手即假召唤，开始展示指定目标箭头
             {
-                ClientPlayer.MyHandManager.SetCurrentSummonRetinuePreviewCard(this);
                 summonRetinuePreview(dragLastPosition, TargetRange);
             }
             else
@@ -222,6 +221,11 @@ internal class CardRetinue : CardBase
 
     #region 卡牌效果
 
+    public enum TargetRetinueSelect
+    {
+        None = -2
+    }
+
     //召唤随从
     private void summonRetinueRequest(Vector3 dragLastPosition, int targetRetinueId)
     {
@@ -232,7 +236,7 @@ internal class CardRetinue : CardBase
         }
 
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId);
+        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId, false, (int) ModuleRetinue.ClientTempRetinueID.Normal);
         Client.CS.Proxy.SendMessage(request);
     }
 
@@ -246,8 +250,18 @@ internal class CardRetinue : CardBase
             return;
         }
 
+        ClientPlayer.MyHandManager.SetCurrentSummonRetinuePreviewCard(this);
+
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-        ClientPlayer.MyBattleGroundManager.SummonRetinuePreview(this, battleGroundIndex, targetRange);
+        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty)
+        {
+            SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), (int) TargetRetinueSelect.None, false, (int) ModuleRetinue.ClientTempRetinueID.Normal);
+            Client.CS.Proxy.SendMessage(request);
+        }
+        else
+        {
+            ClientPlayer.MyBattleGroundManager.SummonRetinuePreview(this, battleGroundIndex, targetRange);
+        }
     }
 
     #endregion

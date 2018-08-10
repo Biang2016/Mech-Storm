@@ -5,12 +5,22 @@
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
   </SideEffect>
-  <SideEffect id="1" name="AddLifeForSomeRetinue" desc="使{0}一个机甲生命增加{1}">
+  <SideEffect id="1" name="AddLifeForSomeRetinue" desc="使{0}一个机甲增加{1}点生命">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="2" name="AddLifeForRandomRetinue" desc="使{0}一个随机机甲生命增加{1}">
+  <SideEffect id="2" name="AddLifeForRandomRetinue" desc="使{0}一个随机机甲增加{1}点生命">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="3" name="DamageSomeRetinue" desc="使{0}一个机甲减少{1}点生命">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="4" name="HealSomeRetinue" desc="使{0}一个机甲恢复{1}点生命">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>

@@ -59,7 +59,7 @@ public static class AllCards
                         battleInfo = new BattleInfo(int.Parse(cardInfo.Attributes["basicAttack"].Value),
                             int.Parse(cardInfo.Attributes["basicShield"].Value),
                             int.Parse(cardInfo.Attributes["basicArmor"].Value),
-                            cardInfo.Attributes["isSodier"].Value=="True");
+                            cardInfo.Attributes["isSodier"].Value == "True");
                         break;
                     case "slotInfo":
                         slotInfo = new SlotInfo((SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
@@ -108,7 +108,10 @@ public static class AllCards
                                         fi.SetValue(sideEffect, attr.Value);
                                         break;
                                     case "Boolean":
-                                        fi.SetValue(sideEffect, attr.Value=="True");
+                                        fi.SetValue(sideEffect, attr.Value == "True");
+                                        break;
+                                    case "TargetRange":
+                                        fi.SetValue(sideEffect, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
                                         break;
                                 }
                             }

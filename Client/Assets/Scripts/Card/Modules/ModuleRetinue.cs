@@ -36,6 +36,8 @@ internal class ModuleRetinue : ModuleBase
         ShieldBar.gameObject.SetActive(false);
         SwordBar.gameObject.SetActive(false);
 
+        M_ClientTempRetinueID = -1;
+
         base.PoolRecycle();
     }
 
@@ -117,7 +119,7 @@ internal class ModuleRetinue : ModuleBase
 
     public TextMesh TextMesh_RetinueName;
 
-    public Renderer RetinueBloom;
+    public Renderer RetinueCanAttackBloom;
     public Renderer OnHoverBloom;
     public Renderer SideEffcetBloom;
     public Animator ShieldIconHit;
@@ -188,8 +190,8 @@ internal class ModuleRetinue : ModuleBase
         M_RetinueWeaponEnergy = 0;
         M_RetinueWeaponEnergyMax = 0;
         ChangePicture(CardInfo.CardID);
-        ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnHoverBloomColor);
-        ChangeBloomColor(RetinueBloom, GameManager.GM.RetinueBloomColor);
+        ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnEnemyHoverBloomColor);
+        ChangeBloomColor(RetinueCanAttackBloom, GameManager.GM.RetinueBloomColor);
 
         if (SlotAnchor1)
         {
@@ -224,6 +226,7 @@ internal class ModuleRetinue : ModuleBase
         isFirstRound = true;
         CannotAttackBecauseDie = false;
         CanAttackThisRound = false;
+        M_ClientTempRetinueID = -1;
 
         IsDead = false;
     }
@@ -231,23 +234,38 @@ internal class ModuleRetinue : ModuleBase
 
     private void ChangeBloomColor(Renderer rd, Color color)
     {
-        if (OnHoverBloom)
-        {
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            rd.GetPropertyBlock(mpb);
-            mpb.SetColor("_Color", color);
-            mpb.SetColor("_EmissionColor", color);
-            rd.SetPropertyBlock(mpb);
-        }
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        rd.GetPropertyBlock(mpb);
+        mpb.SetColor("_Color", color);
+        mpb.SetColor("_EmissionColor", color);
+        rd.SetPropertyBlock(mpb);
     }
 
-    [SerializeField]
-    private int m_RetinueID;
+    [SerializeField] private int m_RetinueID;
 
     public int M_RetinueID
     {
         get { return m_RetinueID; }
         set { m_RetinueID = value; }
+    }
+
+    public enum RetinueID
+    {
+        Empty = -1
+    }
+
+    [SerializeField] private int m_ClientTempRetinueID;
+
+    public int M_ClientTempRetinueID
+    {
+        get { return m_ClientTempRetinueID; }
+        set { m_ClientTempRetinueID = value; }
+    }
+
+    public enum ClientTempRetinueID //-1：默认值，普通召唤的随从, >=0：预召唤的随从分配的匹配号，-2：预召唤随从上场但未选择目标时的号码
+    {
+        Normal = -1,
+        SummonPreviewNotConfirm = -2
     }
 
     private string m_RetinueName;
@@ -519,8 +537,7 @@ internal class ModuleRetinue : ModuleBase
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
-    [SerializeField]
-    private int RetinueShieldFull;
+    [SerializeField] private int RetinueShieldFull;
 
     private int m_RetinueShield;
 
@@ -705,7 +722,7 @@ internal class ModuleRetinue : ModuleBase
         canAttack &= (M_RetinueAttack > 0);
         canAttack &= !EndRound;
 
-        RetinueBloom.gameObject.SetActive(canAttack);
+        RetinueCanAttackBloom.gameObject.SetActive(canAttack);
         return canAttack;
     }
 
@@ -847,7 +864,11 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             isBeDraggedHover = value;
-            if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this)) OnHoverBloom.gameObject.SetActive(value);
+            if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this))
+            {
+                ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnEnemyHoverBloomColor);
+                OnHoverBloom.gameObject.SetActive(value);
+            }
         }
     }
 
@@ -881,6 +902,42 @@ internal class ModuleRetinue : ModuleBase
         }
 
         DamageNumberTextMesh.text = "";
+    }
+
+    #endregion
+
+    #region 其他鼠标Hover效果
+
+    public override void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
+    {
+        base.MouseHoverComponent_OnMouseEnterImmediately(mousePosition);
+        if (DragManager.DM.IsSummonPreview)
+        {
+            TargetSideEffect.TargetRange targetRange = DragManager.DM.SummonRetinueTargetRange;
+            if (ClientPlayer == RoundManager.RM.EnemyClientPlayer)
+            {
+                if (targetRange == TargetSideEffect.TargetRange.EnemyBattleGround || (targetRange == TargetSideEffect.TargetRange.EnemySodiers && CardInfo.BattleInfo.IsSodier) || targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.BattleInfo.IsSodier)
+                {
+                    ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnEnemyHoverBloomColor);
+                    OnHoverBloom.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                if (ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue == this) return;
+                if (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSodiers && CardInfo.BattleInfo.IsSodier) || (targetRange == TargetSideEffect.TargetRange.SelfHeros && !CardInfo.BattleInfo.IsSodier))
+                {
+                    ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnSelfHoverBloomColor);
+                    OnHoverBloom.gameObject.SetActive(true);
+                }
+            }
+        }
+    }
+
+    public override void MouseHoverComponent_OnMouseLeaveImmediately()
+    {
+        base.MouseHoverComponent_OnMouseLeaveImmediately();
+        OnHoverBloom.gameObject.SetActive(false);
     }
 
     #endregion

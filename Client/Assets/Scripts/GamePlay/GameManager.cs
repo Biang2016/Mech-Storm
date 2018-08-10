@@ -66,7 +66,8 @@ internal class GameManager : MonoBehaviour
         if (UseInspectorParams) return;
         CardBloomColor = HTMLColorToColor("#FFFFFF");
         RetinueBloomColor = HTMLColorToColor("#06FF00");
-        RetinueOnHoverBloomColor = HTMLColorToColor("#FF0000");
+        RetinueOnEnemyHoverBloomColor = HTMLColorToColor("#FF0000");
+        RetinueOnSelfHoverBloomColor = HTMLColorToColor("#FFF69F");
         Slot1Color = HTMLColorToColor("#FF0000");
         Slot2Color = HTMLColorToColor("#FFED00");
         Slot3Color = HTMLColorToColor("#00FF6B");
@@ -81,7 +82,8 @@ internal class GameManager : MonoBehaviour
 
     public Color CardBloomColor;
     public Color RetinueBloomColor;
-    public Color RetinueOnHoverBloomColor;
+    public Color RetinueOnEnemyHoverBloomColor;
+    public Color RetinueOnSelfHoverBloomColor;
     public Color Slot1Color;
     public Color Slot2Color;
     public Color Slot3Color;

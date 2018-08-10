@@ -97,6 +97,11 @@ internal class DragManager : MonoBehaviour
     public BattleGroundManager.SummonRetinueTarget SummonRetinueTargetHandler;
     public TargetSideEffect.TargetRange SummonRetinueTargetRange;
 
+    public enum TargetSelect
+    {
+        None = -2
+    }
+
     public void StartArrowAiming(ModuleRetinue retinue, TargetSideEffect.TargetRange targetRange)
     {
         IsSummonPreview = true;
@@ -109,7 +114,7 @@ internal class DragManager : MonoBehaviour
         if (!CurrentArrow || !(CurrentArrow is ArrowArrow)) CurrentArrow = GameObjectPoolManager.GOPM.Pool_ArrowArrowPool.AllocateGameObject(transform).GetComponent<ArrowArrow>();
         Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CurrentArrow.Render(CurrentSummonPreviewRetinue.transform.position, cameraPosition);
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
@@ -131,44 +136,68 @@ internal class DragManager : MonoBehaviour
                 }
                 else
                 {
-                    switch (SummonRetinueTargetRange)
+                    if (RoundManager.RM.SelfClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue == retinue)//不可指向自己
                     {
-                        case TargetSideEffect.TargetRange.None:
-                            SummonRetinueTargetHandler(-2);
-                            break;
-                        case TargetSideEffect.TargetRange.SelfBattleGround:
-                            if (retinue.ClientPlayer == RoundManager.RM.SelfClientPlayer) SummonRetinueTargetHandler(retinue.M_RetinueID);
-                            else SummonRetinueTargetHandler(-2);
-                            break;
-                        case TargetSideEffect.TargetRange.EnemyBattleGround:
-                            if (retinue.ClientPlayer == RoundManager.RM.EnemyClientPlayer) SummonRetinueTargetHandler(retinue.M_RetinueID);
-                            else SummonRetinueTargetHandler(-2);
-                            break;
-                        case TargetSideEffect.TargetRange.SelfSodiers:
-                            if (retinue.ClientPlayer == RoundManager.RM.SelfClientPlayer && retinue.CardInfo.BattleInfo.IsSodier) SummonRetinueTargetHandler(retinue.M_RetinueID);
-                            else SummonRetinueTargetHandler(-2);
-                            break;
-                        case TargetSideEffect.TargetRange.EnemySodiers:
-                            if (retinue.ClientPlayer == RoundManager.RM.EnemyClientPlayer && retinue.CardInfo.BattleInfo.IsSodier) SummonRetinueTargetHandler(retinue.M_RetinueID);
-                            else SummonRetinueTargetHandler(-2);
-                            break;
-                        case TargetSideEffect.TargetRange.SelfHeros:
-                            if (retinue.ClientPlayer == RoundManager.RM.SelfClientPlayer && !retinue.CardInfo.BattleInfo.IsSodier) SummonRetinueTargetHandler(retinue.M_RetinueID);
-                            else SummonRetinueTargetHandler(-2);
-                            break;
-                        case TargetSideEffect.TargetRange.EnemyHeros:
-                            if (retinue.ClientPlayer == RoundManager.RM.EnemyClientPlayer && !retinue.CardInfo.BattleInfo.IsSodier) SummonRetinueTargetHandler(retinue.M_RetinueID);
-                            else SummonRetinueTargetHandler(-2);
-                            break;
-                        case TargetSideEffect.TargetRange.All:
-                            SummonRetinueTargetHandler(retinue.M_RetinueID);
-                            break;
+                        SummonRetinueTargetHandler(-2);
+                        CurrentArrow.PoolRecycle();
+                        IsSummonPreview = false;
                     }
+                    else
+                    {
+                        int targetRetinueID = retinue.M_RetinueID;
+                        bool isClientRetinueTempId = false;
+                        if (retinue.M_RetinueID == -1) //如果该随从还未从服务器取得ID，则用tempID
+                        {
+                            targetRetinueID = retinue.M_ClientTempRetinueID;
+                            isClientRetinueTempId = true;
+                        }
+
+                        switch (SummonRetinueTargetRange)
+                        {
+                            case TargetSideEffect.TargetRange.None:
+                                SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.SelfBattleGround:
+                                if (retinue.ClientPlayer == RoundManager.RM.SelfClientPlayer) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                else SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.EnemyBattleGround:
+                                if (retinue.ClientPlayer == RoundManager.RM.EnemyClientPlayer) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                else SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.SelfSodiers:
+                                if (retinue.ClientPlayer == RoundManager.RM.SelfClientPlayer && retinue.CardInfo.BattleInfo.IsSodier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                else SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.EnemySodiers:
+                                if (retinue.ClientPlayer == RoundManager.RM.EnemyClientPlayer && retinue.CardInfo.BattleInfo.IsSodier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                else SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.SelfHeros:
+                                if (retinue.ClientPlayer == RoundManager.RM.SelfClientPlayer && !retinue.CardInfo.BattleInfo.IsSodier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                else SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.EnemyHeros:
+                                if (retinue.ClientPlayer == RoundManager.RM.EnemyClientPlayer && !retinue.CardInfo.BattleInfo.IsSodier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                else SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.All:
+                                SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                break;
+                        }
+                    }
+
 
                     CurrentArrow.PoolRecycle();
                     IsSummonPreview = false;
                 }
             }
+        }
+        else if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonUp(1))
+        {
+            SummonRetinueTargetHandler(-2);
+            CurrentArrow.PoolRecycle();
+            IsSummonPreview = false;
         }
     }
 

@@ -8,17 +8,21 @@ public class SummonRetinueRequest : ClientRequestBase
     public int battleGroundIndex;
     public Vector3 lastDragPosition;
     public int targetRetinueId; //-2表示无目标
+    public bool isTargetRetinueIdTempId; //目标ID是否也是临时ID
+    public int clientRetinueTempId; //客户端临时ID号，用于预召唤随从的匹配
 
     public SummonRetinueRequest()
     {
     }
 
-    public SummonRetinueRequest(int clientId, int handCardInstanceId, int battleGroundIndex, Vector3 lastDragPosition, int targetRetinueId) : base(clientId)
+    public SummonRetinueRequest(int clientId, int handCardInstanceId, int battleGroundIndex, Vector3 lastDragPosition, int targetRetinueId, bool isTargetRetinueIdTempId, int clientRetinueTempId) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
         this.battleGroundIndex = battleGroundIndex;
         this.lastDragPosition = lastDragPosition;
         this.targetRetinueId = targetRetinueId;
+        this.isTargetRetinueIdTempId = isTargetRetinueIdTempId;
+        this.clientRetinueTempId = clientRetinueTempId;
     }
 
     public override int GetProtocol()
@@ -38,6 +42,8 @@ public class SummonRetinueRequest : ClientRequestBase
         writer.WriteSInt32(battleGroundIndex);
         lastDragPosition.Serialize(writer);
         writer.WriteSInt32(targetRetinueId);
+        writer.WriteByte(isTargetRetinueIdTempId ? (byte) 0x01 : (byte) 0x00);
+        writer.WriteSInt32(clientRetinueTempId);
     }
 
     public override void Deserialize(DataStream reader)
@@ -47,6 +53,8 @@ public class SummonRetinueRequest : ClientRequestBase
         battleGroundIndex = reader.ReadSInt32();
         lastDragPosition = Vector3.Deserialize(reader);
         targetRetinueId = reader.ReadSInt32();
+        isTargetRetinueIdTempId = reader.ReadByte() == 0x01;
+        clientRetinueTempId = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
@@ -56,6 +64,8 @@ public class SummonRetinueRequest : ClientRequestBase
         log += " [battleGroundIndex]=" + battleGroundIndex;
         log += " [lastDragPosition]=" + lastDragPosition;
         log += " [targetRetinueId]=" + targetRetinueId;
+        log += " [isTargetRetinueIdTempId]=" + isTargetRetinueIdTempId;
+        log += " [clientRetinueTempId]=" + clientRetinueTempId;
         return log;
     }
 }

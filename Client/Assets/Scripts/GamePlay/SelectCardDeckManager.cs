@@ -50,6 +50,11 @@ public class SelectCardDeckManager : MonoBehaviour
             if (CurrentPreviewCard)
             {
                 if (Input.GetKeyDown(KeyCode.Escape) || isMouseDown) HidePreviewCard();
+                else if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    HidePreviewCard();
+                    HideWindow();
+                }
             }
             else
             {
