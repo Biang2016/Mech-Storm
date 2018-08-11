@@ -64,17 +64,19 @@ internal class Client : MonoBehaviour
     {
         foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
         {
-            ProtoManager.AddRequestDelegate((int)fi.GetRawConstantValue(), Response);
+            ProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
         }
     }
 
-    private void OnRestartSideEffects()
+    private void OnRestartSideEffects() //所有的副作用在此注册
     {
-        SideEffectManager.AddSideEffectTypes<KillAllInBattleGround>();
-        SideEffectManager.AddSideEffectTypes<AddLifeForSomeRetinue>();
-        SideEffectManager.AddSideEffectTypes<AddLifeForRandomRetinue>();
-        SideEffectManager.AddSideEffectTypes<DamageSomeRetinue>();
-        SideEffectManager.AddSideEffectTypes<HealSomeRetinue>();
+        List<Type> types = Utils.GetClassesByNameSpace("SideEffects");
+        MethodInfo mi = typeof(SideEffectManager).GetMethod("AddSideEffectTypes");
+        foreach (Type type in types)
+        {
+            MethodInfo mi_temp = mi.MakeGenericMethod(type);
+            mi_temp.Invoke(null, null);
+        }
     }
 
     #region 连接
@@ -211,7 +213,7 @@ internal class Client : MonoBehaviour
             catch (Exception e)
             {
                 ClientLog.CL.PrintError("[C]Failed to clientSocket error. " + e);
-                if (ServerSocket!=null) ServerSocket.Close();
+                if (ServerSocket != null) ServerSocket.Close();
                 Proxy.ClientState = ProxyBase.ClientStates.Nothing;
                 RoundManager.RM.StopGame();
                 break;
@@ -225,7 +227,7 @@ internal class Client : MonoBehaviour
 
     public void Send(object obj)
     {
-        ClientRequestBase request = (ClientRequestBase)obj;
+        ClientRequestBase request = (ClientRequestBase) obj;
 
         if (ServerSocket == null)
         {

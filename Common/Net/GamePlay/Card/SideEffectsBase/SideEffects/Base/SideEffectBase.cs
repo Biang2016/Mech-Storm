@@ -12,6 +12,8 @@ public class SideEffectBase:ICloneable
     public string Name;
     public string DescRaw;
 
+    public string HightlightColor;
+
     public SideEffectBase()
     {
     }

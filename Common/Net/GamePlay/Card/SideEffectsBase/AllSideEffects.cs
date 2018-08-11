@@ -26,7 +26,7 @@ public static class AllSideEffects
         {
             XmlNode sideEffectNode = allSideEffects.ChildNodes.Item(i);
 
-            SideEffectBase se = (SideEffectBase) assembly.CreateInstance(sideEffectNode.Attributes["name"].Value);
+            SideEffectBase se = (SideEffectBase) assembly.CreateInstance("SideEffects." + sideEffectNode.Attributes["name"].Value);
             se.SideEffectID = int.Parse(sideEffectNode.Attributes["id"].Value);
             se.Name = sideEffectNode.Attributes["name"].Value;
             se.DescRaw = sideEffectNode.Attributes["desc"].Value;

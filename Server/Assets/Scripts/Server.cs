@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Threading;
+using SideEffects;
 
 internal class Server
 {
@@ -57,15 +59,19 @@ internal class Server
     {
         foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
         {
-            ProtoManager.AddRequestDelegate((int)fi.GetRawConstantValue(), Response);
+            ProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
         }
     }
 
-    private void OnRestartSideEffects()//所有的副作用在此注册
+    private void OnRestartSideEffects() //所有的副作用在此注册
     {
-        SideEffectManager.AddSideEffectTypes<KillAllInBattleGround>();
-        SideEffectManager.AddSideEffectTypes<AddLifeForSomeRetinue>();
-        SideEffectManager.AddSideEffectTypes<AddLifeForRandomRetinue>();
+        List<Type> types = Utils.GetClassesByNameSpace("SideEffects");
+        MethodInfo mi = typeof(SideEffectManager).GetMethod("AddSideEffectTypes");
+        foreach (Type type in types)
+        {
+            MethodInfo mi_temp = mi.MakeGenericMethod(type);
+            mi_temp.Invoke(null, null);
+        }
     }
 
     /// <summary>
@@ -204,8 +210,8 @@ internal class Server
     {
         if (r is ClientRequestBase)
         {
-            ServerLog.PrintReceive("GetFrom clientId: " + ((ClientRequestBase)r).clientId + " <" + r.GetProtocolName() + "> " + r.DeserializeLog());
-            ClientRequestBase request = (ClientRequestBase)r;
+            ServerLog.PrintReceive("GetFrom clientId: " + ((ClientRequestBase) r).clientId + " <" + r.GetProtocolName() + "> " + r.DeserializeLog());
+            ClientRequestBase request = (ClientRequestBase) r;
             if (ClientsDict.ContainsKey(request.clientId))
             {
                 ClientsDict[request.clientId].ReceiveMessage(request);
@@ -221,7 +227,7 @@ internal class Server
     //对特定客户端发送信息
     public void DoSendToClient(object obj)
     {
-        SendMsg sendMsg = (SendMsg)obj;
+        SendMsg sendMsg = (SendMsg) obj;
         if (sendMsg == null)
         {
             ServerLog.PrintError("SendMsg is null");
@@ -250,7 +256,7 @@ internal class Server
             byte[] buffer = new byte[msg.Length + 4];
             DataStream writer = new DataStream(buffer, true);
 
-            writer.WriteInt32((uint)msg.Length); //增加数据长度
+            writer.WriteInt32((uint) msg.Length); //增加数据长度
             writer.WriteRaw(msg);
 
             byte[] data = writer.ToByteArray();

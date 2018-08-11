@@ -48,6 +48,7 @@
     </Compile>
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\AllSideEffects.cs" />
     <Compile Include="Net\GamePlay\Card\Cards\CardInfo.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\DamageRandomRetinue_Base.cs" />
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\HealSomeRetinue_Base.cs" />
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\DamageSomeRetinue_Base.cs" />
     <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\Base\TargetSideEffect.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\SummonRetinueRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\SummonRetinueRequest_Response.cs" />
     <Compile Include="Net\Requests\Vector3.cs" />
+    <Compile Include="Net\Utils\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Net\DataStream\DataHolder.cs" />
     <Compile Include="Net\DataStream\DataStream.cs" />

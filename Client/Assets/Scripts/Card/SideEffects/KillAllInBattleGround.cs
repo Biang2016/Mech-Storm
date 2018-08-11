@@ -4,18 +4,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-internal class KillAllInBattleGround : KillAllInBattleGround_Base
+namespace SideEffects
 {
-    public KillAllInBattleGround()
+    public class KillAllInBattleGround : KillAllInBattleGround_Base
     {
-    }
+        public KillAllInBattleGround()
+        {
+        }
 
-    public override String GenerateDesc()
-    {
-        return String.Format(DescRaw, GetChineseDescOfTargetRange(M_TargetRange));
-    }
-
-    public override void Excute(object Player)
-    {
+        public override void Excute(object Player)
+        {
+        }
     }
 }

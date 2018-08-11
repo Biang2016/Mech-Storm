@@ -48,17 +48,19 @@ internal class MouseHoverManager : MonoBehaviour
 
         if (DragManager.DM.CurrentDrag)
         {
-            ModuleRetinue mr = DragManager.DM.CurrentDrag.GetComponent<ModuleRetinue>();
+            ModuleRetinue mr = DragManager.DM.CurrentDrag_ModuleRetinue;
+            CardSpell cs = DragManager.DM.CurrentDrag_CardSpell;
             if (mr)
+            {
+                hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
+            }
+            else if (cs)
             {
                 hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
             }
         }
 
-        if (DragManager.DM.IsSummonPreview)
-        {
-            hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();
-        }
+        hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();
     }
 
     //判定鼠标未按下时的Hover，立即生效

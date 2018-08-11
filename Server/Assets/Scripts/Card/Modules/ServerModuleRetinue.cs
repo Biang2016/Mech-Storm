@@ -523,7 +523,10 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             if (se is TargetSideEffect)
             {
-                ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
+                if (((TargetSideEffect) se).IsNeedChoise)
+                {
+                    ((TargetSideEffect)se).TargetRetinueId = targetRetinueId;
+                }
             }
 
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);

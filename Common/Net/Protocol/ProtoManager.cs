@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Reflection;
 
 public static class ProtoManager
 {
@@ -19,90 +20,16 @@ public static class ProtoManager
         mProtocolMapping = new Dictionary<int, Func<DataStream, RequestBase>>();
         mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
 
-        #region ClientToServer
-
-        #region  OutGame
-
-        AddProtocol<CardDeckRequest>(NetProtocols.CARD_DECK_REQUEST);
-        AddProtocol<MatchRequest>(NetProtocols.MATCH_REQUEST);
-        AddProtocol<CancelMatchRequest>(NetProtocols.CANCEL_MATCH_REQUEST);
-        AddProtocol<LeaveGameRequest>(NetProtocols.LEAVE_GAME_REQUEST);
-
-        #endregion
-
-        #region Operation
-
-        AddProtocol<SummonRetinueRequest>(NetProtocols.SUMMON_RETINUE_REQUEST);
-        AddProtocol<EquipWeaponRequest>(NetProtocols.EQUIP_WEAPON_REQUEST);
-        AddProtocol<EquipShieldRequest>(NetProtocols.EQUIP_SHIELD_REQUEST);
-        AddProtocol<UseSpellCardRequest>(NetProtocols.USE_SPELLCARD_REQUEST);
-
-        AddProtocol<RetinueAttackRetinueRequest>(NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST);
-
-        AddProtocol<EndRoundRequest>(NetProtocols.END_ROUND_REQUEST);
-
-        #endregion
-
-        #endregion
-
-        #region ServerToClient
-
-        #region  OutGame
-
-        AddProtocol<ClientIdRequest>(NetProtocols.CLIENT_ID_REQUEST);
-        AddProtocol<HeartBeatRequest>(NetProtocols.HEART_BEAT_REQUEST);
-        AddProtocol<GameStopByLeaveRequest>(NetProtocols.GAME_STOP_BY_LEAVE_REQUEST);
-
-        #endregion
-
-        #region InGame
-
-        #region OperationResponse
-
-        AddProtocol<GameStart_Response>(NetProtocols.GAME_START_RESPONSE);
-
-        AddProtocol<SummonRetinueRequest_Response>(NetProtocols.SUMMON_RETINUE_REQUEST_RESPONSE);
-        AddProtocol<EquipWeaponRequest_Response>(NetProtocols.EQUIP_WEAPON_REQUEST_RESPONSE);
-        AddProtocol<EquipShieldRequest_Response>(NetProtocols.EQUIP_SHIELD_REQUEST_RESPONSE);
-        AddProtocol<UseSpellCardRequset_Response>(NetProtocols.USE_SPELLCARD_REQUEST_RESPONSE);
-
-        AddProtocol<RetinueAttackRetinueRequest_Response>(NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE);
-
-        AddProtocol<EndRoundRequest_Response>(NetProtocols.END_ROUND_REQUEST_RESPONSE);
-
-        #endregion
-
-        #region SideEffects
-
-        AddProtocol<SetPlayerRequest>(NetProtocols.SE_SET_PLAYER);
-
-        AddProtocol<PlayerTurnRequest>(NetProtocols.SE_PLAYER_TURN);
-        AddProtocol<PlayerCostChangeRequest>(NetProtocols.SE_PLAYER_COST_CHANGE);
-
-        AddProtocol<RetinueAttributesChangeRequest>(NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE);
-
-        AddProtocol<RetinueDieRequest>(NetProtocols.SE_RETINUE_DIE);
-
-        AddProtocol<BattleGroundAddRetinueRequest>(NetProtocols.SE_BATTLEGROUND_ADD_RETINUE);
-        AddProtocol<BattleGroundRemoveRetinueRequest>(NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE);
-
-        AddProtocol<CardDeckLeftChangeRequest>(NetProtocols.SE_CARDDECT_LEFT_CHANGE);
-        AddProtocol<DrawCardRequest>(NetProtocols.SE_DRAW_CARD);
-        AddProtocol<DropCardRequest>(NetProtocols.SE_DROP_CARD);
-        AddProtocol<UseCardRequest>(NetProtocols.SE_USE_CARD);
-
-        AddProtocol<EquipWeaponServerRequest>(NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST);
-        AddProtocol<EquipShieldServerRequest>(NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST);
-        AddProtocol<UseSpellCardServerRequset>(NetProtocols.SE_USE_SPELLCARD_SERVER_REQUEST);
-
-        AddProtocol<RetinueAttackRetinueServerRequest>(NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST);
-        AddProtocol<RetinueEffectRequest>(NetProtocols.SE_RETINUE_EFFECT);
-
-        #endregion
-
-        #endregion
-
-        #endregion
+        List<Type> types = Utils.GetClassesByBaseClass(typeof(ClientRequestBase));
+        types.AddRange(Utils.GetClassesByBaseClass(typeof(ServerRequestBase)));
+        types.AddRange(Utils.GetClassesByBaseClass(typeof(ClientOperationResponseBase)));
+        MethodInfo mi = typeof(ProtoManager).GetMethod("AddProtocol");
+        foreach (Type type in types)
+        {
+            MethodInfo mi_temp = mi.MakeGenericMethod(type);
+            RequestBase request = (RequestBase) typeof(RequestBase).Assembly.CreateInstance(type.Name);
+            mi_temp.Invoke(null, new object[] {request.GetProtocol()});
+        }
     }
 
 

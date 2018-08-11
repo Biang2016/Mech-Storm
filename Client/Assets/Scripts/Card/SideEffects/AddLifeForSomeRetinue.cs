@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-internal class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
+namespace SideEffects
 {
-    public AddLifeForSomeRetinue()
+    public class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
     {
-    }
+        public AddLifeForSomeRetinue()
+        {
+        }
 
-    public override string GenerateDesc()
-    {
-        return String.Format(DescRaw, GetChineseDescOfTargetRange(M_TargetRange), Value);
-    }
+        public override void Excute(object Player)
+        {
 
-    public override void Excute(object Player)
-    {
-        
+        }
     }
 }

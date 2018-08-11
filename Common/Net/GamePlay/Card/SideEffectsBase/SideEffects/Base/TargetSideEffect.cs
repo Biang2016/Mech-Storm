@@ -50,9 +50,9 @@ public class TargetSideEffect : SideEffectBase
         switch (targetRange)
         {
             case TargetRange.SelfBattleGround:
-                return "我方战场";
+                return "我方机甲";
             case TargetRange.EnemyBattleGround:
-                return "敌方战场";
+                return "敌方机甲";
             case TargetRange.SelfHeros:
                 return "我方英雄";
             case TargetRange.EnemyHeros:
@@ -70,5 +70,16 @@ public class TargetSideEffect : SideEffectBase
             default:
                 return "";
         }
+    }
+
+    public string HightlightStringFormat(string src, params object [] args)
+    {
+        string[] colorStrings = new string[args.Length];
+        for (int i = 0; i < args.Length; i++)
+        {
+            colorStrings[i] = "<color=\"" + HightlightColor + "\">" + args[i].ToString() + "</color>";
+        }
+
+        return String.Format(src, colorStrings);
     }
 }

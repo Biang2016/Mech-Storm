@@ -241,7 +241,8 @@ internal class ModuleRetinue : ModuleBase
         rd.SetPropertyBlock(mpb);
     }
 
-    [SerializeField] private int m_RetinueID;
+    [SerializeField]
+    private int m_RetinueID;
 
     public int M_RetinueID
     {
@@ -254,7 +255,8 @@ internal class ModuleRetinue : ModuleBase
         Empty = -1
     }
 
-    [SerializeField] private int m_ClientTempRetinueID;
+    [SerializeField]
+    private int m_ClientTempRetinueID;
 
     public int M_ClientTempRetinueID
     {
@@ -537,7 +539,8 @@ internal class ModuleRetinue : ModuleBase
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
-    [SerializeField] private int RetinueShieldFull;
+    [SerializeField]
+    private int RetinueShieldFull;
 
     private int m_RetinueShield;
 
@@ -878,16 +881,28 @@ internal class ModuleRetinue : ModuleBase
         base.MouseHoverComponent_OnMousePressEnterImmediately(mousePosition);
         if (DragManager.DM.CurrentDrag)
         {
-            ModuleRetinue mr = DragManager.DM.CurrentDrag.GetComponent<ModuleRetinue>();
-            if (mr.ClientPlayer != ClientPlayer && mr != this)
+            ModuleRetinue mr = DragManager.DM.CurrentDrag_ModuleRetinue;
+            CardSpell cs = DragManager.DM.CurrentDrag_CardSpell;
+            if (mr != null)
+            {
+                if (mr.ClientPlayer != ClientPlayer && mr != this)
+                {
+                    IsBeDraggedHover = true;
+                    if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
+                    {
+                        ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true; //箭头动画
+                    }
+
+                    DamageNumberTextMesh.text = DragoutDamage == 0 ? "" : "-" + DragoutDamage;
+                }
+            }
+            else if (cs != null)
             {
                 IsBeDraggedHover = true;
                 if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
                 {
                     ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true; //箭头动画
                 }
-
-                DamageNumberTextMesh.text = DragoutDamage == 0 ? "" : "-" + DragoutDamage;
             }
         }
     }
@@ -916,7 +931,7 @@ internal class ModuleRetinue : ModuleBase
 
         set
         {
-            IsBeHover = value;
+            isBeHover = value;
             if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this))
             {
                 if (ClientPlayer == RoundManager.RM.EnemyClientPlayer)
@@ -939,19 +954,18 @@ internal class ModuleRetinue : ModuleBase
         if (DragManager.DM.IsSummonPreview)
         {
             TargetSideEffect.TargetRange targetRange = DragManager.DM.SummonRetinueTargetRange;
-            if (ClientPlayer == RoundManager.RM.EnemyClientPlayer)
+            if ((ClientPlayer == RoundManager.RM.EnemyClientPlayer &&
+                 (targetRange == TargetSideEffect.TargetRange.EnemyBattleGround ||
+                  (targetRange == TargetSideEffect.TargetRange.EnemySodiers && CardInfo.BattleInfo.IsSodier) ||
+                  targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.BattleInfo.IsSodier))
+                ||
+                ClientPlayer == RoundManager.RM.SelfClientPlayer && ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue != this &&
+                (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSodiers && CardInfo.BattleInfo.IsSodier)))
             {
-                if (targetRange == TargetSideEffect.TargetRange.EnemyBattleGround || (targetRange == TargetSideEffect.TargetRange.EnemySodiers && CardInfo.BattleInfo.IsSodier) || targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.BattleInfo.IsSodier)
+                IsBeHover = true;
+                if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
                 {
-                    IsBeHover = true;
-                }
-            }
-            else
-            {
-                if (ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue == this) return; //不可指向自己
-                if (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSodiers && CardInfo.BattleInfo.IsSodier) || (targetRange == TargetSideEffect.TargetRange.SelfHeros && !CardInfo.BattleInfo.IsSodier))
-                {
-                    IsBeHover = true;
+                    ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true; //箭头动画
                 }
             }
         }
@@ -961,6 +975,10 @@ internal class ModuleRetinue : ModuleBase
     {
         base.MouseHoverComponent_OnMouseLeaveImmediately();
         IsBeHover = false;
+        if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
+        {
+            ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = false; //箭头动画
+        }
     }
 
     #endregion

@@ -36,8 +36,39 @@ internal class DragManager : MonoBehaviour
     int retinueLayer;
     int cardLayer;
 
-    internal DragComponent CurrentDrag;
     internal Arrow CurrentArrow;
+
+    private DragComponent currentDrag;
+
+    internal DragComponent CurrentDrag
+    {
+        get { return currentDrag; }
+        set
+        {
+            currentDrag = value;
+            if (currentDrag == null)
+            {
+                CurrentDrag_CardRetinue = null;
+                CurrentDrag_CardWeapon = null;
+                CurrentDrag_CardShield = null;
+                CurrentDrag_CardSpell = null;
+                CurrentDrag_ModuleRetinue = null;
+            }
+            else
+            {
+                CurrentDrag_CardRetinue = currentDrag.GetComponent<CardRetinue>();
+                CurrentDrag_CardWeapon = currentDrag.GetComponent<CardWeapon>();
+                CurrentDrag_CardShield = currentDrag.GetComponent<CardShield>();
+                CurrentDrag_CardSpell = currentDrag.GetComponent<CardSpell>();
+                CurrentDrag_ModuleRetinue = currentDrag.GetComponent<ModuleRetinue>();
+            }
+        }
+    }
+    internal CardRetinue CurrentDrag_CardRetinue;
+    internal CardWeapon CurrentDrag_CardWeapon;
+    internal CardShield CurrentDrag_CardShield;
+    internal CardSpell CurrentDrag_CardSpell;
+    internal ModuleRetinue CurrentDrag_ModuleRetinue;
 
 
     void Update()

@@ -6,12 +6,11 @@ using System.Text;
 
 namespace SideEffects
 {
-    public class HealSomeRetinue : HealSomeRetinue_Base
+    public class DamageRandomRetinue : DamageRandomRetinue_Base
     {
-        public HealSomeRetinue()
+        public DamageRandomRetinue()
         {
         }
-
 
         public override void Excute(object Player)
         {
@@ -19,48 +18,57 @@ namespace SideEffects
             switch (M_TargetRange)
             {
                 case TargetRange.SelfBattleGround:
-                    DoHealRetinue(player);
+                    DoDamageRandomRetinue(player);
                     break;
                 case TargetRange.EnemyBattleGround:
-                    DoHealRetinue(player.MyEnemyPlayer);
+                    DoDamageRandomRetinue(player.MyEnemyPlayer);
                     break;
                 case TargetRange.SelfHeros:
-                    DoHealRetinue(player);
+                    DoDamageRandomRetinue(player);
                     break;
                 case TargetRange.EnemyHeros:
-                    DoHealRetinue(player.MyEnemyPlayer);
+                    DoDamageRandomRetinue(player.MyEnemyPlayer);
                     break;
                 case TargetRange.SelfShip:
-                    DoHealShip(player);
+                    DoDamageShip(player);
                     break;
                 case TargetRange.EnemyShip:
-                    DoHealShip(player.MyEnemyPlayer);
+                    DoDamageShip(player.MyEnemyPlayer);
                     break;
                 case TargetRange.All:
                     if (TargetRetinueId >= 0) //随从
                     {
-                        DoHealRetinue(player);
-                        DoHealRetinue(player.MyEnemyPlayer);
+                        DoDamageRandomRetinue(player);
+                        DoDamageRandomRetinue(player.MyEnemyPlayer);
                     }
                     else if (TargetRetinueId == -1) //SelfShip
                     {
-                        DoHealShip(player);
+                        DoDamageShip(player);
                     }
                     else if (TargetRetinueId == -2) //EnemyShip
                     {
-                        DoHealShip(player.MyEnemyPlayer);
+                        DoDamageShip(player.MyEnemyPlayer);
                     }
 
                     break;
             }
         }
 
-        private void DoHealRetinue(ServerPlayer player)
+        private void DoDamageRandomRetinue(ServerPlayer player)
         {
-            player.MyBattleGroundManager.HealSomeRetinue(TargetRetinueId, Value);
+            ServerModuleRetinue targetRetinue = player.MyBattleGroundManager.GetRandomRetinue();
+            if (targetRetinue != null)
+            {
+                TargetRetinueId = targetRetinue.M_RetinueID;
+                player.MyBattleGroundManager.DamageSomeRetinue(TargetRetinueId, Value);
+            }
+            else
+            {
+                //不触发
+            }
         }
 
-        private void DoHealShip(ServerPlayer player)
+        private void DoDamageShip(ServerPlayer player)
         {
         }
     }

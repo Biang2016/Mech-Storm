@@ -98,7 +98,7 @@ internal class ServerBattleGroundManager
         {
             if (se is TargetSideEffect)
             {
-                ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
+                if (((TargetSideEffect) se).IsNeedChoise) ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
             }
 
             se.Excute(ServerPlayer);

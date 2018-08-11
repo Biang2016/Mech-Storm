@@ -57,13 +57,13 @@
         <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     </Card>
     <Card id="6">
-        <CardInfo name="baseInfo" cardName="炸弹" cardDesc="" cost="3" dragPurpose="Summon" cardType="Retinue" cardColor="#CBCBCB" hightLightColor="#FFFF00"/>
+        <CardInfo name="baseInfo" cardName="太空机雷" cardDesc="" cost="3" dragPurpose="Summon" cardType="Retinue" cardColor="#CBCBCB" hightLightColor="#FFFF00"/>
         <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="0" />
         <CardInfo name="lifeInfo" life="1" totalLife="1" />
         <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSodier="True"  />
         <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-        <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
-          <SideEffect name="DamageSomeRetinue" IsNeedChoise="True" M_TargetRange="EnemyBattleGround" Value="4"></SideEffect>
+        <CardInfo name="sideEffectsInfo" happenTime="OnDie">
+          <SideEffect name="DamageRandomRetinue" IsNeedChoise="False" M_TargetRange="EnemyBattleGround" Value="4"></SideEffect>
         </CardInfo>
     </Card>
     <Card id="7">

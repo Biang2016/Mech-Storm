@@ -116,6 +116,7 @@ public static class AllCards
                                 }
                             }
 
+                            sideEffect.HightlightColor = baseInfo.HightLightColor;
                             sideEffects.Add(sideEffect);
                         }
 

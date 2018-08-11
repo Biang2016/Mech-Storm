@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SideEffects
+namespace MyNamespace
 {
-    public class DamageSomeRetinue : DamageSomeRetinue_Base
+    public class DamageRandomRetinue : DamageRandomRetinue_Base
     {
-        public DamageSomeRetinue()
+        public DamageRandomRetinue()
         {
         }
 
