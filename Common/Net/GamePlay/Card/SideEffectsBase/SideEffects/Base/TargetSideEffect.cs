@@ -66,7 +66,7 @@ public class TargetSideEffect : SideEffectBase
             case TargetRange.EnemyShip:
                 return "敌方飞船";
             case TargetRange.All:
-                return "";
+                return "角色";
             default:
                 return "";
         }

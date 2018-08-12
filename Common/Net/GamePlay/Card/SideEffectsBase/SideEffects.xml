@@ -15,12 +15,12 @@
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="3" name="DamageSomeRetinue" desc="使一个{0}减少{1}点生命">
+  <SideEffect id="3" name="DamageSomeRetinue" desc="对一个{0}造成{1}点伤害">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="4" name="DamageRandomRetinue" desc="使一个随机{0}减少{1}点生命">
+  <SideEffect id="4" name="DamageRandomRetinue" desc="对一个随机{0}造成{1}点伤害">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>

@@ -142,7 +142,14 @@
     </Card>
 
     <Card id="600">
-        <CardInfo name="baseInfo" cardName="火神扫射" cardDesc="" cost="1" dragPurpose="Spell" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#080090"/>
+        <CardInfo name="baseInfo" cardName="火神扫射" cardDesc="" cost="1" dragPurpose="Spell" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#F7F7F7"/>
+        <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="1" />
+        <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+          <SideEffect name="DamageSomeRetinue" IsNeedChoise="True" M_TargetRange="All" Value="2"></SideEffect>
+        </CardInfo>
+    </Card>
+    <Card id="601">
+        <CardInfo name="baseInfo" cardName="火神扫射" cardDesc="" cost="1" dragPurpose="Spell" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#F7F7F7"/>
         <CardInfo name="upgradeInfo" upgradeCardID="-1" cardLevel="1" />
         <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
           <SideEffect name="DamageSomeRetinue" IsNeedChoise="True" M_TargetRange="All" Value="2"></SideEffect>
