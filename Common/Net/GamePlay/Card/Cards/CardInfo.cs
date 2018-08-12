@@ -284,6 +284,11 @@ public class CardInfo_Spell : CardInfo_Base
     public string GetCardDescShow()
     {
         string CardDescShow = BaseInfo.CardDescRaw;
+        foreach (SideEffectBase se in SideEffects_OnSummoned)
+        {
+            CardDescShow += se.GenerateDesc() + ";\n";
+        }
+
         return CardDescShow;
     }
 

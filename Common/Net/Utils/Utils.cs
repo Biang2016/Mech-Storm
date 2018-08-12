@@ -8,7 +8,7 @@ public class Utils
 {
     public static List<Type> GetClassesByNameSpace(string nameSpace)
     {
-        Assembly asm = Assembly.GetExecutingAssembly();
+        Assembly asm = Assembly.GetCallingAssembly();
 
         List<Type> res = new List<Type>();
 

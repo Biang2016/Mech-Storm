@@ -5,7 +5,7 @@
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
   </SideEffect>
-  <SideEffect id="1" name="AddLifeForSomeRetinue" desc="使{0}增加{1}点生命">
+  <SideEffect id="1" name="AddLifeForSomeRetinue" desc="使一个{0}增加{1}点生命">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>

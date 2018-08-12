@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyNamespace
+namespace SideEffects
 {
     public class DamageRandomRetinue : DamageRandomRetinue_Base
     {
