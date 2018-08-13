@@ -174,7 +174,7 @@ internal class ServerBattleGroundManager
         }
     }
 
-    public void AddLifeForRandomRetinue(int value) //本方增加随机随从生命
+    public void AddLifeForRandomRetinue(int value) //增加本方随机随从生命
     {
         ServerModuleRetinue retinue = GetRandomRetinue();
         if (retinue == null) return;
@@ -191,8 +191,7 @@ internal class ServerBattleGroundManager
         }
     }
 
-
-    public void AddLifeForSomeRetinue(ServerModuleRetinue retinue, int value) //本方增加某随从生命
+    public void AddLifeForSomeRetinue(ServerModuleRetinue retinue, int value) //增加本方某随从生命
     {
         retinue.M_RetinueTotalLife += value;
         retinue.M_RetinueLeftLife += value;
@@ -208,13 +207,16 @@ internal class ServerBattleGroundManager
         }
     }
 
-    public void DamageSomeRetinue(int retinueId, int value) //本方对某随从造成伤害
+    public void DamageSomeRetinue(int retinueId, int value) //对本方某随从造成伤害
     {
         ServerModuleRetinue retinue = GetRetinue(retinueId);
-        if (retinue != null)
-        {
-            retinue.M_RetinueLeftLife -= value;
-        }
+        retinue?.BeAttacked(value);
+    }
+
+    public void DamageRandomRetinue(int value) //对本方某随机随从造成伤害
+    {
+        ServerModuleRetinue targetRetinue = GetRandomRetinue();
+        if (targetRetinue != null) DamageSomeRetinue(targetRetinue.M_RetinueID, value);
     }
 
     #endregion
@@ -225,10 +227,7 @@ internal class ServerBattleGroundManager
     {
         foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
         {
-            if (serverModuleRetinue.M_RetinueID == retinueId)
-            {
-                return serverModuleRetinue;
-            }
+            if (serverModuleRetinue.M_RetinueID == retinueId) return serverModuleRetinue;
         }
 
         return null;

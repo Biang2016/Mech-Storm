@@ -56,16 +56,7 @@ namespace SideEffects
 
         private void DoDamageRandomRetinue(ServerPlayer player)
         {
-            ServerModuleRetinue targetRetinue = player.MyBattleGroundManager.GetRandomRetinue();
-            if (targetRetinue != null)
-            {
-                TargetRetinueId = targetRetinue.M_RetinueID;
-                player.MyBattleGroundManager.DamageSomeRetinue(TargetRetinueId, Value);
-            }
-            else
-            {
-                //不触发
-            }
+            player.MyBattleGroundManager.DamageRandomRetinue(Value);
         }
 
         private void DoDamageShip(ServerPlayer player)
