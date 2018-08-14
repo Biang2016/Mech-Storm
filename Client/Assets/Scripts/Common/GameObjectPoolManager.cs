@@ -131,6 +131,10 @@ internal class GameObjectPoolManager : MonoBehaviour
     internal GameObjectPool Pool_SelectCardPool;
     public GameObject SelectCardPrefab;
 
+    public GameObject CardDeckCardPool;
+    internal GameObjectPool Pool_CardDeckCardPool;
+    public GameObject CardDeckCardPrefab;
+
     void Awake()
     {
         Pool_ColliderReplacePool = ColliderReplacePool.GetComponent<GameObjectPool>();
@@ -216,6 +220,9 @@ internal class GameObjectPoolManager : MonoBehaviour
 
         Pool_SelectCardPool = SelectCardPool.GetComponent<GameObjectPool>();
         Pool_SelectCardPool.Initiate(SelectCardPrefab, 20);
+
+        Pool_CardDeckCardPool = CardDeckCardPool.GetComponent<GameObjectPool>();
+        Pool_CardDeckCardPool.Initiate(CardDeckCardPrefab, 20);
     }
 }
 

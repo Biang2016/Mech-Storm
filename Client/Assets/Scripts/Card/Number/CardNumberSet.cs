@@ -16,7 +16,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
     }
 
     GameObjectPool childrenPool;
-    public Animator NumberSetChangeAnim;
+    [SerializeField] private Animator NumberSetChangeAnim;
 
     void Awake()
     {
@@ -38,7 +38,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
     }
 
     private bool hasSign = false;
-    public bool IsSelect;
+    internal bool IsSelect;
     private char m_firstSign;
 
     public void initiate(char firstSign, int number, NumberSize numberSize, TextAlign textAlign, bool isSelect)

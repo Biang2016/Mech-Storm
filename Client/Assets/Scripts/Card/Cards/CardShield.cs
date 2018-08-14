@@ -20,9 +20,8 @@ internal class CardShield : CardBase
 
     #region 卡牌上各模块
 
-    public Text ShieldName;
-
-    public Text ShieldDesc;
+    [SerializeField]private Text ShieldName;
+    [SerializeField] private Text ShieldDesc;
 
     private string m_ShieldName;
 
@@ -66,7 +65,7 @@ internal class CardShield : CardBase
         base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
-            foreach (var sa in slotAnchors)
+            foreach (SlotAnchor sa in slotAnchors)
                 if (sa.M_Slot.MSlotTypes == SlotTypes.Shield && sa.M_Slot.ClientPlayer == ClientPlayer)
                 {
                     summonShieldRequest(sa.M_ModuleRetinue, dragLastPosition);

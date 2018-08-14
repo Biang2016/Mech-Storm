@@ -86,7 +86,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     {
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
-        ChangeColor(CardBase.HTMLColorToColor(cardInfo.BaseInfo.CardColor));
+        ChangeColor(ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.CardColor));
         Stars = cardInfo.UpgradeInfo.CardLevel;
     }
 

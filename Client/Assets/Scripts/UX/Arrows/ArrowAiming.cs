@@ -24,7 +24,7 @@ internal class ArrowAiming : Arrow
 
     Quaternion defaultRotation;
     Vector3 defaultPosition_ArrowBody;
-    public Transform ControlDirectionGo;
+    [SerializeField] private Transform ControlDirectionGo;
     Quaternion defaultRotation_Control;
 
     public override void Render(Vector3 StartPosition, Vector3 EndPosition)

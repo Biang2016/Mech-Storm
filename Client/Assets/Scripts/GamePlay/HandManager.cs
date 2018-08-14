@@ -139,7 +139,7 @@ internal class HandManager : MonoBehaviour
         currentShowCard.CanBecomeBigger = false;
         currentShowCard.Usable = false;
 
-        currentShowCard.ChangeCardBloomColor(GameManager.HTMLColorToColor("#FFFFFF"));
+        currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
         currentShowCard.CardBloom.SetActive(true);
 
         float duration = GameManager.GM.ShowCardFlyTime;
@@ -212,7 +212,7 @@ internal class HandManager : MonoBehaviour
         }
     }
 
-    public Quaternion DefaultCardRotation;
+    Quaternion defaultCardRotation;
     bool isSet_defaultCardRotation;
     Vector3 defaultCardPosition;
     bool isSet_defaultCardPosition;
@@ -223,7 +223,7 @@ internal class HandManager : MonoBehaviour
         if (cards.Count == 0) return;
         if (!isSet_defaultCardRotation)
         {
-            DefaultCardRotation = cards[0].transform.rotation;
+            defaultCardRotation = cards[0].transform.rotation;
             isSet_defaultCardRotation = true;
         }
 
@@ -239,7 +239,7 @@ internal class HandManager : MonoBehaviour
         foreach (CardBase card in cards)
         {
             count++;
-            card.transform.rotation = DefaultCardRotation;
+            card.transform.rotation = defaultCardRotation;
             card.transform.position = defaultCardPosition;
             card.transform.localScale = Vector3.one * GameManager.GM.HandCardSize;
             float rotateAngle = angle / cards.Count * (((cards.Count - 1) / 2.0f + 1) - count);
@@ -375,7 +375,7 @@ internal class HandManager : MonoBehaviour
             colliderReplace.Initiate(focusCard);
             //本卡牌变大，旋转至正位
             focusCard.transform.localScale = Vector3.one * GameManager.GM.PullOutCardSize;
-            focusCard.transform.rotation = DefaultCardRotation;
+            focusCard.transform.rotation = defaultCardRotation;
             if (ClientPlayer.WhichPlayer == Players.Self)
             {
                 //focusCard.transform.Rotate(Vector3.up * 180);

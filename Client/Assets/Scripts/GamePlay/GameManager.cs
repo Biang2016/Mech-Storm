@@ -32,15 +32,10 @@ internal class GameManager : MonoBehaviour
     {
     }
 
-
-    #region GamePlay
-
-    #endregion
-
     #region 游戏全局参数
 
-    public bool  UseInspectorParams = false;
-    public bool  ShowBEMMessages = false;
+    public bool UseInspectorParams = false;
+    public bool ShowBEMMessages = false;
 
     public float HandCardSize = 1.0f;
     public float HandCardInterval = 1.0f;
@@ -55,27 +50,31 @@ internal class GameManager : MonoBehaviour
     public float RetinueDetailPreviewDelaySeconds = 0.7f;
 
     internal Vector3 CardShowPosition;
-    public float CardShowScale=2f;
+    public float CardShowScale = 2f;
 
     public float ShowCardDuration = 0.7f;
     public float ShowCardRotateDuration = 0.1f;
     public float ShowCardFlyTime = 0.2f;
 
+    public int CardDeckCardNum = 10;
+    public Vector3 Self_CardDeckCardInterval;
+    public Vector3 Enemy_CardDeckCardInterval;
+
     private void initialize()
     {
         if (UseInspectorParams) return;
-        CardBloomColor = HTMLColorToColor("#FFFFFF");
-        RetinueBloomColor = HTMLColorToColor("#06FF00");
-        RetinueOnEnemyHoverBloomColor = HTMLColorToColor("#FF0000");
-        RetinueOnSelfHoverBloomColor = HTMLColorToColor("#FFF69F");
-        Slot1Color = HTMLColorToColor("#FF0000");
-        Slot2Color = HTMLColorToColor("#FFED00");
-        Slot3Color = HTMLColorToColor("#00FF6B");
-        Slot4Color = HTMLColorToColor("#2D37FF");
+        CardBloomColor = ClientUtils.HTMLColorToColor("#FFFFFF");
+        RetinueBloomColor = ClientUtils.HTMLColorToColor("#06FF00");
+        RetinueOnEnemyHoverBloomColor = ClientUtils.HTMLColorToColor("#FF0000");
+        RetinueOnSelfHoverBloomColor = ClientUtils.HTMLColorToColor("#FFF69F");
+        Slot1Color = ClientUtils.HTMLColorToColor("#FF0000");
+        Slot2Color = ClientUtils.HTMLColorToColor("#FFED00");
+        Slot3Color = ClientUtils.HTMLColorToColor("#00FF6B");
+        Slot4Color = ClientUtils.HTMLColorToColor("#2D37FF");
 
-        InjuredLifeNumberColor = HTMLColorToColor("#FF0015");
-        DefaultLifeNumberColor = HTMLColorToColor("#FFFFFF");
-        OverFlowTotalLifeColor = HTMLColorToColor("#00FF28");
+        InjuredLifeNumberColor = ClientUtils.HTMLColorToColor("#FF0015");
+        DefaultLifeNumberColor = ClientUtils.HTMLColorToColor("#FFFFFF");
+        OverFlowTotalLifeColor = ClientUtils.HTMLColorToColor("#00FF28");
 
         CardShowPosition = new Vector3(10, 3, 0);
     }
@@ -92,13 +91,6 @@ internal class GameManager : MonoBehaviour
     public Color DefaultLifeNumberColor;
     public Color InjuredLifeNumberColor;
     public Color OverFlowTotalLifeColor;
-
-    public static Color HTMLColorToColor(string htmlColor)
-    {
-        Color cl = new Color();
-        ColorUtility.TryParseHtmlString(htmlColor, out cl);
-        return cl;
-    }
 
     #endregion
 

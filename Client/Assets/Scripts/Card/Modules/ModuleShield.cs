@@ -26,18 +26,18 @@ internal class ModuleShield : ModuleBase
     #region 各模块、自身数值和初始化
 
     internal ModuleRetinue M_ModuleRetinue;
-    public TextMesh ShieldName;
-    public GameObject M_Bloom;
+    [SerializeField] private TextMesh ShieldName;
+    [SerializeField] private GameObject M_Bloom;
 
-    public GameObject Block_ShieldArmor;
+    [SerializeField] private GameObject Block_ShieldArmor;
     protected GameObject GoNumberSet_ShieldArmor;
     protected CardNumberSet CardNumberSet_ShieldArmor;
 
-    public GameObject Block_ShieldShield;
+    [SerializeField] private GameObject Block_ShieldShield;
     protected GameObject GoNumberSet_ShieldShield;
     protected CardNumberSet CardNumberSet_ShieldShield;
 
-    public Animator ShieldEquipedAnim;
+    [SerializeField] private Animator ShieldEquipedAnim;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
@@ -156,6 +156,11 @@ internal class ModuleShield : ModuleBase
     #endregion
 
     #region 交互UX
+
+    public void OnShieldEquiped()
+    {
+        ShieldEquipedAnim.SetTrigger("ShieldEquiped");
+    }
 
     public override void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
     {

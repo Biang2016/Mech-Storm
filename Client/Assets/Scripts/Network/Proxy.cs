@@ -18,15 +18,19 @@ internal class Proxy : ProxyBase
         get { return clientState; }
         set
         {
+            if (clientState != value) OnClientStateChange(value);
             clientState = value;
             ClientLog.CL.PrintClientStates("Client states: " + ClientState);
         }
     }
 
+    public delegate void ClientStateEventHandler(ClientStates clientStates);
+
+    public static event ClientStateEventHandler OnClientStateChange;
+
     public Proxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
     }
-
 
     #region 收发基础组件
 
@@ -53,7 +57,6 @@ internal class Proxy : ProxyBase
         {
             switch (r.GetProtocol())
             {
-
                 case NetProtocols.CLIENT_ID_REQUEST:
                 {
                     ClientIdRequest request = (ClientIdRequest) r;
@@ -72,10 +75,11 @@ internal class Proxy : ProxyBase
         else
         {
             ClientOperationResponseBase request = (ClientOperationResponseBase) r;
-            foreach (ServerRequestBase requestSideEffect in request.SideEffects)//请求预处理，提取关键信息，如随从死亡、弃牌等会影响客户端交互的信息
+            foreach (ServerRequestBase requestSideEffect in request.SideEffects) //请求预处理，提取关键信息，如随从死亡、弃牌等会影响客户端交互的信息
             {
                 RoundManager.RM.ResponseToSideEffects_PrePass(requestSideEffect);
             }
+
             foreach (ServerRequestBase requestSideEffect in request.SideEffects)
             {
                 RoundManager.RM.ResponseToSideEffects(requestSideEffect);

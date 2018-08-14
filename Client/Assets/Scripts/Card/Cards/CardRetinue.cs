@@ -46,11 +46,10 @@ internal class CardRetinue : CardBase
 
     #region 卡牌上各模块
 
-    public Text Text_RetinueName;
+    [SerializeField] private Text Text_RetinueName;
+    [SerializeField] private Text Text_RetinueDesc;
 
-    public Text Text_RetinueDesc;
-
-    public GameObject Block_RetinueTotalLife;
+    [SerializeField] private GameObject Block_RetinueTotalLife;
     GameObject GoNumberSet_RetinueTotalLife;
     CardNumberSet CardNumberSet_RetinueTotalLife;
 
@@ -149,10 +148,10 @@ internal class CardRetinue : CardBase
 
     #region 拼装上的模块
 
-    public Slot Slot1;
-    public Slot Slot2;
-    public Slot Slot3;
-    public Slot Slot4;
+    [SerializeField] private Slot Slot1;
+    [SerializeField] private Slot Slot2;
+    [SerializeField] private Slot Slot3;
+    [SerializeField] private Slot Slot4;
     internal GameObject Pack;
     internal ModuleWeapon Weapon;
     internal ModuleShield Shield;
@@ -189,7 +188,7 @@ internal class CardRetinue : CardBase
                 if (((TargetSideEffect) se).IsNeedChoise)
                 {
                     summonTarget = true;
-                    TargetRange = ((TargetSideEffect)se).M_TargetRange;
+                    TargetRange = ((TargetSideEffect) se).M_TargetRange;
                 }
             }
         }
@@ -198,7 +197,7 @@ internal class CardRetinue : CardBase
         {
             if (boardAreaType != ClientPlayer.MyHandArea) //脱手即出牌
             {
-                summonRetinueRequest(dragLastPosition, (int) TargetRetinueSelect.None);
+                summonRetinueRequest(dragLastPosition, TARGET_RETINUE_SELECT_NONE);
             }
             else
             {
@@ -225,6 +224,8 @@ internal class CardRetinue : CardBase
 
     #region 卡牌效果
 
+    public const int TARGET_RETINUE_SELECT_NONE = -2;
+
     public enum TargetRetinueSelect
     {
         None = -2
@@ -240,7 +241,7 @@ internal class CardRetinue : CardBase
         }
 
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId, false, (int) ModuleRetinue.ClientTempRetinueID.Normal);
+        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
         Client.CS.Proxy.SendMessage(request);
     }
 
@@ -259,7 +260,7 @@ internal class CardRetinue : CardBase
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty)
         {
-            SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), (int) TargetRetinueSelect.None, false, (int) ModuleRetinue.ClientTempRetinueID.Normal);
+            SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), TARGET_RETINUE_SELECT_NONE, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
             Client.CS.Proxy.SendMessage(request);
         }
         else

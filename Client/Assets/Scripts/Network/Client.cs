@@ -98,6 +98,14 @@ internal class Client : MonoBehaviour
         //异步连接,连接成功调用connectCallback方法  
         IAsyncResult result = ServerSocket.BeginConnect(endpoint, new AsyncCallback(ConnectedCallback), ServerSocket);
 
+        Thread getResult = new Thread(ConnectResult);
+        getResult.IsBackground = true;
+        getResult.Start(result);
+    }
+
+    private void ConnectResult(object obj)
+    {
+        IAsyncResult result = (IAsyncResult) obj;
         //这里做一个超时的监测，当连接超过5秒还没成功表示超时  
         bool success = result.AsyncWaitHandle.WaitOne(5000, true);
         if (!success)
@@ -122,7 +130,7 @@ internal class Client : MonoBehaviour
 
     private void ConnectedCallback(IAsyncResult asyncConnect)
     {
-        if (!ServerSocket.Connected)
+        if (ServerSocket == null || !ServerSocket.Connected)
         {
             if (connectFailedDelegate != null)
             {

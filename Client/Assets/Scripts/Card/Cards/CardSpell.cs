@@ -20,9 +20,8 @@ internal class CardSpell : CardBase
 
     #region 卡牌上各模块
 
-    public Text SpellName;
-
-    public Text SpellDesc;
+    [SerializeField] private Text SpellName;
+    [SerializeField] private Text SpellDesc;
 
     private string m_SpellName;
 
@@ -114,20 +113,20 @@ internal class CardSpell : CardBase
     {
         if (targetModuleRetinue != null)
         {
-            if (targetModuleRetinue.M_ClientTempRetinueID != (int) ModuleRetinue.ClientTempRetinueID.Normal)
+            if (targetModuleRetinue.M_ClientTempRetinueID != ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL)
             {
                 UseSpellCardRequest request = new UseSpellCardRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetModuleRetinue.M_RetinueID, true, targetModuleRetinue.M_ClientTempRetinueID);
                 Client.CS.Proxy.SendMessage(request);
             }
             else
             {
-                UseSpellCardRequest request = new UseSpellCardRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetModuleRetinue.M_RetinueID, false, (int) ModuleRetinue.ClientTempRetinueID.Normal);
+                UseSpellCardRequest request = new UseSpellCardRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetModuleRetinue.M_RetinueID, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
                 Client.CS.Proxy.SendMessage(request);
             }
         }
         else
         {
-            UseSpellCardRequest request = new UseSpellCardRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), (int) DragManager.TargetSelect.None, false, (int) ModuleRetinue.ClientTempRetinueID.Normal);
+            UseSpellCardRequest request = new UseSpellCardRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), (int) DragManager.TargetSelect.None, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
             Client.CS.Proxy.SendMessage(request);
         }
     }

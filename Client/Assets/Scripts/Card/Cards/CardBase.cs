@@ -118,12 +118,12 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
             newCard.transform.localScale = Vector3.one * 120;
             newCard.transform.rotation = Quaternion.Euler(90, 180, 0);
-            newCard.ChangeCardBloomColor(HTMLColorToColor("#A1F7FF"));
+            newCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#A1F7FF"));
         }
 
         newCard.IsCardSelect = isCardSelect;
         newCard.Initiate(cardInfo, clientPlayer, isCardSelect);
-        newCard.ChangeColor(HTMLColorToColor(cardInfo.BaseInfo.CardColor));
+        newCard.ChangeColor(ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.CardColor));
         return newCard;
     }
 
@@ -277,14 +277,14 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public void BeDimColor()
     {
-        Color color = HTMLColorToColor(CardInfo.BaseInfo.CardColor);
+        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.CardColor);
         ChangeColor(new Color(color.r / 2, color.g / 2, color.b / 2, color.a));
         ChangePictureColor(new Color(0.5f, 0.5f, 0.5f));
     }
 
     public void BeBrightColor()
     {
-        Color color = HTMLColorToColor(CardInfo.BaseInfo.CardColor);
+        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.CardColor);
         ChangeColor(color);
         ChangePictureColor(Color.white);
     }
@@ -456,13 +456,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public static void RepairDisplayCardOutOfView(CardBase targetCard) //检查卡牌是否在视野外，如果是则复位
     {
-    }
-
-    public static Color HTMLColorToColor(string htmlColor)
-    {
-        Color cl = new Color();
-        ColorUtility.TryParseHtmlString(htmlColor, out cl);
-        return cl;
     }
 
     #endregion

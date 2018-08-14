@@ -10,7 +10,7 @@ internal class BattleGroundManager : MonoBehaviour
     private Vector3 _defaultRetinuePosition = Vector3.zero;
 
     internal ClientPlayer ClientPlayer;
-    public List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
+    internal List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
 
     private int retinueCount;
 
@@ -33,7 +33,7 @@ internal class BattleGroundManager : MonoBehaviour
         }
 
         ClientPlayer = null;
-        previewRetinuePlace = (int) previewRetinuePlaces.NoPreviewRetinueNow;
+        previewRetinuePlace = PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW;
         Retinues.Clear();
         RetinueCount = 0;
         RemoveRetinues.Clear();
@@ -64,9 +64,9 @@ internal class BattleGroundManager : MonoBehaviour
     public ModuleRetinue AddRetinue_PrePass(CardInfo_Retinue retinueCardInfo, int retinueId, int clientRetinueTempId)
     {
         if (ClientPlayer == null) return null;
-        if (previewRetinuePlace != (int) previewRetinuePlaces.NoPreviewRetinueNow)
+        if (previewRetinuePlace != PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW)
         {
-            previewRetinuePlace = (int) previewRetinuePlaces.NoPreviewRetinueNow;
+            previewRetinuePlace = PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW;
         }
 
         bool isSummonedBeforeByPreview = false;
@@ -77,7 +77,7 @@ internal class BattleGroundManager : MonoBehaviour
                 if (moduleRetinue.M_ClientTempRetinueID == clientRetinueTempId) //匹配
                 {
                     moduleRetinue.M_RetinueID = retinueId; //赋予正常ID
-                    moduleRetinue.M_ClientTempRetinueID = (int) ModuleRetinue.ClientTempRetinueID.Normal; //恢复普通
+                    moduleRetinue.M_ClientTempRetinueID = ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL; //恢复普通
                     isSummonedBeforeByPreview = true;
                     break;
                 }
@@ -155,15 +155,12 @@ internal class BattleGroundManager : MonoBehaviour
 
     private int previewRetinuePlace;
 
-    private enum previewRetinuePlaces
-    {
-        NoPreviewRetinueNow = -1
-    }
+    private const int PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW = -1;//无预览召唤随从
 
     public void AddRetinuePreview(int placeIndex)
     {
         if (Retinues.Count == 0) return;
-        if (previewRetinuePlace == (int) previewRetinuePlaces.NoPreviewRetinueNow || previewRetinuePlace != placeIndex)
+        if (previewRetinuePlace == PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW || previewRetinuePlace != placeIndex)
         {
             previewRetinuePlace = placeIndex;
             BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue), "Co_RefreshBattleGroundAnim");
@@ -173,9 +170,9 @@ internal class BattleGroundManager : MonoBehaviour
 
     public void RemoveRetinuePreview()
     {
-        if (previewRetinuePlace != (int) previewRetinuePlaces.NoPreviewRetinueNow)
+        if (previewRetinuePlace != PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW)
         {
-            previewRetinuePlace = (int) previewRetinuePlaces.NoPreviewRetinueNow;
+            previewRetinuePlace = PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW;
             BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
         }
     }
@@ -199,7 +196,7 @@ internal class BattleGroundManager : MonoBehaviour
     public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的随从的召唤预览、显示指定箭头
     {
         currentSummonPreviewRetinueCard = retinueCard;
-        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int) ModuleRetinue.ClientTempRetinueID.SummonPreviewNotConfirm);
+        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int) ModuleRetinue.CLIENT_TEMP_RETINUE_ID_SUMMON_PREVIEW_NOT_CONFIRM);
         CurrentSummonPreviewRetinue = retinue;
         AddRetinue(retinuePlaceIndex);
         DragManager.DM.SummonRetinueTargetHandler = SummonRetinueTargetConfirm;
@@ -268,7 +265,7 @@ internal class BattleGroundManager : MonoBehaviour
 
         Vector3[] translations = new Vector3[Retinues.Count];
 
-        int actualPlaceCount = previewRetinuePlace == (int) previewRetinuePlaces.NoPreviewRetinueNow ? Retinues.Count : Retinues.Count + 1;
+        int actualPlaceCount = previewRetinuePlace == PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW ? Retinues.Count : Retinues.Count + 1;
 
         List<ModuleRetinue> movingRetinues = new List<ModuleRetinue>();
 
@@ -277,7 +274,7 @@ internal class BattleGroundManager : MonoBehaviour
             movingRetinues.Add(Retinues[i]);
 
             int actualPlace = i;
-            if (previewRetinuePlace != (int) previewRetinuePlaces.NoPreviewRetinueNow && i >= previewRetinuePlace)
+            if (previewRetinuePlace != PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW && i >= previewRetinuePlace)
             {
                 actualPlace += 1;
             }

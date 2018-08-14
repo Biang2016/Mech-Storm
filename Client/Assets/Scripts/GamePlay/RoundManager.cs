@@ -32,13 +32,16 @@ internal class RoundManager : MonoBehaviour
     public GameObject EndRoundButton;
     public Text SelfCostText;
     public Text EnemyCostText;
-    public Text SelfCardLeftText;
-    public Text EnemyCardLeftText;
 
     void Awake()
     {
         rm = FindObjectOfType(typeof(RoundManager)) as RoundManager;
         BattleCanvas.gameObject.SetActive(false);
+    }
+
+    void Start()
+    {
+       
     }
 
     private void Update()
@@ -68,7 +71,6 @@ internal class RoundManager : MonoBehaviour
     }
 
     #endregion
-
 
     #region SideEffects
 
@@ -211,7 +213,6 @@ internal class RoundManager : MonoBehaviour
         }
     }
 
-
     private void Initialize()
     {
         RoundNumber = 0;
@@ -224,12 +225,10 @@ internal class RoundManager : MonoBehaviour
         EndRoundButton.SetActive(false);
         SelfCostText.gameObject.SetActive(true);
         EnemyCostText.gameObject.SetActive(true);
-        SelfCardLeftText.gameObject.SetActive(true);
-        EnemyCardLeftText.gameObject.SetActive(true);
         SelfCostText.text = "";
         EnemyCostText.text = "";
-        SelfCardLeftText.text = "牌库剩余: ";
-        EnemyCardLeftText.text = "牌库剩余: ";
+
+        CardDeckManager.CDM.ShowAll();
     }
 
     private void InitializePlayers(SetPlayerRequest r)
@@ -385,7 +384,6 @@ internal class RoundManager : MonoBehaviour
         else
         {
             cp.MyBattleGroundManager.AddRetinue(r.battleGroundIndex);
-
         }
     }
 
@@ -429,8 +427,8 @@ internal class RoundManager : MonoBehaviour
 
     IEnumerator Co_OnCardDeckLeftChange(ClientPlayer cp, int left)
     {
-        if (cp == SelfClientPlayer) SelfCardLeftText.text = "牌库剩余: " + left;
-        else EnemyCardLeftText.text = "牌库剩余: " + left;
+        if (cp == SelfClientPlayer) CardDeckManager.CDM.SetSelfCardDeckNumber(left);
+        else CardDeckManager.CDM.SetEnemyCardDeckNumber(left);
         yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
@@ -530,6 +528,8 @@ internal class RoundManager : MonoBehaviour
         SelfCostText.gameObject.SetActive(false);
         EnemyCostText.gameObject.SetActive(false);
         BattleCanvas.gameObject.SetActive(false);
+
+        CardDeckManager.CDM.HideAll();
 
         BattleEffectsManager.BEM.Effect_Main.AllEffectsEnd();
         BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();

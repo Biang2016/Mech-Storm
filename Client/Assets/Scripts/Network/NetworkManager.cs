@@ -34,55 +34,43 @@ internal class NetworkManager : MonoBehaviour
 
     void Start()
     {
-        TryConnectToServer();
-        StartCoroutine(CheckConnection());
+        StartCoroutine(TryConnectToServer());
     }
 
     void Update()
     {
-
-    }
-
-    void TryConnectToServer()
-    {
-        if (Client.CS.Proxy == null || Client.CS.Proxy.ClientState == ProxyBase.ClientStates.Nothing)
-        {
-            Client.CS.Connect("127.0.0.1", 9999, ConnectCallBack, null);
-            if (Client.CS.Proxy.Socket.Connected)
-            {
-                ShowInfoPanel("连接服务器成功", 0f, 1f);
-                isReconnecting = false;
-            }
-        }
     }
 
     bool isReconnecting = false;
 
-    IEnumerator CheckConnection()
+    IEnumerator TryConnectToServer()
     {
         while (true)
         {
-            yield return new WaitForSeconds(2f);
-            if (!Client.CS.Proxy.Socket.Connected)
+            if (Client.CS.Proxy == null || !Client.CS.Proxy.Socket.Connected)
             {
                 Client.CS.Connect("127.0.0.1", 9999, ConnectCallBack, null);
-                yield return new WaitForSeconds(1f);
-                if (Client.CS.Proxy.Socket.Connected)
-                {
-                    ShowInfoPanel("连接服务器成功", 0f, 1f);
-                    isReconnecting = false;
-                }
-                else
-                {
-                    if (!isReconnecting)
-                    {
-                        ShowInfoPanel("正在连接服务器", 0f, float.PositiveInfinity);
-                        isReconnecting = true;
-                    }
-                }
+                CheckConnectState();
             }
 
-            yield return null;
+            yield return new WaitForSeconds(3f);
+        }
+    }
+
+    private void CheckConnectState()
+    {
+        if (Client.CS.Proxy != null && Client.CS.Proxy.Socket.Connected)
+        {
+            ShowInfoPanel("连接服务器成功", 0f, 2f);
+            isReconnecting = false;
+        }
+        else
+        {
+            if (!isReconnecting)
+            {
+                ShowInfoPanel("正在连接服务器", 0f, float.PositiveInfinity);
+                isReconnecting = true;
+            }
         }
     }
 
@@ -149,6 +137,7 @@ internal class NetworkManager : MonoBehaviour
     {
         high = 10;
 
+        if (Client.CS.Proxy == null) return;
         if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck)
         {
             if (CreateBtn("开始匹配"))

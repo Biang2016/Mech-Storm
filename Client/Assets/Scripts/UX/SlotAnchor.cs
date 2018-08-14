@@ -20,7 +20,7 @@ internal class SlotAnchor : MonoBehaviour, IMouseHoverComponent
     {
     }
 
-    public Renderer OnHoverShowBloom;
+    [SerializeField]private Renderer OnHoverShowBloom;
 
     public void ShowHoverGO()
     {

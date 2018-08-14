@@ -117,63 +117,63 @@ internal class ModuleRetinue : ModuleBase
         }
     }
 
-    public TextMesh TextMesh_RetinueName;
+    [SerializeField] private TextMesh TextMesh_RetinueName;
 
-    public Renderer RetinueCanAttackBloom;
-    public Renderer OnHoverBloom;
-    public Renderer SideEffcetBloom;
-    public Animator ShieldIconHit;
-    public Animator ArmorIconHit;
-    public Animator CardLifeHit;
+    [SerializeField] private Renderer RetinueCanAttackBloom;
+    [SerializeField] private Renderer OnHoverBloom;
+    [SerializeField] private Renderer SideEffcetBloom;
+    [SerializeField] private Animator ShieldIconHit;
+    [SerializeField] private Animator ArmorIconHit;
+    [SerializeField] private Animator CardLifeHit;
 
-    public SlotAnchor SlotAnchor1;
-    public SlotAnchor SlotAnchor2;
-    public SlotAnchor SlotAnchor3;
-    public SlotAnchor SlotAnchor4;
+    internal SlotAnchor SlotAnchor1;
+    internal SlotAnchor SlotAnchor2;
+    internal SlotAnchor SlotAnchor3;
+    internal SlotAnchor SlotAnchor4;
 
-    public GameObject Block_RetinueLeftLife;
+    [SerializeField] private GameObject Block_RetinueLeftLife;
     protected GameObject GoNumberSet_RetinueLeftLife;
     protected CardNumberSet CardNumberSet_RetinueLeftLife;
 
-    public GameObject Block_RetinueTotalLife;
+    [SerializeField] private GameObject Block_RetinueTotalLife;
     protected GameObject GoNumberSet_RetinueTotalLife;
     protected CardNumberSet CardNumberSet_RetinueTotalLife;
 
-    public GameObject Block_RetinueAttack;
+    [SerializeField] private GameObject Block_RetinueAttack;
     protected GameObject GoNumberSet_RetinueAttack;
     protected CardNumberSet CardNumberSet_RetinueAttack;
 
-    public GameObject Block_RetinueWeaponEnergy;
+    [SerializeField] private GameObject Block_RetinueWeaponEnergy;
     protected GameObject GoNumberSet_RetinueWeaponEnergy;
     protected CardNumberSet CardNumberSet_RetinueWeaponEnergy;
 
-    public GameObject Block_RetinueWeaponEnergyMax;
+    [SerializeField] private GameObject Block_RetinueWeaponEnergyMax;
     protected GameObject GoNumberSet_RetinueWeaponEnergyMax;
     protected CardNumberSet CardNumberSet_RetinueWeaponEnergyMax;
 
-    public GameObject Block_RetinueShield;
+    [SerializeField] private GameObject Block_RetinueShield;
     protected GameObject GoNumberSet_RetinueShield;
     protected CardNumberSet CardNumberSet_RetinueShield;
 
-    public GameObject Block_RetinueArmor;
+    [SerializeField] private GameObject Block_RetinueArmor;
     protected GameObject GoNumberSet_RetinueArmor;
     protected CardNumberSet CardNumberSet_RetinueArmor;
 
-    public Renderer PictureBoxRenderer;
+    [SerializeField] private Renderer PictureBoxRenderer;
 
-    public TextMesh DamageNumberTextMesh;
+    [SerializeField] private TextMesh DamageNumberTextMesh;
 
-    public Animator ArmorFill;
-    public Animator ShieldBar;
-    public Image ShieldBarImage;
-    public GameObject SwordBar;
-    public GameObject SwordBarMask;
+    [SerializeField] private Animator ArmorFill;
+    [SerializeField] private Animator ShieldBar;
+    [SerializeField] private Image ShieldBarImage;
+    [SerializeField] private GameObject SwordBar;
+    [SerializeField] private GameObject SwordBarMask;
     private float SwordMaskFullOffset = 0.451f;
     private Vector3 SwordMaskDefaultPosition;
-    public GameObject LifeBarMask;
+    [SerializeField] private GameObject LifeBarMask;
     private float LifeBarMaskFullOffset = 1f;
     private Vector3 LifeBarMaskDefaultPosition;
-    public Animator LifeIncreaseArrow;
+    [SerializeField] private Animator LifeIncreaseArrow;
 
     private bool isInitializing = false;
 
@@ -241,7 +241,6 @@ internal class ModuleRetinue : ModuleBase
         rd.SetPropertyBlock(mpb);
     }
 
-    [SerializeField]
     private int m_RetinueID;
 
     public int M_RetinueID
@@ -255,7 +254,6 @@ internal class ModuleRetinue : ModuleBase
         Empty = -1
     }
 
-    [SerializeField]
     private int m_ClientTempRetinueID;
 
     public int M_ClientTempRetinueID
@@ -264,11 +262,8 @@ internal class ModuleRetinue : ModuleBase
         set { m_ClientTempRetinueID = value; }
     }
 
-    public enum ClientTempRetinueID //-1：默认值，普通召唤的随从, >=0：预召唤的随从分配的匹配号，-2：预召唤随从上场但未选择目标时的号码
-    {
-        Normal = -1,
-        SummonPreviewNotConfirm = -2
-    }
+    public const int CLIENT_TEMP_RETINUE_ID_NORMAL = -1; //默认值，普通召唤的随从
+    public const int CLIENT_TEMP_RETINUE_ID_SUMMON_PREVIEW_NOT_CONFIRM = -2; //预召唤随从上场但未选择目标
 
     private string m_RetinueName;
 
@@ -539,8 +534,7 @@ internal class ModuleRetinue : ModuleBase
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
-    [SerializeField]
-    private int RetinueShieldFull;
+    [SerializeField] private int RetinueShieldFull;
 
     private int m_RetinueShield;
 
@@ -638,13 +632,13 @@ internal class ModuleRetinue : ModuleBase
 
     void On_WeaponEquiped()
     {
-        M_Weapon.WeaponEquipAnim.SetTrigger("WeaponEquiped");
+        M_Weapon.OnWeaponEquiped();
         CheckCanAttack();
     }
 
     void On_WeaponChanged()
     {
-        M_Weapon.WeaponEquipAnim.SetTrigger("WeaponEquiped");
+        M_Weapon.OnWeaponEquiped();
         CheckCanAttack();
     }
 
@@ -688,12 +682,12 @@ internal class ModuleRetinue : ModuleBase
 
     void On_ShieldEquiped()
     {
-        M_Shield.ShieldEquipedAnim.SetTrigger("ShieldEquiped");
+        M_Shield.OnShieldEquiped();
     }
 
     void On_ShieldChanged()
     {
-        M_Shield.ShieldEquipedAnim.SetTrigger("ShieldEquiped");
+        M_Shield.OnShieldEquiped();
     }
 
     #endregion
@@ -994,7 +988,7 @@ internal class ModuleRetinue : ModuleBase
 
     public void OnSummonShowEffects()
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#00FFDA"), 0.5f), "ShowSideEffectBloom");
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#00FFDA"), 0.5f), "ShowSideEffectBloom");
     }
 
     public void OnDie()
@@ -1005,7 +999,7 @@ internal class ModuleRetinue : ModuleBase
 
     public void OnDieShowEffects()
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(GameManager.HTMLColorToColor("#000000"), 0.5f), "ShowSideEffectBloom");
+        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#000000"), 0.5f), "ShowSideEffectBloom");
     }
 
     IEnumerator Co_ShowSideEffectBloom(Color color, float duration)

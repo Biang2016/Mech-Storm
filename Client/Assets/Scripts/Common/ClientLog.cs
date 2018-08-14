@@ -83,11 +83,11 @@ internal class ClientLog : MonoBehaviour
 
     public void PrintBattleEffectsStart(string logStr)
     {
-        Print(logStr, GameManager.HTMLColorToColor("#00FFDB"));
+        Print(logStr, ClientUtils.HTMLColorToColor("#00FFDB"));
     }
     public void PrintBattleEffectsEnd(string logStr)
     {
-        Print(logStr, GameManager.HTMLColorToColor("#007464"));
+        Print(logStr, ClientUtils.HTMLColorToColor("#007464"));
     }
 }
 

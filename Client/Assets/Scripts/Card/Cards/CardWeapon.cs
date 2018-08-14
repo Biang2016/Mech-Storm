@@ -19,9 +19,8 @@ internal class CardWeapon : CardBase
 
     #region 卡牌上各模块
 
-    public Text WeaponName;
-
-    public Text WeaponDesc;
+    [SerializeField] private Text WeaponName;
+    [SerializeField] private Text WeaponDesc;
 
     private string m_WeaponName;
 

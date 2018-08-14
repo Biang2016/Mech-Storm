@@ -25,24 +25,24 @@ internal class ModuleWeapon : ModuleBase
     #region 各模块、自身数值和初始化
 
     internal ModuleRetinue M_ModuleRetinue;
-    public TextMesh WeaponName;
-    public GameObject M_Bloom;
-    public GameObject M_GunIcon;
-    public GameObject M_SwordIcon;
+    [SerializeField] private TextMesh WeaponName;
+    [SerializeField] private GameObject M_Bloom;
+    [SerializeField] private GameObject M_GunIcon;
+    [SerializeField] private GameObject M_SwordIcon;
 
-    public GameObject Block_WeaponAttack;
+    [SerializeField] private GameObject Block_WeaponAttack;
     protected GameObject GoNumberSet_WeaponAttack;
     protected CardNumberSet CardNumberSet_WeaponAttack;
 
-    public GameObject Block_WeaponEnergy;
+    [SerializeField] private GameObject Block_WeaponEnergy;
     protected GameObject GoNumberSet_WeaponEnergy;
     protected CardNumberSet CardNumberSet_WeaponEnergy;
 
-    public GameObject Block_WeaponEnergyMax;
+    [SerializeField] private GameObject Block_WeaponEnergyMax;
     protected GameObject GoNumberSet_WeaponEnergyMax;
     protected CardNumberSet CardNumberSet_WeaponEnergyMax;
 
-    public Animator WeaponEquipAnim;
+    [SerializeField] private Animator WeaponEquipAnim;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
@@ -208,6 +208,12 @@ internal class ModuleWeapon : ModuleBase
     #endregion
 
     #region 交互UX
+
+    public void OnWeaponEquiped()
+    {
+        WeaponEquipAnim.SetTrigger("WeaponEquiped");
+    }
+
 
     public override void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
     {

@@ -12,7 +12,7 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
         gameObjectPool.RecycleGameObject(gameObject);
     }
 
-    public Renderer Renderer;
+    [SerializeField] private Renderer Renderer;
 
     void Awake()
     {
@@ -37,13 +37,13 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
         }
     }
 
-    public Material[] NumberMaterial;
+    [SerializeField] private Material[] NumberMaterial;
 
-    public Material[] NumberSignMaterial;
+    [SerializeField] private Material[] NumberSignMaterial;
 
-    public Material[] NumberMaterial_Select;
+    [SerializeField] private Material[] NumberMaterial_Select;
 
-    public Material[] NumberSignMaterial_Select;
+    [SerializeField] private Material[] NumberSignMaterial_Select;
 
     int number;
 
@@ -65,10 +65,9 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
         }
     }
 
-    [SerializeField]
-    private NumberSize MyNumberSize;
+    [SerializeField]private NumberSize MyNumberSize;
 
-    public bool IsSelect;//是否是选择卡牌面板上的数字（需换材质）
+    internal bool IsSelect;//是否是选择卡牌面板上的数字（需换材质）
 
     private bool hasSign=false;
     public void SetSign(char sign)
