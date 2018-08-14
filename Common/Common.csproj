@@ -65,6 +65,7 @@
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\UseSpellCardRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EquipShieldRequest_Response.cs" />
+    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\DamageSomeRetinueRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\UseSpellCardServerRequset.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\UseSpellCardRequset_Response.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\CardDeckLeftChangeRequest.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\DropCardRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\BattleGroundAddRetinueRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueDieRequest.cs" />
+    <Compile Include="Net\Requests\ServerToClient\OutGame\RandomNumberSeedRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\OutGame\HeartBeatRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\OutGame\GameStopByLeaveRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttributesChangeRequest.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\SummonRetinueRequest.cs" />
     <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\SummonRetinueRequest_Response.cs" />
     <Compile Include="Net\Requests\Vector3.cs" />
+    <Compile Include="Net\Utils\RandomNumberGenerator.cs" />
     <Compile Include="Net\Utils\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Net\DataStream\DataHolder.cs" />

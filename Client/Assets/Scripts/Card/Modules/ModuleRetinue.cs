@@ -126,10 +126,10 @@ internal class ModuleRetinue : ModuleBase
     [SerializeField] private Animator ArmorIconHit;
     [SerializeField] private Animator CardLifeHit;
 
-    internal SlotAnchor SlotAnchor1;
-    internal SlotAnchor SlotAnchor2;
-    internal SlotAnchor SlotAnchor3;
-    internal SlotAnchor SlotAnchor4;
+    public SlotAnchor SlotAnchor1;
+    public SlotAnchor SlotAnchor2;
+    public SlotAnchor SlotAnchor3;
+    public SlotAnchor SlotAnchor4;
 
     [SerializeField] private GameObject Block_RetinueLeftLife;
     protected GameObject GoNumberSet_RetinueLeftLife;

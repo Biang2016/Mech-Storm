@@ -50,9 +50,9 @@ internal class NetworkManager : MonoBehaviour
             if (Client.CS.Proxy == null || !Client.CS.Proxy.Socket.Connected)
             {
                 Client.CS.Connect("127.0.0.1", 9999, ConnectCallBack, null);
-                CheckConnectState();
             }
 
+            CheckConnectState();
             yield return new WaitForSeconds(3f);
         }
     }
@@ -61,8 +61,11 @@ internal class NetworkManager : MonoBehaviour
     {
         if (Client.CS.Proxy != null && Client.CS.Proxy.Socket.Connected)
         {
-            ShowInfoPanel("连接服务器成功", 0f, 2f);
-            isReconnecting = false;
+            if (isReconnecting)
+            {
+                ShowInfoPanel("连接服务器成功", 0f, 2f);
+                isReconnecting = false;
+            }
         }
         else
         {

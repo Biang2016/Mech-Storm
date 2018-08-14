@@ -70,6 +70,11 @@ internal class Proxy : ProxyBase
                     RoundManager.RM.OnGameStopByLeave(request);
                     break;
                 }
+                case NetProtocols.RANDOM_NUMBER_SEED_REQUEST:
+                {
+                    RoundManager.RM.OnRandomNumberSeed((RandomNumberSeedRequest)r);
+                    break;
+                }
             }
         }
         else

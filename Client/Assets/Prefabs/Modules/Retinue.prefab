@@ -3058,8 +3058,6 @@ MonoBehaviour:
   SwordBarMask: {fileID: 1198637210241784}
   LifeBarMask: {fileID: 1142600874657134}
   LifeIncreaseArrow: {fileID: 95578862162121222}
-  m_RetinueID: 0
-  m_ClientTempRetinueID: 0
   RetinueShieldFull: 0
   isFirstRound: 1
   CannotAttackBecauseDie: 0

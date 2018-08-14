@@ -21,17 +21,18 @@ internal class RoundManager : MonoBehaviour
     }
 
     internal int RoundNumber;
+    internal RandomNumberGenerator RandomNumberGenerator;
     internal ClientPlayer SelfClientPlayer;
     internal ClientPlayer EnemyClientPlayer;
     internal ClientPlayer CurrentClientPlayer;
     internal ClientPlayer IdleClientPlayer;
 
-    public Canvas BattleCanvas;
-    public GameObject SelfTurnText;
-    public GameObject EnemyTurnText;
-    public GameObject EndRoundButton;
-    public Text SelfCostText;
-    public Text EnemyCostText;
+    [SerializeField] private Canvas BattleCanvas;
+    [SerializeField] private GameObject SelfTurnText;
+    [SerializeField] private GameObject EnemyTurnText;
+    [SerializeField] private GameObject EndRoundButton;
+    [SerializeField] public Text SelfCostText;
+    [SerializeField] public Text EnemyCostText;
 
     void Awake()
     {
@@ -41,7 +42,6 @@ internal class RoundManager : MonoBehaviour
 
     void Start()
     {
-       
     }
 
     private void Update()
@@ -53,7 +53,67 @@ internal class RoundManager : MonoBehaviour
         }
     }
 
-    #region OperationResponses
+    private void BeginRound()
+    {
+        CurrentClientPlayer.MyHandManager.BeginRound();
+        CurrentClientPlayer.MyBattleGroundManager.BeginRound();
+    }
+
+    private void EndRound()
+    {
+        CurrentClientPlayer.MyHandManager.EndRound();
+        CurrentClientPlayer.MyBattleGroundManager.EndRound();
+    }
+
+    bool isStop = false;
+
+    public void StopGame()
+    {
+        isStop = true; //标记为，待Update的时候正式处理OnGameStop
+    }
+
+    private void OnGameStop()
+    {
+        CardBase[] cardPreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
+        foreach (CardBase cardPreview in cardPreviews)
+        {
+            cardPreview.PoolRecycle();
+        }
+
+        ModuleBase[] modulePreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<ModuleBase>();
+        foreach (ModuleBase modulePreview in modulePreviews)
+        {
+            modulePreview.PoolRecycle();
+        }
+
+        GameBoardManager.GBM.CardDetailPreview.transform.DetachChildren();
+
+        GameBoardManager.GBM.SelfBattleGroundManager.Reset();
+        GameBoardManager.GBM.EnemyBattleGroundManager.Reset();
+        GameBoardManager.GBM.SelfHandManager.Reset();
+        GameBoardManager.GBM.EnemyHandManager.Reset();
+        SelfClientPlayer = null;
+        EnemyClientPlayer = null;
+        CurrentClientPlayer = null;
+        IdleClientPlayer = null;
+        SelfCostText.text = "";
+        EnemyCostText.text = "";
+        RoundNumber = 0;
+        SelfTurnText.SetActive(false);
+        EnemyTurnText.SetActive(false);
+        EndRoundButton.SetActive(false);
+        SelfCostText.gameObject.SetActive(false);
+        EnemyCostText.gameObject.SetActive(false);
+        BattleCanvas.gameObject.SetActive(false);
+
+        CardDeckManager.CDM.HideAll();
+        RandomNumberGenerator = null;
+
+        BattleEffectsManager.BEM.Effect_Main.AllEffectsEnd();
+        BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();
+    }
+
+    #region PureRequests
 
     public void OnGameStopByLeave(GameStopByLeaveRequest r)
     {
@@ -70,7 +130,13 @@ internal class RoundManager : MonoBehaviour
         Client.CS.Proxy.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
     }
 
+    public void OnRandomNumberSeed(RandomNumberSeedRequest se)
+    {
+        RandomNumberGenerator = new RandomNumberGenerator(se.randomNumberSeed);
+    }
+
     #endregion
+
 
     #region SideEffects
 
@@ -96,6 +162,7 @@ internal class RoundManager : MonoBehaviour
                 OnBattleGroundRemoveRetinue_PrePass((BattleGroundRemoveRetinueRequest) se);
                 break;
             }
+
 
             //case NetProtocols.SE_DRAW_CARD:
             //{
@@ -152,7 +219,6 @@ internal class RoundManager : MonoBehaviour
                 OnRetinueDie((RetinueDieRequest) se);
                 break;
             }
-
             case NetProtocols.SE_BATTLEGROUND_ADD_RETINUE:
             {
                 OnBattleGroundAddRetinue((BattleGroundAddRetinueRequest) se);
@@ -203,6 +269,11 @@ internal class RoundManager : MonoBehaviour
             case NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST:
             {
                 OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) se);
+                break;
+            }
+            case NetProtocols.SE_DAMAGE_SOME_RETINUE_REQUEST:
+            {
+                OnDamageSomeRetinue((DamageSomeRetinueRequest) se);
                 break;
             }
             case NetProtocols.SE_RETINUE_EFFECT:
@@ -284,25 +355,6 @@ internal class RoundManager : MonoBehaviour
         BeginRound();
         yield return null;
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
-    }
-
-    private void BeginRound()
-    {
-        CurrentClientPlayer.MyHandManager.BeginRound();
-        CurrentClientPlayer.MyBattleGroundManager.BeginRound();
-    }
-
-    private void EndRound()
-    {
-        CurrentClientPlayer.MyHandManager.EndRound();
-        CurrentClientPlayer.MyBattleGroundManager.EndRound();
-    }
-
-    bool isStop = false;
-
-    public void StopGame()
-    {
-        isStop = true;
     }
 
     private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
@@ -481,6 +533,12 @@ internal class RoundManager : MonoBehaviour
         attackRetinue.Attack(beAttackRetinue, true);
     }
 
+    public void OnDamageSomeRetinue(DamageSomeRetinueRequest r)
+    {
+        ClientPlayer cp_beAttack = GetPlayerByClientId(r.beDamagedRetinueClientId);
+        cp_beAttack.MyBattleGroundManager.DamageSomeRetinue(r.beDamagedRetinueId, r.value);
+    }
+
     private void OnRetinueEffect(RetinueEffectRequest r)
     {
         ModuleRetinue retinue = GetPlayerByClientId(r.clientId).MyBattleGroundManager.GetRetinue(r.retinueId);
@@ -493,46 +551,6 @@ internal class RoundManager : MonoBehaviour
                 retinue.OnDieShowEffects();
                 break;
         }
-    }
-
-    private void OnGameStop()
-    {
-        CardBase[] cardPreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
-        foreach (CardBase cardPreview in cardPreviews)
-        {
-            cardPreview.PoolRecycle();
-        }
-
-        ModuleBase[] modulePreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<ModuleBase>();
-        foreach (ModuleBase modulePreview in modulePreviews)
-        {
-            modulePreview.PoolRecycle();
-        }
-
-        GameBoardManager.GBM.CardDetailPreview.transform.DetachChildren();
-
-        GameBoardManager.GBM.SelfBattleGroundManager.Reset();
-        GameBoardManager.GBM.EnemyBattleGroundManager.Reset();
-        GameBoardManager.GBM.SelfHandManager.Reset();
-        GameBoardManager.GBM.EnemyHandManager.Reset();
-        SelfClientPlayer = null;
-        EnemyClientPlayer = null;
-        CurrentClientPlayer = null;
-        IdleClientPlayer = null;
-        SelfCostText.text = "";
-        EnemyCostText.text = "";
-        RoundNumber = 0;
-        SelfTurnText.SetActive(false);
-        EnemyTurnText.SetActive(false);
-        EndRoundButton.SetActive(false);
-        SelfCostText.gameObject.SetActive(false);
-        EnemyCostText.gameObject.SetActive(false);
-        BattleCanvas.gameObject.SetActive(false);
-
-        CardDeckManager.CDM.HideAll();
-
-        BattleEffectsManager.BEM.Effect_Main.AllEffectsEnd();
-        BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();
     }
 
     #endregion
@@ -552,6 +570,10 @@ internal class RoundManager : MonoBehaviour
             ClientLog.CL.PrintWarning("不是你的回合");
         }
     }
+
+    #endregion
+
+    #region Utils
 
     public ClientPlayer GetPlayerByClientId(int clientId)
     {

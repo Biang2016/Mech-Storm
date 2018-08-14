@@ -199,24 +199,34 @@ internal class ServerBattleGroundManager
 
     public void HealSomeRetinue(int retinueId, int value) //治疗本方某随从
     {
-        ServerModuleRetinue retinue = GetRetinue(retinueId);
-        if (retinue != null)
+        ServerModuleRetinue targetRetinue = GetRetinue(retinueId);
+        if (targetRetinue != null)
         {
-            int healAmount = Math.Min(value, retinue.M_RetinueTotalLife - retinue.M_RetinueLeftLife);
-            retinue.M_RetinueLeftLife += healAmount;
+            int healAmount = Math.Min(value, targetRetinue.M_RetinueTotalLife - targetRetinue.M_RetinueLeftLife);
+            targetRetinue.M_RetinueLeftLife += healAmount;
         }
     }
 
     public void DamageSomeRetinue(int retinueId, int value) //对本方某随从造成伤害
     {
-        ServerModuleRetinue retinue = GetRetinue(retinueId);
-        retinue?.BeAttacked(value);
+        ServerModuleRetinue targetRetinue = GetRetinue(retinueId);
+        DoDamageSomeRetinue(value, targetRetinue);
     }
 
     public void DamageRandomRetinue(int value) //对本方某随机随从造成伤害
     {
         ServerModuleRetinue targetRetinue = GetRandomRetinue();
-        if (targetRetinue != null) DamageSomeRetinue(targetRetinue.M_RetinueID, value);
+        DoDamageSomeRetinue(value, targetRetinue);
+    }
+
+    private void DoDamageSomeRetinue(int value, ServerModuleRetinue targetRetinue)
+    {
+        if (targetRetinue != null)
+        {
+            targetRetinue.BeAttacked(value);
+            DamageSomeRetinueRequest request = new DamageSomeRetinueRequest(ServerPlayer.ClientId, targetRetinue.M_RetinueID, value);
+            ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+        }
     }
 
     #endregion

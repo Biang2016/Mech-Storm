@@ -9,6 +9,7 @@ public class NetProtocols
     public const int HEART_BEAT_REQUEST = 0x00000001; //服务器发送的心跳包
     public const int CLIENT_ID_REQUEST = 0x00000002; //分配客户端Id
     public const int GAME_STOP_BY_LEAVE_REQUEST = 0x00000003; //由于玩家离开导致游戏结束
+    public const int RANDOM_NUMBER_SEED_REQUEST = 0x00000004; //分配客户端随机数种子
 
     #endregion
 
@@ -65,7 +66,8 @@ public class NetProtocols
     public const int SE_USE_SPELLCARD_SERVER_REQUEST = 0x00000222; //使用法术
 
     public const int SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST = 0x00000223; //随从攻击随从
-    public const int SE_RETINUE_EFFECT = 0x00000224; //随从特效
+    public const int SE_DAMAGE_SOME_RETINUE_REQUEST = 0x00000224; //随从受到伤害
+    public const int SE_RETINUE_EFFECT = 0x00000225; //随从特效
 
     #endregion
 

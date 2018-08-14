@@ -419,6 +419,10 @@ internal class BattleGroundManager : MonoBehaviour
         BattleEffectsManager.BEM.Effect_Main.EffectEnd();
     }
 
+    public void DamageSomeRetinue(int targetRetinueId, int value)
+    {
+        GetRetinue(targetRetinueId).BeAttacked(value);
+    }
 
     #region Utils
 
@@ -463,4 +467,6 @@ internal class BattleGroundManager : MonoBehaviour
     }
 
     #endregion
+
+    
 }

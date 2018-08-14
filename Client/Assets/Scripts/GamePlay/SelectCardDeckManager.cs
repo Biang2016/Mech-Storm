@@ -376,6 +376,7 @@ public class SelectCardDeckManager : MonoBehaviour
         foreach (CardBase cardBase in allCards.Values)
         {
             if (SelectedCards.ContainsKey(cardBase.CardInfo.CardID)) continue;
+            if (SelectedRetinues.ContainsKey(cardBase.CardInfo.CardID)) continue;
             SelectCard(cardBase);
         }
     }
@@ -439,7 +440,7 @@ public class SelectCardDeckManager : MonoBehaviour
         HidePreviewCard();
         CurrentPreviewCard = card;
         PreviewCard = CardBase.InstantiateCardByCardInfo(card.CardInfo, PreviewContent, null, true);
-        PreviewCard.transform.localScale = Vector3.one * 200;
+        PreviewCard.transform.localScale = Vector3.one * 300;
         PreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
         PreviewCard.transform.localPosition = new Vector3(0, 0, -300);
         PreviewCard.CardBloom.SetActive(true);

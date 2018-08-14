@@ -13,6 +13,8 @@ internal class ServerGameManager
     public ServerPlayer PlayerA;
     public ServerPlayer PlayerB;
 
+    public RandomNumberGenerator RandomNumberGenerator;
+
     public ServerGameManager(ClientProxy clientA, ClientProxy clientB)
     {
         ClientA = clientA;
@@ -48,6 +50,8 @@ internal class ServerGameManager
 
         ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
 
+        SyncRandomNumber();
+
         PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginCost, this);
         PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CardDeckInfo, PlayerA.OnCardDeckLeftChange);
         PlayerA.MyClientProxy = ClientA;
@@ -71,6 +75,16 @@ internal class ServerGameManager
         GameBegin();
 
         Broadcast_SendOperationResponse(); //初始化的大包请求
+    }
+
+    private void SyncRandomNumber()
+    {
+        Random rd = new Random(DateTime.Now.Millisecond);
+        int seed = rd.Next();
+        RandomNumberGenerator = new RandomNumberGenerator(seed);
+
+        RandomNumberSeedRequest request = new RandomNumberSeedRequest(seed);
+        BroadcastRequest(request);
     }
 
     void GameBegin()
