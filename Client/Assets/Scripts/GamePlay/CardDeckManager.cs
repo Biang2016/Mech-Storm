@@ -64,6 +64,9 @@ public class CardDeckManager : MonoBehaviour
             self_CardDeckCards[i].transform.Translate(GameManager.GM.Self_CardDeckCardInterval * i);
             enemy_CardDeckCards[i].transform.Translate(GameManager.GM.Enemy_CardDeckCardInterval * i);
         }
+
+        SetSelfCardDeckNumber(0);
+        SetEnemyCardDeckNumber(0);
     }
 
 
@@ -71,20 +74,20 @@ public class CardDeckManager : MonoBehaviour
     {
         SelfCardDeckArea.gameObject.SetActive(false);
         EnemyCardDeckArea.gameObject.SetActive(false);
-        SelfCardLeftNumText.enabled = false;
-        EnemyCardLeftNumText.enabled = false;
-        SelfCardLeftNumText_BG.enabled = false;
-        EnemyCardLeftNumText_BG.enabled = false;
+        SelfCardLeftNumText.gameObject.SetActive(false);
+        EnemyCardLeftNumText.gameObject.SetActive(false);
+        SelfCardLeftNumText_BG.gameObject.SetActive(false);
+        EnemyCardLeftNumText_BG.gameObject.SetActive(false);
     }
 
     public void ShowAll()
     {
         SelfCardDeckArea.gameObject.SetActive(true);
         EnemyCardDeckArea.gameObject.SetActive(true);
-        SelfCardLeftNumText.enabled = true;
-        EnemyCardLeftNumText.enabled = true;
-        SelfCardLeftNumText_BG.enabled = true;
-        EnemyCardLeftNumText_BG.enabled = true;
+        SelfCardLeftNumText.gameObject.SetActive(true);
+        EnemyCardLeftNumText.gameObject.SetActive(true);
+        SelfCardLeftNumText_BG.gameObject.SetActive(true);
+        EnemyCardLeftNumText_BG.gameObject.SetActive(true);
     }
 
     public void SetSelfCardDeckNumber(int value)

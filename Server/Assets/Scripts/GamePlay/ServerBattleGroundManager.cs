@@ -226,6 +226,7 @@ internal class ServerBattleGroundManager
             targetRetinue.BeAttacked(value);
             DamageSomeRetinueRequest request = new DamageSomeRetinueRequest(ServerPlayer.ClientId, targetRetinue.M_RetinueID, value);
             ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+            targetRetinue.CheckAlive();
         }
     }
 

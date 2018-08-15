@@ -92,7 +92,6 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.LeftLife, addLeftLife: m_RetinueLeftLife - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-                if (ServerPlayer.MyGameManager.DamageTogatherRequestId == -1) ServerPlayer.MyGameManager.DamageTogatherRequestId = request.RequestId;
             }
 
             if (before < m_RetinueLeftLife)
@@ -127,6 +126,15 @@ internal class ServerModuleRetinue : ServerModuleBase
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.MaxLife, addMaxLife: m_RetinueTotalLife - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
+        }
+    }
+
+    public void CheckAlive()
+    {
+        if (M_RetinueLeftLife == 0)
+        {
+            OnDieTogather();
+            ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
         }
     }
 

@@ -324,8 +324,6 @@ internal class ServerGameManager
         DieRetinueList.Clear();
     }
 
-    public int DamageTogatherRequestId;
-
     #endregion
 
 

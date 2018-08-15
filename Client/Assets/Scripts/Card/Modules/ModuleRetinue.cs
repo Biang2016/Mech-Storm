@@ -171,7 +171,7 @@ internal class ModuleRetinue : ModuleBase
     private float SwordMaskFullOffset = 0.451f;
     private Vector3 SwordMaskDefaultPosition;
     [SerializeField] private GameObject LifeBarMask;
-    private float LifeBarMaskFullOffset = 1f;
+    private float LifeBarMaskFullOffset = 0.65f;
     private Vector3 LifeBarMaskDefaultPosition;
     [SerializeField] private Animator LifeIncreaseArrow;
 
