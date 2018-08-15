@@ -28,7 +28,7 @@ public class SelectCardDeckManager : MonoBehaviour
     {
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         SelectCardCount = 0;
-        RetinueCardCount = 0;
+        HeroCardCount = 0;
         Proxy.OnClientStateChange += NetworkStateChange;
     }
 
@@ -38,6 +38,7 @@ public class SelectCardDeckManager : MonoBehaviour
         HideWindow();
         ConfirmButton.gameObject.SetActive(false);
         CloseButton.gameObject.SetActive(true);
+        RetinueCountMaxNumberText.text = GamePlaySettings.MaxHeroNumber.ToString();
     }
 
     [SerializeField] private Transform AllCardsContent;
@@ -63,6 +64,8 @@ public class SelectCardDeckManager : MonoBehaviour
     [SerializeField] private Text CountNumberText;
 
     [SerializeField] private Text RetinueCountNumberText;
+
+    [SerializeField] private Text RetinueCountMaxNumberText;
 
     [SerializeField] private Camera Camera;
 
@@ -240,7 +243,8 @@ public class SelectCardDeckManager : MonoBehaviour
 
     private Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>();
     private Dictionary<int, SelectCard> SelectedCards = new Dictionary<int, SelectCard>();
-    private Dictionary<int, SelectCard> SelectedRetinues = new Dictionary<int, SelectCard>();
+    private Dictionary<int, SelectCard> SelectedHeros = new Dictionary<int, SelectCard>();
+
 
     private int selectCardCount;
 
@@ -254,32 +258,42 @@ public class SelectCardDeckManager : MonoBehaviour
         }
     }
 
-    private int retinueCardCount;
+    private bool isSelectedHeroFull = false;
+    private bool isSelectedHeroEmpty = true;
+    private int _heroCardCount;
 
-    public int RetinueCardCount
+    public int HeroCardCount
     {
-        get { return retinueCardCount; }
+        get { return _heroCardCount; }
         set
         {
-            retinueCardCount = value;
-            RetinueCountNumberText.text = retinueCardCount.ToString();
+            _heroCardCount = value;
+            RetinueCountNumberText.text = _heroCardCount.ToString();
+            isSelectedHeroFull = _heroCardCount >= GamePlaySettings.MaxHeroNumber;
+            isSelectedHeroEmpty = _heroCardCount == 0;
         }
     }
 
     private void SelectCard(CardBase card)
     {
-        bool isRetinue = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSodier;
-        if (isRetinue)
+        bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSodier;
+        if (isHero)
         {
-            if (SelectedRetinues.ContainsKey(card.CardInfo.CardID))
+            if (isSelectedHeroFull)
             {
-                int count = ++SelectedRetinues[card.CardInfo.CardID].Count;
+                NetworkManager.NM.ShowInfoPanel("可携带英雄卡牌数量已达上限", 0, 1f);
+                return;
+            }
+
+            if (SelectedHeros.ContainsKey(card.CardInfo.CardID))
+            {
+                int count = ++SelectedHeros[card.CardInfo.CardID].Count;
                 card.SetBlockCountValue(count);
             }
             else
             {
                 SelectCard retinueSelect = GenerateNewSelectCard(card, RetinueContent);
-                SelectedRetinues.Add(card.CardInfo.CardID, retinueSelect);
+                SelectedHeros.Add(card.CardInfo.CardID, retinueSelect);
                 List<SelectCard> SCs = RetinueContent.GetComponentsInChildren<SelectCard>(true).ToList();
                 SCs.Sort((a, b) => a.Cost.CompareTo(b.Cost));
                 RetinueContent.DetachChildren();
@@ -293,7 +307,7 @@ public class SelectCardDeckManager : MonoBehaviour
                 card.CardBloom.SetActive(true);
             }
 
-            RetinueCardCount++;
+            HeroCardCount++;
         }
         else
         {
@@ -343,17 +357,17 @@ public class SelectCardDeckManager : MonoBehaviour
 
         if (isRetinue)
         {
-            int count = --SelectedRetinues[card.CardInfo.CardID].Count;
+            int count = --SelectedHeros[card.CardInfo.CardID].Count;
             card.SetBlockCountValue(count);
-            if (SelectedRetinues[card.CardInfo.CardID].Count == 0)
+            if (SelectedHeros[card.CardInfo.CardID].Count == 0)
             {
-                SelectedRetinues[card.CardInfo.CardID].PoolRecycle();
-                SelectedRetinues.Remove(card.CardInfo.CardID);
+                SelectedHeros[card.CardInfo.CardID].PoolRecycle();
+                SelectedHeros.Remove(card.CardInfo.CardID);
                 card.BeDimColor();
                 card.CardBloom.SetActive(false);
             }
 
-            RetinueCardCount--;
+            HeroCardCount--;
         }
         else
         {
@@ -376,7 +390,7 @@ public class SelectCardDeckManager : MonoBehaviour
         foreach (CardBase cardBase in allCards.Values)
         {
             if (SelectedCards.ContainsKey(cardBase.CardInfo.CardID)) continue;
-            if (SelectedRetinues.ContainsKey(cardBase.CardInfo.CardID)) continue;
+            if (SelectedHeros.ContainsKey(cardBase.CardInfo.CardID)) continue;
             SelectCard(cardBase);
         }
     }
@@ -394,15 +408,15 @@ public class SelectCardDeckManager : MonoBehaviour
                 SelectedCards.Remove(kv.Key);
             }
 
-            if (SelectedRetinues.ContainsKey(kv.Key))
+            if (SelectedHeros.ContainsKey(kv.Key))
             {
-                SelectedRetinues[kv.Key].PoolRecycle();
-                SelectedRetinues.Remove(kv.Key);
+                SelectedHeros[kv.Key].PoolRecycle();
+                SelectedHeros.Remove(kv.Key);
             }
         }
 
         SelectCardCount = 0;
-        RetinueCardCount = 0;
+        HeroCardCount = 0;
     }
 
     public void ConfirmSubmitCardDeck()
@@ -417,7 +431,7 @@ public class SelectCardDeckManager : MonoBehaviour
         }
 
         List<int> retinueIds = new List<int>();
-        foreach (KeyValuePair<int, SelectCard> kv in SelectedRetinues)
+        foreach (KeyValuePair<int, SelectCard> kv in SelectedHeros)
         {
             for (int i = 0; i < kv.Value.Count; i++)
             {

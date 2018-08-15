@@ -12,22 +12,6 @@ public class CardDeckCard : MonoBehaviour, IGameObjectPool
         transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
-
-    private Renderer m_Renderer;
-
-    protected virtual void Awake()
-    {
-        m_Renderer = GetComponent<Renderer>();
-    }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
     [SerializeField] private Renderer MainBoardRenderer;
     [SerializeField] private GameObject CardBloom;
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent, IMouseHoverComponent
 {
@@ -266,6 +267,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     public Renderer MainBoardRenderer;
     public GameObject CardBloom;
     public Renderer PictureBoxRenderer;
+    [SerializeField] private Image Image_RetinueDescPanel;
 
     public GameObject Block_Cost;
     protected GameObject GoNumberSet_Cost;
@@ -298,6 +300,11 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             mpb.SetColor("_Color", newColor);
             mpb.SetColor("_EmissionColor", newColor);
             MainBoardRenderer.SetPropertyBlock(mpb);
+        }
+
+        if (Image_RetinueDescPanel)
+        {
+            Image_RetinueDescPanel.color = new Color(newColor.r/2, newColor.g / 2, newColor.b / 2, 0.5f);
         }
     }
 
