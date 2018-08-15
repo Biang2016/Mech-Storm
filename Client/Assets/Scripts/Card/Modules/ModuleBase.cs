@@ -55,7 +55,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
         else
         {
             cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign,false);
+            cardNumberSet.initiate(0, numberType, textAlign, false);
         }
     }
 
@@ -123,7 +123,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
         }
     }
 
-    [SerializeField]private Renderer MainBoardRenderer;
+    [SerializeField] private Renderer MainBoardRenderer;
 
     public void ChangeColor(Color newColor)
     {
@@ -199,7 +199,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                     ((CardRetinue) detailCard).Shield.Initiate(((ModuleRetinue) this).M_Shield.CardInfo, ClientPlayer);
                     ((CardRetinue) detailCard).Shield.GetComponent<DragComponent>().enabled = false;
                     ((CardRetinue) detailCard).Shield.GetComponent<MouseHoverComponent>().enabled = false;
-                    ((CardRetinue)detailCard).Shield.SetPreview();
+                    ((CardRetinue) detailCard).Shield.SetPreview();
 
                     detailCard_Shield = (CardShield) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
                     detailCard_Shield.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
@@ -279,7 +279,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
     public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        canDrag = true;
+        canDrag = ClientPlayer == RoundManager.Instance.SelfClientPlayer;
         dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 

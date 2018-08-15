@@ -812,7 +812,7 @@ internal class ModuleRetinue : ModuleBase
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
         canDrag = CheckCanAttack();
-        dragPurpose = DragPurpose.Attack;
+        dragPurpose = DragPurpose.Target;
     }
 
     public override float DragComponnet_DragDistance()

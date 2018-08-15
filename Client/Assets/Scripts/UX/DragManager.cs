@@ -10,6 +10,10 @@ internal class DragManager : MonoSingletion<DragManager>
     {
     }
 
+    int modulesLayer;
+    int retinueLayer;
+    int cardLayer;
+
     void Awake()
     {
         modulesLayer = 1 << LayerMask.NameToLayer("Modules");
@@ -17,11 +21,13 @@ internal class DragManager : MonoSingletion<DragManager>
         cardLayer = 1 << LayerMask.NameToLayer("Cards");
     }
 
-    int modulesLayer;
-    int retinueLayer;
-    int cardLayer;
-
     internal Arrow CurrentArrow;
+
+    internal CardRetinue CurrentDrag_CardRetinue;
+    internal CardWeapon CurrentDrag_CardWeapon;
+    internal CardShield CurrentDrag_CardShield;
+    internal CardSpell CurrentDrag_CardSpell;
+    internal ModuleRetinue CurrentDrag_ModuleRetinue;
 
     private DragComponent currentDrag;
 
@@ -62,13 +68,6 @@ internal class DragManager : MonoSingletion<DragManager>
             }
         }
     }
-
-    internal CardRetinue CurrentDrag_CardRetinue;
-    internal CardWeapon CurrentDrag_CardWeapon;
-    internal CardShield CurrentDrag_CardShield;
-    internal CardSpell CurrentDrag_CardSpell;
-    internal ModuleRetinue CurrentDrag_ModuleRetinue;
-
 
     void Update()
     {
@@ -213,7 +212,6 @@ internal class DragManager : MonoSingletion<DragManager>
                                 break;
                         }
                     }
-
 
                     CurrentArrow.PoolRecycle();
                     IsSummonPreview = false;

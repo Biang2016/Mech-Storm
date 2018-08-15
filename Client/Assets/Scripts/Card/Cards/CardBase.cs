@@ -392,7 +392,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        canDrag = Usable;
+        canDrag = Usable && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
         dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 

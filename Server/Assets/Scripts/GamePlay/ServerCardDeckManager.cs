@@ -62,7 +62,7 @@ internal class ServerCardDeckManager
     {
         if (M_CurrentCardDeck.IsEmpty)
         {
-            return null;
+            return new List<CardInfo_Base>();
         }
 
         List<CardInfo_Base> newCardInfoBases = M_CurrentCardDeck.DrawCardsOnTop(cardNumber);

@@ -3,18 +3,19 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// 可拖动组件，应用于卡片、人物、技能、随从、
+/// 实现拖动过程中卡牌跟随鼠标的一段动画
+/// </summary>
 internal class DragComponent : MonoBehaviour
 {
-    /// <summary>
-    /// 可拖动功能，应用于卡片、人物、技能、随从、
-    /// 实现拖动过程中卡牌跟随鼠标的一段动画
-    /// 如果被拖动物体带target效果，则此组件只实现最初的卡牌跟随鼠标动画，由targetArrow终结此过程
-    /// </summary>
     int retinuesLayer;
-
     int boardAreasLayer;
     int slotsLayer;
     IDragComponent caller;
+
+    private CardBase possibleCard;
+    private ModuleBase possibleModuleBase;
 
     void Awake()
     {
@@ -24,9 +25,16 @@ internal class DragComponent : MonoBehaviour
         caller = GetComponent<IDragComponent>();
     }
 
-    void Start()
-    {
-    }
+
+    private bool canDrag;
+    private bool isOnDrag = false;
+    private DragPurpose dragPurpose;
+    private float dragDistance;
+
+    private bool isBegin = true;
+    private Vector3 dragBeginPosition;
+    private Quaternion dragBeginQuaternion;
+    private Vector3 dragLastPosition;
 
     void Update()
     {
@@ -56,17 +64,14 @@ internal class DragComponent : MonoBehaviour
                         caller.DragComponnet_DragOutEffects();
                     }
 
+                    caller.DragComponent_OnMousePressed(BoardAreaTypes.Others, checkMoveToSlot(), checkMoveToRetinue(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
                     break;
                 case DragPurpose.Summon:
                     transform.position = transform.position + cameraPosition - dragLastPosition;
                     dragLastPosition = cameraPosition;
+                    caller.DragComponent_OnMousePressed(checkAreas(), null, null, dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
                     break;
-                case DragPurpose.Attack:
-                    if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowAiming)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject(DragManager.Instance.transform).GetComponent<ArrowAiming>();
-                    DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
-                    caller.DragComponnet_DragOutEffects();
-                    break;
-                case DragPurpose.Spell:
+                case DragPurpose.Target:
                     if ((transform.position - dragBeginPosition).magnitude < dragDistance) //拖拽物体本身 
                     {
                         transform.position = transform.position + cameraPosition - dragLastPosition;
@@ -79,21 +84,12 @@ internal class DragComponent : MonoBehaviour
                         caller.DragComponnet_DragOutEffects();
                     }
 
+                    caller.DragComponent_OnMousePressed(BoardAreaTypes.Others, null, checkMoveToRetinue(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
                     break;
             }
 
-            caller.DragComponent_OnMousePressed(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
         }
     }
-
-    bool canDrag;
-    private DragPurpose dragPurpose;
-    float dragDistance;
-    private bool isOnDrag = false;
-    bool isBegin = true;
-    Vector3 dragBeginPosition;
-    Quaternion dragBeginQuaternion;
-    Vector3 dragLastPosition;
 
     public bool IsOnDrag
     {
@@ -101,42 +97,37 @@ internal class DragComponent : MonoBehaviour
 
         set
         {
-            CardBase possibleCard = GetComponent<CardBase>();
-            ModuleBase possibleModuleBase = GetComponent<ModuleBase>();
-            if (possibleCard && possibleCard.ClientPlayer == RoundManager.Instance.CurrentClientPlayer || possibleModuleBase && possibleModuleBase.ClientPlayer == RoundManager.Instance.CurrentClientPlayer)
+            if (value) //鼠标按下
             {
-                if (value) //鼠标按下
+                caller.DragComponent_SetStates(ref canDrag, ref dragPurpose);
+                if (canDrag)
                 {
-                    caller.DragComponent_SetStates(ref canDrag, ref dragPurpose);
-                    if (canDrag)
-                    {
-                        dragLastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        caller.DragComponent_OnMouseDown();
-                        dragDistance = caller.DragComponnet_DragDistance();
-                        isOnDrag = value;
-                    }
-                    else
-                    {
-                        isOnDrag = false;
-                        DragManager.Instance.CurrentDrag = null;
-                    }
+                    dragLastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    caller.DragComponent_OnMouseDown();
+                    dragDistance = caller.DragComponnet_DragDistance();
+                    isOnDrag = value;
                 }
-                else //鼠标放开
+                else
                 {
-                    if (canDrag)
-                    {
-                        //将鼠标放开的区域告知拖动对象主体，并提供拖动起始姿态信息以供还原
-                        caller.DragComponent_OnMouseUp(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
-                        dragLastPosition = Vector3.zero;
-                        isBegin = true;
-                        if (DragManager.Instance.CurrentArrow) DragManager.Instance.CurrentArrow.PoolRecycle();
-                        isOnDrag = value;
-                    }
-                    else
-                    {
-                        isOnDrag = false;
-                        DragManager.Instance.CurrentDrag = null;
-                    }
+                    isOnDrag = false;
+                    DragManager.Instance.CurrentDrag = null;
+                }
+            }
+            else //鼠标放开
+            {
+                if (canDrag)
+                {
+                    //将鼠标放开的区域告知拖动对象主体，并提供拖动起始姿态信息以供还原
+                    caller.DragComponent_OnMouseUp(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+                    dragLastPosition = Vector3.zero;
+                    isBegin = true;
+                    if (DragManager.Instance.CurrentArrow) DragManager.Instance.CurrentArrow.PoolRecycle();
+                    isOnDrag = value;
+                }
+                else
+                {
+                    isOnDrag = false;
+                    DragManager.Instance.CurrentDrag = null;
                 }
             }
         }
