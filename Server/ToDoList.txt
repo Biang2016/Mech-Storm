@@ -140,13 +140,15 @@ shield装备动画
 8.15
 增加了卡组模型和逻辑
 做伤害型法术逻辑，还存在bug
+slot 和 slotAnchor合并
+整理代码、重构MouseHoverManager和DragManager
+卡组模型绘画、卡背图案
+
 
 bug:
 播放对方操作动画的时候，己方损失随从没有进行刷新战场（可能是协议一下子接收的问题）
 
 TodoList
-slot 和 slotAnchor合并
-卡牌描述里自动换行处理、自动文本大小
 协议瘦身，如字符串
 X. 服务端持久化数据
 制作触发、亡语、等图标
