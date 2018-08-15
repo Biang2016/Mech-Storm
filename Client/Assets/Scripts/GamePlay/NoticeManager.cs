@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public class NoticeManager : MonoSingletion<NoticeManager>
 {
+    private NoticeManager()
+    {
+    }
+
     [SerializeField] private Animator InfoPanelAnimator;
     [SerializeField] private Text InfoText;
 

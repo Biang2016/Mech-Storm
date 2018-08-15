@@ -331,8 +331,8 @@ internal class ServerGameManager
 
     public void Broadcast_AddRequestToOperationResponse(ServerRequestBase request)
     {
-        ClientA.CurrentClientRequestResponseBundle.SideEffects.Add(request);
-        ClientB.CurrentClientRequestResponseBundle.SideEffects.Add(request);
+        ClientA.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
+        ClientB.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
     }
 
 

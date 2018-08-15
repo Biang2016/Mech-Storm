@@ -12,7 +12,7 @@ internal class ModuleShield : ModuleBase
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool;
+        gameObjectPool = GameObjectPoolManager.Instance.Pool_ModuleShieldPool;
     }
 
     #region 各模块、自身数值和初始化

@@ -1,24 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-internal class DragManager : MonoBehaviour
+/// <summary>
+/// 鼠标拖拽管理器
+/// </summary>
+internal class DragManager : MonoSingletion<DragManager>
 {
-    /// <summary>
-    /// 一次拖动一个卡牌、随从、英雄
-    /// </summary>
-    private static DragManager dm;
-
-    public static DragManager DM
+    private DragManager()
     {
-        get
-        {
-            if (!dm)
-            {
-                dm = FindObjectOfType(typeof(DragManager)) as DragManager;
-            }
-
-            return dm;
-        }
     }
 
     void Awake()
@@ -26,10 +15,6 @@ internal class DragManager : MonoBehaviour
         modulesLayer = 1 << LayerMask.NameToLayer("Modules");
         retinueLayer = 1 << LayerMask.NameToLayer("Retinues");
         cardLayer = 1 << LayerMask.NameToLayer("Cards");
-    }
-
-    void Start()
-    {
     }
 
     int modulesLayer;
@@ -61,9 +46,23 @@ internal class DragManager : MonoBehaviour
                 CurrentDrag_CardShield = currentDrag.GetComponent<CardShield>();
                 CurrentDrag_CardSpell = currentDrag.GetComponent<CardSpell>();
                 CurrentDrag_ModuleRetinue = currentDrag.GetComponent<ModuleRetinue>();
+
+                if (CurrentDrag_CardWeapon || CurrentDrag_CardShield)
+                {
+                    MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.DragEquipment);
+                }
+                else if (CurrentDrag_CardSpell)
+                {
+                    MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.DragSpellToRetinue);
+                }
+                else if (CurrentDrag_ModuleRetinue)
+                {
+                    MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.DragRetinueToRetinue);
+                }
             }
         }
     }
+
     internal CardRetinue CurrentDrag_CardRetinue;
     internal CardWeapon CurrentDrag_CardWeapon;
     internal CardShield CurrentDrag_CardShield;
@@ -83,7 +82,6 @@ internal class DragManager : MonoBehaviour
             SummonPreviewDrag();
         }
     }
-
 
     private void CommonDrag()
     {
@@ -124,25 +122,23 @@ internal class DragManager : MonoBehaviour
     # region 召唤随从指定目标预览
 
     internal bool IsSummonPreview;
-    private ModuleRetinue CurrentSummonPreviewRetinue;
+    internal ModuleRetinue CurrentSummonPreviewRetinue;
     public BattleGroundManager.SummonRetinueTarget SummonRetinueTargetHandler;
     public TargetSideEffect.TargetRange SummonRetinueTargetRange;
 
-    public enum TargetSelect
-    {
-        None = -2
-    }
+    public const int TARGET_SELECT_NONE = -2;
 
     public void StartArrowAiming(ModuleRetinue retinue, TargetSideEffect.TargetRange targetRange)
     {
         IsSummonPreview = true;
         CurrentSummonPreviewRetinue = retinue;
         SummonRetinueTargetRange = targetRange;
+        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.SummonRetinueTargetOnRetinue);
     }
 
     private void SummonPreviewDrag()
     {
-        if (!CurrentArrow || !(CurrentArrow is ArrowAiming)) CurrentArrow = GameObjectPoolManager.GOPM.Pool_ArrowAimingPool.AllocateGameObject(transform).GetComponent<ArrowAiming>();
+        if (!CurrentArrow || !(CurrentArrow is ArrowAiming)) CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject(transform).GetComponent<ArrowAiming>();
         Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CurrentArrow.Render(CurrentSummonPreviewRetinue.transform.position, cameraPosition);
         if (Input.GetMouseButtonUp(0))
@@ -167,7 +163,7 @@ internal class DragManager : MonoBehaviour
                 }
                 else
                 {
-                    if (RoundManager.Instance.SelfClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue == retinue)//不可指向自己
+                    if (RoundManager.Instance.SelfClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue == retinue) //不可指向自己
                     {
                         SummonRetinueTargetHandler(-2);
                         CurrentArrow.PoolRecycle();

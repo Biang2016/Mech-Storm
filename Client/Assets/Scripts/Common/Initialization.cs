@@ -2,27 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-internal class Initialization : MonoBehaviour
+internal class Initialization : MonoSingletion<Initialization>
 {
+    private Initialization()
+    {
+    }
+
     [SerializeField] private GameObject Manager;
-    private GameManager GameManager;
-    private GameBoardManager GameBoardManager;
 
     void Awake()
     {
-        GameObject manager = Instantiate(Manager);
-
-        GameManager gameManager = manager.GetComponentInChildren<GameManager>();
-        GameBoardManager gameBoardManager= manager.GetComponentInChildren<GameBoardManager>();
-        gameBoardManager.enabled = true;
-        gameManager.enabled = true;
-    }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
+        Instantiate(Manager);
+        ClientLog.Instance.PrintClientStates("启动客户端...");
+        RoundManager.Instance.StopGame();
     }
 }

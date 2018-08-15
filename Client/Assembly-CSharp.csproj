@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\GamePlay\HandManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\NoticeManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\RoundManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\RoundManager_Response.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SelectCardDeckManager.cs" />
     <Compile Include="Assets\Scripts\Network\Client.cs" />
     <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />

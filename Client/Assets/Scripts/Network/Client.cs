@@ -9,17 +9,10 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-internal class Client : MonoBehaviour
+internal class Client : MonoSingletion<Client>
 {
-    private static Client _cs;
-
-    public static Client CS
+    private Client()
     {
-        get
-        {
-            if (!_cs) _cs = FindObjectOfType<Client>();
-            return _cs;
-        }
     }
 
     private Socket ServerSocket;
@@ -42,16 +35,25 @@ internal class Client : MonoBehaviour
     //接收到数据放入数据队列，按顺序取出
     void Update()
     {
-        if (Proxy != null)
+        if (!SocketErrorFlag)
         {
-            if (receiveDataQueue.Count > 0)
+            if (Proxy != null)
             {
-                ReceiveSocketData rsd = receiveDataQueue.Dequeue();
-                DataStream stream = new DataStream(rsd.Data, true);
-                ProtoManager.TryDeserialize(stream, rsd.Socket);
-            }
+                if (receiveDataQueue.Count > 0)
+                {
+                    ReceiveSocketData rsd = receiveDataQueue.Dequeue();
+                    DataStream stream = new DataStream(rsd.Data, true);
+                    ProtoManager.TryDeserialize(stream, rsd.Socket);
+                }
 
-            Proxy.Send();
+                Proxy.Send();
+            }
+        }
+        else
+        {
+            Proxy.ClientState = ProxyBase.ClientStates.Nothing;
+            RoundManager.Instance.StopGame();
+            SocketErrorFlag = false;
         }
     }
 
@@ -122,7 +124,7 @@ internal class Client : MonoBehaviour
             //与socket建立连接成功，开启线程接受服务端数据。  
             isStopReceive = false;
             Proxy = new Proxy(ServerSocket, 0, false);
-            Thread thread = new Thread(new ThreadStart(ReceiveSocket));
+            Thread thread = new Thread(ReceiveSocket);
             thread.IsBackground = true;
             thread.Start();
         }
@@ -159,7 +161,7 @@ internal class Client : MonoBehaviour
         if (ServerSocket != null && ServerSocket.Connected)
         {
             ServerSocket.Shutdown(SocketShutdown.Both);
-            ClientLog.CL.PrintError("[C]Socket close");
+            ClientLog.Instance.PrintError("[C]Socket close");
             ServerSocket.Close();
             RoundManager.Instance.StopGame();
         }
@@ -176,7 +178,7 @@ internal class Client : MonoBehaviour
         Proxy.Response(socket, requestbase);
     }
 
-    private int clientStates = 0;
+    private bool SocketErrorFlag = false;
 
     private void ReceiveSocket()
     {
@@ -186,9 +188,9 @@ internal class Client : MonoBehaviour
             if (!ServerSocket.Connected)
             {
                 //与服务器断开连接跳出循环  
-                ClientLog.CL.PrintError("[C]连接服务器失败.");
+                ClientLog.Instance.PrintError("[C]连接服务器失败.");
                 ServerSocket.Close();
-                RoundManager.Instance.StopGame();
+                SocketErrorFlag = true;
                 break;
             }
 
@@ -205,7 +207,7 @@ internal class Client : MonoBehaviour
                 {
                     ServerSocket.Close();
                     RoundManager.Instance.StopGame();
-                    ClientLog.CL.PrintError("[C]Socket.Close();");
+                    ClientLog.Instance.PrintError("[C]Socket.Close();");
                     break;
                 }
 
@@ -220,10 +222,9 @@ internal class Client : MonoBehaviour
             }
             catch (Exception e)
             {
-                ClientLog.CL.PrintError("[C]Failed to clientSocket error. " + e);
+                ClientLog.Instance.PrintError("[C]Failed to clientSocket error. " + e);
                 if (ServerSocket != null) ServerSocket.Close();
-                Proxy.ClientState = ProxyBase.ClientStates.Nothing;
-                RoundManager.Instance.StopGame();
+                SocketErrorFlag = true;
                 break;
             }
         }
@@ -239,13 +240,13 @@ internal class Client : MonoBehaviour
 
         if (ServerSocket == null)
         {
-            ClientLog.CL.PrintError("[C]Server socket is null");
+            ClientLog.Instance.PrintError("[C]Server socket is null");
             return;
         }
 
         if (!ServerSocket.Connected)
         {
-            ClientLog.CL.PrintError("[C]Not connected to server socket");
+            ClientLog.Instance.PrintError("[C]Not connected to server socket");
             Closed();
             return;
         }
@@ -272,18 +273,18 @@ internal class Client : MonoBehaviour
             }
 
             string log = "SendToServer: <" + request.GetProtocolName() + "> " + request.DeserializeLog();
-            ClientLog.CL.Print(log);
+            ClientLog.Instance.Print(log);
         }
         catch (Exception e)
         {
-            ClientLog.CL.PrintError("[C]Send error : " + e.ToString());
+            ClientLog.Instance.PrintError("[C]Send error : " + e.ToString());
             RoundManager.Instance.StopGame();
         }
     }
 
     private void SendCallback(IAsyncResult asyncConnect)
     {
-        //ClientLog.CL.Print("[C]Send success");
+        //ClientLog.Instance.Print("[C]Send success");
     }
 
     #endregion

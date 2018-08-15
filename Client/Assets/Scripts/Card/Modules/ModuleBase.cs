@@ -48,7 +48,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     {
         if (!Number)
         {
-            Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
+            Number = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
             cardNumberSet = Number.GetComponent<CardNumberSet>();
             cardNumberSet.initiate(0, numberType, textAlign, false);
         }
@@ -63,7 +63,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     {
         if (!Number)
         {
-            Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
+            Number = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
             cardNumberSet = Number.GetComponent<CardNumberSet>();
             cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);
         }
@@ -137,7 +137,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
         }
         else
         {
-            ClientLog.CL.Print("No MainBoardRenderer");
+            ClientLog.Instance.Print("No MainBoardRenderer");
         }
     }
 
@@ -168,7 +168,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                 {
                     if (!((CardRetinue) detailCard).Weapon)
                     {
-                        ((CardRetinue) detailCard).Weapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleWeapon>();
+                        ((CardRetinue) detailCard).Weapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleWeapon>();
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) this).M_Weapon.CardInfo;
@@ -191,7 +191,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                 {
                     if (!((CardRetinue) detailCard).Shield)
                     {
-                        ((CardRetinue) detailCard).Shield = GameObjectPoolManager.GOPM.Pool_ModuleShieldDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleShield>();
+                        ((CardRetinue) detailCard).Shield = GameObjectPoolManager.Instance.Pool_ModuleShieldDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleShield>();
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) this).M_Shield.CardInfo;
@@ -298,7 +298,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
     public virtual void MouseHoverComponent_OnMouseEnter(Vector3 mousePosition)
     {
-        if (DragManager.DM.IsSummonPreview) return;
+        if (DragManager.Instance.IsSummonPreview) return;
         ShowCardDetail(mousePosition);
         GameManager.Instance.StartBlurBackGround();
     }
@@ -309,7 +309,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
     public virtual void MouseHoverComponent_OnMouseLeave()
     {
-        if (DragManager.DM.IsSummonPreview) return;
+        if (DragManager.Instance.IsSummonPreview) return;
         HideCardDetail();
         GameManager.Instance.StopBlurBackGround();
     }

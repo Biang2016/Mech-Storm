@@ -51,8 +51,8 @@ internal class DragComponent : MonoBehaviour
                     }
                     else //拖拽一定距离产生效果
                     {
-                        if (!DragManager.DM.CurrentArrow || !(DragManager.DM.CurrentArrow is ArrowArrow)) DragManager.DM.CurrentArrow = GameObjectPoolManager.GOPM.Pool_ArrowArrowPool.AllocateGameObject(DragManager.DM.transform).GetComponent<ArrowArrow>();
-                        DragManager.DM.CurrentArrow.Render(dragBeginPosition, cameraPosition);
+                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowArrow)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowArrowPool.AllocateGameObject(DragManager.Instance.transform).GetComponent<ArrowArrow>();
+                        DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                         caller.DragComponnet_DragOutEffects();
                     }
 
@@ -62,8 +62,8 @@ internal class DragComponent : MonoBehaviour
                     dragLastPosition = cameraPosition;
                     break;
                 case DragPurpose.Attack:
-                    if (!DragManager.DM.CurrentArrow || !(DragManager.DM.CurrentArrow is ArrowAiming)) DragManager.DM.CurrentArrow = GameObjectPoolManager.GOPM.Pool_ArrowAimingPool.AllocateGameObject(DragManager.DM.transform).GetComponent<ArrowAiming>();
-                    DragManager.DM.CurrentArrow.Render(dragBeginPosition, cameraPosition);
+                    if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowAiming)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject(DragManager.Instance.transform).GetComponent<ArrowAiming>();
+                    DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                     caller.DragComponnet_DragOutEffects();
                     break;
                 case DragPurpose.Spell:
@@ -74,8 +74,8 @@ internal class DragComponent : MonoBehaviour
                     }
                     else //拖拽一定距离产生效果
                     {
-                        if (!DragManager.DM.CurrentArrow || !(DragManager.DM.CurrentArrow is ArrowAiming)) DragManager.DM.CurrentArrow = GameObjectPoolManager.GOPM.Pool_ArrowAimingPool.AllocateGameObject(DragManager.DM.transform).GetComponent<ArrowAiming>();
-                        DragManager.DM.CurrentArrow.Render(dragBeginPosition, cameraPosition);
+                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowAiming)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject(DragManager.Instance.transform).GetComponent<ArrowAiming>();
+                        DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                         caller.DragComponnet_DragOutEffects();
                     }
 
@@ -118,7 +118,7 @@ internal class DragComponent : MonoBehaviour
                     else
                     {
                         isOnDrag = false;
-                        DragManager.DM.CurrentDrag = null;
+                        DragManager.Instance.CurrentDrag = null;
                     }
                 }
                 else //鼠标放开
@@ -129,13 +129,13 @@ internal class DragComponent : MonoBehaviour
                         caller.DragComponent_OnMouseUp(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
                         dragLastPosition = Vector3.zero;
                         isBegin = true;
-                        if (DragManager.DM.CurrentArrow) DragManager.DM.CurrentArrow.PoolRecycle();
+                        if (DragManager.Instance.CurrentArrow) DragManager.Instance.CurrentArrow.PoolRecycle();
                         isOnDrag = value;
                     }
                     else
                     {
                         isOnDrag = false;
-                        DragManager.DM.CurrentDrag = null;
+                        DragManager.Instance.CurrentDrag = null;
                     }
                 }
             }

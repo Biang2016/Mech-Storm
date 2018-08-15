@@ -20,7 +20,7 @@ internal class Proxy : ProxyBase
         {
             if (clientState != value) OnClientStateChange(value);
             clientState = value;
-            ClientLog.CL.PrintClientStates("Client states: " + ClientState);
+            ClientLog.Instance.PrintClientStates("Client states: " + ClientState);
         }
     }
 
@@ -39,7 +39,7 @@ internal class Proxy : ProxyBase
         if (SendRequestsQueue.Count > 0)
         {
             ClientRequestBase request = SendRequestsQueue.Dequeue();
-            Thread thread = new Thread(Client.CS.Send);
+            Thread thread = new Thread(Client.Instance.Send);
             thread.IsBackground = true;
             thread.Start(request);
         }
@@ -52,7 +52,7 @@ internal class Proxy : ProxyBase
 
     public void Response(Socket socket, RequestBase r)
     {
-        ClientLog.CL.PrintReceive("Server: " + r.DeserializeLog());
+        ClientLog.Instance.PrintReceive("Server: " + r.DeserializeLog());
         if (!(r is ResponseBundleBase))
         {
             switch (r.GetProtocol())
@@ -80,14 +80,14 @@ internal class Proxy : ProxyBase
         else
         {
             ResponseBundleBase request = (ResponseBundleBase) r;
-            foreach (ServerRequestBase requestSideEffect in request.SideEffects) //请求预处理，提取关键信息，如随从死亡、弃牌等会影响客户端交互的信息
+            foreach (ServerRequestBase attachedRequest in request.AttachedRequests) //请求预处理，提取关键信息，如随从死亡、弃牌等会影响客户端交互的信息
             {
-                RoundManager.Instance.ResponseToSideEffects_PrePass(requestSideEffect);
+                RoundManager.Instance.ResponseToSideEffects_PrePass(attachedRequest);
             }
 
-            foreach (ServerRequestBase requestSideEffect in request.SideEffects)
+            foreach (ServerRequestBase attachedRequest in request.AttachedRequests)
             {
-                RoundManager.Instance.ResponseToSideEffects(requestSideEffect);
+                RoundManager.Instance.ResponseToSideEffects(attachedRequest);
             }
         }
     }

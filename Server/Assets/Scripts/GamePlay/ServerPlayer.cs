@@ -132,7 +132,7 @@ internal class ServerPlayer : Player
 
     private void BroadCastRequest(ServerRequestBase request)
     {
-        MyClientProxy?.CurrentClientRequestResponseBundle.SideEffects.Add(request);
-        MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.SideEffects.Add(request);
+        MyClientProxy?.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
+        MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
     }
 }

@@ -11,6 +11,10 @@ using UnityEngine.UI;
 /// </summary>
 public class CardDeckManager : MonoSingletion<CardDeckManager>
 {
+    private CardDeckManager()
+    {
+    }
+
     [SerializeField] private Transform SelfCardDeckArea;
     [SerializeField] private Transform EnemyCardDeckArea;
 
@@ -44,8 +48,8 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
 
         for (int i = 0; i < GameManager.Instance.CardDeckCardNum; i++)
         {
-            self_CardDeckCards[i] = GameObjectPoolManager.GOPM.Pool_CardDeckCardPool.AllocateGameObject(SelfCardDeckArea).GetComponent<CardDeckCard>();
-            enemy_CardDeckCards[i] = GameObjectPoolManager.GOPM.Pool_CardDeckCardPool.AllocateGameObject(EnemyCardDeckArea).GetComponent<CardDeckCard>();
+            self_CardDeckCards[i] = GameObjectPoolManager.Instance.Pool_CardDeckCardPool.AllocateGameObject(SelfCardDeckArea).GetComponent<CardDeckCard>();
+            enemy_CardDeckCards[i] = GameObjectPoolManager.Instance.Pool_CardDeckCardPool.AllocateGameObject(EnemyCardDeckArea).GetComponent<CardDeckCard>();
             self_CardDeckCards[i].ChangeColor(ClientUtils.HTMLColorToColor("#919191"));
             enemy_CardDeckCards[i].ChangeColor(ClientUtils.HTMLColorToColor("#919191"));
             self_CardDeckCards[i].ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#007AFF"));
@@ -81,15 +85,33 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
 
     public void SetSelfCardDeckNumber(int value)
     {
-        SelfCardLeftNumText.text = value.ToString();
-        SelfCardLeftNumText_BG.text = value.ToString();
+        if (value == 0)
+        {
+            SelfCardLeftNumText.text = "";
+            SelfCardLeftNumText_BG.text = "";
+        }
+        else
+        {
+            SelfCardLeftNumText.text = value.ToString();
+            SelfCardLeftNumText_BG.text = value.ToString();
+        }
+
         SetCardDeckShowCardNum(self_CardDeckCards, value);
     }
 
     public void SetEnemyCardDeckNumber(int value)
     {
-        EnemyCardLeftNumText.text = value.ToString();
-        EnemyCardLeftNumText_BG.text = value.ToString();
+        if (value == 0)
+        {
+            EnemyCardLeftNumText.text = "";
+            EnemyCardLeftNumText_BG.text = "";
+        }
+        else
+        {
+            EnemyCardLeftNumText.text = value.ToString();
+            EnemyCardLeftNumText_BG.text = value.ToString();
+        }
+
         SetCardDeckShowCardNum(enemy_CardDeckCards, value);
     }
 

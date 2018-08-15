@@ -57,24 +57,24 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             switch (cardInfo.BaseInfo.CardType)
             {
                 case CardTypes.Retinue:
-                    newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueCardPool;
                     break;
                 case CardTypes.Weapon:
-                    newCard = GameObjectPoolManager.GOPM.Pool_WeaponCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
-                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_WeaponCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_WeaponCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_WeaponCardPool;
                     break;
                 case CardTypes.Shield:
-                    newCard = GameObjectPoolManager.GOPM.Pool_ShieldCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
-                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_ShieldCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_ShieldCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_ShieldCardPool;
                     break;
                 case CardTypes.Spell:
-                    newCard = GameObjectPoolManager.GOPM.Pool_SpellCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
-                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_SpellCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_SpellCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_SpellCardPool;
                     break;
                 default:
-                    newCard = GameObjectPoolManager.GOPM.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueCardPool;
                     break;
             }
 
@@ -85,24 +85,24 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             switch (cardInfo.BaseInfo.CardType)
             {
                 case CardTypes.Retinue:
-                    newCard = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool;
                     break;
                 case CardTypes.Weapon:
-                    newCard = GameObjectPoolManager.GOPM.Pool_WeaponSelectCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
-                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_WeaponSelectCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_WeaponSelectCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_WeaponSelectCardPool;
                     break;
                 case CardTypes.Shield:
-                    newCard = GameObjectPoolManager.GOPM.Pool_ShieldSelectCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
-                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_ShieldSelectCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_ShieldSelectCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_ShieldSelectCardPool;
                     break;
                 case CardTypes.Spell:
-                    newCard = GameObjectPoolManager.GOPM.Pool_SpellSelectCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
-                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_SpellSelectCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool;
                     break;
                 default:
-                    newCard = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                    newCard.gameObjectPool = GameObjectPoolManager.GOPM.Pool_RetinueSelectCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool;
                     break;
             }
 
@@ -121,7 +121,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
         if (!Number)
         {
-            Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
+            Number = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
             cardNumberSet = Number.GetComponent<CardNumberSet>();
             cardNumberSet.initiate(0, numberType, textAlign, IsCardSelect);
         }
@@ -136,7 +136,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
         if (!Number)
         {
-            Number = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
+            Number = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
             cardNumberSet = Number.GetComponent<CardNumberSet>();
             cardNumberSet.initiate(firstSign, 0, numberType, textAlign, IsCardSelect);
         }
@@ -160,7 +160,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
 
         M_Cost = CardInfo.BaseInfo.Cost;
-        ChangePicture(CardInfo.CardID);
+        ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
         Stars = cardInfo.UpgradeInfo.CardLevel;
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -293,7 +293,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
         if (Image_RetinueDescPanel)
         {
-            Image_RetinueDescPanel.color = new Color(newColor.r/2, newColor.g / 2, newColor.b / 2, 0.5f);
+            Image_RetinueDescPanel.color = new Color(newColor.r / 2, newColor.g / 2, newColor.b / 2, 0.5f);
         }
     }
 
@@ -308,17 +308,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             mpb.SetColor("_EmissionColor", color);
             rd.SetPropertyBlock(mpb);
         }
-    }
-
-    public void ChangePicture(int pictureID)
-    {
-        Texture tx = (Texture) Resources.Load(string.Format("{0:000}", pictureID));
-        if (tx == null) Debug.LogError("所选卡片没有图片资源：" + pictureID);
-        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-        PictureBoxRenderer.GetPropertyBlock(mpb);
-        mpb.SetTexture("_MainTex", tx);
-        mpb.SetTexture("_EmissionMap", tx);
-        PictureBoxRenderer.SetPropertyBlock(mpb);
     }
 
     public void ChangePictureColor(Color newColor)
@@ -382,7 +371,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
         if (myColliderReplace)
         {
-            GameObjectPoolManager.GOPM.Pool_ColliderReplacePool.RecycleGameObject(myColliderReplace.gameObject);
+            GameObjectPoolManager.Instance.Pool_ColliderReplacePool.RecycleGameObject(myColliderReplace.gameObject);
             myColliderReplace = null;
         }
     }

@@ -86,8 +86,8 @@ internal class BattleGroundManager : MonoBehaviour
 
         if (!isSummonedBeforeByPreview)
         {
-            ModuleRetinue retinue = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.AllocateGameObject(transform).GetComponent<ModuleRetinue>();
-            retinue.transform.position = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool.transform.position;
+            ModuleRetinue retinue = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool.AllocateGameObject(transform).GetComponent<ModuleRetinue>();
+            retinue.transform.position = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool.transform.position;
             retinue.Initiate(retinueCardInfo, ClientPlayer);
             retinue.transform.Rotate(Vector3.up, 180);
             retinue.M_RetinueID = retinueId;
@@ -129,7 +129,7 @@ internal class BattleGroundManager : MonoBehaviour
         {
             removeRetinue.PoolRecycle();
             Retinues.Remove(removeRetinue);
-            ClientLog.CL.Print("remove:" + removeRetinue.M_RetinueID);
+            ClientLog.Instance.Print("remove:" + removeRetinue.M_RetinueID);
         }
 
         RemoveRetinues.Clear();
@@ -155,7 +155,7 @@ internal class BattleGroundManager : MonoBehaviour
 
     private int previewRetinuePlace;
 
-    private const int PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW = -1;//无预览召唤随从
+    private const int PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW = -1; //无预览召唤随从
 
     public void AddRetinuePreview(int placeIndex)
     {
@@ -196,16 +196,16 @@ internal class BattleGroundManager : MonoBehaviour
     public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的随从的召唤预览、显示指定箭头
     {
         currentSummonPreviewRetinueCard = retinueCard;
-        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int) ModuleRetinue.CLIENT_TEMP_RETINUE_ID_SUMMON_PREVIEW_NOT_CONFIRM);
+        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int) ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
         CurrentSummonPreviewRetinue = retinue;
         AddRetinue(retinuePlaceIndex);
-        DragManager.DM.SummonRetinueTargetHandler = SummonRetinueTargetConfirm;
-        DragManager.DM.StartArrowAiming(retinue, targetRange);
+        DragManager.Instance.SummonRetinueTargetHandler = SummonRetinueTargetConfirm;
+        DragManager.Instance.StartArrowAiming(retinue, targetRange);
     }
 
     public void SummonRetinueTargetConfirm(int targetRetinueId, bool isClientRetinueTempId)
     {
-        if (targetRetinueId == (int) DragManager.TargetSelect.None) //未选择目标
+        if (targetRetinueId == DragManager.TARGET_SELECT_NONE) //未选择目标
         {
             RemoveRetinue((int) ModuleRetinue.RetinueID.Empty);
             ClientPlayer.MyHandManager.CancelSummonRetinuePreview();
@@ -224,8 +224,8 @@ internal class BattleGroundManager : MonoBehaviour
             if (battleGroundIndex != -1)
             {
                 retinue.M_ClientTempRetinueID = GenerateClientRetinueTempId();
-                SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, cardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(0, 0, 0), targetRetinueId, isClientRetinueTempId, retinue.M_ClientTempRetinueID);
-                Client.CS.Proxy.SendMessage(request);
+                SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, cardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(0, 0, 0), targetRetinueId, isClientRetinueTempId, retinue.M_ClientTempRetinueID);
+                Client.Instance.Proxy.SendMessage(request);
                 break;
             }
 
@@ -372,7 +372,7 @@ internal class BattleGroundManager : MonoBehaviour
             if (cur_Effect != null && cur_Effect.Enumerator == currentShowSlotBloom)
             {
                 BattleEffectsManager.Instance.Effect_TipSlotBloom.EffectEnd();
-                ClientLog.CL.PrintWarning("Stop Effect_TipSlotBloom");
+                ClientLog.Instance.PrintWarning("Stop Effect_TipSlotBloom");
                 currentShowSlotBloom = null;
             }
         }
@@ -395,7 +395,7 @@ internal class BattleGroundManager : MonoBehaviour
     IEnumerator Co_EquipWeapon(CardInfo_Weapon cardInfo, int retinueId)
     {
         ModuleRetinue retinue = GetRetinue(retinueId);
-        ModuleWeapon newModueWeapon = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool.AllocateGameObject(retinue.transform).GetComponent<ModuleWeapon>();
+        ModuleWeapon newModueWeapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponPool.AllocateGameObject(retinue.transform).GetComponent<ModuleWeapon>();
         newModueWeapon.M_ModuleRetinue = retinue;
         newModueWeapon.Initiate(cardInfo, ClientPlayer);
         retinue.M_Weapon = newModueWeapon;
@@ -411,7 +411,7 @@ internal class BattleGroundManager : MonoBehaviour
     IEnumerator Co_EquipShield(CardInfo_Shield cardInfo, int retinueId)
     {
         ModuleRetinue retinue = GetRetinue(retinueId);
-        ModuleShield newModuleShield = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool.AllocateGameObject(retinue.transform).GetComponent<ModuleShield>();
+        ModuleShield newModuleShield = GameObjectPoolManager.Instance.Pool_ModuleShieldPool.AllocateGameObject(retinue.transform).GetComponent<ModuleShield>();
         newModuleShield.M_ModuleRetinue = retinue;
         newModuleShield.Initiate(cardInfo, ClientPlayer);
         retinue.M_Shield = newModuleShield;
@@ -467,6 +467,4 @@ internal class BattleGroundManager : MonoBehaviour
     }
 
     #endregion
-
-    
 }

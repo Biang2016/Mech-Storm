@@ -2,20 +2,12 @@
 using System.Collections;
 
 /// <summary>
-/// 鼠标放在某个物体上的效果管理器
-/// 每次只允许一个对象有效果
+/// 鼠标悬停管理器
 /// </summary>
-internal class MouseHoverManager : MonoBehaviour
+internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
 {
-    private static MouseHoverManager _mhm;
-
-    public static MouseHoverManager MHM
+    private MouseHoverManager()
     {
-        get
-        {
-            if (!_mhm) _mhm = FindObjectOfType<MouseHoverManager>();
-            return _mhm;
-        }
     }
 
     int cardsLayer;
@@ -35,12 +27,14 @@ internal class MouseHoverManager : MonoBehaviour
 
     void Start()
     {
-        hi_ModulesHoverShowBloom = new HoverImmediately(modulesLayer);
         hi_CardHover = new HoverImmediately(cardsLayer);
+        hi_ModulesHoverShowBloom = new HoverImmediately(modulesLayer);
         phi_SlotsPressHoverShowBloom = new PressHoverImmediately(slotsLayer);
+
         hd_ModulesFocusShowPreview = new Focus(modulesLayer | retinuesLayer, GameManager.Instance.RetinueDetailPreviewDelaySeconds, 100f);
-        hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer);
+
         hi_RetinueHoverShowTargetedBloom = new HoverImmediately(retinuesLayer);
+        hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer);
     }
 
     public enum MHM_States
@@ -48,8 +42,9 @@ internal class MouseHoverManager : MonoBehaviour
         None = 0, //禁用
         Normal = 1,
         DragEquipment = 2, //拖动装备牌过程中
-        DragToRetinue = 3, //法术牌拖动瞄准随从时、随从拖动攻击随从时
-        SummonRetinueTargetOnRetinue = 4, //召唤带目标的随从时，选择目标期间
+        DragRetinueToRetinue = 3, //随从拖动攻击随从
+        DragSpellToRetinue = 4, //法术牌拖动瞄准随从
+        SummonRetinueTargetOnRetinue = 5, //召唤带目标的随从时，选择目标期间
     }
 
     private MHM_States state;
@@ -59,8 +54,30 @@ internal class MouseHoverManager : MonoBehaviour
     {
         if (state != newState)
         {
+            switch (state)
+            {
+                case MHM_States.Normal:
+                    hi_CardHover.Release();
+                    hi_ModulesHoverShowBloom.Release();
+                    hd_ModulesFocusShowPreview.Release();
+                    break;
+                case MHM_States.DragEquipment:
+                    phi_SlotsPressHoverShowBloom.Release();
+                    break;
+                case MHM_States.DragRetinueToRetinue:
+                    hd_RetinuePressHoverShowTargetedBloom.Release();
+                    break;
+                case MHM_States.DragSpellToRetinue:
+                    hd_RetinuePressHoverShowTargetedBloom.Release();
+                    break;
+                case MHM_States.SummonRetinueTargetOnRetinue:
+                    hi_RetinueHoverShowTargetedBloom.Release();
+                    break;
+            }
+
             previousState = state;
             state = newState;
+            Debug.Log(state.ToString());
         }
     }
 
@@ -69,52 +86,67 @@ internal class MouseHoverManager : MonoBehaviour
         SetState(previousState);
     }
 
-    private HoverImmediately hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
     private HoverImmediately hi_CardHover; //当鼠标移到牌上
-    private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
-    private Focus hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
-    private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
+    private HoverImmediately hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
     private HoverImmediately hi_RetinueHoverShowTargetedBloom; //当鼠标移到到随从上时显示被瞄准的轮廓荧光
+
+    private Focus hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
+
+    private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
+    private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
 
     void Update()
     {
         if (SelectCardDeckManager.Instance.IsShowing()) return;
-        hi_ModulesHoverShowBloom.Check<ModuleBase>();
-        hi_CardHover.Check<CardBase>();
-        phi_SlotsPressHoverShowBloom.Check<Slot>();
-        hd_ModulesFocusShowPreview.Check<ModuleBase>();
 
-        if (DragManager.DM.CurrentDrag)
+        if (DragManager.Instance.CurrentDrag == null && DragManager.Instance.CurrentSummonPreviewRetinue == null) SetState(MHM_States.Normal);
+
+        switch (state)
         {
-            ModuleRetinue mr = DragManager.DM.CurrentDrag_ModuleRetinue;
-            CardSpell cs = DragManager.DM.CurrentDrag_CardSpell;
-            if (mr)
-            {
+            case MHM_States.Normal:
+                hi_CardHover.Check<CardBase>();
+                hi_ModulesHoverShowBloom.Check<ModuleBase>();
+                hd_ModulesFocusShowPreview.Check<ModuleBase>();
+                break;
+            case MHM_States.DragEquipment:
+                phi_SlotsPressHoverShowBloom.Check<Slot>();
+                break;
+            case MHM_States.DragRetinueToRetinue:
                 hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
-            }
-            else if (cs)
-            {
+                break;
+            case MHM_States.DragSpellToRetinue:
                 hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
-            }
+                break;
+            case MHM_States.SummonRetinueTargetOnRetinue:
+                hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();
+                break;
         }
-
-        hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();
     }
 
 
-    //判定鼠标未按下时的Hover，立即生效
-    class HoverImmediately
+    abstract class HoverActionBase
     {
-        public HoverImmediately(int layer)
+        protected HoverActionBase(int layer)
         {
             Layer = layer;
         }
 
-        private int Layer;
+        protected int Layer;
+
+        public abstract void Check<T>() where T : Component;
+        public abstract void Release();
+    }
+
+    //判定鼠标未按下时的Hover，立即生效
+    class HoverImmediately : HoverActionBase
+    {
+        public HoverImmediately(int layer) : base(layer)
+        {
+        }
 
         MouseHoverComponent currentHover; //鼠标悬停目标，立即生效
 
-        public void Check<T>() where T : Component
+        public override void Check<T>()
         {
             if (!Input.GetMouseButton(0))
             {
@@ -131,7 +163,7 @@ internal class MouseHoverManager : MonoBehaviour
                         {
                             if (currentHover && currentHover != mouseHoverComponent)
                             {
-                                currentHover.IsOnHover = false;
+                                Release();
                             }
 
                             currentHover = mouseHoverComponent;
@@ -142,8 +174,7 @@ internal class MouseHoverManager : MonoBehaviour
                     {
                         if (currentHover)
                         {
-                            currentHover.IsOnHover = false;
-                            currentHover = null;
+                            Release();
                         }
                     }
                 }
@@ -151,8 +182,7 @@ internal class MouseHoverManager : MonoBehaviour
                 {
                     if (currentHover)
                     {
-                        currentHover.IsOnHover = false;
-                        currentHover = null;
+                        Release();
                     }
                 }
             }
@@ -160,27 +190,32 @@ internal class MouseHoverManager : MonoBehaviour
             {
                 if (currentHover)
                 {
-                    currentHover.IsOnHover = false;
-                    currentHover = null;
+                    Release();
                 }
+            }
+        }
+
+        public override void Release()
+        {
+            if (currentHover)
+            {
+                currentHover.IsOnHover = false;
+                currentHover = null;
             }
         }
     }
 
 
     //判定鼠标按下时的Hover，立即生效
-    class PressHoverImmediately
+    class PressHoverImmediately : HoverActionBase
     {
-        public PressHoverImmediately(int layer)
+        public PressHoverImmediately(int layer) : base(layer)
         {
-            Layer = layer;
         }
-
-        private int Layer;
 
         MouseHoverComponent currentPressHover; //鼠标拖动至的目标，立即生效
 
-        public void Check<T>() where T : Component
+        public override void Check<T>()
         {
             if (Input.GetMouseButton(0))
             {
@@ -197,7 +232,7 @@ internal class MouseHoverManager : MonoBehaviour
                         {
                             if (currentPressHover && currentPressHover != mouseHoverComponent)
                             {
-                                currentPressHover.IsOnPressHover = false;
+                                Release();
                             }
                         }
 
@@ -208,8 +243,7 @@ internal class MouseHoverManager : MonoBehaviour
                     {
                         if (currentPressHover)
                         {
-                            currentPressHover.IsOnPressHover = false;
-                            currentPressHover = null;
+                            Release();
                         }
                     }
                 }
@@ -217,8 +251,7 @@ internal class MouseHoverManager : MonoBehaviour
                 {
                     if (currentPressHover)
                     {
-                        currentPressHover.IsOnPressHover = false;
-                        currentPressHover = null;
+                        Release();
                     }
                 }
             }
@@ -226,33 +259,39 @@ internal class MouseHoverManager : MonoBehaviour
             {
                 if (currentPressHover)
                 {
-                    currentPressHover.IsOnPressHover = false;
-                    currentPressHover = null;
+                    Release();
                 }
+            }
+        }
+
+        public override void Release()
+        {
+            if (currentPressHover)
+            {
+                currentPressHover.IsOnPressHover = false;
+                currentPressHover = null;
             }
         }
     }
 
 
     //判定鼠标未按下时的Focus，停留一定时间生效
-    class Focus
+    class Focus : HoverActionBase
     {
         Vector3 mouseLastPosition;
         private float mouseStopTimeTicker = 0;
         MouseHoverComponent currentFocus; //鼠标悬停目标，超过一定时间且移动幅度不太大时生效
 
-        public Focus(int layer, float delaySeconds, float mouseSpeedThreshold)
+        public Focus(int layer, float delaySeconds, float mouseSpeedThreshold) : base(layer)
         {
-            Layer = layer;
             DelaySeconds = delaySeconds;
             MouseSpeedThreshold = mouseSpeedThreshold;
         }
 
-        private int Layer;
         private float DelaySeconds;
         private float MouseSpeedThreshold;
 
-        public void Check<T>() where T : Component
+        public override void Check<T>()
         {
             if (!Input.GetMouseButton(0))
             {
@@ -264,8 +303,7 @@ internal class MouseHoverManager : MonoBehaviour
                     mouseLastPosition = mouseCurrentPosition;
                     if (currentFocus)
                     {
-                        currentFocus.IsOnFocus = false;
-                        currentFocus = null;
+                        Release();
                     }
 
                     return;
@@ -290,7 +328,7 @@ internal class MouseHoverManager : MonoBehaviour
                                 {
                                     if (currentFocus && currentFocus != mouseHoverComponent)
                                     {
-                                        currentFocus.IsOnFocus = false;
+                                        Release();
                                     }
 
                                     currentFocus = mouseHoverComponent;
@@ -300,8 +338,7 @@ internal class MouseHoverManager : MonoBehaviour
                                 {
                                     if (currentFocus)
                                     {
-                                        currentFocus.IsOnFocus = false;
-                                        currentFocus = null;
+                                        Release();
                                     }
                                 }
                             }
@@ -310,8 +347,7 @@ internal class MouseHoverManager : MonoBehaviour
                         {
                             if (currentFocus)
                             {
-                                currentFocus.IsOnFocus = false;
-                                currentFocus = null;
+                                Release();
                             }
                         }
                     }
@@ -321,9 +357,17 @@ internal class MouseHoverManager : MonoBehaviour
             {
                 if (currentFocus)
                 {
-                    currentFocus.IsOnFocus = false;
-                    currentFocus = null;
+                    Release();
                 }
+            }
+        }
+
+        public override void Release()
+        {
+            if (currentFocus)
+            {
+                currentFocus.IsOnFocus = false;
+                currentFocus = null;
             }
         }
     }

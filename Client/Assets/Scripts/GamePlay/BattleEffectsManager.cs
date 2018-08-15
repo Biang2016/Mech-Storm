@@ -62,7 +62,7 @@ internal class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
                 Instance.StartCoroutine(se.Enumerator);
                 CurrentEffect = se;
                 IsExcuting = true;
-                if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintBattleEffectsStart("+ [" + Name + "] StartEffect: " + se.MethodName + " id: " + se.EffectId);
+                if (GameManager.Instance.ShowBEMMessages) ClientLog.Instance.PrintBattleEffectsStart("+ [" + Name + "] StartEffect: " + se.MethodName + " id: " + se.EffectId);
             }
         }
 
@@ -88,7 +88,7 @@ internal class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
 
         public void EffectEnd()
         {
-            if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintWarning("end");
+            if (GameManager.Instance.ShowBEMMessages) ClientLog.Instance.PrintWarning("end");
 
             if (CurrentEffect != null)
             {
@@ -97,23 +97,23 @@ internal class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
                     try
                     {
                         Instance.StopCoroutine(CurrentEffect.Enumerator);
-                        if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintBattleEffectsEnd("- [" + Name + "] EndEffect: " + CurrentEffect.MethodName + " id: " + CurrentEffect.EffectId);
+                        if (GameManager.Instance.ShowBEMMessages) ClientLog.Instance.PrintBattleEffectsEnd("- [" + Name + "] EndEffect: " + CurrentEffect.MethodName + " id: " + CurrentEffect.EffectId);
                     }
                     catch (Exception e)
                     {
-                        if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintWarning(e.ToString());
+                        if (GameManager.Instance.ShowBEMMessages) ClientLog.Instance.PrintWarning(e.ToString());
                     }
                 }
                 else
                 {
-                    if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintWarning("CurrentEffect.Enumerator = null");
+                    if (GameManager.Instance.ShowBEMMessages) ClientLog.Instance.PrintWarning("CurrentEffect.Enumerator = null");
                 }
 
                 CurrentEffect = null;
             }
             else
             {
-                if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintWarning("CurrentEffect = null");
+                if (GameManager.Instance.ShowBEMMessages) ClientLog.Instance.PrintWarning("CurrentEffect = null");
             }
 
             IsExcuting = false;

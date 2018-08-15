@@ -11,7 +11,7 @@ internal class ModuleWeapon : ModuleBase
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.GOPM.Pool_ModuleWeaponPool;
+        gameObjectPool = GameObjectPoolManager.Instance.Pool_ModuleWeaponPool;
     }
 
     void Start()

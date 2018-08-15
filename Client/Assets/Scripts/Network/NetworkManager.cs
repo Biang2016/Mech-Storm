@@ -17,9 +17,9 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
     {
         while (true)
         {
-            if (Client.CS.Proxy == null || !Client.CS.Proxy.Socket.Connected)
+            if (Client.Instance.Proxy == null || !Client.Instance.Proxy.Socket.Connected)
             {
-                Client.CS.Connect("127.0.0.1", 9999, ConnectCallBack, null);
+                Client.Instance.Connect("127.0.0.1", 9999, ConnectCallBack, null);
             }
 
             CheckConnectState();
@@ -29,7 +29,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
 
     private void CheckConnectState()
     {
-        if (Client.CS.Proxy != null && Client.CS.Proxy.Socket.Connected)
+        if (Client.Instance.Proxy != null && Client.Instance.Proxy.Socket.Connected)
         {
             if (isReconnecting)
             {
@@ -49,7 +49,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
 
     void ConnectCallBack()
     {
-        ClientLog.CL.Print("连接服务器成功!");
+        ClientLog.Instance.Print("连接服务器成功!");
     }
 
     public void SuccessMatched()
@@ -63,34 +63,34 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
     {
         high = 10;
 
-        if (Client.CS.Proxy == null) return;
-        if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck)
+        if (Client.Instance.Proxy == null) return;
+        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck)
         {
             if (CreateBtn("开始匹配"))
             {
-                Client.CS.Proxy.OnBeginMatch();
-                ClientLog.CL.Print("开始匹配");
+                Client.Instance.Proxy.OnBeginMatch();
+                ClientLog.Instance.Print("开始匹配");
                 NoticeManager.Instance.ShowInfoPanel("匹配中", 0, float.PositiveInfinity);
             }
         }
 
-        if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.Matching)
+        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Matching)
         {
             if (CreateBtn("取消匹配"))
             {
-                Client.CS.Proxy.CancelMatch();
-                ClientLog.CL.Print("取消匹配");
+                Client.Instance.Proxy.CancelMatch();
+                ClientLog.Instance.Print("取消匹配");
                 NoticeManager.Instance.ShowInfoPanel("取消匹配", 0, 1f);
             }
         }
 
-        if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.Playing)
+        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Playing)
         {
             if (CreateBtn("退出比赛"))
             {
-                Client.CS.Proxy.LeaveGame();
+                Client.Instance.Proxy.LeaveGame();
                 RoundManager.Instance.StopGame();
-                ClientLog.CL.Print("您已退出比赛");
+                ClientLog.Instance.Print("您已退出比赛");
                 NoticeManager.Instance.ShowInfoPanel("您已退出比赛", 0, 1f);
             }
         }

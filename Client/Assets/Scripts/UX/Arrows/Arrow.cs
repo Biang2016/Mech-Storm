@@ -6,7 +6,7 @@ internal abstract class Arrow : MonoBehaviour, IGameObjectPool
 {
     public virtual void PoolRecycle()
     {
-        GameObjectPoolManager.GOPM.Pool_ArrowArrowPool.RecycleGameObject(gameObject);
+        GameObjectPoolManager.Instance.Pool_ArrowArrowPool.RecycleGameObject(gameObject);
     }
 
     public GameObject ArrowBody;

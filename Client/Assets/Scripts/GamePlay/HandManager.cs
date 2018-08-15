@@ -371,7 +371,7 @@ internal class HandManager : MonoBehaviour
         if (!isBeginDrag && ClientPlayer.WhichPlayer == Players.Self)
         {
             //用一个BoxCollider代替原来的位置
-            ColliderReplace colliderReplace = GameObjectPoolManager.GOPM.Pool_ColliderReplacePool.AllocateGameObject(GameBoardManager.Instance.transform).GetComponent<ColliderReplace>();
+            ColliderReplace colliderReplace = GameObjectPoolManager.Instance.Pool_ColliderReplacePool.AllocateGameObject(GameBoardManager.Instance.transform).GetComponent<ColliderReplace>();
             colliderReplace.Initiate(focusCard);
             //本卡牌变大，旋转至正位
             focusCard.transform.localScale = Vector3.one * GameManager.Instance.PullOutCardSize;

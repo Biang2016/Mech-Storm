@@ -20,7 +20,7 @@ public class SelectCard : MonoBehaviour, IGameObjectPool
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.GOPM.Pool_SelectCardPool;
+        gameObjectPool = GameObjectPoolManager.Instance.Pool_SelectCardPool;
     }
 
     public Text Text_Cost;

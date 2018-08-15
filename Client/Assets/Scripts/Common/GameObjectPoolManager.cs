@@ -2,21 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-internal class GameObjectPoolManager : MonoBehaviour
+internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
 {
-    private static GameObjectPoolManager gopm;
-
-    public static GameObjectPoolManager GOPM
+    private GameObjectPoolManager()
     {
-        get
-        {
-            if (!gopm)
-            {
-                gopm = FindObjectOfType(typeof(GameObjectPoolManager)) as GameObjectPoolManager;
-            }
-
-            return gopm;
-        }
     }
 
     public GameObject ColliderReplacePool;

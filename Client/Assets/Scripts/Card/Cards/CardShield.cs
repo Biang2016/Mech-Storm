@@ -75,8 +75,8 @@ internal class CardShield : CardBase
     //装备武器
     private void summonShieldRequest(ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
     {
-        EquipShieldRequest request = new EquipShieldRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, moduleRetinue.M_RetinueID, 0, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z));
-        Client.CS.Proxy.SendMessage(request);
+        EquipShieldRequest request = new EquipShieldRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, moduleRetinue.M_RetinueID, 0, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z));
+        Client.Instance.Proxy.SendMessage(request);
     }
 
     #endregion

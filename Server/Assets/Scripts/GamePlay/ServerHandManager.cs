@@ -79,8 +79,8 @@ internal class ServerHandManager
     {
         DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, new DrawCardRequest.CardIdAndInstanceId(cardId, cardInstanceId), true);
         DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, new DrawCardRequest.CardIdAndInstanceId(cardId, cardInstanceId), false);
-        ServerPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.SideEffects.Add(request1);
-        ServerPlayer?.MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.SideEffects.Add(request2);
+        ServerPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.AttachedRequests.Add(request1);
+        ServerPlayer?.MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.AttachedRequests.Add(request2);
     }
 
     public void OnPlayerGetCards(List<DrawCardRequest.CardIdAndInstanceId> cardInfos)
@@ -88,8 +88,8 @@ internal class ServerHandManager
         if (cardInfos.Count == 0) return;
         DrawCardRequest request1 = new DrawCardRequest(ServerPlayer.ClientId, cardInfos, true);
         DrawCardRequest request2 = new DrawCardRequest(ServerPlayer.ClientId, cardInfos, false);
-        ServerPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.SideEffects.Add(request1);
-        ServerPlayer?.MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.SideEffects.Add(request2);
+        ServerPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.AttachedRequests.Add(request1);
+        ServerPlayer?.MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.AttachedRequests.Add(request2);
     }
 
     internal void DropCard(int cardInstanceId)

@@ -19,13 +19,13 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
         switch (MyNumberSize)
         {
             case NumberSize.Small:
-                gameObjectPool = GameObjectPoolManager.GOPM.Pool_CardSmallNumberPool;
+                gameObjectPool = GameObjectPoolManager.Instance.Pool_CardSmallNumberPool;
                 break;
             case NumberSize.Medium:
-                gameObjectPool = GameObjectPoolManager.GOPM.Pool_CardMediumNumberPool;
+                gameObjectPool = GameObjectPoolManager.Instance.Pool_CardMediumNumberPool;
                 break;
             case NumberSize.Big:
-                gameObjectPool = GameObjectPoolManager.GOPM.Pool_CardBigNumberPool;
+                gameObjectPool = GameObjectPoolManager.Instance.Pool_CardBigNumberPool;
                 break;
         }
     }
@@ -83,7 +83,7 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
             case '=': signIndex = 4; break;
             case '.': signIndex = 5; break;
             default:
-                ClientLog.CL.Print("无此符号");
+                ClientLog.Instance.Print("无此符号");
                 signIndex = 0; break;
         }
 

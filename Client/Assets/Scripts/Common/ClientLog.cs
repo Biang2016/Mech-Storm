@@ -2,22 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-internal class ClientLog : MonoBehaviour
+internal class ClientLog : MonoSingletion<ClientLog>
 {
-    private static ClientLog _cl;
-
-    public static ClientLog CL
-    {
-        get { return _cl; }
-    }
-
     private ClientLog()
     {
     }
 
     void Awake()
     {
-        _cl = FindObjectOfType<ClientLog>();
         LogMessages = new Queue<Log>();
     }
 
@@ -73,7 +65,7 @@ internal class ClientLog : MonoBehaviour
 
     public void PrintReceive(string logStr)
     {
-        Print(logStr, new Color(0.5f,0.5f,1f));
+        Print(logStr, new Color(0.5f, 0.5f, 1f));
     }
 
     public void PrintSend(string logStr)
@@ -85,6 +77,7 @@ internal class ClientLog : MonoBehaviour
     {
         Print(logStr, ClientUtils.HTMLColorToColor("#00FFDB"));
     }
+
     public void PrintBattleEffectsEnd(string logStr)
     {
         Print(logStr, ClientUtils.HTMLColorToColor("#007464"));

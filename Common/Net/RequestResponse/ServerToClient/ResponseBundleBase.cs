@@ -8,13 +8,13 @@ using System.Text;
 /// </summary>
 public abstract class ResponseBundleBase : ServerRequestBase
 {
-    public List<ServerRequestBase> SideEffects = new List<ServerRequestBase>();
+    public List<ServerRequestBase> AttachedRequests = new List<ServerRequestBase>();
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(SideEffects.Count);
-        foreach (ServerRequestBase serverRequestBase in SideEffects)
+        writer.WriteSInt32(AttachedRequests.Count);
+        foreach (ServerRequestBase serverRequestBase in AttachedRequests)
         {
             serverRequestBase.Serialize(writer);
         }
@@ -23,19 +23,19 @@ public abstract class ResponseBundleBase : ServerRequestBase
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        int sideEffestCount = reader.ReadSInt32();
-        for (int i = 0; i < sideEffestCount; i++)
+        int attachedRequestsCount = reader.ReadSInt32();
+        for (int i = 0; i < attachedRequestsCount; i++)
         {
-            ServerRequestBase request = (ServerRequestBase)ProtoManager.TryDeserialize(reader, null);
-            SideEffects.Add(request);
+            ServerRequestBase request = (ServerRequestBase) ProtoManager.TryDeserialize(reader, null);
+            AttachedRequests.Add(request);
         }
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [SideEffects] {";
-        foreach (var serverRequestBase in SideEffects)
+        log += " [AttachedRequests] {";
+        foreach (var serverRequestBase in AttachedRequests)
         {
             log += serverRequestBase.DeserializeLog();
         }

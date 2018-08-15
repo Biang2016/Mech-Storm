@@ -77,12 +77,12 @@ internal class Slot : MonoBehaviour, IMouseHoverComponent
 
     public void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
-        if (DragManager.DM.CurrentDrag)
+        if (DragManager.Instance.CurrentDrag)
         {
             switch (MSlotTypes)
             {
                 case SlotTypes.Weapon:
-                    CardWeapon cw = DragManager.DM.CurrentDrag_CardWeapon;
+                    CardWeapon cw = DragManager.Instance.CurrentDrag_CardWeapon;
                     if (cw && cw.ClientPlayer == ClientPlayer)
                     {
                         ShowHoverGO();
@@ -90,7 +90,7 @@ internal class Slot : MonoBehaviour, IMouseHoverComponent
 
                     break;
                 case SlotTypes.Shield:
-                    CardShield cs = DragManager.DM.CurrentDrag_CardShield;
+                    CardShield cs = DragManager.Instance.CurrentDrag_CardShield;
                     if (cs && cs.ClientPlayer == ClientPlayer)
                     {
                         ShowHoverGO();

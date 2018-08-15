@@ -41,7 +41,7 @@ internal class ModuleRetinue : ModuleBase
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.GOPM.Pool_ModuleRetinuePool;
+        gameObjectPool = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool;
         SwordMaskDefaultPosition = SwordBarMask.transform.localPosition;
         LifeBarMaskDefaultPosition = LifeBarMask.transform.localPosition;
 
@@ -151,7 +151,7 @@ internal class ModuleRetinue : ModuleBase
 
     [SerializeField] private Renderer PictureBoxRenderer;
 
-    [SerializeField] private TextMesh DamageNumberTextMesh;//受攻击瞄准时的伤害预览
+    [SerializeField] private TextMesh DamageNumberTextMesh; //受攻击瞄准时的伤害预览
 
     [SerializeField] private Animator ArmorFill;
 
@@ -182,7 +182,7 @@ internal class ModuleRetinue : ModuleBase
         M_RetinueShield = cardInfo.BattleInfo.BasicShield;
         M_RetinueWeaponEnergy = 0;
         M_RetinueWeaponEnergyMax = 0;
-        ChangePicture(CardInfo.CardID);
+        ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
         ChangeBloomColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
         ChangeBloomColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor);
 
@@ -802,8 +802,8 @@ internal class ModuleRetinue : ModuleBase
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer && !RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(moduleRetinue))
         {
-            RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.CS.Proxy.ClientId, ClientPlayer.ClientId, M_RetinueID, RoundManager.Instance.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
-            Client.CS.Proxy.SendMessage(request);
+            RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.Instance.Proxy.ClientId, ClientPlayer.ClientId, M_RetinueID, RoundManager.Instance.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
+            Client.Instance.Proxy.SendMessage(request);
         }
 
         DragoutDamage = 0;
@@ -830,7 +830,6 @@ internal class ModuleRetinue : ModuleBase
 
     #endregion
 
-
     #region 被敌方拖动鼠标Hover
 
     private bool isBeDraggedHover = false;
@@ -854,18 +853,18 @@ internal class ModuleRetinue : ModuleBase
     public override void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
         base.MouseHoverComponent_OnMousePressEnterImmediately(mousePosition);
-        if (DragManager.DM.CurrentDrag)
+        if (DragManager.Instance.CurrentDrag)
         {
-            ModuleRetinue mr = DragManager.DM.CurrentDrag_ModuleRetinue;
-            CardSpell cs = DragManager.DM.CurrentDrag_CardSpell;
+            ModuleRetinue mr = DragManager.Instance.CurrentDrag_ModuleRetinue;
+            CardSpell cs = DragManager.Instance.CurrentDrag_CardSpell;
             if (mr != null)
             {
                 if (mr.ClientPlayer != ClientPlayer && mr != this)
                 {
                     IsBeDraggedHover = true;
-                    if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
+                    if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
                     {
-                        ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true; //箭头动画
+                        ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
                     }
 
                     DamageNumberTextMesh.text = DragoutDamage == 0 ? "" : "-" + DragoutDamage;
@@ -874,9 +873,9 @@ internal class ModuleRetinue : ModuleBase
             else if (cs != null)
             {
                 IsBeDraggedHover = true;
-                if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
+                if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
                 {
-                    ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true; //箭头动画
+                    ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
                 }
             }
         }
@@ -886,9 +885,9 @@ internal class ModuleRetinue : ModuleBase
     {
         base.MouseHoverComponent_OnMousePressLeaveImmediately();
         IsBeDraggedHover = false;
-        if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
+        if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
         {
-            ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = false; //箭头动画
+            ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = false; //箭头动画
         }
 
         DamageNumberTextMesh.text = "";
@@ -926,9 +925,9 @@ internal class ModuleRetinue : ModuleBase
     public override void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
     {
         base.MouseHoverComponent_OnMouseEnterImmediately(mousePosition);
-        if (DragManager.DM.IsSummonPreview)
+        if (DragManager.Instance.IsSummonPreview)
         {
-            TargetSideEffect.TargetRange targetRange = DragManager.DM.SummonRetinueTargetRange;
+            TargetSideEffect.TargetRange targetRange = DragManager.Instance.SummonRetinueTargetRange;
             if ((ClientPlayer == RoundManager.Instance.EnemyClientPlayer &&
                  (targetRange == TargetSideEffect.TargetRange.EnemyBattleGround ||
                   (targetRange == TargetSideEffect.TargetRange.EnemySodiers && CardInfo.BattleInfo.IsSodier) ||
@@ -938,9 +937,9 @@ internal class ModuleRetinue : ModuleBase
                 (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSodiers && CardInfo.BattleInfo.IsSodier)))
             {
                 IsBeHover = true;
-                if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
+                if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
                 {
-                    ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = true; //箭头动画
+                    ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
                 }
             }
         }
@@ -950,9 +949,9 @@ internal class ModuleRetinue : ModuleBase
     {
         base.MouseHoverComponent_OnMouseLeaveImmediately();
         IsBeHover = false;
-        if (DragManager.DM.CurrentArrow && DragManager.DM.CurrentArrow is ArrowAiming)
+        if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
         {
-            ((ArrowAiming) DragManager.DM.CurrentArrow).IsOnHover = false; //箭头动画
+            ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = false; //箭头动画
         }
     }
 
@@ -960,7 +959,7 @@ internal class ModuleRetinue : ModuleBase
 
     #endregion
 
-    #region 特效
+    #region 副作用
 
     public void OnSummon()
     {
@@ -1023,15 +1022,4 @@ internal class ModuleRetinue : ModuleBase
     }
 
     #endregion
-
-    public void ChangePicture(int pictureID)
-    {
-        Texture tx = (Texture) Resources.Load(string.Format("{0:000}", pictureID));
-        if (tx == null) Debug.LogError("所选卡片没有图片资源：" + pictureID);
-        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-        PictureBoxRenderer.GetPropertyBlock(mpb);
-        mpb.SetTexture("_MainTex", tx);
-        mpb.SetTexture("_EmissionMap", tx);
-        PictureBoxRenderer.SetPropertyBlock(mpb);
-    }
 }

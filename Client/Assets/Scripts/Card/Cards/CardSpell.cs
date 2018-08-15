@@ -48,9 +48,9 @@ internal class CardSpell : CardBase
         M_SpellDesc = ((CardInfo_Spell) cardInfo).GetCardDescShow();
 
         hasTarget = false;
-        foreach (SideEffectBase sideEffectBase in CardInfo.SideEffects_OnSummoned)
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
         {
-            if (sideEffectBase is TargetSideEffect)
+            if (se is TargetSideEffect)
             {
                 hasTarget = true;
                 break;
@@ -101,19 +101,19 @@ internal class CardSpell : CardBase
         {
             if (targetModuleRetinue.M_ClientTempRetinueID != ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL)
             {
-                UseSpellCardRequest request = new UseSpellCardRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetModuleRetinue.M_RetinueID, true, targetModuleRetinue.M_ClientTempRetinueID);
-                Client.CS.Proxy.SendMessage(request);
+                UseSpellCardRequest request = new UseSpellCardRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetModuleRetinue.M_RetinueID, true, targetModuleRetinue.M_ClientTempRetinueID);
+                Client.Instance.Proxy.SendMessage(request);
             }
             else
             {
-                UseSpellCardRequest request = new UseSpellCardRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetModuleRetinue.M_RetinueID, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
-                Client.CS.Proxy.SendMessage(request);
+                UseSpellCardRequest request = new UseSpellCardRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetModuleRetinue.M_RetinueID, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
+                Client.Instance.Proxy.SendMessage(request);
             }
         }
         else
         {
-            UseSpellCardRequest request = new UseSpellCardRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), (int) DragManager.TargetSelect.None, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
-            Client.CS.Proxy.SendMessage(request);
+            UseSpellCardRequest request = new UseSpellCardRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), DragManager.TARGET_SELECT_NONE, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
+            Client.Instance.Proxy.SendMessage(request);
         }
     }
 

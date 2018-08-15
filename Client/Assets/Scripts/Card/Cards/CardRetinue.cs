@@ -228,8 +228,8 @@ internal class CardRetinue : CardBase
         }
 
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-        SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
-        Client.CS.Proxy.SendMessage(request);
+        SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
+        Client.Instance.Proxy.SendMessage(request);
     }
 
 
@@ -247,8 +247,8 @@ internal class CardRetinue : CardBase
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty)
         {
-            SummonRetinueRequest request = new SummonRetinueRequest(Client.CS.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), TARGET_RETINUE_SELECT_NONE, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
-            Client.CS.Proxy.SendMessage(request);
+            SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), TARGET_RETINUE_SELECT_NONE, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
+            Client.Instance.Proxy.SendMessage(request);
         }
         else
         {

@@ -21,7 +21,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
     void Awake()
     {
         hasSign = false;
-        gameObjectPool = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool;
+        gameObjectPool = GameObjectPoolManager.Instance.Pool_CardNumberSetPool;
     }
 
     public void initiate(int number, NumberSize numberSize, TextAlign textAlign, bool isSelect)
@@ -47,7 +47,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
         MyNumberSize = numberSize;
         if (number > 999)
         {
-            ClientLog.CL.Print("有符号的数字不超过3位数");
+            ClientLog.Instance.Print("有符号的数字不超过3位数");
             return;
         }
 
@@ -75,7 +75,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
         switch (value)
         {
             case NumberSize.Small:
-                childrenPool = GameObjectPoolManager.GOPM.Pool_CardSmallNumberPool;
+                childrenPool = GameObjectPoolManager.Instance.Pool_CardSmallNumberPool;
                 for (int i = 0; i < 4; i++)
                 {
                     if (cardNumbers[i] != null)
@@ -90,7 +90,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
                 initiateDigitPlace();
                 break;
             case NumberSize.Medium:
-                childrenPool = GameObjectPoolManager.GOPM.Pool_CardMediumNumberPool;
+                childrenPool = GameObjectPoolManager.Instance.Pool_CardMediumNumberPool;
                 for (int i = 0; i < 4; i++)
                 {
                     if (cardNumbers[i] != null)
@@ -105,7 +105,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
                 initiateDigitPlace();
                 break;
             case NumberSize.Big:
-                childrenPool = GameObjectPoolManager.GOPM.Pool_CardBigNumberPool;
+                childrenPool = GameObjectPoolManager.Instance.Pool_CardBigNumberPool;
                 for (int i = 0; i < 4; i++)
                 {
                     if (cardNumbers[i] != null)
@@ -136,17 +136,17 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
         {
             if (value < 0)
             {
-                ClientLog.CL.Print("CardNumberSet(" + name + ")" + ":number is set to " + value);
+                ClientLog.Instance.Print("CardNumberSet(" + name + ")" + ":number is set to " + value);
                 number = 0;
             }
             else if (hasSign && value > 999)
             {
-                ClientLog.CL.Print("有符号的数字不超过3位数");
+                ClientLog.Instance.Print("有符号的数字不超过3位数");
                 number = 999;
             }
             else if (value > 9999)
             {
-                ClientLog.CL.Print("CardNumberSet(" + name + ")" + ":number is set to " + value);
+                ClientLog.Instance.Print("CardNumberSet(" + name + ")" + ":number is set to " + value);
                 number = 9999;
             }
 

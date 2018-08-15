@@ -11,6 +11,8 @@ using UnityEngine.UI;
 /// </summary>
 public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 {
+    private SelectCardDeckManager() { }
+
     private int cardSelectLayer;
 
     void Awake()
@@ -189,7 +191,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
         GameManager.Instance.StartBlurBackGround();
         Canvas.enabled = true;
         Canvas_BG.enabled = true;
-        MouseHoverManager.MHM.SetState(MouseHoverManager.MHM_States.None);
+        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.None);
     }
 
 
@@ -198,7 +200,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
         Canvas.enabled = false;
         Canvas_BG.enabled = false;
         GameManager.Instance.StopBlurBackGround();
-        MouseHoverManager.MHM.ReturnToPreviousState();
+        MouseHoverManager.Instance.ReturnToPreviousState();
     }
 
     public void NetworkStateChange(ProxyBase.ClientStates clientState)
@@ -330,7 +332,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 
     private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)
     {
-        SelectCard newSC = GameObjectPoolManager.GOPM.Pool_SelectCardPool.AllocateGameObject(parenTransform).GetComponent<SelectCard>();
+        SelectCard newSC = GameObjectPoolManager.Instance.Pool_SelectCardPool.AllocateGameObject(parenTransform).GetComponent<SelectCard>();
 
         newSC.Count = 1;
         newSC.Cost = card.CardInfo.BaseInfo.Cost;
@@ -431,7 +433,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
         }
 
         CardDeckInfo cdi = new CardDeckInfo(cardIds.ToArray(), retinueIds.ToArray());
-        Client.CS.Proxy.OnSendCardDeck(cdi);
+        Client.Instance.Proxy.OnSendCardDeck(cdi);
         NoticeManager.Instance.ShowInfoPanel("更新卡组成功", 0, 1f);
         HideWindow();
     }

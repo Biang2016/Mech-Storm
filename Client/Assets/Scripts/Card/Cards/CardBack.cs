@@ -6,6 +6,6 @@ internal class CardBack : CardBase
     protected override void Awake()
     {
         base.Awake();
-        gameObjectPool = GameObjectPoolManager.GOPM.Pool_CardBackPool;
+        gameObjectPool = GameObjectPoolManager.Instance.Pool_CardBackPool;
     }
 }
