@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// 手牌中预览卡牌时替代原卡牌位置的Collider
+/// </summary>
 internal class ColliderReplace : MonoBehaviour
 {
     internal CardBase MyCallerCard;

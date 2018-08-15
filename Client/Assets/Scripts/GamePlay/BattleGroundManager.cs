@@ -311,7 +311,7 @@ internal class BattleGroundManager : MonoBehaviour
 
     #region 装备牌相关操作会显示提示性Slot边框
 
-    List<SlotAnchor> relatedSlotAnchors = new List<SlotAnchor>();
+    List<Slot> relatedSlots = new List<Slot>();
 
     private IEnumerator currentShowSlotBloom;
 
@@ -320,24 +320,24 @@ internal class BattleGroundManager : MonoBehaviour
         StopShowSlotBloom();
         foreach (ModuleRetinue retinue in Retinues)
         {
-            if (retinue.SlotAnchor1.M_Slot.MSlotTypes == slotType)
+            if (retinue.Slot1.MSlotTypes == slotType)
             {
-                relatedSlotAnchors.Add(retinue.SlotAnchor1);
+                relatedSlots.Add(retinue.Slot1);
             }
 
-            if (retinue.SlotAnchor2.M_Slot.MSlotTypes == slotType)
+            if (retinue.Slot2.MSlotTypes == slotType)
             {
-                relatedSlotAnchors.Add(retinue.SlotAnchor2);
+                relatedSlots.Add(retinue.Slot2);
             }
 
-            if (retinue.SlotAnchor3.M_Slot.MSlotTypes == slotType)
+            if (retinue.Slot3.MSlotTypes == slotType)
             {
-                relatedSlotAnchors.Add(retinue.SlotAnchor3);
+                relatedSlots.Add(retinue.Slot3);
             }
 
-            if (retinue.SlotAnchor4.M_Slot.MSlotTypes == slotType)
+            if (retinue.Slot4.MSlotTypes == slotType)
             {
-                relatedSlotAnchors.Add(retinue.SlotAnchor4);
+                relatedSlots.Add(retinue.Slot4);
             }
         }
 
@@ -349,13 +349,13 @@ internal class BattleGroundManager : MonoBehaviour
     {
         while (true)
         {
-            foreach (SlotAnchor sa in relatedSlotAnchors)
+            foreach (Slot sa in relatedSlots)
             {
                 sa.ShowHoverGO();
             }
 
             yield return new WaitForSeconds(0.4f);
-            foreach (SlotAnchor sa in relatedSlotAnchors)
+            foreach (Slot sa in relatedSlots)
             {
                 sa.HideHoverShowGO();
             }
@@ -377,12 +377,12 @@ internal class BattleGroundManager : MonoBehaviour
             }
         }
 
-        foreach (SlotAnchor sa in relatedSlotAnchors)
+        foreach (Slot sa in relatedSlots)
         {
             sa.HideHoverShowGO();
         }
 
-        relatedSlotAnchors.Clear();
+        relatedSlots.Clear();
     }
 
     #endregion

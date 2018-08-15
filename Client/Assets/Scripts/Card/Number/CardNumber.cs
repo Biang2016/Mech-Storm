@@ -41,8 +41,8 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
 
     [SerializeField] private Material[] NumberSignMaterial;
 
+    //由于Mask的原因，处于SelectWindow中的Number需要更换材质
     [SerializeField] private Material[] NumberMaterial_Select;
-
     [SerializeField] private Material[] NumberSignMaterial_Select;
 
     int number;

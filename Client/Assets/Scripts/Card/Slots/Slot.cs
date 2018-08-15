@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-internal class Slot : MonoBehaviour
+internal class Slot : MonoBehaviour, IMouseHoverComponent
 {
-    public ClientPlayer ClientPlayer;
+    internal ClientPlayer ClientPlayer;
+    internal ModuleRetinue M_ModuleRetinue;
 
-    [SerializeField]
-    private SlotTypes _mSlotTypes = SlotTypes.None;
+    [SerializeField] private Renderer OnHoverShowBloom;
+    [SerializeField] private SlotTypes _mSlotTypes = SlotTypes.None;
 
     public SlotTypes MSlotTypes
     {
@@ -25,14 +26,6 @@ internal class Slot : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
-    }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
     }
 
     private void ChangeSlotColor(SlotTypes slotTypes)
@@ -65,5 +58,72 @@ internal class Slot : MonoBehaviour
 
         rd.SetPropertyBlock(mpb);
     }
-}
 
+    public void ShowHoverGO()
+    {
+        if (OnHoverShowBloom)
+        {
+            OnHoverShowBloom.enabled = true;
+        }
+    }
+
+    public void HideHoverShowGO()
+    {
+        if (OnHoverShowBloom)
+        {
+            OnHoverShowBloom.enabled = false;
+        }
+    }
+
+    public void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
+    {
+        if (DragManager.DM.CurrentDrag)
+        {
+            switch (MSlotTypes)
+            {
+                case SlotTypes.Weapon:
+                    CardWeapon cw = DragManager.DM.CurrentDrag_CardWeapon;
+                    if (cw && cw.ClientPlayer == ClientPlayer)
+                    {
+                        ShowHoverGO();
+                    }
+
+                    break;
+                case SlotTypes.Shield:
+                    CardShield cs = DragManager.DM.CurrentDrag_CardShield;
+                    if (cs && cs.ClientPlayer == ClientPlayer)
+                    {
+                        ShowHoverGO();
+                    }
+
+                    break;
+            }
+        }
+    }
+
+    public void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
+    {
+    }
+
+    public void MouseHoverComponent_OnMouseEnter(Vector3 mousePosition)
+    {
+    }
+
+    public void MouseHoverComponent_OnMouseOver()
+    {
+    }
+
+    public void MouseHoverComponent_OnMouseLeave()
+    {
+    }
+
+    public void MouseHoverComponent_OnMouseLeaveImmediately()
+    {
+        HideHoverShowGO();
+    }
+
+    public void MouseHoverComponent_OnMousePressLeaveImmediately()
+    {
+        HideHoverShowGO();
+    }
+}

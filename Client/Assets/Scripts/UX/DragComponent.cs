@@ -173,14 +173,14 @@ internal class DragComponent : MonoBehaviour
         return BoardAreaTypes.Others;
     }
 
-    private List<SlotAnchor> checkMoveToSlot() //检查鼠标悬停在哪个类型的Slot上
+    private List<Slot> checkMoveToSlot() //检查鼠标悬停在哪个类型的Slot上
     {
-        var res = new List<SlotAnchor>();
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var raycasts = Physics.RaycastAll(ray, 10f, slotsLayer);
-        foreach (var rh in raycasts)
+        List<Slot> res = new List<Slot>();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit[] raycasts = Physics.RaycastAll(ray, 10f, slotsLayer);
+        foreach (RaycastHit rh in raycasts)
         {
-            var sa = rh.collider.gameObject.GetComponent<SlotAnchor>();
+            Slot sa = rh.collider.gameObject.GetComponent<Slot>();
             res.Add(sa);
         }
 
@@ -190,12 +190,12 @@ internal class DragComponent : MonoBehaviour
 
     private ModuleRetinue checkMoveToRetinue() //检查鼠标悬停在哪个Retinue上
     {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;
         Physics.Raycast(ray, out raycast, 10f, retinuesLayer);
         if (raycast.collider != null)
         {
-            var mr = raycast.collider.gameObject.GetComponent<ModuleRetinue>();
+            ModuleRetinue mr = raycast.collider.gameObject.GetComponent<ModuleRetinue>();
             if (mr) return mr;
         }
 
@@ -214,22 +214,22 @@ internal interface IDragComponent
     ///     传达鼠标左键按住拖动时的鼠标位置信息
     /// </summary>
     /// <param name="boardAreaType">移动到了战场的哪个区域</param>
-    /// <param name="slotAnchors">移动到了哪个slot上</param>
+    /// <param name="slots">移动到了哪个slot上</param>
     /// <param name="moduleRetinue">移动到了哪个随从上</param>
     /// <param name="dragLastPosition"></param>
-    void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,
+    void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots,
         ModuleRetinue moduleRetinue, Vector3 dragLastPosition);
 
     /// <summary>
     ///     传达鼠标左键松开时的鼠标位置信息
     /// </summary>
     /// <param name="boardAreaType">移动到了战场的哪个区域</param>
-    /// <param name="slotAnchors">移动到了哪个slot上</param>
+    /// <param name="slots">移动到了哪个slot上</param>
     /// <param name="moduleRetinue">移动到了哪个随从上</param>
     /// <param name="dragLastPosition">移动的最后位置</param>
     /// <param name="dragBeginPosition">移动的初始位置</param>
     /// <param name="dragBeginQuaternion">被拖动对象的初始旋转</param>
-    void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors,
+    void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots,
         ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,
         Quaternion dragBeginQuaternion);
 

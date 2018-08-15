@@ -43,14 +43,6 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
 
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
     //工具，初始化数字块
     protected void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block)
     {
@@ -131,7 +123,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
         }
     }
 
-    public Renderer MainBoardRenderer;
+    [SerializeField]private Renderer MainBoardRenderer;
 
     public void ChangeColor(Color newColor)
     {
@@ -159,7 +151,6 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     private CardBase detailCard_Shield;
     private CardBase detailCard_Pack;
     private CardBase detailCard_MA;
-
 
     private void ShowCardDetail(Vector3 mousePosition) //鼠标悬停放大查看原卡牌信息
     {
@@ -278,11 +269,11 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     {
     }
 
-    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
+    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
     {
     }
 
-    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
     }
 

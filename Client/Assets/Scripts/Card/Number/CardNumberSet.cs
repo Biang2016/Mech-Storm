@@ -24,10 +24,6 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
         gameObjectPool = GameObjectPoolManager.GOPM.Pool_CardNumberSetPool;
     }
 
-    void Start()
-    {
-    }
-
     public void initiate(int number, NumberSize numberSize, TextAlign textAlign, bool isSelect)
     {
         IsSelect = isSelect;

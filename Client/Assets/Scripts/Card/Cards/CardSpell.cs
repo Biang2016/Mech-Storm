@@ -4,20 +4,6 @@ using UnityEngine.UI;
 
 internal class CardSpell : CardBase
 {
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
-
     #region 卡牌上各模块
 
     [SerializeField] private Text SpellName;
@@ -72,9 +58,9 @@ internal class CardSpell : CardBase
         }
     }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
         {
@@ -103,7 +89,7 @@ internal class CardSpell : CardBase
 
     public override float DragComponnet_DragDistance()
     {
-        return 0f;
+        return GameManager.GM.PullOutCardDistanceThreshold;
     }
 
     #region 卡牌效果

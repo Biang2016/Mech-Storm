@@ -33,8 +33,6 @@ internal class ModuleRetinue : ModuleBase
         }
 
         ArmorFill.gameObject.SetActive(false);
-        ShieldBar.gameObject.SetActive(false);
-        SwordBar.gameObject.SetActive(false);
 
         M_ClientTempRetinueID = -1;
 
@@ -54,14 +52,6 @@ internal class ModuleRetinue : ModuleBase
         initiateNumbers(ref GoNumberSet_RetinueWeaponEnergyMax, ref CardNumberSet_RetinueWeaponEnergyMax, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueWeaponEnergyMax, '/');
         initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Medium, CardNumberSet.TextAlign.Center, Block_RetinueArmor);
         initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Small, CardNumberSet.TextAlign.Center, Block_RetinueShield);
-    }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
     }
 
     public void SetGoPool(GameObjectPool pool)
@@ -126,10 +116,10 @@ internal class ModuleRetinue : ModuleBase
     [SerializeField] private Animator ArmorIconHit;
     [SerializeField] private Animator CardLifeHit;
 
-    public SlotAnchor SlotAnchor1;
-    public SlotAnchor SlotAnchor2;
-    public SlotAnchor SlotAnchor3;
-    public SlotAnchor SlotAnchor4;
+    public Slot Slot1;
+    public Slot Slot2;
+    public Slot Slot3;
+    public Slot Slot4;
 
     [SerializeField] private GameObject Block_RetinueLeftLife;
     protected GameObject GoNumberSet_RetinueLeftLife;
@@ -161,15 +151,18 @@ internal class ModuleRetinue : ModuleBase
 
     [SerializeField] private Renderer PictureBoxRenderer;
 
-    [SerializeField] private TextMesh DamageNumberTextMesh;
+    [SerializeField] private TextMesh DamageNumberTextMesh;//受攻击瞄准时的伤害预览
 
     [SerializeField] private Animator ArmorFill;
+
     [SerializeField] private Animator ShieldBar;
     [SerializeField] private Image ShieldBarImage;
+
     [SerializeField] private GameObject SwordBar;
     [SerializeField] private GameObject SwordBarMask;
     private float SwordMaskFullOffset = 0.451f;
     private Vector3 SwordMaskDefaultPosition;
+
     [SerializeField] private GameObject LifeBarMask;
     private float LifeBarMaskFullOffset = 0.65f;
     private Vector3 LifeBarMaskDefaultPosition;
@@ -193,32 +186,32 @@ internal class ModuleRetinue : ModuleBase
         ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnEnemyHoverBloomColor);
         ChangeBloomColor(RetinueCanAttackBloom, GameManager.GM.RetinueBloomColor);
 
-        if (SlotAnchor1)
+        if (Slot1)
         {
-            SlotAnchor1.M_Slot.ClientPlayer = ClientPlayer;
-            SlotAnchor1.M_ModuleRetinue = this;
-            SlotAnchor1.M_Slot.MSlotTypes = cardInfo.SlotInfo.Slot1;
+            Slot1.ClientPlayer = ClientPlayer;
+            Slot1.M_ModuleRetinue = this;
+            Slot1.MSlotTypes = cardInfo.SlotInfo.Slot1;
         }
 
-        if (SlotAnchor2)
+        if (Slot2)
         {
-            SlotAnchor2.M_Slot.ClientPlayer = ClientPlayer;
-            SlotAnchor2.M_ModuleRetinue = this;
-            SlotAnchor2.M_Slot.MSlotTypes = cardInfo.SlotInfo.Slot2;
+            Slot2.ClientPlayer = ClientPlayer;
+            Slot2.M_ModuleRetinue = this;
+            Slot2.MSlotTypes = cardInfo.SlotInfo.Slot2;
         }
 
-        if (SlotAnchor3)
+        if (Slot3)
         {
-            SlotAnchor3.M_Slot.ClientPlayer = ClientPlayer;
-            SlotAnchor3.M_ModuleRetinue = this;
-            SlotAnchor3.M_Slot.MSlotTypes = cardInfo.SlotInfo.Slot3;
+            Slot3.ClientPlayer = ClientPlayer;
+            Slot3.M_ModuleRetinue = this;
+            Slot3.MSlotTypes = cardInfo.SlotInfo.Slot3;
         }
 
-        if (SlotAnchor4)
+        if (Slot4)
         {
-            SlotAnchor4.M_Slot.ClientPlayer = ClientPlayer;
-            SlotAnchor4.M_ModuleRetinue = this;
-            SlotAnchor4.M_Slot.MSlotTypes = cardInfo.SlotInfo.Slot4;
+            Slot4.ClientPlayer = ClientPlayer;
+            Slot4.M_ModuleRetinue = this;
+            Slot4.MSlotTypes = cardInfo.SlotInfo.Slot4;
         }
 
         isInitializing = false;
@@ -449,18 +442,6 @@ internal class ModuleRetinue : ModuleBase
 
     IEnumerator SubCo_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
-        if (SwordBar)
-        {
-            if (retinueWeaponEnergyValue == 0)
-            {
-                SwordBar.SetActive(false);
-            }
-            else
-            {
-                if (!SwordBar.activeSelf) SwordBar.SetActive(true);
-            }
-        }
-
         RefreshSwordBarMask(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue);
 
         CardNumberSet_RetinueWeaponEnergy.Number = retinueWeaponEnergyValue;
@@ -816,9 +797,9 @@ internal class ModuleRetinue : ModuleBase
         else return M_RetinueAttack;
     }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer && !RoundManager.RM.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(moduleRetinue))
         {
             RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.CS.Proxy.ClientId, ClientPlayer.ClientId, M_RetinueID, RoundManager.RM.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);

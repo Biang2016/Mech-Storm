@@ -434,10 +434,7 @@ internal class RoundManager : MonoBehaviour
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         if (cp == SelfClientPlayer && r.clientRetinueTempId >= 0) return;
-        else
-        {
-            cp.MyBattleGroundManager.AddRetinue(r.battleGroundIndex);
-        }
+        cp.MyBattleGroundManager.AddRetinue(r.battleGroundIndex);
     }
 
     private void OnBattleGroundRemoveRetinue_PrePass(BattleGroundRemoveRetinueRequest r)
@@ -578,14 +575,8 @@ internal class RoundManager : MonoBehaviour
 
     public ClientPlayer GetPlayerByClientId(int clientId)
     {
-        if (Client.CS.Proxy.ClientId == clientId)
-        {
-            return SelfClientPlayer;
-        }
-        else
-        {
-            return EnemyClientPlayer;
-        }
+        if (Client.CS.Proxy.ClientId == clientId)return SelfClientPlayer;
+        return EnemyClientPlayer;
     }
 
     #endregion

@@ -6,7 +6,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 {
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
-    private Renderer m_Renderer;
     protected bool IsCardSelect;
 
     public virtual void PoolRecycle()
@@ -48,17 +47,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
         myCollider = GetComponent<BoxCollider>();
         DragComponent = GetComponent<DragComponent>();
-        m_Renderer = GetComponent<Renderer>();
     }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
 
     public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, ClientPlayer clientPlayer, bool isCardSelect)
     {
@@ -218,7 +207,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     public GameObject Star3;
     public GameObject Star4;
 
-    [SerializeField] protected int stars;
+    protected int stars;
 
     public int Stars
     {
@@ -403,11 +392,11 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         ClientPlayer.MyHandManager.BeginDrag();
     }
 
-    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
+    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
     {
     }
 
-    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         ClientPlayer.MyHandManager.EndDrag();
     }
@@ -461,7 +450,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     #region  Utils
 
-    public static void RepairDisplayCardOutOfView(CardBase targetCard) //检查卡牌是否在视野外，如果是则复位
+    public static void ReplaceDisplayCardOutOfView(CardBase targetCard) //检查卡牌是否在视野外，如果是则复位
     {
     }
 

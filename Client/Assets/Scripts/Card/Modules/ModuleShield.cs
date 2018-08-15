@@ -15,14 +15,6 @@ internal class ModuleShield : ModuleBase
         gameObjectPool = GameObjectPoolManager.GOPM.Pool_ModuleShieldPool;
     }
 
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
     #region 各模块、自身数值和初始化
 
     internal ModuleRetinue M_ModuleRetinue;

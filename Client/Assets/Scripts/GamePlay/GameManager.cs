@@ -42,6 +42,8 @@ internal class GameManager : MonoBehaviour
     public float HandCardRotate = 1.0f;
     public float HandCardOffset = 0.6f;
     public float PullOutCardSize = 3.0f;
+    public float PullOutCardDistanceThreshold = 3.0f;
+
     public float DetailCardSize = 3.0f;
     public float DetailCardModuleSize = 2.5f;
     public float DetailCardSizeRetinue = 4.0f;

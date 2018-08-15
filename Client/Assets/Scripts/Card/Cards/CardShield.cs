@@ -4,20 +4,6 @@ using UnityEngine.UI;
 
 internal class CardShield : CardBase
 {
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
-
     #region 卡牌上各模块
 
     [SerializeField]private Text ShieldName;
@@ -60,13 +46,13 @@ internal class CardShield : CardBase
         M_ShieldDesc = ((CardInfo_Shield) cardInfo).GetCardDescShow();
     }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
-            foreach (SlotAnchor sa in slotAnchors)
-                if (sa.M_Slot.MSlotTypes == SlotTypes.Shield && sa.M_Slot.ClientPlayer == ClientPlayer)
+            foreach (Slot sa in slots)
+                if (sa.MSlotTypes == SlotTypes.Shield && sa.ClientPlayer == ClientPlayer)
                 {
                     summonShieldRequest(sa.M_ModuleRetinue, dragLastPosition);
                     ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
@@ -81,7 +67,7 @@ internal class CardShield : CardBase
 
     public override float DragComponnet_DragDistance()
     {
-        return 5f;
+        return GameManager.GM.PullOutCardDistanceThreshold;
     }
 
     #region 卡牌效果

@@ -36,14 +36,6 @@ internal class CardRetinue : CardBase
         if (MA) MA = null;
     }
 
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
     #region 卡牌上各模块
 
     [SerializeField] private Text Text_RetinueName;
@@ -159,9 +151,9 @@ internal class CardRetinue : CardBase
 
     # endregion
 
-    public override void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
+    public override void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
     {
-        base.DragComponent_OnMousePressed(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition);
+        base.DragComponent_OnMousePressed(boardAreaType, slots, moduleRetinue, dragLastPosition);
 
         if (boardAreaType == ClientPlayer.MyBattleGroundArea && !ClientPlayer.MyBattleGroundManager.BattleGroundIsFull) //拖随从牌到战场区域
         {
@@ -174,9 +166,9 @@ internal class CardRetinue : CardBase
         }
     }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<SlotAnchor> slotAnchors, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slotAnchors, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
         bool summonTarget = false; //召唤时是否需要指定目标
 
@@ -225,11 +217,6 @@ internal class CardRetinue : CardBase
     #region 卡牌效果
 
     public const int TARGET_RETINUE_SELECT_NONE = -2;
-
-    public enum TargetRetinueSelect
-    {
-        None = -2
-    }
 
     //召唤随从
     private void summonRetinueRequest(Vector3 dragLastPosition, int targetRetinueId)

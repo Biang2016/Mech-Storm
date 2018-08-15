@@ -109,7 +109,6 @@
     <Compile Include="Assets\Scripts\UX\DragManager.cs" />
     <Compile Include="Assets\Scripts\UX\MouseHoverComponent.cs" />
     <Compile Include="Assets\Scripts\UX\MouseHoverManager.cs" />
-    <Compile Include="Assets\Scripts\UX\SlotAnchor.cs" />
     <None Include="Assets\Materials\GameBoardMaterials\BlurShader.shader" />
     <None Include="Assets\Materials\Stencil\Standard_BeMasked.shader" />
     <None Include="Assets\Materials\Stencil\Mask.shader" />
