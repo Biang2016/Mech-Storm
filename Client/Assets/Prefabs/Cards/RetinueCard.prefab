@@ -859,7 +859,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 4f8bbdff3751122478466555702b3773, type: 2}
+  - {fileID: 2100000, guid: 9aae88466cd55774abe1a75d9f90304f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1455,6 +1455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
 --- !u!114 &114076957627462726
 MonoBehaviour:
@@ -1478,6 +1479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
 --- !u!114 &114299532818158466
 MonoBehaviour:
@@ -1490,6 +1492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
 --- !u!114 &114311614333231864
 MonoBehaviour:
@@ -1539,7 +1542,6 @@ MonoBehaviour:
   Star2: {fileID: 1437660318651320}
   Star3: {fileID: 1625587984996080}
   Star4: {fileID: 1436986149531246}
-  stars: 0
   MainBoardRenderer: {fileID: 23070237887371492}
   CardBloom: {fileID: 1501539127182856}
   PictureBoxRenderer: {fileID: 23194436200577498}
@@ -1672,6 +1674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
 --- !u!222 &222521104355438322
 CanvasRenderer:

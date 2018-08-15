@@ -68,10 +68,6 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     internal GameObjectPool Pool_ModuleShieldDetailPool;
     public GameObject ModuleShieldDetailPrefab;
 
-    public GameObject CardBackPool;
-    internal GameObjectPool Pool_CardBackPool;
-    public GameObject CardBackPrefab;
-
     public GameObject RetinueCardPool;
     internal GameObjectPool Pool_RetinueCardPool;
     public GameObject RetinueCardPrefab;
@@ -95,10 +91,6 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     public GameObject MACardPool;
     internal GameObjectPool Pool_MACardPool;
     public GameObject MACardPrefab;
-
-    public GameObject BackCardPool;
-    internal GameObjectPool Pool_BackCardPool;
-    public GameObject BackCardPrefab;
 
     public GameObject RetinueSelectCardPool;
     internal GameObjectPool Pool_RetinueSelectCardPool;
@@ -171,9 +163,6 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
         Pool_ModuleShieldDetailPool = ModuleShieldDetailPool.GetComponent<GameObjectPool>();
         Pool_ModuleShieldDetailPool.Initiate(ModuleShieldDetailPrefab, 3);
 
-        Pool_CardBackPool = CardBackPool.GetComponent<GameObjectPool>();
-        Pool_CardBackPool.Initiate(CardBackPrefab, 30);
-
         Pool_RetinueCardPool = RetinueCardPool.GetComponent<GameObjectPool>();
         Pool_RetinueCardPool.Initiate(RetinueCardPrefab, 30);
 
@@ -191,9 +180,6 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
 
         Pool_MACardPool = MACardPool.GetComponent<GameObjectPool>();
         Pool_MACardPool.Initiate(MACardPrefab, 30);
-
-        Pool_BackCardPool = BackCardPool.GetComponent<GameObjectPool>();
-        Pool_BackCardPool.Initiate(BackCardPrefab, 30);
 
         Pool_RetinueSelectCardPool = RetinueSelectCardPool.GetComponent<GameObjectPool>();
         Pool_RetinueSelectCardPool.Initiate(RetinueSelectCardPrefab, 30);

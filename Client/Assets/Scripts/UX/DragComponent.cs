@@ -87,7 +87,6 @@ internal class DragComponent : MonoBehaviour
                     caller.DragComponent_OnMousePressed(BoardAreaTypes.Others, null, checkMoveToRetinue(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
                     break;
             }
-
         }
     }
 

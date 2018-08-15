@@ -50,10 +50,10 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
         {
             self_CardDeckCards[i] = GameObjectPoolManager.Instance.Pool_CardDeckCardPool.AllocateGameObject(SelfCardDeckArea).GetComponent<CardDeckCard>();
             enemy_CardDeckCards[i] = GameObjectPoolManager.Instance.Pool_CardDeckCardPool.AllocateGameObject(EnemyCardDeckArea).GetComponent<CardDeckCard>();
-            self_CardDeckCards[i].ChangeColor(ClientUtils.HTMLColorToColor("#919191"));
-            enemy_CardDeckCards[i].ChangeColor(ClientUtils.HTMLColorToColor("#919191"));
+            self_CardDeckCards[i].ChangeColor(ClientUtils.HTMLColorToColor("#007AFF"));
+            enemy_CardDeckCards[i].ChangeColor(ClientUtils.HTMLColorToColor("#FF0004"));
             self_CardDeckCards[i].ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#007AFF"));
-            enemy_CardDeckCards[i].ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FF3645"));
+            enemy_CardDeckCards[i].ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FF0004"));
             self_CardDeckCards[i].transform.Translate(GameManager.Instance.Self_CardDeckCardInterval * i);
             enemy_CardDeckCards[i].transform.Translate(GameManager.Instance.Enemy_CardDeckCardInterval * i);
         }

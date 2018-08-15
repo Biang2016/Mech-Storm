@@ -122,14 +122,14 @@ internal class DebugConsole : MonoBehaviour
         scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 
         // Iterate through the recorded logs.
-        for (var i = 0; i < logs.Count; i++)
+        for (int i = 0; i < logs.Count; i++)
         {
-            var log = logs[i];
+            Log log = logs[i];
 
             // Combine identical messages if collapse option is chosen.
             if (collapse && i > 0)
             {
-                var previousMessage = logs[i - 1].message;
+                string previousMessage = logs[i - 1].message;
 
                 if (log.message == previousMessage)
                 {
@@ -192,7 +192,7 @@ internal class DebugConsole : MonoBehaviour
             return;
         }
 
-        var amountToRemove = Mathf.Max(logs.Count - maxLogs, 0);
+        int amountToRemove = Mathf.Max(logs.Count - maxLogs, 0);
 
         if (amountToRemove == 0)
         {

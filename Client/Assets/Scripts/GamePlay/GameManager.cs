@@ -17,6 +17,7 @@ internal class GameManager : MonoSingletion<GameManager>
     #region 游戏全局参数
 
     internal Vector3 UseCardShowPosition = new Vector3(10, 3, 0);
+    internal Vector3 UseCardShowOverlayPosition = new Vector3(10, 3, 0.2f);
 
     public bool UseInspectorParams = false;
     public bool ShowBEMMessages = false;

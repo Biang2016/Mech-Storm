@@ -635,7 +635,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 4f8bbdff3751122478466555702b3773, type: 2}
+  - {fileID: 2100000, guid: 9aae88466cd55774abe1a75d9f90304f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1101,7 +1101,6 @@ MonoBehaviour:
   Star2: {fileID: 1847538580697554}
   Star3: {fileID: 1808721091218052}
   Star4: {fileID: 1205156882374056}
-  stars: 0
   MainBoardRenderer: {fileID: 23537482188470050}
   CardBloom: {fileID: 1548179066105972}
   PictureBoxRenderer: {fileID: 23093013362717960}

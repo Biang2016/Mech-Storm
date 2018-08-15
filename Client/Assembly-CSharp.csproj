@@ -59,7 +59,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Card\Cards\CardBack.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\CardBase.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\CardDeckCard.cs" />
     <Compile Include="Assets\Scripts\Card\Cards\CardRetinue.cs" />

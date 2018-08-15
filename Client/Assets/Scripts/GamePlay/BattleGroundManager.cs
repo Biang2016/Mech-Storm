@@ -51,7 +51,7 @@ internal class BattleGroundManager : MonoBehaviour
 
     internal ModuleRetinue CheckRetinueOnPosition(Vector3 dragLastPosition)
     {
-        var index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.Instance.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
+        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.Instance.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
         if (index < 0 || index >= Retinues.Count)
             return null;
         return Retinues[index];
@@ -458,12 +458,12 @@ internal class BattleGroundManager : MonoBehaviour
 
     internal void BeginRound()
     {
-        foreach (var mr in Retinues) mr.OnBeginRound();
+        foreach (ModuleRetinue mr in Retinues) mr.OnBeginRound();
     }
 
     internal void EndRound()
     {
-        foreach (var mr in Retinues) mr.OnEndRound();
+        foreach (ModuleRetinue mr in Retinues) mr.OnEndRound();
     }
 
     #endregion
