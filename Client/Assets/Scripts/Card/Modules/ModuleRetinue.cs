@@ -183,8 +183,8 @@ internal class ModuleRetinue : ModuleBase
         M_RetinueWeaponEnergy = 0;
         M_RetinueWeaponEnergyMax = 0;
         ChangePicture(CardInfo.CardID);
-        ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnEnemyHoverBloomColor);
-        ChangeBloomColor(RetinueCanAttackBloom, GameManager.GM.RetinueBloomColor);
+        ChangeBloomColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
+        ChangeBloomColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor);
 
         if (Slot1)
         {
@@ -287,8 +287,8 @@ internal class ModuleRetinue : ModuleBase
         {
             if (!isInitializing)
             {
-                if (m_RetinueLeftLife > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_LifeBeAttacked(value, m_RetinueTotalLife), "Co_LifeBeAttacked");
-                else if (m_RetinueLeftLife < value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_LifeAdded(value, m_RetinueTotalLife), "Co_LifeAdded");
+                if (m_RetinueLeftLife > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeBeAttacked(value, m_RetinueTotalLife), "Co_LifeBeAttacked");
+                else if (m_RetinueLeftLife < value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeAdded(value, m_RetinueTotalLife), "Co_LifeAdded");
             }
 
             m_RetinueLeftLife = value;
@@ -300,7 +300,7 @@ internal class ModuleRetinue : ModuleBase
         CardLifeHit.SetTrigger("BeHit");
         retinueLifeChange(leftLifeValue, totalLifeValue);
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     IEnumerator Co_LifeAdded(int leftLifeValue, int totalLifeValue)
@@ -308,7 +308,7 @@ internal class ModuleRetinue : ModuleBase
         LifeIncreaseArrow.SetTrigger("LifeAdd");
         retinueLifeChange(leftLifeValue, totalLifeValue);
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private int m_RetinueTotalLife;
@@ -319,7 +319,7 @@ internal class ModuleRetinue : ModuleBase
         set
         {
             m_RetinueTotalLife = value;
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_TotalLifeAdded(m_RetinueLeftLife, value), "Co_TotalLifeAdded");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_TotalLifeAdded(m_RetinueLeftLife, value), "Co_TotalLifeAdded");
         }
     }
 
@@ -327,27 +327,27 @@ internal class ModuleRetinue : ModuleBase
     {
         if (totalLifeValue > CardInfo.LifeInfo.TotalLife)
         {
-            CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.GM.OverFlowTotalLifeColor);
+            CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.Instance.OverFlowTotalLifeColor);
         }
         else
         {
-            CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.GM.DefaultLifeNumberColor);
+            CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.Instance.DefaultLifeNumberColor);
         }
 
         retinueLifeChange(leftLifeValue, totalLifeValue);
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private void retinueLifeChange(int leftLifeValue, int totalLifeValue)
     {
         if (leftLifeValue < totalLifeValue)
         {
-            CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.InjuredLifeNumberColor);
+            CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.Instance.InjuredLifeNumberColor);
         }
         else
         {
-            CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.GM.DefaultLifeNumberColor);
+            CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.Instance.DefaultLifeNumberColor);
         }
 
         CardNumberSet_RetinueLeftLife.Number = leftLifeValue;
@@ -383,7 +383,7 @@ internal class ModuleRetinue : ModuleBase
             }
 
             CheckCanAttack();
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueAttackChange(m_RetinueAttack), "Co_RetinueAttackChange");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(m_RetinueAttack), "Co_RetinueAttackChange");
         }
     }
 
@@ -391,7 +391,7 @@ internal class ModuleRetinue : ModuleBase
     {
         CardNumberSet_RetinueAttack.Number = retinueAttackValue;
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private int m_RetinueWeaponEnergy;
@@ -407,7 +407,7 @@ internal class ModuleRetinue : ModuleBase
                 M_Weapon.M_WeaponEnergy = value;
             }
 
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax), "Co_RetinueWeaponEnergyChange");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax), "Co_RetinueWeaponEnergyChange");
         }
     }
 
@@ -424,7 +424,7 @@ internal class ModuleRetinue : ModuleBase
                 M_Weapon.M_WeaponEnergyMax = value;
             }
 
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax), "Co_RetinueWeaponEnergyChange");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax), "Co_RetinueWeaponEnergyChange");
         }
     }
 
@@ -434,7 +434,7 @@ internal class ModuleRetinue : ModuleBase
         current_SubCo_RetinueWeaponEnergyChange = SubCo_RetinueWeaponEnergyChange(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue);
         StartCoroutine(current_SubCo_RetinueWeaponEnergyChange);
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
 
@@ -469,8 +469,8 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueArmor; }
         set
         {
-            if (!isInitializing && m_RetinueArmor > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ArmorBeAttacked(value), "Co_ArmorBeAttacked");
-            else if (m_RetinueArmor < value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ArmorAdded(value), "Co_ArmorAdded");
+            if (!isInitializing && m_RetinueArmor > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorBeAttacked(value), "Co_ArmorBeAttacked");
+            else if (m_RetinueArmor < value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorAdded(value), "Co_ArmorAdded");
 
             m_RetinueArmor = value;
             if (M_Shield)
@@ -495,7 +495,7 @@ internal class ModuleRetinue : ModuleBase
         ArmorFill.SetTrigger("ArmorAdd");
         yield return null;
         CardNumberSet_RetinueArmor.Number = armorValue;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     IEnumerator Co_ArmorAdded(int armorValue)
@@ -512,7 +512,7 @@ internal class ModuleRetinue : ModuleBase
         ArmorFill.SetTrigger("ArmorAdd");
         yield return null;
         CardNumberSet_RetinueArmor.Number = armorValue;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     [SerializeField] private int RetinueShieldFull;
@@ -524,10 +524,10 @@ internal class ModuleRetinue : ModuleBase
         get { return m_RetinueShield; }
         set
         {
-            if (!isInitializing && m_RetinueShield > value) BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShieldBeAttacked(value), "Co_ShieldBeAttacked");
+            if (!isInitializing && m_RetinueShield > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldBeAttacked(value), "Co_ShieldBeAttacked");
             else if (m_RetinueShield < value)
             {
-                BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShieldAdded(value), "Co_ShieldAdded");
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldAdded(value), "Co_ShieldAdded");
             }
 
             m_RetinueShield = value;
@@ -553,7 +553,7 @@ internal class ModuleRetinue : ModuleBase
         }
 
         CardNumberSet_RetinueShield.Number = shieldValue;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     IEnumerator Co_ShieldAdded(int shieldValue)
@@ -571,7 +571,7 @@ internal class ModuleRetinue : ModuleBase
         }
 
         CardNumberSet_RetinueShield.Number = shieldValue;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     #endregion
@@ -692,8 +692,8 @@ internal class ModuleRetinue : ModuleBase
     private bool CheckCanAttack()
     {
         bool canAttack = true;
-        canAttack &= RoundManager.RM.CurrentClientPlayer == ClientPlayer;
-        canAttack &= ClientPlayer == RoundManager.RM.SelfClientPlayer;
+        canAttack &= RoundManager.Instance.CurrentClientPlayer == ClientPlayer;
+        canAttack &= ClientPlayer == RoundManager.Instance.SelfClientPlayer;
         canAttack &= !isFirstRound || (isFirstRound && CanCharge);
         canAttack &= (!CannotAttackBecauseDie);
         canAttack &= (CanAttackThisRound);
@@ -800,9 +800,9 @@ internal class ModuleRetinue : ModuleBase
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
-        if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer && !RoundManager.RM.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(moduleRetinue))
+        if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer && !RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(moduleRetinue))
         {
-            RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.CS.Proxy.ClientId, ClientPlayer.ClientId, M_RetinueID, RoundManager.RM.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
+            RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.CS.Proxy.ClientId, ClientPlayer.ClientId, M_RetinueID, RoundManager.Instance.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
             Client.CS.Proxy.SendMessage(request);
         }
 
@@ -844,7 +844,7 @@ internal class ModuleRetinue : ModuleBase
             isBeDraggedHover = value;
             if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this))
             {
-                ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnEnemyHoverBloomColor);
+                ChangeBloomColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
                 OnHoverBloom.gameObject.SetActive(value);
             }
         }
@@ -909,13 +909,13 @@ internal class ModuleRetinue : ModuleBase
             isBeHover = value;
             if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this))
             {
-                if (ClientPlayer == RoundManager.RM.EnemyClientPlayer)
+                if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
                 {
-                    ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnEnemyHoverBloomColor);
+                    ChangeBloomColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
                 }
                 else
                 {
-                    ChangeBloomColor(OnHoverBloom, GameManager.GM.RetinueOnSelfHoverBloomColor);
+                    ChangeBloomColor(OnHoverBloom, GameManager.Instance.RetinueOnSelfHoverBloomColor);
                 }
 
                 OnHoverBloom.gameObject.SetActive(value);
@@ -929,12 +929,12 @@ internal class ModuleRetinue : ModuleBase
         if (DragManager.DM.IsSummonPreview)
         {
             TargetSideEffect.TargetRange targetRange = DragManager.DM.SummonRetinueTargetRange;
-            if ((ClientPlayer == RoundManager.RM.EnemyClientPlayer &&
+            if ((ClientPlayer == RoundManager.Instance.EnemyClientPlayer &&
                  (targetRange == TargetSideEffect.TargetRange.EnemyBattleGround ||
                   (targetRange == TargetSideEffect.TargetRange.EnemySodiers && CardInfo.BattleInfo.IsSodier) ||
                   targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.BattleInfo.IsSodier))
                 ||
-                ClientPlayer == RoundManager.RM.SelfClientPlayer && ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue != this &&
+                ClientPlayer == RoundManager.Instance.SelfClientPlayer && ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue != this &&
                 (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSodiers && CardInfo.BattleInfo.IsSodier)))
             {
                 IsBeHover = true;
@@ -969,7 +969,7 @@ internal class ModuleRetinue : ModuleBase
 
     public void OnSummonShowEffects()
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#00FFDA"), 0.5f), "ShowSideEffectBloom");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#00FFDA"), 0.5f), "ShowSideEffectBloom");
     }
 
     public void OnDie()
@@ -980,7 +980,7 @@ internal class ModuleRetinue : ModuleBase
 
     public void OnDieShowEffects()
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#000000"), 0.5f), "ShowSideEffectBloom");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#000000"), 0.5f), "ShowSideEffectBloom");
     }
 
     IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
@@ -989,7 +989,7 @@ internal class ModuleRetinue : ModuleBase
         ChangeBloomColor(SideEffcetBloom, color);
         yield return new WaitForSeconds(duration);
         SideEffcetBloom.gameObject.SetActive(false);
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     public void OnAttack()

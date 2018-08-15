@@ -87,9 +87,9 @@ internal class HandManager : MonoBehaviour
     {
         CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
 
-        if (ClientPlayer == RoundManager.RM.EnemyClientPlayer)
+        if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
         {
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_UseCardShow(cardBase, cardInfo), "Co_UseCardShow");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UseCardShow(cardBase, cardInfo), "Co_UseCardShow");
         }
         else
         {
@@ -111,10 +111,10 @@ internal class HandManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        current_SubCo_ShowCardForTime = SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.GM.ShowCardDuration);
+        current_SubCo_ShowCardForTime = SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.Instance.ShowCardDuration);
         StartCoroutine(current_SubCo_ShowCardForTime);
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private IEnumerator current_SubCo_ShowCardForTime;
@@ -125,9 +125,9 @@ internal class HandManager : MonoBehaviour
         Vector3 oldPosition = cardBase.transform.position;
         Quaternion oldRotation = cardBase.transform.rotation;
         Vector3 oldScale = cardBase.transform.localScale;
-        Vector3 targetPosition = GameManager.GM.CardShowPosition;
+        Vector3 targetPosition = GameManager.Instance.UseCardShowPosition;
         Quaternion targetRotation = Quaternion.Euler(0, 180, 0);
-        Vector3 targetScale = Vector3.one * GameManager.GM.CardShowScale;
+        Vector3 targetScale = Vector3.one * GameManager.Instance.CardShowScale;
         cardBase.PoolRecycle();
 
         if (currentShowCard) lastShowCard = currentShowCard;
@@ -142,8 +142,8 @@ internal class HandManager : MonoBehaviour
         currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
         currentShowCard.CardBloom.SetActive(true);
 
-        float duration = GameManager.GM.ShowCardFlyTime;
-        float rotateDuration = GameManager.GM.ShowCardRotateDuration;
+        float duration = GameManager.Instance.ShowCardFlyDuration;
+        float rotateDuration = GameManager.Instance.ShowCardRotateDuration;
         float tick = 0;
         float tickRotate = 0;
         while (true)
@@ -233,15 +233,15 @@ internal class HandManager : MonoBehaviour
             isSet_defaultCardPosition = true;
         }
 
-        float angle = anglesDict[cards.Count - 1] * GameManager.GM.HandCardRotate;
-        float horrizonDist = horrizonDistanceDict[cards.Count - 1] * GameManager.GM.HandCardInterval;
+        float angle = anglesDict[cards.Count - 1] * GameManager.Instance.HandCardRotate;
+        float horrizonDist = horrizonDistanceDict[cards.Count - 1] * GameManager.Instance.HandCardInterval;
         int count = 0;
         foreach (CardBase card in cards)
         {
             count++;
             card.transform.rotation = defaultCardRotation;
             card.transform.position = defaultCardPosition;
-            card.transform.localScale = Vector3.one * GameManager.GM.HandCardSize;
+            card.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
             float rotateAngle = angle / cards.Count * (((cards.Count - 1) / 2.0f + 1) - count);
             if (ClientPlayer.WhichPlayer == Players.Self)
             {
@@ -255,11 +255,11 @@ internal class HandManager : MonoBehaviour
 
             card.transform.position = new Vector3(card.transform.position.x, 2f, card.transform.position.z);
             float horrizonDistance = horrizonDist / cards.Count * (((cards.Count - 1) / 2.0f + 1) - count);
-            card.transform.Translate(Vector3.right * horrizonDistance * GameManager.GM.HandCardSize); //向水平向错开，体现手牌展开感
+            card.transform.Translate(Vector3.right * horrizonDistance * GameManager.Instance.HandCardSize); //向水平向错开，体现手牌展开感
             float distCardsFromCenter = Mathf.Abs(((cards.Count - 1) / 2.0f + 1) - count); //与中心距离几张卡牌
             float factor = (cards.Count - distCardsFromCenter) / cards.Count; //某临时参数
-            card.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.GM.HandCardSize + Vector3.back * cards.Count / 20 * GameManager.GM.HandCardOffset); //向垂直向错开，体现卡片弧线感
-            card.transform.Translate(Vector3.up * 0.1f * (cards.Count - count) * (ClientPlayer == RoundManager.RM.EnemyClientPlayer ? -1 : 1)); //向上错开，体现卡片前后感
+            card.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.Instance.HandCardSize + Vector3.back * cards.Count / 20 * GameManager.Instance.HandCardOffset); //向垂直向错开，体现卡片弧线感
+            card.transform.Translate(Vector3.up * 0.1f * (cards.Count - count) * (ClientPlayer == RoundManager.Instance.EnemyClientPlayer ? -1 : 1)); //向上错开，体现卡片前后感
             card.transform.Rotate(Vector3.down, rotateAngle); //卡片微小旋转
             card.ResetColliderAndReplace();
         }
@@ -272,9 +272,9 @@ internal class HandManager : MonoBehaviour
         if (ClientPlayer == null) return;
         foreach (var card in cards)
         {
-            if (ClientPlayer == RoundManager.RM.CurrentClientPlayer)
+            if (ClientPlayer == RoundManager.Instance.CurrentClientPlayer)
             {
-                card.Usable = (ClientPlayer == RoundManager.RM.SelfClientPlayer) && (card.M_Cost <= ClientPlayer.CostLeft);
+                card.Usable = (ClientPlayer == RoundManager.Instance.SelfClientPlayer) && (card.M_Cost <= ClientPlayer.CostLeft);
                 if (card is CardRetinue) card.Usable &= !ClientPlayer.MyBattleGroundManager.BattleGroundIsFull;
             }
             else
@@ -301,7 +301,7 @@ internal class HandManager : MonoBehaviour
 
         currentFocusCard = focusCard;
         becomeBigger(focusCard);
-        if (ClientPlayer == RoundManager.RM.SelfClientPlayer)
+        if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
         {
             if (currentFocusCard is CardWeapon)
             {
@@ -371,10 +371,10 @@ internal class HandManager : MonoBehaviour
         if (!isBeginDrag && ClientPlayer.WhichPlayer == Players.Self)
         {
             //用一个BoxCollider代替原来的位置
-            ColliderReplace colliderReplace = GameObjectPoolManager.GOPM.Pool_ColliderReplacePool.AllocateGameObject(GameBoardManager.GBM.transform).GetComponent<ColliderReplace>();
+            ColliderReplace colliderReplace = GameObjectPoolManager.GOPM.Pool_ColliderReplacePool.AllocateGameObject(GameBoardManager.Instance.transform).GetComponent<ColliderReplace>();
             colliderReplace.Initiate(focusCard);
             //本卡牌变大，旋转至正位
-            focusCard.transform.localScale = Vector3.one * GameManager.GM.PullOutCardSize;
+            focusCard.transform.localScale = Vector3.one * GameManager.Instance.PullOutCardSize;
             focusCard.transform.rotation = defaultCardRotation;
             if (ClientPlayer.WhichPlayer == Players.Self)
             {

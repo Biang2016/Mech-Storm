@@ -10,7 +10,7 @@ internal class ServerModuleShield : ServerModuleBase
 
     public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
-        M_ShieldName = CardInfo_Base.textToVertical(((CardInfo_Shield)cardInfo).BaseInfo.CardName);
+        M_ShieldName = Utils.TextToVertical(((CardInfo_Shield)cardInfo).BaseInfo.CardName);
         M_ShieldType = cardInfo.ShieldInfo.ShieldType;
         base.Initiate(cardInfo, serverPlayer);
     }

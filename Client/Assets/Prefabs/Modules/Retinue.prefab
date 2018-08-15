@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 23737570248448014}
   - component: {fileID: 65256563130125684}
   - component: {fileID: 114540692850677692}
-  - component: {fileID: 114814552902211472}
   - component: {fileID: 114763938719022832}
   m_Layer: 11
   m_Name: Slot1
@@ -179,7 +178,6 @@ GameObject:
   - component: {fileID: 23373930684850660}
   - component: {fileID: 65181857856575676}
   - component: {fileID: 114817038061909192}
-  - component: {fileID: 114724631801730586}
   - component: {fileID: 114626173361503922}
   m_Layer: 11
   m_Name: Slot2
@@ -302,7 +300,6 @@ GameObject:
   - component: {fileID: 23004619136199708}
   - component: {fileID: 65308902090427124}
   - component: {fileID: 114500183830127682}
-  - component: {fileID: 114989921172553632}
   - component: {fileID: 114952950044899202}
   m_Layer: 11
   m_Name: Slot3
@@ -595,7 +592,6 @@ GameObject:
   - component: {fileID: 23888460553123976}
   - component: {fileID: 65795441212598806}
   - component: {fileID: 114260012510748592}
-  - component: {fileID: 114246604267631448}
   - component: {fileID: 114660211106514818}
   m_Layer: 11
   m_Name: Slot4
@@ -3038,10 +3034,10 @@ MonoBehaviour:
   ShieldIconHit: {fileID: 95184642074789090}
   ArmorIconHit: {fileID: 95052399277773276}
   CardLifeHit: {fileID: 95653712194373182}
-  SlotAnchor1: {fileID: 114814552902211472}
-  SlotAnchor2: {fileID: 114724631801730586}
-  SlotAnchor3: {fileID: 114989921172553632}
-  SlotAnchor4: {fileID: 114246604267631448}
+  Slot1: {fileID: 114763938719022832}
+  Slot2: {fileID: 114626173361503922}
+  Slot3: {fileID: 114952950044899202}
+  Slot4: {fileID: 114660211106514818}
   Block_RetinueLeftLife: {fileID: 1315649310027486}
   Block_RetinueTotalLife: {fileID: 1763095781620502}
   Block_RetinueAttack: {fileID: 1029284212838474}
@@ -3064,19 +3060,6 @@ MonoBehaviour:
   CanAttackThisRound: 0
   CanCharge: 0
   EndRound: 0
---- !u!114 &114246604267631448
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1763014549183146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c6610f73aa0684f890e8dbc49425d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  M_Slot: {fileID: 0}
-  OnHoverShowBloom: {fileID: 0}
 --- !u!114 &114260012510748592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3164,6 +3147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
 --- !u!114 &114660211106514818
 MonoBehaviour:
@@ -3176,20 +3160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
---- !u!114 &114724631801730586
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1226219459493532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c6610f73aa0684f890e8dbc49425d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  M_Slot: {fileID: 0}
-  OnHoverShowBloom: {fileID: 23006524589532936}
 --- !u!114 &114763938719022832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3201,20 +3173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
---- !u!114 &114814552902211472
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1086356747957162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c6610f73aa0684f890e8dbc49425d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  M_Slot: {fileID: 0}
-  OnHoverShowBloom: {fileID: 23374414830661768}
 --- !u!114 &114817038061909192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3248,20 +3208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mSlotTypes: 0
---- !u!114 &114989921172553632
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1360341399821150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c6610f73aa0684f890e8dbc49425d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  M_Slot: {fileID: 0}
   OnHoverShowBloom: {fileID: 0}
+  _mSlotTypes: 0
 --- !u!212 &212004333060267980
 SpriteRenderer:
   m_ObjectHideFlags: 1

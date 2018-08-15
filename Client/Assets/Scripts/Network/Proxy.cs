@@ -53,7 +53,7 @@ internal class Proxy : ProxyBase
     public void Response(Socket socket, RequestBase r)
     {
         ClientLog.CL.PrintReceive("Server: " + r.DeserializeLog());
-        if (!(r is ClientOperationResponseBase))
+        if (!(r is ResponseBundleBase))
         {
             switch (r.GetProtocol())
             {
@@ -67,27 +67,27 @@ internal class Proxy : ProxyBase
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:
                 {
                     GameStopByLeaveRequest request = (GameStopByLeaveRequest) r;
-                    RoundManager.RM.OnGameStopByLeave(request);
+                    RoundManager.Instance.OnGameStopByLeave(request);
                     break;
                 }
                 case NetProtocols.RANDOM_NUMBER_SEED_REQUEST:
                 {
-                    RoundManager.RM.OnRandomNumberSeed((RandomNumberSeedRequest)r);
+                    RoundManager.Instance.OnRandomNumberSeed((RandomNumberSeedRequest)r);
                     break;
                 }
             }
         }
         else
         {
-            ClientOperationResponseBase request = (ClientOperationResponseBase) r;
+            ResponseBundleBase request = (ResponseBundleBase) r;
             foreach (ServerRequestBase requestSideEffect in request.SideEffects) //请求预处理，提取关键信息，如随从死亡、弃牌等会影响客户端交互的信息
             {
-                RoundManager.RM.ResponseToSideEffects_PrePass(requestSideEffect);
+                RoundManager.Instance.ResponseToSideEffects_PrePass(requestSideEffect);
             }
 
             foreach (ServerRequestBase requestSideEffect in request.SideEffects)
             {
-                RoundManager.RM.ResponseToSideEffects(requestSideEffect);
+                RoundManager.Instance.ResponseToSideEffects(requestSideEffect);
             }
         }
     }

@@ -2,26 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-internal class GameBoardManager : MonoBehaviour
+internal class GameBoardManager : MonoSingletion<GameBoardManager>
 {
-    private static GameBoardManager gbm;
-
-    public static GameBoardManager GBM
-    {
-        get
-        {
-            if (!gbm)
-            {
-                gbm = FindObjectOfType(typeof(GameBoardManager)) as GameBoardManager;
-            }
-
-            return gbm;
-        }
-    }
-
     private GameBoardManager()
     {
-
     }
 
     internal HandManager SelfHandManager;
@@ -37,14 +21,6 @@ internal class GameBoardManager : MonoBehaviour
         SelfBattleGroundManager = transform.Find("SelfBattleGroundArea").GetComponent<BattleGroundManager>();
         EnemyBattleGroundManager = transform.Find("EnemyBattleGroundArea").GetComponent<BattleGroundManager>();
         CardDetailPreview = transform.Find("CardDetailPreview").gameObject;
-    }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
     }
 }
 

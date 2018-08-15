@@ -64,8 +64,8 @@ internal class ServerGameManager
         PlayerA.MyEnemyPlayer = PlayerB;
         PlayerB.MyEnemyPlayer = PlayerA;
 
-        ClientA.CurrentClientRequestResponse = new GameStart_Response();
-        ClientB.CurrentClientRequestResponse = new GameStart_Response();
+        ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
 
         SetPlayerRequest request1 = new SetPlayerRequest(ClientA.ClientId, 0, GamePlaySettings.BeginCost);
         Broadcast_AddRequestToOperationResponse(request1);
@@ -163,8 +163,8 @@ internal class ServerGameManager
 
     public void OnClientSummonRetinueRequest(SummonRetinueRequest r)
     {
-        ClientA.CurrentClientRequestResponse = new SummonRetinueRequest_Response();
-        ClientB.CurrentClientRequestResponse = new SummonRetinueRequest_Response();
+        ClientA.CurrentClientRequestResponseBundle = new SummonRetinueRequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new SummonRetinueRequest_ResponseBundle();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Retinue info = (CardInfo_Retinue) sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
@@ -183,8 +183,8 @@ internal class ServerGameManager
 
     public void OnClientEquipWeaponRequest(EquipWeaponRequest r)
     {
-        ClientA.CurrentClientRequestResponse = new EquipWeaponRequest_Response();
-        ClientB.CurrentClientRequestResponse = new EquipWeaponRequest_Response();
+        ClientA.CurrentClientRequestResponseBundle = new EquipWeaponRequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new EquipWeaponRequest_ResponseBundle();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
@@ -196,8 +196,8 @@ internal class ServerGameManager
 
     public void OnClientEquipShieldRequest(EquipShieldRequest r)
     {
-        ClientA.CurrentClientRequestResponse = new EquipShieldRequest_Response();
-        ClientB.CurrentClientRequestResponse = new EquipShieldRequest_Response();
+        ClientA.CurrentClientRequestResponseBundle = new EquipShieldRequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new EquipShieldRequest_ResponseBundle();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
@@ -209,8 +209,8 @@ internal class ServerGameManager
 
     public void OnClientUseSpellCardRequest(UseSpellCardRequest r)
     {
-        ClientA.CurrentClientRequestResponse = new UseSpellCardRequset_Response();
-        ClientB.CurrentClientRequestResponse = new UseSpellCardRequset_Response();
+        ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
@@ -222,8 +222,8 @@ internal class ServerGameManager
 
     public void OnClientRetinueAttackRetinueRequest(RetinueAttackRetinueRequest r)
     {
-        ClientA.CurrentClientRequestResponse = new RetinueAttackRetinueRequest_Response();
-        ClientB.CurrentClientRequestResponse = new RetinueAttackRetinueRequest_Response();
+        ClientA.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
 
         RetinueAttackRetinueServerRequest request = new RetinueAttackRetinueServerRequest(r.AttackRetinueClientId, r.AttackRetinueId, r.BeAttackedRetinueClientId, r.BeAttackedRetinueId);
         Broadcast_AddRequestToOperationResponse(request);
@@ -241,8 +241,8 @@ internal class ServerGameManager
 
     public void OnEndRoundRequest(EndRoundRequest r)
     {
-        ClientA.CurrentClientRequestResponse = new EndRoundRequest_Response();
-        ClientB.CurrentClientRequestResponse = new EndRoundRequest_Response();
+        ClientA.CurrentClientRequestResponseBundle = new EndRoundRequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new EndRoundRequest_ResponseBundle();
 
         if (CurrentPlayer.ClientId == r.clientId)
         {
@@ -331,17 +331,17 @@ internal class ServerGameManager
 
     public void Broadcast_AddRequestToOperationResponse(ServerRequestBase request)
     {
-        ClientA.CurrentClientRequestResponse.SideEffects.Add(request);
-        ClientB.CurrentClientRequestResponse.SideEffects.Add(request);
+        ClientA.CurrentClientRequestResponseBundle.SideEffects.Add(request);
+        ClientB.CurrentClientRequestResponseBundle.SideEffects.Add(request);
     }
 
 
     private void Broadcast_SendOperationResponse()
     {
-        ClientA.SendMessage(ClientA.CurrentClientRequestResponse);
-        ClientB.SendMessage(ClientB.CurrentClientRequestResponse);
-        ClientA.CurrentClientRequestResponse = null;
-        ClientB.CurrentClientRequestResponse = null;
+        ClientA.SendMessage(ClientA.CurrentClientRequestResponseBundle);
+        ClientB.SendMessage(ClientB.CurrentClientRequestResponseBundle);
+        ClientA.CurrentClientRequestResponseBundle = null;
+        ClientB.CurrentClientRequestResponseBundle = null;
     }
 
     private void BroadcastRequest(ServerRequestBase request)

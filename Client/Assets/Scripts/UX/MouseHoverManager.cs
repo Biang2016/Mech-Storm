@@ -7,22 +7,15 @@ using System.Collections;
 /// </summary>
 internal class MouseHoverManager : MonoBehaviour
 {
-    void Awake()
-    {
-        cardsLayer = 1 << LayerMask.NameToLayer("Cards");
-        modulesLayer = 1 << LayerMask.NameToLayer("Modules");
-        retinuesLayer = 1 << LayerMask.NameToLayer("Retinues");
-        slotsLayer = 1 << LayerMask.NameToLayer("Slots");
-    }
+    private static MouseHoverManager _mhm;
 
-    void Start()
+    public static MouseHoverManager MHM
     {
-        hi_ModulesHoverShowBloom = new HoverImmediately(modulesLayer);
-        hi_CardHover = new HoverImmediately(cardsLayer);
-        phi_SlotsPressHoverShowBloom = new PressHoverImmediately(slotsLayer);
-        hd_ModulesFocusShowPreview = new Focus(modulesLayer | retinuesLayer, GameManager.GM.RetinueDetailPreviewDelaySeconds, 100f);
-        hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer);
-        hi_RetinueHoverShowTargetedBloom = new HoverImmediately(retinuesLayer);
+        get
+        {
+            if (!_mhm) _mhm = FindObjectOfType<MouseHoverManager>();
+            return _mhm;
+        }
     }
 
     int cardsLayer;
@@ -30,6 +23,51 @@ internal class MouseHoverManager : MonoBehaviour
     int retinuesLayer;
     int slotsLayer;
 
+    void Awake()
+    {
+        cardsLayer = 1 << LayerMask.NameToLayer("Cards");
+        modulesLayer = 1 << LayerMask.NameToLayer("Modules");
+        retinuesLayer = 1 << LayerMask.NameToLayer("Retinues");
+        slotsLayer = 1 << LayerMask.NameToLayer("Slots");
+        state = MHM_States.None;
+        previousState = MHM_States.None;
+    }
+
+    void Start()
+    {
+        hi_ModulesHoverShowBloom = new HoverImmediately(modulesLayer);
+        hi_CardHover = new HoverImmediately(cardsLayer);
+        phi_SlotsPressHoverShowBloom = new PressHoverImmediately(slotsLayer);
+        hd_ModulesFocusShowPreview = new Focus(modulesLayer | retinuesLayer, GameManager.Instance.RetinueDetailPreviewDelaySeconds, 100f);
+        hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer);
+        hi_RetinueHoverShowTargetedBloom = new HoverImmediately(retinuesLayer);
+    }
+
+    public enum MHM_States
+    {
+        None = 0, //禁用
+        Normal = 1,
+        DragEquipment = 2, //拖动装备牌过程中
+        DragToRetinue = 3, //法术牌拖动瞄准随从时、随从拖动攻击随从时
+        SummonRetinueTargetOnRetinue = 4, //召唤带目标的随从时，选择目标期间
+    }
+
+    private MHM_States state;
+    private MHM_States previousState;
+
+    public void SetState(MHM_States newState)
+    {
+        if (state != newState)
+        {
+            previousState = state;
+            state = newState;
+        }
+    }
+
+    public void ReturnToPreviousState()
+    {
+        SetState(previousState);
+    }
 
     private HoverImmediately hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
     private HoverImmediately hi_CardHover; //当鼠标移到牌上
@@ -40,7 +78,7 @@ internal class MouseHoverManager : MonoBehaviour
 
     void Update()
     {
-        if (SelectCardDeckManager.SCDM.IsShowing()) return;
+        if (SelectCardDeckManager.Instance.IsShowing()) return;
         hi_ModulesHoverShowBloom.Check<ModuleBase>();
         hi_CardHover.Check<CardBase>();
         phi_SlotsPressHoverShowBloom.Check<Slot>();
@@ -62,6 +100,7 @@ internal class MouseHoverManager : MonoBehaviour
 
         hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();
     }
+
 
     //判定鼠标未按下时的Hover，立即生效
     class HoverImmediately

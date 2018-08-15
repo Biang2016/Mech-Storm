@@ -9,19 +9,8 @@ using UnityEngine.UI;
 /// <summary>
 /// 选牌窗口
 /// </summary>
-public class SelectCardDeckManager : MonoBehaviour
+public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 {
-    private static SelectCardDeckManager _scdm;
-
-    public static SelectCardDeckManager SCDM
-    {
-        get
-        {
-            if (!_scdm) _scdm = FindObjectOfType<SelectCardDeckManager>();
-            return _scdm;
-        }
-    }
-
     private int cardSelectLayer;
 
     void Awake()
@@ -197,9 +186,10 @@ public class SelectCardDeckManager : MonoBehaviour
 
     public void ShowWindow()
     {
-        GameManager.GM.StartBlurBackGround();
+        GameManager.Instance.StartBlurBackGround();
         Canvas.enabled = true;
         Canvas_BG.enabled = true;
+        MouseHoverManager.MHM.SetState(MouseHoverManager.MHM_States.None);
     }
 
 
@@ -207,7 +197,8 @@ public class SelectCardDeckManager : MonoBehaviour
     {
         Canvas.enabled = false;
         Canvas_BG.enabled = false;
-        GameManager.GM.StopBlurBackGround();
+        GameManager.Instance.StopBlurBackGround();
+        MouseHoverManager.MHM.ReturnToPreviousState();
     }
 
     public void NetworkStateChange(ProxyBase.ClientStates clientState)
@@ -281,7 +272,7 @@ public class SelectCardDeckManager : MonoBehaviour
         {
             if (isSelectedHeroFull)
             {
-                NetworkManager.NM.ShowInfoPanel("可携带英雄卡牌数量已达上限", 0, 1f);
+                NoticeManager.Instance.ShowInfoPanel("可携带英雄卡牌数量已达上限", 0, 1f);
                 return;
             }
 
@@ -441,7 +432,7 @@ public class SelectCardDeckManager : MonoBehaviour
 
         CardDeckInfo cdi = new CardDeckInfo(cardIds.ToArray(), retinueIds.ToArray());
         Client.CS.Proxy.OnSendCardDeck(cdi);
-        NetworkManager.NM.ShowInfoPanel("更新卡组成功", 0, 1f);
+        NoticeManager.Instance.ShowInfoPanel("更新卡组成功", 0, 1f);
         HideWindow();
     }
 

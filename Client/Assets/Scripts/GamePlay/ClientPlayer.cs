@@ -15,8 +15,8 @@ internal class ClientPlayer : Player
         WhichPlayer = whichPlayer;
         MyHandArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfHandArea : BoardAreaTypes.EnemyHandArea;
         MyBattleGroundArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfBattleGroundArea : BoardAreaTypes.EnemyBattleGroundArea;
-        MyHandManager = whichPlayer == Players.Self ? GameBoardManager.GBM.SelfHandManager : GameBoardManager.GBM.EnemyHandManager;
-        MyBattleGroundManager = whichPlayer == Players.Self ? GameBoardManager.GBM.SelfBattleGroundManager : GameBoardManager.GBM.EnemyBattleGroundManager;
+        MyHandManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfHandManager : GameBoardManager.Instance.EnemyHandManager;
+        MyBattleGroundManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfBattleGroundManager : GameBoardManager.Instance.EnemyBattleGroundManager;
         MyHandManager.ClientPlayer = this;
         MyBattleGroundManager.ClientPlayer = this;
     }
@@ -25,13 +25,13 @@ internal class ClientPlayer : Player
 
     protected override void OnCostChanged()
     {
-        if (this == RoundManager.RM.SelfClientPlayer)
+        if (this == RoundManager.Instance.SelfClientPlayer)
         {
-            RoundManager.RM.SelfCostText.text = "Cost: " + CostLeft + "/" + CostMax;
+            RoundManager.Instance.SelfCostText.text = "Cost: " + CostLeft + "/" + CostMax;
         }
-        else if (this == RoundManager.RM.EnemyClientPlayer)
+        else if (this == RoundManager.Instance.EnemyClientPlayer)
         {
-            RoundManager.RM.EnemyCostText.text = "Cost: " + CostLeft + "/" + CostMax;
+            RoundManager.Instance.EnemyCostText.text = "Cost: " + CostLeft + "/" + CostMax;
         }
     }
 

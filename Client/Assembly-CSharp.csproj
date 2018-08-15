@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Card\Modules\ModuleRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\Modules\ModuleShield.cs" />
     <Compile Include="Assets\Scripts\Card\Modules\ModuleWeapon.cs" />
+    <Compile Include="Assets\Scripts\Card\Modules\Slot.cs" />
     <Compile Include="Assets\Scripts\Card\Number\CardNumber.cs" />
     <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\AddLifeForRandomRetinue.cs" />
@@ -79,13 +80,13 @@
     <Compile Include="Assets\Scripts\Card\SideEffects\DamageSomeRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\HealSomeRetinue.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\KillAllInBattleGround.cs" />
-    <Compile Include="Assets\Scripts\Card\Slots\Slot.cs" />
     <Compile Include="Assets\Scripts\Common\ClientLog.cs" />
+    <Compile Include="Assets\Scripts\Common\ClientUtils.cs" />
     <Compile Include="Assets\Scripts\Common\DebugConsole.cs" />
     <Compile Include="Assets\Scripts\Common\GameObjectPool.cs" />
     <Compile Include="Assets\Scripts\Common\GameObjectPoolManager.cs" />
     <Compile Include="Assets\Scripts\Common\Initialization.cs" />
-    <Compile Include="Assets\Scripts\Common\Utils.cs" />
+    <Compile Include="Assets\Scripts\Common\MonoSingletion.cs" />
     <Compile Include="Assets\Scripts\GamePlay\BattleEffectsManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\BattleGroundManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\CardDeckManager.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Assets\Scripts\GamePlay\GameBoardManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\GameManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\HandManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\NoticeManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\RoundManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SelectCardDeckManager.cs" />
     <Compile Include="Assets\Scripts\Network\Client.cs" />

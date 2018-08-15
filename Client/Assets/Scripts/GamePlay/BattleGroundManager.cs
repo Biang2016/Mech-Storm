@@ -43,7 +43,7 @@ internal class BattleGroundManager : MonoBehaviour
 
     internal int ComputePosition(Vector3 dragLastPosition)
     {
-        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.GM.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
+        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.Instance.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
         if (index < 0) index = 0;
         if (index >= Retinues.Count) index = Retinues.Count;
         return index;
@@ -51,7 +51,7 @@ internal class BattleGroundManager : MonoBehaviour
 
     internal ModuleRetinue CheckRetinueOnPosition(Vector3 dragLastPosition)
     {
-        var index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.GM.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
+        var index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.Instance.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
         if (index < 0 || index >= Retinues.Count)
             return null;
         return Retinues[index];
@@ -104,13 +104,13 @@ internal class BattleGroundManager : MonoBehaviour
 
     public void AddRetinue(int retinuePlaceIndex)
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main, retinuePlaceIndex), "Co_RefreshBattleGroundAnim");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main, retinuePlaceIndex), "Co_RefreshBattleGroundAnim");
     }
 
     public void RemoveRetinue(int retinueId)
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RemoveRetinue(GetRetinue(retinueId)), "Co_RemoveRetinue");
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RemoveRetinue(GetRetinue(retinueId)), "Co_RemoveRetinue");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main), "Co_RefreshBattleGroundAnim");
     }
 
     public List<ModuleRetinue> RemoveRetinues = new List<ModuleRetinue>(); //即将要被移除的随从名单
@@ -137,7 +137,7 @@ internal class BattleGroundManager : MonoBehaviour
 
     public void RemoveRetinueTogatherEnd()
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main), "Co_RefreshBattleGroundAnim");
     }
 
     IEnumerator Co_RemoveRetinue(ModuleRetinue retinue)
@@ -146,7 +146,7 @@ internal class BattleGroundManager : MonoBehaviour
         Retinues.Remove(retinue);
         RetinueCount--;
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     #endregion
@@ -163,7 +163,7 @@ internal class BattleGroundManager : MonoBehaviour
         if (previewRetinuePlace == PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW || previewRetinuePlace != placeIndex)
         {
             previewRetinuePlace = placeIndex;
-            BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue), "Co_RefreshBattleGroundAnim");
+            BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddRetinue.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddRetinue), "Co_RefreshBattleGroundAnim");
         }
     }
 
@@ -173,7 +173,7 @@ internal class BattleGroundManager : MonoBehaviour
         if (previewRetinuePlace != PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW)
         {
             previewRetinuePlace = PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW;
-            BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.BEM.Effect_Main), "Co_RefreshBattleGroundAnim");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main), "Co_RefreshBattleGroundAnim");
         }
     }
 
@@ -257,7 +257,7 @@ internal class BattleGroundManager : MonoBehaviour
             Retinues.Insert(retinuePlaceIndex, retinue);
             retinue.OnSummon();
             retinue.transform.localPosition = _defaultRetinuePosition;
-            retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.GM.RetinueInterval, Space.Self);
+            retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.Instance.RetinueInterval, Space.Self);
         }
 
         float duration = 0.05f;
@@ -280,7 +280,7 @@ internal class BattleGroundManager : MonoBehaviour
             }
 
             Vector3 ori = Retinues[i].transform.localPosition;
-            Vector3 offset = Vector3.left * (actualPlace - actualPlaceCount / 2.0f + 0.5f) * GameManager.GM.RetinueInterval;
+            Vector3 offset = Vector3.left * (actualPlace - actualPlaceCount / 2.0f + 0.5f) * GameManager.Instance.RetinueInterval;
 
             Retinues[i].transform.localPosition = _defaultRetinuePosition;
             Retinues[i].transform.Translate(offset, Space.Self);
@@ -342,7 +342,7 @@ internal class BattleGroundManager : MonoBehaviour
         }
 
         currentShowSlotBloom = Co_ShowSlotBloom();
-        BattleEffectsManager.BEM.Effect_TipSlotBloom.EffectsShow(currentShowSlotBloom, "Co_ShowSlotBloom");
+        BattleEffectsManager.Instance.Effect_TipSlotBloom.EffectsShow(currentShowSlotBloom, "Co_ShowSlotBloom");
     }
 
     IEnumerator Co_ShowSlotBloom()
@@ -368,10 +368,10 @@ internal class BattleGroundManager : MonoBehaviour
     {
         if (currentShowSlotBloom != null)
         {
-            BattleEffectsManager.SideEffect cur_Effect = BattleEffectsManager.BEM.Effect_TipSlotBloom.GetCurrentSideEffect();
+            BattleEffectsManager.SideEffect cur_Effect = BattleEffectsManager.Instance.Effect_TipSlotBloom.GetCurrentSideEffect();
             if (cur_Effect != null && cur_Effect.Enumerator == currentShowSlotBloom)
             {
-                BattleEffectsManager.BEM.Effect_TipSlotBloom.EffectEnd();
+                BattleEffectsManager.Instance.Effect_TipSlotBloom.EffectEnd();
                 ClientLog.CL.PrintWarning("Stop Effect_TipSlotBloom");
                 currentShowSlotBloom = null;
             }
@@ -389,7 +389,7 @@ internal class BattleGroundManager : MonoBehaviour
 
     public void EquipWeapon(CardInfo_Weapon cardInfo, int retinueId)
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_EquipWeapon(cardInfo, retinueId), "Co_EquipWeapon");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipWeapon(cardInfo, retinueId), "Co_EquipWeapon");
     }
 
     IEnumerator Co_EquipWeapon(CardInfo_Weapon cardInfo, int retinueId)
@@ -400,12 +400,12 @@ internal class BattleGroundManager : MonoBehaviour
         newModueWeapon.Initiate(cardInfo, ClientPlayer);
         retinue.M_Weapon = newModueWeapon;
         yield return new WaitForSeconds(0.2f);
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     public void EquipShield(CardInfo_Shield cardInfo, int retinueId)
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_EquipShield(cardInfo, retinueId), "Co_EquipShield");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipShield(cardInfo, retinueId), "Co_EquipShield");
     }
 
     IEnumerator Co_EquipShield(CardInfo_Shield cardInfo, int retinueId)
@@ -416,7 +416,7 @@ internal class BattleGroundManager : MonoBehaviour
         newModuleShield.Initiate(cardInfo, ClientPlayer);
         retinue.M_Shield = newModuleShield;
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     public void DamageSomeRetinue(int targetRetinueId, int value)

@@ -4,19 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-internal class BattleEffectsManager : MonoBehaviour
+internal class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
 {
-    private static BattleEffectsManager _bem;
-
-    public static BattleEffectsManager BEM
-    {
-        get
-        {
-            if (!_bem) _bem = FindObjectOfType<BattleEffectsManager>();
-            return _bem;
-        }
-    }
-
     private BattleEffectsManager()
     {
     }
@@ -70,10 +59,10 @@ internal class BattleEffectsManager : MonoBehaviour
             if (!IsExcuting && EffectsQueue.Count != 0)
             {
                 SideEffect se = EffectsQueue.Dequeue();
-                BEM.StartCoroutine(se.Enumerator);
+                Instance.StartCoroutine(se.Enumerator);
                 CurrentEffect = se;
                 IsExcuting = true;
-                if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintBattleEffectsStart("+ [" + Name + "] StartEffect: " + se.MethodName + " id: " + se.EffectId);
+                if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintBattleEffectsStart("+ [" + Name + "] StartEffect: " + se.MethodName + " id: " + se.EffectId);
             }
         }
 
@@ -99,7 +88,7 @@ internal class BattleEffectsManager : MonoBehaviour
 
         public void EffectEnd()
         {
-            if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintWarning("end");
+            if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintWarning("end");
 
             if (CurrentEffect != null)
             {
@@ -107,24 +96,24 @@ internal class BattleEffectsManager : MonoBehaviour
                 {
                     try
                     {
-                        BEM.StopCoroutine(CurrentEffect.Enumerator);
-                        if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintBattleEffectsEnd("- [" + Name + "] EndEffect: " + CurrentEffect.MethodName + " id: " + CurrentEffect.EffectId);
+                        Instance.StopCoroutine(CurrentEffect.Enumerator);
+                        if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintBattleEffectsEnd("- [" + Name + "] EndEffect: " + CurrentEffect.MethodName + " id: " + CurrentEffect.EffectId);
                     }
                     catch (Exception e)
                     {
-                        if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintWarning(e.ToString());
+                        if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintWarning(e.ToString());
                     }
                 }
                 else
                 {
-                    if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintWarning("CurrentEffect.Enumerator = null");
+                    if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintWarning("CurrentEffect.Enumerator = null");
                 }
 
                 CurrentEffect = null;
             }
             else
             {
-                if (GameManager.GM.ShowBEMMessages) ClientLog.CL.PrintWarning("CurrentEffect = null");
+                if (GameManager.Instance.ShowBEMMessages) ClientLog.CL.PrintWarning("CurrentEffect = null");
             }
 
             IsExcuting = false;

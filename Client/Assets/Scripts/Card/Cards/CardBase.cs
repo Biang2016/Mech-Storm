@@ -78,7 +78,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
                     break;
             }
 
-            newCard.ChangeCardBloomColor(GameManager.GM.CardBloomColor);
+            newCard.ChangeCardBloomColor(GameManager.Instance.CardBloomColor);
         }
         else
         {

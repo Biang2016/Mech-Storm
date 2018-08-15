@@ -4,41 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
 
-internal class NetworkManager : MonoBehaviour
+internal class NetworkManager : MonoSingletion<NetworkManager>
 {
-    private static NetworkManager _nm;
-
-    public static NetworkManager NM
-    {
-        get
-        {
-            if (!_nm)
-            {
-                _nm = FindObjectOfType(typeof(NetworkManager)) as NetworkManager;
-            }
-
-            return _nm;
-        }
-    }
-
-    public Animator InfoPanelAnimator;
-    public Text InfoText;
-
-    List<int> SelfCardDeckInfo = new List<int>();
-
-    void Awake()
-    {
-        AllSideEffects.AddAllSideEffects();
-        AllCards.AddAllCards();
-    }
-
     void Start()
     {
         StartCoroutine(TryConnectToServer());
-    }
-
-    void Update()
-    {
     }
 
     bool isReconnecting = false;
@@ -63,7 +33,7 @@ internal class NetworkManager : MonoBehaviour
         {
             if (isReconnecting)
             {
-                ShowInfoPanel("连接服务器成功", 0f, 2f);
+                NoticeManager.Instance.ShowInfoPanel("连接服务器成功", 0f, 2f);
                 isReconnecting = false;
             }
         }
@@ -71,7 +41,7 @@ internal class NetworkManager : MonoBehaviour
         {
             if (!isReconnecting)
             {
-                ShowInfoPanel("正在连接服务器", 0f, float.PositiveInfinity);
+                NoticeManager.Instance.ShowInfoPanel("正在连接服务器", 0f, float.PositiveInfinity);
                 isReconnecting = true;
             }
         }
@@ -82,59 +52,12 @@ internal class NetworkManager : MonoBehaviour
         ClientLog.CL.Print("连接服务器成功!");
     }
 
-    IEnumerator ShowInfoPanelCoroutine;
-
-    public void ShowInfoPanel(string text, float delay, float last)
-    {
-        if (ShowInfoPanelCoroutine != null)
-        {
-            StopCoroutine(ShowInfoPanelCoroutine);
-        }
-
-        ShowInfoPanelCoroutine = Co_ShowInfoPanel(text, delay, last);
-        StartCoroutine(ShowInfoPanelCoroutine);
-    }
-
-    IEnumerator Co_ShowInfoPanel(string text, float delay, float last)
-    {
-        yield return new WaitForSeconds(delay);
-        InfoText.text = text;
-        if (InfoPanelAnimator.GetBool("isShow"))
-        {
-            InfoPanelAnimator.SetTrigger("Shut");
-        }
-
-        InfoPanelAnimator.SetBool("isShow", true);
-        if (!float.IsPositiveInfinity(last))
-        {
-            yield return new WaitForSeconds(last);
-            InfoPanelAnimator.SetBool("isShow", false);
-        }
-        else
-        {
-            int dotCount = 0;
-            while (true)
-            {
-                InfoText.text += ".";
-                yield return new WaitForSeconds(0.5f);
-                dotCount++;
-                if (dotCount == 3)
-                {
-                    dotCount = 0;
-                    InfoText.text = text;
-                }
-            }
-        }
-    }
-
     public void SuccessMatched()
     {
-        ShowInfoPanel("匹配成功，开始比赛", 0, 1f);
+        NoticeManager.Instance.ShowInfoPanel("匹配成功，开始比赛", 0, 1f);
     }
 
     private int high;
-    private string clientIdStr = "";
-    private string cardDeckInfo = "";
 
     void OnGUI()
     {
@@ -147,7 +70,7 @@ internal class NetworkManager : MonoBehaviour
             {
                 Client.CS.Proxy.OnBeginMatch();
                 ClientLog.CL.Print("开始匹配");
-                ShowInfoPanel("匹配中", 0, float.PositiveInfinity);
+                NoticeManager.Instance.ShowInfoPanel("匹配中", 0, float.PositiveInfinity);
             }
         }
 
@@ -157,33 +80,20 @@ internal class NetworkManager : MonoBehaviour
             {
                 Client.CS.Proxy.CancelMatch();
                 ClientLog.CL.Print("取消匹配");
-                ShowInfoPanel("取消匹配", 0, 1f);
+                NoticeManager.Instance.ShowInfoPanel("取消匹配", 0, 1f);
             }
         }
 
         if (Client.CS.Proxy.ClientState == ProxyBase.ClientStates.Playing)
         {
-            if (CreateBtn("查看卡组"))
-            {
-                SelectCardDeckManager.SCDM.ShowWindow();
-            }
-
             if (CreateBtn("退出比赛"))
             {
                 Client.CS.Proxy.LeaveGame();
-                RoundManager.RM.StopGame();
+                RoundManager.Instance.StopGame();
                 ClientLog.CL.Print("您已退出比赛");
-                ShowInfoPanel("您已退出比赛", 0, 1f);
+                NoticeManager.Instance.ShowInfoPanel("您已退出比赛", 0, 1f);
             }
         }
-    }
-
-    private string CreateTextField(string textTitle, string contentStr)
-    {
-        GUI.Label(new Rect(20, high + 5, 60, 30), textTitle);
-        contentStr = GUI.TextField(new Rect(80, high, 90, 30), contentStr);
-        high += 35;
-        return contentStr;
     }
 
     private bool CreateBtn(string btnname)

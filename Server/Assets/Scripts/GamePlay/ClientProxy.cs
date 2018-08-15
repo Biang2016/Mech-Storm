@@ -93,7 +93,7 @@ internal class ClientProxy : ProxyBase
         Response();
     }
 
-    public ClientOperationResponseBase CurrentClientRequestResponse; //目前正在生成的响应包
+    public ResponseBundleBase CurrentClientRequestResponseBundle; //目前正在生成的响应包
 
     /// <summary>
     /// 此类中处理进入游戏前的所有Request

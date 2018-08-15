@@ -157,8 +157,8 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
         switch (CardInfo.BaseInfo.CardType)
         {
             case CardTypes.Retinue:
-                detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer, false);
-                detailCard.transform.localScale = Vector3.one * GameManager.GM.DetailCardSizeRetinue;
+                detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailRetinueCardSize;
                 detailCard.transform.position = new Vector3(mousePosition.x, 8f, mousePosition.z);
                 detailCard.transform.Translate(Vector3.left * 5f);
                 detailCard.GetComponent<BoxCollider>().enabled = false;
@@ -178,8 +178,8 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                     ((CardRetinue) detailCard).Weapon.GetComponent<MouseHoverComponent>().enabled = false;
                     ((CardRetinue) detailCard).Weapon.SetPreview();
 
-                    detailCard_Weapon = (CardWeapon) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer, false);
-                    detailCard_Weapon.transform.localScale = Vector3.one * GameManager.GM.DetailCardModuleSize;
+                    detailCard_Weapon = (CardWeapon) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                    detailCard_Weapon.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Weapon.transform.position = new Vector3(mousePosition.x, 2f, mousePosition.z);
                     detailCard_Weapon.transform.Translate(Vector3.right * 0.5f);
                     detailCard_Weapon.transform.Translate(Vector3.back * 3f);
@@ -201,8 +201,8 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                     ((CardRetinue) detailCard).Shield.GetComponent<MouseHoverComponent>().enabled = false;
                     ((CardRetinue)detailCard).Shield.SetPreview();
 
-                    detailCard_Shield = (CardShield) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer, false);
-                    detailCard_Shield.transform.localScale = Vector3.one * GameManager.GM.DetailCardModuleSize;
+                    detailCard_Shield = (CardShield) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                    detailCard_Shield.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Shield.transform.position = new Vector3(mousePosition.x, 2f, mousePosition.z);
                     detailCard_Shield.transform.Translate(Vector3.right * 0.5f);
                     detailCard_Shield.transform.Translate(Vector3.forward * 3f);
@@ -212,16 +212,16 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
                 break;
             case CardTypes.Weapon:
-                detailCard = (CardWeapon) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer, false);
-                detailCard.transform.localScale = Vector3.one * GameManager.GM.DetailCardSize;
+                detailCard = (CardWeapon) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailSingleCardSize;
                 detailCard.transform.position = new Vector3(mousePosition.x, 2f, mousePosition.z);
                 detailCard.transform.Translate(Vector3.left * 3.5f);
                 detailCard.transform.Translate(Vector3.up * 5f);
                 detailCard.GetComponent<BoxCollider>().enabled = false;
                 break;
             case CardTypes.Shield:
-                detailCard = (CardShield) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.GBM.CardDetailPreview.transform, ClientPlayer, false);
-                detailCard.transform.localScale = Vector3.one * GameManager.GM.DetailCardSize;
+                detailCard = (CardShield) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailSingleCardSize;
                 detailCard.transform.position = new Vector3(mousePosition.x, 2f, mousePosition.z);
                 detailCard.transform.Translate(Vector3.left * 3.5f);
                 detailCard.transform.Translate(Vector3.up * 5f);
@@ -300,7 +300,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     {
         if (DragManager.DM.IsSummonPreview) return;
         ShowCardDetail(mousePosition);
-        GameManager.GM.StartBlurBackGround();
+        GameManager.Instance.StartBlurBackGround();
     }
 
     public virtual void MouseHoverComponent_OnMouseOver()
@@ -311,7 +311,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     {
         if (DragManager.DM.IsSummonPreview) return;
         HideCardDetail();
-        GameManager.GM.StopBlurBackGround();
+        GameManager.Instance.StopBlurBackGround();
     }
 
     public virtual void MouseHoverComponent_OnMouseLeaveImmediately()

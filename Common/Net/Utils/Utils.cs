@@ -38,4 +38,16 @@ public class Utils
 
         return res;
     }
+
+    public static string TextToVertical(string text)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (char ch in text)
+        {
+            sb.Append(ch);
+            sb.Append("\n");
+        }
+
+        return sb.ToString().Trim('\n');
+    }
 }

@@ -47,7 +47,7 @@ internal class ModuleWeapon : ModuleBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_WeaponName = CardInfo_Base.textToVertical(cardInfo.BaseInfo.CardName);
+        M_WeaponName = Utils.TextToVertical(cardInfo.BaseInfo.CardName);
         M_WeaponType = cardInfo.WeaponInfo.WeaponType;
         M_WeaponAttack = cardInfo.WeaponInfo.Attack;
         M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;

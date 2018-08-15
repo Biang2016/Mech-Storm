@@ -103,7 +103,7 @@ internal class DragComponent : MonoBehaviour
         {
             CardBase possibleCard = GetComponent<CardBase>();
             ModuleBase possibleModuleBase = GetComponent<ModuleBase>();
-            if (possibleCard && possibleCard.ClientPlayer == RoundManager.RM.CurrentClientPlayer || possibleModuleBase && possibleModuleBase.ClientPlayer == RoundManager.RM.CurrentClientPlayer)
+            if (possibleCard && possibleCard.ClientPlayer == RoundManager.Instance.CurrentClientPlayer || possibleModuleBase && possibleModuleBase.ClientPlayer == RoundManager.Instance.CurrentClientPlayer)
             {
                 if (value) //鼠标按下
                 {

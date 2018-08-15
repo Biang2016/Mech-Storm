@@ -41,83 +41,89 @@
   <ItemGroup>
     <Compile Include="Net\GamePlay\Card\CardDeck\AllCards.cs" />
     <Compile Include="Net\GamePlay\Card\CardDeck\CardDeck.cs" />
+    <Compile Include="Net\GamePlay\Card\CardDeck\CardDeckInfo.cs" />
     <Compile Include="Net\GamePlay\Card\CardResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CardResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\AllSideEffects.cs" />
-    <Compile Include="Net\GamePlay\Card\Cards\CardInfo.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\DamageRandomRetinue_Base.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\HealSomeRetinue_Base.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\DamageSomeRetinue_Base.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\Base\TargetSideEffect.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\Base\SideEffectBase.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffectManager.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\AddLifeForRandomRetinue_Base.cs" />
-    <Compile Include="Net\GamePlay\DragPurpose.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\Info\BaseInfo.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\Info\BattleInfo.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\CardInfo_Base.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\CardInfo_Retinue.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\CardInfo_Shield.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\CardInfo_Spell.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\CardInfo_Weapon.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\Info\LifeInfo.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\Info\ShieldInfo.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\Info\SlotInfo.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\Info\UpgradeInfo.cs" />
+    <Compile Include="Net\GamePlay\Card\CardInfo\Info\WeaponInfo.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\AllSideEffects.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageRandomRetinue_Base.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\HealSomeRetinue_Base.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageSomeRetinue_Base.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\TargetSideEffect.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffects\SideEffectBase.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffectManager.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeForRandomRetinue_Base.cs" />
     <Compile Include="Net\GamePlay\Player.cs" />
-    <Compile Include="Net\GamePlay\ShieldTypes.cs" />
-    <Compile Include="Net\GamePlay\SlotTypes.cs" />
-    <Compile Include="Net\GamePlay\WeaponTypes.cs" />
     <Compile Include="Net\Protocol\ProxyBase.cs" />
-    <Compile Include="Net\Protocol\GamePlaySettings.cs" />
-    <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />
-    <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\UseSpellCardRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EquipShieldRequest_Response.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\DamageSomeRetinueRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\UseSpellCardServerRequset.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\UseSpellCardRequset_Response.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\CardDeckLeftChangeRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueEffectRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttackRetinueServerRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\UseCardRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\EquipShieldServerRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\EquipWeaponServerRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EquipWeaponRequest_Response.cs" />
-    <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\EquipWeaponRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\EndRoundRequest_Response.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\GameStart_Response.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\RetinueAttackRetinueRequest_Response.cs" />
-    <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\RetinueAttackRetinueRequest.cs" />
-    <Compile Include="Net\Requests\ClientToServer\OutGame\CancelMatchRequest.cs" />
-    <Compile Include="Net\Requests\ClientToServer\OutGame\MatchRequest.cs" />
-    <Compile Include="Net\Requests\ClientToServer\OutGame\CardDeckRequest.cs" />
-    <Compile Include="Net\Requests\ClientToServer\ClientRequestBase.cs" />
-    <Compile Include="Net\Requests\ClientToServer\OutGame\LeaveGameRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\BattleGroundRemoveRetinueRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\DropCardRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\BattleGroundAddRetinueRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueDieRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\OutGame\RandomNumberSeedRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\OutGame\HeartBeatRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\OutGame\GameStopByLeaveRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\RetinueAttributesChangeRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationResponseBase.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ServerRequestBase.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\DrawCardRequest.cs" />
-    <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\EndRoundRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\PlayerTurnRequest.cs" />
-    <Compile Include="Net\Requests\ClientToServer\GamePlayOperations\SummonRetinueRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationResponses\SummonRetinueRequest_Response.cs" />
-    <Compile Include="Net\Requests\Vector3.cs" />
+    <Compile Include="Net\GamePlay\GamePlaySettings.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\GamePlayOperations\UseSpellCardRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipShieldRequest_ResponseBundle.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\DamageSomeRetinueRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\UseSpellCardServerRequset.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\ClientOperationResponseBundle\UseSpellCardRequset_ResponseBundle.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\CardDeckLeftChangeRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\RetinueEffectRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\RetinueAttackRetinueServerRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\UseCardRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\EquipShieldServerRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\EquipWeaponServerRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipWeaponRequest_ResponseBundle.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\GamePlayOperations\EquipWeaponRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\ClientOperationResponseBundle\EndRoundRequest_ResponseBundle.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\ClientOperationResponseBundle\GameStart_ResponseBundle.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\ClientOperationResponseBundle\RetinueAttackRetinueRequest_ResponseBundle.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\GamePlayOperations\RetinueAttackRetinueRequest.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\OutGame\CancelMatchRequest.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\OutGame\MatchRequest.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\OutGame\CardDeckRequest.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\ClientRequestBase.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\OutGame\LeaveGameRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\BattleGroundRemoveRetinueRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\DropCardRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\BattleGroundAddRetinueRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\RetinueDieRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\OutGame\RandomNumberSeedRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\OutGame\HeartBeatRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\OutGame\GameStopByLeaveRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\RetinueAttributesChangeRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\ResponseBundleBase.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\ServerRequestBase.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\DrawCardRequest.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\GamePlayOperations\EndRoundRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\PlayerTurnRequest.cs" />
+    <Compile Include="Net\RequestResponse\ClientToServer\GamePlayOperations\SummonRetinueRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\ClientOperationResponseBundle\SummonRetinueRequest_ResponseBundle.cs" />
+    <Compile Include="Net\RequestResponse\Vector3.cs" />
     <Compile Include="Net\Utils\RandomNumberGenerator.cs" />
     <Compile Include="Net\Utils\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Net\DataStream\DataHolder.cs" />
-    <Compile Include="Net\DataStream\DataStream.cs" />
+    <Compile Include="Net\Protocol\DataStream\DataHolder.cs" />
+    <Compile Include="Net\Protocol\DataStream\DataStream.cs" />
     <Compile Include="Net\Protocol\NetProtocols.cs" />
     <Compile Include="Net\Protocol\ProtoManager.cs" />
-    <Compile Include="Net\Requests\ServerToClient\OutGame\ClientIdRequest.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\PlayerCostChangeRequest.cs" />
-    <Compile Include="Net\Requests\RequestBase.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\KillAllInBattleGround_Base.cs" />
-    <Compile Include="Net\GamePlay\Card\SideEffectsBase\SideEffects\AddLifeForSomeRetinue_Base.cs" />
-    <Compile Include="Net\Requests\ServerToClient\ClientOperationSideEffectsResponses\SetPlayerRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\OutGame\ClientIdRequest.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\PlayerCostChangeRequest.cs" />
+    <Compile Include="Net\RequestResponse\RequestBase.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\KillAllInBattleGround_Base.cs" />
+    <Compile Include="Net\GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeForSomeRetinue_Base.cs" />
+    <Compile Include="Net\RequestResponse\ServerToClient\AttachedResponses\SetPlayerRequest.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Net\GamePlay\Card\Modules\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Net\GamePlay\Card\CardDeck\Cards.xml">
       <SubType>Designer</SubType>
@@ -127,10 +133,11 @@
     <EmbeddedResource Include="Net\GamePlay\Card\CardResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CardResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Net\GamePlay\Card\SideEffectsBase\SideEffects.xml">
+    <Resource Include="Net\GamePlay\Card\SideEffects\SideEffects.xml">
       <SubType>Designer</SubType>
     </Resource>
   </ItemGroup>

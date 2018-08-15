@@ -22,7 +22,7 @@ public static class ProtoManager
 
         List<Type> types = Utils.GetClassesByBaseClass(typeof(ClientRequestBase));
         types.AddRange(Utils.GetClassesByBaseClass(typeof(ServerRequestBase)));
-        types.AddRange(Utils.GetClassesByBaseClass(typeof(ClientOperationResponseBase)));
+        types.AddRange(Utils.GetClassesByBaseClass(typeof(ResponseBundleBase)));
         MethodInfo mi = typeof(ProtoManager).GetMethod("AddProtocol");
         foreach (Type type in types)
         {

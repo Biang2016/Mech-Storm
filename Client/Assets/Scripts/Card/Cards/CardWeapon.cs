@@ -69,7 +69,7 @@ internal class CardWeapon : CardBase
 
     public override float DragComponnet_DragDistance()
     {
-        return GameManager.GM.PullOutCardDistanceThreshold;
+        return GameManager.Instance.PullOutCardDistanceThreshold;
     }
 
     #region 卡牌效果

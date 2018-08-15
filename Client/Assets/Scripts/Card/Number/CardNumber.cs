@@ -8,7 +8,7 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
     public void PoolRecycle()
     {
         hasSign = false;
-        SetNumberColor(GameManager.GM.DefaultLifeNumberColor);
+        SetNumberColor(GameManager.Instance.DefaultLifeNumberColor);
         gameObjectPool.RecycleGameObject(gameObject);
     }
 

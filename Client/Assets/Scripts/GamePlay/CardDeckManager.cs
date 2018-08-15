@@ -9,19 +9,8 @@ using UnityEngine.UI;
 /// <summary>
 /// 卡堆
 /// </summary>
-public class CardDeckManager : MonoBehaviour
+public class CardDeckManager : MonoSingletion<CardDeckManager>
 {
-    private static CardDeckManager _cdm;
-
-    public static CardDeckManager CDM
-    {
-        get
-        {
-            if (!_cdm) _cdm = FindObjectOfType<CardDeckManager>();
-            return _cdm;
-        }
-    }
-
     [SerializeField] private Transform SelfCardDeckArea;
     [SerializeField] private Transform EnemyCardDeckArea;
 
@@ -50,10 +39,10 @@ public class CardDeckManager : MonoBehaviour
 
     private void InitializeCardDeckCard()
     {
-        self_CardDeckCards = new CardDeckCard[GameManager.GM.CardDeckCardNum];
-        enemy_CardDeckCards = new CardDeckCard[GameManager.GM.CardDeckCardNum];
+        self_CardDeckCards = new CardDeckCard[GameManager.Instance.CardDeckCardNum];
+        enemy_CardDeckCards = new CardDeckCard[GameManager.Instance.CardDeckCardNum];
 
-        for (int i = 0; i < GameManager.GM.CardDeckCardNum; i++)
+        for (int i = 0; i < GameManager.Instance.CardDeckCardNum; i++)
         {
             self_CardDeckCards[i] = GameObjectPoolManager.GOPM.Pool_CardDeckCardPool.AllocateGameObject(SelfCardDeckArea).GetComponent<CardDeckCard>();
             enemy_CardDeckCards[i] = GameObjectPoolManager.GOPM.Pool_CardDeckCardPool.AllocateGameObject(EnemyCardDeckArea).GetComponent<CardDeckCard>();
@@ -61,8 +50,8 @@ public class CardDeckManager : MonoBehaviour
             enemy_CardDeckCards[i].ChangeColor(ClientUtils.HTMLColorToColor("#919191"));
             self_CardDeckCards[i].ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#007AFF"));
             enemy_CardDeckCards[i].ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FF3645"));
-            self_CardDeckCards[i].transform.Translate(GameManager.GM.Self_CardDeckCardInterval * i);
-            enemy_CardDeckCards[i].transform.Translate(GameManager.GM.Enemy_CardDeckCardInterval * i);
+            self_CardDeckCards[i].transform.Translate(GameManager.Instance.Self_CardDeckCardInterval * i);
+            enemy_CardDeckCards[i].transform.Translate(GameManager.Instance.Enemy_CardDeckCardInterval * i);
         }
 
         SetSelfCardDeckNumber(0);

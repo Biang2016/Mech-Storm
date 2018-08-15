@@ -4,23 +4,8 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine.UI;
 
-internal class RoundManager : MonoBehaviour
+internal class RoundManager : MonoSingletion<RoundManager>
 {
-    private static RoundManager rm;
-
-    public static RoundManager RM
-    {
-        get
-        {
-            if (!rm)
-            {
-                rm = FindObjectOfType(typeof(RoundManager)) as RoundManager;
-            }
-
-            return rm;
-        }
-    }
-
     internal int RoundNumber;
     internal RandomNumberGenerator RandomNumberGenerator;
     internal ClientPlayer SelfClientPlayer;
@@ -37,7 +22,6 @@ internal class RoundManager : MonoBehaviour
 
     void Awake()
     {
-        rm = FindObjectOfType(typeof(RoundManager)) as RoundManager;
         BattleCanvas.gameObject.SetActive(false);
     }
 
@@ -75,24 +59,24 @@ internal class RoundManager : MonoBehaviour
 
     private void OnGameStop()
     {
-        CardBase[] cardPreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
+        CardBase[] cardPreviews = GameBoardManager.Instance.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
         foreach (CardBase cardPreview in cardPreviews)
         {
             cardPreview.PoolRecycle();
         }
 
-        ModuleBase[] modulePreviews = GameBoardManager.GBM.CardDetailPreview.transform.GetComponentsInChildren<ModuleBase>();
+        ModuleBase[] modulePreviews = GameBoardManager.Instance.CardDetailPreview.transform.GetComponentsInChildren<ModuleBase>();
         foreach (ModuleBase modulePreview in modulePreviews)
         {
             modulePreview.PoolRecycle();
         }
 
-        GameBoardManager.GBM.CardDetailPreview.transform.DetachChildren();
+        GameBoardManager.Instance.CardDetailPreview.transform.DetachChildren();
 
-        GameBoardManager.GBM.SelfBattleGroundManager.Reset();
-        GameBoardManager.GBM.EnemyBattleGroundManager.Reset();
-        GameBoardManager.GBM.SelfHandManager.Reset();
-        GameBoardManager.GBM.EnemyHandManager.Reset();
+        GameBoardManager.Instance.SelfBattleGroundManager.Reset();
+        GameBoardManager.Instance.EnemyBattleGroundManager.Reset();
+        GameBoardManager.Instance.SelfHandManager.Reset();
+        GameBoardManager.Instance.EnemyHandManager.Reset();
         SelfClientPlayer = null;
         EnemyClientPlayer = null;
         CurrentClientPlayer = null;
@@ -107,11 +91,13 @@ internal class RoundManager : MonoBehaviour
         EnemyCostText.gameObject.SetActive(false);
         BattleCanvas.gameObject.SetActive(false);
 
-        CardDeckManager.CDM.HideAll();
+        CardDeckManager.Instance.HideAll();
         RandomNumberGenerator = null;
 
-        BattleEffectsManager.BEM.Effect_Main.AllEffectsEnd();
-        BattleEffectsManager.BEM.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();
+        MouseHoverManager.MHM.SetState(MouseHoverManager.MHM_States.None);
+
+        BattleEffectsManager.Instance.Effect_Main.AllEffectsEnd();
+        BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();
     }
 
     #region PureRequests
@@ -148,7 +134,7 @@ internal class RoundManager : MonoBehaviour
             case NetProtocols.SE_SET_PLAYER:
             {
                 Client.CS.Proxy.ClientState = ProxyBase.ClientStates.Playing;
-                NetworkManager.NM.SuccessMatched();
+                NetworkManager.Instance.SuccessMatched();
                 Initialize();
                 InitializePlayers((SetPlayerRequest) se);
                 break;
@@ -300,7 +286,9 @@ internal class RoundManager : MonoBehaviour
         SelfCostText.text = "";
         EnemyCostText.text = "";
 
-        CardDeckManager.CDM.ShowAll();
+        MouseHoverManager.MHM.SetState(MouseHoverManager.MHM_States.Normal);
+
+        CardDeckManager.Instance.ShowAll();
     }
 
     private void InitializePlayers(SetPlayerRequest r)
@@ -326,7 +314,7 @@ internal class RoundManager : MonoBehaviour
 
     private void SetPlayerTurn(PlayerTurnRequest r) //服务器说某玩家回合开始
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_SetPlayerTurn(r), "Co_SetPlayerTurn");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_SetPlayerTurn(r), "Co_SetPlayerTurn");
     }
 
     IEnumerator Co_SetPlayerTurn(PlayerTurnRequest r)
@@ -355,7 +343,7 @@ internal class RoundManager : MonoBehaviour
 
         BeginRound();
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
@@ -395,7 +383,7 @@ internal class RoundManager : MonoBehaviour
             moduleRetinue.OnDie();
         }
 
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueDieShock(dieRetinues), "Co_RetinueDieShock");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueDieShock(dieRetinues), "Co_RetinueDieShock");
     }
 
     IEnumerator Co_RetinueDieShock(List<ModuleRetinue> dieRetinues) //随从一起死亡效果
@@ -421,7 +409,7 @@ internal class RoundManager : MonoBehaviour
             }
         }
 
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private void OnBattleGroundAddRetinue_PrePass(BattleGroundAddRetinueRequest r)
@@ -454,7 +442,7 @@ internal class RoundManager : MonoBehaviour
 
     private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
     {
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround(), "Co_RetinueRemoveFromBattleGround");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround(), "Co_RetinueRemoveFromBattleGround");
     }
 
     IEnumerator Co_RetinueRemoveFromBattleGround() //随从一起移除战场
@@ -466,21 +454,21 @@ internal class RoundManager : MonoBehaviour
         EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
 
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private void OnCardDeckLeftChange(CardDeckLeftChangeRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        BattleEffectsManager.BEM.Effect_Main.EffectsShow(Co_OnCardDeckLeftChange(cp, r.left), "Co_OnCardDeckLeftChange");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnCardDeckLeftChange(cp, r.left), "Co_OnCardDeckLeftChange");
     }
 
     IEnumerator Co_OnCardDeckLeftChange(ClientPlayer cp, int left)
     {
-        if (cp == SelfClientPlayer) CardDeckManager.CDM.SetSelfCardDeckNumber(left);
-        else CardDeckManager.CDM.SetEnemyCardDeckNumber(left);
+        if (cp == SelfClientPlayer) CardDeckManager.Instance.SetSelfCardDeckNumber(left);
+        else CardDeckManager.Instance.SetEnemyCardDeckNumber(left);
         yield return null;
-        BattleEffectsManager.BEM.Effect_Main.EffectEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private void OnPlayerDrawCard(DrawCardRequest r)
@@ -575,7 +563,7 @@ internal class RoundManager : MonoBehaviour
 
     public ClientPlayer GetPlayerByClientId(int clientId)
     {
-        if (Client.CS.Proxy.ClientId == clientId)return SelfClientPlayer;
+        if (Client.CS.Proxy.ClientId == clientId) return SelfClientPlayer;
         return EnemyClientPlayer;
     }
 

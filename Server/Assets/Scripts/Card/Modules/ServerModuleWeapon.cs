@@ -10,7 +10,7 @@ internal class ServerModuleWeapon : ServerModuleBase
 
     public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
-        M_WeaponName = CardInfo_Base.textToVertical(cardInfo.BaseInfo.CardName);
+        M_WeaponName = Utils.TextToVertical(cardInfo.BaseInfo.CardName);
         M_WeaponType = cardInfo.WeaponInfo.WeaponType;
         base.Initiate(cardInfo, serverPlayer);
     }

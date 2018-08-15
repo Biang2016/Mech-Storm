@@ -34,7 +34,7 @@ internal class ModuleShield : ModuleBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_ShieldName = CardInfo_Base.textToVertical(cardInfo.BaseInfo.CardName);
+        M_ShieldName = Utils.TextToVertical(cardInfo.BaseInfo.CardName);
         M_ShieldType = cardInfo.ShieldInfo.ShieldType;
         M_ShieldArmor = cardInfo.ShieldInfo.Armor;
         M_ShieldShield = cardInfo.ShieldInfo.Shield;
