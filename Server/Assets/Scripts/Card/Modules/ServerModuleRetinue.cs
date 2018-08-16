@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnityEngine;
 
 internal class ServerModuleRetinue : ServerModuleBase
 {
@@ -237,7 +236,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         get { return m_RetinueShield; }
         set
         {
-            RetinueShieldFull = Mathf.Max(value, RetinueShieldFull);
+            RetinueShieldFull = Math.Max(value, RetinueShieldFull);
             int before = m_RetinueShield;
             m_RetinueShield = value;
             if (M_Shield != null)
