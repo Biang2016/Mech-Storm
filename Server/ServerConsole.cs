@@ -13,7 +13,7 @@ class ServerConsole
 
         Directory.CreateDirectory("./Config");
 
-        DirectoryInfo di = new DirectoryInfo("../../../Common/Config");
+        DirectoryInfo di = new DirectoryInfo("../../../Client/Assets/StreamingAssets/Config");
         foreach (FileInfo fileInfo in di.GetFiles())
         {
             File.Copy(fileInfo.FullName, "./Config/" + fileInfo.Name, true);

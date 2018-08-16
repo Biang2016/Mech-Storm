@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-internal class ServerModuleWeapon : ServerModuleBase
+﻿internal class ServerModuleWeapon : ServerModuleBase
 {
     #region 各模块、自身数值和初始化
 

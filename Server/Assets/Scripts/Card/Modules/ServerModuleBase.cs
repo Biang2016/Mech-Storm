@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System;
-using System.Collections.Generic;
-
-internal abstract class ServerModuleBase
+﻿internal abstract class ServerModuleBase
 {
     internal ServerPlayer ServerPlayer;
     internal CardInfo_Base CardInfo; //卡牌原始数值信息

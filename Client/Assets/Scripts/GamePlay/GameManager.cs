@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 internal class GameManager : MonoSingletion<GameManager>
 {
@@ -10,8 +11,8 @@ internal class GameManager : MonoSingletion<GameManager>
     private void Awake()
     {
         InitializeClientGameSettings();
-        AllSideEffects.AddAllSideEffects();
-        AllCards.AddAllCards();
+        AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
+        AllCards.AddAllCards(Application.streamingAssetsPath + "/Config/Cards.xml");
     }
 
     #region 游戏全局参数

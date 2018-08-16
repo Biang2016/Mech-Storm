@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Collections.Generic;
 
 /// <summary>
 /// 本类中封装卡组操作的游戏逻辑高级功能

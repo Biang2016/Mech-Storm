@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
-using SideEffects;
 
 internal class Server
 {
@@ -45,8 +44,8 @@ internal class Server
 
     public void Start()
     {
-        AllSideEffects.AddAllSideEffects();
-        AllCards.AddAllCards();
+        AllSideEffects.AddAllSideEffects("./Config/SideEffects.xml");
+        AllCards.AddAllCards("./Config/Cards.xml");
         ServerLog.PrintServerStates("CardDeck Loaded");
         SGMM = new ServerGameMatchManager();
 

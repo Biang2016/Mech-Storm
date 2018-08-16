@@ -119,15 +119,5 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\SetPlayerRequest.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Resource Include="Config\Cards.xml">
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Config\SideEffects.xml">
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

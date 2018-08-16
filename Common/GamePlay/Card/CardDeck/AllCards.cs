@@ -13,10 +13,10 @@ public static class AllCards
         CardDict.Add(cardInfo.CardID, cardInfo);
     }
 
-    public static void AddAllCards()
+    public static void AddAllCards(string cardsXMLPath)
     {
         string text;
-        using (StreamReader sr = new StreamReader("Config/Cards.xml"))
+        using (StreamReader sr = new StreamReader(cardsXMLPath))
         {
             text = sr.ReadToEnd();
         }

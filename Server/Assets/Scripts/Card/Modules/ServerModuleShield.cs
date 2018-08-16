@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
-internal class ServerModuleShield : ServerModuleBase
+﻿internal class ServerModuleShield : ServerModuleBase
 {
     #region 各模块、自身数值和初始化
 

@@ -14,10 +14,10 @@ public static class AllSideEffects
         SideEffectsNameDict.Add(sideEffectBase.Name, sideEffectBase);
     }
 
-    public static void AddAllSideEffects()
+    public static void AddAllSideEffects(string sideEffectsXMLPath)
     {
         string text;
-        using (StreamReader sr = new StreamReader("Config/SideEffects.xml"))
+        using (StreamReader sr = new StreamReader(sideEffectsXMLPath))
         {
             text = sr.ReadToEnd();
         }

@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine.UI;
 
 internal class NetworkManager : MonoSingletion<NetworkManager>
 {
@@ -19,7 +16,8 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
         {
             if (Client.Instance.Proxy == null || !Client.Instance.Proxy.Socket.Connected)
             {
-                Client.Instance.Connect("127.0.0.1", 9999, ConnectCallBack, null);
+                //Client.Instance.Connect("127.0.0.1", 9999, ConnectCallBack, null);
+                Client.Instance.Connect("95.169.26.10", 9999, ConnectCallBack, null);
             }
 
             CheckConnectState();
