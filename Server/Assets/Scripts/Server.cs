@@ -15,7 +15,7 @@ internal class Server
         {
             if (_sv == null)
             {
-                _sv = new Server("127.0.0.1", 9999);
+                _sv = new Server("95.169.26.10", 9999);
             }
 
             return _sv;
