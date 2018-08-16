@@ -1,28 +1,69 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 internal class NetworkManager : MonoSingletion<NetworkManager>
 {
     void Start()
     {
-        StartCoroutine(TryConnectToServer());
     }
 
     bool isReconnecting = false;
+    private IEnumerator CurrentTryConnectServer;
 
-    IEnumerator TryConnectToServer()
+    IEnumerator TryConnectToServer(bool isTest)
     {
         while (true)
         {
             if (Client.Instance.Proxy == null || !Client.Instance.Proxy.Socket.Connected)
             {
-                //Client.Instance.Connect("127.0.0.1", 9999, ConnectCallBack, null);
-                Client.Instance.Connect("95.169.26.10", 9999, ConnectCallBack, null);
+                if (isTest) Client.Instance.Connect("127.0.0.1", 9999, ConnectCallBack, null);
+                else Client.Instance.Connect("95.169.26.10", 9999, ConnectCallBack, null);
             }
 
             CheckConnectState();
             yield return new WaitForSeconds(3f);
         }
+    }
+
+    public void ConnectToTestServer()
+    {
+        TerminateConnection();
+        CurrentTryConnectServer = TryConnectToServer(true);
+        StartCoroutine(CurrentTryConnectServer);
+    }
+
+    public void ConnectToFormalServer()
+    {
+        TerminateConnection();
+        CurrentTryConnectServer = TryConnectToServer(false);
+        StartCoroutine(CurrentTryConnectServer);
+    }
+
+    public void TerminateConnection()
+    {
+        NoticeManager.Instance.ShowInfoPanel("正在断开连接", 0f, float.PositiveInfinity);
+        try
+        {
+            StopCoroutine(CurrentTryConnectServer);
+            if (Client.Instance.Proxy != null)
+            {
+                if (Client.Instance.Proxy.Socket != null)
+                {
+                    Client.Instance.Proxy.Socket.Close();
+                }
+                else
+                {
+                    Client.Instance.Proxy = null;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ClientLog.Instance.PrintClientStates(e.ToString());
+        }
+
+        NoticeManager.Instance.ShowInfoPanel("已断开连接", 0f, 1f);
     }
 
     private void CheckConnectState()

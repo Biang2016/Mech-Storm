@@ -3,7 +3,6 @@ using UnityEngine;
 
 internal class GameManager : MonoSingletion<GameManager>
 {
-
     private GameManager()
     {
     }

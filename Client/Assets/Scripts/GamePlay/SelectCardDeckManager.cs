@@ -11,7 +11,9 @@ using UnityEngine.UI;
 /// </summary>
 public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 {
-    private SelectCardDeckManager() { }
+    private SelectCardDeckManager()
+    {
+    }
 
     private int cardSelectLayer;
 
@@ -25,6 +27,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 
     void Start()
     {
+        SelectCardDeckState = SelectCardDeckStates.Hide;
         AddAllCards();
         HideWindow();
         ConfirmButton.gameObject.SetActive(false);
@@ -64,7 +67,8 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 
     void Update()
     {
-        if (!Canvas.enabled)
+        if (MainMenuManager.Instance.MainMenuState == MainMenuManager.MainMenuStates.Show) return;
+        if (SelectCardDeckState== SelectCardDeckStates.Hide)
         {
             if (Input.GetKeyDown(KeyCode.Tab))
             {
@@ -101,6 +105,14 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
             }
         }
     }
+
+    public enum SelectCardDeckStates
+    {
+        Hide = 0,
+        Show = 1,
+    }
+
+    public SelectCardDeckStates SelectCardDeckState;
 
     private CardBase mouseLeftDownCard;
     private CardBase mouseRightDownCard;
@@ -181,25 +193,21 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
         mouseRightDownCard = null;
     }
 
-    public bool IsShowing()
-    {
-        return Canvas.enabled;
-    }
-
     public void ShowWindow()
     {
         GameManager.Instance.StartBlurBackGround();
         Canvas.enabled = true;
         Canvas_BG.enabled = true;
+        SelectCardDeckState = SelectCardDeckStates.Show;
         MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.None);
     }
-
 
     public void HideWindow()
     {
         Canvas.enabled = false;
         Canvas_BG.enabled = false;
         GameManager.Instance.StopBlurBackGround();
+        SelectCardDeckState = SelectCardDeckStates.Hide;
         MouseHoverManager.Instance.ReturnToPreviousState();
     }
 

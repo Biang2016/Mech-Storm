@@ -71,7 +71,8 @@ internal class DragManager : MonoSingletion<DragManager>
 
     void Update()
     {
-        if (SelectCardDeckManager.Instance.IsShowing()) return;
+        if (MainMenuManager.Instance.MainMenuState == MainMenuManager.MainMenuStates.Show) return;
+        if (SelectCardDeckManager.Instance.SelectCardDeckState == SelectCardDeckManager.SelectCardDeckStates.Show) return;
         if (!IsSummonPreview)
         {
             CommonDrag();

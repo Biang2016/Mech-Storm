@@ -97,7 +97,8 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
     void Update()
     {
-        if (SelectCardDeckManager.Instance.IsShowing()) return;
+        if (MainMenuManager.Instance.MainMenuState == MainMenuManager.MainMenuStates.Show) return;
+        if (SelectCardDeckManager.Instance.SelectCardDeckState == SelectCardDeckManager.SelectCardDeckStates.Show) return;
 
         if (DragManager.Instance.CurrentDrag == null && DragManager.Instance.CurrentSummonPreviewRetinue == null) SetState(MHM_States.Normal);
 
