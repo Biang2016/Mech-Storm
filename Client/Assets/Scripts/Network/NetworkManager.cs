@@ -45,7 +45,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
         NoticeManager.Instance.ShowInfoPanel("正在断开连接", 0f, float.PositiveInfinity);
         try
         {
-            StopCoroutine(CurrentTryConnectServer);
+            if (CurrentTryConnectServer != null) StopCoroutine(CurrentTryConnectServer);
             if (Client.Instance.Proxy != null)
             {
                 if (Client.Instance.Proxy.Socket != null)

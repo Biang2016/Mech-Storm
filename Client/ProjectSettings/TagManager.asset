@@ -26,8 +26,8 @@ TagManager:
   - SelectCardDeckCanvas
   - CardSelect
   - Numbers
-  - 
-  - 
+  - StartMenuUI
+  - ExitMenuUI
   - 
   - 
   - 

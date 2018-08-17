@@ -67,7 +67,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 
     void Update()
     {
-        if (MainMenuManager.Instance.MainMenuState == MainMenuManager.MainMenuStates.Show) return;
+        if (ExitMenuManager.Instance.ExitMenuState == ExitMenuManager.ExitMenuStates.Show) return;
         if (SelectCardDeckState== SelectCardDeckStates.Hide)
         {
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -199,7 +199,8 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
         Canvas.enabled = true;
         Canvas_BG.enabled = true;
         SelectCardDeckState = SelectCardDeckStates.Show;
-        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.None);
+        StartMenuManager.Instance.HideMenu();
+        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.SelectCardWindow);
     }
 
     public void HideWindow()

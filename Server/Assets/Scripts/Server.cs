@@ -56,7 +56,7 @@ internal class Server
 
     private void OnRestartProtocols()
     {
-        foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
+        foreach (FieldInfo fi in typeof(NetProtocols).GetFields())
         {
             ProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
         }

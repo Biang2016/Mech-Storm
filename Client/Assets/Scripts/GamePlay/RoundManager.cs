@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 internal partial class RoundManager : MonoSingletion<RoundManager>
 {
-    private RoundManager() { }
+    private RoundManager()
+    {
+    }
 
     internal int RoundNumber;
     internal RandomNumberGenerator RandomNumberGenerator;
@@ -51,7 +53,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         SelfCostText.text = "";
         EnemyCostText.text = "";
 
-        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.Normal);
+        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.BattleNormal);
 
         CardDeckManager.Instance.ShowAll();
     }
@@ -127,7 +129,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         CardDeckManager.Instance.HideAll();
         RandomNumberGenerator = null;
 
-        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.None);
+        StartMenuManager.Instance.ShowMenu();
 
         BattleEffectsManager.Instance.Effect_Main.AllEffectsEnd();
         BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();

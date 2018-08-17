@@ -14,6 +14,12 @@ internal class GameManager : MonoSingletion<GameManager>
         AllCards.AddAllCards(Application.streamingAssetsPath + "/Config/Cards.xml");
     }
 
+    public Camera BattleGroundCamera;
+    public Camera ForeGroundCamera;
+    public Camera SelectCardWindowBackCamera;
+    public Camera SelectCardWindowForeCamera;
+
+
     #region 游戏全局参数
 
     internal Vector3 UseCardShowPosition = new Vector3(10, 3, 0);
