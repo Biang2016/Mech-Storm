@@ -22,14 +22,14 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         SelectCardCount = 0;
         HeroCardCount = 0;
+        M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += NetworkStateChange;
     }
 
     void Start()
     {
-        SelectCardDeckState = SelectCardDeckStates.Hide;
         AddAllCards();
-        HideWindow();
+        M_StateMachine.SetState(StateMachine.States.Hide);
         ConfirmButton.gameObject.SetActive(false);
         CloseButton.gameObject.SetActive(true);
         RetinueCountMaxNumberText.text = GamePlaySettings.MaxHeroNumber.ToString();
@@ -67,52 +67,118 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 
     void Update()
     {
-        if (ExitMenuManager.Instance.ExitMenuState == ExitMenuManager.ExitMenuStates.Show) return;
-        if (SelectCardDeckState== SelectCardDeckStates.Hide)
+        M_StateMachine.Update();
+    }
+
+    public StateMachine M_StateMachine;
+
+    public class StateMachine
+    {
+        public StateMachine()
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            state = States.Default;
+            previousState = States.Default;
+        }
+
+        public enum States
+        {
+            Default,
+            Hide,
+            Show,
+        }
+
+        private States state;
+        private States previousState;
+
+        public void SetState(States newState)
+        {
+            if (state != newState)
             {
-                ShowWindow();
+                switch (newState)
+                {
+                    case States.Hide:
+                        HideWindow();
+                        break;
+
+                    case States.Show:
+                        ShowWindow();
+                        break;
+                }
+
+                previousState = state;
+                state = newState;
             }
         }
-        else
+
+        public void ReturnToPreviousState()
         {
-            bool isMouseDown = ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && EventSystem.current.IsPointerOverGameObject());
-            bool isMouseUp = ((Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)) && EventSystem.current.IsPointerOverGameObject());
-            if (CurrentPreviewCard)
+            SetState(previousState);
+        }
+
+        public States GetState()
+        {
+            return state;
+        }
+
+        public void Update()
+        {
+            if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
+            if (state == States.Hide)
             {
-                if (Input.GetKeyDown(KeyCode.Escape) || isMouseDown) HidePreviewCard();
-                else if (Input.GetKeyDown(KeyCode.Tab))
+                if (Input.GetKeyDown(KeyCode.Tab))
                 {
-                    HidePreviewCard();
-                    HideWindow();
+                    SetState(States.Show);
                 }
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
+                bool isMouseDown = ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && EventSystem.current.IsPointerOverGameObject());
+                bool isMouseUp = ((Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)) && EventSystem.current.IsPointerOverGameObject());
+                if (Instance.CurrentPreviewCard)
                 {
-                    HideWindow();
+                    if (Input.GetKeyDown(KeyCode.Escape) || isMouseDown) Instance.HidePreviewCard();
+                    else if (Input.GetKeyDown(KeyCode.Tab))
+                    {
+                        Instance.HidePreviewCard();
+                        SetState(States.Hide);
+                    }
                 }
-                else if (isMouseDown)
+                else
                 {
-                    OnMouseDown();
-                }
-                else if (isMouseUp)
-                {
-                    OnMouseUp();
+                    if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
+                    {
+                        SetState(States.Hide);
+                    }
+                    else if (isMouseDown)
+                    {
+                        Instance.OnMouseDown();
+                    }
+                    else if (isMouseUp)
+                    {
+                        Instance.OnMouseUp();
+                    }
                 }
             }
         }
-    }
 
-    public enum SelectCardDeckStates
-    {
-        Hide = 0,
-        Show = 1,
-    }
+        private void ShowWindow()
+        {
+            GameManager.Instance.StartBlurBackGround();
+            Instance.Canvas.enabled = true;
+            Instance.Canvas_BG.enabled = true;
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
+            if(!Client.Instance.IsPlaying())StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+        }
 
-    public SelectCardDeckStates SelectCardDeckState;
+        private void HideWindow()
+        {
+            Instance.Canvas.enabled = false;
+            Instance.Canvas_BG.enabled = false;
+            GameManager.Instance.StopBlurBackGround();
+            MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
+            if(!Client.Instance.IsPlaying())StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+        }
+    }
 
     private CardBase mouseLeftDownCard;
     private CardBase mouseRightDownCard;
@@ -191,25 +257,6 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 
         mouseLeftDownCard = null;
         mouseRightDownCard = null;
-    }
-
-    public void ShowWindow()
-    {
-        GameManager.Instance.StartBlurBackGround();
-        Canvas.enabled = true;
-        Canvas_BG.enabled = true;
-        SelectCardDeckState = SelectCardDeckStates.Show;
-        StartMenuManager.Instance.HideMenu();
-        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.SelectCardWindow);
-    }
-
-    public void HideWindow()
-    {
-        Canvas.enabled = false;
-        Canvas_BG.enabled = false;
-        GameManager.Instance.StopBlurBackGround();
-        SelectCardDeckState = SelectCardDeckStates.Hide;
-        MouseHoverManager.Instance.ReturnToPreviousState();
     }
 
     public void NetworkStateChange(ProxyBase.ClientStates clientState)
@@ -421,7 +468,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
         HeroCardCount = 0;
     }
 
-    public void ConfirmSubmitCardDeck()
+    public void OnConfirmSubmitCardDeckButtonClick()
     {
         List<int> cardIds = new List<int>();
         foreach (KeyValuePair<int, SelectCard> kv in SelectedCards)
@@ -444,7 +491,16 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
         CardDeckInfo cdi = new CardDeckInfo(cardIds.ToArray(), retinueIds.ToArray());
         Client.Instance.Proxy.OnSendCardDeck(cdi);
         NoticeManager.Instance.ShowInfoPanel("更新卡组成功", 0, 1f);
-        HideWindow();
+        M_StateMachine.SetState(StateMachine.States.Hide);
+    }
+
+    public void OnCloseButtonClick()
+    {
+        M_StateMachine.SetState(StateMachine.States.Hide);
+        if (!Client.Instance.IsPlaying())
+        {
+            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+        }
     }
 
     #endregion

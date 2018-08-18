@@ -10,9 +10,14 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
     {
     }
 
+    void Awake()
+    {
+        M_StateMachine = new StateMachine();
+    }
+
     void Start()
     {
-        ShowMenu();
+        M_StateMachine.SetState(StateMachine.States.Show);
         StartMatchButton.gameObject.SetActive(false);
         CancelMatchButton.gameObject.SetActive(false);
         SwitchServerButton.gameObject.SetActive(true);
@@ -29,13 +34,13 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
         switch (clientState)
         {
             case ProxyBase.ClientStates.Nothing:
-                ShowMenu();
+                M_StateMachine.SetState(StateMachine.States.Show);
                 StartMatchButton.gameObject.SetActive(false);
                 CancelMatchButton.gameObject.SetActive(false);
                 SwitchServerButton.gameObject.SetActive(true);
                 break;
             case ProxyBase.ClientStates.GetId:
-                ShowMenu();
+                M_StateMachine.SetState(StateMachine.States.Show);
                 StartMatchButton.gameObject.SetActive(false);
                 CancelMatchButton.gameObject.SetActive(false);
                 SelectCardDeckWindowButton.gameObject.SetActive(true);
@@ -43,7 +48,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
                 QuitGameButton.gameObject.SetActive(true);
                 break;
             case ProxyBase.ClientStates.SubmitCardDeck:
-                ShowMenu();
+                M_StateMachine.SetState(StateMachine.States.Show);
                 StartMatchButton.gameObject.SetActive(true);
                 CancelMatchButton.gameObject.SetActive(false);
                 SelectCardDeckWindowButton.gameObject.SetActive(true);
@@ -51,7 +56,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
                 QuitGameButton.gameObject.SetActive(true);
                 break;
             case ProxyBase.ClientStates.Matching:
-                ShowMenu();
+                M_StateMachine.SetState(StateMachine.States.Show);
                 StartMatchButton.gameObject.SetActive(false);
                 CancelMatchButton.gameObject.SetActive(true);
                 SelectCardDeckWindowButton.gameObject.SetActive(true);
@@ -60,30 +65,78 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
                 QuitGameButton.gameObject.SetActive(false);
                 break;
             case ProxyBase.ClientStates.Playing:
-                HideMenu();
+                M_StateMachine.SetState(StateMachine.States.Hide);
                 break;
         }
     }
 
-    public enum StartMenuStates
-    {
-        Hide = 0,
-        Show = 1,
-    }
+    public StateMachine M_StateMachine;
 
-    public StartMenuStates StartMenuState;
-
-    public void HideMenu()
+    public class StateMachine
     {
-        StartMenuState = StartMenuStates.Hide;
-        StartMenuCanvas.enabled = false;
-    }
+        public StateMachine()
+        {
+            state = States.Default;
+            previousState = States.Default;
+        }
 
-    public void ShowMenu()
-    {
-        StartMenuState = StartMenuStates.Show;
-        StartMenuCanvas.enabled = true;
-        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.StartMenu);
+        public enum States
+        {
+            Default,
+            Hide,
+            Show,
+        }
+
+        private States state;
+        private States previousState;
+
+        public void SetState(States newState)
+        {
+            if (state != newState)
+            {
+                switch (newState)
+                {
+                    case States.Hide:
+                        HideMenu();
+                        break;
+
+                    case States.Show:
+                        ShowMenu();
+                        break;
+                }
+
+                previousState = state;
+                state = newState;
+            }
+
+            previousState = state;
+            state = newState;
+        }
+
+        public void ReturnToPreviousState()
+        {
+            SetState(previousState);
+        }
+
+        public States GetState()
+        {
+            return state;
+        }
+
+        public void Update()
+        {
+        }
+
+        private void ShowMenu()
+        {
+            Instance.StartMenuCanvas.enabled = true;
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.Menu);
+        }
+
+        private void HideMenu()
+        {
+            Instance.StartMenuCanvas.enabled = false;
+        }
     }
 
     [SerializeField] private Canvas StartMenuCanvas;
@@ -110,30 +163,30 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
 
     public void OnSelectCardDeckWindowButtonClick()
     {
-        HideMenu();
-        SelectCardDeckManager.Instance.ShowWindow();
+        M_StateMachine.SetState(StateMachine.States.Hide);
+        SelectCardDeckManager.Instance.M_StateMachine.SetState(SelectCardDeckManager.StateMachine.States.Show);
     }
 
-    public void OnMouseHoverSwitchServerButton()
+    public void OnSwitchServerButtonClick()
     {
-        ShowServerList();
-    }
-
-    public void OnMouseLeaveSwitchServerButton()
-    {
-        HideServerList();
+        if (ServerList.gameObject.activeSelf)
+        {
+            ServerList.gameObject.SetActive(false);
+        }
+        else
+        {
+            ServerList.gameObject.SetActive(true);
+        }
     }
 
     public void OnConnectToTestServerButtonClick()
     {
         NetworkManager.Instance.ConnectToTestServer();
-        HideServerList();
     }
 
     public void OnConnectToFormalServerButtonClick()
     {
         NetworkManager.Instance.ConnectToFormalServer();
-        HideServerList();
     }
 
     public void OnQuitGameButtonClick()

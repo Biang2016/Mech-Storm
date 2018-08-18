@@ -55,15 +55,15 @@ internal class DragManager : MonoSingletion<DragManager>
 
                 if (CurrentDrag_CardWeapon || CurrentDrag_CardShield)
                 {
-                    MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.DragEquipment);
+                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragEquipment);
                 }
                 else if (CurrentDrag_CardSpell)
                 {
-                    MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.DragSpellToRetinue);
+                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragSpellToRetinue);
                 }
                 else if (CurrentDrag_ModuleRetinue)
                 {
-                    MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.DragRetinueToRetinue);
+                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragRetinueToRetinue);
                 }
             }
         }
@@ -71,8 +71,8 @@ internal class DragManager : MonoSingletion<DragManager>
 
     void Update()
     {
-        if (ExitMenuManager.Instance.ExitMenuState == ExitMenuManager.ExitMenuStates.Show) return;
-        if (SelectCardDeckManager.Instance.SelectCardDeckState == SelectCardDeckManager.SelectCardDeckStates.Show) return;
+        if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
+        if (SelectCardDeckManager.Instance.M_StateMachine.GetState() == SelectCardDeckManager.StateMachine.States.Show) return;
         if (!IsSummonPreview)
         {
             CommonDrag();
@@ -133,7 +133,7 @@ internal class DragManager : MonoSingletion<DragManager>
         IsSummonPreview = true;
         CurrentSummonPreviewRetinue = retinue;
         SummonRetinueTargetRange = targetRange;
-        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.SummonRetinueTargetOnRetinue);
+        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SummonRetinueTargetOnRetinue);
     }
 
     private void SummonPreviewDrag()

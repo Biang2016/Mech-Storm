@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
@@ -15,10 +17,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
     int modulesLayer;
     int retinuesLayer;
     int slotsLayer;
-    int startUILayer;
-    int exitUILayer;
     int cardSelectLayer;
-    int selectCardDeckCanvasLayer;
 
     void Awake()
     {
@@ -26,18 +25,27 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
         modulesLayer = 1 << LayerMask.NameToLayer("Modules");
         retinuesLayer = 1 << LayerMask.NameToLayer("Retinues");
         slotsLayer = 1 << LayerMask.NameToLayer("Slots");
-        startUILayer = 1 << LayerMask.NameToLayer("StartMenuUI");
-        exitUILayer = 1 << LayerMask.NameToLayer("ExitMenuUI");
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
-        selectCardDeckCanvasLayer = 1 << LayerMask.NameToLayer("SelectCardDeckCanvas");
-        state = MHM_States.None;
-        previousState = MHM_States.None;
+        M_StateMachine = new StateMachine();
     }
+
+    void Update()
+    {
+        M_StateMachine.Update();
+    }
+
+    private HoverImmediately hi_CardSelectHover; //选卡界面，当鼠标移到牌上牌放大
+
+    private HoverImmediately hi_CardHover; //当鼠标移到牌上
+    private HoverImmediately hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
+    private HoverImmediately hi_RetinueHoverShowTargetedBloom; //当鼠标移到到随从上时显示被瞄准的轮廓荧光
+    private Focus hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
+    private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
+    private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
 
     void Start()
     {
-        hi_StartMenuUIButtonHover = new HoverImmediately(startUILayer, GameManager.Instance.ForeGroundCamera);
-        hi_ExitMenuUIButtonHover = new HoverImmediately(exitUILayer, GameManager.Instance.ForeGroundCamera);
+        hi_CardSelectHover = new HoverImmediately(cardSelectLayer, GameManager.Instance.SelectCardWindowBackCamera);
 
         hi_CardHover = new HoverImmediately(cardsLayer, GameManager.Instance.BattleGroundCamera);
         hi_ModulesHoverShowBloom = new HoverImmediately(modulesLayer, GameManager.Instance.BattleGroundCamera);
@@ -50,114 +58,111 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
         hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer, GameManager.Instance.BattleGroundCamera);
     }
 
-    public enum MHM_States
-    {
-        None, //禁用
-        ExitMenu, //Esc菜单
-        StartMenu, //开始界面
-        SelectCardWindow, //选卡界面
-        BattleNormal, //战斗一般状态
-        DragEquipment, //拖动装备牌过程中
-        DragRetinueToRetinue, //随从拖动攻击随从
-        DragSpellToRetinue, //法术牌拖动瞄准随从
-        SummonRetinueTargetOnRetinue, //召唤带目标的随从时，选择目标期间
-    }
+    public StateMachine M_StateMachine;
 
-    private MHM_States state;
-    private MHM_States previousState;
-
-    public void SetState(MHM_States newState)
+    public class StateMachine
     {
-        if (state != newState)
+        public StateMachine()
         {
+            state = States.None;
+            previousState = States.None;
+        }
+
+        public enum States
+        {
+            None, //禁用
+            Menu, //开始界面和Exit菜单
+            SelectCardWindow, //选卡界面
+            BattleNormal, //战斗一般状态
+            DragEquipment, //拖动装备牌过程中
+            DragRetinueToRetinue, //随从拖动攻击随从
+            DragSpellToRetinue, //法术牌拖动瞄准随从
+            SummonRetinueTargetOnRetinue, //召唤带目标的随从时，选择目标期间
+        }
+
+        private States state;
+        private States previousState;
+
+        public void SetState(States newState)
+        {
+            if (state != newState)
+            {
+                switch (state)
+                {
+                    case States.None:
+                        break;
+                    case States.Menu:
+                        Instance.hi_CardSelectHover.Release();
+                        break;
+                    case States.SelectCardWindow:
+                        break;
+                    case States.BattleNormal:
+                        Instance.hi_CardHover.Release();
+                        Instance.hi_ModulesHoverShowBloom.Release();
+                        Instance.hd_ModulesFocusShowPreview.Release();
+                        break;
+                    case States.DragEquipment:
+                        Instance.phi_SlotsPressHoverShowBloom.Release();
+                        break;
+                    case States.DragRetinueToRetinue:
+                        Instance.hd_RetinuePressHoverShowTargetedBloom.Release();
+                        break;
+                    case States.DragSpellToRetinue:
+                        Instance.hd_RetinuePressHoverShowTargetedBloom.Release();
+                        break;
+                    case States.SummonRetinueTargetOnRetinue:
+                        Instance.hi_RetinueHoverShowTargetedBloom.Release();
+                        break;
+                }
+
+                previousState = state;
+                state = newState;
+                Debug.Log(state.ToString());
+            }
+        }
+
+        public void ReturnToPreviousState()
+        {
+            SetState(previousState);
+        }
+
+        public States GetState()
+        {
+            return state;
+        }
+
+        public void Update()
+        {
+            if (Client.Instance.IsPlaying() && DragManager.Instance.CurrentDrag == null && DragManager.Instance.CurrentSummonPreviewRetinue == null) SetState(States.BattleNormal);
             switch (state)
             {
-                case MHM_States.None:
+                case States.None:
                     break;
-                case MHM_States.ExitMenu:
-                    hi_ExitMenuUIButtonHover.Release();
+                case States.Menu:
                     break;
-                case MHM_States.StartMenu:
-                    hi_StartMenuUIButtonHover.Release();
+                case States.SelectCardWindow:
+                    Instance.hi_CardSelectHover.Check<CardBase>();
                     break;
-                case MHM_States.SelectCardWindow:
+                case States.BattleNormal:
+                    Instance.hi_CardHover.Check<CardBase>();
+                    Instance.hi_ModulesHoverShowBloom.Check<ModuleBase>();
+                    Instance.hd_ModulesFocusShowPreview.Check<ModuleBase>();
                     break;
-                case MHM_States.BattleNormal:
-                    hi_CardHover.Release();
-                    hi_ModulesHoverShowBloom.Release();
-                    hd_ModulesFocusShowPreview.Release();
+                case States.DragEquipment:
+                    Instance.phi_SlotsPressHoverShowBloom.Check<Slot>();
                     break;
-                case MHM_States.DragEquipment:
-                    phi_SlotsPressHoverShowBloom.Release();
+                case States.DragRetinueToRetinue:
+                    Instance.hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
                     break;
-                case MHM_States.DragRetinueToRetinue:
-                    hd_RetinuePressHoverShowTargetedBloom.Release();
+                case States.DragSpellToRetinue:
+                    Instance.hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
                     break;
-                case MHM_States.DragSpellToRetinue:
-                    hd_RetinuePressHoverShowTargetedBloom.Release();
-                    break;
-                case MHM_States.SummonRetinueTargetOnRetinue:
-                    hi_RetinueHoverShowTargetedBloom.Release();
+                case States.SummonRetinueTargetOnRetinue:
+                    Instance.hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();
                     break;
             }
-
-            previousState = state;
-            state = newState;
-            Debug.Log(state.ToString());
         }
     }
-
-    public void ReturnToPreviousState()
-    {
-        SetState(previousState);
-    }
-
-    private HoverImmediately hi_StartMenuUIButtonHover; //当鼠标移到UI按钮上时显示动画
-    private HoverImmediately hi_ExitMenuUIButtonHover; //当鼠标移到UI按钮上时显示动画
-
-    private HoverImmediately hi_CardHover; //当鼠标移到牌上
-    private HoverImmediately hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
-    private HoverImmediately hi_RetinueHoverShowTargetedBloom; //当鼠标移到到随从上时显示被瞄准的轮廓荧光
-    private Focus hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
-    private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
-    private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
-
-    void Update()
-    {
-        if (Client.Instance.Proxy != null && Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Playing && DragManager.Instance.CurrentDrag == null && DragManager.Instance.CurrentSummonPreviewRetinue == null) SetState(MHM_States.BattleNormal);
-
-        switch (state)
-        {
-            case MHM_States.None:
-                break;
-            case MHM_States.StartMenu:
-                hi_StartMenuUIButtonHover.Check<Button>();
-                break;
-            case MHM_States.ExitMenu:
-                hi_ExitMenuUIButtonHover.Check<Button>();
-                break;
-            case MHM_States.SelectCardWindow:
-                break;
-            case MHM_States.BattleNormal:
-                hi_CardHover.Check<CardBase>();
-                hi_ModulesHoverShowBloom.Check<ModuleBase>();
-                hd_ModulesFocusShowPreview.Check<ModuleBase>();
-                break;
-            case MHM_States.DragEquipment:
-                phi_SlotsPressHoverShowBloom.Check<Slot>();
-                break;
-            case MHM_States.DragRetinueToRetinue:
-                hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
-                break;
-            case MHM_States.DragSpellToRetinue:
-                hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
-                break;
-            case MHM_States.SummonRetinueTargetOnRetinue:
-                hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();
-                break;
-        }
-    }
-
 
     abstract class HoverActionBase
     {
@@ -170,6 +175,8 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
         protected int Layer;
         protected Camera Camera;
 
+        protected MouseHoverComponent currentTarget; //当前目标
+
         public abstract void Check<T>() where T : Component;
         public abstract void Release();
     }
@@ -180,8 +187,6 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
         public HoverImmediately(int layer, Camera camera) : base(layer, camera)
         {
         }
-
-        MouseHoverComponent currentHover; //鼠标悬停目标，立即生效
 
         public override void Check<T>()
         {
@@ -198,18 +203,18 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
                     {
                         if (mouseHoverComponent.GetComponent<T>())
                         {
-                            if (currentHover && currentHover != mouseHoverComponent)
+                            if (currentTarget && currentTarget != mouseHoverComponent)
                             {
                                 Release();
                             }
 
-                            currentHover = mouseHoverComponent;
-                            currentHover.IsOnHover = true;
+                            currentTarget = mouseHoverComponent;
+                            currentTarget.IsOnHover = true;
                         }
                     }
                     else
                     {
-                        if (currentHover)
+                        if (currentTarget)
                         {
                             Release();
                         }
@@ -217,7 +222,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
                 }
                 else
                 {
-                    if (currentHover)
+                    if (currentTarget)
                     {
                         Release();
                     }
@@ -225,7 +230,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
             }
             else
             {
-                if (currentHover)
+                if (currentTarget)
                 {
                     Release();
                 }
@@ -234,10 +239,10 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
         public override void Release()
         {
-            if (currentHover)
+            if (currentTarget)
             {
-                currentHover.IsOnHover = false;
-                currentHover = null;
+                currentTarget.IsOnHover = false;
+                currentTarget = null;
             }
         }
     }
@@ -249,8 +254,6 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
         public PressHoverImmediately(int layer, Camera camera) : base(layer, camera)
         {
         }
-
-        MouseHoverComponent currentPressHover; //鼠标拖动至的目标，立即生效
 
         public override void Check<T>()
         {
@@ -267,18 +270,18 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
                     {
                         if (mouseHoverComponent.GetComponent<T>())
                         {
-                            if (currentPressHover && currentPressHover != mouseHoverComponent)
+                            if (currentTarget && currentTarget != mouseHoverComponent)
                             {
                                 Release();
                             }
                         }
 
-                        currentPressHover = mouseHoverComponent;
-                        currentPressHover.IsOnPressHover = true;
+                        currentTarget = mouseHoverComponent;
+                        currentTarget.IsOnPressHover = true;
                     }
                     else
                     {
-                        if (currentPressHover)
+                        if (currentTarget)
                         {
                             Release();
                         }
@@ -286,7 +289,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
                 }
                 else
                 {
-                    if (currentPressHover)
+                    if (currentTarget)
                     {
                         Release();
                     }
@@ -294,7 +297,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
             }
             else
             {
-                if (currentPressHover)
+                if (currentTarget)
                 {
                     Release();
                 }
@@ -303,10 +306,10 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
         public override void Release()
         {
-            if (currentPressHover)
+            if (currentTarget)
             {
-                currentPressHover.IsOnPressHover = false;
-                currentPressHover = null;
+                currentTarget.IsOnPressHover = false;
+                currentTarget = null;
             }
         }
     }
@@ -317,7 +320,6 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
     {
         Vector3 mouseLastPosition;
         private float mouseStopTimeTicker = 0;
-        MouseHoverComponent currentFocus; //鼠标悬停目标，超过一定时间且移动幅度不太大时生效
 
         public Focus(int layer, Camera camera, float delaySeconds, float mouseSpeedThreshold) : base(layer, camera)
         {
@@ -338,7 +340,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
                     //鼠标过快移动
                     mouseStopTimeTicker = 0;
                     mouseLastPosition = mouseCurrentPosition;
-                    if (currentFocus)
+                    if (currentTarget)
                     {
                         Release();
                     }
@@ -363,17 +365,17 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
                             {
                                 if (mouseHoverComponent)
                                 {
-                                    if (currentFocus && currentFocus != mouseHoverComponent)
+                                    if (currentTarget && currentTarget != mouseHoverComponent)
                                     {
                                         Release();
                                     }
 
-                                    currentFocus = mouseHoverComponent;
-                                    currentFocus.IsOnFocus = true;
+                                    currentTarget = mouseHoverComponent;
+                                    currentTarget.IsOnFocus = true;
                                 }
                                 else
                                 {
-                                    if (currentFocus)
+                                    if (currentTarget)
                                     {
                                         Release();
                                     }
@@ -382,7 +384,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
                         }
                         else
                         {
-                            if (currentFocus)
+                            if (currentTarget)
                             {
                                 Release();
                             }
@@ -392,7 +394,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
             }
             else
             {
-                if (currentFocus)
+                if (currentTarget)
                 {
                     Release();
                 }
@@ -401,10 +403,10 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
         public override void Release()
         {
-            if (currentFocus)
+            if (currentTarget)
             {
-                currentFocus.IsOnFocus = false;
-                currentFocus = null;
+                currentTarget.IsOnFocus = false;
+                currentTarget = null;
             }
         }
     }

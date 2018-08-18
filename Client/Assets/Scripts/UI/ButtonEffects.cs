@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class ButtonEffects : MonoBehaviour
@@ -15,12 +16,12 @@ public class ButtonEffects : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void OnPointerEnter()
+    public void OnMouseEnter()
     {
         anim.SetTrigger("OnMouseEnter");
-    }
+    }   
 
-    public void OnPointerExit()
+    public void OnMouseExit()
     {
         anim.SetTrigger("OnMouseLeave");
     }

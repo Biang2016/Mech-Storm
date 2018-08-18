@@ -32,6 +32,34 @@ internal class Proxy : ProxyBase
     {
     }
 
+    public void CancelMatch()
+    {
+        CancelMatchRequest request = new CancelMatchRequest(ClientId);
+        SendMessage(request);
+        ClientState = ClientStates.SubmitCardDeck;
+    }
+
+    public void LeaveGame()
+    {
+        LeaveGameRequest request = new LeaveGameRequest();
+        SendMessage(request);
+        ClientState = ClientStates.SubmitCardDeck;
+    }
+
+    public void OnSendCardDeck(CardDeckInfo cardDeckInfo)
+    {
+        CardDeckRequest req = new CardDeckRequest(ClientId, cardDeckInfo);
+        SendMessage(req);
+        ClientState = ClientStates.SubmitCardDeck;
+    }
+
+    public void OnBeginMatch()
+    {
+        MatchRequest req = new MatchRequest(ClientId);
+        SendMessage(req);
+        ClientState = ClientStates.Matching;
+    }
+
     #region 收发基础组件
 
     public void Send() //每帧调用
@@ -72,7 +100,7 @@ internal class Proxy : ProxyBase
                 }
                 case NetProtocols.RANDOM_NUMBER_SEED_REQUEST:
                 {
-                    RoundManager.Instance.OnRandomNumberSeed((RandomNumberSeedRequest)r);
+                    RoundManager.Instance.OnRandomNumberSeed((RandomNumberSeedRequest) r);
                     break;
                 }
             }
@@ -93,32 +121,4 @@ internal class Proxy : ProxyBase
     }
 
     #endregion
-
-    public void CancelMatch()
-    {
-        CancelMatchRequest request = new CancelMatchRequest(ClientId);
-        SendMessage(request);
-        ClientState = ClientStates.SubmitCardDeck;
-    }
-
-    public void LeaveGame()
-    {
-        LeaveGameRequest request = new LeaveGameRequest();
-        SendMessage(request);
-        ClientState = ClientStates.SubmitCardDeck;
-    }
-
-    public void OnSendCardDeck(CardDeckInfo cardDeckInfo)
-    {
-        CardDeckRequest req = new CardDeckRequest(ClientId, cardDeckInfo);
-        SendMessage(req);
-        ClientState = ClientStates.SubmitCardDeck;
-    }
-
-    public void OnBeginMatch()
-    {
-        MatchRequest req = new MatchRequest(ClientId);
-        SendMessage(req);
-        ClientState = ClientStates.Matching;
-    }
 }

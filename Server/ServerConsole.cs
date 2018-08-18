@@ -6,6 +6,8 @@ class ServerConsole
     static void Main(string[] args)
     {
 #if DEBUG
+        Server.SV= new Server("127.0.0.1", 9999);
+
         if (Directory.Exists("./Config"))
         {
             Directory.Delete("./Config", true);
@@ -18,6 +20,8 @@ class ServerConsole
         {
             File.Copy(fileInfo.FullName, "./Config/" + fileInfo.Name, true);
         }
+#else
+        Server.SV = new Server("95.169.26.10", 9999);
 #endif
         Server.SV.Start();
         while (Console.ReadLine() != "Exit")

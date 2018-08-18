@@ -916,7 +916,6 @@ MonoBehaviour:
   Star2: {fileID: 1757827074283808}
   Star3: {fileID: 1131599282048262}
   Star4: {fileID: 1443671597345574}
-  stars: 0
   MainBoardRenderer: {fileID: 23404617505044738}
   CardBloom: {fileID: 1523667097533280}
   PictureBoxRenderer: {fileID: 23878625947819022}

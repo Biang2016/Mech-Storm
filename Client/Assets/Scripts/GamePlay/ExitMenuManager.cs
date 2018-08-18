@@ -1,5 +1,6 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
 {
@@ -7,62 +8,165 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
     {
     }
 
+    void Awake()
+    {
+        M_StateMachine = new StateMachine();
+    }
+
     void Start()
     {
-        HideMenu();
+        M_StateMachine.SetState(StateMachine.States.Hide);
+        SurrenderButton.gameObject.SetActive(false);
+        ConsumeButton.gameObject.SetActive(true);
+        QuitGameButton.gameObject.SetActive(true);
+        Proxy.OnClientStateChange += OnClientChangeState;
     }
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        M_StateMachine.Update();
+    }
+
+    public void OnClientChangeState(ProxyBase.ClientStates clientState)
+    {
+        switch (clientState)
         {
-            switch (ExitMenuState)
+            case ProxyBase.ClientStates.Nothing:
+                SurrenderButton.gameObject.SetActive(false);
+                ConsumeButton.gameObject.SetActive(true);
+                QuitGameButton.gameObject.SetActive(true);
+                break;
+            case ProxyBase.ClientStates.GetId:
+                SurrenderButton.gameObject.SetActive(false);
+                ConsumeButton.gameObject.SetActive(true);
+                QuitGameButton.gameObject.SetActive(true);
+                break;
+            case ProxyBase.ClientStates.SubmitCardDeck:
+                SurrenderButton.gameObject.SetActive(false);
+                ConsumeButton.gameObject.SetActive(true);
+                QuitGameButton.gameObject.SetActive(true);
+                break;
+            case ProxyBase.ClientStates.Matching:
+                SurrenderButton.gameObject.SetActive(false);
+                ConsumeButton.gameObject.SetActive(true);
+                QuitGameButton.gameObject.SetActive(true);
+                break;
+            case ProxyBase.ClientStates.Playing:
+                SurrenderButton.gameObject.SetActive(true);
+                ConsumeButton.gameObject.SetActive(true);
+                QuitGameButton.gameObject.SetActive(true);
+                break;
+        }
+    }
+
+    public StateMachine M_StateMachine;
+
+    public class StateMachine
+    {
+        public StateMachine()
+        {
+            state = States.Default;
+            previousState = States.Default;
+        }
+
+        public enum States
+        {
+            Default,
+            Hide,
+            Show,
+        }
+
+        private States state;
+        private States previousState;
+
+        public void SetState(States newState)
+        {
+            if (state != newState)
             {
-                case ExitMenuStates.Hide:
-                    ShowMenu();
-                    break;
-                case ExitMenuStates.Show:
-                    HideMenu();
-                    break;
+                switch (newState)
+                {
+                    case States.Hide:
+                        HideMenu();
+                        break;
+
+                    case States.Show:
+                        ShowMenu();
+                        break;
+                }
+
+                previousState = state;
+                state = newState;
+            }
+
+            previousState = state;
+            state = newState;
+        }
+
+        public void ReturnToPreviousState()
+        {
+            SetState(previousState);
+        }
+
+        public States GetState()
+        {
+            return state;
+        }
+
+        public void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                if (SelectCardDeckManager.Instance.M_StateMachine.GetState() == SelectCardDeckManager.StateMachine.States.Hide)
+                {
+                    switch (state)
+                    {
+                        case States.Hide:
+                            SetState(States.Show);
+                            break;
+                        case States.Show:
+                            SetState(States.Hide);
+                            break;
+                    }
+                }
+            }
+
+            bool isClickElseWhere = (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) || Input.GetMouseButtonDown(1);
+            if (isClickElseWhere)
+            {
+                if (state == States.Show)
+                {
+                    SetState(States.Hide);
+                }
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        public void ShowMenu()
         {
-            if (ExitMenuState == ExitMenuStates.Show)
-            {
-                HideMenu();
-            }
+            state = States.Show;
+            Instance.ExitMenuCanvas.enabled = true;
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.Menu);
+            if (!Client.Instance.IsPlaying()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+        }
+
+        public void HideMenu()
+        {
+            state = States.Hide;
+            Instance.ExitMenuCanvas.enabled = false;
+            MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
+            if (!Client.Instance.IsPlaying()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
         }
     }
 
-    public enum ExitMenuStates
-    {
-        Hide = 0,
-        Show = 1,
-    }
-
-    public ExitMenuStates ExitMenuState;
-
-    public void HideMenu()
-    {
-        ExitMenuState = ExitMenuStates.Hide;
-        ExitMenuCanvas.enabled = false;
-        MouseHoverManager.Instance.ReturnToPreviousState();
-    }
-
-    public void ShowMenu()
-    {
-        ExitMenuState = ExitMenuStates.Show;
-        ExitMenuCanvas.enabled = true;
-        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.ExitMenu);
-    }
 
     [SerializeField] private Canvas ExitMenuCanvas;
+    [SerializeField] private Button SurrenderButton;
+    [SerializeField] private Button ConsumeButton;
+    [SerializeField] private Button QuitGameButton;
+
 
     public void OnConsumeGameButtonClick()
     {
-        HideMenu();
+        M_StateMachine.SetState(StateMachine.States.Hide);
     }
 
     public void OnSurrenderButtonClick()

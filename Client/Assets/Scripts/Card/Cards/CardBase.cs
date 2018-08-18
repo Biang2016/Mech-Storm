@@ -412,7 +412,10 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public virtual void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
     {
-        if (CanBecomeBigger) ClientPlayer.MyHandManager.CardOnMouseEnter(this);
+        if (CanBecomeBigger)
+        {
+            ClientPlayer.MyHandManager.CardOnMouseEnter(this);
+        }
     }
 
     public virtual void MouseHoverComponent_OnMouseEnter(Vector3 mousePosition)

@@ -1384,6 +1384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
 --- !u!114 &114279553799914154
 MonoBehaviour:
@@ -1396,6 +1397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
 --- !u!114 &114299532818158466
 MonoBehaviour:
@@ -1408,6 +1410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
 --- !u!114 &114344122467470286
 MonoBehaviour:
@@ -1424,7 +1427,6 @@ MonoBehaviour:
   Star2: {fileID: 1437660318651320}
   Star3: {fileID: 1625587984996080}
   Star4: {fileID: 1436986149531246}
-  stars: 0
   MainBoardRenderer: {fileID: 23166826540181976}
   CardBloom: {fileID: 1501539127182856}
   PictureBoxRenderer: {fileID: 23194436200577498}
@@ -1525,6 +1527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHoverShowBloom: {fileID: 0}
   _mSlotTypes: 0
 --- !u!114 &114992261032498722
 MonoBehaviour:

@@ -53,7 +53,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         SelfCostText.text = "";
         EnemyCostText.text = "";
 
-        MouseHoverManager.Instance.SetState(MouseHoverManager.MHM_States.BattleNormal);
+        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
 
         CardDeckManager.Instance.ShowAll();
     }
@@ -129,7 +129,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         CardDeckManager.Instance.HideAll();
         RandomNumberGenerator = null;
 
-        StartMenuManager.Instance.ShowMenu();
+        StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
 
         BattleEffectsManager.Instance.Effect_Main.AllEffectsEnd();
         BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();

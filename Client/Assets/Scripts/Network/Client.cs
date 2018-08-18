@@ -26,6 +26,11 @@ internal class Client : MonoSingletion<Client>
     public Proxy Proxy;
     Queue<ReceiveSocketData> receiveDataQueue = new Queue<ReceiveSocketData>();
 
+    public bool IsPlaying()
+    {
+        return Proxy != null && Proxy.ClientState == ProxyBase.ClientStates.Playing;
+    }
+
     void Awake()
     {
         OnRestartProtocols();

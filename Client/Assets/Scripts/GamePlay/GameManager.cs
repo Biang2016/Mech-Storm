@@ -1,5 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 internal class GameManager : MonoSingletion<GameManager>
 {
@@ -14,11 +16,12 @@ internal class GameManager : MonoSingletion<GameManager>
         AllCards.AddAllCards(Application.streamingAssetsPath + "/Config/Cards.xml");
     }
 
+    public EventSystem EventSystem;
+
     public Camera BattleGroundCamera;
     public Camera ForeGroundCamera;
     public Camera SelectCardWindowBackCamera;
     public Camera SelectCardWindowForeCamera;
-
 
     #region 游戏全局参数
 

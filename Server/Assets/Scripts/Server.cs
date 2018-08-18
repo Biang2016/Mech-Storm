@@ -11,15 +11,7 @@ internal class Server
 
     public static Server SV
     {
-        get
-        {
-            if (_sv == null)
-            {
-                _sv = new Server("95.169.26.10", 9999);
-            }
-
-            return _sv;
-        }
+        get { return _sv; }
         set { _sv = value; }
     }
 
