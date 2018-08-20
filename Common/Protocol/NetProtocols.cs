@@ -6,8 +6,11 @@
 
     public const int HEART_BEAT_REQUEST = 0x00000001; //服务器发送的心跳包
     public const int CLIENT_ID_REQUEST = 0x00000002; //分配客户端Id
-    public const int GAME_STOP_BY_LEAVE_REQUEST = 0x00000003; //由于玩家离开导致游戏结束
-    public const int RANDOM_NUMBER_SEED_REQUEST = 0x00000004; //分配客户端随机数种子
+    public const int CLIENT_MONEY_REQUEST = 0x00000003; //玩家金钱
+    public const int GAME_STOP_BY_LEAVE_REQUEST = 0x00000004; //由于玩家离开导致游戏结束
+    public const int RANDOM_NUMBER_SEED_REQUEST = 0x00000005; //分配客户端随机数种子
+    public const int REGISTER_RESULT_REQUEST = 0x00000006; //注册结果
+    public const int LOGIN_RESULT_REQUEST = 0x00000007; //登录结果
 
     #endregion
 
@@ -17,6 +20,8 @@
     public const int MATCH_REQUEST = 0x00000102; //申请匹配
     public const int CANCEL_MATCH_REQUEST = 0x00000103; //玩家取消匹配
     public const int LEAVE_GAME_REQUEST = 0x00000104; //玩家离开游戏
+    public const int REGISTER_REQUEST = 0x00000105; //注册
+    public const int LOGIN_REQUEST = 0x00000105; //登录
 
     #endregion
 

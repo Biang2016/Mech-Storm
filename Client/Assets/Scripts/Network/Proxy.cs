@@ -28,7 +28,7 @@ internal class Proxy : ProxyBase
 
     public static event ClientStateEventHandler OnClientStateChange;
 
-    public Proxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
+    public Proxy(Socket socket, int clientId, int clientMoney, bool isStopReceive) : base(socket, clientId, clientMoney, isStopReceive)
     {
     }
 
@@ -90,6 +90,13 @@ internal class Proxy : ProxyBase
                     ClientIdRequest request = (ClientIdRequest) r;
                     ClientId = request.givenClientId;
                     ClientState = ClientStates.GetId;
+                    break;
+                }
+                case NetProtocols.CLIENT_MONEY_REQUEST:
+                {
+                    ClientMoneyRequest request = (ClientMoneyRequest) r;
+                    ClientMoney = request.clientMoney;
+                    SelectCardDeckManager.Instance.SetLeftMoneyText(ClientMoney);
                     break;
                 }
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:

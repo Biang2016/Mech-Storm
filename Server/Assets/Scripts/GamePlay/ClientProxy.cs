@@ -23,10 +23,12 @@ internal class ClientProxy : ProxyBase
         }
     }
 
-    public ClientProxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
+    public ClientProxy(Socket socket, int clientId, int clientMoney, bool isStopReceive) : base(socket, clientId, clientMoney, isStopReceive)
     {
-        ClientIdRequest request = new ClientIdRequest(clientId);
-        SendMessage(request);
+        ClientIdRequest request1 = new ClientIdRequest(clientId);
+        SendMessage(request1);
+        ClientMoneyRequest request2 = new ClientMoneyRequest(clientId, clientMoney);
+        SendMessage(request2);
         ClientState = ClientStates.GetId;
     }
 

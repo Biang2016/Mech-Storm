@@ -9,7 +9,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
     }
 
     bool isReconnecting = false;
-    private IEnumerator CurrentTryConnectServer;
+    private Coroutine CurrentTryConnectServer;
 
     IEnumerator TryConnectToServer(bool isTest)
     {
@@ -29,15 +29,13 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
     public void ConnectToTestServer()
     {
         TerminateConnection();
-        CurrentTryConnectServer = TryConnectToServer(true);
-        StartCoroutine(CurrentTryConnectServer);
+        CurrentTryConnectServer = StartCoroutine(TryConnectToServer(true));
     }
 
     public void ConnectToFormalServer()
     {
         TerminateConnection();
-        CurrentTryConnectServer = TryConnectToServer(false);
-        StartCoroutine(CurrentTryConnectServer);
+        CurrentTryConnectServer = StartCoroutine(TryConnectToServer(false));
     }
 
     public void TerminateConnection()

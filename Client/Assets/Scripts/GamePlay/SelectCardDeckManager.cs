@@ -167,7 +167,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
             Instance.Canvas.enabled = true;
             Instance.Canvas_BG.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            if(!Client.Instance.IsPlaying())StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+            if (!Client.Instance.IsPlaying()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
         }
 
         private void HideWindow()
@@ -176,7 +176,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
             Instance.Canvas_BG.enabled = false;
             GameManager.Instance.StopBlurBackGround();
             MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
-            if(!Client.Instance.IsPlaying())StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+            if (!Client.Instance.IsPlaying()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
         }
     }
 
@@ -505,7 +505,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 
     #endregion
 
-    #region 预览卡片
+    #region 预览卡片、升级卡片
 
     private void ShowPreviewCard(CardBase card)
     {
@@ -528,6 +528,17 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
             PreviewCard = null;
             CurrentPreviewCard = null;
         }
+    }
+
+    #endregion
+
+    #region Money
+
+    [SerializeField] private Text MyMoneyText;
+
+    public void SetLeftMoneyText(int leftMoney)
+    {
+        MyMoneyText.text = leftMoney.ToString();
     }
 
     #endregion

@@ -108,7 +108,7 @@ internal class Server
     {
         Socket socket = SeverSocket.Accept();
         int clientId = GenerateClientId();
-        ClientProxy clientProxy = new ClientProxy(socket, clientId, false);
+        ClientProxy clientProxy = new ClientProxy(socket, clientId, GamePlaySettings.PlayerDefaultMoney, false);
         ClientsDict.Add(clientId, clientProxy);
         IPEndPoint point = socket.RemoteEndPoint as IPEndPoint;
         ServerLog.PrintClientStates("新的客户端连接 " + point.Address + ":" + point.Port + "  客户端总数: " + ClientsDict.Count);

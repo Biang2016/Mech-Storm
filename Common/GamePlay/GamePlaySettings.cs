@@ -13,4 +13,6 @@
     public static int CostIncrease = 1;
 
     public static bool SuffleCardDeck = true;
+
+    public static int PlayerDefaultMoney = 10000;
 }
