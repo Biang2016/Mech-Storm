@@ -167,7 +167,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
             Instance.Canvas.enabled = true;
             Instance.Canvas_BG.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            if (!Client.Instance.IsPlaying()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
         }
 
         private void HideWindow()
@@ -176,7 +176,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
             Instance.Canvas_BG.enabled = false;
             GameManager.Instance.StopBlurBackGround();
             MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
-            if (!Client.Instance.IsPlaying()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
         }
     }
 
@@ -261,7 +261,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 
     public void NetworkStateChange(ProxyBase.ClientStates clientState)
     {
-        bool isConnected = clientState == ProxyBase.ClientStates.GetId || clientState == ProxyBase.ClientStates.SubmitCardDeck;
+        bool isConnected = clientState == ProxyBase.ClientStates.Login || clientState == ProxyBase.ClientStates.SubmitCardDeck;
         ConfirmButton.gameObject.SetActive(isConnected);
         CloseButton.gameObject.SetActive(!isConnected);
     }
@@ -497,7 +497,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
     public void OnCloseButtonClick()
     {
         M_StateMachine.SetState(StateMachine.States.Hide);
-        if (!Client.Instance.IsPlaying())
+        if (Client.Instance.IsLogin())
         {
             StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
         }

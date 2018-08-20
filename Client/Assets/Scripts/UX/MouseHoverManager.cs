@@ -117,7 +117,6 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
                 previousState = state;
                 state = newState;
-                Debug.Log(state.ToString());
             }
         }
 

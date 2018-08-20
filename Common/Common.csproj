@@ -116,7 +116,6 @@
     <Compile Include="Protocol\DataStream\DataStream.cs" />
     <Compile Include="Protocol\NetProtocols.cs" />
     <Compile Include="Protocol\ProtoManager.cs" />
-    <Compile Include="RequestResponse\ServerToClient\OutGame\ClientIdRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerCostChangeRequest.cs" />
     <Compile Include="RequestResponse\RequestBase.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\KillAllInBattleGround_Base.cs" />

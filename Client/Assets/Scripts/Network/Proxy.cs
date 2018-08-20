@@ -85,11 +85,38 @@ internal class Proxy : ProxyBase
         {
             switch (r.GetProtocol())
             {
-                case NetProtocols.CLIENT_ID_REQUEST:
+                case NetProtocols.REGISTER_RESULT_REQUEST:
                 {
-                    ClientIdRequest request = (ClientIdRequest) r;
+                    RegisterResultRequest request = (RegisterResultRequest) r;
+                    if (request.isSuccess)
+                    {
+                        NoticeManager.Instance.ShowInfoPanel("注册成功", 0, 0.5f);
+                    }
+                    else
+                    {
+                        NoticeManager.Instance.ShowInfoPanel("该用户名已被注册", 0, 0.5f);
+                    }
+
+                    ClientId = request.clientId;
+                    ClientState = ClientStates.Nothing;
+                    break;
+                }
+                case NetProtocols.LOGIN_RESULT_REQUEST:
+                {
+                    LoginResultRequest request = (LoginResultRequest) r;
                     ClientId = request.givenClientId;
-                    ClientState = ClientStates.GetId;
+                    if (request.isSuccess)
+                    {
+                        ClientState = ClientStates.Login;
+                        NoticeManager.Instance.ShowInfoPanel("登录成功", 0, 0.5f);
+                        LoginManager.Instance.HideCanvas();
+                    }
+                    else
+                    {
+                        NoticeManager.Instance.ShowInfoPanel("登录失败，请检查用户名或密码", 0, 0.5f);
+                        ClientState = ClientStates.Nothing;
+                    }
+
                     break;
                 }
                 case NetProtocols.CLIENT_MONEY_REQUEST:

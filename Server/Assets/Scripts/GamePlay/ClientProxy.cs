@@ -25,11 +25,6 @@ internal class ClientProxy : ProxyBase
 
     public ClientProxy(Socket socket, int clientId, int clientMoney, bool isStopReceive) : base(socket, clientId, clientMoney, isStopReceive)
     {
-        ClientIdRequest request1 = new ClientIdRequest(clientId);
-        SendMessage(request1);
-        ClientMoneyRequest request2 = new ClientMoneyRequest(clientId, clientMoney);
-        SendMessage(request2);
-        ClientState = ClientStates.GetId;
     }
 
     private bool isClosed = false;
@@ -107,15 +102,78 @@ internal class ClientProxy : ProxyBase
             switch (r)
             {
                 //以下是进入游戏前的请求
+                case RegisterRequest _:
+                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
+                    if (ClientState != ClientStates.Nothing)
+                    {
+                        Server.SV.SGMM.RemoveGame(this);
+                        ClientState = ClientStates.Nothing;
+                    }
+
+                    if (ClientState == ClientStates.Nothing)
+                    {
+                        RegisterRequest request = (RegisterRequest) r;
+                        RegisterResultRequest response;
+                        if (Server.SV.UserTable.ContainsKey(request.username))
+                        {
+                            response = new RegisterResultRequest(ClientId, false);
+                        }
+                        else
+                        {
+                            Server.SV.UserTable.Add(request.username, request.password);
+                            response = new RegisterResultRequest(ClientId, true);
+                        }
+
+                        SendMessage(response);
+                    }
+
+                    break;
+                case LoginRequest _:
+                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
+                    if (ClientState != ClientStates.Nothing)
+                    {
+                        Server.SV.SGMM.RemoveGame(this);
+                        ClientState = ClientStates.Nothing;
+                    }
+
+                    if (ClientState == ClientStates.Nothing)
+                    {
+                        LoginRequest request = (LoginRequest) r;
+                        LoginResultRequest response;
+                        if (Server.SV.UserTable.ContainsKey(request.username))
+                        {
+                            if (Server.SV.UserTable[request.username] == request.password)
+                            {
+                                response = new LoginResultRequest(request.username, ClientId, true);
+                                if (!Server.SV.LoginUserTable.ContainsKey(request.username))
+                                {
+                                    Server.SV.LoginUserTable.Add(request.username, request.password);
+                                }
+                                ClientState = ClientStates.Login;
+                            }
+                            else
+                            {
+                                response = new LoginResultRequest(request.username, ClientId, false);
+                            }
+                        }
+                        else
+                        {
+                            response = new LoginResultRequest(request.username, ClientId, false);
+                        }
+
+                        SendMessage(response);
+                    }
+
+                    break;
                 case CardDeckRequest _:
                     ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
-                        ClientState = ClientStates.GetId;
+                        ClientState = ClientStates.Login;
                     }
 
-                    if (ClientState == ClientStates.GetId || ClientState == ClientStates.SubmitCardDeck)
+                    if (ClientState == ClientStates.Login || ClientState == ClientStates.SubmitCardDeck)
                     {
                         CardDeckRequest request = (CardDeckRequest) r;
                         CardDeckInfo = request.cardDeckInfo;

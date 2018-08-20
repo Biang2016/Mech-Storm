@@ -36,7 +36,7 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
                 ConsumeButton.gameObject.SetActive(true);
                 QuitGameButton.gameObject.SetActive(true);
                 break;
-            case ProxyBase.ClientStates.GetId:
+            case ProxyBase.ClientStates.Login:
                 SurrenderButton.gameObject.SetActive(false);
                 ConsumeButton.gameObject.SetActive(true);
                 QuitGameButton.gameObject.SetActive(true);
@@ -90,6 +90,7 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
                         break;
 
                     case States.Show:
+                        if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         break;
                 }
@@ -145,7 +146,7 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
             state = States.Show;
             Instance.ExitMenuCanvas.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.Menu);
-            if (!Client.Instance.IsPlaying()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
         }
 
         public void HideMenu()
@@ -153,7 +154,7 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
             state = States.Hide;
             Instance.ExitMenuCanvas.enabled = false;
             MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
-            if (!Client.Instance.IsPlaying()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
         }
     }
 

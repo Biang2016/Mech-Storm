@@ -1,13 +1,13 @@
 ﻿public class RegisterRequest : ClientRequestBase
 {
     public string username;
-    public int password;
+    public string password;
 
     public RegisterRequest() : base()
     {
     }
 
-    public RegisterRequest(string username, int password) : base(0)
+    public RegisterRequest(string username, string password) : base(0)
     {
         this.username = username;
         this.password = password;
@@ -27,14 +27,14 @@
     {
         base.Serialize(writer);
         writer.WriteString16(username);
-        writer.WriteSInt32(password);
+        writer.WriteString16(password);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         username = reader.ReadString16();
-        password = reader.ReadSInt32();
+        password = reader.ReadString16();
     }
 
     public override string DeserializeLog()

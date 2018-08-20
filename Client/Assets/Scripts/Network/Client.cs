@@ -153,9 +153,14 @@ internal class Client : MonoSingletion<Client>
         }
     }
 
-    public bool isConnect()
+    public bool IsConnect()
     {
         return ServerSocket != null && ServerSocket.Connected;
+    }
+
+    public bool IsLogin()
+    {
+        return Proxy != null && Proxy.ClientState == ProxyBase.ClientStates.Login;
     }
 
     //关闭Socket  

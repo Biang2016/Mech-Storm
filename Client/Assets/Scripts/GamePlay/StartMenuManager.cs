@@ -17,11 +17,9 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
 
     void Start()
     {
-        M_StateMachine.SetState(StateMachine.States.Show);
+        M_StateMachine.SetState(StateMachine.States.Hide);
         StartMatchButton.gameObject.SetActive(false);
         CancelMatchButton.gameObject.SetActive(false);
-        SwitchServerButton.gameObject.SetActive(true);
-        ShowServerList();
         Proxy.OnClientStateChange += OnClientChangeState;
     }
 
@@ -34,17 +32,15 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
         switch (clientState)
         {
             case ProxyBase.ClientStates.Nothing:
-                M_StateMachine.SetState(StateMachine.States.Show);
+                M_StateMachine.SetState(StateMachine.States.Hide);
                 StartMatchButton.gameObject.SetActive(false);
                 CancelMatchButton.gameObject.SetActive(false);
-                SwitchServerButton.gameObject.SetActive(true);
                 break;
-            case ProxyBase.ClientStates.GetId:
+            case ProxyBase.ClientStates.Login:
                 M_StateMachine.SetState(StateMachine.States.Show);
                 StartMatchButton.gameObject.SetActive(false);
                 CancelMatchButton.gameObject.SetActive(false);
                 SelectCardDeckWindowButton.gameObject.SetActive(true);
-                SwitchServerButton.gameObject.SetActive(true);
                 QuitGameButton.gameObject.SetActive(true);
                 break;
             case ProxyBase.ClientStates.SubmitCardDeck:
@@ -52,7 +48,6 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
                 StartMatchButton.gameObject.SetActive(true);
                 CancelMatchButton.gameObject.SetActive(false);
                 SelectCardDeckWindowButton.gameObject.SetActive(true);
-                SwitchServerButton.gameObject.SetActive(true);
                 QuitGameButton.gameObject.SetActive(true);
                 break;
             case ProxyBase.ClientStates.Matching:
@@ -60,8 +55,6 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
                 StartMatchButton.gameObject.SetActive(false);
                 CancelMatchButton.gameObject.SetActive(true);
                 SelectCardDeckWindowButton.gameObject.SetActive(true);
-                SwitchServerButton.gameObject.SetActive(false);
-                ServerList.gameObject.SetActive(false);
                 QuitGameButton.gameObject.SetActive(false);
                 break;
             case ProxyBase.ClientStates.Playing:
@@ -101,6 +94,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
                         break;
 
                     case States.Show:
+                        if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         break;
                 }
@@ -143,9 +137,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
     [SerializeField] private Button StartMatchButton;
     [SerializeField] private Button CancelMatchButton;
     [SerializeField] private Button SelectCardDeckWindowButton;
-    [SerializeField] private Button SwitchServerButton;
     [SerializeField] private Button QuitGameButton;
-    [SerializeField] private Transform ServerList;
 
     public void OnStartMatchGameButtonClick()
     {
@@ -167,41 +159,9 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
         SelectCardDeckManager.Instance.M_StateMachine.SetState(SelectCardDeckManager.StateMachine.States.Show);
     }
 
-    public void OnSwitchServerButtonClick()
-    {
-        if (ServerList.gameObject.activeSelf)
-        {
-            ServerList.gameObject.SetActive(false);
-        }
-        else
-        {
-            ServerList.gameObject.SetActive(true);
-        }
-    }
-
-    public void OnConnectToTestServerButtonClick()
-    {
-        NetworkManager.Instance.ConnectToTestServer();
-    }
-
-    public void OnConnectToFormalServerButtonClick()
-    {
-        NetworkManager.Instance.ConnectToFormalServer();
-    }
-
     public void OnQuitGameButtonClick()
     {
         NetworkManager.Instance.TerminateConnection();
         Application.Quit();
-    }
-
-    private void HideServerList()
-    {
-        ServerList.gameObject.SetActive(false);
-    }
-
-    private void ShowServerList()
-    {
-        ServerList.gameObject.SetActive(true);
     }
 }

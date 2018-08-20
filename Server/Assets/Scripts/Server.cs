@@ -33,6 +33,9 @@ internal class Server
 
     public ServerGameMatchManager SGMM;
 
+    public Dictionary<string, string> UserTable = new Dictionary<string, string>();
+    public Dictionary<string, string> LoginUserTable = new Dictionary<string, string>();
+
 
     public void Start()
     {
