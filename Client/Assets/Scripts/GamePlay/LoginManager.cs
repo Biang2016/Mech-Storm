@@ -9,6 +9,11 @@ internal class LoginManager : MonoSingletion<LoginManager>
     {
     }
 
+    void Awake()
+    {
+        Proxy.OnClientStateChange += OnClientChangeState;
+    }
+
     void Start()
     {
         ShowCanvas();
@@ -33,8 +38,10 @@ internal class LoginManager : MonoSingletion<LoginManager>
         switch (clientState)
         {
             case ProxyBase.ClientStates.Nothing:
+                ShowCanvas();
                 break;
             case ProxyBase.ClientStates.Login:
+                HideCanvas();
                 break;
             case ProxyBase.ClientStates.SubmitCardDeck:
                 break;
