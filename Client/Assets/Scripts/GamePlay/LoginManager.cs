@@ -28,6 +28,23 @@ internal class LoginManager : MonoSingletion<LoginManager>
         }
     }
 
+    public void OnClientChangeState(ProxyBase.ClientStates clientState)
+    {
+        switch (clientState)
+        {
+            case ProxyBase.ClientStates.Nothing:
+                break;
+            case ProxyBase.ClientStates.Login:
+                break;
+            case ProxyBase.ClientStates.SubmitCardDeck:
+                break;
+            case ProxyBase.ClientStates.Matching:
+                break;
+            case ProxyBase.ClientStates.Playing:
+                break;
+        }
+    }
+
     [SerializeField] private Canvas LoginCanvas;
     [SerializeField] private Dropdown ServerDropdown;
     [SerializeField] private Button RegisterButton;

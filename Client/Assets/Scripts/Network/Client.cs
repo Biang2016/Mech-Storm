@@ -26,11 +26,6 @@ internal class Client : MonoSingletion<Client>
     public Proxy Proxy;
     Queue<ReceiveSocketData> receiveDataQueue = new Queue<ReceiveSocketData>();
 
-    public bool IsPlaying()
-    {
-        return Proxy != null && Proxy.ClientState == ProxyBase.ClientStates.Playing;
-    }
-
     void Awake()
     {
         OnRestartProtocols();
@@ -160,7 +155,12 @@ internal class Client : MonoSingletion<Client>
 
     public bool IsLogin()
     {
-        return Proxy != null && Proxy.ClientState == ProxyBase.ClientStates.Login;
+        return Proxy != null && (Proxy.ClientState == ProxyBase.ClientStates.Login || Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck || Proxy.ClientState == ProxyBase.ClientStates.Matching);
+    }
+
+    public bool IsPlaying()
+    {
+        return Proxy != null && Proxy.ClientState == ProxyBase.ClientStates.Playing;
     }
 
     //关闭Socket  

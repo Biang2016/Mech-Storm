@@ -42,32 +42,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Card\Cards\ServerCardBase.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\ServerCardRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\ServerCardSpell.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\ServerCardShield.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\ServerCardWeapon.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ServerModuleShield.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ServerModuleWeapon.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ServerModuleBase.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ServerModuleRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\AddLifeForRandomRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\DamageRandomRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\HealSomeRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\DamageSomeRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\AddLifeForSomeRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\KillAllInBattleGround.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ClientProxy.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ServerBattleGroundManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ServerCardDeckManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ServerGameManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ServerGameMatchManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ServerHandManager.cs" />
-    <Compile Include="Assets\Scripts\Server.cs" />
+    <Compile Include="Card\Cards\ServerCardBase.cs" />
+    <Compile Include="Card\Cards\ServerCardRetinue.cs" />
+    <Compile Include="Card\Cards\ServerCardSpell.cs" />
+    <Compile Include="Card\Cards\ServerCardShield.cs" />
+    <Compile Include="Card\Cards\ServerCardWeapon.cs" />
+    <Compile Include="Card\Modules\ServerModuleShield.cs" />
+    <Compile Include="Card\Modules\ServerModuleWeapon.cs" />
+    <Compile Include="Card\Modules\ServerModuleBase.cs" />
+    <Compile Include="Card\Modules\ServerModuleRetinue.cs" />
+    <Compile Include="Card\SideEffects\AddLifeForRandomRetinue.cs" />
+    <Compile Include="Card\SideEffects\DamageRandomRetinue.cs" />
+    <Compile Include="Card\SideEffects\HealSomeRetinue.cs" />
+    <Compile Include="Card\SideEffects\DamageSomeRetinue.cs" />
+    <Compile Include="Card\SideEffects\AddLifeForSomeRetinue.cs" />
+    <Compile Include="Card\SideEffects\KillAllInBattleGround.cs" />
+    <Compile Include="Database\Database.cs" />
+    <Compile Include="GamePlay\ClientProxy.cs" />
+    <Compile Include="GamePlay\ServerBattleGroundManager.cs" />
+    <Compile Include="GamePlay\ServerCardDeckManager.cs" />
+    <Compile Include="GamePlay\ServerGameManager.cs" />
+    <Compile Include="GamePlay\ServerGameMatchManager.cs" />
+    <Compile Include="GamePlay\ServerHandManager.cs" />
+    <Compile Include="Server.cs" />
     <Compile Include="ServerConsole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Assets\Scripts\ServerLog.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ServerPlayer.cs" />
+    <Compile Include="ServerLog.cs" />
+    <Compile Include="GamePlay\ServerPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

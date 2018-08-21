@@ -18,7 +18,11 @@ internal class Proxy : ProxyBase
         get { return clientState; }
         set
         {
-            if (clientState != value) OnClientStateChange(value);
+            if (clientState != value)
+            {
+                OnClientStateChange(value);
+            }
+
             clientState = value;
             ClientLog.Instance.PrintClientStates("Client states: " + ClientState);
         }
@@ -26,7 +30,7 @@ internal class Proxy : ProxyBase
 
     public delegate void ClientStateEventHandler(ClientStates clientStates);
 
-    public static event ClientStateEventHandler OnClientStateChange;
+    public static ClientStateEventHandler OnClientStateChange;
 
     public Proxy(Socket socket, int clientId, int clientMoney, bool isStopReceive) : base(socket, clientId, clientMoney, isStopReceive)
     {
@@ -110,6 +114,7 @@ internal class Proxy : ProxyBase
                         ClientState = ClientStates.Login;
                         NoticeManager.Instance.ShowInfoPanel("登录成功", 0, 0.5f);
                         LoginManager.Instance.HideCanvas();
+                        StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
                     }
                     else
                     {

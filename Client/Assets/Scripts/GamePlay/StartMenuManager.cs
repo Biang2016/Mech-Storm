@@ -13,6 +13,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
     void Awake()
     {
         M_StateMachine = new StateMachine();
+        Proxy.OnClientStateChange += OnClientChangeState;
     }
 
     void Start()
@@ -20,7 +21,6 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
         M_StateMachine.SetState(StateMachine.States.Hide);
         StartMatchButton.gameObject.SetActive(false);
         CancelMatchButton.gameObject.SetActive(false);
-        Proxy.OnClientStateChange += OnClientChangeState;
     }
 
     void Update()
@@ -38,7 +38,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
                 break;
             case ProxyBase.ClientStates.Login:
                 M_StateMachine.SetState(StateMachine.States.Show);
-                StartMatchButton.gameObject.SetActive(false);
+                StartMatchButton.gameObject.SetActive(true);
                 CancelMatchButton.gameObject.SetActive(false);
                 SelectCardDeckWindowButton.gameObject.SetActive(true);
                 QuitGameButton.gameObject.SetActive(true);
