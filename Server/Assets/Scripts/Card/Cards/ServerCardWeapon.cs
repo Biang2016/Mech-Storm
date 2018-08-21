@@ -1,5 +1,0 @@
-﻿internal class ServerCardWeapon : ServerCardBase
-{
-
-
-}
