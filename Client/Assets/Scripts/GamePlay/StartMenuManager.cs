@@ -31,7 +31,12 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
     {
         switch (clientState)
         {
-            case ProxyBase.ClientStates.Nothing:
+            case ProxyBase.ClientStates.Offline:
+                M_StateMachine.SetState(StateMachine.States.Hide);
+                StartMatchButton.gameObject.SetActive(false);
+                CancelMatchButton.gameObject.SetActive(false);
+                break;
+            case ProxyBase.ClientStates.GetId:
                 M_StateMachine.SetState(StateMachine.States.Hide);
                 StartMatchButton.gameObject.SetActive(false);
                 CancelMatchButton.gameObject.SetActive(false);
@@ -141,9 +146,16 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
 
     public void OnStartMatchGameButtonClick()
     {
-        Client.Instance.Proxy.OnBeginMatch();
-        ClientLog.Instance.Print("开始匹配");
-        NoticeManager.Instance.ShowInfoPanel("匹配中", 0, float.PositiveInfinity);
+        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)//未发送卡组则跳出选择卡组界面
+        {
+            OnSelectCardDeckWindowButtonClick();
+        }
+        else
+        {
+            Client.Instance.Proxy.OnBeginMatch();
+            ClientLog.Instance.Print("开始匹配");
+            NoticeManager.Instance.ShowInfoPanel("匹配中", 0, float.PositiveInfinity);
+        }
     }
 
     public void OnCancelMatchGameButtonClick()
@@ -161,7 +173,11 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
 
     public void OnQuitGameButtonClick()
     {
-        NetworkManager.Instance.TerminateConnection();
-        Application.Quit();
+        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Matching)
+        {
+            Client.Instance.Proxy.CancelMatch();
+        }
+        M_StateMachine.SetState(StateMachine.States.Hide);
+        LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
     }
 }

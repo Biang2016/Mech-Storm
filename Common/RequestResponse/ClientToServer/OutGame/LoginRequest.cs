@@ -7,7 +7,7 @@
     {
     }
 
-    public LoginRequest(string username, string password) : base(0)
+    public LoginRequest(int clientId, string username, string password) : base(clientId)
     {
         this.username = username;
         this.password = password;

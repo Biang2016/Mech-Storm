@@ -104,24 +104,24 @@ internal class ClientProxy : ProxyBase
                 //以下是进入游戏前的请求
                 case RegisterRequest _:
                     ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
-                    if (ClientState != ClientStates.Nothing)
+                    if (ClientState != ClientStates.GetId)
                     {
                         Server.SV.SGMM.RemoveGame(this);
-                        ClientState = ClientStates.Nothing;
+                        ClientState = ClientStates.GetId;
                     }
 
-                    if (ClientState == ClientStates.Nothing)
+                    if (ClientState == ClientStates.GetId)
                     {
                         RegisterRequest request = (RegisterRequest) r;
                         RegisterResultRequest response;
                         if (Server.SV.UserTable.ContainsKey(request.username))
                         {
-                            response = new RegisterResultRequest(ClientId, false);
+                            response = new RegisterResultRequest(false);
                         }
                         else
                         {
                             Server.SV.UserTable.Add(request.username, request.password);
-                            response = new RegisterResultRequest(ClientId, true);
+                            response = new RegisterResultRequest(true);
                         }
 
                         SendMessage(response);
@@ -130,13 +130,13 @@ internal class ClientProxy : ProxyBase
                     break;
                 case LoginRequest _:
                     ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
-                    if (ClientState != ClientStates.Nothing)
+                    if (ClientState != ClientStates.GetId)
                     {
                         Server.SV.SGMM.RemoveGame(this);
-                        ClientState = ClientStates.Nothing;
+                        ClientState = ClientStates.GetId;
                     }
 
-                    if (ClientState == ClientStates.Nothing)
+                    if (ClientState == ClientStates.GetId)
                     {
                         LoginRequest request = (LoginRequest) r;
                         LoginResultRequest response;
@@ -144,21 +144,22 @@ internal class ClientProxy : ProxyBase
                         {
                             if (Server.SV.UserTable[request.username] == request.password)
                             {
-                                response = new LoginResultRequest(request.username, ClientId, true);
+                                response = new LoginResultRequest(request.username, true);
                                 if (!Server.SV.LoginUserTable.ContainsKey(request.username))
                                 {
                                     Server.SV.LoginUserTable.Add(request.username, request.password);
                                 }
+
                                 ClientState = ClientStates.Login;
                             }
                             else
                             {
-                                response = new LoginResultRequest(request.username, ClientId, false);
+                                response = new LoginResultRequest(request.username, false);
                             }
                         }
                         else
                         {
-                            response = new LoginResultRequest(request.username, ClientId, false);
+                            response = new LoginResultRequest(request.username, false);
                         }
 
                         SendMessage(response);

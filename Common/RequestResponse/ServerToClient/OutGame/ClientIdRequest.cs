@@ -1,42 +1,42 @@
-﻿public class ClientMoneyRequest : ServerRequestBase
+﻿public class ClientIdRequest : ServerRequestBase
 {
-    public int clientMoney;
+    public int givenClientId;
 
-    public ClientMoneyRequest()
+    public ClientIdRequest()
     {
     }
 
-    public ClientMoneyRequest(int clientMoney)
+    public ClientIdRequest(int givenClientId)
     {
-        this.clientMoney = clientMoney;
+        this.givenClientId = givenClientId;
     }
 
     public override int GetProtocol()
     {
-        return NetProtocols.CLIENT_MONEY_REQUEST;
+        return NetProtocols.CLIENT_ID_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "CLIENT_MONEY_REQUEST";
+        return "CLIENT_ID_REQUEST";
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(clientMoney);
+        writer.WriteSInt32(givenClientId);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        clientMoney = reader.ReadSInt32();
+        givenClientId = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clientMoney]=" + clientMoney;
+        log += " [givenClientId]=" + givenClientId;
         return log;
     }
 }

@@ -31,10 +31,15 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
     {
         switch (clientState)
         {
-            case ProxyBase.ClientStates.Nothing:
+            case ProxyBase.ClientStates.Offline:
                 SurrenderButton.gameObject.SetActive(false);
-                ConsumeButton.gameObject.SetActive(true);
-                QuitGameButton.gameObject.SetActive(true);
+                ConsumeButton.gameObject.SetActive(false);
+                QuitGameButton.gameObject.SetActive(false);
+                break;
+            case ProxyBase.ClientStates.GetId:
+                SurrenderButton.gameObject.SetActive(false);
+                ConsumeButton.gameObject.SetActive(false);
+                QuitGameButton.gameObject.SetActive(false);
                 break;
             case ProxyBase.ClientStates.Login:
                 SurrenderButton.gameObject.SetActive(false);

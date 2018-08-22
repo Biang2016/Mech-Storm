@@ -298,29 +298,13 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     void On_WeaponChanged(ServerModuleWeapon newWeapon)
     {
-        if (AllCards.IsASeries(m_Weapon.CardInfo, newWeapon.CardInfo)) //同类型+1/+1
-        {
-            if (newWeapon.CardInfo.UpgradeInfo.CardLevel > m_Weapon.CardInfo.UpgradeInfo.CardLevel)
-            {
-                m_Weapon = newWeapon;
-                EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
-                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-            }
+        m_Weapon = newWeapon;
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
-            M_RetinueAttack += 1;
-            M_RetinueWeaponEnergy += 1;
-            M_RetinueWeaponEnergyMax += 1;
-        }
-        else //不同类型替换
-        {
-            m_Weapon = newWeapon;
-            EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
-            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-
-            M_RetinueAttack = CardInfo.BattleInfo.BasicAttack + newWeapon.CardInfo.WeaponInfo.Attack;
-            M_RetinueWeaponEnergy = newWeapon.CardInfo.WeaponInfo.Energy;
-            M_RetinueWeaponEnergyMax = newWeapon.CardInfo.WeaponInfo.EnergyMax;
-        }
+        M_RetinueAttack = CardInfo.BattleInfo.BasicAttack + newWeapon.CardInfo.WeaponInfo.Attack;
+        M_RetinueWeaponEnergy = newWeapon.CardInfo.WeaponInfo.Energy;
+        M_RetinueWeaponEnergyMax = newWeapon.CardInfo.WeaponInfo.EnergyMax;
     }
 
     #endregion
@@ -370,27 +354,12 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     void On_ShieldChanged(ServerModuleShield newShield) //更换防具时机体基础护甲护盾恢复
     {
-        if (AllCards.IsASeries(m_Shield.CardInfo, newShield.CardInfo)) //同类型直接叠加
-        {
-            if (newShield.CardInfo.UpgradeInfo.CardLevel > m_Shield.CardInfo.UpgradeInfo.CardLevel)
-            {
-                m_Shield = newShield;
-                EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
-                ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-            }
+        m_Shield = newShield;
+        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
-            M_RetinueShield += newShield.CardInfo.ShieldInfo.Shield;
-            M_RetinueArmor += newShield.CardInfo.ShieldInfo.Armor;
-        }
-        else //不同类型替换
-        {
-            m_Shield = newShield;
-            EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
-            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-
-            M_RetinueShield = CardInfo.BattleInfo.BasicShield + newShield.CardInfo.ShieldInfo.Shield;
-            M_RetinueArmor = CardInfo.BattleInfo.BasicArmor + newShield.CardInfo.ShieldInfo.Armor;
-        }
+        M_RetinueShield = CardInfo.BattleInfo.BasicShield + newShield.CardInfo.ShieldInfo.Shield;
+        M_RetinueArmor = CardInfo.BattleInfo.BasicArmor + newShield.CardInfo.ShieldInfo.Armor;
     }
 
     #endregion
@@ -529,7 +498,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 if (((TargetSideEffect) se).IsNeedChoise)
                 {
-                    ((TargetSideEffect)se).TargetRetinueId = targetRetinueId;
+                    ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
                 }
             }
 

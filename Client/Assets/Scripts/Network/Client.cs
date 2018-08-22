@@ -51,7 +51,7 @@ internal class Client : MonoSingletion<Client>
         }
         else
         {
-            Proxy.ClientState = ProxyBase.ClientStates.Nothing;
+            Proxy.ClientState = ProxyBase.ClientStates.Offline;
             RoundManager.Instance.StopGame();
             SocketErrorFlag = false;
         }
@@ -148,17 +148,17 @@ internal class Client : MonoSingletion<Client>
         }
     }
 
-    public bool IsConnect()
+    public bool IsConnect() //是否已连接
     {
-        return ServerSocket != null && ServerSocket.Connected;
+        return ServerSocket != null && ServerSocket.Connected && Proxy.ClientState == ProxyBase.ClientStates.GetId;
     }
 
-    public bool IsLogin()
+    public bool IsLogin() //登录且未开始游戏
     {
         return Proxy != null && (Proxy.ClientState == ProxyBase.ClientStates.Login || Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck || Proxy.ClientState == ProxyBase.ClientStates.Matching);
     }
 
-    public bool IsPlaying()
+    public bool IsPlaying() //是否开始游戏
     {
         return Proxy != null && Proxy.ClientState == ProxyBase.ClientStates.Playing;
     }

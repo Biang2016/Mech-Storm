@@ -63,7 +63,6 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
         }
 
         NoticeManager.Instance.ShowInfoPanel("已断开连接", 0f, 1f);
-        LoginManager.Instance.UnenableRegisterAndLoginButton();
     }
 
     private void CheckConnectState()

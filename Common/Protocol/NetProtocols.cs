@@ -4,6 +4,7 @@
 
     # region Server
 
+    public const int CLIENT_ID_REQUEST = 0x00000000; //服务器发送的客户端ID号
     public const int HEART_BEAT_REQUEST = 0x00000001; //服务器发送的心跳包
     public const int CLIENT_MONEY_REQUEST = 0x00000003; //玩家金钱
     public const int GAME_STOP_BY_LEAVE_REQUEST = 0x00000004; //由于玩家离开导致游戏结束

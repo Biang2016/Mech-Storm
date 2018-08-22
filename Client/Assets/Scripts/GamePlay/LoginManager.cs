@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
@@ -11,44 +12,115 @@ internal class LoginManager : MonoSingletion<LoginManager>
 
     void Awake()
     {
+        M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += OnClientChangeState;
     }
 
     void Start()
     {
-        ShowCanvas();
+        M_StateMachine.SetState(StateMachine.States.Show);
         ServerDropdown.onValueChanged.AddListener(OnChangeServer);
         NetworkManager.Instance.ConnectToTestServer();
     }
 
     void Update()
     {
-        if (Client.Instance.IsConnect())
-        {
-            EnableRegisterAndLoginButton();
-        }
-        else
-        {
-            UnenableRegisterAndLoginButton();
-        }
     }
 
     public void OnClientChangeState(ProxyBase.ClientStates clientState)
     {
         switch (clientState)
         {
-            case ProxyBase.ClientStates.Nothing:
-                ShowCanvas();
+            case ProxyBase.ClientStates.Offline:
+                M_StateMachine.SetState(StateMachine.States.Show);
+                ShowTipText("已断开连接.", 0, float.PositiveInfinity, false);
+                break;
+            case ProxyBase.ClientStates.GetId:
+                M_StateMachine.SetState(StateMachine.States.Show);
+                ShowTipText("已连接.", 0, float.PositiveInfinity, false);
                 break;
             case ProxyBase.ClientStates.Login:
-                HideCanvas();
+                M_StateMachine.SetState(StateMachine.States.Hide);
                 break;
             case ProxyBase.ClientStates.SubmitCardDeck:
+                M_StateMachine.SetState(StateMachine.States.Hide);
                 break;
             case ProxyBase.ClientStates.Matching:
+                M_StateMachine.SetState(StateMachine.States.Hide);
                 break;
             case ProxyBase.ClientStates.Playing:
+                M_StateMachine.SetState(StateMachine.States.Hide);
                 break;
+        }
+    }
+
+    public StateMachine M_StateMachine;
+
+    public class StateMachine
+    {
+        public StateMachine()
+        {
+            state = States.Default;
+            previousState = States.Default;
+        }
+
+        public enum States
+        {
+            Default,
+            Hide,
+            Show,
+        }
+
+        private States state;
+        private States previousState;
+
+        public void SetState(States newState)
+        {
+            if (state != newState)
+            {
+                switch (newState)
+                {
+                    case States.Hide:
+                        HideMenu();
+                        break;
+
+                    case States.Show:
+                        if (!Client.Instance.IsLogin()) return;
+                        ShowMenu();
+                        break;
+                }
+
+                previousState = state;
+                state = newState;
+            }
+
+            previousState = state;
+            state = newState;
+        }
+
+        public void ReturnToPreviousState()
+        {
+            SetState(previousState);
+        }
+
+        public States GetState()
+        {
+            return state;
+        }
+
+        public void Update()
+        {
+        }
+
+        private void ShowMenu()
+        {
+            Instance.LoginCanvas.enabled = true;
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.None);
+        }
+
+        private void HideMenu()
+        {
+            Instance.LoginCanvas.enabled = false;
         }
     }
 
@@ -56,12 +128,14 @@ internal class LoginManager : MonoSingletion<LoginManager>
     [SerializeField] private Dropdown ServerDropdown;
     [SerializeField] private Button RegisterButton;
     [SerializeField] private Button LoginButton;
+    [SerializeField] private Button QuitButton;
     [SerializeField] private InputField UserNameInputField;
     [SerializeField] private InputField PasswordInputField;
+    [SerializeField] private Text TipText;
 
     public void OnChangeServer(int value)
     {
-        switch (ServerDropdown.value)
+        switch (value)
         {
             case 0:
                 NetworkManager.Instance.ConnectToTestServer();
@@ -76,8 +150,13 @@ internal class LoginManager : MonoSingletion<LoginManager>
     {
         if (Client.Instance.IsConnect())
         {
-            RegisterRequest request = new RegisterRequest(UserNameInputField.text, PasswordInputField.text);
+            RegisterRequest request = new RegisterRequest(Client.Instance.Proxy.ClientId, UserNameInputField.text, PasswordInputField.text);
             Client.Instance.Proxy.SendMessage(request);
+        }
+        else
+        {
+            ShowTipText("正在连接服务器", 0, float.PositiveInfinity, true);
+            OnChangeServer(ServerDropdown.value);
         }
     }
 
@@ -85,30 +164,68 @@ internal class LoginManager : MonoSingletion<LoginManager>
     {
         if (Client.Instance.IsConnect())
         {
-            LoginRequest request = new LoginRequest(UserNameInputField.text, PasswordInputField.text);
+            LoginRequest request = new LoginRequest(Client.Instance.Proxy.ClientId, UserNameInputField.text, PasswordInputField.text);
             Client.Instance.Proxy.SendMessage(request);
+        }
+        else
+        {
+            ShowTipText("正在连接服务器", 0, float.PositiveInfinity, true);
+            OnChangeServer(ServerDropdown.value);
         }
     }
 
-    public void ShowCanvas()
+    public void OnQuitButtonClick()
     {
-        LoginCanvas.gameObject.SetActive(true);
+        NetworkManager.Instance.TerminateConnection();
+        Application.Quit();
     }
 
-    public void HideCanvas()
+    IEnumerator ShowTipTextCoroutine;
+
+    public void ShowTipText(string text, float delay, float last, bool showDots)
     {
-        LoginCanvas.gameObject.SetActive(false);
+        if (ShowTipTextCoroutine != null)
+        {
+            StopCoroutine(ShowTipTextCoroutine);
+        }
+
+        ShowTipTextCoroutine = Co_ShowTipText(text, delay, last, showDots);
+        StartCoroutine(ShowTipTextCoroutine);
     }
 
-    public void EnableRegisterAndLoginButton()
+    IEnumerator Co_ShowTipText(string text, float delay, float last, bool showDots)
     {
-        RegisterButton.enabled = true;
-        LoginButton.enabled = true;
-    }
-
-    public void UnenableRegisterAndLoginButton()
-    {
-        RegisterButton.enabled = false;
-        LoginButton.enabled = false;
+        yield return new WaitForSeconds(delay);
+        TipText.text = text;
+        if (!float.IsPositiveInfinity(last))
+        {
+            yield return new WaitForSeconds(last);
+            TipText.text = "";
+        }
+        else
+        {
+            if (showDots)
+            {
+                int dotCount = 0;
+                while (true)
+                {
+                    TipText.text += ".";
+                    yield return new WaitForSeconds(0.5f);
+                    dotCount++;
+                    if (dotCount == 3)
+                    {
+                        dotCount = 0;
+                        TipText.text = text;
+                    }
+                }
+            }
+            else
+            {
+                while (true)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                }
+            }
+        }
     }
 }
