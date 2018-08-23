@@ -10,7 +10,13 @@ internal class ClientProxy : ProxyBase
 
     public ServerGameManager MyServerGameManager;
 
-    public CardDeckInfo CardDeckInfo;
+    private string username = "";
+
+    public string UserName
+    {
+        get { return username; }
+    }
+
 
     public override ClientStates ClientState
     {
@@ -23,8 +29,16 @@ internal class ClientProxy : ProxyBase
         }
     }
 
-    public ClientProxy(Socket socket, int clientId, int clientMoney, bool isStopReceive) : base(socket, clientId, clientMoney, isStopReceive)
+    public ClientProxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
+        ClientIdRequest request = new ClientIdRequest(clientId);
+        ClientState = ClientStates.GetId;
+        SendMessage(request);
+    }
+
+    public List<BuildInfo> GetClientBuildInfos(string username)
+    {
+        return new List<BuildInfo>();
     }
 
     private bool isClosed = false;
@@ -151,6 +165,10 @@ internal class ClientProxy : ProxyBase
                                 }
 
                                 ClientState = ClientStates.Login;
+                                username = request.username;
+                                BuildInfos = Database.Instance.GetPlayerBuilds(username);
+                                ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(BuildInfos);
+                                SendMessage(request1);
                             }
                             else
                             {
@@ -166,7 +184,7 @@ internal class ClientProxy : ProxyBase
                     }
 
                     break;
-                case CardDeckRequest _:
+                case BuildRequest _:
                     ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
                     if (ClientState == ClientStates.Playing)
                     {
@@ -174,11 +192,10 @@ internal class ClientProxy : ProxyBase
                         ClientState = ClientStates.Login;
                     }
 
-                    if (ClientState == ClientStates.Login || ClientState == ClientStates.SubmitCardDeck)
+                    if (ClientState == ClientStates.Login)
                     {
-                        CardDeckRequest request = (CardDeckRequest) r;
-                        CardDeckInfo = request.cardDeckInfo;
-                        ClientState = ClientStates.SubmitCardDeck;
+                        BuildRequest request = (BuildRequest) r;
+                        Database.Instance.AddOrModifyBuild(request.BuildInfo);
                     }
 
                     break;
@@ -187,11 +204,13 @@ internal class ClientProxy : ProxyBase
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
-                        ClientState = ClientStates.SubmitCardDeck;
+                        ClientState = ClientStates.Login;
                     }
 
-                    if (ClientState == ClientStates.SubmitCardDeck)
+                    if (ClientState == ClientStates.Login)
                     {
+                        MatchRequest request = (MatchRequest) r;
+                        CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.buildID);
                         ClientState = ClientStates.Matching;
                         Server.SV.SGMM.OnClientMatchGames(this);
                     }
@@ -207,7 +226,7 @@ internal class ClientProxy : ProxyBase
 
                     if (ClientState == ClientStates.Matching)
                     {
-                        ClientState = ClientStates.SubmitCardDeck;
+                        ClientState = ClientStates.Login;
                         Server.SV.SGMM.OnClientCancelMatch(this);
                     }
 

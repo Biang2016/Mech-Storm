@@ -12,7 +12,9 @@
     public static int MaxCost = 30;
     public static int CostIncrease = 1;
 
-    public static bool SuffleCardDeck = true;
+    public static bool SuffleBuild = true;
 
     public static int PlayerDefaultMoney = 10000;
+    public static int PlayerDefaultLife = 100;
+    public static int PlayerDefaultMagic = 10;
 }

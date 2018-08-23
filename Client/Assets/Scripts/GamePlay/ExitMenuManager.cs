@@ -46,11 +46,6 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
                 ConsumeButton.gameObject.SetActive(true);
                 QuitGameButton.gameObject.SetActive(true);
                 break;
-            case ProxyBase.ClientStates.SubmitCardDeck:
-                SurrenderButton.gameObject.SetActive(false);
-                ConsumeButton.gameObject.SetActive(true);
-                QuitGameButton.gameObject.SetActive(true);
-                break;
             case ProxyBase.ClientStates.Matching:
                 SurrenderButton.gameObject.SetActive(false);
                 ConsumeButton.gameObject.SetActive(true);

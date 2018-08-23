@@ -42,9 +42,6 @@ internal class LoginManager : MonoSingletion<LoginManager>
             case ProxyBase.ClientStates.Login:
                 M_StateMachine.SetState(StateMachine.States.Hide);
                 break;
-            case ProxyBase.ClientStates.SubmitCardDeck:
-                M_StateMachine.SetState(StateMachine.States.Hide);
-                break;
             case ProxyBase.ClientStates.Matching:
                 M_StateMachine.SetState(StateMachine.States.Hide);
                 break;
@@ -85,7 +82,7 @@ internal class LoginManager : MonoSingletion<LoginManager>
                         break;
 
                     case States.Show:
-                        if (!Client.Instance.IsLogin()) return;
+                        if (Client.Instance.IsLogin()) return;
                         ShowMenu();
                         break;
                 }

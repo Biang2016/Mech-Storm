@@ -99,10 +99,12 @@
     <Compile Include="Assets\Scripts\GamePlay\RoundManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\RoundManager_Response.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SelectCardDeckManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\SelectCardDeckManager_Build.cs" />
     <Compile Include="Assets\Scripts\GamePlay\StartMenuManager.cs" />
     <Compile Include="Assets\Scripts\Network\Client.cs" />
     <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Network\Proxy.cs" />
+    <Compile Include="Assets\Scripts\UI\BuildButton.cs" />
     <Compile Include="Assets\Scripts\UI\ButtonEffects.cs" />
     <Compile Include="Assets\Scripts\UI\DebugUILine.cs" />
     <Compile Include="Assets\Scripts\UI\ImageEffectBlurBox.cs" />

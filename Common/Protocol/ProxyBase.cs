@@ -1,11 +1,13 @@
-﻿using System.Net.Sockets;
+﻿using System.Collections.Generic;
+using System.Net.Sockets;
 
 public abstract class ProxyBase
 {
     //发包读包基础
     public Socket Socket;
     public int ClientId;
-    public int ClientMoney;
+    public List<BuildInfo> BuildInfos;
+    public BuildInfo CurrentBuildInfo;
     public DataHolder DataHolder = new DataHolder();
     public bool IsStopReceive;
 
@@ -17,11 +19,10 @@ public abstract class ProxyBase
         set { clientState = value; }
     }
 
-    protected ProxyBase(Socket socket, int clientId, int clientMoney, bool isStopReceive)
+    protected ProxyBase(Socket socket, int clientId, bool isStopReceive)
     {
         Socket = socket;
         ClientId = clientId;
-        ClientMoney = clientMoney;
         IsStopReceive = isStopReceive;
     }
 
@@ -33,7 +34,6 @@ public abstract class ProxyBase
         Offline,
         GetId,
         Login,
-        SubmitCardDeck,
         Matching,
         Playing,
     }

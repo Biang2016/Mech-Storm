@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 选牌窗口
 /// </summary>
-public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
+public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 {
     private SelectCardDeckManager()
     {
@@ -24,6 +24,10 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
         HeroCardCount = 0;
         M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += NetworkStateChange;
+        Proxy.OnClientStateChange += NetworkStateChange_Build;
+
+        RetinueContent.transform.position = new Vector3(0, RetinueContent.transform.position.y, RetinueContent.transform.position.z);
+        SelectionContent.transform.position = new Vector3(0, SelectionContent.transform.position.y, SelectionContent.transform.position.z);
     }
 
     void Start()
@@ -64,6 +68,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
     [SerializeField] private Camera Camera;
 
     [SerializeField] private Transform SelectCardPrefab;
+
 
     void Update()
     {
@@ -261,7 +266,7 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
 
     public void NetworkStateChange(ProxyBase.ClientStates clientState)
     {
-        bool isConnected = clientState == ProxyBase.ClientStates.Login || clientState == ProxyBase.ClientStates.SubmitCardDeck;
+        bool isConnected = clientState == ProxyBase.ClientStates.Login || clientState == ProxyBase.ClientStates.Login;
         ConfirmButton.gameObject.SetActive(isConnected);
         CloseButton.gameObject.SetActive(!isConnected);
     }
@@ -293,7 +298,6 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
     private Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>();
     private Dictionary<int, SelectCard> SelectedCards = new Dictionary<int, SelectCard>();
     private Dictionary<int, SelectCard> SelectedHeros = new Dictionary<int, SelectCard>();
-
 
     private int selectCardCount;
 
@@ -488,8 +492,8 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
             }
         }
 
-        CardDeckInfo cdi = new CardDeckInfo(cardIds.ToArray(), retinueIds.ToArray());
-        Client.Instance.Proxy.OnSendCardDeck(cdi);
+        BuildInfo bi = new BuildInfo(CurrentEditBuildID, CurrentEditBuildButton.name, cardIds.ToArray(), retinueIds.ToArray(), GamePlaySettings.PlayerDefaultMoney - LeftMoney, Life, Magic);
+        Client.Instance.Proxy.OnSendCardDeck(bi);
         NoticeManager.Instance.ShowInfoPanel("更新卡组成功", 0, 1f);
         M_StateMachine.SetState(StateMachine.States.Hide);
     }
@@ -528,17 +532,6 @@ public class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
             PreviewCard = null;
             CurrentPreviewCard = null;
         }
-    }
-
-    #endregion
-
-    #region Money
-
-    [SerializeField] private Text MyMoneyText;
-
-    public void SetLeftMoneyText(int leftMoney)
-    {
-        MyMoneyText.text = leftMoney.ToString();
     }
 
     #endregion

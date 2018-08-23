@@ -51,11 +51,11 @@ internal class ServerGameManager
         SyncRandomNumber();
 
         PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginCost, this);
-        PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CardDeckInfo, PlayerA.OnCardDeckLeftChange);
+        PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange);
         PlayerA.MyClientProxy = ClientA;
 
         PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, GamePlaySettings.BeginCost, this);
-        PlayerB.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientB.CardDeckInfo, PlayerB.OnCardDeckLeftChange);
+        PlayerB.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientB.CurrentBuildInfo, PlayerB.OnCardDeckLeftChange);
         PlayerB.MyCardDeckManager.M_CurrentCardDeck.CardDeckCountChangeHandler += PlayerB.OnCardDeckLeftChange;
         PlayerB.MyClientProxy = ClientB;
 
@@ -261,9 +261,9 @@ internal class ServerGameManager
     {
         if (isStopped) return;
         if (ClientA == null) ServerLog.Print(ClientA.ClientId + "   ClientA==null");
-        ClientA.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
+        ClientA.ClientState = ProxyBase.ClientStates.Login;
         if (ClientB == null) ServerLog.Print(ClientB.ClientId + "   ClientB==null");
-        ClientB.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
+        ClientB.ClientState = ProxyBase.ClientStates.Login;
 
         GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
         BroadcastRequest(request);

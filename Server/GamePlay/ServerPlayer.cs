@@ -67,7 +67,6 @@
         }
     }
 
-
     public void AddAllCost()
     {
         int costLeftBefore = CostLeft;

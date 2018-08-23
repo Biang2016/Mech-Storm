@@ -1,42 +1,42 @@
-﻿public class ClientMoneyRequest : ServerRequestBase
+﻿public class BuildRequest : ClientRequestBase
 {
-    public int clientMoney;
+    public BuildInfo BuildInfo;
 
-    public ClientMoneyRequest()
+    public BuildRequest() : base()
     {
     }
 
-    public ClientMoneyRequest(int clientMoney)
+    public BuildRequest(int clientId, BuildInfo BuildInfo) : base(clientId)
     {
-        this.clientMoney = clientMoney;
+        this.BuildInfo = BuildInfo;
     }
 
     public override int GetProtocol()
     {
-        return NetProtocols.CLIENT_MONEY_REQUEST;
+        return NetProtocols.BUILD_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "CLIENT_MONEY_REQUEST";
+        return "BUILD_REQUEST";
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(clientMoney);
+        BuildInfo.Serialize(writer);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        clientMoney = reader.ReadSInt32();
+        BuildInfo = BuildInfo.Deserialize(reader);
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [clientMoney]=" + clientMoney;
+        log += BuildInfo.DeserializeLog();
         return log;
     }
 }

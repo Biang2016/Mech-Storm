@@ -3,16 +3,18 @@
     public string CardName;
     public string CardDescRaw;
     public int Cost;
+    public int Money;
     public DragPurpose DragPurpose;
     public CardTypes CardType;
     public string CardColor;
     public string HightLightColor;
 
-    public BaseInfo(string cardName, string cardDescRaw, int cost, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
+    public BaseInfo(string cardName, string cardDescRaw, int cost, int money, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
     {
         CardName = cardName;
         CardDescRaw = cardDescRaw;
         Cost = cost;
+        Money = money;
         DragPurpose = dragPurpose;
         CardType = cardType;
         CardColor = cardColor;
@@ -29,6 +31,7 @@
         writer.WriteString8(CardName);
         writer.WriteString8(CardDescRaw);
         writer.WriteSInt32(Cost);
+        writer.WriteSInt32(Money);
         writer.WriteSInt32((int) DragPurpose);
         writer.WriteSInt32((int) CardType);
         writer.WriteString8(CardColor);
@@ -40,11 +43,12 @@
         string CardName = reader.ReadString8();
         string CardDesc = reader.ReadString8();
         int Cost = reader.ReadSInt32();
+        int Money = reader.ReadSInt32();
         DragPurpose DragPurpose = (DragPurpose) reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
         string CardColor = reader.ReadString8();
         string HightLightColor = reader.ReadString8();
-        return new BaseInfo(CardName, CardDesc, Cost, DragPurpose, CardType, CardColor, HightLightColor);
+        return new BaseInfo(CardName, CardDesc, Cost, Money, DragPurpose, CardType, CardColor, HightLightColor);
     }
 }
 

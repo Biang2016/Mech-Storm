@@ -32,7 +32,7 @@ internal class Proxy : ProxyBase
 
     public static ClientStateEventHandler OnClientStateChange;
 
-    public Proxy(Socket socket, int clientId, int clientMoney, bool isStopReceive) : base(socket, clientId, clientMoney, isStopReceive)
+    public Proxy(Socket socket, int clientId, int clientMoney, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
     }
 
@@ -40,26 +40,26 @@ internal class Proxy : ProxyBase
     {
         CancelMatchRequest request = new CancelMatchRequest(ClientId);
         SendMessage(request);
-        ClientState = ClientStates.SubmitCardDeck;
+        ClientState = ClientStates.Login;
     }
 
     public void LeaveGame()
     {
         LeaveGameRequest request = new LeaveGameRequest();
         SendMessage(request);
-        ClientState = ClientStates.SubmitCardDeck;
+        ClientState = ClientStates.Login;
     }
 
-    public void OnSendCardDeck(CardDeckInfo cardDeckInfo)
+    public void OnSendCardDeck(BuildInfo buildInfo)
     {
-        CardDeckRequest req = new CardDeckRequest(ClientId, cardDeckInfo);
+        BuildRequest req = new BuildRequest(ClientId, buildInfo);
         SendMessage(req);
-        ClientState = ClientStates.SubmitCardDeck;
+        ClientState = ClientStates.Login;
     }
 
     public void OnBeginMatch()
     {
-        MatchRequest req = new MatchRequest(ClientId);
+        MatchRequest req = new MatchRequest(ClientId, SelectCardDeckManager.Instance.CurrentSelectedBuildID);
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
@@ -127,11 +127,17 @@ internal class Proxy : ProxyBase
 
                     break;
                 }
-                case NetProtocols.CLIENT_MONEY_REQUEST:
+                case NetProtocols.BUILD_REQUEST:
                 {
-                    ClientMoneyRequest request = (ClientMoneyRequest) r;
-                    ClientMoney = request.clientMoney;
-                    SelectCardDeckManager.Instance.SetLeftMoneyText(ClientMoney);
+                    BuildRequest request = (BuildRequest) r;
+                    SelectCardDeckManager.Instance.OnCreateNewBuild(request);
+                    break;
+                }
+                case NetProtocols.CLIENT_BUILDINFOS_REQUEST:
+                {
+                    ClientBuildInfosRequest request = (ClientBuildInfosRequest) r;
+                    BuildInfos = request.buildInfos;
+                    SelectCardDeckManager.Instance.InitAllMyBuildInfos();
                     break;
                 }
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:

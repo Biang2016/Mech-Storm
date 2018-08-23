@@ -48,13 +48,6 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
                 SelectCardDeckWindowButton.gameObject.SetActive(true);
                 QuitGameButton.gameObject.SetActive(true);
                 break;
-            case ProxyBase.ClientStates.SubmitCardDeck:
-                M_StateMachine.SetState(StateMachine.States.Show);
-                StartMatchButton.gameObject.SetActive(true);
-                CancelMatchButton.gameObject.SetActive(false);
-                SelectCardDeckWindowButton.gameObject.SetActive(true);
-                QuitGameButton.gameObject.SetActive(true);
-                break;
             case ProxyBase.ClientStates.Matching:
                 M_StateMachine.SetState(StateMachine.States.Show);
                 StartMatchButton.gameObject.SetActive(false);

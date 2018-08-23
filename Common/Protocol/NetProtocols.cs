@@ -6,11 +6,12 @@
 
     public const int CLIENT_ID_REQUEST = 0x00000000; //服务器发送的客户端ID号
     public const int HEART_BEAT_REQUEST = 0x00000001; //服务器发送的心跳包
-    public const int CLIENT_MONEY_REQUEST = 0x00000003; //玩家金钱
+    public const int CLIENT_BUILDINFOS_REQUEST = 0x00000003; //玩家所有卡组信息
     public const int GAME_STOP_BY_LEAVE_REQUEST = 0x00000004; //由于玩家离开导致游戏结束
     public const int RANDOM_NUMBER_SEED_REQUEST = 0x00000005; //分配客户端随机数种子
     public const int REGISTER_RESULT_REQUEST = 0x00000006; //注册结果
     public const int LOGIN_RESULT_REQUEST = 0x00000007; //登录结果
+    public const int BUILD_REQUEST = 0x00000008; //编辑卡组
 
     #endregion
 
@@ -43,6 +44,7 @@
     public const int RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE = 0x00000205; //随从攻击随从_服务器响应
 
     public const int END_ROUND_REQUEST_RESPONSE = 0x00000206; //结束回合_服务器响应
+
     #endregion
 
     #region SideEffects
@@ -73,8 +75,6 @@
     public const int SE_RETINUE_EFFECT = 0x00000225; //随从特效
 
     #endregion
-
-
 
     #endregion
 

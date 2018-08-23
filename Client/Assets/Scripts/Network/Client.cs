@@ -155,7 +155,7 @@ internal class Client : MonoSingletion<Client>
 
     public bool IsLogin() //登录且未开始游戏
     {
-        return Proxy != null && (Proxy.ClientState == ProxyBase.ClientStates.Login || Proxy.ClientState == ProxyBase.ClientStates.SubmitCardDeck || Proxy.ClientState == ProxyBase.ClientStates.Matching);
+        return Proxy != null && (Proxy.ClientState == ProxyBase.ClientStates.Login|| Proxy.ClientState == ProxyBase.ClientStates.Matching);
     }
 
     public bool IsPlaying() //是否开始游戏

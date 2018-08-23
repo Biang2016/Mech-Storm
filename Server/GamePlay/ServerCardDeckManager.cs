@@ -7,10 +7,6 @@ internal class ServerCardDeckManager
 {
     public ServerPlayer ServerPlayer;
 
-    public CardDeckInfo M_UnlockCards;
-    public CardDeckInfo M_LockCards;
-    public List<CardDeck> M_CardDecks;
-
     public ServerCardDeckManager(ServerPlayer serverPlayer)
     {
         ServerPlayer = serverPlayer;

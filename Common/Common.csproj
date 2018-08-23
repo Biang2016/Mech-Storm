@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="GamePlay\Card\CardDeck\AllCards.cs" />
     <Compile Include="GamePlay\Card\CardDeck\CardDeck.cs" />
-    <Compile Include="GamePlay\Card\CardDeck\CardDeckInfo.cs" />
+    <Compile Include="GamePlay\Card\CardDeck\BuildInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\BaseInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\BattleInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\CardInfo_Base.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\RetinueAttackRetinueRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\CancelMatchRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\MatchRequest.cs" />
-    <Compile Include="RequestResponse\ClientToServer\OutGame\CardDeckRequest.cs" />
+    <Compile Include="RequestResponse\ClientToServer\OutGame\BuildRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\ClientRequestBase.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LeaveGameRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\BattleGroundRemoveRetinueRequest.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="RequestResponse\ServerToClient\OutGame\ClientIdRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\LoginResultRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\RegisterResultRequest.cs" />
-    <Compile Include="RequestResponse\ServerToClient\OutGame\ClientMoneyRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\OutGame\ClientBuildInfosRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\RandomNumberSeedRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\HeartBeatRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\GameStopByLeaveRequest.cs" />

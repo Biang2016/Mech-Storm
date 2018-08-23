@@ -42,6 +42,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
     {
         isReconnecting = false;
         NoticeManager.Instance.ShowInfoPanel("正在断开连接", 0f, float.PositiveInfinity);
+        LoginManager.Instance.ShowTipText("正在断开连接", 0f, float.PositiveInfinity, true);
         try
         {
             if (CurrentTryConnectServer != null) StopCoroutine(CurrentTryConnectServer);
@@ -63,6 +64,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
         }
 
         NoticeManager.Instance.ShowInfoPanel("已断开连接", 0f, 1f);
+        LoginManager.Instance.ShowTipText("已断开连接", 0f, 1f, false);
     }
 
     private void CheckConnectState()
@@ -79,7 +81,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
         {
             if (!isReconnecting)
             {
-                NoticeManager.Instance.ShowInfoPanel("正在连接服务器", 0f, float.PositiveInfinity);
+                LoginManager.Instance.ShowTipText("正在连接服务器", 0f, float.PositiveInfinity, true);
                 isReconnecting = true;
             }
         }

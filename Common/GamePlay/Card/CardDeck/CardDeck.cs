@@ -6,7 +6,7 @@ public class CardDeck
     /// <summary>
     /// 本类中封装卡组操作的基本功能
     /// </summary>
-    private CardDeckInfo M_CardDeckInfo;
+    private BuildInfo M_BuildInfo;
 
     private List<CardInfo_Base> Cards = new List<CardInfo_Base>();
     public List<CardInfo_Base> BeginRetinueCards = new List<CardInfo_Base>();
@@ -25,14 +25,14 @@ public class CardDeck
         IsAbandonCardsEmpty = AbandonCards.Count == 0;
     }
 
-    public CardDeck(CardDeckInfo cdi, OnCardDeckCountChange handler)
+    public CardDeck(BuildInfo cdi, OnCardDeckCountChange handler)
     {
-        M_CardDeckInfo = cdi;
+        M_BuildInfo = cdi;
         CardDeckCountChangeHandler = handler;
-        AppendCards(AllCards.GetCards(M_CardDeckInfo.CardIDs));
-        AppendRetinueCards(AllCards.GetCards(M_CardDeckInfo.BeginRetinueIDs));
+        AppendCards(AllCards.GetCards(M_BuildInfo.CardIDs));
+        AppendRetinueCards(AllCards.GetCards(M_BuildInfo.BeginRetinueIDs));
         checkEmpty();
-        if (GamePlaySettings.SuffleCardDeck) SuffleSelf();
+        if (GamePlaySettings.SuffleBuild) SuffleSelf();
     }
 
     private void AddCard(CardInfo_Base cardInfo, int index)

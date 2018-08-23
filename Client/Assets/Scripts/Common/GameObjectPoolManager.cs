@@ -112,6 +112,10 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     internal GameObjectPool Pool_SelectCardPool;
     public GameObject SelectCardPrefab;
 
+    public GameObject BuildButtonPool;
+    internal GameObjectPool Pool_BuildButtonPool;
+    public GameObject BuildButtonPrefab;
+
     public GameObject CardDeckCardPool;
     internal GameObjectPool Pool_CardDeckCardPool;
     public GameObject CardDeckCardPrefab;
@@ -195,6 +199,9 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
 
         Pool_SelectCardPool = SelectCardPool.GetComponent<GameObjectPool>();
         Pool_SelectCardPool.Initiate(SelectCardPrefab, 20);
+
+        Pool_BuildButtonPool = BuildButtonPool.GetComponent<GameObjectPool>();
+        Pool_BuildButtonPool.Initiate(BuildButtonPrefab, 10);
 
         Pool_CardDeckCardPool = CardDeckCardPool.GetComponent<GameObjectPool>();
         Pool_CardDeckCardPool.Initiate(CardDeckCardPrefab, 20);

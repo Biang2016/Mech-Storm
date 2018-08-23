@@ -18,7 +18,7 @@ internal partial class RoundManager
         }
 
         OnGameStop();
-        Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.SubmitCardDeck;
+        Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
     }
 
     public void OnRandomNumberSeed(RandomNumberSeedRequest r)
