@@ -29,6 +29,13 @@ internal class Database
         return buildInfo;
     }
 
+    private int BuildIdIndex = 1;
+
+    public int GenerateBuildID()
+    {
+        return BuildIdIndex++;
+    }
+
     #endregion
 
     #region PlayerBuilds

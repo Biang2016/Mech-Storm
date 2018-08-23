@@ -29,8 +29,8 @@ public class CardDeck
     {
         M_BuildInfo = cdi;
         CardDeckCountChangeHandler = handler;
-        AppendCards(AllCards.GetCards(M_BuildInfo.CardIDs));
-        AppendRetinueCards(AllCards.GetCards(M_BuildInfo.BeginRetinueIDs));
+        AppendCards(AllCards.GetCards(M_BuildInfo.CardIDs.ToArray()));
+        AppendRetinueCards(AllCards.GetCards(M_BuildInfo.BeginRetinueIDs.ToArray()));
         checkEmpty();
         if (GamePlaySettings.SuffleBuild) SuffleSelf();
     }

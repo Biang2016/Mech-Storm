@@ -195,6 +195,13 @@ internal class ClientProxy : ProxyBase
                     if (ClientState == ClientStates.Login)
                     {
                         BuildRequest request = (BuildRequest) r;
+                        if (request.BuildInfo.BuildID == -1)
+                        {
+                            request.BuildInfo.BuildID = Database.Instance.GenerateBuildID();
+                            BuildRequestResponse response = new BuildRequestResponse(request.BuildInfo.BuildID);
+                            SendMessage(response);
+                        }
+
                         Database.Instance.AddOrModifyBuild(request.BuildInfo);
                     }
 

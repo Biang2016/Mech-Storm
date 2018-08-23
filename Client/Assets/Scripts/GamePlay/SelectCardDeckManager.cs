@@ -359,6 +359,7 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
                 card.BeBrightColor();
                 card.CardBloom.SetActive(true);
             }
+            if (!isSwitchingBuildInfo) CurrentEditBuildButton.AddHeroCard(card.CardInfo.CardID);
 
             HeroCardCount++;
         }
@@ -385,6 +386,7 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
                 card.BeBrightColor();
                 card.CardBloom.SetActive(true);
             }
+            if (!isSwitchingBuildInfo) CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
 
             SelectCardCount++;
         }
@@ -419,6 +421,7 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
                 card.BeDimColor();
                 card.CardBloom.SetActive(false);
             }
+            if (!isSwitchingBuildInfo) CurrentEditBuildButton.RemoveHeroCard(card.CardInfo.CardID);
 
             HeroCardCount--;
         }
@@ -434,6 +437,8 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
                 card.CardBloom.SetActive(false);
             }
 
+            if (!isSwitchingBuildInfo) CurrentEditBuildButton.RemoveCard(card.CardInfo.CardID);
+
             SelectCardCount--;
         }
     }
@@ -446,6 +451,25 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
             if (SelectedHeros.ContainsKey(cardBase.CardInfo.CardID)) continue;
             SelectCard(cardBase);
         }
+    }
+
+    private bool isSwitchingBuildInfo;
+
+    private void SelectCardsByBuildInfo(BuildInfo buildInfo)
+    {
+        isSwitchingBuildInfo = true;
+        UnSelectAllCard();
+        foreach (int buildInfoBeginRetinueID in buildInfo.BeginRetinueIDs)
+        {
+            SelectCard(allCards[buildInfoBeginRetinueID]);
+        }
+
+        foreach (int cardID in buildInfo.CardIDs)
+        {
+            SelectCard(allCards[cardID]);
+        }
+
+        isSwitchingBuildInfo = false;
     }
 
     public void UnSelectAllCard()
@@ -468,34 +492,20 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
             }
         }
 
+        if (!isSwitchingBuildInfo)
+        {
+            CurrentEditBuildButton.BuildInfo.CardIDs.Clear();
+            CurrentEditBuildButton.BuildInfo.BeginRetinueIDs.Clear();
+        }
+
         SelectCardCount = 0;
         HeroCardCount = 0;
     }
 
     public void OnConfirmSubmitCardDeckButtonClick()
     {
-        List<int> cardIds = new List<int>();
-        foreach (KeyValuePair<int, SelectCard> kv in SelectedCards)
-        {
-            for (int i = 0; i < kv.Value.Count; i++)
-            {
-                cardIds.Add(kv.Key);
-            }
-        }
-
-        List<int> retinueIds = new List<int>();
-        foreach (KeyValuePair<int, SelectCard> kv in SelectedHeros)
-        {
-            for (int i = 0; i < kv.Value.Count; i++)
-            {
-                retinueIds.Add(kv.Key);
-            }
-        }
-
-        BuildInfo bi = new BuildInfo(CurrentEditBuildID, CurrentEditBuildButton.name, cardIds.ToArray(), retinueIds.ToArray(), GamePlaySettings.PlayerDefaultMoney - LeftMoney, Life, Magic);
-        Client.Instance.Proxy.OnSendCardDeck(bi);
+        Client.Instance.Proxy.OnSendBuildInfo(CurrentEditBuildButton.BuildInfo);
         NoticeManager.Instance.ShowInfoPanel("更新卡组成功", 0, 1f);
-        M_StateMachine.SetState(StateMachine.States.Hide);
     }
 
     public void OnCloseButtonClick()

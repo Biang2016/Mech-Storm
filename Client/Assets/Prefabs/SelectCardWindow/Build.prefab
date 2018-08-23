@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 114334744980970414}
   - component: {fileID: 114832147192048738}
   - component: {fileID: 114818694833822090}
-  - component: {fileID: 114069905786140462}
+  - component: {fileID: 114446119323762118}
   m_Layer: 13
   m_Name: Build
   m_TagString: Untagged
@@ -84,21 +84,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114069905786140462
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1843960359287754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9010486c58e39c543806025b6e897d02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Text_Cost: {fileID: 0}
-  Text_Count: {fileID: 114417810567972970}
-  CardButton: {fileID: 114587486140247218}
-  Text_CardName: {fileID: 114965916724364668}
 --- !u!114 &114299565224843350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -186,6 +171,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 22
+--- !u!114 &114446119323762118
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1843960359287754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c9b665492e3654592c74bc5f8523ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 114587486140247218}
+  Text_CardDeckName: {fileID: 114965916724364668}
+  Text_Count: {fileID: 114417810567972970}
 --- !u!114 &114559383434365990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -352,7 +351,7 @@ RectTransform:
   m_GameObject: {fileID: 1843960359287754}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 20.216919}
-  m_LocalScale: {x: 0.010947299, y: 0.010947299, z: 0.010947299}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224526230819599298}
   - {fileID: 224667879438777848}

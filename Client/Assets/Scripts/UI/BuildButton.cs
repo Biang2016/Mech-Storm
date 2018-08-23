@@ -32,6 +32,30 @@ public class BuildButton : MonoBehaviour, IGameObjectPool
     {
         BuildInfo = buildInfo;
         Text_CardDeckName.text = BuildInfo.BuildName;
-        Text_Count.text = BuildInfo.CardIDs.Length.ToString();
+        Text_Count.text = BuildInfo.CardIDs.Count.ToString();
+    }
+
+    public void AddHeroCard(int cardId)
+    {
+        BuildInfo.BeginRetinueIDs.Add(cardId);
+        Text_Count.text = BuildInfo.CardCount().ToString();
+    }
+
+    public void RemoveHeroCard(int cardId)
+    {
+        BuildInfo.BeginRetinueIDs.Remove(cardId);
+        Text_Count.text = BuildInfo.CardCount().ToString();
+    }
+
+    public void AddCard(int cardId)
+    {
+        BuildInfo.CardIDs.Add(cardId);
+        Text_Count.text = BuildInfo.CardCount().ToString();
+    }
+
+    public void RemoveCard(int cardId)
+    {
+        BuildInfo.CardIDs.Remove(cardId);
+        Text_Count.text = BuildInfo.CardCount().ToString();
     }
 }

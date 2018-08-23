@@ -11,7 +11,7 @@
     public const int RANDOM_NUMBER_SEED_REQUEST = 0x00000005; //分配客户端随机数种子
     public const int REGISTER_RESULT_REQUEST = 0x00000006; //注册结果
     public const int LOGIN_RESULT_REQUEST = 0x00000007; //登录结果
-    public const int BUILD_REQUEST = 0x00000008; //编辑卡组
+    public const int BUILD_REQUEST_RESPONSE = 0x00000008; //编辑卡组
 
     #endregion
 
@@ -23,6 +23,7 @@
     public const int LEAVE_GAME_REQUEST = 0x00000104; //玩家离开游戏
     public const int REGISTER_REQUEST = 0x00000105; //注册
     public const int LOGIN_REQUEST = 0x00000106; //登录
+    public const int BUILD_REQUEST = 0x00000107; //编辑卡组
 
     #endregion
 

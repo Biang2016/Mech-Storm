@@ -50,7 +50,7 @@ internal class Proxy : ProxyBase
         ClientState = ClientStates.Login;
     }
 
-    public void OnSendCardDeck(BuildInfo buildInfo)
+    public void OnSendBuildInfo(BuildInfo buildInfo)
     {
         BuildRequest req = new BuildRequest(ClientId, buildInfo);
         SendMessage(req);
@@ -127,10 +127,10 @@ internal class Proxy : ProxyBase
 
                     break;
                 }
-                case NetProtocols.BUILD_REQUEST:
+                case NetProtocols.BUILD_REQUEST_RESPONSE:
                 {
-                    BuildRequest request = (BuildRequest) r;
-                    SelectCardDeckManager.Instance.OnCreateNewBuild(request);
+                    BuildRequestResponse request = (BuildRequestResponse) r;
+                    SelectCardDeckManager.Instance.OnCreateNewBuild(request.buildId);
                     break;
                 }
                 case NetProtocols.CLIENT_BUILDINFOS_REQUEST:

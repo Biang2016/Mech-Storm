@@ -1,12 +1,15 @@
-﻿public struct BuildInfo
+﻿using System.Collections.Generic;
+using System.Linq;
+
+public class BuildInfo
 {
     public int BuildID;
 
     public string BuildName;
 
-    public int[] CardIDs;
+    public List<int> CardIDs;
 
-    public int[] BeginRetinueIDs;
+    public List<int> BeginRetinueIDs;
 
     public int BuildConsumeMoney;
 
@@ -14,7 +17,7 @@
 
     public int Magic;
 
-    public BuildInfo(int buildID, string buildName, int[] cardIDs, int[] beginRetinueIDs, int buildConsumeMoney, int life, int magic)
+    public BuildInfo(int buildID, string buildName, List<int> cardIDs, List<int> beginRetinueIDs, int buildConsumeMoney, int life, int magic)
     {
         BuildID = buildID;
         BuildName = buildName;
@@ -25,17 +28,22 @@
         Magic = magic;
     }
 
+    public int CardCount()
+    {
+        return CardIDs.Count + BeginRetinueIDs.Count;
+    }
+
     public void Serialize(DataStream writer)
     {
         writer.WriteSInt32(BuildID);
         writer.WriteString16(BuildName);
-        writer.WriteSInt32(CardIDs.Length);
+        writer.WriteSInt32(CardIDs.Count);
         foreach (int cardID in CardIDs)
         {
             writer.WriteSInt32(cardID);
         }
 
-        writer.WriteSInt32(BeginRetinueIDs.Length);
+        writer.WriteSInt32(BeginRetinueIDs.Count);
         foreach (int beginRetinueID in BeginRetinueIDs)
         {
             writer.WriteSInt32(beginRetinueID);
@@ -52,17 +60,17 @@
         string BuildName = reader.ReadString16();
 
         int cardIdCount = reader.ReadSInt32();
-        int[] CardIDs = new int[cardIdCount];
+        List<int> CardIDs = new List<int>();
         for (int i = 0; i < cardIdCount; i++)
         {
-            CardIDs[i] = reader.ReadSInt32();
+            CardIDs.Add(reader.ReadSInt32());
         }
 
         int ceginRetinueIDCount = reader.ReadSInt32();
-        int[] BeginRetinueIDs = new int[ceginRetinueIDCount];
+        List<int> BeginRetinueIDs = new List<int>();
         for (int i = 0; i < ceginRetinueIDCount; i++)
         {
-            BeginRetinueIDs[i] = reader.ReadSInt32();
+            BeginRetinueIDs.Add(reader.ReadSInt32());
         }
 
         int BuildConsumeMoney = reader.ReadSInt32();
@@ -76,6 +84,8 @@
     public string DeserializeLog()
     {
         string log = " <BuildInfo>";
+        log += " [BuildID]=" + BuildID;
+        log += " [BuildName]=" + BuildName;
         log += " [CardIDs]=";
         foreach (int cardID in CardIDs)
         {
