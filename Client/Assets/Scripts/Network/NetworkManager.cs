@@ -94,6 +94,6 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
 
     public void SuccessMatched()
     {
-        NoticeManager.Instance.ShowInfoPanelCenter("匹配成功，开始比赛", 0, 1f);
+        NoticeManager.Instance.ShowInfoPanelTop("匹配成功，开始比赛", 0, 1f);
     }
 }

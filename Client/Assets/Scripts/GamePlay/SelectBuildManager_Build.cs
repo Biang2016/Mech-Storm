@@ -61,6 +61,7 @@ public partial class SelectBuildManager
             lastSaveBuildInfo = CurrentEditBuildButton.BuildInfo.Clone();
             CurrentSelectedBuildButton = CurrentEditBuildButton;
             CurrentSelectedBuildButton.IsSelected = true;
+            SelectCardsByBuildInfo(CurrentEditBuildButton.BuildInfo);
         }
     }
 

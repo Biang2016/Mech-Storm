@@ -102,7 +102,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                         break;
 
                     case States.Show:
-                        ShowWindow();
+                        if (Client.Instance.IsLogin()) ShowWindow();
                         break;
                 }
 
