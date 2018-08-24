@@ -57,8 +57,10 @@ public partial class SelectBuildManager
         if (AllBuildButtons.Count != 0)
         {
             CurrentEditBuildButton = AllMyBuildsContent.transform.GetChild(0).GetComponent<BuildButton>();
+            CurrentEditBuildButton.IsEdit = true;
             lastSaveBuildInfo = CurrentEditBuildButton.BuildInfo.Clone();
             CurrentSelectedBuildButton = CurrentEditBuildButton;
+            CurrentSelectedBuildButton.IsSelected = true;
         }
     }
 
@@ -128,6 +130,7 @@ public partial class SelectBuildManager
     {
         BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, "New Build", new List<int>(), new List<int>(), 0, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
         AllBuildButtons.Add(buildID, newBuildButton);
+        AllBuilds.Add(buildID, newBuildButton.BuildInfo);
         OnSwitchEditBuild(newBuildButton);
 
         if (CurrentSelectedBuildButton == null)

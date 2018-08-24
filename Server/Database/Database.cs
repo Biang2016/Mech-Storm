@@ -10,7 +10,7 @@ internal class Database
     #region Users
 
     public Dictionary<string, string> UserTable = new Dictionary<string, string>();
-    public Dictionary<string, string> LoginUserTable = new Dictionary<string, string>();
+    public Dictionary<int, string> LoginUserTable = new Dictionary<int, string>();
 
     #endregion
 
@@ -18,7 +18,7 @@ internal class Database
 
     Dictionary<int, BuildInfo> BuildInfoDict = new Dictionary<int, BuildInfo>();
 
-    public void AddOrModifyBuild(BuildInfo buildInfo)
+    public void AddOrModifyBuild(string username, BuildInfo buildInfo)
     {
         if (!BuildInfoDict.ContainsKey(buildInfo.BuildID))
         {
@@ -27,6 +27,16 @@ internal class Database
         else
         {
             BuildInfoDict[buildInfo.BuildID] = buildInfo;
+        }
+
+        if (!PlayerBuilds.ContainsKey(username))
+        {
+            PlayerBuilds.Add(username, new List<int>());
+        }
+
+        if (!PlayerBuilds[username].Contains(buildInfo.BuildID))
+        {
+            PlayerBuilds[username].Add(buildInfo.BuildID);
         }
     }
 

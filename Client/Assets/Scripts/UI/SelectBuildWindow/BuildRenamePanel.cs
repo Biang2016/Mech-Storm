@@ -5,12 +5,19 @@ public class BuildRenamePanel : MonoBehaviour
 {
     public InputField InputField;
 
+    private BuildInfo currentEditBuildInfo;
+
+    void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void OnConfirmBuildNameButtonClick()
     {
         if (!string.IsNullOrEmpty(InputField.text))
         {
-            SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.BuildName = InputField.text;
-            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo);
+            currentEditBuildInfo.BuildName = InputField.text;
+            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, currentEditBuildInfo);
             Client.Instance.Proxy.SendMessage(request);
             HidePanel();
         }
@@ -21,10 +28,11 @@ public class BuildRenamePanel : MonoBehaviour
         HidePanel();
     }
 
-    public void ShowPanel()
+    public void ShowPanel(BuildInfo buildInfo)
     {
+        currentEditBuildInfo = buildInfo;
         gameObject.SetActive(true);
-        InputField.text = "";
+        InputField.text = currentEditBuildInfo.BuildName;
     }
 
     public void HidePanel()

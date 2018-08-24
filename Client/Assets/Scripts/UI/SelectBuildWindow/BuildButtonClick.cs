@@ -8,6 +8,13 @@ public class BuildButtonClick : MonoBehaviour, IPointerClickHandler
     public UnityEvent middleClick;
     public UnityEvent rightClick;
 
+    private BuildButton buildButton;
+
+    void Awake()
+    {
+        buildButton = transform.parent.GetComponent<BuildButton>();
+    }
+
     private void Start()
     {
         leftClick.AddListener(new UnityAction(ButtonLeftClick));
@@ -39,7 +46,6 @@ public class BuildButtonClick : MonoBehaviour, IPointerClickHandler
 
     private void ButtonRightClick()
     {
-        SelectBuildManager.Instance.BuildRenamePanel.ShowPanel();
+        SelectBuildManager.Instance.BuildRenamePanel.ShowPanel(buildButton.BuildInfo);
     }
-
 }

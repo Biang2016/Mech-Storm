@@ -159,9 +159,13 @@ internal class ClientProxy : ProxyBase
                             if (Database.Instance.UserTable[request.username] == request.password)
                             {
                                 response = new LoginResultRequest(request.username, true);
-                                if (!Database.Instance.LoginUserTable.ContainsKey(request.username))
+                                if (!Database.Instance.LoginUserTable.ContainsKey(ClientId))
                                 {
-                                    Database.Instance.LoginUserTable.Add(request.username, request.password);
+                                    Database.Instance.LoginUserTable.Add(ClientId, request.username);
+                                }
+                                else
+                                {
+                                    Database.Instance.LoginUserTable[ClientId] = request.username;
                                 }
 
                                 ClientState = ClientStates.Login;
@@ -198,7 +202,14 @@ internal class ClientProxy : ProxyBase
                         SendMessage(response);
                     }
 
-                    Database.Instance.AddOrModifyBuild(request.BuildInfo);
+                    if (Database.Instance.LoginUserTable.ContainsKey(ClientId))
+                    {
+                        Database.Instance.AddOrModifyBuild(Database.Instance.LoginUserTable[ClientId], request.BuildInfo);
+                    }
+                    else
+                    {
+                        ServerLog.PrintError("服务器上不存在该登录用户：[ClientID]=" + ClientId);
+                    }
 
                     break;
                 }
