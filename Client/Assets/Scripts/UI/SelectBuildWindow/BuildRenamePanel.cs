@@ -12,6 +12,10 @@ public class BuildRenamePanel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    void Update()
+    {
+    }
+
     public void OnConfirmBuildNameButtonClick()
     {
         if (!string.IsNullOrEmpty(InputField.text))

@@ -24,9 +24,6 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
         M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += NetworkStateChange;
         Proxy.OnClientStateChange += NetworkStateChange_Build;
-
-        RetinueContent.transform.position = new Vector3(0, RetinueContent.transform.position.y, RetinueContent.transform.position.z);
-        SelectionContent.transform.position = new Vector3(0, SelectionContent.transform.position.y, SelectionContent.transform.position.z);
     }
 
     void Start()
@@ -129,7 +126,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
             if (state == States.Hide)
             {
-                if (Input.GetKeyDown(KeyCode.Tab))
+                if (Input.GetKeyUp(KeyCode.Tab))
                 {
                     SetState(States.Show);
                 }
@@ -140,16 +137,24 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                 bool isMouseUp = ((Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)) && EventSystem.current.IsPointerOverGameObject());
                 if (Instance.CurrentPreviewCard)
                 {
-                    if (Input.GetKeyDown(KeyCode.Escape) || isMouseDown) Instance.HidePreviewCard();
-                    else if (Input.GetKeyDown(KeyCode.Tab))
+                    if (Input.GetKeyUp(KeyCode.Escape) || isMouseDown) Instance.HidePreviewCard();
+                    else if (Input.GetKeyUp(KeyCode.Tab))
                     {
                         Instance.HidePreviewCard();
                         SetState(States.Hide);
                     }
                 }
+                else if (Instance.BuildRenamePanel.gameObject.activeSelf)
+                {
+                    if (Input.GetKeyUp(KeyCode.Escape)) Instance.BuildRenamePanel.HidePanel();
+                    else if (Input.GetKeyUp(KeyCode.Tab))
+                    {
+                        Instance.BuildRenamePanel.HidePanel();
+                    }
+                }
                 else
                 {
-                    if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
+                    if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.Tab))
                     {
                         SetState(States.Hide);
                     }

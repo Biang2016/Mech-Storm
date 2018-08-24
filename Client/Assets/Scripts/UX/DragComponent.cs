@@ -120,6 +120,7 @@ internal class DragComponent : MonoBehaviour
                     isBegin = true;
                     if (DragManager.Instance.CurrentArrow) DragManager.Instance.CurrentArrow.PoolRecycle();
                     isOnDrag = value;
+                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
                 }
                 else
                 {

@@ -217,12 +217,15 @@ internal class DragManager : MonoSingletion<DragManager>
                     IsSummonPreview = false;
                 }
             }
+
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         }
         else if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonUp(1))
         {
             SummonRetinueTargetHandler(-2);
             CurrentArrow.PoolRecycle();
             IsSummonPreview = false;
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         }
     }
 

@@ -151,7 +151,7 @@ internal class Client : MonoSingletion<Client>
 
     public bool IsLogin() //登录且未开始游戏
     {
-        return Proxy != null && (Proxy.ClientState == ProxyBase.ClientStates.Login|| Proxy.ClientState == ProxyBase.ClientStates.Matching);
+        return Proxy != null && (Proxy.ClientState == ProxyBase.ClientStates.Login || Proxy.ClientState == ProxyBase.ClientStates.Matching);
     }
 
     public bool IsPlaying() //是否开始游戏
@@ -169,6 +169,7 @@ internal class Client : MonoSingletion<Client>
             ServerSocket.Shutdown(SocketShutdown.Both);
             ClientLog.Instance.PrintError("[C]Socket close");
             ServerSocket.Close();
+            NoticeManager.Instance.ShowInfoPanelTop("已断开连接", 0f, 1.5f);
             RoundManager.Instance.StopGame();
         }
 

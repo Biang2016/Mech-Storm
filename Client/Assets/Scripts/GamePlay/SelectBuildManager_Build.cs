@@ -76,8 +76,11 @@ public partial class SelectBuildManager
         BuildButton newBuildButton = GameObjectPoolManager.Instance.Pool_BuildButtonPool.AllocateGameObject(AllMyBuildsContent).GetComponent<BuildButton>();
         newBuildButton.Initialize(m_BuildInfo);
 
-        newBuildButton.Button.onClick.RemoveAllListeners();
-        newBuildButton.Button.onClick.AddListener(delegate { OnSwitchEditBuild(newBuildButton); });
+        BuildButtonClick bbc = newBuildButton.Button.GetComponent<BuildButtonClick>();
+        bbc.ResetListeners();
+        bbc.leftClick.AddListener(delegate { OnSwitchEditBuild(newBuildButton); });
+        bbc.rightClick.AddListener(delegate { OnRightClickBuildButtontToRename(newBuildButton.BuildInfo); });
+        bbc.leftDoubleClick.AddListener(delegate { OnBuildButtonDoubleClickToSelect(newBuildButton); });
         return newBuildButton;
     }
 
@@ -88,11 +91,19 @@ public partial class SelectBuildManager
         {
             CurrentSelectedBuildButton = CurrentEditBuildButton;
             CurrentSelectedBuildButton.IsSelected = true;
+            M_StateMachine.SetState(StateMachine.States.Hide);
         }
         else
         {
             NoticeManager.Instance.ShowInfoPanelCenter("您未创建卡组", 0f, 0.5f);
         }
+    }
+
+    public void OnBuildButtonDoubleClickToSelect(BuildButton buildButton)
+    {
+        if (CurrentSelectedBuildButton) CurrentSelectedBuildButton.IsSelected = false;
+        CurrentSelectedBuildButton = buildButton;
+        CurrentSelectedBuildButton.IsSelected = true;
     }
 
     private void OnSwitchEditBuild(BuildButton buildButton)
@@ -195,6 +206,11 @@ public partial class SelectBuildManager
             AllBuildButtons.Remove(buildID);
             AllBuilds.Remove(buildID);
         }
+    }
+
+    public void OnRightClickBuildButtontToRename(BuildInfo buildInfo)
+    {
+        BuildRenamePanel.ShowPanel(buildInfo);
     }
 
     public void RefreshSomeBuild(BuildInfo buildInfo)

@@ -7,45 +7,47 @@ public class BuildButtonClick : MonoBehaviour, IPointerClickHandler
     public UnityEvent leftClick;
     public UnityEvent middleClick;
     public UnityEvent rightClick;
-
-    private BuildButton buildButton;
+    public UnityEvent leftDoubleClick;
+    public UnityEvent middleDoubleClick;
+    public UnityEvent rightDoubleClick;
 
     void Awake()
     {
-        buildButton = transform.parent.GetComponent<BuildButton>();
     }
 
     private void Start()
     {
-        leftClick.AddListener(new UnityAction(ButtonLeftClick));
-        middleClick.AddListener(new UnityAction(ButtonMiddleClick));
-        rightClick.AddListener(new UnityAction(ButtonRightClick));
     }
-
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-            leftClick.Invoke();
-        else if (eventData.button == PointerEventData.InputButton.Middle)
-            middleClick.Invoke();
-        else if (eventData.button == PointerEventData.InputButton.Right)
-            rightClick.Invoke();
+        if (eventData.clickCount == 1)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+                leftClick.Invoke();
+            else if (eventData.button == PointerEventData.InputButton.Middle)
+                middleClick.Invoke();
+            else if (eventData.button == PointerEventData.InputButton.Right)
+                rightClick.Invoke();
+        }
+        else if (eventData.clickCount == 2)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+                leftDoubleClick.Invoke();
+            else if (eventData.button == PointerEventData.InputButton.Middle)
+                middleDoubleClick.Invoke();
+            else if (eventData.button == PointerEventData.InputButton.Right)
+                rightDoubleClick.Invoke();
+        }
     }
 
-
-    private void ButtonLeftClick()
+    public void ResetListeners()
     {
-        Debug.Log("Button Left Click");
-    }
-
-    private void ButtonMiddleClick()
-    {
-        Debug.Log("Button Middle Click");
-    }
-
-    private void ButtonRightClick()
-    {
-        SelectBuildManager.Instance.BuildRenamePanel.ShowPanel(buildButton.BuildInfo);
+        leftClick.RemoveAllListeners();
+        middleClick.RemoveAllListeners();
+        rightClick.RemoveAllListeners();
+        leftDoubleClick.RemoveAllListeners();
+        middleDoubleClick.RemoveAllListeners();
+        rightDoubleClick.RemoveAllListeners();
     }
 }

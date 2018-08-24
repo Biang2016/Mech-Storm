@@ -334,7 +334,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: 320
   m_MinHeight: -1
-  m_PreferredWidth: -1
+  m_PreferredWidth: 330
   m_PreferredHeight: 50
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -409,7 +409,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1843960359287754}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 39.8148}
+  m_LocalPosition: {x: 0, y: 0, z: 19.778103}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224259486229426702}
@@ -420,8 +420,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: 3.5651}
-  m_SizeDelta: {x: 320, y: 55}
+  m_AnchoredPosition: {x: 5.7685685, y: 23.280436}
+  m_SizeDelta: {x: 0, y: 55}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224259486229426702
 RectTransform:

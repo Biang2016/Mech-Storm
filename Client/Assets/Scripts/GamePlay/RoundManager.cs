@@ -91,6 +91,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
 
     private void OnGameStop()
     {
+        NoticeManager.Instance.ShowInfoPanelTop("游戏结束", 0f, 0.5f);
         CardBase[] cardPreviews = GameBoardManager.Instance.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
         foreach (CardBase cardPreview in cardPreviews)
         {
