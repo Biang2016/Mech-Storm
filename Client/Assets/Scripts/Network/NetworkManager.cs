@@ -1,6 +1,6 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 internal class NetworkManager : MonoSingletion<NetworkManager>
 {
@@ -41,7 +41,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
     public void TerminateConnection()
     {
         isReconnecting = false;
-        NoticeManager.Instance.ShowInfoPanel("正在断开连接", 0f, float.PositiveInfinity);
+        NoticeManager.Instance.ShowInfoPanelTop("正在断开连接", 0f, float.PositiveInfinity);
         LoginManager.Instance.ShowTipText("正在断开连接", 0f, float.PositiveInfinity, true);
         try
         {
@@ -63,7 +63,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
             ClientLog.Instance.PrintClientStates(e.ToString());
         }
 
-        NoticeManager.Instance.ShowInfoPanel("已断开连接", 0f, 1f);
+        NoticeManager.Instance.ShowInfoPanelTop("已断开连接", 0f, 1f);
         LoginManager.Instance.ShowTipText("已断开连接", 0f, 1f, false);
     }
 
@@ -73,7 +73,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
         {
             if (isReconnecting)
             {
-                NoticeManager.Instance.ShowInfoPanel("连接服务器成功", 0f, 2f);
+                NoticeManager.Instance.ShowInfoPanelTop("连接服务器成功", 0f, 2f);
                 isReconnecting = false;
             }
         }
@@ -94,6 +94,6 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
 
     public void SuccessMatched()
     {
-        NoticeManager.Instance.ShowInfoPanel("匹配成功，开始比赛", 0, 1f);
+        NoticeManager.Instance.ShowInfoPanelCenter("匹配成功，开始比赛", 0, 1f);
     }
 }

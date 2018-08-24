@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 
 internal class Proxy : ProxyBase
@@ -59,7 +56,7 @@ internal class Proxy : ProxyBase
 
     public void OnBeginMatch()
     {
-        MatchRequest req = new MatchRequest(ClientId, SelectCardDeckManager.Instance.CurrentSelectedBuildID);
+        MatchRequest req = new MatchRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID);
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
@@ -101,11 +98,11 @@ internal class Proxy : ProxyBase
                     RegisterResultRequest request = (RegisterResultRequest) r;
                     if (request.isSuccess)
                     {
-                        NoticeManager.Instance.ShowInfoPanel("注册成功", 0, 0.5f);
+                        NoticeManager.Instance.ShowInfoPanelCenter("注册成功", 0, 0.5f);
                     }
                     else
                     {
-                        NoticeManager.Instance.ShowInfoPanel("该用户名已被注册", 0, 0.5f);
+                        NoticeManager.Instance.ShowInfoPanelCenter("该用户名已被注册", 0, 0.5f);
                     }
 
                     break;
@@ -116,28 +113,39 @@ internal class Proxy : ProxyBase
                     if (request.isSuccess)
                     {
                         ClientState = ClientStates.Login;
-                        NoticeManager.Instance.ShowInfoPanel("登录成功", 0, 0.5f);
+                        NoticeManager.Instance.ShowInfoPanelTop("登录成功", 0, 0.5f);
                         LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Hide);
                         StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
                     }
                     else
                     {
-                        NoticeManager.Instance.ShowInfoPanel("登录失败，请检查用户名或密码", 0, 0.5f);
+                        NoticeManager.Instance.ShowInfoPanelCenter("登录失败，请检查用户名或密码", 0, 0.5f);
                     }
 
                     break;
                 }
-                case NetProtocols.BUILD_REQUEST_RESPONSE:
+                case NetProtocols.CREATE_BUILD_REQUEST_RESPONSE:
                 {
-                    BuildRequestResponse request = (BuildRequestResponse) r;
-                    SelectCardDeckManager.Instance.OnCreateNewBuild(request.buildId);
+                    CreateBuildRequestResponse request = (CreateBuildRequestResponse) r;
+                    SelectBuildManager.Instance.OnCreateNewBuildResponse(request.buildId);
+                    break;
+                }
+                case NetProtocols.BUILD_UPDATE_RESPONSE:
+                {
+                    BuildUpdateRequest request = (BuildUpdateRequest) r;
+                    SelectBuildManager.Instance.RefreshSomeBuild(request.BuildInfo);
+                    break;
+                }
+                case NetProtocols.DELETE_BUILD_REQUEST_RESPONSE:
+                {
+                    DeleteBuildRequestResponse request = (DeleteBuildRequestResponse) r;
+                    SelectBuildManager.Instance.OnDeleteBuildResponse(request.buildID);
                     break;
                 }
                 case NetProtocols.CLIENT_BUILDINFOS_REQUEST:
                 {
                     ClientBuildInfosRequest request = (ClientBuildInfosRequest) r;
-                    BuildInfos = request.buildInfos;
-                    SelectCardDeckManager.Instance.InitAllMyBuildInfos();
+                    SelectBuildManager.Instance.InitAllMyBuildInfos(request.buildInfos);
                     break;
                 }
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:

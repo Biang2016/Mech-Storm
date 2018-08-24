@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 114334744980970414}
   - component: {fileID: 114832147192048738}
   - component: {fileID: 114818694833822090}
-  - component: {fileID: 114069905786140462}
+  - component: {fileID: 114289847349199376}
   m_Layer: 13
   m_Name: SelectCard
   m_TagString: Untagged
@@ -101,7 +101,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114069905786140462
+--- !u!114 &114289847349199376
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1843960359287754}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9010486c58e39c543806025b6e897d02, type: 3}
+  m_Script: {fileID: 11500000, guid: fa4b42f43b71f3c4eb86f8915ac187cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Text_Cost: {fileID: 114806354083013408}

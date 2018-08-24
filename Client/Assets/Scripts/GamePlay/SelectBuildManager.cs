@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,9 +7,9 @@ using UnityEngine.UI;
 /// <summary>
 /// 选牌窗口
 /// </summary>
-public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManager>
+public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
 {
-    private SelectCardDeckManager()
+    private SelectBuildManager()
     {
     }
 
@@ -19,6 +17,7 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
 
     void Awake()
     {
+        Canvas.gameObject.SetActive(true);
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         SelectCardCount = 0;
         HeroCardCount = 0;
@@ -194,6 +193,7 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
 
     private void OnMouseDown()
     {
+        if (BuildRenamePanel.gameObject.activeSelf) return;
         mouseDownPosition = Input.mousePosition;
         Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;
@@ -227,6 +227,7 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
 
     private void OnMouseUp()
     {
+        if (BuildRenamePanel.gameObject.activeSelf) return;
         Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;
         Physics.Raycast(ray, out raycast, 10f, cardSelectLayer);
@@ -329,12 +330,18 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
 
     private void SelectCard(CardBase card)
     {
+        if (CurrentEditBuildButton == null)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+            return;
+        }
+
         bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSodier;
         if (isHero)
         {
             if (isSelectedHeroFull)
             {
-                NoticeManager.Instance.ShowInfoPanel("可携带英雄卡牌数量已达上限", 0, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter("可携带英雄卡牌数量已达上限", 0, 1f);
                 return;
             }
 
@@ -359,6 +366,7 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
                 card.BeBrightColor();
                 card.CardBloom.SetActive(true);
             }
+
             if (!isSwitchingBuildInfo) CurrentEditBuildButton.AddHeroCard(card.CardInfo.CardID);
 
             HeroCardCount++;
@@ -386,6 +394,7 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
                 card.BeBrightColor();
                 card.CardBloom.SetActive(true);
             }
+
             if (!isSwitchingBuildInfo) CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
 
             SelectCardCount++;
@@ -408,6 +417,12 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
 
     private void UnSelectCard(CardBase card)
     {
+        if (CurrentEditBuildButton == null)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+            return;
+        }
+
         bool isRetinue = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSodier;
 
         if (isRetinue)
@@ -421,6 +436,7 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
                 card.BeDimColor();
                 card.CardBloom.SetActive(false);
             }
+
             if (!isSwitchingBuildInfo) CurrentEditBuildButton.RemoveHeroCard(card.CardInfo.CardID);
 
             HeroCardCount--;
@@ -445,11 +461,18 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
 
     public void SelectAllCard()
     {
-        foreach (CardBase cardBase in allCards.Values)
+        if (CurrentEditBuildButton == null)
         {
-            if (SelectedCards.ContainsKey(cardBase.CardInfo.CardID)) continue;
-            if (SelectedHeros.ContainsKey(cardBase.CardInfo.CardID)) continue;
-            SelectCard(cardBase);
+            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+        }
+        else
+        {
+            foreach (CardBase cardBase in allCards.Values)
+            {
+                if (SelectedCards.ContainsKey(cardBase.CardInfo.CardID)) continue;
+                if (SelectedHeros.ContainsKey(cardBase.CardInfo.CardID)) continue;
+                SelectCard(cardBase);
+            }
         }
     }
 
@@ -494,8 +517,11 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
 
         if (!isSwitchingBuildInfo)
         {
-            CurrentEditBuildButton.BuildInfo.CardIDs.Clear();
-            CurrentEditBuildButton.BuildInfo.BeginRetinueIDs.Clear();
+            if (CurrentEditBuildButton != null)
+            {
+                CurrentEditBuildButton.BuildInfo.CardIDs.Clear();
+                CurrentEditBuildButton.BuildInfo.BeginRetinueIDs.Clear();
+            }
         }
 
         SelectCardCount = 0;
@@ -504,8 +530,15 @@ public partial class SelectCardDeckManager : MonoSingletion<SelectCardDeckManage
 
     public void OnConfirmSubmitCardDeckButtonClick()
     {
-        Client.Instance.Proxy.OnSendBuildInfo(CurrentEditBuildButton.BuildInfo);
-        NoticeManager.Instance.ShowInfoPanel("更新卡组成功", 0, 1f);
+        if (CurrentEditBuildButton == null)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+        }
+        else
+        {
+            Client.Instance.Proxy.OnSendBuildInfo(CurrentEditBuildButton.BuildInfo);
+            NoticeManager.Instance.ShowInfoPanelCenter("更新卡组成功", 0, 1f);
+        }
     }
 
     public void OnCloseButtonClick()

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public class BuildInfo
+public struct BuildInfo
 {
     public int BuildID;
 
@@ -31,6 +31,38 @@ public class BuildInfo
     public int CardCount()
     {
         return CardIDs.Count + BeginRetinueIDs.Count;
+    }
+
+    public BuildInfo Clone()
+    {
+        return new BuildInfo(BuildID, BuildName, CardIDs.ToArray().ToList(), BeginRetinueIDs.ToArray().ToList(), BuildConsumeMoney, Life, Magic);
+    }
+
+    public bool EqualsTo(BuildInfo targetBuildInfo)
+    {
+        if (BuildID != targetBuildInfo.BuildID) return false;
+        if (!BuildName.Equals(targetBuildInfo.BuildName)) return false;
+        if (BuildConsumeMoney != targetBuildInfo.BuildConsumeMoney) return false;
+        if (Life != targetBuildInfo.Life) return false;
+        if (Magic != targetBuildInfo.Magic) return false;
+        if (CardIDs.Count != targetBuildInfo.CardIDs.Count) return false;
+        if (BeginRetinueIDs.Count != targetBuildInfo.BeginRetinueIDs.Count) return false;
+
+        CardIDs.Sort();
+        targetBuildInfo.CardIDs.Sort();
+        for (int i = 0; i < CardIDs.Count; i++)
+        {
+            if (CardIDs[i] != targetBuildInfo.CardIDs[i]) return false;
+        }
+
+        BeginRetinueIDs.Sort();
+        targetBuildInfo.BeginRetinueIDs.Sort();
+        for (int i = 0; i < BeginRetinueIDs.Count; i++)
+        {
+            if (BeginRetinueIDs[i] != targetBuildInfo.BeginRetinueIDs[i]) return false;
+        }
+
+        return true;
     }
 
     public void Serialize(DataStream writer)

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -14,6 +10,8 @@ public class BuildButton : MonoBehaviour, IGameObjectPool
 
     public void PoolRecycle()
     {
+        IsSelected = false;
+        IsEdit = false;
         gameObjectPool.RecycleGameObject(gameObject);
     }
 
@@ -22,6 +20,8 @@ public class BuildButton : MonoBehaviour, IGameObjectPool
         gameObjectPool = GameObjectPoolManager.Instance.Pool_BuildButtonPool;
     }
 
+    public RawImage SelectedStar;
+    public Image ButtonImage;
     public Button Button;
     public Text Text_CardDeckName;
     public Text Text_Count;
@@ -33,6 +33,68 @@ public class BuildButton : MonoBehaviour, IGameObjectPool
         BuildInfo = buildInfo;
         Text_CardDeckName.text = BuildInfo.BuildName;
         Text_Count.text = BuildInfo.CardIDs.Count.ToString();
+    }
+
+    private bool isSelected;
+
+    public bool IsSelected
+    {
+        get { return isSelected; }
+        set
+        {
+            if (isSelected && !value)
+            {
+                OnUnselected();
+            }
+
+            else if (!isSelected && value)
+            {
+                OnSelected();
+            }
+
+            isSelected = value;
+        }
+    }
+
+    private bool isEdit;
+
+    public bool IsEdit
+    {
+        get { return isEdit; }
+        set
+        {
+            if (isEdit && !value)
+            {
+                OnUnEdit();
+            }
+
+            else if (!isEdit && value)
+            {
+                OnEdit();
+            }
+
+            isEdit = value;
+        }
+    }
+
+    private void OnSelected()
+    {
+        SelectedStar.enabled = true;
+    }
+
+    private void OnUnselected()
+    {
+        SelectedStar.enabled = false;
+    }
+
+    private void OnEdit()
+    {
+        ButtonImage.color = GameManager.Instance.BuildButtonEditColor;
+    }
+
+    private void OnUnEdit()
+    {
+        ButtonImage.color = GameManager.Instance.BuildButtonDefaultColor;
     }
 
     public void AddHeroCard(int cardId)

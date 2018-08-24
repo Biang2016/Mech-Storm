@@ -117,7 +117,7 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
         {
             if (Input.GetKeyUp(KeyCode.Escape))
             {
-                if (SelectCardDeckManager.Instance.M_StateMachine.GetState() == SelectCardDeckManager.StateMachine.States.Hide)
+                if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Hide)
                 {
                     switch (state)
                     {
@@ -175,7 +175,7 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
         Client.Instance.Proxy.LeaveGame();
         RoundManager.Instance.StopGame();
         ClientLog.Instance.Print("您已退出比赛");
-        NoticeManager.Instance.ShowInfoPanel("您已退出比赛", 0, 1f);
+        NoticeManager.Instance.ShowInfoPanelTop("您已退出比赛", 0, 1f);
     }
 
     public void OnQuitGameButtonClick()

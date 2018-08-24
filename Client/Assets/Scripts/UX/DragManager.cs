@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// 鼠标拖拽管理器
@@ -72,7 +71,7 @@ internal class DragManager : MonoSingletion<DragManager>
     void Update()
     {
         if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
-        if (SelectCardDeckManager.Instance.M_StateMachine.GetState() == SelectCardDeckManager.StateMachine.States.Show) return;
+        if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show) return;
         if (!IsSummonPreview)
         {
             CommonDrag();

@@ -1,8 +1,5 @@
-﻿using UnityEditor;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Experimental.UIElements;
-using Button = UnityEngine.UI.Button;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 internal class StartMenuManager : MonoSingletion<StartMenuManager>
 {
@@ -139,7 +136,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
 
     public void OnStartMatchGameButtonClick()
     {
-        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)//未发送卡组则跳出选择卡组界面
+        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login && SelectBuildManager.Instance.CurrentSelectedBuildButton == null) //未发送卡组则跳出选择卡组界面
         {
             OnSelectCardDeckWindowButtonClick();
         }
@@ -147,7 +144,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
         {
             Client.Instance.Proxy.OnBeginMatch();
             ClientLog.Instance.Print("开始匹配");
-            NoticeManager.Instance.ShowInfoPanel("匹配中", 0, float.PositiveInfinity);
+            NoticeManager.Instance.ShowInfoPanelTop("匹配中", 0, float.PositiveInfinity);
         }
     }
 
@@ -155,13 +152,13 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
     {
         Client.Instance.Proxy.CancelMatch();
         ClientLog.Instance.Print("取消匹配");
-        NoticeManager.Instance.ShowInfoPanel("取消匹配", 0, 1f);
+        NoticeManager.Instance.ShowInfoPanelTop("取消匹配", 0, 1f);
     }
 
     public void OnSelectCardDeckWindowButtonClick()
     {
         M_StateMachine.SetState(StateMachine.States.Hide);
-        SelectCardDeckManager.Instance.M_StateMachine.SetState(SelectCardDeckManager.StateMachine.States.Show);
+        SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
     }
 
     public void OnQuitGameButtonClick()
@@ -170,6 +167,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
         {
             Client.Instance.Proxy.CancelMatch();
         }
+
         M_StateMachine.SetState(StateMachine.States.Hide);
         LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
     }

@@ -1,7 +1,5 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 internal class GameManager : MonoSingletion<GameManager>
 {
@@ -71,6 +69,9 @@ internal class GameManager : MonoSingletion<GameManager>
     public Color InjuredLifeNumberColor;
     public Color OverFlowTotalLifeColor;
 
+    public Color BuildButtonEditColor;
+    public Color BuildButtonDefaultColor;
+
     private void InitializeClientGameSettings()
     {
         if (UseInspectorParams) return;
@@ -88,6 +89,9 @@ internal class GameManager : MonoSingletion<GameManager>
         DefaultLifeNumberColor = ClientUtils.HTMLColorToColor("#FFFFFF");
         InjuredLifeNumberColor = ClientUtils.HTMLColorToColor("#FF0015");
         OverFlowTotalLifeColor = ClientUtils.HTMLColorToColor("#00FF28");
+
+        BuildButtonEditColor = ClientUtils.HTMLColorToColor("#FF4B00");
+        BuildButtonDefaultColor = ClientUtils.HTMLColorToColor("#858585");
     }
 
     #endregion

@@ -7,6 +7,13 @@ internal class Database
 {
     public static Database Instance = new Database();
 
+    #region Users
+
+    public Dictionary<string, string> UserTable = new Dictionary<string, string>();
+    public Dictionary<string, string> LoginUserTable = new Dictionary<string, string>();
+
+    #endregion
+
     #region Builds
 
     Dictionary<int, BuildInfo> BuildInfoDict = new Dictionary<int, BuildInfo>();
@@ -20,6 +27,22 @@ internal class Database
         else
         {
             BuildInfoDict[buildInfo.BuildID] = buildInfo;
+        }
+    }
+
+    public void DeleteBuild(string username, int buildID)
+    {
+        if (BuildInfoDict.ContainsKey(buildID))
+        {
+            BuildInfoDict.Remove(buildID);
+        }
+
+        if (PlayerBuilds.ContainsKey(username))
+        {
+            if (PlayerBuilds[username].Contains(buildID))
+            {
+                PlayerBuilds[username].Remove(buildID);
+            }
         }
     }
 

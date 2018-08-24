@@ -1,8 +1,6 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 internal class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
 {

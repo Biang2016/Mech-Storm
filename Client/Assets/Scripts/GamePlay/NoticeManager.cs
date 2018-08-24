@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,51 +8,107 @@ public class NoticeManager : MonoSingletion<NoticeManager>
     {
     }
 
-    [SerializeField] private Animator InfoPanelAnimator;
-    [SerializeField] private Text InfoText;
+    #region InfoPanelTop
 
-    IEnumerator ShowInfoPanelCoroutine;
+    [SerializeField] private Animator InfoPanelTopAnimator;
+    [SerializeField] private Text InfoTextTop;
 
-    public void ShowInfoPanel(string text, float delay, float last)
+    IEnumerator ShowInfoPanelTopCoroutine;
+
+    public void ShowInfoPanelTop(string text, float delay, float last)
     {
-        if (ShowInfoPanelCoroutine != null)
+        if (ShowInfoPanelTopCoroutine != null)
         {
-            StopCoroutine(ShowInfoPanelCoroutine);
+            StopCoroutine(ShowInfoPanelTopCoroutine);
         }
 
-        ShowInfoPanelCoroutine = Co_ShowInfoPanel(text, delay, last);
-        StartCoroutine(ShowInfoPanelCoroutine);
+        ShowInfoPanelTopCoroutine = Co_ShowInfoPanelTop(text, delay, last);
+        StartCoroutine(ShowInfoPanelTopCoroutine);
     }
 
-    IEnumerator Co_ShowInfoPanel(string text, float delay, float last)
+    IEnumerator Co_ShowInfoPanelTop(string text, float delay, float last)
     {
         yield return new WaitForSeconds(delay);
-        InfoText.text = text;
-        if (InfoPanelAnimator.GetBool("isShow"))
+        InfoTextTop.text = text;
+        if (InfoPanelTopAnimator.GetBool("isShow"))
         {
-            InfoPanelAnimator.SetTrigger("Shut");
+            InfoPanelTopAnimator.SetTrigger("Shut");
         }
 
-        InfoPanelAnimator.SetBool("isShow", true);
+        InfoPanelTopAnimator.SetBool("isShow", true);
         if (!float.IsPositiveInfinity(last))
         {
             yield return new WaitForSeconds(last);
-            InfoPanelAnimator.SetBool("isShow", false);
+            InfoPanelTopAnimator.SetBool("isShow", false);
         }
         else
         {
             int dotCount = 0;
             while (true)
             {
-                InfoText.text += ".";
+                InfoTextTop.text += ".";
                 yield return new WaitForSeconds(0.5f);
                 dotCount++;
                 if (dotCount == 3)
                 {
                     dotCount = 0;
-                    InfoText.text = text;
+                    InfoTextTop.text = text;
                 }
             }
         }
     }
+
+    #endregion
+
+    #region InfoPanelCenter
+
+    [SerializeField] private Animator InfoPanelCenterAnimator;
+    [SerializeField] private Text InfoTextCenter;
+
+    IEnumerator ShowInfoPanelCenterCoroutine;
+
+    public void ShowInfoPanelCenter(string text, float delay, float last)
+    {
+        if (ShowInfoPanelCenterCoroutine != null)
+        {
+            StopCoroutine(ShowInfoPanelCenterCoroutine);
+        }
+
+        ShowInfoPanelCenterCoroutine = Co_ShowInfoPanelCenter(text, delay, last);
+        StartCoroutine(ShowInfoPanelCenterCoroutine);
+    }
+
+    IEnumerator Co_ShowInfoPanelCenter(string text, float delay, float last)
+    {
+        yield return new WaitForSeconds(delay);
+        InfoTextCenter.text = text;
+        if (InfoPanelCenterAnimator.GetBool("isShow"))
+        {
+            InfoPanelCenterAnimator.SetTrigger("Shut");
+        }
+
+        InfoPanelCenterAnimator.SetBool("isShow", true);
+        if (!float.IsPositiveInfinity(last))
+        {
+            yield return new WaitForSeconds(last);
+            InfoPanelCenterAnimator.SetBool("isShow", false);
+        }
+        else
+        {
+            int dotCount = 0;
+            while (true)
+            {
+                InfoTextCenter.text += ".";
+                yield return new WaitForSeconds(0.5f);
+                dotCount++;
+                if (dotCount == 3)
+                {
+                    dotCount = 0;
+                    InfoTextCenter.text = text;
+                }
+            }
+        }
+    }
+
+    #endregion
 }

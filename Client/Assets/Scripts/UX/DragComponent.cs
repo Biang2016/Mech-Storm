@@ -1,7 +1,5 @@
-using UnityEngine;
-using System.Collections;
-using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// 可拖动组件，应用于卡片、人物、技能、随从、

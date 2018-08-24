@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
-using System.Runtime.Remoting;
-using System.Text;
 using System.Threading;
-using UnityEngine;
-using UnityEngine.Assertions;
 
 internal class Client : MonoSingletion<Client>
 {

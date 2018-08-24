@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 internal abstract class Arrow : MonoBehaviour, IGameObjectPool
 {

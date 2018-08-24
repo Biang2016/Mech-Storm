@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 internal class ClientPlayer : Player
 {
     public BoardAreaTypes MyBattleGroundArea; //卡牌所属方的战场区

@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
-using Button = UnityEngine.UI.Button;
 
 internal class LoginManager : MonoSingletion<LoginManager>
 {

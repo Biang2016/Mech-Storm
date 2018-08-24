@@ -67,6 +67,7 @@
     <Compile Include="GamePlay\GamePlaySettings.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\UseSpellCardRequest.cs" />
+    <Compile Include="RequestResponse\ClientToServer\OutGame\DeleteBuildRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LoginRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\RegisterRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipShieldRequest_ResponseBundle.cs" />
@@ -94,8 +95,10 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\DropCardRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\BattleGroundAddRetinueRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueDieRequest.cs" />
-    <Compile Include="RequestResponse\ServerToClient\OutGame\BuildRequestResponse.cs" />
+    <Compile Include="RequestResponse\ServerToClient\OutGame\BuildUpdateRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\OutGame\CreateBuildRequestResponse.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\ClientIdRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\OutGame\DeleteBuildRequestResponse.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\LoginResultRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\RegisterResultRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\ClientBuildInfosRequest.cs" />

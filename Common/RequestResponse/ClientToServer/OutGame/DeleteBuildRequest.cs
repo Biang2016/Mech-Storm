@@ -1,45 +1,42 @@
-﻿using System.Collections.Generic;
-
-public class BuildRequestResponse : ServerRequestBase
+﻿public class DeleteBuildRequest : ClientRequestBase
 {
-    public int buildId;
+    public int buildID;
 
-    public BuildRequestResponse()
+    public DeleteBuildRequest() : base()
     {
     }
 
-
-    public BuildRequestResponse( int buildId)
+    public DeleteBuildRequest(int clientID, int buildID) : base(clientID)
     {
-        this.buildId = buildId;
+        this.buildID = buildID;
     }
 
     public override int GetProtocol()
     {
-        return NetProtocols.BUILD_REQUEST_RESPONSE;
+        return NetProtocols.DELETE_BUILD_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "BUILD_REQUEST_RESPONSE";
+        return "DELETE_BUILD_REQUEST";
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(buildId);
+        writer.WriteSInt32(buildID);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        buildId = reader.ReadSInt32();
+        buildID = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [buildId]=" + buildId;
+        log += " [buildID]=" + buildID;
         return log;
     }
 }

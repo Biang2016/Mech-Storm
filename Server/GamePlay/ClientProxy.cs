@@ -128,13 +128,13 @@ internal class ClientProxy : ProxyBase
                     {
                         RegisterRequest request = (RegisterRequest) r;
                         RegisterResultRequest response;
-                        if (Server.SV.UserTable.ContainsKey(request.username))
+                        if (Database.Instance.UserTable.ContainsKey(request.username))
                         {
                             response = new RegisterResultRequest(false);
                         }
                         else
                         {
-                            Server.SV.UserTable.Add(request.username, request.password);
+                            Database.Instance.UserTable.Add(request.username, request.password);
                             response = new RegisterResultRequest(true);
                         }
 
@@ -154,20 +154,19 @@ internal class ClientProxy : ProxyBase
                     {
                         LoginRequest request = (LoginRequest) r;
                         LoginResultRequest response;
-                        if (Server.SV.UserTable.ContainsKey(request.username))
+                        if (Database.Instance.UserTable.ContainsKey(request.username))
                         {
-                            if (Server.SV.UserTable[request.username] == request.password)
+                            if (Database.Instance.UserTable[request.username] == request.password)
                             {
                                 response = new LoginResultRequest(request.username, true);
-                                if (!Server.SV.LoginUserTable.ContainsKey(request.username))
+                                if (!Database.Instance.LoginUserTable.ContainsKey(request.username))
                                 {
-                                    Server.SV.LoginUserTable.Add(request.username, request.password);
+                                    Database.Instance.LoginUserTable.Add(request.username, request.password);
                                 }
 
                                 ClientState = ClientStates.Login;
                                 username = request.username;
-                                BuildInfos = Database.Instance.GetPlayerBuilds(username);
-                                ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(BuildInfos);
+                                ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username));
                                 SendMessage(request1);
                             }
                             else
@@ -185,27 +184,34 @@ internal class ClientProxy : ProxyBase
 
                     break;
                 case BuildRequest _:
-                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
-                    if (ClientState == ClientStates.Playing)
+                {
+                    BuildRequest request = (BuildRequest) r;
+                    if (request.BuildInfo.BuildID == -1)
                     {
-                        Server.SV.SGMM.RemoveGame(this);
-                        ClientState = ClientStates.Login;
+                        request.BuildInfo.BuildID = Database.Instance.GenerateBuildID();
+                        CreateBuildRequestResponse response = new CreateBuildRequestResponse(request.BuildInfo.BuildID);
+                        SendMessage(response);
+                    }
+                    else
+                    {
+                        BuildUpdateRequest response = new BuildUpdateRequest(request.BuildInfo);
+                        SendMessage(response);
                     }
 
-                    if (ClientState == ClientStates.Login)
-                    {
-                        BuildRequest request = (BuildRequest) r;
-                        if (request.BuildInfo.BuildID == -1)
-                        {
-                            request.BuildInfo.BuildID = Database.Instance.GenerateBuildID();
-                            BuildRequestResponse response = new BuildRequestResponse(request.BuildInfo.BuildID);
-                            SendMessage(response);
-                        }
-
-                        Database.Instance.AddOrModifyBuild(request.BuildInfo);
-                    }
+                    Database.Instance.AddOrModifyBuild(request.BuildInfo);
 
                     break;
+                }
+
+                case DeleteBuildRequest _:
+                {
+                    DeleteBuildRequest request = (DeleteBuildRequest) r;
+                    Database.Instance.DeleteBuild(username, request.buildID);
+                    DeleteBuildRequestResponse response = new DeleteBuildRequestResponse(request.buildID);
+                    SendMessage(response);
+                    break;
+                }
+
                 case MatchRequest _:
                     ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
                     if (ClientState == ClientStates.Playing)
