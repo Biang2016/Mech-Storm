@@ -19,4 +19,7 @@
     public static int PlayerDefaultLifeMax = 200;
     public static int PlayerDefaultMagic = 10;
     public static int PlayerDefaultMagicMax = 50;
+
+    public static int LifeToMoney = 60;
+    public static int MagicToMoney = 50;
 }
