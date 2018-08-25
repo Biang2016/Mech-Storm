@@ -23,9 +23,6 @@ public partial class SelectBuildManager
     private BuildInfo lastSaveBuildInfo;
     internal BuildButton CurrentEditBuildButton;
     internal BuildButton CurrentSelectedBuildButton;
-    private int LeftMoney;
-    private int Life;
-    private int Magic;
     private Dictionary<int, BuildButton> AllBuildButtons = new Dictionary<int, BuildButton>();
     private Dictionary<int, BuildInfo> AllBuilds = new Dictionary<int, BuildInfo>();
 
@@ -125,9 +122,14 @@ public partial class SelectBuildManager
         lastSaveBuildInfo = CurrentEditBuildButton.BuildInfo.Clone();
         CurrentEditBuildButton.IsEdit = true;
         SelectCardsByBuildInfo(buildButton.BuildInfo);
-        MyMoneyText.text = (GamePlaySettings.PlayerDefaultMoney - buildButton.BuildInfo.BuildConsumeMoney).ToString();
-        MyLifeText.text = buildButton.BuildInfo.Life.ToString();
-        MyMagicText.text = buildButton.BuildInfo.Magic.ToString();
+        RefreshMoneyLifeMagic();
+    }
+
+    private void RefreshMoneyLifeMagic()
+    {
+        MyMoneyText.text = (GamePlaySettings.PlayerDefaultMoney - CurrentEditBuildButton.BuildInfo.BuildConsumeMoney).ToString();
+        MyLifeText.text = CurrentEditBuildButton.BuildInfo.Life.ToString();
+        MyMagicText.text = CurrentEditBuildButton.BuildInfo.Magic.ToString();
     }
 
     public void OnCreateNewBuildButtonClick()
@@ -221,4 +223,5 @@ public partial class SelectBuildManager
         AllBuildButtons[buildInfo.BuildID].Initialize(buildInfo);
         SelectCardsByBuildInfo(buildInfo);
     }
+
 }

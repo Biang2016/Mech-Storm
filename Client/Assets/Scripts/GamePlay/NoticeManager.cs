@@ -8,6 +8,12 @@ public class NoticeManager : MonoSingletion<NoticeManager>
     {
     }
 
+    void Awake()
+    {
+        InfoPanelTopAnimator.gameObject.SetActive(true);
+        InfoPanelCenterAnimator.gameObject.SetActive(true);
+    }
+
     #region InfoPanelTop
 
     [SerializeField] private Animator InfoPanelTopAnimator;

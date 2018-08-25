@@ -8,6 +8,21 @@ internal class CardNumber : MonoBehaviour,IGameObjectPool
     {
         hasSign = false;
         SetNumberColor(GameManager.Instance.DefaultLifeNumberColor);
+        if (gameObjectPool == null)
+        {
+            switch (MyNumberSize)
+            {
+                case NumberSize.Small:
+                    gameObjectPool = GameObjectPoolManager.Instance.Pool_CardSmallNumberPool;
+                    break;
+                case NumberSize.Medium:
+                    gameObjectPool = GameObjectPoolManager.Instance.Pool_CardMediumNumberPool;
+                    break;
+                case NumberSize.Big:
+                    gameObjectPool = GameObjectPoolManager.Instance.Pool_CardBigNumberPool;
+                    break;
+            }
+        }
         gameObjectPool.RecycleGameObject(gameObject);
     }
 

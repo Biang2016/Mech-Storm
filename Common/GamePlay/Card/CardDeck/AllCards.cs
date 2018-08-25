@@ -53,7 +53,7 @@ public static class AllCards
                         );
                         break;
                     case "upgradeInfo":
-                        upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value),
+                        upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value),int.Parse(cardInfo.Attributes["degradeCardID"].Value),
                             int.Parse(cardInfo.Attributes["cardLevel"].Value));
                         break;
                     case "lifeInfo":

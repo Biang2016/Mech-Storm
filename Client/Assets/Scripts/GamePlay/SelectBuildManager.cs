@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -18,6 +19,10 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
     void Awake()
     {
         Canvas.gameObject.SetActive(true);
+        Canvas.enabled = false;
+
+        PreviewCardPanel.SetActive(false);
+
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         SelectCardCount = 0;
         HeroCardCount = 0;
@@ -226,7 +231,6 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
         {
             mouseRightDownCard = null;
             mouseLeftDownCard = null;
-            HidePreviewCard();
         }
     }
 
@@ -284,6 +288,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
         foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
             if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
+            if (cardInfo.UpgradeInfo.CardLevel > 1) continue;
             AddCardIntoCardSelectWindow(cardInfo);
         }
     }
@@ -404,6 +409,9 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
 
             SelectCardCount++;
         }
+
+        CurrentEditBuildButton.BuildInfo.BuildConsumeMoney += card.CardInfo.BaseInfo.Money;
+        RefreshMoneyLifeMagic();
     }
 
     private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)
@@ -462,6 +470,9 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
 
             SelectCardCount--;
         }
+
+        CurrentEditBuildButton.BuildInfo.BuildConsumeMoney -= card.CardInfo.BaseInfo.Money;
+        RefreshMoneyLifeMagic();
     }
 
     public void SelectAllCard()
@@ -531,6 +542,11 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
 
         SelectCardCount = 0;
         HeroCardCount = 0;
+
+        CurrentEditBuildButton.BuildInfo.BuildConsumeMoney = 0;
+        CurrentEditBuildButton.BuildInfo.Life = GamePlaySettings.PlayerDefaultLife;
+        CurrentEditBuildButton.BuildInfo.Magic = GamePlaySettings.PlayerDefaultMagic;
+        RefreshMoneyLifeMagic();
     }
 
     public void OnConfirmSubmitCardDeckButtonClick()
@@ -566,20 +582,120 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
         PreviewCard = CardBase.InstantiateCardByCardInfo(card.CardInfo, PreviewContent, null, true);
         PreviewCard.transform.localScale = Vector3.one * 300;
         PreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
-        PreviewCard.transform.localPosition = new Vector3(0, 0, -300);
+        PreviewCard.transform.localPosition = new Vector3(0, 50, -10);
         PreviewCard.CardBloom.SetActive(true);
         PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"));
+
+        UpgradeCardButton.onClick.RemoveAllListeners();
+        DegradeCardButton.onClick.RemoveAllListeners();
+
+        if (CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID != -1)
+        {
+            int moreMoney = AllCards.GetCard(CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID).BaseInfo.Money - CurrentPreviewCard.CardInfo.BaseInfo.Money;
+            UpgradeCostText.text = (-moreMoney).ToString();
+
+            UpgradeCardButton.gameObject.SetActive(true);
+            UpgradeCoin.enabled = true;
+            UpgradeCardButton.onClick.AddListener(OnUpgradeButtonClick);
+        }
+        else
+        {
+            UpgradeCostText.text = "";
+            UpgradeCardButton.gameObject.SetActive(false);
+            UpgradeCoin.enabled = false;
+        }
+
+        if (CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID != -1)
+        {
+            int lessMoney = AllCards.GetCard(CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID).BaseInfo.Money - CurrentPreviewCard.CardInfo.BaseInfo.Money;
+            if (lessMoney == 0)
+            {
+                DegradeCostText.text = 0.ToString();
+            }
+            else if (lessMoney > 0)
+            {
+                DegradeCostText.text = "+" + (-lessMoney);
+            }
+
+            DegradeCardButton.gameObject.SetActive(true);
+            DegradeCoin.enabled = true;
+            DegradeCardButton.onClick.AddListener(OnDegradeButtonClick);
+        }
+        else
+        {
+            DegradeCostText.text = "";
+            DegradeCardButton.gameObject.SetActive(false);
+            DegradeCoin.enabled = false;
+        }
+
+        PreviewCardPanel.SetActive(true);
+        PreviewCardPanelBG.SetActive(UpgradeCardButton.gameObject.activeSelf || DegradeCardButton.gameObject.activeSelf);
     }
 
     private void HidePreviewCard()
     {
         if (PreviewCard)
         {
+            PreviewCardPanel.SetActive(false);
+            PreviewCardPanelBG.SetActive(false);
+
             PreviewCard.CardBloom.SetActive(true);
             PreviewCard.PoolRecycle();
             PreviewCard = null;
             CurrentPreviewCard = null;
+
+            UpgradeCardButton.onClick.RemoveAllListeners();
+            DegradeCardButton.onClick.RemoveAllListeners();
+            UpgradeCostText.text = "";
+            DegradeCostText.text = "";
         }
+    }
+
+    public GameObject PreviewCardPanel;
+    public GameObject PreviewCardPanelBG;
+    public Button UpgradeCardButton;
+    public Button DegradeCardButton;
+    public Text UpgradeCostText;
+    public Image UpgradeCoin;
+    public Text DegradeCostText;
+    public Image DegradeCoin;
+
+    internal void OnUpgradeButtonClick()
+    {
+        int currentCardID = CurrentPreviewCard.CardInfo.CardID;
+        int upgradeCardID = CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID;
+        CardInfo_Base upgradeCardInfo = AllCards.GetCard(upgradeCardID);
+
+        int cardCount = SelectedCards[currentCardID].Count;
+        CurrentEditBuildButton.BuildInfo.BuildConsumeMoney += (CurrentPreviewCard.CardInfo.BaseInfo.Money - upgradeCardInfo.BaseInfo.Money) * cardCount;
+        RefreshMoneyLifeMagic();
+
+        SelectCard currentSelectCard = SelectedCards[currentCardID];
+        SelectedCards.Remove(currentCardID);
+        SelectedCards.Add(upgradeCardID, currentSelectCard);
+        currentSelectCard.Text_CardName.text = upgradeCardInfo.BaseInfo.CardName;
+
+        CurrentPreviewCard.Initiate(upgradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
+        PreviewCard.Initiate(AllCards.GetCard(upgradeCardID), PreviewCard.ClientPlayer, true);
+    }
+
+    internal void OnDegradeButtonClick()
+    {
+        int currentCardID = CurrentPreviewCard.CardInfo.CardID;
+        int degradeCardID = CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID;
+        CardInfo_Base degradeCardInfo = AllCards.GetCard(degradeCardID);
+
+        int cardCount = SelectedCards[currentCardID].Count;
+        CurrentEditBuildButton.BuildInfo.BuildConsumeMoney += (CurrentPreviewCard.CardInfo.BaseInfo.Money - degradeCardInfo.BaseInfo.Money) * cardCount;
+        RefreshMoneyLifeMagic();
+
+        SelectCard currentSelectCard = SelectedCards[currentCardID];
+        SelectedCards.Remove(currentCardID);
+        SelectedCards.Add(degradeCardID, currentSelectCard);
+        currentSelectCard.Text_CardName.text = degradeCardInfo.BaseInfo.CardName;
+
+        CurrentPreviewCard.Initiate(degradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
+        PreviewCard.Initiate(AllCards.GetCard(degradeCardID), PreviewCard.ClientPlayer, true);
     }
 
     #endregion
