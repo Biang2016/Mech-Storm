@@ -140,7 +140,7 @@ public partial class SelectBuildManager
             currentSelectCard.Text_CardName.text = upgradeCardInfo.BaseInfo.CardName;
         }
 
-        CurrentEditBuildButton.BuildInfo.BuildConsumeMoney -= (CurrentPreviewCard.CardInfo.BaseInfo.Money - upgradeCardInfo.BaseInfo.Money) * cardCount;
+        CurrentEditBuildButton.BuildInfo.CardConsumeMoney -= (CurrentPreviewCard.CardInfo.BaseInfo.Money - upgradeCardInfo.BaseInfo.Money) * cardCount;
         RefreshMoneyLifeMagic();
 
         CurrentPreviewCard.Initiate(upgradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
@@ -167,7 +167,7 @@ public partial class SelectBuildManager
             currentSelectCard.Text_CardName.text = degradeCardInfo.BaseInfo.CardName;
         }
 
-        CurrentEditBuildButton.BuildInfo.BuildConsumeMoney -= (CurrentPreviewCard.CardInfo.BaseInfo.Money - degradeCardInfo.BaseInfo.Money) * cardCount;
+        CurrentEditBuildButton.BuildInfo.CardConsumeMoney -= (CurrentPreviewCard.CardInfo.BaseInfo.Money - degradeCardInfo.BaseInfo.Money) * cardCount;
         RefreshMoneyLifeMagic();
 
         CurrentPreviewCard.Initiate(degradeCardInfo, CurrentPreviewCard.ClientPlayer, true);

@@ -16,5 +16,7 @@
 
     public static int PlayerDefaultMoney = 10000;
     public static int PlayerDefaultLife = 100;
+    public static int PlayerDefaultLifeMax = 200;
     public static int PlayerDefaultMagic = 10;
+    public static int PlayerDefaultMagicMax = 50;
 }

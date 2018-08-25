@@ -114,10 +114,6 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                     {
                         Instance.HidePreviewCardPanel();
                     }
-                    else if (isMouseUp)
-                    {
-                        Instance.HidePreviewCardPanel();
-                    }
                     else if (Input.GetKeyUp(KeyCode.Tab))
                     {
                         SetState(States.Hide);

@@ -93,6 +93,12 @@ public partial class SelectBuildManager
             return;
         }
 
+        if (GamePlaySettings.PlayerDefaultMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney() < card.CardInfo.BaseInfo.Money)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter("预算不足", 0f, 1f);
+            return;
+        }
+
         bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSodier;
         if (isHero)
         {
@@ -157,7 +163,7 @@ public partial class SelectBuildManager
             SelectCardCount++;
         }
 
-        CurrentEditBuildButton.BuildInfo.BuildConsumeMoney += card.CardInfo.BaseInfo.Money;
+        CurrentEditBuildButton.BuildInfo.CardConsumeMoney += card.CardInfo.BaseInfo.Money;
         RefreshMoneyLifeMagic();
     }
 
@@ -218,7 +224,7 @@ public partial class SelectBuildManager
             SelectCardCount--;
         }
 
-        CurrentEditBuildButton.BuildInfo.BuildConsumeMoney -= card.CardInfo.BaseInfo.Money;
+        CurrentEditBuildButton.BuildInfo.CardConsumeMoney -= card.CardInfo.BaseInfo.Money;
         RefreshMoneyLifeMagic();
     }
 
@@ -290,7 +296,7 @@ public partial class SelectBuildManager
         SelectCardCount = 0;
         HeroCardCount = 0;
 
-        CurrentEditBuildButton.BuildInfo.BuildConsumeMoney = 0;
+        CurrentEditBuildButton.BuildInfo.CardConsumeMoney = 0;
         CurrentEditBuildButton.BuildInfo.Life = GamePlaySettings.PlayerDefaultLife;
         CurrentEditBuildButton.BuildInfo.Magic = GamePlaySettings.PlayerDefaultMagic;
         RefreshMoneyLifeMagic();
