@@ -104,12 +104,12 @@
   </Card>
   <Card id="201">
     <CardInfo name="baseInfo" cardName="新兵步枪Ⅱ" cardDesc="" cost="3" money="150" dragPurpose="Equip" cardType="Weapon" cardColor="#FF0000" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="202" degradeCardID="201" cardLevel="2" />
+    <CardInfo name="upgradeInfo" upgradeCardID="202" degradeCardID="200" cardLevel="2" />
     <CardInfo name="weaponInfo" energy="5" energyMax="5" attack="1" weaponType="Gun" />
   </Card>
   <Card id="202">
     <CardInfo name="baseInfo" cardName="新兵步枪Ⅲ" cardDesc="" cost="5" money="200" dragPurpose="Equip" cardType="Weapon" cardColor="#FF0000" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="202" cardLevel="3" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="201" cardLevel="3" />
     <CardInfo name="weaponInfo" energy="8" energyMax="8" attack="1" weaponType="Gun" />
   </Card>
 

@@ -79,6 +79,8 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             }
 
             newCard.ChangeCardBloomColor(GameManager.Instance.CardBloomColor);
+            newCard.MoneyText.text = "";
+            newCard.CoinImage.enabled = false;
         }
         else
         {
@@ -109,6 +111,8 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             newCard.transform.localScale = Vector3.one * 120;
             newCard.transform.rotation = Quaternion.Euler(90, 180, 0);
             newCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#A1F7FF"));
+            newCard.MoneyText.text = cardInfo.BaseInfo.Money.ToString();
+            newCard.CoinImage.enabled = true;
         }
 
         newCard.IsCardSelect = isCardSelect;
@@ -165,6 +169,9 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Rotate(Vector3.up, 180);
+
+        if (IsCardSelect) MoneyText.text = cardInfo.BaseInfo.Money.ToString();
+        else MoneyText.text = "";
     }
 
 
@@ -255,16 +262,19 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public Renderer MainBoardRenderer;
     public GameObject CardBloom;
-    public Renderer PictureBoxRenderer;
+    [SerializeField] private Renderer PictureBoxRenderer;
     [SerializeField] private Image Image_RetinueDescPanel;
 
-    public GameObject Block_Cost;
+    [SerializeField] private GameObject Block_Cost;
     protected GameObject GoNumberSet_Cost;
     protected CardNumberSet CardNumberSet_Cost;
 
-    public GameObject Block_Count;
+    [SerializeField] private GameObject Block_Count;
     protected GameObject GoNumberSet_Count;
     protected CardNumberSet CardNumberSet_Count;
+
+    [SerializeField] private Text MoneyText;
+    [SerializeField] private Image CoinImage;
 
     public void BeDimColor()
     {
@@ -329,6 +339,11 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         {
             CardNumberSet_Count.Number = value;
         }
+    }
+
+    public void SetMoneyTextValue(int value)
+    {
+        MoneyText.text = value.ToString();
     }
 
     # endregion

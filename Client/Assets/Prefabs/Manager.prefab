@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 224538218685467640}
   - component: {fileID: 222479730152176664}
   - component: {fileID: 114098960542212106}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: UpgradeCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 224452918759836808}
   - component: {fileID: 222868484817235608}
   - component: {fileID: 114654792435690482}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1084,7 +1084,7 @@ GameObject:
   - component: {fileID: 224763130098309520}
   - component: {fileID: 222345756741100948}
   - component: {fileID: 114856941801697846}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: UpgradeCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2583,7 +2583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1583209504265116
 GameObject:
   m_ObjectHideFlags: 1
@@ -2680,7 +2680,7 @@ GameObject:
   - component: {fileID: 222457089214972642}
   - component: {fileID: 114609146641962128}
   - component: {fileID: 114918139906617930}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: UpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3074,7 +3074,7 @@ GameObject:
   - component: {fileID: 224902738181285052}
   - component: {fileID: 222665574116310262}
   - component: {fileID: 114227621985671130}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3194,7 +3194,7 @@ GameObject:
   - component: {fileID: 224657075247588960}
   - component: {fileID: 222061756827280990}
   - component: {fileID: 114129325544412204}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: DegradeCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3448,13 +3448,13 @@ GameObject:
   - component: {fileID: 224719715102921112}
   - component: {fileID: 222115676440499086}
   - component: {fileID: 114460883262605420}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: PreviewCardPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1778350118307240
 GameObject:
   m_ObjectHideFlags: 1
@@ -3650,7 +3650,7 @@ GameObject:
   - component: {fileID: 222435010765605804}
   - component: {fileID: 114407176624087584}
   - component: {fileID: 114352763186149574}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: DegradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4004,7 +4004,7 @@ GameObject:
   - component: {fileID: 224838686046389918}
   - component: {fileID: 222585052546923512}
   - component: {fileID: 114717557164589318}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: DegradeCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7430,8 +7430,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114210895796455098}
   m_HandleRect: {fileID: 224193750008547224}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999994
+  m_Value: 0
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7833,8 +7833,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114879006979408156}
   m_HandleRect: {fileID: 224878940758104996}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9206329
+  m_Value: 1
+  m_Size: 0.99999976
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8246,7 +8246,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1919600294545282}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -8510,10 +8510,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0.5019608}
+    m_NormalColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0.54509807}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
+    m_DisabledColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -9243,7 +9243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10062,7 +10062,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224173802584017088}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999976
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11355,29 +11355,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllCardsContent: {fileID: 224903209271909738}
-  RetinueContent: {fileID: 224148241354104340}
-  SelectionContent: {fileID: 224179017421291092}
   Canvas: {fileID: 223264880424388346}
   Canvas_BG: {fileID: 223976538582639680}
-  PreviewContent: {fileID: 224719715102921112}
-  ConfirmButton: {fileID: 114213242908727868}
-  CloseButton: {fileID: 114493542660255626}
-  SelectAllButton: {fileID: 114904953038606832}
-  UnSelectAllButton: {fileID: 114075716320248314}
-  CountNumberText: {fileID: 114213935323993588}
-  RetinueCountNumberText: {fileID: 114033545634998726}
-  RetinueCountMaxNumberText: {fileID: 114788982054809940}
   Camera: {fileID: 20600774314195422}
-  SelectCardPrefab: {fileID: 224183123551172026, guid: f0b712ad7091f1c4cb5d675adf576353,
-    type: 2}
-  PreviewCardPanel: {fileID: 1772410721496842}
-  PreviewCardPanelBG: {fileID: 1579855832340560}
-  UpgradeCardButton: {fileID: 114918139906617930}
-  DegradeCardButton: {fileID: 114352763186149574}
-  UpgradeCostText: {fileID: 114856941801697846}
-  UpgradeCoin: {fileID: 114098960542212106}
-  DegradeCostText: {fileID: 114717557164589318}
-  DegradeCoin: {fileID: 114129325544412204}
   AllMyBuildsContent: {fileID: 224478969901418200}
   CreateNewBuildButton: {fileID: 114011120057014352}
   DeleteBuildButton: {fileID: 114313293559203594}
@@ -11386,6 +11366,26 @@ MonoBehaviour:
   MyLifeText: {fileID: 114258862649859534}
   MyMagicText: {fileID: 114159029635402098}
   BuildRenamePanel: {fileID: 114858790676413038}
+  PreviewContent: {fileID: 224719715102921112}
+  PreviewCardPanel: {fileID: 1772410721496842}
+  PreviewCardPanelBG: {fileID: 1579855832340560}
+  UpgradeCardButton: {fileID: 114918139906617930}
+  DegradeCardButton: {fileID: 114352763186149574}
+  UpgradeCostText: {fileID: 114856941801697846}
+  UpgradeCoin: {fileID: 114098960542212106}
+  DegradeCostText: {fileID: 114717557164589318}
+  DegradeCoin: {fileID: 114129325544412204}
+  RetinueContent: {fileID: 224148241354104340}
+  SelectionContent: {fileID: 224179017421291092}
+  ConfirmButton: {fileID: 114213242908727868}
+  CloseButton: {fileID: 114493542660255626}
+  SelectAllButton: {fileID: 114904953038606832}
+  UnSelectAllButton: {fileID: 114075716320248314}
+  CountNumberText: {fileID: 114213935323993588}
+  RetinueCountNumberText: {fileID: 114033545634998726}
+  RetinueCountMaxNumberText: {fileID: 114788982054809940}
+  SelectCardPrefab: {fileID: 224183123551172026, guid: f0b712ad7091f1c4cb5d675adf576353,
+    type: 2}
 --- !u!114 &114725515188591456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12160,7 +12160,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114424557111043982}
   m_HandleRect: {fileID: 224761552736649784}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -13224,7 +13224,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224700914973023334}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13304,9 +13304,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0.54509807}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
     m_DisabledColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -15673,7 +15673,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: -300}
+  m_AnchoredPosition: {x: 100, y: -325}
   m_SizeDelta: {x: 150, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224086445290234410
@@ -15886,7 +15886,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.000091552734, y: -0.00030876882}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0.00009288825}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224151824423107980
@@ -15979,7 +15979,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.000091552734, y: -0.00010277816}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0.00016918441}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224190943743901026
@@ -16156,7 +16156,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1454835060237720}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -300}
+  m_LocalPosition: {x: 0, y: 0, z: -280}
   m_LocalScale: {x: 1.00008, y: 1.00008, z: 1.00008}
   m_Children: []
   m_Father: {fileID: 224945666368137086}
@@ -16164,8 +16164,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 15}
-  m_SizeDelta: {x: -200, y: -230}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -200, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224218520419321482
 RectTransform:
@@ -16183,7 +16183,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: -300}
+  m_AnchoredPosition: {x: -100, y: -325}
   m_SizeDelta: {x: 150, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224225077346279118
@@ -16502,7 +16502,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 30.000122}
+  m_AnchoredPosition: {x: 0, y: 29.999878}
   m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224333304171248282
@@ -16974,7 +16974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00018310547, y: -0.00009053269}
+  m_AnchoredPosition: {x: 0.000091552734, y: 0.000051113093}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224492831624089872
@@ -17161,7 +17161,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -65.3, y: -350.6}
+  m_AnchoredPosition: {x: -65.3, y: -375}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224548625328726296
@@ -17426,7 +17426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 135.7, y: -350.6}
+  m_AnchoredPosition: {x: 135.7, y: -375}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224660348551419584
@@ -17503,8 +17503,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -290}
-  m_SizeDelta: {x: 450, y: 185}
+  m_AnchoredPosition: {x: 0, y: -310}
+  m_SizeDelta: {x: 450, y: 210}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224678371992986728
 RectTransform:
@@ -17882,7 +17882,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -149.17, y: -350}
+  m_AnchoredPosition: {x: -149.17, y: -375}
   m_SizeDelta: {x: 120, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224783187888471740
@@ -18031,7 +18031,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 53, y: -350}
+  m_AnchoredPosition: {x: 53, y: -375}
   m_SizeDelta: {x: 120, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224842068993038126
@@ -18219,7 +18219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -16.999992, y: -0.0001525992}
+  m_AnchoredPosition: {x: 17.000029, y: 0.000102903854}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224915827175067530

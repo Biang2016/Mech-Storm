@@ -28,6 +28,10 @@ public partial class SelectBuildManager
 
     public BuildRenamePanel BuildRenamePanel;
 
+    private void Awake_Build()
+    {
+        Proxy.OnClientStateChange += NetworkStateChange_Build;
+    }
 
     public void InitAllMyBuildInfos(List<BuildInfo> buildInfos)
     {
@@ -82,20 +86,6 @@ public partial class SelectBuildManager
         return newBuildButton;
     }
 
-    public void OnSelectBuildButtonClick()
-    {
-        if (CurrentSelectedBuildButton) CurrentSelectedBuildButton.IsSelected = false;
-        if (CurrentEditBuildButton)
-        {
-            CurrentSelectedBuildButton = CurrentEditBuildButton;
-            CurrentSelectedBuildButton.IsSelected = true;
-            M_StateMachine.SetState(StateMachine.States.Hide);
-        }
-        else
-        {
-            NoticeManager.Instance.ShowInfoPanelCenter("您未创建卡组", 0f, 0.5f);
-        }
-    }
 
     public void OnBuildButtonDoubleClickToSelect(BuildButton buildButton)
     {
