@@ -146,7 +146,7 @@ public partial class SelectBuildManager
         CurrentPreviewCard.Initiate(upgradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
         PreviewCard.Initiate(upgradeCardInfo, PreviewCard.ClientPlayer, true);
 
-        RefreshCardInSelectWindow(CurrentPreviewCard);
+        RefreshCardInSelectWindow(CurrentPreviewCard, cardCount != 0);
         RefreshUpgradePanel();
         RefreshPreviewCard();
     }
@@ -173,7 +173,7 @@ public partial class SelectBuildManager
         CurrentPreviewCard.Initiate(degradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
         PreviewCard.Initiate(degradeCardInfo, PreviewCard.ClientPlayer, true);
 
-        RefreshCardInSelectWindow(CurrentPreviewCard);
+        RefreshCardInSelectWindow(CurrentPreviewCard, cardCount != 0);
         RefreshUpgradePanel();
         RefreshPreviewCard();
     }

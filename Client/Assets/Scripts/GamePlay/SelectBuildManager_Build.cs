@@ -28,6 +28,7 @@ public partial class SelectBuildManager
     private void Awake_Build()
     {
         Proxy.OnClientStateChange += NetworkStateChange_Build;
+        InitializeSliders();
     }
 
     public void InitAllMyBuildInfos(List<BuildInfo> buildInfos)
@@ -60,6 +61,13 @@ public partial class SelectBuildManager
             CurrentSelectedBuildButton = CurrentEditBuildButton;
             CurrentSelectedBuildButton.IsSelected = true;
             SelectCardsByBuildInfo(CurrentEditBuildButton.BuildInfo);
+
+            EnableSliders();
+            RefreshMoneyLifeMagic();
+        }
+        else
+        {
+            DisableSliders();
         }
     }
 
@@ -112,16 +120,9 @@ public partial class SelectBuildManager
         RefreshMoneyLifeMagic();
     }
 
-    private void RefreshMoneyLifeMagic()
-    {
-        MyMoneyText.text = (GamePlaySettings.PlayerDefaultMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney()).ToString();
-        MyLifeText.text = CurrentEditBuildButton.BuildInfo.Life.ToString();
-        MyMagicText.text = CurrentEditBuildButton.BuildInfo.Magic.ToString();
-    }
-
     public void OnCreateNewBuildButtonClick()
     {
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, "New Build", new List<int>(), new List<int>(), 0, 0, 0, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, "New Build", new List<int>(), new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToMoney, GamePlaySettings.PlayerDefaultMagic * GamePlaySettings.MagicToMoney, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
         Client.Instance.Proxy.SendMessage(request);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
@@ -129,7 +130,7 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildResponse(int buildID)
     {
-        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, "New Build", new List<int>(), new List<int>(), 0, 0, 0, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
+        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, "New Build", new List<int>(), new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToMoney, GamePlaySettings.PlayerDefaultMagic * GamePlaySettings.MagicToMoney, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
         AllBuildButtons.Add(buildID, newBuildButton);
         AllBuilds.Add(buildID, newBuildButton.BuildInfo);
         OnSwitchEditBuild(newBuildButton);
@@ -138,6 +139,7 @@ public partial class SelectBuildManager
         {
             CurrentSelectedBuildButton = newBuildButton;
             CurrentSelectedBuildButton.IsSelected = true;
+            EnableSliders();
         }
 
         CreateNewBuildButton.enabled = true; //解锁
@@ -181,6 +183,7 @@ public partial class SelectBuildManager
                 CurrentEditBuildButton = null;
                 CurrentSelectedBuildButton = null;
                 UnSelectAllCard();
+                DisableSliders();
                 return;
             }
 
@@ -217,26 +220,86 @@ public partial class SelectBuildManager
     [SerializeField] private Text MyLifeText;
     [SerializeField] private Text MyMagicText;
 
+    [SerializeField] private Text TotalMoneyText;
+    [SerializeField] private Text MaxLifeText;
+    [SerializeField] private Text MaxMagicText;
+
     [SerializeField] private Slider MoneySlider;
     [SerializeField] private Slider LifeSlider;
     [SerializeField] private Slider MagicSlider;
 
+    private void EnableSliders()
+    {
+        LifeSlider.enabled = true;
+        MagicSlider.enabled = true;
+    }
+
+    private void DisableSliders()
+    {
+        LifeSlider.enabled = false;
+        MagicSlider.enabled = false;
+    }
+
     private void InitializeSliders()
     {
-        MoneySlider.value = 1;
-        LifeSlider.value = GamePlaySettings.PlayerDefaultLife / GamePlaySettings.PlayerDefaultLifeMax;
-        MagicSlider.value = GamePlaySettings.PlayerDefaultMagic / GamePlaySettings.PlayerDefaultMagicMax;
+        MoneySlider.value = (float) GamePlaySettings.PlayerDefaultMoney / GamePlaySettings.PlayerDefaultMaxMoney;
+        LifeSlider.value = (float) GamePlaySettings.PlayerDefaultLife / GamePlaySettings.PlayerDefaultLifeMax;
+        MagicSlider.value = (float) GamePlaySettings.PlayerDefaultMagic / GamePlaySettings.PlayerDefaultMagicMax;
 
+        TotalMoneyText.text = GamePlaySettings.PlayerDefaultMaxMoney.ToString();
+        MaxLifeText.text = GamePlaySettings.PlayerDefaultLifeMax.ToString();
+        MaxMagicText.text = GamePlaySettings.PlayerDefaultMagicMax.ToString();
+
+        MoneySlider.onValueChanged.AddListener(OnMoneySliderValueChange);
         LifeSlider.onValueChanged.AddListener(OnLifeSliderValueChange);
         MagicSlider.onValueChanged.AddListener(OnMagicSliderValueChange);
+
+        LifeSlider.minValue = (float) GamePlaySettings.PlayerDefaultLifeMin / GamePlaySettings.PlayerDefaultLifeMax;
+    }
+
+    private void RefreshMoneyLifeMagic()
+    {
+        MoneySlider.value = (float) (GamePlaySettings.PlayerDefaultMaxMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney()) / GamePlaySettings.PlayerDefaultMaxMoney;
+        OnMoneySliderValueChange(MoneySlider.value);
+        LifeSlider.value = (float) (CurrentEditBuildButton.BuildInfo.Life) / GamePlaySettings.PlayerDefaultLifeMax;
+        OnLifeSliderValueChange(LifeSlider.value);
+        MagicSlider.value = (float) (CurrentEditBuildButton.BuildInfo.Magic) / GamePlaySettings.PlayerDefaultMagicMax;
+        OnMagicSliderValueChange(MagicSlider.value);
+    }
+
+    [SerializeField] private Transform MyMoneyTextMinPos;
+    [SerializeField] private Transform MyMoneyTextMaxPos;
+
+    [SerializeField] private Transform MyLifeTextMinPos;
+    [SerializeField] private Transform MyLifeTextMaxPos;
+
+    [SerializeField] private Transform MyMagicTextMinPos;
+    [SerializeField] private Transform MyMagicTextMaxPos;
+
+    private void OnMoneySliderValueChange(float value)
+    {
+        MyMoneyText.text = (GamePlaySettings.PlayerDefaultMaxMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney()).ToString();
+        MyMoneyText.rectTransform.localPosition = Vector3.Lerp(MyMoneyTextMinPos.localPosition, MyMoneyTextMaxPos.localPosition, value);
     }
 
     private void OnLifeSliderValueChange(float value)
     {
+        CurrentEditBuildButton.BuildInfo.Life = Mathf.RoundToInt(value * GamePlaySettings.PlayerDefaultLifeMax);
+        CurrentEditBuildButton.BuildInfo.LifeConsumeMoney = (CurrentEditBuildButton.BuildInfo.Life - GamePlaySettings.PlayerDefaultLifeMin) * GamePlaySettings.LifeToMoney;
+        MyLifeText.text = CurrentEditBuildButton.BuildInfo.Life.ToString();
+        MyLifeText.rectTransform.localPosition = Vector3.Lerp(MyLifeTextMinPos.localPosition, MyLifeTextMaxPos.localPosition, (value - (float) GamePlaySettings.PlayerDefaultLifeMin / GamePlaySettings.PlayerDefaultLifeMax) / (1 - (float) GamePlaySettings.PlayerDefaultLifeMin / GamePlaySettings.PlayerDefaultLifeMax));
+
+        MoneySlider.value = (float) (GamePlaySettings.PlayerDefaultMaxMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney()) / GamePlaySettings.PlayerDefaultMaxMoney;
     }
 
     private void OnMagicSliderValueChange(float value)
     {
+        CurrentEditBuildButton.BuildInfo.Magic = Mathf.RoundToInt(value * GamePlaySettings.PlayerDefaultMagicMax);
+        CurrentEditBuildButton.BuildInfo.MagicConsumeMoney = CurrentEditBuildButton.BuildInfo.Magic * GamePlaySettings.MagicToMoney;
+        MyMagicText.text = CurrentEditBuildButton.BuildInfo.Magic.ToString();
+        MyMagicText.rectTransform.localPosition = Vector3.Lerp(MyMagicTextMinPos.localPosition, MyMagicTextMaxPos.localPosition, value);
+
+        MoneySlider.value = (float) (GamePlaySettings.PlayerDefaultMaxMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney()) / GamePlaySettings.PlayerDefaultMaxMoney;
     }
 
     #endregion

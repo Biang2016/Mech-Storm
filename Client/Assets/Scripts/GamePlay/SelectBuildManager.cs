@@ -262,15 +262,22 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
     public void AddCardIntoCardSelectWindow(CardInfo_Base cardInfo)
     {
         CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, AllCardsContent, null, true);
-        RefreshCardInSelectWindow(newCard);
+        RefreshCardInSelectWindow(newCard,false);
         allCards.Add(newCard.CardInfo.CardID, newCard);
     }
 
-    private static void RefreshCardInSelectWindow(CardBase newCard)
+    private static void RefreshCardInSelectWindow(CardBase newCard,bool isSelected)
     {
         newCard.transform.localScale = Vector3.one * 120;
         newCard.transform.rotation = Quaternion.Euler(90, 180, 0);
-        newCard.BeDimColor();
+        if (isSelected)
+        {
+            newCard.BeBrightColor();
+        }
+        else
+        {
+            newCard.BeDimColor();
+        }
     }
 
     #endregion
