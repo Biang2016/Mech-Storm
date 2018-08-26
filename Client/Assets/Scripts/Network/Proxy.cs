@@ -10,6 +10,8 @@ internal class Proxy : ProxyBase
     {
     }
 
+    public string Username;
+
     public override ClientStates ClientState
     {
         get { return clientState; }
@@ -112,6 +114,7 @@ internal class Proxy : ProxyBase
                     LoginResultRequest request = (LoginResultRequest) r;
                     if (request.isSuccess)
                     {
+                        Username = request.username;
                         ClientState = ClientStates.Login;
                         NoticeManager.Instance.ShowInfoPanelTop("登录成功", 0, 0.5f);
                         LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Hide);
@@ -120,6 +123,25 @@ internal class Proxy : ProxyBase
                     else
                     {
                         NoticeManager.Instance.ShowInfoPanelCenter("登录失败，请检查用户名或密码", 0, 0.5f);
+                    }
+
+                    break;
+                }
+                case NetProtocols.LOGOUT_RESULT_REQUEST:
+                {
+                    LogoutResultRequest request = (LogoutResultRequest) r;
+                    if (request.isSuccess)
+                    {
+                        Username = "";
+                        ClientState = ClientStates.GetId;
+                        NoticeManager.Instance.ShowInfoPanelTop("退出成功", 0, 0.5f);
+                        Client.Instance.Proxy.ClientState = ClientStates.GetId;
+                        StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+                        LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
+                    }
+                    else
+                    {
+                        NoticeManager.Instance.ShowInfoPanelCenter("退出失败", 0, 0.5f);
                     }
 
                     break;

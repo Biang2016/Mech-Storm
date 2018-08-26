@@ -168,7 +168,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
             Client.Instance.Proxy.CancelMatch();
         }
 
-        M_StateMachine.SetState(StateMachine.States.Hide);
-        LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
+        LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientId, Client.Instance.Proxy.Username);
+        Client.Instance.Proxy.SendMessage(request);
     }
 }

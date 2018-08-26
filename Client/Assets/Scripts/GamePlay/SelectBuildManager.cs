@@ -16,8 +16,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
     {
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         M_StateMachine = new StateMachine();
-        Canvas.gameObject.SetActive(true);
-        Canvas.enabled = false;
+        Canvas.gameObject.SetActive(false);
 
         Awake_Select();
         Awake_Build();
@@ -117,6 +116,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                     else if (Input.GetKeyUp(KeyCode.Tab))
                     {
                         SetState(States.Hide);
+                        Instance.HidePreviewCardPanel();
                     }
                 }
                 else if (Instance.BuildRenamePanel.gameObject.activeSelf)
@@ -148,16 +148,16 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
         private void ShowWindow()
         {
             GameManager.Instance.StartBlurBackGround();
-            Instance.Canvas.enabled = true;
-            Instance.Canvas_BG.enabled = true;
+            Instance.Canvas.gameObject.SetActive(true);
+            Instance.Canvas_BG.gameObject.SetActive(true);
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
             if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
         }
 
         private void HideWindow()
         {
-            Instance.Canvas.enabled = false;
-            Instance.Canvas_BG.enabled = false;
+            Instance.Canvas.gameObject.SetActive(false);
+            Instance.Canvas_BG.gameObject.SetActive(false);
             GameManager.Instance.StopBlurBackGround();
             MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
             if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
@@ -262,11 +262,11 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
     public void AddCardIntoCardSelectWindow(CardInfo_Base cardInfo)
     {
         CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, AllCardsContent, null, true);
-        RefreshCardInSelectWindow(newCard,false);
+        RefreshCardInSelectWindow(newCard, false);
         allCards.Add(newCard.CardInfo.CardID, newCard);
     }
 
-    private static void RefreshCardInSelectWindow(CardBase newCard,bool isSelected)
+    private static void RefreshCardInSelectWindow(CardBase newCard, bool isSelected)
     {
         newCard.transform.localScale = Vector3.one * 120;
         newCard.transform.rotation = Quaternion.Euler(90, 180, 0);

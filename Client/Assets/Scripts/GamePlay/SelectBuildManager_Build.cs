@@ -32,9 +32,10 @@ public partial class SelectBuildManager
 
     public void InitAllMyBuildInfos(List<BuildInfo> buildInfos)
     {
-        while (AllMyBuildsContent.childCount > 0)
+        CreateNewBuildButton.transform.SetAsLastSibling();
+        while (AllMyBuildsContent.childCount > 1)
         {
-            AllMyBuildsContent.GetChild(0).GetComponent<BuildButton>().PoolRecycle();
+            AllMyBuildsContent.GetChild(AllMyBuildsContent.childCount - 1).GetComponent<BuildButton>().PoolRecycle();
         }
 
         AllBuildButtons.Clear();
@@ -51,6 +52,8 @@ public partial class SelectBuildManager
             AllBuildButtons.Add(kv.Key, newBuildButton);
             newBuildButton.transform.SetParent(AllMyBuildsContent.transform);
         }
+
+        CreateNewBuildButton.transform.SetAsLastSibling();
 
         if (AllBuildButtons.Count != 0)
         {
@@ -80,6 +83,8 @@ public partial class SelectBuildManager
     {
         BuildButton newBuildButton = GameObjectPoolManager.Instance.Pool_BuildButtonPool.AllocateGameObject(AllMyBuildsContent).GetComponent<BuildButton>();
         newBuildButton.Initialize(m_BuildInfo);
+
+        CreateNewBuildButton.transform.SetAsLastSibling();
 
         BuildButtonClick bbc = newBuildButton.Button.GetComponent<BuildButtonClick>();
         bbc.ResetListeners();
@@ -164,9 +169,9 @@ public partial class SelectBuildManager
 
             int siblingIndex = deleteBuildButton.transform.GetSiblingIndex();
             int newEditBuildButtonSiblingIndex = 0;
-            if (siblingIndex > AllMyBuildsContent.childCount - 2)
+            if (siblingIndex > AllMyBuildsContent.childCount - 3)
             {
-                newEditBuildButtonSiblingIndex = AllMyBuildsContent.childCount - 2;
+                newEditBuildButtonSiblingIndex = AllMyBuildsContent.childCount - 3;
             }
             else
             {
@@ -175,7 +180,7 @@ public partial class SelectBuildManager
 
             bool isSelected = deleteBuildButton.IsSelected;
             deleteBuildButton.PoolRecycle();
-            if (newEditBuildButtonSiblingIndex < 0 || AllMyBuildsContent.childCount == 0)
+            if (newEditBuildButtonSiblingIndex < 0 || AllMyBuildsContent.childCount == 1)
             {
                 CurrentEditBuildButton = null;
                 CurrentSelectedBuildButton = null;

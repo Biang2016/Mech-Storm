@@ -4,7 +4,7 @@
     public static int DrawCardPerRound = 2;
     public static int FirstDrawCard = 5;
     public static int SecondDrawCard = 6;
-    public static int MaxRetinueNumber = 7;
+    public static int MaxRetinueNumber = 6;
 
     public static int MaxHeroNumber = 4;
 

@@ -79,8 +79,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             }
 
             newCard.ChangeCardBloomColor(GameManager.Instance.CardBloomColor);
-            newCard.MoneyText.text = "";
-            newCard.CoinImage.enabled = false;
         }
         else
         {
@@ -171,7 +169,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         transform.Rotate(Vector3.up, 180);
 
         if (IsCardSelect) MoneyText.text = cardInfo.BaseInfo.Money.ToString();
-        else MoneyText.text = "";
     }
 
 
@@ -339,11 +336,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         {
             CardNumberSet_Count.Number = value;
         }
-    }
-
-    public void SetMoneyTextValue(int value)
-    {
-        MoneyText.text = value.ToString();
     }
 
     # endregion

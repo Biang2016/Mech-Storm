@@ -68,6 +68,7 @@
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\UseSpellCardRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\DeleteBuildRequest.cs" />
+    <Compile Include="RequestResponse\ClientToServer\OutGame\LogoutRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LoginRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\RegisterRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerMagicChangeRequest.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="RequestResponse\ServerToClient\OutGame\CreateBuildRequestResponse.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\ClientIdRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\DeleteBuildRequestResponse.cs" />
+    <Compile Include="RequestResponse\ServerToClient\OutGame\LogoutResultRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\LoginResultRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\RegisterResultRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\ClientBuildInfosRequest.cs" />

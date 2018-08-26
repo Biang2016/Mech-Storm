@@ -1063,7 +1063,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1073,8 +1073,8 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 91845329d44870045873b7d1e10a1bfd, type: 3}
     m_FontSize: 44
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 1
+    m_BestFit: 1
+    m_MinSize: 36
     m_MaxSize: 44
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -1158,6 +1158,8 @@ MonoBehaviour:
   Image_RetinueDescPanel: {fileID: 114388438861472896}
   Block_Cost: {fileID: 1186108035511274}
   Block_Count: {fileID: 0}
+  MoneyText: {fileID: 0}
+  CoinImage: {fileID: 0}
   SpellName: {fileID: 114362871091690130}
   SpellDesc: {fileID: 114748058512960504}
   hasTarget: 0
@@ -1174,7 +1176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1184,8 +1186,8 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 91845329d44870045873b7d1e10a1bfd, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 1
+    m_BestFit: 1
+    m_MinSize: 36
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -1315,6 +1317,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 179.99998}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.99, y: -3.15}
-  m_SizeDelta: {x: 400, y: 200}
+  m_AnchoredPosition: {x: 1.08, y: -3.15}
+  m_SizeDelta: {x: 306.7, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}

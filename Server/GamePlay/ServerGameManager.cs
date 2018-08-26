@@ -50,10 +50,10 @@ internal class ServerGameManager
 
         SyncRandomNumber();
 
-        int PA_LIFE = PlayerA.MyCardDeckManager.M_CurrentCardDeck.M_BuildInfo.Life;
-        int PA_MAGIC = PlayerA.MyCardDeckManager.M_CurrentCardDeck.M_BuildInfo.Magic;
-        int PB_LIFE = PlayerB.MyCardDeckManager.M_CurrentCardDeck.M_BuildInfo.Life;
-        int PB_MAGIC = PlayerB.MyCardDeckManager.M_CurrentCardDeck.M_BuildInfo.Magic;
+        int PA_LIFE = ClientA.CurrentBuildInfo.Life;
+        int PA_MAGIC = ClientA.CurrentBuildInfo.Magic;
+        int PB_LIFE = ClientB.CurrentBuildInfo.Life;
+        int PB_MAGIC = ClientB.CurrentBuildInfo.Magic;
 
         PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginCost, PA_LIFE, PA_LIFE, PA_MAGIC, PA_MAGIC, this);
         PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange);

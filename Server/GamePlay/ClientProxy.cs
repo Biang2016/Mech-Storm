@@ -187,6 +187,32 @@ internal class ClientProxy : ProxyBase
                     }
 
                     break;
+                case LogoutRequest _:
+                {
+                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
+                    LogoutRequest request = (LogoutRequest) r;
+                    LogoutResultRequest response;
+                    if (ClientState != ClientStates.GetId)
+                    {
+                        Server.SV.SGMM.RemoveGame(this);
+                        if (Database.Instance.LoginUserTable.ContainsKey(ClientId))
+                        {
+                            Database.Instance.LoginUserTable.Remove(ClientId);
+                        }
+
+                        ClientState = ClientStates.GetId;
+
+                        response = new LogoutResultRequest(request.username, true);
+                    }
+                    else
+                    {
+                        response = new LogoutResultRequest(request.username, false);
+                    }
+
+                    SendMessage(response);
+                    break;
+                }
+
                 case BuildRequest _:
                 {
                     BuildRequest request = (BuildRequest) r;

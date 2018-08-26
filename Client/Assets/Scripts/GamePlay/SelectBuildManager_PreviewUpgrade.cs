@@ -96,7 +96,7 @@ public partial class SelectBuildManager
         }
     }
 
-    private void HidePreviewCardPanel()
+    public void HidePreviewCardPanel()
     {
         if (PreviewCard)
         {
@@ -126,6 +126,12 @@ public partial class SelectBuildManager
 
     internal void OnUpgradeButtonClick()
     {
+        if (CurrentEditBuildButton == null)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+            return;
+        }
+
         int currentCardID = CurrentPreviewCard.CardInfo.CardID;
         int upgradeCardID = CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID;
         CardInfo_Base upgradeCardInfo = AllCards.GetCard(upgradeCardID);
@@ -160,6 +166,12 @@ public partial class SelectBuildManager
 
     internal void OnDegradeButtonClick()
     {
+        if (CurrentEditBuildButton == null)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+            return;
+        }
+
         int currentCardID = CurrentPreviewCard.CardInfo.CardID;
         int degradeCardID = CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID;
         CardInfo_Base degradeCardInfo = AllCards.GetCard(degradeCardID);
