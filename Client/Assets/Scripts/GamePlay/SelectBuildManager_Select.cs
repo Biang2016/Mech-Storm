@@ -93,7 +93,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        if (GamePlaySettings.PlayerDefaultMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney() < card.CardInfo.BaseInfo.Money)
+        if (!isSwitchingBuildInfo && GamePlaySettings.PlayerDefaultMaxMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney() < card.CardInfo.BaseInfo.Money)
         {
             NoticeManager.Instance.ShowInfoPanelCenter("预算不足", 0f, 1f);
             return;
@@ -163,8 +163,11 @@ public partial class SelectBuildManager
             SelectCardCount++;
         }
 
-        CurrentEditBuildButton.BuildInfo.CardConsumeMoney += card.CardInfo.BaseInfo.Money;
-        RefreshMoneyLifeMagic();
+        if (!isSwitchingBuildInfo)
+        {
+            CurrentEditBuildButton.BuildInfo.CardConsumeMoney += card.CardInfo.BaseInfo.Money;
+            RefreshMoneyLifeMagic();
+        }
     }
 
     private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)
@@ -224,8 +227,11 @@ public partial class SelectBuildManager
             SelectCardCount--;
         }
 
-        CurrentEditBuildButton.BuildInfo.CardConsumeMoney -= card.CardInfo.BaseInfo.Money;
-        RefreshMoneyLifeMagic();
+        if (!isSwitchingBuildInfo)
+        {
+            CurrentEditBuildButton.BuildInfo.CardConsumeMoney -= card.CardInfo.BaseInfo.Money;
+            RefreshMoneyLifeMagic();
+        }
     }
 
     public void SelectAllCard()
@@ -261,6 +267,8 @@ public partial class SelectBuildManager
             SelectCard(allCards[cardID]);
         }
 
+        RefreshMoneyLifeMagic();
+
         isSwitchingBuildInfo = false;
     }
 
@@ -290,16 +298,15 @@ public partial class SelectBuildManager
             {
                 CurrentEditBuildButton.BuildInfo.CardIDs.Clear();
                 CurrentEditBuildButton.BuildInfo.BeginRetinueIDs.Clear();
+                CurrentEditBuildButton.BuildInfo.CardConsumeMoney = 0;
+                CurrentEditBuildButton.BuildInfo.Life = GamePlaySettings.PlayerDefaultLife;
+                CurrentEditBuildButton.BuildInfo.Magic = GamePlaySettings.PlayerDefaultMagic;
+                RefreshMoneyLifeMagic();
             }
         }
 
         SelectCardCount = 0;
         HeroCardCount = 0;
-
-        CurrentEditBuildButton.BuildInfo.CardConsumeMoney = 0;
-        CurrentEditBuildButton.BuildInfo.Life = GamePlaySettings.PlayerDefaultLife;
-        CurrentEditBuildButton.BuildInfo.Magic = GamePlaySettings.PlayerDefaultMagic;
-        RefreshMoneyLifeMagic();
     }
 
     public void OnConfirmSubmitCardDeckButtonClick()
@@ -312,6 +319,10 @@ public partial class SelectBuildManager
         {
             Client.Instance.Proxy.OnSendBuildInfo(CurrentEditBuildButton.BuildInfo);
             NoticeManager.Instance.ShowInfoPanelCenter("更新卡组成功", 0, 1f);
+            if (CurrentSelectedBuildButton) CurrentSelectedBuildButton.IsSelected = false;
+            CurrentSelectedBuildButton = CurrentEditBuildButton;
+            CurrentSelectedBuildButton.IsSelected = true;
+            M_StateMachine.SetState(StateMachine.States.Hide);
         }
     }
 

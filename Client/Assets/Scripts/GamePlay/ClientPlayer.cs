@@ -7,7 +7,7 @@ internal class ClientPlayer : Player
     internal Players WhichPlayer;
     public int ClientId;
 
-    internal ClientPlayer(int costLeft, int costMax, Players whichPlayer) : base(costLeft, costMax)
+    internal ClientPlayer(int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax, Players whichPlayer) : base(costLeft, costMax, lifeLeft, lifeMax, magicLeft, magicMax)
     {
         WhichPlayer = whichPlayer;
         MyHandArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfHandArea : BoardAreaTypes.EnemyHandArea;
@@ -46,6 +46,54 @@ internal class ClientPlayer : Player
         else if (request.change == PlayerCostChangeRequest.CostChangeFlag.Max)
         {
             AddCostMax(request.addCost_max);
+        }
+    }
+
+    #endregion
+
+    #region Life
+
+    protected override void OnLifeChanged()
+    {
+        if (this == RoundManager.Instance.SelfClientPlayer)
+        {
+            RoundManager.Instance.SelfLifeText.text = "Life: " + LifeLeft + "/" + LifeMax;
+        }
+        else if (this == RoundManager.Instance.EnemyClientPlayer)
+        {
+            RoundManager.Instance.EnemyLifeText.text = "Life: " + LifeLeft + "/" + LifeMax;
+        }
+    }
+
+    public void DoChangeLife(PlayerLifeChangeRequest request)
+    {
+        if (request.change == PlayerLifeChangeRequest.LifeChangeFlag.Left)
+        {
+            AddLife(request.addLife_left);
+        }
+    }
+
+    #endregion
+
+    #region Magic
+
+    protected override void OnMagicChanged()
+    {
+        if (this == RoundManager.Instance.SelfClientPlayer)
+        {
+            RoundManager.Instance.SelfMagicText.text = "Magic: " + MagicLeft + "/" + MagicMax;
+        }
+        else if (this == RoundManager.Instance.EnemyClientPlayer)
+        {
+            RoundManager.Instance.EnemyMagicText.text = "Magic: " + MagicLeft + "/" + MagicMax;
+        }
+    }
+
+    public void DoChangeMagic(PlayerMagicChangeRequest request)
+    {
+        if (request.change == PlayerMagicChangeRequest.MagicChangeFlag.Left)
+        {
+            AddMagic(request.addMagic_left);
         }
     }
 

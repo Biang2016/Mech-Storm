@@ -18,8 +18,14 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     [SerializeField] private GameObject SelfTurnText;
     [SerializeField] private GameObject EnemyTurnText;
     [SerializeField] private GameObject EndRoundButton;
+
     [SerializeField] public Text SelfCostText;
+    [SerializeField] public Text SelfLifeText;
+    [SerializeField] public Text SelfMagicText;
+
     [SerializeField] public Text EnemyCostText;
+    [SerializeField] public Text EnemyLifeText;
+    [SerializeField] public Text EnemyMagicText;
 
     void Awake()
     {
@@ -59,12 +65,12 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     {
         if (r.clientId == Client.Instance.Proxy.ClientId)
         {
-            SelfClientPlayer = new ClientPlayer(r.costLeft, r.costMax, Players.Self);
+            SelfClientPlayer = new ClientPlayer(r.costLeft, r.costMax, r.lifeLeft, r.lifeMax, r.magicLeft, r.magicMax, Players.Self);
             SelfClientPlayer.ClientId = r.clientId;
         }
         else
         {
-            EnemyClientPlayer = new ClientPlayer(r.costLeft, r.costMax, Players.Enemy);
+            EnemyClientPlayer = new ClientPlayer(r.costLeft, r.costMax, r.lifeLeft, r.lifeMax, r.magicLeft, r.magicMax, Players.Enemy);
             EnemyClientPlayer.ClientId = r.clientId;
         }
     }

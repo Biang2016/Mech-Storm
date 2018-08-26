@@ -33,7 +33,7 @@ public partial class SelectBuildManager
         RefreshUpgradePanel();
 
         PreviewCardPanel.SetActive(true);
-        PreviewCardPanelBG.SetActive(UpgradeCardButton.gameObject.activeSelf || DegradeCardButton.gameObject.activeSelf);
+        PreviewCardPanelBG.SetActive(true);
     }
 
     private void RefreshPreviewCard()
@@ -134,6 +134,13 @@ public partial class SelectBuildManager
         if (SelectedCards.ContainsKey(currentCardID))
         {
             cardCount = SelectedCards[currentCardID].Count;
+
+            if ((GamePlaySettings.PlayerDefaultMaxMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney()) + (CurrentPreviewCard.CardInfo.BaseInfo.Money - upgradeCardInfo.BaseInfo.Money) * cardCount < 0)
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter("预算不足", 0f, 1f);
+                return;
+            }
+
             SelectCard currentSelectCard = SelectedCards[currentCardID];
             SelectedCards.Remove(currentCardID);
             SelectedCards.Add(upgradeCardID, currentSelectCard);

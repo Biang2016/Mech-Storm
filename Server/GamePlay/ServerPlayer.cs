@@ -10,7 +10,7 @@
     public ServerCardDeckManager MyCardDeckManager;
     public ServerBattleGroundManager MyBattleGroundManager;
 
-    public ServerPlayer(int clientId, int enemyClientId, int costLeft, int costMax, ServerGameManager serverGameManager) : base(costLeft, costMax)
+    public ServerPlayer(int clientId, int enemyClientId, int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax, ServerGameManager serverGameManager) : base(costLeft, costMax, lifeLeft, lifeMax, magicLeft, magicMax)
     {
         ClientId = clientId;
         EnemyClientId = enemyClientId;
@@ -28,6 +28,8 @@
         MyCardDeckManager = null;
         MyBattleGroundManager = null;
     }
+
+    #region CostChange
 
     public void AddCostWithoutLimit(int addCostValue)
     {
@@ -117,6 +119,94 @@
             BroadCastRequest(request);
         }
     }
+
+    #endregion
+
+    #region LifeChange
+
+    public void AddLifeWithinMax(int addLifeValue)
+    {
+        int LifeLeftBefore = LifeLeft;
+        if (LifeMax - LifeLeft > addLifeValue)
+            AddLife(addLifeValue);
+        else
+            AddLife(LifeMax - LifeLeft);
+        if (addLifeValue != 0)
+        {
+            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, PlayerLifeChangeRequest.LifeChangeFlag.Left, addLife_left: LifeLeft - LifeLeftBefore);
+            BroadCastRequest(request);
+        }
+    }
+
+    public void UseLifeAboveZero(int useLifeValue)
+    {
+        int LifeLeftBefore = LifeLeft;
+        if (LifeLeft > useLifeValue)
+            AddLife(-useLifeValue);
+        else
+            AddLife(-LifeLeft);
+        if (useLifeValue != 0)
+        {
+            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, PlayerLifeChangeRequest.LifeChangeFlag.Left, addLife_left: LifeLeft - LifeLeftBefore);
+            BroadCastRequest(request);
+        }
+    }
+
+    public void AddAllLife()
+    {
+        int LifeLeftBefore = LifeLeft;
+        AddLife(LifeMax - LifeLeft);
+        if (LifeLeft - LifeLeftBefore != 0)
+        {
+            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, PlayerLifeChangeRequest.LifeChangeFlag.Left, addLife_left: LifeLeft - LifeLeftBefore);
+            BroadCastRequest(request);
+        }
+    }
+
+    #endregion
+
+    #region MagicChange
+
+    public void AddMagicWithinMax(int addMagicValue)
+    {
+        int MagicLeftBefore = MagicLeft;
+        if (MagicMax - MagicLeft > addMagicValue)
+            AddMagic(addMagicValue);
+        else
+            AddMagic(MagicMax - MagicLeft);
+        if (addMagicValue != 0)
+        {
+            PlayerMagicChangeRequest request = new PlayerMagicChangeRequest(ClientId, PlayerMagicChangeRequest.MagicChangeFlag.Left, addMagic_left: MagicLeft - MagicLeftBefore);
+            BroadCastRequest(request);
+        }
+    }
+
+    public void UseMagicAboveZero(int useMagicValue)
+    {
+        int MagicLeftBefore = MagicLeft;
+        if (MagicLeft > useMagicValue)
+            AddMagic(-useMagicValue);
+        else
+            AddMagic(-MagicLeft);
+        if (useMagicValue != 0)
+        {
+            PlayerMagicChangeRequest request = new PlayerMagicChangeRequest(ClientId, PlayerMagicChangeRequest.MagicChangeFlag.Left, addMagic_left: MagicLeft - MagicLeftBefore);
+            BroadCastRequest(request);
+        }
+    }
+
+    public void AddAllMagic()
+    {
+        int MagicLeftBefore = MagicLeft;
+        AddMagic(MagicMax - MagicLeft);
+        if (MagicLeft - MagicLeftBefore != 0)
+        {
+            PlayerMagicChangeRequest request = new PlayerMagicChangeRequest(ClientId, PlayerMagicChangeRequest.MagicChangeFlag.Left, addMagic_left: MagicLeft - MagicLeftBefore);
+            BroadCastRequest(request);
+        }
+    }
+
+    #endregion
 
     public void OnCardDeckLeftChange(int count)
     {

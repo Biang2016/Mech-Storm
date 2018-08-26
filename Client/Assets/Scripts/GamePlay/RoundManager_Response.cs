@@ -62,6 +62,16 @@ internal partial class RoundManager
                 OnSetPlayersCost((PlayerCostChangeRequest) r);
                 break;
             }
+            case NetProtocols.SE_PLAYER_LIFE_CHANGE:
+            {
+                OnSetPlayersCost((PlayerCostChangeRequest) r);
+                break;
+            }
+            case NetProtocols.SE_PLAYER_MAGIC_CHANGE:
+            {
+                OnSetPlayersMagic((PlayerMagicChangeRequest) r);
+                break;
+            }
 
             case NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE:
             {
@@ -151,6 +161,18 @@ internal partial class RoundManager
         ClientPlayer cp = GetPlayerByClientId(r.clinetId);
         cp.DoChangeCost(r);
         cp.MyHandManager.RefreshAllCardUsable();
+    }
+
+    private void OnSetPlayersLife(PlayerLifeChangeRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clinetId);
+        cp.DoChangeLife(r);
+    }
+
+    private void OnSetPlayersMagic(PlayerMagicChangeRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clinetId);
+        cp.DoChangeMagic(r);
     }
 
     private void OnSetPlayerTurn(PlayerTurnRequest r) //服务器说某玩家回合开始

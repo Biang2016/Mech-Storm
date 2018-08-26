@@ -15,7 +15,6 @@ public partial class SelectBuildManager
 
     [SerializeField] private Button CreateNewBuildButton;
     [SerializeField] private Button DeleteBuildButton;
-    [SerializeField] private Button SelectBuildButton;
 
     private BuildInfo lastSaveBuildInfo;
     internal BuildButton CurrentEditBuildButton;
@@ -62,12 +61,12 @@ public partial class SelectBuildManager
             CurrentSelectedBuildButton.IsSelected = true;
             SelectCardsByBuildInfo(CurrentEditBuildButton.BuildInfo);
 
-            EnableSliders();
+            ShowSliders();
             RefreshMoneyLifeMagic();
         }
         else
         {
-            DisableSliders();
+            HideSliders();
         }
     }
 
@@ -75,7 +74,6 @@ public partial class SelectBuildManager
     {
         bool isMatching = clientState == ProxyBase.ClientStates.Matching;
         DeleteBuildButton.gameObject.SetActive(!isMatching);
-        SelectBuildButton.gameObject.SetActive(!isMatching);
     }
 
     private BuildButton GenerateNewBuildButton(BuildInfo m_BuildInfo)
@@ -90,7 +88,6 @@ public partial class SelectBuildManager
         bbc.leftDoubleClick.AddListener(delegate { OnBuildButtonDoubleClickToSelect(newBuildButton); });
         return newBuildButton;
     }
-
 
     public void OnBuildButtonDoubleClickToSelect(BuildButton buildButton)
     {
@@ -139,7 +136,7 @@ public partial class SelectBuildManager
         {
             CurrentSelectedBuildButton = newBuildButton;
             CurrentSelectedBuildButton.IsSelected = true;
-            EnableSliders();
+            ShowSliders();
         }
 
         CreateNewBuildButton.enabled = true; //解锁
@@ -183,7 +180,7 @@ public partial class SelectBuildManager
                 CurrentEditBuildButton = null;
                 CurrentSelectedBuildButton = null;
                 UnSelectAllCard();
-                DisableSliders();
+                HideSliders();
                 return;
             }
 
@@ -216,6 +213,14 @@ public partial class SelectBuildManager
 
     #region MoneyLifeMagic
 
+    [SerializeField] private GameObject MoneyBar;
+    [SerializeField] private GameObject LifeBar;
+    [SerializeField] private GameObject MagicBar;
+
+    [SerializeField] private Slider MoneySlider;
+    [SerializeField] private Slider LifeSlider;
+    [SerializeField] private Slider MagicSlider;
+
     [SerializeField] private Text MyMoneyText;
     [SerializeField] private Text MyLifeText;
     [SerializeField] private Text MyMagicText;
@@ -224,20 +229,27 @@ public partial class SelectBuildManager
     [SerializeField] private Text MaxLifeText;
     [SerializeField] private Text MaxMagicText;
 
-    [SerializeField] private Slider MoneySlider;
-    [SerializeField] private Slider LifeSlider;
-    [SerializeField] private Slider MagicSlider;
+    [SerializeField] private Transform MyMoneyTextMinPos;
+    [SerializeField] private Transform MyMoneyTextMaxPos;
 
-    private void EnableSliders()
+    [SerializeField] private Transform MyLifeTextMinPos;
+    [SerializeField] private Transform MyLifeTextMaxPos;
+
+    [SerializeField] private Transform MyMagicTextMinPos;
+    [SerializeField] private Transform MyMagicTextMaxPos;
+
+    private void ShowSliders()
     {
-        LifeSlider.enabled = true;
-        MagicSlider.enabled = true;
+        MoneyBar.SetActive(true);
+        LifeBar.SetActive(true);
+        MagicBar.SetActive(true);
     }
 
-    private void DisableSliders()
+    private void HideSliders()
     {
-        LifeSlider.enabled = false;
-        MagicSlider.enabled = false;
+        MoneyBar.SetActive(false);
+        LifeBar.SetActive(false);
+        MagicBar.SetActive(false);
     }
 
     private void InitializeSliders()
@@ -266,15 +278,6 @@ public partial class SelectBuildManager
         MagicSlider.value = (float) (CurrentEditBuildButton.BuildInfo.Magic) / GamePlaySettings.PlayerDefaultMagicMax;
         OnMagicSliderValueChange(MagicSlider.value);
     }
-
-    [SerializeField] private Transform MyMoneyTextMinPos;
-    [SerializeField] private Transform MyMoneyTextMaxPos;
-
-    [SerializeField] private Transform MyLifeTextMinPos;
-    [SerializeField] private Transform MyLifeTextMaxPos;
-
-    [SerializeField] private Transform MyMagicTextMinPos;
-    [SerializeField] private Transform MyMagicTextMaxPos;
 
     private void OnMoneySliderValueChange(float value)
     {

@@ -50,11 +50,16 @@ internal class ServerGameManager
 
         SyncRandomNumber();
 
-        PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginCost, this);
+        int PA_LIFE = PlayerA.MyCardDeckManager.M_CurrentCardDeck.M_BuildInfo.Life;
+        int PA_MAGIC = PlayerA.MyCardDeckManager.M_CurrentCardDeck.M_BuildInfo.Magic;
+        int PB_LIFE = PlayerB.MyCardDeckManager.M_CurrentCardDeck.M_BuildInfo.Life;
+        int PB_MAGIC = PlayerB.MyCardDeckManager.M_CurrentCardDeck.M_BuildInfo.Magic;
+
+        PlayerA = new ServerPlayer(ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginCost, PA_LIFE, PA_LIFE, PA_MAGIC, PA_MAGIC, this);
         PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange);
         PlayerA.MyClientProxy = ClientA;
 
-        PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, GamePlaySettings.BeginCost, this);
+        PlayerB = new ServerPlayer(ClientB.ClientId, ClientA.ClientId, 0, GamePlaySettings.BeginCost, PB_LIFE, PB_LIFE, PB_MAGIC, PB_MAGIC, this);
         PlayerB.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientB.CurrentBuildInfo, PlayerB.OnCardDeckLeftChange);
         PlayerB.MyCardDeckManager.M_CurrentCardDeck.CardDeckCountChangeHandler += PlayerB.OnCardDeckLeftChange;
         PlayerB.MyClientProxy = ClientB;
@@ -65,9 +70,9 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
 
-        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.ClientId, 0, GamePlaySettings.BeginCost);
+        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.ClientId, 0, GamePlaySettings.BeginCost, PA_LIFE, PA_LIFE, PA_MAGIC, PA_MAGIC);
         Broadcast_AddRequestToOperationResponse(request1);
-        SetPlayerRequest request2 = new SetPlayerRequest(ClientB.ClientId, 0, GamePlaySettings.BeginCost);
+        SetPlayerRequest request2 = new SetPlayerRequest(ClientB.ClientId, 0, GamePlaySettings.BeginCost, PB_LIFE, PB_LIFE, PB_MAGIC, PB_MAGIC);
         Broadcast_AddRequestToOperationResponse(request2);
 
         GameBegin();

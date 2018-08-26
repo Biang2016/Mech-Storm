@@ -6,7 +6,7 @@ public class CardDeck
     /// <summary>
     /// 本类中封装卡组操作的基本功能
     /// </summary>
-    private BuildInfo M_BuildInfo;
+    public BuildInfo M_BuildInfo;
 
     private List<CardInfo_Base> Cards = new List<CardInfo_Base>();
     public List<CardInfo_Base> BeginRetinueCards = new List<CardInfo_Base>();
