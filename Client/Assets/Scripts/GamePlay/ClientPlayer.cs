@@ -3,6 +3,7 @@ internal class ClientPlayer : Player
     public BoardAreaTypes MyBattleGroundArea; //卡牌所属方的战场区
     public HandManager MyHandManager; //卡牌所属的手部区管理器
     internal BattleGroundManager MyBattleGroundManager; //卡牌所属方的战场区域管理器
+    internal CostLifeMagiceManager MyCostLifeMagiceManager; //Cost、Magic、Life条的管理器
     internal BoardAreaTypes MyHandArea; //卡牌所属的手部区
     internal Players WhichPlayer;
     public int ClientId;
@@ -14,7 +15,9 @@ internal class ClientPlayer : Player
         MyBattleGroundArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfBattleGroundArea : BoardAreaTypes.EnemyBattleGroundArea;
         MyHandManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfHandManager : GameBoardManager.Instance.EnemyHandManager;
         MyBattleGroundManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfBattleGroundManager : GameBoardManager.Instance.EnemyBattleGroundManager;
+        MyCostLifeMagiceManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfCostLifeMagiceManager : GameBoardManager.Instance.EnemyCostLifeMagiceManager;
         MyHandManager.ClientPlayer = this;
+        MyCostLifeMagiceManager.ClientPlayer = this;
         MyBattleGroundManager.ClientPlayer = this;
     }
 
@@ -22,14 +25,7 @@ internal class ClientPlayer : Player
 
     protected override void OnCostChanged()
     {
-        if (this == RoundManager.Instance.SelfClientPlayer)
-        {
-            RoundManager.Instance.SelfCostText.text = "Cost: " + CostLeft + "/" + CostMax;
-        }
-        else if (this == RoundManager.Instance.EnemyClientPlayer)
-        {
-            RoundManager.Instance.EnemyCostText.text = "Cost: " + CostLeft + "/" + CostMax;
-        }
+        MyCostLifeMagiceManager.SetCost(CostLeft);
     }
 
     public void DoChangeCost(PlayerCostChangeRequest request)
@@ -55,14 +51,7 @@ internal class ClientPlayer : Player
 
     protected override void OnLifeChanged()
     {
-        if (this == RoundManager.Instance.SelfClientPlayer)
-        {
-            RoundManager.Instance.SelfLifeText.text = "Life: " + LifeLeft + "/" + LifeMax;
-        }
-        else if (this == RoundManager.Instance.EnemyClientPlayer)
-        {
-            RoundManager.Instance.EnemyLifeText.text = "Life: " + LifeLeft + "/" + LifeMax;
-        }
+        MyCostLifeMagiceManager.SetLife(LifeLeft);
     }
 
     public void DoChangeLife(PlayerLifeChangeRequest request)
@@ -79,14 +68,7 @@ internal class ClientPlayer : Player
 
     protected override void OnMagicChanged()
     {
-        if (this == RoundManager.Instance.SelfClientPlayer)
-        {
-            RoundManager.Instance.SelfMagicText.text = "Magic: " + MagicLeft + "/" + MagicMax;
-        }
-        else if (this == RoundManager.Instance.EnemyClientPlayer)
-        {
-            RoundManager.Instance.EnemyMagicText.text = "Magic: " + MagicLeft + "/" + MagicMax;
-        }
+        MyCostLifeMagiceManager.SetMagic(MagicLeft);
     }
 
     public void DoChangeMagic(PlayerMagicChangeRequest request)

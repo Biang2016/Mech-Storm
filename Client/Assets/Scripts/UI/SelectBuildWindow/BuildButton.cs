@@ -97,18 +97,6 @@ public class BuildButton : MonoBehaviour, IGameObjectPool
         ButtonImage.color = GameManager.Instance.BuildButtonDefaultColor;
     }
 
-    public void AddHeroCard(int cardId)
-    {
-        BuildInfo.BeginRetinueIDs.Add(cardId);
-        Text_Count.text = BuildInfo.CardCount().ToString();
-    }
-
-    public void RemoveHeroCard(int cardId)
-    {
-        BuildInfo.BeginRetinueIDs.Remove(cardId);
-        Text_Count.text = BuildInfo.CardCount().ToString();
-    }
-
     public void AddCard(int cardId)
     {
         BuildInfo.CardIDs.Add(cardId);

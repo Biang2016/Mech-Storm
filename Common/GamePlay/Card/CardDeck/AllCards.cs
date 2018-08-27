@@ -20,6 +20,7 @@ public static class AllCards
         {
             text = sr.ReadToEnd();
         }
+
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
         XmlElement allCards = doc.DocumentElement;
@@ -43,7 +44,8 @@ public static class AllCards
                 switch (cardInfo.Attributes["name"].Value)
                 {
                     case "baseInfo":
-                        baseInfo = new BaseInfo(cardInfo.Attributes["cardName"].Value,
+                        baseInfo = new BaseInfo(int.Parse(cardInfo.Attributes["pictureID"].Value),
+                            cardInfo.Attributes["cardName"].Value,
                             cardInfo.Attributes["cardDesc"].Value.Replace("\\n", "\n"),
                             int.Parse(cardInfo.Attributes["cost"].Value),
                             int.Parse(cardInfo.Attributes["money"].Value),
@@ -53,7 +55,7 @@ public static class AllCards
                         );
                         break;
                     case "upgradeInfo":
-                        upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value),int.Parse(cardInfo.Attributes["degradeCardID"].Value),
+                        upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value), int.Parse(cardInfo.Attributes["degradeCardID"].Value),
                             int.Parse(cardInfo.Attributes["cardLevel"].Value));
                         break;
                     case "lifeInfo":
@@ -64,7 +66,7 @@ public static class AllCards
                         battleInfo = new BattleInfo(int.Parse(cardInfo.Attributes["basicAttack"].Value),
                             int.Parse(cardInfo.Attributes["basicShield"].Value),
                             int.Parse(cardInfo.Attributes["basicArmor"].Value),
-                            cardInfo.Attributes["isSodier"].Value == "True");
+                            cardInfo.Attributes["isSoldier"].Value == "True");
                         break;
                     case "slotInfo":
                         slotInfo = new SlotInfo((SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),

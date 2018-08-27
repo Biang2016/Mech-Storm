@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 internal partial class RoundManager : MonoSingletion<RoundManager>
 {
@@ -18,14 +17,6 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     [SerializeField] private GameObject SelfTurnText;
     [SerializeField] private GameObject EnemyTurnText;
     [SerializeField] private GameObject EndRoundButton;
-
-    [SerializeField] public Text SelfCostText;
-    [SerializeField] public Text SelfLifeText;
-    [SerializeField] public Text SelfMagicText;
-
-    [SerializeField] public Text EnemyCostText;
-    [SerializeField] public Text EnemyLifeText;
-    [SerializeField] public Text EnemyMagicText;
 
     void Awake()
     {
@@ -51,10 +42,6 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         SelfTurnText.SetActive(false);
         EnemyTurnText.SetActive(false);
         EndRoundButton.SetActive(false);
-        SelfCostText.gameObject.SetActive(true);
-        EnemyCostText.gameObject.SetActive(true);
-        SelfCostText.text = "";
-        EnemyCostText.text = "";
 
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
 
@@ -119,14 +106,10 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         EnemyClientPlayer = null;
         CurrentClientPlayer = null;
         IdleClientPlayer = null;
-        SelfCostText.text = "";
-        EnemyCostText.text = "";
         RoundNumber = 0;
         SelfTurnText.SetActive(false);
         EnemyTurnText.SetActive(false);
         EndRoundButton.SetActive(false);
-        SelfCostText.gameObject.SetActive(false);
-        EnemyCostText.gameObject.SetActive(false);
         BattleCanvas.gameObject.SetActive(false);
 
         CardDeckManager.Instance.HideAll();

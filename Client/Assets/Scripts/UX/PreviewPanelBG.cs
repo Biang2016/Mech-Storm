@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PreviewPanelBG : MonoBehaviour
 {
@@ -29,15 +25,19 @@ public class PreviewPanelBG : MonoBehaviour
 
                 foreach (RaycastHit raycastHit in raycasts)
                 {
-                    if (positivePreviewPanelBG == null) positivePreviewPanelBG = raycastHit.collider.GetComponent<PreviewPanelBG>();
-                    if (positivePreviewPanelBG == null && positiveCutOut == null) positiveCutOut = raycastHit.collider.GetComponent<BoxCollider>();
+                    if (positivePreviewPanelBG == null)
+                    {
+                        positivePreviewPanelBG = raycastHit.collider.GetComponent<PreviewPanelBG>();
+                        if (positivePreviewPanelBG) continue;
+                    }
+
+                    if (positiveCutOut == null) positiveCutOut = raycastHit.collider.GetComponent<BoxCollider>();
                 }
 
                 if (positivePreviewPanelBG == this)
                 {
                     if (positiveCutOut != null)
                     {
-
                     }
                     else
                     {

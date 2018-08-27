@@ -16,10 +16,38 @@ internal class ServerBattleGroundManager
         }
     }
 
+    private int heroCount;
+
+    public int HeroCount
+    {
+        get { return heroCount; }
+        set
+        {
+            heroCount = value;
+            HerosIsEmpty = heroCount == 0;
+        }
+    }
+
+    private int soldierCount;
+
+    public int SoldierCount
+    {
+        get { return soldierCount; }
+        set
+        {
+            soldierCount = value;
+            SoldiersIsEmpty = soldierCount == 0;
+        }
+    }
+
     public bool BattleGroundIsFull;
     public bool BattleGroundIsEmpty;
+    public bool HerosIsEmpty;
+    public bool SoldiersIsEmpty;
     public ServerPlayer ServerPlayer;
     private List<ServerModuleRetinue> Retinues = new List<ServerModuleRetinue>();
+    private List<ServerModuleRetinue> Heros = new List<ServerModuleRetinue>();
+    private List<ServerModuleRetinue> Soldiers = new List<ServerModuleRetinue>();
 
     public ServerBattleGroundManager(ServerPlayer serverPlayer)
     {
@@ -48,6 +76,16 @@ internal class ServerBattleGroundManager
         retinue.OnSummoned(targetRetinueId); //先战吼，再进战场
         Retinues.Insert(retinuePlaceIndex, retinue);
         RetinueCount = Retinues.Count;
+        if (retinue.CardInfo.BattleInfo.IsSoldier)
+        {
+            Soldiers.Add(retinue);
+            SoldierCount = Soldiers.Count;
+        }
+        else
+        {
+            Heros.Add(retinue);
+            HeroCount = Heros.Count;
+        }
     }
 
     public void RemoveRetinue(ServerModuleRetinue retinue)
@@ -56,6 +94,16 @@ internal class ServerBattleGroundManager
         if (battleGroundIndex == -1) return;
         Retinues.Remove(retinue);
         RetinueCount = Retinues.Count;
+        if (retinue.CardInfo.BattleInfo.IsSoldier)
+        {
+            Soldiers.Remove(retinue);
+            SoldierCount = Soldiers.Count;
+        }
+        else
+        {
+            Heros.Remove(retinue);
+            HeroCount = Heros.Count;
+        }
 
         BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(new List<int> {retinue.M_RetinueID});
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
@@ -102,7 +150,7 @@ internal class ServerBattleGroundManager
         }
     }
 
-    public void KillAllInBattleGround() //杀死本方清场
+    public void KillAllRetinues()
     {
         List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
         for (int i = 0; i < Retinues.Count; i++)
@@ -121,14 +169,18 @@ internal class ServerBattleGroundManager
 
         Retinues.Clear();
         RetinueCount = Retinues.Count;
+        Soldiers.Clear();
+        SoldierCount = Soldiers.Count;
+        Heros.Clear();
+        HeroCount = Heros.Count;
     }
 
-    public void KillAllHerosInBattleGround() //杀死本方所有英雄
+    public void KillAllHeros()
     {
         List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
         for (int i = 0; i < Retinues.Count; i++)
         {
-            if (!Retinues[i].CardInfo.BattleInfo.IsSodier) dieRetinues.Add(Retinues[i]);
+            if (!Retinues[i].CardInfo.BattleInfo.IsSoldier) dieRetinues.Add(Retinues[i]);
         }
 
         dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
@@ -147,12 +199,12 @@ internal class ServerBattleGroundManager
         }
     }
 
-    public void KillAllSodiersInBattleGround() //杀死本方所有士兵
+    public void KillAllSodiers()
     {
         List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
         for (int i = 0; i < Retinues.Count; i++)
         {
-            if (Retinues[i].CardInfo.BattleInfo.IsSodier) dieRetinues.Add(Retinues[i]);
+            if (Retinues[i].CardInfo.BattleInfo.IsSoldier) dieRetinues.Add(Retinues[i]);
         }
 
         dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
@@ -171,16 +223,34 @@ internal class ServerBattleGroundManager
         }
     }
 
-    public void AddLifeForRandomRetinue(int value) //增加本方随机随从生命
+    public void KillRandomRetinue()
     {
-        ServerModuleRetinue retinue = GetRandomRetinue();
-        if (retinue == null) return;
-        AddLifeForSomeRetinue(retinue, value);
+        KillOneRetinue(GetRandomRetinue());
     }
 
-    public void AddLifeForSomeRetinue(int retinueId, int value) //本方增加某随从生命
+    public void KillRandomHero()
     {
-        ServerModuleRetinue retinue = GetRetinue(retinueId);
+        KillOneRetinue(GetRandomHero());
+    }
+
+    public void KillRandomSoldier()
+    {
+        KillOneRetinue(GetRandomSoldier());
+    }
+
+    private void KillOneRetinue(ServerModuleRetinue retinue)
+    {
+        if (retinue != null)
+        {
+            retinue.OnDieTogather();
+            ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
+            Retinues.Remove(retinue);
+            RetinueCount = Retinues.Count;
+        }
+    }
+
+    private void AddLifeForOneRetinue(ServerModuleRetinue retinue, int value)
+    {
         if (retinue != null)
         {
             retinue.M_RetinueTotalLife += value;
@@ -188,35 +258,109 @@ internal class ServerBattleGroundManager
         }
     }
 
-    public void AddLifeForSomeRetinue(ServerModuleRetinue retinue, int value) //增加本方某随从生命
+    public void AddLifeForOneRetinue(int retinueId, int value)
     {
-        retinue.M_RetinueTotalLife += value;
-        retinue.M_RetinueLeftLife += value;
+        AddLifeForOneRetinue(GetRetinue(retinueId), value);
     }
 
-    public void HealSomeRetinue(int retinueId, int value) //治疗本方某随从
+    public void AddLifeForRandomRetinue(int value)
     {
-        ServerModuleRetinue targetRetinue = GetRetinue(retinueId);
-        if (targetRetinue != null)
+        AddLifeForOneRetinue(GetRandomRetinue(), value);
+    }
+
+    public void AddLifeForRandomHero(int value)
+    {
+        AddLifeForOneRetinue(GetRandomHero(), value);
+    }
+
+    public void AddLifeForRandomSoldier(int value)
+    {
+        AddLifeForOneRetinue(GetRandomSoldier(), value);
+    }
+
+    private void HealOneRetinue(ServerModuleRetinue retinue, int value)
+    {
+        if (retinue != null)
         {
-            int healAmount = Math.Min(value, targetRetinue.M_RetinueTotalLife - targetRetinue.M_RetinueLeftLife);
-            targetRetinue.M_RetinueLeftLife += healAmount;
+            int healAmount = Math.Min(value, retinue.M_RetinueTotalLife - retinue.M_RetinueLeftLife);
+            retinue.M_RetinueLeftLife += healAmount;
         }
     }
 
-    public void DamageSomeRetinue(int retinueId, int value) //对本方某随从造成伤害
+    public void HealOneRetinue(int retinueId, int value)
     {
-        ServerModuleRetinue targetRetinue = GetRetinue(retinueId);
-        DoDamageSomeRetinue(value, targetRetinue);
+        HealOneRetinue(GetRetinue(retinueId), value);
     }
 
-    public void DamageRandomRetinue(int value) //对本方某随机随从造成伤害
+    public void HealAllRetinues(int value)
     {
-        ServerModuleRetinue targetRetinue = GetRandomRetinue();
-        DoDamageSomeRetinue(value, targetRetinue);
+        foreach (ServerModuleRetinue retinue in Retinues)
+        {
+            HealOneRetinue(retinue, value);
+        }
     }
 
-    private void DoDamageSomeRetinue(int value, ServerModuleRetinue targetRetinue)
+    public void HealAllHeros(int value)
+    {
+        foreach (ServerModuleRetinue retinue in Heros)
+        {
+            HealOneRetinue(retinue, value);
+        }
+    }
+
+    public void HealAllSoldiers(int value)
+    {
+        foreach (ServerModuleRetinue retinue in Soldiers)
+        {
+            HealOneRetinue(retinue, value);
+        }
+    }
+
+    public void DamageOneRetinue(int retinueId, int value)
+    {
+        DamageOneRetinue(GetRetinue(retinueId), value);
+    }
+
+    public void DamageRandomRetinue(int value)
+    {
+        DamageOneRetinue(GetRandomRetinue(), value);
+    }
+
+    public void DamageRandomHero(int value)
+    {
+        DamageOneRetinue(GetRandomHero(), value);
+    }
+
+    public void DamageRandomSoldier(int value)
+    {
+        DamageOneRetinue(GetRandomSoldier(), value);
+    }
+
+    public void DamageAllRetinues(int value)
+    {
+        foreach (ServerModuleRetinue retinue in Retinues)
+        {
+            DamageOneRetinue(retinue, value);
+        }
+    }
+
+    public void DamageAllHeros(int value)
+    {
+        foreach (ServerModuleRetinue retinue in Heros)
+        {
+            DamageOneRetinue(retinue, value);
+        }
+    }
+
+    public void DamageAllSolders(int value)
+    {
+        foreach (ServerModuleRetinue retinue in Soldiers)
+        {
+            DamageOneRetinue(retinue, value);
+        }
+    }
+
+    private void DamageOneRetinue(ServerModuleRetinue targetRetinue, int value)
     {
         if (targetRetinue != null)
         {
@@ -256,14 +400,40 @@ internal class ServerBattleGroundManager
 
     public ServerModuleRetinue GetRandomRetinue()
     {
-        Random rd = new Random();
         if (Retinues.Count == 0)
         {
             return null;
         }
         else
         {
+            Random rd = new Random();
             return Retinues[rd.Next(0, Retinues.Count)];
+        }
+    }
+
+    public ServerModuleRetinue GetRandomHero()
+    {
+        if (Heros.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            Random rd = new Random();
+            return Heros[rd.Next(0, Heros.Count)];
+        }
+    }
+
+    public ServerModuleRetinue GetRandomSoldier()
+    {
+        if (Soldiers.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            Random rd = new Random();
+            return Soldiers[rd.Next(0, Soldiers.Count)];
         }
     }
 

@@ -99,16 +99,6 @@ internal class ServerGameManager
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
         Broadcast_AddRequestToOperationResponse(request);
 
-        foreach (CardInfo_Base cardInfo in PlayerA.MyCardDeckManager.M_CurrentCardDeck.BeginRetinueCards)
-        {
-            PlayerA.MyBattleGroundManager.AddRetinue((CardInfo_Retinue) cardInfo);
-        }
-
-        foreach (CardInfo_Base cardInfo in PlayerB.MyCardDeckManager.M_CurrentCardDeck.BeginRetinueCards)
-        {
-            PlayerB.MyBattleGroundManager.AddRetinue((CardInfo_Retinue) cardInfo);
-        }
-
         if (isPlayerAFirst)
         {
             PlayerA.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);

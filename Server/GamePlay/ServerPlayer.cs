@@ -138,7 +138,7 @@
         }
     }
 
-    public void UseLifeAboveZero(int useLifeValue)
+    public void DamageLifeAboveZero(int useLifeValue)
     {
         int LifeLeftBefore = LifeLeft;
         if (LifeLeft > useLifeValue)

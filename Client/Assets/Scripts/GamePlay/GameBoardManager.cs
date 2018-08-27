@@ -6,20 +6,14 @@ internal class GameBoardManager : MonoSingletion<GameBoardManager>
     {
     }
 
-    internal HandManager SelfHandManager;
-    internal HandManager EnemyHandManager;
-    internal BattleGroundManager SelfBattleGroundManager;
-    internal BattleGroundManager EnemyBattleGroundManager;
-    internal GameObject CardDetailPreview;
+    public HandManager SelfHandManager;
+    public HandManager EnemyHandManager;
+    public BattleGroundManager SelfBattleGroundManager;
+    public BattleGroundManager EnemyBattleGroundManager;
+    public CostLifeMagiceManager SelfCostLifeMagiceManager;
+    public CostLifeMagiceManager EnemyCostLifeMagiceManager;
+    public GameObject CardDetailPreview;
 
-    void Awake()
-    {
-        SelfHandManager = transform.Find("SelfHandArea").GetComponent<HandManager>();
-        EnemyHandManager = transform.Find("EnemyHandArea").GetComponent<HandManager>();
-        SelfBattleGroundManager = transform.Find("SelfBattleGroundArea").GetComponent<BattleGroundManager>();
-        EnemyBattleGroundManager = transform.Find("EnemyBattleGroundArea").GetComponent<BattleGroundManager>();
-        CardDetailPreview = transform.Find("CardDetailPreview").gameObject;
-    }
 }
 
 public enum BoardAreaTypes

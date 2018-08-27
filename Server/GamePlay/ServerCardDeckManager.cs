@@ -27,7 +27,7 @@ internal class ServerCardDeckManager
             return null;
         }
 
-        bool success = M_CurrentCardDeck.GetASodiersCardToTheTop();
+        bool success = M_CurrentCardDeck.GetASodierCardToTheTop();
         if (success)
         {
             CardInfo_Base newCardInfoBase = DrawCardOnTop();

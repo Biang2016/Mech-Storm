@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 /// <summary>
 /// UGUI Tab键切换InputField
 /// </summary>

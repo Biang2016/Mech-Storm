@@ -9,8 +9,6 @@ public struct BuildInfo
 
     public List<int> CardIDs;
 
-    public List<int> BeginRetinueIDs;
-
     public int CardConsumeMoney;
 
     public int LifeConsumeMoney;
@@ -21,12 +19,11 @@ public struct BuildInfo
 
     public int Magic;
 
-    public BuildInfo(int buildID, string buildName, List<int> cardIDs, List<int> beginRetinueIDs, int cardConsumeMoney, int lifeConsumeMoney, int magicConsumeMoney, int life, int magic)
+    public BuildInfo(int buildID, string buildName, List<int> cardIDs, int cardConsumeMoney, int lifeConsumeMoney, int magicConsumeMoney, int life, int magic)
     {
         BuildID = buildID;
         BuildName = buildName;
         CardIDs = cardIDs;
-        BeginRetinueIDs = beginRetinueIDs;
         CardConsumeMoney = cardConsumeMoney;
         LifeConsumeMoney = lifeConsumeMoney;
         MagicConsumeMoney = magicConsumeMoney;
@@ -41,12 +38,12 @@ public struct BuildInfo
 
     public int CardCount()
     {
-        return CardIDs.Count + BeginRetinueIDs.Count;
+        return CardIDs.Count;
     }
 
     public BuildInfo Clone()
     {
-        return new BuildInfo(BuildID, BuildName, CardIDs.ToArray().ToList(), BeginRetinueIDs.ToArray().ToList(), CardConsumeMoney, LifeConsumeMoney, MagicConsumeMoney, Life, Magic);
+        return new BuildInfo(BuildID, BuildName, CardIDs.ToArray().ToList(),  CardConsumeMoney, LifeConsumeMoney, MagicConsumeMoney, Life, Magic);
     }
 
     public bool EqualsTo(BuildInfo targetBuildInfo)
@@ -59,20 +56,12 @@ public struct BuildInfo
         if (Life != targetBuildInfo.Life) return false;
         if (Magic != targetBuildInfo.Magic) return false;
         if (CardIDs.Count != targetBuildInfo.CardIDs.Count) return false;
-        if (BeginRetinueIDs.Count != targetBuildInfo.BeginRetinueIDs.Count) return false;
 
         CardIDs.Sort();
         targetBuildInfo.CardIDs.Sort();
         for (int i = 0; i < CardIDs.Count; i++)
         {
             if (CardIDs[i] != targetBuildInfo.CardIDs[i]) return false;
-        }
-
-        BeginRetinueIDs.Sort();
-        targetBuildInfo.BeginRetinueIDs.Sort();
-        for (int i = 0; i < BeginRetinueIDs.Count; i++)
-        {
-            if (BeginRetinueIDs[i] != targetBuildInfo.BeginRetinueIDs[i]) return false;
         }
 
         return true;
@@ -86,12 +75,6 @@ public struct BuildInfo
         foreach (int cardID in CardIDs)
         {
             writer.WriteSInt32(cardID);
-        }
-
-        writer.WriteSInt32(BeginRetinueIDs.Count);
-        foreach (int beginRetinueID in BeginRetinueIDs)
-        {
-            writer.WriteSInt32(beginRetinueID);
         }
 
         writer.WriteSInt32(CardConsumeMoney);
@@ -113,20 +96,13 @@ public struct BuildInfo
             CardIDs.Add(reader.ReadSInt32());
         }
 
-        int ceginRetinueIDCount = reader.ReadSInt32();
-        List<int> BeginRetinueIDs = new List<int>();
-        for (int i = 0; i < ceginRetinueIDCount; i++)
-        {
-            BeginRetinueIDs.Add(reader.ReadSInt32());
-        }
-
         int CardConsumeMoney = reader.ReadSInt32();
         int LifeConsumeMoney = reader.ReadSInt32();
         int MagicConsumeMoney = reader.ReadSInt32();
         int Life = reader.ReadSInt32();
         int Magic = reader.ReadSInt32();
 
-        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs, BeginRetinueIDs, CardConsumeMoney, LifeConsumeMoney, MagicConsumeMoney, Life, Magic);
+        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs,  CardConsumeMoney, LifeConsumeMoney, MagicConsumeMoney, Life, Magic);
         return buildInfo;
     }
 
@@ -137,12 +113,6 @@ public struct BuildInfo
         log += " [BuildName]=" + BuildName;
         log += " [CardIDs]=";
         foreach (int cardID in CardIDs)
-        {
-            log += cardID + " ";
-        }
-
-        log += " [BeginRetinueIDs]=";
-        foreach (int cardID in BeginRetinueIDs)
         {
             log += cardID + " ";
         }

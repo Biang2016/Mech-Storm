@@ -181,7 +181,7 @@ internal class ModuleRetinue : ModuleBase
         M_RetinueShield = cardInfo.BattleInfo.BasicShield;
         M_RetinueWeaponEnergy = 0;
         M_RetinueWeaponEnergyMax = 0;
-        ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
+        ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         ChangeBloomColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
         ChangeBloomColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor);
 
@@ -929,11 +929,11 @@ internal class ModuleRetinue : ModuleBase
             TargetSideEffect.TargetRange targetRange = DragManager.Instance.SummonRetinueTargetRange;
             if ((ClientPlayer == RoundManager.Instance.EnemyClientPlayer &&
                  (targetRange == TargetSideEffect.TargetRange.EnemyBattleGround ||
-                  (targetRange == TargetSideEffect.TargetRange.EnemySodiers && CardInfo.BattleInfo.IsSodier) ||
-                  targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.BattleInfo.IsSodier))
+                  (targetRange == TargetSideEffect.TargetRange.EnemySoldiers && CardInfo.BattleInfo.IsSoldier) ||
+                  targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.BattleInfo.IsSoldier))
                 ||
                 ClientPlayer == RoundManager.Instance.SelfClientPlayer && ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue != this &&
-                (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSodiers && CardInfo.BattleInfo.IsSodier)))
+                (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSoldiers && CardInfo.BattleInfo.IsSoldier)))
             {
                 IsBeHover = true;
                 if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)

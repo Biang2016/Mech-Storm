@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -14,6 +10,10 @@ public partial class SelectBuildManager
 
     private CardBase CurrentPreviewCard;
     private CardBase PreviewCard;
+    private CardBase PreviewCardUpgrade;
+    [SerializeField] private Image UpgradeArrow;
+    private CardBase PreviewCardDegrade;
+    [SerializeField] private Image DegradeArrow;
 
     #region 预览卡片、升级卡片
 
@@ -42,7 +42,23 @@ public partial class SelectBuildManager
         {
             PreviewCard.CardBloom.SetActive(true);
             PreviewCard.PoolRecycle();
+            PreviewCard = null;
         }
+
+        if (PreviewCardUpgrade)
+        {
+            PreviewCardUpgrade.CardBloom.SetActive(true);
+            PreviewCardUpgrade.PoolRecycle();
+            PreviewCardUpgrade = null;
+        }
+
+        if (PreviewCardDegrade)
+        {
+            PreviewCardDegrade.CardBloom.SetActive(true);
+            PreviewCardDegrade.PoolRecycle();
+            PreviewCardDegrade = null;
+        }
+
 
         PreviewCard = CardBase.InstantiateCardByCardInfo(CurrentPreviewCard.CardInfo, PreviewContent, null, true);
         PreviewCard.transform.localScale = Vector3.one * 300;
@@ -50,6 +66,41 @@ public partial class SelectBuildManager
         PreviewCard.transform.localPosition = new Vector3(0, 50, -10);
         PreviewCard.CardBloom.SetActive(true);
         PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"));
+
+        int U_id = CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID;
+        int D_id = CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID;
+
+
+        if (U_id != -1)
+        {
+            PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(U_id), PreviewContent, null, true);
+            PreviewCardUpgrade.transform.localScale = Vector3.one * 270;
+            PreviewCardUpgrade.transform.rotation = Quaternion.Euler(90, 180, 0);
+            PreviewCardUpgrade.transform.localPosition = new Vector3(500, 50, -10);
+            PreviewCardUpgrade.CardBloom.SetActive(true);
+            PreviewCardUpgrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FD5400"));
+            UpgradeArrow.enabled = true;
+        }
+        else
+        {
+            UpgradeArrow.enabled = false;
+        }
+
+
+        if (D_id != -1)
+        {
+            PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(D_id), PreviewContent, null, true);
+            PreviewCardDegrade.transform.localScale = Vector3.one * 270;
+            PreviewCardDegrade.transform.rotation = Quaternion.Euler(90, 180, 0);
+            PreviewCardDegrade.transform.localPosition = new Vector3(-500, 50, -10);
+            PreviewCardDegrade.CardBloom.SetActive(true);
+            PreviewCardDegrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#0CE9FF"));
+            DegradeArrow.enabled = true;
+        }
+        else
+        {
+            DegradeArrow.enabled = false;
+        }
     }
 
     private void RefreshUpgradePanel()
@@ -106,6 +157,22 @@ public partial class SelectBuildManager
             PreviewCard.CardBloom.SetActive(true);
             PreviewCard.PoolRecycle();
             PreviewCard = null;
+            if (PreviewCardUpgrade)
+            {
+                PreviewCardUpgrade.CardBloom.SetActive(true);
+                PreviewCardUpgrade.PoolRecycle();
+                PreviewCardUpgrade = null;
+                UpgradeArrow.enabled = false;
+            }
+
+            if (PreviewCardDegrade)
+            {
+                PreviewCardDegrade.CardBloom.SetActive(true);
+                PreviewCardDegrade.PoolRecycle();
+                PreviewCardDegrade = null;
+                DegradeArrow.enabled = false;
+            }
+
             CurrentPreviewCard = null;
 
             UpgradeCardButton.onClick.RemoveAllListeners();
@@ -157,7 +224,6 @@ public partial class SelectBuildManager
         RefreshMoneyLifeMagic();
 
         CurrentPreviewCard.Initiate(upgradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
-        PreviewCard.Initiate(upgradeCardInfo, PreviewCard.ClientPlayer, true);
 
         RefreshCardInSelectWindow(CurrentPreviewCard, cardCount != 0);
         RefreshUpgradePanel();
@@ -190,7 +256,6 @@ public partial class SelectBuildManager
         RefreshMoneyLifeMagic();
 
         CurrentPreviewCard.Initiate(degradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
-        PreviewCard.Initiate(degradeCardInfo, PreviewCard.ClientPlayer, true);
 
         RefreshCardInSelectWindow(CurrentPreviewCard, cardCount != 0);
         RefreshUpgradePanel();

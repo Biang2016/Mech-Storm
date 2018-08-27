@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
 using UnityEngine.UI;
-using Button = UnityEngine.UI.Button;
-using Slider = UnityEngine.UI.Slider;
 
 /// <summary>
 /// 选牌窗口 - 选择卡组部分
@@ -124,7 +121,7 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildButtonClick()
     {
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, "New Build", new List<int>(), new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToMoney, GamePlaySettings.PlayerDefaultMagic * GamePlaySettings.MagicToMoney, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, "New Build", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToMoney, GamePlaySettings.PlayerDefaultMagic * GamePlaySettings.MagicToMoney, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
         Client.Instance.Proxy.SendMessage(request);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
@@ -132,7 +129,7 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildResponse(int buildID)
     {
-        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, "New Build", new List<int>(), new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToMoney, GamePlaySettings.PlayerDefaultMagic * GamePlaySettings.MagicToMoney, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
+        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, "New Build", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToMoney, GamePlaySettings.PlayerDefaultMagic * GamePlaySettings.MagicToMoney, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
         AllBuildButtons.Add(buildID, newBuildButton);
         AllBuilds.Add(buildID, newBuildButton.BuildInfo);
         OnSwitchEditBuild(newBuildButton);

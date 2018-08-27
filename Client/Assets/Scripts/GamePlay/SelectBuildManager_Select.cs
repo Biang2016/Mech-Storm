@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
@@ -99,7 +97,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSodier;
+        bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSoldier;
         if (isHero)
         {
             if (isSelectedHeroFull)
@@ -130,8 +128,6 @@ public partial class SelectBuildManager
                 card.CardBloom.SetActive(true);
             }
 
-            if (!isSwitchingBuildInfo) CurrentEditBuildButton.AddHeroCard(card.CardInfo.CardID);
-
             HeroCardCount++;
         }
         else
@@ -158,13 +154,12 @@ public partial class SelectBuildManager
                 card.CardBloom.SetActive(true);
             }
 
-            if (!isSwitchingBuildInfo) CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
-
             SelectCardCount++;
         }
 
         if (!isSwitchingBuildInfo)
         {
+            CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
             CurrentEditBuildButton.BuildInfo.CardConsumeMoney += card.CardInfo.BaseInfo.Money;
             RefreshMoneyLifeMagic();
         }
@@ -192,7 +187,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        bool isRetinue = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSodier;
+        bool isRetinue = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSoldier;
 
         if (isRetinue)
         {
@@ -205,8 +200,6 @@ public partial class SelectBuildManager
                 card.BeDimColor();
                 card.CardBloom.SetActive(false);
             }
-
-            if (!isSwitchingBuildInfo) CurrentEditBuildButton.RemoveHeroCard(card.CardInfo.CardID);
 
             HeroCardCount--;
         }
@@ -222,13 +215,12 @@ public partial class SelectBuildManager
                 card.CardBloom.SetActive(false);
             }
 
-            if (!isSwitchingBuildInfo) CurrentEditBuildButton.RemoveCard(card.CardInfo.CardID);
-
             SelectCardCount--;
         }
 
         if (!isSwitchingBuildInfo)
         {
+            CurrentEditBuildButton.RemoveCard(card.CardInfo.CardID);
             CurrentEditBuildButton.BuildInfo.CardConsumeMoney -= card.CardInfo.BaseInfo.Money;
             RefreshMoneyLifeMagic();
         }
@@ -257,14 +249,18 @@ public partial class SelectBuildManager
     {
         isSwitchingBuildInfo = true;
         UnSelectAllCard();
-        foreach (int buildInfoBeginRetinueID in buildInfo.BeginRetinueIDs)
-        {
-            SelectCard(allCards[buildInfoBeginRetinueID]);
-        }
 
         foreach (int cardID in buildInfo.CardIDs)
         {
-            SelectCard(allCards[cardID]);
+            CardBase cb = allCards[cardID];
+            if (cb.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !cb.CardInfo.BattleInfo.IsSoldier)
+            {
+                SelectCard(cb);
+            }
+            else
+            {
+                SelectCard(cb);
+            }
         }
 
         RefreshMoneyLifeMagic();
@@ -297,7 +293,6 @@ public partial class SelectBuildManager
             if (CurrentEditBuildButton != null)
             {
                 CurrentEditBuildButton.BuildInfo.CardIDs.Clear();
-                CurrentEditBuildButton.BuildInfo.BeginRetinueIDs.Clear();
                 CurrentEditBuildButton.BuildInfo.CardConsumeMoney = 0;
                 CurrentEditBuildButton.BuildInfo.Life = GamePlaySettings.PlayerDefaultLife;
                 CurrentEditBuildButton.BuildInfo.Magic = GamePlaySettings.PlayerDefaultMagic;

@@ -9,7 +9,6 @@ public class CardDeck
     public BuildInfo M_BuildInfo;
 
     private List<CardInfo_Base> Cards = new List<CardInfo_Base>();
-    public List<CardInfo_Base> BeginRetinueCards = new List<CardInfo_Base>();
     private List<CardInfo_Base> AbandonCards = new List<CardInfo_Base>();
 
     public bool IsEmpty = false;
@@ -30,7 +29,6 @@ public class CardDeck
         M_BuildInfo = cdi;
         CardDeckCountChangeHandler = handler;
         AppendCards(AllCards.GetCards(M_BuildInfo.CardIDs.ToArray()));
-        AppendRetinueCards(AllCards.GetCards(M_BuildInfo.BeginRetinueIDs.ToArray()));
         checkEmpty();
         if (GamePlaySettings.SuffleBuild) SuffleSelf();
     }
@@ -54,11 +52,6 @@ public class CardDeck
         Cards.AddRange(cardInfos);
         checkEmpty();
         CardDeckCountChangeHandler(Cards.Count);
-    }
-
-    private void AppendRetinueCards(List<CardInfo_Base> retinueCardInfos)
-    {
-        BeginRetinueCards.AddRange(retinueCardInfos);
     }
 
     private void RemoveCard(CardInfo_Base cardInfo)
@@ -194,12 +187,34 @@ public class CardDeck
         }
     }
 
-    public bool GetASodiersCardToTheTop()
+    public bool GetASodierCardToTheTop()
     {
         CardInfo_Base target_cb = null;
         foreach (CardInfo_Base cb in Cards)
         {
-            if (cb.BaseInfo.CardType == CardTypes.Retinue && !cb.BattleInfo.IsSodier)
+            if (cb.BaseInfo.CardType == CardTypes.Retinue && cb.BattleInfo.IsSoldier)
+            {
+                target_cb = cb;
+                break;
+            }
+        }
+
+        if (target_cb != null)
+        {
+            RemoveCard(target_cb);
+            AddCard(target_cb, 0);
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool GetAHeroCardToTheTop()
+    {
+        CardInfo_Base target_cb = null;
+        foreach (CardInfo_Base cb in Cards)
+        {
+            if (cb.BaseInfo.CardType == CardTypes.Retinue && !cb.BattleInfo.IsSoldier)
             {
                 target_cb = cb;
                 break;

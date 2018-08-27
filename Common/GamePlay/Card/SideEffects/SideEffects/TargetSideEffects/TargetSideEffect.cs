@@ -29,16 +29,20 @@ public class TargetSideEffect : SideEffectBase
 
     public enum TargetRange
     {
-        SelfBattleGround = 0,
-        EnemyBattleGround = 1,
-        SelfHeros = 2,
-        EnemyHeros = 3,
-        SelfSodiers = 4,
-        EnemySodiers = 5,
-        SelfShip = 6,
-        EnemyShip = 7,
-        All = 8,
-        None = 9
+        BattleGrounds,
+        SelfBattleGround,
+        EnemyBattleGround,
+        Heros,
+        SelfHeros,
+        EnemyHeros,
+        Soldiers,
+        SelfSoldiers,
+        EnemySoldiers,
+        Ships,
+        SelfShip,
+        EnemyShip,
+        All,
+        None,
     }
 
     public string GetChineseDescOfTargetRange(TargetRange targetRange)
@@ -53,14 +57,16 @@ public class TargetSideEffect : SideEffectBase
                 return "我方英雄";
             case TargetRange.EnemyHeros:
                 return "敌方英雄";
-            case TargetRange.SelfSodiers:
+            case TargetRange.SelfSoldiers:
                 return "我方士兵";
-            case TargetRange.EnemySodiers:
+            case TargetRange.EnemySoldiers:
                 return "敌方士兵";
             case TargetRange.SelfShip:
                 return "我方飞船";
             case TargetRange.EnemyShip:
                 return "敌方飞船";
+            case TargetRange.Ships:
+                return "所有飞船";
             case TargetRange.All:
                 return "角色";
             default:

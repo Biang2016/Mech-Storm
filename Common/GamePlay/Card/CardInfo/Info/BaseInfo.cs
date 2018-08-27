@@ -1,5 +1,6 @@
 ﻿public struct BaseInfo
 {
+    public int PictureID;
     public string CardName;
     public string CardDescRaw;
     public int Cost;
@@ -9,8 +10,9 @@
     public string CardColor;
     public string HightLightColor;
 
-    public BaseInfo(string cardName, string cardDescRaw, int cost, int money, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
+    public BaseInfo(int pictureID, string cardName, string cardDescRaw, int cost, int money, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
     {
+        PictureID = pictureID;
         CardName = cardName;
         CardDescRaw = cardDescRaw;
         Cost = cost;
@@ -28,6 +30,7 @@
 
     public void Serialize(DataStream writer)
     {
+        writer.WriteSInt32(PictureID);
         writer.WriteString8(CardName);
         writer.WriteString8(CardDescRaw);
         writer.WriteSInt32(Cost);
@@ -40,6 +43,7 @@
 
     public static BaseInfo Deserialze(DataStream reader)
     {
+        int PictureID = reader.ReadSInt32();
         string CardName = reader.ReadString8();
         string CardDesc = reader.ReadString8();
         int Cost = reader.ReadSInt32();
@@ -48,7 +52,7 @@
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
         string CardColor = reader.ReadString8();
         string HightLightColor = reader.ReadString8();
-        return new BaseInfo(CardName, CardDesc, Cost, Money, DragPurpose, CardType, CardColor, HightLightColor);
+        return new BaseInfo(PictureID, CardName, CardDesc, Cost, Money, DragPurpose, CardType, CardColor, HightLightColor);
     }
 }
 

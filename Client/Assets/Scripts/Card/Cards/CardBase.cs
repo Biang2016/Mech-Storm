@@ -162,7 +162,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
 
         M_Cost = CardInfo.BaseInfo.Cost;
-        ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.CardID);
+        ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         Stars = cardInfo.UpgradeInfo.CardLevel;
 
         transform.rotation = Quaternion.Euler(0, 0, 0);

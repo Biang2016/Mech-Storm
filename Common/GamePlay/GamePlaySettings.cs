@@ -6,10 +6,10 @@
     public static int SecondDrawCard = 6;
     public static int MaxRetinueNumber = 6;
 
-    public static int MaxHeroNumber = 4;
+    public static int MaxHeroNumber = 3;
 
-    public static int BeginCost = 20;
-    public static int MaxCost = 30;
+    public static int BeginCost = 10;
+    public static int MaxCost = 10;
     public static int CostIncrease = 1;
 
     public static bool SuffleBuild = true;
