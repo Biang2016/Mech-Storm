@@ -223,6 +223,11 @@ internal class ServerBattleGroundManager
         }
     }
 
+    public void KillOneRetinue(int retinueId)
+    {
+        KillOneRetinue(GetRetinue(retinueId));
+    }
+
     public void KillRandomRetinue()
     {
         KillOneRetinue(GetRandomRetinue());
@@ -278,6 +283,30 @@ internal class ServerBattleGroundManager
         AddLifeForOneRetinue(GetRandomSoldier(), value);
     }
 
+    public void AddLifeForAllRetinues(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        {
+            AddLifeForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
+    public void AddLifeForAllHeros(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Heros)
+        {
+            AddLifeForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
+    public void AddLifeForAllSoldiers(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Soldiers)
+        {
+            AddLifeForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
     private void HealOneRetinue(ServerModuleRetinue retinue, int value)
     {
         if (retinue != null)
@@ -285,6 +314,21 @@ internal class ServerBattleGroundManager
             int healAmount = Math.Min(value, retinue.M_RetinueTotalLife - retinue.M_RetinueLeftLife);
             retinue.M_RetinueLeftLife += healAmount;
         }
+    }
+
+    public void HealRandomRetinue(int value)
+    {
+        HealOneRetinue(GetRandomRetinue(), value);
+    }
+
+    public void HealRandomHero(int value)
+    {
+        HealOneRetinue(GetRandomHero(), value);
+    }
+
+    public void HealRandomSoldier(int value)
+    {
+        HealOneRetinue(GetRandomSoldier(), value);
     }
 
     public void HealOneRetinue(int retinueId, int value)
@@ -365,7 +409,7 @@ internal class ServerBattleGroundManager
         if (targetRetinue != null)
         {
             targetRetinue.BeAttacked(value);
-            DamageSomeRetinueRequest request = new DamageSomeRetinueRequest(ServerPlayer.ClientId, targetRetinue.M_RetinueID, value);
+            DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, targetRetinue.M_RetinueID, value);
             ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
             targetRetinue.CheckAlive();
         }

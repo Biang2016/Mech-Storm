@@ -55,11 +55,16 @@
     <Compile Include="GamePlay\Card\CardInfo\Info\UpgradeInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\WeaponInfo.cs" />
     <Compile Include="GamePlay\Card\SideEffects\AllSideEffects.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\CopyNextDrawCard_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\DrawCards_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeAll_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageRandom_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\HealAll_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\HealRandom_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\HealOne_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageOne_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageAll_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\KillOne_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\KillRandom_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\TargetSideEffect.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SideEffectBase.cs" />
@@ -77,7 +82,7 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerMagicChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerLifeChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipShieldRequest_ResponseBundle.cs" />
-    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\DamageSomeRetinueRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\DamageOneRetinueRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardServerRequset.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\UseSpellCardRequset_ResponseBundle.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\CardDeckLeftChangeRequest.cs" />

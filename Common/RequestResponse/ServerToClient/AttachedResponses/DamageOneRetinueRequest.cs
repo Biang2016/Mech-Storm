@@ -1,14 +1,14 @@
-﻿public class DamageSomeRetinueRequest : ServerRequestBase
+﻿public class DamageOneRetinueRequest : ServerRequestBase
 {
     public int beDamagedRetinueClientId;
     public int beDamagedRetinueId;
     public int value;
 
-    public DamageSomeRetinueRequest()
+    public DamageOneRetinueRequest()
     {
     }
 
-    public DamageSomeRetinueRequest(int beDamagedRetinueClientId, int beDamagedRetinueId,int value)
+    public DamageOneRetinueRequest(int beDamagedRetinueClientId, int beDamagedRetinueId,int value)
     {
         this.beDamagedRetinueClientId = beDamagedRetinueClientId;
         this.beDamagedRetinueId = beDamagedRetinueId;
@@ -17,12 +17,12 @@
 
     public override int GetProtocol()
     {
-        return NetProtocols.SE_DAMAGE_SOME_RETINUE_REQUEST;
+        return NetProtocols.SE_DAMAGE_ONE_RETINUE_REQUEST;
     }
 
     public override string GetProtocolName()
     {
-        return "SE_DAMAGE_SOME_RETINUE_REQUEST";
+        return "SE_DAMAGE_ONE_RETINUE_REQUEST";
     }
 
     public override void Serialize(DataStream writer)

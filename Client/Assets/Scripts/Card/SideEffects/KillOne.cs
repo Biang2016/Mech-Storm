@@ -1,8 +1,8 @@
 ﻿namespace SideEffects
 {
-    public class HealSomeRetinue : HealSomeRetinue_Base
+    public class KillOne : KillOne_Base
     {
-        public HealSomeRetinue()
+        public KillOne()
         {
         }
 

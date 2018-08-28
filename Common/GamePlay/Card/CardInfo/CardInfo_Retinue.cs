@@ -45,6 +45,8 @@ public class CardInfo_Retinue : CardInfo_Base
             }
         }
 
+        CardDescShow = CardDescShow.TrimEnd(";\n".ToCharArray());
+
         return CardDescShow;
     }
 

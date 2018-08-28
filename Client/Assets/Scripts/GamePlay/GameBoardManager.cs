@@ -14,6 +14,22 @@ internal class GameBoardManager : MonoSingletion<GameBoardManager>
     public CostLifeMagiceManager EnemyCostLifeMagiceManager;
     public GameObject CardDetailPreview;
 
+    [SerializeField] private GameObject BattleShip;
+
+    void Awake()
+    {
+        BattleShip.SetActive(false);
+    }
+
+    public void ShowBattleShip()
+    {
+        BattleShip.SetActive(true);
+    }
+
+    public void HideBattleShip()
+    {
+        BattleShip.SetActive(false);
+    }
 }
 
 public enum BoardAreaTypes

@@ -90,8 +90,7 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
                         break;
 
                     case States.Show:
-                        if (!Client.Instance.IsLogin()) return;
-                        ShowMenu();
+                        if (Client.Instance.IsLogin() || Client.Instance.IsPlaying()) ShowMenu();
                         break;
                 }
 
@@ -145,7 +144,7 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
         {
             state = States.Show;
             Instance.ExitMenuCanvas.enabled = true;
-            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.Menu);
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.ExitMenu);
             if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
         }
 

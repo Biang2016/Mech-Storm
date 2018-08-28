@@ -1,14 +1,13 @@
 ﻿namespace SideEffects
 {
-    public class DamageRandomRetinue : DamageRandomRetinue_Base
+    public class DamageRandom : DamageRandom_Base
     {
-        public DamageRandomRetinue()
+        public DamageRandom()
         {
         }
 
         public override void Excute(object Player)
         {
-
         }
     }
 }

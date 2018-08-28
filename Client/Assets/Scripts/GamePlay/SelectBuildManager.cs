@@ -58,6 +58,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             Default,
             Hide,
             Show,
+            Show_ReadOnly,
         }
 
         private States state;
@@ -70,11 +71,14 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                 switch (newState)
                 {
                     case States.Hide:
-                        HideWindow();
+                        if (Client.Instance.IsLogin() || Client.Instance.IsPlaying()) HideWindow();
                         break;
 
                     case States.Show:
                         if (Client.Instance.IsLogin()) ShowWindow();
+                        break;
+                    case States.Show_ReadOnly:
+                        if (Client.Instance.IsPlaying()) ShowWindowReadOnly();
                         break;
                 }
 
@@ -100,7 +104,8 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             {
                 if (Input.GetKeyUp(KeyCode.Tab))
                 {
-                    SetState(States.Show);
+                    if (Client.Instance.IsLogin()) SetState(States.Show);
+                    else if (Client.Instance.IsPlaying()) SetState(States.Show_ReadOnly);
                 }
             }
             else
@@ -150,8 +155,40 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             GameManager.Instance.StartBlurBackGround();
             Instance.Canvas.gameObject.SetActive(true);
             Instance.Canvas_BG.gameObject.SetActive(true);
+
+            Instance.SelectAllButton.gameObject.SetActive(true);
+            Instance.ConfirmButton.gameObject.SetActive(true);
+            Instance.ConfirmButton.gameObject.SetActive(true);
+            Instance.DeleteBuildButton.gameObject.SetActive(true);
+            Instance.CreateNewBuildButton.enabled = true;
+
+            Instance.LifeSlider.interactable = true;
+            Instance.MagicSlider.interactable = true;
+
+            Instance.UpgradeCardButton.enabled = true;
+            Instance.DegradeCardButton.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+        }
+
+        private void ShowWindowReadOnly()
+        {
+            GameManager.Instance.StartBlurBackGround();
+            Instance.Canvas.gameObject.SetActive(true);
+            Instance.Canvas_BG.gameObject.SetActive(true);
+
+            Instance.SelectAllButton.gameObject.SetActive(false);
+            Instance.UnSelectAllButton.gameObject.SetActive(false);
+            Instance.ConfirmButton.gameObject.SetActive(false);
+            Instance.DeleteBuildButton.gameObject.SetActive(false);
+            Instance.CreateNewBuildButton.enabled = false;
+
+            Instance.LifeSlider.interactable = false;
+            Instance.MagicSlider.interactable = false;
+
+            Instance.UpgradeCardButton.enabled = false;
+            Instance.DegradeCardButton.enabled = false;
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
         }
 
         private void HideWindow()

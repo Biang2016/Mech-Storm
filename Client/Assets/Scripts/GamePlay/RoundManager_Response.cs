@@ -136,9 +136,9 @@ internal partial class RoundManager
                 OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) r);
                 break;
             }
-            case NetProtocols.SE_DAMAGE_SOME_RETINUE_REQUEST:
+            case NetProtocols.SE_DAMAGE_ONE_RETINUE_REQUEST:
             {
-                OnDamageSomeRetinue((DamageSomeRetinueRequest) r);
+                OnDamageSomeRetinue((DamageOneRetinueRequest) r);
                 break;
             }
             case NetProtocols.SE_RETINUE_EFFECT:
@@ -384,10 +384,10 @@ internal partial class RoundManager
         attackRetinue.Attack(beAttackRetinue, true);
     }
 
-    public void OnDamageSomeRetinue(DamageSomeRetinueRequest r)
+    public void OnDamageSomeRetinue(DamageOneRetinueRequest r)
     {
         ClientPlayer cp_beAttack = GetPlayerByClientId(r.beDamagedRetinueClientId);
-        cp_beAttack.MyBattleGroundManager.DamageSomeRetinue(r.beDamagedRetinueId, r.value);
+        cp_beAttack.MyBattleGroundManager.DamageOneRetinue(r.beDamagedRetinueId, r.value);
     }
 
     private void OnRetinueEffect(RetinueEffectRequest r)

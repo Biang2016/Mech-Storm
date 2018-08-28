@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 internal class GameManager : MonoSingletion<GameManager>
@@ -10,8 +11,23 @@ internal class GameManager : MonoSingletion<GameManager>
     private void Awake()
     {
         InitializeClientGameSettings();
-        AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
-        AllCards.AddAllCards(Application.streamingAssetsPath + "/Config/Cards.xml");
+        try
+        {
+            AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
+        }
+        catch (Exception e)
+        {
+            ClientLog.Instance.PrintError("SideEffects Load Failed");
+        }
+
+        try
+        {
+            AllCards.AddAllCards(Application.streamingAssetsPath + "/Config/Cards.xml");
+        }
+        catch (Exception e)
+        {
+            ClientLog.Instance.PrintError("Cards Load Failed");
+        }
     }
 
     public EventSystem EventSystem;

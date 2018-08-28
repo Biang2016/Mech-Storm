@@ -50,7 +50,7 @@ internal class CardSpell : CardBase
         hasTarget = false;
         foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
         {
-            if (se is TargetSideEffect)
+            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
             {
                 hasTarget = true;
                 break;
@@ -115,6 +115,7 @@ internal class CardSpell : CardBase
             UseSpellCardRequest request = new UseSpellCardRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), DragManager.TARGET_SELECT_NONE, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
             Client.Instance.Proxy.SendMessage(request);
         }
+
         Usable = false;
     }
 

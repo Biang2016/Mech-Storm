@@ -60,5 +60,14 @@ public class SideEffectBase:ICloneable
     {
     }
 
+    protected string HightlightStringFormat(string src, params object[] args)
+    {
+        string[] colorStrings = new string[args.Length];
+        for (int i = 0; i < args.Length; i++)
+        {
+            colorStrings[i] = "<color=\"" + HightlightColor + "\">" + args[i].ToString() + "</color>";
+        }
 
+        return String.Format(src, colorStrings);
+    }
 }

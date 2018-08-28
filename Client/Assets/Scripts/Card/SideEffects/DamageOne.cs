@@ -1,14 +1,13 @@
 ﻿namespace SideEffects
 {
-    public class AddLifeForSomeRetinue : AddLifeForSomeRetinue_Base
+    public class DamageOne : DamageOne_Base
     {
-        public AddLifeForSomeRetinue()
+        public DamageOne()
         {
         }
 
         public override void Excute(object Player)
         {
-
         }
     }
 }

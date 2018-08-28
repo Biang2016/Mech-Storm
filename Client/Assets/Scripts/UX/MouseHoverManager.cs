@@ -67,7 +67,8 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
         public enum States
         {
             None, //禁用
-            Menu, //开始界面和Exit菜单
+            StartMenu, //开始界面
+            ExitMenu, //Exit菜单
             SelectCardWindow, //选卡界面
             BattleNormal, //战斗一般状态
             DragEquipment, //拖动装备牌过程中
@@ -87,7 +88,10 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
                 {
                     case States.None:
                         break;
-                    case States.Menu:
+                    case States.StartMenu:
+                        Instance.hi_CardSelectHover.Release();
+                        break;
+                    case States.ExitMenu:
                         Instance.hi_CardSelectHover.Release();
                         break;
                     case States.SelectCardWindow:
@@ -135,7 +139,9 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
             {
                 case States.None:
                     break;
-                case States.Menu:
+                case States.StartMenu:
+                    break;
+                case States.ExitMenu:
                     break;
                 case States.SelectCardWindow:
                     Instance.hi_CardSelectHover.Check<CardBase>();

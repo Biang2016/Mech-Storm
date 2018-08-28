@@ -1,8 +1,8 @@
 ﻿namespace SideEffects
 {
-    public class KillAllInBattleGround : KillAllInBattleGround_Base
+    public class AddLifeAll : AddLifeAll_Base
     {
-        public KillAllInBattleGround()
+        public AddLifeAll()
         {
         }
 

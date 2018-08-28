@@ -21,6 +21,8 @@ public class CardInfo_Spell : CardInfo_Base
             CardDescShow += se.GenerateDesc() + ";\n";
         }
 
+        CardDescShow = CardDescShow.TrimEnd(";\n".ToCharArray());
+
         return CardDescShow;
     }
 

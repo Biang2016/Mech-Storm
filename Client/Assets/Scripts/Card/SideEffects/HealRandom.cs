@@ -1,8 +1,8 @@
 ﻿namespace SideEffects
 {
-    public class AddLifeForRandomRetinue : AddLifeForRandomRetinue_Base
+    public class HealRandom : HealRandom_Base
     {
-        public AddLifeForRandomRetinue()
+        public HealRandom()
         {
         }
 

@@ -85,6 +85,11 @@ public partial class SelectBuildManager
 
     private void SelectCard(CardBase card)
     {
+        if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
+        {
+            return;
+        }
+
         if (CurrentEditBuildButton == null)
         {
             NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
@@ -181,6 +186,11 @@ public partial class SelectBuildManager
 
     private void UnSelectCard(CardBase card)
     {
+        if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
+        {
+            return;
+        }
+
         if (CurrentEditBuildButton == null)
         {
             NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
@@ -270,6 +280,11 @@ public partial class SelectBuildManager
 
     public void UnSelectAllCard()
     {
+        if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
+        {
+            return;
+        }
+
         foreach (KeyValuePair<int, CardBase> kv in allCards)
         {
             kv.Value.BeDimColor();
@@ -306,6 +321,11 @@ public partial class SelectBuildManager
 
     public void OnConfirmSubmitCardDeckButtonClick()
     {
+        if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
+        {
+            return;
+        }
+
         if (CurrentEditBuildButton == null)
         {
             NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
@@ -324,10 +344,6 @@ public partial class SelectBuildManager
     public void OnCloseButtonClick()
     {
         M_StateMachine.SetState(StateMachine.States.Hide);
-        if (Client.Instance.IsLogin())
-        {
-            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
-        }
     }
 
     #endregion

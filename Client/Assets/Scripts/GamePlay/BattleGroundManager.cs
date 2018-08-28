@@ -418,7 +418,7 @@ internal class BattleGroundManager : MonoBehaviour
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    public void DamageSomeRetinue(int targetRetinueId, int value)
+    public void DamageOneRetinue(int targetRetinueId, int value)
     {
         GetRetinue(targetRetinueId).BeAttacked(value);
     }

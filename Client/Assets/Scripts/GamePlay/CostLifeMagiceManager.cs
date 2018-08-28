@@ -22,18 +22,13 @@ internal class CostLifeMagiceManager : MonoBehaviour
     private GameObject GoNumberSet_TotalMagicNumber;
     private CardNumberSet NumberSet_TotalMagicNumber;
 
-    void Start()
+    void Awake()
     {
         initiateNumbers(ref GoNumberSet_CostNumber, ref NumberSet_CostNumber, NumberSize.Big, CardNumberSet.TextAlign.Center, CostNumberBlock);
         initiateNumbers(ref GoNumberSet_LifeNumber, ref NumberSet_LifeNumber, NumberSize.Big, CardNumberSet.TextAlign.Left, LifeNumberBlock);
         initiateNumbers(ref GoNumberSet_TotalLifeNumber, ref NumberSet_TotalLifeNumber, NumberSize.Big, CardNumberSet.TextAlign.Right, TotalLifeNumberBlock, '/');
         initiateNumbers(ref GoNumberSet_MagicNumber, ref NumberSet_MagicNumber, NumberSize.Big, CardNumberSet.TextAlign.Left, MagicNumberBlock);
         initiateNumbers(ref GoNumberSet_TotalMagicNumber, ref NumberSet_TotalMagicNumber, NumberSize.Big, CardNumberSet.TextAlign.Right, TotalMagicNumberBlock, '/');
-
-        SetLife(50);
-        SetTotalLife(200);
-        SetMagic(10);
-        SetTotalMagic(50);
     }
 
     private void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block)
@@ -76,7 +71,7 @@ internal class CostLifeMagiceManager : MonoBehaviour
     public void SetLife(int value)
     {
         NumberSet_LifeNumber.Number = value;
-        LifeBarMask.transform.localPosition = Vector3.Lerp(LifeBarMaskMinPos.localPosition, LifeBarMaskMaxPos.localPosition, (float) value / GamePlaySettings.PlayerDefaultLifeMax);
+        LifeBarMask.transform.localPosition = Vector3.Lerp(LifeBarMaskMinPos.localPosition, LifeBarMaskMaxPos.localPosition, (float) value / ClientPlayer.LifeMax);
     }
 
     public void SetTotalLife(int value)
@@ -87,7 +82,7 @@ internal class CostLifeMagiceManager : MonoBehaviour
     public void SetMagic(int value)
     {
         NumberSet_MagicNumber.Number = value;
-        MagicBarMask.transform.localPosition = Vector3.Lerp(MagicBarMaskMinPos.localPosition, MagicBarMaskMaxPos.localPosition, (float) value / GamePlaySettings.PlayerDefaultMagicMax);
+        MagicBarMask.transform.localPosition = Vector3.Lerp(MagicBarMaskMinPos.localPosition, MagicBarMaskMaxPos.localPosition, (float) value / ClientPlayer.MagicMax);
     }
 
     public void SetTotalMagic(int value)

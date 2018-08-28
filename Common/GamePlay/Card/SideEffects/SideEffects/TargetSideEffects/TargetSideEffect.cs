@@ -27,6 +27,7 @@ public class TargetSideEffect : SideEffectBase
         M_TargetRange = (TargetRange) reader.ReadSInt32();
     }
 
+    [Flags]
     public enum TargetRange
     {
         BattleGrounds,
@@ -49,14 +50,20 @@ public class TargetSideEffect : SideEffectBase
     {
         switch (targetRange)
         {
+            case TargetRange.BattleGrounds:
+                return "机甲";
             case TargetRange.SelfBattleGround:
                 return "我方机甲";
             case TargetRange.EnemyBattleGround:
                 return "敌方机甲";
+            case TargetRange.Heros:
+                return "英雄";
             case TargetRange.SelfHeros:
                 return "我方英雄";
             case TargetRange.EnemyHeros:
                 return "敌方英雄";
+            case TargetRange.Soldiers:
+                return "士兵";
             case TargetRange.SelfSoldiers:
                 return "我方士兵";
             case TargetRange.EnemySoldiers:
@@ -66,22 +73,11 @@ public class TargetSideEffect : SideEffectBase
             case TargetRange.EnemyShip:
                 return "敌方飞船";
             case TargetRange.Ships:
-                return "所有飞船";
+                return "飞船";
             case TargetRange.All:
                 return "角色";
             default:
                 return "";
         }
-    }
-
-    public string HightlightStringFormat(string src, params object [] args)
-    {
-        string[] colorStrings = new string[args.Length];
-        for (int i = 0; i < args.Length; i++)
-        {
-            colorStrings[i] = "<color=\"" + HightlightColor + "\">" + args[i].ToString() + "</color>";
-        }
-
-        return String.Format(src, colorStrings);
     }
 }

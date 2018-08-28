@@ -38,6 +38,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         CurrentClientPlayer = null;
         IdleClientPlayer = null;
 
+        GameBoardManager.Instance.ShowBattleShip();
         BattleCanvas.gameObject.SetActive(true);
         SelfTurnText.SetActive(false);
         EnemyTurnText.SetActive(false);
@@ -111,10 +112,12 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         EnemyTurnText.SetActive(false);
         EndRoundButton.SetActive(false);
         BattleCanvas.gameObject.SetActive(false);
+        GameBoardManager.Instance.HideBattleShip();
 
         CardDeckManager.Instance.HideAll();
         RandomNumberGenerator = null;
 
+        if (Client.Instance.Proxy != null && Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Playing) Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
         StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
 
         BattleEffectsManager.Instance.Effect_Main.AllEffectsEnd();
@@ -144,6 +147,15 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     {
         if (Client.Instance.Proxy.ClientId == clientId) return SelfClientPlayer;
         return EnemyClientPlayer;
+    }
+
+    public ModuleRetinue FindRetinue(int retinueId)
+    {
+        ModuleRetinue selfRetinue = SelfClientPlayer.MyBattleGroundManager.GetRetinue(retinueId);
+        if (selfRetinue) return selfRetinue;
+        ModuleRetinue enemyRetinue = EnemyClientPlayer.MyBattleGroundManager.GetRetinue(retinueId);
+        if (enemyRetinue) return enemyRetinue;
+        return null;
     }
 
     #endregion

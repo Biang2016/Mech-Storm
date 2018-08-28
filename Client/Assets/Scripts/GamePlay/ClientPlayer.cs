@@ -7,6 +7,7 @@ internal class ClientPlayer : Player
     internal BoardAreaTypes MyHandArea; //卡牌所属的手部区
     internal Players WhichPlayer;
     public int ClientId;
+    public bool IsInitialized = false;
 
     internal ClientPlayer(int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax, Players whichPlayer) : base(costLeft, costMax, lifeLeft, lifeMax, magicLeft, magicMax)
     {
@@ -19,13 +20,22 @@ internal class ClientPlayer : Player
         MyHandManager.ClientPlayer = this;
         MyCostLifeMagiceManager.ClientPlayer = this;
         MyBattleGroundManager.ClientPlayer = this;
+        IsInitialized = true;
+        SetTotalLife();
+        SetTotalMagic();
+        OnCostChanged();
+        OnLifeChanged();
+        OnMagicChanged();
     }
 
     #region Cost
 
     protected override void OnCostChanged()
     {
-        MyCostLifeMagiceManager.SetCost(CostLeft);
+        if (IsInitialized)
+        {
+            MyCostLifeMagiceManager.SetCost(CostLeft);
+        }
     }
 
     public void DoChangeCost(PlayerCostChangeRequest request)
@@ -51,7 +61,12 @@ internal class ClientPlayer : Player
 
     protected override void OnLifeChanged()
     {
-        MyCostLifeMagiceManager.SetLife(LifeLeft);
+        if (IsInitialized) MyCostLifeMagiceManager.SetLife(LifeLeft);
+    }
+
+    protected void SetTotalLife()
+    {
+        if (IsInitialized) MyCostLifeMagiceManager.SetTotalLife(LifeMax);
     }
 
     public void DoChangeLife(PlayerLifeChangeRequest request)
@@ -68,7 +83,12 @@ internal class ClientPlayer : Player
 
     protected override void OnMagicChanged()
     {
-        MyCostLifeMagiceManager.SetMagic(MagicLeft);
+        if (IsInitialized) MyCostLifeMagiceManager.SetMagic(MagicLeft);
+    }
+
+    protected void SetTotalMagic()
+    {
+        if (IsInitialized) MyCostLifeMagiceManager.SetTotalMagic(MagicMax);
     }
 
     public void DoChangeMagic(PlayerMagicChangeRequest request)

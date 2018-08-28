@@ -119,7 +119,7 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
         private void ShowMenu()
         {
             Instance.StartMenuCanvas.enabled = true;
-            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.Menu);
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
         }
 
         private void HideMenu()
