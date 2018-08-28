@@ -25,7 +25,6 @@ public class CardInfo_Retinue : CardInfo_Base
         if (BattleInfo.BasicArmor != 0) CardDescShow += "护甲 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicArmor) + "\n";
         if (BattleInfo.BasicShield != 0) CardDescShow += "护盾 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicShield) + "\n";
 
-
         if (SideEffects_OnDie.Count > 0)
         {
             CardDescShow += "亡语:";
@@ -34,7 +33,6 @@ public class CardInfo_Retinue : CardInfo_Base
                 CardDescShow += se.GenerateDesc() + ";\n";
             }
         }
-
 
         if (SideEffects_OnSummoned.Count > 0)
         {
