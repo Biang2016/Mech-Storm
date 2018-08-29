@@ -14,8 +14,6 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     internal ClientPlayer IdleClientPlayer;
 
     [SerializeField] private Canvas BattleCanvas;
-    [SerializeField] private GameObject SelfTurnText;
-    [SerializeField] private GameObject EnemyTurnText;
     [SerializeField] private GameObject EndRoundButton;
 
     void Awake()
@@ -40,8 +38,6 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
 
         GameBoardManager.Instance.ShowBattleShip();
         BattleCanvas.gameObject.SetActive(true);
-        SelfTurnText.SetActive(false);
-        EnemyTurnText.SetActive(false);
         EndRoundButton.SetActive(false);
 
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
@@ -110,8 +106,6 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         CurrentClientPlayer = null;
         IdleClientPlayer = null;
         RoundNumber = 0;
-        SelfTurnText.SetActive(false);
-        EnemyTurnText.SetActive(false);
         EndRoundButton.SetActive(false);
         BattleCanvas.gameObject.SetActive(false);
         GameBoardManager.Instance.HideBattleShip();

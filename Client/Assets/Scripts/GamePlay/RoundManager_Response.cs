@@ -192,16 +192,12 @@ internal partial class RoundManager
         if (CurrentClientPlayer == SelfClientPlayer)
         {
             ClientLog.Instance.PrintClientStates("MyRound");
-            SelfTurnText.SetActive(true);
             EndRoundButton.SetActive(true);
-            EnemyTurnText.SetActive(false);
         }
         else
         {
             ClientLog.Instance.PrintClientStates("EnemyRound");
-            SelfTurnText.SetActive(false);
             EndRoundButton.SetActive(false);
-            EnemyTurnText.SetActive(true);
         }
 
         BeginRound();

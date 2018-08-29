@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 internal class CostLifeMagiceManager : MonoBehaviour
 {
@@ -8,27 +9,14 @@ internal class CostLifeMagiceManager : MonoBehaviour
     private GameObject GoNumberSet_CostNumber;
     private CardNumberSet NumberSet_CostNumber;
 
-    [SerializeField] private GameObject LifeNumberBlock;
-    private GameObject GoNumberSet_LifeNumber;
-    private CardNumberSet NumberSet_LifeNumber;
-    [SerializeField] private GameObject TotalLifeNumberBlock;
-    private GameObject GoNumberSet_TotalLifeNumber;
-    private CardNumberSet NumberSet_TotalLifeNumber;
-
-    [SerializeField] private GameObject MagicNumberBlock;
-    private GameObject GoNumberSet_MagicNumber;
-    private CardNumberSet NumberSet_MagicNumber;
-    [SerializeField] private GameObject TotalMagicNumberBlock;
-    private GameObject GoNumberSet_TotalMagicNumber;
-    private CardNumberSet NumberSet_TotalMagicNumber;
+    [SerializeField] private Text LifeNumber;
+    [SerializeField] private Text TotalLifeNumber;
+    [SerializeField] private Text MagicNumber;
+    [SerializeField] private Text TotalMagicNumber;
 
     void Awake()
     {
         initiateNumbers(ref GoNumberSet_CostNumber, ref NumberSet_CostNumber, NumberSize.Big, CardNumberSet.TextAlign.Center, CostNumberBlock);
-        initiateNumbers(ref GoNumberSet_LifeNumber, ref NumberSet_LifeNumber, NumberSize.Big, CardNumberSet.TextAlign.Left, LifeNumberBlock);
-        initiateNumbers(ref GoNumberSet_TotalLifeNumber, ref NumberSet_TotalLifeNumber, NumberSize.Big, CardNumberSet.TextAlign.Right, TotalLifeNumberBlock, '/');
-        initiateNumbers(ref GoNumberSet_MagicNumber, ref NumberSet_MagicNumber, NumberSize.Big, CardNumberSet.TextAlign.Left, MagicNumberBlock);
-        initiateNumbers(ref GoNumberSet_TotalMagicNumber, ref NumberSet_TotalMagicNumber, NumberSize.Big, CardNumberSet.TextAlign.Right, TotalMagicNumberBlock, '/');
     }
 
     private void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block)
@@ -70,24 +58,24 @@ internal class CostLifeMagiceManager : MonoBehaviour
 
     public void SetLife(int value)
     {
-        NumberSet_LifeNumber.Number = value;
+        LifeNumber.text = value.ToString();
         LifeBarMask.transform.localPosition = Vector3.Lerp(LifeBarMaskMinPos.localPosition, LifeBarMaskMaxPos.localPosition, (float) value / ClientPlayer.LifeMax);
     }
 
     public void SetTotalLife(int value)
     {
-        NumberSet_TotalLifeNumber.Number = value;
+        TotalLifeNumber.text = "/" + value;
     }
 
     public void SetMagic(int value)
     {
-        NumberSet_MagicNumber.Number = value;
+        MagicNumber.text = value.ToString();
         MagicBarMask.transform.localPosition = Vector3.Lerp(MagicBarMaskMinPos.localPosition, MagicBarMaskMaxPos.localPosition, (float) value / ClientPlayer.MagicMax);
     }
 
     public void SetTotalMagic(int value)
     {
-        NumberSet_TotalMagicNumber.Number = value;
+        TotalLifeNumber.text = "/" + value;
     }
 
     [SerializeField] private Transform CostBarMask;
