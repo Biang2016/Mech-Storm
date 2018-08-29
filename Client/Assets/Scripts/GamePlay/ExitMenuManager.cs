@@ -175,6 +175,7 @@ internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
         RoundManager.Instance.StopGame();
         ClientLog.Instance.Print("您已退出比赛");
         NoticeManager.Instance.ShowInfoPanelTop("您已退出比赛", 0, 1f);
+        M_StateMachine.SetState(StateMachine.States.Hide);
     }
 
     public void OnQuitGameButtonClick()

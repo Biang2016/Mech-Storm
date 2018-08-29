@@ -32,14 +32,14 @@
                     player.MyEnemyPlayer.MyBattleGroundManager.DamageAllHeros(Value);
                     break;
                 case TargetRange.Soldiers:
-                    player.MyBattleGroundManager.DamageAllSolders(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSolders(Value);
+                    player.MyBattleGroundManager.DamageAllSoldiers(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSoldiers(Value);
                     break;
                 case TargetRange.SelfSoldiers:
-                    player.MyBattleGroundManager.DamageAllSolders(Value);
+                    player.MyBattleGroundManager.DamageAllSoldiers(Value);
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSolders(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSoldiers(Value);
                     break;
                 case TargetRange.Ships:
                     player.DamageLifeAboveZero(Value);

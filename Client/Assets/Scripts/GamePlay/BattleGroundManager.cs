@@ -144,6 +144,7 @@ internal class BattleGroundManager : MonoBehaviour
         retinue.PoolRecycle();
         Retinues.Remove(retinue);
         RetinueCount--;
+        PrintRetinueInfos();
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -257,6 +258,7 @@ internal class BattleGroundManager : MonoBehaviour
             retinue.OnSummon();
             retinue.transform.localPosition = _defaultRetinuePosition;
             retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.Instance.RetinueInterval, Space.Self);
+            PrintRetinueInfos();
         }
 
         float duration = 0.05f;
@@ -444,6 +446,17 @@ internal class BattleGroundManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void PrintRetinueInfos()
+    {
+        string log = "BattleGroundInfo: [ClientID]" + ClientPlayer.ClientId + " [Username]" + ClientPlayer.Username;
+        foreach (ModuleRetinue retinue in Retinues)
+        {
+            log += " [RID]" + retinue.M_RetinueID + " [Name]" + retinue.CardInfo.BaseInfo.CardName;
+        }
+
+        ClientLog.Instance.Print(log);
     }
 
     public int GetRetinuePlaceIndex(ModuleRetinue moduleRetinue)

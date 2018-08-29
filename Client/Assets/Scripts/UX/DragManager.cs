@@ -68,6 +68,8 @@ internal class DragManager : MonoSingletion<DragManager>
         }
     }
 
+    public int DragOutDamage = 0; //鼠标拖动时附带的预计伤害
+
     void Update()
     {
         if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
@@ -183,12 +185,31 @@ internal class DragManager : MonoSingletion<DragManager>
                             case TargetSideEffect.TargetRange.None:
                                 SummonRetinueTargetHandler(-2);
                                 break;
+                            case TargetSideEffect.TargetRange.BattleGrounds:
+                                SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                break;
                             case TargetSideEffect.TargetRange.SelfBattleGround:
                                 if (retinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
                                 else SummonRetinueTargetHandler(-2);
                                 break;
                             case TargetSideEffect.TargetRange.EnemyBattleGround:
                                 if (retinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                else SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.Heros:
+                                if (!retinue.CardInfo.BattleInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                else SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.SelfHeros:
+                                if (retinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !retinue.CardInfo.BattleInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                else SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.EnemyHeros:
+                                if (retinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !retinue.CardInfo.BattleInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                else SummonRetinueTargetHandler(-2);
+                                break;
+                            case TargetSideEffect.TargetRange.Soldiers:
+                                if (retinue.CardInfo.BattleInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
                                 else SummonRetinueTargetHandler(-2);
                                 break;
                             case TargetSideEffect.TargetRange.SelfSoldiers:
@@ -199,13 +220,11 @@ internal class DragManager : MonoSingletion<DragManager>
                                 if (retinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && retinue.CardInfo.BattleInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
                                 else SummonRetinueTargetHandler(-2);
                                 break;
-                            case TargetSideEffect.TargetRange.SelfHeros:
-                                if (retinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !retinue.CardInfo.BattleInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
-                                else SummonRetinueTargetHandler(-2);
+                            case TargetSideEffect.TargetRange.SelfShip:
+                                SummonRetinueTargetHandler(-2);
                                 break;
-                            case TargetSideEffect.TargetRange.EnemyHeros:
-                                if (retinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !retinue.CardInfo.BattleInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
-                                else SummonRetinueTargetHandler(-2);
+                            case TargetSideEffect.TargetRange.EnemyShip:
+                                SummonRetinueTargetHandler(-2);
                                 break;
                             case TargetSideEffect.TargetRange.All:
                                 SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);

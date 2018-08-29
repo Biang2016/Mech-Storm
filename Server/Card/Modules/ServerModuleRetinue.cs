@@ -125,13 +125,16 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
     }
 
-    public void CheckAlive()
+    public bool CheckAlive()
     {
         if (M_RetinueLeftLife == 0)
         {
             OnDieTogather();
             ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
+            return false;
         }
+
+        return true;
     }
 
     private int m_RetinueAttack;

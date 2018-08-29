@@ -11,28 +11,6 @@ internal class ServerHandManager
         ServerPlayer = serverPlayer;
     }
 
-    internal void DrawCard()
-    {
-        if (cards.Count >= GamePlaySettings.MaxHandCard)
-        {
-            //无法抽牌
-        }
-        else
-        {
-            CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawCardOnTop();
-            if (newCardInfo == null)
-            {
-                ServerLog.Print("No Card");
-                return;
-            }
-
-            ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
-            newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
-            cards.Add(newCard);
-        }
-    }
-
-
     internal void DrawCards(int cardNumber)
     {
         List<CardInfo_Base> newCardsInfo = ServerPlayer.MyCardDeckManager.DrawCardsOnTop(cardNumber);
@@ -62,9 +40,9 @@ internal class ServerHandManager
         cards.Add(newCard);
     }
 
-    internal void DrawSodierCard()
+    internal void DrawSoldierCard()
     {
-        CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawSodierCard();
+        CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawSoldierCard();
         if (newCardInfo == null) return;
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
         newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();

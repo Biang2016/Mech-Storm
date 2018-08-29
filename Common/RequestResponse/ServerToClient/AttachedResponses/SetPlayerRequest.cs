@@ -1,5 +1,6 @@
 ﻿public class SetPlayerRequest : ServerRequestBase
 {
+    public string username;
     public int clientId;
     public int costLeft;
     public int costMax;
@@ -12,8 +13,9 @@
     {
     }
 
-    public SetPlayerRequest(int clientId, int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax)
+    public SetPlayerRequest(string username, int clientId, int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax)
     {
+        this.username = username;
         this.clientId = clientId;
         this.costLeft = costLeft;
         this.costMax = costMax;
@@ -36,6 +38,7 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
+        writer.WriteString16(username);
         writer.WriteSInt32(clientId);
         writer.WriteSInt32(costLeft);
         writer.WriteSInt32(costMax);
@@ -48,6 +51,7 @@
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
+        username = reader.ReadString16();
         clientId = reader.ReadSInt32();
         costLeft = reader.ReadSInt32();
         costMax = reader.ReadSInt32();
@@ -60,6 +64,7 @@
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
+        log += " [username]=" + username;
         log += " [clientId]=" + clientId;
         log += " [costLeft]=" + costLeft;
         log += " [costMax]=" + costMax;

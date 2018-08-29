@@ -10,7 +10,7 @@
     public ServerCardDeckManager MyCardDeckManager;
     public ServerBattleGroundManager MyBattleGroundManager;
 
-    public ServerPlayer(int clientId, int enemyClientId, int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax, ServerGameManager serverGameManager) : base(costLeft, costMax, lifeLeft, lifeMax, magicLeft, magicMax)
+    public ServerPlayer(string username, int clientId, int enemyClientId, int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax, ServerGameManager serverGameManager) : base(username, costLeft, costMax, lifeLeft, lifeMax, magicLeft, magicMax)
     {
         ClientId = clientId;
         EnemyClientId = enemyClientId;

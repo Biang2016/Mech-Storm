@@ -35,7 +35,8 @@ internal class CardSpell : CardBase
         }
     }
 
-    public bool hasTarget;
+    private bool hasTarget;
+    private TargetSideEffect.TargetRange targetRange = TargetSideEffect.TargetRange.None;
 
     # endregion
 
@@ -53,6 +54,7 @@ internal class CardSpell : CardBase
             if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
             {
                 hasTarget = true;
+                targetRange = ((TargetSideEffect) se).M_TargetRange;
                 break;
             }
         }
@@ -73,19 +75,86 @@ internal class CardSpell : CardBase
                 }
                 else
                 {
-                    summonSpellRequest(moduleRetinue, dragLastPosition);
+                    bool validTarget = false;
+                    switch (targetRange)
+                    {
+                        case TargetSideEffect.TargetRange.None:
+                            validTarget = false;
+                            break;
+                        case TargetSideEffect.TargetRange.BattleGrounds:
+                            validTarget = true;
+                            break;
+                        case TargetSideEffect.TargetRange.SelfBattleGround:
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
+                            break;
+                        case TargetSideEffect.TargetRange.EnemyBattleGround:
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
+                            break;
+                        case TargetSideEffect.TargetRange.Heros:
+                            if (!moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            break;
+                        case TargetSideEffect.TargetRange.SelfHeros:
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            break;
+                        case TargetSideEffect.TargetRange.EnemyHeros:
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            break;
+                        case TargetSideEffect.TargetRange.Soldiers:
+                            if (moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            break;
+                        case TargetSideEffect.TargetRange.SelfSoldiers:
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            break;
+                        case TargetSideEffect.TargetRange.EnemySoldiers:
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            break;
+                        case TargetSideEffect.TargetRange.Ships:
+                            validTarget = false;
+                            break;
+                        case TargetSideEffect.TargetRange.SelfShip:
+                            validTarget = false;
+                            break;
+                        case TargetSideEffect.TargetRange.EnemyShip:
+                            validTarget = false;
+                            break;
+                        case TargetSideEffect.TargetRange.All:
+                            validTarget = true;
+                            break;
+                    }
+
+                    if (validTarget) summonSpellRequest(moduleRetinue, dragLastPosition);
                 }
             }
             else
             {
                 summonSpellRequest(null, dragLastPosition);
             }
+
+            DragManager.Instance.DragOutDamage = 0;
         }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
         ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 
+    public override void DragComponnet_DragOutEffects()
+    {
+        base.DragComponnet_DragOutEffects();
+        DragManager.Instance.DragOutDamage = CalculateAttack();
+    }
+
+    private int CalculateAttack()
+    {
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
+        {
+            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
+            {
+                return ((TargetSideEffect) se).CalculateDamage();
+            }
+        }
+
+        return 0;
+    }
 
     public override float DragComponnet_DragDistance()
     {

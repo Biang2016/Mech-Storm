@@ -57,6 +57,62 @@ internal class ServerBattleGroundManager
 
     #region SideEffects
 
+    private void BattleGroundAddRetinue(int retinuePlaceIndex, ServerModuleRetinue retinue)
+    {
+        Retinues.Insert(retinuePlaceIndex, retinue);
+        RetinueCount = Retinues.Count;
+        if (retinue.CardInfo.BattleInfo.IsSoldier)
+        {
+            Soldiers.Add(retinue);
+            SoldierCount = Soldiers.Count;
+        }
+        else
+        {
+            Heros.Add(retinue);
+            HeroCount = Heros.Count;
+        }
+
+        PrintRetinueInfos();
+    }
+
+    public void BattleGroundRemoveRetinues(List<int> retinueIds)
+    {
+        foreach (int retinueId in retinueIds)
+        {
+            ServerModuleRetinue retinue = GetRetinue(retinueId);
+            if (retinue != null) BattleGroundRemoveRetinue(retinue);
+        }
+    }
+
+    private void BattleGroundRemoveRetinue(ServerModuleRetinue retinue)
+    {
+        Retinues.Remove(retinue);
+        RetinueCount = Retinues.Count;
+        if (retinue.CardInfo.BattleInfo.IsSoldier)
+        {
+            Soldiers.Remove(retinue);
+            SoldierCount = Soldiers.Count;
+        }
+        else
+        {
+            Heros.Remove(retinue);
+            HeroCount = Heros.Count;
+        }
+
+        PrintRetinueInfos();
+    }
+
+    private void BattleGroundRemoveAllRetinue()
+    {
+        Retinues.Clear();
+        RetinueCount = Retinues.Count;
+        Soldiers.Clear();
+        SoldierCount = Soldiers.Count;
+        Heros.Clear();
+        HeroCount = Heros.Count;
+        PrintRetinueInfos();
+    }
+
     public void AddRetinue(CardInfo_Retinue retinueCardInfo)
     {
         AddRetinue(retinueCardInfo, Retinues.Count, -2, -1);
@@ -74,36 +130,15 @@ internal class ServerBattleGroundManager
         retinue.Initiate(retinueCardInfo, ServerPlayer);
 
         retinue.OnSummoned(targetRetinueId); //先战吼，再进战场
-        Retinues.Insert(retinuePlaceIndex, retinue);
-        RetinueCount = Retinues.Count;
-        if (retinue.CardInfo.BattleInfo.IsSoldier)
-        {
-            Soldiers.Add(retinue);
-            SoldierCount = Soldiers.Count;
-        }
-        else
-        {
-            Heros.Add(retinue);
-            HeroCount = Heros.Count;
-        }
+        BattleGroundAddRetinue(retinuePlaceIndex, retinue);
     }
+
 
     public void RemoveRetinue(ServerModuleRetinue retinue)
     {
         int battleGroundIndex = Retinues.IndexOf(retinue);
         if (battleGroundIndex == -1) return;
-        Retinues.Remove(retinue);
-        RetinueCount = Retinues.Count;
-        if (retinue.CardInfo.BattleInfo.IsSoldier)
-        {
-            Soldiers.Remove(retinue);
-            SoldierCount = Soldiers.Count;
-        }
-        else
-        {
-            Heros.Remove(retinue);
-            HeroCount = Heros.Count;
-        }
+        BattleGroundRemoveRetinue(retinue);
 
         BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(new List<int> {retinue.M_RetinueID});
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
@@ -167,13 +202,9 @@ internal class ServerBattleGroundManager
 
         ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
 
-        Retinues.Clear();
-        RetinueCount = Retinues.Count;
-        Soldiers.Clear();
-        SoldierCount = Soldiers.Count;
-        Heros.Clear();
-        HeroCount = Heros.Count;
+        BattleGroundRemoveAllRetinue();
     }
+
 
     public void KillAllHeros()
     {
@@ -192,10 +223,9 @@ internal class ServerBattleGroundManager
 
         ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
 
-        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
+        foreach (ServerModuleRetinue retinue in dieRetinues)
         {
-            Retinues.Remove(serverModuleRetinue);
-            RetinueCount = Retinues.Count;
+            BattleGroundRemoveRetinue(retinue);
         }
     }
 
@@ -216,12 +246,12 @@ internal class ServerBattleGroundManager
 
         ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
 
-        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
+        foreach (ServerModuleRetinue retinue in dieRetinues)
         {
-            Retinues.Remove(serverModuleRetinue);
-            RetinueCount = Retinues.Count;
+            BattleGroundRemoveRetinue(retinue);
         }
     }
+
 
     public void KillOneRetinue(int retinueId)
     {
@@ -249,8 +279,8 @@ internal class ServerBattleGroundManager
         {
             retinue.OnDieTogather();
             ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
-            Retinues.Remove(retinue);
-            RetinueCount = Retinues.Count;
+            BattleGroundRemoveRetinue(retinue);
+            PrintRetinueInfos();
         }
     }
 
@@ -382,25 +412,49 @@ internal class ServerBattleGroundManager
 
     public void DamageAllRetinues(int value)
     {
-        foreach (ServerModuleRetinue retinue in Retinues)
+        for (int i = 0; i < Retinues.Count; i++)
         {
-            DamageOneRetinue(retinue, value);
+            ServerModuleRetinue retinue = Retinues[i];
+            if (retinue != null)
+            {
+                retinue.BeAttacked(value);
+                DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, retinue.M_RetinueID, value);
+                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+                bool isDie = !Retinues[i].CheckAlive();
+                if (isDie) i--;
+            }
         }
     }
 
     public void DamageAllHeros(int value)
     {
-        foreach (ServerModuleRetinue retinue in Heros)
+        for (int i = 0; i < Heros.Count; i++)
         {
-            DamageOneRetinue(retinue, value);
+            ServerModuleRetinue retinue = Heros[i];
+            if (retinue != null)
+            {
+                retinue.BeAttacked(value);
+                DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, retinue.M_RetinueID, value);
+                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+                bool isDie = !Heros[i].CheckAlive();
+                if (isDie) i--;
+            }
         }
     }
 
-    public void DamageAllSolders(int value)
+    public void DamageAllSoldiers(int value)
     {
-        foreach (ServerModuleRetinue retinue in Soldiers)
+        for (int i = 0; i < Soldiers.Count; i++)
         {
-            DamageOneRetinue(retinue, value);
+            ServerModuleRetinue retinue = Soldiers[i];
+            if (retinue != null)
+            {
+                retinue.BeAttacked(value);
+                DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, retinue.M_RetinueID, value);
+                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+                bool isDie = !Soldiers[i].CheckAlive();
+                if (isDie) i--;
+            }
         }
     }
 
@@ -479,6 +533,17 @@ internal class ServerBattleGroundManager
             Random rd = new Random();
             return Soldiers[rd.Next(0, Soldiers.Count)];
         }
+    }
+
+    public void PrintRetinueInfos()
+    {
+        string log = "BattleGroundInfo: [ClientID]" + ServerPlayer.ClientId+" [Username]" + ServerPlayer.MyClientProxy.UserName;
+        foreach (ServerModuleRetinue retinue in Retinues)
+        {
+            log += " [RID]" + retinue.M_RetinueID + " [Name]" + retinue.CardInfo.BaseInfo.CardName;
+        }
+
+        ServerLog.Print(log);
     }
 
     #endregion

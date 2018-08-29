@@ -57,6 +57,7 @@
     <Compile Include="GamePlay\Card\SideEffects\AllSideEffects.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\CopyNextDrawCard_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\DrawCards_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeAll_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageRandom_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\HealAll_Base.cs" />

@@ -14,4 +14,14 @@
     {
         base.Deserialze(reader);
     }
+
+    public override int CalculateDamage()
+    {
+        return 0;
+    }
+
+    public override int CalculateHeal()
+    {
+        return 0;
+    }
 }

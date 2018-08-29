@@ -18,4 +18,14 @@
         base.Deserialze(reader);
         Value = reader.ReadSInt32();
     }
+
+    public override int CalculateDamage()
+    {
+        return 0;
+    }
+
+    public override int CalculateHeal()
+    {
+        return Value;
+    }
 }

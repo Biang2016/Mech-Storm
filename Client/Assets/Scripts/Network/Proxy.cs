@@ -44,7 +44,7 @@ internal class Proxy : ProxyBase
 
     public void LeaveGame()
     {
-        LeaveGameRequest request = new LeaveGameRequest();
+        LeaveGameRequest request = new LeaveGameRequest(ClientId);
         SendMessage(request);
         ClientState = ClientStates.Login;
     }

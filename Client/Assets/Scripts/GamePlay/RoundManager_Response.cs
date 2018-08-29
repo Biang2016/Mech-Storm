@@ -64,7 +64,7 @@ internal partial class RoundManager
             }
             case NetProtocols.SE_PLAYER_LIFE_CHANGE:
             {
-                OnSetPlayersCost((PlayerCostChangeRequest) r);
+                OnSetPlayersLife((PlayerLifeChangeRequest) r);
                 break;
             }
             case NetProtocols.SE_PLAYER_MAGIC_CHANGE:

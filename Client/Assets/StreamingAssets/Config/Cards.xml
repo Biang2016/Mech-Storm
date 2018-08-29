@@ -170,24 +170,38 @@
   </Card>
 
   <Card id="50101">
-    <CardInfo name="baseInfo" pictureID="600" cardName="火力防御" cardDesc="" cost="1" money="300" dragPurpose="Target" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="600" cardName="火力防御" cardDesc="" cost="1" money="100" dragPurpose="Target" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="50102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="All" Value="2"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="EnemyBattleGround" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="50102">
-    <CardInfo name="baseInfo" pictureID="600" cardName="火神扫射" cardDesc="" cost="2" money="400" dragPurpose="Target" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="600" cardName="火神扫射" cardDesc="" cost="2" money="150" dragPurpose="Target" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="50101" cardLevel="2" />
     <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="All" Value="5"></SideEffect>
+      <SideEffect name="DamageAll" M_TargetRange="EnemyBattleGround" Value="1"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="50103">
+    <CardInfo name="baseInfo" pictureID="600" cardName="火力防御" cardDesc="" cost="1" money="100" dragPurpose="Target" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#FFFF00" />
+    <CardInfo name="upgradeInfo" upgradeCardID="50102" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="2"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="50104">
+    <CardInfo name="baseInfo" pictureID="600" cardName="火力防御" cardDesc="" cost="1" money="100" dragPurpose="Target" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#FFFF00" />
+    <CardInfo name="upgradeInfo" upgradeCardID="50102" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="BattleGrounds" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="50201">
-    <CardInfo name="baseInfo" pictureID="603" cardName="月面激光" cardDesc="" cost="5" money="200" dragPurpose="Target" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="603" cardName="月面镭射" cardDesc="" cost="3" money="200" dragPurpose="Target" cardType="Spell" cardColor="#EFEFEF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="All" Value="12"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="Soldiers" Value="6"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="50301">

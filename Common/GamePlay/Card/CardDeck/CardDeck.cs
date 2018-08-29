@@ -187,7 +187,7 @@ public class CardDeck
         }
     }
 
-    public bool GetASodierCardToTheTop()
+    public bool GetASoldierCardToTheTop()
     {
         CardInfo_Base target_cb = null;
         foreach (CardInfo_Base cb in Cards)

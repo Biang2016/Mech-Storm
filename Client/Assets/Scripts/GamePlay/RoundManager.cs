@@ -53,12 +53,12 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     {
         if (r.clientId == Client.Instance.Proxy.ClientId)
         {
-            SelfClientPlayer = new ClientPlayer(r.costLeft, r.costMax, r.lifeLeft, r.lifeMax, r.magicLeft, r.magicMax, Players.Self);
+            SelfClientPlayer = new ClientPlayer(r.username, r.costLeft, r.costMax, r.lifeLeft, r.lifeMax, r.magicLeft, r.magicMax, Players.Self);
             SelfClientPlayer.ClientId = r.clientId;
         }
         else
         {
-            EnemyClientPlayer = new ClientPlayer(r.costLeft, r.costMax, r.lifeLeft, r.lifeMax, r.magicLeft, r.magicMax, Players.Enemy);
+            EnemyClientPlayer = new ClientPlayer(r.username, r.costLeft, r.costMax, r.lifeLeft, r.lifeMax, r.magicLeft, r.magicMax, Players.Enemy);
             EnemyClientPlayer.ClientId = r.clientId;
         }
     }
@@ -82,6 +82,8 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     {
         isStop = true; //标记为，待Update的时候正式处理OnGameStop
     }
+
+    public bool HasShowLostConnectNotice = true;
 
     private void OnGameStop()
     {
@@ -117,7 +119,20 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         CardDeckManager.Instance.HideAll();
         RandomNumberGenerator = null;
 
-        if (Client.Instance.Proxy != null && Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Playing) Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
+        if (Client.Instance.Proxy != null && Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Playing)
+        {
+            Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
+        }
+        else if (!Client.Instance.IsConnect() && !Client.Instance.IsLogin() && !Client.Instance.IsPlaying())
+        {
+            LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
+            if (!HasShowLostConnectNotice)
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter("您已离线", 0, 1f);
+                HasShowLostConnectNotice = true;
+            }
+        }
+
         StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
 
         BattleEffectsManager.Instance.Effect_Main.AllEffectsEnd();

@@ -73,6 +73,7 @@ internal class NetworkManager : MonoSingletion<NetworkManager>
         {
             if (isReconnecting)
             {
+                RoundManager.Instance.HasShowLostConnectNotice = false;
                 NoticeManager.Instance.ShowInfoPanelTop("连接服务器成功", 0f, 2f);
                 isReconnecting = false;
             }

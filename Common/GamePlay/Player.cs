@@ -1,7 +1,8 @@
 ﻿public class Player
 {
-    public Player(int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax)
+    public Player(string username,int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax)
     {
+        this.Username = username;
         this.costMax = costMax;
         this.costLeft = costLeft;
         this.lifeLeft = lifeLeft;
@@ -12,6 +13,8 @@
         OnLifeChanged();
         OnMagicChanged();
     }
+
+    public string Username;
 
     private int costMax;
 

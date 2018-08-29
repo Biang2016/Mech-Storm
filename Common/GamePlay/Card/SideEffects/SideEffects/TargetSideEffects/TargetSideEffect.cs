@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class TargetSideEffect : SideEffectBase
+public abstract class TargetSideEffect : SideEffectBase
 {
     public bool IsNeedChoise;
     public int TargetRetinueId;
@@ -80,4 +80,7 @@ public class TargetSideEffect : SideEffectBase
                 return "";
         }
     }
+
+    public abstract int CalculateDamage();
+    public abstract int CalculateHeal();
 }

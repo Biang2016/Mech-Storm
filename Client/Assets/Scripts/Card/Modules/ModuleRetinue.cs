@@ -805,7 +805,7 @@ internal class ModuleRetinue : ModuleBase
             Client.Instance.Proxy.SendMessage(request);
         }
 
-        DragoutDamage = 0;
+        DragManager.Instance.DragOutDamage = 0;
     }
 
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
@@ -822,10 +822,8 @@ internal class ModuleRetinue : ModuleBase
     public override void DragComponnet_DragOutEffects()
     {
         base.DragComponnet_DragOutEffects();
-        DragoutDamage = CalculateAttack();
+        DragManager.Instance.DragOutDamage = CalculateAttack();
     }
-
-    public static int DragoutDamage = 0; //鼠标拖动时附带的预计伤害
 
     #endregion
 
@@ -848,7 +846,6 @@ internal class ModuleRetinue : ModuleBase
         }
     }
 
-
     public override void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
         base.MouseHoverComponent_OnMousePressEnterImmediately(mousePosition);
@@ -866,7 +863,7 @@ internal class ModuleRetinue : ModuleBase
                         ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
                     }
 
-                    DamageNumberTextMesh.text = DragoutDamage == 0 ? "" : "-" + DragoutDamage;
+                    DamageNumberTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
                 }
             }
             else if (cs != null)
@@ -876,6 +873,8 @@ internal class ModuleRetinue : ModuleBase
                 {
                     ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
                 }
+
+                DamageNumberTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
             }
         }
     }

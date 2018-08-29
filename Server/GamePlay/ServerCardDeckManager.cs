@@ -20,14 +20,14 @@ internal class ServerCardDeckManager
         set { m_CurrentCardDeck = value; }
     }
 
-    public CardInfo_Base DrawSodierCard()
+    public CardInfo_Base DrawSoldierCard()
     {
         if (M_CurrentCardDeck.IsEmpty)
         {
             return null;
         }
 
-        bool success = M_CurrentCardDeck.GetASodierCardToTheTop();
+        bool success = M_CurrentCardDeck.GetASoldierCardToTheTop();
         if (success)
         {
             CardInfo_Base newCardInfoBase = DrawCardOnTop();

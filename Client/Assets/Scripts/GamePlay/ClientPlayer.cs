@@ -9,7 +9,7 @@ internal class ClientPlayer : Player
     public int ClientId;
     public bool IsInitialized = false;
 
-    internal ClientPlayer(int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax, Players whichPlayer) : base(costLeft, costMax, lifeLeft, lifeMax, magicLeft, magicMax)
+    internal ClientPlayer(string username, int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax, Players whichPlayer) : base(username, costLeft, costMax, lifeLeft, lifeMax, magicLeft, magicMax)
     {
         WhichPlayer = whichPlayer;
         MyHandArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfHandArea : BoardAreaTypes.EnemyHandArea;

@@ -44,6 +44,7 @@ internal class GameManager : MonoSingletion<GameManager>
 
     public bool UseInspectorParams = false;
     public bool ShowBEMMessages = false;
+    public bool ShowBattleGroundInfos = false;
 
     public float HandCardSize = 1.5f;
     public float HandCardInterval = 1.0f;
