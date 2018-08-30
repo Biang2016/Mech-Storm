@@ -92,6 +92,9 @@ internal class GameManager : MonoSingletion<GameManager>
     public Color SelfCostBarColor;
     public Color EnemyCostBarColor;
 
+    public Color SelfCardDeckCardColor;
+    public Color EnemyCardDeckCardColor;
+
     private void InitializeClientGameSettings()
     {
         if (UseInspectorParams) return;
@@ -115,6 +118,9 @@ internal class GameManager : MonoSingletion<GameManager>
 
         SelfCostBarColor = ClientUtils.HTMLColorToColor("#2E4BFF");
         EnemyCostBarColor = ClientUtils.HTMLColorToColor("#FF1C47");
+
+        SelfCardDeckCardColor = ClientUtils.HTMLColorToColor("#007AFF");
+        EnemyCardDeckCardColor = ClientUtils.HTMLColorToColor("#FF0004");
     }
 
     #endregion

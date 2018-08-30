@@ -51,20 +51,44 @@ internal class HandManager : MonoBehaviour
     public void GetCard(int cardId, int cardInstanceId)
     {
         if (ClientPlayer == null) return;
-        CardInfo_Base newCardInfoBase = AllCards.GetCard(cardId);
-        CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
-        newCardBase.M_CardInstanceId = cardInstanceId;
-
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_GetCard(newCardBase), "Co_GetCard");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_GetCard(cardId, cardInstanceId), "Co_GetCard");
     }
 
-    IEnumerator Co_GetCard(CardBase newCardBase)
+    [SerializeField] private Transform[] DrawCardPivots;
+
+    IEnumerator Co_GetCard(int cardId, int cardInstanceId)
     {
+        CardDeckCard cardDeckCard = GameObjectPoolManager.Instance.Pool_CardDeckCardPool.AllocateGameObject(transform).GetComponent<CardDeckCard>();
+        cardDeckCard.ClientPlayer = ClientPlayer;
+        cardDeckCard.ResetColor();
+        Hashtable args = new Hashtable();
+        args.Add("path", DrawCardPivots);
+        args.Add("time", 1.5f);
+        iTween.MoveTo(cardDeckCard.gameObject, args);
+        yield return new WaitForSeconds(1.5f);
+
+        cardDeckCard.PoolRecycle();
+
+        CardInfo_Base newCardInfoBase = AllCards.GetCard(cardId);
+        CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
+        newCardBase.transform.position = DrawCardPivots[DrawCardPivots.Length - 1].transform.position;
+
+        newCardBase.transform.rotation = DefaultCardPivot.transform.rotation;
+
+        newCardBase.M_CardInstanceId = cardInstanceId;
         cards.Add(newCardBase);
         RefreshCardsPlace();
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
         yield return null;
+    }
+
+    void OnDrawGizmos()
+    {
+        //在scene视图中绘制出路径与线
+        iTween.DrawLine(DrawCardPivots, Color.yellow);
+
+        iTween.DrawPath(DrawCardPivots, Color.red);
     }
 
     public int GetCardIndex(CardBase card)
@@ -192,38 +216,24 @@ internal class HandManager : MonoBehaviour
         }
     }
 
-    Quaternion defaultCardRotation;
-    bool isSet_defaultCardRotation;
-    Vector3 defaultCardPosition;
-    bool isSet_defaultCardPosition;
+    [SerializeField] private Transform DefaultCardPivot;
 
     internal void RefreshCardsPlace() //重置所有手牌位置
     {
         if (ClientPlayer == null) return;
         if (cards.Count == 0) return;
-        if (!isSet_defaultCardRotation)
-        {
-            defaultCardRotation = cards[0].transform.rotation;
-            isSet_defaultCardRotation = true;
-        }
-
-        if (!isSet_defaultCardPosition)
-        {
-            defaultCardPosition = cards[0].transform.position;
-            isSet_defaultCardPosition = true;
-        }
 
         float angle = anglesDict[cards.Count - 1] * GameManager.Instance.HandCardRotate;
         float horrizonDist = horrizonDistanceDict[cards.Count - 1] * GameManager.Instance.HandCardInterval;
         int count = 0;
-            GameObject go = new GameObject("CardTransformClone");
+        GameObject go = new GameObject("CardTransformClone");
         foreach (CardBase card in cards)
         {
             go.transform.SetParent(transform);
             count++;
-            go.transform.position = defaultCardPosition;
-            go.transform.rotation = defaultCardRotation;
-            card.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
+            go.transform.position = DefaultCardPivot.position;
+            go.transform.rotation = DefaultCardPivot.rotation;
+            go.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
             float rotateAngle = angle / cards.Count * (((cards.Count - 1) / 2.0f + 1) - count);
             if (ClientPlayer.WhichPlayer == Players.Self)
             {
@@ -253,6 +263,10 @@ internal class HandManager : MonoBehaviour
             args2.Add("rotation", go.transform);
             args2.Add("time", 0.1f);
             iTween.RotateTo(card.gameObject, args2);
+            Hashtable args3 = new Hashtable();
+            args3.Add("scale", go.transform);
+            args3.Add("time", 0.1f);
+            iTween.ScaleTo(card.gameObject, args3);
         }
 
         Destroy(go);
@@ -287,6 +301,7 @@ internal class HandManager : MonoBehaviour
 
     internal void CardOnMouseEnter(CardBase focusCard)
     {
+        Debug.Log("ENTER");
         if (currentFocusCard)
         {
             returnToSmaller(currentFocusCard);
@@ -315,6 +330,7 @@ internal class HandManager : MonoBehaviour
 
     internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard)
     {
+        Debug.Log("EXIT");
         returnToSmaller(lostFocusCard);
         if (currentFocusEquipmentCard == lostFocusCard)
         {
@@ -372,7 +388,7 @@ internal class HandManager : MonoBehaviour
             colliderReplace.Initiate(focusCard);
             //本卡牌变大，旋转至正位
             focusCard.transform.localScale = Vector3.one * GameManager.Instance.PullOutCardSize;
-            focusCard.transform.rotation = defaultCardRotation;
+            focusCard.transform.rotation = DefaultCardPivot.rotation;
             if (ClientPlayer.WhichPlayer == Players.Self)
             {
                 //focusCard.transform.Rotate(Vector3.up * 180);
@@ -399,7 +415,6 @@ internal class HandManager : MonoBehaviour
             }
 
             lostFocusCard.ResetColliderAndReplace();
-            RefreshCardsPlace();
         }
     }
 

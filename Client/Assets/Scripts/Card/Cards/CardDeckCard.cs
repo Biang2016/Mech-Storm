@@ -2,7 +2,14 @@
 
 public class CardDeckCard : MonoBehaviour, IGameObjectPool
 {
+    internal ClientPlayer ClientPlayer;
+
     GameObjectPool gameObjectPool;
+
+    void Awake()
+    {
+        gameObjectPool = GameObjectPoolManager.Instance.Pool_CardDeckCardPool;
+    }
 
     public virtual void PoolRecycle()
     {
@@ -12,30 +19,19 @@ public class CardDeckCard : MonoBehaviour, IGameObjectPool
     }
 
     [SerializeField] private Renderer MainBoardRenderer;
-    [SerializeField] private GameObject CardBloom;
+    [SerializeField] private Renderer CardBloomRenderer;
 
-    public void ChangeColor(Color newColor)
+    public void ResetColor()
     {
-        if (MainBoardRenderer)
+        if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
         {
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            MainBoardRenderer.GetPropertyBlock(mpb);
-            mpb.SetColor("_Color", newColor);
-            mpb.SetColor("_EmissionColor", newColor);
-            MainBoardRenderer.SetPropertyBlock(mpb);
+            ClientUtils.ChangeColor(MainBoardRenderer, GameManager.Instance.SelfCardDeckCardColor);
+            ClientUtils.ChangeColor(CardBloomRenderer, GameManager.Instance.SelfCardDeckCardColor);
         }
-    }
-
-    public void ChangeCardBloomColor(Color color)
-    {
-        if (CardBloom)
+        else
         {
-            Renderer rd = CardBloom.GetComponent<Renderer>();
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            rd.GetPropertyBlock(mpb);
-            mpb.SetColor("_Color", color);
-            mpb.SetColor("_EmissionColor", color);
-            rd.SetPropertyBlock(mpb);
+            ClientUtils.ChangeColor(MainBoardRenderer, GameManager.Instance.EnemyCardDeckCardColor);
+            ClientUtils.ChangeColor(CardBloomRenderer, GameManager.Instance.EnemyCardDeckCardColor);
         }
     }
 }

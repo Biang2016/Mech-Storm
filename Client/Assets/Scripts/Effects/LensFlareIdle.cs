@@ -17,13 +17,13 @@ public class LensFlareIdle : MonoBehaviour
         iTween.MoveTo(gameObject, args);
     }
 
-    void OnDrawGizmos()
-    {
-        //在scene视图中绘制出路径与线
-        iTween.DrawLine(paths, Color.yellow);
+    //void OnDrawGizmos()
+    //{
+    //    //在scene视图中绘制出路径与线
+    //    iTween.DrawLine(paths, Color.yellow);
 
-        iTween.DrawPath(paths, Color.red);
-    }
+    //    iTween.DrawPath(paths, Color.red);
+    //}
 
     void Update()
     {
