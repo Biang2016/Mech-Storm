@@ -147,7 +147,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
                 number = 9999;
             }
 
-            if (number != value) NumberSetChangeAnim.SetTrigger("NumberChange");
+            if (number != value && gameObject.activeInHierarchy) NumberSetChangeAnim.SetTrigger("NumberChange");
             number = value;
             setNumberSet();
             if (hasSign) setFirstSign(m_firstSign);

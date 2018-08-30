@@ -54,8 +54,17 @@ internal class HandManager : MonoBehaviour
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardId);
         CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
         newCardBase.M_CardInstanceId = cardInstanceId;
+
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_GetCard(newCardBase), "Co_GetCard");
+    }
+
+    IEnumerator Co_GetCard(CardBase newCardBase)
+    {
         cards.Add(newCardBase);
         RefreshCardsPlace();
+        yield return new WaitForSeconds(0.2f);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+        yield return null;
     }
 
     public int GetCardIndex(CardBase card)
@@ -207,11 +216,13 @@ internal class HandManager : MonoBehaviour
         float angle = anglesDict[cards.Count - 1] * GameManager.Instance.HandCardRotate;
         float horrizonDist = horrizonDistanceDict[cards.Count - 1] * GameManager.Instance.HandCardInterval;
         int count = 0;
+            GameObject go = new GameObject("CardTransformClone");
         foreach (CardBase card in cards)
         {
+            go.transform.SetParent(transform);
             count++;
-            card.transform.rotation = defaultCardRotation;
-            card.transform.position = defaultCardPosition;
+            go.transform.position = defaultCardPosition;
+            go.transform.rotation = defaultCardRotation;
             card.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
             float rotateAngle = angle / cards.Count * (((cards.Count - 1) / 2.0f + 1) - count);
             if (ClientPlayer.WhichPlayer == Players.Self)
@@ -221,19 +232,30 @@ internal class HandManager : MonoBehaviour
             else
             {
                 //card.transform.Rotate(Vector3.forward * 180);
-                card.transform.Rotate(Vector3.right * 180);
+                go.transform.Rotate(Vector3.right * 180);
             }
 
-            card.transform.position = new Vector3(card.transform.position.x, 2f, card.transform.position.z);
+            go.transform.position = new Vector3(go.transform.position.x, 2f, go.transform.position.z);
             float horrizonDistance = horrizonDist / cards.Count * (((cards.Count - 1) / 2.0f + 1) - count);
-            card.transform.Translate(Vector3.right * horrizonDistance * GameManager.Instance.HandCardSize); //向水平向错开，体现手牌展开感
+            go.transform.Translate(Vector3.right * horrizonDistance * GameManager.Instance.HandCardSize); //向水平向错开，体现手牌展开感
             float distCardsFromCenter = Mathf.Abs(((cards.Count - 1) / 2.0f + 1) - count); //与中心距离几张卡牌
             float factor = (cards.Count - distCardsFromCenter) / cards.Count; //某临时参数
-            card.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.Instance.HandCardSize + Vector3.back * cards.Count / 20 * GameManager.Instance.HandCardOffset); //向垂直向错开，体现卡片弧线感
-            card.transform.Translate(Vector3.up * 0.1f * (cards.Count - count) * (ClientPlayer == RoundManager.Instance.EnemyClientPlayer ? -1 : 1)); //向上错开，体现卡片前后感
-            card.transform.Rotate(Vector3.down, rotateAngle); //卡片微小旋转
-            card.ResetColliderAndReplace();
+            go.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.Instance.HandCardSize + Vector3.back * cards.Count / 20 * GameManager.Instance.HandCardOffset); //向垂直向错开，体现卡片弧线感
+            go.transform.Translate(Vector3.up * 0.1f * (cards.Count - count) * (ClientPlayer == RoundManager.Instance.EnemyClientPlayer ? -1 : 1)); //向上错开，体现卡片前后感
+            go.transform.Rotate(Vector3.down, rotateAngle); //卡片微小旋转
+
+            Hashtable args1 = new Hashtable();
+            args1.Add("position", go.transform.position);
+            args1.Add("time", 0.1f);
+            args1.Add("easeType", iTween.EaseType.linear);
+            iTween.MoveTo(card.gameObject, args1);
+            Hashtable args2 = new Hashtable();
+            args2.Add("rotation", go.transform);
+            args2.Add("time", 0.1f);
+            iTween.RotateTo(card.gameObject, args2);
         }
+
+        Destroy(go);
 
         RefreshAllCardUsable();
     }
@@ -268,6 +290,7 @@ internal class HandManager : MonoBehaviour
         if (currentFocusCard)
         {
             returnToSmaller(currentFocusCard);
+            ClientPlayer.MyCostLifeMagiceManager.CostBarManager.ResetHightlightTopBlocks();
         }
 
         currentFocusCard = focusCard;
@@ -285,6 +308,8 @@ internal class HandManager : MonoBehaviour
                 ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Shield);
                 currentFocusEquipmentCard = currentFocusCard;
             }
+
+            ClientPlayer.MyCostLifeMagiceManager.CostBarManager.HightlightTopBlocks(focusCard.CardInfo.BaseInfo.Cost);
         }
     }
 
@@ -296,6 +321,7 @@ internal class HandManager : MonoBehaviour
             currentFocusEquipmentCard = null;
         }
 
+        ClientPlayer.MyCostLifeMagiceManager.CostBarManager.ResetHightlightTopBlocks();
         if (!Input.GetMouseButton(0)) ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
     }
 
@@ -365,7 +391,14 @@ internal class HandManager : MonoBehaviour
         if (!isBeginDrag && ClientPlayer.WhichPlayer == Players.Self)
         {
             //一旦替身BoxCollider失焦，恢复原手牌位置
-            lostFocusCard.transform.localScale = Vector3.one;
+            lostFocusCard.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
+            if (lostFocusCard.myColliderReplace)
+            {
+                lostFocusCard.transform.position = lostFocusCard.myColliderReplace.transform.position;
+                lostFocusCard.transform.rotation = lostFocusCard.myColliderReplace.transform.rotation;
+            }
+
+            lostFocusCard.ResetColliderAndReplace();
             RefreshCardsPlace();
         }
     }

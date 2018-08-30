@@ -1154,6 +1154,7 @@ MonoBehaviour:
   Star4: {fileID: 1443671597345574}
   MainBoardRenderer: {fileID: 23328433296282218}
   CardBloom: {fileID: 1523667097533280}
+  CardBloomRenderer: {fileID: 23813667797871046}
   PictureBoxRenderer: {fileID: 23878625947819022}
   Image_RetinueDescPanel: {fileID: 114388438861472896}
   Block_Cost: {fileID: 1186108035511274}
@@ -1162,7 +1163,6 @@ MonoBehaviour:
   CoinImage: {fileID: 0}
   SpellName: {fileID: 114362871091690130}
   SpellDesc: {fileID: 114748058512960504}
-  hasTarget: 0
 --- !u!114 &114748058512960504
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -216,7 +216,7 @@
 
     private void BroadCastRequest(ServerRequestBase request)
     {
-        MyClientProxy?.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
-        MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
+        MyClientProxy?.CurrentClientRequestResponseBundle?.AttachedRequests.Add(request);
+        MyEnemyPlayer?.MyClientProxy?.CurrentClientRequestResponseBundle?.AttachedRequests.Add(request);
     }
 }

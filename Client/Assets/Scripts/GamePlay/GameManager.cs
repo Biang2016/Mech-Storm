@@ -52,7 +52,7 @@ internal class GameManager : MonoSingletion<GameManager>
     public float HandCardOffset = 0.4f;
 
     public float PullOutCardSize = 3.0f;
-    public float PullOutCardDistanceThreshold = 3.0f;
+    public float PullOutCardDistanceThreshold = 5.0f;
 
     public float DetailSingleCardSize = 3.0f;
     public float DetailEquipmentCardSize = 2.5f;
@@ -89,11 +89,14 @@ internal class GameManager : MonoSingletion<GameManager>
     public Color BuildButtonEditColor;
     public Color BuildButtonDefaultColor;
 
+    public Color SelfCostBarColor;
+    public Color EnemyCostBarColor;
+
     private void InitializeClientGameSettings()
     {
         if (UseInspectorParams) return;
 
-        CardBloomColor = ClientUtils.HTMLColorToColor("#FFFFFF");
+        CardBloomColor = ClientUtils.HTMLColorToColor("#BA00FF");
         RetinueBloomColor = ClientUtils.HTMLColorToColor("#06FF00");
         RetinueOnEnemyHoverBloomColor = ClientUtils.HTMLColorToColor("#FF0000");
         RetinueOnSelfHoverBloomColor = ClientUtils.HTMLColorToColor("#FFF69F");
@@ -109,6 +112,9 @@ internal class GameManager : MonoSingletion<GameManager>
 
         BuildButtonEditColor = ClientUtils.HTMLColorToColor("#FF4B00");
         BuildButtonDefaultColor = ClientUtils.HTMLColorToColor("#858585");
+
+        SelfCostBarColor = ClientUtils.HTMLColorToColor("#2E4BFF");
+        EnemyCostBarColor = ClientUtils.HTMLColorToColor("#FF1C47");
     }
 
     #endregion

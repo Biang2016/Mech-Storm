@@ -182,8 +182,8 @@ internal class ModuleRetinue : ModuleBase
         M_RetinueWeaponEnergy = 0;
         M_RetinueWeaponEnergyMax = 0;
         ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
-        ChangeBloomColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
-        ChangeBloomColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor);
+        ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
+        ClientUtils.ChangeColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor);
 
         if (Slot1)
         {
@@ -221,16 +221,6 @@ internal class ModuleRetinue : ModuleBase
         M_ClientTempRetinueID = -1;
 
         IsDead = false;
-    }
-
-
-    private void ChangeBloomColor(Renderer rd, Color color)
-    {
-        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-        rd.GetPropertyBlock(mpb);
-        mpb.SetColor("_Color", color);
-        mpb.SetColor("_EmissionColor", color);
-        rd.SetPropertyBlock(mpb);
     }
 
     private int m_RetinueID;
@@ -840,7 +830,7 @@ internal class ModuleRetinue : ModuleBase
             isBeDraggedHover = value;
             if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this))
             {
-                ChangeBloomColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
+                ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
                 OnHoverBloom.gameObject.SetActive(value);
             }
         }
@@ -908,11 +898,11 @@ internal class ModuleRetinue : ModuleBase
             {
                 if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
                 {
-                    ChangeBloomColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
+                    ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
                 }
                 else
                 {
-                    ChangeBloomColor(OnHoverBloom, GameManager.Instance.RetinueOnSelfHoverBloomColor);
+                    ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnSelfHoverBloomColor);
                 }
 
                 OnHoverBloom.gameObject.SetActive(value);
@@ -983,7 +973,7 @@ internal class ModuleRetinue : ModuleBase
     IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
     {
         SideEffcetBloom.gameObject.SetActive(true);
-        ChangeBloomColor(SideEffcetBloom, color);
+        ClientUtils.ChangeColor(SideEffcetBloom, color);
         yield return new WaitForSeconds(duration);
         SideEffcetBloom.gameObject.SetActive(false);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();

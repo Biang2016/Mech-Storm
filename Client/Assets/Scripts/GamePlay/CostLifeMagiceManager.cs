@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 internal class CostLifeMagiceManager : MonoBehaviour
 {
-    public ClientPlayer ClientPlayer;
+    internal ClientPlayer ClientPlayer;
 
     [SerializeField] private GameObject CostNumberBlock;
     private GameObject GoNumberSet_CostNumber;
@@ -13,6 +13,7 @@ internal class CostLifeMagiceManager : MonoBehaviour
     [SerializeField] private Text TotalLifeNumber;
     [SerializeField] private Text MagicNumber;
     [SerializeField] private Text TotalMagicNumber;
+
 
     void Awake()
     {
@@ -51,8 +52,9 @@ internal class CostLifeMagiceManager : MonoBehaviour
 
     public void SetCost(int value)
     {
+        CostBarManager.ClientPlayer = ClientPlayer;
+        CostBarManager.SetCostNumber(value);
         NumberSet_CostNumber.Number = value;
-        CostBarMask.transform.localPosition = Vector3.Lerp(CostBarMaskMinPos.localPosition, CostBarMaskMaxPos.localPosition, (float) value / GamePlaySettings.MaxCost);
         CostNumberBlock.transform.localPosition = Vector3.Lerp(CostNumberMinPos.localPosition, CostNumberMaxPos.localPosition, (float) value / GamePlaySettings.MaxCost);
     }
 
@@ -78,9 +80,6 @@ internal class CostLifeMagiceManager : MonoBehaviour
         TotalLifeNumber.text = "/" + value;
     }
 
-    [SerializeField] private Transform CostBarMask;
-    [SerializeField] private Transform CostBarMaskMinPos;
-    [SerializeField] private Transform CostBarMaskMaxPos;
     [SerializeField] private Transform CostNumberMinPos;
     [SerializeField] private Transform CostNumberMaxPos;
 
@@ -91,4 +90,6 @@ internal class CostLifeMagiceManager : MonoBehaviour
     [SerializeField] private Transform MagicBarMask;
     [SerializeField] private Transform MagicBarMaskMinPos;
     [SerializeField] private Transform MagicBarMaskMaxPos;
+
+    public CostBarManager CostBarManager;
 }

@@ -259,6 +259,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public Renderer MainBoardRenderer;
     public GameObject CardBloom;
+    [SerializeField] private Renderer CardBloomRenderer;
     [SerializeField] private Renderer PictureBoxRenderer;
     [SerializeField] private Image Image_RetinueDescPanel;
 
@@ -287,43 +288,24 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         ChangePictureColor(Color.white);
     }
 
-    public void ChangeColor(Color newColor)
+    public void ChangeColor(Color color)
     {
-        if (MainBoardRenderer)
-        {
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            MainBoardRenderer.GetPropertyBlock(mpb);
-            mpb.SetColor("_Color", newColor);
-            mpb.SetColor("_EmissionColor", newColor);
-            MainBoardRenderer.SetPropertyBlock(mpb);
-        }
+        ClientUtils.ChangeColor(MainBoardRenderer, color);
 
         if (Image_RetinueDescPanel)
         {
-            Image_RetinueDescPanel.color = new Color(newColor.r / 2, newColor.g / 2, newColor.b / 2, 0.5f);
+            Image_RetinueDescPanel.color = new Color(color.r / 2, color.g / 2, color.b / 2, 0.5f);
         }
     }
 
     public void ChangeCardBloomColor(Color color)
     {
-        if (CardBloom)
-        {
-            Renderer rd = CardBloom.GetComponent<Renderer>();
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            rd.GetPropertyBlock(mpb);
-            mpb.SetColor("_Color", color);
-            mpb.SetColor("_EmissionColor", color);
-            rd.SetPropertyBlock(mpb);
-        }
+        ClientUtils.ChangeColor(CardBloomRenderer,color);
     }
 
-    public void ChangePictureColor(Color newColor)
+    public void ChangePictureColor(Color color)
     {
-        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-        PictureBoxRenderer.GetPropertyBlock(mpb);
-        mpb.SetColor("_Color", newColor);
-        mpb.SetColor("_EmissionColor", newColor);
-        PictureBoxRenderer.SetPropertyBlock(mpb);
+        ClientUtils.ChangeColor(PictureBoxRenderer, color);
     }
 
     public void SetBlockCountValue(int value)

@@ -26,6 +26,16 @@ class ClientUtils
         rd.SetPropertyBlock(mpb);
     }
 
+    public static void ChangeColor(Renderer rd, Color newColor)
+    {
+        if (!rd) return;
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        rd.GetPropertyBlock(mpb);
+        mpb.SetColor("_Color", newColor);
+        mpb.SetColor("_EmissionColor", newColor);
+        rd.SetPropertyBlock(mpb);
+    }
+
     public static IEnumerator MoveGameObject(Transform obj, Vector3 oldPosition, Quaternion oldRotation, Vector3 oldScale, Vector3 targetPosition, Quaternion targetRotation, Vector3 targetScale, float duration, float rotateDuration)
     {
         obj.position = oldPosition;
@@ -56,5 +66,12 @@ class ClientUtils
         obj.position = targetPosition;
         obj.rotation = targetRotation;
         obj.localScale = targetScale;
+    }
+
+    public struct PositionAndRotation
+    {
+        public Vector3 Position;
+        public Quaternion Rotation;
+
     }
 }

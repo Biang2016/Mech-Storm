@@ -1079,6 +1079,7 @@ MonoBehaviour:
   Star4: {fileID: 1443671597345574}
   MainBoardRenderer: {fileID: 23404617505044738}
   CardBloom: {fileID: 1523667097533280}
+  CardBloomRenderer: {fileID: 23813667797871046}
   PictureBoxRenderer: {fileID: 23878625947819022}
   Image_RetinueDescPanel: {fileID: 114996597598905118}
   Block_Cost: {fileID: 1186108035511274}

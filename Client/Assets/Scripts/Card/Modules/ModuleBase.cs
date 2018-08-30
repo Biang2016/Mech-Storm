@@ -123,20 +123,9 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
     [SerializeField] private Renderer MainBoardRenderer;
 
-    public void ChangeColor(Color newColor)
+    public void ChangeColor(Color color)
     {
-        if (MainBoardRenderer)
-        {
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            MainBoardRenderer.GetPropertyBlock(mpb);
-            mpb.SetColor("_Color", newColor);
-            mpb.SetColor("_EmissionColor", newColor);
-            MainBoardRenderer.SetPropertyBlock(mpb);
-        }
-        else
-        {
-            ClientLog.Instance.Print("No MainBoardRenderer");
-        }
+        ClientUtils.ChangeColor(MainBoardRenderer, color);
     }
 
     #endregion

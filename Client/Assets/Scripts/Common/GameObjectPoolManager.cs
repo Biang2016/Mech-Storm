@@ -118,6 +118,10 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     internal GameObjectPool Pool_CardDeckCardPool;
     public GameObject CardDeckCardPrefab;
 
+    public GameObject CostBarBlockPool;
+    internal GameObjectPool Pool_CostBarBlockPool;
+    public GameObject CostBarBlockPrefab;
+
     void Awake()
     {
         Pool_ColliderReplacePool = ColliderReplacePool.GetComponent<GameObjectPool>();
@@ -203,6 +207,9 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
 
         Pool_CardDeckCardPool = CardDeckCardPool.GetComponent<GameObjectPool>();
         Pool_CardDeckCardPool.Initiate(CardDeckCardPrefab, 20);
+
+        Pool_CostBarBlockPool = CostBarBlockPool.GetComponent<GameObjectPool>();
+        Pool_CostBarBlockPool.Initiate(CostBarBlockPrefab, 20);
     }
 }
 

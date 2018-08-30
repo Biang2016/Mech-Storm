@@ -15,6 +15,8 @@ ModelImporter:
     100018: Ship
     100020: LifeCutout
     100022: MagicCutOut
+    100024: CostBar
+    100026: LifeMagicBar
     400000: BattleGround
     400002: //RootNode
     400004: CardDeck
@@ -27,6 +29,8 @@ ModelImporter:
     400018: Ship
     400020: LifeCutout
     400022: MagicCutOut
+    400024: CostBar
+    400026: LifeMagicBar
     2100000: 01 - Default
     2100002: 07 - Default
     2300000: BattleGround
@@ -40,6 +44,8 @@ ModelImporter:
     2300016: Ship
     2300018: LifeCutout
     2300020: MagicCutOut
+    2300022: CostBar
+    2300024: LifeMagicBar
     3300000: BattleGround
     3300002: CardDeck
     3300004: Cost
@@ -51,6 +57,8 @@ ModelImporter:
     3300016: Ship
     3300018: LifeCutout
     3300020: MagicCutOut
+    3300022: CostBar
+    3300024: LifeMagicBar
     4300000: BattleGround
     4300002: CardDeck
     4300004: Ship
@@ -62,6 +70,8 @@ ModelImporter:
     4300016: CostCutout
     4300018: MagicCutOut
     4300020: LifeCutout
+    4300022: LifeMagicBar
+    4300024: CostBar
   externalObjects: {}
   materials:
     importMaterials: 1
