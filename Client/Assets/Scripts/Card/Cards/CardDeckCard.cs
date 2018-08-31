@@ -2,8 +2,6 @@
 
 public class CardDeckCard : MonoBehaviour, IGameObjectPool
 {
-    internal ClientPlayer ClientPlayer;
-
     GameObjectPool gameObjectPool;
 
     void Awake()
@@ -21,9 +19,9 @@ public class CardDeckCard : MonoBehaviour, IGameObjectPool
     [SerializeField] private Renderer MainBoardRenderer;
     [SerializeField] private Renderer CardBloomRenderer;
 
-    public void ResetColor()
+    public void ResetColor(bool isSelf)
     {
-        if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+        if (isSelf)
         {
             ClientUtils.ChangeColor(MainBoardRenderer, GameManager.Instance.SelfCardDeckCardColor);
             ClientUtils.ChangeColor(CardBloomRenderer, GameManager.Instance.SelfCardDeckCardColor);

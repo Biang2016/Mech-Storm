@@ -4,25 +4,53 @@ using UnityEngine;
 
 internal class BattleGroundManager : MonoBehaviour
 {
-    internal bool BattleGroundIsFull;
-    internal bool BattleGroundIsEmpty = true;
-    private Vector3 _defaultRetinuePosition = Vector3.zero;
-
-    internal ClientPlayer ClientPlayer;
-    internal List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
-
     private int retinueCount;
 
-    private int RetinueCount //接到协议就计算随从数量，不会等到动画放完
+    public int RetinueCount //接到增加随从协议就更新数量（实体后面才生成）
     {
         get { return retinueCount; }
         set
         {
             retinueCount = value;
-            BattleGroundIsFull = retinueCount >= GamePlaySettings.MaxRetinueNumber;
+            BattleGroundIsFull = retinueCount == GamePlaySettings.MaxRetinueNumber;
             BattleGroundIsEmpty = retinueCount == 0;
         }
     }
+
+    private int heroCount;
+
+    public int HeroCount //接到增加随从协议就更新数量（实体后面才生成）
+    {
+        get { return heroCount; }
+        set
+        {
+            heroCount = value;
+            HerosIsEmpty = heroCount == 0;
+        }
+    }
+
+    private int soldierCount;
+
+    public int SoldierCount //接到增加随从协议就更新数量（实体后面才生成）
+    {
+        get { return soldierCount; }
+        set
+        {
+            soldierCount = value;
+            SoldiersIsEmpty = soldierCount == 0;
+        }
+    }
+
+    public bool BattleGroundIsFull;
+    public bool BattleGroundIsEmpty;
+    public bool HerosIsEmpty;
+    public bool SoldiersIsEmpty;
+    private Vector3 _defaultRetinuePosition = Vector3.zero;
+
+    internal ClientPlayer ClientPlayer;
+    internal List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
+    internal List<ModuleRetinue> Heros = new List<ModuleRetinue>();
+    internal List<ModuleRetinue> Soldiers = new List<ModuleRetinue>();
 
     public void Reset()
     {
@@ -34,7 +62,11 @@ internal class BattleGroundManager : MonoBehaviour
         ClientPlayer = null;
         previewRetinuePlace = PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW;
         Retinues.Clear();
+        Heros.Clear();
+        Soldiers.Clear();
         RetinueCount = 0;
+        HeroCount = 0;
+        SoldierCount = 0;
         RemoveRetinues.Clear();
     }
 
@@ -92,6 +124,15 @@ internal class BattleGroundManager : MonoBehaviour
             retinue.M_RetinueID = retinueId;
             addPrePassRetinueQueue.Enqueue(retinue);
             RetinueCount++;
+            if (!retinueCardInfo.BattleInfo.IsSoldier)
+            {
+                HeroCount++;
+            }
+            else
+            {
+                SoldierCount++;
+            }
+
             return retinue;
         }
 
@@ -119,6 +160,15 @@ internal class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         retinue.CannotAttackBecauseDie = true;
         RetinueCount--;
+        if (!retinue.CardInfo.BattleInfo.IsSoldier)
+        {
+            HeroCount--;
+        }
+        else
+        {
+            SoldierCount--;
+        }
+
         RemoveRetinues.Add(retinue);
     }
 
@@ -128,6 +178,15 @@ internal class BattleGroundManager : MonoBehaviour
         {
             removeRetinue.PoolRecycle();
             Retinues.Remove(removeRetinue);
+            if (!removeRetinue.CardInfo.BattleInfo.IsSoldier)
+            {
+                Heros.Remove(removeRetinue);
+            }
+            else
+            {
+                Soldiers.Remove(removeRetinue);
+            }
+
             ClientLog.Instance.Print("remove:" + removeRetinue.M_RetinueID);
         }
 
@@ -144,6 +203,17 @@ internal class BattleGroundManager : MonoBehaviour
         retinue.PoolRecycle();
         Retinues.Remove(retinue);
         RetinueCount--;
+        if (!retinue.CardInfo.BattleInfo.IsSoldier)
+        {
+            Heros.Remove(retinue);
+            HeroCount--;
+        }
+        else
+        {
+            Soldiers.Remove(retinue);
+            SoldierCount--;
+        }
+
         PrintRetinueInfos();
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -255,6 +325,15 @@ internal class BattleGroundManager : MonoBehaviour
             ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
 
             Retinues.Insert(retinuePlaceIndex, retinue);
+            if (retinue.CardInfo.BattleInfo.IsSoldier)
+            {
+                Soldiers.Add(retinue);
+            }
+            else
+            {
+                Heros.Add(retinue);
+            }
+
             retinue.OnSummon();
             retinue.transform.localPosition = _defaultRetinuePosition;
             retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.Instance.RetinueInterval, Space.Self);

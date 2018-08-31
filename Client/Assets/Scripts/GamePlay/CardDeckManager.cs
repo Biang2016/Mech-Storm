@@ -45,10 +45,8 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
         {
             self_CardDeckCards[i] = GameObjectPoolManager.Instance.Pool_CardDeckCardPool.AllocateGameObject(SelfCardDeckArea).GetComponent<CardDeckCard>();
             enemy_CardDeckCards[i] = GameObjectPoolManager.Instance.Pool_CardDeckCardPool.AllocateGameObject(EnemyCardDeckArea).GetComponent<CardDeckCard>();
-            self_CardDeckCards[i].ClientPlayer = RoundManager.Instance.SelfClientPlayer;
-            enemy_CardDeckCards[i].ClientPlayer = RoundManager.Instance.EnemyClientPlayer;
-            self_CardDeckCards[i].ResetColor();
-            enemy_CardDeckCards[i].ResetColor();
+            self_CardDeckCards[i].ResetColor(true);
+            enemy_CardDeckCards[i].ResetColor(false);
             self_CardDeckCards[i].transform.Translate(GameManager.Instance.Self_CardDeckCardInterval * i);
             enemy_CardDeckCards[i].transform.Translate(GameManager.Instance.Enemy_CardDeckCardInterval * i);
         }

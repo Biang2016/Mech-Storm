@@ -93,8 +93,9 @@ internal class Server
             threadAccept.IsBackground = true;
             threadAccept.Start();
         }
-        catch
+        catch (Exception e)
         {
+            ServerLog.PrintError(e.Message);
             ServerLog.PrintError("Server start failed!");
         }
     }

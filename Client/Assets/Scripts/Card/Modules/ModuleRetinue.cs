@@ -167,6 +167,8 @@ internal class ModuleRetinue : ModuleBase
     private Vector3 LifeBarMaskDefaultPosition;
     [SerializeField] private Animator LifeIncreaseArrow;
 
+    [SerializeField] private Animator RetinueTargetPreviewAnim;
+
     private bool isInitializing = false;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
@@ -784,6 +786,16 @@ internal class ModuleRetinue : ModuleBase
     {
         if (M_RetinueWeaponEnergy != 0) return M_RetinueAttack * M_RetinueWeaponEnergy;
         else return M_RetinueAttack;
+    }
+
+    public void ShowTargetPreviewArrow()
+    {
+        RetinueTargetPreviewAnim.SetTrigger("BeginTarget");
+    }
+
+    public void HideTargetPreviewArrow()
+    {
+        RetinueTargetPreviewAnim.SetTrigger("EndTarget");
     }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)

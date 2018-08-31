@@ -335,10 +335,7 @@ internal partial class RoundManager
     private void OnPlayerDrawCard(DrawCardRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        foreach (DrawCardRequest.CardIdAndInstanceId respCardId in r.cardInfos)
-        {
-            cp.MyHandManager.GetCard(respCardId.CardId, respCardId.CardInstanceId);
-        }
+        cp.MyHandManager.GetCards(r.cardInfos);
     }
 
     private void OnPlayerDropCard(DropCardRequest r)

@@ -59,7 +59,6 @@ internal class DragComponent : MonoBehaviour
                     {
                         if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowArrow)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowArrowPool.AllocateGameObject(DragManager.Instance.transform).GetComponent<ArrowArrow>();
                         DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
-                        caller.DragComponnet_DragOutEffects();
                     }
 
                     caller.DragComponent_OnMousePressed(BoardAreaTypes.Others, checkMoveToSlot(), checkMoveToRetinue(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
@@ -79,7 +78,6 @@ internal class DragComponent : MonoBehaviour
                     {
                         if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowAiming)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject(DragManager.Instance.transform).GetComponent<ArrowAiming>();
                         DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
-                        caller.DragComponnet_DragOutEffects();
                     }
 
                     caller.DragComponent_OnMousePressed(BoardAreaTypes.Others, null, checkMoveToRetinue(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
@@ -103,6 +101,7 @@ internal class DragComponent : MonoBehaviour
                     caller.DragComponent_OnMouseDown();
                     dragDistance = caller.DragComponnet_DragDistance();
                     isOnDrag = value;
+                    if (dragPurpose != DragPurpose.Summon) caller.DragComponnet_DragOutEffects();
                 }
                 else
                 {

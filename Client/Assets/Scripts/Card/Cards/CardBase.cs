@@ -10,6 +10,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public virtual void PoolRecycle()
     {
+        iTween.Stop(gameObject);
         if (!IsCardSelect)
         {
             ResetColliderAndReplace();
@@ -38,7 +39,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         gameObject.SetActive(true);
         CardBloom.SetActive(false);
     }
-
 
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
     internal DragComponent DragComponent;
@@ -169,6 +169,8 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         transform.Rotate(Vector3.up, 180);
 
         if (IsCardSelect) MoneyText.text = cardInfo.BaseInfo.Money.ToString();
+
+        SetCardBackColor();
     }
 
 
@@ -274,6 +276,8 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     [SerializeField] private Text MoneyText;
     [SerializeField] private Image CoinImage;
 
+    [SerializeField] private Renderer CardBackRenderer;
+
     public void BeDimColor()
     {
         Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.CardColor);
@@ -306,6 +310,18 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     public void ChangePictureColor(Color color)
     {
         ClientUtils.ChangeColor(PictureBoxRenderer, color);
+    }
+
+    public void SetCardBackColor()
+    {
+        if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+        {
+            ClientUtils.ChangeColor(CardBackRenderer,GameManager.Instance.SelfCardDeckCardColor);
+        }
+        else
+        {
+            ClientUtils.ChangeColor(CardBackRenderer, GameManager.Instance.EnemyCardDeckCardColor);
+        }
     }
 
     public void SetBlockCountValue(int value)

@@ -63,7 +63,7 @@ internal class CardSpell : CardBase
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
-
+        RoundManager.Instance.HideTargetPreviewArrow();
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
         {
             if (hasTarget)
@@ -141,6 +141,7 @@ internal class CardSpell : CardBase
     {
         base.DragComponnet_DragOutEffects();
         DragManager.Instance.DragOutDamage = CalculateAttack();
+        RoundManager.Instance.ShowTargetPreviewArrow(targetRange);
     }
 
     private int CalculateAttack()
