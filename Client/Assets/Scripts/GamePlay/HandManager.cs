@@ -27,6 +27,7 @@ internal class HandManager : MonoBehaviour
 
     void Start()
     {
+
     }
 
     void Update()
@@ -52,6 +53,14 @@ internal class HandManager : MonoBehaviour
     public void GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds)
     {
         if (ClientPlayer == null) return;
+        for (int i = 1; i < 7; i++)
+        {
+            for (int j = 1; j <= i; j++)
+            {
+                Transform tr = GetCardPlace(j, i);
+                Debug.Log(j + "," + i + " " + tr.position);
+            }
+        }
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_GetCards(cardIdAndInstanceIds), "Co_GetCard");
     }
 
@@ -63,12 +72,15 @@ internal class HandManager : MonoBehaviour
         float intervalTime = 0.3f;
 
         int count = 0;
+        int currentCount = cards.Count;
         foreach (DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId in cardIdAndInstanceIds)
         {
             count++;
-            StartCoroutine(SubCo_GetCard(cards.Count + cardIdAndInstanceIds.Count, cards.Count + count + 1, cardIdAndInstanceId, cardFlyTime));
+            StartCoroutine(SubCo_GetCard(currentCount + count, currentCount + cardIdAndInstanceIds.Count, cardIdAndInstanceId, cardFlyTime));
             yield return new WaitForSeconds(intervalTime);
         }
+
+        yield return new WaitForSeconds(cardFlyTime - intervalTime);
 
         RefreshCardsPlace();
 
@@ -77,14 +89,13 @@ internal class HandManager : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator SubCo_GetCard(int totalCardNumber, int indexNumber, DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId, float duration) //单卡片抽取动画
+    IEnumerator SubCo_GetCard(int indexNumber, int totalCardNumber, DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId, float duration) //单卡片抽取动画
     {
         Transform srcPos = DrawCardPivot;
         Transform tarTran = GetCardPlace(indexNumber, totalCardNumber);
         Vector3 tarPos = tarTran.position;
         Quaternion tarRot = tarTran.rotation;
 
-        Debug.Log("totalCardNumber: " + totalCardNumber);
         Hashtable arg = new Hashtable();
         arg.Add("position", tarPos);
         arg.Add("time", duration);
@@ -92,6 +103,7 @@ internal class HandManager : MonoBehaviour
 
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardIdAndInstanceId.CardId);
         CardBase newCardBase;
+        Debug.Log(newCardInfoBase.BaseInfo.CardName + " totalCardNumber: " + totalCardNumber + " index: " + indexNumber);
 
         newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
         newCardBase.myCollider.enabled = false;
@@ -244,15 +256,18 @@ internal class HandManager : MonoBehaviour
         {
             count++;
             Transform result = GetCardPlace(count, cards.Count);
+            Vector3 position = result.position;
+            Vector3 rotation = result.rotation.eulerAngles;
+            Vector3 scale = result.localScale;
 
             Hashtable args = new Hashtable();
-            args.Add("position", result.position);
+            args.Add("position", position);
             args.Add("time", 0.1f);
             args.Add("easeType", iTween.EaseType.linear);
             iTween.MoveTo(card.gameObject, args);
-            args.Add("rotation", result);
+            args.Add("rotation", rotation);
             iTween.RotateTo(card.gameObject, args);
-            args.Add("scale", result);
+            args.Add("scale", scale);
             iTween.ScaleTo(card.gameObject, args);
         }
 
