@@ -10,7 +10,43 @@
     public int M_Cost
     {
         get { return m_Cost; }
-        set { m_Cost = value; }
+        set
+        {
+            int before = m_Magic;
+            m_Cost = value;
+            CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, m_Cost - before, 0, m_EffectFactor);
+            ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+        }
+    }
+
+    private int m_Magic;
+
+    public int M_Magic
+    {
+        get { return m_Magic; }
+        set
+        {
+            int before = m_Magic;
+            m_Magic = value;
+            CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, 0, m_Magic - before, m_EffectFactor);
+            ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+        }
+    }
+
+    private int m_EffectFactor;
+
+    public int M_EffectFactor
+    {
+        get { return m_EffectFactor; }
+        set
+        {
+            if (value != m_EffectFactor)
+            {
+                m_EffectFactor = value;
+                CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, 0, 0, m_EffectFactor);
+                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+            }
+        }
     }
 
     private int m_CardInstanceId;
@@ -81,5 +117,14 @@
 
     public virtual void OnEndRound()
     {
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnEndRound)
+        {
+            if (se is CardRelatedSideEffect)
+            {
+                ((CardRelatedSideEffect) se).TargetCardInstanceId = M_CardInstanceId;
+            }
+
+            se.Excute(ServerPlayer);
+        }
     }
 }

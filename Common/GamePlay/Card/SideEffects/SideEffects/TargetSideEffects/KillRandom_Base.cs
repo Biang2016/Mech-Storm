@@ -2,7 +2,7 @@
 {
     public override string GenerateDesc()
     {
-        return HightlightStringFormat(DescRaw, GetChineseDescOfTargetRange(M_TargetRange));
+        return HightlightStringFormat(HightlightColor, DescRaw, "一个随机" + GetChineseDescOfTargetRange(M_TargetRange));
     }
 
     public override void Serialze(DataStream writer)

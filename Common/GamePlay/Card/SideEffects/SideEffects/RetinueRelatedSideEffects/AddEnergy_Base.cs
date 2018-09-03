@@ -5,7 +5,7 @@
 
     public override string GenerateDesc()
     {
-        return HightlightStringFormat(DescRaw, Value);
+        return HightlightStringFormat(HightlightColor, DescRaw, Value);
     }
 
     public override void Serialze(DataStream writer)

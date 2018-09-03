@@ -1161,6 +1161,7 @@ MonoBehaviour:
   Block_Count: {fileID: 0}
   MoneyText: {fileID: 0}
   CoinImage: {fileID: 0}
+  CardBackRenderer: {fileID: 0}
   SpellName: {fileID: 114362871091690130}
   SpellDesc: {fileID: 114748058512960504}
 --- !u!114 &114748058512960504
@@ -1260,8 +1261,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 179.99998}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.02}
-  m_SizeDelta: {x: 400, y: 200}
+  m_AnchoredPosition: {x: 0, y: -0.25}
+  m_SizeDelta: {x: 400, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224544423134326508
 RectTransform:

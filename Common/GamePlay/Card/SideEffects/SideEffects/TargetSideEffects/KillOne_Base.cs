@@ -2,7 +2,7 @@
 {
     public override string GenerateDesc()
     {
-        return HightlightStringFormat(DescRaw, GetChineseDescOfTargetRange(M_TargetRange));
+        return HightlightStringFormat(HightlightColor, DescRaw, ((M_TargetRange == TargetRange.SelfShip || M_TargetRange == TargetRange.EnemyShip) ? "" : "一个") + GetChineseDescOfTargetRange(M_TargetRange));
     }
 
     public override void Serialze(DataStream writer)

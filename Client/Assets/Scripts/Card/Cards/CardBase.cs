@@ -162,6 +162,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
 
         M_Cost = CardInfo.BaseInfo.Cost;
+        M_Magic = CardInfo.BaseInfo.Magic;
         ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         Stars = cardInfo.UpgradeInfo.CardLevel;
 
@@ -185,6 +186,37 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         {
             m_Cost = value;
             CardNumberSet_Cost.Number = value;
+        }
+    }
+
+    private int m_Magic;
+
+    public int M_Magic
+    {
+        get { return m_Magic; }
+        set
+        {
+            m_Magic = value;
+            CardInfo.BaseInfo.Magic = value;
+
+        }
+    }
+
+    private int m_EffectFactor;
+
+    public int M_EffectFactor
+    {
+        get { return m_EffectFactor; }
+        set
+        {
+            m_EffectFactor = value;
+            if (CardInfo.BaseInfo.CardType == CardTypes.Spell)
+            {
+                foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
+                {
+
+                }
+            }
         }
     }
 
@@ -304,7 +336,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public void ChangeCardBloomColor(Color color)
     {
-        ClientUtils.ChangeColor(CardBloomRenderer,color);
+        ClientUtils.ChangeColor(CardBloomRenderer, color);
     }
 
     public void ChangePictureColor(Color color)
@@ -316,7 +348,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
         if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
         {
-            ClientUtils.ChangeColor(CardBackRenderer,GameManager.Instance.SelfCardDeckCardColor);
+            ClientUtils.ChangeColor(CardBackRenderer, GameManager.Instance.SelfCardDeckCardColor);
         }
         else
         {
@@ -353,8 +385,9 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
         set
         {
+            if (!value) BeDimColor();
+            else BeBrightColor();
             usable = value;
-            if (CardBloom) CardBloom.SetActive(value);
         }
     }
 

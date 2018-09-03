@@ -77,7 +77,7 @@ internal class CostLifeMagiceManager : MonoBehaviour
 
     public void SetTotalMagic(int value)
     {
-        TotalLifeNumber.text = "/" + value;
+        TotalMagicNumber.text = "/" + value;
     }
 
     [SerializeField] private Transform CostNumberMinPos;

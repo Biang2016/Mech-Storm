@@ -83,6 +83,7 @@ internal class ServerHandManager
     {
         ServerCardBase card = GetCardByCardInstanceId(cardInstanceId);
         ServerPlayer.UseCostAboveZero(card.CardInfo.BaseInfo.Cost);
+        ServerPlayer.UseMagicAboveZero(card.CardInfo.BaseInfo.Magic);
         UseCard(card, lastDragPosition);
     }
 

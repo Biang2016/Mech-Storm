@@ -29,6 +29,8 @@ public class CardInfo_Weapon : CardInfo_Base
             CardDescShow += "弹药: " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax) + "\n";
         }
 
+        CardDescShow = CardDescShow.TrimEnd(",;\n".ToCharArray());
+
         return CardDescShow;
     }
 

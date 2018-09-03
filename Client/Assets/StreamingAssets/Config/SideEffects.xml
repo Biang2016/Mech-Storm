@@ -1,59 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <AllSideEffects>
-  <SideEffect id="0" name="KillAll" desc="破坏所有{0}">
+  <SideEffect id="0" name="KillAll" desc="破坏{0}">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
   </SideEffect>
-  <SideEffect id="1" name="KillOne" desc="破坏一个{0}">
+  <SideEffect id="1" name="KillOne" desc="破坏{0}">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
   </SideEffect>
-  <SideEffect id="2" name="KillRandom" desc="破坏一个随机{0}">
+  <SideEffect id="2" name="KillRandom" desc="破坏{0}">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
   </SideEffect>
-  <SideEffect id="3" name="AddLifeAll" desc="使所有{0}增加{1}点生命">
-    <params name="IsNeedChoise" type="bool"></params>
-    <params name="M_TargetRange" type="enum"></params>
-    <params name="Value" type="int"></params>
-  </SideEffect>
-  <SideEffect id="4" name="AddLifeOne" desc="使一个{0}增加{1}点生命">
+  <SideEffect id="3" name="AddLifeAll" desc="使{0}增加{1}点生命">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="5" name="AddLifeRandom" desc="使一个随机{0}增加{1}点生命">
+  <SideEffect id="4" name="AddLifeOne" desc="使{0}增加{1}点生命">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="6" name="DamageAll" desc="对所有{0}造成{1}点伤害">
+  <SideEffect id="5" name="AddLifeRandom" desc="使{0}增加{1}点生命">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="7" name="DamageOne" desc="对一个{0}造成{1}点伤害">
+  <SideEffect id="6" name="DamageAll" desc="对{0}造成{1}点伤害">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="8" name="DamageRandom" desc="对一个随机{0}造成{1}点伤害">
+  <SideEffect id="7" name="DamageOne" desc="对{0}造成{1}点伤害">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="9" name="HealAll" desc="使所有{0}恢复{1}点生命">
+  <SideEffect id="8" name="DamageRandom" desc="对{0}造成{1}点伤害">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="10" name="HealOne" desc="使一个{0}恢复{1}点生命">
+  <SideEffect id="9" name="HealAll" desc="使{0}恢复{1}点生命">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="11" name="HealRandom" desc="使一个随机{0}恢复{1}点生命">
+  <SideEffect id="10" name="HealOne" desc="使{0}恢复{1}点生命">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="11" name="HealRandom" desc="使{0}恢复{1}点生命">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
@@ -65,6 +65,11 @@
     <params name="Value" type="int"></params>
   </SideEffect>
   <SideEffect id="14" name="AddEnergy" desc="武器能量增加{0}点">
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="15" name="AddMagic" desc="为{0}增加{1}点能量">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
 </AllSideEffects>

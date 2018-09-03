@@ -27,7 +27,6 @@ internal class HandManager : MonoBehaviour
 
     void Start()
     {
-
     }
 
     void Update()
@@ -53,14 +52,6 @@ internal class HandManager : MonoBehaviour
     public void GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds)
     {
         if (ClientPlayer == null) return;
-        for (int i = 1; i < 7; i++)
-        {
-            for (int j = 1; j <= i; j++)
-            {
-                Transform tr = GetCardPlace(j, i);
-                Debug.Log(j + "," + i + " " + tr.position);
-            }
-        }
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_GetCards(cardIdAndInstanceIds), "Co_GetCard");
     }
 
@@ -68,8 +59,11 @@ internal class HandManager : MonoBehaviour
 
     IEnumerator Co_GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds) //多卡片抽取动画
     {
-        float cardFlyTime = 3f;
+        float cardFlyTime = 1f;
         float intervalTime = 0.3f;
+
+        RefreshCardsPlace(cards.Count + cardIdAndInstanceIds.Count, 0.1f);
+        yield return new WaitForSeconds(0.2f);
 
         int count = 0;
         int currentCount = cards.Count;
@@ -80,11 +74,7 @@ internal class HandManager : MonoBehaviour
             yield return new WaitForSeconds(intervalTime);
         }
 
-        yield return new WaitForSeconds(cardFlyTime - intervalTime);
-
-        RefreshCardsPlace();
-
-        yield return new WaitForSeconds(0.1f); //留给RefreshCardsPlace
+        RefreshAllCardUsable();
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
         yield return null;
     }
@@ -103,9 +93,9 @@ internal class HandManager : MonoBehaviour
 
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardIdAndInstanceId.CardId);
         CardBase newCardBase;
-        Debug.Log(newCardInfoBase.BaseInfo.CardName + " totalCardNumber: " + totalCardNumber + " index: " + indexNumber);
 
         newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
+        cards.Add(newCardBase);
         newCardBase.myCollider.enabled = false;
         newCardBase.transform.position = srcPos.position;
         newCardBase.transform.rotation = srcPos.rotation;
@@ -116,7 +106,6 @@ internal class HandManager : MonoBehaviour
 
         newCardBase.M_CardInstanceId = cardIdAndInstanceId.CardInstanceId;
         newCardBase.myCollider.enabled = true;
-        cards.Add(newCardBase);
     }
 
     public int GetCardIndex(CardBase card)
@@ -248,21 +237,27 @@ internal class HandManager : MonoBehaviour
 
     internal void RefreshCardsPlace() //重置所有手牌位置
     {
+        RefreshCardsPlace(cards.Count, 0.1f);
+    }
+
+    internal void RefreshCardsPlace(int cardCount, float duration) //按虚拟的手牌总数重置所有手牌位置
+    {
         if (ClientPlayer == null) return;
         if (cards.Count == 0) return;
 
         int count = 0;
+        Debug.Log("RefreshCardsPlace " + cardCount + "," + cards.Count);
         foreach (CardBase card in cards)
         {
             count++;
-            Transform result = GetCardPlace(count, cards.Count);
+            Transform result = GetCardPlace(count, cardCount);
             Vector3 position = result.position;
             Vector3 rotation = result.rotation.eulerAngles;
             Vector3 scale = result.localScale;
 
             Hashtable args = new Hashtable();
             args.Add("position", position);
-            args.Add("time", 0.1f);
+            args.Add("time", duration);
             args.Add("easeType", iTween.EaseType.linear);
             iTween.MoveTo(card.gameObject, args);
             args.Add("rotation", rotation);
@@ -308,6 +303,7 @@ internal class HandManager : MonoBehaviour
         GetCardPlacePivot.transform.Translate(-Vector3.up * 0.1f * (toatalCardNumber - cardIndex) * rev); //向上错开，体现卡片前后感
         GetCardPlacePivot.transform.Rotate(-Vector3.down, rotateAngle); //卡片微小旋转
 
+        Debug.Log(cardIndex + "," + toatalCardNumber + " " + GetCardPlacePivot.transform.position);
         return GetCardPlacePivot.transform;
     }
 
@@ -318,7 +314,7 @@ internal class HandManager : MonoBehaviour
         {
             if (ClientPlayer == RoundManager.Instance.CurrentClientPlayer)
             {
-                card.Usable = (ClientPlayer == RoundManager.Instance.SelfClientPlayer) && (card.M_Cost <= ClientPlayer.CostLeft);
+                card.Usable = (ClientPlayer == RoundManager.Instance.SelfClientPlayer) && (card.M_Cost <= ClientPlayer.CostLeft && card.M_Magic <= ClientPlayer.MagicLeft);
                 if (card is CardRetinue) card.Usable &= !ClientPlayer.MyBattleGroundManager.BattleGroundIsFull;
             }
             else

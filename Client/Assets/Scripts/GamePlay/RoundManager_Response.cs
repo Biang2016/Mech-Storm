@@ -396,4 +396,12 @@ internal partial class RoundManager
                 break;
         }
     }
+
+    private void OnCardAttributeChange(CardAttributeChangeRequest r)
+    {
+        CardBase cb = GetPlayerByClientId(r.clientId).MyHandManager.GetCardByCardInstanceId(r.cardInstanceId);
+        cb.M_Magic += r.magicChange;
+        cb.M_Cost += r.costChange;
+        cb.
+    }
 }

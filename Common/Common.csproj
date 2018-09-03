@@ -55,9 +55,12 @@
     <Compile Include="GamePlay\Card\CardInfo\Info\UpgradeInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\WeaponInfo.cs" />
     <Compile Include="GamePlay\Card\SideEffects\AllSideEffects.cs" />
-    <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\CopyNextDrawCard_Base.cs" />
-    <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\DrawCards_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\DrawCards_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\CardRelatedSideEffect.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddEnergy_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddMagic_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeAll_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageRandom_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\HealAll_Base.cs" />
@@ -80,6 +83,7 @@
     <Compile Include="RequestResponse\ClientToServer\OutGame\LogoutRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LoginRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\RegisterRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\CardAttributeChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerMagicChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerLifeChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipShieldRequest_ResponseBundle.cs" />

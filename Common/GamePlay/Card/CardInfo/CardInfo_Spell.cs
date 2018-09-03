@@ -16,12 +16,16 @@ public class CardInfo_Spell : CardInfo_Base
     public string GetCardDescShow()
     {
         string CardDescShow = BaseInfo.CardDescRaw;
+
+        if (BaseInfo.Magic > 0) CardDescShow += SideEffectBase.HightlightStringFormat(BaseInfo.HightLightColor, "使用{0}点能量,", BaseInfo.Magic);
+
+
         foreach (SideEffectBase se in SideEffects_OnSummoned)
         {
             CardDescShow += se.GenerateDesc() + ";\n";
         }
 
-        CardDescShow = CardDescShow.TrimEnd(";\n".ToCharArray());
+        CardDescShow = CardDescShow.TrimEnd(",;\n".ToCharArray());
 
         return CardDescShow;
     }

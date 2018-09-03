@@ -14,6 +14,7 @@ public class CardInfo_Base
 
     public List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
     public List<SideEffectBase> SideEffects_OnSummoned = new List<SideEffectBase>();
+    public List<SideEffectBase> SideEffects_OnEndRound = new List<SideEffectBase>();
 
     public CardInfo_Base()
     {
@@ -54,6 +55,12 @@ public class CardInfo_Base
         {
             se.Serialze(writer);
         }
+
+        writer.WriteSInt32(SideEffects_OnEndRound.Count);
+        foreach (SideEffectBase se in SideEffects_OnEndRound)
+        {
+            se.Serialze(writer);
+        }
     }
 
     public static CardInfo_Base Deserialze(DataStream reader)
@@ -85,8 +92,16 @@ public class CardInfo_Base
             SideEffects_OnSummoned.Add(SideEffectBase.BaseDeserialze(reader));
         }
 
+        List<SideEffectBase> SideEffects_OnEndRound = new List<SideEffectBase>();
+        int SE_OnEndRound_count = reader.ReadSInt32();
+        for (int i = 0; i < SE_OnEndRound_count; i++)
+        {
+            SideEffects_OnEndRound.Add(SideEffectBase.BaseDeserialze(reader));
+        }
+
         newCardInfo_Base.SideEffects_OnDie = SideEffects_OnDie;
         newCardInfo_Base.SideEffects_OnSummoned = SideEffects_OnSummoned;
+        newCardInfo_Base.SideEffects_OnEndRound = SideEffects_OnEndRound;
 
         return newCardInfo_Base;
     }

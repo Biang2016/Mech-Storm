@@ -234,15 +234,13 @@ internal class ServerGameManager
 
     public void OnEndRoundRequest(EndRoundRequest r)
     {
-        ClientA.CurrentClientRequestResponseBundle = new EndRoundRequest_ResponseBundle();
-        ClientB.CurrentClientRequestResponseBundle = new EndRoundRequest_ResponseBundle();
-
         if (CurrentPlayer.ClientId == r.clientId)
         {
+            ClientA.CurrentClientRequestResponseBundle = new EndRoundRequest_ResponseBundle();
+            ClientB.CurrentClientRequestResponseBundle = new EndRoundRequest_ResponseBundle();
             EndRound();
+            Broadcast_SendOperationResponse();
         }
-
-        Broadcast_SendOperationResponse();
     }
 
     private bool isStopped = false;

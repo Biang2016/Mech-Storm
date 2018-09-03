@@ -1,10 +1,10 @@
-﻿public class DrawCards_Base : SideEffectBase
+﻿public class AddMagic_Base : TargetSideEffect
 {
     public int Value;
 
     public override string GenerateDesc()
     {
-        return HightlightStringFormat(DescRaw, Value);
+        return HightlightStringFormat(HightlightColor, DescRaw, GetChineseDescOfTargetRange(M_TargetRange), Value);
     }
 
     public override void Serialze(DataStream writer)
@@ -17,5 +17,14 @@
     {
         base.Deserialze(reader);
         Value = reader.ReadSInt32();
+    }
+
+    public override int CalculateDamage()
+    {
+        return 0;
+    }
+    public override int CalculateHeal()
+    {
+        return 0;
     }
 }

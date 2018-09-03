@@ -1,9 +1,10 @@
 ﻿public class AddLifeRandom_Base : TargetSideEffect
 {
     public int Value;
+
     public override string GenerateDesc()
     {
-        return HightlightStringFormat(DescRaw, GetChineseDescOfTargetRange(M_TargetRange), Value);
+        return HightlightStringFormat(HightlightColor, DescRaw, "一个随机" + GetChineseDescOfTargetRange(M_TargetRange), Value);
     }
 
     public override void Serialze(DataStream writer)

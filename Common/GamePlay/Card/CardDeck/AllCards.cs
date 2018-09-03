@@ -37,6 +37,7 @@ public static class AllCards
 
             List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
             List<SideEffectBase> SideEffects_OnSummoned = new List<SideEffectBase>();
+            List<SideEffectBase> SideEffects_OnEndRound = new List<SideEffectBase>();
 
             for (int j = 0; j < card.ChildNodes.Count; j++)
             {
@@ -48,6 +49,7 @@ public static class AllCards
                             cardInfo.Attributes["cardName"].Value,
                             cardInfo.Attributes["cardDesc"].Value.Replace("\\n", "\n"),
                             int.Parse(cardInfo.Attributes["cost"].Value),
+                            int.Parse(cardInfo.Attributes["magic"].Value),
                             int.Parse(cardInfo.Attributes["money"].Value),
                             (DragPurpose) Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
                             (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value),
@@ -94,6 +96,9 @@ public static class AllCards
                                 break;
                             case "OnSummoned":
                                 sideEffects = SideEffects_OnSummoned;
+                                break;
+                            case "OnEndRound":
+                                sideEffects = SideEffects_OnEndRound;
                                 break;
                         }
 
