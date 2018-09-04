@@ -150,6 +150,11 @@
             PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, PlayerLifeChangeRequest.LifeChangeFlag.Left, addLife_left: LifeLeft - LifeLeftBefore);
             BroadCastRequest(request);
         }
+
+        if (LifeLeft <= 0)
+        {
+            MyGameManager.OnEndGame(MyEnemyPlayer);
+        }
     }
 
     public void AddAllLife()

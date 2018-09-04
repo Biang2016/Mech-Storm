@@ -297,7 +297,7 @@ internal class HandManager : MonoBehaviour
             GetCardPlacePivot.transform.Rotate(-Vector3.right * 180);
         }
 
-        GetCardPlacePivot.transform.position = new Vector3(GetCardPlacePivot.transform.position.x, 2f, GetCardPlacePivot.transform.position.z);
+        GetCardPlacePivot.transform.position = new Vector3(GetCardPlacePivot.transform.position.x, 4f, GetCardPlacePivot.transform.position.z);
         float horrizonDistance = horrizonDist / toatalCardNumber * (((toatalCardNumber - 1) / 2.0f + 1) - cardIndex);
         GetCardPlacePivot.transform.Translate(-Vector3.right * horrizonDistance * GameManager.Instance.HandCardSize); //向水平向错开，体现手牌展开感
         float distCardsFromCenter = Mathf.Abs(((toatalCardNumber - 1) / 2.0f + 1) - cardIndex); //与中心距离几张卡牌

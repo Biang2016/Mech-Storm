@@ -212,10 +212,10 @@
     </CardInfo>
   </Card>
   <Card id="50601">
-    <CardInfo name="baseInfo" pictureID="607" cardName="死亡之光" cardDesc="" cost="0" magic="20" money="200" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="607" cardName="死亡之光" cardDesc="" cost="0" magic="1" money="200" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="15"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="100"></SideEffect>
     </CardInfo>
     <CardInfo name="sideEffectsInfo" happenTime="OnEndRound">
       <SideEffect name="WaitInHandDecreaseMagic" Value="2"></SideEffect>
@@ -224,21 +224,21 @@
 
   <Card id="60101">
     <CardInfo name="baseInfo" pictureID="701" cardName="小型能量块" cardDesc="" cost="0" magic="0" money="200" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="60702" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="upgradeInfo" upgradeCardID="60102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
       <SideEffect name="AddMagic" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60102">
     <CardInfo name="baseInfo" pictureID="701" cardName="中型能量块" cardDesc="" cost="0" magic="0" money="250" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="60103" degradeCardID="60701" cardLevel="2" />
+    <CardInfo name="upgradeInfo" upgradeCardID="60103" degradeCardID="60101" cardLevel="2" />
     <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
       <SideEffect name="AddMagic" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60103">
     <CardInfo name="baseInfo" pictureID="701" cardName="大型能量块" cardDesc="" cost="0" magic="0" money="300" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60702" cardLevel="3" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60102" cardLevel="3" />
     <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
       <SideEffect name="AddMagic" IsNeedChoise="False" M_TargetRange="SelfShip" Value="6"></SideEffect>
     </CardInfo>

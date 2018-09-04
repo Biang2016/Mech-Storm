@@ -518,7 +518,7 @@ internal class ServerModuleRetinue : ServerModuleBase
                     int tmp = M_RetinueWeaponEnergy;
                     for (int i = 0; i < tmp; i++)
                     {
-                        ship.DamageLifeAboveZero(damage);
+                        ship.DamageLifeAboveZero(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
                         M_RetinueWeaponEnergy--;
                     }
@@ -537,10 +537,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             OnDieTogather();
             ServerPlayer.MyGameManager.ExecuteAllSideEffects();
-        }
-        else if (ship.LifeLeft <= 0) //反击方挂了
-        {
-            ServerPlayer.MyGameManager.OnEndGame(ship.MyEnemyPlayer);
         }
     }
 
