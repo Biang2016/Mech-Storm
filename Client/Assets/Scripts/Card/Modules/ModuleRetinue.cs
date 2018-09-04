@@ -734,6 +734,41 @@ internal class ModuleRetinue : ModuleBase
         CheckCanAttack();
     }
 
+    public void AttackShip(ClientPlayer ship)
+    {
+        OnAttack(); //随从特效
+        if (M_Weapon) M_Weapon.OnAttack(); //武器特效
+        int damage;
+        if (M_Weapon && M_RetinueWeaponEnergy != 0) //有武器避免反击
+        {
+            switch (M_Weapon.M_WeaponType)
+            {
+                case WeaponTypes.Sword:
+                    damage = M_RetinueAttack * M_RetinueWeaponEnergy;
+                    OnMakeDamage(damage);
+                    if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
+                    break;
+                case WeaponTypes.Gun:
+                    int tmp = M_RetinueWeaponEnergy;
+                    for (int i = 0; i < tmp; i++)
+                    {
+                        OnMakeDamage(M_RetinueAttack);
+                        M_RetinueWeaponEnergy--;
+                    }
+
+                    break;
+            }
+        }
+        else //如果没有武器
+        {
+            damage = M_RetinueAttack;
+            OnMakeDamage(damage);
+        }
+
+        CanAttackThisRound = false;
+        CheckCanAttack();
+    }
+
     public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理(这里是被攻击，指的是攻击动作，不是掉血事件)
     {
         OnBeAttacked();
@@ -798,12 +833,17 @@ internal class ModuleRetinue : ModuleBase
         RetinueTargetPreviewAnim.SetTrigger("EndTarget");
     }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer && !RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(moduleRetinue))
         {
-            RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(Client.Instance.Proxy.ClientId, ClientPlayer.ClientId, M_RetinueID, RoundManager.Instance.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
+            RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(ClientPlayer.ClientId, M_RetinueID, RoundManager.Instance.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
+            Client.Instance.Proxy.SendMessage(request);
+        }
+        else if (ship && ship.ClientPlayer != ClientPlayer)
+        {
+            RetinueAttackShipRequest request = new RetinueAttackShipRequest(Client.Instance.Proxy.ClientId, M_RetinueID);
             Client.Instance.Proxy.SendMessage(request);
         }
 

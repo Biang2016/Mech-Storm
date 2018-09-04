@@ -14,50 +14,50 @@ namespace SideEffects
             switch (M_TargetRange)
             {
                 case TargetRange.BattleGrounds:
-                    player.MyBattleGroundManager.AddLifeForAllRetinues(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllRetinues(Value);
+                    player.MyBattleGroundManager.AddLifeForAllRetinues(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllRetinues(FinalValue);
                     break;
                 case TargetRange.SelfBattleGround:
-                    player.MyBattleGroundManager.AddLifeForAllRetinues(Value);
+                    player.MyBattleGroundManager.AddLifeForAllRetinues(FinalValue);
                     break;
                 case TargetRange.EnemyBattleGround:
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllRetinues(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllRetinues(FinalValue);
                     break;
                 case TargetRange.Heros:
-                    player.MyBattleGroundManager.AddLifeForAllHeros(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllHeros(Value);
+                    player.MyBattleGroundManager.AddLifeForAllHeros(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllHeros(FinalValue);
                     break;
                 case TargetRange.SelfHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllHeros(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllHeros(FinalValue);
                     break;
                 case TargetRange.EnemyHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllHeros(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllHeros(FinalValue);
                     break;
                 case TargetRange.Soldiers:
-                    player.MyBattleGroundManager.AddLifeForAllSoldiers(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllSoldiers(Value);
+                    player.MyBattleGroundManager.AddLifeForAllSoldiers(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllSoldiers(FinalValue);
                     break;
                 case TargetRange.SelfSoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllSoldiers(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllSoldiers(FinalValue);
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllSoldiers(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllSoldiers(FinalValue);
                     break;
                 case TargetRange.Ships:
-                    player.AddLifeWithinMax(Value);
-                    player.MyEnemyPlayer.AddLifeWithinMax(Value);
+                    player.AddLifeWithinMax(FinalValue);
+                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                     break;
                 case TargetRange.SelfShip:
-                    player.AddLifeWithinMax(Value);
+                    player.AddLifeWithinMax(FinalValue);
                     break;
                 case TargetRange.EnemyShip:
-                    player.MyEnemyPlayer.AddLifeWithinMax(Value);
+                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                     break;
                 case TargetRange.All:
-                    player.MyBattleGroundManager.AddLifeForAllRetinues(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllRetinues(Value);
-                    player.AddLifeWithinMax(Value);
-                    player.MyEnemyPlayer.AddLifeWithinMax(Value);
+                    player.MyBattleGroundManager.AddLifeForAllRetinues(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllRetinues(FinalValue);
+                    player.AddLifeWithinMax(FinalValue);
+                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
 
                     break;
             }

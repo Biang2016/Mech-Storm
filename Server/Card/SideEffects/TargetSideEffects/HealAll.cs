@@ -12,50 +12,50 @@
             switch (M_TargetRange)
             {
                 case TargetRange.BattleGrounds:
-                    player.MyBattleGroundManager.HealAllRetinues(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(Value);
+                    player.MyBattleGroundManager.HealAllRetinues(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(FinalValue);
                     break;
                 case TargetRange.SelfBattleGround:
-                    player.MyBattleGroundManager.HealAllRetinues(Value);
+                    player.MyBattleGroundManager.HealAllRetinues(FinalValue);
                     break;
                 case TargetRange.EnemyBattleGround:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(FinalValue);
                     break;
                 case TargetRange.Heros:
-                    player.MyBattleGroundManager.HealAllHeros(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllHeros(Value);
+                    player.MyBattleGroundManager.HealAllHeros(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllHeros(FinalValue);
                     break;
                 case TargetRange.SelfHeros:
-                    player.MyBattleGroundManager.HealAllHeros(Value);
+                    player.MyBattleGroundManager.HealAllHeros(FinalValue);
                     break;
                 case TargetRange.EnemyHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllHeros(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllHeros(FinalValue);
                     break;
                 case TargetRange.Soldiers:
-                    player.MyBattleGroundManager.HealAllSoldiers(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllSoldiers(Value);
+                    player.MyBattleGroundManager.HealAllSoldiers(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllSoldiers(FinalValue);
                     break;
                 case TargetRange.SelfSoldiers:
-                    player.MyBattleGroundManager.HealAllSoldiers(Value);
+                    player.MyBattleGroundManager.HealAllSoldiers(FinalValue);
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllSoldiers(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllSoldiers(FinalValue);
                     break;
                 case TargetRange.Ships:
-                    player.AddLifeWithinMax(Value);
-                    player.MyEnemyPlayer.AddLifeWithinMax(Value);
+                    player.AddLifeWithinMax(FinalValue);
+                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                     break;
                 case TargetRange.SelfShip:
-                    player.AddLifeWithinMax(Value);
+                    player.AddLifeWithinMax(FinalValue);
                     break;
                 case TargetRange.EnemyShip:
-                    player.MyEnemyPlayer.AddLifeWithinMax(Value);
+                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                     break;
                 case TargetRange.All:
-                    player.MyBattleGroundManager.HealAllRetinues(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(Value);
-                    player.AddLifeWithinMax(Value);
-                    player.MyEnemyPlayer.AddLifeWithinMax(Value);
+                    player.MyBattleGroundManager.HealAllRetinues(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(FinalValue);
+                    player.AddLifeWithinMax(FinalValue);
+                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                     break;
             }
         }

@@ -12,14 +12,14 @@
             switch (M_TargetRange)
             {
                 case TargetRange.Ships:
-                    player.AddMagicWithinMax(Value);
-                    player.MyEnemyPlayer.AddMagicWithinMax(Value);
+                    player.AddMagicWithinMax(FinalValue);
+                    player.MyEnemyPlayer.AddMagicWithinMax(FinalValue);
                     break;
                 case TargetRange.SelfShip:
-                    player.AddMagicWithinMax(Value);
+                    player.AddMagicWithinMax(FinalValue);
                     break;
                 case TargetRange.EnemyShip:
-                    player.MyEnemyPlayer.AddMagicWithinMax(Value);
+                    player.MyEnemyPlayer.AddMagicWithinMax(FinalValue);
                     break;
             }
         }

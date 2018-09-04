@@ -36,6 +36,7 @@ public static class AllCards
             ShieldInfo shieldInfo = new ShieldInfo();
 
             List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
+            List<SideEffectBase> SideEffects_OnPlayOut = new List<SideEffectBase>();
             List<SideEffectBase> SideEffects_OnSummoned = new List<SideEffectBase>();
             List<SideEffectBase> SideEffects_OnEndRound = new List<SideEffectBase>();
 
@@ -51,6 +52,7 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["cost"].Value),
                             int.Parse(cardInfo.Attributes["magic"].Value),
                             int.Parse(cardInfo.Attributes["money"].Value),
+                            int.Parse(cardInfo.Attributes["effectFactor"].Value),
                             (DragPurpose) Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
                             (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value),
                             cardInfo.Attributes["cardColor"].Value, cardInfo.Attributes["hightLightColor"].Value
@@ -91,14 +93,17 @@ public static class AllCards
                         List<SideEffectBase> sideEffects = new List<SideEffectBase>();
                         switch (cardInfo.Attributes["happenTime"].Value)
                         {
-                            case "OnDie":
-                                sideEffects = SideEffects_OnDie;
+                            case "OnEndRound":
+                                sideEffects = SideEffects_OnEndRound;
                                 break;
                             case "OnSummoned":
                                 sideEffects = SideEffects_OnSummoned;
                                 break;
-                            case "OnEndRound":
-                                sideEffects = SideEffects_OnEndRound;
+                            case "OnPlayOut":
+                                sideEffects = SideEffects_OnPlayOut;
+                                break;
+                            case "OnDie":
+                                sideEffects = SideEffects_OnDie;
                                 break;
                         }
 
@@ -146,8 +151,10 @@ public static class AllCards
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
                         slotInfo: slotInfo,
-                        sideEffects_OnDie: SideEffects_OnDie,
-                        sideEffects_OnSummoned: SideEffects_OnSummoned));
+                        sideEffects_OnEndRound: SideEffects_OnEndRound,
+                        sideEffects_OnPlayOut: SideEffects_OnPlayOut,
+                        sideEffects_OnSummoned: SideEffects_OnSummoned,
+                        sideEffects_OnDie: SideEffects_OnDie));
                     break;
                 case CardTypes.Weapon:
                     addCard(new CardInfo_Weapon(
@@ -155,6 +162,9 @@ public static class AllCards
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         weaponInfo: weaponInfo,
+                        sideEffects_OnEndRound: SideEffects_OnEndRound,
+                        sideEffects_OnPlayOut: SideEffects_OnPlayOut,
+                        sideEffects_OnSummoned: SideEffects_OnSummoned,
                         sideEffects_OnDie: SideEffects_OnDie));
                     break;
                 case CardTypes.Shield:
@@ -163,6 +173,9 @@ public static class AllCards
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         shieldInfo: shieldInfo,
+                        sideEffects_OnEndRound: SideEffects_OnEndRound,
+                        sideEffects_OnPlayOut: SideEffects_OnPlayOut,
+                        sideEffects_OnSummoned: SideEffects_OnSummoned,
                         sideEffects_OnDie: SideEffects_OnDie));
                     break;
                 case CardTypes.Spell:
@@ -170,7 +183,10 @@ public static class AllCards
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        sideEffects: SideEffects_OnSummoned));
+                        sideEffects_OnEndRound: SideEffects_OnEndRound,
+                        sideEffects_OnPlayOut: SideEffects_OnPlayOut,
+                        sideEffects_OnSummoned: SideEffects_OnSummoned,
+                        sideEffects_OnDie: SideEffects_OnDie));
                     break;
             }
         }

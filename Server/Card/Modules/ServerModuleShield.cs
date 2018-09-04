@@ -6,14 +6,22 @@
 
     public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
-        M_ShieldName = Utils.TextToVertical(((CardInfo_Shield)cardInfo).BaseInfo.CardName);
+        M_ShieldName = Utils.TextToVertical(((CardInfo_Shield) cardInfo).BaseInfo.CardName);
         M_ShieldType = cardInfo.ShieldInfo.ShieldType;
         base.Initiate(cardInfo, serverPlayer);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Shield(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.ShieldInfo, CardInfo.SideEffects_OnDie);
+        return new CardInfo_Shield(
+            cardID: CardInfo.CardID,
+            baseInfo: CardInfo.BaseInfo,
+            upgradeInfo: CardInfo.UpgradeInfo,
+            shieldInfo: CardInfo.ShieldInfo,
+            sideEffects_OnEndRound: CardInfo.SideEffects_OnEndRound,
+            sideEffects_OnPlayOut: CardInfo.SideEffects_OnPlayOut,
+            sideEffects_OnSummoned: CardInfo.SideEffects_OnSummoned,
+            sideEffects_OnDie: CardInfo.SideEffects_OnDie);
     }
 
     #region 属性

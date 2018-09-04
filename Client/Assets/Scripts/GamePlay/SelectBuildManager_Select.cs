@@ -92,7 +92,8 @@ public partial class SelectBuildManager
 
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+            OnCreateNewBuildButtonClick();
+            NoticeManager.Instance.ShowInfoPanelCenter("已创建卡组，请挑选卡片", 0f, 1f);
             return;
         }
 
@@ -240,7 +241,8 @@ public partial class SelectBuildManager
     {
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+            OnCreateNewBuildButtonClick();
+            NoticeManager.Instance.ShowInfoPanelCenter("已自动为您创建第一个卡组", 0f, 1f);
         }
         else
         {
@@ -328,7 +330,8 @@ public partial class SelectBuildManager
 
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+            OnCreateNewBuildButtonClick();
+            NoticeManager.Instance.ShowInfoPanelCenter("已创建卡组,请挑选卡片", 0f, 1f);
         }
         else
         {

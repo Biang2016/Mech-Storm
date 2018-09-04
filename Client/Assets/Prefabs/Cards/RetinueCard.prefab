@@ -1551,7 +1551,7 @@ MonoBehaviour:
   Block_Count: {fileID: 0}
   MoneyText: {fileID: 0}
   CoinImage: {fileID: 0}
-  CardBackRenderer: {fileID: 0}
+  CardBackRenderer: {fileID: 23166826540181976}
   Text_RetinueName: {fileID: 114822501456103100}
   Text_RetinueDesc: {fileID: 114311614333231864}
   Block_RetinueTotalLife: {fileID: 1482879392519310}

@@ -1,10 +1,17 @@
-﻿public class HealAll_Base : TargetSideEffect
+﻿public class HealAll_Base : TargetSideEffect, IEffectFactor
 {
     public int Value;
+    public int Factor = 1;
+
+    public int FinalValue
+    {
+        get { return Value * Factor; }
+        set { Value = value; }
+    }
 
     public override string GenerateDesc()
     {
-        return HightlightStringFormat(HightlightColor, DescRaw, "所有" + GetChineseDescOfTargetRange(M_TargetRange), Value);
+        return HightlightStringFormat(HightlightColor, DescRaw, "所有" + GetChineseDescOfTargetRange(M_TargetRange), FinalValue);
     }
 
     public override void Serialze(DataStream writer)
@@ -26,6 +33,11 @@
 
     public override int CalculateHeal()
     {
-        return Value;
+        return FinalValue;
+    }
+
+    public void SetEffetFactor(int factor)
+    {
+        Factor = factor;
     }
 }

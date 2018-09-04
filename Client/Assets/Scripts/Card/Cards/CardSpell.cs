@@ -22,16 +22,14 @@ internal class CardSpell : CardBase
         }
     }
 
-    private string m_SpellDesc;
-
-    public string M_SpellDesc
+    public override string M_Desc
     {
-        get { return m_SpellDesc; }
+        get { return m_Desc; }
 
         set
         {
-            m_SpellDesc = value;
-            SpellDesc.text = M_SpellDesc;
+            m_Desc = value;
+            SpellDesc.text = value;
         }
     }
 
@@ -43,12 +41,20 @@ internal class CardSpell : CardBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
         base.Initiate(cardInfo, clientPlayer, isCardSelect);
-        ClientPlayer = clientPlayer;
-        CardInfo = cardInfo;
         M_SpellName = CardInfo.BaseInfo.CardName;
-        M_SpellDesc = ((CardInfo_Spell) cardInfo).GetCardDescShow();
+        M_Desc = ((CardInfo_Spell) CardInfo).GetCardDescShow();
 
         hasTarget = false;
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnPlayOut)
+        {
+            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
+            {
+                hasTarget = true;
+                targetRange = ((TargetSideEffect) se).M_TargetRange;
+                break;
+            }
+        }
+
         foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
         {
             if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
@@ -60,9 +66,9 @@ internal class CardSpell : CardBase
         }
     }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         RoundManager.Instance.HideTargetPreviewArrow();
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
         {

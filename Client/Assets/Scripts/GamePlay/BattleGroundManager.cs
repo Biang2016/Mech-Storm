@@ -320,7 +320,8 @@ internal class BattleGroundManager : MonoBehaviour
 
     IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects, int retinuePlaceIndex)
     {
-        if (retinuePlaceIndex != (int) BattleGroundManager.retinuePlaceIndex.NoNewRetinue) //新增随从
+        bool isAddRetinue = retinuePlaceIndex != (int) BattleGroundManager.retinuePlaceIndex.NoNewRetinue;
+        if (isAddRetinue) //新增随从
         {
             ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
 
@@ -382,6 +383,11 @@ internal class BattleGroundManager : MonoBehaviour
             tick += Time.deltaTime;
 
             yield return null;
+        }
+
+        if (isAddRetinue && DragManager.Instance.IsSummonPreview)
+        {
+            DragManager.Instance.IsArrowShowBegin = true;
         }
 
         yield return null;

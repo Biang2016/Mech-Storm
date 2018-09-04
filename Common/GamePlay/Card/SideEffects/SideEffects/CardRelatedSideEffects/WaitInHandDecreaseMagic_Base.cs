@@ -8,9 +8,6 @@
         get { return Value * Factor; }
         set { Value = value; }
     }
-
-    public int CardInstanceID;
-
     public override string GenerateDesc()
     {
         return HightlightStringFormat(HightlightColor, DescRaw, FinalValue);

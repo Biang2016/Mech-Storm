@@ -13,7 +13,15 @@
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Weapon(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.WeaponInfo, CardInfo.SideEffects_OnDie);
+        return new CardInfo_Weapon(
+            cardID: CardInfo.CardID,
+            baseInfo: CardInfo.BaseInfo,
+            upgradeInfo: CardInfo.UpgradeInfo,
+            weaponInfo: CardInfo.WeaponInfo,
+            sideEffects_OnEndRound: CardInfo.SideEffects_OnEndRound,
+            sideEffects_OnPlayOut: CardInfo.SideEffects_OnPlayOut,
+            sideEffects_OnSummoned: CardInfo.SideEffects_OnSummoned,
+            sideEffects_OnDie: CardInfo.SideEffects_OnDie);
     }
 
 

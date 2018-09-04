@@ -28,7 +28,17 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Retinue(CardInfo.CardID, CardInfo.BaseInfo, CardInfo.UpgradeInfo, CardInfo.LifeInfo, CardInfo.BattleInfo, CardInfo.SlotInfo, CardInfo.SideEffects_OnDie, CardInfo.SideEffects_OnSummoned);
+        return new CardInfo_Retinue(
+            cardID: CardInfo.CardID,
+            baseInfo: CardInfo.BaseInfo,
+            upgradeInfo: CardInfo.UpgradeInfo,
+            lifeInfo: CardInfo.LifeInfo,
+            battleInfo: CardInfo.BattleInfo,
+            slotInfo: CardInfo.SlotInfo,
+            sideEffects_OnEndRound: CardInfo.SideEffects_OnEndRound,
+            sideEffects_OnPlayOut: CardInfo.SideEffects_OnPlayOut,
+            sideEffects_OnSummoned: CardInfo.SideEffects_OnSummoned,
+            sideEffects_OnDie: CardInfo.SideEffects_OnDie);
     }
 
     #region 属性
@@ -423,7 +433,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
     }
 
-    public void Attack(ServerModuleRetinue targetModuleRetinue, bool isStrickBack)
+    public void Attack(ServerModuleRetinue targetModuleRetinue, bool isStrickBack) //服务器客户单分别计算
     {
         OnAttack();
         int damage = 0;
@@ -486,6 +496,51 @@ internal class ServerModuleRetinue : ServerModuleBase
             }
 
             ServerPlayer.MyGameManager.ExecuteAllSideEffects();
+        }
+    }
+
+    public void AttackShip(ServerPlayer ship) //计算结果全部由服务器下发
+    {
+        OnAttack();
+        int damage = 0;
+
+        if (M_Weapon != null && M_RetinueWeaponEnergy != 0) //有武器避免反击
+        {
+            switch (M_Weapon.M_WeaponType)
+            {
+                case WeaponTypes.Sword:
+                    damage = M_RetinueAttack * M_RetinueWeaponEnergy;
+                    ship.DamageLifeAboveZero(damage);
+                    OnMakeDamage(damage);
+                    if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
+                    break;
+                case WeaponTypes.Gun:
+                    int tmp = M_RetinueWeaponEnergy;
+                    for (int i = 0; i < tmp; i++)
+                    {
+                        ship.DamageLifeAboveZero(damage);
+                        OnMakeDamage(M_RetinueAttack);
+                        M_RetinueWeaponEnergy--;
+                    }
+
+                    break;
+            }
+        }
+        else
+        {
+            damage = M_RetinueAttack;
+            ship.DamageLifeAboveZero(damage);
+            OnMakeDamage(damage);
+        }
+
+        if (M_RetinueLeftLife == 0) //攻击方挂了
+        {
+            OnDieTogather();
+            ServerPlayer.MyGameManager.ExecuteAllSideEffects();
+        }
+        else if (ship.LifeLeft <= 0) //反击方挂了
+        {
+            ServerPlayer.MyGameManager.OnEndGame(ship.MyEnemyPlayer);
         }
     }
 

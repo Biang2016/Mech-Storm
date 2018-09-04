@@ -58,11 +58,11 @@ internal class DragManager : MonoSingletion<DragManager>
                 }
                 else if (CurrentDrag_CardSpell)
                 {
-                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragSpellToRetinue);
+                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragSpellTo);
                 }
                 else if (CurrentDrag_ModuleRetinue)
                 {
-                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragRetinueToRetinue);
+                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragRetinueTo);
                 }
             }
         }
@@ -123,6 +123,7 @@ internal class DragManager : MonoSingletion<DragManager>
     # region 召唤随从指定目标预览
 
     internal bool IsSummonPreview;
+    internal bool IsArrowShowBegin;
     internal ModuleRetinue CurrentSummonPreviewRetinue;
     public BattleGroundManager.SummonRetinueTarget SummonRetinueTargetHandler;
     public TargetSideEffect.TargetRange SummonRetinueTargetRange;
@@ -134,14 +135,18 @@ internal class DragManager : MonoSingletion<DragManager>
         IsSummonPreview = true;
         CurrentSummonPreviewRetinue = retinue;
         SummonRetinueTargetRange = targetRange;
-        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SummonRetinueTargetOnRetinue);
+        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SummonRetinueTargetOn);
     }
 
     private void SummonPreviewDrag()
     {
-        if (!CurrentArrow || !(CurrentArrow is ArrowAiming)) CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject(transform).GetComponent<ArrowAiming>();
-        Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        CurrentArrow.Render(CurrentSummonPreviewRetinue.transform.position, cameraPosition);
+        if (IsArrowShowBegin)
+        {
+            if (!CurrentArrow || !(CurrentArrow is ArrowAiming)) CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject(transform).GetComponent<ArrowAiming>();
+            Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            CurrentArrow.Render(CurrentSummonPreviewRetinue.transform.position, cameraPosition);
+        }
+
         if (Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -152,6 +157,7 @@ internal class DragManager : MonoSingletion<DragManager>
                 SummonRetinueTargetHandler(-2);
                 CurrentArrow.PoolRecycle();
                 IsSummonPreview = false;
+                IsArrowShowBegin = false;
             }
             else
             {
@@ -161,6 +167,7 @@ internal class DragManager : MonoSingletion<DragManager>
                     SummonRetinueTargetHandler(-2);
                     CurrentArrow.PoolRecycle();
                     IsSummonPreview = false;
+                    IsArrowShowBegin = false;
                 }
                 else
                 {
@@ -169,6 +176,7 @@ internal class DragManager : MonoSingletion<DragManager>
                         SummonRetinueTargetHandler(-2);
                         CurrentArrow.PoolRecycle();
                         IsSummonPreview = false;
+                        IsArrowShowBegin = false;
                     }
                     else
                     {
@@ -234,6 +242,7 @@ internal class DragManager : MonoSingletion<DragManager>
 
                     CurrentArrow.PoolRecycle();
                     IsSummonPreview = false;
+                    IsArrowShowBegin = false;
                 }
             }
 
@@ -244,6 +253,7 @@ internal class DragManager : MonoSingletion<DragManager>
             SummonRetinueTargetHandler(-2);
             CurrentArrow.PoolRecycle();
             IsSummonPreview = false;
+            IsArrowShowBegin = false;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         }
     }

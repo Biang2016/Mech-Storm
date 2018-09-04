@@ -60,6 +60,7 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\CardRelatedSideEffect.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\SpecialInterface\IEffectFactor.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddMagic_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeAll_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageRandom_Base.cs" />
@@ -78,14 +79,18 @@
     <Compile Include="Protocol\ProxyBase.cs" />
     <Compile Include="GamePlay\GamePlaySettings.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />
+    <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\RetinueAttackShipRequest.cs" />
+    <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\UseSpellCardToShipRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\UseSpellCardRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\DeleteBuildRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LogoutRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LoginRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\RegisterRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\CardAttributeChangeRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\GameStopByWinRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerMagicChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerLifeChangeRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueAttackShipServerRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipShieldRequest_ResponseBundle.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\DamageOneRetinueRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardServerRequset.cs" />

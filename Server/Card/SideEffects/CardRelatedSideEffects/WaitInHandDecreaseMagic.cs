@@ -11,11 +11,11 @@ namespace SideEffects
         public override void Excute(object Player)
         {
             ServerPlayer sp = (ServerPlayer) Player;
-            ServerCardBase ci = sp.MyHandManager.GetCardByCardInstanceId(CardInstanceID);
+            ServerCardBase ci = sp.MyHandManager.GetCardByCardInstanceId(TargetCardInstanceId);
 
-            if (ci.CardInfo.BaseInfo.Magic > 0)
+            if (ci.CardInfo.BaseInfo.Magic >= FinalValue)
             {
-                ci.M_Magic--;
+                ci.M_Magic-= FinalValue;
             }
         }
     }

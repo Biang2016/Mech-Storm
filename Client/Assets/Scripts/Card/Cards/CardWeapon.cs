@@ -22,35 +22,31 @@ internal class CardWeapon : CardBase
         }
     }
 
-    private string m_WeaponDesc;
-
-    public string M_WeaponDesc
+    public override string M_Desc
     {
-        get { return m_WeaponDesc; }
+        get { return m_Desc; }
 
         set
         {
-            m_WeaponDesc = value;
-            WeaponDesc.text = M_WeaponDesc;
+            m_Desc = value;
+            WeaponDesc.text = value;
         }
     }
 
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer,bool isCardSelect)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
         base.Initiate(cardInfo, clientPlayer, isCardSelect);
-        ClientPlayer = clientPlayer;
-        CardInfo = cardInfo;
         M_WeaponName = CardInfo.BaseInfo.CardName;
-        M_WeaponDesc = ((CardInfo_Weapon) cardInfo).GetCardDescShow();
+        M_Desc = ((CardInfo_Weapon) CardInfo).GetCardDescShow();
     }
 
     #endregion
 
     #region 卡牌交互
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (Slot sa in slots)

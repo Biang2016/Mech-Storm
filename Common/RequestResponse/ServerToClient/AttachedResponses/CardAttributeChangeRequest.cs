@@ -21,12 +21,12 @@
 
     public override int GetProtocol()
     {
-        return NetProtocols.SE_CARD_INFO_CHANGE;
+        return NetProtocols.SE_CARD_ATTR_CHANGE;
     }
 
     public override string GetProtocolName()
     {
-        return "SE_CARD_INFO_CHANGE";
+        return "SE_CARD_ATTR_CHANGE";
     }
 
     public override void Serialize(DataStream writer)

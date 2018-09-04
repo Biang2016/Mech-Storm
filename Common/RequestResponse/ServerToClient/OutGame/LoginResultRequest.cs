@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class LoginResultRequest : ServerRequestBase
 {
     public string username;
-    public bool isSuccess;
+    public StateCodes stateCode;
 
     public LoginResultRequest()
     {
     }
 
-    public LoginResultRequest(string username, bool isSuccess)
+    public LoginResultRequest(string username, StateCodes stateCode)
     {
         this.username = username;
-        this.isSuccess = isSuccess;
+        this.stateCode = stateCode;
     }
 
     public override int GetProtocol()
@@ -29,21 +30,29 @@ public class LoginResultRequest : ServerRequestBase
     {
         base.Serialize(writer);
         writer.WriteString16(username);
-        writer.WriteByte(isSuccess ? (byte) 0x01 : (byte) 0x00);
+        writer.WriteSInt32((int) stateCode);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         username = reader.ReadString16();
-        isSuccess = reader.ReadByte() == 0x01;
+        stateCode = (StateCodes) reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
         log += " [username]=" + username;
-        log += " [isSuccess]=" + isSuccess;
+        log += " [isSuccess]=" + stateCode;
         return log;
+    }
+
+    public enum StateCodes
+    {
+        Success,
+        UnexistedUser,
+        WrongPassword,
+        AlreadyOnline
     }
 }

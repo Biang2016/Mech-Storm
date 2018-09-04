@@ -150,6 +150,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                 detailCard.transform.Translate(Vector3.left * 5f);
                 detailCard.GetComponent<BoxCollider>().enabled = false;
                 detailCard.GetComponent<DragComponent>().enabled = false;
+                detailCard.BeBrightColor();
 
                 if (((ModuleRetinue) this).M_Weapon)
                 {
@@ -172,6 +173,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                     detailCard_Weapon.transform.Translate(Vector3.back * 3f);
                     detailCard_Weapon.transform.Translate(Vector3.up * 5f);
                     detailCard_Weapon.GetComponent<BoxCollider>().enabled = false;
+                    detailCard_Weapon.BeBrightColor();
                 }
 
                 if (((ModuleRetinue) this).M_Shield)
@@ -195,6 +197,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                     detailCard_Shield.transform.Translate(Vector3.forward * 3f);
                     detailCard_Shield.transform.Translate(Vector3.up * 5f);
                     detailCard_Shield.GetComponent<BoxCollider>().enabled = false;
+                    detailCard_Shield.BeBrightColor();
                 }
 
                 break;
@@ -205,6 +208,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                 detailCard.transform.Translate(Vector3.left * 3.5f);
                 detailCard.transform.Translate(Vector3.up * 5f);
                 detailCard.GetComponent<BoxCollider>().enabled = false;
+                detailCard.BeBrightColor();
                 break;
             case CardTypes.Shield:
                 detailCard = (CardShield) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
@@ -213,6 +217,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
                 detailCard.transform.Translate(Vector3.left * 3.5f);
                 detailCard.transform.Translate(Vector3.up * 5f);
                 detailCard.GetComponent<BoxCollider>().enabled = false;
+                detailCard.BeBrightColor();
                 break;
             default:
                 break;
@@ -260,7 +265,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     {
     }
 
-    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue,Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
     }
 

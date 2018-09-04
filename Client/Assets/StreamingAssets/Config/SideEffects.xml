@@ -72,4 +72,7 @@
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
+  <SideEffect id="16" name="WaitInHandDecreaseMagic" desc="该牌的能量花费减少{0}点">
+    <params name="Value" type="int"></params>
+  </SideEffect>
 </AllSideEffects>

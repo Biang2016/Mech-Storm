@@ -137,7 +137,7 @@ internal class HandManager : MonoBehaviour
 
         if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
         {
-            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UseCardShow(cardBase, cardInfo), "Co_UseCardShow");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UseCard(cardBase, cardInfo), "Co_UseCardShow");
         }
         else
         {
@@ -150,7 +150,7 @@ internal class HandManager : MonoBehaviour
     private float lastUseCardShowTime;
     private float useCardShowIntervalMinimum = 1f;
 
-    IEnumerator Co_UseCardShow(CardBase cardBase, CardInfo_Base cardInfo)
+    IEnumerator Co_UseCard(CardBase cardBase, CardInfo_Base cardInfo)
     {
         if (Time.time - lastUseCardShowTime < useCardShowIntervalMinimum) yield return new WaitForSeconds(useCardShowIntervalMinimum - (Time.time - lastUseCardShowTime));
         lastUseCardShowTime = Time.time;
@@ -158,6 +158,8 @@ internal class HandManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0.1f);
         }
+
+        cardBase.OnPlayOut();
 
         current_SubCo_ShowCardForTime = SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.Instance.ShowCardDuration);
         StartCoroutine(current_SubCo_ShowCardForTime);
@@ -187,6 +189,7 @@ internal class HandManager : MonoBehaviour
         currentShowCard.Usable = false;
         currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
         currentShowCard.CardBloom.SetActive(true);
+        currentShowCard.BeBrightColor();
 
         float duration = GameManager.Instance.ShowCardFlyDuration;
         float rotateDuration = GameManager.Instance.ShowCardRotateDuration;
@@ -201,6 +204,7 @@ internal class HandManager : MonoBehaviour
 
     public void BeginRound()
     {
+        RoundManager.Instance.IdleClientPlayer.MyHandManager.SetAllCardUnusable();
         foreach (CardBase card in cards) card.OnBeginRound();
         RefreshAllCardUsable();
     }
@@ -208,7 +212,6 @@ internal class HandManager : MonoBehaviour
     public void EndRound()
     {
         foreach (CardBase card in cards) card.OnEndRound();
-        SetAllCardUnusable();
     }
 
     #endregion
@@ -300,7 +303,7 @@ internal class HandManager : MonoBehaviour
         float distCardsFromCenter = Mathf.Abs(((toatalCardNumber - 1) / 2.0f + 1) - cardIndex); //与中心距离几张卡牌
         float factor = (toatalCardNumber - distCardsFromCenter) / toatalCardNumber; //某临时参数
         GetCardPlacePivot.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.Instance.HandCardSize + Vector3.back * toatalCardNumber / 20 * GameManager.Instance.HandCardOffset); //向垂直向错开，体现卡片弧线感
-        GetCardPlacePivot.transform.Translate(-Vector3.up * 0.1f * (toatalCardNumber - cardIndex) * rev); //向上错开，体现卡片前后感
+        GetCardPlacePivot.transform.Translate(Vector3.down * 0.1f * (toatalCardNumber - cardIndex) * rev); //向上错开，体现卡片前后感
         GetCardPlacePivot.transform.Rotate(-Vector3.down, rotateAngle); //卡片微小旋转
 
         Debug.Log(cardIndex + "," + toatalCardNumber + " " + GetCardPlacePivot.transform.position);

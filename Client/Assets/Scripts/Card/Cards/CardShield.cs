@@ -6,7 +6,7 @@ internal class CardShield : CardBase
 {
     #region 卡牌上各模块
 
-    [SerializeField]private Text ShieldName;
+    [SerializeField] private Text ShieldName;
     [SerializeField] private Text ShieldDesc;
 
     private string m_ShieldName;
@@ -22,16 +22,14 @@ internal class CardShield : CardBase
         }
     }
 
-    private string m_ShieldDesc;
-
-    public string M_ShieldDesc
+    public override string M_Desc
     {
-        get { return m_ShieldDesc; }
+        get { return m_Desc; }
 
         set
         {
-            m_ShieldDesc = value;
-            ShieldDesc.text = M_ShieldDesc;
+            m_Desc = value;
+            ShieldDesc.text = value;
         }
     }
 
@@ -40,15 +38,13 @@ internal class CardShield : CardBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
         base.Initiate(cardInfo, clientPlayer, isCardSelect);
-        ClientPlayer = clientPlayer;
-        CardInfo = cardInfo;
         M_ShieldName = CardInfo.BaseInfo.CardName;
-        M_ShieldDesc = ((CardInfo_Shield) cardInfo).GetCardDescShow();
+        M_Desc = ((CardInfo_Shield) CardInfo).GetCardDescShow();
     }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (Slot sa in slots)

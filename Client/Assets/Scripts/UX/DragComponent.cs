@@ -10,6 +10,7 @@ internal class DragComponent : MonoBehaviour
     int retinuesLayer;
     int boardAreasLayer;
     int slotsLayer;
+    int shipsLayer;
     IDragComponent caller;
 
     private CardBase possibleCard;
@@ -20,6 +21,7 @@ internal class DragComponent : MonoBehaviour
         retinuesLayer = 1 << LayerMask.NameToLayer("Retinues");
         boardAreasLayer = 1 << LayerMask.NameToLayer("BoardAreas");
         slotsLayer = 1 << LayerMask.NameToLayer("Slots");
+        shipsLayer = 1 << LayerMask.NameToLayer("Ships");
         caller = GetComponent<IDragComponent>();
     }
 
@@ -114,7 +116,7 @@ internal class DragComponent : MonoBehaviour
                 if (canDrag)
                 {
                     //将鼠标放开的区域告知拖动对象主体，并提供拖动起始姿态信息以供还原
-                    caller.DragComponent_OnMouseUp(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+                    caller.DragComponent_OnMouseUp(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(),checkMoveToShip(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
                     dragLastPosition = Vector3.zero;
                     isBegin = true;
                     if (DragManager.Instance.CurrentArrow) DragManager.Instance.CurrentArrow.PoolRecycle();
@@ -175,7 +177,6 @@ internal class DragComponent : MonoBehaviour
         return res;
     }
 
-
     private ModuleRetinue checkMoveToRetinue() //检查鼠标悬停在哪个Retinue上
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -184,6 +185,20 @@ internal class DragComponent : MonoBehaviour
         if (raycast.collider != null)
         {
             ModuleRetinue mr = raycast.collider.gameObject.GetComponent<ModuleRetinue>();
+            if (mr) return mr;
+        }
+
+        return null;
+    }
+
+    private Ship checkMoveToShip() //检查鼠标悬停在哪个飞船上
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycast;
+        Physics.Raycast(ray, out raycast, 10f, shipsLayer);
+        if (raycast.collider != null)
+        {
+            Ship mr = raycast.collider.gameObject.GetComponent<Ship>();
             if (mr) return mr;
         }
 
@@ -214,11 +229,12 @@ internal interface IDragComponent
     /// <param name="boardAreaType">移动到了战场的哪个区域</param>
     /// <param name="slots">移动到了哪个slot上</param>
     /// <param name="moduleRetinue">移动到了哪个随从上</param>
+    /// <param name="ship">移动到了哪个飞船</param>
     /// <param name="dragLastPosition">移动的最后位置</param>
     /// <param name="dragBeginPosition">移动的初始位置</param>
     /// <param name="dragBeginQuaternion">被拖动对象的初始旋转</param>
     void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots,
-        ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition,
+        ModuleRetinue moduleRetinue,Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition,
         Quaternion dragBeginQuaternion);
 
     void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose);

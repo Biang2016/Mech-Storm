@@ -127,16 +127,9 @@ internal class ClientProxy : ProxyBase
                     if (ClientState == ClientStates.GetId)
                     {
                         RegisterRequest request = (RegisterRequest) r;
-                        RegisterResultRequest response;
-                        if (Database.Instance.UserTable.ContainsKey(request.username))
-                        {
-                            response = new RegisterResultRequest(false);
-                        }
-                        else
-                        {
-                            Database.Instance.UserTable.Add(request.username, request.password);
-                            response = new RegisterResultRequest(true);
-                        }
+
+                        bool suc = Database.Instance.AddUser(request.username, request.password);
+                        RegisterResultRequest response = new RegisterResultRequest(suc);
 
                         SendMessage(response);
                     }
@@ -154,36 +147,39 @@ internal class ClientProxy : ProxyBase
                     {
                         LoginRequest request = (LoginRequest) r;
                         LoginResultRequest response;
-                        if (Database.Instance.UserTable.ContainsKey(request.username))
+
+                        string password = Database.Instance.GetUserPasswordByUsername(request.username);
+                        if (password != null)
                         {
-                            if (Database.Instance.UserTable[request.username] == request.password)
+                            if (password == request.password)
                             {
-                                response = new LoginResultRequest(request.username, true);
-                                if (!Database.Instance.LoginUserTable.ContainsKey(ClientId))
+                                bool suc = Database.Instance.AddLoginUser(ClientId, request.username);
+                                if (suc)
                                 {
-                                    Database.Instance.LoginUserTable.Add(ClientId, request.username);
+                                    response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.Success);
+                                    SendMessage(response);
+                                    ClientState = ClientStates.Login;
+                                    username = request.username;
+                                    ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username));
+                                    SendMessage(request1);
                                 }
                                 else
                                 {
-                                    Database.Instance.LoginUserTable[ClientId] = request.username;
+                                    response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.AlreadyOnline);
+                                    SendMessage(response);
                                 }
-
-                                ClientState = ClientStates.Login;
-                                username = request.username;
-                                ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username));
-                                SendMessage(request1);
                             }
                             else
                             {
-                                response = new LoginResultRequest(request.username, false);
+                                response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.WrongPassword);
+                                SendMessage(response);
                             }
                         }
                         else
                         {
-                            response = new LoginResultRequest(request.username, false);
+                            response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.UnexistedUser);
+                            SendMessage(response);
                         }
-
-                        SendMessage(response);
                     }
 
                     break;
@@ -195,14 +191,9 @@ internal class ClientProxy : ProxyBase
                     if (ClientState != ClientStates.GetId)
                     {
                         Server.SV.SGMM.RemoveGame(this);
-                        if (Database.Instance.LoginUserTable.ContainsKey(ClientId))
-                        {
-                            Database.Instance.LoginUserTable.Remove(ClientId);
-                        }
-
+                        bool suc = Database.Instance.RemoveLoginUser(ClientId);
                         ClientState = ClientStates.GetId;
-
-                        response = new LogoutResultRequest(request.username, true);
+                        response = new LogoutResultRequest(request.username, suc);
                     }
                     else
                     {
@@ -228,9 +219,10 @@ internal class ClientProxy : ProxyBase
                         SendMessage(response);
                     }
 
-                    if (Database.Instance.LoginUserTable.ContainsKey(ClientId))
+                    string username = Database.Instance.GetUsernameByClientId(ClientId);
+                    if (username != null)
                     {
-                        Database.Instance.AddOrModifyBuild(Database.Instance.LoginUserTable[ClientId], request.BuildInfo);
+                        Database.Instance.AddOrModifyBuild(username, request.BuildInfo);
                     }
                     else
                     {
@@ -307,6 +299,9 @@ internal class ClientProxy : ProxyBase
                         break;
                     case RetinueAttackRetinueRequest _:
                         MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest) r);
+                        break;
+                    case RetinueAttackShipRequest _:
+                        MyServerGameManager?.OnClientRetinueAttackShipRequest((RetinueAttackShipRequest) r);
                         break;
                 }
             }

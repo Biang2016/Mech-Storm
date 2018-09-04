@@ -13,7 +13,7 @@ namespace SideEffects
             ServerPlayer player = (ServerPlayer) Player;
             CardInfo_Base ci = player.MyCardDeckManager.M_CurrentCardDeck.GetFirstCardInfo();
             player.MyHandManager.DrawCards(1);
-            for (int i = 0; i < Value; i++)
+            for (int i = 0; i < FinalValue; i++)
             {
                 player.MyHandManager.GetACardByID(ci.CardID);
             }

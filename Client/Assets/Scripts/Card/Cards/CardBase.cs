@@ -113,9 +113,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             newCard.CoinImage.enabled = true;
         }
 
-        newCard.IsCardSelect = isCardSelect;
         newCard.Initiate(cardInfo, clientPlayer, isCardSelect);
-        newCard.ChangeColor(ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.CardColor));
         return newCard;
     }
 
@@ -153,7 +151,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
         IsCardSelect = isCardSelect;
         ClientPlayer = clientPlayer;
-        CardInfo = cardInfo;
+        CardInfo = cardInfo.Clone();
         initiateNumbers(ref GoNumberSet_Cost, ref CardNumberSet_Cost, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Cost);
         if (Block_Count)
         {
@@ -164,14 +162,15 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         M_Cost = CardInfo.BaseInfo.Cost;
         M_Magic = CardInfo.BaseInfo.Magic;
         ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
-        Stars = cardInfo.UpgradeInfo.CardLevel;
+        Stars = CardInfo.UpgradeInfo.CardLevel;
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Rotate(Vector3.up, 180);
 
-        if (IsCardSelect) MoneyText.text = cardInfo.BaseInfo.Money.ToString();
+        if (IsCardSelect) MoneyText.text = CardInfo.BaseInfo.Money.ToString();
 
         SetCardBackColor();
+        ChangeColor(ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.CardColor));
     }
 
 
@@ -198,7 +197,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         {
             m_Magic = value;
             CardInfo.BaseInfo.Magic = value;
-
         }
     }
 
@@ -214,10 +212,37 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             {
                 foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
                 {
+                    if (se is IEffectFactor)
+                    {
+                        ((IEffectFactor) se).SetEffetFactor(value);
+                    }
+                }
 
+                foreach (SideEffectBase se in CardInfo.SideEffects_OnDie)
+                {
+                    if (se is IEffectFactor)
+                    {
+                        ((IEffectFactor) se).SetEffetFactor(value);
+                    }
+                }
+
+                foreach (SideEffectBase se in CardInfo.SideEffects_OnEndRound)
+                {
+                    if (se is IEffectFactor)
+                    {
+                        ((IEffectFactor) se).SetEffetFactor(value);
+                    }
                 }
             }
         }
+    }
+
+    protected string m_Desc;
+
+    public virtual string M_Desc
+    {
+        get { return m_Desc; }
+        set { m_Desc = value; }
     }
 
     private int m_CardInstanceId;
@@ -385,8 +410,25 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
         set
         {
-            if (!value) BeDimColor();
-            else BeBrightColor();
+            if (ClientPlayer == RoundManager.Instance.CurrentClientPlayer)
+            {
+                if (!value)
+                {
+                    BeDimColor();
+                    CardBloom.SetActive(false);
+                }
+                else
+                {
+                    BeBrightColor();
+                    CardBloom.SetActive(true);
+                }
+            }
+            else
+            {
+                BeBrightColor();
+                CardBloom.SetActive(false);
+            }
+
             usable = value;
         }
     }
@@ -397,6 +439,11 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     }
 
     public virtual void OnEndRound()
+    {
+        BeBrightColor();
+    }
+
+    public virtual void OnPlayOut()
     {
     }
 
@@ -423,7 +470,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
     }
 
-    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         ClientPlayer.MyHandManager.EndDrag();
     }

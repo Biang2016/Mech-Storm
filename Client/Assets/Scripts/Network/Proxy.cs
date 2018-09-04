@@ -112,17 +112,32 @@ internal class Proxy : ProxyBase
                 case NetProtocols.LOGIN_RESULT_REQUEST:
                 {
                     LoginResultRequest request = (LoginResultRequest) r;
-                    if (request.isSuccess)
+                    switch (request.stateCode)
                     {
-                        Username = request.username;
-                        ClientState = ClientStates.Login;
-                        NoticeManager.Instance.ShowInfoPanelTop("登录成功", 0, 0.5f);
-                        LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Hide);
-                        StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
-                    }
-                    else
-                    {
-                        NoticeManager.Instance.ShowInfoPanelCenter("登录失败，请检查用户名或密码", 0, 0.5f);
+                        case LoginResultRequest.StateCodes.Success:
+                        {
+                            Username = request.username;
+                            ClientState = ClientStates.Login;
+                            NoticeManager.Instance.ShowInfoPanelTop("登录成功", 0, 0.5f);
+                            LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Hide);
+                            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+                            break;
+                        }
+                        case LoginResultRequest.StateCodes.WrongPassword:
+                        {
+                            NoticeManager.Instance.ShowInfoPanelCenter("您的密码有误", 0, 0.5f);
+                            break;
+                        }
+                        case LoginResultRequest.StateCodes.UnexistedUser:
+                        {
+                            NoticeManager.Instance.ShowInfoPanelCenter("该用户名不存在", 0, 0.5f);
+                            break;
+                        }
+                        case LoginResultRequest.StateCodes.AlreadyOnline:
+                        {
+                            NoticeManager.Instance.ShowInfoPanelCenter("该账号已登录", 0, 0.5f);
+                            break;
+                        }
                     }
 
                     break;

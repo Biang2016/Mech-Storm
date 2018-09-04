@@ -6,12 +6,13 @@
     public int Cost;
     public int Magic;
     public int Money;
+    public int EffectFactor;
     public DragPurpose DragPurpose;
     public CardTypes CardType;
     public string CardColor;
     public string HightLightColor;
 
-    public BaseInfo(int pictureID, string cardName, string cardDescRaw, int cost, int magic, int money, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
+    public BaseInfo(int pictureID, string cardName, string cardDescRaw, int cost, int magic, int money, int effectFactor, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
     {
         PictureID = pictureID;
         CardName = cardName;
@@ -19,6 +20,7 @@
         Cost = cost;
         Magic = magic;
         Money = money;
+        EffectFactor = effectFactor;
         DragPurpose = dragPurpose;
         CardType = cardType;
         CardColor = cardColor;
@@ -38,6 +40,7 @@
         writer.WriteSInt32(Cost);
         writer.WriteSInt32(Magic);
         writer.WriteSInt32(Money);
+        writer.WriteSInt32(EffectFactor);
         writer.WriteSInt32((int) DragPurpose);
         writer.WriteSInt32((int) CardType);
         writer.WriteString8(CardColor);
@@ -52,11 +55,12 @@
         int Cost = reader.ReadSInt32();
         int Magic = reader.ReadSInt32();
         int Money = reader.ReadSInt32();
+        int EffectFactor = reader.ReadSInt32();
         DragPurpose DragPurpose = (DragPurpose) reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
         string CardColor = reader.ReadString8();
         string HightLightColor = reader.ReadString8();
-        return new BaseInfo(PictureID, CardName, CardDesc, Cost, Magic, Money, DragPurpose, CardType, CardColor, HightLightColor);
+        return new BaseInfo(PictureID, CardName, CardDesc, Cost, Magic, Money, EffectFactor, DragPurpose, CardType, CardColor, HightLightColor);
     }
 }
 

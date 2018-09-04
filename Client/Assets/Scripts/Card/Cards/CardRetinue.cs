@@ -48,22 +48,22 @@ internal class CardRetinue : CardBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
         base.Initiate(cardInfo, clientPlayer, isCardSelect);
-        M_RetinueName = cardInfo.BaseInfo.CardName;
-        M_RetinueDesc = ((CardInfo_Retinue) cardInfo).GetCardDescShow();
-        M_RetinueLeftLife = cardInfo.LifeInfo.Life;
-        M_RetinueTotalLife = cardInfo.LifeInfo.TotalLife;
-        M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
-        M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
-        M_RetinueShield = cardInfo.BattleInfo.BasicShield;
+        M_RetinueName = CardInfo.BaseInfo.CardName;
+        M_Desc = ((CardInfo_Retinue) CardInfo).GetCardDescShow();
+        M_RetinueLeftLife = CardInfo.LifeInfo.Life;
+        M_RetinueTotalLife = CardInfo.LifeInfo.TotalLife;
+        M_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
+        M_RetinueArmor = CardInfo.BattleInfo.BasicArmor;
+        M_RetinueShield = CardInfo.BattleInfo.BasicShield;
 
         Slot1.ClientPlayer = ClientPlayer;
-        Slot1.MSlotTypes = cardInfo.SlotInfo.Slot1;
+        Slot1.MSlotTypes = CardInfo.SlotInfo.Slot1;
         Slot2.ClientPlayer = ClientPlayer;
-        Slot2.MSlotTypes = cardInfo.SlotInfo.Slot2;
+        Slot2.MSlotTypes = CardInfo.SlotInfo.Slot2;
         Slot3.ClientPlayer = ClientPlayer;
-        Slot3.MSlotTypes = cardInfo.SlotInfo.Slot3;
+        Slot3.MSlotTypes = CardInfo.SlotInfo.Slot3;
         Slot4.ClientPlayer = ClientPlayer;
-        Slot4.MSlotTypes = cardInfo.SlotInfo.Slot4;
+        Slot4.MSlotTypes = CardInfo.SlotInfo.Slot4;
     }
 
     private string m_RetinueName;
@@ -78,14 +78,12 @@ internal class CardRetinue : CardBase
         }
     }
 
-    private string m_RetinueDesc;
-
-    public string M_RetinueDesc
+    public override string M_Desc
     {
-        get { return m_RetinueDesc; }
+        get { return m_Desc; }
         set
         {
-            m_RetinueDesc = value;
+            m_Desc = value;
             Text_RetinueDesc.text = value;
         }
     }
@@ -165,9 +163,9 @@ internal class CardRetinue : CardBase
         }
     }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
         bool summonTarget = false; //召唤时是否需要指定目标
 

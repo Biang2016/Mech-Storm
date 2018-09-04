@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MyCardGameCommon;
 
 internal class ServerHandManager
@@ -13,7 +14,8 @@ internal class ServerHandManager
 
     internal void DrawCards(int cardNumber)
     {
-        List<CardInfo_Base> newCardsInfo = ServerPlayer.MyCardDeckManager.DrawCardsOnTop(cardNumber);
+        int maxDrawCardNumber = Math.Min(cardNumber, GamePlaySettings.MaxHandCard - cards.Count);
+        List<CardInfo_Base> newCardsInfo = ServerPlayer.MyCardDeckManager.DrawCardsOnTop(maxDrawCardNumber);
         List<DrawCardRequest.CardIdAndInstanceId> infos = new List<DrawCardRequest.CardIdAndInstanceId>();
         foreach (CardInfo_Base cardInfoBase in newCardsInfo)
         {
@@ -21,11 +23,6 @@ internal class ServerHandManager
             newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
             infos.Add(new DrawCardRequest.CardIdAndInstanceId(cardInfoBase.CardID, newCard.M_CardInstanceId));
             cards.Add(newCard);
-            cardNumber++;
-            if (cardNumber >= GamePlaySettings.MaxHandCard)
-            {
-                break;
-            }
         }
 
         OnPlayerGetCards(infos);
@@ -81,19 +78,21 @@ internal class ServerHandManager
 
     internal void UseCard(int cardInstanceId, Vector3 lastDragPosition)
     {
-        ServerCardBase card = GetCardByCardInstanceId(cardInstanceId);
-        ServerPlayer.UseCostAboveZero(card.CardInfo.BaseInfo.Cost);
-        ServerPlayer.UseMagicAboveZero(card.CardInfo.BaseInfo.Magic);
-        UseCard(card, lastDragPosition);
+        UseCard(cardInstanceId, lastDragPosition, 0);
     }
 
-    internal void UseCard(ServerCardBase useCard, Vector3 lastDragPosition)
+    internal void UseCard(int cardInstanceId, Vector3 lastDragPosition, int targetRetinueId)
     {
+        ServerCardBase useCard = GetCardByCardInstanceId(cardInstanceId);
+        ServerPlayer.UseCostAboveZero(useCard.CardInfo.BaseInfo.Cost);
+        ServerPlayer.UseMagicAboveZero(useCard.CardInfo.BaseInfo.Magic);
+
         UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone(), lastDragPosition);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+
+        useCard.OnPlayOut(targetRetinueId);
         cards.Remove(useCard);
     }
-
 
     public void BeginRound()
     {

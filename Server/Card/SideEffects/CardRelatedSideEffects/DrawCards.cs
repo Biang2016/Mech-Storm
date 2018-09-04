@@ -11,7 +11,7 @@ namespace SideEffects
         public override void Excute(object Player)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            player.MyHandManager.DrawCards(Value);
+            player.MyHandManager.DrawCards(FinalValue);
         }
     }
 }

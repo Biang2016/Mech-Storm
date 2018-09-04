@@ -10,6 +10,8 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     internal RandomNumberGenerator RandomNumberGenerator;
     internal ClientPlayer SelfClientPlayer;
     internal ClientPlayer EnemyClientPlayer;
+    [SerializeField] private Ship SelfShip;
+    [SerializeField] private Ship EnemyShip;
     internal ClientPlayer CurrentClientPlayer;
     internal ClientPlayer IdleClientPlayer;
 
@@ -32,6 +34,9 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
 
     private void Initialize()
     {
+        SelfShip.ClientPlayer = SelfClientPlayer;
+        EnemyShip.ClientPlayer = EnemyClientPlayer;
+
         RoundNumber = 0;
         CurrentClientPlayer = null;
         IdleClientPlayer = null;

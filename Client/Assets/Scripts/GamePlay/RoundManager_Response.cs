@@ -136,6 +136,11 @@ internal partial class RoundManager
                 OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) r);
                 break;
             }
+            case NetProtocols.SE_RETINUE_ATTACK_SHIP_SERVER_REQUEST:
+            {
+                OnRetinueAttackShip((RetinueAttackShipServerRequest) r);
+                break;
+            }
             case NetProtocols.SE_DAMAGE_ONE_RETINUE_REQUEST:
             {
                 OnDamageSomeRetinue((DamageOneRetinueRequest) r);
@@ -144,6 +149,11 @@ internal partial class RoundManager
             case NetProtocols.SE_RETINUE_EFFECT:
             {
                 OnRetinueEffect((RetinueEffectRequest) r);
+                break;
+            }
+            case NetProtocols.SE_CARD_ATTR_CHANGE:
+            {
+                OnCardAttributeChange((CardAttributeChangeRequest) r);
                 break;
             }
         }
@@ -377,6 +387,14 @@ internal partial class RoundManager
         attackRetinue.Attack(beAttackRetinue, true);
     }
 
+    private void OnRetinueAttackShip(RetinueAttackShipServerRequest r)
+    {
+        ClientPlayer cp_attack = GetPlayerByClientId(r.AttackRetinueClientId);
+        ClientPlayer cp_beAttack = cp_attack.WhichPlayer == Players.Self ? EnemyClientPlayer : SelfClientPlayer;
+        ModuleRetinue attackRetinue = cp_attack.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
+        attackRetinue.AttackShip(cp_beAttack);
+    }
+
     public void OnDamageSomeRetinue(DamageOneRetinueRequest r)
     {
         ClientPlayer cp_beAttack = GetPlayerByClientId(r.beDamagedRetinueClientId);
@@ -402,6 +420,7 @@ internal partial class RoundManager
         CardBase cb = GetPlayerByClientId(r.clientId).MyHandManager.GetCardByCardInstanceId(r.cardInstanceId);
         cb.M_Magic += r.magicChange;
         cb.M_Cost += r.costChange;
-        cb.
+        cb.M_EffectFactor = r.effectFactor;
+        cb.M_Desc = cb.CardInfo.GetCardDescShow();
     }
 }

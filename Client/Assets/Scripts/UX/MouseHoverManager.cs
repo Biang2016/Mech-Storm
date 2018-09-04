@@ -12,6 +12,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
     int cardsLayer;
     int modulesLayer;
     int retinuesLayer;
+    int shipsLayer;
     int slotsLayer;
     int cardSelectLayer;
 
@@ -20,6 +21,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
         cardsLayer = 1 << LayerMask.NameToLayer("Cards");
         modulesLayer = 1 << LayerMask.NameToLayer("Modules");
         retinuesLayer = 1 << LayerMask.NameToLayer("Retinues");
+        shipsLayer = 1 << LayerMask.NameToLayer("Ships");
         slotsLayer = 1 << LayerMask.NameToLayer("Slots");
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         M_StateMachine = new StateMachine();
@@ -38,6 +40,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
     private Focus hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
     private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
     private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
+    private PressHoverImmediately hd_ShipPressHoverShowTargetedBloom; //当鼠标拖拽到飞船上时显示被瞄准的轮廓荧光
 
     void Start()
     {
@@ -52,6 +55,7 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
         hi_RetinueHoverShowTargetedBloom = new HoverImmediately(retinuesLayer, GameManager.Instance.BattleGroundCamera);
         hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer, GameManager.Instance.BattleGroundCamera);
+        hd_ShipPressHoverShowTargetedBloom = new PressHoverImmediately(shipsLayer, GameManager.Instance.BattleGroundCamera);
     }
 
     public StateMachine M_StateMachine;
@@ -72,9 +76,9 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
             SelectCardWindow, //选卡界面
             BattleNormal, //战斗一般状态
             DragEquipment, //拖动装备牌过程中
-            DragRetinueToRetinue, //随从拖动攻击随从
-            DragSpellToRetinue, //法术牌拖动瞄准随从
-            SummonRetinueTargetOnRetinue, //召唤带目标的随从时，选择目标期间
+            DragRetinueTo, //随从拖动攻击
+            DragSpellTo, //法术牌拖动瞄准
+            SummonRetinueTargetOn, //召唤带目标的随从时，选择目标期间
         }
 
         private States state;
@@ -104,13 +108,15 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
                     case States.DragEquipment:
                         Instance.phi_SlotsPressHoverShowBloom.Release();
                         break;
-                    case States.DragRetinueToRetinue:
+                    case States.DragRetinueTo:
                         Instance.hd_RetinuePressHoverShowTargetedBloom.Release();
+                        Instance.hd_ShipPressHoverShowTargetedBloom.Release();
                         break;
-                    case States.DragSpellToRetinue:
+                    case States.DragSpellTo:
                         Instance.hd_RetinuePressHoverShowTargetedBloom.Release();
+                        Instance.hd_ShipPressHoverShowTargetedBloom.Release();
                         break;
-                    case States.SummonRetinueTargetOnRetinue:
+                    case States.SummonRetinueTargetOn:
                         Instance.hi_RetinueHoverShowTargetedBloom.Release();
                         break;
                 }
@@ -154,13 +160,15 @@ internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
                 case States.DragEquipment:
                     Instance.phi_SlotsPressHoverShowBloom.Check<Slot>();
                     break;
-                case States.DragRetinueToRetinue:
+                case States.DragRetinueTo:
                     Instance.hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
+                    Instance.hd_ShipPressHoverShowTargetedBloom.Check<Ship>();
                     break;
-                case States.DragSpellToRetinue:
+                case States.DragSpellTo:
                     Instance.hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
+                    Instance.hd_ShipPressHoverShowTargetedBloom.Check<Ship>();
                     break;
-                case States.SummonRetinueTargetOnRetinue:
+                case States.SummonRetinueTargetOn:
                     Instance.hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();
                     break;
             }

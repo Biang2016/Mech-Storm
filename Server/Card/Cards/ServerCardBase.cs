@@ -1,9 +1,13 @@
-﻿internal abstract class ServerCardBase
+﻿using System.Security.Policy;
+
+internal abstract class ServerCardBase
 {
     internal ServerPlayer ServerPlayer;
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
 
     #region 属性
+
+    public bool isInitialized = false;
 
     private int m_Cost;
 
@@ -14,8 +18,11 @@
         {
             int before = m_Magic;
             m_Cost = value;
-            CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, m_Cost - before, 0, m_EffectFactor);
-            ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+            if (isInitialized)
+            {
+                CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, m_Cost - before, 0, m_EffectFactor);
+                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+            }
         }
     }
 
@@ -28,8 +35,11 @@
         {
             int before = m_Magic;
             m_Magic = value;
-            CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, 0, m_Magic - before, m_EffectFactor);
-            ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+            if (isInitialized)
+            {
+                CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, 0, m_Magic - before, m_EffectFactor);
+                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+            }
         }
     }
 
@@ -43,8 +53,11 @@
             if (value != m_EffectFactor)
             {
                 m_EffectFactor = value;
-                CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, 0, 0, m_EffectFactor);
-                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+                if (isInitialized)
+                {
+                    CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, 0, 0, m_EffectFactor);
+                    ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+                }
             }
         }
     }
@@ -105,10 +118,14 @@
 
     public virtual void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
+        isInitialized = false;
         ServerPlayer = serverPlayer;
-        CardInfo = cardInfo;
+        CardInfo = cardInfo.Clone();
         M_Cost = CardInfo.BaseInfo.Cost;
-        Stars = cardInfo.UpgradeInfo.CardLevel;
+        M_Magic = CardInfo.BaseInfo.Magic;
+        M_EffectFactor = CardInfo.BaseInfo.EffectFactor;
+        Stars = CardInfo.UpgradeInfo.CardLevel;
+        isInitialized = true;
     }
 
     public virtual void OnBeginRound()
@@ -122,6 +139,23 @@
             if (se is CardRelatedSideEffect)
             {
                 ((CardRelatedSideEffect) se).TargetCardInstanceId = M_CardInstanceId;
+            }
+
+            se.Excute(ServerPlayer);
+        }
+    }
+
+    public virtual void OnPlayOut(int targetRetinueId)
+    {
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnPlayOut)
+        {
+            if (se is CardRelatedSideEffect)
+            {
+                ((CardRelatedSideEffect) se).TargetCardInstanceId = M_CardInstanceId;
+            }
+            if (se is TargetSideEffect)
+            {
+                ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
             }
 
             se.Excute(ServerPlayer);

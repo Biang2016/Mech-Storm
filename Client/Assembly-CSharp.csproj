@@ -140,6 +140,7 @@
     <Compile Include="Assets\Scripts\UX\MouseHoverComponent.cs" />
     <Compile Include="Assets\Scripts\UX\MouseHoverManager.cs" />
     <Compile Include="Assets\Scripts\UX\PreviewPanelBG.cs" />
+    <Compile Include="Assets\Scripts\UX\Ship.cs" />
     <None Include="Assets\StreamingAssets\Config\Cards.xml" />
     <None Include="Assets\Materials\GameBoardMaterials\BlurShader.shader" />
     <None Include="Assets\StreamingAssets\Config\SideEffects.xml" />

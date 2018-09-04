@@ -99,7 +99,7 @@ internal class GameManager : MonoSingletion<GameManager>
     {
         if (UseInspectorParams) return;
 
-        CardBloomColor = ClientUtils.HTMLColorToColor("#BA00FF");
+        CardBloomColor = ClientUtils.HTMLColorToColor("#F1FF74");
         RetinueBloomColor = ClientUtils.HTMLColorToColor("#06FF00");
         RetinueOnEnemyHoverBloomColor = ClientUtils.HTMLColorToColor("#FF0000");
         RetinueOnSelfHoverBloomColor = ClientUtils.HTMLColorToColor("#FFF69F");

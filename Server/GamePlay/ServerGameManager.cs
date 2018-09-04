@@ -165,7 +165,7 @@ internal class ServerGameManager
         int targetRetinueId = r.targetRetinueId;
         if (r.isTargetRetinueIdTempId)
         {
-            targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.targetRetinueId);
+            targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
         }
 
         sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex, targetRetinueId, r.clientRetinueTempId);
@@ -207,7 +207,14 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
+
+        int targetRetinueId = r.targetRetinueId;
+        if (r.isTargetRetinueIdTempId)
+        {
+            targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.targetRetinueId);
+        }
+
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetRetinueId);
         sp.MyBattleGroundManager.UseSpellCard(r, cardInfo);
 
         Broadcast_SendOperationResponse();
@@ -218,16 +225,34 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
 
-        RetinueAttackRetinueServerRequest request = new RetinueAttackRetinueServerRequest(r.AttackRetinueClientId, r.AttackRetinueId, r.BeAttackedRetinueClientId, r.BeAttackedRetinueId);
+        RetinueAttackRetinueServerRequest request = new RetinueAttackRetinueServerRequest(r.clientId, r.AttackRetinueId, r.BeAttackedRetinueClientId, r.BeAttackedRetinueId);
         Broadcast_AddRequestToOperationResponse(request);
 
-        ServerPlayer cpat = GetPlayerByClientId(r.AttackRetinueClientId);
+        ServerPlayer cpat = GetPlayerByClientId(r.clientId);
         ServerPlayer cpba = GetPlayerByClientId(r.BeAttackedRetinueClientId);
 
         ServerModuleRetinue attackRetinue = cpat.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
         ServerModuleRetinue beAttackedRetinue = cpba.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
 
         attackRetinue.Attack(beAttackedRetinue, false);
+
+        Broadcast_SendOperationResponse();
+    }
+
+    public void OnClientRetinueAttackShipRequest(RetinueAttackShipRequest r)
+    {
+        ClientA.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
+
+        RetinueAttackShipServerRequest request = new RetinueAttackShipServerRequest(r.clientId, r.AttackRetinueId);
+        Broadcast_AddRequestToOperationResponse(request);
+
+        ServerPlayer cpat = GetPlayerByClientId(r.clientId);
+        ServerPlayer cpba = cpat.MyEnemyPlayer;
+
+        ServerModuleRetinue attackRetinue = cpat.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
+
+        attackRetinue.AttackShip(cpba);
 
         Broadcast_SendOperationResponse();
     }
@@ -261,6 +286,20 @@ internal class ServerGameManager
         GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
         BroadcastRequest(request);
 
+        Server.SV.SGMM.RemoveGame(this, ClientA, ClientB);
+
+        PlayerA?.OnDestroyed();
+        PlayerB?.OnDestroyed();
+
+        isStopped = true;
+    }
+
+    public void OnEndGame(ServerPlayer winner)
+    {
+        GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
+        BroadcastRequest(request);
+        ClientA.ClientState = ProxyBase.ClientStates.Login;
+        ClientB.ClientState = ProxyBase.ClientStates.Login;
         Server.SV.SGMM.RemoveGame(this, ClientA, ClientB);
 
         PlayerA?.OnDestroyed();

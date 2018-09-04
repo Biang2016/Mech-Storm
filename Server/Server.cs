@@ -76,6 +76,7 @@ internal class Server
         SGMM.OnClientCancelMatch(clientProxy);
         clientProxy.OnClose();
         ClientsDict.Remove(clientProxy.ClientId);
+        Database.Instance.RemoveLoginUser(clientProxy.ClientId);
     }
 
     public void StartSeverSocket()

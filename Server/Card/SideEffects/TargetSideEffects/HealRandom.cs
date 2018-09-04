@@ -22,20 +22,20 @@ namespace SideEffects
                     int ranResult = rd.Next(0, selfRetinueNum + enemyRetinueNum);
                     if (ranResult < selfRetinueNum)
                     {
-                        player.MyBattleGroundManager.HealRandomRetinue(Value);
+                        player.MyBattleGroundManager.HealRandomRetinue(FinalValue);
                     }
                     else if (ranResult < selfRetinueNum + enemyRetinueNum)
                     {
-                        player.MyEnemyPlayer.MyBattleGroundManager.HealRandomRetinue(Value);
+                        player.MyEnemyPlayer.MyBattleGroundManager.HealRandomRetinue(FinalValue);
                     }
 
                     break;
                 }
                 case TargetRange.SelfBattleGround:
-                    player.MyBattleGroundManager.HealRandomRetinue(Value);
+                    player.MyBattleGroundManager.HealRandomRetinue(FinalValue);
                     break;
                 case TargetRange.EnemyBattleGround:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomRetinue(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomRetinue(FinalValue);
                     break;
                 case TargetRange.Heros:
                 {
@@ -45,20 +45,20 @@ namespace SideEffects
                     int ranResult = rd.Next(0, selfRetinueNum + enemyRetinueNum);
                     if (ranResult < selfRetinueNum)
                     {
-                        player.MyBattleGroundManager.HealRandomHero(Value);
+                        player.MyBattleGroundManager.HealRandomHero(FinalValue);
                     }
                     else if (ranResult < selfRetinueNum + enemyRetinueNum)
                     {
-                        player.MyEnemyPlayer.MyBattleGroundManager.HealRandomHero(Value);
+                        player.MyEnemyPlayer.MyBattleGroundManager.HealRandomHero(FinalValue);
                     }
 
                     break;
                 }
                 case TargetRange.SelfHeros:
-                    player.MyBattleGroundManager.HealRandomHero(Value);
+                    player.MyBattleGroundManager.HealRandomHero(FinalValue);
                     break;
                 case TargetRange.EnemyHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomHero(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomHero(FinalValue);
                     break;
                 case TargetRange.Soldiers:
                 {
@@ -68,41 +68,41 @@ namespace SideEffects
                     int ranResult = rd.Next(0, selfRetinueNum + enemyRetinueNum);
                     if (ranResult < selfRetinueNum)
                     {
-                        player.MyBattleGroundManager.HealRandomSoldier(Value);
+                        player.MyBattleGroundManager.HealRandomSoldier(FinalValue);
                     }
                     else if (ranResult < selfRetinueNum + enemyRetinueNum)
                     {
-                        player.MyEnemyPlayer.MyBattleGroundManager.HealRandomSoldier(Value);
+                        player.MyEnemyPlayer.MyBattleGroundManager.HealRandomSoldier(FinalValue);
                     }
 
                     break;
                 }
 
                 case TargetRange.SelfSoldiers:
-                    player.MyBattleGroundManager.HealRandomSoldier(Value);
+                    player.MyBattleGroundManager.HealRandomSoldier(FinalValue);
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomSoldier(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomSoldier(FinalValue);
                     break;
                 case TargetRange.Ships:
                 {
                     Random rd = new Random();
                     if (rd.Next(0, 2) == 1)
                     {
-                        player.AddLifeWithinMax(Value);
+                        player.AddLifeWithinMax(FinalValue);
                     }
                     else
                     {
-                        player.MyEnemyPlayer.AddLifeWithinMax(Value);
+                        player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                     }
 
                     break;
                 }
                 case TargetRange.SelfShip:
-                    player.AddLifeWithinMax(Value);
+                    player.AddLifeWithinMax(FinalValue);
                     break;
                 case TargetRange.EnemyShip:
-                    player.MyEnemyPlayer.AddLifeWithinMax(Value);
+                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                     break;
                 case TargetRange.All:
                 {
@@ -112,19 +112,19 @@ namespace SideEffects
                     int ranResult = rd.Next(0, selfRetinueNum + enemyRetinueNum + 2);
                     if (ranResult < selfRetinueNum)
                     {
-                        player.MyBattleGroundManager.HealRandomRetinue(Value);
+                        player.MyBattleGroundManager.HealRandomRetinue(FinalValue);
                     }
                     else if (ranResult < selfRetinueNum + enemyRetinueNum)
                     {
-                        player.MyEnemyPlayer.MyBattleGroundManager.HealRandomRetinue(Value);
+                        player.MyEnemyPlayer.MyBattleGroundManager.HealRandomRetinue(FinalValue);
                     }
                     else if (ranResult == selfRetinueNum + enemyRetinueNum)
                     {
-                        player.AddLifeWithinMax(Value);
+                        player.AddLifeWithinMax(FinalValue);
                     }
                     else if (ranResult == selfRetinueNum + enemyRetinueNum + 1)
                     {
-                        player.MyEnemyPlayer.AddLifeWithinMax(Value);
+                        player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                     }
 
                     break;

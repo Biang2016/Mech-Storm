@@ -12,50 +12,50 @@
             switch (M_TargetRange)
             {
                 case TargetRange.BattleGrounds:
-                    player.MyBattleGroundManager.DamageAllRetinues(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(Value);
+                    player.MyBattleGroundManager.DamageAllRetinues(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(FinalValue);
                     break;
                 case TargetRange.SelfBattleGround:
-                    player.MyBattleGroundManager.DamageAllRetinues(Value);
+                    player.MyBattleGroundManager.DamageAllRetinues(FinalValue);
                     break;
                 case TargetRange.EnemyBattleGround:
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(FinalValue);
                     break;
                 case TargetRange.Heros:
-                    player.MyBattleGroundManager.DamageAllHeros(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllHeros(Value);
+                    player.MyBattleGroundManager.DamageAllHeros(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllHeros(FinalValue);
                     break;
                 case TargetRange.SelfHeros:
-                    player.MyBattleGroundManager.DamageAllHeros(Value);
+                    player.MyBattleGroundManager.DamageAllHeros(FinalValue);
                     break;
                 case TargetRange.EnemyHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllHeros(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllHeros(FinalValue);
                     break;
                 case TargetRange.Soldiers:
-                    player.MyBattleGroundManager.DamageAllSoldiers(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSoldiers(Value);
+                    player.MyBattleGroundManager.DamageAllSoldiers(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSoldiers(FinalValue);
                     break;
                 case TargetRange.SelfSoldiers:
-                    player.MyBattleGroundManager.DamageAllSoldiers(Value);
+                    player.MyBattleGroundManager.DamageAllSoldiers(FinalValue);
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSoldiers(Value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSoldiers(FinalValue);
                     break;
                 case TargetRange.Ships:
-                    player.DamageLifeAboveZero(Value);
-                    player.MyEnemyPlayer.DamageLifeAboveZero(Value);
+                    player.DamageLifeAboveZero(FinalValue);
+                    player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
                     break;
                 case TargetRange.SelfShip:
-                    player.DamageLifeAboveZero(Value);
+                    player.DamageLifeAboveZero(FinalValue);
                     break;
                 case TargetRange.EnemyShip:
-                    player.MyEnemyPlayer.DamageLifeAboveZero(Value);
+                    player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
                     break;
                 case TargetRange.All:
-                    player.DamageLifeAboveZero(Value);
-                    player.MyEnemyPlayer.DamageLifeAboveZero(Value);
-                    player.MyBattleGroundManager.DamageAllRetinues(Value);
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(Value);
+                    player.DamageLifeAboveZero(FinalValue);
+                    player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
+                    player.MyBattleGroundManager.DamageAllRetinues(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(FinalValue);
                     break;
             }
         }
