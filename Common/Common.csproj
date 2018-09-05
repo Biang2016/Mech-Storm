@@ -46,9 +46,8 @@
     <Compile Include="GamePlay\Card\CardInfo\Info\BattleInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\CardInfo_Base.cs" />
     <Compile Include="GamePlay\Card\CardInfo\CardInfo_Retinue.cs" />
-    <Compile Include="GamePlay\Card\CardInfo\CardInfo_Shield.cs" />
     <Compile Include="GamePlay\Card\CardInfo\CardInfo_Spell.cs" />
-    <Compile Include="GamePlay\Card\CardInfo\CardInfo_Weapon.cs" />
+    <Compile Include="GamePlay\Card\CardInfo\CardInfo_Equip.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\LifeInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\ShieldInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\SlotInfo.cs" />
@@ -61,7 +60,7 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SpecialInterface\IEffectFactor.cs" />
-    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddMagic_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeAll_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageRandom_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\HealAll_Base.cs" />
@@ -143,7 +142,7 @@
     <Compile Include="Protocol\DataStream\DataStream.cs" />
     <Compile Include="Protocol\NetProtocols.cs" />
     <Compile Include="Protocol\ProtoManager.cs" />
-    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerCostChangeRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerMetalChangeRequest.cs" />
     <Compile Include="RequestResponse\RequestBase.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\KillAll_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeOne_Base.cs" />

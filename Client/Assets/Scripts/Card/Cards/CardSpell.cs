@@ -6,33 +6,6 @@ internal class CardSpell : CardBase
 {
     #region 卡牌上各模块
 
-    [SerializeField] private Text SpellName;
-    [SerializeField] private Text SpellDesc;
-
-    private string m_SpellName;
-
-    public string M_SpellName
-    {
-        get { return m_SpellName; }
-
-        set
-        {
-            m_SpellName = value;
-            SpellName.text = M_SpellName;
-        }
-    }
-
-    public override string M_Desc
-    {
-        get { return m_Desc; }
-
-        set
-        {
-            m_Desc = value;
-            SpellDesc.text = value;
-        }
-    }
-
     private bool hasTarget;
     private TargetSideEffect.TargetRange targetRange = TargetSideEffect.TargetRange.None;
 
@@ -41,9 +14,6 @@ internal class CardSpell : CardBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
         base.Initiate(cardInfo, clientPlayer, isCardSelect);
-        M_SpellName = CardInfo.BaseInfo.CardName;
-        M_Desc = ((CardInfo_Spell) CardInfo).GetCardDescShow();
-
         hasTarget = false;
         foreach (SideEffectBase se in CardInfo.SideEffects_OnPlayOut)
         {

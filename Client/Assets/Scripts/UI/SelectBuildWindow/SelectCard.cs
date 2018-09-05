@@ -19,7 +19,7 @@ public class SelectCard : MonoBehaviour, IGameObjectPool
         gameObjectPool = GameObjectPoolManager.Instance.Pool_SelectCardPool;
     }
 
-    public Text Text_Cost;
+    public Text Text_Metal;
     public Text Text_Count;
     public Button CardButton;
     public Text Text_CardName;
@@ -37,16 +37,16 @@ public class SelectCard : MonoBehaviour, IGameObjectPool
         }
     }
 
-    private int cost;
+    private int metal;
 
-    public int Cost
+    public int Metal
     {
-        get { return cost; }
+        get { return metal; }
 
         set
         {
-            cost = value;
-            Text_Cost.text = cost.ToString();
+            metal = value;
+            Text_Metal.text = metal.ToString();
         }
     }
 }

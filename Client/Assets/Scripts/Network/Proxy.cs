@@ -31,7 +31,7 @@ internal class Proxy : ProxyBase
 
     public static ClientStateEventHandler OnClientStateChange;
 
-    public Proxy(Socket socket, int clientId, int clientMoney, bool isStopReceive) : base(socket, clientId, isStopReceive)
+    public Proxy(Socket socket, int clientId, int clientCoin, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
     }
 

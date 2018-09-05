@@ -89,8 +89,8 @@ internal class GameManager : MonoSingletion<GameManager>
     public Color BuildButtonEditColor;
     public Color BuildButtonDefaultColor;
 
-    public Color SelfCostBarColor;
-    public Color EnemyCostBarColor;
+    public Color SelfMetalBarColor;
+    public Color EnemyMetalBarColor;
 
     public Color SelfCardDeckCardColor;
     public Color EnemyCardDeckCardColor;
@@ -116,8 +116,8 @@ internal class GameManager : MonoSingletion<GameManager>
         BuildButtonEditColor = ClientUtils.HTMLColorToColor("#FF4B00");
         BuildButtonDefaultColor = ClientUtils.HTMLColorToColor("#858585");
 
-        SelfCostBarColor = ClientUtils.HTMLColorToColor("#2E4BFF");
-        EnemyCostBarColor = ClientUtils.HTMLColorToColor("#FF1C47");
+        SelfMetalBarColor = ClientUtils.HTMLColorToColor("#2E4BFF");
+        EnemyMetalBarColor = ClientUtils.HTMLColorToColor("#FF1C47");
 
         SelfCardDeckCardColor = ClientUtils.HTMLColorToColor("#007AFF");
         EnemyCardDeckCardColor = ClientUtils.HTMLColorToColor("#FF0004");

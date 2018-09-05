@@ -60,13 +60,10 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
                     newCard = GameObjectPoolManager.Instance.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
                     newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueCardPool;
                     break;
-                case CardTypes.Weapon:
-                    newCard = GameObjectPoolManager.Instance.Pool_WeaponCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_WeaponCardPool;
-                    break;
-                case CardTypes.Shield:
-                    newCard = GameObjectPoolManager.Instance.Pool_ShieldCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_ShieldCardPool;
+                case CardTypes.Equip:
+                    newCard = GameObjectPoolManager.Instance.Pool_EquipCardPool.AllocateGameObject(parent).GetComponent<CardEquip>();
+                    ((CardEquip) newCard).M_EquipType = ((CardInfo_Equip) cardInfo).M_SlotType;
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_EquipCardPool;
                     break;
                 case CardTypes.Spell:
                     newCard = GameObjectPoolManager.Instance.Pool_SpellCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
@@ -88,13 +85,9 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
                     newCard = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
                     newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool;
                     break;
-                case CardTypes.Weapon:
-                    newCard = GameObjectPoolManager.Instance.Pool_WeaponSelectCardPool.AllocateGameObject(parent).GetComponent<CardWeapon>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_WeaponSelectCardPool;
-                    break;
-                case CardTypes.Shield:
-                    newCard = GameObjectPoolManager.Instance.Pool_ShieldSelectCardPool.AllocateGameObject(parent).GetComponent<CardShield>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_ShieldSelectCardPool;
+                case CardTypes.Equip:
+                    newCard = GameObjectPoolManager.Instance.Pool_EquipSelectCardPool.AllocateGameObject(parent).GetComponent<CardEquip>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_EquipSelectCardPool;
                     break;
                 case CardTypes.Spell:
                     newCard = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
@@ -109,7 +102,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             newCard.transform.localScale = Vector3.one * 120;
             newCard.transform.rotation = Quaternion.Euler(90, 180, 0);
             newCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#A1F7FF"));
-            newCard.MoneyText.text = cardInfo.BaseInfo.Money.ToString();
+            newCard.CoinText.text = cardInfo.BaseInfo.Coin.ToString();
             newCard.CoinImage.enabled = true;
         }
 
@@ -152,51 +145,77 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         IsCardSelect = isCardSelect;
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo.Clone();
-        initiateNumbers(ref GoNumberSet_Cost, ref CardNumberSet_Cost, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Cost);
         if (Block_Count)
         {
             initiateNumbers(ref GoNumberSet_Count, ref CardNumberSet_Count, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Count, 'x');
             CardNumberSet_Count.Clear();
         }
 
-        M_Cost = CardInfo.BaseInfo.Cost;
-        M_Magic = CardInfo.BaseInfo.Magic;
+        M_Metal = CardInfo.BaseInfo.Metal;
+        M_Energy = CardInfo.BaseInfo.Energy;
+        M_Name = cardInfo.BaseInfo.CardName;
+        M_Desc = cardInfo.GetCardDescShow();
         ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Rotate(Vector3.up, 180);
 
-        if (IsCardSelect) MoneyText.text = CardInfo.BaseInfo.Money.ToString();
+        if (IsCardSelect) CoinText.text = CardInfo.BaseInfo.Coin.ToString();
 
         SetCardBackColor();
         ChangeColor(ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.CardColor));
     }
 
-
     #region 属性
 
-    private int m_Cost;
+    private int m_Metal;
 
-    public int M_Cost
+    public int M_Metal
     {
-        get { return m_Cost; }
+        get { return m_Metal; }
         set
         {
-            m_Cost = value;
-            CardNumberSet_Cost.Number = value;
+            if (value != 0)
+            {
+                if (!MetalImage.gameObject.activeSelf) MetalImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (MetalImage.gameObject.activeSelf) MetalImage.gameObject.SetActive(false);
+            }
+
+            if (m_Metal != value)
+            {
+                m_Metal = value;
+                CardInfo.BaseInfo.Metal = value;
+                Text_Metal.text = value.ToString();
+            }
         }
     }
 
-    private int m_Magic;
+    private int m_Energy;
 
-    public int M_Magic
+    public int M_Energy
     {
-        get { return m_Magic; }
+        get { return m_Energy; }
         set
         {
-            m_Magic = value;
-            CardInfo.BaseInfo.Magic = value;
+            if (value != 0)
+            {
+                if (!EnergyImage.gameObject.activeSelf) EnergyImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (EnergyImage.gameObject.activeSelf) EnergyImage.gameObject.SetActive(false);
+            }
+
+            if (m_Energy != value)
+            {
+                m_Energy = value;
+                CardInfo.BaseInfo.Energy = value;
+                Text_Energy.text = value.ToString();
+            }
         }
     }
 
@@ -237,12 +256,28 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
     }
 
-    protected string m_Desc;
+    private string m_Name;
 
-    public virtual string M_Desc
+    public string M_Name
+    {
+        get { return m_Name; }
+        set
+        {
+            m_Name = value;
+            Text_Name.text = value;
+        }
+    }
+
+    private string m_Desc;
+
+    public string M_Desc
     {
         get { return m_Desc; }
-        set { m_Desc = value; }
+        set
+        {
+            m_Desc = value;
+            Text_Desc.text = value;
+        }
     }
 
     private int m_CardInstanceId;
@@ -265,10 +300,91 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     #region 卡牌上各模块
 
-    public GameObject Star1;
-    public GameObject Star2;
-    public GameObject Star3;
-    public GameObject Star4;
+    [SerializeField] private Text Text_Name;
+    [SerializeField] private Text Text_Desc;
+
+    public Renderer MainBoardRenderer;
+    public GameObject CardBloom;
+    [SerializeField] private Renderer CardBloomRenderer;
+    [SerializeField] private Renderer PictureBoxRenderer;
+    [SerializeField] private Image Image_DescPanel;
+
+    [SerializeField] private Image MetalImage;
+    [SerializeField] private Image EnergyImage;
+    [SerializeField] private Text Text_Metal;
+    [SerializeField] private Text Text_Energy;
+
+    [SerializeField] private GameObject Block_Count;
+    protected GameObject GoNumberSet_Count;
+    protected CardNumberSet CardNumberSet_Count;
+
+    [SerializeField] private Text CoinText;
+    [SerializeField] private Image CoinImage;
+
+    [SerializeField] private Renderer CardBackRenderer;
+
+    public void BeDimColor()
+    {
+        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.CardColor);
+        ChangeColor(new Color(color.r / 2, color.g / 2, color.b / 2, color.a));
+        ChangePictureColor(new Color(0.5f, 0.5f, 0.5f));
+    }
+
+    public void BeBrightColor()
+    {
+        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.CardColor);
+        ChangeColor(color);
+        ChangePictureColor(Color.white);
+    }
+
+    public void ChangeColor(Color color)
+    {
+        ClientUtils.ChangeColor(MainBoardRenderer, color);
+
+        if (Image_DescPanel)
+        {
+            Image_DescPanel.color = new Color(color.r / 2, color.g / 2, color.b / 2, 0.5f);
+        }
+    }
+
+    public void ChangeCardBloomColor(Color color)
+    {
+        ClientUtils.ChangeColor(CardBloomRenderer, color);
+    }
+
+    public void ChangePictureColor(Color color)
+    {
+        ClientUtils.ChangeColor(PictureBoxRenderer, color);
+    }
+
+    public void SetCardBackColor()
+    {
+        if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+        {
+            ClientUtils.ChangeColor(CardBackRenderer, GameManager.Instance.SelfCardDeckCardColor);
+        }
+        else
+        {
+            ClientUtils.ChangeColor(CardBackRenderer, GameManager.Instance.EnemyCardDeckCardColor);
+        }
+    }
+
+    public void SetBlockCountValue(int value)
+    {
+        if (value == 0)
+        {
+            CardNumberSet_Count.Clear();
+        }
+        else if (value > 0)
+        {
+            CardNumberSet_Count.Number = value;
+        }
+    }
+
+    [SerializeField] private GameObject Star1;
+    [SerializeField] private GameObject Star2;
+    [SerializeField] private GameObject Star3;
+    [SerializeField] private GameObject Star4;
 
     protected int stars;
 
@@ -313,83 +429,6 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
                     break;
                 default: break;
             }
-        }
-    }
-
-    public Renderer MainBoardRenderer;
-    public GameObject CardBloom;
-    [SerializeField] private Renderer CardBloomRenderer;
-    [SerializeField] private Renderer PictureBoxRenderer;
-    [SerializeField] private Image Image_RetinueDescPanel;
-
-    [SerializeField] private GameObject Block_Cost;
-    protected GameObject GoNumberSet_Cost;
-    protected CardNumberSet CardNumberSet_Cost;
-
-    [SerializeField] private GameObject Block_Count;
-    protected GameObject GoNumberSet_Count;
-    protected CardNumberSet CardNumberSet_Count;
-
-    [SerializeField] private Text MoneyText;
-    [SerializeField] private Image CoinImage;
-
-    [SerializeField] private Renderer CardBackRenderer;
-
-    public void BeDimColor()
-    {
-        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.CardColor);
-        ChangeColor(new Color(color.r / 2, color.g / 2, color.b / 2, color.a));
-        ChangePictureColor(new Color(0.5f, 0.5f, 0.5f));
-    }
-
-    public void BeBrightColor()
-    {
-        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.CardColor);
-        ChangeColor(color);
-        ChangePictureColor(Color.white);
-    }
-
-    public void ChangeColor(Color color)
-    {
-        ClientUtils.ChangeColor(MainBoardRenderer, color);
-
-        if (Image_RetinueDescPanel)
-        {
-            Image_RetinueDescPanel.color = new Color(color.r / 2, color.g / 2, color.b / 2, 0.5f);
-        }
-    }
-
-    public void ChangeCardBloomColor(Color color)
-    {
-        ClientUtils.ChangeColor(CardBloomRenderer, color);
-    }
-
-    public void ChangePictureColor(Color color)
-    {
-        ClientUtils.ChangeColor(PictureBoxRenderer, color);
-    }
-
-    public void SetCardBackColor()
-    {
-        if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
-        {
-            ClientUtils.ChangeColor(CardBackRenderer, GameManager.Instance.SelfCardDeckCardColor);
-        }
-        else
-        {
-            ClientUtils.ChangeColor(CardBackRenderer, GameManager.Instance.EnemyCardDeckCardColor);
-        }
-    }
-
-    public void SetBlockCountValue(int value)
-    {
-        if (value == 0)
-        {
-            CardNumberSet_Count.Clear();
-        }
-        else if (value > 0)
-        {
-            CardNumberSet_Count.Number = value;
         }
     }
 

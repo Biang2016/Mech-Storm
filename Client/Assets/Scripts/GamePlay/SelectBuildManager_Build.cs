@@ -66,7 +66,7 @@ public partial class SelectBuildManager
             SelectCardsByBuildInfo(CurrentEditBuildButton.BuildInfo);
 
             ShowSliders();
-            RefreshMoneyLifeMagic();
+            RefreshCoinLifeEnergy();
         }
         else
         {
@@ -122,12 +122,12 @@ public partial class SelectBuildManager
         lastSaveBuildInfo = CurrentEditBuildButton.BuildInfo.Clone();
         CurrentEditBuildButton.IsEdit = true;
         SelectCardsByBuildInfo(buildButton.BuildInfo);
-        RefreshMoneyLifeMagic();
+        RefreshCoinLifeEnergy();
     }
 
     public void OnCreateNewBuildButtonClick()
     {
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, "New Build", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToMoney, GamePlaySettings.PlayerDefaultMagic * GamePlaySettings.MagicToMoney, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, "New Build", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToCoin, GamePlaySettings.PlayerDefaultEnergy * GamePlaySettings.EnergyToCoin, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultEnergy));
         Client.Instance.Proxy.SendMessage(request);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
@@ -135,7 +135,7 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildResponse(int buildID)
     {
-        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, "New Build", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToMoney, GamePlaySettings.PlayerDefaultMagic * GamePlaySettings.MagicToMoney, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultMagic));
+        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, "New Build", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToCoin, GamePlaySettings.PlayerDefaultEnergy * GamePlaySettings.EnergyToCoin, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultEnergy));
         AllBuildButtons.Add(buildID, newBuildButton);
         AllBuilds.Add(buildID, newBuildButton.BuildInfo);
         OnSwitchEditBuild(newBuildButton);

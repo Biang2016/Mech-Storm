@@ -84,8 +84,8 @@ internal class ServerHandManager
     internal void UseCard(int cardInstanceId, Vector3 lastDragPosition, int targetRetinueId)
     {
         ServerCardBase useCard = GetCardByCardInstanceId(cardInstanceId);
-        ServerPlayer.UseCostAboveZero(useCard.CardInfo.BaseInfo.Cost);
-        ServerPlayer.UseMagicAboveZero(useCard.CardInfo.BaseInfo.Magic);
+        ServerPlayer.UseMetalAboveZero(useCard.CardInfo.BaseInfo.Metal);
+        ServerPlayer.UseEnergyAboveZero(useCard.CardInfo.BaseInfo.Energy);
 
         UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone(), lastDragPosition);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
@@ -108,7 +108,7 @@ internal class ServerHandManager
 
     public void RefreshAllCardUsable() //刷新所有卡牌是否可用
     {
-        foreach (ServerCardBase card in cards) card.Usable = (ServerPlayer == ServerPlayer.MyGameManager.CurrentPlayer) && card.M_Cost <= ServerPlayer.CostLeft;
+        foreach (ServerCardBase card in cards) card.Usable = (ServerPlayer == ServerPlayer.MyGameManager.CurrentPlayer) && card.M_Metal <= ServerPlayer.MetalLeft;
     }
 
     public void SetAllCardUnusable() //禁用所有手牌

@@ -9,31 +9,31 @@ public struct BuildInfo
 
     public List<int> CardIDs;
 
-    public int CardConsumeMoney;
+    public int CardConsumeCoin;
 
-    public int LifeConsumeMoney;
+    public int LifeConsumeCoin;
 
-    public int MagicConsumeMoney;
+    public int EnergyConsumeCoin;
 
     public int Life;
 
-    public int Magic;
+    public int Energy;
 
-    public BuildInfo(int buildID, string buildName, List<int> cardIDs, int cardConsumeMoney, int lifeConsumeMoney, int magicConsumeMoney, int life, int magic)
+    public BuildInfo(int buildID, string buildName, List<int> cardIDs, int cardConsumeCoin, int lifeConsumeCoin, int energyConsumeCoin, int life, int energy)
     {
         BuildID = buildID;
         BuildName = buildName;
         CardIDs = cardIDs;
-        CardConsumeMoney = cardConsumeMoney;
-        LifeConsumeMoney = lifeConsumeMoney;
-        MagicConsumeMoney = magicConsumeMoney;
+        CardConsumeCoin = cardConsumeCoin;
+        LifeConsumeCoin = lifeConsumeCoin;
+        EnergyConsumeCoin = energyConsumeCoin;
         Life = life;
-        Magic = magic;
+        Energy = energy;
     }
 
-    public int GetBuildConsumeMoney()
+    public int GetBuildConsumeCoin()
     {
-        return CardConsumeMoney + LifeConsumeMoney + MagicConsumeMoney;
+        return CardConsumeCoin + LifeConsumeCoin + EnergyConsumeCoin;
     }
 
     public int CardCount()
@@ -43,18 +43,18 @@ public struct BuildInfo
 
     public BuildInfo Clone()
     {
-        return new BuildInfo(BuildID, BuildName, CardIDs.ToArray().ToList(),  CardConsumeMoney, LifeConsumeMoney, MagicConsumeMoney, Life, Magic);
+        return new BuildInfo(BuildID, BuildName, CardIDs.ToArray().ToList(),  CardConsumeCoin, LifeConsumeCoin, EnergyConsumeCoin, Life, Energy);
     }
 
     public bool EqualsTo(BuildInfo targetBuildInfo)
     {
         if (BuildID != targetBuildInfo.BuildID) return false;
         if (!BuildName.Equals(targetBuildInfo.BuildName)) return false;
-        if (CardConsumeMoney != targetBuildInfo.CardConsumeMoney) return false;
-        if (LifeConsumeMoney != targetBuildInfo.LifeConsumeMoney) return false;
-        if (MagicConsumeMoney != targetBuildInfo.MagicConsumeMoney) return false;
+        if (CardConsumeCoin != targetBuildInfo.CardConsumeCoin) return false;
+        if (LifeConsumeCoin != targetBuildInfo.LifeConsumeCoin) return false;
+        if (EnergyConsumeCoin != targetBuildInfo.EnergyConsumeCoin) return false;
         if (Life != targetBuildInfo.Life) return false;
-        if (Magic != targetBuildInfo.Magic) return false;
+        if (Energy != targetBuildInfo.Energy) return false;
         if (CardIDs.Count != targetBuildInfo.CardIDs.Count) return false;
 
         CardIDs.Sort();
@@ -77,11 +77,11 @@ public struct BuildInfo
             writer.WriteSInt32(cardID);
         }
 
-        writer.WriteSInt32(CardConsumeMoney);
-        writer.WriteSInt32(LifeConsumeMoney);
-        writer.WriteSInt32(MagicConsumeMoney);
+        writer.WriteSInt32(CardConsumeCoin);
+        writer.WriteSInt32(LifeConsumeCoin);
+        writer.WriteSInt32(EnergyConsumeCoin);
         writer.WriteSInt32(Life);
-        writer.WriteSInt32(Magic);
+        writer.WriteSInt32(Energy);
     }
 
     public static BuildInfo Deserialize(DataStream reader)
@@ -96,13 +96,13 @@ public struct BuildInfo
             CardIDs.Add(reader.ReadSInt32());
         }
 
-        int CardConsumeMoney = reader.ReadSInt32();
-        int LifeConsumeMoney = reader.ReadSInt32();
-        int MagicConsumeMoney = reader.ReadSInt32();
+        int CardConsumeCoin = reader.ReadSInt32();
+        int LifeConsumeCoin = reader.ReadSInt32();
+        int EnergyConsumeCoin = reader.ReadSInt32();
         int Life = reader.ReadSInt32();
-        int Magic = reader.ReadSInt32();
+        int Energy = reader.ReadSInt32();
 
-        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs,  CardConsumeMoney, LifeConsumeMoney, MagicConsumeMoney, Life, Magic);
+        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs,  CardConsumeCoin, LifeConsumeCoin, EnergyConsumeCoin, Life, Energy);
         return buildInfo;
     }
 
@@ -117,11 +117,11 @@ public struct BuildInfo
             log += cardID + " ";
         }
 
-        log += " [CardConsumeMoney]=" + CardConsumeMoney;
-        log += " [LifeConsumeMoney]=" + LifeConsumeMoney;
-        log += " [MagicConsumeMoney]=" + MagicConsumeMoney;
+        log += " [CardConsumeCoin]=" + CardConsumeCoin;
+        log += " [LifeConsumeCoin]=" + LifeConsumeCoin;
+        log += " [EnergyConsumeCoin]=" + EnergyConsumeCoin;
         log += " [Life]=" + Life;
-        log += " [Magic]=" + Magic;
+        log += " [Energy]=" + Energy;
         log += "</BuildInfo> ";
         return log;
     }

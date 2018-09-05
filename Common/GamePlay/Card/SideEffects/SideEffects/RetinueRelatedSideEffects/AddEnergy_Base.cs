@@ -1,4 +1,4 @@
-﻿public class AddEnergy_Base : SideEffectBase, IEffectFactor
+﻿public class AddWeaponEnergy_Base : SideEffectBase, IEffectFactor
 {
     public int RetinueID;
     public int Factor = 1;

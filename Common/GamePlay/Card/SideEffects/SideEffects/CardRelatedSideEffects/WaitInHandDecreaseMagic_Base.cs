@@ -1,4 +1,4 @@
-﻿public class WaitInHandDecreaseMagic_Base : CardRelatedSideEffect,IEffectFactor
+﻿public class WaitInHandDecreaseEnergy_Base : CardRelatedSideEffect,IEffectFactor
 {
     public int Value;
     public int Factor = 1;

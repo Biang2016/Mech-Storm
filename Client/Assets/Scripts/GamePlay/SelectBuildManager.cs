@@ -163,7 +163,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             Instance.CreateNewBuildButton.enabled = true;
 
             Instance.LifeSlider.interactable = true;
-            Instance.MagicSlider.interactable = true;
+            Instance.EnergySlider.interactable = true;
 
             Instance.UpgradeCardButton.enabled = true;
             Instance.DegradeCardButton.enabled = true;
@@ -184,7 +184,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             Instance.CreateNewBuildButton.enabled = false;
 
             Instance.LifeSlider.interactable = false;
-            Instance.MagicSlider.interactable = false;
+            Instance.EnergySlider.interactable = false;
 
             Instance.UpgradeCardButton.enabled = false;
             Instance.DegradeCardButton.enabled = false;

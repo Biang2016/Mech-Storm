@@ -70,13 +70,9 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     internal GameObjectPool Pool_RetinueCardPool;
     public GameObject RetinueCardPrefab;
 
-    public GameObject WeaponCardPool;
-    internal GameObjectPool Pool_WeaponCardPool;
-    public GameObject WeaponCardPrefab;
-
-    public GameObject ShieldCardPool;
-    internal GameObjectPool Pool_ShieldCardPool;
-    public GameObject ShieldCardPrefab;
+    public GameObject EquipCardPool;
+    internal GameObjectPool Pool_EquipCardPool;
+    public GameObject EquipCardPrefab;
 
     public GameObject SpellCardPool;
     internal GameObjectPool Pool_SpellCardPool;
@@ -94,13 +90,9 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     internal GameObjectPool Pool_RetinueSelectCardPool;
     public GameObject RetinueSelectCardPrefab;
 
-    public GameObject WeaponSelectCardPool;
-    internal GameObjectPool Pool_WeaponSelectCardPool;
-    public GameObject WeaponSelectCardPrefab;
-
-    public GameObject ShieldSelectCardPool;
-    internal GameObjectPool Pool_ShieldSelectCardPool;
-    public GameObject ShieldSelectCardPrefab;
+    public GameObject EquipSelectCardPool;
+    internal GameObjectPool Pool_EquipSelectCardPool;
+    public GameObject EquipSelectCardPrefab;
 
     public GameObject SpellSelectCardPool;
     internal GameObjectPool Pool_SpellSelectCardPool;
@@ -118,9 +110,9 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     internal GameObjectPool Pool_CardDeckCardPool;
     public GameObject CardDeckCardPrefab;
 
-    public GameObject CostBarBlockPool;
-    internal GameObjectPool Pool_CostBarBlockPool;
-    public GameObject CostBarBlockPrefab;
+    public GameObject MetalBarBlockPool;
+    internal GameObjectPool Pool_MetalBarBlockPool;
+    public GameObject MetalBarBlockPrefab;
 
     void Awake()
     {
@@ -172,11 +164,8 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
         Pool_RetinueCardPool = RetinueCardPool.GetComponent<GameObjectPool>();
         Pool_RetinueCardPool.Initiate(RetinueCardPrefab, 30);
 
-        Pool_WeaponCardPool = WeaponCardPool.GetComponent<GameObjectPool>();
-        Pool_WeaponCardPool.Initiate(WeaponCardPrefab, 30);
-
-        Pool_ShieldCardPool = ShieldCardPool.GetComponent<GameObjectPool>();
-        Pool_ShieldCardPool.Initiate(ShieldCardPrefab, 30);
+        Pool_EquipCardPool = EquipCardPool.GetComponent<GameObjectPool>();
+        Pool_EquipCardPool.Initiate(EquipCardPrefab, 30);
 
         Pool_SpellCardPool = SpellCardPool.GetComponent<GameObjectPool>();
         Pool_SpellCardPool.Initiate(SpellCardPrefab, 30);
@@ -190,11 +179,8 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
         Pool_RetinueSelectCardPool = RetinueSelectCardPool.GetComponent<GameObjectPool>();
         Pool_RetinueSelectCardPool.Initiate(RetinueSelectCardPrefab, 30);
 
-        Pool_WeaponSelectCardPool = WeaponSelectCardPool.GetComponent<GameObjectPool>();
-        Pool_WeaponSelectCardPool.Initiate(WeaponSelectCardPrefab, 30);
-
-        Pool_ShieldSelectCardPool = ShieldSelectCardPool.GetComponent<GameObjectPool>();
-        Pool_ShieldSelectCardPool.Initiate(ShieldSelectCardPrefab, 30);
+        Pool_EquipSelectCardPool = EquipSelectCardPool.GetComponent<GameObjectPool>();
+        Pool_EquipSelectCardPool.Initiate(EquipSelectCardPrefab, 30);
 
         Pool_SpellSelectCardPool = SpellSelectCardPool.GetComponent<GameObjectPool>();
         Pool_SpellSelectCardPool.Initiate(SpellSelectCardPrefab, 30);
@@ -208,8 +194,8 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
         Pool_CardDeckCardPool = CardDeckCardPool.GetComponent<GameObjectPool>();
         Pool_CardDeckCardPool.Initiate(CardDeckCardPrefab, 20);
 
-        Pool_CostBarBlockPool = CostBarBlockPool.GetComponent<GameObjectPool>();
-        Pool_CostBarBlockPool.Initiate(CostBarBlockPrefab, 20);
+        Pool_MetalBarBlockPool = MetalBarBlockPool.GetComponent<GameObjectPool>();
+        Pool_MetalBarBlockPool.Initiate(MetalBarBlockPrefab, 20);
     }
 }
 

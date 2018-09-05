@@ -785,3 +785,4 @@ MonoBehaviour:
   Block_WeaponAttack: {fileID: 1863932641605330}
   Block_WeaponEnergy: {fileID: 1644558577024490}
   Block_WeaponEnergyMax: {fileID: 1433666953002260}
+  WeaponEquipAnim: {fileID: 0}

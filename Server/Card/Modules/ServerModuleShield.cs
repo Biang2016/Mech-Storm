@@ -6,17 +6,19 @@
 
     public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
-        M_ShieldName = Utils.TextToVertical(((CardInfo_Shield) cardInfo).BaseInfo.CardName);
+        M_ShieldName = Utils.TextToVertical(((CardInfo_Equip) cardInfo).BaseInfo.CardName);
         M_ShieldType = cardInfo.ShieldInfo.ShieldType;
         base.Initiate(cardInfo, serverPlayer);
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Shield(
+        return new CardInfo_Equip(
             cardID: CardInfo.CardID,
             baseInfo: CardInfo.BaseInfo,
             upgradeInfo: CardInfo.UpgradeInfo,
+            slotType: ((CardInfo_Equip) CardInfo).M_SlotType,
+            weaponInfo: CardInfo.WeaponInfo,
             shieldInfo: CardInfo.ShieldInfo,
             sideEffects_OnEndRound: CardInfo.SideEffects_OnEndRound,
             sideEffects_OnPlayOut: CardInfo.SideEffects_OnPlayOut,

@@ -45,10 +45,7 @@ internal class ModuleRetinue : ModuleBase
         LifeBarMaskDefaultPosition = LifeBarMask.transform.localPosition;
 
         initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
-        initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Big, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife, '/');
         initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack);
-        initiateNumbers(ref GoNumberSet_RetinueWeaponEnergy, ref CardNumberSet_RetinueWeaponEnergy, NumberSize.Medium, CardNumberSet.TextAlign.Left, Block_RetinueWeaponEnergy);
-        initiateNumbers(ref GoNumberSet_RetinueWeaponEnergyMax, ref CardNumberSet_RetinueWeaponEnergyMax, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueWeaponEnergyMax, '/');
         initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Medium, CardNumberSet.TextAlign.Center, Block_RetinueArmor);
         initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Small, CardNumberSet.TextAlign.Center, Block_RetinueShield);
     }
@@ -131,14 +128,6 @@ internal class ModuleRetinue : ModuleBase
     [SerializeField] private GameObject Block_RetinueAttack;
     protected GameObject GoNumberSet_RetinueAttack;
     protected CardNumberSet CardNumberSet_RetinueAttack;
-
-    [SerializeField] private GameObject Block_RetinueWeaponEnergy;
-    protected GameObject GoNumberSet_RetinueWeaponEnergy;
-    protected CardNumberSet CardNumberSet_RetinueWeaponEnergy;
-
-    [SerializeField] private GameObject Block_RetinueWeaponEnergyMax;
-    protected GameObject GoNumberSet_RetinueWeaponEnergyMax;
-    protected CardNumberSet CardNumberSet_RetinueWeaponEnergyMax;
 
     [SerializeField] private GameObject Block_RetinueShield;
     protected GameObject GoNumberSet_RetinueShield;
@@ -434,9 +423,6 @@ internal class ModuleRetinue : ModuleBase
     IEnumerator SubCo_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
         RefreshSwordBarMask(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue);
-
-        CardNumberSet_RetinueWeaponEnergy.Number = retinueWeaponEnergyValue;
-        CardNumberSet_RetinueWeaponEnergyMax.Number = m_RetinueWeaponEnergyMax;
         yield return null;
     }
 

@@ -317,7 +317,7 @@ internal class HandManager : MonoBehaviour
         {
             if (ClientPlayer == RoundManager.Instance.CurrentClientPlayer)
             {
-                card.Usable = (ClientPlayer == RoundManager.Instance.SelfClientPlayer) && (card.M_Cost <= ClientPlayer.CostLeft && card.M_Magic <= ClientPlayer.MagicLeft);
+                card.Usable = (ClientPlayer == RoundManager.Instance.SelfClientPlayer) && (card.M_Metal <= ClientPlayer.MetalLeft && card.M_Energy <= ClientPlayer.EnergyLeft);
                 if (card is CardRetinue) card.Usable &= !ClientPlayer.MyBattleGroundManager.BattleGroundIsFull;
             }
             else
@@ -340,26 +340,21 @@ internal class HandManager : MonoBehaviour
         if (currentFocusCard)
         {
             returnToSmaller(currentFocusCard);
-            ClientPlayer.MyCostLifeMagiceManager.CostBarManager.ResetHightlightTopBlocks();
+            ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
         }
 
         currentFocusCard = focusCard;
         becomeBigger(focusCard);
         if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
         {
-            if (currentFocusCard is CardWeapon)
+            if (currentFocusCard is CardEquip)
             {
-                ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Weapon);
+                SlotTypes type= ((CardEquip) currentFocusCard).M_EquipType;
+                ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(type);
                 currentFocusEquipmentCard = currentFocusCard;
             }
 
-            if (currentFocusCard is CardShield)
-            {
-                ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(SlotTypes.Shield);
-                currentFocusEquipmentCard = currentFocusCard;
-            }
-
-            ClientPlayer.MyCostLifeMagiceManager.CostBarManager.HightlightTopBlocks(focusCard.CardInfo.BaseInfo.Cost);
+            ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.HightlightTopBlocks(focusCard.CardInfo.BaseInfo.Metal);
         }
     }
 
@@ -371,7 +366,7 @@ internal class HandManager : MonoBehaviour
             currentFocusEquipmentCard = null;
         }
 
-        ClientPlayer.MyCostLifeMagiceManager.CostBarManager.ResetHightlightTopBlocks();
+        ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
         if (!Input.GetMouseButton(0)) ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
     }
 

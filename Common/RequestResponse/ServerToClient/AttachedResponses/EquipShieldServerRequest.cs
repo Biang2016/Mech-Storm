@@ -1,7 +1,7 @@
 ﻿public class EquipShieldServerRequest : ServerRequestBase
 {
     public int clientId;
-    public CardInfo_Shield cardInfo;
+    public CardInfo_Equip cardInfo;
     public int retinueId;
     public int shieldPlaceIndex;
 
@@ -9,7 +9,7 @@
     {
     }
 
-    public EquipShieldServerRequest(int clientId, CardInfo_Shield cardInfo, int retinueId, int shieldPlaceIndex)
+    public EquipShieldServerRequest(int clientId, CardInfo_Equip cardInfo, int retinueId, int shieldPlaceIndex)
     {
         this.clientId = clientId;
         this.cardInfo = cardInfo;
@@ -50,7 +50,7 @@
         clientId = reader.ReadSInt32();
         if (reader.ReadByte() == 0x01)
         {
-            cardInfo = (CardInfo_Shield)(CardInfo_Base.Deserialze(reader));
+            cardInfo = (CardInfo_Equip)(CardInfo_Base.Deserialze(reader));
         }
         retinueId = reader.ReadSInt32();
         shieldPlaceIndex = reader.ReadSInt32();

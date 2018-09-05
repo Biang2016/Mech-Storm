@@ -23,8 +23,7 @@ internal class DragManager : MonoSingletion<DragManager>
     internal Arrow CurrentArrow;
 
     internal CardRetinue CurrentDrag_CardRetinue;
-    internal CardWeapon CurrentDrag_CardWeapon;
-    internal CardShield CurrentDrag_CardShield;
+    internal CardEquip CurrentDrag_CardEquip;
     internal CardSpell CurrentDrag_CardSpell;
     internal ModuleRetinue CurrentDrag_ModuleRetinue;
 
@@ -39,20 +38,18 @@ internal class DragManager : MonoSingletion<DragManager>
             if (currentDrag == null)
             {
                 CurrentDrag_CardRetinue = null;
-                CurrentDrag_CardWeapon = null;
-                CurrentDrag_CardShield = null;
+                CurrentDrag_CardEquip = null;
                 CurrentDrag_CardSpell = null;
                 CurrentDrag_ModuleRetinue = null;
             }
             else
             {
                 CurrentDrag_CardRetinue = currentDrag.GetComponent<CardRetinue>();
-                CurrentDrag_CardWeapon = currentDrag.GetComponent<CardWeapon>();
-                CurrentDrag_CardShield = currentDrag.GetComponent<CardShield>();
+                CurrentDrag_CardEquip = currentDrag.GetComponent<CardEquip>();
                 CurrentDrag_CardSpell = currentDrag.GetComponent<CardSpell>();
                 CurrentDrag_ModuleRetinue = currentDrag.GetComponent<ModuleRetinue>();
 
-                if (CurrentDrag_CardWeapon || CurrentDrag_CardShield)
+                if (CurrentDrag_CardEquip)
                 {
                     MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragEquipment);
                 }
@@ -155,7 +152,7 @@ internal class DragManager : MonoSingletion<DragManager>
             if (raycast.collider == null) //没有选中目标，则撤销
             {
                 SummonRetinueTargetHandler(-2);
-                CurrentArrow.PoolRecycle();
+                if (CurrentArrow) CurrentArrow.PoolRecycle();
                 IsSummonPreview = false;
                 IsArrowShowBegin = false;
             }
@@ -165,7 +162,7 @@ internal class DragManager : MonoSingletion<DragManager>
                 if (retinue == null)
                 {
                     SummonRetinueTargetHandler(-2);
-                    CurrentArrow.PoolRecycle();
+                    if (CurrentArrow) CurrentArrow.PoolRecycle();
                     IsSummonPreview = false;
                     IsArrowShowBegin = false;
                 }
@@ -174,7 +171,7 @@ internal class DragManager : MonoSingletion<DragManager>
                     if (RoundManager.Instance.SelfClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue == retinue) //不可指向自己
                     {
                         SummonRetinueTargetHandler(-2);
-                        CurrentArrow.PoolRecycle();
+                        if (CurrentArrow) CurrentArrow.PoolRecycle();
                         IsSummonPreview = false;
                         IsArrowShowBegin = false;
                     }
@@ -240,7 +237,7 @@ internal class DragManager : MonoSingletion<DragManager>
                         }
                     }
 
-                    CurrentArrow.PoolRecycle();
+                    if (CurrentArrow) CurrentArrow.PoolRecycle();
                     IsSummonPreview = false;
                     IsArrowShowBegin = false;
                 }
@@ -251,7 +248,7 @@ internal class DragManager : MonoSingletion<DragManager>
         else if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonUp(1))
         {
             SummonRetinueTargetHandler(-2);
-            CurrentArrow.PoolRecycle();
+            if (CurrentArrow) CurrentArrow.PoolRecycle();
             IsSummonPreview = false;
             IsArrowShowBegin = false;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);

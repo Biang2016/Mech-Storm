@@ -109,8 +109,8 @@ public partial class SelectBuildManager
         DegradeCardButton.onClick.RemoveAllListeners();
         if (CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID != -1)
         {
-            int moreMoney = AllCards.GetCard(CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID).BaseInfo.Money - CurrentPreviewCard.CardInfo.BaseInfo.Money;
-            UpgradeCostText.text = (-moreMoney).ToString();
+            int moreCoin = AllCards.GetCard(CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID).BaseInfo.Coin - CurrentPreviewCard.CardInfo.BaseInfo.Coin;
+            UpgradeCoinText.text = (-moreCoin).ToString();
 
             UpgradeCardButton.gameObject.SetActive(true);
             UpgradeCoin.enabled = true;
@@ -118,21 +118,21 @@ public partial class SelectBuildManager
         }
         else
         {
-            UpgradeCostText.text = "";
+            UpgradeCoinText.text = "";
             UpgradeCardButton.gameObject.SetActive(false);
             UpgradeCoin.enabled = false;
         }
 
         if (CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID != -1)
         {
-            int lessMoney = AllCards.GetCard(CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID).BaseInfo.Money - CurrentPreviewCard.CardInfo.BaseInfo.Money;
-            if (lessMoney == 0)
+            int lessCoin = AllCards.GetCard(CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID).BaseInfo.Coin - CurrentPreviewCard.CardInfo.BaseInfo.Coin;
+            if (lessCoin == 0)
             {
-                DegradeCostText.text = 0.ToString();
+                DegradeCoinText.text = 0.ToString();
             }
-            else if (lessMoney < 0)
+            else if (lessCoin < 0)
             {
-                DegradeCostText.text = "+" + (-lessMoney);
+                DegradeCoinText.text = "+" + (-lessCoin);
             }
 
             DegradeCardButton.gameObject.SetActive(true);
@@ -141,7 +141,7 @@ public partial class SelectBuildManager
         }
         else
         {
-            DegradeCostText.text = "";
+            DegradeCoinText.text = "";
             DegradeCardButton.gameObject.SetActive(false);
             DegradeCoin.enabled = false;
         }
@@ -177,8 +177,8 @@ public partial class SelectBuildManager
 
             UpgradeCardButton.onClick.RemoveAllListeners();
             DegradeCardButton.onClick.RemoveAllListeners();
-            UpgradeCostText.text = "";
-            DegradeCostText.text = "";
+            UpgradeCoinText.text = "";
+            DegradeCoinText.text = "";
         }
     }
 
@@ -186,9 +186,9 @@ public partial class SelectBuildManager
     public GameObject PreviewCardPanelBG;
     public Button UpgradeCardButton;
     public Button DegradeCardButton;
-    public Text UpgradeCostText;
+    public Text UpgradeCoinText;
     public Image UpgradeCoin;
-    public Text DegradeCostText;
+    public Text DegradeCoinText;
     public Image DegradeCoin;
 
     internal void OnUpgradeButtonClick()
@@ -208,7 +208,7 @@ public partial class SelectBuildManager
         {
             cardCount = SelectedCards[currentCardID].Count;
 
-            if ((GamePlaySettings.PlayerDefaultMaxMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney()) + (CurrentPreviewCard.CardInfo.BaseInfo.Money - upgradeCardInfo.BaseInfo.Money) * cardCount < 0)
+            if ((GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin()) + (CurrentPreviewCard.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
             {
                 NoticeManager.Instance.ShowInfoPanelCenter("预算不足", 0f, 1f);
                 return;
@@ -220,8 +220,8 @@ public partial class SelectBuildManager
             currentSelectCard.Text_CardName.text = upgradeCardInfo.BaseInfo.CardName;
         }
 
-        CurrentEditBuildButton.BuildInfo.CardConsumeMoney -= (CurrentPreviewCard.CardInfo.BaseInfo.Money - upgradeCardInfo.BaseInfo.Money) * cardCount;
-        RefreshMoneyLifeMagic();
+        CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (CurrentPreviewCard.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount;
+        RefreshCoinLifeEnergy();
 
         CurrentPreviewCard.Initiate(upgradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
 
@@ -252,8 +252,8 @@ public partial class SelectBuildManager
             currentSelectCard.Text_CardName.text = degradeCardInfo.BaseInfo.CardName;
         }
 
-        CurrentEditBuildButton.BuildInfo.CardConsumeMoney -= (CurrentPreviewCard.CardInfo.BaseInfo.Money - degradeCardInfo.BaseInfo.Money) * cardCount;
-        RefreshMoneyLifeMagic();
+        CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (CurrentPreviewCard.CardInfo.BaseInfo.Coin - degradeCardInfo.BaseInfo.Coin) * cardCount;
+        RefreshCoinLifeEnergy();
 
         CurrentPreviewCard.Initiate(degradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
 

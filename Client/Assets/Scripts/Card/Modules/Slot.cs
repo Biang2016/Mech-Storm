@@ -78,24 +78,10 @@ internal class Slot : MonoBehaviour, IMouseHoverComponent
     {
         if (DragManager.Instance.CurrentDrag)
         {
-            switch (MSlotTypes)
+            CardEquip cw = DragManager.Instance.CurrentDrag_CardEquip;
+            if (cw && cw.ClientPlayer == ClientPlayer)
             {
-                case SlotTypes.Weapon:
-                    CardWeapon cw = DragManager.Instance.CurrentDrag_CardWeapon;
-                    if (cw && cw.ClientPlayer == ClientPlayer)
-                    {
-                        ShowHoverGO();
-                    }
-
-                    break;
-                case SlotTypes.Shield:
-                    CardShield cs = DragManager.Instance.CurrentDrag_CardShield;
-                    if (cs && cs.ClientPlayer == ClientPlayer)
-                    {
-                        ShowHoverGO();
-                    }
-
-                    break;
+                ShowHoverGO();
             }
         }
     }

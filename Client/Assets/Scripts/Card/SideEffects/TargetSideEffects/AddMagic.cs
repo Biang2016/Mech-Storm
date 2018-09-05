@@ -1,8 +1,8 @@
 ﻿namespace SideEffects
 {
-    public class AddMagic : AddMagic_Base
+    public class AddEnergy : AddEnergy_Base
     {
-        public AddMagic()
+        public AddEnergy()
         {
         }
 

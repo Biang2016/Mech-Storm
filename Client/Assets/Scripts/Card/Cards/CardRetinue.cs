@@ -37,20 +37,11 @@ internal class CardRetinue : CardBase
 
     #region 卡牌上各模块
 
-    [SerializeField] private Text Text_RetinueName;
-    [SerializeField] private Text Text_RetinueDesc;
-
-    [SerializeField] private GameObject Block_RetinueTotalLife;
-    GameObject GoNumberSet_RetinueTotalLife;
-    CardNumberSet CardNumberSet_RetinueTotalLife;
-
+    [SerializeField] private Text Text_Life;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
         base.Initiate(cardInfo, clientPlayer, isCardSelect);
-        M_RetinueName = CardInfo.BaseInfo.CardName;
-        M_Desc = ((CardInfo_Retinue) CardInfo).GetCardDescShow();
-        M_RetinueLeftLife = CardInfo.LifeInfo.Life;
         M_RetinueTotalLife = CardInfo.LifeInfo.TotalLife;
         M_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
         M_RetinueArmor = CardInfo.BattleInfo.BasicArmor;
@@ -66,36 +57,6 @@ internal class CardRetinue : CardBase
         Slot4.MSlotTypes = CardInfo.SlotInfo.Slot4;
     }
 
-    private string m_RetinueName;
-
-    public string M_RetinueName
-    {
-        get { return m_RetinueName; }
-        set
-        {
-            m_RetinueName = value;
-            Text_RetinueName.text = value;
-        }
-    }
-
-    public override string M_Desc
-    {
-        get { return m_Desc; }
-        set
-        {
-            m_Desc = value;
-            Text_RetinueDesc.text = value;
-        }
-    }
-
-    private int m_RetinueLeftLife;
-
-    public int M_RetinueLeftLife
-    {
-        get { return m_RetinueLeftLife; }
-        set { m_RetinueLeftLife = value; }
-    }
-
     private int m_RetinueTotalLife;
 
     public int M_RetinueTotalLife
@@ -104,8 +65,7 @@ internal class CardRetinue : CardBase
         set
         {
             m_RetinueTotalLife = value;
-            initiateNumbers(ref GoNumberSet_RetinueTotalLife, ref CardNumberSet_RetinueTotalLife, NumberSize.Big, CardNumberSet.TextAlign.Right, Block_RetinueTotalLife);
-            CardNumberSet_RetinueTotalLife.Number = m_RetinueTotalLife;
+            Text_Life.text = value.ToString();
         }
     }
 
@@ -141,9 +101,9 @@ internal class CardRetinue : CardBase
     [SerializeField] private Slot Slot2;
     [SerializeField] private Slot Slot3;
     [SerializeField] private Slot Slot4;
-    internal GameObject Pack;
     internal ModuleWeapon Weapon;
     internal ModuleShield Shield;
+    internal GameObject Pack;
     internal GameObject MA;
 
     # endregion

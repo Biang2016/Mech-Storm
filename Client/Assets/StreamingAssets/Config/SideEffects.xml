@@ -64,15 +64,15 @@
   <SideEffect id="13" name="CopyNextDrawCard" desc="抽1张牌,并获得该牌的{0}张复制">
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="14" name="AddEnergy" desc="武器能量增加{0}点">
+  <SideEffect id="14" name="AddWeaponEnergy" desc="武器能量增加{0}点">
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="15" name="AddMagic" desc="为{0}增加{1}点能量">
+  <SideEffect id="15" name="AddEnergy" desc="为{0}增加{1}点能量">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="16" name="WaitInHandDecreaseMagic" desc="该牌的能量花费减少{0}点">
+  <SideEffect id="16" name="WaitInHandDecreaseEnergy" desc="该牌的能量花费减少{0}点">
     <params name="Value" type="int"></params>
   </SideEffect>
 </AllSideEffects>

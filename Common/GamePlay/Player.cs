@@ -1,47 +1,47 @@
 ﻿public class Player
 {
-    public Player(string username,int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax)
+    public Player(string username,int metalLeft, int metalMax, int lifeLeft, int lifeMax, int energyLeft, int energyMax)
     {
         this.Username = username;
-        this.costMax = costMax;
-        this.costLeft = costLeft;
+        this.metalMax = metalMax;
+        this.metalLeft = metalLeft;
         this.lifeLeft = lifeLeft;
         this.lifeMax = lifeMax;
-        this.magicLeft = magicLeft;
-        this.magicMax = magicMax;
-        OnCostChanged();
+        this.energyLeft = energyLeft;
+        this.energyMax = energyMax;
+        OnMetalChanged();
         OnLifeChanged();
-        OnMagicChanged();
+        OnEnergyChanged();
     }
 
     public string Username;
 
-    private int costMax;
+    private int metalMax;
 
-    public int CostMax
+    public int MetalMax
     {
-        get { return costMax; }
+        get { return metalMax; }
     }
 
-    private int costLeft;
+    private int metalLeft;
 
-    public int CostLeft
+    public int MetalLeft
     {
-        get { return costLeft; }
+        get { return metalLeft; }
     }
 
-    private int magicMax;
+    private int energyMax;
 
-    public int MagicMax
+    public int EnergyMax
     {
-        get { return magicMax; }
+        get { return energyMax; }
     }
 
-    private int magicLeft;
+    private int energyLeft;
 
-    public int MagicLeft
+    public int EnergyLeft
     {
-        get { return magicLeft; }
+        get { return energyLeft; }
     }
 
     private int lifeMax;
@@ -58,20 +58,20 @@
         get { return lifeLeft; }
     }
 
-    protected virtual void OnCostChanged()
+    protected virtual void OnMetalChanged()
     {
     }
 
-    protected virtual void AddCost(int addCostNumber)
+    protected virtual void AddMetal(int addMetalNumber)
     {
-        costLeft += addCostNumber;
-        OnCostChanged();
+        metalLeft += addMetalNumber;
+        OnMetalChanged();
     }
 
-    protected virtual void AddCostMax(int addCostNumber)
+    protected virtual void AddMetalMax(int addMetalNumber)
     {
-        costMax += addCostNumber;
-        OnCostChanged();
+        metalMax += addMetalNumber;
+        OnMetalChanged();
     }
 
     protected virtual void OnLifeChanged()
@@ -84,13 +84,13 @@
         OnLifeChanged();
     }
 
-    protected virtual void OnMagicChanged()
+    protected virtual void OnEnergyChanged()
     {
     }
 
-    protected virtual void AddMagic(int addMagicNumber)
+    protected virtual void AddEnergy(int addEnergyNumber)
     {
-        magicLeft += addMagicNumber;
-        OnMagicChanged();
+        energyLeft += addEnergyNumber;
+        OnEnergyChanged();
     }
 }

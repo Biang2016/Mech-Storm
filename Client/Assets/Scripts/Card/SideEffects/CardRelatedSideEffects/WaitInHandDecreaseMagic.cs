@@ -1,8 +1,8 @@
 ﻿namespace SideEffects
 {
-    public class WaitInHandDecreaseMagic : WaitInHandDecreaseMagic_Base
+    public class WaitInHandDecreaseEnergy : WaitInHandDecreaseEnergy_Base
     {
-        public WaitInHandDecreaseMagic()
+        public WaitInHandDecreaseEnergy()
         {
         }
 

@@ -1,7 +1,7 @@
 ﻿public class EquipWeaponServerRequest : ServerRequestBase
 {
     public int clientId;
-    public CardInfo_Weapon cardInfo;
+    public CardInfo_Equip cardInfo;
     public int retinueId;
     public int weaponPlaceIndex;
 
@@ -9,7 +9,7 @@
     {
     }
 
-    public EquipWeaponServerRequest(int clientId, CardInfo_Weapon cardInfo, int retinueId, int weaponPlaceIndex)
+    public EquipWeaponServerRequest(int clientId, CardInfo_Equip cardInfo, int retinueId, int weaponPlaceIndex)
     {
         this.clientId = clientId;
         this.cardInfo = cardInfo;
@@ -50,7 +50,7 @@
         clientId = reader.ReadSInt32();
         if (reader.ReadByte() == 0x01)
         {
-            cardInfo = (CardInfo_Weapon)(CardInfo_Base.Deserialze(reader));
+            cardInfo = (CardInfo_Equip)(CardInfo_Base.Deserialze(reader));
         }
         retinueId = reader.ReadSInt32();
         weaponPlaceIndex = reader.ReadSInt32();

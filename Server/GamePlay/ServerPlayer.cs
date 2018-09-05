@@ -10,7 +10,7 @@
     public ServerCardDeckManager MyCardDeckManager;
     public ServerBattleGroundManager MyBattleGroundManager;
 
-    public ServerPlayer(string username, int clientId, int enemyClientId, int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax, ServerGameManager serverGameManager) : base(username, costLeft, costMax, lifeLeft, lifeMax, magicLeft, magicMax)
+    public ServerPlayer(string username, int clientId, int enemyClientId, int metalLeft, int metalMax, int lifeLeft, int lifeMax, int energyLeft, int energyMax, ServerGameManager serverGameManager) : base(username, metalLeft, metalMax, lifeLeft, lifeMax, energyLeft, energyMax)
     {
         ClientId = clientId;
         EnemyClientId = enemyClientId;
@@ -29,93 +29,93 @@
         MyBattleGroundManager = null;
     }
 
-    #region CostChange
+    #region MetalChange
 
-    public void AddCostWithoutLimit(int addCostValue)
+    public void AddMetalWithoutLimit(int addMetalValue)
     {
-        AddCost(addCostValue);
-        if (addCostValue != 0)
+        AddMetal(addMetalValue);
+        if (addMetalValue != 0)
         {
-            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: addCostValue);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: addMetalValue);
             BroadCastRequest(request);
         }
     }
 
-    public void AddCostWithinMax(int addCostValue)
+    public void AddMetalWithinMax(int addMetalValue)
     {
-        int costLeftBefore = CostLeft;
-        if (CostMax - CostLeft > addCostValue)
-            AddCost(addCostValue);
+        int metalLeftBefore = MetalLeft;
+        if (MetalMax - MetalLeft > addMetalValue)
+            AddMetal(addMetalValue);
         else
-            AddCost(CostMax - CostLeft);
-        if (addCostValue != 0)
+            AddMetal(MetalMax - MetalLeft);
+        if (addMetalValue != 0)
         {
-            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: MetalLeft - metalLeftBefore);
             BroadCastRequest(request);
         }
     }
 
-    public void UseCostAboveZero(int useCostValue)
+    public void UseMetalAboveZero(int useMetalValue)
     {
-        int costLeftBefore = CostLeft;
-        if (CostLeft > useCostValue)
-            AddCost(-useCostValue);
+        int metalLeftBefore = MetalLeft;
+        if (MetalLeft > useMetalValue)
+            AddMetal(-useMetalValue);
         else
-            AddCost(-CostLeft);
-        if (useCostValue != 0)
+            AddMetal(-MetalLeft);
+        if (useMetalValue != 0)
         {
-            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: MetalLeft - metalLeftBefore);
             BroadCastRequest(request);
         }
     }
 
-    public void AddAllCost()
+    public void AddAllMetal()
     {
-        int costLeftBefore = CostLeft;
-        AddCost(CostMax - CostLeft);
-        if (CostLeft - costLeftBefore != 0)
+        int metalLeftBefore = MetalLeft;
+        AddMetal(MetalMax - MetalLeft);
+        if (MetalLeft - metalLeftBefore != 0)
         {
-            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: MetalLeft - metalLeftBefore);
             BroadCastRequest(request);
         }
     }
 
-    public void UseAllCost()
+    public void UseAllMetal()
     {
-        int costLeftBefore = CostLeft;
-        AddCost(-CostLeft);
-        if (CostLeft - costLeftBefore != 0)
+        int metalLeftBefore = MetalLeft;
+        AddMetal(-MetalLeft);
+        if (MetalLeft - metalLeftBefore != 0)
         {
-            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Left, addCost_left: CostLeft - costLeftBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: MetalLeft - metalLeftBefore);
             BroadCastRequest(request);
         }
     }
 
 
-    public void IncreaseCostMax(int increaseValue)
+    public void IncreaseMetalMax(int increaseValue)
     {
-        int costMaxBefore = CostMax;
-        if (CostMax + increaseValue <= GamePlaySettings.MaxCost)
-            AddCostMax(increaseValue);
+        int metalMaxBefore = MetalMax;
+        if (MetalMax + increaseValue <= GamePlaySettings.MaxMetal)
+            AddMetalMax(increaseValue);
         else
-            AddCostMax(GamePlaySettings.MaxCost - CostMax);
+            AddMetalMax(GamePlaySettings.MaxMetal - MetalMax);
         if (increaseValue != 0)
         {
-            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Max, 0, addMetal_max: MetalMax - metalMaxBefore);
             BroadCastRequest(request);
         }
     }
 
-    public void DecreaseCostMax(int decreaseValue)
+    public void DecreaseMetalMax(int decreaseValue)
     {
-        int costMaxBefore = CostMax;
-        if (CostMax <= decreaseValue)
-            AddCostMax(-CostMax);
+        int metalMaxBefore = MetalMax;
+        if (MetalMax <= decreaseValue)
+            AddMetalMax(-MetalMax);
         else
-            AddCostMax(-decreaseValue);
+            AddMetalMax(-decreaseValue);
         if (decreaseValue != 0)
         {
-            PlayerCostChangeRequest request = new PlayerCostChangeRequest(ClientId, PlayerCostChangeRequest.CostChangeFlag.Max, 0, addCost_max: CostMax - costMaxBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Max, 0, addMetal_max: MetalMax - metalMaxBefore);
             BroadCastRequest(request);
         }
     }
@@ -170,43 +170,43 @@
 
     #endregion
 
-    #region MagicChange
+    #region EnergyChange
 
-    public void AddMagicWithinMax(int addMagicValue)
+    public void AddEnergyWithinMax(int addEnergyValue)
     {
-        int MagicLeftBefore = MagicLeft;
-        if (MagicMax - MagicLeft > addMagicValue)
-            AddMagic(addMagicValue);
+        int EnergyLeftBefore = EnergyLeft;
+        if (EnergyMax - EnergyLeft > addEnergyValue)
+            AddEnergy(addEnergyValue);
         else
-            AddMagic(MagicMax - MagicLeft);
-        if (addMagicValue != 0)
+            AddEnergy(EnergyMax - EnergyLeft);
+        if (addEnergyValue != 0)
         {
-            PlayerMagicChangeRequest request = new PlayerMagicChangeRequest(ClientId, PlayerMagicChangeRequest.MagicChangeFlag.Left, addMagic_left: MagicLeft - MagicLeftBefore);
+            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, PlayerEnergyChangeRequest.EnergyChangeFlag.Left, addEnergy_left: EnergyLeft - EnergyLeftBefore);
             BroadCastRequest(request);
         }
     }
 
-    public void UseMagicAboveZero(int useMagicValue)
+    public void UseEnergyAboveZero(int useEnergyValue)
     {
-        int MagicLeftBefore = MagicLeft;
-        if (MagicLeft > useMagicValue)
-            AddMagic(-useMagicValue);
+        int EnergyLeftBefore = EnergyLeft;
+        if (EnergyLeft > useEnergyValue)
+            AddEnergy(-useEnergyValue);
         else
-            AddMagic(-MagicLeft);
-        if (useMagicValue != 0)
+            AddEnergy(-EnergyLeft);
+        if (useEnergyValue != 0)
         {
-            PlayerMagicChangeRequest request = new PlayerMagicChangeRequest(ClientId, PlayerMagicChangeRequest.MagicChangeFlag.Left, addMagic_left: MagicLeft - MagicLeftBefore);
+            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, PlayerEnergyChangeRequest.EnergyChangeFlag.Left, addEnergy_left: EnergyLeft - EnergyLeftBefore);
             BroadCastRequest(request);
         }
     }
 
-    public void AddAllMagic()
+    public void AddAllEnergy()
     {
-        int MagicLeftBefore = MagicLeft;
-        AddMagic(MagicMax - MagicLeft);
-        if (MagicLeft - MagicLeftBefore != 0)
+        int EnergyLeftBefore = EnergyLeft;
+        AddEnergy(EnergyMax - EnergyLeft);
+        if (EnergyLeft - EnergyLeftBefore != 0)
         {
-            PlayerMagicChangeRequest request = new PlayerMagicChangeRequest(ClientId, PlayerMagicChangeRequest.MagicChangeFlag.Left, addMagic_left: MagicLeft - MagicLeftBefore);
+            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, PlayerEnergyChangeRequest.EnergyChangeFlag.Left, addEnergy_left: EnergyLeft - EnergyLeftBefore);
             BroadCastRequest(request);
         }
     }

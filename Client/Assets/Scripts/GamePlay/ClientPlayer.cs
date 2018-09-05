@@ -3,55 +3,55 @@ internal class ClientPlayer : Player
     public BoardAreaTypes MyBattleGroundArea; //卡牌所属方的战场区
     public HandManager MyHandManager; //卡牌所属的手部区管理器
     internal BattleGroundManager MyBattleGroundManager; //卡牌所属方的战场区域管理器
-    internal CostLifeMagiceManager MyCostLifeMagiceManager; //Cost、Magic、Life条的管理器
+    internal MetalLifeEnergyManager MyMetalLifeEnergyManager; //Metal、Energy、Life条的管理器
     internal BoardAreaTypes MyHandArea; //卡牌所属的手部区
     internal Players WhichPlayer;
     public int ClientId;
     public bool IsInitialized = false;
 
-    internal ClientPlayer(string username, int costLeft, int costMax, int lifeLeft, int lifeMax, int magicLeft, int magicMax, Players whichPlayer) : base(username, costLeft, costMax, lifeLeft, lifeMax, magicLeft, magicMax)
+    internal ClientPlayer(string username, int metalLeft, int metalMax, int lifeLeft, int lifeMax, int energyLeft, int energyMax, Players whichPlayer) : base(username, metalLeft, metalMax, lifeLeft, lifeMax, energyLeft, energyMax)
     {
         WhichPlayer = whichPlayer;
         MyHandArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfHandArea : BoardAreaTypes.EnemyHandArea;
         MyBattleGroundArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfBattleGroundArea : BoardAreaTypes.EnemyBattleGroundArea;
         MyHandManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfHandManager : GameBoardManager.Instance.EnemyHandManager;
         MyBattleGroundManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfBattleGroundManager : GameBoardManager.Instance.EnemyBattleGroundManager;
-        MyCostLifeMagiceManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfCostLifeMagiceManager : GameBoardManager.Instance.EnemyCostLifeMagiceManager;
+        MyMetalLifeEnergyManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfMetalLifeEnergyManager : GameBoardManager.Instance.EnemyMetalLifeEnergyManager;
         MyHandManager.ClientPlayer = this;
-        MyCostLifeMagiceManager.ClientPlayer = this;
+        MyMetalLifeEnergyManager.ClientPlayer = this;
         MyBattleGroundManager.ClientPlayer = this;
         IsInitialized = true;
         SetTotalLife();
-        SetTotalMagic();
-        OnCostChanged();
+        SetTotalEnergy();
+        OnMetalChanged();
         OnLifeChanged();
-        OnMagicChanged();
+        OnEnergyChanged();
     }
 
-    #region Cost
+    #region Metal
 
-    protected override void OnCostChanged()
+    protected override void OnMetalChanged()
     {
         if (IsInitialized)
         {
-            MyCostLifeMagiceManager.SetCost(CostLeft);
+            MyMetalLifeEnergyManager.SetMetal(MetalLeft);
         }
     }
 
-    public void DoChangeCost(PlayerCostChangeRequest request)
+    public void DoChangeMetal(PlayerMetalChangeRequest request)
     {
-        if (request.change == PlayerCostChangeRequest.CostChangeFlag.Both)
+        if (request.change == PlayerMetalChangeRequest.MetalChangeFlag.Both)
         {
-            AddCost(request.addCost_left);
-            AddCostMax(request.addCost_max);
+            AddMetal(request.addMetal_left);
+            AddMetalMax(request.addMetal_max);
         }
-        else if (request.change == PlayerCostChangeRequest.CostChangeFlag.Left)
+        else if (request.change == PlayerMetalChangeRequest.MetalChangeFlag.Left)
         {
-            AddCost(request.addCost_left);
+            AddMetal(request.addMetal_left);
         }
-        else if (request.change == PlayerCostChangeRequest.CostChangeFlag.Max)
+        else if (request.change == PlayerMetalChangeRequest.MetalChangeFlag.Max)
         {
-            AddCostMax(request.addCost_max);
+            AddMetalMax(request.addMetal_max);
         }
     }
 
@@ -61,12 +61,12 @@ internal class ClientPlayer : Player
 
     protected override void OnLifeChanged()
     {
-        if (IsInitialized) MyCostLifeMagiceManager.SetLife(LifeLeft);
+        if (IsInitialized) MyMetalLifeEnergyManager.SetLife(LifeLeft);
     }
 
     protected void SetTotalLife()
     {
-        if (IsInitialized) MyCostLifeMagiceManager.SetTotalLife(LifeMax);
+        if (IsInitialized) MyMetalLifeEnergyManager.SetTotalLife(LifeMax);
     }
 
     public void DoChangeLife(PlayerLifeChangeRequest request)
@@ -79,23 +79,23 @@ internal class ClientPlayer : Player
 
     #endregion
 
-    #region Magic
+    #region Energy
 
-    protected override void OnMagicChanged()
+    protected override void OnEnergyChanged()
     {
-        if (IsInitialized) MyCostLifeMagiceManager.SetMagic(MagicLeft);
+        if (IsInitialized) MyMetalLifeEnergyManager.SetEnergy(EnergyLeft);
     }
 
-    protected void SetTotalMagic()
+    protected void SetTotalEnergy()
     {
-        if (IsInitialized) MyCostLifeMagiceManager.SetTotalMagic(MagicMax);
+        if (IsInitialized) MyMetalLifeEnergyManager.SetTotalEnergy(EnergyMax);
     }
 
-    public void DoChangeMagic(PlayerMagicChangeRequest request)
+    public void DoChangeEnergy(PlayerEnergyChangeRequest request)
     {
-        if (request.change == PlayerMagicChangeRequest.MagicChangeFlag.Left)
+        if (request.change == PlayerEnergyChangeRequest.EnergyChangeFlag.Left)
         {
-            AddMagic(request.addMagic_left);
+            AddEnergy(request.addEnergy_left);
         }
     }
 

@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa4b42f43b71f3c4eb86f8915ac187cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text_Cost: {fileID: 114806354083013408}
+  Text_Metal: {fileID: 114965916724364668}
   Text_Count: {fileID: 114417810567972970}
   CardButton: {fileID: 114587486140247218}
   Text_CardName: {fileID: 114965916724364668}

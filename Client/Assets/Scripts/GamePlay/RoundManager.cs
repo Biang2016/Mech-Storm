@@ -54,12 +54,12 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     {
         if (r.clientId == Client.Instance.Proxy.ClientId)
         {
-            SelfClientPlayer = new ClientPlayer(r.username, r.costLeft, r.costMax, r.lifeLeft, r.lifeMax, r.magicLeft, r.magicMax, Players.Self);
+            SelfClientPlayer = new ClientPlayer(r.username, r.metalLeft, r.metalMax, r.lifeLeft, r.lifeMax, r.energyLeft, r.energyMax, Players.Self);
             SelfClientPlayer.ClientId = r.clientId;
         }
         else
         {
-            EnemyClientPlayer = new ClientPlayer(r.username, r.costLeft, r.costMax, r.lifeLeft, r.lifeMax, r.magicLeft, r.magicMax, Players.Enemy);
+            EnemyClientPlayer = new ClientPlayer(r.username, r.metalLeft, r.metalMax, r.lifeLeft, r.lifeMax, r.energyLeft, r.energyMax, Players.Enemy);
             EnemyClientPlayer.ClientId = r.clientId;
         }
     }

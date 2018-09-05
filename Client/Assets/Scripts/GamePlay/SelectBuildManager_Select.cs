@@ -97,7 +97,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        if (!isSwitchingBuildInfo && GamePlaySettings.PlayerDefaultMaxMoney - CurrentEditBuildButton.BuildInfo.GetBuildConsumeMoney() < card.CardInfo.BaseInfo.Money)
+        if (!isSwitchingBuildInfo && GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin() < card.CardInfo.BaseInfo.Coin)
         {
             NoticeManager.Instance.ShowInfoPanelCenter("预算不足", 0f, 1f);
             return;
@@ -122,7 +122,7 @@ public partial class SelectBuildManager
                 SelectCard retinueSelect = GenerateNewSelectCard(card, RetinueContent);
                 SelectedHeros.Add(card.CardInfo.CardID, retinueSelect);
                 List<SelectCard> SCs = RetinueContent.GetComponentsInChildren<SelectCard>(true).ToList();
-                SCs.Sort((a, b) => a.Cost.CompareTo(b.Cost));
+                SCs.Sort((a, b) => a.Metal.CompareTo(b.Metal));
                 RetinueContent.DetachChildren();
                 foreach (SelectCard selectCard in SCs)
                 {
@@ -148,7 +148,7 @@ public partial class SelectBuildManager
                 SelectCard newSC = GenerateNewSelectCard(card, SelectionContent);
                 SelectedCards.Add(card.CardInfo.CardID, newSC);
                 List<SelectCard> SCs = SelectionContent.GetComponentsInChildren<SelectCard>(true).ToList();
-                SCs.Sort((a, b) => a.Cost.CompareTo(b.Cost));
+                SCs.Sort((a, b) => a.Metal.CompareTo(b.Metal));
                 SelectionContent.DetachChildren();
                 foreach (SelectCard selectCard in SCs)
                 {
@@ -166,8 +166,8 @@ public partial class SelectBuildManager
         if (!isSwitchingBuildInfo)
         {
             CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
-            CurrentEditBuildButton.BuildInfo.CardConsumeMoney += card.CardInfo.BaseInfo.Money;
-            RefreshMoneyLifeMagic();
+            CurrentEditBuildButton.BuildInfo.CardConsumeCoin += card.CardInfo.BaseInfo.Coin;
+            RefreshCoinLifeEnergy();
         }
     }
 
@@ -176,7 +176,7 @@ public partial class SelectBuildManager
         SelectCard newSC = GameObjectPoolManager.Instance.Pool_SelectCardPool.AllocateGameObject(parenTransform).GetComponent<SelectCard>();
 
         newSC.Count = 1;
-        newSC.Cost = card.CardInfo.BaseInfo.Cost;
+        newSC.Metal = card.CardInfo.BaseInfo.Metal;
         newSC.Text_CardName.text = card.CardInfo.BaseInfo.CardName;
         newSC.CardButton.onClick.RemoveAllListeners();
         newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card); });
@@ -232,8 +232,8 @@ public partial class SelectBuildManager
         if (!isSwitchingBuildInfo)
         {
             CurrentEditBuildButton.RemoveCard(card.CardInfo.CardID);
-            CurrentEditBuildButton.BuildInfo.CardConsumeMoney -= card.CardInfo.BaseInfo.Money;
-            RefreshMoneyLifeMagic();
+            CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= card.CardInfo.BaseInfo.Coin;
+            RefreshCoinLifeEnergy();
         }
     }
 
@@ -275,7 +275,7 @@ public partial class SelectBuildManager
             }
         }
 
-        RefreshMoneyLifeMagic();
+        RefreshCoinLifeEnergy();
 
         isSwitchingBuildInfo = false;
     }
@@ -310,10 +310,10 @@ public partial class SelectBuildManager
             if (CurrentEditBuildButton != null)
             {
                 CurrentEditBuildButton.BuildInfo.CardIDs.Clear();
-                CurrentEditBuildButton.BuildInfo.CardConsumeMoney = 0;
+                CurrentEditBuildButton.BuildInfo.CardConsumeCoin = 0;
                 CurrentEditBuildButton.BuildInfo.Life = GamePlaySettings.PlayerDefaultLife;
-                CurrentEditBuildButton.BuildInfo.Magic = GamePlaySettings.PlayerDefaultMagic;
-                RefreshMoneyLifeMagic();
+                CurrentEditBuildButton.BuildInfo.Energy = GamePlaySettings.PlayerDefaultEnergy;
+                RefreshCoinLifeEnergy();
             }
         }
 

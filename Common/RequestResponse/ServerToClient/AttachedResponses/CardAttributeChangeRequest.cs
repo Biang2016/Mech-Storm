@@ -2,20 +2,20 @@
 {
     public int clientId;
     public int cardInstanceId;
-    public int costChange;
-    public int magicChange;
+    public int metalChange;
+    public int energyChange;
     public int effectFactor;
 
     public CardAttributeChangeRequest()
     {
     }
 
-    public CardAttributeChangeRequest(int clientId, int cardInstanceId, int costChange, int magicChange, int effectFactor)
+    public CardAttributeChangeRequest(int clientId, int cardInstanceId, int metalChange, int energyChange, int effectFactor)
     {
         this.clientId = clientId;
         this.cardInstanceId = cardInstanceId;
-        this.costChange = costChange;
-        this.magicChange = magicChange;
+        this.metalChange = metalChange;
+        this.energyChange = energyChange;
         this.effectFactor = effectFactor;
     }
 
@@ -34,8 +34,8 @@
         base.Serialize(writer);
         writer.WriteSInt32(clientId);
         writer.WriteSInt32(cardInstanceId);
-        writer.WriteSInt32(costChange);
-        writer.WriteSInt32(magicChange);
+        writer.WriteSInt32(metalChange);
+        writer.WriteSInt32(energyChange);
         writer.WriteSInt32(effectFactor);
     }
 
@@ -44,8 +44,8 @@
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
         cardInstanceId = reader.ReadSInt32();
-        costChange = reader.ReadSInt32();
-        magicChange = reader.ReadSInt32();
+        metalChange = reader.ReadSInt32();
+        energyChange = reader.ReadSInt32();
         effectFactor = reader.ReadSInt32();
     }
 
@@ -54,8 +54,8 @@
         string log = base.DeserializeLog();
         log += " [clientId]=" + clientId;
         log += " [cardInstanceId]=" + cardInstanceId;
-        log += " [costChange]=" + costChange;
-        log += " [magicChange]=" + magicChange;
+        log += " [metalChange]=" + metalChange;
+        log += " [energyChange]=" + energyChange;
         log += " [effectFactor]=" + effectFactor;
         return log;
     }

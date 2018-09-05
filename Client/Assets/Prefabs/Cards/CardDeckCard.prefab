@@ -198,4 +198,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainBoardRenderer: {fileID: 23126163292354834}
-  CardBloom: {fileID: 1357290400325094}
+  CardBloomRenderer: {fileID: 23138194927462758}

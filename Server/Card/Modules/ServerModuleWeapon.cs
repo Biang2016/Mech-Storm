@@ -13,11 +13,13 @@
 
     public override CardInfo_Base GetCurrentCardInfo()
     {
-        return new CardInfo_Weapon(
+        return new CardInfo_Equip(
             cardID: CardInfo.CardID,
             baseInfo: CardInfo.BaseInfo,
             upgradeInfo: CardInfo.UpgradeInfo,
+            slotType: ((CardInfo_Equip) CardInfo).M_SlotType,
             weaponInfo: CardInfo.WeaponInfo,
+            shieldInfo: CardInfo.ShieldInfo,
             sideEffects_OnEndRound: CardInfo.SideEffects_OnEndRound,
             sideEffects_OnPlayOut: CardInfo.SideEffects_OnPlayOut,
             sideEffects_OnSummoned: CardInfo.SideEffects_OnSummoned,

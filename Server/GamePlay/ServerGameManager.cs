@@ -51,15 +51,15 @@ internal class ServerGameManager
         SyncRandomNumber();
 
         int PA_LIFE = ClientA.CurrentBuildInfo.Life;
-        int PA_MAGIC = ClientA.CurrentBuildInfo.Magic;
+        int PA_MAGIC = ClientA.CurrentBuildInfo.Energy;
         int PB_LIFE = ClientB.CurrentBuildInfo.Life;
-        int PB_MAGIC = ClientB.CurrentBuildInfo.Magic;
+        int PB_MAGIC = ClientB.CurrentBuildInfo.Energy;
 
-        PlayerA = new ServerPlayer(ClientA.UserName, ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginCost, PA_LIFE, PA_LIFE, PA_MAGIC, PA_MAGIC, this);
+        PlayerA = new ServerPlayer(ClientA.UserName, ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginMetal, PA_LIFE, PA_LIFE, PA_MAGIC, PA_MAGIC, this);
         PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange);
         PlayerA.MyClientProxy = ClientA;
 
-        PlayerB = new ServerPlayer(ClientB.UserName, ClientB.ClientId, ClientA.ClientId, 0, GamePlaySettings.BeginCost, PB_LIFE, PB_LIFE, PB_MAGIC, PB_MAGIC, this);
+        PlayerB = new ServerPlayer(ClientB.UserName, ClientB.ClientId, ClientA.ClientId, 0, GamePlaySettings.BeginMetal, PB_LIFE, PB_LIFE, PB_MAGIC, PB_MAGIC, this);
         PlayerB.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientB.CurrentBuildInfo, PlayerB.OnCardDeckLeftChange);
         PlayerB.MyCardDeckManager.M_CurrentCardDeck.CardDeckCountChangeHandler += PlayerB.OnCardDeckLeftChange;
         PlayerB.MyClientProxy = ClientB;
@@ -70,9 +70,9 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
 
-        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientId, 0, GamePlaySettings.BeginCost, PA_LIFE, PA_LIFE, PA_MAGIC, PA_MAGIC);
+        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientId, 0, GamePlaySettings.BeginMetal, PA_LIFE, PA_LIFE, PA_MAGIC, PA_MAGIC);
         Broadcast_AddRequestToOperationResponse(request1);
-        SetPlayerRequest request2 = new SetPlayerRequest(ClientA.UserName, ClientB.ClientId, 0, GamePlaySettings.BeginCost, PB_LIFE, PB_LIFE, PB_MAGIC, PB_MAGIC);
+        SetPlayerRequest request2 = new SetPlayerRequest(ClientA.UserName, ClientB.ClientId, 0, GamePlaySettings.BeginMetal, PB_LIFE, PB_LIFE, PB_MAGIC, PB_MAGIC);
         Broadcast_AddRequestToOperationResponse(request2);
 
         GameBegin();
@@ -128,8 +128,8 @@ internal class ServerGameManager
 
     void OnBeginRound()
     {
-        CurrentPlayer.IncreaseCostMax(GamePlaySettings.CostIncrease);
-        CurrentPlayer.AddAllCost();
+        CurrentPlayer.IncreaseMetalMax(GamePlaySettings.MetalIncrease);
+        CurrentPlayer.AddAllMetal();
         CurrentPlayer.MyCardDeckManager.BeginRound();
         CurrentPlayer.MyHandManager.BeginRound();
         CurrentPlayer.MyBattleGroundManager.BeginRound();

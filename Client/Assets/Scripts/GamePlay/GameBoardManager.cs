@@ -10,8 +10,8 @@ internal class GameBoardManager : MonoSingletion<GameBoardManager>
     public HandManager EnemyHandManager;
     public BattleGroundManager SelfBattleGroundManager;
     public BattleGroundManager EnemyBattleGroundManager;
-    public CostLifeMagiceManager SelfCostLifeMagiceManager;
-    public CostLifeMagiceManager EnemyCostLifeMagiceManager;
+    public MetalLifeEnergyManager SelfMetalLifeEnergyManager;
+    public MetalLifeEnergyManager EnemyMetalLifeEnergyManager;
     public GameObject CardDetailPreview;
 
     [SerializeField] private GameObject BattleShip;

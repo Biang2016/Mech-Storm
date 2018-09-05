@@ -3,23 +3,23 @@
     public int PictureID;
     public string CardName;
     public string CardDescRaw;
-    public int Cost;
-    public int Magic;
-    public int Money;
+    public int Metal;
+    public int Energy;
+    public int Coin;
     public int EffectFactor;
     public DragPurpose DragPurpose;
     public CardTypes CardType;
     public string CardColor;
     public string HightLightColor;
 
-    public BaseInfo(int pictureID, string cardName, string cardDescRaw, int cost, int magic, int money, int effectFactor, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
+    public BaseInfo(int pictureID, string cardName, string cardDescRaw, int metal, int energy, int coin, int effectFactor, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
     {
         PictureID = pictureID;
         CardName = cardName;
         CardDescRaw = cardDescRaw;
-        Cost = cost;
-        Magic = magic;
-        Money = money;
+        Metal = metal;
+        Energy = energy;
+        Coin = coin;
         EffectFactor = effectFactor;
         DragPurpose = dragPurpose;
         CardType = cardType;
@@ -37,9 +37,9 @@
         writer.WriteSInt32(PictureID);
         writer.WriteString8(CardName);
         writer.WriteString8(CardDescRaw);
-        writer.WriteSInt32(Cost);
-        writer.WriteSInt32(Magic);
-        writer.WriteSInt32(Money);
+        writer.WriteSInt32(Metal);
+        writer.WriteSInt32(Energy);
+        writer.WriteSInt32(Coin);
         writer.WriteSInt32(EffectFactor);
         writer.WriteSInt32((int) DragPurpose);
         writer.WriteSInt32((int) CardType);
@@ -52,26 +52,23 @@
         int PictureID = reader.ReadSInt32();
         string CardName = reader.ReadString8();
         string CardDesc = reader.ReadString8();
-        int Cost = reader.ReadSInt32();
-        int Magic = reader.ReadSInt32();
-        int Money = reader.ReadSInt32();
+        int Metal = reader.ReadSInt32();
+        int Energy = reader.ReadSInt32();
+        int Coin = reader.ReadSInt32();
         int EffectFactor = reader.ReadSInt32();
         DragPurpose DragPurpose = (DragPurpose) reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
         string CardColor = reader.ReadString8();
         string HightLightColor = reader.ReadString8();
-        return new BaseInfo(PictureID, CardName, CardDesc, Cost, Magic, Money, EffectFactor, DragPurpose, CardType, CardColor, HightLightColor);
+        return new BaseInfo(PictureID, CardName, CardDesc, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType, CardColor, HightLightColor);
     }
 }
 
 public enum CardTypes
 {
-    Retinue = 0,
-    Spell = 1,
-    Weapon = 2,
-    Shield = 3,
-    Pack = 4,
-    MA = 5,
+    Retinue,
+    Spell,
+    Equip,
 }
 
 public enum DragPurpose

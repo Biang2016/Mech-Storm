@@ -34,6 +34,7 @@ public static class AllCards
             SlotInfo slotInfo = new SlotInfo();
             WeaponInfo weaponInfo = new WeaponInfo();
             ShieldInfo shieldInfo = new ShieldInfo();
+            SlotTypes slotType = SlotTypes.None;
 
             List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
             List<SideEffectBase> SideEffects_OnPlayOut = new List<SideEffectBase>();
@@ -49,9 +50,9 @@ public static class AllCards
                         baseInfo = new BaseInfo(int.Parse(cardInfo.Attributes["pictureID"].Value),
                             cardInfo.Attributes["cardName"].Value,
                             cardInfo.Attributes["cardDesc"].Value.Replace("\\n", "\n"),
-                            int.Parse(cardInfo.Attributes["cost"].Value),
-                            int.Parse(cardInfo.Attributes["magic"].Value),
-                            int.Parse(cardInfo.Attributes["money"].Value),
+                            int.Parse(cardInfo.Attributes["metal"].Value),
+                            int.Parse(cardInfo.Attributes["energy"].Value),
+                            int.Parse(cardInfo.Attributes["coin"].Value),
                             int.Parse(cardInfo.Attributes["effectFactor"].Value),
                             (DragPurpose) Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
                             (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value),
@@ -83,11 +84,13 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["energyMax"].Value),
                             int.Parse(cardInfo.Attributes["attack"].Value),
                             (WeaponTypes) Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value));
+                        slotType = SlotTypes.Weapon;
                         break;
                     case "shieldInfo":
                         shieldInfo = new ShieldInfo(int.Parse(cardInfo.Attributes["armor"].Value),
                             int.Parse(cardInfo.Attributes["shield"].Value),
                             (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value));
+                        slotType = SlotTypes.Shield;
                         break;
                     case "sideEffectsInfo":
                         List<SideEffectBase> sideEffects = new List<SideEffectBase>();
@@ -156,22 +159,13 @@ public static class AllCards
                         sideEffects_OnSummoned: SideEffects_OnSummoned,
                         sideEffects_OnDie: SideEffects_OnDie));
                     break;
-                case CardTypes.Weapon:
-                    addCard(new CardInfo_Weapon(
+                case CardTypes.Equip:
+                    addCard(new CardInfo_Equip(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
+                        slotType: slotType,
                         weaponInfo: weaponInfo,
-                        sideEffects_OnEndRound: SideEffects_OnEndRound,
-                        sideEffects_OnPlayOut: SideEffects_OnPlayOut,
-                        sideEffects_OnSummoned: SideEffects_OnSummoned,
-                        sideEffects_OnDie: SideEffects_OnDie));
-                    break;
-                case CardTypes.Shield:
-                    addCard(new CardInfo_Shield(
-                        cardID: int.Parse(card.Attributes["id"].Value),
-                        baseInfo: baseInfo,
-                        upgradeInfo: upgradeInfo,
                         shieldInfo: shieldInfo,
                         sideEffects_OnEndRound: SideEffects_OnEndRound,
                         sideEffects_OnPlayOut: SideEffects_OnPlayOut,

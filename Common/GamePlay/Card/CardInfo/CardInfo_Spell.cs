@@ -22,7 +22,7 @@ public class CardInfo_Spell : CardInfo_Base
     {
         string CardDescShow = BaseInfo.CardDescRaw;
 
-        if (BaseInfo.Magic > 0) CardDescShow += SideEffectBase.HightlightStringFormat(BaseInfo.HightLightColor, "使用{0}点能量,", BaseInfo.Magic);
+        if (BaseInfo.Energy > 0) CardDescShow += SideEffectBase.HightlightStringFormat(BaseInfo.HightLightColor, "使用{0}点能量,", BaseInfo.Energy);
 
         CardDescShow += base.GetCardDescShow();
 

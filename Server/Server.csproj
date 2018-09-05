@@ -45,8 +45,7 @@
     <Compile Include="Card\Cards\ServerCardBase.cs" />
     <Compile Include="Card\Cards\ServerCardRetinue.cs" />
     <Compile Include="Card\Cards\ServerCardSpell.cs" />
-    <Compile Include="Card\Cards\ServerCardShield.cs" />
-    <Compile Include="Card\Cards\ServerCardWeapon.cs" />
+    <Compile Include="Card\Cards\ServerCardEquip.cs" />
     <Compile Include="Card\Modules\ServerModuleShield.cs" />
     <Compile Include="Card\Modules\ServerModuleWeapon.cs" />
     <Compile Include="Card\Modules\ServerModuleBase.cs" />
@@ -54,9 +53,9 @@
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\CopyNextDrawCard.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\DrawCards.cs" />
-    <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddEnergy.cs" />
+    <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddWeaponEnergy.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\AddLifeAll.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\AddMagic.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\AddEnergy.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\HealAll.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\AddLifeRandom.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\DamageAll.cs" />

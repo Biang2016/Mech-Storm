@@ -8,24 +8,24 @@
 
     public static int MaxHeroNumber = 3;
 
-    public static int BeginCost = 10;
-    public static int MaxCost = 10;
-    public static int CostIncrease = 1;
+    public static int BeginMetal = 10;
+    public static int MaxMetal = 10;
+    public static int MetalIncrease = 1;
 
     public static bool SuffleBuild = true;
 
-    public static int PlayerDefaultMoney = 10000;
+    public static int PlayerDefaultCoin = 10000;
     public static int PlayerDefaultLife = 100;
     public static int PlayerDefaultLifeMax = 200;
     public static int PlayerDefaultLifeMin = 50;
-    public static int PlayerDefaultMagic = 10;
-    public static int PlayerDefaultMagicMax = 50;
+    public static int PlayerDefaultEnergy = 10;
+    public static int PlayerDefaultEnergyMax = 50;
 
-    public static int LifeToMoney = 50;
-    public static int MagicToMoney = 50;
+    public static int LifeToCoin = 50;
+    public static int EnergyToCoin = 50;
 
-    public static int PlayerDefaultMaxMoney
+    public static int PlayerDefaultMaxCoin
     {
-        get { return PlayerDefaultMoney + (PlayerDefaultLife - PlayerDefaultLifeMin) * LifeToMoney + PlayerDefaultMagic * MagicToMoney; }
+        get { return PlayerDefaultCoin + (PlayerDefaultLife - PlayerDefaultLifeMin) * LifeToCoin + PlayerDefaultEnergy * EnergyToCoin; }
     }
 }

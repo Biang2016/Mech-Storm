@@ -57,9 +57,9 @@ internal partial class RoundManager
                 OnSetPlayerTurn((PlayerTurnRequest) r);
                 break;
             }
-            case NetProtocols.SE_PLAYER_COST_CHANGE:
+            case NetProtocols.SE_PLAYER_METAL_CHANGE:
             {
-                OnSetPlayersCost((PlayerCostChangeRequest) r);
+                OnSetPlayersMetal((PlayerMetalChangeRequest) r);
                 break;
             }
             case NetProtocols.SE_PLAYER_LIFE_CHANGE:
@@ -69,7 +69,7 @@ internal partial class RoundManager
             }
             case NetProtocols.SE_PLAYER_MAGIC_CHANGE:
             {
-                OnSetPlayersMagic((PlayerMagicChangeRequest) r);
+                OnSetPlayersEnergy((PlayerEnergyChangeRequest) r);
                 break;
             }
 
@@ -166,10 +166,10 @@ internal partial class RoundManager
         InitializePlayers((SetPlayerRequest) r);
     }
 
-    private void OnSetPlayersCost(PlayerCostChangeRequest r)
+    private void OnSetPlayersMetal(PlayerMetalChangeRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clinetId);
-        cp.DoChangeCost(r);
+        cp.DoChangeMetal(r);
         cp.MyHandManager.RefreshAllCardUsable();
     }
 
@@ -179,10 +179,10 @@ internal partial class RoundManager
         cp.DoChangeLife(r);
     }
 
-    private void OnSetPlayersMagic(PlayerMagicChangeRequest r)
+    private void OnSetPlayersEnergy(PlayerEnergyChangeRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clinetId);
-        cp.DoChangeMagic(r);
+        cp.DoChangeEnergy(r);
     }
 
     private void OnSetPlayerTurn(PlayerTurnRequest r) //服务器说某玩家回合开始
@@ -418,8 +418,8 @@ internal partial class RoundManager
     private void OnCardAttributeChange(CardAttributeChangeRequest r)
     {
         CardBase cb = GetPlayerByClientId(r.clientId).MyHandManager.GetCardByCardInstanceId(r.cardInstanceId);
-        cb.M_Magic += r.magicChange;
-        cb.M_Cost += r.costChange;
+        cb.M_Energy += r.energyChange;
+        cb.M_Metal += r.metalChange;
         cb.M_EffectFactor = r.effectFactor;
         cb.M_Desc = cb.CardInfo.GetCardDescShow();
     }

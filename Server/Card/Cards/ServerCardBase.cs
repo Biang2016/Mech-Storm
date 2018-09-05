@@ -9,35 +9,35 @@ internal abstract class ServerCardBase
 
     public bool isInitialized = false;
 
-    private int m_Cost;
+    private int m_Metal;
 
-    public int M_Cost
+    public int M_Metal
     {
-        get { return m_Cost; }
+        get { return m_Metal; }
         set
         {
-            int before = m_Magic;
-            m_Cost = value;
+            int before = m_Energy;
+            m_Metal = value;
             if (isInitialized)
             {
-                CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, m_Cost - before, 0, m_EffectFactor);
+                CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, m_Metal - before, 0, m_EffectFactor);
                 ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
 
-    private int m_Magic;
+    private int m_Energy;
 
-    public int M_Magic
+    public int M_Energy
     {
-        get { return m_Magic; }
+        get { return m_Energy; }
         set
         {
-            int before = m_Magic;
-            m_Magic = value;
+            int before = m_Energy;
+            m_Energy = value;
             if (isInitialized)
             {
-                CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, 0, m_Magic - before, m_EffectFactor);
+                CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, 0, m_Energy - before, m_EffectFactor);
                 ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -98,11 +98,8 @@ internal abstract class ServerCardBase
             case CardTypes.Retinue:
                 newCard = new ServerCardRetinue();
                 break;
-            case CardTypes.Weapon:
-                newCard = new ServerCardWeapon();
-                break;
-            case CardTypes.Shield:
-                newCard = new ServerCardShield();
+            case CardTypes.Equip:
+                newCard = new ServerCardEquip();
                 break;
             case CardTypes.Spell:
                 newCard = new ServerCardSpell();
@@ -121,8 +118,8 @@ internal abstract class ServerCardBase
         isInitialized = false;
         ServerPlayer = serverPlayer;
         CardInfo = cardInfo.Clone();
-        M_Cost = CardInfo.BaseInfo.Cost;
-        M_Magic = CardInfo.BaseInfo.Magic;
+        M_Metal = CardInfo.BaseInfo.Metal;
+        M_Energy = CardInfo.BaseInfo.Energy;
         M_EffectFactor = CardInfo.BaseInfo.EffectFactor;
         Stars = CardInfo.UpgradeInfo.CardLevel;
         isInitialized = true;

@@ -151,7 +151,7 @@ slot 和 slotAnchor合并
 TodoList
 X. 服务端持久化数据
 制作触发、亡语、等图标
-随从的cost、life、magic图标不明显，重做
+随从的metal、life、energy图标不明显，重做
 
 高优：
 攻击飞船

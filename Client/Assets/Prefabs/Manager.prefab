@@ -164,22 +164,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1020240529022268
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4015173528459580}
-  - component: {fileID: 33662343660066112}
-  m_Layer: 0
-  m_Name: MagicNumber
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1021075427055850
 GameObject:
   m_ObjectHideFlags: 1
@@ -191,7 +175,7 @@ GameObject:
   - component: {fileID: 33080156500931490}
   - component: {fileID: 23699397203250004}
   m_Layer: 0
-  m_Name: CostBarSecondPos
+  m_Name: MetalBarSecondPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,22 +226,6 @@ GameObject:
   - component: {fileID: 114923080441692670}
   m_Layer: 0
   m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1039435796576170
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4815047816503030}
-  - component: {fileID: 33447995353520500}
-  m_Layer: 0
-  m_Name: TotalMagicNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -326,7 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4588891349548196}
   m_Layer: 0
-  m_Name: CostBarMaskMax
+  m_Name: MetalBarMaskMax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,7 +547,7 @@ GameObject:
   - component: {fileID: 33042260147868010}
   - component: {fileID: 23879584719248042}
   m_Layer: 0
-  m_Name: CostNumber
+  m_Name: MetalNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -633,7 +601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4936891751120660}
   m_Layer: 0
-  m_Name: MagicBarMaskMax
+  m_Name: EnergyBarMaskMax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -751,7 +719,7 @@ GameObject:
   - component: {fileID: 23753517058064962}
   - component: {fileID: 114694333516161090}
   m_Layer: 0
-  m_Name: CostBarFirstPos
+  m_Name: MetalBarFirstPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -804,22 +772,6 @@ GameObject:
   - component: {fileID: 114254066554931080}
   m_Layer: 16
   m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1117406609088612
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4410443016727252}
-  - component: {fileID: 114713150567754264}
-  m_Layer: 0
-  m_Name: ShieldCardPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -983,7 +935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4885966576302042}
   m_Layer: 0
-  m_Name: CostBarMaskMax
+  m_Name: MetalBarMaskMax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1171,7 +1123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4769987984064576}
   m_Layer: 0
-  m_Name: MagicBarMaskMin
+  m_Name: EnergyBarMaskMin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1300,7 +1252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4112283113370020}
   m_Layer: 0
-  m_Name: CostNumberMax
+  m_Name: MetalNumberMax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1332,7 +1284,7 @@ GameObject:
   - component: {fileID: 224975792305474166}
   - component: {fileID: 222691821744509614}
   m_Layer: 13
-  m_Name: MoneyBar
+  m_Name: CoinBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1568,7 +1520,7 @@ GameObject:
   - component: {fileID: 222345756741100948}
   - component: {fileID: 114856941801697846}
   m_Layer: 5
-  m_Name: UpgradeCost
+  m_Name: UpgradeCoinText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1665,7 +1617,7 @@ GameObject:
   - component: {fileID: 222423350611493522}
   - component: {fileID: 114813124094668708}
   m_Layer: 0
-  m_Name: MagicNumber
+  m_Name: EnergyNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1731,7 +1683,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4004939347223664}
   m_Layer: 0
-  m_Name: MagicBarMaskMax
+  m_Name: EnergyBarMaskMax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1780,7 +1732,7 @@ GameObject:
   - component: {fileID: 33032758004785750}
   - component: {fileID: 23477649884871912}
   m_Layer: 0
-  m_Name: MagicTrough
+  m_Name: EnergyTrough
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1943,7 +1895,7 @@ GameObject:
   - component: {fileID: 224367667739968644}
   - component: {fileID: 222989345922735164}
   m_Layer: 13
-  m_Name: MagicBar
+  m_Name: EnergyBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2094,7 +2046,7 @@ GameObject:
   - component: {fileID: 33963863935857002}
   - component: {fileID: 23741156779710382}
   m_Layer: 0
-  m_Name: CostBarFirstPos
+  m_Name: MetalBarFirstPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2111,7 +2063,7 @@ GameObject:
   - component: {fileID: 222366300781129726}
   - component: {fileID: 114887237755607274}
   m_Layer: 13
-  m_Name: TotalMoneyNumber
+  m_Name: TotalCoinNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2325,7 +2277,7 @@ GameObject:
   - component: {fileID: 222740483252849480}
   - component: {fileID: 114099933222165476}
   m_Layer: 13
-  m_Name: MyMagicText
+  m_Name: MyEnergyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2511,7 +2463,7 @@ GameObject:
   - component: {fileID: 4584009976697468}
   - component: {fileID: 114249038648107384}
   m_Layer: 0
-  m_Name: WeaponSelectCardPool
+  m_Name: EquipSelectCardPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2547,7 +2499,7 @@ GameObject:
   - component: {fileID: 23687190166975814}
   - component: {fileID: 114747042500977012}
   m_Layer: 0
-  m_Name: CostBarSecondPos
+  m_Name: MetalBarSecondPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2562,7 +2514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4305564549245162}
   m_Layer: 0
-  m_Name: CostBarMaskMin
+  m_Name: MetalBarMaskMin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2577,7 +2529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4428678571642354}
   m_Layer: 0
-  m_Name: CostBarMaskMin
+  m_Name: MetalBarMaskMin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2965,7 +2917,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4406742113250614}
   m_Layer: 0
-  m_Name: CostNumberMin
+  m_Name: MetalNumberMin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3217,7 +3169,7 @@ GameObject:
   - component: {fileID: 33992202984415752}
   - component: {fileID: 23415331036908916}
   m_Layer: 0
-  m_Name: MagicBar
+  m_Name: EnergyBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3234,7 +3186,7 @@ GameObject:
   - component: {fileID: 222169060482847498}
   - component: {fileID: 114499162610461118}
   m_Layer: 13
-  m_Name: LeftMoneyNumber
+  m_Name: LeftCoinNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3302,7 +3254,7 @@ GameObject:
   - component: {fileID: 222060231710812690}
   - component: {fileID: 114164270446491854}
   m_Layer: 31
-  m_Name: POSMINMagicNumber
+  m_Name: POSMINEnergyNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3367,7 +3319,7 @@ GameObject:
   - component: {fileID: 224579973875160192}
   - component: {fileID: 114161270409444218}
   m_Layer: 13
-  m_Name: MoneySlider
+  m_Name: CoinSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3384,7 +3336,7 @@ GameObject:
   - component: {fileID: 222641443477918352}
   - component: {fileID: 114811518507619190}
   m_Layer: 0
-  m_Name: TotalMagicNumber
+  m_Name: TotalEnergyNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3436,7 +3388,7 @@ GameObject:
   - component: {fileID: 222542426689012714}
   - component: {fileID: 114925721738719060}
   m_Layer: 0
-  m_Name: MagicText
+  m_Name: EnergyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3519,7 +3471,7 @@ GameObject:
   - component: {fileID: 4479428975667602}
   - component: {fileID: 114348752067593492}
   m_Layer: 0
-  m_Name: CostBarContent
+  m_Name: MetalBarContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3873,7 +3825,7 @@ GameObject:
   - component: {fileID: 224917986611042822}
   - component: {fileID: 114358772222044408}
   m_Layer: 13
-  m_Name: MagicSlider
+  m_Name: EnergySlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3980,7 +3932,7 @@ GameObject:
   - component: {fileID: 4624545454202986}
   - component: {fileID: 114895525475568276}
   m_Layer: 0
-  m_Name: WeaponCardPool
+  m_Name: EquipCardPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4048,7 +4000,7 @@ GameObject:
   - component: {fileID: 222189209437288804}
   - component: {fileID: 114404343880569382}
   m_Layer: 31
-  m_Name: POSMAXMagicNumber
+  m_Name: POSMAXEnergyNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4139,7 +4091,7 @@ GameObject:
   - component: {fileID: 33807003714482654}
   - component: {fileID: 23381759483126980}
   m_Layer: 0
-  m_Name: CostBarMask
+  m_Name: MetalBarMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4154,7 +4106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4255647849732012}
   m_Layer: 0
-  m_Name: MagicBarMaskMin
+  m_Name: EnergyBarMaskMin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4373,7 +4325,7 @@ GameObject:
   - component: {fileID: 4832925966666286}
   - component: {fileID: 114138121336439018}
   m_Layer: 0
-  m_Name: EnemyCostLifeMagicBars
+  m_Name: EnemyMetalLifeEnergyBars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4440,7 +4392,7 @@ GameObject:
   - component: {fileID: 222668038395003430}
   - component: {fileID: 114159029635402098}
   m_Layer: 13
-  m_Name: MaxMagicNumber
+  m_Name: MaxEnergyNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4575,23 +4527,7 @@ GameObject:
   - component: {fileID: 222757214447387942}
   - component: {fileID: 114607608027245950}
   m_Layer: 13
-  m_Name: MyMoneyText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1680735051390278
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4413498922728194}
-  - component: {fileID: 33963602180625732}
-  m_Layer: 0
-  m_Name: TotalMagicNumber
+  m_Name: MyCoinText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4710,7 +4646,7 @@ GameObject:
   - component: {fileID: 4317633011600128}
   - component: {fileID: 114616372798932116}
   m_Layer: 0
-  m_Name: CostBarContent
+  m_Name: MetalBarContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4742,7 +4678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4087766133469072}
   m_Layer: 0
-  m_Name: CostNumberMax
+  m_Name: MetalNumberMax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4759,7 +4695,7 @@ GameObject:
   - component: {fileID: 222067121380466222}
   - component: {fileID: 114219512725663630}
   m_Layer: 31
-  m_Name: POSMINLeftMoneyNumber
+  m_Name: POSMINLeftCoinNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4795,7 +4731,7 @@ GameObject:
   - component: {fileID: 33604523984025726}
   - component: {fileID: 23002939703658922}
   m_Layer: 0
-  m_Name: MagicBar
+  m_Name: EnergyBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4862,7 +4798,7 @@ GameObject:
   - component: {fileID: 33603467467021458}
   - component: {fileID: 23879870856786446}
   m_Layer: 0
-  m_Name: CostBarMask
+  m_Name: MetalBarMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4941,7 +4877,7 @@ GameObject:
   - component: {fileID: 222748537832084946}
   - component: {fileID: 114323824664799366}
   m_Layer: 0
-  m_Name: MagicText
+  m_Name: EnergyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4975,7 +4911,7 @@ GameObject:
   - component: {fileID: 33528841829412458}
   - component: {fileID: 23750838653247878}
   m_Layer: 0
-  m_Name: CostNumber
+  m_Name: MetalNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4991,22 +4927,6 @@ GameObject:
   - component: {fileID: 4422898510356758}
   m_Layer: 31
   m_Name: LensFlare (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1750259676366022
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4631948954728724}
-  - component: {fileID: 33613345613481194}
-  m_Layer: 0
-  m_Name: MagicNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5039,7 +4959,7 @@ GameObject:
   - component: {fileID: 222015969013740270}
   - component: {fileID: 114203255328490780}
   m_Layer: 13
-  m_Name: MagicNumber
+  m_Name: EnergyNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5070,7 +4990,7 @@ GameObject:
   - component: {fileID: 4567971229294428}
   - component: {fileID: 114334063486883660}
   m_Layer: 0
-  m_Name: CostBarBlockPool
+  m_Name: MetalBarBlockPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5255,7 +5175,7 @@ GameObject:
   - component: {fileID: 33426194995333462}
   - component: {fileID: 23141512524163926}
   m_Layer: 0
-  m_Name: MagicBarMask
+  m_Name: EnergyBarMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5270,7 +5190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4606338525829140}
   m_Layer: 0
-  m_Name: CostNumberMin
+  m_Name: MetalNumberMin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5497,7 +5417,7 @@ GameObject:
   - component: {fileID: 33466750206977154}
   - component: {fileID: 23127143839897392}
   m_Layer: 0
-  m_Name: MagicBarMask
+  m_Name: EnergyBarMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5548,7 +5468,7 @@ GameObject:
   - component: {fileID: 222864400635057944}
   - component: {fileID: 114312610603630176}
   m_Layer: 31
-  m_Name: POSMAXLeftMoneyNumber
+  m_Name: POSMAXLeftCoinNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5725,7 +5645,7 @@ GameObject:
   - component: {fileID: 222023873698813578}
   - component: {fileID: 114069121207706300}
   m_Layer: 0
-  m_Name: MagicNumber
+  m_Name: EnergyNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5776,7 +5696,7 @@ GameObject:
   - component: {fileID: 4418611629468468}
   - component: {fileID: 114362499673598776}
   m_Layer: 0
-  m_Name: SelfCostLifeMagicBars
+  m_Name: SelfMetalLifeEnergyBars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5951,23 +5871,7 @@ GameObject:
   - component: {fileID: 222585052546923512}
   - component: {fileID: 114717557164589318}
   m_Layer: 5
-  m_Name: DegradeCost
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1935351410904246
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4123677457150748}
-  - component: {fileID: 114150776602435318}
-  m_Layer: 0
-  m_Name: ShieldSelectCardPool
+  m_Name: DegradeCoinText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6051,7 +5955,7 @@ GameObject:
   - component: {fileID: 33428923555222106}
   - component: {fileID: 23784135332737184}
   m_Layer: 0
-  m_Name: MagicTrough
+  m_Name: EnergyTrough
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6173,19 +6077,6 @@ Transform:
   m_Father: {fileID: 4832925966666286}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!4 &4015173528459580
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1020240529022268}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 10.12, y: 0.3, z: -6.2}
-  m_LocalScale: {x: 4, y: 4, z: 4}
-  m_Children: []
-  m_Father: {fileID: 4418611629468468}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4023779844357858
 Transform:
   m_ObjectHideFlags: 1
@@ -6249,7 +6140,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 30
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4078329270184140
 Transform:
@@ -6301,7 +6192,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4832925966666286}
-  m_RootOrder: 17
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4106192191334790
 Transform:
@@ -6340,7 +6231,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4418611629468468}
-  m_RootOrder: 17
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4122455579609882
 Transform:
@@ -6354,19 +6245,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4372146023617770}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4123677457150748
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1935351410904246}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4133046711626638
 Transform:
@@ -6515,7 +6393,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 22
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4195247531178248
 Transform:
@@ -6674,7 +6552,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4303556333927278
 Transform:
@@ -6821,7 +6699,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4832925966666286}
-  m_RootOrder: 16
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4372146023617770
 Transform:
@@ -6881,7 +6759,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 29
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4397561783021194
 Transform:
@@ -6894,7 +6772,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4400246195090270
 Transform:
@@ -6926,13 +6804,11 @@ Transform:
   - {fileID: 4422297897731168}
   - {fileID: 4106473573843142}
   - {fileID: 4624545454202986}
-  - {fileID: 4410443016727252}
   - {fileID: 4296251081008128}
   - {fileID: 4191133669473954}
   - {fileID: 4397561783021194}
   - {fileID: 4497995528145854}
   - {fileID: 4584009976697468}
-  - {fileID: 4123677457150748}
   - {fileID: 4577775465974428}
   - {fileID: 4725829592613954}
   - {fileID: 4382259784561956}
@@ -6952,7 +6828,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4418611629468468}
-  m_RootOrder: 18
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4408809808897092
 Transform:
@@ -6967,32 +6843,6 @@ Transform:
   m_Father: {fileID: 4996170123120090}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4410443016727252
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1117406609088612}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 20
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4413498922728194
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1680735051390278}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 10.2, y: 0.3, z: -6.3}
-  m_LocalScale: {x: 3, y: 3, z: 3}
-  m_Children: []
-  m_Father: {fileID: 4418611629468468}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4418611629468468
 Transform:
   m_ObjectHideFlags: 1
@@ -7016,8 +6866,6 @@ Transform:
   - {fileID: 4437151713269592}
   - {fileID: 4936891751120660}
   - {fileID: 4255647849732012}
-  - {fileID: 4015173528459580}
-  - {fileID: 4413498922728194}
   - {fileID: 4629241430417084}
   - {fileID: 4884706597317852}
   - {fileID: 4112283113370020}
@@ -7270,7 +7118,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 24
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4499398769894732
 Transform:
@@ -7425,7 +7273,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 31
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4571245414790376
 Transform:
@@ -7451,7 +7299,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 27
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4584009976697468
 Transform:
@@ -7464,7 +7312,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 25
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4585486035722454
 Transform:
@@ -7557,7 +7405,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4832925966666286}
-  m_RootOrder: 18
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4611233265846378
 Transform:
@@ -7636,7 +7484,7 @@ Transform:
   m_LocalScale: {x: 0.38338014, y: 1, z: 0.38061273}
   m_Children: []
   m_Father: {fileID: 4418611629468468}
-  m_RootOrder: 15
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4629384441536298
 Transform:
@@ -7664,19 +7512,6 @@ Transform:
   m_Father: {fileID: 4442050267369998}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!4 &4631948954728724
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1750259676366022}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 10.12, y: 0.3, z: -6.2}
-  m_LocalScale: {x: 4, y: 4, z: 4}
-  m_Children: []
-  m_Father: {fileID: 4832925966666286}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4637144242638148
 Transform:
   m_ObjectHideFlags: 1
@@ -7792,7 +7627,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 28
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4729318417629544
 Transform:
@@ -7956,19 +7791,6 @@ Transform:
   m_Father: {fileID: 4400246195090270}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4815047816503030
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1039435796576170}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 10.2, y: 0.3, z: -6.3}
-  m_LocalScale: {x: 3, y: 3, z: 3}
-  m_Children: []
-  m_Father: {fileID: 4832925966666286}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4826033189938702
 Transform:
   m_ObjectHideFlags: 1
@@ -8019,8 +7841,6 @@ Transform:
   - {fileID: 4888352931111894}
   - {fileID: 4004939347223664}
   - {fileID: 4769987984064576}
-  - {fileID: 4631948954728724}
-  - {fileID: 4815047816503030}
   - {fileID: 4951810827307296}
   - {fileID: 4367711068606540}
   - {fileID: 4087766133469072}
@@ -8091,7 +7911,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4418611629468468}
-  m_RootOrder: 16
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4885966576302042
 Transform:
@@ -8182,7 +8002,7 @@ Transform:
   m_LocalScale: {x: 0.38338014, y: 1, z: 0.38061273}
   m_Children: []
   m_Father: {fileID: 4832925966666286}
-  m_RootOrder: 15
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4952630904162490
 Transform:
@@ -9788,13 +9608,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1423275782829290}
   m_Mesh: {fileID: 4300020, guid: b2c32d92ba039784c99a13c262f20182, type: 3}
---- !u!33 &33447995353520500
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1039435796576170}
-  m_Mesh: {fileID: 4300040, guid: f9de99dc293e3dc4ca95845c4d72a356, type: 3}
 --- !u!33 &33466750206977154
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -9872,20 +9685,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1709232259495908}
   m_Mesh: {fileID: 4300022, guid: b2c32d92ba039784c99a13c262f20182, type: 3}
---- !u!33 &33613345613481194
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1750259676366022}
-  m_Mesh: {fileID: 4300038, guid: f9de99dc293e3dc4ca95845c4d72a356, type: 3}
---- !u!33 &33662343660066112
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1020240529022268}
-  m_Mesh: {fileID: 4300038, guid: f9de99dc293e3dc4ca95845c4d72a356, type: 3}
 --- !u!33 &33663777576856480
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -9970,13 +9769,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1993267539419018}
   m_Mesh: {fileID: 4300006, guid: b2c32d92ba039784c99a13c262f20182, type: 3}
---- !u!33 &33963602180625732
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1680735051390278}
-  m_Mesh: {fileID: 4300040, guid: f9de99dc293e3dc4ca95845c4d72a356, type: 3}
 --- !u!33 &33963863935857002
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -11617,20 +11409,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c072b5830f88d154f9902382920b00b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CostNumberBlock: {fileID: 1749598817568072}
+  MetalNumberBlock: {fileID: 1749598817568072}
   LifeNumber: {fileID: 114211734717501608}
   TotalLifeNumber: {fileID: 114945635119018858}
-  MagicNumber: {fileID: 114813124094668708}
-  TotalMagicNumber: {fileID: 114811518507619190}
-  CostNumberMinPos: {fileID: 4606338525829140}
-  CostNumberMaxPos: {fileID: 4087766133469072}
+  EnergyNumber: {fileID: 114813124094668708}
+  TotalEnergyNumber: {fileID: 114811518507619190}
+  MetalNumberMinPos: {fileID: 4428678571642354}
+  MetalNumberMaxPos: {fileID: 4885966576302042}
   LifeBarMask: {fileID: 4637144242638148}
   LifeBarMaskMinPos: {fileID: 4801580071635914}
   LifeBarMaskMaxPos: {fileID: 4142713658067686}
-  MagicBarMask: {fileID: 4888352931111894}
-  MagicBarMaskMinPos: {fileID: 4769987984064576}
-  MagicBarMaskMaxPos: {fileID: 4004939347223664}
-  CostBarManager: {fileID: 114616372798932116}
+  EnergyBarMask: {fileID: 4888352931111894}
+  EnergyBarMaskMinPos: {fileID: 4769987984064576}
+  EnergyBarMaskMaxPos: {fileID: 4004939347223664}
+  MetalBarManager: {fileID: 114616372798932116}
 --- !u!114 &114150168300877824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11658,21 +11450,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114150776602435318
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1935351410904246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capacity: 0
-  used: 0
-  notUsed: 0
-  empty: 0
 --- !u!114 &114152455374525654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13697,7 +13474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirstPos: {fileID: 4283918609847482}
   SecondPos: {fileID: 4750811292584862}
-  CostBarBlockCount: 0
+  MetalBarBlockCount: 0
 --- !u!114 &114349214328063794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13891,20 +13668,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c072b5830f88d154f9902382920b00b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CostNumberBlock: {fileID: 1083042676280606}
+  MetalNumberBlock: {fileID: 1083042676280606}
   LifeNumber: {fileID: 114507759879283202}
   TotalLifeNumber: {fileID: 114522648790906640}
-  MagicNumber: {fileID: 114069121207706300}
-  TotalMagicNumber: {fileID: 114328336071875712}
-  CostNumberMinPos: {fileID: 4406742113250614}
-  CostNumberMaxPos: {fileID: 4112283113370020}
+  EnergyNumber: {fileID: 114069121207706300}
+  TotalEnergyNumber: {fileID: 114328336071875712}
+  MetalNumberMinPos: {fileID: 4305564549245162}
+  MetalNumberMaxPos: {fileID: 4588891349548196}
   LifeBarMask: {fileID: 4364901564076080}
   LifeBarMaskMinPos: {fileID: 4669127678525760}
   LifeBarMaskMaxPos: {fileID: 4500574187505484}
-  MagicBarMask: {fileID: 4437151713269592}
-  MagicBarMaskMinPos: {fileID: 4255647849732012}
-  MagicBarMaskMaxPos: {fileID: 4936891751120660}
-  CostBarManager: {fileID: 114348752067593492}
+  EnergyBarMask: {fileID: 4437151713269592}
+  EnergyBarMaskMinPos: {fileID: 4255647849732012}
+  EnergyBarMaskMaxPos: {fileID: 4936891751120660}
+  MetalBarManager: {fileID: 114348752067593492}
 --- !u!114 &114363272100038690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14104,8 +13881,8 @@ MonoBehaviour:
   OverFlowTotalLifeColor: {r: 0, g: 1, b: 0.15686275, a: 0}
   BuildButtonEditColor: {r: 0, g: 0, b: 0, a: 0}
   BuildButtonDefaultColor: {r: 0, g: 0, b: 0, a: 0}
-  SelfCostBarColor: {r: 0, g: 0, b: 0, a: 0}
-  EnemyCostBarColor: {r: 0, g: 0, b: 0, a: 0}
+  SelfMetalBarColor: {r: 0, g: 0, b: 0, a: 0}
+  EnemyMetalBarColor: {r: 0, g: 0, b: 0, a: 0}
   SelfCardDeckCardColor: {r: 0, g: 0, b: 0, a: 0}
   EnemyCardDeckCardColor: {r: 0, g: 0, b: 0, a: 0}
   MainAudioSource: {fileID: 0}
@@ -14807,11 +14584,8 @@ MonoBehaviour:
   RetinueCardPool: {fileID: 1081151946793144}
   RetinueCardPrefab: {fileID: 1093372767002052, guid: dcf57f1bc4c74194db39d4fc9648071a,
     type: 2}
-  WeaponCardPool: {fileID: 1584581402928956}
-  WeaponCardPrefab: {fileID: 1581481781110654, guid: 00a4922be29717441943cceeefce637f,
-    type: 2}
-  ShieldCardPool: {fileID: 1117406609088612}
-  ShieldCardPrefab: {fileID: 1269394147484668, guid: 3ac5c913fcdd27542a2e8db3527ef52a,
+  EquipCardPool: {fileID: 1584581402928956}
+  EquipCardPrefab: {fileID: 1581481781110654, guid: 00a4922be29717441943cceeefce637f,
     type: 2}
   SpellCardPool: {fileID: 1025129163705154}
   SpellCardPrefab: {fileID: 1581481781110654, guid: 02e71c6c580c8d0468c7f0ae8df46f5b,
@@ -14825,11 +14599,8 @@ MonoBehaviour:
   RetinueSelectCardPool: {fileID: 1691084778780464}
   RetinueSelectCardPrefab: {fileID: 1093372767002052, guid: bbd9623f1b955f2458668e9be1476094,
     type: 2}
-  WeaponSelectCardPool: {fileID: 1378133337610870}
-  WeaponSelectCardPrefab: {fileID: 1581481781110654, guid: cce4adad6439dd74990305cd3e302875,
-    type: 2}
-  ShieldSelectCardPool: {fileID: 1935351410904246}
-  ShieldSelectCardPrefab: {fileID: 1269394147484668, guid: 7a27a77ced86ce64aa89326ec5a660be,
+  EquipSelectCardPool: {fileID: 1378133337610870}
+  EquipSelectCardPrefab: {fileID: 1581481781110654, guid: cce4adad6439dd74990305cd3e302875,
     type: 2}
   SpellSelectCardPool: {fileID: 1182795239762764}
   SpellSelectCardPrefab: {fileID: 1581481781110654, guid: 8033f1411309404458fd611e1c4ec5f2,
@@ -14843,8 +14614,8 @@ MonoBehaviour:
   CardDeckCardPool: {fileID: 1135937326889588}
   CardDeckCardPrefab: {fileID: 1650536912973286, guid: 5f9b4313de4d7f14db6f37b46ec96d7a,
     type: 2}
-  CostBarBlockPool: {fileID: 1754716834364880}
-  CostBarBlockPrefab: {fileID: 1672758180943210, guid: 063faedfd081c0f498d7ecc5d0e1d548,
+  MetalBarBlockPool: {fileID: 1754716834364880}
+  MetalBarBlockPrefab: {fileID: 1672758180943210, guid: 063faedfd081c0f498d7ecc5d0e1d548,
     type: 2}
 --- !u!114 &114479361095124694
 MonoBehaviour:
@@ -16022,7 +15793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirstPos: {fileID: 4134107425060902}
   SecondPos: {fileID: 4379243977756980}
-  CostBarBlockCount: 0
+  MetalBarBlockCount: 0
 --- !u!114 &114621406469549628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16287,8 +16058,8 @@ MonoBehaviour:
   EnemyHandManager: {fileID: 114874041865985610}
   SelfBattleGroundManager: {fileID: 114900205165374928}
   EnemyBattleGroundManager: {fileID: 114742879842613768}
-  SelfCostLifeMagiceManager: {fileID: 114362499673598776}
-  EnemyCostLifeMagiceManager: {fileID: 114138121336439018}
+  SelfMetalLifeEnergyManager: {fileID: 114362499673598776}
+  EnemyMetalLifeEnergyManager: {fileID: 114138121336439018}
   CardDetailPreview: {fileID: 1736561563568716}
   BattleShip: {fileID: 1242285180014962}
 --- !u!114 &114661974793279002
@@ -16824,21 +16595,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114713150567754264
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1117406609088612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capacity: 0
-  used: 0
-  notUsed: 0
-  empty: 0
 --- !u!114 &114716019307087580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -17026,24 +16782,24 @@ MonoBehaviour:
   CreateNewBuildButton: {fileID: 114011120057014352}
   DeleteBuildButton: {fileID: 114313293559203594}
   BuildRenamePanel: {fileID: 114858790676413038}
-  MoneyBar: {fileID: 1204685730016548}
+  CoinBar: {fileID: 1204685730016548}
   LifeBar: {fileID: 1416226732773460}
-  MagicBar: {fileID: 1284030396037356}
-  MoneySlider: {fileID: 114161270409444218}
+  EnergyBar: {fileID: 1284030396037356}
+  CoinSlider: {fileID: 114161270409444218}
   LifeSlider: {fileID: 114932501743581040}
-  MagicSlider: {fileID: 114358772222044408}
-  MyMoneyText: {fileID: 114499162610461118}
+  EnergySlider: {fileID: 114358772222044408}
+  MyCoinText: {fileID: 114607608027245950}
   MyLifeText: {fileID: 114866683630425732}
-  MyMagicText: {fileID: 114203255328490780}
-  TotalMoneyText: {fileID: 114887237755607274}
+  MyEnergyText: {fileID: 114099933222165476}
+  TotalCoinText: {fileID: 114887237755607274}
   MaxLifeText: {fileID: 114258862649859534}
-  MaxMagicText: {fileID: 114159029635402098}
-  MyMoneyTextMinPos: {fileID: 224470195208595698}
-  MyMoneyTextMaxPos: {fileID: 224639647491964258}
+  MaxEnergyText: {fileID: 114159029635402098}
+  MyCoinTextMinPos: {fileID: 224470195208595698}
+  MyCoinTextMaxPos: {fileID: 224639647491964258}
   MyLifeTextMinPos: {fileID: 224823005279110456}
   MyLifeTextMaxPos: {fileID: 224087677189592478}
-  MyMagicTextMinPos: {fileID: 224092629973138404}
-  MyMagicTextMaxPos: {fileID: 224453892799351054}
+  MyEnergyTextMinPos: {fileID: 224092629973138404}
+  MyEnergyTextMaxPos: {fileID: 224453892799351054}
   PreviewContent: {fileID: 224719715102921112}
   UpgradeArrow: {fileID: 114642834266943656}
   DegradeArrow: {fileID: 114015654355602522}
@@ -17051,9 +16807,9 @@ MonoBehaviour:
   PreviewCardPanelBG: {fileID: 1579855832340560}
   UpgradeCardButton: {fileID: 114918139906617930}
   DegradeCardButton: {fileID: 114352763186149574}
-  UpgradeCostText: {fileID: 114856941801697846}
+  UpgradeCoinText: {fileID: 114856941801697846}
   UpgradeCoin: {fileID: 114098960542212106}
-  DegradeCostText: {fileID: 114717557164589318}
+  DegradeCoinText: {fileID: 114717557164589318}
   DegradeCoin: {fileID: 114129325544412204}
   RetinueContent: {fileID: 224148241354104340}
   SelectionContent: {fileID: 224179017421291092}

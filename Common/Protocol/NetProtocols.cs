@@ -59,7 +59,7 @@
     public const int SE_SET_PLAYER = 0x00000207; //英雄信息
 
     public const int SE_PLAYER_TURN = 0x00000208; //切换玩家
-    public const int SE_PLAYER_COST_CHANGE = 0x00000209; //英雄费用信息
+    public const int SE_PLAYER_METAL_CHANGE = 0x00000209; //英雄费用信息
     public const int SE_PLAYER_LIFE_CHANGE = 0x00000210; //英雄生命信息
     public const int SE_PLAYER_MAGIC_CHANGE = 0x00000211; //英雄魔法信息
 

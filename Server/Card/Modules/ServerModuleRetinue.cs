@@ -301,7 +301,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     void On_WeaponEquiped(ServerModuleWeapon newWeapon)
     {
         m_Weapon = newWeapon;
-        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         M_RetinueAttack += newWeapon.CardInfo.WeaponInfo.Attack;
@@ -312,7 +312,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     void On_WeaponChanged(ServerModuleWeapon newWeapon)
     {
         m_Weapon = newWeapon;
-        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Weapon) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         M_RetinueAttack = CardInfo.BattleInfo.BasicAttack + newWeapon.CardInfo.WeaponInfo.Attack;
@@ -358,7 +358,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     void On_ShieldEquiped(ServerModuleShield newShield)
     {
         m_Shield = newShield;
-        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
+        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         M_RetinueArmor += newShield.CardInfo.ShieldInfo.Armor;
@@ -368,7 +368,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     void On_ShieldChanged(ServerModuleShield newShield) //更换防具时机体基础护甲护盾恢复
     {
         m_Shield = newShield;
-        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Shield) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
+        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         M_RetinueShield = CardInfo.BattleInfo.BasicShield + newShield.CardInfo.ShieldInfo.Shield;
