@@ -47,7 +47,7 @@ internal class ClientProxy : ProxyBase
     {
         if (isClosed) return;
 
-        MyServerGameManager?.OnStopGame(this); //先结束对应的游戏
+        MyServerGameManager?.OnLeaveGame(ClientId); //先结束对应的游戏
 
         if (Socket != null)
         {
@@ -277,6 +277,11 @@ internal class ClientProxy : ProxyBase
 
             if (ClientState == ClientStates.Playing)
             {
+                if (MyServerGameManager.IsStopped)
+                {
+                    MyServerGameManager.StopGame();
+                    return;
+                }
                 switch (r)
                 {
                     case EndRoundRequest _:

@@ -7,13 +7,11 @@ public class CardInfo_Spell : CardInfo_Base
     {
     }
 
-    public CardInfo_Spell(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, List<SideEffectBase> sideEffects_OnEndRound, List<SideEffectBase> sideEffects_OnPlayOut, List<SideEffectBase> sideEffects_OnSummoned,  List<SideEffectBase> sideEffects_OnDie)
+    public CardInfo_Spell(int cardID, BaseInfo baseInfo, SlotTypes slotType, UpgradeInfo upgradeInfo, SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>> sideEffects)
         : base(cardID: cardID,
             baseInfo: baseInfo,
-            sideEffects_OnEndRound: sideEffects_OnEndRound,
-            sideEffects_OnPlayOut: sideEffects_OnPlayOut,
-            sideEffects_OnSummoned: sideEffects_OnSummoned,
-            sideEffects_OnDie: sideEffects_OnDie)
+            slotType: slotType,
+            sideEffects: sideEffects)
     {
         UpgradeInfo = upgradeInfo;
     }
@@ -21,8 +19,6 @@ public class CardInfo_Spell : CardInfo_Base
     public override string GetCardDescShow()
     {
         string CardDescShow = BaseInfo.CardDescRaw;
-
-        if (BaseInfo.Energy > 0) CardDescShow += SideEffectBase.HightlightStringFormat(BaseInfo.HightLightColor, "使用{0}点能量,", BaseInfo.Energy);
 
         CardDescShow += base.GetCardDescShow();
 
@@ -37,11 +33,9 @@ public class CardInfo_Spell : CardInfo_Base
         CardInfo_Spell cs = new CardInfo_Spell(
             cardID: CardID,
             baseInfo: BaseInfo,
+            slotType: M_SlotType,
             upgradeInfo: UpgradeInfo,
-            sideEffects_OnEndRound: temp.SideEffects_OnEndRound,
-            sideEffects_OnPlayOut: temp.SideEffects_OnPlayOut,
-            sideEffects_OnSummoned: temp.SideEffects_OnSummoned,
-            sideEffects_OnDie: temp.SideEffects_OnDie);
+            sideEffects:temp.SideEffects);
         return cs;
     }
 }

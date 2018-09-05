@@ -95,6 +95,10 @@ internal class GameManager : MonoSingletion<GameManager>
     public Color SelfCardDeckCardColor;
     public Color EnemyCardDeckCardColor;
 
+    public Color LifeIconColor;
+    public Color MetalIconColor;
+    public Color EnergyIconColor;
+
     private void InitializeClientGameSettings()
     {
         if (UseInspectorParams) return;
@@ -110,17 +114,23 @@ internal class GameManager : MonoSingletion<GameManager>
         Slot4Color = ClientUtils.HTMLColorToColor("#2D37FF");
 
         DefaultLifeNumberColor = ClientUtils.HTMLColorToColor("#FFFFFF");
-        InjuredLifeNumberColor = ClientUtils.HTMLColorToColor("#FF0015");
+        InjuredLifeNumberColor = ClientUtils.HTMLColorToColor("#E2FF00");
         OverFlowTotalLifeColor = ClientUtils.HTMLColorToColor("#00FF28");
 
         BuildButtonEditColor = ClientUtils.HTMLColorToColor("#FF4B00");
         BuildButtonDefaultColor = ClientUtils.HTMLColorToColor("#858585");
 
-        SelfMetalBarColor = ClientUtils.HTMLColorToColor("#2E4BFF");
-        EnemyMetalBarColor = ClientUtils.HTMLColorToColor("#FF1C47");
+        SelfMetalBarColor = ClientUtils.HTMLColorToColor("#9E00FF");
+        EnemyMetalBarColor = ClientUtils.HTMLColorToColor("#9E00FF");
 
         SelfCardDeckCardColor = ClientUtils.HTMLColorToColor("#007AFF");
         EnemyCardDeckCardColor = ClientUtils.HTMLColorToColor("#FF0004");
+
+        LifeIconColor = ClientUtils.HTMLColorToColor("#AA0003");
+        MetalIconColor = ClientUtils.HTMLColorToColor("#8335FF");
+        EnergyIconColor = ClientUtils.HTMLColorToColor("#007AFF");
+
+        
     }
 
     #endregion

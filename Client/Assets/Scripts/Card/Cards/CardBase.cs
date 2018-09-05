@@ -106,6 +106,9 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             newCard.CoinImage.enabled = true;
         }
 
+        newCard.MetalIcon.color = GameManager.Instance.MetalIconColor;
+        newCard.EnergyIcon.color = GameManager.Instance.EnergyIconColor;
+        if (newCard.LifeIcon) newCard.LifeIcon.color = GameManager.Instance.LifeIconColor;
         newCard.Initiate(cardInfo, clientPlayer, isCardSelect);
         return newCard;
     }
@@ -178,11 +181,11 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         {
             if (value != 0)
             {
-                if (!MetalImage.gameObject.activeSelf) MetalImage.gameObject.SetActive(true);
+                if (!MetalIcon.gameObject.activeSelf) MetalIcon.gameObject.SetActive(true);
             }
             else
             {
-                if (MetalImage.gameObject.activeSelf) MetalImage.gameObject.SetActive(false);
+                if (MetalIcon.gameObject.activeSelf) MetalIcon.gameObject.SetActive(false);
             }
 
             if (m_Metal != value)
@@ -203,11 +206,11 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         {
             if (value != 0)
             {
-                if (!EnergyImage.gameObject.activeSelf) EnergyImage.gameObject.SetActive(true);
+                if (!EnergyIcon.gameObject.activeSelf) EnergyIcon.gameObject.SetActive(true);
             }
             else
             {
-                if (EnergyImage.gameObject.activeSelf) EnergyImage.gameObject.SetActive(false);
+                if (EnergyIcon.gameObject.activeSelf) EnergyIcon.gameObject.SetActive(false);
             }
 
             if (m_Energy != value)
@@ -229,27 +232,14 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             m_EffectFactor = value;
             if (CardInfo.BaseInfo.CardType == CardTypes.Spell)
             {
-                foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
+                foreach (KeyValuePair<SideEffectBase.TriggerTime, List<SideEffectBase>> kv in CardInfo.SideEffects)
                 {
-                    if (se is IEffectFactor)
+                    foreach (SideEffectBase se in kv.Value)
                     {
-                        ((IEffectFactor) se).SetEffetFactor(value);
-                    }
-                }
-
-                foreach (SideEffectBase se in CardInfo.SideEffects_OnDie)
-                {
-                    if (se is IEffectFactor)
-                    {
-                        ((IEffectFactor) se).SetEffetFactor(value);
-                    }
-                }
-
-                foreach (SideEffectBase se in CardInfo.SideEffects_OnEndRound)
-                {
-                    if (se is IEffectFactor)
-                    {
-                        ((IEffectFactor) se).SetEffetFactor(value);
+                        if (se is IEffectFactor)
+                        {
+                            ((IEffectFactor)se).SetEffetFactor(value);
+                        }
                     }
                 }
             }
@@ -309,8 +299,9 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
     [SerializeField] private Renderer PictureBoxRenderer;
     [SerializeField] private Image Image_DescPanel;
 
-    [SerializeField] private Image MetalImage;
-    [SerializeField] private Image EnergyImage;
+    [SerializeField] private Image LifeIcon;
+    [SerializeField] private Image MetalIcon;
+    [SerializeField] private Image EnergyIcon;
     [SerializeField] private Text Text_Metal;
     [SerializeField] private Text Text_Energy;
 

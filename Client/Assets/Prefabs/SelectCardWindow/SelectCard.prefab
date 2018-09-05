@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 222028404122558342}
   - component: {fileID: 114806354083013408}
   m_Layer: 13
-  m_Name: Cost
+  m_Name: Metal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa4b42f43b71f3c4eb86f8915ac187cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text_Metal: {fileID: 114965916724364668}
+  Text_Metal: {fileID: 114806354083013408}
   Text_Count: {fileID: 114417810567972970}
   CardButton: {fileID: 114587486140247218}
   Text_CardName: {fileID: 114965916724364668}
@@ -241,7 +241,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.3372549}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.7058824}
     m_HighlightedColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}

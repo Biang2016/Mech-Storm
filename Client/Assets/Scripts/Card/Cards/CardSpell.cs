@@ -15,23 +15,17 @@ internal class CardSpell : CardBase
     {
         base.Initiate(cardInfo, clientPlayer, isCardSelect);
         hasTarget = false;
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnPlayOut)
-        {
-            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
-            {
-                hasTarget = true;
-                targetRange = ((TargetSideEffect) se).M_TargetRange;
-                break;
-            }
-        }
 
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
+        foreach (KeyValuePair<SideEffectBase.TriggerTime, List<SideEffectBase>> kv in CardInfo.SideEffects)
         {
-            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
+            foreach (SideEffectBase se in kv.Value)
             {
-                hasTarget = true;
-                targetRange = ((TargetSideEffect) se).M_TargetRange;
-                break;
+                if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
+                {
+                    hasTarget = true;
+                    targetRange = ((TargetSideEffect) se).M_TargetRange;
+                    break;
+                }
             }
         }
     }
@@ -122,7 +116,7 @@ internal class CardSpell : CardBase
 
     private int CalculateAttack()
     {
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
+        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnPlayThisCard])
         {
             if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
             {

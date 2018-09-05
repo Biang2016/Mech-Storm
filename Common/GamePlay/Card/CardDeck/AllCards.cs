@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -36,10 +38,11 @@ public static class AllCards
             ShieldInfo shieldInfo = new ShieldInfo();
             SlotTypes slotType = SlotTypes.None;
 
-            List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
-            List<SideEffectBase> SideEffects_OnPlayOut = new List<SideEffectBase>();
-            List<SideEffectBase> SideEffects_OnSummoned = new List<SideEffectBase>();
-            List<SideEffectBase> SideEffects_OnEndRound = new List<SideEffectBase>();
+            SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>> SideEffects = new SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>>();
+            foreach (SideEffectBase.TriggerTime item in Enum.GetValues(typeof(SideEffectBase.TriggerTime)))
+            {
+                SideEffects.Add(item, new List<SideEffectBase>());
+            }
 
             for (int j = 0; j < card.ChildNodes.Count; j++)
             {
@@ -93,22 +96,7 @@ public static class AllCards
                         slotType = SlotTypes.Shield;
                         break;
                     case "sideEffectsInfo":
-                        List<SideEffectBase> sideEffects = new List<SideEffectBase>();
-                        switch (cardInfo.Attributes["happenTime"].Value)
-                        {
-                            case "OnEndRound":
-                                sideEffects = SideEffects_OnEndRound;
-                                break;
-                            case "OnSummoned":
-                                sideEffects = SideEffects_OnSummoned;
-                                break;
-                            case "OnPlayOut":
-                                sideEffects = SideEffects_OnPlayOut;
-                                break;
-                            case "OnDie":
-                                sideEffects = SideEffects_OnDie;
-                                break;
-                        }
+                        SideEffectBase.TriggerTime triggerTime = (SideEffectBase.TriggerTime) Enum.Parse(typeof(SideEffectBase.TriggerTime), cardInfo.Attributes["happenTime"].Value);
 
                         for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
                         {
@@ -137,7 +125,7 @@ public static class AllCards
                             }
 
                             sideEffect.HightlightColor = baseInfo.HightLightColor;
-                            sideEffects.Add(sideEffect);
+                            SideEffects[triggerTime].Add(sideEffect);
                         }
 
                         break;
@@ -150,14 +138,12 @@ public static class AllCards
                     addCard(new CardInfo_Retinue(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
+                        slotType: slotType,
                         upgradeInfo: upgradeInfo,
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
                         slotInfo: slotInfo,
-                        sideEffects_OnEndRound: SideEffects_OnEndRound,
-                        sideEffects_OnPlayOut: SideEffects_OnPlayOut,
-                        sideEffects_OnSummoned: SideEffects_OnSummoned,
-                        sideEffects_OnDie: SideEffects_OnDie));
+                        sideEffects: SideEffects));
                     break;
                 case CardTypes.Equip:
                     addCard(new CardInfo_Equip(
@@ -167,20 +153,15 @@ public static class AllCards
                         slotType: slotType,
                         weaponInfo: weaponInfo,
                         shieldInfo: shieldInfo,
-                        sideEffects_OnEndRound: SideEffects_OnEndRound,
-                        sideEffects_OnPlayOut: SideEffects_OnPlayOut,
-                        sideEffects_OnSummoned: SideEffects_OnSummoned,
-                        sideEffects_OnDie: SideEffects_OnDie));
+                        sideEffects: SideEffects));
                     break;
                 case CardTypes.Spell:
                     addCard(new CardInfo_Spell(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
+                        slotType: slotType,
                         upgradeInfo: upgradeInfo,
-                        sideEffects_OnEndRound: SideEffects_OnEndRound,
-                        sideEffects_OnPlayOut: SideEffects_OnPlayOut,
-                        sideEffects_OnSummoned: SideEffects_OnSummoned,
-                        sideEffects_OnDie: SideEffects_OnDie));
+                        sideEffects: SideEffects));
                     break;
             }
         }

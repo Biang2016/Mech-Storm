@@ -20,10 +20,7 @@
             slotType: ((CardInfo_Equip) CardInfo).M_SlotType,
             weaponInfo: CardInfo.WeaponInfo,
             shieldInfo: CardInfo.ShieldInfo,
-            sideEffects_OnEndRound: CardInfo.SideEffects_OnEndRound,
-            sideEffects_OnPlayOut: CardInfo.SideEffects_OnPlayOut,
-            sideEffects_OnSummoned: CardInfo.SideEffects_OnSummoned,
-            sideEffects_OnDie: CardInfo.SideEffects_OnDie);
+            sideEffects: CardInfo.SideEffects);
     }
 
 
@@ -60,6 +57,18 @@
     #endregion
 
     #region 模块交互
+
+    #endregion
+
+    #region 特效、技能
+
+    public void OnSelfEndRound()
+    {
+        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnSelfEndRound])
+        {
+            se.Excute(ServerPlayer);
+        }
+    }
 
     #endregion
 }

@@ -42,12 +42,6 @@ internal class ModuleRetinue : ModuleBase
     {
         gameObjectPool = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool;
         SwordMaskDefaultPosition = SwordBarMask.transform.localPosition;
-        LifeBarMaskDefaultPosition = LifeBarMask.transform.localPosition;
-
-        initiateNumbers(ref GoNumberSet_RetinueLeftLife, ref CardNumberSet_RetinueLeftLife, NumberSize.Big, CardNumberSet.TextAlign.Left, Block_RetinueLeftLife);
-        initiateNumbers(ref GoNumberSet_RetinueAttack, ref CardNumberSet_RetinueAttack, NumberSize.Medium, CardNumberSet.TextAlign.Right, Block_RetinueAttack);
-        initiateNumbers(ref GoNumberSet_RetinueArmor, ref CardNumberSet_RetinueArmor, NumberSize.Medium, CardNumberSet.TextAlign.Center, Block_RetinueArmor);
-        initiateNumbers(ref GoNumberSet_RetinueShield, ref CardNumberSet_RetinueShield, NumberSize.Small, CardNumberSet.TextAlign.Center, Block_RetinueShield);
     }
 
     public void SetGoPool(GameObjectPool pool)
@@ -117,25 +111,11 @@ internal class ModuleRetinue : ModuleBase
     public Slot Slot3;
     public Slot Slot4;
 
-    [SerializeField] private GameObject Block_RetinueLeftLife;
-    protected GameObject GoNumberSet_RetinueLeftLife;
-    protected CardNumberSet CardNumberSet_RetinueLeftLife;
+    [SerializeField] private Text LifeText;
 
-    [SerializeField] private GameObject Block_RetinueTotalLife;
-    protected GameObject GoNumberSet_RetinueTotalLife;
-    protected CardNumberSet CardNumberSet_RetinueTotalLife;
-
-    [SerializeField] private GameObject Block_RetinueAttack;
-    protected GameObject GoNumberSet_RetinueAttack;
-    protected CardNumberSet CardNumberSet_RetinueAttack;
-
-    [SerializeField] private GameObject Block_RetinueShield;
-    protected GameObject GoNumberSet_RetinueShield;
-    protected CardNumberSet CardNumberSet_RetinueShield;
-
-    [SerializeField] private GameObject Block_RetinueArmor;
-    protected GameObject GoNumberSet_RetinueArmor;
-    protected CardNumberSet CardNumberSet_RetinueArmor;
+    [SerializeField] private Text Text_RetinueAttack;
+    [SerializeField] private Text Text_RetinueShield;
+    [SerializeField] private Text Text_RetinueArmor;
 
     [SerializeField] private Renderer PictureBoxRenderer;
 
@@ -151,9 +131,6 @@ internal class ModuleRetinue : ModuleBase
     private float SwordMaskFullOffset = 0.451f;
     private Vector3 SwordMaskDefaultPosition;
 
-    [SerializeField] private GameObject LifeBarMask;
-    private float LifeBarMaskFullOffset = 0.65f;
-    private Vector3 LifeBarMaskDefaultPosition;
     [SerializeField] private Animator LifeIncreaseArrow;
 
     [SerializeField] private Animator RetinueTargetPreviewAnim;
@@ -164,6 +141,10 @@ internal class ModuleRetinue : ModuleBase
     {
         isInitializing = true;
         base.Initiate(cardInfo, clientPlayer);
+        Text_RetinueArmor.text = "";
+        Text_RetinueShield.text = "";
+        ArmorFill.gameObject.SetActive(false);
+        ShieldBarImage.fillAmount = 0;
         M_RetinueName = cardInfo.BaseInfo.CardName;
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
         M_RetinueTotalLife = cardInfo.LifeInfo.TotalLife;
@@ -305,15 +286,6 @@ internal class ModuleRetinue : ModuleBase
 
     IEnumerator Co_TotalLifeAdded(int leftLifeValue, int totalLifeValue)
     {
-        if (totalLifeValue > CardInfo.LifeInfo.TotalLife)
-        {
-            CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.Instance.OverFlowTotalLifeColor);
-        }
-        else
-        {
-            CardNumberSet_RetinueTotalLife.SetNumberSetColor(GameManager.Instance.DefaultLifeNumberColor);
-        }
-
         retinueLifeChange(leftLifeValue, totalLifeValue);
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -323,30 +295,18 @@ internal class ModuleRetinue : ModuleBase
     {
         if (leftLifeValue < totalLifeValue)
         {
-            CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.Instance.InjuredLifeNumberColor);
+            LifeText.color = GameManager.Instance.InjuredLifeNumberColor;
+        }
+        else if (leftLifeValue == totalLifeValue && totalLifeValue > CardInfo.LifeInfo.TotalLife)
+        {
+            LifeText.color = GameManager.Instance.OverFlowTotalLifeColor;
         }
         else
         {
-            CardNumberSet_RetinueLeftLife.SetNumberSetColor(GameManager.Instance.DefaultLifeNumberColor);
+            LifeText.color = GameManager.Instance.DefaultLifeNumberColor;
         }
 
-        CardNumberSet_RetinueLeftLife.Number = leftLifeValue;
-        CardNumberSet_RetinueTotalLife.Number = totalLifeValue;
-
-        RefreshLifeBarMask(leftLifeValue, totalLifeValue);
-    }
-
-    private void RefreshLifeBarMask(int leftLifeValue, int totalLifeValue)
-    {
-        if (totalLifeValue != 0)
-        {
-            LifeBarMask.transform.localPosition = LifeBarMaskDefaultPosition;
-            LifeBarMask.transform.Translate(Vector3.left * LifeBarMaskFullOffset * 2 * leftLifeValue / totalLifeValue, Space.Self);
-        }
-        else
-        {
-            LifeBarMask.transform.localPosition = LifeBarMaskDefaultPosition;
-        }
+        LifeText.text = leftLifeValue.ToString();
     }
 
     private int m_RetinueAttack;
@@ -369,7 +329,7 @@ internal class ModuleRetinue : ModuleBase
 
     IEnumerator Co_RetinueAttackChange(int retinueAttackValue)
     {
-        CardNumberSet_RetinueAttack.Number = retinueAttackValue;
+        Text_RetinueAttack.text = retinueAttackValue > 0 ? retinueAttackValue.ToString() : "";
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -410,20 +370,9 @@ internal class ModuleRetinue : ModuleBase
 
     IEnumerator Co_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
-        if (current_SubCo_RetinueWeaponEnergyChange != null) StopCoroutine(current_SubCo_RetinueWeaponEnergyChange);
-        current_SubCo_RetinueWeaponEnergyChange = SubCo_RetinueWeaponEnergyChange(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue);
-        StartCoroutine(current_SubCo_RetinueWeaponEnergyChange);
-        yield return null;
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-
-    private IEnumerator current_SubCo_RetinueWeaponEnergyChange;
-
-    IEnumerator SubCo_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
-    {
         RefreshSwordBarMask(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue);
         yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private void RefreshSwordBarMask(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
@@ -459,36 +408,38 @@ internal class ModuleRetinue : ModuleBase
 
     IEnumerator Co_ArmorBeAttacked(int armorValue)
     {
+        ArmorIconHit.SetTrigger("BeHit");
+        ArmorFill.SetTrigger("ArmorAdd");
         if (armorValue == 0)
         {
             if (ArmorFill) ArmorFill.gameObject.SetActive(false);
+            Text_RetinueArmor.text = "";
         }
         else
         {
             if (ArmorFill && !ArmorFill.gameObject.activeSelf) ArmorFill.gameObject.SetActive(true);
+            Text_RetinueArmor.text = armorValue.ToString();
         }
 
-        ArmorIconHit.SetTrigger("BeHit");
-        ArmorFill.SetTrigger("ArmorAdd");
         yield return null;
-        CardNumberSet_RetinueArmor.Number = armorValue;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     IEnumerator Co_ArmorAdded(int armorValue)
     {
+        ArmorFill.SetTrigger("ArmorAdd");
         if (armorValue == 0)
         {
             if (ArmorFill) ArmorFill.gameObject.SetActive(false);
+            Text_RetinueArmor.text = "";
         }
         else
         {
             if (ArmorFill && !ArmorFill.gameObject.activeSelf) ArmorFill.gameObject.SetActive(true);
+            Text_RetinueArmor.text = armorValue.ToString();
         }
 
-        ArmorFill.SetTrigger("ArmorAdd");
         yield return null;
-        CardNumberSet_RetinueArmor.Number = armorValue;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -519,17 +470,18 @@ internal class ModuleRetinue : ModuleBase
     {
         ShieldIconHit.SetTrigger("BeHit");
         ShieldBar.SetTrigger("ShieldAdd");
-        yield return null;
         if (shieldValue == 0)
         {
             if (ShieldBar) ShieldBarImage.fillAmount = 0;
+            Text_RetinueShield.text = "";
         }
         else
         {
             if (ShieldBar) ShieldBarImage.fillAmount = (float) shieldValue / (float) RetinueShieldFull;
+            Text_RetinueShield.text = shieldValue.ToString();
         }
 
-        CardNumberSet_RetinueShield.Number = shieldValue;
+        yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -537,17 +489,18 @@ internal class ModuleRetinue : ModuleBase
     {
         RetinueShieldFull = Mathf.Max(RetinueShieldFull, shieldValue);
         ShieldBar.SetTrigger("ShieldAdd");
-        yield return null;
         if (shieldValue == 0)
         {
             if (ShieldBar) ShieldBarImage.fillAmount = 0;
+            Text_RetinueShield.text = "";
         }
         else
         {
             if (ShieldBar) ShieldBarImage.fillAmount = 1;
+            Text_RetinueShield.text = shieldValue.ToString();
         }
 
-        CardNumberSet_RetinueShield.Number = shieldValue;
+        yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

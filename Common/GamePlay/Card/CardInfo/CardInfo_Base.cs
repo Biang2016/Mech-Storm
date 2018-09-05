@@ -12,60 +12,30 @@ public class CardInfo_Base
     public SlotInfo SlotInfo;
     public WeaponInfo WeaponInfo;
     public ShieldInfo ShieldInfo;
+    public SlotTypes M_SlotType;
 
-    public List<SideEffectBase> SideEffects_OnEndRound = new List<SideEffectBase>();
-    public List<SideEffectBase> SideEffects_OnPlayOut = new List<SideEffectBase>();
-    public List<SideEffectBase> SideEffects_OnSummoned = new List<SideEffectBase>();
-    public List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
+    public SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>> SideEffects = new SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>>();
 
     public CardInfo_Base()
     {
     }
 
-    protected CardInfo_Base(int cardID, BaseInfo baseInfo, List<SideEffectBase> sideEffects_OnEndRound, List<SideEffectBase> sideEffects_OnPlayOut, List<SideEffectBase> sideEffects_OnSummoned, List<SideEffectBase> sideEffects_OnDie)
+    protected CardInfo_Base(int cardID, BaseInfo baseInfo, SlotTypes slotType, SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>> sideEffects)
     {
         CardID = cardID;
         BaseInfo = baseInfo;
-        SideEffects_OnEndRound = sideEffects_OnEndRound;
-        SideEffects_OnPlayOut = sideEffects_OnPlayOut;
-        SideEffects_OnSummoned = sideEffects_OnSummoned;
-        SideEffects_OnDie = sideEffects_OnDie;
+        M_SlotType = slotType;
+        SideEffects = sideEffects;
     }
 
     public virtual string GetCardDescShow()
     {
         string CardDescShow = BaseInfo.CardDescRaw;
 
-        if (SideEffects_OnPlayOut.Count > 0)
+        foreach (KeyValuePair<SideEffectBase.TriggerTime, List<SideEffectBase>> kv in SideEffects)
         {
-            foreach (SideEffectBase se in SideEffects_OnPlayOut)
-            {
-                CardDescShow += se.GenerateDesc() + ";\n";
-            }
-        }
-
-        if (SideEffects_OnEndRound.Count > 0)
-        {
-            CardDescShow += "我方回合结束时,";
-            foreach (SideEffectBase se in SideEffects_OnEndRound)
-            {
-                CardDescShow += se.GenerateDesc() + ";\n";
-            }
-        }
-
-        if (SideEffects_OnSummoned.Count > 0)
-        {
-            CardDescShow += "战吼:";
-            foreach (SideEffectBase se in SideEffects_OnSummoned)
-            {
-                CardDescShow += se.GenerateDesc() + ";\n";
-            }
-        }
-
-        if (SideEffects_OnDie.Count > 0)
-        {
-            CardDescShow += "亡语:";
-            foreach (SideEffectBase se in SideEffects_OnDie)
+            if (kv.Value.Count > 0) CardDescShow += SideEffectBase.TriggerTimeDesc[kv.Key];
+            foreach (SideEffectBase se in kv.Value)
             {
                 CardDescShow += se.GenerateDesc() + ";\n";
             }
@@ -76,31 +46,20 @@ public class CardInfo_Base
 
     public virtual CardInfo_Base Clone()
     {
-        List<SideEffectBase> new_SideEffects_OnEndRound = new List<SideEffectBase>();
-        foreach (SideEffectBase sideEffectBase in SideEffects_OnEndRound)
+        SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>> newSideEffects = new SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>>();
+
+        foreach (KeyValuePair<SideEffectBase.TriggerTime, List<SideEffectBase>> kv in SideEffects)
         {
-            new_SideEffects_OnEndRound.Add((SideEffectBase) ((ICloneable) sideEffectBase).Clone());
+            List<SideEffectBase> SEs = new List<SideEffectBase>();
+            foreach (SideEffectBase se in kv.Value)
+            {
+                SEs.Add((SideEffectBase) ((ICloneable) se).Clone());
+            }
+
+            newSideEffects.Add(kv.Key, SEs);
         }
 
-        List<SideEffectBase> new_SideEffects_OnPlayOut = new List<SideEffectBase>();
-        foreach (SideEffectBase sideEffectBase in SideEffects_OnPlayOut)
-        {
-            new_SideEffects_OnPlayOut.Add((SideEffectBase) ((ICloneable) sideEffectBase).Clone());
-        }
-
-        List<SideEffectBase> new_SideEffects_OnSummoned = new List<SideEffectBase>();
-        foreach (SideEffectBase sideEffectBase in SideEffects_OnSummoned)
-        {
-            new_SideEffects_OnSummoned.Add((SideEffectBase) ((ICloneable) sideEffectBase).Clone());
-        }
-
-        List<SideEffectBase> new_SideEffects_OnDie = new List<SideEffectBase>();
-        foreach (SideEffectBase sideEffectBase in SideEffects_OnDie)
-        {
-            new_SideEffects_OnDie.Add((SideEffectBase) ((ICloneable) sideEffectBase).Clone());
-        }
-
-        return new CardInfo_Base(CardID, BaseInfo, new_SideEffects_OnEndRound, new_SideEffects_OnPlayOut, new_SideEffects_OnSummoned, SideEffects_OnDie);
+        return new CardInfo_Base(CardID, BaseInfo, M_SlotType, newSideEffects);
     }
 
     public void Serialize(DataStream writer)
@@ -109,6 +68,7 @@ public class CardInfo_Base
         writer.WriteString8(type);
         writer.WriteSInt32(CardID);
         BaseInfo.Serialize(writer);
+        writer.WriteSInt32((int) M_SlotType);
         UpgradeInfo.Serialize(writer);
         LifeInfo.Serialize(writer);
         BattleInfo.Serialize(writer);
@@ -116,28 +76,15 @@ public class CardInfo_Base
         WeaponInfo.Serialize(writer);
         ShieldInfo.Serialize(writer);
 
-        writer.WriteSInt32(SideEffects_OnEndRound.Count);
-        foreach (SideEffectBase se in SideEffects_OnEndRound)
+        writer.WriteSInt32(SideEffects.Count);
+        foreach (KeyValuePair<SideEffectBase.TriggerTime, List<SideEffectBase>> kv in SideEffects)
         {
-            se.Serialze(writer);
-        }
-
-        writer.WriteSInt32(SideEffects_OnPlayOut.Count);
-        foreach (SideEffectBase se in SideEffects_OnPlayOut)
-        {
-            se.Serialze(writer);
-        }
-
-        writer.WriteSInt32(SideEffects_OnSummoned.Count);
-        foreach (SideEffectBase se in SideEffects_OnSummoned)
-        {
-            se.Serialze(writer);
-        }
-
-        writer.WriteSInt32(SideEffects_OnDie.Count);
-        foreach (SideEffectBase se in SideEffects_OnDie)
-        {
-            se.Serialze(writer);
+            writer.WriteSInt32((int) kv.Key);
+            writer.WriteSInt32(kv.Value.Count);
+            foreach (SideEffectBase se in kv.Value)
+            {
+                se.Serialze(writer);
+            }
         }
     }
 
@@ -149,6 +96,7 @@ public class CardInfo_Base
 
         newCardInfo_Base.CardID = reader.ReadSInt32();
         newCardInfo_Base.BaseInfo = BaseInfo.Deserialze(reader);
+        newCardInfo_Base.M_SlotType = (SlotTypes) reader.ReadSInt32();
         newCardInfo_Base.UpgradeInfo = UpgradeInfo.Deserialze(reader);
         newCardInfo_Base.LifeInfo = LifeInfo.Deserialze(reader);
         newCardInfo_Base.BattleInfo = BattleInfo.Deserialze(reader);
@@ -156,38 +104,20 @@ public class CardInfo_Base
         newCardInfo_Base.WeaponInfo = WeaponInfo.Deserialze(reader);
         newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
 
-        List<SideEffectBase> SideEffects_OnEndRound = new List<SideEffectBase>();
-        int SE_OnEndRound_count = reader.ReadSInt32();
-        for (int i = 0; i < SE_OnEndRound_count; i++)
+        int SideEffectCount = reader.ReadSInt32();
+        newCardInfo_Base.SideEffects = new SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>>();
+        for (int i = 0; i < SideEffectCount; i++)
         {
-            SideEffects_OnEndRound.Add(SideEffectBase.BaseDeserialze(reader));
-        }
+            SideEffectBase.TriggerTime tt = (SideEffectBase.TriggerTime) reader.ReadSInt32();
+            List<SideEffectBase> SEs = new List<SideEffectBase>();
+            int SECount = reader.ReadSInt32();
+            for (int j = 0; j < SECount; j++)
+            {
+                SEs.Add(SideEffectBase.BaseDeserialze(reader));
+            }
 
-        List<SideEffectBase> SideEffects_OnPlayOut = new List<SideEffectBase>();
-        int SE_OnPlayOut_count = reader.ReadSInt32();
-        for (int i = 0; i < SE_OnPlayOut_count; i++)
-        {
-            SideEffects_OnPlayOut.Add(SideEffectBase.BaseDeserialze(reader));
+            newCardInfo_Base.SideEffects.Add(tt, SEs);
         }
-
-        List<SideEffectBase> SideEffects_OnSummoned = new List<SideEffectBase>();
-        int SE_OnSummon_count = reader.ReadSInt32();
-        for (int i = 0; i < SE_OnSummon_count; i++)
-        {
-            SideEffects_OnSummoned.Add(SideEffectBase.BaseDeserialze(reader));
-        }
-
-        List<SideEffectBase> SideEffects_OnDie = new List<SideEffectBase>();
-        int SE_OnDie_count = reader.ReadSInt32();
-        for (int i = 0; i < SE_OnDie_count; i++)
-        {
-            SideEffects_OnDie.Add(SideEffectBase.BaseDeserialze(reader));
-        }
-
-        newCardInfo_Base.SideEffects_OnEndRound = SideEffects_OnEndRound;
-        newCardInfo_Base.SideEffects_OnPlayOut = SideEffects_OnPlayOut;
-        newCardInfo_Base.SideEffects_OnSummoned = SideEffects_OnSummoned;
-        newCardInfo_Base.SideEffects_OnDie = SideEffects_OnDie;
 
         return newCardInfo_Base;
     }

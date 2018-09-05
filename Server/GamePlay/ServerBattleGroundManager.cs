@@ -174,7 +174,7 @@ internal class ServerBattleGroundManager
             targetRetinueId = GetRetinueIdByClientRetinueTempId(r.targetRetinueId);
         }
 
-        foreach (SideEffectBase se in cardInfo.SideEffects_OnSummoned)
+        foreach (SideEffectBase se in cardInfo.SideEffects[SideEffectBase.TriggerTime.OnPlayThisCard])
         {
             if (se is TargetSideEffect)
             {
@@ -537,7 +537,7 @@ internal class ServerBattleGroundManager
 
     public void PrintRetinueInfos()
     {
-        string log = "BattleGroundInfo: [ClientID]" + ServerPlayer.ClientId+" [Username]" + ServerPlayer.MyClientProxy.UserName;
+        string log = "BattleGroundInfo: [ClientID]" + ServerPlayer.ClientId + " [Username]" + ServerPlayer.MyClientProxy.UserName;
         foreach (ServerModuleRetinue retinue in Retinues)
         {
             log += " [RID]" + retinue.M_RetinueID + " [Name]" + retinue.CardInfo.BaseInfo.CardName;
@@ -562,7 +562,7 @@ internal class ServerBattleGroundManager
     {
         foreach (ServerModuleRetinue mr in Retinues)
         {
-            mr.OnEndRound();
+            mr.OnSelfEndRound();
         }
     }
 

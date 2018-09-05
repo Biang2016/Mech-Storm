@@ -3,21 +3,17 @@ using System.Collections.Generic;
 
 public class CardInfo_Equip : CardInfo_Base
 {
-    public SlotTypes M_SlotType;
 
     public CardInfo_Equip()
     {
     }
 
-    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SlotTypes slotType, WeaponInfo weaponInfo, ShieldInfo shieldInfo, List<SideEffectBase> sideEffects_OnEndRound, List<SideEffectBase> sideEffects_OnPlayOut, List<SideEffectBase> sideEffects_OnSummoned, List<SideEffectBase> sideEffects_OnDie)
+    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SlotTypes slotType, WeaponInfo weaponInfo, ShieldInfo shieldInfo, SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>> sideEffects)
         : base(cardID: cardID,
             baseInfo: baseInfo,
-            sideEffects_OnEndRound: sideEffects_OnEndRound,
-            sideEffects_OnPlayOut: sideEffects_OnPlayOut,
-            sideEffects_OnSummoned: sideEffects_OnSummoned,
-            sideEffects_OnDie: sideEffects_OnDie)
+            slotType: slotType,
+            sideEffects: sideEffects)
     {
-        M_SlotType = slotType;
         switch (M_SlotType)
         {
             case SlotTypes.Weapon:
@@ -88,10 +84,7 @@ public class CardInfo_Equip : CardInfo_Base
             slotType: M_SlotType,
             weaponInfo: WeaponInfo,
             shieldInfo: ShieldInfo,
-            sideEffects_OnEndRound: temp.SideEffects_OnEndRound,
-            sideEffects_OnPlayOut: temp.SideEffects_OnPlayOut,
-            sideEffects_OnSummoned: temp.SideEffects_OnSummoned,
-            sideEffects_OnDie: temp.SideEffects_OnDie);
+            sideEffects:SideEffects);
         return cb;
     }
 }

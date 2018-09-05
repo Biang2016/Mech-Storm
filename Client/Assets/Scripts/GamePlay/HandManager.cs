@@ -243,13 +243,17 @@ internal class HandManager : MonoBehaviour
         RefreshCardsPlace(cards.Count, 0.1f);
     }
 
+    internal void RefreshCardsPlace(float duration) //重置所有手牌位置
+    {
+        RefreshCardsPlace(cards.Count, duration);
+    }
+
     internal void RefreshCardsPlace(int cardCount, float duration) //按虚拟的手牌总数重置所有手牌位置
     {
         if (ClientPlayer == null) return;
         if (cards.Count == 0) return;
 
         int count = 0;
-        Debug.Log("RefreshCardsPlace " + cardCount + "," + cards.Count);
         foreach (CardBase card in cards)
         {
             count++;
@@ -267,6 +271,33 @@ internal class HandManager : MonoBehaviour
             iTween.RotateTo(card.gameObject, args);
             args.Add("scale", scale);
             iTween.ScaleTo(card.gameObject, args);
+        }
+
+        RefreshAllCardUsable();
+    }
+
+    internal void RefreshCardsPlaceImmediately() //瞬间重置
+    {
+        RefreshCardsPlaceImmediately(cards.Count);
+    }
+
+    internal void RefreshCardsPlaceImmediately(int cardCount) //瞬间重置
+    {
+        if (ClientPlayer == null) return;
+        if (cards.Count == 0) return;
+
+        int count = 0;
+        foreach (CardBase card in cards)
+        {
+            count++;
+            Transform result = GetCardPlace(count, cardCount);
+            Vector3 position = result.position;
+            Quaternion rotation = result.rotation;
+            Vector3 scale = result.localScale;
+
+            card.transform.position = position;
+            card.transform.rotation = rotation;
+            card.transform.localScale = scale;
         }
 
         RefreshAllCardUsable();
@@ -306,7 +337,6 @@ internal class HandManager : MonoBehaviour
         GetCardPlacePivot.transform.Translate(Vector3.down * 0.1f * (toatalCardNumber - cardIndex) * rev); //向上错开，体现卡片前后感
         GetCardPlacePivot.transform.Rotate(-Vector3.down, rotateAngle); //卡片微小旋转
 
-        Debug.Log(cardIndex + "," + toatalCardNumber + " " + GetCardPlacePivot.transform.position);
         return GetCardPlacePivot.transform;
     }
 
@@ -340,6 +370,7 @@ internal class HandManager : MonoBehaviour
         if (currentFocusCard)
         {
             returnToSmaller(currentFocusCard);
+            RefreshCardsPlaceImmediately();
             ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
         }
 
@@ -349,7 +380,7 @@ internal class HandManager : MonoBehaviour
         {
             if (currentFocusCard is CardEquip)
             {
-                SlotTypes type= ((CardEquip) currentFocusCard).M_EquipType;
+                SlotTypes type = ((CardEquip) currentFocusCard).M_EquipType;
                 ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(type);
                 currentFocusEquipmentCard = currentFocusCard;
             }

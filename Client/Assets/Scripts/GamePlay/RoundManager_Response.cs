@@ -47,7 +47,6 @@ internal partial class RoundManager
         }
     }
 
-
     public void ResponseToSideEffects(ServerRequestBase r)
     {
         switch (r.GetProtocol())
@@ -202,12 +201,12 @@ internal partial class RoundManager
         if (CurrentClientPlayer == SelfClientPlayer)
         {
             ClientLog.Instance.PrintClientStates("MyRound");
-            EndRoundButton.SetActive(true);
+            SetEndRoundButtonState(true);
         }
         else
         {
             ClientLog.Instance.PrintClientStates("EnemyRound");
-            EndRoundButton.SetActive(false);
+            SetEndRoundButtonState(false);
         }
 
         BeginRound();
@@ -220,8 +219,8 @@ internal partial class RoundManager
     {
         ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinueId);
         retinue.M_RetinueAttack += r.addAttack;
-        retinue.M_RetinueWeaponEnergy += r.addWeaponEnergy;
         retinue.M_RetinueWeaponEnergyMax += r.addWeaponEnergyMax;
+        retinue.M_RetinueWeaponEnergy += r.addWeaponEnergy;
         retinue.M_RetinueArmor += r.addArmor;
         retinue.M_RetinueShield += r.addShield;
         retinue.M_RetinueTotalLife += r.addMaxLife;

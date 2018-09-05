@@ -130,7 +130,7 @@ internal class CardRetinue : CardBase
         bool summonTarget = false; //召唤时是否需要指定目标
 
         TargetSideEffect.TargetRange TargetRange = TargetSideEffect.TargetRange.None; //指定目标所属范围
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
+        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnThisSummon])
         {
             if (se is TargetSideEffect)
             {

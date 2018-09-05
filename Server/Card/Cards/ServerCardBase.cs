@@ -129,9 +129,9 @@ internal abstract class ServerCardBase
     {
     }
 
-    public virtual void OnEndRound()
+    public virtual void OnSelfEndRound()
     {
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnEndRound)
+        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnSelfEndRound])
         {
             if (se is CardRelatedSideEffect)
             {
@@ -142,9 +142,9 @@ internal abstract class ServerCardBase
         }
     }
 
-    public virtual void OnPlayOut(int targetRetinueId)
+    public virtual void OnPlayThisCard(int targetRetinueId)
     {
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnPlayOut)
+        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnPlayThisCard])
         {
             if (se is CardRelatedSideEffect)
             {

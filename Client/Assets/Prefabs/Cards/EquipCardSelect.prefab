@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
+  m_Color: {r: 0.6117647, g: 0.6117647, b: 0.6117647, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1271,8 +1271,9 @@ MonoBehaviour:
   CardBloomRenderer: {fileID: 23813667797871046}
   PictureBoxRenderer: {fileID: 23878625947819022}
   Image_DescPanel: {fileID: 114996597598905118}
-  MetalImage: {fileID: 114364373314823328}
-  EnergyImage: {fileID: 114148094515478196}
+  LifeIcon: {fileID: 0}
+  MetalIcon: {fileID: 114364373314823328}
+  EnergyIcon: {fileID: 114148094515478196}
   Text_Metal: {fileID: 114622239710252622}
   Text_Energy: {fileID: 114485020367195934}
   Block_Count: {fileID: 1748204297966100}
@@ -1580,7 +1581,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 87, y: 157.6}
+  m_SizeDelta: {x: 87, y: 178.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224704039992656778
 RectTransform:
@@ -1617,7 +1618,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 87, y: 143.8}
+  m_SizeDelta: {x: 105.09, y: 143.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224839067599074010
 RectTransform:

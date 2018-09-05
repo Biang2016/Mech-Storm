@@ -90,7 +90,7 @@ internal class ServerHandManager
         UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone(), lastDragPosition);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
-        useCard.OnPlayOut(targetRetinueId);
+        useCard.OnPlayThisCard(targetRetinueId);
         cards.Remove(useCard);
     }
 
@@ -102,7 +102,7 @@ internal class ServerHandManager
 
     public void EndRound()
     {
-        foreach (ServerCardBase card in cards) card.OnEndRound();
+        foreach (ServerCardBase card in cards) card.OnSelfEndRound();
         SetAllCardUnusable();
     }
 

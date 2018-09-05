@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 internal partial class RoundManager : MonoSingletion<RoundManager>
 {
@@ -16,7 +17,8 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     internal ClientPlayer IdleClientPlayer;
 
     [SerializeField] private Canvas BattleCanvas;
-    [SerializeField] private GameObject EndRoundButton;
+    [SerializeField] private Button EndRoundButton;
+    [SerializeField] private Text EndRoundButtonText;
 
     void Awake()
     {
@@ -43,7 +45,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
 
         GameBoardManager.Instance.ShowBattleShip();
         BattleCanvas.gameObject.SetActive(true);
-        EndRoundButton.SetActive(false);
+        SetEndRoundButtonState(false);
 
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
 
@@ -111,7 +113,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         CurrentClientPlayer = null;
         IdleClientPlayer = null;
         RoundNumber = 0;
-        EndRoundButton.SetActive(false);
+
         BattleCanvas.gameObject.SetActive(false);
         GameBoardManager.Instance.HideBattleShip();
 
@@ -136,6 +138,13 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
 
         BattleEffectsManager.Instance.Effect_Main.AllEffectsEnd();
         BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();
+    }
+
+    private void SetEndRoundButtonState(bool enable)
+    {
+        EndRoundButton.enabled = enable;
+        EndRoundButton.image.color = enable ? Color.yellow : Color.gray;
+        EndRoundButtonText.text = enable ? "结束回合" : "敌方回合";
     }
 
     #region 交互

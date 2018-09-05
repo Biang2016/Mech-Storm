@@ -154,17 +154,19 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
                 if (((ModuleRetinue) this).M_Weapon)
                 {
-                    if (!((CardRetinue) detailCard).Weapon)
+                    CardRetinue cardRetinue = (CardRetinue) detailCard;
+
+                    if (!cardRetinue.Weapon)
                     {
-                        ((CardRetinue) detailCard).Weapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleWeapon>();
+                        cardRetinue.Weapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponDetailPool.AllocateGameObject(cardRetinue.transform).GetComponent<ModuleWeapon>();
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) this).M_Weapon.CardInfo;
-                    ((CardRetinue) detailCard).Weapon.M_ModuleRetinue = (ModuleRetinue) this;
-                    ((CardRetinue) detailCard).Weapon.Initiate(((ModuleRetinue) this).M_Weapon.CardInfo, ClientPlayer);
-                    ((CardRetinue) detailCard).Weapon.GetComponent<DragComponent>().enabled = false;
-                    ((CardRetinue) detailCard).Weapon.GetComponent<MouseHoverComponent>().enabled = false;
-                    ((CardRetinue) detailCard).Weapon.SetPreview();
+                    cardRetinue.Weapon.M_ModuleRetinue = (ModuleRetinue) this;
+                    cardRetinue.Weapon.Initiate(((ModuleRetinue) this).M_Weapon.CardInfo, ClientPlayer);
+                    cardRetinue.Weapon.GetComponent<DragComponent>().enabled = false;
+                    cardRetinue.Weapon.GetComponent<MouseHoverComponent>().enabled = false;
+                    cardRetinue.Weapon.SetPreview();
 
                     detailCard_Weapon = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
                     detailCard_Weapon.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
@@ -178,17 +180,18 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
 
                 if (((ModuleRetinue) this).M_Shield)
                 {
-                    if (!((CardRetinue) detailCard).Shield)
+                    CardRetinue cardRetinue = (CardRetinue) detailCard;
+                    if (!cardRetinue.Shield)
                     {
-                        ((CardRetinue) detailCard).Shield = GameObjectPoolManager.Instance.Pool_ModuleShieldDetailPool.AllocateGameObject(detailCard.transform).GetComponent<ModuleShield>();
+                        cardRetinue.Shield = GameObjectPoolManager.Instance.Pool_ModuleShieldDetailPool.AllocateGameObject(cardRetinue.transform).GetComponent<ModuleShield>();
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) this).M_Shield.CardInfo;
-                    ((CardRetinue) detailCard).Shield.M_ModuleRetinue = (ModuleRetinue) this;
-                    ((CardRetinue) detailCard).Shield.Initiate(((ModuleRetinue) this).M_Shield.CardInfo, ClientPlayer);
-                    ((CardRetinue) detailCard).Shield.GetComponent<DragComponent>().enabled = false;
-                    ((CardRetinue) detailCard).Shield.GetComponent<MouseHoverComponent>().enabled = false;
-                    ((CardRetinue) detailCard).Shield.SetPreview();
+                    cardRetinue.Shield.M_ModuleRetinue = (ModuleRetinue) this;
+                    cardRetinue.Shield.Initiate(((ModuleRetinue) this).M_Shield.CardInfo, ClientPlayer);
+                    cardRetinue.Shield.GetComponent<DragComponent>().enabled = false;
+                    cardRetinue.Shield.GetComponent<MouseHoverComponent>().enabled = false;
+                    cardRetinue.Shield.SetPreview();
 
                     detailCard_Shield = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
                     detailCard_Shield.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;

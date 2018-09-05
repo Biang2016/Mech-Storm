@@ -268,44 +268,45 @@ internal class ServerGameManager
         }
     }
 
-    private bool isStopped = false;
+    public bool IsStopped = false;
 
     public void OnLeaveGameRequest(LeaveGameRequest r)
     {
-        OnStopGame(GetClientProxyByClientId(r.clientId));
+        OnLeaveGame(r.clientId);
     }
 
-    public void OnStopGame(ClientProxy clientProxy)
+    public void OnLeaveGame(int clientId)
     {
-        if (isStopped) return;
-        if (ClientA == null) ServerLog.Print(ClientA.ClientId + "   ClientA==null");
-        ClientA.ClientState = ProxyBase.ClientStates.Login;
-        if (ClientB == null) ServerLog.Print(ClientB.ClientId + "   ClientB==null");
-        ClientB.ClientState = ProxyBase.ClientStates.Login;
-
-        GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientProxy.ClientId);
+        if (IsStopped) return;
+        GameStopByLeaveRequest request = new GameStopByLeaveRequest(clientId);
         BroadcastRequest(request);
-
-        Server.SV.SGMM.RemoveGame(this, ClientA, ClientB);
-
-        PlayerA?.OnDestroyed();
-        PlayerB?.OnDestroyed();
-
-        isStopped = true;
+        IsStopped = true;
     }
 
     public void OnEndGame(ServerPlayer winner)
     {
+        if (IsStopped) return;
         GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
         BroadcastRequest(request);
-        ClientA.ClientState = ProxyBase.ClientStates.Login;
-        ClientB.ClientState = ProxyBase.ClientStates.Login;
-        Server.SV.SGMM.RemoveGame(this, ClientA, ClientB);
+        IsStopped = true;
+    }
 
-        PlayerA?.OnDestroyed();
-        PlayerB?.OnDestroyed();
+    public void StopGame()
+    {
+        if (IsStopped)
+        {
+            if (ClientA == null) ServerLog.Print(ClientA.ClientId + "   ClientA==null");
+            ClientA.ClientState = ProxyBase.ClientStates.Login;
+            if (ClientB == null) ServerLog.Print(ClientB.ClientId + "   ClientB==null");
+            ClientB.ClientState = ProxyBase.ClientStates.Login;
 
-        isStopped = true;
+            Server.SV.SGMM.RemoveGame(this, ClientA, ClientB);
+
+            PlayerA?.OnDestroyed();
+            PlayerB?.OnDestroyed();
+        }
+
+        IsStopped = false;
     }
 
     #endregion

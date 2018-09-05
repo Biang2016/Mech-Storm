@@ -15,7 +15,7 @@
     <CardInfo name="lifeInfo" life="12" totalLife="12" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" isSoldier="False" />
     <CardInfo name="slotInfo" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnDie">
+    <CardInfo name="sideEffectsInfo" happenTime="OnThisRetinueDie">
       <SideEffect name="KillAll" IsNeedChoise="False" M_TargetRange="EnemySoldiers"></SideEffect>
     </CardInfo>
   </Card>
@@ -32,7 +32,7 @@
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" isSoldier="False" />
     <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnSummon">
+    <CardInfo name="sideEffectsInfo" happenTime="OnThisSummon">
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemySoldiers" Value="5"></SideEffect>
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemySoldiers" Value="5"></SideEffect>
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemySoldiers" Value="5"></SideEffect>
@@ -48,59 +48,59 @@
 
 
   <Card id="501">
-    <CardInfo name="baseInfo" pictureID="4" cardName="支援小队" cardDesc="" metal="1" energy="0" coin="100" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#FFFFFF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="4" cardName="支援小队" cardDesc="" metal="1" energy="0" coin="100" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#7E7E7E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="502" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+    <CardInfo name="sideEffectsInfo" happenTime="OnThisSummon">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="502">
-    <CardInfo name="baseInfo" pictureID="4" cardName="支援中队" cardDesc="" metal="3" energy="0" coin="250" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#FFFFFF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="4" cardName="支援中队" cardDesc="" metal="3" energy="0" coin="250" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#7E7E7E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="503" degradeCardID="501" cardLevel="2" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+    <CardInfo name="sideEffectsInfo" happenTime="OnThisSummon">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="6"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="503">
-    <CardInfo name="baseInfo" pictureID="4" cardName="支援大队" cardDesc="" metal="5" energy="0" coin="400" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#FFFFFF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="4" cardName="支援大队" cardDesc="" metal="5" energy="0" coin="400" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#7E7E7E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="502" cardLevel="3" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+    <CardInfo name="sideEffectsInfo" happenTime="OnThisSummon">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="10"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="600">
-    <CardInfo name="baseInfo" pictureID="5" cardName="绝对防御" cardDesc="" metal="4" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#FFFFFF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="5" cardName="绝对防御" cardDesc="" metal="4" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#7E7E7E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="7" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
   </Card>
   <Card id="700">
-    <CardInfo name="baseInfo" pictureID="6" cardName="太空机雷" cardDesc="" metal="2" energy="0" coin="100" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#FFFFFF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="6" cardName="太空机雷" cardDesc="" metal="2" energy="0" coin="100" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#7E7E7E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnDie">
+    <CardInfo name="sideEffectsInfo" happenTime="OnThisRetinueDie">
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyBattleGround" Value="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="800">
-    <CardInfo name="baseInfo" pictureID="7" cardName="战场工兵" cardDesc="" metal="2" energy="0" coin="0" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#FFFFFF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="7" cardName="战场工兵" cardDesc="" metal="2" energy="0" coin="0" effectFactor="1" dragPurpose="Summon" cardType="Retinue" cardColor="#7E7E7E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnSummoned">
+    <CardInfo name="sideEffectsInfo" happenTime="OnThisSummon">
       <SideEffect name="HealOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="5"></SideEffect>
     </CardInfo>
   </Card>
@@ -141,6 +141,9 @@
     <CardInfo name="baseInfo" pictureID="300" cardName="光子护盾Ⅰ" cardDesc="" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" cardColor="#FFE325" hightLightColor="#FF781C" />
     <CardInfo name="upgradeInfo" upgradeCardID="30102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="shieldInfo" armor="0" shield="4" shieldType="Shield" />
+    <CardInfo name="sideEffectsInfo" happenTime="OnSelfEndRound">
+      <SideEffect name="DamageAll" M_TargetRange="EnemyBattleGround" Value="1"></SideEffect>
+    </CardInfo>
   </Card>
   <Card id="30102">
     <CardInfo name="baseInfo" pictureID="300" cardName="光子护盾Ⅱ" cardDesc="" metal="2" energy="0" coin="400" effectFactor="1" dragPurpose="Equip" cardType="Equip" cardColor="#FFE325" hightLightColor="#FF781C" />
@@ -172,52 +175,52 @@
   <Card id="50101">
     <CardInfo name="baseInfo" pictureID="600" cardName="火力防御" cardDesc="" metal="0" energy="1" coin="100" effectFactor="1" dragPurpose="Target" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="50102" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="EnemyBattleGround" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="50102">
     <CardInfo name="baseInfo" pictureID="600" cardName="火神扫射" cardDesc="" metal="0" energy="3" coin="150" effectFactor="1" dragPurpose="Target" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="50101" cardLevel="2" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="DamageAll" M_TargetRange="EnemyBattleGround" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="50201">
     <CardInfo name="baseInfo" pictureID="603" cardName="月面镭射" cardDesc="" metal="0" energy="3" coin="200" effectFactor="1" dragPurpose="Target" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="Soldiers" Value="6"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="50301">
     <CardInfo name="baseInfo" pictureID="604" cardName="蝴蝶效应" cardDesc="" metal="0" energy="4" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="10"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="50401">
     <CardInfo name="baseInfo" pictureID="605" cardName="钛金魔方" cardDesc="" metal="0" energy="3" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="CopyNextDrawCard" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="50501">
     <CardInfo name="baseInfo" pictureID="606" cardName="精神领域" cardDesc="" metal="5" energy="3" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="DrawCards" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="50601">
     <CardInfo name="baseInfo" pictureID="607" cardName="死亡之光" cardDesc="" metal="0" energy="1" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="100"></SideEffect>
     </CardInfo>
-    <CardInfo name="sideEffectsInfo" happenTime="OnEndRound">
+    <CardInfo name="sideEffectsInfo" happenTime="OnSelfEndRound">
       <SideEffect name="WaitInHandDecreaseEnergy" Value="2"></SideEffect>
     </CardInfo>
   </Card>
@@ -225,28 +228,28 @@
   <Card id="60101">
     <CardInfo name="baseInfo" pictureID="701" cardName="小型能量块" cardDesc="" metal="0" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="60102" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60102">
     <CardInfo name="baseInfo" pictureID="701" cardName="中型能量块" cardDesc="" metal="0" energy="0" coin="250" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="60103" degradeCardID="60101" cardLevel="2" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60103">
     <CardInfo name="baseInfo" pictureID="701" cardName="大型能量块" cardDesc="" metal="0" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60102" cardLevel="3" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="6"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60201">
     <CardInfo name="baseInfo" pictureID="704" cardName="能量环" cardDesc="" metal="0" energy="0" coin="500" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="sideEffectsInfo" happenTime="OnPlayOut">
+    <CardInfo name="sideEffectsInfo" happenTime="OnPlayThisCard">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="10"></SideEffect>
     </CardInfo>
   </Card>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 internal class ServerModuleRetinue : ServerModuleBase
 {
@@ -15,14 +16,12 @@ internal class ServerModuleRetinue : ServerModuleBase
         M_IsDead = false;
         base.Initiate(cardInfo, serverPlayer);
 
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnDie)
+        foreach (KeyValuePair<SideEffectBase.TriggerTime, List<SideEffectBase>> kv in CardInfo.SideEffects)
         {
-            se.Player = ServerPlayer;
-        }
-
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
-        {
-            se.Player = ServerPlayer;
+            foreach (SideEffectBase se in kv.Value)
+            {
+                se.Player = ServerPlayer;
+            }
         }
     }
 
@@ -31,14 +30,12 @@ internal class ServerModuleRetinue : ServerModuleBase
         return new CardInfo_Retinue(
             cardID: CardInfo.CardID,
             baseInfo: CardInfo.BaseInfo,
+            slotType: CardInfo.M_SlotType,
             upgradeInfo: CardInfo.UpgradeInfo,
             lifeInfo: CardInfo.LifeInfo,
             battleInfo: CardInfo.BattleInfo,
             slotInfo: CardInfo.SlotInfo,
-            sideEffects_OnEndRound: CardInfo.SideEffects_OnEndRound,
-            sideEffects_OnPlayOut: CardInfo.SideEffects_OnPlayOut,
-            sideEffects_OnSummoned: CardInfo.SideEffects_OnSummoned,
-            sideEffects_OnDie: CardInfo.SideEffects_OnDie);
+            sideEffects: CardInfo.SideEffects);
     }
 
     #region 属性
@@ -235,8 +232,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
     }
 
-    public int ShieldStayRoundsLeft;
-
     public int RetinueShieldFull;
 
     private int m_RetinueShield;
@@ -305,8 +300,8 @@ internal class ServerModuleRetinue : ServerModuleBase
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         M_RetinueAttack += newWeapon.CardInfo.WeaponInfo.Attack;
-        M_RetinueWeaponEnergy += newWeapon.CardInfo.WeaponInfo.Energy;
         M_RetinueWeaponEnergyMax += newWeapon.CardInfo.WeaponInfo.EnergyMax;
+        M_RetinueWeaponEnergy += newWeapon.CardInfo.WeaponInfo.Energy;
     }
 
     void On_WeaponChanged(ServerModuleWeapon newWeapon)
@@ -316,8 +311,8 @@ internal class ServerModuleRetinue : ServerModuleBase
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         M_RetinueAttack = CardInfo.BattleInfo.BasicAttack + newWeapon.CardInfo.WeaponInfo.Attack;
-        M_RetinueWeaponEnergy = newWeapon.CardInfo.WeaponInfo.Energy;
         M_RetinueWeaponEnergyMax = newWeapon.CardInfo.WeaponInfo.EnergyMax;
+        M_RetinueWeaponEnergy = newWeapon.CardInfo.WeaponInfo.Energy;
     }
 
     #endregion
@@ -546,7 +541,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public void OnSummoned(int targetRetinueId)
     {
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnSummoned)
+        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnThisSummon])
         {
             if (se is TargetSideEffect)
             {
@@ -567,7 +562,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     public void OnDieTogather() //被杀时触发
     {
         if (M_IsDead) return;
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnDie) //先入队死亡效果，但不触发，等到所有被群杀的随从的死亡效果都入队之后再触发
+        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnThisRetinueDie]) //先入队死亡效果，但不触发，等到所有被群杀的随从的死亡效果都入队之后再触发
         {
             ServerPlayer.MyGameManager.EnqueueSideEffect(se);
             RetinueEffectRequest request = new RetinueEffectRequest(ServerPlayer.ClientId, M_RetinueID, RetinueEffectRequest.EffectType.OnDie);
@@ -602,16 +597,13 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
     }
 
-    public void OnEndRound()
+    public void OnSelfEndRound()
     {
-        if (ShieldStayRoundsLeft > 1)
+        if (M_Weapon != null) M_Weapon.OnSelfEndRound();
+        if (M_Shield != null) M_Shield.OnSelfEndRound();
+        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnSelfEndRound])
         {
-            ShieldStayRoundsLeft--;
-        }
-        else
-        {
-            ShieldStayRoundsLeft = 0;
-            RetinueShieldFull = 0;
+            se.Excute(ServerPlayer);
         }
     }
 
