@@ -15,14 +15,6 @@ internal class ServerModuleRetinue : ServerModuleBase
 
         M_IsDead = false;
         base.Initiate(cardInfo, serverPlayer);
-
-        foreach (KeyValuePair<SideEffectBase.TriggerTime, List<SideEffectBase>> kv in CardInfo.SideEffects)
-        {
-            foreach (SideEffectBase se in kv.Value)
-            {
-                se.Player = ServerPlayer;
-            }
-        }
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
@@ -110,10 +102,10 @@ internal class ServerModuleRetinue : ServerModuleBase
             if (m_RetinueLeftLife <= 0)
             {
                 OnDieTogather();
-                ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
             }
         }
     }
+
 
     private int m_RetinueTotalLife;
 
@@ -137,7 +129,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         if (M_RetinueLeftLife == 0)
         {
             OnDieTogather();
-            ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
             return false;
         }
 
@@ -428,6 +419,11 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
     }
 
+    private void OnBeAttacked()
+    {
+        throw new NotImplementedException();
+    }
+
     public void Attack(ServerModuleRetinue targetModuleRetinue, bool isStrickBack) //服务器客户单分别计算
     {
         OnAttack();
@@ -470,12 +466,10 @@ internal class ServerModuleRetinue : ServerModuleBase
         if (M_RetinueLeftLife == 0 && targetModuleRetinue.M_RetinueLeftLife != 0) //攻击方挂了
         {
             OnDieTogather();
-            ServerPlayer.MyGameManager.ExecuteAllSideEffects();
         }
         else if (M_RetinueLeftLife != 0 && targetModuleRetinue.M_RetinueLeftLife == 0) //反击方挂了
         {
             targetModuleRetinue.OnDieTogather();
-            ServerPlayer.MyGameManager.ExecuteAllSideEffects();
         }
         else if (M_RetinueLeftLife == 0 && targetModuleRetinue.M_RetinueLeftLife == 0) //全挂了
         {
@@ -489,9 +483,24 @@ internal class ServerModuleRetinue : ServerModuleBase
                 targetModuleRetinue.OnDieTogather();
                 OnDieTogather();
             }
-
-            ServerPlayer.MyGameManager.ExecuteAllSideEffects();
         }
+    }
+
+    public void OnDieTogather()
+    {
+        ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID);
+    }
+
+    private void OnMakeDamage(int damage)
+    {
+    }
+
+    private void OnBeDamaged(int i)
+    {
+    }
+
+    private void OnBeHealed(int i)
+    {
     }
 
     public void AttackShip(ServerPlayer ship) //计算结果全部由服务器下发
@@ -531,80 +540,12 @@ internal class ServerModuleRetinue : ServerModuleBase
         if (M_RetinueLeftLife == 0) //攻击方挂了
         {
             OnDieTogather();
-            ServerPlayer.MyGameManager.ExecuteAllSideEffects();
         }
     }
 
-    #endregion
-
-    #region 特效、技能
-
-    public void OnSummoned(int targetRetinueId)
+    private void OnAttack()
     {
-        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnThisSummon])
-        {
-            if (se is TargetSideEffect)
-            {
-                if (((TargetSideEffect) se).IsNeedChoise)
-                {
-                    ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
-                }
-            }
-
-            ServerPlayer.MyGameManager.EnqueueSideEffect(se);
-            RetinueEffectRequest request = new RetinueEffectRequest(ServerPlayer.ClientId, M_RetinueID, RetinueEffectRequest.EffectType.OnSummon);
-            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-        }
-
-        ServerPlayer.MyGameManager.ExecuteAllSideEffects();
-    }
-
-    public void OnDieTogather() //被杀时触发
-    {
-        if (M_IsDead) return;
-        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnThisRetinueDie]) //先入队死亡效果，但不触发，等到所有被群杀的随从的死亡效果都入队之后再触发
-        {
-            ServerPlayer.MyGameManager.EnqueueSideEffect(se);
-            RetinueEffectRequest request = new RetinueEffectRequest(ServerPlayer.ClientId, M_RetinueID, RetinueEffectRequest.EffectType.OnDie);
-            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-        }
-
-        ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID); //入队死亡信息，整个结算结束后一并发送request
-        M_IsDead = true;
-    }
-
-    public void OnAttack()
-    {
-    }
-
-    public void OnMakeDamage(int damage)
-    {
-    }
-
-    public void OnBeAttacked()
-    {
-    }
-
-    public void OnBeDamaged(int damage)
-    {
-    }
-
-    public void OnBeHealed(int healValue)
-    {
-    }
-
-    public void OnBeginRound()
-    {
-    }
-
-    public void OnSelfEndRound()
-    {
-        if (M_Weapon != null) M_Weapon.OnSelfEndRound();
-        if (M_Shield != null) M_Shield.OnSelfEndRound();
-        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnSelfEndRound])
-        {
-            se.Excute(ServerPlayer);
-        }
+        throw new NotImplementedException();
     }
 
     #endregion

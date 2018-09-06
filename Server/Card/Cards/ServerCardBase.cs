@@ -90,7 +90,7 @@ internal abstract class ServerCardBase
 
     #endregion
 
-    public static ServerCardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
+    public static ServerCardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, ServerPlayer serverPlayer, int cardInstanceId)
     {
         ServerCardBase newCard;
         switch (cardInfo.BaseInfo.CardType)
@@ -109,11 +109,11 @@ internal abstract class ServerCardBase
                 break;
         }
 
-        newCard.Initiate(cardInfo, serverPlayer);
+        newCard.Initiate(cardInfo, serverPlayer, cardInstanceId);
         return newCard;
     }
 
-    public virtual void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
+    public virtual void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer, int cardInstanceId)
     {
         isInitialized = false;
         ServerPlayer = serverPlayer;
@@ -121,41 +121,18 @@ internal abstract class ServerCardBase
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
         M_EffectFactor = CardInfo.BaseInfo.EffectFactor;
+        M_CardInstanceId = cardInstanceId;
         Stars = CardInfo.UpgradeInfo.CardLevel;
         isInitialized = true;
-    }
-
-    public virtual void OnBeginRound()
-    {
-    }
-
-    public virtual void OnSelfEndRound()
-    {
-        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnSelfEndRound])
+        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
         {
-            if (se is CardRelatedSideEffect)
+            see.SideEffectBase.Player = ServerPlayer;
+            if (see.SideEffectBase is CardRelatedSideEffect)
             {
-                ((CardRelatedSideEffect) se).TargetCardInstanceId = M_CardInstanceId;
+                ((CardRelatedSideEffect) see.SideEffectBase).TargetCardInstanceId = M_CardInstanceId;
             }
-
-            se.Excute(ServerPlayer);
         }
-    }
 
-    public virtual void OnPlayThisCard(int targetRetinueId)
-    {
-        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnPlayThisCard])
-        {
-            if (se is CardRelatedSideEffect)
-            {
-                ((CardRelatedSideEffect) se).TargetCardInstanceId = M_CardInstanceId;
-            }
-            if (se is TargetSideEffect)
-            {
-                ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
-            }
-
-            se.Excute(ServerPlayer);
-        }
+        EventManager.Instance.RegisterEvent(CardInfo.SideEffects);
     }
 }

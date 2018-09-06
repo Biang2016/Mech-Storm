@@ -19,8 +19,7 @@ internal class ServerHandManager
         List<DrawCardRequest.CardIdAndInstanceId> infos = new List<DrawCardRequest.CardIdAndInstanceId>();
         foreach (CardInfo_Base cardInfoBase in newCardsInfo)
         {
-            ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfoBase, ServerPlayer);
-            newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
+            ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfoBase, ServerPlayer, ServerPlayer.MyGameManager.GeneratorNewCardInstanceId());
             infos.Add(new DrawCardRequest.CardIdAndInstanceId(cardInfoBase.CardID, newCard.M_CardInstanceId));
             cards.Add(newCard);
         }
@@ -31,8 +30,7 @@ internal class ServerHandManager
     internal void GetACardByID(int cardID)
     {
         CardInfo_Base cardInfo = AllCards.GetCard(cardID);
-        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer);
-        newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
+        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer, ServerPlayer.MyGameManager.GeneratorNewCardInstanceId());
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         cards.Add(newCard);
     }
@@ -41,8 +39,7 @@ internal class ServerHandManager
     {
         CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawSoldierCard();
         if (newCardInfo == null) return;
-        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer);
-        newCard.M_CardInstanceId = ServerPlayer.MyGameManager.GeneratorNewCardInstanceId();
+        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer, ServerPlayer.MyGameManager.GeneratorNewCardInstanceId());
         OnPlayerGetCard(newCardInfo.CardID, newCard.M_CardInstanceId);
         cards.Add(newCard);
     }
@@ -90,19 +87,22 @@ internal class ServerHandManager
         UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone(), lastDragPosition);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
-        useCard.OnPlayThisCard(targetRetinueId);
+        EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
+            new SideEffectBase.ExecuterInfo(
+                clientId: ServerPlayer.ClientId,
+                targetRetinueId: targetRetinueId,
+                cardId: useCard.CardInfo.CardID,
+                cardInstanceId: cardInstanceId));
         cards.Remove(useCard);
     }
 
     public void BeginRound()
     {
-        foreach (ServerCardBase card in cards) card.OnBeginRound();
         RefreshAllCardUsable();
     }
 
     public void EndRound()
     {
-        foreach (ServerCardBase card in cards) card.OnSelfEndRound();
         SetAllCardUnusable();
     }
 

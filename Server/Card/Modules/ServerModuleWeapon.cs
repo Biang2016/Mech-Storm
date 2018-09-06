@@ -62,13 +62,5 @@
 
     #region 特效、技能
 
-    public void OnSelfEndRound()
-    {
-        foreach (SideEffectBase se in CardInfo.SideEffects[SideEffectBase.TriggerTime.OnSelfEndRound])
-        {
-            se.Excute(ServerPlayer);
-        }
-    }
-
     #endregion
 }

@@ -38,11 +38,7 @@ public static class AllCards
             ShieldInfo shieldInfo = new ShieldInfo();
             SlotTypes slotType = SlotTypes.None;
 
-            SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>> SideEffects = new SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>>();
-            foreach (SideEffectBase.TriggerTime item in Enum.GetValues(typeof(SideEffectBase.TriggerTime)))
-            {
-                SideEffects.Add(item, new List<SideEffectBase>());
-            }
+            SideEffectBundle sideEffects = new SideEffectBundle();
 
             for (int j = 0; j < card.ChildNodes.Count; j++)
             {
@@ -96,7 +92,8 @@ public static class AllCards
                         slotType = SlotTypes.Shield;
                         break;
                     case "sideEffectsInfo":
-                        SideEffectBase.TriggerTime triggerTime = (SideEffectBase.TriggerTime) Enum.Parse(typeof(SideEffectBase.TriggerTime), cardInfo.Attributes["happenTime"].Value);
+                        SideEffectBundle.TriggerTime triggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), cardInfo.Attributes["triggerTime"].Value);
+                        SideEffectBundle.TriggerRange triggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), cardInfo.Attributes["triggerRange"].Value);
 
                         for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
                         {
@@ -125,7 +122,7 @@ public static class AllCards
                             }
 
                             sideEffect.HightlightColor = baseInfo.HightLightColor;
-                            SideEffects[triggerTime].Add(sideEffect);
+                            sideEffects.AddSideEffect(sideEffect, triggerTime, triggerRange);
                         }
 
                         break;
@@ -143,7 +140,7 @@ public static class AllCards
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
                         slotInfo: slotInfo,
-                        sideEffects: SideEffects));
+                        sideEffects: sideEffects));
                     break;
                 case CardTypes.Equip:
                     addCard(new CardInfo_Equip(
@@ -153,7 +150,7 @@ public static class AllCards
                         slotType: slotType,
                         weaponInfo: weaponInfo,
                         shieldInfo: shieldInfo,
-                        sideEffects: SideEffects));
+                        sideEffects: sideEffects));
                     break;
                 case CardTypes.Spell:
                     addCard(new CardInfo_Spell(
@@ -161,7 +158,7 @@ public static class AllCards
                         baseInfo: baseInfo,
                         slotType: slotType,
                         upgradeInfo: upgradeInfo,
-                        sideEffects: SideEffects));
+                        sideEffects: sideEffects));
                     break;
             }
         }

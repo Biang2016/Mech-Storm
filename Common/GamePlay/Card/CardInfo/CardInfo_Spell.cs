@@ -7,7 +7,7 @@ public class CardInfo_Spell : CardInfo_Base
     {
     }
 
-    public CardInfo_Spell(int cardID, BaseInfo baseInfo, SlotTypes slotType, UpgradeInfo upgradeInfo, SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>> sideEffects)
+    public CardInfo_Spell(int cardID, BaseInfo baseInfo, SlotTypes slotType, UpgradeInfo upgradeInfo, SideEffectBundle sideEffects)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             slotType: slotType,

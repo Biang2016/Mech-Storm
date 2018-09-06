@@ -6,40 +6,40 @@
         {
         }
 
-        public override void Excute(object Player)
+        public override void Excute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
             switch (M_TargetRange)
             {
                 case TargetRange.BattleGrounds:
-                    player.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
-                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
+                    player.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
+                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
                     break;
                 case TargetRange.SelfBattleGround:
-                    player.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
+                    player.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
                     break;
                 case TargetRange.EnemyBattleGround:
-                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
+                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
                     break;
                 case TargetRange.Heros:
-                    player.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
-                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
+                    player.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
+                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
                     break;
                 case TargetRange.SelfHeros:
-                    player.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
+                    player.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
                     break;
                 case TargetRange.EnemyHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
+                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
                     break;
                 case TargetRange.Soldiers:
-                    player.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
-                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
+                    player.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
+                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
                     break;
                 case TargetRange.SelfSoldiers:
-                    player.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
+                    player.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(TargetRetinueId);
+                    player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
                     break;
                 case TargetRange.SelfShip:
                     break;

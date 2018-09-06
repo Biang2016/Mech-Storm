@@ -232,14 +232,11 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
             m_EffectFactor = value;
             if (CardInfo.BaseInfo.CardType == CardTypes.Spell)
             {
-                foreach (KeyValuePair<SideEffectBase.TriggerTime, List<SideEffectBase>> kv in CardInfo.SideEffects)
+                foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
                 {
-                    foreach (SideEffectBase se in kv.Value)
+                    if (see.SideEffectBase is IEffectFactor)
                     {
-                        if (se is IEffectFactor)
-                        {
-                            ((IEffectFactor)se).SetEffetFactor(value);
-                        }
+                        ((IEffectFactor) see.SideEffectBase).SetEffetFactor(value);
                     }
                 }
             }

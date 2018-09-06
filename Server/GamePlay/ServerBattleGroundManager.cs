@@ -129,7 +129,10 @@ internal class ServerBattleGroundManager
         retinue.M_UsedClientRetinueTempId = clientRetinueTempId;
         retinue.Initiate(retinueCardInfo, ServerPlayer);
 
-        retinue.OnSummoned(targetRetinueId); //先战吼，再进战场
+        SideEffectBase.ExecuterInfo info = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: retinueId, targetRetinueId: targetRetinueId);
+        EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnRetinueSummon, info);
+        if (retinueCardInfo.BattleInfo.IsSoldier) EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnSoldierSummon, info);
+        else EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnHeroSummon, info);
         BattleGroundAddRetinue(retinuePlaceIndex, retinue);
     }
 
@@ -171,18 +174,11 @@ internal class ServerBattleGroundManager
         int targetRetinueId = r.targetRetinueId;
         if (r.isTargetRetinueIdTempId)
         {
-            targetRetinueId = GetRetinueIdByClientRetinueTempId(r.targetRetinueId);
+            targetRetinueId = GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
+            EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnPlayCard, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, targetRetinueId: targetRetinueId, cardId: cardInfo.CardID, cardInstanceId: r.handCardInstanceId));
         }
 
-        foreach (SideEffectBase se in cardInfo.SideEffects[SideEffectBase.TriggerTime.OnPlayThisCard])
-        {
-            if (se is TargetSideEffect)
-            {
-                if (((TargetSideEffect) se).IsNeedChoise) ((TargetSideEffect) se).TargetRetinueId = targetRetinueId;
-            }
-
-            se.Excute(ServerPlayer);
-        }
+        EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnPlayCard, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, cardId: cardInfo.CardID, cardInstanceId: r.handCardInstanceId));
     }
 
     public void KillAllRetinues()
@@ -199,8 +195,6 @@ internal class ServerBattleGroundManager
         {
             serverModuleRetinue.OnDieTogather();
         }
-
-        ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
 
         BattleGroundRemoveAllRetinue();
     }
@@ -220,8 +214,6 @@ internal class ServerBattleGroundManager
         {
             serverModuleRetinue.OnDieTogather();
         }
-
-        ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
 
         foreach (ServerModuleRetinue retinue in dieRetinues)
         {
@@ -243,8 +235,6 @@ internal class ServerBattleGroundManager
         {
             serverModuleRetinue.OnDieTogather();
         }
-
-        ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
 
         foreach (ServerModuleRetinue retinue in dieRetinues)
         {
@@ -278,7 +268,6 @@ internal class ServerBattleGroundManager
         if (retinue != null)
         {
             retinue.OnDieTogather();
-            ServerPlayer.MyGameManager.ExecuteAllSideEffects(); //触发全部死亡效果
             BattleGroundRemoveRetinue(retinue);
             PrintRetinueInfos();
         }
@@ -552,18 +541,12 @@ internal class ServerBattleGroundManager
 
     internal void BeginRound()
     {
-        foreach (ServerModuleRetinue mr in Retinues)
-        {
-            mr.OnBeginRound();
-        }
+        EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnBeginRound, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId));
     }
 
     internal void EndRound()
     {
-        foreach (ServerModuleRetinue mr in Retinues)
-        {
-            mr.OnSelfEndRound();
-        }
+        EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnEndRound, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId));
     }
 
     #endregion

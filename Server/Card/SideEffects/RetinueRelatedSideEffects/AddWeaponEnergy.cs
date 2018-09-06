@@ -8,11 +8,11 @@ namespace SideEffects
         {
         }
 
-        public override void Excute(object Player)
+        public override void Excute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(RetinueID);
-            if (retinue == null) retinue = player.MyEnemyPlayer.MyBattleGroundManager.GetRetinue(RetinueID);
+            ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(executerInfo.RetinueId);
+            if (retinue == null) retinue = player.MyEnemyPlayer.MyBattleGroundManager.GetRetinue(executerInfo.RetinueId);
             if (retinue?.M_Weapon != null)
             {
                 int increase = Math.Min(retinue.M_RetinueWeaponEnergyMax - retinue.M_RetinueWeaponEnergy, FinalValue);

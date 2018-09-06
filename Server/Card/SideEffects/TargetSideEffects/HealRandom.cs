@@ -9,7 +9,7 @@ namespace SideEffects
         }
 
 
-        public override void Excute(object Player)
+        public override void Excute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
             switch (M_TargetRange)

@@ -130,6 +130,7 @@ internal class ServerGameManager
     {
         CurrentPlayer.IncreaseMetalMax(GamePlaySettings.MetalIncrease);
         CurrentPlayer.AddAllMetal();
+
         CurrentPlayer.MyCardDeckManager.BeginRound();
         CurrentPlayer.MyHandManager.BeginRound();
         CurrentPlayer.MyBattleGroundManager.BeginRound();
@@ -150,7 +151,6 @@ internal class ServerGameManager
     }
 
     #endregion
-
 
     #region ClientOperationResponses
 
@@ -311,26 +311,7 @@ internal class ServerGameManager
 
     #endregion
 
-
     #region SideEffects
-
-    Queue<SideEffectBase> SideEffectQueue = new Queue<SideEffectBase>();
-
-    public void EnqueueSideEffect(SideEffectBase se)
-    {
-        SideEffectQueue.Enqueue(se);
-    }
-
-    public void ExecuteAllSideEffects()
-    {
-        while (SideEffectQueue.Count > 0)
-        {
-            SideEffectBase se = SideEffectQueue.Dequeue();
-            se.Excute(se.Player);
-        }
-
-        SendAllDieInfos();
-    }
 
     List<int> DieRetinueList = new List<int>();
 
@@ -359,7 +340,6 @@ internal class ServerGameManager
     }
 
     #endregion
-
 
     #region Utils
 

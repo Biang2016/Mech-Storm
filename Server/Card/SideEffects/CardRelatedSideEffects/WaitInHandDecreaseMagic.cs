@@ -8,14 +8,14 @@ namespace SideEffects
         {
         }
 
-        public override void Excute(object Player)
+        public override void Excute(ExecuterInfo executerInfo)
         {
             ServerPlayer sp = (ServerPlayer) Player;
-            ServerCardBase ci = sp.MyHandManager.GetCardByCardInstanceId(TargetCardInstanceId);
+            ServerCardBase ci = sp.MyHandManager.GetCardByCardInstanceId(executerInfo.CardInstanceId);
 
             if (ci.CardInfo.BaseInfo.Energy >= FinalValue)
             {
-                ci.M_Energy-= FinalValue;
+                ci.M_Energy -= FinalValue;
             }
         }
     }

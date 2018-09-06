@@ -264,6 +264,10 @@ public partial class SelectBuildManager
 
         foreach (int cardID in buildInfo.CardIDs)
         {
+            if (!allCards.ContainsKey(cardID))
+            {
+                ClientLog.Instance.PrintError("卡ID不存在:" + cardID);
+            }
             CardBase cb = allCards[cardID];
             if (cb.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !cb.CardInfo.BattleInfo.IsSoldier)
             {

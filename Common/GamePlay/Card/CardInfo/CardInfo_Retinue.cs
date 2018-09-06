@@ -7,7 +7,7 @@ public class CardInfo_Retinue : CardInfo_Base
     {
     }
 
-    public CardInfo_Retinue(int cardID, BaseInfo baseInfo,SlotTypes slotType, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo, SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>> sideEffects)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo,SlotTypes slotType, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo,SideEffectBundle sideEffects)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             slotType: slotType,

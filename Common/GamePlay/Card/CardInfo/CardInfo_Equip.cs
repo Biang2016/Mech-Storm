@@ -8,7 +8,7 @@ public class CardInfo_Equip : CardInfo_Base
     {
     }
 
-    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SlotTypes slotType, WeaponInfo weaponInfo, ShieldInfo shieldInfo, SortedDictionary<SideEffectBase.TriggerTime, List<SideEffectBase>> sideEffects)
+    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SlotTypes slotType, WeaponInfo weaponInfo, ShieldInfo shieldInfo, SideEffectBundle sideEffects)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             slotType: slotType,

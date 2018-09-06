@@ -10,6 +10,12 @@
         CardInfo = cardInfo.Clone();
         Stars = cardInfo.UpgradeInfo.CardLevel;
         isInitialized = true;
+        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
+        {
+            see.SideEffectBase.Player = ServerPlayer;
+        }
+
+        EventManager.Instance.RegisterEvent(CardInfo.SideEffects);
     }
 
     public abstract CardInfo_Base GetCurrentCardInfo();
