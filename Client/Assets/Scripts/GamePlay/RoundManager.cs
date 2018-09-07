@@ -104,10 +104,10 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
 
         GameBoardManager.Instance.CardDetailPreview.transform.DetachChildren();
 
-        GameBoardManager.Instance.SelfBattleGroundManager.Reset();
-        GameBoardManager.Instance.EnemyBattleGroundManager.Reset();
-        GameBoardManager.Instance.SelfHandManager.Reset();
-        GameBoardManager.Instance.EnemyHandManager.Reset();
+        GameBoardManager.Instance.SelfBattleGroundManager.ResetAll();
+        GameBoardManager.Instance.EnemyBattleGroundManager.ResetAll();
+        GameBoardManager.Instance.SelfHandManager.ResetAll();
+        GameBoardManager.Instance.EnemyHandManager.ResetAll();
         SelfClientPlayer = null;
         EnemyClientPlayer = null;
         CurrentClientPlayer = null;
@@ -115,7 +115,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         RoundNumber = 0;
 
         BattleCanvas.gameObject.SetActive(false);
-        GameBoardManager.Instance.HideBattleShip();
+        GameBoardManager.Instance.ResetAll();
 
         CardDeckManager.Instance.HideAll();
         RandomNumberGenerator = null;
@@ -135,9 +135,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         }
 
         StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
-
-        BattleEffectsManager.Instance.Effect_Main.AllEffectsEnd();
-        BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();
+        BattleEffectsManager.Instance.ResetAll();
     }
 
     private void SetEndRoundButtonState(bool enable)

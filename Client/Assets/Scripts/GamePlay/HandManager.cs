@@ -37,7 +37,7 @@ internal class HandManager : MonoBehaviour
 
     #region 响应
 
-    public void Reset()
+    public void ResetAll()
     {
         foreach (CardBase cardBase in cards)
         {
@@ -45,8 +45,38 @@ internal class HandManager : MonoBehaviour
         }
 
         cards.Clear();
-        if (currentShowCard) currentShowCard.PoolRecycle();
+        if (currentShowCard)
+        {
+            currentShowCard.PoolRecycle();
+            currentShowCard = null;
+        }
+
+        if (lastShowCard)
+        {
+            lastShowCard.PoolRecycle();
+            lastShowCard = null;
+        }
+
+        if (currentFocusCard)
+        {
+            currentFocusCard.PoolRecycle();
+            currentFocusCard = null;
+        }
+        if (currentFocusEquipmentCard)
+        {
+            currentFocusEquipmentCard.PoolRecycle();
+            currentFocusEquipmentCard = null;
+        }
+
+        if (currentSummonRetinuePreviewCard)
+        {
+            currentSummonRetinuePreviewCard.PoolRecycle();
+            currentSummonRetinuePreviewCard = null;
+        }
+
         ClientPlayer = null;
+        lastUseCardShowTime = 0;
+        summonRetinuePreviewCardIndex = 0;
     }
 
     public void GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds)

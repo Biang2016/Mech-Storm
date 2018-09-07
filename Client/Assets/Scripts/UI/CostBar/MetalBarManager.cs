@@ -15,6 +15,11 @@ public class MetalBarManager : MonoBehaviour
         offset = SecondPos.localPosition - FirstPos.localPosition;
     }
 
+    public void ResetAll()
+    {
+        ClientPlayer = null;
+    }
+
     public int MetalBarBlockCount;
 
     private List<MetalBarBlock> MetalBarBlocks = new List<MetalBarBlock>();

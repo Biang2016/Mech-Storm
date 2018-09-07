@@ -20,6 +20,16 @@ internal class MetalLifeEnergyManager : MonoBehaviour
         initiateNumbers(ref GoNumberSet_MetalNumber, ref NumberSet_MetalNumber, NumberSize.Big, CardNumberSet.TextAlign.Center, MetalNumberBlock);
     }
 
+    public void ResetAll()
+    {
+        ClientPlayer = null;
+        if (MetalBarManager)
+        {
+            MetalBarManager.ResetAll();
+            MetalBarManager = null;
+        }
+    }
+
     private void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block)
     {
         if (!Number)

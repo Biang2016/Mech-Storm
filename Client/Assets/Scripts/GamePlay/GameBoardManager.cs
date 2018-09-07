@@ -21,6 +21,13 @@ internal class GameBoardManager : MonoSingletion<GameBoardManager>
         BattleShip.SetActive(false);
     }
 
+    public void ResetAll()
+    {
+        HideBattleShip();
+        SelfMetalLifeEnergyManager.ResetAll();
+        EnemyMetalLifeEnergyManager.ResetAll();
+    }
+
     public void ShowBattleShip()
     {
         BattleShip.SetActive(true);

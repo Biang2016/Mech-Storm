@@ -30,8 +30,6 @@ internal class GameManager : MonoSingletion<GameManager>
         }
     }
 
-    public EventSystem EventSystem;
-
     public Camera BattleGroundCamera;
     public Camera ForeGroundCamera;
     public Camera SelectCardWindowBackCamera;

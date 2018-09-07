@@ -39,6 +39,25 @@ internal class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
         isExecuting_UsedCardShow = Effect_UsedCardShow.IsExcuting;
     }
 
+    public void ResetAll()
+    {
+        Effect_Main.AllEffectsEnd();
+        Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();
+        Effect_TipSlotBloom.AllEffectsEnd();
+        Effect_UsedCardShow.AllEffectsEnd();
+
+        Effect_Main = new Effects("Effect_M");
+        Effect_RefreshBattleGroundOnAddRetinue = new Effects("Effect_R");
+        Effect_TipSlotBloom = new Effects("Effect_T");
+        Effect_UsedCardShow = new Effects("Effect_U");
+        isExecuting_Main = false;
+        isExecuting_RefreshBattleGroundOnAddRetinue = false;
+        isExecuting_TipSlotBloom = false;
+        isExecuting_UsedCardShow = false;
+
+
+    }
+
     public class Effects
     {
         public bool IsExcuting = false;

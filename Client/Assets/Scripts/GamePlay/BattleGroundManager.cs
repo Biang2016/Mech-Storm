@@ -52,12 +52,16 @@ internal class BattleGroundManager : MonoBehaviour
     internal List<ModuleRetinue> Heros = new List<ModuleRetinue>();
     internal List<ModuleRetinue> Soldiers = new List<ModuleRetinue>();
 
-    public void Reset()
+    public void ResetAll()
     {
         foreach (ModuleRetinue moduleRetinue in Retinues)
         {
             moduleRetinue.PoolRecycle();
         }
+
+        RetinueCount = 0;
+        HeroCount = 0;
+        SoldierCount = 0;
 
         ClientPlayer = null;
         previewRetinuePlace = PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW;
@@ -68,6 +72,11 @@ internal class BattleGroundManager : MonoBehaviour
         HeroCount = 0;
         SoldierCount = 0;
         RemoveRetinues.Clear();
+        addPrePassRetinueQueue.Clear();
+        clientRetinueTempId = 0;
+        relatedSlots.Clear();
+        if (currentSummonPreviewRetinueCard) currentSummonPreviewRetinueCard.PoolRecycle();
+        if (CurrentSummonPreviewRetinue) CurrentSummonPreviewRetinue.PoolRecycle();
     }
 
     #region 位置计算
