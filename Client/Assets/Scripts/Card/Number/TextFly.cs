@@ -13,6 +13,7 @@ public class TextFly : MonoBehaviour, IGameObjectPool
     public void PoolRecycle()
     {
         gameObjectPool.RecycleGameObject(gameObject);
+        transform.position = Vector3.zero;
         Anim.SetTrigger("EndFly");
     }
 

@@ -161,6 +161,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4379057429549404}
+  - component: {fileID: 114637085285589358}
   m_Layer: 9
   m_Name: ShieldChangeNumberFly
   m_TagString: Untagged
@@ -265,6 +266,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4385095049967734}
+  - component: {fileID: 114438119421423214}
   m_Layer: 9
   m_Name: LifeChangeNumberFly
   m_TagString: Untagged
@@ -671,6 +673,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1832651737085760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4425917553098382}
+  - component: {fileID: 114260526380055158}
+  m_Layer: 9
+  m_Name: WeaponEnergyChangeNumberFly
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1835265583819216
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,6 +714,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4774466539754780}
+  - component: {fileID: 114822061486557192}
   m_Layer: 9
   m_Name: ArmorChangeNumberFly
   m_TagString: Untagged
@@ -711,8 +730,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4036619890066458}
+  - component: {fileID: 114594860131172770}
   m_Layer: 9
-  m_Name: SwordEnergyChangeNumberFly
+  m_Name: WeaponAttackChangeNumberFly (1)
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -844,8 +864,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1902348556407186}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.714, y: 0, z: 0.703}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.704, y: 0, z: 0.70299995}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 4389823789822908}
@@ -975,7 +995,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1292681693059094}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.044, y: 0, z: 0.633}
+  m_LocalPosition: {x: 0.017, y: 0, z: 0.57}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 4389823789822908}
@@ -1054,6 +1074,7 @@ Transform:
   - {fileID: 4774466539754780}
   - {fileID: 4379057429549404}
   - {fileID: 4036619890066458}
+  - {fileID: 4425917553098382}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1070,6 +1091,19 @@ Transform:
   m_Father: {fileID: 4389823789822908}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4425917553098382
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1832651737085760}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.185, y: 0, z: 0.538}
+  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_Children: []
+  m_Father: {fileID: 4389823789822908}
+  m_RootOrder: 37
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4473890062266630
 Transform:
   m_ObjectHideFlags: 1
@@ -1220,7 +1254,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859253059176022}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.494, y: 0, z: 0.587}
+  m_LocalPosition: {x: 0.4615, y: 0, z: 0.6374}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 4389823789822908}
@@ -2804,10 +2838,8 @@ MonoBehaviour:
   Text_RetinueShield: {fileID: 114724303973711492}
   Text_RetinueArmor: {fileID: 114587232767650310}
   PictureBoxRenderer: {fileID: 23523349721931090}
-  DamageNumberPreviewTextMesh: {fileID: 0}
-  DamageNumberPreviewBGTextMesh: {fileID: 0}
-  DamageNumberTextMesh: {fileID: 102374941744571228}
-  DamageNumberBGTextMesh: {fileID: 102337787354317572}
+  DamageNumberPreviewTextMesh: {fileID: 102374941744571228}
+  DamageNumberPreviewBGTextMesh: {fileID: 102337787354317572}
   ArmorFill: {fileID: 95334882098421404}
   ShieldBar: {fileID: 95826336513293540}
   ShieldBarImage: {fileID: 114489395428792370}
@@ -2815,10 +2847,11 @@ MonoBehaviour:
   SwordBarMask: {fileID: 1198637210241784}
   LifeIncreaseArrow: {fileID: 95578862162121222}
   RetinueTargetPreviewAnim: {fileID: 95363562440098756}
-  LifeChangeNumberFly: {fileID: 4385095049967734}
-  ArmorChangeNumberFly: {fileID: 4774466539754780}
-  ShieldChangeNumberFly: {fileID: 4379057429549404}
-  SwordEnergyChangeNumberFly: {fileID: 4036619890066458}
+  LifeChangeNumberFly: {fileID: 114438119421423214}
+  ArmorChangeNumberFly: {fileID: 114822061486557192}
+  ShieldChangeNumberFly: {fileID: 114637085285589358}
+  WeaponAttackChangeNumberFly: {fileID: 114594860131172770}
+  WeaponEnergyChangeNumberFly: {fileID: 114260526380055158}
   RetinueShieldFull: 0
   isFirstRound: 1
   CannotAttackBecauseDie: 0
@@ -2884,6 +2917,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114260526380055158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1832651737085760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdadcba8874ac14bac36b33eb07117e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextFlies: []
 --- !u!114 &114298308725149832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2949,6 +2994,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114438119421423214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1403576120125396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdadcba8874ac14bac36b33eb07117e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextFlies: []
 --- !u!114 &114445498272786310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3085,6 +3142,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 25
+--- !u!114 &114594860131172770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1902348556407186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdadcba8874ac14bac36b33eb07117e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextFlies: []
 --- !u!114 &114626173361503922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3098,6 +3167,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnHoverShowBloom: {fileID: 23006524589532936}
   _mSlotTypes: 0
+--- !u!114 &114637085285589358
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1292681693059094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdadcba8874ac14bac36b33eb07117e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextFlies: []
 --- !u!114 &114660211106514818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3201,6 +3282,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114822061486557192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859253059176022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdadcba8874ac14bac36b33eb07117e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextFlies: []
 --- !u!114 &114917400084757716
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -26,7 +26,6 @@ internal class MetalLifeEnergyManager : MonoBehaviour
         if (MetalBarManager)
         {
             MetalBarManager.ResetAll();
-            MetalBarManager = null;
         }
     }
 
