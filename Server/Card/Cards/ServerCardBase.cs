@@ -5,6 +5,60 @@ internal abstract class ServerCardBase
     internal ServerPlayer ServerPlayer;
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
 
+
+    public static ServerCardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, ServerPlayer serverPlayer, int cardInstanceId)
+    {
+        ServerCardBase newCard;
+        switch (cardInfo.BaseInfo.CardType)
+        {
+            case CardTypes.Retinue:
+                newCard = new ServerCardRetinue();
+                break;
+            case CardTypes.Equip:
+                newCard = new ServerCardEquip();
+                break;
+            case CardTypes.Spell:
+                newCard = new ServerCardSpell();
+                break;
+            default:
+                newCard = new ServerCardRetinue();
+                break;
+        }
+
+        newCard.Initiate(cardInfo, serverPlayer, cardInstanceId);
+        return newCard;
+    }
+
+    public virtual void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer, int cardInstanceId)
+    {
+        isInitialized = false;
+        ServerPlayer = serverPlayer;
+        CardInfo = cardInfo.Clone();
+        M_Metal = CardInfo.BaseInfo.Metal;
+        M_Energy = CardInfo.BaseInfo.Energy;
+        M_EffectFactor = CardInfo.BaseInfo.EffectFactor;
+        M_CardInstanceId = cardInstanceId;
+        Stars = CardInfo.UpgradeInfo.CardLevel;
+        isInitialized = true;
+        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
+        {
+            see.SideEffectBase.Player = ServerPlayer;
+            if (see.SideEffectBase is CardRelatedSideEffect)
+            {
+                ((CardRelatedSideEffect) see.SideEffectBase).TargetCardInstanceId = M_CardInstanceId;
+            }
+
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
+        }
+
+        ServerPlayer.MyGameManager.EventManager.RegisterEvent(CardInfo.SideEffects);
+    }
+
+    public void UnRegisterSideEffect()
+    {
+        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffects);
+    }
+
     #region 属性
 
     public bool isInitialized = false;
@@ -89,50 +143,4 @@ internal abstract class ServerCardBase
     }
 
     #endregion
-
-    public static ServerCardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, ServerPlayer serverPlayer, int cardInstanceId)
-    {
-        ServerCardBase newCard;
-        switch (cardInfo.BaseInfo.CardType)
-        {
-            case CardTypes.Retinue:
-                newCard = new ServerCardRetinue();
-                break;
-            case CardTypes.Equip:
-                newCard = new ServerCardEquip();
-                break;
-            case CardTypes.Spell:
-                newCard = new ServerCardSpell();
-                break;
-            default:
-                newCard = new ServerCardRetinue();
-                break;
-        }
-
-        newCard.Initiate(cardInfo, serverPlayer, cardInstanceId);
-        return newCard;
-    }
-
-    public virtual void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer, int cardInstanceId)
-    {
-        isInitialized = false;
-        ServerPlayer = serverPlayer;
-        CardInfo = cardInfo.Clone();
-        M_Metal = CardInfo.BaseInfo.Metal;
-        M_Energy = CardInfo.BaseInfo.Energy;
-        M_EffectFactor = CardInfo.BaseInfo.EffectFactor;
-        M_CardInstanceId = cardInstanceId;
-        Stars = CardInfo.UpgradeInfo.CardLevel;
-        isInitialized = true;
-        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
-        {
-            see.SideEffectBase.Player = ServerPlayer;
-            if (see.SideEffectBase is CardRelatedSideEffect)
-            {
-                ((CardRelatedSideEffect) see.SideEffectBase).TargetCardInstanceId = M_CardInstanceId;
-            }
-        }
-
-        EventManager.Instance.RegisterEvent(CardInfo.SideEffects);
-    }
 }

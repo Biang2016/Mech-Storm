@@ -221,6 +221,14 @@ public partial class SelectBuildManager
         }
 
         CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (CurrentPreviewCard.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount;
+        for (int i = 0; i < CurrentEditBuildButton.BuildInfo.CardIDs.Count; i++)
+        {
+            if (CurrentEditBuildButton.BuildInfo.CardIDs[i] == currentCardID)
+            {
+                CurrentEditBuildButton.BuildInfo.CardIDs[i] = upgradeCardID;
+            }
+        }
+
         RefreshCoinLifeEnergy();
 
         CurrentPreviewCard.Initiate(upgradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
@@ -253,6 +261,14 @@ public partial class SelectBuildManager
         }
 
         CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (CurrentPreviewCard.CardInfo.BaseInfo.Coin - degradeCardInfo.BaseInfo.Coin) * cardCount;
+        for (int i = 0; i < CurrentEditBuildButton.BuildInfo.CardIDs.Count; i++)
+        {
+            if (CurrentEditBuildButton.BuildInfo.CardIDs[i] == currentCardID)
+            {
+                CurrentEditBuildButton.BuildInfo.CardIDs[i] = degradeCardID;
+            }
+        }
+
         RefreshCoinLifeEnergy();
 
         CurrentPreviewCard.Initiate(degradeCardInfo, CurrentPreviewCard.ClientPlayer, true);

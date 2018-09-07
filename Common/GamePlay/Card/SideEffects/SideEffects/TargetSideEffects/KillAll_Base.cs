@@ -24,4 +24,9 @@
     {
         return 0;
     }
+
+    protected override void CloneParams(SideEffectBase copy)
+    {
+        base.CloneParams(copy);
+    }
 }

@@ -264,11 +264,28 @@ public partial class SelectBuildManager
 
         foreach (int cardID in buildInfo.CardIDs)
         {
+            CardBase cb = null;
             if (!allCards.ContainsKey(cardID))
             {
-                ClientLog.Instance.PrintError("卡ID不存在:" + cardID);
+                List<int> cardSeriesId = AllCards.GetCardSeries(cardID);
+                foreach (int id in cardSeriesId)
+                {
+                    if (allCards.ContainsKey(id))
+                    {
+                        cb = allCards[id];
+                        allCards.Remove(id);
+                        allCards.Add(cardID, cb);
+                        cb.Initiate(AllCards.GetCard(cardID), cb.ClientPlayer, true);
+                        RefreshCardInSelectWindow(cb, true);
+                        break;
+                    }
+                }
             }
-            CardBase cb = allCards[cardID];
+            else
+            {
+                cb = allCards[cardID];
+            }
+
             if (cb.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !cb.CardInfo.BattleInfo.IsSoldier)
             {
                 SelectCard(cb);

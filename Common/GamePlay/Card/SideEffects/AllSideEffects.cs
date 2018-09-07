@@ -14,6 +14,8 @@ public static class AllSideEffects
         SideEffectsNameDict.Add(sideEffectBase.Name, sideEffectBase);
     }
 
+    public static Assembly CurrentAssembly;
+
     public static void AddAllSideEffects(string sideEffectsXMLPath)
     {
         string text;
@@ -22,7 +24,7 @@ public static class AllSideEffects
             text = sr.ReadToEnd();
         }
 
-        Assembly assembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
+        CurrentAssembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
         XmlElement allSideEffects = doc.DocumentElement;
@@ -30,7 +32,7 @@ public static class AllSideEffects
         {
             XmlNode sideEffectNode = allSideEffects.ChildNodes.Item(i);
 
-            SideEffectBase se = (SideEffectBase) assembly.CreateInstance("SideEffects." + sideEffectNode.Attributes["name"].Value);
+            SideEffectBase se = (SideEffectBase) CurrentAssembly.CreateInstance("SideEffects." + sideEffectNode.Attributes["name"].Value);
             se.SideEffectID = int.Parse(sideEffectNode.Attributes["id"].Value);
             se.Name = sideEffectNode.Attributes["name"].Value;
             se.DescRaw = sideEffectNode.Attributes["desc"].Value;

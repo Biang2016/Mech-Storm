@@ -33,9 +33,6 @@ internal class Server
 
     public ServerGameMatchManager SGMM;
 
-
-
-
     public void Start()
     {
         AllSideEffects.AddAllSideEffects("./Config/SideEffects.xml");
@@ -74,6 +71,7 @@ internal class Server
     public void ClientProxyClose(ClientProxy clientProxy)
     {
         SGMM.OnClientCancelMatch(clientProxy);
+        SGMM.RemoveGame(clientProxy);
         clientProxy.OnClose();
         ClientsDict.Remove(clientProxy.ClientId);
         Database.Instance.RemoveLoginUser(clientProxy.ClientId);
@@ -175,9 +173,9 @@ internal class Server
                     OnReceiveMessage();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId);
+                ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId + " Error:" + e.ToString());
                 ClientProxyClose(clientProxy);
                 break;
             }

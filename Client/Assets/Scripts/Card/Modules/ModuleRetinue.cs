@@ -34,7 +34,8 @@ internal class ModuleRetinue : ModuleBase
         ArmorFill.gameObject.SetActive(false);
 
         M_ClientTempRetinueID = -1;
-
+        DamageNumberTextMesh.text = "";
+        DamageNumberBGTextMesh.text = "";
         base.PoolRecycle();
     }
 
@@ -42,6 +43,8 @@ internal class ModuleRetinue : ModuleBase
     {
         gameObjectPool = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool;
         SwordMaskDefaultPosition = SwordBarMask.transform.localPosition;
+        DamageNumberTextMesh.text = "";
+        DamageNumberBGTextMesh.text = "";
     }
 
     public void SetGoPool(GameObjectPool pool)
@@ -119,7 +122,11 @@ internal class ModuleRetinue : ModuleBase
 
     [SerializeField] private Renderer PictureBoxRenderer;
 
-    [SerializeField] private TextMesh DamageNumberTextMesh; //受攻击瞄准时的伤害预览
+    [SerializeField] private TextMesh DamageNumberPreviewTextMesh; //受攻击瞄准时的伤害预览
+    [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh; //受攻击瞄准时的伤害预览
+
+    [SerializeField] private TextMesh DamageNumberTextMesh; //受攻击伤害
+    [SerializeField] private TextMesh DamageNumberBGTextMesh; //受攻击伤害
 
     [SerializeField] private Animator ArmorFill;
 
@@ -134,6 +141,11 @@ internal class ModuleRetinue : ModuleBase
     [SerializeField] private Animator LifeIncreaseArrow;
 
     [SerializeField] private Animator RetinueTargetPreviewAnim;
+
+    [SerializeField] private Transform LifeChangeNumberFly;
+    [SerializeField] private Transform ArmorChangeNumberFly;
+    [SerializeField] private Transform ShieldChangeNumberFly;
+    [SerializeField] private Transform SwordEnergyChangeNumberFly;
 
     private bool isInitializing = false;
 
@@ -248,25 +260,29 @@ internal class ModuleRetinue : ModuleBase
         {
             if (!isInitializing)
             {
-                if (m_RetinueLeftLife > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeBeAttacked(value, m_RetinueTotalLife), "Co_LifeBeAttacked");
-                else if (m_RetinueLeftLife < value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeAdded(value, m_RetinueTotalLife), "Co_LifeAdded");
+                if (m_RetinueLeftLife > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeBeAttacked(value, m_RetinueTotalLife, m_RetinueLeftLife - value), "Co_LifeBeAttacked");
+                else if (m_RetinueLeftLife < value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeAdded(value, m_RetinueTotalLife, value - m_RetinueLeftLife), "Co_LifeAdded");
             }
 
             m_RetinueLeftLife = value;
         }
     }
 
-    IEnumerator Co_LifeBeAttacked(int leftLifeValue, int totalLifeValue)
+    IEnumerator Co_LifeBeAttacked(int leftLifeValue, int totalLifeValue, int damage)
     {
         CardLifeHit.SetTrigger("BeHit");
+        TextFly textFly = GameObjectPoolManager.Instance.Pool_TextFlyPool.AllocateGameObject(LifeChangeNumberFly).GetComponent<TextFly>();
+        textFly.SetText("-" + damage, ClientUtils.HTMLColorToColor("#FF0A00"));
         retinueLifeChange(leftLifeValue, totalLifeValue);
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    IEnumerator Co_LifeAdded(int leftLifeValue, int totalLifeValue)
+    IEnumerator Co_LifeAdded(int leftLifeValue, int totalLifeValue, int addAmount)
     {
         LifeIncreaseArrow.SetTrigger("LifeAdd");
+        TextFly textFly = GameObjectPoolManager.Instance.Pool_TextFlyPool.AllocateGameObject(LifeChangeNumberFly).GetComponent<TextFly>();
+        textFly.SetText("+" + addAmount, ClientUtils.HTMLColorToColor("#92FF00"));
         retinueLifeChange(leftLifeValue, totalLifeValue);
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -845,6 +861,7 @@ internal class ModuleRetinue : ModuleBase
                     }
 
                     DamageNumberTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+                    DamageNumberBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
                 }
             }
             else if (cs != null)
@@ -856,6 +873,7 @@ internal class ModuleRetinue : ModuleBase
                 }
 
                 DamageNumberTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+                DamageNumberBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
             }
         }
     }
@@ -870,6 +888,7 @@ internal class ModuleRetinue : ModuleBase
         }
 
         DamageNumberTextMesh.text = "";
+        DamageNumberBGTextMesh.text = "";
     }
 
     #endregion

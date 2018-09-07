@@ -4,18 +4,25 @@
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
     protected bool isInitialized = false;
 
-    public virtual void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
+    public void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
     {
         ServerPlayer = serverPlayer;
         CardInfo = cardInfo.Clone();
         Stars = cardInfo.UpgradeInfo.CardLevel;
+        InitializeSideEffects();
+        Initiate();
         isInitialized = true;
-        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
-        {
-            see.SideEffectBase.Player = ServerPlayer;
-        }
+        ServerPlayer.MyGameManager.EventManager.RegisterEvent(CardInfo.SideEffects);
+    }
 
-        EventManager.Instance.RegisterEvent(CardInfo.SideEffects);
+    protected abstract void Initiate();
+
+
+    protected abstract void InitializeSideEffects();
+
+    public void UnRegisterSideEffect()
+    {
+        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffects);
     }
 
     public abstract CardInfo_Base GetCurrentCardInfo();

@@ -114,6 +114,10 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     internal GameObjectPool Pool_MetalBarBlockPool;
     public GameObject MetalBarBlockPrefab;
 
+    public GameObject TextFlyPool;
+    internal GameObjectPool Pool_TextFlyPool;
+    public GameObject TextFlyPrefab;
+
     void Awake()
     {
         Pool_ColliderReplacePool = ColliderReplacePool.GetComponent<GameObjectPool>();
@@ -196,6 +200,9 @@ internal class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
 
         Pool_MetalBarBlockPool = MetalBarBlockPool.GetComponent<GameObjectPool>();
         Pool_MetalBarBlockPool.Initiate(MetalBarBlockPrefab, 20);
+
+        Pool_TextFlyPool = TextFlyPool.GetComponent<GameObjectPool>();
+        Pool_TextFlyPool.Initiate(TextFlyPrefab, 10);
     }
 }
 

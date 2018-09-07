@@ -170,6 +170,7 @@ public class CardDeck
 
     public static void Suffle(List<CardInfo_Base> targetCardList)
     {
+        if (targetCardList.Count <= 1) return;
         for (int i = 0; i < targetCardList.Count * 1; i++)
         {
             int cardNum1 = new Random().Next(0, targetCardList.Count);
@@ -243,4 +244,3 @@ public class CardDeck
         Suffle(Cards);
     }
 }
-

@@ -1,14 +1,20 @@
 ﻿internal class ServerModuleWeapon : ServerModuleBase
 {
-    #region 各模块、自身数值和初始化
-
     internal ServerModuleRetinue M_ModuleRetinue;
 
-    public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
+    protected override void Initiate()
     {
-        M_WeaponName = Utils.TextToVertical(cardInfo.BaseInfo.CardName);
-        M_WeaponType = cardInfo.WeaponInfo.WeaponType;
-        base.Initiate(cardInfo, serverPlayer);
+        M_WeaponName = Utils.TextToVertical(CardInfo.BaseInfo.CardName);
+        M_WeaponType = CardInfo.WeaponInfo.WeaponType;
+    }
+
+    protected override void InitializeSideEffects()
+    {
+        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
+        {
+            see.SideEffectBase.Player = ServerPlayer;
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId);
+        }
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
@@ -51,16 +57,6 @@
 
         set { m_WeaponType = value; }
     }
-
-    #endregion
-
-    #endregion
-
-    #region 模块交互
-
-    #endregion
-
-    #region 特效、技能
 
     #endregion
 }

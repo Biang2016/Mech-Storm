@@ -110,6 +110,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         newCard.EnergyIcon.color = GameManager.Instance.EnergyIconColor;
         if (newCard.LifeIcon) newCard.LifeIcon.color = GameManager.Instance.LifeIconColor;
         newCard.Initiate(cardInfo, clientPlayer, isCardSelect);
+        newCard.Usable = false;
         return newCard;
     }
 

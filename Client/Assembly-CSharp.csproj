@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Card\Modules\Slot.cs" />
     <Compile Include="Assets\Scripts\Card\Number\CardNumber.cs" />
     <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
+    <Compile Include="Assets\Scripts\Card\Number\TextFly.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawCards.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />

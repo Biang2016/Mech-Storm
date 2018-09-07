@@ -5,22 +5,7 @@ using Microsoft.SqlServer.Server;
 
 public class EventManager
 {
-    private static EventManager instance;
-
-    public static EventManager Instance
-    {
-        get
-        {
-            if (instance != null) return instance;
-            else
-            {
-                instance = new EventManager();
-                return instance;
-            }
-        }
-    }
-
-    private EventManager()
+    public EventManager()
     {
         foreach (SideEffectBundle.TriggerTime tt in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
         {
@@ -53,10 +38,25 @@ public class EventManager
         if (te != null && te.Contains(see)) te.Remove(see);
     }
 
+    public void ClearAllListeners()
+    {
+        foreach (SideEffectBundle.TriggerTime tt in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
+        {
+            Events[tt] = new List<SideEffectBundle.SideEffectExecute>();
+        }
+    }
+
+    private static int InvokeStackDepth = 0;
+
     public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
     {
-        foreach (SideEffectBundle.SideEffectExecute se in Events[tt])
+        InvokeStackDepth++;
+        List<SideEffectBundle.SideEffectExecute> seeList = Events[tt];
+        SideEffectBundle.SideEffectExecute[] sees = seeList.ToArray();
+        for (int i = 0; i < sees.Length; i++)
         {
+            SideEffectBundle.SideEffectExecute se = sees[i];
+            if (!seeList.Contains(se)) continue; //防止已经移除的SE再次执行
             switch (se.TriggerRange)
             {
                 case SideEffectBundle.TriggerRange.SelfPlayer:
@@ -93,5 +93,12 @@ public class EventManager
                     break;
             }
         }
+
+        InvokeStackDepth--;
+        if (InvokeStackDepth == 0) OnEventInvokeEndHandler();
     }
+
+    public delegate void OnEventInvokeEnd();
+
+    public OnEventInvokeEnd OnEventInvokeEndHandler;
 }

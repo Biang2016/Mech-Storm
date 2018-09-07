@@ -16,4 +16,11 @@ public abstract class CardRelatedSideEffect : SideEffectBase
         base.Deserialze(reader);
         TargetCardInstanceId = reader.ReadSInt32();
     }
+
+    protected override void CloneParams(SideEffectBase copy)
+    {
+        base.CloneParams(copy);
+        ((CardRelatedSideEffect) copy).IsNeedChoise = IsNeedChoise;
+        ((CardRelatedSideEffect) copy).TargetCardInstanceId = TargetCardInstanceId;
+    }
 }

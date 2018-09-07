@@ -99,6 +99,7 @@ internal class ServerBattleGroundManager
             HeroCount = Heros.Count;
         }
 
+        retinue.UnRegisterSideEffect();
         PrintRetinueInfos();
     }
 
@@ -130,9 +131,9 @@ internal class ServerBattleGroundManager
         retinue.Initiate(retinueCardInfo, ServerPlayer);
 
         SideEffectBase.ExecuterInfo info = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: retinueId, targetRetinueId: targetRetinueId);
-        EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnRetinueSummon, info);
-        if (retinueCardInfo.BattleInfo.IsSoldier) EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnSoldierSummon, info);
-        else EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnHeroSummon, info);
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueSummon, info);
+        if (retinueCardInfo.BattleInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierSummon, info);
+        else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroSummon, info);
         BattleGroundAddRetinue(retinuePlaceIndex, retinue);
     }
 
@@ -175,10 +176,10 @@ internal class ServerBattleGroundManager
         if (r.isTargetRetinueIdTempId)
         {
             targetRetinueId = GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
-            EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnPlayCard, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, targetRetinueId: targetRetinueId, cardId: cardInfo.CardID, cardInstanceId: r.handCardInstanceId));
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, targetRetinueId: targetRetinueId, cardId: cardInfo.CardID, cardInstanceId: r.handCardInstanceId));
         }
 
-        EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnPlayCard, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, cardId: cardInfo.CardID, cardInstanceId: r.handCardInstanceId));
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, cardId: cardInfo.CardID, cardInstanceId: r.handCardInstanceId));
     }
 
     public void KillAllRetinues()
@@ -541,12 +542,12 @@ internal class ServerBattleGroundManager
 
     internal void BeginRound()
     {
-        EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnBeginRound, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId));
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnBeginRound, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId));
     }
 
     internal void EndRound()
     {
-        EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnEndRound, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId));
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEndRound, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId));
     }
 
     #endregion

@@ -87,12 +87,13 @@ internal class ServerHandManager
         UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone(), lastDragPosition);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
-        EventManager.Instance.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
             new SideEffectBase.ExecuterInfo(
                 clientId: ServerPlayer.ClientId,
                 targetRetinueId: targetRetinueId,
                 cardId: useCard.CardInfo.CardID,
                 cardInstanceId: cardInstanceId));
+        useCard.UnRegisterSideEffect();
         cards.Remove(useCard);
     }
 

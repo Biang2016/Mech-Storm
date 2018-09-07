@@ -1,14 +1,20 @@
 ﻿internal class ServerModuleShield : ServerModuleBase
 {
-    #region 各模块、自身数值和初始化
-
     internal ServerModuleRetinue M_ModuleRetinue;
 
-    public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
+    protected override void Initiate()
     {
-        M_ShieldName = Utils.TextToVertical(((CardInfo_Equip) cardInfo).BaseInfo.CardName);
-        M_ShieldType = cardInfo.ShieldInfo.ShieldType;
-        base.Initiate(cardInfo, serverPlayer);
+        M_ShieldName = Utils.TextToVertical(((CardInfo_Equip) CardInfo).BaseInfo.CardName);
+        M_ShieldType = CardInfo.ShieldInfo.ShieldType;
+    }
+
+    protected override void InitializeSideEffects()
+    {
+        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
+        {
+            see.SideEffectBase.Player = ServerPlayer;
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId);
+        }
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
@@ -52,11 +58,4 @@
     }
 
     #endregion
-
-    #endregion
-
-    #region 模块交互
-
-    #endregion
-
 }

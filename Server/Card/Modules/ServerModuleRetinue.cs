@@ -3,18 +3,25 @@ using System.Collections.Generic;
 
 internal class ServerModuleRetinue : ServerModuleBase
 {
-    public override void Initiate(CardInfo_Base cardInfo, ServerPlayer serverPlayer)
+    protected override void Initiate()
     {
-        M_RetinueName = cardInfo.BaseInfo.CardName;
-        M_RetinueDesc = cardInfo.BaseInfo.CardDescRaw;
-        M_RetinueLeftLife = cardInfo.LifeInfo.Life;
-        M_RetinueTotalLife = cardInfo.LifeInfo.Life;
-        M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
-        M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
-        M_RetinueShield = cardInfo.BattleInfo.BasicShield;
-
+        M_RetinueName = CardInfo.BaseInfo.CardName;
+        M_RetinueDesc = CardInfo.BaseInfo.CardDescRaw;
+        M_RetinueLeftLife = CardInfo.LifeInfo.Life;
+        M_RetinueTotalLife = CardInfo.LifeInfo.Life;
+        M_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
+        M_RetinueArmor = CardInfo.BattleInfo.BasicArmor;
+        M_RetinueShield = CardInfo.BattleInfo.BasicShield;
         M_IsDead = false;
-        base.Initiate(cardInfo, serverPlayer);
+    }
+
+    protected override void InitializeSideEffects()
+    {
+        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
+        {
+            see.SideEffectBase.Player = ServerPlayer;
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
+        }
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
@@ -81,6 +88,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         get { return m_RetinueLeftLife; }
         set
         {
+            if (M_IsDead) return;
             int before = m_RetinueLeftLife;
             m_RetinueLeftLife = value;
             if (isInitialized && before != m_RetinueLeftLife)
@@ -114,6 +122,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         get { return m_RetinueTotalLife; }
         set
         {
+            if (M_IsDead) return;
             int before = m_RetinueTotalLife;
             m_RetinueTotalLife = value;
             if (isInitialized && before != m_RetinueTotalLife)
@@ -373,6 +382,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理(这里是被攻击，指的是攻击动作，不是掉血事件)
     {
+        if (M_IsDead) return;
         OnBeAttacked();
         int remainAttackNumber = attackNumber;
 
@@ -421,11 +431,11 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     private void OnBeAttacked()
     {
-        throw new NotImplementedException();
     }
 
     public void Attack(ServerModuleRetinue targetModuleRetinue, bool isStrickBack) //服务器客户单分别计算
     {
+        if (M_IsDead) return;
         OnAttack();
         int damage = 0;
 
@@ -488,7 +498,15 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public void OnDieTogather()
     {
+        if (M_IsDead) return;
+        M_IsDead = true;
         ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID);
+        SideEffectBase.ExecuterInfo info = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueDie, info);
+        if (CardInfo.BattleInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierDie, info);
+        else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroDie, info);
+
+        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffects);
     }
 
     private void OnMakeDamage(int damage)
@@ -505,6 +523,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public void AttackShip(ServerPlayer ship) //计算结果全部由服务器下发
     {
+        if (M_IsDead) return;
         OnAttack();
         int damage = 0;
 
@@ -545,7 +564,6 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     private void OnAttack()
     {
-        throw new NotImplementedException();
     }
 
     #endregion

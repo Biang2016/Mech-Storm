@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
-public partial class SideEffectBase : ICloneable
+public partial class SideEffectBase
 {
     public int SideEffectID;
     public string Name;
@@ -22,11 +23,6 @@ public partial class SideEffectBase : ICloneable
         SideEffectID = sideEffectID;
         Name = name;
         DescRaw = desc;
-    }
-
-    object ICloneable.Clone()
-    {
-        return MemberwiseClone();
     }
 
     //序列化时无视player，也就是说效果是无关玩家的
@@ -52,6 +48,27 @@ public partial class SideEffectBase : ICloneable
         SideEffectID = reader.ReadSInt32();
         Name = reader.ReadString8();
         DescRaw = reader.ReadString8();
+    }
+
+    public SideEffectBase Clone()
+    {
+        Assembly assembly = AllSideEffects.CurrentAssembly; // 获取当前程序集 
+        SideEffectBase copy = (SideEffectBase) assembly.CreateInstance("SideEffects." + Name);
+        copy.SideEffectID = SideEffectID;
+        copy.Name = Name;
+        copy.DescRaw = DescRaw;
+        copy.HightlightColor = HightlightColor;
+        if (M_ExecuterInfo != null)
+        {
+            copy.M_ExecuterInfo = M_ExecuterInfo.Clone();
+        }
+
+        CloneParams(copy);
+        return copy;
+    }
+
+    protected virtual void CloneParams(SideEffectBase copy)
+    {
     }
 
     public virtual string GenerateDesc()
@@ -89,6 +106,11 @@ public partial class SideEffectBase : ICloneable
             TargetRetinueId = targetRetinueId;
             CardId = cardId;
             CardInstanceId = cardInstanceId;
+        }
+
+        public ExecuterInfo Clone()
+        {
+            return new ExecuterInfo(ClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId);
         }
     }
 }

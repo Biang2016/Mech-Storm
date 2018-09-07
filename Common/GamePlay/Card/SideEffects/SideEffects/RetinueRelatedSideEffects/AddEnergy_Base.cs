@@ -6,7 +6,7 @@
     public int FinalValue
     {
         get { return Value * Factor; }
-        set { Value = value; }
+
     }
 
     public int Value;
@@ -33,5 +33,13 @@
     public void SetEffetFactor(int factor)
     {
         Factor = factor;
+    }
+
+    protected override void CloneParams(SideEffectBase copy)
+    {
+        base.CloneParams(copy);
+        ((AddWeaponEnergy_Base) copy).RetinueID = RetinueID;
+        ((AddWeaponEnergy_Base) copy).Value = Value;
+        ((AddWeaponEnergy_Base) copy).Factor = Factor;
     }
 }

@@ -93,9 +93,6 @@ internal class StartMenuManager : MonoSingletion<StartMenuManager>
                         ShowMenu();
                         break;
                 }
-
-                previousState = state;
-                state = newState;
             }
 
             previousState = state;

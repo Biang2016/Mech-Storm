@@ -98,7 +98,7 @@ public static class AllCards
                         for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
                         {
                             XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
-                            SideEffectBase sideEffect = (SideEffectBase) ((ICloneable) AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value]).Clone();
+                            SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
                             for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
                             {
                                 if (sideEffectInfo.Attributes[l].Name == "name") continue;
@@ -209,5 +209,73 @@ public static class AllCards
         }
 
         return false;
+    }
+
+    public static List<CardInfo_Base> GetCardSeries(CardInfo_Base cardInfo)
+    {
+        List<CardInfo_Base> res = new List<CardInfo_Base>();
+        res.Add(cardInfo);
+        CardInfo_Base de = cardInfo;
+        while ((de = GetDegradeCardInfo(de)) != null)
+        {
+            res.Add(de);
+        }
+
+        CardInfo_Base up = cardInfo;
+        while ((up = GetUpgradeCardInfo(up)) != null)
+        {
+            res.Add(up);
+        }
+
+        res.Sort((a, b) => a.UpgradeInfo.CardLevel.CompareTo(b.UpgradeInfo.CardLevel));
+        return res;
+    }
+
+    public static List<int> GetCardSeries(int cardId)
+    {
+        List<CardInfo_Base> cis = GetCardSeries(GetCard(cardId));
+        List<int> res = new List<int>();
+        foreach (CardInfo_Base ci in cis)
+        {
+            res.Add(ci.CardID);
+        }
+
+        return res;
+    }
+
+    public static CardInfo_Base GetUpgradeCardInfo(CardInfo_Base cardInfo)
+    {
+        if (cardInfo.UpgradeInfo.UpgradeCardID == -1) return null;
+        if (CardDict.ContainsKey(cardInfo.UpgradeInfo.UpgradeCardID))
+        {
+            return CardDict[cardInfo.UpgradeInfo.UpgradeCardID];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public static CardInfo_Base GetUpgradeCardInfo(int cardId)
+    {
+        return GetUpgradeCardInfo(GetCard(cardId));
+    }
+
+    public static CardInfo_Base GetDegradeCardInfo(CardInfo_Base cardInfo)
+    {
+        if (cardInfo.UpgradeInfo.DegradeCardID == -1) return null;
+        if (CardDict.ContainsKey(cardInfo.UpgradeInfo.DegradeCardID))
+        {
+            return CardDict[cardInfo.UpgradeInfo.DegradeCardID];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public static CardInfo_Base GetDegradeCardInfo(int cardId)
+    {
+        return GetDegradeCardInfo(GetCard(cardId));
     }
 }

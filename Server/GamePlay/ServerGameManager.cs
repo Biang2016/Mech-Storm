@@ -11,6 +11,8 @@ internal class ServerGameManager
     public ServerPlayer PlayerA;
     public ServerPlayer PlayerB;
 
+    public EventManager EventManager;
+
     public RandomNumberGenerator RandomNumberGenerator;
 
     public ServerGameManager(ClientProxy clientA, ClientProxy clientB)
@@ -19,6 +21,10 @@ internal class ServerGameManager
         ClientB = clientB;
         ClientA.MyServerGameManager = this;
         ClientB.MyServerGameManager = this;
+
+        EventManager = new EventManager();
+
+        EventManager.OnEventInvokeEndHandler += SendAllDieInfos;
 
         Thread sgmThread = new Thread(Initialized);
         sgmThread.IsBackground = true;
@@ -215,7 +221,6 @@ internal class ServerGameManager
         }
 
         sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetRetinueId);
-        sp.MyBattleGroundManager.UseSpellCard(r, cardInfo);
 
         Broadcast_SendOperationResponse();
     }
@@ -304,6 +309,10 @@ internal class ServerGameManager
 
             PlayerA?.OnDestroyed();
             PlayerB?.OnDestroyed();
+
+            EventManager.ClearAllListeners();
+
+            ServerLog.PrintClientStates("GameStopSucBetween: " + PlayerA.ClientId + ", " + PlayerB.ClientId);
         }
 
         IsStopped = false;
@@ -348,7 +357,6 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
         ClientB.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
     }
-
 
     private void Broadcast_SendOperationResponse()
     {

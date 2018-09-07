@@ -109,7 +109,7 @@ public class SideEffectBundle
             {
                 foreach (SideEffectBase se in ses.Value)
                 {
-                    copy.AddSideEffect(se, des.Key, ses.Key);
+                    copy.AddSideEffect(se.Clone(), des.Key, ses.Key);
                 }
             }
         }

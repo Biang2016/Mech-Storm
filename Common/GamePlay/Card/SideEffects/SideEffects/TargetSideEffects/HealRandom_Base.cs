@@ -6,7 +6,6 @@
     public int FinalValue
     {
         get { return Value * Factor; }
-        set { Value = value; }
     }
 
     public override string GenerateDesc()
@@ -39,5 +38,12 @@
     public void SetEffetFactor(int factor)
     {
         Factor = factor;
+    }
+
+    protected override void CloneParams(SideEffectBase copy)
+    {
+        base.CloneParams(copy);
+        ((HealRandom_Base) copy).Value = Value;
+        ((HealRandom_Base) copy).Factor = Factor;
     }
 }
