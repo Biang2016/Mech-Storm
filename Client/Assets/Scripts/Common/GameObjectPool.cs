@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-internal class GameObjectPool : MonoBehaviour
+public class GameObjectPool : MonoBehaviour
 {
     GameObject[] gameObjectPool; //对象池
     bool[] isUsed;//已使用的对象

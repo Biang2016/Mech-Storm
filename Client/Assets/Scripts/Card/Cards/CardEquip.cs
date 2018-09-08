@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-internal class CardEquip : CardBase
+public class CardEquip : CardBase
 {
     #region 卡牌上各模块
 

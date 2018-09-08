@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-internal class ClientLog : MonoSingletion<ClientLog>
+public class ClientLog : MonoSingletion<ClientLog>
 {
     private ClientLog()
     {

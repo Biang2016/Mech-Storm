@@ -51,7 +51,7 @@ public partial class SelectBuildManager
 
     #region 选择卡片
 
-    private Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>();
+    public Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>();
     private Dictionary<int, SelectCard> SelectedCards = new Dictionary<int, SelectCard>();
     private Dictionary<int, SelectCard> SelectedHeros = new Dictionary<int, SelectCard>();
 

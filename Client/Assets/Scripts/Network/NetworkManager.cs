@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-internal class NetworkManager : MonoSingletion<NetworkManager>
+public class NetworkManager : MonoSingletion<NetworkManager>
 {
     void Start()
     {

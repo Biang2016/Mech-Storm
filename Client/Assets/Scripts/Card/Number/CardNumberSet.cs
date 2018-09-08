@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [ExecuteInEditMode]
-internal class CardNumberSet : MonoBehaviour, IGameObjectPool
+public class CardNumberSet : MonoBehaviour, IGameObjectPool
 {
     GameObjectPool gameObjectPool;
 

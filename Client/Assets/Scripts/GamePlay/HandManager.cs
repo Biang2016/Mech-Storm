@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-internal class HandManager : MonoBehaviour
+public class HandManager : MonoBehaviour
 {
     internal ClientPlayer ClientPlayer;
 
     float[] anglesDict; //每张牌之间的夹角
     float[] horrizonDistanceDict; //每张牌之间的距离
-    List<CardBase> cards;
+    public List<CardBase> cards;
     private CardBase currentShowCard;
     private CardBase lastShowCard;
 
@@ -62,6 +62,7 @@ internal class HandManager : MonoBehaviour
             currentFocusCard.PoolRecycle();
             currentFocusCard = null;
         }
+
         if (currentFocusEquipmentCard)
         {
             currentFocusEquipmentCard.PoolRecycle();

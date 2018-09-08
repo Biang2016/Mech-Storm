@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-internal class StartMenuManager : MonoSingletion<StartMenuManager>
+public class StartMenuManager : MonoSingletion<StartMenuManager>
 {
     private StartMenuManager()
     {

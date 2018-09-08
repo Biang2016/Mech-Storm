@@ -2,7 +2,7 @@
 using System.Net.Sockets;
 using System.Threading;
 
-internal class Proxy : ProxyBase
+public class Proxy : ProxyBase
 {
     private Queue<ClientRequestBase> SendRequestsQueue = new Queue<ClientRequestBase>();
 

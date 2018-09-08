@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-internal class ModuleRetinue : ModuleBase
+public class ModuleRetinue : ModuleBase
 {
     public override void PoolRecycle()
     {

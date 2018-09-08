@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
 
-internal class Client : MonoSingletion<Client>
+public class Client : MonoSingletion<Client>
 {
     private Client()
     {

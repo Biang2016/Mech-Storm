@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-internal class ModuleShield : ModuleBase
+public class ModuleShield : ModuleBase
 {
     public override void PoolRecycle()
     {

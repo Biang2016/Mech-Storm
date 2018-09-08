@@ -3,7 +3,7 @@
 /// <summary>
 /// 鼠标悬停管理器
 /// </summary>
-internal class MouseHoverManager : MonoSingletion<MouseHoverManager>
+public class MouseHoverManager : MonoSingletion<MouseHoverManager>
 {
     private MouseHoverManager()
     {

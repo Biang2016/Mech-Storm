@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-internal class ScreenFitness : MonoBehaviour
+public class ScreenFitness : MonoBehaviour
 {
 
     float scaler = 16.0f / 8;

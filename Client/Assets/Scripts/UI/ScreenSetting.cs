@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-internal class ScreenSetting : MonoBehaviour
+public class ScreenSetting : MonoBehaviour
 {
     bool initialized = false;
     int designWidth = 1366;

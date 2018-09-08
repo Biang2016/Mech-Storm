@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-internal class BattleGroundManager : MonoBehaviour
+public class BattleGroundManager : MonoBehaviour
 {
     private int retinueCount;
 

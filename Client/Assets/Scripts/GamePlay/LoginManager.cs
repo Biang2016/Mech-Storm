@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-internal class LoginManager : MonoSingletion<LoginManager>
+public class LoginManager : MonoSingletion<LoginManager>
 {
     private LoginManager()
     {

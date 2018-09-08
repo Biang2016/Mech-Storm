@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-internal class ExitMenuManager : MonoSingletion<ExitMenuManager>
+public class ExitMenuManager : MonoSingletion<ExitMenuManager>
 {
     private ExitMenuManager()
     {

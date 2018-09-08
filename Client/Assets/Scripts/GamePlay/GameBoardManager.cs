@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-internal class GameBoardManager : MonoSingletion<GameBoardManager>
+public class GameBoardManager : MonoSingletion<GameBoardManager>
 {
     private GameBoardManager()
     {

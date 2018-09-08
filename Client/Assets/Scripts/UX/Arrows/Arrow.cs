@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-internal abstract class Arrow : MonoBehaviour, IGameObjectPool
+public abstract class Arrow : MonoBehaviour, IGameObjectPool
 {
     public virtual void PoolRecycle()
     {

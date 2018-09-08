@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-internal class ArrowAiming : Arrow
+public class ArrowAiming : Arrow
 {
     public override void PoolRecycle()
     {

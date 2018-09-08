@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-internal class ModuleWeapon : ModuleBase
+public class ModuleWeapon : ModuleBase
 {
     public override void PoolRecycle()
     {

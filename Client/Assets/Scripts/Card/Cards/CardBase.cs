@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent, IMouseHoverComponent
+public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent, IMouseHoverComponent
 {
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
@@ -40,7 +40,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         CardBloom.SetActive(false);
     }
 
-    internal CardInfo_Base CardInfo; //卡牌原始数值信息
+    public CardInfo_Base CardInfo; //卡牌原始数值信息
     internal DragComponent DragComponent;
 
     protected virtual void Awake()

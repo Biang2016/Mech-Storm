@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-internal class MetalLifeEnergyManager : MonoBehaviour
+public class MetalLifeEnergyManager : MonoBehaviour
 {
     internal ClientPlayer ClientPlayer;
 

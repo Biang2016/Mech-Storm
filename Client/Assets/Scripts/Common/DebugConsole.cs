@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// A console to display Unity's debug logs in-game.
 /// </summary>
-internal class DebugConsole : MonoBehaviour
+public class DebugConsole : MonoBehaviour
 {
     struct Log
     {

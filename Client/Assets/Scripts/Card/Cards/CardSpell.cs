@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-internal class CardSpell : CardBase
+public class CardSpell : CardBase
 {
     #region 卡牌上各模块
 

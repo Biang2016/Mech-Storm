@@ -1,6 +1,6 @@
 using UnityEngine;
 
-internal class ArrowArrow : Arrow
+public class ArrowArrow : Arrow
 {
     void Awake()
     {

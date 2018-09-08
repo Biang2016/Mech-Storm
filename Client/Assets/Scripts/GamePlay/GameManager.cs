@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-internal class GameManager : MonoSingletion<GameManager>
+public class GameManager : MonoSingletion<GameManager>
 {
     private GameManager()
     {

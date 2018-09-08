@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-internal class CardRetinue : CardBase
+public class CardRetinue : CardBase
 {
     public override void PoolRecycle()
     {

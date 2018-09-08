@@ -5,7 +5,7 @@ using UnityEngine;
 /// 可拖动组件，应用于卡片、人物、技能、随从、
 /// 实现拖动过程中卡牌跟随鼠标的一段动画
 /// </summary>
-internal class DragComponent : MonoBehaviour
+public class DragComponent : MonoBehaviour
 {
     int retinuesLayer;
     int boardAreasLayer;

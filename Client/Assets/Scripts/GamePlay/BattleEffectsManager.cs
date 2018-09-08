@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-internal class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
+public class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
 {
     private BattleEffectsManager()
     {

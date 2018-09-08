@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-internal class Slot : MonoBehaviour, IMouseHoverComponent
+public class Slot : MonoBehaviour, IMouseHoverComponent
 {
     internal ClientPlayer ClientPlayer;
     internal ModuleRetinue M_ModuleRetinue;

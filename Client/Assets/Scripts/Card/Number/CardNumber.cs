@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-internal class CardNumber : MonoBehaviour,IGameObjectPool
+public class CardNumber : MonoBehaviour,IGameObjectPool
 {
     internal GameObjectPool gameObjectPool;
 

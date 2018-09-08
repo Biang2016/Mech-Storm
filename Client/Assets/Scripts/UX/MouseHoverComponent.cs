@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-internal class MouseHoverComponent : MonoBehaviour
+public class MouseHoverComponent : MonoBehaviour
 {
     /// <summary>
     /// 鼠标悬停功能，应用于模块等
