@@ -226,9 +226,6 @@ internal class ModuleRetinue : ModuleBase
         set { m_ClientTempRetinueID = value; }
     }
 
-    public const int CLIENT_TEMP_RETINUE_ID_NORMAL = -1; //默认值，普通召唤的随从
-    public const int CLIENT_TEMP_RETINUE_ID_SUMMON_PREVIEW_NOT_CONFIRM = -2; //预召唤随从上场但未选择目标
-
     private string m_RetinueName;
 
     public string M_RetinueName

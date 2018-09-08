@@ -35,14 +35,14 @@ internal class ServerGameManager
 
     private int gameRetinueIdGenerator = 0;
 
-    public int GeneratorNewRetinueId()
+    public int GenerateNewRetinueId()
     {
         return gameRetinueIdGenerator++;
     }
 
     private int gameCardInstanceIdGenerator = 0;
 
-    public int GeneratorNewCardInstanceId()
+    public int GenerateNewCardInstanceId()
     {
         return gameCardInstanceIdGenerator++;
     }
@@ -174,7 +174,7 @@ internal class ServerGameManager
             targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
         }
 
-        sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex, targetRetinueId, r.clientRetinueTempId);
+        sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex, targetRetinueId, r.clientRetinueTempId, r.handCardInstanceId);
 
         Broadcast_SendOperationResponse();
     }
@@ -217,7 +217,7 @@ internal class ServerGameManager
         int targetRetinueId = r.targetRetinueId;
         if (r.isTargetRetinueIdTempId)
         {
-            targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.targetRetinueId);
+            targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
         }
 
         sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetRetinueId);
@@ -338,8 +338,8 @@ internal class ServerGameManager
             tmp.Add(id);
         }
 
-        PlayerA.MyBattleGroundManager.BattleGroundRemoveRetinues(tmp);
-        PlayerB.MyBattleGroundManager.BattleGroundRemoveRetinues(tmp);
+        PlayerA.MyBattleGroundManager.RemoveRetinues(tmp);
+        PlayerB.MyBattleGroundManager.RemoveRetinues(tmp);
 
         RetinueDieRequest request1 = new RetinueDieRequest(tmp);
         Broadcast_AddRequestToOperationResponse(request1);

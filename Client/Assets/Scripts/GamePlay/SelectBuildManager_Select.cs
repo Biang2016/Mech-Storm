@@ -122,7 +122,7 @@ public partial class SelectBuildManager
                 SelectCard retinueSelect = GenerateNewSelectCard(card, RetinueContent);
                 SelectedHeros.Add(card.CardInfo.CardID, retinueSelect);
                 List<SelectCard> SCs = RetinueContent.GetComponentsInChildren<SelectCard>(true).ToList();
-                SCs.Sort((a, b) => a.Metal.CompareTo(b.Metal));
+                SortSelectCards(SCs);
                 RetinueContent.DetachChildren();
                 foreach (SelectCard selectCard in SCs)
                 {
@@ -148,7 +148,7 @@ public partial class SelectBuildManager
                 SelectCard newSC = GenerateNewSelectCard(card, SelectionContent);
                 SelectedCards.Add(card.CardInfo.CardID, newSC);
                 List<SelectCard> SCs = SelectionContent.GetComponentsInChildren<SelectCard>(true).ToList();
-                SCs.Sort((a, b) => a.Metal.CompareTo(b.Metal));
+                SortSelectCards(SCs);
                 SelectionContent.DetachChildren();
                 foreach (SelectCard selectCard in SCs)
                 {
@@ -171,12 +171,23 @@ public partial class SelectBuildManager
         }
     }
 
+    private static void SortSelectCards(List<SelectCard> SCs)
+    {
+        SCs.Sort((a, b) =>
+        {
+            if (a.Metal == 0 && a.Energy == 0 && (b.Metal != 0 || b.Energy != 0)) return -1;
+            if (a.Energy.CompareTo(b.Energy) == 0) return a.Metal.CompareTo(b.Metal);
+            return a.Energy.CompareTo(b.Energy);
+        });
+    }
+
     private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)
     {
         SelectCard newSC = GameObjectPoolManager.Instance.Pool_SelectCardPool.AllocateGameObject(parenTransform).GetComponent<SelectCard>();
 
         newSC.Count = 1;
         newSC.Metal = card.CardInfo.BaseInfo.Metal;
+        newSC.Energy = card.CardInfo.BaseInfo.Energy;
         newSC.Text_CardName.text = card.CardInfo.BaseInfo.CardName;
         newSC.CardButton.onClick.RemoveAllListeners();
         newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card); });

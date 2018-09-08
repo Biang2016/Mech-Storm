@@ -30,7 +30,7 @@ internal class CardNumberSet : MonoBehaviour, IGameObjectPool
         MyTextAlign = textAlign;
     }
 
-    private bool hasSign = false;
+    public bool hasSign = false;
     internal bool IsSelect;
     private char m_firstSign;
 

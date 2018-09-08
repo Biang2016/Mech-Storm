@@ -117,7 +117,7 @@ internal class BattleGroundManager : MonoBehaviour
                 if (moduleRetinue.M_ClientTempRetinueID == clientRetinueTempId) //匹配
                 {
                     moduleRetinue.M_RetinueID = retinueId; //赋予正常ID
-                    moduleRetinue.M_ClientTempRetinueID = ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL; //恢复普通
+                    moduleRetinue.M_ClientTempRetinueID = Const.CLIENT_TEMP_RETINUE_ID_NORMAL; //恢复普通
                     isSummonedBeforeByPreview = true;
                     break;
                 }
@@ -275,7 +275,7 @@ internal class BattleGroundManager : MonoBehaviour
     public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的随从的召唤预览、显示指定箭头
     {
         currentSummonPreviewRetinueCard = retinueCard;
-        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int) ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
+        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int)Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
         CurrentSummonPreviewRetinue = retinue;
         AddRetinue(retinuePlaceIndex);
         DragManager.Instance.SummonRetinueTargetHandler = SummonRetinueTargetConfirm;

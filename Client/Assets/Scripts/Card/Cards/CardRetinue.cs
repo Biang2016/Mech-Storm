@@ -146,7 +146,7 @@ internal class CardRetinue : CardBase
         {
             if (boardAreaType != ClientPlayer.MyHandArea) //脱手即出牌
             {
-                summonRetinueRequest(dragLastPosition, TARGET_RETINUE_SELECT_NONE);
+                summonRetinueRequest(dragLastPosition, Const.TARGET_RETINUE_SELECT_NONE);
             }
             else
             {
@@ -173,8 +173,6 @@ internal class CardRetinue : CardBase
 
     #region 卡牌效果
 
-    public const int TARGET_RETINUE_SELECT_NONE = -2;
-
     //召唤随从
     private void summonRetinueRequest(Vector3 dragLastPosition, int targetRetinueId)
     {
@@ -185,7 +183,7 @@ internal class CardRetinue : CardBase
         }
 
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-        SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
+        SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
         Client.Instance.Proxy.SendMessage(request);
     }
 
@@ -204,7 +202,7 @@ internal class CardRetinue : CardBase
         int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty)
         {
-            SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), TARGET_RETINUE_SELECT_NONE, false, ModuleRetinue.CLIENT_TEMP_RETINUE_ID_NORMAL);
+            SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), Const.TARGET_RETINUE_SELECT_NONE, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
             Client.Instance.Proxy.SendMessage(request);
             Usable = false;
         }

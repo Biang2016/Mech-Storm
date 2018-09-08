@@ -77,6 +77,7 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffectManager.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeRandom_Base.cs" />
     <Compile Include="GamePlay\Player.cs" />
+    <Compile Include="Protocol\Const.cs" />
     <Compile Include="Protocol\ProxyBase.cs" />
     <Compile Include="GamePlay\GamePlaySettings.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />

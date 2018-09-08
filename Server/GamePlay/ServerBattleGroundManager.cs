@@ -75,17 +75,24 @@ internal class ServerBattleGroundManager
         PrintRetinueInfos();
     }
 
-    public void BattleGroundRemoveRetinues(List<int> retinueIds)
+    public void RemoveRetinues(List<int> retinueIds)
     {
         foreach (int retinueId in retinueIds)
         {
             ServerModuleRetinue retinue = GetRetinue(retinueId);
-            if (retinue != null) BattleGroundRemoveRetinue(retinue);
+            if (retinue != null) RemoveRetinue(retinue);
         }
     }
 
-    private void BattleGroundRemoveRetinue(ServerModuleRetinue retinue)
+    private void RemoveRetinue(ServerModuleRetinue retinue)
     {
+        int battleGroundIndex = Retinues.IndexOf(retinue);
+        if (battleGroundIndex == -1)
+        {
+            ServerLog.PrintWarning("BattleGroundRemoveRetinue不存在随从：" + retinue.M_RetinueID);
+            return;
+        }
+
         Retinues.Remove(retinue);
         RetinueCount = Retinues.Count;
         if (retinue.CardInfo.BattleInfo.IsSoldier)
@@ -99,53 +106,43 @@ internal class ServerBattleGroundManager
             HeroCount = Heros.Count;
         }
 
+        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(retinue.OriginCardInstanceId);
         retinue.UnRegisterSideEffect();
         PrintRetinueInfos();
     }
 
     private void BattleGroundRemoveAllRetinue()
     {
-        Retinues.Clear();
-        RetinueCount = Retinues.Count;
-        Soldiers.Clear();
-        SoldierCount = Soldiers.Count;
-        Heros.Clear();
-        HeroCount = Heros.Count;
-        PrintRetinueInfos();
+        foreach (ServerModuleRetinue retinue in Retinues.ToArray())
+        {
+            RemoveRetinue(retinue);
+        }
     }
 
     public void AddRetinue(CardInfo_Retinue retinueCardInfo)
     {
-        AddRetinue(retinueCardInfo, Retinues.Count, -2, -1);
+        AddRetinue(retinueCardInfo, Retinues.Count, targetRetinueId: Const.TARGET_RETINUE_SELECT_NONE, clientRetinueTempId: Const.CLIENT_TEMP_RETINUE_ID_NORMAL, handCardInstanceId: Const.CARD_INSTANCE_ID_NONE);
     }
 
-    public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex, int targetRetinueId, int clientRetinueTempId)
+    public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex, int targetRetinueId, int clientRetinueTempId, int handCardInstanceId)
     {
-        int retinueId = ServerPlayer.MyGameManager.GeneratorNewRetinueId();
+        int retinueId = ServerPlayer.MyGameManager.GenerateNewRetinueId();
         BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex, retinueId, clientRetinueTempId);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         ServerModuleRetinue retinue = new ServerModuleRetinue();
         retinue.M_RetinueID = retinueId;
         retinue.M_UsedClientRetinueTempId = clientRetinueTempId;
+        retinue.OriginCardInstanceId = handCardInstanceId;
         retinue.Initiate(retinueCardInfo, ServerPlayer);
+
+        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(retinueCardInfo.CardID, handCardInstanceId);
 
         SideEffectBase.ExecuterInfo info = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: retinueId, targetRetinueId: targetRetinueId);
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueSummon, info);
         if (retinueCardInfo.BattleInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierSummon, info);
         else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroSummon, info);
         BattleGroundAddRetinue(retinuePlaceIndex, retinue);
-    }
-
-
-    public void RemoveRetinue(ServerModuleRetinue retinue)
-    {
-        int battleGroundIndex = Retinues.IndexOf(retinue);
-        if (battleGroundIndex == -1) return;
-        BattleGroundRemoveRetinue(retinue);
-
-        BattleGroundRemoveRetinueRequest request = new BattleGroundRemoveRetinueRequest(new List<int> {retinue.M_RetinueID});
-        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     public void EquipWeapon(EquipWeaponRequest r, CardInfo_Base cardInfo)
@@ -156,7 +153,9 @@ internal class ServerBattleGroundManager
         weapon.M_ModuleRetinue = retinue;
         weapon.M_WeaponPlaceIndex = r.weaponPlaceIndex;
         weapon.Initiate(cardInfo_Weapon, ServerPlayer);
+        weapon.OriginCardInstanceId = r.handCardInstanceId;
         retinue.M_Weapon = weapon;
+        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
     public void EquipShield(EquipShieldRequest r, CardInfo_Base cardInfo)
@@ -167,19 +166,9 @@ internal class ServerBattleGroundManager
         shield.M_ModuleRetinue = retinue;
         shield.M_ShieldPlaceIndex = r.shieldPlaceIndex;
         shield.Initiate(cardInfo_Shield, ServerPlayer);
+        shield.OriginCardInstanceId = r.handCardInstanceId;
         retinue.M_Shield = shield;
-    }
-
-    public void UseSpellCard(UseSpellCardRequest r, CardInfo_Base cardInfo)
-    {
-        int targetRetinueId = r.targetRetinueId;
-        if (r.isTargetRetinueIdTempId)
-        {
-            targetRetinueId = GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
-            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, targetRetinueId: targetRetinueId, cardId: cardInfo.CardID, cardInstanceId: r.handCardInstanceId));
-        }
-
-        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, cardId: cardInfo.CardID, cardInstanceId: r.handCardInstanceId));
+        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
     public void KillAllRetinues()
@@ -218,7 +207,7 @@ internal class ServerBattleGroundManager
 
         foreach (ServerModuleRetinue retinue in dieRetinues)
         {
-            BattleGroundRemoveRetinue(retinue);
+            RemoveRetinue(retinue);
         }
     }
 
@@ -239,7 +228,7 @@ internal class ServerBattleGroundManager
 
         foreach (ServerModuleRetinue retinue in dieRetinues)
         {
-            BattleGroundRemoveRetinue(retinue);
+            RemoveRetinue(retinue);
         }
     }
 
@@ -269,7 +258,7 @@ internal class ServerBattleGroundManager
         if (retinue != null)
         {
             retinue.OnDieTogather();
-            BattleGroundRemoveRetinue(retinue);
+            RemoveRetinue(retinue);
             PrintRetinueInfos();
         }
     }

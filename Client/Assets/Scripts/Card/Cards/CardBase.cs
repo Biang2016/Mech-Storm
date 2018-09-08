@@ -366,6 +366,7 @@ internal abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
         else if (value > 0)
         {
+            CardNumberSet_Count.hasSign = true;
             CardNumberSet_Count.Number = value;
         }
     }

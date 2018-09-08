@@ -38,9 +38,9 @@
         set { stars = value; }
     }
 
-    #endregion
+    public int OriginCardInstanceId { get => originCardInstanceId; set => originCardInstanceId = value; }
 
-    #region 各模块
+    private int originCardInstanceId;
 
     #endregion
 }

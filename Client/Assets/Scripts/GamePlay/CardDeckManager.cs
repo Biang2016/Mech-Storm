@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -108,7 +109,7 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
         SetCardDeckShowCardNum(enemy_CardDeckCards, value);
     }
 
-    public void SetCardDeckShowCardNum(CardDeckCard[] targetCardDeckShowCards, int number)
+    private void SetCardDeckShowCardNum(CardDeckCard[] targetCardDeckShowCards, int number)
     {
         int showCardNumber = 0;
         if (number <= 0) showCardNumber = 0;

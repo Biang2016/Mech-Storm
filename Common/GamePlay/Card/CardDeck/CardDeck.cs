@@ -63,13 +63,17 @@ public class CardDeck
 
     private void RemoveCards(List<CardInfo_Base> cardInfos)
     {
+        int before = Cards.Count;
         foreach (CardInfo_Base cardInfoBase in cardInfos)
         {
             Cards.Remove(cardInfoBase);
         }
 
         checkEmpty();
-        CardDeckCountChangeHandler(Cards.Count);
+        for (int i = before - 1; i >= Cards.Count; i--)
+        {
+            CardDeckCountChangeHandler(i);
+        }
     }
 
     public CardInfo_Type FindATypeOfCard<CardInfo_Type>() where CardInfo_Type : CardInfo_Base
@@ -111,7 +115,6 @@ public class CardDeck
         {
             CardInfo_Base res = Cards[0];
             RemoveCard(res);
-            AbandonCards.Add(res);
             checkEmpty();
             return res;
         }
@@ -132,7 +135,6 @@ public class CardDeck
         foreach (CardInfo_Base cb in resList)
         {
             RemoveCard(cb);
-            AbandonCards.Add(cb);
             checkEmpty();
         }
 
@@ -230,6 +232,30 @@ public class CardDeck
         }
 
         return false;
+    }
+
+    private Dictionary<int, int> CardInstanceIdDict = new Dictionary<int, int>();
+
+    public void AddCardInstanceId(int cardId, int cardInstanceId)
+    {
+        if (cardInstanceId == Const.CARD_INSTANCE_ID_NONE) return;
+        if (CardInstanceIdDict.ContainsKey(cardInstanceId))
+        {
+            CardInstanceIdDict[cardInstanceId] = cardId;
+        }
+        else
+        {
+            CardInstanceIdDict.Add(cardInstanceId, cardId);
+        }
+    }
+
+    public void RecycleCardInstanceID(int cardInstanceId)
+    {
+        if (CardInstanceIdDict.ContainsKey(cardInstanceId))
+        {
+            AbandonCards.Add(AllCards.GetCard(CardInstanceIdDict[cardInstanceId]));
+            CardInstanceIdDict.Remove(cardInstanceId);
+        }
     }
 
     public void AbandonCardRecycle()

@@ -15,22 +15,26 @@ internal class ServerHandManager
     internal void DrawCards(int cardNumber)
     {
         int maxDrawCardNumber = Math.Min(cardNumber, GamePlaySettings.MaxHandCard - cards.Count);
-        List<CardInfo_Base> newCardsInfo = ServerPlayer.MyCardDeckManager.DrawCardsOnTop(maxDrawCardNumber);
-        List<DrawCardRequest.CardIdAndInstanceId> infos = new List<DrawCardRequest.CardIdAndInstanceId>();
-        foreach (CardInfo_Base cardInfoBase in newCardsInfo)
+        if (maxDrawCardNumber != cardNumber)
         {
-            ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfoBase, ServerPlayer, ServerPlayer.MyGameManager.GeneratorNewCardInstanceId());
-            infos.Add(new DrawCardRequest.CardIdAndInstanceId(cardInfoBase.CardID, newCard.M_CardInstanceId));
-            cards.Add(newCard);
+            DrawCards(maxDrawCardNumber);
+            return;
         }
 
-        OnPlayerGetCards(infos);
+        for (int i = 0; i < maxDrawCardNumber; i++)
+        {
+            CardInfo_Base newCardsInfo = ServerPlayer.MyCardDeckManager.DrawCardOnTop();
+            ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardsInfo, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
+            cards.Add(newCard);
+            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId);
+            OnPlayerGetCard(newCardsInfo.CardID, newCard.M_CardInstanceId);
+        }
     }
 
     internal void GetACardByID(int cardID)
     {
         CardInfo_Base cardInfo = AllCards.GetCard(cardID);
-        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer, ServerPlayer.MyGameManager.GeneratorNewCardInstanceId());
+        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         cards.Add(newCard);
     }
@@ -39,7 +43,7 @@ internal class ServerHandManager
     {
         CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawSoldierCard();
         if (newCardInfo == null) return;
-        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer, ServerPlayer.MyGameManager.GeneratorNewCardInstanceId());
+        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
         OnPlayerGetCard(newCardInfo.CardID, newCard.M_CardInstanceId);
         cards.Add(newCard);
     }
@@ -71,6 +75,7 @@ internal class ServerHandManager
         DropCardRequest request = new DropCardRequest(ServerPlayer.ClientId, cards.IndexOf(dropCard));
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         cards.Remove(dropCard);
+        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
     }
 
     internal void UseCard(int cardInstanceId, Vector3 lastDragPosition)
@@ -93,6 +98,8 @@ internal class ServerHandManager
                 targetRetinueId: targetRetinueId,
                 cardId: useCard.CardInfo.CardID,
                 cardInstanceId: cardInstanceId));
+
+        if (useCard.CardInfo.BaseInfo.CardType == CardTypes.Spell) ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(cardInstanceId);
         useCard.UnRegisterSideEffect();
         cards.Remove(useCard);
     }

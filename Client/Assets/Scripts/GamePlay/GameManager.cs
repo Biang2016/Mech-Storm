@@ -124,7 +124,7 @@ internal class GameManager : MonoSingletion<GameManager>
         SelfCardDeckCardColor = ClientUtils.HTMLColorToColor("#007AFF");
         EnemyCardDeckCardColor = ClientUtils.HTMLColorToColor("#FF0004");
 
-        LifeIconColor = ClientUtils.HTMLColorToColor("#AA0003");
+        LifeIconColor = ClientUtils.HTMLColorToColor("#FF5F65");
         MetalIconColor = ClientUtils.HTMLColorToColor("#8335FF");
         EnergyIconColor = ClientUtils.HTMLColorToColor("#007AFF");
 

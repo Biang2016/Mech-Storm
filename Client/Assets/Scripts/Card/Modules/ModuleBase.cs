@@ -7,6 +7,13 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
 
+    void OnGUI()
+    {
+        Vector3 po = Camera.main.WorldToViewportPoint(transform.position);
+        Debug.Log(po);
+        GUI.Label(new Rect(po.x, po.z, 100, 30), "abcabcabc");
+    }
+
     public virtual void PoolRecycle()
     {
         GameObjectID = -1;
@@ -259,7 +266,7 @@ internal abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragCompon
     {
     }
 
-    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue,Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
     }
 

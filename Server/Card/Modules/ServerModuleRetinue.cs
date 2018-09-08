@@ -288,9 +288,13 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     void On_WeaponDown()
     {
-        m_Weapon = null;
-        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0);
-        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+        if (m_Weapon != null)
+        {
+            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
+            m_Weapon = null;
+            EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0);
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+        }
     }
 
     void On_WeaponEquiped(ServerModuleWeapon newWeapon)
@@ -306,6 +310,11 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     void On_WeaponChanged(ServerModuleWeapon newWeapon)
     {
+        if (m_Weapon != null)
+        {
+            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
+        }
+
         m_Weapon = newWeapon;
         EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
@@ -345,6 +354,11 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     void On_ShieldDown()
     {
+        if (m_Shield != null)
+        {
+            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
+        }
+
         m_Shield = null;
         EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
@@ -362,6 +376,10 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     void On_ShieldChanged(ServerModuleShield newShield) //更换防具时机体基础护甲护盾恢复
     {
+        if (m_Shield != null)
+        {
+            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
+        }
         m_Shield = newShield;
         EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
