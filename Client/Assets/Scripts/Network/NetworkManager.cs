@@ -41,8 +41,8 @@ public class NetworkManager : MonoSingletion<NetworkManager>
     public void TerminateConnection()
     {
         isReconnecting = false;
-        NoticeManager.Instance.ShowInfoPanelTop("正在断开连接", 0f, float.PositiveInfinity);
-        LoginManager.Instance.ShowTipText("正在断开连接", 0f, float.PositiveInfinity, true);
+        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Disconnecting" : "正在断开连接", 0f, float.PositiveInfinity);
+        LoginManager.Instance.ShowTipText(GameManager.Instance.isEnglish ? "Disconnecting" : "正在断开连接", 0f, float.PositiveInfinity, true);
         try
         {
             if (CurrentTryConnectServer != null) StopCoroutine(CurrentTryConnectServer);
@@ -63,8 +63,8 @@ public class NetworkManager : MonoSingletion<NetworkManager>
             ClientLog.Instance.PrintClientStates(e.ToString());
         }
 
-        NoticeManager.Instance.ShowInfoPanelTop("已断开连接", 0f, 1f);
-        LoginManager.Instance.ShowTipText("已断开连接", 0f, 1f, false);
+        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Disconnected" : "已断开连接", 0f, 1f);
+        LoginManager.Instance.ShowTipText(GameManager.Instance.isEnglish ? "Disconnected" : "已断开连接", 0f, 1f, false);
     }
 
     private void CheckConnectState()
@@ -74,7 +74,7 @@ public class NetworkManager : MonoSingletion<NetworkManager>
             if (isReconnecting)
             {
                 RoundManager.Instance.HasShowLostConnectNotice = false;
-                NoticeManager.Instance.ShowInfoPanelTop("连接服务器成功", 0f, 2f);
+                NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Connected" : "连接服务器成功", 0f, 2f);
                 isReconnecting = false;
             }
         }
@@ -82,7 +82,7 @@ public class NetworkManager : MonoSingletion<NetworkManager>
         {
             if (!isReconnecting)
             {
-                LoginManager.Instance.ShowTipText("正在连接服务器", 0f, float.PositiveInfinity, true);
+                LoginManager.Instance.ShowTipText(GameManager.Instance.isEnglish ? "Connecting" : "正在连接服务器", 0f, float.PositiveInfinity, true);
                 isReconnecting = true;
             }
         }
@@ -90,11 +90,11 @@ public class NetworkManager : MonoSingletion<NetworkManager>
 
     void ConnectCallBack()
     {
-        ClientLog.Instance.Print("连接服务器成功!");
+        ClientLog.Instance.Print("Connect success.");
     }
 
     public void SuccessMatched()
     {
-        NoticeManager.Instance.ShowInfoPanelTop("匹配成功，开始比赛", 0, 1f);
+        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Match success! Game begin!" : "匹配成功，开始比赛", 0, 1f);
     }
 }

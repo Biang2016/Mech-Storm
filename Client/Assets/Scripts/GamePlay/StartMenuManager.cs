@@ -11,6 +11,10 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
     {
         M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += OnClientChangeState;
+
+        BeginMatchText.text = GameManager.Instance.isEnglish ? "Game Begin" : "开始匹配";
+        MyDeckText.text = GameManager.Instance.isEnglish ? "My Decks" : "我的卡组";
+        QuitGameText.text = GameManager.Instance.isEnglish ? "Quit Game" : "退出游戏";
     }
 
     void Start()
@@ -131,6 +135,10 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
     [SerializeField] private Button SelectCardDeckWindowButton;
     [SerializeField] private Button QuitGameButton;
 
+    [SerializeField] private Text BeginMatchText;
+    [SerializeField] private Text MyDeckText;
+    [SerializeField] private Text QuitGameText;
+
     public void OnStartMatchGameButtonClick()
     {
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login && SelectBuildManager.Instance.CurrentSelectedBuildButton == null) //未发送卡组则跳出选择卡组界面
@@ -141,7 +149,7 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
         {
             Client.Instance.Proxy.OnBeginMatch();
             ClientLog.Instance.Print("开始匹配");
-            NoticeManager.Instance.ShowInfoPanelTop("匹配中", 0, float.PositiveInfinity);
+            NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Matching" : "匹配中", 0, float.PositiveInfinity);
         }
     }
 
@@ -149,7 +157,7 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
     {
         Client.Instance.Proxy.CancelMatch();
         ClientLog.Instance.Print("取消匹配");
-        NoticeManager.Instance.ShowInfoPanelTop("取消匹配", 0, 1f);
+        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Match canceled" : "取消匹配", 0, 1f);
     }
 
     public void OnSelectCardDeckWindowButtonClick()

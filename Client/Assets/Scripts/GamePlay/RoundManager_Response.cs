@@ -19,6 +19,29 @@ internal partial class RoundManager
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
     }
 
+    public void OnGameStopByWin(GameStopByWinRequest r)
+    {
+        if (r.winnerClientId == Client.Instance.Proxy.ClientId)
+        {
+            ClientLog.Instance.PrintClientStates("你赢了");
+            GameBoardManager.Instance.WinGame();
+        }
+        else
+        {
+            ClientLog.Instance.PrintReceive("你输了");
+            GameBoardManager.Instance.LostGame();
+        }
+
+        StartCoroutine(GameEndWait());
+    }
+
+    IEnumerator GameEndWait()
+    {
+        yield return new WaitForSeconds(5);
+        OnGameStop();
+        Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
+    }
+
     public void OnRandomNumberSeed(RandomNumberSeedRequest r)
     {
         RandomNumberGenerator = new RandomNumberGenerator(r.randomNumberSeed);
@@ -420,6 +443,6 @@ internal partial class RoundManager
         cb.M_Energy += r.energyChange;
         cb.M_Metal += r.metalChange;
         cb.M_EffectFactor = r.effectFactor;
-        cb.M_Desc = cb.CardInfo.GetCardDescShow();
+        cb.M_Desc = cb.CardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
     }
 }

@@ -4,7 +4,6 @@
 
     protected override void Initiate()
     {
-        M_ShieldName = Utils.TextToVertical(((CardInfo_Equip) CardInfo).BaseInfo.CardName);
         M_ShieldType = CardInfo.ShieldInfo.ShieldType;
     }
 
@@ -37,15 +36,6 @@
     {
         get { return m_ShieldPlaceIndex; }
         set { m_ShieldPlaceIndex = value; }
-    }
-
-    private string m_ShieldName;
-
-    public string M_ShieldName
-    {
-        get { return m_ShieldName; }
-
-        set { m_ShieldName = value; }
     }
 
     private ShieldTypes m_ShieldType;

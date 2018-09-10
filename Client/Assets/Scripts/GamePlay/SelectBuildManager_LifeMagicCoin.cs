@@ -79,6 +79,7 @@ public partial class SelectBuildManager
 
     private float noBudgetNoticeInterval = 3f;
     private float lastNoBudgetNoticeTime;
+
     private void OnLifeSliderValueChange(float value)
     {
         float maxValueNow = (float) ((GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.CardConsumeCoin - CurrentEditBuildButton.BuildInfo.EnergyConsumeCoin + GamePlaySettings.PlayerDefaultLifeMin * GamePlaySettings.LifeToCoin) / GamePlaySettings.LifeToCoin) / GamePlaySettings.PlayerDefaultLifeMax;
@@ -89,8 +90,9 @@ public partial class SelectBuildManager
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter("预算不足,考虑少选一些卡牌哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
             }
+
             return;
         }
         else if (value < minValue)
@@ -99,8 +101,9 @@ public partial class SelectBuildManager
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter("生命过低可不安全哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "It's unsafe if your life is too low." : "生命过低可不安全哦~", 0f, 1f);
             }
+
             return;
         }
 
@@ -122,8 +125,9 @@ public partial class SelectBuildManager
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter("预算不足,考虑少选一些卡牌哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
             }
+
             return;
         }
         else if (value < minValue)

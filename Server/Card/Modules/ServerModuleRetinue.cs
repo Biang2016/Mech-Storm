@@ -5,8 +5,6 @@ internal class ServerModuleRetinue : ServerModuleBase
 {
     protected override void Initiate()
     {
-        M_RetinueName = CardInfo.BaseInfo.CardName;
-        M_RetinueDesc = CardInfo.BaseInfo.CardDescRaw;
         M_RetinueLeftLife = CardInfo.LifeInfo.Life;
         M_RetinueTotalLife = CardInfo.LifeInfo.Life;
         M_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
@@ -63,23 +61,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         get { return m_IsDead; }
         set { m_IsDead = value; }
     }
-
-    private string m_RetinueName;
-
-    public string M_RetinueName
-    {
-        get { return m_RetinueName; }
-        set { m_RetinueName = value; }
-    }
-
-    private string m_RetinueDesc;
-
-    public string M_RetinueDesc
-    {
-        get { return m_RetinueDesc; }
-        set { m_RetinueDesc = value; }
-    }
-
 
     private int m_RetinueLeftLife;
 

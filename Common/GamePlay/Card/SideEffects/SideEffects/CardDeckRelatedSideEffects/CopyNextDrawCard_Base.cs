@@ -8,9 +8,9 @@
         get { return Value * Factor; }
     }
 
-    public override string GenerateDesc()
+    public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat(HightlightColor, DescRaw, FinalValue);
+        return HightlightStringFormat(HightlightColor, isEnglish ? DescRaw_en : DescRaw, FinalValue);
     }
 
     public override void Serialze(DataStream writer)

@@ -129,7 +129,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
             LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
             if (!HasShowLostConnectNotice)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter("您已离线", 0, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Disconnected" : "您已离线", 0, 1f);
                 HasShowLostConnectNotice = true;
             }
         }
@@ -142,7 +142,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     {
         EndRoundButton.enabled = enable;
         EndRoundButton.image.color = enable ? Color.yellow : Color.gray;
-        EndRoundButtonText.text = enable ? "结束回合" : "敌方回合";
+        EndRoundButtonText.text = enable ? (GameManager.Instance.isEnglish ? "End Turn" : "结束回合") : (GameManager.Instance.isEnglish ? "Enemy's Turn" : "敌方回合");
     }
 
     #region 交互
@@ -156,7 +156,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         }
         else
         {
-            ClientLog.Instance.PrintWarning("不是你的回合");
+            ClientLog.Instance.PrintWarning("Not Your Round");
         }
     }
 

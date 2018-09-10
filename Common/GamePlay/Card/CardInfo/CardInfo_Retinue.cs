@@ -7,11 +7,11 @@ public class CardInfo_Retinue : CardInfo_Base
     {
     }
 
-    public CardInfo_Retinue(int cardID, BaseInfo baseInfo,SlotTypes slotType, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo,SideEffectBundle sideEffects)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, SlotTypes slotType, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo, SideEffectBundle sideEffects)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             slotType: slotType,
-            sideEffects:sideEffects)
+            sideEffects: sideEffects)
     {
         UpgradeInfo = upgradeInfo;
         LifeInfo = lifeInfo;
@@ -19,15 +19,15 @@ public class CardInfo_Retinue : CardInfo_Base
         SlotInfo = slotInfo;
     }
 
-    public override string GetCardDescShow()
+    public override string GetCardDescShow(bool isEnglish)
     {
         string CardDescShow = BaseInfo.CardDescRaw;
 
-        if (BattleInfo.BasicAttack != 0) CardDescShow += "攻击力 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicAttack) + "\n";
-        if (BattleInfo.BasicArmor != 0) CardDescShow += "护甲 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicArmor) + "\n";
-        if (BattleInfo.BasicShield != 0) CardDescShow += "护盾 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicShield) + "\n";
+        if (BattleInfo.BasicAttack != 0) CardDescShow += (isEnglish ? "Attack " : "攻击力 ") + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicAttack) + "\n";
+        if (BattleInfo.BasicArmor != 0) CardDescShow += (isEnglish ? "Armor " : "护甲 ") + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicArmor) + "\n";
+        if (BattleInfo.BasicShield != 0) CardDescShow += (isEnglish ? "Shield " : "护盾 ") + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicShield) + "\n";
 
-        CardDescShow += base.GetCardDescShow();
+        CardDescShow += base.GetCardDescShow(isEnglish);
 
         CardDescShow = CardDescShow.TrimEnd(";\n".ToCharArray());
 
@@ -45,7 +45,7 @@ public class CardInfo_Retinue : CardInfo_Base
             lifeInfo: LifeInfo,
             battleInfo: BattleInfo,
             slotInfo: SlotInfo,
-            sideEffects:temp.SideEffects);
+            sideEffects: temp.SideEffects);
         return cb;
     }
 }

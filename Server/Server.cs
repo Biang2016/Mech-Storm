@@ -39,6 +39,7 @@ internal class Server
         AllCards.AddAllCards("./Config/Cards.xml");
         ServerLog.PrintServerStates("CardDeck Loaded");
         SGMM = new ServerGameMatchManager();
+        string res = AllCards.GetCard(50601).GetCardDescShow(true);
 
         OnRestartProtocols();
         OnRestartSideEffects();

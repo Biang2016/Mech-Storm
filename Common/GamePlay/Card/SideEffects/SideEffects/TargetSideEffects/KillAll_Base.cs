@@ -1,8 +1,8 @@
 ﻿public class KillAll_Base : TargetSideEffect
 {
-    public override string GenerateDesc()
+    public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat(HightlightColor, DescRaw, "所有" + GetChineseDescOfTargetRange(M_TargetRange));
+        return HightlightStringFormat(HightlightColor, isEnglish ? DescRaw_en : DescRaw, (isEnglish ? "all " : "所有") + GetChineseDescOfTargetRange(M_TargetRange, isEnglish));
     }
 
     public override void Serialze(DataStream writer)

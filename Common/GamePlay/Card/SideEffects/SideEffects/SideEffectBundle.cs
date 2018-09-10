@@ -69,7 +69,7 @@ public class SideEffectBundle
         ses.Remove(se);
     }
 
-    public string GetSideEffectsDesc()
+    public string GetSideEffectsDesc(bool isEnglish)
     {
         string res = "";
         foreach (KeyValuePair<TriggerTime, Dictionary<TriggerRange, List<SideEffectBase>>> kv in SideEffects)
@@ -78,23 +78,30 @@ public class SideEffectBundle
             {
                 if (SEs.Value.Count > 0)
                 {
-                    if (SEs.Key == TriggerRange.Self)
-                    {
-                        if (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon) res += "战吼:";
-                        else if (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie) res += "亡语:";
-                        else if (kv.Key == TriggerTime.OnPlayCard) res += "";
-                    }
+                    if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon)) res += isEnglish ? "Battlecry: " : "战吼:";
+                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie)) res += isEnglish ? "Die: " : "亡语:";
+                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnPlayCard)) res += "";
                     else
                     {
-                        res += string.Format(TriggerTimeDesc[kv.Key], TriggerRangeDesc[SEs.Key]);
+                        if (isEnglish)
+                        {
+                            res += string.Format(TriggerTimeDesc_en[kv.Key], TriggerRangeDesc_en[SEs.Key]);
+                        }
+                        else
+                        {
+                            res += string.Format(TriggerTimeDesc[kv.Key], TriggerRangeDesc[SEs.Key]);
+                        }
                     }
 
                     foreach (SideEffectBase se in SEs.Value)
                     {
-                        res += se.GenerateDesc() + ";\n";
+                        res += se.GenerateDesc(isEnglish);
                     }
                 }
             }
+
+            res = res.TrimEnd(". ".ToCharArray());
+            res += ";\n";
         }
 
         return res;
@@ -215,6 +222,31 @@ public class SideEffectBundle
         {TriggerTime.OnEndRound, "{0}回合结束时,"},
     };
 
+    public static SortedDictionary<TriggerTime, string> TriggerTimeDesc_en = new SortedDictionary<TriggerTime, string>
+    {
+        {TriggerTime.OnBeginRound, "When {0} turn start, "},
+        {TriggerTime.OnDrawCard, "When {0} draw, "},
+        {TriggerTime.OnPlayCard, "When {0} play a card, "},
+
+        {TriggerTime.OnRetinueSummon, "When {0} summon a Mech, "},
+        {TriggerTime.OnHeroSummon, "When {0} summon a HeroMech, "},
+        {TriggerTime.OnSoldierSummon, "When {0} summon a SoldierMech, "},
+
+        {TriggerTime.OnRetinueAttack, "When a Mech of {0} attacks, "},
+        {TriggerTime.OnHeroAttack, "When a HeroMech of {0} attacks, "},
+        {TriggerTime.OnSoldierAttack, "When a SoldierMech of {0} attacks, "},
+
+        {TriggerTime.OnRetinueInjured, "When a Mech of {0} damaged, "},
+        {TriggerTime.OnHeroInjured, "When a HeroMech of {0} damaged, "},
+        {TriggerTime.OnSoldierInjured, "When a SoldierMech of {0} damaged, "},
+
+        {TriggerTime.OnRetinueDie, "When a Mech of {0} died, "},
+        {TriggerTime.OnHeroDie, "When a HeroMech of {0} died, "},
+        {TriggerTime.OnSoldierDie, "When a SoldierMech of {0} died, "},
+
+        {TriggerTime.OnEndRound, "When {0} turn start, "},
+    };
+
     public enum TriggerRange
     {
         SelfPlayer,
@@ -235,6 +267,18 @@ public class SideEffectBundle
         {TriggerRange.One, "一个"},
         {TriggerRange.SelfAnother, "我方其他"},
         {TriggerRange.Another, "其他"},
+        {TriggerRange.Attached, ""},
+        {TriggerRange.Self, ""},
+    };
+
+    public static SortedDictionary<TriggerRange, string> TriggerRangeDesc_en = new SortedDictionary<TriggerRange, string>
+    {
+        {TriggerRange.SelfPlayer, "you "},
+        {TriggerRange.EnemyPlayer, "enemy "},
+        {TriggerRange.OnePlayer, "one player "},
+        {TriggerRange.One, "one "},
+        {TriggerRange.SelfAnother, "your another "},
+        {TriggerRange.Another, "another "},
         {TriggerRange.Attached, ""},
         {TriggerRange.Self, ""},
     };

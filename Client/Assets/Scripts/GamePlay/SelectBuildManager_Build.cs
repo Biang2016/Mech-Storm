@@ -13,6 +13,10 @@ public partial class SelectBuildManager
     [SerializeField] private Button CreateNewBuildButton;
     [SerializeField] private Button DeleteBuildButton;
 
+    [SerializeField] private Text RenameConfirmText;
+    [SerializeField] private Text RenameCancelText;
+    [SerializeField] private Text CreateBuildText;
+
     private BuildInfo lastSaveBuildInfo;
     internal BuildButton CurrentEditBuildButton;
     internal BuildButton CurrentSelectedBuildButton;
@@ -25,6 +29,10 @@ public partial class SelectBuildManager
     {
         Proxy.OnClientStateChange += NetworkStateChange_Build;
         InitializeSliders();
+
+        RenameConfirmText.text = GameManager.Instance.isEnglish ? "Confirm" : "确定";
+        RenameCancelText.text = GameManager.Instance.isEnglish ? "Cancel" : "取消";
+        CreateBuildText.text = GameManager.Instance.isEnglish ? "New Deck" : "创建新卡组";
     }
 
     public void InitAllMyBuildInfos(List<BuildInfo> buildInfos)
@@ -114,7 +122,7 @@ public partial class SelectBuildManager
             {
                 BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, CurrentEditBuildButton.BuildInfo);
                 Client.Instance.Proxy.SendMessage(request);
-                NoticeManager.Instance.ShowInfoPanelCenter("已保存卡组", 0f, 0.5f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Your deck is saved." : "已保存卡组", 0f, 0.5f);
             }
         }
 
@@ -127,7 +135,7 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildButtonClick()
     {
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, "New Build", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToCoin, GamePlaySettings.PlayerDefaultEnergy * GamePlaySettings.EnergyToCoin, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultEnergy));
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, GameManager.Instance.isEnglish ? "New Deck" : "新卡组", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToCoin, GamePlaySettings.PlayerDefaultEnergy * GamePlaySettings.EnergyToCoin, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultEnergy));
         Client.Instance.Proxy.SendMessage(request);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
@@ -135,7 +143,7 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildResponse(int buildID)
     {
-        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, "New Build", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToCoin, GamePlaySettings.PlayerDefaultEnergy * GamePlaySettings.EnergyToCoin, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultEnergy));
+        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, GameManager.Instance.isEnglish ? "New Deck" : "新卡组", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToCoin, GamePlaySettings.PlayerDefaultEnergy * GamePlaySettings.EnergyToCoin, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultEnergy));
         AllBuildButtons.Add(buildID, newBuildButton);
         AllBuilds.Add(buildID, newBuildButton.BuildInfo);
         OnSwitchEditBuild(newBuildButton);
@@ -160,7 +168,7 @@ public partial class SelectBuildManager
         }
         else
         {
-            NoticeManager.Instance.ShowInfoPanelCenter("未选择卡组", 0f, 0.5f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "No deck is selected" : "未选择卡组", 0f, 0.5f);
         }
     }
 

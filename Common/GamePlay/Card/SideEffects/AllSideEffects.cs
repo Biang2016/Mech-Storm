@@ -36,6 +36,7 @@ public static class AllSideEffects
             se.SideEffectID = int.Parse(sideEffectNode.Attributes["id"].Value);
             se.Name = sideEffectNode.Attributes["name"].Value;
             se.DescRaw = sideEffectNode.Attributes["desc"].Value;
+            se.DescRaw_en = sideEffectNode.Attributes["desc_en"].Value;
             addSideEffect(se);
         }
     }

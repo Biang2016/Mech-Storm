@@ -4,7 +4,6 @@
 
     protected override void Initiate()
     {
-        M_WeaponName = Utils.TextToVertical(CardInfo.BaseInfo.CardName);
         M_WeaponType = CardInfo.WeaponInfo.WeaponType;
     }
 
@@ -38,15 +37,6 @@
     {
         get { return m_WeaponPlaceIndex; }
         set { m_WeaponPlaceIndex = value; }
-    }
-
-    private string m_WeaponName;
-
-    public string M_WeaponName
-    {
-        get { return m_WeaponName; }
-
-        set { m_WeaponName = value; }
     }
 
     private WeaponTypes m_WeaponType;

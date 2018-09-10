@@ -12,6 +12,14 @@ public class LoginManager : MonoSingletion<LoginManager>
     {
         M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += OnClientChangeState;
+
+        ServerText.text = GameManager.Instance.isEnglish ? "Server: " : "服务器: ";
+        UserNameText.text = GameManager.Instance.isEnglish ? "Username: " : "用户名: ";
+        PasswordText.text = GameManager.Instance.isEnglish ? "Password: " : "密码: ";
+        RegisterText.text = GameManager.Instance.isEnglish ? "Register" : "注册";
+        LoginText.text = GameManager.Instance.isEnglish ? "Login" : "登录";
+        ServerDropdown.options[0] = new Dropdown.OptionData(GameManager.Instance.isEnglish ? "Test Server" : "测试服");
+        ServerDropdown.options[1] = new Dropdown.OptionData(GameManager.Instance.isEnglish ? "Formal Server" : "正式服");
     }
 
     void Start()
@@ -31,11 +39,11 @@ public class LoginManager : MonoSingletion<LoginManager>
         {
             case ProxyBase.ClientStates.Offline:
                 M_StateMachine.SetState(StateMachine.States.Show);
-                ShowTipText("已断开连接.", 0, float.PositiveInfinity, false);
+                ShowTipText(GameManager.Instance.isEnglish ? "Disconnected" : "已断开连接.", 0, float.PositiveInfinity, false);
                 break;
             case ProxyBase.ClientStates.GetId:
                 M_StateMachine.SetState(StateMachine.States.Show);
-                ShowTipText("已连接.", 0, float.PositiveInfinity, false);
+                ShowTipText(GameManager.Instance.isEnglish ? "Connected" : "已连接.", 0, float.PositiveInfinity, false);
                 break;
             case ProxyBase.ClientStates.Login:
                 M_StateMachine.SetState(StateMachine.States.Hide);
@@ -128,6 +136,12 @@ public class LoginManager : MonoSingletion<LoginManager>
     [SerializeField] private InputField PasswordInputField;
     [SerializeField] private Text TipText;
 
+    [SerializeField] private Text ServerText;
+    [SerializeField] private Text UserNameText;
+    [SerializeField] private Text PasswordText;
+    [SerializeField] private Text RegisterText;
+    [SerializeField] private Text LoginText;
+
     public void OnChangeServer(int value)
     {
         switch (value)
@@ -150,7 +164,7 @@ public class LoginManager : MonoSingletion<LoginManager>
         }
         else
         {
-            ShowTipText("正在连接服务器", 0, float.PositiveInfinity, true);
+            ShowTipText(GameManager.Instance.isEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
             OnChangeServer(ServerDropdown.value);
         }
     }
@@ -164,7 +178,7 @@ public class LoginManager : MonoSingletion<LoginManager>
         }
         else
         {
-            ShowTipText("正在连接服务器", 0, float.PositiveInfinity, true);
+            ShowTipText(GameManager.Instance.isEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
             OnChangeServer(ServerDropdown.value);
         }
     }

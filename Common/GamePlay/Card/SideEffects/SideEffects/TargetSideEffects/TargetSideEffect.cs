@@ -46,36 +46,36 @@ public abstract class TargetSideEffect : SideEffectBase
         None,
     }
 
-    public string GetChineseDescOfTargetRange(TargetRange targetRange)
+    public string GetChineseDescOfTargetRange(TargetRange targetRange, bool isEnglish)
     {
         switch (targetRange)
         {
             case TargetRange.BattleGrounds:
-                return "机甲";
+                return isEnglish ? "Mech " : "机甲";
             case TargetRange.SelfBattleGround:
-                return "我方机甲";
+                return isEnglish ? "Your Mech " : "我方机甲";
             case TargetRange.EnemyBattleGround:
-                return "敌方机甲";
+                return isEnglish ? "Enemy's Mech " : "敌方机甲";
             case TargetRange.Heros:
-                return "英雄";
+                return isEnglish ? "HeroMech " : "英雄";
             case TargetRange.SelfHeros:
-                return "我方英雄";
+                return isEnglish ? "Your HeroMech " : "我方英雄";
             case TargetRange.EnemyHeros:
-                return "敌方英雄";
+                return isEnglish ? "Enemy's HeroMech " : "敌方英雄";
             case TargetRange.Soldiers:
-                return "士兵";
+                return isEnglish ? "Your SoldierMech" : "士兵";
             case TargetRange.SelfSoldiers:
-                return "我方士兵";
+                return isEnglish ? "Your SoldierMech " : "我方士兵";
             case TargetRange.EnemySoldiers:
-                return "敌方士兵";
+                return isEnglish ? "Enemy's SoldierMech " : "敌方士兵";
             case TargetRange.SelfShip:
-                return "我方飞船";
+                return isEnglish ? "Your Spaceship " : "我方飞船";
             case TargetRange.EnemyShip:
-                return "敌方飞船";
+                return isEnglish ? "Enemy's Spaceship " : "敌方飞船";
             case TargetRange.Ships:
-                return "飞船";
+                return isEnglish ? "Spaceship " : "飞船";
             case TargetRange.All:
-                return "角色";
+                return isEnglish ? "Target " : "角色";
             default:
                 return "";
         }

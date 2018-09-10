@@ -16,11 +16,11 @@ public class CardInfo_Spell : CardInfo_Base
         UpgradeInfo = upgradeInfo;
     }
 
-    public override string GetCardDescShow()
+    public override string GetCardDescShow(bool isEnglish)
     {
         string CardDescShow = BaseInfo.CardDescRaw;
 
-        CardDescShow += base.GetCardDescShow();
+        CardDescShow += base.GetCardDescShow(isEnglish);
 
         CardDescShow = CardDescShow.TrimEnd(";\n".ToCharArray());
 

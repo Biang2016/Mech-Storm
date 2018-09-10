@@ -24,6 +24,11 @@ public class CardDeck
         IsAbandonCardsEmpty = AbandonCards.Count == 0;
     }
 
+    public int CardCount()
+    {
+        return Cards.Count;
+    }
+
     public CardDeck(BuildInfo cdi, OnCardDeckCountChange handler)
     {
         M_BuildInfo = cdi;

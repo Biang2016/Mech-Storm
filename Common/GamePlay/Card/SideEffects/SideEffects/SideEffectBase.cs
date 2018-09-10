@@ -7,6 +7,7 @@ public partial class SideEffectBase
     public int SideEffectID;
     public string Name;
     public string DescRaw;
+    public string DescRaw_en;
 
     public string HightlightColor;
 
@@ -18,11 +19,12 @@ public partial class SideEffectBase
     {
     }
 
-    public SideEffectBase(int sideEffectID, string name, string desc)
+    public SideEffectBase(int sideEffectID, string name, string desc, string desc_en)
     {
         SideEffectID = sideEffectID;
         Name = name;
         DescRaw = desc;
+        DescRaw_en = desc_en;
     }
 
     //序列化时无视player，也就是说效果是无关玩家的
@@ -33,6 +35,7 @@ public partial class SideEffectBase
         writer.WriteSInt32(SideEffectID);
         writer.WriteString8(Name);
         writer.WriteString8(DescRaw);
+        writer.WriteString8(DescRaw_en);
     }
 
     public static SideEffectBase BaseDeserialze(DataStream reader)
@@ -48,6 +51,7 @@ public partial class SideEffectBase
         SideEffectID = reader.ReadSInt32();
         Name = reader.ReadString8();
         DescRaw = reader.ReadString8();
+        DescRaw_en = reader.ReadString8();
     }
 
     public SideEffectBase Clone()
@@ -57,6 +61,7 @@ public partial class SideEffectBase
         copy.SideEffectID = SideEffectID;
         copy.Name = Name;
         copy.DescRaw = DescRaw;
+        copy.DescRaw_en = DescRaw_en;
         copy.HightlightColor = HightlightColor;
         if (M_ExecuterInfo != null)
         {
@@ -71,7 +76,7 @@ public partial class SideEffectBase
     {
     }
 
-    public virtual string GenerateDesc()
+    public virtual string GenerateDesc(bool isEnglish)
     {
         return "";
     }

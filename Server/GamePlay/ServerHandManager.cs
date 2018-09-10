@@ -14,7 +14,7 @@ internal class ServerHandManager
 
     internal void DrawCards(int cardNumber)
     {
-        int maxDrawCardNumber = Math.Min(cardNumber, GamePlaySettings.MaxHandCard - cards.Count);
+        int maxDrawCardNumber = Math.Min(Math.Min(cardNumber, GamePlaySettings.MaxHandCard - cards.Count),ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.CardCount()) ;
         if (maxDrawCardNumber != cardNumber)
         {
             DrawCards(maxDrawCardNumber);

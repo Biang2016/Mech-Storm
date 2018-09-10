@@ -35,6 +35,8 @@ public class GameManager : MonoSingletion<GameManager>
     public Camera SelectCardWindowBackCamera;
     public Camera SelectCardWindowForeCamera;
 
+    public bool isEnglish;
+
     #region 游戏全局参数
 
     internal Vector3 UseCardShowPosition = new Vector3(10, 3, 0);

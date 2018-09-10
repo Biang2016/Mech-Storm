@@ -13,6 +13,22 @@ public partial class SelectBuildManager
         Proxy.OnClientStateChange += NetworkStateChange_Select;
         SelectCardCount = 0;
         HeroCardCount = 0;
+
+        CardDeckText.text = GameManager.Instance.isEnglish ? "Decks" : "卡 组";
+        DeleteCardDeckText.text = GameManager.Instance.isEnglish ? "Delete" : "删除卡组";
+        LifeText.text = GameManager.Instance.isEnglish ? "Life" : "生命值";
+        EnergyText.text = GameManager.Instance.isEnglish ? "Energy" : "能量";
+        BuggetText.text = GameManager.Instance.isEnglish ? "Bugget" : "预算";
+
+        SelectAllCardText.text = GameManager.Instance.isEnglish ? "Select All" : "全选";
+        UnSelectAllCardText.text = GameManager.Instance.isEnglish ? "Unselect All" : "清除选择";
+        ConfirmSelectText.text = GameManager.Instance.isEnglish ? "Confirm" : "确认出战";
+        CloseText.text = GameManager.Instance.isEnglish ? "Close (Tab)" : "关闭(Tab)";
+
+        HerosCardText.text = GameManager.Instance.isEnglish ? "HeroMech" : "英 雄 随 从";
+        OtherCardText.text = GameManager.Instance.isEnglish ? "Other Cards" : "其 他 卡 片";
+        HerosCardCountText.text = GameManager.Instance.isEnglish ? "Total:" : "总计";
+        OtherCardCountText.text = GameManager.Instance.isEnglish ? "Total:" : "数量";
     }
 
     void Start_Select()
@@ -23,24 +39,32 @@ public partial class SelectBuildManager
     }
 
     [SerializeField] private Transform RetinueContent;
-
     [SerializeField] private Transform SelectionContent;
-
     [SerializeField] private Button ConfirmButton;
-
     [SerializeField] private Button CloseButton;
-
     [SerializeField] private Button SelectAllButton;
-
     [SerializeField] private Button UnSelectAllButton;
-
     [SerializeField] private Text CountNumberText;
-
     [SerializeField] private Text RetinueCountNumberText;
-
     [SerializeField] private Text RetinueCountMaxNumberText;
-
     [SerializeField] private Transform SelectCardPrefab;
+
+    [SerializeField] private Text CardDeckText;
+    [SerializeField] private Text DeleteCardDeckText;
+    [SerializeField] private Text LifeText;
+    [SerializeField] private Text EnergyText;
+    [SerializeField] private Text BuggetText;
+
+    [SerializeField] private Text SelectAllCardText;
+    [SerializeField] private Text UnSelectAllCardText;
+    [SerializeField] private Text ConfirmSelectText;
+    [SerializeField] private Text CloseText;
+
+    [SerializeField] private Text HerosCardText;
+    [SerializeField] private Text OtherCardText;
+    [SerializeField] private Text HerosCardCountText;
+    [SerializeField] private Text OtherCardCountText;
+
 
     public void NetworkStateChange_Select(ProxyBase.ClientStates clientState)
     {
@@ -93,13 +117,13 @@ public partial class SelectBuildManager
         if (CurrentEditBuildButton == null)
         {
             OnCreateNewBuildButtonClick();
-            NoticeManager.Instance.ShowInfoPanelCenter("已创建卡组，请挑选卡片", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Card group created. You can choose cards now." : "已创建卡组，请挑选卡片", 0f, 1f);
             return;
         }
 
         if (!isSwitchingBuildInfo && GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin() < card.CardInfo.BaseInfo.Coin)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter("预算不足", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Bugget is Limited" : "预算不足", 0f, 1f);
             return;
         }
 
@@ -108,7 +132,7 @@ public partial class SelectBuildManager
         {
             if (isSelectedHeroFull)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter("可携带英雄卡牌数量已达上限", 0, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "The number of portable hero cards has reached the upper limit." : "可携带英雄卡牌数量已达上限", 0, 1f);
                 return;
             }
 
@@ -188,7 +212,7 @@ public partial class SelectBuildManager
         newSC.Count = 1;
         newSC.Metal = card.CardInfo.BaseInfo.Metal;
         newSC.Energy = card.CardInfo.BaseInfo.Energy;
-        newSC.Text_CardName.text = card.CardInfo.BaseInfo.CardName;
+        newSC.Text_CardName.text = GameManager.Instance.isEnglish ? card.CardInfo.BaseInfo.CardName_en : card.CardInfo.BaseInfo.CardName;
         newSC.CardButton.onClick.RemoveAllListeners();
         newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card); });
         Color cardColor = ClientUtils.HTMLColorToColor(card.CardInfo.BaseInfo.CardColor);
@@ -205,7 +229,7 @@ public partial class SelectBuildManager
 
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Please create your deck." : "请创建卡组!", 0f, 1f);
             return;
         }
 
@@ -253,7 +277,7 @@ public partial class SelectBuildManager
         if (CurrentEditBuildButton == null)
         {
             OnCreateNewBuildButtonClick();
-            NoticeManager.Instance.ShowInfoPanelCenter("已自动为您创建第一个卡组", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "First deck is created automatically." : "已自动为您创建第一个卡组", 0f, 1f);
         }
         else
         {
@@ -363,12 +387,12 @@ public partial class SelectBuildManager
         if (CurrentEditBuildButton == null)
         {
             OnCreateNewBuildButtonClick();
-            NoticeManager.Instance.ShowInfoPanelCenter("已创建卡组,请挑选卡片", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Deck created. You can choose cards now." : "已创建卡组,请挑选卡片", 0f, 1f);
         }
         else
         {
             Client.Instance.Proxy.OnSendBuildInfo(CurrentEditBuildButton.BuildInfo);
-            NoticeManager.Instance.ShowInfoPanelCenter("更新卡组成功", 0, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Update your deck successfully" : "更新卡组成功", 0, 1f);
             if (CurrentSelectedBuildButton) CurrentSelectedBuildButton.IsSelected = false;
             CurrentSelectedBuildButton = CurrentEditBuildButton;
             CurrentSelectedBuildButton.IsSelected = true;

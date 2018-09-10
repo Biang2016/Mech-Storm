@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class CardInfo_Equip : CardInfo_Base
 {
-
     public CardInfo_Equip()
     {
     }
@@ -31,7 +30,7 @@ public class CardInfo_Equip : CardInfo_Base
         UpgradeInfo = upgradeInfo;
     }
 
-    public override string GetCardDescShow()
+    public override string GetCardDescShow(bool isEnglish)
     {
         string CardDescShow = BaseInfo.CardDescRaw;
 
@@ -41,13 +40,13 @@ public class CardInfo_Equip : CardInfo_Base
             {
                 if (WeaponInfo.WeaponType == WeaponTypes.Sword)
                 {
-                    CardDescShow += "攻击力: " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Attack.ToString()) + " 点\n";
-                    CardDescShow += "充能: " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax) + "\n";
+                    CardDescShow += string.Format(isEnglish ? "Add +{0} attack.\n" : "攻击力: {0} 点\n", BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(isEnglish ? "Set +{0} weapon energy.\n" : "充能:  {0} \n", BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.Gun)
                 {
-                    CardDescShow += "弹丸伤害: " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Attack.ToString()) + " 点\n";
-                    CardDescShow += "弹药: " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax) + "\n";
+                    CardDescShow += string.Format(isEnglish ? "Bullet +{0} attack.\n" : "弹丸伤害: {0} 点\n", BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(isEnglish ? "Add +{0} bullets.\n" : "弹药: {0} \n", BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
 
                 break;
@@ -56,18 +55,18 @@ public class CardInfo_Equip : CardInfo_Base
             {
                 if (ShieldInfo.ShieldType == ShieldTypes.Armor)
                 {
-                    CardDescShow += "阻挡 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, ShieldInfo.Armor.ToString()) + " 点伤害\n";
+                    CardDescShow += string.Format(isEnglish ? "Defence {0} damage.\n" : "阻挡 {0} 点伤害\n", BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, ShieldInfo.Armor.ToString()));
                 }
                 else if (ShieldInfo.ShieldType == ShieldTypes.Shield)
                 {
-                    CardDescShow += "受到的伤害减少 " + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, ShieldInfo.Shield.ToString()) + " 点\n";
+                    CardDescShow += string.Format(isEnglish ? "Reduce damage per attack by {0}.\n" : "受到的伤害减少 {0} 点\n", BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, ShieldInfo.Shield.ToString()));
                 }
 
                 break;
             }
         }
 
-        CardDescShow += base.GetCardDescShow();
+        CardDescShow += base.GetCardDescShow(isEnglish);
 
         CardDescShow = CardDescShow.TrimEnd(";\n".ToCharArray());
 
@@ -84,7 +83,7 @@ public class CardInfo_Equip : CardInfo_Base
             slotType: M_SlotType,
             weaponInfo: WeaponInfo,
             shieldInfo: ShieldInfo,
-            sideEffects:SideEffects);
+            sideEffects: SideEffects);
         return cb;
     }
 }

@@ -11,6 +11,10 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
     void Awake()
     {
         M_StateMachine = new StateMachine();
+
+        SurrenderText.text = GameManager.Instance.isEnglish ? "Surrender" : "认输";
+        ConsumeText.text = GameManager.Instance.isEnglish ? "Consume" : "继续游戏";
+        QuitText.text = GameManager.Instance.isEnglish ? "Quit" : "退出游戏";
     }
 
     void Start()
@@ -163,6 +167,10 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
     [SerializeField] private Button ConsumeButton;
     [SerializeField] private Button QuitGameButton;
 
+    [SerializeField] private Text SurrenderText;
+    [SerializeField] private Text ConsumeText;
+    [SerializeField] private Text QuitText;
+
 
     public void OnConsumeGameButtonClick()
     {
@@ -173,8 +181,8 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
     {
         Client.Instance.Proxy.LeaveGame();
         RoundManager.Instance.StopGame();
-        ClientLog.Instance.Print("您已退出比赛");
-        NoticeManager.Instance.ShowInfoPanelTop("您已退出比赛", 0, 1f);
+        ClientLog.Instance.Print("You have quit the game");
+        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "You have quit the game" : "您已退出比赛", 0, 1f);
         M_StateMachine.SetState(StateMachine.States.Hide);
     }
 

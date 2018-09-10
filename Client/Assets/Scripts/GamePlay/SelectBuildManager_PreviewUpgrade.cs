@@ -15,12 +15,18 @@ public partial class SelectBuildManager
     private CardBase PreviewCardDegrade;
     [SerializeField] private Image DegradeArrow;
 
+    [SerializeField] private Text UpgradeText;
+    [SerializeField] private Text DegradeText;
+
     #region 预览卡片、升级卡片
 
     private void Awake_PreviewAndUpgrade()
     {
         PreviewCardPanel.SetActive(false);
         PreviewCardPanelBG.SetActive(false);
+
+        UpgradeText.text = GameManager.Instance.isEnglish ? "Upgrade" : "升级";
+        DegradeText.text = GameManager.Instance.isEnglish ? "Degrade" : "降级";
     }
 
     private void ShowPreviewCardPanel(CardBase card)
@@ -195,7 +201,7 @@ public partial class SelectBuildManager
     {
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Please create your deck." : "请创建卡组!", 0f, 1f);
             return;
         }
 
@@ -210,14 +216,14 @@ public partial class SelectBuildManager
 
             if ((GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin()) + (CurrentPreviewCard.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter("预算不足", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
                 return;
             }
 
             SelectCard currentSelectCard = SelectedCards[currentCardID];
             SelectedCards.Remove(currentCardID);
             SelectedCards.Add(upgradeCardID, currentSelectCard);
-            currentSelectCard.Text_CardName.text = upgradeCardInfo.BaseInfo.CardName;
+            currentSelectCard.Text_CardName.text = GameManager.Instance.isEnglish ? upgradeCardInfo.BaseInfo.CardName_en : upgradeCardInfo.BaseInfo.CardName;
         }
 
         CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (CurrentPreviewCard.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount;
@@ -242,7 +248,7 @@ public partial class SelectBuildManager
     {
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter("请创建卡组!", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Please create your deck." : "请创建卡组!", 0f, 1f);
             return;
         }
 
@@ -257,7 +263,7 @@ public partial class SelectBuildManager
             SelectCard currentSelectCard = SelectedCards[currentCardID];
             SelectedCards.Remove(currentCardID);
             SelectedCards.Add(degradeCardID, currentSelectCard);
-            currentSelectCard.Text_CardName.text = degradeCardInfo.BaseInfo.CardName;
+            currentSelectCard.Text_CardName.text = GameManager.Instance.isEnglish ? degradeCardInfo.BaseInfo.CardName_en : degradeCardInfo.BaseInfo.CardName;
         }
 
         CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (CurrentPreviewCard.CardInfo.BaseInfo.Coin - degradeCardInfo.BaseInfo.Coin) * cardCount;

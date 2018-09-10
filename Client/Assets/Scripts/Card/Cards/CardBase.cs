@@ -157,8 +157,8 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
 
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
-        M_Name = cardInfo.BaseInfo.CardName;
-        M_Desc = cardInfo.GetCardDescShow();
+        M_Name = GameManager.Instance.isEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
+        M_Desc = cardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
         ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
 

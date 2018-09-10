@@ -8,12 +8,49 @@ public class Ship : MonoBehaviour,IMouseHoverComponent
 {
     internal ClientPlayer ClientPlayer;
 
-    public MeshCollider Collider;
-    public GameObject shield;
+    [SerializeField]private GameObject ShipBG;
+
+    [SerializeField] private TextMesh DamageNumberPreviewTextMesh;
+    [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh;
+
+    void Awake()
+    {
+        ShipBG.SetActive(false);
+        DamageNumberPreviewTextMesh.text = "";
+        DamageNumberPreviewBGTextMesh.text = "";
+    }
 
     public void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
-        shield.SetActive(true);
+        ShipBG.SetActive(true);
+        if (DragManager.Instance.CurrentDrag)
+        {
+            ModuleRetinue mr = DragManager.Instance.CurrentDrag_ModuleRetinue;
+            CardSpell cs = DragManager.Instance.CurrentDrag_CardSpell;
+            if (mr != null)
+            {
+                if (mr.ClientPlayer != ClientPlayer && mr != this)
+                {
+                    if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
+                    {
+                        ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
+                    }
+
+                    DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+                    DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+                }
+            }
+            else if (cs != null)
+            {
+                if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
+                {
+                    ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
+                }
+
+                DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+                DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+            }
+        }
     }
 
     public void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
@@ -38,6 +75,13 @@ public class Ship : MonoBehaviour,IMouseHoverComponent
 
     public void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
-        shield.SetActive(false);
+        ShipBG.SetActive(false);
+        if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
+        {
+            ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = false; //箭头动画
+        }
+
+        DamageNumberPreviewTextMesh.text = "";
+        DamageNumberPreviewBGTextMesh.text = "";
     }
 }

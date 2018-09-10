@@ -2,6 +2,7 @@
 {
     public int PictureID;
     public string CardName;
+    public string CardName_en;
     public string CardDescRaw;
     public int Metal;
     public int Energy;
@@ -12,10 +13,11 @@
     public string CardColor;
     public string HightLightColor;
 
-    public BaseInfo(int pictureID, string cardName, string cardDescRaw, int metal, int energy, int coin, int effectFactor, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
+    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, int metal, int energy, int coin, int effectFactor, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
     {
         PictureID = pictureID;
         CardName = cardName;
+        CardName_en = cardName_en;
         CardDescRaw = cardDescRaw;
         Metal = metal;
         Energy = energy;
@@ -36,6 +38,7 @@
     {
         writer.WriteSInt32(PictureID);
         writer.WriteString8(CardName);
+        writer.WriteString8(CardName_en);
         writer.WriteString8(CardDescRaw);
         writer.WriteSInt32(Metal);
         writer.WriteSInt32(Energy);
@@ -51,6 +54,7 @@
     {
         int PictureID = reader.ReadSInt32();
         string CardName = reader.ReadString8();
+        string CardName_en = reader.ReadString8();
         string CardDesc = reader.ReadString8();
         int Metal = reader.ReadSInt32();
         int Energy = reader.ReadSInt32();
@@ -60,7 +64,7 @@
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
         string CardColor = reader.ReadString8();
         string HightLightColor = reader.ReadString8();
-        return new BaseInfo(PictureID, CardName, CardDesc, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType, CardColor, HightLightColor);
+        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType, CardColor, HightLightColor);
     }
 }
 

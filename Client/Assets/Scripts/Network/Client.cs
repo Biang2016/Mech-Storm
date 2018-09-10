@@ -169,7 +169,7 @@ public class Client : MonoSingletion<Client>
             ServerSocket.Shutdown(SocketShutdown.Both);
             ClientLog.Instance.PrintError("[C]Socket close");
             ServerSocket.Close();
-            NoticeManager.Instance.ShowInfoPanelTop("已断开连接", 0f, 1.5f);
+            NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Disconnected." : "已断开连接", 0f, 1.5f);
             RoundManager.Instance.StopGame();
         }
 
@@ -195,7 +195,7 @@ public class Client : MonoSingletion<Client>
             if (!ServerSocket.Connected)
             {
                 //与服务器断开连接跳出循环  
-                ClientLog.Instance.PrintError("[C]连接服务器失败.");
+                ClientLog.Instance.PrintError("Connect Server Failed.");
                 ServerSocket.Close();
                 SocketErrorFlag = true;
                 break;
@@ -229,7 +229,7 @@ public class Client : MonoSingletion<Client>
             }
             catch (Exception e)
             {
-                ClientLog.Instance.PrintError("[C]Failed to clientSocket error. " + e);
+                ClientLog.Instance.PrintError("[C]Failed by clientSocket error. " + e);
                 if (ServerSocket != null) ServerSocket.Close();
                 SocketErrorFlag = true;
                 break;

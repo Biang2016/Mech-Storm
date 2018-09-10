@@ -8,9 +8,9 @@
         get { return Value * Factor; }
     }
 
-    public override string GenerateDesc()
+    public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat(HightlightColor, DescRaw, "一个随机" + GetChineseDescOfTargetRange(M_TargetRange), FinalValue);
+        return HightlightStringFormat(HightlightColor, isEnglish ? DescRaw_en : DescRaw, (isEnglish ? "a random " : "一个随机") + GetChineseDescOfTargetRange(M_TargetRange, isEnglish), FinalValue);
     }
 
     public override void Serialze(DataStream writer)

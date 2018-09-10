@@ -48,6 +48,7 @@ public static class AllCards
                     case "baseInfo":
                         baseInfo = new BaseInfo(int.Parse(cardInfo.Attributes["pictureID"].Value),
                             cardInfo.Attributes["cardName"].Value,
+                            cardInfo.Attributes["cardName_en"].Value,
                             cardInfo.Attributes["cardDesc"].Value.Replace("\\n", "\n"),
                             int.Parse(cardInfo.Attributes["metal"].Value),
                             int.Parse(cardInfo.Attributes["energy"].Value),

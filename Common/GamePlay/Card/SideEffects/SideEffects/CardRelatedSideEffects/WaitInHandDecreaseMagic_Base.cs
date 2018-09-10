@@ -1,4 +1,4 @@
-﻿public class WaitInHandDecreaseEnergy_Base : CardRelatedSideEffect,IEffectFactor
+﻿public class WaitInHandDecreaseEnergy_Base : CardRelatedSideEffect, IEffectFactor
 {
     public int Value;
     public int Factor = 1;
@@ -6,11 +6,11 @@
     public int FinalValue
     {
         get { return Value * Factor; }
-
     }
-    public override string GenerateDesc()
+
+    public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat(HightlightColor, DescRaw, FinalValue);
+        return HightlightStringFormat(HightlightColor, isEnglish ? DescRaw_en : DescRaw, FinalValue);
     }
 
     public override void Serialze(DataStream writer)

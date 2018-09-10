@@ -28,10 +28,10 @@ public class CardInfo_Base
         SideEffects = sideEffects;
     }
 
-    public virtual string GetCardDescShow()
+    public virtual string GetCardDescShow(bool isEnglish)
     {
         string CardDescShow = BaseInfo.CardDescRaw;
-        CardDescShow += SideEffects.GetSideEffectsDesc();
+        CardDescShow += SideEffects.GetSideEffectsDesc(isEnglish);
         return CardDescShow;
     }
 
