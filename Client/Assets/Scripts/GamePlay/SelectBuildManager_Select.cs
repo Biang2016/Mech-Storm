@@ -19,6 +19,8 @@ public partial class SelectBuildManager
         LifeText.text = GameManager.Instance.isEnglish ? "Life" : "生命值";
         EnergyText.text = GameManager.Instance.isEnglish ? "Energy" : "能量";
         BuggetText.text = GameManager.Instance.isEnglish ? "Bugget" : "预算";
+        BuggetIcon.SetActive(!GameManager.Instance.isEnglish);
+        DrawCardNumText.text = GameManager.Instance.isEnglish ? "Number of Draws Per Round" : "每回合抽牌数";
 
         SelectAllCardText.text = GameManager.Instance.isEnglish ? "Select All" : "全选";
         UnSelectAllCardText.text = GameManager.Instance.isEnglish ? "Unselect All" : "清除选择";
@@ -54,6 +56,8 @@ public partial class SelectBuildManager
     [SerializeField] private Text LifeText;
     [SerializeField] private Text EnergyText;
     [SerializeField] private Text BuggetText;
+    [SerializeField] private GameObject BuggetIcon;
+    [SerializeField] private Text DrawCardNumText;
 
     [SerializeField] private Text SelectAllCardText;
     [SerializeField] private Text UnSelectAllCardText;

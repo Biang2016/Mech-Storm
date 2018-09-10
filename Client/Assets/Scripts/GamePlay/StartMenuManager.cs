@@ -13,6 +13,7 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
         Proxy.OnClientStateChange += OnClientChangeState;
 
         BeginMatchText.text = GameManager.Instance.isEnglish ? "Game Begin" : "开始匹配";
+        CancelMatchText.text = GameManager.Instance.isEnglish ? "Cancel Match" : "取消匹配";
         MyDeckText.text = GameManager.Instance.isEnglish ? "My Decks" : "我的卡组";
         QuitGameText.text = GameManager.Instance.isEnglish ? "Quit Game" : "退出游戏";
     }
@@ -136,6 +137,7 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
     [SerializeField] private Button QuitGameButton;
 
     [SerializeField] private Text BeginMatchText;
+    [SerializeField] private Text CancelMatchText;
     [SerializeField] private Text MyDeckText;
     [SerializeField] private Text QuitGameText;
 

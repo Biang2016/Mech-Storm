@@ -27,6 +27,9 @@ public class GameBoardManager : MonoSingletion<GameBoardManager>
     void Awake()
     {
         BattleShip.SetActive(false);
+        WinImage.enabled = false;
+        LostImage.enabled = false;
+        WinLostText.text = "";
     }
 
     public void ResetAll()

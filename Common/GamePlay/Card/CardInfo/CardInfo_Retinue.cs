@@ -23,9 +23,9 @@ public class CardInfo_Retinue : CardInfo_Base
     {
         string CardDescShow = BaseInfo.CardDescRaw;
 
-        if (BattleInfo.BasicAttack != 0) CardDescShow += (isEnglish ? "Attack " : "攻击力 ") + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicAttack) + "\n";
-        if (BattleInfo.BasicArmor != 0) CardDescShow += (isEnglish ? "Armor " : "护甲 ") + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicArmor) + "\n";
-        if (BattleInfo.BasicShield != 0) CardDescShow += (isEnglish ? "Shield " : "护盾 ") + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicShield) + "\n";
+        if (BattleInfo.BasicAttack != 0) CardDescShow += (isEnglish ? "Attack " : "攻击力 ") + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicAttack) + ", ";
+        if (BattleInfo.BasicArmor != 0) CardDescShow += (isEnglish ? "Armor " : "护甲 ") + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicArmor) + ", ";
+        if (BattleInfo.BasicShield != 0) CardDescShow += (isEnglish ? "Shield " : "护盾 ") + BaseInfo.AddHightLightColorToText(BaseInfo.HightLightColor, "+" + BattleInfo.BasicShield) + ", ";
 
         CardDescShow += base.GetCardDescShow(isEnglish);
 

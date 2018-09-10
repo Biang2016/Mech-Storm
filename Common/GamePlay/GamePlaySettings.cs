@@ -14,7 +14,7 @@
 
     public static bool SuffleBuild = true;
 
-    public static int PlayerDefaultCoin = 10000;
+    public static int PlayerDefaultCoin = 15000;
     public static int PlayerDefaultLife = 100;
     public static int PlayerDefaultLifeMax = 200;
     public static int PlayerDefaultLifeMin = 50;
@@ -23,6 +23,19 @@
 
     public static int LifeToCoin = 50;
     public static int EnergyToCoin = 50;
+
+    public static int[] DrawCardNumToCoin = new[] {0, 10000, 15000, 18000, 23000, 26000};
+    public static int PlayerDefaultDrawCardNum = 2;
+    public static int PlayerMinDrawCardNum = 1;
+    public static int PlayerMaxDrawCardNum = 5;
+
+    public static int GetDrawCardConsume(int drawCardNum)
+    {
+        int defaultCost = DrawCardNumToCoin[PlayerDefaultDrawCardNum];
+        int yourCost = DrawCardNumToCoin[drawCardNum];
+        return yourCost - defaultCost;
+    }
+
 
     public static int PlayerDefaultMaxCoin
     {

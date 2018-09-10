@@ -144,7 +144,7 @@ internal class ServerGameManager
 
     void OnDrawCardPhase()
     {
-        CurrentPlayer.MyHandManager.DrawCards(GamePlaySettings.DrawCardPerRound);
+        CurrentPlayer.MyHandManager.DrawCards(CurrentPlayer.MyCardDeckManager.M_CurrentCardDeck.M_BuildInfo.DrawCardNum);
     }
 
     public void EndRound()
