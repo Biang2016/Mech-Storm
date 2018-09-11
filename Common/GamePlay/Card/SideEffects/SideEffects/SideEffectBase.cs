@@ -103,19 +103,21 @@ public partial class SideEffectBase
         public int TargetRetinueId;
         public int CardId;
         public int CardInstanceId;
+        public int EquipId;
 
-        public ExecuterInfo(int clientId, int retinueId = -999, int targetRetinueId = -999, int cardId = -999, int cardInstanceId = -999)
+        public ExecuterInfo(int clientId, int retinueId = -999, int targetRetinueId = -999, int cardId = -999, int cardInstanceId = -999, int equipId = -999)
         {
             ClientId = clientId;
             RetinueId = retinueId;
             TargetRetinueId = targetRetinueId;
             CardId = cardId;
             CardInstanceId = cardInstanceId;
+            EquipId = equipId;
         }
 
         public ExecuterInfo Clone()
         {
-            return new ExecuterInfo(ClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId);
+            return new ExecuterInfo(ClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId);
         }
     }
 }

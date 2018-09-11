@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class SideEffectBundle
 {
-    private SortedDictionary<TriggerTime, Dictionary<TriggerRange, List<SideEffectBase>>> SideEffects;
+    public SortedDictionary<TriggerTime, Dictionary<TriggerRange, List<SideEffectBase>>> SideEffects;
 
     public SideEffectBundle()
     {
@@ -224,9 +224,9 @@ public class SideEffectBundle
 
     public static SortedDictionary<TriggerTime, string> TriggerTimeDesc_en = new SortedDictionary<TriggerTime, string>
     {
-        {TriggerTime.OnBeginRound, "When {0} turn start, "},
-        {TriggerTime.OnDrawCard, "When {0} draw, "},
-        {TriggerTime.OnPlayCard, "When {0} play a card, "},
+        {TriggerTime.OnBeginRound, "When {0} turn starts, "},
+        {TriggerTime.OnDrawCard, "Every time when {0} draws, "},
+        {TriggerTime.OnPlayCard, "Every time when {0} plays a card, "},
 
         {TriggerTime.OnRetinueSummon, "When {0} summon a Mech, "},
         {TriggerTime.OnHeroSummon, "When {0} summon a HeroMech, "},
@@ -244,7 +244,7 @@ public class SideEffectBundle
         {TriggerTime.OnHeroDie, "When a HeroMech of {0} died, "},
         {TriggerTime.OnSoldierDie, "When a SoldierMech of {0} died, "},
 
-        {TriggerTime.OnEndRound, "When {0} turn start, "},
+        {TriggerTime.OnEndRound, "When {0} turn ends, "},
     };
 
     public enum TriggerRange

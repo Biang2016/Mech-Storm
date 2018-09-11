@@ -4,17 +4,19 @@
     public CardInfo_Equip cardInfo;
     public int retinueId;
     public int weaponPlaceIndex;
+    public int equipID;
 
     public EquipWeaponServerRequest()
     {
     }
 
-    public EquipWeaponServerRequest(int clientId, CardInfo_Equip cardInfo, int retinueId, int weaponPlaceIndex)
+    public EquipWeaponServerRequest(int clientId, CardInfo_Equip cardInfo, int retinueId, int weaponPlaceIndex, int equipID)
     {
         this.clientId = clientId;
         this.cardInfo = cardInfo;
         this.retinueId = retinueId;
         this.weaponPlaceIndex = weaponPlaceIndex;
+        this.equipID = equipID;
     }
 
     public override int GetProtocol()
@@ -42,6 +44,7 @@
         }
         writer.WriteSInt32(retinueId);
         writer.WriteSInt32(weaponPlaceIndex);
+        writer.WriteSInt32(equipID);
     }
 
     public override void Deserialize(DataStream reader)
@@ -54,6 +57,7 @@
         }
         retinueId = reader.ReadSInt32();
         weaponPlaceIndex = reader.ReadSInt32();
+        equipID = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
@@ -70,6 +74,7 @@
         }
         log += " [retinueId]=" + retinueId;
         log += " [weaponPlaceIndex]=" + weaponPlaceIndex;
+        log += " [equipID]=" + equipID;
         return log;
     }
 }

@@ -25,7 +25,7 @@ public class TextFlyPile : MonoBehaviour
     public void SetText(string text, Color color)
     {
         TextFly textFly = GameObjectPoolManager.Instance.Pool_TextFlyPool.AllocateGameObject(transform).GetComponent<TextFly>();
-        textFly.SetText("+" + text, ClientUtils.HTMLColorToColor("#92FF00"));
+        textFly.SetText(text, ClientUtils.HTMLColorToColor("#92FF00"));
         ContinueFly();
         TextFlies.Add(textFly);
     }

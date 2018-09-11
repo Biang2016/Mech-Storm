@@ -72,6 +72,7 @@ public partial class SelectBuildManager
         PreviewCard.transform.localPosition = new Vector3(0, 50, -10);
         PreviewCard.CardBloom.SetActive(true);
         PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"));
+        PreviewCard.BeBrightColor();
 
         int U_id = CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID;
         int D_id = CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID;
@@ -85,6 +86,7 @@ public partial class SelectBuildManager
             PreviewCardUpgrade.transform.localPosition = new Vector3(500, 50, -10);
             PreviewCardUpgrade.CardBloom.SetActive(true);
             PreviewCardUpgrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FD5400"));
+            PreviewCardUpgrade.BeBrightColor();
             UpgradeArrow.enabled = true;
         }
         else
@@ -101,6 +103,7 @@ public partial class SelectBuildManager
             PreviewCardDegrade.transform.localPosition = new Vector3(-500, 50, -10);
             PreviewCardDegrade.CardBloom.SetActive(true);
             PreviewCardDegrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#0CE9FF"));
+            PreviewCardDegrade.BeBrightColor();
             DegradeArrow.enabled = true;
         }
         else

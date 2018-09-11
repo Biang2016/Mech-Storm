@@ -12,7 +12,7 @@
         foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
         {
             see.SideEffectBase.Player = ServerPlayer;
-            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId);
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, equipId: M_EquipID);
         }
     }
 
@@ -46,6 +46,15 @@
         get { return m_WeaponType; }
 
         set { m_WeaponType = value; }
+    }
+
+    private int m_EquipID;
+
+    public int M_EquipID
+    {
+        get { return m_EquipID; }
+
+        set { m_EquipID = value; }
     }
 
     #endregion

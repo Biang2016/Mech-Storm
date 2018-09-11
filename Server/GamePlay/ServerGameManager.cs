@@ -47,6 +47,13 @@ internal class ServerGameManager
         return gameCardInstanceIdGenerator++;
     }
 
+    private int gameEquipIdGenerator = 0;
+
+    public int GenerateNewEquipId()
+    {
+        return gameEquipIdGenerator++;
+    }
+
     private void Initialized()
     {
         ClientA.ClientState = ProxyBase.ClientStates.Playing;

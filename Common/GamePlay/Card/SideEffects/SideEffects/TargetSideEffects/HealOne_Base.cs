@@ -10,7 +10,7 @@
 
     public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat(HightlightColor, isEnglish ? DescRaw_en : DescRaw, ((M_TargetRange == TargetRange.SelfShip || M_TargetRange == TargetRange.EnemyShip) ? "" : isEnglish ? "a " : "一个") + GetChineseDescOfTargetRange(M_TargetRange, isEnglish), FinalValue);
+        return HightlightStringFormat(HightlightColor, isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, false), FinalValue);
     }
 
     public override void Serialze(DataStream writer)

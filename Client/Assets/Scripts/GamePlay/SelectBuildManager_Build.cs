@@ -135,7 +135,7 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildButtonClick()
     {
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, GameManager.Instance.isEnglish ? "New Deck" : "新卡组", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToCoin, GamePlaySettings.PlayerDefaultEnergy * GamePlaySettings.EnergyToCoin, GamePlaySettings.PlayerDefaultDrawCardNum, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultEnergy));
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, GameManager.Instance.isEnglish ? "New Deck" : "新卡组", new List<int>(), 0, GamePlaySettings.PlayerDefaultDrawCardNum, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultEnergy));
         Client.Instance.Proxy.SendMessage(request);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
@@ -143,7 +143,7 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildResponse(int buildID)
     {
-        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, GameManager.Instance.isEnglish ? "New Deck" : "新卡组", new List<int>(), 0, GamePlaySettings.PlayerDefaultLife * GamePlaySettings.LifeToCoin, GamePlaySettings.PlayerDefaultEnergy * GamePlaySettings.EnergyToCoin, GamePlaySettings.PlayerDefaultDrawCardNum, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultEnergy));
+        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, GameManager.Instance.isEnglish ? "New Deck" : "新卡组", new List<int>(), 0, GamePlaySettings.PlayerDefaultDrawCardNum, GamePlaySettings.PlayerDefaultLife, GamePlaySettings.PlayerDefaultEnergy));
         AllBuildButtons.Add(buildID, newBuildButton);
         AllBuilds.Add(buildID, newBuildButton.BuildInfo);
         OnSwitchEditBuild(newBuildButton);

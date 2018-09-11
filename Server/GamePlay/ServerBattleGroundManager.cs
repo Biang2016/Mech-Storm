@@ -152,6 +152,7 @@ internal class ServerBattleGroundManager
         ServerModuleRetinue retinue = GetRetinue(r.retinueId);
         weapon.M_ModuleRetinue = retinue;
         weapon.M_WeaponPlaceIndex = r.weaponPlaceIndex;
+        weapon.M_EquipID = ServerPlayer.MyGameManager.GenerateNewEquipId();
         weapon.Initiate(cardInfo_Weapon, ServerPlayer);
         weapon.OriginCardInstanceId = r.handCardInstanceId;
         retinue.M_Weapon = weapon;
@@ -165,6 +166,7 @@ internal class ServerBattleGroundManager
         ServerModuleRetinue retinue = GetRetinue(r.retinueID);
         shield.M_ModuleRetinue = retinue;
         shield.M_ShieldPlaceIndex = r.shieldPlaceIndex;
+        shield.M_EquipID = ServerPlayer.MyGameManager.GenerateNewEquipId();
         shield.Initiate(cardInfo_Shield, ServerPlayer);
         shield.OriginCardInstanceId = r.handCardInstanceId;
         retinue.M_Shield = shield;

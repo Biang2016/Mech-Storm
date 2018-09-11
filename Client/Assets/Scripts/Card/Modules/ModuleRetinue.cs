@@ -327,6 +327,7 @@ public class ModuleRetinue : ModuleBase
         set
         {
             int before = m_RetinueAttack;
+            if (isInitializing) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(m_RetinueAttack, value - before), "Co_RetinueAttackChange");
             if (m_RetinueAttack != value)
             {
                 m_RetinueAttack = value;
@@ -408,7 +409,7 @@ public class ModuleRetinue : ModuleBase
         }
         else
         {
-            WeaponEnergyChangeNumberFly.SetText(change.ToString(), ClientUtils.HTMLColorToColor("#FF0000"));
+            WeaponEnergyChangeNumberFly.SetText("-" + change, ClientUtils.HTMLColorToColor("#FF0000"));
         }
 
         yield return null;

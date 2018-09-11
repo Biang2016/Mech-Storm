@@ -2,7 +2,7 @@
 {
     public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat(HightlightColor, isEnglish ? DescRaw_en : DescRaw, (isEnglish ? "a random " : "一个随机")+ GetChineseDescOfTargetRange(M_TargetRange, isEnglish));
+        return HightlightStringFormat(HightlightColor, isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, true));
     }
 
     public override void Serialze(DataStream writer)

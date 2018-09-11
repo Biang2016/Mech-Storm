@@ -29,16 +29,8 @@
     public static int PlayerMinDrawCardNum = 1;
     public static int PlayerMaxDrawCardNum = 5;
 
-    public static int GetDrawCardConsume(int drawCardNum)
-    {
-        int defaultCost = DrawCardNumToCoin[PlayerDefaultDrawCardNum];
-        int yourCost = DrawCardNumToCoin[drawCardNum];
-        return yourCost - defaultCost;
-    }
-
-
     public static int PlayerDefaultMaxCoin
     {
-        get { return PlayerDefaultCoin + (PlayerDefaultLife - PlayerDefaultLifeMin) * LifeToCoin + PlayerDefaultEnergy * EnergyToCoin; }
+        get { return PlayerDefaultCoin + (PlayerDefaultLife - PlayerDefaultLifeMin) * LifeToCoin + PlayerDefaultEnergy * EnergyToCoin + DrawCardNumToCoin[PlayerDefaultDrawCardNum] - DrawCardNumToCoin[PlayerMinDrawCardNum]; }
     }
 }

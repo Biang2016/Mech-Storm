@@ -7,13 +7,6 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
 
-    void OnGUI()
-    {
-        Vector3 po = Camera.main.WorldToViewportPoint(transform.position);
-        Debug.Log(po);
-        GUI.Label(new Rect(po.x, po.z, 100, 30), "abcabcabc");
-    }
-
     public virtual void PoolRecycle()
     {
         GameObjectID = -1;

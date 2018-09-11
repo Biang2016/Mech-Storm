@@ -88,7 +88,8 @@ public class EventManager
                     break;
                 case SideEffectBundle.TriggerRange.Self:
                     if ((se.SideEffectBase.M_ExecuterInfo.RetinueId != -999 && se.SideEffectBase.M_ExecuterInfo.RetinueId == executerInfo.RetinueId) ||
-                        (se.SideEffectBase.M_ExecuterInfo.CardInstanceId != -999 && se.SideEffectBase.M_ExecuterInfo.CardInstanceId == executerInfo.CardInstanceId))
+                        (se.SideEffectBase.M_ExecuterInfo.CardInstanceId != -999 && se.SideEffectBase.M_ExecuterInfo.CardInstanceId == executerInfo.CardInstanceId) ||
+                        (se.SideEffectBase.M_ExecuterInfo.EquipId != -999 && se.SideEffectBase.M_ExecuterInfo.EquipId == executerInfo.EquipId))
                         se.SideEffectBase.Excute(executerInfo);
                     break;
             }
