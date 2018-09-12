@@ -163,7 +163,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
                     CardInfo_Base cw = ((ModuleRetinue) this).M_Weapon.CardInfo;
                     cardRetinue.Weapon.M_ModuleRetinue = (ModuleRetinue) this;
-                    cardRetinue.Weapon.Initiate(((ModuleRetinue) this).M_Weapon.CardInfo, ClientPlayer);
+                    cardRetinue.Weapon.Initiate(((ModuleRetinue) this).M_Weapon.GetCurrentCardInfo(), ClientPlayer);
                     cardRetinue.Weapon.GetComponent<DragComponent>().enabled = false;
                     cardRetinue.Weapon.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Weapon.SetPreview();
@@ -188,7 +188,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
                     CardInfo_Base cw = ((ModuleRetinue) this).M_Shield.CardInfo;
                     cardRetinue.Shield.M_ModuleRetinue = (ModuleRetinue) this;
-                    cardRetinue.Shield.Initiate(((ModuleRetinue) this).M_Shield.CardInfo, ClientPlayer);
+                    cardRetinue.Shield.Initiate(((ModuleRetinue) this).M_Shield.GetCurrentCardInfo(), ClientPlayer);
                     cardRetinue.Shield.GetComponent<DragComponent>().enabled = false;
                     cardRetinue.Shield.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Shield.SetPreview();

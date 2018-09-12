@@ -15,10 +15,12 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
     [SerializeField] private Transform EnemyCardDeckArea;
 
     [SerializeField] private Text SelfCardLeftNumText;
-    [SerializeField] private Text EnemyCardLeftNumText;
-
     [SerializeField] private Text SelfCardLeftNumText_BG;
+    [SerializeField] private Animator SelfCardLeftNumAnim;
+
+    [SerializeField] private Text EnemyCardLeftNumText;
     [SerializeField] private Text EnemyCardLeftNumText_BG;
+    [SerializeField] private Animator EnemyCardLeftNumAnim;
 
     private CardDeckCard[] self_CardDeckCards;
     private CardDeckCard[] enemy_CardDeckCards;
@@ -77,36 +79,50 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
         EnemyCardLeftNumText_BG.gameObject.SetActive(true);
     }
 
+    private int selfCardDeckNumber;
+
     public void SetSelfCardDeckNumber(int value)
     {
-        if (value == 0)
+        if (selfCardDeckNumber != value)
         {
-            SelfCardLeftNumText.text = "";
-            SelfCardLeftNumText_BG.text = "";
-        }
-        else
-        {
-            SelfCardLeftNumText.text = value.ToString();
-            SelfCardLeftNumText_BG.text = value.ToString();
-        }
+            if (value == 0)
+            {
+                SelfCardLeftNumText.text = "";
+                SelfCardLeftNumText_BG.text = "";
+            }
+            else
+            {
+                SelfCardLeftNumText.text = value.ToString();
+                SelfCardLeftNumText_BG.text = value.ToString();
+            }
 
-        SetCardDeckShowCardNum(self_CardDeckCards, value);
+            SelfCardLeftNumAnim.SetTrigger("Jump");
+            SetCardDeckShowCardNum(self_CardDeckCards, value);
+            selfCardDeckNumber = value;
+        }
     }
+
+    private int enemyCardDeckNumber;
 
     public void SetEnemyCardDeckNumber(int value)
     {
-        if (value == 0)
+        if (enemyCardDeckNumber != value)
         {
-            EnemyCardLeftNumText.text = "";
-            EnemyCardLeftNumText_BG.text = "";
-        }
-        else
-        {
-            EnemyCardLeftNumText.text = value.ToString();
-            EnemyCardLeftNumText_BG.text = value.ToString();
-        }
+            if (value == 0)
+            {
+                EnemyCardLeftNumText.text = "";
+                EnemyCardLeftNumText_BG.text = "";
+            }
+            else
+            {
+                EnemyCardLeftNumText.text = value.ToString();
+                EnemyCardLeftNumText_BG.text = value.ToString();
+            }
 
-        SetCardDeckShowCardNum(enemy_CardDeckCards, value);
+            EnemyCardLeftNumAnim.SetTrigger("Jump");
+            SetCardDeckShowCardNum(enemy_CardDeckCards, value);
+            enemyCardDeckNumber = value;
+        }
     }
 
     private void SetCardDeckShowCardNum(CardDeckCard[] targetCardDeckShowCards, int number)

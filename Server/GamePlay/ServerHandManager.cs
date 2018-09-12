@@ -14,12 +14,14 @@ internal class ServerHandManager
 
     internal void DrawCards(int cardNumber)
     {
-        int maxDrawCardNumber = Math.Min(Math.Min(cardNumber, GamePlaySettings.MaxHandCard - cards.Count),ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.CardCount()) ;
+        int maxDrawCardNumber = Math.Min(Math.Min(cardNumber, GamePlaySettings.MaxHandCard - cards.Count), ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.CardCount());
         if (maxDrawCardNumber != cardNumber)
         {
             DrawCards(maxDrawCardNumber);
             return;
         }
+
+        List<DrawCardRequest.CardIdAndInstanceId> cardInfos = new List<DrawCardRequest.CardIdAndInstanceId>();
 
         for (int i = 0; i < maxDrawCardNumber; i++)
         {
@@ -27,8 +29,10 @@ internal class ServerHandManager
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardsInfo, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
             cards.Add(newCard);
             ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId);
-            OnPlayerGetCard(newCardsInfo.CardID, newCard.M_CardInstanceId);
+            cardInfos.Add(new DrawCardRequest.CardIdAndInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId));
         }
+
+        OnPlayerGetCards(cardInfos);
     }
 
     internal void GetACardByID(int cardID)

@@ -26,7 +26,7 @@ public class GameManager : MonoSingletion<GameManager>
         }
         catch (Exception e)
         {
-            ClientLog.Instance.PrintError("Cards Load Failed");
+            ClientLog.Instance.PrintError("Cards Load Failed" + e);
         }
     }
 
@@ -129,8 +129,6 @@ public class GameManager : MonoSingletion<GameManager>
         LifeIconColor = ClientUtils.HTMLColorToColor("#FF5F65");
         MetalIconColor = ClientUtils.HTMLColorToColor("#8335FF");
         EnergyIconColor = ClientUtils.HTMLColorToColor("#007AFF");
-
-        
     }
 
     #endregion

@@ -11,7 +11,7 @@ namespace SideEffects
         public override void Excute(ExecuterInfo executerInfo)
         {
             ServerPlayer sp = (ServerPlayer) Player;
-            ServerCardBase ci = sp.MyHandManager.GetCardByCardInstanceId(executerInfo.CardInstanceId);
+            ServerCardBase ci = sp.MyHandManager.GetCardByCardInstanceId(TargetCardInstanceId);
 
             if (ci.CardInfo.BaseInfo.Energy >= FinalValue)
             {

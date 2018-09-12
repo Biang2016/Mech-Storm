@@ -26,10 +26,8 @@ public partial class SelectBuildManager
     [SerializeField] private Text DecCardNumberCoinText;
     [SerializeField] private Image AddCardNumberCoinImage;
     [SerializeField] private Image DecCardNumberCoinImage;
-    [SerializeField] private Animator AddCardNumberCoinTextAnim;
-    [SerializeField] private Animator DecCardNumberCoinTextAnim;
-    [SerializeField] private Animator AddCardNumberCoinImageAnim;
-    [SerializeField] private Animator DecCardNumberCoinImageAnim;
+    [SerializeField] private Animator AddCardNumberCoinAnim;
+    [SerializeField] private Animator DecCardNumberCoinAnim;
 
     [SerializeField] private Text TotalCoinText;
     [SerializeField] private Text MaxLifeText;
@@ -195,6 +193,9 @@ public partial class SelectBuildManager
 
     private void OnCardNumSliderValueChange(float value)
     {
+        int drawCardNum = Mathf.RoundToInt(value);
+        if (drawCardNum == CurrentEditBuildButton.BuildInfo.DrawCardNum) return;
+
         int leftCoin = GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.CardConsumeCoin - CurrentEditBuildButton.BuildInfo.LifeConsumeCoin - CurrentEditBuildButton.BuildInfo.EnergyConsumeCoin;
         int minDrawCardNum = GamePlaySettings.PlayerMinDrawCardNum;
         int maxDrawCardNum = 0;
@@ -206,7 +207,6 @@ public partial class SelectBuildManager
             }
         }
 
-        int drawCardNum = Mathf.RoundToInt(value);
 
         if (drawCardNum > maxDrawCardNum)
         {
@@ -228,13 +228,11 @@ public partial class SelectBuildManager
         CurrentEditBuildButton.BuildInfo.DrawCardNum = drawCardNum;
         CardNumberText.text = drawCardNum.ToString();
         CardNumberText.rectTransform.localPosition = Vector3.Lerp(MyCardNumberTextMinPos.localPosition, MyCardNumberTextMaxPos.localPosition, (float) value / (float) GamePlaySettings.PlayerMaxDrawCardNum);
-
+        
         CoinSlider.value = (float) (GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin()) / GamePlaySettings.PlayerDefaultMaxCoin;
 
-        AddCardNumberCoinImageAnim.SetTrigger("Jump");
-        AddCardNumberCoinTextAnim.SetTrigger("Jump");
-        DecCardNumberCoinImageAnim.SetTrigger("Jump");
-        DecCardNumberCoinTextAnim.SetTrigger("Jump");
+        AddCardNumberCoinAnim.SetTrigger("Jump");
+        DecCardNumberCoinAnim.SetTrigger("Jump");
         RefreshDrawCardCoinText(drawCardNum);
     }
 }

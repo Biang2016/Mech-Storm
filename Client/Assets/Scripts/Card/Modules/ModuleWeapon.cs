@@ -5,7 +5,7 @@ public class ModuleWeapon : ModuleBase
     public override void PoolRecycle()
     {
         base.PoolRecycle();
-        if(WeaponEquipAnim) WeaponEquipAnim.SetTrigger("Hide");
+        if (WeaponEquipAnim) WeaponEquipAnim.SetTrigger("Hide");
     }
 
     void Awake()
@@ -25,6 +25,7 @@ public class ModuleWeapon : ModuleBase
 
     internal ModuleRetinue M_ModuleRetinue;
     [SerializeField] private TextMesh WeaponName;
+    [SerializeField] private TextMesh WeaponName_en;
     [SerializeField] private GameObject M_Bloom;
     [SerializeField] private GameObject M_GunIcon;
     [SerializeField] private GameObject M_SwordIcon;
@@ -46,7 +47,7 @@ public class ModuleWeapon : ModuleBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_WeaponName = Utils.TextToVertical(cardInfo.BaseInfo.CardName);
+        M_WeaponName = GameManager.Instance.isEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
         M_WeaponType = cardInfo.WeaponInfo.WeaponType;
         M_WeaponAttack = cardInfo.WeaponInfo.Attack;
         M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;
@@ -101,6 +102,15 @@ public class ModuleWeapon : ModuleBase
 
     #region 属性
 
+    public CardInfo_Equip GetCurrentCardInfo()
+    {
+        CardInfo_Equip currentCI = (CardInfo_Equip) CardInfo.Clone();
+        currentCI.WeaponInfo.Attack = M_WeaponAttack;
+        currentCI.WeaponInfo.Energy = M_WeaponEnergy;
+        currentCI.WeaponInfo.EnergyMax = M_WeaponEnergyMax;
+        return currentCI;
+    }
+
     private string m_WeaponName;
 
     public string M_WeaponName
@@ -110,7 +120,8 @@ public class ModuleWeapon : ModuleBase
         set
         {
             m_WeaponName = value;
-            WeaponName.text = m_WeaponName;
+            WeaponName.text = GameManager.Instance.isEnglish ? "" : Utils.TextToVertical(value);
+            WeaponName_en.text = GameManager.Instance.isEnglish ? value : "";
         }
     }
 
@@ -200,7 +211,7 @@ public class ModuleWeapon : ModuleBase
 
     #region 攻击相关
 
-    public void OnAttack()//特效
+    public void OnAttack() //特效
     {
     }
 

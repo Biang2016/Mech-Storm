@@ -327,7 +327,7 @@ public class ModuleRetinue : ModuleBase
         set
         {
             int before = m_RetinueAttack;
-            if (isInitializing) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(m_RetinueAttack, value - before), "Co_RetinueAttackChange");
+            if (isInitializing) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(m_RetinueAttack * M_RetinueWeaponEnergy, (value - before) * M_RetinueWeaponEnergy), "Co_RetinueAttackChange");
             if (m_RetinueAttack != value)
             {
                 m_RetinueAttack = value;
@@ -337,7 +337,7 @@ public class ModuleRetinue : ModuleBase
                 }
 
                 CheckCanAttack();
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(m_RetinueAttack, value - before), "Co_RetinueAttackChange");
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(m_RetinueAttack * M_RetinueWeaponEnergy, (value - before) * M_RetinueWeaponEnergy), "Co_RetinueAttackChange");
             }
         }
     }
@@ -375,6 +375,7 @@ public class ModuleRetinue : ModuleBase
                 }
 
                 BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax, value - before), "Co_RetinueWeaponEnergyChange");
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack * M_RetinueWeaponEnergy, m_RetinueAttack * (value - before)), "Co_RetinueAttackChange");
             }
         }
     }
@@ -436,8 +437,11 @@ public class ModuleRetinue : ModuleBase
         get { return m_RetinueArmor; }
         set
         {
-            if (!isInitializing && m_RetinueArmor > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorBeAttacked(value, m_RetinueArmor - value), "Co_ArmorBeAttacked");
-            else if (m_RetinueArmor < value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorAdded(value, value - m_RetinueArmor), "Co_ArmorAdded");
+            if (!isInitializing)
+            {
+                if (m_RetinueArmor > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorBeAttacked(value, m_RetinueArmor - value), "Co_ArmorBeAttacked");
+                else if (m_RetinueArmor < value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorAdded(value, value - m_RetinueArmor), "Co_ArmorAdded");
+            }
 
             m_RetinueArmor = value;
             if (M_Shield)
@@ -499,10 +503,13 @@ public class ModuleRetinue : ModuleBase
         get { return m_RetinueShield; }
         set
         {
-            if (!isInitializing && m_RetinueShield > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldBeAttacked(value, m_RetinueShield - value), "Co_ShieldBeAttacked");
-            else if (m_RetinueShield < value)
+            if (!isInitializing)
             {
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldAdded(value, value - m_RetinueShield), "Co_ShieldAdded");
+                if (m_RetinueShield > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldBeAttacked(value, m_RetinueShield - value), "Co_ShieldBeAttacked");
+                else if (m_RetinueShield < value)
+                {
+                    BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldAdded(value, value - m_RetinueShield), "Co_ShieldAdded");
+                }
             }
 
             m_RetinueShield = value;

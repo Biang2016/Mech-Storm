@@ -18,6 +18,7 @@ public class ModuleShield : ModuleBase
 
     internal ModuleRetinue M_ModuleRetinue;
     [SerializeField] private TextMesh ShieldName;
+    [SerializeField] private TextMesh ShieldName_en;
     [SerializeField] private GameObject M_Bloom;
 
     [SerializeField] private GameObject Block_ShieldArmor;
@@ -33,7 +34,7 @@ public class ModuleShield : ModuleBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_ShieldName = Utils.TextToVertical(cardInfo.BaseInfo.CardName);
+        M_ShieldName = GameManager.Instance.isEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
         M_ShieldType = cardInfo.ShieldInfo.ShieldType;
         M_ShieldArmor = cardInfo.ShieldInfo.Armor;
         M_ShieldShield = cardInfo.ShieldInfo.Shield;
@@ -70,6 +71,13 @@ public class ModuleShield : ModuleBase
 
     #region 属性
 
+    public CardInfo_Equip GetCurrentCardInfo()
+    {
+        CardInfo_Equip currentCI = (CardInfo_Equip) CardInfo.Clone();
+        currentCI.ShieldInfo.Armor = M_ShieldArmor;
+        currentCI.ShieldInfo.Shield = M_ShieldShield;
+        return currentCI;
+    }
     private string m_ShieldName;
 
     public string M_ShieldName
@@ -79,7 +87,8 @@ public class ModuleShield : ModuleBase
         set
         {
             m_ShieldName = value;
-            ShieldName.text = m_ShieldName;
+            ShieldName.text = GameManager.Instance.isEnglish ? "" : Utils.TextToVertical(value);
+            ShieldName_en.text = GameManager.Instance.isEnglish ? value : "";
         }
     }
 

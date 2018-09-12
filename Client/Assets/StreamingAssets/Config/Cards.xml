@@ -124,6 +124,11 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="10102" cardLevel="3" />
     <CardInfo name="weaponInfo" energy="3" energyMax="7" attack="1" weaponType="Sword" />
   </Card>
+  <Card id="10301">
+    <CardInfo name="baseInfo" pictureID="103" cardName="匕首" cardName_en="Dagger" cardDesc="" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" cardColor="#FF0000" hightLightColor="#FFFF00" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="weaponInfo" energy="1" energyMax="3" attack="2" weaponType="Sword" />
+  </Card>
 
   <Card id="20101">
     <CardInfo name="baseInfo" pictureID="200" cardName="机枪" cardName_en="M-Gun" cardDesc="" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" cardColor="#FF0000" hightLightColor="#FFFF00" />
@@ -138,11 +143,6 @@
   <Card id="20103">
     <CardInfo name="baseInfo" pictureID="200" cardName="高速机枪" cardName_en="SP M-Gun" cardDesc="" metal="2" energy="0" coin="500" effectFactor="1" dragPurpose="Equip" cardType="Equip" cardColor="#FF0000" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="20102" cardLevel="3" />
-    <CardInfo name="weaponInfo" energy="7" energyMax="7" attack="1" weaponType="Gun" />
-  </Card>
-  <Card id="20201">
-    <CardInfo name="baseInfo" pictureID="200" cardName="匕首" cardName_en="Dagger" cardDesc="" metal="2" energy="0" coin="200" effectFactor="1" dragPurpose="Equip" cardType="Equip" cardColor="#FF0000" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="20102" cardLevel="0" />
     <CardInfo name="weaponInfo" energy="7" energyMax="7" attack="1" weaponType="Gun" />
   </Card>
 
@@ -234,28 +234,28 @@
     </CardInfo>
   </Card>
   <Card id="60801">
-    <CardInfo name="baseInfo" pictureID="608" cardName="冲撞" cardName_en="Crash" cardDesc="" metal="0" energy="3" coin="350" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="608" cardName="冲撞" cardName_en="Crash" cardDesc="" metal="0" energy="3" coin="350" effectFactor="1" dragPurpose="Target" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
-      <SideEffect name="DamageOne" IsNeedChoise="True" Value="2"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="2"></SideEffect>
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyHeros" Value="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60901">
-    <CardInfo name="baseInfo" pictureID="609" cardName="堕落" cardName_en="Fallen" cardDesc="" metal="0" energy="8" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="baseInfo" pictureID="609" cardName="堕落" cardName_en="Fallen" cardDesc="" metal="0" energy="8" coin="600" effectFactor="1" dragPurpose="Target" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
     </CardInfo>
   </Card>
   <Card id="61001">
-    <CardInfo name="baseInfo" pictureID="610" cardName="黑客入侵" cardName_en="Hack" cardDesc="" metal="0" energy="15" coin="800" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="baseInfo" pictureID="610" cardName="黑客入侵" cardName_en="Hack" cardDesc="" metal="0" energy="15" coin="800" effectFactor="1" dragPurpose="Target" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
     </CardInfo>
   </Card>
   <Card id="61101">
-    <CardInfo name="baseInfo" pictureID="611" cardName="镀金" cardName_en="Gold Plating" cardDesc="" metal="0" energy="10" coin="400" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="baseInfo" pictureID="611" cardName="镀金" cardName_en="Gold Plating" cardDesc="" metal="0" energy="10" coin="400" effectFactor="1" dragPurpose="Target" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="5"></SideEffect>
     </CardInfo>
@@ -305,22 +305,22 @@
   </Card>
   <Card id="70501">
     <CardInfo name="baseInfo" pictureID="705" cardName="AI升级" cardName_en="AI Upgrade" cardDesc="" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="12"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70601">
     <CardInfo name="baseInfo" pictureID="706" cardName="蚊子无人机" cardName_en="Mosquito Drone" cardDesc="" metal="0" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="EnemySoldiers" Value="1"></SideEffect>
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70701">
-    <CardInfo name="baseInfo" pictureID="707" cardName="机甲回收" cardName_en="Mech Recycle" cardDesc="" metal="0" energy="0" coin="400" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="baseInfo" pictureID="707" cardName="机甲回收" cardName_en="Mech Recycle" cardDesc="" metal="0" energy="0" coin="400" effectFactor="1" dragPurpose="Target" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="KillOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround"></SideEffect>
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="5"></SideEffect>
