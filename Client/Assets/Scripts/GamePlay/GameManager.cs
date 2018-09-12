@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -42,7 +43,6 @@ public class GameManager : MonoSingletion<GameManager>
     internal Vector3 UseCardShowPosition = new Vector3(10, 3, 0);
     internal Vector3 UseCardShowOverlayPosition = new Vector3(10, 3, 0.2f);
 
-    public bool UseInspectorParams = false;
     public bool ShowBEMMessages = false;
     public bool ShowBattleGroundInfos = false;
 
@@ -101,8 +101,6 @@ public class GameManager : MonoSingletion<GameManager>
 
     private void InitializeClientGameSettings()
     {
-        if (UseInspectorParams) return;
-
         CardBloomColor = ClientUtils.HTMLColorToColor("#F1FF74");
         RetinueBloomColor = ClientUtils.HTMLColorToColor("#06FF00");
         RetinueOnEnemyHoverBloomColor = ClientUtils.HTMLColorToColor("#FF0000");

@@ -15,7 +15,7 @@
     <CardInfo name="lifeInfo" life="12" totalLife="12" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" isSoldier="False" />
     <CardInfo name="slotInfo" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
-    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueDie" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self">
       <SideEffect name="KillAll" IsNeedChoise="False" M_TargetRange="EnemySoldiers"></SideEffect>
     </CardInfo>
   </Card>
@@ -25,7 +25,7 @@
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSoldier="False" />
     <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueDie" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self">
       <SideEffect name="DrawCards" Value="2"></SideEffect>
     </CardInfo>
   </Card>
@@ -35,7 +35,7 @@
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" isSoldier="False" />
     <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
-    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemySoldiers" Value="5"></SideEffect>
     </CardInfo>
   </Card>
@@ -45,7 +45,7 @@
     <CardInfo name="lifeInfo" life="18" totalLife="18" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="3" basicArmor="3" isSoldier="False" />
     <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
-    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="OnePlayer">
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="OnePlayer">
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyBattleGround" Value="2"></SideEffect>
     </CardInfo>
   </Card>
@@ -57,7 +57,7 @@
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="3"></SideEffect>
     </CardInfo>
   </Card>
@@ -67,7 +67,7 @@
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="6"></SideEffect>
     </CardInfo>
   </Card>
@@ -77,7 +77,7 @@
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="10"></SideEffect>
     </CardInfo>
   </Card>
@@ -94,7 +94,7 @@
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueDie" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self">
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyBattleGround" Value="5"></SideEffect>
     </CardInfo>
   </Card>
@@ -104,7 +104,7 @@
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
       <SideEffect name="HealOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="5"></SideEffect>
     </CardInfo>
   </Card>
@@ -150,7 +150,7 @@
     <CardInfo name="baseInfo" pictureID="300" cardName="光子护盾Ⅰ" cardName_en="LightShield" cardDesc="" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" cardColor="#FFE325" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="30102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="shieldInfo" armor="0" shield="4" shieldType="Shield" />
-    <CardInfo name="sideEffectsInfo" triggerTime="OnEndRound" triggerRange="SelfPlayer">
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnEndRound" triggerRange="SelfPlayer">
       <SideEffect name="DamageAll" M_TargetRange="EnemyBattleGround" Value="1"></SideEffect>
     </CardInfo>
   </Card>

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class ModuleWeapon : ModuleBase
 {
@@ -26,7 +27,8 @@ public class ModuleWeapon : ModuleBase
     internal ModuleRetinue M_ModuleRetinue;
     [SerializeField] private TextMesh WeaponName;
     [SerializeField] private TextMesh WeaponName_en;
-    [SerializeField] private GameObject M_Bloom;
+    [SerializeField] private Renderer M_Bloom;
+    [SerializeField] private Renderer M_BloomSE;
     [SerializeField] private GameObject M_GunIcon;
     [SerializeField] private GameObject M_SwordIcon;
 
@@ -44,6 +46,8 @@ public class ModuleWeapon : ModuleBase
 
     [SerializeField] private Animator WeaponEquipAnim;
 
+    public int M_EquipID;
+
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
@@ -53,7 +57,7 @@ public class ModuleWeapon : ModuleBase
         M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;
         M_WeaponEnergy = cardInfo.WeaponInfo.Energy;
 
-        if (M_Bloom) M_Bloom.SetActive(false);
+        if (M_Bloom) M_Bloom.gameObject.SetActive(false);
         if (M_WeaponType == WeaponTypes.Gun)
         {
             if (M_GunIcon) M_GunIcon.SetActive(true);
@@ -64,6 +68,12 @@ public class ModuleWeapon : ModuleBase
             if (M_GunIcon) M_GunIcon.SetActive(false);
             if (M_SwordIcon) M_SwordIcon.SetActive(true);
         }
+    }
+
+    public override void ChangeColor(Color color)
+    {
+        base.ChangeColor(color);
+        ClientUtils.ChangeColor(M_Bloom, color);
     }
 
     private NumberSize my_NumberSize_Attack = NumberSize.Big;
@@ -84,7 +94,7 @@ public class ModuleWeapon : ModuleBase
         M_WeaponAttack = M_WeaponAttack;
         M_WeaponEnergyMax = M_WeaponEnergyMax;
         M_WeaponEnergy = M_WeaponEnergy;
-        if (M_Bloom) M_Bloom.SetActive(true);
+        if (M_Bloom) M_Bloom.gameObject.SetActive(true);
     }
 
     public void SetNoPreview()
@@ -134,7 +144,6 @@ public class ModuleWeapon : ModuleBase
         set { m_WeaponType = value; }
     }
 
-    #endregion
 
     private int m_WeaponAttack;
 
@@ -207,6 +216,8 @@ public class ModuleWeapon : ModuleBase
 
     #endregion
 
+    #endregion
+
     #region 模块交互
 
     #region 攻击相关
@@ -228,13 +239,31 @@ public class ModuleWeapon : ModuleBase
     public override void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
     {
         base.MouseHoverComponent_OnMouseEnterImmediately(mousePosition);
-        if (M_Bloom) M_Bloom.SetActive(true);
+        if (M_Bloom) M_Bloom.gameObject.SetActive(true);
     }
 
     public override void MouseHoverComponent_OnMouseLeaveImmediately()
     {
         base.MouseHoverComponent_OnMouseLeaveImmediately();
-        if (M_Bloom) M_Bloom.SetActive(false);
+        if (M_Bloom) M_Bloom.gameObject.SetActive(false);
+    }
+
+    #endregion
+
+    #region SE
+
+    public override void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#FFFFFF"), 0.8f), "ShowSideEffectBloom");
+    }
+
+    IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
+    {
+        M_BloomSE.gameObject.SetActive(true);
+        ClientUtils.ChangeColor(M_BloomSE, color);
+        yield return new WaitForSeconds(duration);
+        M_BloomSE.gameObject.SetActive(false);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     #endregion

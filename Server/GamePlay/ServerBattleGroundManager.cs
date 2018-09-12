@@ -401,8 +401,7 @@ internal class ServerBattleGroundManager
                 retinue.BeAttacked(value);
                 DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, retinue.M_RetinueID, value);
                 ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
-                bool isDie = !Retinues[i].CheckAlive();
-                if (isDie) i--;
+                Retinues[i].CheckAlive();
             }
         }
     }
@@ -417,8 +416,7 @@ internal class ServerBattleGroundManager
                 retinue.BeAttacked(value);
                 DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, retinue.M_RetinueID, value);
                 ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
-                bool isDie = !Heros[i].CheckAlive();
-                if (isDie) i--;
+                Heros[i].CheckAlive();
             }
         }
     }
@@ -433,8 +431,7 @@ internal class ServerBattleGroundManager
                 retinue.BeAttacked(value);
                 DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, retinue.M_RetinueID, value);
                 ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
-                bool isDie = !Soldiers[i].CheckAlive();
-                if (isDie) i--;
+                Soldiers[i].CheckAlive();
             }
         }
     }

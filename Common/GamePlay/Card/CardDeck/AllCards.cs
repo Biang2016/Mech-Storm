@@ -39,6 +39,7 @@ public static class AllCards
             SlotTypes slotType = SlotTypes.None;
 
             SideEffectBundle sideEffects = new SideEffectBundle();
+            SideEffectBundle sideEffects_OnBattleGround = new SideEffectBundle();
 
             for (int j = 0; j < card.ChildNodes.Count; j++)
             {
@@ -93,6 +94,7 @@ public static class AllCards
                         slotType = SlotTypes.Shield;
                         break;
                     case "sideEffectsInfo":
+                    {
                         SideEffectBundle.TriggerTime triggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), cardInfo.Attributes["triggerTime"].Value);
                         SideEffectBundle.TriggerRange triggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), cardInfo.Attributes["triggerRange"].Value);
 
@@ -127,6 +129,45 @@ public static class AllCards
                         }
 
                         break;
+                    }
+
+                    case "sideEffectsInfo_OnBattleGround":
+                    {
+                        SideEffectBundle.TriggerTime triggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), cardInfo.Attributes["triggerTime"].Value);
+                        SideEffectBundle.TriggerRange triggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), cardInfo.Attributes["triggerRange"].Value);
+
+                        for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
+                        {
+                            XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
+                            SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
+                            for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
+                            {
+                                if (sideEffectInfo.Attributes[l].Name == "name") continue;
+                                XmlAttribute attr = sideEffectInfo.Attributes[l];
+                                FieldInfo fi = sideEffect.GetType().GetField(attr.Name);
+                                switch (fi.FieldType.Name)
+                                {
+                                    case "Int32":
+                                        fi.SetValue(sideEffect, int.Parse(attr.Value));
+                                        break;
+                                    case "String":
+                                        fi.SetValue(sideEffect, attr.Value);
+                                        break;
+                                    case "Boolean":
+                                        fi.SetValue(sideEffect, attr.Value == "True");
+                                        break;
+                                    case "TargetRange":
+                                        fi.SetValue(sideEffect, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
+                                        break;
+                                }
+                            }
+
+                            sideEffect.HightlightColor = baseInfo.HightLightColor;
+                            sideEffects_OnBattleGround.AddSideEffect(sideEffect, triggerTime, triggerRange);
+                        }
+
+                        break;
+                    }
                 }
             }
 
@@ -141,7 +182,8 @@ public static class AllCards
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
                         slotInfo: slotInfo,
-                        sideEffects: sideEffects));
+                        sideEffects: sideEffects,
+                        sideEffects_OnBattleGround: sideEffects_OnBattleGround));
                     break;
                 case CardTypes.Equip:
                     addCard(new CardInfo_Equip(
@@ -151,7 +193,8 @@ public static class AllCards
                         slotType: slotType,
                         weaponInfo: weaponInfo,
                         shieldInfo: shieldInfo,
-                        sideEffects: sideEffects));
+                        sideEffects: sideEffects,
+                        sideEffects_OnBattleGround: sideEffects_OnBattleGround));
                     break;
                 case CardTypes.Spell:
                     addCard(new CardInfo_Spell(
@@ -159,7 +202,8 @@ public static class AllCards
                         baseInfo: baseInfo,
                         slotType: slotType,
                         upgradeInfo: upgradeInfo,
-                        sideEffects: sideEffects));
+                        sideEffects: sideEffects,
+                        sideEffects_OnBattleGround: sideEffects_OnBattleGround));
                     break;
             }
         }

@@ -275,7 +275,7 @@ public class BattleGroundManager : MonoBehaviour
     public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的随从的召唤预览、显示指定箭头
     {
         currentSummonPreviewRetinueCard = retinueCard;
-        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int)Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
+        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int) Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
         CurrentSummonPreviewRetinue = retinue;
         AddRetinue(retinuePlaceIndex);
         DragManager.Instance.SummonRetinueTargetHandler = SummonRetinueTargetConfirm;
@@ -482,35 +482,53 @@ public class BattleGroundManager : MonoBehaviour
 
     #endregion
 
-    public void EquipWeapon(CardInfo_Equip cardInfo, int retinueId)
+    public void EquipWeapon(CardInfo_Equip cardInfo, int retinueId, int equipId)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipWeapon(cardInfo, retinueId), "Co_EquipWeapon");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipWeapon(cardInfo, retinueId, equipId), "Co_EquipWeapon");
     }
 
-    IEnumerator Co_EquipWeapon(CardInfo_Equip cardInfo, int retinueId)
+    IEnumerator Co_EquipWeapon(CardInfo_Equip cardInfo, int retinueId, int equipId)
     {
         ModuleRetinue retinue = GetRetinue(retinueId);
-        ModuleWeapon newModueWeapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponPool.AllocateGameObject(retinue.transform).GetComponent<ModuleWeapon>();
-        newModueWeapon.M_ModuleRetinue = retinue;
-        newModueWeapon.Initiate(cardInfo, ClientPlayer);
-        retinue.M_Weapon = newModueWeapon;
+        if (cardInfo != null)
+        {
+            ModuleWeapon newModueWeapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponPool.AllocateGameObject(retinue.transform).GetComponent<ModuleWeapon>();
+            newModueWeapon.M_ModuleRetinue = retinue;
+            newModueWeapon.Initiate(cardInfo, ClientPlayer);
+            newModueWeapon.M_EquipID = equipId;
+            retinue.M_Weapon = newModueWeapon;
+        }
+        else
+        {
+            retinue.M_Weapon = null;
+        }
+
         yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    public void EquipShield(CardInfo_Equip cardInfo, int retinueId)
+    public void EquipShield(CardInfo_Equip cardInfo, int retinueId, int equipId)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipShield(cardInfo, retinueId), "Co_EquipShield");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipShield(cardInfo, retinueId, equipId), "Co_EquipShield");
     }
 
-    IEnumerator Co_EquipShield(CardInfo_Equip cardInfo, int retinueId)
+    IEnumerator Co_EquipShield(CardInfo_Equip cardInfo, int retinueId, int equipId)
     {
         ModuleRetinue retinue = GetRetinue(retinueId);
-        ModuleShield newModuleShield = GameObjectPoolManager.Instance.Pool_ModuleShieldPool.AllocateGameObject(retinue.transform).GetComponent<ModuleShield>();
-        newModuleShield.M_ModuleRetinue = retinue;
-        newModuleShield.Initiate(cardInfo, ClientPlayer);
-        retinue.M_Shield = newModuleShield;
-        yield return null;
+        if (cardInfo != null)
+        {
+            ModuleShield newModuleShield = GameObjectPoolManager.Instance.Pool_ModuleShieldPool.AllocateGameObject(retinue.transform).GetComponent<ModuleShield>();
+            newModuleShield.M_ModuleRetinue = retinue;
+            newModuleShield.Initiate(cardInfo, ClientPlayer);
+            newModuleShield.M_EquipID = equipId;
+            retinue.M_Shield = newModuleShield;
+        }
+        else
+        {
+            retinue.M_Shield = null;
+        }
+
+        yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -541,6 +559,30 @@ public class BattleGroundManager : MonoBehaviour
 
         return null;
     }
+
+    public ModuleBase GetEquip(int retinueId, int equipId)
+    {
+        foreach (ModuleRetinue moduleRetinue in Retinues)
+        {
+            if (moduleRetinue.M_RetinueID == retinueId)
+            {
+                if (moduleRetinue.M_Weapon && moduleRetinue.M_Weapon.M_EquipID == equipId) return moduleRetinue.M_Weapon;
+                if (moduleRetinue.M_Shield && moduleRetinue.M_Shield.M_EquipID == equipId) return moduleRetinue.M_Shield;
+            }
+        }
+
+        foreach (ModuleRetinue moduleRetinue in addPrePassRetinueQueue) //预加载的随从也要遍历一遍
+        {
+            if (moduleRetinue.M_RetinueID == retinueId)
+            {
+                if (moduleRetinue.M_Weapon && moduleRetinue.M_Weapon.M_EquipID == equipId) return moduleRetinue.M_Weapon;
+                if (moduleRetinue.M_Shield && moduleRetinue.M_Shield.M_EquipID == equipId) return moduleRetinue.M_Shield;
+            }
+        }
+
+        return null;
+    }
+
 
     public void PrintRetinueInfos()
     {

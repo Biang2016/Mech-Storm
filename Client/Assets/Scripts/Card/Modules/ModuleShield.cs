@@ -19,7 +19,8 @@ public class ModuleShield : ModuleBase
     internal ModuleRetinue M_ModuleRetinue;
     [SerializeField] private TextMesh ShieldName;
     [SerializeField] private TextMesh ShieldName_en;
-    [SerializeField] private GameObject M_Bloom;
+    [SerializeField] private Renderer M_Bloom;
+    [SerializeField] private Renderer M_BloomSE;
 
     [SerializeField] private GameObject Block_ShieldArmor;
     protected GameObject GoNumberSet_ShieldArmor;
@@ -31,6 +32,8 @@ public class ModuleShield : ModuleBase
 
     [SerializeField] private Animator ShieldEquipedAnim;
 
+    public int M_EquipID;
+
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
@@ -38,7 +41,13 @@ public class ModuleShield : ModuleBase
         M_ShieldType = cardInfo.ShieldInfo.ShieldType;
         M_ShieldArmor = cardInfo.ShieldInfo.Armor;
         M_ShieldShield = cardInfo.ShieldInfo.Shield;
-        if (M_Bloom) M_Bloom.SetActive(false);
+        if (M_Bloom) M_Bloom.gameObject.SetActive(false);
+    }
+
+    public override void ChangeColor(Color color)
+    {
+        base.ChangeColor(color);
+        ClientUtils.ChangeColor(M_Bloom, color);
     }
 
     private NumberSize my_NumberSize_Armor = NumberSize.Medium;
@@ -54,7 +63,7 @@ public class ModuleShield : ModuleBase
         my_TextAlign_Shield = CardNumberSet.TextAlign.Left;
         M_ShieldArmor = M_ShieldArmor;
         M_ShieldShield = M_ShieldShield;
-        if (M_Bloom) M_Bloom.SetActive(true);
+        if (M_Bloom) M_Bloom.gameObject.SetActive(true);
     }
 
     public void SetNoPreview()
@@ -78,6 +87,7 @@ public class ModuleShield : ModuleBase
         currentCI.ShieldInfo.Shield = M_ShieldShield;
         return currentCI;
     }
+
     private string m_ShieldName;
 
     public string M_ShieldName
@@ -165,13 +175,31 @@ public class ModuleShield : ModuleBase
     public override void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
     {
         base.MouseHoverComponent_OnMouseEnterImmediately(mousePosition);
-        if (M_Bloom) M_Bloom.SetActive(true);
+        if (M_Bloom) M_Bloom.gameObject.SetActive(true);
     }
 
     public override void MouseHoverComponent_OnMouseLeaveImmediately()
     {
         base.MouseHoverComponent_OnMouseLeaveImmediately();
-        if (M_Bloom) M_Bloom.SetActive(false);
+        if (M_Bloom) M_Bloom.gameObject.SetActive(false);
+    }
+
+    #endregion
+
+    #region SE
+
+    public override void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#FFFFFF"), 0.8f), "ShowSideEffectBloom");
+    }
+
+    IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
+    {
+        M_BloomSE.gameObject.SetActive(true);
+        ClientUtils.ChangeColor(M_BloomSE, color);
+        yield return new WaitForSeconds(duration);
+        M_BloomSE.gameObject.SetActive(false);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     #endregion

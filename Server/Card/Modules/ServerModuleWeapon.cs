@@ -12,7 +12,13 @@
         foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
         {
             see.SideEffectBase.Player = ServerPlayer;
-            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, equipId: M_EquipID);
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: M_ModuleRetinue.M_RetinueID, equipId: M_EquipID);
+        }
+
+        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects_OnBattleGround.GetSideEffects())
+        {
+            see.SideEffectBase.Player = ServerPlayer;
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: M_ModuleRetinue.M_RetinueID, equipId: M_EquipID);
         }
     }
 
@@ -25,7 +31,8 @@
             slotType: ((CardInfo_Equip) CardInfo).M_SlotType,
             weaponInfo: CardInfo.WeaponInfo,
             shieldInfo: CardInfo.ShieldInfo,
-            sideEffects: CardInfo.SideEffects);
+            sideEffects: CardInfo.SideEffects,
+            sideEffects_OnBattleGround: CardInfo.SideEffects_OnBattleGround);
     }
 
 

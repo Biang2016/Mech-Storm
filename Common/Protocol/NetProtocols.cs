@@ -83,7 +83,7 @@
     public const int SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST = 0x00000224; //随从攻击随从
     public const int SE_RETINUE_ATTACK_SHIP_SERVER_REQUEST = 0x00000225; //随从攻击飞船
     public const int SE_DAMAGE_ONE_RETINUE_REQUEST = 0x00000226; //随从受到伤害
-    public const int SE_RETINUE_EFFECT = 0x00000227; //随从特效
+    public const int SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT = 0x00000227; //特效触发通知
 
     #endregion
 

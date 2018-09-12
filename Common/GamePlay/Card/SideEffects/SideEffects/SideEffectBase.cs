@@ -119,5 +119,38 @@ public partial class SideEffectBase
         {
             return new ExecuterInfo(ClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId);
         }
+
+        public void Serialize(DataStream writer)
+        {
+            writer.WriteSInt32(ClientId);
+            writer.WriteSInt32(RetinueId);
+            writer.WriteSInt32(TargetRetinueId);
+            writer.WriteSInt32(CardId);
+            writer.WriteSInt32(CardInstanceId);
+            writer.WriteSInt32(EquipId);
+        }
+
+        public static ExecuterInfo Deserialize(DataStream reader)
+        {
+            int ClientId = reader.ReadSInt32();
+            int RetinueId = reader.ReadSInt32();
+            int TargetRetinueId = reader.ReadSInt32();
+            int CardId = reader.ReadSInt32();
+            int CardInstanceId = reader.ReadSInt32();
+            int EquipId = reader.ReadSInt32();
+            return new ExecuterInfo(ClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId);
+        }
+
+        public string DeserializeLog()
+        {
+            string log = "";
+            log += " [ClientId]=" + ClientId;
+            log += " [RetinueId]=" + RetinueId;
+            log += " [TargetRetinueId]=" + TargetRetinueId;
+            log += " [CardId]=" + CardId;
+            log += " [CardInstanceId]=" + CardInstanceId;
+            log += " [EquipId]=" + EquipId;
+            return log;
+        }
     }
 }

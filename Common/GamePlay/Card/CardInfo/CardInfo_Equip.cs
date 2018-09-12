@@ -7,11 +7,12 @@ public class CardInfo_Equip : CardInfo_Base
     {
     }
 
-    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SlotTypes slotType, WeaponInfo weaponInfo, ShieldInfo shieldInfo, SideEffectBundle sideEffects)
+    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SlotTypes slotType, WeaponInfo weaponInfo, ShieldInfo shieldInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             slotType: slotType,
-            sideEffects: sideEffects)
+            sideEffects: sideEffects,
+            sideEffects_OnBattleGround: sideEffects_OnBattleGround)
     {
         switch (M_SlotType)
         {
@@ -83,7 +84,8 @@ public class CardInfo_Equip : CardInfo_Base
             slotType: M_SlotType,
             weaponInfo: WeaponInfo,
             shieldInfo: ShieldInfo,
-            sideEffects: SideEffects);
+            sideEffects: SideEffects.Clone(),
+            sideEffects_OnBattleGround:SideEffects_OnBattleGround.Clone());
         return cb;
     }
 }

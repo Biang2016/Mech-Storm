@@ -123,7 +123,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     [SerializeField] private Renderer MainBoardRenderer;
 
-    public void ChangeColor(Color color)
+    public virtual void ChangeColor(Color color)
     {
         ClientUtils.ChangeColor(MainBoardRenderer, color);
     }
@@ -250,6 +250,14 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
             detailCard_MA = null;
         }
     }
+
+    #region SE
+
+    public virtual void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
+    {
+    }
+
+    #endregion
 
     public virtual void DragComponent_OnMouseDown()
     {

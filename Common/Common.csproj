@@ -98,7 +98,7 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardServerRequset.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\UseSpellCardRequset_ResponseBundle.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\CardDeckLeftChangeRequest.cs" />
-    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueEffectRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\ShowSideEffectTriggeredRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueAttackRetinueServerRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseCardRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\EquipShieldServerRequest.cs" />

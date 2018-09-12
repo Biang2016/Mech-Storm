@@ -25,29 +25,31 @@ internal class ServerGameManager
         EventManager = new EventManager();
 
         EventManager.OnEventInvokeEndHandler += SendAllDieInfos;
+        EventManager.OnEventInvokeHandler += OnSETriggered;
 
         Thread sgmThread = new Thread(Initialized);
         sgmThread.IsBackground = true;
         sgmThread.Start();
     }
 
+
     #region 游戏初始化
 
-    private int gameRetinueIdGenerator = 0;
+    private int gameRetinueIdGenerator = 1000;
 
     public int GenerateNewRetinueId()
     {
         return gameRetinueIdGenerator++;
     }
 
-    private int gameCardInstanceIdGenerator = 0;
+    private int gameCardInstanceIdGenerator = 2000;
 
     public int GenerateNewCardInstanceId()
     {
         return gameCardInstanceIdGenerator++;
     }
 
-    private int gameEquipIdGenerator = 0;
+    private int gameEquipIdGenerator = 100;
 
     public int GenerateNewEquipId()
     {
@@ -353,6 +355,11 @@ internal class ServerGameManager
         BattleGroundRemoveRetinueRequest request2 = new BattleGroundRemoveRetinueRequest(tmp);
         Broadcast_AddRequestToOperationResponse(request2);
         DieRetinueList.Clear();
+    }
+
+    public void OnSETriggered(ShowSideEffectTriggeredRequest request)
+    {
+        Broadcast_AddRequestToOperationResponse(request);
     }
 
     #endregion

@@ -16,11 +16,9 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
 
     [SerializeField] private Text SelfCardLeftNumText;
     [SerializeField] private Text SelfCardLeftNumText_BG;
-    [SerializeField] private Animator SelfCardLeftNumAnim;
 
     [SerializeField] private Text EnemyCardLeftNumText;
     [SerializeField] private Text EnemyCardLeftNumText_BG;
-    [SerializeField] private Animator EnemyCardLeftNumAnim;
 
     private CardDeckCard[] self_CardDeckCards;
     private CardDeckCard[] enemy_CardDeckCards;
@@ -96,7 +94,6 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
                 SelfCardLeftNumText_BG.text = value.ToString();
             }
 
-            SelfCardLeftNumAnim.SetTrigger("Jump");
             SetCardDeckShowCardNum(self_CardDeckCards, value);
             selfCardDeckNumber = value;
         }
@@ -119,7 +116,6 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
                 EnemyCardLeftNumText_BG.text = value.ToString();
             }
 
-            EnemyCardLeftNumAnim.SetTrigger("Jump");
             SetCardDeckShowCardNum(enemy_CardDeckCards, value);
             enemyCardDeckNumber = value;
         }

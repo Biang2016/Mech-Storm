@@ -7,11 +7,12 @@ public class CardInfo_Retinue : CardInfo_Base
     {
     }
 
-    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, SlotTypes slotType, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo, SideEffectBundle sideEffects)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, SlotTypes slotType, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             slotType: slotType,
-            sideEffects: sideEffects)
+            sideEffects: sideEffects,
+            sideEffects_OnBattleGround: sideEffects_OnBattleGround)
     {
         UpgradeInfo = upgradeInfo;
         LifeInfo = lifeInfo;
@@ -45,7 +46,8 @@ public class CardInfo_Retinue : CardInfo_Base
             lifeInfo: LifeInfo,
             battleInfo: BattleInfo,
             slotInfo: SlotInfo,
-            sideEffects: temp.SideEffects);
+            sideEffects: temp.SideEffects.Clone(),
+            sideEffects_OnBattleGround: SideEffects_OnBattleGround.Clone());
         return cb;
     }
 }

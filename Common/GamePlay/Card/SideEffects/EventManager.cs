@@ -55,42 +55,44 @@ public class EventManager
         SideEffectBundle.SideEffectExecute[] sees = seeList.ToArray();
         for (int i = 0; i < sees.Length; i++)
         {
-            SideEffectBundle.SideEffectExecute se = sees[i];
-            if (!seeList.Contains(se)) continue; //防止已经移除的SE再次执行
-            switch (se.TriggerRange)
+            SideEffectBundle.SideEffectExecute see = sees[i];
+            SideEffectBase se = see.SideEffectBase;
+            SideEffectBundle.TriggerRange tr = see.TriggerRange;
+            if (!seeList.Contains(see)) continue; //防止已经移除的SE再次执行
+            switch (tr)
             {
                 case SideEffectBundle.TriggerRange.SelfPlayer:
-                    if (executerInfo.ClientId == se.SideEffectBase.M_ExecuterInfo.ClientId) se.SideEffectBase.Excute(executerInfo);
+                    if (executerInfo.ClientId == se.M_ExecuterInfo.ClientId) Trigger(se, executerInfo, tt, tr);
                     break;
                 case SideEffectBundle.TriggerRange.EnemyPlayer:
-                    if (executerInfo.ClientId != se.SideEffectBase.M_ExecuterInfo.ClientId) se.SideEffectBase.Excute(executerInfo);
+                    if (executerInfo.ClientId != se.M_ExecuterInfo.ClientId) Trigger(se, executerInfo, tt, tr);
                     break;
                 case SideEffectBundle.TriggerRange.OnePlayer:
-                    se.SideEffectBase.Excute(executerInfo);
+                    Trigger(se, executerInfo, tt, tr);
                     break;
                 case SideEffectBundle.TriggerRange.One:
-                    se.SideEffectBase.Excute(executerInfo);
+                    Trigger(se, executerInfo, tt, tr);
                     break;
                 case SideEffectBundle.TriggerRange.SelfAnother:
-                    if (executerInfo.ClientId == se.SideEffectBase.M_ExecuterInfo.ClientId &&
-                        ((se.SideEffectBase.M_ExecuterInfo.RetinueId != -999 && se.SideEffectBase.M_ExecuterInfo.RetinueId != executerInfo.RetinueId) ||
-                         (se.SideEffectBase.M_ExecuterInfo.CardInstanceId != -999 && se.SideEffectBase.M_ExecuterInfo.CardInstanceId != executerInfo.CardInstanceId)))
-                        se.SideEffectBase.Excute(executerInfo);
+                    if (executerInfo.ClientId == se.M_ExecuterInfo.ClientId &&
+                        ((se.M_ExecuterInfo.RetinueId != -999 && se.M_ExecuterInfo.RetinueId != executerInfo.RetinueId) ||
+                         (se.M_ExecuterInfo.CardInstanceId != -999 && se.M_ExecuterInfo.CardInstanceId != executerInfo.CardInstanceId)))
+                        Trigger(se, executerInfo, tt, tr);
                     break;
                 case SideEffectBundle.TriggerRange.Another:
-                    if ((se.SideEffectBase.M_ExecuterInfo.RetinueId != -999 && se.SideEffectBase.M_ExecuterInfo.RetinueId != executerInfo.RetinueId) ||
-                        (se.SideEffectBase.M_ExecuterInfo.CardInstanceId != -999 && se.SideEffectBase.M_ExecuterInfo.CardInstanceId != executerInfo.CardInstanceId))
-                        se.SideEffectBase.Excute(executerInfo);
+                    if ((se.M_ExecuterInfo.RetinueId != -999 && se.M_ExecuterInfo.RetinueId != executerInfo.RetinueId) ||
+                        (se.M_ExecuterInfo.CardInstanceId != -999 && se.M_ExecuterInfo.CardInstanceId != executerInfo.CardInstanceId))
+                        Trigger(se, executerInfo, tt, tr);
                     break;
                 case SideEffectBundle.TriggerRange.Attached:
-                    if (se.SideEffectBase.M_ExecuterInfo.RetinueId != -999 && se.SideEffectBase.M_ExecuterInfo.RetinueId == executerInfo.RetinueId)
-                        se.SideEffectBase.Excute(executerInfo);
+                    if (se.M_ExecuterInfo.RetinueId != -999 && se.M_ExecuterInfo.RetinueId == executerInfo.RetinueId)
+                        Trigger(se, executerInfo, tt, tr);
                     break;
                 case SideEffectBundle.TriggerRange.Self:
-                    if ((se.SideEffectBase.M_ExecuterInfo.RetinueId != -999 && se.SideEffectBase.M_ExecuterInfo.RetinueId == executerInfo.RetinueId) ||
-                        (se.SideEffectBase.M_ExecuterInfo.CardInstanceId != -999 && se.SideEffectBase.M_ExecuterInfo.CardInstanceId == executerInfo.CardInstanceId) ||
-                        (se.SideEffectBase.M_ExecuterInfo.EquipId != -999 && se.SideEffectBase.M_ExecuterInfo.EquipId == executerInfo.EquipId))
-                        se.SideEffectBase.Excute(executerInfo);
+                    if ((se.M_ExecuterInfo.RetinueId != -999 && se.M_ExecuterInfo.RetinueId == executerInfo.RetinueId) ||
+                        (se.M_ExecuterInfo.CardInstanceId != -999 && se.M_ExecuterInfo.CardInstanceId == executerInfo.CardInstanceId) ||
+                        (se.M_ExecuterInfo.EquipId != -999 && se.M_ExecuterInfo.EquipId == executerInfo.EquipId))
+                        Trigger(se, executerInfo, tt, tr);
                     break;
             }
         }
@@ -98,6 +100,17 @@ public class EventManager
         InvokeStackDepth--;
         if (InvokeStackDepth == 0) OnEventInvokeEndHandler();
     }
+
+    private void Trigger(SideEffectBase se, SideEffectBase.ExecuterInfo ei, SideEffectBundle.TriggerTime tt, SideEffectBundle.TriggerRange tr)
+    {
+        ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(se.M_ExecuterInfo, tt, tr);
+        OnEventInvokeHandler(request);
+        se.Excute(ei);
+    }
+
+    public delegate void OnEventInvoke(ShowSideEffectTriggeredRequest request);
+
+    public OnEventInvoke OnEventInvokeHandler;
 
     public delegate void OnEventInvokeEnd();
 

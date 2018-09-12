@@ -164,8 +164,7 @@ public class ModuleRetinue : ModuleBase
         M_RetinueWeaponEnergy = 0;
         M_RetinueWeaponEnergyMax = 0;
         ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
-        ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
-        ClientUtils.ChangeColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor);
+
 
         if (Slot1)
         {
@@ -203,6 +202,13 @@ public class ModuleRetinue : ModuleBase
         M_ClientTempRetinueID = -1;
 
         IsDead = false;
+    }
+
+    public override void ChangeColor(Color color)
+    {
+        base.ChangeColor(color);
+        ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
+        ClientUtils.ChangeColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor);
     }
 
     private int m_RetinueID;
@@ -268,7 +274,7 @@ public class ModuleRetinue : ModuleBase
         CardLifeHit.SetTrigger("BeHit");
         LifeChangeNumberFly.SetText("-" + damage, ClientUtils.HTMLColorToColor("#FF0A00"));
         retinueLifeChange(leftLifeValue, totalLifeValue);
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -278,7 +284,7 @@ public class ModuleRetinue : ModuleBase
 
         LifeChangeNumberFly.SetText("+" + addAmount, ClientUtils.HTMLColorToColor("#92FF00"));
         retinueLifeChange(leftLifeValue, totalLifeValue);
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -354,7 +360,7 @@ public class ModuleRetinue : ModuleBase
             WeaponAttackChangeNumberFly.SetText(change.ToString(), ClientUtils.HTMLColorToColor("#FF0000"));
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -413,7 +419,7 @@ public class ModuleRetinue : ModuleBase
             WeaponEnergyChangeNumberFly.SetText("-" + change, ClientUtils.HTMLColorToColor("#FF0000"));
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -469,7 +475,7 @@ public class ModuleRetinue : ModuleBase
             Text_RetinueArmor.text = armorValue.ToString();
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -490,7 +496,7 @@ public class ModuleRetinue : ModuleBase
             Text_RetinueArmor.text = armorValue.ToString();
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -538,7 +544,7 @@ public class ModuleRetinue : ModuleBase
             Text_RetinueShield.text = shieldValue.ToString();
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -560,7 +566,7 @@ public class ModuleRetinue : ModuleBase
             Text_RetinueShield.text = shieldValue.ToString();
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -1003,25 +1009,9 @@ public class ModuleRetinue : ModuleBase
 
     #region 副作用
 
-    public void OnSummon()
-    {
-        CheckCanAttack();
-    }
-
-    public void OnSummonShowEffects()
+    public override void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
     {
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#00FFDA"), 0.5f), "ShowSideEffectBloom");
-    }
-
-    public void OnDie()
-    {
-        if (IsDead) return;
-        IsDead = true;
-    }
-
-    public void OnDieShowEffects()
-    {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#000000"), 0.5f), "ShowSideEffectBloom");
     }
 
     IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
@@ -1032,6 +1022,18 @@ public class ModuleRetinue : ModuleBase
         SideEffcetBloom.gameObject.SetActive(false);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
+
+    public void OnSummon()
+    {
+        CheckCanAttack();
+    }
+
+    public void OnDie()
+    {
+        if (IsDead) return;
+        IsDead = true;
+    }
+
 
     public void OnAttack()
     {

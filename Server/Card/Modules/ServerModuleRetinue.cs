@@ -20,6 +20,12 @@ internal class ServerModuleRetinue : ServerModuleBase
             see.SideEffectBase.Player = ServerPlayer;
             see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
         }
+
+        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects_OnBattleGround.GetSideEffects())
+        {
+            see.SideEffectBase.Player = ServerPlayer;
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
+        }
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
@@ -32,7 +38,8 @@ internal class ServerModuleRetinue : ServerModuleBase
             lifeInfo: CardInfo.LifeInfo,
             battleInfo: CardInfo.BattleInfo,
             slotInfo: CardInfo.SlotInfo,
-            sideEffects: CardInfo.SideEffects);
+            sideEffects: CardInfo.SideEffects,
+            sideEffects_OnBattleGround: CardInfo.SideEffects_OnBattleGround);
     }
 
     #region 属性
@@ -272,6 +279,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         if (m_Weapon != null)
         {
             ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
+            m_Weapon.UnRegisterSideEffect();
             EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Weapon.M_EquipID);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Weapon = null;
@@ -294,6 +302,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         if (m_Weapon != null)
         {
             ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
+            m_Weapon.UnRegisterSideEffect();
         }
 
         m_Weapon = newWeapon;
@@ -338,6 +347,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         if (m_Shield != null)
         {
             ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
+            m_Shield.UnRegisterSideEffect();
         }
 
         EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Shield.M_EquipID);
@@ -360,6 +370,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         if (m_Shield != null)
         {
             ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
+            m_Shield.UnRegisterSideEffect();
         }
 
         m_Shield = newShield;
@@ -500,12 +511,17 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (M_IsDead) return;
         M_IsDead = true;
+        M_Shield = null;
+        M_Weapon = null;
         ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID);
         SideEffectBase.ExecuterInfo info = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueDie, info);
         if (CardInfo.BattleInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierDie, info);
         else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroDie, info);
+    }
 
+    public void UnregisterEvent()
+    {
         ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffects);
     }
 

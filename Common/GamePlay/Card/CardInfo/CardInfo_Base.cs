@@ -15,29 +15,32 @@ public class CardInfo_Base
     public SlotTypes M_SlotType;
 
     public SideEffectBundle SideEffects = new SideEffectBundle();
+    public SideEffectBundle SideEffects_OnBattleGround = new SideEffectBundle();//只有在战场上才会生效的特效（如装备牌和随从牌）
 
     public CardInfo_Base()
     {
     }
 
-    protected CardInfo_Base(int cardID, BaseInfo baseInfo, SlotTypes slotType, SideEffectBundle sideEffects)
+    protected CardInfo_Base(int cardID, BaseInfo baseInfo, SlotTypes slotType, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
     {
         CardID = cardID;
         BaseInfo = baseInfo;
         M_SlotType = slotType;
         SideEffects = sideEffects;
+        SideEffects_OnBattleGround = sideEffects_OnBattleGround;
     }
 
     public virtual string GetCardDescShow(bool isEnglish)
     {
         string CardDescShow = BaseInfo.CardDescRaw;
         CardDescShow += SideEffects.GetSideEffectsDesc(isEnglish);
+        CardDescShow += SideEffects_OnBattleGround.GetSideEffectsDesc(isEnglish);
         return CardDescShow;
     }
 
     public virtual CardInfo_Base Clone()
     {
-        return new CardInfo_Base(CardID, BaseInfo, M_SlotType, SideEffects.Clone());
+        return new CardInfo_Base(CardID, BaseInfo, M_SlotType, SideEffects.Clone(), SideEffects_OnBattleGround.Clone());
     }
 
     public void Serialize(DataStream writer)
@@ -55,6 +58,7 @@ public class CardInfo_Base
         ShieldInfo.Serialize(writer);
 
         SideEffects.Serialize(writer);
+        SideEffects_OnBattleGround.Serialize(writer);
     }
 
     public static CardInfo_Base Deserialze(DataStream reader)
@@ -74,6 +78,7 @@ public class CardInfo_Base
         newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
 
         newCardInfo_Base.SideEffects = SideEffectBundle.Deserialze(reader);
+        newCardInfo_Base.SideEffects_OnBattleGround = SideEffectBundle.Deserialze(reader);
 
         return newCardInfo_Base;
     }

@@ -8,11 +8,11 @@
     {
         ServerPlayer = serverPlayer;
         CardInfo = cardInfo.Clone();
-        Stars = cardInfo.UpgradeInfo.CardLevel;
+        Stars = CardInfo.UpgradeInfo.CardLevel;
         InitializeSideEffects();
         Initiate();
         isInitialized = true;
-        ServerPlayer.MyGameManager.EventManager.RegisterEvent(CardInfo.SideEffects);
+        ServerPlayer.MyGameManager.EventManager.RegisterEvent(CardInfo.SideEffects_OnBattleGround);
     }
 
     protected abstract void Initiate();
@@ -22,7 +22,7 @@
 
     public void UnRegisterSideEffect()
     {
-        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffects);
+        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffects_OnBattleGround);
     }
 
     public abstract CardInfo_Base GetCurrentCardInfo();

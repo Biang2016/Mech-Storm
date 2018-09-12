@@ -168,9 +168,9 @@ internal partial class RoundManager
                 OnDamageSomeRetinue((DamageOneRetinueRequest) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_EFFECT:
+            case NetProtocols.SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT:
             {
-                OnRetinueEffect((RetinueEffectRequest) r);
+                OnShowSideEffect((ShowSideEffectTriggeredRequest) r);
                 break;
             }
             case NetProtocols.SE_CARD_ATTR_CHANGE:
@@ -385,13 +385,13 @@ internal partial class RoundManager
     private void OnEquipWeapon(EquipWeaponServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.retinueId);
+        cp.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.retinueId, r.equipID);
     }
 
     private void OnEquipShield(EquipShieldServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId);
+        cp.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId, r.equipID);
     }
 
     private void OnUseSpellCard(UseSpellCardServerRequset r)
@@ -423,17 +423,19 @@ internal partial class RoundManager
         cp_beAttack.MyBattleGroundManager.DamageOneRetinue(r.beDamagedRetinueId, r.value);
     }
 
-    private void OnRetinueEffect(RetinueEffectRequest r)
+    private void OnShowSideEffect(ShowSideEffectTriggeredRequest r)
     {
-        ModuleRetinue retinue = GetPlayerByClientId(r.clientId).MyBattleGroundManager.GetRetinue(r.retinueId);
-        switch (r.effectType)
+        if (r.ExecuterInfo.RetinueId != -999)
         {
-            case RetinueEffectRequest.EffectType.OnSummon:
-                retinue.OnSummonShowEffects();
-                break;
-            case RetinueEffectRequest.EffectType.OnDie:
-                retinue.OnDieShowEffects();
-                break;
+            ClientPlayer cp = GetPlayerByClientId(r.ExecuterInfo.ClientId);
+            if (r.ExecuterInfo.EquipId == -999)
+            {
+                cp.MyBattleGroundManager.GetRetinue(r.ExecuterInfo.RetinueId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+            }
+            else
+            {
+                cp.MyBattleGroundManager.GetEquip(r.ExecuterInfo.RetinueId,r.ExecuterInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+            }
         }
     }
 
