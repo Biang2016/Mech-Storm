@@ -31,7 +31,7 @@ public class ModuleRetinue : ModuleBase
             M_MA = null;
         }
 
-        ArmorFill.gameObject.SetActive(false);
+        ArmorFillAnim.gameObject.SetActive(false);
 
         M_ClientTempRetinueID = -1;
         DamageNumberPreviewTextMesh.text = "";
@@ -42,7 +42,6 @@ public class ModuleRetinue : ModuleBase
     void Awake()
     {
         gameObjectPool = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool;
-        SwordMaskDefaultPosition = SwordBarMask.transform.localPosition;
         DamageNumberPreviewTextMesh.text = "";
         DamageNumberPreviewBGTextMesh.text = "";
     }
@@ -105,9 +104,6 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Renderer RetinueCanAttackBloom;
     [SerializeField] private Renderer OnHoverBloom;
     [SerializeField] private Renderer SideEffcetBloom;
-    [SerializeField] private Animator ShieldIconHit;
-    [SerializeField] private Animator ArmorIconHit;
-    [SerializeField] private Animator CardLifeHit;
 
     public Slot Slot1;
     public Slot Slot2;
@@ -125,17 +121,18 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private TextMesh DamageNumberPreviewTextMesh; //受攻击瞄准时的伤害预览
     [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh; //受攻击瞄准时的伤害预览
 
-    [SerializeField] private Animator ArmorFill;
+    [SerializeField] private Animator LifeIconAnim;
+    [SerializeField] private Animator LifeIconHit;
 
-    [SerializeField] private Animator ShieldBar;
-    [SerializeField] private Image ShieldBarImage;
+    [SerializeField] private Animator ArmorFillAnim;
+    [SerializeField] private Animator ArmorIconHit;
 
-    [SerializeField] private GameObject SwordBar;
-    [SerializeField] private GameObject SwordBarMask;
-    private float SwordMaskFullOffset = 0.451f;
-    private Vector3 SwordMaskDefaultPosition;
+    [SerializeField] private Image ShieldBar;
+    [SerializeField] private Animator ShieldBarAnim;
+    [SerializeField] private Animator ShieldIconHit;
 
-    [SerializeField] private Animator LifeIncreaseArrow;
+    [SerializeField] private Image SwordBar;
+    [SerializeField] private Animator SwordBarAnim;
 
     [SerializeField] private Animator RetinueTargetPreviewAnim;
 
@@ -143,7 +140,6 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private TextFlyPile ArmorChangeNumberFly;
     [SerializeField] private TextFlyPile ShieldChangeNumberFly;
     [SerializeField] private TextFlyPile WeaponAttackChangeNumberFly;
-    [SerializeField] private TextFlyPile WeaponEnergyChangeNumberFly;
 
     private bool isInitializing = false;
 
@@ -153,8 +149,8 @@ public class ModuleRetinue : ModuleBase
         base.Initiate(cardInfo, clientPlayer);
         Text_RetinueArmor.text = "";
         Text_RetinueShield.text = "";
-        ArmorFill.gameObject.SetActive(false);
-        ShieldBarImage.fillAmount = 0;
+        ArmorFillAnim.gameObject.SetActive(false);
+        ShieldBar.fillAmount = 0;
         M_RetinueName = cardInfo.BaseInfo.CardName;
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
         M_RetinueTotalLife = cardInfo.LifeInfo.TotalLife;
@@ -271,8 +267,9 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_LifeBeAttacked(int leftLifeValue, int totalLifeValue, int damage)
     {
-        CardLifeHit.SetTrigger("BeHit");
-        LifeChangeNumberFly.SetText("-" + damage, ClientUtils.HTMLColorToColor("#FF0A00"));
+        LifeIconHit.SetTrigger("BeHit");
+        LifeIconAnim.SetTrigger("Jump");
+        LifeChangeNumberFly.SetText("-" + damage, "#FF0A00", "#FF0A00", TextFly.FlyDirection.Down);
         retinueLifeChange(leftLifeValue, totalLifeValue);
         yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -280,9 +277,8 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_LifeAdded(int leftLifeValue, int totalLifeValue, int addAmount)
     {
-        LifeIncreaseArrow.SetTrigger("LifeAdd");
-
-        LifeChangeNumberFly.SetText("+" + addAmount, ClientUtils.HTMLColorToColor("#92FF00"));
+        LifeChangeNumberFly.SetText("+" + addAmount, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
+        LifeIconAnim.SetTrigger("Jump");
         retinueLifeChange(leftLifeValue, totalLifeValue);
         yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -303,6 +299,7 @@ public class ModuleRetinue : ModuleBase
     IEnumerator Co_TotalLifeAdded(int leftLifeValue, int totalLifeValue)
     {
         retinueLifeChange(leftLifeValue, totalLifeValue);
+        LifeIconAnim.SetTrigger("Jump");
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -353,11 +350,11 @@ public class ModuleRetinue : ModuleBase
         Text_RetinueAttack.text = retinueAttackValue > 0 ? retinueAttackValue.ToString() : "";
         if (change > 0)
         {
-            WeaponAttackChangeNumberFly.SetText("+" + change, ClientUtils.HTMLColorToColor("#92FF00"));
+            WeaponAttackChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
         }
         else
         {
-            WeaponAttackChangeNumberFly.SetText(change.ToString(), ClientUtils.HTMLColorToColor("#FF0000"));
+            WeaponAttackChangeNumberFly.SetText(change.ToString(), "#FF0000", "#FF0000", TextFly.FlyDirection.Up);
         }
 
         yield return new WaitForSeconds(0.2f);
@@ -380,7 +377,6 @@ public class ModuleRetinue : ModuleBase
                     M_Weapon.M_WeaponEnergy = value;
                 }
 
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax, value - before), "Co_RetinueWeaponEnergyChange");
                 BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack * M_RetinueWeaponEnergy, m_RetinueAttack * (value - before)), "Co_RetinueAttackChange");
             }
         }
@@ -401,38 +397,20 @@ public class ModuleRetinue : ModuleBase
                 {
                     M_Weapon.M_WeaponEnergyMax = value;
                 }
-
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyChange(m_RetinueWeaponEnergy, m_RetinueWeaponEnergyMax, value - before), "Co_RetinueWeaponEnergyChange");
             }
         }
-    }
-
-    IEnumerator Co_RetinueWeaponEnergyChange(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue, int change)
-    {
-        RefreshSwordBarMask(retinueWeaponEnergyValue, retinueWeaponEnergyMaxValue);
-        if (change > 0)
-        {
-            WeaponEnergyChangeNumberFly.SetText("+" + change, ClientUtils.HTMLColorToColor("#92FF00"));
-        }
-        else
-        {
-            WeaponEnergyChangeNumberFly.SetText("-" + change, ClientUtils.HTMLColorToColor("#FF0000"));
-        }
-
-        yield return new WaitForSeconds(0.2f);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private void RefreshSwordBarMask(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
     {
         if (retinueWeaponEnergyMaxValue != 0)
         {
-            SwordBarMask.transform.localPosition = SwordMaskDefaultPosition;
-            SwordBarMask.transform.Translate(Vector3.back * SwordMaskFullOffset * 2 * retinueWeaponEnergyValue / retinueWeaponEnergyMaxValue, Space.Self);
+            SwordBar.fillAmount = (float) retinueWeaponEnergyValue / retinueWeaponEnergyMaxValue;
+            SwordBarAnim.SetTrigger("Jump");
         }
         else
         {
-            SwordBarMask.transform.localPosition = SwordMaskDefaultPosition;
+            SwordBar.fillAmount = 0;
         }
     }
 
@@ -460,18 +438,18 @@ public class ModuleRetinue : ModuleBase
     IEnumerator Co_ArmorBeAttacked(int armorValue, int change)
     {
         ArmorIconHit.SetTrigger("BeHit");
-        ArmorFill.SetTrigger("ArmorAdd");
+        ArmorFillAnim.SetTrigger("Jump");
 
-        ArmorChangeNumberFly.SetText("-" + change, ClientUtils.HTMLColorToColor("#FF1300"));
+        ArmorChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Up);
 
         if (armorValue == 0)
         {
-            if (ArmorFill) ArmorFill.gameObject.SetActive(false);
+            if (ArmorFillAnim) ArmorFillAnim.gameObject.SetActive(false);
             Text_RetinueArmor.text = "";
         }
         else
         {
-            if (ArmorFill && !ArmorFill.gameObject.activeSelf) ArmorFill.gameObject.SetActive(true);
+            if (ArmorFillAnim && !ArmorFillAnim.gameObject.activeSelf) ArmorFillAnim.gameObject.SetActive(true);
             Text_RetinueArmor.text = armorValue.ToString();
         }
 
@@ -481,18 +459,18 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_ArmorAdded(int armorValue, int change)
     {
-        ArmorFill.SetTrigger("ArmorAdd");
+        ArmorFillAnim.SetTrigger("Jump");
 
-        ArmorChangeNumberFly.SetText("+" + change, ClientUtils.HTMLColorToColor("#FFDD00"));
+        ArmorChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
 
         if (armorValue == 0)
         {
-            if (ArmorFill) ArmorFill.gameObject.SetActive(false);
+            ArmorFillAnim.gameObject.SetActive(false);
             Text_RetinueArmor.text = "";
         }
         else
         {
-            if (ArmorFill && !ArmorFill.gameObject.activeSelf) ArmorFill.gameObject.SetActive(true);
+            if (!ArmorFillAnim.gameObject.activeSelf) ArmorFillAnim.gameObject.SetActive(true);
             Text_RetinueArmor.text = armorValue.ToString();
         }
 
@@ -529,18 +507,18 @@ public class ModuleRetinue : ModuleBase
     IEnumerator Co_ShieldBeAttacked(int shieldValue, int change)
     {
         ShieldIconHit.SetTrigger("BeHit");
-        ShieldBar.SetTrigger("ShieldAdd");
+        ShieldBarAnim.SetTrigger("Jump");
 
-        ShieldChangeNumberFly.SetText("-" + change, ClientUtils.HTMLColorToColor("#FF1300"));
+        ShieldChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Up);
 
         if (shieldValue == 0)
         {
-            if (ShieldBar) ShieldBarImage.fillAmount = 0;
+            ShieldBar.fillAmount = 0;
             Text_RetinueShield.text = "";
         }
         else
         {
-            if (ShieldBar) ShieldBarImage.fillAmount = (float) shieldValue / (float) RetinueShieldFull;
+            ShieldBar.fillAmount = (float) shieldValue / (float) RetinueShieldFull;
             Text_RetinueShield.text = shieldValue.ToString();
         }
 
@@ -551,18 +529,18 @@ public class ModuleRetinue : ModuleBase
     IEnumerator Co_ShieldAdded(int shieldValue, int change)
     {
         RetinueShieldFull = Mathf.Max(RetinueShieldFull, shieldValue);
-        ShieldBar.SetTrigger("ShieldAdd");
+        ShieldBarAnim.SetTrigger("Jump");
 
-        ShieldChangeNumberFly.SetText("+" + change, ClientUtils.HTMLColorToColor("#00FFF2"));
+        ShieldChangeNumberFly.SetText("+" + change, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Up);
 
         if (shieldValue == 0)
         {
-            if (ShieldBar) ShieldBarImage.fillAmount = 0;
+            ShieldBar.fillAmount = 0;
             Text_RetinueShield.text = "";
         }
         else
         {
-            if (ShieldBar) ShieldBarImage.fillAmount = 1;
+            ShieldBar.fillAmount = 1;
             Text_RetinueShield.text = shieldValue.ToString();
         }
 

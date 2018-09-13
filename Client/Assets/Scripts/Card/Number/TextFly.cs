@@ -25,15 +25,25 @@ public class TextFly : MonoBehaviour, IGameObjectPool
     }
 
 
-    public void SetText(string text, Color color, int fontSize = 70)
+    public void SetText(string text, Color textColor, Color arrowColor, FlyDirection flyDirection, int fontSize = 70)
     {
         Text.text = text;
         TextBG.text = text;
-        Text.color = new Color(color.r, color.g, color.b, 1);
-        TextBG.color = new Color(color.r / 1.5f, color.g / 1.5f, color.b / 1.5f, 1);
+        Text.color = new Color(textColor.r, textColor.g, textColor.b, 1);
+        TextBG.color = new Color(textColor.r / 1.5f, textColor.g / 1.5f, textColor.b / 1.5f, 1);
+        UpArrow.color = arrowColor;
+        DownArrow.color = arrowColor;
         Text.fontSize = fontSize;
         TextBG.fontSize = fontSize;
-        Anim.SetTrigger("BeginFly");
+        if (flyDirection == FlyDirection.Up)
+        {
+            Anim.SetTrigger("BeginFly");
+        }
+        else if (flyDirection == FlyDirection.Down)
+        {
+            Anim.SetTrigger("BeginFlyDown");
+        }
+
         StartCoroutine(Fly());
     }
 
@@ -45,5 +55,13 @@ public class TextFly : MonoBehaviour, IGameObjectPool
 
     [SerializeField] private Text Text;
     [SerializeField] private Text TextBG;
+    [SerializeField] private Image UpArrow;
+    [SerializeField] private Image DownArrow;
     [SerializeField] private Animator Anim;
+
+    public enum FlyDirection
+    {
+        Up,
+        Down,
+    }
 }
