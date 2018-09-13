@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+
 public class ClientPlayer : Player
 {
     public BoardAreaTypes MyBattleGroundArea; //卡牌所属方的战场区
@@ -40,6 +43,11 @@ public class ClientPlayer : Player
 
     public void DoChangeMetal(PlayerMetalChangeRequest request)
     {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeMetal(request), "Co_ChangeMetal");
+    }
+
+    IEnumerator Co_ChangeMetal(PlayerMetalChangeRequest request)
+    {
         if (request.change == PlayerMetalChangeRequest.MetalChangeFlag.Both)
         {
             AddMetal(request.addMetal_left);
@@ -53,6 +61,9 @@ public class ClientPlayer : Player
         {
             AddMetalMax(request.addMetal_max);
         }
+
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     #endregion
@@ -71,10 +82,18 @@ public class ClientPlayer : Player
 
     public void DoChangeLife(PlayerLifeChangeRequest request)
     {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeLife(request), "Co_ChangeLife");
+    }
+
+    IEnumerator Co_ChangeLife(PlayerLifeChangeRequest request)
+    {
         if (request.change == PlayerLifeChangeRequest.LifeChangeFlag.Left)
         {
             AddLife(request.addLife_left);
         }
+
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     #endregion
@@ -93,10 +112,18 @@ public class ClientPlayer : Player
 
     public void DoChangeEnergy(PlayerEnergyChangeRequest request)
     {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeEnergy(request), "Co_ChangeEnergy");
+    }
+
+    IEnumerator Co_ChangeEnergy(PlayerEnergyChangeRequest request)
+    {
         if (request.change == PlayerEnergyChangeRequest.EnergyChangeFlag.Left)
         {
             AddEnergy(request.addEnergy_left);
         }
+
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     #endregion

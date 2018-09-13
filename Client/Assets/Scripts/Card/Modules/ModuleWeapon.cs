@@ -58,6 +58,7 @@ public class ModuleWeapon : ModuleBase
         M_WeaponEnergy = cardInfo.WeaponInfo.Energy;
 
         if (M_Bloom) M_Bloom.gameObject.SetActive(false);
+        if (M_BloomSE) M_Bloom.gameObject.SetActive(false);
         if (M_WeaponType == WeaponTypes.Gun)
         {
             if (M_GunIcon) M_GunIcon.SetActive(true);
@@ -74,6 +75,7 @@ public class ModuleWeapon : ModuleBase
     {
         base.ChangeColor(color);
         ClientUtils.ChangeColor(M_Bloom, color);
+        ClientUtils.ChangeColor(M_BloomSE, color);
     }
 
     private NumberSize my_NumberSize_Attack = NumberSize.Big;

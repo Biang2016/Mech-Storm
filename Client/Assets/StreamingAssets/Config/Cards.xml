@@ -35,7 +35,7 @@
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" isSoldier="False" />
     <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
-    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="Self">
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemySoldiers" Value="5"></SideEffect>
     </CardInfo>
   </Card>
@@ -57,7 +57,7 @@
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="Self">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="3"></SideEffect>
     </CardInfo>
   </Card>
@@ -67,7 +67,7 @@
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="Self">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="6"></SideEffect>
     </CardInfo>
   </Card>
@@ -77,7 +77,7 @@
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="Self">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="10"></SideEffect>
     </CardInfo>
   </Card>
@@ -104,7 +104,7 @@
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" isSoldier="True" />
     <CardInfo name="slotInfo" slot1="None" slot2="None" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
+    <CardInfo name="sideEffectsInfo" triggerTime="OnRetinueSummon" triggerRange="Self">
       <SideEffect name="HealOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround" Value="5"></SideEffect>
     </CardInfo>
   </Card>
