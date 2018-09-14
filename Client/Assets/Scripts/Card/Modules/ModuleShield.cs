@@ -42,6 +42,7 @@ public class ModuleShield : ModuleBase
         M_ShieldArmor = cardInfo.ShieldInfo.Armor;
         M_ShieldShield = cardInfo.ShieldInfo.Shield;
         if (M_Bloom) M_Bloom.gameObject.SetActive(false);
+        if (M_BloomSE) M_BloomSE.gameObject.SetActive(false);
     }
 
     public override void ChangeColor(Color color)

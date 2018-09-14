@@ -62,6 +62,8 @@ public class ClientPlayer : Player
             AddMetalMax(request.addMetal_max);
         }
 
+        MyHandManager.RefreshAllCardUsable();
+
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }

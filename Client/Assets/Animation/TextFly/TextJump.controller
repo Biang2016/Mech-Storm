@@ -8,7 +8,7 @@ AnimatorController:
   m_Name: TextJump
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: BeginFlyDwon
+  - m_Name: BeginFlyDown
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -92,7 +92,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: BeginFlyDwon
+    m_ConditionEvent: BeginFlyDown
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102107918833385438}

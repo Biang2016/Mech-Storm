@@ -709,6 +709,7 @@ MonoBehaviour:
   Block_ShieldArmor: {fileID: 0}
   Block_ShieldShield: {fileID: 0}
   ShieldEquipedAnim: {fileID: 95637243469078672}
+  M_EquipID: 0
 --- !u!114 &114313992795482676
 MonoBehaviour:
   m_ObjectHideFlags: 1

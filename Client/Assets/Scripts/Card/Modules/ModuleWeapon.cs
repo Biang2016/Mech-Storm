@@ -58,7 +58,7 @@ public class ModuleWeapon : ModuleBase
         M_WeaponEnergy = cardInfo.WeaponInfo.Energy;
 
         if (M_Bloom) M_Bloom.gameObject.SetActive(false);
-        if (M_BloomSE) M_Bloom.gameObject.SetActive(false);
+        if (M_BloomSE) M_BloomSE.gameObject.SetActive(false);
         if (M_WeaponType == WeaponTypes.Gun)
         {
             if (M_GunIcon) M_GunIcon.SetActive(true);

@@ -14,7 +14,7 @@ public class TextFlyPile : MonoBehaviour
 
     private void ContinueFly()
     {
-        foreach (var fly in TextFlies)
+        foreach (TextFly fly in TextFlies)
         {
             fly.transform.Translate(Vector3.forward);
         }

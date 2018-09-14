@@ -151,6 +151,7 @@ public class ModuleRetinue : ModuleBase
         Text_RetinueShield.text = "";
         ArmorFillAnim.gameObject.SetActive(false);
         ShieldBar.fillAmount = 0;
+        SwordBar.fillAmount = 0;
         M_RetinueName = cardInfo.BaseInfo.CardName;
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
         M_RetinueTotalLife = cardInfo.LifeInfo.TotalLife;
@@ -255,33 +256,13 @@ public class ModuleRetinue : ModuleBase
         get { return m_RetinueLeftLife; }
         set
         {
-            if (!isInitializing)
+            int before = m_RetinueLeftLife;
+            if (m_RetinueLeftLife != value)
             {
-                if (m_RetinueLeftLife > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeBeAttacked(value, m_RetinueTotalLife, m_RetinueLeftLife - value), "Co_LifeBeAttacked");
-                else if (m_RetinueLeftLife < value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeAdded(value, m_RetinueTotalLife, value - m_RetinueLeftLife), "Co_LifeAdded");
+                m_RetinueLeftLife = value;
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeChange(value, m_RetinueTotalLife, value - before), "Co_LifeChange");
             }
-
-            m_RetinueLeftLife = value;
         }
-    }
-
-    IEnumerator Co_LifeBeAttacked(int leftLifeValue, int totalLifeValue, int damage)
-    {
-        LifeIconHit.SetTrigger("BeHit");
-        LifeIconAnim.SetTrigger("Jump");
-        LifeChangeNumberFly.SetText("-" + damage, "#FF0A00", "#FF0A00", TextFly.FlyDirection.Down);
-        retinueLifeChange(leftLifeValue, totalLifeValue);
-        yield return new WaitForSeconds(0.2f);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    IEnumerator Co_LifeAdded(int leftLifeValue, int totalLifeValue, int addAmount)
-    {
-        LifeChangeNumberFly.SetText("+" + addAmount, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
-        LifeIconAnim.SetTrigger("Jump");
-        retinueLifeChange(leftLifeValue, totalLifeValue);
-        yield return new WaitForSeconds(0.2f);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private int m_RetinueTotalLife;
@@ -291,37 +272,17 @@ public class ModuleRetinue : ModuleBase
         get { return m_RetinueTotalLife; }
         set
         {
-            m_RetinueTotalLife = value;
-            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_TotalLifeAdded(m_RetinueLeftLife, value), "Co_TotalLifeAdded");
+            int before = m_RetinueTotalLife;
+
+            if (m_RetinueTotalLife != value)
+            {
+                m_RetinueTotalLife = value;
+                if (!isInitializing) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_TotalLifeChange(m_RetinueLeftLife, value, value - before), "Co_TotalLifeChange");
+            }
         }
     }
 
-    IEnumerator Co_TotalLifeAdded(int leftLifeValue, int totalLifeValue)
-    {
-        retinueLifeChange(leftLifeValue, totalLifeValue);
-        LifeIconAnim.SetTrigger("Jump");
-        yield return null;
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    private void retinueLifeChange(int leftLifeValue, int totalLifeValue)
-    {
-        if (leftLifeValue < totalLifeValue)
-        {
-            LifeText.color = GameManager.Instance.InjuredLifeNumberColor;
-        }
-        else if (leftLifeValue == totalLifeValue && totalLifeValue > CardInfo.LifeInfo.TotalLife)
-        {
-            LifeText.color = GameManager.Instance.OverFlowTotalLifeColor;
-        }
-        else
-        {
-            LifeText.color = GameManager.Instance.DefaultLifeNumberColor;
-        }
-
-        LifeText.text = leftLifeValue.ToString();
-    }
-
+    public bool isAttackChanging = false;
     private int m_RetinueAttack;
 
     public int M_RetinueAttack
@@ -330,7 +291,6 @@ public class ModuleRetinue : ModuleBase
         set
         {
             int before = m_RetinueAttack;
-            if (isInitializing) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(m_RetinueAttack * M_RetinueWeaponEnergy, (value - before) * M_RetinueWeaponEnergy), "Co_RetinueAttackChange");
             if (m_RetinueAttack != value)
             {
                 m_RetinueAttack = value;
@@ -340,25 +300,9 @@ public class ModuleRetinue : ModuleBase
                 }
 
                 CheckCanAttack();
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(m_RetinueAttack * M_RetinueWeaponEnergy, (value - before) * M_RetinueWeaponEnergy), "Co_RetinueAttackChange");
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, M_RetinueWeaponEnergy == 0 ? (value - before) : (value - before) * M_RetinueWeaponEnergy), "Co_RetinueAttackChange");
             }
         }
-    }
-
-    IEnumerator Co_RetinueAttackChange(int retinueAttackValue, int change)
-    {
-        Text_RetinueAttack.text = retinueAttackValue > 0 ? retinueAttackValue.ToString() : "";
-        if (change > 0)
-        {
-            WeaponAttackChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
-        }
-        else
-        {
-            WeaponAttackChangeNumberFly.SetText(change.ToString(), "#FF0000", "#FF0000", TextFly.FlyDirection.Up);
-        }
-
-        yield return new WaitForSeconds(0.2f);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private int m_RetinueWeaponEnergy;
@@ -377,7 +321,7 @@ public class ModuleRetinue : ModuleBase
                     M_Weapon.M_WeaponEnergy = value;
                 }
 
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack * M_RetinueWeaponEnergy, m_RetinueAttack * (value - before)), "Co_RetinueAttackChange");
+                if (!isInitializing && m_RetinueAttack != 0 && !isAttackChanging) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, m_RetinueAttack * (value - before)), "Co_RetinueAttackChange");
             }
         }
     }
@@ -397,8 +341,141 @@ public class ModuleRetinue : ModuleBase
                 {
                     M_Weapon.M_WeaponEnergyMax = value;
                 }
+
+                if (!isInitializing) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyMaxChange(M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, value - before), "Co_RetinueWeaponEnergyMaxChange");
             }
         }
+    }
+
+
+    private int m_RetinueArmor;
+
+    public int M_RetinueArmor
+    {
+        get { return m_RetinueArmor; }
+        set
+        {
+            int before = m_RetinueArmor;
+            if (m_RetinueArmor != value)
+            {
+                m_RetinueArmor = value;
+                if (M_Shield)
+                {
+                    M_Shield.M_ShieldArmor = value;
+                }
+
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorChange(value, value - before), "Co_ArmorChange");
+            }
+        }
+    }
+
+    private int m_RetinueShield;
+
+    public int M_RetinueShield
+    {
+        get { return m_RetinueShield; }
+        set
+        {
+            int before = m_RetinueShield;
+            if (m_RetinueShield != value)
+            {
+                m_RetinueShield = value;
+                if (M_Shield)
+                {
+                    M_Shield.M_ShieldShield = value;
+                }
+
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChange(value, value - before), "Co_ShieldChange");
+            }
+        }
+    }
+
+    IEnumerator Co_LifeChange(int leftLifeValue, int totalLifeValue, int change)
+    {
+        LifeIconAnim.SetTrigger("Jump");
+        if (change > 0)
+        {
+            LifeChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
+        }
+        else
+        {
+            LifeIconHit.SetTrigger("BeHit");
+            LifeChangeNumberFly.SetText("-" + -change, "#FF0A00", "#FF0A00", TextFly.FlyDirection.Down);
+        }
+
+        LifeTextChange(leftLifeValue, totalLifeValue);
+        yield return new WaitForSeconds(0.2f);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
+    IEnumerator Co_TotalLifeChange(int leftLifeValue, int totalLifeValue, int change)
+    {
+        LifeIconAnim.SetTrigger("Jump");
+        if (change > 0)
+        {
+            LifeChangeNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up);
+        }
+        else
+        {
+            LifeChangeNumberFly.SetText("-" + -change, "#00A8FF", "#00A8FF", TextFly.FlyDirection.Down);
+        }
+
+        LifeTextChange(leftLifeValue, totalLifeValue);
+        yield return new WaitForSeconds(0.2f);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
+    private void LifeTextChange(int leftLifeValue, int totalLifeValue)
+    {
+        if (leftLifeValue < totalLifeValue)
+        {
+            LifeText.color = GameManager.Instance.InjuredLifeNumberColor;
+        }
+        else if (leftLifeValue == totalLifeValue && totalLifeValue > CardInfo.LifeInfo.TotalLife)
+        {
+            LifeText.color = GameManager.Instance.OverFlowTotalLifeColor;
+        }
+        else
+        {
+            LifeText.color = GameManager.Instance.DefaultLifeNumberColor;
+        }
+
+        LifeText.text = leftLifeValue.ToString();
+    }
+
+
+    IEnumerator Co_RetinueAttackChange(int retinueAttackValue, int retinueEnergy, int retinueEnergyMax, int change)
+    {
+        int attackNum = retinueAttackValue * retinueEnergy;
+        Text_RetinueAttack.text = attackNum > 0 ? attackNum.ToString() : "";
+        if (change > 0)
+        {
+            WeaponAttackChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
+        }
+        else
+        {
+            WeaponAttackChangeNumberFly.SetText(change.ToString(), "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
+        }
+
+        RefreshSwordBarMask(retinueEnergy, retinueEnergyMax);
+        yield return new WaitForSeconds(0.2f);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
+    IEnumerator Co_RetinueWeaponEnergyMaxChange(int retinueEnergy, int retinueEnergyMax, int change)
+    {
+        if (change > 0)
+        {
+            WeaponAttackChangeNumberFly.SetText("Max +" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
+        }
+        else
+        {
+            WeaponAttackChangeNumberFly.SetText("Max " + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
+        }
+
+        RefreshSwordBarMask(retinueEnergy, retinueEnergyMax);
+        yield return new WaitForSeconds(0.2f);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private void RefreshSwordBarMask(int retinueWeaponEnergyValue, int retinueWeaponEnergyMaxValue)
@@ -414,54 +491,19 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    private int m_RetinueArmor;
-
-    public int M_RetinueArmor
+    IEnumerator Co_ArmorChange(int armorValue, int change)
     {
-        get { return m_RetinueArmor; }
-        set
-        {
-            if (!isInitializing)
-            {
-                if (m_RetinueArmor > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorBeAttacked(value, m_RetinueArmor - value), "Co_ArmorBeAttacked");
-                else if (m_RetinueArmor < value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorAdded(value, value - m_RetinueArmor), "Co_ArmorAdded");
-            }
-
-            m_RetinueArmor = value;
-            if (M_Shield)
-            {
-                M_Shield.M_ShieldArmor = value;
-            }
-        }
-    }
-
-    IEnumerator Co_ArmorBeAttacked(int armorValue, int change)
-    {
-        ArmorIconHit.SetTrigger("BeHit");
         ArmorFillAnim.SetTrigger("Jump");
-
-        ArmorChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Up);
-
-        if (armorValue == 0)
+        if (change > 0)
         {
-            if (ArmorFillAnim) ArmorFillAnim.gameObject.SetActive(false);
-            Text_RetinueArmor.text = "";
+            ArmorChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
         }
         else
         {
-            if (ArmorFillAnim && !ArmorFillAnim.gameObject.activeSelf) ArmorFillAnim.gameObject.SetActive(true);
-            Text_RetinueArmor.text = armorValue.ToString();
+            ArmorIconHit.SetTrigger("BeHit");
+            ArmorChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
         }
 
-        yield return new WaitForSeconds(0.2f);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    IEnumerator Co_ArmorAdded(int armorValue, int change)
-    {
-        ArmorFillAnim.SetTrigger("Jump");
-
-        ArmorChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
 
         if (armorValue == 0)
         {
@@ -470,7 +512,7 @@ public class ModuleRetinue : ModuleBase
         }
         else
         {
-            if (!ArmorFillAnim.gameObject.activeSelf) ArmorFillAnim.gameObject.SetActive(true);
+            ArmorFillAnim.gameObject.SetActive(true);
             Text_RetinueArmor.text = armorValue.ToString();
         }
 
@@ -478,38 +520,24 @@ public class ModuleRetinue : ModuleBase
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
+
     [SerializeField] private int RetinueShieldFull;
 
-    private int m_RetinueShield;
 
-    public int M_RetinueShield
+    IEnumerator Co_ShieldChange(int shieldValue, int change)
     {
-        get { return m_RetinueShield; }
-        set
-        {
-            if (!isInitializing)
-            {
-                if (m_RetinueShield > value) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldBeAttacked(value, m_RetinueShield - value), "Co_ShieldBeAttacked");
-                else if (m_RetinueShield < value)
-                {
-                    BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldAdded(value, value - m_RetinueShield), "Co_ShieldAdded");
-                }
-            }
-
-            m_RetinueShield = value;
-            if (M_Shield)
-            {
-                M_Shield.M_ShieldShield = value;
-            }
-        }
-    }
-
-    IEnumerator Co_ShieldBeAttacked(int shieldValue, int change)
-    {
-        ShieldIconHit.SetTrigger("BeHit");
+        RetinueShieldFull = Mathf.Max(RetinueShieldFull, shieldValue);
         ShieldBarAnim.SetTrigger("Jump");
+        if (change > 0)
+        {
+            ShieldChangeNumberFly.SetText("+" + change, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Up);
+        }
+        else
+        {
+            ShieldIconHit.SetTrigger("BeHit");
+            ShieldChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
+        }
 
-        ShieldChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Up);
 
         if (shieldValue == 0)
         {
@@ -519,28 +547,6 @@ public class ModuleRetinue : ModuleBase
         else
         {
             ShieldBar.fillAmount = (float) shieldValue / (float) RetinueShieldFull;
-            Text_RetinueShield.text = shieldValue.ToString();
-        }
-
-        yield return new WaitForSeconds(0.2f);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    IEnumerator Co_ShieldAdded(int shieldValue, int change)
-    {
-        RetinueShieldFull = Mathf.Max(RetinueShieldFull, shieldValue);
-        ShieldBarAnim.SetTrigger("Jump");
-
-        ShieldChangeNumberFly.SetText("+" + change, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Up);
-
-        if (shieldValue == 0)
-        {
-            ShieldBar.fillAmount = 0;
-            Text_RetinueShield.text = "";
-        }
-        else
-        {
-            ShieldBar.fillAmount = 1;
             Text_RetinueShield.text = shieldValue.ToString();
         }
 

@@ -192,7 +192,6 @@ internal partial class RoundManager
     {
         ClientPlayer cp = GetPlayerByClientId(r.clinetId);
         cp.DoChangeMetal(r);
-        cp.MyHandManager.RefreshAllCardUsable();
     }
 
     private void OnSetPlayersLife(PlayerLifeChangeRequest r)
@@ -241,9 +240,11 @@ internal partial class RoundManager
     private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
     {
         ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinueId);
-        retinue.M_RetinueAttack += r.addAttack;
+        retinue.isAttackChanging = true;
         retinue.M_RetinueWeaponEnergyMax += r.addWeaponEnergyMax;
         retinue.M_RetinueWeaponEnergy += r.addWeaponEnergy;
+        retinue.M_RetinueAttack += r.addAttack;
+        retinue.isAttackChanging = false;
         retinue.M_RetinueArmor += r.addArmor;
         retinue.M_RetinueShield += r.addShield;
         retinue.M_RetinueTotalLife += r.addMaxLife;
