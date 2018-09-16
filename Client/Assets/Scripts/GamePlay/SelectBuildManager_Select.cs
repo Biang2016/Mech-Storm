@@ -193,11 +193,6 @@ public partial class SelectBuildManager
             }
 
             SelectCardCount++;
-            if (playSound)
-            {
-                int index = Random.Range(0, 2);
-                AudioManager.Instance.SoundPlay("sfx/SelectCard" + index);
-            }
         }
 
         if (!isSwitchingBuildInfo)
@@ -205,6 +200,7 @@ public partial class SelectBuildManager
             CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
             CurrentEditBuildButton.BuildInfo.CardConsumeCoin += card.CardInfo.BaseInfo.Coin;
             RefreshCoinLifeEnergy();
+            if (playSound) AudioManager.Instance.SoundPlay("sfx/SelectCard");
         }
     }
 
@@ -227,13 +223,13 @@ public partial class SelectBuildManager
         newSC.Energy = card.CardInfo.BaseInfo.Energy;
         newSC.Text_CardName.text = GameManager.Instance.isEnglish ? card.CardInfo.BaseInfo.CardName_en : card.CardInfo.BaseInfo.CardName;
         newSC.CardButton.onClick.RemoveAllListeners();
-        newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card); });
+        newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card, true); });
         Color cardColor = ClientUtils.HTMLColorToColor(card.CardInfo.BaseInfo.CardColor);
         newSC.CardButton.image.color = new Color(cardColor.r, cardColor.g, cardColor.b, 1f);
         return newSC;
     }
 
-    private void UnSelectCard(CardBase card)
+    private void UnSelectCard(CardBase card, bool playSound)
     {
         if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
         {
@@ -282,6 +278,8 @@ public partial class SelectBuildManager
             CurrentEditBuildButton.RemoveCard(card.CardInfo.CardID);
             CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= card.CardInfo.BaseInfo.Coin;
             RefreshCoinLifeEnergy();
+
+            if (playSound) AudioManager.Instance.SoundPlay("sfx/UnSelectCard");
         }
     }
 
@@ -301,8 +299,7 @@ public partial class SelectBuildManager
                 SelectCard(cardBase, false);
             }
 
-            int index = Random.Range(0, 2);
-            AudioManager.Instance.SoundPlay("sfx/SelectCard" + index);
+            AudioManager.Instance.SoundPlay("sfx/SelectCard");
         }
     }
 
@@ -387,6 +384,7 @@ public partial class SelectBuildManager
                 CurrentEditBuildButton.BuildInfo.Life = GamePlaySettings.PlayerDefaultLife;
                 CurrentEditBuildButton.BuildInfo.Energy = GamePlaySettings.PlayerDefaultEnergy;
                 RefreshCoinLifeEnergy();
+                AudioManager.Instance.SoundPlay("sfx/UnSelectCard");
             }
         }
 

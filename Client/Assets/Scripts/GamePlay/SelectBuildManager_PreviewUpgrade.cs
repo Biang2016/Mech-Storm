@@ -40,6 +40,7 @@ public partial class SelectBuildManager
 
         PreviewCardPanel.SetActive(true);
         PreviewCardPanelBG.SetActive(true);
+        AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
     }
 
     private void RefreshPreviewCard()
@@ -244,6 +245,7 @@ public partial class SelectBuildManager
 
         RefreshCardInSelectWindow(CurrentPreviewCard, cardCount != 0);
         AudioManager.Instance.SoundPlay("sfx/OnMoneyChange");
+        AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
         RefreshUpgradePanel();
         RefreshPreviewCard();
     }
@@ -285,6 +287,7 @@ public partial class SelectBuildManager
 
         RefreshCardInSelectWindow(CurrentPreviewCard, cardCount != 0);
         AudioManager.Instance.SoundPlay("sfx/OnMoneyChange");
+        AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
         RefreshUpgradePanel();
         RefreshPreviewCard();
     }

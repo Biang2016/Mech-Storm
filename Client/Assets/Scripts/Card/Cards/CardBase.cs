@@ -462,6 +462,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
         }
     }
 
+    internal bool IsFlying; //还在抽牌的运动中
 
     public virtual void OnBeginRound()
     {
@@ -506,7 +507,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
 
     public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        canDrag = Usable && ClientPlayer.MyHandManager.CurrentFocusCard == this && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
+        canDrag = !IsFlying && Usable && ClientPlayer.MyHandManager.CurrentFocusCard == this && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
         dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 
@@ -526,7 +527,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
 
     public virtual void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition)
     {
-        if (CanBecomeBigger)
+        if (CanBecomeBigger && !IsFlying)
         {
             ClientPlayer.MyHandManager.CardOnMouseEnter(this);
         }

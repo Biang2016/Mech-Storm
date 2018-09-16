@@ -19,12 +19,12 @@
 
     public override int GetProtocol()
     {
-        return NetProtocols.SE_PLAYER_MAGIC_CHANGE;
+        return NetProtocols.SE_PLAYER_ENERGY_CHANGE;
     }
 
     public override string GetProtocolName()
     {
-        return "SE_PLAYER_MAGIC_CHANGE";
+        return "SE_PLAYER_ENERGY_CHANGE";
     }
 
     public override void Serialize(DataStream writer)

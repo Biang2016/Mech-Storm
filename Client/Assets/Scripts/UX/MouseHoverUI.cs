@@ -7,6 +7,8 @@ using UnityEngine;
 class MouseHoverUI : MonoBehaviour, IMouseHoverComponent
 {
     [SerializeField] private Animator Anim;
+    [SerializeField] private string SFX;
+    [SerializeField] [Range(0, 1)] private float volumn;
 
     private bool isHover;
 
@@ -24,13 +26,13 @@ class MouseHoverUI : MonoBehaviour, IMouseHoverComponent
         if (isHover) return;
         Anim.SetTrigger("OnHover");
         isHover = true;
-        AudioManager.Instance.SoundPlay("sfx/SwitchButton");
+        AudioManager.Instance.SoundPlay("sfx/" + SFX, volumn);
     }
 
     public void MouseHoverComponent_OnFocusEnd()
     {
         if (!isHover) return;
-        Anim.SetTrigger("Reset");
+        Anim.SetTrigger("OnExit");
         isHover = false;
     }
 

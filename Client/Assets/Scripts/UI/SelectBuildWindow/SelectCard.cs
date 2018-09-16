@@ -19,8 +19,6 @@ public class SelectCard : MonoBehaviour, IGameObjectPool
         gameObjectPool = GameObjectPoolManager.Instance.Pool_SelectCardPool;
     }
 
-
-
     public Transform Tran_Metal;
     public Transform Tran_Energy;
     public Transform Tran_Metal_s;

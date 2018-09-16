@@ -126,6 +126,7 @@ public class HandManager : MonoBehaviour
         CardBase newCardBase;
 
         newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
+        newCardBase.IsFlying = true;
         cards.Add(newCardBase);
         newCardBase.myCollider.enabled = false;
         newCardBase.transform.position = srcPos.position;
@@ -137,6 +138,8 @@ public class HandManager : MonoBehaviour
 
         newCardBase.M_CardInstanceId = cardIdAndInstanceId.CardInstanceId;
         newCardBase.myCollider.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        newCardBase.IsFlying = false;
     }
 
     public int GetCardIndex(CardBase card)

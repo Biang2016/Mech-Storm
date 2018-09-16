@@ -125,7 +125,7 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
     {
         int showCardNumber = 0;
         if (number <= 0) showCardNumber = 0;
-        else if (number > cardDeckShowCardNumMap.Length)
+        else if (number >= cardDeckShowCardNumMap.Length)
         {
             showCardNumber = cardDeckShowCardNumMap[cardDeckShowCardNumMap.Length - 1];
         }

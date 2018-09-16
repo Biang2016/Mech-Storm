@@ -104,7 +104,11 @@ public class ClientPlayer : Player
 
     protected override void OnEnergyChanged()
     {
-        if (IsInitialized) MyMetalLifeEnergyManager.SetEnergy(EnergyLeft);
+        if (IsInitialized)
+        {
+            MyMetalLifeEnergyManager.SetEnergy(EnergyLeft);
+        }
+
     }
 
     protected void SetTotalEnergy()

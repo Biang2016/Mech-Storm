@@ -50,7 +50,7 @@
     <Compile Include="Card\Modules\ServerModuleWeapon.cs" />
     <Compile Include="Card\Modules\ServerModuleBase.cs" />
     <Compile Include="Card\Modules\ServerModuleRetinue.cs" />
-    <Compile Include="Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />
+    <Compile Include="Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseEnergy.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\CopyNextDrawCard.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\DrawCards.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddWeaponEnergy.cs" />

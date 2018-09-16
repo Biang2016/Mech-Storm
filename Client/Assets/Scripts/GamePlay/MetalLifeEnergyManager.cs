@@ -71,7 +71,11 @@ public class MetalLifeEnergyManager : MonoBehaviour
     public void SetLife(int value)
     {
         LifeNumber.text = value.ToString();
-        LifeBarMask.transform.localPosition = Vector3.Lerp(LifeBarMaskMinPos.localPosition, LifeBarMaskMaxPos.localPosition, (float) value / ClientPlayer.LifeMax);
+        LifeBar.fillAmount = (float) value / ClientPlayer.LifeMax;
+        LifeIconAnim.SetTrigger("Jump");
+        LifeIconAnim.SetTrigger("Reset");
+        LifeNumberAnim.SetTrigger("Jump");
+        LifeTotalNumberAnim.SetTrigger("Jump");
     }
 
     public void SetTotalLife(int value)
@@ -82,7 +86,11 @@ public class MetalLifeEnergyManager : MonoBehaviour
     public void SetEnergy(int value)
     {
         EnergyNumber.text = value.ToString();
-        EnergyBarMask.transform.localPosition = Vector3.Lerp(EnergyBarMaskMinPos.localPosition, EnergyBarMaskMaxPos.localPosition, (float) value / ClientPlayer.EnergyMax);
+        EnergyBar.fillAmount = (float) value / ClientPlayer.EnergyMax;
+        EnergyIconAnim.SetTrigger("Jump");
+        EnergyIconAnim.SetTrigger("Reset");
+        EnergyNumberAnim.SetTrigger("Jump");
+        EnergyTotalNumberAnim.SetTrigger("Jump");
         ClientPlayer.MyHandManager.RefreshAllCardUsable();
     }
 
@@ -93,14 +101,16 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     [SerializeField] private Transform MetalNumberMinPos;
     [SerializeField] private Transform MetalNumberMaxPos;
-
-    [SerializeField] private Transform LifeBarMask;
-    [SerializeField] private Transform LifeBarMaskMinPos;
-    [SerializeField] private Transform LifeBarMaskMaxPos;
-
-    [SerializeField] private Transform EnergyBarMask;
-    [SerializeField] private Transform EnergyBarMaskMinPos;
-    [SerializeField] private Transform EnergyBarMaskMaxPos;
+    [SerializeField] private Image LifeBar;
+    [SerializeField] private Image LifeTrough;
+    [SerializeField] private Animator LifeIconAnim;
+    [SerializeField] private Animator LifeNumberAnim;
+    [SerializeField] private Animator LifeTotalNumberAnim;
+    [SerializeField] private Image EnergyBar;
+    [SerializeField] private Image EnergyTrough;
+    [SerializeField] private Animator EnergyIconAnim;
+    [SerializeField] private Animator EnergyNumberAnim;
+    [SerializeField] private Animator EnergyTotalNumberAnim;
 
     public MetalBarManager MetalBarManager;
 }
