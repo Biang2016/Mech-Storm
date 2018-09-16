@@ -260,7 +260,8 @@ public class ModuleRetinue : ModuleBase
             if (m_RetinueLeftLife != value)
             {
                 m_RetinueLeftLife = value;
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeChange(value, m_RetinueTotalLife, value - before), "Co_LifeChange");
+                float duration = isInitializing ? 0 : 0.1f;
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeChange(value, m_RetinueTotalLife, value - before, duration), "Co_LifeChange");
             }
         }
     }
@@ -277,7 +278,8 @@ public class ModuleRetinue : ModuleBase
             if (m_RetinueTotalLife != value)
             {
                 m_RetinueTotalLife = value;
-                if (!isInitializing) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_TotalLifeChange(m_RetinueLeftLife, value, value - before), "Co_TotalLifeChange");
+                float duration = isInitializing ? 0 : 0.1f;
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_TotalLifeChange(m_RetinueLeftLife, value, value - before, duration), "Co_TotalLifeChange");
             }
         }
     }
@@ -291,6 +293,7 @@ public class ModuleRetinue : ModuleBase
         set
         {
             int before = m_RetinueAttack;
+            int before_att = M_RetinueWeaponFinalAttack;
             if (m_RetinueAttack != value)
             {
                 m_RetinueAttack = value;
@@ -300,7 +303,8 @@ public class ModuleRetinue : ModuleBase
                 }
 
                 CheckCanAttack();
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, M_RetinueWeaponEnergy == 0 ? (value - before) : (value - before) * M_RetinueWeaponEnergy), "Co_RetinueAttackChange");
+                float duration = isInitializing ? 0 : 0.1f;
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, M_RetinueWeaponEnergy == 0 ? (value - before) : M_RetinueWeaponFinalAttack - before_att, duration), "Co_RetinueAttackChange");
             }
         }
     }
@@ -312,7 +316,7 @@ public class ModuleRetinue : ModuleBase
         get { return m_RetinueWeaponEnergy; }
         set
         {
-            int before = m_RetinueWeaponEnergy;
+            int before_att = M_RetinueWeaponFinalAttack;
             if (m_RetinueWeaponEnergy != value)
             {
                 m_RetinueWeaponEnergy = value;
@@ -321,7 +325,8 @@ public class ModuleRetinue : ModuleBase
                     M_Weapon.M_WeaponEnergy = value;
                 }
 
-                if (!isInitializing && m_RetinueAttack != 0 && !isAttackChanging) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, m_RetinueAttack * (value - before)), "Co_RetinueAttackChange");
+                float duration = isInitializing ? 0 : 0.1f;
+                if (!isInitializing && m_RetinueAttack != 0 && !isAttackChanging) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, M_RetinueWeaponFinalAttack - before_att, duration), "Co_RetinueAttackChange");
             }
         }
     }
@@ -342,7 +347,23 @@ public class ModuleRetinue : ModuleBase
                     M_Weapon.M_WeaponEnergyMax = value;
                 }
 
-                if (!isInitializing) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyMaxChange(M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, value - before), "Co_RetinueWeaponEnergyMaxChange");
+                float duration = isInitializing ? 0 : 0.1f;
+                if (!isInitializing) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueWeaponEnergyMaxChange(M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, value - before, duration), "Co_RetinueWeaponEnergyMaxChange");
+            }
+        }
+    }
+
+    public int M_RetinueWeaponFinalAttack
+    {
+        get
+        {
+            if (M_RetinueWeaponEnergy == 0)
+            {
+                return M_RetinueAttack;
+            }
+            else
+            {
+                return M_RetinueWeaponEnergy * M_RetinueAttack;
             }
         }
     }
@@ -364,7 +385,8 @@ public class ModuleRetinue : ModuleBase
                     M_Shield.M_ShieldArmor = value;
                 }
 
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorChange(value, value - before), "Co_ArmorChange");
+                float duration = isInitializing ? 0 : 0.1f;
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorChange(value, value - before, duration), "Co_ArmorChange");
             }
         }
     }
@@ -385,12 +407,13 @@ public class ModuleRetinue : ModuleBase
                     M_Shield.M_ShieldShield = value;
                 }
 
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChange(value, value - before), "Co_ShieldChange");
+                float duration = isInitializing ? 0 : 0.1f;
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChange(value, value - before, duration), "Co_ShieldChange");
             }
         }
     }
 
-    IEnumerator Co_LifeChange(int leftLifeValue, int totalLifeValue, int change)
+    IEnumerator Co_LifeChange(int leftLifeValue, int totalLifeValue, int change, float duration)
     {
         LifeIconAnim.SetTrigger("Jump");
         if (change > 0)
@@ -404,11 +427,11 @@ public class ModuleRetinue : ModuleBase
         }
 
         LifeTextChange(leftLifeValue, totalLifeValue);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(duration);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    IEnumerator Co_TotalLifeChange(int leftLifeValue, int totalLifeValue, int change)
+    IEnumerator Co_TotalLifeChange(int leftLifeValue, int totalLifeValue, int change, float duration)
     {
         LifeIconAnim.SetTrigger("Jump");
         if (change > 0)
@@ -421,7 +444,7 @@ public class ModuleRetinue : ModuleBase
         }
 
         LifeTextChange(leftLifeValue, totalLifeValue);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(duration);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -444,10 +467,11 @@ public class ModuleRetinue : ModuleBase
     }
 
 
-    IEnumerator Co_RetinueAttackChange(int retinueAttackValue, int retinueEnergy, int retinueEnergyMax, int change)
+    IEnumerator Co_RetinueAttackChange(int retinueAttackValue, int retinueEnergy, int retinueEnergyMax, int change, float duration)
     {
-        int attackNum = retinueAttackValue * retinueEnergy;
-        Text_RetinueAttack.text = attackNum > 0 ? attackNum.ToString() : "";
+        int finalAttack = retinueEnergy == 0 ? retinueAttackValue : retinueEnergy * retinueAttackValue;
+
+        Text_RetinueAttack.text = finalAttack > 0 ? finalAttack.ToString() : "";
         if (change > 0)
         {
             WeaponAttackChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
@@ -458,11 +482,11 @@ public class ModuleRetinue : ModuleBase
         }
 
         RefreshSwordBarMask(retinueEnergy, retinueEnergyMax);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(duration);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    IEnumerator Co_RetinueWeaponEnergyMaxChange(int retinueEnergy, int retinueEnergyMax, int change)
+    IEnumerator Co_RetinueWeaponEnergyMaxChange(int retinueEnergy, int retinueEnergyMax, int change, float duration)
     {
         if (change > 0)
         {
@@ -474,7 +498,7 @@ public class ModuleRetinue : ModuleBase
         }
 
         RefreshSwordBarMask(retinueEnergy, retinueEnergyMax);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(duration);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -491,7 +515,7 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    IEnumerator Co_ArmorChange(int armorValue, int change)
+    IEnumerator Co_ArmorChange(int armorValue, int change, float duration)
     {
         ArmorFillAnim.SetTrigger("Jump");
         if (change > 0)
@@ -516,7 +540,7 @@ public class ModuleRetinue : ModuleBase
             Text_RetinueArmor.text = armorValue.ToString();
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(duration);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -524,7 +548,7 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private int RetinueShieldFull;
 
 
-    IEnumerator Co_ShieldChange(int shieldValue, int change)
+    IEnumerator Co_ShieldChange(int shieldValue, int change, float duration)
     {
         RetinueShieldFull = Mathf.Max(RetinueShieldFull, shieldValue);
         ShieldBarAnim.SetTrigger("Jump");
@@ -550,7 +574,7 @@ public class ModuleRetinue : ModuleBase
             Text_RetinueShield.text = shieldValue.ToString();
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(duration);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -814,11 +838,15 @@ public class ModuleRetinue : ModuleBase
 
     public void ShowTargetPreviewArrow()
     {
+        RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
+        RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
         RetinueTargetPreviewAnim.SetTrigger("BeginTarget");
     }
 
     public void HideTargetPreviewArrow()
     {
+        RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
+        RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
         RetinueTargetPreviewAnim.SetTrigger("EndTarget");
     }
 
@@ -954,9 +982,9 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    public override void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
+    public override void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition)
     {
-        base.MouseHoverComponent_OnMouseEnterImmediately(mousePosition);
+        base.MouseHoverComponent_OnHoverBegin(mousePosition);
         if (DragManager.Instance.IsSummonPreview)
         {
             TargetSideEffect.TargetRange targetRange = DragManager.Instance.SummonRetinueTargetRange;
@@ -977,9 +1005,9 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    public override void MouseHoverComponent_OnMouseLeaveImmediately()
+    public override void MouseHoverComponent_OnHoverEnd()
     {
-        base.MouseHoverComponent_OnMouseLeaveImmediately();
+        base.MouseHoverComponent_OnHoverEnd();
         IsBeHover = false;
         if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
         {

@@ -12,7 +12,7 @@ class ClientUtils
 
     public static void ChangePicture(Renderer rd, int pictureID)
     {
-        Texture tx = (Texture) Resources.Load(string.Format("{0:000}", pictureID));
+        Texture tx = (Texture) Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID));
         if (tx == null)
         {
             Debug.LogError("所选卡片没有图片资源：" + pictureID);
@@ -72,6 +72,5 @@ class ClientUtils
     {
         public Vector3 Position;
         public Quaternion Rotation;
-
     }
 }

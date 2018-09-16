@@ -52,7 +52,7 @@ public class GameManager : MonoSingletion<GameManager>
     public float HandCardOffset = 0.4f;
 
     public float PullOutCardSize = 3.0f;
-    public float PullOutCardDistanceThreshold = 5.0f;
+    public float PullOutCardDistanceThreshold = 0f;
 
     public float DetailSingleCardSize = 3.0f;
     public float DetailEquipmentCardSize = 2.5f;

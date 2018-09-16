@@ -81,7 +81,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             m_RetinueLeftLife = value;
             if (isInitialized && before != m_RetinueLeftLife)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.LeftLife, addLeftLife: m_RetinueLeftLife - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addLeftLife: m_RetinueLeftLife - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
 
@@ -115,7 +115,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             m_RetinueTotalLife = value;
             if (isInitialized && before != m_RetinueTotalLife)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.MaxLife, addMaxLife: m_RetinueTotalLife - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addMaxLife: m_RetinueTotalLife - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -148,7 +148,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueAttack)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Attack, addAttack: m_RetinueAttack - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addAttack: m_RetinueAttack - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -170,7 +170,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueWeaponEnergy)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.WeaponEnergy, addWeaponEnergy: m_RetinueWeaponEnergy - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addWeaponEnergy: m_RetinueWeaponEnergy - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -192,7 +192,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueWeaponEnergyMax)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.WeaponEnergyMax, addWeaponEnergyMax: m_RetinueWeaponEnergyMax - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addWeaponEnergyMax: m_RetinueWeaponEnergyMax - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -214,7 +214,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueArmor)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Armor, addArmor: m_RetinueArmor - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addArmor: m_RetinueArmor - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -239,7 +239,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueShield)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, RetinueAttributesChangeRequest.RetinueAttributesChangeFlag.Shield, addShield: m_RetinueShield - before);
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addShield: m_RetinueShield - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -283,6 +283,17 @@ internal class ServerModuleRetinue : ServerModuleBase
             EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Weapon.M_EquipID);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Weapon = null;
+
+            int att_before = m_RetinueAttack;
+            int we_before = m_RetinueWeaponEnergy;
+            int weMax_before = m_RetinueWeaponEnergyMax;
+
+            m_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
+            m_RetinueWeaponEnergy = 0;
+            m_RetinueWeaponEnergyMax = 0;
+
+            RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addAttack: m_RetinueAttack - att_before, addWeaponEnergy: m_RetinueWeaponEnergy - we_before, addWeaponEnergyMax: m_RetinueWeaponEnergyMax - weMax_before);
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
         }
     }
 
@@ -292,9 +303,15 @@ internal class ServerModuleRetinue : ServerModuleBase
         EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex, m_Weapon.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
-        M_RetinueAttack += newWeapon.CardInfo.WeaponInfo.Attack;
-        M_RetinueWeaponEnergyMax += newWeapon.CardInfo.WeaponInfo.EnergyMax;
-        M_RetinueWeaponEnergy += newWeapon.CardInfo.WeaponInfo.Energy;
+        int att_before = m_RetinueAttack;
+        int we_before = m_RetinueWeaponEnergy;
+        int weMax_before = m_RetinueWeaponEnergyMax;
+        m_RetinueAttack += newWeapon.CardInfo.WeaponInfo.Attack;
+        m_RetinueWeaponEnergyMax += newWeapon.CardInfo.WeaponInfo.EnergyMax;
+        m_RetinueWeaponEnergy += newWeapon.CardInfo.WeaponInfo.Energy;
+
+        RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addAttack: m_RetinueAttack - att_before, addWeaponEnergy: m_RetinueWeaponEnergy - we_before, addWeaponEnergyMax: m_RetinueWeaponEnergyMax - weMax_before);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
     }
 
     void On_WeaponChanged(ServerModuleWeapon newWeapon)
@@ -309,9 +326,15 @@ internal class ServerModuleRetinue : ServerModuleBase
         EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex, m_Weapon.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
-        M_RetinueAttack = CardInfo.BattleInfo.BasicAttack + newWeapon.CardInfo.WeaponInfo.Attack;
-        M_RetinueWeaponEnergyMax = newWeapon.CardInfo.WeaponInfo.EnergyMax;
-        M_RetinueWeaponEnergy = newWeapon.CardInfo.WeaponInfo.Energy;
+        int att_before = m_RetinueAttack;
+        int we_before = m_RetinueWeaponEnergy;
+        int weMax_before = m_RetinueWeaponEnergyMax;
+        m_RetinueAttack = CardInfo.BattleInfo.BasicAttack + newWeapon.CardInfo.WeaponInfo.Attack;
+        m_RetinueWeaponEnergyMax = newWeapon.CardInfo.WeaponInfo.EnergyMax;
+        m_RetinueWeaponEnergy = newWeapon.CardInfo.WeaponInfo.Energy;
+
+        RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addAttack: m_RetinueAttack - att_before, addWeaponEnergy: m_RetinueWeaponEnergy - we_before, addWeaponEnergyMax: m_RetinueWeaponEnergyMax - weMax_before);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
     }
 
     #endregion
@@ -353,6 +376,14 @@ internal class ServerModuleRetinue : ServerModuleBase
         EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Shield.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         m_Shield = null;
+
+        int shield_before = m_RetinueShield;
+        int armor_before = m_RetinueArmor;
+        m_RetinueShield = 0;
+        m_RetinueArmor = 0;
+
+        RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addShield: m_RetinueShield - shield_before, addArmor: m_RetinueArmor - armor_before);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
     }
 
     void On_ShieldEquiped(ServerModuleShield newShield)
@@ -361,8 +392,13 @@ internal class ServerModuleRetinue : ServerModuleBase
         EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex, m_Shield.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
-        M_RetinueArmor += newShield.CardInfo.ShieldInfo.Armor;
-        M_RetinueShield += newShield.CardInfo.ShieldInfo.Shield;
+        int shield_before = m_RetinueShield;
+        int armor_before = m_RetinueArmor;
+        m_RetinueArmor += newShield.CardInfo.ShieldInfo.Armor;
+        m_RetinueShield += newShield.CardInfo.ShieldInfo.Shield;
+
+        RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addShield: m_RetinueShield - shield_before, addArmor: m_RetinueArmor - armor_before);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
     }
 
     void On_ShieldChanged(ServerModuleShield newShield) //更换防具时机体基础护甲护盾恢复
@@ -377,8 +413,13 @@ internal class ServerModuleRetinue : ServerModuleBase
         EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex, m_Shield.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
-        M_RetinueShield = CardInfo.BattleInfo.BasicShield + newShield.CardInfo.ShieldInfo.Shield;
-        M_RetinueArmor = CardInfo.BattleInfo.BasicArmor + newShield.CardInfo.ShieldInfo.Armor;
+        int shield_before = m_RetinueShield;
+        int armor_before = m_RetinueArmor;
+        m_RetinueShield = CardInfo.BattleInfo.BasicShield + newShield.CardInfo.ShieldInfo.Shield;
+        m_RetinueArmor = CardInfo.BattleInfo.BasicArmor + newShield.CardInfo.ShieldInfo.Armor;
+
+        RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addShield: m_RetinueShield - shield_before, addArmor: m_RetinueArmor - armor_before);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
     }
 
     #endregion

@@ -152,7 +152,7 @@ public class CardRetinue : CardBase
             {
                 ClientPlayer.MyBattleGroundManager.RemoveRetinuePreview();
                 transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-                ClientPlayer.MyHandManager.RefreshCardsPlace();
+                ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
             }
         }
         else
@@ -165,7 +165,7 @@ public class CardRetinue : CardBase
             {
                 ClientPlayer.MyBattleGroundManager.RemoveRetinuePreview();
                 transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-                ClientPlayer.MyHandManager.RefreshCardsPlace();
+                ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
             }
         }
     }

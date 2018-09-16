@@ -50,4 +50,9 @@ public class BuildButtonClick : MonoBehaviour, IPointerClickHandler
         middleDoubleClick.RemoveAllListeners();
         rightDoubleClick.RemoveAllListeners();
     }
+
+    public void PlayHoverSound()
+    {
+        AudioManager.Instance.SoundPlay("sfx/MouseHoverBuildButton",0.3f);
+    }
 }

@@ -20,10 +20,6 @@ public class MouseHoverComponent : MonoBehaviour
 
     void Update()
     {
-        if (IsOnFocus)
-        {
-            caller.MouseHoverComponent_OnMouseOver();
-        }
     }
 
     private bool isOnFocus;
@@ -38,13 +34,13 @@ public class MouseHoverComponent : MonoBehaviour
             {
                 Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 isOnFocus = value;
-                caller.MouseHoverComponent_OnMouseEnter(cameraPosition);
+                caller.MouseHoverComponent_OnFocusBegin(cameraPosition);
             }
 
             else if (isOnFocus && !value)
             {
                 isOnFocus = value;
-                caller.MouseHoverComponent_OnMouseLeave();
+                caller.MouseHoverComponent_OnFocusEnd();
             }
         }
     }
@@ -61,13 +57,13 @@ public class MouseHoverComponent : MonoBehaviour
             {
                 Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 isOnHover = value;
-                caller.MouseHoverComponent_OnMouseEnterImmediately(cameraPosition);
+                caller.MouseHoverComponent_OnHoverBegin(cameraPosition);
             }
 
             else if (isOnHover && !value)
             {
                 isOnHover = value;
-                caller.MouseHoverComponent_OnMouseLeaveImmediately();
+                caller.MouseHoverComponent_OnHoverEnd();
             }
         }
     }
@@ -101,12 +97,11 @@ public interface IMouseHoverComponent
     /// <summary>
     /// 此接口用于将除了MouseHoverComponent通用效果之外的效果还给调用者自行处理
     /// </summary>
-    void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition);
 
-    void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition);
-    void MouseHoverComponent_OnMouseEnter(Vector3 mousePosition);
-    void MouseHoverComponent_OnMouseOver();
-    void MouseHoverComponent_OnMouseLeave();
-    void MouseHoverComponent_OnMouseLeaveImmediately();
+    void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition);
+    void MouseHoverComponent_OnHoverEnd();
+    void MouseHoverComponent_OnFocusBegin(Vector3 mousePosition);
+    void MouseHoverComponent_OnFocusEnd();
+    void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition);
     void MouseHoverComponent_OnMousePressLeaveImmediately();
 }

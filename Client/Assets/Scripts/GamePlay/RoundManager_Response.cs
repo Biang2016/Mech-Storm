@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -435,7 +436,7 @@ internal partial class RoundManager
             }
             else
             {
-                cp.MyBattleGroundManager.GetEquip(r.ExecuterInfo.RetinueId,r.ExecuterInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+                cp.MyBattleGroundManager.GetEquip(r.ExecuterInfo.RetinueId, r.ExecuterInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             }
         }
     }

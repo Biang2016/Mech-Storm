@@ -21,18 +21,17 @@ public class CardEquip : CardBase
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
+        ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (Slot sa in slots)
                 if (sa.MSlotTypes == M_EquipType && sa.ClientPlayer == ClientPlayer)
                 {
                     summonEquipRequest(sa.M_ModuleRetinue, dragLastPosition);
-                    ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
                     return;
                 }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
-        ClientPlayer.MyHandManager.RefreshCardsPlace();
+        ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
     }
 
 

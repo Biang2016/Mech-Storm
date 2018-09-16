@@ -57,10 +57,10 @@ public class HandManager : MonoBehaviour
             lastShowCard = null;
         }
 
-        if (currentFocusCard)
+        if (CurrentFocusCard)
         {
-            currentFocusCard.PoolRecycle();
-            currentFocusCard = null;
+            CurrentFocusCard.PoolRecycle();
+            CurrentFocusCard = null;
         }
 
         if (currentFocusEquipmentCard)
@@ -258,10 +258,10 @@ public class HandManager : MonoBehaviour
             Physics.Raycast(ray, out raycast, 10f, cardLayer);
             if (raycast.collider == null)
             {
-                if (currentFocusCard)
+                if (CurrentFocusCard)
                 {
-                    returnToSmaller(currentFocusCard);
-                    currentFocusCard = null;
+                    returnToSmaller(CurrentFocusCard);
+                    CurrentFocusCard = null;
                 }
             }
         }
@@ -281,6 +281,12 @@ public class HandManager : MonoBehaviour
 
     internal void RefreshCardsPlace(int cardCount, float duration) //按虚拟的手牌总数重置所有手牌位置
     {
+        if (CurrentFocusCard)
+        {
+            returnToSmaller(CurrentFocusCard);
+            CurrentFocusCard = null;
+        }
+
         if (ClientPlayer == null) return;
         if (cards.Count == 0) return;
 
@@ -314,6 +320,12 @@ public class HandManager : MonoBehaviour
 
     internal void RefreshCardsPlaceImmediately(int cardCount) //瞬间重置
     {
+        if (CurrentFocusCard)
+        {
+            returnToSmaller(CurrentFocusCard);
+            CurrentFocusCard = null;
+        }
+
         if (ClientPlayer == null) return;
         if (cards.Count == 0) return;
 
@@ -393,31 +405,40 @@ public class HandManager : MonoBehaviour
         foreach (CardBase card in cards) card.Usable = false;
     }
 
-    CardBase currentFocusCard;
+    public CardBase CurrentFocusCard;
     CardBase currentFocusEquipmentCard;
 
     internal void CardOnMouseEnter(CardBase focusCard)
     {
-        if (currentFocusCard)
+        if (isBeginDrag) return;
+        if (CurrentFocusCard == focusCard) return;
+        if (CurrentFocusCard)
         {
-            returnToSmaller(currentFocusCard);
+            returnToSmaller(CurrentFocusCard);
             RefreshCardsPlaceImmediately();
             ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
         }
 
-        currentFocusCard = focusCard;
+        CurrentFocusCard = focusCard;
         becomeBigger(focusCard);
         if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
         {
-            if (currentFocusCard is CardEquip)
+            if (CurrentFocusCard is CardEquip)
             {
-                SlotTypes type = ((CardEquip) currentFocusCard).M_EquipType;
+                SlotTypes type = ((CardEquip) CurrentFocusCard).M_EquipType;
                 ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms(type);
-                currentFocusEquipmentCard = currentFocusCard;
+                currentFocusEquipmentCard = CurrentFocusCard;
             }
 
             ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.HightlightTopBlocks(focusCard.CardInfo.BaseInfo.Metal);
         }
+    }
+
+    internal void CardOnMouseLeave(CardBase focusCard)
+    {
+        if (isBeginDrag) return;
+        RefreshCardsPlaceImmediately();
+        ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
     }
 
     internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard)

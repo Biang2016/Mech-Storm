@@ -506,7 +506,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
 
     public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        canDrag = Usable && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
+        canDrag = Usable && ClientPlayer.MyHandManager.CurrentFocusCard == this && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
         dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 
@@ -524,7 +524,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
     {
     }
 
-    public virtual void MouseHoverComponent_OnMouseEnterImmediately(Vector3 mousePosition)
+    public virtual void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition)
     {
         if (CanBecomeBigger)
         {
@@ -532,11 +532,11 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
         }
     }
 
-    public virtual void MouseHoverComponent_OnMouseEnter(Vector3 mousePosition)
+    public virtual void MouseHoverComponent_OnFocusBegin(Vector3 mousePosition)
     {
     }
 
-    public virtual void MouseHoverComponent_OnMouseOver()
+    public virtual void MouseHoverComponent_OnFocusEnd()
     {
     }
 
@@ -544,12 +544,14 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
     {
     }
 
-    public virtual void MouseHoverComponent_OnMouseLeaveImmediately()
+    public virtual void MouseHoverComponent_OnHoverEnd()
     {
     }
 
     public virtual void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
+        ClientPlayer.MyHandManager.CardOnMouseLeave(this);
+        ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
     }
 
     #endregion

@@ -21,6 +21,8 @@ public partial class SelectBuildManager
         BuggetText.text = GameManager.Instance.isEnglish ? "Bugget" : "预算";
         BuggetIcon.SetActive(!GameManager.Instance.isEnglish);
         DrawCardNumText.text = GameManager.Instance.isEnglish ? "Number of Draws Per Round" : "每回合抽牌数";
+        AllCardDeckText.text = GameManager.Instance.isEnglish ? "Card Library" : "牌 库";
+        CardDeckRenameText.text = GameManager.Instance.isEnglish ? "Rename Deck" : "卡组命名";
 
         SelectAllCardText.text = GameManager.Instance.isEnglish ? "Select All" : "全选";
         UnSelectAllCardText.text = GameManager.Instance.isEnglish ? "Unselect All" : "清除选择";
@@ -58,6 +60,8 @@ public partial class SelectBuildManager
     [SerializeField] private Text BuggetText;
     [SerializeField] private GameObject BuggetIcon;
     [SerializeField] private Text DrawCardNumText;
+    [SerializeField] private Text AllCardDeckText;
+    [SerializeField] private Text CardDeckRenameText;
 
     [SerializeField] private Text SelectAllCardText;
     [SerializeField] private Text UnSelectAllCardText;
@@ -111,7 +115,7 @@ public partial class SelectBuildManager
         }
     }
 
-    private void SelectCard(CardBase card)
+    private void SelectCard(CardBase card, bool playSound)
     {
         if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
         {
@@ -136,7 +140,7 @@ public partial class SelectBuildManager
         {
             if (isSelectedHeroFull)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "The number of portable hero cards has reached the upper limit." : "可携带英雄卡牌数量已达上限", 0, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "The number of HeroMeches reaches the upper limit." : "可携带英雄卡牌数量已达上限", 0, 1f);
                 return;
             }
 
@@ -189,6 +193,11 @@ public partial class SelectBuildManager
             }
 
             SelectCardCount++;
+            if (playSound)
+            {
+                int index = Random.Range(0, 2);
+                AudioManager.Instance.SoundPlay("sfx/SelectCard" + index);
+            }
         }
 
         if (!isSwitchingBuildInfo)
@@ -289,8 +298,11 @@ public partial class SelectBuildManager
             {
                 if (SelectedCards.ContainsKey(cardBase.CardInfo.CardID)) continue;
                 if (SelectedHeros.ContainsKey(cardBase.CardInfo.CardID)) continue;
-                SelectCard(cardBase);
+                SelectCard(cardBase, false);
             }
+
+            int index = Random.Range(0, 2);
+            AudioManager.Instance.SoundPlay("sfx/SelectCard" + index);
         }
     }
 
@@ -327,15 +339,16 @@ public partial class SelectBuildManager
 
             if (cb.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !cb.CardInfo.BattleInfo.IsSoldier)
             {
-                SelectCard(cb);
+                SelectCard(cb, false);
             }
             else
             {
-                SelectCard(cb);
+                SelectCard(cb, false);
             }
         }
 
         RefreshCoinLifeEnergy();
+        RefreshCardNum();
 
         isSwitchingBuildInfo = false;
     }

@@ -38,7 +38,7 @@ public class CardSpell : CardBase
                 if (moduleRetinue == null)
                 {
                     transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.MyHandManager.RefreshCardsPlace();
+                    ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
                 }
                 else
                 {
@@ -101,7 +101,7 @@ public class CardSpell : CardBase
         }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        ClientPlayer.MyHandManager.RefreshCardsPlace();
+        ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
     }
 
     public override void DragComponnet_DragOutEffects()

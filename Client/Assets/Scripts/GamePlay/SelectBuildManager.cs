@@ -169,6 +169,8 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             Instance.DegradeCardButton.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
             StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+            int index = Random.Range(0, 2);
+            AudioManager.Instance.BGMFadeIn("bgm/SelectCardMenu" + index, volume: 0.4f);
         }
 
         private void ShowWindowReadOnly()
@@ -270,7 +272,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                 {
                     if (mouseLeftDownCard == card)
                     {
-                        SelectCard(card);
+                        SelectCard(card,true);
                     }
                 }
             }

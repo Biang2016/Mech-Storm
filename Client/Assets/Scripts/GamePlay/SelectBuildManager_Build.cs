@@ -75,6 +75,7 @@ public partial class SelectBuildManager
 
             ShowSliders();
             RefreshCoinLifeEnergy();
+            RefreshCardNum();
         }
         else
         {
@@ -131,6 +132,8 @@ public partial class SelectBuildManager
         CurrentEditBuildButton.IsEdit = true;
         SelectCardsByBuildInfo(buildButton.BuildInfo);
         RefreshCoinLifeEnergy();
+        RefreshCardNum();
+        AudioManager.Instance.SoundPlay("sfx/SwitchBuild");
     }
 
     public void OnCreateNewBuildButtonClick()

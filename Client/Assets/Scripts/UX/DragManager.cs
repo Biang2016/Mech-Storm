@@ -49,11 +49,11 @@ public class DragManager : MonoSingletion<DragManager>
                 CurrentDrag_CardSpell = currentDrag.GetComponent<CardSpell>();
                 CurrentDrag_ModuleRetinue = currentDrag.GetComponent<ModuleRetinue>();
 
-                if (CurrentDrag_CardEquip)
+                if (CurrentDrag_CardEquip && CurrentDrag_CardEquip.Usable && CurrentDrag_CardEquip.ClientPlayer.MyHandManager.CurrentFocusCard == CurrentDrag_CardEquip)
                 {
                     MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragEquipment);
                 }
-                else if (CurrentDrag_CardSpell)
+                else if (CurrentDrag_CardSpell && CurrentDrag_CardSpell.Usable && CurrentDrag_CardSpell.ClientPlayer.MyHandManager.CurrentFocusCard == CurrentDrag_CardSpell)
                 {
                     MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragSpellTo);
                 }

@@ -316,18 +316,12 @@ public class BattleGroundManager : MonoBehaviour
 
     #endregion
 
-
-    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects) //不新增随从,刷新
-    {
-        return Co_RefreshBattleGroundAnim(myParentEffects, (int) retinuePlaceIndex.NoNewRetinue);
-    }
-
     private enum retinuePlaceIndex
     {
         NoNewRetinue = -1,
     }
 
-    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects, int retinuePlaceIndex)
+    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects, int retinuePlaceIndex = (int) retinuePlaceIndex.NoNewRetinue)
     {
         bool isAddRetinue = retinuePlaceIndex != (int) BattleGroundManager.retinuePlaceIndex.NoNewRetinue;
         if (isAddRetinue) //新增随从
@@ -347,13 +341,13 @@ public class BattleGroundManager : MonoBehaviour
             retinue.OnSummon();
             retinue.transform.localPosition = _defaultRetinuePosition;
             retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.Instance.RetinueInterval, Space.Self);
-            PrintRetinueInfos();
+            //PrintRetinueInfos();
         }
 
         float duration = 0.05f;
         float tick = 0;
 
-        Vector3[] translations = new Vector3[Retinues.Count];
+        Vector3[] targetPos = new Vector3[Retinues.Count];
 
         int actualPlaceCount = previewRetinuePlace == PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW ? Retinues.Count : Retinues.Count + 1;
 
@@ -369,31 +363,23 @@ public class BattleGroundManager : MonoBehaviour
                 actualPlace += 1;
             }
 
-            Vector3 ori = Retinues[i].transform.localPosition;
+            Vector3 ori = Retinues[i].transform.position;
             Vector3 offset = Vector3.left * (actualPlace - actualPlaceCount / 2.0f + 0.5f) * GameManager.Instance.RetinueInterval;
 
             Retinues[i].transform.localPosition = _defaultRetinuePosition;
             Retinues[i].transform.Translate(offset, Space.Self);
 
-            translations[i] = Retinues[i].transform.localPosition - ori;
-            Retinues[i].transform.localPosition = ori;
+            targetPos[i] = Retinues[i].transform.position;
+            Retinues[i].transform.position = ori;
+
+            Hashtable args = new Hashtable();
+            args.Add("position", targetPos[i]);
+            args.Add("time", duration);
+            args.Add("easeType", iTween.EaseType.linear);
+            iTween.MoveTo(Retinues[i].gameObject, args);
         }
 
-
-        while (tick <= duration)
-        {
-            float timeDelta = Mathf.Min(duration - tick, Time.deltaTime);
-
-            for (int i = 0; i < movingRetinues.Count; i++)
-            {
-                movingRetinues[i].transform.localPosition += translations[i] * timeDelta / duration;
-            }
-
-            tick += Time.deltaTime;
-
-            yield return null;
-        }
-
+        yield return new WaitForSeconds(duration);
         if (isAddRetinue && DragManager.Instance.IsSummonPreview)
         {
             DragManager.Instance.IsArrowShowBegin = true;

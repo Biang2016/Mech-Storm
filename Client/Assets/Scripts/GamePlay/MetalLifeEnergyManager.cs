@@ -65,6 +65,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
         MetalBarManager.SetMetalNumber(value);
         NumberSet_MetalNumber.Number = value;
         MetalNumberBlock.transform.localPosition = Vector3.Lerp(MetalNumberMinPos.localPosition, MetalNumberMaxPos.localPosition, (float) value / GamePlaySettings.MaxMetal);
+        ClientPlayer.MyHandManager.RefreshAllCardUsable();
     }
 
     public void SetLife(int value)
@@ -82,6 +83,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
     {
         EnergyNumber.text = value.ToString();
         EnergyBarMask.transform.localPosition = Vector3.Lerp(EnergyBarMaskMinPos.localPosition, EnergyBarMaskMaxPos.localPosition, (float) value / ClientPlayer.EnergyMax);
+        ClientPlayer.MyHandManager.RefreshAllCardUsable();
     }
 
     public void SetTotalEnergy(int value)

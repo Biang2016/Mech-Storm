@@ -62,7 +62,7 @@ public class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
     {
         public bool IsExcuting = false;
 
-        private Queue<SideEffect> EffectsQueue = new Queue<SideEffect>();
+        public Queue<SideEffect> EffectsQueue = new Queue<SideEffect>();
         private SideEffect CurrentEffect;
         public string Name;
 
