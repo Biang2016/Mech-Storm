@@ -164,6 +164,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
 
             Instance.LifeSlider.interactable = true;
             Instance.EnergySlider.interactable = true;
+            Instance.CoinSlider.interactable = true;
 
             Instance.UpgradeCardButton.enabled = true;
             Instance.DegradeCardButton.enabled = true;

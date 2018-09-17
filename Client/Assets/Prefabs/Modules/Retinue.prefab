@@ -48,6 +48,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1155455138861358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4499254888187238}
+  - component: {fileID: 114201839363463676}
+  m_Layer: 9
+  m_Name: ShieldChangeNumberFly
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1190356463689084
 GameObject:
   m_ObjectHideFlags: 1
@@ -130,7 +146,7 @@ GameObject:
   - component: {fileID: 4379057429549404}
   - component: {fileID: 114637085285589358}
   m_Layer: 9
-  m_Name: ShieldChangeNumberFly
+  m_Name: ShieldDefenceNumberFly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -387,6 +403,22 @@ GameObject:
   - component: {fileID: 102409462651317214}
   m_Layer: 9
   m_Name: RetinueName
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1508414639336896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4104735363883084}
+  - component: {fileID: 114233616653583758}
+  m_Layer: 9
+  m_Name: WeaponAttackChangeNumberFly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -728,7 +760,7 @@ GameObject:
   - component: {fileID: 4036619890066458}
   - component: {fileID: 114594860131172770}
   m_Layer: 9
-  m_Name: WeaponAttackChangeNumberFly (1)
+  m_Name: WeaponEnergyChangeNumberFly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -827,11 +859,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1902348556407186}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.674, y: 0, z: 0.623}
+  m_LocalPosition: {x: -0.537, y: 0, z: 0.816}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 4389823789822908}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4043630000685254
 Transform:
@@ -846,6 +878,19 @@ Transform:
   m_Father: {fileID: 4389823789822908}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4104735363883084
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508414639336896}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.818, y: 0, z: 0.494}
+  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_Children: []
+  m_Father: {fileID: 4389823789822908}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4150193189446184
 Transform:
   m_ObjectHideFlags: 1
@@ -904,12 +949,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1292681693059094}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.062, y: 0, z: 0.57}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.328, y: 0, z: 0.99}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 4389823789822908}
-  m_RootOrder: 25
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4385095049967734
 Transform:
@@ -959,8 +1004,10 @@ Transform:
   - {fileID: 4357568061061676}
   - {fileID: 4385095049967734}
   - {fileID: 4774466539754780}
-  - {fileID: 4379057429549404}
+  - {fileID: 4499254888187238}
+  - {fileID: 4104735363883084}
   - {fileID: 4036619890066458}
+  - {fileID: 4379057429549404}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1003,6 +1050,19 @@ Transform:
   m_Father: {fileID: 4389823789822908}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4499254888187238
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1155455138861358}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.033, y: 0, z: 0.57}
+  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_Children: []
+  m_Father: {fileID: 4389823789822908}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4523336225340662
 Transform:
   m_ObjectHideFlags: 1
@@ -1088,7 +1148,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859253059176022}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.577, y: 0, z: 0.6374}
+  m_LocalPosition: {x: 0.665, y: 0, z: 0.6374}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 4389823789822908}
@@ -2400,6 +2460,18 @@ MonoBehaviour:
   m_FillAmount: 0.99
   m_FillClockwise: 1
   m_FillOrigin: 2
+--- !u!114 &114201839363463676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1155455138861358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdadcba8874ac14bac36b33eb07117e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextFlies: []
 --- !u!114 &114214836964994640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2443,8 +2515,10 @@ MonoBehaviour:
   RetinueTargetPreviewAnim: {fileID: 95363562440098756}
   LifeChangeNumberFly: {fileID: 114438119421423214}
   ArmorChangeNumberFly: {fileID: 114822061486557192}
-  ShieldChangeNumberFly: {fileID: 114637085285589358}
-  WeaponAttackChangeNumberFly: {fileID: 114594860131172770}
+  ShieldChangeNumberFly: {fileID: 114201839363463676}
+  WeaponAttackChangeNumberFly: {fileID: 114233616653583758}
+  WeaponEnergyChangeNumberFly: {fileID: 114594860131172770}
+  ShieldDefenceNumberFly: {fileID: 114637085285589358}
   isAttackChanging: 0
   RetinueShieldFull: 0
   isFirstRound: 1
@@ -2479,6 +2553,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114233616653583758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508414639336896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdadcba8874ac14bac36b33eb07117e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextFlies: []
 --- !u!114 &114257686601887070
 MonoBehaviour:
   m_ObjectHideFlags: 1

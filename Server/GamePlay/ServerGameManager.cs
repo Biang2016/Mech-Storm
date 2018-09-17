@@ -171,27 +171,21 @@ internal class ServerGameManager
 
     public void OnClientSummonRetinueRequest(SummonRetinueRequest r)
     {
-        ServerLog.PrintError(DateTime.Now.ToLongTimeString());
         ClientA.CurrentClientRequestResponseBundle = new SummonRetinueRequest_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new SummonRetinueRequest_ResponseBundle();
-        ServerLog.PrintError(DateTime.Now.ToLongTimeString());
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Retinue info = (CardInfo_Retinue) sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
-        ServerLog.PrintError(DateTime.Now.ToLongTimeString());
         int targetRetinueId = r.targetRetinueId;
         if (r.isTargetRetinueIdTempId)
         {
             targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
         }
-        ServerLog.PrintError(DateTime.Now.ToLongTimeString());
 
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetRetinueId);
         sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex, targetRetinueId, r.clientRetinueTempId, r.handCardInstanceId);
-        ServerLog.PrintError(DateTime.Now.ToLongTimeString());
 
         Broadcast_SendOperationResponse();
-        ServerLog.PrintError(DateTime.Now.ToLongTimeString());
     }
 
 

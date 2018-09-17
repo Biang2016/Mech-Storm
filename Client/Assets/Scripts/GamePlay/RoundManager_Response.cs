@@ -241,7 +241,7 @@ internal partial class RoundManager
     private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
     {
         ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinueId);
-        retinue.isAttackChanging = true;
+        retinue.isAttackChanging = r.addAttack != 0;
         retinue.M_RetinueWeaponEnergyMax += r.addWeaponEnergyMax;
         retinue.M_RetinueWeaponEnergy += r.addWeaponEnergy;
         retinue.M_RetinueAttack += r.addAttack;

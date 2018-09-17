@@ -140,6 +140,8 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private TextFlyPile ArmorChangeNumberFly;
     [SerializeField] private TextFlyPile ShieldChangeNumberFly;
     [SerializeField] private TextFlyPile WeaponAttackChangeNumberFly;
+    [SerializeField] private TextFlyPile WeaponEnergyChangeNumberFly;
+    [SerializeField] private TextFlyPile ShieldDefenceNumberFly;
 
     private bool isInitializing = false;
 
@@ -403,7 +405,7 @@ public class ModuleRetinue : ModuleBase
                     M_Shield.M_ShieldArmor = value;
                 }
 
-                float duration = isInitializing ? 0 : 0.1f;
+                float duration = 0;
                 BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorChange(value, value - before, duration), "Co_ArmorChange");
             }
         }
@@ -425,10 +427,24 @@ public class ModuleRetinue : ModuleBase
                     M_Shield.M_ShieldShield = value;
                 }
 
-                float duration = isInitializing ? 0 : 0.1f;
+                float duration = 0;
                 BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChange(value, value - before, duration), "Co_ShieldChange");
             }
         }
+    }
+
+    private void ShieldDefenceDamage(int decreaseValue, int shieldValue)
+    {
+        float duration = 0;
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChange(shieldValue, 0, duration), "Co_ShieldChange");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChangeNumberFly(decreaseValue), "Co_ShieldChangeNumberFly");
+    }
+
+    IEnumerator Co_ShieldChangeNumberFly(int decreaseValue)
+    {
+        ShieldDefenceNumberFly.SetText((GameManager.Instance.isEnglish ? "Dec -" : "阻挡 -") + decreaseValue, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down, fontSize: 40);
+        yield return new WaitForSeconds(0.1f);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     IEnumerator Co_LifeChange(int leftLifeValue, int totalLifeValue, int change, float duration)
@@ -438,7 +454,7 @@ public class ModuleRetinue : ModuleBase
         {
             LifeChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
         }
-        else
+        else if (change < 0)
         {
             HitManager.Instance.ShowHit(LifeIconAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, ClientUtils.HTMLColorToColor("#FFFFFF"), 0.3f);
             LifeChangeNumberFly.SetText("-" + (-change), "#FF0A00", "#FF0A00", TextFly.FlyDirection.Down);
@@ -494,9 +510,9 @@ public class ModuleRetinue : ModuleBase
         {
             WeaponAttackChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
         }
-        else
+        else if (change < 0)
         {
-            WeaponAttackChangeNumberFly.SetText(change.ToString(), "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
+            WeaponAttackChangeNumberFly.SetText(change.ToString(), "#530000", "#530000", TextFly.FlyDirection.Down);
         }
 
         RefreshSwordBarMask(retinueEnergy, retinueEnergyMax);
@@ -508,11 +524,11 @@ public class ModuleRetinue : ModuleBase
     {
         if (change > 0)
         {
-            WeaponAttackChangeNumberFly.SetText("Max +" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
+            WeaponEnergyChangeNumberFly.SetText("Max +" + change, "#1CFF00", "#1CFF00", TextFly.FlyDirection.Up);
         }
-        else
+        else if(change < 0)
         {
-            WeaponAttackChangeNumberFly.SetText("Max " + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
+            WeaponEnergyChangeNumberFly.SetText("Max " + change, "#530000", "#530000", TextFly.FlyDirection.Down);
         }
 
         RefreshSwordBarMask(retinueEnergy, retinueEnergyMax);
@@ -544,12 +560,14 @@ public class ModuleRetinue : ModuleBase
         {
             HitManager.Instance.ShowHit(ArmorFillAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, ClientUtils.HTMLColorToColor("#FFD217"), 0.3f);
             ArmorChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
+            if (armorValue != 0) AudioManager.Instance.SoundPlay("sfx/ArmorHit", 0.5f);
         }
 
         if (armorValue == 0)
         {
             ArmorFillAnim.gameObject.SetActive(false);
             Text_RetinueArmor.text = "";
+            AudioManager.Instance.SoundPlay("sfx/ArmorBroke", 1f);
         }
         else
         {
@@ -577,11 +595,13 @@ public class ModuleRetinue : ModuleBase
         {
             HitManager.Instance.ShowHit(ShieldBar.transform, HitManager.HitType.LineRightTopToLeftButtom, ClientUtils.HTMLColorToColor("#2BFFF8"), 0.3f);
             ShieldChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
+            if (shieldValue != 0) AudioManager.Instance.SoundPlay("sfx/ShieldHit", 1f);
         }
 
 
         if (shieldValue == 0)
         {
+            AudioManager.Instance.SoundPlay("sfx/ShieldBroke", 1f);
             ShieldBar.fillAmount = 0;
             Text_RetinueShield.text = "";
         }
@@ -809,7 +829,7 @@ public class ModuleRetinue : ModuleBase
         {
             if (M_RetinueShield >= remainAttackNumber)
             {
-                ShieldChangeNumberFly.SetText(GameManager.Instance.isEnglish ? "Decrease -" : "阻挡 -" + remainAttackNumber, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
+                ShieldDefenceDamage(remainAttackNumber, M_RetinueShield);
                 remainAttackNumber = 0;
                 return;
             }
@@ -817,7 +837,7 @@ public class ModuleRetinue : ModuleBase
             {
                 int shieldDecrease = remainAttackNumber - M_RetinueShield;
                 remainAttackNumber -= M_RetinueShield;
-                M_RetinueShield -= Mathf.Max(m_RetinueShield, shieldDecrease);
+                M_RetinueShield -= Mathf.Min(m_RetinueShield, shieldDecrease);
             }
         }
 
@@ -1002,6 +1022,7 @@ public class ModuleRetinue : ModuleBase
     {
         base.MouseHoverComponent_OnMousePressLeaveImmediately();
         IsBeDraggedHover = false;
+
         if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
         {
             ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = false; //箭头动画
@@ -1009,6 +1030,17 @@ public class ModuleRetinue : ModuleBase
 
         DamageNumberPreviewTextMesh.text = "";
         DamageNumberPreviewBGTextMesh.text = "";
+
+        if (DragManager.Instance.CurrentDrag)
+        {
+            ModuleRetinue mr = DragManager.Instance.CurrentDrag_ModuleRetinue;
+            CardSpell cs = DragManager.Instance.CurrentDrag_CardSpell;
+            if (mr != null)
+            {
+                mr.DamageNumberPreviewTextMesh.text = "";
+                mr.DamageNumberPreviewBGTextMesh.text = "";
+            }
+        }
     }
 
     #endregion

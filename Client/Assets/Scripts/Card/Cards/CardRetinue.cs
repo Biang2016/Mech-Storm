@@ -142,6 +142,18 @@ public class CardRetinue : CardBase
             }
         }
 
+        foreach (SideEffectBase se in CardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self))
+        {
+            if (se is TargetSideEffect)
+            {
+                if (((TargetSideEffect) se).IsNeedChoise)
+                {
+                    summonTarget = true;
+                    TargetRange = ((TargetSideEffect) se).M_TargetRange;
+                }
+            }
+        }
+
         if (!summonTarget) //无指定目标的副作用
         {
             if (boardAreaType != ClientPlayer.MyHandArea) //脱手即出牌

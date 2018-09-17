@@ -279,7 +279,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         if (m_Weapon != null)
         {
             ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
-            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Shield.M_EquipID));
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Weapon.M_EquipID));
             m_Weapon.UnRegisterSideEffect();
 
             EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Weapon.M_EquipID);
@@ -453,7 +453,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 int shieldDecrease = remainAttackNumber - M_RetinueShield;
                 remainAttackNumber -= M_RetinueShield;
-                m_RetinueShield -= Math.Max(m_RetinueShield, shieldDecrease);
+                m_RetinueShield -= Math.Min(m_RetinueShield, shieldDecrease);
                 if (m_RetinueShield == 0 && m_RetinueArmor == 0)
                 {
                     M_Shield = null;
