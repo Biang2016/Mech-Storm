@@ -286,14 +286,22 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
     }
 
-    public virtual void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition)
+    public virtual void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
+    {
+    }
+
+    public virtual void MouseHoverComponent_OnHover1End()
+    {
+    }
+
+    public virtual void MouseHoverComponent_OnHover2Begin(Vector3 mousePosition)
     {
         if (DragManager.Instance.IsSummonPreview) return;
         ShowCardDetail(mousePosition);
         GameManager.Instance.StartBlurBackGround();
     }
 
-    public virtual void MouseHoverComponent_OnHoverEnd()
+    public virtual void MouseHoverComponent_OnHover2End()
     {
         if (DragManager.Instance.IsSummonPreview) return;
         HideCardDetail();

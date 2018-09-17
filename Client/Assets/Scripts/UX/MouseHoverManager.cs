@@ -36,14 +36,14 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
     private Focus hi_MouseFocusUIHover; //UI
 
-    private Hover hi_CardSelectHover; //选卡界面，当鼠标移到牌上牌放大
+    private Hover1 hi_CardSelectHover; //选卡界面，当鼠标移到牌上牌放大
 
-    private Hover hi_CardHover; //当鼠标移到牌上
+    private Hover1 hi_CardHover; //当鼠标移到牌上
     private PressHoverImmediately hi_CardPressHover; //当鼠标按住牌上
-    private Hover hi_CardFocus; //当鼠标聚焦牌上
-    private Hover hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
-    private Hover hi_RetinueHoverShowTargetedBloom; //当鼠标移到到随从上时显示被瞄准的轮廓荧光
-    private Hover hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
+    private Hover1 hi_CardFocus; //当鼠标聚焦牌上
+    private Hover1 hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
+    private Hover1 hi_RetinueHoverShowTargetedBloom; //当鼠标移到到随从上时显示被瞄准的轮廓荧光
+    private Hover2 hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
     private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
     private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
     private PressHoverImmediately hd_ShipPressHoverShowTargetedBloom; //当鼠标拖拽到飞船上时显示被瞄准的轮廓荧光
@@ -51,18 +51,18 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
     void Start()
     {
         hi_MouseFocusUIHover = new Focus(selectCardDeckCanvasLayer, GameManager.Instance.SelectCardWindowBackCamera, 0, -1f);
-        hi_CardSelectHover = new Hover(cardSelectLayer, GameManager.Instance.SelectCardWindowBackCamera);
+        hi_CardSelectHover = new Hover1(cardSelectLayer, GameManager.Instance.SelectCardWindowBackCamera);
 
-        hi_CardHover = new Hover(cardsLayer, GameManager.Instance.BattleGroundCamera);
+        hi_CardHover = new Hover1(cardsLayer, GameManager.Instance.BattleGroundCamera);
         hi_CardPressHover = new PressHoverImmediately(cardsLayer, GameManager.Instance.BattleGroundCamera);
-        hi_CardFocus = new Hover(cardsLayer, GameManager.Instance.BattleGroundCamera, 0, -1f);
-        hi_ModulesHoverShowBloom = new Hover(modulesLayer, GameManager.Instance.BattleGroundCamera);
+        hi_CardFocus = new Hover1(cardsLayer, GameManager.Instance.BattleGroundCamera, 0, -1f);
+        hi_ModulesHoverShowBloom = new Hover1(modulesLayer, GameManager.Instance.BattleGroundCamera);
 
         phi_SlotsPressHoverShowBloom = new PressHoverImmediately(slotsLayer, GameManager.Instance.BattleGroundCamera);
 
-        hd_ModulesFocusShowPreview = new Hover(modulesLayer | retinuesLayer, GameManager.Instance.BattleGroundCamera, GameManager.Instance.RetinueDetailPreviewDelaySeconds, 100f);
+        hd_ModulesFocusShowPreview = new Hover2(modulesLayer | retinuesLayer, GameManager.Instance.BattleGroundCamera, GameManager.Instance.RetinueDetailPreviewDelaySeconds, 100f);
 
-        hi_RetinueHoverShowTargetedBloom = new Hover(retinuesLayer, GameManager.Instance.BattleGroundCamera);
+        hi_RetinueHoverShowTargetedBloom = new Hover1(retinuesLayer, GameManager.Instance.BattleGroundCamera);
         hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer, GameManager.Instance.BattleGroundCamera);
         hd_ShipPressHoverShowTargetedBloom = new PressHoverImmediately(shipsLayer, GameManager.Instance.BattleGroundCamera);
     }
@@ -114,7 +114,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                         Instance.hi_CardHover.Release();
                         Instance.hi_CardFocus.Release();
                         Instance.hi_CardPressHover.Release();
-                        Instance.hi_ModulesHoverShowBloom.Release();
+                        //Instance.hi_ModulesHoverShowBloom.Release();
                         Instance.hd_ModulesFocusShowPreview.Release();
                         break;
                     case States.DragEquipment:
@@ -274,14 +274,14 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
     }
 
 
-    //判定鼠标未按下时的Focus，停留一定时间生效
-    class Hover : HoverActionBase
+    //判定鼠标未按下时的Hover，停留一定时间生效
+    class Hover1 : HoverActionBase
     {
         Vector3 mouseLastPosition;
         private float mouseStopTimeTicker = 0;
         private bool needCheckSpeed = false;
 
-        public Hover(int layer, Camera camera, float delaySeconds = 0f, float mouseSpeedThreshold = -1) : base(layer, camera)
+        public Hover1(int layer, Camera camera, float delaySeconds = 0f, float mouseSpeedThreshold = -1) : base(layer, camera)
         {
             DelaySeconds = delaySeconds;
             needCheckSpeed = !mouseSpeedThreshold.Equals(-1f);
@@ -330,7 +330,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                                 }
 
                                 currentTarget = mouseHoverComponent;
-                                currentTarget.IsOnHover = true;
+                                currentTarget.IsOnHover1 = true;
                             }
                             else
                             {
@@ -363,7 +363,102 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
         {
             if (currentTarget)
             {
-                currentTarget.IsOnHover = false;
+                currentTarget.IsOnHover1 = false;
+                currentTarget = null;
+            }
+        }
+    }
+
+    //判定鼠标未按下时的Hover，停留一定时间生效
+    class Hover2 : HoverActionBase
+    {
+        Vector3 mouseLastPosition;
+        private float mouseStopTimeTicker = 0;
+        private bool needCheckSpeed = false;
+
+        public Hover2(int layer, Camera camera, float delaySeconds = 0f, float mouseSpeedThreshold = -1) : base(layer, camera)
+        {
+            DelaySeconds = delaySeconds;
+            needCheckSpeed = !mouseSpeedThreshold.Equals(-1f);
+            MouseSpeedThreshold = mouseSpeedThreshold;
+        }
+
+        private float DelaySeconds;
+        private float MouseSpeedThreshold;
+
+        public override void Check<T>()
+        {
+            if (!Input.GetMouseButton(0))
+            {
+                Vector3 mouseCurrentPosition = Input.mousePosition;
+                if (needCheckSpeed && (mouseCurrentPosition - mouseLastPosition).magnitude / Time.deltaTime > MouseSpeedThreshold)
+                {
+                    //鼠标过快移动
+                    mouseStopTimeTicker = 0;
+                    mouseLastPosition = mouseCurrentPosition;
+                    if (currentTarget)
+                    {
+                        Release();
+                    }
+
+                    return;
+                }
+                else
+                {
+                    mouseLastPosition = mouseCurrentPosition;
+                    mouseStopTimeTicker += Time.deltaTime;
+                    if (mouseStopTimeTicker > DelaySeconds)
+                    {
+                        mouseStopTimeTicker = 0;
+                        Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit raycast;
+                        Physics.Raycast(ray, out raycast, 10f, Layer);
+                        Debug.DrawLine(ray.origin, ray.origin + 10 * ray.direction.normalized, Color.red, 1f);
+                        if (raycast.collider != null)
+                        {
+                            MouseHoverComponent mouseHoverComponent = raycast.collider.gameObject.GetComponent<MouseHoverComponent>();
+                            if (mouseHoverComponent && mouseHoverComponent.GetComponent<T>())
+                            {
+                                if (currentTarget && currentTarget != mouseHoverComponent)
+                                {
+                                    Release();
+                                }
+
+                                currentTarget = mouseHoverComponent;
+                                currentTarget.IsOnHover2 = true;
+                            }
+                            else
+                            {
+                                if (currentTarget)
+                                {
+                                    Release();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (currentTarget)
+                            {
+                                Release();
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (currentTarget)
+                {
+                    Release();
+                }
+            }
+        }
+
+        public override void Release()
+        {
+            if (currentTarget)
+            {
+                currentTarget.IsOnHover2 = false;
                 currentTarget = null;
             }
         }

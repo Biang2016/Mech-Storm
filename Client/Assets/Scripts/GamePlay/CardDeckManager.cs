@@ -52,10 +52,14 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
             enemy_CardDeckCards[i].transform.Translate(GameManager.Instance.Enemy_CardDeckCardInterval * i);
         }
 
+        ResetCardDeckNumberText();
+    }
+
+    public void ResetCardDeckNumberText()
+    {
         SetSelfCardDeckNumber(0);
         SetEnemyCardDeckNumber(0);
     }
-
 
     public void HideAll()
     {

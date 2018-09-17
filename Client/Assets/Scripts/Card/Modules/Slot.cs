@@ -86,7 +86,20 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
         }
     }
 
-    public void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition)
+    public void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
+    {
+    }
+
+    public void MouseHoverComponent_OnHover1End()
+    {
+        HideHoverShowGO();
+    }
+
+    public void MouseHoverComponent_OnHover2Begin(Vector3 mousePosition)
+    {
+    }
+
+    public void MouseHoverComponent_OnHover2End()
     {
     }
 
@@ -98,14 +111,6 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
     {
     }
 
-    public void MouseHoverComponent_OnMouseLeave()
-    {
-    }
-
-    public void MouseHoverComponent_OnHoverEnd()
-    {
-        HideHoverShowGO();
-    }
 
     public void MouseHoverComponent_OnMousePressLeaveImmediately()
     {

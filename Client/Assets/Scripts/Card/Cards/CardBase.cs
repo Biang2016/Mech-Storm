@@ -521,16 +521,25 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
         transform.position = GameObjectPool.GameObjectPoolPosition;
     }
 
-    public virtual void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
-    {
-    }
 
-    public virtual void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition)
+    public virtual void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {
         if (CanBecomeBigger && !IsFlying)
         {
             ClientPlayer.MyHandManager.CardOnMouseEnter(this);
         }
+    }
+
+    public virtual void MouseHoverComponent_OnHover1End()
+    {
+    }
+
+    public void MouseHoverComponent_OnHover2Begin(Vector3 mousePosition)
+    {
+    }
+
+    public void MouseHoverComponent_OnHover2End()
+    {
     }
 
     public virtual void MouseHoverComponent_OnFocusBegin(Vector3 mousePosition)
@@ -541,11 +550,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
     {
     }
 
-    public virtual void MouseHoverComponent_OnMouseLeave()
-    {
-    }
-
-    public virtual void MouseHoverComponent_OnHoverEnd()
+    public virtual void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
     }
 

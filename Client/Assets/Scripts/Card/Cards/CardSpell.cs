@@ -7,7 +7,7 @@ public class CardSpell : CardBase
     #region 卡牌上各模块
 
     private bool hasTarget;
-    private TargetSideEffect.TargetRange targetRange = TargetSideEffect.TargetRange.None;
+    internal TargetSideEffect.TargetRange targetRange = TargetSideEffect.TargetRange.None;
 
     # endregion
 

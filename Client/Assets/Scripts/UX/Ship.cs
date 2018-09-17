@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class Ship : MonoBehaviour,IMouseHoverComponent
+public class Ship : MonoBehaviour, IMouseHoverComponent
 {
     internal ClientPlayer ClientPlayer;
 
-    [SerializeField]private GameObject ShipBG;
+    [SerializeField] private GameObject ShipBG;
 
     [SerializeField] private TextMesh DamageNumberPreviewTextMesh;
     [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh;
@@ -53,7 +53,19 @@ public class Ship : MonoBehaviour,IMouseHoverComponent
         }
     }
 
-    public void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition)
+    public void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
+    {
+    }
+
+    public void MouseHoverComponent_OnHover1End()
+    {
+    }
+
+    public void MouseHoverComponent_OnHover2Begin(Vector3 mousePosition)
+    {
+    }
+
+    public void MouseHoverComponent_OnHover2End()
     {
     }
 
@@ -65,13 +77,6 @@ public class Ship : MonoBehaviour,IMouseHoverComponent
     {
     }
 
-    public void MouseHoverComponent_OnMouseLeave()
-    {
-    }
-
-    public void MouseHoverComponent_OnHoverEnd()
-    {
-    }
 
     public void MouseHoverComponent_OnMousePressLeaveImmediately()
     {

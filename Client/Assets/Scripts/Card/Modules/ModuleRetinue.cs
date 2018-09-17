@@ -37,6 +37,7 @@ public class ModuleRetinue : ModuleBase
         DamageNumberPreviewTextMesh.text = "";
         DamageNumberPreviewBGTextMesh.text = "";
         base.PoolRecycle();
+        ResetRetinue();
     }
 
     void Awake()
@@ -104,6 +105,8 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Renderer RetinueCanAttackBloom;
     [SerializeField] private Renderer OnHoverBloom;
     [SerializeField] private Renderer SideEffcetBloom;
+    [SerializeField] private Renderer WeaponBloom;
+    [SerializeField] private Renderer ShieldBloom;
 
     public Slot Slot1;
     public Slot Slot2;
@@ -122,14 +125,11 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh; //受攻击瞄准时的伤害预览
 
     [SerializeField] private Animator LifeIconAnim;
-    [SerializeField] private Animator LifeIconHit;
 
     [SerializeField] private Animator ArmorFillAnim;
-    [SerializeField] private Animator ArmorIconHit;
 
     [SerializeField] private Image ShieldBar;
     [SerializeField] private Animator ShieldBarAnim;
-    [SerializeField] private Animator ShieldIconHit;
 
     [SerializeField] private Image SwordBar;
     [SerializeField] private Animator SwordBarAnim;
@@ -161,7 +161,8 @@ public class ModuleRetinue : ModuleBase
         M_RetinueWeaponEnergy = 0;
         M_RetinueWeaponEnergyMax = 0;
         ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
-
+        ClientUtils.ChangeColor(WeaponBloom, ClientUtils.HTMLColorToColor("#FF0022"));
+        ClientUtils.ChangeColor(ShieldBloom, ClientUtils.HTMLColorToColor("#FFA600"));
 
         if (Slot1)
         {
@@ -199,6 +200,23 @@ public class ModuleRetinue : ModuleBase
         M_ClientTempRetinueID = -1;
 
         IsDead = false;
+    }
+
+    private void ResetRetinue()
+    {
+        Text_RetinueArmor.text = "";
+        Text_RetinueShield.text = "";
+        ArmorFillAnim.gameObject.SetActive(false);
+        ShieldBar.fillAmount = 0;
+        SwordBar.fillAmount = 0;
+        M_RetinueName = "";
+        M_RetinueLeftLife = 0;
+        M_RetinueTotalLife = 0;
+        M_RetinueAttack = 0;
+        M_RetinueArmor = 0;
+        M_RetinueShield = 0;
+        M_RetinueWeaponEnergy = 0;
+        M_RetinueWeaponEnergyMax = 0;
     }
 
     public override void ChangeColor(Color color)
@@ -422,8 +440,8 @@ public class ModuleRetinue : ModuleBase
         }
         else
         {
-            LifeIconHit.SetTrigger("BeHit");
-            LifeChangeNumberFly.SetText("-" + -change, "#FF0A00", "#FF0A00", TextFly.FlyDirection.Down);
+            HitManager.Instance.ShowHit(LifeIconAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, ClientUtils.HTMLColorToColor("#FFFFFF"), 0.3f);
+            LifeChangeNumberFly.SetText("-" + (-change), "#FF0A00", "#FF0A00", TextFly.FlyDirection.Down);
         }
 
         LifeTextChange(leftLifeValue, totalLifeValue);
@@ -440,7 +458,7 @@ public class ModuleRetinue : ModuleBase
         }
         else
         {
-            LifeChangeNumberFly.SetText("-" + -change, "#00A8FF", "#00A8FF", TextFly.FlyDirection.Down);
+            LifeChangeNumberFly.SetText("-" + (-change), "#00A8FF", "#00A8FF", TextFly.FlyDirection.Down);
         }
 
         LifeTextChange(leftLifeValue, totalLifeValue);
@@ -524,10 +542,9 @@ public class ModuleRetinue : ModuleBase
         }
         else
         {
-            ArmorIconHit.SetTrigger("BeHit");
+            HitManager.Instance.ShowHit(ArmorFillAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, ClientUtils.HTMLColorToColor("#FFD217"), 0.3f);
             ArmorChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
         }
-
 
         if (armorValue == 0)
         {
@@ -558,7 +575,7 @@ public class ModuleRetinue : ModuleBase
         }
         else
         {
-            ShieldIconHit.SetTrigger("BeHit");
+            HitManager.Instance.ShowHit(ShieldBar.transform, HitManager.HitType.LineRightTopToLeftButtom, ClientUtils.HTMLColorToColor("#2BFFF8"), 0.3f);
             ShieldChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
         }
 
@@ -782,23 +799,25 @@ public class ModuleRetinue : ModuleBase
         CheckCanAttack();
     }
 
-    public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理(这里是被攻击，指的是攻击动作，不是掉血事件)
+    public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理
     {
         OnBeAttacked();
         int remainAttackNumber = attackNumber;
 
+        //小于等于护盾的伤害的全部免除，护盾无任何损失，大于护盾的伤害，每超过一点，护盾受到一点伤害，如果扣为0，则护盾破坏
         if (M_RetinueShield > 0)
         {
             if (M_RetinueShield >= remainAttackNumber)
             {
-                M_RetinueShield = M_RetinueShield - remainAttackNumber;
+                ShieldChangeNumberFly.SetText(GameManager.Instance.isEnglish ? "Decrease -" : "阻挡 -" + remainAttackNumber, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
                 remainAttackNumber = 0;
                 return;
             }
             else
             {
+                int shieldDecrease = remainAttackNumber - M_RetinueShield;
                 remainAttackNumber -= M_RetinueShield;
-                M_RetinueShield = 0;
+                M_RetinueShield -= Mathf.Max(m_RetinueShield, shieldDecrease);
             }
         }
 
@@ -912,21 +931,22 @@ public class ModuleRetinue : ModuleBase
         {
             ModuleRetinue mr = DragManager.Instance.CurrentDrag_ModuleRetinue;
             CardSpell cs = DragManager.Instance.CurrentDrag_CardSpell;
-            if (mr != null)
+            if (mr != null && CheckModuleRetinueCanAttack(mr))
             {
-                if (mr.ClientPlayer != ClientPlayer && mr != this)
+                IsBeDraggedHover = true;
+                if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
                 {
-                    IsBeDraggedHover = true;
-                    if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
-                    {
-                        ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
-                    }
-
-                    DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
-                    DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+                    ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
                 }
+
+                DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+                DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+
+                int myCounterAttack = CalculateAttack();
+                mr.DamageNumberPreviewTextMesh.text = myCounterAttack == 0 ? "" : "-" + myCounterAttack;
+                mr.DamageNumberPreviewBGTextMesh.text = myCounterAttack == 0 ? "" : "-" + myCounterAttack;
             }
-            else if (cs != null)
+            else if (cs != null && CheckCardSpellCanTarget(cs))
             {
                 IsBeDraggedHover = true;
                 if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
@@ -937,6 +957,44 @@ public class ModuleRetinue : ModuleBase
                 DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
                 DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
             }
+        }
+    }
+
+    private bool CheckModuleRetinueCanAttack(ModuleRetinue retinue)
+    {
+        if (retinue == this) return false;
+        //Todo 嘲讽类随从等逻辑
+        if (retinue.ClientPlayer == ClientPlayer)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private bool CheckCardSpellCanTarget(CardSpell card)
+    {
+        if (card.ClientPlayer == ClientPlayer)
+        {
+            return card.targetRange == TargetSideEffect.TargetRange.All ||
+                   card.targetRange == TargetSideEffect.TargetRange.BattleGrounds ||
+                   card.targetRange == TargetSideEffect.TargetRange.SelfBattleGround ||
+                   card.targetRange == TargetSideEffect.TargetRange.Heros ||
+                   card.targetRange == TargetSideEffect.TargetRange.Soldiers ||
+                   card.targetRange == TargetSideEffect.TargetRange.SelfHeros ||
+                   card.targetRange == TargetSideEffect.TargetRange.SelfSoldiers;
+        }
+        else
+        {
+            return card.targetRange == TargetSideEffect.TargetRange.All ||
+                   card.targetRange == TargetSideEffect.TargetRange.BattleGrounds ||
+                   card.targetRange == TargetSideEffect.TargetRange.EnemyBattleGround ||
+                   card.targetRange == TargetSideEffect.TargetRange.Heros ||
+                   card.targetRange == TargetSideEffect.TargetRange.Soldiers ||
+                   card.targetRange == TargetSideEffect.TargetRange.EnemyHeros ||
+                   card.targetRange == TargetSideEffect.TargetRange.EnemySoldiers;
         }
     }
 
@@ -982,9 +1040,9 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    public override void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition)
+    public override void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {
-        base.MouseHoverComponent_OnHoverBegin(mousePosition);
+        base.MouseHoverComponent_OnHover1Begin(mousePosition);
         if (DragManager.Instance.IsSummonPreview)
         {
             TargetSideEffect.TargetRange targetRange = DragManager.Instance.SummonRetinueTargetRange;
@@ -1005,9 +1063,9 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    public override void MouseHoverComponent_OnHoverEnd()
+    public override void MouseHoverComponent_OnHover1End()
     {
-        base.MouseHoverComponent_OnHoverEnd();
+        base.MouseHoverComponent_OnHover1End();
         IsBeHover = false;
         if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
         {

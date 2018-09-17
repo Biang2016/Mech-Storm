@@ -108,7 +108,6 @@ public class ClientPlayer : Player
         {
             MyMetalLifeEnergyManager.SetEnergy(EnergyLeft);
         }
-
     }
 
     protected void SetTotalEnergy()
@@ -126,6 +125,7 @@ public class ClientPlayer : Player
         if (request.change == PlayerEnergyChangeRequest.EnergyChangeFlag.Left)
         {
             AddEnergy(request.addEnergy_left);
+            AudioManager.Instance.SoundPlay("sfx/OnEnergyAdd");
         }
 
         yield return null;

@@ -118,9 +118,18 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     internal GameObjectPool Pool_TextFlyPool;
     public GameObject TextFlyPrefab;
 
-    public GameObject HitPool;
-    internal GameObjectPool Pool_HitPool;
-    public GameObject HitPrefab;
+    public GameObject Hit0Pool;
+    internal GameObjectPool Pool_Hit0Pool;
+    public GameObject Hit0Prefab;
+
+    public GameObject Hit1Pool;
+    internal GameObjectPool Pool_Hit1Pool;
+    public GameObject Hit1Prefab;
+
+    public GameObject Hit2Pool;
+    internal GameObjectPool Pool_Hit2Pool;
+    public GameObject Hit2Prefab;
+
 
     void Awake()
     {
@@ -208,8 +217,14 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
         Pool_TextFlyPool = TextFlyPool.GetComponent<GameObjectPool>();
         Pool_TextFlyPool.Initiate(TextFlyPrefab, 10);
 
-        Pool_HitPool = HitPool.GetComponent<GameObjectPool>();
-        Pool_HitPool.Initiate(HitPrefab, 3);
+        Pool_Hit0Pool = Hit0Pool.GetComponent<GameObjectPool>();
+        Pool_Hit0Pool.Initiate(Hit0Prefab, 3);
+
+        Pool_Hit1Pool = Hit1Pool.GetComponent<GameObjectPool>();
+        Pool_Hit1Pool.Initiate(Hit1Prefab, 3);
+
+        Pool_Hit2Pool = Hit2Pool.GetComponent<GameObjectPool>();
+        Pool_Hit2Pool.Initiate(Hit2Prefab, 3);
     }
 }
 

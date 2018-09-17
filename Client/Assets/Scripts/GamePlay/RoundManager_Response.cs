@@ -90,7 +90,7 @@ internal partial class RoundManager
                 OnSetPlayersLife((PlayerLifeChangeRequest) r);
                 break;
             }
-            case NetProtocols.SE_PLAYER_MAGIC_CHANGE:
+            case NetProtocols.SE_PLAYER_ENERGY_CHANGE:
             {
                 OnSetPlayersEnergy((PlayerEnergyChangeRequest) r);
                 break;

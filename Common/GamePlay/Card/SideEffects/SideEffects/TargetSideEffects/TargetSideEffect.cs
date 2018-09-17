@@ -67,7 +67,7 @@ public abstract class TargetSideEffect : SideEffectBase
                     case TargetRange.EnemyHeros:
                         return isEnglish ? "One of Enemy's HeroMechs " : "一个敌方英雄";
                     case TargetRange.Soldiers:
-                        return isEnglish ? "One of Your SoldierMechs " : "一个士兵";
+                        return isEnglish ? "One SoldierMech " : "一个士兵";
                     case TargetRange.SelfSoldiers:
                         return isEnglish ? "One of Your SoldierMechs " : "一个我方士兵";
                     case TargetRange.EnemySoldiers:

@@ -13,11 +13,19 @@ class MouseHoverUI : MonoBehaviour, IMouseHoverComponent
     private bool isHover;
 
 
-    public void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition)
+    public void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {
     }
 
-    public void MouseHoverComponent_OnHoverEnd()
+    public void MouseHoverComponent_OnHover1End()
+    {
+    }
+
+    public void MouseHoverComponent_OnHover2Begin(Vector3 mousePosition)
+    {
+    }
+
+    public void MouseHoverComponent_OnHover2End()
     {
     }
 

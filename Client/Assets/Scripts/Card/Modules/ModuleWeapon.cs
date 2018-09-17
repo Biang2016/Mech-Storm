@@ -238,15 +238,15 @@ public class ModuleWeapon : ModuleBase
     }
 
 
-    public override void MouseHoverComponent_OnHoverBegin(Vector3 mousePosition)
+    public override void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {
-        base.MouseHoverComponent_OnHoverBegin(mousePosition);
+        base.MouseHoverComponent_OnHover1Begin(mousePosition);
         if (M_Bloom) M_Bloom.gameObject.SetActive(true);
     }
 
-    public override void MouseHoverComponent_OnHoverEnd()
+    public override void MouseHoverComponent_OnHover1End()
     {
-        base.MouseHoverComponent_OnHoverEnd();
+        base.MouseHoverComponent_OnHover1End();
         if (M_Bloom) M_Bloom.gameObject.SetActive(false);
     }
 

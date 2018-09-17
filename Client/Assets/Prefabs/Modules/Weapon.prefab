@@ -712,6 +712,7 @@ MonoBehaviour:
   Block_WeaponEnergy: {fileID: 0}
   Block_WeaponEnergyMax: {fileID: 0}
   WeaponEquipAnim: {fileID: 95186566290709824}
+  M_EquipID: 0
 --- !u!114 &114321063401111608
 MonoBehaviour:
   m_ObjectHideFlags: 1

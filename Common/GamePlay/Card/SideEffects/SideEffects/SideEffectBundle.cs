@@ -80,6 +80,7 @@ public class SideEffectBundle
                 {
                     if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon)) res += isEnglish ? "Battlecry: " : "战吼:";
                     else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie)) res += isEnglish ? "Die: " : "亡语:";
+                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnEquipDie)) res += isEnglish ? "Broken: " : "亡语:";
                     else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnPlayCard)) res += "";
                     else
                     {
@@ -194,6 +195,8 @@ public class SideEffectBundle
         OnHeroDie,
         OnSoldierDie,
 
+        OnEquipDie,
+
         OnEndRound,
     }
 
@@ -219,6 +222,8 @@ public class SideEffectBundle
         {TriggerTime.OnHeroDie, "当{0}英雄死亡时,"},
         {TriggerTime.OnSoldierDie, "当{0}士兵死亡时,"},
 
+        {TriggerTime.OnEquipDie, "{0}装备破坏时,"},
+
         {TriggerTime.OnEndRound, "{0}回合结束时,"},
     };
 
@@ -243,6 +248,8 @@ public class SideEffectBundle
         {TriggerTime.OnRetinueDie, "When a Mech of {0} died, "},
         {TriggerTime.OnHeroDie, "When a HeroMech of {0} died, "},
         {TriggerTime.OnSoldierDie, "When a SoldierMech of {0} died, "},
+
+        {TriggerTime.OnEquipDie, "When an Equipment of {0} Mech broken"},
 
         {TriggerTime.OnEndRound, "When {0} turn ends, "},
     };

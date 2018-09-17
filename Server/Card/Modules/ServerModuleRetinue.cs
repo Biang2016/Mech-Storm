@@ -279,7 +279,9 @@ internal class ServerModuleRetinue : ServerModuleBase
         if (m_Weapon != null)
         {
             ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Shield.M_EquipID));
             m_Weapon.UnRegisterSideEffect();
+
             EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Weapon.M_EquipID);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Weapon = null;
@@ -370,20 +372,21 @@ internal class ServerModuleRetinue : ServerModuleBase
         if (m_Shield != null)
         {
             ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Shield.M_EquipID));
             m_Shield.UnRegisterSideEffect();
+
+            EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Shield.M_EquipID);
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+            m_Shield = null;
+
+            int shield_before = m_RetinueShield;
+            int armor_before = m_RetinueArmor;
+            m_RetinueShield = 0;
+            m_RetinueArmor = 0;
+
+            RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addShield: m_RetinueShield - shield_before, addArmor: m_RetinueArmor - armor_before);
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
         }
-
-        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Shield.M_EquipID);
-        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-        m_Shield = null;
-
-        int shield_before = m_RetinueShield;
-        int armor_before = m_RetinueArmor;
-        m_RetinueShield = 0;
-        m_RetinueArmor = 0;
-
-        RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addShield: m_RetinueShield - shield_before, addArmor: m_RetinueArmor - armor_before);
-        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
     }
 
     void On_ShieldEquiped(ServerModuleShield newShield)
@@ -432,24 +435,29 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     #region 模块交互
 
-    public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理(这里是被攻击，指的是攻击动作，不是掉血事件)
+    public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理
     {
         if (M_IsDead) return;
         OnBeAttacked();
         int remainAttackNumber = attackNumber;
 
+        //小于等于护盾的伤害的全部免除，护盾无任何损失，大于护盾的伤害，每超过一点，护盾受到一点伤害，如果扣为0，则护盾破坏
         if (M_RetinueShield > 0)
         {
             if (M_RetinueShield >= remainAttackNumber)
             {
-                m_RetinueShield = M_RetinueShield - remainAttackNumber;
                 remainAttackNumber = 0;
                 return;
             }
             else
             {
+                int shieldDecrease = remainAttackNumber - M_RetinueShield;
                 remainAttackNumber -= M_RetinueShield;
-                m_RetinueShield = 0;
+                m_RetinueShield -= Math.Max(m_RetinueShield, shieldDecrease);
+                if (m_RetinueShield == 0 && m_RetinueArmor == 0)
+                {
+                    M_Shield = null;
+                }
             }
         }
 
@@ -465,6 +473,10 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 remainAttackNumber -= M_RetinueArmor;
                 m_RetinueArmor = 0;
+                if (m_RetinueShield == 0 && m_RetinueArmor == 0)
+                {
+                    M_Shield = null;
+                }
             }
         }
 

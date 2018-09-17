@@ -48,7 +48,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         SetEndRoundButtonState(false);
 
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
-
+        CardDeckManager.Instance.ResetCardDeckNumberText();
         CardDeckManager.Instance.ShowAll();
     }
 
