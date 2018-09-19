@@ -520,6 +520,7 @@ internal class ServerModuleRetinue : ServerModuleBase
                         targetModuleRetinue.BeAttacked(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
                         m_RetinueWeaponEnergy--;
+                        if (targetModuleRetinue.M_IsDead) break;
                     }
 
                     break;

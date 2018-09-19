@@ -23,11 +23,11 @@ TagManager:
   - BoardAreas
   - Slots
   - Modules
-  - SelectCardDeckCanvas
+  - 
   - CardSelect
   - Numbers
-  - StartMenuUI
-  - ExitMenuUI
+  - 
+  - 
   - Ships
   - 
   - 

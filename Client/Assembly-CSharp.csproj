@@ -112,6 +112,7 @@
      <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_LifeMagicCoinCardnum.cs" />
      <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_PreviewUpgrade.cs" />
      <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_Select.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\SettingMenuManager.cs" />
      <Compile Include="Assets\Scripts\GamePlay\StartMenuManager.cs" />
      <Compile Include="Assets\Scripts\Network\Client.cs" />
      <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />

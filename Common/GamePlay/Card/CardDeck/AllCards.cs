@@ -205,6 +205,15 @@ public static class AllCards
                         sideEffects: sideEffects,
                         sideEffects_OnBattleGround: sideEffects_OnBattleGround));
                     break;
+                case CardTypes.Energy:
+                    addCard(new CardInfo_Spell(
+                        cardID: int.Parse(card.Attributes["id"].Value),
+                        baseInfo: baseInfo,
+                        slotType: slotType,
+                        upgradeInfo: upgradeInfo,
+                        sideEffects: sideEffects,
+                        sideEffects_OnBattleGround: sideEffects_OnBattleGround));
+                    break;
             }
         }
     }

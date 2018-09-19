@@ -50,4 +50,10 @@ public class CardInfo_Retinue : CardInfo_Base
             sideEffects_OnBattleGround: SideEffects_OnBattleGround.Clone());
         return cb;
     }
+
+    public override string GetCardTypeDesc(bool isEnglish)
+    {
+        if (BattleInfo.IsSoldier) return isEnglish ? "Soldier" : "士兵";
+        else return isEnglish ? "Hero" : "英雄";
+    }
 }

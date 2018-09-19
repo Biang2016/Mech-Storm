@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
     {
         M_StateMachine = new StateMachine();
 
+        SettingMenuText.text = GameManager.Instance.isEnglish ? "Settings" : "设置";
         SurrenderText.text = GameManager.Instance.isEnglish ? "Surrender" : "认输";
         ConsumeText.text = GameManager.Instance.isEnglish ? "Consume" : "继续游戏";
         QuitText.text = GameManager.Instance.isEnglish ? "Quit" : "退出游戏";
@@ -76,6 +78,7 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
         public enum States
         {
             Default,
+            HideForSetting,
             Hide,
             Show,
         }
@@ -92,18 +95,18 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
                     case States.Hide:
                         HideMenu();
                         break;
-
+                    case States.HideForSetting:
+                        HideMenuForSetting();
+                        break;
                     case States.Show:
-                        if (Client.Instance.IsLogin() || Client.Instance.IsPlaying()) ShowMenu();
+                        if (state == States.HideForSetting) ShowMenuAfterSettingClose();
+                        else if (Client.Instance.IsLogin() || Client.Instance.IsPlaying()) ShowMenu();
                         break;
                 }
 
                 previousState = state;
                 state = newState;
             }
-
-            previousState = state;
-            state = newState;
         }
 
         public void ReturnToPreviousState()
@@ -124,8 +127,13 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
                 {
                     switch (state)
                     {
+                        case States.Default:
+                            SetState(States.Show);
+                            break;
                         case States.Hide:
                             SetState(States.Show);
+                            break;
+                        case States.HideForSetting:
                             break;
                         case States.Show:
                             SetState(States.Hide);
@@ -146,7 +154,6 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
 
         public void ShowMenu()
         {
-            state = States.Show;
             Instance.ExitMenuCanvas.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.ExitMenu);
             if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
@@ -154,23 +161,38 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
 
         public void HideMenu()
         {
-            state = States.Hide;
             Instance.ExitMenuCanvas.enabled = false;
             MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
             if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+        }
+
+        public void HideMenuForSetting()
+        {
+            Instance.ExitMenuCanvas.enabled = false;
+        }
+
+        public void ShowMenuAfterSettingClose()
+        {
+            Instance.ExitMenuCanvas.enabled = true;
         }
     }
 
 
     [SerializeField] private Canvas ExitMenuCanvas;
+    [SerializeField] private Button SettingMenuButton;
     [SerializeField] private Button SurrenderButton;
     [SerializeField] private Button ConsumeButton;
     [SerializeField] private Button QuitGameButton;
 
+    [SerializeField] private Text SettingMenuText;
     [SerializeField] private Text SurrenderText;
     [SerializeField] private Text ConsumeText;
     [SerializeField] private Text QuitText;
 
+    public void OnSettingMenuButtonClick()
+    {
+        SettingMenuManager.Instance.M_StateMachine.SetState(SettingMenuManager.StateMachine.States.Show);
+    }
 
     public void OnConsumeGameButtonClick()
     {

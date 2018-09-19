@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MetalLifeEnergyManager : MonoBehaviour
@@ -68,7 +69,12 @@ public class MetalLifeEnergyManager : MonoBehaviour
         ClientPlayer.MyHandManager.RefreshAllCardUsable();
     }
 
-    public void SetLife(int value)
+    public void SetLife(int value, int change)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnLifeChange(value, change), "Co_OnLifeChange");
+    }
+
+    IEnumerator Co_OnLifeChange(int value, int change)
     {
         LifeNumber.text = value.ToString();
         LifeBar.fillAmount = (float) value / ClientPlayer.LifeMax;
@@ -76,6 +82,20 @@ public class MetalLifeEnergyManager : MonoBehaviour
         LifeIconAnim.SetTrigger("Reset");
         LifeNumberAnim.SetTrigger("Jump");
         LifeTotalNumberAnim.SetTrigger("Jump");
+
+        if (change > 0)
+        {
+            LifeNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up);
+        }
+        else
+        {
+            LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
+            HitManager.Instance.ShowHit(LifeIcon.transform, HitManager.HitType.Blade, ClientUtils.HTMLColorToColor("#FFFFFF"), 0.2f);
+            AudioManager.Instance.SoundPlay("sfx/OnHitShip");
+        }
+
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     public void SetTotalLife(int value)
@@ -83,7 +103,22 @@ public class MetalLifeEnergyManager : MonoBehaviour
         TotalLifeNumber.text = "/" + value;
     }
 
-    public void SetEnergy(int value)
+    public void SetEnergy(int value, int change)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnEnergyChange(value, change), "Co_OnEnergyChange");
+    }
+
+    public void SetTotalEnergy(int value)
+    {
+        TotalEnergyNumber.text = "/" + value;
+    }
+
+
+    public void OnEnergyChange(int change)
+    {
+    }
+
+    IEnumerator Co_OnEnergyChange(int value, int change)
     {
         EnergyNumber.text = value.ToString();
         EnergyBar.fillAmount = (float) value / ClientPlayer.EnergyMax;
@@ -92,20 +127,31 @@ public class MetalLifeEnergyManager : MonoBehaviour
         EnergyNumberAnim.SetTrigger("Jump");
         EnergyTotalNumberAnim.SetTrigger("Jump");
         ClientPlayer.MyHandManager.RefreshAllCardUsable();
-    }
 
-    public void SetTotalEnergy(int value)
-    {
-        TotalEnergyNumber.text = "/" + value;
+        if (change > 0)
+        {
+            EnergyNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up);
+        }
+        else
+        {
+            EnergyNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
+        }
+
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     [SerializeField] private Transform MetalNumberMinPos;
     [SerializeField] private Transform MetalNumberMaxPos;
+    [SerializeField] private Image LifeIcon;
+    [SerializeField] private TextFlyPile LifeNumberFly;
     [SerializeField] private Image LifeBar;
     [SerializeField] private Image LifeTrough;
     [SerializeField] private Animator LifeIconAnim;
     [SerializeField] private Animator LifeNumberAnim;
     [SerializeField] private Animator LifeTotalNumberAnim;
+    [SerializeField] private Image EnergyIcon;
+    [SerializeField] private TextFlyPile EnergyNumberFly;
     [SerializeField] private Image EnergyBar;
     [SerializeField] private Image EnergyTrough;
     [SerializeField] private Animator EnergyIconAnim;

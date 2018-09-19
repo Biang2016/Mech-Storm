@@ -262,56 +262,56 @@
   </Card>
 
   <Card id="70101">
-    <CardInfo name="baseInfo" pictureID="701" cardName="小型能量块" cardName_en="S Energy Cube" cardDesc="" metal="0" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="701" cardName="小型能量块" cardName_en="S Energy Cube" cardDesc="" metal="0" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Energy" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="70102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70102">
-    <CardInfo name="baseInfo" pictureID="701" cardName="中型能量块" cardName_en="M Energy Cube" cardDesc="" metal="0" energy="0" coin="250" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="701" cardName="中型能量块" cardName_en="M Energy Cube" cardDesc="" metal="0" energy="0" coin="250" effectFactor="1" dragPurpose="Summon" cardType="Energy" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="70103" degradeCardID="70101" cardLevel="2" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70103">
-    <CardInfo name="baseInfo" pictureID="701" cardName="大型能量块" cardName_en="L Energy Cube" cardDesc="" metal="0" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="701" cardName="大型能量块" cardName_en="L Energy Cube" cardDesc="" metal="0" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Energy" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="70102" cardLevel="3" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="6"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70201">
-    <CardInfo name="baseInfo" pictureID="702" cardName="能量环" cardName_en="Energy Ring" cardDesc="" metal="0" energy="0" coin="500" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="702" cardName="能量环" cardName_en="Energy Ring" cardDesc="" metal="0" energy="0" coin="500" effectFactor="1" dragPurpose="Summon" cardType="Energy" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="10"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70301">
-    <CardInfo name="baseInfo" pictureID="703" cardName="能量球" cardName_en="Energy Ball" cardDesc="" metal="1" energy="0" coin="250" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="703" cardName="能量球" cardName_en="Energy Ball" cardDesc="" metal="1" energy="0" coin="250" effectFactor="1" dragPurpose="Summon" cardType="Energy" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="70302" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70302">
-    <CardInfo name="baseInfo" pictureID="704" cardName="极限能量球" cardName_en="X Energy Ball" cardDesc="" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="704" cardName="极限能量球" cardName_en="X Energy Ball" cardDesc="" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Energy" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="70301" cardLevel="2" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="12"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70501">
-    <CardInfo name="baseInfo" pictureID="705" cardName="AI升级" cardName_en="AI Upgrade" cardDesc="" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="705" cardName="AI升级" cardName_en="AI Upgrade" cardDesc="" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Energy" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="12"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70601">
-    <CardInfo name="baseInfo" pictureID="706" cardName="蚊子无人机" cardName_en="Mosquito Drone" cardDesc="" metal="0" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="706" cardName="蚊子无人机" cardName_en="Mosquito Drone" cardDesc="" metal="0" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Energy" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="EnemySoldiers" Value="1"></SideEffect>
@@ -319,7 +319,7 @@
     </CardInfo>
   </Card>
   <Card id="70701">
-    <CardInfo name="baseInfo" pictureID="707" cardName="机甲回收" cardName_en="Mech Recycle" cardDesc="" metal="0" energy="0" coin="400" effectFactor="1" dragPurpose="Target" cardType="Spell" cardColor="#3686FF" hightLightColor="#FFFF00" />
+    <CardInfo name="baseInfo" pictureID="707" cardName="机甲回收" cardName_en="Mech Recycle" cardDesc="" metal="0" energy="0" coin="400" effectFactor="1" dragPurpose="Target" cardType="Energy" cardColor="#3686FF" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="KillOne" IsNeedChoise="True" M_TargetRange="SelfBattleGround"></SideEffect>

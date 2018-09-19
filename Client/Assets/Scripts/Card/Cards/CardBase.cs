@@ -69,6 +69,10 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
                     newCard = GameObjectPoolManager.Instance.Pool_SpellCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
                     newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_SpellCardPool;
                     break;
+                case CardTypes.Energy:
+                    newCard = GameObjectPoolManager.Instance.Pool_SpellCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_SpellCardPool;
+                    break;
                 default:
                     newCard = GameObjectPoolManager.Instance.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
                     newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueCardPool;
@@ -90,6 +94,10 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
                     newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_EquipSelectCardPool;
                     break;
                 case CardTypes.Spell:
+                    newCard = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
+                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool;
+                    break;
+                case CardTypes.Energy:
                     newCard = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
                     newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool;
                     break;
@@ -159,6 +167,10 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
         M_Energy = CardInfo.BaseInfo.Energy;
         M_Name = GameManager.Instance.isEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
         M_Desc = cardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
+        Text_CardType.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
+        Text_CardTypeBG.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
+        Color cardColor = ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.CardColor);
+        Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
         ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
 
@@ -168,7 +180,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
         if (IsCardSelect) CoinText.text = CardInfo.BaseInfo.Coin.ToString();
 
         SetCardBackColor();
-        ChangeColor(ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.CardColor));
+        ChangeColor(cardColor);
     }
 
     #region 属性
@@ -231,7 +243,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
         set
         {
             m_EffectFactor = value;
-            if (CardInfo.BaseInfo.CardType == CardTypes.Spell)
+            if (CardInfo.BaseInfo.CardType == CardTypes.Spell || CardInfo.BaseInfo.CardType == CardTypes.Energy)
             {
                 foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
                 {
@@ -290,6 +302,8 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
 
     [SerializeField] private Text Text_Name;
     [SerializeField] private Text Text_Desc;
+    [SerializeField] private Text Text_CardType;
+    [SerializeField] private Text Text_CardTypeBG;
 
     public Renderer MainBoardRenderer;
     public GameObject CardBloom;

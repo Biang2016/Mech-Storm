@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224352384800602140}
   - component: {fileID: 222932987699396204}
   - component: {fileID: 114367240079203310}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Metal_sBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 224529885314744618}
   - component: {fileID: 222774045488451302}
   - component: {fileID: 114965916724364668}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 224670959879407142}
   - component: {fileID: 222932892010352094}
   - component: {fileID: 114807785842514198}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: EnergyBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224381111231591714}
   - component: {fileID: 222969453815512546}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Energy_s
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 224259486229426702}
   - component: {fileID: 222028404122558342}
   - component: {fileID: 114806354083013408}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: NOCOST
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 224431785937308678}
   - component: {fileID: 222678307056087684}
   - component: {fileID: 114930825477332026}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: NOCOSTBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224283292679934568}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 224028407684357716}
   - component: {fileID: 222400704378525194}
   - component: {fileID: 114611135225270320}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Metal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 224816426048115846}
   - component: {fileID: 222271279733489650}
   - component: {fileID: 114449225375426610}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: MetalBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 224826104395684242}
   - component: {fileID: 222758517633588670}
   - component: {fileID: 114494774043749470}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224923025370060250}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Metal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 224667879438777848}
   - component: {fileID: 222545833707368888}
   - component: {fileID: 114417810567972970}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 224013360692106404}
   - component: {fileID: 222270602354193288}
   - component: {fileID: 114666375796643222}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224834279564770728}
   - component: {fileID: 222464329473520112}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Metal_s
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 224038326250277528}
   - component: {fileID: 222841634878776268}
   - component: {fileID: 114150098785518656}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Energy_sBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 65274883434625510}
   - component: {fileID: 114197098985813066}
   - component: {fileID: 114398097629666978}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: CardButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224846178713390912}
   - component: {fileID: 222850179189349562}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: NOCOST
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 114832147192048738}
   - component: {fileID: 114818694833822090}
   - component: {fileID: 114289847349199376}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: SelectCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 224020583582792004}
   - component: {fileID: 222457826067024332}
   - component: {fileID: 114858641187222126}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Metal_s
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 224393291935670428}
   - component: {fileID: 222557817739513952}
   - component: {fileID: 114695738436000204}
-  m_Layer: 13
+  m_Layer: 5
   m_Name: Energy_s
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +560,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anim: {fileID: 95580844172806988}
   SFX: SwitchButton1
-  volumn: 0.32
+  volume: 0.48
 --- !u!114 &114417810567972970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1222,7 +1222,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1843960359287754}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 19.778103}
+  m_LocalPosition: {x: 0, y: 0, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224923025370060250}
@@ -1237,7 +1237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5.7685685, y: 23.280436}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 55}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224259486229426702

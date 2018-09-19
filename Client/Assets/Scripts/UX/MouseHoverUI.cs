@@ -8,7 +8,7 @@ class MouseHoverUI : MonoBehaviour, IMouseHoverComponent
 {
     [SerializeField] private Animator Anim;
     [SerializeField] private string SFX;
-    [SerializeField] [Range(0, 1)] private float volumn;
+    [SerializeField] [Range(0, 1)] private float volume;
 
     private bool isHover;
 
@@ -34,7 +34,7 @@ class MouseHoverUI : MonoBehaviour, IMouseHoverComponent
         if (isHover) return;
         Anim.SetTrigger("OnHover");
         isHover = true;
-        AudioManager.Instance.SoundPlay("sfx/" + SFX, volumn);
+        AudioManager.Instance.SoundPlay("sfx/" + SFX, volume);
     }
 
     public void MouseHoverComponent_OnFocusEnd()

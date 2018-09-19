@@ -40,4 +40,11 @@ public class CardInfo_Spell : CardInfo_Base
             sideEffects_OnBattleGround: SideEffects_OnBattleGround.Clone());
         return cs;
     }
+
+    public override string GetCardTypeDesc(bool isEnglish)
+    {
+        if (BaseInfo.CardType == CardTypes.Spell) return isEnglish ? "Spell" : "法术牌";
+        else if (BaseInfo.CardType == CardTypes.Energy) return isEnglish ? "Energy" : "能量牌";
+        return null;
+    }
 }

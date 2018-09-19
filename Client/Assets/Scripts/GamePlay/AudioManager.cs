@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class AudioManager : MonoBehaviour
     private const string StreamingAssetsPath = "";
     private AudioSource BGMAudioSource;
     private AudioSource LastAudioSource;
+
+    public AudioMixer AudioMixer;
+    public AudioMixerGroup BGMAudioMixerGroup;
+    public AudioMixerGroup SoundAudioMixerGroup;
 
     #region Mono Function
 
@@ -135,16 +140,37 @@ public class AudioManager : MonoBehaviour
                 {
                     currentBGM = bgmname;
                     StartCoroutine(Co_BGMFadeOut(duration));
-                    PlayLoopBGMAudioClip(bgmsound, volume);
+                    PlayOnceBGMAudioClip(bgmsound, volume);
                     StartCoroutine(Co_BGMFadeIn(duration, volume));
                 }
             }
         }
     }
 
-    IEnumerator Co_BGMFadeIn(float duration, float targetVolumn)
+    private Coroutine BGMLoop;
+
+    public void BGMLoopInList(List<string> bgmNames)
     {
-        float increase = targetVolumn / 10;
+        if (BGMLoop != null) StopCoroutine(BGMLoop);
+        BGMLoop = StartCoroutine(Co_BGMLoopInList(bgmNames));
+    }
+
+    IEnumerator Co_BGMLoopInList(List<string> bgmNames)
+    {
+        foreach (string bgmName in bgmNames)
+        {
+            while (BGMAudioSource != null && BGMAudioSource.isPlaying)
+            {
+                yield return new WaitForSeconds(2f);
+            }
+
+            BGMFadeIn(bgmName);
+        }
+    }
+
+    IEnumerator Co_BGMFadeIn(float duration, float targetVolume)
+    {
+        float increase = targetVolume / 10;
         BGMAudioSource.volume = 0;
         for (int i = 0; i < 10; i++)
         {
@@ -267,13 +293,14 @@ public class AudioManager : MonoBehaviour
         {
             GameObject obj = new GameObject(name);
             obj.transform.parent = transform;
-            AudioSource LoopClip = obj.AddComponent<AudioSource>();
-            LoopClip.clip = audioClip;
-            LoopClip.volume = volume;
-            LoopClip.loop = true;
-            LoopClip.pitch = 1f;
-            LoopClip.Play();
-            BGMAudioSource = LoopClip;
+            AudioSource Clip = obj.AddComponent<AudioSource>();
+            Clip.clip = audioClip;
+            Clip.volume = volume;
+            Clip.loop = isloop;
+            Clip.pitch = 1f;
+            Clip.Play();
+            Clip.outputAudioMixerGroup = BGMAudioMixerGroup;
+            BGMAudioSource = Clip;
         }
     }
 
@@ -324,6 +351,7 @@ public class AudioManager : MonoBehaviour
             source.pitch = 1f;
             source.volume = volume;
             source.clip = audioClip;
+            source.outputAudioMixerGroup = SoundAudioMixerGroup;
             source.Play();
             LastAudioSource = source;
         }

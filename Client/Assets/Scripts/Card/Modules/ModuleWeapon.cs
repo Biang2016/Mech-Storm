@@ -263,6 +263,7 @@ public class ModuleWeapon : ModuleBase
     {
         M_BloomSE.gameObject.SetActive(true);
         ClientUtils.ChangeColor(M_BloomSE, color);
+        AudioManager.Instance.SoundPlay("sfx/OnSE");
         yield return new WaitForSeconds(duration);
         M_BloomSE.gameObject.SetActive(false);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();

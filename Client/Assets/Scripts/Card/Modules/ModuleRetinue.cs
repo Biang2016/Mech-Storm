@@ -269,6 +269,8 @@ public class ModuleRetinue : ModuleBase
         set { isDead = value; }
     }
 
+    public bool isTotalLifeChanging = false;
+
     private int m_RetinueLeftLife;
 
     public int M_RetinueLeftLife
@@ -281,7 +283,7 @@ public class ModuleRetinue : ModuleBase
             {
                 m_RetinueLeftLife = value;
                 float duration = isInitializing ? 0 : 0.1f;
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeChange(value, m_RetinueTotalLife, value - before, duration), "Co_LifeChange");
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeChange(value, m_RetinueTotalLife, value - before, duration, isTotalLifeChanging, isInitializing), "Co_LifeChange");
             }
         }
     }
@@ -299,7 +301,7 @@ public class ModuleRetinue : ModuleBase
             {
                 m_RetinueTotalLife = value;
                 float duration = isInitializing ? 0 : 0.1f;
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_TotalLifeChange(m_RetinueLeftLife, value, value - before, duration), "Co_TotalLifeChange");
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_TotalLifeChange(m_RetinueLeftLife, value, value - before, duration, isInitializing), "Co_TotalLifeChange");
             }
         }
     }
@@ -447,17 +449,26 @@ public class ModuleRetinue : ModuleBase
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    IEnumerator Co_LifeChange(int leftLifeValue, int totalLifeValue, int change, float duration)
+    IEnumerator Co_LifeChange(int leftLifeValue, int totalLifeValue, int change, float duration, bool isTotalLifeChanging, bool isInitializing)
     {
         LifeIconAnim.SetTrigger("Jump");
         if (change > 0)
         {
             LifeChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
+            if (!isTotalLifeChanging && !isInitializing) AudioManager.Instance.SoundPlay("sfx/OnHeal");
         }
         else if (change < 0)
         {
             HitManager.Instance.ShowHit(LifeIconAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, ClientUtils.HTMLColorToColor("#FFFFFF"), 0.3f);
             LifeChangeNumberFly.SetText("-" + (-change), "#FF0A00", "#FF0A00", TextFly.FlyDirection.Down);
+            if (change <= -8)
+            {
+                AudioManager.Instance.SoundPlay("sfx/OnDamageBig");
+            }
+            else
+            {
+                AudioManager.Instance.SoundPlay("sfx/OnLifeDamage");
+            }
         }
 
         LifeTextChange(leftLifeValue, totalLifeValue);
@@ -465,12 +476,13 @@ public class ModuleRetinue : ModuleBase
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    IEnumerator Co_TotalLifeChange(int leftLifeValue, int totalLifeValue, int change, float duration)
+    IEnumerator Co_TotalLifeChange(int leftLifeValue, int totalLifeValue, int change, float duration, bool isInitializing)
     {
         LifeIconAnim.SetTrigger("Jump");
         if (change > 0)
         {
             LifeChangeNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up);
+            if (!isInitializing) AudioManager.Instance.SoundPlay("sfx/OnAddLife");
         }
         else
         {
@@ -526,7 +538,7 @@ public class ModuleRetinue : ModuleBase
         {
             WeaponEnergyChangeNumberFly.SetText("Max +" + change, "#1CFF00", "#1CFF00", TextFly.FlyDirection.Up);
         }
-        else if(change < 0)
+        else if (change < 0)
         {
             WeaponEnergyChangeNumberFly.SetText("Max " + change, "#530000", "#530000", TextFly.FlyDirection.Down);
         }
@@ -656,12 +668,14 @@ public class ModuleRetinue : ModuleBase
     {
         M_Weapon.OnWeaponEquiped();
         CheckCanAttack();
+        AudioManager.Instance.SoundPlay("sfx/WeaponChange");
     }
 
     void On_WeaponChanged()
     {
         M_Weapon.OnWeaponEquiped();
         CheckCanAttack();
+        AudioManager.Instance.SoundPlay("sfx/WeaponChange");
     }
 
     #endregion
@@ -705,11 +719,13 @@ public class ModuleRetinue : ModuleBase
     void On_ShieldEquiped()
     {
         M_Shield.OnShieldEquiped();
+        AudioManager.Instance.SoundPlay("sfx/ShieldChange");
     }
 
     void On_ShieldChanged()
     {
         M_Shield.OnShieldEquiped();
+        AudioManager.Instance.SoundPlay("sfx/ShieldChange");
     }
 
     #endregion
@@ -767,6 +783,7 @@ public class ModuleRetinue : ModuleBase
                         targetRetinue.BeAttacked(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
                         M_RetinueWeaponEnergy--;
+                        if (targetRetinue.IsDead) break;
                     }
 
                     break;
@@ -1120,6 +1137,7 @@ public class ModuleRetinue : ModuleBase
     {
         SideEffcetBloom.gameObject.SetActive(true);
         ClientUtils.ChangeColor(SideEffcetBloom, color);
+        AudioManager.Instance.SoundPlay("sfx/OnSE");
         yield return new WaitForSeconds(duration);
         SideEffcetBloom.gameObject.SetActive(false);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();

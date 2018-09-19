@@ -132,6 +132,7 @@ public class HandManager : MonoBehaviour
         newCardBase.transform.position = srcPos.position;
         newCardBase.transform.rotation = srcPos.rotation;
         newCardBase.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
+        AudioManager.Instance.SoundPlay("sfx/DrawCard0");
         iTween.MoveTo(newCardBase.gameObject, arg);
         iTween.RotateTo(newCardBase.gameObject, arg);
         yield return new WaitForSeconds(duration);

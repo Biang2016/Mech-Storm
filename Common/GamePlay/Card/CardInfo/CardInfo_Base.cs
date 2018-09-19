@@ -82,4 +82,10 @@ public class CardInfo_Base
 
         return newCardInfo_Base;
     }
+
+
+    public virtual string GetCardTypeDesc(bool isEnglish)
+    {
+        return null;
+    }
 }

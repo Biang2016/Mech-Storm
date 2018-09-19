@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
@@ -100,6 +101,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
         public void Update()
         {
             if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
+            if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.Show) return;
             if (state == States.Hide)
             {
                 if (Input.GetKeyUp(KeyCode.Tab))
@@ -170,8 +172,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             Instance.DegradeCardButton.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
             StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
-            int index = Random.Range(0, 2);
-            AudioManager.Instance.BGMFadeIn("bgm/SelectCardMenu" + index, volume: 0.4f);
+            AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/SelectCardMenu0", "bgm/SelectCardMenu1"});
         }
 
         private void ShowWindowReadOnly()
@@ -196,6 +197,11 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
 
         private void HideWindow()
         {
+            if (Instance.M_StateMachine.GetState() != StateMachine.States.Show_ReadOnly && Instance.CurrentEditBuildButton != null)
+            {
+                Instance.OnSaveBuildInfo();
+            }
+
             Instance.Canvas.gameObject.SetActive(false);
             Instance.Canvas_BG.gameObject.SetActive(false);
             GameManager.Instance.StopBlurBackGround();
@@ -273,7 +279,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                 {
                     if (mouseLeftDownCard == card)
                     {
-                        SelectCard(card,true);
+                        SelectCard(card, true);
                     }
                 }
             }

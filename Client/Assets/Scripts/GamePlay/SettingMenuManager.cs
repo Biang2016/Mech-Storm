@@ -1,0 +1,178 @@
+﻿using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class SettingMenuManager : MonoSingletion<SettingMenuManager>
+{
+    private SettingMenuManager()
+    {
+    }
+
+    void Awake()
+    {
+        M_StateMachine = new StateMachine();
+
+        MasterSlider.onValueChanged.AddListener(OnMasterSliderValueChange);
+        SoundSlider.onValueChanged.AddListener(OnSoundSliderValueChange);
+        BGMSlider.onValueChanged.AddListener(OnBGMSliderValueChange);
+    }
+
+    void Start()
+    {
+        M_StateMachine.SetState(StateMachine.States.Hide);
+        Proxy.OnClientStateChange += OnClientChangeState;
+    }
+
+    void Update()
+    {
+        M_StateMachine.Update();
+    }
+
+    public void OnClientChangeState(ProxyBase.ClientStates clientState)
+    {
+        switch (clientState)
+        {
+            case ProxyBase.ClientStates.Offline:
+                break;
+            case ProxyBase.ClientStates.GetId:
+                break;
+            case ProxyBase.ClientStates.Login:
+                break;
+            case ProxyBase.ClientStates.Matching:
+                break;
+            case ProxyBase.ClientStates.Playing:
+                break;
+        }
+    }
+
+    public StateMachine M_StateMachine;
+
+    public class StateMachine
+    {
+        public StateMachine()
+        {
+            state = States.Default;
+            previousState = States.Default;
+        }
+
+        public enum States
+        {
+            Default,
+            Hide,
+            Show,
+        }
+
+        private States state;
+        private States previousState;
+
+        public void SetState(States newState)
+        {
+            if (state != newState)
+            {
+                switch (newState)
+                {
+                    case States.Hide:
+                        HideMenu();
+                        break;
+
+                    case States.Show:
+                        if (Client.Instance.IsLogin() || Client.Instance.IsPlaying()) ShowMenu();
+                        break;
+                }
+
+                previousState = state;
+                state = newState;
+            }
+        }
+
+        public void ReturnToPreviousState()
+        {
+            SetState(previousState);
+        }
+
+        public States GetState()
+        {
+            return state;
+        }
+
+        public void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                switch (state)
+                {
+                    case States.Hide:
+                        break;
+                    case States.Show:
+                        SetState(States.Hide);
+                        break;
+                }
+            }
+
+            bool isClickElseWhere = (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) || Input.GetMouseButtonDown(1);
+            if (isClickElseWhere)
+            {
+                if (state == States.Show)
+                {
+                    SetState(States.Hide);
+                }
+            }
+        }
+
+        public void ShowMenu()
+        {
+            Instance.SettingMenuCanvas.enabled = true;
+            ExitMenuManager.Instance.M_StateMachine.SetState(ExitMenuManager.StateMachine.States.HideForSetting);
+        }
+
+        public void HideMenu()
+        {
+            Instance.SettingMenuCanvas.enabled = false;
+            ExitMenuManager.Instance.M_StateMachine.ReturnToPreviousState();
+        }
+    }
+
+    [SerializeField] private Canvas SettingMenuCanvas;
+
+    [SerializeField] private Slider MasterSlider;
+    [SerializeField] private Slider SoundSlider;
+    [SerializeField] private Slider BGMSlider;
+
+
+    public void OnMasterSliderValueChange(float value)
+    {
+        if (value.Equals(MasterSlider.minValue))
+        {
+            AudioManager.Instance.AudioMixer.SetFloat("MasterVolume", -100);
+        }
+        else
+        {
+            AudioManager.Instance.AudioMixer.SetFloat("MasterVolume", value);
+        }
+    }
+
+    public void OnSoundSliderValueChange(float value)
+    {
+        if (value.Equals(SoundSlider.minValue))
+        {
+            AudioManager.Instance.AudioMixer.SetFloat("SoundVolume", -100);
+        }
+        else
+        {
+            AudioManager.Instance.AudioMixer.SetFloat("SoundVolume", value);
+        }
+    }
+
+    public void OnBGMSliderValueChange(float value)
+    {
+        if (value.Equals(BGMSlider.minValue))
+        {
+            AudioManager.Instance.AudioMixer.SetFloat("BGMVolume", -100);
+        }
+        else
+        {
+            AudioManager.Instance.AudioMixer.SetFloat("BGMVolume", value);
+        }
+    }
+}

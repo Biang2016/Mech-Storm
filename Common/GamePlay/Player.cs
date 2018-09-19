@@ -1,6 +1,6 @@
 ﻿public class Player
 {
-    public Player(string username,int metalLeft, int metalMax, int lifeLeft, int lifeMax, int energyLeft, int energyMax)
+    public Player(string username, int metalLeft, int metalMax, int lifeLeft, int lifeMax, int energyLeft, int energyMax)
     {
         this.Username = username;
         this.metalMax = metalMax;
@@ -9,9 +9,6 @@
         this.lifeMax = lifeMax;
         this.energyLeft = energyLeft;
         this.energyMax = energyMax;
-        OnMetalChanged();
-        OnLifeChanged();
-        OnEnergyChanged();
     }
 
     public string Username;
@@ -58,39 +55,39 @@
         get { return lifeLeft; }
     }
 
-    protected virtual void OnMetalChanged()
+    protected virtual void OnMetalChanged(int change)
     {
     }
 
     protected virtual void AddMetal(int addMetalNumber)
     {
         metalLeft += addMetalNumber;
-        OnMetalChanged();
+        OnMetalChanged(addMetalNumber);
     }
 
     protected virtual void AddMetalMax(int addMetalNumber)
     {
         metalMax += addMetalNumber;
-        OnMetalChanged();
+        OnMetalChanged(addMetalNumber);
     }
 
-    protected virtual void OnLifeChanged()
+    protected virtual void OnLifeChanged(int change)
     {
     }
 
     protected virtual void AddLife(int addLifeNumber)
     {
         lifeLeft += addLifeNumber;
-        OnLifeChanged();
+        OnLifeChanged(addLifeNumber);
     }
 
-    protected virtual void OnEnergyChanged()
+    protected virtual void OnEnergyChanged(int change)
     {
     }
 
     protected virtual void AddEnergy(int addEnergyNumber)
     {
         energyLeft += addEnergyNumber;
-        OnEnergyChanged();
+        OnEnergyChanged(addEnergyNumber);
     }
 }

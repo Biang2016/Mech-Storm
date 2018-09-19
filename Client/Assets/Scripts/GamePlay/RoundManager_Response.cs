@@ -248,8 +248,10 @@ internal partial class RoundManager
         retinue.isAttackChanging = false;
         retinue.M_RetinueArmor += r.addArmor;
         retinue.M_RetinueShield += r.addShield;
+        retinue.isTotalLifeChanging = r.addMaxLife != 0;
         retinue.M_RetinueTotalLife += r.addMaxLife;
         retinue.M_RetinueLeftLife += r.addLeftLife;
+        retinue.isTotalLifeChanging = false;
     }
 
     private void OnRetinueDie(RetinueDieRequest r)

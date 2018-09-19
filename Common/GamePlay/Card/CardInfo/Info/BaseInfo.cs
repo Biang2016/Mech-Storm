@@ -1,4 +1,6 @@
-﻿public struct BaseInfo
+﻿using System.Collections.Generic;
+
+public struct BaseInfo
 {
     public int PictureID;
     public string CardName;
@@ -66,12 +68,14 @@
         string HightLightColor = reader.ReadString8();
         return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType, CardColor, HightLightColor);
     }
+
 }
 
 public enum CardTypes
 {
     Retinue,
     Spell,
+    Energy,
     Equip,
 }
 

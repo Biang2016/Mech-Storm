@@ -90,6 +90,17 @@ class ClientUtils
         }
 
         return 0F;
+    }
 
+    public static Color ChangeColorToWhite(Color color, float whiteRatio)
+    {
+        float r = color.r;
+        float g = color.g;
+        float b = color.b;
+
+        float max = Mathf.Max(r, g, b);
+
+        Color res = Color.Lerp(color, new Color(max, max, max, color.a), whiteRatio);
+        return res;
     }
 }

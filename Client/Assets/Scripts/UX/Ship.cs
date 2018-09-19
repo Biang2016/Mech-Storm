@@ -27,7 +27,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
         {
             ModuleRetinue mr = DragManager.Instance.CurrentDrag_ModuleRetinue;
             CardSpell cs = DragManager.Instance.CurrentDrag_CardSpell;
-            if (mr != null)
+            if (mr != null && CheckModuleRetinueCanAttack(mr))
             {
                 if (mr.ClientPlayer != ClientPlayer && mr != this)
                 {
@@ -40,7 +40,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                     DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
                 }
             }
-            else if (cs != null)
+            else if (cs != null && CheckCardSpellCanTarget(cs))
             {
                 if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
                 {
@@ -50,6 +50,35 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                 DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
                 DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
             }
+        }
+    }
+
+    private bool CheckModuleRetinueCanAttack(ModuleRetinue retinue)
+    {
+        //Todo 嘲讽类随从等逻辑
+        if (retinue.ClientPlayer == ClientPlayer)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private bool CheckCardSpellCanTarget(CardSpell card)
+    {
+        if (card.ClientPlayer == ClientPlayer)
+        {
+            return card.targetRange == TargetSideEffect.TargetRange.All ||
+                   card.targetRange == TargetSideEffect.TargetRange.Ships ||
+                   card.targetRange == TargetSideEffect.TargetRange.SelfShip;
+        }
+        else
+        {
+            return card.targetRange == TargetSideEffect.TargetRange.All ||
+                   card.targetRange == TargetSideEffect.TargetRange.Ships ||
+                   card.targetRange == TargetSideEffect.TargetRange.EnemyShip;
         }
     }
 

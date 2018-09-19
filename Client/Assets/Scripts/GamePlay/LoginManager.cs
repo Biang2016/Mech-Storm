@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -119,8 +120,7 @@ public class LoginManager : MonoSingletion<LoginManager>
         {
             Instance.LoginCanvas.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.None);
-            int index = Random.Range(0, 2);
-            AudioManager.Instance.BGMFadeIn("bgm/LoginMenu" + index);
+            AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/LoginMenu0", "bgm/LoginMenu1"});
         }
 
         private void HideMenu()

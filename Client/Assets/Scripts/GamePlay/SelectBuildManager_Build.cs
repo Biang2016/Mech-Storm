@@ -37,7 +37,7 @@ public partial class SelectBuildManager
 
     public void InitAllMyBuildInfos(List<BuildInfo> buildInfos)
     {
-        CreateNewBuildButton.transform.SetAsLastSibling();
+        CreateNewBuildButton.transform.parent.SetAsLastSibling();
         while (AllMyBuildsContent.childCount > 1)
         {
             BuildButton bb = AllMyBuildsContent.GetChild(AllMyBuildsContent.childCount - 1).GetComponent<BuildButton>();
@@ -62,7 +62,7 @@ public partial class SelectBuildManager
             newBuildButton.transform.SetParent(AllMyBuildsContent.transform);
         }
 
-        CreateNewBuildButton.transform.SetAsLastSibling();
+        CreateNewBuildButton.transform.parent.SetAsLastSibling();
 
         if (AllBuildButtons.Count != 0)
         {
@@ -94,7 +94,7 @@ public partial class SelectBuildManager
         BuildButton newBuildButton = GameObjectPoolManager.Instance.Pool_BuildButtonPool.AllocateGameObject(AllMyBuildsContent).GetComponent<BuildButton>();
         newBuildButton.Initialize(m_BuildInfo);
 
-        CreateNewBuildButton.transform.SetAsLastSibling();
+        CreateNewBuildButton.transform.parent.SetAsLastSibling();
 
         BuildButtonClick bbc = newBuildButton.Button.GetComponent<BuildButtonClick>();
         bbc.ResetListeners();
@@ -119,12 +119,7 @@ public partial class SelectBuildManager
         if (CurrentEditBuildButton)
         {
             CurrentEditBuildButton.IsEdit = false;
-            if (!lastSaveBuildInfo.EqualsTo(CurrentEditBuildButton.BuildInfo))
-            {
-                BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, CurrentEditBuildButton.BuildInfo);
-                Client.Instance.Proxy.SendMessage(request);
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Your deck is saved." : "已保存卡组", 0f, 0.5f);
-            }
+            OnSaveBuildInfo();
         }
 
         CurrentEditBuildButton = buildButton;
@@ -134,6 +129,16 @@ public partial class SelectBuildManager
         RefreshCoinLifeEnergy();
         RefreshCardNum();
         AudioManager.Instance.SoundPlay("sfx/SwitchBuild");
+    }
+
+    private void OnSaveBuildInfo()
+    {
+        if (!lastSaveBuildInfo.EqualsTo(CurrentEditBuildButton.BuildInfo))
+        {
+            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, CurrentEditBuildButton.BuildInfo);
+            Client.Instance.Proxy.SendMessage(request);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Your deck is saved." : "已保存卡组", 0f, 0.5f);
+        }
     }
 
     public void OnCreateNewBuildButtonClick()
@@ -194,12 +199,15 @@ public partial class SelectBuildManager
 
             bool isSelected = deleteBuildButton.IsSelected;
             deleteBuildButton.PoolRecycle();
+            AllBuildButtons.Remove(buildID);
+            AllBuilds.Remove(buildID);
             if (newEditBuildButtonSiblingIndex < 0 || AllMyBuildsContent.childCount == 1)
             {
                 CurrentEditBuildButton = null;
                 CurrentSelectedBuildButton = null;
                 UnSelectAllCard();
                 HideSliders();
+                AudioManager.Instance.SoundPlay("sfx/SwitchBuild");
                 return;
             }
 
@@ -212,8 +220,7 @@ public partial class SelectBuildManager
                 CurrentSelectedBuildButton = nextCurrentEditBuildButton;
             }
 
-            AllBuildButtons.Remove(buildID);
-            AllBuilds.Remove(buildID);
+         
         }
     }
 

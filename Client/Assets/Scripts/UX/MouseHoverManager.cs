@@ -9,7 +9,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
     {
     }
 
-    int selectCardDeckCanvasLayer;
+    int uiLayer;
     int cardsLayer;
     int modulesLayer;
     int retinuesLayer;
@@ -19,7 +19,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
     void Awake()
     {
-        selectCardDeckCanvasLayer = 1 << LayerMask.NameToLayer("SelectCardDeckCanvas");
+        uiLayer = 1 << LayerMask.NameToLayer("UI");
         cardsLayer = 1 << LayerMask.NameToLayer("Cards");
         modulesLayer = 1 << LayerMask.NameToLayer("Modules");
         retinuesLayer = 1 << LayerMask.NameToLayer("Retinues");
@@ -36,7 +36,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
     private Focus hi_MouseFocusUIHover; //UI
 
-    private Hover1 hi_CardSelectHover; //选卡界面，当鼠标移到牌上牌放大
+    private Hover1 hi_CardSelectHover; //选卡界面，当鼠标移到选的牌上放大
 
     private Hover1 hi_CardHover; //当鼠标移到牌上
     private PressHoverImmediately hi_CardPressHover; //当鼠标按住牌上
@@ -50,7 +50,8 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
     void Start()
     {
-        hi_MouseFocusUIHover = new Focus(selectCardDeckCanvasLayer, GameManager.Instance.SelectCardWindowBackCamera, 0, -1f);
+        hi_MouseFocusUIHover = new Focus(uiLayer, GameManager.Instance.SelectCardWindowBackCamera, 0, -1f);
+
         hi_CardSelectHover = new Hover1(cardSelectLayer, GameManager.Instance.SelectCardWindowBackCamera);
 
         hi_CardHover = new Hover1(cardsLayer, GameManager.Instance.BattleGroundCamera);
@@ -114,7 +115,6 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                         Instance.hi_CardHover.Release();
                         Instance.hi_CardFocus.Release();
                         Instance.hi_CardPressHover.Release();
-                        //Instance.hi_ModulesHoverShowBloom.Release();
                         Instance.hd_ModulesFocusShowPreview.Release();
                         break;
                     case States.DragEquipment:
@@ -271,6 +271,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                 currentTarget = null;
             }
         }
+
     }
 
 
@@ -546,6 +547,12 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                 currentTarget.IsOnFocus = false;
                 currentTarget = null;
             }
+        }
+
+
+        public void PrintCurrentTarget()
+        {
+            Debug.Log(currentTarget);
         }
     }
 }

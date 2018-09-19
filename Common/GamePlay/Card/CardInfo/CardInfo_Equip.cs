@@ -85,7 +85,12 @@ public class CardInfo_Equip : CardInfo_Base
             weaponInfo: WeaponInfo,
             shieldInfo: ShieldInfo,
             sideEffects: SideEffects.Clone(),
-            sideEffects_OnBattleGround:SideEffects_OnBattleGround.Clone());
+            sideEffects_OnBattleGround: SideEffects_OnBattleGround.Clone());
         return cb;
+    }
+
+    public override string GetCardTypeDesc(bool isEnglish)
+    {
+        return isEnglish ? "Equip" : "装备牌";
     }
 }

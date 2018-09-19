@@ -26,19 +26,17 @@ public class ClientPlayer : Player
         IsInitialized = true;
         SetTotalLife();
         SetTotalEnergy();
-        OnMetalChanged();
-        OnLifeChanged();
-        OnEnergyChanged();
+        OnMetalChanged(0);
+        OnLifeChanged(0);
+        OnEnergyChanged(0);
     }
 
     #region Metal
 
-    protected override void OnMetalChanged()
+    protected override void OnMetalChanged(int change)
     {
-        if (IsInitialized)
-        {
-            MyMetalLifeEnergyManager.SetMetal(MetalLeft);
-        }
+        if (IsInitialized) MyMetalLifeEnergyManager.SetMetal(MetalLeft);
+        if (change != 0) MyMetalLifeEnergyManager.OnEnergyChange(change);
     }
 
     public void DoChangeMetal(PlayerMetalChangeRequest request)
@@ -72,9 +70,9 @@ public class ClientPlayer : Player
 
     #region Life
 
-    protected override void OnLifeChanged()
+    protected override void OnLifeChanged(int change)
     {
-        if (IsInitialized) MyMetalLifeEnergyManager.SetLife(LifeLeft);
+        if (IsInitialized) MyMetalLifeEnergyManager.SetLife(LifeLeft, change);
     }
 
     protected void SetTotalLife()
@@ -102,12 +100,9 @@ public class ClientPlayer : Player
 
     #region Energy
 
-    protected override void OnEnergyChanged()
+    protected override void OnEnergyChanged(int change)
     {
-        if (IsInitialized)
-        {
-            MyMetalLifeEnergyManager.SetEnergy(EnergyLeft);
-        }
+        if (IsInitialized) MyMetalLifeEnergyManager.SetEnergy(EnergyLeft, change);
     }
 
     protected void SetTotalEnergy()

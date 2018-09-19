@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class StartMenuManager : MonoSingletion<StartMenuManager>
@@ -122,8 +123,7 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
         {
             Instance.StartMenuCanvas.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
-            int index = Random.Range(0, 2);
-            AudioManager.Instance.BGMFadeIn("bgm/StartMenuBGM" + index);
+            AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
         }
 
         private void HideMenu()
