@@ -1,6 +1,4 @@
-﻿using System.Security.Policy;
-
-internal abstract class ServerCardBase
+﻿internal abstract class ServerCardBase
 {
     internal ServerPlayer ServerPlayer;
     internal CardInfo_Base CardInfo; //卡牌原始数值信息

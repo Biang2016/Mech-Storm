@@ -87,7 +87,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
         {
             LifeNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up);
         }
-        else
+        else if (change < 0)
         {
             LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
             HitManager.Instance.ShowHit(LifeIcon.transform, HitManager.HitType.Blade, ClientUtils.HTMLColorToColor("#FFFFFF"), 0.2f);

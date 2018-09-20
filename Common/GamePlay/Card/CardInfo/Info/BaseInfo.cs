@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public struct BaseInfo
+﻿public struct BaseInfo
 {
     public int PictureID;
     public string CardName;

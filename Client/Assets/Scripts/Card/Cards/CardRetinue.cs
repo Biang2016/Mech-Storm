@@ -7,6 +7,7 @@ public class CardRetinue : CardBase
     public override void PoolRecycle()
     {
         base.PoolRecycle();
+        HideAllSlotHover();
         if (Weapon)
         {
             Weapon.PoolRecycle();
@@ -55,6 +56,24 @@ public class CardRetinue : CardBase
         Slot3.MSlotTypes = CardInfo.SlotInfo.Slot3;
         Slot4.ClientPlayer = ClientPlayer;
         Slot4.MSlotTypes = CardInfo.SlotInfo.Slot4;
+
+        HideAllSlotHover();
+    }
+
+    public void ShowAllSlotHover()
+    {
+        if (Slot1.MSlotTypes != SlotTypes.None) Slot1.ShowHoverGO();
+        if (Slot2.MSlotTypes != SlotTypes.None) Slot2.ShowHoverGO();
+        if (Slot3.MSlotTypes != SlotTypes.None) Slot3.ShowHoverGO();
+        if (Slot4.MSlotTypes != SlotTypes.None) Slot4.ShowHoverGO();
+    }
+
+    public void HideAllSlotHover()
+    {
+        Slot1.HideHoverShowGO();
+        Slot2.HideHoverShowGO();
+        Slot3.HideHoverShowGO();
+        Slot4.HideHoverShowGO();
     }
 
     private int m_RetinueTotalLife;
@@ -101,6 +120,12 @@ public class CardRetinue : CardBase
     [SerializeField] private Slot Slot2;
     [SerializeField] private Slot Slot3;
     [SerializeField] private Slot Slot4;
+
+    [SerializeField] private Renderer WeaponBloom;
+    [SerializeField] private Renderer ShieldBloom;
+    [SerializeField] private Renderer PackBloom;
+    [SerializeField] private Renderer MABloom;
+
     internal ModuleWeapon Weapon;
     internal ModuleShield Shield;
     internal GameObject Pack;

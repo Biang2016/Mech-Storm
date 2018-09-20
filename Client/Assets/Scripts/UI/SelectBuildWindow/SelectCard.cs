@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 public class SelectCard : MonoBehaviour, IGameObjectPool
 {
     private GameObjectPool gameObjectPool;
+    [SerializeField] private MouseHoverUI m_MouseHoverUI;
 
     public void PoolRecycle()
     {
@@ -17,6 +19,8 @@ public class SelectCard : MonoBehaviour, IGameObjectPool
     void Awake()
     {
         gameObjectPool = GameObjectPoolManager.Instance.Pool_SelectCardPool;
+        m_MouseHoverUI.MouseFocusBeginHandler = OnMouseEnter;
+        m_MouseHoverUI.MouseFocusEndHandler = OnMouseLeave;
     }
 
     public Transform Tran_Metal;
@@ -82,6 +86,22 @@ public class SelectCard : MonoBehaviour, IGameObjectPool
         }
     }
 
+    public CardInfo_Base CardInfo;
+
+    public void Initiate(int count, int metal, int energy, string text, CardInfo_Base cardInfo, UnityAction onClick, SelectCardOnMouseEnterHandler enterHandler, SelectCardOnMouseLeaveHandler leaveHandler, Color color)
+    {
+        Count = count;
+        Metal = metal;
+        Energy = energy;
+        Text_CardName.text = text;
+        CardInfo = cardInfo;
+        OnMouseEnterHandler = enterHandler;
+        OnMouseLeaveHandler = leaveHandler;
+        CardButton.image.color = color;
+        CardButton.onClick.AddListener(onClick);
+        CardButton.onClick.RemoveAllListeners();
+    }
+
     private void RefreshText()
     {
         if (Metal != 0 && Energy != 0)
@@ -130,5 +150,23 @@ public class SelectCard : MonoBehaviour, IGameObjectPool
             Text_NOCOST.text = "-";
             Text_NOCOSTBG.text = "-";
         }
+    }
+
+    public delegate void SelectCardOnMouseEnterHandler(SelectCard selectCard);
+
+    public SelectCardOnMouseEnterHandler OnMouseEnterHandler;
+
+    public delegate void SelectCardOnMouseLeaveHandler(SelectCard selectCard);
+
+    public SelectCardOnMouseLeaveHandler OnMouseLeaveHandler;
+
+    public void OnMouseEnter()
+    {
+        OnMouseEnterHandler(this);
+    }
+
+    public void OnMouseLeave()
+    {
+        OnMouseLeaveHandler(this);
     }
 }

@@ -112,6 +112,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
             newCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#A1F7FF"));
             newCard.CoinText.text = cardInfo.BaseInfo.Coin.ToString();
             newCard.CoinImage.enabled = true;
+            newCard.CoinImageBG.enabled = false;
         }
 
         newCard.MetalIcon.color = GameManager.Instance.MetalIconColor;
@@ -323,6 +324,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
 
     [SerializeField] private Text CoinText;
     [SerializeField] private Image CoinImage;
+    public Image CoinImageBG;
 
     [SerializeField] private Renderer CardBackRenderer;
 

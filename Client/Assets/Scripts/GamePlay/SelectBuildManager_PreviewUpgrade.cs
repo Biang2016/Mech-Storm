@@ -75,6 +75,11 @@ public partial class SelectBuildManager
         PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"));
         PreviewCard.BeBrightColor();
 
+        if (PreviewCard is CardRetinue)
+        {
+            ((CardRetinue) PreviewCard).ShowAllSlotHover();
+        }
+
         int U_id = CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID;
         int D_id = CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID;
 

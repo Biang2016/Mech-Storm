@@ -152,19 +152,41 @@ public class AudioManager : MonoBehaviour
     public void BGMLoopInList(List<string> bgmNames)
     {
         if (BGMLoop != null) StopCoroutine(BGMLoop);
+        StartCoroutine(Co_BGMFadeOut(0.5f));
         BGMLoop = StartCoroutine(Co_BGMLoopInList(bgmNames));
     }
 
     IEnumerator Co_BGMLoopInList(List<string> bgmNames)
     {
-        foreach (string bgmName in bgmNames)
+        if (bgmNames.Count == 1)
         {
-            while (BGMAudioSource != null && BGMAudioSource.isPlaying)
+            while (true)
             {
-                yield return new WaitForSeconds(2f);
-            }
+                while (BGMAudioSource != null && BGMAudioSource.isPlaying)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                }
 
-            BGMFadeIn(bgmName);
+                BGMFadeIn(bgmNames[0]);
+            }
+        }
+        else
+        {
+            int lastIndex = Random.Range(0, bgmNames.Count);
+            while (true)
+            {
+                int index = Random.Range(0, bgmNames.Count);
+                if (index != lastIndex)
+                {
+                    lastIndex = index;
+                    while (BGMAudioSource != null && BGMAudioSource.isPlaying)
+                    {
+                        yield return new WaitForSeconds(0.5f);
+                    }
+
+                    BGMFadeIn(bgmNames[index]);
+                }
+            }
         }
     }
 
@@ -184,6 +206,7 @@ public class AudioManager : MonoBehaviour
         if (BGMAudioSource != null && BGMAudioSource.gameObject)
         {
             AudioSource abandonBGM = BGMAudioSource;
+            BGMAudioSource = null;
             float decrease = abandonBGM.volume / 10;
             for (int i = 0; i < 10; i++)
             {

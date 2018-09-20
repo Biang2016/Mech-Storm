@@ -16,12 +16,21 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
         MasterSlider.onValueChanged.AddListener(OnMasterSliderValueChange);
         SoundSlider.onValueChanged.AddListener(OnSoundSliderValueChange);
         BGMSlider.onValueChanged.AddListener(OnBGMSliderValueChange);
+
+        SettingText.text = GameManager.Instance.isEnglish ? "Settings" : "设置";
     }
 
     void Start()
     {
         M_StateMachine.SetState(StateMachine.States.Hide);
         Proxy.OnClientStateChange += OnClientChangeState;
+
+        MasterSlider.value = MasterSlider.maxValue;
+        OnMasterSliderValueChange(MasterSlider.maxValue);
+        SoundSlider.value = SoundSlider.maxValue;
+        OnSoundSliderValueChange(SoundSlider.maxValue);
+        BGMSlider.value = BGMSlider.maxValue;
+        OnBGMSliderValueChange(BGMSlider.maxValue);
     }
 
     void Update()
@@ -138,6 +147,7 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
     [SerializeField] private Slider MasterSlider;
     [SerializeField] private Slider SoundSlider;
     [SerializeField] private Slider BGMSlider;
+    [SerializeField] private Text SettingText;
 
 
     public void OnMasterSliderValueChange(float value)

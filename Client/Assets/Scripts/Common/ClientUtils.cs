@@ -36,6 +36,37 @@ class ClientUtils
         rd.SetPropertyBlock(mpb);
     }
 
+    public static void ChangeSlotColor(Renderer rd, SlotTypes slotTypes)
+    {
+        if (rd == null) return;
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        rd.GetPropertyBlock(mpb);
+        switch (slotTypes)
+        {
+            case SlotTypes.Weapon:
+                mpb.SetColor("_Color", GameManager.Instance.Slot1Color);
+                mpb.SetColor("_EmissionColor", GameManager.Instance.Slot1Color);
+                break;
+            case SlotTypes.Shield:
+                mpb.SetColor("_Color", GameManager.Instance.Slot2Color);
+                mpb.SetColor("_EmissionColor", GameManager.Instance.Slot2Color);
+                break;
+            case SlotTypes.Pack:
+                mpb.SetColor("_Color", GameManager.Instance.Slot3Color);
+                mpb.SetColor("_EmissionColor", GameManager.Instance.Slot3Color);
+                break;
+            case SlotTypes.MA:
+                mpb.SetColor("_Color", GameManager.Instance.Slot4Color);
+                mpb.SetColor("_EmissionColor", GameManager.Instance.Slot4Color);
+                break;
+            default:
+                rd.enabled = false;
+                break;
+        }
+
+        rd.SetPropertyBlock(mpb);
+    }
+
     public static IEnumerator MoveGameObject(Transform obj, Vector3 oldPosition, Quaternion oldRotation, Vector3 oldScale, Vector3 targetPosition, Quaternion targetRotation, Vector3 targetScale, float duration, float rotateDuration)
     {
         obj.position = oldPosition;

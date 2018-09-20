@@ -73,6 +73,11 @@ public partial class SelectBuildManager
     [SerializeField] private Text HerosCardCountText;
     [SerializeField] private Text OtherCardCountText;
 
+    CardBase currentPreviewCard;
+    [SerializeField] private Transform currentPreviewCardContainer;
+    [SerializeField] private Transform CurrentPreviewCardMaxPivot;
+    [SerializeField] private Transform CurrentPreviewCardMinPivot;
+
 
     public void NetworkStateChange_Select(ProxyBase.ClientStates clientState)
     {
@@ -217,16 +222,47 @@ public partial class SelectBuildManager
     private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)
     {
         SelectCard newSC = GameObjectPoolManager.Instance.Pool_SelectCardPool.AllocateGameObject(parenTransform).GetComponent<SelectCard>();
-
-        newSC.Count = 1;
-        newSC.Metal = card.CardInfo.BaseInfo.Metal;
-        newSC.Energy = card.CardInfo.BaseInfo.Energy;
-        newSC.Text_CardName.text = GameManager.Instance.isEnglish ? card.CardInfo.BaseInfo.CardName_en : card.CardInfo.BaseInfo.CardName;
-        newSC.CardButton.onClick.RemoveAllListeners();
-        newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card, true); });
         Color cardColor = ClientUtils.HTMLColorToColor(card.CardInfo.BaseInfo.CardColor);
-        newSC.CardButton.image.color = new Color(cardColor.r, cardColor.g, cardColor.b, 1f);
+
+        newSC.Initiate(
+            count: 1,
+            metal: card.CardInfo.BaseInfo.Metal,
+            energy: card.CardInfo.BaseInfo.Energy,
+            cardInfo: card.CardInfo,
+            text: GameManager.Instance.isEnglish ? card.CardInfo.BaseInfo.CardName_en : card.CardInfo.BaseInfo.CardName,
+            onClick: delegate { UnSelectCard(card, true); },
+            enterHandler: SelectCardOnMouseEnter,
+            leaveHandler: SelectCardOnMouseLeave,
+            color: new Color(cardColor.r, cardColor.g, cardColor.b, 1f)
+        );
+
         return newSC;
+    }
+
+    private void SelectCardOnMouseEnter(SelectCard selectCard)
+    {
+        currentPreviewCardContainer.position = selectCard.transform.position;
+        if (currentPreviewCardContainer.position.y > CurrentPreviewCardMaxPivot.position.y)
+        {
+            currentPreviewCardContainer.position = CurrentPreviewCardMaxPivot.position;
+        }
+        else if (currentPreviewCardContainer.position.y < CurrentPreviewCardMinPivot.position.y)
+        {
+            currentPreviewCardContainer.position = CurrentPreviewCardMinPivot.position;
+        }
+
+        currentPreviewCard = CardBase.InstantiateCardByCardInfo(selectCard.CardInfo, currentPreviewCardContainer, null, true);
+        currentPreviewCard.transform.localPosition = new Vector3(-180f, 0, -290);
+        currentPreviewCard.transform.localScale = Vector3.one * 220;
+        currentPreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
+        currentPreviewCard.BeBrightColor();
+        currentPreviewCard.CardBloom.SetActive(true);
+        currentPreviewCard.CoinImageBG.enabled = true;
+    }
+
+    private void SelectCardOnMouseLeave(SelectCard selectCard)
+    {
+        currentPreviewCard.PoolRecycle();
     }
 
     private void UnSelectCard(CardBase card, bool playSound)

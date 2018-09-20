@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-public class LoginResultRequest : ServerRequestBase
+﻿public class LoginResultRequest : ServerRequestBase
 {
     public string username;
     public StateCodes stateCode;

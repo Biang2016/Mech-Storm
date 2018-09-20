@@ -151,6 +151,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
                 detailCard.GetComponent<BoxCollider>().enabled = false;
                 detailCard.GetComponent<DragComponent>().enabled = false;
                 detailCard.BeBrightColor();
+                ((CardRetinue) detailCard).ShowAllSlotHover();
 
                 if (((ModuleRetinue) this).M_Weapon)
                 {

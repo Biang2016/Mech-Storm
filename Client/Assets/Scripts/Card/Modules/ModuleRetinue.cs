@@ -143,6 +143,11 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private TextFlyPile WeaponEnergyChangeNumberFly;
     [SerializeField] private TextFlyPile ShieldDefenceNumberFly;
 
+    [SerializeField] private Image SideEffectBGCommonIcon;
+    [SerializeField] private Image SideEffectCommonIcon;
+    [SerializeField] private Image SideEffectDieIcon;
+    [SerializeField] private Image SideEffectBGDieIcon;
+
     private bool isInitializing = false;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
@@ -154,7 +159,7 @@ public class ModuleRetinue : ModuleBase
         ArmorFillAnim.gameObject.SetActive(false);
         ShieldBar.fillAmount = 0;
         SwordBar.fillAmount = 0;
-        M_RetinueName = cardInfo.BaseInfo.CardName;
+        M_RetinueName = GameManager.Instance.isEnglish ? CardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
         M_RetinueTotalLife = cardInfo.LifeInfo.TotalLife;
         M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
@@ -165,6 +170,27 @@ public class ModuleRetinue : ModuleBase
         ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         ClientUtils.ChangeColor(WeaponBloom, ClientUtils.HTMLColorToColor("#FF0022"));
         ClientUtils.ChangeColor(ShieldBloom, ClientUtils.HTMLColorToColor("#FFA600"));
+
+        SideEffectBGCommonIcon.gameObject.SetActive(false);
+        SideEffectCommonIcon.gameObject.SetActive(false);
+        SideEffectDieIcon.gameObject.SetActive(false);
+        SideEffectBGDieIcon.gameObject.SetActive(false);
+
+        if (CardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
+        {
+            SideEffectDieIcon.gameObject.SetActive(true);
+            SideEffectBGDieIcon.gameObject.SetActive(true);
+        }
+
+        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects_OnBattleGround.GetSideEffects())
+        {
+            if (see.TriggerTime != SideEffectBundle.TriggerTime.OnRetinueDie && see.TriggerRange != SideEffectBundle.TriggerRange.Self)
+            {
+                SideEffectCommonIcon.gameObject.SetActive(true);
+                SideEffectBGCommonIcon.gameObject.SetActive(true);
+                break;
+            }
+        }
 
         if (Slot1)
         {

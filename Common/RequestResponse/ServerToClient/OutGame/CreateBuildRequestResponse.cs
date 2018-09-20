@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public class CreateBuildRequestResponse : ServerRequestBase
+﻿public class CreateBuildRequestResponse : ServerRequestBase
 {
     public int buildId;
 

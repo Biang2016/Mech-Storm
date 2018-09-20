@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SideEffects
+﻿namespace SideEffects
 {
     public class AddLifeAll : AddLifeAll_Base
     {

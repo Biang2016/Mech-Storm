@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-public class CardInfo_Retinue : CardInfo_Base
+﻿public class CardInfo_Retinue : CardInfo_Base
 {
     public CardInfo_Retinue()
     {

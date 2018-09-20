@@ -1,6 +1,4 @@
-﻿using System;
-
-public abstract class CardRelatedSideEffect : SideEffectBase
+﻿public abstract class CardRelatedSideEffect : SideEffectBase
 {
     public bool IsNeedChoise;
     public int TargetCardInstanceId;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public class LogoutResultRequest : ServerRequestBase
+﻿public class LogoutResultRequest : ServerRequestBase
 {
     public string username;
     public bool isSuccess;
