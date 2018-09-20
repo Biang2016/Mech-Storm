@@ -77,9 +77,9 @@ public class SideEffectBundle
             {
                 if (SEs.Value.Count > 0)
                 {
-                    if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon)) res += isEnglish ? "Battlecry: " : "战吼:";
-                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie)) res += isEnglish ? "Die: " : "亡语:";
-                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnEquipDie)) res += isEnglish ? "Broken: " : "亡语:";
+                    if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon)) res += isEnglish ? "Battlecry: " : "战吼: ";
+                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie)) res += isEnglish ? "Die: " : "亡语: ";
+                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnEquipDie)) res += isEnglish ? "Broken: " : "亡语: ";
                     else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnPlayCard)) res += "";
                     else
                     {
@@ -100,7 +100,7 @@ public class SideEffectBundle
                 }
             }
 
-            res = res.TrimEnd(". ".ToCharArray());
+            res = res.TrimEnd(",. ".ToCharArray());
             res += ";\n";
         }
 
@@ -201,29 +201,29 @@ public class SideEffectBundle
 
     public static SortedDictionary<TriggerTime, string> TriggerTimeDesc = new SortedDictionary<TriggerTime, string>
     {
-        {TriggerTime.OnBeginRound, "{0}回合开始时,"},
-        {TriggerTime.OnDrawCard, "{0}抽牌时,"},
-        {TriggerTime.OnPlayCard, "{0}出牌时,"},
+        {TriggerTime.OnBeginRound, "{0}回合开始时, "},
+        {TriggerTime.OnDrawCard, "{0}抽牌时, "},
+        {TriggerTime.OnPlayCard, "{0}出牌时, "},
 
-        {TriggerTime.OnRetinueSummon, "{0}召唤机甲时,"},
-        {TriggerTime.OnHeroSummon, "{0}召唤英雄时,"},
-        {TriggerTime.OnSoldierSummon, "{0}召唤士兵时,"},
+        {TriggerTime.OnRetinueSummon, "{0}召唤机甲时, "},
+        {TriggerTime.OnHeroSummon, "{0}召唤英雄时, "},
+        {TriggerTime.OnSoldierSummon, "{0}召唤士兵时, "},
 
-        {TriggerTime.OnRetinueAttack, "当{0}机甲进攻时,"},
-        {TriggerTime.OnHeroAttack, "当{0}英雄进攻时,"},
-        {TriggerTime.OnSoldierAttack, "当{0}士兵进攻时,"},
+        {TriggerTime.OnRetinueAttack, "当{0}机甲进攻时, "},
+        {TriggerTime.OnHeroAttack, "当{0}英雄进攻时, "},
+        {TriggerTime.OnSoldierAttack, "当{0}士兵进攻时, "},
 
-        {TriggerTime.OnRetinueInjured, "当{0}机甲受损时,"},
-        {TriggerTime.OnHeroInjured, "当{0}英雄受损时,"},
-        {TriggerTime.OnSoldierInjured, "当{0}士兵受损时,"},
+        {TriggerTime.OnRetinueInjured, "当{0}机甲受损时, "},
+        {TriggerTime.OnHeroInjured, "当{0}英雄受损时, "},
+        {TriggerTime.OnSoldierInjured, "当{0}士兵受损时, "},
 
-        {TriggerTime.OnRetinueDie, "当{0}机甲死亡时,"},
-        {TriggerTime.OnHeroDie, "当{0}英雄死亡时,"},
-        {TriggerTime.OnSoldierDie, "当{0}士兵死亡时,"},
+        {TriggerTime.OnRetinueDie, "当{0}机甲死亡时, "},
+        {TriggerTime.OnHeroDie, "当{0}英雄死亡时, "},
+        {TriggerTime.OnSoldierDie, "当{0}士兵死亡时, "},
 
-        {TriggerTime.OnEquipDie, "{0}装备破坏时,"},
+        {TriggerTime.OnEquipDie, "{0}装备破坏时, "},
 
-        {TriggerTime.OnEndRound, "{0}回合结束时,"},
+        {TriggerTime.OnEndRound, "{0}回合结束时, "},
     };
 
     public static SortedDictionary<TriggerTime, string> TriggerTimeDesc_en = new SortedDictionary<TriggerTime, string>

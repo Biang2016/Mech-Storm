@@ -787,12 +787,25 @@ public class ModuleRetinue : ModuleBase
         return canAttack;
     }
 
-    public void Attack(ModuleRetinue targetRetinue, bool beHarm)
+    private enum AttackLevel
     {
-        OnAttack(); //随从特效
-        if (M_Weapon) M_Weapon.OnAttack(); //武器特效
-        int damage;
-        if (M_Weapon && M_RetinueWeaponEnergy != 0) //有武器避免反击
+        Sword = 0,
+        Gun = 1
+    }
+
+    private AttackLevel M_AttackLevel
+    {
+        get { return (M_Weapon != null && M_Weapon.M_WeaponType == WeaponTypes.Gun && M_RetinueWeaponEnergy != 0) ? AttackLevel.Gun : AttackLevel.Sword; }
+    }
+
+    public void Attack(ModuleRetinue targetRetinue, bool isCounterAttack)
+    {
+        if (!isCounterAttack) OnAttack(); //随从特效
+        if (M_Weapon && !isCounterAttack) M_Weapon.OnAttack(); //武器特效
+        int damage = 0;
+        bool canCounter = !isCounterAttack && M_AttackLevel <= targetRetinue.M_AttackLevel; //对方能否反击
+
+        if (M_Weapon && M_RetinueWeaponEnergy != 0)
         {
             switch (M_Weapon.M_WeaponType)
             {
@@ -801,9 +814,15 @@ public class ModuleRetinue : ModuleBase
                     targetRetinue.BeAttacked(damage);
                     OnMakeDamage(damage);
                     if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
+                    if (canCounter) targetRetinue.Attack(this, true); //对方反击
                     break;
-                case WeaponTypes.Gun:
+                case WeaponTypes.Gun: //有远程武器避免反击
                     int tmp = M_RetinueWeaponEnergy;
+                    if (isCounterAttack) //如果是用枪反击，只反击一个子弹
+                    {
+                        tmp = 1;
+                    }
+
                     for (int i = 0; i < tmp; i++)
                     {
                         targetRetinue.BeAttacked(M_RetinueAttack);
@@ -812,15 +831,16 @@ public class ModuleRetinue : ModuleBase
                         if (targetRetinue.IsDead) break;
                     }
 
+                    if (canCounter) targetRetinue.Attack(this, true); //对方反击
                     break;
             }
         }
-        else //如果没有武器，则受到反击
+        else //没有武器
         {
             damage = M_RetinueAttack;
             targetRetinue.BeAttacked(damage);
             OnMakeDamage(damage);
-            if (beHarm) targetRetinue.Attack(this, false); //攻击对方且接受对方反击
+            if (canCounter) targetRetinue.Attack(this, true); //对方反击
         }
 
         CanAttackThisRound = false;
@@ -831,33 +851,6 @@ public class ModuleRetinue : ModuleBase
     {
         OnAttack(); //随从特效
         if (M_Weapon) M_Weapon.OnAttack(); //武器特效
-        int damage;
-        if (M_Weapon && M_RetinueWeaponEnergy != 0) //有武器避免反击
-        {
-            switch (M_Weapon.M_WeaponType)
-            {
-                case WeaponTypes.Sword:
-                    damage = M_RetinueAttack * M_RetinueWeaponEnergy;
-                    OnMakeDamage(damage);
-                    if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
-                    break;
-                case WeaponTypes.Gun:
-                    int tmp = M_RetinueWeaponEnergy;
-                    for (int i = 0; i < tmp; i++)
-                    {
-                        OnMakeDamage(M_RetinueAttack);
-                        M_RetinueWeaponEnergy--;
-                    }
-
-                    break;
-            }
-        }
-        else //如果没有武器
-        {
-            damage = M_RetinueAttack;
-            OnMakeDamage(damage);
-        }
-
         CanAttackThisRound = false;
         CheckCanAttack();
     }
@@ -912,10 +905,38 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    public int CalculateAttack()
+    public int CalculateAttack() //计算拖出攻击数值
     {
         if (M_RetinueWeaponEnergy != 0) return M_RetinueAttack * M_RetinueWeaponEnergy;
         else return M_RetinueAttack;
+    }
+
+    public int CalculateCounterAttack(ModuleRetinue targetRetinue) //计算对方反击数值
+    {
+        bool enemyUseGun = targetRetinue.M_Weapon && targetRetinue.M_Weapon.M_WeaponType == WeaponTypes.Gun && targetRetinue.M_RetinueWeaponEnergy != 0;
+
+        int damage = 0;
+        if (M_Weapon && M_RetinueWeaponEnergy != 0)
+        {
+            switch (M_Weapon.M_WeaponType)
+            {
+                case WeaponTypes.Sword:
+                    if (enemyUseGun) damage = 0; //无远程武器不能反击枪械攻击
+                    else damage = M_RetinueWeaponFinalAttack;
+
+                    break;
+                case WeaponTypes.Gun: //有远程武器可以反击，只反击一点子弹
+                    damage = M_RetinueAttack;
+                    break;
+            }
+        }
+        else //如果没有武器
+        {
+            if (enemyUseGun) damage = 0;
+            else damage = M_RetinueAttack;
+        }
+
+        return damage;
     }
 
     public void ShowTargetPreviewArrow()
@@ -1005,7 +1026,7 @@ public class ModuleRetinue : ModuleBase
                 DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
                 DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
 
-                int myCounterAttack = CalculateAttack();
+                int myCounterAttack = CalculateCounterAttack(mr);
                 mr.DamageNumberPreviewTextMesh.text = myCounterAttack == 0 ? "" : "-" + myCounterAttack;
                 mr.DamageNumberPreviewBGTextMesh.text = myCounterAttack == 0 ? "" : "-" + myCounterAttack;
             }

@@ -90,7 +90,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
 
     public bool HasShowLostConnectNotice = true;
 
-    private void OnGameStop()
+    public void OnGameStop()
     {
         CardBase[] cardPreviews = GameBoardManager.Instance.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
         foreach (CardBase cardPreview in cardPreviews)

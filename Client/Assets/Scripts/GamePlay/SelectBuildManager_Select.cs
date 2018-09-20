@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -230,11 +231,12 @@ public partial class SelectBuildManager
             energy: card.CardInfo.BaseInfo.Energy,
             cardInfo: card.CardInfo,
             text: GameManager.Instance.isEnglish ? card.CardInfo.BaseInfo.CardName_en : card.CardInfo.BaseInfo.CardName,
-            onClick: delegate { UnSelectCard(card, true); },
             enterHandler: SelectCardOnMouseEnter,
             leaveHandler: SelectCardOnMouseLeave,
             color: new Color(cardColor.r, cardColor.g, cardColor.b, 1f)
         );
+        newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card, true); });
+
 
         return newSC;
     }

@@ -301,7 +301,7 @@ internal class ServerGameManager
     {
         if (IsStopped) return;
         GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
-        BroadcastRequest(request);
+        Broadcast_AddRequestToOperationResponse(request);
         IsStopped = true;
     }
 

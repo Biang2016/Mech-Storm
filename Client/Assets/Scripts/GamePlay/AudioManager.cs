@@ -234,6 +234,7 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public void BGMStop()
     {
+        if (BGMLoop != null) StopCoroutine(BGMLoop);
         if (BGMAudioSource != null && BGMAudioSource.gameObject)
         {
             Destroy(BGMAudioSource.gameObject);
