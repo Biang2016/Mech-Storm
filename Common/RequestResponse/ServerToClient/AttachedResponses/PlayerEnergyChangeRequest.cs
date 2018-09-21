@@ -17,7 +17,7 @@
         this.addEnergy_max = addEnergy_max;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_PLAYER_ENERGY_CHANGE;
     }

@@ -518,6 +518,56 @@ public class BattleGroundManager : MonoBehaviour
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
+    public void EquipPack(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipPack(cardInfo, retinueId, equipId), "Co_EquipPack");
+    }
+
+    IEnumerator Co_EquipPack(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    {
+        ModuleRetinue retinue = GetRetinue(retinueId);
+        if (cardInfo != null)
+        {
+            ModulePack newModulePack = GameObjectPoolManager.Instance.Pool_ModulePackPool.AllocateGameObject(retinue.transform).GetComponent<ModulePack>();
+            newModulePack.M_ModuleRetinue = retinue;
+            newModulePack.Initiate(cardInfo, ClientPlayer);
+            newModulePack.M_EquipID = equipId;
+            retinue.M_Pack = newModulePack;
+        }
+        else
+        {
+            retinue.M_Pack = null;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
+    public void EquipMA(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipMA(cardInfo, retinueId, equipId), "Co_EquipMA");
+    }
+
+    IEnumerator Co_EquipMA(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    {
+        ModuleRetinue retinue = GetRetinue(retinueId);
+        if (cardInfo != null)
+        {
+            ModuleMA newModuleMA = GameObjectPoolManager.Instance.Pool_ModuleMAPool.AllocateGameObject(retinue.transform).GetComponent<ModuleMA>();
+            newModuleMA.M_ModuleRetinue = retinue;
+            newModuleMA.Initiate(cardInfo, ClientPlayer);
+            newModuleMA.M_EquipID = equipId;
+            retinue.M_MA = newModuleMA;
+        }
+        else
+        {
+            retinue.M_MA = null;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
     public void DamageOneRetinue(int targetRetinueId, int value)
     {
         GetRetinue(targetRetinueId).BeAttacked(value);
@@ -554,6 +604,8 @@ public class BattleGroundManager : MonoBehaviour
             {
                 if (moduleRetinue.M_Weapon && moduleRetinue.M_Weapon.M_EquipID == equipId) return moduleRetinue.M_Weapon;
                 if (moduleRetinue.M_Shield && moduleRetinue.M_Shield.M_EquipID == equipId) return moduleRetinue.M_Shield;
+                if (moduleRetinue.M_Pack && moduleRetinue.M_Pack.M_EquipID == equipId) return moduleRetinue.M_Pack;
+                if (moduleRetinue.M_MA && moduleRetinue.M_MA.M_EquipID == equipId) return moduleRetinue.M_MA;
             }
         }
 
@@ -563,6 +615,8 @@ public class BattleGroundManager : MonoBehaviour
             {
                 if (moduleRetinue.M_Weapon && moduleRetinue.M_Weapon.M_EquipID == equipId) return moduleRetinue.M_Weapon;
                 if (moduleRetinue.M_Shield && moduleRetinue.M_Shield.M_EquipID == equipId) return moduleRetinue.M_Shield;
+                if (moduleRetinue.M_Pack && moduleRetinue.M_Pack.M_EquipID == equipId) return moduleRetinue.M_Pack;
+                if (moduleRetinue.M_MA && moduleRetinue.M_MA.M_EquipID == equipId) return moduleRetinue.M_MA;
             }
         }
 

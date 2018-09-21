@@ -13,7 +13,7 @@ public abstract class ProxyBase
 
     public virtual ClientStates ClientState
     {
-        get => clientState;
+        get { return clientState; }
         set { clientState = value; }
     }
 

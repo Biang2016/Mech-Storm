@@ -4,7 +4,7 @@
     {
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.HEART_BEAT_REQUEST;
     }

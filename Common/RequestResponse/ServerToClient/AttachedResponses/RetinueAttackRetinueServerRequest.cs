@@ -17,7 +17,7 @@
         BeAttackedRetinueId = beAttackedRetinueId;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST;
     }

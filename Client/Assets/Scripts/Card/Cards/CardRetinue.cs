@@ -22,18 +22,15 @@ public class CardRetinue : CardBase
 
         if (Pack)
         {
-            //Pack.PoolRecycle();
+            Pack.PoolRecycle();
             Pack = null;
         }
 
         if (MA)
         {
-            //MA.PoolRecycle();
+            MA.PoolRecycle();
             MA = null;
         }
-
-        if (Pack) Pack = null;
-        if (MA) MA = null;
     }
 
     #region 卡牌上各模块
@@ -74,6 +71,11 @@ public class CardRetinue : CardBase
         Slot2.HideHoverShowGO();
         Slot3.HideHoverShowGO();
         Slot4.HideHoverShowGO();
+    }
+
+    public void SetCanvasSortingOrder(int Order)
+    {
+        IconCanvas.sortingOrder = Order;
     }
 
     private int m_RetinueTotalLife;
@@ -128,8 +130,10 @@ public class CardRetinue : CardBase
 
     internal ModuleWeapon Weapon;
     internal ModuleShield Shield;
-    internal GameObject Pack;
-    internal GameObject MA;
+    internal ModulePack Pack;
+    internal ModuleMA MA;
+
+    [SerializeField] private Canvas IconCanvas;
 
     # endregion
 

@@ -58,6 +58,8 @@
      <Compile Include="Assets\Scripts\Card\Cards\CardSpell.cs" />
      <Compile Include="Assets\Scripts\Card\Cards\ColliderReplace.cs" />
      <Compile Include="Assets\Scripts\Card\Modules\ModuleBase.cs" />
+     <Compile Include="Assets\Scripts\Card\Modules\ModuleMA.cs" />
+     <Compile Include="Assets\Scripts\Card\Modules\ModulePack.cs" />
      <Compile Include="Assets\Scripts\Card\Modules\ModuleRetinue.cs" />
      <Compile Include="Assets\Scripts\Card\Modules\ModuleShield.cs" />
      <Compile Include="Assets\Scripts\Card\Modules\ModuleWeapon.cs" />
@@ -167,7 +169,7 @@
      <None Include="Assets\Materials\Effect\Shaders\Line.shader" />
      <None Include="Assets\Materials\Effect\Shaders\LensFlareCreate.shader" />
      <None Include="Assets\Materials\Effect\Shaders\LakeTile.shader" />
-     <None Include="Assets\Materials\GameBoardMaterials\BlurShader.shader" />
+     <None Include="Assets\Materials\BattleFieldObjs\GameBoardMaterials\BlurShader.shader" />
      <None Include="Assets\Materials\Effect\Shaders\select_shader.shader" />
      <None Include="Assets\Materials\Effect\Shaders\BlendMaskLinear.shader" />
      <None Include="Assets\Materials\Effect\Shaders\BlendLinear.shader" />

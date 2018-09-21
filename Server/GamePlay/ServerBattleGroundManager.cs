@@ -173,6 +173,34 @@ internal class ServerBattleGroundManager
         ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
+    public void EquipPack(EquipPackRequest r, CardInfo_Base cardInfo)
+    {
+        ServerModulePack pack = new ServerModulePack();
+        CardInfo_Equip cardInfo_Pack = (CardInfo_Equip) cardInfo;
+        ServerModuleRetinue retinue = GetRetinue(r.retinueID);
+        pack.M_ModuleRetinue = retinue;
+        pack.M_PackPlaceIndex = r.packPlaceIndex;
+        pack.M_EquipID = ServerPlayer.MyGameManager.GenerateNewEquipId();
+        pack.Initiate(cardInfo_Pack, ServerPlayer);
+        pack.OriginCardInstanceId = r.handCardInstanceId;
+        retinue.M_Pack = pack;
+        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
+    }
+
+    public void EquipMA(EquipMARequest r, CardInfo_Base cardInfo)
+    {
+        ServerModuleMA ma = new ServerModuleMA();
+        CardInfo_Equip cardInfo_MA = (CardInfo_Equip) cardInfo;
+        ServerModuleRetinue retinue = GetRetinue(r.retinueID);
+        ma.M_ModuleRetinue = retinue;
+        ma.M_MAPlaceIndex = r.maPlaceIndex;
+        ma.M_EquipID = ServerPlayer.MyGameManager.GenerateNewEquipId();
+        ma.Initiate(cardInfo_MA, ServerPlayer);
+        ma.OriginCardInstanceId = r.handCardInstanceId;
+        retinue.M_MA = ma;
+        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
+    }
+
     public void KillAllRetinues()
     {
         List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();

@@ -426,9 +426,127 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     #endregion
 
+    #region 飞行背包相关
 
-    internal ServerModuleShield M_Pack;
-    internal ServerModuleShield M_MA;
+    private ServerModulePack m_Pack;
+
+    public ServerModulePack M_Pack
+    {
+        get { return m_Pack; }
+        set
+        {
+            if (m_Pack != null && value == null)
+            {
+                On_PackDown();
+            }
+            else if (m_Pack == null && value != null)
+            {
+                On_PackEquiped(value);
+            }
+            else if (m_Pack != value)
+            {
+                On_PackChanged(value);
+                return;
+            }
+        }
+    }
+
+    void On_PackDown()
+    {
+        if (m_Pack != null)
+        {
+            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Pack.M_EquipID));
+            m_Pack.UnRegisterSideEffect();
+
+            EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Pack.M_EquipID);
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+            m_Pack = null;
+        }
+    }
+
+    void On_PackEquiped(ServerModulePack newPack)
+    {
+        m_Pack = newPack;
+        EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_RetinueID, newPack.M_PackPlaceIndex, m_Pack.M_EquipID);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+    }
+
+    void On_PackChanged(ServerModulePack newPack)
+    {
+        if (m_Pack != null)
+        {
+            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
+            m_Pack.UnRegisterSideEffect();
+        }
+
+        m_Pack = newPack;
+        EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_RetinueID, newPack.M_PackPlaceIndex, m_Pack.M_EquipID);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+    }
+
+    #endregion
+
+    #region MA相关
+
+    private ServerModuleMA m_MA;
+
+    public ServerModuleMA M_MA
+    {
+        get { return m_MA; }
+        set
+        {
+            if (m_MA != null && value == null)
+            {
+                On_MADown();
+            }
+            else if (m_MA == null && value != null)
+            {
+                On_MAEquiped(value);
+            }
+            else if (m_MA != value)
+            {
+                On_MAChanged(value);
+                return;
+            }
+        }
+    }
+
+    void On_MADown()
+    {
+        if (m_MA != null)
+        {
+            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_MA.M_EquipID));
+            m_MA.UnRegisterSideEffect();
+
+            EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_MA.M_EquipID);
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+            m_MA = null;
+        }
+    }
+
+    void On_MAEquiped(ServerModuleMA newMA)
+    {
+        m_MA = newMA;
+        EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_RetinueID, newMA.M_MAPlaceIndex, m_MA.M_EquipID);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+    }
+
+    void On_MAChanged(ServerModuleMA newMA)
+    {
+        if (m_MA != null)
+        {
+            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
+            m_MA.UnRegisterSideEffect();
+        }
+
+        m_MA = newMA;
+        EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_RetinueID, newMA.M_MAPlaceIndex, m_MA.M_EquipID);
+        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+    }
+
+    #endregion
 
     #endregion
 
@@ -585,8 +703,10 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (M_IsDead) return;
         M_IsDead = true;
-        M_Shield = null;
         M_Weapon = null;
+        M_Shield = null;
+        M_Pack = null;
+        M_MA = null;
         ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID);
         SideEffectBase.ExecuterInfo info = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueDie, info);

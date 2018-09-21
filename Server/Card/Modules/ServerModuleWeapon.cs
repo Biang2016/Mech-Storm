@@ -31,6 +31,8 @@
             slotType: ((CardInfo_Equip) CardInfo).M_SlotType,
             weaponInfo: CardInfo.WeaponInfo,
             shieldInfo: CardInfo.ShieldInfo,
+            packInfo: CardInfo.PackInfo,
+            maInfo: CardInfo.MAInfo,
             sideEffects: CardInfo.SideEffects,
             sideEffects_OnBattleGround: CardInfo.SideEffects_OnBattleGround);
     }

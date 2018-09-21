@@ -11,7 +11,7 @@
     {
         this.clientId = clientId;
     }
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.GAME_STOP_BY_LEAVE_REQUEST;
     }

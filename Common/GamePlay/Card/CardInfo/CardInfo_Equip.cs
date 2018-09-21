@@ -4,7 +4,7 @@
     {
     }
 
-    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SlotTypes slotType, WeaponInfo weaponInfo, ShieldInfo shieldInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
+    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SlotTypes slotType, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             slotType: slotType,
@@ -21,6 +21,16 @@
             case SlotTypes.Shield:
             {
                 ShieldInfo = shieldInfo;
+                break;
+            }
+            case SlotTypes.Pack:
+            {
+                PackInfo = packInfo;
+                break;
+            }
+            case SlotTypes.MA:
+            {
+                MAInfo = maInfo;
                 break;
             }
         }
@@ -62,6 +72,14 @@
 
                 break;
             }
+            case SlotTypes.Pack:
+            {
+                break;
+            }
+            case SlotTypes.MA:
+            {
+                break;
+            }
         }
 
         CardDescShow += base.GetCardDescShow(isEnglish);
@@ -81,6 +99,8 @@
             slotType: M_SlotType,
             weaponInfo: WeaponInfo,
             shieldInfo: ShieldInfo,
+            packInfo: PackInfo,
+            maInfo: MAInfo,
             sideEffects: SideEffects.Clone(),
             sideEffects_OnBattleGround: SideEffects_OnBattleGround.Clone());
         return cb;

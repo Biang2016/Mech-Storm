@@ -13,7 +13,7 @@
         this.handCardInstanceId = handCardInstanceId;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_DROP_CARD;
     }

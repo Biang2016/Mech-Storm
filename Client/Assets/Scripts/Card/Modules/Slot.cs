@@ -52,7 +52,7 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
             CardEquip cw = DragManager.Instance.CurrentDrag_CardEquip;
             if (cw && cw.ClientPlayer == ClientPlayer)
             {
-                ShowHoverGO();
+                if (_mSlotTypes != SlotTypes.None) ShowHoverGO();
             }
         }
     }

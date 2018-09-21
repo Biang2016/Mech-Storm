@@ -12,7 +12,7 @@
         this.buildId = buildId;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.CREATE_BUILD_REQUEST_RESPONSE;
     }

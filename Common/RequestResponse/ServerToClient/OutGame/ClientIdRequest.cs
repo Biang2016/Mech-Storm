@@ -11,7 +11,7 @@
         this.givenClientId = givenClientId;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.CLIENT_ID_REQUEST;
     }

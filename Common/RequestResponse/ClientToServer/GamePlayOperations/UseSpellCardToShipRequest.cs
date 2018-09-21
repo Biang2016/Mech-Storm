@@ -15,7 +15,7 @@ public class UseSpellCardToShipRequest : ClientRequestBase
         this.lastDragPosition = lastDragPosition;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.USE_SPELLCARD_TO_SHIP_REQUEST;
     }

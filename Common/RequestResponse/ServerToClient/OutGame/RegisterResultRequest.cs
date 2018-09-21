@@ -11,7 +11,7 @@
         this.isSuccess = isSuccess;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.REGISTER_RESULT_REQUEST;
     }

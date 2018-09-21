@@ -14,7 +14,7 @@ public class CardEquipEditor : Editor
         style.fontSize = 15;
         style.fontStyle = FontStyle.Bold;
 
-        Handles.Label(cb.transform.position, "CIID: " + cb.M_CardInstanceId + "\n" + "CID: " + cb.CardInfo.CardID, style);
+        if (cb.CardInfo != null) Handles.Label(cb.transform.position, "CIID: " + cb.M_CardInstanceId + "\n" + "CID: " + cb.CardInfo.CardID, style);
     }
 }
 
@@ -30,7 +30,7 @@ public class CardRetinueEditor : Editor
         style.fontSize = 15;
         style.fontStyle = FontStyle.Bold;
 
-        Handles.Label(cb.transform.position, "CIID: " + cb.M_CardInstanceId + "\n" + "CID: " + cb.CardInfo.CardID, style);
+        if (cb.CardInfo != null) Handles.Label(cb.transform.position, "CIID: " + cb.M_CardInstanceId + "\n" + "CID: " + cb.CardInfo.CardID, style);
     }
 }
 
@@ -46,7 +46,7 @@ public class CardSpellEditor : Editor
         style.fontSize = 15;
         style.fontStyle = FontStyle.Bold;
 
-        Handles.Label(cb.transform.position, "CIID: " + cb.M_CardInstanceId + "\n" + "CID: " + cb.CardInfo.CardID, style);
+        if (cb.CardInfo != null) Handles.Label(cb.transform.position, "CIID: " + cb.M_CardInstanceId + "\n" + "CID: " + cb.CardInfo.CardID, style);
     }
 }
 
@@ -64,7 +64,7 @@ public class SelectBuildManagerEditor : Editor
 
         foreach (KeyValuePair<int, CardBase> kv in sbm.allCards)
         {
-            Handles.Label(kv.Value.transform.position, "CIID: " + kv.Value.M_CardInstanceId + "\n" + "CID: " + kv.Value.CardInfo.CardID, style);
+            if (kv.Value.CardInfo != null) Handles.Label(kv.Value.transform.position, "CIID: " + kv.Value.M_CardInstanceId + "\n" + "CID: " + kv.Value.CardInfo.CardID, style);
         }
     }
 }
@@ -81,9 +81,9 @@ public class HandManagerEditor : Editor
         style.fontSize = 15;
         style.fontStyle = FontStyle.Bold;
 
-        foreach (CardBase card in hm.cards)
+        foreach (CardBase cb in hm.cards)
         {
-            Handles.Label(card.transform.position, "CIID: " + card.M_CardInstanceId + "\n" + "CID: " + card.CardInfo.CardID, style);
+            if (cb.CardInfo != null) Handles.Label(cb.transform.position, "CIID: " + cb.M_CardInstanceId + "\n" + "CID: " + cb.CardInfo.CardID, style);
         }
     }
 }

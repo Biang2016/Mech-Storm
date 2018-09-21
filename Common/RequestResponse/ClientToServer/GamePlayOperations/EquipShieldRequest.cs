@@ -19,7 +19,7 @@ public class EquipShieldRequest : ClientRequestBase
         this.lastDragPosition = lastDragPosition;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.EQUIP_SHIELD_REQUEST;
     }

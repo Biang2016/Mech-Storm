@@ -27,7 +27,7 @@
         this.addShield = addShield;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE;
     }

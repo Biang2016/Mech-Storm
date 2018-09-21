@@ -13,7 +13,7 @@
         this.isSuccess = isSuccess;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.LOGOUT_RESULT_REQUEST;
     }

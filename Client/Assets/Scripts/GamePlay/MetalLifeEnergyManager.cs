@@ -85,8 +85,9 @@ public class MetalLifeEnergyManager : MonoBehaviour
         else if (change < 0)
         {
             LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
-            HitManager.Instance.ShowHit(LifeIcon.transform, HitManager.HitType.Blade, ClientUtils.HTMLColorToColor("#FFFFFF"), 0.2f);
+            HitManager.Instance.ShowHit(LifeIcon.transform, HitManager.HitType.Blade, "#FFFFFF", 0.2f);
             AudioManager.Instance.SoundPlay("sfx/OnHitShip");
+            AudioManager.Instance.SoundPlay("sfx/OnHitShipDuuu");
         }
     }
 
@@ -107,11 +108,11 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
         if (change > 0)
         {
-            EnergyNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up);
+            EnergyNumberFly.SetText("+" + change, "#00D2FF", "#00D2FF", TextFly.FlyDirection.Up);
         }
-        else
+        else if (change < 0)
         {
-            EnergyNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
+            EnergyNumberFly.SetText(change.ToString(), "#00D2FF", "#00D2FF", TextFly.FlyDirection.Down);
         }
     }
 

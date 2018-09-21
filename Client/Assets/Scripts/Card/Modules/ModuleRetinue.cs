@@ -107,6 +107,8 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Renderer SideEffcetBloom;
     [SerializeField] private Renderer WeaponBloom;
     [SerializeField] private Renderer ShieldBloom;
+    [SerializeField] private Renderer PackBloom;
+    [SerializeField] private Renderer MABloom;
 
     public Slot Slot1;
     public Slot Slot2;
@@ -168,8 +170,10 @@ public class ModuleRetinue : ModuleBase
         M_RetinueWeaponEnergy = 0;
         M_RetinueWeaponEnergyMax = 0;
         ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
-        ClientUtils.ChangeColor(WeaponBloom, ClientUtils.HTMLColorToColor("#FF0022"));
-        ClientUtils.ChangeColor(ShieldBloom, ClientUtils.HTMLColorToColor("#FFA600"));
+        ClientUtils.ChangeColor(WeaponBloom, GameManager.Instance.Slot1Color);
+        ClientUtils.ChangeColor(ShieldBloom, GameManager.Instance.Slot2Color);
+        ClientUtils.ChangeColor(PackBloom, GameManager.Instance.Slot3Color);
+        ClientUtils.ChangeColor(MABloom, GameManager.Instance.Slot4Color);
 
         SideEffectBGCommonIcon.gameObject.SetActive(false);
         SideEffectCommonIcon.gameObject.SetActive(false);
@@ -470,23 +474,27 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_ShieldChangeNumberFly(int decreaseValue)
     {
-        ShieldDefenceNumberFly.SetText((GameManager.Instance.isEnglish ? "Dec -" : "阻挡 -") + decreaseValue, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down, fontSize: 40);
+        ShieldDefenceNumberFly.SetText((GameManager.Instance.isEnglish ? "Dec -" : "阻挡 -") + decreaseValue, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     IEnumerator Co_LifeChange(int leftLifeValue, int totalLifeValue, int change, float duration, bool isTotalLifeChanging, bool isInitializing)
     {
+        string text = GameManager.Instance.isEnglish ? "Life " : "生命 ";
         LifeIconAnim.SetTrigger("Jump");
         if (change > 0)
         {
-            LifeChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
-            if (!isTotalLifeChanging && !isInitializing) AudioManager.Instance.SoundPlay("sfx/OnHeal");
+            if (!isTotalLifeChanging && !isInitializing)
+            {
+                LifeChangeNumberFly.SetText(text + "+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up);
+                AudioManager.Instance.SoundPlay("sfx/OnHeal");
+            }
         }
         else if (change < 0)
         {
-            HitManager.Instance.ShowHit(LifeIconAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, ClientUtils.HTMLColorToColor("#FFFFFF"), 0.3f);
-            LifeChangeNumberFly.SetText("-" + (-change), "#FF0A00", "#FF0A00", TextFly.FlyDirection.Down);
+            HitManager.Instance.ShowHit(LifeIconAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, "#FFFFFF", 0.3f);
+            LifeChangeNumberFly.SetText(text + change, "#FF0A00", "#FF0A00", TextFly.FlyDirection.Down);
             if (change <= -8)
             {
                 AudioManager.Instance.SoundPlay("sfx/OnDamageBig");
@@ -507,12 +515,15 @@ public class ModuleRetinue : ModuleBase
         LifeIconAnim.SetTrigger("Jump");
         if (change > 0)
         {
-            LifeChangeNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up);
-            if (!isInitializing) AudioManager.Instance.SoundPlay("sfx/OnAddLife");
+            if (!isInitializing)
+            {
+                LifeChangeNumberFly.SetText("Max +" + change, "#68FF00", "#68FF00", TextFly.FlyDirection.Up);
+                AudioManager.Instance.SoundPlay("sfx/OnAddLife");
+            }
         }
-        else
+        else if (change < 0)
         {
-            LifeChangeNumberFly.SetText("-" + (-change), "#00A8FF", "#00A8FF", TextFly.FlyDirection.Down);
+            LifeChangeNumberFly.SetText("Max " + change, "#A000FF", "#A000FF", TextFly.FlyDirection.Down);
         }
 
         LifeTextChange(leftLifeValue, totalLifeValue);
@@ -541,16 +552,17 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_RetinueAttackChange(int retinueAttackValue, int retinueEnergy, int retinueEnergyMax, int change, float duration)
     {
+        string text = GameManager.Instance.isEnglish ? "Attack " : "伤害 ";
         int finalAttack = retinueEnergy == 0 ? retinueAttackValue : retinueEnergy * retinueAttackValue;
 
         Text_RetinueAttack.text = finalAttack > 0 ? finalAttack.ToString() : "";
         if (change > 0)
         {
-            WeaponAttackChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
+            WeaponAttackChangeNumberFly.SetText(text + "+" + change, "#FFF500", "#FFF500", TextFly.FlyDirection.Up);
         }
         else if (change < 0)
         {
-            WeaponAttackChangeNumberFly.SetText(change.ToString(), "#530000", "#530000", TextFly.FlyDirection.Down);
+            WeaponAttackChangeNumberFly.SetText(text + change, "#FFF500", "#FFF500", TextFly.FlyDirection.Down);
         }
 
         RefreshSwordBarMask(retinueEnergy, retinueEnergyMax);
@@ -566,7 +578,7 @@ public class ModuleRetinue : ModuleBase
         }
         else if (change < 0)
         {
-            WeaponEnergyChangeNumberFly.SetText("Max " + change, "#530000", "#530000", TextFly.FlyDirection.Down);
+            WeaponEnergyChangeNumberFly.SetText("Max " + change, "#1CFF00", "#1CFF00", TextFly.FlyDirection.Down);
         }
 
         RefreshSwordBarMask(retinueEnergy, retinueEnergyMax);
@@ -589,15 +601,16 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_ArmorChange(int armorValue, int change, float duration)
     {
+        string text = GameManager.Instance.isEnglish ? "Armor " : "护甲 ";
         ArmorFillAnim.SetTrigger("Jump");
         if (change > 0)
         {
-            ArmorChangeNumberFly.SetText("+" + change, "#92FF00", "#92FF00", TextFly.FlyDirection.Up);
+            ArmorChangeNumberFly.SetText(text + "+" + change, "#FFA800", "#FFA800", TextFly.FlyDirection.Up);
         }
-        else
+        else if (change < 0)
         {
-            HitManager.Instance.ShowHit(ArmorFillAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, ClientUtils.HTMLColorToColor("#FFD217"), 0.3f);
-            ArmorChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
+            HitManager.Instance.ShowHit(ArmorFillAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, "#FFD217", 0.3f);
+            ArmorChangeNumberFly.SetText(text + change, "#FFA800", "#FFA800", TextFly.FlyDirection.Down);
             if (armorValue != 0) AudioManager.Instance.SoundPlay("sfx/ArmorHit", 0.5f);
         }
 
@@ -623,19 +636,19 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_ShieldChange(int shieldValue, int change, float duration)
     {
+        string text = GameManager.Instance.isEnglish ? "Shield " : "护盾 ";
         RetinueShieldFull = Mathf.Max(RetinueShieldFull, shieldValue);
         ShieldBarAnim.SetTrigger("Jump");
         if (change > 0)
         {
-            ShieldChangeNumberFly.SetText("+" + change, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Up);
+            ShieldChangeNumberFly.SetText(text + "+" + change, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Up);
         }
         else
         {
-            HitManager.Instance.ShowHit(ShieldBar.transform, HitManager.HitType.LineRightTopToLeftButtom, ClientUtils.HTMLColorToColor("#2BFFF8"), 0.3f);
-            ShieldChangeNumberFly.SetText("-" + change, "#FF0000", "#FF0000", TextFly.FlyDirection.Down);
+            if (change < 0) ShieldChangeNumberFly.SetText(text + change, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
+            HitManager.Instance.ShowHit(ShieldBar.transform, HitManager.HitType.LineRightTopToLeftButtom, "#2BFFF8", 0.3f);
             if (shieldValue != 0) AudioManager.Instance.SoundPlay("sfx/ShieldHit", 1f);
         }
-
 
         if (shieldValue == 0)
         {
@@ -756,9 +769,103 @@ public class ModuleRetinue : ModuleBase
 
     #endregion
 
+    #region 飞行背包相关
 
-    internal ModuleShield M_Pack;
-    internal ModuleShield M_MA;
+    private ModulePack m_Pack;
+
+    public ModulePack M_Pack
+    {
+        get { return m_Pack; }
+        set
+        {
+            if (m_Pack && !value)
+            {
+                m_Pack.PoolRecycle();
+                m_Pack = value;
+                On_PackDown();
+            }
+            else if (!m_Pack && value)
+            {
+                m_Pack = value;
+                On_PackEquiped();
+            }
+            else if (m_Pack != value)
+            {
+                m_Pack.PoolRecycle();
+                m_Pack = value;
+                On_PackChanged();
+            }
+
+            CheckCanAttack();
+        }
+    }
+
+    void On_PackDown()
+    {
+    }
+
+    void On_PackEquiped()
+    {
+        M_Pack.OnPackEquiped();
+        AudioManager.Instance.SoundPlay("sfx/PackChange");
+    }
+
+    void On_PackChanged()
+    {
+        M_Pack.OnPackEquiped();
+        AudioManager.Instance.SoundPlay("sfx/PackChange");
+    }
+
+    #endregion
+
+    #region MA相关
+
+    private ModuleMA m_MA;
+
+    public ModuleMA M_MA
+    {
+        get { return m_MA; }
+        set
+        {
+            if (m_MA && !value)
+            {
+                m_MA.PoolRecycle();
+                m_MA = value;
+                On_MADown();
+            }
+            else if (!m_MA && value)
+            {
+                m_MA = value;
+                On_MAEquiped();
+            }
+            else if (m_MA != value)
+            {
+                m_MA.PoolRecycle();
+                m_MA = value;
+                On_MAChanged();
+            }
+
+            CheckCanAttack();
+        }
+    }
+
+    void On_MADown()
+    {
+    }
+
+    void On_MAEquiped()
+    {
+        M_MA.OnMAEquiped();
+        AudioManager.Instance.SoundPlay("sfx/MAChange");
+    }
+
+    void On_MAChanged()
+    {
+        M_MA.OnMAEquiped();
+        AudioManager.Instance.SoundPlay("sfx/MAChange");
+    }
+
+    #endregion
 
     #endregion
 
@@ -800,7 +907,6 @@ public class ModuleRetinue : ModuleBase
 
     public void Attack(ModuleRetinue targetRetinue, bool isCounterAttack)
     {
-        if (!isCounterAttack) OnAttack(); //随从特效
         if (M_Weapon && !isCounterAttack) M_Weapon.OnAttack(); //武器特效
         int damage = 0;
         bool canCounter = !isCounterAttack && M_AttackLevel <= targetRetinue.M_AttackLevel; //对方能否反击
@@ -811,6 +917,7 @@ public class ModuleRetinue : ModuleBase
             {
                 case WeaponTypes.Sword:
                     damage = M_RetinueAttack * M_RetinueWeaponEnergy;
+                    if (!isCounterAttack) OnAttack(damage); //随从特效
                     targetRetinue.BeAttacked(damage);
                     OnMakeDamage(damage);
                     if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
@@ -825,6 +932,7 @@ public class ModuleRetinue : ModuleBase
 
                     for (int i = 0; i < tmp; i++)
                     {
+                        OnShoot();
                         targetRetinue.BeAttacked(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
                         M_RetinueWeaponEnergy--;
@@ -839,6 +947,7 @@ public class ModuleRetinue : ModuleBase
         {
             damage = M_RetinueAttack;
             targetRetinue.BeAttacked(damage);
+            if (!isCounterAttack) OnAttack(damage); //随从特效
             OnMakeDamage(damage);
             if (canCounter) targetRetinue.Attack(this, true); //对方反击
         }
@@ -849,7 +958,7 @@ public class ModuleRetinue : ModuleBase
 
     public void AttackShip(ClientPlayer ship)
     {
-        OnAttack(); //随从特效
+        OnAttack(0); //随从特效
         if (M_Weapon) M_Weapon.OnAttack(); //武器特效
         CanAttackThisRound = false;
         CheckCanAttack();
@@ -873,6 +982,7 @@ public class ModuleRetinue : ModuleBase
             {
                 int shieldDecrease = remainAttackNumber - M_RetinueShield;
                 remainAttackNumber -= M_RetinueShield;
+                ShieldDefenceDamage(M_RetinueShield, M_RetinueShield);
                 M_RetinueShield -= Mathf.Min(m_RetinueShield, shieldDecrease);
             }
         }
@@ -1202,8 +1312,36 @@ public class ModuleRetinue : ModuleBase
     }
 
 
-    public void OnAttack()
+    public void OnAttack(int damage)
     {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnAttack(damage), "Co_OnAttack");
+    }
+
+    IEnumerator Co_OnAttack(int damage)
+    {
+        if (damage > 7)
+        {
+            AudioManager.Instance.SoundPlay("sfx/AttackBig");
+        }
+        else
+        {
+            AudioManager.Instance.SoundPlay("sfx/AttackSmall");
+        }
+
+        yield return new WaitForSeconds(0.1f);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
+    public void OnShoot()
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnShoot(), "Co_OnShoot");
+    }
+
+    IEnumerator Co_OnShoot()
+    {
+        AudioManager.Instance.SoundPlay("sfx/Shoot");
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     public void OnMakeDamage(int damage)

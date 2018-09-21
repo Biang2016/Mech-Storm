@@ -48,9 +48,9 @@ internal class Server
 
     private void OnRestartProtocols()
     {
-        foreach (FieldInfo fi in typeof(NetProtocols).GetFields())
+        foreach (NetProtocols num in Enum.GetValues(typeof(NetProtocols)))
         {
-            ProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
+            Common.ProtoManager.AddRequestDelegate((int) num, Response);
         }
     }
 
@@ -196,7 +196,7 @@ internal class Server
         {
             ReceiveSocketData rsd = ReceiveDataQueue.Dequeue();
             DataStream stream = new DataStream(rsd.Data, true);
-            ProtoManager.TryDeserialize(stream, rsd.Socket);
+            Common.ProtoManager.TryDeserialize(stream, rsd.Socket);
         }
     }
 

@@ -4,7 +4,7 @@
     {
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE;
     }

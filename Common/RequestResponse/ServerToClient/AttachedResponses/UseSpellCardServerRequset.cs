@@ -23,7 +23,7 @@ public class UseSpellCardServerRequset : ServerRequestBase
         this.clientRetinueTempId = clientRetinueTempId;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_USE_SPELLCARD_SERVER_REQUEST;
     }

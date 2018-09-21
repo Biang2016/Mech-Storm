@@ -181,6 +181,18 @@
     <CardInfo name="shieldInfo" armor="8" shield="0" shieldType="Armor" />
   </Card>
 
+  <Card id="40101">
+    <CardInfo name="baseInfo" pictureID="401" cardName="Pack测试" cardName_en="Pack" cardDesc="" metal="1" energy="0" coin="100" effectFactor="1" dragPurpose="Equip" cardType="Equip" cardColor="#0049BC" hightLightColor="#FFFF00" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="packInfo"/>
+  </Card>
+
+  <Card id="50101">
+    <CardInfo name="baseInfo" pictureID="501" cardName="MA测试" cardName_en="MA" cardDesc="" metal="1" energy="0" coin="100" effectFactor="1" dragPurpose="Equip" cardType="Equip" cardColor="#7F8AFF" hightLightColor="#FFFF00" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="maInfo"/>
+  </Card>
+
   <Card id="60101">
     <CardInfo name="baseInfo" pictureID="601" cardName="火力防御" cardName_en="Gatlin" cardDesc="" metal="0" energy="1" coin="100" effectFactor="1" dragPurpose="Target" cardType="Spell" cardColor="#78FF4E" hightLightColor="#FFFF00" />
     <CardInfo name="upgradeInfo" upgradeCardID="60102" degradeCardID="-1" cardLevel="1" />

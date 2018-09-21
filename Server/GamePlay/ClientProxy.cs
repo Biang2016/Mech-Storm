@@ -296,6 +296,12 @@ internal class ClientProxy : ProxyBase
                     case EquipShieldRequest _:
                         MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest) r);
                         break;
+                    case EquipPackRequest _:
+                        MyServerGameManager?.OnClientEquipPackRequest((EquipPackRequest) r);
+                        break;
+                    case EquipMARequest _:
+                        MyServerGameManager?.OnClientEquipMARequest((EquipMARequest) r);
+                        break;
                     case UseSpellCardRequest _:
                         MyServerGameManager?.OnClientUseSpellCardRequest((UseSpellCardRequest) r);
                         break;

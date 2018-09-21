@@ -140,6 +140,16 @@ internal partial class RoundManager
                 OnEquipShield((EquipShieldServerRequest) r);
                 break;
             }
+            case NetProtocols.SE_EQUIP_PACK_SERVER_REQUEST:
+            {
+                OnEquipPack((EquipPackServerRequest) r);
+                break;
+            }
+            case NetProtocols.SE_EQUIP_MA_SERVER_REQUEST:
+            {
+                OnEquipMA((EquipMAServerRequest) r);
+                break;
+            }
             case NetProtocols.SE_USE_SPELLCARD_SERVER_REQUEST:
             {
                 OnUseSpellCard((UseSpellCardServerRequset) r);
@@ -172,7 +182,7 @@ internal partial class RoundManager
             }
             case NetProtocols.GAME_STOP_BY_WIN_REQUEST:
             {
-                OnGameStopByWin((GameStopByWinRequest)r);
+                OnGameStopByWin((GameStopByWinRequest) r);
                 break;
             }
         }
@@ -392,6 +402,18 @@ internal partial class RoundManager
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         cp.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId, r.equipID);
+    }
+
+    private void OnEquipPack(EquipPackServerRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyBattleGroundManager.EquipPack(r.cardInfo, r.retinueId, r.equipID);
+    }
+
+    private void OnEquipMA(EquipMAServerRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyBattleGroundManager.EquipMA(r.cardInfo, r.retinueId, r.equipID);
     }
 
     private void OnUseSpellCard(UseSpellCardServerRequset r)

@@ -12,6 +12,8 @@ public class TextFly : MonoBehaviour, IGameObjectPool
 
     public void PoolRecycle()
     {
+        if (removeTextFlyHandler != null) removeTextFlyHandler(this);
+        transform.localScale = Vector3.one;
         gameObjectPool.RecycleGameObject(gameObject);
         transform.position = Vector3.zero;
         Anim.SetTrigger("EndFly");
@@ -24,8 +26,12 @@ public class TextFly : MonoBehaviour, IGameObjectPool
         TextBG.text = "";
     }
 
+    public delegate void RemoveTextFlyHandler(TextFly textFly);
 
-    public void SetText(string text, Color textColor, Color arrowColor, FlyDirection flyDirection, int fontSize = 70)
+    public RemoveTextFlyHandler removeTextFlyHandler;
+
+
+    public void SetText(string text, Color textColor, Color arrowColor, FlyDirection flyDirection, float duration)
     {
         Text.text = text;
         TextBG.text = text;
@@ -33,23 +39,25 @@ public class TextFly : MonoBehaviour, IGameObjectPool
         TextBG.color = new Color(textColor.r / 1.5f, textColor.g / 1.5f, textColor.b / 1.5f, 1);
         UpArrow.color = arrowColor;
         DownArrow.color = arrowColor;
-        Text.fontSize = fontSize;
-        TextBG.fontSize = fontSize;
         if (flyDirection == FlyDirection.Up)
         {
             Anim.SetTrigger("BeginFly");
+            float duration_ori = ClientUtils.GetClipLength(Anim, "TextJump");
+            Anim.speed = Anim.speed * duration_ori / duration;
         }
         else if (flyDirection == FlyDirection.Down)
         {
             Anim.SetTrigger("BeginFlyDown");
+            float duration_ori = ClientUtils.GetClipLength(Anim, "TextDownJump");
+            Anim.speed = Anim.speed * duration_ori / duration;
         }
 
-        StartCoroutine(Fly());
+        StartCoroutine(Fly(duration));
     }
 
-    IEnumerator Fly()
+    IEnumerator Fly(float duration)
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(duration - 0.01f);
         PoolRecycle();
     }
 

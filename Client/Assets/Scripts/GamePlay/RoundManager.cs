@@ -37,9 +37,6 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
 
     private void Initialize()
     {
-        SelfShip.ClientPlayer = SelfClientPlayer;
-        EnemyShip.ClientPlayer = EnemyClientPlayer;
-
         RoundNumber = 0;
         CurrentClientPlayer = null;
         IdleClientPlayer = null;
@@ -49,7 +46,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         SetEndRoundButtonState(false);
 
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
-        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/BattleBGM0", "bgm/BattleBGM1"});
+        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/BattleBGM0", "bgm/BattleBGM1"},0.7f);
         CardDeckManager.Instance.ResetCardDeckNumberText();
         CardDeckManager.Instance.ShowAll();
     }
@@ -60,11 +57,13 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         {
             SelfClientPlayer = new ClientPlayer(r.username, r.metalLeft, r.metalMax, r.lifeLeft, r.lifeMax, r.energyLeft, r.energyMax, Players.Self);
             SelfClientPlayer.ClientId = r.clientId;
+            SelfShip.ClientPlayer = SelfClientPlayer;
         }
         else
         {
             EnemyClientPlayer = new ClientPlayer(r.username, r.metalLeft, r.metalMax, r.lifeLeft, r.lifeMax, r.energyLeft, r.energyMax, Players.Enemy);
             EnemyClientPlayer.ClientId = r.clientId;
+            EnemyShip.ClientPlayer = EnemyClientPlayer;
         }
     }
 
