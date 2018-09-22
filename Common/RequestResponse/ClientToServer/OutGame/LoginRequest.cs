@@ -13,7 +13,7 @@
         this.password = password;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.LOGIN_REQUEST;
     }

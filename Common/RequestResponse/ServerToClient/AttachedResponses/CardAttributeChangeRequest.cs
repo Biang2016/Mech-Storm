@@ -19,7 +19,7 @@
         this.effectFactor = effectFactor;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_CARD_ATTR_CHANGE;
     }

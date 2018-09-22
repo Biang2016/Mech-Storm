@@ -10,7 +10,7 @@
     {
         this.winnerClientId = winnerClientId;
     }
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.GAME_STOP_BY_WIN_REQUEST;
     }

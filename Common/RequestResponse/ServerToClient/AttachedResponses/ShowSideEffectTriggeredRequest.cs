@@ -16,7 +16,7 @@
         TriggerRange = triggerRange;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT;
     }

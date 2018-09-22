@@ -8,7 +8,7 @@
     {
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.CANCEL_MATCH_REQUEST;
     }

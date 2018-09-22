@@ -10,6 +10,8 @@ public class CardInfo_Base
     public SlotInfo SlotInfo;
     public WeaponInfo WeaponInfo;
     public ShieldInfo ShieldInfo;
+    public PackInfo PackInfo;
+    public MAInfo MAInfo;
     public SlotTypes M_SlotType;
 
     public SideEffectBundle SideEffects = new SideEffectBundle();
@@ -54,6 +56,8 @@ public class CardInfo_Base
         SlotInfo.Serialize(writer);
         WeaponInfo.Serialize(writer);
         ShieldInfo.Serialize(writer);
+        PackInfo.Serialize(writer);
+        MAInfo.Serialize(writer);
 
         SideEffects.Serialize(writer);
         SideEffects_OnBattleGround.Serialize(writer);
@@ -74,6 +78,8 @@ public class CardInfo_Base
         newCardInfo_Base.SlotInfo = SlotInfo.Deserialze(reader);
         newCardInfo_Base.WeaponInfo = WeaponInfo.Deserialze(reader);
         newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
+        newCardInfo_Base.PackInfo = PackInfo.Deserialze(reader);
+        newCardInfo_Base.MAInfo = MAInfo.Deserialze(reader);
 
         newCardInfo_Base.SideEffects = SideEffectBundle.Deserialze(reader);
         newCardInfo_Base.SideEffects_OnBattleGround = SideEffectBundle.Deserialze(reader);

@@ -34,6 +34,8 @@ public static class AllCards
             SlotInfo slotInfo = new SlotInfo();
             WeaponInfo weaponInfo = new WeaponInfo();
             ShieldInfo shieldInfo = new ShieldInfo();
+            PackInfo packInfo = new PackInfo();
+            MAInfo maInfo = new MAInfo();
             SlotTypes slotType = SlotTypes.None;
 
             SideEffectBundle sideEffects = new SideEffectBundle();
@@ -90,6 +92,14 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["shield"].Value),
                             (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value));
                         slotType = SlotTypes.Shield;
+                        break;
+                    case "packInfo":
+                        packInfo = new PackInfo();
+                        slotType = SlotTypes.Pack;
+                        break;
+                    case "maInfo":
+                        maInfo = new MAInfo();
+                        slotType = SlotTypes.MA;
                         break;
                     case "sideEffectsInfo":
                     {
@@ -191,6 +201,8 @@ public static class AllCards
                         slotType: slotType,
                         weaponInfo: weaponInfo,
                         shieldInfo: shieldInfo,
+                        packInfo: packInfo,
+                        maInfo: maInfo,
                         sideEffects: sideEffects,
                         sideEffects_OnBattleGround: sideEffects_OnBattleGround));
                     break;

@@ -32,15 +32,6 @@ internal partial class RoundManager
             ClientLog.Instance.PrintReceive("你输了");
             GameBoardManager.Instance.LostGame();
         }
-
-        StartCoroutine(GameEndWait());
-    }
-
-    IEnumerator GameEndWait()
-    {
-        yield return new WaitForSeconds(5);
-        OnGameStop();
-        Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
     }
 
     public void OnRandomNumberSeed(RandomNumberSeedRequest r)
@@ -149,6 +140,16 @@ internal partial class RoundManager
                 OnEquipShield((EquipShieldServerRequest) r);
                 break;
             }
+            case NetProtocols.SE_EQUIP_PACK_SERVER_REQUEST:
+            {
+                OnEquipPack((EquipPackServerRequest) r);
+                break;
+            }
+            case NetProtocols.SE_EQUIP_MA_SERVER_REQUEST:
+            {
+                OnEquipMA((EquipMAServerRequest) r);
+                break;
+            }
             case NetProtocols.SE_USE_SPELLCARD_SERVER_REQUEST:
             {
                 OnUseSpellCard((UseSpellCardServerRequset) r);
@@ -177,6 +178,11 @@ internal partial class RoundManager
             case NetProtocols.SE_CARD_ATTR_CHANGE:
             {
                 OnCardAttributeChange((CardAttributeChangeRequest) r);
+                break;
+            }
+            case NetProtocols.GAME_STOP_BY_WIN_REQUEST:
+            {
+                OnGameStopByWin((GameStopByWinRequest) r);
                 break;
             }
         }
@@ -398,6 +404,18 @@ internal partial class RoundManager
         cp.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId, r.equipID);
     }
 
+    private void OnEquipPack(EquipPackServerRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyBattleGroundManager.EquipPack(r.cardInfo, r.retinueId, r.equipID);
+    }
+
+    private void OnEquipMA(EquipMAServerRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyBattleGroundManager.EquipMA(r.cardInfo, r.retinueId, r.equipID);
+    }
+
     private void OnUseSpellCard(UseSpellCardServerRequset r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
@@ -410,7 +428,7 @@ internal partial class RoundManager
         ClientPlayer cp_beAttack = GetPlayerByClientId(r.BeAttackedRetinueClientId);
         ModuleRetinue attackRetinue = cp_attack.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
         ModuleRetinue beAttackRetinue = cp_beAttack.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
-        attackRetinue.Attack(beAttackRetinue, true);
+        attackRetinue.Attack(beAttackRetinue, false);
     }
 
     private void OnRetinueAttackShip(RetinueAttackShipServerRequest r)

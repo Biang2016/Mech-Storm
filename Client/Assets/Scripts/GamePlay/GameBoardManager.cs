@@ -51,27 +51,43 @@ public class GameBoardManager : MonoSingletion<GameBoardManager>
 
     public void WinGame()
     {
-        WinLostText.text = "You Win!";
-        WinImage.enabled = true;
-        LostImage.enabled = false;
-        PanelAnimator.SetTrigger("Show");
-        StartCoroutine(ShowWinLostPanel());
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnGameStopByWin(true), "Co_OnGameStopByWin");
     }
 
 
     public void LostGame()
     {
-        WinLostText.text = "You Lost!";
-        WinImage.enabled = false;
-        LostImage.enabled = true;
-        StartCoroutine(ShowWinLostPanel());
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnGameStopByWin(false), "Co_OnGameStopByWin");
     }
 
-    IEnumerator ShowWinLostPanel()
+    IEnumerator Co_OnGameStopByWin(bool isWin)
     {
+        yield return new WaitForSeconds(2);
+        AudioManager.Instance.BGMStop();
+        if (isWin)
+        {
+            WinLostText.text = "You Win!";
+            WinImage.enabled = true;
+            LostImage.enabled = false;
+            PanelAnimator.SetTrigger("Show");
+            AudioManager.Instance.SoundPlay("sfx/Victory");
+        }
+        else
+        {
+            WinLostText.text = "You Lost!";
+            WinImage.enabled = false;
+            LostImage.enabled = true;
+            AudioManager.Instance.SoundPlay("sfx/Lose");
+        }
+
         PanelAnimator.SetTrigger("Show");
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         PanelAnimator.SetTrigger("Hide");
+        yield return new WaitForSeconds(1);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+
+        RoundManager.Instance.OnGameStop();
+        Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
     }
 }
 

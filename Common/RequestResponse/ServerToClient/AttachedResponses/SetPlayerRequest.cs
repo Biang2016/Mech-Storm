@@ -25,7 +25,7 @@
         this.energyMax = energyMax;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_SET_PLAYER;
     }

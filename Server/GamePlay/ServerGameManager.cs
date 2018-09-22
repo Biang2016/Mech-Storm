@@ -215,6 +215,32 @@ internal class ServerGameManager
         Broadcast_SendOperationResponse();
     }
 
+    public void OnClientEquipPackRequest(EquipPackRequest r)
+    {
+        ClientA.CurrentClientRequestResponseBundle = new EquipPackRequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new EquipPackRequest_ResponseBundle();
+
+        ServerPlayer sp = GetPlayerByClientId(r.clientId);
+        CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
+        sp.MyBattleGroundManager.EquipPack(r, cardInfo);
+
+        Broadcast_SendOperationResponse();
+    }
+
+    public void OnClientEquipMARequest(EquipMARequest r)
+    {
+        ClientA.CurrentClientRequestResponseBundle = new EquipMARequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new EquipMARequest_ResponseBundle();
+
+        ServerPlayer sp = GetPlayerByClientId(r.clientId);
+        CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
+        sp.MyBattleGroundManager.EquipMA(r, cardInfo);
+
+        Broadcast_SendOperationResponse();
+    }
+
     public void OnClientUseSpellCardRequest(UseSpellCardRequest r)
     {
         ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
@@ -301,7 +327,7 @@ internal class ServerGameManager
     {
         if (IsStopped) return;
         GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
-        BroadcastRequest(request);
+        Broadcast_AddRequestToOperationResponse(request);
         IsStopped = true;
     }
 

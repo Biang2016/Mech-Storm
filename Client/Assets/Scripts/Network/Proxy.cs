@@ -191,12 +191,6 @@ public class Proxy : ProxyBase
                     RoundManager.Instance.OnGameStopByLeave(request);
                     break;
                 }
-                case NetProtocols.GAME_STOP_BY_WIN_REQUEST:
-                {
-                    GameStopByWinRequest request = (GameStopByWinRequest) r;
-                    RoundManager.Instance.OnGameStopByWin(request);
-                    break;
-                }
                 case NetProtocols.RANDOM_NUMBER_SEED_REQUEST:
                 {
                     RoundManager.Instance.OnRandomNumberSeed((RandomNumberSeedRequest) r);

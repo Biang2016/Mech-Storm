@@ -108,8 +108,8 @@ public class GameManager : MonoSingletion<GameManager>
 
         Slot1Color = ClientUtils.HTMLColorToColor("#FF0000");
         Slot2Color = ClientUtils.HTMLColorToColor("#FFED00");
-        Slot3Color = ClientUtils.HTMLColorToColor("#00FF6B");
-        Slot4Color = ClientUtils.HTMLColorToColor("#2D37FF");
+        Slot3Color = ClientUtils.HTMLColorToColor("#0049BC");
+        Slot4Color = ClientUtils.HTMLColorToColor("#7F8AFF");
 
         DefaultLifeNumberColor = ClientUtils.HTMLColorToColor("#FFFFFF");
         InjuredLifeNumberColor = ClientUtils.HTMLColorToColor("#E2FF00");

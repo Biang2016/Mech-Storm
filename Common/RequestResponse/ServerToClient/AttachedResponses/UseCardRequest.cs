@@ -19,7 +19,7 @@ public class UseCardRequest : ServerRequestBase
         this.lastDragPosition = lastDragPosition;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_USE_CARD;
     }

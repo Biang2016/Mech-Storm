@@ -15,7 +15,7 @@
         this.value = value;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_DAMAGE_ONE_RETINUE_REQUEST;
     }

@@ -16,7 +16,7 @@ public class RetinueDieRequest : ServerRequestBase
         }
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_RETINUE_DIE;
     }

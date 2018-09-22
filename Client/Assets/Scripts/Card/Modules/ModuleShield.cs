@@ -21,6 +21,7 @@ public class ModuleShield : ModuleBase
     [SerializeField] private TextMesh ShieldName_en;
     [SerializeField] private Renderer M_Bloom;
     [SerializeField] private Renderer M_BloomSE;
+    [SerializeField] private Renderer M_BloomSE_Sub;
 
     [SerializeField] private GameObject Block_ShieldArmor;
     protected GameObject GoNumberSet_ShieldArmor;
@@ -31,6 +32,9 @@ public class ModuleShield : ModuleBase
     protected CardNumberSet CardNumberSet_ShieldShield;
 
     [SerializeField] private Animator ShieldEquipedAnim;
+
+    [SerializeField] private Animator ShieldBloomSEAnim;
+    [SerializeField] private Animator ShieldBloomSE_SubAnim;
 
     public int M_EquipID;
 
@@ -43,6 +47,7 @@ public class ModuleShield : ModuleBase
         M_ShieldShield = cardInfo.ShieldInfo.Shield;
         if (M_Bloom) M_Bloom.gameObject.SetActive(false);
         if (M_BloomSE) M_BloomSE.gameObject.SetActive(false);
+        if (M_BloomSE_Sub) M_BloomSE_Sub.gameObject.SetActive(false);
     }
 
     public override void ChangeColor(Color color)
@@ -191,16 +196,23 @@ public class ModuleShield : ModuleBase
 
     public override void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#FFFFFF"), 0.8f), "ShowSideEffectBloom");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.CardColor), 0.5f), "ShowSideEffectBloom");
     }
 
     IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
     {
         M_BloomSE.gameObject.SetActive(true);
+        M_BloomSE_Sub.gameObject.SetActive(true);
+        ShieldBloomSEAnim.SetTrigger("OnSE");
+        ShieldBloomSE_SubAnim.SetTrigger("OnSE");
         ClientUtils.ChangeColor(M_BloomSE, color);
+        ClientUtils.ChangeColor(M_BloomSE_Sub, color);
         AudioManager.Instance.SoundPlay("sfx/OnSE");
         yield return new WaitForSeconds(duration);
+        ShieldBloomSEAnim.SetTrigger("Reset");
+        ShieldBloomSE_SubAnim.SetTrigger("Reset");
         M_BloomSE.gameObject.SetActive(false);
+        M_BloomSE_Sub.gameObject.SetActive(false);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

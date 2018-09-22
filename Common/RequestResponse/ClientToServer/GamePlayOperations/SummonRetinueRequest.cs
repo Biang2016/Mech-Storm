@@ -23,7 +23,7 @@ public class SummonRetinueRequest : ClientRequestBase
         this.clientRetinueTempId = clientRetinueTempId;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SUMMON_RETINUE_REQUEST;
     }

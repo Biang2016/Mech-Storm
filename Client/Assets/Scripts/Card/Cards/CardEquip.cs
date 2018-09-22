@@ -59,6 +59,18 @@ public class CardEquip : CardBase
                 Client.Instance.Proxy.SendMessage(request);
                 break;
             }
+            case SlotTypes.Pack:
+            {
+                EquipPackRequest request = new EquipPackRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, moduleRetinue.M_RetinueID, 0, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z));
+                Client.Instance.Proxy.SendMessage(request);
+                break;
+            }
+            case SlotTypes.MA:
+            {
+                EquipMARequest request = new EquipMARequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, moduleRetinue.M_RetinueID, 0, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z));
+                Client.Instance.Proxy.SendMessage(request);
+                break;
+            }
         }
 
         Usable = false;

@@ -12,11 +12,12 @@ class HitManager : MonoSingletion<HitManager>
 
     [SerializeField] private GameObjectPool[] HitFX_Pool;
 
-    public void ShowHit(Transform transform, HitType hitType, Color color, float duration, float scale = 1)
+    public void ShowHit(Transform transform, HitType hitType, string colorText, float duration, float scale = 1)
     {
+        Color color = ClientUtils.HTMLColorToColor(colorText);
         Hit hit = HitFX_Pool[(int) hitType].AllocateGameObject(this.transform).GetComponent<Hit>();
         hit.transform.position = transform.position;
-        hit.ShowHit(color, duration,scale);
+        hit.ShowHit(color, duration, scale);
     }
 
     public enum HitType

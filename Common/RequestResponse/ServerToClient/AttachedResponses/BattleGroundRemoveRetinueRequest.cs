@@ -16,7 +16,7 @@ public class BattleGroundRemoveRetinueRequest : ServerRequestBase
         }
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE;
     }

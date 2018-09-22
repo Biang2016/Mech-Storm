@@ -149,14 +149,14 @@ public class AudioManager : MonoBehaviour
 
     private Coroutine BGMLoop;
 
-    public void BGMLoopInList(List<string> bgmNames)
+    public void BGMLoopInList(List<string> bgmNames, float volume = 1.0f)
     {
         if (BGMLoop != null) StopCoroutine(BGMLoop);
         StartCoroutine(Co_BGMFadeOut(0.5f));
-        BGMLoop = StartCoroutine(Co_BGMLoopInList(bgmNames));
+        BGMLoop = StartCoroutine(Co_BGMLoopInList(bgmNames, volume));
     }
 
-    IEnumerator Co_BGMLoopInList(List<string> bgmNames)
+    IEnumerator Co_BGMLoopInList(List<string> bgmNames,float volume=1.0f)
     {
         if (bgmNames.Count == 1)
         {
@@ -167,7 +167,7 @@ public class AudioManager : MonoBehaviour
                     yield return new WaitForSeconds(0.5f);
                 }
 
-                BGMFadeIn(bgmNames[0]);
+                BGMFadeIn(bgmNames[0], volume: volume);
             }
         }
         else
@@ -184,7 +184,7 @@ public class AudioManager : MonoBehaviour
                         yield return new WaitForSeconds(0.5f);
                     }
 
-                    BGMFadeIn(bgmNames[index]);
+                    BGMFadeIn(bgmNames[index], volume: volume);
                 }
             }
         }
@@ -234,6 +234,7 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public void BGMStop()
     {
+        if (BGMLoop != null) StopCoroutine(BGMLoop);
         if (BGMAudioSource != null && BGMAudioSource.gameObject)
         {
             Destroy(BGMAudioSource.gameObject);

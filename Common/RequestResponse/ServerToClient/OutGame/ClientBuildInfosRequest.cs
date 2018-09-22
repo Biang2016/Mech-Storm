@@ -13,7 +13,7 @@ public class ClientBuildInfosRequest : ServerRequestBase
         this.buildInfos = buildInfos;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.CLIENT_BUILDINFOS_REQUEST;
     }

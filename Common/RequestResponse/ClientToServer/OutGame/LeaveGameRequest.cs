@@ -8,7 +8,7 @@
     {
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.LEAVE_GAME_REQUEST;
     }

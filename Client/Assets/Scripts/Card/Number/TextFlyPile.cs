@@ -12,21 +12,18 @@ public class TextFlyPile : MonoBehaviour
     {
     }
 
-    private void ContinueFly()
-    {
-        foreach (TextFly fly in TextFlies)
-        {
-            fly.transform.Translate(Vector3.forward);
-        }
-    }
-
     public List<TextFly> TextFlies = new List<TextFly>();
 
-    public void SetText(string text, string textColor, string arrowColor, TextFly.FlyDirection flyDirection, int fontSize = 70)
+    public void SetText(string text, string textColor, string arrowColor, TextFly.FlyDirection flyDirection, float duration = 1f)
     {
         TextFly textFly = GameObjectPoolManager.Instance.Pool_TextFlyPool.AllocateGameObject(transform).GetComponent<TextFly>();
-        textFly.SetText(text, ClientUtils.HTMLColorToColor(textColor), ClientUtils.HTMLColorToColor(arrowColor), flyDirection, fontSize);
-        ContinueFly();
+        textFly.removeTextFlyHandler = OnRemoveTextFly;
+        textFly.SetText(text, ClientUtils.HTMLColorToColor(textColor), ClientUtils.HTMLColorToColor(arrowColor), flyDirection,  duration);
         TextFlies.Add(textFly);
+    }
+
+    public void OnRemoveTextFly(TextFly textFly)
+    {
+        TextFlies.Remove(textFly);
     }
 }

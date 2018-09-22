@@ -11,7 +11,7 @@
     {
         this.clientId = clientId;
     }
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_PLAYER_TURN;
     }

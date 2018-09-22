@@ -38,18 +38,6 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     internal GameObjectPool Pool_ModuleRetinuePool;
     public GameObject ModuleRetinuePrefab;
 
-    public GameObject ModuleEnergyPool;
-    internal GameObjectPool Pool_ModuleEnergyPool;
-    public GameObject ModuleEnergyPrefab;
-
-    public GameObject ModuleMAPool;
-    internal GameObjectPool Pool_ModuleMAPool;
-    public GameObject ModuleMAPrefab;
-
-    public GameObject ModulePackPool;
-    internal GameObjectPool Pool_ModulePackPool;
-    public GameObject ModulePackPrefab;
-
     public GameObject ModuleWeaponPool;
     internal GameObjectPool Pool_ModuleWeaponPool;
     public GameObject ModuleWeaponPrefab;
@@ -66,6 +54,22 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     internal GameObjectPool Pool_ModuleShieldDetailPool;
     public GameObject ModuleShieldDetailPrefab;
 
+    public GameObject ModulePackPool;
+    internal GameObjectPool Pool_ModulePackPool;
+    public GameObject ModulePackPrefab;
+
+    public GameObject ModulePackDetailPool;
+    internal GameObjectPool Pool_ModulePackDetailPool;
+    public GameObject ModulePackDetailPrefab;
+
+    public GameObject ModuleMAPool;
+    internal GameObjectPool Pool_ModuleMAPool;
+    public GameObject ModuleMAPrefab;
+
+    public GameObject ModuleMADetailPool;
+    internal GameObjectPool Pool_ModuleMADetailPool;
+    public GameObject ModuleMADetailPrefab;
+
     public GameObject RetinueCardPool;
     internal GameObjectPool Pool_RetinueCardPool;
     public GameObject RetinueCardPrefab;
@@ -77,14 +81,6 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     public GameObject SpellCardPool;
     internal GameObjectPool Pool_SpellCardPool;
     public GameObject SpellCardPrefab;
-
-    public GameObject PackCardPool;
-    internal GameObjectPool Pool_PackCardPool;
-    public GameObject PackCardPrefab;
-
-    public GameObject MACardPool;
-    internal GameObjectPool Pool_MACardPool;
-    public GameObject MACardPrefab;
 
     public GameObject RetinueSelectCardPool;
     internal GameObjectPool Pool_RetinueSelectCardPool;
@@ -157,41 +153,38 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
         Pool_ModuleRetinuePool = ModuleRetinuePool.GetComponent<GameObjectPool>();
         Pool_ModuleRetinuePool.Initiate(ModuleRetinuePrefab, 14);
 
-        Pool_ModuleEnergyPool = ModuleEnergyPool.GetComponent<GameObjectPool>();
-        Pool_ModuleEnergyPool.Initiate(ModuleEnergyPrefab, 30);
-
-        Pool_ModuleMAPool = ModuleMAPool.GetComponent<GameObjectPool>();
-        Pool_ModuleMAPool.Initiate(ModuleMAPrefab, 30);
-
-        Pool_ModulePackPool = ModulePackPool.GetComponent<GameObjectPool>();
-        Pool_ModulePackPool.Initiate(ModulePackPrefab, 30);
-
         Pool_ModuleWeaponPool = ModuleWeaponPool.GetComponent<GameObjectPool>();
-        Pool_ModuleWeaponPool.Initiate(ModuleWeaponPrefab, 30);
+        Pool_ModuleWeaponPool.Initiate(ModuleWeaponPrefab, 14);
 
         Pool_ModuleWeaponDetailPool = ModuleWeaponDetailPool.GetComponent<GameObjectPool>();
-        Pool_ModuleWeaponDetailPool.Initiate(ModuleWeaponDetailPrefab, 3);
+        Pool_ModuleWeaponDetailPool.Initiate(ModuleWeaponDetailPrefab, 1);
 
         Pool_ModuleShieldPool = ModuleShieldPool.GetComponent<GameObjectPool>();
-        Pool_ModuleShieldPool.Initiate(ModuleShieldPrefab, 30);
+        Pool_ModuleShieldPool.Initiate(ModuleShieldPrefab, 14);
 
         Pool_ModuleShieldDetailPool = ModuleShieldDetailPool.GetComponent<GameObjectPool>();
-        Pool_ModuleShieldDetailPool.Initiate(ModuleShieldDetailPrefab, 3);
+        Pool_ModuleShieldDetailPool.Initiate(ModuleShieldDetailPrefab, 1);
+
+        Pool_ModulePackPool = ModulePackPool.GetComponent<GameObjectPool>();
+        Pool_ModulePackPool.Initiate(ModulePackPrefab, 5);
+
+        Pool_ModulePackDetailPool = ModulePackDetailPool.GetComponent<GameObjectPool>();
+        Pool_ModulePackDetailPool.Initiate(ModulePackDetailPrefab, 1);
+
+        Pool_ModuleMAPool = ModuleMAPool.GetComponent<GameObjectPool>();
+        Pool_ModuleMAPool.Initiate(ModuleMAPrefab, 5);
+
+        Pool_ModuleMADetailPool = ModuleMADetailPool.GetComponent<GameObjectPool>();
+        Pool_ModuleMADetailPool.Initiate(ModuleMADetailPrefab, 1);
 
         Pool_RetinueCardPool = RetinueCardPool.GetComponent<GameObjectPool>();
-        Pool_RetinueCardPool.Initiate(RetinueCardPrefab, 30);
+        Pool_RetinueCardPool.Initiate(RetinueCardPrefab, 20);
 
         Pool_EquipCardPool = EquipCardPool.GetComponent<GameObjectPool>();
-        Pool_EquipCardPool.Initiate(EquipCardPrefab, 30);
+        Pool_EquipCardPool.Initiate(EquipCardPrefab, 20);
 
         Pool_SpellCardPool = SpellCardPool.GetComponent<GameObjectPool>();
-        Pool_SpellCardPool.Initiate(SpellCardPrefab, 30);
-
-        Pool_PackCardPool = PackCardPool.GetComponent<GameObjectPool>();
-        Pool_PackCardPool.Initiate(PackCardPrefab, 30);
-
-        Pool_MACardPool = MACardPool.GetComponent<GameObjectPool>();
-        Pool_MACardPool.Initiate(MACardPrefab, 30);
+        Pool_SpellCardPool.Initiate(SpellCardPrefab, 20);
 
         Pool_RetinueSelectCardPool = RetinueSelectCardPool.GetComponent<GameObjectPool>();
         Pool_RetinueSelectCardPool.Initiate(RetinueSelectCardPrefab, 30);

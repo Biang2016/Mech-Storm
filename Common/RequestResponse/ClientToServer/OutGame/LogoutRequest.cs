@@ -11,7 +11,7 @@
         this.username = username;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.LOGOUT_REQUEST;
     }

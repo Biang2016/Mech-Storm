@@ -14,14 +14,6 @@ public class ModuleWeapon : ModuleBase
         gameObjectPool = GameObjectPoolManager.Instance.Pool_ModuleWeaponPool;
     }
 
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
     #region 各模块、自身数值和初始化
 
     internal ModuleRetinue M_ModuleRetinue;
@@ -29,6 +21,8 @@ public class ModuleWeapon : ModuleBase
     [SerializeField] private TextMesh WeaponName_en;
     [SerializeField] private Renderer M_Bloom;
     [SerializeField] private Renderer M_BloomSE;
+    [SerializeField] private Renderer M_BloomSE_Sub;
+
     [SerializeField] private GameObject M_GunIcon;
     [SerializeField] private GameObject M_SwordIcon;
 
@@ -45,6 +39,9 @@ public class ModuleWeapon : ModuleBase
     protected CardNumberSet CardNumberSet_WeaponEnergyMax;
 
     [SerializeField] private Animator WeaponEquipAnim;
+
+    [SerializeField] private Animator WeaponBloomSEAnim;
+    [SerializeField] private Animator WeaponBloomSE_SubAnim;
 
     public int M_EquipID;
 
@@ -262,10 +259,17 @@ public class ModuleWeapon : ModuleBase
     IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
     {
         M_BloomSE.gameObject.SetActive(true);
+        M_BloomSE_Sub.gameObject.SetActive(true);
+        WeaponBloomSEAnim.SetTrigger("OnSE");
+        WeaponBloomSE_SubAnim.SetTrigger("OnSE");
         ClientUtils.ChangeColor(M_BloomSE, color);
+        ClientUtils.ChangeColor(M_BloomSE_Sub, color);
         AudioManager.Instance.SoundPlay("sfx/OnSE");
         yield return new WaitForSeconds(duration);
+        WeaponBloomSEAnim.SetTrigger("Reset");
+        WeaponBloomSE_SubAnim.SetTrigger("Reset");
         M_BloomSE.gameObject.SetActive(false);
+        M_BloomSE_Sub.gameObject.SetActive(false);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

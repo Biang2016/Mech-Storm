@@ -17,7 +17,7 @@
         this.addMetal_max = addMetal_max;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_PLAYER_METAL_CHANGE;
     }

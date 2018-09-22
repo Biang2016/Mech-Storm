@@ -11,7 +11,7 @@
         this.randomNumberSeed = randomNumberSeed;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.RANDOM_NUMBER_SEED_REQUEST;
     }

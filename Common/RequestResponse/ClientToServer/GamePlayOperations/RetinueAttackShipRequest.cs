@@ -11,7 +11,7 @@
         AttackRetinueId = retinueId;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.RETINUE_ATTACK_SHIP_REQUEST;
     }

@@ -88,7 +88,7 @@ public class SelectCard : MonoBehaviour, IGameObjectPool
 
     public CardInfo_Base CardInfo;
 
-    public void Initiate(int count, int metal, int energy, string text, CardInfo_Base cardInfo, UnityAction onClick, SelectCardOnMouseEnterHandler enterHandler, SelectCardOnMouseLeaveHandler leaveHandler, Color color)
+    public void Initiate(int count, int metal, int energy, string text, CardInfo_Base cardInfo,  SelectCardOnMouseEnterHandler enterHandler, SelectCardOnMouseLeaveHandler leaveHandler, Color color)
     {
         Count = count;
         Metal = metal;
@@ -98,7 +98,6 @@ public class SelectCard : MonoBehaviour, IGameObjectPool
         OnMouseEnterHandler = enterHandler;
         OnMouseLeaveHandler = leaveHandler;
         CardButton.image.color = color;
-        CardButton.onClick.AddListener(onClick);
         CardButton.onClick.RemoveAllListeners();
     }
 

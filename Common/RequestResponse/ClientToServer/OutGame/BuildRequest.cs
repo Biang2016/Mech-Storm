@@ -11,7 +11,7 @@
         this.BuildInfo = BuildInfo;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.BUILD_REQUEST;
     }

@@ -24,7 +24,7 @@ public class DrawCardRequest : ServerRequestBase
         this.isShow = isShow;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_DRAW_CARD;
     }

@@ -39,7 +39,7 @@ public class Client : MonoSingletion<Client>
                 {
                     ReceiveSocketData rsd = receiveDataQueue.Dequeue();
                     DataStream stream = new DataStream(rsd.Data, true);
-                    ProtoManager.TryDeserialize(stream, rsd.Socket);
+                    Common.ProtoManager.TryDeserialize(stream, rsd.Socket);
                 }
 
                 Proxy.Send();
@@ -60,9 +60,9 @@ public class Client : MonoSingletion<Client>
 
     public void OnRestartProtocols()
     {
-        foreach (System.Reflection.FieldInfo fi in typeof(NetProtocols).GetFields())
+        foreach (NetProtocols num in Enum.GetValues(typeof(NetProtocols)))
         {
-            ProtoManager.AddRequestDelegate((int) fi.GetRawConstantValue(), Response);
+            Common.ProtoManager.AddRequestDelegate((int)num, Response);
         }
     }
 

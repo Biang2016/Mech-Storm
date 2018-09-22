@@ -11,7 +11,7 @@
         this.buildID = buildID;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.DELETE_BUILD_REQUEST;
     }

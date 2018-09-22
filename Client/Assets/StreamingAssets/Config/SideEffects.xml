@@ -1,78 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <AllSideEffects>
-  <SideEffect id="0" name="KillAll" desc="破坏{0}" desc_en="Destroy {0}. ">
+  <SideEffect id="0" name="KillAll" desc="破坏{0}, " desc_en="Destroy {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
   </SideEffect>
-  <SideEffect id="1" name="KillOne" desc="破坏{0}" desc_en="Destroy {0}. ">
+  <SideEffect id="1" name="KillOne" desc="破坏{0}, " desc_en="Destroy {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
   </SideEffect>
-  <SideEffect id="2" name="KillRandom" desc="破坏{0}" desc_en="Destroy {0}. ">
+  <SideEffect id="2" name="KillRandom" desc="破坏{0}, " desc_en="Destroy {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
   </SideEffect>
-  <SideEffect id="3" name="AddLifeAll" desc="使{0}增加{1}点生命" desc_en="Add {1} life for {0}. ">
-    <params name="IsNeedChoise" type="bool"></params>
-    <params name="M_TargetRange" type="enum"></params>
-    <params name="Value" type="int"></params>
-  </SideEffect>
-  <SideEffect id="4" name="AddLifeOne" desc="使{0}增加{1}点生命" desc_en="Add {1} life for {0}. ">
+  <SideEffect id="3" name="AddLifeAll" desc="使{0}增加{1}点生命, " desc_en="Add {1} life for {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="5" name="AddLifeRandom" desc="使{0}增加{1}点生命" desc_en="Add {1} life for {0}. ">
+  <SideEffect id="4" name="AddLifeOne" desc="使{0}增加{1}点生命, " desc_en="Add {1} life for {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="6" name="DamageAll" desc="对{0}造成{1}点伤害" desc_en="Deal {1} damage to {0}. ">
+  <SideEffect id="5" name="AddLifeRandom" desc="使{0}增加{1}点生命, " desc_en="Add {1} life for {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="7" name="DamageOne" desc="对{0}造成{1}点伤害" desc_en="Deal {1} damage to {0}. ">
+  <SideEffect id="6" name="DamageAll" desc="对{0}造成{1}点伤害, " desc_en="Deal {1} damage to {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="8" name="DamageRandom" desc="对{0}造成{1}点伤害" desc_en="Deal {1} damage to {0}. ">
+  <SideEffect id="7" name="DamageOne" desc="对{0}造成{1}点伤害, " desc_en="Deal {1} damage to {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="9" name="HealAll" desc="使{0}恢复{1}点生命" desc_en="Heal {1} life for {0}. ">
+  <SideEffect id="8" name="DamageRandom" desc="对{0}造成{1}点伤害, " desc_en="Deal {1} damage to {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="10" name="HealOne" desc="使{0}恢复{1}点生命" desc_en="Heal {1} life for {0}. ">
+  <SideEffect id="9" name="HealAll" desc="使{0}恢复{1}点生命, " desc_en="Heal {1} life for {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="11" name="HealRandom" desc="使{0}恢复{1}点生命" desc_en="Heal {1} life for {0}. ">
+  <SideEffect id="10" name="HealOne" desc="使{0}恢复{1}点生命, " desc_en="Heal {1} life for {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="12" name="DrawCards" desc="抽{0}张牌" desc_en="Draw {0} card. ">
-    <params name="Value" type="int"></params>
-  </SideEffect>
-  <SideEffect id="13" name="CopyNextDrawCard" desc="抽1张牌,并获得该牌的{0}张复制" desc_en="Draw 1 card and get {0} copy of that card. ">
-    <params name="Value" type="int"></params>
-  </SideEffect>
-  <SideEffect id="14" name="AddWeaponEnergy" desc="武器能量增加{0}点" desc_en="Add {0} weapon energy. ">
-    <params name="Value" type="int"></params>
-  </SideEffect>
-  <SideEffect id="15" name="AddEnergy" desc="为{0}增加{1}点能量" desc_en="Add {1} energy for {0}. ">
+  <SideEffect id="11" name="HealRandom" desc="使{0}恢复{1}点生命, " desc_en="Heal {1} life for {0}. ">
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
-  <SideEffect id="16" name="WaitInHandDecreaseEnergy" desc="该牌的能量花费减少{0}点" desc_en="Decrease {0} energy cost for this card. ">
+  <SideEffect id="12" name="DrawCards" desc="抽{0}张牌, " desc_en="Draw {0} card. ">
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="13" name="CopyNextDrawCard" desc="抽1张牌, 并获得该牌的{0}张复制, " desc_en="Draw 1 card and get {0} copy of that card. ">
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="14" name="AddWeaponEnergy" desc="武器能量增加{0}点, " desc_en="Add {0} weapon energy. ">
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="15" name="AddEnergy" desc="为{0}增加{1}点能量, " desc_en="Add {1} energy for {0}. ">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="16" name="WaitInHandDecreaseEnergy" desc="该牌的能量花费减少{0}点, " desc_en="Decrease {0} energy cost for this card. ">
     <params name="Value" type="int"></params>
   </SideEffect>
 </AllSideEffects>

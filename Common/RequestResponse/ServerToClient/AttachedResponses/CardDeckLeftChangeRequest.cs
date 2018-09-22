@@ -13,7 +13,7 @@
         this.left = left;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_CARDDECT_LEFT_CHANGE;
     }

@@ -5,7 +5,7 @@
     }
 
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.EQUIP_SHIELD_REQUEST_RESPONSE;
     }

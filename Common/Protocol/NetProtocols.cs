@@ -1,35 +1,35 @@
-﻿public class NetProtocols
+﻿public enum NetProtocols
 {
     #region  OutGame
 
-    # region Server
+    #region Server
 
-    public const int CLIENT_ID_REQUEST = 0x00000000; //服务器发送的客户端ID号
-    public const int HEART_BEAT_REQUEST = 0x00000001; //服务器发送的心跳包
-    public const int CLIENT_BUILDINFOS_REQUEST = 0x00000003; //玩家所有卡组信息
-    public const int GAME_STOP_BY_LEAVE_REQUEST = 0x00000004; //由于玩家离开导致游戏结束
-    public const int GAME_STOP_BY_WIN_REQUEST = 0x00000005; //由于比赛输赢导致游戏结束
-    public const int RANDOM_NUMBER_SEED_REQUEST = 0x00000006; //分配客户端随机数种子
-    public const int REGISTER_RESULT_REQUEST = 0x00000007; //注册结果
-    public const int LOGIN_RESULT_REQUEST = 0x00000008; //登录结果
-    public const int LOGOUT_RESULT_REQUEST = 0x00000009; //登出结果
-    public const int CREATE_BUILD_REQUEST_RESPONSE = 0x00000010; //新卡组回应
-    public const int BUILD_UPDATE_RESPONSE = 0x00000011; //更新卡组
-    public const int DELETE_BUILD_REQUEST_RESPONSE = 0x00000012; //删除卡组
+    CLIENT_ID_REQUEST, //服务器发送的客户端ID号
+    HEART_BEAT_REQUEST, //服务器发送的心跳包
+    CLIENT_BUILDINFOS_REQUEST, //玩家所有卡组信息
+    GAME_STOP_BY_LEAVE_REQUEST, //由于玩家离开导致游戏结束
+    GAME_STOP_BY_WIN_REQUEST, //由于比赛输赢导致游戏结束
+    RANDOM_NUMBER_SEED_REQUEST, //分配客户端随机数种子
+    REGISTER_RESULT_REQUEST, //注册结果
+    LOGIN_RESULT_REQUEST, //登录结果
+    LOGOUT_RESULT_REQUEST, //登出结果
+    CREATE_BUILD_REQUEST_RESPONSE, //新卡组回应
+    BUILD_UPDATE_RESPONSE, //更新卡组
+    DELETE_BUILD_REQUEST_RESPONSE, //删除卡组
 
     #endregion
 
     # region Client
 
-    public const int CARD_DECK_REQUEST = 0x00000101; //卡组信息
-    public const int MATCH_REQUEST = 0x00000102; //申请匹配
-    public const int CANCEL_MATCH_REQUEST = 0x00000103; //玩家取消匹配
-    public const int LEAVE_GAME_REQUEST = 0x00000104; //玩家离开游戏
-    public const int REGISTER_REQUEST = 0x00000105; //注册
-    public const int LOGIN_REQUEST = 0x00000106; //登录
-    public const int LOGOUT_REQUEST = 0x00000107; //登出
-    public const int BUILD_REQUEST = 0x00000108; //编辑卡组
-    public const int DELETE_BUILD_REQUEST = 0x00000109; //删除卡组
+    CARD_DECK_REQUEST, //卡组信息
+    MATCH_REQUEST, //申请匹配
+    CANCEL_MATCH_REQUEST, //玩家取消匹配
+    LEAVE_GAME_REQUEST, //玩家离开游戏
+    REGISTER_REQUEST, //注册
+    LOGIN_REQUEST, //登录
+    LOGOUT_REQUEST, //登出
+    BUILD_REQUEST, //编辑卡组
+    DELETE_BUILD_REQUEST, //删除卡组
 
     #endregion
 
@@ -41,49 +41,53 @@
 
     #region OperationResponse
 
-    public const int GAME_START_RESPONSE = 0x00000200; //开始游戏_服务器响应
+    GAME_START_RESPONSE, //开始游戏_服务器响应
 
-    public const int SUMMON_RETINUE_REQUEST_RESPONSE = 0x00000201; //召唤随从_服务器响应
-    public const int EQUIP_WEAPON_REQUEST_RESPONSE = 0x00000202; //装备武器_服务器响应
-    public const int EQUIP_SHIELD_REQUEST_RESPONSE = 0x00000203; //装备防具_服务器响应
-    public const int USE_SPELLCARD_REQUEST_RESPONSE = 0x00000204; //使用法术_服务器响应
+    SUMMON_RETINUE_REQUEST_RESPONSE, //召唤随从_服务器响应
+    EQUIP_WEAPON_REQUEST_RESPONSE, //装备武器_服务器响应
+    EQUIP_SHIELD_REQUEST_RESPONSE, //装备防具_服务器响应
+    EQUIP_PACK_REQUEST_RESPONSE, //装备飞行背包_服务器响应
+    EQUIP_MA_REQUEST_RESPONSE, //装备MA_服务器响应
+    USE_SPELLCARD_REQUEST_RESPONSE, //使用法术_服务器响应
 
-    public const int RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE = 0x00000205; //随从攻击随从_服务器响应
+    RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE, //随从攻击随从_服务器响应
 
-    public const int END_ROUND_REQUEST_RESPONSE = 0x00000206; //结束回合_服务器响应
+    END_ROUND_REQUEST_RESPONSE, //结束回合_服务器响应
 
     #endregion
 
     #region SideEffects
 
-    public const int SE_SET_PLAYER = 0x00000207; //英雄信息
+    SE_SET_PLAYER, //英雄信息
 
-    public const int SE_PLAYER_TURN = 0x00000208; //切换玩家
-    public const int SE_PLAYER_METAL_CHANGE = 0x00000209; //英雄费用信息
-    public const int SE_PLAYER_LIFE_CHANGE = 0x00000210; //英雄生命信息
-    public const int SE_PLAYER_ENERGY_CHANGE = 0x00000211; //英雄能量信息
+    SE_PLAYER_TURN, //切换玩家
+    SE_PLAYER_METAL_CHANGE, //英雄费用信息
+    SE_PLAYER_LIFE_CHANGE, //英雄生命信息
+    SE_PLAYER_ENERGY_CHANGE, //英雄能量信息
 
-    public const int SE_RETINUE_ATTRIBUTES_CHANGE = 0x00000212; //随从数值变化
+    SE_RETINUE_ATTRIBUTES_CHANGE, //随从数值变化
 
-    public const int SE_RETINUE_DIE = 0x00000213; //随从死亡
+    SE_RETINUE_DIE, //随从死亡
 
-    public const int SE_BATTLEGROUND_ADD_RETINUE = 0x00000214; //战场增加随从
-    public const int SE_BATTLEGROUND_REMOVE_RETINUE = 0x00000215; //战场减少随从
+    SE_BATTLEGROUND_ADD_RETINUE, //战场增加随从
+    SE_BATTLEGROUND_REMOVE_RETINUE, //战场减少随从
 
-    public const int SE_CARD_ATTR_CHANGE = 0x00000216; //卡牌信息变化
-    public const int SE_CARDDECT_LEFT_CHANGE = 0x00000217; //发送剩余牌数
-    public const int SE_DRAW_CARD = 0x00000218; //抽一张牌
-    public const int SE_DROP_CARD = 0x00000219; //手牌弃牌
-    public const int SE_USE_CARD = 0x00000220; //手牌用牌
+    SE_CARD_ATTR_CHANGE, //卡牌信息变化
+    SE_CARDDECT_LEFT_CHANGE, //发送剩余牌数
+    SE_DRAW_CARD, //抽一张牌
+    SE_DROP_CARD, //手牌弃牌
+    SE_USE_CARD, //手牌用牌
 
-    public const int SE_EQUIP_WEAPON_SERVER_REQUEST = 0x00000221; //装备武器
-    public const int SE_EQUIP_SHIELD_SERVER_REQUEST = 0x00000222; //装备防具
-    public const int SE_USE_SPELLCARD_SERVER_REQUEST = 0x00000223; //使用法术
+    SE_EQUIP_WEAPON_SERVER_REQUEST, //装备武器
+    SE_EQUIP_SHIELD_SERVER_REQUEST, //装备防具
+    SE_EQUIP_PACK_SERVER_REQUEST, //装备飞行背包
+    SE_EQUIP_MA_SERVER_REQUEST, //装备MA
+    SE_USE_SPELLCARD_SERVER_REQUEST, //使用法术
 
-    public const int SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST = 0x00000224; //随从攻击随从
-    public const int SE_RETINUE_ATTACK_SHIP_SERVER_REQUEST = 0x00000225; //随从攻击飞船
-    public const int SE_DAMAGE_ONE_RETINUE_REQUEST = 0x00000226; //随从受到伤害
-    public const int SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT = 0x00000227; //特效触发通知
+    SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST, //随从攻击随从
+    SE_RETINUE_ATTACK_SHIP_SERVER_REQUEST, //随从攻击飞船
+    SE_DAMAGE_ONE_RETINUE_REQUEST, //随从受到伤害
+    SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT, //特效触发通知
 
     #endregion
 
@@ -91,16 +95,18 @@
 
     #region ClientOperation
 
-    public const int SUMMON_RETINUE_REQUEST = 0x00000301; //召唤随从
-    public const int EQUIP_WEAPON_REQUEST = 0x00000302; //装备武器
-    public const int EQUIP_SHIELD_REQUEST = 0x00000303; //装备防具
-    public const int USE_SPELLCARD_REQUEST = 0x00000304; //使用法术
-    public const int USE_SPELLCARD_TO_SHIP_REQUEST = 0x00000305; //使用法术指向飞船
+    SUMMON_RETINUE_REQUEST, //召唤随从
+    EQUIP_WEAPON_REQUEST, //装备武器
+    EQUIP_SHIELD_REQUEST, //装备防具
+    EQUIP_PACK_REQUEST, //装备飞行背包
+    EQUIP_MA_REQUEST, //装备MA
+    USE_SPELLCARD_REQUEST, //使用法术
+    USE_SPELLCARD_TO_SHIP_REQUEST, //使用法术指向飞船
 
-    public const int RETINUE_ATTACK_RETINUE_REQUEST = 0x00000306; //随从攻击随从
-    public const int RETINUE_ATTACK_SHIP_REQUEST = 0x00000307; //随从攻击飞船
+    RETINUE_ATTACK_RETINUE_REQUEST, //随从攻击随从
+    RETINUE_ATTACK_SHIP_REQUEST, //随从攻击飞船
 
-    public const int END_ROUND_REQUEST = 0x00000399; //结束回合
+    END_ROUND_REQUEST, //结束回合
 
     #endregion
 

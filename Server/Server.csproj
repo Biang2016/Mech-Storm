@@ -46,7 +46,9 @@
     <Compile Include="Card\Cards\ServerCardRetinue.cs" />
     <Compile Include="Card\Cards\ServerCardSpell.cs" />
     <Compile Include="Card\Cards\ServerCardEquip.cs" />
+    <Compile Include="Card\Modules\ServerModuleMA.cs" />
     <Compile Include="Card\Modules\ServerModuleShield.cs" />
+    <Compile Include="Card\Modules\ServerModulePack.cs" />
     <Compile Include="Card\Modules\ServerModuleWeapon.cs" />
     <Compile Include="Card\Modules\ServerModuleBase.cs" />
     <Compile Include="Card\Modules\ServerModuleRetinue.cs" />

@@ -23,7 +23,7 @@ public abstract class ResponseBundleBase : ServerRequestBase
         int attachedRequestsCount = reader.ReadSInt32();
         for (int i = 0; i < attachedRequestsCount; i++)
         {
-            ServerRequestBase request = (ServerRequestBase) ProtoManager.TryDeserialize(reader, null);
+            ServerRequestBase request = (ServerRequestBase) Common.ProtoManager.TryDeserialize(reader, null);
             AttachedRequests.Add(request);
         }
     }

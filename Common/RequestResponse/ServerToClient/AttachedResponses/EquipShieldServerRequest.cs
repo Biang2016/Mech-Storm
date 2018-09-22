@@ -19,7 +19,7 @@
         this.equipID = equipID;
     }
 
-    public override int GetProtocol()
+    public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST;
     }

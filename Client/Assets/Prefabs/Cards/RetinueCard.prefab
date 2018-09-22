@@ -1754,6 +1754,7 @@ MonoBehaviour:
   ShieldBloom: {fileID: 0}
   PackBloom: {fileID: 0}
   MABloom: {fileID: 0}
+  IconCanvas: {fileID: 223227360241395188}
 --- !u!114 &114411328018694438
 MonoBehaviour:
   m_ObjectHideFlags: 1
