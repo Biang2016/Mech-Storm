@@ -45,6 +45,7 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
                 CancelMatchButton.gameObject.SetActive(false);
                 break;
             case ProxyBase.ClientStates.Login:
+                GameBoardManager.Instance.ChangeBoardBG();
                 M_StateMachine.SetState(StateMachine.States.Show);
                 StartMatchButton.gameObject.SetActive(true);
                 CancelMatchButton.gameObject.SetActive(false);

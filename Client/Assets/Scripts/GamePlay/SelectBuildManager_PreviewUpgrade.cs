@@ -78,6 +78,7 @@ public partial class SelectBuildManager
         if (PreviewCard is CardRetinue)
         {
             ((CardRetinue) PreviewCard).ShowAllSlotHover();
+            ((CardRetinue) PreviewCard).MoveCoinBGLower();
         }
 
         int U_id = CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID;
@@ -93,6 +94,12 @@ public partial class SelectBuildManager
             PreviewCardUpgrade.CardBloom.SetActive(true);
             PreviewCardUpgrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FD5400"));
             PreviewCardUpgrade.BeBrightColor();
+            if (PreviewCardUpgrade is CardRetinue)
+            {
+                ((CardRetinue) PreviewCardUpgrade).ShowAllSlotHover();
+                ((CardRetinue) PreviewCardUpgrade).MoveCoinBGLower();
+            }
+
             UpgradeArrow.enabled = true;
         }
         else
@@ -110,6 +117,12 @@ public partial class SelectBuildManager
             PreviewCardDegrade.CardBloom.SetActive(true);
             PreviewCardDegrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#0CE9FF"));
             PreviewCardDegrade.BeBrightColor();
+            if (PreviewCardDegrade is CardRetinue)
+            {
+                ((CardRetinue) PreviewCardDegrade).ShowAllSlotHover();
+                ((CardRetinue) PreviewCardDegrade).MoveCoinBGLower();
+            }
+
             DegradeArrow.enabled = true;
         }
         else

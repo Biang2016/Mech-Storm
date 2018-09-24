@@ -12,6 +12,5 @@ public class Initialization : MonoSingletion<Initialization>
     {
         Instantiate(Manager);
         ClientLog.Instance.PrintClientStates("启动客户端...");
-        RoundManager.Instance.StopGame();
     }
 }

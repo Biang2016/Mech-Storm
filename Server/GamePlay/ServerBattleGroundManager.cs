@@ -61,7 +61,7 @@ internal class ServerBattleGroundManager
     {
         Retinues.Insert(retinuePlaceIndex, retinue);
         RetinueCount = Retinues.Count;
-        if (retinue.CardInfo.BattleInfo.IsSoldier)
+        if (retinue.CardInfo.BaseInfo.IsSoldier)
         {
             Soldiers.Add(retinue);
             SoldierCount = Soldiers.Count;
@@ -95,7 +95,7 @@ internal class ServerBattleGroundManager
 
         Retinues.Remove(retinue);
         RetinueCount = Retinues.Count;
-        if (retinue.CardInfo.BattleInfo.IsSoldier)
+        if (retinue.CardInfo.BaseInfo.IsSoldier)
         {
             Soldiers.Remove(retinue);
             SoldierCount = Soldiers.Count;
@@ -140,7 +140,7 @@ internal class ServerBattleGroundManager
 
         SideEffectBase.ExecuterInfo info = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: retinueId, targetRetinueId: targetRetinueId);
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueSummon, info);
-        if (retinueCardInfo.BattleInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierSummon, info);
+        if (retinueCardInfo.BaseInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierSummon, info);
         else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroSummon, info);
         BattleGroundAddRetinue(retinuePlaceIndex, retinue);
     }
@@ -225,7 +225,7 @@ internal class ServerBattleGroundManager
         List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
         for (int i = 0; i < Retinues.Count; i++)
         {
-            if (!Retinues[i].CardInfo.BattleInfo.IsSoldier) dieRetinues.Add(Retinues[i]);
+            if (!Retinues[i].CardInfo.BaseInfo.IsSoldier) dieRetinues.Add(Retinues[i]);
         }
 
         dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
@@ -246,7 +246,7 @@ internal class ServerBattleGroundManager
         List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
         for (int i = 0; i < Retinues.Count; i++)
         {
-            if (Retinues[i].CardInfo.BattleInfo.IsSoldier) dieRetinues.Add(Retinues[i]);
+            if (Retinues[i].CardInfo.BaseInfo.IsSoldier) dieRetinues.Add(Retinues[i]);
         }
 
         dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列

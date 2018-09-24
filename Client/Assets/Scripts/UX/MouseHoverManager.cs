@@ -260,6 +260,8 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                 {
                     Release();
                 }
+
+                Instance.M_StateMachine.SetState(StateMachine.States.BattleNormal);
             }
         }
 
@@ -271,7 +273,6 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                 currentTarget = null;
             }
         }
-
     }
 
 

@@ -10,20 +10,25 @@ class ClientUtils
         return cl;
     }
 
-    public static void ChangePicture(Renderer rd, int pictureID)
+    public static void ChangePicture(Renderer rd, Texture tx)
     {
-        Texture tx = (Texture) Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID));
-        if (tx == null)
-        {
-            Debug.LogError("所选卡片没有图片资源：" + pictureID);
-            tx = (Texture) Resources.Load(string.Format("{0:000}", 999));
-        }
-
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
         rd.GetPropertyBlock(mpb);
         mpb.SetTexture("_MainTex", tx);
         mpb.SetTexture("_EmissionMap", tx);
         rd.SetPropertyBlock(mpb);
+    }
+
+    public static void ChangePictureForCard(Renderer rd, int pictureID)
+    {
+        Texture tx = (Texture) Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID));
+        if (tx == null)
+        {
+            Debug.LogError("所选卡片没有图片资源：" + pictureID);
+            tx = (Texture) Resources.Load("CardPictures/" + string.Format("{0:000}", 999));
+        }
+
+        ChangePicture(rd, tx);
     }
 
     public static void ChangeColor(Renderer rd, Color newColor)

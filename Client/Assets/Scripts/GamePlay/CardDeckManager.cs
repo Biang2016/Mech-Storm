@@ -29,6 +29,7 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
     {
         InitializeCardDeckShowCardMap();
         InitializeCardDeckCard();
+        ResetCardDeckNumberText();
         HideAll();
     }
 

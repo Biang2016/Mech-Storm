@@ -86,7 +86,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
-        ChangeColor(ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.CardColor));
+        ChangeColor(ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.GetCardColor()));
         Stars = cardInfo.UpgradeInfo.CardLevel;
     }
 
@@ -138,6 +138,16 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
         ClientUtils.ChangeColor(MainBoardRenderer, color);
     }
 
+    public void BeDimColor()
+    {
+        ChangeColor(Color.gray);
+    }
+
+    public void BeBrightColor()
+    {
+        ClientUtils.ChangeColor(MainBoardRenderer, ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.GetCardColor()));
+    }
+
     #endregion
 
 
@@ -162,7 +172,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
                 detailCard.GetComponent<DragComponent>().enabled = false;
                 detailCard.BeBrightColor();
 
-                CardRetinue cardRetinue = (CardRetinue)detailCard;
+                CardRetinue cardRetinue = (CardRetinue) detailCard;
                 cardRetinue.SetCanvasSortingOrder(2);
                 cardRetinue.ShowAllSlotHover();
 

@@ -89,6 +89,12 @@ public class BattleGroundManager : MonoBehaviour
         return index;
     }
 
+    internal int ComputePositionInAliveRetinues(Vector3 dragLastPosition)
+    {
+        int battleGroundIndex = ComputePosition(dragLastPosition);
+        return GetIndexOfAliveRetinues(battleGroundIndex);
+    }
+
     internal ModuleRetinue CheckRetinueOnPosition(Vector3 dragLastPosition)
     {
         int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.Instance.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
@@ -133,7 +139,7 @@ public class BattleGroundManager : MonoBehaviour
             retinue.M_RetinueID = retinueId;
             addPrePassRetinueQueue.Enqueue(retinue);
             RetinueCount++;
-            if (!retinueCardInfo.BattleInfo.IsSoldier)
+            if (!retinueCardInfo.BaseInfo.IsSoldier)
             {
                 HeroCount++;
             }
@@ -169,7 +175,7 @@ public class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         retinue.CannotAttackBecauseDie = true;
         RetinueCount--;
-        if (!retinue.CardInfo.BattleInfo.IsSoldier)
+        if (!retinue.CardInfo.BaseInfo.IsSoldier)
         {
             HeroCount--;
         }
@@ -181,25 +187,28 @@ public class BattleGroundManager : MonoBehaviour
         RemoveRetinues.Add(retinue);
     }
 
-    public void RemoveRetinueTogather()
+    public void RemoveRetinueTogather(List<int> removeRetinueList)
     {
-        foreach (ModuleRetinue removeRetinue in RemoveRetinues)
+        foreach (int rid in removeRetinueList)
         {
-            removeRetinue.PoolRecycle();
-            Retinues.Remove(removeRetinue);
-            if (!removeRetinue.CardInfo.BattleInfo.IsSoldier)
+            ModuleRetinue retinue = GetRetinue(rid);
+            if (retinue)
             {
-                Heros.Remove(removeRetinue);
-            }
-            else
-            {
-                Soldiers.Remove(removeRetinue);
-            }
+                retinue.PoolRecycle();
+                Retinues.Remove(retinue);
+                RemoveRetinues.Remove(retinue);
+                if (!retinue.CardInfo.BaseInfo.IsSoldier)
+                {
+                    Heros.Remove(retinue);
+                }
+                else
+                {
+                    Soldiers.Remove(retinue);
+                }
 
-            ClientLog.Instance.Print("remove:" + removeRetinue.M_RetinueID);
+                ClientLog.Instance.Print("remove:" + retinue.M_RetinueID);
+            }
         }
-
-        RemoveRetinues.Clear();
     }
 
     public void RemoveRetinueTogatherEnd()
@@ -212,7 +221,7 @@ public class BattleGroundManager : MonoBehaviour
         retinue.PoolRecycle();
         Retinues.Remove(retinue);
         RetinueCount--;
-        if (!retinue.CardInfo.BattleInfo.IsSoldier)
+        if (!retinue.CardInfo.BaseInfo.IsSoldier)
         {
             Heros.Remove(retinue);
             HeroCount--;
@@ -299,7 +308,8 @@ public class BattleGroundManager : MonoBehaviour
     {
         while (true)
         {
-            int battleGroundIndex = Retinues.IndexOf(retinue); //确定的时候再获取位置信息（召唤的过程中可能会有协议没有跑完，会有随从生成）
+            int battleGroundIndex = GetIndexOfAliveRetinues(retinue); //确定的时候再获取位置信息（召唤的过程中可能会有协议没有跑完，会有随从生成）
+
             if (battleGroundIndex != -1)
             {
                 retinue.M_ClientTempRetinueID = GenerateClientRetinueTempId();
@@ -312,6 +322,28 @@ public class BattleGroundManager : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    private int GetIndexOfAliveRetinues(ModuleRetinue retinue)
+    {
+        int battleGroundIndex = Retinues.IndexOf(retinue);
+        return GetIndexOfAliveRetinues(battleGroundIndex);
+    }
+
+    private int GetIndexOfAliveRetinues(int battleGroundIndex)
+    {
+        //去除掉已经死亡但还没移除战场的随从（避免服务器指针错误）
+        int countDieRetinue = 0;
+        for (int i = 0; i < battleGroundIndex; i++)
+        {
+            if (RemoveRetinues.Contains(Retinues[i]))
+            {
+                countDieRetinue++;
+            }
+        }
+
+        int aliveIndex = battleGroundIndex - countDieRetinue;
+        return aliveIndex;
     }
 
     #endregion
@@ -329,7 +361,7 @@ public class BattleGroundManager : MonoBehaviour
             ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
 
             Retinues.Insert(retinuePlaceIndex, retinue);
-            if (retinue.CardInfo.BattleInfo.IsSoldier)
+            if (retinue.CardInfo.BaseInfo.IsSoldier)
             {
                 Soldiers.Add(retinue);
             }

@@ -62,7 +62,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
                     break;
                 case CardTypes.Equip:
                     newCard = GameObjectPoolManager.Instance.Pool_EquipCardPool.AllocateGameObject(parent).GetComponent<CardEquip>();
-                    ((CardEquip) newCard).M_EquipType = ((CardInfo_Equip) cardInfo).M_SlotType;
+                    ((CardEquip) newCard).M_EquipType = cardInfo.BaseInfo.SlotType;
                     newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_EquipCardPool;
                     break;
                 case CardTypes.Spell:
@@ -112,6 +112,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
             newCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#A1F7FF"));
             newCard.CoinText.text = cardInfo.BaseInfo.Coin.ToString();
             newCard.CoinImage.enabled = true;
+            newCard.CoinImageBG.gameObject.SetActive(true);
             newCard.CoinImageBG.enabled = false;
         }
 
@@ -170,9 +171,9 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
         M_Desc = cardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
         Text_CardType.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
         Text_CardTypeBG.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
-        Color cardColor = ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.CardColor);
+        Color cardColor = ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.GetCardColor());
         Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
-        ClientUtils.ChangePicture(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
+        ClientUtils.ChangePictureForCard(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -330,14 +331,14 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
 
     public void BeDimColor()
     {
-        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.CardColor);
+        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.GetCardColor());
         ChangeColor(new Color(color.r / 2, color.g / 2, color.b / 2, color.a));
         ChangePictureColor(new Color(0.5f, 0.5f, 0.5f));
     }
 
     public void BeBrightColor()
     {
-        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.CardColor);
+        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.GetCardColor());
         ChangeColor(color);
         ChangePictureColor(Color.white);
     }

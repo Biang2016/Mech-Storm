@@ -345,13 +345,13 @@ internal partial class RoundManager
 
     private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround(), "Co_RetinueRemoveFromBattleGround");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround(r.retinueIds), "Co_RetinueRemoveFromBattleGround");
     }
 
-    IEnumerator Co_RetinueRemoveFromBattleGround() //随从一起移除战场
+    IEnumerator Co_RetinueRemoveFromBattleGround(List<int> retinueIds) //随从一起移除战场
     {
-        SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogather();
-        EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogather();
+        SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogather(retinueIds);
+        EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogather(retinueIds);
 
         SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
         EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();

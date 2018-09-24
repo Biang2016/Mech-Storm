@@ -141,7 +141,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSoldier;
+        bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BaseInfo.IsSoldier;
         if (isHero)
         {
             if (isSelectedHeroFull)
@@ -223,7 +223,7 @@ public partial class SelectBuildManager
     private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)
     {
         SelectCard newSC = GameObjectPoolManager.Instance.Pool_SelectCardPool.AllocateGameObject(parenTransform).GetComponent<SelectCard>();
-        Color cardColor = ClientUtils.HTMLColorToColor(card.CardInfo.BaseInfo.CardColor);
+        Color cardColor = ClientUtils.HTMLColorToColor(card.CardInfo.BaseInfo.GetCardColor());
 
         newSC.Initiate(
             count: 1,
@@ -260,6 +260,7 @@ public partial class SelectBuildManager
         currentPreviewCard.BeBrightColor();
         currentPreviewCard.CardBloom.SetActive(true);
         currentPreviewCard.CoinImageBG.enabled = true;
+        currentPreviewCard.CoinImageBG.gameObject.SetActive(true);
     }
 
     private void SelectCardOnMouseLeave(SelectCard selectCard)
@@ -280,7 +281,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        bool isRetinue = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BattleInfo.IsSoldier;
+        bool isRetinue = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.BaseInfo.IsSoldier;
 
         if (isRetinue)
         {
@@ -372,7 +373,7 @@ public partial class SelectBuildManager
                 cb = allCards[cardID];
             }
 
-            if (cb.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !cb.CardInfo.BattleInfo.IsSoldier)
+            if (cb.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !cb.CardInfo.BaseInfo.IsSoldier)
             {
                 SelectCard(cb, false);
             }

@@ -188,10 +188,12 @@ public class ModuleWeapon : ModuleBase
             if (m_WeaponEnergy == 0)
             {
                 GetComponent<DragComponent>().enabled = false;
+                BeDimColor();
             }
             else
             {
                 GetComponent<DragComponent>().enabled = true;
+                BeBrightColor();
             }
         }
     }

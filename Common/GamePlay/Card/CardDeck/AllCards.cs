@@ -36,7 +36,6 @@ public static class AllCards
             ShieldInfo shieldInfo = new ShieldInfo();
             PackInfo packInfo = new PackInfo();
             MAInfo maInfo = new MAInfo();
-            SlotTypes slotType = SlotTypes.None;
 
             SideEffectBundle sideEffects = new SideEffectBundle();
             SideEffectBundle sideEffects_OnBattleGround = new SideEffectBundle();
@@ -57,8 +56,8 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["effectFactor"].Value),
                             (DragPurpose) Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
                             (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value),
-                            cardInfo.Attributes["cardColor"].Value, cardInfo.Attributes["hightLightColor"].Value
-                        );
+                            cardInfo.Attributes["isSoldier"].Value == "True",
+                            (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slotType"].Value));
                         break;
                     case "upgradeInfo":
                         upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value), int.Parse(cardInfo.Attributes["degradeCardID"].Value),
@@ -71,8 +70,7 @@ public static class AllCards
                     case "battleInfo":
                         battleInfo = new BattleInfo(int.Parse(cardInfo.Attributes["basicAttack"].Value),
                             int.Parse(cardInfo.Attributes["basicShield"].Value),
-                            int.Parse(cardInfo.Attributes["basicArmor"].Value),
-                            cardInfo.Attributes["isSoldier"].Value == "True");
+                            int.Parse(cardInfo.Attributes["basicArmor"].Value));
                         break;
                     case "slotInfo":
                         slotInfo = new SlotInfo((SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
@@ -85,21 +83,17 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["energyMax"].Value),
                             int.Parse(cardInfo.Attributes["attack"].Value),
                             (WeaponTypes) Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value));
-                        slotType = SlotTypes.Weapon;
                         break;
                     case "shieldInfo":
                         shieldInfo = new ShieldInfo(int.Parse(cardInfo.Attributes["armor"].Value),
                             int.Parse(cardInfo.Attributes["shield"].Value),
                             (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value));
-                        slotType = SlotTypes.Shield;
                         break;
                     case "packInfo":
                         packInfo = new PackInfo();
-                        slotType = SlotTypes.Pack;
                         break;
                     case "maInfo":
                         maInfo = new MAInfo();
-                        slotType = SlotTypes.MA;
                         break;
                     case "sideEffectsInfo":
                     {
@@ -132,7 +126,7 @@ public static class AllCards
                                 }
                             }
 
-                            sideEffect.HightlightColor = baseInfo.HightLightColor;
+                            sideEffect.HightlightColor = BaseInfo.GetHightLightColor();
                             sideEffects.AddSideEffect(sideEffect, triggerTime, triggerRange);
                         }
 
@@ -170,7 +164,7 @@ public static class AllCards
                                 }
                             }
 
-                            sideEffect.HightlightColor = baseInfo.HightLightColor;
+                            sideEffect.HightlightColor = BaseInfo.GetHightLightColor();
                             sideEffects_OnBattleGround.AddSideEffect(sideEffect, triggerTime, triggerRange);
                         }
 
@@ -185,7 +179,6 @@ public static class AllCards
                     addCard(new CardInfo_Retinue(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
-                        slotType: slotType,
                         upgradeInfo: upgradeInfo,
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
@@ -198,7 +191,6 @@ public static class AllCards
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        slotType: slotType,
                         weaponInfo: weaponInfo,
                         shieldInfo: shieldInfo,
                         packInfo: packInfo,
@@ -210,7 +202,6 @@ public static class AllCards
                     addCard(new CardInfo_Spell(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
-                        slotType: slotType,
                         upgradeInfo: upgradeInfo,
                         sideEffects: sideEffects,
                         sideEffects_OnBattleGround: sideEffects_OnBattleGround));
@@ -219,7 +210,6 @@ public static class AllCards
                     addCard(new CardInfo_Spell(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
-                        slotType: slotType,
                         upgradeInfo: upgradeInfo,
                         sideEffects: sideEffects,
                         sideEffects_OnBattleGround: sideEffects_OnBattleGround));

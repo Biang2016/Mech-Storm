@@ -12,20 +12,18 @@ public class CardInfo_Base
     public ShieldInfo ShieldInfo;
     public PackInfo PackInfo;
     public MAInfo MAInfo;
-    public SlotTypes M_SlotType;
 
     public SideEffectBundle SideEffects = new SideEffectBundle();
-    public SideEffectBundle SideEffects_OnBattleGround = new SideEffectBundle();//只有在战场上才会生效的特效（如装备牌和随从牌）
+    public SideEffectBundle SideEffects_OnBattleGround = new SideEffectBundle(); //只有在战场上才会生效的特效（如装备牌和随从牌）
 
     public CardInfo_Base()
     {
     }
 
-    protected CardInfo_Base(int cardID, BaseInfo baseInfo, SlotTypes slotType, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
+    protected CardInfo_Base(int cardID, BaseInfo baseInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
     {
         CardID = cardID;
         BaseInfo = baseInfo;
-        M_SlotType = slotType;
         SideEffects = sideEffects;
         SideEffects_OnBattleGround = sideEffects_OnBattleGround;
     }
@@ -40,7 +38,7 @@ public class CardInfo_Base
 
     public virtual CardInfo_Base Clone()
     {
-        return new CardInfo_Base(CardID, BaseInfo, M_SlotType, SideEffects.Clone(), SideEffects_OnBattleGround.Clone());
+        return new CardInfo_Base(CardID, BaseInfo, SideEffects.Clone(), SideEffects_OnBattleGround.Clone());
     }
 
     public void Serialize(DataStream writer)
@@ -49,7 +47,6 @@ public class CardInfo_Base
         writer.WriteString8(type);
         writer.WriteSInt32(CardID);
         BaseInfo.Serialize(writer);
-        writer.WriteSInt32((int) M_SlotType);
         UpgradeInfo.Serialize(writer);
         LifeInfo.Serialize(writer);
         BattleInfo.Serialize(writer);
@@ -71,7 +68,6 @@ public class CardInfo_Base
 
         newCardInfo_Base.CardID = reader.ReadSInt32();
         newCardInfo_Base.BaseInfo = BaseInfo.Deserialze(reader);
-        newCardInfo_Base.M_SlotType = (SlotTypes) reader.ReadSInt32();
         newCardInfo_Base.UpgradeInfo = UpgradeInfo.Deserialze(reader);
         newCardInfo_Base.LifeInfo = LifeInfo.Deserialze(reader);
         newCardInfo_Base.BattleInfo = BattleInfo.Deserialze(reader);

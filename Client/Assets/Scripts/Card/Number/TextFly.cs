@@ -52,6 +52,9 @@ public class TextFly : MonoBehaviour, IGameObjectPool
             Anim.speed = Anim.speed * duration_ori / duration;
         }
 
+        Canvas.overrideSorting = true;
+        Canvas.sortingOrder = 10;
+
         StartCoroutine(Fly(duration));
     }
 
@@ -66,6 +69,7 @@ public class TextFly : MonoBehaviour, IGameObjectPool
     [SerializeField] private Image UpArrow;
     [SerializeField] private Image DownArrow;
     [SerializeField] private Animator Anim;
+    [SerializeField] private Canvas Canvas;
 
     public enum FlyDirection
     {

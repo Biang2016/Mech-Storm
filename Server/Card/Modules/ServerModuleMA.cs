@@ -27,7 +27,6 @@
             cardID: CardInfo.CardID,
             baseInfo: CardInfo.BaseInfo,
             upgradeInfo: CardInfo.UpgradeInfo,
-            slotType: ((CardInfo_Equip) CardInfo).M_SlotType,
             weaponInfo: CardInfo.WeaponInfo,
             shieldInfo: CardInfo.ShieldInfo,
             packInfo: CardInfo.PackInfo,

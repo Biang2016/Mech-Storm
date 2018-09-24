@@ -4,10 +4,9 @@
     {
     }
 
-    public CardInfo_Spell(int cardID, BaseInfo baseInfo, SlotTypes slotType, UpgradeInfo upgradeInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
+    public CardInfo_Spell(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
-            slotType: slotType,
             sideEffects: sideEffects,
             sideEffects_OnBattleGround: sideEffects_OnBattleGround)
     {
@@ -31,7 +30,6 @@
         CardInfo_Spell cs = new CardInfo_Spell(
             cardID: CardID,
             baseInfo: BaseInfo,
-            slotType: M_SlotType,
             upgradeInfo: UpgradeInfo,
             sideEffects: temp.SideEffects.Clone(),
             sideEffects_OnBattleGround: SideEffects_OnBattleGround.Clone());

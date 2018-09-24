@@ -41,12 +41,13 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         CurrentClientPlayer = null;
         IdleClientPlayer = null;
 
+        GameBoardManager.Instance.ChangeBoardBG();
         GameBoardManager.Instance.ShowBattleShip();
         BattleCanvas.gameObject.SetActive(true);
         SetEndRoundButtonState(false);
 
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
-        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/BattleBGM0", "bgm/BattleBGM1"},0.7f);
+        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/BattleBGM0", "bgm/BattleBGM1"}, 0.7f);
         CardDeckManager.Instance.ResetCardDeckNumberText();
         CardDeckManager.Instance.ShowAll();
     }
@@ -109,6 +110,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         GameBoardManager.Instance.EnemyBattleGroundManager.ResetAll();
         GameBoardManager.Instance.SelfHandManager.ResetAll();
         GameBoardManager.Instance.EnemyHandManager.ResetAll();
+        GameBoardManager.Instance.ChangeBoardBG();
         SelfClientPlayer = null;
         EnemyClientPlayer = null;
         CurrentClientPlayer = null;

@@ -32,7 +32,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         return new CardInfo_Retinue(
             cardID: CardInfo.CardID,
             baseInfo: CardInfo.BaseInfo,
-            slotType: CardInfo.M_SlotType,
             upgradeInfo: CardInfo.UpgradeInfo,
             lifeInfo: CardInfo.LifeInfo,
             battleInfo: CardInfo.BattleInfo,
@@ -710,7 +709,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID);
         SideEffectBase.ExecuterInfo info = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueDie, info);
-        if (CardInfo.BattleInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierDie, info);
+        if (CardInfo.BaseInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierDie, info);
         else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroDie, info);
     }
 
@@ -776,7 +775,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         SideEffectBase.ExecuterInfo ei = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: M_RetinueID);
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueAttack, ei);
-        if (CardInfo.BattleInfo.IsSoldier)
+        if (CardInfo.BaseInfo.IsSoldier)
         {
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierAttack, ei);
         }

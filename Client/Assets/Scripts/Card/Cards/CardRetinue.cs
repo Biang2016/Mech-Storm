@@ -8,6 +8,7 @@ public class CardRetinue : CardBase
     {
         base.PoolRecycle();
         HideAllSlotHover();
+        MoveCoinBGUpper();
         if (Weapon)
         {
             Weapon.PoolRecycle();
@@ -36,6 +37,8 @@ public class CardRetinue : CardBase
     #region 卡牌上各模块
 
     [SerializeField] private Text Text_Life;
+    [SerializeField] private Transform CoinBGLowerPivot;
+    [SerializeField] private Transform CoinBGUpperPivot;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
@@ -55,6 +58,16 @@ public class CardRetinue : CardBase
         Slot4.MSlotTypes = CardInfo.SlotInfo.Slot4;
 
         HideAllSlotHover();
+    }
+
+    public void MoveCoinBGLower()
+    {
+        if (IsCardSelect && !CardInfo.BaseInfo.IsSoldier) CoinImageBG.transform.position = CoinBGLowerPivot.transform.position;
+    }
+
+    public void MoveCoinBGUpper()
+    {
+        if (IsCardSelect && !CardInfo.BaseInfo.IsSoldier) CoinImageBG.transform.position = CoinBGUpperPivot.transform.position;
     }
 
     public void ShowAllSlotHover()
@@ -223,8 +236,8 @@ public class CardRetinue : CardBase
             return;
         }
 
-        int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-        SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
+        int aliveIndex = ClientPlayer.MyBattleGroundManager.ComputePositionInAliveRetinues(dragLastPosition);
+        SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, aliveIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), targetRetinueId, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
         Client.Instance.Proxy.SendMessage(request);
     }
 
@@ -240,15 +253,16 @@ public class CardRetinue : CardBase
 
         ClientPlayer.MyHandManager.SetCurrentSummonRetinuePreviewCard(this);
 
-        int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty)
         {
-            SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), Const.TARGET_RETINUE_SELECT_NONE, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
+            int aliveIndex = ClientPlayer.MyBattleGroundManager.ComputePositionInAliveRetinues(dragLastPosition);
+            SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, aliveIndex, new MyCardGameCommon.Vector3(dragLastPosition.x, dragLastPosition.y, dragLastPosition.z), Const.TARGET_RETINUE_SELECT_NONE, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
             Client.Instance.Proxy.SendMessage(request);
             Usable = false;
         }
         else
         {
+            int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
             ClientPlayer.MyBattleGroundManager.SummonRetinuePreview(this, battleGroundIndex, targetRange);
         }
     }

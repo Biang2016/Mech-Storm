@@ -58,22 +58,22 @@ public class CardSpell : CardBase
                             if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.Heros:
-                            if (!moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            if (!moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.SelfHeros:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.EnemyHeros:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.Soldiers:
-                            if (moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            if (moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.SelfSoldiers:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.EnemySoldiers:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && moduleRetinue.CardInfo.BattleInfo.IsSoldier) validTarget = true;
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.Ships:
                             validTarget = false;

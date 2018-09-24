@@ -1,4 +1,6 @@
-﻿public struct BaseInfo
+﻿using System.Collections.Generic;
+
+public struct BaseInfo
 {
     public int PictureID;
     public string CardName;
@@ -10,10 +12,10 @@
     public int EffectFactor;
     public DragPurpose DragPurpose;
     public CardTypes CardType;
-    public string CardColor;
-    public string HightLightColor;
+    public bool IsSoldier;
+    public SlotTypes SlotType;
 
-    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, int metal, int energy, int coin, int effectFactor, DragPurpose dragPurpose, CardTypes cardType, string cardColor, string hightLightColor)
+    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, int metal, int energy, int coin, int effectFactor, DragPurpose dragPurpose, CardTypes cardType, bool isSoldier, SlotTypes slotType)
     {
         PictureID = pictureID;
         CardName = cardName;
@@ -25,8 +27,51 @@
         EffectFactor = effectFactor;
         DragPurpose = dragPurpose;
         CardType = cardType;
-        CardColor = cardColor;
-        HightLightColor = hightLightColor;
+        IsSoldier = isSoldier;
+        SlotType = slotType;
+    }
+
+    public string GetCardColor()
+    {
+        return GetCardColor(CardType, IsSoldier, SlotType);
+    }
+
+    public static string GetCardColor(CardTypes cardType, bool isSoldier, SlotTypes slotType)
+    {
+        if (cardType == CardTypes.Retinue)
+        {
+            if (isSoldier) return GamePlaySettings.SoldierCardColor;
+            else return GamePlaySettings.HeroCardColor;
+        }
+        else if (cardType == CardTypes.Energy)
+        {
+            return GamePlaySettings.EnergyCardColor;
+        }
+        else if (cardType == CardTypes.Spell)
+        {
+            return GamePlaySettings.SpellCardColor;
+        }
+        else if (cardType == CardTypes.Equip)
+        {
+            switch (slotType)
+            {
+                case SlotTypes.Weapon:
+                    return GamePlaySettings.WeaponCardColor;
+                case SlotTypes.Shield:
+                    return GamePlaySettings.ShieldCardColor;
+                case SlotTypes.Pack:
+                    return GamePlaySettings.PackCardColor;
+                case SlotTypes.MA:
+                    return GamePlaySettings.MACardColor;
+            }
+        }
+
+        return null;
+    }
+
+    public static string GetHightLightColor()
+    {
+        return GamePlaySettings.CardHightLightColor;
     }
 
     public static string AddHightLightColorToText(string hightLightColor, string hightLightText)
@@ -46,8 +91,8 @@
         writer.WriteSInt32(EffectFactor);
         writer.WriteSInt32((int) DragPurpose);
         writer.WriteSInt32((int) CardType);
-        writer.WriteString8(CardColor);
-        writer.WriteString8(HightLightColor);
+        writer.WriteByte(IsSoldier ? (byte) 0x01 : (byte) 0x00);
+        writer.WriteSInt32((int) SlotType);
     }
 
     public static BaseInfo Deserialze(DataStream reader)
@@ -62,11 +107,10 @@
         int EffectFactor = reader.ReadSInt32();
         DragPurpose DragPurpose = (DragPurpose) reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
-        string CardColor = reader.ReadString8();
-        string HightLightColor = reader.ReadString8();
-        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType, CardColor, HightLightColor);
+        bool IsSoldier = reader.ReadByte() == 0x01;
+        SlotTypes SlotType = (SlotTypes) reader.ReadSInt32();
+        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType, IsSoldier, SlotType);
     }
-
 }
 
 public enum CardTypes

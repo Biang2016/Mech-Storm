@@ -238,6 +238,7 @@ MonoBehaviour:
   UpArrow: {fileID: 114070795256399518}
   DownArrow: {fileID: 114149966427743818}
   Anim: {fileID: 95437237391816646}
+  Canvas: {fileID: 0}
 --- !u!114 &114070795256399518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -330,6 +331,7 @@ MonoBehaviour:
   UpArrow: {fileID: 114070795256399518}
   DownArrow: {fileID: 114149966427743818}
   Anim: {fileID: 95437237391816646}
+  Canvas: {fileID: 223698655493422584}
 --- !u!114 &114557784701434188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -450,7 +452,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!224 &224009243412489562
 RectTransform:
