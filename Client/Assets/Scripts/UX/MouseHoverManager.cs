@@ -44,6 +44,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
     private Hover1 hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
     private Hover1 hi_RetinueHoverShowTargetedBloom; //当鼠标移到到随从上时显示被瞄准的轮廓荧光
     private Hover2 hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
+    private PressHoverImmediately phi_SlotsPressHoverShowBloom_Target; //当Slot装备位被鼠标拖动瞄准时，显示Slot轮廓荧光
     private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
     private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
     private PressHoverImmediately hd_ShipPressHoverShowTargetedBloom; //当鼠标拖拽到飞船上时显示被瞄准的轮廓荧光
@@ -60,6 +61,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
         hi_ModulesHoverShowBloom = new Hover1(modulesLayer, GameManager.Instance.BattleGroundCamera);
 
         phi_SlotsPressHoverShowBloom = new PressHoverImmediately(slotsLayer, GameManager.Instance.BattleGroundCamera);
+        phi_SlotsPressHoverShowBloom_Target = new PressHoverImmediately(modulesLayer, GameManager.Instance.BattleGroundCamera);
 
         hd_ModulesFocusShowPreview = new Hover2(modulesLayer | retinuesLayer, GameManager.Instance.BattleGroundCamera, GameManager.Instance.RetinueDetailPreviewDelaySeconds, 100f);
 
@@ -127,6 +129,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                     case States.DragSpellTo:
                         Instance.hd_RetinuePressHoverShowTargetedBloom.Release();
                         Instance.hd_ShipPressHoverShowTargetedBloom.Release();
+                        Instance.phi_SlotsPressHoverShowBloom_Target.Release();
                         break;
                     case States.SummonRetinueTargetOn:
                         Instance.hi_RetinueHoverShowTargetedBloom.Release();
@@ -182,6 +185,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                 case States.DragSpellTo:
                     Instance.hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
                     Instance.hd_ShipPressHoverShowTargetedBloom.Check<Ship>();
+                    Instance.phi_SlotsPressHoverShowBloom_Target.Check<ModuleEquip>();
                     break;
                 case States.SummonRetinueTargetOn:
                     Instance.hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();

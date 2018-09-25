@@ -10,7 +10,7 @@
 
     public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat(HightlightColor, isEnglish ? DescRaw_en : DescRaw, FinalValue);
+        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, FinalValue);
     }
 
     public override void Serialze(DataStream writer)

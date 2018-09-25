@@ -60,7 +60,9 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\DrawCards_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\CardRelatedSideEffect.cs" />
-    <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddWeaponEnergy_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddSelfWeaponEnergy_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffectToEquip\BreakEquip_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddWeaponEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SideEffectBundle.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SpecialInterface\IEffectFactor.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageAll_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\KillOne_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\KillRandom_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffectToEquip\TargetSideEffectToEquip.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\TargetSideEffect.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SideEffectBase.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffectManager.cs" />
@@ -86,8 +89,10 @@
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\EquipPackRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\EquipShieldRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\RetinueAttackShipRequest.cs" />
-    <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\UseSpellCardToShipRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\UseSpellCardRequest.cs" />
+    <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\UseSpellCardToEquipRequest.cs" />
+    <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\UseSpellCardToShipRequest.cs" />
+    <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\UseSpellCardToRetinueRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\DeleteBuildRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LogoutRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LoginRequest.cs" />
@@ -99,10 +104,13 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerEnergyChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerLifeChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueAttackShipServerRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardServerRequset.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardToEquipServerRequset.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardToShipServerRequset.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipMARequest_ResponseBundle.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipShieldRequest_ResponseBundle.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\DamageOneRetinueRequest.cs" />
-    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardServerRequset.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardToRetinueServerRequset.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipPackRequest_ResponseBundle.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\UseSpellCardRequset_ResponseBundle.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\CardDeckLeftChangeRequest.cs" />

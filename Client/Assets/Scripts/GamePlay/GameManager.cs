@@ -18,7 +18,7 @@ public class GameManager : MonoSingletion<GameManager>
         }
         catch (Exception e)
         {
-            ClientLog.Instance.PrintError("SideEffects Load Failed");
+            ClientLog.Instance.PrintError("SideEffects Load Failed:" + e);
         }
 
         try

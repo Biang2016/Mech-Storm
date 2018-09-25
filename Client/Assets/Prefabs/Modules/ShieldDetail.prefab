@@ -909,10 +909,14 @@ MonoBehaviour:
   Star3: {fileID: 1900381524758706}
   stars: 0
   MainBoardRenderer: {fileID: 23539825429467806}
-  ShieldName: {fileID: 102783475219653536}
-  ShieldName_en: {fileID: 102385828857779448}
+  M_EquipID: 0
+  Name: {fileID: 102783475219653536}
+  Name_en: {fileID: 102385828857779448}
   M_Bloom: {fileID: 23401253189801644}
   M_BloomSE: {fileID: 23256685336052234}
+  M_BloomSE_Sub: {fileID: 0}
+  EquipAnim: {fileID: 0}
+  BloomSEAnim: {fileID: 0}
+  BloomSE_SubAnim: {fileID: 0}
   Block_ShieldArmor: {fileID: 1632592528367806}
   Block_ShieldShield: {fileID: 1630339829897516}
-  ShieldEquipedAnim: {fileID: 0}

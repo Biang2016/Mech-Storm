@@ -84,10 +84,10 @@ internal class ServerHandManager
 
     internal void UseCard(int cardInstanceId, Vector3 lastDragPosition)
     {
-        UseCard(cardInstanceId, lastDragPosition, 0);
+        UseCard(cardInstanceId, lastDragPosition, -999, -999, -1);
     }
 
-    internal void UseCard(int cardInstanceId, Vector3 lastDragPosition, int targetRetinueId)
+    internal void UseCard(int cardInstanceId, Vector3 lastDragPosition, int targetRetinueId = -999, int targetEquipId = -999, int targetClientId = -1)
     {
         ServerCardBase useCard = GetCardByCardInstanceId(cardInstanceId);
         ServerPlayer.UseMetalAboveZero(useCard.CardInfo.BaseInfo.Metal);
@@ -99,11 +99,13 @@ internal class ServerHandManager
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
             new SideEffectBase.ExecuterInfo(
                 clientId: ServerPlayer.ClientId,
+                targetClientId: targetClientId,
                 targetRetinueId: targetRetinueId,
                 cardId: useCard.CardInfo.CardID,
-                cardInstanceId: cardInstanceId));
+                cardInstanceId: cardInstanceId,
+                targetEquipId: targetEquipId));
 
-        if (useCard.CardInfo.BaseInfo.CardType == CardTypes.Spell) ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(cardInstanceId);
+        if (useCard.CardInfo.BaseInfo.CardType == CardTypes.Spell || useCard.CardInfo.BaseInfo.CardType == CardTypes.Energy) ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(cardInstanceId);
         useCard.UnRegisterSideEffect();
         cards.Remove(useCard);
     }

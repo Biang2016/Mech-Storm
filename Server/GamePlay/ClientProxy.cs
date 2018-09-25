@@ -282,6 +282,7 @@ internal class ClientProxy : ProxyBase
                     MyServerGameManager.StopGame();
                     return;
                 }
+
                 switch (r)
                 {
                     case EndRoundRequest _:
@@ -304,6 +305,15 @@ internal class ClientProxy : ProxyBase
                         break;
                     case UseSpellCardRequest _:
                         MyServerGameManager?.OnClientUseSpellCardRequest((UseSpellCardRequest) r);
+                        break;
+                    case UseSpellCardToRetinueRequest _:
+                        MyServerGameManager?.OnClientUseSpellCardToRetinueRequest((UseSpellCardToRetinueRequest) r);
+                        break;
+                    case UseSpellCardToShipRequest _:
+                        MyServerGameManager?.OnClientUseSpellCardToShipRequest((UseSpellCardToShipRequest) r);
+                        break;
+                    case UseSpellCardToEquipRequest _:
+                        MyServerGameManager?.OnClientUseSpellCardToEquipRequest((UseSpellCardToEquipRequest) r);
                         break;
                     case LeaveGameRequest _: //正常退出游戏请求
                         MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);

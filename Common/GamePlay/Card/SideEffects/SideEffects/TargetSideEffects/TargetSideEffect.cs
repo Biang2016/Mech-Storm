@@ -3,7 +3,6 @@
 public abstract class TargetSideEffect : SideEffectBase
 {
     public bool IsNeedChoise;
-    public int TargetRetinueId;
     public TargetRange M_TargetRange; //限定范围
 
     public override void Serialze(DataStream writer)
@@ -12,7 +11,6 @@ public abstract class TargetSideEffect : SideEffectBase
         if (IsNeedChoise)
         {
             writer.WriteByte(0x01);
-            writer.WriteSInt32(TargetRetinueId);
         }
         else writer.WriteByte(0x00);
 
@@ -23,7 +21,6 @@ public abstract class TargetSideEffect : SideEffectBase
     {
         base.Deserialze(reader);
         IsNeedChoise = reader.ReadByte() == 0x01;
-        if (IsNeedChoise) TargetRetinueId = reader.ReadSInt32();
         M_TargetRange = (TargetRange) reader.ReadSInt32();
     }
 
@@ -162,7 +159,6 @@ public abstract class TargetSideEffect : SideEffectBase
     {
         base.CloneParams(copy);
         ((TargetSideEffect) copy).IsNeedChoise = IsNeedChoise;
-        ((TargetSideEffect) copy).TargetRetinueId = TargetRetinueId;
         ((TargetSideEffect) copy).M_TargetRange = M_TargetRange;
     }
 }

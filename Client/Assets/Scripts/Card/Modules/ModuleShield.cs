@@ -1,27 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ModuleShield : ModuleBase
+public class ModuleShield : ModuleEquip
 {
-    public override void PoolRecycle()
-    {
-        base.PoolRecycle();
-        if (ShieldEquipedAnim) ShieldEquipedAnim.SetTrigger("Hide");
-    }
-
     void Awake()
     {
         gameObjectPool = GameObjectPoolManager.Instance.Pool_ModuleShieldPool;
     }
 
     #region 各模块、自身数值和初始化
-
-    internal ModuleRetinue M_ModuleRetinue;
-    [SerializeField] private TextMesh ShieldName;
-    [SerializeField] private TextMesh ShieldName_en;
-    [SerializeField] private Renderer M_Bloom;
-    [SerializeField] private Renderer M_BloomSE;
-    [SerializeField] private Renderer M_BloomSE_Sub;
 
     [SerializeField] private GameObject Block_ShieldArmor;
     protected GameObject GoNumberSet_ShieldArmor;
@@ -31,13 +18,6 @@ public class ModuleShield : ModuleBase
     protected GameObject GoNumberSet_ShieldShield;
     protected CardNumberSet CardNumberSet_ShieldShield;
 
-    [SerializeField] private Animator ShieldEquipedAnim;
-
-    [SerializeField] private Animator ShieldBloomSEAnim;
-    [SerializeField] private Animator ShieldBloomSE_SubAnim;
-
-    public int M_EquipID;
-
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
@@ -45,15 +25,6 @@ public class ModuleShield : ModuleBase
         M_ShieldType = cardInfo.ShieldInfo.ShieldType;
         M_ShieldArmor = cardInfo.ShieldInfo.Armor;
         M_ShieldShield = cardInfo.ShieldInfo.Shield;
-        if (M_Bloom) M_Bloom.gameObject.SetActive(false);
-        if (M_BloomSE) M_BloomSE.gameObject.SetActive(false);
-        if (M_BloomSE_Sub) M_BloomSE_Sub.gameObject.SetActive(false);
-    }
-
-    public override void ChangeColor(Color color)
-    {
-        base.ChangeColor(color);
-        ClientUtils.ChangeColor(M_Bloom, color);
     }
 
     private NumberSize my_NumberSize_Armor = NumberSize.Medium;
@@ -61,19 +32,20 @@ public class ModuleShield : ModuleBase
     private CardNumberSet.TextAlign my_TextAlign_Armor = CardNumberSet.TextAlign.Center;
     private CardNumberSet.TextAlign my_TextAlign_Shield = CardNumberSet.TextAlign.Center;
 
-    public void SetPreview()
+    public override void SetPreview()
     {
+        base.SetPreview();
         my_NumberSize_Armor = NumberSize.Small;
         my_NumberSize_Shield = NumberSize.Small;
         my_TextAlign_Armor = CardNumberSet.TextAlign.Left;
         my_TextAlign_Shield = CardNumberSet.TextAlign.Left;
         M_ShieldArmor = M_ShieldArmor;
         M_ShieldShield = M_ShieldShield;
-        if (M_Bloom) M_Bloom.gameObject.SetActive(true);
     }
 
-    public void SetNoPreview()
+    public override void SetNoPreview()
     {
+        base.SetNoPreview();
         my_NumberSize_Armor = NumberSize.Medium;
         my_NumberSize_Shield = NumberSize.Medium;
         my_TextAlign_Armor = CardNumberSet.TextAlign.Center;
@@ -103,8 +75,8 @@ public class ModuleShield : ModuleBase
         set
         {
             m_ShieldName = value;
-            ShieldName.text = GameManager.Instance.isEnglish ? "" : Utils.TextToVertical(value);
-            ShieldName_en.text = GameManager.Instance.isEnglish ? value : "";
+            Name.text = GameManager.Instance.isEnglish ? "" : Utils.TextToVertical(value);
+            Name_en.text = GameManager.Instance.isEnglish ? value : "";
         }
     }
 
@@ -153,70 +125,9 @@ public class ModuleShield : ModuleBase
 
     #endregion
 
-    #region 模块交互
-
-    #region 攻击防御相关
-
-    IEnumerator Co_DelayPoolRecycle()
-    {
-        yield return new WaitForSeconds(0.5F);
-        PoolRecycle();
-    }
-
-    public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
-    {
-        canDrag = false;
-        dragPurpose = CardInfo.BaseInfo.DragPurpose;
-    }
-
-    #endregion
-
-    #region 交互UX
 
     public void OnShieldEquiped()
     {
-        ShieldEquipedAnim.SetTrigger("ShieldEquiped");
+        EquipAnim.SetTrigger("ShieldEquiped");
     }
-
-    public override void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
-    {
-        base.MouseHoverComponent_OnHover1Begin(mousePosition);
-        if (M_Bloom) M_Bloom.gameObject.SetActive(true);
-    }
-
-    public override void MouseHoverComponent_OnHover1End()
-    {
-        base.MouseHoverComponent_OnHover1End();
-        if (M_Bloom) M_Bloom.gameObject.SetActive(false);
-    }
-
-    #endregion
-
-    #region SE
-
-    public override void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
-    {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.GetCardColor()), 0.5f), "ShowSideEffectBloom");
-    }
-
-    IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
-    {
-        M_BloomSE.gameObject.SetActive(true);
-        M_BloomSE_Sub.gameObject.SetActive(true);
-        ShieldBloomSEAnim.SetTrigger("OnSE");
-        ShieldBloomSE_SubAnim.SetTrigger("OnSE");
-        ClientUtils.ChangeColor(M_BloomSE, color);
-        ClientUtils.ChangeColor(M_BloomSE_Sub, color);
-        AudioManager.Instance.SoundPlay("sfx/OnSE");
-        yield return new WaitForSeconds(duration);
-        ShieldBloomSEAnim.SetTrigger("Reset");
-        ShieldBloomSE_SubAnim.SetTrigger("Reset");
-        M_BloomSE.gameObject.SetActive(false);
-        M_BloomSE_Sub.gameObject.SetActive(false);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    #endregion
-
-    #endregion
 }

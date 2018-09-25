@@ -1,4 +1,4 @@
-﻿public class AddWeaponEnergy_Base : SideEffectBase, IEffectFactor
+﻿public class AddSelfWeaponEnergy_Base : SideEffectBase, IEffectFactor
 {
     public int RetinueID;
     public int Factor = 1;
@@ -12,7 +12,7 @@
 
     public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat(HightlightColor, isEnglish ? DescRaw_en : DescRaw, FinalValue);
+        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, FinalValue);
     }
 
     public override void Serialze(DataStream writer)
@@ -37,8 +37,8 @@
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
-        ((AddWeaponEnergy_Base) copy).RetinueID = RetinueID;
-        ((AddWeaponEnergy_Base) copy).Value = Value;
-        ((AddWeaponEnergy_Base) copy).Factor = Factor;
+        ((AddSelfWeaponEnergy_Base) copy).RetinueID = RetinueID;
+        ((AddSelfWeaponEnergy_Base) copy).Value = Value;
+        ((AddSelfWeaponEnergy_Base) copy).Factor = Factor;
     }
 }

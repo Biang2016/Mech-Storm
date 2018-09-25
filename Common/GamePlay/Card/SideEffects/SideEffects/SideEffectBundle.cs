@@ -77,19 +77,19 @@ public class SideEffectBundle
             {
                 if (SEs.Value.Count > 0)
                 {
-                    if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon)) res += isEnglish ? "Battlecry: " : "战吼: ";
-                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie)) res += isEnglish ? "Die: " : "亡语: ";
-                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnEquipDie)) res += isEnglish ? "Broken: " : "亡语: ";
+                    if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Battlecry: " : "战吼: ");
+                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Die: " : "亡语: ");
+                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnEquipDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Broken: " : "亡语: ");
                     else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnPlayCard)) res += "";
                     else
                     {
                         if (isEnglish)
                         {
-                            res += string.Format(TriggerTimeDesc_en[kv.Key], TriggerRangeDesc_en[SEs.Key]);
+                            res += string.Format(TriggerTimeDesc_en[kv.Key], BaseInfo.AddHightLightColorToText(TriggerRangeDesc_en[SEs.Key]));
                         }
                         else
                         {
-                            res += string.Format(TriggerTimeDesc[kv.Key], TriggerRangeDesc[SEs.Key]);
+                            res += string.Format(TriggerTimeDesc[kv.Key], BaseInfo.AddHightLightColorToText(TriggerRangeDesc[SEs.Key]));
                         }
                     }
 
@@ -229,26 +229,26 @@ public class SideEffectBundle
     public static SortedDictionary<TriggerTime, string> TriggerTimeDesc_en = new SortedDictionary<TriggerTime, string>
     {
         {TriggerTime.OnBeginRound, "When {0} turn starts, "},
-        {TriggerTime.OnDrawCard, "Every time when {0} draws, "},
-        {TriggerTime.OnPlayCard, "Every time when {0} plays a card, "},
+        {TriggerTime.OnDrawCard, "Once {0} draws, "},
+        {TriggerTime.OnPlayCard, "Once {0} plays a card, "},
 
         {TriggerTime.OnRetinueSummon, "When {0} summon a Mech, "},
         {TriggerTime.OnHeroSummon, "When {0} summon a HeroMech, "},
         {TriggerTime.OnSoldierSummon, "When {0} summon a SoldierMech, "},
 
-        {TriggerTime.OnRetinueAttack, "When a Mech of {0} attacks, "},
-        {TriggerTime.OnHeroAttack, "When a HeroMech of {0} attacks, "},
-        {TriggerTime.OnSoldierAttack, "When a SoldierMech of {0} attacks, "},
+        {TriggerTime.OnRetinueAttack, "When {0} Mech attacks, "},
+        {TriggerTime.OnHeroAttack, "When {0} HeroMech attacks, "},
+        {TriggerTime.OnSoldierAttack, "When {0} SoldierMech attacks, "},
 
-        {TriggerTime.OnRetinueInjured, "When a Mech of {0} damaged, "},
-        {TriggerTime.OnHeroInjured, "When a HeroMech of {0} damaged, "},
-        {TriggerTime.OnSoldierInjured, "When a SoldierMech of {0} damaged, "},
+        {TriggerTime.OnRetinueInjured, "When {0} Mech damaged, "},
+        {TriggerTime.OnHeroInjured, "When {0} HeroMech damaged, "},
+        {TriggerTime.OnSoldierInjured, "When {0} SoldierMech damaged, "},
 
-        {TriggerTime.OnRetinueDie, "When a Mech of {0} died, "},
-        {TriggerTime.OnHeroDie, "When a HeroMech of {0} died, "},
-        {TriggerTime.OnSoldierDie, "When a SoldierMech of {0} died, "},
+        {TriggerTime.OnRetinueDie, "When {0} Mech died, "},
+        {TriggerTime.OnHeroDie, "When {0} HeroMech died, "},
+        {TriggerTime.OnSoldierDie, "When {0} SoldierMech died, "},
 
-        {TriggerTime.OnEquipDie, "When an Equipment of {0} Mech broken"},
+        {TriggerTime.OnEquipDie, "When {0} Mech's Equipment broken"},
 
         {TriggerTime.OnEndRound, "When {0} turn ends, "},
     };

@@ -68,15 +68,15 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     {
         if (card.ClientPlayer == ClientPlayer)
         {
-            return card.targetRange == TargetSideEffect.TargetRange.All ||
-                   card.targetRange == TargetSideEffect.TargetRange.Ships ||
-                   card.targetRange == TargetSideEffect.TargetRange.SelfShip;
+            return card.targetRetinueRange == TargetSideEffect.TargetRange.All ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.Ships ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.SelfShip;
         }
         else
         {
-            return card.targetRange == TargetSideEffect.TargetRange.All ||
-                   card.targetRange == TargetSideEffect.TargetRange.Ships ||
-                   card.targetRange == TargetSideEffect.TargetRange.EnemyShip;
+            return card.targetRetinueRange == TargetSideEffect.TargetRange.All ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.Ships ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyShip;
         }
     }
 

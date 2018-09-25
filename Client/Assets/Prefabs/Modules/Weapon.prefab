@@ -813,20 +813,20 @@ MonoBehaviour:
   Star3: {fileID: 1480162088776078}
   stars: 0
   MainBoardRenderer: {fileID: 23759429155995086}
-  WeaponName: {fileID: 102677775566742566}
-  WeaponName_en: {fileID: 102871059373692676}
+  M_EquipID: 0
+  Name: {fileID: 102677775566742566}
+  Name_en: {fileID: 102871059373692676}
   M_Bloom: {fileID: 23392313700256022}
   M_BloomSE: {fileID: 23011193834488610}
   M_BloomSE_Sub: {fileID: 23449435049942692}
+  EquipAnim: {fileID: 95186566290709824}
+  BloomSEAnim: {fileID: 95315223036234350}
+  BloomSE_SubAnim: {fileID: 95908499691478962}
   M_GunIcon: {fileID: 0}
   M_SwordIcon: {fileID: 0}
   Block_WeaponAttack: {fileID: 0}
   Block_WeaponEnergy: {fileID: 0}
   Block_WeaponEnergyMax: {fileID: 0}
-  WeaponEquipAnim: {fileID: 95186566290709824}
-  WeaponBloomSEAnim: {fileID: 95315223036234350}
-  WeaponBloomSE_SubAnim: {fileID: 95908499691478962}
-  M_EquipID: 0
 --- !u!114 &114321063401111608
 MonoBehaviour:
   m_ObjectHideFlags: 1

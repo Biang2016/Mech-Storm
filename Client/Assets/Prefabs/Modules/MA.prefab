@@ -605,15 +605,15 @@ MonoBehaviour:
   Star3: {fileID: 0}
   stars: 0
   MainBoardRenderer: {fileID: 23472450534057028}
-  MAName: {fileID: 102972985209957930}
-  MAName_en: {fileID: 102940621464407918}
+  M_EquipID: 0
+  Name: {fileID: 102972985209957930}
+  Name_en: {fileID: 102940621464407918}
   M_Bloom: {fileID: 23693856278086346}
   M_BloomSE: {fileID: 23025387373021574}
   M_BloomSE_Sub: {fileID: 23823683134878628}
-  MAEquipAnim: {fileID: 95686436765656120}
-  MABloomSEAnim: {fileID: 95606110191334356}
-  MABloomSE_SubAnim: {fileID: 95958127478080340}
-  M_EquipID: 0
+  EquipAnim: {fileID: 95686436765656120}
+  BloomSEAnim: {fileID: 95606110191334356}
+  BloomSE_SubAnim: {fileID: 95958127478080340}
 --- !u!114 &114826497002650722
 MonoBehaviour:
   m_ObjectHideFlags: 1

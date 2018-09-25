@@ -24,7 +24,7 @@ public class CardEquip : CardBase
         ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (Slot sa in slots)
-                if (sa.MSlotTypes == M_EquipType && sa.ClientPlayer == ClientPlayer)
+                if (sa.MSlotTypes == M_EquipType && sa.ClientPlayer == ClientPlayer && !sa.M_ModuleRetinue.IsDead)
                 {
                     summonEquipRequest(sa.M_ModuleRetinue, dragLastPosition);
                     return;

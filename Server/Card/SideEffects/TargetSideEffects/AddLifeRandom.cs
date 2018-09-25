@@ -11,76 +11,59 @@ namespace SideEffects
         public override void Excute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
+            int retinueId = executerInfo.RetinueId;
             switch (M_TargetRange)
             {
                 case TargetRange.BattleGrounds:
                 {
-                    int selfRetinueNum = player.MyBattleGroundManager.RetinueCount;
-                    int enemyRetinueNum = player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount;
-                    Random rd = new Random();
-                    int ranResult = rd.Next(0, selfRetinueNum + enemyRetinueNum);
-                    if (ranResult < selfRetinueNum)
+                    ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.All, retinueId);
+                    if (retinue != null)
                     {
-                        player.MyBattleGroundManager.AddLifeForRandomRetinue(FinalValue);
-                    }
-                    else if (ranResult < selfRetinueNum + enemyRetinueNum)
-                    {
-                        player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForRandomRetinue(FinalValue);
+                        player.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, FinalValue);
+                        player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, FinalValue);
                     }
 
                     break;
                 }
                 case TargetRange.SelfBattleGround:
-                    player.MyBattleGroundManager.AddLifeForRandomRetinue(FinalValue);
+                    player.MyBattleGroundManager.AddLifeForRandomRetinue(FinalValue, retinueId);
                     break;
                 case TargetRange.EnemyBattleGround:
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForRandomRetinue(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForRandomRetinue(FinalValue, retinueId);
                     break;
                 case TargetRange.Heros:
                 {
-                    int selfRetinueNum = player.MyBattleGroundManager.HeroCount;
-                    int enemyRetinueNum = player.MyEnemyPlayer.MyBattleGroundManager.HeroCount;
-                    Random rd = new Random();
-                    int ranResult = rd.Next(0, selfRetinueNum + enemyRetinueNum);
-                    if (ranResult < selfRetinueNum)
+                    ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.Hero, retinueId);
+                    if (retinue != null)
                     {
-                        player.MyBattleGroundManager.AddLifeForRandomHero(FinalValue);
-                    }
-                    else if (ranResult < selfRetinueNum + enemyRetinueNum)
-                    {
-                        player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForRandomHero(FinalValue);
+                        player.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, FinalValue);
+                        player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, FinalValue);
                     }
 
                     break;
                 }
                 case TargetRange.SelfHeros:
-                    player.MyBattleGroundManager.AddLifeForRandomHero(FinalValue);
+                    player.MyBattleGroundManager.AddLifeForRandomHero(FinalValue, retinueId);
                     break;
                 case TargetRange.EnemyHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForRandomHero(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForRandomHero(FinalValue, retinueId);
                     break;
                 case TargetRange.Soldiers:
                 {
-                    int selfRetinueNum = player.MyBattleGroundManager.SoldierCount;
-                    int enemyRetinueNum = player.MyEnemyPlayer.MyBattleGroundManager.SoldierCount;
-                    Random rd = new Random();
-                    int ranResult = rd.Next(0, selfRetinueNum + enemyRetinueNum);
-                    if (ranResult < selfRetinueNum)
+                    ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.Soldier, retinueId);
+                    if (retinue != null)
                     {
-                        player.MyBattleGroundManager.AddLifeForRandomSoldier(FinalValue);
-                    }
-                    else if (ranResult < selfRetinueNum + enemyRetinueNum)
-                    {
-                        player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForRandomSoldier(FinalValue);
+                        player.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, FinalValue);
+                        player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, FinalValue);
                     }
 
                     break;
                 }
                 case TargetRange.SelfSoldiers:
-                    player.MyBattleGroundManager.AddLifeForRandomSoldier(FinalValue);
+                    player.MyBattleGroundManager.AddLifeForRandomSoldier(FinalValue, retinueId);
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForRandomSoldier(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForRandomSoldier(FinalValue, retinueId);
                     break;
                 case TargetRange.Ships:
                 {
@@ -99,23 +82,24 @@ namespace SideEffects
 
                 case TargetRange.All:
                 {
-                    int selfRetinueNum = player.MyBattleGroundManager.RetinueCount;
-                    int enemyRetinueNum = player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount;
+                    int retinueNum = player.MyGameManager.CountAliveRetinueExcept(ServerBattleGroundManager.RetinueType.All, retinueId);
+
                     Random rd = new Random();
-                    int ranResult = rd.Next(0, selfRetinueNum + enemyRetinueNum + 2);
-                    if (ranResult < selfRetinueNum)
+                    int ranResult = rd.Next(0, retinueNum + 2);
+                    if (ranResult < retinueNum)
                     {
-                        player.MyBattleGroundManager.AddLifeForRandomRetinue(FinalValue);
+                        ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.All, retinueId);
+                        if (retinue != null)
+                        {
+                            player.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, FinalValue);
+                            player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, FinalValue);
+                        }
                     }
-                    else if (ranResult < selfRetinueNum + enemyRetinueNum)
-                    {
-                        player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForRandomRetinue(FinalValue);
-                    }
-                    else if (ranResult == selfRetinueNum + enemyRetinueNum)
+                    else if (ranResult == retinueNum)
                     {
                         player.AddLifeWithinMax(FinalValue);
                     }
-                    else if (ranResult == selfRetinueNum + enemyRetinueNum + 1)
+                    else
                     {
                         player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                     }

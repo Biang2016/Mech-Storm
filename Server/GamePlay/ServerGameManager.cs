@@ -245,9 +245,17 @@ internal class ServerGameManager
     {
         ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
+        ServerPlayer sp = GetPlayerByClientId(r.clientId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
+        Broadcast_SendOperationResponse();
+    }
+
+    public void OnClientUseSpellCardToRetinueRequest(UseSpellCardToRetinueRequest r)
+    {
+        ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
-        CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
 
         int targetRetinueId = r.targetRetinueId;
         if (r.isTargetRetinueIdTempId)
@@ -255,8 +263,25 @@ internal class ServerGameManager
             targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
         }
 
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetRetinueId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetRetinueId: targetRetinueId);
+        Broadcast_SendOperationResponse();
+    }
 
+    public void OnClientUseSpellCardToEquipRequest(UseSpellCardToEquipRequest r)
+    {
+        ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
+        ServerPlayer sp = GetPlayerByClientId(r.clientId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetEquipId: r.targetEquipId);
+        Broadcast_SendOperationResponse();
+    }
+
+    public void OnClientUseSpellCardToShipRequest(UseSpellCardToShipRequest r)
+    {
+        ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
+        ServerPlayer sp = GetPlayerByClientId(r.clientId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetClientId: r.targetClientId);
         Broadcast_SendOperationResponse();
     }
 
@@ -357,7 +382,7 @@ internal class ServerGameManager
 
     #region SideEffects
 
-    List<int> DieRetinueList = new List<int>();
+    public List<int> DieRetinueList = new List<int>();
 
     public void AddDieTogatherRetinuesInfo(int dieRetinueId)
     {
@@ -410,6 +435,29 @@ internal class ServerGameManager
     {
         ClientA.SendMessage(request);
         ClientB.SendMessage(request);
+    }
+
+    public ServerModuleRetinue GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType retinueType, int exceptRetinueId)
+    {
+        int countA = PlayerA.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
+        int countB = PlayerB.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
+        Random rd = new Random();
+        int ranResult = rd.Next(0, countA + countB);
+        if (ranResult < countA)
+        {
+            return PlayerA.MyBattleGroundManager.GetRandomRetinue(retinueType, exceptRetinueId);
+        }
+        else
+        {
+            return PlayerB.MyBattleGroundManager.GetRandomRetinue(retinueType, exceptRetinueId);
+        }
+    }
+
+    public int CountAliveRetinueExcept(ServerBattleGroundManager.RetinueType retinueType, int exceptRetinueId)
+    {
+        int countA = PlayerA.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
+        int countB = PlayerB.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
+        return countA + countB;
     }
 
     public ClientProxy GetClientProxyByClientId(int clientId)

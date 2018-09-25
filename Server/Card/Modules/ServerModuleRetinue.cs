@@ -1,4 +1,5 @@
 ﻿using System;
+using SideEffects;
 
 internal class ServerModuleRetinue : ServerModuleBase
 {
@@ -18,12 +19,14 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             see.SideEffectBase.Player = ServerPlayer;
             see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
+            if (see.SideEffectBase is AddSelfWeaponEnergy seb) seb.RetinueID = M_RetinueID;
         }
 
         foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects_OnBattleGround.GetSideEffects())
         {
             see.SideEffectBase.Player = ServerPlayer;
             see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
+            if (see.SideEffectBase is AddSelfWeaponEnergy seb) seb.RetinueID = M_RetinueID;
         }
     }
 

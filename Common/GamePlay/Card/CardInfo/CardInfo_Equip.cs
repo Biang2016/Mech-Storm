@@ -47,13 +47,13 @@
             {
                 if (WeaponInfo.WeaponType == WeaponTypes.Sword)
                 {
-                    CardDescShow += string.Format(isEnglish ? "Add +{0} attack. " : "攻击力: {0} 点, ", BaseInfo.AddHightLightColorToText(BaseInfo.GetHightLightColor(), WeaponInfo.Attack.ToString()));
-                    CardDescShow += string.Format(isEnglish ? "Set +{0} weapon energy. " : "充能:  {0}, ", BaseInfo.AddHightLightColorToText(BaseInfo.GetHightLightColor(), WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                    CardDescShow += string.Format(isEnglish ? "Add +{0} attack. " : "攻击力: {0} 点, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(isEnglish ? "Set +{0} weapon energy. " : "充能:  {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.Gun)
                 {
-                    CardDescShow += string.Format(isEnglish ? "Bullet +{0} attack. " : "弹丸伤害: {0} 点, ", BaseInfo.AddHightLightColorToText(BaseInfo.GetHightLightColor(), WeaponInfo.Attack.ToString()));
-                    CardDescShow += string.Format(isEnglish ? "Add +{0} bullets. " : "弹药: {0}, ", BaseInfo.AddHightLightColorToText(BaseInfo.GetHightLightColor(), WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                    CardDescShow += string.Format(isEnglish ? "Bullet +{0} attack. " : "弹丸伤害: {0} 点, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(isEnglish ? "Add +{0} bullets. " : "弹药: {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
 
                 break;
@@ -62,11 +62,11 @@
             {
                 if (ShieldInfo.ShieldType == ShieldTypes.Armor)
                 {
-                    CardDescShow += string.Format(isEnglish ? "Defence {0} damage. " : "阻挡 {0} 点伤害, ", BaseInfo.AddHightLightColorToText(BaseInfo.GetHightLightColor(), ShieldInfo.Armor.ToString()));
+                    CardDescShow += string.Format(isEnglish ? "Defence {0} damage. " : "阻挡 {0} 点伤害, ", BaseInfo.AddHightLightColorToText(ShieldInfo.Armor.ToString()));
                 }
                 else if (ShieldInfo.ShieldType == ShieldTypes.Shield)
                 {
-                    CardDescShow += string.Format(isEnglish ? "Reduce damage per attack by {0}. " : "受到的伤害减少 {0} 点, ", BaseInfo.AddHightLightColorToText(BaseInfo.GetHightLightColor(), ShieldInfo.Shield.ToString()));
+                    CardDescShow += string.Format(isEnglish ? "Reduce damage per attack by {0}. " : "受到的伤害减少 {0} 点, ", BaseInfo.AddHightLightColorToText(ShieldInfo.Shield.ToString()));
                 }
 
                 break;

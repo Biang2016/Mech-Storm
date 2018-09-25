@@ -15,8 +15,8 @@
     <CardInfo name="lifeInfo" life="12" totalLife="12" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="slotInfo" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
-    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self">
-      <SideEffect name="AddLifeAll" IsNeedChoise="False" M_TargetRange="BattleGrounds" Value="20"></SideEffect>
+    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self">
+      <SideEffect name="AddWeaponEnergy" IsNeedChoise="True" M_TargetRange="SelfBattleGround"  Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="100">
@@ -25,9 +25,6 @@
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="slotInfo" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
-    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self">
-      <SideEffect name="DrawCards" Value="2"></SideEffect>
-    </CardInfo>
   </Card>
   <Card id="200">
     <CardInfo name="baseInfo" pictureID="2" cardName="元祖高达" cardName_en="RX-782" cardDesc="" metal="5" energy="0" coin="900" effectFactor="1" dragPurpose="Summon" cardType="Retinue" slotType="None" isSoldier="False" />
@@ -339,6 +336,7 @@
     <CardInfo name="baseInfo" pictureID="610" cardName="黑客入侵" cardName_en="Hack" cardDesc="" metal="0" energy="15" coin="800" effectFactor="1" dragPurpose="Target" cardType="Spell"  slotType="None" isSoldier="False" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
+      <SideEffect name="BreakEquip" IsNeedChoise="True" M_TargetRange="EnemyBattleGround"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61101">

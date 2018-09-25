@@ -8,8 +8,6 @@ public partial class SideEffectBase
     public string DescRaw;
     public string DescRaw_en;
 
-    public string HightlightColor;
-
     public ExecuterInfo M_ExecuterInfo;
 
     public Player Player;
@@ -61,7 +59,6 @@ public partial class SideEffectBase
         copy.Name = Name;
         copy.DescRaw = DescRaw;
         copy.DescRaw_en = DescRaw_en;
-        copy.HightlightColor = HightlightColor;
         if (M_ExecuterInfo != null)
         {
             copy.M_ExecuterInfo = M_ExecuterInfo.Clone();
@@ -84,12 +81,12 @@ public partial class SideEffectBase
     {
     }
 
-    public static string HightlightStringFormat(string hightlightColor, string src, params object[] args)
+    public static string HightlightStringFormat(string src, params object[] args)
     {
         string[] colorStrings = new string[args.Length];
         for (int i = 0; i < args.Length; i++)
         {
-            colorStrings[i] = "<color=\"" + hightlightColor + "\">" + args[i].ToString() + "</color>";
+            colorStrings[i] = "<color=\"" + GamePlaySettings.CardHightLightColor + "\">" + args[i].ToString() + "</color>";
         }
 
         return String.Format(src, colorStrings);
@@ -98,57 +95,67 @@ public partial class SideEffectBase
     public class ExecuterInfo
     {
         public int ClientId;
+        public int TargetClientId;
         public int RetinueId;
         public int TargetRetinueId;
         public int CardId;
         public int CardInstanceId;
         public int EquipId;
+        public int TargetEquipId;
 
-        public ExecuterInfo(int clientId, int retinueId = -999, int targetRetinueId = -999, int cardId = -999, int cardInstanceId = -999, int equipId = -999)
+        public ExecuterInfo(int clientId, int targetClientId = -1, int retinueId = -999, int targetRetinueId = -999, int cardId = -999, int cardInstanceId = -999, int equipId = -999, int targetEquipId = -999)
         {
             ClientId = clientId;
+            TargetClientId = targetClientId;
             RetinueId = retinueId;
             TargetRetinueId = targetRetinueId;
             CardId = cardId;
             CardInstanceId = cardInstanceId;
             EquipId = equipId;
+            TargetEquipId = targetEquipId;
         }
 
         public ExecuterInfo Clone()
         {
-            return new ExecuterInfo(ClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId);
+            return new ExecuterInfo(ClientId, TargetClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId);
         }
 
         public void Serialize(DataStream writer)
         {
             writer.WriteSInt32(ClientId);
+            writer.WriteSInt32(TargetClientId);
             writer.WriteSInt32(RetinueId);
             writer.WriteSInt32(TargetRetinueId);
             writer.WriteSInt32(CardId);
             writer.WriteSInt32(CardInstanceId);
             writer.WriteSInt32(EquipId);
+            writer.WriteSInt32(TargetEquipId);
         }
 
         public static ExecuterInfo Deserialize(DataStream reader)
         {
             int ClientId = reader.ReadSInt32();
+            int TargetClientId = reader.ReadSInt32();
             int RetinueId = reader.ReadSInt32();
             int TargetRetinueId = reader.ReadSInt32();
             int CardId = reader.ReadSInt32();
             int CardInstanceId = reader.ReadSInt32();
             int EquipId = reader.ReadSInt32();
-            return new ExecuterInfo(ClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId);
+            int TargetEquipId = reader.ReadSInt32();
+            return new ExecuterInfo(ClientId, TargetClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId);
         }
 
         public string DeserializeLog()
         {
             string log = "";
             log += " [ClientId]=" + ClientId;
+            log += " [TargetClientId]=" + TargetClientId;
             log += " [RetinueId]=" + RetinueId;
             log += " [TargetRetinueId]=" + TargetRetinueId;
             log += " [CardId]=" + CardId;
             log += " [CardInstanceId]=" + CardInstanceId;
             log += " [EquipId]=" + EquipId;
+            log += " [TargetEquipId]=" + TargetEquipId;
             return log;
         }
     }

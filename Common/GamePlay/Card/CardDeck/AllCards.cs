@@ -126,7 +126,6 @@ public static class AllCards
                                 }
                             }
 
-                            sideEffect.HightlightColor = BaseInfo.GetHightLightColor();
                             sideEffects.AddSideEffect(sideEffect, triggerTime, triggerRange);
                         }
 
@@ -164,7 +163,6 @@ public static class AllCards
                                 }
                             }
 
-                            sideEffect.HightlightColor = BaseInfo.GetHightLightColor();
                             sideEffects_OnBattleGround.AddSideEffect(sideEffect, triggerTime, triggerRange);
                         }
 

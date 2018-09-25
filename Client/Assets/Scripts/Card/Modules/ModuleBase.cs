@@ -50,7 +50,12 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
     }
 
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
+    private bool isDead;
 
+    public bool IsDead {
+        get { return isDead; }
+        set { isDead = value; }
+    }
     //工具，初始化数字块
     protected void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block)
     {

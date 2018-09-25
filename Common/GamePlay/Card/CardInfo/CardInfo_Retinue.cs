@@ -4,7 +4,7 @@
     {
     }
 
-    public CardInfo_Retinue(int cardID, BaseInfo baseInfo,UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             sideEffects: sideEffects,
@@ -20,9 +20,9 @@
     {
         string CardDescShow = BaseInfo.CardDescRaw;
 
-        if (BattleInfo.BasicAttack != 0) CardDescShow += (isEnglish ? "Attack " : "攻击力 ") + BaseInfo.AddHightLightColorToText(BaseInfo.GetHightLightColor(), "+" + BattleInfo.BasicAttack) + ", ";
-        if (BattleInfo.BasicArmor != 0) CardDescShow += (isEnglish ? "Armor " : "护甲 ") + BaseInfo.AddHightLightColorToText(BaseInfo.GetHightLightColor(), "+" + BattleInfo.BasicArmor) + ", ";
-        if (BattleInfo.BasicShield != 0) CardDescShow += (isEnglish ? "Shield " : "护盾 ") + BaseInfo.AddHightLightColorToText(BaseInfo.GetHightLightColor(), "+" + BattleInfo.BasicShield) + ", ";
+        if (BattleInfo.BasicAttack != 0) CardDescShow += (isEnglish ? "Attack " : "攻击力 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicAttack) + ", ";
+        if (BattleInfo.BasicArmor != 0) CardDescShow += (isEnglish ? "Armor " : "护甲 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicArmor) + ", ";
+        if (BattleInfo.BasicShield != 0) CardDescShow += (isEnglish ? "Shield " : "护盾 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicShield) + ", ";
 
         CardDescShow += base.GetCardDescShow(isEnglish);
 

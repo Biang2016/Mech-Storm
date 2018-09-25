@@ -69,14 +69,24 @@ public struct BaseInfo
         return null;
     }
 
-    public static string GetHightLightColor()
+    private static string GetHightLightColor()
     {
         return GamePlaySettings.CardHightLightColor;
     }
 
-    public static string AddHightLightColorToText(string hightLightColor, string hightLightText)
+    private static string GetImportantColor()
     {
-        return "<color=\"" + hightLightColor + "\">" + hightLightText + "</color>";
+        return GamePlaySettings.CardImportantColor;
+    }
+
+    public static string AddHightLightColorToText(string hightLightText)
+    {
+        return "<color=\"" + GetHightLightColor() + "\">" + hightLightText + "</color>";
+    }
+
+    public static string AddImportantColorToText(string hightLightText)
+    {
+        return "<color=\"" + GetImportantColor() + "\">" + hightLightText + "</color>";
     }
 
     public void Serialize(DataStream writer)

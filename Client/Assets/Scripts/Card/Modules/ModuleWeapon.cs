@@ -1,27 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ModuleWeapon : ModuleBase
+public class ModuleWeapon : ModuleEquip
 {
-    public override void PoolRecycle()
-    {
-        base.PoolRecycle();
-        if (WeaponEquipAnim) WeaponEquipAnim.SetTrigger("Hide");
-    }
-
     void Awake()
     {
         gameObjectPool = GameObjectPoolManager.Instance.Pool_ModuleWeaponPool;
     }
 
-    #region 各模块、自身数值和初始化
-
-    internal ModuleRetinue M_ModuleRetinue;
-    [SerializeField] private TextMesh WeaponName;
-    [SerializeField] private TextMesh WeaponName_en;
-    [SerializeField] private Renderer M_Bloom;
-    [SerializeField] private Renderer M_BloomSE;
-    [SerializeField] private Renderer M_BloomSE_Sub;
 
     [SerializeField] private GameObject M_GunIcon;
     [SerializeField] private GameObject M_SwordIcon;
@@ -38,12 +24,6 @@ public class ModuleWeapon : ModuleBase
     protected GameObject GoNumberSet_WeaponEnergyMax;
     protected CardNumberSet CardNumberSet_WeaponEnergyMax;
 
-    [SerializeField] private Animator WeaponEquipAnim;
-
-    [SerializeField] private Animator WeaponBloomSEAnim;
-    [SerializeField] private Animator WeaponBloomSE_SubAnim;
-
-    public int M_EquipID;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
@@ -53,9 +33,6 @@ public class ModuleWeapon : ModuleBase
         M_WeaponAttack = cardInfo.WeaponInfo.Attack;
         M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;
         M_WeaponEnergy = cardInfo.WeaponInfo.Energy;
-
-        if (M_Bloom) M_Bloom.gameObject.SetActive(false);
-        if (M_BloomSE) M_BloomSE.gameObject.SetActive(false);
         if (M_WeaponType == WeaponTypes.Gun)
         {
             if (M_GunIcon) M_GunIcon.SetActive(true);
@@ -68,13 +45,6 @@ public class ModuleWeapon : ModuleBase
         }
     }
 
-    public override void ChangeColor(Color color)
-    {
-        base.ChangeColor(color);
-        ClientUtils.ChangeColor(M_Bloom, color);
-        ClientUtils.ChangeColor(M_BloomSE, color);
-    }
-
     private NumberSize my_NumberSize_Attack = NumberSize.Big;
     private NumberSize my_NumberSize_Energy = NumberSize.Medium;
     private NumberSize my_NumberSize_EnergyMax = NumberSize.Medium;
@@ -82,8 +52,9 @@ public class ModuleWeapon : ModuleBase
     private CardNumberSet.TextAlign my_TextAlign_Energy = CardNumberSet.TextAlign.Left;
     private CardNumberSet.TextAlign my_TextAlign_EnergyMax = CardNumberSet.TextAlign.Right;
 
-    public void SetPreview()
+    public override void SetPreview()
     {
+        base.SetPreview();
         my_NumberSize_Attack = NumberSize.Small;
         my_TextAlign_Attack = CardNumberSet.TextAlign.Center;
         my_NumberSize_Energy = NumberSize.Small;
@@ -96,8 +67,9 @@ public class ModuleWeapon : ModuleBase
         if (M_Bloom) M_Bloom.gameObject.SetActive(true);
     }
 
-    public void SetNoPreview()
+    public override void SetNoPreview()
     {
+        base.SetNoPreview();
         my_NumberSize_Attack = NumberSize.Big;
         my_TextAlign_Attack = CardNumberSet.TextAlign.Center;
         my_NumberSize_Energy = NumberSize.Medium;
@@ -109,7 +81,6 @@ public class ModuleWeapon : ModuleBase
         M_WeaponEnergy = M_WeaponEnergy;
     }
 
-    #region 属性
 
     public CardInfo_Equip GetCurrentCardInfo()
     {
@@ -129,8 +100,8 @@ public class ModuleWeapon : ModuleBase
         set
         {
             m_WeaponName = value;
-            WeaponName.text = GameManager.Instance.isEnglish ? "" : Utils.TextToVertical(value);
-            WeaponName_en.text = GameManager.Instance.isEnglish ? value : "";
+            Name.text = GameManager.Instance.isEnglish ? "" : Utils.TextToVertical(value);
+            Name_en.text = GameManager.Instance.isEnglish ? value : "";
         }
     }
 
@@ -215,67 +186,14 @@ public class ModuleWeapon : ModuleBase
         }
     }
 
-    #endregion
-
-    #endregion
-
-    #region 模块交互
-
-    #region 攻击相关
 
     public void OnAttack() //特效
     {
     }
 
-    #endregion
-
-    #region 交互UX
 
     public void OnWeaponEquiped()
     {
-        WeaponEquipAnim.SetTrigger("WeaponEquiped");
+        EquipAnim.SetTrigger("WeaponEquiped");
     }
-
-
-    public override void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
-    {
-        base.MouseHoverComponent_OnHover1Begin(mousePosition);
-        if (M_Bloom) M_Bloom.gameObject.SetActive(true);
-    }
-
-    public override void MouseHoverComponent_OnHover1End()
-    {
-        base.MouseHoverComponent_OnHover1End();
-        if (M_Bloom) M_Bloom.gameObject.SetActive(false);
-    }
-
-    #endregion
-
-    #region SE
-
-    public override void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
-    {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#FFFFFF"), 0.8f), "ShowSideEffectBloom");
-    }
-
-    IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
-    {
-        M_BloomSE.gameObject.SetActive(true);
-        M_BloomSE_Sub.gameObject.SetActive(true);
-        WeaponBloomSEAnim.SetTrigger("OnSE");
-        WeaponBloomSE_SubAnim.SetTrigger("OnSE");
-        ClientUtils.ChangeColor(M_BloomSE, color);
-        ClientUtils.ChangeColor(M_BloomSE_Sub, color);
-        AudioManager.Instance.SoundPlay("sfx/OnSE");
-        yield return new WaitForSeconds(duration);
-        WeaponBloomSEAnim.SetTrigger("Reset");
-        WeaponBloomSE_SubAnim.SetTrigger("Reset");
-        M_BloomSE.gameObject.SetActive(false);
-        M_BloomSE_Sub.gameObject.SetActive(false);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    #endregion
-
-    #endregion
 }

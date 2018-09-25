@@ -43,4 +43,5 @@
     public static string PackCardColor = "#0049BC";
     public static string MACardColor = "#7F8AFF";
     public static string CardHightLightColor = "#FFFF00";
+    public static string CardImportantColor = "#FF3232";
 }

@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 224751541970442712}
   - component: {fileID: 222595582995960864}
   - component: {fileID: 114867895837420552}
+  - component: {fileID: 95619364282481630}
   m_Layer: 9
   m_Name: SEBG
   m_TagString: Untagged
@@ -180,6 +181,7 @@ GameObject:
   - component: {fileID: 224338034075589582}
   - component: {fileID: 222964227420275416}
   - component: {fileID: 114977499679454088}
+  - component: {fileID: 95380789394033886}
   m_Layer: 9
   m_Name: SEBG
   m_TagString: Untagged
@@ -2398,6 +2400,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!95 &95380789394033886
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1280358329394430}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fee7326bc4b2c534db338025a10f4178, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95459463791302952
 Animator:
   serializedVersion: 3
@@ -2426,6 +2446,24 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 42937372c424a1e459975bc81fa5a3e6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!95 &95619364282481630
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1178041487953798}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fee7326bc4b2c534db338025a10f4178, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2756,6 +2794,8 @@ MonoBehaviour:
   SideEffectCommonIcon: {fileID: 114511350290846598}
   SideEffectDieIcon: {fileID: 114867895837420552}
   SideEffectBGDieIcon: {fileID: 114903923952714174}
+  SideEffectBGCommonAnim: {fileID: 95380789394033886}
+  SideEffectBGDieAnim: {fileID: 95619364282481630}
   isTotalLifeChanging: 0
   isAttackChanging: 0
   RetinueShieldFull: 0

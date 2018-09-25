@@ -149,6 +149,8 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Image SideEffectCommonIcon;
     [SerializeField] private Image SideEffectDieIcon;
     [SerializeField] private Image SideEffectBGDieIcon;
+    [SerializeField] private Animator SideEffectBGCommonAnim;
+    [SerializeField] private Animator SideEffectBGDieAnim;
 
     private bool isInitializing = false;
 
@@ -189,7 +191,8 @@ public class ModuleRetinue : ModuleBase
 
         foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects_OnBattleGround.GetSideEffects())
         {
-            if (see.TriggerTime != SideEffectBundle.TriggerTime.OnRetinueDie && see.TriggerRange != SideEffectBundle.TriggerRange.Self)
+            if (!(see.TriggerTime == SideEffectBundle.TriggerTime.OnRetinueDie && see.TriggerRange == SideEffectBundle.TriggerRange.Self)
+                && !(see.TriggerTime == SideEffectBundle.TriggerTime.OnRetinueSummon && see.TriggerRange == SideEffectBundle.TriggerRange.Self))
             {
                 SideEffectCommonIcon.gameObject.SetActive(true);
                 SideEffectBGCommonIcon.gameObject.SetActive(true);
@@ -290,14 +293,6 @@ public class ModuleRetinue : ModuleBase
             m_RetinueName = value;
             TextMesh_RetinueName.text = value;
         }
-    }
-
-    private bool isDead;
-
-    public bool IsDead
-    {
-        get { return isDead; }
-        set { isDead = value; }
     }
 
     public bool isTotalLifeChanging = false;
@@ -703,6 +698,23 @@ public class ModuleRetinue : ModuleBase
     #region 拼装上的模块
 
     #region 武器相关
+
+    public ModuleEquip GetEquipBySlotType(SlotTypes slotType)
+    {
+        switch (slotType)
+        {
+            case SlotTypes.Weapon:
+                return M_Weapon;
+            case SlotTypes.Shield:
+                return M_Shield;
+            case SlotTypes.Pack:
+                return M_Pack;
+            case SlotTypes.MA:
+                return M_MA;
+        }
+
+        return null;
+    }
 
     private ModuleWeapon m_Weapon;
 
@@ -1204,23 +1216,23 @@ public class ModuleRetinue : ModuleBase
     {
         if (card.ClientPlayer == ClientPlayer)
         {
-            return card.targetRange == TargetSideEffect.TargetRange.All ||
-                   card.targetRange == TargetSideEffect.TargetRange.BattleGrounds ||
-                   card.targetRange == TargetSideEffect.TargetRange.SelfBattleGround ||
-                   card.targetRange == TargetSideEffect.TargetRange.Heros ||
-                   card.targetRange == TargetSideEffect.TargetRange.Soldiers ||
-                   card.targetRange == TargetSideEffect.TargetRange.SelfHeros ||
-                   card.targetRange == TargetSideEffect.TargetRange.SelfSoldiers;
+            return card.targetRetinueRange == TargetSideEffect.TargetRange.All ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.BattleGrounds ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.SelfBattleGround ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.Heros ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.Soldiers ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.SelfHeros ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.SelfSoldiers;
         }
         else
         {
-            return card.targetRange == TargetSideEffect.TargetRange.All ||
-                   card.targetRange == TargetSideEffect.TargetRange.BattleGrounds ||
-                   card.targetRange == TargetSideEffect.TargetRange.EnemyBattleGround ||
-                   card.targetRange == TargetSideEffect.TargetRange.Heros ||
-                   card.targetRange == TargetSideEffect.TargetRange.Soldiers ||
-                   card.targetRange == TargetSideEffect.TargetRange.EnemyHeros ||
-                   card.targetRange == TargetSideEffect.TargetRange.EnemySoldiers;
+            return card.targetRetinueRange == TargetSideEffect.TargetRange.All ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.BattleGrounds ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyBattleGround ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.Heros ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.Soldiers ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyHeros ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.EnemySoldiers;
         }
     }
 
@@ -1319,11 +1331,20 @@ public class ModuleRetinue : ModuleBase
 
     public override void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor("#00FFDA"), 0.5f), "ShowSideEffectBloom");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(triggerTime, triggerRange, ClientUtils.HTMLColorToColor("#00FFDA"), 0.8f), "ShowSideEffectBloom");
     }
 
-    IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
+    IEnumerator Co_ShowSideEffectBloom(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange, Color color, float duration)
     {
+        if (triggerTime == SideEffectBundle.TriggerTime.OnRetinueDie && triggerRange == SideEffectBundle.TriggerRange.Self)
+        {
+            SideEffectBGDieAnim.SetTrigger("Jump");
+        }
+        else
+        {
+            SideEffectBGCommonAnim.SetTrigger("Jump");
+        }
+
         SideEffcetBloom.gameObject.SetActive(true);
         ClientUtils.ChangeColor(SideEffcetBloom, color);
         AudioManager.Instance.SoundPlay("sfx/OnSE");
