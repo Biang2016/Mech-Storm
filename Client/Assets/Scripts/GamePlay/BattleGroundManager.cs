@@ -9,12 +9,7 @@ public class BattleGroundManager : MonoBehaviour
     public int RetinueCount //接到增加随从协议就更新数量（实体后面才生成）
     {
         get { return retinueCount; }
-        set
-        {
-            retinueCount = value;
-            BattleGroundIsFull = retinueCount == GamePlaySettings.MaxRetinueNumber;
-            BattleGroundIsEmpty = retinueCount == 0;
-        }
+        set { retinueCount = value; }
     }
 
     private int heroCount;
@@ -22,11 +17,7 @@ public class BattleGroundManager : MonoBehaviour
     public int HeroCount //接到增加随从协议就更新数量（实体后面才生成）
     {
         get { return heroCount; }
-        set
-        {
-            heroCount = value;
-            HerosIsEmpty = heroCount == 0;
-        }
+        set { heroCount = value; }
     }
 
     private int soldierCount;
@@ -34,17 +25,42 @@ public class BattleGroundManager : MonoBehaviour
     public int SoldierCount //接到增加随从协议就更新数量（实体后面才生成）
     {
         get { return soldierCount; }
-        set
+        set { soldierCount = value; }
+    }
+
+    public bool BattleGroundIsFull
+    {
+        get { return RetinueCount == GamePlaySettings.MaxRetinueNumber; }
+    }
+
+    public bool BattleGroundIsEmpty
+    {
+        get { return RetinueCount == 0; }
+    }
+
+    public bool HasDefenceRetinue
+    {
+        get
         {
-            soldierCount = value;
-            SoldiersIsEmpty = soldierCount == 0;
+            foreach (ModuleRetinue retinue in Retinues)
+            {
+                if (retinue.CardInfo.RetinueInfo.IsDefence) return true;
+            }
+
+            return false;
         }
     }
 
-    public bool BattleGroundIsFull;
-    public bool BattleGroundIsEmpty;
-    public bool HerosIsEmpty;
-    public bool SoldiersIsEmpty;
+    public bool HerosIsEmpty
+    {
+        get { return HeroCount == 0; }
+    }
+
+    public bool SoldiersIsEmpty
+    {
+        get { return SoldierCount == 0; }
+    }
+
     private Vector3 _defaultRetinuePosition = Vector3.zero;
 
     internal ClientPlayer ClientPlayer;
@@ -139,7 +155,7 @@ public class BattleGroundManager : MonoBehaviour
             retinue.M_RetinueID = retinueId;
             addPrePassRetinueQueue.Enqueue(retinue);
             RetinueCount++;
-            if (!retinueCardInfo.BaseInfo.IsSoldier)
+            if (!retinueCardInfo.RetinueInfo.IsSoldier)
             {
                 HeroCount++;
             }
@@ -175,7 +191,7 @@ public class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         retinue.CannotAttackBecauseDie = true;
         RetinueCount--;
-        if (!retinue.CardInfo.BaseInfo.IsSoldier)
+        if (!retinue.CardInfo.RetinueInfo.IsSoldier)
         {
             HeroCount--;
         }
@@ -197,7 +213,7 @@ public class BattleGroundManager : MonoBehaviour
                 retinue.PoolRecycle();
                 Retinues.Remove(retinue);
                 RemoveRetinues.Remove(retinue);
-                if (!retinue.CardInfo.BaseInfo.IsSoldier)
+                if (!retinue.CardInfo.RetinueInfo.IsSoldier)
                 {
                     Heros.Remove(retinue);
                 }
@@ -221,7 +237,7 @@ public class BattleGroundManager : MonoBehaviour
         retinue.PoolRecycle();
         Retinues.Remove(retinue);
         RetinueCount--;
-        if (!retinue.CardInfo.BaseInfo.IsSoldier)
+        if (!retinue.CardInfo.RetinueInfo.IsSoldier)
         {
             Heros.Remove(retinue);
             HeroCount--;
@@ -361,7 +377,7 @@ public class BattleGroundManager : MonoBehaviour
             ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
 
             Retinues.Insert(retinuePlaceIndex, retinue);
-            if (retinue.CardInfo.BaseInfo.IsSoldier)
+            if (retinue.CardInfo.RetinueInfo.IsSoldier)
             {
                 Soldiers.Add(retinue);
             }

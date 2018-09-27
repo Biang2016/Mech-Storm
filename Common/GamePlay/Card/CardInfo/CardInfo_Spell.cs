@@ -24,6 +24,12 @@
         return CardDescShow;
     }
 
+    public override string GetCardColor()
+    {
+        if (BaseInfo.CardType == CardTypes.Energy) return GamePlaySettings.EnergyCardColor;
+        else return GamePlaySettings.SpellCardColor;
+    }
+
     public override CardInfo_Base Clone()
     {
         CardInfo_Base temp = base.Clone();

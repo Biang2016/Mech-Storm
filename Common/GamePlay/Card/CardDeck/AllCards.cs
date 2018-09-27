@@ -31,7 +31,8 @@ public static class AllCards
             UpgradeInfo upgradeInfo = new UpgradeInfo();
             LifeInfo lifeInfo = new LifeInfo();
             BattleInfo battleInfo = new BattleInfo();
-            SlotInfo slotInfo = new SlotInfo();
+            RetinueInfo retinueInfo = new RetinueInfo();
+            EquipInfo equipInfo = new EquipInfo();
             WeaponInfo weaponInfo = new WeaponInfo();
             ShieldInfo shieldInfo = new ShieldInfo();
             PackInfo packInfo = new PackInfo();
@@ -55,9 +56,7 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["coin"].Value),
                             int.Parse(cardInfo.Attributes["effectFactor"].Value),
                             (DragPurpose) Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
-                            (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value),
-                            cardInfo.Attributes["isSoldier"].Value == "True",
-                            (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slotType"].Value));
+                            (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value));
                         break;
                     case "upgradeInfo":
                         upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value), int.Parse(cardInfo.Attributes["degradeCardID"].Value),
@@ -72,8 +71,12 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["basicShield"].Value),
                             int.Parse(cardInfo.Attributes["basicArmor"].Value));
                         break;
-                    case "slotInfo":
-                        slotInfo = new SlotInfo((SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
+                    case "retinueInfo":
+                        retinueInfo = new RetinueInfo(
+                            cardInfo.Attributes["isSoldier"].Value == "True",
+                            cardInfo.Attributes["isDefence"].Value == "True",
+                            cardInfo.Attributes["isSniper"].Value == "True",
+                            (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
                             (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot2"].Value),
                             (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot3"].Value),
                             (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot4"].Value));
@@ -83,17 +86,21 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["energyMax"].Value),
                             int.Parse(cardInfo.Attributes["attack"].Value),
                             (WeaponTypes) Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value));
+                        equipInfo = new EquipInfo(SlotTypes.Weapon);
                         break;
                     case "shieldInfo":
                         shieldInfo = new ShieldInfo(int.Parse(cardInfo.Attributes["armor"].Value),
                             int.Parse(cardInfo.Attributes["shield"].Value),
                             (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value));
+                        equipInfo = new EquipInfo(SlotTypes.Shield);
                         break;
                     case "packInfo":
                         packInfo = new PackInfo();
+                        equipInfo = new EquipInfo(SlotTypes.Pack);
                         break;
                     case "maInfo":
                         maInfo = new MAInfo();
+                        equipInfo = new EquipInfo(SlotTypes.MA);
                         break;
                     case "sideEffectsInfo":
                     {
@@ -180,7 +187,7 @@ public static class AllCards
                         upgradeInfo: upgradeInfo,
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
-                        slotInfo: slotInfo,
+                        retinueInfo: retinueInfo,
                         sideEffects: sideEffects,
                         sideEffects_OnBattleGround: sideEffects_OnBattleGround));
                     break;
@@ -189,6 +196,7 @@ public static class AllCards
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
+                        equipInfo: equipInfo,
                         weaponInfo: weaponInfo,
                         shieldInfo: shieldInfo,
                         packInfo: packInfo,

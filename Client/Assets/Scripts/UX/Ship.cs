@@ -26,16 +26,21 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
         {
             ModuleRetinue mr = DragManager.Instance.CurrentDrag_ModuleRetinue;
             CardSpell cs = DragManager.Instance.CurrentDrag_CardSpell;
-            if (mr != null && CheckModuleRetinueCanAttack(mr))
+            if (mr != null)
             {
-                ShipBG.SetActive(true);
-                if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
+                int attackFactor = CheckModuleRetinueCanAttackMe(mr);
+                if (attackFactor > 0)
                 {
-                    ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
-                }
+                    ShipBG.SetActive(true);
+                    if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
+                    {
+                        ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
+                    }
 
-                if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
-                if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+                    string factorText = attackFactor > 1 ? "x" + attackFactor : "";
+                    if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage + factorText;
+                    if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage + factorText;
+                }
             }
             else if (cs != null && CheckCardSpellCanTarget(cs))
             {
@@ -51,17 +56,47 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
         }
     }
 
-    private bool CheckModuleRetinueCanAttack(ModuleRetinue retinue)
+    /// <summary>
+    /// 当对方场上有随从，剑及近战攻击无法攻击ship；当对方场上有Defence，枪无法攻击ship；SniperGun随时可以攻击Ship
+    /// </summary>
+    /// <param name="attackRetinue"></param>
+    /// <returns></returns>
+    public int CheckModuleRetinueCanAttackMe(ModuleRetinue attackRetinue)
     {
-        //Todo 嘲讽类随从等逻辑
-        if (retinue.ClientPlayer == ClientPlayer)
+        if (attackRetinue.ClientPlayer == ClientPlayer) return 0;
+        if (attackRetinue.M_Weapon)
         {
-            return false;
+            switch (attackRetinue.M_Weapon.M_WeaponType)
+            {
+                case WeaponTypes.Sword:
+                    if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return 2;
+                    return 0;
+                case WeaponTypes.Gun:
+                    if (attackRetinue.M_RetinueWeaponEnergy != 0)
+                    {
+                        if (ClientPlayer.MyBattleGroundManager.HasDefenceRetinue) return 0;
+                        return 1;
+                    }
+                    else
+                    {
+                        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return 2;
+                        return 0;
+                    }
+                case WeaponTypes.SniperGun:
+                    if (attackRetinue.M_RetinueWeaponEnergy != 0) return 1;
+                    else
+                    {
+                        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return 2;
+                        return 0;
+                    }
+            }
         }
         else
         {
-            return true;
+            if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return 2;
         }
+
+        return 0;
     }
 
     private bool CheckCardSpellCanTarget(CardSpell card)

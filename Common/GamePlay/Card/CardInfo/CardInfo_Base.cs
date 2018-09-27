@@ -7,7 +7,8 @@ public class CardInfo_Base
     public UpgradeInfo UpgradeInfo;
     public LifeInfo LifeInfo;
     public BattleInfo BattleInfo;
-    public SlotInfo SlotInfo;
+    public RetinueInfo RetinueInfo;
+    public EquipInfo EquipInfo;
     public WeaponInfo WeaponInfo;
     public ShieldInfo ShieldInfo;
     public PackInfo PackInfo;
@@ -36,6 +37,11 @@ public class CardInfo_Base
         return CardDescShow;
     }
 
+    public virtual string GetCardColor()
+    {
+        return null;
+    }
+
     public virtual CardInfo_Base Clone()
     {
         return new CardInfo_Base(CardID, BaseInfo, SideEffects.Clone(), SideEffects_OnBattleGround.Clone());
@@ -50,7 +56,8 @@ public class CardInfo_Base
         UpgradeInfo.Serialize(writer);
         LifeInfo.Serialize(writer);
         BattleInfo.Serialize(writer);
-        SlotInfo.Serialize(writer);
+        RetinueInfo.Serialize(writer);
+        EquipInfo.Serialize(writer);
         WeaponInfo.Serialize(writer);
         ShieldInfo.Serialize(writer);
         PackInfo.Serialize(writer);
@@ -71,7 +78,8 @@ public class CardInfo_Base
         newCardInfo_Base.UpgradeInfo = UpgradeInfo.Deserialze(reader);
         newCardInfo_Base.LifeInfo = LifeInfo.Deserialze(reader);
         newCardInfo_Base.BattleInfo = BattleInfo.Deserialze(reader);
-        newCardInfo_Base.SlotInfo = SlotInfo.Deserialze(reader);
+        newCardInfo_Base.RetinueInfo = RetinueInfo.Deserialze(reader);
+        newCardInfo_Base.EquipInfo = EquipInfo.Deserialze(reader);
         newCardInfo_Base.WeaponInfo = WeaponInfo.Deserialze(reader);
         newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
         newCardInfo_Base.PackInfo = PackInfo.Deserialze(reader);

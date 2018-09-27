@@ -38,7 +38,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             upgradeInfo: CardInfo.UpgradeInfo,
             lifeInfo: CardInfo.LifeInfo,
             battleInfo: CardInfo.BattleInfo,
-            slotInfo: CardInfo.SlotInfo,
+            retinueInfo: CardInfo.RetinueInfo,
             sideEffects: CardInfo.SideEffects,
             sideEffects_OnBattleGround: CardInfo.SideEffects_OnBattleGround);
     }
@@ -171,7 +171,9 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             if (isInitialized && before != m_RetinueWeaponEnergy)
             {
-                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addWeaponEnergy: m_RetinueWeaponEnergy - before);
+                int beforeAttack = m_RetinueAttack;
+                if (m_RetinueWeaponEnergy == 0) m_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
+                RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addAttack: m_RetinueAttack - beforeAttack, addWeaponEnergy: m_RetinueWeaponEnergy - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
@@ -312,6 +314,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         m_RetinueAttack += newWeapon.CardInfo.WeaponInfo.Attack;
         m_RetinueWeaponEnergyMax += newWeapon.CardInfo.WeaponInfo.EnergyMax;
         m_RetinueWeaponEnergy += newWeapon.CardInfo.WeaponInfo.Energy;
+        if (m_RetinueWeaponEnergy == 0) m_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
 
         RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addAttack: m_RetinueAttack - att_before, addWeaponEnergy: m_RetinueWeaponEnergy - we_before, addWeaponEnergyMax: m_RetinueWeaponEnergyMax - weMax_before);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
@@ -335,6 +338,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         m_RetinueAttack = CardInfo.BattleInfo.BasicAttack + newWeapon.CardInfo.WeaponInfo.Attack;
         m_RetinueWeaponEnergyMax = newWeapon.CardInfo.WeaponInfo.EnergyMax;
         m_RetinueWeaponEnergy = newWeapon.CardInfo.WeaponInfo.Energy;
+        if (m_RetinueWeaponEnergy == 0) m_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
 
         RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addAttack: m_RetinueAttack - att_before, addWeaponEnergy: m_RetinueWeaponEnergy - we_before, addWeaponEnergyMax: m_RetinueWeaponEnergyMax - weMax_before);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
@@ -664,6 +668,14 @@ internal class ServerModuleRetinue : ServerModuleBase
 
                     if (canCounter) targetRetinue.Attack(this, true); //对方反击
                     break;
+                case WeaponTypes.SniperGun:
+                    if (isCounterAttack) break; //狙击枪无法反击
+                    targetRetinue.BeAttacked(M_RetinueAttack);
+                    OnMakeDamage(M_RetinueAttack);
+                    m_RetinueWeaponEnergy--;
+                    if (targetRetinue.M_RetinueLeftLife <= 0) break;
+                    if (canCounter) targetRetinue.Attack(this, true); //对方反击
+                    break;
             }
         }
         else //没有武器
@@ -712,7 +724,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         ServerPlayer.MyGameManager.AddDieTogatherRetinuesInfo(M_RetinueID);
         SideEffectBase.ExecuterInfo info = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueDie, info);
-        if (CardInfo.BaseInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierDie, info);
+        if (CardInfo.RetinueInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierDie, info);
         else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroDie, info);
     }
 
@@ -744,7 +756,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             switch (M_Weapon.M_WeaponType)
             {
                 case WeaponTypes.Sword:
-                    damage = M_RetinueAttack * M_RetinueWeaponEnergy;
+                    damage = M_RetinueAttack * M_RetinueWeaponEnergy * 2;
                     ship.DamageLifeAboveZero(damage);
                     OnMakeDamage(damage);
                     if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
@@ -759,11 +771,16 @@ internal class ServerModuleRetinue : ServerModuleBase
                     }
 
                     break;
+                case WeaponTypes.SniperGun:
+                    ship.DamageLifeAboveZero(M_RetinueAttack);
+                    OnMakeDamage(M_RetinueAttack);
+                    M_RetinueWeaponEnergy--;
+                    break;
             }
         }
         else
         {
-            damage = M_RetinueAttack;
+            damage = M_RetinueAttack * 2;
             ship.DamageLifeAboveZero(damage);
             OnMakeDamage(damage);
         }
@@ -778,7 +795,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         SideEffectBase.ExecuterInfo ei = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: M_RetinueID);
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueAttack, ei);
-        if (CardInfo.BaseInfo.IsSoldier)
+        if (CardInfo.RetinueInfo.IsSoldier)
         {
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierAttack, ei);
         }

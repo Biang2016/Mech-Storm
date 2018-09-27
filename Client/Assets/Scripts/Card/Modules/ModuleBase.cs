@@ -91,7 +91,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
     {
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
-        ChangeColor(ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.GetCardColor()));
+        ChangeColor(ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()));
         Stars = cardInfo.UpgradeInfo.CardLevel;
     }
 
@@ -150,7 +150,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
 
     public void BeBrightColor()
     {
-        ClientUtils.ChangeColor(MainBoardRenderer, ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.GetCardColor()));
+        ClientUtils.ChangeColor(MainBoardRenderer, ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()));
     }
 
     #endregion

@@ -4,13 +4,13 @@
     {
     }
 
-    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo,  WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
+    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, EquipInfo equipInfo, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             sideEffects: sideEffects,
             sideEffects_OnBattleGround: sideEffects_OnBattleGround)
     {
-        switch (BaseInfo.SlotType)
+        switch (equipInfo.SlotType)
         {
             case SlotTypes.Weapon:
             {
@@ -34,6 +34,7 @@
             }
         }
 
+        EquipInfo = equipInfo;
         UpgradeInfo = upgradeInfo;
     }
 
@@ -41,7 +42,7 @@
     {
         string CardDescShow = BaseInfo.CardDescRaw;
 
-        switch (BaseInfo.SlotType)
+        switch (EquipInfo.SlotType)
         {
             case SlotTypes.Weapon:
             {
@@ -53,6 +54,11 @@
                 else if (WeaponInfo.WeaponType == WeaponTypes.Gun)
                 {
                     CardDescShow += string.Format(isEnglish ? "Bullet +{0} attack. " : "弹丸伤害: {0} 点, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(isEnglish ? "Add +{0} bullets. " : "弹药: {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                }
+                else if (WeaponInfo.WeaponType == WeaponTypes.SniperGun)
+                {
+                    CardDescShow += string.Format(BaseInfo.AddHightLightColorToText(isEnglish ? "Sniper. " : "狙击: ") + (isEnglish ? "Bullet +{0} attack. " : "弹丸伤害: {0} 点, "), BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
                     CardDescShow += string.Format(isEnglish ? "Add +{0} bullets. " : "弹药: {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
 
@@ -88,12 +94,30 @@
         return CardDescShow;
     }
 
+    public override string GetCardColor()
+    {
+        switch (EquipInfo.SlotType)
+        {
+            case SlotTypes.Weapon:
+                return GamePlaySettings.WeaponCardColor;
+            case SlotTypes.Shield:
+                return GamePlaySettings.ShieldCardColor;
+            case SlotTypes.Pack:
+                return GamePlaySettings.PackCardColor;
+            case SlotTypes.MA:
+                return GamePlaySettings.MACardColor;
+        }
+
+        return null;
+    }
+
     public override CardInfo_Base Clone()
     {
         CardInfo_Equip cb = new CardInfo_Equip(
             cardID: CardID,
             baseInfo: BaseInfo,
             upgradeInfo: UpgradeInfo,
+            equipInfo: EquipInfo,
             weaponInfo: WeaponInfo,
             shieldInfo: ShieldInfo,
             packInfo: PackInfo,
@@ -108,3 +132,4 @@
         return isEnglish ? "Equip" : "装备牌";
     }
 }
+

@@ -42,6 +42,8 @@
     <Compile Include="GamePlay\Card\CardDeck\AllCards.cs" />
     <Compile Include="GamePlay\Card\CardDeck\CardDeck.cs" />
     <Compile Include="GamePlay\Card\CardDeck\BuildInfo.cs" />
+    <Compile Include="GamePlay\Card\CardInfo\Info\EquipInfo.cs" />
+    <Compile Include="GamePlay\Card\CardInfo\Info\RetinueInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\BaseInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\BattleInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\CardInfo_Base.cs" />
@@ -52,7 +54,6 @@
     <Compile Include="GamePlay\Card\CardInfo\Info\MAInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\PackInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\ShieldInfo.cs" />
-    <Compile Include="GamePlay\Card\CardInfo\Info\SlotInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\UpgradeInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\WeaponInfo.cs" />
     <Compile Include="GamePlay\Card\SideEffects\AllSideEffects.cs" />

@@ -90,22 +90,22 @@ public class CardSpell : CardBase
                             if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.Heros:
-                            if (!moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                            if (!moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.SelfHeros:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.EnemyHeros:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.Soldiers:
-                            if (moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                            if (moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.SelfSoldiers:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.EnemySoldiers:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && moduleRetinue.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.All:
                             validTarget = true;
@@ -153,22 +153,22 @@ public class CardSpell : CardBase
                                 if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                                 break;
                             case TargetSideEffect.TargetRange.Heros:
-                                if (!equip.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                                if (!equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetSideEffect.TargetRange.SelfHeros:
-                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !equip.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetSideEffect.TargetRange.EnemyHeros:
-                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !equip.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetSideEffect.TargetRange.Soldiers:
-                                if (equip.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                                if (equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetSideEffect.TargetRange.SelfSoldiers:
-                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && equip.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetSideEffect.TargetRange.EnemySoldiers:
-                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && equip.CardInfo.BaseInfo.IsSoldier) validTarget = true;
+                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetSideEffect.TargetRange.All:
                                 validTarget = true;

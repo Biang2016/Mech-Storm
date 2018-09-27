@@ -191,7 +191,6 @@ internal partial class RoundManager
     private void OnSetPlayer_PrePass(ServerRequestBase r)
     {
         NetworkManager.Instance.SuccessMatched();
-        Initialize();
         InitializePlayers((SetPlayerRequest) r);
     }
 

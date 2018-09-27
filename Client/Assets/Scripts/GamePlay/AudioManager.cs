@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Audio;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoSingletion<AudioManager>
 {
-    public static AudioManager Instance = null;
     private Dictionary<string, int> AudioDictionary = new Dictionary<string, int>();
 
     private const int MaxAudioCount = 10;
@@ -19,22 +18,6 @@ public class AudioManager : MonoBehaviour
     public AudioMixerGroup SoundAudioMixerGroup;
 
     #region Mono Function
-
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            if (Instance != this)
-            {
-                Destroy(transform.gameObject);
-            }
-        }
-    }
 
     #endregion
 

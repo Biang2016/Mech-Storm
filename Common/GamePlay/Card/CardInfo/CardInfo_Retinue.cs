@@ -4,7 +4,7 @@
     {
     }
 
-    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, SlotInfo slotInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, RetinueInfo retinueInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             sideEffects: sideEffects,
@@ -13,13 +13,14 @@
         UpgradeInfo = upgradeInfo;
         LifeInfo = lifeInfo;
         BattleInfo = battleInfo;
-        SlotInfo = slotInfo;
+        RetinueInfo = retinueInfo;
     }
 
     public override string GetCardDescShow(bool isEnglish)
     {
         string CardDescShow = BaseInfo.CardDescRaw;
 
+        if (RetinueInfo.IsDefence) CardDescShow += BaseInfo.AddHightLightColorToText((isEnglish ? "Defence. " : "嘲讽; "));
         if (BattleInfo.BasicAttack != 0) CardDescShow += (isEnglish ? "Attack " : "攻击力 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicAttack) + ", ";
         if (BattleInfo.BasicArmor != 0) CardDescShow += (isEnglish ? "Armor " : "护甲 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicArmor) + ", ";
         if (BattleInfo.BasicShield != 0) CardDescShow += (isEnglish ? "Shield " : "护盾 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicShield) + ", ";
@@ -31,6 +32,12 @@
         return CardDescShow;
     }
 
+    public override string GetCardColor()
+    {
+        if (RetinueInfo.IsSoldier) return GamePlaySettings.SoldierCardColor;
+        else return GamePlaySettings.HeroCardColor;
+    }
+
     public override CardInfo_Base Clone()
     {
         CardInfo_Base temp = base.Clone();
@@ -40,7 +47,7 @@
             upgradeInfo: UpgradeInfo,
             lifeInfo: LifeInfo,
             battleInfo: BattleInfo,
-            slotInfo: SlotInfo,
+            retinueInfo: RetinueInfo,
             sideEffects: temp.SideEffects.Clone(),
             sideEffects_OnBattleGround: SideEffects_OnBattleGround.Clone());
         return cb;
@@ -48,7 +55,7 @@
 
     public override string GetCardTypeDesc(bool isEnglish)
     {
-        if (BaseInfo.IsSoldier) return isEnglish ? "Soldier" : "士兵";
+        if (RetinueInfo.IsSoldier) return isEnglish ? "Soldier" : "士兵";
         else return isEnglish ? "Hero" : "英雄";
     }
 }

@@ -137,6 +137,8 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Animator SwordBarAnim;
 
     [SerializeField] private Animator RetinueTargetPreviewAnim;
+    [SerializeField] private Text DefenceText;
+    [SerializeField] private Image SniperTargetImage;
 
     [SerializeField] private TextFlyPile LifeChangeNumberFly;
     [SerializeField] private TextFlyPile ArmorChangeNumberFly;
@@ -204,28 +206,28 @@ public class ModuleRetinue : ModuleBase
         {
             Slot1.ClientPlayer = ClientPlayer;
             Slot1.M_ModuleRetinue = this;
-            Slot1.MSlotTypes = cardInfo.SlotInfo.Slot1;
+            Slot1.MSlotTypes = cardInfo.RetinueInfo.Slot1;
         }
 
         if (Slot2)
         {
             Slot2.ClientPlayer = ClientPlayer;
             Slot2.M_ModuleRetinue = this;
-            Slot2.MSlotTypes = cardInfo.SlotInfo.Slot2;
+            Slot2.MSlotTypes = cardInfo.RetinueInfo.Slot2;
         }
 
         if (Slot3)
         {
             Slot3.ClientPlayer = ClientPlayer;
             Slot3.M_ModuleRetinue = this;
-            Slot3.MSlotTypes = cardInfo.SlotInfo.Slot3;
+            Slot3.MSlotTypes = cardInfo.RetinueInfo.Slot3;
         }
 
         if (Slot4)
         {
             Slot4.ClientPlayer = ClientPlayer;
             Slot4.M_ModuleRetinue = this;
-            Slot4.MSlotTypes = cardInfo.SlotInfo.Slot4;
+            Slot4.MSlotTypes = cardInfo.RetinueInfo.Slot4;
         }
 
         isInitializing = false;
@@ -745,6 +747,7 @@ public class ModuleRetinue : ModuleBase
 
     void On_WeaponDown()
     {
+        AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
     }
 
     void On_WeaponEquiped()
@@ -797,6 +800,7 @@ public class ModuleRetinue : ModuleBase
 
     void On_ShieldDown()
     {
+        AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
     }
 
     void On_ShieldEquiped()
@@ -846,6 +850,7 @@ public class ModuleRetinue : ModuleBase
 
     void On_PackDown()
     {
+        AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
     }
 
     void On_PackEquiped()
@@ -895,6 +900,7 @@ public class ModuleRetinue : ModuleBase
 
     void On_MADown()
     {
+        AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
     }
 
     void On_MAEquiped()
@@ -980,9 +986,17 @@ public class ModuleRetinue : ModuleBase
                         targetRetinue.BeAttacked(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
                         M_RetinueWeaponEnergy--;
-                        if (targetRetinue.IsDead) break;
+                        if (targetRetinue.M_RetinueLeftLife <= 0) break;
                     }
 
+                    if (canCounter) targetRetinue.Attack(this, true); //对方反击
+                    break;
+                case WeaponTypes.SniperGun:
+                    if (isCounterAttack) break; //狙击枪无法反击
+                    targetRetinue.BeAttacked(M_RetinueAttack);
+                    OnMakeDamage(M_RetinueAttack);
+                    M_RetinueWeaponEnergy--;
+                    if (targetRetinue.IsDead) break;
                     if (canCounter) targetRetinue.Attack(this, true); //对方反击
                     break;
             }
@@ -1082,6 +1096,9 @@ public class ModuleRetinue : ModuleBase
                 case WeaponTypes.Gun: //有远程武器可以反击，只反击一点子弹
                     damage = M_RetinueAttack;
                     break;
+                case WeaponTypes.SniperGun: //狙击枪无法反击
+                    damage = 0;
+                    break;
             }
         }
         else //如果没有武器
@@ -1093,8 +1110,10 @@ public class ModuleRetinue : ModuleBase
         return damage;
     }
 
-    public void ShowTargetPreviewArrow()
+    public void ShowTargetPreviewArrow(bool beSniperTargeted = false)
     {
+        DefenceText.enabled = CardInfo.RetinueInfo.IsDefence;
+        SniperTargetImage.enabled = beSniperTargeted;
         RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
         RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
         RetinueTargetPreviewAnim.SetTrigger("BeginTarget");
@@ -1110,12 +1129,13 @@ public class ModuleRetinue : ModuleBase
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
-        if (moduleRetinue && moduleRetinue.ClientPlayer != ClientPlayer && !RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(moduleRetinue))
+        RoundManager.Instance.HideTargetPreviewArrow();
+        if (moduleRetinue && moduleRetinue.CheckModuleRetinueCanAttackMe(this))
         {
             RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(ClientPlayer.ClientId, M_RetinueID, RoundManager.Instance.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
             Client.Instance.Proxy.SendMessage(request);
         }
-        else if (ship && ship.ClientPlayer != ClientPlayer)
+        else if (ship && ship.CheckModuleRetinueCanAttackMe(this) != 0)
         {
             RetinueAttackShipRequest request = new RetinueAttackShipRequest(Client.Instance.Proxy.ClientId, M_RetinueID);
             Client.Instance.Proxy.SendMessage(request);
@@ -1139,6 +1159,7 @@ public class ModuleRetinue : ModuleBase
     {
         base.DragComponnet_DragOutEffects();
         DragManager.Instance.DragOutDamage = CalculateAttack();
+        RoundManager.Instance.ShowRetinueAttackPreviewArrow(this);
     }
 
     #endregion
@@ -1169,7 +1190,7 @@ public class ModuleRetinue : ModuleBase
         {
             ModuleRetinue mr = DragManager.Instance.CurrentDrag_ModuleRetinue;
             CardSpell cs = DragManager.Instance.CurrentDrag_CardSpell;
-            if (mr != null && CheckModuleRetinueCanAttack(mr))
+            if (mr != null && CheckModuleRetinueCanAttackMe(mr))
             {
                 IsBeDraggedHover = true;
                 if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
@@ -1198,18 +1219,14 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    private bool CheckModuleRetinueCanAttack(ModuleRetinue retinue)
+    private bool CheckModuleRetinueCanAttackMe(ModuleRetinue attackRetinue)
     {
-        if (retinue == this) return false;
-        //Todo 嘲讽类随从等逻辑
-        if (retinue.ClientPlayer == ClientPlayer)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        if (attackRetinue == this) return false;
+        if (attackRetinue.ClientPlayer == ClientPlayer) return false;
+        if (RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this)) return false;
+        if (attackRetinue.M_Weapon && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽随从，其他武器只能攻击嘲讽随从
+        if (ClientPlayer.MyBattleGroundManager.HasDefenceRetinue && !CardInfo.RetinueInfo.IsDefence) return false;
+        return true;
     }
 
     private bool CheckCardSpellCanTarget(CardSpell card)
@@ -1298,11 +1315,11 @@ public class ModuleRetinue : ModuleBase
             TargetSideEffect.TargetRange targetRange = DragManager.Instance.SummonRetinueTargetRange;
             if ((ClientPlayer == RoundManager.Instance.EnemyClientPlayer &&
                  (targetRange == TargetSideEffect.TargetRange.EnemyBattleGround ||
-                  (targetRange == TargetSideEffect.TargetRange.EnemySoldiers && CardInfo.BaseInfo.IsSoldier) ||
-                  targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.BaseInfo.IsSoldier))
+                  (targetRange == TargetSideEffect.TargetRange.EnemySoldiers && CardInfo.RetinueInfo.IsSoldier) ||
+                  targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.RetinueInfo.IsSoldier))
                 ||
                 ClientPlayer == RoundManager.Instance.SelfClientPlayer && ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue != this &&
-                (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSoldiers && CardInfo.BaseInfo.IsSoldier)))
+                (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier)))
             {
                 IsBeHover = true;
                 if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)

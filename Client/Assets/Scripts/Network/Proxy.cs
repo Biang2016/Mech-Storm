@@ -152,6 +152,7 @@ public class Proxy : ProxyBase
                         NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Logout Success" : "退出成功", 0, 0.5f);
                         Client.Instance.Proxy.ClientState = ClientStates.GetId;
                         StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+                        SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
                         LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
                     }
                     else
@@ -201,6 +202,10 @@ public class Proxy : ProxyBase
         else
         {
             ResponseBundleBase request = (ResponseBundleBase) r;
+            if (request is GameStart_ResponseBundle)
+            {
+                RoundManager.Instance.Initialize();
+            }
             foreach (ServerRequestBase attachedRequest in request.AttachedRequests) //请求预处理，提取关键信息，如随从死亡、弃牌等会影响客户端交互的信息
             {
                 RoundManager.Instance.ResponseToSideEffects_PrePass(attachedRequest);

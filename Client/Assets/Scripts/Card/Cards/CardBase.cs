@@ -62,7 +62,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
                     break;
                 case CardTypes.Equip:
                     newCard = GameObjectPoolManager.Instance.Pool_EquipCardPool.AllocateGameObject(parent).GetComponent<CardEquip>();
-                    ((CardEquip) newCard).M_EquipType = cardInfo.BaseInfo.SlotType;
+                    ((CardEquip) newCard).M_EquipType = cardInfo.EquipInfo.SlotType;
                     newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_EquipCardPool;
                     break;
                 case CardTypes.Spell:
@@ -171,7 +171,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
         M_Desc = cardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
         Text_CardType.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
         Text_CardTypeBG.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
-        Color cardColor = ClientUtils.HTMLColorToColor(cardInfo.BaseInfo.GetCardColor());
+        Color cardColor = ClientUtils.HTMLColorToColor(cardInfo.GetCardColor());
         Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
         ClientUtils.ChangePictureForCard(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
@@ -331,14 +331,14 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
 
     public void BeDimColor()
     {
-        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.GetCardColor());
+        Color color = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
         ChangeColor(new Color(color.r / 2, color.g / 2, color.b / 2, color.a));
         ChangePictureColor(new Color(0.5f, 0.5f, 0.5f));
     }
 
     public void BeBrightColor()
     {
-        Color color = ClientUtils.HTMLColorToColor(CardInfo.BaseInfo.GetCardColor());
+        Color color = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
         ChangeColor(color);
         ChangePictureColor(Color.white);
     }

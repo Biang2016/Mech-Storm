@@ -11,6 +11,7 @@ public class ModuleWeapon : ModuleEquip
 
     [SerializeField] private GameObject M_GunIcon;
     [SerializeField] private GameObject M_SwordIcon;
+    [SerializeField] private GameObject M_SniperGunIcon;
 
     [SerializeField] private GameObject Block_WeaponAttack;
     protected GameObject GoNumberSet_WeaponAttack;
@@ -37,11 +38,19 @@ public class ModuleWeapon : ModuleEquip
         {
             if (M_GunIcon) M_GunIcon.SetActive(true);
             if (M_SwordIcon) M_SwordIcon.SetActive(false);
+            if (M_SniperGunIcon) M_SniperGunIcon.SetActive(false);
         }
         else if (M_WeaponType == WeaponTypes.Sword)
         {
             if (M_GunIcon) M_GunIcon.SetActive(false);
             if (M_SwordIcon) M_SwordIcon.SetActive(true);
+            if (M_SniperGunIcon) M_SniperGunIcon.SetActive(false);
+        }
+        else if(M_WeaponType == WeaponTypes.SniperGun)
+        {
+            if (M_GunIcon) M_GunIcon.SetActive(false);
+            if (M_SwordIcon) M_SwordIcon.SetActive(false);
+            if (M_SniperGunIcon) M_SniperGunIcon.SetActive(true);
         }
     }
 

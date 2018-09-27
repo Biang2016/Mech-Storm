@@ -200,7 +200,7 @@ public class CardDeck
         CardInfo_Base target_cb = null;
         foreach (CardInfo_Base cb in Cards)
         {
-            if (cb.BaseInfo.CardType == CardTypes.Retinue && cb.BaseInfo.IsSoldier)
+            if (cb.BaseInfo.CardType == CardTypes.Retinue && cb.RetinueInfo.IsSoldier)
             {
                 target_cb = cb;
                 break;
@@ -222,7 +222,7 @@ public class CardDeck
         CardInfo_Base target_cb = null;
         foreach (CardInfo_Base cb in Cards)
         {
-            if (cb.BaseInfo.CardType == CardTypes.Retinue && !cb.BaseInfo.IsSoldier)
+            if (cb.BaseInfo.CardType == CardTypes.Retinue && !cb.RetinueInfo.IsSoldier)
             {
                 target_cb = cb;
                 break;

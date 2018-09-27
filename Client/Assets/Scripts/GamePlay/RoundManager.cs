@@ -35,7 +35,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         }
     }
 
-    private void Initialize()
+    public void Initialize()
     {
         RoundNumber = 0;
         CurrentClientPlayer = null;
@@ -110,7 +110,6 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         GameBoardManager.Instance.EnemyBattleGroundManager.ResetAll();
         GameBoardManager.Instance.SelfHandManager.ResetAll();
         GameBoardManager.Instance.EnemyHandManager.ResetAll();
-        GameBoardManager.Instance.ChangeBoardBG();
         SelfClientPlayer = null;
         EnemyClientPlayer = null;
         CurrentClientPlayer = null;
@@ -129,6 +128,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         }
         else if (!Client.Instance.IsConnect() && !Client.Instance.IsLogin() && !Client.Instance.IsPlaying())
         {
+            SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
             LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
             if (!HasShowLostConnectNotice)
             {
@@ -163,7 +163,20 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         }
     }
 
-    public void ShowTargetPreviewArrow(TargetSideEffect.TargetRange targetRange)
+    public void ShowRetinueAttackPreviewArrow(ModuleRetinue attackRetinue) //当某随从被拖出进攻时，显示可选目标标记箭头
+    {
+        foreach (ModuleRetinue targetRetinue in EnemyClientPlayer.MyBattleGroundManager.Retinues)
+        {
+            if (EnemyClientPlayer.MyBattleGroundManager.HasDefenceRetinue)
+            {
+                if (attackRetinue.M_Weapon != null && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) targetRetinue.ShowTargetPreviewArrow(true);
+                else if (targetRetinue.CardInfo.RetinueInfo.IsDefence) targetRetinue.ShowTargetPreviewArrow();
+            }
+            else targetRetinue.ShowTargetPreviewArrow();
+        }
+    }
+
+    public void ShowTargetPreviewArrow(TargetSideEffect.TargetRange targetRange) //当某咒术被拖出进攻时，显示可选目标标记箭头
     {
         switch (targetRange)
         {

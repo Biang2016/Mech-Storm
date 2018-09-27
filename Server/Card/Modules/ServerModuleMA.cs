@@ -27,6 +27,7 @@
             cardID: CardInfo.CardID,
             baseInfo: CardInfo.BaseInfo,
             upgradeInfo: CardInfo.UpgradeInfo,
+            equipInfo: CardInfo.EquipInfo,
             weaponInfo: CardInfo.WeaponInfo,
             shieldInfo: CardInfo.ShieldInfo,
             packInfo: CardInfo.PackInfo,

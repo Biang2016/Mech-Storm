@@ -49,25 +49,25 @@ public class CardRetinue : CardBase
         M_RetinueShield = CardInfo.BattleInfo.BasicShield;
 
         Slot1.ClientPlayer = ClientPlayer;
-        Slot1.MSlotTypes = CardInfo.SlotInfo.Slot1;
+        Slot1.MSlotTypes = CardInfo.RetinueInfo.Slot1;
         Slot2.ClientPlayer = ClientPlayer;
-        Slot2.MSlotTypes = CardInfo.SlotInfo.Slot2;
+        Slot2.MSlotTypes = CardInfo.RetinueInfo.Slot2;
         Slot3.ClientPlayer = ClientPlayer;
-        Slot3.MSlotTypes = CardInfo.SlotInfo.Slot3;
+        Slot3.MSlotTypes = CardInfo.RetinueInfo.Slot3;
         Slot4.ClientPlayer = ClientPlayer;
-        Slot4.MSlotTypes = CardInfo.SlotInfo.Slot4;
+        Slot4.MSlotTypes = CardInfo.RetinueInfo.Slot4;
 
         HideAllSlotHover();
     }
 
     public void MoveCoinBGLower()
     {
-        if (IsCardSelect && !CardInfo.BaseInfo.IsSoldier) CoinImageBG.transform.position = CoinBGLowerPivot.transform.position;
+        if (IsCardSelect && !CardInfo.RetinueInfo.IsSoldier) CoinImageBG.transform.position = CoinBGLowerPivot.transform.position;
     }
 
     public void MoveCoinBGUpper()
     {
-        if (IsCardSelect && !CardInfo.BaseInfo.IsSoldier) CoinImageBG.transform.position = CoinBGUpperPivot.transform.position;
+        if (IsCardSelect && !CardInfo.RetinueInfo.IsSoldier) CoinImageBG.transform.position = CoinBGUpperPivot.transform.position;
     }
 
     public void ShowAllSlotHover()

@@ -58,7 +58,7 @@ public class GameBoardManager : MonoSingletion<GameBoardManager>
     public void ChangeBoardBG()
     {
         changeBGTimeTick = 0;
-        if (index < BGs.Length-1)
+        if (index < BGs.Length - 1)
         {
             index++;
         }
