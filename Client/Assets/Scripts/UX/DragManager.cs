@@ -139,7 +139,7 @@ public class DragManager : MonoSingletion<DragManager>
     {
         if (IsArrowShowBegin)
         {
-            if (!CurrentArrow || !(CurrentArrow is ArrowAiming)) CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject(transform).GetComponent<ArrowAiming>();
+            if (!CurrentArrow || !(CurrentArrow is ArrowAiming)) CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject<ArrowAiming>(transform);
             Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             CurrentArrow.Render(CurrentSummonPreviewRetinue.transform.position, cameraPosition);
         }
@@ -192,14 +192,14 @@ public class DragManager : MonoSingletion<DragManager>
                             case TargetSideEffect.TargetRange.None:
                                 SummonRetinueTargetHandler(-2);
                                 break;
-                            case TargetSideEffect.TargetRange.BattleGrounds:
+                            case TargetSideEffect.TargetRange.Mechs:
                                 SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
                                 break;
-                            case TargetSideEffect.TargetRange.SelfBattleGround:
+                            case TargetSideEffect.TargetRange.SelfMechs:
                                 if (retinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
                                 else SummonRetinueTargetHandler(-2);
                                 break;
-                            case TargetSideEffect.TargetRange.EnemyBattleGround:
+                            case TargetSideEffect.TargetRange.EnemyMechs:
                                 if (retinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
                                 else SummonRetinueTargetHandler(-2);
                                 break;

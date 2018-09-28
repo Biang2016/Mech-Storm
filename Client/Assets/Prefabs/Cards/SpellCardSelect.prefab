@@ -1082,7 +1082,7 @@ MonoBehaviour:
   EnergyIcon: {fileID: 114927043714178726}
   Text_Metal: {fileID: 114100768765270014}
   Text_Energy: {fileID: 114876950362455714}
-  Block_Count: {fileID: 1748204297966100}
+  Block_Count: {fileID: 4145928999256982}
   CoinText: {fileID: 114613908983210992}
   CoinImage: {fileID: 114495182177117890}
   CoinImageBG: {fileID: 114515748276756008}

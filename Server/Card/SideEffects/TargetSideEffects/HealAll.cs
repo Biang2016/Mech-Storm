@@ -11,14 +11,14 @@
             ServerPlayer player = (ServerPlayer) Player;
             switch (M_TargetRange)
             {
-                case TargetRange.BattleGrounds:
+                case TargetRange.Mechs:
                     player.MyBattleGroundManager.HealAllRetinues(FinalValue);
                     player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(FinalValue);
                     break;
-                case TargetRange.SelfBattleGround:
+                case TargetRange.SelfMechs:
                     player.MyBattleGroundManager.HealAllRetinues(FinalValue);
                     break;
-                case TargetRange.EnemyBattleGround:
+                case TargetRange.EnemyMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(FinalValue);
                     break;
                 case TargetRange.Heros:

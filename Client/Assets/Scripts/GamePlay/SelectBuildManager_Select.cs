@@ -222,7 +222,7 @@ public partial class SelectBuildManager
 
     private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)
     {
-        SelectCard newSC = GameObjectPoolManager.Instance.Pool_SelectCardPool.AllocateGameObject(parenTransform).GetComponent<SelectCard>();
+        SelectCard newSC = GameObjectPoolManager.Instance.Pool_SelectCardPool.AllocateGameObject<SelectCard>(parenTransform);
         Color cardColor = ClientUtils.HTMLColorToColor(card.CardInfo.GetCardColor());
 
         newSC.Initiate(

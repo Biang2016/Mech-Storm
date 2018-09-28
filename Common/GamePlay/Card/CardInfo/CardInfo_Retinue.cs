@@ -20,7 +20,8 @@
     {
         string CardDescShow = BaseInfo.CardDescRaw;
 
-        if (RetinueInfo.IsDefence) CardDescShow += BaseInfo.AddHightLightColorToText((isEnglish ? "Defence. " : "嘲讽; "));
+        if (RetinueInfo.IsDefence) CardDescShow += BaseInfo.AddImportantColorToText((isEnglish ? "Defence. " : "嘲讽; "));
+        if (RetinueInfo.IsSniper) CardDescShow += BaseInfo.AddImportantColorToText((isEnglish ? "Sniper. " : "狙击; "));
         if (BattleInfo.BasicAttack != 0) CardDescShow += (isEnglish ? "Attack " : "攻击力 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicAttack) + ", ";
         if (BattleInfo.BasicArmor != 0) CardDescShow += (isEnglish ? "Armor " : "护甲 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicArmor) + ", ";
         if (BattleInfo.BasicShield != 0) CardDescShow += (isEnglish ? "Shield " : "护盾 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicShield) + ", ";

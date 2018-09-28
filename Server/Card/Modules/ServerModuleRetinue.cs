@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using SideEffects;
 
 internal class ServerModuleRetinue : ServerModuleBase
@@ -173,6 +174,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 int beforeAttack = m_RetinueAttack;
                 if (m_RetinueWeaponEnergy == 0) m_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
+                else m_RetinueAttack = CardInfo.BattleInfo.BasicAttack + M_Weapon.CardInfo.WeaponInfo.Attack;
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addAttack: m_RetinueAttack - beforeAttack, addWeaponEnergy: m_RetinueWeaponEnergy - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
@@ -623,12 +625,19 @@ internal class ServerModuleRetinue : ServerModuleBase
     private enum AttackLevel
     {
         Sword = 0,
-        Gun = 1
+        Gun = 1,
+        SniperGun = 2
     }
 
     private AttackLevel M_AttackLevel
     {
-        get { return (M_Weapon != null && M_Weapon.M_WeaponType == WeaponTypes.Gun && M_RetinueWeaponEnergy != 0) ? AttackLevel.Gun : AttackLevel.Sword; }
+        get
+        {
+            if (M_Weapon == null || M_RetinueWeaponEnergy == 0) return AttackLevel.Sword;
+            if (M_Weapon.M_WeaponType == WeaponTypes.Gun) return AttackLevel.Gun;
+            if (M_Weapon.M_WeaponType == WeaponTypes.SniperGun) return AttackLevel.SniperGun;
+            return AttackLevel.Sword;
+        }
     }
 
     public void Attack(ServerModuleRetinue targetRetinue, bool isCounterAttack) //服务器客户单分别计算
@@ -663,7 +672,7 @@ internal class ServerModuleRetinue : ServerModuleBase
                         targetRetinue.BeAttacked(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
                         m_RetinueWeaponEnergy--;
-                        if (targetRetinue.M_IsDead) break;
+                        if (targetRetinue.M_RetinueLeftLife <= 0) break;
                     }
 
                     if (canCounter) targetRetinue.Attack(this, true); //对方反击
@@ -697,6 +706,10 @@ internal class ServerModuleRetinue : ServerModuleBase
         else if (M_RetinueLeftLife != 0 && targetRetinue.M_RetinueLeftLife == 0) //反击方挂了
         {
             targetRetinue.OnDieTogather();
+            SideEffectBase.ExecuterInfo ei = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID, targetRetinueId: targetRetinue.M_RetinueID);
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueKill, ei);
+            if (CardInfo.RetinueInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierKill, ei);
+            else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroKill, ei);
         }
         else if (M_RetinueLeftLife == 0 && targetRetinue.M_RetinueLeftLife == 0) //全挂了
         {
@@ -735,14 +748,41 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     private void OnMakeDamage(int damage)
     {
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueMakeDamage, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));
+        if (CardInfo.RetinueInfo.IsSoldier)
+        {
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierMakeDamage, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));
+        }
+        else
+        {
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroMakeDamage, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));
+        }
     }
 
     private void OnBeDamaged(int i)
     {
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueInjured, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));
+        if (CardInfo.RetinueInfo.IsSoldier)
+        {
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierInjured, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));
+        }
+        else
+        {
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroInjured, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));
+        }
     }
 
     private void OnBeHealed(int i)
     {
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueBeHealed, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));
+        if (CardInfo.RetinueInfo.IsSoldier)
+        {
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierBeHealed, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));
+        }
+        else
+        {
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroBeHealed, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));
+        }
     }
 
     public void AttackShip(ServerPlayer ship) //计算结果全部由服务器下发

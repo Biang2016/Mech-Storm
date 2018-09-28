@@ -11,14 +11,14 @@
             ServerPlayer player = (ServerPlayer) Player;
             switch (M_TargetRange)
             {
-                case TargetSideEffect.TargetRange.BattleGrounds:
+                case TargetSideEffect.TargetRange.Mechs:
                     player.MyBattleGroundManager.RemoveEquip(ServerBattleGroundManager.RetinueType.All, executerInfo.TargetEquipId);
                     player.MyEnemyPlayer.MyBattleGroundManager.RemoveEquip(ServerBattleGroundManager.RetinueType.All, executerInfo.TargetEquipId);
                     break;
-                case TargetSideEffect.TargetRange.SelfBattleGround:
+                case TargetSideEffect.TargetRange.SelfMechs:
                     player.MyBattleGroundManager.RemoveEquip(ServerBattleGroundManager.RetinueType.All, executerInfo.TargetEquipId);
                     break;
-                case TargetSideEffect.TargetRange.EnemyBattleGround:
+                case TargetSideEffect.TargetRange.EnemyMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.RemoveEquip(ServerBattleGroundManager.RetinueType.All, executerInfo.TargetEquipId);
                     break;
                 case TargetSideEffect.TargetRange.Heros:

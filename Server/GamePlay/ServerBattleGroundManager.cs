@@ -336,6 +336,57 @@ internal class ServerBattleGroundManager
         }
     }
 
+    private void AddAttackForOneRetinue(ServerModuleRetinue retinue, int value)
+    {
+        if (retinue != null)
+        {
+            retinue.M_RetinueAttack += value;
+        }
+    }
+
+    public void AddAttackForOneRetinue(int retinueId, int value)
+    {
+        AddAttackForOneRetinue(GetRetinue(retinueId), value);
+    }
+
+    public void AddAttackForAllRetinues(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        {
+            AddAttackForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+    public void AddAttackForRandomRetinue(int value, int exceptRetinueId)
+    {
+        AddAttackForOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId), value);
+    }
+
+    public void AddAttackForRandomHero(int value, int exceptRetinueId)
+    {
+        AddAttackForOneRetinue(GetRandomRetinue(RetinueType.Hero, exceptRetinueId), value);
+    }
+
+    public void AddAttackForRandomSoldier(int value, int exceptRetinueId)
+    {
+        AddAttackForOneRetinue(GetRandomRetinue(RetinueType.Soldier, exceptRetinueId), value);
+    }
+
+    public void AddAttackForAllHeros(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Heros)
+        {
+            AddAttackForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
+    public void AddAttackForAllSoldiers(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Soldiers)
+        {
+            AddAttackForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
     private void HealOneRetinue(ServerModuleRetinue retinue, int value)
     {
         if (retinue != null)

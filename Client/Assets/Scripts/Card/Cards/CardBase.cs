@@ -2,13 +2,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent, IMouseHoverComponent
+public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponent
 {
-    protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
     protected bool IsCardSelect;
 
-    public virtual void PoolRecycle()
+    public override void PoolRecycle()
     {
         iTween.Stop(gameObject);
         if (!IsCardSelect)
@@ -26,14 +25,14 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
 
             CanBecomeBigger = true;
             Usable = false;
-            gameObjectPool.RecycleGameObject(gameObject);
+            base.PoolRecycle();
             transform.localScale = Vector3.one * 2;
             transform.rotation = Quaternion.Euler(0, -180, 0);
             DragComponent.enabled = true;
         }
         else
         {
-            gameObjectPool.RecycleGameObject(gameObject);
+            base.PoolRecycle();
         }
 
         gameObject.SetActive(true);
@@ -57,25 +56,20 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
             switch (cardInfo.BaseInfo.CardType)
             {
                 case CardTypes.Retinue:
-                    newCard = GameObjectPoolManager.Instance.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_RetinueCardPool.AllocateGameObject<CardRetinue>(parent);
                     break;
                 case CardTypes.Equip:
-                    newCard = GameObjectPoolManager.Instance.Pool_EquipCardPool.AllocateGameObject(parent).GetComponent<CardEquip>();
+                    newCard = GameObjectPoolManager.Instance.Pool_EquipCardPool.AllocateGameObject<CardEquip>(parent);
                     ((CardEquip) newCard).M_EquipType = cardInfo.EquipInfo.SlotType;
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_EquipCardPool;
                     break;
                 case CardTypes.Spell:
-                    newCard = GameObjectPoolManager.Instance.Pool_SpellCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_SpellCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_SpellCardPool.AllocateGameObject<CardSpell>(parent);
                     break;
                 case CardTypes.Energy:
-                    newCard = GameObjectPoolManager.Instance.Pool_SpellCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_SpellCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_SpellCardPool.AllocateGameObject<CardSpell>(parent);
                     break;
                 default:
-                    newCard = GameObjectPoolManager.Instance.Pool_RetinueCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_RetinueCardPool.AllocateGameObject<CardRetinue>(parent);
                     break;
             }
 
@@ -86,24 +80,19 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
             switch (cardInfo.BaseInfo.CardType)
             {
                 case CardTypes.Retinue:
-                    newCard = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool.AllocateGameObject<CardRetinue>(parent);
                     break;
                 case CardTypes.Equip:
-                    newCard = GameObjectPoolManager.Instance.Pool_EquipSelectCardPool.AllocateGameObject(parent).GetComponent<CardEquip>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_EquipSelectCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_EquipSelectCardPool.AllocateGameObject<CardEquip>(parent);
                     break;
                 case CardTypes.Spell:
-                    newCard = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool.AllocateGameObject<CardSpell>(parent);
                     break;
                 case CardTypes.Energy:
-                    newCard = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool.AllocateGameObject(parent).GetComponent<CardSpell>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool.AllocateGameObject<CardSpell>(parent);
                     break;
                 default:
-                    newCard = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool.AllocateGameObject(parent).GetComponent<CardRetinue>();
-                    newCard.gameObjectPool = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool;
+                    newCard = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool.AllocateGameObject<CardRetinue>(parent);
                     break;
             }
 
@@ -124,36 +113,6 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
         return newCard;
     }
 
-    protected void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block)
-    {
-        if (!Number)
-        {
-            Number = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign, IsCardSelect);
-        }
-        else
-        {
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign, IsCardSelect);
-        }
-    }
-
-    protected void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block, char firstSign)
-    {
-        if (!Number)
-        {
-            Number = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign, IsCardSelect);
-        }
-        else
-        {
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign, IsCardSelect);
-        }
-    }
-
     public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
         IsCardSelect = isCardSelect;
@@ -161,7 +120,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
         CardInfo = cardInfo.Clone();
         if (Block_Count)
         {
-            initiateNumbers(ref GoNumberSet_Count, ref CardNumberSet_Count, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Count, 'x');
+            ClientUtils.InitiateNumbers(ref CardNumberSet_Count, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Count, 'x');
             CardNumberSet_Count.Clear();
         }
 
@@ -319,8 +278,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
     [SerializeField] private Text Text_Metal;
     [SerializeField] private Text Text_Energy;
 
-    [SerializeField] private GameObject Block_Count;
-    protected GameObject GoNumberSet_Count;
+    [SerializeField] private Transform Block_Count;
     protected CardNumberSet CardNumberSet_Count;
 
     [SerializeField] private Text CoinText;
@@ -503,7 +461,7 @@ public abstract class CardBase : MonoBehaviour, IGameObjectPool, IDragComponent,
 
         if (myColliderReplace)
         {
-            GameObjectPoolManager.Instance.Pool_ColliderReplacePool.RecycleGameObject(myColliderReplace.gameObject);
+            myColliderReplace.PoolRecycle();
             myColliderReplace = null;
         }
     }

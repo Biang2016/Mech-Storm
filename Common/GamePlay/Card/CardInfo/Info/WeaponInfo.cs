@@ -33,7 +33,8 @@
 
 public enum WeaponTypes
 {
-    Sword = 0,
-    Gun = 1,
-    SniperGun = 2,
+    None = 0,
+    Sword = 1,
+    Gun = 2,
+    SniperGun = 3,
 }

@@ -24,14 +24,34 @@ public class CardEquip : CardBase
         ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (Slot sa in slots)
-                if (sa.MSlotTypes == M_EquipType && sa.ClientPlayer == ClientPlayer && !sa.M_ModuleRetinue.IsDead)
+                if (CheckRetinueCanEquipMe(sa))
                 {
                     summonEquipRequest(sa.M_ModuleRetinue, dragLastPosition);
                     return;
                 }
+                else
+                {
+                    AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
+                    NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should select a right Slot to Equip." : "请选择正确的插槽装备", 0, 1f);
+                }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
         ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
+    }
+
+    public bool CheckRetinueCanEquipMe(Slot sa)
+    {
+        if (sa.ClientPlayer == ClientPlayer && sa.MSlotTypes == M_EquipType && !sa.M_ModuleRetinue.IsDead)
+        {
+            if (M_EquipType == SlotTypes.Weapon && CardInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
+            {
+                if (sa.M_ModuleRetinue.CardInfo.RetinueInfo.IsSniper) return true; //狙击枪只能装在狙击手上
+                else return false;
+            }
+            else return true;
+        }
+
+        return false;
     }
 
 

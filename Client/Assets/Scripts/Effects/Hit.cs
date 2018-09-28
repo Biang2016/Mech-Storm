@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-class Hit : MonoBehaviour, IGameObjectPool
+class Hit : PoolObject
 {
-    private GameObjectPool gameObjectPool;
     [SerializeField] private Animator Anim;
     [SerializeField] private SpriteRenderer SR;
     [SerializeField] private HitManager.HitType HitType;
@@ -18,28 +17,17 @@ class Hit : MonoBehaviour, IGameObjectPool
 
     void Awake()
     {
-        switch (HitType)
-        {
-            case HitManager.HitType.LineLeftTopToRightButtom:
-                gameObjectPool = GameObjectPoolManager.Instance.Pool_Hit0Pool;
-                break;
-            case HitManager.HitType.LineRightTopToLeftButtom:
-                gameObjectPool = GameObjectPoolManager.Instance.Pool_Hit1Pool;
-                break;
-            case HitManager.HitType.Blade:
-                gameObjectPool = GameObjectPoolManager.Instance.Pool_Hit2Pool;
-                break;
-        }
+        SetObjectPool(GameObjectPoolManager.Instance.Pool_HitPool[(int) HitType]);
     }
 
-    public void PoolRecycle()
+    public override void PoolRecycle()
     {
         gameObject.SetActive(true);
         Anim.speed = 1;
-        gameObjectPool.RecycleGameObject(gameObject);
+        base.PoolRecycle();
     }
 
-    public void ShowHit(Color color, float duration, float scale=1)
+    public void ShowHit(Color color, float duration, float scale = 1)
     {
         StartCoroutine(Co_ShowHit(color, duration, scale));
     }

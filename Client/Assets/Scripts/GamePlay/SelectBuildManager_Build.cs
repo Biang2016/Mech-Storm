@@ -91,7 +91,7 @@ public partial class SelectBuildManager
 
     private BuildButton GenerateNewBuildButton(BuildInfo m_BuildInfo)
     {
-        BuildButton newBuildButton = GameObjectPoolManager.Instance.Pool_BuildButtonPool.AllocateGameObject(AllMyBuildsContent).GetComponent<BuildButton>();
+        BuildButton newBuildButton = GameObjectPoolManager.Instance.Pool_BuildButtonPool.AllocateGameObject<BuildButton>(AllMyBuildsContent);
         newBuildButton.Initialize(m_BuildInfo);
 
         CreateNewBuildButton.transform.parent.SetAsLastSibling();

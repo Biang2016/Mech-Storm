@@ -135,6 +135,7 @@
         {
             PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, PlayerLifeChangeRequest.LifeChangeFlag.Left, addLife_left: LifeLeft - LifeLeftBefore);
             BroadCastRequest(request);
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new SideEffectBase.ExecuterInfo(ClientId, value: addLifeValue));
         }
     }
 
@@ -149,6 +150,7 @@
         {
             PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, PlayerLifeChangeRequest.LifeChangeFlag.Left, addLife_left: LifeLeft - LifeLeftBefore);
             BroadCastRequest(request);
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerLostLife, new SideEffectBase.ExecuterInfo(ClientId, value: useLifeValue));
         }
 
         if (LifeLeft <= 0)
@@ -165,6 +167,7 @@
         {
             PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, PlayerLifeChangeRequest.LifeChangeFlag.Left, addLife_left: LifeLeft - LifeLeftBefore);
             BroadCastRequest(request);
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new SideEffectBase.ExecuterInfo(ClientId, value: LifeLeft - LifeLeftBefore));
         }
     }
 
@@ -183,6 +186,7 @@
         {
             PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, PlayerEnergyChangeRequest.EnergyChangeFlag.Left, addEnergy_left: EnergyLeft - EnergyLeftBefore);
             BroadCastRequest(request);
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerGetEnergy, new SideEffectBase.ExecuterInfo(ClientId, value: addEnergyValue));
         }
     }
 
@@ -197,6 +201,7 @@
         {
             PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, PlayerEnergyChangeRequest.EnergyChangeFlag.Left, addEnergy_left: EnergyLeft - EnergyLeftBefore);
             BroadCastRequest(request);
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerUseEnergy, new SideEffectBase.ExecuterInfo(ClientId, value: useEnergyValue));
         }
     }
 

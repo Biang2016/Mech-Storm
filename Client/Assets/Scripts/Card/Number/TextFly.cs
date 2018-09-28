@@ -6,22 +6,19 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextFly : MonoBehaviour, IGameObjectPool
+public class TextFly : PoolObject
 {
-    private GameObjectPool gameObjectPool;
-
-    public void PoolRecycle()
+    public override void PoolRecycle()
     {
         if (removeTextFlyHandler != null) removeTextFlyHandler(this);
         transform.localScale = Vector3.one;
-        gameObjectPool.RecycleGameObject(gameObject);
+        base.PoolRecycle();
         transform.position = Vector3.zero;
         Anim.SetTrigger("EndFly");
     }
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.Pool_TextFlyPool;
         Text.text = "";
         TextBG.text = "";
     }

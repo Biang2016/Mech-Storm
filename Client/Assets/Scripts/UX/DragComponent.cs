@@ -59,7 +59,7 @@ public class DragComponent : MonoBehaviour
                     }
                     else //拖拽一定距离产生效果
                     {
-                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowArrow)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowArrowPool.AllocateGameObject(DragManager.Instance.transform).GetComponent<ArrowArrow>();
+                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowArrow)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowArrowPool.AllocateGameObject<ArrowArrow>(DragManager.Instance.transform);
                         DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                     }
 
@@ -78,7 +78,7 @@ public class DragComponent : MonoBehaviour
                     }
                     else //拖拽一定距离产生效果
                     {
-                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowAiming)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject(DragManager.Instance.transform).GetComponent<ArrowAiming>();
+                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowAiming)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject<ArrowAiming>(DragManager.Instance.transform);
                         DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                     }
 
@@ -191,7 +191,7 @@ public class DragComponent : MonoBehaviour
         return null;
     }
 
-    private Ship checkMoveToShip() //检查鼠标悬停在哪个飞船上
+    private Ship checkMoveToShip() //检查鼠标悬停在哪个战舰上
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;
@@ -229,7 +229,7 @@ internal interface IDragComponent
     /// <param name="boardAreaType">移动到了战场的哪个区域</param>
     /// <param name="slots">移动到了哪个slot上</param>
     /// <param name="moduleRetinue">移动到了哪个随从上</param>
-    /// <param name="ship">移动到了哪个飞船</param>
+    /// <param name="ship">移动到了哪个战舰</param>
     /// <param name="dragLastPosition">移动的最后位置</param>
     /// <param name="dragBeginPosition">移动的初始位置</param>
     /// <param name="dragBeginQuaternion">被拖动对象的初始旋转</param>

@@ -10,12 +10,10 @@ public class ModuleShield : ModuleEquip
 
     #region 各模块、自身数值和初始化
 
-    [SerializeField] private GameObject Block_ShieldArmor;
-    protected GameObject GoNumberSet_ShieldArmor;
+    [SerializeField] private Transform Block_ShieldArmor;
     protected CardNumberSet CardNumberSet_ShieldArmor;
 
-    [SerializeField] private GameObject Block_ShieldShield;
-    protected GameObject GoNumberSet_ShieldShield;
+    [SerializeField] private Transform Block_ShieldShield;
     protected CardNumberSet CardNumberSet_ShieldShield;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
@@ -100,7 +98,7 @@ public class ModuleShield : ModuleEquip
             m_ShieldArmor = value;
             if (Block_ShieldArmor)
             {
-                initiateNumbers(ref GoNumberSet_ShieldArmor, ref CardNumberSet_ShieldArmor, my_NumberSize_Armor, my_TextAlign_Armor, Block_ShieldArmor, '+');
+                ClientUtils.InitiateNumbers(ref CardNumberSet_ShieldArmor, my_NumberSize_Armor, my_TextAlign_Armor, Block_ShieldArmor, '+');
                 CardNumberSet_ShieldArmor.Number = m_ShieldArmor;
             }
         }
@@ -117,7 +115,7 @@ public class ModuleShield : ModuleEquip
             m_ShieldShield = value;
             if (Block_ShieldShield)
             {
-                initiateNumbers(ref GoNumberSet_ShieldShield, ref CardNumberSet_ShieldShield, my_NumberSize_Shield, my_TextAlign_Shield, Block_ShieldShield, '+');
+                ClientUtils.InitiateNumbers(ref CardNumberSet_ShieldShield, my_NumberSize_Shield, my_TextAlign_Shield, Block_ShieldShield, '+');
                 CardNumberSet_ShieldShield.Number = m_ShieldShield;
             }
         }

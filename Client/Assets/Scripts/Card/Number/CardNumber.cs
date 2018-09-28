@@ -1,29 +1,28 @@
 ﻿using UnityEngine;
 
-public class CardNumber : MonoBehaviour,IGameObjectPool
+public class CardNumber : PoolObject
 {
-    internal GameObjectPool gameObjectPool;
-
-    public void PoolRecycle()
+    public override void PoolRecycle()
     {
         hasSign = false;
         SetNumberColor(GameManager.Instance.DefaultLifeNumberColor);
-        if (gameObjectPool == null)
+        if (Pool == null)
         {
             switch (MyNumberSize)
             {
                 case NumberSize.Small:
-                    gameObjectPool = GameObjectPoolManager.Instance.Pool_CardSmallNumberPool;
+                    SetObjectPool(GameObjectPoolManager.Instance.Pool_CardSmallNumberPool);
                     break;
                 case NumberSize.Medium:
-                    gameObjectPool = GameObjectPoolManager.Instance.Pool_CardMediumNumberPool;
+                    SetObjectPool(GameObjectPoolManager.Instance.Pool_CardMediumNumberPool);
                     break;
                 case NumberSize.Big:
-                    gameObjectPool = GameObjectPoolManager.Instance.Pool_CardBigNumberPool;
+                    SetObjectPool(GameObjectPoolManager.Instance.Pool_CardBigNumberPool);
                     break;
             }
         }
-        gameObjectPool.RecycleGameObject(gameObject);
+
+        base.PoolRecycle();
     }
 
     [SerializeField] private Renderer Renderer;
@@ -33,20 +32,21 @@ public class CardNumber : MonoBehaviour,IGameObjectPool
         switch (MyNumberSize)
         {
             case NumberSize.Small:
-                gameObjectPool = GameObjectPoolManager.Instance.Pool_CardSmallNumberPool;
+                SetObjectPool(GameObjectPoolManager.Instance.Pool_CardSmallNumberPool);
                 break;
             case NumberSize.Medium:
-                gameObjectPool = GameObjectPoolManager.Instance.Pool_CardMediumNumberPool;
+                SetObjectPool(GameObjectPoolManager.Instance.Pool_CardMediumNumberPool);
                 break;
             case NumberSize.Big:
-                gameObjectPool = GameObjectPoolManager.Instance.Pool_CardBigNumberPool;
+                SetObjectPool(GameObjectPoolManager.Instance.Pool_CardBigNumberPool);
                 break;
         }
     }
 
     void Start()
     {
-        if (!hasSign) {
+        if (!hasSign)
+        {
             Number = Number;
         }
     }
@@ -63,10 +63,7 @@ public class CardNumber : MonoBehaviour,IGameObjectPool
 
     public int Number
     {
-        get
-        {
-            return number;
-        }
+        get { return number; }
 
         set
         {
@@ -79,26 +76,40 @@ public class CardNumber : MonoBehaviour,IGameObjectPool
         }
     }
 
-    [SerializeField]private NumberSize MyNumberSize;
+    [SerializeField] private NumberSize MyNumberSize;
 
-    internal bool IsSelect;//是否是选择卡牌面板上的数字（需换材质）
+    internal bool IsSelect; //是否是选择卡牌面板上的数字（需换材质）
 
-    private bool hasSign=false;
+    private bool hasSign = false;
+
     public void SetSign(char sign)
     {
         hasSign = true;
         int signIndex = 0;
         switch (sign)
         {
-            case '+': signIndex = 0; break;
-            case '-': signIndex = 1; break;
-            case 'x': signIndex = 2; break;
-            case '/': signIndex = 3; break;
-            case '=': signIndex = 4; break;
-            case '.': signIndex = 5; break;
+            case '+':
+                signIndex = 0;
+                break;
+            case '-':
+                signIndex = 1;
+                break;
+            case 'x':
+                signIndex = 2;
+                break;
+            case '/':
+                signIndex = 3;
+                break;
+            case '=':
+                signIndex = 4;
+                break;
+            case '.':
+                signIndex = 5;
+                break;
             default:
                 ClientLog.Instance.Print("无此符号");
-                signIndex = 0; break;
+                signIndex = 0;
+                break;
         }
 
         if (!IsSelect) Renderer.material = NumberSignMaterial[signIndex];
@@ -107,9 +118,9 @@ public class CardNumber : MonoBehaviour,IGameObjectPool
 
     public void SetNumberColor(Color color)
     {
-        MaterialPropertyBlock mpb=new MaterialPropertyBlock();
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
         Renderer.GetPropertyBlock(mpb);
-        mpb.SetColor("_MainTex",color);
+        mpb.SetColor("_MainTex", color);
         mpb.SetColor("_EmissionColor", color);
         Renderer.SetPropertyBlock(mpb);
     }
@@ -121,4 +132,3 @@ public enum NumberSize
     Medium = 1,
     Big = 2
 }
-

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public abstract class TargetSideEffect : SideEffectBase
 {
@@ -27,9 +28,9 @@ public abstract class TargetSideEffect : SideEffectBase
     [Flags]
     public enum TargetRange
     {
-        BattleGrounds,
-        SelfBattleGround,
-        EnemyBattleGround,
+        Mechs,
+        SelfMechs,
+        EnemyMechs,
         Heros,
         SelfHeros,
         EnemyHeros,
@@ -40,8 +41,23 @@ public abstract class TargetSideEffect : SideEffectBase
         SelfShip,
         EnemyShip,
         All,
+        Self,
         None,
     }
+
+    public HashSet<TargetRange> TR_Ships=new HashSet<TargetRange>{TargetRange.Ships,TargetRange.SelfShip,TargetRange.EnemyShip,TargetRange.All};
+    public HashSet<TargetRange> TR_Retinues=new HashSet<TargetRange>{
+        TargetRange.Mechs,
+        TargetRange.SelfMechs,
+        TargetRange.EnemyMechs,
+        TargetRange.Heros,
+        TargetRange.SelfHeros,
+        TargetRange.EnemyHeros,
+        TargetRange.Soldiers,
+        TargetRange.SelfSoldiers,
+        TargetRange.EnemySoldiers,
+        TargetRange.All
+    };
 
     public string GetChineseDescOfTargetRange(TargetRange targetRange, bool isEnglish, bool isMulti, bool isRandom)
     {
@@ -51,11 +67,11 @@ public abstract class TargetSideEffect : SideEffectBase
             {
                 switch (targetRange)
                 {
-                    case TargetRange.BattleGrounds:
+                    case TargetRange.Mechs:
                         return isEnglish ? "A Mech " : "一个机甲";
-                    case TargetRange.SelfBattleGround:
+                    case TargetRange.SelfMechs:
                         return isEnglish ? "One of Your Mechs " : "一个我方机甲";
-                    case TargetRange.EnemyBattleGround:
+                    case TargetRange.EnemyMechs:
                         return isEnglish ? "One of Enemy's Mechs " : "一个敌方机甲";
                     case TargetRange.Heros:
                         return isEnglish ? "One HeroMech " : "一个英雄";
@@ -70,13 +86,15 @@ public abstract class TargetSideEffect : SideEffectBase
                     case TargetRange.EnemySoldiers:
                         return isEnglish ? "One of Enemy's SoldierMechs " : "一个敌方士兵";
                     case TargetRange.SelfShip:
-                        return isEnglish ? "Your Spaceship " : "我方飞船";
+                        return isEnglish ? "Your Spaceship " : "我方战舰";
                     case TargetRange.EnemyShip:
-                        return isEnglish ? "Enemy's Spaceship " : "敌方飞船";
+                        return isEnglish ? "Enemy's Spaceship " : "敌方战舰";
                     case TargetRange.Ships:
-                        return isEnglish ? "A Spaceship " : "一个飞船";
+                        return isEnglish ? "A Spaceship " : "一个战舰";
                     case TargetRange.All:
                         return isEnglish ? "A Target " : "一个角色";
+                    case TargetRange.Self:
+                        return isEnglish ? "Self " : "自身";
                     default:
                         return "";
                 }
@@ -85,11 +103,11 @@ public abstract class TargetSideEffect : SideEffectBase
             {
                 switch (targetRange)
                 {
-                    case TargetRange.BattleGrounds:
+                    case TargetRange.Mechs:
                         return isEnglish ? "A Random Mech " : "一个随机机甲";
-                    case TargetRange.SelfBattleGround:
+                    case TargetRange.SelfMechs:
                         return isEnglish ? "A Random Mech of Yours " : "一个随机我方机甲";
-                    case TargetRange.EnemyBattleGround:
+                    case TargetRange.EnemyMechs:
                         return isEnglish ? "A Random Mech of Enemy's " : "一个随机敌方机甲";
                     case TargetRange.Heros:
                         return isEnglish ? "A Random HeroMech " : "一个随机英雄";
@@ -104,13 +122,15 @@ public abstract class TargetSideEffect : SideEffectBase
                     case TargetRange.EnemySoldiers:
                         return isEnglish ? "A Random SoldierMech of Enemy's " : "一个随机敌方士兵";
                     case TargetRange.SelfShip:
-                        return isEnglish ? "Your Spaceship " : "我方飞船";
+                        return isEnglish ? "Your Spaceship " : "我方战舰";
                     case TargetRange.EnemyShip:
-                        return isEnglish ? "Enemy's Spaceship " : "敌方飞船";
+                        return isEnglish ? "Enemy's Spaceship " : "敌方战舰";
                     case TargetRange.Ships:
-                        return isEnglish ? "A Random Spaceship " : "一个随机飞船";
+                        return isEnglish ? "A Random Spaceship " : "一个随机战舰";
                     case TargetRange.All:
                         return isEnglish ? "A Random Target " : "一个随机角色";
+                    case TargetRange.Self:
+                        return isEnglish ? "Self " : "自身";
                     default:
                         return "";
                 }
@@ -120,11 +140,11 @@ public abstract class TargetSideEffect : SideEffectBase
         {
             switch (targetRange)
             {
-                case TargetRange.BattleGrounds:
+                case TargetRange.Mechs:
                     return isEnglish ? "All Mechs " : "所有机甲";
-                case TargetRange.SelfBattleGround:
+                case TargetRange.SelfMechs:
                     return isEnglish ? "All Your Mechs " : "所有我方机甲";
-                case TargetRange.EnemyBattleGround:
+                case TargetRange.EnemyMechs:
                     return isEnglish ? "All Enemy's Mechs " : "所有敌方机甲";
                 case TargetRange.Heros:
                     return isEnglish ? "All HeroMech " : "所有英雄";
@@ -139,13 +159,15 @@ public abstract class TargetSideEffect : SideEffectBase
                 case TargetRange.EnemySoldiers:
                     return isEnglish ? "All Enemy's SoldierMechs " : "所有敌方士兵";
                 case TargetRange.SelfShip:
-                    return isEnglish ? "Your Spaceship " : "我方飞船";
+                    return isEnglish ? "Your Spaceship " : "我方战舰";
                 case TargetRange.EnemyShip:
-                    return isEnglish ? "Enemy's Spaceship " : "敌方飞船";
+                    return isEnglish ? "Enemy's Spaceship " : "敌方战舰";
                 case TargetRange.Ships:
-                    return isEnglish ? "All Spaceships " : "所有飞船";
+                    return isEnglish ? "All Spaceships " : "所有战舰";
                 case TargetRange.All:
                     return isEnglish ? "All Targets " : "所有角色";
+                case TargetRange.Self:
+                    return isEnglish ? "Self " : "自身";
                 default:
                     return "";
             }

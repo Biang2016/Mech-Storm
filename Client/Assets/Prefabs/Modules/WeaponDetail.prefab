@@ -1023,6 +1023,6 @@ MonoBehaviour:
   M_GunIcon: {fileID: 1958798506282244}
   M_SwordIcon: {fileID: 1359469632689400}
   M_SniperGunIcon: {fileID: 1651782024518438}
-  Block_WeaponAttack: {fileID: 1863932641605330}
-  Block_WeaponEnergy: {fileID: 1644558577024490}
-  Block_WeaponEnergyMax: {fileID: 1433666953002260}
+  Block_WeaponAttack: {fileID: 4455968054283760}
+  Block_WeaponEnergy: {fileID: 4601240735827142}
+  Block_WeaponEnergyMax: {fileID: 4283525656828372}

@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 
 [ExecuteInEditMode]
-public class CardNumberSet : MonoBehaviour, IGameObjectPool
+public class CardNumberSet : PoolObject
 {
-    GameObjectPool gameObjectPool;
-
-    public void PoolRecycle()
+    public override void PoolRecycle()
     {
         hasSign = false;
-        gameObjectPool.RecycleGameObject(gameObject);
+        base.PoolRecycle();
         MyNumberSize = NumberSize.Big;
     }
 
@@ -18,7 +16,6 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool
     void Awake()
     {
         hasSign = false;
-        gameObjectPool = GameObjectPoolManager.Instance.Pool_CardNumberSetPool;
     }
 
     public void initiate(int number, NumberSize numberSize, TextAlign textAlign, bool isSelect)
@@ -212,7 +209,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool
     {
         if (!cardNumbers[3 - digitCount])
         {
-            cardNumbers[3 - digitCount] = childrenPool.AllocateGameObject(transform).GetComponent<CardNumber>();
+            cardNumbers[3 - digitCount] = childrenPool.AllocateGameObject<CardNumber>(transform);
         }
 
         cardNumbers[3 - digitCount].IsSelect = IsSelect;
@@ -228,7 +225,7 @@ public class CardNumberSet : MonoBehaviour, IGameObjectPool
         if (!cardNumbers[digitPlace])
         {
             if (value == -1) return;
-            cardNumbers[digitPlace] = childrenPool.AllocateGameObject(transform).GetComponent<CardNumber>();
+            cardNumbers[digitPlace] = childrenPool.AllocateGameObject<CardNumber>(transform);
             cardNumbers[digitPlace].IsSelect = IsSelect;
             cardNumbers[digitPlace].Number = (int) value;
         }

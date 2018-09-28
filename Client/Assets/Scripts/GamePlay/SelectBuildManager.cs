@@ -301,6 +301,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
         {
             if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
             if (cardInfo.UpgradeInfo.CardLevel > 1) continue;
+            if (cardInfo.BaseInfo.Hide) continue;
             AddCardIntoCardSelectWindow(cardInfo);
         }
     }

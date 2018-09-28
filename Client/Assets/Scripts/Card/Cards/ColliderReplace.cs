@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// 手牌中预览卡牌时替代原卡牌位置的Collider
 /// </summary>
-public class ColliderReplace : MonoBehaviour
+public class ColliderReplace : PoolObject
 {
     internal CardBase MyCallerCard;
 

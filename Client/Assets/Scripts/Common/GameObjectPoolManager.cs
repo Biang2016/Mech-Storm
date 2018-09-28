@@ -6,222 +6,151 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     {
     }
 
-    public GameObject ColliderReplacePool;
-    internal GameObjectPool Pool_ColliderReplacePool;
-    public GameObject ColliderReplacePrefab;
+    public GameObjectPool Pool_ColliderReplacePool;
+    public PoolObject ColliderReplacePrefab;
 
-    public GameObject CardNumberSetPool;
-    internal GameObjectPool Pool_CardNumberSetPool;
-    public GameObject CardNumberSetPrefab;
+    public GameObjectPool Pool_CardNumberSetPool;
+    public PoolObject CardNumberSetPrefab;
 
-    public GameObject CardSmallNumberPool;
-    internal GameObjectPool Pool_CardSmallNumberPool;
-    public GameObject CardSmallNumberPrefab;
+    public GameObjectPool Pool_CardSmallNumberPool;
+    public PoolObject CardSmallNumberPrefab;
 
-    public GameObject CardMediumNumberPool;
-    internal GameObjectPool Pool_CardMediumNumberPool;
-    public GameObject CardMediumNumberPrefab;
+    public GameObjectPool Pool_CardMediumNumberPool;
+    public PoolObject CardMediumNumberPrefab;
 
-    public GameObject CardBigNumberPool;
-    internal GameObjectPool Pool_CardBigNumberPool;
-    public GameObject CardBigNumberPrefab;
+    public GameObjectPool Pool_CardBigNumberPool;
+    public PoolObject CardBigNumberPrefab;
 
-    public GameObject ArrowAimingPool;
-    internal GameObjectPool Pool_ArrowAimingPool;
-    public GameObject ArrowAimingPrefab;
+    public GameObjectPool Pool_ArrowAimingPool;
+    public PoolObject ArrowAimingPrefab;
 
-    public GameObject ArrowArrowPool;
-    internal GameObjectPool Pool_ArrowArrowPool;
-    public GameObject ArrowArrowPrefab;
+    public GameObjectPool Pool_ArrowArrowPool;
+    public PoolObject ArrowArrowPrefab;
 
-    public GameObject ModuleRetinuePool;
-    internal GameObjectPool Pool_ModuleRetinuePool;
-    public GameObject ModuleRetinuePrefab;
+    public GameObjectPool Pool_ModuleRetinuePool;
+    public PoolObject ModuleRetinuePrefab;
 
-    public GameObject ModuleWeaponPool;
-    internal GameObjectPool Pool_ModuleWeaponPool;
-    public GameObject ModuleWeaponPrefab;
+    public GameObjectPool Pool_ModuleWeaponPool;
+    public PoolObject ModuleWeaponPrefab;
 
-    public GameObject ModuleWeaponDetailPool;
-    internal GameObjectPool Pool_ModuleWeaponDetailPool;
-    public GameObject ModuleWeaponDetailPrefab;
+    public GameObjectPool Pool_ModuleWeaponDetailPool;
+    public PoolObject ModuleWeaponDetailPrefab;
 
-    public GameObject ModuleShieldPool;
-    internal GameObjectPool Pool_ModuleShieldPool;
-    public GameObject ModuleShieldPrefab;
+    public GameObjectPool Pool_ModuleShieldPool;
+    public PoolObject ModuleShieldPrefab;
 
-    public GameObject ModuleShieldDetailPool;
-    internal GameObjectPool Pool_ModuleShieldDetailPool;
-    public GameObject ModuleShieldDetailPrefab;
+    public GameObjectPool Pool_ModuleShieldDetailPool;
+    public PoolObject ModuleShieldDetailPrefab;
 
-    public GameObject ModulePackPool;
-    internal GameObjectPool Pool_ModulePackPool;
-    public GameObject ModulePackPrefab;
+    public GameObjectPool Pool_ModulePackPool;
+    public PoolObject ModulePackPrefab;
 
-    public GameObject ModulePackDetailPool;
-    internal GameObjectPool Pool_ModulePackDetailPool;
-    public GameObject ModulePackDetailPrefab;
+    public GameObjectPool Pool_ModulePackDetailPool;
+    public PoolObject ModulePackDetailPrefab;
 
-    public GameObject ModuleMAPool;
-    internal GameObjectPool Pool_ModuleMAPool;
-    public GameObject ModuleMAPrefab;
+    public GameObjectPool Pool_ModuleMAPool;
+    public PoolObject ModuleMAPrefab;
 
-    public GameObject ModuleMADetailPool;
-    internal GameObjectPool Pool_ModuleMADetailPool;
-    public GameObject ModuleMADetailPrefab;
+    public GameObjectPool Pool_ModuleMADetailPool;
+    public PoolObject ModuleMADetailPrefab;
 
-    public GameObject RetinueCardPool;
-    internal GameObjectPool Pool_RetinueCardPool;
-    public GameObject RetinueCardPrefab;
+    public GameObjectPool Pool_RetinueCardPool;
+    public PoolObject RetinueCardPrefab;
 
-    public GameObject EquipCardPool;
-    internal GameObjectPool Pool_EquipCardPool;
-    public GameObject EquipCardPrefab;
+    public GameObjectPool Pool_EquipCardPool;
+    public PoolObject EquipCardPrefab;
 
-    public GameObject SpellCardPool;
-    internal GameObjectPool Pool_SpellCardPool;
-    public GameObject SpellCardPrefab;
+    public GameObjectPool Pool_SpellCardPool;
+    public PoolObject SpellCardPrefab;
 
-    public GameObject RetinueSelectCardPool;
-    internal GameObjectPool Pool_RetinueSelectCardPool;
-    public GameObject RetinueSelectCardPrefab;
+    public GameObjectPool Pool_RetinueSelectCardPool;
+    public PoolObject RetinueSelectCardPrefab;
 
-    public GameObject EquipSelectCardPool;
-    internal GameObjectPool Pool_EquipSelectCardPool;
-    public GameObject EquipSelectCardPrefab;
+    public GameObjectPool Pool_EquipSelectCardPool;
+    public PoolObject EquipSelectCardPrefab;
 
-    public GameObject SpellSelectCardPool;
-    internal GameObjectPool Pool_SpellSelectCardPool;
-    public GameObject SpellSelectCardPrefab;
+    public GameObjectPool Pool_SpellSelectCardPool;
+    public PoolObject SpellSelectCardPrefab;
 
-    public GameObject SelectCardPool;
-    internal GameObjectPool Pool_SelectCardPool;
-    public GameObject SelectCardPrefab;
+    public GameObjectPool Pool_SelectCardPool;
+    public PoolObject SelectCardPrefab;
 
-    public GameObject BuildButtonPool;
-    internal GameObjectPool Pool_BuildButtonPool;
-    public GameObject BuildButtonPrefab;
+    public GameObjectPool Pool_BuildButtonPool;
+    public PoolObject BuildButtonPrefab;
 
-    public GameObject CardDeckCardPool;
-    internal GameObjectPool Pool_CardDeckCardPool;
-    public GameObject CardDeckCardPrefab;
+    public GameObjectPool Pool_CardDeckCardPool;
+    public PoolObject CardDeckCardPrefab;
 
-    public GameObject MetalBarBlockPool;
-    internal GameObjectPool Pool_MetalBarBlockPool;
-    public GameObject MetalBarBlockPrefab;
+    public GameObjectPool Pool_MetalBarBlockPool;
+    public PoolObject MetalBarBlockPrefab;
 
-    public GameObject TextFlyPool;
-    internal GameObjectPool Pool_TextFlyPool;
-    public GameObject TextFlyPrefab;
+    public GameObjectPool Pool_TextFlyPool;
+    public PoolObject TextFlyPrefab;
 
-    public GameObject Hit0Pool;
-    internal GameObjectPool Pool_Hit0Pool;
-    public GameObject Hit0Prefab;
-
-    public GameObject Hit1Pool;
-    internal GameObjectPool Pool_Hit1Pool;
-    public GameObject Hit1Prefab;
-
-    public GameObject Hit2Pool;
-    internal GameObjectPool Pool_Hit2Pool;
-    public GameObject Hit2Prefab;
+    public GameObjectPool[] Pool_HitPool;
+    public PoolObject[] HitPrefab;
 
 
     void Awake()
     {
-        Pool_ColliderReplacePool = ColliderReplacePool.GetComponent<GameObjectPool>();
         Pool_ColliderReplacePool.Initiate(ColliderReplacePrefab, 20);
 
-        Pool_CardNumberSetPool = CardNumberSetPool.GetComponent<GameObjectPool>();
         Pool_CardNumberSetPool.Initiate(CardNumberSetPrefab, 60);
 
-        Pool_CardSmallNumberPool = CardSmallNumberPool.GetComponent<GameObjectPool>();
         Pool_CardSmallNumberPool.Initiate(CardSmallNumberPrefab, 180);
 
-        Pool_CardMediumNumberPool = CardMediumNumberPool.GetComponent<GameObjectPool>();
         Pool_CardMediumNumberPool.Initiate(CardMediumNumberPrefab, 180);
 
-        Pool_CardBigNumberPool = CardBigNumberPool.GetComponent<GameObjectPool>();
         Pool_CardBigNumberPool.Initiate(CardBigNumberPrefab, 180);
 
-        Pool_ArrowArrowPool = ArrowArrowPool.GetComponent<GameObjectPool>();
         Pool_ArrowArrowPool.Initiate(ArrowArrowPrefab, 2);
 
-        Pool_ArrowAimingPool = ArrowAimingPool.GetComponent<GameObjectPool>();
         Pool_ArrowAimingPool.Initiate(ArrowAimingPrefab, 2);
 
-        Pool_ModuleRetinuePool = ModuleRetinuePool.GetComponent<GameObjectPool>();
         Pool_ModuleRetinuePool.Initiate(ModuleRetinuePrefab, 14);
 
-        Pool_ModuleWeaponPool = ModuleWeaponPool.GetComponent<GameObjectPool>();
         Pool_ModuleWeaponPool.Initiate(ModuleWeaponPrefab, 14);
 
-        Pool_ModuleWeaponDetailPool = ModuleWeaponDetailPool.GetComponent<GameObjectPool>();
         Pool_ModuleWeaponDetailPool.Initiate(ModuleWeaponDetailPrefab, 1);
 
-        Pool_ModuleShieldPool = ModuleShieldPool.GetComponent<GameObjectPool>();
         Pool_ModuleShieldPool.Initiate(ModuleShieldPrefab, 14);
 
-        Pool_ModuleShieldDetailPool = ModuleShieldDetailPool.GetComponent<GameObjectPool>();
         Pool_ModuleShieldDetailPool.Initiate(ModuleShieldDetailPrefab, 1);
 
-        Pool_ModulePackPool = ModulePackPool.GetComponent<GameObjectPool>();
         Pool_ModulePackPool.Initiate(ModulePackPrefab, 5);
 
-        Pool_ModulePackDetailPool = ModulePackDetailPool.GetComponent<GameObjectPool>();
         Pool_ModulePackDetailPool.Initiate(ModulePackDetailPrefab, 1);
 
-        Pool_ModuleMAPool = ModuleMAPool.GetComponent<GameObjectPool>();
         Pool_ModuleMAPool.Initiate(ModuleMAPrefab, 5);
 
-        Pool_ModuleMADetailPool = ModuleMADetailPool.GetComponent<GameObjectPool>();
         Pool_ModuleMADetailPool.Initiate(ModuleMADetailPrefab, 1);
 
-        Pool_RetinueCardPool = RetinueCardPool.GetComponent<GameObjectPool>();
         Pool_RetinueCardPool.Initiate(RetinueCardPrefab, 20);
 
-        Pool_EquipCardPool = EquipCardPool.GetComponent<GameObjectPool>();
         Pool_EquipCardPool.Initiate(EquipCardPrefab, 20);
 
-        Pool_SpellCardPool = SpellCardPool.GetComponent<GameObjectPool>();
         Pool_SpellCardPool.Initiate(SpellCardPrefab, 20);
 
-        Pool_RetinueSelectCardPool = RetinueSelectCardPool.GetComponent<GameObjectPool>();
         Pool_RetinueSelectCardPool.Initiate(RetinueSelectCardPrefab, 30);
 
-        Pool_EquipSelectCardPool = EquipSelectCardPool.GetComponent<GameObjectPool>();
         Pool_EquipSelectCardPool.Initiate(EquipSelectCardPrefab, 30);
 
-        Pool_SpellSelectCardPool = SpellSelectCardPool.GetComponent<GameObjectPool>();
         Pool_SpellSelectCardPool.Initiate(SpellSelectCardPrefab, 30);
 
-        Pool_SelectCardPool = SelectCardPool.GetComponent<GameObjectPool>();
         Pool_SelectCardPool.Initiate(SelectCardPrefab, 20);
 
-        Pool_BuildButtonPool = BuildButtonPool.GetComponent<GameObjectPool>();
         Pool_BuildButtonPool.Initiate(BuildButtonPrefab, 10);
 
-        Pool_CardDeckCardPool = CardDeckCardPool.GetComponent<GameObjectPool>();
         Pool_CardDeckCardPool.Initiate(CardDeckCardPrefab, 20);
 
-        Pool_MetalBarBlockPool = MetalBarBlockPool.GetComponent<GameObjectPool>();
         Pool_MetalBarBlockPool.Initiate(MetalBarBlockPrefab, 20);
 
-        Pool_TextFlyPool = TextFlyPool.GetComponent<GameObjectPool>();
         Pool_TextFlyPool.Initiate(TextFlyPrefab, 10);
 
-        Pool_Hit0Pool = Hit0Pool.GetComponent<GameObjectPool>();
-        Pool_Hit0Pool.Initiate(Hit0Prefab, 3);
+        for (int i = 0; i < Pool_HitPool.Length; i++)
+        {
+            Pool_HitPool[i].Initiate(HitPrefab[i], 3);
 
-        Pool_Hit1Pool = Hit1Pool.GetComponent<GameObjectPool>();
-        Pool_Hit1Pool.Initiate(Hit1Prefab, 3);
-
-        Pool_Hit2Pool = Hit2Pool.GetComponent<GameObjectPool>();
-        Pool_Hit2Pool.Initiate(Hit2Prefab, 3);
+        }
     }
-}
-
-public interface IGameObjectPool
-{
-    void PoolRecycle();
 }

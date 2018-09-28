@@ -331,7 +331,7 @@ GameObject:
   m_Layer: 14
   m_Name: CoinImageLowerPivot
   m_TagString: Untagged
-  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -518,7 +518,7 @@ GameObject:
   m_Layer: 14
   m_Name: CoinImageUpperPivot
   m_TagString: Untagged
-  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1814,7 +1814,7 @@ MonoBehaviour:
   EnergyIcon: {fileID: 114616049668768066}
   Text_Metal: {fileID: 114856935362295372}
   Text_Energy: {fileID: 114195242624025018}
-  Block_Count: {fileID: 1479446008502060}
+  Block_Count: {fileID: 4408301892803848}
   CoinText: {fileID: 114591521635673010}
   CoinImage: {fileID: 114730800878880768}
   CoinImageBG: {fileID: 114826491284982186}

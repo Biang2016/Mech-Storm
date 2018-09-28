@@ -85,4 +85,22 @@
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
+  <SideEffect id="19" name="SummonRetinue" desc="召唤机甲[{0}]" desc_en="Summon [{0}]">
+    <params name="SummonRetinueID" type="int"></params>
+  </SideEffect>
+  <SideEffect id="20" name="AddAttackOne" desc="为{0}增加{1}点攻击力, " desc_en="Add {1} attack for {0}. ">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="21" name="AddAttackAll" desc="为{0}增加{1}点攻击力, " desc_en="Add {1} attack for {0}. ">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+    <params name="Value" type="int"></params>
+  </SideEffect>
+  <SideEffect id="22" name="AddAttackRandom" desc="为{0}增加{1}点攻击力, " desc_en="Add {1} attack for {0}. ">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+    <params name="Value" type="int"></params>
+  </SideEffect>
 </AllSideEffects>

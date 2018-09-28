@@ -13,16 +13,13 @@ public class ModuleWeapon : ModuleEquip
     [SerializeField] private GameObject M_SwordIcon;
     [SerializeField] private GameObject M_SniperGunIcon;
 
-    [SerializeField] private GameObject Block_WeaponAttack;
-    protected GameObject GoNumberSet_WeaponAttack;
+    [SerializeField] private Transform Block_WeaponAttack;
     protected CardNumberSet CardNumberSet_WeaponAttack;
 
-    [SerializeField] private GameObject Block_WeaponEnergy;
-    protected GameObject GoNumberSet_WeaponEnergy;
+    [SerializeField] private Transform Block_WeaponEnergy;
     protected CardNumberSet CardNumberSet_WeaponEnergy;
 
-    [SerializeField] private GameObject Block_WeaponEnergyMax;
-    protected GameObject GoNumberSet_WeaponEnergyMax;
+    [SerializeField] private Transform Block_WeaponEnergyMax;
     protected CardNumberSet CardNumberSet_WeaponEnergyMax;
 
 
@@ -46,7 +43,7 @@ public class ModuleWeapon : ModuleEquip
             if (M_SwordIcon) M_SwordIcon.SetActive(true);
             if (M_SniperGunIcon) M_SniperGunIcon.SetActive(false);
         }
-        else if(M_WeaponType == WeaponTypes.SniperGun)
+        else if (M_WeaponType == WeaponTypes.SniperGun)
         {
             if (M_GunIcon) M_GunIcon.SetActive(false);
             if (M_SwordIcon) M_SwordIcon.SetActive(false);
@@ -135,7 +132,7 @@ public class ModuleWeapon : ModuleEquip
             m_WeaponAttack = value;
             if (Block_WeaponAttack)
             {
-                initiateNumbers(ref GoNumberSet_WeaponAttack, ref CardNumberSet_WeaponAttack, my_NumberSize_Attack, my_TextAlign_Attack, Block_WeaponAttack, '+');
+                ClientUtils.InitiateNumbers(ref CardNumberSet_WeaponAttack, my_NumberSize_Attack, my_TextAlign_Attack, Block_WeaponAttack, '+');
                 CardNumberSet_WeaponAttack.Number = M_ModuleRetinue.M_RetinueAttack;
             }
 
@@ -161,7 +158,7 @@ public class ModuleWeapon : ModuleEquip
             m_WeaponEnergy = Mathf.Min(value, M_WeaponEnergyMax);
             if (Block_WeaponEnergy)
             {
-                initiateNumbers(ref GoNumberSet_WeaponEnergy, ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy);
+                ClientUtils.InitiateNumbers(ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy);
                 CardNumberSet_WeaponEnergy.Number = m_WeaponEnergy;
             }
 
@@ -189,7 +186,7 @@ public class ModuleWeapon : ModuleEquip
             m_WeaponEnergyMax = value;
             if (Block_WeaponEnergyMax)
             {
-                initiateNumbers(ref GoNumberSet_WeaponEnergyMax, ref CardNumberSet_WeaponEnergyMax, my_NumberSize_EnergyMax, my_TextAlign_EnergyMax, Block_WeaponEnergyMax, '/');
+                ClientUtils.InitiateNumbers(ref CardNumberSet_WeaponEnergyMax, my_NumberSize_EnergyMax, my_TextAlign_EnergyMax, Block_WeaponEnergyMax, '/');
                 CardNumberSet_WeaponEnergyMax.Number = m_WeaponEnergyMax;
             }
         }

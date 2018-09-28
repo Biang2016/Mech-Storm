@@ -184,14 +184,14 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.BattleGrounds:
+            case TargetSideEffect.TargetRange.Mechs:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.SelfBattleGround:
+            case TargetSideEffect.TargetRange.SelfMechs:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.EnemyBattleGround:
+            case TargetSideEffect.TargetRange.EnemyMechs:
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 break;
             case TargetSideEffect.TargetRange.Heros:

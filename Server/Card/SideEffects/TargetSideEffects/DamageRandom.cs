@@ -14,7 +14,7 @@ namespace SideEffects
             int retinueId = executerInfo.RetinueId;
             switch (M_TargetRange)
             {
-                case TargetRange.BattleGrounds:
+                case TargetRange.Mechs:
                 {
                     ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.All, retinueId);
                     if (retinue != null)
@@ -25,10 +25,10 @@ namespace SideEffects
 
                     break;
                 }
-                case TargetRange.SelfBattleGround:
+                case TargetRange.SelfMechs:
                     player.MyBattleGroundManager.DamageRandomRetinue(FinalValue, retinueId);
                     break;
-                case TargetRange.EnemyBattleGround:
+                case TargetRange.EnemyMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.DamageRandomRetinue(FinalValue, retinueId);
                     break;
                 case TargetRange.Heros:

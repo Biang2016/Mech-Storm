@@ -51,6 +51,7 @@ public static class AllCards
                             cardInfo.Attributes["cardName"].Value,
                             cardInfo.Attributes["cardName_en"].Value,
                             cardInfo.Attributes["cardDesc"].Value.Replace("\\n", "\n"),
+                            cardInfo.Attributes["hide"].Value=="True",
                             int.Parse(cardInfo.Attributes["metal"].Value),
                             int.Parse(cardInfo.Attributes["energy"].Value),
                             int.Parse(cardInfo.Attributes["coin"].Value),

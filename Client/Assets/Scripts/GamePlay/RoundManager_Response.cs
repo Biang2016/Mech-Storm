@@ -290,6 +290,7 @@ internal partial class RoundManager
     IEnumerator Co_RetinueDieShock(List<ModuleRetinue> dieRetinues) //随从一起死亡效果
     {
         int shockTimes = 3;
+        AudioManager.Instance.SoundPlay("sfx/OnDie");
         for (int i = 0; i < shockTimes; i++)
         {
             foreach (ModuleRetinue moduleRetinue in dieRetinues)

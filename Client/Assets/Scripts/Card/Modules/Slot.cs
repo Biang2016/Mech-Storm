@@ -29,11 +29,19 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
         }
     }
 
-    public void ShowHoverGO()
+    public void ShowHoverGO(bool isSniper = false)
     {
         if (OnHoverShowBloom)
         {
             OnHoverShowBloom.enabled = true;
+        }
+
+        if (isSniper && M_ModuleRetinue)
+        {
+            if (MSlotTypes == SlotTypes.Weapon && M_ModuleRetinue.CardInfo.RetinueInfo.IsSniper)
+            {
+                M_ModuleRetinue.ShowSniperTipText();
+            }
         }
     }
 
@@ -43,6 +51,8 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
         {
             OnHoverShowBloom.enabled = false;
         }
+
+        if (M_ModuleRetinue) M_ModuleRetinue.HideSniperTipText();
     }
 
     public void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)

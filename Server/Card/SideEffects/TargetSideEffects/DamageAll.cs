@@ -1,4 +1,6 @@
-﻿namespace SideEffects
+﻿using System;
+
+namespace SideEffects
 {
     public class DamageAll : DamageAll_Base
     {
@@ -11,14 +13,14 @@
             ServerPlayer player = (ServerPlayer) Player;
             switch (M_TargetRange)
             {
-                case TargetRange.BattleGrounds:
+                case TargetRange.Mechs:
                     player.MyBattleGroundManager.DamageAllRetinues(FinalValue);
                     player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(FinalValue);
                     break;
-                case TargetRange.SelfBattleGround:
+                case TargetRange.SelfMechs:
                     player.MyBattleGroundManager.DamageAllRetinues(FinalValue);
                     break;
-                case TargetRange.EnemyBattleGround:
+                case TargetRange.EnemyMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(FinalValue);
                     break;
                 case TargetRange.Heros:

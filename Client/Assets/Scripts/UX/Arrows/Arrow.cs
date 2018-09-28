@@ -1,12 +1,7 @@
 ﻿using UnityEngine;
 
-public abstract class Arrow : MonoBehaviour, IGameObjectPool
+public abstract class Arrow : PoolObject
 {
-    public virtual void PoolRecycle()
-    {
-        GameObjectPoolManager.Instance.Pool_ArrowArrowPool.RecycleGameObject(gameObject);
-    }
-
     public GameObject ArrowBody;
 
     Animator anim;

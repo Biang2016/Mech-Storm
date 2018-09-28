@@ -148,7 +148,7 @@ public class BattleGroundManager : MonoBehaviour
 
         if (!isSummonedBeforeByPreview)
         {
-            ModuleRetinue retinue = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool.AllocateGameObject(transform).GetComponent<ModuleRetinue>();
+            ModuleRetinue retinue = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool.AllocateGameObject<ModuleRetinue>(transform);
             retinue.transform.position = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool.transform.position;
             retinue.Initiate(retinueCardInfo, ClientPlayer);
             retinue.transform.Rotate(Vector3.up, 180);
@@ -444,14 +444,22 @@ public class BattleGroundManager : MonoBehaviour
 
     private IEnumerator currentShowSlotBloom;
 
-    public void ShowTipSlotBlooms(SlotTypes slotType)
+    public void ShowTipSlotBlooms(CardEquip cardEquip)
     {
         StopShowSlotBloom();
+        SlotTypes slotType = cardEquip.M_EquipType;
         foreach (ModuleRetinue retinue in Retinues)
         {
             if (retinue.Slot1.MSlotTypes == slotType)
             {
-                relatedSlots.Add(retinue.Slot1);
+                if (cardEquip.CardInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
+                {
+                    if (retinue.CardInfo.RetinueInfo.IsSniper) relatedSlots.Add(retinue.Slot1);
+                }
+                else
+                {
+                    relatedSlots.Add(retinue.Slot1);
+                }
             }
 
             if (retinue.Slot2.MSlotTypes == slotType)
@@ -470,23 +478,28 @@ public class BattleGroundManager : MonoBehaviour
             }
         }
 
-        currentShowSlotBloom = Co_ShowSlotBloom();
+        currentShowSlotBloom = Co_ShowSlotBloom(cardEquip);
         BattleEffectsManager.Instance.Effect_TipSlotBloom.EffectsShow(currentShowSlotBloom, "Co_ShowSlotBloom");
     }
 
-    IEnumerator Co_ShowSlotBloom()
+    IEnumerator Co_ShowSlotBloom(CardEquip cardEquip)
     {
         while (true)
         {
             foreach (Slot sa in relatedSlots)
             {
                 sa.ShowHoverGO();
+                if (cardEquip.CardInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
+                {
+                    if (sa.M_ModuleRetinue.CardInfo.RetinueInfo.IsSniper) sa.M_ModuleRetinue.ShowSniperTipText();
+                }
             }
 
             yield return new WaitForSeconds(0.4f);
             foreach (Slot sa in relatedSlots)
             {
                 sa.HideHoverShowGO();
+                sa.M_ModuleRetinue.HideSniperTipText();
             }
 
             yield return new WaitForSeconds(0.4f);
@@ -509,6 +522,7 @@ public class BattleGroundManager : MonoBehaviour
         foreach (Slot sa in relatedSlots)
         {
             sa.HideHoverShowGO();
+            sa.M_ModuleRetinue.HideSniperTipText();
         }
 
         relatedSlots.Clear();
@@ -526,7 +540,7 @@ public class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         if (cardInfo != null)
         {
-            ModuleWeapon newModueWeapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponPool.AllocateGameObject(retinue.transform).GetComponent<ModuleWeapon>();
+            ModuleWeapon newModueWeapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponPool.AllocateGameObject<ModuleWeapon>(retinue.transform);
             newModueWeapon.M_ModuleRetinue = retinue;
             newModueWeapon.Initiate(cardInfo, ClientPlayer);
             newModueWeapon.M_EquipID = equipId;
@@ -551,7 +565,7 @@ public class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         if (cardInfo != null)
         {
-            ModuleShield newModuleShield = GameObjectPoolManager.Instance.Pool_ModuleShieldPool.AllocateGameObject(retinue.transform).GetComponent<ModuleShield>();
+            ModuleShield newModuleShield = GameObjectPoolManager.Instance.Pool_ModuleShieldPool.AllocateGameObject<ModuleShield>(retinue.transform);
             newModuleShield.M_ModuleRetinue = retinue;
             newModuleShield.Initiate(cardInfo, ClientPlayer);
             newModuleShield.M_EquipID = equipId;
@@ -576,7 +590,7 @@ public class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         if (cardInfo != null)
         {
-            ModulePack newModulePack = GameObjectPoolManager.Instance.Pool_ModulePackPool.AllocateGameObject(retinue.transform).GetComponent<ModulePack>();
+            ModulePack newModulePack = GameObjectPoolManager.Instance.Pool_ModulePackPool.AllocateGameObject<ModulePack>(retinue.transform);
             newModulePack.M_ModuleRetinue = retinue;
             newModulePack.Initiate(cardInfo, ClientPlayer);
             newModulePack.M_EquipID = equipId;
@@ -601,7 +615,7 @@ public class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         if (cardInfo != null)
         {
-            ModuleMA newModuleMA = GameObjectPoolManager.Instance.Pool_ModuleMAPool.AllocateGameObject(retinue.transform).GetComponent<ModuleMA>();
+            ModuleMA newModuleMA = GameObjectPoolManager.Instance.Pool_ModuleMAPool.AllocateGameObject<ModuleMA>(retinue.transform);
             newModuleMA.M_ModuleRetinue = retinue;
             newModuleMA.Initiate(cardInfo, ClientPlayer);
             newModuleMA.M_EquipID = equipId;

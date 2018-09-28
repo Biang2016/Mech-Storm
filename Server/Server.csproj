@@ -55,6 +55,10 @@
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseEnergy.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\CopyNextDrawCard.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\DrawCards.cs" />
+    <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddAttackRandom.cs" />
+    <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddAttackOne.cs" />
+    <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
+    <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\SummonRetinue.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddSelfWeaponEnergy.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\BreakEquip.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\AddLifeAll.cs" />

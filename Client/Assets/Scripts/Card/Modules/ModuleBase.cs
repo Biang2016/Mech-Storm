@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponent, IMouseHoverComponent
+public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverComponent
 {
     internal int GameObjectID;
     protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
 
-    public virtual void PoolRecycle()
+    public override void PoolRecycle()
     {
         GameObjectID = -1;
         if (GetComponent<DragComponent>())
@@ -46,45 +46,16 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
         }
 
         gameObject.SetActive(true);
-        gameObjectPool.RecycleGameObject(gameObject);
+        base.PoolRecycle();
     }
 
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
     private bool isDead;
 
-    public bool IsDead {
+    public bool IsDead
+    {
         get { return isDead; }
         set { isDead = value; }
-    }
-    //工具，初始化数字块
-    protected void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block)
-    {
-        if (!Number)
-        {
-            Number = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign, false);
-        }
-        else
-        {
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign, false);
-        }
-    }
-
-    protected void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block, char firstSign)
-    {
-        if (!Number)
-        {
-            Number = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);
-        }
-        else
-        {
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);
-        }
     }
 
     public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
@@ -185,7 +156,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
                 {
                     if (!cardRetinue.Weapon)
                     {
-                        cardRetinue.Weapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponDetailPool.AllocateGameObject(cardRetinue.transform).GetComponent<ModuleWeapon>();
+                        cardRetinue.Weapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponDetailPool.AllocateGameObject<ModuleWeapon>(cardRetinue.transform);
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) this).M_Weapon.CardInfo;
@@ -209,7 +180,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
                 {
                     if (!cardRetinue.Shield)
                     {
-                        cardRetinue.Shield = GameObjectPoolManager.Instance.Pool_ModuleShieldDetailPool.AllocateGameObject(cardRetinue.transform).GetComponent<ModuleShield>();
+                        cardRetinue.Shield = GameObjectPoolManager.Instance.Pool_ModuleShieldDetailPool.AllocateGameObject<ModuleShield>(cardRetinue.transform);
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) this).M_Shield.CardInfo;
@@ -233,7 +204,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
                 {
                     if (!cardRetinue.Pack)
                     {
-                        cardRetinue.Pack = GameObjectPoolManager.Instance.Pool_ModulePackDetailPool.AllocateGameObject(cardRetinue.transform).GetComponent<ModulePack>();
+                        cardRetinue.Pack = GameObjectPoolManager.Instance.Pool_ModulePackDetailPool.AllocateGameObject<ModulePack>(cardRetinue.transform);
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) this).M_Pack.CardInfo;
@@ -257,7 +228,7 @@ public abstract class ModuleBase : MonoBehaviour, IGameObjectPool, IDragComponen
                 {
                     if (!cardRetinue.MA)
                     {
-                        cardRetinue.MA = GameObjectPoolManager.Instance.Pool_ModuleMADetailPool.AllocateGameObject(cardRetinue.transform).GetComponent<ModuleMA>();
+                        cardRetinue.MA = GameObjectPoolManager.Instance.Pool_ModuleMADetailPool.AllocateGameObject<ModuleMA>(cardRetinue.transform);
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) this).M_MA.CardInfo;

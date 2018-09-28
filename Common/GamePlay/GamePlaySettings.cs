@@ -8,7 +8,7 @@
 
     public static int MaxHeroNumber = 3;
 
-    public static int BeginMetal = 10;
+    public static int BeginMetal = 1;
     public static int MaxMetal = 10;
     public static int MetalIncrease = 1;
 
@@ -43,5 +43,5 @@
     public static string PackCardColor = "#0049BC";
     public static string MACardColor = "#7F8AFF";
     public static string CardHightLightColor = "#FFFF00";
-    public static string CardImportantColor = "#FF3232";
+    public static string CardImportantColor = "#FF9732";
 }

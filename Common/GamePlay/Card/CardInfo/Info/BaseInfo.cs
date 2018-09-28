@@ -6,6 +6,7 @@ public struct BaseInfo
     public string CardName;
     public string CardName_en;
     public string CardDescRaw;
+    public bool Hide;
     public int Metal;
     public int Energy;
     public int Coin;
@@ -13,12 +14,13 @@ public struct BaseInfo
     public DragPurpose DragPurpose;
     public CardTypes CardType;
 
-    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, int metal, int energy, int coin, int effectFactor, DragPurpose dragPurpose, CardTypes cardType)
+    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, bool hide, int metal, int energy, int coin, int effectFactor, DragPurpose dragPurpose, CardTypes cardType)
     {
         PictureID = pictureID;
         CardName = cardName;
         CardName_en = cardName_en;
         CardDescRaw = cardDescRaw;
+        Hide = hide;
         Metal = metal;
         Energy = energy;
         Coin = coin;
@@ -44,7 +46,7 @@ public struct BaseInfo
 
     public static string AddImportantColorToText(string hightLightText)
     {
-        return "<color=\"" + GetImportantColor() + "\">" + hightLightText + "</color>";
+        return "<b><color=\"" + GetImportantColor() + "\">" + hightLightText + "</color></b>";
     }
 
     public void Serialize(DataStream writer)
@@ -53,6 +55,7 @@ public struct BaseInfo
         writer.WriteString8(CardName);
         writer.WriteString8(CardName_en);
         writer.WriteString8(CardDescRaw);
+        writer.WriteByte(Hide ? (byte) 0x01 : (byte) 0x00);
         writer.WriteSInt32(Metal);
         writer.WriteSInt32(Energy);
         writer.WriteSInt32(Coin);
@@ -67,13 +70,14 @@ public struct BaseInfo
         string CardName = reader.ReadString8();
         string CardName_en = reader.ReadString8();
         string CardDesc = reader.ReadString8();
+        bool Hide = reader.ReadByte() == 0x01;
         int Metal = reader.ReadSInt32();
         int Energy = reader.ReadSInt32();
         int Coin = reader.ReadSInt32();
         int EffectFactor = reader.ReadSInt32();
         DragPurpose DragPurpose = (DragPurpose) reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
-        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType);
+        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, Hide, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType);
     }
 }
 

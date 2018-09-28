@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
-public class MetalBarBlock : MonoBehaviour, IGameObjectPool
+public class MetalBarBlock : PoolObject
 {
     internal ClientPlayer ClientPlayer;
 
     private GameObjectPool gameObjectPool;
 
-    public void PoolRecycle()
+    public override void PoolRecycle()
     {
-        gameObjectPool.RecycleGameObject(gameObject);
+        base.PoolRecycle();
         transform.localPosition = Vector3.zero;
     }
 

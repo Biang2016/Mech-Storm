@@ -11,14 +11,14 @@
             ServerPlayer player = (ServerPlayer)Player;
             switch (M_TargetRange)
             {
-                case TargetRange.BattleGrounds:
+                case TargetRange.Mechs:
                     player.MyBattleGroundManager.KillAllRetinues();
                     player.MyEnemyPlayer.MyBattleGroundManager.KillAllRetinues();
                     break;
-                case TargetRange.SelfBattleGround:
+                case TargetRange.SelfMechs:
                     player.MyBattleGroundManager.KillAllRetinues();
                     break;
-                case TargetRange.EnemyBattleGround:
+                case TargetRange.EnemyMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.KillAllRetinues();
                     break;
                 case TargetRange.Heros:

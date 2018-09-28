@@ -4,20 +4,17 @@ using UnityEngine.UI;
 /// <summary>
 /// 代表已选卡片在右侧卡组中的按钮
 /// </summary>
-public class BuildButton : MonoBehaviour, IGameObjectPool
+public class BuildButton : PoolObject
 {
-    private GameObjectPool gameObjectPool;
-
-    public void PoolRecycle()
+    public override void PoolRecycle()
     {
         IsSelected = false;
         IsEdit = false;
-        gameObjectPool.RecycleGameObject(gameObject);
+        base.PoolRecycle();
     }
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.Pool_BuildButtonPool;
     }
 
     public RawImage SelectedStar;

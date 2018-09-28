@@ -80,13 +80,13 @@ public class CardSpell : CardBase
                         case TargetSideEffect.TargetRange.None:
                             validTarget = false;
                             break;
-                        case TargetSideEffect.TargetRange.BattleGrounds:
+                        case TargetSideEffect.TargetRange.Mechs:
                             validTarget = true;
                             break;
-                        case TargetSideEffect.TargetRange.SelfBattleGround:
+                        case TargetSideEffect.TargetRange.SelfMechs:
                             if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
                             break;
-                        case TargetSideEffect.TargetRange.EnemyBattleGround:
+                        case TargetSideEffect.TargetRange.EnemyMechs:
                             if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.Heros:
@@ -117,6 +117,11 @@ public class CardSpell : CardBase
                         summonSpellRequestToRetinue(moduleRetinue, dragLastPosition);
                         return;
                     }
+                    else
+                    {
+                        AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
+                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should select a " + targetRetinueRange : "请选择正确的随从", 0, 1f);
+                    }
                 }
             }
             else if (hasTargetEquip)
@@ -143,13 +148,13 @@ public class CardSpell : CardBase
                             case TargetSideEffect.TargetRange.None:
                                 validTarget = false;
                                 break;
-                            case TargetSideEffect.TargetRange.BattleGrounds:
+                            case TargetSideEffect.TargetRange.Mechs:
                                 validTarget = true;
                                 break;
-                            case TargetSideEffect.TargetRange.SelfBattleGround:
+                            case TargetSideEffect.TargetRange.SelfMechs:
                                 if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
                                 break;
-                            case TargetSideEffect.TargetRange.EnemyBattleGround:
+                            case TargetSideEffect.TargetRange.EnemyMechs:
                                 if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                                 break;
                             case TargetSideEffect.TargetRange.Heros:
@@ -179,6 +184,11 @@ public class CardSpell : CardBase
                         {
                             summonSpellRequestToEquip(equip, dragLastPosition);
                             return;
+                        }
+                        else
+                        {
+                            AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
+                            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should select a right ship." : "请选择正确的战舰", 0, 1f);
                         }
                     }
                 }

@@ -139,6 +139,7 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Animator RetinueTargetPreviewAnim;
     [SerializeField] private Text DefenceText;
     [SerializeField] private Image SniperTargetImage;
+    [SerializeField] private Text SniperTipText;
 
     [SerializeField] private TextFlyPile LifeChangeNumberFly;
     [SerializeField] private TextFlyPile ArmorChangeNumberFly;
@@ -236,6 +237,7 @@ public class ModuleRetinue : ModuleBase
         CannotAttackBecauseDie = false;
         CanAttackThisRound = false;
         M_ClientTempRetinueID = -1;
+        SniperTipText.enabled = false;
 
         IsDead = false;
     }
@@ -622,19 +624,19 @@ public class ModuleRetinue : ModuleBase
             {
                 HitManager.Instance.ShowHit(ArmorFillAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, "#FFD217", 0.3f);
                 ArmorChangeNumberFly.SetText(text + change, "#FFA800", "#FFA800", TextFly.FlyDirection.Down);
-                if (armorValue != 0) AudioManager.Instance.SoundPlay("sfx/ArmorHit", 0.5f);
+                if (armorValue != 0) AudioManager.Instance.SoundPlay("sfx/HitArmor", 0.5f);
             }
 
             if (armorValue == 0)
             {
-                AudioManager.Instance.SoundPlay("sfx/ArmorBroke", 1f);
+                AudioManager.Instance.SoundPlay("sfx/BreakArmor", 1f);
             }
         }
 
         if (armorValue == 0)
         {
             ArmorFillAnim.gameObject.SetActive(false);
-            AudioManager.Instance.SoundPlay("sfx/ArmorBroke", 1f);
+            AudioManager.Instance.SoundPlay("sfx/BreakArmor", 1f);
         }
         else
         {
@@ -665,12 +667,12 @@ public class ModuleRetinue : ModuleBase
             {
                 if (change < 0) ShieldChangeNumberFly.SetText(text + change, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
                 HitManager.Instance.ShowHit(ShieldBar.transform, HitManager.HitType.LineRightTopToLeftButtom, "#2BFFF8", 0.3f);
-                if (shieldValue != 0) AudioManager.Instance.SoundPlay("sfx/ShieldHit", 1f);
+                if (shieldValue != 0) AudioManager.Instance.SoundPlay("sfx/HitShield", 1f);
             }
 
             if (shieldValue == 0)
             {
-                AudioManager.Instance.SoundPlay("sfx/ShieldBroke", 1f);
+                AudioManager.Instance.SoundPlay("sfx/BreakShield", 1f);
             }
         }
         else
@@ -680,7 +682,7 @@ public class ModuleRetinue : ModuleBase
 
         if (shieldValue == 0)
         {
-            AudioManager.Instance.SoundPlay("sfx/ShieldBroke", 1f);
+            AudioManager.Instance.SoundPlay("sfx/BreakShield", 1f);
             ShieldBar.fillAmount = 0;
             Text_RetinueShield.text = "";
         }
@@ -754,14 +756,14 @@ public class ModuleRetinue : ModuleBase
     {
         M_Weapon.OnWeaponEquiped();
         CheckCanAttack();
-        AudioManager.Instance.SoundPlay("sfx/WeaponChange");
+        AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
 
     void On_WeaponChanged()
     {
         M_Weapon.OnWeaponEquiped();
         CheckCanAttack();
-        AudioManager.Instance.SoundPlay("sfx/WeaponChange");
+        AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
 
     #endregion
@@ -806,13 +808,13 @@ public class ModuleRetinue : ModuleBase
     void On_ShieldEquiped()
     {
         M_Shield.OnShieldEquiped();
-        AudioManager.Instance.SoundPlay("sfx/ShieldChange");
+        AudioManager.Instance.SoundPlay("sfx/OnEquipShield");
     }
 
     void On_ShieldChanged()
     {
         M_Shield.OnShieldEquiped();
-        AudioManager.Instance.SoundPlay("sfx/ShieldChange");
+        AudioManager.Instance.SoundPlay("sfx/OnEquipShield");
     }
 
     #endregion
@@ -856,13 +858,13 @@ public class ModuleRetinue : ModuleBase
     void On_PackEquiped()
     {
         M_Pack.OnPackEquiped();
-        AudioManager.Instance.SoundPlay("sfx/PackChange");
+        AudioManager.Instance.SoundPlay("sfx/OnEquipPack");
     }
 
     void On_PackChanged()
     {
         M_Pack.OnPackEquiped();
-        AudioManager.Instance.SoundPlay("sfx/PackChange");
+        AudioManager.Instance.SoundPlay("sfx/OnEquipPack");
     }
 
     #endregion
@@ -906,13 +908,13 @@ public class ModuleRetinue : ModuleBase
     void On_MAEquiped()
     {
         M_MA.OnMAEquiped();
-        AudioManager.Instance.SoundPlay("sfx/MAChange");
+        AudioManager.Instance.SoundPlay("sfx/OnEquipMA");
     }
 
     void On_MAChanged()
     {
         M_MA.OnMAEquiped();
-        AudioManager.Instance.SoundPlay("sfx/MAChange");
+        AudioManager.Instance.SoundPlay("sfx/OnEquipMA");
     }
 
     #endregion
@@ -947,12 +949,19 @@ public class ModuleRetinue : ModuleBase
     private enum AttackLevel
     {
         Sword = 0,
-        Gun = 1
+        Gun = 1,
+        SniperGun = 2
     }
 
     private AttackLevel M_AttackLevel
     {
-        get { return (M_Weapon != null && M_Weapon.M_WeaponType == WeaponTypes.Gun && M_RetinueWeaponEnergy != 0) ? AttackLevel.Gun : AttackLevel.Sword; }
+        get
+        {
+            if (M_Weapon == null || M_RetinueWeaponEnergy == 0) return AttackLevel.Sword;
+            if (M_Weapon.M_WeaponType == WeaponTypes.Gun) return AttackLevel.Gun;
+            if (M_Weapon.M_WeaponType == WeaponTypes.SniperGun) return AttackLevel.SniperGun;
+            return AttackLevel.Sword;
+        }
     }
 
     public void Attack(ModuleRetinue targetRetinue, bool isCounterAttack)
@@ -967,7 +976,7 @@ public class ModuleRetinue : ModuleBase
             {
                 case WeaponTypes.Sword:
                     damage = M_RetinueAttack * M_RetinueWeaponEnergy;
-                    if (!isCounterAttack) OnAttack(damage); //随从特效
+                    if (!isCounterAttack) OnAttack(damage, WeaponTypes.Sword); //随从特效
                     targetRetinue.BeAttacked(damage);
                     OnMakeDamage(damage);
                     if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
@@ -982,7 +991,7 @@ public class ModuleRetinue : ModuleBase
 
                     for (int i = 0; i < tmp; i++)
                     {
-                        OnShoot();
+                        OnAttack(damage, WeaponTypes.Gun); //随从特效
                         targetRetinue.BeAttacked(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
                         M_RetinueWeaponEnergy--;
@@ -993,6 +1002,7 @@ public class ModuleRetinue : ModuleBase
                     break;
                 case WeaponTypes.SniperGun:
                     if (isCounterAttack) break; //狙击枪无法反击
+                    OnAttack(damage, WeaponTypes.SniperGun); //随从特效
                     targetRetinue.BeAttacked(M_RetinueAttack);
                     OnMakeDamage(M_RetinueAttack);
                     M_RetinueWeaponEnergy--;
@@ -1005,7 +1015,7 @@ public class ModuleRetinue : ModuleBase
         {
             damage = M_RetinueAttack;
             targetRetinue.BeAttacked(damage);
-            if (!isCounterAttack) OnAttack(damage); //随从特效
+            if (!isCounterAttack) OnAttack(damage, WeaponTypes.None); //随从特效
             OnMakeDamage(damage);
             if (canCounter) targetRetinue.Attack(this, true); //对方反击
         }
@@ -1016,7 +1026,7 @@ public class ModuleRetinue : ModuleBase
 
     public void AttackShip(ClientPlayer ship)
     {
-        OnAttack(0); //随从特效
+        OnAttack(0, WeaponTypes.None); //随从特效
         if (M_Weapon) M_Weapon.OnAttack(); //武器特效
         CanAttackThisRound = false;
         CheckCanAttack();
@@ -1113,7 +1123,7 @@ public class ModuleRetinue : ModuleBase
     public void ShowTargetPreviewArrow(bool beSniperTargeted = false)
     {
         DefenceText.enabled = CardInfo.RetinueInfo.IsDefence;
-        SniperTargetImage.enabled = beSniperTargeted;
+        SniperTargetImage.enabled = beSniperTargeted && !CardInfo.RetinueInfo.IsDefence;
         RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
         RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
         RetinueTargetPreviewAnim.SetTrigger("BeginTarget");
@@ -1124,6 +1134,16 @@ public class ModuleRetinue : ModuleBase
         RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
         RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
         RetinueTargetPreviewAnim.SetTrigger("EndTarget");
+    }
+
+    public void ShowSniperTipText()
+    {
+        SniperTipText.enabled = true;
+    }
+
+    public void HideSniperTipText()
+    {
+        SniperTipText.enabled = false;
     }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
@@ -1234,8 +1254,8 @@ public class ModuleRetinue : ModuleBase
         if (card.ClientPlayer == ClientPlayer)
         {
             return card.targetRetinueRange == TargetSideEffect.TargetRange.All ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.BattleGrounds ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.SelfBattleGround ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.Mechs ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.SelfMechs ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.Heros ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.Soldiers ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.SelfHeros ||
@@ -1244,8 +1264,8 @@ public class ModuleRetinue : ModuleBase
         else
         {
             return card.targetRetinueRange == TargetSideEffect.TargetRange.All ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.BattleGrounds ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyBattleGround ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.Mechs ||
+                   card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyMechs ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.Heros ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.Soldiers ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyHeros ||
@@ -1314,12 +1334,12 @@ public class ModuleRetinue : ModuleBase
         {
             TargetSideEffect.TargetRange targetRange = DragManager.Instance.SummonRetinueTargetRange;
             if ((ClientPlayer == RoundManager.Instance.EnemyClientPlayer &&
-                 (targetRange == TargetSideEffect.TargetRange.EnemyBattleGround ||
+                 (targetRange == TargetSideEffect.TargetRange.EnemyMechs ||
                   (targetRange == TargetSideEffect.TargetRange.EnemySoldiers && CardInfo.RetinueInfo.IsSoldier) ||
                   targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.RetinueInfo.IsSoldier))
                 ||
                 ClientPlayer == RoundManager.Instance.SelfClientPlayer && ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue != this &&
-                (targetRange == TargetSideEffect.TargetRange.SelfBattleGround || (targetRange == TargetSideEffect.TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier)))
+                (targetRange == TargetSideEffect.TargetRange.SelfMechs || (targetRange == TargetSideEffect.TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier)))
             {
                 IsBeHover = true;
                 if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
@@ -1382,35 +1402,31 @@ public class ModuleRetinue : ModuleBase
     }
 
 
-    public void OnAttack(int damage)
+    public void OnAttack(int damage, WeaponTypes weaponType)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnAttack(damage), "Co_OnAttack");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnAttack(damage, weaponType), "Co_OnAttack");
     }
 
-    IEnumerator Co_OnAttack(int damage)
+    IEnumerator Co_OnAttack(int damage, WeaponTypes weaponType)
     {
-        if (damage > 7)
+        switch (weaponType)
         {
-            AudioManager.Instance.SoundPlay("sfx/AttackBig");
+            case WeaponTypes.None:
+                AudioManager.Instance.SoundPlay("sfx/AttackNone");
+                break;
+            case WeaponTypes.Sword:
+                AudioManager.Instance.SoundPlay("sfx/AttackSword");
+                break;
+            case WeaponTypes.Gun:
+                AudioManager.Instance.SoundPlay("sfx/AttackGun");
+                break;
+            case WeaponTypes.SniperGun:
+                AudioManager.Instance.SoundPlay("sfx/AttackSniper");
+                break;
         }
-        else
-        {
-            AudioManager.Instance.SoundPlay("sfx/AttackSmall");
-        }
 
-        yield return new WaitForSeconds(0.1f);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
 
-    public void OnShoot()
-    {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnShoot(), "Co_OnShoot");
-    }
-
-    IEnumerator Co_OnShoot()
-    {
-        AudioManager.Instance.SoundPlay("sfx/Shoot");
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

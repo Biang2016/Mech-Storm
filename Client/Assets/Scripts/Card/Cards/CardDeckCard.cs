@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
 
-public class CardDeckCard : MonoBehaviour, IGameObjectPool
+public class CardDeckCard : PoolObject
 {
-    GameObjectPool gameObjectPool;
-
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.Pool_CardDeckCardPool;
     }
 
-    public virtual void PoolRecycle()
+    public override void PoolRecycle()
     {
-        gameObjectPool.RecycleGameObject(gameObject);
+        base.PoolRecycle();
         transform.localScale = Vector3.one * 1.4f;
         transform.rotation = Quaternion.Euler(0, 180, 0);
     }

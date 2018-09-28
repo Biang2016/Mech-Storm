@@ -5,20 +5,18 @@ using UnityEngine.UI;
 /// <summary>
 /// 代表已选卡片在右侧卡组中的按钮
 /// </summary>
-public class SelectCard : MonoBehaviour, IGameObjectPool
+public class SelectCard : PoolObject
 {
-    private GameObjectPool gameObjectPool;
     [SerializeField] private MouseHoverUI m_MouseHoverUI;
 
-    public void PoolRecycle()
+    public override  void PoolRecycle()
     {
         Count = 0;
-        gameObjectPool.RecycleGameObject(gameObject);
+        base.PoolRecycle();
     }
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.Pool_SelectCardPool;
         m_MouseHoverUI.MouseFocusBeginHandler = OnMouseEnter;
         m_MouseHoverUI.MouseFocusEndHandler = OnMouseLeave;
     }

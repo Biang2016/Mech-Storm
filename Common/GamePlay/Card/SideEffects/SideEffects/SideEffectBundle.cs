@@ -80,6 +80,7 @@ public class SideEffectBundle
                     if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Battlecry: " : "战吼: ");
                     else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Die: " : "亡语: ");
                     else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnEquipDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Broken: " : "亡语: ");
+                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnRetinueAttack)) res += isEnglish ? "When attack, " : "进攻时, ";
                     else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnPlayCard)) res += "";
                     else
                     {
@@ -190,12 +191,28 @@ public class SideEffectBundle
         OnHeroInjured,
         OnSoldierInjured,
 
+        OnRetinueKill,
+        OnHeroKill,
+        OnSoldierKill,
+
+        OnRetinueMakeDamage,
+        OnHeroMakeDamage,
+        OnSoldierMakeDamage,
+
+        OnRetinueBeHealed,
+        OnHeroBeHealed,
+        OnSoldierBeHealed,
+
         OnRetinueDie,
         OnHeroDie,
         OnSoldierDie,
 
         OnEquipDie,
 
+        OnPlayerGetEnergy,
+        OnPlayerUseEnergy,
+        OnPlayerAddLife,
+        OnPlayerLostLife,
         OnEndRound,
     }
 
@@ -217,12 +234,28 @@ public class SideEffectBundle
         {TriggerTime.OnHeroInjured, "当{0}英雄受损时, "},
         {TriggerTime.OnSoldierInjured, "当{0}士兵受损时, "},
 
+        {TriggerTime.OnRetinueKill, "当{0}机甲成功击杀, "},
+        {TriggerTime.OnHeroKill, "当{0}英雄成功击杀, "},
+        {TriggerTime.OnSoldierKill, "当{0}士兵成功击杀, "},
+
+        {TriggerTime.OnRetinueMakeDamage, "当{0}机甲造成伤害时, "},
+        {TriggerTime.OnHeroMakeDamage, "当{0}英雄造成伤害时, "},
+        {TriggerTime.OnSoldierMakeDamage, "当{0}士兵造成伤害时, "},
+
+        {TriggerTime.OnRetinueBeHealed, "当{0}机甲得到修复时, "},
+        {TriggerTime.OnHeroBeHealed, "当{0}英雄得到修复时, "},
+        {TriggerTime.OnSoldierBeHealed, "当{0}士兵得到修复时, "},
+
         {TriggerTime.OnRetinueDie, "当{0}机甲死亡时, "},
         {TriggerTime.OnHeroDie, "当{0}英雄死亡时, "},
         {TriggerTime.OnSoldierDie, "当{0}士兵死亡时, "},
 
         {TriggerTime.OnEquipDie, "{0}装备破坏时, "},
 
+        {TriggerTime.OnPlayerGetEnergy, "当{0}获得能量时, "},
+        {TriggerTime.OnPlayerUseEnergy, "当{0}消耗能量时, "},
+        {TriggerTime.OnPlayerAddLife, "当{0}获得生命时, "},
+        {TriggerTime.OnPlayerLostLife, "当{0}生命减少时, "},
         {TriggerTime.OnEndRound, "{0}回合结束时, "},
     };
 
@@ -244,12 +277,28 @@ public class SideEffectBundle
         {TriggerTime.OnHeroInjured, "When {0} HeroMech damaged, "},
         {TriggerTime.OnSoldierInjured, "When {0} SoldierMech damaged, "},
 
+        {TriggerTime.OnRetinueKill, "When {0} Mech kill enemy, "},
+        {TriggerTime.OnHeroKill, "When {0} HeroMech kill enemy, "},
+        {TriggerTime.OnSoldierKill, "When {0} SoldierMech kill enemy, "},
+
+        {TriggerTime.OnRetinueMakeDamage, "When {0} Mech make damage, "},
+        {TriggerTime.OnHeroMakeDamage, "When {0} HeroMech make damage, "},
+        {TriggerTime.OnSoldierMakeDamage, "When {0} SoldierMech make damage, "},
+
+        {TriggerTime.OnRetinueBeHealed, "When {0} Mech is healed, "},
+        {TriggerTime.OnHeroBeHealed, "When {0} HeroMech is healed, "},
+        {TriggerTime.OnSoldierBeHealed, "When {0} SoldierMech is healed, "},
+
         {TriggerTime.OnRetinueDie, "When {0} Mech died, "},
         {TriggerTime.OnHeroDie, "When {0} HeroMech died, "},
         {TriggerTime.OnSoldierDie, "When {0} SoldierMech died, "},
 
         {TriggerTime.OnEquipDie, "When {0} Mech's Equipment broken"},
 
+        {TriggerTime.OnPlayerGetEnergy, "When {0} get energy, "},
+        {TriggerTime.OnPlayerUseEnergy, "When {0} consume energy, "},
+        {TriggerTime.OnPlayerAddLife, "When {0} get healed, "},
+        {TriggerTime.OnPlayerLostLife, "When {0} lost life, "},
         {TriggerTime.OnEndRound, "When {0} turn ends, "},
     };
 

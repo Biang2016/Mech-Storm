@@ -47,7 +47,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
     private PressHoverImmediately phi_SlotsPressHoverShowBloom_Target; //当Slot装备位被鼠标拖动瞄准时，显示Slot轮廓荧光
     private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
     private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
-    private PressHoverImmediately hd_ShipPressHoverShowTargetedBloom; //当鼠标拖拽到飞船上时显示被瞄准的轮廓荧光
+    private PressHoverImmediately hd_ShipPressHoverShowTargetedBloom; //当鼠标拖拽到战舰上时显示被瞄准的轮廓荧光
 
     void Start()
     {

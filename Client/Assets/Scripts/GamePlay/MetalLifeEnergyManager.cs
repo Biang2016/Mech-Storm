@@ -6,8 +6,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
 {
     internal ClientPlayer ClientPlayer;
 
-    [SerializeField] private GameObject MetalNumberBlock;
-    private GameObject GoNumberSet_MetalNumber;
+    [SerializeField] private Transform MetalNumberBlock;
     private CardNumberSet NumberSet_MetalNumber;
 
     [SerializeField] private Text LifeNumber;
@@ -18,7 +17,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     void Awake()
     {
-        initiateNumbers(ref GoNumberSet_MetalNumber, ref NumberSet_MetalNumber, NumberSize.Big, CardNumberSet.TextAlign.Center, MetalNumberBlock);
+        ClientUtils.InitiateNumbers(ref NumberSet_MetalNumber, NumberSize.Big, CardNumberSet.TextAlign.Center, MetalNumberBlock);
     }
 
     public void ResetAll()
@@ -27,36 +26,6 @@ public class MetalLifeEnergyManager : MonoBehaviour
         if (MetalBarManager)
         {
             MetalBarManager.ResetAll();
-        }
-    }
-
-    private void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block)
-    {
-        if (!Number)
-        {
-            Number = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign, false);
-        }
-        else
-        {
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(0, numberType, textAlign, false);
-        }
-    }
-
-    private void initiateNumbers(ref GameObject Number, ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, GameObject block, char firstSign)
-    {
-        if (!Number)
-        {
-            Number = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject(block.transform);
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);
-        }
-        else
-        {
-            cardNumberSet = Number.GetComponent<CardNumberSet>();
-            cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);
         }
     }
 

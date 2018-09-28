@@ -120,7 +120,8 @@ public class ClientPlayer : Player
         if (request.change == PlayerEnergyChangeRequest.EnergyChangeFlag.Left)
         {
             AddEnergy(request.addEnergy_left);
-            AudioManager.Instance.SoundPlay("sfx/OnEnergyAdd");
+            if (request.addEnergy_left > 0) AudioManager.Instance.SoundPlay("sfx/OnEnergyAdd");
+            else if (request.addEnergy_left < 0) AudioManager.Instance.SoundPlay("sfx/OnEnergyUse");
         }
 
         yield return null;

@@ -918,5 +918,5 @@ MonoBehaviour:
   EquipAnim: {fileID: 0}
   BloomSEAnim: {fileID: 0}
   BloomSE_SubAnim: {fileID: 0}
-  Block_ShieldArmor: {fileID: 1632592528367806}
-  Block_ShieldShield: {fileID: 1630339829897516}
+  Block_ShieldArmor: {fileID: 4269440562343746}
+  Block_ShieldShield: {fileID: 4749426709422044}
