@@ -114,7 +114,7 @@ internal class Server
         ClientProxy clientProxy = new ClientProxy(socket, clientId, false);
         ClientsDict.Add(clientId, clientProxy);
         IPEndPoint point = socket.RemoteEndPoint as IPEndPoint;
-        ServerLog.PrintClientStates("新的客户端连接 " + point.Address + ":" + point.Port + "  客户端总数: " + ClientsDict.Count);
+        ServerLog.PrintClientStates("New client connection " + point.Address + ":" + point.Port + "  Clients count: " + ClientsDict.Count);
 
         Thread threadReceive = new Thread(ReceiveSocket);
         threadReceive.IsBackground = true;
@@ -129,7 +129,7 @@ internal class Server
             ClientProxy clientProxy = kv.Value;
             if (clientProxy.Socket != null && clientProxy.Socket.Connected)
             {
-                ServerLog.PrintClientStates("客户端 " + clientProxy.ClientId + " 退出");
+                ServerLog.PrintClientStates("Client " + clientProxy.ClientId + " quit");
                 ClientProxyClose(clientProxy);
             }
         }
@@ -149,7 +149,7 @@ internal class Server
             if (!clientProxy.Socket.Connected)
             {
                 //与客户端连接失败跳出循环  
-                ServerLog.PrintClientStates("连接客户端失败,ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
+                ServerLog.PrintClientStates("Client connect failed, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
                 ClientProxyClose(clientProxy);
                 break;
             }
@@ -160,7 +160,7 @@ internal class Server
                 int i = clientProxy.Socket.Receive(bytes);
                 if (i <= 0)
                 {
-                    ServerLog.PrintClientStates("客户端关闭,ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
+                    ServerLog.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
                     ClientProxyClose(clientProxy);
                     break;
                 }
@@ -258,7 +258,7 @@ internal class Server
             bool success = asyncSend.AsyncWaitHandle.WaitOne(1000, true);
             if (!success)
             {
-                ServerLog.PrintError("发送失败");
+                ServerLog.PrintError("Send failed");
             }
 
             string log = "SendTo clientId: " + sendMsg.ClientId + sendMsg.Req.DeserializeLog();

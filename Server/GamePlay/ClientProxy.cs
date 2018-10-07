@@ -25,7 +25,7 @@ internal class ClientProxy : ProxyBase
         {
             ClientStates before = ClientState;
             clientState = value;
-            ServerLog.PrintClientStates("客户 " + ClientId + " 状态切换: " + before + " -> " + ClientState);
+            ServerLog.PrintClientStates("Client " + ClientId + " state change: " + before + " -> " + ClientState);
         }
     }
 
@@ -117,7 +117,7 @@ internal class ClientProxy : ProxyBase
             {
                 //以下是进入游戏前的请求
                 case RegisterRequest _:
-                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
                     if (ClientState != ClientStates.GetId)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -136,7 +136,7 @@ internal class ClientProxy : ProxyBase
 
                     break;
                 case LoginRequest _:
-                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
                     if (ClientState != ClientStates.GetId)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -185,7 +185,7 @@ internal class ClientProxy : ProxyBase
                     break;
                 case LogoutRequest _:
                 {
-                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
                     LogoutRequest request = (LogoutRequest) r;
                     LogoutResultRequest response;
                     if (ClientState != ClientStates.GetId)
@@ -226,7 +226,7 @@ internal class ClientProxy : ProxyBase
                     }
                     else
                     {
-                        ServerLog.PrintError("服务器上不存在该登录用户：[ClientID]=" + ClientId);
+                        ServerLog.PrintError("No such user in server：[ClientID]=" + ClientId);
                     }
 
                     break;
@@ -242,7 +242,7 @@ internal class ClientProxy : ProxyBase
                 }
 
                 case MatchRequest _:
-                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -259,7 +259,7 @@ internal class ClientProxy : ProxyBase
 
                     break;
                 case CancelMatchRequest _:
-                    ServerLog.PrintClientStates("客户 " + ClientId + " 状态: " + ClientState);
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
