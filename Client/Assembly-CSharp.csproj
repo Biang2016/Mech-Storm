@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{12F44184-A422-5F27-22E6-507969043F15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -52,440 +51,436 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Card\Cards\CardBase.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardDeckCard.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardEquip.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardSpell.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\ColliderReplace.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleBase.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleEquip.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleMA.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModulePack.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleShield.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleWeapon.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\Slot.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\CardNumber.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\TextFly.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\TextFlyPile.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawCards.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddSelfWeaponEnergy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\SummonRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddMagic.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddWeaponEnergy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffectsEquip\BreakEquip.cs" />
-    <Compile Include="Assets\Scripts\Common\ClientLog.cs" />
-    <Compile Include="Assets\Scripts\Common\ClientUtils.cs" />
-    <Compile Include="Assets\Scripts\Common\DebugConsole.cs" />
-    <Compile Include="Assets\Scripts\Common\GameObjectPool.cs" />
-    <Compile Include="Assets\Scripts\Common\GameObjectPoolManager.cs" />
-    <Compile Include="Assets\Scripts\Common\Initialization.cs" />
-    <Compile Include="Assets\Scripts\Common\MonoSingletion.cs" />
-    <Compile Include="Assets\Scripts\Common\PoolObject.cs" />
-    <Compile Include="Assets\Scripts\Effects\Hit.cs" />
-    <Compile Include="Assets\Scripts\Effects\HitManager.cs" />
-    <Compile Include="Assets\Scripts\Effects\LensFlareIdle.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\AudioManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\BattleEffectsManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\BattleGroundManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\CardDeckManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ClientPlayer.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ExitMenuManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\GameBoardManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\GameManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\HandManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\LoginManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\MetalLifeEnergyManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\NoticeManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\RoundManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\RoundManager_Response.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_Build.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_LifeMagicCoinCardnum.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_PreviewUpgrade.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_Select.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SettingMenuManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\StartMenuManager.cs" />
-    <Compile Include="Assets\Scripts\Network\Client.cs" />
-    <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
-    <Compile Include="Assets\Scripts\Network\Proxy.cs" />
-    <Compile Include="Assets\Scripts\UI\ButtonEffects.cs" />
-    <Compile Include="Assets\Scripts\UI\CostBar\MetalBarBlock.cs" />
-    <Compile Include="Assets\Scripts\UI\CostBar\MetalBarManager.cs" />
-    <Compile Include="Assets\Scripts\UI\DebugUILine.cs" />
-    <Compile Include="Assets\Scripts\UI\ImageEffectBlurBox.cs" />
-    <Compile Include="Assets\Scripts\UI\InputNavigator.cs" />
-    <Compile Include="Assets\Scripts\UI\ScreenFitness.cs" />
-    <Compile Include="Assets\Scripts\UI\ScreenSetting.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildButton.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildButtonClick.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildRenamePanel.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\SelectCard.cs" />
-    <Compile Include="Assets\Scripts\UX\Arrows\Arrow.cs" />
-    <Compile Include="Assets\Scripts\UX\Arrows\ArrowAiming.cs" />
-    <Compile Include="Assets\Scripts\UX\Arrows\ArrowArrow.cs" />
-    <Compile Include="Assets\Scripts\UX\DragComponent.cs" />
-    <Compile Include="Assets\Scripts\UX\DragManager.cs" />
-    <Compile Include="Assets\Scripts\UX\MouseHoverComponent.cs" />
-    <Compile Include="Assets\Scripts\UX\MouseHoverManager.cs" />
-    <Compile Include="Assets\Scripts\UX\MouseHoverUI.cs" />
-    <Compile Include="Assets\Scripts\UX\PreviewPanelBG.cs" />
-    <Compile Include="Assets\Scripts\UX\Ship.cs" />
-    <None Include="Assets\Materials\Effect\Shaders\HiddenPass.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Background+2.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\DefaultGrey.shader" />
-    <None Include="Assets\StreamingAssets\Config\Cards.xml">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Assets\Materials\Effect\Shaders\BlendSurfaceTrans.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\BrightPassFilter2.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\BlendMask.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\fade_shader.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\MaskLinear.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\BlurAndFlares.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\difffuse_lightmap.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\coloration.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\MobileBloom.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\HighLight.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\SurfaceTransparent.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\ripple.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\BlurEffectConeTaps.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\BaseLinear.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\bank_shader.shader" />
-    <None Include="Assets\Materials\FX\LineRenderer.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Blend.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\LandTile.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\BlendCache.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Mask.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\ripple_normal.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Line.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\LensFlareCreate.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\LakeTile.shader" />
-    <None Include="Assets\Materials\BattleFieldObjs\GameBoardMaterials\BlurShader.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\select_shader.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\BlendMaskLinear.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\BlendLinear.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Transparent+4.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\blend2Texture_battle2.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\line_alphablend.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\blend2TextureHua.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Battle_shadow.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Bones.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\color_flicker.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\SurfaceWater.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\ripple_add.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Common.cginc" />
-    <None Include="Assets\Materials\Effect\Shaders\nightMask.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\blend2Texture_battle.shader" />
-    <None Include="Assets\StreamingAssets\Config\SideEffects.xml" />
-    <None Include="Assets\Materials\Effect\Shaders\move_block_shader.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Terrian.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\SpriteAlphaSeperated.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\cloud_shader.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\TerrianZ.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Base.shader" />
-    <None Include="Assets\Materials\Stencil\Standard_BeMasked.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\blend2Texture.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Skeleton.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\RoadTile.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\BlendForBloom.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\LandDecoration.shader" />
-    <None Include="Assets\Materials\Stencil\Mask.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\coloration_all.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\SkeletonLit.shader" />
-    <None Include="Assets\Materials\Effect\Shaders\Distort.shader" />
-    <Reference Include="Unity.2D.Animation.Runtime">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.AssetBundleBrowser.Editor">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.AssetBundleBrowser.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.001">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Common.Runtime">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Animation.Editor">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Triangle.Runtime">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Triangle.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ShaderGraph.Editor">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Common.Editor">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEditorBridge.001">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AIModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ARModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AccessibilityModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AudioModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.BaselibModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.BaselibModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ClothModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CloudWebServicesModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CloudWebServicesModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ClusterInputModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ClusterRendererModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CrashReportingModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.DirectorModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.FacebookModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.FacebookModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.GameCenterModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.GridModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.HotReloadModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.HotReloadModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.InputModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ParticleSystemModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ParticlesLegacyModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ParticlesLegacyModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PerformanceReportingModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Physics2DModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ScreenCaptureModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SharedInternalsModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpatialTrackingModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SpatialTrackingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpriteMaskModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpriteShapeModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.StyleSheetsModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.StyleSheetsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SubstanceModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SubstanceModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TLSModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TLSModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TerrainModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TerrainPhysicsModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TilemapModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TimelineModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TimelineModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UNETModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UmbraModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityAnalyticsModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityConnectModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VRModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VehiclesModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VideoModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.WebModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.WebModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.WindModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.XRModule">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Locator">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/Unity.Locator.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Timeline">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIAutomation">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.GoogleAudioSpatializer">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.HoloLens">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
-    </Reference>
-    <Reference Include="MyCardGameCommon">
-      <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/Biang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Purchasing">
-      <HintPath>C:/Users/Biang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.1/UnityEngine.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>C:/Users/Biang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="mscorlib">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll</HintPath>
-    </Reference>
-    <Reference Include="System">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Core">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Runtime.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityScript">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/UnityScript.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityScript.Lang">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/UnityScript.Lang.dll</HintPath>
-    </Reference>
-    <Reference Include="Boo.Lang">
-      <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/Boo.Lang.dll</HintPath>
-    </Reference>
+     <Compile Include="Assets\Scripts\Card\Cards\CardBase.cs" />
+     <Compile Include="Assets\Scripts\Card\Cards\CardDeckCard.cs" />
+     <Compile Include="Assets\Scripts\Card\Cards\CardEquip.cs" />
+     <Compile Include="Assets\Scripts\Card\Cards\CardRetinue.cs" />
+     <Compile Include="Assets\Scripts\Card\Cards\CardSpell.cs" />
+     <Compile Include="Assets\Scripts\Card\Cards\ColliderReplace.cs" />
+     <Compile Include="Assets\Scripts\Card\Modules\ModuleBase.cs" />
+     <Compile Include="Assets\Scripts\Card\Modules\ModuleEquip.cs" />
+     <Compile Include="Assets\Scripts\Card\Modules\ModuleMA.cs" />
+     <Compile Include="Assets\Scripts\Card\Modules\ModulePack.cs" />
+     <Compile Include="Assets\Scripts\Card\Modules\ModuleRetinue.cs" />
+     <Compile Include="Assets\Scripts\Card\Modules\ModuleShield.cs" />
+     <Compile Include="Assets\Scripts\Card\Modules\ModuleWeapon.cs" />
+     <Compile Include="Assets\Scripts\Card\Modules\Slot.cs" />
+     <Compile Include="Assets\Scripts\Card\Number\CardNumber.cs" />
+     <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
+     <Compile Include="Assets\Scripts\Card\Number\TextFly.cs" />
+     <Compile Include="Assets\Scripts\Card\Number\TextFlyPile.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawCards.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackOne.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackRandom.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddSelfWeaponEnergy.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\SummonRetinue.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeAll.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeOne.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeRandom.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddMagic.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddWeaponEnergy.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageAll.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageOne.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageRandom.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealAll.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealOne.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealRandom.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillAll.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillOne.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillRandom.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffectsEquip\BreakEquip.cs" />
+     <Compile Include="Assets\Scripts\Common\ClientLog.cs" />
+     <Compile Include="Assets\Scripts\Common\ClientUtils.cs" />
+     <Compile Include="Assets\Scripts\Common\DebugConsole.cs" />
+     <Compile Include="Assets\Scripts\Common\GameObjectPool.cs" />
+     <Compile Include="Assets\Scripts\Common\GameObjectPoolManager.cs" />
+     <Compile Include="Assets\Scripts\Common\Initialization.cs" />
+     <Compile Include="Assets\Scripts\Common\MonoSingletion.cs" />
+     <Compile Include="Assets\Scripts\Common\PoolObject.cs" />
+     <Compile Include="Assets\Scripts\Effects\Hit.cs" />
+     <Compile Include="Assets\Scripts\Effects\HitManager.cs" />
+     <Compile Include="Assets\Scripts\Effects\LensFlareIdle.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\AudioManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\BattleEffectsManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\BattleGroundManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\CardDeckManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\ClientPlayer.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\ExitMenuManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\GameBoardManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\HandManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\LoginManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\MetalLifeEnergyManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\NoticeManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\RoundManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\RoundManager_Response.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_Build.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_LifeMagicCoinCardnum.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_PreviewUpgrade.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_Select.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\SettingMenuManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\StartMenuManager.cs" />
+     <Compile Include="Assets\Scripts\Network\Client.cs" />
+     <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
+     <Compile Include="Assets\Scripts\Network\Proxy.cs" />
+     <Compile Include="Assets\Scripts\UI\ButtonEffects.cs" />
+     <Compile Include="Assets\Scripts\UI\CostBar\MetalBarBlock.cs" />
+     <Compile Include="Assets\Scripts\UI\CostBar\MetalBarManager.cs" />
+     <Compile Include="Assets\Scripts\UI\DebugUILine.cs" />
+     <Compile Include="Assets\Scripts\UI\ImageEffectBlurBox.cs" />
+     <Compile Include="Assets\Scripts\UI\InputNavigator.cs" />
+     <Compile Include="Assets\Scripts\UI\ScreenFitness.cs" />
+     <Compile Include="Assets\Scripts\UI\ScreenSetting.cs" />
+     <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildButton.cs" />
+     <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildButtonClick.cs" />
+     <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildRenamePanel.cs" />
+     <Compile Include="Assets\Scripts\UI\SelectBuildWindow\SelectCard.cs" />
+     <Compile Include="Assets\Scripts\UX\Arrows\Arrow.cs" />
+     <Compile Include="Assets\Scripts\UX\Arrows\ArrowAiming.cs" />
+     <Compile Include="Assets\Scripts\UX\Arrows\ArrowArrow.cs" />
+     <Compile Include="Assets\Scripts\UX\DragComponent.cs" />
+     <Compile Include="Assets\Scripts\UX\DragManager.cs" />
+     <Compile Include="Assets\Scripts\UX\MouseHoverComponent.cs" />
+     <Compile Include="Assets\Scripts\UX\MouseHoverManager.cs" />
+     <Compile Include="Assets\Scripts\UX\MouseHoverUI.cs" />
+     <Compile Include="Assets\Scripts\UX\PreviewPanelBG.cs" />
+     <Compile Include="Assets\Scripts\UX\Ship.cs" />
+     <None Include="Assets\Materials\Effect\Shaders\HiddenPass.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Background+2.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\DefaultGrey.shader" />
+     <None Include="Assets\StreamingAssets\Config\Cards.xml" />
+     <None Include="Assets\Materials\Effect\Shaders\BlendSurfaceTrans.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\BrightPassFilter2.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\BlendMask.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\fade_shader.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\MaskLinear.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\BlurAndFlares.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\difffuse_lightmap.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\coloration.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\MobileBloom.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\HighLight.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\SurfaceTransparent.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\ripple.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\BlurEffectConeTaps.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\BaseLinear.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\bank_shader.shader" />
+     <None Include="Assets\Materials\FX\LineRenderer.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Blend.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\LandTile.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\BlendCache.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Mask.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\ripple_normal.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Line.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\LensFlareCreate.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\LakeTile.shader" />
+     <None Include="Assets\Materials\BattleFieldObjs\GameBoardMaterials\BlurShader.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\select_shader.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\BlendMaskLinear.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\BlendLinear.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Transparent+4.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\blend2Texture_battle2.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\line_alphablend.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\blend2TextureHua.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Battle_shadow.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Bones.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\color_flicker.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\SurfaceWater.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\ripple_add.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Common.cginc" />
+     <None Include="Assets\Materials\Effect\Shaders\nightMask.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\blend2Texture_battle.shader" />
+     <None Include="Assets\StreamingAssets\Config\SideEffects.xml" />
+     <None Include="Assets\Materials\Effect\Shaders\move_block_shader.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Terrian.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\SpriteAlphaSeperated.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\cloud_shader.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\TerrianZ.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Base.shader" />
+     <None Include="Assets\Materials\Stencil\Standard_BeMasked.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\blend2Texture.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Skeleton.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\RoadTile.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\BlendForBloom.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\LandDecoration.shader" />
+     <None Include="Assets\Materials\Stencil\Mask.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\coloration_all.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\SkeletonLit.shader" />
+     <None Include="Assets\Materials\Effect\Shaders\Distort.shader" />
+ <Reference Include="Unity.2D.Animation.Runtime">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.StandardEvents">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.PackageManagerUI.Editor">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.AssetBundleBrowser.Editor">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.AssetBundleBrowser.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.InternalAPIEngineBridge.001">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Common.Runtime">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Animation.Editor">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Triangle.Runtime">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Triangle.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.ShaderGraph.Editor">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Common.Editor">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.InternalAPIEditorBridge.001">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.AIModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ARModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.AccessibilityModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.AnimationModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.AssetBundleModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.AudioModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.BaselibModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.BaselibModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ClothModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.CloudWebServicesModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CloudWebServicesModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ClusterInputModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ClusterRendererModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.CoreModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.CrashReportingModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.DirectorModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.FacebookModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.FacebookModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.GameCenterModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.GridModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.HotReloadModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.HotReloadModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.IMGUIModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ImageConversionModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.InputModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.JSONSerializeModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ParticleSystemModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ParticlesLegacyModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ParticlesLegacyModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.PerformanceReportingModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.PhysicsModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Physics2DModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ScreenCaptureModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SharedInternalsModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SpatialTrackingModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SpatialTrackingModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SpriteMaskModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SpriteShapeModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.StyleSheetsModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.StyleSheetsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SubstanceModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SubstanceModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TLSModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TLSModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TerrainModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TerrainPhysicsModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TextRenderingModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TilemapModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TimelineModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TimelineModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UIModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UIElementsModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UNETModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UmbraModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityAnalyticsModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityConnectModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityWebRequestModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VRModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VehiclesModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VideoModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.WebModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.WebModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.WindModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.XRModule">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Locator">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/Managed/Unity.Locator.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Timeline">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UIAutomation">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.GoogleAudioSpatializer">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.HoloLens">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SpatialTracking">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+ </Reference>
+ <Reference Include="MyCardGameCommon">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Users/Biang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Purchasing">
+ <HintPath>C:/Users/Biang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.1/UnityEngine.Purchasing.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.StandardEvents">
+ <HintPath>C:/Users/Biang/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="mscorlib">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll</HintPath>
+ </Reference>
+ <Reference Include="System">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Core">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Core.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Runtime.Serialization.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.Linq">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.Linq.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityScript">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/UnityScript.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityScript.Lang">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/UnityScript.Lang.dll</HintPath>
+ </Reference>
+ <Reference Include="Boo.Lang">
+ <HintPath>C:/softwares/Unity3D 2018.1.0f/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/Boo.Lang.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{079D398E-4AFC-CD7E-7881-F923D075EBD1}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
+      <Project>{079D398E-4AFC-CD7E-7881-F923D075EBD1}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -495,4 +490,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>
