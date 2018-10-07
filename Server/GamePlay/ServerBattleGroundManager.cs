@@ -91,7 +91,7 @@ internal class ServerBattleGroundManager
         int battleGroundIndex = Retinues.IndexOf(retinue);
         if (battleGroundIndex == -1)
         {
-            ServerLog.PrintWarning("BattleGroundRemoveRetinue不存在随从：" + retinue.M_RetinueID);
+            ServerLog.PrintWarning("BattleGroundRemoveRetinue not exist retinue：" + retinue.M_RetinueID);
             return;
         }
 

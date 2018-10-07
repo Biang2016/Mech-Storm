@@ -9,7 +9,7 @@ internal class ServerGameMatchManager
     public void OnClientMatchGames(ClientProxy clientProxy)
     {
         matchingClients.Add(clientProxy);
-        ServerLog.PrintServerStates("玩家 " + clientProxy.ClientId + " 开始匹配. 当前 " + matchingClients.Count + " 人在匹配中");
+        ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " begin matching. Currently " + matchingClients.Count + " people are matching");
         if (matchingClients.Count == 2)
         {
             ClientProxy clientA = matchingClients[0];
@@ -20,7 +20,7 @@ internal class ServerGameMatchManager
             SMGS.Add(sgm);
             clientGameMapping.Add(clientA.ClientId, sgm);
             clientGameMapping.Add(clientB.ClientId, sgm);
-            ServerLog.PrintServerStates("玩家 " + clientA.ClientId + " 和 " + clientB.ClientId + " 开始游戏,当前 " + clientGameMapping.Count + " 人在游戏中," + matchingClients.Count + " 人在匹配中");
+            ServerLog.PrintServerStates("Player " + clientA.ClientId + " and " + clientB.ClientId + " begin game, currently " + clientGameMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
         }
     }
 
@@ -29,7 +29,7 @@ internal class ServerGameMatchManager
         if (matchingClients.Contains(clientProxy))
         {
             matchingClients.Remove(clientProxy);
-            ServerLog.PrintServerStates("玩家 " + clientProxy.ClientId + " 取消匹配. 当前 " + clientGameMapping.Count + " 人在游戏中," + matchingClients.Count + " 人在匹配中");
+            ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " cancels matching. Currently " + clientGameMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
         }
     }
 
@@ -38,7 +38,7 @@ internal class ServerGameMatchManager
         SMGS.Remove(serverGameManager);
         clientGameMapping.Remove(clientA.ClientId);
         clientGameMapping.Remove(clientB.ClientId);
-        ServerLog.PrintServerStates("玩家 " + clientA.ClientId + " 和 " + clientB.ClientId + " 停止游戏,当前 " + clientGameMapping.Count + " 人在游戏中," + matchingClients.Count + " 人在匹配中");
+        ServerLog.PrintServerStates("Player " + clientA.ClientId + " and " + clientB.ClientId + " stop game, currently " + clientGameMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
     }
 
     public void RemoveGame(ClientProxy client)
@@ -51,7 +51,7 @@ internal class ServerGameMatchManager
             int b = sgm.ClientB.ClientId;
             clientGameMapping.Remove(a);
             clientGameMapping.Remove(b);
-            ServerLog.PrintServerStates("玩家 " + a + " 和 " + b + " 停止游戏,当前 " + clientGameMapping.Count + " 人在游戏中," + matchingClients.Count + " 人在匹配中");
+            ServerLog.PrintServerStates("Player " + a + " and " + b + " stop game, currently " + clientGameMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
         }
     }
 }
