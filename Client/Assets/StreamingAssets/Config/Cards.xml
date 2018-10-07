@@ -327,75 +327,75 @@
     <CardInfo name="baseInfo" pictureID="63" cardName="RX-785" cardName_en="RX-785" cardDesc="" hide="False" metal="5" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
-    <CardInfo name="lifeInfo" life="7" totalLife="7" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
+    <CardInfo name="lifeInfo" life="8" totalLife="8" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="5" />
   </Card>
   <Card id="6400">
-    <CardInfo name="baseInfo" pictureID="64" cardName="伊芙利特改" cardName_en="MS-08TX[EXAM]" cardDesc="" hide="False" metal="5" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="baseInfo" pictureID="64" cardName="伊芙利特改" cardName_en="MS-08TX[EXAM]" cardDesc="" hide="False" metal="2" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
-    <CardInfo name="lifeInfo" life="7" totalLife="7" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
+    <CardInfo name="lifeInfo" life="3" totalLife="3" />
+    <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
   </Card>
 
   <Card id="10101">
-    <CardInfo name="baseInfo" pictureID="100" cardName="热能斧" cardName_en="Thermal Axe" cardDesc="" hide="False" metal="3" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="100" cardName="热能斧" cardName_en="Thermal Axe" cardDesc="" hide="False" metal="3" energy="0" coin="50" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="10102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="weaponInfo" energy="1" energyMax="5" attack="1" weaponType="Sword" />
   </Card>
   <Card id="10102">
-    <CardInfo name="baseInfo" pictureID="100" cardName="高能热能斧" cardName_en="S Thermal Axe" cardDesc="" hide="False" metal="3" energy="0" coin="400" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="100" cardName="高能热能斧" cardName_en="S Thermal Axe" cardDesc="" hide="False" metal="3" energy="0" coin="100" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="10103" degradeCardID="10101" cardLevel="2" />
     <CardInfo name="weaponInfo" energy="2" energyMax="6" attack="1" weaponType="Sword" />
   </Card>
   <Card id="10103">
-    <CardInfo name="baseInfo" pictureID="100" cardName="狂暴热能斧" cardName_en="SP Thermal Axe" cardDesc="" hide="False" metal="3" energy="0" coin="500" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="100" cardName="狂暴热能斧" cardName_en="SP Thermal Axe" cardDesc="" hide="False" metal="3" energy="0" coin="200" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="10102" cardLevel="3" />
     <CardInfo name="weaponInfo" energy="3" energyMax="7" attack="1" weaponType="Sword" />
   </Card>
   <Card id="10301">
-    <CardInfo name="baseInfo" pictureID="103" cardName="匕首" cardName_en="Dagger" cardDesc="" hide="False" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="103" cardName="匕首" cardName_en="Dagger" cardDesc="" hide="False" metal="2" energy="0" coin="200" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="weaponInfo" energy="1" energyMax="3" attack="2" weaponType="Sword" />
   </Card>
 
   <Card id="20101">
-    <CardInfo name="baseInfo" pictureID="200" cardName="机枪" cardName_en="M-Gun" cardDesc="" hide="False" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="200" cardName="机枪" cardName_en="M-Gun" cardDesc="" hide="False" metal="2" energy="0" coin="200" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="weaponInfo" energy="5" energyMax="5" attack="1" weaponType="Gun" />
   </Card>
   <Card id="20102">
-    <CardInfo name="baseInfo" pictureID="200" cardName="连射机枪" cardName_en="S M-Gun" cardDesc="" hide="False" metal="2" energy="0" coin="400" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="200" cardName="连射机枪" cardName_en="S M-Gun" cardDesc="" hide="False" metal="2" energy="0" coin="250" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20103" degradeCardID="20101" cardLevel="2" />
     <CardInfo name="weaponInfo" energy="6" energyMax="6" attack="1" weaponType="Gun" />
   </Card>
   <Card id="20103">
-    <CardInfo name="baseInfo" pictureID="200" cardName="高速机枪" cardName_en="SP M-Gun" cardDesc="" hide="False" metal="2" energy="0" coin="500" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="200" cardName="高速机枪" cardName_en="SP M-Gun" cardDesc="" hide="False" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="20102" cardLevel="3" />
     <CardInfo name="weaponInfo" energy="7" energyMax="7" attack="1" weaponType="Gun" />
   </Card>
   <Card id="20401">
-    <CardInfo name="baseInfo" pictureID="204" cardName="离子步枪I" cardName_en="Plasma Rifle I" cardDesc="" hide="False" metal="2" energy="0" coin="500" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="204" cardName="离子步枪I" cardName_en="Plasma Rifle I" cardDesc="" hide="False" metal="3" energy="0" coin="200" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20402" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="weaponInfo" energy="3" energyMax="3" attack="1" weaponType="Gun" />
+    <CardInfo name="weaponInfo" energy="3" energyMax="3" attack="3" weaponType="Gun" />
   </Card>
   <Card id="20402">
-    <CardInfo name="baseInfo" pictureID="204" cardName="离子步枪II" cardName_en="Plasma Rifle II" cardDesc="" hide="False" metal="3" energy="0" coin="500" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="204" cardName="离子步枪II" cardName_en="Plasma Rifle II" cardDesc="" hide="False" metal="4" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20403" degradeCardID="20401" cardLevel="2" />
-    <CardInfo name="weaponInfo" energy="3" energyMax="3" attack="2" weaponType="Gun" />
+    <CardInfo name="weaponInfo" energy="4" energyMax="4" attack="3" weaponType="Gun" />
   </Card>
   <Card id="20403">
-    <CardInfo name="baseInfo" pictureID="204" cardName="离子步枪III" cardName_en="Plasma Rifle III" cardDesc="" hide="False" metal="4" energy="0" coin="500" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="204" cardName="离子步枪III" cardName_en="Plasma Rifle III" cardDesc="" hide="False" metal="5" energy="0" coin="400" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="20402" cardLevel="3" />
-    <CardInfo name="weaponInfo" energy="3" energyMax="3" attack="3" weaponType="Gun" />
+    <CardInfo name="weaponInfo" energy="5" energyMax="5" attack="3" weaponType="Gun" />
   </Card>
   <Card id="20501">
-    <CardInfo name="baseInfo" pictureID="205" cardName="哨戒炮" cardName_en="Sentry Gun" cardDesc="" hide="False" metal="4" energy="0" coin="500" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="205" cardName="哨戒炮" cardName_en="Sentry Gun" cardDesc="" hide="False" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
-    <CardInfo name="weaponInfo" energy="3" energyMax="3" attack="3" weaponType="Gun" />
+    <CardInfo name="weaponInfo" energy="7" energyMax="7" attack="2" weaponType="Gun" />
   </Card>
   <Card id="20601">
-    <CardInfo name="baseInfo" pictureID="206" cardName="狙击步枪" cardName_en="Sniper Gun" cardDesc="" hide="False" metal="5" energy="0" coin="500" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="206" cardName="狙击步枪" cardName_en="Sniper Gun" cardDesc="" hide="False" metal="3" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="weaponInfo" energy="1" energyMax="1" attack="10" weaponType="SniperGun" />
   </Card>
@@ -404,9 +404,6 @@
     <CardInfo name="baseInfo" pictureID="300" cardName="护盾Ⅰ" cardName_en="Shield" cardDesc="" hide="False" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="30102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="shieldInfo" armor="0" shield="1" shieldType="Shield" />
-    <CardInfo name="sideEffectsInfo_OnBattleGround" triggerTime="OnEndRound" triggerRange="SelfPlayer">
-      <SideEffect name="DamageAll" M_TargetRange="EnemyMechs" Value="1"></SideEffect>
-    </CardInfo>
   </Card>
   <Card id="30102">
     <CardInfo name="baseInfo" pictureID="300" cardName="护盾Ⅱ" cardName_en="S Shield" cardDesc="" hide="False" metal="2" energy="0" coin="400" effectFactor="1" dragPurpose="Equip" cardType="Equip" />

@@ -13,6 +13,9 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     [SerializeField] private TextMesh DamageNumberPreviewTextMesh;
     [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh;
 
+    [SerializeField] private TextMesh Desc;
+    [SerializeField] private TextMesh DescBG;
+
     void Awake()
     {
         ShipBG.SetActive(false);
@@ -28,7 +31,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
             CardSpell cs = DragManager.Instance.CurrentDrag_CardSpell;
             if (mr != null)
             {
-                int attackFactor = CheckModuleRetinueCanAttackMe(mr);
+                AttackFactor attackFactor = CheckModuleRetinueCanAttackMe(mr);
                 if (attackFactor > 0)
                 {
                     ShipBG.SetActive(true);
@@ -37,9 +40,14 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                         ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
                     }
 
-                    string factorText = attackFactor > 1 ? "x" + attackFactor : "";
-                    if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage + factorText;
-                    if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage + factorText;
+                    string factorText = (int) attackFactor > 1 ? "x" + attackFactor : "";
+                    string text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage + factorText;
+                    if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = text;
+                    if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = text;
+
+                    string desc = GameManager.Instance.isEnglish ? AttackFactorDesc_en[attackFactor] : AttackFactorDesc[attackFactor];
+                    if (Desc) Desc.text = desc;
+                    if (DescBG) DescBG.text = desc;
                 }
             }
             else if (cs != null && CheckCardSpellCanTarget(cs))
@@ -50,8 +58,11 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                     ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
                 }
 
-                if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
-                if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+                string text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
+                if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = text;
+                if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = text;
+                if (Desc) Desc.text = "";
+                if (DescBG) DescBG.text = "";
             }
         }
     }
@@ -61,43 +72,64 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     /// </summary>
     /// <param name="attackRetinue"></param>
     /// <returns></returns>
-    public int CheckModuleRetinueCanAttackMe(ModuleRetinue attackRetinue)
+    public AttackFactor CheckModuleRetinueCanAttackMe(ModuleRetinue attackRetinue)
     {
-        if (attackRetinue.ClientPlayer == ClientPlayer) return 0;
+        if (attackRetinue.ClientPlayer == ClientPlayer) return AttackFactor.None;
         if (attackRetinue.M_Weapon)
         {
             switch (attackRetinue.M_Weapon.M_WeaponType)
             {
                 case WeaponTypes.Sword:
-                    if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return 2;
+                    if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return AttackFactor.Sword;
                     return 0;
                 case WeaponTypes.Gun:
                     if (attackRetinue.M_RetinueWeaponEnergy != 0)
                     {
                         if (ClientPlayer.MyBattleGroundManager.HasDefenceRetinue) return 0;
-                        return 1;
+                        return AttackFactor.Gun;
                     }
                     else
                     {
-                        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return 2;
+                        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return AttackFactor.Sword;
                         return 0;
                     }
                 case WeaponTypes.SniperGun:
-                    if (attackRetinue.M_RetinueWeaponEnergy != 0) return 1;
+                    if (attackRetinue.M_RetinueWeaponEnergy != 0) return AttackFactor.Gun;
                     else
                     {
-                        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return 2;
+                        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return AttackFactor.Sword;
                         return 0;
                     }
             }
         }
         else
         {
-            if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return 2;
+            if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) return AttackFactor.Sword;
         }
 
-        return 0;
+        return AttackFactor.None;
     }
+
+    public enum AttackFactor
+    {
+        None = 0,
+        Sword = 2,
+        Gun = 1,
+    }
+
+    public static Dictionary<AttackFactor, string> AttackFactorDesc_en = new Dictionary<AttackFactor, string>
+    {
+        {AttackFactor.None, ""},
+        {AttackFactor.Sword, "Sword Double"},
+        {AttackFactor.Gun, ""},
+    };
+
+    public static Dictionary<AttackFactor, string> AttackFactorDesc = new Dictionary<AttackFactor, string>
+    {
+        {AttackFactor.None, ""},
+        {AttackFactor.Sword, "近战翻倍"},
+        {AttackFactor.Gun, ""},
+    };
 
     private bool CheckCardSpellCanTarget(CardSpell card)
     {

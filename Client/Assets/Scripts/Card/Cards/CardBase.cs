@@ -35,6 +35,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             base.PoolRecycle();
         }
 
+        HideAffixCanvas();
+
         gameObject.SetActive(true);
         CardBloom.SetActive(false);
     }
@@ -110,6 +112,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         if (newCard.LifeIcon) newCard.LifeIcon.color = GameManager.Instance.LifeIconColor;
         newCard.Initiate(cardInfo, clientPlayer, isCardSelect);
         newCard.Usable = false;
+
+        newCard.AffixCanvas.enabled = false;
         return newCard;
     }
 
@@ -261,6 +265,9 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     #region 卡牌上各模块
 
+    [SerializeField] private Canvas AffixCanvas;
+    [SerializeField] private Text Text_Affix;
+
     [SerializeField] private Text Text_Name;
     [SerializeField] private Text Text_Desc;
     [SerializeField] private Text Text_CardType;
@@ -286,6 +293,16 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     public Image CoinImageBG;
 
     [SerializeField] private Renderer CardBackRenderer;
+
+    public void ShowAffixCanvas()
+    {
+        AffixCanvas.enabled = true;
+    }
+
+    public void HideAffixCanvas()
+    {
+        AffixCanvas.enabled = false;
+    }
 
     public void BeDimColor()
     {

@@ -12,8 +12,6 @@ internal class ServerBattleGroundManager
         set
         {
             retinueCount = value;
-            BattleGroundIsFull = retinueCount == GamePlaySettings.MaxRetinueNumber;
-            BattleGroundIsEmpty = retinueCount == 0;
         }
     }
 
@@ -25,7 +23,6 @@ internal class ServerBattleGroundManager
         set
         {
             heroCount = value;
-            HerosIsEmpty = heroCount == 0;
         }
     }
 
@@ -37,14 +34,29 @@ internal class ServerBattleGroundManager
         set
         {
             soldierCount = value;
-            SoldiersIsEmpty = soldierCount == 0;
         }
     }
 
-    public bool BattleGroundIsFull;
-    public bool BattleGroundIsEmpty;
-    public bool HerosIsEmpty;
-    public bool SoldiersIsEmpty;
+    public bool BattleGroundIsFull
+    {
+        get { return RetinueCount == GamePlaySettings.MaxRetinueNumber; }
+    }
+
+    public bool BattleGroundIsEmpty
+    {
+        get { return RetinueCount == 0; }
+    }
+
+    public bool HerosIsEmpty
+    {
+        get { return HeroCount == 0; }
+    }
+
+    public bool SoldiersIsEmpty
+    {
+        get { return SoldierCount == 0; }
+    }
+
     public ServerPlayer ServerPlayer;
     private List<ServerModuleRetinue> Retinues = new List<ServerModuleRetinue>();
     private List<ServerModuleRetinue> Heros = new List<ServerModuleRetinue>();
@@ -128,6 +140,7 @@ internal class ServerBattleGroundManager
 
     public void AddRetinue(CardInfo_Retinue retinueCardInfo, int retinuePlaceIndex, int targetRetinueId, int clientRetinueTempId, int handCardInstanceId)
     {
+        if (BattleGroundIsFull) return;
         int retinueId = ServerPlayer.MyGameManager.GenerateNewRetinueId();
         BattleGroundAddRetinueRequest request = new BattleGroundAddRetinueRequest(ServerPlayer.ClientId, retinueCardInfo, retinuePlaceIndex, retinueId, clientRetinueTempId);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
@@ -356,6 +369,7 @@ internal class ServerBattleGroundManager
             AddAttackForOneRetinue(serverModuleRetinue, value);
         }
     }
+
     public void AddAttackForRandomRetinue(int value, int exceptRetinueId)
     {
         AddAttackForOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId), value);

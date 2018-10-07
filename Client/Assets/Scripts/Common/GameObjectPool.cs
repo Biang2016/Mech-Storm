@@ -77,7 +77,7 @@ public class GameObjectPool : MonoBehaviour
                 return;
             }
         }
-        Destroy(recGameObject, 0.1f);
+        Destroy(recGameObject.gameObject, 0.1f);
     }
 
     void expandCapacity()

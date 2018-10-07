@@ -248,6 +248,22 @@ public partial class SelectBuildManager
             currentSelectCard.Text_CardName.text = GameManager.Instance.isEnglish ? upgradeCardInfo.BaseInfo.CardName_en : upgradeCardInfo.BaseInfo.CardName;
         }
 
+        if (SelectedHeros.ContainsKey(currentCardID))
+        {
+            cardCount = SelectedHeros[currentCardID].Count;
+
+            if ((GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin()) + (CurrentPreviewCard.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
+                return;
+            }
+
+            SelectCard currentSelectCard = SelectedHeros[currentCardID];
+            SelectedHeros.Remove(currentCardID);
+            SelectedHeros.Add(upgradeCardID, currentSelectCard);
+            currentSelectCard.Text_CardName.text = GameManager.Instance.isEnglish ? upgradeCardInfo.BaseInfo.CardName_en : upgradeCardInfo.BaseInfo.CardName;
+        }
+
         CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (CurrentPreviewCard.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount;
         for (int i = 0; i < CurrentEditBuildButton.BuildInfo.CardIDs.Count; i++)
         {
@@ -260,6 +276,7 @@ public partial class SelectBuildManager
         RefreshCoinLifeEnergy();
 
         CurrentPreviewCard.Initiate(upgradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
+        CurrentPreviewCard.ShowAffixCanvas();
 
         RefreshCardInSelectWindow(CurrentPreviewCard, cardCount != 0);
         AudioManager.Instance.SoundPlay("sfx/OnMoneyChange");

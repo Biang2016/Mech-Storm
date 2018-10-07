@@ -388,8 +388,8 @@ internal class ServerModuleRetinue : ServerModuleBase
 
             int shield_before = m_RetinueShield;
             int armor_before = m_RetinueArmor;
-            m_RetinueShield = 0;
-            m_RetinueArmor = 0;
+            m_RetinueShield = CardInfo.BattleInfo.BasicShield;
+            m_RetinueArmor = CardInfo.BattleInfo.BasicArmor;
 
             RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addShield: m_RetinueShield - shield_before, addArmor: m_RetinueArmor - armor_before);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);

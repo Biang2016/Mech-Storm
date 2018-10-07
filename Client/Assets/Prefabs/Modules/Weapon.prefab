@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1230034399444624
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1796454837169634
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,6 +824,7 @@ MonoBehaviour:
   BloomSE_SubAnim: {fileID: 95908499691478962}
   M_GunIcon: {fileID: 0}
   M_SwordIcon: {fileID: 0}
+  M_SniperGunIcon: {fileID: 0}
   Block_WeaponAttack: {fileID: 0}
   Block_WeaponEnergy: {fileID: 0}
   Block_WeaponEnergyMax: {fileID: 0}

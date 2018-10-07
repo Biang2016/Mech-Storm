@@ -150,7 +150,6 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
         for (int i = 0; i < Pool_HitPool.Length; i++)
         {
             Pool_HitPool[i].Initiate(HitPrefab[i], 3);
-
         }
     }
 }

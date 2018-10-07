@@ -141,6 +141,9 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Image SniperTargetImage;
     [SerializeField] private Text SniperTipText;
 
+    [SerializeField] private GameObject DefenceShow;
+    [SerializeField] private GameObject DefenceHoverShow;
+
     [SerializeField] private TextFlyPile LifeChangeNumberFly;
     [SerializeField] private TextFlyPile ArmorChangeNumberFly;
     [SerializeField] private TextFlyPile ShieldChangeNumberFly;
@@ -174,6 +177,9 @@ public class ModuleRetinue : ModuleBase
         M_RetinueAttack = cardInfo.BattleInfo.BasicAttack;
         M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
         M_RetinueShield = cardInfo.BattleInfo.BasicShield;
+
+        DefenceShow.SetActive(CardInfo.RetinueInfo.IsDefence);
+        DefenceHoverShow.SetActive(false);
 
         ClientUtils.ChangePictureForCard(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         ClientUtils.ChangeColor(WeaponBloom, GameManager.Instance.Slot1Color);
@@ -1221,6 +1227,12 @@ public class ModuleRetinue : ModuleBase
                 DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
                 DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
 
+                if (CardInfo.RetinueInfo.IsDefence)
+                {
+                    DefenceShow.SetActive(false);
+                    DefenceHoverShow.SetActive(true);
+                }
+
                 int myCounterAttack = CalculateCounterAttack(mr);
                 mr.DamageNumberPreviewTextMesh.text = myCounterAttack == 0 ? "" : "-" + myCounterAttack;
                 mr.DamageNumberPreviewBGTextMesh.text = myCounterAttack == 0 ? "" : "-" + myCounterAttack;
@@ -1281,6 +1293,12 @@ public class ModuleRetinue : ModuleBase
         if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
         {
             ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = false; //箭头动画
+        }
+
+        if (CardInfo.RetinueInfo.IsDefence)
+        {
+            DefenceShow.SetActive(true);
+            DefenceHoverShow.SetActive(false);
         }
 
         DamageNumberPreviewTextMesh.text = "";
