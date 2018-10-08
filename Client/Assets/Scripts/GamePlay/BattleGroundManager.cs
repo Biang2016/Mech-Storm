@@ -248,7 +248,7 @@ public class BattleGroundManager : MonoBehaviour
             SoldierCount--;
         }
 
-        PrintRetinueInfos();
+        //PrintRetinueInfos();
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -426,6 +426,8 @@ public class BattleGroundManager : MonoBehaviour
             args.Add("easeType", iTween.EaseType.linear);
             iTween.MoveTo(Retinues[i].gameObject, args);
         }
+
+        ClientPlayer.MyHandManager.RefreshAllCardUsable();
 
         yield return new WaitForSeconds(duration);
         if (isAddRetinue && DragManager.Instance.IsSummonPreview)

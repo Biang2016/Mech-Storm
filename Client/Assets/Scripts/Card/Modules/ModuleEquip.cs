@@ -54,6 +54,10 @@ public abstract class ModuleEquip : ModuleBase
     public override void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
         base.MouseHoverComponent_OnMousePressEnterImmediately(mousePosition);
+        if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
+        {
+            ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
+        }
         M_Bloom.gameObject.SetActive(true);
         M_BloomSE.gameObject.SetActive(true);
         M_BloomSE_Sub.gameObject.SetActive(true);
@@ -63,6 +67,10 @@ public abstract class ModuleEquip : ModuleBase
     public override void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
         base.MouseHoverComponent_OnMousePressLeaveImmediately();
+        if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
+        {
+            ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = false; //箭头动画
+        }
         M_Bloom.gameObject.SetActive(false);
         BloomSEAnim.SetTrigger("Reset");
         BloomSE_SubAnim.SetTrigger("Reset");

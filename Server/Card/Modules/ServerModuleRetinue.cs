@@ -640,11 +640,15 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
     }
 
+    public bool BeforeAttack(ServerModuleRetinue targetRetinue, bool isCounterAttack)
+    {
+        if (M_IsDead) return false;
+        if (!isCounterAttack) OnAttack();
+        return true;
+    }
+
     public void Attack(ServerModuleRetinue targetRetinue, bool isCounterAttack) //服务器客户单分别计算
     {
-        if (M_IsDead) return;
-
-        if (!isCounterAttack) OnAttack();
         int damage = 0;
 
         bool canCounter = !isCounterAttack && M_AttackLevel <= targetRetinue.M_AttackLevel; //对方能否反击
@@ -662,9 +666,16 @@ internal class ServerModuleRetinue : ServerModuleBase
                     break;
                 case WeaponTypes.Gun: //有远程武器避免反击
                     int tmp = M_RetinueWeaponEnergy;
-                    if (isCounterAttack) //如果是用枪反击，只反击一个子弹
+                    if (isCounterAttack) //如果是用枪反击
                     {
-                        tmp = 1;
+                        if (M_Weapon.CardInfo.WeaponInfo.IsFrenzy || CardInfo.RetinueInfo.IsFrenzy) //如果是狂暴枪，反击2次
+                        {
+                            tmp = 2;
+                        }
+                        else //如果是用枪反击，只反击一个子弹
+                        {
+                            tmp = 1;
+                        }
                     }
 
                     for (int i = 0; i < tmp; i++)
@@ -672,13 +683,13 @@ internal class ServerModuleRetinue : ServerModuleBase
                         targetRetinue.BeAttacked(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
                         m_RetinueWeaponEnergy--;
-                        if (targetRetinue.M_RetinueLeftLife <= 0) break;
+                        if (targetRetinue.M_RetinueLeftLife <= 0 || M_RetinueWeaponEnergy <= 0) break;
                     }
 
                     if (canCounter) targetRetinue.Attack(this, true); //对方反击
                     break;
                 case WeaponTypes.SniperGun:
-                    if (isCounterAttack) break; //狙击枪无法反击
+                    if (isCounterAttack) break; //狙击枪无法反击他人攻击
                     targetRetinue.BeAttacked(M_RetinueAttack);
                     OnMakeDamage(M_RetinueAttack);
                     m_RetinueWeaponEnergy--;

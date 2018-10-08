@@ -95,7 +95,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ToDoList.txt" />
+    <Content Include="DevLog.txt" />
+    <Content Include="DevLog_zh.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

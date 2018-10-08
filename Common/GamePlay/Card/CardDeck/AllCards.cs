@@ -51,7 +51,7 @@ public static class AllCards
                             cardInfo.Attributes["cardName"].Value,
                             cardInfo.Attributes["cardName_en"].Value,
                             cardInfo.Attributes["cardDesc"].Value.Replace("\\n", "\n"),
-                            cardInfo.Attributes["hide"].Value=="True",
+                            cardInfo.Attributes["hide"].Value == "True",
                             int.Parse(cardInfo.Attributes["metal"].Value),
                             int.Parse(cardInfo.Attributes["energy"].Value),
                             int.Parse(cardInfo.Attributes["coin"].Value),
@@ -77,6 +77,8 @@ public static class AllCards
                             cardInfo.Attributes["isSoldier"].Value == "True",
                             cardInfo.Attributes["isDefence"].Value == "True",
                             cardInfo.Attributes["isSniper"].Value == "True",
+                            cardInfo.Attributes["isCharger"].Value == "True",
+                            cardInfo.Attributes["isFrenzy"].Value == "True",
                             (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
                             (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot2"].Value),
                             (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot3"].Value),
@@ -86,7 +88,9 @@ public static class AllCards
                         weaponInfo = new WeaponInfo(int.Parse(cardInfo.Attributes["energy"].Value),
                             int.Parse(cardInfo.Attributes["energyMax"].Value),
                             int.Parse(cardInfo.Attributes["attack"].Value),
-                            (WeaponTypes) Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value));
+                            (WeaponTypes) Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value),
+                            cardInfo.Attributes["isSentry"].Value == "True",
+                            cardInfo.Attributes["isFrenzy"].Value == "True");
                         equipInfo = new EquipInfo(SlotTypes.Weapon);
                         break;
                     case "shieldInfo":

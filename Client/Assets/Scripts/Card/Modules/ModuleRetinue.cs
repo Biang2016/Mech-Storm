@@ -144,6 +144,15 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private GameObject DefenceShow;
     [SerializeField] private GameObject DefenceHoverShow;
 
+    [SerializeField] private GameObject SentryShow;
+    [SerializeField] private GameObject SentryHoverShow;
+
+    [SerializeField] private GameObject FrenzyShow;
+    [SerializeField] private GameObject FrenzyHoverShow;
+
+    [SerializeField] private GameObject SniperShow;
+    [SerializeField] private GameObject SniperHoverShow;
+
     [SerializeField] private TextFlyPile LifeChangeNumberFly;
     [SerializeField] private TextFlyPile ArmorChangeNumberFly;
     [SerializeField] private TextFlyPile ShieldChangeNumberFly;
@@ -180,6 +189,12 @@ public class ModuleRetinue : ModuleBase
 
         DefenceShow.SetActive(CardInfo.RetinueInfo.IsDefence);
         DefenceHoverShow.SetActive(false);
+        SentryShow.SetActive(false);
+        SentryHoverShow.SetActive(false);
+        FrenzyShow.SetActive(CardInfo.RetinueInfo.IsFrenzy);
+        FrenzyHoverShow.SetActive(false);
+        SniperShow.SetActive(CardInfo.RetinueInfo.IsSniper);
+        SniperHoverShow.SetActive(false);
 
         ClientUtils.ChangePictureForCard(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         ClientUtils.ChangeColor(WeaponBloom, GameManager.Instance.Slot1Color);
@@ -241,7 +256,7 @@ public class ModuleRetinue : ModuleBase
 
         isFirstRound = true;
         CannotAttackBecauseDie = false;
-        CanAttackThisRound = false;
+        AttackTimesThisRound = CardInfo.RetinueInfo.IsCharger ? (CardInfo.RetinueInfo.IsFrenzy ? 2 : 1) : 0;
         M_ClientTempRetinueID = -1;
         SniperTipText.enabled = false;
 
@@ -761,6 +776,7 @@ public class ModuleRetinue : ModuleBase
     void On_WeaponEquiped()
     {
         M_Weapon.OnWeaponEquiped();
+        RefreshAttackTimeByWeapon();
         CheckCanAttack();
         AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
@@ -768,12 +784,27 @@ public class ModuleRetinue : ModuleBase
     void On_WeaponChanged()
     {
         M_Weapon.OnWeaponEquiped();
+        RefreshAttackTimeByWeapon();
         CheckCanAttack();
         AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
 
-    #endregion
+    void RefreshAttackTimeByWeapon()
+    {
+        if (AttackTimesThisRound > 0) //如果攻击次数还未用完
+        {
+            if (!CardInfo.RetinueInfo.IsFrenzy && M_Weapon.CardInfo.WeaponInfo.IsFrenzy) //如果枪械为狂暴状态(如果随从为狂暴则无效)，则增加攻击次数到2
+            {
+                AttackTimesThisRound = 2;
+            }
+            else if (M_Weapon.CardInfo.WeaponInfo.IsSentry) //如果枪械为哨戒模式，则攻击次数清零
+            {
+                AttackTimesThisRound = 0;
+            }
+        }
+    }
 
+    #endregion
 
     #region 防具相关
 
@@ -933,7 +964,7 @@ public class ModuleRetinue : ModuleBase
 
     public bool isFirstRound = true; //是否是召唤的第一回合
     public bool CannotAttackBecauseDie = false; //是否已预先判定死亡
-    public bool CanAttackThisRound; //本回合攻击
+    public int AttackTimesThisRound = 1; //本回合攻击次数
     public bool CanCharge = false; //冲锋
     public bool EndRound = false; //回合结束后
 
@@ -944,7 +975,7 @@ public class ModuleRetinue : ModuleBase
         canAttack &= ClientPlayer == RoundManager.Instance.SelfClientPlayer;
         canAttack &= !isFirstRound || (isFirstRound && CanCharge);
         canAttack &= (!CannotAttackBecauseDie);
-        canAttack &= (CanAttackThisRound);
+        canAttack &= AttackTimesThisRound > 0;
         canAttack &= (M_RetinueAttack > 0);
         canAttack &= !EndRound;
 
@@ -990,9 +1021,16 @@ public class ModuleRetinue : ModuleBase
                     break;
                 case WeaponTypes.Gun: //有远程武器避免反击
                     int tmp = M_RetinueWeaponEnergy;
-                    if (isCounterAttack) //如果是用枪反击，只反击一个子弹
+                    if (isCounterAttack) //如果是用枪反击
                     {
-                        tmp = 1;
+                        if (M_Weapon.CardInfo.WeaponInfo.IsFrenzy || CardInfo.RetinueInfo.IsFrenzy) //如果是狂暴枪，反击2次
+                        {
+                            tmp = 2;
+                        }
+                        else //如果是用枪反击，只反击一个子弹
+                        {
+                            tmp = 1;
+                        }
                     }
 
                     for (int i = 0; i < tmp; i++)
@@ -1001,7 +1039,7 @@ public class ModuleRetinue : ModuleBase
                         targetRetinue.BeAttacked(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
                         M_RetinueWeaponEnergy--;
-                        if (targetRetinue.M_RetinueLeftLife <= 0) break;
+                        if (targetRetinue.M_RetinueLeftLife <= 0 || M_RetinueWeaponEnergy <= 0) break;
                     }
 
                     if (canCounter) targetRetinue.Attack(this, true); //对方反击
@@ -1026,7 +1064,7 @@ public class ModuleRetinue : ModuleBase
             if (canCounter) targetRetinue.Attack(this, true); //对方反击
         }
 
-        CanAttackThisRound = false;
+        AttackTimesThisRound -= 1;
         CheckCanAttack();
     }
 
@@ -1034,7 +1072,7 @@ public class ModuleRetinue : ModuleBase
     {
         OnAttack(0, WeaponTypes.None); //随从特效
         if (M_Weapon) M_Weapon.OnAttack(); //武器特效
-        CanAttackThisRound = false;
+        AttackTimesThisRound -= 1;
         CheckCanAttack();
     }
 
@@ -1106,11 +1144,29 @@ public class ModuleRetinue : ModuleBase
             {
                 case WeaponTypes.Sword:
                     if (enemyUseGun) damage = 0; //无远程武器不能反击枪械攻击
-                    else damage = M_RetinueWeaponFinalAttack;
+                    else
+                    {
+                        if (CardInfo.RetinueInfo.IsFrenzy || M_Weapon.CardInfo.WeaponInfo.IsFrenzy)
+                        {
+                            damage = M_RetinueWeaponFinalAttack * 2;
+                        }
+                        else
+                        {
+                            damage = M_RetinueWeaponFinalAttack;
+                        }
+                    }
 
                     break;
                 case WeaponTypes.Gun: //有远程武器可以反击，只反击一点子弹
-                    damage = M_RetinueAttack;
+                    if (CardInfo.RetinueInfo.IsFrenzy || M_Weapon.CardInfo.WeaponInfo.IsFrenzy)
+                    {
+                        damage = M_RetinueAttack * 2;
+                    }
+                    else
+                    {
+                        damage = M_RetinueAttack;
+                    }
+
                     break;
                 case WeaponTypes.SniperGun: //狙击枪无法反击
                     damage = 0;
@@ -1120,7 +1176,17 @@ public class ModuleRetinue : ModuleBase
         else //如果没有武器
         {
             if (enemyUseGun) damage = 0;
-            else damage = M_RetinueAttack;
+            else
+            {
+                if (CardInfo.RetinueInfo.IsFrenzy)
+                {
+                    damage = M_RetinueAttack * 2;
+                }
+                else
+                {
+                    damage = M_RetinueAttack;
+                }
+            }
         }
 
         return damage;
@@ -1233,6 +1299,24 @@ public class ModuleRetinue : ModuleBase
                     DefenceHoverShow.SetActive(true);
                 }
 
+                if (CardInfo.RetinueInfo.IsFrenzy || (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsFrenzy))
+                {
+                    FrenzyShow.SetActive(false);
+                    FrenzyHoverShow.SetActive(true);
+                }
+
+                if (CardInfo.RetinueInfo.IsSniper)
+                {
+                    SniperShow.SetActive(false);
+                    SniperHoverShow.SetActive(true);
+                }
+
+                if (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsSentry)
+                {
+                    SentryShow.SetActive(false);
+                    SentryHoverShow.SetActive(true);
+                }
+
                 int myCounterAttack = CalculateCounterAttack(mr);
                 mr.DamageNumberPreviewTextMesh.text = myCounterAttack == 0 ? "" : "-" + myCounterAttack;
                 mr.DamageNumberPreviewBGTextMesh.text = myCounterAttack == 0 ? "" : "-" + myCounterAttack;
@@ -1299,6 +1383,24 @@ public class ModuleRetinue : ModuleBase
         {
             DefenceShow.SetActive(true);
             DefenceHoverShow.SetActive(false);
+        }
+
+        if (CardInfo.RetinueInfo.IsFrenzy || (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsFrenzy))
+        {
+            FrenzyShow.SetActive(true);
+            FrenzyHoverShow.SetActive(false);
+        }
+
+        if (CardInfo.RetinueInfo.IsSniper)
+        {
+            SniperShow.SetActive(true);
+            SniperHoverShow.SetActive(false);
+        }
+
+        if (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsSentry)
+        {
+            SentryShow.SetActive(true);
+            SentryHoverShow.SetActive(false);
         }
 
         DamageNumberPreviewTextMesh.text = "";
@@ -1463,8 +1565,24 @@ public class ModuleRetinue : ModuleBase
     public void OnBeginRound()
     {
         EndRound = false;
-        CanAttackThisRound = true;
+
+        CalculateAttackTimes();
+
         CheckCanAttack();
+    }
+
+    private void CalculateAttackTimes()
+    {
+        bool frenzy = false;
+        bool sentry = false;
+        if (M_Weapon != null)
+        {
+            frenzy |= M_Weapon.CardInfo.WeaponInfo.IsFrenzy;
+            sentry |= M_Weapon.CardInfo.WeaponInfo.IsSentry;
+        }
+
+        frenzy |= CardInfo.RetinueInfo.IsFrenzy;
+        AttackTimesThisRound = sentry ? 0 : (frenzy ? 2 : 1);
     }
 
     public void OnEndRound()

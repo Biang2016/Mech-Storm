@@ -188,7 +188,7 @@ public class CardSpell : CardBase
                         else
                         {
                             AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
-                            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should select a right ship." : "请选择正确的战舰", 0, 1f);
+                            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should select a right equip." : "请选择正确的装备", 0, 1f);
                         }
                     }
                 }
@@ -224,6 +224,11 @@ public class CardSpell : CardBase
                     {
                         summonSpellRequestToShip(ship, dragLastPosition);
                         return;
+                    }
+                    else
+                    {
+                        AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
+                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should select a right ship." : "请选择正确的战舰", 0, 1f);
                     }
                 }
             }

@@ -80,7 +80,8 @@ public class SideEffectBundle
                     if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Battlecry: " : "战吼: ");
                     else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Die: " : "亡语: ");
                     else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnEquipDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Broken: " : "亡语: ");
-                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnRetinueAttack)) res += isEnglish ? "When attack, " : "进攻时, ";
+                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnRetinueAttack)) res += isEnglish ? "When attacks, " : "进攻时, ";
+                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnRetinueKill)) res += isEnglish ? "When kills, " : "杀敌时, ";
                     else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnPlayCard)) res += "";
                     else
                     {
@@ -265,9 +266,9 @@ public class SideEffectBundle
         {TriggerTime.OnDrawCard, "Once {0} draws, "},
         {TriggerTime.OnPlayCard, "Once {0} plays a card, "},
 
-        {TriggerTime.OnRetinueSummon, "When {0} summon a Mech, "},
-        {TriggerTime.OnHeroSummon, "When {0} summon a HeroMech, "},
-        {TriggerTime.OnSoldierSummon, "When {0} summon a SoldierMech, "},
+        {TriggerTime.OnRetinueSummon, "When {0} Mech summoned, "},
+        {TriggerTime.OnHeroSummon, "When {0} HeroMech summoned, "},
+        {TriggerTime.OnSoldierSummon, "When {0} SoldierMech summoned, "},
 
         {TriggerTime.OnRetinueAttack, "When {0} Mech attacks, "},
         {TriggerTime.OnHeroAttack, "When {0} HeroMech attacks, "},
@@ -335,6 +336,6 @@ public class SideEffectBundle
         {TriggerRange.SelfAnother, "your another "},
         {TriggerRange.Another, "another "},
         {TriggerRange.Attached, ""},
-        {TriggerRange.Self, ""},
+        {TriggerRange.Self, "this"},
     };
 }

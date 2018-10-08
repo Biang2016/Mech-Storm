@@ -290,16 +290,20 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
 
-        RetinueAttackRetinueServerRequest request = new RetinueAttackRetinueServerRequest(r.clientId, r.AttackRetinueId, r.BeAttackedRetinueClientId, r.BeAttackedRetinueId);
-        Broadcast_AddRequestToOperationResponse(request);
-
         ServerPlayer cpat = GetPlayerByClientId(r.clientId);
         ServerPlayer cpba = GetPlayerByClientId(r.BeAttackedRetinueClientId);
 
         ServerModuleRetinue attackRetinue = cpat.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
         ServerModuleRetinue beAttackedRetinue = cpba.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
 
-        attackRetinue.Attack(beAttackedRetinue, false);
+        bool isAttackValid = attackRetinue.BeforeAttack(beAttackedRetinue, false);
+        if (isAttackValid)
+        {
+            RetinueAttackRetinueServerRequest request = new RetinueAttackRetinueServerRequest(r.clientId, r.AttackRetinueId, r.BeAttackedRetinueClientId, r.BeAttackedRetinueId);
+            Broadcast_AddRequestToOperationResponse(request);
+
+            attackRetinue.Attack(beAttackedRetinue, false);
+        }
 
         Broadcast_SendOperationResponse();
     }

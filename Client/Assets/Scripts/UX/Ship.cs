@@ -21,6 +21,8 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
         ShipBG.SetActive(false);
         if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = "";
         if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = "";
+        if (Desc) Desc.text = "";
+        if (DescBG) DescBG.text = "";
     }
 
     public void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
@@ -40,7 +42,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                         ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
                     }
 
-                    string factorText = (int) attackFactor > 1 ? "x" + attackFactor : "";
+                    string factorText = (int) attackFactor > 1 ? "x" + (int) attackFactor : "";
                     string text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage + factorText;
                     if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = text;
                     if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = text;
@@ -182,5 +184,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
 
         if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = "";
         if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = "";
+        if (Desc) Desc.text = "";
+        if (DescBG) DescBG.text = "";
     }
 }
