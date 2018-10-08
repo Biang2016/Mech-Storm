@@ -170,7 +170,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
             if (EnemyClientPlayer.MyBattleGroundManager.HasDefenceRetinue)
             {
                 if (attackRetinue.M_Weapon != null && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) targetRetinue.ShowTargetPreviewArrow(true);
-                else if (targetRetinue.CardInfo.RetinueInfo.IsDefence) targetRetinue.ShowTargetPreviewArrow();
+                else if (targetRetinue.IsDefender) targetRetinue.ShowTargetPreviewArrow();
             }
             else targetRetinue.ShowTargetPreviewArrow();
         }

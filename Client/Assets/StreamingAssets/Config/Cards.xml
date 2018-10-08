@@ -403,33 +403,33 @@
   <Card id="30101">
     <CardInfo name="baseInfo" pictureID="300" cardName="护盾Ⅰ" cardName_en="Shield" cardDesc="" hide="False" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="30102" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="shieldInfo" armor="0" shield="1" shieldType="Shield" />
+    <CardInfo name="shieldInfo" armor="0" shield="1" shieldType="Shield" isDefence="False" />
   </Card>
   <Card id="30102">
     <CardInfo name="baseInfo" pictureID="300" cardName="护盾Ⅱ" cardName_en="S Shield" cardDesc="" hide="False" metal="2" energy="0" coin="400" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="30103" degradeCardID="30101" cardLevel="2" />
-    <CardInfo name="shieldInfo" armor="0" shield="2" shieldType="Shield" />
+    <CardInfo name="shieldInfo" armor="0" shield="2" shieldType="Shield" isDefence="False"/>
   </Card>
   <Card id="30103">
     <CardInfo name="baseInfo" pictureID="300" cardName="护盾Ⅲ" cardName_en="SP Shield" cardDesc="" hide="False" metal="3" energy="0" coin="500" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="30102" cardLevel="3" />
-    <CardInfo name="shieldInfo" armor="0" shield="3" shieldType="Shield" />
+    <CardInfo name="shieldInfo" armor="0" shield="3" shieldType="Shield" isDefence="True"/>
   </Card>
 
   <Card id="30201">
     <CardInfo name="baseInfo" pictureID="350" cardName="新兵盾牌Ⅰ" cardName_en="Armor" cardDesc="" hide="False" metal="1" energy="0" coin="100" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="30202" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="shieldInfo" armor="4" shield="0" shieldType="Armor" />
+    <CardInfo name="shieldInfo" armor="4" shield="0" shieldType="Armor" isDefence="False"/>
   </Card>
   <Card id="30202">
     <CardInfo name="baseInfo" pictureID="350" cardName="新兵盾牌Ⅱ" cardName_en="S Armor" cardDesc="" hide="False" metal="2" energy="0" coin="200" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="30203" degradeCardID="30201" cardLevel="2" />
-    <CardInfo name="shieldInfo" armor="6" shield="0" shieldType="Armor" />
+    <CardInfo name="shieldInfo" armor="6" shield="0" shieldType="Armor" isDefence="False"/>
   </Card>
   <Card id="30203">
     <CardInfo name="baseInfo" pictureID="350" cardName="新兵盾牌Ⅲ" cardName_en="SP Armor" cardDesc="" hide="False" metal="3" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="30202" cardLevel="3" />
-    <CardInfo name="shieldInfo" armor="8" shield="0" shieldType="Armor" />
+    <CardInfo name="shieldInfo" armor="8" shield="0" shieldType="Armor" isDefence="True"/>
   </Card>
 
   <Card id="40101">

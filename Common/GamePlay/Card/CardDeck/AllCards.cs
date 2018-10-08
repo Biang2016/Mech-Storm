@@ -96,7 +96,8 @@ public static class AllCards
                     case "shieldInfo":
                         shieldInfo = new ShieldInfo(int.Parse(cardInfo.Attributes["armor"].Value),
                             int.Parse(cardInfo.Attributes["shield"].Value),
-                            (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value));
+                            (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value),
+                            cardInfo.Attributes["isDefence"].Value == "True");
                         equipInfo = new EquipInfo(SlotTypes.Shield);
                         break;
                     case "packInfo":

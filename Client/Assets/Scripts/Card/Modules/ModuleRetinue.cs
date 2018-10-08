@@ -141,18 +141,6 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Image SniperTargetImage;
     [SerializeField] private Text SniperTipText;
 
-    [SerializeField] private GameObject DefenceShow;
-    [SerializeField] private GameObject DefenceHoverShow;
-
-    [SerializeField] private GameObject SentryShow;
-    [SerializeField] private GameObject SentryHoverShow;
-
-    [SerializeField] private GameObject FrenzyShow;
-    [SerializeField] private GameObject FrenzyHoverShow;
-
-    [SerializeField] private GameObject SniperShow;
-    [SerializeField] private GameObject SniperHoverShow;
-
     [SerializeField] private TextFlyPile LifeChangeNumberFly;
     [SerializeField] private TextFlyPile ArmorChangeNumberFly;
     [SerializeField] private TextFlyPile ShieldChangeNumberFly;
@@ -187,14 +175,7 @@ public class ModuleRetinue : ModuleBase
         M_RetinueArmor = cardInfo.BattleInfo.BasicArmor;
         M_RetinueShield = cardInfo.BattleInfo.BasicShield;
 
-        DefenceShow.SetActive(CardInfo.RetinueInfo.IsDefence);
-        DefenceHoverShow.SetActive(false);
-        SentryShow.SetActive(false);
-        SentryHoverShow.SetActive(false);
-        FrenzyShow.SetActive(CardInfo.RetinueInfo.IsFrenzy);
-        FrenzyHoverShow.SetActive(false);
-        SniperShow.SetActive(CardInfo.RetinueInfo.IsSniper);
-        SniperHoverShow.SetActive(false);
+        HideRetinueTypeLooking();
 
         ClientUtils.ChangePictureForCard(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         ClientUtils.ChangeColor(WeaponBloom, GameManager.Instance.Slot1Color);
@@ -256,7 +237,7 @@ public class ModuleRetinue : ModuleBase
 
         isFirstRound = true;
         CannotAttackBecauseDie = false;
-        AttackTimesThisRound = CardInfo.RetinueInfo.IsCharger ? (CardInfo.RetinueInfo.IsFrenzy ? 2 : 1) : 0;
+        AttackTimesThisRound = CardInfo.RetinueInfo.IsCharger ? (IsFrenzy ? 2 : 1) : 0;
         M_ClientTempRetinueID = -1;
         SniperTipText.enabled = false;
 
@@ -720,6 +701,92 @@ public class ModuleRetinue : ModuleBase
 
     #endregion
 
+    #region RetinueTypeLooking
+
+    [SerializeField] private GameObject DefenceShow;
+    [SerializeField] private GameObject DefenceHoverShow;
+
+    [SerializeField] private GameObject SentryShow;
+    [SerializeField] private GameObject SentryHoverShow;
+
+    [SerializeField] private GameObject FrenzyShow;
+    [SerializeField] private GameObject FrenzyHoverShow;
+
+    [SerializeField] private GameObject SniperShow;
+    [SerializeField] private GameObject SniperHoverShow;
+
+    public bool IsFrenzy
+    {
+        get
+        {
+            return CardInfo.RetinueInfo.IsFrenzy ||
+                   (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsFrenzy);
+        }
+    }
+
+    public bool IsSentry
+    {
+        get { return (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsSentry); }
+    }
+
+    public bool IsSniper
+    {
+        get { return CardInfo.RetinueInfo.IsSniper; }
+    }
+
+    public bool IsDefender
+    {
+        get
+        {
+            return CardInfo.RetinueInfo.IsDefence ||
+                   (M_Shield != null && M_Shield.CardInfo.ShieldInfo.IsDefence);
+        }
+    }
+
+    void ShowRetinueTypeLooking()
+    {
+        if (IsFrenzy)
+        {
+            FrenzyShow.SetActive(!IsFrenzy);
+            FrenzyHoverShow.SetActive(IsFrenzy);
+        }
+
+        if (IsSentry)
+        {
+            SentryShow.SetActive(!IsSentry);
+            SentryHoverShow.SetActive(IsSentry);
+        }
+
+        if (IsSniper)
+        {
+            SniperShow.SetActive(!IsSniper);
+            SniperHoverShow.SetActive(IsSniper);
+        }
+
+        if (IsDefender)
+        {
+            DefenceShow.SetActive(!IsDefender);
+            DefenceHoverShow.SetActive(IsDefender);
+        }
+    }
+
+    void HideRetinueTypeLooking()
+    {
+        FrenzyShow.SetActive(IsFrenzy);
+        FrenzyHoverShow.SetActive(false);
+
+        SentryShow.SetActive(IsSentry);
+        SentryHoverShow.SetActive(false);
+
+        SniperShow.SetActive(IsSniper);
+        SniperHoverShow.SetActive(false);
+
+        DefenceShow.SetActive(IsDefender);
+        DefenceHoverShow.SetActive(false);
+    }
+
+    #endregion
+
     #region 拼装上的模块
 
     #region 武器相关
@@ -771,12 +838,14 @@ public class ModuleRetinue : ModuleBase
     void On_WeaponDown()
     {
         AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
+        HideRetinueTypeLooking();
     }
 
     void On_WeaponEquiped()
     {
         M_Weapon.OnWeaponEquiped();
-        RefreshAttackTimeByWeapon();
+        RefreshAttackTime();
+        HideRetinueTypeLooking();
         CheckCanAttack();
         AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
@@ -784,12 +853,13 @@ public class ModuleRetinue : ModuleBase
     void On_WeaponChanged()
     {
         M_Weapon.OnWeaponEquiped();
-        RefreshAttackTimeByWeapon();
+        RefreshAttackTime();
+        HideRetinueTypeLooking();
         CheckCanAttack();
         AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
 
-    void RefreshAttackTimeByWeapon()
+    void RefreshAttackTime()
     {
         if (AttackTimesThisRound > 0) //如果攻击次数还未用完
         {
@@ -840,17 +910,20 @@ public class ModuleRetinue : ModuleBase
     void On_ShieldDown()
     {
         AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
+        HideRetinueTypeLooking();
     }
 
     void On_ShieldEquiped()
     {
         M_Shield.OnShieldEquiped();
+        HideRetinueTypeLooking();
         AudioManager.Instance.SoundPlay("sfx/OnEquipShield");
     }
 
     void On_ShieldChanged()
     {
         M_Shield.OnShieldEquiped();
+        HideRetinueTypeLooking();
         AudioManager.Instance.SoundPlay("sfx/OnEquipShield");
     }
 
@@ -1023,7 +1096,7 @@ public class ModuleRetinue : ModuleBase
                     int tmp = M_RetinueWeaponEnergy;
                     if (isCounterAttack) //如果是用枪反击
                     {
-                        if (M_Weapon.CardInfo.WeaponInfo.IsFrenzy || CardInfo.RetinueInfo.IsFrenzy) //如果是狂暴枪，反击2次
+                        if (IsFrenzy) //如果是狂暴枪，反击2次
                         {
                             tmp = 2;
                         }
@@ -1146,7 +1219,7 @@ public class ModuleRetinue : ModuleBase
                     if (enemyUseGun) damage = 0; //无远程武器不能反击枪械攻击
                     else
                     {
-                        if (CardInfo.RetinueInfo.IsFrenzy || M_Weapon.CardInfo.WeaponInfo.IsFrenzy)
+                        if (IsFrenzy)
                         {
                             damage = M_RetinueWeaponFinalAttack * 2;
                         }
@@ -1158,7 +1231,7 @@ public class ModuleRetinue : ModuleBase
 
                     break;
                 case WeaponTypes.Gun: //有远程武器可以反击，只反击一点子弹
-                    if (CardInfo.RetinueInfo.IsFrenzy || M_Weapon.CardInfo.WeaponInfo.IsFrenzy)
+                    if (IsFrenzy)
                     {
                         damage = M_RetinueAttack * 2;
                     }
@@ -1178,7 +1251,7 @@ public class ModuleRetinue : ModuleBase
             if (enemyUseGun) damage = 0;
             else
             {
-                if (CardInfo.RetinueInfo.IsFrenzy)
+                if (IsFrenzy)
                 {
                     damage = M_RetinueAttack * 2;
                 }
@@ -1194,8 +1267,8 @@ public class ModuleRetinue : ModuleBase
 
     public void ShowTargetPreviewArrow(bool beSniperTargeted = false)
     {
-        DefenceText.enabled = CardInfo.RetinueInfo.IsDefence;
-        SniperTargetImage.enabled = beSniperTargeted && !CardInfo.RetinueInfo.IsDefence;
+        DefenceText.enabled = IsDefender;
+        SniperTargetImage.enabled = beSniperTargeted && !IsDefender;
         RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
         RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
         RetinueTargetPreviewAnim.SetTrigger("BeginTarget");
@@ -1293,29 +1366,7 @@ public class ModuleRetinue : ModuleBase
                 DamageNumberPreviewTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
                 DamageNumberPreviewBGTextMesh.text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
 
-                if (CardInfo.RetinueInfo.IsDefence)
-                {
-                    DefenceShow.SetActive(false);
-                    DefenceHoverShow.SetActive(true);
-                }
-
-                if (CardInfo.RetinueInfo.IsFrenzy || (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsFrenzy))
-                {
-                    FrenzyShow.SetActive(false);
-                    FrenzyHoverShow.SetActive(true);
-                }
-
-                if (CardInfo.RetinueInfo.IsSniper)
-                {
-                    SniperShow.SetActive(false);
-                    SniperHoverShow.SetActive(true);
-                }
-
-                if (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsSentry)
-                {
-                    SentryShow.SetActive(false);
-                    SentryHoverShow.SetActive(true);
-                }
+                ShowRetinueTypeLooking();
 
                 int myCounterAttack = CalculateCounterAttack(mr);
                 mr.DamageNumberPreviewTextMesh.text = myCounterAttack == 0 ? "" : "-" + myCounterAttack;
@@ -1341,7 +1392,7 @@ public class ModuleRetinue : ModuleBase
         if (attackRetinue.ClientPlayer == ClientPlayer) return false;
         if (RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this)) return false;
         if (attackRetinue.M_Weapon && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽随从，其他武器只能攻击嘲讽随从
-        if (ClientPlayer.MyBattleGroundManager.HasDefenceRetinue && !CardInfo.RetinueInfo.IsDefence) return false;
+        if (ClientPlayer.MyBattleGroundManager.HasDefenceRetinue && !IsDefender) return false;
         return true;
     }
 
@@ -1379,29 +1430,7 @@ public class ModuleRetinue : ModuleBase
             ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = false; //箭头动画
         }
 
-        if (CardInfo.RetinueInfo.IsDefence)
-        {
-            DefenceShow.SetActive(true);
-            DefenceHoverShow.SetActive(false);
-        }
-
-        if (CardInfo.RetinueInfo.IsFrenzy || (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsFrenzy))
-        {
-            FrenzyShow.SetActive(true);
-            FrenzyHoverShow.SetActive(false);
-        }
-
-        if (CardInfo.RetinueInfo.IsSniper)
-        {
-            SniperShow.SetActive(true);
-            SniperHoverShow.SetActive(false);
-        }
-
-        if (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsSentry)
-        {
-            SentryShow.SetActive(true);
-            SentryHoverShow.SetActive(false);
-        }
+        HideRetinueTypeLooking();
 
         DamageNumberPreviewTextMesh.text = "";
         DamageNumberPreviewBGTextMesh.text = "";
@@ -1573,16 +1602,7 @@ public class ModuleRetinue : ModuleBase
 
     private void CalculateAttackTimes()
     {
-        bool frenzy = false;
-        bool sentry = false;
-        if (M_Weapon != null)
-        {
-            frenzy |= M_Weapon.CardInfo.WeaponInfo.IsFrenzy;
-            sentry |= M_Weapon.CardInfo.WeaponInfo.IsSentry;
-        }
-
-        frenzy |= CardInfo.RetinueInfo.IsFrenzy;
-        AttackTimesThisRound = sentry ? 0 : (frenzy ? 2 : 1);
+        AttackTimesThisRound = IsSentry ? 0 : (IsFrenzy ? 2 : 1);
     }
 
     public void OnEndRound()

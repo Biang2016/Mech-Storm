@@ -44,7 +44,7 @@ public class BattleGroundManager : MonoBehaviour
         {
             foreach (ModuleRetinue retinue in Retinues)
             {
-                if (retinue.CardInfo.RetinueInfo.IsDefence) return true;
+                if (retinue.IsDefender) return true;
             }
 
             return false;
