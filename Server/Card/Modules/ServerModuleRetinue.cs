@@ -558,6 +558,56 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     #endregion
 
+    #region RetinueType
+
+    public bool IsFrenzy
+    {
+        get
+        {
+            return CardInfo.RetinueInfo.IsFrenzy ||
+                   (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsFrenzy) ||
+                   (M_Pack != null && M_Pack.CardInfo.PackInfo.IsFrenzy) ||
+                   (M_MA != null && M_MA.CardInfo.MAInfo.IsFrenzy);
+        }
+    }
+
+    public bool IsSentry
+    {
+        get { return (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsSentry); }
+    }
+
+    public bool IsSniper
+    {
+        get
+        {
+            return CardInfo.RetinueInfo.IsSniper ||
+                   (M_Pack != null && M_Pack.CardInfo.PackInfo.IsSniper) ||
+                   (M_MA != null && M_MA.CardInfo.MAInfo.IsSniper);
+        }
+    }
+
+    public bool IsDefender
+    {
+        get
+        {
+            return CardInfo.RetinueInfo.IsDefence ||
+                   (M_Shield != null && M_Shield.CardInfo.ShieldInfo.IsDefence) ||
+                   (M_Pack != null && M_Pack.CardInfo.PackInfo.IsDefence) ||
+                   (M_MA != null && M_MA.CardInfo.MAInfo.IsDefence);
+        }
+    }
+
+    public int DodgeProp
+    {
+        get
+        {
+            if (M_Pack != null) return M_Pack.CardInfo.PackInfo.DodgeProp;
+            return 0;
+        }
+    }
+
+    #endregion
+
     #region 模块交互
 
     public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理
@@ -622,6 +672,10 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
     }
 
+    public void OnDodge()
+    {
+    }
+
     private enum AttackLevel
     {
         Sword = 0,
@@ -658,51 +712,99 @@ internal class ServerModuleRetinue : ServerModuleBase
             switch (M_Weapon.M_WeaponType)
             {
                 case WeaponTypes.Sword:
+                {
                     damage = M_RetinueAttack * M_RetinueWeaponEnergy;
-                    targetRetinue.BeAttacked(damage);
-                    OnMakeDamage(damage);
-                    if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) m_RetinueWeaponEnergy++;
+                    int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.UseRandom().Next(0, 100);
+                    ServerLog.Print("randomtest" + dodgeRandomNumber);
+                    if (dodgeRandomNumber < DodgeProp) //闪避成功
+                    {
+                        targetRetinue.OnDodge();
+                    }
+                    else
+                    {
+                        targetRetinue.BeAttacked(damage);
+                        OnMakeDamage(damage);
+                        if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) m_RetinueWeaponEnergy++;
+                    }
+
                     if (canCounter) targetRetinue.Attack(this, true); //对方反击
                     break;
+                }
+
                 case WeaponTypes.Gun: //有远程武器避免反击
-                    int tmp = M_RetinueWeaponEnergy;
+                {
+                    int repeatTimes = M_RetinueWeaponEnergy;
                     if (isCounterAttack) //如果是用枪反击
                     {
-                        if (M_Weapon.CardInfo.WeaponInfo.IsFrenzy || CardInfo.RetinueInfo.IsFrenzy) //如果是狂暴枪，反击2次
+                        if (IsFrenzy) //如果是狂暴枪，反击2次
                         {
-                            tmp = 2;
+                            repeatTimes = 2;
                         }
                         else //如果是用枪反击，只反击一个子弹
                         {
-                            tmp = 1;
+                            repeatTimes = 1;
                         }
                     }
 
-                    for (int i = 0; i < tmp; i++)
+                    for (int i = 0; i < repeatTimes; i++)
                     {
-                        targetRetinue.BeAttacked(M_RetinueAttack);
-                        OnMakeDamage(M_RetinueAttack);
+                        int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.UseRandom().Next(0, 100);
+                        ServerLog.Print("randomtest" + dodgeRandomNumber);
+                        if (dodgeRandomNumber < DodgeProp) //闪避成功
+                        {
+                            targetRetinue.OnDodge();
+                        }
+                        else
+                        {
+                            targetRetinue.BeAttacked(M_RetinueAttack);
+                            OnMakeDamage(M_RetinueAttack);
+                        }
+
                         m_RetinueWeaponEnergy--;
                         if (targetRetinue.M_RetinueLeftLife <= 0 || M_RetinueWeaponEnergy <= 0) break;
                     }
 
                     if (canCounter) targetRetinue.Attack(this, true); //对方反击
                     break;
+                }
+
                 case WeaponTypes.SniperGun:
+                {
                     if (isCounterAttack) break; //狙击枪无法反击他人攻击
-                    targetRetinue.BeAttacked(M_RetinueAttack);
-                    OnMakeDamage(M_RetinueAttack);
+                    int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.UseRandom().Next(0, 100);
+                    ServerLog.Print("randomtest" + dodgeRandomNumber);
+                    if (dodgeRandomNumber < DodgeProp) //闪避成功
+                    {
+                        targetRetinue.OnDodge();
+                    }
+                    else
+                    {
+                        targetRetinue.BeAttacked(M_RetinueAttack);
+                        OnMakeDamage(M_RetinueAttack);
+                    }
+
                     m_RetinueWeaponEnergy--;
                     if (targetRetinue.M_RetinueLeftLife <= 0) break;
                     if (canCounter) targetRetinue.Attack(this, true); //对方反击
                     break;
+                }
             }
         }
         else //没有武器
         {
             damage = M_RetinueAttack;
-            targetRetinue.BeAttacked(damage);
-            OnMakeDamage(damage);
+            int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.UseRandom().Next(0, 100);
+            ServerLog.Print("randomtest" + dodgeRandomNumber);
+            if (dodgeRandomNumber < DodgeProp) //闪避成功
+            {
+                targetRetinue.OnDodge();
+            }
+            else
+            {
+                targetRetinue.BeAttacked(damage);
+                OnMakeDamage(damage);
+            }
+
             if (canCounter) targetRetinue.Attack(this, true); //对方反击
         }
 

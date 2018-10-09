@@ -1276,8 +1276,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1392296817320064}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalPosition: {x: 0.063, y: 0, z: 0.013}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children: []
   m_Father: {fileID: 4389823789822908}
   m_RootOrder: 21
@@ -1524,8 +1524,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1819517564111050}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalPosition: {x: 0, y: 0.054, z: -0.228}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children: []
   m_Father: {fileID: 4389823789822908}
   m_RootOrder: 22
@@ -3474,20 +3474,13 @@ MonoBehaviour:
   DefenceText: {fileID: 114760322793279056}
   SniperTargetImage: {fileID: 114420317154628748}
   SniperTipText: {fileID: 114033957371932888}
-  DefenceShow: {fileID: 1812574557068558}
-  DefenceHoverShow: {fileID: 1330339014261064}
-  SentryShow: {fileID: 1594938520579188}
-  SentryHoverShow: {fileID: 1598604196817840}
-  FrenzyShow: {fileID: 1349648329430046}
-  FrenzyHoverShow: {fileID: 1806765095880060}
-  SniperShow: {fileID: 1487515155195998}
-  SniperHoverShow: {fileID: 1906173591691398}
   LifeChangeNumberFly: {fileID: 114438119421423214}
   ArmorChangeNumberFly: {fileID: 114822061486557192}
   ShieldChangeNumberFly: {fileID: 114201839363463676}
   WeaponAttackChangeNumberFly: {fileID: 114233616653583758}
   WeaponEnergyChangeNumberFly: {fileID: 114594860131172770}
   ShieldDefenceNumberFly: {fileID: 114637085285589358}
+  DodgeNumberFly: {fileID: 0}
   SideEffectBGCommonIcon: {fileID: 114977499679454088}
   SideEffectCommonIcon: {fileID: 114511350290846598}
   SideEffectDieIcon: {fileID: 114867895837420552}
@@ -3497,6 +3490,14 @@ MonoBehaviour:
   isTotalLifeChanging: 0
   isAttackChanging: 0
   RetinueShieldFull: 0
+  DefenceShow: {fileID: 1812574557068558}
+  DefenceHoverShow: {fileID: 1330339014261064}
+  SentryShow: {fileID: 1594938520579188}
+  SentryHoverShow: {fileID: 1598604196817840}
+  FrenzyShow: {fileID: 1349648329430046}
+  FrenzyHoverShow: {fileID: 1806765095880060}
+  SniperShow: {fileID: 1487515155195998}
+  SniperHoverShow: {fileID: 1906173591691398}
   isFirstRound: 1
   CannotAttackBecauseDie: 0
   AttackTimesThisRound: 1

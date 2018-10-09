@@ -62,6 +62,9 @@
                     CardDescShow += string.Format(isEnglish ? "Add +{0} bullets. " : "弹药: {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
 
+                if (WeaponInfo.IsFrenzy) CardDescShow += BaseInfo.AddImportantColorToText(isEnglish ? "Frenzy. " : "狂暴, ");
+                if (WeaponInfo.IsSentry) CardDescShow += BaseInfo.AddImportantColorToText(isEnglish ? "Sentry. " : "哨戒, ");
+
                 break;
             }
             case SlotTypes.Shield:
@@ -74,6 +77,8 @@
                 {
                     CardDescShow += string.Format(isEnglish ? "Reduce damage per attack by {0}. " : "受到的伤害减少 {0} 点, ", BaseInfo.AddHightLightColorToText(ShieldInfo.Shield.ToString()));
                 }
+
+                if (ShieldInfo.IsDefence) CardDescShow += BaseInfo.AddImportantColorToText(isEnglish ? "Defence. " : "嘲讽, ");
 
                 break;
             }

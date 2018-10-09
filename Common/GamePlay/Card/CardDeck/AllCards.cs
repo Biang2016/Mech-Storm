@@ -101,11 +101,20 @@ public static class AllCards
                         equipInfo = new EquipInfo(SlotTypes.Shield);
                         break;
                     case "packInfo":
-                        packInfo = new PackInfo();
+                        packInfo = new PackInfo(
+                            cardInfo.Attributes["isFrenzy"].Value == "True",
+                            cardInfo.Attributes["isDefence"].Value == "True",
+                            cardInfo.Attributes["isSniper"].Value == "True",
+                            int.Parse(cardInfo.Attributes["dodgeProp"].Value)
+                            );
                         equipInfo = new EquipInfo(SlotTypes.Pack);
                         break;
                     case "maInfo":
-                        maInfo = new MAInfo();
+                        maInfo = new MAInfo(
+                            cardInfo.Attributes["isFrenzy"].Value == "True",
+                            cardInfo.Attributes["isDefence"].Value == "True",
+                            cardInfo.Attributes["isSniper"].Value == "True"
+                            );
                         equipInfo = new EquipInfo(SlotTypes.MA);
                         break;
                     case "sideEffectsInfo":

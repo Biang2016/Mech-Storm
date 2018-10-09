@@ -98,7 +98,7 @@ internal class ServerGameManager
     private void SyncRandomNumber()
     {
         Random rd = new Random(DateTime.Now.Millisecond);
-        int seed = rd.Next();
+        int seed = rd.Next() % 255;
         RandomNumberGenerator = new RandomNumberGenerator(seed);
 
         RandomNumberSeedRequest request = new RandomNumberSeedRequest(seed);

@@ -435,13 +435,13 @@
   <Card id="40101">
     <CardInfo name="baseInfo" pictureID="401" cardName="Pack测试" cardName_en="Pack" cardDesc="" hide="False" metal="1" energy="0" coin="100" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="packInfo" />
+    <CardInfo name="packInfo" isFrenzy="False" isDefence="False" isSniper="False" dodgeProp="30"/>
   </Card>
 
   <Card id="50101">
     <CardInfo name="baseInfo" pictureID="501" cardName="MA测试" cardName_en="MA" cardDesc="" hide="False" metal="1" energy="0" coin="100" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="maInfo" />
+    <CardInfo name="maInfo" isFrenzy="False" isDefence="False" isSniper="False" />
   </Card>
 
   <Card id="60101">
