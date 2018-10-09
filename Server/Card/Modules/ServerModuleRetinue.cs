@@ -714,7 +714,7 @@ internal class ServerModuleRetinue : ServerModuleBase
                 case WeaponTypes.Sword:
                 {
                     damage = M_RetinueAttack * M_RetinueWeaponEnergy;
-                    int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.UseRandom().Next(0, 100);
+                    int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.Range(0, 100);
                     ServerLog.Print("randomtest" + dodgeRandomNumber);
                     if (dodgeRandomNumber < DodgeProp) //闪避成功
                     {
@@ -748,7 +748,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
                     for (int i = 0; i < repeatTimes; i++)
                     {
-                        int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.UseRandom().Next(0, 100);
+                        int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.Range(0, 100);
                         ServerLog.Print("randomtest" + dodgeRandomNumber);
                         if (dodgeRandomNumber < DodgeProp) //闪避成功
                         {
@@ -771,7 +771,7 @@ internal class ServerModuleRetinue : ServerModuleBase
                 case WeaponTypes.SniperGun:
                 {
                     if (isCounterAttack) break; //狙击枪无法反击他人攻击
-                    int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.UseRandom().Next(0, 100);
+                    int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.Range(0, 100);
                     ServerLog.Print("randomtest" + dodgeRandomNumber);
                     if (dodgeRandomNumber < DodgeProp) //闪避成功
                     {
@@ -793,7 +793,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         else //没有武器
         {
             damage = M_RetinueAttack;
-            int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.UseRandom().Next(0, 100);
+            int dodgeRandomNumber = ServerPlayer.MyGameManager.RandomNumberGenerator.Range(0, 100);
             ServerLog.Print("randomtest" + dodgeRandomNumber);
             if (dodgeRandomNumber < DodgeProp) //闪避成功
             {

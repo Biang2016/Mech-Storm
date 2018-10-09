@@ -1107,7 +1107,7 @@ public class ModuleRetinue : ModuleBase
                 {
                     damage = M_RetinueAttack * M_RetinueWeaponEnergy;
                     if (!isCounterAttack) OnAttack(damage, WeaponTypes.Sword); //随从特效
-                    int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.UseRandom().Next(0, 100);
+                    int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
                     ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
                     if (dodgeRandomNumber < DodgeProp) //闪避成功
                     {
@@ -1142,7 +1142,7 @@ public class ModuleRetinue : ModuleBase
                     for (int i = 0; i < repeatTimes; i++)
                     {
                         OnAttack(damage, WeaponTypes.Gun); //随从特效
-                        int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.UseRandom().Next(0, 100);
+                        int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
                         ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
                         if (dodgeRandomNumber < DodgeProp) //闪避成功
                         {
@@ -1166,7 +1166,7 @@ public class ModuleRetinue : ModuleBase
                 {
                     if (isCounterAttack) break; //狙击枪无法反击
                     OnAttack(damage, WeaponTypes.SniperGun); //随从特效
-                    int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.UseRandom().Next(0, 100);
+                    int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
                     ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
                     if (dodgeRandomNumber < DodgeProp) //闪避成功
                     {
@@ -1188,7 +1188,7 @@ public class ModuleRetinue : ModuleBase
         else //没有武器
         {
             damage = M_RetinueAttack;
-            int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.UseRandom().Next(0, 100);
+            int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
             ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
             if (dodgeRandomNumber < DodgeProp) //闪避成功
             {
@@ -1654,7 +1654,7 @@ public class ModuleRetinue : ModuleBase
     IEnumerator Co_OnDodge()
     {
         AudioManager.Instance.SoundPlay("sfx/HitShield");
-        DodgeNumberFly.SetText((GameManager.Instance.isEnglish ? "Dodge" : "闪避"), "#AE70FF", "#AE70FF", TextFly.FlyDirection.Up);
+        DodgeNumberFly.SetText((GameManager.Instance.isEnglish ? "Dodge" : "闪避"), "#AE70FF", "#AE70FF", TextFly.FlyDirection.Up, showArrow: false);
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }

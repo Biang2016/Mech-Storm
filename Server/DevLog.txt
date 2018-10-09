@@ -249,10 +249,11 @@
 [dev] Add an affix named Sentry for weapon so that the mech can only counterattack.
 []
 
-TodoList
-X. 服务端持久化数据
-制作触发、亡语、等图标
+9th, Oct
+[dev] The arrow turns to aming pattern when targeted to equipment.
+[dev]] Add lookings for mechs of affixs.
 
+TodoList
 增加retinue的武器图标样式，普通和枪
 onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能产生伤害的标识
 
@@ -274,7 +275,4 @@ RX785，只可装备枪类武器
 
 全面加强heros，增加heros站场时间，以及hero对小兵的碾压性
 energy条用量预览显示高亮  
-hover 装备准备拆，光标变十字  1
-伤害预览逻辑修改，待验证 1
-各个随从标志如defence,sniper,sentry,frenzy 1
 

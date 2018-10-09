@@ -28,7 +28,7 @@ public class TextFly : PoolObject
     public RemoveTextFlyHandler removeTextFlyHandler;
 
 
-    public void SetText(string text, Color textColor, Color arrowColor, FlyDirection flyDirection, float duration)
+    public void SetText(string text, Color textColor, Color arrowColor, FlyDirection flyDirection, float duration,bool showArrow=true)
     {
         Text.text = text;
         TextBG.text = text;
@@ -36,6 +36,10 @@ public class TextFly : PoolObject
         TextBG.color = new Color(textColor.r / 1.5f, textColor.g / 1.5f, textColor.b / 1.5f, 1);
         UpArrow.color = arrowColor;
         DownArrow.color = arrowColor;
+
+        UpArrow.gameObject.SetActive(showArrow);
+        DownArrow.gameObject.SetActive(showArrow);
+
         if (flyDirection == FlyDirection.Up)
         {
             Anim.SetTrigger("BeginFly");
@@ -72,5 +76,6 @@ public class TextFly : PoolObject
     {
         Up,
         Down,
+        None,
     }
 }
