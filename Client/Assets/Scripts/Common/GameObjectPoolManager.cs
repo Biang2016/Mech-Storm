@@ -90,6 +90,9 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     public GameObjectPool[] Pool_HitPool;
     public PoolObject[] HitPrefab;
 
+    public GameObjectPool Pool_AffixPool;
+    public PoolObject AffixPrefab;
+
 
     void Awake()
     {
@@ -151,5 +154,8 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
         {
             Pool_HitPool[i].Initiate(HitPrefab[i], 3);
         }
+
+        Pool_AffixPool.Initiate(AffixPrefab, 10);
+
     }
 }

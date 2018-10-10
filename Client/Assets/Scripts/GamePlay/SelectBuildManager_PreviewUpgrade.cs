@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -9,11 +10,18 @@ public partial class SelectBuildManager
     [SerializeField] private Transform PreviewContent;
 
     private CardBase CurrentPreviewCard;
+
     private CardBase PreviewCard;
+
     private CardBase PreviewCardUpgrade;
     [SerializeField] private Image UpgradeArrow;
+    [SerializeField] private Transform UpgradeArrowPivot_normal;
+    [SerializeField] private Transform UpgradeArrowPivot_retinueCards;
+
     private CardBase PreviewCardDegrade;
     [SerializeField] private Image DegradeArrow;
+    [SerializeField] private Transform DegradeArrowPivot_normal;
+    [SerializeField] private Transform DegradeArrowPivot_retinueCards;
 
     [SerializeField] private Text UpgradeText;
     [SerializeField] private Text DegradeText;
@@ -42,6 +50,10 @@ public partial class SelectBuildManager
         PreviewCardPanelBG.SetActive(true);
         AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
     }
+
+
+    float normalCardPreviewDistance = 500f;
+    float retinueCardPreviewDistance = 600f;
 
     private void RefreshPreviewCard()
     {
@@ -90,7 +102,19 @@ public partial class SelectBuildManager
             PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(U_id), PreviewContent, null, true);
             PreviewCardUpgrade.transform.localScale = Vector3.one * 270;
             PreviewCardUpgrade.transform.rotation = Quaternion.Euler(90, 180, 0);
-            PreviewCardUpgrade.transform.localPosition = new Vector3(500, 50, -10);
+            if (PreviewCardUpgrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
+            {
+                PreviewCardUpgrade.transform.localPosition = new Vector3(retinueCardPreviewDistance, 50, -10);
+                UpgradeArrow.transform.position = UpgradeArrowPivot_retinueCards.position;
+            }
+            else
+            {
+                PreviewCardUpgrade.transform.localPosition = new Vector3(normalCardPreviewDistance, 50, -10);
+                UpgradeArrow.transform.position = UpgradeArrowPivot_normal.position;
+            }
+
+            UpgradeArrow.enabled = true;
+
             PreviewCardUpgrade.CardBloom.SetActive(true);
             PreviewCardUpgrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FD5400"));
             PreviewCardUpgrade.BeBrightColor();
@@ -99,8 +123,6 @@ public partial class SelectBuildManager
                 ((CardRetinue) PreviewCardUpgrade).ShowAllSlotHover();
                 ((CardRetinue) PreviewCardUpgrade).MoveCoinBGLower();
             }
-
-            UpgradeArrow.enabled = true;
         }
         else
         {
@@ -113,7 +135,17 @@ public partial class SelectBuildManager
             PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(D_id), PreviewContent, null, true);
             PreviewCardDegrade.transform.localScale = Vector3.one * 270;
             PreviewCardDegrade.transform.rotation = Quaternion.Euler(90, 180, 0);
-            PreviewCardDegrade.transform.localPosition = new Vector3(-500, 50, -10);
+            if (PreviewCardDegrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
+            {
+                PreviewCardDegrade.transform.localPosition = new Vector3(-retinueCardPreviewDistance, 50, -10);
+                DegradeArrow.transform.position = DegradeArrowPivot_retinueCards.position;
+            }
+            else
+            {
+                PreviewCardDegrade.transform.localPosition = new Vector3(-normalCardPreviewDistance, 50, -10);
+                DegradeArrow.transform.position = DegradeArrowPivot_normal.position;
+            }
+
             PreviewCardDegrade.CardBloom.SetActive(true);
             PreviewCardDegrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#0CE9FF"));
             PreviewCardDegrade.BeBrightColor();
@@ -129,6 +161,45 @@ public partial class SelectBuildManager
         {
             DegradeArrow.enabled = false;
         }
+
+        List<AffixType> AffixTypes = new List<AffixType>();
+        if (PreviewCard)
+        {
+            if (PreviewCard.CardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
+            {
+                if (!AffixTypes.Contains(AffixType.Die)) AffixTypes.Add(AffixType.Die);
+            }
+
+            if (PreviewCard.CardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self).Count != 0)
+            {
+                if (!AffixTypes.Contains(AffixType.BattleCry)) AffixTypes.Add(AffixType.BattleCry);
+            }
+
+            if (PreviewCard is CardRetinue)
+            {
+                if (PreviewCard.CardInfo.RetinueInfo.IsFrenzy)
+                {
+                    if (!AffixTypes.Contains(AffixType.Frenzy)) AffixTypes.Add(AffixType.Frenzy);
+                }
+
+                if (PreviewCard.CardInfo.RetinueInfo.IsDefence)
+                {
+                    if (!AffixTypes.Contains(AffixType.Defence)) AffixTypes.Add(AffixType.Defence);
+                }
+
+                if (PreviewCard.CardInfo.RetinueInfo.IsSniper)
+                {
+                    if (!AffixTypes.Contains(AffixType.Sniper)) AffixTypes.Add(AffixType.Sniper);
+                }
+
+                if (PreviewCard.CardInfo.RetinueInfo.IsCharger)
+                {
+                    if (!AffixTypes.Contains(AffixType.Charger)) AffixTypes.Add(AffixType.Charger);
+                }
+            }
+        }
+
+        AffixManager.Instance.ShowAffixPanel(AffixTypes);
     }
 
     private void RefreshUpgradePanel()
@@ -208,6 +279,8 @@ public partial class SelectBuildManager
             UpgradeCoinText.text = "";
             DegradeCoinText.text = "";
         }
+
+        AffixManager.Instance.HideAffixPanel();
     }
 
     public GameObject PreviewCardPanel;
@@ -276,7 +349,6 @@ public partial class SelectBuildManager
         RefreshCoinLifeEnergy();
 
         CurrentPreviewCard.Initiate(upgradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
-        CurrentPreviewCard.ShowAffixCanvas();
 
         RefreshCardInSelectWindow(CurrentPreviewCard, cardCount != 0);
         AudioManager.Instance.SoundPlay("sfx/OnMoneyChange");

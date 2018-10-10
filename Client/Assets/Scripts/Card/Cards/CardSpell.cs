@@ -120,7 +120,7 @@ public class CardSpell : CardBase
                     else
                     {
                         AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
-                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should select a " + targetRetinueRange : "请选择正确的随从", 0, 1f);
+                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should select a " + targetRetinueRange : "请选择正确的机甲", 0, 1f);
                     }
                 }
             }

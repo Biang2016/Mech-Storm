@@ -882,7 +882,7 @@ public class ModuleRetinue : ModuleBase
     {
         if (AttackTimesThisRound > 0) //如果攻击次数还未用完
         {
-            if (!CardInfo.RetinueInfo.IsFrenzy && M_Weapon.CardInfo.WeaponInfo.IsFrenzy) //如果枪械为狂暴状态(如果随从为狂暴则无效)，则增加攻击次数到2
+            if (!CardInfo.RetinueInfo.IsFrenzy && M_Weapon.CardInfo.WeaponInfo.IsFrenzy) //如果枪械为狂暴状态(如果机甲为狂暴则无效)，则增加攻击次数到2
             {
                 AttackTimesThisRound = 2;
             }
@@ -1106,7 +1106,7 @@ public class ModuleRetinue : ModuleBase
                 case WeaponTypes.Sword:
                 {
                     damage = M_RetinueAttack * M_RetinueWeaponEnergy;
-                    if (!isCounterAttack) OnAttack(damage, WeaponTypes.Sword); //随从特效
+                    if (!isCounterAttack) OnAttack(damage, WeaponTypes.Sword); //机甲特效
                     int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
                     ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
                     if (dodgeRandomNumber < DodgeProp) //闪避成功
@@ -1141,7 +1141,7 @@ public class ModuleRetinue : ModuleBase
 
                     for (int i = 0; i < repeatTimes; i++)
                     {
-                        OnAttack(damage, WeaponTypes.Gun); //随从特效
+                        OnAttack(damage, WeaponTypes.Gun); //机甲特效
                         int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
                         ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
                         if (dodgeRandomNumber < DodgeProp) //闪避成功
@@ -1165,7 +1165,7 @@ public class ModuleRetinue : ModuleBase
                 case WeaponTypes.SniperGun:
                 {
                     if (isCounterAttack) break; //狙击枪无法反击
-                    OnAttack(damage, WeaponTypes.SniperGun); //随从特效
+                    OnAttack(damage, WeaponTypes.SniperGun); //机甲特效
                     int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
                     ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
                     if (dodgeRandomNumber < DodgeProp) //闪避成功
@@ -1200,7 +1200,7 @@ public class ModuleRetinue : ModuleBase
                 OnMakeDamage(damage);
             }
 
-            OnAttack(damage, WeaponTypes.None); //随从特效
+            OnAttack(damage, WeaponTypes.None); //机甲特效
             if (canCounter) targetRetinue.Attack(this, true); //对方反击
         }
 
@@ -1210,7 +1210,7 @@ public class ModuleRetinue : ModuleBase
 
     public void AttackShip(ClientPlayer ship)
     {
-        OnAttack(0, WeaponTypes.None); //随从特效
+        OnAttack(0, WeaponTypes.None); //机甲特效
         if (M_Weapon) M_Weapon.OnAttack(); //武器特效
         AttackTimesThisRound -= 1;
         CheckCanAttack();
@@ -1458,7 +1458,7 @@ public class ModuleRetinue : ModuleBase
         if (attackRetinue == this) return false;
         if (attackRetinue.ClientPlayer == ClientPlayer) return false;
         if (RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this)) return false;
-        if (attackRetinue.M_Weapon && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽随从，其他武器只能攻击嘲讽随从
+        if (attackRetinue.M_Weapon && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽机甲，其他武器只能攻击嘲讽机甲
         if (ClientPlayer.MyBattleGroundManager.HasDefenceRetinue && !IsDefender) return false;
         return true;
     }

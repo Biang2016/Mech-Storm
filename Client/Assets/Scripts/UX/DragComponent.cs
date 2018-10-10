@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 可拖动组件，应用于卡片、人物、技能、随从、
+/// 可拖动组件，应用于卡片、人物、技能、机甲、
 /// 实现拖动过程中卡牌跟随鼠标的一段动画
 /// </summary>
 public class DragComponent : MonoBehaviour
@@ -218,7 +218,7 @@ internal interface IDragComponent
     /// </summary>
     /// <param name="boardAreaType">移动到了战场的哪个区域</param>
     /// <param name="slots">移动到了哪个slot上</param>
-    /// <param name="moduleRetinue">移动到了哪个随从上</param>
+    /// <param name="moduleRetinue">移动到了哪个机甲上</param>
     /// <param name="dragLastPosition"></param>
     void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots,
         ModuleRetinue moduleRetinue, Vector3 dragLastPosition);
@@ -228,7 +228,7 @@ internal interface IDragComponent
     /// </summary>
     /// <param name="boardAreaType">移动到了战场的哪个区域</param>
     /// <param name="slots">移动到了哪个slot上</param>
-    /// <param name="moduleRetinue">移动到了哪个随从上</param>
+    /// <param name="moduleRetinue">移动到了哪个机甲上</param>
     /// <param name="ship">移动到了哪个战舰</param>
     /// <param name="dragLastPosition">移动的最后位置</param>
     /// <param name="dragBeginPosition">移动的初始位置</param>

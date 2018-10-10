@@ -533,7 +533,7 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    #region 预召唤带有指定目标的随从
+    #region 预召唤带有指定目标的机甲
 
     private CardRetinue currentSummonRetinuePreviewCard;
     private int summonRetinuePreviewCardIndex;

@@ -42,11 +42,11 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
     private PressHoverImmediately hi_CardPressHover; //当鼠标按住牌上
     private Hover1 hi_CardFocus; //当鼠标聚焦牌上
     private Hover1 hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
-    private Hover1 hi_RetinueHoverShowTargetedBloom; //当鼠标移到到随从上时显示被瞄准的轮廓荧光
-    private Hover2 hd_ModulesFocusShowPreview; //当鼠标移到随从上一定时间后显示卡牌详情
+    private Hover1 hi_RetinueHoverShowTargetedBloom; //当鼠标移到到机甲上时显示被瞄准的轮廓荧光
+    private Hover2 hd_ModulesFocusShowPreview; //当鼠标移到机甲上一定时间后显示卡牌详情
     private PressHoverImmediately phi_SlotsPressHoverShowBloom_Target; //当Slot装备位被鼠标拖动瞄准时，显示Slot轮廓荧光
     private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
-    private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到随从上时显示被瞄准的轮廓荧光
+    private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到机甲上时显示被瞄准的轮廓荧光
     private PressHoverImmediately hd_ShipPressHoverShowTargetedBloom; //当鼠标拖拽到战舰上时显示被瞄准的轮廓荧光
 
     void Start()
@@ -88,9 +88,9 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
             SelectCardWindow, //选卡界面
             BattleNormal, //战斗一般状态
             DragEquipment, //拖动装备牌过程中
-            DragRetinueTo, //随从拖动攻击
+            DragRetinueTo, //机甲拖动攻击
             DragSpellTo, //法术牌拖动瞄准
-            SummonRetinueTargetOn, //召唤带目标的随从时，选择目标期间
+            SummonRetinueTargetOn, //召唤带目标的机甲时，选择目标期间
         }
 
         private States state;

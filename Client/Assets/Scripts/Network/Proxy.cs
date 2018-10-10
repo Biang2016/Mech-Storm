@@ -206,7 +206,7 @@ public class Proxy : ProxyBase
             {
                 RoundManager.Instance.Initialize();
             }
-            foreach (ServerRequestBase attachedRequest in request.AttachedRequests) //请求预处理，提取关键信息，如随从死亡、弃牌等会影响客户端交互的信息
+            foreach (ServerRequestBase attachedRequest in request.AttachedRequests) //请求预处理，提取关键信息，如机甲死亡、弃牌等会影响客户端交互的信息
             {
                 RoundManager.Instance.ResponseToSideEffects_PrePass(attachedRequest);
             }

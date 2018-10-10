@@ -6,7 +6,7 @@ public class BattleGroundManager : MonoBehaviour
 {
     private int retinueCount;
 
-    public int RetinueCount //接到增加随从协议就更新数量（实体后面才生成）
+    public int RetinueCount //接到增加机甲协议就更新数量（实体后面才生成）
     {
         get { return retinueCount; }
         set { retinueCount = value; }
@@ -14,7 +14,7 @@ public class BattleGroundManager : MonoBehaviour
 
     private int heroCount;
 
-    public int HeroCount //接到增加随从协议就更新数量（实体后面才生成）
+    public int HeroCount //接到增加机甲协议就更新数量（实体后面才生成）
     {
         get { return heroCount; }
         set { heroCount = value; }
@@ -22,7 +22,7 @@ public class BattleGroundManager : MonoBehaviour
 
     private int soldierCount;
 
-    public int SoldierCount //接到增加随从协议就更新数量（实体后面才生成）
+    public int SoldierCount //接到增加机甲协议就更新数量（实体后面才生成）
     {
         get { return soldierCount; }
         set { soldierCount = value; }
@@ -184,7 +184,7 @@ public class BattleGroundManager : MonoBehaviour
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main), "Co_RefreshBattleGroundAnim");
     }
 
-    public List<ModuleRetinue> RemoveRetinues = new List<ModuleRetinue>(); //即将要被移除的随从名单
+    public List<ModuleRetinue> RemoveRetinues = new List<ModuleRetinue>(); //即将要被移除的机甲名单
 
     public void RemoveRetinueTogatherAdd(int retinueId)
     {
@@ -259,7 +259,7 @@ public class BattleGroundManager : MonoBehaviour
 
     private int previewRetinuePlace;
 
-    private const int PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW = -1; //无预览召唤随从
+    private const int PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW = -1; //无预览召唤机甲
 
     public void AddRetinuePreview(int placeIndex)
     {
@@ -283,7 +283,7 @@ public class BattleGroundManager : MonoBehaviour
 
     #endregion
 
-    #region 能指定目标的随从的预召唤
+    #region 能指定目标的机甲的预召唤
 
     private static int clientRetinueTempId = 0;
 
@@ -297,7 +297,7 @@ public class BattleGroundManager : MonoBehaviour
     private CardRetinue currentSummonPreviewRetinueCard;
     public ModuleRetinue CurrentSummonPreviewRetinue;
 
-    public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的随从的召唤预览、显示指定箭头
+    public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的机甲的召唤预览、显示指定箭头
     {
         currentSummonPreviewRetinueCard = retinueCard;
         ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int) Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
@@ -324,7 +324,7 @@ public class BattleGroundManager : MonoBehaviour
     {
         while (true)
         {
-            int battleGroundIndex = GetIndexOfAliveRetinues(retinue); //确定的时候再获取位置信息（召唤的过程中可能会有协议没有跑完，会有随从生成）
+            int battleGroundIndex = GetIndexOfAliveRetinues(retinue); //确定的时候再获取位置信息（召唤的过程中可能会有协议没有跑完，会有机甲生成）
 
             if (battleGroundIndex != -1)
             {
@@ -348,7 +348,7 @@ public class BattleGroundManager : MonoBehaviour
 
     private int GetIndexOfAliveRetinues(int battleGroundIndex)
     {
-        //去除掉已经死亡但还没移除战场的随从（避免服务器指针错误）
+        //去除掉已经死亡但还没移除战场的机甲（避免服务器指针错误）
         int countDieRetinue = 0;
         for (int i = 0; i < battleGroundIndex; i++)
         {
@@ -372,7 +372,7 @@ public class BattleGroundManager : MonoBehaviour
     IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects, int retinuePlaceIndex = (int) retinuePlaceIndex.NoNewRetinue)
     {
         bool isAddRetinue = retinuePlaceIndex != (int) BattleGroundManager.retinuePlaceIndex.NoNewRetinue;
-        if (isAddRetinue) //新增随从
+        if (isAddRetinue) //新增机甲
         {
             ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
 
@@ -649,7 +649,7 @@ public class BattleGroundManager : MonoBehaviour
             }
         }
 
-        foreach (ModuleRetinue moduleRetinue in addPrePassRetinueQueue) //预加载的随从也要遍历一遍
+        foreach (ModuleRetinue moduleRetinue in addPrePassRetinueQueue) //预加载的机甲也要遍历一遍
         {
             if (moduleRetinue.M_RetinueID == retinueId)
             {
@@ -673,7 +673,7 @@ public class BattleGroundManager : MonoBehaviour
             }
         }
 
-        foreach (ModuleRetinue moduleRetinue in addPrePassRetinueQueue) //预加载的随从也要遍历一遍
+        foreach (ModuleRetinue moduleRetinue in addPrePassRetinueQueue) //预加载的机甲也要遍历一遍
         {
             if (moduleRetinue.M_RetinueID == retinueId)
             {

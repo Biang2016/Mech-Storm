@@ -154,7 +154,7 @@ public class CardRetinue : CardBase
     {
         base.DragComponent_OnMousePressed(boardAreaType, slots, moduleRetinue, dragLastPosition);
 
-        if (boardAreaType == ClientPlayer.MyBattleGroundArea && !ClientPlayer.MyBattleGroundManager.BattleGroundIsFull) //拖随从牌到战场区域
+        if (boardAreaType == ClientPlayer.MyBattleGroundArea && !ClientPlayer.MyBattleGroundManager.BattleGroundIsFull) //拖机甲牌到战场区域
         {
             int previewPosition = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
             ClientPlayer.MyBattleGroundManager.AddRetinuePreview(previewPosition);
@@ -227,7 +227,7 @@ public class CardRetinue : CardBase
 
     #region 卡牌效果
 
-    //召唤随从
+    //召唤机甲
     private void summonRetinueRequest(Vector3 dragLastPosition, int targetRetinueId)
     {
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
@@ -242,7 +242,7 @@ public class CardRetinue : CardBase
     }
 
 
-    //假召唤随从
+    //假召唤机甲
     private void summonRetinuePreview(Vector3 dragLastPosition, TargetSideEffect.TargetRange targetRange)
     {
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)

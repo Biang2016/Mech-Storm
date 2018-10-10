@@ -70,7 +70,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     }
 
     /// <summary>
-    /// 当对方场上有随从，剑及近战攻击无法攻击ship；当对方场上有Defence，枪无法攻击ship；SniperGun随时可以攻击Ship
+    /// 当对方场上有机甲，剑及近战攻击无法攻击ship；当对方场上有Defence，枪无法攻击ship；SniperGun随时可以攻击Ship
     /// </summary>
     /// <param name="attackRetinue"></param>
     /// <returns></returns>

@@ -253,6 +253,9 @@
 [dev] The arrow turns to aming pattern when targeted to equipment.
 [dev]] Add lookings for mechs of affixs.
 
+10th, Oct
+[polish] Adjust the distence between mech cards when ther're in upgrad-preview window.
+
 TodoList
 增加retinue的武器图标样式，普通和枪
 onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能产生伤害的标识

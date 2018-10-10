@@ -163,7 +163,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         }
     }
 
-    public void ShowRetinueAttackPreviewArrow(ModuleRetinue attackRetinue) //当某随从被拖出进攻时，显示可选目标标记箭头
+    public void ShowRetinueAttackPreviewArrow(ModuleRetinue attackRetinue) //当某机甲被拖出进攻时，显示可选目标标记箭头
     {
         foreach (ModuleRetinue targetRetinue in EnemyClientPlayer.MyBattleGroundManager.Retinues)
         {

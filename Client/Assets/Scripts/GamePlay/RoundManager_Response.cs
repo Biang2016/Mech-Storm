@@ -287,7 +287,7 @@ internal partial class RoundManager
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueDieShock(dieRetinues), "Co_RetinueDieShock");
     }
 
-    IEnumerator Co_RetinueDieShock(List<ModuleRetinue> dieRetinues) //随从一起死亡效果
+    IEnumerator Co_RetinueDieShock(List<ModuleRetinue> dieRetinues) //机甲一起死亡效果
     {
         int shockTimes = 3;
         AudioManager.Instance.SoundPlay("sfx/OnDie");
@@ -348,7 +348,7 @@ internal partial class RoundManager
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround(r.retinueIds), "Co_RetinueRemoveFromBattleGround");
     }
 
-    IEnumerator Co_RetinueRemoveFromBattleGround(List<int> retinueIds) //随从一起移除战场
+    IEnumerator Co_RetinueRemoveFromBattleGround(List<int> retinueIds) //机甲一起移除战场
     {
         SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogather(retinueIds);
         EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogather(retinueIds);

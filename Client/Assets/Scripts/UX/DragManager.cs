@@ -117,7 +117,7 @@ public class DragManager : MonoSingletion<DragManager>
         }
     }
 
-    # region 召唤随从指定目标预览
+    # region 召唤机甲指定目标预览
 
     internal bool IsSummonPreview;
     internal bool IsArrowShowBegin;
@@ -181,7 +181,7 @@ public class DragManager : MonoSingletion<DragManager>
                     {
                         int targetRetinueID = retinue.M_RetinueID;
                         bool isClientRetinueTempId = false;
-                        if (retinue.M_RetinueID == -1) //如果该随从还未从服务器取得ID，则用tempID
+                        if (retinue.M_RetinueID == -1) //如果该机甲还未从服务器取得ID，则用tempID
                         {
                             targetRetinueID = retinue.M_ClientTempRetinueID;
                             isClientRetinueTempId = true;
