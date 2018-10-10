@@ -131,6 +131,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         M_Desc = cardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
         Text_CardType.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
         Text_CardTypeBG.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
+        Text_CardType.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
+        Text_CardTypeBG.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
         Color cardColor = ClientUtils.HTMLColorToColor(cardInfo.GetCardColor());
         Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
         ClientUtils.ChangePictureForCard(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);

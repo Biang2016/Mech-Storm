@@ -34,7 +34,7 @@
         get { return PlayerDefaultCoin + (PlayerDefaultLife - PlayerDefaultLifeMin) * LifeToCoin + PlayerDefaultEnergy * EnergyToCoin + DrawCardNumToCoin[PlayerDefaultDrawCardNum] - DrawCardNumToCoin[PlayerMinDrawCardNum]; }
     }
 
-    public static string SoldierCardColor ="#7E7E7E";
+    public static string SoldierCardColor ="#404040";
     public static string HeroCardColor = "#00F1FF";
     public static string EnergyCardColor = "#3686FF";
     public static string SpellCardColor = "#78FF4E";

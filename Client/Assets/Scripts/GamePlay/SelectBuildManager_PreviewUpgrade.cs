@@ -51,9 +51,8 @@ public partial class SelectBuildManager
         AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
     }
 
-
     float normalCardPreviewDistance = 500f;
-    float retinueCardPreviewDistance = 600f;
+    float retinueCardPreviewDistance = 550f;
 
     private void RefreshPreviewCard()
     {
@@ -162,44 +161,19 @@ public partial class SelectBuildManager
             DegradeArrow.enabled = false;
         }
 
-        List<AffixType> AffixTypes = new List<AffixType>();
-        if (PreviewCard)
-        {
-            if (PreviewCard.CardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
-            {
-                if (!AffixTypes.Contains(AffixType.Die)) AffixTypes.Add(AffixType.Die);
-            }
-
-            if (PreviewCard.CardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self).Count != 0)
-            {
-                if (!AffixTypes.Contains(AffixType.BattleCry)) AffixTypes.Add(AffixType.BattleCry);
-            }
-
-            if (PreviewCard is CardRetinue)
-            {
-                if (PreviewCard.CardInfo.RetinueInfo.IsFrenzy)
-                {
-                    if (!AffixTypes.Contains(AffixType.Frenzy)) AffixTypes.Add(AffixType.Frenzy);
-                }
-
-                if (PreviewCard.CardInfo.RetinueInfo.IsDefence)
-                {
-                    if (!AffixTypes.Contains(AffixType.Defence)) AffixTypes.Add(AffixType.Defence);
-                }
-
-                if (PreviewCard.CardInfo.RetinueInfo.IsSniper)
-                {
-                    if (!AffixTypes.Contains(AffixType.Sniper)) AffixTypes.Add(AffixType.Sniper);
-                }
-
-                if (PreviewCard.CardInfo.RetinueInfo.IsCharger)
-                {
-                    if (!AffixTypes.Contains(AffixType.Charger)) AffixTypes.Add(AffixType.Charger);
-                }
-            }
-        }
-
+        HashSet<AffixType> AffixTypes = new HashSet<AffixType>();
+        AffixManager.Instance.GetAffixTypeByCardInfo(AffixTypes, PreviewCard.CardInfo);
+        if (PreviewCardDegrade) AffixManager.Instance.GetAffixTypeByCardInfo(AffixTypes, PreviewCardDegrade.CardInfo);
+        if (PreviewCardUpgrade) AffixManager.Instance.GetAffixTypeByCardInfo(AffixTypes, PreviewCardUpgrade.CardInfo);
         AffixManager.Instance.ShowAffixPanel(AffixTypes);
+        if (AffixTypes.Count == 0 || PreviewCardDegrade == null)
+        {
+            PreviewCardPanel.transform.position = PreviewCardPanelCenterPivot.position;
+        }
+        else
+        {
+            PreviewCardPanel.transform.position = PreviewCardPanelRightPivot.position;
+        }
     }
 
     private void RefreshUpgradePanel()
@@ -284,6 +258,8 @@ public partial class SelectBuildManager
     }
 
     public GameObject PreviewCardPanel;
+    public Transform PreviewCardPanelRightPivot;
+    public Transform PreviewCardPanelCenterPivot;
     public GameObject PreviewCardPanelBG;
     public Button UpgradeCardButton;
     public Button DegradeCardButton;

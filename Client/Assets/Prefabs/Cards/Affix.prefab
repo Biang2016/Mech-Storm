@@ -112,7 +112,7 @@ MonoBehaviour:
     m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 40
+    m_MinSize: 35
     m_MaxSize: 50
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -136,12 +136,19 @@ MonoBehaviour:
   Text: {fileID: 114740047216293004}
   BoardImage: {fileID: 114310738469739628}
   NoneColor: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 1}
-  DieColor: {r: 0.5019608, g: 0, b: 0.03137255, a: 1}
+  DieColor: {r: 0.4716981, g: 0, b: 0.035085093, a: 1}
   BattleCryColor: {r: 0.49019608, g: 0, b: 0.5019608, a: 1}
   SniperColor: {r: 0, g: 0.2, b: 0.50980395, a: 1}
   FrenzyColor: {r: 0, g: 0.3647059, b: 0.36862746, a: 1}
   DefenceColor: {r: 0, g: 0.36862746, b: 0.14509805, a: 1}
   SentryColor: {r: 0.38431373, g: 0.4627451, b: 0, a: 1}
+  ChargerColor: {r: 0.28540513, g: 0.735849, b: 0, a: 1}
+  AttackColor: {r: 0.7529412, g: 0, b: 0.08824248, a: 1}
+  ShieldColor: {r: 0, g: 0.44075757, b: 0.735849, a: 1}
+  ArmorColor: {r: 0.9529412, g: 0.5846407, b: 0, a: 1}
+  SwordColor: {r: 0.8980392, g: 0, b: 0.45644706, a: 1}
+  GunColor: {r: 0.8980392, g: 0, b: 0.45882353, a: 1}
+  SniperGunColor: {r: 0.8980392, g: 0, b: 0.45882353, a: 1}
 --- !u!222 &222052661786377938
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -208,5 +215,5 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -8.992633, y: 19.912003}
-  m_SizeDelta: {x: 440, y: 110}
+  m_SizeDelta: {x: 400, y: 110}
   m_Pivot: {x: 0, y: 0}

@@ -242,7 +242,7 @@
   </Card>
   <Card id="5401">
     <CardInfo name="baseInfo" pictureID="54" cardName="战场工兵I" cardName_en="Field Engineer" cardDesc="" hide="False" metal="1" energy="0" coin="50" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="5402" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -252,7 +252,7 @@
   </Card>
   <Card id="5402">
     <CardInfo name="baseInfo" pictureID="55" cardName="战场工兵II" cardName_en="Field Engineer" cardDesc="" hide="False" metal="2" energy="0" coin="50" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5401" cardLevel="2" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />

@@ -178,7 +178,8 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
             Client.Instance.Proxy.CancelMatch();
         }
 
-        LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientId, Client.Instance.Proxy.Username);
-        Client.Instance.Proxy.SendMessage(request);
+        Application.Quit();
+        //LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientId, Client.Instance.Proxy.Username);
+        //Client.Instance.Proxy.SendMessage(request);
     }
 }

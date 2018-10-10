@@ -46,48 +46,57 @@
         {
             case SlotTypes.Weapon:
             {
+                if (WeaponInfo.IsFrenzy) CardDescShow += AddAffixString(isEnglish, "Frenzy", "狂暴");
+                if (WeaponInfo.IsSentry) CardDescShow += AddAffixString(isEnglish, "Sentry", "哨戒");
                 if (WeaponInfo.WeaponType == WeaponTypes.Sword)
                 {
-                    CardDescShow += string.Format(isEnglish ? "Add +{0} attack. " : "攻击力: {0} 点, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
-                    CardDescShow += string.Format(isEnglish ? "Set +{0} weapon energy. " : "充能:  {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                    CardDescShow += AddAffixString(isEnglish, "Sword", "刀剑");
+                    CardDescShow += string.Format(isEnglish ? "Attack +{0}. " : "攻击 +{0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(isEnglish ? "Charge {0}. " : "充能 {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.Gun)
                 {
-                    CardDescShow += string.Format(isEnglish ? "Bullet +{0} attack. " : "弹丸伤害: {0} 点, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
-                    CardDescShow += string.Format(isEnglish ? "Add +{0} bullets. " : "弹药: {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                    CardDescShow += AddAffixString(isEnglish, "Gun", "枪");
+                    CardDescShow += string.Format(isEnglish ? "ShootAttack +{0}" : "每发伤害 +{0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(isEnglish ? "Bullets {0}. " : "弹药 {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.SniperGun)
                 {
-                    CardDescShow += string.Format(BaseInfo.AddHightLightColorToText(isEnglish ? "Sniper. " : "狙击: ") + (isEnglish ? "Bullet +{0} attack. " : "弹丸伤害: {0} 点, "), BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += AddAffixString(isEnglish, "SniperGun", "狙击枪");
+                    CardDescShow += string.Format(isEnglish ? "Bullet +{0} attack. " : "弹丸伤害: {0} 点, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
                     CardDescShow += string.Format(isEnglish ? "Add +{0} bullets. " : "弹药: {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
-
-                if (WeaponInfo.IsFrenzy) CardDescShow += BaseInfo.AddImportantColorToText(isEnglish ? "Frenzy. " : "狂暴, ");
-                if (WeaponInfo.IsSentry) CardDescShow += BaseInfo.AddImportantColorToText(isEnglish ? "Sentry. " : "哨戒, ");
 
                 break;
             }
             case SlotTypes.Shield:
             {
+                if (ShieldInfo.IsDefence) CardDescShow += AddAffixString(isEnglish, "Defence", "嘲讽");
                 if (ShieldInfo.ShieldType == ShieldTypes.Armor)
                 {
+                    CardDescShow += AddAffixString(isEnglish, "Armor", "护甲");
                     CardDescShow += string.Format(isEnglish ? "Defence {0} damage. " : "阻挡 {0} 点伤害, ", BaseInfo.AddHightLightColorToText(ShieldInfo.Armor.ToString()));
                 }
                 else if (ShieldInfo.ShieldType == ShieldTypes.Shield)
                 {
-                    CardDescShow += string.Format(isEnglish ? "Reduce damage per attack by {0}. " : "受到的伤害减少 {0} 点, ", BaseInfo.AddHightLightColorToText(ShieldInfo.Shield.ToString()));
+                    CardDescShow += AddAffixString(isEnglish, "Armor", "护盾");
+                    CardDescShow += string.Format(isEnglish ? "Reduce damage per attack by {0}. " : "受到每次伤害减少 {0} 点, ", BaseInfo.AddHightLightColorToText(ShieldInfo.Shield.ToString()));
                 }
-
-                if (ShieldInfo.IsDefence) CardDescShow += BaseInfo.AddImportantColorToText(isEnglish ? "Defence. " : "嘲讽, ");
 
                 break;
             }
             case SlotTypes.Pack:
             {
+                if (PackInfo.IsFrenzy) CardDescShow += AddAffixString(isEnglish, "Frenzy", "狂暴");
+                if (PackInfo.IsSniper) CardDescShow += AddAffixString(isEnglish, "Sniper", "狙击");
+                if (PackInfo.IsDefence) CardDescShow += AddAffixString(isEnglish, "Defence", "嘲讽");
                 break;
             }
             case SlotTypes.MA:
             {
+                if (PackInfo.IsFrenzy) CardDescShow += AddAffixString(isEnglish, "Frenzy", "狂暴");
+                if (PackInfo.IsSniper) CardDescShow += AddAffixString(isEnglish, "Sniper", "狙击");
+                if (PackInfo.IsDefence) CardDescShow += AddAffixString(isEnglish, "Defence", "嘲讽");
                 break;
             }
         }
@@ -97,6 +106,11 @@
         CardDescShow = CardDescShow.TrimEnd(",.;\n".ToCharArray());
 
         return CardDescShow;
+    }
+
+    private string AddAffixString(bool isEnglish, string english, string chinese)
+    {
+        return isEnglish ? BaseInfo.AddImportantColorToText(english) + ". " : BaseInfo.AddImportantColorToText(chinese) + ", ";
     }
 
     public override string GetCardColor()
@@ -134,7 +148,42 @@
 
     public override string GetCardTypeDesc(bool isEnglish)
     {
-        return isEnglish ? "Equip" : "装备牌";
+        switch (EquipInfo.SlotType)
+        {
+            case SlotTypes.Weapon:
+            {
+                switch (WeaponInfo.WeaponType)
+                {
+                    case WeaponTypes.Sword:
+                    {
+                        return isEnglish ? "EQ(Sword)" : "装备牌(刀剑)";
+                    }
+                    case WeaponTypes.Gun:
+                    {
+                        return isEnglish ? "EQ(Gun)" : "装备牌(枪)";
+                    }
+                    case WeaponTypes.SniperGun:
+                    {
+                        return isEnglish ? "EQ(SnpGun)" : "装备牌(狙击枪)";
+                    }
+                }
+
+                return "";
+            }
+            case SlotTypes.Shield:
+            {
+                return isEnglish ? "EQ(Shield)" : "装备牌(防具)";
+            }
+            case SlotTypes.Pack:
+            {
+                return isEnglish ? "EQ(Pack)" : "装备牌(背包)";
+            }
+            case SlotTypes.MA:
+            {
+                return isEnglish ? "EQ(MA)" : "装备牌(堡垒)";
+            }
+        }
+
+        return "";
     }
 }
-

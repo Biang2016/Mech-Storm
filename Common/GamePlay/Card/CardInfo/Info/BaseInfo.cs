@@ -46,7 +46,7 @@ public struct BaseInfo
 
     public static string AddImportantColorToText(string hightLightText)
     {
-        return "<b><color=\"" + GetImportantColor() + "\">" + hightLightText + "</color></b>";
+        return "<color=\"" + GetImportantColor() + "\">" + hightLightText + "</color>";
     }
 
     public void Serialize(DataStream writer)

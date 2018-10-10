@@ -16,7 +16,91 @@ public class AffixManager : MonoSingletion<AffixManager>
     {
     }
 
-    public void ShowAffixPanel(List<AffixType> affixTypes)
+    public void GetAffixTypeByCardInfo(HashSet<AffixType> affixTypes, CardInfo_Base cardInfo)
+    {
+        if (cardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
+        {
+            affixTypes.Add(AffixType.Die);
+        }
+
+        if (cardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self).Count != 0)
+        {
+            affixTypes.Add(AffixType.BattleCry);
+        }
+
+        if (cardInfo.RetinueInfo.IsFrenzy || cardInfo.WeaponInfo.IsFrenzy || cardInfo.PackInfo.IsFrenzy || cardInfo.MAInfo.IsFrenzy)
+        {
+            affixTypes.Add(AffixType.Frenzy);
+        }
+
+        if (cardInfo.RetinueInfo.IsDefence || cardInfo.ShieldInfo.IsDefence || cardInfo.PackInfo.IsDefence || cardInfo.MAInfo.IsDefence)
+        {
+            affixTypes.Add(AffixType.Defence);
+        }
+
+        if (cardInfo.RetinueInfo.IsSniper || cardInfo.PackInfo.IsSniper || cardInfo.MAInfo.IsSniper)
+        {
+            affixTypes.Add(AffixType.Sniper);
+        }
+
+        if (cardInfo.RetinueInfo.IsCharger)
+        {
+            affixTypes.Add(AffixType.Charger);
+        }
+
+        if (cardInfo.WeaponInfo.IsSentry)
+        {
+            affixTypes.Add(AffixType.Sentry);
+        }
+
+        if (cardInfo.BaseInfo.CardType == CardTypes.Equip && cardInfo.EquipInfo.SlotType == SlotTypes.Shield)
+        {
+            if (cardInfo.ShieldInfo.ShieldType == ShieldTypes.Armor)
+            {
+                affixTypes.Add(AffixType.Armor);
+            }
+
+            if (cardInfo.ShieldInfo.ShieldType == ShieldTypes.Shield)
+            {
+                affixTypes.Add(AffixType.Shield);
+            }
+        }
+
+        if (cardInfo.BattleInfo.BasicAttack != 0)
+        {
+            affixTypes.Add(AffixType.Attack);
+        }
+
+        if (cardInfo.BattleInfo.BasicArmor != 0)
+        {
+            affixTypes.Add(AffixType.Armor);
+        }
+
+        if (cardInfo.BattleInfo.BasicShield != 0)
+        {
+            affixTypes.Add(AffixType.Shield);
+        }
+
+        if (cardInfo.BaseInfo.CardType == CardTypes.Equip && cardInfo.EquipInfo.SlotType == SlotTypes.Weapon)
+        {
+            if (cardInfo.WeaponInfo.WeaponType == WeaponTypes.Sword)
+            {
+                affixTypes.Add(AffixType.Sword);
+            }
+
+            if (cardInfo.WeaponInfo.WeaponType == WeaponTypes.Gun)
+            {
+                affixTypes.Add(AffixType.Gun);
+            }
+
+            if (cardInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
+            {
+                affixTypes.Add(AffixType.SniperGun);
+            }
+        }
+    }
+
+    public void ShowAffixPanel(HashSet<AffixType> affixTypes)
     {
         ClearAllAffixs();
         AddAffixs(affixTypes);
@@ -28,7 +112,7 @@ public class AffixManager : MonoSingletion<AffixManager>
         AffixPanelAnim.SetTrigger("Hide");
     }
 
-    private void AddAffixs(List<AffixType> affixTypes)
+    private void AddAffixs(HashSet<AffixType> affixTypes)
     {
         foreach (AffixType affixType in affixTypes)
         {
@@ -73,5 +157,4 @@ public class AffixManager : MonoSingletion<AffixManager>
 
         Affixs.Clear();
     }
-
 }
