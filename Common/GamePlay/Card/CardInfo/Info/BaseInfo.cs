@@ -6,6 +6,7 @@ public struct BaseInfo
     public string CardName;
     public string CardName_en;
     public string CardDescRaw;
+    public bool IsTemp;
     public bool Hide;
     public int Metal;
     public int Energy;
@@ -14,12 +15,13 @@ public struct BaseInfo
     public DragPurpose DragPurpose;
     public CardTypes CardType;
 
-    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, bool hide, int metal, int energy, int coin, int effectFactor, DragPurpose dragPurpose, CardTypes cardType)
+    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, bool isTemp, bool hide, int metal, int energy, int coin, int effectFactor, DragPurpose dragPurpose, CardTypes cardType)
     {
         PictureID = pictureID;
         CardName = cardName;
         CardName_en = cardName_en;
         CardDescRaw = cardDescRaw;
+        IsTemp = isTemp;
         Hide = hide;
         Metal = metal;
         Energy = energy;
@@ -56,6 +58,7 @@ public struct BaseInfo
         writer.WriteString8(CardName_en);
         writer.WriteString8(CardDescRaw);
         writer.WriteByte(Hide ? (byte) 0x01 : (byte) 0x00);
+        writer.WriteByte(IsTemp ? (byte) 0x01 : (byte) 0x00);
         writer.WriteSInt32(Metal);
         writer.WriteSInt32(Energy);
         writer.WriteSInt32(Coin);
@@ -70,6 +73,7 @@ public struct BaseInfo
         string CardName = reader.ReadString8();
         string CardName_en = reader.ReadString8();
         string CardDesc = reader.ReadString8();
+        bool IsTemp = reader.ReadByte() == 0x01;
         bool Hide = reader.ReadByte() == 0x01;
         int Metal = reader.ReadSInt32();
         int Energy = reader.ReadSInt32();
@@ -77,8 +81,24 @@ public struct BaseInfo
         int EffectFactor = reader.ReadSInt32();
         DragPurpose DragPurpose = (DragPurpose) reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
-        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, Hide, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType);
+        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, IsTemp, Hide, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType);
     }
+
+    public static Dictionary<CardTypes, string> CardTypeNameDict_en = new Dictionary<CardTypes, string>
+    {
+        {CardTypes.Retinue, "Mech"},
+        {CardTypes.Spell, "Spell"},
+        {CardTypes.Energy, "Energy"},
+        {CardTypes.Equip, "Equip"},
+    };
+
+    public static Dictionary<CardTypes, string> CardTypeNameDict = new Dictionary<CardTypes, string>
+    {
+        {CardTypes.Retinue, "机甲牌"},
+        {CardTypes.Spell, "法术牌"},
+        {CardTypes.Energy, "能量牌"},
+        {CardTypes.Equip, "装备牌"},
+    };
 }
 
 public enum CardTypes

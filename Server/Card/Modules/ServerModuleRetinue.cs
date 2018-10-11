@@ -283,7 +283,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (m_Weapon != null)
         {
-            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
+            if (!M_Weapon.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Weapon.M_EquipID));
             m_Weapon.UnRegisterSideEffect();
 
@@ -326,7 +326,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (m_Weapon != null)
         {
-            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
+            if (!M_Weapon.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
             m_Weapon.UnRegisterSideEffect();
         }
 
@@ -378,7 +378,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (m_Shield != null)
         {
-            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
+            if (!M_Shield.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Shield.M_EquipID));
             m_Shield.UnRegisterSideEffect();
 
@@ -415,7 +415,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (m_Shield != null)
         {
-            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
+            if (!M_Shield.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
             m_Shield.UnRegisterSideEffect();
         }
 
@@ -463,7 +463,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (m_Pack != null)
         {
-            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
+            if (!M_Pack.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Pack.M_EquipID));
             m_Pack.UnRegisterSideEffect();
 
@@ -484,7 +484,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (m_Pack != null)
         {
-            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
+            if (!M_Pack.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
             m_Pack.UnRegisterSideEffect();
         }
 
@@ -524,7 +524,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (m_MA != null)
         {
-            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
+            if (!M_MA.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_MA.M_EquipID));
             m_MA.UnRegisterSideEffect();
 
@@ -545,7 +545,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (m_MA != null)
         {
-            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
+            if (!M_MA.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
             m_MA.UnRegisterSideEffect();
         }
 

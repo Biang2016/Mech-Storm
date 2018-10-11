@@ -11,18 +11,19 @@ public class CardDeck
     private List<CardInfo_Base> Cards = new List<CardInfo_Base>();
     private List<CardInfo_Base> AbandonCards = new List<CardInfo_Base>();
 
-    public bool IsEmpty = false;
-    public bool IsAbandonCardsEmpty = false;
+    public bool IsEmpty
+    {
+        get { return Cards.Count == 0; }
+    }
+
+    public bool IsAbandonCardsEmpty
+    {
+        get { return AbandonCards.Count == 0; }
+    }
 
     public delegate void OnCardDeckCountChange(int count);
 
     public OnCardDeckCountChange CardDeckCountChangeHandler;
-
-    private void checkEmpty()
-    {
-        IsEmpty = Cards.Count == 0;
-        IsAbandonCardsEmpty = AbandonCards.Count == 0;
-    }
 
     public int CardCount()
     {
@@ -34,51 +35,38 @@ public class CardDeck
         M_BuildInfo = cdi;
         CardDeckCountChangeHandler = handler;
         AppendCards(AllCards.GetCards(M_BuildInfo.CardIDs.ToArray()));
-        checkEmpty();
         if (GamePlaySettings.SuffleBuild) SuffleSelf();
     }
 
     private void AddCard(CardInfo_Base cardInfo, int index)
     {
         Cards.Insert(index, cardInfo);
-        checkEmpty();
         CardDeckCountChangeHandler(Cards.Count);
     }
 
     private void AppendCard(CardInfo_Base cardInfo)
     {
         Cards.Add(cardInfo);
-        checkEmpty();
         CardDeckCountChangeHandler(Cards.Count);
     }
 
     private void AppendCards(List<CardInfo_Base> cardInfos)
     {
         Cards.AddRange(cardInfos);
-        checkEmpty();
         CardDeckCountChangeHandler(Cards.Count);
     }
 
     private void RemoveCard(CardInfo_Base cardInfo)
     {
         Cards.Remove(cardInfo);
-        checkEmpty();
         CardDeckCountChangeHandler(Cards.Count);
     }
 
-    private void RemoveCards(List<CardInfo_Base> cardInfos)
+    public void RandomInsertTempCard(int cardId)
     {
-        int before = Cards.Count;
-        foreach (CardInfo_Base cardInfoBase in cardInfos)
-        {
-            Cards.Remove(cardInfoBase);
-        }
-
-        checkEmpty();
-        for (int i = before - 1; i >= Cards.Count; i--)
-        {
-            CardDeckCountChangeHandler(i);
-        }
+        CardInfo_Base cb = AllCards.GetCard(cardId);
+        int index = new Random().Next(0, Cards.Count);
+        AddCard(cb, index);
     }
 
     public CardInfo_Type FindATypeOfCard<CardInfo_Type>() where CardInfo_Type : CardInfo_Base
@@ -120,7 +108,6 @@ public class CardDeck
         {
             CardInfo_Base res = Cards[0];
             RemoveCard(res);
-            checkEmpty();
             return res;
         }
         else
@@ -140,7 +127,6 @@ public class CardDeck
         foreach (CardInfo_Base cb in resList)
         {
             RemoveCard(cb);
-            checkEmpty();
         }
 
         return resList;
@@ -195,48 +181,26 @@ public class CardDeck
         }
     }
 
-    public bool GetASoldierCardToTheTop()
+    public int PutCardToTopByType(CardTypes cardType, int number)
     {
-        CardInfo_Base target_cb = null;
+        List<CardInfo_Base> res = new List<CardInfo_Base>();
         foreach (CardInfo_Base cb in Cards)
         {
-            if (cb.BaseInfo.CardType == CardTypes.Retinue && cb.RetinueInfo.IsSoldier)
+            if (cb.BaseInfo.CardType == cardType)
             {
-                target_cb = cb;
-                break;
+                number--;
+                res.Add(cb);
+                if (number == 0) break;
             }
         }
 
-        if (target_cb != null)
+        foreach (CardInfo_Base cb in res)
         {
-            RemoveCard(target_cb);
-            AddCard(target_cb, 0);
-            return true;
+            RemoveCard(cb);
+            AddCard(cb, 0);
         }
 
-        return false;
-    }
-
-    public bool GetAHeroCardToTheTop()
-    {
-        CardInfo_Base target_cb = null;
-        foreach (CardInfo_Base cb in Cards)
-        {
-            if (cb.BaseInfo.CardType == CardTypes.Retinue && !cb.RetinueInfo.IsSoldier)
-            {
-                target_cb = cb;
-                break;
-            }
-        }
-
-        if (target_cb != null)
-        {
-            RemoveCard(target_cb);
-            AddCard(target_cb, 0);
-            return true;
-        }
-
-        return false;
+        return res.Count;
     }
 
     private Dictionary<int, int> CardInstanceIdDict = new Dictionary<int, int>();
@@ -270,7 +234,6 @@ public class CardDeck
             AppendCard(ac);
         }
 
-        checkEmpty();
         AbandonCards.Clear();
         Suffle(Cards);
     }

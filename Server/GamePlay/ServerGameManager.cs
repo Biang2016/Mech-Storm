@@ -71,12 +71,12 @@ internal class ServerGameManager
         int PB_MAGIC = ClientB.CurrentBuildInfo.Energy;
 
         PlayerA = new ServerPlayer(ClientA.UserName, ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginMetal, PA_LIFE, PA_LIFE, 0, PA_MAGIC, this);
-        PlayerA.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange);
+        PlayerA.MyCardDeckManager.CardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange);
         PlayerA.MyClientProxy = ClientA;
 
         PlayerB = new ServerPlayer(ClientB.UserName, ClientB.ClientId, ClientA.ClientId, 0, GamePlaySettings.BeginMetal, PB_LIFE, PB_LIFE, 0, PB_MAGIC, this);
-        PlayerB.MyCardDeckManager.M_CurrentCardDeck = new CardDeck(ClientB.CurrentBuildInfo, PlayerB.OnCardDeckLeftChange);
-        PlayerB.MyCardDeckManager.M_CurrentCardDeck.CardDeckCountChangeHandler += PlayerB.OnCardDeckLeftChange;
+        PlayerB.MyCardDeckManager.CardDeck = new CardDeck(ClientB.CurrentBuildInfo, PlayerB.OnCardDeckLeftChange);
+        PlayerB.MyCardDeckManager.CardDeck.CardDeckCountChangeHandler += PlayerB.OnCardDeckLeftChange;
         PlayerB.MyClientProxy = ClientB;
 
         PlayerA.MyEnemyPlayer = PlayerB;
@@ -153,7 +153,7 @@ internal class ServerGameManager
 
     void OnDrawCardPhase()
     {
-        CurrentPlayer.MyHandManager.DrawCards(CurrentPlayer.MyCardDeckManager.M_CurrentCardDeck.M_BuildInfo.DrawCardNum);
+        CurrentPlayer.MyHandManager.DrawCards(CurrentPlayer.MyCardDeckManager.CardDeck.M_BuildInfo.DrawCardNum);
     }
 
     public void EndRound()

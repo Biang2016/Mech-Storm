@@ -51,6 +51,7 @@ public static class AllCards
                             cardInfo.Attributes["cardName"].Value,
                             cardInfo.Attributes["cardName_en"].Value,
                             cardInfo.Attributes["cardDesc"].Value.Replace("\\n", "\n"),
+                            cardInfo.Attributes["isTemp"].Value == "True",
                             cardInfo.Attributes["hide"].Value == "True",
                             int.Parse(cardInfo.Attributes["metal"].Value),
                             int.Parse(cardInfo.Attributes["energy"].Value),
@@ -145,6 +146,9 @@ public static class AllCards
                                     case "TargetRange":
                                         fi.SetValue(sideEffect, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
                                         break;
+                                    case "CardTypes":
+                                        fi.SetValue(sideEffect, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
+                                        break;
                                 }
                             }
 
@@ -182,7 +186,10 @@ public static class AllCards
                                     case "TargetRange":
                                         fi.SetValue(sideEffect, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
                                         break;
-                                }
+                                    case "CardTypes":
+                                        fi.SetValue(sideEffect, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
+                                        break;
+                                    }
                             }
 
                             sideEffects_OnBattleGround.AddSideEffect(sideEffect, triggerTime, triggerRange);
@@ -243,7 +250,7 @@ public static class AllCards
     {
         if (CardDict.ContainsKey(cardID))
         {
-            return CardDict[cardID];
+            return CardDict[cardID].Clone();
         }
         else
         {

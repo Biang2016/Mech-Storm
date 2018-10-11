@@ -12,9 +12,11 @@ internal class ServerHandManager
         ServerPlayer = serverPlayer;
     }
 
+    #region DrawCards
+
     internal void DrawCards(int cardNumber)
     {
-        int maxDrawCardNumber = Math.Min(Math.Min(cardNumber, GamePlaySettings.MaxHandCard - cards.Count), ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.CardCount());
+        int maxDrawCardNumber = Math.Min(Math.Min(cardNumber, GamePlaySettings.MaxHandCard - cards.Count), ServerPlayer.MyCardDeckManager.CardDeck.CardCount());
         if (maxDrawCardNumber != cardNumber)
         {
             DrawCards(maxDrawCardNumber);
@@ -23,17 +25,25 @@ internal class ServerHandManager
 
         List<DrawCardRequest.CardIdAndInstanceId> cardInfos = new List<DrawCardRequest.CardIdAndInstanceId>();
 
-        for (int i = 0; i < maxDrawCardNumber; i++)
+        foreach (CardInfo_Base cb in ServerPlayer.MyCardDeckManager.DrawCardsOnTop(maxDrawCardNumber))
         {
-            CardInfo_Base newCardsInfo = ServerPlayer.MyCardDeckManager.DrawCardOnTop();
-            ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardsInfo, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
+            ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cb, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
             cards.Add(newCard);
-            ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId);
+            ServerPlayer.MyCardDeckManager.CardDeck.AddCardInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId);
             cardInfos.Add(new DrawCardRequest.CardIdAndInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId));
         }
 
         OnPlayerGetCards(cardInfos);
     }
+
+    internal void DrawCardsByType(CardTypes cardType, int number)
+    {
+        List<CardInfo_Base> newCardInfos = ServerPlayer.MyCardDeckManager.PutCardsOnTopByType(cardType, number);
+        DrawCards(newCardInfos.Count);
+    }
+
+    #endregion
+
 
     internal void GetACardByID(int cardID)
     {
@@ -43,14 +53,6 @@ internal class ServerHandManager
         cards.Add(newCard);
     }
 
-    internal void DrawSoldierCard()
-    {
-        CardInfo_Base newCardInfo = ServerPlayer.MyCardDeckManager.DrawSoldierCard();
-        if (newCardInfo == null) return;
-        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(newCardInfo, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
-        OnPlayerGetCard(newCardInfo.CardID, newCard.M_CardInstanceId);
-        cards.Add(newCard);
-    }
 
     public void OnPlayerGetCard(int cardId, int cardInstanceId)
     {
@@ -79,7 +81,7 @@ internal class ServerHandManager
         DropCardRequest request = new DropCardRequest(ServerPlayer.ClientId, cards.IndexOf(dropCard));
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         cards.Remove(dropCard);
-        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
+        if (!dropCard.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
     }
 
     internal void UseCard(int cardInstanceId, Vector3 lastDragPosition)
@@ -105,7 +107,14 @@ internal class ServerHandManager
                 cardInstanceId: cardInstanceId,
                 targetEquipId: targetEquipId));
 
-        if (useCard.CardInfo.BaseInfo.CardType == CardTypes.Spell || useCard.CardInfo.BaseInfo.CardType == CardTypes.Energy) ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(cardInstanceId);
+        if (!useCard.CardInfo.BaseInfo.IsTemp)
+        {
+            if (useCard.CardInfo.BaseInfo.CardType == CardTypes.Spell || useCard.CardInfo.BaseInfo.CardType == CardTypes.Energy)
+            {
+                ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(cardInstanceId);
+            }
+        }
+
         useCard.UnRegisterSideEffect();
         cards.Remove(useCard);
     }

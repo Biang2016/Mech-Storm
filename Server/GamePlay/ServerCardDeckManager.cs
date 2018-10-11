@@ -12,63 +12,53 @@ internal class ServerCardDeckManager
         ServerPlayer = serverPlayer;
     }
 
-    private CardDeck m_CurrentCardDeck;
+    public CardDeck CardDeck;
 
-    public CardDeck M_CurrentCardDeck
+    public List<CardInfo_Base> PutCardsOnTopByType(CardTypes cardType, int number)
     {
-        get { return m_CurrentCardDeck; }
-        set { m_CurrentCardDeck = value; }
-    }
-
-    public CardInfo_Base DrawSoldierCard()
-    {
-        if (M_CurrentCardDeck.IsEmpty)
+        List<CardInfo_Base> res = new List<CardInfo_Base>();
+        if (CardDeck.IsEmpty)
         {
             return null;
         }
 
-        bool success = M_CurrentCardDeck.GetASoldierCardToTheTop();
-        if (success)
+        int count = CardDeck.PutCardToTopByType(cardType, number);
+        for (int i = 0; i < count; i++)
         {
-            CardInfo_Base newCardInfoBase = DrawCardOnTop();
-            return newCardInfoBase;
+            res.Add(DrawCardOnTop());
         }
-        else
-        {
-            return null;
-        }
+
+        return res;
     }
 
     public CardInfo_Base DrawCardOnTop()
     {
-        if (M_CurrentCardDeck.IsEmpty)
+        if (CardDeck.IsEmpty)
         {
             return null;
         }
 
-        CardInfo_Base newCardInfoBase = M_CurrentCardDeck.DrawCardOnTop();
+        CardInfo_Base newCardInfoBase = CardDeck.DrawCardOnTop();
         return newCardInfoBase;
     }
 
-    public List<CardInfo_Base> DrawCardsOnTop(int cardNumber)
+    public List<CardInfo_Base> DrawCardsOnTop(int number)
     {
-        if (M_CurrentCardDeck.IsEmpty)
+        if (CardDeck.IsEmpty)
         {
             return new List<CardInfo_Base>();
         }
 
-        List<CardInfo_Base> newCardInfoBases = M_CurrentCardDeck.DrawCardsOnTop(cardNumber);
-        List<int> cardIds = new List<int>();
-        foreach (CardInfo_Base newCardInfoBase in newCardInfoBases)
-        {
-            cardIds.Add(newCardInfoBase.CardID);
-        }
+        return CardDeck.DrawCardsOnTop(number);
+    }
 
-        return newCardInfoBases;
+    public void RandomInsertTempCard(int cardId)
+    {
+        CardDeck.RandomInsertTempCard(cardId);
     }
 
     public void BeginRound()
     {
-        M_CurrentCardDeck.AbandonCardRecycle();
+        CardDeck.AbandonCardRecycle();
     }
 }

@@ -44,8 +44,8 @@
 
     public override string GetCardTypeDesc(bool isEnglish)
     {
-        if (BaseInfo.CardType == CardTypes.Spell) return isEnglish ? "Spell" : "法术牌";
-        else if (BaseInfo.CardType == CardTypes.Energy) return isEnglish ? "Energy" : "能量牌";
-        return null;
+        string cardTypeName = "";
+        cardTypeName = isEnglish ? BaseInfo.CardTypeNameDict_en[BaseInfo.CardType] : BaseInfo.CardTypeNameDict[BaseInfo.CardType];
+        return cardTypeName;
     }
 }

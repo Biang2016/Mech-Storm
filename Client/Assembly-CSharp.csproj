@@ -78,8 +78,10 @@
     <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
     <Compile Include="Assets\Scripts\Card\Number\TextFly.cs" />
     <Compile Include="Assets\Scripts\Card\Number\TextFlyPile.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToDeck.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawCards.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackOne.cs" />

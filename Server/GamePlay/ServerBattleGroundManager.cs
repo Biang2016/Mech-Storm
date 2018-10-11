@@ -9,10 +9,7 @@ internal class ServerBattleGroundManager
     public int RetinueCount
     {
         get { return retinueCount; }
-        set
-        {
-            retinueCount = value;
-        }
+        set { retinueCount = value; }
     }
 
     private int heroCount;
@@ -20,10 +17,7 @@ internal class ServerBattleGroundManager
     public int HeroCount
     {
         get { return heroCount; }
-        set
-        {
-            heroCount = value;
-        }
+        set { heroCount = value; }
     }
 
     private int soldierCount;
@@ -31,10 +25,7 @@ internal class ServerBattleGroundManager
     public int SoldierCount
     {
         get { return soldierCount; }
-        set
-        {
-            soldierCount = value;
-        }
+        set { soldierCount = value; }
     }
 
     public bool BattleGroundIsFull
@@ -120,7 +111,7 @@ internal class ServerBattleGroundManager
             HeroCount = Heros.Count;
         }
 
-        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.RecycleCardInstanceID(retinue.OriginCardInstanceId);
+        if (!retinue.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(retinue.OriginCardInstanceId);
         retinue.UnRegisterSideEffect();
         PrintRetinueInfos();
     }
@@ -151,7 +142,7 @@ internal class ServerBattleGroundManager
         retinue.OriginCardInstanceId = handCardInstanceId;
         retinue.Initiate(retinueCardInfo, ServerPlayer);
 
-        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(retinueCardInfo.CardID, handCardInstanceId);
+        ServerPlayer.MyCardDeckManager.CardDeck.AddCardInstanceId(retinueCardInfo.CardID, handCardInstanceId);
 
         BattleGroundAddRetinue(retinuePlaceIndex, retinue);
 
@@ -172,7 +163,7 @@ internal class ServerBattleGroundManager
         weapon.Initiate(cardInfo_Weapon, ServerPlayer);
         weapon.OriginCardInstanceId = r.handCardInstanceId;
         retinue.M_Weapon = weapon;
-        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
+        ServerPlayer.MyCardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
     public void EquipShield(EquipShieldRequest r, CardInfo_Base cardInfo)
@@ -186,7 +177,7 @@ internal class ServerBattleGroundManager
         shield.Initiate(cardInfo_Shield, ServerPlayer);
         shield.OriginCardInstanceId = r.handCardInstanceId;
         retinue.M_Shield = shield;
-        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
+        ServerPlayer.MyCardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
     public void EquipPack(EquipPackRequest r, CardInfo_Base cardInfo)
@@ -200,7 +191,7 @@ internal class ServerBattleGroundManager
         pack.Initiate(cardInfo_Pack, ServerPlayer);
         pack.OriginCardInstanceId = r.handCardInstanceId;
         retinue.M_Pack = pack;
-        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
+        ServerPlayer.MyCardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
     public void EquipMA(EquipMARequest r, CardInfo_Base cardInfo)
@@ -214,7 +205,7 @@ internal class ServerBattleGroundManager
         ma.Initiate(cardInfo_MA, ServerPlayer);
         ma.OriginCardInstanceId = r.handCardInstanceId;
         retinue.M_MA = ma;
-        ServerPlayer.MyCardDeckManager.M_CurrentCardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
+        ServerPlayer.MyCardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
     public void KillAllRetinues()

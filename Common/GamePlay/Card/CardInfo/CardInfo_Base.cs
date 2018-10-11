@@ -44,7 +44,7 @@ public class CardInfo_Base
 
     public virtual CardInfo_Base Clone()
     {
-        return new CardInfo_Base(CardID, BaseInfo, SideEffects.Clone(), SideEffects_OnBattleGround.Clone());
+        return new CardInfo_Base(CardID,  BaseInfo, SideEffects.Clone(), SideEffects_OnBattleGround.Clone());
     }
 
     public void Serialize(DataStream writer)

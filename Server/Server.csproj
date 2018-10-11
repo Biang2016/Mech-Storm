@@ -52,6 +52,8 @@
     <Compile Include="Card\Modules\ServerModuleWeapon.cs" />
     <Compile Include="Card\Modules\ServerModuleBase.cs" />
     <Compile Include="Card\Modules\ServerModuleRetinue.cs" />
+    <Compile Include="Card\SideEffects\CardRelatedSideEffects\AddTempCardToDeck.cs" />
+    <Compile Include="Card\SideEffects\CardRelatedSideEffects\DrawTypeCards.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseEnergy.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\CopyNextDrawCard.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\DrawCards.cs" />
