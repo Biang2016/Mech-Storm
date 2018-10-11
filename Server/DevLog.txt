@@ -258,6 +258,7 @@
 
 11th, Oct
 [dev] Add the Affix-tip system.
+[dev] Add some SideEffects: Sacrifice & HalfShield
 
 TodoList
 增加retinue的武器图标样式，普通和枪
