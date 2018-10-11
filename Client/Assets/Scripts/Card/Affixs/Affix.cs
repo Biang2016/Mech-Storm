@@ -160,7 +160,7 @@ public class Affix : PoolObject
         {AffixType.Sentry, "Cannot attack but can counterattack."},
         {AffixType.Charger, "Can attack immediately after summoned."},
 
-        {AffixType.Attack, "Damage equals to attack value when no weapon. Attack value can be added to its weapons'."},
+        {AffixType.Attack, "Damage equals to attack value without weapon. Attack value can be added to its weapons'."},
         {AffixType.Shield, "Immune to all damage that lower than shield value. Be injured by overflow damage."},
         {AffixType.Armor, "Defence the part of damage equal to armor value."},
         {AffixType.Dodge, "Has probability(PR) to avoid attacks."},

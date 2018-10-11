@@ -127,13 +127,13 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
-        M_Name = GameManager.Instance.isEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
-        M_Desc = cardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
+        M_Name = (GameManager.Instance.isEnglish ? CardInfo.BaseInfo.CardName_en : CardInfo.BaseInfo.CardName) + (CardInfo.BaseInfo.IsTemp ? "*" : "");
+        M_Desc = CardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
         Text_CardType.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
         Text_CardTypeBG.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
         Text_CardType.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
         Text_CardTypeBG.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
-        Color cardColor = ClientUtils.HTMLColorToColor(cardInfo.GetCardColor());
+        Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
         Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
         ClientUtils.ChangePictureForCard(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
@@ -486,7 +486,13 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        canDrag = !IsFlying && Usable && ClientPlayer.MyHandManager.CurrentFocusCard == this && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
+        if (IsFlying)
+        {
+            iTween.Stop(gameObject);
+            IsFlying = false;
+        }
+
+        canDrag = Usable && ClientPlayer.MyHandManager.CurrentFocusCard == this && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
         dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 
@@ -503,7 +509,13 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public virtual void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {
-        if (CanBecomeBigger && !IsFlying)
+        if (IsFlying)
+        {
+            iTween.Stop(gameObject);
+            IsFlying = false;
+        }
+
+        if (CanBecomeBigger)
         {
             ClientPlayer.MyHandManager.CardOnMouseEnter(this);
         }

@@ -479,7 +479,7 @@
     </CardInfo>
   </Card>
   <Card id="60409">
-    <CardInfo name="baseInfo" pictureID="604" cardName="蝴蝶效应*" cardName_en="Butterfly Effect*" cardDesc="" isTemp="True" hide="True" metal="0" energy="1" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="604" cardName="蝴蝶效应" cardName_en="Butterfly Effect" cardDesc="" isTemp="True" hide="True" metal="0" energy="1" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="DrawCards" Value="1"></SideEffect>

@@ -195,10 +195,13 @@ public class HandManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        cardBase.OnPlayOut();
-
-        current_SubCo_ShowCardForTime = SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.Instance.ShowCardDuration);
-        StartCoroutine(current_SubCo_ShowCardForTime);
+        if (cardBase)
+        {
+            cardBase.OnPlayOut();
+            current_SubCo_ShowCardForTime = SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.Instance.ShowCardDuration);
+            StartCoroutine(current_SubCo_ShowCardForTime);
+        }
+       
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }

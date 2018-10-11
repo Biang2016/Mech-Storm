@@ -117,7 +117,7 @@
     <params name="Value" type="int"></params>
     <params name="DrawCardType" type="enum"></params>
   </SideEffect>
-  <SideEffect id="26" name="AddTempCardToDeck" desc="将{0}张{1}放入你的牌堆, " desc_en="Put {0} {1} into your deck. ">
+  <SideEffect id="26" name="AddTempCardToDeck" desc="将{0}张临时的{1}放入你的牌堆, " desc_en="Put {0} temporary {1} into your deck. ">
     <params name="Value" type="int"></params>
     <params name="CardId" type="int"></params>
   </SideEffect>
