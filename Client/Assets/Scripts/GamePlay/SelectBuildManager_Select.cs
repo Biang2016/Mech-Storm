@@ -261,11 +261,14 @@ public partial class SelectBuildManager
         currentPreviewCard.CardBloom.SetActive(true);
         currentPreviewCard.CoinImageBG.enabled = true;
         currentPreviewCard.CoinImageBG.gameObject.SetActive(true);
+
+        AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {selectCard.CardInfo});
     }
 
     private void SelectCardOnMouseLeave(SelectCard selectCard)
     {
         currentPreviewCard.PoolRecycle();
+        AffixManager.Instance.HideAffixPanel();
     }
 
     private void UnSelectCard(CardBase card, bool playSound)

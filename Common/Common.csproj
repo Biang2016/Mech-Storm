@@ -66,6 +66,8 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddAttackRandom_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddAttackOne_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddAttackAll_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\HalfShield_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\Sacrifice_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffectToEquip\BreakEquip_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddWeaponEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseEnergy_Base.cs" />

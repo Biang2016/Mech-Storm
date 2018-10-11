@@ -530,6 +530,17 @@ public class BattleGroundManager : MonoBehaviour
         relatedSlots.Clear();
     }
 
+    public void ShowTipModuleBloomSE(float seconds)
+    {
+        foreach (ModuleRetinue retinue in Retinues)
+        {
+            if (retinue.M_Weapon)retinue.M_Weapon.ShowEquipBloomSE(seconds);
+            if (retinue.M_Shield)retinue.M_Shield.ShowEquipBloomSE(seconds);
+            if (retinue.M_Pack)retinue.M_Pack.ShowEquipBloomSE(seconds);
+            if (retinue.M_MA)retinue.M_MA.ShowEquipBloomSE(seconds);
+        }
+    }
+
     #endregion
 
     public void EquipWeapon(CardInfo_Equip cardInfo, int retinueId, int equipId)

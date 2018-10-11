@@ -7,8 +7,6 @@ using UnityEngine.UI;
 /// </summary>
 public class SelectCard : PoolObject
 {
-    [SerializeField] private MouseHoverUI m_MouseHoverUI;
-
     public override  void PoolRecycle()
     {
         Count = 0;
@@ -17,8 +15,6 @@ public class SelectCard : PoolObject
 
     void Awake()
     {
-        m_MouseHoverUI.MouseFocusBeginHandler = OnMouseEnter;
-        m_MouseHoverUI.MouseFocusEndHandler = OnMouseLeave;
     }
 
     public Transform Tran_Metal;
@@ -157,12 +153,12 @@ public class SelectCard : PoolObject
 
     public SelectCardOnMouseLeaveHandler OnMouseLeaveHandler;
 
-    public void OnMouseEnter()
+    public void MouseEnter()
     {
         OnMouseEnterHandler(this);
     }
 
-    public void OnMouseLeave()
+    public void MouseLeave()
     {
         OnMouseLeaveHandler(this);
     }

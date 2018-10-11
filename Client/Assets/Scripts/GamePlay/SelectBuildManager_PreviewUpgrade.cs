@@ -161,12 +161,14 @@ public partial class SelectBuildManager
             DegradeArrow.enabled = false;
         }
 
-        HashSet<AffixType> AffixTypes = new HashSet<AffixType>();
-        AffixManager.Instance.GetAffixTypeByCardInfo(AffixTypes, PreviewCard.CardInfo);
-        if (PreviewCardDegrade) AffixManager.Instance.GetAffixTypeByCardInfo(AffixTypes, PreviewCardDegrade.CardInfo);
-        if (PreviewCardUpgrade) AffixManager.Instance.GetAffixTypeByCardInfo(AffixTypes, PreviewCardUpgrade.CardInfo);
-        AffixManager.Instance.ShowAffixPanel(AffixTypes);
-        if (AffixTypes.Count == 0 || PreviewCardDegrade == null)
+        List<CardInfo_Base> cardInfos = new List<CardInfo_Base>();
+        cardInfos.Add(PreviewCard.CardInfo);
+        if (PreviewCardDegrade) cardInfos.Add(PreviewCardDegrade.CardInfo);
+        if (PreviewCardUpgrade) cardInfos.Add(PreviewCardUpgrade.CardInfo);
+        bool isShowAffixTips = AffixManager.Instance.ShowAffixTips(cardInfos);
+
+        //如果显示Tips占据屏幕空间的话，右移预览卡牌窗口
+        if (!isShowAffixTips || PreviewCardDegrade == null)
         {
             PreviewCardPanel.transform.position = PreviewCardPanelCenterPivot.position;
         }

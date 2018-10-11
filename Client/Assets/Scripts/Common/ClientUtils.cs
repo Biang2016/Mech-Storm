@@ -136,8 +136,18 @@ class ClientUtils
 
         float max = Mathf.Max(r, g, b);
 
-        Color res = Color.Lerp(color, new Color(max, max, max, color.a), whiteRatio);
-        return res;
+        if (max - r < 0.2f && max - g < 0.2f && max - b < 0.2f) //本来就是灰色
+        {
+            max = max + 0.3f;
+            Color res = Color.Lerp(color, new Color(max, max, max, color.a), 1f);
+            return res;
+        }
+        else
+        {
+            max = max + 0.3f;
+            Color res = Color.Lerp(color, new Color(max, max, max, color.a), whiteRatio);
+            return res;
+        }
     }
 
 

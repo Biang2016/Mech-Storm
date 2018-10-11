@@ -256,6 +256,9 @@
 10th, Oct
 [polish] Adjust the distence between mech cards when ther're in upgrad-preview window.
 
+11th, Oct
+[dev] Add the Affix-tip system.
+
 TodoList
 增加retinue的武器图标样式，普通和枪
 onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能产生伤害的标识
@@ -279,3 +282,4 @@ RX785，只可装备枪类武器
 全面加强heros，增加heros站场时间，以及hero对小兵的碾压性
 energy条用量预览显示高亮  
 
+Bugs:

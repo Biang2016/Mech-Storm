@@ -11,8 +11,7 @@ namespace SideEffects
         public override void Excute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(executerInfo.TargetRetinueId);
-            if (retinue == null) retinue = player.MyEnemyPlayer.MyBattleGroundManager.GetRetinue(executerInfo.TargetRetinueId);
+            ServerModuleRetinue retinue = player.MyGameManager.GetRetinueOnBattleGround(RetinueID);
             if (retinue?.M_Weapon != null)
             {
                 int increase = Math.Min(retinue.M_RetinueWeaponEnergyMax - retinue.M_RetinueWeaponEnergy, FinalValue);

@@ -261,6 +261,14 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
             default:
                 break;
         }
+
+        List<CardInfo_Base> cardInfos = new List<CardInfo_Base>();
+        if (detailCard != null) cardInfos.Add(detailCard.CardInfo);
+        if (detailCard_Weapon != null) cardInfos.Add(detailCard_Weapon.CardInfo);
+        if (detailCard_Shield != null) cardInfos.Add(detailCard_Shield.CardInfo);
+        if (detailCard_Pack != null) cardInfos.Add(detailCard_Pack.CardInfo);
+        if (detailCard_MA != null) cardInfos.Add(detailCard_MA.CardInfo);
+        AffixManager.Instance.ShowAffixTips(cardInfos);
     }
 
     private void HideCardDetail()
@@ -299,6 +307,8 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
             detailCard_MA.PoolRecycle();
             detailCard_MA = null;
         }
+
+        AffixManager.Instance.HideAffixPanel();
     }
 
     #region SE

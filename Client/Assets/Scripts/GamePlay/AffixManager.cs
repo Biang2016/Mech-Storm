@@ -16,7 +16,25 @@ public class AffixManager : MonoSingletion<AffixManager>
     {
     }
 
-    public void GetAffixTypeByCardInfo(HashSet<AffixType> affixTypes, CardInfo_Base cardInfo)
+    /// <summary>
+    /// 根据CardInfo来决定是否要显示AffixPanel
+    /// </summary>
+    /// <param name="cardInfos"></param>
+    /// <returns>是否显示</returns>
+    public bool ShowAffixTips(List<CardInfo_Base> cardInfos)
+    {
+        HashSet<AffixType> affixTypes = new HashSet<AffixType>();
+        foreach (CardInfo_Base ci in cardInfos)
+        {
+            GetAffixTypeByCardInfo(affixTypes, ci);
+        }
+
+        ShowAffixPanel(affixTypes);
+
+        return affixTypes.Count > 0;
+    }
+
+    private void GetAffixTypeByCardInfo(HashSet<AffixType> affixTypes, CardInfo_Base cardInfo)
     {
         if (cardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
         {
@@ -98,13 +116,29 @@ public class AffixManager : MonoSingletion<AffixManager>
                 affixTypes.Add(AffixType.SniperGun);
             }
         }
+
+
+        if (cardInfo.BaseInfo.CardType == CardTypes.Equip && cardInfo.EquipInfo.SlotType == SlotTypes.Pack)
+        {
+            if (cardInfo.PackInfo.DodgeProp != 0)
+            {
+                affixTypes.Add(AffixType.Dodge);
+            }
+        }
     }
 
-    public void ShowAffixPanel(HashSet<AffixType> affixTypes)
+    private void ShowAffixPanel(HashSet<AffixType> affixTypes)
     {
-        ClearAllAffixs();
-        AddAffixs(affixTypes);
-        AffixPanelAnim.SetTrigger("Show");
+        if (affixTypes.Count == 0)
+        {
+            AffixPanelAnim.SetTrigger("Hide");
+        }
+        else
+        {
+            ClearAllAffixs();
+            AddAffixs(affixTypes);
+            AffixPanelAnim.SetTrigger("Show");
+        }
     }
 
     public void HideAffixPanel()

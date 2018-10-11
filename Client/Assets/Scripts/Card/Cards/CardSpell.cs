@@ -6,9 +6,9 @@ public class CardSpell : CardBase
 {
     #region 卡牌上各模块
 
-    private bool hasTargetRetinue;
-    private bool hasTargetEquip;
-    private bool hasTargetShip;
+    internal bool HasTargetRetinue;
+    internal bool HasTargetEquip;
+    internal bool HasTargetShip;
     internal TargetSideEffect.TargetRange targetRetinueRange = TargetSideEffect.TargetRange.None;
     internal TargetSideEffect.TargetRange targetEquipRange = TargetSideEffect.TargetRange.None;
     internal TargetSideEffect.TargetRange targetShipRange = TargetSideEffect.TargetRange.None;
@@ -18,9 +18,9 @@ public class CardSpell : CardBase
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
         base.Initiate(cardInfo, clientPlayer, isCardSelect);
-        hasTargetRetinue = false;
-        hasTargetEquip = false;
-        hasTargetShip = false;
+        HasTargetRetinue = false;
+        HasTargetEquip = false;
+        HasTargetShip = false;
 
         foreach (SideEffectBase se in CardInfo.SideEffects.GetSideEffects(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
         {
@@ -29,7 +29,7 @@ public class CardSpell : CardBase
                 if (se is TargetSideEffectEquip && ((TargetSideEffectEquip) se).IsNeedChoise)
                 {
                     TargetSideEffect.TargetRange temp = ((TargetSideEffect) se).M_TargetRange;
-                    hasTargetEquip = true;
+                    HasTargetEquip = true;
                     targetEquipRange = ((TargetSideEffectEquip) se).M_TargetRange;
                     break;
                 }
@@ -38,13 +38,13 @@ public class CardSpell : CardBase
                     TargetSideEffect.TargetRange temp = ((TargetSideEffect) se).M_TargetRange;
                     if (temp != TargetSideEffect.TargetRange.Ships && temp != TargetSideEffect.TargetRange.SelfShip && temp != TargetSideEffect.TargetRange.EnemyShip && temp != TargetSideEffect.TargetRange.All)
                     {
-                        hasTargetRetinue = true;
+                        HasTargetRetinue = true;
                         targetRetinueRange = ((TargetSideEffect) se).M_TargetRange;
                         break;
                     }
                     else
                     {
-                        hasTargetShip = true;
+                        HasTargetShip = true;
                         targetShipRange = ((TargetSideEffect) se).M_TargetRange;
                         break;
                     }
@@ -59,12 +59,12 @@ public class CardSpell : CardBase
         RoundManager.Instance.HideTargetPreviewArrow();
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
         {
-            if (!hasTargetRetinue && !hasTargetEquip && !hasTargetShip)
+            if (!HasTargetRetinue && !HasTargetEquip && !HasTargetShip)
             {
                 summonSpellRequest(dragLastPosition);
                 return;
             }
-            else if (hasTargetRetinue)
+            else if (HasTargetRetinue)
             {
                 //To Retinue
                 if (moduleRetinue == null || moduleRetinue.IsDead)
@@ -124,7 +124,7 @@ public class CardSpell : CardBase
                     }
                 }
             }
-            else if (hasTargetEquip)
+            else if (HasTargetEquip)
             {
                 //To Equip
                 if (slots.Count == 0)
@@ -193,7 +193,7 @@ public class CardSpell : CardBase
                     }
                 }
             }
-            else if (hasTargetShip)
+            else if (HasTargetShip)
             {
                 // ToShip
                 if (!ship)

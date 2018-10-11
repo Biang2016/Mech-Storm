@@ -33,6 +33,7 @@ public class HandManager : MonoBehaviour
     {
         CheckMousePosition();
         Update_CheckSlotBloomTipOff();
+        UpdateCurrentFocusCardTicker();
     }
 
     #region 响应
@@ -429,12 +430,20 @@ public class HandManager : MonoBehaviour
         {
             if (CurrentFocusCard is CardEquip)
             {
-                ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms((CardEquip)CurrentFocusCard);
+                ClientPlayer.MyBattleGroundManager.ShowTipSlotBlooms((CardEquip) CurrentFocusCard);
                 currentFocusEquipmentCard = CurrentFocusCard;
             }
 
             ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.HightlightTopBlocks(focusCard.CardInfo.BaseInfo.Metal);
         }
+
+        if (focusCard is CardSpell && ((CardSpell) focusCard).HasTargetEquip)
+        {
+            RoundManager.Instance.SelfClientPlayer.MyBattleGroundManager.ShowTipModuleBloomSE(0.3f);
+            RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.ShowTipModuleBloomSE(0.3f);
+        }
+
+        currentFocusCardTickerBegin = true;
     }
 
     internal void CardOnMouseLeave(CardBase focusCard)
@@ -442,6 +451,24 @@ public class HandManager : MonoBehaviour
         if (isBeginDrag) return;
         RefreshCardsPlaceImmediately();
         ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
+    }
+
+    private bool currentFocusCardTickerBegin = false;
+    private float currentFocusCardTicker = 0;
+    private float currentFocusCardShowAffixTimeThreshold = 0.8f;
+
+    private void UpdateCurrentFocusCardTicker()
+    {
+        if (currentFocusCardTickerBegin)
+        {
+            currentFocusCardTicker += Time.deltaTime;
+            if (currentFocusCardTicker > currentFocusCardShowAffixTimeThreshold)
+            {
+                currentFocusCardTicker = 0;
+                if (CurrentFocusCard) AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {CurrentFocusCard.CardInfo});
+                currentFocusCardTickerBegin = false;
+            }
+        }
     }
 
     internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard)
@@ -530,6 +557,8 @@ public class HandManager : MonoBehaviour
             }
 
             lostFocusCard.ResetColliderAndReplace();
+            AffixManager.Instance.HideAffixPanel();
+            currentFocusCardTickerBegin = false;
         }
     }
 

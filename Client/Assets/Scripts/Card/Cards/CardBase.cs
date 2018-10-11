@@ -345,6 +345,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         else if (value > 0)
         {
             CardNumberSet_Count.hasSign = true;
+            CardNumberSet_Count.IsSelect = IsCardSelect;
             CardNumberSet_Count.Number = value;
         }
     }

@@ -103,4 +103,14 @@
     <params name="M_TargetRange" type="enum"></params>
     <params name="Value" type="int"></params>
   </SideEffect>
+  <SideEffect id="23" name="Sacrifice" desc="摧毁{0},对敌方全体造成{1}点伤害,该机甲每拥有一个装备,造成的伤害+{2}," desc_en="Destroy {0} and deal {1} damage to all enemy's mechs. For every equip it has, deal {2} additional damage. ">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+    <params name="ValueBasic" type="int"></params>
+    <params name="ValuePlus" type="int"></params>
+  </SideEffect>
+  <SideEffect id="24" name="HalfShield" desc="使{0}的护盾值减半" desc_en="Half the shield of {0}. ">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+  </SideEffect>
 </AllSideEffects>

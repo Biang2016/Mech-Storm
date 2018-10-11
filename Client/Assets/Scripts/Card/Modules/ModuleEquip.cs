@@ -51,19 +51,51 @@ public abstract class ModuleEquip : ModuleBase
         if (M_Bloom) M_Bloom.gameObject.SetActive(false);
     }
 
-    public override void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
+    public void ShowEquipBloomSE(float seconds = 0.1f)
     {
-        base.MouseHoverComponent_OnMousePressEnterImmediately(mousePosition);
-        if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
-        {
-            ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
-        }
+        StartCoroutine(Co_ShowEquipBloomSE(seconds));
+    }
+
+    IEnumerator Co_ShowEquipBloomSE(float seconds)
+    {
+        ShowEquipBloomAndSE();
+        yield return new WaitForSeconds(seconds);
+        HideEquipBloomAndSE();
+        yield return null;
+    }
+
+    private void ShowEquipBloomAndSE()
+    {
         M_Bloom.gameObject.SetActive(true);
         M_BloomSE.gameObject.SetActive(true);
         M_BloomSE_Sub.gameObject.SetActive(true);
         BloomSEAnim.SetTrigger("OnSE");
         BloomSE_SubAnim.SetTrigger("OnSE");
     }
+
+    private void HideEquipBloomAndSE()
+    {
+        M_Bloom.gameObject.SetActive(false);
+        BloomSEAnim.SetTrigger("Reset");
+        BloomSE_SubAnim.SetTrigger("Reset");
+        M_BloomSE.gameObject.SetActive(false);
+        M_BloomSE_Sub.gameObject.SetActive(false);
+    }
+
+    public override void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
+    {
+        base.MouseHoverComponent_OnMousePressEnterImmediately(mousePosition);
+        if (DragManager.Instance.CurrentDrag_CardSpell.HasTargetEquip)
+        {
+            if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
+            {
+                ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
+            }
+
+            ShowEquipBloomAndSE();
+        }
+    }
+
     public override void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
         base.MouseHoverComponent_OnMousePressLeaveImmediately();
@@ -71,11 +103,8 @@ public abstract class ModuleEquip : ModuleBase
         {
             ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = false; //箭头动画
         }
-        M_Bloom.gameObject.SetActive(false);
-        BloomSEAnim.SetTrigger("Reset");
-        BloomSE_SubAnim.SetTrigger("Reset");
-        M_BloomSE.gameObject.SetActive(false);
-        M_BloomSE_Sub.gameObject.SetActive(false);
+
+        HideEquipBloomAndSE();
     }
 
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
@@ -88,7 +117,6 @@ public abstract class ModuleEquip : ModuleBase
     {
         base.ChangeColor(color);
         ClientUtils.ChangeColor(M_Bloom, color);
-        ClientUtils.ChangeColor(M_BloomSE, color);
     }
 
     #region SE

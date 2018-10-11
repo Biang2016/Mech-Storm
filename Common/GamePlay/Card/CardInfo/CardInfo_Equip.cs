@@ -79,7 +79,7 @@
                 }
                 else if (ShieldInfo.ShieldType == ShieldTypes.Shield)
                 {
-                    CardDescShow += AddAffixString(isEnglish, "Armor", "护盾");
+                    CardDescShow += AddAffixString(isEnglish, "Shield", "护盾");
                     CardDescShow += string.Format(isEnglish ? "Reduce damage per attack by {0}. " : "受到每次伤害减少 {0} 点, ", BaseInfo.AddHightLightColorToText(ShieldInfo.Shield.ToString()));
                 }
 
@@ -90,6 +90,12 @@
                 if (PackInfo.IsFrenzy) CardDescShow += AddAffixString(isEnglish, "Frenzy", "狂暴");
                 if (PackInfo.IsSniper) CardDescShow += AddAffixString(isEnglish, "Sniper", "狙击");
                 if (PackInfo.IsDefence) CardDescShow += AddAffixString(isEnglish, "Defence", "嘲讽");
+                if (PackInfo.DodgeProp != 0)
+                {
+                    CardDescShow += AddAffixString(isEnglish, "Dodge", "闪避");
+                    CardDescShow += string.Format(isEnglish ? "PR: {0}. " : "概率: {0}, ", BaseInfo.AddHightLightColorToText(PackInfo.DodgeProp + "%"));
+                }
+
                 break;
             }
             case SlotTypes.MA:

@@ -441,6 +441,13 @@ internal class ServerGameManager
         ClientB.SendMessage(request);
     }
 
+    public ServerModuleRetinue GetRetinueOnBattleGround(int retinueId)
+    {
+        ServerModuleRetinue retinue = PlayerA.MyBattleGroundManager.GetRetinue(retinueId);
+        if (retinue == null) retinue = PlayerB.MyBattleGroundManager.GetRetinue(retinueId);
+        return retinue;
+    }
+
     public ServerModuleRetinue GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType retinueType, int exceptRetinueId)
     {
         int countA = PlayerA.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);

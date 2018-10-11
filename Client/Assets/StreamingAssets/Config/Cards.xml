@@ -377,17 +377,17 @@
   <Card id="20401">
     <CardInfo name="baseInfo" pictureID="204" cardName="离子步枪I" cardName_en="Plasma Rifle I" cardDesc="" hide="False" metal="3" energy="0" coin="200" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20402" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="weaponInfo" energy="3" energyMax="3" attack="3" weaponType="Gun" isSentry="False" isFrenzy="True" />
+    <CardInfo name="weaponInfo" energy="2" energyMax="2" attack="1" weaponType="Gun" isSentry="False" isFrenzy="True" />
   </Card>
   <Card id="20402">
     <CardInfo name="baseInfo" pictureID="204" cardName="离子步枪II" cardName_en="Plasma Rifle II" cardDesc="" hide="False" metal="4" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20403" degradeCardID="20401" cardLevel="2" />
-    <CardInfo name="weaponInfo" energy="4" energyMax="4" attack="3" weaponType="Gun" isSentry="False" isFrenzy="True" />
+    <CardInfo name="weaponInfo" energy="3" energyMax="3" attack="1" weaponType="Gun" isSentry="False" isFrenzy="True" />
   </Card>
   <Card id="20403">
     <CardInfo name="baseInfo" pictureID="204" cardName="离子步枪III" cardName_en="Plasma Rifle III" cardDesc="" hide="False" metal="5" energy="0" coin="400" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="20402" cardLevel="3" />
-    <CardInfo name="weaponInfo" energy="5" energyMax="5" attack="3" weaponType="Gun" isSentry="False" isFrenzy="True" />
+    <CardInfo name="weaponInfo" energy="4" energyMax="4" attack="1" weaponType="Gun" isSentry="False" isFrenzy="True" />
   </Card>
   <Card id="20501">
     <CardInfo name="baseInfo" pictureID="205" cardName="哨戒炮" cardName_en="Sentry Gun" cardDesc="" hide="False" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
@@ -398,6 +398,11 @@
     <CardInfo name="baseInfo" pictureID="206" cardName="狙击步枪" cardName_en="Sniper Gun" cardDesc="" hide="False" metal="3" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="weaponInfo" energy="1" energyMax="1" attack="10" weaponType="SniperGun" isSentry="False" isFrenzy="False" />
+  </Card>
+  <Card id="20700">
+    <CardInfo name="baseInfo" pictureID="206" cardName="狙击步枪FA" cardName_en="Sniper Gun(FA)" cardDesc="" hide="False" metal="3" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="weaponInfo" energy="7" energyMax="7" attack="1" weaponType="SniperGun" isSentry="False" isFrenzy="False" />
   </Card>
 
   <Card id="30101">
@@ -535,14 +540,14 @@
     <CardInfo name="baseInfo" pictureID="613" cardName="牺牲" cardName_en="Sacrifice" cardDesc="" hide="False" metal="0" energy="10" coin="400" effectFactor="1" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="5"></SideEffect>
+      <SideEffect name="Sacrifice" IsNeedChoise="True" M_TargetRange="SelfMechs" ValueBasic="3" ValuePlus="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61501">
-    <CardInfo name="baseInfo" pictureID="615" cardName="偷袭" cardName_en="Sneak Attack" cardDesc="" hide="False" metal="0" energy="10" coin="400" effectFactor="1" dragPurpose="Target" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="615" cardName="偷袭" cardName_en="Sneak Attack" cardDesc="" hide="False" metal="0" energy="3" coin="400" effectFactor="1" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="5"></SideEffect>
+      <SideEffect name="HalfShield" IsNeedChoise="True" M_TargetRange="EnemyMechs"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61601">

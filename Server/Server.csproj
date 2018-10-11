@@ -60,6 +60,8 @@
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\SummonRetinue.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddSelfWeaponEnergy.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\HalfShield.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\Sacrifice.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\BreakEquip.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\AddLifeAll.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\AddEnergy.cs" />
