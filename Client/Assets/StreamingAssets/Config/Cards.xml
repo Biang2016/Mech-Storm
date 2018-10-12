@@ -471,19 +471,34 @@
     </CardInfo>
   </Card>
   <Card id="60401">
-    <CardInfo name="baseInfo" pictureID="604" cardName="蝴蝶效应" cardName_en="Butterfly Effect" cardDesc="" isTemp="False" hide="False" metal="0" energy="1" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="623" cardName="蝴蝶效应" cardName_en="Butterfly Effect" cardDesc="" isTemp="False" hide="False" metal="0" energy="1" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="DrawCards" Value="1"></SideEffect>
-      <SideEffect name="AddTempCardToDeck" Value="1" CardId="60409"></SideEffect>
+      <SideEffect name="AddTempCardToDeck" Value="1" CardId="60402"></SideEffect>
     </CardInfo>
   </Card>
-  <Card id="60409">
-    <CardInfo name="baseInfo" pictureID="604" cardName="蝴蝶效应" cardName_en="Butterfly Effect" cardDesc="" isTemp="True" hide="True" metal="0" energy="1" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+  <Card id="60402">
+    <CardInfo name="baseInfo" pictureID="621" cardName="蝴蝶效应2" cardName_en="Butterfly Effect2" cardDesc="" isTemp="True" hide="True" metal="0" energy="2" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="DrawCards" Value="1"></SideEffect>
-      <SideEffect name="AddTempCardToDeck" Value="1" CardId="60409"></SideEffect>
+      <SideEffect name="AddTempCardToDeck" Value="1" CardId="60403"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="60403">
+    <CardInfo name="baseInfo" pictureID="604" cardName="蝴蝶效应3" cardName_en="Butterfly Effect3" cardDesc="" isTemp="True" hide="True" metal="0" energy="3" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
+      <SideEffect name="DrawCards" Value="1"></SideEffect>
+      <SideEffect name="AddTempCardToDeck" Value="1" CardId="60404"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="60404">
+    <CardInfo name="baseInfo" pictureID="624" cardName="橙色风暴" cardName_en="Orange Storm" cardDesc="" isTemp="True" hide="True" metal="0" energy="4" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
+      <SideEffect name="KillAll" IsNeedChoise="False" M_TargetRange="EnemyMechs"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60501">

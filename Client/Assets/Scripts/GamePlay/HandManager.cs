@@ -125,11 +125,6 @@ public class HandManager : MonoBehaviour
 
     private void RefreshCardsPlace(int cardCount, float duration) //按虚拟的手牌总数重置所有手牌位置
     {
-        foreach (CardBase cardBase in cards)
-        {
-            iTween.Stop(cardBase.gameObject);
-        }
-
         if (CurrentFocusCard)
         {
             HandCardShrink(CurrentFocusCard);
@@ -160,27 +155,6 @@ public class HandManager : MonoBehaviour
         }
 
         RefreshAllCardUsable();
-    }
-
-    private void RefreshCardPlace(CardBase cardBase, float duration = 0.1f)
-    {
-        if (!cards.Contains(cardBase)) return;
-        iTween.Stop(cardBase.gameObject);
-        if (ClientPlayer == null) return;
-        Transform result = GetCardPlace(cards.IndexOf(cardBase), cards.Count);
-        Vector3 position = result.position;
-        Vector3 rotation = result.rotation.eulerAngles;
-        Vector3 scale = result.localScale;
-
-        Hashtable args = new Hashtable();
-        args.Add("position", position);
-        args.Add("time", duration);
-        args.Add("easeType", iTween.EaseType.linear);
-        iTween.MoveTo(cardBase.gameObject, args);
-        args.Add("rotation", rotation);
-        iTween.RotateTo(cardBase.gameObject, args);
-        args.Add("scale", scale);
-        iTween.ScaleTo(cardBase.gameObject, args);
     }
 
     private GameObject GetCardPlacePivot;
@@ -295,9 +269,13 @@ public class HandManager : MonoBehaviour
         iTween.MoveTo(newCardBase.gameObject, arg);
         iTween.RotateTo(newCardBase.gameObject, arg);
 
+        newCardBase.IsFlying = true;
         AudioManager.Instance.SoundPlay("sfx/DrawCard0");
 
-        yield return new WaitForSeconds(duration + 0.1f);
+        yield return new WaitForSeconds(duration);
+        newCardBase.IsFlying = false;
+
+        yield return new WaitForSeconds(0.1f);
     }
 
     public void DropCard(int handCardInstanceId)
@@ -443,7 +421,6 @@ public class HandManager : MonoBehaviour
         if (CurrentFocusCard && ClientPlayer == RoundManager.Instance.SelfClientPlayer)
         {
             HandCardShrink(CurrentFocusCard);
-            //RefreshCardPlace(CurrentFocusCard);
             RefreshCardsPlace();
             ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
         }
@@ -474,14 +451,14 @@ public class HandManager : MonoBehaviour
     {
         if (IsBeginDrag) return;
         RefreshCardsPlace();
-        //RefreshCardPlace(focusCard);
         ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
     }
 
     internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard) //鼠标离开代替卡牌的碰撞区
     {
+        if (IsBeginDrag) return;
         HandCardShrink(lostFocusCard);
-        //RefreshCardPlace(lostFocusCard);
+        RefreshCardsPlace();
         if (currentFocusEquipmentCard == lostFocusCard) currentFocusEquipmentCard = null;
         ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
         if (!Input.GetMouseButton(0)) ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
@@ -585,32 +562,38 @@ public class HandManager : MonoBehaviour
 
     private void UpdateHandCardCountTicker()
     {
-        if (DragComponent.CheckAreas() == ClientPlayer.MyHandArea)
+        if (Client.Instance.IsPlaying())
         {
-            if (!handCardCountTickerBegin)
+            if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
             {
-                handCardCountTicker += Time.deltaTime;
-                if (handCardCountTicker > (ClientPlayer == RoundManager.Instance.SelfClientPlayer ? handCardCountTimeThreshold : handCardCountTimeThreshold_Enemy))
+                if (DragComponent.CheckAreas() == ClientPlayer.MyHandArea)
                 {
-                    handCardCountTickerBegin = true;
-                    handCardCountTicker = 0;
-                    HandCardCountPanelAnim.SetTrigger("Jump");
-                    if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+                    if (!handCardCountTickerBegin)
                     {
-                        HandCardCountText.text = GameManager.Instance.isEnglish ? "Your have " + cards.Count + " cards." : "你有" + cards.Count + "张手牌";
-                    }
-                    else
-                    {
-                        HandCardCountText.text = GameManager.Instance.isEnglish ? "Your component has " + cards.Count + " cards." : "你的对手有" + cards.Count + "张手牌";
+                        handCardCountTicker += Time.deltaTime;
+                        if (handCardCountTicker > (ClientPlayer == RoundManager.Instance.SelfClientPlayer ? handCardCountTimeThreshold : handCardCountTimeThreshold_Enemy))
+                        {
+                            handCardCountTickerBegin = true;
+                            handCardCountTicker = 0;
+                            HandCardCountPanelAnim.SetTrigger("Jump");
+                            if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+                            {
+                                HandCardCountText.text = GameManager.Instance.isEnglish ? "Your have " + cards.Count + " cards." : "你有" + cards.Count + "张手牌";
+                            }
+                            else
+                            {
+                                HandCardCountText.text = GameManager.Instance.isEnglish ? "Your component has " + cards.Count + " cards." : "你的对手有" + cards.Count + "张手牌";
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    handCardCountTicker = 0;
+                    handCardCountTickerBegin = false;
+                    HandCardCountPanelAnim.SetTrigger("Reset");
+                }
             }
-        }
-        else
-        {
-            handCardCountTicker = 0;
-            handCardCountTickerBegin = false;
-            HandCardCountPanelAnim.SetTrigger("Reset");
         }
     }
 

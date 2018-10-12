@@ -108,7 +108,7 @@ public class Affix : PoolObject
         {AffixType.BattleCry, "BattleCry"},
 
         {AffixType.Sniper, "Sniper"},
-        {AffixType.Frenzy, "Frenzy: Can attack twice per round."},
+        {AffixType.Frenzy, "Frenzy"},
         {AffixType.Defence, "Defence"},
         {AffixType.Sentry, "Sentry"},
         {AffixType.Charger, "Charger"},

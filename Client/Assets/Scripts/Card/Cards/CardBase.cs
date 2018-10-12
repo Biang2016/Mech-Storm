@@ -9,6 +9,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private DragComponent M_DragComponent;
     [SerializeField] private BoxCollider M_BoxCollider;
 
+    internal bool IsFlying;
+
     public override void PoolRecycle()
     {
         iTween.Stop(gameObject);
@@ -22,6 +24,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             transform.localScale = Vector3.one * 2;
             transform.rotation = Quaternion.Euler(0, -180, 0);
             DragComponent.enabled = true;
+            IsFlying = false;
         }
         else
         {
