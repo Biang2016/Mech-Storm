@@ -260,6 +260,10 @@
 [dev] Add the Affix-tip system.
 [dev] Add some SideEffects: Sacrifice & HalfShield
 
+12th, Oct
+[polish] Handcard UX optimization
+[bugfix] Fix the bug that the card details show OnMouseHover even when SelectCardWindow is On.
+
 TodoList
 增加retinue的武器图标样式，普通和枪
 onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能产生伤害的标识
@@ -268,7 +272,6 @@ onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能�
 
 交互性及bug：
 
-手牌移动中不能出牌，相当难受
 切换回合音效
 匹配时可以修改deck
 下回合抽牌在随从死亡之前进行
@@ -276,13 +279,15 @@ you lost 停在上方不消失
 
 对战机制：
 
-RX785，只可装备枪类武器
-开着卡组界面的时候，查看retinue详情依然能出现  
-制作词缀描述面板
-
 全面加强heros，增加heros站场时间，以及hero对小兵的碾压性
-energy条用量预览显示高亮  
 
 装备卸下动画
 
+增加牌库为空警告
+敌方手牌整理bug修复
+往牌库塞牌动画
+法术牌增加独特特效
+energy条用量预览显示高亮  
+
 Bugs:
+多次登录卡死bug

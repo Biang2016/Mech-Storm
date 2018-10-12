@@ -1800,6 +1800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1dbae2767e6fd408602333d346c5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  M_DragComponent: {fileID: 0}
+  M_BoxCollider: {fileID: 0}
   Text_Name: {fileID: 114822501456103100}
   Text_Desc: {fileID: 114992261032498722}
   Text_CardType: {fileID: 114315232180458902}

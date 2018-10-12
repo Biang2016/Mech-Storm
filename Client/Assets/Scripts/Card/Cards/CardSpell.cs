@@ -70,7 +70,7 @@ public class CardSpell : CardBase
                 if (moduleRetinue == null || moduleRetinue.IsDead)
                 {
                     transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
+                    ClientPlayer.MyHandManager.RefreshCardsPlace();
                 }
                 else
                 {
@@ -130,7 +130,7 @@ public class CardSpell : CardBase
                 if (slots.Count == 0)
                 {
                     transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
+                    ClientPlayer.MyHandManager.RefreshCardsPlace();
                 }
                 else
                 {
@@ -138,7 +138,7 @@ public class CardSpell : CardBase
                     if (equip == null || equip.IsDead)
                     {
                         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                        ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
+                        ClientPlayer.MyHandManager.RefreshCardsPlace();
                     }
                     else
                     {
@@ -199,7 +199,7 @@ public class CardSpell : CardBase
                 if (!ship)
                 {
                     transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
+                    ClientPlayer.MyHandManager.RefreshCardsPlace();
                 }
                 else
                 {
@@ -237,7 +237,7 @@ public class CardSpell : CardBase
         }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
+        ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 
     public override void DragComponnet_DragOutEffects()

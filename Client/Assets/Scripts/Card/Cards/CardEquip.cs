@@ -36,7 +36,7 @@ public class CardEquip : CardBase
                 }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        ClientPlayer.MyHandManager.RefreshCardsPlaceImmediately();
+        ClientPlayer.MyHandManager.RefreshCardsPlace(); 
     }
 
     public bool CheckRetinueCanEquipMe(Slot sa)

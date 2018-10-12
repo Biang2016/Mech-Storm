@@ -2,31 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandManager : MonoBehaviour
 {
-    internal ClientPlayer ClientPlayer;
+    //每张牌之间的夹角
+    static float[] ANGLES_DICT = new float[30] {20f, 20f, 30f, 40f, 45f, 50f, 55f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f};
 
-    float[] anglesDict; //每张牌之间的夹角
-    float[] horrizonDistanceDict; //每张牌之间的距离
+    //每张牌之间的距离
+    static float[] HORRIZON_DISTANCE_DICT = new float[30] {1.5f, 1.6f, 1.8f, 2.3f, 2.8f, 3.3f, 4.2f, 4.9f, 5.6f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f};
+
+    internal ClientPlayer ClientPlayer;
     public List<CardBase> cards;
     private CardBase currentShowCard;
     private CardBase lastShowCard;
 
-    int retinueLayer;
+    [SerializeField] private Text HandCardCountText;
+    [SerializeField] private Animator HandCardCountPanelAnim;
+
     int cardLayer;
 
     private void Awake()
     {
         cards = new List<CardBase>();
-        anglesDict = new float[30] {20f, 20f, 30f, 40f, 45f, 50f, 55f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f}; //手牌分布角度预设值
-        horrizonDistanceDict = new float[30] {1.5f, 1.6f, 1.8f, 2.3f, 2.8f, 3.3f, 4.2f, 4.9f, 5.6f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f}; //手牌分布距离预设值
-        retinueLayer = 1 << LayerMask.NameToLayer("Retinues");
         cardLayer = 1 << LayerMask.NameToLayer("Cards");
-    }
-
-    void Start()
-    {
     }
 
     void Update()
@@ -34,9 +33,22 @@ public class HandManager : MonoBehaviour
         CheckMousePosition();
         Update_CheckSlotBloomTipOff();
         UpdateCurrentFocusCardTicker();
+        UpdateHandCardCountTicker();
     }
 
-    #region 响应
+    #region Game Process
+
+    public void BeginRound()
+    {
+        RoundManager.Instance.IdleClientPlayer.MyHandManager.SetAllCardUnusable();
+        foreach (CardBase card in cards) card.OnBeginRound();
+        RefreshAllCardUsable();
+    }
+
+    public void EndRound()
+    {
+        foreach (CardBase card in cards) card.OnEndRound();
+    }
 
     public void ResetAll()
     {
@@ -81,185 +93,13 @@ public class HandManager : MonoBehaviour
         summonRetinuePreviewCardIndex = 0;
     }
 
-    public void GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds)
-    {
-        if (ClientPlayer == null) return;
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_GetCards(cardIdAndInstanceIds), "Co_GetCard");
-    }
-
-    [SerializeField] private Transform DrawCardPivot;
-
-    IEnumerator Co_GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds) //多卡片抽取动画
-    {
-        float cardFlyTime = 1f;
-        float intervalTime = 0.3f;
-
-        RefreshCardsPlace(cards.Count + cardIdAndInstanceIds.Count, 0.1f);
-        yield return new WaitForSeconds(0.2f);
-
-        int count = 0;
-        int currentCount = cards.Count;
-        foreach (DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId in cardIdAndInstanceIds)
-        {
-            count++;
-            StartCoroutine(SubCo_GetCard(currentCount + count, currentCount + cardIdAndInstanceIds.Count, cardIdAndInstanceId, cardFlyTime));
-            yield return new WaitForSeconds(intervalTime);
-        }
-
-        RefreshAllCardUsable();
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-        yield return null;
-    }
-
-    IEnumerator SubCo_GetCard(int indexNumber, int totalCardNumber, DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId, float duration) //单卡片抽取动画
-    {
-        Transform srcPos = DrawCardPivot;
-        Transform tarTran = GetCardPlace(indexNumber, totalCardNumber);
-        Vector3 tarPos = tarTran.position;
-        Quaternion tarRot = tarTran.rotation;
-
-        Hashtable arg = new Hashtable();
-        arg.Add("position", tarPos);
-        arg.Add("time", duration);
-        arg.Add("rotation", tarRot.eulerAngles);
-
-        CardInfo_Base newCardInfoBase = AllCards.GetCard(cardIdAndInstanceId.CardId);
-        CardBase newCardBase;
-
-        newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
-        newCardBase.IsFlying = true;
-        cards.Add(newCardBase);
-        newCardBase.myCollider.enabled = false;
-        newCardBase.transform.position = srcPos.position;
-        newCardBase.transform.rotation = srcPos.rotation;
-        newCardBase.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
-        AudioManager.Instance.SoundPlay("sfx/DrawCard0");
-        iTween.MoveTo(newCardBase.gameObject, arg);
-        iTween.RotateTo(newCardBase.gameObject, arg);
-        yield return new WaitForSeconds(duration);
-
-        newCardBase.M_CardInstanceId = cardIdAndInstanceId.CardInstanceId;
-        newCardBase.myCollider.enabled = true;
-        yield return new WaitForSeconds(0.1f);
-        newCardBase.IsFlying = false;
-    }
-
-    public int GetCardIndex(CardBase card)
-    {
-        int index = -1;
-        foreach (CardBase card_b in cards)
-        {
-            index++;
-            if (card == card_b)
-            {
-                return index;
-            }
-        }
-
-        return -1;
-    }
-
-    public void DropCard(int handCardInstanceId)
-    {
-        CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
-        cardBase.PoolRecycle();
-        cards.Remove(cardBase);
-        RefreshCardsPlace();
-    }
-
-    public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo, Vector3 lastDragPosition)
-    {
-        CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
-
-        if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
-        {
-            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UseCard(cardBase, cardInfo), "Co_UseCardShow");
-        }
-        else
-        {
-            cards.Remove(cardBase);
-            cardBase.PoolRecycle();
-            RefreshCardsPlace();
-        }
-    }
-
-    private float lastUseCardShowTime;
-    private float useCardShowIntervalMinimum = 1f;
-
-    IEnumerator Co_UseCard(CardBase cardBase, CardInfo_Base cardInfo)
-    {
-        if (Time.time - lastUseCardShowTime < useCardShowIntervalMinimum) yield return new WaitForSeconds(useCardShowIntervalMinimum - (Time.time - lastUseCardShowTime));
-        lastUseCardShowTime = Time.time;
-        while (current_SubCo_ShowCardForTime != null)
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        if (cardBase)
-        {
-            cardBase.OnPlayOut();
-            current_SubCo_ShowCardForTime = SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.Instance.ShowCardDuration);
-            StartCoroutine(current_SubCo_ShowCardForTime);
-        }
-       
-        yield return null;
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    private IEnumerator current_SubCo_ShowCardForTime;
-
-    IEnumerator SubCo_ShowCardForTime(CardBase cardBase, CardInfo_Base cardInfo, float showCardDuration)
-    {
-        cards.Remove(cardBase);
-        Vector3 oldPosition = cardBase.transform.position;
-        Quaternion oldRotation = cardBase.transform.rotation;
-        Vector3 oldScale = cardBase.transform.localScale;
-        Vector3 targetPosition;
-        if (lastShowCard) targetPosition = GameManager.Instance.UseCardShowOverlayPosition;
-        else targetPosition = GameManager.Instance.UseCardShowPosition;
-        Quaternion targetRotation = Quaternion.Euler(0, 180, 0);
-        Vector3 targetScale = Vector3.one * GameManager.Instance.CardShowScale;
-        cardBase.PoolRecycle();
-
-        if (currentShowCard) lastShowCard = currentShowCard;
-        currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer, false);
-        currentShowCard.DragComponent.enabled = false;
-        currentShowCard.CanBecomeBigger = false;
-        currentShowCard.Usable = false;
-        currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
-        currentShowCard.CardBloom.SetActive(true);
-        currentShowCard.BeBrightColor();
-
-        float duration = GameManager.Instance.ShowCardFlyDuration;
-        float rotateDuration = GameManager.Instance.ShowCardRotateDuration;
-
-        yield return ClientUtils.MoveGameObject(currentShowCard.transform, oldPosition, oldRotation, oldScale, targetPosition, targetRotation, targetScale, duration, rotateDuration);
-
-        RefreshCardsPlace();
-        yield return new WaitForSeconds(showCardDuration);
-        currentShowCard.PoolRecycle();
-        current_SubCo_ShowCardForTime = null;
-    }
-
-    public void BeginRound()
-    {
-        RoundManager.Instance.IdleClientPlayer.MyHandManager.SetAllCardUnusable();
-        foreach (CardBase card in cards) card.OnBeginRound();
-        RefreshAllCardUsable();
-    }
-
-    public void EndRound()
-    {
-        foreach (CardBase card in cards) card.OnEndRound();
-    }
-
     #endregion
 
-    #region 交互
+    #region RefreshHandCards
 
     private void CheckMousePosition() //检查鼠标是否还停留在某张牌上，如果否，取消放大效果
     {
-        if (!isBeginDrag)
+        if (!IsBeginDrag)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
@@ -268,8 +108,9 @@ public class HandManager : MonoBehaviour
             {
                 if (CurrentFocusCard)
                 {
-                    returnToSmaller(CurrentFocusCard);
+                    HandCardShrink(CurrentFocusCard);
                     CurrentFocusCard = null;
+                    RefreshCardsPlace();
                 }
             }
         }
@@ -277,21 +118,21 @@ public class HandManager : MonoBehaviour
 
     [SerializeField] private Transform DefaultCardPivot;
 
-    internal void RefreshCardsPlace() //重置所有手牌位置
-    {
-        RefreshCardsPlace(cards.Count, 0.1f);
-    }
-
-    internal void RefreshCardsPlace(float duration) //重置所有手牌位置
+    internal void RefreshCardsPlace(float duration = 0.1f) //重置所有手牌位置
     {
         RefreshCardsPlace(cards.Count, duration);
     }
 
-    internal void RefreshCardsPlace(int cardCount, float duration) //按虚拟的手牌总数重置所有手牌位置
+    private void RefreshCardsPlace(int cardCount, float duration) //按虚拟的手牌总数重置所有手牌位置
     {
+        foreach (CardBase cardBase in cards)
+        {
+            iTween.Stop(cardBase.gameObject);
+        }
+
         if (CurrentFocusCard)
         {
-            returnToSmaller(CurrentFocusCard);
+            HandCardShrink(CurrentFocusCard);
             CurrentFocusCard = null;
         }
 
@@ -321,37 +162,25 @@ public class HandManager : MonoBehaviour
         RefreshAllCardUsable();
     }
 
-    internal void RefreshCardsPlaceImmediately() //瞬间重置
+    private void RefreshCardPlace(CardBase cardBase, float duration = 0.1f)
     {
-        RefreshCardsPlaceImmediately(cards.Count);
-    }
-
-    internal void RefreshCardsPlaceImmediately(int cardCount) //瞬间重置
-    {
-        if (CurrentFocusCard)
-        {
-            returnToSmaller(CurrentFocusCard);
-            CurrentFocusCard = null;
-        }
-
+        if (!cards.Contains(cardBase)) return;
+        iTween.Stop(cardBase.gameObject);
         if (ClientPlayer == null) return;
-        if (cards.Count == 0) return;
+        Transform result = GetCardPlace(cards.IndexOf(cardBase), cards.Count);
+        Vector3 position = result.position;
+        Vector3 rotation = result.rotation.eulerAngles;
+        Vector3 scale = result.localScale;
 
-        int count = 0;
-        foreach (CardBase card in cards)
-        {
-            count++;
-            Transform result = GetCardPlace(count, cardCount);
-            Vector3 position = result.position;
-            Quaternion rotation = result.rotation;
-            Vector3 scale = result.localScale;
-
-            card.transform.position = position;
-            card.transform.rotation = rotation;
-            card.transform.localScale = scale;
-        }
-
-        RefreshAllCardUsable();
+        Hashtable args = new Hashtable();
+        args.Add("position", position);
+        args.Add("time", duration);
+        args.Add("easeType", iTween.EaseType.linear);
+        iTween.MoveTo(cardBase.gameObject, args);
+        args.Add("rotation", rotation);
+        iTween.RotateTo(cardBase.gameObject, args);
+        args.Add("scale", scale);
+        iTween.ScaleTo(cardBase.gameObject, args);
     }
 
     private GameObject GetCardPlacePivot;
@@ -368,17 +197,10 @@ public class HandManager : MonoBehaviour
         GetCardPlacePivot.transform.rotation = DefaultCardPivot.rotation;
         GetCardPlacePivot.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
 
-        float angle = anglesDict[toatalCardNumber - 1] * GameManager.Instance.HandCardRotate;
-        float horrizonDist = horrizonDistanceDict[toatalCardNumber - 1] * GameManager.Instance.HandCardInterval;
+        float angle = ANGLES_DICT[toatalCardNumber - 1] * GameManager.Instance.HandCardRotate;
+        float horrizonDist = HORRIZON_DISTANCE_DICT[toatalCardNumber - 1] * GameManager.Instance.HandCardInterval;
         float rotateAngle = angle / toatalCardNumber * (((toatalCardNumber - 1) / 2.0f + 1) - cardIndex);
-        if (ClientPlayer.WhichPlayer == Players.Self)
-        {
-        }
-        else
-        {
-            GetCardPlacePivot.transform.Rotate(-Vector3.right * 180);
-        }
-
+        if (ClientPlayer.WhichPlayer == Players.Enemy) GetCardPlacePivot.transform.Rotate(-Vector3.right * 180);
         GetCardPlacePivot.transform.position = new Vector3(GetCardPlacePivot.transform.position.x, 4f, GetCardPlacePivot.transform.position.z);
         float horrizonDistance = horrizonDist / toatalCardNumber * (((toatalCardNumber - 1) / 2.0f + 1) - cardIndex);
         GetCardPlacePivot.transform.Translate(-Vector3.right * horrizonDistance * GameManager.Instance.HandCardSize); //向水平向错开，体现手牌展开感
@@ -408,27 +230,226 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    internal void SetAllCardUnusable() //禁用所有手牌
+    internal void SetAllCardUnusable()
     {
         foreach (CardBase card in cards) card.Usable = false;
     }
 
+    #endregion
+
+    #region Draw cards
+
+    public void GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds)
+    {
+        if (ClientPlayer == null) return;
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_GetCards(cardIdAndInstanceIds), "Co_GetCard");
+    }
+
+    IEnumerator Co_GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds) //多卡片抽取动画
+    {
+        float cardFlyTime = 1f;
+        float intervalTime = 0.3f;
+
+        RefreshCardsPlace(cards.Count + cardIdAndInstanceIds.Count, 0.1f);
+        yield return new WaitForSeconds(0.2f);
+
+        int count = 0;
+        int currentCount = cards.Count;
+        foreach (DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId in cardIdAndInstanceIds)
+        {
+            count++;
+            StartCoroutine(SubCo_GetCard(currentCount + count, currentCount + cardIdAndInstanceIds.Count, cardIdAndInstanceId, cardFlyTime));
+            yield return new WaitForSeconds(intervalTime);
+        }
+
+        RefreshAllCardUsable();
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+        yield return null;
+    }
+
+    [SerializeField] private Transform DrawCardPivot;
+
+    IEnumerator SubCo_GetCard(int indexNumber, int totalCardNumber, DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId, float duration) //单卡片抽取动画
+    {
+        CardInfo_Base newCardInfoBase = AllCards.GetCard(cardIdAndInstanceId.CardId);
+        CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
+        newCardBase.M_CardInstanceId = cardIdAndInstanceId.CardInstanceId;
+
+        cards.Add(newCardBase);
+        RefreshAllCardUsable();
+
+        Transform srcPos = DrawCardPivot;
+        Transform tarTran = GetCardPlace(indexNumber, totalCardNumber);
+        Vector3 tarPos = tarTran.position;
+        Quaternion tarRot = tarTran.rotation;
+
+        newCardBase.transform.position = srcPos.position;
+        newCardBase.transform.rotation = srcPos.rotation;
+        newCardBase.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
+
+        Hashtable arg = new Hashtable();
+        arg.Add("position", tarPos);
+        arg.Add("time", duration);
+        arg.Add("rotation", tarRot.eulerAngles);
+
+        iTween.MoveTo(newCardBase.gameObject, arg);
+        iTween.RotateTo(newCardBase.gameObject, arg);
+
+        AudioManager.Instance.SoundPlay("sfx/DrawCard0");
+
+        yield return new WaitForSeconds(duration + 0.1f);
+    }
+
+    public void DropCard(int handCardInstanceId)
+    {
+        CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
+        cardBase.PoolRecycle();
+        cards.Remove(cardBase);
+        RefreshCardsPlace();
+    }
+
+    #endregion
+
+    #region Play cards
+
+    public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo, Vector3 lastDragPosition)
+    {
+        CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
+
+        if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
+        {
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UseCard(cardBase, cardInfo), "Co_UseCardShow");
+        }
+        else
+        {
+            cardBase.OnPlayOut();
+            cards.Remove(cardBase);
+            cardBase.PoolRecycle();
+            RefreshCardsPlace();
+        }
+    }
+
+    private float lastUseCardShowTime;
+    private float useCardShowIntervalMinimum = 1f;
+
+    IEnumerator Co_UseCard(CardBase cardBase, CardInfo_Base cardInfo)
+    {
+        if (Time.time - lastUseCardShowTime < useCardShowIntervalMinimum) yield return new WaitForSeconds(useCardShowIntervalMinimum - (Time.time - lastUseCardShowTime));
+        lastUseCardShowTime = Time.time;
+        if (current_SubCo_ShowCardForTime != null)
+        {
+            StopCoroutine(current_SubCo_ShowCardForTime);
+        }
+
+        if (cardBase)
+        {
+            cardBase.OnPlayOut();
+            cards.Remove(cardBase);
+            iTween.Stop(cardBase.gameObject);
+            current_SubCo_ShowCardForTime = SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.Instance.ShowCardDuration);
+            StartCoroutine(current_SubCo_ShowCardForTime);
+        }
+
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
+    private IEnumerator current_SubCo_ShowCardForTime;
+
+    IEnumerator SubCo_ShowCardForTime(CardBase cardBase, CardInfo_Base cardInfo, float showCardDuration)
+    {
+        if (currentShowCard)
+        {
+            lastShowCard = currentShowCard;
+            iTween.Stop(lastShowCard.gameObject);
+
+            Hashtable lastShowCardMoveBeneath = new Hashtable();
+            lastShowCardMoveBeneath.Add("time", GameManager.Instance.ShowCardFlyDuration);
+            lastShowCardMoveBeneath.Add("position", GameManager.Instance.UseCardShowPosition);
+            lastShowCardMoveBeneath.Add("rotation", new Vector3(0, 180, 0));
+            lastShowCardMoveBeneath.Add("scale", Vector3.one * GameManager.Instance.CardShowScale);
+
+            iTween.MoveTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
+            iTween.RotateTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
+            iTween.ScaleTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
+        }
+
+        currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer, false);
+        currentShowCard.transform.position = cardBase.transform.position;
+        currentShowCard.transform.rotation = cardBase.transform.rotation;
+        currentShowCard.transform.localScale = cardBase.transform.localScale;
+
+        cardBase.PoolRecycle();
+
+        currentShowCard.DragComponent.enabled = false;
+        currentShowCard.Usable = false;
+        currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
+        currentShowCard.CardBloom.SetActive(true);
+        currentShowCard.BeBrightColor();
+
+        Hashtable currentCardMove = new Hashtable();
+        currentCardMove.Add("time", GameManager.Instance.ShowCardFlyDuration);
+        currentCardMove.Add("position", GameManager.Instance.UseCardShowPosition_Overlay);
+        currentCardMove.Add("rotation", new Vector3(0, 180, 0));
+        currentCardMove.Add("scale", Vector3.one * GameManager.Instance.CardShowScale);
+
+        iTween.MoveTo(currentShowCard.gameObject, currentCardMove);
+        iTween.RotateTo(currentShowCard.gameObject, currentCardMove);
+        iTween.ScaleTo(currentShowCard.gameObject, currentCardMove);
+
+        RefreshCardsPlace();
+        yield return new WaitForSeconds(GameManager.Instance.ShowCardFlyDuration);
+
+        if (lastShowCard)
+        {
+            lastShowCard.PoolRecycle();
+            lastShowCard = null;
+        }
+
+        yield return new WaitForSeconds(showCardDuration - GameManager.Instance.ShowCardFlyDuration);
+
+        currentShowCard.PoolRecycle();
+        currentShowCard = null;
+
+        current_SubCo_ShowCardForTime = null;
+    }
+
+    #endregion
+
+
+    #region UX
+
     public CardBase CurrentFocusCard;
+
     CardBase currentFocusEquipmentCard;
 
     internal void CardOnMouseEnter(CardBase focusCard)
     {
-        if (isBeginDrag) return;
-        if (CurrentFocusCard == focusCard) return;
-        if (CurrentFocusCard)
+        if (IsBeginDrag && DragManager.Instance.CurrentDrag.gameObject != focusCard.gameObject)
         {
-            returnToSmaller(CurrentFocusCard);
-            RefreshCardsPlaceImmediately();
+            return;
+        }
+
+        if (CurrentFocusCard == focusCard)
+        {
+            if (!isEnlarge)
+            {
+                HandCardEnlarge(focusCard);
+            }
+
+            return;
+        }
+
+        if (CurrentFocusCard && ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+        {
+            HandCardShrink(CurrentFocusCard);
+            //RefreshCardPlace(CurrentFocusCard);
+            RefreshCardsPlace();
             ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
         }
 
         CurrentFocusCard = focusCard;
-        becomeBigger(focusCard);
+        HandCardEnlarge(focusCard);
         if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
         {
             if (CurrentFocusCard is CardEquip)
@@ -449,12 +470,87 @@ public class HandManager : MonoBehaviour
         currentFocusCardTickerBegin = true;
     }
 
-    internal void CardOnMouseLeave(CardBase focusCard)
+    internal void CardOnMouseLeave(CardBase focusCard) //鼠标离开卡牌
     {
-        if (isBeginDrag) return;
-        RefreshCardsPlaceImmediately();
+        if (IsBeginDrag) return;
+        RefreshCardsPlace();
+        //RefreshCardPlace(focusCard);
         ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
     }
+
+    internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard) //鼠标离开代替卡牌的碰撞区
+    {
+        HandCardShrink(lostFocusCard);
+        //RefreshCardPlace(lostFocusCard);
+        if (currentFocusEquipmentCard == lostFocusCard) currentFocusEquipmentCard = null;
+        ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
+        if (!Input.GetMouseButton(0)) ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
+    }
+
+    #region Hang cards enlarge and shrink.
+
+    private bool isBeginDrag;
+
+    internal bool IsBeginDrag
+    {
+        get { return isBeginDrag; }
+        set { isBeginDrag = value; }
+    }
+
+    private bool isEnlarge = false;
+
+    void HandCardEnlarge(CardBase focusCard)
+    {
+        if (ClientPlayer == null) return;
+        if (IsBeginDrag && DragManager.Instance.CurrentDrag.gameObject != focusCard.gameObject)
+        {
+            return;
+        }
+
+        if (ClientPlayer.WhichPlayer == Players.Self)
+        {
+            iTween.Stop(focusCard.gameObject);
+
+            //Replace the card by a boxcollider
+            ColliderReplace colliderReplace = GameObjectPoolManager.Instance.Pool_ColliderReplacePool.AllocateGameObject<ColliderReplace>(GameBoardManager.Instance.transform);
+            colliderReplace.Initiate(focusCard);
+            //Enlarge the card and put it in upright position
+            focusCard.transform.localScale = Vector3.one * GameManager.Instance.PullOutCardSize;
+            focusCard.transform.rotation = DefaultCardPivot.rotation;
+            focusCard.transform.position = new Vector3(focusCard.transform.position.x, 2f, focusCard.transform.position.z);
+            focusCard.transform.Translate(Vector3.up * 5f);
+            focusCard.transform.Translate(Vector3.back * 3f);
+            //Disenable the card's boxcollider
+            focusCard.GetComponent<BoxCollider>().enabled = false;
+            isEnlarge = true;
+        }
+    }
+
+    void HandCardShrink(CardBase lostFocusCard)
+    {
+        if (ClientPlayer == null) return;
+        if (IsBeginDrag) return;
+        if (ClientPlayer.WhichPlayer == Players.Self)
+        {
+            iTween.Stop(lostFocusCard.gameObject);
+
+            lostFocusCard.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
+            if (lostFocusCard.myColliderReplace)
+            {
+                lostFocusCard.transform.position = lostFocusCard.myColliderReplace.transform.position;
+                lostFocusCard.transform.rotation = lostFocusCard.myColliderReplace.transform.rotation;
+            }
+
+            lostFocusCard.ResetColliderAndReplace();
+            currentFocusCardTickerBegin = false;
+            AffixManager.Instance.HideAffixPanel();
+            isEnlarge = false;
+        }
+    }
+
+    #endregion
+
+    #region ShowHandCardAffixTips
 
     private bool currentFocusCardTickerBegin = false;
     private float currentFocusCardTicker = 0;
@@ -468,23 +564,60 @@ public class HandManager : MonoBehaviour
             if (currentFocusCardTicker > currentFocusCardShowAffixTimeThreshold)
             {
                 currentFocusCardTicker = 0;
-                if (CurrentFocusCard) AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {CurrentFocusCard.CardInfo});
+                if (CurrentFocusCard)
+                {
+                    AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {CurrentFocusCard.CardInfo});
+                }
+
                 currentFocusCardTickerBegin = false;
             }
         }
     }
 
-    internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard)
-    {
-        returnToSmaller(lostFocusCard);
-        if (currentFocusEquipmentCard == lostFocusCard)
-        {
-            currentFocusEquipmentCard = null;
-        }
+    #endregion
 
-        ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
-        if (!Input.GetMouseButton(0)) ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
+    #region ShowHandCardCountTip
+
+    private bool handCardCountTickerBegin = false;
+    private float handCardCountTicker = 0;
+    private float handCardCountTimeThreshold = 2f;
+    private float handCardCountTimeThreshold_Enemy = 0.1f;
+
+    private void UpdateHandCardCountTicker()
+    {
+        if (DragComponent.CheckAreas() == ClientPlayer.MyHandArea)
+        {
+            if (!handCardCountTickerBegin)
+            {
+                handCardCountTicker += Time.deltaTime;
+                if (handCardCountTicker > (ClientPlayer == RoundManager.Instance.SelfClientPlayer ? handCardCountTimeThreshold : handCardCountTimeThreshold_Enemy))
+                {
+                    handCardCountTickerBegin = true;
+                    handCardCountTicker = 0;
+                    HandCardCountPanelAnim.SetTrigger("Jump");
+                    if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+                    {
+                        HandCardCountText.text = GameManager.Instance.isEnglish ? "Your have " + cards.Count + " cards." : "你有" + cards.Count + "张手牌";
+                    }
+                    else
+                    {
+                        HandCardCountText.text = GameManager.Instance.isEnglish ? "Your component has " + cards.Count + " cards." : "你的对手有" + cards.Count + "张手牌";
+                    }
+                }
+            }
+        }
+        else
+        {
+            handCardCountTicker = 0;
+            handCardCountTickerBegin = false;
+            HandCardCountPanelAnim.SetTrigger("Reset");
+        }
     }
+
+    #endregion
+
+
+    #region ShowAndHideEquipSlotBloomTip
 
     internal void Update_CheckSlotBloomTipOff()
     {
@@ -510,62 +643,10 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    bool isBeginDrag = false;
+    #endregion
 
-    internal void BeginDrag()
-    {
-        isBeginDrag = true;
-    }
 
-    internal void EndDrag()
-    {
-        isBeginDrag = false;
-    }
-
-    //鼠标悬停手牌放大效果
-    void becomeBigger(CardBase focusCard)
-    {
-        if (ClientPlayer == null) return;
-        if (!isBeginDrag && ClientPlayer.WhichPlayer == Players.Self)
-        {
-            //用一个BoxCollider代替原来的位置
-            ColliderReplace colliderReplace = GameObjectPoolManager.Instance.Pool_ColliderReplacePool.AllocateGameObject<ColliderReplace>(GameBoardManager.Instance.transform);
-            colliderReplace.Initiate(focusCard);
-            //本卡牌变大，旋转至正位
-            focusCard.transform.localScale = Vector3.one * GameManager.Instance.PullOutCardSize;
-            focusCard.transform.rotation = DefaultCardPivot.rotation;
-            if (ClientPlayer.WhichPlayer == Players.Self)
-            {
-                //focusCard.transform.Rotate(Vector3.up * 180);
-                focusCard.transform.position = new Vector3(focusCard.transform.position.x, 2f, focusCard.transform.position.z);
-                focusCard.transform.Translate(Vector3.up * 5f);
-                focusCard.transform.Translate(Vector3.back * 3f);
-                //本卡牌BoxCollider失效
-                focusCard.GetComponent<BoxCollider>().enabled = false;
-            }
-        }
-    }
-
-    void returnToSmaller(CardBase lostFocusCard)
-    {
-        if (ClientPlayer == null) return;
-        if (!isBeginDrag && ClientPlayer.WhichPlayer == Players.Self)
-        {
-            //一旦替身BoxCollider失焦，恢复原手牌位置
-            lostFocusCard.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
-            if (lostFocusCard.myColliderReplace)
-            {
-                lostFocusCard.transform.position = lostFocusCard.myColliderReplace.transform.position;
-                lostFocusCard.transform.rotation = lostFocusCard.myColliderReplace.transform.rotation;
-            }
-
-            lostFocusCard.ResetColliderAndReplace();
-            AffixManager.Instance.HideAffixPanel();
-            currentFocusCardTickerBegin = false;
-        }
-    }
-
-    #region 预召唤带有指定目标的机甲
+    #region Pre_summon mechs that have target SideEffects.
 
     private CardRetinue currentSummonRetinuePreviewCard;
     private int summonRetinuePreviewCardIndex;

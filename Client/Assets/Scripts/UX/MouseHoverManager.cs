@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// 鼠标悬停管理器
@@ -86,12 +87,31 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
             StartMenu, //开始界面
             ExitMenu, //Exit菜单
             SelectCardWindow, //选卡界面
+            SelectCardWindow_ReadOnly, //选卡界面_战斗内
             BattleNormal, //战斗一般状态
             DragEquipment, //拖动装备牌过程中
             DragRetinueTo, //机甲拖动攻击
             DragSpellTo, //法术牌拖动瞄准
             SummonRetinueTargetOn, //召唤带目标的机甲时，选择目标期间
         }
+
+        public static HashSet<States> OutGameState = new HashSet<States>
+        {
+            States.StartMenu,
+            States.ExitMenu,
+            States.SelectCardWindow,
+        };
+
+        public static HashSet<States> InGameState = new HashSet<States>
+        {
+            States.SelectCardWindow_ReadOnly,
+            States.BattleNormal,
+            States.DragEquipment,
+            States.DragRetinueTo,
+            States.DragRetinueTo,
+            States.DragSpellTo,
+            States.SummonRetinueTargetOn,
+        };
 
         private States state;
         private States previousState;
@@ -155,7 +175,11 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
         public void Update()
         {
-            if (Client.Instance.IsPlaying() && DragManager.Instance.CurrentDrag == null && DragManager.Instance.CurrentSummonPreviewRetinue == null) SetState(States.BattleNormal);
+            if (InGameState.Contains(state) && DragManager.Instance.CurrentDrag == null && DragManager.Instance.CurrentSummonPreviewRetinue == null)
+            {
+                if (state != States.SelectCardWindow_ReadOnly) Instance.M_StateMachine.SetState(States.BattleNormal);
+            }
+
             Instance.hi_MouseFocusUIHover.Check<MouseHoverUI>();
             switch (state)
             {
@@ -265,7 +289,8 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                     Release();
                 }
 
-                Instance.M_StateMachine.SetState(StateMachine.States.BattleNormal);
+                StateMachine.States curState = Instance.M_StateMachine.GetState();
+                if (StateMachine.InGameState.Contains(curState) && curState != StateMachine.States.SelectCardWindow_ReadOnly) Instance.M_StateMachine.SetState(StateMachine.States.BattleNormal);
             }
         }
 

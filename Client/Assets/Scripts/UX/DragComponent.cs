@@ -7,10 +7,10 @@ using UnityEngine;
 /// </summary>
 public class DragComponent : MonoBehaviour
 {
-    int retinuesLayer;
-    int boardAreasLayer;
-    int slotsLayer;
-    int shipsLayer;
+    static int retinuesLayer;
+    static int boardAreasLayer;
+    static int slotsLayer;
+    static int shipsLayer;
     IDragComponent caller;
 
     private CardBase possibleCard;
@@ -68,7 +68,7 @@ public class DragComponent : MonoBehaviour
                 case DragPurpose.Summon:
                     transform.position = transform.position + cameraPosition - dragLastPosition;
                     dragLastPosition = cameraPosition;
-                    caller.DragComponent_OnMousePressed(checkAreas(), null, null, dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
+                    caller.DragComponent_OnMousePressed(CheckAreas(), null, null, dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
                     break;
                 case DragPurpose.Target:
                     if ((transform.position - dragBeginPosition).magnitude < dragDistance) //拖拽物体本身 
@@ -116,7 +116,7 @@ public class DragComponent : MonoBehaviour
                 if (canDrag)
                 {
                     //将鼠标放开的区域告知拖动对象主体，并提供拖动起始姿态信息以供还原
-                    caller.DragComponent_OnMouseUp(checkAreas(), checkMoveToSlot(), checkMoveToRetinue(),checkMoveToShip(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+                    caller.DragComponent_OnMouseUp(CheckAreas(), checkMoveToSlot(), checkMoveToRetinue(), checkMoveToShip(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
                     dragLastPosition = Vector3.zero;
                     isBegin = true;
                     if (DragManager.Instance.CurrentArrow) DragManager.Instance.CurrentArrow.PoolRecycle();
@@ -132,7 +132,7 @@ public class DragComponent : MonoBehaviour
         }
     }
 
-    BoardAreaTypes checkAreas() //检查鼠标悬停在哪个区域
+    public static BoardAreaTypes CheckAreas() //检查鼠标悬停在哪个区域
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;
@@ -234,7 +234,7 @@ internal interface IDragComponent
     /// <param name="dragBeginPosition">移动的初始位置</param>
     /// <param name="dragBeginQuaternion">被拖动对象的初始旋转</param>
     void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots,
-        ModuleRetinue moduleRetinue,Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition,
+        ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition,
         Quaternion dragBeginQuaternion);
 
     void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose);

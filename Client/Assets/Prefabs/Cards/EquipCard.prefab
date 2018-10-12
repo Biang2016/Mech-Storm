@@ -1325,6 +1325,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff975c98951c4a42851b18bf76111f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  M_DragComponent: {fileID: 114910235152336950}
+  M_BoxCollider: {fileID: 65446152555547904}
   Text_Name: {fileID: 114706445834876402}
   Text_Desc: {fileID: 114370146817308680}
   Text_CardType: {fileID: 114011659600290452}

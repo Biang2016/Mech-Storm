@@ -41,7 +41,7 @@ public class GameManager : MonoSingletion<GameManager>
     #region 游戏全局参数
 
     internal Vector3 UseCardShowPosition = new Vector3(10, 3, 0);
-    internal Vector3 UseCardShowOverlayPosition = new Vector3(10, 3, 0.2f);
+    internal Vector3 UseCardShowPosition_Overlay = new Vector3(10, 3, 0.2f);
 
     public bool ShowBEMMessages = false;
     public bool ShowBattleGroundInfos = false;
@@ -63,9 +63,8 @@ public class GameManager : MonoSingletion<GameManager>
 
     public float CardShowScale = 3f;
 
-    public float ShowCardDuration = 0.7f;
-    public float ShowCardRotateDuration = 0.1f;
-    public float ShowCardFlyDuration = 0.2f;
+    public float ShowCardDuration = 0.9f;
+    public float ShowCardFlyDuration = 0.4f;
 
     public int CardDeckCardNum = 10;
 

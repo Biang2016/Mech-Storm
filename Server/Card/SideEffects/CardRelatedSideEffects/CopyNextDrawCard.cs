@@ -10,10 +10,14 @@
         {
             ServerPlayer player = (ServerPlayer) Player;
             CardInfo_Base ci = player.MyCardDeckManager.CardDeck.GetFirstCardInfo();
-            player.MyHandManager.DrawCards(1);
-            for (int i = 0; i < FinalValue; i++)
+            if (ci != null)
             {
-                player.MyHandManager.GetACardByID(ci.CardID);
+                player.MyHandManager.DrawCards(1);
+                for (int i = 0; i < FinalValue; i++)
+                {
+                    player.MyHandManager.GetACardByID(ci.CardID);
+                }
+
             }
         }
     }

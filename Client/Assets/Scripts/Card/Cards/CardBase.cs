@@ -6,6 +6,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 {
     internal ClientPlayer ClientPlayer;
     protected bool IsCardSelect;
+    [SerializeField] private DragComponent M_DragComponent;
+    [SerializeField] private BoxCollider M_BoxCollider;
 
     public override void PoolRecycle()
     {
@@ -13,17 +15,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         if (!IsCardSelect)
         {
             ResetColliderAndReplace();
-            if (GetComponent<DragComponent>())
-            {
-                GetComponent<DragComponent>().enabled = true;
-            }
-
-            if (GetComponent<BoxCollider>())
-            {
-                GetComponent<BoxCollider>().enabled = true;
-            }
-
-            CanBecomeBigger = true;
+            if (M_DragComponent) M_DragComponent.enabled = true;
+            if (M_BoxCollider) M_BoxCollider.enabled = true;
             Usable = false;
             base.PoolRecycle();
             transform.localScale = Vector3.one * 2;
@@ -441,8 +434,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
     }
 
-    internal bool IsFlying; //还在抽牌的运动中
-
     public virtual void OnBeginRound()
     {
     }
@@ -472,7 +463,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public virtual void DragComponent_OnMouseDown()
     {
-        ClientPlayer.MyHandManager.BeginDrag();
+        ClientPlayer.MyHandManager.IsBeginDrag = true;
+        iTween.Stop(gameObject);
     }
 
     public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
@@ -481,17 +473,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        ClientPlayer.MyHandManager.EndDrag();
+        ClientPlayer.MyHandManager.IsBeginDrag = false;
     }
 
     public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        if (IsFlying)
-        {
-            iTween.Stop(gameObject);
-            IsFlying = false;
-        }
-
         canDrag = Usable && ClientPlayer.MyHandManager.CurrentFocusCard == this && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
         dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
@@ -509,16 +495,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public virtual void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {
-        if (IsFlying)
-        {
-            iTween.Stop(gameObject);
-            IsFlying = false;
-        }
-
-        if (CanBecomeBigger)
-        {
-            ClientPlayer.MyHandManager.CardOnMouseEnter(this);
-        }
+        ClientPlayer.MyHandManager.CardOnMouseEnter(this);
     }
 
     public virtual void MouseHoverComponent_OnHover1End()

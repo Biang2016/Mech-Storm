@@ -16,6 +16,7 @@ public class PoolObject : MonoBehaviour
 
     public virtual void PoolRecycle()
     {
+        iTween.Stop(gameObject);
         m_Pool.RecycleGameObject(this);
     }
 }
