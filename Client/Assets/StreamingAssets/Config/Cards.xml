@@ -582,7 +582,7 @@
     </CardInfo>
   </Card>
   <Card id="61701">
-    <CardInfo name="baseInfo" pictureID="617" cardName="刺客意志" cardName_en="Assassin's Will" cardDesc="" isTemp="False" hide="False" metal="0" energy="10" coin="400" effectFactor="1" dragPurpose="Target" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="617" cardName="刺客意志" cardName_en="Assassin's Will" cardDesc="我方的下一次攻击提升50%" isTemp="False" hide="False" metal="0" energy="10" coin="400" effectFactor="1" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="5"></SideEffect>

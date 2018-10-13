@@ -247,7 +247,6 @@
 8th, Oct
 [dev] Add an affix named Frenzy for weapon or mechs that it can attack twice per round.
 [dev] Add an affix named Sentry for weapon so that the mech can only counterattack.
-[]
 
 9th, Oct
 [dev] The arrow turns to aming pattern when targeted to equipment.
@@ -263,6 +262,14 @@
 12th, Oct
 [polish] Handcard UX optimization
 [bugfix] Fix the bug that the card details show OnMouseHover even when SelectCardWindow is On.
+[dev] Add Butterfly-Storm series cards
+
+13th, Oct
+[bugfix] Fix the bug of the state machine error of SelectCardWindow.
+[dev] Add the deck info abstract besides the button of Game Begin.
+[dev] Add confirm window system.
+[polish] Add some FX to menus.
+[polish] Optimize select card window fluency.
 
 TodoList
 增加retinue的武器图标样式，普通和枪
@@ -291,10 +298,8 @@ energy条用量预览显示高亮
 ！！！
 调手牌手感
 增加退出游戏提示框
-开始匹配后面写上卡组基本信息预览
 风暴系列卡牌开发
 
 Bugs:
 多次登录卡死bug
 confirm close
-开着选卡窗口进入游戏

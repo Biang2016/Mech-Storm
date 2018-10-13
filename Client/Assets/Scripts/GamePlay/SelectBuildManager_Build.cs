@@ -73,6 +73,8 @@ public partial class SelectBuildManager
             CurrentSelectedBuildButton.IsSelected = true;
             SelectCardsByBuildInfo(CurrentEditBuildButton.BuildInfo);
 
+            StartMenuManager.Instance.RefreshBuildInfoAbstract();
+
             ShowSliders();
             RefreshCoinLifeEnergy();
             RefreshCardNum();
@@ -219,8 +221,6 @@ public partial class SelectBuildManager
                 nextCurrentEditBuildButton.IsSelected = true;
                 CurrentSelectedBuildButton = nextCurrentEditBuildButton;
             }
-
-         
         }
     }
 

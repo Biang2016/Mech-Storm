@@ -403,6 +403,7 @@ public class HandManager : MonoBehaviour
 
     internal void CardOnMouseEnter(CardBase focusCard)
     {
+        if (ClientPlayer.WhichPlayer == Players.Enemy) return;
         if (IsBeginDrag && DragManager.Instance.CurrentDrag.gameObject != focusCard.gameObject)
         {
             return;
@@ -449,6 +450,7 @@ public class HandManager : MonoBehaviour
 
     internal void CardOnMouseLeave(CardBase focusCard) //鼠标离开卡牌
     {
+        if (ClientPlayer.WhichPlayer == Players.Enemy) return;
         if (IsBeginDrag) return;
         RefreshCardsPlace();
         ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
@@ -456,6 +458,7 @@ public class HandManager : MonoBehaviour
 
     internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard) //鼠标离开代替卡牌的碰撞区
     {
+        if (ClientPlayer.WhichPlayer == Players.Enemy) return;
         if (IsBeginDrag) return;
         HandCardShrink(lostFocusCard);
         RefreshCardsPlace();
@@ -479,50 +482,47 @@ public class HandManager : MonoBehaviour
     void HandCardEnlarge(CardBase focusCard)
     {
         if (ClientPlayer == null) return;
+        if (ClientPlayer.WhichPlayer == Players.Enemy) return;
         if (IsBeginDrag && DragManager.Instance.CurrentDrag.gameObject != focusCard.gameObject)
         {
             return;
         }
 
-        if (ClientPlayer.WhichPlayer == Players.Self)
-        {
-            iTween.Stop(focusCard.gameObject);
+        iTween.Stop(focusCard.gameObject);
 
-            //Replace the card by a boxcollider
-            ColliderReplace colliderReplace = GameObjectPoolManager.Instance.Pool_ColliderReplacePool.AllocateGameObject<ColliderReplace>(GameBoardManager.Instance.transform);
-            colliderReplace.Initiate(focusCard);
-            //Enlarge the card and put it in upright position
-            focusCard.transform.localScale = Vector3.one * GameManager.Instance.PullOutCardSize;
-            focusCard.transform.rotation = DefaultCardPivot.rotation;
-            focusCard.transform.position = new Vector3(focusCard.transform.position.x, 2f, focusCard.transform.position.z);
-            focusCard.transform.Translate(Vector3.up * 5f);
-            focusCard.transform.Translate(Vector3.back * 3f);
-            //Disenable the card's boxcollider
-            focusCard.GetComponent<BoxCollider>().enabled = false;
-            isEnlarge = true;
-        }
+        //Replace the card by a boxcollider
+        ColliderReplace colliderReplace = GameObjectPoolManager.Instance.Pool_ColliderReplacePool.AllocateGameObject<ColliderReplace>(GameBoardManager.Instance.transform);
+        colliderReplace.Initiate(focusCard);
+        //Enlarge the card and put it in upright position
+        focusCard.transform.localScale = Vector3.one * GameManager.Instance.PullOutCardSize;
+        focusCard.transform.rotation = DefaultCardPivot.rotation;
+        focusCard.transform.position = new Vector3(focusCard.transform.position.x, 2f, focusCard.transform.position.z);
+        focusCard.transform.Translate(Vector3.up * 5f);
+        focusCard.transform.Translate(Vector3.back * 3f);
+        //Disenable the card's boxcollider
+        focusCard.GetComponent<BoxCollider>().enabled = false;
+        isEnlarge = true;
     }
 
     void HandCardShrink(CardBase lostFocusCard)
     {
         if (ClientPlayer == null) return;
+        if (ClientPlayer.WhichPlayer == Players.Enemy) return;
         if (IsBeginDrag) return;
-        if (ClientPlayer.WhichPlayer == Players.Self)
+
+        iTween.Stop(lostFocusCard.gameObject);
+
+        lostFocusCard.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
+        if (lostFocusCard.myColliderReplace)
         {
-            iTween.Stop(lostFocusCard.gameObject);
-
-            lostFocusCard.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
-            if (lostFocusCard.myColliderReplace)
-            {
-                lostFocusCard.transform.position = lostFocusCard.myColliderReplace.transform.position;
-                lostFocusCard.transform.rotation = lostFocusCard.myColliderReplace.transform.rotation;
-            }
-
-            lostFocusCard.ResetColliderAndReplace();
-            currentFocusCardTickerBegin = false;
-            AffixManager.Instance.HideAffixPanel();
-            isEnlarge = false;
+            lostFocusCard.transform.position = lostFocusCard.myColliderReplace.transform.position;
+            lostFocusCard.transform.rotation = lostFocusCard.myColliderReplace.transform.rotation;
         }
+
+        lostFocusCard.ResetColliderAndReplace();
+        currentFocusCardTickerBegin = false;
+        AffixManager.Instance.HideAffixPanel();
+        isEnlarge = false;
     }
 
     #endregion

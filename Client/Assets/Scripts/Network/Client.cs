@@ -154,6 +154,11 @@ public class Client : MonoSingletion<Client>
         return Proxy != null && (Proxy.ClientState == ProxyBase.ClientStates.Login || Proxy.ClientState == ProxyBase.ClientStates.Matching);
     }
 
+    public bool IsMatching() //是否正在匹配
+    {
+        return Proxy != null && Proxy.ClientState == ProxyBase.ClientStates.Matching;
+    }
+
     public bool IsPlaying() //是否开始游戏
     {
         return Proxy != null && Proxy.ClientState == ProxyBase.ClientStates.Playing;

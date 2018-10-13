@@ -175,6 +175,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
 
         public void Update()
         {
+            if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
             if (InGameState.Contains(state) && DragManager.Instance.CurrentDrag == null && DragManager.Instance.CurrentSummonPreviewRetinue == null)
             {
                 if (state != States.SelectCardWindow_ReadOnly) Instance.M_StateMachine.SetState(States.BattleNormal);

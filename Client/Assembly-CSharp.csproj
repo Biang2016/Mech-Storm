@@ -134,6 +134,8 @@
      <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
      <Compile Include="Assets\Scripts\Network\Proxy.cs" />
      <Compile Include="Assets\Scripts\UI\ButtonEffects.cs" />
+     <Compile Include="Assets\Scripts\UI\ConfirmWindow\ConfirmWindow.cs" />
+     <Compile Include="Assets\Scripts\UI\ConfirmWindow\ConfirmWindowManager.cs" />
      <Compile Include="Assets\Scripts\UI\CostBar\MetalBarBlock.cs" />
      <Compile Include="Assets\Scripts\UI\CostBar\MetalBarManager.cs" />
      <Compile Include="Assets\Scripts\UI\DebugUILine.cs" />

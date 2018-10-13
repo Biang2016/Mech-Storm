@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -121,10 +122,12 @@ public partial class SelectBuildManager
         }
     }
 
-    private void SelectCard(CardBase card, bool playSound)
+    private void SelectCard(CardBase card, bool isSelectAll)
     {
         if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
         {
+            if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter("You cannot edit your build when Matching.", 0, 0.1f);
+            else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter("You cannot edit your build when Playing.", 0, 0.1f);
             return;
         }
 
@@ -159,12 +162,9 @@ public partial class SelectBuildManager
             {
                 SelectCard retinueSelect = GenerateNewSelectCard(card, RetinueContent);
                 SelectedHeros.Add(card.CardInfo.CardID, retinueSelect);
-                List<SelectCard> SCs = RetinueContent.GetComponentsInChildren<SelectCard>(true).ToList();
-                SortSelectCards(SCs);
-                RetinueContent.DetachChildren();
-                foreach (SelectCard selectCard in SCs)
+                if (!isSelectAll) //如果是全选，只进行一次排序
                 {
-                    selectCard.transform.SetParent(RetinueContent);
+                    SortSelectCards();
                 }
 
                 card.SetBlockCountValue(1);
@@ -185,12 +185,9 @@ public partial class SelectBuildManager
             {
                 SelectCard newSC = GenerateNewSelectCard(card, SelectionContent);
                 SelectedCards.Add(card.CardInfo.CardID, newSC);
-                List<SelectCard> SCs = SelectionContent.GetComponentsInChildren<SelectCard>(true).ToList();
-                SortSelectCards(SCs);
-                SelectionContent.DetachChildren();
-                foreach (SelectCard selectCard in SCs)
+                if (!isSelectAll) //如果是全选，只进行一次排序
                 {
-                    selectCard.transform.SetParent(SelectionContent);
+                    SortSelectCards();
                 }
 
                 card.SetBlockCountValue(1);
@@ -206,11 +203,11 @@ public partial class SelectBuildManager
             CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
             CurrentEditBuildButton.BuildInfo.CardConsumeCoin += card.CardInfo.BaseInfo.Coin;
             RefreshCoinLifeEnergy();
-            if (playSound) AudioManager.Instance.SoundPlay("sfx/SelectCard");
+            if (!isSelectAll) AudioManager.Instance.SoundPlay("sfx/SelectCard");
         }
     }
 
-    private static void SortSelectCards(List<SelectCard> SCs)
+    private void SortSCs(List<SelectCard> SCs)
     {
         SCs.Sort((a, b) =>
         {
@@ -218,6 +215,36 @@ public partial class SelectBuildManager
             if (a.Energy.CompareTo(b.Energy) == 0) return a.Metal.CompareTo(b.Metal);
             return a.Energy.CompareTo(b.Energy);
         });
+    }
+    private void SortCBs(List<CardBase> SCs)
+    {
+        SCs.Sort((a, b) =>
+        {
+            if (a.CardInfo.BaseInfo.Metal == 0 && a.CardInfo.BaseInfo.Energy == 0 && (b.CardInfo.BaseInfo.Metal != 0 || b.CardInfo.BaseInfo.Energy != 0)) return -1;
+            if (a.CardInfo.BaseInfo.Energy.CompareTo(b.CardInfo.BaseInfo.Energy) == 0) return a.CardInfo.BaseInfo.Metal.CompareTo(b.CardInfo.BaseInfo.Metal);
+            return a.CardInfo.BaseInfo.Energy.CompareTo(b.CardInfo.BaseInfo.Energy);
+        });
+    }
+
+    private void SortSelectCards()
+    {
+        List<SelectCard> SCs = RetinueContent.GetComponentsInChildren<SelectCard>(true).ToList();
+        SortSCs(SCs);
+
+        RetinueContent.DetachChildren();
+        foreach (SelectCard selectCard in SCs)
+        {
+            selectCard.transform.SetParent(RetinueContent);
+        }
+
+        SCs = SelectionContent.GetComponentsInChildren<SelectCard>(true).ToList();
+        SortSCs(SCs);
+
+        SelectionContent.DetachChildren();
+        foreach (SelectCard selectCard in SCs)
+        {
+            selectCard.transform.SetParent(SelectionContent);
+        }
     }
 
     private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)
@@ -243,6 +270,7 @@ public partial class SelectBuildManager
 
     private void SelectCardOnMouseEnter(SelectCard selectCard)
     {
+        if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
         currentPreviewCardContainer.position = selectCard.transform.position;
         if (currentPreviewCardContainer.position.y > CurrentPreviewCardMaxPivot.position.y)
         {
@@ -267,7 +295,8 @@ public partial class SelectBuildManager
 
     private void SelectCardOnMouseLeave(SelectCard selectCard)
     {
-        currentPreviewCard.PoolRecycle();
+        if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
+        if (currentPreviewCard) currentPreviewCard.PoolRecycle();
         AffixManager.Instance.HideAffixPanel();
     }
 
@@ -275,6 +304,17 @@ public partial class SelectBuildManager
     {
         if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
         {
+            if (GameManager.Instance.isEnglish)
+            {
+                if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter("You cannot edit your build when Matching.", 0, 0.1f);
+                else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter("You cannot edit your build when Playing.", 0, 0.1f);
+            }
+            else
+            {
+                if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter("匹配时无法修改卡组", 0, 0.1f);
+                else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter("战斗时无法修改卡组", 0, 0.1f);
+            }
+
             return;
         }
 
@@ -338,9 +378,10 @@ public partial class SelectBuildManager
             {
                 if (SelectedCards.ContainsKey(cardBase.CardInfo.CardID)) continue;
                 if (SelectedHeros.ContainsKey(cardBase.CardInfo.CardID)) continue;
-                SelectCard(cardBase, false);
+                SelectCard(cardBase, true);
             }
 
+            SortSelectCards();
             AudioManager.Instance.SoundPlay("sfx/SelectCard");
         }
     }
@@ -352,6 +393,8 @@ public partial class SelectBuildManager
         isSwitchingBuildInfo = true;
         UnSelectAllCard();
 
+        int multiFrame = 0;
+        List<CardBase> selectCB = new List<CardBase>();
         foreach (int cardID in buildInfo.CardIDs)
         {
             CardBase cb = null;
@@ -376,16 +419,24 @@ public partial class SelectBuildManager
                 cb = allCards[cardID];
             }
 
+            selectCB.Add(cb);
+        }
+
+        SortCBs(selectCB);
+
+        foreach (CardBase cb in selectCB)
+        {
             if (cb.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !cb.CardInfo.RetinueInfo.IsSoldier)
             {
-                SelectCard(cb, false);
+                SelectCard(cb, true);
             }
             else
             {
-                SelectCard(cb, false);
+                SelectCard(cb, true);
             }
         }
 
+        //SortSelectCards();
         RefreshCoinLifeEnergy();
         RefreshCardNum();
 

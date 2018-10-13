@@ -93,6 +93,9 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
     public GameObjectPool Pool_AffixPool;
     public PoolObject AffixPrefab;
 
+    public GameObjectPool Pool_ConfirmWindowPool;
+    public PoolObject ConfirmWindowPrefab;
+
 
     void Awake()
     {
@@ -157,5 +160,6 @@ public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
 
         Pool_AffixPool.Initiate(AffixPrefab, 10);
 
+        Pool_ConfirmWindowPool.Initiate(ConfirmWindowPrefab, 3);
     }
 }

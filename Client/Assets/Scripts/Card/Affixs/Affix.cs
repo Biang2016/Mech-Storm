@@ -64,12 +64,12 @@ public class Affix : PoolObject
         string text = "";
         if (GameManager.Instance.isEnglish)
         {
-            text = BaseInfo.AddImportantColorToText(AffixNameDict_en[affixType]) + ": " + AffixDescDict_en[affixType];
+            text = BaseInfo.AddHightLightColorToText(AffixNameDict_en[affixType]) + ": " + AffixDescDict_en[affixType];
             Text.resizeTextForBestFit = true;
         }
         else
         {
-            text = BaseInfo.AddImportantColorToText(AffixNameDict[affixType]) + ":" + AffixDescDict[affixType];
+            text = BaseInfo.AddHightLightColorToText(AffixNameDict[affixType]) + ":" + AffixDescDict[affixType];
             Text.resizeTextForBestFit = false;
         }
 

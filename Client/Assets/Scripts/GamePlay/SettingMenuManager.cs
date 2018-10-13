@@ -69,7 +69,8 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
         {
             Default,
             Hide,
-            Show,
+            ShowFromExitMenu,
+            ShowFromStartMenu,
         }
 
         private States state;
@@ -85,7 +86,11 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
                         HideMenu();
                         break;
 
-                    case States.Show:
+                    case States.ShowFromExitMenu:
+                        if (Client.Instance.IsLogin() || Client.Instance.IsPlaying()) ShowMenu();
+                        break;
+
+                    case States.ShowFromStartMenu:
                         if (Client.Instance.IsLogin() || Client.Instance.IsPlaying()) ShowMenu();
                         break;
                 }
@@ -113,7 +118,10 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
                 {
                     case States.Hide:
                         break;
-                    case States.Show:
+                    case States.ShowFromExitMenu:
+                        SetState(States.Hide);
+                        break;
+                    case States.ShowFromStartMenu:
                         SetState(States.Hide);
                         break;
                 }
@@ -122,7 +130,11 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
             bool isClickElseWhere = (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) || Input.GetMouseButtonDown(1);
             if (isClickElseWhere)
             {
-                if (state == States.Show)
+                if (state == States.ShowFromExitMenu)
+                {
+                    SetState(States.Hide);
+                }
+                if (state == States.ShowFromStartMenu)
                 {
                     SetState(States.Hide);
                 }
@@ -132,13 +144,14 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
         public void ShowMenu()
         {
             Instance.SettingMenuCanvas.enabled = true;
-            ExitMenuManager.Instance.M_StateMachine.SetState(ExitMenuManager.StateMachine.States.HideForSetting);
+            if (state == States.Hide) ExitMenuManager.Instance.M_StateMachine.SetState(ExitMenuManager.StateMachine.States.HideForSetting);
         }
 
         public void HideMenu()
         {
             Instance.SettingMenuCanvas.enabled = false;
-            ExitMenuManager.Instance.M_StateMachine.ReturnToPreviousState();
+            if (state == States.ShowFromExitMenu) ExitMenuManager.Instance.M_StateMachine.ReturnToPreviousState();
+            if (state == States.ShowFromStartMenu) StartMenuManager.Instance.M_StateMachine.ReturnToPreviousState();
         }
     }
 

@@ -16,6 +16,25 @@ public class AffixManager : MonoSingletion<AffixManager>
     {
     }
 
+    private float hideAffixPanelTicker;
+    private float hideAffixPanelInterval = 0.5f;
+
+    void Update()
+    {
+        if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show)
+        {
+            if (hideAffixPanelTicker > hideAffixPanelInterval)
+            {
+                hideAffixPanelTicker = 0;
+                HideAffixPanel();
+            }
+            else
+            {
+                hideAffixPanelTicker += Time.deltaTime;
+            }
+        }
+    }
+
     /// <summary>
     /// 根据CardInfo来决定是否要显示AffixPanel
     /// </summary>

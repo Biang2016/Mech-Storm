@@ -121,9 +121,10 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
 
         public void Update()
         {
+            if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
             if (Input.GetKeyUp(KeyCode.Escape))
             {
-                if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Hide)
+                if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Hide && SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.Hide)
                 {
                     switch (state)
                     {
@@ -191,7 +192,7 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
 
     public void OnSettingMenuButtonClick()
     {
-        SettingMenuManager.Instance.M_StateMachine.SetState(SettingMenuManager.StateMachine.States.Show);
+        SettingMenuManager.Instance.M_StateMachine.SetState(SettingMenuManager.StateMachine.States.ShowFromExitMenu);
     }
 
     public void OnConsumeGameButtonClick()
@@ -200,6 +201,18 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
     }
 
     public void OnSurrenderButtonClick()
+    {
+        ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
+        cw.Initialize(
+            GameManager.Instance.isEnglish ? "Are you sure to Quick the game?" : "退出游戏?",
+            GameManager.Instance.isEnglish ? "Yes" : "是",
+            GameManager.Instance.isEnglish ? "No" : "取消",
+            SurrenderCore,
+            cw.PoolRecycle
+        );
+    }
+
+    private void SurrenderCore()
     {
         Client.Instance.Proxy.LeaveGame();
         RoundManager.Instance.StopGame();

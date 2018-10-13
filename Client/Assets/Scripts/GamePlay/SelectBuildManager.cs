@@ -15,6 +15,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
 
     void Awake()
     {
+        AddAllCards();
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         M_StateMachine = new StateMachine();
         Canvas.gameObject.SetActive(false);
@@ -26,7 +27,6 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
 
     void Start()
     {
-        AddAllCards();
         M_StateMachine.SetState(StateMachine.States.Hide);
         Start_Select();
     }
@@ -38,6 +38,8 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
     [SerializeField] private Canvas Canvas_BG;
 
     [SerializeField] private Camera Camera;
+
+    [SerializeField] private Animator SelectWindowShowAnim;
 
     void Update()
     {
@@ -58,6 +60,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
         {
             Default,
             Hide,
+            HideForPlay,
             Show,
             Show_ReadOnly,
         }
@@ -72,14 +75,16 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                 switch (newState)
                 {
                     case States.Hide:
-                        if (Client.Instance.IsLogin() || Client.Instance.IsPlaying()) HideWindow();
+                        if (Client.Instance.IsLogin()) HideWindow();
                         break;
-
+                    case States.HideForPlay:
+                        if (Client.Instance.IsLogin()) HideWindowToPlaying();
+                        break;
                     case States.Show:
-                        if (Client.Instance.IsLogin()) ShowWindow();
+                        if (Client.Instance.IsLogin() && !Client.Instance.IsMatching()) ShowWindow();
                         break;
                     case States.Show_ReadOnly:
-                        if (Client.Instance.IsPlaying()) ShowWindowReadOnly();
+                        if (Client.Instance.IsPlaying() || Client.Instance.IsMatching()) ShowWindowReadOnly();
                         break;
                 }
 
@@ -100,14 +105,15 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
 
         public void Update()
         {
+            if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
             if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
-            if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.Show) return;
+            if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromExitMenu) return;
             if (state == States.Hide)
             {
                 if (Input.GetKeyUp(KeyCode.Tab))
                 {
-                    if (Client.Instance.IsLogin()) SetState(States.Show);
-                    else if (Client.Instance.IsPlaying()) SetState(States.Show_ReadOnly);
+                    if (Client.Instance.IsLogin() && !Client.Instance.IsMatching()) SetState(States.Show);
+                    else if (Client.Instance.IsPlaying() || Client.Instance.IsMatching()) SetState(States.Show_ReadOnly);
                 }
             }
             else
@@ -158,18 +164,26 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             Instance.Canvas.gameObject.SetActive(true);
             Instance.Canvas_BG.gameObject.SetActive(true);
 
+            Instance.SelectWindowShowAnim.SetTrigger("Show");
+
             Instance.SelectAllButton.gameObject.SetActive(true);
-            Instance.ConfirmButton.gameObject.SetActive(true);
+            Instance.UnSelectAllButton.gameObject.SetActive(true);
             Instance.ConfirmButton.gameObject.SetActive(true);
             Instance.DeleteBuildButton.gameObject.SetActive(true);
             Instance.CreateNewBuildButton.enabled = true;
 
-            Instance.LifeSlider.interactable = true;
-            Instance.EnergySlider.interactable = true;
-            Instance.CoinSlider.interactable = true;
-
             Instance.UpgradeCardButton.enabled = true;
             Instance.DegradeCardButton.enabled = true;
+            Instance.UpgradeCoinText.gameObject.SetActive(true);
+            Instance.UpgradeCoin.gameObject.SetActive(true);
+            Instance.DegradeCoinText.gameObject.SetActive(true);
+            Instance.DegradeCoin.gameObject.SetActive(true);
+
+            Instance.LifeSlider.interactable = true;
+            Instance.EnergySlider.interactable = true;
+            Instance.CoinSlider.interactable = false;
+            Instance.CardNumberSlider.interactable = true;
+
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
             StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
             AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/SelectCardMenu0", "bgm/SelectCardMenu1"});
@@ -181,32 +195,57 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             Instance.Canvas.gameObject.SetActive(true);
             Instance.Canvas_BG.gameObject.SetActive(true);
 
+            Instance.SelectWindowShowAnim.SetTrigger("Show");
+
             Instance.SelectAllButton.gameObject.SetActive(false);
             Instance.UnSelectAllButton.gameObject.SetActive(false);
             Instance.ConfirmButton.gameObject.SetActive(false);
             Instance.DeleteBuildButton.gameObject.SetActive(false);
             Instance.CreateNewBuildButton.enabled = false;
 
-            Instance.LifeSlider.interactable = false;
-            Instance.EnergySlider.interactable = false;
-
             Instance.UpgradeCardButton.enabled = false;
             Instance.DegradeCardButton.enabled = false;
+            Instance.UpgradeCoinText.gameObject.SetActive(false);
+            Instance.UpgradeCoin.gameObject.SetActive(false);
+            Instance.DegradeCoinText.gameObject.SetActive(false);
+            Instance.DegradeCoin.gameObject.SetActive(false);
+
+            Instance.LifeSlider.interactable = false;
+            Instance.EnergySlider.interactable = false;
+            Instance.CoinSlider.interactable = false;
+            Instance.CardNumberSlider.interactable = false;
+
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
         }
 
         private void HideWindow()
         {
+            HideWindowCore();
+            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+        }
+
+
+        private void HideWindowToPlaying()
+        {
+            HideWindowCore();
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+        }
+
+        private void HideWindowCore()
+        {
+            Instance.SelectWindowShowAnim.SetTrigger("Reset");
+
             if (Instance.M_StateMachine.GetState() != StateMachine.States.Show_ReadOnly && Instance.CurrentEditBuildButton != null)
             {
                 Instance.OnSaveBuildInfo();
             }
 
-            Instance.Canvas.gameObject.SetActive(false);
+            //Instance.Canvas.gameObject.SetActive(false);
             Instance.Canvas_BG.gameObject.SetActive(false);
+            AffixManager.Instance.HideAffixPanel();
+            if (Instance.currentPreviewCard) Instance.currentPreviewCard.PoolRecycle();
             GameManager.Instance.StopBlurBackGround();
             MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
-            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
         }
     }
 
@@ -279,7 +318,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                 {
                     if (mouseLeftDownCard == card)
                     {
-                        SelectCard(card, true);
+                        SelectCard(card, false);
                     }
                 }
             }
