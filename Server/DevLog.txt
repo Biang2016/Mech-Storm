@@ -301,8 +301,7 @@ energy条用量预览显示高亮
 Bugs:
 多次登录卡死bug
 
-arrow 在ma下面
-ma装备需求
 英文选项设置适配
 卡牌字体，大小适配
-屏幕外selectcard声音
+
+bug:

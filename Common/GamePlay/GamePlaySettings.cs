@@ -39,7 +39,7 @@
     public static string EnergyCardColor = "#3686FF";
     public static string SpellCardColor = "#78FF4E";
     public static string WeaponCardColor = "#FF0000";
-    public static string ShieldCardColor = "#FFE325";
+    public static string ShieldCardColor = "#FFA300";
     public static string PackCardColor = "#0049BC";
     public static string MACardColor = "#7F8AFF";
     public static string CardHightLightColor = "#FFFF00";

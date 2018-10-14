@@ -125,4 +125,13 @@
     <params name="IsNeedChoise" type="bool"></params>
     <params name="M_TargetRange" type="enum"></params>
   </SideEffect>
+  <SideEffect id="28" name="GetHandCardCopy" desc="获得一张随机手牌的复制, " desc_en="Get a temporary copy of a random hand card.">
+  </SideEffect>
+  <SideEffect id="29" name="AddEnergyPerMechs" desc="对每{0},从敌舰偷取{1}点能量, " desc_en="Steal {1} energy from enemy ship for every {0}. ">
+  </SideEffect>
+  <SideEffect id="30" name="SummonRetinuePerMechs" desc="对每{0},召唤一个[{1}], " desc_en="Summon [{1}] for every {0}. ">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+    <params name="RetinueCardId" type="int"></params>
+  </SideEffect>
 </AllSideEffects>

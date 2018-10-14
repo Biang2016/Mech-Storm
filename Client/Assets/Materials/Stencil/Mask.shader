@@ -1,6 +1,6 @@
 ﻿Shader "Custom/Mask" {
 	Properties{
-		_MaskRef("MaskRef", Float) = 1
+		_MaskRef("MaskRef", Float) = 2
 	}
 
 	SubShader{

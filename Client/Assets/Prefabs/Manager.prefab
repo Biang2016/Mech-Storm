@@ -19491,7 +19491,7 @@ MonoBehaviour:
   ForeGroundCamera: {fileID: 20664520526591276}
   SelectCardWindowBackCamera: {fileID: 20600774314195422}
   SelectCardWindowForeCamera: {fileID: 20005861124712834}
-  isEnglish: 0
+  isEnglish: 1
   ShowBEMMessages: 0
   ShowBattleGroundInfos: 0
   HandCardSize: 1.5

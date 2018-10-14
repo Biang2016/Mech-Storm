@@ -3,7 +3,7 @@
 	//------------------------------------【属性值】------------------------------------
 	Properties
 	{
-		_MaskRef("MaskRef", Float) = 1
+		_MaskRef("MaskRef", Float) = 2
 		//主颜色
 		_Color("Color", Color) = (1,1,1,1)
 		//主纹理

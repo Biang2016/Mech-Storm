@@ -58,6 +58,7 @@
     <Compile Include="GamePlay\Card\CardInfo\Info\WeaponInfo.cs" />
     <Compile Include="GamePlay\Card\SideEffects\AllSideEffects.cs" />
     <Compile Include="GamePlay\Card\SideEffects\EventManager.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\GetHandCardCopy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\AddTempCardToDeck_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards_Base.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddAttackRandom_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddAttackOne_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddAttackAll_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\SummonRetinuePerMechs_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddEnergyPerMechs_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\HalfShield_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\Degenerate_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\Sacrifice_Base.cs" />

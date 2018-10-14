@@ -44,7 +44,20 @@ internal class ServerHandManager
 
     #endregion
 
+    internal int GetRandomHandCardId()
+    {
+        Random rd = new Random();
+        int randomIndex = rd.Next(0, cards.Count);
+        return cards[randomIndex].CardInfo.CardID;
+    }
 
+    internal void GetATempCardByID(int cardID)
+    {
+        CardInfo_Base cardInfo = AllCards.GetCard(cardID);
+        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer, -1);
+        OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
+        cards.Add(newCard);
+    }
     internal void GetACardByID(int cardID)
     {
         CardInfo_Base cardInfo = AllCards.GetCard(cardID);
@@ -52,7 +65,6 @@ internal class ServerHandManager
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         cards.Add(newCard);
     }
-
 
     public void OnPlayerGetCard(int cardId, int cardInstanceId)
     {

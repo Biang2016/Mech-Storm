@@ -121,7 +121,7 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Text Text_RetinueShield;
     [SerializeField] private Text Text_RetinueArmor;
 
-    [SerializeField] private Renderer PictureBoxRenderer;
+    [SerializeField] private Image PictureImage;
 
     [SerializeField] private TextMesh DamageNumberPreviewTextMesh; //受攻击瞄准时的伤害预览
     [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh; //受攻击瞄准时的伤害预览
@@ -178,7 +178,7 @@ public class ModuleRetinue : ModuleBase
 
         HideRetinueTypeLooking();
 
-        ClientUtils.ChangePictureForCard(PictureBoxRenderer, CardInfo.BaseInfo.PictureID);
+        ClientUtils.ChangePictureForCard(PictureImage, CardInfo.BaseInfo.PictureID);
         ClientUtils.ChangeColor(WeaponBloom, GameManager.Instance.Slot1Color);
         ClientUtils.ChangeColor(ShieldBloom, GameManager.Instance.Slot2Color);
         ClientUtils.ChangeColor(PackBloom, GameManager.Instance.Slot3Color);

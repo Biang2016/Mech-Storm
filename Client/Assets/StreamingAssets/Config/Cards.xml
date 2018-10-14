@@ -279,14 +279,14 @@
     </CardInfo>
   </Card>
   <Card id="5701">
-    <CardInfo name="baseInfo" pictureID="57" cardName="大魔[攻击]" cardName_en="Dom(Attack)" cardDesc="" isTemp="False" hide="True" metal="2" energy="0" coin="0" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="57" cardName="大魔[攻击]" cardName_en="Dom(Attack)" cardDesc="" isTemp="True" hide="True" metal="2" energy="0" coin="0" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
   </Card>
   <Card id="5702">
-    <CardInfo name="baseInfo" pictureID="57" cardName="大魔[防守]" cardName_en="Dom(Defence)" cardDesc="" isTemp="False" hide="True" metal="2" energy="0" coin="0" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="57" cardName="大魔[防守]" cardName_en="Dom(Defence)" cardDesc="" isTemp="True" hide="True" metal="2" energy="0" coin="0" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
@@ -303,7 +303,7 @@
     </CardInfo>
   </Card>
   <Card id="5801">
-    <CardInfo name="baseInfo" pictureID="58" cardName="突袭者" cardName_en="Striker" cardDesc="" isTemp="False" hide="True" metal="1" energy="0" coin="0" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="58" cardName="突袭者" cardName_en="Striker" cardDesc="" isTemp="True" hide="True" metal="1" energy="0" coin="0" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
@@ -519,7 +519,7 @@
     <CardInfo name="baseInfo" pictureID="607" cardName="死亡之光" cardName_en="Light of Death" cardDesc="" isTemp="False" hide="False" metal="0" energy="20" coin="400" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="20"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="10"></SideEffect>
     </CardInfo>
     <CardInfo name="sideEffectsInfo" triggerTime="OnEndRound" triggerRange="SelfPlayer">
       <SideEffect name="WaitInHandDecreaseEnergy" Value="2"></SideEffect>
@@ -579,7 +579,7 @@
     <CardInfo name="baseInfo" pictureID="616" cardName="入侵" cardName_en="Intrusion" cardDesc="" isTemp="False" hide="False" metal="0" energy="10" coin="400" effectFactor="1" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="5"></SideEffect>
+      <SideEffect name="SummonRetinuePerMechs" IsNeedChoise="False" M_TargetRange="EnemyMechs" RetinueCardId="5701"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61701">
@@ -617,6 +617,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="70102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
+      <SideEffect name="DrawCards" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70102">
@@ -624,17 +625,18 @@
     <CardInfo name="upgradeInfo" upgradeCardID="70103" degradeCardID="70101" cardLevel="2" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
+      <SideEffect name="DrawCards" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70103">
     <CardInfo name="baseInfo" pictureID="701" cardName="大型能量块" cardName_en="L Energy Cube" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="70102" cardLevel="3" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="6"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="8"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70201">
-    <CardInfo name="baseInfo" pictureID="702" cardName="能量环" cardName_en="Energy Ring" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="700" effectFactor="1" dragPurpose="Summon" cardType="Energy" />
+    <CardInfo name="baseInfo" pictureID="702" cardName="能量环" cardName_en="Energy Ring" cardDesc="" isTemp="False" hide="False" metal="1" energy="0" coin="700" effectFactor="1" dragPurpose="Summon" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="10"></SideEffect>
@@ -661,15 +663,15 @@
     <CardInfo name="baseInfo" pictureID="705" cardName="AI升级" cardName_en="AI Upgrade" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="12"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="3"></SideEffect>
+      <SideEffect name="GetHandCardCopy"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70601">
     <CardInfo name="baseInfo" pictureID="706" cardName="蚊子无人机" cardName_en="Mosquito Drone" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="300" effectFactor="1" dragPurpose="Summon" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsInfo" triggerTime="OnPlayCard" triggerRange="Self">
-      <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="EnemySoldiers" Value="1"></SideEffect>
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
+      <SideEffect name="AddEnergyPerMechs" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70701">

@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Net.Mime;
 using UnityEngine;
+using UnityEngine.UI;
 
 class ClientUtils
 {
@@ -19,16 +21,22 @@ class ClientUtils
         rd.SetPropertyBlock(mpb);
     }
 
-    public static void ChangePictureForCard(Renderer rd, int pictureID)
+    public static void ChangePictureForCard(Image image, int pictureID)
     {
-        Texture tx = (Texture) Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID));
-        if (tx == null)
+        Sprite sp = Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID), typeof(Sprite)) as Sprite;
+        if (sp == null)
         {
             Debug.LogError("所选卡片没有图片资源：" + pictureID);
-            tx = (Texture) Resources.Load("CardPictures/" + string.Format("{0:000}", 999));
+            sp = Resources.Load("CardPictures/" + string.Format("{0:000}", 999), typeof(Sprite)) as Sprite;
         }
 
-        ChangePicture(rd, tx);
+        image.sprite = sp;
+    }
+
+    public static void ChangePicColor(Image image, Color newColor)
+    {
+        if (!image) return;
+        image.color = newColor;
     }
 
     public static void ChangeColor(Renderer rd, Color newColor)
