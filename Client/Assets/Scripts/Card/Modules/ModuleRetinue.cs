@@ -242,6 +242,8 @@ public class ModuleRetinue : ModuleBase
         M_ClientTempRetinueID = -1;
         SniperTipText.enabled = false;
 
+        MA_BG.SetActive(false);
+
         IsDead = false;
     }
 
@@ -808,6 +810,17 @@ public class ModuleRetinue : ModuleBase
 
     #region 拼装上的模块
 
+    internal bool IsAllEquipExceptMA
+    {
+        get
+        {
+            if (CardInfo.RetinueInfo.Slot1 != SlotTypes.None && M_Weapon == null) return false;
+            if (CardInfo.RetinueInfo.Slot2 != SlotTypes.None && M_Shield == null) return false;
+            if (CardInfo.RetinueInfo.Slot3 != SlotTypes.None && M_Pack == null) return false;
+            return true;
+        }
+    }
+
     #region 武器相关
 
     public ModuleEquip GetEquipBySlotType(SlotTypes slotType)
@@ -1000,6 +1013,8 @@ public class ModuleRetinue : ModuleBase
 
     #region MA相关
 
+    [SerializeField] private GameObject MA_BG;
+
     private ModuleMA m_MA;
 
     public ModuleMA M_MA
@@ -1032,11 +1047,13 @@ public class ModuleRetinue : ModuleBase
     void On_MADown()
     {
         AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
+        MA_BG.SetActive(false);
     }
 
     void On_MAEquiped()
     {
         M_MA.OnMAEquiped();
+        MA_BG.SetActive(true);
         AudioManager.Instance.SoundPlay("sfx/OnEquipMA");
     }
 
@@ -1362,15 +1379,29 @@ public class ModuleRetinue : ModuleBase
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         RoundManager.Instance.HideTargetPreviewArrow();
-        if (moduleRetinue && moduleRetinue.CheckModuleRetinueCanAttackMe(this))
+        if (moduleRetinue)
         {
-            RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(ClientPlayer.ClientId, M_RetinueID, RoundManager.Instance.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
-            Client.Instance.Proxy.SendMessage(request);
+            if (moduleRetinue.CheckModuleRetinueCanAttackMe(this))
+            {
+                RetinueAttackRetinueRequest request = new RetinueAttackRetinueRequest(ClientPlayer.ClientId, M_RetinueID, RoundManager.Instance.EnemyClientPlayer.ClientId, moduleRetinue.M_RetinueID);
+                Client.Instance.Proxy.SendMessage(request);
+            }
+            else
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should attack the Defenders first." : "你必须先攻击嘲讽机甲", 0, 0.5f);
+            }
         }
-        else if (ship && ship.CheckModuleRetinueCanAttackMe(this) != 0)
+        else if (ship)
         {
-            RetinueAttackShipRequest request = new RetinueAttackShipRequest(Client.Instance.Proxy.ClientId, M_RetinueID);
-            Client.Instance.Proxy.SendMessage(request);
+            if (ship.CheckModuleRetinueCanAttackMe(this) != 0)
+            {
+                RetinueAttackShipRequest request = new RetinueAttackShipRequest(Client.Instance.Proxy.ClientId, M_RetinueID);
+                Client.Instance.Proxy.SendMessage(request);
+            }
+            else
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should attack the Mechs first." : "你必须先攻击场上机甲", 0, 0.5f);
+            }
         }
 
         DragManager.Instance.DragOutDamage = 0;
@@ -1608,6 +1639,7 @@ public class ModuleRetinue : ModuleBase
 
     public void OnSummon()
     {
+        AudioManager.Instance.SoundPlay("sfx/OnSummonMech");
         CheckCanAttack();
     }
 

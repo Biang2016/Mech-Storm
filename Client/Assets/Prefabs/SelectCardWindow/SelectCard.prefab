@@ -441,7 +441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa4b42f43b71f3c4eb86f8915ac187cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MouseHoverUI: {fileID: 114398097629666978}
   Tran_Metal: {fileID: 224923025370060250}
   Tran_Energy: {fileID: 224283292679934568}
   Tran_Metal_s: {fileID: 224834279564770728}
@@ -561,8 +560,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Anim: {fileID: 95580844172806988}
-  SFX: SwitchButton1
-  volume: 0.48
+  SFX: 
+  volume: 0
 --- !u!114 &114417810567972970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1060,6 +1059,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114289847349199376}
+        m_MethodName: SoundPlay
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: sfx/SwitchButton1
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,

@@ -143,12 +143,14 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
 
         public void ShowMenu()
         {
+            GameManager.Instance.StartBlurBackGround();
             Instance.SettingMenuCanvas.enabled = true;
             if (state == States.Hide) ExitMenuManager.Instance.M_StateMachine.SetState(ExitMenuManager.StateMachine.States.HideForSetting);
         }
 
         public void HideMenu()
         {
+            GameManager.Instance.StopBlurBackGround();
             Instance.SettingMenuCanvas.enabled = false;
             if (state == States.ShowFromExitMenu) ExitMenuManager.Instance.M_StateMachine.ReturnToPreviousState();
             if (state == States.ShowFromStartMenu) StartMenuManager.Instance.M_StateMachine.ReturnToPreviousState();

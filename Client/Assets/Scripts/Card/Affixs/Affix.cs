@@ -22,6 +22,7 @@ public class Affix : PoolObject
     [SerializeField] private Color SentryColor;
     [SerializeField] private Color ChargerColor;
 
+    [SerializeField] private Color MAColor;
     [SerializeField] private Color AttackColor;
     [SerializeField] private Color ShieldColor;
     [SerializeField] private Color ArmorColor;
@@ -48,6 +49,7 @@ public class Affix : PoolObject
             {AffixType.Sentry, SentryColor},
             {AffixType.Charger, ChargerColor},
 
+            {AffixType.MA, MAColor},
             {AffixType.Attack, AttackColor},
             {AffixType.Shield, ShieldColor},
             {AffixType.Armor, ArmorColor},
@@ -69,7 +71,7 @@ public class Affix : PoolObject
         }
         else
         {
-            text = BaseInfo.AddHightLightColorToText(AffixNameDict[affixType]) + ":" + AffixDescDict[affixType];
+            text = BaseInfo.AddHightLightColorToText(AffixNameDict[affixType]) + "：" + AffixDescDict[affixType];
             Text.resizeTextForBestFit = false;
         }
 
@@ -90,6 +92,7 @@ public class Affix : PoolObject
         {AffixType.Sentry, "哨戒"},
         {AffixType.Charger, "冲锋"},
 
+        {AffixType.MA, "MA"},
         {AffixType.Attack, "攻击力"},
         {AffixType.Shield, "护盾"},
         {AffixType.Armor, "护甲"},
@@ -113,6 +116,7 @@ public class Affix : PoolObject
         {AffixType.Sentry, "Sentry"},
         {AffixType.Charger, "Charger"},
 
+        {AffixType.MA, "MA"},
         {AffixType.Attack, "Attack"},
         {AffixType.Shield, "Shield"},
         {AffixType.Armor, "Armor"},
@@ -137,10 +141,11 @@ public class Affix : PoolObject
         {AffixType.Sentry, "无法主动进攻，但是可以反击"},
         {AffixType.Charger, "召唤后可以立即进攻"},
 
+        {AffixType.MA, "终极装备，仅当其余装备均佩戴的情况下才能装备"},
         {AffixType.Attack, "若未装备武器，则伤害等于攻击力。装备武器时叠加此攻击力"},
         {AffixType.Shield, "免疫小于护盾值的伤害，超出护盾值的伤害将使护盾受损"},
         {AffixType.Armor, "抵御等同于护甲值的伤害"},
-        {AffixType.Dodge, "有一定概率(PR值)闪避伤害"},
+        {AffixType.Dodge, "有一定概率闪避伤害"},
 
         {AffixType.Sword, "伤害=攻击力*能量，每次攻击后能量提升"},
         {AffixType.Gun, "打出所有子弹，每发子弹造成一定伤害，当对方无嘲讽机甲时可攻击战舰"},
@@ -160,6 +165,7 @@ public class Affix : PoolObject
         {AffixType.Sentry, "Cannot attack but can counterattack."},
         {AffixType.Charger, "Can attack immediately after summoned."},
 
+        {AffixType.MA, "Ultimate equip. Can be equiped only when other slots are equiped."},
         {AffixType.Attack, "Damage equals to attack value without weapon. Attack value can be added to its weapons'."},
         {AffixType.Shield, "Immune to all damage that lower than shield value. Be injured by overflow damage."},
         {AffixType.Armor, "Defence the part of damage equal to armor value."},
@@ -175,17 +181,22 @@ public class Affix : PoolObject
 public enum AffixType
 {
     None,
+
     Die,
     BattleCry,
+
     Sniper,
     Frenzy,
     Defence,
     Sentry,
     Charger,
-    Shield,
+
+    MA,
     Attack,
+    Shield,
     Armor,
     Dodge,
+
     Sword,
     Gun,
     SniperGun,

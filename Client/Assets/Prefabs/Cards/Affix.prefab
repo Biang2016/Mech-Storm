@@ -163,6 +163,7 @@ MonoBehaviour:
   DefenceColor: {r: 0, g: 0.36862746, b: 0.14509805, a: 1}
   SentryColor: {r: 0.38431373, g: 0.4627451, b: 0, a: 1}
   ChargerColor: {r: 0.28540513, g: 0.735849, b: 0, a: 1}
+  MAColor: {r: 0.65671474, g: 0.3066038, b: 1, a: 1}
   AttackColor: {r: 0.7529412, g: 0, b: 0.08824248, a: 1}
   ShieldColor: {r: 0, g: 0.44075757, b: 0.735849, a: 1}
   ArmorColor: {r: 0.9529412, g: 0.5846407, b: 0, a: 1}

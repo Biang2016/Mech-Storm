@@ -1808,6 +1808,7 @@ MonoBehaviour:
   Text_CardTypeBG: {fileID: 114431537285353872}
   MainBoardRenderer: {fileID: 23166826540181976}
   CardBloom: {fileID: 1501539127182856}
+  CardBackBloom: {fileID: 0}
   CardBloomRenderer: {fileID: 23535479499072082}
   PictureBoxRenderer: {fileID: 23194436200577498}
   Image_DescPanel: {fileID: 114973524972891172}

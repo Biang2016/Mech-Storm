@@ -89,6 +89,7 @@
      <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageAll.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageOne.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageRandom.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\Degenerate.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HalfShield.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealAll.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealOne.cs" />

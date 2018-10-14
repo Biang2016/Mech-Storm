@@ -36,7 +36,7 @@ public class CardEquip : CardBase
                 }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        ClientPlayer.MyHandManager.RefreshCardsPlace(); 
+        ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 
     public bool CheckRetinueCanEquipMe(Slot sa)
@@ -46,6 +46,11 @@ public class CardEquip : CardBase
             if (M_EquipType == SlotTypes.Weapon && CardInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
             {
                 if (sa.M_ModuleRetinue.CardInfo.RetinueInfo.IsSniper) return true; //狙击枪只能装在狙击手上
+                else return false;
+            }
+            else if (M_EquipType == SlotTypes.MA)
+            {
+                if (sa.M_ModuleRetinue.IsAllEquipExceptMA) return true;
                 else return false;
             }
             else return true;

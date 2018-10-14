@@ -19,4 +19,9 @@ public class PoolObject : MonoBehaviour
         iTween.Stop(gameObject);
         m_Pool.RecycleGameObject(this);
     }
+
+    public void SoundPlay(string path)
+    {
+        AudioManager.Instance.SoundPlay(path);
+    }
 }

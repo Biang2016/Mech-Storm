@@ -53,6 +53,19 @@ public struct BuildInfo
         return CardIDs.Count;
     }
 
+    public bool IsEnergyEnough
+    {
+        get
+        {
+            foreach (int cardID in CardIDs)
+            {
+                if (AllCards.GetCard(cardID).BaseInfo.Energy > Energy) return false;
+            }
+
+            return true;
+        }
+    }
+
     public BuildInfo Clone()
     {
         return new BuildInfo(BuildID, BuildName, CardIDs.ToArray().ToList(), CardConsumeCoin, DrawCardNum, Life, Energy);
@@ -132,6 +145,4 @@ public struct BuildInfo
         log += "</BuildInfo> ";
         return log;
     }
-
-
 }

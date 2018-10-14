@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Anim: {fileID: 95968388010222946}
-  SFX: MouseHoverBuildButton
+  SFX: 
   volume: 0.75
 --- !u!114 &114602379928787428
 MonoBehaviour:

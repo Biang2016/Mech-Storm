@@ -121,4 +121,8 @@
     <params name="Value" type="int"></params>
     <params name="CardId" type="int"></params>
   </SideEffect>
+  <SideEffect id="27" name="Degenerate" desc="使{0}丢去全部装备,每丢弃一个,随机获得一项基础属性提升, " desc_en="Discard all {0}'s equips, for every equip discarded, add random basic attribute for it. ">
+    <params name="IsNeedChoise" type="bool"></params>
+    <params name="M_TargetRange" type="enum"></params>
+  </SideEffect>
 </AllSideEffects>

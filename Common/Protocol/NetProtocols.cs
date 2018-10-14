@@ -78,6 +78,10 @@
     SE_DROP_CARD, //手牌弃牌
     SE_USE_CARD, //手牌用牌
 
+    SE_RETINUE_CARDINFO_SYNC, //场上随从卡牌信息同步
+    SE_HAND_CARDINFO_SYNC, //手牌卡牌信息同步
+    SE_EQUIP_CARDINFO_SYNC, //场上装备卡牌信息同步
+
     SE_EQUIP_WEAPON_SERVER_REQUEST, //装备武器
     SE_EQUIP_SHIELD_SERVER_REQUEST, //装备防具
     SE_EQUIP_PACK_SERVER_REQUEST, //装备飞行背包

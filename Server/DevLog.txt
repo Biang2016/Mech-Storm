@@ -271,17 +271,18 @@
 [polish] Add some FX to menus.
 [polish] Optimize select card window fluency.
 
+14th, Oct
+[polish] Add some FX to mechs.
+[bugfix] Fix some bugs in select card window (hovering the selectcard buttons).
+
 TodoList
 增加retinue的武器图标样式，普通和枪
 onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能产生伤害的标识
 
-
 交互性及bug：
 
 切换回合音效
-匹配时可以修改deck
 下回合抽牌在随从死亡之前进行
-you lost 停在上方不消失
 
 对战机制：
 
@@ -290,16 +291,18 @@ you lost 停在上方不消失
 装备卸下动画
 
 增加牌库为空警告
-敌方手牌整理bug修复
 往牌库塞牌动画
 法术牌增加独特特效
 energy条用量预览显示高亮  
 
 ！！！
-调手牌手感
-增加退出游戏提示框
 风暴系列卡牌开发
 
 Bugs:
 多次登录卡死bug
-confirm close
+
+arrow 在ma下面
+ma装备需求
+英文选项设置适配
+卡牌字体，大小适配
+屏幕外selectcard声音

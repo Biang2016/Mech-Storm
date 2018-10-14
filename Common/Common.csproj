@@ -69,6 +69,7 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddAttackOne_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\RetinueRelatedSideEffects\AddAttackAll_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\HalfShield_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\Degenerate_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\Sacrifice_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffectToEquip\BreakEquip_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddWeaponEnergy_Base.cs" />
@@ -110,9 +111,12 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\EquipMAerverRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\EquipPackServerRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\GameStopByWinRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\EquipCardInfoSyncRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerEnergyChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerLifeChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueAttackShipServerRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\HandCardInfoSyncRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueCardInfoSyncRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardServerRequset.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardToEquipServerRequset.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardToShipServerRequset.cs" />

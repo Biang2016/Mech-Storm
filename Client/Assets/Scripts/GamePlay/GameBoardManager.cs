@@ -148,7 +148,7 @@ public class GameBoardManager : MonoSingletion<GameBoardManager>
         AudioManager.Instance.BGMStop();
         if (isWin)
         {
-            WinLostText.text = "You Win!";
+            WinLostText.text = GameManager.Instance.isEnglish ? "You Win!" : "你赢了!";
             WinImage.enabled = true;
             LostImage.enabled = false;
             PanelAnimator.SetTrigger("Show");
@@ -156,13 +156,14 @@ public class GameBoardManager : MonoSingletion<GameBoardManager>
         }
         else
         {
-            WinLostText.text = "You Lost!";
+            WinLostText.text = GameManager.Instance.isEnglish ? "You Lost!" : "你输了";
             WinImage.enabled = false;
             LostImage.enabled = true;
             AudioManager.Instance.SoundPlay("sfx/Lose");
         }
 
         PanelAnimator.SetTrigger("Show");
+        GameManager.Instance.StartBlurBackGround();
         yield return new WaitForSeconds(4);
         PanelAnimator.SetTrigger("Hide");
         yield return new WaitForSeconds(1);

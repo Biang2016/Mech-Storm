@@ -130,6 +130,12 @@ internal partial class RoundManager
                 break;
             }
 
+            case NetProtocols.SE_RETINUE_CARDINFO_SYNC:
+            {
+                OnRetinueCardInfoSync((RetinueCardInfoSyncRequest) r);
+                break;
+            }
+
             case NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST:
             {
                 OnEquipWeapon((EquipWeaponServerRequest) r);
@@ -390,6 +396,13 @@ internal partial class RoundManager
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         cp.MyHandManager.UseCard(r.handCardInstanceId, r.cardInfo, new Vector3(r.lastDragPosition.x, r.lastDragPosition.y, r.lastDragPosition.z));
+    }
+
+    private void OnRetinueCardInfoSync(RetinueCardInfoSyncRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.instanceId);
+        retinue.CardInfo = r.cardInfo.Clone();
     }
 
     private void OnEquipWeapon(EquipWeaponServerRequest r)

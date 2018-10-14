@@ -583,6 +583,10 @@ public class HandManager : MonoBehaviour
                             else
                             {
                                 HandCardCountText.text = GameManager.Instance.isEnglish ? "Your component has " + cards.Count + " cards." : "你的对手有" + cards.Count + "张手牌";
+                                foreach (CardBase cb in cards)
+                                {
+                                    cb.CardBackBloom.SetActive(true);
+                                }
                             }
                         }
                     }
@@ -592,6 +596,10 @@ public class HandManager : MonoBehaviour
                     handCardCountTicker = 0;
                     handCardCountTickerBegin = false;
                     HandCardCountPanelAnim.SetTrigger("Reset");
+                    foreach (CardBase cb in cards)
+                    {
+                        cb.CardBackBloom.SetActive(false);
+                    }
                 }
             }
         }

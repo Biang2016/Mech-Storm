@@ -187,6 +187,8 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
     [SerializeField] private Button SettingButton;
     [SerializeField] private Button QuitGameButton;
 
+    [SerializeField] private GameObject DeckAbstract;
+
     [SerializeField] private Text BeginMatchText;
     [SerializeField] private Text CancelMatchText;
     [SerializeField] private Text MyDeckText;
@@ -220,23 +222,58 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
 
     public void OnStartMatchGameButtonClick()
     {
-        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login && SelectBuildManager.Instance.CurrentSelectedBuildButton == null) //未发送卡组则跳出选择卡组界面
+        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)
         {
-            OnSelectCardDeckWindowButtonClick();
+            if (SelectBuildManager.Instance.CurrentSelectedBuildButton == null) //未发送卡组则跳出选择卡组界面
+            {
+                OnSelectCardDeckWindowButtonClick();
+                return;
+            }
+            else if (SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.CardCount() == 0)
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Your deck is empty" : "您的卡组中没有卡牌", 0, 0.3f);
+                OnSelectCardDeckWindowButtonClick();
+                return;
+            }
+            else if (!SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.IsEnergyEnough)
+            {
+                ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
+                if (GameManager.Instance.isEnglish)
+                {
+                    cw.Initialize("Some cards consume more energy than your upper limit.", "Go aheaad", "Edit",
+                        new UnityAction(StartMatchingCore) + cw.PoolRecycle,
+                        new UnityAction(OnSelectCardDeckWindowButtonClick) + cw.PoolRecycle);
+                }
+                else
+                {
+                    cw.Initialize("您的卡组中有些牌的能量消耗大于您的能量上限，是否继续？", "继续", "编辑",
+                        new UnityAction(StartMatchingCore) + cw.PoolRecycle,
+                        new UnityAction(OnSelectCardDeckWindowButtonClick) + cw.PoolRecycle);
+                }
+
+                return;
+            }
+            else
+            {
+                StartMatchingCore();
+            }
         }
-        else
-        {
-            Client.Instance.Proxy.OnBeginMatch();
-            ClientLog.Instance.Print("开始匹配");
-            NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Matching" : "匹配中", 0, float.PositiveInfinity);
-        }
+    }
+
+    private void StartMatchingCore()
+    {
+        Client.Instance.Proxy.OnBeginMatch();
+        ClientLog.Instance.Print(GameManager.Instance.isEnglish ? "Begin matching" : "开始匹配");
+        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Matching" : "匹配中", 0, float.PositiveInfinity);
+        DeckAbstract.SetActive(true);
     }
 
     public void OnCancelMatchGameButtonClick()
     {
         Client.Instance.Proxy.CancelMatch();
-        ClientLog.Instance.Print("取消匹配");
+        ClientLog.Instance.Print(GameManager.Instance.isEnglish ? "Matching canceled" : "取消匹配");
         NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Match canceled" : "取消匹配", 0, 1f);
+        DeckAbstract.SetActive(false);
     }
 
     public void OnSelectCardDeckWindowButtonClick()

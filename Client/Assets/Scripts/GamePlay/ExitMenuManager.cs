@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -204,10 +205,10 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
     {
         ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
         cw.Initialize(
-            GameManager.Instance.isEnglish ? "Are you sure to Quick the game?" : "退出游戏?",
+            GameManager.Instance.isEnglish ? "Are you sure to surrender?" : "您确定要认输吗?",
             GameManager.Instance.isEnglish ? "Yes" : "是",
             GameManager.Instance.isEnglish ? "No" : "取消",
-            SurrenderCore,
+            (new UnityAction(SurrenderCore)) + cw.PoolRecycle,
             cw.PoolRecycle
         );
     }

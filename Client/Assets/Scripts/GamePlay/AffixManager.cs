@@ -103,6 +103,16 @@ public class AffixManager : MonoSingletion<AffixManager>
             }
         }
 
+        if (cardInfo.BaseInfo.CardType == CardTypes.Equip && cardInfo.EquipInfo.SlotType == SlotTypes.MA)
+        {
+            affixTypes.Add(AffixType.MA);
+        }
+
+        if (cardInfo.BaseInfo.CardType == CardTypes.Retinue && cardInfo.RetinueInfo.Slot4 == SlotTypes.MA)
+        {
+            affixTypes.Add(AffixType.MA);
+        }
+
         if (cardInfo.BattleInfo.BasicAttack != 0)
         {
             affixTypes.Add(AffixType.Attack);

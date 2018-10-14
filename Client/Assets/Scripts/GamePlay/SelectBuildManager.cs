@@ -108,6 +108,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
             if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
             if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromExitMenu) return;
+            if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromStartMenu) return;
             if (state == States.Hide)
             {
                 if (Input.GetKeyUp(KeyCode.Tab))
