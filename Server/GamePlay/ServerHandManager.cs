@@ -38,8 +38,8 @@ internal class ServerHandManager
 
     internal void DrawCardsByType(CardTypes cardType, int number)
     {
-        List<CardInfo_Base> newCardInfos = ServerPlayer.MyCardDeckManager.PutCardsOnTopByType(cardType, number);
-        DrawCards(newCardInfos.Count);
+        int newCardCount = ServerPlayer.MyCardDeckManager.PutCardsOnTopByType(cardType, number);
+        DrawCards(newCardCount);
     }
 
     #endregion

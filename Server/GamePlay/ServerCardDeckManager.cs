@@ -14,21 +14,16 @@ internal class ServerCardDeckManager
 
     public CardDeck CardDeck;
 
-    public List<CardInfo_Base> PutCardsOnTopByType(CardTypes cardType, int number)
+    public int PutCardsOnTopByType(CardTypes cardType, int number)
     {
         List<CardInfo_Base> res = new List<CardInfo_Base>();
         if (CardDeck.IsEmpty)
         {
-            return null;
+            return 0;
         }
 
         int count = CardDeck.PutCardToTopByType(cardType, number);
-        for (int i = 0; i < count; i++)
-        {
-            res.Add(DrawCardOnTop());
-        }
-
-        return res;
+        return count;
     }
 
     public CardInfo_Base DrawCardOnTop()

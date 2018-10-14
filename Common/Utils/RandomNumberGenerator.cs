@@ -22,14 +22,24 @@ public class RandomNumberGenerator
         return Seed;
     }
 
-    public int Range(int down,int up)
+
+    int pre;
+
+    int rand()
     {
-        UseTime++;
-        Seed = a * Seed % m;
-        int res = Seed % (up - down) + down;
-        return res;
+        int ret = (Seed * 7361238 + Seed % 20037 * 1244 + pre * 12342 + 378211) * (Seed + 134543);
+        pre = Seed;
+        Seed = ret;
+        return ret;
     }
 
-    private int a = 7;
-    private int m = 2147483647;
+    public int Range(int low, int high)
+    {
+        if (low > high) return 0;
+        int len = high - low;
+        int rand = this.rand();
+        if (rand < 0) rand = -rand;
+        int res = rand % len + low;
+        return res;
+    }
 }

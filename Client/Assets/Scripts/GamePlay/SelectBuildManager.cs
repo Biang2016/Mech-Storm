@@ -76,6 +76,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                 {
                     case States.Hide:
                         if (Client.Instance.IsLogin()) HideWindow();
+                        else if (Client.Instance.IsPlaying()) HideWindowToPlaying();
                         break;
                     case States.HideForPlay:
                         if (Client.Instance.IsLogin()) HideWindowToPlaying();
@@ -109,7 +110,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
             if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromExitMenu) return;
             if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromStartMenu) return;
-            if (state == States.Hide)
+            if (state == States.Hide || state == States.HideForPlay)
             {
                 if (Input.GetKeyUp(KeyCode.Tab))
                 {

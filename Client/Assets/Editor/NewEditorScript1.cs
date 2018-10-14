@@ -33,34 +33,72 @@ public class NewEditorScript1 : ScriptableObject
         Debug.Log(Random.state.ToString());
     }
 
-    private static System.Random rm = null;
+    private static RandomNumberGenerator1 rm = null;
 
     [MenuItem("Tools/SysRandomTest")]
     static void DoItSys()
     {
-        rm = new System.Random(255);
+        rm = new RandomNumberGenerator1(15);
+        int[] bucket = new int[10];
+        for (int i = 0; i < 10000; i++)
+        {
+            int ran = rm.Range(-5, 5);
+            bucket[ran + 5] += 1;
+        }
 
-        PrintSysRandom("Step 1");
-        PrintSysRandom("Step 2");
+        for (int i = 0; i < 10; i++)
+        {
+            Debug.Log((i-5) + "," + bucket[i]);
+        }
 
-        rm = new System.Random(100);
+        //for (int i = 0; i < 2; i++)
+        //{
+        //    Debug.Log(rm.Range(0, i));
+        //}
+        //for (int i = 0; i < 1; i++)
+        //{
+        //    Debug.Log(rm.Range(0, i));
+        //}
+    }
+}
 
-        PrintSysRandom("Step 3");
-        PrintSysRandom("Step 4");
 
-        rm = new System.Random(255);
-
-        PrintSysRandom("Step 5");
-        PrintSysRandom("Step 6");
-
-        rm = new System.Random(100);
-
-        PrintSysRandom("Step 7");
-        PrintSysRandom("Step 8");
+public class RandomNumberGenerator1
+{
+    public RandomNumberGenerator1(int seed)
+    {
+        InitSeed = seed;
+        Seed = seed;
     }
 
-    static void PrintSysRandom(string label)
+    private int UseTime = 0;
+    private int InitSeed = 0;
+    private int Seed = 0;
+
+    public int GetInitSeed()
     {
-        Debug.Log(string.Format("{0} - RandomValue {1}", label, rm.Next(0, 100)));
+        return InitSeed;
+    }
+
+    public int GetSeed()
+    {
+        return Seed;
+    }
+
+    int pre;
+
+    int rand()
+    {
+        int ret = (Seed * 7361238 + Seed % 20037 * 1244 + pre * 12342 + 378211) * (Seed + 134543);
+        pre = Seed;
+        Seed = ret;
+        return ret;
+    }
+
+    public int Range(int low, int high)
+    {
+        if (low > high) return 0;
+        int len = high - low;
+        return Mathf.Abs(rand()) % len + low;
     }
 }
