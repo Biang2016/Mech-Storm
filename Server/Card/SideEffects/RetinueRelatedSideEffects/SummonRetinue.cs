@@ -8,7 +8,7 @@ namespace SideEffects
         {
         }
 
-        public override void Excute(ExecuterInfo executerInfo)
+        public override void Execute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
             player.MyBattleGroundManager.AddRetinue((CardInfo_Retinue) AllCards.GetCard(SummonRetinueID));

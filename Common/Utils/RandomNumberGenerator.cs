@@ -8,7 +8,6 @@ public class RandomNumberGenerator
         Seed = seed;
     }
 
-    private int UseTime = 0;
     private int InitSeed = 0;
     private int Seed = 0;
 

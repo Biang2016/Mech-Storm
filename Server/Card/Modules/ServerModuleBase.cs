@@ -12,7 +12,7 @@
         InitializeSideEffects();
         Initiate();
         isInitialized = true;
-        ServerPlayer.MyGameManager.EventManager.RegisterEvent(CardInfo.SideEffects_OnBattleGround);
+        ServerPlayer.MyGameManager.EventManager.RegisterEvent(CardInfo.SideEffectBundle_OnBattleGround);
     }
 
     protected abstract void Initiate();
@@ -22,7 +22,7 @@
 
     public void UnRegisterSideEffect()
     {
-        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffects_OnBattleGround);
+        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle_OnBattleGround);
     }
 
     public abstract CardInfo_Base GetCurrentCardInfo();

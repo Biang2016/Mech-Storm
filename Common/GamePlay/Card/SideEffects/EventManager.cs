@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class EventManager
 {
@@ -7,104 +8,205 @@ public class EventManager
     {
         foreach (SideEffectBundle.TriggerTime tt in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
         {
-            Events.Add(tt, new List<SideEffectBundle.SideEffectExecute>());
+            Events.Add(tt, new Dictionary<int, SideEffectExecute>());
+            RemoveEvents.Add(tt, new Dictionary<int, SideEffectExecute>());
         }
     }
 
-    private SortedDictionary<SideEffectBundle.TriggerTime, List<SideEffectBundle.SideEffectExecute>> Events = new SortedDictionary<SideEffectBundle.TriggerTime, List<SideEffectBundle.SideEffectExecute>>();
+    //事件总表
+    private SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>> Events = new SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>>();
 
-    public void RegisterEvent(SideEffectBundle sideEffects)
+    //移除事件总表(如果触发则移除该SEE)
+    private SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>> RemoveEvents = new SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>>();
+
+
+    public void RegisterEvent(SideEffectBundle sideEffectBundle)
     {
-        foreach (SideEffectBundle.SideEffectExecute see in sideEffects.GetSideEffects())
+        foreach (SideEffectExecute see in sideEffectBundle.SideEffectExecutes)
         {
-            Events[see.TriggerTime].Add(see);
+            RegisterEvent(see);
+        }
+    }
+
+    public void RegisterEvent(SideEffectExecute sideEffectExecute)
+    {
+        if (sideEffectExecute.TriggerTime != SideEffectBundle.TriggerTime.None && sideEffectExecute.TriggerRange != SideEffectBundle.TriggerRange.None)
+        {
+            Events[sideEffectExecute.TriggerTime].Add(sideEffectExecute.ID, sideEffectExecute);
+            RemoveEvents[sideEffectExecute.TriggerTime].Add(sideEffectExecute.ID, sideEffectExecute);
         }
     }
 
     public void UnRegisterEvent(SideEffectBundle sideEffects)
     {
-        foreach (SideEffectBundle.SideEffectExecute see in sideEffects.GetSideEffects())
+        foreach (SideEffectExecute see in sideEffects.SideEffectExecutes)
         {
-            List<SideEffectBundle.SideEffectExecute> sees = Events[see.TriggerTime];
-            if (sees.Contains(see)) sees.Remove(see);
+            Dictionary<int, SideEffectExecute> sees = Events[see.TriggerTime];
+            if (sees.ContainsKey(see.ID)) sees.Remove(see.ID);
+
+            Dictionary<int, SideEffectExecute> sees_remove = RemoveEvents[see.TriggerTime];
+            if (sees_remove.ContainsKey(see.ID)) sees_remove.Remove(see.ID);
         }
     }
 
-    public void RemoveSideEffect(SideEffectBundle.TriggerTime tt, SideEffectBundle.SideEffectExecute see)
-    {
-        List<SideEffectBundle.SideEffectExecute> te = Events[tt];
-        if (te != null && te.Contains(see)) te.Remove(see);
-    }
-
-    public void ClearAllListeners()
+    public void ClearAllEvents()
     {
         foreach (SideEffectBundle.TriggerTime tt in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
         {
-            Events[tt] = new List<SideEffectBundle.SideEffectExecute>();
+            Events[tt] = new Dictionary<int, SideEffectExecute>();
+            RemoveEvents[tt] = new Dictionary<int, SideEffectExecute>();
         }
+
+        uselessSEEs.Clear();
     }
 
     private static int InvokeStackDepth = 0;
 
+
     public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
     {
+        //先进行失效SEE的移除
+        Invoke_RemoveSEE(tt, executerInfo);
+
         InvokeStackDepth++;
-        List<SideEffectBundle.SideEffectExecute> seeList = Events[tt];
-        SideEffectBundle.SideEffectExecute[] sees = seeList.ToArray();
-        for (int i = 0; i < sees.Length; i++)
+        Dictionary<int, SideEffectExecute> seeDict = Events[tt];
+        foreach (KeyValuePair<int, SideEffectExecute> kv in seeDict)
         {
-            SideEffectBundle.SideEffectExecute see = sees[i];
+            SideEffectExecute see = kv.Value;
             SideEffectBase se = see.SideEffectBase;
             SideEffectBundle.TriggerRange tr = see.TriggerRange;
-            if (!seeList.Contains(see)) continue; //防止已经移除的SE再次执行
-            switch (tr)
+            if (uselessSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
+            bool isTrigger = isExecuteTrigger(executerInfo, se.M_ExecuterInfo, tr);
+            if (isTrigger) Trigger(see, executerInfo, tt, tr);
+        }
+
+        InvokeStackDepth--; //由于触发事件经常嵌套发生，加入栈深度，都执行完毕清空废弃SEE
+        if (InvokeStackDepth == 0)
+        {
+            RemoveAllUselessSEEs(); //移除所有失效的SE
+            OnEventInvokeEndHandler(); //可以发送数据包给客户端
+        }
+    }
+
+    public void Invoke_RemoveSEE(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
+    {
+        Dictionary<int, SideEffectExecute> seeDict = RemoveEvents[tt];
+        foreach (KeyValuePair<int, SideEffectExecute> kv in seeDict)
+        {
+            SideEffectExecute see = kv.Value;
+            SideEffectBase se = see.SideEffectBase;
+            SideEffectBundle.TriggerRange tr = see.RemoveTriggerRange;
+            if (uselessSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
+            bool isTrigger = isExecuteTrigger(executerInfo, se.M_ExecuterInfo, tr);
+            if (isTrigger) Trigger_Remove(see);
+        }
+
+        RemoveAllUselessSEEs(); //移除所有失效的SE
+    }
+
+    private Dictionary<int, SideEffectExecute> uselessSEEs = new Dictionary<int, SideEffectExecute>();
+
+    private void RemoveAllUselessSEEs()
+    {
+        foreach (KeyValuePair<int, SideEffectExecute> kv in uselessSEEs)
+        {
+            Dictionary<int, SideEffectExecute> event_sees = Events[kv.Value.TriggerTime];
+            if (event_sees.ContainsKey(kv.Key)) event_sees.Remove(kv.Key);
+
+            Dictionary<int, SideEffectExecute> removeEvent_sees = RemoveEvents[kv.Value.TriggerTime];
+            if (removeEvent_sees.ContainsKey(kv.Key)) removeEvent_sees.Remove(kv.Key);
+
+            if (kv.Value.SideEffectBase.M_ExecuterInfo.IsPlayerBuff) //PlayerBuff
             {
-                case SideEffectBundle.TriggerRange.SelfPlayer:
-                    if (executerInfo.ClientId == se.M_ExecuterInfo.ClientId) Trigger(se, executerInfo, tt, tr);
-                    break;
-                case SideEffectBundle.TriggerRange.EnemyPlayer:
-                    if (executerInfo.ClientId != se.M_ExecuterInfo.ClientId) Trigger(se, executerInfo, tt, tr);
-                    break;
-                case SideEffectBundle.TriggerRange.OnePlayer:
-                    Trigger(se, executerInfo, tt, tr);
-                    break;
-                case SideEffectBundle.TriggerRange.One:
-                    Trigger(se, executerInfo, tt, tr);
-                    break;
-                case SideEffectBundle.TriggerRange.SelfAnother:
-                    if (executerInfo.ClientId == se.M_ExecuterInfo.ClientId &&
-                        ((se.M_ExecuterInfo.RetinueId != -999 && se.M_ExecuterInfo.RetinueId != executerInfo.RetinueId) ||
-                         (se.M_ExecuterInfo.CardInstanceId != -999 && se.M_ExecuterInfo.CardInstanceId != executerInfo.CardInstanceId)))
-                        Trigger(se, executerInfo, tt, tr);
-                    break;
-                case SideEffectBundle.TriggerRange.Another:
-                    if ((se.M_ExecuterInfo.RetinueId != -999 && se.M_ExecuterInfo.RetinueId != executerInfo.RetinueId) ||
-                        (se.M_ExecuterInfo.CardInstanceId != -999 && se.M_ExecuterInfo.CardInstanceId != executerInfo.CardInstanceId))
-                        Trigger(se, executerInfo, tt, tr);
-                    break;
-                case SideEffectBundle.TriggerRange.Attached:
-                    if (se.M_ExecuterInfo.RetinueId != -999 && se.M_ExecuterInfo.RetinueId == executerInfo.RetinueId)
-                        Trigger(se, executerInfo, tt, tr);
-                    break;
-                case SideEffectBundle.TriggerRange.Self:
-                    if ((se.M_ExecuterInfo.RetinueId != -999 && se.M_ExecuterInfo.RetinueId == executerInfo.RetinueId) ||
-                        (se.M_ExecuterInfo.CardInstanceId != -999 && se.M_ExecuterInfo.CardInstanceId == executerInfo.CardInstanceId) ||
-                        (se.M_ExecuterInfo.EquipId != -999 && se.M_ExecuterInfo.EquipId == executerInfo.EquipId))
-                        Trigger(se, executerInfo, tt, tr);
-                    break;
+                OnEventPlayerBuffRemoveHandler(kv.Value);
             }
         }
 
-        InvokeStackDepth--;
-        if (InvokeStackDepth == 0) OnEventInvokeEndHandler();
+        uselessSEEs.Clear();
     }
 
-    private void Trigger(SideEffectBase se, SideEffectBase.ExecuterInfo ei, SideEffectBundle.TriggerTime tt, SideEffectBundle.TriggerRange tr)
+    private static bool isExecuteTrigger(SideEffectBase.ExecuterInfo executerInfo, SideEffectBase.ExecuterInfo se_ExecuterInfo, SideEffectBundle.TriggerRange tr)
     {
-        ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(se.M_ExecuterInfo, tt, tr);
-        OnEventInvokeHandler(request);
-        se.Excute(ei);
+        bool isTrigger = false;
+        switch (tr)
+        {
+            case SideEffectBundle.TriggerRange.SelfPlayer:
+                if (executerInfo.ClientId == se_ExecuterInfo.ClientId) isTrigger = true;
+                break;
+            case SideEffectBundle.TriggerRange.EnemyPlayer:
+                if (executerInfo.ClientId != se_ExecuterInfo.ClientId) isTrigger = true;
+                break;
+            case SideEffectBundle.TriggerRange.OnePlayer:
+                isTrigger = true;
+                break;
+            case SideEffectBundle.TriggerRange.One:
+                isTrigger = true;
+                break;
+            case SideEffectBundle.TriggerRange.SelfAnother:
+                if (executerInfo.ClientId == se_ExecuterInfo.ClientId &&
+                    ((se_ExecuterInfo.RetinueId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.RetinueId != executerInfo.RetinueId) ||
+                     (se_ExecuterInfo.CardInstanceId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.CardInstanceId != executerInfo.CardInstanceId)))
+                    isTrigger = true;
+                break;
+            case SideEffectBundle.TriggerRange.Another:
+                if ((se_ExecuterInfo.RetinueId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.RetinueId != executerInfo.RetinueId) ||
+                    (se_ExecuterInfo.CardInstanceId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.CardInstanceId != executerInfo.CardInstanceId))
+                    isTrigger = true;
+                break;
+            case SideEffectBundle.TriggerRange.Attached:
+                if (se_ExecuterInfo.RetinueId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.RetinueId == executerInfo.RetinueId)
+                    isTrigger = true;
+                break;
+            case SideEffectBundle.TriggerRange.Self:
+                if ((se_ExecuterInfo.RetinueId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.RetinueId == executerInfo.RetinueId) ||
+                    (se_ExecuterInfo.CardInstanceId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.CardInstanceId == executerInfo.CardInstanceId) ||
+                    (se_ExecuterInfo.EquipId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.EquipId == executerInfo.EquipId))
+                    isTrigger = true;
+                break;
+        }
+
+        return isTrigger;
     }
+
+
+    private void Trigger(SideEffectExecute see, SideEffectBase.ExecuterInfo ei, SideEffectBundle.TriggerTime tt, SideEffectBundle.TriggerRange tr)
+    {
+        if (see.TriggerDelayTimes > 0) //触发延迟时间减少，直至0时触发
+        {
+            see.TriggerDelayTimes--;
+            ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecuterInfo, tt, tr);
+            OnEventInvokeHandler(request);
+            return;
+        }
+        else
+        {
+            if (see.TriggerTimes > 0) //触发次数减少，为0时不触发
+            {
+                see.TriggerTimes--;
+                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecuterInfo, tt, tr);
+                OnEventInvokeHandler(request);
+                see.SideEffectBase.Execute(ei);
+            }
+            else if (see.TriggerTimes == 0)
+            {
+                uselessSEEs.Add(see.ID, see);
+            }
+        }
+    }
+
+    private void Trigger_Remove(SideEffectExecute see)
+    {
+        if (see.RemoveTriggerTimes > 0) //移除判定剩余次数减少，为0时移除
+        {
+            see.RemoveTriggerTimes--;
+            OnEventPlayerBuffReduceHandler(see);
+            if (see.RemoveTriggerTimes == 0)
+            {
+                uselessSEEs.Add(see.ID, see);
+            }
+        }
+    }
+
 
     public delegate void OnEventInvoke(ShowSideEffectTriggeredRequest request);
 
@@ -113,4 +215,12 @@ public class EventManager
     public delegate void OnEventInvokeEnd();
 
     public OnEventInvokeEnd OnEventInvokeEndHandler;
+
+    public delegate void OnEventPlayerBuffReduce(SideEffectExecute sideEffectExecute);
+
+    public OnEventPlayerBuffReduce OnEventPlayerBuffReduceHandler;
+
+    public delegate void OnEventPlayerBuffRemove(SideEffectExecute sideEffectExecute);
+
+    public OnEventPlayerBuffRemove OnEventPlayerBuffRemoveHandler;
 }

@@ -14,26 +14,26 @@ public class CardInfo_Base
     public PackInfo PackInfo;
     public MAInfo MAInfo;
 
-    public SideEffectBundle SideEffects = new SideEffectBundle();
-    public SideEffectBundle SideEffects_OnBattleGround = new SideEffectBundle(); //只有在战场上才会生效的特效（如装备牌和随从牌）
+    public SideEffectBundle SideEffectBundle = new SideEffectBundle();
+    public SideEffectBundle SideEffectBundle_OnBattleGround = new SideEffectBundle(); //只有在战场上才会生效的特效（如装备牌和随从牌）
 
     public CardInfo_Base()
     {
     }
 
-    protected CardInfo_Base(int cardID, BaseInfo baseInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
+    protected CardInfo_Base(int cardID, BaseInfo baseInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
     {
         CardID = cardID;
         BaseInfo = baseInfo;
-        SideEffects = sideEffects;
-        SideEffects_OnBattleGround = sideEffects_OnBattleGround;
+        SideEffectBundle = sideEffectBundle;
+        SideEffectBundle_OnBattleGround = sideEffectBundle_OnBattleGround;
     }
 
     public virtual string GetCardDescShow(bool isEnglish)
     {
         string CardDescShow = BaseInfo.CardDescRaw;
-        CardDescShow += SideEffects.GetSideEffectsDesc(isEnglish);
-        CardDescShow += SideEffects_OnBattleGround.GetSideEffectsDesc(isEnglish);
+        CardDescShow += SideEffectBundle.GetSideEffectsDesc(isEnglish);
+        CardDescShow += SideEffectBundle_OnBattleGround.GetSideEffectsDesc(isEnglish);
         return CardDescShow;
     }
 
@@ -44,7 +44,7 @@ public class CardInfo_Base
 
     public virtual CardInfo_Base Clone()
     {
-        return new CardInfo_Base(CardID,  BaseInfo, SideEffects.Clone(), SideEffects_OnBattleGround.Clone());
+        return new CardInfo_Base(CardID,  BaseInfo, SideEffectBundle.Clone(), SideEffectBundle_OnBattleGround.Clone());
     }
 
     public void Serialize(DataStream writer)
@@ -63,8 +63,8 @@ public class CardInfo_Base
         PackInfo.Serialize(writer);
         MAInfo.Serialize(writer);
 
-        SideEffects.Serialize(writer);
-        SideEffects_OnBattleGround.Serialize(writer);
+        SideEffectBundle.Serialize(writer);
+        SideEffectBundle_OnBattleGround.Serialize(writer);
     }
 
     public static CardInfo_Base Deserialze(DataStream reader)
@@ -85,8 +85,8 @@ public class CardInfo_Base
         newCardInfo_Base.PackInfo = PackInfo.Deserialze(reader);
         newCardInfo_Base.MAInfo = MAInfo.Deserialze(reader);
 
-        newCardInfo_Base.SideEffects = SideEffectBundle.Deserialze(reader);
-        newCardInfo_Base.SideEffects_OnBattleGround = SideEffectBundle.Deserialze(reader);
+        newCardInfo_Base.SideEffectBundle = SideEffectBundle.Deserialze(reader);
+        newCardInfo_Base.SideEffectBundle_OnBattleGround = SideEffectBundle.Deserialze(reader);
 
         return newCardInfo_Base;
     }

@@ -4,11 +4,11 @@
     {
     }
 
-    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, RetinueInfo retinueInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, RetinueInfo retinueInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
-            sideEffects: sideEffects,
-            sideEffects_OnBattleGround: sideEffects_OnBattleGround)
+            sideEffectBundle: sideEffectBundle,
+            sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround)
     {
         UpgradeInfo = upgradeInfo;
         LifeInfo = lifeInfo;
@@ -49,8 +49,8 @@
             lifeInfo: LifeInfo,
             battleInfo: BattleInfo,
             retinueInfo: RetinueInfo,
-            sideEffects: temp.SideEffects.Clone(),
-            sideEffects_OnBattleGround: SideEffects_OnBattleGround.Clone());
+            sideEffectBundle: temp.SideEffectBundle.Clone(),
+            sideEffectBundle_OnBattleGround: SideEffectBundle_OnBattleGround.Clone());
         return cb;
     }
 

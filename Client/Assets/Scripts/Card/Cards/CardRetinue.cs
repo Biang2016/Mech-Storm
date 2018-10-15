@@ -172,8 +172,9 @@ public class CardRetinue : CardBase
         bool summonTarget = false; //召唤时是否需要指定目标
 
         TargetSideEffect.TargetRange TargetRange = TargetSideEffect.TargetRange.None; //指定目标所属范围
-        foreach (SideEffectBase se in CardInfo.SideEffects.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self))
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self))
         {
+            SideEffectBase se = see.SideEffectBase;
             if (se is TargetSideEffect)
             {
                 if (((TargetSideEffect) se).IsNeedChoise)
@@ -184,8 +185,9 @@ public class CardRetinue : CardBase
             }
         }
 
-        foreach (SideEffectBase se in CardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self))
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self))
         {
+            SideEffectBase se = see.SideEffectBase;
             if (se is TargetSideEffect)
             {
                 if (((TargetSideEffect) se).IsNeedChoise)

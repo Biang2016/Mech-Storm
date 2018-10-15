@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
-public class ModuleMA : ModuleEquip
+﻿public class ModuleMA : ModuleEquip
 {
     void Awake()
     {

@@ -16,17 +16,23 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     protected override void InitializeSideEffects()
     {
-        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
         {
             see.SideEffectBase.Player = ServerPlayer;
-            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(
+                ServerPlayer.ClientId,
+                retinueId: M_RetinueID
+            );
             if (see.SideEffectBase is AddSelfWeaponEnergy seb) seb.RetinueID = M_RetinueID;
         }
 
-        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects_OnBattleGround.GetSideEffects())
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle_OnBattleGround.SideEffectExecutes)
         {
             see.SideEffectBase.Player = ServerPlayer;
-            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(
+                ServerPlayer.ClientId,
+                retinueId: M_RetinueID
+            );
             if (see.SideEffectBase is AddSelfWeaponEnergy seb) seb.RetinueID = M_RetinueID;
         }
     }
@@ -40,8 +46,8 @@ internal class ServerModuleRetinue : ServerModuleBase
             lifeInfo: CardInfo.LifeInfo,
             battleInfo: CardInfo.BattleInfo,
             retinueInfo: CardInfo.RetinueInfo,
-            sideEffects: CardInfo.SideEffects,
-            sideEffects_OnBattleGround: CardInfo.SideEffects_OnBattleGround);
+            sideEffectBundle: CardInfo.SideEffectBundle,
+            sideEffectBundle_OnBattleGround: CardInfo.SideEffectBundle_OnBattleGround);
     }
 
     #region 属性
@@ -856,7 +862,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public void UnregisterEvent()
     {
-        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffects);
+        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle);
     }
 
     private void OnMakeDamage(int damage)

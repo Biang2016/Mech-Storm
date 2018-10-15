@@ -7,7 +7,7 @@
         }
 
 
-        public override void Excute(ExecuterInfo executerInfo)
+        public override void Execute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
             if (TR_Retinues.Contains(M_TargetRange))

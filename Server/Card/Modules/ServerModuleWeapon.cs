@@ -9,16 +9,24 @@
 
     protected override void InitializeSideEffects()
     {
-        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
         {
             see.SideEffectBase.Player = ServerPlayer;
-            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: M_ModuleRetinue.M_RetinueID, equipId: M_EquipID);
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(
+                clientId: ServerPlayer.ClientId,
+                retinueId: M_ModuleRetinue.M_RetinueID,
+                equipId: M_EquipID
+                );
         }
 
-        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects_OnBattleGround.GetSideEffects())
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle_OnBattleGround.SideEffectExecutes)
         {
             see.SideEffectBase.Player = ServerPlayer;
-            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: M_ModuleRetinue.M_RetinueID, equipId: M_EquipID);
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(
+                clientId: ServerPlayer.ClientId,
+                retinueId: M_ModuleRetinue.M_RetinueID,
+                equipId: M_EquipID
+                );
         }
     }
 
@@ -33,8 +41,8 @@
             shieldInfo: CardInfo.ShieldInfo,
             packInfo: CardInfo.PackInfo,
             maInfo: CardInfo.MAInfo,
-            sideEffects: CardInfo.SideEffects,
-            sideEffects_OnBattleGround: CardInfo.SideEffects_OnBattleGround);
+            sideEffectBundle: CardInfo.SideEffectBundle,
+            sideEffectBundle_OnBattleGround: CardInfo.SideEffectBundle_OnBattleGround);
     }
 
 

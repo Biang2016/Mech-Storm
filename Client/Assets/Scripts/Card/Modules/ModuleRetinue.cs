@@ -100,7 +100,7 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    [SerializeField] private TextMesh TextMesh_RetinueName;
+    [SerializeField] private Text Text_RetinueName;
 
     [SerializeField] private Renderer RetinueCanAttackBloom;
     [SerializeField] private Renderer OnHoverBloom;
@@ -189,13 +189,13 @@ public class ModuleRetinue : ModuleBase
         SideEffectDieIcon.gameObject.SetActive(false);
         SideEffectBGDieIcon.gameObject.SetActive(false);
 
-        if (CardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
+        if (CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
         {
             SideEffectDieIcon.gameObject.SetActive(true);
             SideEffectBGDieIcon.gameObject.SetActive(true);
         }
 
-        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects_OnBattleGround.GetSideEffects())
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle_OnBattleGround.SideEffectExecutes)
         {
             if (!(see.TriggerTime == SideEffectBundle.TriggerTime.OnRetinueDie && see.TriggerRange == SideEffectBundle.TriggerRange.Self)
                 && !(see.TriggerTime == SideEffectBundle.TriggerTime.OnRetinueSummon && see.TriggerRange == SideEffectBundle.TriggerRange.Self))
@@ -300,7 +300,7 @@ public class ModuleRetinue : ModuleBase
         set
         {
             m_RetinueName = value;
-            TextMesh_RetinueName.text = value;
+            Text_RetinueName.text = value;
         }
     }
 

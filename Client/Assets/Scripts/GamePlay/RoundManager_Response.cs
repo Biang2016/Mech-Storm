@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -460,9 +459,14 @@ internal partial class RoundManager
 
     private void OnShowSideEffect(ShowSideEffectTriggeredRequest r)
     {
-        if (r.ExecuterInfo.RetinueId != -999)
+        ClientPlayer cp = GetPlayerByClientId(r.ExecuterInfo.ClientId);
+        if (r.ExecuterInfo.RetinueId == -1000) //PlayerBuff
         {
-            ClientPlayer cp = GetPlayerByClientId(r.ExecuterInfo.ClientId);
+            return;
+        }
+
+        if (r.ExecuterInfo.RetinueId != -999) //随从触发
+        {
             if (r.ExecuterInfo.EquipId == -999)
             {
                 cp.MyBattleGroundManager.GetRetinue(r.ExecuterInfo.RetinueId).OnShowEffects(r.TriggerTime, r.TriggerRange);
@@ -471,6 +475,10 @@ internal partial class RoundManager
             {
                 cp.MyBattleGroundManager.GetEquip(r.ExecuterInfo.RetinueId, r.ExecuterInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             }
+        }
+        else if (r.ExecuterInfo.CardInstanceId != -999) //手牌触发
+        {
+            //Todo 手牌SE效果
         }
     }
 

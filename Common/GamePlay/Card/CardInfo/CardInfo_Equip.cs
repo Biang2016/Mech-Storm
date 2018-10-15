@@ -4,11 +4,11 @@
     {
     }
 
-    public CardInfo_Equip(int cardID,  BaseInfo baseInfo, UpgradeInfo upgradeInfo, EquipInfo equipInfo, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
+    public CardInfo_Equip(int cardID,  BaseInfo baseInfo, UpgradeInfo upgradeInfo, EquipInfo equipInfo, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
-            sideEffects: sideEffects,
-            sideEffects_OnBattleGround: sideEffects_OnBattleGround)
+            sideEffectBundle: sideEffectBundle,
+            sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround)
     {
         switch (equipInfo.SlotType)
         {
@@ -57,7 +57,7 @@
                 else if (WeaponInfo.WeaponType == WeaponTypes.Gun)
                 {
                     CardDescShow += AddAffixString(isEnglish, "Gun", "枪");
-                    CardDescShow += string.Format(isEnglish ? "ShootAttack +{0}" : "每发伤害 +{0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(isEnglish ? "ShootAttack +{0}. " : "每发伤害 +{0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
                     CardDescShow += string.Format(isEnglish ? "Bullets {0}. " : "弹药 {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.SniperGun)
@@ -147,8 +147,8 @@
             shieldInfo: ShieldInfo,
             packInfo: PackInfo,
             maInfo: MAInfo,
-            sideEffects: SideEffects.Clone(),
-            sideEffects_OnBattleGround: SideEffects_OnBattleGround.Clone());
+            sideEffectBundle: SideEffectBundle.Clone(),
+            sideEffectBundle_OnBattleGround: SideEffectBundle_OnBattleGround.Clone());
         return cb;
     }
 

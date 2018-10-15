@@ -1,0 +1,24 @@
+﻿namespace SideEffects
+{
+    public class CopyNextDrawCard : CopyNextDrawCard_Base
+    {
+        public CopyNextDrawCard()
+        {
+        }
+
+        public override void Execute(ExecuterInfo executerInfo)
+        {
+            ServerPlayer player = (ServerPlayer) Player;
+            CardInfo_Base ci = player.MyCardDeckManager.CardDeck.GetFirstCardInfo();
+            if (ci != null)
+            {
+                player.MyHandManager.DrawCards(1);
+                for (int i = 0; i < FinalValue; i++)
+                {
+                    player.MyHandManager.GetACardByID(ci.CardID);
+                }
+
+            }
+        }
+    }
+}

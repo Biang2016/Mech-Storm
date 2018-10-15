@@ -6,9 +6,9 @@ public abstract class TargetSideEffect : SideEffectBase
     public bool IsNeedChoise;
     public TargetRange M_TargetRange; //限定范围
 
-    public override void Serialze(DataStream writer)
+    public override void Serialize(DataStream writer)
     {
-        base.Serialze(writer);
+        base.Serialize(writer);
         if (IsNeedChoise)
         {
             writer.WriteByte(0x01);
@@ -18,9 +18,9 @@ public abstract class TargetSideEffect : SideEffectBase
         writer.WriteSInt32((int) M_TargetRange);
     }
 
-    protected override void Deserialze(DataStream reader)
+    protected override void Deserialize(DataStream reader)
     {
-        base.Deserialze(reader);
+        base.Deserialize(reader);
         IsNeedChoise = reader.ReadByte() == 0x01;
         M_TargetRange = (TargetRange) reader.ReadSInt32();
     }

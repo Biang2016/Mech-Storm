@@ -5,14 +5,14 @@
         return HightlightStringFormat( isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, false));
     }
 
-    public override void Serialze(DataStream writer)
+    public override void Serialize(DataStream writer)
     {
-        base.Serialze(writer);
+        base.Serialize(writer);
     }
 
-    protected override void Deserialze(DataStream reader)
+    protected override void Deserialize(DataStream reader)
     {
-        base.Deserialze(reader);
+        base.Deserialize(reader);
     }
 
     public override int CalculateDamage()

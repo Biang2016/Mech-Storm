@@ -38,7 +38,7 @@
         M_CardInstanceId = cardInstanceId;
         Stars = CardInfo.UpgradeInfo.CardLevel;
         isInitialized = true;
-        foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
         {
             see.SideEffectBase.Player = ServerPlayer;
             if (see.SideEffectBase is CardRelatedSideEffect)
@@ -49,12 +49,12 @@
             see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
         }
 
-        ServerPlayer.MyGameManager.EventManager.RegisterEvent(CardInfo.SideEffects);
+        ServerPlayer.MyGameManager.EventManager.RegisterEvent(CardInfo.SideEffectBundle);
     }
 
     public void UnRegisterSideEffect()
     {
-        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffects);
+        ServerPlayer.MyGameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle);
     }
 
     #region 属性

@@ -1,4 +1,6 @@
-﻿internal class ServerPlayer : Player
+﻿using System.Collections.Generic;
+
+internal class ServerPlayer : Player
 {
     public ClientProxy MyClientProxy;
     public ServerPlayer MyEnemyPlayer;
@@ -223,6 +225,36 @@
         CardDeckLeftChangeRequest request = new CardDeckLeftChangeRequest(ClientId, count);
         BroadCastRequest(request);
     }
+
+    #region SideEffectsAttachedToPlayer
+
+    private Dictionary<int, SideEffectExecute> SideEffectBundles_Player = new Dictionary<int, SideEffectExecute>();
+
+    public void AddSideEffectBundleForPlayerBuff(SideEffectExecute see)
+    {
+        SideEffectBundles_Player.Add(see.ID, see);
+        MyGameManager.EventManager.RegisterEvent(see);
+        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see.RemoveTriggerTimes);
+        BroadCastRequest(request);
+    }
+
+    public void ReduceSideEffectBundleForPlayerBuff(SideEffectExecute see)
+    {
+        if (SideEffectBundles_Player.ContainsKey(see.ID))
+        {
+            if (see.RemoveTriggerTimes == 0) //等于0清除buff
+            {
+                SideEffectBundles_Player.Remove(see.ID);
+            }
+
+            //通知客户端改变buff数字
+            PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see.RemoveTriggerTimes);
+            BroadCastRequest(request);
+        }
+    }
+
+    #endregion
+
 
     private void BroadCastRequest(ServerRequestBase request)
     {

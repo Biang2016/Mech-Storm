@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardSpell : CardBase
 {
@@ -22,13 +21,13 @@ public class CardSpell : CardBase
         HasTargetEquip = false;
         HasTargetShip = false;
 
-        foreach (SideEffectBase se in CardInfo.SideEffects.GetSideEffects(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
         {
+            SideEffectBase se = see.SideEffectBase;
             if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
             {
                 if (se is TargetSideEffectEquip && ((TargetSideEffectEquip) se).IsNeedChoise)
                 {
-                    TargetSideEffect.TargetRange temp = ((TargetSideEffect) se).M_TargetRange;
                     HasTargetEquip = true;
                     targetEquipRange = ((TargetSideEffectEquip) se).M_TargetRange;
                     break;
@@ -249,8 +248,9 @@ public class CardSpell : CardBase
 
     private int CalculateAttack()
     {
-        foreach (SideEffectBase se in CardInfo.SideEffects.GetSideEffects(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
         {
+            SideEffectBase se = see.SideEffectBase;
             if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
             {
                 return ((TargetSideEffect) se).CalculateDamage();

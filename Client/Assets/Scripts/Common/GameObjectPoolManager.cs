@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
+﻿public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
 {
     private GameObjectPoolManager()
     {

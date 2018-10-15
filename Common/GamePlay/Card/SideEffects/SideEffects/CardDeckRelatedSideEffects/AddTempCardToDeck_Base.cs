@@ -1,4 +1,4 @@
-﻿public class AddTempCardToDeck_Base : SideEffectBase, IEffectFactor
+﻿public class AddTempCardToDeck_Base : CardDeckRelatedSideEffects, IEffectFactor
 {
     public int Value;
     public int CardId;
@@ -15,16 +15,16 @@
         return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, FinalValue, "[" + (isEnglish ? bi.CardName_en : bi.CardName) + "]");
     }
 
-    public override void Serialze(DataStream writer)
+    public override void Serialize(DataStream writer)
     {
-        base.Serialze(writer);
+        base.Serialize(writer);
         writer.WriteSInt32(Value);
         writer.WriteSInt32(CardId);
     }
 
-    protected override void Deserialze(DataStream reader)
+    protected override void Deserialize(DataStream reader)
     {
-        base.Deserialze(reader);
+        base.Deserialize(reader);
         Value = reader.ReadSInt32();
         CardId = reader.ReadSInt32();
     }

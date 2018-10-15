@@ -38,8 +38,8 @@ public static class AllCards
             PackInfo packInfo = new PackInfo();
             MAInfo maInfo = new MAInfo();
 
-            SideEffectBundle sideEffects = new SideEffectBundle();
-            SideEffectBundle sideEffects_OnBattleGround = new SideEffectBundle();
+            SideEffectBundle sideEffectBundle = new SideEffectBundle();
+            SideEffectBundle sideEffectBundle_OnBattleGround = new SideEffectBundle();
 
             for (int j = 0; j < card.ChildNodes.Count; j++)
             {
@@ -107,7 +107,7 @@ public static class AllCards
                             cardInfo.Attributes["isDefence"].Value == "True",
                             cardInfo.Attributes["isSniper"].Value == "True",
                             int.Parse(cardInfo.Attributes["dodgeProp"].Value)
-                            );
+                        );
                         equipInfo = new EquipInfo(SlotTypes.Pack);
                         break;
                     case "maInfo":
@@ -115,86 +115,18 @@ public static class AllCards
                             cardInfo.Attributes["isFrenzy"].Value == "True",
                             cardInfo.Attributes["isDefence"].Value == "True",
                             cardInfo.Attributes["isSniper"].Value == "True"
-                            );
+                        );
                         equipInfo = new EquipInfo(SlotTypes.MA);
                         break;
-                    case "sideEffectsInfo":
+                    case "sideEffectsBundle":
                     {
-                        SideEffectBundle.TriggerTime triggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), cardInfo.Attributes["triggerTime"].Value);
-                        SideEffectBundle.TriggerRange triggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), cardInfo.Attributes["triggerRange"].Value);
-
-                        for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
-                        {
-                            XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
-                            SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
-                            for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
-                            {
-                                if (sideEffectInfo.Attributes[l].Name == "name") continue;
-                                XmlAttribute attr = sideEffectInfo.Attributes[l];
-                                FieldInfo fi = sideEffect.GetType().GetField(attr.Name);
-                                switch (fi.FieldType.Name)
-                                {
-                                    case "Int32":
-                                        fi.SetValue(sideEffect, int.Parse(attr.Value));
-                                        break;
-                                    case "String":
-                                        fi.SetValue(sideEffect, attr.Value);
-                                        break;
-                                    case "Boolean":
-                                        fi.SetValue(sideEffect, attr.Value == "True");
-                                        break;
-                                    case "TargetRange":
-                                        fi.SetValue(sideEffect, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
-                                        break;
-                                    case "CardTypes":
-                                        fi.SetValue(sideEffect, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
-                                        break;
-                                }
-                            }
-
-                            sideEffects.AddSideEffect(sideEffect, triggerTime, triggerRange);
-                        }
-
+                        ExtractSideEffectBundle(cardInfo, sideEffectBundle);
                         break;
                     }
 
-                    case "sideEffectsInfo_OnBattleGround":
+                    case "sideEffectsBundle_OnBattleGround":
                     {
-                        SideEffectBundle.TriggerTime triggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), cardInfo.Attributes["triggerTime"].Value);
-                        SideEffectBundle.TriggerRange triggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), cardInfo.Attributes["triggerRange"].Value);
-
-                        for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
-                        {
-                            XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
-                            SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
-                            for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
-                            {
-                                if (sideEffectInfo.Attributes[l].Name == "name") continue;
-                                XmlAttribute attr = sideEffectInfo.Attributes[l];
-                                FieldInfo fi = sideEffect.GetType().GetField(attr.Name);
-                                switch (fi.FieldType.Name)
-                                {
-                                    case "Int32":
-                                        fi.SetValue(sideEffect, int.Parse(attr.Value));
-                                        break;
-                                    case "String":
-                                        fi.SetValue(sideEffect, attr.Value);
-                                        break;
-                                    case "Boolean":
-                                        fi.SetValue(sideEffect, attr.Value == "True");
-                                        break;
-                                    case "TargetRange":
-                                        fi.SetValue(sideEffect, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
-                                        break;
-                                    case "CardTypes":
-                                        fi.SetValue(sideEffect, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
-                                        break;
-                                    }
-                            }
-
-                            sideEffects_OnBattleGround.AddSideEffect(sideEffect, triggerTime, triggerRange);
-                        }
-
+                        ExtractSideEffectBundle(cardInfo, sideEffectBundle_OnBattleGround);
                         break;
                     }
                 }
@@ -210,8 +142,8 @@ public static class AllCards
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
                         retinueInfo: retinueInfo,
-                        sideEffects: sideEffects,
-                        sideEffects_OnBattleGround: sideEffects_OnBattleGround));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround));
                     break;
                 case CardTypes.Equip:
                     addCard(new CardInfo_Equip(
@@ -223,26 +155,76 @@ public static class AllCards
                         shieldInfo: shieldInfo,
                         packInfo: packInfo,
                         maInfo: maInfo,
-                        sideEffects: sideEffects,
-                        sideEffects_OnBattleGround: sideEffects_OnBattleGround));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround));
                     break;
                 case CardTypes.Spell:
                     addCard(new CardInfo_Spell(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        sideEffects: sideEffects,
-                        sideEffects_OnBattleGround: sideEffects_OnBattleGround));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround));
                     break;
                 case CardTypes.Energy:
                     addCard(new CardInfo_Spell(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        sideEffects: sideEffects,
-                        sideEffects_OnBattleGround: sideEffects_OnBattleGround));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround));
                     break;
             }
+        }
+    }
+
+    private static void ExtractSideEffectBundle(XmlNode cardInfo, SideEffectBundle cur_seb)
+    {
+        SideEffectBundle.TriggerTime triggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), cardInfo.Attributes["triggerTime"].Value);
+        SideEffectBundle.TriggerRange triggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), cardInfo.Attributes["triggerRange"].Value);
+        int triggerDelayTimes = int.Parse(cardInfo.Attributes["triggerDelayTimes"].Value);
+        int triggerTimes = int.Parse(cardInfo.Attributes["triggerTimes"].Value);
+        SideEffectBundle.TriggerTime removeTriggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), cardInfo.Attributes["removeTriggerTime"].Value);
+        SideEffectBundle.TriggerRange removeTriggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), cardInfo.Attributes["removeTriggerRange"].Value);
+        int removeTriggerTimes = int.Parse(cardInfo.Attributes["removeTriggerTimes"].Value);
+
+        for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
+        {
+            XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
+            SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
+            for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
+            {
+                if (sideEffectInfo.Attributes[l].Name == "name") continue;
+                XmlAttribute attr = sideEffectInfo.Attributes[l];
+                FieldInfo fi = sideEffect.GetType().GetField(attr.Name);
+                switch (fi.FieldType.Name)
+                {
+                    case "Int32":
+                        fi.SetValue(sideEffect, int.Parse(attr.Value));
+                        break;
+                    case "String":
+                        fi.SetValue(sideEffect, attr.Value);
+                        break;
+                    case "Boolean":
+                        fi.SetValue(sideEffect, attr.Value == "True");
+                        break;
+                    case "TargetRange":
+                        fi.SetValue(sideEffect, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
+                        break;
+                    case "TriggerTime":
+                        fi.SetValue(sideEffect, (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), attr.Value));
+                        break;
+                    case "TriggerRange":
+                        fi.SetValue(sideEffect, (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), attr.Value));
+                        break;
+                    case "CardTypes":
+                        fi.SetValue(sideEffect, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
+                        break;
+                }
+            }
+
+            SideEffectExecute see = new SideEffectExecute(sideEffect, triggerTime, triggerRange, triggerDelayTimes, triggerTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes);
+            cur_seb.AddSideEffectExecute(see);
         }
     }
 

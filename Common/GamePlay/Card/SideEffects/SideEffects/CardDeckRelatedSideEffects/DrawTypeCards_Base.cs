@@ -1,4 +1,4 @@
-﻿public class DrawTypeCards_Base : SideEffectBase, IEffectFactor
+﻿public class DrawTypeCards_Base : CardDeckRelatedSideEffects, IEffectFactor
 {
     public int Value;
     public int Factor = 1;
@@ -14,16 +14,16 @@
         return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, FinalValue, isEnglish ? BaseInfo.CardTypeNameDict_en[DrawCardType] : BaseInfo.CardTypeNameDict[DrawCardType], FinalValue <= 1 ? "" : "s");
     }
 
-    public override void Serialze(DataStream writer)
+    public override void Serialize(DataStream writer)
     {
-        base.Serialze(writer);
+        base.Serialize(writer);
         writer.WriteSInt32(Value);
         writer.WriteSInt32((int) DrawCardType);
     }
 
-    protected override void Deserialze(DataStream reader)
+    protected override void Deserialize(DataStream reader)
     {
-        base.Deserialze(reader);
+        base.Deserialize(reader);
         Value = reader.ReadSInt32();
         DrawCardType = (CardTypes) reader.ReadSInt32();
     }

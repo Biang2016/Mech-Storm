@@ -1,103 +1,70 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
+/// <summary>
+/// 一大捆SideEffectExecute，用于附在卡牌、随从、武器、战舰上
+/// </summary>
 public class SideEffectBundle
 {
-    public SortedDictionary<TriggerTime, Dictionary<TriggerRange, List<SideEffectBase>>> SideEffects;
+    public List<SideEffectExecute> SideEffectExecutes = new List<SideEffectExecute>();
+    public SortedDictionary<TriggerTime, Dictionary<TriggerRange, List<SideEffectExecute>>> SideEffectExecutes_Dict = new SortedDictionary<TriggerTime, Dictionary<TriggerRange, List<SideEffectExecute>>>();
 
-    public SideEffectBundle()
+    public void AddSideEffectExecute(SideEffectExecute see)
     {
-        SideEffects = new SortedDictionary<TriggerTime, Dictionary<TriggerRange, List<SideEffectBase>>>();
+        SideEffectExecutes.Add(see);
+
+        if (!SideEffectExecutes_Dict.ContainsKey(see.TriggerTime)) SideEffectExecutes_Dict.Add(see.TriggerTime, new Dictionary<TriggerRange, List<SideEffectExecute>>());
+        Dictionary<TriggerRange, List<SideEffectExecute>> des = SideEffectExecutes_Dict[see.TriggerTime];
+        if (!des.ContainsKey(see.TriggerRange)) des.Add(see.TriggerRange, new List<SideEffectExecute>());
+        List<SideEffectExecute> sees = SideEffectExecutes_Dict[see.TriggerTime][see.TriggerRange];
+        sees.Add(see);
     }
 
-    public struct SideEffectExecute
+    public List<SideEffectExecute> GetSideEffectExecutes(TriggerTime triggerTime, TriggerRange triggerRange)
     {
-        public TriggerTime TriggerTime;
-        public TriggerRange TriggerRange;
-        public SideEffectBase SideEffectBase;
-
-        public SideEffectExecute(TriggerTime triggerTime, TriggerRange triggerRange, SideEffectBase sideEffectBase)
+        List<SideEffectExecute> res = new List<SideEffectExecute>();
+        if (SideEffectExecutes_Dict.ContainsKey(triggerTime))
         {
-            TriggerTime = triggerTime;
-            TriggerRange = triggerRange;
-            SideEffectBase = sideEffectBase;
-        }
-    }
-
-    public List<SideEffectExecute> GetSideEffects()
-    {
-        List<SideEffectExecute> sideEffectExecutes = new List<SideEffectExecute>();
-        foreach (KeyValuePair<TriggerTime, Dictionary<TriggerRange, List<SideEffectBase>>> des in SideEffects)
-        {
-            foreach (KeyValuePair<TriggerRange, List<SideEffectBase>> ses in des.Value)
+            var temp = SideEffectExecutes_Dict[triggerTime];
+            if (temp.ContainsKey(triggerRange))
             {
-                foreach (SideEffectBase se in ses.Value)
-                {
-                    sideEffectExecutes.Add(new SideEffectExecute(des.Key, ses.Key, se));
-                }
+                res.AddRange(temp[triggerRange]);
             }
         }
 
-        return sideEffectExecutes;
-    }
-
-    public List<SideEffectBase> GetSideEffects(TriggerTime triggerTime, TriggerRange triggerRange)
-    {
-        if (!SideEffects.ContainsKey(triggerTime)) return new List<SideEffectBase>();
-        Dictionary<TriggerRange, List<SideEffectBase>> des = SideEffects[triggerTime];
-        if (!des.ContainsKey(triggerRange)) return new List<SideEffectBase>();
-        List<SideEffectBase> ses = SideEffects[triggerTime][triggerRange];
-        return ses;
-    }
-
-    public void AddSideEffect(SideEffectBase se, TriggerTime triggerTime, TriggerRange triggerRange)
-    {
-        if (!SideEffects.ContainsKey(triggerTime)) SideEffects.Add(triggerTime, new Dictionary<TriggerRange, List<SideEffectBase>>());
-        Dictionary<TriggerRange, List<SideEffectBase>> des = SideEffects[triggerTime];
-        if (!des.ContainsKey(triggerRange)) des.Add(triggerRange, new List<SideEffectBase>());
-        List<SideEffectBase> ses = SideEffects[triggerTime][triggerRange];
-        ses.Add(se);
-    }
-
-    public void RemoveSideEffect(SideEffectBase se, TriggerTime triggerTime, TriggerRange triggerRange)
-    {
-        if (!SideEffects.ContainsKey(triggerTime)) return;
-        Dictionary<TriggerRange, List<SideEffectBase>> des = SideEffects[triggerTime];
-        if (des == null || !des.ContainsKey(triggerRange)) return;
-        List<SideEffectBase> ses = SideEffects[triggerTime][triggerRange];
-        if (ses == null || !ses.Contains(se)) return;
-        ses.Remove(se);
+        return res;
     }
 
     public string GetSideEffectsDesc(bool isEnglish)
     {
         string res = "";
-        foreach (KeyValuePair<TriggerTime, Dictionary<TriggerRange, List<SideEffectBase>>> kv in SideEffects)
+        foreach (KeyValuePair<TriggerTime, Dictionary<TriggerRange, List<SideEffectExecute>>> kv in SideEffectExecutes_Dict)
         {
-            foreach (KeyValuePair<TriggerRange, List<SideEffectBase>> SEs in kv.Value)
+            foreach (KeyValuePair<TriggerRange, List<SideEffectExecute>> SEEs in kv.Value)
             {
-                if (SEs.Value.Count > 0)
+                if (SEEs.Value.Count > 0)
                 {
-                    if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Battlecry: " : "战吼: ");
-                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Die: " : "亡语: ");
-                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnEquipDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Broken: " : "亡语: ");
-                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnRetinueAttack)) res += isEnglish ? "When attacks, " : "进攻时, ";
-                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnRetinueKill)) res += isEnglish ? "When kills, " : "杀敌时, ";
-                    else if (SEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnPlayCard)) res += "";
+                    if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroSummon || kv.Key == TriggerTime.OnRetinueSummon || kv.Key == TriggerTime.OnSoldierSummon)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Battlecry: " : "战吼: ");
+                    else if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnHeroDie || kv.Key == TriggerTime.OnRetinueDie || kv.Key == TriggerTime.OnSoldierDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Die: " : "亡语: ");
+                    else if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnEquipDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Broken: " : "亡语: ");
+                    else if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnRetinueAttack)) res += isEnglish ? "When attacks, " : "进攻时, ";
+                    else if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnRetinueKill)) res += isEnglish ? "When kills, " : "杀敌时, ";
+                    else if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnPlayCard)) res += "";
                     else
                     {
                         if (isEnglish)
                         {
-                            res += string.Format(TriggerTimeDesc_en[kv.Key], BaseInfo.AddHightLightColorToText(TriggerRangeDesc_en[SEs.Key]));
+                            res += string.Format(TriggerTimeDesc_en[kv.Key], BaseInfo.AddHightLightColorToText(TriggerRangeDesc_en[SEEs.Key]));
                         }
                         else
                         {
-                            res += string.Format(TriggerTimeDesc[kv.Key], BaseInfo.AddHightLightColorToText(TriggerRangeDesc[SEs.Key]));
+                            res += string.Format(TriggerTimeDesc[kv.Key], BaseInfo.AddHightLightColorToText(TriggerRangeDesc[SEEs.Key]));
                         }
                     }
 
-                    foreach (SideEffectBase se in SEs.Value)
+                    foreach (SideEffectExecute see in SEEs.Value)
                     {
-                        res += se.GenerateDesc(isEnglish);
+                        res += see.SideEffectBase.GenerateDesc(isEnglish);
                     }
                 }
             }
@@ -112,15 +79,9 @@ public class SideEffectBundle
     public SideEffectBundle Clone()
     {
         SideEffectBundle copy = new SideEffectBundle();
-        foreach (KeyValuePair<TriggerTime, Dictionary<TriggerRange, List<SideEffectBase>>> des in SideEffects)
+        foreach (SideEffectExecute see in SideEffectExecutes)
         {
-            foreach (KeyValuePair<TriggerRange, List<SideEffectBase>> ses in des.Value)
-            {
-                foreach (SideEffectBase se in ses.Value)
-                {
-                    copy.AddSideEffect(se.Clone(), des.Key, ses.Key);
-                }
-            }
+            copy.AddSideEffectExecute(see.Clone());
         }
 
         return copy;
@@ -128,20 +89,10 @@ public class SideEffectBundle
 
     public void Serialize(DataStream writer)
     {
-        writer.WriteSInt32(SideEffects.Count);
-        foreach (KeyValuePair<TriggerTime, Dictionary<TriggerRange, List<SideEffectBase>>> des in SideEffects)
+        writer.WriteSInt32(SideEffectExecutes.Count);
+        foreach (SideEffectExecute see in SideEffectExecutes)
         {
-            writer.WriteSInt32((int) des.Key);
-            writer.WriteSInt32(des.Value.Count);
-            foreach (KeyValuePair<TriggerRange, List<SideEffectBase>> ses in des.Value)
-            {
-                writer.WriteSInt32((int) ses.Key);
-                writer.WriteSInt32(ses.Value.Count);
-                foreach (SideEffectBase se in ses.Value)
-                {
-                    se.Serialze(writer);
-                }
-            }
+            see.Serialize(writer);
         }
     }
 
@@ -151,24 +102,8 @@ public class SideEffectBundle
         int SideEffectCount = reader.ReadSInt32();
         for (int i = 0; i < SideEffectCount; i++)
         {
-            TriggerTime tt = (TriggerTime) reader.ReadSInt32();
-            Dictionary<TriggerRange, List<SideEffectBase>> des = new Dictionary<TriggerRange, List<SideEffectBase>>();
-            int desCount = reader.ReadSInt32();
-
-            for (int j = 0; j < desCount; j++)
-            {
-                TriggerRange tr = (TriggerRange) reader.ReadSInt32();
-                List<SideEffectBase> ses = new List<SideEffectBase>();
-                int sesCount = reader.ReadSInt32();
-                for (int k = 0; k < sesCount; k++)
-                {
-                    ses.Add(SideEffectBase.BaseDeserialze(reader));
-                }
-
-                des.Add(tr, ses);
-            }
-
-            res.SideEffects.Add(tt, des);
+            SideEffectExecute see = SideEffectExecute.Deserialze(reader);
+            res.AddSideEffectExecute(see);
         }
 
         return res;
@@ -176,6 +111,8 @@ public class SideEffectBundle
 
     public enum TriggerTime
     {
+        None,
+
         OnBeginRound,
         OnDrawCard,
         OnPlayCard,
@@ -305,6 +242,8 @@ public class SideEffectBundle
 
     public enum TriggerRange
     {
+        None,
+
         SelfPlayer,
         EnemyPlayer,
         OnePlayer,

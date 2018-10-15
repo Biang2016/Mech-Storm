@@ -48,7 +48,7 @@ public class NewEditorScript1 : ScriptableObject
 
         for (int i = 0; i < 10; i++)
         {
-            Debug.Log((i-5) + "," + bucket[i]);
+            Debug.Log((i - 5) + "," + bucket[i]);
         }
 
         //for (int i = 0; i < 2; i++)
@@ -60,45 +60,44 @@ public class NewEditorScript1 : ScriptableObject
         //    Debug.Log(rm.Range(0, i));
         //}
     }
-}
 
-
-public class RandomNumberGenerator1
-{
-    public RandomNumberGenerator1(int seed)
+    public class RandomNumberGenerator1
     {
-        InitSeed = seed;
-        Seed = seed;
-    }
+        public RandomNumberGenerator1(int seed)
+        {
+            InitSeed = seed;
+            Seed = seed;
+        }
 
-    private int UseTime = 0;
-    private int InitSeed = 0;
-    private int Seed = 0;
+        private int UseTime = 0;
+        private int InitSeed = 0;
+        private int Seed = 0;
 
-    public int GetInitSeed()
-    {
-        return InitSeed;
-    }
+        public int GetInitSeed()
+        {
+            return InitSeed;
+        }
 
-    public int GetSeed()
-    {
-        return Seed;
-    }
+        public int GetSeed()
+        {
+            return Seed;
+        }
 
-    int pre;
+        int pre;
 
-    int rand()
-    {
-        int ret = (Seed * 7361238 + Seed % 20037 * 1244 + pre * 12342 + 378211) * (Seed + 134543);
-        pre = Seed;
-        Seed = ret;
-        return ret;
-    }
+        int rand()
+        {
+            int ret = (Seed * 7361238 + Seed % 20037 * 1244 + pre * 12342 + 378211) * (Seed + 134543);
+            pre = Seed;
+            Seed = ret;
+            return ret;
+        }
 
-    public int Range(int low, int high)
-    {
-        if (low > high) return 0;
-        int len = high - low;
-        return Mathf.Abs(rand()) % len + low;
+        public int Range(int low, int high)
+        {
+            if (low > high) return 0;
+            int len = high - low;
+            return Mathf.Abs(rand()) % len + low;
+        }
     }
 }

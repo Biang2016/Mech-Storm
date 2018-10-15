@@ -52,23 +52,25 @@
     <Compile Include="Card\Modules\ServerModuleWeapon.cs" />
     <Compile Include="Card\Modules\ServerModuleBase.cs" />
     <Compile Include="Card\Modules\ServerModuleRetinue.cs" />
-    <Compile Include="Card\SideEffects\CardRelatedSideEffects\AddTempCardToDeck.cs" />
+    <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToEnemyDeck.cs" />
+    <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToDeck.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\GetHandCardCopy.cs" />
-    <Compile Include="Card\SideEffects\CardRelatedSideEffects\DrawTypeCards.cs" />
+    <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseEnergy.cs" />
-    <Compile Include="Card\SideEffects\CardRelatedSideEffects\CopyNextDrawCard.cs" />
-    <Compile Include="Card\SideEffects\CardRelatedSideEffects\DrawCards.cs" />
+    <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard.cs" />
+    <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\DrawCards.cs" />
+    <Compile Include="Card\SideEffects\PlayerBuffRelatedSideEffects\AddPlayerBuff.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddAttackRandom.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddAttackOne.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\SummonRetinue.cs" />
-    <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddSelfWeaponEnergy.cs" />
+    <Compile Include="Card\SideEffects\AttachedEquipSideEffects\AddSelfWeaponEnergy.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\SummonRetinuePerMechs.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\AddEnergyPerMechs.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\HalfShield.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\Degenerate.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\Sacrifice.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\BreakEquip.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\TargetSideEffectToEquip\BreakEquip.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\AddLifeAll.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\AddEnergy.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\AddWeaponEnergy.cs" />
@@ -106,5 +108,6 @@
     <Content Include="DevLog.txt" />
     <Content Include="DevLog_zh.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

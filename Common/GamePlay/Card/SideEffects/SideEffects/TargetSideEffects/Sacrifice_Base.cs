@@ -19,16 +19,16 @@
         return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, false), FinalValueBasic, FinalValuePlus);
     }
 
-    public override void Serialze(DataStream writer)
+    public override void Serialize(DataStream writer)
     {
-        base.Serialze(writer);
+        base.Serialize(writer);
         writer.WriteSInt32(ValueBasic);
         writer.WriteSInt32(ValuePlus);
     }
 
-    protected override void Deserialze(DataStream reader)
+    protected override void Deserialize(DataStream reader)
     {
-        base.Deserialze(reader);
+        base.Deserialize(reader);
         ValueBasic = reader.ReadSInt32();
         ValuePlus = reader.ReadSInt32();
     }

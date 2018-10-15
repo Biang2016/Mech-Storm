@@ -6,7 +6,7 @@
         {
         }
 
-        public override void Excute(ExecuterInfo executerInfo)
+        public override void Execute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
             player.MyBattleGroundManager.AddAttackForOneRetinue(executerInfo.TargetRetinueId, FinalValue);

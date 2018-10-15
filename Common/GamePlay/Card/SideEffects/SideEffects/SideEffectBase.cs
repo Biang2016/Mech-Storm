@@ -1,35 +1,36 @@
 ﻿using System;
 using System.Reflection;
 
+/// <summary>
+/// 副作用最小单元，包含对战场进行改变的功能和信息
+/// </summary>
 public partial class SideEffectBase
 {
-    public int SideEffectID;
     public string Name;
     public string DescRaw;
     public string DescRaw_en;
 
-    public ExecuterInfo M_ExecuterInfo;
-
+    public ExecuterInfo M_ExecuterInfo; //SE携带者信息，触发时和事件执行者信息进行比对，判定是否触发
     public Player Player;
 
     public SideEffectBase()
     {
     }
 
-    public SideEffectBase(int sideEffectID, string name, string desc, string desc_en)
+
+    public SideEffectBase(string name, string descRaw, string descRaw_en)
     {
-        SideEffectID = sideEffectID;
         Name = name;
-        DescRaw = desc;
-        DescRaw_en = desc_en;
+        DescRaw = descRaw;
+        DescRaw_en = descRaw_en;
     }
 
-    //序列化时无视player，也就是说效果是无关玩家的
-    public virtual void Serialze(DataStream writer)
+
+    //序列化时无视player，和M_ExecuterInfo，也就是说效果是无关玩家和执行者的
+    public virtual void Serialize(DataStream writer)
     {
         string type = GetType().ToString();
         writer.WriteString8(type);
-        writer.WriteSInt32(SideEffectID);
         writer.WriteString8(Name);
         writer.WriteString8(DescRaw);
         writer.WriteString8(DescRaw_en);
@@ -39,13 +40,12 @@ public partial class SideEffectBase
     {
         string type = reader.ReadString8();
         SideEffectBase se = SideEffectManager.GetNewSideEffec(type);
-        se.Deserialze(reader);
+        se.Deserialize(reader);
         return se;
     }
 
-    protected virtual void Deserialze(DataStream reader)
+    protected virtual void Deserialize(DataStream reader)
     {
-        SideEffectID = reader.ReadSInt32();
         Name = reader.ReadString8();
         DescRaw = reader.ReadString8();
         DescRaw_en = reader.ReadString8();
@@ -55,15 +55,9 @@ public partial class SideEffectBase
     {
         Assembly assembly = AllSideEffects.CurrentAssembly; // 获取当前程序集 
         SideEffectBase copy = (SideEffectBase) assembly.CreateInstance("SideEffects." + Name);
-        copy.SideEffectID = SideEffectID;
         copy.Name = Name;
         copy.DescRaw = DescRaw;
         copy.DescRaw_en = DescRaw_en;
-        if (M_ExecuterInfo != null)
-        {
-            copy.M_ExecuterInfo = M_ExecuterInfo.Clone();
-        }
-
         CloneParams(copy);
         return copy;
     }
@@ -77,7 +71,7 @@ public partial class SideEffectBase
         return "";
     }
 
-    public virtual void Excute(ExecuterInfo eventTriggerInfo)
+    public virtual void Execute(ExecuterInfo eventTriggerInfo)
     {
     }
 
@@ -94,6 +88,8 @@ public partial class SideEffectBase
 
     public class ExecuterInfo
     {
+        public const int EXECUTE_INFO_NONE = -999;
+
         public int ClientId;
         public int TargetClientId;
         public int RetinueId;
@@ -103,8 +99,9 @@ public partial class SideEffectBase
         public int EquipId;
         public int TargetEquipId;
         public int Value;
+        public bool IsPlayerBuff;
 
-        public ExecuterInfo(int clientId, int targetClientId = -1, int retinueId = -999, int targetRetinueId = -999, int cardId = -999, int cardInstanceId = -999, int equipId = -999, int targetEquipId = -999, int value = 0)
+        public ExecuterInfo(int clientId, int targetClientId = EXECUTE_INFO_NONE, int retinueId = EXECUTE_INFO_NONE, int targetRetinueId = EXECUTE_INFO_NONE, int cardId = EXECUTE_INFO_NONE, int cardInstanceId = EXECUTE_INFO_NONE, int equipId = EXECUTE_INFO_NONE, int targetEquipId = EXECUTE_INFO_NONE, int value = 0, bool isPlayerBuff = false)
         {
             ClientId = clientId;
             TargetClientId = targetClientId;
@@ -115,6 +112,7 @@ public partial class SideEffectBase
             EquipId = equipId;
             TargetEquipId = targetEquipId;
             Value = value;
+            IsPlayerBuff = isPlayerBuff;
         }
 
         public ExecuterInfo Clone()

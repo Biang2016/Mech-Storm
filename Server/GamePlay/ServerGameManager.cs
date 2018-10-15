@@ -24,6 +24,7 @@ internal class ServerGameManager
 
         EventManager = new EventManager();
 
+        EventManager.OnEventPlayerBuffReduceHandler += OnPlayerBuffReduce;
         EventManager.OnEventInvokeEndHandler += SendAllDieInfos;
         EventManager.OnEventInvokeHandler += OnSETriggered;
 
@@ -374,7 +375,7 @@ internal class ServerGameManager
             PlayerA?.OnDestroyed();
             PlayerB?.OnDestroyed();
 
-            EventManager.ClearAllListeners();
+            EventManager.ClearAllEvents();
 
             ServerLog.PrintClientStates("GameStopSucBetween: " + PlayerA.ClientId + ", " + PlayerB.ClientId);
         }
@@ -415,6 +416,12 @@ internal class ServerGameManager
     public void OnSETriggered(ShowSideEffectTriggeredRequest request)
     {
         Broadcast_AddRequestToOperationResponse(request);
+    }
+
+    public void OnPlayerBuffReduce(SideEffectExecute see) //buff剩余次数减少
+    {
+        PlayerA.ReduceSideEffectBundleForPlayerBuff(see);
+        PlayerB.ReduceSideEffectBundleForPlayerBuff(see);
     }
 
     #endregion

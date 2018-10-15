@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 
 public class GameManager : MonoSingletion<GameManager>
 {
@@ -16,18 +13,18 @@ public class GameManager : MonoSingletion<GameManager>
         {
             AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
         }
-        catch (Exception e)
+        catch 
         {
-            ClientLog.Instance.PrintError("SideEffects Load Failed:" + e);
+            ClientLog.Instance.PrintError("SideEffects Load Failed");
         }
 
         try
         {
             AllCards.AddAllCards(Application.streamingAssetsPath + "/Config/Cards.xml");
         }
-        catch (Exception e)
+        catch 
         {
-            ClientLog.Instance.PrintError("Cards Load Failed" + e);
+            ClientLog.Instance.PrintError("Cards Load Failed");
         }
     }
 

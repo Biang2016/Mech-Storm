@@ -4,11 +4,11 @@
     {
     }
 
-    public CardInfo_Spell(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffects, SideEffectBundle sideEffects_OnBattleGround)
+    public CardInfo_Spell(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
-            sideEffects: sideEffects,
-            sideEffects_OnBattleGround: sideEffects_OnBattleGround)
+            sideEffectBundle: sideEffectBundle,
+            sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround)
     {
         UpgradeInfo = upgradeInfo;
     }
@@ -37,8 +37,8 @@
             cardID: CardID,
             baseInfo: BaseInfo,
             upgradeInfo: UpgradeInfo,
-            sideEffects: temp.SideEffects.Clone(),
-            sideEffects_OnBattleGround: SideEffects_OnBattleGround.Clone());
+            sideEffectBundle: temp.SideEffectBundle.Clone(),
+            sideEffectBundle_OnBattleGround: SideEffectBundle_OnBattleGround.Clone());
         return cs;
     }
 

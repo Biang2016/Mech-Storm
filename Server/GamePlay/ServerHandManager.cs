@@ -58,6 +58,7 @@ internal class ServerHandManager
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         cards.Add(newCard);
     }
+
     internal void GetACardByID(int cardID)
     {
         CardInfo_Base cardInfo = AllCards.GetCard(cardID);
@@ -96,12 +97,7 @@ internal class ServerHandManager
         if (!dropCard.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
     }
 
-    internal void UseCard(int cardInstanceId, Vector3 lastDragPosition)
-    {
-        UseCard(cardInstanceId, lastDragPosition, -999, -999, -1);
-    }
-
-    internal void UseCard(int cardInstanceId, Vector3 lastDragPosition, int targetRetinueId = -999, int targetEquipId = -999, int targetClientId = -1)
+    internal void UseCard(int cardInstanceId, Vector3 lastDragPosition, int targetRetinueId = SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE, int targetEquipId = SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE, int targetClientId = -1)
     {
         ServerCardBase useCard = GetCardByCardInstanceId(cardInstanceId);
         ServerPlayer.UseMetalAboveZero(useCard.CardInfo.BaseInfo.Metal);

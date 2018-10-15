@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class AffixManager : MonoSingletion<AffixManager>
@@ -9,7 +8,7 @@ public class AffixManager : MonoSingletion<AffixManager>
     [SerializeField] private VerticalLayoutGroup VerticalLayoutGroup;
     [SerializeField] private Animator AffixPanelAnim;
 
-    private List<Affix> Affixs = new List<Affix>();
+    private Boo.Lang.List<Affix> Affixs = new Boo.Lang.List<Affix>();
     private HashSet<AffixType> AffixTypes = new HashSet<AffixType>();
 
     void Start()
@@ -55,12 +54,12 @@ public class AffixManager : MonoSingletion<AffixManager>
 
     private void GetAffixTypeByCardInfo(HashSet<AffixType> affixTypes, CardInfo_Base cardInfo)
     {
-        if (cardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
+        if (cardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
         {
             affixTypes.Add(AffixType.Die);
         }
 
-        if (cardInfo.SideEffects_OnBattleGround.GetSideEffects(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self).Count != 0)
+        if (cardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self).Count != 0)
         {
             affixTypes.Add(AffixType.BattleCry);
         }

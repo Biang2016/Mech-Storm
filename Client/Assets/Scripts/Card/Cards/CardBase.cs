@@ -205,7 +205,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             m_EffectFactor = value;
             if (CardInfo.BaseInfo.CardType == CardTypes.Spell || CardInfo.BaseInfo.CardType == CardTypes.Energy)
             {
-                foreach (SideEffectBundle.SideEffectExecute see in CardInfo.SideEffects.GetSideEffects())
+                foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
                 {
                     if (see.SideEffectBase is IEffectFactor)
                     {

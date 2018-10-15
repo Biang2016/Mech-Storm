@@ -5,12 +5,10 @@ using System.Xml;
 
 public static class AllSideEffects
 {
-    public static Dictionary<int, SideEffectBase> SideEffectsDict = new Dictionary<int, SideEffectBase>();
     public static Dictionary<string, SideEffectBase> SideEffectsNameDict = new Dictionary<string, SideEffectBase>();
 
     private static void addSideEffect(SideEffectBase sideEffectBase)
     {
-        SideEffectsDict.Add(sideEffectBase.SideEffectID, sideEffectBase);
         SideEffectsNameDict.Add(sideEffectBase.Name, sideEffectBase);
     }
 
@@ -33,7 +31,6 @@ public static class AllSideEffects
             XmlNode sideEffectNode = allSideEffects.ChildNodes.Item(i);
 
             SideEffectBase se = (SideEffectBase) CurrentAssembly.CreateInstance("SideEffects." + sideEffectNode.Attributes["name"].Value);
-            se.SideEffectID = int.Parse(sideEffectNode.Attributes["id"].Value);
             se.Name = sideEffectNode.Attributes["name"].Value;
             se.DescRaw = sideEffectNode.Attributes["desc"].Value;
             se.DescRaw_en = sideEffectNode.Attributes["desc_en"].Value;

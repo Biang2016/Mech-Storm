@@ -72,6 +72,8 @@
     SE_BATTLEGROUND_ADD_RETINUE, //战场增加随从
     SE_BATTLEGROUND_REMOVE_RETINUE, //战场减少随从
 
+    SE_PLAYER_BUFF_UPDATE_REQUEST, //玩家buff类SE的同步
+
     SE_CARD_ATTR_CHANGE, //卡牌信息变化
     SE_CARDDECT_LEFT_CHANGE, //发送剩余牌数
     SE_DRAW_CARD, //抽一张牌
