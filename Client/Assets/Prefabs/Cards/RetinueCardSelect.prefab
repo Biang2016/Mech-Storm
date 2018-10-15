@@ -173,7 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224588732338677040}
   - component: {fileID: 222788264222272284}
-  - component: {fileID: 114007203020092708}
+  - component: {fileID: 114137753082568500}
   m_Layer: 14
   m_Name: Picture
   m_TagString: Untagged
@@ -1571,33 +1571,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.22, y: 0.1, z: 2.02}
   m_Center: {x: 0, y: 0, z: -0.17}
---- !u!114 &114007203020092708
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1274416329422406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ffba5cc083db9e94a9b952a05c060262, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
 --- !u!114 &114053447995627184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1612,6 +1585,33 @@ MonoBehaviour:
   My_Renderer: {fileID: 23315855842632532}
   OnHoverShowBloom: {fileID: 23927706662392022}
   _mSlotTypes: 0
+--- !u!114 &114137753082568500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274416329422406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114195242624025018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1727,7 +1727,7 @@ MonoBehaviour:
   CardBloom: {fileID: 1501539127182856}
   CardBackBloom: {fileID: 0}
   CardBloomRenderer: {fileID: 23535479499072082}
-  PictureImage: {fileID: 114007203020092708}
+  Picture: {fileID: 114137753082568500}
   Image_DescPanel: {fileID: 114973524972891172}
   LifeIcon: {fileID: 114597868698940860}
   MetalIcon: {fileID: 114730577928512476}

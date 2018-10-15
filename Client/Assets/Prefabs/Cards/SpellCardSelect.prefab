@@ -411,7 +411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224759696192677410}
   - component: {fileID: 222057113588292714}
-  - component: {fileID: 114693132315737778}
+  - component: {fileID: 114818178268484962}
   m_Layer: 14
   m_Name: Picture
   m_TagString: Untagged
@@ -968,7 +968,7 @@ MonoBehaviour:
   CardBloom: {fileID: 1523667097533280}
   CardBackBloom: {fileID: 0}
   CardBloomRenderer: {fileID: 23813667797871046}
-  PictureImage: {fileID: 114693132315737778}
+  Picture: {fileID: 114818178268484962}
   Image_DescPanel: {fileID: 114903844670323872}
   LifeIcon: {fileID: 0}
   MetalIcon: {fileID: 114555411215300496}
@@ -1285,7 +1285,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 1000
---- !u!114 &114693132315737778
+--- !u!114 &114818178268484962
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1298,13 +1298,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 80ec63323171d0540a09c33257fe6a09, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

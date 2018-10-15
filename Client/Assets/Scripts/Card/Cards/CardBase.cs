@@ -131,7 +131,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         Text_CardTypeBG.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
         Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
         Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
-        ClientUtils.ChangePictureForCard(PictureImage, CardInfo.BaseInfo.PictureID);
+        ClientUtils.ChangePictureForCard(Picture, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -269,7 +269,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     public GameObject CardBloom;
     public GameObject CardBackBloom;
     [SerializeField] private Renderer CardBloomRenderer;
-    [SerializeField] private Image PictureImage;
+    [SerializeField] private Image Picture;
     [SerializeField] private Image Image_DescPanel;
 
     [SerializeField] private Image LifeIcon;
@@ -318,7 +318,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void ChangePictureColor(Color color)
     {
-        ClientUtils.ChangePicColor(PictureImage, color);
+        ClientUtils.ChangePicColor(Picture, color);
     }
 
     public void SetCardBackColor()

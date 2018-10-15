@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224145197449016534}
   - component: {fileID: 222686117253354316}
-  - component: {fileID: 114569665792911408}
+  - component: {fileID: 114145610900018324}
   m_Layer: 9
   m_Name: Picture
   m_TagString: Untagged
@@ -3311,6 +3311,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ab291b718e7434e98961d2d505d697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114145610900018324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109510089324930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114170696506099732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3410,7 +3437,7 @@ MonoBehaviour:
   Text_RetinueAttack: {fileID: 114306523281313420}
   Text_RetinueShield: {fileID: 114724303973711492}
   Text_RetinueArmor: {fileID: 114587232767650310}
-  PictureImage: {fileID: 114569665792911408}
+  Picture: {fileID: 114145610900018324}
   DamageNumberPreviewTextMesh: {fileID: 102374941744571228}
   DamageNumberPreviewBGTextMesh: {fileID: 102337787354317572}
   LifeIconAnim: {fileID: 95459463791302952}
@@ -3828,33 +3855,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 2
---- !u!114 &114569665792911408
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1109510089324930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ffba5cc083db9e94a9b952a05c060262, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
 --- !u!114 &114584761658532146
 MonoBehaviour:
   m_ObjectHideFlags: 1

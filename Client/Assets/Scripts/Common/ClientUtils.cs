@@ -32,6 +32,18 @@ class ClientUtils
         image.sprite = sp;
     }
 
+    public static void ChangePictureForCard(SpriteRenderer image, int pictureID)
+    {
+        Sprite sp = Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID), typeof(Sprite)) as Sprite;
+        if (sp == null)
+        {
+            Debug.LogError("所选卡片没有图片资源：" + pictureID);
+            sp = Resources.Load("CardPictures/" + string.Format("{0:000}", 999), typeof(Sprite)) as Sprite;
+        }
+
+        image.sprite = sp;
+    }
+
     public static void ChangePicColor(Image image, Color newColor)
     {
         if (!image) return;
