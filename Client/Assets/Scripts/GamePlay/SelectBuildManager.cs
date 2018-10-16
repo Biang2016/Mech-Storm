@@ -122,7 +122,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             {
                 bool isMouseDown = ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && EventSystem.current.IsPointerOverGameObject());
                 bool isMouseUp = ((Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)) && EventSystem.current.IsPointerOverGameObject());
-                if (Instance.CurrentPreviewCard)
+                if (Instance.PreviewCardOriginCardSelect)
                 {
                     if (Input.GetKeyUp(KeyCode.Escape))
                     {

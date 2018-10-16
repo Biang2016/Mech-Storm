@@ -35,8 +35,8 @@
 
     public override string GetCardColor()
     {
-        if (RetinueInfo.IsSoldier) return GamePlaySettings.SoldierCardColor;
-        else return GamePlaySettings.HeroCardColor;
+        if (RetinueInfo.IsSoldier) return AllColors.ColorDict[AllColors.ColorType.SoldierCardColor];
+        else return AllColors.ColorDict[AllColors.ColorType.HeroCardColor];
     }
 
     public override CardInfo_Base Clone()

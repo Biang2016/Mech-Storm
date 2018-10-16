@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class CardDeckCard : PoolObject
 {
@@ -13,8 +14,8 @@ public class CardDeckCard : PoolObject
         transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
-    [SerializeField] private Renderer MainBoardRenderer;
-    [SerializeField] private Renderer CardBloomRenderer;
+    [SerializeField] private RawImage MainBoardRenderer;
+    [SerializeField] private RawImage CardBloomRenderer;
 
     public void ResetColor(bool isSelf)
     {

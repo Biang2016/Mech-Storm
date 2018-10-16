@@ -63,6 +63,37 @@ public class GameObjectPool : MonoBehaviour
         return AllocateGameObject<T>(parent);
     }
 
+    public PoolObject AllocateGameObject(Transform parent) 
+    {
+        for (int i = 0; i < capacity; i++)
+        {
+            if (!isUsed[i])
+            {
+                if (gameObjectPool[i])
+                {
+                    gameObjectPool[i].transform.SetParent(parent);
+                    gameObjectPool[i].transform.localPosition = gameObjectDefaultPosition;
+                    gameObjectPool[i].transform.localRotation = gameObjectDefaultRotation;
+                    gameObjectPool[i].transform.localScale = gameObjectDefaultScale;
+                    used++;
+                    notUsed--;
+                }
+                else
+                {
+                    gameObjectPool[i] = Instantiate(gameObjectPrefab, parent);
+                    gameObjectPool[i].name = gameObjectPrefab.name + "_" + i;//便于调试的时候分辨对象
+                    gameObjectPool[i].SetObjectPool(this);
+                    empty--;
+                    used++;
+                }
+                isUsed[i] = true;
+                return gameObjectPool[i];
+            }
+        }
+        expandCapacity();
+        return AllocateGameObject(parent);
+    }
+
     public void RecycleGameObject(PoolObject recGameObject)
     {
         for (int i = 0; i < capacity; i++)

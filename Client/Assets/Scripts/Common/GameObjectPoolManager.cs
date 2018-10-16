@@ -61,14 +61,14 @@
     public GameObjectPool Pool_SpellCardPool;
     public PoolObject SpellCardPrefab;
 
-    public GameObjectPool Pool_RetinueSelectCardPool;
-    public PoolObject RetinueSelectCardPrefab;
+    public GameObjectPool Pool_RetinueCardSelectPool;
+    public PoolObject RetinueCardSelectPrefab;
 
-    public GameObjectPool Pool_EquipSelectCardPool;
-    public PoolObject EquipSelectCardPrefab;
+    public GameObjectPool Pool_EquipCardSelectPool;
+    public PoolObject EquipCardSelectPrefab;
 
-    public GameObjectPool Pool_SpellSelectCardPool;
-    public PoolObject SpellSelectCardPrefab;
+    public GameObjectPool Pool_SpellCardSelectPool;
+    public PoolObject SpellCardSelectPrefab;
 
     public GameObjectPool Pool_SelectCardPool;
     public PoolObject SelectCardPrefab;
@@ -135,11 +135,11 @@
 
         Pool_SpellCardPool.Initiate(SpellCardPrefab, 20);
 
-        Pool_RetinueSelectCardPool.Initiate(RetinueSelectCardPrefab, 30);
+        Pool_RetinueCardSelectPool.Initiate(RetinueCardSelectPrefab, 20);
 
-        Pool_EquipSelectCardPool.Initiate(EquipSelectCardPrefab, 30);
+        Pool_EquipCardSelectPool.Initiate(EquipCardSelectPrefab, 20);
 
-        Pool_SpellSelectCardPool.Initiate(SpellSelectCardPrefab, 30);
+        Pool_SpellCardSelectPool.Initiate(SpellCardSelectPrefab, 20);
 
         Pool_SelectCardPool.Initiate(SelectCardPrefab, 20);
 

@@ -124,13 +124,13 @@
         switch (EquipInfo.SlotType)
         {
             case SlotTypes.Weapon:
-                return GamePlaySettings.WeaponCardColor;
+                return AllColors.ColorDict[AllColors.ColorType.WeaponCardColor];
             case SlotTypes.Shield:
-                return GamePlaySettings.ShieldCardColor;
+                return AllColors.ColorDict[AllColors.ColorType.ShieldCardColor];
             case SlotTypes.Pack:
-                return GamePlaySettings.PackCardColor;
+                return AllColors.ColorDict[AllColors.ColorType.PackCardColor];
             case SlotTypes.MA:
-                return GamePlaySettings.MACardColor;
+                return AllColors.ColorDict[AllColors.ColorType.MACardColor];
         }
 
         return null;

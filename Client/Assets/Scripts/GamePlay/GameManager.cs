@@ -11,6 +11,14 @@ public class GameManager : MonoSingletion<GameManager>
         InitializeClientGameSettings();
         try
         {
+            AllColors.AddAllColors(Application.streamingAssetsPath + "/Config/Colors.xml");
+        }
+        catch 
+        {
+            ClientLog.Instance.PrintError("SideEffects Load Failed");
+        }
+        try
+        {
             AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
         }
         catch 
@@ -37,11 +45,13 @@ public class GameManager : MonoSingletion<GameManager>
 
     #region 游戏全局参数
 
+    public Font EnglishFont;
+    public Font ChineseFont;
+
     internal Vector3 UseCardShowPosition = new Vector3(10, 3, 0);
     internal Vector3 UseCardShowPosition_Overlay = new Vector3(10, 3, 0.2f);
 
     public bool ShowBEMMessages = false;
-    public bool ShowBattleGroundInfos = false;
 
     public float HandCardSize = 1.5f;
     public float HandCardInterval = 1.0f;
@@ -55,6 +65,7 @@ public class GameManager : MonoSingletion<GameManager>
     public float DetailEquipmentCardSize = 2.5f;
     public float DetailRetinueCardSize = 4.0f;
 
+    public float RetinueDefaultSize = 1.75f;
     public float RetinueInterval = 3.5f;
     public float RetinueDetailPreviewDelaySeconds = 0.7f;
 
@@ -65,6 +76,7 @@ public class GameManager : MonoSingletion<GameManager>
 
     public int CardDeckCardNum = 10;
 
+    public float CardDeckCardSize = 1.4f;
     public Vector3 Self_CardDeckCardInterval = new Vector3(0.05f, 0.01f, 0.1f);
     public Vector3 Enemy_CardDeckCardInterval = new Vector3(-0.05f, 0.01f, 0.1f);
 

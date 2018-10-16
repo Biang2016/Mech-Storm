@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GamePlay\Card\CardDeck\AllColors.cs" />
     <Compile Include="GamePlay\Card\CardDeck\AllCards.cs" />
     <Compile Include="GamePlay\Card\CardDeck\CardDeck.cs" />
     <Compile Include="GamePlay\Card\CardDeck\BuildInfo.cs" />

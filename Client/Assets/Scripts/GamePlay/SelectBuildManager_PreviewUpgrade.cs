@@ -9,7 +9,7 @@ public partial class SelectBuildManager
 {
     [SerializeField] private Transform PreviewContent;
 
-    private CardBase CurrentPreviewCard;
+    private CardBase PreviewCardOriginCardSelect;
 
     private CardBase PreviewCard;
 
@@ -40,7 +40,7 @@ public partial class SelectBuildManager
     private void ShowPreviewCardPanel(CardBase card)
     {
         HidePreviewCardPanel();
-        CurrentPreviewCard = card;
+        PreviewCardOriginCardSelect = card;
 
         RefreshPreviewCard();
 
@@ -78,7 +78,7 @@ public partial class SelectBuildManager
         }
 
 
-        PreviewCard = CardBase.InstantiateCardByCardInfo(CurrentPreviewCard.CardInfo, PreviewContent, null, true);
+        PreviewCard = CardBase.InstantiateCardByCardInfo(PreviewCardOriginCardSelect.CardInfo, PreviewContent, null, true);
         PreviewCard.transform.localScale = Vector3.one * 300;
         PreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
         PreviewCard.transform.localPosition = new Vector3(0, 50, -10);
@@ -92,8 +92,8 @@ public partial class SelectBuildManager
             ((CardRetinue) PreviewCard).MoveCoinBGLower();
         }
 
-        int U_id = CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID;
-        int D_id = CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID;
+        int U_id = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID;
+        int D_id = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID;
 
 
         if (U_id != -1)
@@ -182,9 +182,9 @@ public partial class SelectBuildManager
     {
         UpgradeCardButton.onClick.RemoveAllListeners();
         DegradeCardButton.onClick.RemoveAllListeners();
-        if (CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID != -1)
+        if (PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID != -1)
         {
-            int moreCoin = AllCards.GetCard(CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID).BaseInfo.Coin - CurrentPreviewCard.CardInfo.BaseInfo.Coin;
+            int moreCoin = AllCards.GetCard(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID).BaseInfo.Coin - PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin;
             UpgradeCoinText.text = (-moreCoin).ToString();
 
             UpgradeCardButton.gameObject.SetActive(true);
@@ -198,9 +198,9 @@ public partial class SelectBuildManager
             UpgradeCoin.enabled = false;
         }
 
-        if (CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID != -1)
+        if (PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID != -1)
         {
-            int lessCoin = AllCards.GetCard(CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID).BaseInfo.Coin - CurrentPreviewCard.CardInfo.BaseInfo.Coin;
+            int lessCoin = AllCards.GetCard(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID).BaseInfo.Coin - PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin;
             if (lessCoin == 0)
             {
                 DegradeCoinText.text = 0.ToString();
@@ -248,7 +248,7 @@ public partial class SelectBuildManager
                 DegradeArrow.enabled = false;
             }
 
-            CurrentPreviewCard = null;
+            PreviewCardOriginCardSelect = null;
 
             UpgradeCardButton.onClick.RemoveAllListeners();
             DegradeCardButton.onClick.RemoveAllListeners();
@@ -278,8 +278,8 @@ public partial class SelectBuildManager
             return;
         }
 
-        int currentCardID = CurrentPreviewCard.CardInfo.CardID;
-        int upgradeCardID = CurrentPreviewCard.CardInfo.UpgradeInfo.UpgradeCardID;
+        int currentCardID = PreviewCardOriginCardSelect.CardInfo.CardID;
+        int upgradeCardID = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID;
         CardInfo_Base upgradeCardInfo = AllCards.GetCard(upgradeCardID);
 
         int cardCount = 0;
@@ -287,7 +287,7 @@ public partial class SelectBuildManager
         {
             cardCount = SelectedCards[currentCardID].Count;
 
-            if ((GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin()) + (CurrentPreviewCard.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
+            if ((GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin()) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
             {
                 NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
                 return;
@@ -303,7 +303,7 @@ public partial class SelectBuildManager
         {
             cardCount = SelectedHeros[currentCardID].Count;
 
-            if ((GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin()) + (CurrentPreviewCard.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
+            if ((GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin()) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
             {
                 NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
                 return;
@@ -315,7 +315,7 @@ public partial class SelectBuildManager
             currentSelectCard.Text_CardName.text = GameManager.Instance.isEnglish ? upgradeCardInfo.BaseInfo.CardName_en : upgradeCardInfo.BaseInfo.CardName;
         }
 
-        CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (CurrentPreviewCard.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount;
+        CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount;
         for (int i = 0; i < CurrentEditBuildButton.BuildInfo.CardIDs.Count; i++)
         {
             if (CurrentEditBuildButton.BuildInfo.CardIDs[i] == currentCardID)
@@ -326,9 +326,9 @@ public partial class SelectBuildManager
 
         RefreshCoinLifeEnergy();
 
-        CurrentPreviewCard.Initiate(upgradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
+        PreviewCardOriginCardSelect.Initiate(upgradeCardInfo, PreviewCardOriginCardSelect.ClientPlayer, true);
 
-        RefreshCardInSelectWindow(CurrentPreviewCard, cardCount != 0);
+        RefreshCardInSelectWindow(PreviewCardOriginCardSelect, cardCount != 0);
         AudioManager.Instance.SoundPlay("sfx/OnMoneyChange");
         AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
         RefreshUpgradePanel();
@@ -343,8 +343,8 @@ public partial class SelectBuildManager
             return;
         }
 
-        int currentCardID = CurrentPreviewCard.CardInfo.CardID;
-        int degradeCardID = CurrentPreviewCard.CardInfo.UpgradeInfo.DegradeCardID;
+        int currentCardID = PreviewCardOriginCardSelect.CardInfo.CardID;
+        int degradeCardID = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID;
         CardInfo_Base degradeCardInfo = AllCards.GetCard(degradeCardID);
 
         int cardCount = 0;
@@ -357,7 +357,7 @@ public partial class SelectBuildManager
             currentSelectCard.Text_CardName.text = GameManager.Instance.isEnglish ? degradeCardInfo.BaseInfo.CardName_en : degradeCardInfo.BaseInfo.CardName;
         }
 
-        CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (CurrentPreviewCard.CardInfo.BaseInfo.Coin - degradeCardInfo.BaseInfo.Coin) * cardCount;
+        CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - degradeCardInfo.BaseInfo.Coin) * cardCount;
         for (int i = 0; i < CurrentEditBuildButton.BuildInfo.CardIDs.Count; i++)
         {
             if (CurrentEditBuildButton.BuildInfo.CardIDs[i] == currentCardID)
@@ -368,9 +368,9 @@ public partial class SelectBuildManager
 
         RefreshCoinLifeEnergy();
 
-        CurrentPreviewCard.Initiate(degradeCardInfo, CurrentPreviewCard.ClientPlayer, true);
+        PreviewCardOriginCardSelect.Initiate(degradeCardInfo, PreviewCardOriginCardSelect.ClientPlayer, true);
 
-        RefreshCardInSelectWindow(CurrentPreviewCard, cardCount != 0);
+        RefreshCardInSelectWindow(PreviewCardOriginCardSelect, cardCount != 0);
         AudioManager.Instance.SoundPlay("sfx/OnMoneyChange");
         AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
         RefreshUpgradePanel();

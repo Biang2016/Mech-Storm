@@ -37,6 +37,11 @@ ModelImporter:
     100062: SwordMask
     100064: ArmorFill
     100066: ShieldBar
+    100068: BattleGroundArea
+    100070: GameBoard
+    100072: HalfBattleGroundArea
+    100074: HandArea
+    100076: PicBoard
     400000: Box001
     400002: Box002
     400004: Camera001.Target
@@ -71,6 +76,11 @@ ModelImporter:
     400062: SwordMask
     400064: ArmorFill
     400066: ShieldBar
+    400068: BattleGroundArea
+    400070: GameBoard
+    400072: HalfBattleGroundArea
+    400074: HandArea
+    400076: PicBoard
     2000000: Camera001
     2300000: Box001
     2300002: Box002
@@ -102,6 +112,11 @@ ModelImporter:
     2300054: SwordMask
     2300056: ArmorFill
     2300058: ShieldBar
+    2300060: BattleGroundArea
+    2300062: GameBoard
+    2300064: HalfBattleGroundArea
+    2300066: HandArea
+    2300068: PicBoard
     3300000: Box001
     3300002: Box002
     3300004: Cylinder001
@@ -132,6 +147,11 @@ ModelImporter:
     3300054: SwordMask
     3300056: ArmorFill
     3300058: ShieldBar
+    3300060: BattleGroundArea
+    3300062: GameBoard
+    3300064: HalfBattleGroundArea
+    3300066: HandArea
+    3300068: PicBoard
     4300000: Box001
     4300002: Cylinder001
     4300004: Cylinder002
@@ -161,6 +181,11 @@ ModelImporter:
     4300052: SwordMask
     4300054: ShieldBar
     4300056: ArmorFill
+    4300058: GameBoard
+    4300060: HandArea
+    4300062: HalfBattleGroundArea
+    4300064: BattleGroundArea
+    4300066: PicBoard
     9500000: //RootNode
     10800000: Direct001
   externalObjects:

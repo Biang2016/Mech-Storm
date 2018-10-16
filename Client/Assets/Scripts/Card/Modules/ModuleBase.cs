@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverComponent
 {
@@ -93,13 +94,13 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     if (Star3) Star3.SetActive(false);
                     break;
                 case 2:
-                    if (Star1) Star1.SetActive(false);
+                    if (Star1) Star1.SetActive(true);
                     if (Star2) Star2.SetActive(true);
                     if (Star3) Star3.SetActive(false);
                     break;
                 case 3:
-                    if (Star1) Star1.SetActive(false);
-                    if (Star2) Star2.SetActive(false);
+                    if (Star1) Star1.SetActive(true);
+                    if (Star2) Star2.SetActive(true);
                     if (Star3) Star3.SetActive(true);
                     break;
                 default: break;
@@ -107,7 +108,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
         }
     }
 
-    [SerializeField] private Renderer MainBoardRenderer;
+    [SerializeField] private RawImage MainBoardRenderer;
 
     public virtual void ChangeColor(Color color)
     {

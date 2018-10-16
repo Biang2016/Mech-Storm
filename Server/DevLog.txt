@@ -275,6 +275,10 @@
 [polish] Add some FX to mechs.
 [bugfix] Fix some bugs in select card window (hovering the selectcard buttons).
 
+15th, Oct
+[refactor] Huge refactor for EventManager. It can support player's buff now.
+[polish] Optimize the size of package.(50%) 100MB -> 60MB
+
 TodoList
 增加retinue的武器图标样式，普通和枪
 onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能产生伤害的标识

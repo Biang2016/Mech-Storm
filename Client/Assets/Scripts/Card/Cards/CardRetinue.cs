@@ -136,10 +136,10 @@ public class CardRetinue : CardBase
     [SerializeField] private Slot Slot3;
     [SerializeField] private Slot Slot4;
 
-    [SerializeField] private Renderer WeaponBloom;
-    [SerializeField] private Renderer ShieldBloom;
-    [SerializeField] private Renderer PackBloom;
-    [SerializeField] private Renderer MABloom;
+    [SerializeField] private RawImage WeaponBloom;
+    [SerializeField] private RawImage ShieldBloom;
+    [SerializeField] private RawImage PackBloom;
+    [SerializeField] private RawImage MABloom;
 
     internal ModuleWeapon Weapon;
     internal ModuleShield Shield;

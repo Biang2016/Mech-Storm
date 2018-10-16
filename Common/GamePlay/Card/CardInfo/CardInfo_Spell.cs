@@ -26,8 +26,8 @@
 
     public override string GetCardColor()
     {
-        if (BaseInfo.CardType == CardTypes.Energy) return GamePlaySettings.EnergyCardColor;
-        else return GamePlaySettings.SpellCardColor;
+        if (BaseInfo.CardType == CardTypes.Energy) return AllColors.ColorDict[AllColors.ColorType.EnergyCardColor];
+        else return AllColors.ColorDict[AllColors.ColorType.SpellCardColor];
     }
 
     public override CardInfo_Base Clone()

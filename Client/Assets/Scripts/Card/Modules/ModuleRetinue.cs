@@ -54,61 +54,15 @@ public class ModuleRetinue : ModuleBase
 
     #region 各模块、自身数值与初始化
 
-    public GameObject Star4;
-
-    public override int Stars
-    {
-        get { return stars; }
-
-        set
-        {
-            stars = value;
-            switch (value)
-            {
-                case 0:
-                    if (Star1) Star1.SetActive(false);
-                    if (Star2) Star2.SetActive(false);
-                    if (Star3) Star3.SetActive(false);
-                    if (Star4) Star4.SetActive(false);
-                    break;
-                case 1:
-                    if (Star1) Star1.SetActive(true);
-                    if (Star2) Star2.SetActive(false);
-                    if (Star3) Star3.SetActive(false);
-                    if (Star4) Star4.SetActive(false);
-                    break;
-                case 2:
-                    if (Star1) Star1.SetActive(false);
-                    if (Star2) Star2.SetActive(true);
-                    if (Star3) Star3.SetActive(false);
-                    if (Star4) Star4.SetActive(false);
-                    break;
-                case 3:
-                    if (Star1) Star1.SetActive(false);
-                    if (Star2) Star2.SetActive(false);
-                    if (Star3) Star3.SetActive(true);
-                    if (Star4) Star4.SetActive(false);
-                    break;
-                case 4:
-                    if (Star1) Star1.SetActive(false);
-                    if (Star2) Star2.SetActive(false);
-                    if (Star3) Star3.SetActive(false);
-                    if (Star4) Star4.SetActive(true);
-                    break;
-                default: break;
-            }
-        }
-    }
-
     [SerializeField] private Text Text_RetinueName;
 
-    [SerializeField] private Renderer RetinueCanAttackBloom;
-    [SerializeField] private Renderer OnHoverBloom;
-    [SerializeField] private Renderer SideEffcetBloom;
-    [SerializeField] private Renderer WeaponBloom;
-    [SerializeField] private Renderer ShieldBloom;
-    [SerializeField] private Renderer PackBloom;
-    [SerializeField] private Renderer MABloom;
+    [SerializeField] private RawImage RetinueCanAttackBloom;
+    [SerializeField] private RawImage OnHoverBloom;
+    [SerializeField] private RawImage SideEffcetBloom;
+    [SerializeField] private RawImage WeaponBloom;
+    [SerializeField] private RawImage ShieldBloom;
+    [SerializeField] private RawImage PackBloom;
+    [SerializeField] private RawImage MABloom;
 
     public Slot Slot1;
     public Slot Slot2;
@@ -121,7 +75,7 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Text Text_RetinueShield;
     [SerializeField] private Text Text_RetinueArmor;
 
-    [SerializeField] private Image Picture;
+    [SerializeField] private RawImage Picture;
 
     [SerializeField] private TextMesh DamageNumberPreviewTextMesh; //受攻击瞄准时的伤害预览
     [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh; //受攻击瞄准时的伤害预览
@@ -160,6 +114,8 @@ public class ModuleRetinue : ModuleBase
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
+        transform.localScale = Vector3.one * GameManager.Instance.RetinueDefaultSize;
+
         isInitializing = true;
         base.Initiate(cardInfo, clientPlayer);
         Text_RetinueArmor.text = "";
@@ -178,7 +134,7 @@ public class ModuleRetinue : ModuleBase
 
         HideRetinueTypeLooking();
 
-        ClientUtils.ChangePictureForCard(Picture, CardInfo.BaseInfo.PictureID);
+        ClientUtils.ChangePicture(Picture, CardInfo.BaseInfo.PictureID);
         ClientUtils.ChangeColor(WeaponBloom, GameManager.Instance.Slot1Color);
         ClientUtils.ChangeColor(ShieldBloom, GameManager.Instance.Slot2Color);
         ClientUtils.ChangeColor(PackBloom, GameManager.Instance.Slot3Color);

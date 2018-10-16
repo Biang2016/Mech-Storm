@@ -80,7 +80,7 @@ public partial class SideEffectBase
         string[] colorStrings = new string[args.Length];
         for (int i = 0; i < args.Length; i++)
         {
-            colorStrings[i] = "<color=\"" + GamePlaySettings.CardHightLightColor + "\">" + args[i].ToString() + "</color>";
+            colorStrings[i] = "<color=\"" + AllColors.ColorDict[AllColors.ColorType.CardHightLightColor] + "\">" + args[i].ToString() + "</color>";
         }
 
         return String.Format(src, colorStrings);

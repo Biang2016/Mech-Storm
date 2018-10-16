@@ -35,6 +35,7 @@ internal class Server
 
     public void Start()
     {
+        AllColors.AddAllColors("./Config/Colors.xml");
         AllSideEffects.AddAllSideEffects("./Config/SideEffects.xml");
         AllCards.AddAllCards("./Config/Cards.xml");
         ServerLog.PrintServerStates("CardDeck Loaded");

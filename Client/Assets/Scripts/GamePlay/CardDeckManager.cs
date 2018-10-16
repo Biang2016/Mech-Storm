@@ -50,7 +50,11 @@ public class CardDeckManager : MonoSingletion<CardDeckManager>
             enemy_CardDeckCards[i].ResetColor(false);
             self_CardDeckCards[i].transform.Translate(GameManager.Instance.Self_CardDeckCardInterval * i);
             enemy_CardDeckCards[i].transform.Translate(GameManager.Instance.Enemy_CardDeckCardInterval * i);
+
+            self_CardDeckCards[i].transform.localScale = Vector3.one * GameManager.Instance.CardDeckCardSize;
+            enemy_CardDeckCards[i].transform.localScale = Vector3.one * GameManager.Instance.CardDeckCardSize;
         }
+
 
         ResetCardDeckNumberText();
     }

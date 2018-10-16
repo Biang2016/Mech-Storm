@@ -46,3 +46,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Retinue
+    uniqueID: 179615123
+    locked: 0
+  - name: Cards
+    uniqueID: 787400071
+    locked: 0

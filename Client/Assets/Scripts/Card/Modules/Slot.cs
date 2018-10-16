@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Slot : MonoBehaviour, IMouseHoverComponent
 {
     internal ClientPlayer ClientPlayer;
     internal ModuleRetinue M_ModuleRetinue;
 
-    [SerializeField] private Renderer My_Renderer;
-    [SerializeField] private Renderer OnHoverShowBloom;
-    [SerializeField] private SlotTypes _mSlotTypes = SlotTypes.None;
+    [SerializeField] private RawImage My_Renderer;
+    [SerializeField] private RawImage OnHoverShowBloom;
+    private SlotTypes _mSlotTypes = SlotTypes.None;
 
     public SlotTypes MSlotTypes
     {

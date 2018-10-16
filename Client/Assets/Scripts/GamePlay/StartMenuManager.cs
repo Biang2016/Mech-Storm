@@ -14,6 +14,14 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
         M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += OnClientChangeState;
 
+        BeginMatchText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        CancelMatchText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        MyDeckText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        SettingText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        AboutText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        QuitGameText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DesignerText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+
         BeginMatchText.text = GameManager.Instance.isEnglish ? "Game Begin" : "开始匹配";
         CancelMatchText.text = GameManager.Instance.isEnglish ? "Cancel Match" : "取消匹配";
         MyDeckText.text = GameManager.Instance.isEnglish ? "My Decks" : "我的卡组";

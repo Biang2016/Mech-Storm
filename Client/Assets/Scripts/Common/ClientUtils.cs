@@ -20,7 +20,8 @@ class ClientUtils
         rd.SetPropertyBlock(mpb);
     }
 
-    public static void ChangePictureForCard(Image image, int pictureID)
+
+    public static void ChangePicture(Image image, int pictureID)
     {
         Sprite sp = Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID), typeof(Sprite)) as Sprite;
         if (sp == null)
@@ -32,7 +33,31 @@ class ClientUtils
         image.sprite = sp;
     }
 
-    public static void ChangePictureForCard(SpriteRenderer image, int pictureID)
+    public static void ChangePicture(Renderer rd, int pictureID)
+    {
+        Texture tx = Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID), typeof(Texture)) as Texture;
+        if (tx == null)
+        {
+            Debug.LogError("所选卡片没有图片资源：" + pictureID);
+            tx = Resources.Load("CardPictures/" + string.Format("{0:000}", 999), typeof(Texture)) as Texture;
+        }
+
+        ChangePicture(rd, tx);
+    }
+
+    public static void ChangePicture(RawImage image, int pictureID)
+    {
+        Texture tx = Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID), typeof(Texture)) as Texture;
+        if (tx == null)
+        {
+            Debug.LogError("所选卡片没有图片资源：" + pictureID);
+            tx = Resources.Load("CardPictures/" + string.Format("{0:000}", 999), typeof(Texture)) as Texture;
+        }
+
+        image.texture = tx;
+    }
+
+    public static void ChangePicture(SpriteRenderer image, int pictureID)
     {
         Sprite sp = Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID), typeof(Sprite)) as Sprite;
         if (sp == null)
@@ -44,7 +69,13 @@ class ClientUtils
         image.sprite = sp;
     }
 
-    public static void ChangePicColor(Image image, Color newColor)
+    public static void ChangeColor(RawImage image, Color newColor)
+    {
+        if (!image) return;
+        image.color = newColor;
+    }
+
+    public static void ChangeColor(Image image, Color newColor)
     {
         if (!image) return;
         image.color = newColor;
@@ -89,6 +120,29 @@ class ClientUtils
         }
 
         rd.SetPropertyBlock(mpb);
+    }
+
+    public static void ChangeSlotColor(RawImage img, SlotTypes slotTypes)
+    {
+        if (img == null) return;
+        switch (slotTypes)
+        {
+            case SlotTypes.Weapon:
+                img.color = GameManager.Instance.Slot1Color;
+                break;
+            case SlotTypes.Shield:
+                img.color = GameManager.Instance.Slot2Color;
+                break;
+            case SlotTypes.Pack:
+                img.color = GameManager.Instance.Slot3Color;
+                break;
+            case SlotTypes.MA:
+                img.color = GameManager.Instance.Slot4Color;
+                break;
+            default:
+                img.enabled = false;
+                break;
+        }
     }
 
     public static IEnumerator MoveGameObject(Transform obj, Vector3 oldPosition, Quaternion oldRotation, Vector3 oldScale, Vector3 targetPosition, Quaternion targetRotation, Vector3 targetScale, float duration, float rotateDuration)

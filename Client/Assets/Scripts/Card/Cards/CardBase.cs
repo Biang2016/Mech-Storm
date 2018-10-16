@@ -17,8 +17,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         if (!IsCardSelect)
         {
             ResetColliderAndReplace();
-            if (M_DragComponent) M_DragComponent.enabled = true;
-            if (M_BoxCollider) M_BoxCollider.enabled = true;
+
             Usable = false;
             base.PoolRecycle();
             transform.localScale = Vector3.one * 2;
@@ -70,35 +69,56 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             }
 
             newCard.ChangeCardBloomColor(GameManager.Instance.CardBloomColor);
+
+            newCard.CoinText.text = "";
+            newCard.CoinImage.enabled = false;
+            newCard.CoinImageBG.enabled = false;
+            newCard.CoinImageBG.gameObject.SetActive(false);
+
+            newCard.DragComponent.enabled = true;
+            newCard.M_BoxCollider.enabled = true;
+
+            if (clientPlayer.WhichPlayer == Players.Self)
+            {
+                if (newCard.CardBackRenderer) newCard.CardBackRenderer.gameObject.SetActive(clientPlayer.WhichPlayer != Players.Self);
+            }
         }
         else
         {
             switch (cardInfo.BaseInfo.CardType)
             {
                 case CardTypes.Retinue:
-                    newCard = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool.AllocateGameObject<CardRetinue>(parent);
+                    newCard = GameObjectPoolManager.Instance.Pool_RetinueCardSelectPool.AllocateGameObject<CardRetinue>(parent);
                     break;
                 case CardTypes.Equip:
-                    newCard = GameObjectPoolManager.Instance.Pool_EquipSelectCardPool.AllocateGameObject<CardEquip>(parent);
+                    newCard = GameObjectPoolManager.Instance.Pool_EquipCardSelectPool.AllocateGameObject<CardEquip>(parent);
+                    ((CardEquip) newCard).M_EquipType = cardInfo.EquipInfo.SlotType;
                     break;
                 case CardTypes.Spell:
-                    newCard = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool.AllocateGameObject<CardSpell>(parent);
+                    newCard = GameObjectPoolManager.Instance.Pool_SpellCardSelectPool.AllocateGameObject<CardSpell>(parent);
                     break;
                 case CardTypes.Energy:
-                    newCard = GameObjectPoolManager.Instance.Pool_SpellSelectCardPool.AllocateGameObject<CardSpell>(parent);
+                    newCard = GameObjectPoolManager.Instance.Pool_SpellCardSelectPool.AllocateGameObject<CardSpell>(parent);
                     break;
                 default:
-                    newCard = GameObjectPoolManager.Instance.Pool_RetinueSelectCardPool.AllocateGameObject<CardRetinue>(parent);
+                    newCard = GameObjectPoolManager.Instance.Pool_RetinueCardSelectPool.AllocateGameObject<CardRetinue>(parent);
                     break;
             }
 
             newCard.transform.localScale = Vector3.one * 120;
-            newCard.transform.rotation = Quaternion.Euler(90, 180, 0);
+            newCard.transform.rotation = Quaternion.Euler(90, 0, 0);
             newCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#A1F7FF"));
+
             newCard.CoinText.text = cardInfo.BaseInfo.Coin.ToString();
             newCard.CoinImage.enabled = true;
-            newCard.CoinImageBG.gameObject.SetActive(true);
             newCard.CoinImageBG.enabled = false;
+            newCard.CoinImageBG.gameObject.SetActive(true);
+            if (clientPlayer == null || clientPlayer.WhichPlayer == Players.Self)
+            {
+                if (newCard.CardBackRenderer) newCard.CardBackRenderer.gameObject.SetActive(false);
+            }
+
+            newCard.M_BoxCollider.enabled = true;
         }
 
         newCard.MetalIcon.color = GameManager.Instance.MetalIconColor;
@@ -131,7 +151,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         Text_CardTypeBG.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
         Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
         Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
-        ClientUtils.ChangePictureForCard(Picture, CardInfo.BaseInfo.PictureID);
+        ClientUtils.ChangePicture(Picture, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -267,9 +287,10 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public Renderer MainBoardRenderer;
     public GameObject CardBloom;
+    [SerializeField] private Renderer CardBackRenderer;
     public GameObject CardBackBloom;
     [SerializeField] private Renderer CardBloomRenderer;
-    [SerializeField] private Image Picture;
+    [SerializeField] private Renderer Picture;
     [SerializeField] private Image Image_DescPanel;
 
     [SerializeField] private Image LifeIcon;
@@ -285,7 +306,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private Image CoinImage;
     public Image CoinImageBG;
 
-    [SerializeField] private Renderer CardBackRenderer;
 
     public void BeDimColor()
     {
@@ -307,7 +327,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         if (Image_DescPanel)
         {
-            Image_DescPanel.color = new Color(color.r / 2, color.g / 2, color.b / 2, 0.5f);
+            Image_DescPanel.color = new Color(color.r / 2, color.g / 2, color.b / 2, 0.1f);
         }
     }
 
@@ -318,7 +338,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void ChangePictureColor(Color color)
     {
-        ClientUtils.ChangePicColor(Picture, color);
+        ClientUtils.ChangeColor(Picture, color);
     }
 
     public void SetCardBackColor()
@@ -350,7 +370,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private GameObject Star1;
     [SerializeField] private GameObject Star2;
     [SerializeField] private GameObject Star3;
-    [SerializeField] private GameObject Star4;
 
     protected int stars;
 
@@ -367,31 +386,21 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
                     if (Star1) Star1.SetActive(false);
                     if (Star2) Star2.SetActive(false);
                     if (Star3) Star3.SetActive(false);
-                    if (Star4) Star4.SetActive(false);
                     break;
                 case 1:
                     if (Star1) Star1.SetActive(true);
                     if (Star2) Star2.SetActive(false);
                     if (Star3) Star3.SetActive(false);
-                    if (Star4) Star4.SetActive(false);
                     break;
                 case 2:
-                    if (Star1) Star1.SetActive(false);
+                    if (Star1) Star1.SetActive(true);
                     if (Star2) Star2.SetActive(true);
                     if (Star3) Star3.SetActive(false);
-                    if (Star4) Star4.SetActive(false);
                     break;
                 case 3:
-                    if (Star1) Star1.SetActive(false);
-                    if (Star2) Star2.SetActive(false);
+                    if (Star1) Star1.SetActive(true);
+                    if (Star2) Star2.SetActive(true);
                     if (Star3) Star3.SetActive(true);
-                    if (Star4) Star4.SetActive(false);
-                    break;
-                case 4:
-                    if (Star1) Star1.SetActive(false);
-                    if (Star2) Star2.SetActive(false);
-                    if (Star3) Star3.SetActive(false);
-                    if (Star4) Star4.SetActive(true);
                     break;
                 default: break;
             }

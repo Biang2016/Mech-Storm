@@ -33,12 +33,12 @@ public struct BaseInfo
 
     private static string GetHightLightColor()
     {
-        return GamePlaySettings.CardHightLightColor;
+        return AllColors.ColorDict[AllColors.ColorType.CardHightLightColor];
     }
 
     private static string GetImportantColor()
     {
-        return GamePlaySettings.CardImportantColor;
+        return AllColors.ColorDict[AllColors.ColorType.CardImportantColor];
     }
 
     public static string AddHightLightColorToText(string hightLightText)

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<AllColors>
+  <Color name="SoldierCardColor" value="#404040"></Color>
+  <Color name="HeroCardColor" value="#0E67BF"></Color>
+  <Color name="EnergyCardColor" value="#3686FF"></Color>
+  <Color name="SpellCardColor" value="#78FF4E"></Color>
+  <Color name="WeaponCardColor" value="#FF0000"></Color>
+  <Color name="ShieldCardColor" value="#FFA300"></Color>
+  <Color name="PackCardColor" value="#0049BC"></Color>
+  <Color name="MACardColor" value="#7F8AFF"></Color>
+  <Color name="CardHightLightColor" value="#FFFF00"></Color>
+  <Color name="CardImportantColor" value="#5DF6FF"></Color>
+
+</AllColors>

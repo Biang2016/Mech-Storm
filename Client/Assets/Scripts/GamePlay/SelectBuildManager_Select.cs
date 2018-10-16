@@ -269,6 +269,7 @@ public partial class SelectBuildManager
     private void SelectCardOnMouseEnter(SelectCard selectCard)
     {
         if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
+        if (PreviewCardOriginCardSelect != null) return;
         currentPreviewCardContainer.position = selectCard.transform.position;
         if (currentPreviewCardContainer.position.y > CurrentPreviewCardMaxPivot.position.y)
         {
@@ -294,6 +295,7 @@ public partial class SelectBuildManager
     private void SelectCardOnMouseLeave(SelectCard selectCard)
     {
         if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
+        if (PreviewCardOriginCardSelect != null) return;
         if (currentPreviewCard) currentPreviewCard.PoolRecycle();
         AffixManager.Instance.HideAffixPanel();
     }
