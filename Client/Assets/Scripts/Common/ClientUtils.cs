@@ -81,13 +81,13 @@ class ClientUtils
         image.color = newColor;
     }
 
-    public static void ChangeColor(Renderer rd, Color newColor)
+    public static void ChangeColor(Renderer rd, Color newColor, float intensity = 1.0f)
     {
         if (!rd) return;
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
         rd.GetPropertyBlock(mpb);
         mpb.SetColor("_Color", newColor);
-        mpb.SetColor("_EmissionColor", newColor);
+        mpb.SetColor("_EmissionColor", newColor * intensity);
         rd.SetPropertyBlock(mpb);
     }
 

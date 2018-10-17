@@ -7,6 +7,7 @@ using System.Xml;
 public static class AllColors
 {
     public static Dictionary<ColorType, string> ColorDict = new Dictionary<ColorType, string>();
+    public static Dictionary<ColorType, float> IntensityDict = new Dictionary<ColorType, float>();
 
     public enum ColorType
     {
@@ -20,6 +21,7 @@ public static class AllColors
         MACardColor,
         CardHightLightColor,
         CardImportantColor,
+        CardDecsTextColor,
     }
 
     public static void AddAllColors(string colorXMLPath)
@@ -37,8 +39,10 @@ public static class AllColors
         {
             XmlNode colorNode = allColors.ChildNodes.Item(i);
             ColorType colorType = (ColorType) Enum.Parse(typeof(ColorType), colorNode.Attributes["name"].Value);
-            string color = colorNode.Attributes["value"].Value;
+            string color = colorNode.Attributes["color"].Value;
+            float intensity = float.Parse(colorNode.Attributes["intensity"].Value);
             ColorDict.Add(colorType, color);
+            IntensityDict.Add(colorType, intensity);
         }
     }
 }

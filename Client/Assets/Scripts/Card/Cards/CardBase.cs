@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -130,6 +131,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         return newCard;
     }
 
+    private float MainboardEmissionIntensity = 0f;
+
     public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
     {
         IsCardSelect = isCardSelect;
@@ -150,7 +153,9 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         Text_CardType.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
         Text_CardTypeBG.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
         Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
+        MainboardEmissionIntensity = CardInfo.GetCardColorIntensity();
         Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
+        Text_Desc.color = ClientUtils.HTMLColorToColor(CardInfo.GetCardDecsTextColor());
         ClientUtils.ChangePicture(Picture, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
 
@@ -256,8 +261,18 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         set
         {
             m_Desc = value;
-            Text_Desc.text = value;
+            Text_Desc.text = GameManager.Instance.isEnglish ? value : ReplaceWrapSpace(value);
         }
+    }
+
+    public static string ReplaceWrapSpace(string src)
+    {
+        if (src.Contains(" "))
+        {
+            src = src.Replace(" ", "\u00A0");
+        }
+
+        return src;
     }
 
     private int m_CardInstanceId;
@@ -323,11 +338,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void ChangeColor(Color color)
     {
-        ClientUtils.ChangeColor(MainBoardRenderer, color);
+        ClientUtils.ChangeColor(MainBoardRenderer, color, MainboardEmissionIntensity);
 
         if (Image_DescPanel)
         {
-            Image_DescPanel.color = new Color(color.r / 2, color.g / 2, color.b / 2, 0.1f);
+            Image_DescPanel.color = new Color(color.r / 3, color.g / 3, color.b / 3, 0.3f);
         }
     }
 

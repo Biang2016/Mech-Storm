@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <AllColors>
-  <Color name="SoldierCardColor" value="#404040"></Color>
-  <Color name="HeroCardColor" value="#0E67BF"></Color>
-  <Color name="EnergyCardColor" value="#3686FF"></Color>
-  <Color name="SpellCardColor" value="#78FF4E"></Color>
-  <Color name="WeaponCardColor" value="#FF0000"></Color>
-  <Color name="ShieldCardColor" value="#FFA300"></Color>
-  <Color name="PackCardColor" value="#0049BC"></Color>
-  <Color name="MACardColor" value="#7F8AFF"></Color>
-  <Color name="CardHightLightColor" value="#FFFF00"></Color>
-  <Color name="CardImportantColor" value="#5DF6FF"></Color>
-
+  <Color name="SoldierCardColor" color="#404040" intensity="1.7"></Color>
+  <Color name="HeroCardColor" color="#0E67BF" intensity="1.7"></Color>
+  <Color name="EnergyCardColor" color="#3686FF" intensity="1.5"></Color>
+  <Color name="SpellCardColor" color="#78FF4E" intensity="0.7"></Color>
+  <Color name="WeaponCardColor" color="#FF0000" intensity="0.7"></Color>
+  <Color name="ShieldCardColor" color="#FFA300" intensity="0.7"></Color>
+  <Color name="PackCardColor" color="#0049BC" intensity="1"></Color>
+  <Color name="MACardColor" color="#7F8AFF" intensity="1"></Color>
+  <Color name="CardHightLightColor" color="#FFFF00" intensity="1"></Color>
+  <Color name="CardImportantColor" color="#70DFFF" intensity="1"></Color>
+  <Color name="CardDecsTextColor" color="#FFFFFF" intensity="1"></Color>
 </AllColors>

@@ -136,6 +136,23 @@
         return null;
     }
 
+    public override float GetCardColorIntensity()
+    {
+        switch (EquipInfo.SlotType)
+        {
+            case SlotTypes.Weapon:
+                return AllColors.IntensityDict[AllColors.ColorType.WeaponCardColor];
+            case SlotTypes.Shield:
+                return AllColors.IntensityDict[AllColors.ColorType.ShieldCardColor];
+            case SlotTypes.Pack:
+                return AllColors.IntensityDict[AllColors.ColorType.PackCardColor];
+            case SlotTypes.MA:
+                return AllColors.IntensityDict[AllColors.ColorType.MACardColor];
+        }
+
+        return 0f;
+    }
+
     public override CardInfo_Base Clone()
     {
         CardInfo_Equip cb = new CardInfo_Equip(

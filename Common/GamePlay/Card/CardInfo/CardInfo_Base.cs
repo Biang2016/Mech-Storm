@@ -42,9 +42,19 @@ public class CardInfo_Base
         return null;
     }
 
+    public virtual float GetCardColorIntensity()
+    {
+        return 0f;
+    }
+
+    public string GetCardDecsTextColor()
+    {
+        return AllColors.ColorDict[AllColors.ColorType.CardDecsTextColor];
+    }
+
     public virtual CardInfo_Base Clone()
     {
-        return new CardInfo_Base(CardID,  BaseInfo, SideEffectBundle.Clone(), SideEffectBundle_OnBattleGround.Clone());
+        return new CardInfo_Base(CardID, BaseInfo, SideEffectBundle.Clone(), SideEffectBundle_OnBattleGround.Clone());
     }
 
     public void Serialize(DataStream writer)

@@ -39,6 +39,12 @@
         else return AllColors.ColorDict[AllColors.ColorType.HeroCardColor];
     }
 
+    public override float GetCardColorIntensity()
+    {
+        if (RetinueInfo.IsSoldier) return AllColors.IntensityDict[AllColors.ColorType.SoldierCardColor];
+        else return AllColors.IntensityDict[AllColors.ColorType.HeroCardColor];
+    }
+
     public override CardInfo_Base Clone()
     {
         CardInfo_Base temp = base.Clone();

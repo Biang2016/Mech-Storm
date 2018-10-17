@@ -30,6 +30,12 @@
         else return AllColors.ColorDict[AllColors.ColorType.SpellCardColor];
     }
 
+    public override float GetCardColorIntensity()
+    {
+        if (BaseInfo.CardType == CardTypes.Energy) return AllColors.IntensityDict[AllColors.ColorType.EnergyCardColor];
+        else return AllColors.IntensityDict[AllColors.ColorType.SpellCardColor];
+    }
+
     public override CardInfo_Base Clone()
     {
         CardInfo_Base temp = base.Clone();
