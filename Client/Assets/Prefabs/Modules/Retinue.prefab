@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 65132576194296266}
   - component: {fileID: 114554782288101798}
   - component: {fileID: 114955694877710404}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Slot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 222238253628394328}
   - component: {fileID: 114264297110223988}
   - component: {fileID: 114805148013396932}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: WeaponBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 222875551605385226}
   - component: {fileID: 114789502973424890}
   - component: {fileID: 114734279764089750}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: MABloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 65594424722698280}
   - component: {fileID: 114700479441574166}
   - component: {fileID: 114624299298032404}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Slot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -710,7 +710,7 @@ GameObject:
   - component: {fileID: 65990807177835518}
   - component: {fileID: 114256695290266638}
   - component: {fileID: 114832907715546868}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Slot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -916,7 +916,7 @@ GameObject:
   - component: {fileID: 222469471519445986}
   - component: {fileID: 114814599734388072}
   - component: {fileID: 114703093646122518}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: PackBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1016,7 +1016,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224811616614577180}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Slots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1118,7 +1118,7 @@ GameObject:
   - component: {fileID: 222841557762212124}
   - component: {fileID: 114062252831429102}
   - component: {fileID: 114237608846779772}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: ShieldBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1206,7 +1206,7 @@ GameObject:
   - component: {fileID: 65316468947716616}
   - component: {fileID: 114034717484120474}
   - component: {fileID: 114850836434316774}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Slot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}

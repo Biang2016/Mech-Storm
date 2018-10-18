@@ -117,6 +117,7 @@
     <Compile Include="RequestResponse\ClientToServer\OutGame\LogoutRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LoginRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\RegisterRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerBuffRemoveRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerBuffUpdateRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\CardAttributeChangeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\EquipMAerverRequest.cs" />

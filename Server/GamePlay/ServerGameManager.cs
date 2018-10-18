@@ -25,6 +25,7 @@ internal class ServerGameManager
         EventManager = new EventManager();
 
         EventManager.OnEventPlayerBuffReduceHandler += OnPlayerBuffReduce;
+        EventManager.OnEventPlayerBuffRemoveHandler += OnPlayerBuffRemove;
         EventManager.OnEventInvokeEndHandler += SendAllDieInfos;
         EventManager.OnEventInvokeHandler += OnSETriggered;
 
@@ -422,6 +423,11 @@ internal class ServerGameManager
     {
         PlayerA.ReduceSideEffectBundleForPlayerBuff(see);
         PlayerB.ReduceSideEffectBundleForPlayerBuff(see);
+    }
+    public void OnPlayerBuffRemove(SideEffectExecute see) //buff剩余次数减少
+    {
+        PlayerA.RemoveSideEffectBundleForPlayerBuff(see);
+        PlayerB.RemoveSideEffectBundleForPlayerBuff(see);
     }
 
     #endregion

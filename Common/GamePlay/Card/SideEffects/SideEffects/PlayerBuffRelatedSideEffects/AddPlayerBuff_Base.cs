@@ -1,6 +1,5 @@
 ﻿public class AddPlayerBuff_Base : PlayerBuffRelatedSideEffects
 {
-    public string SideEffectName;
     public SideEffectBundle.TriggerTime TriggerTime; //触发SE时机
     public SideEffectBundle.TriggerRange TriggerRange; //触发SE条件
     public int TriggerDelayTimes;
@@ -12,13 +11,12 @@
 
     public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw,SideEffectName);
+        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw);
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteString8(SideEffectName);
         writer.WriteSInt32((int) TriggerTime);
         writer.WriteSInt32((int) TriggerRange);
         writer.WriteSInt32(TriggerDelayTimes);
@@ -31,7 +29,6 @@
     protected override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        SideEffectName = reader.ReadString8();
         TriggerTime = (SideEffectBundle.TriggerTime) reader.ReadSInt32();
         TriggerRange = (SideEffectBundle.TriggerRange) reader.ReadSInt32();
         TriggerDelayTimes = reader.ReadSInt32();
@@ -44,7 +41,6 @@
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
-        ((AddPlayerBuff_Base) copy).SideEffectName = SideEffectName;
         ((AddPlayerBuff_Base) copy).TriggerTime = TriggerTime;
         ((AddPlayerBuff_Base) copy).TriggerRange = TriggerRange;
         ((AddPlayerBuff_Base) copy).TriggerDelayTimes = TriggerDelayTimes;

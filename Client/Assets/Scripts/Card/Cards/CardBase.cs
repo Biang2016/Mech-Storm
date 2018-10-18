@@ -125,6 +125,10 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             {
                 if (newCard.CardBackRenderer) newCard.CardBackRenderer.gameObject.SetActive(false);
             }
+            else
+            {
+                if (newCard.CardBackRenderer) newCard.CardBackRenderer.gameObject.SetActive(true);
+            }
 
             newCard.M_BoxCollider.enabled = true;
         }

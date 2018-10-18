@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 /// <summary>
@@ -12,6 +13,7 @@ public partial class SideEffectBase
 
     public ExecuterInfo M_ExecuterInfo; //SE携带者信息，触发时和事件执行者信息进行比对，判定是否触发
     public Player Player;
+    public List<SideEffectBase> Sub_SideEffect = new List<SideEffectBase>();
 
     public SideEffectBase()
     {
@@ -34,6 +36,11 @@ public partial class SideEffectBase
         writer.WriteString8(Name);
         writer.WriteString8(DescRaw);
         writer.WriteString8(DescRaw_en);
+        writer.WriteSInt32(Sub_SideEffect.Count);
+        foreach (SideEffectBase sub_SE in Sub_SideEffect)
+        {
+            sub_SE.Serialize(writer);
+        }
     }
 
     public static SideEffectBase BaseDeserialze(DataStream reader)
@@ -49,6 +56,12 @@ public partial class SideEffectBase
         Name = reader.ReadString8();
         DescRaw = reader.ReadString8();
         DescRaw_en = reader.ReadString8();
+        int sub_SE_Count = reader.ReadSInt32();
+        for (int i = 0; i < sub_SE_Count; i++)
+        {
+            SideEffectBase se = BaseDeserialze(reader);
+            Sub_SideEffect.Add(se);
+        }
     }
 
     public SideEffectBase Clone()
@@ -58,6 +71,12 @@ public partial class SideEffectBase
         copy.Name = Name;
         copy.DescRaw = DescRaw;
         copy.DescRaw_en = DescRaw_en;
+        foreach (SideEffectBase sub_SE in Sub_SideEffect)
+        {
+            copy.Sub_SideEffect.Add(sub_SE.Clone());
+        }
+
+
         CloneParams(copy);
         return copy;
     }

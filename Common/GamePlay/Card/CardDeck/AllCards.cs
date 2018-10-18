@@ -192,39 +192,52 @@ public static class AllCards
         {
             XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
             SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
-            for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
+            GetInfoForSideEffect(sideEffectInfo, sideEffect);
+
+            for (int m = 0; m < sideEffectInfo.ChildNodes.Count; m++)
             {
-                if (sideEffectInfo.Attributes[l].Name == "name") continue;
-                XmlAttribute attr = sideEffectInfo.Attributes[l];
-                FieldInfo fi = sideEffect.GetType().GetField(attr.Name);
-                switch (fi.FieldType.Name)
-                {
-                    case "Int32":
-                        fi.SetValue(sideEffect, int.Parse(attr.Value));
-                        break;
-                    case "String":
-                        fi.SetValue(sideEffect, attr.Value);
-                        break;
-                    case "Boolean":
-                        fi.SetValue(sideEffect, attr.Value == "True");
-                        break;
-                    case "TargetRange":
-                        fi.SetValue(sideEffect, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
-                        break;
-                    case "TriggerTime":
-                        fi.SetValue(sideEffect, (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), attr.Value));
-                        break;
-                    case "TriggerRange":
-                        fi.SetValue(sideEffect, (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), attr.Value));
-                        break;
-                    case "CardTypes":
-                        fi.SetValue(sideEffect, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
-                        break;
-                }
+                XmlNode sub_SideEffect = sideEffectInfo.ChildNodes[m];
+                SideEffectBase sub_SE = AllSideEffects.SideEffectsNameDict[sub_SideEffect.Attributes["name"].Value].Clone();
+                GetInfoForSideEffect(sub_SideEffect, sub_SE);
+                sideEffect.Sub_SideEffect.Add(sub_SE);
             }
 
             SideEffectExecute see = new SideEffectExecute(sideEffect, triggerTime, triggerRange, triggerDelayTimes, triggerTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes);
             cur_seb.AddSideEffectExecute(see);
+        }
+    }
+
+    private static void GetInfoForSideEffect(XmlNode sideEffectInfo, SideEffectBase sideEffect)
+    {
+        for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
+        {
+            if (sideEffectInfo.Attributes[l].Name == "name") continue;
+            XmlAttribute attr = sideEffectInfo.Attributes[l];
+            FieldInfo fi = sideEffect.GetType().GetField(attr.Name);
+            switch (fi.FieldType.Name)
+            {
+                case "Int32":
+                    fi.SetValue(sideEffect, int.Parse(attr.Value));
+                    break;
+                case "String":
+                    fi.SetValue(sideEffect, attr.Value);
+                    break;
+                case "Boolean":
+                    fi.SetValue(sideEffect, attr.Value == "True");
+                    break;
+                case "TargetRange":
+                    fi.SetValue(sideEffect, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
+                    break;
+                case "TriggerTime":
+                    fi.SetValue(sideEffect, (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), attr.Value));
+                    break;
+                case "TriggerRange":
+                    fi.SetValue(sideEffect, (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), attr.Value));
+                    break;
+                case "CardTypes":
+                    fi.SetValue(sideEffect, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
+                    break;
+            }
         }
     }
 

@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\GetHandCardCopy.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuff.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddPlayerBuff.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackOne.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Assets\Scripts\GamePlay\LoginManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\MetalLifeEnergyManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\NoticeManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\PlayerBuffManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\RoundManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\RoundManager_Response.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager.cs" />

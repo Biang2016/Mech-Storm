@@ -248,20 +248,30 @@ public partial class SelectBuildManager
         List<SelectCard> SCs = RetinueContent.GetComponentsInChildren<SelectCard>(true).ToList();
         SortSCs(SCs);
 
-        RetinueContent.DetachChildren();
-        foreach (SelectCard selectCard in SCs)
+        for (int i = 0; i < SCs.Count; i++)
         {
-            selectCard.transform.SetParent(RetinueContent);
+            SCs[i].transform.SetSiblingIndex(i);
         }
+
+        //RetinueContent.DetachChildren();
+        //foreach (SelectCard selectCard in SCs)
+        //{
+        //    selectCard.transform.SetParent(RetinueContent);
+        //}
 
         SCs = SelectionContent.GetComponentsInChildren<SelectCard>(true).ToList();
         SortSCs(SCs);
 
-        SelectionContent.DetachChildren();
-        foreach (SelectCard selectCard in SCs)
+        for (int i = 0; i < SCs.Count; i++)
         {
-            selectCard.transform.SetParent(SelectionContent);
+            SCs[i].transform.SetSiblingIndex(i);
         }
+
+        //SelectionContent.DetachChildren();
+        //foreach (SelectCard selectCard in SCs)
+        //{
+        //    selectCard.transform.SetParent(SelectionContent);
+        //}
     }
 
     private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)

@@ -9,9 +9,13 @@
         public override void Execute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            SideEffectBase se = AllSideEffects.SideEffectsNameDict[SideEffectName].Clone();
-            SideEffectExecute see = new SideEffectExecute(se, TriggerTime, TriggerRange, TriggerDelayTimes, TriggerTimes, RemoveTriggerTime, RemoveTriggerRange, RemoveTriggerTimes);
-            player.AddSideEffectBundleForPlayerBuff(see);
+            foreach (SideEffectBase sub_SE in Sub_SideEffect)
+            {
+                sub_SE.Player = player;
+                sub_SE.M_ExecuterInfo = new ExecuterInfo(executerInfo.ClientId, isPlayerBuff: true);
+                SideEffectExecute see = new SideEffectExecute(sub_SE, TriggerTime, TriggerRange, TriggerDelayTimes, TriggerTimes, RemoveTriggerTime, RemoveTriggerRange, RemoveTriggerTimes);
+                player.AddSideEffectBundleForPlayerBuff(see);
+            }
         }
     }
 }

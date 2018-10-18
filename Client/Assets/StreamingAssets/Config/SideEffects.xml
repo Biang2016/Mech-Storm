@@ -149,8 +149,8 @@
     <params name="RetinueCardId" type="int"></params>
   </SideEffect>
 
-  <SideEffect name="AddPlayerBuff" desc="{0}" desc_en="{0}">
-    <params name="SideEffectName" type="String"></params>
+  <SideEffect name="AddPlayerBuff" desc="" desc_en="">
+    <params name="BuffPicId" type="int"></params>
     <params name="TriggerTime" type="enum"></params>
     <params name="TriggerRange" type="enum"></params>
     <params name="TriggerDelayTimes" type="int"></params>

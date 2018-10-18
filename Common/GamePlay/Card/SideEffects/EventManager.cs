@@ -33,7 +33,7 @@ public class EventManager
         if (sideEffectExecute.TriggerTime != SideEffectBundle.TriggerTime.None && sideEffectExecute.TriggerRange != SideEffectBundle.TriggerRange.None)
         {
             Events[sideEffectExecute.TriggerTime].Add(sideEffectExecute.ID, sideEffectExecute);
-            RemoveEvents[sideEffectExecute.TriggerTime].Add(sideEffectExecute.ID, sideEffectExecute);
+            RemoveEvents[sideEffectExecute.RemoveTriggerTime].Add(sideEffectExecute.ID, sideEffectExecute);
         }
     }
 
@@ -100,7 +100,7 @@ public class EventManager
             if (uselessSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
             if (seeDict.ContainsKey(see.ID))
             {
-                bool isTrigger = isExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.TriggerRange);
+                bool isTrigger = isExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.RemoveTriggerRange);
                 if (isTrigger) Trigger_Remove(see);
             }
         }

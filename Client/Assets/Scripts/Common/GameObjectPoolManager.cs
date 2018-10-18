@@ -94,6 +94,9 @@
     public GameObjectPool Pool_ConfirmWindowPool;
     public PoolObject ConfirmWindowPrefab;
 
+    public GameObjectPool Pool_PlayerBuffPool;
+    public PoolObject PlayerBuffPrefab;
+
 
     void Awake()
     {
@@ -159,5 +162,7 @@
         Pool_AffixPool.Initiate(AffixPrefab, 10);
 
         Pool_ConfirmWindowPool.Initiate(ConfirmWindowPrefab, 3);
+
+        Pool_PlayerBuffPool.Initiate(PlayerBuffPrefab, 5);
     }
 }

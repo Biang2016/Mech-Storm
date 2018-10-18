@@ -242,13 +242,27 @@ internal class ServerPlayer : Player
     {
         if (SideEffectBundles_Player.ContainsKey(see.ID))
         {
+            //通知客户端改变buff数字
+            PlayerBuffUpdateRequest request1 = new PlayerBuffUpdateRequest(ClientId, see.ID, see.RemoveTriggerTimes);
+            BroadCastRequest(request1);
+
             if (see.RemoveTriggerTimes == 0) //等于0清除buff
             {
                 SideEffectBundles_Player.Remove(see.ID);
+                PlayerBuffRemoveRequest request2 = new PlayerBuffRemoveRequest(ClientId, see.ID);
+                BroadCastRequest(request2);
             }
+        }
+    }
 
-            //通知客户端改变buff数字
-            PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see.RemoveTriggerTimes);
+    public void RemoveSideEffectBundleForPlayerBuff(SideEffectExecute see)
+    {
+        if (SideEffectBundles_Player.ContainsKey(see.ID))
+        {
+            SideEffectBundles_Player.Remove(see.ID);
+
+            //通知客户端删除buff
+            PlayerBuffRemoveRequest request = new PlayerBuffRemoveRequest(ClientId, see.ID);
             BroadCastRequest(request);
         }
     }

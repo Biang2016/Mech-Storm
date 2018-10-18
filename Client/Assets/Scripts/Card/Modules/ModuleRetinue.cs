@@ -1316,6 +1316,7 @@ public class ModuleRetinue : ModuleBase
 
     public void HideTargetPreviewArrow()
     {
+        DefenceText.enabled = false;
         RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
         RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
         RetinueTargetPreviewAnim.SetTrigger("EndTarget");

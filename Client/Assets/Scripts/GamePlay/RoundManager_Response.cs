@@ -107,6 +107,16 @@ internal partial class RoundManager
                 OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest) r);
                 break;
             }
+            case NetProtocols.SE_PLAYER_BUFF_UPDATE_REQUEST:
+            {
+                OnUpdatePlayerBuff((PlayerBuffUpdateRequest) r);
+                break;
+            }
+            case NetProtocols.SE_PLAYER_BUFF_REMOVE_REQUEST:
+            {
+                OnRemovePlayerBuff((PlayerBuffRemoveRequest) r);
+                break;
+            }
 
             case NetProtocols.SE_CARDDECT_LEFT_CHANGE:
             {
@@ -353,6 +363,16 @@ internal partial class RoundManager
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround(r.retinueIds), "Co_RetinueRemoveFromBattleGround");
     }
 
+    private void OnUpdatePlayerBuff(PlayerBuffUpdateRequest r)
+    {
+        ClientLog.Instance.Print("Playerbuff request");
+    }
+
+    private void OnRemovePlayerBuff(PlayerBuffRemoveRequest r)
+    {
+        ClientLog.Instance.Print("Playerbuff remove");
+    }
+
     IEnumerator Co_RetinueRemoveFromBattleGround(List<int> retinueIds) //机甲一起移除战场
     {
         SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogather(retinueIds);
@@ -460,8 +480,9 @@ internal partial class RoundManager
     private void OnShowSideEffect(ShowSideEffectTriggeredRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.ExecuterInfo.ClientId);
-        if (r.ExecuterInfo.RetinueId == -1000) //PlayerBuff
+        if (r.ExecuterInfo.IsPlayerBuff) //PlayerBuff
         {
+            ClientLog.Instance.Print("Playerbuff ");
             return;
         }
 
