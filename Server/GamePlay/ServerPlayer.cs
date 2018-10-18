@@ -230,11 +230,11 @@ internal class ServerPlayer : Player
 
     private Dictionary<int, SideEffectExecute> SideEffectBundles_Player = new Dictionary<int, SideEffectExecute>();
 
-    public void AddSideEffectBundleForPlayerBuff(SideEffectExecute see)
+    public void AddSideEffectBundleForPlayerBuff(SideEffectExecute see, int picId, bool hasNumberShow, bool canPiled, bool singleton)
     {
         SideEffectBundles_Player.Add(see.ID, see);
         MyGameManager.EventManager.RegisterEvent(see);
-        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see.RemoveTriggerTimes);
+        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see.RemoveTriggerTimes, picId, hasNumberShow, canPiled, singleton);
         BroadCastRequest(request);
     }
 
@@ -243,7 +243,7 @@ internal class ServerPlayer : Player
         if (SideEffectBundles_Player.ContainsKey(see.ID))
         {
             //通知客户端改变buff数字
-            PlayerBuffUpdateRequest request1 = new PlayerBuffUpdateRequest(ClientId, see.ID, see.RemoveTriggerTimes);
+            PlayerBuffUpdateRequest request1 = new PlayerBuffUpdateRequest(ClientId, see.ID, see.RemoveTriggerTimes, 0, false, false, false);
             BroadCastRequest(request1);
 
             if (see.RemoveTriggerTimes == 0) //等于0清除buff

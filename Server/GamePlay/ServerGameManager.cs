@@ -424,6 +424,7 @@ internal class ServerGameManager
         PlayerA.ReduceSideEffectBundleForPlayerBuff(see);
         PlayerB.ReduceSideEffectBundleForPlayerBuff(see);
     }
+
     public void OnPlayerBuffRemove(SideEffectExecute see) //buff剩余次数减少
     {
         PlayerA.RemoveSideEffectBundleForPlayerBuff(see);

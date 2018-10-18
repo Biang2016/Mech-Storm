@@ -52,3 +52,6 @@ TagManager:
   - name: Cards
     uniqueID: 787400071
     locked: 0
+  - name: PlayerBuffs
+    uniqueID: 3571628967
+    locked: 0

@@ -175,13 +175,17 @@
     <Compile Include="Assets\Scripts\UX\OnPointerHoverAndLeave.cs" />
     <Compile Include="Assets\Scripts\UX\PreviewPanelBG.cs" />
     <Compile Include="Assets\Scripts\UX\Ship.cs" />
+    <None Include="Assets\Materials\Stencil\Mask_Trans.shader" />
     <None Include="Assets\Materials\Effect\Shaders\HiddenPass.shader" />
     <None Include="Assets\Materials\Effect\Shaders\Background+2.shader" />
     <None Include="Assets\Materials\Effect\Shaders\DefaultGrey.shader" />
-    <None Include="Assets\StreamingAssets\Config\Cards.xml" />
+    <None Include="Assets\StreamingAssets\Config\Cards.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Assets\Materials\Effect\Shaders\BlendSurfaceTrans.shader" />
     <None Include="Assets\Materials\Effect\Shaders\BrightPassFilter2.shader" />
     <None Include="Assets\Materials\Effect\Shaders\BlendMask.shader" />
+    <None Include="Assets\Materials\Stencil\UI-Default-Stencil1.shader" />
     <None Include="Assets\Materials\Effect\Shaders\fade_shader.shader" />
     <None Include="Assets\Fonts\Chars.txt" />
     <None Include="Assets\Materials\Effect\Shaders\MaskLinear.shader" />

@@ -12,9 +12,9 @@ internal class PlayerBuff : PoolObject
         base.PoolRecycle();
     }
 
-    internal int PictureId;
     internal int BuffId;
     private int buffValue;
+    private bool hasNumberShow;
 
     internal int BuffValue
     {
@@ -24,18 +24,45 @@ internal class PlayerBuff : PoolObject
         {
             buffValue = value;
             BuffValueText.text = value == 0 ? "" : value.ToString();
-            if (value >= 0)
-            {
-                BuffValueChangeAnim.SetTrigger("Jump");
-            }
+
         }
     }
 
-    public void Initialize(int picId, int buffId, int buffValue)
+    private int pictureId;
+
+    internal int PictureId
+    {
+        get { return pictureId; }
+
+        set
+        {
+            pictureId = value;
+            ClientUtils.ChangePicture(Image, pictureId);
+        }
+    }
+
+    public bool HasNumberShow
+    {
+        get { return hasNumberShow; }
+
+        set
+        {
+            hasNumberShow = value;
+            BuffValuePanel.enabled = hasNumberShow;
+            BuffValueText.enabled = hasNumberShow;
+        }
+    }
+
+    public void UpdateValue(int picId, int buffId, int buffValue, bool hasNumberShow = true)
     {
         PictureId = picId;
         BuffId = buffId;
         BuffValue = buffValue;
+        if (buffValue >= 0)
+        {
+            BuffAnim.SetTrigger("Jump");
+        }
+        HasNumberShow = hasNumberShow;
         BuffAnim.SetTrigger("Add");
     }
 
@@ -44,9 +71,11 @@ internal class PlayerBuff : PoolObject
         BuffAnim.SetTrigger("Remove");
     }
 
+
+    [SerializeField] private Image BuffValuePanel;
     [SerializeField] private Text BuffValueText;
     [SerializeField] private Text BuffDescText;
     [SerializeField] private Animator BuffDescAnim;
-    [SerializeField] private Animator BuffValueChangeAnim;
     [SerializeField] private Animator BuffAnim;
+    [SerializeField] private Image Image;
 }

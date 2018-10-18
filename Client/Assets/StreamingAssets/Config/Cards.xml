@@ -572,8 +572,8 @@
     <CardInfo name="baseInfo" pictureID="615" cardName="偷袭" cardName_en="Sneak Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="400" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddPlayerBuff" BuffPicId="615" BuffColor="#FFFF00" TriggerTime="OnRetinueAttack" TriggerRange="SelfPlayer" TriggerDelayTimes="0" TriggerTimes="99999" RemoveTriggerTime="OnEndRound" RemoveTriggerRange="SelfPlayer" RemoveTriggerTimes="1">
-        <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="1"></SideEffect>
+      <SideEffect name="AddPlayerBuff" BuffPicId="615" BuffColor="#FFFF00" HasNumberShow="True" CanPiled="False" Singleton="False" TriggerTime="OnRetinueAttack" TriggerRange="SelfPlayer" TriggerDelayTimes="0" TriggerTimes="99999" RemoveTriggerTime="OnEndRound" RemoveTriggerRange="SelfPlayer" RemoveTriggerTimes="1">
+        <Buff name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="1"></Buff>
       </SideEffect>
     </CardInfo>
   </Card>

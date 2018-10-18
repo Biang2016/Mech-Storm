@@ -16,6 +16,8 @@ public class GameBoardManager : MonoSingletion<GameBoardManager>
     public BattleGroundManager EnemyBattleGroundManager;
     public MetalLifeEnergyManager SelfMetalLifeEnergyManager;
     public MetalLifeEnergyManager EnemyMetalLifeEnergyManager;
+    public PlayerBuffManager SelfPlayerBuffManager;
+    public PlayerBuffManager EnemyPlayerBuffManager;
     public GameObject CardDetailPreview;
 
     [SerializeField] private Text WinLostText;

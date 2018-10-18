@@ -70,6 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224378480093667174}
   - component: {fileID: 114438643888871726}
+  - component: {fileID: 114908124565270522}
   m_Layer: 5
   m_Name: PlayerBuff
   m_TagString: Untagged
@@ -269,11 +270,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ca03985dc58e94183df6c61190e4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuffValuePanel: {fileID: 114188578259341412}
   BuffValueText: {fileID: 114544799468617030}
   BuffDescText: {fileID: 0}
   BuffDescAnim: {fileID: 0}
-  BuffValueChangeAnim: {fileID: 0}
   BuffAnim: {fileID: 95227312783773140}
+  Image: {fileID: 114066619899975612}
 --- !u!114 &114454141992320030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -361,6 +363,25 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114908124565270522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1548821361842326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 106.24
+  m_PreferredHeight: 31
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: 1
+  m_LayoutPriority: 1
 --- !u!114 &114927698610194026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -388,6 +409,17 @@ MonoBehaviour:
             m_StringArgument: Jump
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 114438643888871726}
+          m_MethodName: SetPreview
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   - eventID: 1
@@ -403,6 +435,17 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Reset
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 114438643888871726}
+          m_MethodName: HidePreview
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
@@ -507,7 +550,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1548821361842326}
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -6.3376417}
+  m_LocalPosition: {x: 0, y: 0, z: -6.1470165}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224371870469722290}
@@ -516,8 +559,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 12.068135, y: 0.81995344}
-  m_SizeDelta: {x: 106.24, y: 50.42}
+  m_AnchoredPosition: {x: 12.068135, y: 0.8253689}
+  m_SizeDelta: {x: 106.24, y: 31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224481234001044274
 RectTransform:

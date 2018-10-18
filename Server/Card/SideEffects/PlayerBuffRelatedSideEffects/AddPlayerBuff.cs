@@ -14,7 +14,7 @@
                 sub_SE.Player = player;
                 sub_SE.M_ExecuterInfo = new ExecuterInfo(executerInfo.ClientId, isPlayerBuff: true);
                 SideEffectExecute see = new SideEffectExecute(sub_SE, TriggerTime, TriggerRange, TriggerDelayTimes, TriggerTimes, RemoveTriggerTime, RemoveTriggerRange, RemoveTriggerTimes);
-                player.AddSideEffectBundleForPlayerBuff(see);
+                player.AddSideEffectBundleForPlayerBuff(see, BuffPicId, HasNumberShow, CanPiled, Singleton);
             }
         }
     }

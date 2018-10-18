@@ -203,10 +203,13 @@ public class EventManager
         if (see.RemoveTriggerTimes > 0) //移除判定剩余次数减少，为0时移除
         {
             see.RemoveTriggerTimes--;
-            OnEventPlayerBuffReduceHandler(see);
             if (see.RemoveTriggerTimes == 0)
             {
                 uselessSEEs.Add(see.ID, see);
+            }
+            else
+            {
+                OnEventPlayerBuffReduceHandler(see);
             }
         }
     }

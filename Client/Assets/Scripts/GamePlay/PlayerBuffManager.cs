@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-internal partial class PlayerBuffManager : MonoBehaviour
+public class PlayerBuffManager : MonoBehaviour
 {
     private PlayerBuffManager()
     {
@@ -16,10 +16,6 @@ internal partial class PlayerBuffManager : MonoBehaviour
 
     void Start()
     {
-        GameObjectPoolManager.Instance.Pool_PlayerBuffPool.AllocateGameObject<PlayerBuff>(Content);
-        GameObjectPoolManager.Instance.Pool_PlayerBuffPool.AllocateGameObject<PlayerBuff>(Content);
-        GameObjectPoolManager.Instance.Pool_PlayerBuffPool.AllocateGameObject<PlayerBuff>(Content);
-        GameObjectPoolManager.Instance.Pool_PlayerBuffPool.AllocateGameObject<PlayerBuff>(Content);
     }
 
     public void ResetAll()
@@ -32,7 +28,7 @@ internal partial class PlayerBuffManager : MonoBehaviour
         PlayerBuffs.Clear();
     }
 
-    public void UpdatePlayerBuff(int buffId, int buffValue, int buffPicId)
+    public void UpdatePlayerBuff(int buffId, int buffValue, int buffPicId, bool hasNumberShow)
     {
         if (PlayerBuffs.ContainsKey(buffId))
         {
@@ -40,14 +36,14 @@ internal partial class PlayerBuffManager : MonoBehaviour
         }
         else
         {
-            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AddBuff(buffId, buffValue, buffPicId), "Co_AddBuff");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AddBuff(buffId, buffValue, buffPicId, hasNumberShow), "Co_AddBuff");
         }
     }
 
-    IEnumerator Co_AddBuff(int buffId, int buffValue, int buffPicId)
+    IEnumerator Co_AddBuff(int buffId, int buffValue, int buffPicId, bool hasNumberShow)
     {
         PlayerBuff pb = GameObjectPoolManager.Instance.Pool_PlayerBuffPool.AllocateGameObject<PlayerBuff>(Content);
-        pb.Initialize(buffPicId, buffId, buffValue);
+        pb.UpdateValue(buffPicId, buffId, buffValue, hasNumberShow);
         PlayerBuffs.Add(buffId, pb);
         yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();

@@ -6,6 +6,7 @@ public class ClientPlayer : Player
     public HandManager MyHandManager; //卡牌所属的手部区管理器
     internal BattleGroundManager MyBattleGroundManager; //卡牌所属方的战场区域管理器
     internal MetalLifeEnergyManager MyMetalLifeEnergyManager; //Metal、Energy、Life条的管理器
+    internal PlayerBuffManager MyPlayerBuffManager; //Buff的管理器
     internal BoardAreaTypes MyHandArea; //卡牌所属的手部区
     internal Players WhichPlayer;
     public int ClientId;
@@ -19,9 +20,11 @@ public class ClientPlayer : Player
         MyHandManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfHandManager : GameBoardManager.Instance.EnemyHandManager;
         MyBattleGroundManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfBattleGroundManager : GameBoardManager.Instance.EnemyBattleGroundManager;
         MyMetalLifeEnergyManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfMetalLifeEnergyManager : GameBoardManager.Instance.EnemyMetalLifeEnergyManager;
+        MyPlayerBuffManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfPlayerBuffManager : GameBoardManager.Instance.EnemyPlayerBuffManager;
         MyHandManager.ClientPlayer = this;
         MyMetalLifeEnergyManager.ClientPlayer = this;
         MyBattleGroundManager.ClientPlayer = this;
+        MyPlayerBuffManager.ClientPlayer = this;
         IsInitialized = true;
         SetTotalLife();
         SetTotalEnergy();

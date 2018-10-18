@@ -365,12 +365,14 @@ internal partial class RoundManager
 
     private void OnUpdatePlayerBuff(PlayerBuffUpdateRequest r)
     {
-        ClientLog.Instance.Print("Playerbuff request");
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyPlayerBuffManager.UpdatePlayerBuff(r.playerBuffId,r.value,r.picId,r.hasNumberShow);
     }
 
     private void OnRemovePlayerBuff(PlayerBuffRemoveRequest r)
     {
-        ClientLog.Instance.Print("Playerbuff remove");
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyPlayerBuffManager.RemovePlayerBuff(r.playerBuffId);
     }
 
     IEnumerator Co_RetinueRemoveFromBattleGround(List<int> retinueIds) //机甲一起移除战场
