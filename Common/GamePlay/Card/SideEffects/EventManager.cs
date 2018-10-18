@@ -41,12 +41,17 @@ public class EventManager
     {
         foreach (SideEffectExecute see in sideEffects.SideEffectExecutes)
         {
-            Dictionary<int, SideEffectExecute> sees = Events[see.TriggerTime];
-            if (sees.ContainsKey(see.ID)) sees.Remove(see.ID);
-
-            Dictionary<int, SideEffectExecute> sees_remove = RemoveEvents[see.TriggerTime];
-            if (sees_remove.ContainsKey(see.ID)) sees_remove.Remove(see.ID);
+            UnRegisterEvent(see);
         }
+    }
+
+    public void UnRegisterEvent(SideEffectExecute see)
+    {
+        Dictionary<int, SideEffectExecute> sees = Events[see.TriggerTime];
+        if (sees.ContainsKey(see.ID)) sees.Remove(see.ID);
+
+        Dictionary<int, SideEffectExecute> sees_remove = RemoveEvents[see.TriggerTime];
+        if (sees_remove.ContainsKey(see.ID)) sees_remove.Remove(see.ID);
     }
 
     public void ClearAllEvents()

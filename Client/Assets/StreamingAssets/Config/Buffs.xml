@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<AllBuffs>
+  <Buff name="AddEnergyWhenAttack" desc="" desc_en="" BuffPicId="615" BuffColor="#FFFF00" HasNumberShow="True" CanPiled="False" Singleton="False" TriggerTime="OnRetinueAttack" TriggerRange="SelfPlayer" TriggerDelayTimes="0" TriggerTimes="99999" RemoveTriggerTime="OnEndRound" RemoveTriggerRange="SelfPlayer" RemoveTriggerTimes="1">
+    <Buff name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="1"></Buff>
+  </Buff>
+
+</AllBuffs>

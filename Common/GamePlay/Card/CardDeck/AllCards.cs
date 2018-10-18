@@ -207,7 +207,7 @@ public static class AllCards
         }
     }
 
-    private static void GetInfoForSideEffect(XmlNode sideEffectInfo, SideEffectBase sideEffect)
+    public static void GetInfoForSideEffect(XmlNode sideEffectInfo, SideEffectBase sideEffect)
     {
         for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
         {

@@ -421,14 +421,14 @@ internal class ServerGameManager
 
     public void OnPlayerBuffReduce(SideEffectExecute see) //buff剩余次数减少
     {
-        PlayerA.ReduceSideEffectBundleForPlayerBuff(see);
-        PlayerB.ReduceSideEffectBundleForPlayerBuff(see);
+        PlayerA.ReducePlayerBuff(see);
+        PlayerB.ReducePlayerBuff(see);
     }
 
     public void OnPlayerBuffRemove(SideEffectExecute see) //buff剩余次数减少
     {
-        PlayerA.RemoveSideEffectBundleForPlayerBuff(see);
-        PlayerB.RemoveSideEffectBundleForPlayerBuff(see);
+        PlayerA.RemovePlayerBuff(see);
+        PlayerB.RemovePlayerBuff(see);
     }
 
     #endregion

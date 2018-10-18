@@ -1,4 +1,4 @@
-﻿public class AddPlayerBuff_Base : PlayerBuffRelatedSideEffects
+﻿public class AddPlayerBuff_Base : PlayerBuffSideEffects
 {
     public SideEffectBundle.TriggerTime TriggerTime; //触发SE时机
     public SideEffectBundle.TriggerRange TriggerRange; //触发SE条件

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 internal class ServerPlayer : Player
 {
@@ -226,45 +227,139 @@ internal class ServerPlayer : Player
         BroadCastRequest(request);
     }
 
-    #region SideEffectsAttachedToPlayer
+    #region PlayerBuffs
 
-    private Dictionary<int, SideEffectExecute> SideEffectBundles_Player = new Dictionary<int, SideEffectExecute>();
+    private Dictionary<string, Dictionary<int, SideEffectExecute>> SideEffectBundles_Player = new Dictionary<string, Dictionary<int, SideEffectExecute>>();
 
-    public void AddSideEffectBundleForPlayerBuff(SideEffectExecute see, int picId, bool hasNumberShow, bool canPiled, bool singleton)
+    public void UpdatePlayerBuff(SideEffectExecute newSee, PlayerBuffSideEffects buff, bool isAdd = false)
     {
-        SideEffectBundles_Player.Add(see.ID, see);
-        MyGameManager.EventManager.RegisterEvent(see);
-        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see.RemoveTriggerTimes, picId, hasNumberShow, canPiled, singleton);
-        BroadCastRequest(request);
+        if (SideEffectBundles_Player.ContainsKey(buff.BuffName))
+        {
+            Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.BuffName];
+            if (sees.Count != 0) //存在该buff
+            {
+                if (buff.Singleton) //buff是单例，只能存在一个
+                {
+                    if (sees.Count > 1) //多于一个，清空重来
+                    {
+                        int RemainRemoveTriggerTime = 0;
+                        foreach (KeyValuePair<int, SideEffectExecute> kv in sees)
+                        {
+                            RemainRemoveTriggerTime = kv.Value.RemoveTriggerTimes;
+                        }
+
+                        ClearSEEByBuffName(buff.BuffName, sees);
+
+                        if (buff.CanPiled) //可以堆叠
+                        {
+                            newSee.RemoveTriggerTimes = RemainRemoveTriggerTime;
+                        }
+
+                        CreateNewBuff(newSee, buff, sees);
+                    }
+                    else
+                    {
+                        SideEffectExecute see = sees.Values.ToList()[0];
+                        if (buff.CanPiled && isAdd) //可以堆叠
+                        {
+                            see.RemoveTriggerTimes += newSee.RemoveTriggerTimes;
+                        }
+                        else
+                        {
+                            see.RemoveTriggerTimes = newSee.RemoveTriggerTimes;
+                        }
+
+                        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, buff.BuffName, see.RemoveTriggerTimes);
+                        BroadCastRequest(request);
+                    }
+                }
+                else //buff不是单例，则对应加到seeID上去
+                {
+                    if (sees.ContainsKey(newSee.ID) && buff.CanPiled)
+                    {
+                        SideEffectExecute see = sees[newSee.ID];
+                        if (buff.CanPiled && isAdd) //可以堆叠
+                        {
+                            see.RemoveTriggerTimes += newSee.RemoveTriggerTimes;
+                        }
+                        else //不可堆叠，每次施加则替换次数
+                        {
+                            see.RemoveTriggerTimes = newSee.RemoveTriggerTimes;
+                        }
+
+                        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, buff.BuffName, see.RemoveTriggerTimes);
+                        BroadCastRequest(request);
+                    }
+                    else //ID不存在场上，新建一个buff
+                    {
+                        CreateNewBuff(newSee, buff, sees);
+                    }
+                }
+            }
+            else //不存在该buff
+            {
+                CreateNewBuff(newSee, buff, sees);
+            }
+        }
+        else
+        {
+            Dictionary<int, SideEffectExecute> sees = new Dictionary<int, SideEffectExecute>();
+            SideEffectBundles_Player.Add(buff.Name, sees);
+            CreateNewBuff(newSee, buff, sees);
+        }
     }
 
-    public void ReduceSideEffectBundleForPlayerBuff(SideEffectExecute see)
+    public void RemovePlayerBuff(SideEffectExecute newSee, PlayerBuffSideEffects buff)
     {
-        if (SideEffectBundles_Player.ContainsKey(see.ID))
+        if (SideEffectBundles_Player.ContainsKey(buff.BuffName))
         {
-            //通知客户端改变buff数字
-            PlayerBuffUpdateRequest request1 = new PlayerBuffUpdateRequest(ClientId, see.ID, see.RemoveTriggerTimes, 0, false, false, false);
-            BroadCastRequest(request1);
-
-            if (see.RemoveTriggerTimes == 0) //等于0清除buff
+            Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.BuffName];
+            if (sees.Count != 0) //存在该buff
             {
-                SideEffectBundles_Player.Remove(see.ID);
-                PlayerBuffRemoveRequest request2 = new PlayerBuffRemoveRequest(ClientId, see.ID);
-                BroadCastRequest(request2);
+                if (buff.Singleton) //buff是单例，只能存在一个
+                {
+                    ClearSEEByBuffName(buff.Name, sees);
+                }
+                else //buff不是单例，则对应到seeID上去
+                {
+                    if (sees.ContainsKey(newSee.ID))
+                    {
+                        SideEffectExecute see = sees[newSee.ID];
+                        RemoveSEE(buff.Name, sees, see);
+                    }
+                }
             }
         }
     }
 
-    public void RemoveSideEffectBundleForPlayerBuff(SideEffectExecute see)
+    private void ClearSEEByBuffName(string buffName, Dictionary<int, SideEffectExecute> sees)
     {
-        if (SideEffectBundles_Player.ContainsKey(see.ID))
+        List<SideEffectExecute> remove_sees = new List<SideEffectExecute>();
+        foreach (KeyValuePair<int, SideEffectExecute> kv in sees)
         {
-            SideEffectBundles_Player.Remove(see.ID);
-
-            //通知客户端删除buff
-            PlayerBuffRemoveRequest request = new PlayerBuffRemoveRequest(ClientId, see.ID);
-            BroadCastRequest(request);
+            remove_sees.Add(kv.Value);
         }
+
+        foreach (SideEffectExecute remove_see in remove_sees)
+        {
+            RemoveSEE(buffName, sees, remove_see);
+        }
+    }
+
+    private void RemoveSEE(string buffName, Dictionary<int, SideEffectExecute> sees, SideEffectExecute remove_see)
+    {
+        sees.Remove(remove_see.ID);
+        MyGameManager.EventManager.UnRegisterEvent(remove_see);
+        PlayerBuffRemoveRequest request = new PlayerBuffRemoveRequest(ClientId, remove_see.ID, buffName);
+        BroadCastRequest(request);
+    }
+
+    private void CreateNewBuff(SideEffectExecute newSee, PlayerBuffSideEffects buff, Dictionary<int, SideEffectExecute> sees)
+    {
+        sees.Add(newSee.ID, newSee);
+        MyGameManager.EventManager.RegisterEvent(newSee);
+        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, newSee.ID, buff.BuffName, newSee.RemoveTriggerTimes);
+        BroadCastRequest(request);
     }
 
     #endregion

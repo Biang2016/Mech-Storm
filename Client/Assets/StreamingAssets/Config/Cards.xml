@@ -55,7 +55,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="18" totalLife="18" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="2" />
-    <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="EnemyPlayer" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+    <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="EnemyPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
     </CardInfo>
   </Card>
@@ -120,7 +120,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="2000" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
-    <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueKill" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+    <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueKill" triggerRange="Self" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="AddAttackOne" IsNeedChoise="False" M_TargetRange="Self" Value="1"></SideEffect>
     </CardInfo>
   </Card>
@@ -130,7 +130,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="1100" cardLevel="2" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="2" />
-    <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueKill" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+    <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueKill" triggerRange="Self" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="AddAttackOne" IsNeedChoise="False" M_TargetRange="Self" Value="1"></SideEffect>
     </CardInfo>
   </Card>
@@ -572,9 +572,7 @@
     <CardInfo name="baseInfo" pictureID="615" cardName="偷袭" cardName_en="Sneak Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="400" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddPlayerBuff" BuffPicId="615" BuffColor="#FFFF00" HasNumberShow="True" CanPiled="False" Singleton="False" TriggerTime="OnRetinueAttack" TriggerRange="SelfPlayer" TriggerDelayTimes="0" TriggerTimes="99999" RemoveTriggerTime="OnEndRound" RemoveTriggerRange="SelfPlayer" RemoveTriggerTimes="1">
-        <Buff name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="1"></Buff>
-      </SideEffect>
+      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenAttack" />
     </CardInfo>
   </Card>
   <Card id="61601">
