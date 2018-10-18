@@ -14,8 +14,8 @@ public class CardDeckCard : PoolObject
         transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
-    [SerializeField] private RawImage MainBoardRenderer;
-    [SerializeField] private RawImage CardBloomRenderer;
+    [SerializeField] private Renderer MainBoardRenderer;
+    [SerializeField] private Renderer CardBloomRenderer;
 
     public void ResetColor(bool isSelf)
     {

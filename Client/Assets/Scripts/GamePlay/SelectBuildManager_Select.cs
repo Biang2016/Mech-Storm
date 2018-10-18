@@ -24,15 +24,34 @@ public partial class SelectBuildManager
         AllCardDeckText.text = GameManager.Instance.isEnglish ? "Card Library" : "牌 库";
         CardDeckRenameText.text = GameManager.Instance.isEnglish ? "Rename Deck" : "卡组命名";
 
+        CardDeckText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeleteCardDeckText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        LifeText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        EnergyText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        BuggetText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DrawCardNumText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        AllCardDeckText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        CardDeckRenameText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+
         SelectAllCardText.text = GameManager.Instance.isEnglish ? "Select All" : "全选";
         UnSelectAllCardText.text = GameManager.Instance.isEnglish ? "Unselect All" : "清除选择";
         ConfirmSelectText.text = GameManager.Instance.isEnglish ? "Confirm" : "确认出战";
         CloseText.text = GameManager.Instance.isEnglish ? "Close (Tab)" : "关闭(Tab)";
 
+        SelectAllCardText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        UnSelectAllCardText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        ConfirmSelectText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        CloseText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+
         HerosCardText.text = GameManager.Instance.isEnglish ? "HeroMech" : "英 雄 随 从";
         OtherCardText.text = GameManager.Instance.isEnglish ? "Other Cards" : "其 他 卡 片";
         HerosCardCountText.text = GameManager.Instance.isEnglish ? "Total:" : "总计";
         OtherCardCountText.text = GameManager.Instance.isEnglish ? "Total:" : "数量";
+
+        HerosCardText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        OtherCardText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        HerosCardCountText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        OtherCardCountText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
     }
 
     void Start_Select()

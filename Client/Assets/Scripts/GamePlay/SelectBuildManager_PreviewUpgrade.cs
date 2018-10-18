@@ -35,6 +35,9 @@ public partial class SelectBuildManager
 
         UpgradeText.text = GameManager.Instance.isEnglish ? "Upgrade" : "升级";
         DegradeText.text = GameManager.Instance.isEnglish ? "Degrade" : "降级";
+
+        UpgradeText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DegradeText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
     }
 
     private void ShowPreviewCardPanel(CardBase card)

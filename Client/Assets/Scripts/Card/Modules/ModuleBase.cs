@@ -63,6 +63,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
     {
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
+        MainboardEmissionIntensity = CardInfo.GetCardColorIntensity();
         ChangeColor(ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()));
         Stars = cardInfo.UpgradeInfo.CardLevel;
     }
@@ -108,7 +109,8 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
         }
     }
 
-    [SerializeField] private RawImage MainBoardRenderer;
+    public Renderer MainBoardRenderer;
+    protected float MainboardEmissionIntensity = 0f;
 
     public virtual void ChangeColor(Color color)
     {
@@ -175,6 +177,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_Weapon.transform.Translate(Vector3.up * 5f);
                     detailCard_Weapon.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Weapon.BeBrightColor();
+                    detailCard_Weapon.CardBloom.SetActive(true);
                 }
 
                 if (((ModuleRetinue) this).M_Shield)
@@ -199,6 +202,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_Shield.transform.Translate(Vector3.up * 5f);
                     detailCard_Shield.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Shield.BeBrightColor();
+                    detailCard_Shield.CardBloom.SetActive(true);
                 }
 
                 if (((ModuleRetinue) this).M_Pack)
@@ -223,6 +227,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_Pack.transform.Translate(Vector3.up * 5f);
                     detailCard_Pack.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Pack.BeBrightColor();
+                    detailCard_Pack.CardBloom.SetActive(true);
                 }
 
                 if (((ModuleRetinue) this).M_MA)
@@ -247,6 +252,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_MA.transform.Translate(Vector3.up * 5f);
                     detailCard_MA.GetComponent<BoxCollider>().enabled = false;
                     detailCard_MA.BeBrightColor();
+                    detailCard_MA.CardBloom.SetActive(true);
                 }
 
                 break;
@@ -263,6 +269,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                 break;
         }
 
+        detailCard.CardBloom.SetActive(true);
         List<CardInfo_Base> cardInfos = new List<CardInfo_Base>();
         if (detailCard != null) cardInfos.Add(detailCard.CardInfo);
         if (detailCard_Weapon != null) cardInfos.Add(detailCard_Weapon.CardInfo);

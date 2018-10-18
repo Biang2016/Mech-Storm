@@ -17,6 +17,11 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
         SurrenderText.text = GameManager.Instance.isEnglish ? "Surrender" : "认输";
         ConsumeText.text = GameManager.Instance.isEnglish ? "Consume" : "继续游戏";
         QuitText.text = GameManager.Instance.isEnglish ? "Quit" : "退出游戏";
+
+        SettingMenuText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        SurrenderText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        ConsumeText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        QuitText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
     }
 
     void Start()

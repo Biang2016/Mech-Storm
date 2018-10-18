@@ -67,6 +67,16 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
         DeckAbstractText_EnergyNum.text = "";
         DeckAbstractText_Draws.text = GameManager.Instance.isEnglish ? "Draws" : "抽牌数:";
         DeckAbstractText_DrawNum.text = "";
+
+        DeckAbstractText_DeckName.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_Cards.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_CardNum.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_Life.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_LifeNum.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_Energy.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_EnergyNum.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_Draws.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_DrawNum.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
     }
 
     void Start()
@@ -248,7 +258,7 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
                 ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
                 if (GameManager.Instance.isEnglish)
                 {
-                    cw.Initialize("Some cards consume more energy than your upper limit.", "Go aheaad", "Edit",
+                    cw.Initialize("Some cards consume more energy than your upper limit.", "Go ahead", "Edit",
                         new UnityAction(StartMatchingCore) + cw.PoolRecycle,
                         new UnityAction(OnSelectCardDeckWindowButtonClick) + cw.PoolRecycle);
                 }

@@ -73,6 +73,11 @@ public partial class SelectBuildManager
         MaxEnergyText.text = GamePlaySettings.PlayerDefaultEnergyMax.ToString();
         MaxCardNumberText.text = GamePlaySettings.PlayerMaxDrawCardNum.ToString();
 
+        TotalCoinText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        MaxLifeText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        MaxEnergyText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        MaxCardNumberText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+
         CoinSlider.onValueChanged.AddListener(OnCoinSliderValueChange);
         LifeSlider.onValueChanged.AddListener(OnLifeSliderValueChange);
         EnergySlider.onValueChanged.AddListener(OnEnergySliderValueChange);

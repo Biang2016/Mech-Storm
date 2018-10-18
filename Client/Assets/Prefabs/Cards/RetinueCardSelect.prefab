@@ -105,7 +105,6 @@ GameObject:
   - component: {fileID: 224393453459715430}
   - component: {fileID: 222107405092256812}
   - component: {fileID: 114637034217791840}
-  - component: {fileID: 65922465919058566}
   - component: {fileID: 114961751022588866}
   - component: {fileID: 114132123503097388}
   m_Layer: 14
@@ -225,7 +224,6 @@ GameObject:
   - component: {fileID: 224464047074142124}
   - component: {fileID: 222064123871129268}
   - component: {fileID: 114754971765046552}
-  - component: {fileID: 65331957092491646}
   - component: {fileID: 114324957137560204}
   - component: {fileID: 114945091697514894}
   m_Layer: 14
@@ -432,7 +430,6 @@ GameObject:
   - component: {fileID: 224534151044922830}
   - component: {fileID: 222410493416037098}
   - component: {fileID: 114772316295002464}
-  - component: {fileID: 65368900766220122}
   - component: {fileID: 114031036247308494}
   - component: {fileID: 114410197754658322}
   m_Layer: 14
@@ -557,7 +554,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1813514499471196
 GameObject:
@@ -604,7 +601,6 @@ GameObject:
   - component: {fileID: 224132595013697398}
   - component: {fileID: 222944419288545636}
   - component: {fileID: 114655735099056798}
-  - component: {fileID: 65544533425614858}
   - component: {fileID: 114037491668577140}
   - component: {fileID: 114634686638488944}
   m_Layer: 14
@@ -937,54 +933,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.52, y: 0.1, z: 2.26}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65331957092491646
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1203912075406740}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 149.38, y: 42.5, z: 0.84}
-  m_Center: {x: 1.4, y: -11.2, z: 0.36}
---- !u!65 &65368900766220122
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1630717145771228}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 56.8, y: 158.04, z: 0.84}
-  m_Center: {x: 12.4, y: 8.5, z: 0.36}
---- !u!65 &65544533425614858
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1897112930753738}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 47.3, y: 107.1, z: 0.84}
-  m_Center: {x: -9.8, y: 2.4, z: 0.36}
---- !u!65 &65922465919058566
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1106039530883188}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 47.3, y: 82.42, z: 0.84}
-  m_Center: {x: -7.3, y: 11.49, z: 0.36}
 --- !u!114 &114031036247308494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1521,7 +1469,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 5c0c60ed7d94b5e48976972508a64804, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1

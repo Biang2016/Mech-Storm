@@ -42,6 +42,13 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     {
         myCollider = GetComponent<BoxCollider>();
         DragComponent = GetComponent<DragComponent>();
+
+        MetalIcon.color = GameManager.Instance.MetalIconColor;
+        EnergyIcon.color = GameManager.Instance.EnergyIconColor;
+        if (LifeIcon) LifeIcon.color = GameManager.Instance.LifeIconColor;
+        Text_CardType.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
+        Text_CardTypeBG.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
+        Text_Desc.color = ClientUtils.HTMLColorToColor(AllColors.ColorDict[AllColors.ColorType.CardDecsTextColor]);
     }
 
     public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, ClientPlayer clientPlayer, bool isCardSelect)
@@ -122,9 +129,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             newCard.M_BoxCollider.enabled = true;
         }
 
-        newCard.MetalIcon.color = GameManager.Instance.MetalIconColor;
-        newCard.EnergyIcon.color = GameManager.Instance.EnergyIconColor;
-        if (newCard.LifeIcon) newCard.LifeIcon.color = GameManager.Instance.LifeIconColor;
         newCard.Initiate(cardInfo, clientPlayer, isCardSelect);
         newCard.Usable = false;
 
@@ -150,12 +154,10 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         M_Desc = CardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
         Text_CardType.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
         Text_CardTypeBG.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
-        Text_CardType.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
-        Text_CardTypeBG.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
+
         Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
         MainboardEmissionIntensity = CardInfo.GetCardColorIntensity();
         Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
-        Text_Desc.color = ClientUtils.HTMLColorToColor(CardInfo.GetCardDecsTextColor());
         ClientUtils.ChangePicture(Picture, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
 
@@ -338,11 +340,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void ChangeColor(Color color)
     {
-        ClientUtils.ChangeColor(MainBoardRenderer, color, MainboardEmissionIntensity);
+        ClientUtils.ChangeEmissionColor(MainBoardRenderer, color, MainboardEmissionIntensity);
 
         if (Image_DescPanel)
         {
-            Image_DescPanel.color = new Color(color.r / 3, color.g / 3, color.b / 3, 0.3f);
+            Image_DescPanel.color = new Color(color.r / 3, color.g / 3, color.b / 3, 0.5f);
         }
     }
 

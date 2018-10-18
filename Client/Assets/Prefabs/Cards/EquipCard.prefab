@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4804886915103922}
   - component: {fileID: 33275447178232950}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Block_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 224919890951804914}
   - component: {fileID: 222822950595071408}
   - component: {fileID: 114070315230053814}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: CoinImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224586885063433138}
   - component: {fileID: 222902827769658950}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: CoinImageLowerPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224347284111591690}
   - component: {fileID: 222703295029197878}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: CoinImageUpperPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 224600880740622984}
   - component: {fileID: 222534863148650758}
   - component: {fileID: 114358119813783962}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: CoinText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,12 +425,12 @@ GameObject:
   - component: {fileID: 4339542401749970}
   - component: {fileID: 33459726089977836}
   - component: {fileID: 23729804015215250}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MainBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1619245806546760
 GameObject:
@@ -442,7 +442,7 @@ GameObject:
   - component: {fileID: 4699094854772598}
   - component: {fileID: 33430735108869100}
   - component: {fileID: 23643598206413950}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CardShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 224373122138930096}
   - component: {fileID: 222113834279016864}
   - component: {fileID: 114118466685754160}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: CoinImageBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 4546983782449542}
   - component: {fileID: 33260994616813580}
   - component: {fileID: 23683016081607454}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CardBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 4216986044986872}
   - component: {fileID: 33075324094532254}
   - component: {fileID: 23997745910580048}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CardBackBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1050,7 +1050,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 5c0c60ed7d94b5e48976972508a64804, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1

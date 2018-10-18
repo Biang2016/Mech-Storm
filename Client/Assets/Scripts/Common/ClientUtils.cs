@@ -90,6 +90,14 @@ class ClientUtils
         mpb.SetColor("_EmissionColor", newColor * intensity);
         rd.SetPropertyBlock(mpb);
     }
+    public static void ChangeEmissionColor(Renderer rd, Color newColor, float intensity = 1.0f)
+    {
+        if (!rd) return;
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        rd.GetPropertyBlock(mpb);
+        mpb.SetColor("_EmissionColor", newColor * intensity);
+        rd.SetPropertyBlock(mpb);
+    }
 
     public static void ChangeSlotColor(Renderer rd, SlotTypes slotTypes)
     {

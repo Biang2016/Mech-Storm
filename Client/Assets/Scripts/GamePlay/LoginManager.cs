@@ -19,6 +19,13 @@ public class LoginManager : MonoSingletion<LoginManager>
         PasswordText.text = GameManager.Instance.isEnglish ? "Password: " : "密码: ";
         RegisterText.text = GameManager.Instance.isEnglish ? "Register" : "注册";
         LoginText.text = GameManager.Instance.isEnglish ? "Login" : "登录";
+
+        ServerText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        PasswordText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        PasswordText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        RegisterText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        LoginText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+
         ServerDropdown.options[0] = new Dropdown.OptionData(GameManager.Instance.isEnglish ? "Test Server" : "测试服");
         ServerDropdown.options[1] = new Dropdown.OptionData(GameManager.Instance.isEnglish ? "Formal Server" : "正式服");
     }

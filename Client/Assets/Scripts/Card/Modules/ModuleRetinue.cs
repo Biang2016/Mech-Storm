@@ -56,9 +56,9 @@ public class ModuleRetinue : ModuleBase
 
     [SerializeField] private Text Text_RetinueName;
 
-    [SerializeField] private RawImage RetinueCanAttackBloom;
-    [SerializeField] private RawImage OnHoverBloom;
-    [SerializeField] private RawImage SideEffcetBloom;
+    [SerializeField] private Renderer RetinueCanAttackBloom;
+    [SerializeField] private Renderer OnHoverBloom;
+    [SerializeField] private Renderer SideEffcetBloom;
     [SerializeField] private RawImage WeaponBloom;
     [SerializeField] private RawImage ShieldBloom;
     [SerializeField] private RawImage PackBloom;
@@ -75,7 +75,7 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Text Text_RetinueShield;
     [SerializeField] private Text Text_RetinueArmor;
 
-    [SerializeField] private RawImage Picture;
+    [SerializeField] private Renderer Picture;
 
     [SerializeField] private TextMesh DamageNumberPreviewTextMesh; //受攻击瞄准时的伤害预览
     [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh; //受攻击瞄准时的伤害预览
@@ -222,7 +222,7 @@ public class ModuleRetinue : ModuleBase
 
     public override void ChangeColor(Color color)
     {
-        base.ChangeColor(color);
+        ClientUtils.ChangeEmissionColor(MainBoardRenderer, color, MainboardEmissionIntensity);
         ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
         ClientUtils.ChangeColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor);
     }

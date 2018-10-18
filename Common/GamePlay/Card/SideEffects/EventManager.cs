@@ -65,20 +65,22 @@ public class EventManager
 
     public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
     {
-        //先进行失效SEE的移除
-        Invoke_RemoveSEE(tt, executerInfo);
-
         InvokeStackDepth++;
         Dictionary<int, SideEffectExecute> seeDict = Events[tt];
-        foreach (KeyValuePair<int, SideEffectExecute> kv in seeDict)
+        SideEffectExecute[] sees = seeDict.Values.ToArray();
+        for (int i = 0; i < sees.Length; i++)
         {
-            SideEffectExecute see = kv.Value;
-            SideEffectBase se = see.SideEffectBase;
-            SideEffectBundle.TriggerRange tr = see.TriggerRange;
+            SideEffectExecute see = sees[i];
             if (uselessSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
-            bool isTrigger = isExecuteTrigger(executerInfo, se.M_ExecuterInfo, tr);
-            if (isTrigger) Trigger(see, executerInfo, tt, tr);
+            if (seeDict.ContainsKey(see.ID))
+            {
+                bool isTrigger = isExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.TriggerRange);
+                if (isTrigger) Trigger(see, executerInfo, tt, see.TriggerRange);
+            }
         }
+
+        //进行失效SEE的移除
+        Invoke_RemoveSEE(tt, executerInfo);
 
         InvokeStackDepth--; //由于触发事件经常嵌套发生，加入栈深度，都执行完毕清空废弃SEE
         if (InvokeStackDepth == 0)
@@ -91,14 +93,16 @@ public class EventManager
     public void Invoke_RemoveSEE(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
     {
         Dictionary<int, SideEffectExecute> seeDict = RemoveEvents[tt];
-        foreach (KeyValuePair<int, SideEffectExecute> kv in seeDict)
+        SideEffectExecute[] sees = seeDict.Values.ToArray();
+        for (int i = 0; i < sees.Length; i++)
         {
-            SideEffectExecute see = kv.Value;
-            SideEffectBase se = see.SideEffectBase;
-            SideEffectBundle.TriggerRange tr = see.RemoveTriggerRange;
+            SideEffectExecute see = sees[i];
             if (uselessSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
-            bool isTrigger = isExecuteTrigger(executerInfo, se.M_ExecuterInfo, tr);
-            if (isTrigger) Trigger_Remove(see);
+            if (seeDict.ContainsKey(see.ID))
+            {
+                bool isTrigger = isExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.TriggerRange);
+                if (isTrigger) Trigger_Remove(see);
+            }
         }
 
         RemoveAllUselessSEEs(); //移除所有失效的SE
