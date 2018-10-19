@@ -106,7 +106,7 @@ public class EventManager
             if (seeDict.ContainsKey(see.ID))
             {
                 bool isTrigger = isExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.RemoveTriggerRange);
-                if (isTrigger) Trigger_Remove(see);
+                if (isTrigger) Trigger_TryRemove(see);
             }
         }
 
@@ -127,7 +127,10 @@ public class EventManager
 
             if (kv.Value.SideEffectBase.M_ExecuterInfo.IsPlayerBuff) //PlayerBuff
             {
-                OnEventPlayerBuffRemoveHandler(kv.Value);
+                if (kv.Value.SideEffectBase is PlayerBuffSideEffects buff)
+                {
+                    OnEventPlayerBuffRemoveHandler(kv.Value, buff);
+                }
             }
         }
 
@@ -203,7 +206,7 @@ public class EventManager
         }
     }
 
-    private void Trigger_Remove(SideEffectExecute see)
+    private void Trigger_TryRemove(SideEffectExecute see)
     {
         if (see.RemoveTriggerTimes > 0) //移除判定剩余次数减少，为0时移除
         {
@@ -214,7 +217,10 @@ public class EventManager
             }
             else
             {
-                OnEventPlayerBuffReduceHandler(see);
+                if (see.SideEffectBase is PlayerBuffSideEffects buff)
+                {
+                    OnEventPlayerBuffUpdateHandler(see, buff, false);
+                }
             }
         }
     }
@@ -228,11 +234,11 @@ public class EventManager
 
     public OnEventInvokeEnd OnEventInvokeEndHandler;
 
-    public delegate void OnEventPlayerBuffReduce(SideEffectExecute sideEffectExecute);
+    public delegate void OnEventPlayerBuffUpdate(SideEffectExecute sideEffectExecute, PlayerBuffSideEffects buff, bool isAdd);
 
-    public OnEventPlayerBuffReduce OnEventPlayerBuffReduceHandler;
+    public OnEventPlayerBuffUpdate OnEventPlayerBuffUpdateHandler;
 
-    public delegate void OnEventPlayerBuffRemove(SideEffectExecute sideEffectExecute);
+    public delegate void OnEventPlayerBuffRemove(SideEffectExecute sideEffectExecute, PlayerBuffSideEffects buff);
 
     public OnEventPlayerBuffRemove OnEventPlayerBuffRemoveHandler;
 }

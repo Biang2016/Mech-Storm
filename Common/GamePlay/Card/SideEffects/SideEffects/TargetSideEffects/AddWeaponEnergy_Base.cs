@@ -34,16 +34,6 @@
         Factor = factor;
     }
 
-    public override int CalculateDamage()
-    {
-        return 0;
-    }
-
-    public override int CalculateHeal()
-    {
-        return 0;
-    }
-
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);

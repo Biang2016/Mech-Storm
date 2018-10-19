@@ -11,6 +11,6 @@ public class Initialization : MonoSingletion<Initialization>
     void Awake()
     {
         Instantiate(Manager);
-        ClientLog.Instance.PrintClientStates("启动客户端...");
+        ClientLog.Instance.PrintClientStates("Start the client...");
     }
 }

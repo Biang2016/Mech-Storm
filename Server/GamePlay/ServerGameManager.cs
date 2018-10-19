@@ -24,7 +24,7 @@ internal class ServerGameManager
 
         EventManager = new EventManager();
 
-        EventManager.OnEventPlayerBuffReduceHandler += OnPlayerBuffReduce;
+        EventManager.OnEventPlayerBuffUpdateHandler += OnPlayerBuffReduce;
         EventManager.OnEventPlayerBuffRemoveHandler += OnPlayerBuffRemove;
         EventManager.OnEventInvokeEndHandler += SendAllDieInfos;
         EventManager.OnEventInvokeHandler += OnSETriggered;
@@ -419,16 +419,14 @@ internal class ServerGameManager
         Broadcast_AddRequestToOperationResponse(request);
     }
 
-    public void OnPlayerBuffReduce(SideEffectExecute see) //buff剩余次数减少
+    public void OnPlayerBuffReduce(SideEffectExecute see, PlayerBuffSideEffects buff, bool isAdd) //buff剩余次数减少
     {
-        PlayerA.ReducePlayerBuff(see);
-        PlayerB.ReducePlayerBuff(see);
+        ((ServerPlayer) see.SideEffectBase.Player).UpdatePlayerBuff(see, buff, isAdd);
     }
 
-    public void OnPlayerBuffRemove(SideEffectExecute see) //buff剩余次数减少
+    public void OnPlayerBuffRemove(SideEffectExecute see, PlayerBuffSideEffects buff) //buff剩余次数减少
     {
-        PlayerA.RemovePlayerBuff(see);
-        PlayerB.RemovePlayerBuff(see);
+        ((ServerPlayer) see.SideEffectBase.Player).RemovePlayerBuff(see, buff);
     }
 
     #endregion

@@ -174,9 +174,6 @@ public abstract class TargetSideEffect : SideEffectBase
         }
     }
 
-    public abstract int CalculateDamage();
-    public abstract int CalculateHeal();
-
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);

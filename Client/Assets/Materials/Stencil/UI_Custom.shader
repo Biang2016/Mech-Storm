@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "UI/Default-Stencil-1"
+Shader "UI/UI_Custom"
 {
     Properties
     {

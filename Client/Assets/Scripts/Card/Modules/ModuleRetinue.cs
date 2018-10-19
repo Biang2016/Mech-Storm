@@ -1068,6 +1068,18 @@ public class ModuleRetinue : ModuleBase
 
     public void Attack(ModuleRetinue targetRetinue, bool isCounterAttack)
     {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_Attack(targetRetinue, isCounterAttack), "Co_Attack");
+    }
+
+    IEnumerator Co_Attack(ModuleRetinue targetRetinue, bool isCounterAttack)
+    {
+        AttackCore(targetRetinue, isCounterAttack);
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
+    public void AttackCore(ModuleRetinue targetRetinue, bool isCounterAttack)
+    {
         if (M_Weapon && !isCounterAttack) M_Weapon.OnAttack(); //武器特效
         int damage = 0;
         bool canCounter = !isCounterAttack && M_AttackLevel <= targetRetinue.M_AttackLevel; //对方能否反击
@@ -1081,7 +1093,6 @@ public class ModuleRetinue : ModuleBase
                     damage = M_RetinueAttack * M_RetinueWeaponEnergy;
                     if (!isCounterAttack) OnAttack(damage, WeaponTypes.Sword); //机甲特效
                     int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
-                    ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
                     if (dodgeRandomNumber < DodgeProp) //闪避成功
                     {
                         targetRetinue.OnDodge();
@@ -1093,7 +1104,7 @@ public class ModuleRetinue : ModuleBase
                         if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
                     }
 
-                    if (canCounter) targetRetinue.Attack(this, true); //对方反击
+                    if (canCounter) targetRetinue.AttackCore(this, true); //对方反击
                     break;
                 }
 
@@ -1116,7 +1127,6 @@ public class ModuleRetinue : ModuleBase
                     {
                         OnAttack(damage, WeaponTypes.Gun); //机甲特效
                         int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
-                        ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
                         if (dodgeRandomNumber < DodgeProp) //闪避成功
                         {
                             targetRetinue.OnDodge();
@@ -1131,7 +1141,7 @@ public class ModuleRetinue : ModuleBase
                         if (targetRetinue.M_RetinueLeftLife <= 0 || M_RetinueWeaponEnergy <= 0) break;
                     }
 
-                    if (canCounter) targetRetinue.Attack(this, true); //对方反击
+                    if (canCounter) targetRetinue.AttackCore(this, true); //对方反击
                     break;
                 }
 
@@ -1140,7 +1150,6 @@ public class ModuleRetinue : ModuleBase
                     if (isCounterAttack) break; //狙击枪无法反击
                     OnAttack(damage, WeaponTypes.SniperGun); //机甲特效
                     int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
-                    ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
                     if (dodgeRandomNumber < DodgeProp) //闪避成功
                     {
                         targetRetinue.OnDodge();
@@ -1153,7 +1162,7 @@ public class ModuleRetinue : ModuleBase
 
                     M_RetinueWeaponEnergy--;
                     if (targetRetinue.M_RetinueLeftLife <= 0) break;
-                    if (canCounter) targetRetinue.Attack(this, true); //对方反击
+                    if (canCounter) targetRetinue.AttackCore(this, true); //对方反击
                     break;
                 }
             }
@@ -1162,7 +1171,6 @@ public class ModuleRetinue : ModuleBase
         {
             damage = M_RetinueAttack;
             int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
-            ClientLog.Instance.Print("randomtest" + dodgeRandomNumber);
             if (dodgeRandomNumber < DodgeProp) //闪避成功
             {
                 targetRetinue.OnDodge();
@@ -1174,7 +1182,7 @@ public class ModuleRetinue : ModuleBase
             }
 
             OnAttack(damage, WeaponTypes.None); //机甲特效
-            if (canCounter) targetRetinue.Attack(this, true); //对方反击
+            if (canCounter) targetRetinue.AttackCore(this, true); //对方反击
         }
 
         AttackTimesThisRound -= 1;

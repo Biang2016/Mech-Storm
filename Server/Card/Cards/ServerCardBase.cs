@@ -46,7 +46,7 @@
                 ((CardRelatedSideEffect) see.SideEffectBase).TargetCardInstanceId = M_CardInstanceId;
             }
 
-            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
+            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, sideEffectExecutorID: see.ID, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
         }
 
         ServerPlayer.MyGameManager.EventManager.RegisterEvent(CardInfo.SideEffectBundle);

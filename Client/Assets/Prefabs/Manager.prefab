@@ -19746,6 +19746,7 @@ MonoBehaviour:
   EnglishFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   ChineseFont: {fileID: 12800000, guid: 5c0c60ed7d94b5e48976972508a64804, type: 3}
   ShowBEMMessages: 0
+  ShowClientLogs: 1
   HandCardSize: 1.5
   HandCardInterval: 1
   HandCardRotate: 1

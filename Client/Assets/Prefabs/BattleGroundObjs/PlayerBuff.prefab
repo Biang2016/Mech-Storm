@@ -270,6 +270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ca03985dc58e94183df6c61190e4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuffId: 0
+  RotatePanel: {fileID: 224716410920996276}
+  BuffBloom: {fileID: 0}
   BuffValuePanel: {fileID: 114188578259341412}
   BuffValueText: {fileID: 114544799468617030}
   BuffDescText: {fileID: 0}
@@ -406,18 +409,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Jump
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 114438643888871726}
-          m_MethodName: SetPreview
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Hover
             m_BoolArgument: 0
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
@@ -435,17 +427,6 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Reset
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 114438643888871726}
-          m_MethodName: HidePreview
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,

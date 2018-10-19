@@ -35,13 +35,20 @@ internal class Server
 
     public void Start()
     {
+        AllColors.DebugLogHandler = ServerLog.PrintError;
         AllColors.AddAllColors("./Config/Colors.xml");
-        AllBuffs.AddAllBuffs("./Config/AllBuffs.xml");
+        AllSideEffects.DebugLogHandler = ServerLog.PrintError;
         AllSideEffects.AddAllSideEffects("./Config/SideEffects.xml");
+        AllBuffs.DebugLogHandler = ServerLog.PrintError;
+        AllBuffs.AddAllBuffs("./Config/Buffs.xml");
+        AllCards.DebugLogHandler = ServerLog.PrintError;
         AllCards.AddAllCards("./Config/Cards.xml");
         ServerLog.PrintServerStates("CardDeck Loaded");
         SGMM = new ServerGameMatchManager();
-        string res = AllCards.GetCard(70302).GetCardDescShow(true);
+
+        string res = AllCards.GetCard(61501).GetCardDescShow(true);
+        ServerLog.Print(res);
+        //SideEffectExecute see= AllBuffs.GetBuff("AddEnergyWhenAttack");
         //AllCards.GetCard(30101).GetCardDescShow(true);
         OnRestartProtocols();
         OnRestartSideEffects();

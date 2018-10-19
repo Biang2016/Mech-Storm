@@ -147,6 +147,9 @@ public class SideEffectBundle
 
         OnEquipDie,
 
+        OnMakeDamage,
+        OnMakeSpellDamage,
+
         OnPlayerGetEnergy,
         OnPlayerUseEnergy,
         OnPlayerAddLife,
@@ -190,6 +193,9 @@ public class SideEffectBundle
 
         {TriggerTime.OnEquipDie, "{0}装备破坏时, "},
 
+        {TriggerTime.OnMakeDamage, "{0}造成伤害时, "},
+        {TriggerTime.OnMakeSpellDamage, "{0}造成法术伤害时, "},
+
         {TriggerTime.OnPlayerGetEnergy, "当{0}获得能量时, "},
         {TriggerTime.OnPlayerUseEnergy, "当{0}消耗能量时, "},
         {TriggerTime.OnPlayerAddLife, "当{0}获得生命时, "},
@@ -231,7 +237,10 @@ public class SideEffectBundle
         {TriggerTime.OnHeroDie, "When {0} HeroMech died, "},
         {TriggerTime.OnSoldierDie, "When {0} SoldierMech died, "},
 
-        {TriggerTime.OnEquipDie, "When {0} Mech's Equipment broken"},
+        {TriggerTime.OnEquipDie, "When {0} Mech's Equipment broken, "},
+
+        {TriggerTime.OnMakeDamage, "When {0} deal damage, "},
+        {TriggerTime.OnMakeSpellDamage, "When {0} deal spell damage, "},
 
         {TriggerTime.OnPlayerGetEnergy, "When {0} get energy, "},
         {TriggerTime.OnPlayerUseEnergy, "When {0} consume energy, "},

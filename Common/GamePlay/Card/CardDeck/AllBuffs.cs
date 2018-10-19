@@ -8,6 +8,11 @@ public static class AllBuffs
 {
     public static Dictionary<string, SideEffectExecute> BuffDict = new Dictionary<string, SideEffectExecute>();
 
+    public delegate void DebugLog(string log);
+
+    public static DebugLog DebugLogHandler;
+
+
     private static void addBuff(SideEffectExecute seb)
     {
         BuffDict.Add(seb.SideEffectBase.Name, seb);
@@ -31,20 +36,32 @@ public static class AllBuffs
         {
             XmlNode sideEffectNode = allBuffs.ChildNodes.Item(i);
 
-            PlayerBuffSideEffects se = (PlayerBuffSideEffects) CurrentAssembly.CreateInstance("SideEffects." + sideEffectNode.Attributes["name"].Value);
+            string name = sideEffectNode.Attributes["name"].Value;
+            PlayerBuffSideEffects se = (PlayerBuffSideEffects) CurrentAssembly.CreateInstance("SideEffects." + name);
+            if (se == null)
+            {
+                DebugLogHandler("Buffs: " + name + " does not exist");
+                continue;
+            }
+
             se.Name = sideEffectNode.Attributes["name"].Value;
             se.DescRaw = sideEffectNode.Attributes["desc"].Value;
             se.DescRaw_en = sideEffectNode.Attributes["desc_en"].Value;
 
-            SideEffectBundle.TriggerTime triggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), sideEffectNode.Attributes["triggerTime"].Value);
-            SideEffectBundle.TriggerRange triggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), sideEffectNode.Attributes["triggerRange"].Value);
-            int triggerDelayTimes = int.Parse(sideEffectNode.Attributes["triggerDelayTimes"].Value);
-            int triggerTimes = int.Parse(sideEffectNode.Attributes["triggerTimes"].Value);
-            SideEffectBundle.TriggerTime removeTriggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), sideEffectNode.Attributes["removeTriggerTime"].Value);
-            SideEffectBundle.TriggerRange removeTriggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), sideEffectNode.Attributes["removeTriggerRange"].Value);
-            int removeTriggerTimes = int.Parse(sideEffectNode.Attributes["removeTriggerTimes"].Value);
+            se.BuffPicId = int.Parse(sideEffectNode.Attributes["BuffPicId"].Value);
+            se.HasNumberShow = sideEffectNode.Attributes["HasNumberShow"].Value == "True";
+            se.CanPiled = sideEffectNode.Attributes["CanPiled"].Value == "True";
+            se.Singleton = sideEffectNode.Attributes["Singleton"].Value == "True";
 
-            SideEffectExecute see = new SideEffectExecute(se, triggerTime, triggerRange, triggerDelayTimes, triggerTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes);
+            se.TriggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), sideEffectNode.Attributes["TriggerTime"].Value);
+            se.TriggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), sideEffectNode.Attributes["TriggerRange"].Value);
+            se.TriggerDelayTimes = int.Parse(sideEffectNode.Attributes["TriggerDelayTimes"].Value);
+            se.TriggerTimes = int.Parse(sideEffectNode.Attributes["TriggerTimes"].Value);
+            se.RemoveTriggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), sideEffectNode.Attributes["RemoveTriggerTime"].Value);
+            se.RemoveTriggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), sideEffectNode.Attributes["RemoveTriggerRange"].Value);
+            se.RemoveTriggerTimes = int.Parse(sideEffectNode.Attributes["RemoveTriggerTimes"].Value);
+
+            SideEffectExecute see = new SideEffectExecute(se, se.TriggerTime, se.TriggerRange, se.TriggerDelayTimes, se.TriggerTimes, se.RemoveTriggerTime, se.RemoveTriggerRange, se.RemoveTriggerTimes);
 
             for (int k = 0; k < sideEffectNode.ChildNodes.Count; k++)
             {

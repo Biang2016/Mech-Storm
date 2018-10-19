@@ -373,6 +373,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
     {
         if (DragManager.Instance.IsSummonPreview) return;
         HideCardDetail();
+        if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show_ReadOnly) return;
         GameManager.Instance.StopBlurBackGround();
     }
 

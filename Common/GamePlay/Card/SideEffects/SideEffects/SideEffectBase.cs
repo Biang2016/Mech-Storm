@@ -108,7 +108,9 @@ public partial class SideEffectBase
     public class ExecuterInfo
     {
         public const int EXECUTE_INFO_NONE = -999;
+        public const int EXECUTOR_ID_EVENTS = -1;
 
+        public int SideEffectExecutorID;
         public int ClientId;
         public int TargetClientId;
         public int RetinueId;
@@ -120,10 +122,11 @@ public partial class SideEffectBase
         public int Value;
         public bool IsPlayerBuff;
 
-        public ExecuterInfo(int clientId, int targetClientId = EXECUTE_INFO_NONE, int retinueId = EXECUTE_INFO_NONE, int targetRetinueId = EXECUTE_INFO_NONE, int cardId = EXECUTE_INFO_NONE, int cardInstanceId = EXECUTE_INFO_NONE, int equipId = EXECUTE_INFO_NONE, int targetEquipId = EXECUTE_INFO_NONE, int value = 0, bool isPlayerBuff = false)
+        public ExecuterInfo( int clientId, int targetClientId = EXECUTE_INFO_NONE, int sideEffectExecutorID= EXECUTOR_ID_EVENTS, int retinueId = EXECUTE_INFO_NONE, int targetRetinueId = EXECUTE_INFO_NONE, int cardId = EXECUTE_INFO_NONE, int cardInstanceId = EXECUTE_INFO_NONE, int equipId = EXECUTE_INFO_NONE, int targetEquipId = EXECUTE_INFO_NONE, int value = 0, bool isPlayerBuff = false)
         {
             ClientId = clientId;
             TargetClientId = targetClientId;
+            SideEffectExecutorID = sideEffectExecutorID;
             RetinueId = retinueId;
             TargetRetinueId = targetRetinueId;
             CardId = cardId;
@@ -136,13 +139,14 @@ public partial class SideEffectBase
 
         public ExecuterInfo Clone()
         {
-            return new ExecuterInfo(ClientId, TargetClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId, Value);
+            return new ExecuterInfo(ClientId, TargetClientId, SideEffectExecutorID, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId, Value);
         }
 
         public void Serialize(DataStream writer)
         {
             writer.WriteSInt32(ClientId);
             writer.WriteSInt32(TargetClientId);
+            writer.WriteSInt32(SideEffectExecutorID);
             writer.WriteSInt32(RetinueId);
             writer.WriteSInt32(TargetRetinueId);
             writer.WriteSInt32(CardId);
@@ -156,6 +160,7 @@ public partial class SideEffectBase
         {
             int ClientId = reader.ReadSInt32();
             int TargetClientId = reader.ReadSInt32();
+            int SideEffectExecutorID = reader.ReadSInt32();
             int RetinueId = reader.ReadSInt32();
             int TargetRetinueId = reader.ReadSInt32();
             int CardId = reader.ReadSInt32();
@@ -163,7 +168,7 @@ public partial class SideEffectBase
             int EquipId = reader.ReadSInt32();
             int TargetEquipId = reader.ReadSInt32();
             int Value = reader.ReadSInt32();
-            return new ExecuterInfo(ClientId, TargetClientId, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId, Value);
+            return new ExecuterInfo(ClientId, TargetClientId, SideEffectExecutorID, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId, Value);
         }
 
         public string DeserializeLog()
@@ -171,6 +176,7 @@ public partial class SideEffectBase
             string log = "";
             log += " [ClientId]=" + ClientId;
             log += " [TargetClientId]=" + TargetClientId;
+            log += " [SideEffectExecutorID]=" + SideEffectExecutorID;
             log += " [RetinueId]=" + RetinueId;
             log += " [TargetRetinueId]=" + TargetRetinueId;
             log += " [CardId]=" + CardId;

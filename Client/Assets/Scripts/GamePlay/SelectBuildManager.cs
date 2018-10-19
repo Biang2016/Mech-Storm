@@ -85,7 +85,10 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                         if (Client.Instance.IsLogin() && !Client.Instance.IsMatching()) ShowWindow();
                         break;
                     case States.Show_ReadOnly:
-                        if (Client.Instance.IsPlaying() || Client.Instance.IsMatching()) ShowWindowReadOnly();
+                        if (Client.Instance.IsPlaying() || Client.Instance.IsMatching())
+                        {
+                            ShowWindowReadOnly();
+                        }
                         break;
                 }
 
@@ -162,6 +165,10 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
 
         private void ShowWindow()
         {
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
+            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+            AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/SelectCardMenu0", "bgm/SelectCardMenu1"});
+
             GameManager.Instance.StartBlurBackGround();
             Instance.Canvas.gameObject.SetActive(true);
             Instance.Canvas_BG.gameObject.SetActive(true);
@@ -185,14 +192,11 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             Instance.EnergySlider.interactable = true;
             Instance.CoinSlider.interactable = false;
             Instance.CardNumberSlider.interactable = true;
-
-            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
-            AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/SelectCardMenu0", "bgm/SelectCardMenu1"});
         }
 
         private void ShowWindowReadOnly()
         {
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
             GameManager.Instance.StartBlurBackGround();
             Instance.Canvas.gameObject.SetActive(true);
             Instance.Canvas_BG.gameObject.SetActive(true);
@@ -216,8 +220,6 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
             Instance.EnergySlider.interactable = false;
             Instance.CoinSlider.interactable = false;
             Instance.CardNumberSlider.interactable = false;
-
-            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
         }
 
         private void HideWindow()

@@ -7,6 +7,11 @@ public static class AllSideEffects
 {
     public static Dictionary<string, SideEffectBase> SideEffectsNameDict = new Dictionary<string, SideEffectBase>();
 
+    public delegate void DebugLog(string log);
+
+    public static DebugLog DebugLogHandler;
+
+
     private static void addSideEffect(SideEffectBase sideEffectBase)
     {
         SideEffectsNameDict.Add(sideEffectBase.Name, sideEffectBase);
@@ -30,7 +35,14 @@ public static class AllSideEffects
         {
             XmlNode sideEffectNode = allSideEffects.ChildNodes.Item(i);
 
-            SideEffectBase se = (SideEffectBase) CurrentAssembly.CreateInstance("SideEffects." + sideEffectNode.Attributes["name"].Value);
+            string name = sideEffectNode.Attributes["name"].Value;
+            SideEffectBase se = (SideEffectBase) CurrentAssembly.CreateInstance("SideEffects." + name);
+            if (se == null)
+            {
+                DebugLogHandler("SideEffects: " + name + " does not exist");
+                continue;
+            }
+
             se.Name = sideEffectNode.Attributes["name"].Value;
             se.DescRaw = sideEffectNode.Attributes["desc"].Value;
             se.DescRaw_en = sideEffectNode.Attributes["desc_en"].Value;

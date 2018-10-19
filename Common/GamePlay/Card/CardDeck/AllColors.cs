@@ -9,6 +9,11 @@ public static class AllColors
     public static Dictionary<ColorType, string> ColorDict = new Dictionary<ColorType, string>();
     public static Dictionary<ColorType, float> IntensityDict = new Dictionary<ColorType, float>();
 
+    public delegate void DebugLog(string log);
+
+    public static DebugLog DebugLogHandler;
+
+
     public enum ColorType
     {
         SoldierCardColor,

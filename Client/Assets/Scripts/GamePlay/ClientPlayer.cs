@@ -38,7 +38,6 @@ public class ClientPlayer : Player
     protected override void OnMetalChanged(int change)
     {
         if (IsInitialized) MyMetalLifeEnergyManager.SetMetal(MetalLeft);
-        if (change != 0) MyMetalLifeEnergyManager.OnEnergyChange(change);
     }
 
     public void DoChangeMetal(PlayerMetalChangeRequest request)

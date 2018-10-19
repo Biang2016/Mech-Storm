@@ -31,6 +31,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             base.PoolRecycle();
         }
 
+        if (CardBackRenderer) CardBackRenderer.gameObject.SetActive(true);
         gameObject.SetActive(true);
         CardBloom.SetActive(false);
     }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MetalLifeEnergyManager : MonoBehaviour
@@ -48,11 +50,11 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
         if (change > 0)
         {
-            LifeNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up);
+            LifeNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up, 1.5f);
         }
         else if (change < 0)
         {
-            LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
+            LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down, 1.5f);
             HitManager.Instance.ShowHit(LifeIcon.transform, HitManager.HitType.Blade, "#FFFFFF", 0.2f);
             AudioManager.Instance.SoundPlay("sfx/OnHitShip");
             AudioManager.Instance.SoundPlay("sfx/OnHitShipDuuu");
@@ -66,21 +68,20 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     public void SetEnergy(int value, int change)
     {
+        ClientPlayer.MyHandManager.RefreshAllCardUsable();
         EnergyNumber.text = value.ToString();
         EnergyBar.fillAmount = (float) value / ClientPlayer.EnergyMax;
         EnergyIconAnim.SetTrigger("Jump");
         EnergyIconAnim.SetTrigger("Reset");
         EnergyNumberAnim.SetTrigger("Jump");
         EnergyTotalNumberAnim.SetTrigger("Jump");
-        ClientPlayer.MyHandManager.RefreshAllCardUsable();
-
         if (change > 0)
         {
-            EnergyNumberFly.SetText("+" + change, "#00D2FF", "#00D2FF", TextFly.FlyDirection.Up);
+            EnergyNumberFly.SetText("+" + change, "#00D2FF", "#00D2FF", TextFly.FlyDirection.Up, 1.5f);
         }
         else if (change < 0)
         {
-            EnergyNumberFly.SetText(change.ToString(), "#00D2FF", "#00D2FF", TextFly.FlyDirection.Down);
+            EnergyNumberFly.SetText(change.ToString(), "#00D2FF", "#00D2FF", TextFly.FlyDirection.Down, 1.5f);
         }
     }
 

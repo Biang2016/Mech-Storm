@@ -12,7 +12,7 @@ public class PlayerBuffManager : MonoBehaviour
     internal ClientPlayer ClientPlayer;
     [SerializeField] private Transform Content;
 
-    Dictionary<int, PlayerBuff> PlayerBuffs = new Dictionary<int, PlayerBuff>();
+    Dictionary<int, PlayerBuff> PlayerBuffs = new Dictionary<int, PlayerBuff>(); //客户端buff按ID进行更改和存储，堆叠等逻辑在服务端处理好分发正确的buffID给客户端，而客户端不考虑堆叠等逻辑。
 
     void Start()
     {
@@ -28,22 +28,24 @@ public class PlayerBuffManager : MonoBehaviour
         PlayerBuffs.Clear();
     }
 
-    public void UpdatePlayerBuff(int buffId, int buffValue, int buffPicId, bool hasNumberShow)
+    public void UpdatePlayerBuff(string buffName, int buffId, int buffValue)
     {
         if (PlayerBuffs.ContainsKey(buffId))
         {
-            PlayerBuffs[buffId].BuffValue = buffValue;
+            PlayerBuffs[buffId].UpdateValue(buffValue);
         }
         else
         {
-            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AddBuff(buffId, buffValue, buffPicId, hasNumberShow), "Co_AddBuff");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AddBuff(buffName, buffId, buffValue), "Co_AddBuff");
         }
     }
 
-    IEnumerator Co_AddBuff(int buffId, int buffValue, int buffPicId, bool hasNumberShow)
+    IEnumerator Co_AddBuff(string buffName, int buffId, int buffValue)
     {
+        PlayerBuffSideEffects buff = (PlayerBuffSideEffects) AllBuffs.GetBuff(buffName).SideEffectBase;
         PlayerBuff pb = GameObjectPoolManager.Instance.Pool_PlayerBuffPool.AllocateGameObject<PlayerBuff>(Content);
-        pb.UpdateValue(buffPicId, buffId, buffValue, hasNumberShow);
+        pb.SetRotation(ClientPlayer.WhichPlayer);
+        pb.Init(buff, buffId, buffValue);
         PlayerBuffs.Add(buffId, pb);
         yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -61,10 +63,10 @@ public class PlayerBuffManager : MonoBehaviour
         {
             PlayerBuffs[buffId].OnRemove();
             yield return new WaitForSeconds(0.3f);
-            BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-            yield return null;
             PlayerBuffs[buffId].PoolRecycle();
             PlayerBuffs.Remove(buffId);
+            BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+            yield return null;
         }
         else
         {

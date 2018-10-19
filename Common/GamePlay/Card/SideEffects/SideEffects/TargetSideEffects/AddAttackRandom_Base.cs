@@ -1,4 +1,4 @@
-﻿public class AddAttackRandom_Base : TargetSideEffect, IEffectFactor
+﻿public class AddAttackRandom_Base : TargetSideEffect, IEffectFactor,IDamage
 {
     public int Value;
     public int Factor = 1;
@@ -25,14 +25,9 @@
         Value = reader.ReadSInt32();
     }
 
-    public override int CalculateDamage()
+    public int CalculateDamage()
     {
-        return 0;
-    }
-
-    public override int CalculateHeal()
-    {
-        return 0;
+        return FinalValue;
     }
 
     public void SetEffetFactor(int factor)

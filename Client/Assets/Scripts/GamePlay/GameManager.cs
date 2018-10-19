@@ -9,31 +9,15 @@ public class GameManager : MonoSingletion<GameManager>
     private void Awake()
     {
         InitializeClientGameSettings();
-        try
-        {
-            AllColors.AddAllColors(Application.streamingAssetsPath + "/Config/Colors.xml");
-        }
-        catch 
-        {
-            ClientLog.Instance.PrintError("SideEffects Load Failed");
-        }
-        try
-        {
-            AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
-        }
-        catch 
-        {
-            ClientLog.Instance.PrintError("SideEffects Load Failed");
-        }
+        AllColors.DebugLogHandler = ClientLog.Instance.PrintError;
+        AllSideEffects.DebugLogHandler = ClientLog.Instance.PrintError;
+        AllBuffs.DebugLogHandler = ClientLog.Instance.PrintError;
+        AllCards.DebugLogHandler = ClientLog.Instance.PrintError;
 
-        try
-        {
-            AllCards.AddAllCards(Application.streamingAssetsPath + "/Config/Cards.xml");
-        }
-        catch 
-        {
-            ClientLog.Instance.PrintError("Cards Load Failed");
-        }
+        AllColors.AddAllColors(Application.streamingAssetsPath + "/Config/Colors.xml");
+        AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
+        AllBuffs.AddAllBuffs(Application.streamingAssetsPath + "/Config/Buffs.xml");
+        AllCards.AddAllCards(Application.streamingAssetsPath + "/Config/Cards.xml");
     }
 
     public Camera BattleGroundCamera;
@@ -52,6 +36,7 @@ public class GameManager : MonoSingletion<GameManager>
     internal Vector3 UseCardShowPosition_Overlay = new Vector3(10, 3, 0.2f);
 
     public bool ShowBEMMessages = false;
+    public bool ShowClientLogs = false;
 
     public float HandCardSize = 1.5f;
     public float HandCardInterval = 1.0f;

@@ -44,6 +44,6 @@
 
   <SideEffect name="SummonRetinuePerMechs" desc="对每{0},召唤一个[{1}], " desc_en="Summon [{1}] for every {0}. "></SideEffect>
 
-  <SideEffect name="AddPlayerBuff" desc="" desc_en=""></SideEffect>
+  <SideEffect name="AddPlayerBuff" desc="{0}" desc_en="{0}"></SideEffect>
 
 </AllSideEffects>

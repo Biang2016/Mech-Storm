@@ -25,16 +25,6 @@
         Value = reader.ReadSInt32();
     }
 
-    public override int CalculateDamage()
-    {
-        return 0;
-    }
-
-    public override int CalculateHeal()
-    {
-        return FinalValue;
-    }
-
     public void SetEffetFactor(int factor)
     {
         Factor = factor;

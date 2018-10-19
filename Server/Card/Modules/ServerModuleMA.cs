@@ -13,6 +13,7 @@
             see.SideEffectBase.Player = ServerPlayer;
             see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(
                 clientId: ServerPlayer.ClientId,
+                sideEffectExecutorID: see.ID,
                 retinueId: M_ModuleRetinue.M_RetinueID,
                 equipId: M_EquipID
             );
@@ -23,6 +24,7 @@
             see.SideEffectBase.Player = ServerPlayer;
             see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(
                 clientId: ServerPlayer.ClientId,
+                sideEffectExecutorID: see.ID,
                 retinueId: M_ModuleRetinue.M_RetinueID,
                 equipId: M_EquipID
             );

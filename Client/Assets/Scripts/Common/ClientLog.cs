@@ -38,7 +38,10 @@ public class ClientLog : MonoSingletion<ClientLog>
             Log log = LogMessages.Dequeue();
             if (log != null)
             {
-                Debug.Log("<color=#" + log.Color + ">" + log.LogStr + "</color>");
+                if (GameManager.Instance.ShowClientLogs)
+                {
+                    Debug.Log("<color=#" + log.Color + ">" + log.LogStr + "</color>");
+                }
             }
         }
     }

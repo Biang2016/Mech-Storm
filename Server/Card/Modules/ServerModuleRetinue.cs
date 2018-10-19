@@ -21,6 +21,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             see.SideEffectBase.Player = ServerPlayer;
             see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(
                 ServerPlayer.ClientId,
+                sideEffectExecutorID:see.ID,
                 retinueId: M_RetinueID
             );
             if (see.SideEffectBase is AddSelfWeaponEnergy seb) seb.RetinueID = M_RetinueID;
@@ -31,6 +32,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             see.SideEffectBase.Player = ServerPlayer;
             see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(
                 ServerPlayer.ClientId,
+                sideEffectExecutorID:see.ID,
                 retinueId: M_RetinueID
             );
             if (see.SideEffectBase is AddSelfWeaponEnergy seb) seb.RetinueID = M_RetinueID;
@@ -867,7 +869,10 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     private void OnMakeDamage(int damage)
     {
-        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueMakeDamage, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));
+        SideEffectBase.ExecuterInfo ei = new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID);
+
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnRetinueMakeDamage, ei);
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnMakeDamage, ei);
         if (CardInfo.RetinueInfo.IsSoldier)
         {
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierMakeDamage, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID));

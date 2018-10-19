@@ -80,14 +80,17 @@ public class DebugConsole : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(toggleKey))
+        if (GameManager.Instance.ShowClientLogs)
         {
-            visible = !visible;
-        }
+            if (Input.GetKeyDown(toggleKey))
+            {
+                visible = !visible;
+            }
 
-        if (shakeToOpen && Input.acceleration.sqrMagnitude > shakeAcceleration)
-        {
-            visible = true;
+            if (shakeToOpen && Input.acceleration.sqrMagnitude > shakeAcceleration)
+            {
+                visible = true;
+            }
         }
     }
 

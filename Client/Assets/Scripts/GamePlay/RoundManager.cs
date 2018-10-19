@@ -111,6 +111,9 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
         GameBoardManager.Instance.EnemyBattleGroundManager.ResetAll();
         GameBoardManager.Instance.SelfHandManager.ResetAll();
         GameBoardManager.Instance.EnemyHandManager.ResetAll();
+        GameBoardManager.Instance.SelfPlayerBuffManager.ResetAll();
+        GameBoardManager.Instance.EnemyPlayerBuffManager.ResetAll();
+
         SelfClientPlayer = null;
         EnemyClientPlayer = null;
         CurrentClientPlayer = null;

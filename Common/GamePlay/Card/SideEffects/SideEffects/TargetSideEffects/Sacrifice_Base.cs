@@ -1,4 +1,4 @@
-﻿public class Sacrifice_Base : TargetSideEffect, IEffectFactor
+﻿public class Sacrifice_Base : TargetSideEffect, IEffectFactor, IDamage
 {
     public int ValueBasic;
     public int ValuePlus;
@@ -33,15 +33,11 @@
         ValuePlus = reader.ReadSInt32();
     }
 
-    public override int CalculateDamage()
+    public int CalculateDamage()
     {
         return 0;
     }
 
-    public override int CalculateHeal()
-    {
-        return 0;
-    }
 
     public void SetEffetFactor(int factor)
     {

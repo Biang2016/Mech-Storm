@@ -1,4 +1,4 @@
-﻿public class HealRandom_Base : TargetSideEffect
+﻿public class HealRandom_Base : TargetSideEffect, IEffectFactor
 {
     public int Value;
     public int Factor = 1;
@@ -10,7 +10,7 @@
 
     public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat( isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, true), FinalValue);
+        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, true), FinalValue);
     }
 
     public override void Serialize(DataStream writer)
@@ -23,16 +23,6 @@
     {
         base.Deserialize(reader);
         Value = reader.ReadSInt32();
-    }
-
-    public override int CalculateDamage()
-    {
-        return 0;
-    }
-
-    public override int CalculateHeal()
-    {
-        return FinalValue;
     }
 
     public void SetEffetFactor(int factor)

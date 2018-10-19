@@ -253,7 +253,7 @@ public class CardSpell : CardBase
             SideEffectBase se = see.SideEffectBase;
             if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
             {
-                return ((TargetSideEffect) se).CalculateDamage();
+                if (se is IDamage) return ((IDamage) se).CalculateDamage();
             }
         }
 

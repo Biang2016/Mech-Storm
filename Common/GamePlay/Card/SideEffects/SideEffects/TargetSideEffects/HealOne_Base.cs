@@ -1,4 +1,4 @@
-﻿public class HealOne_Base : TargetSideEffect
+﻿public class HealOne_Base : TargetSideEffect, IEffectFactor
 {
     public int Value;
     public int Factor = 1;
@@ -23,16 +23,6 @@
     {
         base.Deserialize(reader);
         Value = reader.ReadSInt32();
-    }
-
-    public override int CalculateDamage()
-    {
-        return 0;
-    }
-
-    public override int CalculateHeal()
-    {
-        return FinalValue;
     }
 
     public void SetEffetFactor(int factor)

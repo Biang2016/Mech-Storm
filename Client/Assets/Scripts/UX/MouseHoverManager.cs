@@ -159,7 +159,7 @@ public class MouseHoverManager : MonoSingletion<MouseHoverManager>
                 previousState = state;
                 state = newState;
 
-                Debug.Log("MHM state: " + state.ToString());
+                //Debug.Log("MHM state: " + state.ToString());
             }
         }
 

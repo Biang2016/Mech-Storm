@@ -59,7 +59,8 @@
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseEnergy.cs" />
     <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard.cs" />
     <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\DrawCards.cs" />
-    <Compile Include="Card\SideEffects\PlayerBuffRelatedSideEffects\AddPlayerBuff.cs" />
+    <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenAttack.cs" />
+    <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddPlayerBuff.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddAttackRandom.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddAttackOne.cs" />
     <Compile Include="Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />

@@ -193,15 +193,6 @@ public static class AllCards
             XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
             SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
             GetInfoForSideEffect(sideEffectInfo, sideEffect);
-
-            for (int m = 0; m < sideEffectInfo.ChildNodes.Count; m++)
-            {
-                XmlNode sub_SideEffect = sideEffectInfo.ChildNodes[m];
-                SideEffectBase sub_SE = AllSideEffects.SideEffectsNameDict[sub_SideEffect.Attributes["name"].Value].Clone();
-                GetInfoForSideEffect(sub_SideEffect, sub_SE);
-                sideEffect.Sub_SideEffect.Add(sub_SE);
-            }
-
             SideEffectExecute see = new SideEffectExecute(sideEffect, triggerTime, triggerRange, triggerDelayTimes, triggerTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes);
             cur_seb.AddSideEffectExecute(see);
         }
@@ -214,30 +205,64 @@ public static class AllCards
             if (sideEffectInfo.Attributes[l].Name == "name") continue;
             XmlAttribute attr = sideEffectInfo.Attributes[l];
             FieldInfo fi = sideEffect.GetType().GetField(attr.Name);
-            switch (fi.FieldType.Name)
+            if (fi == null) //如果fi为空，表明这是override携带的buff的参数
             {
-                case "Int32":
-                    fi.SetValue(sideEffect, int.Parse(attr.Value));
-                    break;
-                case "String":
-                    fi.SetValue(sideEffect, attr.Value);
-                    break;
-                case "Boolean":
-                    fi.SetValue(sideEffect, attr.Value == "True");
-                    break;
-                case "TargetRange":
-                    fi.SetValue(sideEffect, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
-                    break;
-                case "TriggerTime":
-                    fi.SetValue(sideEffect, (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), attr.Value));
-                    break;
-                case "TriggerRange":
-                    fi.SetValue(sideEffect, (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), attr.Value));
-                    break;
-                case "CardTypes":
-                    fi.SetValue(sideEffect, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
-                    break;
+                if (sideEffect is AddPlayerBuff_Base se)
+                {
+                    fi = se.AttachedBuffSEE.GetType().GetField(attr.Name); //override其携带的buff的参数
+                    SetAttr(se.AttachedBuffSEE, attr, fi);
+
+                    fi = se.AttachedBuffSEE.SideEffectBase.GetType().GetField(attr.Name); //override其buff中的se的参数
+                    SetAttr(se.AttachedBuffSEE.SideEffectBase, attr, fi);
+
+                    foreach (SideEffectBase sub_se in se.AttachedBuffSEE.SideEffectBase.Sub_SideEffect) //override其buff中的se中的sub_se的参数
+                    {
+                        fi = sub_se.GetType().GetField(attr.Name);
+                        SetAttr(sub_se, attr, fi);
+                    }
+                }
             }
+            else
+            {
+                SetAttr(sideEffect, attr, fi);
+            }
+        }
+    }
+
+    public delegate void DebugLog(string log);
+
+    public static DebugLog DebugLogHandler;
+
+    private static void SetAttr(object obj, XmlAttribute attr, FieldInfo fi)
+    {
+        if (fi == null)
+        {
+            return; //!!!
+        }
+
+        switch (fi.FieldType.Name)
+        {
+            case "Int32":
+                fi.SetValue(obj, int.Parse(attr.Value));
+                break;
+            case "String":
+                fi.SetValue(obj, attr.Value);
+                break;
+            case "Boolean":
+                fi.SetValue(obj, attr.Value == "True");
+                break;
+            case "TargetRange":
+                fi.SetValue(obj, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
+                break;
+            case "TriggerTime":
+                fi.SetValue(obj, (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), attr.Value));
+                break;
+            case "TriggerRange":
+                fi.SetValue(obj, (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), attr.Value));
+                break;
+            case "CardTypes":
+                fi.SetValue(obj, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
+                break;
         }
     }
 

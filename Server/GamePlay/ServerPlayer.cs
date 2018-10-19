@@ -231,11 +231,24 @@ internal class ServerPlayer : Player
 
     private Dictionary<string, Dictionary<int, SideEffectExecute>> SideEffectBundles_Player = new Dictionary<string, Dictionary<int, SideEffectExecute>>();
 
+    public void PlayerBuffTrigger(int seeID, PlayerBuffSideEffects buff)
+    {
+        if (SideEffectBundles_Player.ContainsKey(buff.Name))
+        {
+            Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.Name];
+            if (sees.ContainsKey(seeID))
+            {
+                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, seeID, buff.Name, sees[seeID].RemoveTriggerTimes);
+                BroadCastRequest(request);
+            }
+        }
+    }
+
     public void UpdatePlayerBuff(SideEffectExecute newSee, PlayerBuffSideEffects buff, bool isAdd = false)
     {
-        if (SideEffectBundles_Player.ContainsKey(buff.BuffName))
+        if (SideEffectBundles_Player.ContainsKey(buff.Name))
         {
-            Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.BuffName];
+            Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.Name];
             if (sees.Count != 0) //存在该buff
             {
                 if (buff.Singleton) //buff是单例，只能存在一个
@@ -248,7 +261,7 @@ internal class ServerPlayer : Player
                             RemainRemoveTriggerTime = kv.Value.RemoveTriggerTimes;
                         }
 
-                        ClearSEEByBuffName(buff.BuffName, sees);
+                        ClearSEEByBuffName(buff.Name, sees);
 
                         if (buff.CanPiled) //可以堆叠
                         {
@@ -269,25 +282,25 @@ internal class ServerPlayer : Player
                             see.RemoveTriggerTimes = newSee.RemoveTriggerTimes;
                         }
 
-                        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, buff.BuffName, see.RemoveTriggerTimes);
+                        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, buff.Name, see.RemoveTriggerTimes);
                         BroadCastRequest(request);
                     }
                 }
                 else //buff不是单例，则对应加到seeID上去
                 {
-                    if (sees.ContainsKey(newSee.ID) && buff.CanPiled)
+                    if (sees.ContainsKey(newSee.ID))
                     {
                         SideEffectExecute see = sees[newSee.ID];
-                        if (buff.CanPiled && isAdd) //可以堆叠
+                        if (buff.CanPiled && isAdd) //可以堆叠且未新增buff
                         {
                             see.RemoveTriggerTimes += newSee.RemoveTriggerTimes;
                         }
-                        else //不可堆叠，每次施加则替换次数
+                        else //不可堆叠,或非新增buff，每次施加则替换次数
                         {
                             see.RemoveTriggerTimes = newSee.RemoveTriggerTimes;
                         }
 
-                        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, buff.BuffName, see.RemoveTriggerTimes);
+                        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, buff.Name, see.RemoveTriggerTimes);
                         BroadCastRequest(request);
                     }
                     else //ID不存在场上，新建一个buff
@@ -311,12 +324,12 @@ internal class ServerPlayer : Player
 
     public void RemovePlayerBuff(SideEffectExecute newSee, PlayerBuffSideEffects buff)
     {
-        if (SideEffectBundles_Player.ContainsKey(buff.BuffName))
+        if (SideEffectBundles_Player.ContainsKey(buff.Name))
         {
-            Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.BuffName];
+            Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.Name];
             if (sees.Count != 0) //存在该buff
             {
-                if (buff.Singleton) //buff是单例，只能存在一个
+                if (buff.Singleton) //buff是单例，全删
                 {
                     ClearSEEByBuffName(buff.Name, sees);
                 }
@@ -358,7 +371,7 @@ internal class ServerPlayer : Player
     {
         sees.Add(newSee.ID, newSee);
         MyGameManager.EventManager.RegisterEvent(newSee);
-        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, newSee.ID, buff.BuffName, newSee.RemoveTriggerTimes);
+        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, newSee.ID, buff.Name, newSee.RemoveTriggerTimes);
         BroadCastRequest(request);
     }
 

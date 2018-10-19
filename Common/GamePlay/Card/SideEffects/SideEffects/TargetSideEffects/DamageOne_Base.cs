@@ -1,4 +1,4 @@
-﻿public class DamageOne_Base : TargetSideEffect
+﻿public class DamageOne_Base : TargetSideEffect, IEffectFactor, IDamage
 {
     public int Value;
     public int Factor = 1;
@@ -10,7 +10,7 @@
 
     public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat( isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, false), FinalValue);
+        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, false), FinalValue);
     }
 
     public override void Serialize(DataStream writer)
@@ -25,14 +25,9 @@
         Value = reader.ReadSInt32();
     }
 
-    public override int CalculateDamage()
+    public int CalculateDamage()
     {
         return FinalValue;
-    }
-
-    public override int CalculateHeal()
-    {
-        return 0;
     }
 
     public void SetEffetFactor(int factor)

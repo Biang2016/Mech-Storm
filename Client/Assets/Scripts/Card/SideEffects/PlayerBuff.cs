@@ -1,69 +1,47 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 internal class PlayerBuff : PoolObject
 {
     public override void PoolRecycle()
     {
-        PictureId = 0;
-        BuffId = 0;
-        buffValue = 0;
         BuffValueText.text = "";
         base.PoolRecycle();
     }
 
-    internal int BuffId;
-    private int buffValue;
-    private bool hasNumberShow;
+    [SerializeField] private int BuffId;
 
-    internal int BuffValue
+    public void Init(PlayerBuffSideEffects buffInfo, int buffId, int buffValue)
     {
-        get { return buffValue; }
-
-        set
-        {
-            buffValue = value;
-            BuffValueText.text = value == 0 ? "" : value.ToString();
-
-        }
-    }
-
-    private int pictureId;
-
-    internal int PictureId
-    {
-        get { return pictureId; }
-
-        set
-        {
-            pictureId = value;
-            ClientUtils.ChangePicture(Image, pictureId);
-        }
-    }
-
-    public bool HasNumberShow
-    {
-        get { return hasNumberShow; }
-
-        set
-        {
-            hasNumberShow = value;
-            BuffValuePanel.enabled = hasNumberShow;
-            BuffValueText.enabled = hasNumberShow;
-        }
-    }
-
-    public void UpdateValue(int picId, int buffId, int buffValue, bool hasNumberShow = true)
-    {
-        PictureId = picId;
         BuffId = buffId;
-        BuffValue = buffValue;
+        ClientUtils.ChangePicture(Image, buffInfo.BuffPicId);
+        BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
+        BuffBloom.color = ClientUtils.HTMLColorToColor(buffInfo.BuffColor);
+        BuffValuePanel.enabled = buffInfo.HasNumberShow;
+        BuffValueText.enabled = buffInfo.HasNumberShow;
+        BuffAnim.SetTrigger("Add");
+    }
+
+    public void UpdateValue(int buffValue)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UpdateValue(buffValue), "Co_UpdateValue");
+    }
+
+    IEnumerator Co_UpdateValue(int buffValue)
+    {
         if (buffValue >= 0)
         {
             BuffAnim.SetTrigger("Jump");
         }
-        HasNumberShow = hasNumberShow;
-        BuffAnim.SetTrigger("Add");
+
+        yield return new WaitForSeconds(0.4f);
+        BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
+        yield return new WaitForSeconds(0.1f);
+
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+        yield return null;
     }
 
     public void OnRemove()
@@ -71,7 +49,13 @@ internal class PlayerBuff : PoolObject
         BuffAnim.SetTrigger("Remove");
     }
 
+    public void SetRotation(Players whichPlayer)
+    {
+        RotatePanel.localRotation = Quaternion.Euler(whichPlayer == Players.Self ? 0 : 180, whichPlayer == Players.Self ? 0 : 180, 0);
+    }
 
+    [SerializeField] private Transform RotatePanel;
+    [SerializeField] private Image BuffBloom;
     [SerializeField] private Image BuffValuePanel;
     [SerializeField] private Text BuffValueText;
     [SerializeField] private Text BuffDescText;
