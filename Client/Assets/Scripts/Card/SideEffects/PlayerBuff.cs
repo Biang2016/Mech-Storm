@@ -13,19 +13,24 @@ internal class PlayerBuff : PoolObject
 
     [SerializeField] private int BuffId;
 
-    public void Init(PlayerBuffSideEffects buffInfo, int buffId, int buffValue)
+    public void Init(SideEffectExecute buff_see, int buffId, int buffValue)
     {
+        PlayerBuffSideEffects buff = ((PlayerBuffSideEffects) buff_see.SideEffectBase);
         BuffId = buffId;
-        ClientUtils.ChangePicture(Image, buffInfo.BuffPicId);
+        ClientUtils.ChangePicture(Image, buff.BuffPicId);
         BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
-        BuffBloom.color = ClientUtils.HTMLColorToColor(buffInfo.BuffColor);
-        BuffValuePanel.enabled = buffInfo.HasNumberShow;
-        BuffValueText.enabled = buffInfo.HasNumberShow;
+        Color buffColor = ClientUtils.HTMLColorToColor(((PlayerBuffSideEffects) (AllBuffs.GetBuff((buff.Name)).SideEffectBase)).BuffColor);
+        BuffBloom.color = buffColor;
+        BuffDescText.color = buffColor;
+        BuffValuePanel.enabled = buff.HasNumberShow;
+        BuffValueText.enabled = buff.HasNumberShow;
         BuffAnim.SetTrigger("Add");
+        BuffDescText.text = buff.GenerateDesc(GameManager.Instance.isEnglish);
     }
 
-    public void UpdateValue(int buffValue)
+    public void UpdateValue(SideEffectExecute buff, int buffValue)
     {
+        BuffDescText.text = ((PlayerBuffSideEffects) buff.SideEffectBase).GenerateDesc(GameManager.Instance.isEnglish);
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UpdateValue(buffValue), "Co_UpdateValue");
     }
 

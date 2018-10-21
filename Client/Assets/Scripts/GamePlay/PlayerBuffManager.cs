@@ -28,21 +28,20 @@ public class PlayerBuffManager : MonoBehaviour
         PlayerBuffs.Clear();
     }
 
-    public void UpdatePlayerBuff(string buffName, int buffId, int buffValue)
+    public void UpdatePlayerBuff(SideEffectExecute buff, int buffId, int buffValue)
     {
         if (PlayerBuffs.ContainsKey(buffId))
         {
-            PlayerBuffs[buffId].UpdateValue(buffValue);
+            PlayerBuffs[buffId].UpdateValue(buff,buffValue);
         }
         else
         {
-            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AddBuff(buffName, buffId, buffValue), "Co_AddBuff");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AddBuff(buff, buffId, buffValue), "Co_AddBuff");
         }
     }
 
-    IEnumerator Co_AddBuff(string buffName, int buffId, int buffValue)
+    IEnumerator Co_AddBuff(SideEffectExecute buff, int buffId, int buffValue)
     {
-        PlayerBuffSideEffects buff = (PlayerBuffSideEffects) AllBuffs.GetBuff(buffName).SideEffectBase;
         PlayerBuff pb = GameObjectPoolManager.Instance.Pool_PlayerBuffPool.AllocateGameObject<PlayerBuff>(Content);
         pb.SetRotation(ClientPlayer.WhichPlayer);
         pb.Init(buff, buffId, buffValue);

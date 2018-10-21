@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using System;
+
+/// <summary>
 /// 将SideEffect和其触发时机、触发次数等参数封装起来
 /// </summary>
 public class SideEffectExecute
@@ -9,6 +11,19 @@ public class SideEffectExecute
     {
         return idGenerator++;
     }
+
+    [Flags]
+    public enum SideEffectFrom
+    {
+        Unknown = 0,
+        Buff = 1,
+        SpellCard = 2,
+        EnergyCard = 4,
+        RetinueSideEffect = 8,
+        EquipSideEffect = 16,
+    }
+
+    public SideEffectFrom M_SideEffectFrom;
 
     public int ID;
     public SideEffectBase SideEffectBase;
@@ -26,8 +41,9 @@ public class SideEffectExecute
     {
     }
 
-    public SideEffectExecute(SideEffectBase sideEffectBase, SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange, int triggerDelayTimes, int triggerTimes, SideEffectBundle.TriggerTime removeTriggerTime, SideEffectBundle.TriggerRange removeTriggerRange, int removeTriggerTimes)
+    public SideEffectExecute(SideEffectFrom sideEffectFrom, SideEffectBase sideEffectBase, SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange, int triggerDelayTimes, int triggerTimes, SideEffectBundle.TriggerTime removeTriggerTime, SideEffectBundle.TriggerRange removeTriggerRange, int removeTriggerTimes)
     {
+        M_SideEffectFrom = sideEffectFrom;
         ID = GenerateID();
         SideEffectBase = sideEffectBase;
         TriggerTime = triggerTime;
@@ -41,11 +57,12 @@ public class SideEffectExecute
 
     public SideEffectExecute Clone()
     {
-        return new SideEffectExecute(SideEffectBase.Clone(), TriggerTime, TriggerRange, TriggerDelayTimes, TriggerTimes, RemoveTriggerTime, RemoveTriggerRange, RemoveTriggerTimes);
+        return new SideEffectExecute(M_SideEffectFrom, SideEffectBase.Clone(), TriggerTime, TriggerRange, TriggerDelayTimes, TriggerTimes, RemoveTriggerTime, RemoveTriggerRange, RemoveTriggerTimes);
     }
 
     public void Serialize(DataStream writer)
     {
+        writer.WriteSInt32((int) M_SideEffectFrom);
         writer.WriteSInt32(ID);
         SideEffectBase.Serialize(writer);
         writer.WriteSInt32((int) TriggerTime);
@@ -60,6 +77,7 @@ public class SideEffectExecute
     public static SideEffectExecute Deserialze(DataStream reader)
     {
         SideEffectExecute see = new SideEffectExecute();
+        see.M_SideEffectFrom = (SideEffectFrom) reader.ReadSInt32();
         see.ID = reader.ReadSInt32();
         see.SideEffectBase = SideEffectBase.BaseDeserialze(reader);
         see.TriggerTime = (SideEffectBundle.TriggerTime) reader.ReadSInt32();

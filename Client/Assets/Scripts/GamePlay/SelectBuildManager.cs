@@ -89,6 +89,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
                         {
                             ShowWindowReadOnly();
                         }
+
                         break;
                 }
 
@@ -197,6 +198,7 @@ public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
         private void ShowWindowReadOnly()
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
+            if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
             GameManager.Instance.StartBlurBackGround();
             Instance.Canvas.gameObject.SetActive(true);
             Instance.Canvas_BG.gameObject.SetActive(true);

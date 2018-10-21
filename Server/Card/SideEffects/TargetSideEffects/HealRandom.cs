@@ -87,7 +87,7 @@ namespace SideEffects
                 case TargetRange.EnemyShip:
                     player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                     break;
-                case TargetRange.All:
+                case TargetRange.AllLife:
                 {
                     int retinueNum = player.MyGameManager.CountAliveRetinueExcept(ServerBattleGroundManager.RetinueType.All, retinueId);
 

@@ -1,16 +1,26 @@
 ﻿public class DrawCards_Base : CardDeckRelatedSideEffects, IEffectFactor
 {
     public int Value;
-    public int Factor = 1;
+    private int factor = 1;
+
+    public int GetFactor()
+    {
+        return factor;
+    }
+
+    public void SetFactor(int value)
+    {
+        factor = value;
+    }
 
     public int FinalValue
     {
-        get { return Value * Factor; }
+        get { return Value * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat( isEnglish ? DescRaw_en : DescRaw, FinalValue);
+        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, FinalValue);
     }
 
     public override void Serialize(DataStream writer)
@@ -25,15 +35,11 @@
         Value = reader.ReadSInt32();
     }
 
-    public void SetEffetFactor(int factor)
-    {
-        Factor = factor;
-    }
 
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
         ((DrawCards_Base) copy).Value = Value;
-        ((DrawCards_Base) copy).Factor = Factor;
+        ((DrawCards_Base) copy).SetFactor(GetFactor());
     }
 }

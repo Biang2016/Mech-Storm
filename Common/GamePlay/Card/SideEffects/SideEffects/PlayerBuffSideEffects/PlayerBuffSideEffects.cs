@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public abstract class PlayerBuffSideEffects : SideEffectBase
 {
     public int BuffPicId;
-    public string BuffColor;
+    public string BuffColor="";
     public bool HasNumberShow;
     public bool CanPiled;
     public bool Singleton;

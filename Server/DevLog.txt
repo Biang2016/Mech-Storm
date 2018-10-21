@@ -292,6 +292,10 @@ Art Update the UI of cards.
 19th, Oct
 [Dev] Add player buff icons.
 
+20th, Oct
+[Dev] Add the SideEffect that can change next SideEffect attributes.
+
+
 TodoList
 增加retinue的武器图标样式，普通和枪
 onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能产生伤害的标识
@@ -314,6 +318,12 @@ energy条用量预览显示高亮
 
 ！！！
 风暴系列卡牌开发
+
+多次击中textfly效果和序列有明显bug
+dodge有问题
+textfly 状态机有问题
+matching 的时候blur
+onretinueDie 不触发
 
 
 手牌触发SE效果

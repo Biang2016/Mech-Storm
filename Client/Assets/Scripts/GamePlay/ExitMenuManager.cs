@@ -129,7 +129,7 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
             if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
             if (Input.GetKeyUp(KeyCode.Escape))
             {
-                if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Hide && SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.Hide)
+                if ((SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Hide || SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.HideForPlay) && SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.Hide)
                 {
                     switch (state)
                     {

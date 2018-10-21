@@ -2,18 +2,18 @@
 {
     public int clientId;
     public int buffId;
-    public string buffName;
+    public SideEffectExecute buff;
     public int value;
 
     public PlayerBuffUpdateRequest()
     {
     }
 
-    public PlayerBuffUpdateRequest(int clientId, int buffId, string buffName, int value)
+    public PlayerBuffUpdateRequest(int clientId, int buffId, SideEffectExecute buff, int value)
     {
         this.clientId = clientId;
         this.buffId = buffId;
-        this.buffName = buffName;
+        this.buff = buff;
         this.value = value;
     }
 
@@ -32,7 +32,7 @@
         base.Serialize(writer);
         writer.WriteSInt32(clientId);
         writer.WriteSInt32(buffId);
-        writer.WriteString8(buffName);
+        buff.Serialize(writer);
         writer.WriteSInt32(value);
     }
 
@@ -41,7 +41,7 @@
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
         buffId = reader.ReadSInt32();
-        buffName = reader.ReadString8();
+        buff = SideEffectExecute.Deserialze(reader);
         value = reader.ReadSInt32();
     }
 
@@ -50,7 +50,7 @@
         string log = base.DeserializeLog();
         log += " [clientId]=" + clientId;
         log += " [buffId]=" + buffId;
-        log += " [buffName]=" + buffName;
+        log += " [buffName]=" + buff.SideEffectBase.Name;
         log += " [value]=" + value;
         return log;
     }

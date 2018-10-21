@@ -17,8 +17,8 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
         set
         {
             _mSlotTypes = value;
-            ClientUtils.ChangeSlotColor(My_Renderer, value);
-            ClientUtils.ChangeSlotColor(OnHoverShowBloom, value);
+            ClientUtils.ChangeSlotColor(My_Renderer, value, 1.5f);
+            ClientUtils.ChangeSlotColor(OnHoverShowBloom, value, 1.5f);
             if (value != SlotTypes.None)
             {
                 My_Renderer.enabled = true;

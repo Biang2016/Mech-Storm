@@ -11,19 +11,16 @@ public class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
     public Effects Effect_Main;
     public Effects Effect_RefreshBattleGroundOnAddRetinue;
     public Effects Effect_TipSlotBloom;
-    public Effects Effect_UsedCardShow;
 
     public bool isExecuting_Main;
     public bool isExecuting_RefreshBattleGroundOnAddRetinue;
     public bool isExecuting_TipSlotBloom;
-    public bool isExecuting_UsedCardShow;
 
     void Start()
     {
         Effect_Main = new Effects("Effect_M");
         Effect_RefreshBattleGroundOnAddRetinue = new Effects("Effect_R");
         Effect_TipSlotBloom = new Effects("Effect_T");
-        Effect_UsedCardShow = new Effects("Effect_U");
     }
 
     void Update()
@@ -31,12 +28,10 @@ public class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
         Effect_Main.Update();
         Effect_RefreshBattleGroundOnAddRetinue.Update();
         Effect_TipSlotBloom.Update();
-        Effect_UsedCardShow.Update();
 
         isExecuting_Main = Effect_Main.IsExcuting;
         isExecuting_RefreshBattleGroundOnAddRetinue = Effect_RefreshBattleGroundOnAddRetinue.IsExcuting;
         isExecuting_TipSlotBloom = Effect_TipSlotBloom.IsExcuting;
-        isExecuting_UsedCardShow = Effect_UsedCardShow.IsExcuting;
     }
 
     public void ResetAll()
@@ -44,18 +39,13 @@ public class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
         Effect_Main.AllEffectsEnd();
         Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();
         Effect_TipSlotBloom.AllEffectsEnd();
-        Effect_UsedCardShow.AllEffectsEnd();
 
         Effect_Main = new Effects("Effect_M");
         Effect_RefreshBattleGroundOnAddRetinue = new Effects("Effect_R");
         Effect_TipSlotBloom = new Effects("Effect_T");
-        Effect_UsedCardShow = new Effects("Effect_U");
         isExecuting_Main = false;
         isExecuting_RefreshBattleGroundOnAddRetinue = false;
         isExecuting_TipSlotBloom = false;
-        isExecuting_UsedCardShow = false;
-
-
     }
 
     public class Effects

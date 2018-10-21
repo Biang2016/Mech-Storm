@@ -35,7 +35,7 @@ public class CardSpell : CardBase
                 else
                 {
                     TargetSideEffect.TargetRange temp = ((TargetSideEffect) se).M_TargetRange;
-                    if (temp != TargetSideEffect.TargetRange.Ships && temp != TargetSideEffect.TargetRange.SelfShip && temp != TargetSideEffect.TargetRange.EnemyShip && temp != TargetSideEffect.TargetRange.All)
+                    if (temp != TargetSideEffect.TargetRange.Ships && temp != TargetSideEffect.TargetRange.SelfShip && temp != TargetSideEffect.TargetRange.EnemyShip && temp != TargetSideEffect.TargetRange.AllLife)
                     {
                         HasTargetRetinue = true;
                         targetRetinueRange = ((TargetSideEffect) se).M_TargetRange;
@@ -106,7 +106,7 @@ public class CardSpell : CardBase
                         case TargetSideEffect.TargetRange.EnemySoldiers:
                             if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
-                        case TargetSideEffect.TargetRange.All:
+                        case TargetSideEffect.TargetRange.AllLife:
                             validTarget = true;
                             break;
                     }
@@ -174,7 +174,7 @@ public class CardSpell : CardBase
                             case TargetSideEffect.TargetRange.EnemySoldiers:
                                 if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
-                            case TargetSideEffect.TargetRange.All:
+                            case TargetSideEffect.TargetRange.AllLife:
                                 validTarget = true;
                                 break;
                         }
@@ -214,7 +214,7 @@ public class CardSpell : CardBase
                         case TargetSideEffect.TargetRange.EnemyShip:
                             if (ship.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                             break;
-                        case TargetSideEffect.TargetRange.All:
+                        case TargetSideEffect.TargetRange.AllLife:
                             validTarget = true;
                             break;
                     }

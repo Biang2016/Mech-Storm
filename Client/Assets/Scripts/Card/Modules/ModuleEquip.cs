@@ -116,7 +116,7 @@ public abstract class ModuleEquip : ModuleBase
     public override void ChangeColor(Color color)
     {
         base.ChangeColor(color);
-        ClientUtils.ChangeColor(M_Bloom, color);
+        ClientUtils.ChangeColor(M_Bloom, color, 2);
     }
 
     #region SE

@@ -1,11 +1,21 @@
 ﻿public class HealRandom_Base : TargetSideEffect, IEffectFactor
 {
     public int Value;
-    public int Factor = 1;
+    private int factor = 1;
+
+    public int GetFactor()
+    {
+        return factor;
+    }
+
+    public void SetFactor(int value)
+    {
+        factor = value;
+    }
 
     public int FinalValue
     {
-        get { return Value * Factor; }
+        get { return Value * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
@@ -25,15 +35,10 @@
         Value = reader.ReadSInt32();
     }
 
-    public void SetEffetFactor(int factor)
-    {
-        Factor = factor;
-    }
-
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
         ((HealRandom_Base) copy).Value = Value;
-        ((HealRandom_Base) copy).Factor = Factor;
+        ((HealRandom_Base) copy).SetFactor(GetFactor());
     }
 }

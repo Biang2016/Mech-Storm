@@ -1,11 +1,21 @@
 ﻿public class DamageOne_Base : TargetSideEffect, IEffectFactor, IDamage
 {
     public int Value;
-    public int Factor = 1;
+    private int factor = 1;
+
+    public int GetFactor()
+    {
+        return factor;
+    }
+
+    public void SetFactor(int value)
+    {
+        factor = value;
+    }
 
     public int FinalValue
     {
-        get { return Value * Factor; }
+        get { return Value * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
@@ -30,15 +40,10 @@
         return FinalValue;
     }
 
-    public void SetEffetFactor(int factor)
-    {
-        Factor = factor;
-    }
-
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
         ((DamageOne_Base) copy).Value = Value;
-        ((DamageOne_Base) copy).Factor = Factor;
+        ((DamageOne_Base) copy).SetFactor(GetFactor());
     }
 }

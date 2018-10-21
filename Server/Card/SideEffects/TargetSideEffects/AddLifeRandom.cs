@@ -80,7 +80,7 @@ namespace SideEffects
                     break;
                 }
 
-                case TargetRange.All:
+                case TargetRange.AllLife:
                 {
                     int retinueNum = player.MyGameManager.CountAliveRetinueExcept(ServerBattleGroundManager.RetinueType.All, retinueId);
 

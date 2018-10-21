@@ -241,7 +241,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
                 {
                     if (see.SideEffectBase is IEffectFactor)
                     {
-                        ((IEffectFactor) see.SideEffectBase).SetEffetFactor(value);
+                        ((IEffectFactor) see.SideEffectBase).SetFactor(value);
                     }
                 }
             }
@@ -355,7 +355,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void ChangeCardBloomColor(Color color)
     {
-        ClientUtils.ChangeColor(CardBloomRenderer, color);
+        ClientUtils.ChangeColor(CardBloomRenderer, color,1.3f);
     }
 
     public void ChangePictureColor(Color color)

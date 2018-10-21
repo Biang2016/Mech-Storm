@@ -238,7 +238,7 @@ internal class ServerPlayer : Player
             Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.Name];
             if (sees.ContainsKey(seeID))
             {
-                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, seeID, buff.Name, sees[seeID].RemoveTriggerTimes);
+                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, seeID, sees[seeID], sees[seeID].RemoveTriggerTimes);
                 BroadCastRequest(request);
             }
         }
@@ -282,7 +282,7 @@ internal class ServerPlayer : Player
                             see.RemoveTriggerTimes = newSee.RemoveTriggerTimes;
                         }
 
-                        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, buff.Name, see.RemoveTriggerTimes);
+                        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see, see.RemoveTriggerTimes);
                         BroadCastRequest(request);
                     }
                 }
@@ -300,7 +300,7 @@ internal class ServerPlayer : Player
                             see.RemoveTriggerTimes = newSee.RemoveTriggerTimes;
                         }
 
-                        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, buff.Name, see.RemoveTriggerTimes);
+                        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see, see.RemoveTriggerTimes);
                         BroadCastRequest(request);
                     }
                     else //ID不存在场上，新建一个buff
@@ -371,7 +371,7 @@ internal class ServerPlayer : Player
     {
         sees.Add(newSee.ID, newSee);
         MyGameManager.EventManager.RegisterEvent(newSee);
-        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, newSee.ID, buff.Name, newSee.RemoveTriggerTimes);
+        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, newSee.ID, newSee, newSee.RemoveTriggerTimes);
         BroadCastRequest(request);
     }
 

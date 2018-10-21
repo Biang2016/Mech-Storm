@@ -67,7 +67,7 @@ namespace SideEffects
                     break;
                 case TargetRange.EnemyShip:
                     break;
-                case TargetRange.All:
+                case TargetRange.AllLife:
                 {
                     ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.All, retinueId);
                     if (retinue != null)

@@ -70,10 +70,14 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\DrawCards_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\CardRelatedSideEffect.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\NextSpellDamageDouble_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\AddEnergyWhenAttack_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\AddPlayerBuff_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\PlayerBuffSideEffects.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\SpecialInterface\ITrigger.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SpecialInterface\IDamage.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TriggerTriggerSideEffects\TriggerTriggerSideEffects.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\SummonRetinue_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\AttachedEquipSideEffects\AddSelfWeaponEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddAttackRandom_Base.cs" />

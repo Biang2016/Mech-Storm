@@ -1,12 +1,23 @@
 ﻿public class DrawTypeCards_Base : CardDeckRelatedSideEffects, IEffectFactor
 {
     public int Value;
-    public int Factor = 1;
+    private int factor = 1;
+
+    public int GetFactor()
+    {
+        return factor;
+    }
+
+    public void SetFactor(int value)
+    {
+        factor = value;
+    }
+
     public CardTypes DrawCardType = CardTypes.Energy;
 
     public int FinalValue
     {
-        get { return Value * Factor; }
+        get { return Value * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
@@ -28,16 +39,11 @@
         DrawCardType = (CardTypes) reader.ReadSInt32();
     }
 
-    public void SetEffetFactor(int factor)
-    {
-        Factor = factor;
-    }
-
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
         ((DrawTypeCards_Base) copy).Value = Value;
-        ((DrawTypeCards_Base) copy).Factor = Factor;
+        ((DrawTypeCards_Base) copy).SetFactor(GetFactor());
         ((DrawTypeCards_Base) copy).DrawCardType = DrawCardType;
     }
 }

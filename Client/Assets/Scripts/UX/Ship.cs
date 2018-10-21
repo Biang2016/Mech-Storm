@@ -153,13 +153,13 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     {
         if (card.ClientPlayer == ClientPlayer)
         {
-            return card.targetRetinueRange == TargetSideEffect.TargetRange.All ||
+            return card.targetRetinueRange == TargetSideEffect.TargetRange.AllLife ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.Ships ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.SelfShip;
         }
         else
         {
-            return card.targetRetinueRange == TargetSideEffect.TargetRange.All ||
+            return card.targetRetinueRange == TargetSideEffect.TargetRange.AllLife ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.Ships ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyShip;
         }

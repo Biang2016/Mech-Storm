@@ -1,11 +1,21 @@
 ﻿public class WaitInHandDecreaseEnergy_Base : CardRelatedSideEffect, IEffectFactor
 {
     public int Value;
-    public int Factor = 1;
+    private int factor=1;
+
+    public int GetFactor()
+    {
+        return factor;
+    }
+
+    public void SetFactor(int value)
+    {
+        factor = value;
+    }
 
     public int FinalValue
     {
-        get { return Value * Factor; }
+        get { return Value * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
@@ -27,13 +37,13 @@
 
     public void SetEffetFactor(int factor)
     {
-        Factor = factor;
+        SetFactor(factor);
     }
 
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
         ((WaitInHandDecreaseEnergy_Base) copy).Value = Value;
-        ((WaitInHandDecreaseEnergy_Base) copy).Factor = Factor;
+        ((WaitInHandDecreaseEnergy_Base) copy).SetFactor(GetFactor());
     }
 }

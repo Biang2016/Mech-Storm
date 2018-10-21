@@ -233,7 +233,7 @@ public class DragManager : MonoSingletion<DragManager>
                             case TargetSideEffect.TargetRange.EnemyShip:
                                 SummonRetinueTargetHandler(-2);
                                 break;
-                            case TargetSideEffect.TargetRange.All:
+                            case TargetSideEffect.TargetRange.AllLife:
                                 SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
                                 break;
                         }

@@ -46,8 +46,8 @@ internal class Server
         ServerLog.PrintServerStates("CardDeck Loaded");
         SGMM = new ServerGameMatchManager();
 
-        string res = AllCards.GetCard(61501).GetCardDescShow(true);
-        ServerLog.Print(res);
+        //string res = AllCards.GetCard(61501).GetCardDescShow(true);
+        //ServerLog.Print(res);
         //SideEffectExecute see= AllBuffs.GetBuff("AddEnergyWhenAttack");
         //AllCards.GetCard(30101).GetCardDescShow(true);
         OnRestartProtocols();

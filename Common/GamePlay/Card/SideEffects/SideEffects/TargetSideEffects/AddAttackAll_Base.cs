@@ -1,11 +1,20 @@
 ﻿public class AddAttackAll_Base : TargetSideEffect, IEffectFactor, IDamage
 {
     public int Value;
-    public int Factor = 1;
+    private int factor = 1;
 
+    public int GetFactor()
+    {
+        return factor;
+    }
+
+    public void SetFactor(int value)
+    {
+        factor = value;
+    }
     public int FinalValue
     {
-        get { return Value * Factor; }
+        get { return Value * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
@@ -30,15 +39,10 @@
         return FinalValue;
     }
 
-    public void SetEffetFactor(int factor)
-    {
-        Factor = factor;
-    }
-
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
         ((AddEnergy_Base) copy).Value = Value;
-        ((AddEnergy_Base) copy).Factor = Factor;
+        ((AddEnergy_Base) copy).SetFactor(GetFactor());;
     }
 }

@@ -366,7 +366,7 @@ internal partial class RoundManager
     private void OnUpdatePlayerBuff(PlayerBuffUpdateRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyPlayerBuffManager.UpdatePlayerBuff(r.buffName, r.buffId, r.value);
+        cp.MyPlayerBuffManager.UpdatePlayerBuff(r.buff, r.buffId, r.value);
     }
 
     private void OnRemovePlayerBuff(PlayerBuffRemoveRequest r)

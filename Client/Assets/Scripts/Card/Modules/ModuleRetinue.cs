@@ -223,8 +223,8 @@ public class ModuleRetinue : ModuleBase
     public override void ChangeColor(Color color)
     {
         ClientUtils.ChangeEmissionColor(MainBoardRenderer, color, MainboardEmissionIntensity);
-        ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
-        ClientUtils.ChangeColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor);
+        ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor, 2f);
+        ClientUtils.ChangeColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor, 2f);
     }
 
     private int m_RetinueID;
@@ -1463,7 +1463,7 @@ public class ModuleRetinue : ModuleBase
     {
         if (card.ClientPlayer == ClientPlayer)
         {
-            return card.targetRetinueRange == TargetSideEffect.TargetRange.All ||
+            return card.targetRetinueRange == TargetSideEffect.TargetRange.AllLife ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.Mechs ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.SelfMechs ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.Heros ||
@@ -1473,7 +1473,7 @@ public class ModuleRetinue : ModuleBase
         }
         else
         {
-            return card.targetRetinueRange == TargetSideEffect.TargetRange.All ||
+            return card.targetRetinueRange == TargetSideEffect.TargetRange.AllLife ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.Mechs ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyMechs ||
                    card.targetRetinueRange == TargetSideEffect.TargetRange.Heros ||
@@ -1595,7 +1595,7 @@ public class ModuleRetinue : ModuleBase
         }
 
         SideEffcetBloom.gameObject.SetActive(true);
-        ClientUtils.ChangeColor(SideEffcetBloom, color);
+        ClientUtils.ChangeColor(SideEffcetBloom, color,2);
         AudioManager.Instance.SoundPlay("sfx/OnSE");
         yield return new WaitForSeconds(duration);
         SideEffcetBloom.gameObject.SetActive(false);
@@ -1639,7 +1639,7 @@ public class ModuleRetinue : ModuleBase
         }
 
 
-        yield return new WaitForSeconds(0.2f);
+        yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

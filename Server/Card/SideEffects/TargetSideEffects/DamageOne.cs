@@ -10,13 +10,13 @@
         {
             ServerPlayer player = (ServerPlayer) Player;
 
-            if (TR_Retinues.Contains(M_TargetRange))
+            if ((M_TargetRange & TargetRange.Mechs) != 0)
             {
                 player.MyBattleGroundManager.DamageOneRetinue(executerInfo.TargetRetinueId, FinalValue);
                 player.MyEnemyPlayer.MyBattleGroundManager.DamageOneRetinue(executerInfo.TargetRetinueId, FinalValue);
             }
 
-            if (TR_Ships.Contains(M_TargetRange))
+            if ((M_TargetRange & TargetRange.Ships) != 0)
             {
                 if (executerInfo.TargetClientId == player.ClientId)
                 {
@@ -28,13 +28,8 @@
                 }
                 else
                 {
-                    if (M_TargetRange == TargetRange.SelfShip) player.DamageLifeAboveZero(FinalValue);
-                    if (M_TargetRange == TargetRange.EnemyShip) player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
-                    if (M_TargetRange == TargetRange.All)
-                    {
-                        player.DamageLifeAboveZero(FinalValue);
-                        player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
-                    }
+                    if ((M_TargetRange & TargetRange.SelfShip) != 0) player.DamageLifeAboveZero(FinalValue);
+                    if ((M_TargetRange & TargetRange.EnemyShip) != 0) player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
                 }
             }
 

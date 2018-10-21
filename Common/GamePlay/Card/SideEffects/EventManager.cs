@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 
 public class EventManager
@@ -67,8 +68,20 @@ public class EventManager
 
     private static int InvokeStackDepth = 0;
 
+    public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo) //Trigger by bit
+    {
+        foreach (SideEffectBundle.TriggerTime triggerTime in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
+        {
+            if ((tt & triggerTime) == tt)
+            {
+                InvokeCore(triggerTime, executerInfo);
+            }
+        }
+    }
 
-    public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
+    Stack<SideEffectExecute> InvokeStack = new Stack<SideEffectExecute>();
+
+    private void InvokeCore(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
     {
         InvokeStackDepth++;
         Dictionary<int, SideEffectExecute> seeDict = Events[tt];
@@ -180,24 +193,48 @@ public class EventManager
         return isTrigger;
     }
 
-
     private void Trigger(SideEffectExecute see, SideEffectBase.ExecuterInfo ei, SideEffectBundle.TriggerTime tt, SideEffectBundle.TriggerRange tr)
     {
         if (see.TriggerDelayTimes > 0) //触发延迟时间减少，直至0时触发
         {
             see.TriggerDelayTimes--;
-            ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecuterInfo, tt, tr);
-            OnEventInvokeHandler(request);
             return;
         }
         else
         {
             if (see.TriggerTimes > 0) //触发次数减少，为0时不触发
             {
+                //触发的触发 Start
+                bool isTriggerTrigger = false;
+                if (tt == SideEffectBundle.TriggerTime.OnTrigger) //如果是某个SEE触发时引起触发的triggerSEE，将该SEE传给triggerSEE，供triggerSEE修改属性
+                {
+                    if (see.SideEffectBase is PlayerBuffSideEffects buffSEE)
+                    {
+                        foreach (SideEffectBase se in buffSEE.Sub_SideEffect)
+                        {
+                            if (se is ITrigger triggerSEE)
+                            {
+                                triggerSEE.PeekSEE = InvokeStack.Peek();
+                                if (triggerSEE.IsTrigger())
+                                {
+                                    isTriggerTrigger = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (tt == SideEffectBundle.TriggerTime.OnTrigger && !isTriggerTrigger) return;
+                //触发的触发 End
+
                 see.TriggerTimes--;
                 ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecuterInfo, tt, tr);
                 OnEventInvokeHandler(request);
+
+                InvokeStack.Push(see);
+                Invoke(SideEffectBundle.TriggerTime.OnTrigger, ei);
                 see.SideEffectBase.Execute(ei);
+                InvokeStack.Pop();
             }
             else if (see.TriggerTimes == 0)
             {
@@ -211,6 +248,11 @@ public class EventManager
         if (see.RemoveTriggerTimes > 0) //移除判定剩余次数减少，为0时移除
         {
             see.RemoveTriggerTimes--;
+            if (see.SideEffectBase is PlayerBuffSideEffects buff_se)
+            {
+                buff_se.RemoveTriggerTimes--;
+            }
+
             if (see.RemoveTriggerTimes == 0)
             {
                 uselessSEEs.Add(see.ID, see);

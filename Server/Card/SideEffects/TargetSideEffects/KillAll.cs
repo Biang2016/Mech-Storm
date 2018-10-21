@@ -45,7 +45,7 @@
                     break;
                 case TargetRange.EnemyShip:
                     break;
-                case TargetRange.All:
+                case TargetRange.AllLife:
                     break;
             }
         }

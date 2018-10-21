@@ -9,13 +9,13 @@
         public override void Execute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            if (TR_Retinues.Contains(M_TargetRange))
+            if ((M_TargetRange & TargetRange.Mechs) != 0)
             {
                 player.MyBattleGroundManager.AddLifeForOneRetinue(executerInfo.TargetRetinueId, FinalValue);
                 player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForOneRetinue(executerInfo.TargetRetinueId, FinalValue);
             }
 
-            if (TR_Ships.Contains(M_TargetRange))
+            if ((M_TargetRange & TargetRange.Ships) != 0)
             {
                 if (executerInfo.TargetClientId == player.ClientId)
                 {
@@ -27,13 +27,8 @@
                 }
                 else
                 {
-                    if (M_TargetRange == TargetRange.SelfShip) player.AddLifeWithinMax(FinalValue);
-                    if (M_TargetRange == TargetRange.EnemyShip) player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
-                    if (M_TargetRange == TargetRange.All)
-                    {
-                        player.AddLifeWithinMax(FinalValue);
-                        player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
-                    }
+                    if ((M_TargetRange & TargetRange.SelfShip) != 0) player.AddLifeWithinMax(FinalValue);
+                    if ((M_TargetRange & TargetRange.EnemyShip) != 0) player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
                 }
             }
 

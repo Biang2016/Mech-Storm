@@ -48,6 +48,7 @@ public static class AllBuffs
             se.DescRaw = sideEffectNode.Attributes["desc"].Value;
             se.DescRaw_en = sideEffectNode.Attributes["desc_en"].Value;
 
+            se.BuffColor = sideEffectNode.Attributes["BuffColor"].Value;
             se.BuffPicId = int.Parse(sideEffectNode.Attributes["BuffPicId"].Value);
             se.HasNumberShow = sideEffectNode.Attributes["HasNumberShow"].Value == "True";
             se.CanPiled = sideEffectNode.Attributes["CanPiled"].Value == "True";
@@ -61,7 +62,7 @@ public static class AllBuffs
             se.RemoveTriggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), sideEffectNode.Attributes["RemoveTriggerRange"].Value);
             se.RemoveTriggerTimes = int.Parse(sideEffectNode.Attributes["RemoveTriggerTimes"].Value);
 
-            SideEffectExecute see = new SideEffectExecute(se, se.TriggerTime, se.TriggerRange, se.TriggerDelayTimes, se.TriggerTimes, se.RemoveTriggerTime, se.RemoveTriggerRange, se.RemoveTriggerTimes);
+            SideEffectExecute see = new SideEffectExecute(SideEffectExecute.SideEffectFrom.Buff, se, se.TriggerTime, se.TriggerRange, se.TriggerDelayTimes, se.TriggerTimes, se.RemoveTriggerTime, se.RemoveTriggerRange, se.RemoveTriggerTimes);
 
             for (int k = 0; k < sideEffectNode.ChildNodes.Count; k++)
             {

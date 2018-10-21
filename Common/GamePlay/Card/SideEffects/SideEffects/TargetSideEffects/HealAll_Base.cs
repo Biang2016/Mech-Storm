@@ -1,16 +1,26 @@
 ﻿public class HealAll_Base : TargetSideEffect, IEffectFactor
 {
     public int Value;
-    public int Factor = 1;
+    private int factor = 1;
+
+    public int GetFactor()
+    {
+        return factor;
+    }
+
+    public void SetFactor(int value)
+    {
+        factor = value;
+    }
 
     public int FinalValue
     {
-        get { return Value * Factor; }
+        get { return Value * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
     {
-        return HightlightStringFormat( isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, true, false), FinalValue);
+        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, true, false), FinalValue);
     }
 
     public override void Serialize(DataStream writer)
@@ -25,15 +35,11 @@
         Value = reader.ReadSInt32();
     }
 
-    public void SetEffetFactor(int factor)
-    {
-        Factor = factor;
-    }
 
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
         ((HealAll_Base) copy).Value = Value;
-        ((HealAll_Base) copy).Factor = Factor;
+        ((HealAll_Base) copy).SetFactor(GetFactor());
     }
 }

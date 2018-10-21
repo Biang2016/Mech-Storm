@@ -10,7 +10,7 @@
         {
             ServerPlayer player = (ServerPlayer) Player;
 
-            if (TR_Retinues.Contains(M_TargetRange))
+            if ((M_TargetRange & TargetRange.Mechs) != 0)
             {
                 player.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
                 player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);

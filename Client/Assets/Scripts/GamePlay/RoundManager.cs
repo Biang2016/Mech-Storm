@@ -184,7 +184,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     {
         switch (targetRange)
         {
-            case TargetSideEffect.TargetRange.All:
+            case TargetSideEffect.TargetRange.AllLife:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 break;

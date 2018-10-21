@@ -9,7 +9,7 @@
         public override void Execute(ExecuterInfo executerInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            if (TR_Retinues.Contains(M_TargetRange))
+            if ((M_TargetRange & TargetRange.Mechs) != 0)
             {
                 ServerModuleRetinue retinue = player.MyGameManager.GetRetinueOnBattleGround(executerInfo.TargetRetinueId);
                 if (retinue != null && retinue.M_RetinueShield != 0)

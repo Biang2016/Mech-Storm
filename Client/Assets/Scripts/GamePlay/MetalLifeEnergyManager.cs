@@ -50,11 +50,11 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
         if (change > 0)
         {
-            LifeNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up, 1.5f);
+            LifeNumberFly.SetText("+" + change, "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Up);
         }
         else if (change < 0)
         {
-            LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down, 1.5f);
+            LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
             HitManager.Instance.ShowHit(LifeIcon.transform, HitManager.HitType.Blade, "#FFFFFF", 0.2f);
             AudioManager.Instance.SoundPlay("sfx/OnHitShip");
             AudioManager.Instance.SoundPlay("sfx/OnHitShipDuuu");
@@ -77,11 +77,11 @@ public class MetalLifeEnergyManager : MonoBehaviour
         EnergyTotalNumberAnim.SetTrigger("Jump");
         if (change > 0)
         {
-            EnergyNumberFly.SetText("+" + change, "#00D2FF", "#00D2FF", TextFly.FlyDirection.Up, 1.5f);
+            EnergyNumberFly.SetText("+" + change, "#00D2FF", "#00D2FF", TextFly.FlyDirection.Up);
         }
         else if (change < 0)
         {
-            EnergyNumberFly.SetText(change.ToString(), "#00D2FF", "#00D2FF", TextFly.FlyDirection.Down, 1.5f);
+            EnergyNumberFly.SetText(change.ToString(), "#00D2FF", "#00D2FF", TextFly.FlyDirection.Down);
         }
     }
 

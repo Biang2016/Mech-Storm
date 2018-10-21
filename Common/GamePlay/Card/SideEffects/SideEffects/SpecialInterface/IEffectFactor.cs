@@ -3,5 +3,6 @@
 /// </summary>
 public interface IEffectFactor
 {
-    void SetEffetFactor(int factor);
+    int GetFactor();
+    void SetFactor(int value);
 }

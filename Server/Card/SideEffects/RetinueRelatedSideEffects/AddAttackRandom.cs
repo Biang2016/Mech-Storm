@@ -63,7 +63,7 @@
                 case TargetRange.EnemySoldiers:
                     player.MyEnemyPlayer.MyBattleGroundManager.AddAttackForRandomSoldier(FinalValue, retinueId);
                     break;
-                case TargetRange.All:
+                case TargetRange.AllLife:
                 {
                     ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.All, retinueId);
                     if (retinue != null)

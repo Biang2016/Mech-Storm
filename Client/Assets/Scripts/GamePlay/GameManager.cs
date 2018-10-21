@@ -117,7 +117,7 @@ public class GameManager : MonoSingletion<GameManager>
         SelfCardDeckCardColor = ClientUtils.HTMLColorToColor("#69B1FF");
         EnemyCardDeckCardColor = ClientUtils.HTMLColorToColor("#FF6C6F");
 
-        LifeIconColor = ClientUtils.HTMLColorToColor("#FF5F65");
+        LifeIconColor = ClientUtils.HTMLColorToColor("#A22A2E");
         MetalIconColor = ClientUtils.HTMLColorToColor("#8335FF");
         EnergyIconColor = ClientUtils.HTMLColorToColor("#007AFF");
     }
@@ -125,14 +125,6 @@ public class GameManager : MonoSingletion<GameManager>
     #endregion
 
     #region 其他
-
-    public AudioSource MainAudioSource;
-
-    public void PlayAudioClip(AudioClip ac)
-    {
-        MainAudioSource.clip = ac;
-        MainAudioSource.Play();
-    }
 
     [SerializeField] private ImageEffectBlurBox ImageEffectBlurBox;
 

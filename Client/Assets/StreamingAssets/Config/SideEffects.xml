@@ -46,4 +46,8 @@
 
   <SideEffect name="AddPlayerBuff" desc="{0}" desc_en="{0}"></SideEffect>
 
+  <SideEffect name="NextSpellDamageDouble" desc="{0}" desc_en="{0}"></SideEffect>
+
+  <SideEffect name="SpellDamageDouble" desc="{0}" desc_en="{0}"></SideEffect>
+
 </AllSideEffects>

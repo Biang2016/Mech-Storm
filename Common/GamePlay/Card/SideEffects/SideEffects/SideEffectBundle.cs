@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 /// <summary>
@@ -109,56 +110,85 @@ public class SideEffectBundle
         return res;
     }
 
+    [Flags]
     public enum TriggerTime
     {
-        None,
+        None = 0,
 
-        OnBeginRound,
-        OnDrawCard,
-        OnPlayCard,
+        OnTrigger = 1 << 0, //例如：某buff为【下一次造成的伤害翻倍】，需要在造成伤害的技能之前触发，且修改该技能的伤害值。
 
-        OnRetinueSummon,
-        OnHeroSummon,
-        OnSoldierSummon,
+        OnBeginRound = 1 << 1,
+        OnDrawCard = 1 << 2,
+        OnPlayCard = 1 << 3,
 
-        OnRetinueAttack,
-        OnHeroAttack,
-        OnSoldierAttack,
+        /// <summary>
+        /// Don't Invoke，otherwise it'll trigger multiple times.
+        /// </summary>
+        OnRetinueSummon = OnHeroSummon | OnSoldierSummon,
+        OnHeroSummon = 1 << 4,
+        OnSoldierSummon = 1 << 5,
 
-        OnRetinueInjured,
-        OnHeroInjured,
-        OnSoldierInjured,
+        /// <summary>
+        /// Don't Invoke，otherwise it'll trigger multiple times.
+        /// </summary>
+        OnRetinueAttack = OnHeroAttack | OnSoldierAttack,
+        OnHeroAttack = 1 << 6,
+        OnSoldierAttack = 1 << 7,
 
-        OnRetinueKill,
-        OnHeroKill,
-        OnSoldierKill,
+        /// <summary>
+        /// Don't Invoke，otherwise it'll trigger multiple times.
+        /// </summary>
+        OnRetinueInjured = OnHeroInjured | OnSoldierInjured,
+        OnHeroInjured = 1 << 8,
+        OnSoldierInjured = 1 << 9,
 
-        OnRetinueMakeDamage,
-        OnHeroMakeDamage,
-        OnSoldierMakeDamage,
+        /// <summary>
+        /// Don't Invoke，otherwise it'll trigger multiple times.
+        /// </summary>
+        OnRetinueKill = OnHeroKill | OnSoldierKill,
+        OnHeroKill = 1 << 10,
+        OnSoldierKill = 1 << 11,
 
-        OnRetinueBeHealed,
-        OnHeroBeHealed,
-        OnSoldierBeHealed,
+        /// <summary>
+        /// Don't Invoke，otherwise it'll trigger multiple times.
+        /// </summary>
+        OnRetinueMakeDamage = OnHeroMakeDamage | OnSoldierMakeDamage,
+        OnHeroMakeDamage = 1 << 12,
+        OnSoldierMakeDamage = 1 << 13,
 
-        OnRetinueDie,
-        OnHeroDie,
-        OnSoldierDie,
+        /// <summary>
+        /// Don't Invoke，otherwise it'll trigger multiple times.
+        /// </summary>
+        OnRetinueBeHealed = OnHeroBeHealed | OnSoldierBeHealed,
+        OnHeroBeHealed = 1 << 14,
+        OnSoldierBeHealed = 1 << 15,
 
-        OnEquipDie,
+        /// <summary>
+        /// Don't Invoke，otherwise it'll trigger multiple times.
+        /// </summary>
+        OnRetinueDie = OnHeroDie | OnSoldierDie,
+        OnHeroDie = 1 << 16,
+        OnSoldierDie = 1 << 17,
 
-        OnMakeDamage,
-        OnMakeSpellDamage,
+        OnEquipDie = 1 << 18,
 
-        OnPlayerGetEnergy,
-        OnPlayerUseEnergy,
-        OnPlayerAddLife,
-        OnPlayerLostLife,
-        OnEndRound,
+        /// <summary>
+        /// Don't Invoke，otherwise it'll trigger multiple times.
+        /// </summary>
+        OnMakeDamage = OnMakeSpellDamage | OnRetinueMakeDamage,
+        OnMakeSpellDamage = 1 << 19,
+
+        OnPlayerGetEnergy = 1 << 21,
+        OnPlayerUseEnergy = 1 << 22,
+        OnPlayerAddLife = 1 << 23,
+        OnPlayerLostLife = 1 << 24,
+        OnEndRound = 1 << 25,
     }
 
     public static SortedDictionary<TriggerTime, string> TriggerTimeDesc = new SortedDictionary<TriggerTime, string>
     {
+        {TriggerTime.OnTrigger, "{0}"},
+
         {TriggerTime.OnBeginRound, "{0}回合开始时, "},
         {TriggerTime.OnDrawCard, "{0}抽牌时, "},
         {TriggerTime.OnPlayCard, "{0}出牌时, "},
@@ -205,6 +235,8 @@ public class SideEffectBundle
 
     public static SortedDictionary<TriggerTime, string> TriggerTimeDesc_en = new SortedDictionary<TriggerTime, string>
     {
+        {TriggerTime.OnTrigger, "{0}"},
+
         {TriggerTime.OnBeginRound, "When {0} turn starts, "},
         {TriggerTime.OnDrawCard, "Once {0} draws, "},
         {TriggerTime.OnPlayCard, "Once {0} plays a card, "},

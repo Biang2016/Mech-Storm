@@ -90,6 +90,7 @@ class ClientUtils
         mpb.SetColor("_EmissionColor", newColor * intensity);
         rd.SetPropertyBlock(mpb);
     }
+
     public static void ChangeEmissionColor(Renderer rd, Color newColor, float intensity = 1.0f)
     {
         if (!rd) return;
@@ -130,22 +131,22 @@ class ClientUtils
         rd.SetPropertyBlock(mpb);
     }
 
-    public static void ChangeSlotColor(RawImage img, SlotTypes slotTypes)
+    public static void ChangeSlotColor(RawImage img, SlotTypes slotTypes, float intensity = 1.0f)
     {
         if (img == null) return;
         switch (slotTypes)
         {
             case SlotTypes.Weapon:
-                img.color = GameManager.Instance.Slot1Color;
+                img.color = GameManager.Instance.Slot1Color * intensity;
                 break;
             case SlotTypes.Shield:
-                img.color = GameManager.Instance.Slot2Color;
+                img.color = GameManager.Instance.Slot2Color * intensity;
                 break;
             case SlotTypes.Pack:
-                img.color = GameManager.Instance.Slot3Color;
+                img.color = GameManager.Instance.Slot3Color * intensity;
                 break;
             case SlotTypes.MA:
-                img.color = GameManager.Instance.Slot4Color;
+                img.color = GameManager.Instance.Slot4Color * intensity;
                 break;
             default:
                 img.enabled = false;

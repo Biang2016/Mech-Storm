@@ -41,7 +41,7 @@
                 case TargetRange.EnemySoldiers:
                     player.MyEnemyPlayer.MyBattleGroundManager.AddAttackForAllSoldiers(FinalValue);
                     break;
-                case TargetRange.All:
+                case TargetRange.AllLife:
                     player.MyBattleGroundManager.AddAttackForAllRetinues(FinalValue);
                     player.MyEnemyPlayer.MyBattleGroundManager.AddAttackForAllRetinues(FinalValue);
 

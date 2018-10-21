@@ -55,3 +55,6 @@ TagManager:
   - name: PlayerBuffs
     uniqueID: 3571628967
     locked: 0
+  - name: Effects
+    uniqueID: 2131958245
+    locked: 0

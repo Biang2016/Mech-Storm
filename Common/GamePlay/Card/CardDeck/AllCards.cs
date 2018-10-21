@@ -120,13 +120,13 @@ public static class AllCards
                         break;
                     case "sideEffectsBundle":
                     {
-                        ExtractSideEffectBundle(cardInfo, sideEffectBundle);
+                        ExtractSideEffectBundle(baseInfo.CardType, cardInfo, sideEffectBundle);
                         break;
                     }
 
                     case "sideEffectsBundle_OnBattleGround":
                     {
-                        ExtractSideEffectBundle(cardInfo, sideEffectBundle_OnBattleGround);
+                        ExtractSideEffectBundle(baseInfo.CardType, cardInfo, sideEffectBundle_OnBattleGround);
                         break;
                     }
                 }
@@ -178,7 +178,7 @@ public static class AllCards
         }
     }
 
-    private static void ExtractSideEffectBundle(XmlNode cardInfo, SideEffectBundle cur_seb)
+    private static void ExtractSideEffectBundle(CardTypes cardType, XmlNode cardInfo, SideEffectBundle cur_seb)
     {
         SideEffectBundle.TriggerTime triggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), cardInfo.Attributes["triggerTime"].Value);
         SideEffectBundle.TriggerRange triggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), cardInfo.Attributes["triggerRange"].Value);
@@ -193,7 +193,25 @@ public static class AllCards
             XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
             SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
             GetInfoForSideEffect(sideEffectInfo, sideEffect);
-            SideEffectExecute see = new SideEffectExecute(sideEffect, triggerTime, triggerRange, triggerDelayTimes, triggerTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes);
+
+            SideEffectExecute.SideEffectFrom sideEffectFrom = SideEffectExecute.SideEffectFrom.Unknown;
+            switch (cardType)
+            {
+                case CardTypes.Retinue:
+                    sideEffectFrom = SideEffectExecute.SideEffectFrom.RetinueSideEffect;
+                    break;
+                case CardTypes.Equip:
+                    sideEffectFrom = SideEffectExecute.SideEffectFrom.EquipSideEffect;
+                    break;
+                case CardTypes.Spell:
+                    sideEffectFrom = SideEffectExecute.SideEffectFrom.SpellCard;
+                    break;
+                case CardTypes.Energy:
+                    sideEffectFrom = SideEffectExecute.SideEffectFrom.EnergyCard;
+                    break;
+            }
+
+            SideEffectExecute see = new SideEffectExecute(sideEffectFrom, sideEffect, triggerTime, triggerRange, triggerDelayTimes, triggerTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes);
             cur_seb.AddSideEffectExecute(see);
         }
     }

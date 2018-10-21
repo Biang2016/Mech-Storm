@@ -233,6 +233,7 @@ public partial class SelectBuildManager
             return a.Energy.CompareTo(b.Energy);
         });
     }
+
     private void SortCBs(List<CardBase> SCs)
     {
         SCs.Sort((a, b) =>
@@ -502,6 +503,7 @@ public partial class SelectBuildManager
             if (CurrentEditBuildButton != null)
             {
                 CurrentEditBuildButton.BuildInfo.CardIDs.Clear();
+                CurrentEditBuildButton.RefreshCardCountText();
                 CurrentEditBuildButton.BuildInfo.CardConsumeCoin = 0;
                 CurrentEditBuildButton.BuildInfo.Life = GamePlaySettings.PlayerDefaultLife;
                 CurrentEditBuildButton.BuildInfo.Energy = GamePlaySettings.PlayerDefaultEnergy;
@@ -509,6 +511,7 @@ public partial class SelectBuildManager
                 AudioManager.Instance.SoundPlay("sfx/UnSelectCard");
             }
         }
+
 
         SelectCardCount = 0;
         HeroCardCount = 0;

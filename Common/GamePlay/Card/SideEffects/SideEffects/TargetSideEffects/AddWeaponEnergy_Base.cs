@@ -1,11 +1,21 @@
 ﻿public class AddWeaponEnergy_Base : TargetSideEffect, IEffectFactor
 {
     public int RetinueID;
-    public int Factor = 1;
+    private int factor = 1;
+
+    public int GetFactor()
+    {
+        return factor;
+    }
+
+    public void SetFactor(int value)
+    {
+        factor = value;
+    }
 
     public int FinalValue
     {
-        get { return Value * Factor; }
+        get { return Value * GetFactor(); }
     }
 
     public int Value;
@@ -29,16 +39,12 @@
         Value = reader.ReadSInt32();
     }
 
-    public void SetEffetFactor(int factor)
-    {
-        Factor = factor;
-    }
 
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
         ((AddWeaponEnergy_Base) copy).RetinueID = RetinueID;
         ((AddWeaponEnergy_Base) copy).Value = Value;
-        ((AddWeaponEnergy_Base) copy).Factor = Factor;
+        ((AddWeaponEnergy_Base) copy).SetFactor(GetFactor());
     }
 }

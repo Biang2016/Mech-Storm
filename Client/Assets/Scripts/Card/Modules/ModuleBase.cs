@@ -153,7 +153,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
 
                 CardRetinue cardRetinue = (CardRetinue) detailCard;
                 cardRetinue.SetCanvasSortingOrder(2);
-                cardRetinue.ShowAllSlotHover();
+                //cardRetinue.ShowAllSlotHover();
 
                 if (((ModuleRetinue) this).M_Weapon)
                 {
@@ -174,7 +174,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_Weapon.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Weapon.transform.Translate(Vector3.right * 0.5f);
                     detailCard_Weapon.transform.Translate(Vector3.back * 3f);
-                    detailCard_Weapon.transform.Translate(Vector3.up * 5f);
+                    detailCard_Weapon.transform.Translate(Vector3.up * 7f);
                     detailCard_Weapon.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Weapon.BeBrightColor();
                     detailCard_Weapon.CardBloom.SetActive(true);
@@ -199,7 +199,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_Shield.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Shield.transform.Translate(Vector3.right * 0.5f);
                     detailCard_Shield.transform.Translate(Vector3.forward * 3f);
-                    detailCard_Shield.transform.Translate(Vector3.up * 5f);
+                    detailCard_Shield.transform.Translate(Vector3.up * 7f);
                     detailCard_Shield.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Shield.BeBrightColor();
                     detailCard_Shield.CardBloom.SetActive(true);
@@ -224,7 +224,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_Pack.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Pack.transform.Translate(Vector3.left * 10.5f);
                     detailCard_Pack.transform.Translate(Vector3.back * 3f);
-                    detailCard_Pack.transform.Translate(Vector3.up * 5f);
+                    detailCard_Pack.transform.Translate(Vector3.up * 7f);
                     detailCard_Pack.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Pack.BeBrightColor();
                     detailCard_Pack.CardBloom.SetActive(true);
@@ -249,7 +249,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_MA.transform.position = new Vector3(0, 2f, 0);
                     detailCard_MA.transform.Translate(Vector3.left * 10.5f);
                     detailCard_MA.transform.Translate(Vector3.forward * 3f);
-                    detailCard_MA.transform.Translate(Vector3.up * 5f);
+                    detailCard_MA.transform.Translate(Vector3.up * 7f);
                     detailCard_MA.GetComponent<BoxCollider>().enabled = false;
                     detailCard_MA.BeBrightColor();
                     detailCard_MA.CardBloom.SetActive(true);

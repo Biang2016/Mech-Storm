@@ -53,7 +53,7 @@ namespace SideEffects
                 case TargetRange.EnemyShip:
                     player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
                     break;
-                case TargetRange.All:
+                case TargetRange.AllLife:
                     player.DamageLifeAboveZero(FinalValue);
                     player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
                     player.MyBattleGroundManager.DamageAllRetinues(FinalValue);

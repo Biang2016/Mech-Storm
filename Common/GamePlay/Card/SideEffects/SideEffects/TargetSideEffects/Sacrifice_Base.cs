@@ -2,16 +2,26 @@
 {
     public int ValueBasic;
     public int ValuePlus;
-    public int Factor = 1;
+    private int factor = 1;
+
+    public int GetFactor()
+    {
+        return factor;
+    }
+
+    public void SetFactor(int value)
+    {
+        factor = value;
+    }
 
     public int FinalValueBasic
     {
-        get { return ValueBasic * Factor; }
+        get { return ValueBasic * GetFactor(); }
     }
 
     public int FinalValuePlus
     {
-        get { return ValuePlus * Factor; }
+        get { return ValuePlus * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
@@ -39,16 +49,11 @@
     }
 
 
-    public void SetEffetFactor(int factor)
-    {
-        Factor = factor;
-    }
-
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
         ((Sacrifice_Base) copy).ValueBasic = ValueBasic;
         ((Sacrifice_Base) copy).ValuePlus = ValuePlus;
-        ((Sacrifice_Base) copy).Factor = Factor;
+        ((Sacrifice_Base) copy).SetFactor(GetFactor());
     }
 }

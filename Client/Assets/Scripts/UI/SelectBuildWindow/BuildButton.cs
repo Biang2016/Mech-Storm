@@ -104,4 +104,10 @@ public class BuildButton : PoolObject
         BuildInfo.CardIDs.Remove(cardId);
         Text_Count.text = BuildInfo.CardCount().ToString();
     }
+
+    public void RefreshCardCountText()
+    {
+        Text_Count.text = BuildInfo.CardCount().ToString();
+    }
+
 }

@@ -1,11 +1,21 @@
 ﻿public class AddSelfWeaponEnergy_Base : AttachedEquipSideEffects, IEffectFactor
 {
     public int RetinueID;
-    public int Factor = 1;
+    private int factor = 1;
+
+    public int GetFactor()
+    {
+        return factor;
+    }
+
+    public void SetFactor(int value)
+    {
+        factor = value;
+    }
 
     public int FinalValue
     {
-        get { return Value * Factor; }
+        get { return Value * GetFactor(); }
     }
 
     public int Value;
@@ -29,16 +39,12 @@
         Value = reader.ReadSInt32();
     }
 
-    public void SetEffetFactor(int factor)
-    {
-        Factor = factor;
-    }
 
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
         ((AddSelfWeaponEnergy_Base) copy).RetinueID = RetinueID;
         ((AddSelfWeaponEnergy_Base) copy).Value = Value;
-        ((AddSelfWeaponEnergy_Base) copy).Factor = Factor;
+        ((AddSelfWeaponEnergy_Base) copy).SetFactor(GetFactor());
     }
 }
