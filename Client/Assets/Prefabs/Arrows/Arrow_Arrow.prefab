@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4093713931873356}
   - component: {fileID: 33360737492791618}
   - component: {fileID: 23188038315649538}
+  - component: {fileID: 210605772181570742}
   m_Layer: 0
   m_Name: ArrowBody
   m_TagString: Untagged
@@ -39,6 +40,7 @@ GameObject:
   - component: {fileID: 33924867069133852}
   - component: {fileID: 114768469574537388}
   - component: {fileID: 23368074844726714}
+  - component: {fileID: 210238588558753670}
   m_Layer: 0
   m_Name: Arrow_Arrow
   m_TagString: Untagged
@@ -156,6 +158,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ArrowBody: {fileID: 1256735465646210}
   M_ArrowType: 0
+--- !u!210 &210238588558753670
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870061392325090}
+  m_Enabled: 1
+  m_SortingLayerID: 2131958245
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+--- !u!210 &210605772181570742
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1256735465646210}
+  m_Enabled: 1
+  m_SortingLayerID: 2131958245
+  m_SortingLayer: 4
+  m_SortingOrder: 0
 --- !u!224 &224740904011352788
 RectTransform:
   m_ObjectHideFlags: 1

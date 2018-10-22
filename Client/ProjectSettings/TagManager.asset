@@ -58,3 +58,6 @@ TagManager:
   - name: Effects
     uniqueID: 2131958245
     locked: 0
+  - name: ShowCards
+    uniqueID: 3686836735
+    locked: 0

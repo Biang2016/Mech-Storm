@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 223263482765701032}
   - component: {fileID: 114358406696153060}
   - component: {fileID: 114878834209232960}
+  - component: {fileID: 210398117662801648}
   m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
@@ -374,6 +375,7 @@ GameObject:
   - component: {fileID: 222606540688316826}
   - component: {fileID: 33795931051240286}
   - component: {fileID: 23632084993421566}
+  - component: {fileID: 210138329655563752}
   m_Layer: 8
   m_Name: Picture
   m_TagString: Untagged
@@ -391,6 +393,7 @@ GameObject:
   - component: {fileID: 4339542401749970}
   - component: {fileID: 33459726089977836}
   - component: {fileID: 23729804015215250}
+  - component: {fileID: 210353381212067918}
   m_Layer: 8
   m_Name: MainBoard
   m_TagString: Untagged
@@ -408,6 +411,7 @@ GameObject:
   - component: {fileID: 4699094854772598}
   - component: {fileID: 33430735108869100}
   - component: {fileID: 23643598206413950}
+  - component: {fileID: 210284108938785998}
   m_Layer: 8
   m_Name: CardShadow
   m_TagString: Untagged
@@ -476,6 +480,7 @@ GameObject:
   - component: {fileID: 4546983782449542}
   - component: {fileID: 33260994616813580}
   - component: {fileID: 23683016081607454}
+  - component: {fileID: 210590118898988100}
   m_Layer: 8
   m_Name: CardBack
   m_TagString: Untagged
@@ -493,6 +498,7 @@ GameObject:
   - component: {fileID: 4216986044986872}
   - component: {fileID: 33075324094532254}
   - component: {fileID: 23997745910580048}
+  - component: {fileID: 210556868729901520}
   m_Layer: 8
   m_Name: CardBackBloom
   m_TagString: Untagged
@@ -544,6 +550,7 @@ GameObject:
   - component: {fileID: 4931114322843226}
   - component: {fileID: 33012353472308072}
   - component: {fileID: 23291447357521856}
+  - component: {fileID: 210456219602632712}
   m_Layer: 0
   m_Name: CardBloom
   m_TagString: Untagged
@@ -1212,12 +1219,21 @@ MonoBehaviour:
   Text_Desc: {fileID: 114552947666513024}
   Text_CardType: {fileID: 114794220742832334}
   Text_CardTypeBG: {fileID: 114919549814150434}
+  MainBoardSortingGroup: {fileID: 210353381212067918}
+  CardShadowSortingGroup: {fileID: 210284108938785998}
+  CardBloomSortingGroup: {fileID: 210456219602632712}
+  CardBackSortingGroup: {fileID: 210590118898988100}
+  CardBackBloomSortingGroup: {fileID: 210556868729901520}
+  CanvasSortingGroup: {fileID: 210398117662801648}
+  PictureSortingGroup: {fileID: 210138329655563752}
   MainBoardRenderer: {fileID: 23729804015215250}
   CardBloom: {fileID: 1980837146637988}
-  CardBackRenderer: {fileID: 23683016081607454}
-  CardBackBloom: {fileID: 1815690311051458}
   CardBloomRenderer: {fileID: 23291447357521856}
   Picture: {fileID: 23632084993421566}
+  CardBackBloom: {fileID: 1815690311051458}
+  CardBackRenderer: {fileID: 23683016081607454}
+  CardBackBloomRenderer: {fileID: 23997745910580048}
+  CardCanvas: {fileID: 223263482765701032}
   Image_DescPanel: {fileID: 114630956239119024}
   LifeIcon: {fileID: 0}
   MetalIcon: {fileID: 114717672218705620}
@@ -1540,6 +1556,76 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!210 &210138329655563752
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1602435664245634}
+  m_Enabled: 1
+  m_SortingLayerID: 787400071
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+--- !u!210 &210284108938785998
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1619245806546760}
+  m_Enabled: 1
+  m_SortingLayerID: 787400071
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+--- !u!210 &210353381212067918
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1608030961880674}
+  m_Enabled: 1
+  m_SortingLayerID: 787400071
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+--- !u!210 &210398117662801648
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148527648282688}
+  m_Enabled: 1
+  m_SortingLayerID: 787400071
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+--- !u!210 &210456219602632712
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980837146637988}
+  m_Enabled: 1
+  m_SortingLayerID: 787400071
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+--- !u!210 &210556868729901520
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815690311051458}
+  m_Enabled: 1
+  m_SortingLayerID: 787400071
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+--- !u!210 &210590118898988100
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1806449403299588}
+  m_Enabled: 1
+  m_SortingLayerID: 787400071
+  m_SortingLayer: 2
+  m_SortingOrder: 0
 --- !u!222 &222066325964868734
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1677,7 +1763,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 787400071
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!223 &223263482765701032
@@ -1697,7 +1783,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 787400071
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &224054666486825726
@@ -1707,7 +1793,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572175847439190}
   m_LocalRotation: {x: -1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -0.4}
+  m_LocalPosition: {x: 0, y: 0, z: -0.04}
   m_LocalScale: {x: 0.024999999, y: 0.024999995, z: 0.024999995}
   m_Children:
   - {fileID: 224202481234547342}

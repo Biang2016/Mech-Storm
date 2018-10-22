@@ -154,6 +154,7 @@ public class HandManager : MonoBehaviour
         }
 
         RefreshAllCardUsable();
+        RefreshCardsOrderInLayer();
     }
 
     private GameObject GetCardPlacePivot;
@@ -249,6 +250,9 @@ public class HandManager : MonoBehaviour
         newCardBase.M_CardInstanceId = cardIdAndInstanceId.CardInstanceId;
 
         cards.Add(newCardBase);
+
+        RefreshCardsOrderInLayer();
+
         RefreshAllCardUsable();
 
         Transform srcPos = DrawCardPivot;
@@ -275,6 +279,16 @@ public class HandManager : MonoBehaviour
         newCardBase.IsFlying = false;
 
         yield return new WaitForSeconds(0.1f);
+    }
+
+    private void RefreshCardsOrderInLayer()
+    {
+        for (int i = 0; i < cards.Count; i++)
+        {
+            cards[i].SetOrderInLayer(i);
+        }
+
+        if (CurrentFocusCard) CurrentFocusCard.SetOrderInLayer(100);
     }
 
     public void DropCard(int handCardInstanceId)
@@ -427,6 +441,7 @@ public class HandManager : MonoBehaviour
 
         CurrentFocusCard = focusCard;
         HandCardEnlarge(focusCard);
+
         if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
         {
             if (CurrentFocusCard is CardEquip)

@@ -63,49 +63,65 @@ public class EventManager
             RemoveEvents[tt] = new Dictionary<int, SideEffectExecute>();
         }
 
-        uselessSEEs.Clear();
+        ObsoleteSEEs.Clear();
     }
 
-    private static int InvokeStackDepth = 0;
-
-    public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo) //Trigger by bit
+    public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo) //触发事件由位控制，触发所有对应位的事件
     {
         foreach (SideEffectBundle.TriggerTime triggerTime in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
         {
             if ((tt & triggerTime) == tt)
             {
-                InvokeCore(triggerTime, executerInfo);
+                InvokeTriggerTimeQueue.Enqueue(new InvokeInfo(triggerTime, executerInfo)); //所有事件入队
             }
+        }
+
+        while (InvokeTriggerTimeQueue.Count > 0) //逐个处理
+        {
+            InvokeInfo invokeInfo = InvokeTriggerTimeQueue.Dequeue();
+            InvokeCore(invokeInfo);
+        }
+
+        RemoveAllUselessSEEs(); //移除所有失效的SE
+        OnEventInvokeEndHandler(); //可以发送数据包给客户端
+    }
+
+    struct InvokeInfo
+    {
+        public SideEffectBundle.TriggerTime TriggerTime;
+        public SideEffectBase.ExecuterInfo ExecuterInfo;
+
+        public InvokeInfo(SideEffectBundle.TriggerTime triggerTime, SideEffectBase.ExecuterInfo executerInfo)
+        {
+            TriggerTime = triggerTime;
+            ExecuterInfo = executerInfo;
         }
     }
 
+    Queue<InvokeInfo> InvokeTriggerTimeQueue = new Queue<InvokeInfo>();
+
     Stack<SideEffectExecute> InvokeStack = new Stack<SideEffectExecute>();
 
-    private void InvokeCore(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
+    private void InvokeCore(InvokeInfo invokeInfo)
     {
-        InvokeStackDepth++;
+        SideEffectBundle.TriggerTime tt = invokeInfo.TriggerTime;
+        SideEffectBase.ExecuterInfo executerInfo = invokeInfo.ExecuterInfo;
+
         Dictionary<int, SideEffectExecute> seeDict = Events[tt];
         SideEffectExecute[] sees = seeDict.Values.ToArray();
         for (int i = 0; i < sees.Length; i++)
         {
             SideEffectExecute see = sees[i];
-            if (uselessSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
+            if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
             if (seeDict.ContainsKey(see.ID))
             {
-                bool isTrigger = isExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.TriggerRange);
+                bool isTrigger = IsExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.TriggerRange);
                 if (isTrigger) Trigger(see, executerInfo, tt, see.TriggerRange);
             }
         }
 
         //进行失效SEE的移除
         Invoke_RemoveSEE(tt, executerInfo);
-
-        InvokeStackDepth--; //由于触发事件经常嵌套发生，加入栈深度，都执行完毕清空废弃SEE
-        if (InvokeStackDepth == 0)
-        {
-            RemoveAllUselessSEEs(); //移除所有失效的SE
-            OnEventInvokeEndHandler(); //可以发送数据包给客户端
-        }
     }
 
     public void Invoke_RemoveSEE(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
@@ -115,10 +131,10 @@ public class EventManager
         for (int i = 0; i < sees.Length; i++)
         {
             SideEffectExecute see = sees[i];
-            if (uselessSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
+            if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
             if (seeDict.ContainsKey(see.ID))
             {
-                bool isTrigger = isExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.RemoveTriggerRange);
+                bool isTrigger = IsExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.RemoveTriggerRange);
                 if (isTrigger) Trigger_TryRemove(see);
             }
         }
@@ -126,11 +142,11 @@ public class EventManager
         RemoveAllUselessSEEs(); //移除所有失效的SE
     }
 
-    private Dictionary<int, SideEffectExecute> uselessSEEs = new Dictionary<int, SideEffectExecute>();
+    private Dictionary<int, SideEffectExecute> ObsoleteSEEs = new Dictionary<int, SideEffectExecute>();
 
     private void RemoveAllUselessSEEs()
     {
-        foreach (KeyValuePair<int, SideEffectExecute> kv in uselessSEEs)
+        foreach (KeyValuePair<int, SideEffectExecute> kv in ObsoleteSEEs)
         {
             Dictionary<int, SideEffectExecute> event_sees = Events[kv.Value.TriggerTime];
             if (event_sees.ContainsKey(kv.Key)) event_sees.Remove(kv.Key);
@@ -147,10 +163,10 @@ public class EventManager
             }
         }
 
-        uselessSEEs.Clear();
+        ObsoleteSEEs.Clear();
     }
 
-    private static bool isExecuteTrigger(SideEffectBase.ExecuterInfo executerInfo, SideEffectBase.ExecuterInfo se_ExecuterInfo, SideEffectBundle.TriggerRange tr)
+    private static bool IsExecuteTrigger(SideEffectBase.ExecuterInfo executerInfo, SideEffectBase.ExecuterInfo se_ExecuterInfo, SideEffectBundle.TriggerRange tr)
     {
         bool isTrigger = false;
         switch (tr)
@@ -238,7 +254,7 @@ public class EventManager
             }
             else if (see.TriggerTimes == 0)
             {
-                uselessSEEs.Add(see.ID, see);
+                ObsoleteSEEs.Add(see.ID, see);
             }
         }
     }
@@ -255,7 +271,7 @@ public class EventManager
 
             if (see.RemoveTriggerTimes == 0)
             {
-                uselessSEEs.Add(see.ID, see);
+                ObsoleteSEEs.Add(see.ID, see);
             }
             else
             {

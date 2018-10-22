@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponent
@@ -87,10 +88,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             newCard.DragComponent.enabled = true;
             newCard.M_BoxCollider.enabled = true;
 
-            if (clientPlayer.WhichPlayer == Players.Self)
-            {
-                if (newCard.CardBackRenderer) newCard.CardBackRenderer.gameObject.SetActive(clientPlayer.WhichPlayer != Players.Self);
-            }
+            if (newCard.CardBackRenderer) newCard.CardBackRenderer.gameObject.SetActive(true);
         }
         else
         {
@@ -138,6 +136,18 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         newCard.Usable = false;
 
         return newCard;
+    }
+
+    public void SetOrderInLayer(int value)
+    {
+        CardCanvas.sortingOrder = value;
+        MainBoardSortingGroup.sortingOrder = value;
+        CardShadowSortingGroup.sortingOrder = value;
+        CardBloomSortingGroup.sortingOrder = value;
+        CardBackSortingGroup.sortingOrder = value;
+        CardBackBloomSortingGroup.sortingOrder = value;
+        //CanvasSortingGroup.sortingOrder = value;
+        PictureSortingGroup.sortingOrder = value;
     }
 
     private float MainboardEmissionIntensity = 0f;
@@ -307,12 +317,26 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private Text Text_CardType;
     [SerializeField] private Text Text_CardTypeBG;
 
-    public Renderer MainBoardRenderer;
+
+    [SerializeField] private SortingGroup MainBoardSortingGroup;
+    [SerializeField] private SortingGroup CardShadowSortingGroup;
+    [SerializeField] private SortingGroup CardBloomSortingGroup;
+    [SerializeField] private SortingGroup CardBackSortingGroup;
+    [SerializeField] private SortingGroup CardBackBloomSortingGroup;
+    [SerializeField] private SortingGroup CanvasSortingGroup;
+    [SerializeField] private SortingGroup PictureSortingGroup;
+
+    [SerializeField] private Renderer MainBoardRenderer;
     public GameObject CardBloom;
-    [SerializeField] private Renderer CardBackRenderer;
-    public GameObject CardBackBloom;
     [SerializeField] private Renderer CardBloomRenderer;
     [SerializeField] private Renderer Picture;
+
+    public GameObject CardBackBloom;
+    [SerializeField] private Renderer CardBackRenderer;
+    [SerializeField] private Renderer CardBackBloomRenderer;
+
+    [SerializeField] private Canvas CardCanvas;
+
     [SerializeField] private Image Image_DescPanel;
 
     [SerializeField] private Image LifeIcon;
