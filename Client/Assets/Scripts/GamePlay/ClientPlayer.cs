@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine;
 
 public class ClientPlayer : Player
 {
@@ -63,7 +64,7 @@ public class ClientPlayer : Player
 
         MyHandManager.RefreshAllCardUsable();
 
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -93,7 +94,7 @@ public class ClientPlayer : Player
             AddLife(request.addLife_left);
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -125,7 +126,7 @@ public class ClientPlayer : Player
             else if (request.addEnergy_left < 0) AudioManager.Instance.SoundPlay("sfx/OnEnergyUse");
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

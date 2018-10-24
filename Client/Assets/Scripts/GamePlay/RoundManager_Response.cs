@@ -180,9 +180,19 @@ internal partial class RoundManager
                 OnRetinueAttackShip((RetinueAttackShipServerRequest) r);
                 break;
             }
-            case NetProtocols.SE_DAMAGE_ONE_RETINUE_REQUEST:
+            case NetProtocols.SE_RETINUE_DODGE:
             {
-                OnDamageSomeRetinue((DamageOneRetinueRequest) r);
+                OnRetinueDodge((RetinueDodgeRequest) r);
+                break;
+            }
+            case NetProtocols.SE_RETINUE_CANATTACK:
+            {
+                OnRetinueCanAttackChange((RetinueCanAttackRequest) r);
+                break;
+            }
+            case NetProtocols.SE_RETINUE_ONATTACK:
+            {
+                OnRetinueOnAttack((RetinueOnAttackRequest) r);
                 break;
             }
             case NetProtocols.SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT:
@@ -349,11 +359,11 @@ internal partial class RoundManager
         {
             if (SelfClientPlayer.MyBattleGroundManager.GetRetinue(retinueId) != null)
             {
-                SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherAdd(retinueId);
+                SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogetherAdd(retinueId);
             }
             else if (EnemyClientPlayer.MyBattleGroundManager.GetRetinue(retinueId) != null)
             {
-                EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherAdd(retinueId);
+                EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogetherAdd(retinueId);
             }
         }
     }
@@ -377,8 +387,8 @@ internal partial class RoundManager
 
     IEnumerator Co_RetinueRemoveFromBattleGround(List<int> retinueIds) //机甲一起移除战场
     {
-        SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogather(retinueIds);
-        EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogather(retinueIds);
+        SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogether(retinueIds);
+        EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogether(retinueIds);
 
         SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
         EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
@@ -473,10 +483,25 @@ internal partial class RoundManager
         attackRetinue.AttackShip(cp_beAttack);
     }
 
-    public void OnDamageSomeRetinue(DamageOneRetinueRequest r)
+    private void OnRetinueDodge(RetinueDodgeRequest r)
     {
-        ClientPlayer cp_beAttack = GetPlayerByClientId(r.beDamagedRetinueClientId);
-        cp_beAttack.MyBattleGroundManager.DamageOneRetinue(r.beDamagedRetinueId, r.value);
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        retinue.OnDodge();
+    }
+
+    private void OnRetinueCanAttackChange(RetinueCanAttackRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        retinue.CanAttack = r.canAttack;
+    }
+
+    private void OnRetinueOnAttack(RetinueOnAttackRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        retinue.OnAttack(r.weaponType);
     }
 
     private void OnShowSideEffect(ShowSideEffectTriggeredRequest r)

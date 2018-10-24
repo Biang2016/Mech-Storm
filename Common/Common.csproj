@@ -70,12 +70,15 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\DrawCards_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\CardRelatedSideEffect.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\UseAllEnergyDamageShip_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\Exile_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\NextSpellDamageDouble_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\AddEnergyWhenAttack_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\AddPlayerBuff_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\PlayerBuffSideEffects.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SpecialInterface\ITrigger.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SpecialInterface\IDamage.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\DoubleEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TriggerTriggerSideEffects\TriggerTriggerSideEffects.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\SummonRetinue_Base.cs" />
@@ -124,6 +127,9 @@
     <Compile Include="RequestResponse\ClientToServer\OutGame\LogoutRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LoginRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\RegisterRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueCanAttackRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueOnAttackRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueDodgeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerBuffRemoveRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerBuffUpdateRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\CardAttributeChangeRequest.cs" />
@@ -141,7 +147,6 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardToShipServerRequset.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipMARequest_ResponseBundle.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipShieldRequest_ResponseBundle.cs" />
-    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\DamageOneRetinueRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\UseSpellCardToRetinueServerRequset.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\EquipPackRequest_ResponseBundle.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\UseSpellCardRequset_ResponseBundle.cs" />

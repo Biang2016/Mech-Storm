@@ -77,6 +77,7 @@ internal class ServerBattleGroundManager
             HeroCount = Heros.Count;
         }
 
+        retinue.CardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self);
         PrintRetinueInfos();
     }
 
@@ -219,7 +220,7 @@ internal class ServerBattleGroundManager
 
         foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
         {
-            serverModuleRetinue.OnDieTogather();
+            serverModuleRetinue.OnDieTogether();
         }
     }
 
@@ -236,7 +237,7 @@ internal class ServerBattleGroundManager
 
         foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
         {
-            serverModuleRetinue.OnDieTogather();
+            serverModuleRetinue.OnDieTogether();
         }
     }
 
@@ -252,7 +253,7 @@ internal class ServerBattleGroundManager
 
         foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
         {
-            serverModuleRetinue.OnDieTogather();
+            serverModuleRetinue.OnDieTogether();
         }
     }
 
@@ -281,7 +282,7 @@ internal class ServerBattleGroundManager
     {
         if (retinue != null)
         {
-            retinue.OnDieTogather();
+            retinue.OnDieTogether();
             PrintRetinueInfos();
         }
     }
@@ -472,8 +473,6 @@ internal class ServerBattleGroundManager
             if (retinue != null)
             {
                 retinue.BeAttacked(value);
-                DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, retinue.M_RetinueID, value);
-                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
                 Retinues[i].CheckAlive();
             }
         }
@@ -487,8 +486,6 @@ internal class ServerBattleGroundManager
             if (retinue != null)
             {
                 retinue.BeAttacked(value);
-                DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, retinue.M_RetinueID, value);
-                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
                 Heros[i].CheckAlive();
             }
         }
@@ -502,8 +499,6 @@ internal class ServerBattleGroundManager
             if (retinue != null)
             {
                 retinue.BeAttacked(value);
-                DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, retinue.M_RetinueID, value);
-                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
                 Soldiers[i].CheckAlive();
             }
         }
@@ -514,8 +509,6 @@ internal class ServerBattleGroundManager
         if (targetRetinue != null)
         {
             targetRetinue.BeAttacked(value);
-            DamageOneRetinueRequest request = new DamageOneRetinueRequest(ServerPlayer.ClientId, targetRetinue.M_RetinueID, value);
-            ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
             targetRetinue.CheckAlive();
         }
     }
@@ -689,11 +682,19 @@ internal class ServerBattleGroundManager
     internal void BeginRound()
     {
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnBeginRound, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId));
+        foreach (ServerModuleRetinue retinue in Retinues)
+        {
+            retinue.OnBeginRound();
+        }
     }
 
     internal void EndRound()
     {
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEndRound, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId));
+        foreach (ServerModuleRetinue retinue in Retinues)
+        {
+            retinue.OnEndRound();
+        }
     }
 
     #endregion

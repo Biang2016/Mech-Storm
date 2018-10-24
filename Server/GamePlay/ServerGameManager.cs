@@ -116,6 +116,8 @@ internal class ServerGameManager
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
         Broadcast_AddRequestToOperationResponse(request);
 
+        PlayerA.MyHandManager.DrawHeroCards(100);
+        PlayerB.MyHandManager.DrawHeroCards(100);
         if (isPlayerAFirst)
         {
             PlayerA.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
@@ -155,6 +157,7 @@ internal class ServerGameManager
 
     void OnDrawCardPhase()
     {
+        CurrentPlayer.MyHandManager.DrawHeroCards(100);
         CurrentPlayer.MyHandManager.DrawCards(CurrentPlayer.MyCardDeckManager.CardDeck.M_BuildInfo.DrawCardNum);
     }
 

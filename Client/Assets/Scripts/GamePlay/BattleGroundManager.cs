@@ -186,10 +186,9 @@ public class BattleGroundManager : MonoBehaviour
 
     public List<ModuleRetinue> RemoveRetinues = new List<ModuleRetinue>(); //即将要被移除的机甲名单
 
-    public void RemoveRetinueTogatherAdd(int retinueId)
+    public void RemoveRetinueTogetherAdd(int retinueId)
     {
         ModuleRetinue retinue = GetRetinue(retinueId);
-        retinue.CannotAttackBecauseDie = true;
         RetinueCount--;
         if (!retinue.CardInfo.RetinueInfo.IsSoldier)
         {
@@ -203,7 +202,7 @@ public class BattleGroundManager : MonoBehaviour
         RemoveRetinues.Add(retinue);
     }
 
-    public void RemoveRetinueTogather(List<int> removeRetinueList)
+    public void RemoveRetinueTogether(List<int> removeRetinueList)
     {
         foreach (int rid in removeRetinueList)
         {

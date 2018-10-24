@@ -33,6 +33,7 @@
 
   <SideEffect name="AddEnergy" desc="为{0}增加{1}点能量, " desc_en="Add {1} energy for {0}. "></SideEffect>
   <SideEffect name="AddEnergyPerMechs" desc="对每{0},从敌舰偷取{1}点能量, " desc_en="Steal {1} energy from enemy ship for every {0}. "></SideEffect>
+  <SideEffect name="DoubleEnergy" desc="使我方能量翻倍, " desc_en="Double your energy. "></SideEffect>
 
   <SideEffect name="WaitInHandDecreaseEnergy" desc="该牌的能量花费减少{0}点, " desc_en="Decrease {0} energy cost for this card. "></SideEffect>
 
@@ -49,5 +50,9 @@
   <SideEffect name="NextSpellDamageDouble" desc="{0}" desc_en="{0}"></SideEffect>
 
   <SideEffect name="SpellDamageDouble" desc="{0}" desc_en="{0}"></SideEffect>
+
+  <SideEffect name="Exile" desc="" desc_en=""></SideEffect>
+
+  <SideEffect name="UseAllEnergyDamageShip" desc="消耗全部能量,对敌舰造成{0}点伤害,每多消耗1点,对敌方造成额外的{1}点伤害, " desc_en="Consume all energy. Deal {0} damage to enemy ship. Deal extra {1} damage per extra energy used. "></SideEffect>
 
 </AllSideEffects>

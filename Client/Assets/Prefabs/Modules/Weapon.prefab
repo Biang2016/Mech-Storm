@@ -799,7 +799,7 @@ MonoBehaviour:
   Star2: {fileID: 1245245020607682}
   Star3: {fileID: 1422625889569704}
   stars: 0
-  MainBoardRenderer: {fileID: 0}
+  MainBoardRenderer: {fileID: 23759429155995086}
   M_EquipID: 0
   Name: {fileID: 102677775566742566}
   Name_en: {fileID: 102871059373692676}

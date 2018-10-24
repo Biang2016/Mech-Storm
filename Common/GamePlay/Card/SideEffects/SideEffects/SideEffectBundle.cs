@@ -50,7 +50,18 @@ public class SideEffectBundle
                     else if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnEquipDie)) res += BaseInfo.AddImportantColorToText(isEnglish ? "Broken: " : "亡语: ");
                     else if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnRetinueAttack)) res += isEnglish ? "When attacks, " : "进攻时, ";
                     else if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnRetinueKill)) res += isEnglish ? "When kills, " : "杀敌时, ";
-                    else if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnPlayCard)) res += "";
+                    else if (SEEs.Key == TriggerRange.Self && (kv.Key == TriggerTime.OnPlayCard))
+                    {
+                        foreach (SideEffectExecute see in SEEs.Value)
+                        {
+                            if (see.SideEffectBase is Exile_Base)
+                            {
+                                res = BaseInfo.AddImportantColorToText(isEnglish ? "Disposable. " : "移除, ") + res;
+                            }
+                        }
+
+                        res += "";
+                    }
                     else
                     {
                         if (isEnglish)
@@ -71,7 +82,7 @@ public class SideEffectBundle
             }
 
             res = res.TrimEnd(",. ".ToCharArray());
-            res += ";\n";
+            res += "; ";
         }
 
         return res;

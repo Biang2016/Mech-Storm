@@ -2,11 +2,11 @@
 {
     public static int MaxHandCard = 30;
     public static int DrawCardPerRound = 2;
-    public static int FirstDrawCard = 5;
-    public static int SecondDrawCard = 6;
+    public static int FirstDrawCard = 0;
+    public static int SecondDrawCard = 0;
     public static int MaxRetinueNumber = 6;
 
-    public static int MaxHeroNumber = 3;
+    public static int MaxHeroNumber = 4;
 
     public static int BeginMetal = 1;
     public static int MaxMetal = 10;

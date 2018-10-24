@@ -22,25 +22,6 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
         if (DescBG) DescBG.text = "";
     }
 
-    #region SideEffectsAttachedToPlayer
-
-    private List<SideEffectBundle> SideEffectBundles_Player = new List<SideEffectBundle>();
-
-    public void AddSideEffectBundleForPlayerBuff(SideEffectBundle newSideEffectBundle)
-    {
-        SideEffectBundles_Player.Add(newSideEffectBundle);
-        //Todo 客户端界面显示Icon
-    }
-
-    public void RemoveSideEffectBundleForPlayerBuff(SideEffectBundle seb)
-    {
-        if (SideEffectBundles_Player.Contains(seb)) SideEffectBundles_Player.Remove(seb);
-        //Todo 客户端删除Icon
-    }
-
-    #endregion
-
-
     public void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
         if (DragManager.Instance.CurrentDrag)

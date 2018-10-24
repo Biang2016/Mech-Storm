@@ -145,7 +145,7 @@ public class ModuleRetinue : ModuleBase
         SideEffectDieIcon.gameObject.SetActive(false);
         SideEffectBGDieIcon.gameObject.SetActive(false);
 
-        if (CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
+        if (CardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
         {
             SideEffectDieIcon.gameObject.SetActive(true);
             SideEffectBGDieIcon.gameObject.SetActive(true);
@@ -192,9 +192,6 @@ public class ModuleRetinue : ModuleBase
 
         isInitializing = false;
 
-        isFirstRound = true;
-        CannotAttackBecauseDie = false;
-        AttackTimesThisRound = CardInfo.RetinueInfo.IsCharger ? (IsFrenzy ? 2 : 1) : 0;
         M_ClientTempRetinueID = -1;
         SniperTipText.enabled = false;
 
@@ -315,7 +312,6 @@ public class ModuleRetinue : ModuleBase
                     M_Weapon.M_WeaponAttack = value;
                 }
 
-                CheckCanAttack();
                 float duration = isInitializing ? 0 : 0.1f;
                 BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, M_RetinueWeaponEnergy == 0 ? (value - before) : M_RetinueWeaponFinalAttack - before_att, duration, isInitializing), "Co_RetinueAttackChange");
             }
@@ -832,34 +828,15 @@ public class ModuleRetinue : ModuleBase
     void On_WeaponEquiped()
     {
         M_Weapon.OnWeaponEquiped();
-        RefreshAttackTime();
         HideRetinueTypeLooking();
-        CheckCanAttack();
         AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
 
     void On_WeaponChanged()
     {
         M_Weapon.OnWeaponEquiped();
-        RefreshAttackTime();
         HideRetinueTypeLooking();
-        CheckCanAttack();
         AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
-    }
-
-    void RefreshAttackTime()
-    {
-        if (AttackTimesThisRound > 0) //如果攻击次数还未用完
-        {
-            if (!CardInfo.RetinueInfo.IsFrenzy && M_Weapon.CardInfo.WeaponInfo.IsFrenzy) //如果枪械为狂暴状态(如果机甲为狂暴则无效)，则增加攻击次数到2
-            {
-                AttackTimesThisRound = 2;
-            }
-            else if (M_Weapon.CardInfo.WeaponInfo.IsSentry) //如果枪械为哨戒模式，则攻击次数清零
-            {
-                AttackTimesThisRound = 0;
-            }
-        }
     }
 
     #endregion
@@ -890,8 +867,6 @@ public class ModuleRetinue : ModuleBase
                 m_Shield = value;
                 On_ShieldChanged();
             }
-
-            CheckCanAttack();
         }
     }
 
@@ -943,8 +918,6 @@ public class ModuleRetinue : ModuleBase
                 m_Pack = value;
                 On_PackChanged();
             }
-
-            CheckCanAttack();
         }
     }
 
@@ -995,8 +968,6 @@ public class ModuleRetinue : ModuleBase
                 m_MA = value;
                 On_MAChanged();
             }
-
-            CheckCanAttack();
         }
     }
 
@@ -1027,26 +998,18 @@ public class ModuleRetinue : ModuleBase
 
     #region 攻击
 
-    public bool isFirstRound = true; //是否是召唤的第一回合
-    public bool CannotAttackBecauseDie = false; //是否已预先判定死亡
-    public int AttackTimesThisRound = 1; //本回合攻击次数
-    public bool CanCharge = false; //冲锋
-    public bool EndRound = false; //回合结束后
+    private bool canAttack;
 
-    private bool CheckCanAttack()
+    public bool CanAttack
     {
-        bool canAttack = true;
-        canAttack &= RoundManager.Instance.CurrentClientPlayer == ClientPlayer;
-        canAttack &= ClientPlayer == RoundManager.Instance.SelfClientPlayer;
-        canAttack &= !isFirstRound || (isFirstRound && CanCharge);
-        canAttack &= (!CannotAttackBecauseDie);
-        canAttack &= AttackTimesThisRound > 0;
-        canAttack &= (M_RetinueAttack > 0);
-        canAttack &= !EndRound;
-
-        RetinueCanAttackBloom.gameObject.SetActive(canAttack);
-        return canAttack;
+        get { return canAttack; }
+        set
+        {
+            canAttack = value;
+            RetinueCanAttackBloom.gameObject.SetActive(canAttack);
+        }
     }
+
 
     private enum AttackLevel
     {
@@ -1080,121 +1043,12 @@ public class ModuleRetinue : ModuleBase
 
     public void AttackCore(ModuleRetinue targetRetinue, bool isCounterAttack)
     {
-        if (M_Weapon && !isCounterAttack) M_Weapon.OnAttack(); //武器特效
-        int damage = 0;
-        bool canCounter = !isCounterAttack && M_AttackLevel <= targetRetinue.M_AttackLevel; //对方能否反击
-
-        if (M_Weapon && M_RetinueWeaponEnergy != 0)
-        {
-            switch (M_Weapon.M_WeaponType)
-            {
-                case WeaponTypes.Sword:
-                {
-                    damage = M_RetinueAttack * M_RetinueWeaponEnergy;
-                    if (!isCounterAttack) OnAttack(damage, WeaponTypes.Sword); //机甲特效
-                    int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
-                    if (dodgeRandomNumber < DodgeProp) //闪避成功
-                    {
-                        targetRetinue.OnDodge();
-                    }
-                    else
-                    {
-                        targetRetinue.BeAttacked(damage);
-                        OnMakeDamage(damage);
-                        if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
-                    }
-
-                    if (canCounter) targetRetinue.AttackCore(this, true); //对方反击
-                    break;
-                }
-
-                case WeaponTypes.Gun: //有远程武器避免反击
-                {
-                    int repeatTimes = M_RetinueWeaponEnergy;
-                    if (isCounterAttack) //如果是用枪反击
-                    {
-                        if (IsFrenzy) //如果是狂暴枪，反击2次
-                        {
-                            repeatTimes = 2;
-                        }
-                        else //如果是用枪反击，只反击一个子弹
-                        {
-                            repeatTimes = 1;
-                        }
-                    }
-
-                    for (int i = 0; i < repeatTimes; i++)
-                    {
-                        OnAttack(damage, WeaponTypes.Gun); //机甲特效
-                        int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
-                        if (dodgeRandomNumber < DodgeProp) //闪避成功
-                        {
-                            targetRetinue.OnDodge();
-                        }
-                        else
-                        {
-                            targetRetinue.BeAttacked(M_RetinueAttack);
-                            OnMakeDamage(M_RetinueAttack);
-                        }
-
-                        M_RetinueWeaponEnergy--;
-                        if (targetRetinue.M_RetinueLeftLife <= 0 || M_RetinueWeaponEnergy <= 0) break;
-                    }
-
-                    if (canCounter) targetRetinue.AttackCore(this, true); //对方反击
-                    break;
-                }
-
-                case WeaponTypes.SniperGun:
-                {
-                    if (isCounterAttack) break; //狙击枪无法反击
-                    OnAttack(damage, WeaponTypes.SniperGun); //机甲特效
-                    int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
-                    if (dodgeRandomNumber < DodgeProp) //闪避成功
-                    {
-                        targetRetinue.OnDodge();
-                    }
-                    else
-                    {
-                        targetRetinue.BeAttacked(M_RetinueAttack);
-                        OnMakeDamage(M_RetinueAttack);
-                    }
-
-                    M_RetinueWeaponEnergy--;
-                    if (targetRetinue.M_RetinueLeftLife <= 0) break;
-                    if (canCounter) targetRetinue.AttackCore(this, true); //对方反击
-                    break;
-                }
-            }
-        }
-        else //没有武器
-        {
-            damage = M_RetinueAttack;
-            int dodgeRandomNumber = RoundManager.Instance.RandomNumberGenerator.Range(0, 100);
-            if (dodgeRandomNumber < DodgeProp) //闪避成功
-            {
-                targetRetinue.OnDodge();
-            }
-            else
-            {
-                targetRetinue.BeAttacked(damage);
-                OnMakeDamage(damage);
-            }
-
-            OnAttack(damage, WeaponTypes.None); //机甲特效
-            if (canCounter) targetRetinue.AttackCore(this, true); //对方反击
-        }
-
-        AttackTimesThisRound -= 1;
-        CheckCanAttack();
     }
 
     public void AttackShip(ClientPlayer ship)
     {
-        OnAttack(0, WeaponTypes.None); //机甲特效
+        OnAttack(WeaponTypes.None); //机甲特效
         if (M_Weapon) M_Weapon.OnAttack(); //武器特效
-        AttackTimesThisRound -= 1;
-        CheckCanAttack();
     }
 
     public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理
@@ -1374,7 +1228,7 @@ public class ModuleRetinue : ModuleBase
 
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        canDrag = CheckCanAttack();
+        canDrag = CanAttack && ClientPlayer == RoundManager.Instance.CurrentClientPlayer && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
         dragPurpose = DragPurpose.Target;
     }
 
@@ -1595,7 +1449,7 @@ public class ModuleRetinue : ModuleBase
         }
 
         SideEffcetBloom.gameObject.SetActive(true);
-        ClientUtils.ChangeColor(SideEffcetBloom, color,2);
+        ClientUtils.ChangeColor(SideEffcetBloom, color, 2);
         AudioManager.Instance.SoundPlay("sfx/OnSE");
         yield return new WaitForSeconds(duration);
         SideEffcetBloom.gameObject.SetActive(false);
@@ -1605,7 +1459,6 @@ public class ModuleRetinue : ModuleBase
     public void OnSummon()
     {
         AudioManager.Instance.SoundPlay("sfx/OnSummonMech");
-        CheckCanAttack();
     }
 
     public void OnDie()
@@ -1615,12 +1468,7 @@ public class ModuleRetinue : ModuleBase
     }
 
 
-    public void OnAttack(int damage, WeaponTypes weaponType)
-    {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnAttack(damage, weaponType), "Co_OnAttack");
-    }
-
-    IEnumerator Co_OnAttack(int damage, WeaponTypes weaponType)
+    public void OnAttack(WeaponTypes weaponType)
     {
         switch (weaponType)
         {
@@ -1637,10 +1485,6 @@ public class ModuleRetinue : ModuleBase
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;
         }
-
-
-        yield return null;
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     public void OnDodge()
@@ -1668,25 +1512,13 @@ public class ModuleRetinue : ModuleBase
     {
     }
 
+
     public void OnBeginRound()
     {
-        EndRound = false;
-
-        CalculateAttackTimes();
-
-        CheckCanAttack();
-    }
-
-    private void CalculateAttackTimes()
-    {
-        AttackTimesThisRound = IsSentry ? 0 : (IsFrenzy ? 2 : 1);
     }
 
     public void OnEndRound()
     {
-        EndRound = true;
-        CheckCanAttack();
-        isFirstRound = false;
     }
 
     #endregion

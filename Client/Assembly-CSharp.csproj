@@ -78,6 +78,8 @@
      <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\GetHandCardCopy.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\DoubleEnergy.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\Exile.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuff.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenAttack.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddPlayerBuff.cs" />
@@ -107,6 +109,7 @@
      <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\SummonRetinuePerMechs.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\TargetSideEffectToEquip\BreakEquip.cs" />
      <Compile Include="Assets\Scripts\Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
+     <Compile Include="Assets\Scripts\Card\SideEffects\UseAllEnergyDamageShip.cs" />
      <Compile Include="Assets\Scripts\Common\ClientLog.cs" />
      <Compile Include="Assets\Scripts\Common\ClientUtils.cs" />
      <Compile Include="Assets\Scripts\Common\DebugConsole.cs" />

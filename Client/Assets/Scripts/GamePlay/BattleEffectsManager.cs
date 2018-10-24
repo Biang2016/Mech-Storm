@@ -52,7 +52,8 @@ public class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
     {
         public bool IsExcuting = false;
 
-        public Queue<SideEffect> EffectsQueue = new Queue<SideEffect>();
+
+        public Queue<Stack<SideEffect>> EffectsQueue = new Queue<Stack<SideEffect>>();
         private SideEffect CurrentEffect;
         public string Name;
 
@@ -65,11 +66,17 @@ public class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
         {
             if (!IsExcuting && EffectsQueue.Count != 0)
             {
-                SideEffect se = EffectsQueue.Dequeue();
-                Instance.StartCoroutine(se.Enumerator);
-                CurrentEffect = se;
-                IsExcuting = true;
-                if (GameManager.Instance.ShowBEMMessages) ClientLog.Instance.PrintBattleEffectsStart("+ [" + Name + "] StartEffect: " + se.MethodName + " id: " + se.EffectId);
+                Stack<SideEffect> ses = EffectsQueue.Peek();
+                while (ses.Count != 0)
+                {
+                    SideEffect se = ses.Pop();
+                    Instance.StartCoroutine(se.Enumerator);
+                    CurrentEffect = se;
+                    IsExcuting = true;
+                    if (GameManager.Instance.ShowBEMMessages) ClientLog.Instance.PrintBattleEffectsStart("+ [" + Name + "] StartEffect: " + se.MethodName + " id: " + se.EffectId);
+                }
+
+                EffectsQueue.Dequeue();
             }
         }
 
@@ -89,7 +96,9 @@ public class BattleEffectsManager : MonoSingletion<BattleEffectsManager>
         {
             int id = GenerateEffectId();
             SideEffect se = new SideEffect(enumerator, methodName, id);
-            EffectsQueue.Enqueue(se);
+            Stack<SideEffect> ses = new Stack<SideEffect>();
+            ses.Push(se);
+            EffectsQueue.Enqueue(ses);
             return id;
         }
 

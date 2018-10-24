@@ -168,10 +168,10 @@ public class GameBoardManager : MonoSingletion<GameBoardManager>
         yield return new WaitForSeconds(4);
         PanelAnimator.SetTrigger("Hide");
         yield return new WaitForSeconds(1);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-
+        GameManager.Instance.StopBlurBackGround();
         RoundManager.Instance.OnGameStop();
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 }
 

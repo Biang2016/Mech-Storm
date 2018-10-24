@@ -42,6 +42,12 @@ internal class ServerHandManager
         DrawCards(newCardCount);
     }
 
+    internal void DrawHeroCards(int number)
+    {
+        int newCardCount = ServerPlayer.MyCardDeckManager.PutHeroCardToTop(number);
+        DrawCards(newCardCount);
+    }
+
     #endregion
 
     internal int GetRandomHandCardId()

@@ -56,6 +56,8 @@ public class Affix : PoolObject
             {AffixType.Sword, SwordColor},
             {AffixType.Gun, GunColor},
             {AffixType.SniperGun, SniperGunColor},
+
+            {AffixType.Disposable, AttackColor},
         };
     }
 
@@ -99,6 +101,8 @@ public class Affix : PoolObject
         {AffixType.Sword, "刀剑"},
         {AffixType.Gun, "枪"},
         {AffixType.SniperGun, "狙击枪"},
+
+        {AffixType.Disposable, "移除"},
     };
 
     private static Dictionary<AffixType, string> AffixNameDict_en = new Dictionary<AffixType, string>
@@ -123,6 +127,8 @@ public class Affix : PoolObject
         {AffixType.Sword, "Sword"},
         {AffixType.Gun, "Gun"},
         {AffixType.SniperGun, "SniperGun"},
+
+        {AffixType.Disposable, "Disposable"},
     };
 
 
@@ -148,6 +154,8 @@ public class Affix : PoolObject
         {AffixType.Sword, "伤害=攻击力*能量，每次攻击后能量提升"},
         {AffixType.Gun, "打出所有子弹，每发子弹造成一定伤害，当对方无嘲讽机甲时可攻击战舰"},
         {AffixType.SniperGun, "狙击枪只能装备在具有狙击属性的机甲上，可攻击任意敌方角色"},
+
+        {AffixType.Disposable, "使用一次后就移出战斗"},
     };
 
     private static Dictionary<AffixType, string> AffixDescDict_en = new Dictionary<AffixType, string>
@@ -172,6 +180,8 @@ public class Affix : PoolObject
         {AffixType.Sword, "Damage = attack * energy. Energy increases after attack."},
         {AffixType.Gun, "Bursts all bullets when attacks. Can shoot the ship when there's no defender."},
         {AffixType.SniperGun, "Only equipped on the Sniper mechs. Can attack any enemy and ship."},
+
+        {AffixType.Disposable, "Cannot be recycled to the deck again."},
     };
 }
 
@@ -198,4 +208,6 @@ public enum AffixType
     Sword,
     Gun,
     SniperGun,
+
+    Disposable,
 }

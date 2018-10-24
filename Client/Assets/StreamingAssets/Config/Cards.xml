@@ -46,7 +46,7 @@
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="10"></SideEffect>
+      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="4"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="300">
@@ -65,7 +65,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
-    <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueAttack" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+    <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueAttack" triggerRange="Self" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="Self" Value="2"></SideEffect>
     </CardInfo>
   </Card>
@@ -337,6 +337,34 @@
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
   </Card>
+  <Card id="6600">
+    <CardInfo name="baseInfo" pictureID="65" cardName="杰斯塔" cardName_en="Jesta" cardDesc="" isTemp="False" hide="False" metal="4" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="lifeInfo" life="6" totalLife="6" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="2" />
+  </Card>
+  <Card id="6700">
+    <CardInfo name="baseInfo" pictureID="66" cardName="扎古" cardName_en="Zaku" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="100" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="lifeInfo" life="3" totalLife="3" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="4" />
+  </Card>
+  <Card id="6800">
+    <CardInfo name="baseInfo" pictureID="67" cardName="狙击格鲁古古" cardName_en="Gelgoog" cardDesc="" isTemp="False" hide="False" metal="5" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="lifeInfo" life="4" totalLife="4" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="4" />
+  </Card>
+  <Card id="6900">
+    <CardInfo name="baseInfo" pictureID="68" cardName="训练场新兵" cardName_en="Training Recruit" cardDesc="" isTemp="False" hide="False" metal="1" energy="0" coin="50" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="lifeInfo" life="2" totalLife="2" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="3" />
+  </Card>
 
   <Card id="10101">
     <CardInfo name="baseInfo" pictureID="100" cardName="热能斧" cardName_en="Thermal Axe" cardDesc="" isTemp="False" hide="False" metal="3" energy="0" coin="50" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
@@ -402,7 +430,7 @@
   <Card id="20700">
     <CardInfo name="baseInfo" pictureID="206" cardName="狙击步枪FA" cardName_en="Sniper Gun(FA)" cardDesc="" isTemp="False" hide="False" metal="3" energy="0" coin="300" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
-    <CardInfo name="weaponInfo" energy="7" energyMax="7" attack="1" weaponType="SniperGun" isSentry="False" isFrenzy="False" />
+    <CardInfo name="weaponInfo" energy="7" energyMax="7" attack="1" weaponType="SniperGun" isSentry="False" isFrenzy="True" />
   </Card>
 
   <Card id="30101">
@@ -499,6 +527,13 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="KillAll" IsNeedChoise="False" M_TargetRange="EnemyMechs"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="60504">
+    <CardInfo name="baseInfo" pictureID="625" cardName="紫色风暴" cardName_en="Purple Storm" cardDesc="" isTemp="False" hide="False" metal="10" energy="30" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="UseAllEnergyDamageShip" Value="30" Value_Plus="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60501">
@@ -632,6 +667,43 @@
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
   </Card>
+  <Card id="62101">
+    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="1" coin="50" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="62102" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62102">
+    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="1" coin="100" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="62103" degradeCardID="62101" cardLevel="2" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="6"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62103">
+    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="1" coin="150" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62102" cardLevel="3" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="8"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62201">
+    <CardInfo name="baseInfo" pictureID="628" cardName="虚空遗梦" cardName_en="Vacant Dream" cardDesc="" isTemp="False" hide="False" metal="0" energy="6" coin="150" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="12"></SideEffect>
+      <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62301">
+    <CardInfo name="baseInfo" pictureID="629" cardName="天堂之路" cardName_en="Free Way" cardDesc="" isTemp="False" hide="False" metal="0" energy="15" coin="350" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="12"></SideEffect>
+      <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
+    </CardInfo>
+  </Card>
 
   <Card id="70101">
     <CardInfo name="baseInfo" pictureID="701" cardName="小型能量块" cardName_en="S Energy Cube" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Energy" />
@@ -701,6 +773,22 @@
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="KillOne" IsNeedChoise="True" M_TargetRange="SelfMechs"></SideEffect>
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="5"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="70801">
+    <CardInfo name="baseInfo" pictureID="708" cardName="蓝色风暴" cardName_en="Blue Storm" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="Exile"></SideEffect>
+      <SideEffect name="DoubleEnergy"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="70901">
+    <CardInfo name="baseInfo" pictureID="709" cardName="虚空之路" cardName_en="Virtual Road" cardDesc="" isTemp="False" hide="False" metal="0" energy="10" coin="600" effectFactor="1" dragPurpose="Summon" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="Exile"></SideEffect>
+      <SideEffect name="DoubleEnergy"></SideEffect>
     </CardInfo>
   </Card>
 </AllCards>

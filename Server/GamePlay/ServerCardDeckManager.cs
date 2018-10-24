@@ -26,6 +26,18 @@ internal class ServerCardDeckManager
         return count;
     }
 
+    public int PutHeroCardToTop(int number)
+    {
+        List<CardInfo_Base> res = new List<CardInfo_Base>();
+        if (CardDeck.IsEmpty)
+        {
+            return 0;
+        }
+
+        int count = CardDeck.PutHeroCardToTop(number);
+        return count;
+    }
+
     public CardInfo_Base DrawCardOnTop()
     {
         if (CardDeck.IsEmpty)

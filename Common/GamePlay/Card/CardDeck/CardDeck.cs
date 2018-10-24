@@ -181,6 +181,28 @@ public class CardDeck
         }
     }
 
+    public int PutHeroCardToTop(int number)
+    {
+        List<CardInfo_Base> res = new List<CardInfo_Base>();
+        foreach (CardInfo_Base cb in Cards)
+        {
+            if (cb.BaseInfo.CardType == CardTypes.Retinue && !cb.RetinueInfo.IsSoldier)
+            {
+                number--;
+                res.Add(cb);
+                if (number == 0) break;
+            }
+        }
+
+        foreach (CardInfo_Base cb in res)
+        {
+            RemoveCard(cb);
+            AddCard(cb, 0);
+        }
+
+        return res.Count;
+    }
+
     public int PutCardToTopByType(CardTypes cardType, int number)
     {
         List<CardInfo_Base> res = new List<CardInfo_Base>();

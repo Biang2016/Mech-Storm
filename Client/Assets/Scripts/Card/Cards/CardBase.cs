@@ -146,7 +146,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardBloomSortingGroup.sortingOrder = value;
         CardBackSortingGroup.sortingOrder = value;
         CardBackBloomSortingGroup.sortingOrder = value;
-        //CanvasSortingGroup.sortingOrder = value;
+        CanvasSortingGroup.sortingOrder = value;
         PictureSortingGroup.sortingOrder = value;
     }
 

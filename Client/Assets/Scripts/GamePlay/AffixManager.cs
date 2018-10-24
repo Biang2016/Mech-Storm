@@ -54,6 +54,14 @@ public class AffixManager : MonoSingletion<AffixManager>
 
     private void GetAffixTypeByCardInfo(HashSet<AffixType> affixTypes, CardInfo_Base cardInfo)
     {
+        foreach (SideEffectExecute se in cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard,SideEffectBundle.TriggerRange.Self))
+        {
+            if (se.SideEffectBase is Exile_Base)
+            {
+                affixTypes.Add(AffixType.Disposable);
+            }
+        }
+
         if (cardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
         {
             affixTypes.Add(AffixType.Die);
