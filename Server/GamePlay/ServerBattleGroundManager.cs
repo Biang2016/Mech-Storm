@@ -218,7 +218,7 @@ internal class ServerBattleGroundManager
 
         dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
 
-        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
+        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues.ToArray())
         {
             serverModuleRetinue.OnDieTogether();
         }
@@ -235,7 +235,7 @@ internal class ServerBattleGroundManager
 
         dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
 
-        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
+        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues.ToArray())
         {
             serverModuleRetinue.OnDieTogether();
         }
@@ -251,7 +251,7 @@ internal class ServerBattleGroundManager
 
         dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
 
-        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues)
+        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues.ToArray())
         {
             serverModuleRetinue.OnDieTogether();
         }
@@ -318,7 +318,7 @@ internal class ServerBattleGroundManager
 
     public void AddLifeForAllRetinues(int value)
     {
-        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues.ToArray())
         {
             AddLifeForOneRetinue(serverModuleRetinue, value);
         }
@@ -326,7 +326,7 @@ internal class ServerBattleGroundManager
 
     public void AddLifeForAllHeros(int value)
     {
-        foreach (ServerModuleRetinue serverModuleRetinue in Heros)
+        foreach (ServerModuleRetinue serverModuleRetinue in Heros.ToArray())
         {
             AddLifeForOneRetinue(serverModuleRetinue, value);
         }
@@ -334,7 +334,7 @@ internal class ServerBattleGroundManager
 
     public void AddLifeForAllSoldiers(int value)
     {
-        foreach (ServerModuleRetinue serverModuleRetinue in Soldiers)
+        foreach (ServerModuleRetinue serverModuleRetinue in Soldiers.ToArray())
         {
             AddLifeForOneRetinue(serverModuleRetinue, value);
         }
@@ -355,9 +355,9 @@ internal class ServerBattleGroundManager
 
     public void AddAttackForAllRetinues(int value)
     {
-        foreach (ServerModuleRetinue serverModuleRetinue in Retinues)
+        foreach (ServerModuleRetinue retinue in Retinues.ToArray())
         {
-            AddAttackForOneRetinue(serverModuleRetinue, value);
+            AddAttackForOneRetinue(retinue, value);
         }
     }
 
@@ -378,17 +378,17 @@ internal class ServerBattleGroundManager
 
     public void AddAttackForAllHeros(int value)
     {
-        foreach (ServerModuleRetinue serverModuleRetinue in Heros)
+        foreach (ServerModuleRetinue retinue in Heros.ToArray())
         {
-            AddAttackForOneRetinue(serverModuleRetinue, value);
+            AddAttackForOneRetinue(retinue, value);
         }
     }
 
     public void AddAttackForAllSoldiers(int value)
     {
-        foreach (ServerModuleRetinue serverModuleRetinue in Soldiers)
+        foreach (ServerModuleRetinue retinue in Soldiers.ToArray())
         {
-            AddAttackForOneRetinue(serverModuleRetinue, value);
+            AddAttackForOneRetinue(retinue, value);
         }
     }
 
@@ -423,7 +423,7 @@ internal class ServerBattleGroundManager
 
     public void HealAllRetinues(int value)
     {
-        foreach (ServerModuleRetinue retinue in Retinues)
+        foreach (ServerModuleRetinue retinue in Retinues.ToArray())
         {
             HealOneRetinue(retinue, value);
         }
@@ -431,7 +431,7 @@ internal class ServerBattleGroundManager
 
     public void HealAllHeros(int value)
     {
-        foreach (ServerModuleRetinue retinue in Heros)
+        foreach (ServerModuleRetinue retinue in Heros.ToArray())
         {
             HealOneRetinue(retinue, value);
         }
@@ -439,7 +439,7 @@ internal class ServerBattleGroundManager
 
     public void HealAllSoldiers(int value)
     {
-        foreach (ServerModuleRetinue retinue in Soldiers)
+        foreach (ServerModuleRetinue retinue in Soldiers.ToArray())
         {
             HealOneRetinue(retinue, value);
         }
@@ -467,40 +467,28 @@ internal class ServerBattleGroundManager
 
     public void DamageAllRetinues(int value)
     {
-        for (int i = 0; i < Retinues.Count; i++)
+        foreach (ServerModuleRetinue retinue in Retinues.ToArray())
         {
-            ServerModuleRetinue retinue = Retinues[i];
-            if (retinue != null)
-            {
-                retinue.BeAttacked(value);
-                Retinues[i].CheckAlive();
-            }
+            retinue.BeAttacked(value);
+            retinue.CheckAlive();
         }
     }
 
     public void DamageAllHeros(int value)
     {
-        for (int i = 0; i < Heros.Count; i++)
+        foreach (ServerModuleRetinue retinue in Heros.ToArray())
         {
-            ServerModuleRetinue retinue = Heros[i];
-            if (retinue != null)
-            {
-                retinue.BeAttacked(value);
-                Heros[i].CheckAlive();
-            }
+            retinue.BeAttacked(value);
+            retinue.CheckAlive();
         }
     }
 
     public void DamageAllSoldiers(int value)
     {
-        for (int i = 0; i < Soldiers.Count; i++)
+        foreach (ServerModuleRetinue retinue in Soldiers.ToArray())
         {
-            ServerModuleRetinue retinue = Soldiers[i];
-            if (retinue != null)
-            {
-                retinue.BeAttacked(value);
-                Soldiers[i].CheckAlive();
-            }
+            retinue.BeAttacked(value);
+            retinue.CheckAlive();
         }
     }
 

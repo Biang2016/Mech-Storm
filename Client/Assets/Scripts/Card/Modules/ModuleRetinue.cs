@@ -422,7 +422,7 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-    private void ShieldDefenceDamage(int decreaseValue, int shieldValue)
+    public void ShieldDefenceDamage(int decreaseValue, int shieldValue)
     {
         float duration = 0;
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChange(shieldValue, 0, duration, isInitializing), "Co_ShieldChange");
@@ -1036,70 +1036,27 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_Attack(ModuleRetinue targetRetinue, bool isCounterAttack)
     {
-        AttackCore(targetRetinue, isCounterAttack);
+        //Todo 进攻动作
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    public void AttackCore(ModuleRetinue targetRetinue, bool isCounterAttack)
-    {
-    }
-
     public void AttackShip(ClientPlayer ship)
     {
-        OnAttack(WeaponTypes.None); //机甲特效
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AttackShip(ship), "Co_AttackShip");
+    }
+
+    IEnumerator Co_AttackShip(ClientPlayer ship)
+    {
+        //Todo 进攻动作
         if (M_Weapon) M_Weapon.OnAttack(); //武器特效
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理
     {
         OnBeAttacked();
-        int remainAttackNumber = attackNumber;
-
-        //小于等于护盾的伤害的全部免除，护盾无任何损失，大于护盾的伤害，每超过一点，护盾受到一点伤害，如果扣为0，则护盾破坏
-        if (M_RetinueShield > 0)
-        {
-            if (M_RetinueShield >= remainAttackNumber)
-            {
-                ShieldDefenceDamage(remainAttackNumber, M_RetinueShield);
-                remainAttackNumber = 0;
-                return;
-            }
-            else
-            {
-                int shieldDecrease = remainAttackNumber - M_RetinueShield;
-                remainAttackNumber -= M_RetinueShield;
-                ShieldDefenceDamage(M_RetinueShield, M_RetinueShield);
-                M_RetinueShield -= Mathf.Min(m_RetinueShield, shieldDecrease);
-            }
-        }
-
-        if (M_RetinueArmor > 0)
-        {
-            if (M_RetinueArmor >= remainAttackNumber)
-            {
-                M_RetinueArmor = M_RetinueArmor - remainAttackNumber;
-                remainAttackNumber = 0;
-                return;
-            }
-            else
-            {
-                remainAttackNumber -= M_RetinueArmor;
-                M_RetinueArmor = 0;
-            }
-        }
-
-        if (M_RetinueLeftLife <= remainAttackNumber)
-        {
-            M_RetinueLeftLife -= M_RetinueLeftLife;
-            remainAttackNumber -= M_RetinueLeftLife;
-        }
-        else
-        {
-            M_RetinueLeftLife -= remainAttackNumber;
-            remainAttackNumber = 0;
-            return;
-        }
     }
 
     public int CalculateAttack() //计算拖出攻击数值

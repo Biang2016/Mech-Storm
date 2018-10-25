@@ -195,6 +195,11 @@ internal partial class RoundManager
                 OnRetinueOnAttack((RetinueOnAttackRequest) r);
                 break;
             }
+            case NetProtocols.SE_RETINUE_SHIELD_DEFENCE:
+            {
+                OnRetinueShieldDefence((RetinueShieldDefenceRequest) r);
+                break;
+            }
             case NetProtocols.SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT:
             {
                 OnShowSideEffect((ShowSideEffectTriggeredRequest) r);
@@ -502,6 +507,13 @@ internal partial class RoundManager
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
         retinue.OnAttack(r.weaponType);
+    }
+
+    private void OnRetinueShieldDefence(RetinueShieldDefenceRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        retinue.ShieldDefenceDamage(r.decreaseValue, r.shieldValue);
     }
 
     private void OnShowSideEffect(ShowSideEffectTriggeredRequest r)

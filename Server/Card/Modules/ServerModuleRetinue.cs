@@ -742,6 +742,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             if (M_RetinueShield >= remainAttackNumber)
             {
+                ShieldDefenceDamage(remainAttackNumber, M_RetinueShield);
                 remainAttackNumber = 0;
                 return;
             }
@@ -749,6 +750,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 int shieldDecrease = remainAttackNumber - M_RetinueShield;
                 remainAttackNumber -= M_RetinueShield;
+                ShieldDefenceDamage(M_RetinueShield, M_RetinueShield);
                 M_RetinueShield -= Math.Min(m_RetinueShield, shieldDecrease);
                 if (m_RetinueShield == 0 && m_RetinueArmor == 0)
                 {
@@ -788,6 +790,14 @@ internal class ServerModuleRetinue : ServerModuleBase
             return;
         }
     }
+
+    private void ShieldDefenceDamage(int decreaseValue, int shieldValue)
+    {
+        float duration = 0;
+        RetinueShieldDefenceRequest request = new RetinueShieldDefenceRequest(ServerPlayer.ClientId, M_RetinueID, decreaseValue, shieldValue);
+        ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+    }
+
 
     private void OnBeAttacked()
     {
