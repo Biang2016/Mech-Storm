@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 114068985854061686}
   - component: {fileID: 114252599665116490}
   - component: {fileID: 114361206584978110}
+  - component: {fileID: 210323040823281736}
   m_Layer: 12
   m_Name: ShieldDetail
   m_TagString: Untagged
@@ -750,7 +751,7 @@ TextMesh:
   m_Text: "\u65B0\n\u5175\n\u62A4\n\u76FE"
   m_OffsetZ: 0
   m_CharacterSize: 4
-  m_LineSpacing: 0.5
+  m_LineSpacing: 1
   m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4
@@ -810,6 +811,16 @@ MonoBehaviour:
   BloomSE_SubAnim: {fileID: 0}
   Block_ShieldArmor: {fileID: 4269440562343746}
   Block_ShieldShield: {fileID: 4749426709422044}
+--- !u!210 &210323040823281736
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999415462189058}
+  m_Enabled: 1
+  m_SortingLayerID: 787400071
+  m_SortingLayer: 2
+  m_SortingOrder: 1
 --- !u!212 &212203220414475986
 SpriteRenderer:
   m_ObjectHideFlags: 1

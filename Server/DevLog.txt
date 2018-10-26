@@ -295,6 +295,9 @@ Art Update the UI of cards.
 20th, Oct
 [Dev] Add the SideEffect that can change next SideEffect attributes.
 
+26th, Oct
+[Dev] Realize the animation of mechs' attack.
+
 
 TodoList
 增加retinue的武器图标样式，普通和枪
@@ -316,10 +319,10 @@ onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能�
 法术牌增加独特特效
 energy条用量预览显示高亮  
 
+初始牌库牌数量
+
 dodge有问题
 做直接伤害总量展示
-<<<<<<< HEAD
-=======
 杀人没有扣血动画，直接死亡
 
 分辨率问题
@@ -327,7 +330,6 @@ login菜单和start菜单比例锁死，太小了
 
 
 亡语标志没显示
->>>>>>> 99e4ca6a4614e4ce0861db6fb1072ccaffea5847
 
 对方buff描述反了
 

@@ -4,6 +4,7 @@ using UnityEngine;
 public class Ship : MonoBehaviour, IMouseHoverComponent
 {
     internal ClientPlayer ClientPlayer;
+    public Transform[] M_Ship_AttackPoints;
 
     [SerializeField] private GameObject ShipBG;
 
@@ -20,6 +21,23 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
         if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = "";
         if (Desc) Desc.text = "";
         if (DescBG) DescBG.text = "";
+    }
+
+    public Vector3 GetClosestHitPosition(Vector3 from)
+    {
+        float min_distance = 999;
+        Vector3 closestHitPos = Vector3.zero;
+        foreach (Transform hitPoint in M_Ship_AttackPoints)
+        {
+            float dis = Vector3.Magnitude(hitPoint.position - from);
+            if (dis < min_distance)
+            {
+                min_distance = dis;
+                closestHitPos = hitPoint.position;
+            }
+        }
+
+        return closestHitPos;
     }
 
     public void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)

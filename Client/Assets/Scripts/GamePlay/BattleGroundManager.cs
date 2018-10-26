@@ -63,6 +63,7 @@ public class BattleGroundManager : MonoBehaviour
 
     private Vector3 _defaultRetinuePosition = Vector3.zero;
 
+    public Ship M_Ship;
     internal ClientPlayer ClientPlayer;
     internal List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
     internal List<ModuleRetinue> Heros = new List<ModuleRetinue>();
@@ -184,7 +185,7 @@ public class BattleGroundManager : MonoBehaviour
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main), "Co_RefreshBattleGroundAnim");
     }
 
-    public List<ModuleRetinue> RemoveRetinues = new List<ModuleRetinue>(); //即将要被移除的机甲名单
+    internal List<ModuleRetinue> RemoveRetinues = new List<ModuleRetinue>(); //即将要被移除的机甲名单
 
     public void RemoveRetinueTogetherAdd(int retinueId)
     {
@@ -294,7 +295,7 @@ public class BattleGroundManager : MonoBehaviour
     public delegate void SummonRetinueTarget(int targetRetinueId, bool isClientRetinueTempId = false);
 
     private CardRetinue currentSummonPreviewRetinueCard;
-    public ModuleRetinue CurrentSummonPreviewRetinue;
+    internal ModuleRetinue CurrentSummonPreviewRetinue;
 
     public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的机甲的召唤预览、显示指定箭头
     {
@@ -418,6 +419,8 @@ public class BattleGroundManager : MonoBehaviour
 
             targetPos[i] = Retinues[i].transform.position;
             Retinues[i].transform.position = ori;
+
+            iTween.Stop(Retinues[i].gameObject);
 
             Hashtable args = new Hashtable();
             args.Add("position", targetPos[i]);

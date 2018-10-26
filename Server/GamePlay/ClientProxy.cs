@@ -277,53 +277,68 @@ internal class ClientProxy : ProxyBase
 
             if (ClientState == ClientStates.Playing)
             {
+                if (MyServerGameManager == null) return;
                 if (MyServerGameManager.IsStopped)
                 {
                     MyServerGameManager.StopGame();
                     return;
                 }
 
-                switch (r)
+                try
                 {
-                    case EndRoundRequest _:
-                        MyServerGameManager?.OnEndRoundRequest((EndRoundRequest) r);
-                        break;
-                    case SummonRetinueRequest _:
-                        MyServerGameManager?.OnClientSummonRetinueRequest((SummonRetinueRequest) r);
-                        break;
-                    case EquipWeaponRequest _:
-                        MyServerGameManager?.OnClientEquipWeaponRequest((EquipWeaponRequest) r);
-                        break;
-                    case EquipShieldRequest _:
-                        MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest) r);
-                        break;
-                    case EquipPackRequest _:
-                        MyServerGameManager?.OnClientEquipPackRequest((EquipPackRequest) r);
-                        break;
-                    case EquipMARequest _:
-                        MyServerGameManager?.OnClientEquipMARequest((EquipMARequest) r);
-                        break;
-                    case UseSpellCardRequest _:
-                        MyServerGameManager?.OnClientUseSpellCardRequest((UseSpellCardRequest) r);
-                        break;
-                    case UseSpellCardToRetinueRequest _:
-                        MyServerGameManager?.OnClientUseSpellCardToRetinueRequest((UseSpellCardToRetinueRequest) r);
-                        break;
-                    case UseSpellCardToShipRequest _:
-                        MyServerGameManager?.OnClientUseSpellCardToShipRequest((UseSpellCardToShipRequest) r);
-                        break;
-                    case UseSpellCardToEquipRequest _:
-                        MyServerGameManager?.OnClientUseSpellCardToEquipRequest((UseSpellCardToEquipRequest) r);
-                        break;
-                    case LeaveGameRequest _: //正常退出游戏请求
-                        MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
-                        break;
-                    case RetinueAttackRetinueRequest _:
-                        MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest) r);
-                        break;
-                    case RetinueAttackShipRequest _:
-                        MyServerGameManager?.OnClientRetinueAttackShipRequest((RetinueAttackShipRequest) r);
-                        break;
+                    switch (r)
+                    {
+                        case EndRoundRequest _:
+                            MyServerGameManager?.OnEndRoundRequest((EndRoundRequest) r);
+                            break;
+                        case SummonRetinueRequest _:
+                            MyServerGameManager?.OnClientSummonRetinueRequest((SummonRetinueRequest) r);
+                            break;
+                        case EquipWeaponRequest _:
+                            MyServerGameManager?.OnClientEquipWeaponRequest((EquipWeaponRequest) r);
+                            break;
+                        case EquipShieldRequest _:
+                            MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest) r);
+                            break;
+                        case EquipPackRequest _:
+                            MyServerGameManager?.OnClientEquipPackRequest((EquipPackRequest) r);
+                            break;
+                        case EquipMARequest _:
+                            MyServerGameManager?.OnClientEquipMARequest((EquipMARequest) r);
+                            break;
+                        case UseSpellCardRequest _:
+                            MyServerGameManager?.OnClientUseSpellCardRequest((UseSpellCardRequest) r);
+                            break;
+                        case UseSpellCardToRetinueRequest _:
+                            MyServerGameManager?.OnClientUseSpellCardToRetinueRequest((UseSpellCardToRetinueRequest) r);
+                            break;
+                        case UseSpellCardToShipRequest _:
+                            MyServerGameManager?.OnClientUseSpellCardToShipRequest((UseSpellCardToShipRequest) r);
+                            break;
+                        case UseSpellCardToEquipRequest _:
+                            MyServerGameManager?.OnClientUseSpellCardToEquipRequest((UseSpellCardToEquipRequest) r);
+                            break;
+                        case LeaveGameRequest _: //正常退出游戏请求
+                            MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
+                            break;
+                        case RetinueAttackRetinueRequest _:
+                            MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest) r);
+                            break;
+                        case RetinueAttackShipRequest _:
+                            MyServerGameManager?.OnClientRetinueAttackShipRequest((RetinueAttackShipRequest) r);
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    ServerLog.PrintError(e.ToString());
+                    if (MyServerGameManager != null && !MyServerGameManager.IsStopped)
+                    {
+                        MyServerGameManager.OnEndGameByServerError();
+                        MyServerGameManager.StopGame();
+                    }
+
+                    MyServerGameManager = null;
                 }
             }
         }

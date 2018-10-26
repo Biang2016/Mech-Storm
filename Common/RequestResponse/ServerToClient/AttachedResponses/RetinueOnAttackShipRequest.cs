@@ -1,30 +1,30 @@
-﻿public class RetinueOnAttackRequest : ServerRequestBase
+﻿public class RetinueOnAttackShipRequest : ServerRequestBase
 {
     public int clientId;
     public int retinueId;
-    public int targetRetinueId;
+    public int targetClientId;
     public WeaponTypes weaponType;
 
-    public RetinueOnAttackRequest()
+    public RetinueOnAttackShipRequest()
     {
     }
 
-    public RetinueOnAttackRequest(int clientId, int retinueId, int targetRetinueId, WeaponTypes weaponType)
+    public RetinueOnAttackShipRequest(int clientId, int retinueId, int targetClientId, WeaponTypes weaponType)
     {
         this.clientId = clientId;
         this.retinueId = retinueId;
-        this.targetRetinueId = targetRetinueId;
+        this.targetClientId = targetClientId;
         this.weaponType = weaponType;
     }
 
     public override NetProtocols GetProtocol()
     {
-        return NetProtocols.SE_RETINUE_ONATTACK;
+        return NetProtocols.SE_RETINUE_ONATTACKSHIP;
     }
 
     public override string GetProtocolName()
     {
-        return "SE_RETINUE_ONATTACK";
+        return "SE_RETINUE_ONATTACKSHIP";
     }
 
     public override void Serialize(DataStream writer)
@@ -32,7 +32,7 @@
         base.Serialize(writer);
         writer.WriteSInt32(clientId);
         writer.WriteSInt32(retinueId);
-        writer.WriteSInt32(targetRetinueId);
+        writer.WriteSInt32(targetClientId);
         writer.WriteSInt32((int) weaponType);
     }
 
@@ -41,7 +41,7 @@
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
         retinueId = reader.ReadSInt32();
-        targetRetinueId = reader.ReadSInt32();
+        targetClientId = reader.ReadSInt32();
         weaponType = (WeaponTypes) reader.ReadSInt32();
     }
 
@@ -50,7 +50,7 @@
         string log = base.DeserializeLog();
         log += " [clientId]=" + clientId;
         log += " [retinueId]=" + retinueId;
-        log += " [targetRetinueId]=" + targetRetinueId;
+        log += " [targetClientId]=" + targetClientId;
         log += " [weaponType]=" + weaponType;
         return log;
     }

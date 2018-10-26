@@ -29,9 +29,7 @@ internal class ServerGameManager
         EventManager.OnEventInvokeEndHandler += SendAllDieInfos;
         EventManager.OnEventInvokeHandler += OnSETriggered;
 
-        Thread sgmThread = new Thread(Initialized);
-        sgmThread.IsBackground = true;
-        sgmThread.Start();
+        Initialized();
     }
 
 
@@ -60,41 +58,41 @@ internal class ServerGameManager
 
     private void Initialized()
     {
-        ClientA.ClientState = ProxyBase.ClientStates.Playing;
-        ClientB.ClientState = ProxyBase.ClientStates.Playing;
+            ClientA.ClientState = ProxyBase.ClientStates.Playing;
+            ClientB.ClientState = ProxyBase.ClientStates.Playing;
 
-        ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
+            ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
 
-        SyncRandomNumber();
+            SyncRandomNumber();
 
-        int PA_LIFE = ClientA.CurrentBuildInfo.Life;
-        int PA_MAGIC = ClientA.CurrentBuildInfo.Energy;
-        int PB_LIFE = ClientB.CurrentBuildInfo.Life;
-        int PB_MAGIC = ClientB.CurrentBuildInfo.Energy;
+            int PA_LIFE = ClientA.CurrentBuildInfo.Life;
+            int PA_MAGIC = ClientA.CurrentBuildInfo.Energy;
+            int PB_LIFE = ClientB.CurrentBuildInfo.Life;
+            int PB_MAGIC = ClientB.CurrentBuildInfo.Energy;
 
-        PlayerA = new ServerPlayer(ClientA.UserName, ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginMetal, PA_LIFE, PA_LIFE, 0, PA_MAGIC, this);
-        PlayerA.MyCardDeckManager.CardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange);
-        PlayerA.MyClientProxy = ClientA;
+            PlayerA = new ServerPlayer(ClientA.UserName, ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginMetal, PA_LIFE, PA_LIFE, 0, PA_MAGIC, this);
+            PlayerA.MyCardDeckManager.CardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange);
+            PlayerA.MyClientProxy = ClientA;
 
-        PlayerB = new ServerPlayer(ClientB.UserName, ClientB.ClientId, ClientA.ClientId, 0, GamePlaySettings.BeginMetal, PB_LIFE, PB_LIFE, 0, PB_MAGIC, this);
-        PlayerB.MyCardDeckManager.CardDeck = new CardDeck(ClientB.CurrentBuildInfo, PlayerB.OnCardDeckLeftChange);
-        PlayerB.MyCardDeckManager.CardDeck.CardDeckCountChangeHandler += PlayerB.OnCardDeckLeftChange;
-        PlayerB.MyClientProxy = ClientB;
+            PlayerB = new ServerPlayer(ClientB.UserName, ClientB.ClientId, ClientA.ClientId, 0, GamePlaySettings.BeginMetal, PB_LIFE, PB_LIFE, 0, PB_MAGIC, this);
+            PlayerB.MyCardDeckManager.CardDeck = new CardDeck(ClientB.CurrentBuildInfo, PlayerB.OnCardDeckLeftChange);
+            PlayerB.MyCardDeckManager.CardDeck.CardDeckCountChangeHandler += PlayerB.OnCardDeckLeftChange;
+            PlayerB.MyClientProxy = ClientB;
 
-        PlayerA.MyEnemyPlayer = PlayerB;
-        PlayerB.MyEnemyPlayer = PlayerA;
+            PlayerA.MyEnemyPlayer = PlayerB;
+            PlayerB.MyEnemyPlayer = PlayerA;
 
-        ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
-        ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
+            ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
+            ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
 
-        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientId, 0, GamePlaySettings.BeginMetal, PA_LIFE, PA_LIFE, 0, PA_MAGIC);
-        Broadcast_AddRequestToOperationResponse(request1);
-        SetPlayerRequest request2 = new SetPlayerRequest(ClientA.UserName, ClientB.ClientId, 0, GamePlaySettings.BeginMetal, PB_LIFE, PB_LIFE, 0, PB_MAGIC);
-        Broadcast_AddRequestToOperationResponse(request2);
+            SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientId, 0, GamePlaySettings.BeginMetal, PA_LIFE, PA_LIFE, 0, PA_MAGIC);
+            Broadcast_AddRequestToOperationResponse(request1);
+            SetPlayerRequest request2 = new SetPlayerRequest(ClientA.UserName, ClientB.ClientId, 0, GamePlaySettings.BeginMetal, PB_LIFE, PB_LIFE, 0, PB_MAGIC);
+            Broadcast_AddRequestToOperationResponse(request2);
 
-        GameBegin();
+            GameBegin();
 
-        Broadcast_SendOperationResponse(); //初始化的大包请求
+            Broadcast_SendOperationResponse(); //初始化的大包请求
     }
 
     private void SyncRandomNumber()
@@ -362,6 +360,14 @@ internal class ServerGameManager
         if (IsStopped) return;
         GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
         Broadcast_AddRequestToOperationResponse(request);
+        IsStopped = true;
+    }
+
+    public void OnEndGameByServerError()
+    {
+        if (IsStopped) return;
+        GameStopByServerErrorRequest request = new GameStopByServerErrorRequest();
+        BroadcastRequest(request);
         IsStopped = true;
     }
 

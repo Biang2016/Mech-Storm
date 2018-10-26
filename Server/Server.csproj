@@ -95,6 +95,7 @@
     <Compile Include="GamePlay\ClientProxy.cs" />
     <Compile Include="GamePlay\ServerBattleGroundManager.cs" />
     <Compile Include="GamePlay\ServerCardDeckManager.cs" />
+    <Compile Include="GamePlay\ServerAISystem.cs" />
     <Compile Include="GamePlay\ServerGameManager.cs" />
     <Compile Include="GamePlay\ServerGameMatchManager.cs" />
     <Compile Include="GamePlay\ServerHandManager.cs" />

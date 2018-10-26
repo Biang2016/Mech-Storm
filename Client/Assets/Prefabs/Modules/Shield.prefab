@@ -723,7 +723,7 @@ TextMesh:
   m_Text: "\u65B0\n\u5175\n\u62A4\n\u76FE"
   m_OffsetZ: 0
   m_CharacterSize: 6
-  m_LineSpacing: 0.5
+  m_LineSpacing: 1
   m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4

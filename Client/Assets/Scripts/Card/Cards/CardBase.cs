@@ -140,14 +140,14 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void SetOrderInLayer(int value)
     {
-        CardCanvas.sortingOrder = value;
-        MainBoardSortingGroup.sortingOrder = value;
-        CardShadowSortingGroup.sortingOrder = value;
-        CardBloomSortingGroup.sortingOrder = value;
-        CardBackSortingGroup.sortingOrder = value;
-        CardBackBloomSortingGroup.sortingOrder = value;
-        CanvasSortingGroup.sortingOrder = value;
-        PictureSortingGroup.sortingOrder = value;
+        CardCanvas.sortingOrder = value * 3 + 1;
+        CanvasSortingGroup.sortingOrder = value * 3 + 1;
+        MainBoardSortingGroup.sortingOrder = value * 3;
+        CardShadowSortingGroup.sortingOrder = value * 3;
+        CardBloomSortingGroup.sortingOrder = value * 3;
+        CardBackSortingGroup.sortingOrder = value * 3;
+        CardBackBloomSortingGroup.sortingOrder = value * 3;
+        PictureSortingGroup.sortingOrder = value * 3;
     }
 
     private float MainboardEmissionIntensity = 0f;
@@ -181,6 +181,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         if (IsCardSelect) CoinText.text = CardInfo.BaseInfo.Coin.ToString();
 
+        if (CardCanvas) CardCanvas.enabled = clientPlayer.WhichPlayer == Players.Self;
         SetCardBackColor();
         ChangeColor(cardColor);
     }
@@ -379,7 +380,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void ChangeCardBloomColor(Color color)
     {
-        ClientUtils.ChangeColor(CardBloomRenderer, color,1.3f);
+        ClientUtils.ChangeColor(CardBloomRenderer, color, 1.3f);
     }
 
     public void ChangePictureColor(Color color)

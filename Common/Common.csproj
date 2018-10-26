@@ -128,6 +128,7 @@
     <Compile Include="RequestResponse\ClientToServer\OutGame\LoginRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\RegisterRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueCanAttackRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueOnAttackShipRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueShieldDefenceRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueOnAttackRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueDodgeRequest.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="RequestResponse\ServerToClient\OutGame\CreateBuildRequestResponse.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\ClientIdRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\DeleteBuildRequestResponse.cs" />
+    <Compile Include="RequestResponse\ServerToClient\OutGame\GameStopByServerErrorRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\LogoutResultRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\LoginResultRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\RegisterResultRequest.cs" />

@@ -86,11 +86,6 @@ public class CardRetinue : CardBase
         Slot4.HideHoverShowGO();
     }
 
-    public void SetCanvasSortingOrder(int Order)
-    {
-        IconCanvas.sortingOrder = Order;
-    }
-
     private int m_RetinueTotalLife;
 
     public int M_RetinueTotalLife

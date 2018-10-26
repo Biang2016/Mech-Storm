@@ -110,6 +110,8 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Animator SideEffectBGCommonAnim;
     [SerializeField] private Animator SideEffectBGDieAnim;
 
+    public Transform[] HitPoints;
+
     private bool isInitializing = false;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
@@ -194,7 +196,7 @@ public class ModuleRetinue : ModuleBase
 
         M_ClientTempRetinueID = -1;
         SniperTipText.enabled = false;
-
+        CanAttack = false;
         MA_BG.SetActive(false);
 
         IsDead = false;
@@ -1031,30 +1033,32 @@ public class ModuleRetinue : ModuleBase
 
     public void Attack(ModuleRetinue targetRetinue, bool isCounterAttack)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_Attack(targetRetinue, isCounterAttack), "Co_Attack");
-    }
-
-    IEnumerator Co_Attack(ModuleRetinue targetRetinue, bool isCounterAttack)
-    {
-        //Todo 进攻动作
-        yield return null;
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+        //BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_Attack(targetRetinue, isCounterAttack), "Co_Attack");
     }
 
     public void AttackShip(ClientPlayer ship)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AttackShip(ship), "Co_AttackShip");
+        //BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AttackShip(ship), "Co_AttackShip");
     }
 
-    IEnumerator Co_AttackShip(ClientPlayer ship)
+    public Vector3 GetClosestHitPos(Vector3 from)
     {
-        //Todo 进攻动作
-        if (M_Weapon) M_Weapon.OnAttack(); //武器特效
-        yield return null;
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+        float min_distance = 999;
+        Vector3 closestHitPos = Vector3.zero;
+        foreach (Transform hitPoint in HitPoints)
+        {
+            float dis = Vector3.Magnitude(hitPoint.position - from);
+            if (dis < min_distance)
+            {
+                min_distance = dis;
+                closestHitPos = hitPoint.position;
+            }
+        }
+
+        return closestHitPos;
     }
 
-    public void BeAttacked(int attackNumber) //攻击和被攻击仅发送伤害数值给客户端，具体计算分别处理
+    public void BeAttacked(int attackNumber)
     {
         OnBeAttacked();
     }
@@ -1391,7 +1395,7 @@ public class ModuleRetinue : ModuleBase
 
     public override void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(triggerTime, triggerRange, ClientUtils.HTMLColorToColor("#00FFDA"), 0.8f), "ShowSideEffectBloom");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(triggerTime, triggerRange, ClientUtils.HTMLColorToColor("#00FFDA"), 0.4f), "ShowSideEffectBloom");
     }
 
     IEnumerator Co_ShowSideEffectBloom(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange, Color color, float duration)
@@ -1425,12 +1429,29 @@ public class ModuleRetinue : ModuleBase
     }
 
 
-    public void OnAttack(WeaponTypes weaponType)
+    public void OnAttack(WeaponTypes weaponType, ModuleRetinue targetRetinue)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnAttack(weaponType, targetRetinue), "Co_OnAttack");
+    }
+
+    IEnumerator Co_OnAttack(WeaponTypes weaponType, ModuleRetinue targetRetinue)
     {
         switch (weaponType)
         {
             case WeaponTypes.None:
+                Vector3 oriPos = transform.position;
+                Hashtable args = new Hashtable();
+                args.Add("position", targetRetinue.GetClosestHitPos(transform.position));
+                args.Add("time", 0.1f);
+                args.Add("easeType", iTween.EaseType.linear);
+                iTween.MoveTo(gameObject, args);
+                yield return new WaitForSeconds(0.15f);
                 AudioManager.Instance.SoundPlay("sfx/AttackNone");
+                Hashtable args2 = new Hashtable();
+                args2.Add("position", oriPos);
+                args2.Add("time", 0.1f);
+                args2.Add("easeType", iTween.EaseType.linear);
+                iTween.MoveTo(gameObject, args2);
                 break;
             case WeaponTypes.Sword:
                 AudioManager.Instance.SoundPlay("sfx/AttackSword");
@@ -1442,6 +1463,48 @@ public class ModuleRetinue : ModuleBase
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;
         }
+
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
+    public void OnAttackShip(WeaponTypes weaponType, Ship targetShip)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnAttackShip(weaponType, targetShip), "Co_OnAttack");
+    }
+
+    IEnumerator Co_OnAttackShip(WeaponTypes weaponType, Ship targetShip)
+    {
+        switch (weaponType)
+        {
+            case WeaponTypes.None:
+                Vector3 oriPos = transform.position;
+                Hashtable args = new Hashtable();
+                args.Add("position", targetShip.GetClosestHitPosition(transform.position));
+                args.Add("time", 0.2f);
+                args.Add("easeType", iTween.EaseType.linear);
+                iTween.MoveTo(gameObject, args);
+                yield return new WaitForSeconds(0.23f);
+                AudioManager.Instance.SoundPlay("sfx/AttackNone");
+                Hashtable args2 = new Hashtable();
+                args2.Add("position", oriPos);
+                args2.Add("time", 0.2f);
+                args2.Add("easeType", iTween.EaseType.linear);
+                iTween.MoveTo(gameObject, args2);
+                break;
+            case WeaponTypes.Sword:
+                AudioManager.Instance.SoundPlay("sfx/AttackSword");
+                break;
+            case WeaponTypes.Gun:
+                AudioManager.Instance.SoundPlay("sfx/AttackGun");
+                break;
+            case WeaponTypes.SniperGun:
+                AudioManager.Instance.SoundPlay("sfx/AttackSniper");
+                break;
+        }
+
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     public void OnDodge()

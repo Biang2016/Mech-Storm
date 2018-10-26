@@ -7,11 +7,6 @@ public class CardEquip : CardBase
 
     internal SlotTypes M_EquipType;
 
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
-    {
-        base.Initiate(cardInfo, clientPlayer, isCardSelect);
-    }
-
     #endregion
 
     #region 卡牌交互
@@ -23,7 +18,9 @@ public class CardEquip : CardBase
         ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (Slot sa in slots)
-                if (CheckRetinueCanEquipMe(sa))
+            {
+                string info = "";
+                if (CheckRetinueCanEquipMe(sa, out info))
                 {
                     summonEquipRequest(sa.M_ModuleRetinue, dragLastPosition);
                     return;
@@ -31,30 +28,52 @@ public class CardEquip : CardBase
                 else
                 {
                     AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
-                    NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should select a right Slot to Equip." : "请选择正确的插槽装备", 0, 1f);
+                    NoticeManager.Instance.ShowInfoPanelCenter(info, 0, 1f);
                 }
+            }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
         ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 
-    public bool CheckRetinueCanEquipMe(Slot sa)
+    public bool CheckRetinueCanEquipMe(Slot sa, out string info)
     {
         if (sa.ClientPlayer == ClientPlayer && sa.MSlotTypes == M_EquipType && !sa.M_ModuleRetinue.IsDead)
         {
             if (M_EquipType == SlotTypes.Weapon && CardInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
             {
-                if (sa.M_ModuleRetinue.CardInfo.RetinueInfo.IsSniper) return true; //狙击枪只能装在狙击手上
-                else return false;
+                if (sa.M_ModuleRetinue.CardInfo.RetinueInfo.IsSniper)
+                {
+                    info = "";
+                    return true; //狙击枪只能装在狙击手上
+                }
+                else
+                {
+                    info = GameManager.Instance.isEnglish ? "Sniper gun can only be equiped on snipers." : "狙击枪只能装在狙击手上";
+                    return false;
+                }
             }
             else if (M_EquipType == SlotTypes.MA)
             {
-                if (sa.M_ModuleRetinue.IsAllEquipExceptMA) return true;
-                else return false;
+                if (sa.M_ModuleRetinue.IsAllEquipExceptMA)
+                {
+                    info = "";
+                    return true;
+                }
+                else
+                {
+                    info = GameManager.Instance.isEnglish ? "MA can only be equiped when all other slots are equiped." : "其他所有插槽都有装备时才能装备MA";
+                    return false;
+                }
             }
-            else return true;
+            else
+            {
+                info = "";
+                return true;
+            }
         }
 
+        info = GameManager.Instance.isEnglish ? "You should select a right Slot to Equip." : "请选择正确的插槽装备";
         return false;
     }
 

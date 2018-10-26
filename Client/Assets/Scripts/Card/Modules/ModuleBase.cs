@@ -143,16 +143,16 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
         switch (CardInfo.BaseInfo.CardType)
         {
             case CardTypes.Retinue:
-                detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
                 detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailRetinueCardSize;
                 detailCard.transform.position = new Vector3(0, 8f, 0);
                 detailCard.transform.Translate(Vector3.left * 5f);
                 detailCard.GetComponent<BoxCollider>().enabled = false;
                 detailCard.GetComponent<DragComponent>().enabled = false;
                 detailCard.BeBrightColor();
+                detailCard.SetOrderInLayer(200);
 
                 CardRetinue cardRetinue = (CardRetinue) detailCard;
-                cardRetinue.SetCanvasSortingOrder(2);
                 //cardRetinue.ShowAllSlotHover();
 
                 if (((ModuleRetinue) this).M_Weapon)
@@ -169,7 +169,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     cardRetinue.Weapon.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Weapon.SetPreview();
 
-                    detailCard_Weapon = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                    detailCard_Weapon = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
                     detailCard_Weapon.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Weapon.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Weapon.transform.Translate(Vector3.right * 0.5f);
@@ -178,6 +178,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_Weapon.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Weapon.BeBrightColor();
                     detailCard_Weapon.CardBloom.SetActive(true);
+                    detailCard_Weapon.SetOrderInLayer(200);
                 }
 
                 if (((ModuleRetinue) this).M_Shield)
@@ -194,7 +195,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     cardRetinue.Shield.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Shield.SetPreview();
 
-                    detailCard_Shield = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                    detailCard_Shield = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
                     detailCard_Shield.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Shield.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Shield.transform.Translate(Vector3.right * 0.5f);
@@ -203,6 +204,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_Shield.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Shield.BeBrightColor();
                     detailCard_Shield.CardBloom.SetActive(true);
+                    detailCard_Shield.SetOrderInLayer(200);
                 }
 
                 if (((ModuleRetinue) this).M_Pack)
@@ -219,7 +221,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     cardRetinue.Pack.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Pack.SetPreview();
 
-                    detailCard_Pack = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                    detailCard_Pack = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
                     detailCard_Pack.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Pack.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Pack.transform.Translate(Vector3.left * 10.5f);
@@ -228,6 +230,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_Pack.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Pack.BeBrightColor();
                     detailCard_Pack.CardBloom.SetActive(true);
+                    detailCard_Pack.SetOrderInLayer(200);
                 }
 
                 if (((ModuleRetinue) this).M_MA)
@@ -244,7 +247,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     cardRetinue.MA.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.MA.SetPreview();
 
-                    detailCard_MA = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                    detailCard_MA = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
                     detailCard_MA.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_MA.transform.position = new Vector3(0, 2f, 0);
                     detailCard_MA.transform.Translate(Vector3.left * 10.5f);
@@ -253,17 +256,19 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
                     detailCard_MA.GetComponent<BoxCollider>().enabled = false;
                     detailCard_MA.BeBrightColor();
                     detailCard_MA.CardBloom.SetActive(true);
+                    detailCard_MA.SetOrderInLayer(200);
                 }
 
                 break;
             case CardTypes.Equip:
-                detailCard = (CardEquip) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, ClientPlayer, false);
+                detailCard = (CardEquip) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
                 detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailSingleCardSize;
                 detailCard.transform.position = new Vector3(0, 2f, 0);
                 detailCard.transform.Translate(Vector3.left * 3.5f);
                 detailCard.transform.Translate(Vector3.up * 5f);
                 detailCard.GetComponent<BoxCollider>().enabled = false;
                 detailCard.BeBrightColor();
+                detailCard.SetOrderInLayer(200);
                 break;
             default:
                 break;
@@ -283,11 +288,6 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
     {
         if (detailCard)
         {
-            if (detailCard is CardRetinue)
-            {
-                ((CardRetinue) detailCard).SetCanvasSortingOrder(0);
-            }
-
             detailCard.PoolRecycle();
             detailCard = null;
         }

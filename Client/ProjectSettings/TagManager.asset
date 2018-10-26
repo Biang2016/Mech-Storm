@@ -9,6 +9,7 @@ TagManager:
   - EnemyHandArea
   - SelfBattleGroundArea
   - EnemyBattleGroundArea
+  - Retinue
   layers:
   - Default
   - TransparentFX

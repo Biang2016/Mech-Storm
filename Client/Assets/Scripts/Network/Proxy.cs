@@ -197,6 +197,11 @@ public class Proxy : ProxyBase
                     RoundManager.Instance.OnRandomNumberSeed((RandomNumberSeedRequest) r);
                     break;
                 }
+                case NetProtocols.GAME_STOP_BY_SERVER_ERROR_REQUEST:
+                {
+                    RoundManager.Instance.OnGameStopByServerError((GameStopByServerErrorRequest) r);
+                    break;
+                }
             }
         }
         else

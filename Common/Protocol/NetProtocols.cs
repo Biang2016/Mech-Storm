@@ -8,6 +8,7 @@
     HEART_BEAT_REQUEST, //服务器发送的心跳包
     CLIENT_BUILDINFOS_REQUEST, //玩家所有卡组信息
     GAME_STOP_BY_LEAVE_REQUEST, //由于玩家离开导致游戏结束
+    GAME_STOP_BY_SERVER_ERROR_REQUEST, //由于服务器错误导致游戏结束
     GAME_STOP_BY_WIN_REQUEST, //由于比赛输赢导致游戏结束
     RANDOM_NUMBER_SEED_REQUEST, //分配客户端随机数种子
     REGISTER_RESULT_REQUEST, //注册结果
@@ -98,6 +99,7 @@
     SE_RETINUE_ATTACK_SHIP_SERVER_REQUEST, //随从攻击战舰
     SE_RETINUE_DODGE, //随从成功闪避
     SE_RETINUE_ONATTACK, //随从发起进攻动作
+    SE_RETINUE_ONATTACKSHIP, //随从对战舰发起进攻动作
     SE_RETINUE_SHIELD_DEFENCE, //随从护盾抵消攻击
     SE_RETINUE_CANATTACK, //随从能否进攻
     SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT, //特效触发通知

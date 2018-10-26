@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 internal partial class RoundManager
 {
@@ -31,6 +32,13 @@ internal partial class RoundManager
             ClientLog.Instance.PrintReceive("你输了");
             GameBoardManager.Instance.LostGame();
         }
+    }
+
+    public void OnGameStopByServerError(GameStopByServerErrorRequest r)
+    {
+        OnGameStop();
+        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Sorry, game ended due to a Server Error." : "由于服务器错误导致游戏结束", 0, 2f);
+        Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
     }
 
     public void OnRandomNumberSeed(RandomNumberSeedRequest r)
@@ -193,6 +201,11 @@ internal partial class RoundManager
             case NetProtocols.SE_RETINUE_ONATTACK:
             {
                 OnRetinueOnAttack((RetinueOnAttackRequest) r);
+                break;
+            }
+            case NetProtocols.SE_RETINUE_ONATTACKSHIP:
+            {
+                OnRetinueOnAttackShip((RetinueOnAttackShipRequest) r);
                 break;
             }
             case NetProtocols.SE_RETINUE_SHIELD_DEFENCE:
@@ -505,8 +518,17 @@ internal partial class RoundManager
     private void OnRetinueOnAttack(RetinueOnAttackRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
-        retinue.OnAttack(r.weaponType);
+        ModuleRetinue retinue = FindRetinue(r.retinueId);
+        ModuleRetinue targetRetinue = FindRetinue(r.targetRetinueId);
+        retinue.OnAttack(r.weaponType, targetRetinue);
+    }
+
+    private void OnRetinueOnAttackShip(RetinueOnAttackShipRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        ClientPlayer cp_target = GetPlayerByClientId(r.targetClientId);
+        ModuleRetinue retinue = FindRetinue(r.retinueId);
+        retinue.OnAttackShip(r.weaponType, cp_target.MyBattleGroundManager.M_Ship);
     }
 
     private void OnRetinueShieldDefence(RetinueShieldDefenceRequest r)

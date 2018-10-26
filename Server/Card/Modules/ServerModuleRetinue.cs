@@ -187,7 +187,11 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 int beforeAttack = m_RetinueAttack;
                 if (m_RetinueWeaponEnergy == 0) m_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
-                else m_RetinueAttack = CardInfo.BattleInfo.BasicAttack + M_Weapon.CardInfo.WeaponInfo.Attack;
+                else
+                {
+                    m_RetinueAttack = CardInfo.BattleInfo.BasicAttack + (M_Weapon?.CardInfo.WeaponInfo.Attack ?? 0);
+                }
+
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addAttack: m_RetinueAttack - beforeAttack, addWeaponEnergy: m_RetinueWeaponEnergy - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
@@ -836,9 +840,15 @@ internal class ServerModuleRetinue : ServerModuleBase
         return true;
     }
 
-    void OnAttack(WeaponTypes weaponType)
+    void OnAttack(WeaponTypes weaponType, int targetRetinueId)
     {
-        RetinueOnAttackRequest request = new RetinueOnAttackRequest(ServerPlayer.ClientId, M_RetinueID, weaponType);
+        RetinueOnAttackRequest request = new RetinueOnAttackRequest(ServerPlayer.ClientId, M_RetinueID, targetRetinueId, weaponType);
+        ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+    }
+
+    void OnAttackShip(WeaponTypes weaponType, int targetClientId)
+    {
+        RetinueOnAttackShipRequest request = new RetinueOnAttackShipRequest(ServerPlayer.ClientId, M_RetinueID, targetClientId, weaponType);
         ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
@@ -855,7 +865,7 @@ internal class ServerModuleRetinue : ServerModuleBase
                 case WeaponTypes.Sword:
                 {
                     damage = M_RetinueAttack * M_RetinueWeaponEnergy;
-                    if (!isCounterAttack) OnAttack(WeaponTypes.Sword); //机甲特效
+                    if (!isCounterAttack) OnAttack(WeaponTypes.Sword, targetRetinue.M_RetinueID); //机甲特效
                     Random rd = new Random();
                     int dodgeRandomNumber = rd.Next(0, 100);
                     if (dodgeRandomNumber < DodgeProp) //闪避成功
@@ -890,7 +900,7 @@ internal class ServerModuleRetinue : ServerModuleBase
 
                     for (int i = 0; i < repeatTimes; i++)
                     {
-                        OnAttack(WeaponTypes.Gun); //机甲特效
+                        OnAttack(WeaponTypes.Gun, targetRetinue.M_RetinueID); //机甲特效
                         Random rd = new Random();
                         int dodgeRandomNumber = rd.Next(0, 100);
                         if (dodgeRandomNumber < DodgeProp) //闪避成功
@@ -914,7 +924,7 @@ internal class ServerModuleRetinue : ServerModuleBase
                 case WeaponTypes.SniperGun:
                 {
                     if (isCounterAttack) break; //狙击枪无法反击他人攻击
-                    OnAttack(WeaponTypes.SniperGun); //机甲特效
+                    OnAttack(WeaponTypes.SniperGun, targetRetinue.M_RetinueID); //机甲特效
                     Random rd = new Random();
                     int dodgeRandomNumber = rd.Next(0, 100);
                     if (dodgeRandomNumber < DodgeProp) //闪避成功
@@ -937,6 +947,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         else //没有武器
         {
             damage = M_RetinueAttack;
+            if (!isCounterAttack) OnAttack(WeaponTypes.None, targetRetinue.M_RetinueID); //机甲特效
             Random rd = new Random();
             int dodgeRandomNumber = rd.Next(0, 100);
             if (dodgeRandomNumber < DodgeProp) //闪避成功
@@ -949,7 +960,6 @@ internal class ServerModuleRetinue : ServerModuleBase
                 OnMakeDamage(damage);
             }
 
-            OnAttack(WeaponTypes.None); //机甲特效
             if (canCounter) targetRetinue.Attack(this, true); //对方反击
         }
 
@@ -1053,9 +1063,9 @@ internal class ServerModuleRetinue : ServerModuleBase
             switch (M_Weapon.M_WeaponType)
             {
                 case WeaponTypes.Sword:
+                    OnAttackShip(WeaponTypes.Sword, ship.ClientId);
                     damage = M_RetinueAttack * M_RetinueWeaponEnergy * 2;
                     ship.DamageLifeAboveZero(damage);
-                    OnAttack(WeaponTypes.Sword);
                     OnMakeDamage(damage);
                     if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
                     break;
@@ -1063,26 +1073,26 @@ internal class ServerModuleRetinue : ServerModuleBase
                     int tmp = M_RetinueWeaponEnergy;
                     for (int i = 0; i < tmp; i++)
                     {
+                        OnAttackShip(WeaponTypes.Gun, ship.ClientId);
                         ship.DamageLifeAboveZero(M_RetinueAttack);
                         OnMakeDamage(M_RetinueAttack);
-                        OnAttack(WeaponTypes.Gun);
                         M_RetinueWeaponEnergy--;
                     }
 
                     break;
                 case WeaponTypes.SniperGun:
+                    OnAttackShip(WeaponTypes.SniperGun, ship.ClientId);
                     ship.DamageLifeAboveZero(M_RetinueAttack);
                     OnMakeDamage(M_RetinueAttack);
-                    OnAttack(WeaponTypes.SniperGun);
                     M_RetinueWeaponEnergy--;
                     break;
             }
         }
         else
         {
+            OnAttackShip(WeaponTypes.None, ship.ClientId);
             damage = M_RetinueAttack * 2;
             ship.DamageLifeAboveZero(damage);
-            OnAttack(WeaponTypes.None);
             OnMakeDamage(damage);
         }
 
