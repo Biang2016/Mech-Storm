@@ -329,7 +329,7 @@ public class BattleGroundManager : MonoBehaviour
             if (battleGroundIndex != -1)
             {
                 retinue.M_ClientTempRetinueID = GenerateClientRetinueTempId();
-                SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, cardInstanceId, battleGroundIndex, new MyCardGameCommon.Vector3(0, 0, 0), targetRetinueId, isClientRetinueTempId, retinue.M_ClientTempRetinueID);
+                SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, cardInstanceId, battleGroundIndex, targetRetinueId, isClientRetinueTempId, retinue.M_ClientTempRetinueID);
                 Client.Instance.Proxy.SendMessage(request);
                 break;
             }
@@ -536,10 +536,10 @@ public class BattleGroundManager : MonoBehaviour
     {
         foreach (ModuleRetinue retinue in Retinues)
         {
-            if (retinue.M_Weapon)retinue.M_Weapon.ShowEquipBloomSE(seconds);
-            if (retinue.M_Shield)retinue.M_Shield.ShowEquipBloomSE(seconds);
-            if (retinue.M_Pack)retinue.M_Pack.ShowEquipBloomSE(seconds);
-            if (retinue.M_MA)retinue.M_MA.ShowEquipBloomSE(seconds);
+            if (retinue.M_Weapon) retinue.M_Weapon.ShowEquipBloomSE(seconds);
+            if (retinue.M_Shield) retinue.M_Shield.ShowEquipBloomSE(seconds);
+            if (retinue.M_Pack) retinue.M_Pack.ShowEquipBloomSE(seconds);
+            if (retinue.M_MA) retinue.M_MA.ShowEquipBloomSE(seconds);
         }
     }
 

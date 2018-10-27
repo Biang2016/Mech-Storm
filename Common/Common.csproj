@@ -44,6 +44,7 @@
     <Compile Include="GamePlay\Card\CardDeck\AllCards.cs" />
     <Compile Include="GamePlay\Card\CardDeck\CardDeck.cs" />
     <Compile Include="GamePlay\Card\CardDeck\BuildInfo.cs" />
+    <Compile Include="GamePlay\Card\CardInfo\Info\TargetInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\EquipInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\RetinueInfo.cs" />
     <Compile Include="GamePlay\Card\CardInfo\Info\BaseInfo.cs" />
@@ -195,7 +196,6 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerTurnRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\SummonRetinueRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\SummonRetinueRequest_ResponseBundle.cs" />
-    <Compile Include="RequestResponse\Vector3.cs" />
     <Compile Include="Utils\RandomNumberGenerator.cs" />
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

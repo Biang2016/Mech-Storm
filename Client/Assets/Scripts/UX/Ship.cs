@@ -152,15 +152,11 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     {
         if (card.ClientPlayer == ClientPlayer)
         {
-            return card.targetRetinueRange == TargetSideEffect.TargetRange.AllLife ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.Ships ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.SelfShip;
+            return (card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.SelfShip) == TargetSideEffect.TargetRange.SelfShip;
         }
         else
         {
-            return card.targetRetinueRange == TargetSideEffect.TargetRange.AllLife ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.Ships ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyShip;
+            return (card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.EnemyShip) == TargetSideEffect.TargetRange.EnemyShip;
         }
     }
 

@@ -187,7 +187,7 @@ internal class ServerGameManager
             targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
         }
 
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetRetinueId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, targetRetinueId);
         sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex, targetRetinueId, r.clientRetinueTempId, r.handCardInstanceId);
 
         Broadcast_SendOperationResponse();
@@ -201,7 +201,7 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
+        sp.MyHandManager.UseCard(r.handCardInstanceId);
         sp.MyBattleGroundManager.EquipWeapon(r, cardInfo);
 
         Broadcast_SendOperationResponse();
@@ -214,7 +214,7 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
+        sp.MyHandManager.UseCard(r.handCardInstanceId);
         sp.MyBattleGroundManager.EquipShield(r, cardInfo);
 
         Broadcast_SendOperationResponse();
@@ -227,7 +227,7 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
+        sp.MyHandManager.UseCard(r.handCardInstanceId);
         sp.MyBattleGroundManager.EquipPack(r, cardInfo);
 
         Broadcast_SendOperationResponse();
@@ -240,7 +240,7 @@ internal class ServerGameManager
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Base cardInfo = sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
+        sp.MyHandManager.UseCard(r.handCardInstanceId);
         sp.MyBattleGroundManager.EquipMA(r, cardInfo);
 
         Broadcast_SendOperationResponse();
@@ -251,7 +251,7 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition);
+        sp.MyHandManager.UseCard(r.handCardInstanceId);
         Broadcast_SendOperationResponse();
     }
 
@@ -268,7 +268,7 @@ internal class ServerGameManager
             targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
         }
 
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetRetinueId: targetRetinueId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, targetRetinueId: targetRetinueId);
         Broadcast_SendOperationResponse();
     }
 
@@ -277,7 +277,7 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetEquipId: r.targetEquipId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, targetEquipId: r.targetEquipId);
         Broadcast_SendOperationResponse();
     }
 
@@ -286,7 +286,7 @@ internal class ServerGameManager
         ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
-        sp.MyHandManager.UseCard(r.handCardInstanceId, r.lastDragPosition, targetClientId: r.targetClientId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, targetClientId: r.targetClientId);
         Broadcast_SendOperationResponse();
     }
 

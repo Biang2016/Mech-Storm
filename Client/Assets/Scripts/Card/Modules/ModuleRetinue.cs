@@ -1278,23 +1278,13 @@ public class ModuleRetinue : ModuleBase
     {
         if (card.ClientPlayer == ClientPlayer)
         {
-            return card.targetRetinueRange == TargetSideEffect.TargetRange.AllLife ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.Mechs ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.SelfMechs ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.Heros ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.Soldiers ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.SelfHeros ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.SelfSoldiers;
+            return ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.SelfSoldiers) == TargetSideEffect.TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier) ||
+                   ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.SelfHeros) == TargetSideEffect.TargetRange.SelfHeros && !CardInfo.RetinueInfo.IsSoldier);
         }
         else
         {
-            return card.targetRetinueRange == TargetSideEffect.TargetRange.AllLife ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.Mechs ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyMechs ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.Heros ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.Soldiers ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.EnemyHeros ||
-                   card.targetRetinueRange == TargetSideEffect.TargetRange.EnemySoldiers;
+            return ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.EnemySoldiers) == TargetSideEffect.TargetRange.EnemySoldiers && CardInfo.RetinueInfo.IsSoldier) ||
+                   ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.EnemyHeros) == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.RetinueInfo.IsSoldier);
         }
     }
 

@@ -1,19 +1,16 @@
-﻿using MyCardGameCommon;
-
+﻿
 public class UseSpellCardToEquipRequest : ClientRequestBase
 {
     public int handCardInstanceId;
-    public Vector3 lastDragPosition;
     public int targetEquipId;
 
     public UseSpellCardToEquipRequest()
     {
     }
 
-    public UseSpellCardToEquipRequest(int clientId, int handCardInstanceId, Vector3 lastDragPosition, int targetEquipId) : base(clientId)
+    public UseSpellCardToEquipRequest(int clientId, int handCardInstanceId,  int targetEquipId) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
-        this.lastDragPosition = lastDragPosition;
         this.targetEquipId = targetEquipId;
     }
 
@@ -31,7 +28,6 @@ public class UseSpellCardToEquipRequest : ClientRequestBase
     {
         base.Serialize(writer);
         writer.WriteSInt32(handCardInstanceId);
-        lastDragPosition.Serialize(writer);
         writer.WriteSInt32(targetEquipId);
     }
 
@@ -39,7 +35,6 @@ public class UseSpellCardToEquipRequest : ClientRequestBase
     {
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
-        lastDragPosition = Vector3.Deserialize(reader);
         targetEquipId = reader.ReadSInt32();
     }
 
@@ -47,7 +42,6 @@ public class UseSpellCardToEquipRequest : ClientRequestBase
     {
         string log = base.DeserializeLog();
         log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [lastDragPosition]=" + lastDragPosition;
         log += " [targetEquipId]=" + targetEquipId;
         return log;
     }

@@ -1,21 +1,18 @@
-﻿using MyCardGameCommon;
-
+﻿
 public class UseSpellCardToEquipServerRequset : ServerRequestBase
 {
     public int clientId;
     public int handCardInstanceId;
-    public Vector3 lastDragPosition;
     public int targetEquipId;
 
     public UseSpellCardToEquipServerRequset()
     {
     }
 
-    public UseSpellCardToEquipServerRequset(int clientId, int handCardInstanceId, Vector3 lastDragPosition, int targetEquipId) 
+    public UseSpellCardToEquipServerRequset(int clientId, int handCardInstanceId, int targetEquipId) 
     {
         this.clientId = clientId;
         this.handCardInstanceId = handCardInstanceId;
-        this.lastDragPosition = lastDragPosition;
         this.targetEquipId = targetEquipId;
     }
 
@@ -33,7 +30,6 @@ public class UseSpellCardToEquipServerRequset : ServerRequestBase
     {
         base.Serialize(writer);
         writer.WriteSInt32(handCardInstanceId);
-        lastDragPosition.Serialize(writer);
         writer.WriteSInt32(targetEquipId);
     }
 
@@ -41,7 +37,6 @@ public class UseSpellCardToEquipServerRequset : ServerRequestBase
     {
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
-        lastDragPosition = Vector3.Deserialize(reader);
         targetEquipId = reader.ReadSInt32();
     }
 
@@ -49,7 +44,6 @@ public class UseSpellCardToEquipServerRequset : ServerRequestBase
     {
         string log = base.DeserializeLog();
         log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [lastDragPosition]=" + lastDragPosition;
         log += " [targetEquipId]=" + targetEquipId;
         return log;
     }

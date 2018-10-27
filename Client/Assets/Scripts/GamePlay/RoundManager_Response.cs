@@ -444,7 +444,7 @@ internal partial class RoundManager
     private void OnPlayerUseCard(UseCardRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyHandManager.UseCard(r.handCardInstanceId, r.cardInfo, new Vector3(r.lastDragPosition.x, r.lastDragPosition.y, r.lastDragPosition.z));
+        cp.MyHandManager.UseCard(r.handCardInstanceId, r.cardInfo);
     }
 
     private void OnRetinueCardInfoSync(RetinueCardInfoSyncRequest r)

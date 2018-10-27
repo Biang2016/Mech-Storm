@@ -130,6 +130,12 @@ internal class ServerPlayer : Player
         }
     }
 
+    protected override void OnMetalChanged(int change)
+    {
+        base.OnMetalChanged(change);
+        MyHandManager.RefreshAllCardUsable();
+    }
+
     #endregion
 
     #region LifeChange
@@ -184,6 +190,12 @@ internal class ServerPlayer : Player
     #endregion
 
     #region EnergyChange
+
+    protected override void OnEnergyChanged(int change)
+    {
+        base.OnEnergyChanged(change);
+        MyHandManager.RefreshAllCardUsable();
+    }
 
     public void AddEnergyWithinMax(int addEnergyValue)
     {

@@ -1,5 +1,4 @@
-﻿using MyCardGameCommon;
-
+﻿
 public class HandCardInfoSyncRequest : ServerRequestBase
 {
     public int clientId;

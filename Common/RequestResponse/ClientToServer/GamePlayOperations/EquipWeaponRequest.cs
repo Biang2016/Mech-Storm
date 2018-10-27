@@ -1,22 +1,19 @@
-﻿using MyCardGameCommon;
-
+﻿
 public class EquipWeaponRequest : ClientRequestBase
 {
     public int handCardInstanceId;
     public int retinueId;
     public int weaponPlaceIndex;
-    public Vector3 lastDragPosition;
 
     public EquipWeaponRequest()
     {
     }
 
-    public EquipWeaponRequest(int clientId, int handCardInstanceId, int retinueId, int weaponPlaceIndex, Vector3 lastDragPosition) : base(clientId)
+    public EquipWeaponRequest(int clientId, int handCardInstanceId, int retinueId, int weaponPlaceIndex) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
         this.retinueId = retinueId;
         this.weaponPlaceIndex = weaponPlaceIndex;
-        this.lastDragPosition = lastDragPosition;
     }
 
     public override NetProtocols GetProtocol()
@@ -35,7 +32,6 @@ public class EquipWeaponRequest : ClientRequestBase
         writer.WriteSInt32(handCardInstanceId);
         writer.WriteSInt32(retinueId);
         writer.WriteSInt32(weaponPlaceIndex);
-        lastDragPosition.Serialize(writer);
     }
 
     public override void Deserialize(DataStream reader)
@@ -44,7 +40,6 @@ public class EquipWeaponRequest : ClientRequestBase
         handCardInstanceId = reader.ReadSInt32();
         retinueId = reader.ReadSInt32();
         weaponPlaceIndex = reader.ReadSInt32();
-        lastDragPosition = Vector3.Deserialize(reader);
     }
 
     public override string DeserializeLog()
@@ -53,7 +48,6 @@ public class EquipWeaponRequest : ClientRequestBase
         log += " [handCardInstanceId]=" + handCardInstanceId;
         log += " [retinueId]=" + retinueId;
         log += " [weaponPlaceIndex]=" + weaponPlaceIndex;
-        log += " [lastDragPosition]=" + lastDragPosition;
         return log;
     }
 }

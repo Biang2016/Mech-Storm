@@ -85,7 +85,7 @@ public abstract class ModuleEquip : ModuleBase
     public override void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
         base.MouseHoverComponent_OnMousePressEnterImmediately(mousePosition);
-        if (DragManager.Instance.CurrentDrag_CardSpell.HasTargetEquip)
+        if (DragManager.Instance.CurrentDrag_CardSpell.CardInfo.TargetInfo.HasTargetEquip)
         {
             if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
             {

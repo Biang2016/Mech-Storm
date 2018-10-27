@@ -1,18 +1,15 @@
-﻿using MyCardGameCommon;
-
+﻿
 public class UseSpellCardRequest : ClientRequestBase
 {
     public int handCardInstanceId;
-    public Vector3 lastDragPosition;
 
     public UseSpellCardRequest()
     {
     }
 
-    public UseSpellCardRequest(int clientId,int handCardInstanceId, Vector3 lastDragPosition):base(clientId)
+    public UseSpellCardRequest(int clientId,int handCardInstanceId):base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
-        this.lastDragPosition = lastDragPosition;
     }
 
     public override NetProtocols GetProtocol()
@@ -29,21 +26,18 @@ public class UseSpellCardRequest : ClientRequestBase
     {
         base.Serialize(writer);
         writer.WriteSInt32(handCardInstanceId);
-        lastDragPosition.Serialize(writer);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
-        lastDragPosition = Vector3.Deserialize(reader);
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
         log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [lastDragPosition]=" + lastDragPosition;
         return log;
     }
 }

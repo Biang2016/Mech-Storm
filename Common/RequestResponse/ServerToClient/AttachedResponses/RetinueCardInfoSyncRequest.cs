@@ -1,5 +1,4 @@
-﻿using MyCardGameCommon;
-
+﻿
 public class RetinueCardInfoSyncRequest : ServerRequestBase
 {
     public int clientId;

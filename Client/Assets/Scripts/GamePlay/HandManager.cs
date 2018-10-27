@@ -303,7 +303,7 @@ public class HandManager : MonoBehaviour
 
     #region Play cards
 
-    public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo, Vector3 lastDragPosition)
+    public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo)
     {
         CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
 
@@ -453,7 +453,7 @@ public class HandManager : MonoBehaviour
             ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.HightlightTopBlocks(focusCard.CardInfo.BaseInfo.Metal);
         }
 
-        if (focusCard is CardSpell && ((CardSpell) focusCard).HasTargetEquip)
+        if (focusCard is CardSpell && ((CardSpell) focusCard).CardInfo.TargetInfo.HasTargetEquip)
         {
             RoundManager.Instance.SelfClientPlayer.MyBattleGroundManager.ShowTipModuleBloomSE(0.3f);
             RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.ShowTipModuleBloomSE(0.3f);

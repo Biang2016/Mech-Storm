@@ -1,5 +1,4 @@
-﻿using MyCardGameCommon;
-
+﻿
 public class EquipCardInfoSyncRequest : ServerRequestBase
 {
     public int clientId;

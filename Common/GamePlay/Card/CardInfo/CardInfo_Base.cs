@@ -9,6 +9,7 @@ public class CardInfo_Base
     public BattleInfo BattleInfo;
     public RetinueInfo RetinueInfo;
     public EquipInfo EquipInfo;
+    public TargetInfo TargetInfo;
     public WeaponInfo WeaponInfo;
     public ShieldInfo ShieldInfo;
     public PackInfo PackInfo;
@@ -27,6 +28,8 @@ public class CardInfo_Base
         BaseInfo = baseInfo;
         SideEffectBundle = sideEffectBundle;
         SideEffectBundle_OnBattleGround = sideEffectBundle_OnBattleGround;
+
+        TargetInfo.Initialize(this);
     }
 
     public virtual string GetCardDescShow(bool isEnglish)
