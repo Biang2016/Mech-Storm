@@ -31,7 +31,7 @@ public class Proxy : ProxyBase
 
     public static ClientStateEventHandler OnClientStateChange;
 
-    public Proxy(Socket socket, int clientId, int clientCoin, bool isStopReceive) : base(socket, clientId, isStopReceive)
+    public Proxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
     }
 
@@ -56,9 +56,18 @@ public class Proxy : ProxyBase
         ClientState = ClientStates.Login;
     }
 
-    public void OnBeginMatch()
+    public void OnBeginMatch(bool isStandAlone)
     {
-        MatchRequest req = new MatchRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID);
+        ClientRequestBase req = null;
+        if (!isStandAlone)
+        {
+            req = new MatchRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID);
+        }
+        else
+        {
+            req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID);
+        }
+
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
@@ -211,6 +220,7 @@ public class Proxy : ProxyBase
             {
                 RoundManager.Instance.Initialize();
             }
+
             foreach (ServerRequestBase attachedRequest in request.AttachedRequests) //请求预处理，提取关键信息，如机甲死亡、弃牌等会影响客户端交互的信息
             {
                 RoundManager.Instance.ResponseToSideEffects_PrePass(attachedRequest);

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Card\Build\AllServerBuilds.cs" />
     <Compile Include="Card\Cards\ServerCardBase.cs" />
     <Compile Include="Card\Cards\ServerCardRetinue.cs" />
     <Compile Include="Card\Cards\ServerCardSpell.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Card\SideEffects\TargetSideEffects\KillRandom.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\KillAll.cs" />
     <Compile Include="Database\Database.cs" />
+    <Compile Include="GamePlay\ClientProxyAI.cs" />
     <Compile Include="GamePlay\ClientProxy.cs" />
     <Compile Include="GamePlay\ServerBattleGroundManager.cs" />
     <Compile Include="GamePlay\ServerCardDeckManager.cs" />
@@ -113,6 +115,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\ServerBuilds.xml" />
     <Content Include="DevLog.txt" />
     <Content Include="DevLog_zh.txt" />
   </ItemGroup>

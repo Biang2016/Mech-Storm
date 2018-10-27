@@ -212,8 +212,8 @@ public class ExitMenuManager : MonoSingleton<ExitMenuManager>
             GameManager.Instance.IsEnglish ? "Are you sure to surrender?" : "您确定要认输吗?",
             GameManager.Instance.IsEnglish ? "Yes" : "是",
             GameManager.Instance.IsEnglish ? "No" : "取消",
-            (new UnityAction(SurrenderCore)) + cw.PoolRecycle,
-            cw.PoolRecycle
+            (new UnityAction(SurrenderCore)) + ConfirmWindowManager.Instance.RemoveConfirmWindow,
+            ConfirmWindowManager.Instance.RemoveConfirmWindow
         );
     }
 

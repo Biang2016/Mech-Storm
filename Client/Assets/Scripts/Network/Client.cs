@@ -119,7 +119,7 @@ public class Client : MonoSingleton<Client>
         {
             //与socket建立连接成功，开启线程接受服务端数据。  
             isStopReceive = false;
-            Proxy = new Proxy(ServerSocket, 0, 0, false);
+            Proxy = new Proxy(ServerSocket, 0, false);
             Thread thread = new Thread(ReceiveSocket);
             thread.IsBackground = true;
             thread.Start();

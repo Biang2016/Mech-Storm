@@ -21,6 +21,12 @@ class ServerConsole
         {
             File.Copy(fileInfo.FullName, "./Config/" + fileInfo.Name, true);
         }
+
+        DirectoryInfo di_server = new DirectoryInfo("../../Config");
+        foreach (FileInfo fileInfo in di_server.GetFiles())
+        {
+            File.Copy(fileInfo.FullName, "./Config/" + fileInfo.Name, true);
+        }
 #else
         Server.SV = new Server("95.169.26.10", 9999);
 #endif

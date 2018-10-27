@@ -79,7 +79,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
                         else if (Client.Instance.IsPlaying()) HideWindowToPlaying();
                         break;
                     case States.HideForPlay:
-                        if (Client.Instance.IsLogin()) HideWindowToPlaying();
+                        if (state != States.Hide && Client.Instance.IsLogin()) HideWindowToPlaying();
                         break;
                     case States.Show:
                         if (Client.Instance.IsLogin() && !Client.Instance.IsMatching()) ShowWindow();

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 internal class Database
 {
@@ -105,10 +106,25 @@ internal class Database
         {
             PlayerBuilds[username].Add(buildInfo.BuildID);
         }
+
+        if (username.Equals("ServerAdmin"))
+        {
+            if (!ServerBuilds.ContainsKey(buildInfo.BuildName))
+            {
+                ServerBuilds.Add(buildInfo.BuildName, buildInfo.BuildID);
+            }
+
+            AllServerBuilds.ExportAllBuilds();
+        }
     }
 
     public void DeleteBuild(string username, int buildID)
     {
+        if (username.Equals("ServerAdmin"))
+        {
+            ServerBuilds.Remove(BuildInfoDict[buildID].BuildName);
+        }
+
         if (BuildInfoDict.ContainsKey(buildID))
         {
             BuildInfoDict.Remove(buildID);
@@ -120,6 +136,11 @@ internal class Database
             {
                 PlayerBuilds[username].Remove(buildID);
             }
+        }
+
+        if (username.Equals("ServerAdmin"))
+        {
+            AllServerBuilds.ExportAllBuilds();
         }
     }
 
@@ -142,16 +163,6 @@ internal class Database
 
     Dictionary<string, List<int>> PlayerBuilds = new Dictionary<string, List<int>>();
 
-    public void AddPlayerBuild(string username, int buildID)
-    {
-        if (!PlayerBuilds.ContainsKey(username))
-        {
-            PlayerBuilds.Add(username, new List<int>());
-        }
-
-        PlayerBuilds[username].Add(buildID);
-    }
-
     public List<BuildInfo> GetPlayerBuilds(string username)
     {
         List<int> buildInfoIds = new List<int>();
@@ -170,6 +181,39 @@ internal class Database
         }
 
         return buildInfos;
+    }
+
+    #endregion
+
+    #region ServerBuilds
+
+    Dictionary<string, int> ServerBuilds = new Dictionary<string, int>();
+
+    public void AddServerBuild(string buildname, int buildID)
+    {
+        if (!ServerBuilds.ContainsKey(buildname))
+        {
+            ServerBuilds.Add(buildname, buildID);
+        }
+    }
+
+    public BuildInfo GetServerBuildInfo(string buildName)
+    {
+        ServerBuilds.TryGetValue(buildName, out int id);
+        BuildInfoDict.TryGetValue(id, out BuildInfo buildInfo);
+        return buildInfo;
+    }
+
+    public List<BuildInfo> AllServerBuildInfo()
+    {
+        List<int> ids = ServerBuilds.Values.ToList();
+        List<BuildInfo> ServerBuildInfos = new List<BuildInfo>();
+        foreach (int id in ids)
+        {
+            ServerBuildInfos.Add(BuildInfoDict[id]);
+        }
+
+        return ServerBuildInfos;
     }
 
     #endregion

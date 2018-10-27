@@ -15,6 +15,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         Proxy.OnClientStateChange += OnClientChangeState;
 
         BeginMatchText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        StartStandAloneText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         CancelMatchText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         MyDeckText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         SettingText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
@@ -22,7 +23,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         QuitGameText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         DesignerText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
 
-        BeginMatchText.text = GameManager.Instance.IsEnglish ? "Game Begin" : "开始匹配";
+        BeginMatchText.text = GameManager.Instance.IsEnglish ? "Online Game" : "开始匹配";
+        StartStandAloneText.text = GameManager.Instance.IsEnglish ? "Single Game" : "单人模式";
         CancelMatchText.text = GameManager.Instance.IsEnglish ? "Cancel Match" : "取消匹配";
         MyDeckText.text = GameManager.Instance.IsEnglish ? "My Decks" : "我的卡组";
         SettingText.text = GameManager.Instance.IsEnglish ? "Settings" : "游戏设置";
@@ -83,6 +85,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     {
         M_StateMachine.SetState(StateMachine.States.Hide);
         StartMatchButton.gameObject.SetActive(false);
+        StartStandAloneButton.gameObject.SetActive(false);
         CancelMatchButton.gameObject.SetActive(false);
     }
 
@@ -97,17 +100,20 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             case ProxyBase.ClientStates.Offline:
                 M_StateMachine.SetState(StateMachine.States.Hide);
                 StartMatchButton.gameObject.SetActive(false);
+                StartStandAloneButton.gameObject.SetActive(false);
                 CancelMatchButton.gameObject.SetActive(false);
                 break;
             case ProxyBase.ClientStates.GetId:
                 M_StateMachine.SetState(StateMachine.States.Hide);
                 StartMatchButton.gameObject.SetActive(false);
+                StartStandAloneButton.gameObject.SetActive(false);
                 CancelMatchButton.gameObject.SetActive(false);
                 break;
             case ProxyBase.ClientStates.Login:
                 GameBoardManager.Instance.ChangeBoardBG();
                 M_StateMachine.SetState(StateMachine.States.Show);
                 StartMatchButton.gameObject.SetActive(true);
+                StartStandAloneButton.gameObject.SetActive(true);
                 CancelMatchButton.gameObject.SetActive(false);
                 SelectCardDeckWindowButton.gameObject.SetActive(true);
                 SettingButton.gameObject.SetActive(true);
@@ -116,6 +122,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             case ProxyBase.ClientStates.Matching:
                 M_StateMachine.SetState(StateMachine.States.Show);
                 StartMatchButton.gameObject.SetActive(false);
+                StartStandAloneButton.gameObject.SetActive(false);
                 CancelMatchButton.gameObject.SetActive(true);
                 SelectCardDeckWindowButton.gameObject.SetActive(true);
                 SettingButton.gameObject.SetActive(true);
@@ -200,6 +207,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
     [SerializeField] private Canvas StartMenuCanvas;
     [SerializeField] private Button StartMatchButton;
+    [SerializeField] private Button StartStandAloneButton;
     [SerializeField] private Button CancelMatchButton;
     [SerializeField] private Button SelectCardDeckWindowButton;
     [SerializeField] private Button SettingButton;
@@ -208,6 +216,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     [SerializeField] private GameObject DeckAbstract;
 
     [SerializeField] private Text BeginMatchText;
+    [SerializeField] private Text StartStandAloneText;
     [SerializeField] private Text CancelMatchText;
     [SerializeField] private Text MyDeckText;
     [SerializeField] private Text SettingText;
@@ -238,7 +247,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         }
     }
 
-    public void OnStartMatchGameButtonClick()
+    public void OnStartMatchGameButtonClick(bool isStandAlone)
     {
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)
         {
@@ -259,28 +268,45 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                 if (GameManager.Instance.IsEnglish)
                 {
                     cw.Initialize("Some cards consume more energy than your upper limit.", "Go ahead", "Edit",
-                        new UnityAction(StartMatchingCore) + cw.PoolRecycle,
-                        new UnityAction(OnSelectCardDeckWindowButtonClick) + cw.PoolRecycle);
+                        (isStandAlone ? new UnityAction(StartStandAlone) : new UnityAction(StartOnlineMatch)) + ConfirmWindowManager.Instance.RemoveConfirmWindow,
+                        new UnityAction(OnSelectCardDeckWindowButtonClick) + ConfirmWindowManager.Instance.RemoveConfirmWindow);
                 }
                 else
                 {
                     cw.Initialize("您的卡组中有些牌的能量消耗大于您的能量上限，是否继续？", "继续", "编辑",
-                        new UnityAction(StartMatchingCore) + cw.PoolRecycle,
-                        new UnityAction(OnSelectCardDeckWindowButtonClick) + cw.PoolRecycle);
+                        (isStandAlone ? new UnityAction(StartStandAlone) : new UnityAction(StartOnlineMatch)) + ConfirmWindowManager.Instance.RemoveConfirmWindow,
+                        new UnityAction(OnSelectCardDeckWindowButtonClick) + ConfirmWindowManager.Instance.RemoveConfirmWindow);
                 }
 
                 return;
             }
             else
             {
-                StartMatchingCore();
+                if (!isStandAlone)
+                {
+                    StartOnlineMatch();
+                }
+                else
+                {
+                    StartStandAlone();
+                }
             }
         }
     }
 
-    private void StartMatchingCore()
+    private void StartOnlineMatch()
     {
-        Client.Instance.Proxy.OnBeginMatch();
+        StartMatchingCore(false);
+    }
+
+    private void StartStandAlone()
+    {
+        StartMatchingCore(true);
+    }
+
+    private void StartMatchingCore(bool isStandAlone)
+    {
+        Client.Instance.Proxy.OnBeginMatch(isStandAlone);
         ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin matching" : "开始匹配");
         NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Matching" : "匹配中", 0, float.PositiveInfinity);
         DeckAbstract.SetActive(true);
@@ -315,7 +341,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             GameManager.Instance.IsEnglish ? "Yes" : "是",
             GameManager.Instance.IsEnglish ? "No" : "取消",
             Application.Quit,
-            cw.PoolRecycle
+            ConfirmWindowManager.Instance.RemoveConfirmWindow
         );
 
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Matching)

@@ -8,7 +8,7 @@ public class ConfirmWindowManager : MonoSingleton<ConfirmWindowManager>
         get { return ConfirmWindows.Count != 0; }
     }
 
-    private List<ConfirmWindow> ConfirmWindows = new List<ConfirmWindow>();
+    private Stack<ConfirmWindow> ConfirmWindows = new Stack<ConfirmWindow>();
 
     private void Update()
     {
@@ -16,21 +16,18 @@ public class ConfirmWindowManager : MonoSingleton<ConfirmWindowManager>
         {
             if (Input.GetKeyUp(KeyCode.Escape))
             {
-                foreach (ConfirmWindow cw in ConfirmWindows)
-                {
-                    cw.PoolRecycle();
-                }
+                RemoveConfirmWindow();
             }
         }
     }
 
     public void AddConfirmWindow(ConfirmWindow confirmWindow)
     {
-        if (!ConfirmWindows.Contains(confirmWindow)) ConfirmWindows.Add(confirmWindow);
+        if (!ConfirmWindows.Contains(confirmWindow)) ConfirmWindows.Push(confirmWindow);
     }
 
-    public void RemoveConfirmWindow(ConfirmWindow confirmWindow)
+    public void RemoveConfirmWindow()
     {
-        if (ConfirmWindows.Contains(confirmWindow)) ConfirmWindows.Remove(confirmWindow);
+        if (ConfirmWindows.Peek() != null) ConfirmWindows.Pop().PoolRecycle();
     }
 }

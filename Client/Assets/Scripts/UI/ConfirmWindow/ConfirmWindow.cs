@@ -21,7 +21,6 @@ public class ConfirmWindow : PoolObject
     {
         base.PoolRecycle();
         gameObject.SetActive(false);
-        ConfirmWindowManager.Instance.RemoveConfirmWindow(this);
         DescText.text = "";
         LeftButtonText.text = "";
         RightButtonText.text = "";

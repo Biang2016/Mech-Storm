@@ -95,7 +95,9 @@ internal class ServerBattleGroundManager
         int battleGroundIndex = Retinues.IndexOf(retinue);
         if (battleGroundIndex == -1)
         {
+#if DEBUG
             ServerLog.PrintWarning("BattleGroundRemoveRetinue not exist retinue：" + retinue.M_RetinueID);
+#endif
             return;
         }
 
@@ -660,7 +662,9 @@ internal class ServerBattleGroundManager
             log += " [RID]" + retinue.M_RetinueID + " [Name]" + retinue.CardInfo.BaseInfo.CardName;
         }
 
+#if DEBUG
         ServerLog.Print(log);
+#endif
     }
 
     #endregion

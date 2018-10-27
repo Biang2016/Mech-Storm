@@ -24,6 +24,7 @@
 
     CARD_DECK_REQUEST, //卡组信息
     MATCH_REQUEST, //申请匹配
+    MATCH_STANDALONE_REQUEST, //申请单机模式
     CANCEL_MATCH_REQUEST, //玩家取消匹配
     LEAVE_GAME_REQUEST, //玩家离开游戏
     REGISTER_REQUEST, //注册

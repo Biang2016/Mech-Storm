@@ -61,8 +61,8 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
 
     public void ResetCardDeckNumberText()
     {
-        SetSelfCardDeckNumber(0);
-        SetEnemyCardDeckNumber(0);
+        SetSelfCardDeckNumber(0, true);
+        SetEnemyCardDeckNumber(0, true);
     }
 
     public void HideAll()
@@ -87,9 +87,9 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
 
     private int selfCardDeckNumber;
 
-    public void SetSelfCardDeckNumber(int value)
+    public void SetSelfCardDeckNumber(int value, bool forceUpdate = false)
     {
-        if (selfCardDeckNumber != value)
+        if (selfCardDeckNumber != value || forceUpdate)
         {
             if (value == 0)
             {
@@ -109,9 +109,9 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
 
     private int enemyCardDeckNumber;
 
-    public void SetEnemyCardDeckNumber(int value)
+    public void SetEnemyCardDeckNumber(int value, bool forceUpdate = false)
     {
-        if (enemyCardDeckNumber != value)
+        if (enemyCardDeckNumber != value || forceUpdate)
         {
             if (value == 0)
             {

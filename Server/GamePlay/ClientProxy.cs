@@ -5,8 +5,8 @@ using System.Threading;
 
 internal class ClientProxy : ProxyBase
 {
-    private Queue<ServerRequestBase> SendRequestsQueue = new Queue<ServerRequestBase>();
-    private Queue<ClientRequestBase> ReceiveRequestsQueue = new Queue<ClientRequestBase>();
+    protected Queue<ServerRequestBase> SendRequestsQueue = new Queue<ServerRequestBase>();
+    protected Queue<ClientRequestBase> ReceiveRequestsQueue = new Queue<ClientRequestBase>();
 
     public ServerGameManager MyServerGameManager;
 
@@ -17,7 +17,6 @@ internal class ClientProxy : ProxyBase
         get { return username; }
     }
 
-
     public override ClientStates ClientState
     {
         get => clientState;
@@ -25,7 +24,9 @@ internal class ClientProxy : ProxyBase
         {
             ClientStates before = ClientState;
             clientState = value;
+#if DEBUG
             ServerLog.PrintClientStates("Client " + ClientId + " state change: " + before + " -> " + ClientState);
+#endif
         }
     }
 
@@ -36,11 +37,6 @@ internal class ClientProxy : ProxyBase
         SendMessage(request);
     }
 
-    public List<BuildInfo> GetClientBuildInfos(string username)
-    {
-        return new List<BuildInfo>();
-    }
-
     private bool isClosed = false;
 
     public void OnClose()
@@ -49,10 +45,7 @@ internal class ClientProxy : ProxyBase
 
         MyServerGameManager?.OnLeaveGame(ClientId); //先结束对应的游戏
 
-        if (Socket != null)
-        {
-            Socket.Close();
-        }
+        Socket?.Close();
 
         SendRequestsQueue.Clear();
         ReceiveRequestsQueue.Clear();
@@ -60,7 +53,7 @@ internal class ClientProxy : ProxyBase
         isClosed = true;
     }
 
-    public void SendMessage(ServerRequestBase request)
+    public virtual void SendMessage(ServerRequestBase request)
     {
         if (isClosed) return;
         SendRequestsQueue.Enqueue(request);
@@ -95,7 +88,7 @@ internal class ClientProxy : ProxyBase
         }
     }
 
-    public void ReceiveMessage(ClientRequestBase request)
+    public virtual void ReceiveMessage(ClientRequestBase request)
     {
         if (isClosed) return;
         ReceiveRequestsQueue.Enqueue(request);
@@ -110,6 +103,11 @@ internal class ClientProxy : ProxyBase
     /// </summary>
     protected override void Response()
     {
+        if (MyServerGameManager != null && MyServerGameManager.IsStopped)
+        {
+            MyServerGameManager.StopGame();
+        }
+
         while (ReceiveRequestsQueue.Count > 0)
         {
             ClientRequestBase r = ReceiveRequestsQueue.Dequeue();
@@ -117,7 +115,9 @@ internal class ClientProxy : ProxyBase
             {
                 //以下是进入游戏前的请求
                 case RegisterRequest _:
+#if DEBUG
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+#endif
                     if (ClientState != ClientStates.GetId)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -136,7 +136,9 @@ internal class ClientProxy : ProxyBase
 
                     break;
                 case LoginRequest _:
+#if DEBUG
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+#endif
                     if (ClientState != ClientStates.GetId)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -185,7 +187,9 @@ internal class ClientProxy : ProxyBase
                     break;
                 case LogoutRequest _:
                 {
+#if DEBUG
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+#endif
                     LogoutRequest request = (LogoutRequest) r;
                     LogoutResultRequest response;
                     if (ClientState != ClientStates.GetId)
@@ -242,7 +246,9 @@ internal class ClientProxy : ProxyBase
                 }
 
                 case MatchRequest _:
+#if DEBUG
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+#endif
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -258,8 +264,30 @@ internal class ClientProxy : ProxyBase
                     }
 
                     break;
-                case CancelMatchRequest _:
+
+                case MatchStandAloneRequest _:
+#if DEBUG
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+#endif
+                    if (ClientState == ClientStates.Playing)
+                    {
+                        Server.SV.SGMM.RemoveGame(this);
+                        ClientState = ClientStates.Login;
+                    }
+
+                    if (ClientState == ClientStates.Login)
+                    {
+                        MatchStandAloneRequest request = (MatchStandAloneRequest) r;
+                        CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.buildID);
+                        ClientState = ClientStates.Matching;
+                        Server.SV.SGMM.OnClientMatchStandAloneGames(this);
+                    }
+
+                    break;
+                case CancelMatchRequest _:
+#if DEBUG
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+#endif
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -278,11 +306,7 @@ internal class ClientProxy : ProxyBase
             if (ClientState == ClientStates.Playing)
             {
                 if (MyServerGameManager == null) return;
-                if (MyServerGameManager.IsStopped)
-                {
-                    MyServerGameManager.StopGame();
-                    return;
-                }
+
 
                 try
                 {
@@ -331,7 +355,9 @@ internal class ClientProxy : ProxyBase
                 }
                 catch (Exception e)
                 {
+#if DEBUG
                     ServerLog.PrintError(e.ToString());
+#endif
                     if (MyServerGameManager != null && !MyServerGameManager.IsStopped)
                     {
                         MyServerGameManager.OnEndGameByServerError();

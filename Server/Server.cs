@@ -43,7 +43,10 @@ internal class Server
         AllBuffs.AddAllBuffs("./Config/Buffs.xml");
         AllCards.DebugLogHandler = ServerLog.PrintError;
         AllCards.AddAllCards("./Config/Cards.xml");
+        AllServerBuilds.AddAllBuilds("./Config/ServerBuilds.xml");
+#if DEBUG
         ServerLog.PrintServerStates("CardDeck Loaded");
+#endif
         SGMM = new ServerGameMatchManager();
 
         //string res = AllCards.GetCard(61501).GetCardDescShow(true);
@@ -96,7 +99,9 @@ internal class Server
             SeverSocket.Bind(new IPEndPoint(IPAddress.Parse(IP), Port));
             //为服务器sokect添加监听
             SeverSocket.Listen(200);
+#if DEBUG
             ServerLog.PrintServerStates("------------------ Server Start ------------------\n");
+#endif
             //开始服务器时 一般接受一个服务就会被挂起所以要用多线程来解决
             Thread threadAccept = new Thread(Accept);
             threadAccept.IsBackground = true;
@@ -104,14 +109,16 @@ internal class Server
         }
         catch (Exception e)
         {
+#if DEBUG
             ServerLog.PrintError(e.Message);
             ServerLog.PrintError("Server start failed!");
+#endif
         }
     }
 
     private int clientIdGenerator = 1000;
 
-    int GenerateClientId()
+    public int GenerateClientId()
     {
         return clientIdGenerator++;
     }
@@ -123,7 +130,9 @@ internal class Server
         ClientProxy clientProxy = new ClientProxy(socket, clientId, false);
         ClientsDict.Add(clientId, clientProxy);
         IPEndPoint point = socket.RemoteEndPoint as IPEndPoint;
+#if DEBUG
         ServerLog.PrintClientStates("New client connection " + point.Address + ":" + point.Port + "  Clients count: " + ClientsDict.Count);
+#endif
 
         Thread threadReceive = new Thread(ReceiveSocket);
         threadReceive.IsBackground = true;
@@ -138,7 +147,9 @@ internal class Server
             ClientProxy clientProxy = kv.Value;
             if (clientProxy.Socket != null && clientProxy.Socket.Connected)
             {
+#if DEBUG
                 ServerLog.PrintClientStates("Client " + clientProxy.ClientId + " quit");
+#endif
                 ClientProxyClose(clientProxy);
             }
         }
@@ -158,7 +169,9 @@ internal class Server
             if (!clientProxy.Socket.Connected)
             {
                 //与客户端连接失败跳出循环  
+#if DEBUG
                 ServerLog.PrintClientStates("Client connect failed, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
+#endif
                 ClientProxyClose(clientProxy);
                 break;
             }
@@ -169,7 +182,9 @@ internal class Server
                 int i = clientProxy.Socket.Receive(bytes);
                 if (i <= 0)
                 {
+#if DEBUG
                     ServerLog.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
+#endif
                     ClientProxyClose(clientProxy);
                     break;
                 }
@@ -185,7 +200,9 @@ internal class Server
             }
             catch (Exception e)
             {
+#if DEBUG
                 ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId + " Error:" + e.ToString());
+#endif
                 ClientProxyClose(clientProxy);
                 break;
             }
@@ -213,7 +230,9 @@ internal class Server
     {
         if (r is ClientRequestBase)
         {
+#if DEBUG
             ServerLog.PrintReceive("GetFrom clientId: " + ((ClientRequestBase) r).clientId + " <" + r.GetProtocolName() + "> " + r.DeserializeLog());
+#endif
             ClientRequestBase request = (ClientRequestBase) r;
             if (ClientsDict.ContainsKey(request.clientId))
             {
@@ -233,19 +252,25 @@ internal class Server
         SendMsg sendMsg = (SendMsg) obj;
         if (sendMsg == null)
         {
+#if DEBUG
             ServerLog.PrintError("SendMsg is null");
+#endif
             return;
         }
 
         if (sendMsg.Client == null)
         {
+#if DEBUG
             ServerLog.PrintError("Client socket is null");
+#endif
             return;
         }
 
         if (!sendMsg.Client.Connected)
         {
+#if DEBUG
             ServerLog.PrintError("Not connected to client socket");
+#endif
             sendMsg.Client.Close();
             return;
         }
@@ -267,15 +292,21 @@ internal class Server
             bool success = asyncSend.AsyncWaitHandle.WaitOne(1000, true);
             if (!success)
             {
+#if DEBUG
                 ServerLog.PrintError("Send failed");
+#endif
             }
 
             string log = "SendTo clientId: " + sendMsg.ClientId + sendMsg.Req.DeserializeLog();
+#if DEBUG
             ServerLog.PrintSend(log);
+#endif
         }
         catch (Exception e)
         {
+#if DEBUG
             ServerLog.PrintError("Send Exception : " + e);
+#endif
         }
     }
 
