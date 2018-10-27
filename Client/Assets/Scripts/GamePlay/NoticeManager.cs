@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NoticeManager : MonoSingletion<NoticeManager>
+public class NoticeManager : MonoSingleton<NoticeManager>
 {
     private NoticeManager()
     {
@@ -23,6 +23,7 @@ public class NoticeManager : MonoSingletion<NoticeManager>
 
     public void ShowInfoPanelTop(string text, float delay, float last)
     {
+        if (Instance == null) return;
         if (ShowInfoPanelTopCoroutine != null)
         {
             StopCoroutine(ShowInfoPanelTopCoroutine);
@@ -87,7 +88,7 @@ public class NoticeManager : MonoSingletion<NoticeManager>
     IEnumerator Co_ShowInfoPanelCenter(string text, float delay, float last)
     {
         yield return new WaitForSeconds(delay);
-        AudioManager.Instance.SoundPlay("sfx/NoticeInfo",0.6f);
+        AudioManager.Instance.SoundPlay("sfx/NoticeInfo", 0.6f);
         InfoTextCenter.text = text;
         if (InfoPanelCenterAnimator.GetBool("isShow"))
         {

@@ -11,7 +11,7 @@ public static class SideEffectManager
 
     public static void AddSideEffectTypes<T>() where T : SideEffectBase
     {
-        mSideEffecMap.Add(typeof(T).ToString(), typeof(T));
+        if (!mSideEffecMap.ContainsKey(typeof(T).ToString())) mSideEffecMap.Add(typeof(T).ToString(), typeof(T));
     }
 
     public static SideEffectBase GetNewSideEffec(string SideEffectName)

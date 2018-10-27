@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// 鼠标悬停管理器
 /// </summary>
-public class MouseHoverManager : MonoSingletion<MouseHoverManager>
+public class MouseHoverManager : MonoSingleton<MouseHoverManager>
 {
     private MouseHoverManager()
     {

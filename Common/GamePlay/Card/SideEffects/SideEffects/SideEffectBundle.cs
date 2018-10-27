@@ -81,7 +81,7 @@ public class SideEffectBundle
                 }
             }
 
-            res = res.TrimEnd(",. ".ToCharArray());
+            res = res.TrimEnd(",.;/n ".ToCharArray());
             res += "; ";
         }
 
@@ -194,6 +194,8 @@ public class SideEffectBundle
         OnPlayerAddLife = 1 << 23,
         OnPlayerLostLife = 1 << 24,
         OnEndRound = 1 << 25,
+
+        OnUseMetal = 1 << 26,
     }
 
     public static SortedDictionary<TriggerTime, string> TriggerTimeDesc = new SortedDictionary<TriggerTime, string>
@@ -242,6 +244,8 @@ public class SideEffectBundle
         {TriggerTime.OnPlayerAddLife, "当{0}获得生命时, "},
         {TriggerTime.OnPlayerLostLife, "当{0}生命减少时, "},
         {TriggerTime.OnEndRound, "{0}回合结束时, "},
+
+        {TriggerTime.OnUseMetal, "{0}消耗金属时, "},
     };
 
     public static SortedDictionary<TriggerTime, string> TriggerTimeDesc_en = new SortedDictionary<TriggerTime, string>
@@ -290,6 +294,8 @@ public class SideEffectBundle
         {TriggerTime.OnPlayerAddLife, "When {0} get healed, "},
         {TriggerTime.OnPlayerLostLife, "When {0} lost life, "},
         {TriggerTime.OnEndRound, "When {0} turn ends, "},
+
+        {TriggerTime.OnUseMetal, "When {0} consume metal, "},
     };
 
     public enum TriggerRange

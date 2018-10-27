@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AffixManager : MonoSingletion<AffixManager>
+public class AffixManager : MonoSingleton<AffixManager>
 {
     [SerializeField] private Transform AffixPanel;
     [SerializeField] private VerticalLayoutGroup VerticalLayoutGroup;

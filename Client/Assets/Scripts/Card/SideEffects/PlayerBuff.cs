@@ -25,12 +25,12 @@ internal class PlayerBuff : PoolObject
         BuffValuePanel.enabled = buff.HasNumberShow;
         BuffValueText.enabled = buff.HasNumberShow;
         BuffAnim.SetTrigger("Add");
-        BuffDescText.text = buff.GenerateDesc(GameManager.Instance.isEnglish);
+        BuffDescText.text = buff.GenerateDesc(GameManager.Instance.IsEnglish);
     }
 
     public void UpdateValue(SideEffectExecute buff, int buffValue)
     {
-        BuffDescText.text = ((PlayerBuffSideEffects) buff.SideEffectBase).GenerateDesc(GameManager.Instance.isEnglish);
+        BuffDescText.text = ((PlayerBuffSideEffects) buff.SideEffectBase).GenerateDesc(GameManager.Instance.IsEnglish);
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UpdateValue(buffValue), "Co_UpdateValue");
     }
 
@@ -41,7 +41,7 @@ internal class PlayerBuff : PoolObject
             BuffAnim.SetTrigger("Jump");
         }
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
         BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
         yield return new WaitForSeconds(0.1f);
 

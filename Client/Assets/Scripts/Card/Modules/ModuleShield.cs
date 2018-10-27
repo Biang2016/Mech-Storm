@@ -18,7 +18,7 @@ public class ModuleShield : ModuleEquip
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_ShieldName = GameManager.Instance.isEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
+        M_ShieldName = GameManager.Instance.IsEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
         M_ShieldType = cardInfo.ShieldInfo.ShieldType;
         M_ShieldArmor = cardInfo.ShieldInfo.Armor;
         M_ShieldShield = cardInfo.ShieldInfo.Shield;
@@ -72,8 +72,8 @@ public class ModuleShield : ModuleEquip
         set
         {
             m_ShieldName = value;
-            Name.text = GameManager.Instance.isEnglish ? "" : Utils.TextToVertical(value);
-            Name_en.text = GameManager.Instance.isEnglish ? value : "";
+            Name.text = GameManager.Instance.IsEnglish ? "" : Utils.TextToVertical(value);
+            Name_en.text = GameManager.Instance.IsEnglish ? value : "";
         }
     }
 

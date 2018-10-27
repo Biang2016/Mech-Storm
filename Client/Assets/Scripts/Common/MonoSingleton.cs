@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class MonoSingletion<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
 
@@ -19,5 +19,6 @@ public abstract class MonoSingletion<T> : MonoBehaviour where T : MonoBehaviour
 
             return instance;
         }
+        set { instance = value; }
     }
 }

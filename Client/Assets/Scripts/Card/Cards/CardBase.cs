@@ -48,8 +48,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         MetalIcon.color = GameManager.Instance.MetalIconColor;
         EnergyIcon.color = GameManager.Instance.EnergyIconColor;
         if (LifeIcon) LifeIcon.color = GameManager.Instance.LifeIconColor;
-        Text_CardType.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
-        Text_CardTypeBG.fontStyle = GameManager.Instance.isEnglish ? FontStyle.Bold : FontStyle.Normal;
+        Text_CardType.fontStyle = GameManager.Instance.IsEnglish ? FontStyle.Bold : FontStyle.Normal;
+        Text_CardTypeBG.fontStyle = GameManager.Instance.IsEnglish ? FontStyle.Bold : FontStyle.Normal;
         Text_Desc.color = ClientUtils.HTMLColorToColor(AllColors.ColorDict[AllColors.ColorType.CardDecsTextColor]);
     }
 
@@ -165,10 +165,10 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
-        M_Name = (GameManager.Instance.isEnglish ? CardInfo.BaseInfo.CardName_en : CardInfo.BaseInfo.CardName) + (CardInfo.BaseInfo.IsTemp ? "*" : "");
-        M_Desc = CardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
-        Text_CardType.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
-        Text_CardTypeBG.text = CardInfo.GetCardTypeDesc(GameManager.Instance.isEnglish);
+        M_Name = (GameManager.Instance.IsEnglish ? CardInfo.BaseInfo.CardName_en : CardInfo.BaseInfo.CardName) + (CardInfo.BaseInfo.IsTemp ? "*" : "");
+        M_Desc = CardInfo.GetCardDescShow(GameManager.Instance.IsEnglish);
+        Text_CardType.text = CardInfo.GetCardTypeDesc(GameManager.Instance.IsEnglish);
+        Text_CardTypeBG.text = CardInfo.GetCardTypeDesc(GameManager.Instance.IsEnglish);
 
         Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
         MainboardEmissionIntensity = CardInfo.GetCardColorIntensity();
@@ -279,7 +279,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         set
         {
             m_Desc = value;
-            Text_Desc.text = GameManager.Instance.isEnglish ? value : ReplaceWrapSpace(value);
+            Text_Desc.text = GameManager.Instance.IsEnglish ? value : ReplaceWrapSpace(value);
         }
     }
 

@@ -46,8 +46,8 @@ public static class AllColors
             ColorType colorType = (ColorType) Enum.Parse(typeof(ColorType), colorNode.Attributes["name"].Value);
             string color = colorNode.Attributes["color"].Value;
             float intensity = float.Parse(colorNode.Attributes["intensity"].Value);
-            ColorDict.Add(colorType, color);
-            IntensityDict.Add(colorType, intensity);
+            if (!ColorDict.ContainsKey(colorType)) ColorDict.Add(colorType, color);
+            if (!IntensityDict.ContainsKey(colorType)) IntensityDict.Add(colorType, intensity);
         }
     }
 }

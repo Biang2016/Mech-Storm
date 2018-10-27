@@ -62,13 +62,20 @@ internal class ServerPlayer : Player
     {
         int metalLeftBefore = MetalLeft;
         if (MetalLeft > useMetalValue)
+        {
             AddMetal(-useMetalValue);
+        }
         else
+        {
             AddMetal(-MetalLeft);
+        }
+
         if (useMetalValue != 0)
         {
             PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: MetalLeft - metalLeftBefore);
             BroadCastRequest(request);
+
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnUseMetal, new SideEffectBase.ExecuterInfo(clientId: ClientId, value: useMetalValue));
         }
     }
 

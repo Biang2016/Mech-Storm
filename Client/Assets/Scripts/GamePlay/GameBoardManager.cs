@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameBoardManager : MonoSingletion<GameBoardManager>
+public class GameBoardManager : MonoSingleton<GameBoardManager>
 {
     private GameBoardManager()
     {
@@ -149,7 +149,7 @@ public class GameBoardManager : MonoSingletion<GameBoardManager>
         AudioManager.Instance.BGMStop();
         if (isWin)
         {
-            WinLostText.text = GameManager.Instance.isEnglish ? "You Win!" : "你赢了!";
+            WinLostText.text = GameManager.Instance.IsEnglish ? "You Win!" : "你赢了!";
             WinImage.enabled = true;
             LostImage.enabled = false;
             PanelAnimator.SetTrigger("Show");
@@ -157,7 +157,7 @@ public class GameBoardManager : MonoSingletion<GameBoardManager>
         }
         else
         {
-            WinLostText.text = GameManager.Instance.isEnglish ? "You Lost!" : "你输了";
+            WinLostText.text = GameManager.Instance.IsEnglish ? "You Lost!" : "你输了";
             WinImage.enabled = false;
             LostImage.enabled = true;
             AudioManager.Instance.SoundPlay("sfx/Lose");

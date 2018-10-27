@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class StartMenuManager : MonoSingletion<StartMenuManager>
+public class StartMenuManager : MonoSingleton<StartMenuManager>
 {
     private StartMenuManager()
     {
@@ -14,26 +14,26 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
         M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += OnClientChangeState;
 
-        BeginMatchText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        CancelMatchText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        MyDeckText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        SettingText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        AboutText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        QuitGameText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DesignerText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        BeginMatchText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        CancelMatchText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        MyDeckText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        SettingText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        AboutText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        QuitGameText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DesignerText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
 
-        BeginMatchText.text = GameManager.Instance.isEnglish ? "Game Begin" : "开始匹配";
-        CancelMatchText.text = GameManager.Instance.isEnglish ? "Cancel Match" : "取消匹配";
-        MyDeckText.text = GameManager.Instance.isEnglish ? "My Decks" : "我的卡组";
-        SettingText.text = GameManager.Instance.isEnglish ? "Settings" : "游戏设置";
-        AboutText.text = GameManager.Instance.isEnglish ? "About Me" : "制作人员";
-        QuitGameText.text = GameManager.Instance.isEnglish ? "Quit Game" : "退出游戏";
+        BeginMatchText.text = GameManager.Instance.IsEnglish ? "Game Begin" : "开始匹配";
+        CancelMatchText.text = GameManager.Instance.IsEnglish ? "Cancel Match" : "取消匹配";
+        MyDeckText.text = GameManager.Instance.IsEnglish ? "My Decks" : "我的卡组";
+        SettingText.text = GameManager.Instance.IsEnglish ? "Settings" : "游戏设置";
+        AboutText.text = GameManager.Instance.IsEnglish ? "About Me" : "制作人员";
+        QuitGameText.text = GameManager.Instance.IsEnglish ? "Quit Game" : "退出游戏";
 
-        DesignerText.text = GameManager.Instance.isEnglish
+        DesignerText.text = GameManager.Instance.IsEnglish
             ? "Designer\nXue Bingsheng"
             : "制作人: 薛炳晟";
 
-        if (GameManager.Instance.isEnglish)
+        if (GameManager.Instance.IsEnglish)
         {
             DeckAbstractText_DeckName.fontStyle = FontStyle.BoldAndItalic;
             DeckAbstractText_Cards.fontStyle = FontStyle.BoldAndItalic;
@@ -58,25 +58,25 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
             DeckAbstractText_DrawNum.fontStyle = FontStyle.Italic;
         }
 
-        DeckAbstractText_DeckName.text = GameManager.Instance.isEnglish ? "No Deck" : "无卡组";
-        DeckAbstractText_Cards.text = GameManager.Instance.isEnglish ? "Cards" : "卡牌数:";
+        DeckAbstractText_DeckName.text = GameManager.Instance.IsEnglish ? "No Deck" : "无卡组";
+        DeckAbstractText_Cards.text = GameManager.Instance.IsEnglish ? "Cards" : "卡牌数:";
         DeckAbstractText_CardNum.text = "";
-        DeckAbstractText_Life.text = GameManager.Instance.isEnglish ? "Life" : "生命值:";
+        DeckAbstractText_Life.text = GameManager.Instance.IsEnglish ? "Life" : "生命值:";
         DeckAbstractText_LifeNum.text = "";
-        DeckAbstractText_Energy.text = GameManager.Instance.isEnglish ? "Energy" : "能量上限:";
+        DeckAbstractText_Energy.text = GameManager.Instance.IsEnglish ? "Energy" : "能量上限:";
         DeckAbstractText_EnergyNum.text = "";
-        DeckAbstractText_Draws.text = GameManager.Instance.isEnglish ? "Draws" : "抽牌数:";
+        DeckAbstractText_Draws.text = GameManager.Instance.IsEnglish ? "Draws" : "抽牌数:";
         DeckAbstractText_DrawNum.text = "";
 
-        DeckAbstractText_DeckName.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_Cards.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_CardNum.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_Life.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_LifeNum.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_Energy.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_EnergyNum.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_Draws.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_DrawNum.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_DeckName.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_Cards.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_CardNum.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_Life.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_LifeNum.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_Energy.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_EnergyNum.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_Draws.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DeckAbstractText_DrawNum.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
     }
 
     void Start()
@@ -249,14 +249,14 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
             }
             else if (SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.CardCount() == 0)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Your deck is empty" : "您的卡组中没有卡牌", 0, 0.3f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Your deck is empty" : "您的卡组中没有卡牌", 0, 0.3f);
                 OnSelectCardDeckWindowButtonClick();
                 return;
             }
             else if (!SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.IsEnergyEnough)
             {
                 ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
-                if (GameManager.Instance.isEnglish)
+                if (GameManager.Instance.IsEnglish)
                 {
                     cw.Initialize("Some cards consume more energy than your upper limit.", "Go ahead", "Edit",
                         new UnityAction(StartMatchingCore) + cw.PoolRecycle,
@@ -281,16 +281,16 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
     private void StartMatchingCore()
     {
         Client.Instance.Proxy.OnBeginMatch();
-        ClientLog.Instance.Print(GameManager.Instance.isEnglish ? "Begin matching" : "开始匹配");
-        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Matching" : "匹配中", 0, float.PositiveInfinity);
+        ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin matching" : "开始匹配");
+        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Matching" : "匹配中", 0, float.PositiveInfinity);
         DeckAbstract.SetActive(true);
     }
 
     public void OnCancelMatchGameButtonClick()
     {
         Client.Instance.Proxy.CancelMatch();
-        ClientLog.Instance.Print(GameManager.Instance.isEnglish ? "Matching canceled" : "取消匹配");
-        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Match canceled" : "取消匹配", 0, 1f);
+        ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Matching canceled" : "取消匹配");
+        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Match canceled" : "取消匹配", 0, 1f);
         DeckAbstract.SetActive(false);
     }
 
@@ -311,9 +311,9 @@ public class StartMenuManager : MonoSingletion<StartMenuManager>
     {
         ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
         cw.Initialize(
-            GameManager.Instance.isEnglish ? "Are you sure to Quick the game?" : "退出游戏?",
-            GameManager.Instance.isEnglish ? "Yes" : "是",
-            GameManager.Instance.isEnglish ? "No" : "取消",
+            GameManager.Instance.IsEnglish ? "Are you sure to Quick the game?" : "退出游戏?",
+            GameManager.Instance.IsEnglish ? "Yes" : "是",
+            GameManager.Instance.IsEnglish ? "No" : "取消",
             Application.Quit,
             cw.PoolRecycle
         );

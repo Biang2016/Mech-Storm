@@ -19,7 +19,7 @@
 
         CardDescShow += base.GetCardDescShow(isEnglish);
 
-        CardDescShow = CardDescShow.TrimEnd(";\n".ToCharArray());
+        CardDescShow = CardDescShow.TrimEnd(",. ;\n".ToCharArray());
 
         return CardDescShow;
     }

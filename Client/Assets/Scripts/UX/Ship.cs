@@ -62,7 +62,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                     if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = text;
                     if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = text;
 
-                    string desc = GameManager.Instance.isEnglish ? AttackFactorDesc_en[attackFactor] : AttackFactorDesc[attackFactor];
+                    string desc = GameManager.Instance.IsEnglish ? AttackFactorDesc_en[attackFactor] : AttackFactorDesc[attackFactor];
                     if (Desc) Desc.text = desc;
                     if (DescBG) DescBG.text = desc;
                 }

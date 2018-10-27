@@ -49,7 +49,7 @@ public class CardEquip : CardBase
                 }
                 else
                 {
-                    info = GameManager.Instance.isEnglish ? "Sniper gun can only be equiped on snipers." : "狙击枪只能装在狙击手上";
+                    info = GameManager.Instance.IsEnglish ? "Sniper gun can only be equiped on snipers." : "狙击枪只能装在狙击手上";
                     return false;
                 }
             }
@@ -62,7 +62,7 @@ public class CardEquip : CardBase
                 }
                 else
                 {
-                    info = GameManager.Instance.isEnglish ? "MA can only be equiped when all other slots are equiped." : "其他所有插槽都有装备时才能装备MA";
+                    info = GameManager.Instance.IsEnglish ? "MA can only be equiped when all other slots are equiped." : "其他所有插槽都有装备时才能装备MA";
                     return false;
                 }
             }
@@ -73,7 +73,7 @@ public class CardEquip : CardBase
             }
         }
 
-        info = GameManager.Instance.isEnglish ? "You should select a right Slot to Equip." : "请选择正确的插槽装备";
+        info = GameManager.Instance.IsEnglish ? "You should select a right Slot to Equip." : "请选择正确的插槽装备";
         return false;
     }
 

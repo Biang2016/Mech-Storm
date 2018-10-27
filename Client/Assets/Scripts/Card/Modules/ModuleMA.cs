@@ -9,7 +9,7 @@
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_MAName = GameManager.Instance.isEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
+        M_MAName = GameManager.Instance.IsEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
     }
 
     public override void SetPreview()
@@ -37,8 +37,8 @@
         set
         {
             m_MAName = value;
-            Name.text = GameManager.Instance.isEnglish ? "" : value;
-            Name_en.text = GameManager.Instance.isEnglish ? value : "";
+            Name.text = GameManager.Instance.IsEnglish ? "" : value;
+            Name_en.text = GameManager.Instance.IsEnglish ? value : "";
         }
     }
 

@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoSingletion<GameManager>
+public class GameManager : MonoSingleton<GameManager>
 {
     private GameManager()
     {
@@ -8,6 +12,8 @@ public class GameManager : MonoSingletion<GameManager>
 
     private void Awake()
     {
+        IsEnglish = !PlayerPrefs.GetString("Language").Equals("Chinese");
+
         InitializeClientGameSettings();
         AllColors.DebugLogHandler = ClientLog.Instance.PrintError;
         AllSideEffects.DebugLogHandler = ClientLog.Instance.PrintError;
@@ -25,7 +31,14 @@ public class GameManager : MonoSingletion<GameManager>
     public Camera SelectCardWindowBackCamera;
     public Camera SelectCardWindowForeCamera;
 
-    public bool isEnglish;
+    internal bool IsEnglish;
+
+    public void SetEnglish(int index)
+    {
+        IsEnglish = index == 0;
+        PlayerPrefs.SetString("Language", IsEnglish ? "English" : "Chinese");
+        NoticeManager.Instance.ShowInfoPanelCenter(IsEnglish ? "It'll be effective after restarting the game" : "设置修改将在重启游戏后生效", 0, 1f);
+    }
 
     #region 游戏全局参数
 

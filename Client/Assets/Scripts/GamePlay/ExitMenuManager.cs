@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ExitMenuManager : MonoSingletion<ExitMenuManager>
+public class ExitMenuManager : MonoSingleton<ExitMenuManager>
 {
     private ExitMenuManager()
     {
@@ -13,15 +13,15 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
     {
         M_StateMachine = new StateMachine();
 
-        SettingMenuText.text = GameManager.Instance.isEnglish ? "Settings" : "设置";
-        SurrenderText.text = GameManager.Instance.isEnglish ? "Surrender" : "认输";
-        ConsumeText.text = GameManager.Instance.isEnglish ? "Consume" : "继续游戏";
-        QuitText.text = GameManager.Instance.isEnglish ? "Quit" : "退出游戏";
+        SettingMenuText.text = GameManager.Instance.IsEnglish ? "Settings" : "设置";
+        SurrenderText.text = GameManager.Instance.IsEnglish ? "Surrender" : "认输";
+        ConsumeText.text = GameManager.Instance.IsEnglish ? "Consume" : "继续游戏";
+        QuitText.text = GameManager.Instance.IsEnglish ? "Quit" : "退出游戏";
 
-        SettingMenuText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        SurrenderText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        ConsumeText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        QuitText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        SettingMenuText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        SurrenderText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        ConsumeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        QuitText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
     }
 
     void Start()
@@ -209,9 +209,9 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
     {
         ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
         cw.Initialize(
-            GameManager.Instance.isEnglish ? "Are you sure to surrender?" : "您确定要认输吗?",
-            GameManager.Instance.isEnglish ? "Yes" : "是",
-            GameManager.Instance.isEnglish ? "No" : "取消",
+            GameManager.Instance.IsEnglish ? "Are you sure to surrender?" : "您确定要认输吗?",
+            GameManager.Instance.IsEnglish ? "Yes" : "是",
+            GameManager.Instance.IsEnglish ? "No" : "取消",
             (new UnityAction(SurrenderCore)) + cw.PoolRecycle,
             cw.PoolRecycle
         );
@@ -222,7 +222,7 @@ public class ExitMenuManager : MonoSingletion<ExitMenuManager>
         Client.Instance.Proxy.LeaveGame();
         RoundManager.Instance.StopGame();
         ClientLog.Instance.Print("You have quit the game");
-        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "You have quit the game" : "您已退出比赛", 0, 1f);
+        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "You have quit the game" : "您已退出比赛", 0, 1f);
         M_StateMachine.SetState(StateMachine.States.Hide);
     }
 

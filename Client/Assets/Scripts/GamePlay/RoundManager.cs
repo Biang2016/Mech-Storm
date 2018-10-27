@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-internal partial class RoundManager : MonoSingletion<RoundManager>
+internal partial class RoundManager : MonoSingleton<RoundManager>
 {
     private RoundManager()
     {
@@ -136,7 +136,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
             LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
             if (!HasShowLostConnectNotice)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Disconnected" : "您已离线", 0, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Disconnected" : "您已离线", 0, 1f);
                 HasShowLostConnectNotice = true;
             }
         }
@@ -149,7 +149,7 @@ internal partial class RoundManager : MonoSingletion<RoundManager>
     {
         EndRoundButton.enabled = enable;
         EndRoundButton.image.color = enable ? Color.yellow : Color.gray;
-        EndRoundButtonText.text = enable ? (GameManager.Instance.isEnglish ? "End Turn" : "结束回合") : (GameManager.Instance.isEnglish ? "Enemy's Turn" : "敌方回合");
+        EndRoundButtonText.text = enable ? (GameManager.Instance.IsEnglish ? "End Turn" : "结束回合") : (GameManager.Instance.IsEnglish ? "Enemy's Turn" : "敌方回合");
     }
 
     #region 交互

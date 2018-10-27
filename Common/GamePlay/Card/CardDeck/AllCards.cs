@@ -10,7 +10,7 @@ public static class AllCards
 
     private static void addCard(CardInfo_Base cardInfo)
     {
-        CardDict.Add(cardInfo.CardID, cardInfo);
+        if (!CardDict.ContainsKey(cardInfo.CardID)) CardDict.Add(cardInfo.CardID, cardInfo);
     }
 
     public static void AddAllCards(string cardsXMLPath)

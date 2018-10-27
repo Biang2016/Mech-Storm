@@ -788,7 +788,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="Exile"></SideEffect>
-      <SideEffect name="DoubleEnergy"></SideEffect>
+      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenUseMetal" Value="2"/>
     </CardInfo>
   </Card>
 </AllCards>

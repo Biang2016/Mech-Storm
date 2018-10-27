@@ -25,7 +25,7 @@ public class ModuleWeapon : ModuleEquip
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_WeaponName = GameManager.Instance.isEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
+        M_WeaponName = GameManager.Instance.IsEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
         M_WeaponType = cardInfo.WeaponInfo.WeaponType;
         M_WeaponAttack = cardInfo.WeaponInfo.Attack;
         M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;
@@ -105,8 +105,8 @@ public class ModuleWeapon : ModuleEquip
         set
         {
             m_WeaponName = value;
-            Name.text = GameManager.Instance.isEnglish ? "" : Utils.TextToVertical(value);
-            Name_en.text = GameManager.Instance.isEnglish ? value : "";
+            Name.text = GameManager.Instance.IsEnglish ? "" : Utils.TextToVertical(value);
+            Name_en.text = GameManager.Instance.IsEnglish ? value : "";
         }
     }
 

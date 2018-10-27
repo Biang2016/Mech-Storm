@@ -125,7 +125,7 @@ public class ModuleRetinue : ModuleBase
         ArmorFillAnim.gameObject.SetActive(false);
         ShieldBar.fillAmount = 0;
         SwordBar.fillAmount = 0;
-        M_RetinueName = GameManager.Instance.isEnglish ? CardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
+        M_RetinueName = GameManager.Instance.IsEnglish ? CardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
         M_RetinueTotalLife = cardInfo.LifeInfo.TotalLife;
         M_RetinueWeaponEnergy = 0;
@@ -433,7 +433,7 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_ShieldChangeNumberFly(int decreaseValue)
     {
-        ShieldDefenceNumberFly.SetText((GameManager.Instance.isEnglish ? "Dec -" : "阻挡 -") + decreaseValue, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
+        ShieldDefenceNumberFly.SetText((GameManager.Instance.IsEnglish ? "Dec -" : "阻挡 -") + decreaseValue, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -442,7 +442,7 @@ public class ModuleRetinue : ModuleBase
     {
         if (!isInitializing)
         {
-            string text = GameManager.Instance.isEnglish ? "Life " : "生命 ";
+            string text = GameManager.Instance.IsEnglish ? "Life " : "生命 ";
             if (change > 0)
             {
                 if (!isTotalLifeChanging && !isInitializing)
@@ -519,7 +519,7 @@ public class ModuleRetinue : ModuleBase
     {
         if (!isInitializing)
         {
-            string text = GameManager.Instance.isEnglish ? "Attack " : "伤害 ";
+            string text = GameManager.Instance.IsEnglish ? "Attack " : "伤害 ";
 
             if (change > 0)
             {
@@ -574,7 +574,7 @@ public class ModuleRetinue : ModuleBase
     {
         if (!isInitializing)
         {
-            string text = GameManager.Instance.isEnglish ? "Armor " : "护甲 ";
+            string text = GameManager.Instance.IsEnglish ? "Armor " : "护甲 ";
             if (change > 0)
             {
                 ArmorChangeNumberFly.SetText(text + "+" + change, "#FFA800", "#FFA800", TextFly.FlyDirection.Up);
@@ -616,7 +616,7 @@ public class ModuleRetinue : ModuleBase
     {
         if (!isInitializing)
         {
-            string text = GameManager.Instance.isEnglish ? "Shield " : "护盾 ";
+            string text = GameManager.Instance.IsEnglish ? "Shield " : "护盾 ";
             RetinueShieldFull = Mathf.Max(RetinueShieldFull, shieldValue);
             if (change > 0)
             {
@@ -1168,7 +1168,7 @@ public class ModuleRetinue : ModuleBase
             }
             else
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should attack the Defenders first." : "你必须先攻击嘲讽机甲", 0, 0.5f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You should attack the Defenders first." : "你必须先攻击嘲讽机甲", 0, 0.5f);
             }
         }
         else if (ship)
@@ -1180,7 +1180,7 @@ public class ModuleRetinue : ModuleBase
             }
             else
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "You should attack the Mechs first." : "你必须先攻击场上机甲", 0, 0.5f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You should attack the Mechs first." : "你必须先攻击场上机甲", 0, 0.5f);
             }
         }
 
@@ -1515,7 +1515,7 @@ public class ModuleRetinue : ModuleBase
     IEnumerator Co_OnDodge()
     {
         AudioManager.Instance.SoundPlay("sfx/HitShield");
-        DodgeNumberFly.SetText((GameManager.Instance.isEnglish ? "Dodge" : "闪避"), "#AE70FF", "#AE70FF", TextFly.FlyDirection.Up, showArrow: false);
+        DodgeNumberFly.SetText((GameManager.Instance.IsEnglish ? "Dodge" : "闪避"), "#AE70FF", "#AE70FF", TextFly.FlyDirection.Up, showArrow: false);
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }

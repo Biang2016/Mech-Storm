@@ -592,11 +592,11 @@ public class HandManager : MonoBehaviour
                             HandCardCountPanelAnim.SetTrigger("Jump");
                             if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
                             {
-                                HandCardCountText.text = GameManager.Instance.isEnglish ? "Your have " + cards.Count + " cards." : "你有" + cards.Count + "张手牌";
+                                HandCardCountText.text = GameManager.Instance.IsEnglish ? "Your have " + cards.Count + " cards." : "你有" + cards.Count + "张手牌";
                             }
                             else
                             {
-                                HandCardCountText.text = GameManager.Instance.isEnglish ? "Your component has " + cards.Count + " cards." : "你的对手有" + cards.Count + "张手牌";
+                                HandCardCountText.text = GameManager.Instance.IsEnglish ? "Your component has " + cards.Count + " cards." : "你的对手有" + cards.Count + "张手牌";
                                 foreach (CardBase cb in cards)
                                 {
                                     cb.CardBackBloom.SetActive(true);

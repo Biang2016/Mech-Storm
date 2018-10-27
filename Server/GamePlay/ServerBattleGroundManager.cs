@@ -467,7 +467,6 @@ internal class ServerBattleGroundManager
 
     public void DamageAllRetinues(int value)
     {
-        throw new Exception("abc");
         foreach (ServerModuleRetinue retinue in Retinues.ToArray())
         {
             retinue.BeAttacked(value);

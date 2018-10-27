@@ -4,7 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 卡堆
 /// </summary>
-public class CardDeckManager : MonoSingletion<CardDeckManager>
+public class CardDeckManager : MonoSingleton<CardDeckManager>
 {
     private CardDeckManager()
     {

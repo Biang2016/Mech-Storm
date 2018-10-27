@@ -33,11 +33,11 @@ public partial class SelectBuildManager
         PreviewCardPanel.SetActive(false);
         PreviewCardPanelBG.SetActive(false);
 
-        UpgradeText.text = GameManager.Instance.isEnglish ? "Upgrade" : "升级";
-        DegradeText.text = GameManager.Instance.isEnglish ? "Degrade" : "降级";
+        UpgradeText.text = GameManager.Instance.IsEnglish ? "Upgrade" : "升级";
+        DegradeText.text = GameManager.Instance.IsEnglish ? "Degrade" : "降级";
 
-        UpgradeText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DegradeText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        UpgradeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        DegradeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
     }
 
     private void ShowPreviewCardPanel(CardBase card)
@@ -277,7 +277,7 @@ public partial class SelectBuildManager
     {
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Please create your deck." : "请创建卡组!", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Please create your deck." : "请创建卡组!", 0f, 1f);
             return;
         }
 
@@ -292,14 +292,14 @@ public partial class SelectBuildManager
 
             if ((GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin()) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
                 return;
             }
 
             SelectCard currentSelectCard = SelectedCards[currentCardID];
             SelectedCards.Remove(currentCardID);
             SelectedCards.Add(upgradeCardID, currentSelectCard);
-            currentSelectCard.Text_CardName.text = GameManager.Instance.isEnglish ? upgradeCardInfo.BaseInfo.CardName_en : upgradeCardInfo.BaseInfo.CardName;
+            currentSelectCard.Text_CardName.text = GameManager.Instance.IsEnglish ? upgradeCardInfo.BaseInfo.CardName_en : upgradeCardInfo.BaseInfo.CardName;
         }
 
         if (SelectedHeros.ContainsKey(currentCardID))
@@ -308,14 +308,14 @@ public partial class SelectBuildManager
 
             if ((GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin()) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
                 return;
             }
 
             SelectCard currentSelectCard = SelectedHeros[currentCardID];
             SelectedHeros.Remove(currentCardID);
             SelectedHeros.Add(upgradeCardID, currentSelectCard);
-            currentSelectCard.Text_CardName.text = GameManager.Instance.isEnglish ? upgradeCardInfo.BaseInfo.CardName_en : upgradeCardInfo.BaseInfo.CardName;
+            currentSelectCard.Text_CardName.text = GameManager.Instance.IsEnglish ? upgradeCardInfo.BaseInfo.CardName_en : upgradeCardInfo.BaseInfo.CardName;
         }
 
         CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount;
@@ -342,7 +342,7 @@ public partial class SelectBuildManager
     {
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Please create your deck." : "请创建卡组!", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Please create your deck." : "请创建卡组!", 0f, 1f);
             return;
         }
 
@@ -357,7 +357,7 @@ public partial class SelectBuildManager
             SelectCard currentSelectCard = SelectedCards[currentCardID];
             SelectedCards.Remove(currentCardID);
             SelectedCards.Add(degradeCardID, currentSelectCard);
-            currentSelectCard.Text_CardName.text = GameManager.Instance.isEnglish ? degradeCardInfo.BaseInfo.CardName_en : degradeCardInfo.BaseInfo.CardName;
+            currentSelectCard.Text_CardName.text = GameManager.Instance.IsEnglish ? degradeCardInfo.BaseInfo.CardName_en : degradeCardInfo.BaseInfo.CardName;
         }
 
         CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - degradeCardInfo.BaseInfo.Coin) * cardCount;

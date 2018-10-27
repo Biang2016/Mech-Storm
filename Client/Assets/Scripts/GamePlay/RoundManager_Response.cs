@@ -37,7 +37,7 @@ internal partial class RoundManager
     public void OnGameStopByServerError(GameStopByServerErrorRequest r)
     {
         OnGameStop();
-        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Sorry, game ended due to a Server Error." : "由于服务器错误导致游戏结束", 0, 2f);
+        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Sorry, game ended due to a Server Error." : "由于服务器错误导致游戏结束", 0, 2f);
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
     }
 
@@ -570,6 +570,6 @@ internal partial class RoundManager
         cb.M_Energy += r.energyChange;
         cb.M_Metal += r.metalChange;
         cb.M_EffectFactor = r.effectFactor;
-        cb.M_Desc = cb.CardInfo.GetCardDescShow(GameManager.Instance.isEnglish);
+        cb.M_Desc = cb.CardInfo.GetCardDescShow(GameManager.Instance.IsEnglish);
     }
 }

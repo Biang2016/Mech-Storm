@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
 
-public class Client : MonoSingletion<Client>
+public class Client : MonoSingleton<Client>
 {
     private Client()
     {
@@ -62,7 +62,7 @@ public class Client : MonoSingletion<Client>
     {
         foreach (NetProtocols num in Enum.GetValues(typeof(NetProtocols)))
         {
-            Common.ProtoManager.AddRequestDelegate((int)num, Response);
+            Common.ProtoManager.AddRequestDelegate((int) num, Response);
         }
     }
 
@@ -174,7 +174,7 @@ public class Client : MonoSingletion<Client>
             ServerSocket.Shutdown(SocketShutdown.Both);
             ClientLog.Instance.PrintError("[C]Socket close");
             ServerSocket.Close();
-            NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Disconnected." : "已断开连接", 0f, 1.5f);
+            if (NoticeManager.Instance != null) NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Disconnected." : "已断开连接", 0f, 1.5f);
             RoundManager.Instance.StopGame();
         }
 

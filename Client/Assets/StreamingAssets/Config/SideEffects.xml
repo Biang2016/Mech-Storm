@@ -54,5 +54,5 @@
   <SideEffect name="Exile" desc="" desc_en=""></SideEffect>
 
   <SideEffect name="UseAllEnergyDamageShip" desc="消耗全部能量,对敌舰造成{0}点伤害,每多消耗1点,对敌方造成额外的{1}点伤害, " desc_en="Consume all energy. Deal {0} damage to enemy ship. Deal extra {1} damage per extra energy used. "></SideEffect>
-
+ 
 </AllSideEffects>

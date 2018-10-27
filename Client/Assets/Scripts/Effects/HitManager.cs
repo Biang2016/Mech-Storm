@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-class HitManager : MonoSingletion<HitManager>
+class HitManager : MonoSingleton<HitManager>
 {
     private HitManager()
     {

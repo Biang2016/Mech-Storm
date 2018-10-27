@@ -100,11 +100,11 @@ public class Proxy : ProxyBase
                     RegisterResultRequest request = (RegisterResultRequest) r;
                     if (request.isSuccess)
                     {
-                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Register Success" : "注册成功", 0, 0.5f);
+                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Register Success" : "注册成功", 0, 0.5f);
                     }
                     else
                     {
-                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "This username has been used" : "该用户名已被注册", 0, 0.5f);
+                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "This username has been used" : "该用户名已被注册", 0, 0.5f);
                     }
 
                     break;
@@ -118,24 +118,24 @@ public class Proxy : ProxyBase
                         {
                             Username = request.username;
                             ClientState = ClientStates.Login;
-                            NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Login Success" : "登录成功", 0, 0.5f);
+                            NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Login Success" : "登录成功", 0, 0.5f);
                             LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Hide);
                             StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
                             break;
                         }
                         case LoginResultRequest.StateCodes.WrongPassword:
                         {
-                            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Wrong Password" : "您的密码有误", 0, 0.5f);
+                            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Wrong Password" : "您的密码有误", 0, 0.5f);
                             break;
                         }
                         case LoginResultRequest.StateCodes.UnexistedUser:
                         {
-                            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Username does not Exist" : "该用户名不存在", 0, 0.5f);
+                            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Username does not Exist" : "该用户名不存在", 0, 0.5f);
                             break;
                         }
                         case LoginResultRequest.StateCodes.AlreadyOnline:
                         {
-                            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "The account is logged in" : "该账号已登录", 0, 0.5f);
+                            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "The account is logged in" : "该账号已登录", 0, 0.5f);
                             break;
                         }
                     }
@@ -149,7 +149,7 @@ public class Proxy : ProxyBase
                     {
                         Username = "";
                         ClientState = ClientStates.GetId;
-                        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.isEnglish ? "Logout Success" : "退出成功", 0, 0.5f);
+                        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Logout Success" : "退出成功", 0, 0.5f);
                         Client.Instance.Proxy.ClientState = ClientStates.GetId;
                         StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
                         SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
@@ -157,7 +157,7 @@ public class Proxy : ProxyBase
                     }
                     else
                     {
-                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Logout Failed" : "退出失败", 0, 0.5f);
+                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Logout Failed" : "退出失败", 0, 0.5f);
                     }
 
                     break;

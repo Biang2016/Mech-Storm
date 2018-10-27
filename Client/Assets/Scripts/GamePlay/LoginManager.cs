@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoginManager : MonoSingletion<LoginManager>
+public class LoginManager : MonoSingleton<LoginManager>
 {
     private LoginManager()
     {
@@ -14,20 +14,20 @@ public class LoginManager : MonoSingletion<LoginManager>
         M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += OnClientChangeState;
 
-        ServerText.text = GameManager.Instance.isEnglish ? "Server: " : "服务器: ";
-        UserNameText.text = GameManager.Instance.isEnglish ? "Username: " : "用户名: ";
-        PasswordText.text = GameManager.Instance.isEnglish ? "Password: " : "密码: ";
-        RegisterText.text = GameManager.Instance.isEnglish ? "Register" : "注册";
-        LoginText.text = GameManager.Instance.isEnglish ? "Login" : "登录";
+        ServerText.text = GameManager.Instance.IsEnglish ? "Server: " : "服务器: ";
+        UserNameText.text = GameManager.Instance.IsEnglish ? "Username: " : "用户名: ";
+        PasswordText.text = GameManager.Instance.IsEnglish ? "Password: " : "密码: ";
+        RegisterText.text = GameManager.Instance.IsEnglish ? "Register" : "注册";
+        LoginText.text = GameManager.Instance.IsEnglish ? "Login" : "登录";
 
-        ServerText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        PasswordText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        PasswordText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        RegisterText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        LoginText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        ServerText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        PasswordText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        PasswordText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        RegisterText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        LoginText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
 
-        ServerDropdown.options[0] = new Dropdown.OptionData(GameManager.Instance.isEnglish ? "Test Server" : "测试服");
-        ServerDropdown.options[1] = new Dropdown.OptionData(GameManager.Instance.isEnglish ? "Formal Server" : "正式服");
+        ServerDropdown.options[0] = new Dropdown.OptionData(GameManager.Instance.IsEnglish ? "Test Server" : "测试服");
+        ServerDropdown.options[1] = new Dropdown.OptionData(GameManager.Instance.IsEnglish ? "Formal Server" : "正式服");
     }
 
     void Start()
@@ -48,11 +48,11 @@ public class LoginManager : MonoSingletion<LoginManager>
             case ProxyBase.ClientStates.Offline:
                 SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
                 M_StateMachine.SetState(StateMachine.States.Show);
-                ShowTipText(GameManager.Instance.isEnglish ? "Disconnected" : "已断开连接.", 0, float.PositiveInfinity, false);
+                ShowTipText(GameManager.Instance.IsEnglish ? "Disconnected" : "已断开连接.", 0, float.PositiveInfinity, false);
                 break;
             case ProxyBase.ClientStates.GetId:
                 M_StateMachine.SetState(StateMachine.States.Show);
-                ShowTipText(GameManager.Instance.isEnglish ? "Connected" : "已连接.", 0, float.PositiveInfinity, false);
+                ShowTipText(GameManager.Instance.IsEnglish ? "Connected" : "已连接.", 0, float.PositiveInfinity, false);
                 break;
             case ProxyBase.ClientStates.Login:
                 M_StateMachine.SetState(StateMachine.States.Hide);
@@ -174,7 +174,7 @@ public class LoginManager : MonoSingletion<LoginManager>
         }
         else
         {
-            ShowTipText(GameManager.Instance.isEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
+            ShowTipText(GameManager.Instance.IsEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
             OnChangeServer(ServerDropdown.value);
         }
     }
@@ -188,7 +188,7 @@ public class LoginManager : MonoSingletion<LoginManager>
         }
         else
         {
-            ShowTipText(GameManager.Instance.isEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
+            ShowTipText(GameManager.Instance.IsEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
             OnChangeServer(ServerDropdown.value);
         }
     }
@@ -203,6 +203,7 @@ public class LoginManager : MonoSingletion<LoginManager>
 
     public void ShowTipText(string text, float delay, float last, bool showDots)
     {
+        if (Instance == null) return;
         if (ShowTipTextCoroutine != null)
         {
             StopCoroutine(ShowTipTextCoroutine);

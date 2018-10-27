@@ -64,7 +64,7 @@ public class Affix : PoolObject
     public void Initialize(AffixType affixType)
     {
         string text = "";
-        if (GameManager.Instance.isEnglish)
+        if (GameManager.Instance.IsEnglish)
         {
             text = BaseInfo.AddHightLightColorToText(AffixNameDict_en[affixType]) + ": " + AffixDescDict_en[affixType];
             Text.resizeTextForBestFit = true;

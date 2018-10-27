@@ -3,7 +3,7 @@
 /// <summary>
 /// 鼠标拖拽管理器
 /// </summary>
-public class DragManager : MonoSingletion<DragManager>
+public class DragManager : MonoSingleton<DragManager>
 {
     private DragManager()
     {

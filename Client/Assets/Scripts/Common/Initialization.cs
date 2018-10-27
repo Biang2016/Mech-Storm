@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Initialization : MonoSingletion<Initialization>
+public class Initialization : MonoSingleton<Initialization>
 {
     private Initialization()
     {

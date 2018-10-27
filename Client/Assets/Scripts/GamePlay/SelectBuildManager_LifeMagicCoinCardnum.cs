@@ -73,10 +73,10 @@ public partial class SelectBuildManager
         MaxEnergyText.text = GamePlaySettings.PlayerDefaultEnergyMax.ToString();
         MaxCardNumberText.text = GamePlaySettings.PlayerMaxDrawCardNum.ToString();
 
-        TotalCoinText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        MaxLifeText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        MaxEnergyText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        MaxCardNumberText.font = GameManager.Instance.isEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        TotalCoinText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        MaxLifeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        MaxEnergyText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        MaxCardNumberText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
 
         CoinSlider.onValueChanged.AddListener(OnCoinSliderValueChange);
         LifeSlider.onValueChanged.AddListener(OnLifeSliderValueChange);
@@ -147,7 +147,7 @@ public partial class SelectBuildManager
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
             }
 
             return;
@@ -158,7 +158,7 @@ public partial class SelectBuildManager
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "It's unsafe if your life is too low." : "生命过低可不安全哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "It's unsafe if your life is too low." : "生命过低可不安全哦~", 0f, 1f);
             }
 
             return;
@@ -181,7 +181,7 @@ public partial class SelectBuildManager
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
             }
 
             return;
@@ -228,7 +228,7 @@ public partial class SelectBuildManager
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.isEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
             }
 
             return;

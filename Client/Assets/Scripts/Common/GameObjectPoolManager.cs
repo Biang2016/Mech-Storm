@@ -1,4 +1,4 @@
-﻿public class GameObjectPoolManager : MonoSingletion<GameObjectPoolManager>
+﻿public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
 {
     private GameObjectPoolManager()
     {

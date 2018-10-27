@@ -14,7 +14,7 @@ public static class AllSideEffects
 
     private static void addSideEffect(SideEffectBase sideEffectBase)
     {
-        SideEffectsNameDict.Add(sideEffectBase.Name, sideEffectBase);
+        if (!SideEffectsNameDict.ContainsKey(sideEffectBase.Name)) SideEffectsNameDict.Add(sideEffectBase.Name, sideEffectBase);
     }
 
     public static Assembly CurrentAssembly;

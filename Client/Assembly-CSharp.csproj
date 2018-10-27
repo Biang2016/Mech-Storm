@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Card\SideEffects\Exile.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuff.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenAttack.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenUseMetal.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddPlayerBuff.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\NextSpellDamageDouble.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
@@ -124,7 +125,8 @@
     <Compile Include="Assets\Scripts\Common\GameObjectPool.cs" />
     <Compile Include="Assets\Scripts\Common\GameObjectPoolManager.cs" />
     <Compile Include="Assets\Scripts\Common\Initialization.cs" />
-    <Compile Include="Assets\Scripts\Common\MonoSingletion.cs" />
+    <Compile Include="Assets\Scripts\Common\MonoSingleton.cs" />
+    <Compile Include="Assets\Scripts\Common\MonoSingletonManager.cs" />
     <Compile Include="Assets\Scripts\Common\PoolObject.cs" />
     <Compile Include="Assets\Scripts\Effects\Hit.cs" />
     <Compile Include="Assets\Scripts\Effects\HitManager.cs" />

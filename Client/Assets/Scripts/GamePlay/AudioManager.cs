@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AudioManager : MonoSingletion<AudioManager>
+public class AudioManager : MonoSingleton<AudioManager>
 {
     private Dictionary<string, int> AudioDictionary = new Dictionary<string, int>();
 

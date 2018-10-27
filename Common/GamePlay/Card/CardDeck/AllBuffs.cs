@@ -15,7 +15,7 @@ public static class AllBuffs
 
     private static void addBuff(SideEffectExecute seb)
     {
-        BuffDict.Add(seb.SideEffectBase.Name, seb);
+        if (!BuffDict.ContainsKey(seb.SideEffectBase.Name)) BuffDict.Add(seb.SideEffectBase.Name, seb);
     }
 
     public static Assembly CurrentAssembly;

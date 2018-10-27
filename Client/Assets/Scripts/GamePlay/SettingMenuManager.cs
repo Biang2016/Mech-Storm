@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SettingMenuManager : MonoSingletion<SettingMenuManager>
+public class SettingMenuManager : MonoSingleton<SettingMenuManager>
 {
     private SettingMenuManager()
     {
@@ -16,7 +17,15 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
         SoundSlider.onValueChanged.AddListener(OnSoundSliderValueChange);
         BGMSlider.onValueChanged.AddListener(OnBGMSliderValueChange);
 
-        SettingText.text = GameManager.Instance.isEnglish ? "Settings" : "设置";
+        SettingText.text = GameManager.Instance.IsEnglish ? "Settings" : "设置";
+        LanguageDropdownText.text = GameManager.Instance.IsEnglish ? "Language" : "语言";
+        MasterSliderText.text = GameManager.Instance.IsEnglish ? "Master" : "主音量";
+        SoundSliderText.text = GameManager.Instance.IsEnglish ? "Sound" : "音效";
+        BGMSliderText.text = GameManager.Instance.IsEnglish ? "BGM" : "背景音乐";
+
+        string lang = PlayerPrefs.GetString("Language");
+        LanguageDropdown.value = string.IsNullOrEmpty(lang) ? (int) Languages.English : (int) (Languages) Enum.Parse(typeof(Languages), lang);
+        LanguageDropdown.onValueChanged.AddListener(GameManager.Instance.SetEnglish);
     }
 
     void Start()
@@ -133,6 +142,7 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
                 {
                     SetState(States.Hide);
                 }
+
                 if (state == States.ShowFromStartMenu)
                 {
                     SetState(States.Hide);
@@ -158,10 +168,16 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
 
     [SerializeField] private Canvas SettingMenuCanvas;
 
+    [SerializeField] private Text MasterSliderText;
+    [SerializeField] private Text SoundSliderText;
+    [SerializeField] private Text BGMSliderText;
     [SerializeField] private Slider MasterSlider;
     [SerializeField] private Slider SoundSlider;
     [SerializeField] private Slider BGMSlider;
     [SerializeField] private Text SettingText;
+
+    [SerializeField] private Text LanguageDropdownText;
+    [SerializeField] private Dropdown LanguageDropdown;
 
 
     public void OnMasterSliderValueChange(float value)
@@ -198,5 +214,11 @@ public class SettingMenuManager : MonoSingletion<SettingMenuManager>
         {
             AudioManager.Instance.AudioMixer.SetFloat("BGMVolume", value);
         }
+    }
+
+    public enum Languages
+    {
+        English,
+        Chinese
     }
 }

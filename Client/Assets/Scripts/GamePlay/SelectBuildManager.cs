@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// 选牌窗口
 /// </summary>
-public partial class SelectBuildManager : MonoSingletion<SelectBuildManager>
+public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 {
     private SelectBuildManager()
     {

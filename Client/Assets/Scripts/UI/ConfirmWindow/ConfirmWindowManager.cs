@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ConfirmWindowManager : MonoSingletion<ConfirmWindowManager>
+public class ConfirmWindowManager : MonoSingleton<ConfirmWindowManager>
 {
     public bool IsConfirmWindowShow
     {
