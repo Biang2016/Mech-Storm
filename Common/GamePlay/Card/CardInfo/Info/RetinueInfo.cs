@@ -5,10 +5,7 @@
     public bool IsSniper;
     public bool IsCharger;
     public bool IsFrenzy;
-    public SlotTypes Slot1;
-    public SlotTypes Slot2;
-    public SlotTypes Slot3;
-    public SlotTypes Slot4;
+    public SlotTypes[] Slots;
 
     public RetinueInfo(bool isSoldier, bool isDefence, bool isSniper, bool isCharger, bool isFrenzy, SlotTypes slot1, SlotTypes slot2, SlotTypes slot3, SlotTypes slot4)
     {
@@ -17,10 +14,7 @@
         IsSniper = isSniper;
         IsCharger = isCharger;
         IsFrenzy = isFrenzy;
-        Slot1 = slot1;
-        Slot2 = slot2;
-        Slot3 = slot3;
-        Slot4 = slot4;
+        Slots = new SlotTypes[] {slot1, slot2, slot3, slot4};
     }
 
     public void Serialize(DataStream writer)
@@ -30,10 +24,15 @@
         writer.WriteByte(IsSniper ? (byte) 0x01 : (byte) 0x00);
         writer.WriteByte(IsCharger ? (byte) 0x01 : (byte) 0x00);
         writer.WriteByte(IsFrenzy ? (byte) 0x01 : (byte) 0x00);
-        writer.WriteSInt32((int) Slot1);
-        writer.WriteSInt32((int) Slot2);
-        writer.WriteSInt32((int) Slot3);
-        writer.WriteSInt32((int) Slot4);
+        if (Slots == null)
+        {
+            Slots = new SlotTypes[] {SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None};
+        }
+
+        for (int i = 0; i < Slots.Length; i++)
+        {
+            writer.WriteSInt32((int) Slots[i]);
+        }
     }
 
     public static RetinueInfo Deserialze(DataStream reader)
@@ -48,6 +47,16 @@
         SlotTypes Slot3 = (SlotTypes) reader.ReadSInt32();
         SlotTypes Slot4 = (SlotTypes) reader.ReadSInt32();
         return new RetinueInfo(IsSoldier, IsDefence, IsSniper, IsCharger, IsFrenzy, Slot1, Slot2, Slot3, Slot4);
+    }
+
+    public bool HasSlotType(SlotTypes slotType)
+    {
+        foreach (SlotTypes st in Slots)
+        {
+            return st == slotType;
+        }
+
+        return false;
     }
 }
 

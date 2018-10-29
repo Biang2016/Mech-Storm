@@ -49,9 +49,9 @@ internal class ServerBattleGroundManager
     }
 
     public ServerPlayer ServerPlayer;
-    private List<ServerModuleRetinue> Retinues = new List<ServerModuleRetinue>();
-    private List<ServerModuleRetinue> Heros = new List<ServerModuleRetinue>();
-    private List<ServerModuleRetinue> Soldiers = new List<ServerModuleRetinue>();
+    public List<ServerModuleRetinue> Retinues = new List<ServerModuleRetinue>();
+    public List<ServerModuleRetinue> Heroes = new List<ServerModuleRetinue>();
+    public List<ServerModuleRetinue> Soldiers = new List<ServerModuleRetinue>();
 
     public ServerBattleGroundManager(ServerPlayer serverPlayer)
     {
@@ -73,8 +73,8 @@ internal class ServerBattleGroundManager
         }
         else
         {
-            Heros.Add(retinue);
-            HeroCount = Heros.Count;
+            Heroes.Add(retinue);
+            HeroCount = Heroes.Count;
         }
 
         retinue.CardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self);
@@ -110,8 +110,8 @@ internal class ServerBattleGroundManager
         }
         else
         {
-            Heros.Remove(retinue);
-            HeroCount = Heros.Count;
+            Heroes.Remove(retinue);
+            HeroCount = Heroes.Count;
         }
 
         if (!retinue.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(retinue.OriginCardInstanceId);
@@ -160,7 +160,6 @@ internal class ServerBattleGroundManager
         CardInfo_Equip cardInfo_Weapon = (CardInfo_Equip) cardInfo;
         ServerModuleRetinue retinue = GetRetinue(r.retinueId);
         weapon.M_ModuleRetinue = retinue;
-        weapon.M_WeaponPlaceIndex = r.weaponPlaceIndex;
         weapon.M_EquipID = ServerPlayer.MyGameManager.GenerateNewEquipId();
         weapon.Initiate(cardInfo_Weapon, ServerPlayer);
         weapon.OriginCardInstanceId = r.handCardInstanceId;
@@ -174,7 +173,6 @@ internal class ServerBattleGroundManager
         CardInfo_Equip cardInfo_Shield = (CardInfo_Equip) cardInfo;
         ServerModuleRetinue retinue = GetRetinue(r.retinueID);
         shield.M_ModuleRetinue = retinue;
-        shield.M_ShieldPlaceIndex = r.shieldPlaceIndex;
         shield.M_EquipID = ServerPlayer.MyGameManager.GenerateNewEquipId();
         shield.Initiate(cardInfo_Shield, ServerPlayer);
         shield.OriginCardInstanceId = r.handCardInstanceId;
@@ -188,7 +186,6 @@ internal class ServerBattleGroundManager
         CardInfo_Equip cardInfo_Pack = (CardInfo_Equip) cardInfo;
         ServerModuleRetinue retinue = GetRetinue(r.retinueID);
         pack.M_ModuleRetinue = retinue;
-        pack.M_PackPlaceIndex = r.packPlaceIndex;
         pack.M_EquipID = ServerPlayer.MyGameManager.GenerateNewEquipId();
         pack.Initiate(cardInfo_Pack, ServerPlayer);
         pack.OriginCardInstanceId = r.handCardInstanceId;
@@ -202,7 +199,6 @@ internal class ServerBattleGroundManager
         CardInfo_Equip cardInfo_MA = (CardInfo_Equip) cardInfo;
         ServerModuleRetinue retinue = GetRetinue(r.retinueID);
         ma.M_ModuleRetinue = retinue;
-        ma.M_MAPlaceIndex = r.maPlaceIndex;
         ma.M_EquipID = ServerPlayer.MyGameManager.GenerateNewEquipId();
         ma.Initiate(cardInfo_MA, ServerPlayer);
         ma.OriginCardInstanceId = r.handCardInstanceId;
@@ -328,7 +324,7 @@ internal class ServerBattleGroundManager
 
     public void AddLifeForAllHeros(int value)
     {
-        foreach (ServerModuleRetinue serverModuleRetinue in Heros.ToArray())
+        foreach (ServerModuleRetinue serverModuleRetinue in Heroes.ToArray())
         {
             AddLifeForOneRetinue(serverModuleRetinue, value);
         }
@@ -380,7 +376,7 @@ internal class ServerBattleGroundManager
 
     public void AddAttackForAllHeros(int value)
     {
-        foreach (ServerModuleRetinue retinue in Heros.ToArray())
+        foreach (ServerModuleRetinue retinue in Heroes.ToArray())
         {
             AddAttackForOneRetinue(retinue, value);
         }
@@ -433,7 +429,7 @@ internal class ServerBattleGroundManager
 
     public void HealAllHeros(int value)
     {
-        foreach (ServerModuleRetinue retinue in Heros.ToArray())
+        foreach (ServerModuleRetinue retinue in Heroes.ToArray())
         {
             HealOneRetinue(retinue, value);
         }
@@ -478,7 +474,7 @@ internal class ServerBattleGroundManager
 
     public void DamageAllHeros(int value)
     {
-        foreach (ServerModuleRetinue retinue in Heros.ToArray())
+        foreach (ServerModuleRetinue retinue in Heroes.ToArray())
         {
             retinue.BeAttacked(value);
             retinue.CheckAlive();
@@ -584,7 +580,7 @@ internal class ServerBattleGroundManager
                 retinues = Soldiers;
                 break;
             case RetinueType.Hero:
-                retinues = Heros;
+                retinues = Heroes;
                 break;
             default:
                 retinues = Retinues;

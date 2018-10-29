@@ -336,7 +336,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private Renderer CardBackRenderer;
     [SerializeField] private Renderer CardBackBloomRenderer;
 
-    [SerializeField] private Canvas CardCanvas;
+    public Canvas CardCanvas;
 
     [SerializeField] private Image Image_DescPanel;
 

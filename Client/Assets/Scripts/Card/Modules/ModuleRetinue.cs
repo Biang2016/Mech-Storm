@@ -168,28 +168,28 @@ public class ModuleRetinue : ModuleBase
         {
             Slot1.ClientPlayer = ClientPlayer;
             Slot1.M_ModuleRetinue = this;
-            Slot1.MSlotTypes = cardInfo.RetinueInfo.Slot1;
+            Slot1.MSlotTypes = cardInfo.RetinueInfo.Slots[0];
         }
 
         if (Slot2)
         {
             Slot2.ClientPlayer = ClientPlayer;
             Slot2.M_ModuleRetinue = this;
-            Slot2.MSlotTypes = cardInfo.RetinueInfo.Slot2;
+            Slot2.MSlotTypes = cardInfo.RetinueInfo.Slots[1];
         }
 
         if (Slot3)
         {
             Slot3.ClientPlayer = ClientPlayer;
             Slot3.M_ModuleRetinue = this;
-            Slot3.MSlotTypes = cardInfo.RetinueInfo.Slot3;
+            Slot3.MSlotTypes = cardInfo.RetinueInfo.Slots[2];
         }
 
         if (Slot4)
         {
             Slot4.ClientPlayer = ClientPlayer;
             Slot4.M_ModuleRetinue = this;
-            Slot4.MSlotTypes = cardInfo.RetinueInfo.Slot4;
+            Slot4.MSlotTypes = cardInfo.RetinueInfo.Slots[3];
         }
 
         isInitializing = false;
@@ -768,9 +768,9 @@ public class ModuleRetinue : ModuleBase
     {
         get
         {
-            if (CardInfo.RetinueInfo.Slot1 != SlotTypes.None && M_Weapon == null) return false;
-            if (CardInfo.RetinueInfo.Slot2 != SlotTypes.None && M_Shield == null) return false;
-            if (CardInfo.RetinueInfo.Slot3 != SlotTypes.None && M_Pack == null) return false;
+            if (CardInfo.RetinueInfo.Slots[0] != SlotTypes.None && M_Weapon == null) return false;
+            if (CardInfo.RetinueInfo.Slots[1] != SlotTypes.None && M_Shield == null) return false;
+            if (CardInfo.RetinueInfo.Slots[2] != SlotTypes.None && M_Pack == null) return false;
             return true;
         }
     }

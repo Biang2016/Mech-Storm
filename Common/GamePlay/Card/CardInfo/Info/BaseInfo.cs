@@ -51,6 +51,11 @@ public struct BaseInfo
         return "<color=\"" + GetImportantColor() + "\">" + hightLightText + "</color>";
     }
 
+    public float BaseValue()
+    {
+        return Energy * 3 + Metal * ((float) Coin / 100);
+    }
+
     public void Serialize(DataStream writer)
     {
         writer.WriteSInt32(PictureID);

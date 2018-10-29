@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card\Build\AllServerBuilds.cs" />
+    <Compile Include="Card\ServerBuild\AllServerBuilds.cs" />
     <Compile Include="Card\Cards\ServerCardBase.cs" />
     <Compile Include="Card\Cards\ServerCardRetinue.cs" />
     <Compile Include="Card\Cards\ServerCardSpell.cs" />

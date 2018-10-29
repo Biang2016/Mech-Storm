@@ -49,13 +49,13 @@ public class CardRetinue : CardBase
         M_RetinueShield = CardInfo.BattleInfo.BasicShield;
 
         Slot1.ClientPlayer = ClientPlayer;
-        Slot1.MSlotTypes = CardInfo.RetinueInfo.Slot1;
+        Slot1.MSlotTypes = CardInfo.RetinueInfo.Slots[0];
         Slot2.ClientPlayer = ClientPlayer;
-        Slot2.MSlotTypes = CardInfo.RetinueInfo.Slot2;
+        Slot2.MSlotTypes = CardInfo.RetinueInfo.Slots[1];
         Slot3.ClientPlayer = ClientPlayer;
-        Slot3.MSlotTypes = CardInfo.RetinueInfo.Slot3;
+        Slot3.MSlotTypes = CardInfo.RetinueInfo.Slots[2];
         Slot4.ClientPlayer = ClientPlayer;
-        Slot4.MSlotTypes = CardInfo.RetinueInfo.Slot4;
+        Slot4.MSlotTypes = CardInfo.RetinueInfo.Slots[3];
 
         HideAllSlotHover();
     }
@@ -163,41 +163,11 @@ public class CardRetinue : CardBase
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
-
-        bool summonTarget = false; //召唤时是否需要指定目标
-
-        TargetSideEffect.TargetRange TargetRange = TargetSideEffect.TargetRange.None; //指定目标所属范围
-        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self))
-        {
-            SideEffectBase se = see.SideEffectBase;
-            if (se is TargetSideEffect)
-            {
-                if (((TargetSideEffect) se).IsNeedChoise)
-                {
-                    summonTarget = true;
-                    TargetRange = ((TargetSideEffect) se).M_TargetRange;
-                }
-            }
-        }
-
-        foreach (SideEffectExecute see in CardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self))
-        {
-            SideEffectBase se = see.SideEffectBase;
-            if (se is TargetSideEffect)
-            {
-                if (((TargetSideEffect) se).IsNeedChoise)
-                {
-                    summonTarget = true;
-                    TargetRange = ((TargetSideEffect) se).M_TargetRange;
-                }
-            }
-        }
-
-        if (!summonTarget) //无指定目标的副作用
+        if (!CardInfo.TargetInfo.HasTargetRetinue) //无指定目标的副作用
         {
             if (boardAreaType != ClientPlayer.MyHandArea) //脱手即出牌
             {
-                summonRetinueRequest(dragLastPosition, Const.TARGET_RETINUE_SELECT_NONE);
+                summonRetinue(dragLastPosition, Const.TARGET_RETINUE_SELECT_NONE);
             }
             else
             {
@@ -210,7 +180,7 @@ public class CardRetinue : CardBase
         {
             if (boardAreaType != ClientPlayer.MyHandArea) //脱手即假召唤，开始展示指定目标箭头
             {
-                summonRetinuePreview(dragLastPosition, TargetRange);
+                summonRetinueTarget(dragLastPosition, CardInfo.TargetInfo.targetRetinueRange);
             }
             else
             {
@@ -225,7 +195,7 @@ public class CardRetinue : CardBase
     #region 卡牌效果
 
     //召唤机甲
-    private void summonRetinueRequest(Vector3 dragLastPosition, int targetRetinueId)
+    private void summonRetinue(Vector3 dragLastPosition, int targetRetinueId)
     {
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
         {
@@ -236,11 +206,12 @@ public class CardRetinue : CardBase
         int aliveIndex = ClientPlayer.MyBattleGroundManager.ComputePositionInAliveRetinues(dragLastPosition);
         SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, aliveIndex, targetRetinueId, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
         Client.Instance.Proxy.SendMessage(request);
+        Usable = false;
     }
 
 
-    //假召唤机甲
-    private void summonRetinuePreview(Vector3 dragLastPosition, TargetSideEffect.TargetRange targetRange)
+    //召唤机甲带目标
+    private void summonRetinueTarget(Vector3 dragLastPosition, TargetSideEffect.TargetRange targetRange)
     {
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
         {
@@ -250,14 +221,11 @@ public class CardRetinue : CardBase
 
         ClientPlayer.MyHandManager.SetCurrentSummonRetinuePreviewCard(this);
 
-        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty)
+        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) //场上为空直接召唤
         {
-            int aliveIndex = ClientPlayer.MyBattleGroundManager.ComputePositionInAliveRetinues(dragLastPosition);
-            SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, aliveIndex, Const.TARGET_RETINUE_SELECT_NONE, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
-            Client.Instance.Proxy.SendMessage(request);
-            Usable = false;
+            summonRetinue(dragLastPosition, Const.TARGET_RETINUE_SELECT_NONE);
         }
-        else
+        else //预览
         {
             int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
             ClientPlayer.MyBattleGroundManager.SummonRetinuePreview(this, battleGroundIndex, targetRange);

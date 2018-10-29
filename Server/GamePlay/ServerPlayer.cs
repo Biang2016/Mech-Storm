@@ -39,7 +39,7 @@ internal class ServerPlayer : Player
         AddMetal(addMetalValue);
         if (addMetalValue != 0)
         {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: addMetalValue);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
             BroadCastRequest(request);
         }
     }
@@ -53,7 +53,7 @@ internal class ServerPlayer : Player
             AddMetal(MetalMax - MetalLeft);
         if (addMetalValue != 0)
         {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: MetalLeft - metalLeftBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
             BroadCastRequest(request);
         }
     }
@@ -72,7 +72,7 @@ internal class ServerPlayer : Player
 
         if (useMetalValue != 0)
         {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: MetalLeft - metalLeftBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
             BroadCastRequest(request);
 
             MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnUseMetal, new SideEffectBase.ExecuterInfo(clientId: ClientId, value: useMetalValue));
@@ -85,7 +85,7 @@ internal class ServerPlayer : Player
         AddMetal(MetalMax - MetalLeft);
         if (MetalLeft - metalLeftBefore != 0)
         {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: MetalLeft - metalLeftBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
             BroadCastRequest(request);
         }
     }
@@ -96,7 +96,7 @@ internal class ServerPlayer : Player
         AddMetal(-MetalLeft);
         if (MetalLeft - metalLeftBefore != 0)
         {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Left, addMetal_left: MetalLeft - metalLeftBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
             BroadCastRequest(request);
         }
     }
@@ -104,28 +104,26 @@ internal class ServerPlayer : Player
 
     public void IncreaseMetalMax(int increaseValue)
     {
-        int metalMaxBefore = MetalMax;
         if (MetalMax + increaseValue <= GamePlaySettings.MaxMetal)
             AddMetalMax(increaseValue);
         else
             AddMetalMax(GamePlaySettings.MaxMetal - MetalMax);
         if (increaseValue != 0)
         {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Max, 0, addMetal_max: MetalMax - metalMaxBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
             BroadCastRequest(request);
         }
     }
 
     public void DecreaseMetalMax(int decreaseValue)
     {
-        int metalMaxBefore = MetalMax;
         if (MetalMax <= decreaseValue)
             AddMetalMax(-MetalMax);
         else
             AddMetalMax(-decreaseValue);
         if (decreaseValue != 0)
         {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, PlayerMetalChangeRequest.MetalChangeFlag.Max, 0, addMetal_max: MetalMax - metalMaxBefore);
+            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
             BroadCastRequest(request);
         }
     }
@@ -149,7 +147,7 @@ internal class ServerPlayer : Player
             AddLife(LifeMax - LifeLeft);
         if (addLifeValue != 0)
         {
-            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, PlayerLifeChangeRequest.LifeChangeFlag.Left, addLife_left: LifeLeft - LifeLeftBefore);
+            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
             BroadCastRequest(request);
             MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new SideEffectBase.ExecuterInfo(ClientId, value: addLifeValue));
         }
@@ -164,7 +162,7 @@ internal class ServerPlayer : Player
             AddLife(-LifeLeft);
         if (useLifeValue != 0)
         {
-            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, PlayerLifeChangeRequest.LifeChangeFlag.Left, addLife_left: LifeLeft - LifeLeftBefore);
+            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
             BroadCastRequest(request);
             MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerLostLife, new SideEffectBase.ExecuterInfo(ClientId, value: useLifeValue));
         }
@@ -181,7 +179,7 @@ internal class ServerPlayer : Player
         AddLife(LifeMax - LifeLeft);
         if (LifeLeft - LifeLeftBefore != 0)
         {
-            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, PlayerLifeChangeRequest.LifeChangeFlag.Left, addLife_left: LifeLeft - LifeLeftBefore);
+            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
             BroadCastRequest(request);
             MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new SideEffectBase.ExecuterInfo(ClientId, value: LifeLeft - LifeLeftBefore));
         }
@@ -200,13 +198,17 @@ internal class ServerPlayer : Player
     public void AddEnergyWithinMax(int addEnergyValue)
     {
         int EnergyLeftBefore = EnergyLeft;
+        bool isOverflow = false;
         if (EnergyMax - EnergyLeft > addEnergyValue)
             AddEnergy(addEnergyValue);
         else
+        {
             AddEnergy(EnergyMax - EnergyLeft);
+            isOverflow = true;
+        }
         if (addEnergyValue != 0)
         {
-            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, PlayerEnergyChangeRequest.EnergyChangeFlag.Left, addEnergy_left: EnergyLeft - EnergyLeftBefore);
+            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax, isOverflow);
             BroadCastRequest(request);
             MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerGetEnergy, new SideEffectBase.ExecuterInfo(ClientId, value: addEnergyValue));
         }
@@ -221,7 +223,7 @@ internal class ServerPlayer : Player
             AddEnergy(-EnergyLeft);
         if (useEnergyValue != 0)
         {
-            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, PlayerEnergyChangeRequest.EnergyChangeFlag.Left, addEnergy_left: EnergyLeft - EnergyLeftBefore);
+            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax);
             BroadCastRequest(request);
             MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerUseEnergy, new SideEffectBase.ExecuterInfo(ClientId, value: useEnergyValue));
         }
@@ -233,7 +235,7 @@ internal class ServerPlayer : Player
         AddEnergy(EnergyMax - EnergyLeft);
         if (EnergyLeft - EnergyLeftBefore != 0)
         {
-            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, PlayerEnergyChangeRequest.EnergyChangeFlag.Left, addEnergy_left: EnergyLeft - EnergyLeftBefore);
+            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax);
             BroadCastRequest(request);
         }
     }

@@ -37,6 +37,24 @@ internal class ClientProxy : ProxyBase
         SendMessage(request);
     }
 
+
+    protected ServerPlayer MyPlayer;
+    protected ServerPlayer EnemyPlayer;
+    protected ServerHandManager MyHandManager;
+    protected ServerHandManager EnemyHandManager;
+    protected ServerBattleGroundManager MyBattleGroundManager;
+    protected ServerBattleGroundManager EnemyBattleGroundManager;
+
+    public void InitGameInfo()
+    {
+        MyPlayer = MyServerGameManager.GetPlayerByClientId(ClientId);
+        EnemyPlayer = MyPlayer.MyEnemyPlayer;
+        MyHandManager = MyPlayer.MyHandManager;
+        EnemyHandManager = EnemyPlayer.MyHandManager;
+        MyBattleGroundManager = MyPlayer.MyBattleGroundManager;
+        EnemyBattleGroundManager = EnemyPlayer.MyBattleGroundManager;
+    }
+
     private bool isClosed = false;
 
     public void OnClose()
@@ -57,36 +75,51 @@ internal class ClientProxy : ProxyBase
     {
         if (isClosed) return;
         SendRequestsQueue.Enqueue(request);
-        OnSendMessage();
-    }
-
-    private void OnSendMessage()
-    {
-        Thread sendMessageThread = new Thread(SendMessage);
-        sendMessageThread.IsBackground = true;
-        sendMessageThread.Start();
-    }
-
-    private void SendMessage()
-    {
-        lock (SendRequestsQueue)
+        //OnSendMessage();
+        if (SendRequestsQueue.Count > 0)
         {
-            if (SendRequestsQueue.Count > 0)
+            try
             {
-                try
-                {
-                    Thread thread = new Thread(Server.SV.DoSendToClient);
-                    SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue(), ClientId);
-                    thread.IsBackground = true;
-                    thread.Start(msg);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+                SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue(), ClientId);
+                Server.SV.DoSendToClient(msg);
+                //Thread thread = new Thread(Server.SV.DoSendToClient);
+                //thread.IsBackground = true;
+                //thread.Start(msg);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
     }
+
+    //private void OnSendMessage()
+    //{
+    //    Thread sendMessageThread = new Thread(SendMessage);
+    //    sendMessageThread.IsBackground = true;
+    //    sendMessageThread.Start();
+    //}
+
+    //private void SendMessage()
+    //{
+    //    lock (SendRequestsQueue)
+    //    {
+    //        if (SendRequestsQueue.Count > 0)
+    //        {
+    //            try
+    //            {
+    //                Thread thread = new Thread(Server.SV.DoSendToClient);
+    //                SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue(), ClientId);
+    //                thread.IsBackground = true;
+    //                thread.Start(msg);
+    //            }
+    //            catch (Exception e)
+    //            {
+    //                Console.WriteLine(e);
+    //            }
+    //        }
+    //    }
+    //}
 
     public virtual void ReceiveMessage(ClientRequestBase request)
     {
@@ -310,47 +343,59 @@ internal class ClientProxy : ProxyBase
 
                 try
                 {
-                    switch (r)
+                    if (MyServerGameManager.CurrentPlayer == MyServerGameManager.GetPlayerByClientId(ClientId))
                     {
-                        case EndRoundRequest _:
-                            MyServerGameManager?.OnEndRoundRequest((EndRoundRequest) r);
-                            break;
-                        case SummonRetinueRequest _:
-                            MyServerGameManager?.OnClientSummonRetinueRequest((SummonRetinueRequest) r);
-                            break;
-                        case EquipWeaponRequest _:
-                            MyServerGameManager?.OnClientEquipWeaponRequest((EquipWeaponRequest) r);
-                            break;
-                        case EquipShieldRequest _:
-                            MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest) r);
-                            break;
-                        case EquipPackRequest _:
-                            MyServerGameManager?.OnClientEquipPackRequest((EquipPackRequest) r);
-                            break;
-                        case EquipMARequest _:
-                            MyServerGameManager?.OnClientEquipMARequest((EquipMARequest) r);
-                            break;
-                        case UseSpellCardRequest _:
-                            MyServerGameManager?.OnClientUseSpellCardRequest((UseSpellCardRequest) r);
-                            break;
-                        case UseSpellCardToRetinueRequest _:
-                            MyServerGameManager?.OnClientUseSpellCardToRetinueRequest((UseSpellCardToRetinueRequest) r);
-                            break;
-                        case UseSpellCardToShipRequest _:
-                            MyServerGameManager?.OnClientUseSpellCardToShipRequest((UseSpellCardToShipRequest) r);
-                            break;
-                        case UseSpellCardToEquipRequest _:
-                            MyServerGameManager?.OnClientUseSpellCardToEquipRequest((UseSpellCardToEquipRequest) r);
-                            break;
-                        case LeaveGameRequest _: //正常退出游戏请求
-                            MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
-                            break;
-                        case RetinueAttackRetinueRequest _:
-                            MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest) r);
-                            break;
-                        case RetinueAttackShipRequest _:
-                            MyServerGameManager?.OnClientRetinueAttackShipRequest((RetinueAttackShipRequest) r);
-                            break;
+                        switch (r)
+                        {
+                            case EndRoundRequest _:
+                                MyServerGameManager?.OnEndRoundRequest((EndRoundRequest)r);
+                                break;
+                            case SummonRetinueRequest _:
+                                MyServerGameManager?.OnClientSummonRetinueRequest((SummonRetinueRequest)r);
+                                break;
+                            case EquipWeaponRequest _:
+                                MyServerGameManager?.OnClientEquipWeaponRequest((EquipWeaponRequest)r);
+                                break;
+                            case EquipShieldRequest _:
+                                MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest)r);
+                                break;
+                            case EquipPackRequest _:
+                                MyServerGameManager?.OnClientEquipPackRequest((EquipPackRequest)r);
+                                break;
+                            case EquipMARequest _:
+                                MyServerGameManager?.OnClientEquipMARequest((EquipMARequest)r);
+                                break;
+                            case UseSpellCardRequest _:
+                                MyServerGameManager?.OnClientUseSpellCardRequest((UseSpellCardRequest)r);
+                                break;
+                            case UseSpellCardToRetinueRequest _:
+                                MyServerGameManager?.OnClientUseSpellCardToRetinueRequest((UseSpellCardToRetinueRequest)r);
+                                break;
+                            case UseSpellCardToShipRequest _:
+                                MyServerGameManager?.OnClientUseSpellCardToShipRequest((UseSpellCardToShipRequest)r);
+                                break;
+                            case UseSpellCardToEquipRequest _:
+                                MyServerGameManager?.OnClientUseSpellCardToEquipRequest((UseSpellCardToEquipRequest)r);
+                                break;
+                            case LeaveGameRequest _: //正常退出游戏请求
+                                MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest)r);
+                                break;
+                            case RetinueAttackRetinueRequest _:
+                                MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest)r);
+                                break;
+                            case RetinueAttackShipRequest _:
+                                MyServerGameManager?.OnClientRetinueAttackShipRequest((RetinueAttackShipRequest)r);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (r)
+                        {
+                            case LeaveGameRequest _: //正常退出游戏请求
+                                MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest)r);
+                                break;
+                        }
                     }
                 }
                 catch (Exception e)

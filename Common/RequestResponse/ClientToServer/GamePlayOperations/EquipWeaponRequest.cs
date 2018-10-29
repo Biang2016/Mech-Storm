@@ -3,17 +3,15 @@ public class EquipWeaponRequest : ClientRequestBase
 {
     public int handCardInstanceId;
     public int retinueId;
-    public int weaponPlaceIndex;
 
     public EquipWeaponRequest()
     {
     }
 
-    public EquipWeaponRequest(int clientId, int handCardInstanceId, int retinueId, int weaponPlaceIndex) : base(clientId)
+    public EquipWeaponRequest(int clientId, int handCardInstanceId, int retinueId) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
         this.retinueId = retinueId;
-        this.weaponPlaceIndex = weaponPlaceIndex;
     }
 
     public override NetProtocols GetProtocol()
@@ -31,7 +29,6 @@ public class EquipWeaponRequest : ClientRequestBase
         base.Serialize(writer);
         writer.WriteSInt32(handCardInstanceId);
         writer.WriteSInt32(retinueId);
-        writer.WriteSInt32(weaponPlaceIndex);
     }
 
     public override void Deserialize(DataStream reader)
@@ -39,7 +36,6 @@ public class EquipWeaponRequest : ClientRequestBase
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
         retinueId = reader.ReadSInt32();
-        weaponPlaceIndex = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
@@ -47,7 +43,6 @@ public class EquipWeaponRequest : ClientRequestBase
         string log = base.DeserializeLog();
         log += " [handCardInstanceId]=" + handCardInstanceId;
         log += " [retinueId]=" + retinueId;
-        log += " [weaponPlaceIndex]=" + weaponPlaceIndex;
         return log;
     }
 }

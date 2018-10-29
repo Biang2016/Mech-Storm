@@ -48,19 +48,8 @@ public class ClientPlayer : Player
 
     IEnumerator Co_ChangeMetal(PlayerMetalChangeRequest request)
     {
-        if (request.change == PlayerMetalChangeRequest.MetalChangeFlag.Both)
-        {
-            AddMetal(request.addMetal_left);
-            AddMetalMax(request.addMetal_max);
-        }
-        else if (request.change == PlayerMetalChangeRequest.MetalChangeFlag.Left)
-        {
-            AddMetal(request.addMetal_left);
-        }
-        else if (request.change == PlayerMetalChangeRequest.MetalChangeFlag.Max)
-        {
-            AddMetalMax(request.addMetal_max);
-        }
+        if (request.metal_max != MetalMax) AddMetalMax(request.metal_max - MetalMax);
+        if (request.metal_left != MetalLeft) AddMetal(request.metal_left - MetalLeft);
 
         MyHandManager.RefreshAllCardUsable();
 
@@ -89,10 +78,7 @@ public class ClientPlayer : Player
 
     IEnumerator Co_ChangeLife(PlayerLifeChangeRequest request)
     {
-        if (request.change == PlayerLifeChangeRequest.LifeChangeFlag.Left)
-        {
-            AddLife(request.addLife_left);
-        }
+        if (request.life_left != LifeLeft) AddLife(request.life_left);
 
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -119,11 +105,15 @@ public class ClientPlayer : Player
 
     IEnumerator Co_ChangeEnergy(PlayerEnergyChangeRequest request)
     {
-        if (request.change == PlayerEnergyChangeRequest.EnergyChangeFlag.Left)
+        if (request.energy_left != EnergyLeft)
         {
-            AddEnergy(request.addEnergy_left);
-            if (request.addEnergy_left > 0) AudioManager.Instance.SoundPlay("sfx/OnEnergyAdd");
-            else if (request.addEnergy_left < 0) AudioManager.Instance.SoundPlay("sfx/OnEnergyUse");
+            if (request.energy_left - EnergyLeft > 0) AudioManager.Instance.SoundPlay("sfx/OnEnergyAdd");
+            else if (request.energy_left - EnergyLeft < 0) AudioManager.Instance.SoundPlay("sfx/OnEnergyUse");
+            AddEnergy(request.energy_left - EnergyLeft);
+        }
+        else if (request.isOverflow)
+        {
+            AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
         }
 
         yield return new WaitForSeconds(0.1f);

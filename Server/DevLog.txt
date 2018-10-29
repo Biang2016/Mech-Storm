@@ -299,6 +299,8 @@ Art Update the UI of cards.
 [Dev] Realize the animation of mechs' attack.
 
 
+!Show Use Card音效
+
 TodoList
 增加retinue的武器图标样式，普通和枪
 onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能产生伤害的标识

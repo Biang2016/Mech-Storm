@@ -3,19 +3,17 @@
     public int clientId;
     public CardInfo_Equip cardInfo;
     public int retinueId;
-    public int shieldPlaceIndex;
     public int equipID;
 
     public EquipShieldServerRequest()
     {
     }
 
-    public EquipShieldServerRequest(int clientId, CardInfo_Equip cardInfo, int retinueId, int shieldPlaceIndex, int equipID)
+    public EquipShieldServerRequest(int clientId, CardInfo_Equip cardInfo, int retinueId,  int equipID)
     {
         this.clientId = clientId;
         this.cardInfo = cardInfo;
         this.retinueId = retinueId;
-        this.shieldPlaceIndex = shieldPlaceIndex;
         this.equipID = equipID;
     }
 
@@ -43,7 +41,6 @@
             cardInfo.Serialize(writer);
         }
         writer.WriteSInt32(retinueId);
-        writer.WriteSInt32(shieldPlaceIndex);
         writer.WriteSInt32(equipID);
     }
 
@@ -56,7 +53,6 @@
             cardInfo = (CardInfo_Equip)(CardInfo_Base.Deserialze(reader));
         }
         retinueId = reader.ReadSInt32();
-        shieldPlaceIndex = reader.ReadSInt32();
         equipID = reader.ReadSInt32();
     }
 
@@ -73,7 +69,6 @@
             log += " [cardInfo.CardID]=" + cardInfo.CardID;
         }
         log += " [retinueId]=" + retinueId;
-        log += " [shieldPlaceIndex]=" + shieldPlaceIndex;
         log += " [equipID]=" + equipID;
         return log;
     }

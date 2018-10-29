@@ -18,6 +18,9 @@
             case CardTypes.Spell:
                 newCard = new ServerCardSpell();
                 break;
+            case CardTypes.Energy:
+                newCard = new ServerCardSpell();
+                break;
             default:
                 newCard = new ServerCardRetinue();
                 break;

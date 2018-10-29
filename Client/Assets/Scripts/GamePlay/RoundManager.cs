@@ -160,6 +160,7 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
         {
             EndRoundRequest request = new EndRoundRequest(Client.Instance.Proxy.ClientId);
             Client.Instance.Proxy.SendMessage(request);
+            SetEndRoundButtonState(false);
         }
         else
         {

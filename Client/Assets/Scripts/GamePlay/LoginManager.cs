@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class LoginManager : MonoSingleton<LoginManager>
@@ -35,10 +36,18 @@ public class LoginManager : MonoSingleton<LoginManager>
         M_StateMachine.SetState(StateMachine.States.Show);
         ServerDropdown.onValueChanged.AddListener(OnChangeServer);
         NetworkManager.Instance.ConnectToTestServer();
+        UserNameInputField.ActivateInputField();
     }
 
     void Update()
     {
+        if (M_StateMachine.GetState() == StateMachine.States.Show)
+        {
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                OnLoginButtonClick();
+            }
+        }
     }
 
     public void OnClientChangeState(ProxyBase.ClientStates clientState)

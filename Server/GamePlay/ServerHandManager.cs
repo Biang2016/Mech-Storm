@@ -5,6 +5,7 @@ internal class ServerHandManager
 {
     public ServerPlayer ServerPlayer;
     public List<ServerCardBase> Cards = new List<ServerCardBase>();
+    public HashSet<int> CardInstanceIDSet = new HashSet<int>();
 
     public ServerHandManager(ServerPlayer serverPlayer)
     {
@@ -28,6 +29,7 @@ internal class ServerHandManager
         {
             ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cb, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
             Cards.Add(newCard);
+            CardInstanceIDSet.Add(newCard.M_CardInstanceId);
             ServerPlayer.MyCardDeckManager.CardDeck.AddCardInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId);
             cardInfos.Add(new DrawCardRequest.CardIdAndInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId));
         }
@@ -62,6 +64,7 @@ internal class ServerHandManager
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer, -1);
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         Cards.Add(newCard);
+        CardInstanceIDSet.Add(newCard.M_CardInstanceId);
     }
 
     internal void GetACardByID(int cardID)
@@ -70,6 +73,7 @@ internal class ServerHandManager
         ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         Cards.Add(newCard);
+        CardInstanceIDSet.Add(newCard.M_CardInstanceId);
     }
 
     public void OnPlayerGetCard(int cardId, int cardInstanceId)
@@ -99,17 +103,17 @@ internal class ServerHandManager
         DropCardRequest request = new DropCardRequest(ServerPlayer.ClientId, Cards.IndexOf(dropCard));
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         Cards.Remove(dropCard);
+        CardInstanceIDSet.Remove(dropCard.M_CardInstanceId);
         if (!dropCard.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
     }
 
     internal void UseCard(int cardInstanceId, int targetRetinueId = SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE, int targetEquipId = SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE, int targetClientId = -1)
     {
         ServerCardBase useCard = GetCardByCardInstanceId(cardInstanceId);
-        ServerPlayer.UseMetalAboveZero(useCard.CardInfo.BaseInfo.Metal);
-        ServerPlayer.UseEnergyAboveZero(useCard.CardInfo.BaseInfo.Energy);
-
         UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone());
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+        ServerPlayer.UseMetalAboveZero(useCard.CardInfo.BaseInfo.Metal);
+        ServerPlayer.UseEnergyAboveZero(useCard.CardInfo.BaseInfo.Energy);
 
         ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
             new SideEffectBase.ExecuterInfo(
@@ -130,6 +134,7 @@ internal class ServerHandManager
 
         useCard.UnRegisterSideEffect();
         Cards.Remove(useCard);
+        CardInstanceIDSet.Remove(useCard.M_CardInstanceId);
     }
 
     public void BeginRound()

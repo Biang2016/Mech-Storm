@@ -19,6 +19,7 @@ internal class ServerGameManager
     {
         ClientA = clientA;
         ClientB = clientB;
+
         ClientA.MyServerGameManager = this;
         ClientB.MyServerGameManager = this;
 
@@ -83,6 +84,9 @@ internal class ServerGameManager
 
         PlayerA.MyEnemyPlayer = PlayerB;
         PlayerB.MyEnemyPlayer = PlayerA;
+
+        ClientA.InitGameInfo();
+        ClientB.InitGameInfo();
 
         ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();

@@ -3,19 +3,17 @@
     public int clientId;
     public CardInfo_Equip cardInfo;
     public int retinueId;
-    public int packPlaceIndex;
     public int equipID;
 
     public EquipPackServerRequest()
     {
     }
 
-    public EquipPackServerRequest(int clientId, CardInfo_Equip cardInfo, int retinueId, int packPlaceIndex, int equipID)
+    public EquipPackServerRequest(int clientId, CardInfo_Equip cardInfo, int retinueId, int equipID)
     {
         this.clientId = clientId;
         this.cardInfo = cardInfo;
         this.retinueId = retinueId;
-        this.packPlaceIndex = packPlaceIndex;
         this.equipID = equipID;
     }
 
@@ -42,8 +40,8 @@
             writer.WriteByte(0x01);
             cardInfo.Serialize(writer);
         }
+
         writer.WriteSInt32(retinueId);
-        writer.WriteSInt32(packPlaceIndex);
         writer.WriteSInt32(equipID);
     }
 
@@ -53,10 +51,10 @@
         clientId = reader.ReadSInt32();
         if (reader.ReadByte() == 0x01)
         {
-            cardInfo = (CardInfo_Equip)(CardInfo_Base.Deserialze(reader));
+            cardInfo = (CardInfo_Equip) (CardInfo_Base.Deserialze(reader));
         }
+
         retinueId = reader.ReadSInt32();
-        packPlaceIndex = reader.ReadSInt32();
         equipID = reader.ReadSInt32();
     }
 
@@ -72,8 +70,8 @@
         {
             log += " [cardInfo.CardID]=" + cardInfo.CardID;
         }
+
         log += " [retinueId]=" + retinueId;
-        log += " [packPlaceIndex]=" + packPlaceIndex;
         log += " [equipID]=" + equipID;
         return log;
     }

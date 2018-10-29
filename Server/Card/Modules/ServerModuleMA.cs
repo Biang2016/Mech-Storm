@@ -48,15 +48,6 @@
 
 
     #region 属性
-
-    private int m_MAPlaceIndex;
-
-    public int M_MAPlaceIndex
-    {
-        get { return m_MAPlaceIndex; }
-        set { m_MAPlaceIndex = value; }
-    }
-
     private int m_EquipID;
 
     public int M_EquipID

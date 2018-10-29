@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AllBuilds>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="EnemyBuild_01" DrawCardNum="2" Life="100" Energy="50" />
-    <Info name="cardIDs" ids="70201,70201,70201,70201,70201,70201,70201,60601,60401,60501,60501" />
+    <Info name="baseInfo" BuildName="EnemyBuild_01" DrawCardNum="2" Life="100" Energy="10" />
+    <Info name="cardIDs" ids="60601,60601,60601,60601,60601,60601,60601,60601,70201,70201,70201,70201,70201,70201,70201,70201,70201,70201,70201,70201,70201,60601,60601,60601,60601,60601,60601,60601,60601,70201,70201,70201,60601,60601,60601" />
   </BuildInfo>
 </AllBuilds>

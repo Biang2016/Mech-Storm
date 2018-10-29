@@ -115,7 +115,7 @@ public class AffixManager : MonoSingleton<AffixManager>
             affixTypes.Add(AffixType.MA);
         }
 
-        if (cardInfo.BaseInfo.CardType == CardTypes.Retinue && cardInfo.RetinueInfo.Slot4 == SlotTypes.MA)
+        if (cardInfo.BaseInfo.CardType == CardTypes.Retinue && cardInfo.RetinueInfo.Slots[3] == SlotTypes.MA)
         {
             affixTypes.Add(AffixType.MA);
         }

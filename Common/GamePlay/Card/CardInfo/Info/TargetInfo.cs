@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+/// <summary>
+/// 记录出牌时是否需要指定目标
+/// </summary>
 public struct TargetInfo
 {
     public bool HasTargetRetinue;
@@ -20,30 +23,36 @@ public struct TargetInfo
 
     public void Initialize(CardInfo_Base CardInfo)
     {
-        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
+        FindTargetInSideEffectBundle(CardInfo.SideEffectBundle, CardInfo);
+        FindTargetInSideEffectBundle(CardInfo.SideEffectBundle_OnBattleGround, CardInfo);
+    }
+
+    private void FindTargetInSideEffectBundle(SideEffectBundle seb, CardInfo_Base CardInfo)
+    {
+        foreach (SideEffectExecute see in seb.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
         {
             SideEffectBase se = see.SideEffectBase;
-            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
+            if (se is TargetSideEffect equip && equip.IsNeedChoise)
             {
-                if (se is TargetSideEffectEquip && ((TargetSideEffectEquip) se).IsNeedChoise)
+                if (equip is TargetSideEffectEquip && ((TargetSideEffectEquip) equip).IsNeedChoise)
                 {
                     HasTargetEquip = true;
-                    targetEquipRange = ((TargetSideEffectEquip) se).M_TargetRange;
+                    targetEquipRange = ((TargetSideEffectEquip) equip).M_TargetRange;
                     break;
                 }
                 else
                 {
-                    TargetSideEffect.TargetRange temp = ((TargetSideEffect) se).M_TargetRange;
-                    if (temp != TargetSideEffect.TargetRange.Ships && temp != TargetSideEffect.TargetRange.SelfShip && temp != TargetSideEffect.TargetRange.EnemyShip && temp != TargetSideEffect.TargetRange.AllLife)
+                    TargetSideEffect.TargetRange temp = equip.M_TargetRange;
+                    if ((temp & TargetSideEffect.TargetRange.Ships) == TargetSideEffect.TargetRange.None)
                     {
                         HasTargetRetinue = true;
-                        targetRetinueRange = ((TargetSideEffect) se).M_TargetRange;
+                        targetRetinueRange = equip.M_TargetRange;
                         break;
                     }
                     else
                     {
                         HasTargetShip = true;
-                        targetShipRange = ((TargetSideEffect) se).M_TargetRange;
+                        targetShipRange = equip.M_TargetRange;
                         break;
                     }
                 }

@@ -3,17 +3,15 @@ public class EquipPackRequest : ClientRequestBase
 {
     public int handCardInstanceId;
     public int retinueID;
-    public int packPlaceIndex;
 
     public EquipPackRequest()
     {
     }
 
-    public EquipPackRequest(int clientId, int handCardInstanceId, int retinueID, int packPlaceIndex) : base(clientId)
+    public EquipPackRequest(int clientId, int handCardInstanceId, int retinueID) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
         this.retinueID = retinueID;
-        this.packPlaceIndex = packPlaceIndex;
     }
 
     public override NetProtocols GetProtocol()
@@ -31,7 +29,6 @@ public class EquipPackRequest : ClientRequestBase
         base.Serialize(writer);
         writer.WriteSInt32(handCardInstanceId);
         writer.WriteSInt32(retinueID);
-        writer.WriteSInt32(packPlaceIndex);
     }
 
     public override void Deserialize(DataStream reader)
@@ -39,7 +36,6 @@ public class EquipPackRequest : ClientRequestBase
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
         retinueID = reader.ReadSInt32();
-        packPlaceIndex = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
@@ -47,7 +43,6 @@ public class EquipPackRequest : ClientRequestBase
         string log = base.DeserializeLog();
         log += " [handCardInstanceId]=" + handCardInstanceId;
         log += " [retinueID]=" + retinueID;
-        log += " [packPlaceIndex]=" + packPlaceIndex;
         return log;
     }
 }

@@ -26,7 +26,7 @@ public class MetalBarManager : MonoBehaviour
 
     public void SetMetalNumber(int value)
     {
-        if (value == MetalBarBlockCount) return;
+        if (value == MetalBarBlockCount || value < 0) return;
         if (value > MetalBarBlockCount)
         {
             for (int i = MetalBarBlockCount; i < value; i++)
@@ -46,10 +46,17 @@ public class MetalBarManager : MonoBehaviour
         {
             while (value < MetalBarBlockCount)
             {
-                MetalBarBlock newMetalBarBlock = MetalBarBlocks[value];
-                MetalBarBlocks.Remove(newMetalBarBlock);
-                newMetalBarBlock.PoolRecycle();
-                MetalBarBlockCount--;
+                try
+                {
+                    MetalBarBlock newMetalBarBlock = MetalBarBlocks[value];
+                    MetalBarBlocks.Remove(newMetalBarBlock);
+                    newMetalBarBlock.PoolRecycle();
+                    MetalBarBlockCount--;
+                }
+                catch
+                {
+                    int a = 0;
+                }
             }
         }
     }
@@ -72,5 +79,4 @@ public class MetalBarManager : MonoBehaviour
             metalBarBlock.ResetColor();
         }
     }
-
 }

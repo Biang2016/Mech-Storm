@@ -275,6 +275,17 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     #region 拼装上的模块
 
+    internal bool IsAllEquipExceptMA
+    {
+        get
+        {
+            if (CardInfo.RetinueInfo.Slots[0] != SlotTypes.None && M_Weapon == null) return false;
+            if (CardInfo.RetinueInfo.Slots[1] != SlotTypes.None && M_Shield == null) return false;
+            if (CardInfo.RetinueInfo.Slots[2] != SlotTypes.None && M_Pack == null) return false;
+            return true;
+        }
+    }
+
     #region 武器相关
 
     private ServerModuleWeapon m_Weapon;
@@ -309,7 +320,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Weapon.M_EquipID));
             m_Weapon.UnRegisterSideEffect();
 
-            EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Weapon.M_EquipID);
+            EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_RetinueID, m_Weapon.M_EquipID);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Weapon = null;
 
@@ -329,7 +340,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     void On_WeaponEquiped(ServerModuleWeapon newWeapon)
     {
         m_Weapon = newWeapon;
-        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex, m_Weapon.M_EquipID);
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_RetinueID, m_Weapon.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         RefreshAttackTime();
@@ -354,7 +365,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
 
         m_Weapon = newWeapon;
-        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_RetinueID, newWeapon.M_WeaponPlaceIndex, m_Weapon.M_EquipID);
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_RetinueID, m_Weapon.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         RefreshAttackTime();
@@ -386,7 +397,6 @@ internal class ServerModuleRetinue : ServerModuleBase
     }
 
     #endregion
-
 
     #region 防具相关
 
@@ -422,7 +432,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Shield.M_EquipID));
             m_Shield.UnRegisterSideEffect();
 
-            EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Shield.M_EquipID);
+            EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_RetinueID, m_Shield.M_EquipID);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Shield = null;
 
@@ -439,7 +449,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     void On_ShieldEquiped(ServerModuleShield newShield)
     {
         m_Shield = newShield;
-        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex, m_Shield.M_EquipID);
+        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_RetinueID, m_Shield.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         int shield_before = m_RetinueShield;
@@ -460,7 +470,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
 
         m_Shield = newShield;
-        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_RetinueID, newShield.M_ShieldPlaceIndex, m_Shield.M_EquipID);
+        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_RetinueID, m_Shield.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         int shield_before = m_RetinueShield;
@@ -508,7 +518,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_Pack.M_EquipID));
             m_Pack.UnRegisterSideEffect();
 
-            EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_Pack.M_EquipID);
+            EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, null, M_RetinueID, m_Pack.M_EquipID);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Pack = null;
         }
@@ -517,7 +527,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     void On_PackEquiped(ServerModulePack newPack)
     {
         m_Pack = newPack;
-        EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_RetinueID, newPack.M_PackPlaceIndex, m_Pack.M_EquipID);
+        EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_RetinueID, m_Pack.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
@@ -530,7 +540,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
 
         m_Pack = newPack;
-        EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_RetinueID, newPack.M_PackPlaceIndex, m_Pack.M_EquipID);
+        EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_RetinueID, m_Pack.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
@@ -570,7 +580,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEquipDie, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, M_RetinueID, equipId: m_MA.M_EquipID));
             m_MA.UnRegisterSideEffect();
 
-            EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, null, M_RetinueID, 0, m_MA.M_EquipID);
+            EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, null, M_RetinueID, m_MA.M_EquipID);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_MA = null;
         }
@@ -579,7 +589,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     void On_MAEquiped(ServerModuleMA newMA)
     {
         m_MA = newMA;
-        EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_RetinueID, newMA.M_MAPlaceIndex, m_MA.M_EquipID);
+        EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_RetinueID, m_MA.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
@@ -592,7 +602,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
 
         m_MA = newMA;
-        EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_RetinueID, newMA.M_MAPlaceIndex, m_MA.M_EquipID);
+        EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_RetinueID, m_MA.M_EquipID);
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 

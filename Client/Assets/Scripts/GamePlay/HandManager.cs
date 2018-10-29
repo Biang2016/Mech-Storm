@@ -88,7 +88,6 @@ public class HandManager : MonoBehaviour
         }
 
         ClientPlayer = null;
-        lastUseCardShowTime = 0;
         summonRetinuePreviewCardIndex = 0;
     }
 
@@ -320,32 +319,19 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    private float lastUseCardShowTime;
-    private float useCardShowIntervalMinimum = 1f;
-
     IEnumerator Co_UseCard(CardBase cardBase, CardInfo_Base cardInfo)
     {
-        if (Time.time - lastUseCardShowTime < useCardShowIntervalMinimum) yield return new WaitForSeconds(useCardShowIntervalMinimum - (Time.time - lastUseCardShowTime));
-        lastUseCardShowTime = Time.time;
-        if (current_SubCo_ShowCardForTime != null)
-        {
-            StopCoroutine(current_SubCo_ShowCardForTime);
-        }
-
         if (cardBase)
         {
             cardBase.OnPlayOut();
             cards.Remove(cardBase);
             iTween.Stop(cardBase.gameObject);
-            current_SubCo_ShowCardForTime = SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.Instance.ShowCardDuration);
-            StartCoroutine(current_SubCo_ShowCardForTime);
+            yield return SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.Instance.ShowCardDuration);
         }
 
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
-
-    private IEnumerator current_SubCo_ShowCardForTime;
 
     IEnumerator SubCo_ShowCardForTime(CardBase cardBase, CardInfo_Base cardInfo, float showCardDuration)
     {
@@ -377,6 +363,7 @@ public class HandManager : MonoBehaviour
         currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
         currentShowCard.CardBloom.SetActive(true);
         currentShowCard.BeBrightColor();
+        currentShowCard.CardCanvas.enabled = true;
 
         Hashtable currentCardMove = new Hashtable();
         currentCardMove.Add("time", GameManager.Instance.ShowCardFlyDuration);
@@ -401,8 +388,6 @@ public class HandManager : MonoBehaviour
 
         currentShowCard.PoolRecycle();
         currentShowCard = null;
-
-        current_SubCo_ShowCardForTime = null;
     }
 
     #endregion
