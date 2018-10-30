@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllBuilds>
+  <BuildInfo>
+    <Info name="baseInfo" BuildName="EnemyBuild_01" DrawCardNum="5" Life="999" Energy="50" />
+    <Info name="cardIDs" ids="" />
+  </BuildInfo>
+</AllBuilds>

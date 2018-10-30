@@ -41,6 +41,7 @@ public class LoginManager : MonoSingleton<LoginManager>
 
     void Update()
     {
+        M_StateMachine.Update();
         if (M_StateMachine.GetState() == StateMachine.States.Show)
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -129,8 +130,20 @@ public class LoginManager : MonoSingleton<LoginManager>
             return state;
         }
 
+        private float thunderTicker = 0;
+        private float thunderInterval = 10f;
+
         public void Update()
         {
+            if (state == States.Show)
+            {
+                thunderTicker += Time.deltaTime;
+                if (thunderTicker > thunderInterval)
+                {
+                    thunderTicker = 0;
+                    AudioManager.Instance.SoundPlay("sfx/Thunder" + Random.Range(0, 3));
+                }
+            }
         }
 
         private void ShowMenu()
@@ -138,6 +151,7 @@ public class LoginManager : MonoSingleton<LoginManager>
             Instance.LoginCanvas.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.None);
             AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/LoginMenu0", "bgm/LoginMenu1"});
+            AudioManager.Instance.SoundPlay("sfx/Thunder1");
         }
 
         private void HideMenu()
