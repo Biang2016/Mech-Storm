@@ -5,66 +5,68 @@ using System.Xml;
 
 internal class AllServerBuilds
 {
-    public static Dictionary<int, BuildInfo> Build_Dict = new Dictionary<int, BuildInfo>();
+    public static string DefaultBuildDirectory = "../../Config/DefaultBuilds/";
+    public static string SuperAccountPassword = "Xuedapao007";
 
-    private static void addBuild(BuildInfo buildInfo)
+    public static void AddAllBuilds()
     {
-        if (!Build_Dict.ContainsKey(buildInfo.BuildID)) Build_Dict.Add(buildInfo.BuildID, buildInfo);
-    }
-
-    public static void AddAllBuilds(string buildsXMLPath)
-    {
-        Database.Instance.AddUser("ServerAdmin", "Xuedapao007");
-
-        if (!File.Exists(buildsXMLPath)) return;
-
-        string text;
-        using (StreamReader sr = new StreamReader(buildsXMLPath))
+        foreach (string path in Directory.GetFiles(DefaultBuildDirectory))
         {
-            text = sr.ReadToEnd();
-        }
-
-        XmlDocument doc = new XmlDocument();
-        doc.LoadXml(text);
-        XmlElement allBuilds = doc.DocumentElement;
-        for (int i = 0; i < allBuilds.ChildNodes.Count; i++)
-        {
-            XmlNode build = allBuilds.ChildNodes.Item(i);
-            BuildInfo buildInfo = new BuildInfo();
-            buildInfo.CardIDs = new List<int>();
-            for (int j = 0; j < build.ChildNodes.Count; j++)
+            FileInfo fi = new FileInfo(path);
+            string pureName = fi.Name.Substring(0, fi.Name.LastIndexOf("."));
+            Database.Instance.AddUser(pureName, SuperAccountPassword, true);
+            if (!Database.Instance.SpecialBuildsDict.ContainsKey(pureName))
             {
-                XmlNode cardInfo = build.ChildNodes[j];
-                switch (cardInfo.Attributes["name"].Value)
-                {
-                    case "baseInfo":
-                        buildInfo.BuildID = Database.Instance.GenerateBuildID();
-                        buildInfo.BuildName = cardInfo.Attributes["BuildName"].Value;
-                        buildInfo.DrawCardNum = int.Parse(cardInfo.Attributes["DrawCardNum"].Value);
-                        buildInfo.Life = int.Parse(cardInfo.Attributes["Life"].Value);
-                        buildInfo.Energy = int.Parse(cardInfo.Attributes["Energy"].Value);
-                        break;
-                    case "cardIDs":
-                        string[] cardID_str = cardInfo.Attributes["ids"].Value.Split(',');
-                        foreach (string s in cardID_str)
-                        {
-                            if (string.IsNullOrEmpty(s)) continue;
-                            buildInfo.CardIDs.Add(int.Parse(s));
-                        }
-
-                        break;
-                }
+                Database.SpecialBuilds sb = new Database.SpecialBuilds(pureName);
+                Database.Instance.SpecialBuildsDict.Add(pureName, sb);
             }
 
-            Database.Instance.AddOrModifyBuild("ServerAdmin", buildInfo);
-            Database.Instance.AddServerBuild(buildInfo.BuildName, buildInfo.BuildID);
+            string text;
+            using (StreamReader sr = new StreamReader(path))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(text);
+            XmlElement allBuilds = doc.DocumentElement;
+            for (int i = 0; i < allBuilds.ChildNodes.Count; i++)
+            {
+                XmlNode build = allBuilds.ChildNodes.Item(i);
+                BuildInfo buildInfo = new BuildInfo();
+                buildInfo.CardIDs = new List<int>();
+                for (int j = 0; j < build.ChildNodes.Count; j++)
+                {
+                    XmlNode cardInfo = build.ChildNodes[j];
+                    switch (cardInfo.Attributes["name"].Value)
+                    {
+                        case "baseInfo":
+                            buildInfo.BuildID = Database.Instance.GenerateBuildID();
+                            buildInfo.BuildName = cardInfo.Attributes["BuildName"].Value;
+                            buildInfo.DrawCardNum = int.Parse(cardInfo.Attributes["DrawCardNum"].Value);
+                            buildInfo.Life = int.Parse(cardInfo.Attributes["Life"].Value);
+                            buildInfo.Energy = int.Parse(cardInfo.Attributes["Energy"].Value);
+                            break;
+                        case "cardIDs":
+                            string[] cardID_str = cardInfo.Attributes["ids"].Value.Split(',');
+                            foreach (string s in cardID_str)
+                            {
+                                if (string.IsNullOrEmpty(s)) continue;
+                                buildInfo.CardIDs.Add(int.Parse(s));
+                            }
+
+                            break;
+                    }
+                }
+
+                Database.Instance.AddOrModifyBuild(pureName, buildInfo);
+                Database.Instance.SpecialBuildsDict[pureName].AddBuild(buildInfo.BuildName, buildInfo.BuildID);
+            }
         }
     }
 
-    public static void ExportAllBuilds()
+    public static void ExportBuilds(Database.SpecialBuilds builds)
     {
-        string exportPath = "../../Config/ServerBuilds.xml";
-
         XmlDocument doc = new XmlDocument();
         XmlDeclaration xmldecl = doc.CreateXmlDeclaration("1.0", "utf-8", null);
         XmlElement root = doc.DocumentElement;
@@ -73,7 +75,7 @@ internal class AllServerBuilds
         XmlElement ele = doc.CreateElement("AllBuilds");
         doc.AppendChild(ele);
 
-        List<BuildInfo> buildInfos = Database.Instance.AllServerBuildInfo();
+        List<BuildInfo> buildInfos = builds.AllBuildInfo();
         foreach (BuildInfo buildInfo in buildInfos)
         {
             XmlElement buildInfo_Node = doc.CreateElement("BuildInfo");
@@ -101,6 +103,6 @@ internal class AllServerBuilds
             cardIDs.SetAttribute("ids", string.Join(",", strs.ToArray()));
         }
 
-        doc.Save(exportPath);
+        doc.Save(DefaultBuildDirectory + builds.ManagerName + ".xml");
     }
 }

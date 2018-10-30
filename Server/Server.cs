@@ -43,7 +43,7 @@ internal class Server
         AllBuffs.AddAllBuffs("./Config/Buffs.xml");
         AllCards.DebugLogHandler = ServerLog.PrintError;
         AllCards.AddAllCards("./Config/Cards.xml");
-        AllServerBuilds.AddAllBuilds("./Config/ServerBuilds.xml");
+        AllServerBuilds.AddAllBuilds();
 #if DEBUG
         ServerLog.PrintServerStates("CardDeck Loaded");
 #endif

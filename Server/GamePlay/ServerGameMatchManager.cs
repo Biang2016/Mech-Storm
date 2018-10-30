@@ -82,7 +82,7 @@ internal class ServerGameMatchManager
         ClientProxy clientA = clientProxy;
         int AI_ClientId = Server.SV.GenerateClientId();
         ClientProxy clientB = new ClientProxyAI(AI_ClientId, false);
-        clientB.CurrentBuildInfo = Database.Instance.GetServerBuildInfo("EnemyBuild_01");
+        clientB.CurrentBuildInfo = Database.Instance.SpecialBuildsDict["ServerAdmin"].GetBuildInfo("EnemyBuild_01");
         ServerGameManager sgm = new ServerGameManager(clientA, clientB);
         SMGS_Standalone.Add(sgm);
         clientGameMapping_Standalone.Add(clientA.ClientId, sgm);

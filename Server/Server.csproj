@@ -115,7 +115,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\ServerBuilds.xml" />
+    <Content Include="Config\DefaultBuilds\PlayerAdmin.xml" />
+    <Content Include="Config\DefaultBuilds\ServerAdmin.xml" />
     <Content Include="DevLog.txt" />
     <Content Include="DevLog_zh.txt" />
   </ItemGroup>
