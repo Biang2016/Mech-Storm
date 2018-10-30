@@ -155,7 +155,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        if (!isSwitchingBuildInfo && GamePlaySettings.PlayerDefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin() < card.CardInfo.BaseInfo.Coin)
+        if (!isSwitchingBuildInfo && DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin() < card.CardInfo.BaseInfo.Coin)
         {
             NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Bugget is Limited" : "预算不足", 0f, 1f);
             return;
@@ -427,6 +427,7 @@ public partial class SelectBuildManager
         List<CardBase> selectCB = new List<CardBase>();
         foreach (int cardID in buildInfo.CardIDs)
         {
+            if (!AllCards.CardDict.ContainsKey(cardID)) continue;
             CardBase cb = null;
             if (!allCards.ContainsKey(cardID))
             {
@@ -505,8 +506,8 @@ public partial class SelectBuildManager
                 CurrentEditBuildButton.BuildInfo.CardIDs.Clear();
                 CurrentEditBuildButton.RefreshCardCountText();
                 CurrentEditBuildButton.BuildInfo.CardConsumeCoin = 0;
-                CurrentEditBuildButton.BuildInfo.Life = GamePlaySettings.PlayerDefaultLife;
-                CurrentEditBuildButton.BuildInfo.Energy = GamePlaySettings.PlayerDefaultEnergy;
+                CurrentEditBuildButton.BuildInfo.Life = DefaultLife;
+                CurrentEditBuildButton.BuildInfo.Energy = DefaultEnergy;
                 RefreshCoinLifeEnergy();
                 AudioManager.Instance.SoundPlay("sfx/UnSelectCard");
             }
