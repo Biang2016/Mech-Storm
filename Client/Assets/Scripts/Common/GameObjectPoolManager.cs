@@ -97,6 +97,9 @@
     public GameObjectPool Pool_PlayerBuffPool;
     public PoolObject PlayerBuffPrefab;
 
+    public GameObjectPool Pool_ParticleSystemPool;
+    public PoolObject ParticleSystemPrefab;
+
 
     void Awake()
     {
@@ -164,5 +167,7 @@
         Pool_ConfirmWindowPool.Initiate(ConfirmWindowPrefab, 3);
 
         Pool_PlayerBuffPool.Initiate(PlayerBuffPrefab, 5);
+
+        Pool_ParticleSystemPool.Initiate(ParticleSystemPrefab, 5);
     }
 }

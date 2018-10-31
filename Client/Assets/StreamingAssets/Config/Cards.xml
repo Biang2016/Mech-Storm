@@ -360,10 +360,10 @@
   </Card>
   <Card id="6900">
     <CardInfo name="baseInfo" pictureID="68" cardName="训练场新兵" cardName_en="Training Recruit" cardDesc="" isTemp="False" hide="False" metal="1" energy="0" coin="50" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
-    <CardInfo name="lifeInfo" life="2" totalLife="2" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="3" />
+    <CardInfo name="lifeInfo" life="1" totalLife="1" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="2" />
   </Card>
 
   <Card id="10101">
@@ -710,7 +710,6 @@
     <CardInfo name="upgradeInfo" upgradeCardID="70102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
-      <SideEffect name="DrawCards" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70102">
@@ -718,7 +717,6 @@
     <CardInfo name="upgradeInfo" upgradeCardID="70103" degradeCardID="70101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
-      <SideEffect name="DrawCards" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70103">

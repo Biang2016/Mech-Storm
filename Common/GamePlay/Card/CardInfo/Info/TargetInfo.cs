@@ -31,32 +31,44 @@ public struct TargetInfo
     {
         foreach (SideEffectExecute see in seb.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
         {
-            SideEffectBase se = see.SideEffectBase;
-            if (se is TargetSideEffect equip && equip.IsNeedChoise)
+            if (FindTarget(see)) break;
+        }
+
+        foreach (SideEffectExecute see in seb.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self))
+        {
+            if (FindTarget(see)) break;
+        }
+    }
+
+    bool FindTarget(SideEffectExecute see)
+    {
+        SideEffectBase se = see.SideEffectBase;
+        if (se is TargetSideEffect tse && tse.IsNeedChoise)
+        {
+            if (tse is TargetSideEffectEquip && ((TargetSideEffectEquip) tse).IsNeedChoise)
             {
-                if (equip is TargetSideEffectEquip && ((TargetSideEffectEquip) equip).IsNeedChoise)
+                HasTargetEquip = true;
+                targetEquipRange = ((TargetSideEffectEquip) tse).M_TargetRange;
+                return true;
+            }
+            else
+            {
+                TargetSideEffect.TargetRange temp = tse.M_TargetRange;
+                if ((temp & TargetSideEffect.TargetRange.Ships) == TargetSideEffect.TargetRange.None)
                 {
-                    HasTargetEquip = true;
-                    targetEquipRange = ((TargetSideEffectEquip) equip).M_TargetRange;
-                    break;
+                    HasTargetRetinue = true;
+                    targetRetinueRange = tse.M_TargetRange;
+                    return true;
                 }
                 else
                 {
-                    TargetSideEffect.TargetRange temp = equip.M_TargetRange;
-                    if ((temp & TargetSideEffect.TargetRange.Ships) == TargetSideEffect.TargetRange.None)
-                    {
-                        HasTargetRetinue = true;
-                        targetRetinueRange = equip.M_TargetRange;
-                        break;
-                    }
-                    else
-                    {
-                        HasTargetShip = true;
-                        targetShipRange = equip.M_TargetRange;
-                        break;
-                    }
+                    HasTargetShip = true;
+                    targetShipRange = tse.M_TargetRange;
+                    return true;
                 }
             }
         }
+
+        return false;
     }
 }

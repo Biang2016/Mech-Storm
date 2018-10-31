@@ -304,11 +304,75 @@ public class HandManager : MonoBehaviour
 
     public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo)
     {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UseCard(handCardInstanceId, cardInfo), "Co_UseCardShow");
+    }
+
+    IEnumerator Co_UseCard(int handCardInstanceId, CardInfo_Base cardInfo)
+    {
         CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
 
         if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
         {
-            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UseCard(cardBase, cardInfo), "Co_UseCardShow");
+            if (cardBase)
+            {
+                cardBase.OnPlayOut();
+                cards.Remove(cardBase);
+                iTween.Stop(cardBase.gameObject);
+
+                if (currentShowCard)
+                {
+                    lastShowCard = currentShowCard;
+                    iTween.Stop(lastShowCard.gameObject);
+
+                    Hashtable lastShowCardMoveBeneath = new Hashtable();
+                    lastShowCardMoveBeneath.Add("time", GameManager.Instance.ShowCardFlyDuration);
+                    lastShowCardMoveBeneath.Add("position", GameManager.Instance.UseCardShowPosition);
+                    lastShowCardMoveBeneath.Add("rotation", new Vector3(0, 180, 0));
+                    lastShowCardMoveBeneath.Add("scale", Vector3.one * GameManager.Instance.CardShowScale);
+
+                    iTween.MoveTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
+                    iTween.RotateTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
+                    iTween.ScaleTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
+                }
+
+                currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer, false);
+                currentShowCard.transform.position = cardBase.transform.position;
+                currentShowCard.transform.rotation = cardBase.transform.rotation;
+                currentShowCard.transform.localScale = cardBase.transform.localScale;
+
+                cardBase.PoolRecycle();
+
+                currentShowCard.DragComponent.enabled = false;
+                currentShowCard.Usable = false;
+                currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
+                currentShowCard.CardBloom.SetActive(true);
+                currentShowCard.BeBrightColor();
+                currentShowCard.CardCanvas.enabled = true;
+
+                Hashtable currentCardMove = new Hashtable();
+                currentCardMove.Add("time", GameManager.Instance.ShowCardFlyDuration);
+                currentCardMove.Add("position", GameManager.Instance.UseCardShowPosition_Overlay);
+                currentCardMove.Add("rotation", new Vector3(0, 180, 0));
+                currentCardMove.Add("scale", Vector3.one * GameManager.Instance.CardShowScale);
+
+                iTween.MoveTo(currentShowCard.gameObject, currentCardMove);
+                iTween.RotateTo(currentShowCard.gameObject, currentCardMove);
+                iTween.ScaleTo(currentShowCard.gameObject, currentCardMove);
+
+                RefreshCardsPlace();
+                yield return new WaitForSeconds(GameManager.Instance.ShowCardFlyDuration);
+
+                if (lastShowCard)
+                {
+                    lastShowCard.PoolRecycle();
+                    lastShowCard = null;
+                }
+
+                yield return new WaitForSeconds(GameManager.Instance.ShowCardDuration - GameManager.Instance.ShowCardFlyDuration);
+
+                currentShowCard.PoolRecycle();
+                currentShowCard = null;
+            }
         }
         else
         {
@@ -317,77 +381,9 @@ public class HandManager : MonoBehaviour
             cardBase.PoolRecycle();
             RefreshCardsPlace();
         }
-    }
-
-    IEnumerator Co_UseCard(CardBase cardBase, CardInfo_Base cardInfo)
-    {
-        if (cardBase)
-        {
-            cardBase.OnPlayOut();
-            cards.Remove(cardBase);
-            iTween.Stop(cardBase.gameObject);
-            yield return SubCo_ShowCardForTime(cardBase, cardInfo, GameManager.Instance.ShowCardDuration);
-        }
 
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    IEnumerator SubCo_ShowCardForTime(CardBase cardBase, CardInfo_Base cardInfo, float showCardDuration)
-    {
-        if (currentShowCard)
-        {
-            lastShowCard = currentShowCard;
-            iTween.Stop(lastShowCard.gameObject);
-
-            Hashtable lastShowCardMoveBeneath = new Hashtable();
-            lastShowCardMoveBeneath.Add("time", GameManager.Instance.ShowCardFlyDuration);
-            lastShowCardMoveBeneath.Add("position", GameManager.Instance.UseCardShowPosition);
-            lastShowCardMoveBeneath.Add("rotation", new Vector3(0, 180, 0));
-            lastShowCardMoveBeneath.Add("scale", Vector3.one * GameManager.Instance.CardShowScale);
-
-            iTween.MoveTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
-            iTween.RotateTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
-            iTween.ScaleTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
-        }
-
-        currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer, false);
-        currentShowCard.transform.position = cardBase.transform.position;
-        currentShowCard.transform.rotation = cardBase.transform.rotation;
-        currentShowCard.transform.localScale = cardBase.transform.localScale;
-
-        cardBase.PoolRecycle();
-
-        currentShowCard.DragComponent.enabled = false;
-        currentShowCard.Usable = false;
-        currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
-        currentShowCard.CardBloom.SetActive(true);
-        currentShowCard.BeBrightColor();
-        currentShowCard.CardCanvas.enabled = true;
-
-        Hashtable currentCardMove = new Hashtable();
-        currentCardMove.Add("time", GameManager.Instance.ShowCardFlyDuration);
-        currentCardMove.Add("position", GameManager.Instance.UseCardShowPosition_Overlay);
-        currentCardMove.Add("rotation", new Vector3(0, 180, 0));
-        currentCardMove.Add("scale", Vector3.one * GameManager.Instance.CardShowScale);
-
-        iTween.MoveTo(currentShowCard.gameObject, currentCardMove);
-        iTween.RotateTo(currentShowCard.gameObject, currentCardMove);
-        iTween.ScaleTo(currentShowCard.gameObject, currentCardMove);
-
-        RefreshCardsPlace();
-        yield return new WaitForSeconds(GameManager.Instance.ShowCardFlyDuration);
-
-        if (lastShowCard)
-        {
-            lastShowCard.PoolRecycle();
-            lastShowCard = null;
-        }
-
-        yield return new WaitForSeconds(showCardDuration - GameManager.Instance.ShowCardFlyDuration);
-
-        currentShowCard.PoolRecycle();
-        currentShowCard = null;
     }
 
     #endregion

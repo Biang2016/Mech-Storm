@@ -78,7 +78,7 @@ public class ClientPlayer : Player
 
     IEnumerator Co_ChangeLife(PlayerLifeChangeRequest request)
     {
-        if (request.life_left != LifeLeft) AddLife(request.life_left);
+        if (request.life_left != LifeLeft) AddLife(request.life_left - LifeLeft);
 
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();

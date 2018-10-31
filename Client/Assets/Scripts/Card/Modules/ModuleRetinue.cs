@@ -572,6 +572,7 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_ArmorChange(int armorValue, int change, float duration, bool isInitializing)
     {
+        NormalParticle particle = null;
         if (!isInitializing)
         {
             string text = GameManager.Instance.IsEnglish ? "Armor " : "护甲 ";
@@ -589,6 +590,9 @@ public class ModuleRetinue : ModuleBase
             if (armorValue == 0)
             {
                 AudioManager.Instance.SoundPlay("sfx/BreakArmor", 1f);
+                particle = GameObjectPoolManager.Instance.Pool_ParticleSystemPool.AllocateGameObject<NormalParticle>(ShieldBar.transform);
+                particle.ParticleSystem.Play(true);
+                particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#FFA800");
             }
         }
 
@@ -596,6 +600,9 @@ public class ModuleRetinue : ModuleBase
         {
             ArmorFillAnim.gameObject.SetActive(false);
             AudioManager.Instance.SoundPlay("sfx/BreakArmor", 1f);
+            particle = GameObjectPoolManager.Instance.Pool_ParticleSystemPool.AllocateGameObject<NormalParticle>(ShieldBar.transform);
+            particle.ParticleSystem.Play(true);
+            particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#FFA800");
         }
         else
         {
@@ -604,7 +611,10 @@ public class ModuleRetinue : ModuleBase
         }
 
         ArmorFillAnim.SetTrigger("Jump");
+
         yield return new WaitForSeconds(duration);
+
+        if (particle != null) particle.PoolRecycle();
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -614,6 +624,7 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_ShieldChange(int shieldValue, int change, float duration, bool isInitializing)
     {
+        NormalParticle particle = null;
         if (!isInitializing)
         {
             string text = GameManager.Instance.IsEnglish ? "Shield " : "护盾 ";
@@ -632,6 +643,9 @@ public class ModuleRetinue : ModuleBase
             if (shieldValue == 0)
             {
                 AudioManager.Instance.SoundPlay("sfx/BreakShield", 1f);
+                particle = GameObjectPoolManager.Instance.Pool_ParticleSystemPool.AllocateGameObject<NormalParticle>(ShieldBar.transform);
+                particle.ParticleSystem.Play(true);
+                particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#00FFF2");
             }
         }
         else
@@ -642,6 +656,10 @@ public class ModuleRetinue : ModuleBase
         if (shieldValue == 0)
         {
             AudioManager.Instance.SoundPlay("sfx/BreakShield", 1f);
+            particle = GameObjectPoolManager.Instance.Pool_ParticleSystemPool.AllocateGameObject<NormalParticle>(ShieldBar.transform);
+            particle.ParticleSystem.Play(true);
+            particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#00FFF2");
+
             ShieldBar.fillAmount = 0;
             Text_RetinueShield.text = "";
         }
@@ -653,6 +671,7 @@ public class ModuleRetinue : ModuleBase
 
         ShieldBarAnim.SetTrigger("Jump");
         yield return new WaitForSeconds(duration);
+        if (particle != null) particle.PoolRecycle();
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -999,6 +1018,18 @@ public class ModuleRetinue : ModuleBase
     #region 模块交互
 
     #region 攻击
+
+    public void SetCanAttack(bool value)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_SetCanAttack(value), "Co_SetCanAttack");
+    }
+
+    IEnumerator Co_SetCanAttack(bool value)
+    {
+        CanAttack = value;
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
 
     private bool canAttack;
 

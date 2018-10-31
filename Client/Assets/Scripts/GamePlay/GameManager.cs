@@ -69,7 +69,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public float CardShowScale = 3f;
 
-    public float ShowCardDuration = 0.9f;
+    public float ShowCardDuration = 1.2f;
     public float ShowCardFlyDuration = 0.4f;
 
     public int CardDeckCardNum = 10;

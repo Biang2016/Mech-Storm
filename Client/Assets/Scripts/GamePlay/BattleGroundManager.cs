@@ -271,7 +271,6 @@ public class BattleGroundManager : MonoBehaviour
         }
     }
 
-
     public void RemoveRetinuePreview()
     {
         if (previewRetinuePlace != PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW)

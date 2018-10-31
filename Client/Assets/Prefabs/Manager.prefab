@@ -5957,7 +5957,7 @@ GameObject:
   - component: {fileID: 4021351036313794}
   - component: {fileID: 114231910954421098}
   m_Layer: 0
-  m_Name: Hit_3_Pool
+  m_Name: ParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5996,6 +5996,22 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
+  m_IsActive: 1
+--- !u!1 &1615752318378966
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4580024762978088}
+  - component: {fileID: 114036713434809658}
+  m_Layer: 0
+  m_Name: Hit_3_Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1617073698720584
 GameObject:
@@ -9148,7 +9164,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400246195090270}
-  m_RootOrder: 31
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4062108403223756
 Transform:
@@ -10024,10 +10040,11 @@ Transform:
   - {fileID: 4977122962197864}
   - {fileID: 4418642706737236}
   - {fileID: 4507801353494660}
-  - {fileID: 4021351036313794}
+  - {fileID: 4580024762978088}
   - {fileID: 4272119159652604}
   - {fileID: 4012521609937026}
   - {fileID: 4835043892970772}
+  - {fileID: 4021351036313794}
   m_Father: {fileID: 4347551674176472}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10539,6 +10556,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4107559787514520}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4580024762978088
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1615752318378966}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4400246195090270}
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4585486035722454
 Transform:
@@ -14938,6 +14968,21 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114036713434809658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1615752318378966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 0
+  used: 0
+  notUsed: 0
+  empty: 0
 --- !u!114 &114037775432397814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18324,7 +18369,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224193750008547224}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999946
+  m_Size: 0.9999997
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -19052,7 +19097,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224878940758104996}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999998
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -20651,7 +20696,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114771421926854170}
   m_HandleRect: {fileID: 224682292962521090}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -21939,7 +21984,7 @@ MonoBehaviour:
   - {fileID: 114956107118538798}
   - {fileID: 114658258425266224}
   - {fileID: 114556631311867184}
-  - {fileID: 114231910954421098}
+  - {fileID: 114036713434809658}
   HitPrefab:
   - {fileID: 114719984196978976, guid: 28c773a621363974895702ebe9c34bb9, type: 2}
   - {fileID: 114850873825956866, guid: a83d9a84685bd6a4a9a1e0136dc2fa49, type: 2}
@@ -21953,6 +21998,9 @@ MonoBehaviour:
     type: 2}
   Pool_PlayerBuffPool: {fileID: 114209852165120600}
   PlayerBuffPrefab: {fileID: 114438643888871726, guid: 0f028e0a82288ce479583dc349f29f96,
+    type: 2}
+  Pool_ParticleSystemPool: {fileID: 114231910954421098}
+  ParticleSystemPrefab: {fileID: 114219104720601394, guid: a91478287b78b4f4a9ce5b4caf689739,
     type: 2}
 --- !u!114 &114474959134970340
 MonoBehaviour:
@@ -23707,7 +23755,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114675542122248686}
   m_HandleRect: {fileID: 224173802584017088}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -24992,7 +25040,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114701273318431290}
   m_HandleRect: {fileID: 224794129640360916}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -66493,7 +66541,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000282174}
+  m_AnchoredPosition: {x: -0.000061035156, y: -0.00034856936}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224153575937417530
@@ -66605,7 +66653,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.00012195672}
+  m_AnchoredPosition: {x: -0.000061035156, y: -0.0001502051}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224185055358991584
@@ -68644,7 +68692,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00010477859}
+  m_AnchoredPosition: {x: 0, y: -0.00022069342}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224439497744500280
@@ -68974,7 +69022,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: -0.000109539134}
+  m_AnchoredPosition: {x: 0.00012207031, y: -0.00019069691}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224485821361382302
