@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllBuilds>
+  <BuildInfo>
+    <Info name="baseInfo" BuildName="Story1" DrawCardNum="1" Life="100" Energy="20" />
+    <Info name="cardIDs" ids="70201,70201,70201,5101,6900,6400,10101,30201" />
+  </BuildInfo>
+  <BuildInfo>
+    <Info name="baseInfo" BuildName="Story1_Unlock" DrawCardNum="1" Life="100" Energy="20" />
+    <Info name="cardIDs" ids="70201,70201,70201,5101,6900,6400,10101,30201" />
+  </BuildInfo>
+</AllBuilds>

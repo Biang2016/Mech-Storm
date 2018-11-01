@@ -13,7 +13,7 @@ public struct BuildInfo
 
     public int LifeConsumeCoin
     {
-        get { return (Life - GamePlaySettings.PlayerDefaultLifeMin) * GamePlaySettings.LifeToCoin; }
+        get { return (Life - GamePlaySettings.OnlineGamePlaySettings.DefaultLifeMin) * GamePlaySettings.LifeToCoin; }
     }
 
     public int EnergyConsumeCoin
@@ -25,7 +25,7 @@ public struct BuildInfo
 
     public int DrawCardNumConsumeCoin
     {
-        get { return GamePlaySettings.DrawCardNumToCoin[DrawCardNum] - GamePlaySettings.DrawCardNumToCoin[GamePlaySettings.PlayerMinDrawCardNum]; }
+        get { return GamePlaySettings.DrawCardNumToCoin[DrawCardNum] - GamePlaySettings.DrawCardNumToCoin[GamePlaySettings.OnlineGamePlaySettings.MinDrawCardNum]; }
     }
 
     public int Life;

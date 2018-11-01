@@ -141,7 +141,7 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
             }
         }
 
-        StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+        StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Main);
         BattleEffectsManager.Instance.ResetAll();
     }
 

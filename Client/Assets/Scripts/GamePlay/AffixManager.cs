@@ -20,7 +20,7 @@ public class AffixManager : MonoSingleton<AffixManager>
 
     void Update()
     {
-        if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show)
+        if (StartMenuManager.Instance.M_StateMachine.IsShow())
         {
             if (hideAffixPanelTicker > hideAffixPanelInterval)
             {
@@ -54,7 +54,7 @@ public class AffixManager : MonoSingleton<AffixManager>
 
     private void GetAffixTypeByCardInfo(HashSet<AffixType> affixTypes, CardInfo_Base cardInfo)
     {
-        foreach (SideEffectExecute se in cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard,SideEffectBundle.TriggerRange.Self))
+        foreach (SideEffectExecute se in cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
         {
             if (se.SideEffectBase is Exile_Base)
             {

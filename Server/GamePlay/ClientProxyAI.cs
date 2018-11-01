@@ -30,7 +30,7 @@ internal class ClientProxyAI : ClientProxy
         {
             foreach (ServerRequestBase req in r.AttachedRequests)
             {
-                if (req is PlayerTurnRequest ptr)
+                if (req is PlayerTurnRequest ptr) //只监听回合开始
                 {
                     if (ptr.clientId == ClientId)
                     {
@@ -52,26 +52,66 @@ internal class ClientProxyAI : ClientProxy
     #region AIOperation
 
     HashSet<int> TriedCards = new HashSet<int>();
+    HashSet<int> TriedRetinues = new HashSet<int>();
+
+    public void ResetTriedCards()
+    {
+        TriedCards.Clear();
+    }
 
     private void AIOperation()
     {
         while (true)
         {
-            ServerCardBase card = FindCardUsable();
-            if (card == null)
+            bool lastOperation = false;
+            bool failedAgain = false;
+            while (true)
             {
-                break;
-            }
-            else
-            {
-                if (!TryUseCard(card))
+                ServerCardBase card = FindCardUsable();
+                ServerModuleRetinue retinue = FindRetinueMovable();
+                if (card == null && retinue == null)
                 {
-                    TriedCards.Add(card.M_CardInstanceId);
+                    if (!lastOperation)
+                    {
+                        failedAgain = true; //如果连续两次失败，则停止
+                    }
+
+                    break;
+                }
+                else
+                {
+                    if (card != null)
+                    {
+                        if (TryUseCard(card)) //成功
+                        {
+                            lastOperation = true;
+                        }
+                        else
+                        {
+                            TriedCards.Add(card.M_CardInstanceId); //尝试过的卡牌不再尝试
+                        }
+                    }
+
+                    if (retinue != null)
+                    {
+                        if (TryAttack(retinue)) //成功
+                        {
+                            lastOperation = true;
+                        }
+                        else
+                        {
+                            TriedRetinues.Add(retinue.M_RetinueID); //尝试过的随从不再尝试
+                        }
+                    }
                 }
             }
+
+            TriedCards.Clear();
+            TriedRetinues.Clear();
+
+            if (failedAgain) break;
         }
 
-        TriedCards.Clear();
         MyServerGameManager.OnEndRoundRequest(new EndRoundRequest(ClientId));
     }
 
@@ -219,6 +259,27 @@ internal class ClientProxyAI : ClientProxy
         return false;
     }
 
+    private bool TryAttack(ServerModuleRetinue retinue)
+    {
+        if (EnemyPlayer.CheckModuleRetinueCanAttackMe(retinue)) //优先打脸
+        {
+            MyServerGameManager.OnClientRetinueAttackShipRequest(new RetinueAttackShipRequest(ClientId, retinue.M_RetinueID));
+            return true;
+        }
+
+        foreach (ServerModuleRetinue targetRetinue in EnemyBattleGroundManager.Retinues)
+        {
+            if (targetRetinue.CheckRetinueCanAttackMe(retinue))
+            {
+                MyServerGameManager.OnClientRetinueAttackRetinueRequest(new RetinueAttackRetinueRequest(ClientId, retinue.M_RetinueID, EnemyPlayer.ClientId, targetRetinue.M_RetinueID));
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     private ServerModuleRetinue GetTargetRetinueByTargetInfo(TargetInfo ti)
     {
         ServerPlayer targetPlayer = null;
@@ -295,11 +356,24 @@ internal class ClientProxyAI : ClientProxy
 
     private ServerCardBase FindCardUsable()
     {
-        foreach (ServerCardBase card in MyHandManager.Cards)
+        foreach (int id in MyHandManager.UsableCards)
         {
-            if (!TriedCards.Contains(card.M_CardInstanceId))
+            if (!TriedCards.Contains(id))
             {
-                if (card.Usable) return card;
+                return MyHandManager.GetCardByCardInstanceId(id);
+            }
+        }
+
+        return null;
+    }
+
+    private ServerModuleRetinue FindRetinueMovable()
+    {
+        foreach (int id in MyBattleGroundManager.CanAttackRetinues)
+        {
+            if (!TriedRetinues.Contains(id))
+            {
+                return MyBattleGroundManager.GetRetinue(id);
             }
         }
 

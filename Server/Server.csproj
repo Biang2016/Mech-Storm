@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Card\ServerBuild\AllPlayerStory.cs" />
     <Compile Include="Card\ServerBuild\AllServerBuilds.cs" />
     <Compile Include="Card\Cards\ServerCardBase.cs" />
     <Compile Include="Card\Cards\ServerCardRetinue.cs" />
@@ -115,8 +116,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\DefaultBuilds\StoryAdmin.xml" />
     <Content Include="Config\DefaultBuilds\PlayerAdmin.xml" />
     <Content Include="Config\DefaultBuilds\ServerAdmin.xml" />
+    <Content Include="Config\PlayerStories\Story1.xml" />
     <Content Include="DevLog.txt" />
     <Content Include="DevLog_zh.txt" />
   </ItemGroup>

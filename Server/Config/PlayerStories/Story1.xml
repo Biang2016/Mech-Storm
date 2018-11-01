@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Story>
+  <StartBuildInfo BuildName="Story1"/>
+  <StartUnlockCardInfo BuildName="Story1_Unlock"/>
+  <GamePlaySettings 
+    DrawCardPerRound="2"
+    PlayerDefaultCoin="15000"
+    PlayerDefaultLife="100"
+    PlayerDefaultLifeMax="200"
+    PlayerDefaultLifeMin="50"
+    PlayerDefaultEnergy="10"
+    PlayerDefaultEnergyMax="50"
+
+    PlayerDefaultDrawCardNum="2"
+    PlayerMinDrawCardNum="1"
+    PlayerMaxDrawCardNum="5"
+    />
+  <BossInfo name="Boss1" BuildName="EnemyBuild_01"/>
+  <BossInfo name="Boss2" BuildName="EnemyBuild_02"/>
+</Story>

@@ -56,18 +56,26 @@ public class Proxy : ProxyBase
         ClientState = ClientStates.Login;
     }
 
-    public void OnBeginMatch(bool isStandAlone)
+    public void OnBeginMatch()
     {
         ClientRequestBase req = null;
-        if (!isStandAlone)
-        {
-            req = new MatchRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID);
-        }
-        else
-        {
-            req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID);
-        }
+        req = new MatchRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID);
+        SendMessage(req);
+        ClientState = ClientStates.Matching;
+    }
 
+    public void OnBeginNewSingleMode()
+    {
+        ClientRequestBase req = null;
+        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID, false);
+        SendMessage(req);
+        ClientState = ClientStates.Matching;
+    }
+
+    public void OnResumeSingleMode()
+    {
+        ClientRequestBase req = null;
+        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID, true);
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
@@ -129,7 +137,7 @@ public class Proxy : ProxyBase
                             ClientState = ClientStates.Login;
                             NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Login Success" : "登录成功", 0, 0.5f);
                             LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Hide);
-                            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+                            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Main);
                             break;
                         }
                         case LoginResultRequest.StateCodes.WrongPassword:
@@ -192,7 +200,10 @@ public class Proxy : ProxyBase
                 case NetProtocols.CLIENT_BUILDINFOS_REQUEST:
                 {
                     ClientBuildInfosRequest request = (ClientBuildInfosRequest) r;
-                    SelectBuildManager.Instance.InitAllMyBuildInfos(request.buildInfos);
+                    SelectBuildManager.Instance.OnlineGamePlaySettings = request.OnlineGamePlaySettings;
+                    SelectBuildManager.Instance.SingleGamePlaySettings = request.StoryGamePlaySettings;
+                    SelectBuildManager.Instance.OnlineBuildInfos = request.OnlineBuildInfos;
+                    SelectBuildManager.Instance.SingleBuildInfos = request.StoryBuildInfos;
                     break;
                 }
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:

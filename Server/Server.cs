@@ -44,6 +44,7 @@ internal class Server
         AllCards.DebugLogHandler = ServerLog.PrintError;
         AllCards.AddAllCards("./Config/Cards.xml");
         AllServerBuilds.AddAllBuilds();
+        AllPlayerStory.AddAllStories();
 #if DEBUG
         ServerLog.PrintServerStates("CardDeck Loaded");
 #endif

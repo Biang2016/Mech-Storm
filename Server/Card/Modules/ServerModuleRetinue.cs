@@ -669,6 +669,16 @@ internal class ServerModuleRetinue : ServerModuleBase
         get { return canAttack; }
         set
         {
+            if (canAttack && !value)
+            {
+                ServerPlayer.MyBattleGroundManager.CanAttackRetinues.Remove(M_RetinueID);
+            }
+
+            if (!canAttack && value)
+            {
+                ServerPlayer.MyBattleGroundManager.CanAttackRetinues.Add(M_RetinueID);
+            }
+
             if (canAttack != value)
             {
                 canAttack = value;
@@ -677,6 +687,14 @@ internal class ServerModuleRetinue : ServerModuleBase
             }
         }
     }
+
+    public bool CheckRetinueCanAttackMe(ServerModuleRetinue attackRetinue)
+    {
+        if (attackRetinue.M_Weapon!=null && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽机甲，其他武器只能攻击嘲讽机甲
+        if (ServerPlayer.MyBattleGroundManager.HasDefenceRetinue && !IsDefender) return false;
+        return true;
+    }
+ 
 
     private bool isFirstRound = true; //是否是召唤的第一回合
 

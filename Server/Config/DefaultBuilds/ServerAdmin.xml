@@ -4,4 +4,8 @@
     <Info name="baseInfo" BuildName="EnemyBuild_01" DrawCardNum="2" Life="50" Energy="10" />
     <Info name="cardIDs" ids="5101,6400,6900,10101,30101,30201,60102,60102,60102,70102,70102,70102" />
   </BuildInfo>
+  <BuildInfo>
+    <Info name="baseInfo" BuildName="EnemyBuild_02" DrawCardNum="2" Life="999" Energy="50" />
+    <Info name="cardIDs" ids="5101,6400,6900,10101,30101,30201,60102,60102,60102,70102,70102,70102" />
+  </BuildInfo>
 </AllBuilds>

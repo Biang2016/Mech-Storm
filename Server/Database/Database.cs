@@ -174,6 +174,8 @@ internal class Database
 
     #region PlayerBuilds
 
+    #region Online
+
     Dictionary<string, List<int>> PlayerBuilds = new Dictionary<string, List<int>>();
 
     public List<BuildInfo> GetPlayerBuilds(string username)
@@ -195,6 +197,16 @@ internal class Database
 
         return buildInfos;
     }
+
+    #endregion
+
+    #region SingleMode
+
+    public Dictionary<string, Story> StoryStartDict = new Dictionary<string, Story>();
+
+    public Dictionary<string, Story> PlayerStoryStates = new Dictionary<string, Story>();
+
+    #endregion
 
     #endregion
 

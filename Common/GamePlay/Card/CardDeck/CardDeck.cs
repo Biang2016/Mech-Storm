@@ -35,7 +35,7 @@ public class CardDeck
         M_BuildInfo = cdi;
         CardDeckCountChangeHandler = handler;
         AppendCards(AllCards.GetCards(M_BuildInfo.CardIDs.ToArray()));
-        if (GamePlaySettings.SuffleBuild) SuffleSelf();
+        SuffleSelf();
     }
 
     private void AddCard(CardInfo_Base cardInfo, int index)

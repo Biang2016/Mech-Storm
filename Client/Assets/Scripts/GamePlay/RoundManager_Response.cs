@@ -389,7 +389,8 @@ internal partial class RoundManager
     private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
     {
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround_Logic(r.retinueIds), "Co_RetinueRemoveFromBattleGround_Logic");
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround_Show(r.retinueIds), "Co_RetinueRemoveFromBattleGround_Show");
+        SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
+        EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
     }
 
     private void OnUpdatePlayerBuff(PlayerBuffUpdateRequest r)
@@ -412,16 +413,6 @@ internal partial class RoundManager
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
-
-    IEnumerator Co_RetinueRemoveFromBattleGround_Show(List<int> retinueIds) //机甲一起移除战场(表现层)
-    {
-        SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
-        EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
-
-        yield return null;
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
 
     private void OnCardDeckLeftChange(CardDeckLeftChangeRequest r)
     {

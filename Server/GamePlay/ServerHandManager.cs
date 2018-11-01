@@ -6,6 +6,7 @@ internal class ServerHandManager
     public ServerPlayer ServerPlayer;
     public List<ServerCardBase> Cards = new List<ServerCardBase>();
     public HashSet<int> CardInstanceIDSet = new HashSet<int>();
+    public HashSet<int> UsableCards = new HashSet<int>();
 
     public ServerHandManager(ServerPlayer serverPlayer)
     {
@@ -103,6 +104,7 @@ internal class ServerHandManager
         DropCardRequest request = new DropCardRequest(ServerPlayer.ClientId, Cards.IndexOf(dropCard));
         ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
         Cards.Remove(dropCard);
+        UsableCards.Remove(dropCard.M_CardInstanceId);
         CardInstanceIDSet.Remove(dropCard.M_CardInstanceId);
         if (!dropCard.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
     }
@@ -134,6 +136,7 @@ internal class ServerHandManager
 
         useCard.UnRegisterSideEffect();
         Cards.Remove(useCard);
+        UsableCards.Remove(useCard.M_CardInstanceId);
         CardInstanceIDSet.Remove(useCard.M_CardInstanceId);
     }
 

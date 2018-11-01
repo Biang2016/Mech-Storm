@@ -1,14 +1,16 @@
 ﻿public class MatchStandAloneRequest : ClientRequestBase
 {
     public int buildID;
+    public bool isResume;
 
     public MatchStandAloneRequest() : base()
     {
     }
 
-    public MatchStandAloneRequest(int clientId, int buildID) : base(clientId)
+    public MatchStandAloneRequest(int clientID, int buildID, bool isResume) : base(clientID)
     {
         this.buildID = buildID;
+        this.isResume = isResume;
     }
 
     public override NetProtocols GetProtocol()
@@ -25,18 +27,21 @@
     {
         base.Serialize(writer);
         writer.WriteSInt32(buildID);
+        writer.WriteSInt32((byte) (isResume ? 0x01 : 0x00));
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         buildID = reader.ReadSInt32();
+        isResume = reader.ReadByte() == 0x01;
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
         log += " [buildID]=" + buildID;
+        log += " [isResume]=" + isResume;
         return log;
     }
 }

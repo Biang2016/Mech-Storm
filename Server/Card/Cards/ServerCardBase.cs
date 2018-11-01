@@ -131,7 +131,20 @@
     {
         get { return usable; }
 
-        set { usable = value; }
+        set
+        {
+            if (usable && !value)
+            {
+                ServerPlayer.MyHandManager.UsableCards.Remove(M_CardInstanceId);
+            }
+
+            if (!usable && value)
+            {
+                ServerPlayer.MyHandManager.UsableCards.Add(M_CardInstanceId);
+            }
+
+            usable = value;
+        }
     }
 
     protected int stars;

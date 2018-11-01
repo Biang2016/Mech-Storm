@@ -169,7 +169,7 @@ public class ExitMenuManager : MonoSingleton<ExitMenuManager>
         {
             Instance.ExitMenuCanvas.enabled = false;
             MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
-            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.ReturnToPreviousState();
         }
 
         public void HideMenuForSetting()

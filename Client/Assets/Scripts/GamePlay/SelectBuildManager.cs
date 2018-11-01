@@ -41,6 +41,8 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
     [SerializeField] private Animator SelectWindowShowAnim;
 
+    public GamePlaySettings GamePlaySettings;
+
     void Update()
     {
         M_StateMachine.Update();
@@ -67,6 +69,8 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
         private States state;
         private States previousState;
+
+        private bool isNowOnline;
 
         public void SetState(States newState)
         {
@@ -198,7 +202,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         private void ShowWindowReadOnly()
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+            if (StartMenuManager.Instance.M_StateMachine.IsShow()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
             GameManager.Instance.StartBlurBackGround();
             Instance.Canvas.gameObject.SetActive(true);
             Instance.Canvas_BG.gameObject.SetActive(true);
@@ -227,7 +231,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         private void HideWindow()
         {
             HideWindowCore();
-            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show);
+            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.ReturnToPreviousState();
         }
 
 

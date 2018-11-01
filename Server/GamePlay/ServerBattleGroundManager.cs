@@ -48,10 +48,24 @@ internal class ServerBattleGroundManager
         get { return SoldierCount == 0; }
     }
 
+    public bool HasDefenceRetinue
+    {
+        get
+        {
+            foreach (ServerModuleRetinue retinue in Retinues)
+            {
+                if (retinue.IsDefender) return true;
+            }
+
+            return false;
+        }
+    }
+
     public ServerPlayer ServerPlayer;
     public List<ServerModuleRetinue> Retinues = new List<ServerModuleRetinue>();
     public List<ServerModuleRetinue> Heroes = new List<ServerModuleRetinue>();
     public List<ServerModuleRetinue> Soldiers = new List<ServerModuleRetinue>();
+    public HashSet<int> CanAttackRetinues = new HashSet<int>();
 
     public ServerBattleGroundManager(ServerPlayer serverPlayer)
     {

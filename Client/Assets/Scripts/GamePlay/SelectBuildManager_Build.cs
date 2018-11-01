@@ -25,6 +25,11 @@ public partial class SelectBuildManager
 
     public BuildRenamePanel BuildRenamePanel;
 
+    public List<BuildInfo> OnlineBuildInfos = new List<BuildInfo>();
+    public List<BuildInfo> SingleBuildInfos = new List<BuildInfo>();
+    public GamePlaySettings OnlineGamePlaySettings;
+    public GamePlaySettings SingleGamePlaySettings;
+
     private void Awake_Build()
     {
         Proxy.OnClientStateChange += NetworkStateChange_Build;
@@ -34,8 +39,23 @@ public partial class SelectBuildManager
         CreateBuildText.text = GameManager.Instance.IsEnglish ? "New Deck" : "创建新卡组";
     }
 
-    public void InitAllMyBuildInfos(List<BuildInfo> buildInfos)
+    public GameMode M_GameMode = GameMode.None;
+
+    public enum GameMode
     {
+        None,
+        Online,
+        Single,
+    }
+
+    public void InitAllMyBuildInfos(GameMode gameMode)
+    {
+        if (M_GameMode == gameMode) return;
+        M_GameMode = gameMode;
+        List<BuildInfo> buildInfos = gameMode == GameMode.Online ? OnlineBuildInfos : SingleBuildInfos;
+        GamePlaySettings = gameMode == GameMode.Online ? OnlineGamePlaySettings : SingleGamePlaySettings;
+        InitializeSliders();
+
         CreateNewBuildButton.transform.parent.SetAsLastSibling();
         while (AllMyBuildsContent.childCount > 1)
         {
@@ -88,11 +108,6 @@ public partial class SelectBuildManager
     {
         bool isMatching = clientState == ProxyBase.ClientStates.Matching;
         DeleteBuildButton.gameObject.SetActive(!isMatching);
-
-        if (clientState == ProxyBase.ClientStates.Login)
-        {
-            InitializeSliders(Client.Instance.Proxy.Username == "ServerAdmin");
-        }
     }
 
     private BuildButton GenerateNewBuildButton(BuildInfo m_BuildInfo)
@@ -149,7 +164,7 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildButtonClick()
     {
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, GameManager.Instance.IsEnglish ? "New Deck" : "新卡组", new List<int>(), 0, DefaultDrawCardNum, DefaultLife, DefaultEnergy));
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, GameManager.Instance.IsEnglish ? "New Deck" : "新卡组", new List<int>(), 0, GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy));
         Client.Instance.Proxy.SendMessage(request);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
@@ -157,7 +172,7 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildResponse(int buildID)
     {
-        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, GameManager.Instance.IsEnglish ? "New Deck" : "新卡组", new List<int>(), 0, DefaultDrawCardNum, DefaultLife, DefaultEnergy));
+        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, GameManager.Instance.IsEnglish ? "New Deck" : "新卡组", new List<int>(), 0, GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy));
         AllBuildButtons.Add(buildID, newBuildButton);
         AllBuilds.Add(buildID, newBuildButton.BuildInfo);
         OnSwitchEditBuild(newBuildButton);

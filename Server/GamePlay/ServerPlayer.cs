@@ -206,6 +206,7 @@ internal class ServerPlayer : Player
             AddEnergy(EnergyMax - EnergyLeft);
             isOverflow = true;
         }
+
         if (addEnergyValue != 0)
         {
             PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax, isOverflow);
@@ -246,6 +247,43 @@ internal class ServerPlayer : Player
     {
         CardDeckLeftChangeRequest request = new CardDeckLeftChangeRequest(ClientId, count);
         BroadCastRequest(request);
+    }
+
+    public bool CheckModuleRetinueCanAttackMe(ServerModuleRetinue attackRetinue)
+    {
+        if (attackRetinue.M_Weapon != null)
+        {
+            switch (attackRetinue.M_Weapon.M_WeaponType)
+            {
+                case WeaponTypes.Sword:
+                    if (MyBattleGroundManager.BattleGroundIsEmpty) return true;
+                    return false;
+                case WeaponTypes.Gun:
+                    if (attackRetinue.M_RetinueWeaponEnergy != 0)
+                    {
+                        if (MyBattleGroundManager.HasDefenceRetinue) return false;
+                        return true;
+                    }
+                    else
+                    {
+                        if (MyBattleGroundManager.BattleGroundIsEmpty) return true;
+                        return false;
+                    }
+                case WeaponTypes.SniperGun:
+                    if (attackRetinue.M_RetinueWeaponEnergy != 0) return true;
+                    else
+                    {
+                        if (MyBattleGroundManager.BattleGroundIsEmpty) return true;
+                        return false;
+                    }
+            }
+        }
+        else
+        {
+            if (MyBattleGroundManager.BattleGroundIsEmpty) return true;
+        }
+
+        return false;
     }
 
     #region PlayerBuffs
