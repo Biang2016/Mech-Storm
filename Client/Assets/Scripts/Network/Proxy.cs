@@ -179,6 +179,14 @@ public class Proxy : ProxyBase
 
                     break;
                 }
+                case NetProtocols.START_NEW_STORY_REQUEST_RESPONSE:
+                {
+                    StartNewStoryRequestResponse request = (StartNewStoryRequestResponse) r;
+                    SelectBuildManager.Instance.SingleBuildInfos = new List<BuildInfo> {request.DefaultBuildInfo};
+                    SelectBuildManager.Instance.SingleGamePlaySettings = request.GamePlaySettings;
+                    StartMenuManager.Instance.M_StateMachine.RefreshStoryState();
+                    break;
+                }
                 case NetProtocols.CREATE_BUILD_REQUEST_RESPONSE:
                 {
                     CreateBuildRequestResponse request = (CreateBuildRequestResponse) r;

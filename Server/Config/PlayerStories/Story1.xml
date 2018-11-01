@@ -4,14 +4,14 @@
   <StartUnlockCardInfo BuildName="Story1_Unlock"/>
   <GamePlaySettings 
     DrawCardPerRound="2"
-    PlayerDefaultCoin="15000"
-    PlayerDefaultLife="100"
-    PlayerDefaultLifeMax="200"
-    PlayerDefaultLifeMin="50"
+    PlayerDefaultCoin="3000"
+    PlayerDefaultLife="20"
+    PlayerDefaultLifeMax="30"
+    PlayerDefaultLifeMin="10"
     PlayerDefaultEnergy="10"
-    PlayerDefaultEnergyMax="50"
+    PlayerDefaultEnergyMax="15"
 
-    PlayerDefaultDrawCardNum="2"
+    PlayerDefaultDrawCardNum="1"
     PlayerMinDrawCardNum="1"
     PlayerMaxDrawCardNum="5"
     />

@@ -206,6 +206,12 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         {
             Instance.StartMenuCanvas.enabled = false;
         }
+
+        public void RefreshStoryState()
+        {
+            Instance.SingleResumeButton.gameObject.SetActive(SelectBuildManager.Instance.SingleBuildInfos != null);
+            Instance.SingleDeckButton.gameObject.SetActive(SelectBuildManager.Instance.SingleBuildInfos != null);
+        }
     }
 
     void Awake_TextFont()
@@ -401,26 +407,29 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
     public void OnSingleStartButtonClick()
     {
-        ConfirmWindow cw = new ConfirmWindow();
+        ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
         string enDesc = "Do you want to start a new Single Game?" + (SelectBuildManager.Instance.SingleBuildInfos != null ? " It will remove your current game." : "");
         string zhDesc = "是否开始一个新的游戏？" + (SelectBuildManager.Instance.SingleBuildInfos != null ? " 当前游戏将被清除。" : "");
 
+        UnityAction action = StartNewStory;
         cw.Initialize(
             GameManager.Instance.IsEnglish ? enDesc : zhDesc,
             GameManager.Instance.IsEnglish ? "Yes" : "是的",
             GameManager.Instance.IsEnglish ? "No" : "取消",
-            StartNewStory,
+            action + ConfirmWindowManager.Instance.RemoveConfirmWindow,
             ConfirmWindowManager.Instance.RemoveConfirmWindow
         );
     }
 
-    public void OnStartNewStory()
+    public void OnStartNewStory(BuildInfo buildInfo)
     {
+        SelectBuildManager.Instance.AddUnlockedCards(buildInfo);
+        SelectBuildManager.Instance.InitAllMyBuildInfos(SelectBuildManager.GameMode.Single);
     }
 
     private void StartNewStory()
     {
-        StartNewStoryRequest request = new StartNewStoryRequest();
+        StartNewStoryRequest request = new StartNewStoryRequest(Client.Instance.Proxy.ClientId);
         Client.Instance.Proxy.SendMessage(request);
     }
 

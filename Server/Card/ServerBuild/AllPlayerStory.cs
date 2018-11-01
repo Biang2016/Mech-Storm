@@ -96,11 +96,18 @@ public class Story
 
         PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerCurrentBuildID).Clone();
         PlayerCurrentBuildInfo.BuildID = Database.Instance.GenerateBuildID();
+        Database.Instance.BuildInfoDict.Add(PlayerCurrentBuildInfo.BuildID, PlayerCurrentBuildInfo);
 
         PlayerCurrentUnlockedBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultUnlockedBuildID).Clone();
         PlayerCurrentUnlockedBuildInfo.BuildID = Database.Instance.GenerateBuildID();
+        Database.Instance.BuildInfoDict.Add(PlayerCurrentUnlockedBuildInfo.BuildID, PlayerCurrentUnlockedBuildInfo);
 
         StoryGamePlaySettings = gamePlaySettings.Clone();
+    }
+
+    public Story Clone()
+    {
+        return new Story(Bosses.ToArray(), PlayerCurrentBuildInfo.BuildID, PlayerCurrentUnlockedBuildInfo.BuildID, StoryGamePlaySettings.Clone());
     }
 
     public void BeatBoss(Boss boss)

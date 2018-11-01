@@ -96,7 +96,7 @@ internal class Database
 
     #region Builds
 
-    Dictionary<int, BuildInfo> BuildInfoDict = new Dictionary<int, BuildInfo>();
+    public Dictionary<int, BuildInfo> BuildInfoDict = new Dictionary<int, BuildInfo>();
 
     public void AddOrModifyBuild(string username, BuildInfo buildInfo)
     {

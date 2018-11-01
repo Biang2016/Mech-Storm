@@ -355,6 +355,24 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         }
     }
 
+    public void AddUnlockedCards(BuildInfo unlockedBuildInfo)
+    {
+        HashSet<int> unlockedCardIds = new HashSet<int>();
+        foreach (int cardID in unlockedBuildInfo.CardIDs)
+        {
+            unlockedCardIds.Add(cardID);
+            allCards[cardID].gameObject.SetActive(true);
+        }
+
+        foreach (int cardID in allCards.Keys)
+        {
+            if (!unlockedCardIds.Contains(cardID))
+            {
+                allCards[cardID].gameObject.SetActive(false);
+            }
+        }
+    }
+
     public void AddCardIntoCardSelectWindow(CardInfo_Base cardInfo)
     {
         CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, AllCardsContent, null, true);

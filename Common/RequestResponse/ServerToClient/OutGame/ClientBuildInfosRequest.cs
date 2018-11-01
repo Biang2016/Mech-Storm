@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 public class ClientBuildInfosRequest : ServerRequestBase
 {
@@ -70,8 +71,8 @@ public class ClientBuildInfosRequest : ServerRequestBase
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        OnlineBuildInfos = new List<BuildInfo>();
         int count = reader.ReadSInt32();
+        OnlineBuildInfos = new List<BuildInfo>();
         for (int i = 0; i < count; i++)
         {
             BuildInfo bi = BuildInfo.Deserialize(reader);
@@ -84,6 +85,7 @@ public class ClientBuildInfosRequest : ServerRequestBase
         if (HasStory)
         {
             count = reader.ReadSInt32();
+            StoryBuildInfos = new List<BuildInfo>();
             for (int i = 0; i < count; i++)
             {
                 BuildInfo bi = BuildInfo.Deserialize(reader);

@@ -110,17 +110,19 @@
 
     public static GamePlaySettings Deserialize(DataStream reader)
     {
-        GamePlaySettings res = new GamePlaySettings(
-            drawCardPerRound: reader.ReadSInt32(),
-            defaultCoin: reader.ReadSInt32(),
-            defaultLife: reader.ReadSInt32(),
-            defaultLifeMax: reader.ReadSInt32(),
-            defaultLifeMin: reader.ReadSInt32(),
-            defaultEnergy: reader.ReadSInt32(),
-            defaultEnergyMax: reader.ReadSInt32(),
-            defaultDrawCardNum: reader.ReadSInt32(),
-            minDrawCardNum: reader.ReadSInt32(),
-            maxDrawCardNum: reader.ReadSInt32());
+        GamePlaySettings res = new GamePlaySettings();
+        res.DrawCardPerRound = reader.ReadSInt32();
+
+        res.DefaultCoin = reader.ReadSInt32();
+        res.DefaultLife = reader.ReadSInt32();
+        res.DefaultLifeMax = reader.ReadSInt32();
+        res.DefaultLifeMin = reader.ReadSInt32();
+        res.DefaultEnergy = reader.ReadSInt32();
+        res.DefaultEnergyMax = reader.ReadSInt32();
+
+        res.DefaultDrawCardNum = reader.ReadSInt32();
+        res.MinDrawCardNum = reader.ReadSInt32();
+        res.MaxDrawCardNum = reader.ReadSInt32();
         return res;
     }
 

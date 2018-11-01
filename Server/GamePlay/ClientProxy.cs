@@ -254,8 +254,18 @@ internal class ClientProxy : ProxyBase
 
                 case StartNewStoryRequest _:
                 {
-                    StartNewStoryRequest request = (StartNewStoryRequest) r;
-                    
+                    Story newStory = Database.Instance.StoryStartDict["Story1"].Clone();
+                    if (Database.Instance.PlayerStoryStates.ContainsKey(UserName))
+                    {
+                        Database.Instance.PlayerStoryStates[UserName] = newStory;
+                    }
+                    else
+                    {
+                        Database.Instance.PlayerStoryStates.Add(UserName, newStory);
+                    }
+
+                    StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(newStory.StoryGamePlaySettings, newStory.PlayerCurrentBuildInfo, newStory.PlayerCurrentUnlockedBuildInfo);
+                    SendMessage(response);
                     break;
                 }
 
