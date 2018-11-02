@@ -27,6 +27,13 @@ public static class AllColors
         CardHightLightColor,
         CardImportantColor,
         CardDecsTextColor,
+        StoryLevelColor1,
+        StoryLevelColor2,
+        StoryLevelColor3,
+        StoryLevelColor4,
+        StoryLevelColor5,
+        StoryLevelColor6,
+        StoryLevelColor7,
     }
 
     public static void AddAllColors(string colorXMLPath)

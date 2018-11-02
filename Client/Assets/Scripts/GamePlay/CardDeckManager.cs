@@ -10,6 +10,9 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
     {
     }
 
+    [SerializeField] private Canvas SelfCardDeckCanvas;
+    [SerializeField] private Canvas EnemyCardDeckCanvas;
+
     [SerializeField] private Transform SelfCardDeckArea;
     [SerializeField] private Transform EnemyCardDeckArea;
 
@@ -23,6 +26,12 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
     private CardDeckCard[] enemy_CardDeckCards;
 
     private int[] cardDeckShowCardNumMap; //剩余卡牌数量和卡堆模型中显示的卡牌数量映射关系
+
+    void Awake()
+    {
+        SelfCardDeckCanvas.enabled = true;
+        EnemyCardDeckCanvas.enabled = true;
+    }
 
     void Start()
     {

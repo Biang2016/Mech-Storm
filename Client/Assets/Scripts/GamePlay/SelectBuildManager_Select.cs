@@ -108,6 +108,7 @@ public partial class SelectBuildManager
     #region 选择卡片
 
     public Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>();
+    public Dictionary<int, CardBase> allUnlockedCards = new Dictionary<int, CardBase>();
     private Dictionary<int, SelectCard> SelectedCards = new Dictionary<int, SelectCard>();
     private Dictionary<int, SelectCard> SelectedHeros = new Dictionary<int, SelectCard>();
 
@@ -155,7 +156,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        if (!isSwitchingBuildInfo && GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin() < card.CardInfo.BaseInfo.Coin)
+        if (!isSwitchingBuildInfo && GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin < card.CardInfo.BaseInfo.Coin)
         {
             NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Bugget is Limited" : "预算不足", 0f, 1f);
             return;
@@ -404,7 +405,7 @@ public partial class SelectBuildManager
         }
         else
         {
-            foreach (CardBase cardBase in allCards.Values)
+            foreach (CardBase cardBase in allUnlockedCards.Values)
             {
                 if (SelectedCards.ContainsKey(cardBase.CardInfo.CardID)) continue;
                 if (SelectedHeros.ContainsKey(cardBase.CardInfo.CardID)) continue;
@@ -425,18 +426,26 @@ public partial class SelectBuildManager
 
         int multiFrame = 0;
         List<CardBase> selectCB = new List<CardBase>();
+        List<int> unExistedCardIDs = new List<int>(); //由于卡片ID配置更新导致服务器数据老旧，删除此部分卡片
         foreach (int cardID in buildInfo.CardIDs)
         {
-            if (!AllCards.CardDict.ContainsKey(cardID)) continue;
+            if (!AllCards.CardDict.ContainsKey(cardID))
+            {
+                unExistedCardIDs.Add(cardID);
+                continue;
+            }
+
             CardBase cb = null;
-            if (!allCards.ContainsKey(cardID))
+            if (!allUnlockedCards.ContainsKey(cardID))
             {
                 List<int> cardSeriesId = AllCards.GetCardSeries(cardID);
                 foreach (int id in cardSeriesId)
                 {
-                    if (allCards.ContainsKey(id))
+                    if (allUnlockedCards.ContainsKey(id))
                     {
-                        cb = allCards[id];
+                        cb = allUnlockedCards[id];
+                        allUnlockedCards.Remove(id);
+                        allUnlockedCards.Add(cardID, cb);
                         allCards.Remove(id);
                         allCards.Add(cardID, cb);
                         cb.Initiate(AllCards.GetCard(cardID), cb.ClientPlayer, true);
@@ -447,11 +456,18 @@ public partial class SelectBuildManager
             }
             else
             {
-                cb = allCards[cardID];
+                cb = allUnlockedCards[cardID];
             }
 
             selectCB.Add(cb);
         }
+
+        foreach (int id in unExistedCardIDs)
+        {
+            buildInfo.CardIDs.Remove(id);
+        }
+
+        CurrentBuildButtons[buildInfo.BuildID].Initialize(buildInfo);
 
         SortCBs(selectCB);
 
@@ -481,7 +497,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        foreach (KeyValuePair<int, CardBase> kv in allUnlockedCards)
         {
             kv.Value.BeDimColor();
             kv.Value.CardBloom.SetActive(false);

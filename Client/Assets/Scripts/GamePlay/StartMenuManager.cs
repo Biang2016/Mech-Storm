@@ -152,15 +152,15 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.CancelMatchButton.gameObject.SetActive(false);
                         Instance.OnlineDeckButton.gameObject.SetActive(false);
                         Instance.SingleStartButton.gameObject.SetActive(true);
-                        Instance.SingleResumeButton.gameObject.SetActive(SelectBuildManager.Instance.SingleBuildInfos != null);
-                        Instance.SingleDeckButton.gameObject.SetActive(SelectBuildManager.Instance.SingleBuildInfos != null);
+                        Instance.SingleResumeButton.gameObject.SetActive(SelectBuildManager.Instance.M_CurrentStory != null);
+                        Instance.SingleDeckButton.gameObject.SetActive(SelectBuildManager.Instance.M_CurrentStory != null);
                         break;
                     case States.Show_Single_Preparing:
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
-                        Instance.SettingButton.gameObject.SetActive(true);
+                        Instance.SettingButton.gameObject.SetActive(false);
                         Instance.AboutButton.gameObject.SetActive(false);
                         Instance.BackButton.gameObject.SetActive(false);
                         Instance.QuitGameButton.gameObject.SetActive(false);
@@ -209,8 +209,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
         public void RefreshStoryState()
         {
-            Instance.SingleResumeButton.gameObject.SetActive(SelectBuildManager.Instance.SingleBuildInfos != null);
-            Instance.SingleDeckButton.gameObject.SetActive(SelectBuildManager.Instance.SingleBuildInfos != null);
+            Instance.SingleResumeButton.gameObject.SetActive(SelectBuildManager.Instance.M_CurrentStory != null);
+            Instance.SingleDeckButton.gameObject.SetActive(SelectBuildManager.Instance.M_CurrentStory != null);
         }
     }
 
@@ -366,50 +366,61 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         if (SelectBuildManager.Instance.CurrentSelectedBuildButton != null)
         {
             DeckAbstractText_DeckName.text = "[ " + SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildName + " ]";
-            DeckAbstractText_CardNum.text = SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.CardCount().ToString();
+            DeckAbstractText_CardNum.text = SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.CardCount.ToString();
             DeckAbstractText_LifeNum.text = SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.Life.ToString();
             DeckAbstractText_EnergyNum.text = SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.Energy.ToString();
             DeckAbstractText_DrawNum.text = SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.DrawCardNum.ToString();
+        }
+        else
+        {
+            DeckAbstractText_DeckName.text = "";
+            DeckAbstractText_CardNum.text = "";
+            DeckAbstractText_LifeNum.text = "";
+            DeckAbstractText_EnergyNum.text = "";
+            DeckAbstractText_DrawNum.text = "";
         }
     }
 
     public void OnOnlineMenuButtonClick()
     {
         M_StateMachine.SetState(StateMachine.States.Show_Online);
+        SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Online);
+        GameBoardManager.Instance.ChangeBoardBG();
     }
 
     public void OnSingleMenuButtonClick()
     {
         M_StateMachine.SetState(StateMachine.States.Show_Single);
+        SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single);
+        GameBoardManager.Instance.ChangeBoardBG();
     }
 
     public void OnBackButtonClick()
     {
         M_StateMachine.SetState(StateMachine.States.Show_Main);
+        GameBoardManager.Instance.ChangeBoardBG();
     }
 
     public void OnOnlineStartButtonClick()
     {
-        StartGameCore(false, false);
+        StartGameCore(false);
     }
 
     public void OnOnlineDeckButtonClick()
     {
-        SelectBuildManager.Instance.InitAllMyBuildInfos(SelectBuildManager.GameMode.Online);
         OnSelectCardDeckWindowButtonClick();
     }
 
     public void OnSingleDeckButtonClick()
     {
-        SelectBuildManager.Instance.InitAllMyBuildInfos(SelectBuildManager.GameMode.Single);
         OnSelectCardDeckWindowButtonClick();
     }
 
     public void OnSingleStartButtonClick()
     {
         ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
-        string enDesc = "Do you want to start a new Single Game?" + (SelectBuildManager.Instance.SingleBuildInfos != null ? " It will remove your current game." : "");
-        string zhDesc = "是否开始一个新的游戏？" + (SelectBuildManager.Instance.SingleBuildInfos != null ? " 当前游戏将被清除。" : "");
+        string enDesc = "Do you want to start a new Single Game?" + (SelectBuildManager.Instance.M_CurrentStory != null ? " It will remove your current game." : "");
+        string zhDesc = "是否开始一个新的游戏？" + (SelectBuildManager.Instance.M_CurrentStory != null ? " 当前游戏将被清除。" : "");
 
         UnityAction action = StartNewStory;
         cw.Initialize(
@@ -421,12 +432,6 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         );
     }
 
-    public void OnStartNewStory(BuildInfo buildInfo)
-    {
-        SelectBuildManager.Instance.AddUnlockedCards(buildInfo);
-        SelectBuildManager.Instance.InitAllMyBuildInfos(SelectBuildManager.GameMode.Single);
-    }
-
     private void StartNewStory()
     {
         StartNewStoryRequest request = new StartNewStoryRequest(Client.Instance.Proxy.ClientId);
@@ -435,11 +440,11 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
     public void OnSingleResumeButtonClick()
     {
-        StartGameCore(true, true);
+        StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Show);
+        //StartGameCore(true);
     }
 
-
-    private void StartGameCore(bool isStandAlone, bool isResume)
+    private void StartGameCore(bool isStandAlone)
     {
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)
         {
@@ -448,7 +453,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                 OnSelectCardDeckWindowButtonClick();
                 return;
             }
-            else if (SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.CardCount() == 0)
+            else if (SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.CardCount == 0)
             {
                 NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Your deck is empty" : "您的卡组中没有卡牌", 0, 0.3f);
                 OnSelectCardDeckWindowButtonClick();
@@ -459,14 +464,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                 UnityAction action;
                 if (isStandAlone)
                 {
-                    if (isResume)
-                    {
-                        action = ResumeSingleGame;
-                    }
-                    else
-                    {
-                        action = StartNewSingleGame;
-                    }
+                    action = StartNewSingleGame;
                 }
                 else
                 {
@@ -493,14 +491,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             {
                 if (isStandAlone)
                 {
-                    if (isResume)
-                    {
-                        ResumeSingleGame();
-                    }
-                    else
-                    {
-                        StartNewSingleGame();
-                    }
+                    StartNewSingleGame();
                 }
                 else
                 {
@@ -521,14 +512,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
     private void StartNewSingleGame()
     {
-        Client.Instance.Proxy.OnBeginNewSingleMode();
+        Client.Instance.Proxy.OnBeginSingleMode();
         ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin single mode" : "开始单人模式");
-    }
-
-    private void ResumeSingleGame()
-    {
-        Client.Instance.Proxy.OnResumeSingleMode();
-        ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Resume single mode" : "继续单人模式");
     }
 
     public void OnCancelMatchGameButtonClick()

@@ -200,7 +200,7 @@ internal class ClientProxy : ProxyBase
                                     if (Database.Instance.PlayerStoryStates.ContainsKey(username))
                                     {
                                         Story story = Database.Instance.PlayerStoryStates[username];
-                                        ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), GamePlaySettings.OnlineGamePlaySettings, true, story.PlayerBuildInfos, story.StoryGamePlaySettings);
+                                        ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), GamePlaySettings.OnlineGamePlaySettings, true, story.PlayerBuildInfos, story.StoryGamePlaySettings, story.PlayerCurrentBuildInfo.BuildID, story.PlayerCurrentUnlockedBuildInfo);
                                         SendMessage(request1);
                                     }
                                     else
@@ -264,6 +264,7 @@ internal class ClientProxy : ProxyBase
                         Database.Instance.PlayerStoryStates.Add(UserName, newStory);
                     }
 
+                    newStory.PlayerBuildInfos.Add(newStory.PlayerCurrentBuildInfo);
                     StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(newStory.StoryGamePlaySettings, newStory.PlayerCurrentBuildInfo, newStory.PlayerCurrentUnlockedBuildInfo);
                     SendMessage(response);
                     break;

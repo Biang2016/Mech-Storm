@@ -10,18 +10,11 @@ public class ClientBuildInfosRequest : ServerRequestBase
     public List<BuildInfo> StoryBuildInfos;
     public GamePlaySettings StoryGamePlaySettings;
 
+    public int PlayerCurrentBuildID;
+    public BuildInfo UnlockedBuildInfo;
 
     public ClientBuildInfosRequest()
     {
-    }
-
-    public ClientBuildInfosRequest(List<BuildInfo> onlineBuildInfos, GamePlaySettings onlineGamePlaySettings, bool hasStory, List<BuildInfo> storyBuildInfos, GamePlaySettings storyGamePlaySettings)
-    {
-        OnlineBuildInfos = onlineBuildInfos;
-        OnlineGamePlaySettings = onlineGamePlaySettings;
-        HasStory = hasStory;
-        StoryBuildInfos = storyBuildInfos;
-        StoryGamePlaySettings = storyGamePlaySettings;
     }
 
     public ClientBuildInfosRequest(List<BuildInfo> onlineBuildInfos, GamePlaySettings onlineGamePlaySettings, bool hasStory)
@@ -31,6 +24,17 @@ public class ClientBuildInfosRequest : ServerRequestBase
         HasStory = hasStory;
         StoryBuildInfos = null;
         StoryGamePlaySettings = null;
+    }
+
+    public ClientBuildInfosRequest(List<BuildInfo> onlineBuildInfos, GamePlaySettings onlineGamePlaySettings, bool hasStory, List<BuildInfo> storyBuildInfos, GamePlaySettings storyGamePlaySettings, int playerCurrentBuildID, BuildInfo unlockedBuildInfo)
+    {
+        OnlineBuildInfos = onlineBuildInfos;
+        OnlineGamePlaySettings = onlineGamePlaySettings;
+        HasStory = hasStory;
+        StoryBuildInfos = storyBuildInfos;
+        StoryGamePlaySettings = storyGamePlaySettings;
+        PlayerCurrentBuildID = playerCurrentBuildID;
+        UnlockedBuildInfo = unlockedBuildInfo;
     }
 
     public override NetProtocols GetProtocol()
@@ -65,6 +69,8 @@ public class ClientBuildInfosRequest : ServerRequestBase
             }
 
             StoryGamePlaySettings.Serialize(writer);
+            writer.WriteSInt32(PlayerCurrentBuildID);
+            UnlockedBuildInfo.Serialize(writer);
         }
     }
 
@@ -93,6 +99,8 @@ public class ClientBuildInfosRequest : ServerRequestBase
             }
 
             StoryGamePlaySettings = GamePlaySettings.Deserialize(reader);
+            PlayerCurrentBuildID = reader.ReadSInt32();
+            UnlockedBuildInfo = BuildInfo.Deserialize(reader);
         }
     }
 
@@ -116,8 +124,9 @@ public class ClientBuildInfosRequest : ServerRequestBase
             }
 
             log += " [StoryGamePlaySettings]=" + StoryGamePlaySettings.DeserializeLog();
+            log += " [PlayerCurrentBuildID]=" + PlayerCurrentBuildID;
+            log += " [UnlockedBuildInfo]=" + UnlockedBuildInfo.DeserializeLog();
         }
-
         return log;
     }
 }

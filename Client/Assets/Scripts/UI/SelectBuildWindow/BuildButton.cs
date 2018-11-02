@@ -96,18 +96,18 @@ public class BuildButton : PoolObject
     public void AddCard(int cardId)
     {
         BuildInfo.CardIDs.Add(cardId);
-        Text_Count.text = BuildInfo.CardCount().ToString();
+        Text_Count.text = BuildInfo.CardCount.ToString();
     }
 
     public void RemoveCard(int cardId)
     {
         BuildInfo.CardIDs.Remove(cardId);
-        Text_Count.text = BuildInfo.CardCount().ToString();
+        Text_Count.text = BuildInfo.CardCount.ToString();
     }
 
     public void RefreshCardCountText()
     {
-        Text_Count.text = BuildInfo.CardCount().ToString();
+        Text_Count.text = BuildInfo.CardCount.ToString();
     }
 
 }

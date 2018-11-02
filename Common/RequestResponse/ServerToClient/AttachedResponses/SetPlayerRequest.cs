@@ -38,7 +38,7 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteString16(username);
+        writer.WriteString8(username);
         writer.WriteSInt32(clientId);
         writer.WriteSInt32(metalLeft);
         writer.WriteSInt32(metalMax);
@@ -51,7 +51,7 @@
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        username = reader.ReadString16();
+        username = reader.ReadString8();
         clientId = reader.ReadSInt32();
         metalLeft = reader.ReadSInt32();
         metalMax = reader.ReadSInt32();

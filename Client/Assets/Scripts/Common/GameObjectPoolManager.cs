@@ -100,6 +100,12 @@
     public GameObjectPool Pool_ParticleSystemPool;
     public PoolObject ParticleSystemPrefab;
 
+    public GameObjectPool Pool_StoryLevelButtonPool;
+    public PoolObject StoryLevelButtonPrefab;
+
+    public GameObjectPool Pool_StoryLevelColPool;
+    public PoolObject StoryLevelColPrefab;
+
 
     void Awake()
     {
@@ -169,5 +175,9 @@
         Pool_PlayerBuffPool.Initiate(PlayerBuffPrefab, 5);
 
         Pool_ParticleSystemPool.Initiate(ParticleSystemPrefab, 5);
+
+        Pool_StoryLevelButtonPool.Initiate(StoryLevelButtonPrefab, 12);
+
+        Pool_StoryLevelColPool.Initiate(StoryLevelColPrefab, 12);
     }
 }

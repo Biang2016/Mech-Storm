@@ -23,7 +23,7 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
 
     void Awake()
     {
-        BattleCanvas.gameObject.SetActive(false);
+        BattleCanvas.enabled = false;
     }
 
     private void Update()
@@ -43,7 +43,7 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
 
         GameBoardManager.Instance.ChangeBoardBG();
         GameBoardManager.Instance.ShowBattleShip();
-        BattleCanvas.gameObject.SetActive(true);
+        BattleCanvas.enabled = true;
         SetEndRoundButtonState(false);
 
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
@@ -120,7 +120,7 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
         IdleClientPlayer = null;
         RoundNumber = 0;
 
-        BattleCanvas.gameObject.SetActive(false);
+        BattleCanvas.enabled = false;
         GameBoardManager.Instance.ResetAll();
 
         CardDeckManager.Instance.HideAll();

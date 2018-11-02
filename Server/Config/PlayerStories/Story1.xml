@@ -3,17 +3,17 @@
   <StartBuildInfo BuildName="Story1"/>
   <StartUnlockCardInfo BuildName="Story1_Unlock"/>
   <GamePlaySettings 
-    DrawCardPerRound="2"
-    PlayerDefaultCoin="3000"
-    PlayerDefaultLife="20"
-    PlayerDefaultLifeMax="30"
-    PlayerDefaultLifeMin="10"
-    PlayerDefaultEnergy="10"
-    PlayerDefaultEnergyMax="15"
+    DrawCardPerRound="1"
+    DefaultCoin="3000"
+    DefaultLife="20"
+    DefaultLifeMax="30"
+    DefaultLifeMin="10"
+    DefaultEnergy="10"
+    DefaultEnergyMax="15"
 
-    PlayerDefaultDrawCardNum="1"
-    PlayerMinDrawCardNum="1"
-    PlayerMaxDrawCardNum="5"
+    DefaultDrawCardNum="1"
+    MinDrawCardNum="1"
+    MaxDrawCardNum="5"
     />
   <BossInfo name="Boss1" BuildName="EnemyBuild_01"/>
   <BossInfo name="Boss2" BuildName="EnemyBuild_02"/>

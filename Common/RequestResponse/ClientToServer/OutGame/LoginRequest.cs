@@ -26,15 +26,15 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteString16(username);
-        writer.WriteString16(password);
+        writer.WriteString8(username);
+        writer.WriteString8(password);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        username = reader.ReadString16();
-        password = reader.ReadString16();
+        username = reader.ReadString8();
+        password = reader.ReadString8();
     }
 
     public override string DeserializeLog()

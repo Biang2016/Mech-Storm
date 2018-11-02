@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AllBuilds>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="Story1" DrawCardNum="1" Life="100" Energy="20" />
-    <Info name="cardIDs" ids="70201,70201,70201,5101,6900,6400,10101,30201" />
+    <Info name="baseInfo" BuildName="Story1" DrawCardNum="1" Life="50" Energy="10" />
+    <Info name="cardIDs" ids="5401,5600,6400,6901,10301,30201,60101,60301,62101,70101" />
   </BuildInfo>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="Story1_Unlock" DrawCardNum="1" Life="100" Energy="20" />
-    <Info name="cardIDs" ids="70201,70201,70201,5101,6900,6400,10101,30201" />
+    <Info name="baseInfo" BuildName="Story1_Unlock" DrawCardNum="1" Life="20" Energy="10" />
+    <Info name="cardIDs" ids="5401,5600,6400,6901,10301,30201,60101,60301,62101,70101" />
   </BuildInfo>
 </AllBuilds>

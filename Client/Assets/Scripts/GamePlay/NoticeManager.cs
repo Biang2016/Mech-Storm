@@ -10,12 +10,14 @@ public class NoticeManager : MonoSingleton<NoticeManager>
 
     void Awake()
     {
+        InfoCanvas.enabled = true;
         InfoPanelTopAnimator.gameObject.SetActive(true);
         InfoPanelCenterAnimator.gameObject.SetActive(true);
     }
 
     #region InfoPanelTop
 
+    [SerializeField] private Canvas InfoCanvas;
     [SerializeField] private Animator InfoPanelTopAnimator;
     [SerializeField] private Text InfoTextTop;
 

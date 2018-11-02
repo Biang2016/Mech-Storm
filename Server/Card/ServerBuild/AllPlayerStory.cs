@@ -37,22 +37,30 @@ internal class AllPlayerStory
             XmlNode gpsNode = story.ChildNodes.Item(2);
             int DrawCardPerRound = int.Parse(gpsNode.Attributes["DrawCardPerRound"].Value);
 
-            int PlayerDefaultCoin = int.Parse(gpsNode.Attributes["PlayerDefaultCoin"].Value);
-            int PlayerDefaultLife = int.Parse(gpsNode.Attributes["PlayerDefaultLife"].Value);
-            int PlayerDefaultLifeMax = int.Parse(gpsNode.Attributes["PlayerDefaultLifeMax"].Value);
-            int PlayerDefaultLifeMin = int.Parse(gpsNode.Attributes["PlayerDefaultLifeMin"].Value);
-            int PlayerDefaultEnergy = int.Parse(gpsNode.Attributes["PlayerDefaultEnergy"].Value);
-            int PlayerDefaultEnergyMax = int.Parse(gpsNode.Attributes["PlayerDefaultEnergyMax"].Value);
+            int DefaultCoin = int.Parse(gpsNode.Attributes["DefaultCoin"].Value);
+            int DefaultLife = int.Parse(gpsNode.Attributes["DefaultLife"].Value);
+            int DefaultLifeMax = int.Parse(gpsNode.Attributes["DefaultLifeMax"].Value);
+            int DefaultLifeMin = int.Parse(gpsNode.Attributes["DefaultLifeMin"].Value);
+            int DefaultEnergy = int.Parse(gpsNode.Attributes["DefaultEnergy"].Value);
+            int DefaultEnergyMax = int.Parse(gpsNode.Attributes["DefaultEnergyMax"].Value);
+
+            int DefaultDrawCardNum = int.Parse(gpsNode.Attributes["DefaultDrawCardNum"].Value);
+            int MinDrawCardNum = int.Parse(gpsNode.Attributes["MinDrawCardNum"].Value);
+            int MaxDrawCardNum = int.Parse(gpsNode.Attributes["MaxDrawCardNum"].Value);
 
             GamePlaySettings gps = new GamePlaySettings();
             gps.DrawCardPerRound = DrawCardPerRound;
 
-            gps.DefaultCoin = PlayerDefaultCoin;
-            gps.DefaultLife = PlayerDefaultLife;
-            gps.DefaultLifeMax = PlayerDefaultLifeMax;
-            gps.DefaultLifeMin = PlayerDefaultLifeMin;
-            gps.DefaultEnergy = PlayerDefaultEnergy;
-            gps.DefaultEnergyMax = PlayerDefaultEnergyMax;
+            gps.DefaultCoin = DefaultCoin;
+            gps.DefaultLife = DefaultLife;
+            gps.DefaultLifeMax = DefaultLifeMax;
+            gps.DefaultLifeMin = DefaultLifeMin;
+            gps.DefaultEnergy = DefaultEnergy;
+            gps.DefaultEnergyMax = DefaultEnergyMax;
+
+            gps.DefaultDrawCardNum = DefaultDrawCardNum;
+            gps.MinDrawCardNum = MinDrawCardNum;
+            gps.MaxDrawCardNum = MaxDrawCardNum;
 
             List<Boss> Bosses = new List<Boss>();
             for (int i = 3; i < story.ChildNodes.Count; i++)

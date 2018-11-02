@@ -24,13 +24,13 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteString16(username);
+        writer.WriteString8(username);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        username = reader.ReadString16();
+        username = reader.ReadString8();
     }
 
     public override string DeserializeLog()

@@ -353,8 +353,10 @@ public static class AllCards
 
     public static List<int> GetCardSeries(int cardId)
     {
-        List<CardInfo_Base> cis = GetCardSeries(GetCard(cardId));
         List<int> res = new List<int>();
+        CardInfo_Base cb = GetCard(cardId);
+        if (cb == null) return res;
+        List<CardInfo_Base> cis = GetCardSeries(cb);
         foreach (CardInfo_Base ci in cis)
         {
             res.Add(ci.CardID);

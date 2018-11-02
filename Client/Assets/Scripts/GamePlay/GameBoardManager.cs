@@ -20,6 +20,7 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
     public PlayerBuffManager EnemyPlayerBuffManager;
     public GameObject CardDetailPreview;
 
+    [SerializeField] private Canvas WinLostCanvas;
     [SerializeField] private Text WinLostText;
     [SerializeField] private Animator PanelAnimator;
     [SerializeField] private Image WinImage;
@@ -29,6 +30,7 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
 
     void Awake()
     {
+        WinLostCanvas.enabled = true;
         BattleShip.SetActive(false);
         WinImage.enabled = false;
         LostImage.enabled = false;

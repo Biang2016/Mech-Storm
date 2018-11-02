@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public struct BuildInfo
+public class BuildInfo
 {
     public int BuildID;
 
@@ -10,10 +10,11 @@ public struct BuildInfo
     public List<int> CardIDs;
 
     public int CardConsumeCoin;
+    public GamePlaySettings GamePlaySettings;
 
     public int LifeConsumeCoin
     {
-        get { return (Life - GamePlaySettings.OnlineGamePlaySettings.DefaultLifeMin) * GamePlaySettings.LifeToCoin; }
+        get { return (Life - GamePlaySettings.DefaultLifeMin) * GamePlaySettings.LifeToCoin; }
     }
 
     public int EnergyConsumeCoin
@@ -25,32 +26,45 @@ public struct BuildInfo
 
     public int DrawCardNumConsumeCoin
     {
-        get { return GamePlaySettings.DrawCardNumToCoin[DrawCardNum] - GamePlaySettings.DrawCardNumToCoin[GamePlaySettings.OnlineGamePlaySettings.MinDrawCardNum]; }
+        get { return GamePlaySettings.DrawCardNumToCoin[DrawCardNum] - GamePlaySettings.DrawCardNumToCoin[GamePlaySettings.MinDrawCardNum]; }
     }
 
     public int Life;
 
     public int Energy;
 
-    public BuildInfo(int buildID, string buildName, List<int> cardIDs, int cardConsumeCoin, int drawCardNum, int life, int energy)
+    public BuildInfo()
+    {
+
+    }
+
+    public BuildInfo(int buildID, string buildName, List<int> cardIDs, int drawCardNum, int life, int energy, GamePlaySettings gamePlaySettings)
     {
         BuildID = buildID;
         BuildName = buildName;
         CardIDs = cardIDs;
-        CardConsumeCoin = cardConsumeCoin;
         DrawCardNum = drawCardNum;
         Life = life;
         Energy = energy;
+
+        CardConsumeCoin = 0;
+        foreach (int cardID in cardIDs)
+        {
+            CardInfo_Base cb = AllCards.GetCard(cardID);
+            if (cb != null) CardConsumeCoin += AllCards.GetCard(cardID).BaseInfo.Coin;
+        }
+
+        GamePlaySettings = gamePlaySettings;
     }
 
-    public int GetBuildConsumeCoin()
+    public int GetBuildConsumeCoin
     {
-        return CardConsumeCoin + LifeConsumeCoin + EnergyConsumeCoin + DrawCardNumConsumeCoin;
+        get { return CardConsumeCoin + LifeConsumeCoin + EnergyConsumeCoin + DrawCardNumConsumeCoin; }
     }
 
-    public int CardCount()
+    public int CardCount
     {
-        return CardIDs.Count;
+        get { return CardIDs.Count; }
     }
 
     public bool IsEnergyEnough
@@ -68,7 +82,7 @@ public struct BuildInfo
 
     public BuildInfo Clone()
     {
-        return new BuildInfo(BuildID, BuildName, CardIDs.ToArray().ToList(), CardConsumeCoin, DrawCardNum, Life, Energy);
+        return new BuildInfo(BuildID, BuildName, CardIDs.ToArray().ToList(), DrawCardNum, Life, Energy, GamePlaySettings);
     }
 
     public bool EqualsTo(BuildInfo targetBuildInfo)
@@ -93,7 +107,7 @@ public struct BuildInfo
     public void Serialize(DataStream writer)
     {
         writer.WriteSInt32(BuildID);
-        writer.WriteString16(BuildName);
+        writer.WriteString8(BuildName);
         writer.WriteSInt32(CardIDs.Count);
         foreach (int cardID in CardIDs)
         {
@@ -109,7 +123,7 @@ public struct BuildInfo
     public static BuildInfo Deserialize(DataStream reader)
     {
         int BuildID = reader.ReadSInt32();
-        string BuildName = reader.ReadString16();
+        string BuildName = reader.ReadString8();
 
         int cardIdCount = reader.ReadSInt32();
         List<int> CardIDs = new List<int>();
@@ -123,7 +137,7 @@ public struct BuildInfo
         int Life = reader.ReadSInt32();
         int Energy = reader.ReadSInt32();
 
-        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs, CardConsumeCoin, DrawCardNum, Life, Energy);
+        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs, DrawCardNum, Life, Energy, null);
         return buildInfo;
     }
 

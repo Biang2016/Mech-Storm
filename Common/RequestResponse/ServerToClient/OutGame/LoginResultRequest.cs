@@ -26,14 +26,14 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteString16(username);
+        writer.WriteString8(username);
         writer.WriteSInt32((int) stateCode);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        username = reader.ReadString16();
+        username = reader.ReadString8();
         stateCode = (StateCodes) reader.ReadSInt32();
     }
 

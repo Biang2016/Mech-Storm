@@ -168,24 +168,6 @@ public class DataStream
 		return encoding.GetString(bytes);
 	}
 	
-	public void WriteString16(string value)
-	{
-		System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-		byte[] data = encoding.GetBytes(value);
-		WriteInteger(BitConverter.GetBytes((Int16)data.Length));
-		//System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
-		mBinWriter.Write(data);
-	}
-	
-	public string ReadString16()
-	{
-		int len = ReadInt16();
-		byte[] bytes = mBinReader.ReadBytes(len);
-		//  System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
-		System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-		return encoding.GetString(bytes);
-	}
-	
 	private void WriteInteger(byte[] bytes)
 	{
 		if (mBEMode)

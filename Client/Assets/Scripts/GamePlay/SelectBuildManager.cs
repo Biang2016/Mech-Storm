@@ -15,7 +15,8 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
     void Awake()
     {
-        AddAllCards();
+        Canvas.enabled = true;
+        InitAddAllCards();
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         M_StateMachine = new StateMachine();
         Canvas.gameObject.SetActive(false);
@@ -118,6 +119,9 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
             if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
             if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromExitMenu) return;
             if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromStartMenu) return;
+            if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show_Main) return;
+            if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show_Single && Instance.M_CurrentStory == null) return;
+            if (StoryManager.Instance.M_StateMachine.GetState() == StoryManager.StateMachine.States.Show) return;
             if (state == States.Hide || state == States.HideForPlay)
             {
                 if (Input.GetKeyUp(KeyCode.Tab))
@@ -344,7 +348,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
     #region 卡片初始化
 
-    public void AddAllCards()
+    public void InitAddAllCards()
     {
         foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
@@ -355,20 +359,72 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         }
     }
 
-    public void AddUnlockedCards(BuildInfo unlockedBuildInfo)
+    public void UnlockAllCards()
     {
-        HashSet<int> unlockedCardIds = new HashSet<int>();
-        foreach (int cardID in unlockedBuildInfo.CardIDs)
+        List<int> CardIDs = new List<int>();
+        foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
-            unlockedCardIds.Add(cardID);
-            allCards[cardID].gameObject.SetActive(true);
+            if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
+            if (cardInfo.UpgradeInfo.CardLevel > 1) continue;
+            if (cardInfo.BaseInfo.Hide) continue;
+            CardIDs.Add(cardInfo.CardID);
         }
 
-        foreach (int cardID in allCards.Keys)
+        UnlockedCards(CardIDs);
+    }
+
+    private void LockAllCards()
+    {
+        foreach (CardBase cardBase in allCards.Values)
         {
-            if (!unlockedCardIds.Contains(cardID))
+            cardBase.gameObject.SetActive(false);
+        }
+
+        allUnlockedCards.Clear();
+    }
+
+    public void UnlockedCards(List<int> CardIDs)
+    {
+        foreach (int cardID in CardIDs)
+        {
+            CardBase cb = null;
+            if (!allCards.ContainsKey(cardID))
             {
-                allCards[cardID].gameObject.SetActive(false);
+                List<int> cardSeriesId = AllCards.GetCardSeries(cardID);
+                foreach (int id in cardSeriesId)
+                {
+                    if (allCards.ContainsKey(id))
+                    {
+                        cb = allCards[id];
+                        if (!cb.gameObject.activeSelf)
+                        {
+                            allCards.Remove(id);
+                            allCards.Add(cardID, cb);
+                            cb.Initiate(AllCards.GetCard(cardID), cb.ClientPlayer, true);
+                            RefreshCardInSelectWindow(cb, true);
+                        }
+
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                cb = allCards[cardID];
+            }
+
+            if (cb != null)
+            {
+                if (!allUnlockedCards.ContainsKey(cardID))
+                {
+                    allUnlockedCards.Add(cardID, cb);
+                }
+                else
+                {
+                    allUnlockedCards[cardID] = cb;
+                }
+
+                cb.gameObject.SetActive(true);
             }
         }
     }

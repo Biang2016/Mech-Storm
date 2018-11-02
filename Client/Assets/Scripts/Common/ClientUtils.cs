@@ -11,6 +11,12 @@ class ClientUtils
         return cl;
     }
 
+    public static Color GetColorFromColorDict(AllColors.ColorType ct)
+    {
+        string color = AllColors.ColorDict[ct];
+        return HTMLColorToColor(color);
+    }
+
     public static void ChangePicture(Renderer rd, Texture tx)
     {
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
