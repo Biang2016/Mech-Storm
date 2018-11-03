@@ -200,12 +200,12 @@ internal class ClientProxy : ProxyBase
                                     if (Database.Instance.PlayerStoryStates.ContainsKey(username))
                                     {
                                         Story story = Database.Instance.PlayerStoryStates[username];
-                                        ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), GamePlaySettings.OnlineGamePlaySettings, true, story.PlayerBuildInfos, story.StoryGamePlaySettings, story.PlayerCurrentBuildInfo.BuildID, story.PlayerCurrentUnlockedBuildInfo);
+                                        ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), username == "StoryAdmin" ? GamePlaySettings.OnlineGamePlaySettings : GamePlaySettings.ServerGamePlaySettings, true, story);
                                         SendMessage(request1);
                                     }
                                     else
                                     {
-                                        ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), GamePlaySettings.OnlineGamePlaySettings, false);
+                                        ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), username == "StoryAdmin" ? GamePlaySettings.OnlineGamePlaySettings : GamePlaySettings.ServerGamePlaySettings, false);
                                         SendMessage(request1);
                                     }
                                 }
@@ -255,17 +255,12 @@ internal class ClientProxy : ProxyBase
                 case StartNewStoryRequest _:
                 {
                     Story newStory = Database.Instance.StoryStartDict["Story1"].Clone();
-                    if (Database.Instance.PlayerStoryStates.ContainsKey(UserName))
-                    {
-                        Database.Instance.PlayerStoryStates[UserName] = newStory;
-                    }
-                    else
-                    {
-                        Database.Instance.PlayerStoryStates.Add(UserName, newStory);
-                    }
+                    Database.Instance.RemovePlayerStory(UserName, this);
+                    Database.Instance.PlayerStoryStates.Add(UserName, newStory);
 
-                    newStory.PlayerBuildInfos.Add(newStory.PlayerCurrentBuildInfo);
-                    StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(newStory.StoryGamePlaySettings, newStory.PlayerCurrentBuildInfo, newStory.PlayerCurrentUnlockedBuildInfo);
+                    newStory.PlayerBuildInfos.Add(newStory.PlayerCurrentBuildInfo.BuildID, newStory.PlayerCurrentBuildInfo);
+                    Database.Instance.BuildInfoDict.Add(newStory.PlayerCurrentBuildInfo.BuildID, newStory.PlayerCurrentBuildInfo);
+                    StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(newStory);
                     SendMessage(response);
                     break;
                 }
@@ -275,7 +270,7 @@ internal class ClientProxy : ProxyBase
                     BuildRequest request = (BuildRequest) r;
                     if (request.BuildInfo.BuildID == -1)
                     {
-                        request.BuildInfo.BuildID = Database.Instance.GenerateBuildID();
+                        request.BuildInfo.BuildID = BuildInfo.GenerateBuildID();
                         CreateBuildRequestResponse response = new CreateBuildRequestResponse(request.BuildInfo.BuildID);
                         SendMessage(response);
                     }
@@ -288,7 +283,7 @@ internal class ClientProxy : ProxyBase
                     string username = Database.Instance.GetUsernameByClientId(ClientId);
                     if (username != null)
                     {
-                        Database.Instance.AddOrModifyBuild(username, request.BuildInfo);
+                        Database.Instance.AddOrModifyBuild(username, request.BuildInfo, request.isSingle);
                     }
                     else
                     {
@@ -301,7 +296,7 @@ internal class ClientProxy : ProxyBase
                 case DeleteBuildRequest _:
                 {
                     DeleteBuildRequest request = (DeleteBuildRequest) r;
-                    Database.Instance.DeleteBuild(username, request.buildID);
+                    Database.Instance.DeleteBuild(username, request.buildID, request.isSingle);
                     DeleteBuildRequestResponse response = new DeleteBuildRequestResponse(request.buildID);
                     SendMessage(response);
                     break;
@@ -340,9 +335,9 @@ internal class ClientProxy : ProxyBase
                     if (ClientState == ClientStates.Login)
                     {
                         MatchStandAloneRequest request = (MatchStandAloneRequest) r;
-                        CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.buildID);
+                        CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.BuildID);
                         ClientState = ClientStates.Matching;
-                        Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.isResume);
+                        Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.LevelID, request.BossID);
                     }
 
                     break;

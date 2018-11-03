@@ -3,15 +3,11 @@ using System.Runtime.CompilerServices;
 
 public class ClientBuildInfosRequest : ServerRequestBase
 {
-    public List<BuildInfo> OnlineBuildInfos;
+    public SortedDictionary<int, BuildInfo> OnlineBuildInfos = new SortedDictionary<int, BuildInfo>();
     public GamePlaySettings OnlineGamePlaySettings;
 
     public bool HasStory;
-    public List<BuildInfo> StoryBuildInfos;
-    public GamePlaySettings StoryGamePlaySettings;
-
-    public int PlayerCurrentBuildID;
-    public BuildInfo UnlockedBuildInfo;
+    public Story Story;
 
     public ClientBuildInfosRequest()
     {
@@ -19,22 +15,25 @@ public class ClientBuildInfosRequest : ServerRequestBase
 
     public ClientBuildInfosRequest(List<BuildInfo> onlineBuildInfos, GamePlaySettings onlineGamePlaySettings, bool hasStory)
     {
-        OnlineBuildInfos = onlineBuildInfos;
+        foreach (BuildInfo bi in onlineBuildInfos)
+        {
+            OnlineBuildInfos.Add(bi.BuildID, bi);
+        }
+
         OnlineGamePlaySettings = onlineGamePlaySettings;
         HasStory = hasStory;
-        StoryBuildInfos = null;
-        StoryGamePlaySettings = null;
     }
 
-    public ClientBuildInfosRequest(List<BuildInfo> onlineBuildInfos, GamePlaySettings onlineGamePlaySettings, bool hasStory, List<BuildInfo> storyBuildInfos, GamePlaySettings storyGamePlaySettings, int playerCurrentBuildID, BuildInfo unlockedBuildInfo)
+    public ClientBuildInfosRequest(List<BuildInfo> onlineBuildInfos, GamePlaySettings onlineGamePlaySettings, bool hasStory, Story story)
     {
-        OnlineBuildInfos = onlineBuildInfos;
+        foreach (BuildInfo bi in onlineBuildInfos)
+        {
+            OnlineBuildInfos.Add(bi.BuildID, bi);
+        }
+
         OnlineGamePlaySettings = onlineGamePlaySettings;
         HasStory = hasStory;
-        StoryBuildInfos = storyBuildInfos;
-        StoryGamePlaySettings = storyGamePlaySettings;
-        PlayerCurrentBuildID = playerCurrentBuildID;
-        UnlockedBuildInfo = unlockedBuildInfo;
+        Story = story;
     }
 
     public override NetProtocols GetProtocol()
@@ -51,7 +50,7 @@ public class ClientBuildInfosRequest : ServerRequestBase
     {
         base.Serialize(writer);
         writer.WriteSInt32(OnlineBuildInfos.Count);
-        foreach (BuildInfo buildInfo in OnlineBuildInfos)
+        foreach (BuildInfo buildInfo in OnlineBuildInfos.Values)
         {
             buildInfo.Serialize(writer);
         }
@@ -62,15 +61,7 @@ public class ClientBuildInfosRequest : ServerRequestBase
 
         if (HasStory)
         {
-            writer.WriteSInt32(StoryBuildInfos.Count);
-            foreach (BuildInfo buildInfo in StoryBuildInfos)
-            {
-                buildInfo.Serialize(writer);
-            }
-
-            StoryGamePlaySettings.Serialize(writer);
-            writer.WriteSInt32(PlayerCurrentBuildID);
-            UnlockedBuildInfo.Serialize(writer);
+            Story.Serialize(writer);
         }
     }
 
@@ -78,11 +69,11 @@ public class ClientBuildInfosRequest : ServerRequestBase
     {
         base.Deserialize(reader);
         int count = reader.ReadSInt32();
-        OnlineBuildInfos = new List<BuildInfo>();
+        OnlineBuildInfos = new SortedDictionary<int, BuildInfo>();
         for (int i = 0; i < count; i++)
         {
             BuildInfo bi = BuildInfo.Deserialize(reader);
-            OnlineBuildInfos.Add(bi);
+            OnlineBuildInfos.Add(bi.BuildID, bi);
         }
 
         OnlineGamePlaySettings = GamePlaySettings.Deserialize(reader);
@@ -90,17 +81,7 @@ public class ClientBuildInfosRequest : ServerRequestBase
         HasStory = reader.ReadByte() == 0x01;
         if (HasStory)
         {
-            count = reader.ReadSInt32();
-            StoryBuildInfos = new List<BuildInfo>();
-            for (int i = 0; i < count; i++)
-            {
-                BuildInfo bi = BuildInfo.Deserialize(reader);
-                StoryBuildInfos.Add(bi);
-            }
-
-            StoryGamePlaySettings = GamePlaySettings.Deserialize(reader);
-            PlayerCurrentBuildID = reader.ReadSInt32();
-            UnlockedBuildInfo = BuildInfo.Deserialize(reader);
+            Story = Story.Deserialize(reader);
         }
     }
 
@@ -108,7 +89,7 @@ public class ClientBuildInfosRequest : ServerRequestBase
     {
         string log = base.DeserializeLog();
         log += " [OnlineBuildInfoNum]=" + OnlineBuildInfos.Count;
-        foreach (BuildInfo buildInfo in OnlineBuildInfos)
+        foreach (BuildInfo buildInfo in OnlineBuildInfos.Values)
         {
             log += buildInfo.DeserializeLog();
         }
@@ -117,16 +98,9 @@ public class ClientBuildInfosRequest : ServerRequestBase
         log += " [HasStory]=" + HasStory;
         if (HasStory)
         {
-            log += " [StoryBuildInfoNum]=" + OnlineBuildInfos.Count;
-            foreach (BuildInfo buildInfo in StoryBuildInfos)
-            {
-                log += buildInfo.DeserializeLog();
-            }
-
-            log += " [StoryGamePlaySettings]=" + StoryGamePlaySettings.DeserializeLog();
-            log += " [PlayerCurrentBuildID]=" + PlayerCurrentBuildID;
-            log += " [UnlockedBuildInfo]=" + UnlockedBuildInfo.DeserializeLog();
+            log += Story.DeserializeLog();
         }
+
         return log;
     }
 }

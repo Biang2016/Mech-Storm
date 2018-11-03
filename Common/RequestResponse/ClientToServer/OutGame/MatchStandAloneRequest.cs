@@ -1,15 +1,21 @@
 ﻿public class MatchStandAloneRequest : ClientRequestBase
 {
-    public int buildID;
-    public bool isResume;
+    public int ClientID;
+    public int BuildID;
+    public int LevelID;
+    public int BossID;
 
-    public MatchStandAloneRequest() : base()
+
+    public MatchStandAloneRequest()
     {
     }
 
-    public MatchStandAloneRequest(int clientID, int buildID) : base(clientID)
+    public MatchStandAloneRequest(int clientID, int buildID, int levelID, int bossID) : base(clientID)
     {
-        this.buildID = buildID;
+        ClientID = clientID;
+        BuildID = buildID;
+        LevelID = levelID;
+        BossID = bossID;
     }
 
     public override NetProtocols GetProtocol()
@@ -25,19 +31,25 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(buildID);
+        writer.WriteSInt32(BuildID);
+        writer.WriteSInt32(LevelID);
+        writer.WriteSInt32(BossID);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        buildID = reader.ReadSInt32();
+        BuildID = reader.ReadSInt32();
+        LevelID = reader.ReadSInt32();
+        BossID = reader.ReadSInt32();
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [buildID]=" + buildID;
+        log += " [BuildID]=" + BuildID;
+        log += " [LevelID]=" + LevelID;
+        log += " [BossID]=" + BossID;
         return log;
     }
 }

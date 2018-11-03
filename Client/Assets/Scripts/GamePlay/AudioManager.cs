@@ -139,7 +139,7 @@ public class AudioManager : MonoSingleton<AudioManager>
         BGMLoop = StartCoroutine(Co_BGMLoopInList(bgmNames, volume));
     }
 
-    IEnumerator Co_BGMLoopInList(List<string> bgmNames,float volume=1.0f)
+    IEnumerator Co_BGMLoopInList(List<string> bgmNames, float volume = 1.0f)
     {
         if (bgmNames.Count == 1)
         {

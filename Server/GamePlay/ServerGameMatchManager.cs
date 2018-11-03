@@ -74,7 +74,7 @@ internal class ServerGameMatchManager
     List<ServerGameManager> SMGS_Standalone = new List<ServerGameManager>();
     Dictionary<int, ServerGameManager> clientGameMapping_Standalone = new Dictionary<int, ServerGameManager>();
 
-    public void OnClientMatchStandAloneGames(ClientProxy clientProxy,bool isResume)
+    public void OnClientMatchStandAloneGames(ClientProxy clientProxy, int LevelID, int BossID)
     {
 #if DEBUG
         ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " begin standalone game.");
@@ -82,14 +82,11 @@ internal class ServerGameMatchManager
         ClientProxy clientA = clientProxy;
         int AI_ClientId = Server.SV.GenerateClientId();
         ClientProxy clientB = new ClientProxyAI(AI_ClientId, false);
-        if (isResume)
-        {
-            clientB.CurrentBuildInfo = Database.Instance.SpecialBuildsDict["ServerAdmin"].GetBuildInfo("EnemyBuild_02");
-        }
-        else
-        {
-            clientB.CurrentBuildInfo = Database.Instance.SpecialBuildsDict["ServerAdmin"].GetBuildInfo("EnemyBuild_01");
-        }
+
+        string bossBuildName = Database.Instance.PlayerStoryStates[clientProxy.UserName].Levels[LevelID].Bosses[BossID].BuildName;
+        BuildInfo buildInfo = Database.Instance.SpecialBuildsDict["ServerAdmin"].GetBuildInfo(bossBuildName).Clone();
+        clientB.CurrentBuildInfo = buildInfo;
+
         ServerGameManager sgm = new ServerGameManager(clientA, clientB);
         SMGS_Standalone.Add(sgm);
         clientGameMapping_Standalone.Add(clientA.ClientId, sgm);

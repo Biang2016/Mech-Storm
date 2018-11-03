@@ -1,14 +1,16 @@
 ﻿public class DeleteBuildRequest : ClientRequestBase
 {
     public int buildID;
+    public bool isSingle;
 
     public DeleteBuildRequest() : base()
     {
     }
 
-    public DeleteBuildRequest(int clientID, int buildID) : base(clientID)
+    public DeleteBuildRequest(int clientID, int buildID, bool isSingle) : base(clientID)
     {
         this.buildID = buildID;
+        this.isSingle = isSingle;
     }
 
     public override NetProtocols GetProtocol()
@@ -25,18 +27,21 @@
     {
         base.Serialize(writer);
         writer.WriteSInt32(buildID);
+        writer.WriteByte((byte) (isSingle ? 0x01 : 0x00));
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         buildID = reader.ReadSInt32();
+        isSingle = reader.ReadByte() == 0x01;
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
         log += " [buildID]=" + buildID;
+        log += " [isSingle]=" + isSingle;
         return log;
     }
 }

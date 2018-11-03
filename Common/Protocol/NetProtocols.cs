@@ -19,6 +19,8 @@
     BUILD_UPDATE_RESPONSE, //更新卡组
     DELETE_BUILD_REQUEST_RESPONSE, //删除卡组
 
+    BEAT_BOSS_REQUSET, //打败BOSS
+
     #endregion
 
     # region Client
@@ -33,6 +35,7 @@
     LOGOUT_REQUEST, //登出
     START_NEW_STORY_REQUEST, //开始新故事
     BUILD_REQUEST, //编辑卡组
+    SINGLE_BUILD_REQUEST, //编辑单机卡组
     DELETE_BUILD_REQUEST, //删除卡组
 
     #endregion

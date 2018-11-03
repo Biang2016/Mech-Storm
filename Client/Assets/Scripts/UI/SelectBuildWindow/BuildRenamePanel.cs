@@ -21,7 +21,7 @@ public class BuildRenamePanel : MonoBehaviour
         if (!string.IsNullOrEmpty(InputField.text))
         {
             currentEditBuildInfo.BuildName = InputField.text;
-            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, currentEditBuildInfo);
+            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, currentEditBuildInfo, SelectBuildManager.Instance.GameMode_State == SelectBuildManager.GameMode.Single);
             Client.Instance.Proxy.SendMessage(request);
             HidePanel();
         }

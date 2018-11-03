@@ -120,7 +120,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
             if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromExitMenu) return;
             if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromStartMenu) return;
             if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show_Main) return;
-            if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show_Single && Instance.M_CurrentStory == null) return;
+            if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show_Single && StoryManager.Instance.M_CurrentStory == null) return;
             if (StoryManager.Instance.M_StateMachine.GetState() == StoryManager.StateMachine.States.Show) return;
             if (state == States.Hide || state == States.HideForPlay)
             {

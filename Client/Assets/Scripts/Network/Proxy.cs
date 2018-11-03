@@ -51,7 +51,7 @@ public class Proxy : ProxyBase
 
     public void OnSendBuildInfo(BuildInfo buildInfo)
     {
-        BuildRequest req = new BuildRequest(ClientId, buildInfo);
+        BuildRequest req = new BuildRequest(ClientId, buildInfo, SelectBuildManager.Instance.GameMode_State == SelectBuildManager.GameMode.Single);
         SendMessage(req);
         ClientState = ClientStates.Login;
     }
@@ -64,10 +64,10 @@ public class Proxy : ProxyBase
         ClientState = ClientStates.Matching;
     }
 
-    public void OnBeginSingleMode()
+    public void OnBeginSingleMode(int levelID, int bossID)
     {
         ClientRequestBase req = null;
-        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID);
+        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID, levelID, bossID);
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
@@ -174,13 +174,11 @@ public class Proxy : ProxyBase
                 case NetProtocols.START_NEW_STORY_REQUEST_RESPONSE:
                 {
                     StartNewStoryRequestResponse request = (StartNewStoryRequestResponse) r;
-                    SelectBuildManager.Instance.M_CurrentStory = new SelectBuildManager.Story();
-                    SelectBuildManager.Instance.M_CurrentStory.SingleGamePlaySettings = request.GamePlaySettings;
-                    SelectBuildManager.Instance.M_CurrentStory.SingleBuildInfos = new List<BuildInfo> {request.DefaultBuildInfo};
-                    SelectBuildManager.Instance.M_CurrentStory.SingleUnlockedBuildInfo = request.UnlockedBuildInfo;
-                    SelectBuildManager.Instance.M_CurrentStory.SingleCurrentBuildID = request.DefaultBuildInfo.BuildID;
+                    StoryManager.Instance.InitiateStoryCanvas(request.Story);
+                    SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Online);
                     SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single);
                     StartMenuManager.Instance.M_StateMachine.RefreshStoryState();
+                    AudioManager.Instance.SoundPlay("sfx/OnStoryStart");
                     break;
                 }
                 case NetProtocols.CREATE_BUILD_REQUEST_RESPONSE:
@@ -209,15 +207,12 @@ public class Proxy : ProxyBase
                     SelectBuildManager.Instance.M_CurrentOnlineCompete.OnlineBuildInfos = request.OnlineBuildInfos;
                     if (request.HasStory)
                     {
-                        SelectBuildManager.Instance.M_CurrentStory = new SelectBuildManager.Story();
-                        SelectBuildManager.Instance.M_CurrentStory.SingleGamePlaySettings = request.StoryGamePlaySettings;
-                        SelectBuildManager.Instance.M_CurrentStory.SingleBuildInfos = request.StoryBuildInfos;
-                        SelectBuildManager.Instance.M_CurrentStory.SingleUnlockedBuildInfo = request.UnlockedBuildInfo;
-                        SelectBuildManager.Instance.M_CurrentStory.SingleCurrentBuildID = request.PlayerCurrentBuildID;
+                        StoryManager.Instance.M_CurrentStory = request.Story;
+                        StoryManager.Instance.InitiateStoryCanvas(request.Story);
                     }
                     else
                     {
-                        SelectBuildManager.Instance.M_CurrentStory = null;
+                        StoryManager.Instance.M_CurrentStory = null;
                     }
 
                     break;

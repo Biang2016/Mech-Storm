@@ -14,19 +14,42 @@ public class StoryLevelButton : PoolObject
 
     void Awake()
     {
+        Button.onClick.AddListener(delegate { OnButtonClick(); });
     }
 
     [SerializeField] private Button Button;
     [SerializeField] private Image Image;
+    [SerializeField] private Material ImageGrayMaterial;
+    [SerializeField] private Material UIDefault;
     [SerializeField] private Animator Anim;
 
-    private Color Ori_Color;
 
-    public void Initialize(Color color, int picID)
+    public Boss M_BossInfo;
+
+    public void Initialize(Boss bossInfo)
     {
-        Ori_Color = color;
-        Button.image.color = color;
-        ClientUtils.ChangePicture(Image, picID);
+        M_BossInfo = bossInfo;
+        ClientUtils.ChangePicture(Image, bossInfo.PicID);
         Anim.SetTrigger("Born");
+        BeDim();
     }
+
+    public void BeDim()
+    {
+        Image.material = ImageGrayMaterial;
+    }
+
+    public void BeBright()
+    {
+        Image.material = UIDefault;
+    }
+
+    public void OnHover()
+    {
+        AudioManager.Instance.SoundPlay("sfx/OnHoverStoryButton");
+    }
+
+    public delegate void StoryButtonClickHandler();
+
+    public StoryButtonClickHandler OnButtonClick;
 }

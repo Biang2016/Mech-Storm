@@ -114,6 +114,9 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffectManager.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeRandom_Base.cs" />
     <Compile Include="GamePlay\Player.cs" />
+    <Compile Include="GamePlay\Story\Boss.cs" />
+    <Compile Include="GamePlay\Story\Level.cs" />
+    <Compile Include="GamePlay\Story\Story.cs" />
     <Compile Include="Protocol\Const.cs" />
     <Compile Include="Protocol\ProxyBase.cs" />
     <Compile Include="GamePlay\GamePlaySettings.cs" />
@@ -177,6 +180,7 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\DropCardRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\BattleGroundAddRetinueRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueDieRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\OutGame\BeatBossRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\BuildUpdateRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\StartNewStoryRequestResponse.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\CreateBuildRequestResponse.cs" />

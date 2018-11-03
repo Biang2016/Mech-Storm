@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <Story>
-  <StartBuildInfo BuildName="Story1"/>
-  <StartUnlockCardInfo BuildName="Story1_Unlock"/>
-  <GamePlaySettings 
+  <StartBuildInfo BuildName="Story1" />
+  <StartUnlockCardInfo BuildName="Story1_Unlock" />
+  <GamePlaySettings
     DrawCardPerRound="1"
     DefaultCoin="3000"
     DefaultLife="20"
@@ -13,8 +14,48 @@
 
     DefaultDrawCardNum="1"
     MinDrawCardNum="1"
-    MaxDrawCardNum="5"
-    />
-  <BossInfo name="Boss1" BuildName="EnemyBuild_01"/>
-  <BossInfo name="Boss2" BuildName="EnemyBuild_02"/>
+    MaxDrawCardNum="5" />
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="53" />
+  </Level>
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="1" />
+    <BossInfo name="Boss2" BuildName="EnemyBuild_02" picID="2" />
+    <BossInfo name="Boss3" BuildName="EnemyBuild_03" picID="3" />
+  </Level>
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="4" />
+  </Level>
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="6" />
+    <BossInfo name="Boss2" BuildName="EnemyBuild_02" picID="7" />
+  </Level>
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="4" />
+  </Level>
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="4" />
+  </Level>
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="6" />
+    <BossInfo name="Boss2" BuildName="EnemyBuild_02" picID="7" />
+  </Level>
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="6" />
+    <BossInfo name="Boss2" BuildName="EnemyBuild_02" picID="7" />
+  </Level>
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="1" />
+    <BossInfo name="Boss2" BuildName="EnemyBuild_02" picID="2" />
+    <BossInfo name="Boss3" BuildName="EnemyBuild_03" picID="3" />
+  </Level>
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="1" />
+    <BossInfo name="Boss2" BuildName="EnemyBuild_02" picID="2" />
+    <BossInfo name="Boss3" BuildName="EnemyBuild_03" picID="3" />
+  </Level>
+  <Level>
+    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="6" />
+    <BossInfo name="Boss2" BuildName="EnemyBuild_02" picID="7" />
+  </Level>
 </Story>

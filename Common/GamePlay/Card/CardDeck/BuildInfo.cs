@@ -3,6 +3,13 @@ using System.Linq;
 
 public class BuildInfo
 {
+    private static int BuildIdIndex = 1;
+
+    public static int GenerateBuildID()
+    {
+        return BuildIdIndex++;
+    }
+
     public int BuildID;
 
     public string BuildName;
@@ -35,7 +42,6 @@ public class BuildInfo
 
     public BuildInfo()
     {
-
     }
 
     public BuildInfo(int buildID, string buildName, List<int> cardIDs, int drawCardNum, int life, int energy, GamePlaySettings gamePlaySettings)
@@ -82,13 +88,13 @@ public class BuildInfo
 
     public BuildInfo Clone()
     {
-        return new BuildInfo(BuildID, BuildName, CardIDs.ToArray().ToList(), DrawCardNum, Life, Energy, GamePlaySettings);
+        return new BuildInfo(GenerateBuildID(), BuildName, CardIDs.ToArray().ToList(), DrawCardNum, Life, Energy, GamePlaySettings);
     }
 
     public bool EqualsTo(BuildInfo targetBuildInfo)
     {
         if (BuildID != targetBuildInfo.BuildID) return false;
-        if (!BuildName.Equals(targetBuildInfo.BuildName)) return false;
+        if (BuildName != targetBuildInfo.BuildName) return false;
         if (DrawCardNum != targetBuildInfo.DrawCardNum) return false;
         if (Life != targetBuildInfo.Life) return false;
         if (Energy != targetBuildInfo.Energy) return false;

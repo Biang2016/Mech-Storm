@@ -62,74 +62,34 @@ internal class AllPlayerStory
             gps.MinDrawCardNum = MinDrawCardNum;
             gps.MaxDrawCardNum = MaxDrawCardNum;
 
-            List<Boss> Bosses = new List<Boss>();
+            List<Level> Levels = new List<Level>();
+            int levelID = 1;
             for (int i = 3; i < story.ChildNodes.Count; i++)
             {
-                XmlNode bossInfo = story.ChildNodes.Item(i);
-                Boss Boss = new Boss();
-                Boss.Name = bossInfo.Attributes["name"].Value;
-                Boss.BuildName = bossInfo.Attributes["BuildName"].Value;
-                Bosses.Add(Boss);
+                Level level = new Level();
+                XmlNode levelInfo = story.ChildNodes.Item(i);
+
+                level.LevelID = levelID;
+
+                level.Bosses = new List<Boss>();
+                for (int j = 0; j < levelInfo.ChildNodes.Count; j++)
+                {
+                    XmlNode bossInfo = levelInfo.ChildNodes.Item(j);
+                    Boss Boss = new Boss();
+                    Boss.Name = bossInfo.Attributes["name"].Value;
+                    Boss.BuildName = bossInfo.Attributes["BuildName"].Value;
+                    Boss.PicID = int.Parse(bossInfo.Attributes["picID"].Value);
+                    level.Bosses.Add(Boss);
+                }
+
+                Levels.Add(level);
+                levelID++;
             }
 
-            Story newStory = new Story(Bosses.ToArray(), playerDefaultBuildId, playerDefaultUnlockedBuildID, gps);
+            BuildInfo PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultBuildId).Clone();
+            BuildInfo PlayerCurrentUnlockedBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultUnlockedBuildID).Clone();
+            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo, PlayerCurrentUnlockedBuildInfo, gps);
             Database.Instance.StoryStartDict.Add(pureName, newStory);
-        }
-    }
-}
-
-public struct Boss
-{
-    public string Name;
-    public string BuildName;
-}
-
-public class Story
-{
-    public List<Boss> Bosses = new List<Boss>();
-    public List<Boss> BeatBosses = new List<Boss>();
-    public List<Boss> RemainingBosses = new List<Boss>();
-
-    public BuildInfo PlayerCurrentBuildInfo;
-    public BuildInfo PlayerCurrentUnlockedBuildInfo;
-
-    public List<BuildInfo> PlayerBuildInfos = new List<BuildInfo>();
-
-    public GamePlaySettings StoryGamePlaySettings = new GamePlaySettings();
-
-    public Story(Boss[] bossArr, int playerCurrentBuildID, int playerDefaultUnlockedBuildID, GamePlaySettings gamePlaySettings)
-    {
-        Bosses = bossArr.ToList();
-        RemainingBosses = bossArr.ToList();
-
-        PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerCurrentBuildID).Clone();
-        PlayerCurrentBuildInfo.BuildID = Database.Instance.GenerateBuildID();
-        Database.Instance.BuildInfoDict.Add(PlayerCurrentBuildInfo.BuildID, PlayerCurrentBuildInfo);
-
-        PlayerCurrentUnlockedBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultUnlockedBuildID).Clone();
-        PlayerCurrentUnlockedBuildInfo.BuildID = Database.Instance.GenerateBuildID();
-        Database.Instance.BuildInfoDict.Add(PlayerCurrentUnlockedBuildInfo.BuildID, PlayerCurrentUnlockedBuildInfo);
-
-        StoryGamePlaySettings = gamePlaySettings.Clone();
-    }
-
-    public Story Clone()
-    {
-        return new Story(Bosses.ToArray(), PlayerCurrentBuildInfo.BuildID, PlayerCurrentUnlockedBuildInfo.BuildID, StoryGamePlaySettings.Clone());
-    }
-
-    public void BeatBoss(Boss boss)
-    {
-        Bosses.Remove(boss);
-        BeatBosses.Add(boss);
-        RemainingBosses.Remove(boss);
-    }
-
-    public void UnlockCard(int cardID)
-    {
-        if (!PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(cardID))
-        {
-            PlayerCurrentUnlockedBuildInfo.CardIDs.Add(cardID);
         }
     }
 }

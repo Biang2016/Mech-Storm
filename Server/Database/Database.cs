@@ -22,7 +22,6 @@ internal class Database
                 foreach (int playerDefaultBuildID in SpecialBuildsDict["PlayerAdmin"].Builds.Values)
                 {
                     BuildInfo newBI = BuildInfoDict[playerDefaultBuildID].Clone();
-                    newBI.BuildID = GenerateBuildID();
                     BuildInfoDict.Add(newBI.BuildID, newBI);
                     AddOrModifyBuild(username, newBI);
                 }
@@ -98,7 +97,7 @@ internal class Database
 
     public Dictionary<int, BuildInfo> BuildInfoDict = new Dictionary<int, BuildInfo>();
 
-    public void AddOrModifyBuild(string username, BuildInfo buildInfo)
+    public void AddOrModifyBuild(string username, BuildInfo buildInfo, bool isSingle = false)
     {
         if (!BuildInfoDict.ContainsKey(buildInfo.BuildID))
         {
@@ -109,14 +108,32 @@ internal class Database
             BuildInfoDict[buildInfo.BuildID] = buildInfo;
         }
 
-        if (!PlayerBuilds.ContainsKey(username))
+        if (!isSingle)
         {
-            PlayerBuilds.Add(username, new List<int>());
-        }
+            if (!PlayerBuilds.ContainsKey(username))
+            {
+                PlayerBuilds.Add(username, new List<int>());
+            }
 
-        if (!PlayerBuilds[username].Contains(buildInfo.BuildID))
+            if (!PlayerBuilds[username].Contains(buildInfo.BuildID))
+            {
+                PlayerBuilds[username].Add(buildInfo.BuildID);
+            }
+        }
+        else
         {
-            PlayerBuilds[username].Add(buildInfo.BuildID);
+            if (PlayerStoryStates.ContainsKey(username))
+            {
+                Story story = PlayerStoryStates[username];
+                if (!story.PlayerBuildInfos.ContainsKey(buildInfo.BuildID))
+                {
+                    story.PlayerBuildInfos.Add(buildInfo.BuildID, buildInfo);
+                }
+                else
+                {
+                    story.PlayerBuildInfos[buildInfo.BuildID] = buildInfo;
+                }
+            }
         }
 
         if (SpecialBuildsDict.ContainsKey(username))
@@ -131,7 +148,7 @@ internal class Database
         }
     }
 
-    public void DeleteBuild(string username, int buildID)
+    public void DeleteBuild(string username, int buildID, bool isSingle = false)
     {
         if (SpecialBuildsDict.ContainsKey(username))
         {
@@ -143,11 +160,21 @@ internal class Database
             BuildInfoDict.Remove(buildID);
         }
 
-        if (PlayerBuilds.ContainsKey(username))
+        if (!isSingle)
         {
-            if (PlayerBuilds[username].Contains(buildID))
+            if (PlayerBuilds.ContainsKey(username))
             {
-                PlayerBuilds[username].Remove(buildID);
+                if (PlayerBuilds[username].Contains(buildID))
+                {
+                    PlayerBuilds[username].Remove(buildID);
+                }
+            }
+        }
+        else
+        {
+            if (PlayerStoryStates.ContainsKey(username))
+            {
+                PlayerStoryStates[username].PlayerBuildInfos.Remove(buildID);
             }
         }
 
@@ -161,13 +188,6 @@ internal class Database
     {
         BuildInfoDict.TryGetValue(buildId, out BuildInfo buildInfo);
         return buildInfo;
-    }
-
-    private int BuildIdIndex = 1;
-
-    public int GenerateBuildID()
-    {
-        return BuildIdIndex++;
     }
 
     #endregion
@@ -205,6 +225,21 @@ internal class Database
     public Dictionary<string, Story> StoryStartDict = new Dictionary<string, Story>();
 
     public Dictionary<string, Story> PlayerStoryStates = new Dictionary<string, Story>();
+
+    public void RemovePlayerStory(string username, ClientProxy proxy)
+    {
+        if (PlayerStoryStates.ContainsKey(username))
+        {
+            Story story = PlayerStoryStates[username];
+            foreach (int removeBuildID in story.PlayerBuildInfos.Keys)
+            {
+                DeleteBuildRequestResponse response = new DeleteBuildRequestResponse(removeBuildID);
+                proxy.SendMessage(response);
+            }
+
+            PlayerStoryStates.Remove(username);
+        }
+    }
 
     #endregion
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class StartMenuManager : MonoSingleton<StartMenuManager>
 {
@@ -152,8 +153,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.CancelMatchButton.gameObject.SetActive(false);
                         Instance.OnlineDeckButton.gameObject.SetActive(false);
                         Instance.SingleStartButton.gameObject.SetActive(true);
-                        Instance.SingleResumeButton.gameObject.SetActive(SelectBuildManager.Instance.M_CurrentStory != null);
-                        Instance.SingleDeckButton.gameObject.SetActive(SelectBuildManager.Instance.M_CurrentStory != null);
+                        Instance.SingleResumeButton.gameObject.SetActive(StoryManager.Instance.M_CurrentStory != null);
+                        Instance.SingleDeckButton.gameObject.SetActive(StoryManager.Instance.M_CurrentStory != null);
                         break;
                     case States.Show_Single_Preparing:
                         if (!Client.Instance.IsLogin()) return;
@@ -209,8 +210,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
         public void RefreshStoryState()
         {
-            Instance.SingleResumeButton.gameObject.SetActive(SelectBuildManager.Instance.M_CurrentStory != null);
-            Instance.SingleDeckButton.gameObject.SetActive(SelectBuildManager.Instance.M_CurrentStory != null);
+            Instance.SingleResumeButton.gameObject.SetActive(StoryManager.Instance.M_CurrentStory != null);
+            Instance.SingleDeckButton.gameObject.SetActive(StoryManager.Instance.M_CurrentStory != null);
         }
     }
 
@@ -403,7 +404,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
     public void OnOnlineStartButtonClick()
     {
-        StartGameCore(false);
+        StartGameCore(false, -1, -1);
     }
 
     public void OnOnlineDeckButtonClick()
@@ -419,8 +420,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     public void OnSingleStartButtonClick()
     {
         ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
-        string enDesc = "Do you want to start a new Single Game?" + (SelectBuildManager.Instance.M_CurrentStory != null ? " It will remove your current game." : "");
-        string zhDesc = "是否开始一个新的游戏？" + (SelectBuildManager.Instance.M_CurrentStory != null ? " 当前游戏将被清除。" : "");
+        string enDesc = "Do you want to start a new Single Game?" + (StoryManager.Instance.M_CurrentStory != null ? " It will remove your current game." : "");
+        string zhDesc = "是否开始一个新的游戏？" + (StoryManager.Instance.M_CurrentStory != null ? " 当前游戏将被清除。" : "");
 
         UnityAction action = StartNewStory;
         cw.Initialize(
@@ -444,7 +445,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         //StartGameCore(true);
     }
 
-    private void StartGameCore(bool isStandAlone)
+    public void StartGameCore(bool isStandAlone, int levelID, int bossID)
     {
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)
         {
@@ -464,7 +465,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                 UnityAction action;
                 if (isStandAlone)
                 {
-                    action = StartNewSingleGame;
+                    action = delegate { StartNewSingleGame(levelID, bossID); };
                 }
                 else
                 {
@@ -491,7 +492,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             {
                 if (isStandAlone)
                 {
-                    StartNewSingleGame();
+                    StartNewSingleGame(levelID, bossID);
                 }
                 else
                 {
@@ -501,7 +502,6 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         }
     }
 
-
     private void StartOnlineMatch()
     {
         Client.Instance.Proxy.OnBeginMatch();
@@ -510,10 +510,11 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         DeckAbstract.SetActive(true);
     }
 
-    private void StartNewSingleGame()
+    private void StartNewSingleGame(int levelID, int bossID)
     {
-        Client.Instance.Proxy.OnBeginSingleMode();
+        Client.Instance.Proxy.OnBeginSingleMode(levelID, bossID);
         ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin single mode" : "开始单人模式");
+        AudioManager.Instance.SoundPlay("sfx/BattleStart" + Random.Range(0, 3));
     }
 
     public void OnCancelMatchGameButtonClick()

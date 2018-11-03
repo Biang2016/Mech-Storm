@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Experimental.UIElements;
 using UnityEngine.UI;
 
 public class StoryManager : MonoSingleton<StoryManager>
@@ -12,7 +15,6 @@ public class StoryManager : MonoSingleton<StoryManager>
     {
         M_StateMachine = new StateMachine();
         M_StateMachine.SetState(StateMachine.States.Hide);
-        InitiateStoryCanvas();
     }
 
     void Update()
@@ -85,12 +87,17 @@ public class StoryManager : MonoSingleton<StoryManager>
         {
             GameManager.Instance.StartBlurBackGround();
             Instance.StoryCanvas.enabled = true;
+            AudioManager.Instance.SoundPlay("sfx/StoryOpen");
+            Instance.Anim.SetTrigger("Show");
+            Instance.StoryBGScrollbar.value = 0;
+            Instance.StoryScrollbar.value = 0;
         }
 
         private void HideMenu()
         {
             GameManager.Instance.StopBlurBackGround();
             Instance.StoryCanvas.enabled = false;
+            Instance.Anim.SetTrigger("Hide");
         }
     }
 
@@ -98,20 +105,31 @@ public class StoryManager : MonoSingleton<StoryManager>
     [SerializeField] private Canvas StoryCanvas;
     [SerializeField] private Scrollbar StoryBGScrollbar;
     [SerializeField] private Scrollbar StoryScrollbar;
-    [SerializeField] private Transform StoryLevelContainer;
+    [SerializeField] private RectTransform StoryLevelContainer;
+    [SerializeField] private Animator Anim;
 
-    private void InitiateStoryCanvas()
+    public Story M_CurrentStory = null;
+
+    public void InitiateStoryCanvas(Story story)
     {
+        M_CurrentStory = story;
         StoryScrollbar.onValueChanged.AddListener(SyncStoryBGSliderValue);
 
-        StoryCol sc = GameObjectPoolManager.Instance.Pool_StoryLevelColPool.AllocateGameObject<StoryCol>(StoryLevelContainer);
-        sc.Initialize();
-        StoryCol sc1 = GameObjectPoolManager.Instance.Pool_StoryLevelColPool.AllocateGameObject<StoryCol>(StoryLevelContainer);
-        sc1.Initialize();
+        for (int i = 0; i < story.Levels.Count; i++)
+        {
+            int nextBossCount = 0;
+            if (i != story.Levels.Count - 1)
+            {
+                nextBossCount = story.Levels[i + 1].Bosses.Count;
+            }
+
+            Level level = story.Levels[i];
+            GameObjectPoolManager.Instance.Pool_StoryLevelColPool.AllocateGameObject<StoryCol>(StoryLevelContainer).Initialize(level, nextBossCount);
+        }
     }
 
     private void SyncStoryBGSliderValue(float value)
     {
-        StoryBGScrollbar.value = value;
+        //StoryBGScrollbar.value = value;
     }
 }

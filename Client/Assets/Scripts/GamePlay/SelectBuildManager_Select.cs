@@ -497,7 +497,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        foreach (KeyValuePair<int, CardBase> kv in allUnlockedCards)
+        foreach (KeyValuePair<int, CardBase> kv in allCards)
         {
             kv.Value.BeDimColor();
             kv.Value.CardBloom.SetActive(false);

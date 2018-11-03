@@ -41,7 +41,7 @@ internal class AllServerBuilds
                     switch (cardInfo.Attributes["name"].Value)
                     {
                         case "baseInfo":
-                            buildInfo.BuildID = Database.Instance.GenerateBuildID();
+                            buildInfo.BuildID = BuildInfo.GenerateBuildID();
                             buildInfo.BuildName = cardInfo.Attributes["BuildName"].Value;
                             buildInfo.DrawCardNum = int.Parse(cardInfo.Attributes["DrawCardNum"].Value);
                             buildInfo.Life = int.Parse(cardInfo.Attributes["Life"].Value);

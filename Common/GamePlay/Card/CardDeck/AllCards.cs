@@ -7,10 +7,12 @@ using System.Xml;
 public static class AllCards
 {
     public static Dictionary<int, CardInfo_Base> CardDict = new Dictionary<int, CardInfo_Base>();
+    public static Dictionary<int, int> CardPicIDDict = new Dictionary<int, int>();
 
     private static void addCard(CardInfo_Base cardInfo)
     {
         if (!CardDict.ContainsKey(cardInfo.CardID)) CardDict.Add(cardInfo.CardID, cardInfo);
+        if (!CardPicIDDict.ContainsKey(cardInfo.CardID)) CardPicIDDict.Add(cardInfo.CardID, cardInfo.BaseInfo.PictureID);
     }
 
     public static void AddAllCards(string cardsXMLPath)

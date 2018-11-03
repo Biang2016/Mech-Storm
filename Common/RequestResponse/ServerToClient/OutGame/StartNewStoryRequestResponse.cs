@@ -1,18 +1,14 @@
 ﻿public class StartNewStoryRequestResponse : ServerRequestBase
 {
-    public GamePlaySettings GamePlaySettings;
-    public BuildInfo DefaultBuildInfo;
-    public BuildInfo UnlockedBuildInfo;
+    public Story Story;
 
     public StartNewStoryRequestResponse()
     {
     }
 
-    public StartNewStoryRequestResponse(GamePlaySettings gamePlaySettings, BuildInfo defaultBuildInfo, BuildInfo unlockedBuildInfo)
+    public StartNewStoryRequestResponse(Story story)
     {
-        GamePlaySettings = gamePlaySettings;
-        DefaultBuildInfo = defaultBuildInfo;
-        UnlockedBuildInfo = unlockedBuildInfo;
+        Story = story;
     }
 
     public override NetProtocols GetProtocol()
@@ -28,25 +24,19 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        GamePlaySettings.Serialize(writer);
-        DefaultBuildInfo.Serialize(writer);
-        UnlockedBuildInfo.Serialize(writer);
+        Story.Serialize(writer);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        GamePlaySettings = GamePlaySettings.Deserialize(reader);
-        DefaultBuildInfo = BuildInfo.Deserialize(reader);
-        UnlockedBuildInfo = BuildInfo.Deserialize(reader);
+        Story = Story.Deserialize(reader);
     }
 
     public override string DeserializeLog()
     {
         string log = base.DeserializeLog();
-        log += " [GamePlaySettings]=" + GamePlaySettings.DeserializeLog();
-        log += " [DefaultBuildInfo]=" + DefaultBuildInfo.DeserializeLog();
-        log += " [UnlockedBuildInfo]=" + UnlockedBuildInfo.DeserializeLog();
+        log += " [Story]=" + Story.DeserializeLog();
         return log;
     }
 }
