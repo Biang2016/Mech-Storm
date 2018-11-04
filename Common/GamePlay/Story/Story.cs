@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 public class Story
@@ -30,6 +31,46 @@ public class Story
 
         PlayerCurrentLevel = playerCurrentLevel;
         PlayerBeatBossID = playerBeatBossID;
+    }
+
+    public Story Variant()//变换关卡
+    {
+        List<Level> newLevels = new List<Level>();
+        foreach (Level level in Levels)
+        {
+            Level newLevel = level.Clone();
+            HashSet<int> selectBoss = new HashSet<int>();
+            Random rd = new Random(level.LevelID * DateTime.Now.Millisecond);
+            if (level.Bosses.Count >= 3)//如果boss数量大于等于3个，则挑选2~3个boss加入
+            {
+                int bossCount = rd.Next(2, 4);
+                for (int j = 0; j < bossCount; j++)
+                {
+                    int nextBossIndex = rd.Next(0, level.Bosses.Count);
+                    while (selectBoss.Contains(nextBossIndex))
+                    {
+                        nextBossIndex = rd.Next(0, level.Bosses.Count);
+                    }
+                    selectBoss.Add(nextBossIndex);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < level.Bosses.Count; i++)
+                {
+                    selectBoss.Add(i);
+                }
+            }
+            newLevel.Bosses.Clear();
+
+            foreach (int bossIndex in selectBoss)
+            {
+                newLevel.Bosses.Add(level.Bosses[bossIndex]);
+            }
+            newLevels.Add(newLevel);
+        }
+
+        return new Story(StoryName, newLevels, PlayerCurrentBuildInfo.Clone(), PlayerCurrentUnlockedBuildInfo.Clone(), StoryGamePlaySettings.Clone(), PlayerCurrentLevel, PlayerBeatBossID);
     }
 
     public Story Clone()

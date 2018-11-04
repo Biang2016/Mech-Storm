@@ -7,6 +7,11 @@ public class StoryCol : PoolObject
 {
     public override void PoolRecycle()
     {
+        foreach (StoryLevelButton slb in StoryLevelButtons)
+        {
+            slb.PoolRecycle();
+        }
+        StoryLevelButtons.Clear();
         base.PoolRecycle();
     }
 
@@ -163,11 +168,15 @@ public class StoryCol : PoolObject
     [SerializeField] private Image Link33_32;
     [SerializeField] private Image Link33_33;
 
+    [SerializeField] private Text LevelName;
+
+
     public Level LevelInfo;
 
     public void Initialize(Level levelInfo, int endCount)
     {
         LevelInfo = levelInfo;
+        LevelName.text = "Level " + levelInfo.LevelID;
         foreach (Boss bossInfo in levelInfo.Bosses)
         {
             StoryLevelButton slb = GameObjectPoolManager.Instance.Pool_StoryLevelButtonPool.AllocateGameObject<StoryLevelButton>(transform);
@@ -190,8 +199,6 @@ public class StoryCol : PoolObject
             Link CurLink = Links[startCount - 1, endCount - 1];
             CurLink.Links_Go.SetActive(true);
 
-            int start = Random.Range(0, CurLink.LinksImage.GetLength(0));
-            int end = Random.Range(0, CurLink.LinksImage.GetLength(1));
             foreach (Image image in CurLink.LinksImage)
             {
                 image.enabled = true;
@@ -215,6 +222,22 @@ public class StoryCol : PoolObject
             {
                 slb.OnDisabled();
             }
+        }
+    }
+
+    public void SetLevelKnown()
+    {
+        foreach (StoryLevelButton slb in StoryLevelButtons)
+        {
+            slb.SetKnown();
+        }
+    }
+
+    public void SetLevelUnknown()
+    {
+        foreach (StoryLevelButton slb in StoryLevelButtons)
+        {
+            slb.SetUnknown();
         }
     }
 }

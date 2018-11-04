@@ -114,6 +114,12 @@ public class StoryManager : MonoSingleton<StoryManager>
 
     public void InitiateStoryCanvas(Story story)
     {
+        foreach (StoryCol sc in LevelCols.Values)
+        {
+            sc.PoolRecycle();
+        }
+        LevelCols.Clear();
+
         M_CurrentStory = story;
         StoryScrollbar.onValueChanged.AddListener(SyncStoryBGSliderValue);
 
@@ -129,6 +135,16 @@ public class StoryManager : MonoSingleton<StoryManager>
             StoryCol storyCol = GameObjectPoolManager.Instance.Pool_StoryLevelColPool.AllocateGameObject<StoryCol>(StoryLevelContainer);
             storyCol.Initialize(level, nextBossCount);
             LevelCols.Add(storyCol.LevelInfo.LevelID, storyCol);
+        }
+
+        foreach (StoryCol sc in LevelCols.Values)
+        {
+            sc.SetLevelUnknown();
+        }
+
+        if (LevelCols.Count > 1)
+        {
+            LevelCols[0].SetLevelKnown();
         }
 
         int beatLevel = 0;
@@ -161,6 +177,11 @@ public class StoryManager : MonoSingleton<StoryManager>
         for (int j = 0; j < bossCount; j++)
         {
             if (j != beatBoss) SetBossState(levelID, j, false);
+        }
+
+        if (M_CurrentStory.Levels.Count > levelID + 1)
+        {
+            LevelCols[levelID + 1].SetLevelKnown();
         }
     }
 

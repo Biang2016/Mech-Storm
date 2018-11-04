@@ -2,18 +2,14 @@
 <AllBuilds>
   <BuildInfo>
     <Info name="baseInfo" BuildName="MechMine" DrawCardNum="1" Life="10" Energy="6" />
-    <Info name="cardIDs" ids="5301,60101,60601,70101,70101,62401,62401,62401,62401,62401,62500" />
+    <Info name="cardIDs" ids="5301,60101,60601,62401,62401,62401,62401,62401,62500,70101,70101" />
   </BuildInfo>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="EnemyBuild_01" DrawCardNum="2" Life="52" Energy="50" />
-    <Info name="cardIDs" ids="5101,6400,10101,30101,30201,60102,60102,60102,70102,70102,70102" />
+    <Info name="baseInfo" BuildName="StrikeTeam" DrawCardNum="1" Life="15" Energy="10" />
+    <Info name="cardIDs" ids="5101,5800,10301,60102,60501,62402,62402,62402,70101,70101,70601" />
   </BuildInfo>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="EnemyBuild_02" DrawCardNum="2" Life="52" Energy="50" />
-    <Info name="cardIDs" ids="5101,6400,10101,30101,30201,60102,60102,60102,70102,70102,70102" />
-  </BuildInfo>
-  <BuildInfo>
-    <Info name="baseInfo" BuildName="EnemyBuild_03" DrawCardNum="2" Life="53" Energy="50" />
-    <Info name="cardIDs" ids="5101,6400,10101,30101,30201,60102,60102,60102,70102,70102,70102" />
+    <Info name="baseInfo" BuildName="DomTeam" DrawCardNum="1" Life="20" Energy="10" />
+    <Info name="cardIDs" ids="5700,10301,60101,62101,62401,62401,62401,70101,70101,70101" />
   </BuildInfo>
 </AllBuilds>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml;
 
 internal class AllPlayerStory
@@ -72,6 +71,7 @@ internal class AllPlayerStory
                 level.LevelID = levelID;
 
                 level.Bosses = new List<Boss>();
+
                 for (int j = 0; j < levelInfo.ChildNodes.Count; j++)
                 {
                     XmlNode bossInfo = levelInfo.ChildNodes.Item(j);

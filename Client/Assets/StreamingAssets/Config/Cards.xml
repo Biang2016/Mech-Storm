@@ -500,32 +500,32 @@
     <CardInfo name="baseInfo" pictureID="601" cardName="火力防御" cardName_en="Gatlin" cardDesc="" isTemp="False" hide="False" metal="0" energy="1" coin="100" effectFactor="1" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="60102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="EnemyMechs" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60102">
-    <CardInfo name="baseInfo" pictureID="602" cardName="火神扫射" cardName_en="S Gatlin" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="150" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="602" cardName="火神打击" cardName_en="S Gatlin" cardDesc="" isTemp="False" hide="False" metal="0" energy="2" coin="150" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="60103" degradeCardID="60101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageAll" M_TargetRange="EnemyMechs" Value="1"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60103">
     <CardInfo name="baseInfo" pictureID="630" cardName="火神扫射" cardName_en="SP Gatlin" cardDesc="" isTemp="False" hide="False" metal="0" energy="4" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60102" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageAll" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
+      <SideEffect name="DamageAll" M_TargetRange="EnemyMechs" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60301">
-    <CardInfo name="baseInfo" pictureID="603" cardName="月面镭射" cardName_en="Reflective Raser" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="200" effectFactor="1" dragPurpose="Target" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="603" cardName="月面镭射" cardName_en="Reflective Raser" cardDesc="" isTemp="False" hide="False" metal="0" energy="2" coin="200" effectFactor="1" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="60302" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="Soldiers" Value="3"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="Soldiers" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60302">
-    <CardInfo name="baseInfo" pictureID="631" cardName="精准镭射" cardName_en="Focus Raser" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="250" effectFactor="1" dragPurpose="Target" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="631" cardName="精准镭射" cardName_en="Focus Raser" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="400" effectFactor="1" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60301" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="Soldiers" Value="5"></SideEffect>
@@ -767,7 +767,7 @@
     </CardInfo>
   </Card>
   <Card id="62600">
-    <CardInfo name="baseInfo" pictureID="633" cardName="暴击" cardName_en="Critical Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="150" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="634" cardName="暴击" cardName_en="Critical Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="150" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="5"></SideEffect>

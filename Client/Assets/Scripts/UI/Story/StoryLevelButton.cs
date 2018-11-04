@@ -19,7 +19,6 @@ public class StoryLevelButton : PoolObject
 
     void Awake()
     {
-        Button.onClick.AddListener(delegate { OnButtonClick(); });
     }
 
     [SerializeField] private Button Button;
@@ -63,6 +62,7 @@ public class StoryLevelButton : PoolObject
     {
         BeBright();
         Anim.SetTrigger("Beat");
+        Button.image.color = ClientUtils.HTMLColorToColor("#97FF7E");
         Button.onClick.RemoveAllListeners();
         Button.interactable = false;
         Button.enabled = false;
@@ -79,6 +79,18 @@ public class StoryLevelButton : PoolObject
         Button.enabled = false;
         Anim.enabled = false;
         interactable = false;
+    }
+
+    public void SetUnknown()
+    {
+        ClientUtils.ChangePicture(Image, 1000);
+        Button.onClick.RemoveAllListeners();
+    }
+
+    public void SetKnown()
+    {
+        ClientUtils.ChangePicture(Image, M_BossInfo.PicID);
+        Button.onClick.AddListener(delegate { OnButtonClick(); });
     }
 
     public delegate void StoryButtonClickHandler();
