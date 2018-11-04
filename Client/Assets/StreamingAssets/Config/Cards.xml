@@ -398,7 +398,7 @@
   <Card id="10301">
     <CardInfo name="baseInfo" pictureID="103" cardName="匕首" cardName_en="Dagger" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="250" effectFactor="1" dragPurpose="Equip" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
-    <CardInfo name="weaponInfo" energy="1" energyMax="3" attack="2" weaponType="Sword" isSentry="False" isFrenzy="False" />
+    <CardInfo name="weaponInfo" energy="1" energyMax="2" attack="1" weaponType="Sword" isSentry="False" isFrenzy="False" />
   </Card>
 
   <Card id="20101">

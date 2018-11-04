@@ -17,10 +17,6 @@ public class AudioManager : MonoSingleton<AudioManager>
     public AudioMixerGroup BGMAudioMixerGroup;
     public AudioMixerGroup SoundAudioMixerGroup;
 
-    #region Mono Function
-
-    #endregion
-
     public void SoundPlay(string audioname)
     {
         SoundPlay(audioname, 1f);

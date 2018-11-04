@@ -11,11 +11,7 @@
         <BossInfo name="Boss1" BuildName="DomTeam" picID="57" />
     </Level>
     <Level>
-        <BossInfo name="Boss1" BuildName="MechMine" picID="53" />
-        <BossInfo name="Boss1" BuildName="StrikeTeam" picID="58" />
-        <BossInfo name="Boss1" BuildName="MechMine" picID="53" />
-        <BossInfo name="Boss1" BuildName="StrikeTeam" picID="58" />
-        <BossInfo name="Boss1" BuildName="StrikeTeam" picID="58" />
+        <BossInfo name="Boss1" BuildName="Heal" picID="53" />
     </Level>
     <Level>
         <BossInfo name="Boss1" BuildName="MechMine" picID="53" />

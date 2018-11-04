@@ -113,7 +113,15 @@ internal class ServerGameManager
 
     void GameBegin()
     {
-        CurrentPlayer = new Random().Next(0, 2) == 0 ? PlayerA : PlayerB;
+        if (ClientB is ClientProxyAI)
+        {
+            CurrentPlayer = PlayerA;
+        }
+        else
+        {
+            CurrentPlayer = new Random().Next(0, 2) == 0 ? PlayerA : PlayerB;
+        }
+
         IdlePlayer = CurrentPlayer == PlayerA ? PlayerB : PlayerA;
         bool isPlayerAFirst = CurrentPlayer == PlayerA;
 
@@ -368,9 +376,12 @@ internal class ServerGameManager
         Broadcast_AddRequestToOperationResponse(request);
         if (ClientB is ClientProxyAI AI)
         {
-            BeatBossRequest request2 = new BeatBossRequest(AI.LevelID, AI.BossID);
-            ClientA.SendMessage(request2);
-            Database.Instance.PlayerStoryStates[ClientA.UserName].PlayerBeatBossID.Add(AI.LevelID, AI.BossID);
+            if (winner == PlayerA)
+            {
+                BeatBossRequest request2 = new BeatBossRequest(AI.LevelID, AI.BossID);
+                ClientA.SendMessage(request2);
+                Database.Instance.PlayerStoryStates[ClientA.UserName].PlayerBeatBossID.Add(AI.LevelID, AI.BossID);
+            }
         }
 
         IsStopped = true;
