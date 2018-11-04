@@ -366,6 +366,13 @@ internal class ServerGameManager
         if (IsStopped) return;
         GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
         Broadcast_AddRequestToOperationResponse(request);
+        if (ClientB is ClientProxyAI AI)
+        {
+            BeatBossRequest request2 = new BeatBossRequest(AI.LevelID, AI.BossID);
+            ClientA.SendMessage(request2);
+            Database.Instance.PlayerStoryStates[ClientA.UserName].PlayerBeatBossID.Add(AI.LevelID, AI.BossID);
+        }
+
         IsStopped = true;
     }
 

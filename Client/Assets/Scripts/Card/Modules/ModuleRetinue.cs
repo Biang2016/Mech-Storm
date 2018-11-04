@@ -1220,7 +1220,7 @@ public class ModuleRetinue : ModuleBase
 
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        canDrag = CanAttack && ClientPlayer == RoundManager.Instance.CurrentClientPlayer && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
+        canDrag = CanAttack && ClientPlayer == RoundManager.Instance.CurrentClientPlayer && ClientPlayer == RoundManager.Instance.SelfClientPlayer && !ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this);
         dragPurpose = DragPurpose.Target;
     }
 

@@ -2,7 +2,11 @@
 <AllBuilds>
   <BuildInfo>
     <Info name="baseInfo" BuildName="MechMine" DrawCardNum="1" Life="10" Energy="6" />
-    <Info name="cardIDs" ids="5101,5301,5301,5401,60101,60601,62101,62101,70101,70101,70101" />
+    <Info name="cardIDs" ids="5301,60101,60601,70101,70101,62401,62401,62401,62401,62401,62500" />
+  </BuildInfo>
+  <BuildInfo>
+    <Info name="baseInfo" BuildName="EnemyBuild_01" DrawCardNum="2" Life="52" Energy="50" />
+    <Info name="cardIDs" ids="5101,6400,10101,30101,30201,60102,60102,60102,70102,70102,70102" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="EnemyBuild_02" DrawCardNum="2" Life="52" Energy="50" />
@@ -11,9 +15,5 @@
   <BuildInfo>
     <Info name="baseInfo" BuildName="EnemyBuild_03" DrawCardNum="2" Life="53" Energy="50" />
     <Info name="cardIDs" ids="5101,6400,10101,30101,30201,60102,60102,60102,70102,70102,70102" />
-  </BuildInfo>
-  <BuildInfo>
-    <Info name="baseInfo" BuildName="MechMine" DrawCardNum="1" Life="10" Energy="6" />
-    <Info name="cardIDs" ids="5101,5301,5301,5401,60101,60601,62101,62101,70101,70101,70101" />
   </BuildInfo>
 </AllBuilds>

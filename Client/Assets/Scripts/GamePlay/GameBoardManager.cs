@@ -147,7 +147,8 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
 
     IEnumerator Co_OnGameStopByWin(bool isWin)
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.5f);
+        WinLostCanvas.enabled = true;
         AudioManager.Instance.BGMStop();
         if (isWin)
         {
@@ -167,12 +168,13 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
 
         PanelAnimator.SetTrigger("Show");
         GameManager.Instance.StartBlurBackGround();
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
         PanelAnimator.SetTrigger("Hide");
         yield return new WaitForSeconds(1);
         GameManager.Instance.StopBlurBackGround();
         RoundManager.Instance.OnGameStop();
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
+        WinLostCanvas.enabled = false;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 }

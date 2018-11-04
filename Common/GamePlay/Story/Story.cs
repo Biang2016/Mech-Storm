@@ -13,17 +13,23 @@ public class Story
 
     public GamePlaySettings StoryGamePlaySettings;
 
+    public int PlayerCurrentLevel = 0;
+    public SortedDictionary<int, int> PlayerBeatBossID = new SortedDictionary<int, int>();
+
     public Story()
     {
     }
 
-    public Story(string storyName, List<Level> levels, BuildInfo playerCurrentBuildInfo, BuildInfo playerCurrentUnlockedBuildInfo, GamePlaySettings storyGamePlaySettings)
+    public Story(string storyName, List<Level> levels, BuildInfo playerCurrentBuildInfo, BuildInfo playerCurrentUnlockedBuildInfo, GamePlaySettings storyGamePlaySettings, int playerCurrentLevel, SortedDictionary<int, int> playerBeatBossID)
     {
         StoryName = storyName;
         Levels = levels;
         PlayerCurrentBuildInfo = playerCurrentBuildInfo;
         PlayerCurrentUnlockedBuildInfo = playerCurrentUnlockedBuildInfo;
         StoryGamePlaySettings = storyGamePlaySettings;
+
+        PlayerCurrentLevel = playerCurrentLevel;
+        PlayerBeatBossID = playerBeatBossID;
     }
 
     public Story Clone()
@@ -34,7 +40,7 @@ public class Story
             newLevels.Add(level.Clone());
         }
 
-        return new Story(StoryName, newLevels, PlayerCurrentBuildInfo.Clone(), PlayerCurrentUnlockedBuildInfo.Clone(), StoryGamePlaySettings.Clone());
+        return new Story(StoryName, newLevels, PlayerCurrentBuildInfo.Clone(), PlayerCurrentUnlockedBuildInfo.Clone(), StoryGamePlaySettings.Clone(), PlayerCurrentLevel, PlayerBeatBossID);
     }
 
     public void Serialize(DataStream writer)
@@ -56,6 +62,15 @@ public class Story
         }
 
         StoryGamePlaySettings.Serialize(writer);
+
+        writer.WriteSInt32(PlayerCurrentLevel);
+
+        writer.WriteSInt32(PlayerBeatBossID.Count);
+        foreach (KeyValuePair<int, int> levelAndBoss in PlayerBeatBossID)
+        {
+            writer.WriteSInt32(levelAndBoss.Key);
+            writer.WriteSInt32(levelAndBoss.Value);
+        }
     }
 
     public static Story Deserialize(DataStream reader)
@@ -82,6 +97,15 @@ public class Story
 
         newStory.StoryGamePlaySettings = GamePlaySettings.Deserialize(reader);
 
+        newStory.PlayerCurrentLevel = reader.ReadSInt32();
+        int beatLevelCount = reader.ReadSInt32();
+        for (int i = 0; i < beatLevelCount; i++)
+        {
+            int levelID = reader.ReadSInt32();
+            int bossID = reader.ReadSInt32();
+            newStory.PlayerBeatBossID.Add(levelID, bossID);
+        }
+
         return newStory;
     }
 
@@ -105,6 +129,14 @@ public class Story
         }
 
         log += " [StoryGamePlaySettings]=" + StoryGamePlaySettings.DeserializeLog();
+        log += " [PlayerBeatBossID]=";
+
+        foreach (KeyValuePair<int, int> kv in PlayerBeatBossID)
+        {
+            log += " [LevelID]=" + kv.Key;
+            log += " [BossID]=" + kv.Value;
+        }
+
         return log;
     }
 }

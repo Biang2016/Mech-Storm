@@ -10,6 +10,11 @@ public class StoryLevelButton : PoolObject
     public override void PoolRecycle()
     {
         base.PoolRecycle();
+        Anim.enabled = true;
+        Anim.SetTrigger("Hide");
+        Button.interactable = true;
+        Button.enabled = true;
+        interactable = true;
     }
 
     void Awake()
@@ -36,17 +41,44 @@ public class StoryLevelButton : PoolObject
 
     public void BeDim()
     {
+        if (!interactable) return;
         Image.material = ImageGrayMaterial;
     }
 
     public void BeBright()
     {
+        if (!interactable) return;
         Image.material = UIDefault;
     }
 
     public void OnHover()
     {
+        if (!interactable) return;
         AudioManager.Instance.SoundPlay("sfx/OnHoverStoryButton");
+    }
+
+    private bool interactable = true;
+
+    public void OnBeated()
+    {
+        BeBright();
+        Anim.SetTrigger("Beat");
+        Button.onClick.RemoveAllListeners();
+        Button.interactable = false;
+        Button.enabled = false;
+        Anim.enabled = false;
+        interactable = false;
+    }
+
+    public void OnDisabled()
+    {
+        BeDim();
+        Anim.SetTrigger("Disabled");
+        Button.onClick.RemoveAllListeners();
+        Button.interactable = false;
+        Button.enabled = false;
+        Anim.enabled = false;
+        interactable = false;
     }
 
     public delegate void StoryButtonClickHandler();

@@ -63,7 +63,7 @@ internal class AllPlayerStory
             gps.MaxDrawCardNum = MaxDrawCardNum;
 
             List<Level> Levels = new List<Level>();
-            int levelID = 1;
+            int levelID = 0;
             for (int i = 3; i < story.ChildNodes.Count; i++)
             {
                 Level level = new Level();
@@ -88,7 +88,7 @@ internal class AllPlayerStory
 
             BuildInfo PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultBuildId).Clone();
             BuildInfo PlayerCurrentUnlockedBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultUnlockedBuildID).Clone();
-            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo, PlayerCurrentUnlockedBuildInfo, gps);
+            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo, PlayerCurrentUnlockedBuildInfo, gps, 0, new SortedDictionary<int, int>());
             Database.Instance.StoryStartDict.Add(pureName, newStory);
         }
     }

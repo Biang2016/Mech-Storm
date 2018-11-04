@@ -16,7 +16,7 @@
     MinDrawCardNum="1"
     MaxDrawCardNum="5" />
   <Level>
-    <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="53" />
+    <BossInfo name="Boss1" BuildName="MechMine" picID="53" />
   </Level>
   <Level>
     <BossInfo name="Boss1" BuildName="EnemyBuild_01" picID="1" />

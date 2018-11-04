@@ -57,6 +57,7 @@ public class LoginManager : MonoSingleton<LoginManager>
         {
             case ProxyBase.ClientStates.Offline:
                 SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
+                StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
                 M_StateMachine.SetState(StateMachine.States.Show);
                 ShowTipText(GameManager.Instance.IsEnglish ? "Disconnected" : "已断开连接.", 0, float.PositiveInfinity, false);
                 break;

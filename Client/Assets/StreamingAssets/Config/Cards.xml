@@ -265,7 +265,7 @@
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
-    <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
   </Card>
   <Card id="5700">
     <CardInfo name="baseInfo" pictureID="57" cardName="大魔分队" cardName_en="Dom Team" cardDesc="" isTemp="False" hide="False" metal="3" energy="0" coin="400" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
@@ -360,17 +360,17 @@
   </Card>
   <Card id="6901">
     <CardInfo name="baseInfo" pictureID="68" cardName="训练场新兵" cardName_en="Training Recruit" cardDesc="" isTemp="False" hide="False" metal="1" energy="0" coin="50" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="6902" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="1" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
   </Card>
   <Card id="6902">
     <CardInfo name="baseInfo" pictureID="68" cardName="训练场老兵" cardName_en="Training Veteran" cardDesc="" isTemp="False" hide="False" metal="1" energy="0" coin="100" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="6903" degradeCardID="6901" cardLevel="2" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="2" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="2" />
   </Card>
   <Card id="6903">
     <CardInfo name="baseInfo" pictureID="68" cardName="训练场精英" cardName_en="Training Elite" cardDesc="" isTemp="False" hide="False" metal="1" energy="0" coin="200" effectFactor="1" dragPurpose="Summon" cardType="Retinue" />
@@ -701,24 +701,24 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
   </Card>
   <Card id="62101">
-    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="1" coin="50" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="50" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62102">
-    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="1" coin="100" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="100" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62103" degradeCardID="62101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="6"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62103">
     <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="1" coin="150" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62102" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="8"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62201">
@@ -735,6 +735,42 @@
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="12"></SideEffect>
       <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62401">
+    <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="25" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="62402" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="1"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62402">
+    <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="50" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="62403" degradeCardID="62401" cardLevel="2" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="2"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62403">
+    <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="75" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62402" cardLevel="3" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="3"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62500">
+    <CardInfo name="baseInfo" pictureID="633" cardName="伤害转换" cardName_en="Damage Trans" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="75" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="3"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62600">
+    <CardInfo name="baseInfo" pictureID="633" cardName="暴击" cardName_en="Critical Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="150" effectFactor="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="5"></SideEffect>
     </CardInfo>
   </Card>
 
@@ -770,8 +806,8 @@
     <CardInfo name="baseInfo" pictureID="703" cardName="能量球" cardName_en="Energy Ball" cardDesc="" isTemp="False" hide="False" metal="1" energy="0" coin="250" effectFactor="1" dragPurpose="Summon" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="70302" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="5"></SideEffect>
-      <SideEffect name="DrawTypeCards" Value="1" DrawCardType="Energy"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="3"></SideEffect>
+      <SideEffect name="DrawCards" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70302">

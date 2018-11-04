@@ -108,6 +108,8 @@ public class StoryManager : MonoSingleton<StoryManager>
     [SerializeField] private RectTransform StoryLevelContainer;
     [SerializeField] private Animator Anim;
 
+    private SortedDictionary<int, StoryCol> LevelCols = new SortedDictionary<int, StoryCol>();
+
     public Story M_CurrentStory = null;
 
     public void InitiateStoryCanvas(Story story)
@@ -124,12 +126,47 @@ public class StoryManager : MonoSingleton<StoryManager>
             }
 
             Level level = story.Levels[i];
-            GameObjectPoolManager.Instance.Pool_StoryLevelColPool.AllocateGameObject<StoryCol>(StoryLevelContainer).Initialize(level, nextBossCount);
+            StoryCol storyCol = GameObjectPoolManager.Instance.Pool_StoryLevelColPool.AllocateGameObject<StoryCol>(StoryLevelContainer);
+            storyCol.Initialize(level, nextBossCount);
+            LevelCols.Add(storyCol.LevelInfo.LevelID, storyCol);
+        }
+
+        int beatLevel = 0;
+        foreach (KeyValuePair<int, int> kv in story.PlayerBeatBossID)
+        {
+            if (kv.Key > beatLevel)
+            {
+                beatLevel = kv.Key;
+            }
+
+            SetLevelBeated(kv.Key, kv.Value);
         }
     }
 
     private void SyncStoryBGSliderValue(float value)
     {
-        //StoryBGScrollbar.value = value;
+        StoryBGScrollbar.value = value;
+    }
+
+    public void SetLevelBeated(int levelID, int bossID)
+    {
+        SetBossState(levelID, bossID, true);
+        if (!M_CurrentStory.PlayerBeatBossID.ContainsKey(levelID))
+        {
+            M_CurrentStory.PlayerBeatBossID.Add(levelID, bossID);
+        }
+
+        int beatBoss = M_CurrentStory.PlayerBeatBossID[levelID];
+        int bossCount = M_CurrentStory.Levels[levelID].Bosses.Count;
+        for (int j = 0; j < bossCount; j++)
+        {
+            if (j != beatBoss) SetBossState(levelID, j, false);
+        }
+    }
+
+    private void SetBossState(int levelID, int bossID, bool isBeat)
+    {
+        StoryCol storyCol = LevelCols[levelID];
+        storyCol.SetBossState(bossID, isBeat);
     }
 }

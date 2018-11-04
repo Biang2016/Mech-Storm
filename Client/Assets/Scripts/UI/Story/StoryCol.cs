@@ -163,14 +163,17 @@ public class StoryCol : PoolObject
     [SerializeField] private Image Link33_32;
     [SerializeField] private Image Link33_33;
 
+    public Level LevelInfo;
 
     public void Initialize(Level levelInfo, int endCount)
     {
+        LevelInfo = levelInfo;
         foreach (Boss bossInfo in levelInfo.Bosses)
         {
             StoryLevelButton slb = GameObjectPoolManager.Instance.Pool_StoryLevelButtonPool.AllocateGameObject<StoryLevelButton>(transform);
             slb.Initialize(bossInfo);
             slb.OnButtonClick += delegate { StartMenuManager.Instance.StartGameCore(true, levelInfo.LevelID, bossInfo.BossID); };
+            StoryLevelButtons.Add(slb);
         }
 
         int startCount = levelInfo.Bosses.Count;
@@ -196,6 +199,22 @@ public class StoryCol : PoolObject
             }
 
             //CurLink.LinksImage[start, end].enabled = true;
+        }
+    }
+
+    public void SetBossState(int bossID, bool isBeat)
+    {
+        StoryLevelButton slb = StoryLevelButtons[bossID];
+        if (slb != null)
+        {
+            if (isBeat)
+            {
+                slb.OnBeated();
+            }
+            else
+            {
+                slb.OnDisabled();
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 public class Proxy : ProxyBase
@@ -215,6 +216,12 @@ public class Proxy : ProxyBase
                         StoryManager.Instance.M_CurrentStory = null;
                     }
 
+                    break;
+                }
+                case NetProtocols.BEAT_BOSS_REQUSET:
+                {
+                    BeatBossRequest request = (BeatBossRequest) r;
+                    StoryManager.Instance.SetLevelBeated(request.LevelID, request.BossID);
                     break;
                 }
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:
