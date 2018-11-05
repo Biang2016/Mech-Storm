@@ -157,9 +157,13 @@
     <Compile Include="Assets\Scripts\GamePlay\SettingMenuManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\StartMenuManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\StoryManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\WinLostPanelManager.cs" />
     <Compile Include="Assets\Scripts\Network\Client.cs" />
     <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Network\Proxy.cs" />
+    <Compile Include="Assets\Scripts\UI\Bonus\BigBonusItem.cs" />
+    <Compile Include="Assets\Scripts\UI\Bonus\BonusItem_Base.cs" />
+    <Compile Include="Assets\Scripts\UI\Bonus\SmallBonusItem.cs" />
     <Compile Include="Assets\Scripts\UI\ButtonEffects.cs" />
     <Compile Include="Assets\Scripts\UI\ConfirmWindow\ConfirmWindow.cs" />
     <Compile Include="Assets\Scripts\UI\ConfirmWindow\ConfirmWindowManager.cs" />
@@ -193,9 +197,7 @@
     <None Include="Assets\Materials\Effect\Shaders\HiddenPass.shader" />
     <None Include="Assets\Materials\Effect\Shaders\Background+2.shader" />
     <None Include="Assets\Materials\Effect\Shaders\DefaultGrey.shader" />
-    <None Include="Assets\StreamingAssets\Config\Cards.xml">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Assets\StreamingAssets\Config\Cards.xml" />
     <None Include="Assets\Materials\Effect\Shaders\BlendSurfaceTrans.shader" />
     <None Include="Assets\Materials\Effect\Shaders\BrightPassFilter2.shader" />
     <None Include="Assets\Materials\Effect\Shaders\BlendMask.shader" />

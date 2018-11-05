@@ -109,6 +109,12 @@
     public GameObjectPool Pool_BulletPool;
     public PoolObject BulletPrefab;
 
+    public GameObjectPool Pool_BigBonusButtonPool;
+    public PoolObject BigBonusButtonPrefab;
+
+    public GameObjectPool Pool_SmallBonusButtonPool;
+    public PoolObject SmallBonusButtonPrefab;
+
 
     void Awake()
     {
@@ -184,5 +190,9 @@
         Pool_StoryLevelColPool.Initiate(StoryLevelColPrefab, 12);
 
         Pool_BulletPool.Initiate(BulletPrefab, 5);
+
+        Pool_BigBonusButtonPool.Initiate(BigBonusButtonPrefab, 5);
+
+        Pool_SmallBonusButtonPool.Initiate(SmallBonusButtonPrefab, 5);
     }
 }

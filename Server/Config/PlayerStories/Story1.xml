@@ -12,7 +12,7 @@
       <BonusGroupInfo type="Optional">
         <BonusInfo name="AdjustDeck" value="5"></BonusInfo>
         <BonusInfo name="LifeUpperLimit" value="5"></BonusInfo>
-        <BonusInfo name="MagicUpperLimit" value="3"></BonusInfo>
+        <BonusInfo name="EnergyUpperLimit" value="3"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional">
         <BonusInfo name="AdjustDeck" value="500"></BonusInfo>

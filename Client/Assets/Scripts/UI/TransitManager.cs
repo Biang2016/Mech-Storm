@@ -14,12 +14,14 @@ internal class TransitManager : MonoSingleton<TransitManager>
 
     void Awake()
     {
+        TransitCanvas.enabled = true;
         TransitPanel.color = new Color(0, 0, 0, 0);
         TransitPanel.raycastTarget = false;
-        UpperTransitPanel.transform.position = UpperTransitHidePos.position;
-        BottomTransitPanel.transform.position = BottomTransitHidePos.position;
+        UpperTransitPanel.transform.localScale = new Vector3(1, 0, 1);
+        BottomTransitPanel.transform.localScale = new Vector3(1, 0, 1);
     }
 
+    [SerializeField] private Canvas TransitCanvas;
     [SerializeField] private Image TransitPanel;
 
     enum TransitState
@@ -32,11 +34,7 @@ internal class TransitManager : MonoSingleton<TransitManager>
     private TransitState M_TransitState;
 
     [SerializeField] private Image UpperTransitPanel;
-    [SerializeField] private Transform UpperTransitHidePos;
-    [SerializeField] private Transform UpperTransitShutPos;
     [SerializeField] private Image BottomTransitPanel;
-    [SerializeField] private Transform BottomTransitHidePos;
-    [SerializeField] private Transform BottomTransitShutPos;
 
     public void ShowTransit(Color color, float duration)
     {
@@ -102,11 +100,11 @@ internal class TransitManager : MonoSingleton<TransitManager>
     {
         UpperTransitPanel.color = color;
         BottomTransitPanel.color = color;
-        iTween.MoveTo(UpperTransitPanel.gameObject, UpperTransitShutPos.position, 0.3f);
-        iTween.MoveTo(BottomTransitPanel.gameObject, BottomTransitShutPos.position, 0.3f);
+        iTween.ScaleTo(UpperTransitPanel.gameObject, new Vector3(1, 0.5f, 1), 0.3f);
+        iTween.ScaleTo(BottomTransitPanel.gameObject, new Vector3(1, 0.5f, 1), 0.3f);
         yield return new WaitForSeconds(duration + 0.3f);
-        iTween.MoveTo(UpperTransitPanel.gameObject, UpperTransitHidePos.position, 0.3f);
-        iTween.MoveTo(BottomTransitPanel.gameObject, BottomTransitHidePos.position, 0.3f);
+        iTween.ScaleTo(UpperTransitPanel.gameObject, new Vector3(1, 0, 1), 0.3f);
+        iTween.ScaleTo(BottomTransitPanel.gameObject, new Vector3(1, 0, 1), 0.3f);
         yield return new WaitForSeconds(0.3f);
     }
 
