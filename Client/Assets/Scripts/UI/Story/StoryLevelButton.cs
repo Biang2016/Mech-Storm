@@ -91,6 +91,7 @@ public class StoryLevelButton : PoolObject
     {
         ClientUtils.ChangePicture(Image, M_BossInfo.PicID);
         Button.onClick.AddListener(delegate { OnButtonClick(); });
+        Button.onClick.AddListener(delegate { AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick"); });
     }
 
     public delegate void StoryButtonClickHandler();

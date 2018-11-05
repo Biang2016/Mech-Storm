@@ -21,11 +21,6 @@ public class BattleGroundRemoveRetinueRequest : ServerRequestBase
         return NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_BATTLEGROUND_REMOVE_RETINUE";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -45,17 +40,5 @@ public class BattleGroundRemoveRetinueRequest : ServerRequestBase
             int retinueId = reader.ReadSInt32();
             retinueIds.Add(retinueId);
         }
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [retinueInfos]= ";
-        foreach (int retinueId in retinueIds)
-        {
-            log += retinueId + ", ";
-        }
-
-        return log;
     }
 }

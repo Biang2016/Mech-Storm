@@ -1460,29 +1460,37 @@ public class ModuleRetinue : ModuleBase
         switch (weaponType)
         {
             case WeaponTypes.None:
+            {
                 Vector3 oriPos = transform.position;
-                Hashtable args = new Hashtable();
-                args.Add("position", targetRetinue.GetClosestHitPos(transform.position));
-                args.Add("time", 0.1f);
-                args.Add("easeType", iTween.EaseType.linear);
-                iTween.MoveTo(gameObject, args);
+                iTween.MoveTo(gameObject, targetRetinue.GetClosestHitPos(transform.position), 0.1f);
                 yield return new WaitForSeconds(0.15f);
-                AudioManager.Instance.SoundPlay("sfx/AttackNone");
-                Hashtable args2 = new Hashtable();
-                args2.Add("position", oriPos);
-                args2.Add("time", 0.1f);
-                args2.Add("easeType", iTween.EaseType.linear);
-                iTween.MoveTo(gameObject, args2);
-                break;
-            case WeaponTypes.Sword:
                 AudioManager.Instance.SoundPlay("sfx/AttackSword");
+                iTween.MoveTo(gameObject, oriPos, 0.1f);
                 break;
+            }
+            case WeaponTypes.Sword:
+            {
+                Vector3 oriPos = transform.position;
+                iTween.MoveTo(gameObject, targetRetinue.GetClosestHitPos(transform.position), 0.1f);
+                yield return new WaitForSeconds(0.15f);
+                AudioManager.Instance.SoundPlay("sfx/AttackSword");
+                iTween.MoveTo(gameObject, oriPos, 0.1f);
+                break;
+            }
             case WeaponTypes.Gun:
+            {
+                Bullet bl = GameObjectPoolManager.Instance.Pool_BulletPool.AllocateGameObject<Bullet>(transform);
+                bl.Move(transform.position, targetRetinue.transform.position, Color.white, Color.white, 1, 0.03f, 0.1f, 0);
                 AudioManager.Instance.SoundPlay("sfx/AttackGun");
                 break;
+            }
             case WeaponTypes.SniperGun:
+            {
+                Bullet bl = GameObjectPoolManager.Instance.Pool_BulletPool.AllocateGameObject<Bullet>(transform);
+                bl.Move(transform.position, targetRetinue.transform.position, Color.yellow, Color.yellow, 1, 0.03f, 0.15f, 0);
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;
+            }
         }
 
         yield return null;
@@ -1499,29 +1507,39 @@ public class ModuleRetinue : ModuleBase
         switch (weaponType)
         {
             case WeaponTypes.None:
+            {
                 Vector3 oriPos = transform.position;
-                Hashtable args = new Hashtable();
-                args.Add("position", targetShip.GetClosestHitPosition(transform.position));
-                args.Add("time", 0.2f);
-                args.Add("easeType", iTween.EaseType.linear);
-                iTween.MoveTo(gameObject, args);
-                yield return new WaitForSeconds(0.23f);
+                iTween.MoveTo(gameObject, targetShip.GetClosestHitPosition(transform.position), 0.15f);
+                yield return new WaitForSeconds(0.17f);
                 AudioManager.Instance.SoundPlay("sfx/AttackNone");
-                Hashtable args2 = new Hashtable();
-                args2.Add("position", oriPos);
-                args2.Add("time", 0.2f);
-                args2.Add("easeType", iTween.EaseType.linear);
-                iTween.MoveTo(gameObject, args2);
+                iTween.MoveTo(gameObject, oriPos, 0.15f);
+                yield return new WaitForSeconds(0.17f);
                 break;
+            }
             case WeaponTypes.Sword:
+            {
+                Vector3 oriPos = transform.position;
+                iTween.MoveTo(gameObject, targetShip.GetClosestHitPosition(transform.position), 0.15f);
+                yield return new WaitForSeconds(0.17f);
                 AudioManager.Instance.SoundPlay("sfx/AttackSword");
+                iTween.MoveTo(gameObject, oriPos, 0.15f);
+                yield return new WaitForSeconds(0.17f);
                 break;
+            }
             case WeaponTypes.Gun:
+            {
+                Bullet bl = GameObjectPoolManager.Instance.Pool_BulletPool.AllocateGameObject<Bullet>(transform);
+                bl.Move(transform.position, targetShip.transform.position, Color.white, Color.white, 1, 0.03f, 0.1f, 0);
                 AudioManager.Instance.SoundPlay("sfx/AttackGun");
                 break;
+            }
             case WeaponTypes.SniperGun:
+            {
+                Bullet bl = GameObjectPoolManager.Instance.Pool_BulletPool.AllocateGameObject<Bullet>(transform);
+                bl.Move(transform.position, targetShip.transform.position, Color.yellow, Color.yellow, 1, 0.03f, 0.15f, 0);
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;
+            }
         }
 
         yield return null;

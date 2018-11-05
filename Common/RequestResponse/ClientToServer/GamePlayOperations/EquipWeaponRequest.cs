@@ -19,11 +19,6 @@ public class EquipWeaponRequest : ClientRequestBase
         return NetProtocols.EQUIP_WEAPON_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "EQUIP_WEAPON_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -36,13 +31,5 @@ public class EquipWeaponRequest : ClientRequestBase
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
         retinueId = reader.ReadSInt32();
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [retinueId]=" + retinueId;
-        return log;
     }
 }

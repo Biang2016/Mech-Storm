@@ -58,8 +58,10 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
     private float changeBGTimeTick = 0;
     [SerializeField] private float ChangeBGTimeInterval = 60f;
 
+    private bool isChanging = false;
     public void ChangeBoardBG()
     {
+        if (isChanging) return;
         changeBGTimeTick = 0;
         if (index < BGs.Length - 1)
         {
@@ -91,6 +93,7 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
 
     IEnumerator Co_ChangePictureFade(Renderer rd, float duration, FadeOption fadeOption)
     {
+        isChanging = true;
         for (float tick = duration; tick >= 0; tick -= 0.1f)
         {
             MaterialPropertyBlock mpb = new MaterialPropertyBlock();
@@ -109,6 +112,7 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
             rd.SetPropertyBlock(mpb);
             yield return new WaitForSeconds(0.1f);
         }
+        isChanging = false;
     }
 
     enum FadeOption

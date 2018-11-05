@@ -32,12 +32,6 @@
         return NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_RETINUE_ATTRIBUTES_CHANGE";
-    }
-
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -66,18 +60,4 @@
         addShield = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clinetId]=" + clinetId;
-        log += " [retinueId]=" + retinueId;
-        log += " [addLeftLife]=" + addLeftLife;
-        log += " [addMaxLife]=" + addMaxLife;
-        log += " [addAttack]=" + addAttack;
-        log += " [addWeaponEnergy]=" + addWeaponEnergy;
-        log += " [addWeaponEnergyMax]=" + addWeaponEnergyMax;
-        log += " [addArmor]=" + addArmor;
-        log += " [addShield]=" + addShield;
-        return log;
-    }
 }

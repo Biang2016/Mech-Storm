@@ -21,11 +21,6 @@ public class RetinueCardInfoSyncRequest : ServerRequestBase
         return NetProtocols.SE_RETINUE_CARDINFO_SYNC;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_RETINUE_CARDINFO_SYNC";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -42,12 +37,4 @@ public class RetinueCardInfoSyncRequest : ServerRequestBase
         cardInfo = CardInfo_Base.Deserialze(reader);
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [instanceId]=" + instanceId;
-        log += " [cardInfo.CardID]=" + cardInfo.CardID;
-        return log;
-    }
 }

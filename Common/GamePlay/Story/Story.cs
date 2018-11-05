@@ -149,35 +149,4 @@ public class Story
 
         return newStory;
     }
-
-    public string DeserializeLog()
-    {
-        string log = "";
-        log += " [StoryName]" + StoryName;
-        log += " [Levels]";
-        foreach (Level level in Levels)
-        {
-            log += " [level]=" + level.DeserializeLog();
-        }
-
-        log += " [PlayerCurrentBuildInfo]=" + PlayerCurrentBuildInfo.DeserializeLog();
-        log += " [PlayerCurrentUnlockedBuildInfo]=" + PlayerCurrentUnlockedBuildInfo.DeserializeLog();
-
-        log += " [PlayerBuildInfos]=";
-        foreach (BuildInfo playerBuildInfo in PlayerBuildInfos.Values)
-        {
-            log += playerBuildInfo.DeserializeLog();
-        }
-
-        log += " [StoryGamePlaySettings]=" + StoryGamePlaySettings.DeserializeLog();
-        log += " [PlayerBeatBossID]=";
-
-        foreach (KeyValuePair<int, int> kv in PlayerBeatBossID)
-        {
-            log += " [LevelID]=" + kv.Key;
-            log += " [BossID]=" + kv.Value;
-        }
-
-        return log;
-    }
 }

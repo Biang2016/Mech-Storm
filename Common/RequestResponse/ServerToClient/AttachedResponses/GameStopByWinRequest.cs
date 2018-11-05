@@ -15,10 +15,6 @@
         return NetProtocols.GAME_STOP_BY_WIN_REQUEST;
     }
 
-	public override string GetProtocolName()
-	{
-        return "GAME_STOP_BY_WIN_REQUEST";
-	}
 
     public override void Serialize(DataStream writer)
     {
@@ -30,12 +26,5 @@
     {
         base.Deserialize(reader);
         winnerClientId = reader.ReadSInt32();
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [winnerClientId]=" + winnerClientId;
-        return log;
     }
 }

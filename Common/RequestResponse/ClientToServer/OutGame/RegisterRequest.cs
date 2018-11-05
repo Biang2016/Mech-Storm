@@ -18,11 +18,6 @@
         return NetProtocols.REGISTER_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "REGISTER_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -37,10 +32,4 @@
         password = reader.ReadString8();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [username]=" + username;
-        return log;
-    }
 }

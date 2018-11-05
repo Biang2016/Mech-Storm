@@ -1,4 +1,6 @@
 ﻿using System.Net.Sockets;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public abstract class ProxyBase
 {

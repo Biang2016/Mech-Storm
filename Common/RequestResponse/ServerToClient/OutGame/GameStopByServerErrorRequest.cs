@@ -10,8 +10,4 @@
         return NetProtocols.GAME_STOP_BY_SERVER_ERROR_REQUEST;
     }
 
-	public override string GetProtocolName()
-	{
-        return "GAME_STOP_BY_SERVER_ERROR_REQUEST";
-	}
 }

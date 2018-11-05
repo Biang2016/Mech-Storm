@@ -79,7 +79,34 @@ internal class AllPlayerStory
                     Boss.Name = bossInfo.Attributes["name"].Value;
                     Boss.BuildName = bossInfo.Attributes["BuildName"].Value;
                     Boss.PicID = int.Parse(bossInfo.Attributes["picID"].Value);
+                    Boss.AlwaysBonusGroup = new List<BonusGroup>();
+                    Boss.OptionalBonusGroup = new List<BonusGroup>();
                     level.Bosses.Add(Boss);
+
+                    for (int k = 0; k < bossInfo.ChildNodes.Count; k++)
+                    {
+                        XmlNode bonusGroupInfo = bossInfo.ChildNodes.Item(k);
+                        BonusGroup bg = new BonusGroup();
+                        bg.IsAlways = bonusGroupInfo.Attributes["type"].Value == "Always";
+                        bg.Bonuses = new List<Bonus>();
+                        for (int l = 0; l < bonusGroupInfo.ChildNodes.Count; l++)
+                        {
+                            XmlNode bonusInfo = bonusGroupInfo.ChildNodes.Item(l);
+                            Bonus bonus = new Bonus();
+                            bonus.M_BonusType = (Bonus.BonusType) Enum.Parse(typeof(Bonus.BonusType), bonusInfo.Attributes["name"].Value);
+                            bonus.Value = int.Parse(bonusInfo.Attributes["value"].Value);
+                            bg.Bonuses.Add(bonus);
+                        }
+
+                        if (bg.IsAlways)
+                        {
+                            Boss.AlwaysBonusGroup.Add(bg);
+                        }
+                        else
+                        {
+                            Boss.OptionalBonusGroup.Add(bg);
+                        }
+                    }
                 }
 
                 Levels.Add(level);

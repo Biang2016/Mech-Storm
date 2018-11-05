@@ -22,11 +22,6 @@
         return NetProtocols.SE_RETINUE_SHIELD_DEFENCE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_RETINUE_SHIELD_DEFENCE";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -44,14 +39,5 @@
         decreaseValue = reader.ReadSInt32();
         shieldValue = reader.ReadSInt32();
     }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [retinueId]=" + retinueId;
-        log += " [decreaseValue]=" + decreaseValue;
-        log += " [shieldValue]=" + shieldValue;
-        return log;
-    }
+ 
 }

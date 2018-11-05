@@ -21,11 +21,6 @@ public class UseSpellCardToEquipServerRequset : ServerRequestBase
         return NetProtocols.SE_USE_SPELLCARD_TO_EQUIP_SERVER_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_USE_SPELLCARD_TO_EQUIP_SERVER_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -40,11 +35,4 @@ public class UseSpellCardToEquipServerRequset : ServerRequestBase
         targetEquipId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [targetEquipId]=" + targetEquipId;
-        return log;
-    }
 }

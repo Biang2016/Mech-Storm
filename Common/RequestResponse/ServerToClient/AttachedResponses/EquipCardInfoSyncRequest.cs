@@ -21,10 +21,6 @@ public class EquipCardInfoSyncRequest : ServerRequestBase
         return NetProtocols.SE_EQUIP_CARDINFO_SYNC;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_EQUIP_CARDINFO_SYNC";
-    }
 
     public override void Serialize(DataStream writer)
     {
@@ -40,14 +36,5 @@ public class EquipCardInfoSyncRequest : ServerRequestBase
         clientId = reader.ReadSInt32();
         instanceId = reader.ReadSInt32();
         cardInfo = CardInfo_Base.Deserialze(reader);
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [instanceId]=" + instanceId;
-        log += " [cardInfo.CardID]=" + cardInfo.CardID;
-        return log;
     }
 }

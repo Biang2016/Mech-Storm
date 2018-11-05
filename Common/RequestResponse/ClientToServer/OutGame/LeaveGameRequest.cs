@@ -13,11 +13,6 @@
         return NetProtocols.LEAVE_GAME_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "LEAVE_GAME_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -28,9 +23,4 @@
         base.Deserialize(reader);
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        return log;
-    }
 }

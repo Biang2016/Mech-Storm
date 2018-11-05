@@ -16,11 +16,6 @@
         return NetProtocols.GAME_STOP_BY_LEAVE_REQUEST;
     }
 
-	public override string GetProtocolName()
-	{
-        return "GAME_STOP_BY_LEAVE_REQUEST";
-	}
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -33,10 +28,4 @@
         clientId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        return log;
-    }
 }

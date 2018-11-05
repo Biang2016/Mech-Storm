@@ -350,7 +350,7 @@ internal class ClientProxy : ProxyBase
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
-                        ClientState = ClientStates.Matching;
+                        ClientState = ClientStates.Login;
                     }
 
                     if (ClientState == ClientStates.Matching)

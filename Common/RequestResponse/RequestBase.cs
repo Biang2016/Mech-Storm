@@ -1,5 +1,11 @@
-﻿public abstract class RequestBase
+﻿using Newtonsoft.Json;
+
+public abstract class RequestBase
 {
+    public string ProtocolName
+    {
+        get { return GetProtocol().ToString(); }
+    }
     public string CreateAt;
     public int RequestId;
     private static int RequestIdGenerator = 10000;
@@ -17,8 +23,6 @@
 
     public abstract NetProtocols GetProtocol();
 
-    public abstract string GetProtocolName();
-
     public virtual void Serialize(DataStream writer)
     {
         writer.WriteSInt32((int) GetProtocol());
@@ -34,9 +38,6 @@
 
     public virtual string DeserializeLog()
     {
-        string log = " <" + GetProtocolName() + "> ";
-        //log += " [CreateAt]=" + CreateAt;
-        log += " [RequestId]=" + RequestId;
-        return log;
+        return "[" + ProtocolName + "]:\n" + JsonConvert.SerializeObject(this, Formatting.Indented, Utils.JsonSettings);
     }
 }

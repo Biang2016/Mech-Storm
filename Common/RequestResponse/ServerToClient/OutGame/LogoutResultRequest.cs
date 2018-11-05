@@ -18,11 +18,6 @@
         return NetProtocols.LOGOUT_RESULT_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "LOGOUT_RESULT_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -37,11 +32,4 @@
         isSuccess = reader.ReadByte() == 0x01;
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [username]=" + username;
-        log += " [isSuccess]=" + isSuccess;
-        return log;
-    }
 }

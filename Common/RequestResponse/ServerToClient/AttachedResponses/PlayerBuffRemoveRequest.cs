@@ -20,11 +20,6 @@
         return NetProtocols.SE_PLAYER_BUFF_REMOVE_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_PLAYER_BUFF_REMOVE_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -41,12 +36,4 @@
         buffName = reader.ReadString8();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [buffId]=" + buffId;
-        log += " [buffName]=" + buffName;
-        return log;
-    }
 }

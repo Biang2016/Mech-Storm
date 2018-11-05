@@ -9,10 +9,6 @@
         return NetProtocols.EQUIP_MA_REQUEST_RESPONSE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "EQUIP_MA_REQUEST_RESPONSE";
-    }
 
     public override void Serialize(DataStream writer)
     {
@@ -24,9 +20,5 @@
         base.Deserialize(reader);
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        return log;
-    }
+
 }

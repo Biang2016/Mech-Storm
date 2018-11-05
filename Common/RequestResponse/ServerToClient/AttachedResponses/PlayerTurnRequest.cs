@@ -16,11 +16,6 @@
         return NetProtocols.SE_PLAYER_TURN;
     }
 
-	public override string GetProtocolName()
-	{
-        return "SE_PLAYER_TURN";
-	}
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -33,10 +28,4 @@
         clientId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        return log;
-    }
 }

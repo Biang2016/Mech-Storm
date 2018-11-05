@@ -173,6 +173,12 @@ public partial class SelectBuildManager
 
             if (SelectedHeros.ContainsKey(card.CardInfo.CardID))
             {
+                if (!Client.Instance.Proxy.IsSuperAccount && SelectedHeros[card.CardInfo.CardID].Count >= card.CardInfo.BaseInfo.LimitNum)
+                {
+                    NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You can only take " + card.CardInfo.BaseInfo.LimitNum + " copy of this card." : "该卡牌只能携带" + card.CardInfo.BaseInfo.LimitNum + "张", 0, 0.7f);
+                    return;
+                }
+
                 int count = ++SelectedHeros[card.CardInfo.CardID].Count;
                 card.SetBlockCountValue(count);
             }
@@ -196,6 +202,12 @@ public partial class SelectBuildManager
         {
             if (SelectedCards.ContainsKey(card.CardInfo.CardID))
             {
+                if (!Client.Instance.Proxy.IsSuperAccount && SelectedCards[card.CardInfo.CardID].Count >= card.CardInfo.BaseInfo.LimitNum)
+                {
+                    NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You can only take " + card.CardInfo.BaseInfo.LimitNum + " copy of this card." : "该卡牌只能携带" + card.CardInfo.BaseInfo.LimitNum + "张", 0, 0.7f);
+                    return;
+                }
+
                 int count = ++SelectedCards[card.CardInfo.CardID].Count;
                 card.SetBlockCountValue(count);
             }

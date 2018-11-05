@@ -232,7 +232,7 @@ internal class Server
         if (r is ClientRequestBase)
         {
 #if DEBUG
-            ServerLog.PrintReceive("GetFrom clientId: " + ((ClientRequestBase) r).clientId + " <" + r.GetProtocolName() + "> " + r.DeserializeLog());
+            ServerLog.PrintReceive("GetFrom clientId: " + ((ClientRequestBase) r).clientId + " <" + r.GetProtocol() + "> " + r.DeserializeLog());
 #endif
             ClientRequestBase request = (ClientRequestBase) r;
             if (ClientsDict.ContainsKey(request.clientId))

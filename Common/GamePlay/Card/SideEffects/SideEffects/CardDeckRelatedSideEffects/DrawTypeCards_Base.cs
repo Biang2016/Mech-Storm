@@ -1,4 +1,7 @@
-﻿public class DrawTypeCards_Base : CardDeckRelatedSideEffects, IEffectFactor
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+public class DrawTypeCards_Base : CardDeckRelatedSideEffects, IEffectFactor
 {
     public int Value;
     private int factor = 1;

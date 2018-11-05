@@ -170,21 +170,5 @@ public partial class SideEffectBase
             int Value = reader.ReadSInt32();
             return new ExecuterInfo(ClientId, TargetClientId, SideEffectExecutorID, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId, Value);
         }
-
-        public string DeserializeLog()
-        {
-            string log = "";
-            log += " [ClientId]=" + ClientId;
-            log += " [TargetClientId]=" + TargetClientId;
-            log += " [SideEffectExecutorID]=" + SideEffectExecutorID;
-            log += " [RetinueId]=" + RetinueId;
-            log += " [TargetRetinueId]=" + TargetRetinueId;
-            log += " [CardId]=" + CardId;
-            log += " [CardInstanceId]=" + CardInstanceId;
-            log += " [EquipId]=" + EquipId;
-            log += " [TargetEquipId]=" + TargetEquipId;
-            log += " [Value]=" + Value;
-            return log;
-        }
     }
 }

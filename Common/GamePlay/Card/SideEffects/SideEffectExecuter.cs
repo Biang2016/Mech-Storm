@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 /// <summary>
 /// 将SideEffect和其触发时机、触发次数等参数封装起来
@@ -13,6 +15,7 @@ public class SideEffectExecute
     }
 
     [Flags]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum SideEffectFrom
     {
         Unknown = 0,

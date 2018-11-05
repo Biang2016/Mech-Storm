@@ -30,11 +30,6 @@
         return NetProtocols.SE_SET_PLAYER;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_SET_PLAYER";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -61,17 +56,4 @@
         energyMax = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [username]=" + username;
-        log += " [clientId]=" + clientId;
-        log += " [metalLeft]=" + metalLeft;
-        log += " [metalMax]=" + metalMax;
-        log += " [lifeLeft]=" + lifeLeft;
-        log += " [lifeMax]=" + lifeMax;
-        log += " [energyLeft]=" + energyLeft;
-        log += " [energyMax]=" + energyMax;
-        return log;
-    }
 }

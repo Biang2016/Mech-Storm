@@ -21,11 +21,6 @@
         return NetProtocols.SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -42,12 +37,4 @@
         TriggerRange = (SideEffectBundle.TriggerRange) reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [ExecuterInfo]=" + ExecuterInfo.DeserializeLog();
-        log += " [TriggerTime]=" + TriggerTime;
-        log += " [TriggerRange]=" + TriggerRange;
-        return log;
-    }
 }

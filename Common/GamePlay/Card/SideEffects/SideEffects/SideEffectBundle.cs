@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 /// <summary>
 /// 一大捆SideEffectExecute，用于附在卡牌、随从、武器、战舰上
@@ -122,6 +124,7 @@ public class SideEffectBundle
     }
 
     [Flags]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum TriggerTime
     {
         None = 0,
@@ -298,6 +301,7 @@ public class SideEffectBundle
         {TriggerTime.OnUseMetal, "When {0} consume metal, "},
     };
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum TriggerRange
     {
         None,

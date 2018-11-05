@@ -25,11 +25,6 @@ public class SummonRetinueRequest : ClientRequestBase
         return NetProtocols.SUMMON_RETINUE_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SUMMON_RETINUE_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -50,14 +45,4 @@ public class SummonRetinueRequest : ClientRequestBase
         clientRetinueTempId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [battleGroundIndex]=" + battleGroundIndex;
-        log += " [targetRetinueId]=" + targetRetinueId;
-        log += " [isTargetRetinueIdTempId]=" + isTargetRetinueIdTempId;
-        log += " [clientRetinueTempId]=" + clientRetinueTempId;
-        return log;
-    }
 }

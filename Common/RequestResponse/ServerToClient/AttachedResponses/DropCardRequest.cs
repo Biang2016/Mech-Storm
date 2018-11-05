@@ -18,11 +18,6 @@
         return NetProtocols.SE_DROP_CARD;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_DROP_CARD";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -37,11 +32,4 @@
         handCardInstanceId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [handCardInstanceId]=" + handCardInstanceId;
-        return log;
-    }
 }

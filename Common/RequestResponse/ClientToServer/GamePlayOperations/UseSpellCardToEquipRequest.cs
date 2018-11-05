@@ -19,11 +19,6 @@ public class UseSpellCardToEquipRequest : ClientRequestBase
         return NetProtocols.USE_SPELLCARD_TO_EQUIP_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "USE_SPELLCARD_TO_EQUIP_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -38,11 +33,4 @@ public class UseSpellCardToEquipRequest : ClientRequestBase
         targetEquipId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [targetEquipId]=" + targetEquipId;
-        return log;
-    }
 }

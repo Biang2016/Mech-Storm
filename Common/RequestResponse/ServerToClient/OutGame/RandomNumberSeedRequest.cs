@@ -16,11 +16,6 @@
         return NetProtocols.RANDOM_NUMBER_SEED_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "RANDOM_NUMBER_SEED_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -33,10 +28,4 @@
         randomNumberSeed = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [randomNumberSeed]=" + randomNumberSeed;
-        return log;
-    }
 }

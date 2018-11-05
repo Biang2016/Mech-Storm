@@ -18,11 +18,6 @@
         return NetProtocols.SE_RETINUE_DODGE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_RETINUE_DODGE";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -37,11 +32,4 @@
         retinueId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [retinueId]=" + retinueId;
-        return log;
-    }
 }

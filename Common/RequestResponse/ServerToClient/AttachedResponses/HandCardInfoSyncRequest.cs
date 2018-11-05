@@ -21,11 +21,6 @@ public class HandCardInfoSyncRequest : ServerRequestBase
         return NetProtocols.SE_HAND_CARDINFO_SYNC;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_HAND_CARDINFO_SYNC";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -40,14 +35,5 @@ public class HandCardInfoSyncRequest : ServerRequestBase
         clientId = reader.ReadSInt32();
         instanceId = reader.ReadSInt32();
         cardInfo = CardInfo_Base.Deserialze(reader);
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [instanceId]=" + instanceId;
-        log += " [cardInfo.CardID]=" + cardInfo.CardID;
-        return log;
     }
 }

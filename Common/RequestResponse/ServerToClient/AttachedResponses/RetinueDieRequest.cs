@@ -21,12 +21,6 @@ public class RetinueDieRequest : ServerRequestBase
         return NetProtocols.SE_RETINUE_DIE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_RETINUE_DIE";
-    }
-
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -48,15 +42,4 @@ public class RetinueDieRequest : ServerRequestBase
         }
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [retinueInfos]= ";
-        foreach (int retinueId in retinueIds)
-        {
-            log += retinueId + ", ";
-        }
-
-        return log;
-    }
 }

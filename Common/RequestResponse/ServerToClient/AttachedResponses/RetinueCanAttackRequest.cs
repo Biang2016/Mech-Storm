@@ -20,11 +20,6 @@
         return NetProtocols.SE_RETINUE_CANATTACK;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_RETINUE_CANATTACK";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -41,12 +36,4 @@
         canAttack = reader.ReadByte() == 0x01;
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [retinueId]=" + retinueId;
-        log += " [canAttack]=" + canAttack;
-        return log;
-    }
 }

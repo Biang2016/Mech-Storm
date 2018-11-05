@@ -16,11 +16,6 @@
         return NetProtocols.LOGOUT_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "LOGOUT_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -31,12 +26,5 @@
     {
         base.Deserialize(reader);
         username = reader.ReadString8();
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [username]=" + username;
-        return log;
     }
 }

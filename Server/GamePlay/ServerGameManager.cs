@@ -125,9 +125,6 @@ internal class ServerGameManager
         IdlePlayer = CurrentPlayer == PlayerA ? PlayerB : PlayerA;
         bool isPlayerAFirst = CurrentPlayer == PlayerA;
 
-        PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
-        Broadcast_AddRequestToOperationResponse(request);
-
         PlayerA.MyHandManager.DrawHeroCards(100);
         PlayerB.MyHandManager.DrawHeroCards(100);
         if (isPlayerAFirst)
@@ -153,8 +150,6 @@ internal class ServerGameManager
     {
         CurrentPlayer = CurrentPlayer == PlayerA ? PlayerB : PlayerA;
         IdlePlayer = IdlePlayer == PlayerA ? PlayerB : PlayerA;
-        PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
-        Broadcast_AddRequestToOperationResponse(request);
     }
 
     void OnBeginRound()
@@ -169,6 +164,8 @@ internal class ServerGameManager
 
     void OnDrawCardPhase()
     {
+        PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
+        Broadcast_AddRequestToOperationResponse(request);
         CurrentPlayer.MyHandManager.DrawHeroCards(100);
         CurrentPlayer.MyHandManager.DrawCards(CurrentPlayer.MyCardDeckManager.CardDeck.M_BuildInfo.DrawCardNum);
     }

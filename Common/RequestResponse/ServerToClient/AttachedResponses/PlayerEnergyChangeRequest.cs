@@ -22,11 +22,6 @@
         return NetProtocols.SE_PLAYER_ENERGY_CHANGE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_PLAYER_ENERGY_CHANGE";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -45,13 +40,4 @@
         isOverflow = reader.ReadByte() == 0x01;
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clinetId]=" + clinetId;
-        log += " [energy_left]=" + energy_left;
-        log += " [energy_max]=" + energy_max;
-        log += " [isOverflow]=" + isOverflow;
-        return log;
-    }
 }

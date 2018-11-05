@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
+using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 internal partial class RoundManager : MonoSingleton<RoundManager>
 {
@@ -19,7 +22,12 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
 
     [SerializeField] private Canvas BattleCanvas;
     [SerializeField] private Button EndRoundButton;
+    [SerializeField] private Animator EndRoundButtonAnim;
     [SerializeField] private Text EndRoundButtonText;
+
+    public bool isSingleBattle;
+    public int Single_LevelID;
+    public int Single_BossID;
 
     void Awake()
     {
@@ -43,6 +51,15 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
 
         GameBoardManager.Instance.ChangeBoardBG();
         GameBoardManager.Instance.ShowBattleShip();
+        if (isSingleBattle)
+        {
+            TransitManager.Instance.HideTransit(Color.black, 0.3f);
+        }
+        else
+        {
+            TransitManager.Instance.ShowBlackShutTransit(0.5f);
+        }
+
         BattleCanvas.enabled = true;
         SetEndRoundButtonState(false);
 
@@ -142,13 +159,27 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
             }
         }
 
-        StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Main);
+        if (isSingleBattle)
+        {
+            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Single);
+            StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Show);
+            TransitManager.Instance.ShowBlackShutTransit(1f);
+        }
+        else
+        {
+            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Online);
+        }
+
         BattleEffectsManager.Instance.ResetAll();
+        TransitManager.Instance.HideTransit(Color.black, 0.1f);
+        StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
     }
 
     private void SetEndRoundButtonState(bool enable)
     {
         EndRoundButton.enabled = enable;
+        EndRoundButtonAnim.SetTrigger(enable ? "OnEnable" : "OnDisable");
+        EndRoundButton.interactable = enable;
         EndRoundButton.image.color = enable ? Color.yellow : Color.gray;
         EndRoundButtonText.text = enable ? (GameManager.Instance.IsEnglish ? "End Turn" : "结束回合") : (GameManager.Instance.IsEnglish ? "Enemy's Turn" : "敌方回合");
     }
@@ -221,8 +252,12 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
 
     public void HideTargetPreviewArrow()
     {
-        foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Retinues) retinue.HideTargetPreviewArrow();
-        foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Retinues) retinue.HideTargetPreviewArrow();
+        if (SelfClientPlayer != null)
+            foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Retinues)
+                retinue.HideTargetPreviewArrow();
+        if (EnemyClientPlayer != null)
+            foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Retinues)
+                retinue.HideTargetPreviewArrow();
     }
 
     #endregion

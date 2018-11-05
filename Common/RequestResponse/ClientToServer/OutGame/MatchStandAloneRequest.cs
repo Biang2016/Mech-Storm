@@ -23,11 +23,6 @@
         return NetProtocols.MATCH_STANDALONE_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "MATCH_STANDALONE_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -42,14 +37,5 @@
         BuildID = reader.ReadSInt32();
         LevelID = reader.ReadSInt32();
         BossID = reader.ReadSInt32();
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [BuildID]=" + BuildID;
-        log += " [LevelID]=" + LevelID;
-        log += " [BossID]=" + BossID;
-        return log;
     }
 }

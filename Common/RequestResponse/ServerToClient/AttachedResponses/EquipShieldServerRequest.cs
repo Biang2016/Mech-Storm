@@ -22,11 +22,6 @@
         return NetProtocols.SE_EQUIP_SHIELD_SERVER_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "EQUIP_SHIELD_SERVER_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -56,20 +51,4 @@
         equipID = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        if (cardInfo == null)
-        {
-            log += " [ShieldDown] ";
-        }
-        else
-        {
-            log += " [cardInfo.CardID]=" + cardInfo.CardID;
-        }
-        log += " [retinueId]=" + retinueId;
-        log += " [equipID]=" + equipID;
-        return log;
-    }
 }

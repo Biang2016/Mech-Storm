@@ -54,7 +54,9 @@
     public int MinDrawCardNum = 1;
     public int MaxDrawCardNum = 5;
 
-    public GamePlaySettings() { }
+    public GamePlaySettings()
+    {
+    }
 
     public GamePlaySettings(int drawCardPerRound, int defaultCoin, int defaultLife, int defaultLifeMax, int defaultLifeMin, int defaultEnergy, int defaultEnergyMax, int defaultDrawCardNum, int minDrawCardNum, int maxDrawCardNum)
     {
@@ -124,23 +126,5 @@
         res.MinDrawCardNum = reader.ReadSInt32();
         res.MaxDrawCardNum = reader.ReadSInt32();
         return res;
-    }
-
-    public string DeserializeLog()
-    {
-        string log = " <GamePlaySettings>";
-        log += " [DrawCardPerRound]=" + DrawCardPerRound;
-
-        log += " [DefaultCoin]=" + DefaultCoin;
-        log += " [DefaultLifeMax]=" + DefaultLifeMax;
-        log += " [DefaultLifeMin]=" + DefaultLifeMin;
-        log += " [DefaultEnergy]=" + DefaultEnergy;
-        log += " [DefaultEnergyMax]=" + DefaultEnergyMax;
-
-        log += " [DefaultDrawCardNum]=" + DefaultDrawCardNum;
-        log += " [MinDrawCardNum]=" + MinDrawCardNum;
-        log += " [MaxDrawCardNum]=" + MaxDrawCardNum;
-
-        return log;
     }
 }

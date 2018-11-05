@@ -1,4 +1,7 @@
-﻿public struct WeaponInfo
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+public struct WeaponInfo
 {
     public int Energy;
     public int EnergyMax;
@@ -39,6 +42,7 @@
     }
 }
 
+[JsonConverter(typeof(StringEnumConverter))]
 public enum WeaponTypes
 {
     None = 0,

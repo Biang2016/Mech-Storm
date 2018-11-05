@@ -21,11 +21,6 @@ public class UseCardRequest : ServerRequestBase
         return NetProtocols.SE_USE_CARD;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_USE_CARD";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -42,12 +37,4 @@ public class UseCardRequest : ServerRequestBase
         cardInfo = CardInfo_Base.Deserialze(reader);
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [cardInfo.CardID]=" + cardInfo.CardID;
-        return log;
-    }
 }

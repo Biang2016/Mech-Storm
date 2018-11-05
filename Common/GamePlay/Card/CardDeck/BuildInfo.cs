@@ -21,7 +21,17 @@ public class BuildInfo
 
     public int LifeConsumeCoin
     {
-        get { return (Life - GamePlaySettings.DefaultLifeMin) * GamePlaySettings.LifeToCoin; }
+        get
+        {
+            if (GamePlaySettings == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return (Life - GamePlaySettings.DefaultLifeMin) * GamePlaySettings.LifeToCoin;
+            }
+        }
     }
 
     public int EnergyConsumeCoin
@@ -33,7 +43,17 @@ public class BuildInfo
 
     public int DrawCardNumConsumeCoin
     {
-        get { return GamePlaySettings.DrawCardNumToCoin[DrawCardNum] - GamePlaySettings.DrawCardNumToCoin[GamePlaySettings.MinDrawCardNum]; }
+        get
+        {
+            if (GamePlaySettings == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return GamePlaySettings.DrawCardNumToCoin[DrawCardNum] - GamePlaySettings.DrawCardNumToCoin[GamePlaySettings.MinDrawCardNum];
+            }
+        }
     }
 
     public int Life;
@@ -73,17 +93,14 @@ public class BuildInfo
         get { return CardIDs.Count; }
     }
 
-    public bool IsEnergyEnough
+    public bool IsEnergyEnough()
     {
-        get
+        foreach (int cardID in CardIDs)
         {
-            foreach (int cardID in CardIDs)
-            {
-                if (AllCards.GetCard(cardID).BaseInfo.Energy > Energy) return false;
-            }
-
-            return true;
+            if (AllCards.GetCard(cardID).BaseInfo.Energy > Energy) return false;
         }
+
+        return true;
     }
 
     public BuildInfo Clone()
@@ -145,24 +162,5 @@ public class BuildInfo
 
         BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs, DrawCardNum, Life, Energy, null);
         return buildInfo;
-    }
-
-    public string DeserializeLog()
-    {
-        string log = " <BuildInfo>";
-        log += " [BuildID]=" + BuildID;
-        log += " [BuildName]=" + BuildName;
-        log += " [CardIDs]=";
-        foreach (int cardID in CardIDs)
-        {
-            log += cardID + " ";
-        }
-
-        log += " [CardConsumeCoin]=" + CardConsumeCoin;
-        log += " [DrawCardNum]=" + DrawCardNum;
-        log += " [Life]=" + Life;
-        log += " [Energy]=" + Energy;
-        log += "</BuildInfo> ";
-        return log;
     }
 }

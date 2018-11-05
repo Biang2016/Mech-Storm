@@ -20,12 +20,6 @@
         return NetProtocols.SE_PLAYER_METAL_CHANGE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_PLAYER_COST_CHANGE";
-    }
-
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -42,12 +36,4 @@
         metal_max = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clinetId]=" + clinetId;
-        log += " [metal_left]=" + metal_left;
-        log += " [metal_max]=" + metal_max;
-        return log;
-    }
 }

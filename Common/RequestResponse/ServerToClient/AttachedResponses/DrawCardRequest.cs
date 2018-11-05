@@ -29,11 +29,6 @@ public class DrawCardRequest : ServerRequestBase
         return NetProtocols.SE_DRAW_CARD;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_DRAW_CARD";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -82,23 +77,6 @@ public class DrawCardRequest : ServerRequestBase
                 cardInfos.Add(new CardIdAndInstanceId(999, cardInstanceId));
             }
         }
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [cardCount]=" + cardInfos.Count;
-        if (isShow)
-        {
-            log += " [cardInfo]=";
-            foreach (CardIdAndInstanceId cardInfo in cardInfos)
-            {
-                log += cardInfo.CardId + "[" + cardInfo.CardInstanceId + "], ";
-            }
-        }
-
-        return log;
     }
 
     public struct CardIdAndInstanceId

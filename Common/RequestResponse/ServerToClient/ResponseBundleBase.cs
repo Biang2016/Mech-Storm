@@ -27,17 +27,4 @@ public abstract class ResponseBundleBase : ServerRequestBase
             AttachedRequests.Add(request);
         }
     }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [AttachedRequests] {";
-        foreach (var serverRequestBase in AttachedRequests)
-        {
-            log += serverRequestBase.DeserializeLog();
-        }
-
-        log += "}";
-        return log;
-    }
 }

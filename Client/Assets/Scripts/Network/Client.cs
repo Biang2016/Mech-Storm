@@ -284,7 +284,7 @@ public class Client : MonoSingleton<Client>
                 Closed();
             }
 
-            string log = "SendToServer: <" + request.GetProtocolName() + "> " + request.DeserializeLog();
+            string log = "SendToServer: <" + request.GetProtocol() + "> " + request.DeserializeLog();
             ClientLog.Instance.Print(log);
         }
         catch (Exception e)

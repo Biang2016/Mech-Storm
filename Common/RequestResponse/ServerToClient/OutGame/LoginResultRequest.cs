@@ -1,4 +1,7 @@
-﻿public class LoginResultRequest : ServerRequestBase
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+public class LoginResultRequest : ServerRequestBase
 {
     public string username;
     public StateCodes stateCode;
@@ -18,11 +21,6 @@
         return NetProtocols.LOGIN_RESULT_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "LOGIN_RESULT_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -37,14 +35,7 @@
         stateCode = (StateCodes) reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [username]=" + username;
-        log += " [isSuccess]=" + stateCode;
-        return log;
-    }
-
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum StateCodes
     {
         Success,

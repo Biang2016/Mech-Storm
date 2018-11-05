@@ -11,6 +11,7 @@ public class StoryCol : PoolObject
         {
             slb.PoolRecycle();
         }
+
         StoryLevelButtons.Clear();
         base.PoolRecycle();
     }
@@ -81,6 +82,71 @@ public class StoryCol : PoolObject
         Links[2, 0] = new Link(Links31, Links31_Go);
         Links[2, 1] = new Link(Links32, Links32_Go);
         Links[2, 2] = new Link(Links33, Links33_Go);
+
+        Links_HL11 = new Image[1, 1];
+        Links_HL11[0, 0] = Link_HL11_11;
+
+        Links_HL12 = new Image[1, 2];
+        Links_HL12[0, 0] = Link_HL12_11;
+        Links_HL12[0, 1] = Link_HL12_12;
+
+        Links_HL13 = new Image[1, 3];
+        Links_HL13[0, 0] = Link_HL13_11;
+        Links_HL13[0, 1] = Link_HL13_12;
+        Links_HL13[0, 2] = Link_HL13_13;
+
+        Links_HL21 = new Image[2, 1];
+        Links_HL21[0, 0] = Link_HL21_11;
+        Links_HL21[1, 0] = Link_HL21_21;
+
+        Links_HL22 = new Image[2, 2];
+        Links_HL22[0, 0] = Link_HL22_11;
+        Links_HL22[0, 1] = Link_HL22_12;
+        Links_HL22[1, 0] = Link_HL22_21;
+        Links_HL22[1, 1] = Link_HL22_22;
+
+        Links_HL23 = new Image[2, 3];
+        Links_HL23[0, 0] = Link_HL23_11;
+        Links_HL23[0, 1] = Link_HL23_12;
+        Links_HL23[0, 2] = Link_HL23_13;
+        Links_HL23[1, 0] = Link_HL23_21;
+        Links_HL23[1, 1] = Link_HL23_22;
+        Links_HL23[1, 2] = Link_HL23_23;
+
+        Links_HL31 = new Image[3, 1];
+        Links_HL31[0, 0] = Link_HL31_11;
+        Links_HL31[1, 0] = Link_HL31_21;
+        Links_HL31[2, 0] = Link_HL31_31;
+
+        Links_HL32 = new Image[3, 2];
+        Links_HL32[0, 0] = Link_HL32_11;
+        Links_HL32[0, 1] = Link_HL32_12;
+        Links_HL32[1, 0] = Link_HL32_21;
+        Links_HL32[1, 1] = Link_HL32_22;
+        Links_HL32[2, 0] = Link_HL32_31;
+        Links_HL32[2, 1] = Link_HL32_32;
+
+        Links_HL33 = new Image[3, 3];
+        Links_HL33[0, 0] = Link_HL33_11;
+        Links_HL33[0, 1] = Link_HL33_12;
+        Links_HL33[0, 2] = Link_HL33_13;
+        Links_HL33[1, 0] = Link_HL33_21;
+        Links_HL33[1, 1] = Link_HL33_22;
+        Links_HL33[1, 2] = Link_HL33_23;
+        Links_HL33[2, 0] = Link_HL33_31;
+        Links_HL33[2, 1] = Link_HL33_32;
+        Links_HL33[2, 2] = Link_HL33_33;
+
+        Links_HL = new Link[3, 3];
+        Links_HL[0, 0] = new Link(Links_HL11, Links_HL11_Go);
+        Links_HL[0, 1] = new Link(Links_HL12, Links_HL12_Go);
+        Links_HL[0, 2] = new Link(Links_HL13, Links_HL13_Go);
+        Links_HL[1, 0] = new Link(Links_HL21, Links_HL21_Go);
+        Links_HL[1, 1] = new Link(Links_HL22, Links_HL22_Go);
+        Links_HL[1, 2] = new Link(Links_HL23, Links_HL23_Go);
+        Links_HL[2, 0] = new Link(Links_HL31, Links_HL31_Go);
+        Links_HL[2, 1] = new Link(Links_HL32, Links_HL32_Go);
+        Links_HL[2, 2] = new Link(Links_HL33, Links_HL33_Go);
     }
 
     internal List<StoryLevelButton> StoryLevelButtons = new List<StoryLevelButton>();
@@ -125,7 +191,6 @@ public class StoryCol : PoolObject
 
 
     [SerializeField] private GameObject Links21_Go;
-    [SerializeField] private Image[,] test;
     [SerializeField] private Image Link21_11;
     [SerializeField] private Image Link21_21;
 
@@ -168,13 +233,87 @@ public class StoryCol : PoolObject
     [SerializeField] private Image Link33_32;
     [SerializeField] private Image Link33_33;
 
+    private Link[,] Links_HL;
+
+    private Image[,] Links_HL11;
+    private Image[,] Links_HL12;
+    private Image[,] Links_HL13;
+
+    private Image[,] Links_HL21;
+    private Image[,] Links_HL22;
+    private Image[,] Links_HL23;
+
+    private Image[,] Links_HL31;
+    private Image[,] Links_HL32;
+    private Image[,] Links_HL33;
+
+    [SerializeField] private GameObject Links_HL11_Go;
+    [SerializeField] private Image Link_HL11_11;
+
+    [SerializeField] private GameObject Links_HL12_Go;
+    [SerializeField] private Image Link_HL12_11;
+    [SerializeField] private Image Link_HL12_12;
+
+    [SerializeField] private GameObject Links_HL13_Go;
+    [SerializeField] private Image Link_HL13_11;
+    [SerializeField] private Image Link_HL13_12;
+    [SerializeField] private Image Link_HL13_13;
+
+
+    [SerializeField] private GameObject Links_HL21_Go;
+    [SerializeField] private Image Link_HL21_11;
+    [SerializeField] private Image Link_HL21_21;
+
+    [SerializeField] private GameObject Links_HL22_Go;
+    [SerializeField] private Image Link_HL22_11;
+    [SerializeField] private Image Link_HL22_12;
+    [SerializeField] private Image Link_HL22_21;
+    [SerializeField] private Image Link_HL22_22;
+
+    [SerializeField] private GameObject Links_HL23_Go;
+    [SerializeField] private Image Link_HL23_11;
+    [SerializeField] private Image Link_HL23_12;
+    [SerializeField] private Image Link_HL23_13;
+    [SerializeField] private Image Link_HL23_21;
+    [SerializeField] private Image Link_HL23_22;
+    [SerializeField] private Image Link_HL23_23;
+
+
+    [SerializeField] private GameObject Links_HL31_Go;
+    [SerializeField] private Image Link_HL31_11;
+    [SerializeField] private Image Link_HL31_21;
+    [SerializeField] private Image Link_HL31_31;
+
+    [SerializeField] private GameObject Links_HL32_Go;
+    [SerializeField] private Image Link_HL32_11;
+    [SerializeField] private Image Link_HL32_12;
+    [SerializeField] private Image Link_HL32_21;
+    [SerializeField] private Image Link_HL32_22;
+    [SerializeField] private Image Link_HL32_31;
+    [SerializeField] private Image Link_HL32_32;
+
+    [SerializeField] private GameObject Links_HL33_Go;
+    [SerializeField] private Image Link_HL33_11;
+    [SerializeField] private Image Link_HL33_12;
+    [SerializeField] private Image Link_HL33_13;
+    [SerializeField] private Image Link_HL33_21;
+    [SerializeField] private Image Link_HL33_22;
+    [SerializeField] private Image Link_HL33_23;
+    [SerializeField] private Image Link_HL33_31;
+    [SerializeField] private Image Link_HL33_32;
+    [SerializeField] private Image Link_HL33_33;
+
     [SerializeField] private Text LevelName;
 
-
     public Level LevelInfo;
+    public int bossCount;
+    public int nextLevelBossCount;
 
     public void Initialize(Level levelInfo, int endCount)
     {
+        bossCount = levelInfo.Bosses.Count;
+        nextLevelBossCount = endCount;
+
         LevelInfo = levelInfo;
         LevelName.text = "Level " + levelInfo.LevelID;
         foreach (Boss bossInfo in levelInfo.Bosses)
@@ -185,18 +324,18 @@ public class StoryCol : PoolObject
             StoryLevelButtons.Add(slb);
         }
 
-        int startCount = levelInfo.Bosses.Count;
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
                 Links[i, j].Links_Go.SetActive(false);
+                Links_HL[i, j].Links_Go.SetActive(false);
             }
         }
 
-        if (endCount != 0)
+        if (nextLevelBossCount != 0)
         {
-            Link CurLink = Links[startCount - 1, endCount - 1];
+            Link CurLink = Links[bossCount - 1, nextLevelBossCount - 1];
             CurLink.Links_Go.SetActive(true);
 
             foreach (Image image in CurLink.LinksImage)
@@ -204,8 +343,23 @@ public class StoryCol : PoolObject
                 image.enabled = true;
                 image.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.StoryLevelColor2);
             }
+        }
+    }
 
-            //CurLink.LinksImage[start, end].enabled = true;
+    public void SetLink_HL_Show(int levelBeatBossID, int nextLevelBeatBossID)
+    {
+        if (levelBeatBossID != -1 && nextLevelBeatBossID != -1)
+        {
+            Link CurLink_HL = Links_HL[bossCount - 1, nextLevelBossCount - 1];
+            CurLink_HL.Links_Go.SetActive(true);
+
+            foreach (Image image in CurLink_HL.LinksImage)
+            {
+                image.enabled = false;
+                image.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.StoryLevelColor5);
+            }
+
+            CurLink_HL.LinksImage[levelBeatBossID, nextLevelBeatBossID].enabled = true;
         }
     }
 

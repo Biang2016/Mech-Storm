@@ -20,10 +20,6 @@
         return NetProtocols.SE_PLAYER_LIFE_CHANGE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_PLAYER_LIFE_CHANGE";
-    }
 
     public override void Serialize(DataStream writer)
     {
@@ -41,12 +37,4 @@
         life_max = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clinetId]=" + clinetId;
-        log += " [life_left]=" + life_left;
-        log += " [life_max]=" + life_max;
-        return log;
-    }
 }

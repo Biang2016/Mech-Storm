@@ -46,18 +46,4 @@ public class Level
 
         return newLevel;
     }
-
-    public string DeserializeLog()
-    {
-        string log = "";
-        log += " [LevelID]=" + LevelID;
-        log += " [Bosses]=";
-
-        foreach (Boss boss in Bosses)
-        {
-            log += boss.DeserializeLog();
-        }
-
-        return log;
-    }
 }

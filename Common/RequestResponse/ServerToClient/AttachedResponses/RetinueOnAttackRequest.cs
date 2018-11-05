@@ -22,10 +22,6 @@
         return NetProtocols.SE_RETINUE_ONATTACK;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_RETINUE_ONATTACK";
-    }
 
     public override void Serialize(DataStream writer)
     {
@@ -45,13 +41,4 @@
         weaponType = (WeaponTypes) reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [retinueId]=" + retinueId;
-        log += " [targetRetinueId]=" + targetRetinueId;
-        log += " [weaponType]=" + weaponType;
-        return log;
-    }
 }

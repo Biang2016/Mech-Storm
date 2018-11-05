@@ -22,11 +22,6 @@
         return NetProtocols.SE_EQUIP_WEAPON_SERVER_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "EQUIP_WEAPON_SERVER_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -54,22 +49,5 @@
         }
         retinueId = reader.ReadSInt32();
         equipID = reader.ReadSInt32();
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        if (cardInfo == null)
-        {
-            log += " [WeaponDown] ";
-        }
-        else
-        {
-            log += " [cardInfo.CardID]=" + cardInfo.CardID;
-        }
-        log += " [retinueId]=" + retinueId;
-        log += " [equipID]=" + equipID;
-        return log;
     }
 }

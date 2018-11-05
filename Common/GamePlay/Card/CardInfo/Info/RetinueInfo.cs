@@ -1,4 +1,7 @@
-﻿public struct RetinueInfo
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+public struct RetinueInfo
 {
     public bool IsSoldier;
     public bool IsDefence;
@@ -60,6 +63,7 @@
     }
 }
 
+[JsonConverter(typeof(StringEnumConverter))]
 public enum SlotTypes
 {
     None = 0,

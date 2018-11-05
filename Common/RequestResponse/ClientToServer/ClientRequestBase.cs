@@ -23,11 +23,4 @@
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
     }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        return log;
-    }
 }

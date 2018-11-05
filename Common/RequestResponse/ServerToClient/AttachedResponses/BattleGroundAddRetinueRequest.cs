@@ -24,11 +24,6 @@
         return NetProtocols.SE_BATTLEGROUND_ADD_RETINUE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_BATTLEGROUND_ADD_RETINUE";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -47,16 +42,5 @@
         battleGroundIndex = reader.ReadSInt32();
         retinueId = reader.ReadSInt32();
         clientRetinueTempId = reader.ReadSInt32();
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [cardInfo.CardID]=" + cardInfo.CardID;
-        log += " [battleGroundIndex]=" + battleGroundIndex;
-        log += " [retinueId]=" + retinueId;
-        log += " [clientRetinueTempId]=" + clientRetinueTempId;
-        return log;
     }
 }

@@ -24,11 +24,6 @@ public class BeatBossRequest:ServerRequestBase
         return NetProtocols.BEAT_BOSS_REQUSET;
     }
 
-    public override string GetProtocolName()
-    {
-        return "BEAT_BOSS_REQUSET";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -41,13 +36,5 @@ public class BeatBossRequest:ServerRequestBase
         base.Deserialize(reader);
         LevelID = reader.ReadSInt32();
         BossID = reader.ReadSInt32();
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [LevelID]=" + LevelID;
-        log += " [BossID]=" + BossID;
-        return log;
     }
 }

@@ -20,11 +20,6 @@
         return NetProtocols.RETINUE_ATTACK_RETINUE_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "RETINUE_ATTACK_RETINUE_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -41,12 +36,4 @@
         BeAttackedRetinueId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [AttackRetinueId]=" + AttackRetinueId;
-        log += " [BeAttackedRetinueClientId]=" + BeAttackedRetinueClientId;
-        log += " [BeAttackedRetinueId]=" + BeAttackedRetinueId;
-        return log;
-    }
 }

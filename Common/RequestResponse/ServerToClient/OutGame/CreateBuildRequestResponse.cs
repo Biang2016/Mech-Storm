@@ -17,10 +17,6 @@
         return NetProtocols.CREATE_BUILD_REQUEST_RESPONSE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "CREATE_BUILD_REQUEST_RESPONSE";
-    }
 
     public override void Serialize(DataStream writer)
     {
@@ -34,10 +30,4 @@
         buildId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [buildId]=" + buildId;
-        return log;
-    }
 }

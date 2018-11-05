@@ -95,6 +95,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                     case States.Show_Main:
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
+                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(true);
                         Instance.SingleMenuButton.gameObject.SetActive(true);
                         Instance.SettingButton.gameObject.SetActive(true);
@@ -111,6 +112,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                     case States.Show_Online:
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
+                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
                         Instance.SettingButton.gameObject.SetActive(true);
@@ -143,6 +145,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                     case States.Show_Single:
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
+                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
                         Instance.SettingButton.gameObject.SetActive(true);
@@ -199,7 +202,6 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             Instance.RefreshBuildInfoAbstract();
 
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
-            AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
         }
 
 
@@ -399,6 +401,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     public void OnBackButtonClick()
     {
         M_StateMachine.SetState(StateMachine.States.Show_Main);
+        if (Client.Instance.IsMatching()) OnCancelMatchGameButtonClick();
         GameBoardManager.Instance.ChangeBoardBG();
     }
 
@@ -460,7 +463,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                 OnSelectCardDeckWindowButtonClick();
                 return;
             }
-            else if (!SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.IsEnergyEnough)
+            else if (!SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.IsEnergyEnough())
             {
                 UnityAction action;
                 if (isStandAlone)
@@ -508,13 +511,17 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin matching" : "开始匹配");
         NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Matching" : "匹配中", 0, float.PositiveInfinity);
         DeckAbstract.SetActive(true);
+        RoundManager.Instance.isSingleBattle = false;
     }
 
     private void StartNewSingleGame(int levelID, int bossID)
     {
         Client.Instance.Proxy.OnBeginSingleMode(levelID, bossID);
         ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin single mode" : "开始单人模式");
-        AudioManager.Instance.SoundPlay("sfx/BattleStart" + Random.Range(0, 3));
+        RoundManager.Instance.isSingleBattle = true;
+        RoundManager.Instance.Single_LevelID = levelID;
+        RoundManager.Instance.Single_BossID = bossID;
+        TransitManager.Instance.ShowTransit(Color.black, 0.3f);
     }
 
     public void OnCancelMatchGameButtonClick()

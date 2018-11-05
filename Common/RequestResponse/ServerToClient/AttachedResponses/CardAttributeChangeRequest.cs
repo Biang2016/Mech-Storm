@@ -24,11 +24,6 @@
         return NetProtocols.SE_CARD_ATTR_CHANGE;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_CARD_ATTR_CHANGE";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -47,16 +42,5 @@
         metalChange = reader.ReadSInt32();
         energyChange = reader.ReadSInt32();
         effectFactor = reader.ReadSInt32();
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [cardInstanceId]=" + cardInstanceId;
-        log += " [metalChange]=" + metalChange;
-        log += " [energyChange]=" + energyChange;
-        log += " [effectFactor]=" + effectFactor;
-        return log;
     }
 }

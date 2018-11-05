@@ -41,11 +41,6 @@ public class ClientBuildInfosRequest : ServerRequestBase
         return NetProtocols.CLIENT_BUILDINFOS_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "CLIENT_BUILDINFOS_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -83,24 +78,5 @@ public class ClientBuildInfosRequest : ServerRequestBase
         {
             Story = Story.Deserialize(reader);
         }
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [OnlineBuildInfoNum]=" + OnlineBuildInfos.Count;
-        foreach (BuildInfo buildInfo in OnlineBuildInfos.Values)
-        {
-            log += buildInfo.DeserializeLog();
-        }
-
-        log += " [OnlineGamePlaySettings]=" + OnlineGamePlaySettings.DeserializeLog();
-        log += " [HasStory]=" + HasStory;
-        if (HasStory)
-        {
-            log += Story.DeserializeLog();
-        }
-
-        return log;
     }
 }

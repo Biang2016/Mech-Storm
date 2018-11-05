@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public abstract class TargetSideEffect : SideEffectBase
 {
@@ -26,6 +28,7 @@ public abstract class TargetSideEffect : SideEffectBase
     }
 
     [Flags]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum TargetRange
     {
         Mechs = SelfMechs | EnemyMechs,

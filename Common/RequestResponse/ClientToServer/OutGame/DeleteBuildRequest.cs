@@ -18,10 +18,6 @@
         return NetProtocols.DELETE_BUILD_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "DELETE_BUILD_REQUEST";
-    }
 
     public override void Serialize(DataStream writer)
     {
@@ -35,13 +31,5 @@
         base.Deserialize(reader);
         buildID = reader.ReadSInt32();
         isSingle = reader.ReadByte() == 0x01;
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [buildID]=" + buildID;
-        log += " [isSingle]=" + isSingle;
-        return log;
     }
 }

@@ -22,11 +22,6 @@
         return NetProtocols.SE_PLAYER_BUFF_UPDATE_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "SE_PLAYER_BUFF_UPDATE_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -45,13 +40,4 @@
         value = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [clientId]=" + clientId;
-        log += " [buffId]=" + buffId;
-        log += " [buffName]=" + buff.SideEffectBase.Name;
-        log += " [value]=" + value;
-        return log;
-    }
 }

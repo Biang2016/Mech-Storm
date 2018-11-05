@@ -106,6 +106,9 @@
     public GameObjectPool Pool_StoryLevelColPool;
     public PoolObject StoryLevelColPrefab;
 
+    public GameObjectPool Pool_BulletPool;
+    public PoolObject BulletPrefab;
+
 
     void Awake()
     {
@@ -179,5 +182,7 @@
         Pool_StoryLevelButtonPool.Initiate(StoryLevelButtonPrefab, 12);
 
         Pool_StoryLevelColPool.Initiate(StoryLevelColPrefab, 12);
+
+        Pool_BulletPool.Initiate(BulletPrefab, 5);
     }
 }

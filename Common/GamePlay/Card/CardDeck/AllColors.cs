@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public static class AllColors
 {
@@ -13,7 +15,7 @@ public static class AllColors
 
     public static DebugLog DebugLogHandler;
 
-
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ColorType
     {
         SoldierCardColor,

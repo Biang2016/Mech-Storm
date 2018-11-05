@@ -19,11 +19,6 @@ public class UseSpellCardToShipRequest : ClientRequestBase
         return NetProtocols.USE_SPELLCARD_TO_SHIP_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "USE_SPELLCARD_TO_SHIP_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -38,11 +33,4 @@ public class UseSpellCardToShipRequest : ClientRequestBase
         targetClientId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [targetClientId]=" + targetClientId;
-        return log;
-    }
 }

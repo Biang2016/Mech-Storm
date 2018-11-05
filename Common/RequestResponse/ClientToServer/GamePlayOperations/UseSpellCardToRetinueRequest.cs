@@ -23,11 +23,6 @@ public class UseSpellCardToRetinueRequest : ClientRequestBase
         return NetProtocols.USE_SPELLCARD_TO_RETINUE_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "USE_SPELLCARD_TO_RETINUE_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -46,13 +41,4 @@ public class UseSpellCardToRetinueRequest : ClientRequestBase
         clientRetinueTempId = reader.ReadSInt32();
     }
 
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [targetRetinueId]=" + targetRetinueId;
-        log += " [isTargetRetinueIdTempId]=" + isTargetRetinueIdTempId;
-        log += " [clientRetinueTempId]=" + clientRetinueTempId;
-        return log;
-    }
 }

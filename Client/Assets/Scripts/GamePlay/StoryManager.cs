@@ -105,6 +105,7 @@ public class StoryManager : MonoSingleton<StoryManager>
     [SerializeField] private Canvas StoryCanvas;
     [SerializeField] private Scrollbar StoryBGScrollbar;
     [SerializeField] private Scrollbar StoryScrollbar;
+    [SerializeField] private RectTransform StoryLevelScrollView;
     [SerializeField] private RectTransform StoryLevelContainer;
     [SerializeField] private Animator Anim;
 
@@ -118,10 +119,10 @@ public class StoryManager : MonoSingleton<StoryManager>
         {
             sc.PoolRecycle();
         }
+
         LevelCols.Clear();
 
         M_CurrentStory = story;
-        StoryScrollbar.onValueChanged.AddListener(SyncStoryBGSliderValue);
 
         for (int i = 0; i < story.Levels.Count; i++)
         {
@@ -157,6 +158,17 @@ public class StoryManager : MonoSingleton<StoryManager>
 
             SetLevelBeated(kv.Key, kv.Value);
         }
+
+        StoryBGScrollbar.value = 0;
+        StoryScrollbar.value = 0;
+        if (StoryLevelContainer.rect.width < StoryLevelScrollView.rect.width)
+        {
+            StoryScrollbar.onValueChanged.RemoveAllListeners();
+        }
+        else
+        {
+            StoryScrollbar.onValueChanged.AddListener(SyncStoryBGSliderValue);
+        }
     }
 
     private void SyncStoryBGSliderValue(float value)
@@ -182,6 +194,12 @@ public class StoryManager : MonoSingleton<StoryManager>
         if (M_CurrentStory.Levels.Count > levelID + 1)
         {
             LevelCols[levelID + 1].SetLevelKnown();
+        }
+
+        if (levelID > 0)
+        {
+            int lastBeatBossID = M_CurrentStory.PlayerBeatBossID[levelID - 1];
+            LevelCols[levelID - 1].SetLink_HL_Show(lastBeatBossID, bossID);
         }
     }
 

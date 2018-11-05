@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public struct BaseInfo
 {
@@ -12,10 +14,11 @@ public struct BaseInfo
     public int Energy;
     public int Coin;
     public int EffectFactor;
+    public int LimitNum;
     public DragPurpose DragPurpose;
     public CardTypes CardType;
 
-    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, bool isTemp, bool hide, int metal, int energy, int coin, int effectFactor, DragPurpose dragPurpose, CardTypes cardType)
+    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, bool isTemp, bool hide, int metal, int energy, int coin, int effectFactor, int limitNum, DragPurpose dragPurpose, CardTypes cardType)
     {
         PictureID = pictureID;
         CardName = cardName;
@@ -27,6 +30,7 @@ public struct BaseInfo
         Energy = energy;
         Coin = coin;
         EffectFactor = effectFactor;
+        LimitNum = limitNum;
         DragPurpose = dragPurpose;
         CardType = cardType;
     }
@@ -68,6 +72,7 @@ public struct BaseInfo
         writer.WriteSInt32(Energy);
         writer.WriteSInt32(Coin);
         writer.WriteSInt32(EffectFactor);
+        writer.WriteSInt32(LimitNum);
         writer.WriteSInt32((int) DragPurpose);
         writer.WriteSInt32((int) CardType);
     }
@@ -84,9 +89,10 @@ public struct BaseInfo
         int Energy = reader.ReadSInt32();
         int Coin = reader.ReadSInt32();
         int EffectFactor = reader.ReadSInt32();
+        int LimitNum = reader.ReadSInt32();
         DragPurpose DragPurpose = (DragPurpose) reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
-        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, IsTemp, Hide, Metal, Energy, Coin, EffectFactor, DragPurpose, CardType);
+        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, IsTemp, Hide, Metal, Energy, Coin, EffectFactor, LimitNum, DragPurpose, CardType);
     }
 
     public static Dictionary<CardTypes, string> CardTypeNameDict_en = new Dictionary<CardTypes, string>
@@ -106,6 +112,7 @@ public struct BaseInfo
     };
 }
 
+[JsonConverter(typeof(StringEnumConverter))]
 public enum CardTypes
 {
     Retinue,
@@ -114,6 +121,7 @@ public enum CardTypes
     Equip,
 }
 
+[JsonConverter(typeof(StringEnumConverter))]
 public enum DragPurpose
 {
     None = 0,

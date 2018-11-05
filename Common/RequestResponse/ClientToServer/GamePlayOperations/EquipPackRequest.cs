@@ -19,11 +19,6 @@ public class EquipPackRequest : ClientRequestBase
         return NetProtocols.EQUIP_PACK_REQUEST;
     }
 
-    public override string GetProtocolName()
-    {
-        return "EQUIP_PACK_REQUEST";
-    }
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -36,13 +31,5 @@ public class EquipPackRequest : ClientRequestBase
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
         retinueID = reader.ReadSInt32();
-    }
-
-    public override string DeserializeLog()
-    {
-        string log = base.DeserializeLog();
-        log += " [handCardInstanceId]=" + handCardInstanceId;
-        log += " [retinueID]=" + retinueID;
-        return log;
     }
 }

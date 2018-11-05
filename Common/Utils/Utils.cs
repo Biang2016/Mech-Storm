@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Newtonsoft.Json;
 
 public class Utils
 {
@@ -100,4 +101,11 @@ public class Utils
 
         return sb.ToString().Trim('\n');
     }
+
+    public static JsonSerializerSettings JsonSettings = new JsonSerializerSettings
+    {
+        MissingMemberHandling = MissingMemberHandling.Ignore,
+        NullValueHandling = NullValueHandling.Ignore,
+        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+    };
 }
