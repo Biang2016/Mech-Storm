@@ -19,21 +19,22 @@
         <BonusInfo name="Budget" value="500"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional">
-        <BonusInfo name="AdjustDeck" value="500"></BonusInfo>
         <BonusInfo name="UnlockCard" value="62600"></BonusInfo>
+      </BonusGroupInfo>
+      <BonusGroupInfo type="Optional">
+        <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
+      </BonusGroupInfo>
+      <BonusGroupInfo type="Optional">
+        <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional">
         <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
     <BossInfo name="Boss1" BuildName="StrikeTeam" picID="58">
-
-    </BossInfo>
-    <BossInfo name="Boss1" BuildName="StrikeTeam" picID="58">
-
-    </BossInfo>
-    <BossInfo name="Boss1" BuildName="StrikeTeam" picID="58">
-
+      <BonusGroupInfo type="Optional">
+        <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
+      </BonusGroupInfo>
     </BossInfo>
   </Level>
   <Level>

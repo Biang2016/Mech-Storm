@@ -38,7 +38,7 @@ public struct Bonus
     static Dictionary<BonusType, string> BonusDescRaw_en = new Dictionary<BonusType, string>
     {
         {BonusType.UnlockCard, "Unlock card"},
-        {BonusType.AdjustDeck, "A change to adjust deck"},
+        {BonusType.AdjustDeck, "A chance to adjust deck"},
         {BonusType.LifeUpperLimit, "Life {0}"},
         {BonusType.EnergyUpperLimit, "Energy {0}"},
         {BonusType.Budget, "Budget {0}"},

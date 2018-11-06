@@ -14,6 +14,7 @@ internal class BonusButton : PoolObject
             bonusItem.PoolRecycle();
         }
 
+        SetSelected(false);
         base.PoolRecycle();
     }
 
@@ -22,6 +23,7 @@ internal class BonusButton : PoolObject
     [SerializeField] private Image BG_Image;
     [SerializeField] private Transform Container;
     [SerializeField] private Button Button;
+    [SerializeField] private Image BorderSelected;
 
     private List<BonusItem_Base> M_BonusItems = new List<BonusItem_Base>();
 
@@ -58,8 +60,18 @@ internal class BonusButton : PoolObject
 
     public void OnButtonClick()
     {
+        WinLostPanelManager.Instance.SetBonusButtonSelected(this);
+        AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick");
+    }
+
+    public void OnConfirmButtonClickDelegate()
+    {
         BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientId, BonusGroup);
         Client.Instance.Proxy.SendMessage(request);
-        WinLostPanelManager.Instance.EndWinLostPanel();
+    }
+
+    public void SetSelected(bool isSelected)
+    {
+        BorderSelected.enabled = isSelected;
     }
 }

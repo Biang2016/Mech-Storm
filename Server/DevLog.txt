@@ -298,17 +298,11 @@ Art Update the UI of cards.
 26th, Oct
 [Dev] Realize the animation of mechs' attack.
 
-
-!Show Use Card音效
-
 TodoList
 增加retinue的武器图标样式，普通和枪
 onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能产生伤害的标识
 
 交互性及bug：
-
-切换回合音效
-下回合抽牌在随从死亡之前进行
 
 对战机制：
 
@@ -321,35 +315,22 @@ onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能�
 法术牌增加独特特效
 energy条用量预览显示高亮  
 
-初始牌库牌数量
-
-dodge有问题
 做直接伤害总量展示
-杀人没有扣血动画，直接死亡
-
-分辨率问题
-login菜单和start菜单比例锁死，太小了
-
-
-亡语标志没显示
 
 对方buff描述反了
 
-Bugs:
-多次登录卡死bug
-
-英文选项设置适配
-卡牌字体，大小适配
-
-发布版本不显示log窗口
 bug:
 进入游戏还出现星星
 
 
 客户端操作重复进行时，服务端容错处理
 
-武器攻击移动
-打3coin太低
 结束战斗菜单位置
 storybutton音效
 结束回合音效
+
+开关屏问题
+mousehover没取消问题
+返回菜单问题
+弹出story面板问题
+卡牌bonus显示问题

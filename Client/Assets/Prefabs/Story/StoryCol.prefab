@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114791618723538938}
   - component: {fileID: 114023563122636356}
   m_Layer: 0
-  m_Name: Col
+  m_Name: StoryCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

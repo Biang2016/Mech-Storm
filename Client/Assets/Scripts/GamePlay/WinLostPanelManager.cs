@@ -20,6 +20,7 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         OnlineLostText.text = GameManager.Instance.IsEnglish ? "You lost ..." : "你输了...";
         LostTipTitle.text = GameManager.Instance.IsEnglish ? "Tips: " : "提示: ";
         RewardsTitleText.text = GameManager.Instance.IsEnglish ? "Rewards" : "奖励";
+        NoRewardText.text = GameManager.Instance.IsEnglish ? "The designer is so mean that here isn't any reward." : "设计师是个吝啬鬼，这里没有任何奖励";
     }
 
     [SerializeField] private Canvas WinLostCanvas;
@@ -31,6 +32,7 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
     [SerializeField] private Text SelectTipText;
     [SerializeField] private Transform BonusButtonContainer;
     private List<BonusButton> M_CurrentBonusButtons = new List<BonusButton>();
+    [SerializeField] private Text NoRewardText;
 
     [SerializeField] private GameObject LostContent;
     [SerializeField] private Text LostText;
@@ -40,6 +42,9 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
     [SerializeField] private GameObject OnlineResultContent;
     [SerializeField] private Text OnlineWinText;
     [SerializeField] private Text OnlineLostText;
+
+    private List<BonusGroup> AlwaysBonusGroup;
+    private List<BonusGroup> OptionalBonusGroup;
 
     public void WinGame()
     {
@@ -52,17 +57,25 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
                 bb.PoolRecycle();
             }
 
+            OnConfirmButtonClickHandler = null;
             M_CurrentBonusButtons.Clear();
             WinContent.SetActive(true);
             OnlineResultContent.SetActive(false);
-            List<BonusGroup> AlwaysBonusGroup = StoryManager.Instance.GetCurrentAlwaysBonusGroup();
-            List<BonusGroup> OptionalBonusGroup = Utils.GetRandomFromList(StoryManager.Instance.GetCurrentOptionalBonusGroup(), Random.Range(2, 4));
+            AlwaysBonusGroup = StoryManager.Instance.GetCurrentAlwaysBonusGroup();
+            OptionalBonusGroup = Utils.GetRandomFromList(StoryManager.Instance.GetCurrentOptionalBonusGroup(), Random.Range(2, 4));
             foreach (BonusGroup bonusGroup in OptionalBonusGroup)
             {
                 BonusButton bb = GameObjectPoolManager.Instance.Pool_BonusButtonPool.AllocateGameObject<BonusButton>(BonusButtonContainer);
                 bb.Initialize(bonusGroup);
                 M_CurrentBonusButtons.Add(bb);
             }
+
+            if (OptionalBonusGroup.Count == 1)
+            {
+                M_CurrentBonusButtons[0].SetSelected(true);
+            }
+
+            NoRewardText.enabled = AlwaysBonusGroup.Count == 0 && OptionalBonusGroup.Count == 0;
         }
         else
         {
@@ -137,6 +150,33 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         WinLostCanvas.enabled = false;
     }
 
+
+    public void SetBonusButtonSelected(BonusButton bonusButton)
+    {
+        foreach (BonusButton bb in M_CurrentBonusButtons)
+        {
+            bb.SetSelected(bb == bonusButton);
+        }
+
+        OnConfirmButtonClickHandler = bonusButton.OnConfirmButtonClickDelegate;
+    }
+
+    public delegate void OnConfirmButtonClickDelegate();
+
+    public OnConfirmButtonClickDelegate OnConfirmButtonClickHandler;
+
+    public void OnConfirmButtonClick()
+    {
+        if (OnConfirmButtonClickHandler != null) OnConfirmButtonClickHandler();
+        if (OptionalBonusGroup.Count != 0 && OnConfirmButtonClickHandler == null)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Come on, you should select one reward!" : "你需要选择一个奖励,不要客气!", 0, 0.8f);
+        }
+        else
+        {
+            EndWinLostPanel();
+        }
+    }
 
     private static Dictionary<bool, List<string>> LostTips = new Dictionary<bool, List<string>>
     {

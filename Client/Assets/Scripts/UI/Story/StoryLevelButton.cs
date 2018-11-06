@@ -55,7 +55,7 @@ public class StoryLevelButton : PoolObject
     public void OnHover()
     {
         if (!interactable) return;
-        AudioManager.Instance.SoundPlay("sfx/OnHoverStoryButton");
+        AudioManager.Instance.SoundPlay("sfx/StoryButtonOnHover");
         Anim.SetBool("Hover", true);
     }
 

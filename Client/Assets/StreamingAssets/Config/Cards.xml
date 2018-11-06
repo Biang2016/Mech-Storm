@@ -287,7 +287,7 @@
   </Card>
   <Card id="5702">
     <CardInfo name="baseInfo" pictureID="57" cardName="大魔[防守]" cardName_en="Dom(Defence)" cardDesc="" isTemp="True" hide="True" metal="2" energy="0" coin="0" effectFactor="1" limitNum="1" dragPurpose="Summon" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="1" basicArmor="2" />
