@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 
 public struct Boss
 {
-    public int BossID;
     public string Name;
     public string BuildName;
     public int PicID;
@@ -16,7 +15,6 @@ public struct Boss
 
     public void Serialize(DataStream writer)
     {
-        writer.WriteSInt32(BossID);
         writer.WriteString8(Name);
         writer.WriteString8(BuildName);
         writer.WriteSInt32(PicID);
@@ -37,7 +35,6 @@ public struct Boss
     public static Boss Deserialize(DataStream reader)
     {
         Boss newBoss = new Boss();
-        newBoss.BossID = reader.ReadSInt32();
         newBoss.Name = reader.ReadString8();
         newBoss.BuildName = reader.ReadString8();
         newBoss.PicID = reader.ReadSInt32();

@@ -108,4 +108,29 @@ public class Utils
         NullValueHandling = NullValueHandling.Ignore,
         ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
     };
+
+    public static List<T> GetRandomFromList<T>(List<T> OriList, int number)
+    {
+        if (OriList == null) return new List<T>();
+        if (number > OriList.Count) number = OriList.Count;
+
+        HashSet<int> indice = new HashSet<int>();
+        Random rd = new Random();
+        while (indice.Count < number)
+        {
+            int index = rd.Next(0, number);
+            if (!indice.Contains(index))
+            {
+                indice.Add(index);
+            }
+        }
+
+        List<T> res = new List<T>();
+        foreach (int i in indice)
+        {
+            res.Add(OriList[i]);
+        }
+
+        return res;
+    }
 }

@@ -160,7 +160,7 @@ internal class ClientProxy : ProxyBase
 
                     if (ClientState == ClientStates.GetId)
                     {
-                        RegisterRequest request = (RegisterRequest)r;
+                        RegisterRequest request = (RegisterRequest) r;
 
                         bool suc = Database.Instance.AddUser(request.username, request.password);
                         RegisterResultRequest response = new RegisterResultRequest(suc);
@@ -181,7 +181,7 @@ internal class ClientProxy : ProxyBase
 
                     if (ClientState == ClientStates.GetId)
                     {
-                        LoginRequest request = (LoginRequest)r;
+                        LoginRequest request = (LoginRequest) r;
                         LoginResultRequest response;
 
                         string password = Database.Instance.GetUserPasswordByUsername(request.username);
@@ -232,77 +232,121 @@ internal class ClientProxy : ProxyBase
 
                     break;
                 case LogoutRequest _:
-                    {
+                {
 #if DEBUG
-                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 #endif
-                        LogoutRequest request = (LogoutRequest)r;
-                        LogoutResultRequest response;
-                        if (ClientState != ClientStates.GetId)
-                        {
-                            Server.SV.SGMM.RemoveGame(this);
-                            bool suc = Database.Instance.RemoveLoginUser(ClientId);
-                            ClientState = ClientStates.GetId;
-                            response = new LogoutResultRequest(request.username, suc);
-                        }
-                        else
-                        {
-                            response = new LogoutResultRequest(request.username, false);
-                        }
-
-                        SendMessage(response);
-                        break;
+                    LogoutRequest request = (LogoutRequest) r;
+                    LogoutResultRequest response;
+                    if (ClientState != ClientStates.GetId)
+                    {
+                        Server.SV.SGMM.RemoveGame(this);
+                        bool suc = Database.Instance.RemoveLoginUser(ClientId);
+                        ClientState = ClientStates.GetId;
+                        response = new LogoutResultRequest(request.username, suc);
                     }
+                    else
+                    {
+                        response = new LogoutResultRequest(request.username, false);
+                    }
+
+                    SendMessage(response);
+                    break;
+                }
 
                 case StartNewStoryRequest _:
-                    {
-                        Story newStory = Database.Instance.StoryStartDict["Story1"].Variant();
-                        Database.Instance.RemovePlayerStory(UserName, this);
-                        Database.Instance.PlayerStoryStates.Add(UserName, newStory);
+                {
+                    Story newStory = Database.Instance.StoryStartDict["Story1"].Variant();
+                    Database.Instance.RemovePlayerStory(UserName, this);
+                    Database.Instance.PlayerStoryStates.Add(UserName, newStory);
 
-                        newStory.PlayerBuildInfos.Add(newStory.PlayerCurrentBuildInfo.BuildID, newStory.PlayerCurrentBuildInfo);
-                        Database.Instance.BuildInfoDict.Add(newStory.PlayerCurrentBuildInfo.BuildID, newStory.PlayerCurrentBuildInfo);
-                        StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(newStory);
-                        SendMessage(response);
-                        break;
+                    newStory.PlayerBuildInfos.Add(newStory.PlayerCurrentBuildInfo.BuildID, newStory.PlayerCurrentBuildInfo);
+                    Database.Instance.BuildInfoDict.Add(newStory.PlayerCurrentBuildInfo.BuildID, newStory.PlayerCurrentBuildInfo);
+                    StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(newStory);
+                    SendMessage(response);
+                    break;
+                }
+
+                case BonusGroupRequest _:
+                {
+                    BonusGroupRequest request = (BonusGroupRequest) r;
+                    Story story = Database.Instance.PlayerStoryStates[username];
+                    if (story != null)
+                    {
+                        foreach (Bonus bonus in request.BonusGroup.Bonuses)
+                        {
+                            switch (bonus.M_BonusType)
+                            {
+                                case Bonus.BonusType.AdjustDeck:
+                                {
+                                    //Todo
+                                    break;
+                                }
+                                case Bonus.BonusType.LifeUpperLimit:
+                                {
+                                    story.StoryGamePlaySettings.DefaultLifeMax += bonus.Value;
+                                    break;
+                                }
+                                case Bonus.BonusType.EnergyUpperLimit:
+                                {
+                                    story.StoryGamePlaySettings.DefaultEnergyMax += bonus.Value;
+                                    break;
+                                }
+                                case Bonus.BonusType.Budget:
+                                {
+                                    story.StoryGamePlaySettings.DefaultCoin += bonus.Value;
+                                    break;
+                                }
+                                case Bonus.BonusType.UnlockCard:
+                                {
+                                    story.PlayerCurrentUnlockedBuildInfo.CardIDs.Add(bonus.Value);
+                                    break;
+                                }
+                            }
+                        }
                     }
+
+                    StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(story);
+                    SendMessage(response);
+                    break;
+                }
 
                 case BuildRequest _:
+                {
+                    BuildRequest request = (BuildRequest) r;
+                    if (request.BuildInfo.BuildID == -1)
                     {
-                        BuildRequest request = (BuildRequest)r;
-                        if (request.BuildInfo.BuildID == -1)
-                        {
-                            request.BuildInfo.BuildID = BuildInfo.GenerateBuildID();
-                            CreateBuildRequestResponse response = new CreateBuildRequestResponse(request.BuildInfo.BuildID);
-                            SendMessage(response);
-                        }
-                        else
-                        {
-                            BuildUpdateRequest response = new BuildUpdateRequest(request.BuildInfo);
-                            SendMessage(response);
-                        }
-
-                        string username = Database.Instance.GetUsernameByClientId(ClientId);
-                        if (username != null)
-                        {
-                            Database.Instance.AddOrModifyBuild(username, request.BuildInfo, request.isSingle);
-                        }
-                        else
-                        {
-                            ServerLog.PrintError("No such user in server：[ClientID]=" + ClientId);
-                        }
-
-                        break;
+                        request.BuildInfo.BuildID = BuildInfo.GenerateBuildID();
+                        CreateBuildRequestResponse response = new CreateBuildRequestResponse(request.BuildInfo.BuildID);
+                        SendMessage(response);
                     }
+                    else
+                    {
+                        BuildUpdateRequest response = new BuildUpdateRequest(request.BuildInfo);
+                        SendMessage(response);
+                    }
+
+                    string username = Database.Instance.GetUsernameByClientId(ClientId);
+                    if (username != null)
+                    {
+                        Database.Instance.AddOrModifyBuild(username, request.BuildInfo, request.isSingle);
+                    }
+                    else
+                    {
+                        ServerLog.PrintError("No such user in server：[ClientID]=" + ClientId);
+                    }
+
+                    break;
+                }
 
                 case DeleteBuildRequest _:
-                    {
-                        DeleteBuildRequest request = (DeleteBuildRequest)r;
-                        Database.Instance.DeleteBuild(username, request.buildID, request.isSingle);
-                        DeleteBuildRequestResponse response = new DeleteBuildRequestResponse(request.buildID);
-                        SendMessage(response);
-                        break;
-                    }
+                {
+                    DeleteBuildRequest request = (DeleteBuildRequest) r;
+                    Database.Instance.DeleteBuild(username, request.buildID, request.isSingle);
+                    DeleteBuildRequestResponse response = new DeleteBuildRequestResponse(request.buildID);
+                    SendMessage(response);
+                    break;
+                }
 
                 case MatchRequest _:
 #if DEBUG
@@ -316,7 +360,7 @@ internal class ClientProxy : ProxyBase
 
                     if (ClientState == ClientStates.Login)
                     {
-                        MatchRequest request = (MatchRequest)r;
+                        MatchRequest request = (MatchRequest) r;
                         CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.buildID);
                         ClientState = ClientStates.Matching;
                         Server.SV.SGMM.OnClientMatchGames(this);
@@ -336,7 +380,7 @@ internal class ClientProxy : ProxyBase
 
                     if (ClientState == ClientStates.Login)
                     {
-                        MatchStandAloneRequest request = (MatchStandAloneRequest)r;
+                        MatchStandAloneRequest request = (MatchStandAloneRequest) r;
                         CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.BuildID);
                         ClientState = ClientStates.Matching;
                         Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.LevelID, request.BossID);
@@ -373,44 +417,47 @@ internal class ClientProxy : ProxyBase
                     {
                         switch (r)
                         {
+                            case WinDirectlyRequest _:
+                                MyServerGameManager?.OnWinDirectlyRequest((WinDirectlyRequest) r, MyPlayer);
+                                break;
                             case EndRoundRequest _:
-                                MyServerGameManager?.OnEndRoundRequest((EndRoundRequest)r);
+                                MyServerGameManager?.OnEndRoundRequest((EndRoundRequest) r);
                                 break;
                             case SummonRetinueRequest _:
-                                MyServerGameManager?.OnClientSummonRetinueRequest((SummonRetinueRequest)r);
+                                MyServerGameManager?.OnClientSummonRetinueRequest((SummonRetinueRequest) r);
                                 break;
                             case EquipWeaponRequest _:
-                                MyServerGameManager?.OnClientEquipWeaponRequest((EquipWeaponRequest)r);
+                                MyServerGameManager?.OnClientEquipWeaponRequest((EquipWeaponRequest) r);
                                 break;
                             case EquipShieldRequest _:
-                                MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest)r);
+                                MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest) r);
                                 break;
                             case EquipPackRequest _:
-                                MyServerGameManager?.OnClientEquipPackRequest((EquipPackRequest)r);
+                                MyServerGameManager?.OnClientEquipPackRequest((EquipPackRequest) r);
                                 break;
                             case EquipMARequest _:
-                                MyServerGameManager?.OnClientEquipMARequest((EquipMARequest)r);
+                                MyServerGameManager?.OnClientEquipMARequest((EquipMARequest) r);
                                 break;
                             case UseSpellCardRequest _:
-                                MyServerGameManager?.OnClientUseSpellCardRequest((UseSpellCardRequest)r);
+                                MyServerGameManager?.OnClientUseSpellCardRequest((UseSpellCardRequest) r);
                                 break;
                             case UseSpellCardToRetinueRequest _:
-                                MyServerGameManager?.OnClientUseSpellCardToRetinueRequest((UseSpellCardToRetinueRequest)r);
+                                MyServerGameManager?.OnClientUseSpellCardToRetinueRequest((UseSpellCardToRetinueRequest) r);
                                 break;
                             case UseSpellCardToShipRequest _:
-                                MyServerGameManager?.OnClientUseSpellCardToShipRequest((UseSpellCardToShipRequest)r);
+                                MyServerGameManager?.OnClientUseSpellCardToShipRequest((UseSpellCardToShipRequest) r);
                                 break;
                             case UseSpellCardToEquipRequest _:
-                                MyServerGameManager?.OnClientUseSpellCardToEquipRequest((UseSpellCardToEquipRequest)r);
+                                MyServerGameManager?.OnClientUseSpellCardToEquipRequest((UseSpellCardToEquipRequest) r);
                                 break;
                             case LeaveGameRequest _: //正常退出游戏请求
-                                MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest)r);
+                                MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
                                 break;
                             case RetinueAttackRetinueRequest _:
-                                MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest)r);
+                                MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest) r);
                                 break;
                             case RetinueAttackShipRequest _:
-                                MyServerGameManager?.OnClientRetinueAttackShipRequest((RetinueAttackShipRequest)r);
+                                MyServerGameManager?.OnClientRetinueAttackShipRequest((RetinueAttackShipRequest) r);
                                 break;
                         }
                     }
@@ -419,7 +466,7 @@ internal class ClientProxy : ProxyBase
                         switch (r)
                         {
                             case LeaveGameRequest _: //正常退出游戏请求
-                                MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest)r);
+                                MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
                                 break;
                         }
                     }

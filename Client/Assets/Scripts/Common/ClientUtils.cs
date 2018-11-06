@@ -238,7 +238,6 @@ class ClientUtils
         }
     }
 
-
     //工具，初始化数字块
     public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, Transform block)
     {

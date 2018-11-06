@@ -24,11 +24,11 @@ internal class BigBonusItem : BonusItem_Base
         {
             case Bonus.BonusType.UnlockCard:
             {
-                CurrentCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(bonus.Value), CardContainer, RoundManager.Instance.SelfClientPlayer, false);
+                CurrentCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(bonus.Value), CardContainer, RoundManager.Instance.SelfClientPlayer, true);
+                CurrentCard.transform.localScale = Vector3.one * 90;
+                CurrentCard.transform.rotation = Quaternion.Euler(90, 180, 0);
                 break;
             }
         }
     }
-
-
 }

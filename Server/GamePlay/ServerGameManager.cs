@@ -340,6 +340,17 @@ internal class ServerGameManager
         Broadcast_SendOperationResponse();
     }
 
+    public void OnWinDirectlyRequest(WinDirectlyRequest r,ServerPlayer player)
+    {
+        if (CurrentPlayer.ClientId == r.clientId)
+        {
+            ClientA.CurrentClientRequestResponseBundle = new WinDirectlyRequest_ResponseBundle();
+            ClientB.CurrentClientRequestResponseBundle = new WinDirectlyRequest_ResponseBundle();
+            OnEndGame(player);
+            Broadcast_SendOperationResponse();
+        }
+    }
+
     public void OnEndRoundRequest(EndRoundRequest r)
     {
         if (CurrentPlayer.ClientId == r.clientId)

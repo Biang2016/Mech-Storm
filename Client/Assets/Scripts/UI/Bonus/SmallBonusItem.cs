@@ -29,7 +29,7 @@ internal class SmallBonusItem : BonusItem_Base
             {
                 ItemImage.sprite = LifeIcon;
                 ItemImage.color = GameManager.Instance.LifeIconColor;
-                ItemImage.transform.localScale = Vector3.one * 0.6f;
+                ItemImage.transform.localScale = Vector3.one * 0.8f;
                 ItemImage.preserveAspect = true;
                 break;
             }
@@ -45,7 +45,7 @@ internal class SmallBonusItem : BonusItem_Base
             {
                 ItemImage.sprite = BudgetIcon;
                 ItemImage.color = Color.white;
-                ItemImage.transform.localScale = Vector3.one * 0.8f;
+                ItemImage.transform.localScale = Vector3.one * 0.6f;
                 ItemImage.preserveAspect = true;
                 break;
             }

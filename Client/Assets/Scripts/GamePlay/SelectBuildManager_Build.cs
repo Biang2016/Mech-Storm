@@ -53,9 +53,9 @@ public partial class SelectBuildManager
 
     public GameMode GameMode_State = GameMode.None;
 
-    public void SwitchGameMode(GameMode gameMode)
+    public void SwitchGameMode(GameMode gameMode, bool isForce = false)
     {
-        if (GameMode_State == gameMode) return;
+        if (!isForce && GameMode_State == gameMode) return;
         if (StoryManager.Instance.M_CurrentStory == null && gameMode == GameMode.Single) return;
         InitAllMyBuildInfos(gameMode);
         GameMode_State = gameMode;

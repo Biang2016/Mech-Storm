@@ -109,11 +109,14 @@
     public GameObjectPool Pool_BulletPool;
     public PoolObject BulletPrefab;
 
-    public GameObjectPool Pool_BigBonusButtonPool;
-    public PoolObject BigBonusButtonPrefab;
+    public GameObjectPool Pool_BigBonusItemPool;
+    public PoolObject BigBonusItemPrefab;
 
-    public GameObjectPool Pool_SmallBonusButtonPool;
-    public PoolObject SmallBonusButtonPrefab;
+    public GameObjectPool Pool_SmallBonusItemPool;
+    public PoolObject SmallBonusItemPrefab;
+
+    public GameObjectPool Pool_BonusButtonPool;
+    public PoolObject BonusButtonPrefab;
 
 
     void Awake()
@@ -191,8 +194,10 @@
 
         Pool_BulletPool.Initiate(BulletPrefab, 5);
 
-        Pool_BigBonusButtonPool.Initiate(BigBonusButtonPrefab, 5);
+        Pool_BigBonusItemPool.Initiate(BigBonusItemPrefab, 5);
 
-        Pool_SmallBonusButtonPool.Initiate(SmallBonusButtonPrefab, 5);
+        Pool_SmallBonusItemPool.Initiate(SmallBonusItemPrefab, 5);
+
+        Pool_BonusButtonPool.Initiate(BonusButtonPrefab, 4);
     }
 }

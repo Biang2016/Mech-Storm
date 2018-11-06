@@ -9,7 +9,7 @@ using UnityEngine.UI;
 internal class BonusItem_Base : PoolObject
 {
     [SerializeField] private Text ItemDesc;
-    [SerializeField] private Image ItemImage;
+    public Image ItemImage;
     public Bonus Bonus;
 
     public static BonusItem_Base InstantiateBonusItem(Bonus bonus, Transform parent)
@@ -17,11 +17,11 @@ internal class BonusItem_Base : PoolObject
         BonusItem_Base bib;
         if (bonus.M_BonusType == Bonus.BonusType.UnlockCard)
         {
-            bib = GameObjectPoolManager.Instance.Pool_BigBonusButtonPool.AllocateGameObject<BonusItem_Base>(parent);
+            bib = GameObjectPoolManager.Instance.Pool_BigBonusItemPool.AllocateGameObject<BonusItem_Base>(parent);
         }
         else
         {
-            bib = GameObjectPoolManager.Instance.Pool_SmallBonusButtonPool.AllocateGameObject<BonusItem_Base>(parent);
+            bib = GameObjectPoolManager.Instance.Pool_SmallBonusItemPool.AllocateGameObject<BonusItem_Base>(parent);
         }
 
         bib.Initialize(bonus);
@@ -33,8 +33,4 @@ internal class BonusItem_Base : PoolObject
         Bonus = bonus;
         ItemDesc.text = Bonus.GetDesc(GameManager.Instance.IsEnglish);
     }
-
-    public delegate void BonusButtonClickHandler();
-
-    public BonusButtonClickHandler OnButtonClick;
 }

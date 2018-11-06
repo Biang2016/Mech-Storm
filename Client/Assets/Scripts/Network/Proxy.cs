@@ -179,8 +179,7 @@ public class Proxy : ProxyBase
                 {
                     StartNewStoryRequestResponse request = (StartNewStoryRequestResponse) r;
                     StoryManager.Instance.InitiateStoryCanvas(request.Story);
-                    SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Online);
-                    SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single);
+                    SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single, true);
                     StartMenuManager.Instance.M_StateMachine.RefreshStoryState();
                     AudioManager.Instance.SoundPlay("sfx/OnStoryStart");
                     break;

@@ -143,9 +143,9 @@ MonoBehaviour:
   PointerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 95679398206540472}
-        m_MethodName: SetTrigger
-        m_Mode: 5
+      - m_Target: {fileID: 114429186929225052}
+        m_MethodName: OnHover
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -181,9 +181,9 @@ MonoBehaviour:
   PointerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 95679398206540472}
-        m_MethodName: SetTrigger
-        m_Mode: 5
+      - m_Target: {fileID: 114429186929225052}
+        m_MethodName: OnExit
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -260,6 +260,8 @@ MonoBehaviour:
   ImageGrayMaterial: {fileID: 2100000, guid: 9d82834e88ac4e74d926f707ad31d557, type: 2}
   UIDefault: {fileID: 2100000, guid: 5a0525d6e03982c458f65b1c8ba7c9c9, type: 2}
   Anim: {fileID: 95679398206540472}
+  M_CurrentLevelID: 0
+  M_CurrentBossID: 0
 --- !u!114 &114597558995963682
 MonoBehaviour:
   m_ObjectHideFlags: 1

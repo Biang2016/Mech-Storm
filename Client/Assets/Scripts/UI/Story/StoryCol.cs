@@ -311,17 +311,27 @@ public class StoryCol : PoolObject
 
     public void Initialize(Level levelInfo, int endCount)
     {
+        foreach (StoryLevelButton slb in StoryLevelButtons)
+        {
+            slb.PoolRecycle();
+        }
+
+        StoryLevelButtons.Clear();
+
         bossCount = levelInfo.Bosses.Count;
         nextLevelBossCount = endCount;
 
         LevelInfo = levelInfo;
         LevelName.text = "Level " + levelInfo.LevelID;
+        int bossID = 0;
         foreach (Boss bossInfo in levelInfo.Bosses)
         {
             StoryLevelButton slb = GameObjectPoolManager.Instance.Pool_StoryLevelButtonPool.AllocateGameObject<StoryLevelButton>(transform);
             slb.Initialize(bossInfo);
-            slb.OnButtonClick += delegate { StartMenuManager.Instance.StartGameCore(true, levelInfo.LevelID, bossInfo.BossID); };
+            slb.M_CurrentLevelID = levelInfo.LevelID;
+            slb.M_CurrentBossID = bossID;
             StoryLevelButtons.Add(slb);
+            bossID++;
         }
 
         for (int i = 0; i < 3; i++)

@@ -18,6 +18,7 @@
     CREATE_BUILD_REQUEST_RESPONSE, //新卡组回应
     BUILD_UPDATE_RESPONSE, //更新卡组
     DELETE_BUILD_REQUEST_RESPONSE, //删除卡组
+    REFRESH_GAMEPLAYSETTINGS_REQUEST, //更新单人模式的GamePlaySettings
 
     BEAT_BOSS_REQUSET, //打败BOSS
 
@@ -37,6 +38,7 @@
     BUILD_REQUEST, //编辑卡组
     SINGLE_BUILD_REQUEST, //编辑单机卡组
     DELETE_BUILD_REQUEST, //删除卡组
+    BONUSGROUP_REQUEST, //奖励请求
 
     #endregion
 
@@ -60,6 +62,7 @@
     RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE, //随从攻击随从_服务器响应
 
     END_ROUND_REQUEST_RESPONSE, //结束回合_服务器响应
+    WIN_DIRECTLY_REQUEST_RESPONSE, //直接获胜_服务器响应
 
     #endregion
 
@@ -130,6 +133,7 @@
     RETINUE_ATTACK_SHIP_REQUEST, //随从攻击战舰
 
     END_ROUND_REQUEST, //结束回合
+    WIN_DIRECTLY_REQUEST, //直接赢得战斗（GM协议）
 
     #endregion
 

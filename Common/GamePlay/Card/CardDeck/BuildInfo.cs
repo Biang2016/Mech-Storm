@@ -17,7 +17,7 @@ public class BuildInfo
     public List<int> CardIDs;
 
     public int CardConsumeCoin;
-    public GamePlaySettings GamePlaySettings;
+    public GamePlaySettings GamePlaySettings;//只对客户端选卡起到限制作用，服务端这个字段没有作用
 
     public int LifeConsumeCoin
     {

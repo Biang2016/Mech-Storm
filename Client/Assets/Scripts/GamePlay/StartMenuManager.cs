@@ -519,8 +519,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         Client.Instance.Proxy.OnBeginSingleMode(levelID, bossID);
         ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin single mode" : "开始单人模式");
         RoundManager.Instance.isSingleBattle = true;
-        RoundManager.Instance.Single_LevelID = levelID;
-        RoundManager.Instance.Single_BossID = bossID;
+        StoryManager.Instance.Current_LevelID = levelID;
+        StoryManager.Instance.Current_BossID = bossID;
         TransitManager.Instance.ShowTransit(Color.black, 0.3f);
     }
 

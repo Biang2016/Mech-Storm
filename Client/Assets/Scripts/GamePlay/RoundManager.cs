@@ -20,18 +20,11 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
     internal ClientPlayer CurrentClientPlayer;
     internal ClientPlayer IdleClientPlayer;
 
-    [SerializeField] private Canvas BattleCanvas;
-    [SerializeField] private Button EndRoundButton;
-    [SerializeField] private Animator EndRoundButtonAnim;
-    [SerializeField] private Text EndRoundButtonText;
 
     public bool isSingleBattle;
-    public int Single_LevelID;
-    public int Single_BossID;
 
     void Awake()
     {
-        BattleCanvas.enabled = false;
     }
 
     private void Update()
@@ -60,8 +53,9 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
             TransitManager.Instance.ShowBlackShutTransit(0.5f);
         }
 
-        BattleCanvas.enabled = true;
-        SetEndRoundButtonState(false);
+        InGameUIManager.Instance.ShowInGameUI();
+
+        InGameUIManager.Instance.SetEndRoundButtonState(false);
 
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.HideForPlay);
@@ -138,7 +132,7 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
         IdleClientPlayer = null;
         RoundNumber = 0;
 
-        BattleCanvas.enabled = false;
+        InGameUIManager.Instance.HideInGameUI();
         GameBoardManager.Instance.ResetAll();
 
         CardDeckManager.Instance.HideAll();
@@ -175,15 +169,6 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
         StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
     }
 
-    private void SetEndRoundButtonState(bool enable)
-    {
-        EndRoundButton.enabled = enable;
-        EndRoundButtonAnim.SetTrigger(enable ? "OnEnable" : "OnDisable");
-        EndRoundButton.interactable = enable;
-        EndRoundButton.image.color = enable ? Color.yellow : Color.gray;
-        EndRoundButtonText.text = enable ? (GameManager.Instance.IsEnglish ? "End Turn" : "结束回合") : (GameManager.Instance.IsEnglish ? "Enemy's Turn" : "敌方回合");
-    }
-
     #region 交互
 
     public void OnEndRoundButtonClick()
@@ -192,7 +177,7 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
         {
             EndRoundRequest request = new EndRoundRequest(Client.Instance.Proxy.ClientId);
             Client.Instance.Proxy.SendMessage(request);
-            SetEndRoundButtonState(false);
+            InGameUIManager.Instance.SetEndRoundButtonState(false);
         }
         else
         {

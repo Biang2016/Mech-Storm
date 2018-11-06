@@ -112,6 +112,8 @@ public class StoryManager : MonoSingleton<StoryManager>
     private SortedDictionary<int, StoryCol> LevelCols = new SortedDictionary<int, StoryCol>();
 
     public Story M_CurrentStory = null;
+    public int Current_LevelID;
+    public int Current_BossID;
 
     public void InitiateStoryCanvas(Story story)
     {
@@ -171,9 +173,14 @@ public class StoryManager : MonoSingleton<StoryManager>
         }
     }
 
-    private void SyncStoryBGSliderValue(float value)
+    public List<BonusGroup> GetCurrentAlwaysBonusGroup()
     {
-        StoryBGScrollbar.value = value;
+        return M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossID].AlwaysBonusGroup;
+    }
+
+    public List<BonusGroup> GetCurrentOptionalBonusGroup()
+    {
+        return M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossID].OptionalBonusGroup;
     }
 
     public void SetLevelBeated(int levelID, int bossID)
@@ -207,5 +214,10 @@ public class StoryManager : MonoSingleton<StoryManager>
     {
         StoryCol storyCol = LevelCols[levelID];
         storyCol.SetBossState(bossID, isBeat);
+    }
+
+    private void SyncStoryBGSliderValue(float value)
+    {
+        StoryBGScrollbar.value = value;
     }
 }

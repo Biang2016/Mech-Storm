@@ -143,6 +143,7 @@
     <Compile Include="Assets\Scripts\GamePlay\GameBoardManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\GameManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\HandManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\InGameUIManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\LoginManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\MetalLifeEnergyManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\NoticeManager.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Network\Proxy.cs" />
     <Compile Include="Assets\Scripts\UI\Bonus\BigBonusItem.cs" />
+    <Compile Include="Assets\Scripts\UI\Bonus\BonusButton.cs" />
     <Compile Include="Assets\Scripts\UI\Bonus\BonusItem_Base.cs" />
     <Compile Include="Assets\Scripts\UI\Bonus\SmallBonusItem.cs" />
     <Compile Include="Assets\Scripts\UI\ButtonEffects.cs" />
@@ -491,6 +493,9 @@
     <Reference Include="MyCardGameCommon">
       <HintPath>F:/MyCardGame/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>F:/MyCardGame/Client/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/williamsxue/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
@@ -499,9 +504,6 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/williamsxue/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>F:/MyCardGame/Client/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity2018.1.0f/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll</HintPath>

@@ -271,7 +271,7 @@ internal partial class RoundManager
         IdleClientPlayer = r.clientId == Client.Instance.Proxy.ClientId ? EnemyClientPlayer : SelfClientPlayer;
         if (CurrentClientPlayer == SelfClientPlayer)
         {
-            SetEndRoundButtonState(true);
+            InGameUIManager.Instance.SetEndRoundButtonState(true);
             ClientLog.Instance.PrintClientStates("MyRound");
             NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Your Turn Begins" : "你的回合", 0, 0.8f);
             AudioManager.Instance.SoundPlay("sfx/StoryOpen", 0.5f);
@@ -279,7 +279,7 @@ internal partial class RoundManager
         }
         else
         {
-            SetEndRoundButtonState(false);
+            InGameUIManager.Instance.SetEndRoundButtonState(false);
             ClientLog.Instance.PrintClientStates("EnemyRound");
             NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Enemy's Turn" : "敌方回合", 0, 0.8f);
             yield return new WaitForSeconds(0.5f);
