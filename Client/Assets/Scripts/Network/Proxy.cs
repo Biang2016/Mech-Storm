@@ -67,10 +67,10 @@ public class Proxy : ProxyBase
         ClientState = ClientStates.Matching;
     }
 
-    public void OnBeginSingleMode(int levelID, int bossID)
+    public void OnBeginSingleMode(int levelID, int bossPicID)
     {
         ClientRequestBase req = null;
-        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID, levelID, bossID);
+        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID, levelID, bossPicID);
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
@@ -223,7 +223,13 @@ public class Proxy : ProxyBase
                 case NetProtocols.BEAT_BOSS_REQUSET:
                 {
                     BeatBossRequest request = (BeatBossRequest) r;
-                    StoryManager.Instance.SetLevelBeated(request.LevelID, request.BossID);
+                    StoryManager.Instance.SetLevelBeated(request.LevelID, request.BossPicID);
+                    break;
+                }
+                case NetProtocols.NEXT_LEVEL_BOSSINFO_REQUSET:
+                {
+                    NextLevelBossesRequest request = (NextLevelBossesRequest) r;
+                    StoryManager.Instance.SetLevelKnown(request.LevelID, request.NextLevelBossPicIDs);
                     break;
                 }
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:

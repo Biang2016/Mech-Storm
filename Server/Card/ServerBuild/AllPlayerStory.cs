@@ -108,7 +108,7 @@ internal class AllPlayerStory
                         Boss.OptionalBonusGroup = new List<BonusGroup>();
 
                         levelCommonBonusGroups_Always.ForEach(bonusGroup => { Boss.AlwaysBonusGroup.Add(bonusGroup.Clone()); });
-                        levelCommonBonusGroups_Always.ForEach(bonusGroup => { Boss.OptionalBonusGroup.Add(bonusGroup.Clone()); });
+                        levelCommonBonusGroups_Optional.ForEach(bonusGroup => { Boss.OptionalBonusGroup.Add(bonusGroup.Clone()); });
 
                         level.Bosses.Add(Boss.PicID, Boss);
 
@@ -135,7 +135,7 @@ internal class AllPlayerStory
 
             BuildInfo PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultBuildId).Clone();
             BuildInfo PlayerCurrentUnlockedBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultUnlockedBuildID).Clone();
-            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo, PlayerCurrentUnlockedBuildInfo, gps, 0, new SortedDictionary<int, int>(), new SortedDictionary<int, int>());
+            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo, PlayerCurrentUnlockedBuildInfo, gps);
             Database.Instance.StoryStartDict.Add(pureName, newStory);
         }
     }

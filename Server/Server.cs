@@ -54,6 +54,7 @@ internal class Server
         //ServerLog.Print(res);
         //SideEffectExecute see= AllBuffs.GetBuff("AddEnergyWhenAttack");
         //AllCards.GetCard(30101).GetCardDescShow(true);
+
         OnRestartProtocols();
         OnRestartSideEffects();
         StartSeverSocket();

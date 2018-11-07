@@ -21,6 +21,7 @@
     REFRESH_GAMEPLAYSETTINGS_REQUEST, //更新单人模式的GamePlaySettings
 
     BEAT_BOSS_REQUSET, //打败BOSS
+    NEXT_LEVEL_BOSSINFO_REQUSET, //下一关的boss信息
 
     #endregion
 

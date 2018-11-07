@@ -6,16 +6,16 @@ using System.Text;
 public class BeatBossRequest : ServerRequestBase
 {
     public int LevelID;
-    public int BossID;
+    public int BossPicID;
 
     public BeatBossRequest()
     {
     }
 
-    public BeatBossRequest(int levelID, int bossID)
+    public BeatBossRequest(int levelID, int bossPicID)
     {
         LevelID = levelID;
-        BossID = bossID;
+        BossPicID = bossPicID;
     }
 
     public override NetProtocols GetProtocol()
@@ -27,13 +27,13 @@ public class BeatBossRequest : ServerRequestBase
     {
         base.Serialize(writer);
         writer.WriteSInt32(LevelID);
-        writer.WriteSInt32(BossID);
+        writer.WriteSInt32(BossPicID);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         LevelID = reader.ReadSInt32();
-        BossID = reader.ReadSInt32();
+        BossPicID = reader.ReadSInt32();
     }
 }

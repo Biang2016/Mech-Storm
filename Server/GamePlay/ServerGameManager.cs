@@ -386,12 +386,19 @@ internal class ServerGameManager
         {
             if (winner == PlayerA)
             {
-                Story story = Database.Instance.PlayerStoryStates[ClientA.UserName];
-                story.PlayerBeatBossIDs.Add(AI.LevelID, AI.BossPicID);
-                story.PlayerBeatBossPicIDs.Add(AI.LevelID, story.Levels[AI.LevelID].Bosses[AI.BossPicID].PicID);
-
                 BeatBossRequest request2 = new BeatBossRequest(AI.LevelID, AI.BossPicID);
                 ClientA.SendMessage(request2);
+
+                Story story = Database.Instance.PlayerStoryStates[ClientA.UserName];
+                story.BeatBoss(AI.LevelID, AI.BossPicID);
+                if (AI.LevelID < story.Levels.Count - 1)
+                {
+                    story.UnlockLevelBosses(AI.LevelID + 1);
+                    List<int> nextLevelBossPicIDs = new List<int>();
+                    nextLevelBossPicIDs = story.LevelUnlockBossInfo[AI.LevelID + 1];
+                    NextLevelBossesRequest request3 = new NextLevelBossesRequest(AI.LevelID + 1, nextLevelBossPicIDs);
+                    ClientA.SendMessage(request3);
+                }
             }
         }
 

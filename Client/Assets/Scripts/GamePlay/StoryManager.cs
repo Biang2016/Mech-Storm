@@ -108,13 +108,11 @@ public class StoryManager : MonoSingleton<StoryManager>
     [SerializeField] private Animator Anim;
 
     private SortedDictionary<int, StoryCol> LevelCols = new SortedDictionary<int, StoryCol>();
-    SortedDictionary<int, int> LevelFightTimes = new SortedDictionary<int, int>(); //每个等级对应需要过关次数,Key : LevelNum
-    SortedDictionary<int, List<Boss>> LevelBossRemain = new SortedDictionary<int, List<Boss>>(); //每个等级Boss库剩余  Key : LevelNum
-    SortedDictionary<int, int> LevelBossCount = new SortedDictionary<int, int>(); //每关Boss按钮数量  Key : LevelID
+
 
     public Story M_CurrentStory = null;
     public int Current_LevelID;
-    public int Current_BossID;
+    public int Current_BossPicID;
 
     public void InitiateStoryCanvas(Story story)
     {
@@ -127,43 +125,13 @@ public class StoryManager : MonoSingleton<StoryManager>
 
         M_CurrentStory = story;
 
-        LevelFightTimes.Clear();
-        LevelBossRemain.Clear();
-        foreach (Level level in story.Levels)
-        {
-            if (!LevelFightTimes.ContainsKey(level.LevelNum))
-            {
-                LevelFightTimes.Add(level.LevelNum, 1);
-            }
-            else
-            {
-                LevelFightTimes[level.LevelNum]++;
-            }
-
-            if (!LevelBossRemain.ContainsKey(level.LevelNum))
-            {
-                LevelBossRemain.Add(level.LevelNum, level.Bosses.Values.ToList());
-            }
-        }
-
         for (int i = 0; i < story.Levels.Count; i++)
         {
-            int levelNum = story.Levels[i].LevelNum;
-            int curLevelBossTryCount = Random.Range(Mathf.Min(LevelBossRemain[levelNum].Count, 2), Mathf.Min(4, LevelBossRemain[levelNum].Count + 1)); //每个level尽量选出2~3个boss
-            List<Boss> bosses = Utils.GetRandomFromList(LevelBossRemain[levelNum], curLevelBossTryCount);
-            HashSet<int> bossPicIDs = new HashSet<int>();
-            bosses.ForEach(boss => { bossPicIDs.Add(boss.PicID); });
-            bosses.ForEach(boss => { LevelBossRemain[levelNum].Remove(boss); });
-            LevelBossCount.Add(i, bossPicIDs.Count);
-        }
-
-        for (int i = 0; i < story.Levels.Count; i++)
-        {
-            int bossCount = LevelBossCount[i];
+            int bossCount = story.LevelBossCount[i];
             int nextBossCount = 0;
             if (i != story.Levels.Count - 1)
             {
-                nextBossCount = LevelBossCount[i + 1];
+                nextBossCount = story.LevelBossCount[i + 1];
             }
 
             StoryCol storyCol = GameObjectPoolManager.Instance.Pool_StoryLevelColPool.AllocateGameObject<StoryCol>(StoryLevelContainer);
@@ -181,10 +149,8 @@ public class StoryManager : MonoSingleton<StoryManager>
             LevelCols[0].SetLevelKnown();
         }
 
-        //Todo 啊啊啊啊额
-
         int beatLevel = 0;
-        foreach (KeyValuePair<int, int> kv in story.PlayerBeatBossIDs)
+        foreach (KeyValuePair<int, int> kv in story.LevelBeatBossPicIDs)
         {
             if (kv.Key > beatLevel)
             {
@@ -193,6 +159,8 @@ public class StoryManager : MonoSingleton<StoryManager>
 
             SetLevelBeated(kv.Key, kv.Value);
         }
+
+        SetLevelKnown(0, story.LevelUnlockBossInfo[0]);
 
         StoryBGScrollbar.value = 0;
         StoryScrollbar.value = 0;
@@ -208,45 +176,72 @@ public class StoryManager : MonoSingleton<StoryManager>
 
     public List<BonusGroup> GetCurrentAlwaysBonusGroup()
     {
-        return M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossID].AlwaysBonusGroup;
+        return M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossPicID].AlwaysBonusGroup;
     }
 
     public List<BonusGroup> GetCurrentOptionalBonusGroup()
     {
-        return M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossID].OptionalBonusGroup;
+        return M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossPicID].OptionalBonusGroup;
     }
 
     public void SetLevelBeated(int levelID, int bossPicID)
     {
-        SetBossState(levelID, bossPicID, true);
-        if (!M_CurrentStory.PlayerBeatBossIDs.ContainsKey(levelID))
+        int beatBossIndex = -1;
+
+        List<StoryLevelButton> slbs = LevelCols[levelID].StoryLevelButtons;
+        for (int i = 0; i < slbs.Count; i++)
         {
-            M_CurrentStory.PlayerBeatBossIDs.Add(levelID, bossPicID);
+            if (slbs[i].M_BossInfo.PicID == bossPicID) beatBossIndex = i;
         }
 
-        int beatBoss = M_CurrentStory.PlayerBeatBossIDs[levelID];
+        SetBossState(levelID, beatBossIndex, true);
+        if (!M_CurrentStory.LevelBeatBossPicIDs.ContainsKey(levelID))
+        {
+            M_CurrentStory.LevelBeatBossPicIDs.Add(levelID, bossPicID);
+        }
+
+        int beatBoss = M_CurrentStory.LevelBeatBossPicIDs[levelID];
         int bossCount = M_CurrentStory.Levels[levelID].Bosses.Count;
         for (int j = 0; j < bossCount; j++)
         {
             if (j != beatBoss) SetBossState(levelID, j, false);
         }
 
-        if (M_CurrentStory.Levels.Count > levelID + 1)
-        {
-            LevelCols[levelID + 1].SetLevelKnown();
-        }
-
         if (levelID > 0)
         {
-            int lastBeatBossID = M_CurrentStory.PlayerBeatBossIDs[levelID - 1];
-            LevelCols[levelID - 1].SetLink_HL_Show(lastBeatBossID, bossPicID);
+            int lastBeatBossPicID = M_CurrentStory.LevelBeatBossPicIDs[levelID - 1];
+            int lastBeatBossIndex = -1;
+
+            List<StoryLevelButton> slbs_last = LevelCols[levelID - 1].StoryLevelButtons;
+            for (int i = 0; i < slbs_last.Count; i++)
+            {
+                if (slbs_last[i].M_BossInfo.PicID == lastBeatBossPicID) lastBeatBossIndex = i;
+            }
+
+            LevelCols[levelID - 1].SetLink_HL_Show(lastBeatBossIndex, beatBossIndex);
         }
     }
 
-    private void SetBossState(int levelID, int bossID, bool isBeat)
+    public void SetLevelKnown(int levelID, List<int> bossPicIDs)
+    {
+        if (M_CurrentStory.Levels.Count > levelID)
+        {
+            StoryCol sc = LevelCols[levelID];
+            int index = 0;
+            foreach (StoryLevelButton button in sc.StoryLevelButtons)
+            {
+                button.Initialize(sc.LevelInfo.Bosses[bossPicIDs[index]]);
+                index++;
+            }
+
+            sc.SetLevelKnown();
+        }
+    }
+
+    private void SetBossState(int levelID, int bossIndex, bool isBeat)
     {
         StoryCol storyCol = LevelCols[levelID];
-        storyCol.SetBossState(bossID, isBeat);
+        storyCol.SetBossState(bossIndex, isBeat);
     }
 
     private void SyncStoryBGSliderValue(float value)

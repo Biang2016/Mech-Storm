@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
 
-public class Utils
+public partial class Utils
 {
     public static List<Type> GetClassesByNameSpace(string nameSpace)
     {

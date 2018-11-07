@@ -366,9 +366,9 @@ public class StoryCol : PoolObject
         }
     }
 
-    public void SetLink_HL_Show(int levelBeatBossID, int nextLevelBeatBossID)
+    public void SetLink_HL_Show(int levelBeatBossIndex, int nextLevelBeatBossIndex)
     {
-        if (levelBeatBossID != -1 && nextLevelBeatBossID != -1)
+        if (levelBeatBossIndex != -1 && nextLevelBeatBossIndex != -1)
         {
             Link CurLink_HL = Links_HL[bossCount - 1, nextLevelBossCount - 1];
             CurLink_HL.Links_Go.SetActive(true);
@@ -379,18 +379,18 @@ public class StoryCol : PoolObject
                 image.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.StoryLevelColor5);
             }
 
-            CurLink_HL.LinksImage[levelBeatBossID, nextLevelBeatBossID].enabled = true;
+            CurLink_HL.LinksImage[levelBeatBossIndex, nextLevelBeatBossIndex].enabled = true;
         }
     }
 
-    public void SetBossState(int bossPicID, bool isBeat)
+    public void SetBossState(int bossIndex, bool isBeat)
     {
         StoryLevelButton slb = null;
         foreach (StoryLevelButton button in StoryLevelButtons)
         {
-            if (button.M_BossInfo.PicID == bossPicID)
+            if (button.M_BossInfo.PicID == bossIndex)
             {
-                slb = StoryLevelButtons[bossPicID];
+                slb = StoryLevelButtons[bossIndex];
             }
         }
 

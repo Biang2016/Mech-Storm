@@ -448,7 +448,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         //StartGameCore(true);
     }
 
-    public void StartGameCore(bool isStandAlone, int levelID, int bossID)
+    public void StartGameCore(bool isStandAlone, int levelID, int bossPicID)
     {
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)
         {
@@ -468,7 +468,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                 UnityAction action;
                 if (isStandAlone)
                 {
-                    action = delegate { StartNewSingleGame(levelID, bossID); };
+                    action = delegate { StartNewSingleGame(levelID, bossPicID); };
                 }
                 else
                 {
@@ -495,7 +495,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             {
                 if (isStandAlone)
                 {
-                    StartNewSingleGame(levelID, bossID);
+                    StartNewSingleGame(levelID, bossPicID);
                 }
                 else
                 {
@@ -514,13 +514,13 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         RoundManager.Instance.isSingleBattle = false;
     }
 
-    private void StartNewSingleGame(int levelID, int bossID)
+    private void StartNewSingleGame(int levelID, int bossPicID)
     {
-        Client.Instance.Proxy.OnBeginSingleMode(levelID, bossID);
+        Client.Instance.Proxy.OnBeginSingleMode(levelID, bossPicID);
         ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin single mode" : "开始单人模式");
         RoundManager.Instance.isSingleBattle = true;
         StoryManager.Instance.Current_LevelID = levelID;
-        StoryManager.Instance.Current_BossID = bossID;
+        StoryManager.Instance.Current_BossPicID = bossPicID;
         TransitManager.Instance.ShowTransit(Color.black, 0.3f);
     }
 

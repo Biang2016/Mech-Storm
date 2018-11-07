@@ -188,6 +188,7 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\DropCardRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\BattleGroundAddRetinueRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueDieRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\OutGame\NextLevelBossesRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\BeatBossRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\BuildUpdateRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\OutGame\StartNewStoryRequestResponse.cs" />

@@ -1,4 +1,6 @@
-﻿public class StartNewStoryRequestResponse : ServerRequestBase
+﻿using System.Data;
+
+public class StartNewStoryRequestResponse : ServerRequestBase
 {
     public Story Story;
 

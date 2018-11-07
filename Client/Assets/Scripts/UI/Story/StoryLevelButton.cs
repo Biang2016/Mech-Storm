@@ -13,7 +13,7 @@ public class StoryLevelButton : PoolObject
         Button.enabled = true;
         Button.interactable = true;
         interactable = true;
-        M_BossInfo=new Boss();
+        M_BossInfo = new Boss();
         Anim.Play(firstAnimClipName);
         Anim.Update(0);
     }
@@ -103,13 +103,12 @@ public class StoryLevelButton : PoolObject
     }
 
     public int M_CurrentLevelID;
-    public int M_CurrentBossID;
 
     public void SetKnown()
     {
         ClientUtils.ChangePicture(Image, M_BossInfo.PicID);
         Button.onClick.RemoveAllListeners();
-        Button.onClick.AddListener(delegate { StartMenuManager.Instance.StartGameCore(true, M_CurrentLevelID, M_CurrentBossID); });
+        Button.onClick.AddListener(delegate { StartMenuManager.Instance.StartGameCore(true, M_CurrentLevelID, M_BossInfo.PicID); });
         Button.onClick.AddListener(delegate { AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick"); });
     }
 }

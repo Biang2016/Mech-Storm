@@ -261,6 +261,7 @@ internal class ClientProxy : ProxyBase
                     Database.Instance.PlayerStoryStates.Add(UserName, newStory);
 
                     newStory.PlayerBuildInfos.Add(newStory.PlayerCurrentBuildInfo.BuildID, newStory.PlayerCurrentBuildInfo);
+                    newStory.UnlockLevelBosses(0);
                     Database.Instance.BuildInfoDict.Add(newStory.PlayerCurrentBuildInfo.BuildID, newStory.PlayerCurrentBuildInfo);
                     StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(newStory);
                     SendMessage(response);
