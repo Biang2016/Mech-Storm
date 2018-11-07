@@ -253,6 +253,7 @@ MonoBehaviour:
   ItemImage: {fileID: 114309684138248712}
   CardContainer: {fileID: 224951245618168512}
   CardRotationSample: {fileID: 224054884149891192}
+  CurrentCard: {fileID: 0}
 --- !u!222 &222105777744226832
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -279,14 +280,14 @@ RectTransform:
   m_GameObject: {fileID: 1073610138083448}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 120, y: 120, z: 120}
   m_Children: []
   m_Father: {fileID: 224951245618168512}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224086673293560616

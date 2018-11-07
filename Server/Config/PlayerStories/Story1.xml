@@ -4,49 +4,63 @@
   <StartBuildInfo BuildName="Story1" />
   <StartUnlockCardInfo BuildName="Story1_Unlock" />
   <GamePlaySettings DrawCardPerRound="2" DefaultCoin="3000" DefaultLife="20" DefaultLifeMax="30" DefaultLifeMin="10" DefaultEnergy="10" DefaultEnergyMax="15" DefaultDrawCardNum="2" MinDrawCardNum="1" MaxDrawCardNum="5" />
-  <Level>
-    <BossInfo name="Boss1" BuildName="MechMine" picID="53">
+  <Level Level="0" LevelFightTimes="2">
+    <CommonBonus>
       <BonusGroupInfo type="Always">
-        <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
+        <BonusInfo name="Budget" value="500"></BonusInfo>
+        <BonusInfo name="LifeUpperLimit" value="3"></BonusInfo>
+        <BonusInfo name="EnergyUpperLimit" value="2"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional">
-        <BonusInfo name="AdjustDeck" value="5"></BonusInfo>
         <BonusInfo name="LifeUpperLimit" value="5"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="3"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional">
-        <BonusInfo name="AdjustDeck" value="500"></BonusInfo>
         <BonusInfo name="Budget" value="500"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional">
-        <BonusInfo name="UnlockCard" value="62600"></BonusInfo>
+        <BonusInfo name="UnlockCard" value="100"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional">
-        <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
+        <BonusInfo name="UnlockCard" value="60501"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional">
-        <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
-      </BonusGroupInfo>
-      <BonusGroupInfo type="Optional">
+    </CommonBonus>
+    <BossInfo name="Boss1" BuildName="MechMine_Lv0" picID="53">
+      <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="StrikeTeam" picID="58">
-      <BonusGroupInfo type="Optional">
+    <BossInfo name="Boss1" BuildName="StrikeTeam_Lv0" picID="58">
+      <BonusGroupInfo type="Always">
+        <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
+      </BonusGroupInfo>
+    </BossInfo>
+    <BossInfo name="Boss1" BuildName="StrikeTeam_Lv0" picID="57">
+      <BonusGroupInfo type="Always">
+        <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
+      </BonusGroupInfo>
+    </BossInfo>
+    <BossInfo name="Boss1" BuildName="StrikeTeam_Lv0" picID="605">
+      <BonusGroupInfo type="Always">
+        <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
+      </BonusGroupInfo>
+    </BossInfo>
+    <BossInfo name="Boss1" BuildName="StrikeTeam_Lv0" picID="607">
+      <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCard" value="5301"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
   </Level>
-  <Level>
-    <BossInfo name="Boss1" BuildName="DomTeam" picID="57" />
-    <BossInfo name="Boss1" BuildName="DomTeam" picID="57" />
-    <BossInfo name="Boss1" BuildName="DomTeam" picID="57" />
-    <BossInfo name="Boss1" BuildName="DomTeam" picID="57" />
+  <Level Level="1" LevelFightTimes="1">
+    <CommonBonus>
+
+    </CommonBonus>
+    <BossInfo name="Boss1" BuildName="DomTeam_Lv1" picID="57" />
   </Level>
-  <Level>
-    <BossInfo name="Boss1" BuildName="Heal" picID="53" />
-    <BossInfo name="Boss1" BuildName="Heal" picID="53" />
-    <BossInfo name="Boss1" BuildName="Heal" picID="53" />
-    <BossInfo name="Boss1" BuildName="Heal" picID="53" />
+  <Level Level="2" LevelFightTimes="1">
+    <CommonBonus>
+
+    </CommonBonus>
+    <BossInfo name="Boss1" BuildName="Heal_Lv1" picID="53" />
   </Level>
 </Story>

@@ -187,7 +187,21 @@ public partial class SelectBuildManager
     {
         UpgradeCardButton.onClick.RemoveAllListeners();
         DegradeCardButton.onClick.RemoveAllListeners();
-        if (PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID != -1)
+
+        bool hasUpgradeCard = false;
+        bool hasDegradeCard = false;
+        if (GameMode_State == GameMode.Single)
+        {
+            hasUpgradeCard = StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID);
+            hasDegradeCard = StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID);
+        }
+        else if (GameMode_State == GameMode.Online)
+        {
+            hasUpgradeCard = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID != -1;
+            hasDegradeCard = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID != -1;
+        }
+
+        if (hasUpgradeCard)
         {
             int moreCoin = AllCards.GetCard(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID).BaseInfo.Coin - PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin;
             UpgradeCoinText.text = (-moreCoin).ToString();
@@ -203,7 +217,7 @@ public partial class SelectBuildManager
             UpgradeCoin.enabled = false;
         }
 
-        if (PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID != -1)
+        if (hasDegradeCard)
         {
             int lessCoin = AllCards.GetCard(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID).BaseInfo.Coin - PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin;
             if (lessCoin == 0)

@@ -8,6 +8,20 @@ public class BonusGroup
     public bool IsAlways;
     public List<Bonus> Bonuses = new List<Bonus>();
 
+    public BonusGroup()
+    {
+    }
+
+    public BonusGroup(bool isAlways, List<Bonus> bonuses)
+    {
+        IsAlways = isAlways;
+        Bonuses = bonuses;
+    }
+
+    public BonusGroup Clone()
+    {
+        return new BonusGroup(IsAlways, Bonuses.ToArray().ToList());
+    }
 
     public void Serialize(DataStream writer)
     {

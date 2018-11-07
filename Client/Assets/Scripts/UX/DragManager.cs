@@ -71,6 +71,8 @@ public class DragManager : MonoSingleton<DragManager>
     {
         if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
         if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show) return;
+        if (!Client.Instance.IsPlaying()) return;
+        if (StartMenuManager.Instance.M_StateMachine.GetState() != StartMenuManager.StateMachine.States.Hide) return;
         if (!IsSummonPreview)
         {
             CommonDrag();

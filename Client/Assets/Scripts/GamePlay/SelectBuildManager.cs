@@ -122,6 +122,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
             if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show_Main) return;
             if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show_Single && StoryManager.Instance.M_CurrentStory == null) return;
             if (StoryManager.Instance.M_StateMachine.GetState() == StoryManager.StateMachine.States.Show) return;
+            if (WinLostPanelManager.Instance.IsShow) return;
             if (state == States.Hide || state == States.HideForPlay)
             {
                 if (Input.GetKeyUp(KeyCode.Tab))

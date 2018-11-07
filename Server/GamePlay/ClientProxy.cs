@@ -383,7 +383,7 @@ internal class ClientProxy : ProxyBase
                         MatchStandAloneRequest request = (MatchStandAloneRequest) r;
                         CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.BuildID);
                         ClientState = ClientStates.Matching;
-                        Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.LevelID, request.BossID);
+                        Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.LevelID, request.BossPicID);
                     }
 
                     break;

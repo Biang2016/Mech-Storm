@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class BeatBossRequest:ServerRequestBase
+public class BeatBossRequest : ServerRequestBase
 {
     public int LevelID;
     public int BossID;
-    //Other 奖励
 
     public BeatBossRequest()
     {

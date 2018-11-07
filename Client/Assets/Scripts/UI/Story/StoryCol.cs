@@ -12,6 +12,7 @@ public class StoryCol : PoolObject
             slb.PoolRecycle();
         }
 
+        LevelInfo = null;
         StoryLevelButtons.Clear();
         base.PoolRecycle();
     }
@@ -303,13 +304,14 @@ public class StoryCol : PoolObject
     [SerializeField] private Image Link_HL33_32;
     [SerializeField] private Image Link_HL33_33;
 
-    [SerializeField] private Text LevelName;
+    [SerializeField] private Text LevelIDText;
+    [SerializeField] private Text LevelNumText;
 
     public Level LevelInfo;
     public int bossCount;
     public int nextLevelBossCount;
 
-    public void Initialize(Level levelInfo, int endCount)
+    public void Initialize(Level levelInfo, int bossCount, int nextLevelBossCount) //第一次加载按钮数量
     {
         foreach (StoryLevelButton slb in StoryLevelButtons)
         {
@@ -318,20 +320,18 @@ public class StoryCol : PoolObject
 
         StoryLevelButtons.Clear();
 
-        bossCount = levelInfo.Bosses.Count;
-        nextLevelBossCount = endCount;
+        this.nextLevelBossCount = nextLevelBossCount;
 
         LevelInfo = levelInfo;
-        LevelName.text = "Level " + levelInfo.LevelID;
-        int bossID = 0;
-        foreach (Boss bossInfo in levelInfo.Bosses)
+        LevelIDText.text = levelInfo.LevelID.ToString();
+        LevelNumText.text = "Level " + levelInfo.LevelNum;
+
+        for (int i = 0; i < bossCount; i++)
         {
             StoryLevelButton slb = GameObjectPoolManager.Instance.Pool_StoryLevelButtonPool.AllocateGameObject<StoryLevelButton>(transform);
-            slb.Initialize(bossInfo);
+            slb.Initialize();
             slb.M_CurrentLevelID = levelInfo.LevelID;
-            slb.M_CurrentBossID = bossID;
             StoryLevelButtons.Add(slb);
-            bossID++;
         }
 
         for (int i = 0; i < 3; i++)
@@ -343,9 +343,9 @@ public class StoryCol : PoolObject
             }
         }
 
-        if (nextLevelBossCount != 0)
+        if (this.nextLevelBossCount != 0)
         {
-            Link CurLink = Links[bossCount - 1, nextLevelBossCount - 1];
+            Link CurLink = Links[bossCount - 1, this.nextLevelBossCount - 1];
             CurLink.Links_Go.SetActive(true);
 
             foreach (Image image in CurLink.LinksImage)
@@ -353,6 +353,16 @@ public class StoryCol : PoolObject
                 image.enabled = true;
                 image.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.StoryLevelColor2);
             }
+        }
+    }
+
+    public void InitializeBossInfo(List<int> bossPicIDs) //第二次加载boss图片
+    {
+        int slbIndex = 0;
+        foreach (int bossPicID in bossPicIDs)
+        {
+            StoryLevelButtons[slbIndex].Initialize(LevelInfo.Bosses[bossPicID]);
+            slbIndex++;
         }
     }
 
@@ -373,9 +383,17 @@ public class StoryCol : PoolObject
         }
     }
 
-    public void SetBossState(int bossID, bool isBeat)
+    public void SetBossState(int bossPicID, bool isBeat)
     {
-        StoryLevelButton slb = StoryLevelButtons[bossID];
+        StoryLevelButton slb = null;
+        foreach (StoryLevelButton button in StoryLevelButtons)
+        {
+            if (button.M_BossInfo.PicID == bossPicID)
+            {
+                slb = StoryLevelButtons[bossPicID];
+            }
+        }
+
         if (slb != null)
         {
             if (isBeat)

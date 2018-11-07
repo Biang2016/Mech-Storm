@@ -340,7 +340,7 @@ internal class ServerGameManager
         Broadcast_SendOperationResponse();
     }
 
-    public void OnWinDirectlyRequest(WinDirectlyRequest r,ServerPlayer player)
+    public void OnWinDirectlyRequest(WinDirectlyRequest r, ServerPlayer player)
     {
         if (CurrentPlayer.ClientId == r.clientId)
         {
@@ -386,9 +386,12 @@ internal class ServerGameManager
         {
             if (winner == PlayerA)
             {
-                BeatBossRequest request2 = new BeatBossRequest(AI.LevelID, AI.BossID);
+                Story story = Database.Instance.PlayerStoryStates[ClientA.UserName];
+                story.PlayerBeatBossIDs.Add(AI.LevelID, AI.BossPicID);
+                story.PlayerBeatBossPicIDs.Add(AI.LevelID, story.Levels[AI.LevelID].Bosses[AI.BossPicID].PicID);
+
+                BeatBossRequest request2 = new BeatBossRequest(AI.LevelID, AI.BossPicID);
                 ClientA.SendMessage(request2);
-                Database.Instance.PlayerStoryStates[ClientA.UserName].PlayerBeatBossID.Add(AI.LevelID, AI.BossID);
             }
         }
 

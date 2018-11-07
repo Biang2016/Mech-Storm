@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Experimental.UIElements;
 using UnityEngine.UI;
 
 public class StoryManager : MonoSingleton<StoryManager>
@@ -110,6 +108,9 @@ public class StoryManager : MonoSingleton<StoryManager>
     [SerializeField] private Animator Anim;
 
     private SortedDictionary<int, StoryCol> LevelCols = new SortedDictionary<int, StoryCol>();
+    SortedDictionary<int, int> LevelFightTimes = new SortedDictionary<int, int>(); //每个等级对应需要过关次数,Key : LevelNum
+    SortedDictionary<int, List<Boss>> LevelBossRemain = new SortedDictionary<int, List<Boss>>(); //每个等级Boss库剩余  Key : LevelNum
+    SortedDictionary<int, int> LevelBossCount = new SortedDictionary<int, int>(); //每关Boss按钮数量  Key : LevelID
 
     public Story M_CurrentStory = null;
     public int Current_LevelID;
@@ -126,17 +127,47 @@ public class StoryManager : MonoSingleton<StoryManager>
 
         M_CurrentStory = story;
 
+        LevelFightTimes.Clear();
+        LevelBossRemain.Clear();
+        foreach (Level level in story.Levels)
+        {
+            if (!LevelFightTimes.ContainsKey(level.LevelNum))
+            {
+                LevelFightTimes.Add(level.LevelNum, 1);
+            }
+            else
+            {
+                LevelFightTimes[level.LevelNum]++;
+            }
+
+            if (!LevelBossRemain.ContainsKey(level.LevelNum))
+            {
+                LevelBossRemain.Add(level.LevelNum, level.Bosses.Values.ToList());
+            }
+        }
+
         for (int i = 0; i < story.Levels.Count; i++)
         {
+            int levelNum = story.Levels[i].LevelNum;
+            int curLevelBossTryCount = Random.Range(Mathf.Min(LevelBossRemain[levelNum].Count, 2), Mathf.Min(4, LevelBossRemain[levelNum].Count + 1)); //每个level尽量选出2~3个boss
+            List<Boss> bosses = Utils.GetRandomFromList(LevelBossRemain[levelNum], curLevelBossTryCount);
+            HashSet<int> bossPicIDs = new HashSet<int>();
+            bosses.ForEach(boss => { bossPicIDs.Add(boss.PicID); });
+            bosses.ForEach(boss => { LevelBossRemain[levelNum].Remove(boss); });
+            LevelBossCount.Add(i, bossPicIDs.Count);
+        }
+
+        for (int i = 0; i < story.Levels.Count; i++)
+        {
+            int bossCount = LevelBossCount[i];
             int nextBossCount = 0;
             if (i != story.Levels.Count - 1)
             {
-                nextBossCount = story.Levels[i + 1].Bosses.Count;
+                nextBossCount = LevelBossCount[i + 1];
             }
 
-            Level level = story.Levels[i];
             StoryCol storyCol = GameObjectPoolManager.Instance.Pool_StoryLevelColPool.AllocateGameObject<StoryCol>(StoryLevelContainer);
-            storyCol.Initialize(level, nextBossCount);
+            storyCol.Initialize(story.Levels[i], bossCount, nextBossCount);
             LevelCols.Add(storyCol.LevelInfo.LevelID, storyCol);
         }
 
@@ -150,8 +181,10 @@ public class StoryManager : MonoSingleton<StoryManager>
             LevelCols[0].SetLevelKnown();
         }
 
+        //Todo 啊啊啊啊额
+
         int beatLevel = 0;
-        foreach (KeyValuePair<int, int> kv in story.PlayerBeatBossID)
+        foreach (KeyValuePair<int, int> kv in story.PlayerBeatBossIDs)
         {
             if (kv.Key > beatLevel)
             {
@@ -183,15 +216,15 @@ public class StoryManager : MonoSingleton<StoryManager>
         return M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossID].OptionalBonusGroup;
     }
 
-    public void SetLevelBeated(int levelID, int bossID)
+    public void SetLevelBeated(int levelID, int bossPicID)
     {
-        SetBossState(levelID, bossID, true);
-        if (!M_CurrentStory.PlayerBeatBossID.ContainsKey(levelID))
+        SetBossState(levelID, bossPicID, true);
+        if (!M_CurrentStory.PlayerBeatBossIDs.ContainsKey(levelID))
         {
-            M_CurrentStory.PlayerBeatBossID.Add(levelID, bossID);
+            M_CurrentStory.PlayerBeatBossIDs.Add(levelID, bossPicID);
         }
 
-        int beatBoss = M_CurrentStory.PlayerBeatBossID[levelID];
+        int beatBoss = M_CurrentStory.PlayerBeatBossIDs[levelID];
         int bossCount = M_CurrentStory.Levels[levelID].Bosses.Count;
         for (int j = 0; j < bossCount; j++)
         {
@@ -205,8 +238,8 @@ public class StoryManager : MonoSingleton<StoryManager>
 
         if (levelID > 0)
         {
-            int lastBeatBossID = M_CurrentStory.PlayerBeatBossID[levelID - 1];
-            LevelCols[levelID - 1].SetLink_HL_Show(lastBeatBossID, bossID);
+            int lastBeatBossID = M_CurrentStory.PlayerBeatBossIDs[levelID - 1];
+            LevelCols[levelID - 1].SetLink_HL_Show(lastBeatBossID, bossPicID);
         }
     }
 

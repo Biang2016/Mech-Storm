@@ -3,19 +3,19 @@
     public int ClientID;
     public int BuildID;
     public int LevelID;
-    public int BossID;
+    public int BossPicID;
 
 
     public MatchStandAloneRequest()
     {
     }
 
-    public MatchStandAloneRequest(int clientID, int buildID, int levelID, int bossID) : base(clientID)
+    public MatchStandAloneRequest(int clientID, int buildID, int levelID, int bossPicID) : base(clientID)
     {
         ClientID = clientID;
         BuildID = buildID;
         LevelID = levelID;
-        BossID = bossID;
+        BossPicID = bossPicID;
     }
 
     public override NetProtocols GetProtocol()
@@ -28,7 +28,7 @@
         base.Serialize(writer);
         writer.WriteSInt32(BuildID);
         writer.WriteSInt32(LevelID);
-        writer.WriteSInt32(BossID);
+        writer.WriteSInt32(BossPicID);
     }
 
     public override void Deserialize(DataStream reader)
@@ -36,6 +36,6 @@
         base.Deserialize(reader);
         BuildID = reader.ReadSInt32();
         LevelID = reader.ReadSInt32();
-        BossID = reader.ReadSInt32();
+        BossPicID = reader.ReadSInt32();
     }
 }

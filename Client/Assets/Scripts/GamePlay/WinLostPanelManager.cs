@@ -45,6 +45,7 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
 
     private List<BonusGroup> AlwaysBonusGroup;
     private List<BonusGroup> OptionalBonusGroup;
+    public bool IsShow = false;
 
     public void WinGame()
     {
@@ -122,6 +123,8 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
 
     IEnumerator Co_OnGameStopByWin(bool isWin)
     {
+        IsShow = true;
+        if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show_ReadOnly) SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
         WinLostCanvas.enabled = true;
         AudioManager.Instance.BGMStop();
@@ -148,6 +151,7 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         RoundManager.Instance.OnGameStop();
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
         WinLostCanvas.enabled = false;
+        IsShow = false;
     }
 
 

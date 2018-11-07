@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using Image = UnityEngine.UI.Image;
 
 public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponent
 {
@@ -140,6 +142,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void SetOrderInLayer(int value)
     {
+        CardCanvas.overrideSorting = true;
         CardCanvas.sortingOrder = value * 3 + 1;
         CanvasSortingGroup.sortingOrder = value * 3 + 1;
         MainBoardSortingGroup.sortingOrder = value * 3;
@@ -492,6 +495,16 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
             usable = value;
         }
+    }
+
+    /// <summary>
+    /// 只用于作为Bonus的时候
+    /// </summary>
+    /// <param name="isOpen"></param>
+    public void SetBonusCardBloom(bool isOpen)
+    {
+        ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#A1F7FF"));
+        CardBloom.SetActive(isOpen);
     }
 
     public virtual void OnBeginRound()

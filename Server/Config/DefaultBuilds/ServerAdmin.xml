@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AllBuilds>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="MechMine" DrawCardNum="1" Life="10" Energy="6" />
+    <Info name="baseInfo" BuildName="MechMine_Lv0" DrawCardNum="1" Life="10" Energy="6" />
     <Info name="cardIDs" ids="5301,60101,60601,62401,62401,62401,62401,62401,62500,70101,70101" />
   </BuildInfo>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="StrikeTeam" DrawCardNum="1" Life="15" Energy="10" />
+    <Info name="baseInfo" BuildName="StrikeTeam_Lv0" DrawCardNum="1" Life="15" Energy="10" />
     <Info name="cardIDs" ids="5101,5800,10301,60102,60501,62402,62402,62402,70101,70101,70601" />
   </BuildInfo>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="DomTeam" DrawCardNum="2" Life="30" Energy="10" />
+    <Info name="baseInfo" BuildName="DomTeam_Lv1" DrawCardNum="2" Life="30" Energy="10" />
     <Info name="cardIDs" ids="5700,10301,10301,60101,62101,62401,62401,62401,62500,70101,70101,70101" />
   </BuildInfo>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="Heal" DrawCardNum="2" Life="28" Energy="10" />
+    <Info name="baseInfo" BuildName="Heal_Lv1" DrawCardNum="2" Life="28" Energy="10" />
     <Info name="cardIDs" ids="5101,5101,5401,5401,61101,60601,60501,70102,70102,70102,70301,62401,62401,62500,62500,62101,5700" />
   </BuildInfo>
 </AllBuilds>

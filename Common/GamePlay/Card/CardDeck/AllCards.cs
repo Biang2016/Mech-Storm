@@ -60,6 +60,7 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["coin"].Value),
                             int.Parse(cardInfo.Attributes["effectFactor"].Value),
                             int.Parse(cardInfo.Attributes["limitNum"].Value),
+                            int.Parse(cardInfo.Attributes["cardRareLevel"].Value),
                             (DragPurpose) Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
                             (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value));
                         break;

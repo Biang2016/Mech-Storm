@@ -10,13 +10,14 @@ internal class BigBonusItem : BonusItem_Base
     public override void PoolRecycle()
     {
         if (CurrentCard != null) CurrentCard.PoolRecycle();
+        CurrentCard = null;
         base.PoolRecycle();
     }
 
     [SerializeField] private Transform CardContainer;
     [SerializeField] private Transform CardRotationSample;
 
-    private CardBase CurrentCard;
+    public CardBase CurrentCard;
 
     public override void Initialize(Bonus bonus)
     {
@@ -25,9 +26,11 @@ internal class BigBonusItem : BonusItem_Base
         {
             case Bonus.BonusType.UnlockCard:
             {
-                CurrentCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(bonus.Value), CardContainer, RoundManager.Instance.SelfClientPlayer, true);
+                CurrentCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(bonus.Value), CardContainer, RoundManager.Instance.SelfClientPlayer, false);
                 CurrentCard.transform.localScale = CardRotationSample.localScale;
                 CurrentCard.transform.rotation = CardRotationSample.rotation;
+                CurrentCard.transform.position = CardRotationSample.position;
+                CurrentCard.SetOrderInLayer(1);
                 break;
             }
         }

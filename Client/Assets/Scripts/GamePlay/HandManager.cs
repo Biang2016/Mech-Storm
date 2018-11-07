@@ -557,6 +557,11 @@ public class HandManager : MonoBehaviour
 
     private void UpdateHandCardCountTicker()
     {
+        if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Hide)
+        {
+            handCardCountTicker = 0;
+        }
+
         if (Client.Instance.IsPlaying())
         {
             if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
@@ -602,7 +607,6 @@ public class HandManager : MonoBehaviour
 
     #endregion
 
-
     #region ShowAndHideEquipSlotBloomTip
 
     internal void Update_CheckSlotBloomTipOff()
@@ -630,7 +634,6 @@ public class HandManager : MonoBehaviour
     }
 
     #endregion
-
 
     #region Pre_summon mechs that have target SideEffects.
 

@@ -128,6 +128,7 @@ public class ExitMenuManager : MonoSingleton<ExitMenuManager>
         {
             if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
             if (StoryManager.Instance.M_StateMachine.GetState() == StoryManager.StateMachine.States.Show) return;
+            if (WinLostPanelManager.Instance.IsShow) return;
             if (Input.GetKeyUp(KeyCode.Escape))
             {
                 if ((SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Hide || SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.HideForPlay) && SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.Hide)

@@ -13,6 +13,7 @@ public class StoryLevelButton : PoolObject
         Button.enabled = true;
         Button.interactable = true;
         interactable = true;
+        M_BossInfo=new Boss();
         Anim.Play(firstAnimClipName);
         Anim.Update(0);
     }
@@ -31,6 +32,12 @@ public class StoryLevelButton : PoolObject
 
 
     public Boss M_BossInfo;
+
+    public void Initialize()
+    {
+        Anim.SetTrigger("Born");
+        BeDim();
+    }
 
     public void Initialize(Boss bossInfo)
     {

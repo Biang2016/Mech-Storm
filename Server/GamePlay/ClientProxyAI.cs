@@ -12,7 +12,7 @@ using System.Threading;
 internal class ClientProxyAI : ClientProxy
 {
     public int LevelID;
-    public int BossID;
+    public int BossPicID;
 
     public override ClientStates ClientState
     {
@@ -20,14 +20,14 @@ internal class ClientProxyAI : ClientProxy
         set => clientState = value;
     }
 
-    public ClientProxyAI(int clientId, bool isStopReceive, int levelID,int bossID) : base(null, clientId, isStopReceive)
+    public ClientProxyAI(int clientId, bool isStopReceive, int levelID, int bossPicID) : base(null, clientId, isStopReceive)
     {
         ClientIdRequest request = new ClientIdRequest(clientId);
         ClientState = ClientStates.GetId;
         SendMessage(request);
 
         LevelID = levelID;
-        BossID = bossID;
+        BossPicID = bossPicID;
     }
 
     public override void SendMessage(ServerRequestBase request)

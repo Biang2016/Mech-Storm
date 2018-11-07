@@ -154,7 +154,10 @@ public class SettingMenuManager : MonoSingleton<SettingMenuManager>
         {
             GameManager.Instance.StartBlurBackGround();
             Instance.SettingMenuCanvas.enabled = true;
-            if (state == States.Hide) ExitMenuManager.Instance.M_StateMachine.SetState(ExitMenuManager.StateMachine.States.HideForSetting);
+            if (state == States.Hide)
+            {
+                if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) ExitMenuManager.Instance.M_StateMachine.SetState(ExitMenuManager.StateMachine.States.HideForSetting);
+            }
         }
 
         public void HideMenu()

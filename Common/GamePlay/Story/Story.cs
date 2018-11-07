@@ -15,13 +15,15 @@ public class Story
     public GamePlaySettings StoryGamePlaySettings;
 
     public int PlayerCurrentLevel = 0;
-    public SortedDictionary<int, int> PlayerBeatBossID = new SortedDictionary<int, int>();
+    public SortedDictionary<int, int> PlayerBeatBossIDs = new SortedDictionary<int, int>(); //记录玩家通关每一层击败的是哪个boss， Key: LevelID, Value: BossPicID
+
+    public SortedDictionary<int, int> PlayerBeatBossPicIDs = new SortedDictionary<int, int>(); //记录玩家击败的Boss的图片ID，如果击败过，后续游戏就不再出现，以免带来重复感. Key : LevelID, Value: BossPicID
 
     public Story()
     {
     }
 
-    public Story(string storyName, List<Level> levels, BuildInfo playerCurrentBuildInfo, BuildInfo playerCurrentUnlockedBuildInfo, GamePlaySettings storyGamePlaySettings, int playerCurrentLevel, SortedDictionary<int, int> playerBeatBossID)
+    public Story(string storyName, List<Level> levels, BuildInfo playerCurrentBuildInfo, BuildInfo playerCurrentUnlockedBuildInfo, GamePlaySettings storyGamePlaySettings, int playerCurrentLevel, SortedDictionary<int, int> playerBeatBossIDs, SortedDictionary<int, int> playerBeatBossPicIDs)
     {
         StoryName = storyName;
         Levels = levels;
@@ -30,22 +32,15 @@ public class Story
         StoryGamePlaySettings = storyGamePlaySettings;
 
         PlayerCurrentLevel = playerCurrentLevel;
-        PlayerBeatBossID = playerBeatBossID;
+        PlayerBeatBossIDs = playerBeatBossIDs;
+        PlayerBeatBossPicIDs = playerBeatBossPicIDs;
     }
 
     public Story Variant() //变换关卡
     {
         List<Level> newLevels = new List<Level>();
-        Random rd = new Random(DateTime.Now.Millisecond);
-        foreach (Level level in Levels)
-        {
-            Level newLevel = level.Clone();
-            int bossCount = rd.Next(2, 4);
-            newLevel.Bosses = Utils.GetRandomFromList(newLevel.Bosses, bossCount);
-            newLevels.Add(newLevel);
-        }
-
-        return new Story(StoryName, newLevels, PlayerCurrentBuildInfo.Clone(), PlayerCurrentUnlockedBuildInfo.Clone(), StoryGamePlaySettings.Clone(), PlayerCurrentLevel, new SortedDictionary<int, int>());
+        Levels.ForEach(level => { newLevels.Add(level.Clone()); });
+        return new Story(StoryName, newLevels, PlayerCurrentBuildInfo.Clone(), PlayerCurrentUnlockedBuildInfo.Clone(), StoryGamePlaySettings.Clone(), PlayerCurrentLevel, new SortedDictionary<int, int>(), new SortedDictionary<int, int>());
     }
 
     public void Serialize(DataStream writer)
@@ -70,11 +65,18 @@ public class Story
 
         writer.WriteSInt32(PlayerCurrentLevel);
 
-        writer.WriteSInt32(PlayerBeatBossID.Count);
-        foreach (KeyValuePair<int, int> levelAndBoss in PlayerBeatBossID)
+        writer.WriteSInt32(PlayerBeatBossIDs.Count);
+        foreach (KeyValuePair<int, int> levelAndBoss in PlayerBeatBossIDs)
         {
             writer.WriteSInt32(levelAndBoss.Key);
             writer.WriteSInt32(levelAndBoss.Value);
+        }
+
+        writer.WriteSInt32(PlayerBeatBossPicIDs.Count);
+        foreach (KeyValuePair<int, int> levelIDAndBossPicID in PlayerBeatBossPicIDs)
+        {
+            writer.WriteSInt32(levelIDAndBossPicID.Key);
+            writer.WriteSInt32(levelIDAndBossPicID.Value);
         }
     }
 
@@ -108,7 +110,15 @@ public class Story
         {
             int levelID = reader.ReadSInt32();
             int bossID = reader.ReadSInt32();
-            newStory.PlayerBeatBossID.Add(levelID, bossID);
+            newStory.PlayerBeatBossIDs.Add(levelID, bossID);
+        }
+
+        int beatBossPicIDCount = reader.ReadSInt32();
+        for (int i = 0; i < beatBossPicIDCount; i++)
+        {
+            int levelID = reader.ReadSInt32();
+            int bossPicID = reader.ReadSInt32();
+            newStory.PlayerBeatBossPicIDs.Add(levelID, bossPicID);
         }
 
         return newStory;

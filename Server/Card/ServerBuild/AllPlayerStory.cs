@@ -65,58 +65,95 @@ internal class AllPlayerStory
             int levelID = 0;
             for (int i = 3; i < story.ChildNodes.Count; i++)
             {
-                Level level = new Level();
                 XmlNode levelInfo = story.ChildNodes.Item(i);
 
-                level.LevelID = levelID;
-
-                level.Bosses = new List<Boss>();
-
-                for (int j = 0; j < levelInfo.ChildNodes.Count; j++)
+                int levelFightTimes = int.Parse(levelInfo.Attributes["LevelFightTimes"].Value); //该Level必须击败几个Boss（必须通过几个LevelID才能到下一个Level）
+                if (levelFightTimes > levelInfo.ChildNodes.Count - 1)
                 {
-                    XmlNode bossInfo = levelInfo.ChildNodes.Item(j);
-                    Boss Boss = new Boss();
-                    Boss.Name = bossInfo.Attributes["name"].Value;
-                    Boss.BuildName = bossInfo.Attributes["BuildName"].Value;
-                    Boss.PicID = int.Parse(bossInfo.Attributes["picID"].Value);
-                    Boss.AlwaysBonusGroup = new List<BonusGroup>();
-                    Boss.OptionalBonusGroup = new List<BonusGroup>();
-                    level.Bosses.Add(Boss);
+                    throw new Exception("levelFightTimes < levelInfo.ChildNodes.Count - 1"); //配置错误
+                }
 
-                    for (int k = 0; k < bossInfo.ChildNodes.Count; k++)
+                XmlNode levelCommonBonusInfo = levelInfo.FirstChild;
+                List<BonusGroup> levelCommonBonusGroups_Optional = new List<BonusGroup>();
+                List<BonusGroup> levelCommonBonusGroups_Always = new List<BonusGroup>();
+                for (int j = 0; j < levelCommonBonusInfo.ChildNodes.Count; j++)
+                {
+                    XmlNode commonBonusGroupInfo = levelCommonBonusInfo.ChildNodes.Item(j);
+                    BonusGroup bg = GetBonusGroup(commonBonusGroupInfo);
+                    if (bg.IsAlways)
                     {
-                        XmlNode bonusGroupInfo = bossInfo.ChildNodes.Item(k);
-                        BonusGroup bg = new BonusGroup();
-                        bg.IsAlways = bonusGroupInfo.Attributes["type"].Value == "Always";
-                        bg.Bonuses = new List<Bonus>();
-                        for (int l = 0; l < bonusGroupInfo.ChildNodes.Count; l++)
-                        {
-                            XmlNode bonusInfo = bonusGroupInfo.ChildNodes.Item(l);
-                            Bonus bonus = new Bonus();
-                            bonus.M_BonusType = (Bonus.BonusType) Enum.Parse(typeof(Bonus.BonusType), bonusInfo.Attributes["name"].Value);
-                            bonus.Value = int.Parse(bonusInfo.Attributes["value"].Value);
-                            bg.Bonuses.Add(bonus);
-                        }
-
-                        if (bg.IsAlways)
-                        {
-                            Boss.AlwaysBonusGroup.Add(bg);
-                        }
-                        else
-                        {
-                            Boss.OptionalBonusGroup.Add(bg);
-                        }
+                        levelCommonBonusGroups_Always.Add(bg);
+                    }
+                    else
+                    {
+                        levelCommonBonusGroups_Optional.Add(bg);
                     }
                 }
 
-                Levels.Add(level);
-                levelID++;
+                for (int j = 0; j < levelFightTimes; j++)
+                {
+                    Level level = new Level();
+                    level.LevelID = levelID;
+                    level.LevelNum = int.Parse(levelInfo.Attributes["Level"].Value);
+                    level.Bosses = new SortedDictionary<int, Boss>();
+
+                    for (int k = 1; k < levelInfo.ChildNodes.Count; k++)
+                    {
+                        XmlNode bossInfo = levelInfo.ChildNodes.Item(k);
+                        Boss Boss = new Boss();
+                        Boss.Name = bossInfo.Attributes["name"].Value;
+                        Boss.BuildName = bossInfo.Attributes["BuildName"].Value;
+                        Boss.PicID = int.Parse(bossInfo.Attributes["picID"].Value);
+                        Boss.AlwaysBonusGroup = new List<BonusGroup>();
+                        Boss.OptionalBonusGroup = new List<BonusGroup>();
+
+                        levelCommonBonusGroups_Always.ForEach(bonusGroup => { Boss.AlwaysBonusGroup.Add(bonusGroup.Clone()); });
+                        levelCommonBonusGroups_Always.ForEach(bonusGroup => { Boss.OptionalBonusGroup.Add(bonusGroup.Clone()); });
+
+                        level.Bosses.Add(Boss.PicID, Boss);
+
+                        for (int l = 0; l < bossInfo.ChildNodes.Count; l++)
+                        {
+                            XmlNode bonusGroupInfo = bossInfo.ChildNodes.Item(l);
+                            BonusGroup bg = GetBonusGroup(bonusGroupInfo);
+
+                            if (bg.IsAlways)
+                            {
+                                Boss.AlwaysBonusGroup.Add(bg);
+                            }
+                            else
+                            {
+                                Boss.OptionalBonusGroup.Add(bg);
+                            }
+                        }
+                    }
+
+                    Levels.Add(level);
+                    levelID++;
+                }
             }
 
             BuildInfo PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultBuildId).Clone();
             BuildInfo PlayerCurrentUnlockedBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultUnlockedBuildID).Clone();
-            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo, PlayerCurrentUnlockedBuildInfo, gps, 0, new SortedDictionary<int, int>());
+            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo, PlayerCurrentUnlockedBuildInfo, gps, 0, new SortedDictionary<int, int>(), new SortedDictionary<int, int>());
             Database.Instance.StoryStartDict.Add(pureName, newStory);
         }
+    }
+
+    private static BonusGroup GetBonusGroup(XmlNode bonusGroupInfo)
+    {
+        BonusGroup bg = new BonusGroup();
+        bg.IsAlways = bonusGroupInfo.Attributes["type"].Value == "Always";
+        bg.Bonuses = new List<Bonus>();
+        for (int l = 0; l < bonusGroupInfo.ChildNodes.Count; l++)
+        {
+            XmlNode bonusInfo = bonusGroupInfo.ChildNodes.Item(l);
+            Bonus bonus = new Bonus();
+            bonus.M_BonusType = (Bonus.BonusType) Enum.Parse(typeof(Bonus.BonusType), bonusInfo.Attributes["name"].Value);
+            bonus.Value = int.Parse(bonusInfo.Attributes["value"].Value);
+            bg.Bonuses.Add(bonus);
+        }
+
+        return bg;
     }
 }
