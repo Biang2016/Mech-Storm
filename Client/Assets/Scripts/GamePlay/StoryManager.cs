@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,8 +88,7 @@ public class StoryManager : MonoSingleton<StoryManager>
             Instance.StoryCanvas.enabled = true;
             AudioManager.Instance.SoundPlay("sfx/StoryOpen");
             Instance.Anim.SetTrigger("Show");
-            Instance.StoryBGScrollbar.value = 0;
-            Instance.StoryScrollbar.value = 0;
+            Instance.StartCoroutine(Instance.Co_SetStoryScrollPlace());
         }
 
         private void HideMenu()
@@ -99,8 +99,16 @@ public class StoryManager : MonoSingleton<StoryManager>
         }
     }
 
+    IEnumerator Co_SetStoryScrollPlace()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Instance.StoryScrollRect.horizontalNormalizedPosition = (float) Current_LevelID / M_CurrentStory.Levels.Count;
+        yield return null;
+    }
 
     [SerializeField] private Canvas StoryCanvas;
+    [SerializeField] private ScrollRect StoryScrollRect;
+    [SerializeField] private ScrollRect StoryBGScrollRect;
     [SerializeField] private Scrollbar StoryBGScrollbar;
     [SerializeField] private Scrollbar StoryScrollbar;
     [SerializeField] private RectTransform StoryLevelScrollView;
@@ -116,6 +124,7 @@ public class StoryManager : MonoSingleton<StoryManager>
 
     public void InitiateStoryCanvas(Story story)
     {
+        AllCards.ResetCardLevelDictRemain(story.PlayerCurrentUnlockedBuildInfo.CardIDs); //重置解锁卡牌字典
         foreach (StoryCol sc in LevelCols.Values)
         {
             sc.PoolRecycle();
@@ -149,6 +158,11 @@ public class StoryManager : MonoSingleton<StoryManager>
             LevelCols[0].SetLevelKnown();
         }
 
+        foreach (KeyValuePair<int, List<int>> kv in story.LevelUnlockBossInfo)
+        {
+            SetLevelKnown(kv.Key, kv.Value);
+        }
+
         int beatLevel = 0;
         foreach (KeyValuePair<int, int> kv in story.LevelBeatBossPicIDs)
         {
@@ -162,27 +176,71 @@ public class StoryManager : MonoSingleton<StoryManager>
 
         SetLevelKnown(0, story.LevelUnlockBossInfo[0]);
 
-        StoryBGScrollbar.value = 0;
-        StoryScrollbar.value = 0;
-        if (StoryLevelContainer.rect.width < StoryLevelScrollView.rect.width)
+        if (M_CurrentStory.Levels.Count < 5)
         {
-            StoryScrollbar.onValueChanged.RemoveAllListeners();
+            StoryScrollRect.onValueChanged.RemoveAllListeners();
         }
         else
         {
-            StoryScrollbar.onValueChanged.AddListener(SyncStoryBGSliderValue);
+            StoryScrollRect.onValueChanged.AddListener(delegate { SyncStoryBGSliderValue(); });
         }
     }
 
-    public List<BonusGroup> GetCurrentAlwaysBonusGroup()
+    public List<BonusGroup> GetCurrentBonusGroup(bool isOptional)
     {
-        return M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossPicID].AlwaysBonusGroup;
+        List<BonusGroup> bgs;
+        List<BonusGroup> bgs_opt = M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossPicID].OptionalBonusGroup;
+        List<BonusGroup> bgs_alw = M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossPicID].AlwaysBonusGroup;
+
+        List<BonusGroup> removeBgs = new List<BonusGroup>();
+
+        if (isOptional)
+        {
+            bgs = bgs_opt;
+        }
+        else
+        {
+            bgs = bgs_alw;
+        }
+
+        foreach (BonusGroup bg in bgs)
+        {
+            Bonus b = bg.Bonuses[0];
+            if (b.M_BonusType == Bonus.BonusType.UnlockCardByID)
+            {
+                if (M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(b.Value))
+                {
+                    removeBgs.Add(bg);
+                }
+                else
+                {
+                    M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Add(b.Value); //暂时假设这张卡片已经加入到解锁集合中了，这个CardIDs现在可任意修改，因为它在领完奖励就会从服务端同步一遍
+                    AllCards.ResetCardLevelDictRemain(M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs); //这个字典也会重置的
+                }
+            }
+            else if (b.M_BonusType == Bonus.BonusType.UnlockCardByLevelNum)
+            {
+                CardInfo_Base cb = AllCards.GetRandomCardInfoByLevelNum(b.Value);
+                if (cb == null) //该等级的卡片已经全部解锁了
+                {
+                    removeBgs.Add(bg); //这个bonus就失效了
+                }
+                else
+                {
+                    b.M_BonusType = Bonus.BonusType.UnlockCardByID;
+                    b.Value = cb.CardID;
+                    bg.Bonuses[0] = b;
+
+                    M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Add(b.Value); //暂时假设这张卡片已经加入到解锁集合中了，这个CardIDs现在可任意修改，因为它在领完奖励就会从服务端同步一遍
+                    AllCards.ResetCardLevelDictRemain(M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs); //这个字典也会重置的
+                }
+            }
+        }
+
+        removeBgs.ForEach(bg => { bgs.Remove(bg); });
+        return bgs;
     }
 
-    public List<BonusGroup> GetCurrentOptionalBonusGroup()
-    {
-        return M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossPicID].OptionalBonusGroup;
-    }
 
     public void SetLevelBeated(int levelID, int bossPicID)
     {
@@ -194,18 +252,18 @@ public class StoryManager : MonoSingleton<StoryManager>
             if (slbs[i].M_BossInfo.PicID == bossPicID) beatBossIndex = i;
         }
 
-        SetBossState(levelID, beatBossIndex, true);
         if (!M_CurrentStory.LevelBeatBossPicIDs.ContainsKey(levelID))
         {
             M_CurrentStory.LevelBeatBossPicIDs.Add(levelID, bossPicID);
         }
 
         int beatBoss = M_CurrentStory.LevelBeatBossPicIDs[levelID];
-        int bossCount = M_CurrentStory.Levels[levelID].Bosses.Count;
+        int bossCount = LevelCols[levelID].StoryLevelButtons.Count;
         for (int j = 0; j < bossCount; j++)
         {
-            if (j != beatBoss) SetBossState(levelID, j, false);
+            SetBossState(levelID, j, j == beatBossIndex);
         }
+
 
         if (levelID > 0)
         {
@@ -244,8 +302,8 @@ public class StoryManager : MonoSingleton<StoryManager>
         storyCol.SetBossState(bossIndex, isBeat);
     }
 
-    private void SyncStoryBGSliderValue(float value)
+    private void SyncStoryBGSliderValue()
     {
-        StoryBGScrollbar.value = value;
+        StoryBGScrollRect.horizontalNormalizedPosition = StoryScrollRect.horizontalNormalizedPosition;
     }
 }

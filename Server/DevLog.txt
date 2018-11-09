@@ -332,3 +332,6 @@ UI和Manager大重构
 
 卡牌等级和level等级解锁挂钩
 卡片现在可以升级了
+
+敌方手牌hover
+bonusbutton空白问题

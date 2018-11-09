@@ -13,7 +13,8 @@ public struct Bonus
     [JsonConverter(typeof(StringEnumConverter))]
     public enum BonusType
     {
-        UnlockCard,
+        UnlockCardByID,
+        UnlockCardByLevelNum,
         AdjustDeck,
         LifeUpperLimit,
         EnergyUpperLimit,
@@ -28,7 +29,8 @@ public struct Bonus
 
     static Dictionary<BonusType, string> BonusDescRaw = new Dictionary<BonusType, string>
     {
-        {BonusType.UnlockCard, "解锁卡片"},
+        {BonusType.UnlockCardByID, "解锁卡片"},
+        {BonusType.UnlockCardByLevelNum, "解锁卡片"},
         {BonusType.AdjustDeck, "获得一次调整卡组的机会"},
         {BonusType.LifeUpperLimit, "生命上限{0}"},
         {BonusType.EnergyUpperLimit, "能量上限{0}"},
@@ -37,7 +39,8 @@ public struct Bonus
 
     static Dictionary<BonusType, string> BonusDescRaw_en = new Dictionary<BonusType, string>
     {
-        {BonusType.UnlockCard, "Unlock card"},
+        {BonusType.UnlockCardByID, "Unlock card"},
+        {BonusType.UnlockCardByLevelNum, "Unlock card"},
         {BonusType.AdjustDeck, "A chance to adjust deck"},
         {BonusType.LifeUpperLimit, "Life {0}"},
         {BonusType.EnergyUpperLimit, "Energy {0}"},

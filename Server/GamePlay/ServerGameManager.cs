@@ -62,9 +62,9 @@ internal class ServerGameManager
         ClientA.ClientState = ProxyBase.ClientStates.Playing;
         ClientB.ClientState = ProxyBase.ClientStates.Playing;
 
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
         ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
-#endif
+
 
         SyncRandomNumber();
 
@@ -417,13 +417,13 @@ internal class ServerGameManager
     {
         if (IsStopped)
         {
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
             if (ClientA == null) ServerLog.Print(ClientA.ClientId + "   ClientA==null");
-#endif
+
             ClientA.ClientState = ProxyBase.ClientStates.Login;
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
             if (ClientB == null) ServerLog.Print(ClientB.ClientId + "   ClientB==null");
-#endif
+
             ClientB.ClientState = ProxyBase.ClientStates.Login;
 
             Server.SV.SGMM.RemoveGame(ClientA);
@@ -433,9 +433,9 @@ internal class ServerGameManager
 
             EventManager.ClearAllEvents();
 
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
             ServerLog.PrintClientStates("GameStopSucBetween: " + PlayerA.ClientId + ", " + PlayerB.ClientId);
-#endif
+
         }
 
         IsStopped = false;

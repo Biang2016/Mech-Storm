@@ -24,9 +24,9 @@ internal class ClientProxy : ProxyBase
         {
             ClientStates before = ClientState;
             clientState = value;
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
             ServerLog.PrintClientStates("Client " + ClientId + " state change: " + before + " -> " + ClientState);
-#endif
+
         }
     }
 
@@ -149,9 +149,9 @@ internal class ClientProxy : ProxyBase
             {
                 //以下是进入游戏前的请求
                 case RegisterRequest _:
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
-#endif
+
                     if (ClientState != ClientStates.GetId)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -170,9 +170,9 @@ internal class ClientProxy : ProxyBase
 
                     break;
                 case LoginRequest _:
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
-#endif
+
                     if (ClientState != ClientStates.GetId)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -233,9 +233,9 @@ internal class ClientProxy : ProxyBase
                     break;
                 case LogoutRequest _:
                 {
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
-#endif
+
                     LogoutRequest request = (LogoutRequest) r;
                     LogoutResultRequest response;
                     if (ClientState != ClientStates.GetId)
@@ -286,11 +286,23 @@ internal class ClientProxy : ProxyBase
                                 case Bonus.BonusType.LifeUpperLimit:
                                 {
                                     story.StoryGamePlaySettings.DefaultLifeMax += bonus.Value;
+                                    story.StoryGamePlaySettings.DefaultLife += bonus.Value;
+                                    foreach (KeyValuePair<int, BuildInfo> kv in story.PlayerBuildInfos)
+                                    {
+                                        kv.Value.Life += bonus.Value;
+                                    }
+
                                     break;
                                 }
                                 case Bonus.BonusType.EnergyUpperLimit:
                                 {
                                     story.StoryGamePlaySettings.DefaultEnergyMax += bonus.Value;
+                                    story.StoryGamePlaySettings.DefaultEnergy += bonus.Value;
+                                    foreach (KeyValuePair<int, BuildInfo> kv in story.PlayerBuildInfos)
+                                    {
+                                        kv.Value.Energy += bonus.Value;
+                                    }
+
                                     break;
                                 }
                                 case Bonus.BonusType.Budget:
@@ -298,9 +310,9 @@ internal class ClientProxy : ProxyBase
                                     story.StoryGamePlaySettings.DefaultCoin += bonus.Value;
                                     break;
                                 }
-                                case Bonus.BonusType.UnlockCard:
+                                case Bonus.BonusType.UnlockCardByID:
                                 {
-                                    story.PlayerCurrentUnlockedBuildInfo.CardIDs.Add(bonus.Value);
+                                    if (!story.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(bonus.Value)) story.PlayerCurrentUnlockedBuildInfo.CardIDs.Add(bonus.Value);
                                     break;
                                 }
                             }
@@ -350,9 +362,9 @@ internal class ClientProxy : ProxyBase
                 }
 
                 case MatchRequest _:
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
-#endif
+
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -370,9 +382,9 @@ internal class ClientProxy : ProxyBase
                     break;
 
                 case MatchStandAloneRequest _:
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
-#endif
+
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -389,9 +401,9 @@ internal class ClientProxy : ProxyBase
 
                     break;
                 case CancelMatchRequest _:
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
                     ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
-#endif
+
                     if (ClientState == ClientStates.Playing)
                     {
                         Server.SV.SGMM.RemoveGame(this);
@@ -474,9 +486,9 @@ internal class ClientProxy : ProxyBase
                 }
                 catch (Exception e)
                 {
-#if DEBUG
+if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
                     ServerLog.PrintError(e.ToString());
-#endif
+
                     if (MyServerGameManager != null && !MyServerGameManager.IsStopped)
                     {
                         MyServerGameManager.OnEndGameByServerError();

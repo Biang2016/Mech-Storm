@@ -320,6 +320,7 @@ public class StoryCol : PoolObject
 
         StoryLevelButtons.Clear();
 
+        this.bossCount = bossCount;
         this.nextLevelBossCount = nextLevelBossCount;
 
         LevelInfo = levelInfo;
@@ -385,14 +386,7 @@ public class StoryCol : PoolObject
 
     public void SetBossState(int bossIndex, bool isBeat)
     {
-        StoryLevelButton slb = null;
-        foreach (StoryLevelButton button in StoryLevelButtons)
-        {
-            if (button.M_BossInfo.PicID == bossIndex)
-            {
-                slb = StoryLevelButtons[bossIndex];
-            }
-        }
+        StoryLevelButton slb = StoryLevelButtons[bossIndex];
 
         if (slb != null)
         {

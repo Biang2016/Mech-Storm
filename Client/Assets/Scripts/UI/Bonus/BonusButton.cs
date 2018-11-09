@@ -11,18 +11,7 @@ internal class BonusButton : PoolObject
 {
     public override void PoolRecycle()
     {
-        foreach (BonusItem_Base bonusItem in M_BonusItems)
-        {
-            bonusItem.PoolRecycle();
-        }
-
-        SetSelected(false);
-        BG_Image.gameObject.SetActive(true);
-        BorderSelected.gameObject.SetActive(true);
-        Border.gameObject.SetActive(true);
-        card = null;
-        IsSelected = false;
-        Particle.gameObject.SetActive(false);
+        Reset();
         base.PoolRecycle();
     }
 
@@ -35,9 +24,9 @@ internal class BonusButton : PoolObject
     [SerializeField] private Image Border;
     [SerializeField] private ParticleSystem Particle;
 
-    private List<BonusItem_Base> M_BonusItems = new List<BonusItem_Base>();
+    public List<BonusItem_Base> M_BonusItems = new List<BonusItem_Base>();
 
-    public void Initialize(BonusGroup bonusGroup)
+    public void Reset()
     {
         foreach (BonusItem_Base bonusItem in M_BonusItems)
         {
@@ -45,6 +34,18 @@ internal class BonusButton : PoolObject
         }
 
         M_BonusItems.Clear();
+        SetSelected(false);
+        BG_Image.gameObject.SetActive(true);
+        BorderSelected.gameObject.SetActive(true);
+        Border.gameObject.SetActive(true);
+        card = null;
+        IsSelected = false;
+        Particle.gameObject.SetActive(false);
+    }
+
+    public void Initialize(BonusGroup bonusGroup)
+    {
+        Reset();
 
         BonusGroup = bonusGroup;
         if (BonusGroup.IsAlways)
@@ -78,6 +79,10 @@ internal class BonusButton : PoolObject
                 BorderSelected.gameObject.SetActive(false);
                 Border.gameObject.SetActive(false);
             }
+            else
+            {
+                int a = 0;
+            }
         }
 
         Particle.gameObject.SetActive(false);
@@ -88,18 +93,12 @@ internal class BonusButton : PoolObject
     public void OnButtonClick()
     {
         WinLostPanelManager.Instance.SetBonusButtonSelected(this);
-        if (card)
-        {
-            AudioManager.Instance.SoundPlay("sfx/DrawCard0", 3f);
-        }
-        else
-        {
-            AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick");
-        }
+        AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick");
     }
 
     public void OnConfirmButtonClickDelegate()
     {
+        WinLostPanelManager.Instance.GetBonusBuildChangeInfo(BonusGroup);
         BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientId, BonusGroup);
         Client.Instance.Proxy.SendMessage(request);
     }
@@ -119,6 +118,11 @@ internal class BonusButton : PoolObject
 
     public void OnHover()
     {
+        if (card)
+        {
+            AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {card.CardInfo});
+        }
+
         if (IsSelected) return;
         if (card)
         {
@@ -132,6 +136,11 @@ internal class BonusButton : PoolObject
 
     public void OnExit()
     {
+        if (card)
+        {
+            AffixManager.Instance.HideAffixPanel();
+        }
+
         if (IsSelected) return;
         if (card)
         {

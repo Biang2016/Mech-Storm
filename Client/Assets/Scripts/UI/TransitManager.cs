@@ -72,6 +72,7 @@ internal class TransitManager : MonoSingleton<TransitManager>
         }
 
         M_TransitState = TransitState.Show;
+        TransitPanel.color = color;
         yield return null;
     }
 
@@ -88,6 +89,7 @@ internal class TransitManager : MonoSingleton<TransitManager>
 
         TransitPanel.raycastTarget = false;
         M_TransitState = TransitState.Hide;
+        TransitPanel.color = new Color(color.r, color.g, color.b, 0);
         yield return null;
     }
 

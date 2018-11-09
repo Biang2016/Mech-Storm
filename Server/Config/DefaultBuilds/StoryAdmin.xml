@@ -2,10 +2,10 @@
 <AllBuilds>
   <BuildInfo>
     <Info name="baseInfo" BuildName="Story1" DrawCardNum="2" Life="10" Energy="6" />
-    <Info name="cardIDs" ids="6901,60301,62101,70101,62401,62500,62401,62401,62401,70101,60301,6901,6901,60601,70301" />
+    <Info name="cardIDs" ids="6901,62101,70101,62401,62500,62401,62401,62401,70101,60301,6901,6901,70301,62101" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="Story1_Unlock" DrawCardNum="1" Life="10" Energy="6" />
-    <Info name="cardIDs" ids="5401,5600,6901,60301,62101,70101,62401,62500,60601,70301" />
+    <Info name="cardIDs" ids="5401,6901,60301,62101,70101,62401,62500,70301" />
   </BuildInfo>
 </AllBuilds>

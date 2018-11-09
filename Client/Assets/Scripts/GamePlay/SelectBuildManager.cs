@@ -44,6 +44,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
     public GamePlaySettings GamePlaySettings;
 
+
     void Update()
     {
         M_StateMachine.Update();
@@ -449,6 +450,29 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         {
             newCard.BeDimColor();
         }
+    }
+
+    #endregion
+
+    #region Story模式过关奖励记录
+
+    public bool JustGetSomeCard = false; //刚才是否选择了新卡片
+    public bool JustLifeAdd = false; //刚才是否增加了生命
+    public bool JustLifeLost = false; //刚才是否减少了生命
+    public bool JustEnergyAdd = false; //刚才是否增加了能量
+    public bool JustEnergyLost = false; //刚才是否减少了能量
+    public bool JustBudgetAdd = false; //刚才是否新增了预算
+    public bool JustBudgetLost = false; //刚才是否减少了预算
+
+    public void ResetStoryBonusInfo()
+    {
+        JustGetSomeCard = false;
+        JustLifeAdd = false;
+        JustLifeLost = false;
+        JustEnergyAdd = false;
+        JustEnergyLost = false;
+        JustBudgetAdd = false;
+        JustBudgetLost = false;
     }
 
     #endregion

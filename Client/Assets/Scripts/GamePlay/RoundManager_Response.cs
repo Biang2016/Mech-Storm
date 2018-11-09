@@ -24,7 +24,7 @@ internal partial class RoundManager
     {
         if (r.winnerClientId == Client.Instance.Proxy.ClientId)
         {
-            ClientLog.Instance.PrintClientStates("你赢了");
+            ClientLog.Instance.PrintClientStates("You win");
             WinLostPanelManager.Instance.WinGame();
         }
         else

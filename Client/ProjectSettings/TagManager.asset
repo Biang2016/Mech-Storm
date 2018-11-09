@@ -62,3 +62,6 @@ TagManager:
   - name: ShowCards
     uniqueID: 3686836735
     locked: 0
+  - name: Notice
+    uniqueID: 631984915
+    locked: 0

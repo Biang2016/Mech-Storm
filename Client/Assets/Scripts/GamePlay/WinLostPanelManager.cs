@@ -21,6 +21,7 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         LostTipTitle.text = GameManager.Instance.IsEnglish ? "Tips: " : "提示: ";
         RewardsTitleText.text = GameManager.Instance.IsEnglish ? "Rewards" : "奖励";
         NoRewardText.text = GameManager.Instance.IsEnglish ? "The designer is so mean that here isn't any reward." : "设计师是个吝啬鬼，这里没有任何奖励";
+        FixedBonusText.text = GameManager.Instance.IsEnglish ? "Fixed Bonus" : "固定\n奖励";
     }
 
     [SerializeField] private Canvas WinLostCanvas;
@@ -31,8 +32,14 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
     [SerializeField] private Text RewardsTitleText;
     [SerializeField] private Text SelectTipText;
     [SerializeField] private Transform BonusButtonContainer;
-    private List<BonusButton> M_CurrentBonusButtons = new List<BonusButton>();
+    public List<BonusButton> M_CurrentBonusButtons = new List<BonusButton>();
+    private List<SmallBonusItem> M_CurrentFixedBonusItems = new List<SmallBonusItem>();
     [SerializeField] private Text NoRewardText;
+    [SerializeField] private Text FixedBonusText;
+    [SerializeField] private Transform FixedBonusContainer;
+    [SerializeField] private Transform CardPreviewContainer;
+    [SerializeField] private Transform CardRotationSample;
+    [SerializeField] private Animator CardPreviewContainerAnim;
 
     [SerializeField] private GameObject LostContent;
     [SerializeField] private Text LostText;
@@ -47,10 +54,9 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
     private List<BonusGroup> OptionalBonusGroup;
     public bool IsShow = false;
 
-    public void WinGame()
-    {
-        LostContent.SetActive(false);
 
+    public void Reset()
+    {
         if (RoundManager.Instance.isSingleBattle)
         {
             foreach (BonusButton bb in M_CurrentBonusButtons)
@@ -58,17 +64,53 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
                 bb.PoolRecycle();
             }
 
-            OnConfirmButtonClickHandler = null;
             M_CurrentBonusButtons.Clear();
+
+            foreach (SmallBonusItem sbi in M_CurrentFixedBonusItems)
+            {
+                sbi.PoolRecycle();
+            }
+
+            M_CurrentFixedBonusItems.Clear();
+
+            if (CurrentPreivewCard)
+            {
+                CurrentPreivewCard.PoolRecycle();
+                CurrentPreivewCard = null;
+            }
+
+            OnConfirmButtonClickHandler = null;
             WinContent.SetActive(true);
             OnlineResultContent.SetActive(false);
-            AlwaysBonusGroup = StoryManager.Instance.GetCurrentAlwaysBonusGroup();
-            OptionalBonusGroup = Utils.GetRandomFromList(StoryManager.Instance.GetCurrentOptionalBonusGroup(), Random.Range(2, 4));
-            foreach (BonusGroup bonusGroup in OptionalBonusGroup)
+        }
+    }
+
+    public void WinGame()
+    {
+        LostContent.SetActive(false);
+
+        if (RoundManager.Instance.isSingleBattle)
+        {
+            Reset();
+            SelectBuildManager.Instance.ResetStoryBonusInfo();
+
+            AlwaysBonusGroup = StoryManager.Instance.GetCurrentBonusGroup(false); //Always要执行，因为如果Always里面解锁了某些卡片，则要去掉避免重复
+            OptionalBonusGroup = Utils.GetRandomFromList(StoryManager.Instance.GetCurrentBonusGroup(true), Random.Range(2, 4));
+            foreach (BonusGroup bg in OptionalBonusGroup)
             {
                 BonusButton bb = GameObjectPoolManager.Instance.Pool_BonusButtonPool.AllocateGameObject<BonusButton>(BonusButtonContainer);
-                bb.Initialize(bonusGroup);
+                bb.Initialize(bg);
                 M_CurrentBonusButtons.Add(bb);
+            }
+
+            foreach (BonusGroup bg in AlwaysBonusGroup)
+            {
+                foreach (Bonus bonus in bg.Bonuses)
+                {
+                    SmallBonusItem sbi = GameObjectPoolManager.Instance.Pool_SmallBonusItemPool.AllocateGameObject<SmallBonusItem>(FixedBonusContainer);
+                    sbi.Initialize(bonus);
+                    M_CurrentFixedBonusItems.Add(sbi);
+                }
             }
 
             if (OptionalBonusGroup.Count == 1)
@@ -106,6 +148,7 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
 
             foreach (string tip in Tips)
             {
+                LostTipText.text = "";
                 LostTipText.text += tip + "\n";
             }
         }
@@ -152,8 +195,8 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
         WinLostCanvas.enabled = false;
         IsShow = false;
+        Reset();
     }
-
 
     public void SetBonusButtonSelected(BonusButton bonusButton)
     {
@@ -178,7 +221,67 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         }
         else
         {
+            SendAlwaysBonusRequest();
             EndWinLostPanel();
+        }
+    }
+
+    private void SendAlwaysBonusRequest()
+    {
+        foreach (BonusGroup bg in AlwaysBonusGroup)
+        {
+            GetBonusBuildChangeInfo(bg);
+            BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientId, bg);
+            Client.Instance.Proxy.SendMessage(request);
+        }
+    }
+
+    public void GetBonusBuildChangeInfo(BonusGroup bg)
+    {
+        if (!SelectBuildManager.Instance.JustGetSomeCard)
+        {
+            if (bg.Bonuses[0].M_BonusType == Bonus.BonusType.UnlockCardByID) SelectBuildManager.Instance.JustGetSomeCard = true;
+        }
+
+        foreach (Bonus b in bg.Bonuses)
+        {
+            if (b.M_BonusType == Bonus.BonusType.LifeUpperLimit && b.Value > 0) SelectBuildManager.Instance.JustLifeAdd = true;
+            if (b.M_BonusType == Bonus.BonusType.LifeUpperLimit && b.Value < 0) SelectBuildManager.Instance.JustLifeLost = true;
+            if (b.M_BonusType == Bonus.BonusType.EnergyUpperLimit && b.Value > 0) SelectBuildManager.Instance.JustLifeAdd = true;
+            if (b.M_BonusType == Bonus.BonusType.EnergyUpperLimit && b.Value < 0) SelectBuildManager.Instance.JustEnergyLost = true;
+            if (b.M_BonusType == Bonus.BonusType.Budget && b.Value > 0) SelectBuildManager.Instance.JustBudgetAdd = true;
+            if (b.M_BonusType == Bonus.BonusType.Budget && b.Value < 0) SelectBuildManager.Instance.JustBudgetLost = true;
+        }
+    }
+
+    private CardBase CurrentPreivewCard;
+
+    public void ShowCardPreview(CardInfo_Base cb)
+    {
+        if (CurrentPreivewCard)
+        {
+            CurrentPreivewCard.PoolRecycle();
+            CurrentPreivewCard = null;
+        }
+
+        CurrentPreivewCard = CardBase.InstantiateCardByCardInfo(cb, CardPreviewContainer, RoundManager.Instance.SelfClientPlayer, false);
+        CurrentPreivewCard.transform.localScale = CardRotationSample.localScale;
+        CurrentPreivewCard.transform.rotation = CardRotationSample.rotation;
+        Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        CurrentPreivewCard.transform.parent.position = new Vector3(cameraPosition.x, CardRotationSample.position.y, CardRotationSample.position.z);
+        CurrentPreivewCard.SetOrderInLayer(2);
+        CurrentPreivewCard.BeBrightColor();
+        CurrentPreivewCard.SetBonusCardBloom(true);
+        CardPreviewContainerAnim.SetTrigger("Hover");
+    }
+
+    public void HideCardPreview()
+    {
+        if (CurrentPreivewCard)
+        {
+            CurrentPreivewCard.PoolRecycle();
+            CurrentPreivewCard = null;
+            CardPreviewContainerAnim.SetTrigger("Exit");
         }
     }
 

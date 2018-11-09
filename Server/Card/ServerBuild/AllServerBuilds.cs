@@ -5,7 +5,7 @@ using System.Xml;
 
 internal class AllServerBuilds
 {
-    public static string DefaultBuildDirectory = "../../Config/DefaultBuilds/";
+    public static string DefaultBuildDirectory = "./Config/DefaultBuilds/";
     public static string SuperAccountPassword = "Xuedapao007";
 
     public static void AddAllBuilds()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
@@ -115,10 +116,10 @@ public partial class Utils
         if (number > OriList.Count) number = OriList.Count;
 
         HashSet<int> indice = new HashSet<int>();
-        Random rd = new Random();
+        Random rd = new Random(DateTime.Now.Millisecond * number);
         while (indice.Count < number)
         {
-            int index = rd.Next(0, number);
+            int index = rd.Next(0, OriList.Count);
             if (!indice.Contains(index))
             {
                 indice.Add(index);
@@ -132,5 +133,27 @@ public partial class Utils
         }
 
         return res;
+    }
+
+    public static void CopyDirectory(string srcPath, string destPath)
+    {
+        DirectoryInfo dir = new DirectoryInfo(srcPath);
+        FileSystemInfo[] fileinfo = dir.GetFileSystemInfos(); //获取目录下（不包含子目录）的文件和子目录
+        foreach (FileSystemInfo i in fileinfo)
+        {
+            if (i is DirectoryInfo) //判断是否文件夹
+            {
+                if (!Directory.Exists(destPath + "\\" + i.Name))
+                {
+                    Directory.CreateDirectory(destPath + "\\" + i.Name); //目标目录下不存在此文件夹即创建子文件夹
+                }
+
+                CopyDirectory(i.FullName, destPath + "\\" + i.Name); //递归调用复制子文件夹
+            }
+            else
+            {
+                File.Copy(i.FullName, destPath + "\\" + i.Name, true); //不是文件夹即复制文件，true表示可以覆盖同名文件
+            }
+        }
     }
 }

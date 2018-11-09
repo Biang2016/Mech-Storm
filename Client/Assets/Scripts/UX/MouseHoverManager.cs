@@ -118,6 +118,7 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
 
         public void SetState(States newState)
         {
+            if (WinLostPanelManager.Instance.IsShow && state == States.StartMenu) return;
             if (state != newState)
             {
                 Instance.hi_MouseFocusUIHover.Release();

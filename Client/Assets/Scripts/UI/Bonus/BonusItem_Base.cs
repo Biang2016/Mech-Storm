@@ -8,14 +8,22 @@ using UnityEngine.UI;
 
 internal class BonusItem_Base : PoolObject
 {
+    public override void PoolRecycle()
+    {
+        BonusCardInfo = null;
+        base.PoolRecycle();
+    }
+
     [SerializeField] private Text ItemDesc;
     public Image ItemImage;
     public Bonus Bonus;
 
+    public CardInfo_Base BonusCardInfo;
+
     public static BonusItem_Base InstantiateBonusItem(Bonus bonus, Transform parent)
     {
         BonusItem_Base bib;
-        if (bonus.M_BonusType == Bonus.BonusType.UnlockCard)
+        if (bonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
         {
             bib = GameObjectPoolManager.Instance.Pool_BigBonusItemPool.AllocateGameObject<BonusItem_Base>(parent);
         }
@@ -32,5 +40,25 @@ internal class BonusItem_Base : PoolObject
     {
         Bonus = bonus;
         ItemDesc.text = Bonus.GetDesc(GameManager.Instance.IsEnglish);
+        if (bonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
+        {
+            BonusCardInfo = AllCards.GetCard(bonus.Value);
+        }
+    }
+
+    public virtual void OnHover()
+    {
+        if (BonusCardInfo != null)
+        {
+            AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {BonusCardInfo});
+        }
+    }
+
+    public virtual void OnExit()
+    {
+        if (BonusCardInfo != null)
+        {
+            AffixManager.Instance.HideAffixPanel();
+        }
     }
 }

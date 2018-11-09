@@ -4,15 +4,79 @@ using System.IO;
 using System.Reflection;
 using System.Xml;
 
+/// <summary>
+/// 卡片字典，其中记录的值不轻易更改
+/// </summary>
 public static class AllCards
 {
     public static Dictionary<int, CardInfo_Base> CardDict = new Dictionary<int, CardInfo_Base>();
     public static Dictionary<int, int> CardPicIDDict = new Dictionary<int, int>();
+    public static Dictionary<int, List<CardInfo_Base>> CardLevelDict = new Dictionary<int, List<CardInfo_Base>>();
+    public static Dictionary<int, List<CardInfo_Base>> CardLevelDict_Remain = new Dictionary<int, List<CardInfo_Base>>(); //某等级的卡片还剩哪些还没解锁
 
     private static void addCard(CardInfo_Base cardInfo)
     {
         if (!CardDict.ContainsKey(cardInfo.CardID)) CardDict.Add(cardInfo.CardID, cardInfo);
         if (!CardPicIDDict.ContainsKey(cardInfo.CardID)) CardPicIDDict.Add(cardInfo.CardID, cardInfo.BaseInfo.PictureID);
+        if (cardInfo.UpgradeInfo.CardLevel <= 1) //按照不同星级的同一张卡片不存储两次
+        {
+            if (!cardInfo.BaseInfo.Hide && !cardInfo.BaseInfo.IsTemp)
+            {
+                if (!CardLevelDict.ContainsKey(cardInfo.BaseInfo.CardRareLevel))
+                {
+                    CardLevelDict.Add(cardInfo.BaseInfo.CardRareLevel, new List<CardInfo_Base> {cardInfo});
+                    CardLevelDict_Remain.Add(cardInfo.BaseInfo.CardRareLevel, new List<CardInfo_Base> {cardInfo});
+                }
+                else
+                {
+                    CardLevelDict[cardInfo.BaseInfo.CardRareLevel].Add(cardInfo);
+                    CardLevelDict_Remain[cardInfo.BaseInfo.CardRareLevel].Add(cardInfo);
+                }
+            }
+        }
+    }
+
+    public static CardInfo_Base GetRandomCardInfoByLevelNum(int levelNum)
+    {
+        CardInfo_Base res = null;
+        if (AllCards.CardLevelDict_Remain.ContainsKey(levelNum))
+        {
+            List<CardInfo_Base> levelCards = AllCards.CardLevelDict_Remain[levelNum];
+            if (levelCards.Count >= 1)
+            {
+                res = Utils.GetRandomFromList(levelCards, 1)[0];
+            }
+        }
+
+        return res == null ? res : res.Clone();
+    }
+
+    public static void ResetCardLevelDictRemain(List<int> unlockedCards)
+    {
+        CardLevelDict_Remain = new Dictionary<int, List<CardInfo_Base>>();
+        foreach (KeyValuePair<int, List<CardInfo_Base>> kv in CardLevelDict)
+        {
+            foreach (CardInfo_Base cardInfo in kv.Value)
+            {
+                if (!CardLevelDict_Remain.ContainsKey(cardInfo.BaseInfo.CardRareLevel))
+                {
+                    CardLevelDict_Remain.Add(cardInfo.BaseInfo.CardRareLevel, new List<CardInfo_Base> {cardInfo});
+                }
+                else
+                {
+                    CardLevelDict_Remain[cardInfo.BaseInfo.CardRareLevel].Add(cardInfo);
+                }
+            }
+        }
+
+        foreach (int id in unlockedCards)
+        {
+            CardInfo_Base cb = CardDict[id];
+            if (CardLevelDict_Remain.ContainsKey(cb.BaseInfo.CardRareLevel))
+            {
+                CardLevelDict_Remain[cb.BaseInfo.CardRareLevel].Remove(cb);
+            }
+        }
     }
 
     public static void AddAllCards(string cardsXMLPath)

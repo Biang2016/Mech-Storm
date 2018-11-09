@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
@@ -105,6 +106,18 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
 
     public void OnGameStop()
     {
+        StartCoroutine(Co_OnGameStop());
+    }
+
+    IEnumerator Co_OnGameStop()
+    {
+        if (isSingleBattle)
+        {
+            TransitManager.Instance.ShowBlackShutTransit(1f);
+        }
+
+        yield return new WaitForSeconds(1f);
+
         CardBase[] cardPreviews = GameBoardManager.Instance.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
         foreach (CardBase cardPreview in cardPreviews)
         {
@@ -157,7 +170,6 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
         {
             StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Single);
             StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Show);
-            TransitManager.Instance.ShowBlackShutTransit(1f);
         }
         else
         {
@@ -165,8 +177,25 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
         }
 
         BattleEffectsManager.Instance.ResetAll();
-        TransitManager.Instance.HideTransit(Color.black, 0.1f);
         StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
+        TransitManager.Instance.HideTransit(Color.black, 0.1f);
+
+        if (SelectBuildManager.Instance.JustGetSomeCard)
+        {
+            ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform);
+            cw.Initialize(
+                GameManager.Instance.IsEnglish ? "You have got some new cards just now! Do you want to adjust your deck?" : "刚刚获得了新卡片，是否去卡组看一看?",
+                GameManager.Instance.IsEnglish ? "Go to deck" : "去牌库",
+                GameManager.Instance.IsEnglish ? "Got it." : "知道了",
+                delegate
+                {
+                    ConfirmWindowManager.Instance.RemoveConfirmWindow();
+                    SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
+                },
+                delegate { ConfirmWindowManager.Instance.RemoveConfirmWindow(); });
+        }
+
+        yield return null;
     }
 
     #region 交互

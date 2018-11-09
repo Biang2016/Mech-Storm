@@ -33,7 +33,7 @@ public class Story
         PlayerCurrentUnlockedBuildInfo = playerCurrentUnlockedBuildInfo;
         StoryGamePlaySettings = storyGamePlaySettings;
 
-        SortedDictionary<int, List<int>> temp = new SortedDictionary<int, List<int>>();
+        SortedDictionary<int, int> levelNumBossRemainChoiceCount = new SortedDictionary<int, int>();
         foreach (Level level in Levels)
         {
             if (!LevelNumFightTimes.ContainsKey(level.LevelNum))
@@ -50,7 +50,7 @@ public class Story
                 List<int> bossPicIDs = new List<int>();
                 level.Bosses.Values.ToList().ForEach(boss => bossPicIDs.Add(boss.PicID));
                 LevelNumBossRemain.Add(level.LevelNum, bossPicIDs);
-                temp.Add(level.LevelNum, bossPicIDs.ToArray().ToList());
+                levelNumBossRemainChoiceCount.Add(level.LevelNum, bossPicIDs.Count);
             }
         }
 
@@ -59,10 +59,9 @@ public class Story
         for (int i = 0; i < Levels.Count; i++)
         {
             int levelNum = Levels[i].LevelNum;
-            int curLevelBossTryCount = rd.Next(Math.Min(temp[levelNum].Count, 2), Math.Min(4, temp[levelNum].Count + 1)); //每个level尽量选出2~3个boss
-            List<int> bossPicIDs = Utils.GetRandomFromList(temp[levelNum], curLevelBossTryCount);
-            bossPicIDs.ForEach(boss => { temp[levelNum].Remove(boss); });
-            LevelBossCount.Add(i, bossPicIDs.Count);
+            int curLevelBossTryCount = rd.Next(Math.Min(levelNumBossRemainChoiceCount[levelNum], 1), Math.Min(4, levelNumBossRemainChoiceCount[levelNum] + 1)); //每个level尽量选出2~3个boss
+            LevelBossCount.Add(i, curLevelBossTryCount);
+            levelNumBossRemainChoiceCount[levelNum]--;
         }
     }
 
@@ -88,7 +87,6 @@ public class Story
         {
             int nextLevelBossCount = LevelBossCount[levelID];
             List<int> bosses = Utils.GetRandomFromList(LevelNumBossRemain[levelNum], nextLevelBossCount);
-            bosses.ForEach(bossPicID => LevelNumBossRemain[levelNum].Remove(bossPicID));
             LevelUnlockBossInfo.Add(levelID, bosses);
         }
     }

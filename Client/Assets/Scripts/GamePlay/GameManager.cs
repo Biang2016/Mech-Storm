@@ -31,7 +31,7 @@ public class GameManager : MonoSingleton<GameManager>
     public Camera SelectCardWindowBackCamera;
     public Camera SelectCardWindowForeCamera;
 
-    internal bool IsEnglish;
+    public bool IsEnglish;
 
     public void SetEnglish(int index)
     {

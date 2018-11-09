@@ -97,13 +97,22 @@ public partial class SelectBuildManager
             ((CardRetinue) PreviewCard).MoveCoinBGLower();
         }
 
-        int U_id = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID;
-        int D_id = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID;
-
-
-        if (U_id != -1)
+        bool hasUpgradeCard = false;
+        bool hasDegradeCard = false;
+        if (GameMode_State == GameMode.Single)
         {
-            PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(U_id), PreviewContent, null, true);
+            hasUpgradeCard = StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID);
+            hasDegradeCard = StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID);
+        }
+        else if (GameMode_State == GameMode.Online)
+        {
+            hasUpgradeCard = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID != -1;
+            hasDegradeCard = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID != -1;
+        }
+
+        if (hasUpgradeCard)
+        {
+            PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID), PreviewContent, null, true);
             PreviewCardUpgrade.transform.localScale = Vector3.one * 270;
             PreviewCardUpgrade.transform.rotation = Quaternion.Euler(90, 180, 0);
             if (PreviewCardUpgrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
@@ -134,9 +143,9 @@ public partial class SelectBuildManager
         }
 
 
-        if (D_id != -1)
+        if (hasDegradeCard)
         {
-            PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(D_id), PreviewContent, null, true);
+            PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID), PreviewContent, null, true);
             PreviewCardDegrade.transform.localScale = Vector3.one * 270;
             PreviewCardDegrade.transform.rotation = Quaternion.Euler(90, 180, 0);
             if (PreviewCardDegrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)

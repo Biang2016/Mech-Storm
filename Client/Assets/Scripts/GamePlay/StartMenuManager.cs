@@ -480,7 +480,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                 {
                     cw.Initialize("Some cards consume more energy than your upper limit.", "Go ahead", "Edit",
                         action + ConfirmWindowManager.Instance.RemoveConfirmWindow,
-                        new UnityAction(OnSelectCardDeckWindowButtonClick) + ConfirmWindowManager.Instance.RemoveConfirmWindow);
+                        new UnityAction(OnSelectCardDeckWindowButtonClick) + ConfirmWindowManager.Instance.RemoveConfirmWindow + delegate { StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide); });
                 }
                 else
                 {
@@ -555,13 +555,12 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             Application.Quit,
             ConfirmWindowManager.Instance.RemoveConfirmWindow
         );
-
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Matching)
         {
             Client.Instance.Proxy.CancelMatch();
         }
 
-        //LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientId, Client.Instance.Proxy.Username);
-        //Client.Instance.Proxy.SendMessage(request);
+//LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientId, Client.Instance.Proxy.Username);
+//Client.Instance.Proxy.SendMessage(request);
     }
 }
