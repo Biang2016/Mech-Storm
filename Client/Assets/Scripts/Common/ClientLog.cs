@@ -13,8 +13,8 @@ public class
     void Awake()
     {
         LogMessages = new Queue<Log>();
-        sw = new StreamWriter(Application.streamingAssetsPath + "/RequestLog.txt", false);
-        sw.Close();
+        //sw = new StreamWriter(Application.streamingAssetsPath + "/RequestLog.txt", false);
+        //sw.Close();
     }
 
     void Update()
@@ -40,7 +40,7 @@ public class
     public void DoPrint()
     {
 #if DEBUG
-        sw = new StreamWriter(Application.streamingAssetsPath + "/RequestLog.txt", true);
+        //sw = new StreamWriter(Application.streamingAssetsPath + "/RequestLog.txt", true);
 #endif
 
         if (LogMessages.Count > 0)
@@ -52,13 +52,13 @@ public class
                 {
                     Debug.Log("<color=#" + log.Color + ">" + log.LogStr + "</color>");
 #if DEBUG
-                    sw.WriteLine(log.LogStr);
+                    //sw.WriteLine(log.LogStr);
 #endif
                 }
             }
         }
 #if DEBUG
-        sw.Close();
+        //sw.Close();
 #endif
     }
 

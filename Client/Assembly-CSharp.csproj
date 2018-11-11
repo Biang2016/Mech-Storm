@@ -83,18 +83,17 @@
     <Compile Include="Assets\Scripts\Card\SideEffects\DoubleEnergy.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\Exile.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuff.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenUseCards.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenRoundBegin.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenAttack.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenRoundBegin.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenUseMetal.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddPlayerBuff.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenAttack.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenUseCards.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\NextSpellDamageDouble.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackOne.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackRandom.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\SummonRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\RunAway.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddArmorOne.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddEnergy.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddEnergyPerMechs.cs" />
@@ -116,6 +115,7 @@
     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillAll.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillOne.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillRandom.cs" />
+    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\RunAway.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\Sacrifice.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\SummonRetinuePerMechs.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\TargetSideEffectToEquip\BreakEquip.cs" />
@@ -201,9 +201,7 @@
     <None Include="Assets\Materials\Effect\Shaders\HiddenPass.shader" />
     <None Include="Assets\Materials\Effect\Shaders\Background+2.shader" />
     <None Include="Assets\Materials\Effect\Shaders\DefaultGrey.shader" />
-    <None Include="Assets\StreamingAssets\Config\Cards.xml">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Assets\StreamingAssets\Config\Cards.xml" />
     <None Include="Assets\Materials\Effect\Shaders\BlendSurfaceTrans.shader" />
     <None Include="Assets\Materials\Effect\Shaders\BrightPassFilter2.shader" />
     <None Include="Assets\Materials\Effect\Shaders\BlendMask.shader" />
@@ -233,7 +231,6 @@
     <None Include="Assets\Materials\Effect\Shaders\LakeTile.shader" />
     <None Include="Assets\Materials\BattleFieldObjs\GameBoardMaterials\BlurShader.shader" />
     <None Include="Assets\Materials\Effect\Shaders\select_shader.shader" />
-    <None Include="Assets\StreamingAssets\RequestLog.txt" />
     <None Include="Assets\StreamingAssets\Config\Colors.xml" />
     <None Include="Assets\Materials\Effect\Shaders\BlendMaskLinear.shader" />
     <None Include="Assets\Materials\Effect\Shaders\BlendLinear.shader" />
@@ -250,9 +247,7 @@
     <None Include="Assets\Materials\Effect\Shaders\Common.cginc" />
     <None Include="Assets\Materials\Effect\Shaders\nightMask.shader" />
     <None Include="Assets\Materials\Effect\Shaders\blend2Texture_battle.shader" />
-    <None Include="Assets\StreamingAssets\Config\SideEffects.xml">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Assets\StreamingAssets\Config\SideEffects.xml" />
     <None Include="Assets\Materials\Effect\Shaders\move_block_shader.shader" />
     <None Include="Assets\Materials\Effect\Shaders\Terrian.shader" />
     <None Include="Assets\Materials\Effect\Shaders\SpriteAlphaSeperated.shader" />
@@ -545,6 +540,9 @@
       <Project>{079D398E-4AFC-CD7E-7881-F923D075EBD1}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\StreamingAssets\CardScreenShots\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
