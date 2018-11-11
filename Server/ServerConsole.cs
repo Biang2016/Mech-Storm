@@ -4,7 +4,7 @@ using System.IO;
 
 class ServerConsole
 {
-    public static DEVELOP Platform = DEVELOP.DEVELOP;
+    public static DEVELOP Platform = DEVELOP.FORMAL;
 
     public enum DEVELOP
     {
