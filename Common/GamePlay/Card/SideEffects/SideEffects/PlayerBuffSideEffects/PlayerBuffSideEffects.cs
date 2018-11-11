@@ -4,10 +4,17 @@ using System.Collections.Generic;
 public abstract class PlayerBuffSideEffects : SideEffectBase
 {
     public int BuffPicId;
-    public string BuffColor="";
+    public string BuffColor = "";
     public bool HasNumberShow;
     public bool CanPiled;
     public bool Singleton;
+    public BuffPiledBy PiledBy;
+
+    public enum BuffPiledBy
+    {
+        RemoveTriggerTimes,
+        Value,
+    }
 
     public SideEffectBundle.TriggerTime TriggerTime; //触发SE时机
     public SideEffectBundle.TriggerRange TriggerRange; //触发SE条件
@@ -25,6 +32,7 @@ public abstract class PlayerBuffSideEffects : SideEffectBase
         writer.WriteByte((byte) (HasNumberShow ? 0x01 : 0x00));
         writer.WriteByte((byte) (CanPiled ? 0x01 : 0x00));
         writer.WriteByte((byte) (Singleton ? 0x01 : 0x00));
+        writer.WriteSInt32((int) PiledBy);
 
         writer.WriteSInt32((int) TriggerTime);
         writer.WriteSInt32((int) TriggerRange);
@@ -43,6 +51,7 @@ public abstract class PlayerBuffSideEffects : SideEffectBase
         HasNumberShow = reader.ReadByte() == 0x01;
         CanPiled = reader.ReadByte() == 0x01;
         Singleton = reader.ReadByte() == 0x01;
+        PiledBy = (BuffPiledBy) reader.ReadSInt32();
 
         TriggerTime = (SideEffectBundle.TriggerTime) reader.ReadSInt32();
         TriggerRange = (SideEffectBundle.TriggerRange) reader.ReadSInt32();
@@ -61,6 +70,7 @@ public abstract class PlayerBuffSideEffects : SideEffectBase
         ((PlayerBuffSideEffects) copy).HasNumberShow = HasNumberShow;
         ((PlayerBuffSideEffects) copy).CanPiled = CanPiled;
         ((PlayerBuffSideEffects) copy).Singleton = Singleton;
+        ((PlayerBuffSideEffects) copy).PiledBy = PiledBy;
 
         ((PlayerBuffSideEffects) copy).TriggerTime = TriggerTime;
         ((PlayerBuffSideEffects) copy).TriggerRange = TriggerRange;

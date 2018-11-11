@@ -1,6 +1,14 @@
-﻿public class AddLifeOne_Base : TargetSideEffect, IEffectFactor
+﻿using System.Collections.Generic;
+
+public class AddLifeOne_Base : TargetSideEffect, IEffectFactor
 {
-    public int Value;
+    public SideEffectValue Value = new SideEffectValue(0);
+
+    public List<SideEffectValue> Values
+    {
+        get { return new List<SideEffectValue> {Value}; }
+    }
+
     private int factor = 1;
 
     public int GetFactor()
@@ -15,7 +23,7 @@
 
     public int FinalValue
     {
-        get { return Value * GetFactor(); }
+        get { return Value.Value * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
@@ -26,20 +34,20 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(Value);
+        writer.WriteSInt32(Value.Value);
     }
 
     protected override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        Value = reader.ReadSInt32();
+        Value.Value = reader.ReadSInt32();
     }
 
 
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
-        ((AddLifeOne_Base) copy).Value = Value;
+        ((AddLifeOne_Base) copy).Value = Value.Clone();
         ((AddLifeOne_Base) copy).SetFactor(GetFactor());
     }
 }

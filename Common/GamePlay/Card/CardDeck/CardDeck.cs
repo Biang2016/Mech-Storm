@@ -164,7 +164,7 @@ public class CardDeck
     public static void Suffle(List<CardInfo_Base> targetCardList)
     {
         if (targetCardList.Count <= 1) return;
-        for (int i = 0; i < targetCardList.Count * 1; i++)
+        for (int i = 0; i < 3; i++)
         {
             int cardNum1 = new Random().Next(0, targetCardList.Count);
             int cardNum2 = new Random().Next(0, targetCardList.Count);
@@ -186,6 +186,7 @@ public class CardDeck
         List<CardInfo_Base> res = new List<CardInfo_Base>();
         foreach (CardInfo_Base cb in Cards)
         {
+            if (cb == null) continue;
             if (cb.BaseInfo.CardType == CardTypes.Retinue && !cb.RetinueInfo.IsSoldier)
             {
                 number--;
@@ -223,6 +224,33 @@ public class CardDeck
         }
 
         return res.Count;
+    }
+
+    public void PutCardToTopByID(int cardID)
+    {
+        CardInfo_Base targetCard = null;
+        foreach (CardInfo_Base cb in Cards)
+        {
+            if (cb.CardID == cardID)
+            {
+                targetCard = cb;
+            }
+        }
+
+        if (targetCard != null)
+        {
+            RemoveCard(targetCard);
+            AddCard(targetCard, 0);
+        }
+    }
+
+    public void PutCardsToTopByID(List<int> cardIDs)
+    {
+        for (int i = cardIDs.Count - 1; i >= 0; i--)
+        {
+            int cardID = cardIDs[i];
+            PutCardToTopByID(cardID);
+        }
     }
 
     private Dictionary<int, int> CardInstanceIdDict = new Dictionary<int, int>();

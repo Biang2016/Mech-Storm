@@ -46,6 +46,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             case ProxyBase.ClientStates.Matching:
                 if (M_StateMachine.GetState() == StateMachine.States.Show_Online) M_StateMachine.SetState(StateMachine.States.Show_Online_Matching);
                 if (M_StateMachine.GetState() == StateMachine.States.Show_Single) M_StateMachine.SetState(StateMachine.States.Show_Single_Preparing);
+                if (M_StateMachine.GetState() == StateMachine.States.Show_SingleCustom) M_StateMachine.SetState(StateMachine.States.Show_SingleCustom_Preparing);
                 break;
             case ProxyBase.ClientStates.Playing:
                 M_StateMachine.SetState(StateMachine.States.Hide);
@@ -72,11 +73,13 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             Show_Online_Matching,
             Show_Single,
             Show_Single_Preparing,
+            Show_SingleCustom,
+            Show_SingleCustom_Preparing,
         }
 
         public bool IsShow()
         {
-            return state == States.Show_Main || state == States.Show_Online || state == States.Show_Online_Matching || state == States.Show_Single || state == States.Show_Single_Preparing;
+            return state != States.Default && state != States.Hide;
         }
 
         private States state;
@@ -98,6 +101,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(true);
                         Instance.SingleMenuButton.gameObject.SetActive(true);
+                        Instance.SingleCustomBattleButton.gameObject.SetActive(true);
                         Instance.SettingButton.gameObject.SetActive(true);
                         Instance.AboutButton.gameObject.SetActive(true);
                         Instance.BackButton.gameObject.SetActive(false);
@@ -108,6 +112,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleStartButton.gameObject.SetActive(false);
                         Instance.SingleResumeButton.gameObject.SetActive(false);
                         Instance.SingleDeckButton.gameObject.SetActive(false);
+                        Instance.SingleCustomStartButton.gameObject.SetActive(false);
+                        Instance.SingleCustomDeckButton.gameObject.SetActive(false);
                         break;
                     case States.Show_Online:
                         if (!Client.Instance.IsLogin()) return;
@@ -115,6 +121,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
+                        Instance.SingleCustomBattleButton.gameObject.SetActive(false);
                         Instance.SettingButton.gameObject.SetActive(true);
                         Instance.AboutButton.gameObject.SetActive(false);
                         Instance.BackButton.gameObject.SetActive(true);
@@ -125,12 +132,15 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleStartButton.gameObject.SetActive(false);
                         Instance.SingleResumeButton.gameObject.SetActive(false);
                         Instance.SingleDeckButton.gameObject.SetActive(false);
+                        Instance.SingleCustomStartButton.gameObject.SetActive(false);
+                        Instance.SingleCustomDeckButton.gameObject.SetActive(false);
                         break;
                     case States.Show_Online_Matching:
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
+                        Instance.SingleCustomBattleButton.gameObject.SetActive(false);
                         Instance.SettingButton.gameObject.SetActive(true);
                         Instance.AboutButton.gameObject.SetActive(false);
                         Instance.BackButton.gameObject.SetActive(true);
@@ -141,6 +151,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleStartButton.gameObject.SetActive(false);
                         Instance.SingleResumeButton.gameObject.SetActive(false);
                         Instance.SingleDeckButton.gameObject.SetActive(false);
+                        Instance.SingleCustomStartButton.gameObject.SetActive(false);
+                        Instance.SingleCustomDeckButton.gameObject.SetActive(false);
                         break;
                     case States.Show_Single:
                         if (!Client.Instance.IsLogin()) return;
@@ -148,6 +160,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
+                        Instance.SingleCustomBattleButton.gameObject.SetActive(false);
                         Instance.SettingButton.gameObject.SetActive(true);
                         Instance.AboutButton.gameObject.SetActive(false);
                         Instance.BackButton.gameObject.SetActive(true);
@@ -158,12 +171,15 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleStartButton.gameObject.SetActive(true);
                         Instance.SingleResumeButton.gameObject.SetActive(StoryManager.Instance.M_CurrentStory != null);
                         Instance.SingleDeckButton.gameObject.SetActive(StoryManager.Instance.M_CurrentStory != null);
+                        Instance.SingleCustomStartButton.gameObject.SetActive(false);
+                        Instance.SingleCustomDeckButton.gameObject.SetActive(false);
                         break;
                     case States.Show_Single_Preparing:
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
+                        Instance.SingleCustomBattleButton.gameObject.SetActive(false);
                         Instance.SettingButton.gameObject.SetActive(false);
                         Instance.AboutButton.gameObject.SetActive(false);
                         Instance.BackButton.gameObject.SetActive(false);
@@ -174,6 +190,47 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleStartButton.gameObject.SetActive(false);
                         Instance.SingleResumeButton.gameObject.SetActive(false);
                         Instance.SingleDeckButton.gameObject.SetActive(false);
+                        Instance.SingleCustomStartButton.gameObject.SetActive(false);
+                        Instance.SingleCustomDeckButton.gameObject.SetActive(false);
+                        break;
+                    case States.Show_SingleCustom:
+                        if (!Client.Instance.IsLogin()) return;
+                        ShowMenu();
+                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
+                        Instance.OnlineMenuButton.gameObject.SetActive(false);
+                        Instance.SingleMenuButton.gameObject.SetActive(false);
+                        Instance.SingleCustomBattleButton.gameObject.SetActive(false);
+                        Instance.SettingButton.gameObject.SetActive(true);
+                        Instance.AboutButton.gameObject.SetActive(false);
+                        Instance.BackButton.gameObject.SetActive(true);
+                        Instance.QuitGameButton.gameObject.SetActive(false);
+                        Instance.OnlineStartButton.gameObject.SetActive(false);
+                        Instance.CancelMatchButton.gameObject.SetActive(false);
+                        Instance.OnlineDeckButton.gameObject.SetActive(false);
+                        Instance.SingleStartButton.gameObject.SetActive(false);
+                        Instance.SingleResumeButton.gameObject.SetActive(false);
+                        Instance.SingleDeckButton.gameObject.SetActive(false);
+                        Instance.SingleCustomStartButton.gameObject.SetActive(true);
+                        Instance.SingleCustomDeckButton.gameObject.SetActive(true);
+                        break;
+                    case States.Show_SingleCustom_Preparing:
+                        if (!Client.Instance.IsLogin()) return;
+                        ShowMenu();
+                        Instance.OnlineMenuButton.gameObject.SetActive(false);
+                        Instance.SingleMenuButton.gameObject.SetActive(false);
+                        Instance.SingleCustomBattleButton.gameObject.SetActive(false);
+                        Instance.SettingButton.gameObject.SetActive(false);
+                        Instance.AboutButton.gameObject.SetActive(false);
+                        Instance.BackButton.gameObject.SetActive(false);
+                        Instance.QuitGameButton.gameObject.SetActive(false);
+                        Instance.OnlineStartButton.gameObject.SetActive(false);
+                        Instance.CancelMatchButton.gameObject.SetActive(false);
+                        Instance.OnlineDeckButton.gameObject.SetActive(false);
+                        Instance.SingleStartButton.gameObject.SetActive(false);
+                        Instance.SingleResumeButton.gameObject.SetActive(false);
+                        Instance.SingleDeckButton.gameObject.SetActive(false);
+                        Instance.SingleCustomStartButton.gameObject.SetActive(false);
+                        Instance.SingleCustomDeckButton.gameObject.SetActive(false);
                         break;
                 }
 
@@ -221,6 +278,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     {
         OnlineMenuText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         SingleMenuText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        SingleCustomBattleText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         SettingText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         AboutText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         DesignerText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
@@ -229,6 +287,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
         OnlineMenuText.text = GameManager.Instance.IsEnglish ? "Online Mode" : "在线对战";
         SingleMenuText.text = GameManager.Instance.IsEnglish ? "Single Mode" : "单人模式";
+        SingleCustomBattleText.text = GameManager.Instance.IsEnglish ? "Customize Battle" : "自定义人机";
         SettingText.text = GameManager.Instance.IsEnglish ? "Settings" : "游戏设置";
         AboutText.text = GameManager.Instance.IsEnglish ? "About Me" : "制作人员";
         DesignerText.text = GameManager.Instance.IsEnglish ? "Designer\nXue Bingsheng" : "制作人: 薛炳晟";
@@ -250,24 +309,51 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         SingleStartText.text = GameManager.Instance.IsEnglish ? "New Story" : "新的游戏";
         SingleResumeText.text = GameManager.Instance.IsEnglish ? "Resume" : "继续游戏";
         SingleDeckText.text = GameManager.Instance.IsEnglish ? "My Decks" : "我的卡组";
+
+        SingleCustomStartText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        SingleCustomDeckText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+
+        SingleCustomStartText.text = GameManager.Instance.IsEnglish ? "Begin Fighting" : "开始对战";
+        SingleCustomDeckText.text = GameManager.Instance.IsEnglish ? "My Decks" : "我的卡组";
+
+        OnlineMenuTipText.text = GameManager.Instance.IsEnglish ? "Play against players through the Internet with all cards available." : "通过互联网与其他玩家自由对战,全卡组开放";
+        SingleMenuTipText.text = GameManager.Instance.IsEnglish ? "Play in a Rouge-like story mode and collect cards gradually." : "进行单人Rouge-like模式";
+        SingleCustomBattleTipText.text = GameManager.Instance.IsEnglish ? "Play against computer AI with all cards available." : "与电脑AI对战,全卡组开放";
+        SettingTipText.text = GameManager.Instance.IsEnglish ? "Audio and language settings." : "音频与语言设置";
+        BackTipText.text = GameManager.Instance.IsEnglish ? "Back to main menu." : "回到主菜单";
+
+        OnlineDeckTipText.text = GameManager.Instance.IsEnglish ? "(TAB) Open deck editor where life, energy and cards can be modified." : "打开牌库,进行生命值、能量值和卡片的挑选";
+
+        SingleResumeTipText.text = GameManager.Instance.IsEnglish ? "Resume last story." : "继续之前的游戏";
+        SingleDeckTipText.text = GameManager.Instance.IsEnglish ? "(TAB) Open deck editor where life, energy and cards can be modified." : "打开牌库,进行生命值、能量值和卡片的挑选";
+
+        SingleCustomDeckTipText.text = GameManager.Instance.IsEnglish ? "(TAB) Open deck editor where life, energy and cards can be modified." : "打开牌库,进行生命值、能量值和卡片的挑选";
     }
 
     [SerializeField] private Canvas StartMenuCanvas;
 
     [SerializeField] private Button OnlineMenuButton;
     [SerializeField] private Text OnlineMenuText;
+    [SerializeField] private Text OnlineMenuTipText;
 
     [SerializeField] private Button SingleMenuButton;
     [SerializeField] private Text SingleMenuText;
+    [SerializeField] private Text SingleMenuTipText;
+
+    [SerializeField] private Button SingleCustomBattleButton;
+    [SerializeField] private Text SingleCustomBattleText;
+    [SerializeField] private Text SingleCustomBattleTipText;
 
     [SerializeField] private Button SettingButton;
     [SerializeField] private Text SettingText;
+    [SerializeField] private Text SettingTipText;
 
     [SerializeField] private Button AboutButton;
     [SerializeField] private Text AboutText;
 
     [SerializeField] private Button BackButton;
     [SerializeField] private Text BackText;
+    [SerializeField] private Text BackTipText;
 
     [SerializeField] private Button QuitGameButton;
     [SerializeField] private Text QuitGameText;
@@ -282,6 +368,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
     [SerializeField] private Button OnlineDeckButton;
     [SerializeField] private Text OnlineDeckText;
+    [SerializeField] private Text OnlineDeckTipText;
 
     #endregion
 
@@ -292,9 +379,23 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
     [SerializeField] private Button SingleResumeButton;
     [SerializeField] private Text SingleResumeText;
+    [SerializeField] private Text SingleResumeTipText;
 
     [SerializeField] private Button SingleDeckButton;
     [SerializeField] private Text SingleDeckText;
+    [SerializeField] private Text SingleDeckTipText;
+
+    #endregion
+
+
+    #region SingleCustomMenu
+
+    [SerializeField] private Button SingleCustomStartButton;
+    [SerializeField] private Text SingleCustomStartText;
+
+    [SerializeField] private Button SingleCustomDeckButton;
+    [SerializeField] private Text SingleCustomDeckText;
+    [SerializeField] private Text SingleCustomDeckTipText;
 
     #endregion
 
@@ -398,6 +499,13 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         GameBoardManager.Instance.ChangeBoardBG();
     }
 
+    public void OnSingleCustomMenuButtonClick()
+    {
+        M_StateMachine.SetState(StateMachine.States.Show_SingleCustom);
+        SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Online); //自定义模式与online模式共用一套卡组
+        GameBoardManager.Instance.ChangeBoardBG();
+    }
+
     public void OnBackButtonClick()
     {
         M_StateMachine.SetState(StateMachine.States.Show_Main);
@@ -407,7 +515,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
     public void OnOnlineStartButtonClick()
     {
-        StartGameCore(false, -1, -1);
+        StartGameCore(RoundManager.PlayMode.Online, -1, -1);
     }
 
     public void OnOnlineDeckButtonClick()
@@ -416,6 +524,11 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     }
 
     public void OnSingleDeckButtonClick()
+    {
+        OnSelectCardDeckWindowButtonClick();
+    }
+
+    public void OnSingleCustomDeckButtonClick()
     {
         OnSelectCardDeckWindowButtonClick();
     }
@@ -436,6 +549,11 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         );
     }
 
+    public void OnSingleCustonStartButtonClick()
+    {
+        StartGameCore(RoundManager.PlayMode.SingleCustom, -1, -1);
+    }
+
     private void StartNewStory()
     {
         StartNewStoryRequest request = new StartNewStoryRequest(Client.Instance.Proxy.ClientId);
@@ -448,10 +566,30 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         //StartGameCore(true);
     }
 
-    public void StartGameCore(bool isStandAlone, int levelID, int bossPicID)
+    public void StartGameCore(RoundManager.PlayMode playMode, int levelID, int bossPicID)
     {
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)
         {
+            UnityAction startGameAction = null;
+            switch (playMode)
+            {
+                case RoundManager.PlayMode.Online:
+                {
+                    startGameAction = StartOnlineMatch;
+                    break;
+                }
+                case RoundManager.PlayMode.Single:
+                {
+                    startGameAction = delegate { StartNewSingleGame(levelID, bossPicID); };
+                    break;
+                }
+                case RoundManager.PlayMode.SingleCustom:
+                {
+                    startGameAction = StartSingleCustomGame;
+                    break;
+                }
+            }
+
             if (SelectBuildManager.Instance.CurrentSelectedBuildButton == null) //未发送卡组则跳出选择卡组界面
             {
                 OnSelectCardDeckWindowButtonClick();
@@ -465,27 +603,17 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             }
             else if (!SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.IsEnergyEnough())
             {
-                UnityAction action;
-                if (isStandAlone)
-                {
-                    action = delegate { StartNewSingleGame(levelID, bossPicID); };
-                }
-                else
-                {
-                    action = StartOnlineMatch;
-                }
-
                 ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
                 if (GameManager.Instance.IsEnglish)
                 {
                     cw.Initialize("Some cards consume more energy than your upper limit.", "Go ahead", "Edit",
-                        action + ConfirmWindowManager.Instance.RemoveConfirmWindow,
+                        startGameAction + ConfirmWindowManager.Instance.RemoveConfirmWindow,
                         new UnityAction(OnSelectCardDeckWindowButtonClick) + ConfirmWindowManager.Instance.RemoveConfirmWindow + delegate { StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide); });
                 }
                 else
                 {
                     cw.Initialize("您的卡组中有些牌的能量消耗大于您的能量上限，是否继续？", "继续", "编辑",
-                        action + ConfirmWindowManager.Instance.RemoveConfirmWindow,
+                        startGameAction + ConfirmWindowManager.Instance.RemoveConfirmWindow,
                         new UnityAction(OnSelectCardDeckWindowButtonClick) + ConfirmWindowManager.Instance.RemoveConfirmWindow);
                 }
 
@@ -493,14 +621,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             }
             else
             {
-                if (isStandAlone)
-                {
-                    StartNewSingleGame(levelID, bossPicID);
-                }
-                else
-                {
-                    StartOnlineMatch();
-                }
+                if (startGameAction != null) startGameAction();
             }
         }
     }
@@ -511,17 +632,24 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin matching" : "开始匹配");
         NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Matching" : "匹配中", 0, float.PositiveInfinity);
         DeckAbstract.SetActive(true);
-        RoundManager.Instance.isSingleBattle = false;
+        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Online;
     }
 
     private void StartNewSingleGame(int levelID, int bossPicID)
     {
         Client.Instance.Proxy.OnBeginSingleMode(levelID, bossPicID);
         ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin single mode" : "开始单人模式");
-        RoundManager.Instance.isSingleBattle = true;
-        StoryManager.Instance.Current_LevelID = levelID;
-        StoryManager.Instance.Current_BossPicID = bossPicID;
+        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Single;
+        StoryManager.Instance.Fighting_LevelID = levelID;
+        StoryManager.Instance.Fighting_BossPicID = bossPicID;
         TransitManager.Instance.ShowTransit(Color.black, 0.3f);
+    }
+
+    private void StartSingleCustomGame()
+    {
+        Client.Instance.Proxy.OnBeginSingleMode(-1, -1);
+        ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin single custom mode" : "开始自定义人机模式");
+        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.SingleCustom;
     }
 
     public void OnCancelMatchGameButtonClick()

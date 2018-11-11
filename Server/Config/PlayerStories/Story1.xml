@@ -4,12 +4,21 @@
   <StartBuildInfo BuildName="Story1" />
   <StartUnlockCardInfo BuildName="Story1_Unlock" />
   <GamePlaySettings DrawCardPerRound="2" DefaultCoin="1500" DefaultLife="20" DefaultLifeMax="12" DefaultLifeMin="12" DefaultEnergy="6" DefaultEnergyMax="6" DefaultDrawCardNum="2" MinDrawCardNum="2" MaxDrawCardNum="5" />
-  <Level Level="0" LevelFightTimes="3">
+  <Level Level="0" LevelFightTimes="3" BigBossFightTimes="1">
     <CommonBonus>
       <BonusGroupInfo type="Always">
         <BonusInfo name="Budget" value="75"></BonusInfo>
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
+      </BonusGroupInfo>
+      <BonusGroupInfo type="Optional">
+        <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
+      </BonusGroupInfo>
+      <BonusGroupInfo type="Optional">
+        <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
+      </BonusGroupInfo>
+      <BonusGroupInfo type="Optional">
+        <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional">
         <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
@@ -31,20 +40,20 @@
         <BonusInfo name="Budget" value="50"></BonusInfo>
       </BonusGroupInfo>
     </CommonBonus>
-    <BossInfo name="Boss1" BuildName="MechMine_Lv0" picID="53">
+    <BossInfo name="Soldier" BuildName="MechMine_Lv0" picID="53">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="5301"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="StrikeTeam_Lv0" picID="58">
+    <BossInfo name="Soldier" BuildName="Training_Recruit_Lv0" picID="68">
+    </BossInfo>
+    <BossInfo name="Boss" BuildName="StrikeTeam_Lv0" picID="58">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="5800"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="Training_Recruit_Lv0" picID="68">
-    </BossInfo>
   </Level>
-  <Level Level="1" LevelFightTimes="2">
+  <Level Level="1" LevelFightTimes="2" BigBossFightTimes="1">
     <CommonBonus>
       <BonusGroupInfo type="Always">
         <BonusInfo name="Budget" value="100"></BonusInfo>
@@ -55,6 +64,18 @@
         <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional">
+        <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
+      </BonusGroupInfo>
+      <BonusGroupInfo type="Optional">
+        <BonusInfo name="UnlockCardByLevelNum" value="1"></BonusInfo>
+      </BonusGroupInfo>
+      <BonusGroupInfo type="Optional">
+        <BonusInfo name="UnlockCardByLevelNum" value="1"></BonusInfo>
+      </BonusGroupInfo>
+      <BonusGroupInfo type="Optional">
+        <BonusInfo name="UnlockCardByLevelNum" value="1"></BonusInfo>
+      </BonusGroupInfo>
+      <BonusGroupInfo type="Optional">
         <BonusInfo name="UnlockCardByLevelNum" value="1"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional">
@@ -75,38 +96,22 @@
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
       </BonusGroupInfo>
     </CommonBonus>
-    <BossInfo name="Boss1" BuildName="Heal_Lv1" picID="52">
+    <BossInfo name="Soldier" BuildName="Heal_Lv1" picID="52">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="5101"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="Dagger_Lv1" picID="103">
+    <BossInfo name="Soldier" BuildName="Dagger_Lv1" picID="103">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="5101"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-  </Level>
-  <Level Level="2" LevelFightTimes="1">
-    <CommonBonus>
-      <BonusGroupInfo type="Always">
-        <BonusInfo name="Budget" value="200"></BonusInfo>
-        <BonusInfo name="LifeUpperLimit" value="3"></BonusInfo>
-        <BonusInfo name="EnergyUpperLimit" value="2"></BonusInfo>
-      </BonusGroupInfo>
-      <BonusGroupInfo type="Optional">
-        <BonusInfo name="UnlockCardByLevelNum" value="2"></BonusInfo>
-      </BonusGroupInfo>
-      <BonusGroupInfo type="Optional">
-        <BonusInfo name="UnlockCardByLevelNum" value="1"></BonusInfo>
-      </BonusGroupInfo>
-    </CommonBonus>
-    <BossInfo name="Boss1" BuildName="DomTeam_Lv1" picID="57">
+    <BossInfo name="Boss" BuildName="DomTeam_Lv1" picID="57">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="5700"></BonusInfo>
       </BonusGroupInfo>
-    </BossInfo>
-  </Level>
-  <Level Level="3" LevelFightTimes="4">
+    </BossInfo> </Level>
+  <Level Level="2" LevelFightTimes="4" BigBossFightTimes="1">
     <CommonBonus>
       <BonusGroupInfo type="Always">
         <BonusInfo name="Budget" value="125"></BonusInfo>
@@ -140,49 +145,49 @@
         <BonusInfo name="Budget" value="100"></BonusInfo>
       </BonusGroupInfo>
     </CommonBonus>
-    <BossInfo name="Boss1" BuildName="GunCanon_Lv2" picID="56">
+    <BossInfo name="Soldier" BuildName="GunCanon_Lv2" picID="56">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="5600"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="SniperJim_Lv2" picID="59">
+    <BossInfo name="Soldier" BuildName="SniperJim_Lv2" picID="59">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="5900"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="GAT-X131_Lv2" picID="60">
+    <BossInfo name="Soldier" BuildName="GAT-X131_Lv2" picID="60">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="6000"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="MS-08TX_Lv2" picID="64">
+    <BossInfo name="Soldier" BuildName="MS-08TX_Lv2" picID="64">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="6400"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="ThermalAxe_Lv2" picID="100">
+    <BossInfo name="Soldier" BuildName="ThermalAxe_Lv2" picID="100">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="10101"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="Shield_Lv2" picID="300">
+    <BossInfo name="Soldier" BuildName="Shield_Lv2" picID="300">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="30101"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="Armor_Lv2" picID="350">
+    <BossInfo name="Soldier" BuildName="Armor_Lv2" picID="350">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="30201"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss1" BuildName="CriticalAttack_Lv2" picID="634">
-      <BonusGroupInfo type="Always">
-        <BonusInfo name="UnlockCardByID" value="62600"></BonusInfo>
-      </BonusGroupInfo>
-    </BossInfo>
-    <BossInfo name="Boss1" BuildName="AIUpgrade_Lv2" picID="705">
+    <BossInfo name="Soldier" BuildName="AIUpgrade_Lv2" picID="705">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="70501"></BonusInfo>
+      </BonusGroupInfo>
+    </BossInfo>
+    <BossInfo name="Boss" BuildName="CriticalAttack_Lv2" picID="634">
+      <BonusGroupInfo type="Always">
+        <BonusInfo name="UnlockCardByID" value="62600"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
   </Level>

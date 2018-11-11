@@ -24,9 +24,8 @@ internal class ClientProxy : ProxyBase
         {
             ClientStates before = ClientState;
             clientState = value;
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-            ServerLog.PrintClientStates("Client " + ClientId + " state change: " + before + " -> " + ClientState);
-
+            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                ServerLog.PrintClientStates("Client " + ClientId + " state change: " + before + " -> " + ClientState);
         }
     }
 
@@ -149,8 +148,8 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
             {
                 //以下是进入游戏前的请求
                 case RegisterRequest _:
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                     if (ClientState != ClientStates.GetId)
                     {
@@ -170,8 +169,8 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
 
                     break;
                 case LoginRequest _:
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                     if (ClientState != ClientStates.GetId)
                     {
@@ -233,8 +232,8 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
                     break;
                 case LogoutRequest _:
                 {
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                     LogoutRequest request = (LogoutRequest) r;
                     LogoutResultRequest response;
@@ -362,8 +361,8 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
                 }
 
                 case MatchRequest _:
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                     if (ClientState == ClientStates.Playing)
                     {
@@ -382,8 +381,8 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
                     break;
 
                 case MatchStandAloneRequest _:
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                     if (ClientState == ClientStates.Playing)
                     {
@@ -396,13 +395,20 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
                         MatchStandAloneRequest request = (MatchStandAloneRequest) r;
                         CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.BuildID);
                         ClientState = ClientStates.Matching;
-                        Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.LevelID, request.BossPicID);
+                        if (request.LevelID == -1 && request.BossPicID == -1)
+                        {
+                            Server.SV.SGMM.OnClientMatchStandAloneCustomGames(this);
+                        }
+                        else
+                        {
+                            Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.LevelID, request.BossPicID);
+                        }
                     }
 
                     break;
                 case CancelMatchRequest _:
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                     if (ClientState == ClientStates.Playing)
                     {
@@ -486,8 +492,8 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
                 }
                 catch (Exception e)
                 {
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintError(e.ToString());
+                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                        ServerLog.PrintError(e.ToString());
 
                     if (MyServerGameManager != null && !MyServerGameManager.IsStopped)
                     {

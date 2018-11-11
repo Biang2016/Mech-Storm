@@ -317,21 +317,8 @@ energy条用量预览显示高亮
 
 做直接伤害总量展示
 
-对方buff描述反了
-
 bug:
-进入游戏还出现星星
-
-客户端操作重复进行时，服务端容错处理
-
-开关屏问题
-返回菜单问题
-弹出story面板问题
 
 UI和Manager大重构
 
-卡牌等级和level等级解锁挂钩
-卡片现在可以升级了
-
-敌方手牌hover
-bonusbutton空白问题
+buff candinstanceid

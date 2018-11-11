@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class ModuleWeapon : ModuleEquip
 {
@@ -155,23 +157,30 @@ public class ModuleWeapon : ModuleEquip
         set
         {
             m_WeaponEnergy = Mathf.Min(value, M_WeaponEnergyMax);
-            if (Block_WeaponEnergy)
-            {
-                ClientUtils.InitiateNumbers(ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy);
-                CardNumberSet_WeaponEnergy.Number = m_WeaponEnergy;
-            }
 
-            if (m_WeaponEnergy == 0)
-            {
-                GetComponent<DragComponent>().enabled = false;
-                BeDimColor();
-            }
-            else
-            {
-                GetComponent<DragComponent>().enabled = true;
-                BeBrightColor();
-            }
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_WeaponEnergyChange(m_WeaponEnergy), "Co_WeaponEnergyChange");
         }
+    }
+
+    IEnumerator Co_WeaponEnergyChange(int value)
+    {
+        if (Block_WeaponEnergy)
+        {
+            ClientUtils.InitiateNumbers(ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy);
+            CardNumberSet_WeaponEnergy.Number = value;
+        }
+
+        if (value == 0)
+        {
+            BeDimColor();
+        }
+        else
+        {
+            BeBrightColor();
+        }
+
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     private int m_WeaponEnergyMax;

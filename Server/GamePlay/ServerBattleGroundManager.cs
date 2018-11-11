@@ -109,8 +109,8 @@ internal class ServerBattleGroundManager
         int battleGroundIndex = Retinues.IndexOf(retinue);
         if (battleGroundIndex == -1)
         {
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-            ServerLog.PrintWarning("BattleGroundRemoveRetinue not exist retinue：" + retinue.M_RetinueID);
+            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                ServerLog.PrintWarning("BattleGroundRemoveRetinue not exist retinue：" + retinue.M_RetinueID);
 
             return;
         }
@@ -349,6 +349,110 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
         foreach (ServerModuleRetinue serverModuleRetinue in Soldiers.ToArray())
         {
             AddLifeForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
+    private void AddArmorForOneRetinue(ServerModuleRetinue retinue, int value)
+    {
+        if (retinue != null)
+        {
+            retinue.M_RetinueArmor += value;
+        }
+    }
+
+    public void AddArmorForOneRetinue(int retinueId, int value)
+    {
+        AddArmorForOneRetinue(GetRetinue(retinueId), value);
+    }
+
+    public void AddArmorForRandomRetinue(int value, int exceptRetinueId)
+    {
+        AddArmorForOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId), value);
+    }
+
+    public void AddArmorForRandomHero(int value, int exceptRetinueId)
+    {
+        AddArmorForOneRetinue(GetRandomRetinue(RetinueType.Hero, exceptRetinueId), value);
+    }
+
+    public void AddArmorForRandomSoldier(int value, int exceptRetinueId)
+    {
+        AddArmorForOneRetinue(GetRandomRetinue(RetinueType.Soldier, exceptRetinueId), value);
+    }
+
+    public void AddArmorForAllRetinues(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues.ToArray())
+        {
+            AddArmorForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
+    public void AddArmorForAllHeros(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Heroes.ToArray())
+        {
+            AddArmorForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
+    public void AddArmorForAllSoldiers(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Soldiers.ToArray())
+        {
+            AddArmorForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
+    private void AddShieldForOneRetinue(ServerModuleRetinue retinue, int value)
+    {
+        if (retinue != null)
+        {
+            retinue.M_RetinueShield += value;
+        }
+    }
+
+    public void AddShieldForOneRetinue(int retinueId, int value)
+    {
+        AddShieldForOneRetinue(GetRetinue(retinueId), value);
+    }
+
+    public void AddShieldForRandomRetinue(int value, int exceptRetinueId)
+    {
+        AddShieldForOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId), value);
+    }
+
+    public void AddShieldForRandomHero(int value, int exceptRetinueId)
+    {
+        AddShieldForOneRetinue(GetRandomRetinue(RetinueType.Hero, exceptRetinueId), value);
+    }
+
+    public void AddShieldForRandomSoldier(int value, int exceptRetinueId)
+    {
+        AddShieldForOneRetinue(GetRandomRetinue(RetinueType.Soldier, exceptRetinueId), value);
+    }
+
+    public void AddShieldForAllRetinues(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Retinues.ToArray())
+        {
+            AddShieldForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
+    public void AddShieldForAllHeros(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Heroes.ToArray())
+        {
+            AddShieldForOneRetinue(serverModuleRetinue, value);
+        }
+    }
+
+    public void AddShieldForAllSoldiers(int value)
+    {
+        foreach (ServerModuleRetinue serverModuleRetinue in Soldiers.ToArray())
+        {
+            AddShieldForOneRetinue(serverModuleRetinue, value);
         }
     }
 
@@ -672,9 +776,8 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
             log += " [RID]" + retinue.M_RetinueID + " [Name]" + retinue.CardInfo.BaseInfo.CardName;
         }
 
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-        ServerLog.Print(log);
-
+        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+            ServerLog.Print(log);
     }
 
     #endregion
@@ -696,6 +799,12 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
         foreach (ServerModuleRetinue retinue in Retinues)
         {
             retinue.OnEndRound();
+        }
+
+        foreach (ServerModuleRetinue retinue in ServerPlayer.MyEnemyPlayer.MyBattleGroundManager.Retinues)
+        {
+            if (retinue.M_ImmuneLeftRounds > 0) retinue.M_ImmuneLeftRounds--;
+            if (retinue.M_InactivityRounds > 0) retinue.M_InactivityRounds--;
         }
     }
 

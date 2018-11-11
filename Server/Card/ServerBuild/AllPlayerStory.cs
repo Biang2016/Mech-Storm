@@ -68,6 +68,7 @@ internal class AllPlayerStory
                 XmlNode levelInfo = story.ChildNodes.Item(i);
 
                 int levelFightTimes = int.Parse(levelInfo.Attributes["LevelFightTimes"].Value); //该Level必须击败几个Boss（必须通过几个LevelID才能到下一个Level）
+                int bigBossFightTimes = int.Parse(levelInfo.Attributes["BigBossFightTimes"].Value); //该Level必须击败几个BigBoss
                 if (levelFightTimes > levelInfo.ChildNodes.Count - 1)
                 {
                     throw new Exception("levelFightTimes < levelInfo.ChildNodes.Count - 1"); //配置错误
@@ -95,6 +96,7 @@ internal class AllPlayerStory
                     Level level = new Level();
                     level.LevelID = levelID;
                     level.LevelNum = int.Parse(levelInfo.Attributes["Level"].Value);
+                    level.BigBossFightTimes = bigBossFightTimes;
                     level.Bosses = new SortedDictionary<int, Boss>();
 
                     for (int k = 1; k < levelInfo.ChildNodes.Count; k++)

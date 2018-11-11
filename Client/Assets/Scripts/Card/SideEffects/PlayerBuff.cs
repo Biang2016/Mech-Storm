@@ -13,12 +13,14 @@ internal class PlayerBuff : PoolObject
 
     [SerializeField] private int BuffId;
 
-    public void Init(SideEffectExecute buff_see, int buffId, int buffValue)
+    public void Init(SideEffectExecute buffSee, int buffId)
     {
-        PlayerBuffSideEffects buff = ((PlayerBuffSideEffects) buff_see.SideEffectBase);
+        PlayerBuffSideEffects buff = ((PlayerBuffSideEffects) buffSee.SideEffectBase);
+        int buffValue = GetBuffValue(buffSee, buff);
+
+        BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
         BuffId = buffId;
         ClientUtils.ChangePicture(Image, buff.BuffPicId);
-        BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
         Color buffColor = ClientUtils.HTMLColorToColor(((PlayerBuffSideEffects) (AllBuffs.GetBuff((buff.Name)).SideEffectBase)).BuffColor);
         BuffBloom.color = buffColor;
         BuffDescText.color = buffColor;
@@ -28,14 +30,12 @@ internal class PlayerBuff : PoolObject
         BuffDescText.text = buff.GenerateDesc(GameManager.Instance.IsEnglish);
     }
 
-    public void UpdateValue(SideEffectExecute buff, int buffValue)
+    public IEnumerator Co_UpdateValue(SideEffectExecute buffSee)
     {
-        BuffDescText.text = ((PlayerBuffSideEffects) buff.SideEffectBase).GenerateDesc(GameManager.Instance.IsEnglish);
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UpdateValue(buffValue), "Co_UpdateValue");
-    }
+        BuffDescText.text = ((PlayerBuffSideEffects) buffSee.SideEffectBase).GenerateDesc(GameManager.Instance.IsEnglish);
+        PlayerBuffSideEffects buff = (PlayerBuffSideEffects) buffSee.SideEffectBase;
+        int buffValue = GetBuffValue(buffSee, buff);
 
-    IEnumerator Co_UpdateValue(int buffValue)
-    {
         if (buffValue >= 0)
         {
             BuffAnim.SetTrigger("Jump");
@@ -44,9 +44,34 @@ internal class PlayerBuff : PoolObject
         yield return new WaitForSeconds(0.2f);
         BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
         yield return new WaitForSeconds(0.1f);
-
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
         yield return null;
+    }
+
+    private int GetBuffValue(SideEffectExecute buffSee, PlayerBuffSideEffects buff)
+    {
+        int buffValue = 0;
+        if (buff.CanPiled)
+        {
+            switch (buff.PiledBy)
+            {
+                case PlayerBuffSideEffects.BuffPiledBy.RemoveTriggerTimes:
+                {
+                    buffValue = buffSee.RemoveTriggerTimes;
+                    break;
+                }
+                case PlayerBuffSideEffects.BuffPiledBy.Value:
+                {
+                    buffValue = ((IEffectFactor) buff.Sub_SideEffect[0]).Values[0].Value;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            buffValue = buffSee.RemoveTriggerTimes;
+        }
+
+        return buffValue;
     }
 
     public void OnRemove()
@@ -57,6 +82,7 @@ internal class PlayerBuff : PoolObject
     public void SetRotation(Players whichPlayer)
     {
         RotatePanel.localRotation = Quaternion.Euler(whichPlayer == Players.Self ? 0 : 180, whichPlayer == Players.Self ? 0 : 180, 0);
+        BuffDescText.transform.localRotation = Quaternion.Euler(whichPlayer == Players.Self ? 0 : 180, whichPlayer == Players.Self ? 0 : 180, 0);
     }
 
     [SerializeField] private Transform RotatePanel;

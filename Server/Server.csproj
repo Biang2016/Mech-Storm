@@ -80,12 +80,21 @@
     <Compile Include="Card\Modules\ServerModuleRetinue.cs" />
     <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToEnemyDeck.cs" />
     <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToDeck.cs" />
+    <Compile Include="Card\SideEffects\CardRelatedSideEffects\TriggerOneHandCard.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\GetHandCardCopy.cs" />
     <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards.cs" />
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseEnergy.cs" />
     <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard.cs" />
     <Compile Include="Card\SideEffects\CardDeckRelatedSideEffects\DrawCards.cs" />
+    <Compile Include="Card\SideEffects\PlayerBuffSideEffects\DamageEnemyShipWhenUseCards.cs" />
+    <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenRoundBegin.cs" />
+    <Compile Include="Card\SideEffects\PlayerBuffSideEffects\DamageEnemyShipWhenAttack.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenUseMetal.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RunAway.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\AddShieldOne.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\AddArmorOne.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\IllusionToOne.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\Cooperation.cs" />
     <Compile Include="Card\SideEffects\TriggerTriggerSideEffects\UseAllEnergyDamageShip.cs" />
     <Compile Include="Card\SideEffects\TriggerTriggerSideEffects\Exile.cs" />
     <Compile Include="Card\SideEffects\TriggerTriggerSideEffects\DoubleEnergy.cs" />
@@ -140,10 +149,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\DefaultBuilds\StoryAdmin.xml" />
+    <Content Include="Config\DefaultBuilds\StoryAdmin.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Config\DefaultBuilds\PlayerAdmin.xml" />
-    <Content Include="Config\DefaultBuilds\ServerAdmin.xml" />
-    <Content Include="Config\PlayerStories\Story1.xml" />
+    <Content Include="Config\DefaultBuilds\ServerAdmin.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\PlayerStories\Story1.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ServerSwitch.txt" />
     <Content Include="DevLog.txt" />
     <Content Include="DevLog_zh.txt" />
   </ItemGroup>

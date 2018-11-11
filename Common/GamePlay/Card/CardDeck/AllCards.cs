@@ -349,6 +349,9 @@ public static class AllCards
             case "CardTypes":
                 fi.SetValue(obj, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
                 break;
+            case "SideEffectValue":
+                fi.SetValue(obj, new SideEffectValue(int.Parse(attr.Value)));
+                break;
         }
     }
 

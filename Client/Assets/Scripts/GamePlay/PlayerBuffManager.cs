@@ -13,6 +13,7 @@ public class PlayerBuffManager : MonoBehaviour
     [SerializeField] private Transform Content;
 
     Dictionary<int, PlayerBuff> PlayerBuffs = new Dictionary<int, PlayerBuff>(); //客户端buff按ID进行更改和存储，堆叠等逻辑在服务端处理好分发正确的buffID给客户端，而客户端不考虑堆叠等逻辑。
+    HashSet<int> PlayerBuffID_PrepPass = new HashSet<int>(); //buffID 接到协议后预存
 
     void Start()
     {
@@ -28,23 +29,36 @@ public class PlayerBuffManager : MonoBehaviour
         PlayerBuffs.Clear();
     }
 
-    public void UpdatePlayerBuff(SideEffectExecute buff, int buffId, int buffValue)
+    public void UpdatePlayerBuff(SideEffectExecute buffSee, int buffId)
     {
-        if (PlayerBuffs.ContainsKey(buffId))
+        if (PlayerBuffID_PrepPass.Contains(buffId))
         {
-            PlayerBuffs[buffId].UpdateValue(buff,buffValue);
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UpdateBuff(buffSee, buffId), "Co_UpdateBuff");
         }
         else
         {
-            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AddBuff(buff, buffId, buffValue), "Co_AddBuff");
+            PlayerBuffID_PrepPass.Add(buffId);
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AddBuff(buffSee, buffId), "Co_AddBuff");
         }
     }
 
-    IEnumerator Co_AddBuff(SideEffectExecute buff, int buffId, int buffValue)
+    IEnumerator Co_UpdateBuff(SideEffectExecute buffSee, int buffId)
+    {
+        if (PlayerBuffs.ContainsKey(buffId))
+        {
+            yield return PlayerBuffs[buffId].Co_UpdateValue(buffSee);
+        }
+
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
+
+    IEnumerator Co_AddBuff(SideEffectExecute buffSee, int buffId)
     {
         PlayerBuff pb = GameObjectPoolManager.Instance.Pool_PlayerBuffPool.AllocateGameObject<PlayerBuff>(Content);
         pb.SetRotation(ClientPlayer.WhichPlayer);
-        pb.Init(buff, buffId, buffValue);
+        pb.Init(buffSee, buffId);
         PlayerBuffs.Add(buffId, pb);
         yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();

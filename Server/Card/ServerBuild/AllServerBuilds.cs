@@ -35,6 +35,7 @@ internal class AllServerBuilds
                 XmlNode build = allBuilds.ChildNodes.Item(i);
                 BuildInfo buildInfo = new BuildInfo();
                 buildInfo.CardIDs = new List<int>();
+                buildInfo.CriticalCardIDs = new List<int>();
                 for (int j = 0; j < build.ChildNodes.Count; j++)
                 {
                     XmlNode cardInfo = build.ChildNodes[j];
@@ -44,8 +45,10 @@ internal class AllServerBuilds
                             buildInfo.BuildID = BuildInfo.GenerateBuildID();
                             buildInfo.BuildName = cardInfo.Attributes["BuildName"].Value;
                             buildInfo.DrawCardNum = int.Parse(cardInfo.Attributes["DrawCardNum"].Value);
+                            buildInfo.DrawCardNum = int.Parse(cardInfo.Attributes["DrawCardNum"].Value);
                             buildInfo.Life = int.Parse(cardInfo.Attributes["Life"].Value);
                             buildInfo.Energy = int.Parse(cardInfo.Attributes["Energy"].Value);
+                            buildInfo.BeginMetal = int.Parse(cardInfo.Attributes["BeginMetal"].Value);
                             break;
                         case "cardIDs":
                             string[] cardID_str = cardInfo.Attributes["ids"].Value.Split(',');
@@ -53,6 +56,15 @@ internal class AllServerBuilds
                             {
                                 if (string.IsNullOrEmpty(s)) continue;
                                 buildInfo.CardIDs.Add(int.Parse(s));
+                            }
+
+                            break;
+                        case "criticalCardIDs":
+                            string[] criticalCardID_str = cardInfo.Attributes["ids"].Value.Split(',');
+                            foreach (string s in criticalCardID_str)
+                            {
+                                if (string.IsNullOrEmpty(s)) continue;
+                                buildInfo.CriticalCardIDs.Add(int.Parse(s));
                             }
 
                             break;
@@ -88,6 +100,7 @@ internal class AllServerBuilds
             baseInfo.SetAttribute("DrawCardNum", buildInfo.DrawCardNum.ToString());
             baseInfo.SetAttribute("Life", buildInfo.Life.ToString());
             baseInfo.SetAttribute("Energy", buildInfo.Energy.ToString());
+            baseInfo.SetAttribute("BeginMetal", buildInfo.BeginMetal.ToString());
 
             XmlElement cardIDs = doc.CreateElement("Info");
             buildInfo_Node.AppendChild(cardIDs);

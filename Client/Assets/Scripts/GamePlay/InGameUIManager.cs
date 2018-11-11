@@ -13,12 +13,12 @@ internal class InGameUIManager : MonoSingleton<InGameUIManager>
     void Awake()
     {
         BattleCanvas.enabled = false;
-#if DEBUG
+//#if DEBUG
         DirectlyWinButton.gameObject.SetActive(true);
         DirectlyWinButton.onClick.AddListener(DirectlyWin);
-#else
-        DirectlyWinButton.gameObject.SetActive(false);
-#endif
+//#else
+        //DirectlyWinButton.gameObject.SetActive(false);
+//#endif
     }
 
     [SerializeField] private Canvas BattleCanvas;

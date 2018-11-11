@@ -275,9 +275,9 @@ public class EventManager
             }
             else
             {
-                if (see.SideEffectBase is PlayerBuffSideEffects buff)
+                if (see.SideEffectBase is PlayerBuffSideEffects)
                 {
-                    OnEventPlayerBuffUpdateHandler(see, buff, false);
+                    OnEventPlayerBuffUpdateHandler(see, false);
                 }
             }
         }
@@ -292,7 +292,7 @@ public class EventManager
 
     public OnEventInvokeEnd OnEventInvokeEndHandler;
 
-    public delegate void OnEventPlayerBuffUpdate(SideEffectExecute sideEffectExecute, PlayerBuffSideEffects buff, bool isAdd);
+    public delegate void OnEventPlayerBuffUpdate(SideEffectExecute sideEffectExecute, bool isAdd);
 
     public OnEventPlayerBuffUpdate OnEventPlayerBuffUpdateHandler;
 

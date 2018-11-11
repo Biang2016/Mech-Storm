@@ -15,6 +15,9 @@ public class MetalLifeEnergyManager : MonoBehaviour
     [SerializeField] private Text EnergyNumber;
     [SerializeField] private Text TotalEnergyNumber;
 
+    [SerializeField] private GameObject EnemyIcon;
+    [SerializeField] private Image EnemyIconImage;
+
 
     void Awake()
     {
@@ -27,6 +30,18 @@ public class MetalLifeEnergyManager : MonoBehaviour
         if (MetalBarManager)
         {
             MetalBarManager.ResetAll();
+        }
+    }
+
+    public void SetEnemyIconImage()
+    {
+        if (ClientPlayer.WhichPlayer == Players.Enemy)
+        {
+            EnemyIcon.SetActive(RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single);
+            if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
+            {
+                ClientUtils.ChangePicture(EnemyIconImage, StoryManager.Instance.Fighting_BossPicID);
+            }
         }
     }
 

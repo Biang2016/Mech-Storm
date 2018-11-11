@@ -10,7 +10,7 @@
   </Card>
 
   <Card id="0">
-    <CardInfo name="baseInfo" pictureID="0" cardName="G-Custom" cardName_en="G-Custom" cardDesc="" isTemp="False" hide="False" metal="6" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="0" cardName="G-Custom" cardName_en="G-Custom" cardDesc="" isTemp="False" hide="False" metal="6" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="6" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="MA" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="12" totalLife="12" />
@@ -30,7 +30,7 @@
     </CardInfo>
   </Card>
   <Card id="1600">
-    <CardInfo name="baseInfo" pictureID="16" cardName="重装强袭" cardName_en="FA Strike" cardDesc="" isTemp="False" hide="False" metal="6" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="16" cardName="重装强袭" cardName_en="FA Strike" cardDesc="" isTemp="False" hide="False" metal="6" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="4" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="100" cardLevel="2" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
@@ -40,7 +40,7 @@
     </CardInfo>
   </Card>
   <Card id="200">
-    <CardInfo name="baseInfo" pictureID="2" cardName="元祖高达" cardName_en="RX-782" cardDesc="" isTemp="False" hide="False" metal="5" energy="0" coin="350" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="2" cardName="元祖高达" cardName_en="RX-782" cardDesc="" isTemp="False" hide="False" metal="5" energy="0" coin="350" effectFactor="1" limitNum="1" cardRareLevel="5" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
@@ -50,7 +50,7 @@
     </CardInfo>
   </Card>
   <Card id="300">
-    <CardInfo name="baseInfo" pictureID="3" cardName="神秘人" cardName_en="Mistery" cardDesc="" isTemp="False" hide="False" metal="9" energy="0" coin="700" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="3" cardName="神秘人" cardName_en="Mistery" cardDesc="" isTemp="False" hide="False" metal="9" energy="0" coin="700" effectFactor="1" limitNum="1" cardRareLevel="6" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="18" totalLife="18" />
@@ -60,7 +60,7 @@
     </CardInfo>
   </Card>
   <Card id="400">
-    <CardInfo name="baseInfo" pictureID="4" cardName="恶魔高达" cardName_en="Evil Gundam" cardDesc="" isTemp="False" hide="False" metal="3" energy="0" coin="250" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="4" cardName="恶魔高达" cardName_en="Evil Gundam" cardDesc="" isTemp="False" hide="False" metal="3" energy="0" coin="250" effectFactor="1" limitNum="1" cardRareLevel="2" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
@@ -70,7 +70,7 @@
     </CardInfo>
   </Card>
   <Card id="500">
-    <CardInfo name="baseInfo" pictureID="5" cardName="独角兽高达" cardName_en="Unicorn" cardDesc="" isTemp="False" hide="False" metal="7" energy="0" coin="500" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="5" cardName="独角兽高达" cardName_en="Unicorn" cardDesc="" isTemp="False" hide="False" metal="7" energy="0" coin="500" effectFactor="1" limitNum="1" cardRareLevel="7" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="1000" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="7" totalLife="7" />
@@ -87,35 +87,35 @@
     <CardInfo name="battleInfo" basicAttack="3" basicShield="2" basicArmor="2" />
   </Card>
   <Card id="501">
-    <CardInfo name="baseInfo" pictureID="8" cardName="独角兽高达[H]" cardName_en="Unicorn[H]" cardDesc="" isTemp="True" hide="True" metal="7" energy="0" coin="0" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="8" cardName="独角兽高达[H]" cardName_en="Unicorn[H]" cardDesc="" isTemp="True" hide="True" metal="7" energy="0" coin="0" effectFactor="1" limitNum="1" cardRareLevel="7" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="7" totalLife="7" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="2" basicArmor="2" />
   </Card>
   <Card id="600">
-    <CardInfo name="baseInfo" pictureID="6" cardName="新安洲" cardName_en="New Zeon" cardDesc="" isTemp="False" hide="False" metal="6" energy="0" coin="250" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="6" cardName="新安洲" cardName_en="New Zeon" cardDesc="" isTemp="False" hide="False" metal="6" energy="0" coin="250" effectFactor="1" limitNum="1" cardRareLevel="4" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="12" totalLife="12" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="1" />
   </Card>
   <Card id="700">
-    <CardInfo name="baseInfo" pictureID="7" cardName="强袭自由" cardName_en="Strike Freedom" cardDesc="" isTemp="False" hide="False" metal="8" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="7" cardName="强袭自由" cardName_en="Strike Freedom" cardDesc="" isTemp="False" hide="False" metal="8" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="8" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="16" totalLife="16" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="2" basicArmor="0" />
   </Card>
   <Card id="900">
-    <CardInfo name="baseInfo" pictureID="9" cardName="水翼" cardName_en="Water Swing" cardDesc="" isTemp="False" hide="False" metal="0" energy="12" coin="200" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="9" cardName="水翼" cardName_en="Water Swing" cardDesc="" isTemp="False" hide="False" metal="0" energy="12" coin="200" effectFactor="1" limitNum="1" cardRareLevel="2" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="4" />
   </Card>
   <Card id="1100">
-    <CardInfo name="baseInfo" pictureID="11" cardName="能天使高达" cardName_en="Gundam Exia" cardDesc="" isTemp="False" hide="False" metal="5" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="11" cardName="能天使高达" cardName_en="Gundam Exia" cardDesc="" isTemp="False" hide="False" metal="5" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="4" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="2000" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
@@ -125,7 +125,7 @@
     </CardInfo>
   </Card>
   <Card id="2000">
-    <CardInfo name="baseInfo" pictureID="20" cardName="能天使高达X" cardName_en="Gundam Exia X" cardDesc="" isTemp="False" hide="False" metal="5" energy="5" coin="300" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="20" cardName="能天使高达X" cardName_en="Gundam Exia X" cardDesc="" isTemp="False" hide="False" metal="5" energy="5" coin="300" effectFactor="1" limitNum="1" cardRareLevel="7" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="1100" cardLevel="2" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
@@ -135,35 +135,35 @@
     </CardInfo>
   </Card>
   <Card id="1200">
-    <CardInfo name="baseInfo" pictureID="12" cardName="力天使高达" cardName_en="Gundam Dynames" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="12" cardName="力天使高达" cardName_en="Gundam Dynames" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="4" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="2200" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="2" />
   </Card>
   <Card id="2200">
-    <CardInfo name="baseInfo" pictureID="22" cardName="力天使高达X" cardName_en="Gundam Dynames X" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="300" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="22" cardName="力天使高达X" cardName_en="Gundam Dynames X" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="300" effectFactor="1" limitNum="1" cardRareLevel="7" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="1200" cardLevel="2" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="2" />
   </Card>
   <Card id="1300">
-    <CardInfo name="baseInfo" pictureID="13" cardName="德天使高达" cardName_en="Gundam Virtue" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="13" cardName="德天使高达" cardName_en="Gundam Virtue" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="4" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="1800" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="4" />
   </Card>
   <Card id="1800">
-    <CardInfo name="baseInfo" pictureID="18" cardName="德天使高达X" cardName_en="Gundam Virtue X" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="300" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="18" cardName="德天使高达X" cardName_en="Gundam Virtue X" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="300" effectFactor="1" limitNum="1" cardRareLevel="7" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="1300" cardLevel="2" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="4" />
   </Card>
   <Card id="1400">
-    <CardInfo name="baseInfo" pictureID="14" cardName="主天使高达" cardName_en="Gundam Kyrios" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="14" cardName="主天使高达" cardName_en="Gundam Kyrios" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="4" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="1500" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
@@ -173,7 +173,7 @@
     </CardInfo>
   </Card>
   <Card id="1500">
-    <CardInfo name="baseInfo" pictureID="15" cardName="主天使高达X" cardName_en="Gundam Kyrios X" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="300" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="15" cardName="主天使高达X" cardName_en="Gundam Kyrios X" cardDesc="" isTemp="False" hide="False" metal="4" energy="5" coin="300" effectFactor="1" limitNum="1" cardRareLevel="7" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="1400" cardLevel="2" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
@@ -183,7 +183,7 @@
     </CardInfo>
   </Card>
   <Card id="1700">
-    <CardInfo name="baseInfo" pictureID="17" cardName="神高达" cardName_en="God Gundam" cardDesc="" isTemp="False" hide="False" metal="4" energy="15" coin="400" effectFactor="1" limitNum="1" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="17" cardName="神高达" cardName_en="God Gundam" cardDesc="" isTemp="False" hide="False" metal="4" energy="15" coin="400" effectFactor="1" limitNum="1" cardRareLevel="5" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
@@ -201,7 +201,7 @@
     </CardInfo>
   </Card>
   <Card id="5102">
-    <CardInfo name="baseInfo" pictureID="52" cardName="支援中队" cardName_en="Repair Team XX" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="100" effectFactor="1" limitNum="2" cardRareLevel="0" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="52" cardName="支援中队" cardName_en="Repair Team XX" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="100" effectFactor="1" limitNum="2" cardRareLevel="2" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="5103" degradeCardID="5101" cardLevel="2" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
@@ -211,7 +211,7 @@
     </CardInfo>
   </Card>
   <Card id="5103">
-    <CardInfo name="baseInfo" pictureID="61" cardName="支援大队" cardName_en="Repair Team XXX" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="150" effectFactor="1" limitNum="2" cardRareLevel="0" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="61" cardName="支援大队" cardName_en="Repair Team XXX" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="150" effectFactor="1" limitNum="2" cardRareLevel="4" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5102" cardLevel="3" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
@@ -251,7 +251,7 @@
     </CardInfo>
   </Card>
   <Card id="5402">
-    <CardInfo name="baseInfo" pictureID="55" cardName="战场工兵II" cardName_en="Field Engineer" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="50" effectFactor="1" limitNum="5" cardRareLevel="0" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="55" cardName="战场工兵II" cardName_en="Field Engineer" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="50" effectFactor="1" limitNum="5" cardRareLevel="2" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5401" cardLevel="2" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
@@ -265,7 +265,7 @@
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="2" />
   </Card>
   <Card id="5700">
     <CardInfo name="baseInfo" pictureID="57" cardName="大魔分队" cardName_en="Dom Team" cardDesc="" isTemp="False" hide="False" metal="3" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="1" dragPurpose="Summon" cardType="Retinue" />
@@ -287,10 +287,10 @@
   </Card>
   <Card id="5702">
     <CardInfo name="baseInfo" pictureID="57" cardName="大魔[防守]" cardName_en="Dom(Defence)" cardDesc="" isTemp="True" hide="True" metal="2" energy="0" coin="0" effectFactor="1" limitNum="1" cardRareLevel="1" dragPurpose="Summon" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
-    <CardInfo name="lifeInfo" life="2" totalLife="2" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="1" basicArmor="2" />
+    <CardInfo name="lifeInfo" life="1" totalLife="1" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="1" basicArmor="0" />
   </Card>
   <Card id="5800">
     <CardInfo name="baseInfo" pictureID="58" cardName="突袭小队" cardName_en="Strike Team" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="200" effectFactor="1" limitNum="3" cardRareLevel="0" dragPurpose="Summon" cardType="Retinue" />
@@ -310,11 +310,11 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
   </Card>
   <Card id="5900">
-    <CardInfo name="baseInfo" pictureID="59" cardName="狙击型吉姆" cardName_en="Sniper Jim" cardDesc="" isTemp="False" hide="False" metal="4" energy="0" coin="300" effectFactor="1" limitNum="2" cardRareLevel="2" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="59" cardName="狙击型吉姆" cardName_en="Sniper Jim" cardDesc="" isTemp="False" hide="False" metal="3" energy="0" coin="350" effectFactor="1" limitNum="2" cardRareLevel="2" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
-    <CardInfo name="lifeInfo" life="2" totalLife="2" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
+    <CardInfo name="lifeInfo" life="4" totalLife="4" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="1" />
   </Card>
   <Card id="6000">
     <CardInfo name="baseInfo" pictureID="60" cardName="GAT-X131" cardName_en="GAT-X131" cardDesc="" isTemp="False" hide="False" metal="3" energy="0" coin="200" effectFactor="1" limitNum="3" cardRareLevel="2" dragPurpose="Summon" cardType="Retinue" />
@@ -609,31 +609,33 @@
     </CardInfo>
   </Card>
   <Card id="61001">
-    <CardInfo name="baseInfo" pictureID="610" cardName="黑客入侵" cardName_en="Hack" cardDesc="" isTemp="False" hide="False" metal="0" energy="15" coin="800" effectFactor="1" limitNum="3" cardRareLevel="6" dragPurpose="Target" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="610" cardName="黑客入侵" cardName_en="Hack" cardDesc="" isTemp="False" hide="False" metal="0" energy="10" coin="800" effectFactor="1" limitNum="2" cardRareLevel="6" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="BreakEquip" IsNeedChoise="True" M_TargetRange="EnemyMechs"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61101">
-    <CardInfo name="baseInfo" pictureID="611" cardName="镀金Ⅰ" cardName_en="Gold Plating Ⅰ" cardDesc="" isTemp="False" hide="False" metal="0" energy="5" coin="200" effectFactor="1" limitNum="3" cardRareLevel="1" dragPurpose="Target" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="611" cardName="镀金Ⅰ" cardName_en="Gold Plating Ⅰ" cardDesc="" isTemp="False" hide="False" metal="0" energy="5" coin="250" effectFactor="1" limitNum="3" cardRareLevel="1" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="61102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="2"></SideEffect>
+      <SideEffect name="AddArmorOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61102">
-    <CardInfo name="baseInfo" pictureID="611" cardName="镀金Ⅱ" cardName_en="Gold Plating Ⅱ" cardDesc="" isTemp="False" hide="False" metal="0" energy="10" coin="400" effectFactor="1" limitNum="3" cardRareLevel="5" dragPurpose="Target" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="611" cardName="镀金Ⅱ" cardName_en="Gold Plating Ⅱ" cardDesc="" isTemp="False" hide="False" metal="0" energy="7" coin="400" effectFactor="1" limitNum="3" cardRareLevel="5" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="61101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="5"></SideEffect>
+      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="3"></SideEffect>
+      <SideEffect name="AddArmorOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61201">
-    <CardInfo name="baseInfo" pictureID="612" cardName="幻境" cardName_en="Illusion" cardDesc="" isTemp="False" hide="False" metal="0" energy="10" coin="400" effectFactor="1" limitNum="3" cardRareLevel="9" dragPurpose="Target" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="612" cardName="幻境" cardName_en="Illusion" cardDesc="" isTemp="False" hide="False" metal="0" energy="10" coin="400" effectFactor="1" limitNum="1" cardRareLevel="5" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="5"></SideEffect>
+      <SideEffect name="IllusionToOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61301">
@@ -679,10 +681,10 @@
     </CardInfo>
   </Card>
   <Card id="61801">
-    <CardInfo name="baseInfo" pictureID="618" cardName="意志融合" cardName_en="Cooperation" cardDesc="" isTemp="False" hide="False" metal="0" energy="10" coin="400" effectFactor="1" limitNum="3" cardRareLevel="9" dragPurpose="Target" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="618" cardName="意志融合" cardName_en="Cooperation" cardDesc="" isTemp="False" hide="False" metal="0" energy="15" coin="400" effectFactor="1" limitNum="1" cardRareLevel="7" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="5"></SideEffect>
+      <SideEffect name="Cooperation" IsNeedChoise="True" M_TargetRange="SelfSoldiers"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61901">
@@ -701,7 +703,7 @@
     </CardInfo>
   </Card>
   <Card id="6500">
-    <CardInfo name="baseInfo" pictureID="620" cardName="减速机器人" cardName_en="Spider" cardDesc="" isTemp="True" hide="True" metal="0" energy="3" coin="400" effectFactor="1" limitNum="3" cardRareLevel="9" dragPurpose="Summon" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="620" cardName="减速机器人" cardName_en="Spider" cardDesc="" isTemp="True" hide="True" metal="0" energy="3" coin="400" effectFactor="1" limitNum="3" cardRareLevel="3" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
@@ -729,10 +731,10 @@
     </CardInfo>
   </Card>
   <Card id="62201">
-    <CardInfo name="baseInfo" pictureID="628" cardName="虚空遗梦" cardName_en="Vacant Dream" cardDesc="" isTemp="False" hide="False" metal="0" energy="6" coin="150" effectFactor="1" limitNum="3" cardRareLevel="5" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="628" cardName="虚空遗梦" cardName_en="Vacant Dream" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="400" effectFactor="1" limitNum="3" cardRareLevel="7" dragPurpose="Summon" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="12"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="EnemyMechs" Value="5"></SideEffect>
       <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
     </CardInfo>
   </Card>
@@ -767,17 +769,75 @@
   </Card>
   <Card id="62500">
     <CardInfo name="baseInfo" pictureID="633" cardName="伤害转换" cardName_en="Damage Trans" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="150" effectFactor="1" limitNum="3" cardRareLevel="0" dragPurpose="Summon" cardType="Spell" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="upgradeInfo" upgradeCardID="62501" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="3"></SideEffect>
       <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
     </CardInfo>
   </Card>
-  <Card id="62600">
-    <CardInfo name="baseInfo" pictureID="634" cardName="暴击" cardName_en="Critical Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="150" effectFactor="1" limitNum="3" cardRareLevel="2" dragPurpose="Summon" cardType="Spell" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+  <Card id="62501">
+    <CardInfo name="baseInfo" pictureID="633" cardName="伤害转换" cardName_en="Damage Trans" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="175" effectFactor="1" limitNum="3" cardRareLevel="3" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62500" cardLevel="2" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="4"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="3"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62502">
+    <CardInfo name="baseInfo" pictureID="633" cardName="伤害转换" cardName_en="Damage Trans" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="200" effectFactor="1" limitNum="3" cardRareLevel="6" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62500" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="5"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62600">
+    <CardInfo name="baseInfo" pictureID="634" cardName="暴击" cardName_en="Critical Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="150" effectFactor="1" limitNum="3" cardRareLevel="2" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="62601" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="5"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62601">
+    <CardInfo name="baseInfo" pictureID="634" cardName="暴击" cardName_en="Critical Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="200" effectFactor="1" limitNum="3" cardRareLevel="5" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="62602" degradeCardID="62600" cardLevel="2" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="7"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62602">
+    <CardInfo name="baseInfo" pictureID="634" cardName="暴击" cardName_en="Critical Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="250" effectFactor="1" limitNum="3" cardRareLevel="7" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62601" cardLevel="3" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="9"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62701">
+    <CardInfo name="baseInfo" pictureID="635" cardName="乘胜追击" cardName_en="Pursuit" cardDesc="" isTemp="False" hide="False" metal="0" energy="4" coin="250" effectFactor="1" limitNum="3" cardRareLevel="2" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="AddPlayerBuff" BuffName="DamageEnemyShipWhenAttack" RemoveTriggerTimes="1" Value="1" />
+    </CardInfo>
+  </Card>
+  <Card id="62801">
+    <CardInfo name="baseInfo" pictureID="636" cardName="逃逸" cardName_en="Run Away" cardDesc="" isTemp="False" hide="False" metal="0" energy="4" coin="350" effectFactor="1" limitNum="3" cardRareLevel="3" dragPurpose="Target" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="RunAway" IsNeedChoise="True" M_TargetRange="SelfMechs"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="62901">
+    <CardInfo name="baseInfo" pictureID="637" cardName="末日" cardName_en="Doomsday" cardDesc="" isTemp="False" hide="False" metal="0" energy="6" coin="350" effectFactor="1" limitNum="1" cardRareLevel="3" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="AllLife" Value="5"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="63001">
+    <CardInfo name="baseInfo" pictureID="638" cardName="点石成金" cardName_en="Realize" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="350" effectFactor="1" limitNum="1" cardRareLevel="1" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="TriggerOneHandCard" Value="3"></SideEffect>
     </CardInfo>
   </Card>
 
@@ -863,6 +923,27 @@
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="Exile"></SideEffect>
       <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenUseMetal" Value="2" />
+    </CardInfo>
+  </Card>
+  <Card id="71001">
+    <CardInfo name="baseInfo" pictureID="710" cardName="能量种子" cardName_en="Energy Seed" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="200" effectFactor="1" limitNum="1" cardRareLevel="2" dragPurpose="Summon" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="71002" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenRoundBegin" Value="3" RemoveTriggerTimes="3" />
+    </CardInfo>
+  </Card>
+  <Card id="71002">
+    <CardInfo name="baseInfo" pictureID="711" cardName="能量种子X" cardName_en="Energy Seed X" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="250" effectFactor="1" limitNum="1" cardRareLevel="3" dragPurpose="Summon" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="71001" cardLevel="2" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenRoundBegin" Value="5" RemoveTriggerTimes="3" />
+    </CardInfo>
+  </Card>
+  <Card id="71101">
+    <CardInfo name="baseInfo" pictureID="712" cardName="能量异变" cardName_en="Energy Variation" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="250" effectFactor="1" limitNum="3" cardRareLevel="2" dragPurpose="Summon" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="AddPlayerBuff" BuffName="DamageEnemyShipWhenUseCards" Value="1"/>
     </CardInfo>
   </Card>
 </AllCards>

@@ -16,8 +16,10 @@ public class BuildInfo
 
     public List<int> CardIDs;
 
+    public List<int> CriticalCardIDs; //AI专用，重要卡牌起手抽到
+
     public int CardConsumeCoin;
-    public GamePlaySettings GamePlaySettings;//只对客户端选卡起到限制作用，服务端这个字段没有作用
+    public GamePlaySettings GamePlaySettings; //只对客户端选卡起到限制作用，服务端这个字段没有作用
 
     public int LifeConsumeCoin
     {
@@ -60,18 +62,24 @@ public class BuildInfo
 
     public int Energy;
 
+    public int BeginMetal;
+
     public BuildInfo()
     {
+        CriticalCardIDs = new List<int>();
     }
 
-    public BuildInfo(int buildID, string buildName, List<int> cardIDs, int drawCardNum, int life, int energy, GamePlaySettings gamePlaySettings)
+    public BuildInfo(int buildID, string buildName, List<int> cardIDs, List<int> criticalCardIDs, int drawCardNum, int life, int energy, int beginMetal, GamePlaySettings gamePlaySettings)
     {
         BuildID = buildID;
         BuildName = buildName;
         CardIDs = cardIDs;
+        CriticalCardIDs = criticalCardIDs;
         DrawCardNum = drawCardNum;
         Life = life;
         Energy = energy;
+        BeginMetal = beginMetal;
+        BeginMetal = beginMetal;
 
         CardConsumeCoin = 0;
         foreach (int cardID in cardIDs)
@@ -105,7 +113,7 @@ public class BuildInfo
 
     public BuildInfo Clone()
     {
-        return new BuildInfo(GenerateBuildID(), BuildName, CardIDs.ToArray().ToList(), DrawCardNum, Life, Energy, GamePlaySettings);
+        return new BuildInfo(GenerateBuildID(), BuildName, CardIDs.ToArray().ToList(), CriticalCardIDs.ToArray().ToList(), DrawCardNum, Life, Energy, BeginMetal, GamePlaySettings);
     }
 
     public bool EqualsTo(BuildInfo targetBuildInfo)
@@ -137,10 +145,17 @@ public class BuildInfo
             writer.WriteSInt32(cardID);
         }
 
+        writer.WriteSInt32(CriticalCardIDs.Count);
+        foreach (int cardID in CriticalCardIDs)
+        {
+            writer.WriteSInt32(cardID);
+        }
+
         writer.WriteSInt32(CardConsumeCoin);
         writer.WriteSInt32(DrawCardNum);
         writer.WriteSInt32(Life);
         writer.WriteSInt32(Energy);
+        writer.WriteSInt32(BeginMetal);
     }
 
     public static BuildInfo Deserialize(DataStream reader)
@@ -155,12 +170,20 @@ public class BuildInfo
             CardIDs.Add(reader.ReadSInt32());
         }
 
+        int criticalCardIdCount = reader.ReadSInt32();
+        List<int> CriticalCardIDs = new List<int>();
+        for (int i = 0; i < criticalCardIdCount; i++)
+        {
+            CriticalCardIDs.Add(reader.ReadSInt32());
+        }
+
         int CardConsumeCoin = reader.ReadSInt32();
         int DrawCardNum = reader.ReadSInt32();
         int Life = reader.ReadSInt32();
         int Energy = reader.ReadSInt32();
+        int BeginMetal = reader.ReadSInt32();
 
-        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs, DrawCardNum, Life, Energy, null);
+        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs, CriticalCardIDs, DrawCardNum, Life, Energy, BeginMetal, null);
         return buildInfo;
     }
 }

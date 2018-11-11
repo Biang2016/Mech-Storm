@@ -16,6 +16,7 @@ public class StoryLevelButton : PoolObject
         M_BossInfo = new Boss();
         Anim.Play(firstAnimClipName);
         Anim.Update(0);
+        M_StoryLevelType = StoryLevelType.Soldier;
     }
 
     void Awake()
@@ -29,9 +30,11 @@ public class StoryLevelButton : PoolObject
     [SerializeField] private Material UIDefault;
     private string firstAnimClipName;
     [SerializeField] private Animator Anim;
-
+    [SerializeField] private Text BossText;
 
     public Boss M_BossInfo;
+
+    public StoryLevelType M_StoryLevelType;
 
     public void Initialize()
     {
@@ -98,7 +101,26 @@ public class StoryLevelButton : PoolObject
 
     public void SetUnknown()
     {
-        ClientUtils.ChangePicture(Image, 1000);
+        BossText.enabled = false;
+        switch (M_StoryLevelType)
+        {
+            case StoryLevelType.Soldier:
+            {
+                ClientUtils.ChangePicture(Image, 1000);
+                break;
+            }
+            case StoryLevelType.Boss:
+            {
+                ClientUtils.ChangePicture(Image, 1003);
+                break;
+            }
+            case StoryLevelType.Shop:
+            {
+                ClientUtils.ChangePicture(Image, 1002);
+                break;
+            }
+        }
+
         Button.onClick.RemoveAllListeners();
     }
 
@@ -106,9 +128,10 @@ public class StoryLevelButton : PoolObject
 
     public void SetKnown()
     {
+        BossText.enabled = M_BossInfo.Name == "Boss";
         ClientUtils.ChangePicture(Image, M_BossInfo.PicID);
         Button.onClick.RemoveAllListeners();
-        Button.onClick.AddListener(delegate { StartMenuManager.Instance.StartGameCore(true, M_CurrentLevelID, M_BossInfo.PicID); });
+        Button.onClick.AddListener(delegate { StartMenuManager.Instance.StartGameCore(RoundManager.PlayMode.Single, M_CurrentLevelID, M_BossInfo.PicID); });
         Button.onClick.AddListener(delegate { AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick"); });
     }
 }

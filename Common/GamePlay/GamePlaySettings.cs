@@ -33,7 +33,6 @@
 
     public static int MaxHeroNumber = 4;
 
-    public static int BeginMetal = 0;
     public static int MaxMetal = 10;
     public static int MetalIncrease = 1;
 

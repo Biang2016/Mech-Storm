@@ -52,6 +52,10 @@ public partial class SelectBuildManager
         OtherCardText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         HerosCardCountText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         OtherCardCountText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+
+        LeftMouseButtonClickTipText.text = GameManager.Instance.IsEnglish ? "Select" : "选择";
+        RightMouseButtonClickTipText.text = GameManager.Instance.IsEnglish ? "Upgrade" : "升级";
+        ESCTipText.text = GameManager.Instance.IsEnglish ? "Close" : "关闭";
     }
 
     void Start_Select()
@@ -96,6 +100,10 @@ public partial class SelectBuildManager
     [SerializeField] private Transform currentPreviewCardContainer;
     [SerializeField] private Transform CurrentPreviewCardMaxPivot;
     [SerializeField] private Transform CurrentPreviewCardMinPivot;
+
+    [SerializeField] private Text LeftMouseButtonClickTipText;
+    [SerializeField] private Text RightMouseButtonClickTipText;
+    [SerializeField] private Text ESCTipText;
 
 
     public void NetworkStateChange_Select(ProxyBase.ClientStates clientState)
@@ -332,7 +340,7 @@ public partial class SelectBuildManager
         currentPreviewCard.CoinImageBG.enabled = true;
         currentPreviewCard.CoinImageBG.gameObject.SetActive(true);
 
-        AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {selectCard.CardInfo});
+        AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {selectCard.CardInfo}, null);
     }
 
     private void SelectCardOnMouseLeave(SelectCard selectCard)

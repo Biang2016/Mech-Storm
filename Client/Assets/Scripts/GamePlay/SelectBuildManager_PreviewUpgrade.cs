@@ -101,8 +101,10 @@ public partial class SelectBuildManager
         bool hasDegradeCard = false;
         if (GameMode_State == GameMode.Single)
         {
-            hasUpgradeCard = StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID);
-            hasDegradeCard = StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID);
+            int u_id = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID;
+            int d_id = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID;
+            hasUpgradeCard = u_id != -1 && AllCards.GetCard(u_id).BaseInfo.CardRareLevel <= StoryManager.Instance.Conquered_LevelNum;
+            hasDegradeCard = d_id != -1 && AllCards.GetCard(d_id).BaseInfo.CardRareLevel <= StoryManager.Instance.Conquered_LevelNum;
         }
         else if (GameMode_State == GameMode.Online)
         {
@@ -179,7 +181,7 @@ public partial class SelectBuildManager
         cardInfos.Add(PreviewCard.CardInfo);
         if (PreviewCardDegrade) cardInfos.Add(PreviewCardDegrade.CardInfo);
         if (PreviewCardUpgrade) cardInfos.Add(PreviewCardUpgrade.CardInfo);
-        bool isShowAffixTips = AffixManager.Instance.ShowAffixTips(cardInfos);
+        bool isShowAffixTips = AffixManager.Instance.ShowAffixTips(cardInfos, null);
 
         //如果显示Tips占据屏幕空间的话，右移预览卡牌窗口
         if (!isShowAffixTips || PreviewCardDegrade == null)
@@ -201,8 +203,10 @@ public partial class SelectBuildManager
         bool hasDegradeCard = false;
         if (GameMode_State == GameMode.Single)
         {
-            hasUpgradeCard = StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID);
-            hasDegradeCard = StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID);
+            int u_id = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID;
+            int d_id = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID;
+            hasUpgradeCard = u_id != -1 && AllCards.GetCard(u_id).BaseInfo.CardRareLevel <= StoryManager.Instance.Conquered_LevelNum;
+            hasDegradeCard = d_id != -1 && AllCards.GetCard(d_id).BaseInfo.CardRareLevel <= StoryManager.Instance.Conquered_LevelNum;
         }
         else if (GameMode_State == GameMode.Online)
         {

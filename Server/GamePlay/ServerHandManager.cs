@@ -50,6 +50,11 @@ internal class ServerHandManager
         DrawCards(newCardCount);
     }
 
+    internal void PutCardsOnTopByID(List<int> cardIDs)
+    {
+        ServerPlayer.MyCardDeckManager.CardDeck.PutCardsToTopByID(cardIDs);
+    }
+
     #endregion
 
     internal int GetRandomHandCardId()
@@ -57,6 +62,26 @@ internal class ServerHandManager
         Random rd = new Random();
         int randomIndex = rd.Next(0, Cards.Count);
         return Cards[randomIndex].CardInfo.CardID;
+    }
+
+    internal List<int> GetRandomSpellCardInstanceIds(int count, int exceptCardInstanceID)
+    {
+        List<ServerCardBase> spellCards = new List<ServerCardBase>();
+        Cards.ForEach(card =>
+        {
+            if (card is ServerCardSpell spellCard)
+            {
+                if (spellCard.M_CardInstanceId != exceptCardInstanceID && spellCard.CardInfo.TargetInfo.HasNoTarget)
+                {
+                    spellCards.Add(spellCard);
+                }
+            }
+        });
+        if (count > spellCards.Count) count = spellCards.Count;
+        List<ServerCardBase> res = Utils.GetRandomFromList(spellCards, count);
+        List<int> resIDs = new List<int>();
+        res.ForEach(card => { resIDs.Add(card.M_CardInstanceId); });
+        return resIDs;
     }
 
     internal void GetATempCardByID(int cardID)
@@ -68,10 +93,19 @@ internal class ServerHandManager
         CardInstanceIDSet.Add(newCard.M_CardInstanceId);
     }
 
-    internal void GetACardByID(int cardID)
+    internal void GetACardByID(int cardID, int overrideCardInstanceID = -1)
     {
         CardInfo_Base cardInfo = AllCards.GetCard(cardID);
-        ServerCardBase newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
+        ServerCardBase newCard;
+        if (overrideCardInstanceID == -1)
+        {
+            newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
+        }
+        else
+        {
+            newCard = ServerCardBase.InstantiateCardByCardInfo(cardInfo, ServerPlayer, overrideCardInstanceID);
+        }
+
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         Cards.Add(newCard);
         CardInstanceIDSet.Add(newCard.M_CardInstanceId);
@@ -109,35 +143,50 @@ internal class ServerHandManager
         if (!dropCard.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
     }
 
-    internal void UseCard(int cardInstanceId, int targetRetinueId = SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE, int targetEquipId = SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE, int targetClientId = -1)
+    internal void UseCard(int cardInstanceId, int targetRetinueId = SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE, int targetEquipId = SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE, int targetClientId = -1, bool onlyTriggerNotUse = false)
     {
         ServerCardBase useCard = GetCardByCardInstanceId(cardInstanceId);
-        UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone());
-        ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-        ServerPlayer.UseMetalAboveZero(useCard.CardInfo.BaseInfo.Metal);
-        ServerPlayer.UseEnergyAboveZero(useCard.CardInfo.BaseInfo.Energy);
 
-        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
-            new SideEffectBase.ExecuterInfo(
-                clientId: ServerPlayer.ClientId,
-                targetClientId: targetClientId,
-                targetRetinueId: targetRetinueId,
-                cardId: useCard.CardInfo.CardID,
-                cardInstanceId: cardInstanceId,
-                targetEquipId: targetEquipId));
-
-        if (!useCard.CardInfo.BaseInfo.IsTemp)
+        if (onlyTriggerNotUse)
         {
-            if (useCard.CardInfo.BaseInfo.CardType == CardTypes.Spell || useCard.CardInfo.BaseInfo.CardType == CardTypes.Energy)
-            {
-                ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(cardInstanceId);
-            }
+            ServerCardBase copyCard = ServerCardBase.InstantiateCardByCardInfo(useCard.CardInfo.Clone(), useCard.ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
+                new SideEffectBase.ExecuterInfo(
+                    clientId: ServerPlayer.ClientId,
+                    targetClientId: targetClientId,
+                    targetRetinueId: targetRetinueId,
+                    cardId: copyCard.CardInfo.CardID,
+                    cardInstanceId: copyCard.M_CardInstanceId,
+                    targetEquipId: targetEquipId));
+            copyCard.UnRegisterSideEffect();
         }
+        else
+        {
+            UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone());
+            ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+            ServerPlayer.UseMetalAboveZero(useCard.CardInfo.BaseInfo.Metal);
+            ServerPlayer.UseEnergyAboveZero(useCard.CardInfo.BaseInfo.Energy);
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
+                new SideEffectBase.ExecuterInfo(
+                    clientId: ServerPlayer.ClientId,
+                    targetClientId: targetClientId,
+                    targetRetinueId: targetRetinueId,
+                    cardId: useCard.CardInfo.CardID,
+                    cardInstanceId: cardInstanceId,
+                    targetEquipId: targetEquipId));
+            if (!useCard.CardInfo.BaseInfo.IsTemp)
+            {
+                if (useCard.CardInfo.BaseInfo.CardType == CardTypes.Spell || useCard.CardInfo.BaseInfo.CardType == CardTypes.Energy)
+                {
+                    ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(cardInstanceId);
+                }
+            }
 
-        useCard.UnRegisterSideEffect();
-        Cards.Remove(useCard);
-        UsableCards.Remove(useCard.M_CardInstanceId);
-        CardInstanceIDSet.Remove(useCard.M_CardInstanceId);
+            useCard.UnRegisterSideEffect();
+            Cards.Remove(useCard);
+            UsableCards.Remove(useCard.M_CardInstanceId);
+            CardInstanceIDSet.Remove(useCard.M_CardInstanceId);
+        }
     }
 
     public void BeginRound()

@@ -6,6 +6,7 @@ public abstract class RequestBase
     {
         get { return GetProtocol().ToString(); }
     }
+
     public string CreateAt;
     public int RequestId;
     private static int RequestIdGenerator = 10000;
@@ -38,6 +39,6 @@ public abstract class RequestBase
 
     public virtual string DeserializeLog()
     {
-        return "[" + ProtocolName + "]:\n" + JsonConvert.SerializeObject(this, Formatting.Indented, Utils.JsonSettings);
+        return "[" + ProtocolName + "]:\n" + JsonConvert.SerializeObject(this, Formatting.None, Utils.JsonSettings);
     }
 }

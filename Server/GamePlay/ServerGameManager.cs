@@ -62,22 +62,24 @@ internal class ServerGameManager
         ClientA.ClientState = ProxyBase.ClientStates.Playing;
         ClientB.ClientState = ProxyBase.ClientStates.Playing;
 
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-        ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
+        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+            ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
 
 
         SyncRandomNumber();
 
         int PA_LIFE = ClientA.CurrentBuildInfo.Life;
         int PA_MAGIC = ClientA.CurrentBuildInfo.Energy;
+        int PA_BEGINMETAL = ClientA.CurrentBuildInfo.BeginMetal;
         int PB_LIFE = ClientB.CurrentBuildInfo.Life;
         int PB_MAGIC = ClientB.CurrentBuildInfo.Energy;
+        int PB_BEGINMETAL = ClientB.CurrentBuildInfo.BeginMetal;
 
-        PlayerA = new ServerPlayer(ClientA.UserName, ClientA.ClientId, ClientB.ClientId, 0, GamePlaySettings.BeginMetal, PA_LIFE, PA_LIFE, 0, PA_MAGIC, this);
+        PlayerA = new ServerPlayer(ClientA.UserName, ClientA.ClientId, ClientB.ClientId, 0, PA_BEGINMETAL, PA_LIFE, PA_LIFE, 0, PA_MAGIC, this);
         PlayerA.MyCardDeckManager.CardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange);
         PlayerA.MyClientProxy = ClientA;
 
-        PlayerB = new ServerPlayer(ClientB.UserName, ClientB.ClientId, ClientA.ClientId, 0, GamePlaySettings.BeginMetal, PB_LIFE, PB_LIFE, 0, PB_MAGIC, this);
+        PlayerB = new ServerPlayer(ClientB.UserName, ClientB.ClientId, ClientA.ClientId, 0, PB_BEGINMETAL, PB_LIFE, PB_LIFE, 0, PB_MAGIC, this);
         PlayerB.MyCardDeckManager.CardDeck = new CardDeck(ClientB.CurrentBuildInfo, PlayerB.OnCardDeckLeftChange);
         PlayerB.MyCardDeckManager.CardDeck.CardDeckCountChangeHandler += PlayerB.OnCardDeckLeftChange;
         PlayerB.MyClientProxy = ClientB;
@@ -91,9 +93,9 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
         ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
 
-        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientId, 0, GamePlaySettings.BeginMetal, PA_LIFE, PA_LIFE, 0, PA_MAGIC);
+        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientId, 0, PA_BEGINMETAL, PA_LIFE, PA_LIFE, 0, PA_MAGIC);
         Broadcast_AddRequestToOperationResponse(request1);
-        SetPlayerRequest request2 = new SetPlayerRequest(ClientA.UserName, ClientB.ClientId, 0, GamePlaySettings.BeginMetal, PB_LIFE, PB_LIFE, 0, PB_MAGIC);
+        SetPlayerRequest request2 = new SetPlayerRequest(ClientA.UserName, ClientB.ClientId, 0, PB_BEGINMETAL, PB_LIFE, PB_LIFE, 0, PB_MAGIC);
         Broadcast_AddRequestToOperationResponse(request2);
 
         GameBegin();
@@ -127,6 +129,12 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
 
         PlayerA.MyHandManager.DrawHeroCards(100);
         PlayerB.MyHandManager.DrawHeroCards(100);
+
+        if (ClientB is ClientProxyAI)
+        {
+            PlayerB.MyHandManager.PutCardsOnTopByID(ClientB.CurrentBuildInfo.CriticalCardIDs); //AI卡组起手手牌可配置
+        }
+
         if (isPlayerAFirst)
         {
             PlayerA.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);
@@ -167,6 +175,11 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
         Broadcast_AddRequestToOperationResponse(request);
         CurrentPlayer.MyHandManager.DrawHeroCards(100);
+        if (CurrentPlayer.MyClientProxy == ClientB && ClientB is ClientProxyAI)
+        {
+            CurrentPlayer.MyHandManager.PutCardsOnTopByID(ClientB.CurrentBuildInfo.CriticalCardIDs); //AI卡组每回合关键卡牌必抽到
+        }
+
         CurrentPlayer.MyHandManager.DrawCards(CurrentPlayer.MyCardDeckManager.CardDeck.M_BuildInfo.DrawCardNum);
     }
 
@@ -382,7 +395,7 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
         if (IsStopped) return;
         GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
         Broadcast_AddRequestToOperationResponse(request);
-        if (ClientB is ClientProxyAI AI)
+        if (ClientB is ClientProxyAI AI && AI.IsStoryMode)
         {
             if (winner == PlayerA)
             {
@@ -417,12 +430,14 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
     {
         if (IsStopped)
         {
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-            if (ClientA == null) ServerLog.Print(ClientA.ClientId + "   ClientA==null");
+            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                if (ClientA == null)
+                    ServerLog.Print(ClientA.ClientId + "   ClientA==null");
 
             ClientA.ClientState = ProxyBase.ClientStates.Login;
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-            if (ClientB == null) ServerLog.Print(ClientB.ClientId + "   ClientB==null");
+            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                if (ClientB == null)
+                    ServerLog.Print(ClientB.ClientId + "   ClientB==null");
 
             ClientB.ClientState = ProxyBase.ClientStates.Login;
 
@@ -433,9 +448,8 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
 
             EventManager.ClearAllEvents();
 
-if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platform==ServerConsole.DEVELOP.TEST)
-            ServerLog.PrintClientStates("GameStopSucBetween: " + PlayerA.ClientId + ", " + PlayerB.ClientId);
-
+            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                ServerLog.PrintClientStates("GameStopSucBetween: " + PlayerA.ClientId + ", " + PlayerB.ClientId);
         }
 
         IsStopped = false;
@@ -476,9 +490,9 @@ if (ServerConsole.Platform==ServerConsole.DEVELOP.DEVELOP||ServerConsole.Platfor
         Broadcast_AddRequestToOperationResponse(request);
     }
 
-    public void OnPlayerBuffReduce(SideEffectExecute see, PlayerBuffSideEffects buff, bool isAdd) //buff剩余次数减少
+    public void OnPlayerBuffReduce(SideEffectExecute see, bool isAdd) //buff剩余次数减少
     {
-        ((ServerPlayer) see.SideEffectBase.Player).UpdatePlayerBuff(see, buff, isAdd);
+        ((ServerPlayer) see.SideEffectBase.Player).UpdatePlayerBuff(see, isAdd);
     }
 
     public void OnPlayerBuffRemove(SideEffectExecute see, PlayerBuffSideEffects buff) //buff剩余次数减少

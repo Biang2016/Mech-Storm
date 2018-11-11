@@ -82,6 +82,41 @@ internal class ServerModuleRetinue : ServerModuleBase
         set { m_IsDead = value; }
     }
 
+
+    private int m_ImmuneLeftRounds = 0;
+
+    public int M_ImmuneLeftRounds
+    {
+        get { return m_ImmuneLeftRounds; }
+        set
+        {
+            if (m_ImmuneLeftRounds != value)
+            {
+                RetinueImmuneStateRequest request = new RetinueImmuneStateRequest(ServerPlayer.ClientId, M_RetinueID, value);
+                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+            }
+
+            m_ImmuneLeftRounds = value;
+        }
+    }
+
+    private int m_InactivityRounds = 0;
+
+    public int M_InactivityRounds
+    {
+        get { return m_InactivityRounds; }
+        set
+        {
+            if (m_InactivityRounds != value)
+            {
+                RetinueInactivityStateRequest request = new RetinueInactivityStateRequest(ServerPlayer.ClientId, M_RetinueID, value);
+                ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
+                m_InactivityRounds = value;
+                CheckCanAttack();
+            }
+        }
+    }
+
     private int m_RetinueLeftLife;
 
     public int M_RetinueLeftLife
@@ -181,6 +216,10 @@ internal class ServerModuleRetinue : ServerModuleBase
             if (M_Weapon != null)
             {
                 M_Weapon.CardInfo.WeaponInfo.Energy = value;
+                if (value == 0)
+                {
+                    M_Weapon = null;
+                }
             }
 
             if (isInitialized && before != m_RetinueWeaponEnergy)
@@ -690,11 +729,12 @@ internal class ServerModuleRetinue : ServerModuleBase
 
     public bool CheckRetinueCanAttackMe(ServerModuleRetinue attackRetinue)
     {
-        if (attackRetinue.M_Weapon!=null && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽机甲，其他武器只能攻击嘲讽机甲
+        if (M_ImmuneLeftRounds != 0) return false;
+        if (attackRetinue.M_Weapon != null && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽机甲，其他武器只能攻击嘲讽机甲
         if (ServerPlayer.MyBattleGroundManager.HasDefenceRetinue && !IsDefender) return false;
         return true;
     }
- 
+
 
     private bool isFirstRound = true; //是否是召唤的第一回合
 
@@ -737,6 +777,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         bool res = true;
         res &= ServerPlayer.MyGameManager.CurrentPlayer == ServerPlayer;
         res &= !IsFirstRound || (IsFirstRound && CanCharge);
+        res &= (M_InactivityRounds == 0);
         res &= (!CannotAttackBecauseDie);
         res &= AttackTimesThisRound > 0;
         res &= (M_RetinueAttack > 0);
@@ -767,6 +808,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (M_IsDead) return;
         OnBeAttacked();
+        if (M_ImmuneLeftRounds != 0) attackNumber = 0; //免疫状态不受伤
         int remainAttackNumber = attackNumber;
 
         //小于等于护盾的伤害的全部免除，护盾无任何损失，大于护盾的伤害，每超过一点，护盾受到一点伤害，如果扣为0，则护盾破坏

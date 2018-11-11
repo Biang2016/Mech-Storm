@@ -114,6 +114,9 @@
     SE_RETINUE_CANATTACK, //随从能否进攻
     SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT, //特效触发通知
 
+    SE_RETINUE_IMMUNE, //随从免疫信息通知
+    SE_RETINUE_INACTIVITY, //随从无法行动信息通知
+
     #endregion
 
     #endregion

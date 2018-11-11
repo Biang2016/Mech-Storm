@@ -6,7 +6,7 @@ using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
-internal partial class RoundManager : MonoSingleton<RoundManager>
+public partial class RoundManager : MonoSingleton<RoundManager>
 {
     private RoundManager()
     {
@@ -21,8 +21,14 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
     internal ClientPlayer CurrentClientPlayer;
     internal ClientPlayer IdleClientPlayer;
 
+    public PlayMode M_PlayMode;
 
-    public bool isSingleBattle;
+    public enum PlayMode
+    {
+        Online,
+        Single,
+        SingleCustom,
+    }
 
     void Awake()
     {
@@ -45,13 +51,23 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
 
         GameBoardManager.Instance.ChangeBoardBG();
         GameBoardManager.Instance.ShowBattleShip();
-        if (isSingleBattle)
+        switch (M_PlayMode)
         {
-            TransitManager.Instance.HideTransit(Color.black, 0.3f);
-        }
-        else
-        {
-            TransitManager.Instance.ShowBlackShutTransit(0.5f);
+            case PlayMode.Online:
+            {
+                TransitManager.Instance.ShowBlackShutTransit(0.5f);
+                break;
+            }
+            case PlayMode.Single:
+            {
+                TransitManager.Instance.HideTransit(Color.black, 0.3f);
+                break;
+            }
+            case PlayMode.SingleCustom:
+            {
+                TransitManager.Instance.ShowBlackShutTransit(0.5f);
+                break;
+            }
         }
 
         InGameUIManager.Instance.ShowInGameUI();
@@ -79,6 +95,7 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
             EnemyClientPlayer = new ClientPlayer(r.username, r.metalLeft, r.metalMax, r.lifeLeft, r.lifeMax, r.energyLeft, r.energyMax, Players.Enemy);
             EnemyClientPlayer.ClientId = r.clientId;
             EnemyShip.ClientPlayer = EnemyClientPlayer;
+            EnemyClientPlayer.MyMetalLifeEnergyManager.SetEnemyIconImage();
         }
     }
 
@@ -111,7 +128,7 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
 
     IEnumerator Co_OnGameStop()
     {
-        if (isSingleBattle)
+        if (M_PlayMode == PlayMode.Single)
         {
             TransitManager.Instance.ShowBlackShutTransit(1f);
         }
@@ -166,33 +183,48 @@ internal partial class RoundManager : MonoSingleton<RoundManager>
             }
         }
 
-        if (isSingleBattle)
+        switch (M_PlayMode)
         {
-            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Single);
-            StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Show);
-        }
-        else
-        {
-            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Online);
+            case PlayMode.Online:
+            {
+                StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Online);
+                StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
+                break;
+            }
+            case PlayMode.Single:
+            {
+                StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Single);
+                StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Show);
+                break;
+            }
+            case PlayMode.SingleCustom:
+            {
+                StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_SingleCustom);
+                StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
+                break;
+            }
         }
 
         BattleEffectsManager.Instance.ResetAll();
-        StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
         TransitManager.Instance.HideTransit(Color.black, 0.1f);
 
-        if (SelectBuildManager.Instance.JustGetSomeCard)
+        if (M_PlayMode == PlayMode.Single)
         {
-            ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform);
-            cw.Initialize(
-                GameManager.Instance.IsEnglish ? "You have got some new cards just now! Do you want to adjust your deck?" : "刚刚获得了新卡片，是否去卡组看一看?",
-                GameManager.Instance.IsEnglish ? "Go to deck" : "去牌库",
-                GameManager.Instance.IsEnglish ? "Got it." : "知道了",
-                delegate
-                {
-                    ConfirmWindowManager.Instance.RemoveConfirmWindow();
-                    SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
-                },
-                delegate { ConfirmWindowManager.Instance.RemoveConfirmWindow(); });
+            if (SelectBuildManager.Instance.JustGetSomeCard)
+            {
+                ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform);
+                cw.Initialize(
+                    GameManager.Instance.IsEnglish ? "You have got some new cards just now! Do you want to adjust your deck?" : "刚刚获得了新卡片，是否去卡组看一看?",
+                    GameManager.Instance.IsEnglish ? "Go to deck" : "去牌库",
+                    GameManager.Instance.IsEnglish ? "Got it." : "知道了",
+                    delegate
+                    {
+                        ConfirmWindowManager.Instance.RemoveConfirmWindow();
+                        SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
+                        StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
+                    },
+                    delegate { ConfirmWindowManager.Instance.RemoveConfirmWindow(); });
+            }
         }
 
         yield return null;

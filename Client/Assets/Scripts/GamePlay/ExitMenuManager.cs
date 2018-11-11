@@ -222,6 +222,7 @@ public class ExitMenuManager : MonoSingleton<ExitMenuManager>
     private void SurrenderCore()
     {
         Client.Instance.Proxy.LeaveGame();
+        SelectBuildManager.Instance.ResetStoryBonusInfo();
         RoundManager.Instance.StopGame();
         ClientLog.Instance.Print("You have quit the game");
         NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "You have quit the game" : "您已退出比赛", 0, 1f);

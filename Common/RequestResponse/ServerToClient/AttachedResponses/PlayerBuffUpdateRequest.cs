@@ -2,19 +2,17 @@
 {
     public int clientId;
     public int buffId;
-    public SideEffectExecute buff;
-    public int value;
+    public SideEffectExecute buffSEE;
 
     public PlayerBuffUpdateRequest()
     {
     }
 
-    public PlayerBuffUpdateRequest(int clientId, int buffId, SideEffectExecute buff, int value)
+    public PlayerBuffUpdateRequest(int clientId, int buffId, SideEffectExecute buffSEE)
     {
         this.clientId = clientId;
         this.buffId = buffId;
-        this.buff = buff;
-        this.value = value;
+        this.buffSEE = buffSEE;
     }
 
     public override NetProtocols GetProtocol()
@@ -27,8 +25,7 @@
         base.Serialize(writer);
         writer.WriteSInt32(clientId);
         writer.WriteSInt32(buffId);
-        buff.Serialize(writer);
-        writer.WriteSInt32(value);
+        buffSEE.Serialize(writer);
     }
 
     public override void Deserialize(DataStream reader)
@@ -36,8 +33,7 @@
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
         buffId = reader.ReadSInt32();
-        buff = SideEffectExecute.Deserialze(reader);
-        value = reader.ReadSInt32();
+        buffSEE = SideEffectExecute.Deserialze(reader);
     }
 
 }

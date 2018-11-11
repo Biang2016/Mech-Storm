@@ -327,12 +327,20 @@ public class StoryCol : PoolObject
         LevelIDText.text = levelInfo.LevelID.ToString();
         LevelNumText.text = "Level " + levelInfo.LevelNum;
 
+
         for (int i = 0; i < bossCount; i++)
         {
             StoryLevelButton slb = GameObjectPoolManager.Instance.Pool_StoryLevelButtonPool.AllocateGameObject<StoryLevelButton>(transform);
             slb.Initialize();
             slb.M_CurrentLevelID = levelInfo.LevelID;
             StoryLevelButtons.Add(slb);
+            foreach (Boss boss in levelInfo.Bosses.Values)
+            {
+                if (levelInfo.Bosses.Count == 1 && boss.Name == "Boss")
+                {
+                    slb.M_StoryLevelType = StoryLevelType.Boss;
+                }
+            }
         }
 
         for (int i = 0; i < 3; i++)

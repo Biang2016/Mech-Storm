@@ -1,7 +1,14 @@
-﻿public class DamageOne_Base : TargetSideEffect, IEffectFactor, IDamage
+﻿using System.Collections.Generic;
+
+public class DamageOne_Base : TargetSideEffect, IEffectFactor, IDamage
 {
-    public int Value;
+    public SideEffectValue Value = new SideEffectValue(0);
     private int factor = 1;
+
+    public List<SideEffectValue> Values
+    {
+        get { return new List<SideEffectValue> {Value}; }
+    }
 
     public int GetFactor()
     {
@@ -15,7 +22,7 @@
 
     public int FinalValue
     {
-        get { return Value * GetFactor(); }
+        get { return Value.Value * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
@@ -26,13 +33,13 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(Value);
+        writer.WriteSInt32(Value.Value);
     }
 
     protected override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        Value = reader.ReadSInt32();
+        Value.Value = reader.ReadSInt32();
     }
 
     public int CalculateDamage()
@@ -43,7 +50,7 @@
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
-        ((DamageOne_Base) copy).Value = Value;
+        ((DamageOne_Base) copy).Value = Value.Clone();
         ((DamageOne_Base) copy).SetFactor(GetFactor());
     }
 }

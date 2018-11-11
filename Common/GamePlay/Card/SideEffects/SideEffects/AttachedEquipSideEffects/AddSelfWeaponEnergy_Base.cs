@@ -1,7 +1,16 @@
-﻿public class AddSelfWeaponEnergy_Base : AttachedEquipSideEffects, IEffectFactor
+﻿using System.Collections.Generic;
+
+public class AddSelfWeaponEnergy_Base : AttachedEquipSideEffects, IEffectFactor
 {
-    public int RetinueID;
+    public SideEffectValue Value = new SideEffectValue(0);
+
+    public List<SideEffectValue> Values
+    {
+        get { return new List<SideEffectValue> {Value}; }
+    }
+
     private int factor = 1;
+    public int RetinueID;
 
     public int GetFactor()
     {
@@ -15,10 +24,9 @@
 
     public int FinalValue
     {
-        get { return Value * GetFactor(); }
+        get { return Value.Value * GetFactor(); }
     }
 
-    public int Value;
 
     public override string GenerateDesc(bool isEnglish)
     {
@@ -29,14 +37,14 @@
     {
         base.Serialize(writer);
         writer.WriteSInt32(RetinueID);
-        writer.WriteSInt32(Value);
+        writer.WriteSInt32(Value.Value);
     }
 
     protected override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         RetinueID = reader.ReadSInt32();
-        Value = reader.ReadSInt32();
+        Value.Value = reader.ReadSInt32();
     }
 
 
@@ -44,7 +52,7 @@
     {
         base.CloneParams(copy);
         ((AddSelfWeaponEnergy_Base) copy).RetinueID = RetinueID;
-        ((AddSelfWeaponEnergy_Base) copy).Value = Value;
+        ((AddSelfWeaponEnergy_Base) copy).Value = Value.Clone();
         ((AddSelfWeaponEnergy_Base) copy).SetFactor(GetFactor());
     }
 }

@@ -4,7 +4,7 @@ using System.IO;
 
 class ServerConsole
 {
-    public static DEVELOP Platform = DEVELOP.TEST;
+    public static DEVELOP Platform = DEVELOP.DEVELOP;
 
     public enum DEVELOP
     {
@@ -15,6 +15,11 @@ class ServerConsole
 
     static void Main(string[] args)
     {
+        StreamReader sr = new StreamReader("./Config/ServerSwitch.txt");
+        string platform = sr.ReadToEnd().TrimEnd("\n ".ToCharArray());
+        sr.Close();
+        Platform = (DEVELOP) Enum.Parse(typeof(DEVELOP), platform);
+
         switch (Platform)
         {
             case DEVELOP.DEVELOP:
@@ -30,19 +35,19 @@ class ServerConsole
 
                 Utils.CopyDirectory("../../../Client/Assets/StreamingAssets/Config", "./Config/");
                 Utils.CopyDirectory("../../Config", "./Config/");
-               
-                ServerLog.Print("DEVELOP");
+
+                ServerLog.Print("DEVELOP SERVER");
                 break;
             }
             case DEVELOP.TEST:
             {
-                ServerLog.Print("TEST");
+                ServerLog.Print("TEST SERVER");
                 Server.SV = new Server("127.0.0.1", 9999);
                 break;
             }
             case DEVELOP.FORMAL:
             {
-                ServerLog.Print("FORMAL");
+                ServerLog.Print("FORMAL SERVER");
                 Server.SV = new Server("95.169.26.10", 9999);
                 break;
             }

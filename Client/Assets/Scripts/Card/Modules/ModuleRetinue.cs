@@ -195,9 +195,20 @@ public class ModuleRetinue : ModuleBase
         isInitializing = false;
 
         M_ClientTempRetinueID = -1;
-        SniperTipText.enabled = false;
+
         CanAttack = false;
         MA_BG.SetActive(false);
+
+        ImmuneIcon.SetActive(false);
+        InactivityIcon.SetActive(false);
+
+        RetinueTargetPreviewAnim.SetTrigger("BeginTarget");
+        RetinueTargetPreviewAnim.SetTrigger("EndTarget");
+        RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
+        RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
+        DefenceText.enabled = false;
+        SniperTipText.enabled = false;
+        SniperTargetImage.enabled = false;
 
         IsDead = false;
     }
@@ -245,6 +256,54 @@ public class ModuleRetinue : ModuleBase
     {
         get { return m_ClientTempRetinueID; }
         set { m_ClientTempRetinueID = value; }
+    }
+
+
+    [SerializeField] private GameObject ImmuneIcon;
+    [SerializeField] private Text ImmuneCountText;
+
+    private int m_ImmuneLeftRounds = 0;
+
+    public int M_ImmuneLeftRounds
+    {
+        get { return m_ImmuneLeftRounds; }
+        set
+        {
+            m_ImmuneLeftRounds = value;
+            if (m_ImmuneLeftRounds != 0)
+            {
+                ImmuneIcon.SetActive(true);
+                ImmuneCountText.text = m_ImmuneLeftRounds.ToString();
+            }
+            else
+            {
+                ImmuneIcon.SetActive(false);
+            }
+        }
+    }
+
+    [SerializeField] private GameObject InactivityIcon;
+    [SerializeField] private Text InactivityCountText;
+
+    private int m_InactivityRounds = 0;
+
+
+    public int M_InactivityRounds
+    {
+        get { return m_InactivityRounds; }
+        set
+        {
+            m_InactivityRounds = value;
+            if (m_InactivityRounds != 0)
+            {
+                InactivityIcon.SetActive(true);
+                InactivityCountText.text = m_InactivityRounds.ToString();
+            }
+            else
+            {
+                InactivityIcon.SetActive(false);
+            }
+        }
     }
 
     private string m_RetinueName;

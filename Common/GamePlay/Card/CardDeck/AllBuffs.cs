@@ -53,6 +53,7 @@ public static class AllBuffs
             se.HasNumberShow = sideEffectNode.Attributes["HasNumberShow"].Value == "True";
             se.CanPiled = sideEffectNode.Attributes["CanPiled"].Value == "True";
             se.Singleton = sideEffectNode.Attributes["Singleton"].Value == "True";
+            se.PiledBy = (PlayerBuffSideEffects.BuffPiledBy) Enum.Parse(typeof(PlayerBuffSideEffects.BuffPiledBy), sideEffectNode.Attributes["PiledBy"].Value);
 
             se.TriggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), sideEffectNode.Attributes["TriggerTime"].Value);
             se.TriggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), sideEffectNode.Attributes["TriggerRange"].Value);

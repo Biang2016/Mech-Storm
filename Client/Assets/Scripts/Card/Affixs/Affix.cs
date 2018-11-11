@@ -58,6 +58,8 @@ public class Affix : PoolObject
             {AffixType.SniperGun, SniperGunColor},
 
             {AffixType.Disposable, AttackColor},
+            {AffixType.Immune, FrenzyColor},
+            {AffixType.Inactivity, ShieldColor},
         };
     }
 
@@ -103,6 +105,8 @@ public class Affix : PoolObject
         {AffixType.SniperGun, "狙击枪"},
 
         {AffixType.Disposable, "移除"},
+        {AffixType.Immune, "免疫"},
+        {AffixType.Inactivity, "失能"},
     };
 
     private static Dictionary<AffixType, string> AffixNameDict_en = new Dictionary<AffixType, string>
@@ -129,6 +133,8 @@ public class Affix : PoolObject
         {AffixType.SniperGun, "SniperGun"},
 
         {AffixType.Disposable, "Disposable"},
+        {AffixType.Immune, "Immune"},
+        {AffixType.Inactivity, "Inactivity"},
     };
 
 
@@ -156,6 +162,8 @@ public class Affix : PoolObject
         {AffixType.SniperGun, "狙击枪只能装备在具有狙击属性的机甲上，可攻击任意敌方角色"},
 
         {AffixType.Disposable, "使用一次后就移出战斗"},
+        {AffixType.Immune, "免疫所有伤害，若干回合后失效"},
+        {AffixType.Inactivity, "无法进行主动攻击"},
     };
 
     private static Dictionary<AffixType, string> AffixDescDict_en = new Dictionary<AffixType, string>
@@ -182,6 +190,8 @@ public class Affix : PoolObject
         {AffixType.SniperGun, "Only equipped on the Sniper mechs. Can attack any enemy and ship."},
 
         {AffixType.Disposable, "Cannot be recycled to the deck again."},
+        {AffixType.Immune, "Immune to all damage, which lasts for some rounds."},
+        {AffixType.Inactivity, "Cannot attack actively."},
     };
 }
 
@@ -210,4 +220,6 @@ public enum AffixType
     SniperGun,
 
     Disposable,
+    Immune,
+    Inactivity,
 }

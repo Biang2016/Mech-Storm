@@ -120,7 +120,7 @@ internal class BonusButton : PoolObject
     {
         if (card)
         {
-            AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {card.CardInfo});
+            AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {card.CardInfo}, null);
         }
 
         if (IsSelected) return;

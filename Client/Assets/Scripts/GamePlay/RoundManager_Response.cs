@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 
-internal partial class RoundManager
+public partial class RoundManager
 {
     public void OnGameStopByLeave(GameStopByLeaveRequest r)
     {
@@ -196,6 +196,16 @@ internal partial class RoundManager
             case NetProtocols.SE_RETINUE_CANATTACK:
             {
                 OnRetinueCanAttackChange((RetinueCanAttackRequest) r);
+                break;
+            }
+            case NetProtocols.SE_RETINUE_IMMUNE:
+            {
+                OnRetinueImmuneChange((RetinueImmuneStateRequest) r);
+                break;
+            }
+            case NetProtocols.SE_RETINUE_INACTIVITY:
+            {
+                OnRetinueInactivityChange((RetinueInactivityStateRequest) r);
                 break;
             }
             case NetProtocols.SE_RETINUE_ONATTACK:
@@ -401,7 +411,7 @@ internal partial class RoundManager
     private void OnUpdatePlayerBuff(PlayerBuffUpdateRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyPlayerBuffManager.UpdatePlayerBuff(r.buff, r.buffId, r.value);
+        cp.MyPlayerBuffManager.UpdatePlayerBuff(r.buffSEE, r.buffId);
     }
 
     private void OnRemovePlayerBuff(PlayerBuffRemoveRequest r)
@@ -517,6 +527,20 @@ internal partial class RoundManager
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
         retinue.SetCanAttack(r.canAttack);
+    }
+
+    private void OnRetinueImmuneChange(RetinueImmuneStateRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        retinue.M_ImmuneLeftRounds = r.immuneRounds;
+    }
+
+    private void OnRetinueInactivityChange(RetinueInactivityStateRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        retinue.M_InactivityRounds = r.inactivityRounds;
     }
 
     private void OnRetinueOnAttack(RetinueOnAttackRequest r)

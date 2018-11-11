@@ -16,48 +16,32 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         WinLostCanvas.enabled = false;
         WinText.text = GameManager.Instance.IsEnglish ? "You win!" : "你赢了！";
         LostText.text = GameManager.Instance.IsEnglish ? "You lost ..." : "你输了...";
-        OnlineWinText.text = GameManager.Instance.IsEnglish ? "You lost ..." : "你输了...";
+        OnlineWinText.text = GameManager.Instance.IsEnglish ? "You win!" : "你赢了！";
         OnlineLostText.text = GameManager.Instance.IsEnglish ? "You lost ..." : "你输了...";
         LostTipTitle.text = GameManager.Instance.IsEnglish ? "Tips: " : "提示: ";
         RewardsTitleText.text = GameManager.Instance.IsEnglish ? "Rewards" : "奖励";
         NoRewardText.text = GameManager.Instance.IsEnglish ? "The designer is so mean that here isn't any reward." : "设计师是个吝啬鬼，这里没有任何奖励";
         FixedBonusText.text = GameManager.Instance.IsEnglish ? "Fixed Bonus" : "固定\n奖励";
+        ConfirmButtonText.text = GameManager.Instance.IsEnglish ? "Confirm" : "确认";
+        GoAheadButtonText.text = GameManager.Instance.IsEnglish ? "Go ahead" : "继续游戏";
+        CardUpgradeUnlockText.text = GameManager.Instance.IsEnglish ? "Card Upgraded!" : "卡片升级!";
+        CardUpgradeUnlockDescText.text = GameManager.Instance.IsEnglish ? "You can upgrade this card in your deck now." : "现在可以在牌库中升级该卡片了!";
     }
 
+
+    #region  Common
+
+    public bool IsShow = false;
     [SerializeField] private Canvas WinLostCanvas;
     [SerializeField] private Animator PanelAnimator;
-
-    [SerializeField] private GameObject WinContent;
-    [SerializeField] private Text WinText;
-    [SerializeField] private Text RewardsTitleText;
-    [SerializeField] private Text SelectTipText;
-    [SerializeField] private Transform BonusButtonContainer;
-    public List<BonusButton> M_CurrentBonusButtons = new List<BonusButton>();
-    private List<SmallBonusItem> M_CurrentFixedBonusItems = new List<SmallBonusItem>();
-    [SerializeField] private Text NoRewardText;
-    [SerializeField] private Text FixedBonusText;
-    [SerializeField] private Transform FixedBonusContainer;
-    [SerializeField] private Transform CardPreviewContainer;
-    [SerializeField] private Transform CardRotationSample;
-    [SerializeField] private Animator CardPreviewContainerAnim;
-
-    [SerializeField] private GameObject LostContent;
-    [SerializeField] private Text LostText;
-    [SerializeField] private Text LostTipTitle;
-    [SerializeField] private Text LostTipText;
 
     [SerializeField] private GameObject OnlineResultContent;
     [SerializeField] private Text OnlineWinText;
     [SerializeField] private Text OnlineLostText;
 
-    private List<BonusGroup> AlwaysBonusGroup;
-    private List<BonusGroup> OptionalBonusGroup;
-    public bool IsShow = false;
-
-
     public void Reset()
     {
-        if (RoundManager.Instance.isSingleBattle)
+        if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
         {
             foreach (BonusButton bb in M_CurrentBonusButtons)
             {
@@ -81,17 +65,76 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
 
             OnConfirmButtonClickHandler = null;
             WinContent.SetActive(true);
-            OnlineResultContent.SetActive(false);
+
+            ResetCardUpgradeShowPanel();
         }
+
+        CardUpgradeUnlockContent.SetActive(false);
+        OnlineResultContent.SetActive(false);
     }
+
+    IEnumerator Co_OnGameStopByWin(bool isWin)
+    {
+        IsShow = true;
+        if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show_ReadOnly) SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
+        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
+        WinLostCanvas.enabled = true;
+        AudioManager.Instance.BGMStop();
+        if (isWin)
+        {
+            PanelAnimator.SetTrigger("Show");
+            AudioManager.Instance.SoundPlay("sfx/Victory");
+        }
+        else
+        {
+            AudioManager.Instance.SoundPlay("sfx/Lose");
+        }
+
+        PanelAnimator.SetTrigger("Show");
+        GameManager.Instance.StartBlurBackGround();
+        yield return null;
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+    }
+
+    public void EndWinLostPanel()
+    {
+        PanelAnimator.SetTrigger("Hide");
+        GameManager.Instance.StopBlurBackGround();
+        RoundManager.Instance.OnGameStop();
+        Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
+        WinLostCanvas.enabled = false;
+        IsShow = false;
+        Reset();
+    }
+
+    #endregion
+
+    #region Win
+
+    [SerializeField] private GameObject WinContent;
+    [SerializeField] private Text WinText;
+    [SerializeField] private Text RewardsTitleText;
+    [SerializeField] private Text SelectTipText;
+    [SerializeField] private Transform BonusButtonContainer;
+    public List<BonusButton> M_CurrentBonusButtons = new List<BonusButton>();
+    private List<SmallBonusItem> M_CurrentFixedBonusItems = new List<SmallBonusItem>();
+    [SerializeField] private Text NoRewardText;
+    [SerializeField] private Text FixedBonusText;
+    [SerializeField] private Transform FixedBonusContainer;
+    [SerializeField] private Transform CardPreviewContainer;
+    [SerializeField] private Transform CardRotationSample;
+    [SerializeField] private Animator CardPreviewContainerAnim;
+    [SerializeField] private Text ConfirmButtonText;
+    private List<BonusGroup> AlwaysBonusGroup;
+    private List<BonusGroup> OptionalBonusGroup;
 
     public void WinGame()
     {
         LostContent.SetActive(false);
+        Reset();
 
-        if (RoundManager.Instance.isSingleBattle)
+        if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
         {
-            Reset();
             SelectBuildManager.Instance.ResetStoryBonusInfo();
 
             AlwaysBonusGroup = StoryManager.Instance.GetCurrentBonusGroup(false); //Always要执行，因为如果Always里面解锁了某些卡片，则要去掉避免重复
@@ -131,15 +174,29 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnGameStopByWin(true), "Co_OnGameStopByWin");
     }
 
+    #endregion
+
+
+    #region Lost
+
+    [SerializeField] private GameObject LostContent;
+    [SerializeField] private Text LostText;
+    [SerializeField] private Text LostTipTitle;
+    [SerializeField] private Text LostTipText;
+    [SerializeField] private Text GoAheadButtonText;
+
     public void LostGame()
     {
+        Reset();
         WinContent.SetActive(false);
-        if (RoundManager.Instance.isSingleBattle)
+        if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
         {
             foreach (BonusButton bb in M_CurrentBonusButtons)
             {
                 bb.PoolRecycle();
             }
+
+            SelectBuildManager.Instance.ResetStoryBonusInfo();
 
             M_CurrentBonusButtons.Clear();
             LostContent.SetActive(true);
@@ -164,39 +221,34 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnGameStopByWin(false), "Co_OnGameStopByWin");
     }
 
-    IEnumerator Co_OnGameStopByWin(bool isWin)
+    public void OnGoAheadButtonClick()
     {
-        IsShow = true;
-        if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show_ReadOnly) SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
-        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
-        WinLostCanvas.enabled = true;
-        AudioManager.Instance.BGMStop();
-        if (isWin)
-        {
-            PanelAnimator.SetTrigger("Show");
-            AudioManager.Instance.SoundPlay("sfx/Victory");
-        }
-        else
-        {
-            AudioManager.Instance.SoundPlay("sfx/Lose");
-        }
-
-        PanelAnimator.SetTrigger("Show");
-        GameManager.Instance.StartBlurBackGround();
-        yield return null;
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
+        EndWinLostPanel();
     }
 
-    public void EndWinLostPanel()
+    private static Dictionary<bool, List<string>> LostTips = new Dictionary<bool, List<string>>
     {
-        PanelAnimator.SetTrigger("Hide");
-        GameManager.Instance.StopBlurBackGround();
-        RoundManager.Instance.OnGameStop();
-        Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
-        WinLostCanvas.enabled = false;
-        IsShow = false;
-        Reset();
-    }
+        {
+            true, new List<string>
+            {
+                "Don't take too many useless cards, which would dilute your deck and decrease the chance to draw powerful cards.",
+                "Lost? Nerver mind! Go to buy some powerful cards. And spare more budget on adding your life.",
+                "Getting cards slowly? Try to increase the number of draw cards per round in the deck window.",
+            }
+        },
+        {
+            false, new List<string>
+            {
+                "没有用的卡牌不要拿太多哦~ 那样会稀释你的牌库，减少抽到好牌的概率",
+                "太容易被击败? 尝试着花费更多预算来提高你的生命值吧! 就在选牌窗口哦~",
+                "抽牌太少? 去选牌窗口里调整每回合抽牌数吧!",
+                "不同的卡牌有不同的选牌上限~ 通常只能携带少量的强力卡牌",
+            }
+        }
+    };
+
+    #endregion
+
 
     public void SetBonusButtonSelected(BonusButton bonusButton)
     {
@@ -222,9 +274,11 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         else
         {
             SendAlwaysBonusRequest();
-            EndWinLostPanel();
+            ShowCardsUpgrade();
         }
     }
+
+    #region Bonus
 
     private void SendAlwaysBonusRequest()
     {
@@ -285,24 +339,120 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         }
     }
 
-    private static Dictionary<bool, List<string>> LostTips = new Dictionary<bool, List<string>>
+    #endregion
+
+    #region CardUpgradeUnlock
+
+    [SerializeField] private GameObject CardUpgradeUnlockContent;
+
+    [SerializeField] private Animator CardUpgradeUnlockAnim;
+
+    [SerializeField] private Text CardUpgradeUnlockText;
+    [SerializeField] private Text CardUpgradeUnlockDescText;
+
+    [SerializeField] private Transform CardUpgradeUnlockCardContainter;
+    [SerializeField] private Transform CardUpgradeUnlockCardSample;
+
+    [SerializeField] private Transform CardUpgradeUnlockCardContainter_Upgrade;
+    [SerializeField] private Transform CardUpgradeUnlockCardSample_Upgrade;
+
+    private CardBase Cur_BaseCard;
+    private CardBase Cur_UpgradeCard;
+    private bool isBeginCardUpgradeShow = false; //是否正在展示中
+    private bool isOneCardUpgradeShowOver = false; //一个展示是否结束
+    private bool isMouseClickSkip = false;
+
+    private void ResetCardUpgradeShowPanel()
     {
+        if (Cur_BaseCard != null) Cur_BaseCard.PoolRecycle();
+        if (Cur_UpgradeCard != null) Cur_UpgradeCard.PoolRecycle();
+        isBeginCardUpgradeShow = false;
+        isOneCardUpgradeShowOver = false;
+        isMouseClickSkip = false;
+        CardUpgradeUnlockContent.SetActive(false);
+        Cur_BaseCard = null;
+        Cur_UpgradeCard = null;
+    }
+
+    private void ShowCardsUpgrade()
+    {
+        StartCoroutine(Co_ShowCardsUpgrade());
+    }
+
+    IEnumerator Co_ShowCardsUpgrade()
+    {
+        WinContent.SetActive(false);
+        CardUpgradeUnlockContent.SetActive(true);
+        isBeginCardUpgradeShow = true;
+        if (StoryManager.Instance.IsThisLevelNumberUp)
         {
-            true, new List<string>
+            foreach (int cardID in StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs)
             {
-                "Don't take too many useless cards, which would dilute your deck and decrease the change to draw powerful cards.",
-                "Lost? Nerver mind! Go to buy some powerful cards. And spare more budget on adding your life.",
-                "Getting cards slowly? Try to increase the number of draw cards per round in the deck window.",
-            }
-        },
-        {
-            false, new List<string>
-            {
-                "没有用的卡牌不要拿太多哦~ 那样会稀释你的牌库，减少抽到好牌的概率",
-                "太容易被击败? 尝试着花费更多预算来提高你的生命值吧! 就在选牌窗口哦~",
-                "抽牌太少? 去选牌窗口里调整每回合抽牌数吧!",
-                "不同的卡牌有不同的选牌上限~ 通常只能携带少量的强力卡牌",
+                CardInfo_Base cb = AllCards.GetCard(cardID);
+                if (cb.UpgradeInfo.UpgradeCardID != -1)
+                {
+                    CardInfo_Base cb_upgrade = AllCards.GetCard(cb.UpgradeInfo.UpgradeCardID);
+                    if (cb_upgrade.BaseInfo.CardRareLevel == StoryManager.Instance.Conquered_LevelNum)
+                    {
+                        yield return Co_UnlockCardShowOne(cb.CardID, cb.UpgradeInfo.UpgradeCardID);
+                    }
+                }
             }
         }
-    };
+
+        isBeginCardUpgradeShow = false;
+        CardUpgradeUnlockAnim.SetTrigger("Reset");
+        EndWinLostPanel();
+    }
+
+
+    IEnumerator Co_UnlockCardShowOne(int baseCardID, int upgradeCardID)
+    {
+        if (Cur_BaseCard != null) Cur_BaseCard.PoolRecycle();
+        if (Cur_UpgradeCard != null) Cur_UpgradeCard.PoolRecycle();
+        isOneCardUpgradeShowOver = false;
+        Cur_BaseCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(baseCardID), CardUpgradeUnlockCardContainter, RoundManager.Instance.SelfClientPlayer, false);
+        Cur_BaseCard.transform.position = CardUpgradeUnlockCardSample.position;
+        Cur_BaseCard.transform.rotation = CardUpgradeUnlockCardSample.rotation;
+        Cur_BaseCard.transform.localScale = CardUpgradeUnlockCardSample.localScale;
+        Cur_BaseCard.SetOrderInLayer(20);
+        Cur_BaseCard.BeBrightColor();
+        Cur_BaseCard.SetBonusCardBloom(true);
+        Cur_UpgradeCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(upgradeCardID), CardUpgradeUnlockCardContainter_Upgrade, RoundManager.Instance.SelfClientPlayer, false);
+        Cur_UpgradeCard.transform.position = CardUpgradeUnlockCardSample_Upgrade.position;
+        Cur_UpgradeCard.transform.rotation = CardUpgradeUnlockCardSample_Upgrade.rotation;
+        Cur_UpgradeCard.transform.localScale = CardUpgradeUnlockCardSample_Upgrade.localScale;
+        Cur_UpgradeCard.SetOrderInLayer(19);
+        Cur_UpgradeCard.BeBrightColor();
+        Cur_UpgradeCard.SetBonusCardBloom(true);
+
+        CardUpgradeUnlockAnim.speed = 3;
+        CardUpgradeUnlockAnim.SetTrigger("Jump");
+        AudioManager.Instance.SoundPlay("sfx/OnCardUpgradeShow");
+        yield return new WaitForSeconds(1f);
+        isOneCardUpgradeShowOver = true;
+
+        while (true)
+        {
+            if (isMouseClickSkip)
+            {
+                isMouseClickSkip = false;
+                break;
+            }
+
+            yield return null;
+        }
+
+        isOneCardUpgradeShowOver = true;
+    }
+
+    void Update()
+    {
+        if (isBeginCardUpgradeShow && Input.GetMouseButtonUp(0))
+        {
+            if (isOneCardUpgradeShowOver) isMouseClickSkip = true;
+        }
+    }
+
+    #endregion
 }

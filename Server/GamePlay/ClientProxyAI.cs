@@ -13,6 +13,7 @@ internal class ClientProxyAI : ClientProxy
 {
     public int LevelID;
     public int BossPicID;
+    public bool IsStoryMode = false;
 
     public override ClientStates ClientState
     {
@@ -26,6 +27,7 @@ internal class ClientProxyAI : ClientProxy
         ClientState = ClientStates.GetId;
         SendMessage(request);
 
+        IsStoryMode = levelID != -1 && bossPicID != -1;
         LevelID = levelID;
         BossPicID = bossPicID;
     }

@@ -66,6 +66,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
         MainboardEmissionIntensity = CardInfo.GetCardColorIntensity();
         ChangeColor(ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()));
         Stars = cardInfo.UpgradeInfo.CardLevel;
+        BeBrightColor();
     }
 
     #region 各模块
@@ -281,7 +282,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
         if (detailCard_Shield != null) cardInfos.Add(detailCard_Shield.CardInfo);
         if (detailCard_Pack != null) cardInfos.Add(detailCard_Pack.CardInfo);
         if (detailCard_MA != null) cardInfos.Add(detailCard_MA.CardInfo);
-        AffixManager.Instance.ShowAffixTips(cardInfos);
+        AffixManager.Instance.ShowAffixTips(cardInfos, this is ModuleRetinue ? new List<ModuleRetinue> {(ModuleRetinue) this} : null);
     }
 
     private void HideCardDetail()

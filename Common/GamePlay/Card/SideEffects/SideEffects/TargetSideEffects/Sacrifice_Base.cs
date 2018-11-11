@@ -1,8 +1,16 @@
-﻿public class Sacrifice_Base : TargetSideEffect, IEffectFactor, IDamage
+﻿using System.Collections.Generic;
+
+public class Sacrifice_Base : TargetSideEffect, IEffectFactor, IDamage
 {
-    public int ValueBasic;
-    public int ValuePlus;
+    public List<SideEffectValue> Values
+    {
+        get { return new List<SideEffectValue> {ValueBasic, ValuePlus}; }
+    }
+
+    public SideEffectValue ValueBasic = new SideEffectValue(0);
+    public SideEffectValue ValuePlus = new SideEffectValue(0);
     private int factor = 1;
+
 
     public int GetFactor()
     {
@@ -16,12 +24,12 @@
 
     public int FinalValueBasic
     {
-        get { return ValueBasic * GetFactor(); }
+        get { return ValueBasic.Value * GetFactor(); }
     }
 
     public int FinalValuePlus
     {
-        get { return ValuePlus * GetFactor(); }
+        get { return ValuePlus.Value * GetFactor(); }
     }
 
     public override string GenerateDesc(bool isEnglish)
@@ -32,15 +40,15 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(ValueBasic);
-        writer.WriteSInt32(ValuePlus);
+        writer.WriteSInt32(ValueBasic.Value);
+        writer.WriteSInt32(ValuePlus.Value);
     }
 
     protected override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        ValueBasic = reader.ReadSInt32();
-        ValuePlus = reader.ReadSInt32();
+        ValueBasic.Value = reader.ReadSInt32();
+        ValuePlus.Value = reader.ReadSInt32();
     }
 
     public int CalculateDamage()
@@ -52,8 +60,8 @@
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
-        ((Sacrifice_Base) copy).ValueBasic = ValueBasic;
-        ((Sacrifice_Base) copy).ValuePlus = ValuePlus;
+        ((Sacrifice_Base) copy).ValueBasic = ValueBasic.Clone();
+        ((Sacrifice_Base) copy).ValuePlus = ValuePlus.Clone();
         ((Sacrifice_Base) copy).SetFactor(GetFactor());
     }
 }

@@ -50,7 +50,7 @@ internal class BonusItem_Base : PoolObject
     {
         if (BonusCardInfo != null)
         {
-            AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {BonusCardInfo});
+            AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {BonusCardInfo}, null);
         }
     }
 

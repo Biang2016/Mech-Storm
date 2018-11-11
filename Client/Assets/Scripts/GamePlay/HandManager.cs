@@ -538,7 +538,7 @@ public class HandManager : MonoBehaviour
                 currentFocusCardTicker = 0;
                 if (CurrentFocusCard)
                 {
-                    AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {CurrentFocusCard.CardInfo});
+                    AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {CurrentFocusCard.CardInfo}, null);
                 }
 
                 currentFocusCardTickerBegin = false;
@@ -557,7 +557,7 @@ public class HandManager : MonoBehaviour
 
     private void UpdateHandCardCountTicker()
     {
-        if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Hide)
+        if (WinLostPanelManager.Instance.IsShow)
         {
             handCardCountTicker = 0;
         }

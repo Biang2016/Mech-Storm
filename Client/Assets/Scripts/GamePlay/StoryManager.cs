@@ -102,7 +102,7 @@ public class StoryManager : MonoSingleton<StoryManager>
     IEnumerator Co_SetStoryScrollPlace()
     {
         yield return new WaitForSeconds(0.1f);
-        Instance.StoryScrollRect.horizontalNormalizedPosition = (float) Current_LevelID / M_CurrentStory.Levels.Count;
+        Instance.StoryScrollRect.horizontalNormalizedPosition = (float) Fighting_LevelID / M_CurrentStory.Levels.Count;
         yield return null;
     }
 
@@ -119,11 +119,36 @@ public class StoryManager : MonoSingleton<StoryManager>
 
 
     public Story M_CurrentStory = null;
-    public int Current_LevelID;
-    public int Current_BossPicID;
+    public int Fighting_LevelID;
+    public int Fighting_BossPicID;
+    public int Current_LevelNum; //目前正在打的这关的等级
+    public int Conquered_LevelNum = -1; //已经征服的等级
+
+    public bool IsThisLevelNumberUp
+    {
+        get
+        {
+            Level curLevel = M_CurrentStory.Levels[Fighting_LevelID];
+            if (!IsFightingLevelFinalLevel)
+            {
+                Level nextLevel = M_CurrentStory.Levels[Fighting_LevelID + 1];
+                return curLevel.LevelNum < nextLevel.LevelNum;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    public bool IsFightingLevelFinalLevel
+    {
+        get { return M_CurrentStory.Levels.Count == Fighting_LevelID + 1; }
+    }
 
     public void InitiateStoryCanvas(Story story)
     {
+        Conquered_LevelNum = -1;
         AllCards.ResetCardLevelDictRemain(story.PlayerCurrentUnlockedBuildInfo.CardIDs); //重置解锁卡牌字典
         foreach (StoryCol sc in LevelCols.Values)
         {
@@ -189,8 +214,8 @@ public class StoryManager : MonoSingleton<StoryManager>
     public List<BonusGroup> GetCurrentBonusGroup(bool isOptional)
     {
         List<BonusGroup> bgs;
-        List<BonusGroup> bgs_opt = M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossPicID].OptionalBonusGroup;
-        List<BonusGroup> bgs_alw = M_CurrentStory.Levels[Current_LevelID].Bosses[Current_BossPicID].AlwaysBonusGroup;
+        List<BonusGroup> bgs_opt = M_CurrentStory.Levels[Fighting_LevelID].Bosses[Fighting_BossPicID].OptionalBonusGroup;
+        List<BonusGroup> bgs_alw = M_CurrentStory.Levels[Fighting_LevelID].Bosses[Fighting_BossPicID].AlwaysBonusGroup;
 
         List<BonusGroup> removeBgs = new List<BonusGroup>();
 
@@ -278,6 +303,16 @@ public class StoryManager : MonoSingleton<StoryManager>
 
             LevelCols[levelID - 1].SetLink_HL_Show(lastBeatBossIndex, beatBossIndex);
         }
+
+        Current_LevelNum = M_CurrentStory.Levels[levelID].LevelNum;
+        if (levelID < M_CurrentStory.Levels.Count - 1)
+        {
+            int tempLevelNum = M_CurrentStory.Levels[levelID + 1].LevelNum;
+            if (tempLevelNum > Current_LevelNum)
+            {
+                Conquered_LevelNum = tempLevelNum;
+            }
+        }
     }
 
     public void SetLevelKnown(int levelID, List<int> bossPicIDs)
@@ -288,6 +323,14 @@ public class StoryManager : MonoSingleton<StoryManager>
             int index = 0;
             foreach (StoryLevelButton button in sc.StoryLevelButtons)
             {
+                if (!sc.LevelInfo.Bosses.ContainsKey(bossPicIDs[index]))
+                {
+                    int a = 0;
+                }
+                foreach (KeyValuePair<int, Boss> kv in sc.LevelInfo.Bosses)
+                {
+                    Boss boss = kv.Value;
+                }
                 button.Initialize(sc.LevelInfo.Bosses[bossPicIDs[index]]);
                 index++;
             }

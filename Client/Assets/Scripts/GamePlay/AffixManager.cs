@@ -39,12 +39,23 @@ public class AffixManager : MonoSingleton<AffixManager>
     /// </summary>
     /// <param name="cardInfos"></param>
     /// <returns>是否显示</returns>
-    public bool ShowAffixTips(List<CardInfo_Base> cardInfos)
+    public bool ShowAffixTips(List<CardInfo_Base> cardInfos, List<ModuleRetinue> retinues)
     {
         HashSet<AffixType> affixTypes = new HashSet<AffixType>();
-        foreach (CardInfo_Base ci in cardInfos)
+        if (cardInfos != null)
         {
-            GetAffixTypeByCardInfo(affixTypes, ci);
+            foreach (CardInfo_Base ci in cardInfos)
+            {
+                GetAffixTypeByCardInfo(affixTypes, ci);
+            }
+        }
+
+        if (retinues != null)
+        {
+            foreach (ModuleRetinue retinue in retinues)
+            {
+                GetAffixTypeByRetinue(affixTypes, retinue);
+            }
         }
 
         ShowAffixPanel(affixTypes);
@@ -160,6 +171,19 @@ public class AffixManager : MonoSingleton<AffixManager>
             {
                 affixTypes.Add(AffixType.Dodge);
             }
+        }
+    }
+
+    private void GetAffixTypeByRetinue(HashSet<AffixType> affixTypes, ModuleRetinue retinue)
+    {
+        if (retinue.M_ImmuneLeftRounds != 0)
+        {
+            affixTypes.Add(AffixType.Immune);
+        }
+
+        if (retinue.M_InactivityRounds != 0)
+        {
+            affixTypes.Add(AffixType.Inactivity);
         }
     }
 
