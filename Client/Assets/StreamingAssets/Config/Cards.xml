@@ -731,7 +731,7 @@
     </CardInfo>
   </Card>
   <Card id="62201">
-    <CardInfo name="baseInfo" pictureID="628" cardName="虚空遗梦" cardName_en="Vacant Dream" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="400" effectFactor="1" limitNum="3" cardRareLevel="7" dragPurpose="Summon" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="628" cardName="虚空遗梦" cardName_en="Vacant Dream" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="400" effectFactor="1" limitNum="3" cardRareLevel="7" dragPurpose="Target" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="EnemyMechs" Value="5"></SideEffect>

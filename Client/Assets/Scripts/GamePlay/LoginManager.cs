@@ -27,15 +27,15 @@ public class LoginManager : MonoSingleton<LoginManager>
         RegisterText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         LoginText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
 
-        ServerDropdown.options[0] = new Dropdown.OptionData(GameManager.Instance.IsEnglish ? "Test Server" : "测试服");
-        ServerDropdown.options[1] = new Dropdown.OptionData(GameManager.Instance.IsEnglish ? "Formal Server" : "正式服");
+        ServerDropdown.options[1] = new Dropdown.OptionData(GameManager.Instance.IsEnglish ? "Test Server" : "测试服");
+        ServerDropdown.options[0] = new Dropdown.OptionData(GameManager.Instance.IsEnglish ? "Formal Server" : "正式服");
     }
 
     void Start()
     {
         M_StateMachine.SetState(StateMachine.States.Show);
         ServerDropdown.onValueChanged.AddListener(OnChangeServer);
-        NetworkManager.Instance.ConnectToTestServer();
+        NetworkManager.Instance.ConnectToFormalServer();
         UserNameInputField.ActivateInputField();
     }
 
@@ -180,10 +180,10 @@ public class LoginManager : MonoSingleton<LoginManager>
     {
         switch (value)
         {
-            case 0:
+            case 1:
                 NetworkManager.Instance.ConnectToTestServer();
                 break;
-            case 1:
+            case 0:
                 NetworkManager.Instance.ConnectToFormalServer();
                 break;
         }
