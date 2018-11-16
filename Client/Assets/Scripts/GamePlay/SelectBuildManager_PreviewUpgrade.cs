@@ -59,6 +59,34 @@ public partial class SelectBuildManager
     float normalCardPreviewDistance = 500f;
     float retinueCardPreviewDistance = 550f;
 
+    public void HideOtherThingsExceptShowCard()
+    {
+        if (PreviewCard)
+        {
+            PreviewCard.CoinImageBG.gameObject.SetActive(false);
+            DegradeArrow.enabled = false;
+            UpgradeArrow.enabled = false;
+            UpgradeCardButton.gameObject.SetActive(false);
+            DegradeCardButton.gameObject.SetActive(false);
+            AffixManager.Instance.HideAffixPanel();
+            if (PreviewCardDegrade)
+            {
+                PreviewCardDegrade.PoolRecycle();
+                PreviewCardDegrade.CoinImageBG.gameObject.SetActive(false);
+                DegradeCoin.enabled = false;
+                DegradeCoinText.enabled = false;
+            }
+
+            if (PreviewCardUpgrade)
+            {
+                PreviewCardUpgrade.PoolRecycle();
+                PreviewCardUpgrade.CoinImageBG.gameObject.SetActive(false);
+                UpgradeCoin.enabled = false;
+                UpgradeCoinText.enabled = false;
+            }
+        }
+    }
+
     private void RefreshPreviewCard()
     {
         if (PreviewCard)
