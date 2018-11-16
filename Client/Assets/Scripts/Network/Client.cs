@@ -27,6 +27,7 @@ public class Client : MonoSingleton<Client>
     public static bool IsMainThread
     {
         get { return Thread.CurrentThread.ManagedThreadId == mainThreadId; }
+    }
 
     void Awake()
     {

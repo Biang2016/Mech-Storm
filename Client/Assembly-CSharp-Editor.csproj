@@ -59,7 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\1.cs" />
+    <Compile Include="Assets\Editor\CardScreenShotEditor.cs" />
     <Compile Include="Assets\Editor\CardBaseEditor.cs" />
     <Compile Include="Assets\Editor\ModuleRetinueEditor.cs" />
     <Compile Include="Assets\Editor\NewEditorScript1.cs" />

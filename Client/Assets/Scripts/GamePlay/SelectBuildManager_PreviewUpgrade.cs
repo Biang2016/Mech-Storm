@@ -42,7 +42,7 @@ public partial class SelectBuildManager
         DegradeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
     }
 
-    private void ShowPreviewCardPanel(CardBase card)
+    public void ShowPreviewCardPanel(CardBase card)
     {
         HidePreviewCardPanel();
         PreviewCardOriginCardSelect = card;
