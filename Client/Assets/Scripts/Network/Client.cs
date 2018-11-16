@@ -21,9 +21,16 @@ public class Client : MonoSingleton<Client>
 
     public Proxy Proxy;
     Queue<ReceiveSocketData> receiveDataQueue = new Queue<ReceiveSocketData>();
+    static int mainThreadId;
+
+
+    public static bool IsMainThread
+    {
+        get { return Thread.CurrentThread.ManagedThreadId == mainThreadId; }
 
     void Awake()
     {
+        mainThreadId = Thread.CurrentThread.ManagedThreadId;
         OnRestartProtocols();
         OnRestartSideEffects();
     }
@@ -174,7 +181,7 @@ public class Client : MonoSingleton<Client>
             ServerSocket.Shutdown(SocketShutdown.Both);
             ClientLog.Instance.PrintError("[C]Socket close");
             ServerSocket.Close();
-            if (NoticeManager.Instance != null) NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Disconnected." : "已断开连接", 0f, 1.5f);
+            if (NoticeManager.Instance != null & IsMainThread) NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Disconnected." : "已断开连接", 0f, 1.5f);
             RoundManager.Instance.StopGame();
         }
 
