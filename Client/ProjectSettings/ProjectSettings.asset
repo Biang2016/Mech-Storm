@@ -14,8 +14,8 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: BiangStudio
   productName: Mechstorm
-  defaultCursor: {fileID: 0}
-  cursorHotspot: {x: 0, y: 0}
+  defaultCursor: {fileID: 2800000, guid: b3b96b3fc59680b45a42aed0ac20a1d2, type: 3}
+  cursorHotspot: {x: 19, y: 15}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
@@ -118,7 +118,7 @@ PlayerSettings:
   m_SupportedAspectRatios:
     4:3: 0
     5:4: 0
-    16:10: 0
+    16:10: 1
     16:9: 1
     Others: 0
   bundleVersion: 1.0
