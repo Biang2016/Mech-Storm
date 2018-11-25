@@ -31,7 +31,7 @@ public class CardScreenShotEditor : ScriptableObject
             GameObject.Destroy(rt);
 
             byte[] bytes = screenShot.EncodeToPNG();
-            string filename = Application.streamingAssetsPath + "/CardScreenShots/" + i + ".png";
+            string filename = Application.dataPath + "/CardScreenShots/" + i + ".png";
             System.IO.File.WriteAllBytes(filename, bytes);
             i++;
         }

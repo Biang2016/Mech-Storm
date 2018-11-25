@@ -24,6 +24,9 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
 
     void Awake()
     {
+        float screenScale = ((float)Screen.width / Screen.height) / (16.0f / 9.0f);
+        BattleShip.transform.localScale = Vector3.one * screenScale;
+
         BattleShip.SetActive(false);
 
         lastBGRenderer = GameBoarderRenderer0;

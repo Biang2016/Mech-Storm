@@ -35,7 +35,7 @@ public class
         LogMessages.Enqueue(log);
     }
 
-    private static StreamWriter sw;
+    //private static StreamWriter sw;
 
     public void DoPrint()
     {
