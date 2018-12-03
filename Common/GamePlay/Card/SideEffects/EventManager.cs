@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Ports;
 using System.Linq;
 
 public class EventManager
@@ -14,13 +13,18 @@ public class EventManager
         }
     }
 
-    //事件总表
+    /// <summary>
+    /// All events stored in this Dict
+    /// </summary>
     private SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>> Events = new SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>>();
 
-    //移除事件总表(如果触发则移除该SEE)
     private SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>> RemoveEvents = new SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>>();
 
 
+    /// <summary>
+    /// Cards, equipments, buffs register their sideeffects
+    /// </summary>
+    /// <param name="sideEffectBundle"></param>
     public void RegisterEvent(SideEffectBundle sideEffectBundle)
     {
         foreach (SideEffectExecute see in sideEffectBundle.SideEffectExecutes)
@@ -66,7 +70,14 @@ public class EventManager
         ObsoleteSEEs.Clear();
     }
 
-    public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo) //触发事件由位控制，触发所有对应位的事件
+    /// <summary>
+    /// When something happens in game, invoke events by TriggerTime enum.
+    /// Invoker info can be found in executerInfo.
+    /// TriggerTime enum is Flag. Master trigger can be triggered by Sub trigger -> e.g. OnHeroInjured also triggers OnRetinueInjured
+    /// </summary>
+    /// <param name="tt"></param>
+    /// <param name="executerInfo"></param>
+    public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo) 
     {
         foreach (SideEffectBundle.TriggerTime triggerTime in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
         {
@@ -76,14 +87,14 @@ public class EventManager
             }
         }
 
-        while (InvokeTriggerTimeQueue.Count > 0) //逐个处理
+        while (InvokeTriggerTimeQueue.Count > 0) //Dequeue every trigger time and invoke.
         {
             InvokeInfo invokeInfo = InvokeTriggerTimeQueue.Dequeue();
             InvokeCore(invokeInfo);
         }
 
-        RemoveAllUselessSEEs(); //移除所有失效的SE
-        OnEventInvokeEndHandler(); //可以发送数据包给客户端
+        RemoveAllUselessSEEs(); 
+        OnEventInvokeEndHandler(); //Ready to send data to client ends.
     }
 
     struct InvokeInfo
@@ -112,16 +123,15 @@ public class EventManager
         for (int i = 0; i < sees.Length; i++)
         {
             SideEffectExecute see = sees[i];
-            if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
+            if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent executed sideeffects from being executed again.
             if (seeDict.ContainsKey(see.ID))
             {
-                bool isTrigger = IsExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.TriggerRange);
+                bool isTrigger = IsExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.TriggerRange);//To check out if this event invokes any sideeffect.
                 if (isTrigger) Trigger(see, executerInfo, tt, see.TriggerRange);
             }
         }
 
-        //进行失效SEE的移除
-        Invoke_RemoveSEE(tt, executerInfo);
+        Invoke_RemoveSEE(tt, executerInfo);//Remove executed sideeffects with zero time left.
     }
 
     public void Invoke_RemoveSEE(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
@@ -131,7 +141,7 @@ public class EventManager
         for (int i = 0; i < sees.Length; i++)
         {
             SideEffectExecute see = sees[i];
-            if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //防止已经移除的SE再次执行
+            if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent removed sideeffects from being removed again.
             if (seeDict.ContainsKey(see.ID))
             {
                 bool isTrigger = IsExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.RemoveTriggerRange);
@@ -139,7 +149,7 @@ public class EventManager
             }
         }
 
-        RemoveAllUselessSEEs(); //移除所有失效的SE
+        RemoveAllUselessSEEs();
     }
 
     private Dictionary<int, SideEffectExecute> ObsoleteSEEs = new Dictionary<int, SideEffectExecute>();
@@ -211,18 +221,18 @@ public class EventManager
 
     private void Trigger(SideEffectExecute see, SideEffectBase.ExecuterInfo ei, SideEffectBundle.TriggerTime tt, SideEffectBundle.TriggerRange tr)
     {
-        if (see.TriggerDelayTimes > 0) //触发延迟时间减少，直至0时触发
+        if (see.TriggerDelayTimes > 0) //TriggerDelayTimes decreases and trigger the event when it's 0
         {
             see.TriggerDelayTimes--;
             return;
         }
         else
         {
-            if (see.TriggerTimes > 0) //触发次数减少，为0时不触发
+            if (see.TriggerTimes > 0) //TriggerTimes decreases every time it triggers and stop when it's 0
             {
-                //触发的触发 Start
+                //Trigger's trigger  -- which triggers when other events are being triggered.
                 bool isTriggerTrigger = false;
-                if (tt == SideEffectBundle.TriggerTime.OnTrigger) //如果是某个SEE触发时引起触发的triggerSEE，将该SEE传给triggerSEE，供triggerSEE修改属性
+                if (tt == SideEffectBundle.TriggerTime.OnTrigger) //Give sideeffect executing info to trigger's trigger for modifying.
                 {
                     if (see.SideEffectBase is PlayerBuffSideEffects buffSEE)
                     {
@@ -241,10 +251,10 @@ public class EventManager
                 }
 
                 if (tt == SideEffectBundle.TriggerTime.OnTrigger && !isTriggerTrigger) return;
-                //触发的触发 End
+                //Trigger's trigger End
 
                 see.TriggerTimes--;
-                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecuterInfo, tt, tr);
+                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecuterInfo, tt, tr);//Send request to client
                 OnEventInvokeHandler(request);
 
                 InvokeStack.Push(see);
@@ -261,7 +271,7 @@ public class EventManager
 
     private void Trigger_TryRemove(SideEffectExecute see)
     {
-        if (see.RemoveTriggerTimes > 0) //移除判定剩余次数减少，为0时移除
+        if (see.RemoveTriggerTimes > 0) //RemoveTriggerTimes decreases every time it triggers and removes when it's 0
         {
             see.RemoveTriggerTimes--;
             if (see.SideEffectBase is PlayerBuffSideEffects buff_se)
