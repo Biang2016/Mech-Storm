@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class HandManager : MonoBehaviour
 {
-    //每张牌之间的夹角
+    //Angles between hand cards
     static float[] ANGLES_DICT = new float[30] {20f, 20f, 30f, 40f, 45f, 50f, 55f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f, 60f};
 
-    //每张牌之间的距离
+    //distances between hand cards
     static float[] HORRIZON_DISTANCE_DICT = new float[30] {1.5f, 1.6f, 1.8f, 2.3f, 2.8f, 3.3f, 4.2f, 4.9f, 5.6f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f};
 
     internal ClientPlayer ClientPlayer;
@@ -95,7 +95,7 @@ public class HandManager : MonoBehaviour
 
     #region RefreshHandCards
 
-    private void CheckMousePosition() //检查鼠标是否还停留在某张牌上，如果否，取消放大效果
+    private void CheckMousePosition() //check mouse hover on cards，if false then shrink card
     {
         if (!IsBeginDrag)
         {
@@ -116,12 +116,12 @@ public class HandManager : MonoBehaviour
 
     [SerializeField] private Transform DefaultCardPivot;
 
-    internal void RefreshCardsPlace(float duration = 0.1f) //重置所有手牌位置
+    internal void RefreshCardsPlace(float duration = 0.1f) //replace all handcards
     {
         RefreshCardsPlace(cards.Count, duration);
     }
 
-    private void RefreshCardsPlace(int cardCount, float duration) //按虚拟的手牌总数重置所有手牌位置
+    private void RefreshCardsPlace(int cardCount, float duration) //reset all handcards by preset places
     {
         if (CurrentFocusCard)
         {
@@ -176,17 +176,17 @@ public class HandManager : MonoBehaviour
         if (ClientPlayer.WhichPlayer == Players.Enemy) GetCardPlacePivot.transform.Rotate(-Vector3.right * 180);
         GetCardPlacePivot.transform.position = new Vector3(GetCardPlacePivot.transform.position.x, 4f, GetCardPlacePivot.transform.position.z);
         float horrizonDistance = horrizonDist / toatalCardNumber * (((toatalCardNumber - 1) / 2.0f + 1) - cardIndex);
-        GetCardPlacePivot.transform.Translate(-Vector3.right * horrizonDistance * GameManager.Instance.HandCardSize); //向水平向错开，体现手牌展开感
-        float distCardsFromCenter = Mathf.Abs(((toatalCardNumber - 1) / 2.0f + 1) - cardIndex); //与中心距离几张卡牌
-        float factor = (toatalCardNumber - distCardsFromCenter) / toatalCardNumber; //某临时参数
-        GetCardPlacePivot.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.Instance.HandCardSize + Vector3.back * toatalCardNumber / 20 * GameManager.Instance.HandCardOffset); //向垂直向错开，体现卡片弧线感
-        GetCardPlacePivot.transform.Translate(Vector3.down * 0.1f * (toatalCardNumber - cardIndex) * rev); //向上错开，体现卡片前后感
-        GetCardPlacePivot.transform.Rotate(-Vector3.down, rotateAngle); //卡片微小旋转
+        GetCardPlacePivot.transform.Translate(-Vector3.right * horrizonDistance * GameManager.Instance.HandCardSize); //horizontal offset, fro
+        float distCardsFromCenter = Mathf.Abs(((toatalCardNumber - 1) / 2.0f + 1) - cardIndex); //the number of cards between this card and center card
+        float factor = (toatalCardNumber - distCardsFromCenter) / toatalCardNumber; //temp param
+        GetCardPlacePivot.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.Instance.HandCardSize + Vector3.back * toatalCardNumber / 20 * GameManager.Instance.HandCardOffset); //arc offset
+        GetCardPlacePivot.transform.Translate(Vector3.down * 0.1f * (toatalCardNumber - cardIndex) * rev); //vertical offset 
+        GetCardPlacePivot.transform.Rotate(-Vector3.down, rotateAngle); //tiny rotate of cards
 
         return GetCardPlacePivot.transform;
     }
 
-    internal void RefreshAllCardUsable() //刷新所有卡牌是否可用
+    internal void RefreshAllCardUsable()
     {
         if (ClientPlayer == null) return;
         foreach (CardBase card in cards)
@@ -218,7 +218,7 @@ public class HandManager : MonoBehaviour
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_GetCards(cardIdAndInstanceIds), "Co_GetCard");
     }
 
-    IEnumerator Co_GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds) //多卡片抽取动画
+    IEnumerator Co_GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds) //animation of drawing multiple cards
     {
         float cardFlyTime = 1f;
         float intervalTime = 0.3f;
@@ -242,7 +242,7 @@ public class HandManager : MonoBehaviour
 
     [SerializeField] private Transform DrawCardPivot;
 
-    IEnumerator SubCo_GetCard(int indexNumber, int totalCardNumber, DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId, float duration) //单卡片抽取动画
+    IEnumerator SubCo_GetCard(int indexNumber, int totalCardNumber, DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId, float duration) //animation of draw single card
     {
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardIdAndInstanceId.CardId);
         CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
@@ -443,7 +443,7 @@ public class HandManager : MonoBehaviour
         currentFocusCardTickerBegin = true;
     }
 
-    internal void CardOnMouseLeave(CardBase focusCard) //鼠标离开卡牌
+    internal void CardOnMouseLeave(CardBase focusCard)
     {
         if (ClientPlayer.WhichPlayer == Players.Enemy) return;
         if (IsBeginDrag) return;
@@ -451,7 +451,7 @@ public class HandManager : MonoBehaviour
         ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
     }
 
-    internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard) //鼠标离开代替卡牌的碰撞区
+    internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard) 
     {
         if (ClientPlayer.WhichPlayer == Players.Enemy) return;
         if (IsBeginDrag) return;
