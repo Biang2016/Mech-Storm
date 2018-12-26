@@ -1,6 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-
-public abstract class AttachedEquipSideEffects : SideEffectBase
+﻿public abstract class AttachedEquipSideEffects : SideEffectBase
 {
 }

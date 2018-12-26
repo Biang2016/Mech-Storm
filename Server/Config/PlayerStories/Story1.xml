@@ -110,7 +110,8 @@
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="5700"></BonusInfo>
       </BonusGroupInfo>
-    </BossInfo> </Level>
+    </BossInfo>
+  </Level>
   <Level Level="2" LevelFightTimes="4" BigBossFightTimes="1">
     <CommonBonus>
       <BonusGroupInfo type="Always">

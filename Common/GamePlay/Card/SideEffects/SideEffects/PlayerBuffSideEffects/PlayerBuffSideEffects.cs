@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-public abstract class PlayerBuffSideEffects : SideEffectBase
+﻿public abstract class PlayerBuffSideEffects : SideEffectBase
 {
     public int BuffPicId;
     public string BuffColor = "";

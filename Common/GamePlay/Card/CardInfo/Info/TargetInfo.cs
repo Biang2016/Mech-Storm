@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-/// <summary>
+﻿/// <summary>
 /// 记录出牌时是否需要指定目标
 /// </summary>
 public struct TargetInfo

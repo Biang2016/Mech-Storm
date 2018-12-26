@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 public class DrawTypeCards_Base : CardDeckRelatedSideEffects, IEffectFactor
 {

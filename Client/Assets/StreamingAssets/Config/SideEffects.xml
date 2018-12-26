@@ -58,8 +58,8 @@
   <SideEffect name="Exile" desc="" desc_en=""></SideEffect>
 
   <SideEffect name="UseAllEnergyDamageShip" desc="消耗全部能量,对敌舰造成{0}点伤害,每多消耗1点,对敌方造成额外的{1}点伤害, " desc_en="Consume all energy. Deal {0} damage to enemy ship. Deal extra {1} damage per extra energy used. "></SideEffect>
- 
+
   <SideEffect name="RunAway" desc="消灭{0},将该机甲牌和其所有装备牌回收至手牌中, " desc_en="Kill {0} and recycle its card and all equipment cards to your hand. "></SideEffect>
- 
+
   <SideEffect name="TriggerOneHandCard" desc="触发手牌中{0}张法术牌或能量牌(无指定目标)的效果," desc_en="Trigger the effects of {0} handcards (without targets). "></SideEffect>
 </AllSideEffects>

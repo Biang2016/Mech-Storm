@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SideEffects
+﻿namespace SideEffects
 {
     public class KillRandom : KillRandom_Base
     {

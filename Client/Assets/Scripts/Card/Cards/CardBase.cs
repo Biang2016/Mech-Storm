@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
-using Image = UnityEngine.UI.Image;
 
 public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponent
 {

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverComponent
 {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SideEffects
+﻿namespace SideEffects
 {
     public class Cooperation : Cooperation_Base
     {

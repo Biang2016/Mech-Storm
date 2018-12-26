@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Configuration;
-using System.Net.Sockets;
-using System.Threading;
+﻿using System.Collections.Generic;
 
 /// <summary>
 /// 为了兼容联机对战模式，单人模式的AI也用一个ClientProxy来处理逻辑

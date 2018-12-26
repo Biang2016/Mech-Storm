@@ -1,6 +1,4 @@
-﻿using System;
-
-public abstract class TargetSideEffectEquip : TargetSideEffect
+﻿public abstract class TargetSideEffectEquip : TargetSideEffect
 {
    
 }

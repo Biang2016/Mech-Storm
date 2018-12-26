@@ -943,7 +943,7 @@
     <CardInfo name="baseInfo" pictureID="712" cardName="能量异变" cardName_en="Energy Variation" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="250" effectFactor="1" limitNum="3" cardRareLevel="2" dragPurpose="Summon" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddPlayerBuff" BuffName="DamageEnemyShipWhenUseCards" Value="1"/>
+      <SideEffect name="AddPlayerBuff" BuffName="DamageEnemyShipWhenUseCards" Value="1" />
     </CardInfo>
   </Card>
 </AllCards>

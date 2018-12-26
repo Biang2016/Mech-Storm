@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SideEffects
+﻿namespace SideEffects
 {
     public class IllusionToOne : IllusionToOne_Base
     {

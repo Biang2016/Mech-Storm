@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public class RunAway_Base : TargetSideEffect
+﻿public class RunAway_Base : TargetSideEffect
 {
     public override string GenerateDesc(bool isEnglish)
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-public class RandomNumberGenerator
+﻿public class RandomNumberGenerator
 {
     public RandomNumberGenerator(int seed)
     {

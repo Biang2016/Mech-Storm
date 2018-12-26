@@ -1,6 +1,3 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-public static class MonoSingletonManager
+﻿public static class MonoSingletonManager
 {
 }
