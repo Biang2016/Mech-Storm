@@ -430,6 +430,10 @@ public class StoryCol : PoolObject
 
     public void SetAsCurrentLevel()
     {
+        if (Co_StoryLightHueChange != null)
+        {
+            StopCoroutine(Co_StoryLightHueChange);
+        }
         StoryLevelLightImage.enabled = true;
         Co_StoryLightHueChange = StartCoroutine(StoryLightHueChange());
     }

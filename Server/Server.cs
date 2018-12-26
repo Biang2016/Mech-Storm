@@ -27,6 +27,7 @@ internal class Server
 
     public string IP;
     public int Port;
+    public static string ServerVersion = "1.0.0";
     private Socket SeverSocket;
     public Dictionary<int, ClientProxy> ClientsDict = new Dictionary<int, ClientProxy>();
     private Queue<ReceiveSocketData> ReceiveDataQueue = new Queue<ReceiveSocketData>();
@@ -178,7 +179,7 @@ internal class Server
                 if (i <= 0)
                 {
                     if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                        ServerLog.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
+                        ServerLog.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint + "  Clients count: " + ClientsDict.Count);
 
                     ClientProxyClose(clientProxy);
                     break;

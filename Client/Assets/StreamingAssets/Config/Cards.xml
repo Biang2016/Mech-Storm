@@ -358,7 +358,7 @@
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="4" />
   </Card>
-  <Card id="6901">
+  <Card id="1234">
     <CardInfo name="baseInfo" pictureID="68" cardName="训练场新兵" cardName_en="Training Recruit" cardDesc="" isTemp="False" hide="False" metal="1" energy="0" coin="50" effectFactor="1" limitNum="5" cardRareLevel="0" dragPurpose="Summon" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="6902" degradeCardID="-1" cardLevel="1" />

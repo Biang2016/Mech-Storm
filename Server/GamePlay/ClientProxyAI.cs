@@ -23,7 +23,7 @@ internal class ClientProxyAI : ClientProxy
 
     public ClientProxyAI(int clientId, bool isStopReceive, int levelID, int bossPicID) : base(null, clientId, isStopReceive)
     {
-        ClientIdRequest request = new ClientIdRequest(clientId);
+        ClientIdRequest request = new ClientIdRequest(clientId, Server.ServerVersion);
         ClientState = ClientStates.GetId;
         SendMessage(request);
 

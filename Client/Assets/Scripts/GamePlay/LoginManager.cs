@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -198,8 +199,15 @@ public class LoginManager : MonoSingleton<LoginManager>
         }
         else
         {
-            ShowTipText(GameManager.Instance.IsEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
-            OnChangeServer(ServerDropdown.value);
+            if (Client.Instance.ClientInvalid)
+            {
+                ShowUpdateConfirmWindow();
+            }
+            else
+            {
+                ShowTipText(GameManager.Instance.IsEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
+                OnChangeServer(ServerDropdown.value);
+            }
         }
     }
 
@@ -212,8 +220,15 @@ public class LoginManager : MonoSingleton<LoginManager>
         }
         else
         {
-            ShowTipText(GameManager.Instance.IsEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
-            OnChangeServer(ServerDropdown.value);
+            if (Client.Instance.ClientInvalid)
+            {
+                ShowUpdateConfirmWindow();
+            }
+            else
+            {
+                ShowTipText(GameManager.Instance.IsEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
+                OnChangeServer(ServerDropdown.value);
+            }
         }
     }
 
@@ -221,6 +236,18 @@ public class LoginManager : MonoSingleton<LoginManager>
     {
         NetworkManager.Instance.TerminateConnection();
         Application.Quit();
+    }
+
+    public void ShowUpdateConfirmWindow()
+    {
+        ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(LoginManager.Instance.transform.parent);
+        cw.Initialize(
+            GameManager.Instance.IsEnglish ? "Your client needs update! Open the download page in browser?" : "您的客户端需要更新,是否在浏览器中打开下载页面?",
+            GameManager.Instance.IsEnglish ? "Yes" : "是",
+            GameManager.Instance.IsEnglish ? "No" : "取消",
+            (new UnityAction(delegate { Application.OpenURL("www.biangstudio.com/mech-storm"); })) + ConfirmWindowManager.Instance.RemoveConfirmWindow,
+            ConfirmWindowManager.Instance.RemoveConfirmWindow
+        );
     }
 
     IEnumerator ShowTipTextCoroutine;

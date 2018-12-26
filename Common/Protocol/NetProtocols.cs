@@ -4,42 +4,43 @@
 
     #region Server
 
-    CLIENT_ID_REQUEST, //服务器发送的客户端ID号
-    HEART_BEAT_REQUEST, //服务器发送的心跳包
-    CLIENT_BUILDINFOS_REQUEST, //玩家所有卡组信息
-    GAME_STOP_BY_LEAVE_REQUEST, //由于玩家离开导致游戏结束
-    GAME_STOP_BY_SERVER_ERROR_REQUEST, //由于服务器错误导致游戏结束
-    GAME_STOP_BY_WIN_REQUEST, //由于比赛输赢导致游戏结束
-    RANDOM_NUMBER_SEED_REQUEST, //分配客户端随机数种子
-    REGISTER_RESULT_REQUEST, //注册结果
-    LOGIN_RESULT_REQUEST, //登录结果
-    LOGOUT_RESULT_REQUEST, //登出结果
-    START_NEW_STORY_REQUEST_RESPONSE, //新故事回应
-    CREATE_BUILD_REQUEST_RESPONSE, //新卡组回应
-    BUILD_UPDATE_RESPONSE, //更新卡组
-    DELETE_BUILD_REQUEST_RESPONSE, //删除卡组
-    REFRESH_GAMEPLAYSETTINGS_REQUEST, //更新单人模式的GamePlaySettings
+    CLIENT_ID_REQUEST = 0, //服务器发送的客户端ID号，协议号固定，不随版本变化
+    HEART_BEAT_REQUEST = 1, //服务器发送的心跳包
+    CLIENT_BUILDINFOS_REQUEST = 2, //玩家所有卡组信息
+    GAME_STOP_BY_LEAVE_REQUEST = 3, //由于玩家离开导致游戏结束
+    GAME_STOP_BY_SERVER_ERROR_REQUEST = 4, //由于服务器错误导致游戏结束
+    GAME_STOP_BY_WIN_REQUEST = 5, //由于比赛输赢导致游戏结束
+    RANDOM_NUMBER_SEED_REQUEST = 6, //分配客户端随机数种子
+    REGISTER_RESULT_REQUEST = 7, //注册结果，协议号固定，不随版本变化
+    LOGIN_RESULT_REQUEST = 8, //登录结果，协议号固定，不随版本变化
+    LOGOUT_RESULT_REQUEST = 9, //登出结果
+    START_NEW_STORY_REQUEST_RESPONSE = 10, //新故事回应
+    CREATE_BUILD_REQUEST_RESPONSE = 11, //新卡组回应
+    BUILD_UPDATE_RESPONSE = 12, //更新卡组
+    DELETE_BUILD_REQUEST_RESPONSE = 13, //删除卡组
+    REFRESH_GAMEPLAYSETTINGS_REQUEST = 14, //更新单人模式的GamePlaySettings
 
-    BEAT_BOSS_REQUSET, //打败BOSS
-    NEXT_LEVEL_BOSSINFO_REQUSET, //下一关的boss信息
+    BEAT_BOSS_REQUSET = 15, //打败BOSS
+    NEXT_LEVEL_BOSSINFO_REQUSET = 16, //下一关的boss信息
 
     #endregion
 
     # region Client
 
-    CARD_DECK_REQUEST, //卡组信息
-    MATCH_REQUEST, //申请匹配
-    MATCH_STANDALONE_REQUEST, //申请单机模式
-    CANCEL_MATCH_REQUEST, //玩家取消匹配
-    LEAVE_GAME_REQUEST, //玩家离开游戏
-    REGISTER_REQUEST, //注册
-    LOGIN_REQUEST, //登录
-    LOGOUT_REQUEST, //登出
-    START_NEW_STORY_REQUEST, //开始新故事
-    BUILD_REQUEST, //编辑卡组
-    SINGLE_BUILD_REQUEST, //编辑单机卡组
-    DELETE_BUILD_REQUEST, //删除卡组
-    BONUSGROUP_REQUEST, //奖励请求
+    CARD_DECK_REQUEST = 17, //卡组信息
+    MATCH_REQUEST = 18, //申请匹配
+    MATCH_STANDALONE_REQUEST = 19, //申请单机模式
+    CANCEL_MATCH_REQUEST = 20, //玩家取消匹配
+    CLIENT_VERSION_VALID_REQUEST = 21, //客户端拿到服务器版本号后，如果版本匹配，给服务器返回此协议，如未返回此协议，在下条协议收到时将会踢出客户端连接
+    REGISTER_REQUEST = 22, //注册，协议号固定，不随版本变化
+    LOGIN_REQUEST = 23, //登录，协议号固定，不随版本变化
+    LEAVE_GAME_REQUEST = 24, //玩家离开游戏
+    LOGOUT_REQUEST = 25, //登出
+    START_NEW_STORY_REQUEST = 26, //开始新故事
+    BUILD_REQUEST = 27, //编辑卡组
+    SINGLE_BUILD_REQUEST = 28, //编辑单机卡组
+    DELETE_BUILD_REQUEST = 29, //删除卡组
+    BONUSGROUP_REQUEST = 30, //奖励请求
 
     #endregion
 

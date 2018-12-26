@@ -2,6 +2,8 @@
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using UnityEngine;
+using UnityEngine.Events;
 
 public class Proxy : ProxyBase
 {
@@ -104,7 +106,18 @@ public class Proxy : ProxyBase
                 {
                     ClientIdRequest request = (ClientIdRequest) r;
                     ClientId = request.givenClientId;
-                    ClientState = ClientStates.GetId;
+                    Client.ServerVersion = request.serverVersion;
+                    if (Client.Instance.ClientInvalid)
+                    {
+                        LoginManager.Instance.ShowUpdateConfirmWindow();
+                    }
+                    else
+                    {
+                        ClientVersionValidRequest validRequest = new ClientVersionValidRequest(ClientId);
+                        SendMessage(validRequest);
+                        ClientState = ClientStates.GetId;
+                    }
+
                     break;
                 }
                 case NetProtocols.REGISTER_RESULT_REQUEST:

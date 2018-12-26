@@ -10,6 +10,7 @@ internal class ClientProxy : ProxyBase
 
     public ServerGameManager MyServerGameManager;
 
+    private bool clientVersionValid = false;
     private string username = "";
 
     public string UserName
@@ -31,7 +32,7 @@ internal class ClientProxy : ProxyBase
 
     public ClientProxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
-        ClientIdRequest request = new ClientIdRequest(clientId);
+        ClientIdRequest request = new ClientIdRequest(clientId, Server.ServerVersion);
         ClientState = ClientStates.GetId;
         SendMessage(request);
     }
@@ -96,7 +97,7 @@ internal class ClientProxy : ProxyBase
         Response();
     }
 
-    public ResponseBundleBase CurrentClientRequestResponseBundle; 
+    public ResponseBundleBase CurrentClientRequestResponseBundle;
 
     /// <summary>
     /// Dispose of all request received before game start
@@ -114,85 +115,96 @@ internal class ClientProxy : ProxyBase
             ClientRequestBase r = ReceiveRequestsQueue.Dequeue();
             switch (r)
             {
-                case RegisterRequest _:
+                case ClientVersionValidRequest _:
                     if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
-
-                    if (ClientState != ClientStates.GetId)
+                        ServerLog.PrintClientStates("Client " + ClientId + " version valid.");
+                    clientVersionValid = true;
+                    break;
+                case RegisterRequest _:
+                    if (clientVersionValid)
                     {
-                        Server.SV.SGMM.RemoveGame(this);
-                        ClientState = ClientStates.GetId;
-                    }
+                        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                            ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
-                    if (ClientState == ClientStates.GetId)
-                    {
-                        RegisterRequest request = (RegisterRequest) r;
+                        if (ClientState != ClientStates.GetId)
+                        {
+                            Server.SV.SGMM.RemoveGame(this);
+                            ClientState = ClientStates.GetId;
+                        }
 
-                        bool suc = Database.Instance.AddUser(request.username, request.password);
-                        RegisterResultRequest response = new RegisterResultRequest(suc);
+                        if (ClientState == ClientStates.GetId)
+                        {
+                            RegisterRequest request = (RegisterRequest) r;
 
-                        SendMessage(response);
+                            bool suc = Database.Instance.AddUser(request.username, request.password);
+                            RegisterResultRequest response = new RegisterResultRequest(suc);
+
+                            SendMessage(response);
+                        }
                     }
 
                     break;
                 case LoginRequest _:
-                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
-
-                    if (ClientState != ClientStates.GetId)
+                    if (clientVersionValid)
                     {
-                        Server.SV.SGMM.RemoveGame(this);
-                        ClientState = ClientStates.GetId;
-                    }
+                        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
+                            ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
-                    if (ClientState == ClientStates.GetId)
-                    {
-                        LoginRequest request = (LoginRequest) r;
-                        LoginResultRequest response;
-
-                        string password = Database.Instance.GetUserPasswordByUsername(request.username);
-                        if (password != null)
+                        if (ClientState != ClientStates.GetId)
                         {
-                            if (password == request.password)
+                            Server.SV.SGMM.RemoveGame(this);
+                            ClientState = ClientStates.GetId;
+                        }
+
+                        if (ClientState == ClientStates.GetId)
+                        {
+                            LoginRequest request = (LoginRequest) r;
+                            LoginResultRequest response;
+
+                            string password = Database.Instance.GetUserPasswordByUsername(request.username);
+                            if (password != null)
                             {
-                                bool suc = Database.Instance.AddLoginUser(ClientId, request.username);
-                                if (suc)
+                                if (password == request.password)
                                 {
-                                    response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.Success);
-                                    SendMessage(response);
-                                    ClientState = ClientStates.Login;
-                                    username = request.username;
-
-                                    bool superAccout = username == "StoryAdmin" || username == "ServerAdmin";
-
-                                    if (Database.Instance.PlayerStoryStates.ContainsKey(username))
+                                    bool suc = Database.Instance.AddLoginUser(ClientId, request.username);
+                                    if (suc)
                                     {
-                                        Story story = Database.Instance.PlayerStoryStates[username];
-                                        ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), superAccout ? GamePlaySettings.ServerGamePlaySettings : GamePlaySettings.OnlineGamePlaySettings, true, story);
-                                        SendMessage(request1);
+                                        response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.Success);
+                                        SendMessage(response);
+                                        ClientState = ClientStates.Login;
+                                        username = request.username;
+
+                                        bool superAccout = username == "StoryAdmin" || username == "ServerAdmin";
+
+                                        if (Database.Instance.PlayerStoryStates.ContainsKey(username))
+                                        {
+                                            Story story = Database.Instance.PlayerStoryStates[username];
+                                            ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), superAccout ? GamePlaySettings.ServerGamePlaySettings : GamePlaySettings.OnlineGamePlaySettings, true, story);
+                                            SendMessage(request1);
+                                        }
+                                        else
+                                        {
+                                            ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), superAccout ? GamePlaySettings.ServerGamePlaySettings : GamePlaySettings.OnlineGamePlaySettings, false);
+                                            SendMessage(request1);
+                                        }
                                     }
                                     else
                                     {
-                                        ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), superAccout ? GamePlaySettings.ServerGamePlaySettings : GamePlaySettings.OnlineGamePlaySettings, false);
-                                        SendMessage(request1);
+                                        response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.AlreadyOnline);
+                                        SendMessage(response);
                                     }
                                 }
                                 else
                                 {
-                                    response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.AlreadyOnline);
+                                    response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.WrongPassword);
                                     SendMessage(response);
                                 }
                             }
                             else
                             {
-                                response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.WrongPassword);
+                                response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.UnexistedUser);
                                 SendMessage(response);
                             }
-                        }
-                        else
-                        {
-                            response = new LoginResultRequest(request.username, LoginResultRequest.StateCodes.UnexistedUser);
-                            SendMessage(response);
                         }
                     }
 

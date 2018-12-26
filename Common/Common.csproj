@@ -148,6 +148,7 @@
     <Compile Include="RequestResponse\ClientToServer\OutGame\LogoutRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\LoginRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\MatchStandAloneRequest.cs" />
+    <Compile Include="RequestResponse\ClientToServer\OutGame\ClientValidRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\StartNewStoryRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\RegisterRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueInactivityStateRequest.cs" />

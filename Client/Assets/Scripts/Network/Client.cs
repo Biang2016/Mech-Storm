@@ -23,6 +23,13 @@ public class Client : MonoSingleton<Client>
     Queue<ReceiveSocketData> receiveDataQueue = new Queue<ReceiveSocketData>();
     static int mainThreadId;
 
+    public static string ClientVersion = "1.0.0";
+    public static string ServerVersion = "1.0.0";
+
+    public bool ClientInvalid
+    {
+        get { return ServerSocket != null && ServerSocket.Connected && ClientVersion != ServerVersion; }
+    }
 
     public static bool IsMainThread
     {
