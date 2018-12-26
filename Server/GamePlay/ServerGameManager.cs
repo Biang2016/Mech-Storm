@@ -65,7 +65,6 @@ internal class ServerGameManager
         if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
             ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
 
-
         SyncRandomNumber();
 
         int PA_LIFE = ClientA.CurrentBuildInfo.Life;

@@ -3,8 +3,8 @@
 internal class ServerGameMatchManager
 {
     List<ServerGameManager> SMGS = new List<ServerGameManager>();
-    Dictionary<int, ServerGameManager> clientGameMapping = new Dictionary<int, ServerGameManager>(); //玩家和游戏的映射关系
-    List<ClientProxy> matchingClients = new List<ClientProxy>(); //匹配中的玩家
+    Dictionary<int, ServerGameManager> clientGameMapping = new Dictionary<int, ServerGameManager>();
+    List<ClientProxy> matchingClients = new List<ClientProxy>(); 
 
     public void OnClientMatchGames(ClientProxy clientProxy)
     {

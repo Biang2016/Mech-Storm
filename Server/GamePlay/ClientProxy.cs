@@ -81,9 +81,6 @@ internal class ClientProxy : ProxyBase
             {
                 SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue(), ClientId);
                 Server.SV.DoSendToClient(msg);
-                //Thread thread = new Thread(Server.SV.DoSendToClient);
-                //thread.IsBackground = true;
-                //thread.Start(msg);
             }
             catch (Exception e)
             {
@@ -92,35 +89,6 @@ internal class ClientProxy : ProxyBase
         }
     }
 
-
-    //private void OnSendMessage()
-    //{
-    //    Thread sendMessageThread = new Thread(SendMessage);
-    //    sendMessageThread.IsBackground = true;
-    //    sendMessageThread.Start();
-    //}
-
-    //private void SendMessage()
-    //{
-    //    lock (SendRequestsQueue)
-    //    {
-    //        if (SendRequestsQueue.Count > 0)
-    //        {
-    //            try
-    //            {
-    //                Thread thread = new Thread(Server.SV.DoSendToClient);
-    //                SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue(), ClientId);
-    //                thread.IsBackground = true;
-    //                thread.Start(msg);
-    //            }
-    //            catch (Exception e)
-    //            {
-    //                Console.WriteLine(e);
-    //            }
-    //        }
-    //    }
-    //}
-
     public virtual void ReceiveMessage(ClientRequestBase request)
     {
         if (isClosed) return;
@@ -128,11 +96,11 @@ internal class ClientProxy : ProxyBase
         Response();
     }
 
-    public ResponseBundleBase CurrentClientRequestResponseBundle; //目前正在生成的响应包
+    public ResponseBundleBase CurrentClientRequestResponseBundle; 
 
     /// <summary>
-    /// 此类中处理进入游戏前的所有Request
-    /// 进入游戏后将所有Request发给ServerGameManager处理
+    /// Dispose of all request received before game start
+    /// ServerGameManager will dispose of others during games.
     /// </summary>
     protected override void Response()
     {
@@ -146,7 +114,6 @@ internal class ClientProxy : ProxyBase
             ClientRequestBase r = ReceiveRequestsQueue.Dequeue();
             switch (r)
             {
-                //以下是进入游戏前的请求
                 case RegisterRequest _:
                     if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
                         ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
@@ -469,7 +436,7 @@ internal class ClientProxy : ProxyBase
                             case UseSpellCardToEquipRequest _:
                                 MyServerGameManager?.OnClientUseSpellCardToEquipRequest((UseSpellCardToEquipRequest) r);
                                 break;
-                            case LeaveGameRequest _: //正常退出游戏请求
+                            case LeaveGameRequest _: //quit game normally
                                 MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
                                 break;
                             case RetinueAttackRetinueRequest _:
@@ -484,7 +451,7 @@ internal class ClientProxy : ProxyBase
                     {
                         switch (r)
                         {
-                            case LeaveGameRequest _: //正常退出游戏请求
+                            case LeaveGameRequest _: //quit game normally
                                 MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
                                 break;
                         }

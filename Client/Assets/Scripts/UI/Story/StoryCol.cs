@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -177,6 +178,8 @@ public class StoryCol : PoolObject
     private Image[,] Links31;
     private Image[,] Links32;
     private Image[,] Links33;
+
+    [SerializeField] private Image StoryLevelLightImage;
 
     [SerializeField] private GameObject Links11_Go;
     [SerializeField] private Image Link11_11;
@@ -423,5 +426,40 @@ public class StoryCol : PoolObject
         {
             slb.SetUnknown();
         }
+    }
+
+    public void SetAsCurrentLevel()
+    {
+        StoryLevelLightImage.enabled = true;
+        Co_StoryLightHueChange = StartCoroutine(StoryLightHueChange());
+    }
+
+    private Coroutine Co_StoryLightHueChange;
+
+    IEnumerator StoryLightHueChange()
+    {
+        float hue = 0.01f;
+        while (true)
+        {
+            if (hue >= 1f)
+            {
+                hue -= 0.01f;
+            }
+            else
+            {
+                hue += 0.01f;
+            }
+            StoryLevelLightImage.color = ClientUtils.HSL_2_RGB(hue, 0.5f, 0.5f);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+    public void SetAsNotCurrentLevel()
+    {
+        if (Co_StoryLightHueChange != null)
+        {
+            StopCoroutine(Co_StoryLightHueChange);
+        }
+        StoryLevelLightImage.enabled = false;
     }
 }

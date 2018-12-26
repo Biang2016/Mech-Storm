@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 114189883005335694}
   - component: {fileID: 114791618723538938}
   - component: {fileID: 114023563122636356}
+  - component: {fileID: 222276590817366734}
+  - component: {fileID: 114467739530179474}
   m_Layer: 0
   m_Name: StoryCol
   m_TagString: Untagged
@@ -2884,6 +2886,33 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114467739530179474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1021403119195302}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6839622, g: 0.7056783, b: 1, a: 0.6}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 391a5ab36a0bb29499c4d99ff6365c5e, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 1
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114475089429759700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3614,6 +3643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6588e3230495c3f4ab2299e3406fd3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StoryLevelLightImage: {fileID: 114467739530179474}
   Links11_Go: {fileID: 1151766422980128}
   Link11_11: {fileID: 114819179172069332}
   Links12_Go: {fileID: 1070826589422090}
@@ -4241,6 +4271,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1088775508829578}
+--- !u!222 &222276590817366734
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1021403119195302}
 --- !u!222 &222279098172427064
 CanvasRenderer:
   m_ObjectHideFlags: 1

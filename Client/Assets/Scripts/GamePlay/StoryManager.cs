@@ -307,11 +307,15 @@ public class StoryManager : MonoSingleton<StoryManager>
         Current_LevelNum = M_CurrentStory.Levels[levelID].LevelNum;
         if (levelID < M_CurrentStory.Levels.Count - 1)
         {
-            int tempLevelNum = M_CurrentStory.Levels[levelID + 1].LevelNum;
+            Level next_Level = M_CurrentStory.Levels[levelID + 1];
+            int tempLevelNum = next_Level.LevelNum;
             if (tempLevelNum > Current_LevelNum)
             {
                 Conquered_LevelNum = tempLevelNum;
             }
+
+            LevelCols[levelID].SetAsNotCurrentLevel();
+            LevelCols[levelID + 1].SetAsCurrentLevel();
         }
     }
 
@@ -327,10 +331,12 @@ public class StoryManager : MonoSingleton<StoryManager>
                 {
                     int a = 0;
                 }
+
                 foreach (KeyValuePair<int, Boss> kv in sc.LevelInfo.Bosses)
                 {
                     Boss boss = kv.Value;
                 }
+
                 button.Initialize(sc.LevelInfo.Bosses[bossPicIDs[index]]);
                 index++;
             }
