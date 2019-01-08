@@ -32,6 +32,9 @@ public class CardRetinue : CardBase
             MA.PoolRecycle();
             MA = null;
         }
+
+        if (Block_Count_HigherPivot) SetBlockCountPosition(Block_Count_HigherPivot.position);
+        if (Block_CountMax_HigherPivot) SetBlockCountMaxPosition(Block_CountMax_HigherPivot.position);
     }
 
     #region 卡牌上各模块
@@ -40,9 +43,9 @@ public class CardRetinue : CardBase
     [SerializeField] private Transform CoinBGLowerPivot;
     [SerializeField] private Transform CoinBGUpperPivot;
 
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect, int limitNum = -1)
     {
-        base.Initiate(cardInfo, clientPlayer, isCardSelect);
+        base.Initiate(cardInfo, clientPlayer, isCardSelect, limitNum);
         M_RetinueTotalLife = CardInfo.LifeInfo.TotalLife;
         M_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
         M_RetinueArmor = CardInfo.BattleInfo.BasicArmor;
@@ -58,6 +61,20 @@ public class CardRetinue : CardBase
         Slot4.MSlotTypes = CardInfo.RetinueInfo.Slots[3];
 
         HideAllSlotHover();
+
+        if (isCardSelect)
+        {
+            if (cardInfo.RetinueInfo.HasSlotType(SlotTypes.MA))
+            {
+                SetBlockCountPosition(Block_Count_LowerPivot.position);
+                SetBlockCountMaxPosition(Block_CountMax_LowerPivot.position);
+            }
+            else
+            {
+                SetBlockCountPosition(Block_Count_HigherPivot.position);
+                SetBlockCountMaxPosition(Block_CountMax_HigherPivot.position);
+            }
+        }
     }
 
     public void MoveCoinBGLower()
@@ -142,6 +159,11 @@ public class CardRetinue : CardBase
     internal ModuleMA MA;
 
     [SerializeField] private Canvas IconCanvas;
+
+    [SerializeField] private Transform Block_Count_HigherPivot;
+    [SerializeField] private Transform Block_Count_LowerPivot;
+    [SerializeField] private Transform Block_CountMax_HigherPivot;
+    [SerializeField] private Transform Block_CountMax_LowerPivot;
 
     # endregion
 

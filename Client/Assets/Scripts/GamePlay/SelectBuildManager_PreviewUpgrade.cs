@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,6 +45,12 @@ public partial class SelectBuildManager
 
     public void ShowPreviewCardPanel(CardBase card)
     {
+        if (CurrentEditBuildButton == null)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Please create a new deck first." : "请先创建一个卡组", 0, 0.5f);
+            return;
+        }
+
         HidePreviewCardPanel();
         PreviewCardOriginCardSelect = card;
 
@@ -110,14 +117,16 @@ public partial class SelectBuildManager
             PreviewCardDegrade = null;
         }
 
-
         PreviewCard = CardBase.InstantiateCardByCardInfo(PreviewCardOriginCardSelect.CardInfo, PreviewContent, null, true);
+        PreviewCard.ChangeCardLimit(CurrentEditBuildButton.BuildInfo.CardCountDict[PreviewCard.CardInfo.CardID], true);
+        PreviewCard.SetBlockCountValue(GetSelectedCardCount(PreviewCard.CardInfo.CardID), true);
         PreviewCard.transform.localScale = Vector3.one * 300;
         PreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
         PreviewCard.transform.localPosition = new Vector3(0, 50, -10);
         PreviewCard.CardBloom.SetActive(true);
         PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"));
         PreviewCard.BeBrightColor();
+        PreviewCard.M_BoxCollider.enabled = false;
 
         if (PreviewCard is CardRetinue)
         {
@@ -143,6 +152,8 @@ public partial class SelectBuildManager
         if (hasUpgradeCard)
         {
             PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID), PreviewContent, null, true);
+            PreviewCardUpgrade.ChangeCardLimit(CurrentEditBuildButton.BuildInfo.CardCountDict[PreviewCardUpgrade.CardInfo.CardID], true);
+            PreviewCardUpgrade.SetBlockCountValue(GetSelectedCardCount(PreviewCardUpgrade.CardInfo.CardID), true);
             PreviewCardUpgrade.transform.localScale = Vector3.one * 270;
             PreviewCardUpgrade.transform.rotation = Quaternion.Euler(90, 180, 0);
             if (PreviewCardUpgrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
@@ -161,6 +172,7 @@ public partial class SelectBuildManager
             PreviewCardUpgrade.CardBloom.SetActive(true);
             PreviewCardUpgrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FD5400"));
             PreviewCardUpgrade.BeBrightColor();
+            PreviewCardUpgrade.M_BoxCollider.enabled = false;
             if (PreviewCardUpgrade is CardRetinue)
             {
                 ((CardRetinue) PreviewCardUpgrade).ShowAllSlotHover();
@@ -176,6 +188,8 @@ public partial class SelectBuildManager
         if (hasDegradeCard)
         {
             PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID), PreviewContent, null, true);
+            PreviewCardDegrade.ChangeCardLimit(CurrentEditBuildButton.BuildInfo.CardCountDict[PreviewCardDegrade.CardInfo.CardID], true);
+            PreviewCardDegrade.SetBlockCountValue(GetSelectedCardCount(PreviewCardDegrade.CardInfo.CardID), true);
             PreviewCardDegrade.transform.localScale = Vector3.one * 270;
             PreviewCardDegrade.transform.rotation = Quaternion.Euler(90, 180, 0);
             if (PreviewCardDegrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
@@ -192,6 +206,7 @@ public partial class SelectBuildManager
             PreviewCardDegrade.CardBloom.SetActive(true);
             PreviewCardDegrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#0CE9FF"));
             PreviewCardDegrade.BeBrightColor();
+            PreviewCardDegrade.M_BoxCollider.enabled = false;
             if (PreviewCardDegrade is CardRetinue)
             {
                 ((CardRetinue) PreviewCardDegrade).ShowAllSlotHover();
@@ -332,70 +347,15 @@ public partial class SelectBuildManager
 
     internal void OnUpgradeButtonClick()
     {
-        if (CurrentEditBuildButton == null)
-        {
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Please create your deck." : "请创建卡组!", 0f, 1f);
-            return;
-        }
-
-        int currentCardID = PreviewCardOriginCardSelect.CardInfo.CardID;
-        int upgradeCardID = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID;
-        CardInfo_Base upgradeCardInfo = AllCards.GetCard(upgradeCardID);
-
-        int cardCount = 0;
-        if (SelectedCards.ContainsKey(currentCardID))
-        {
-            cardCount = SelectedCards[currentCardID].Count;
-
-            if ((GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
-                return;
-            }
-
-            SelectCard currentSelectCard = SelectedCards[currentCardID];
-            SelectedCards.Remove(currentCardID);
-            SelectedCards.Add(upgradeCardID, currentSelectCard);
-            currentSelectCard.Text_CardName.text = GameManager.Instance.IsEnglish ? upgradeCardInfo.BaseInfo.CardName_en : upgradeCardInfo.BaseInfo.CardName;
-        }
-
-        if (SelectedHeros.ContainsKey(currentCardID))
-        {
-            cardCount = SelectedHeros[currentCardID].Count;
-
-            if ((GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount < 0)
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
-                return;
-            }
-
-            SelectCard currentSelectCard = SelectedHeros[currentCardID];
-            SelectedHeros.Remove(currentCardID);
-            SelectedHeros.Add(upgradeCardID, currentSelectCard);
-            currentSelectCard.Text_CardName.text = GameManager.Instance.IsEnglish ? upgradeCardInfo.BaseInfo.CardName_en : upgradeCardInfo.BaseInfo.CardName;
-        }
-
-        CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - upgradeCardInfo.BaseInfo.Coin) * cardCount;
-        for (int i = 0; i < CurrentEditBuildButton.BuildInfo.CardIDs.Count; i++)
-        {
-            if (CurrentEditBuildButton.BuildInfo.CardIDs[i] == currentCardID)
-            {
-                CurrentEditBuildButton.BuildInfo.CardIDs[i] = upgradeCardID;
-            }
-        }
-
-        RefreshCoinLifeEnergy();
-
-        PreviewCardOriginCardSelect.Initiate(upgradeCardInfo, PreviewCardOriginCardSelect.ClientPlayer, true);
-
-        RefreshCardInSelectWindow(PreviewCardOriginCardSelect, cardCount != 0);
-        AudioManager.Instance.SoundPlay("sfx/OnMoneyChange");
-        AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
-        RefreshUpgradePanel();
-        RefreshPreviewCard();
+        OnUpgradeDegradeCore(true);
     }
 
     internal void OnDegradeButtonClick()
+    {
+        OnUpgradeDegradeCore(false);
+    }
+
+    internal void OnUpgradeDegradeCore(bool isUpgrade)
     {
         if (CurrentEditBuildButton == null)
         {
@@ -404,37 +364,45 @@ public partial class SelectBuildManager
         }
 
         int currentCardID = PreviewCardOriginCardSelect.CardInfo.CardID;
-        int degradeCardID = PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID;
-        CardInfo_Base degradeCardInfo = AllCards.GetCard(degradeCardID);
+        int changeCardID = isUpgrade ? PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID : PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID;
+        CardInfo_Base changeCardInfo = AllCards.GetCard(changeCardID);
 
-        int cardCount = 0;
-        if (SelectedCards.ContainsKey(currentCardID))
+        CardBase changeCard = allCards[changeCardID];
+        if (PreviewCardOriginCardSelect.CardInfo.BaseInfo.LimitNum == 0)
         {
-            cardCount = SelectedCards[currentCardID].Count;
-            SelectCard currentSelectCard = SelectedCards[currentCardID];
-            SelectedCards.Remove(currentCardID);
-            SelectedCards.Add(degradeCardID, currentSelectCard);
-            currentSelectCard.Text_CardName.text = GameManager.Instance.IsEnglish ? degradeCardInfo.BaseInfo.CardName_en : degradeCardInfo.BaseInfo.CardName;
+            return;
         }
 
-        CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - degradeCardInfo.BaseInfo.Coin) * cardCount;
-        for (int i = 0; i < CurrentEditBuildButton.BuildInfo.CardIDs.Count; i++)
+        if (!allUnlockedCards.ContainsKey(changeCardID))
         {
-            if (CurrentEditBuildButton.BuildInfo.CardIDs[i] == currentCardID)
+            allUnlockedCards.Add(changeCardID, changeCard);
+            changeCard.gameObject.SetActive(true);
+        }
+
+        PreviewCardOriginCardSelect.ChangeCardLimit(PreviewCardOriginCardSelect.CardInfo.BaseInfo.LimitNum - 1);
+        changeCard.ChangeCardLimit(changeCard.CardInfo.BaseInfo.LimitNum + 1);
+        CurrentEditBuildButton.BuildInfo.CardCountDict[currentCardID]--;
+        CurrentEditBuildButton.BuildInfo.CardCountDict[changeCardID]++;
+
+        if (GetSelectedCardCount(currentCardID) > 0)
+        {
+            if ((GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - changeCardInfo.BaseInfo.Coin) < 0)
             {
-                CurrentEditBuildButton.BuildInfo.CardIDs[i] = degradeCardID;
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
+                return;
             }
+
+            CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - changeCardInfo.BaseInfo.Coin;
+            UnSelectCard(PreviewCardOriginCardSelect, false);
+            SelectCard(changeCard, false);
+            RefreshCoinLifeEnergy();
         }
 
-        RefreshCoinLifeEnergy();
-
-        PreviewCardOriginCardSelect.Initiate(degradeCardInfo, PreviewCardOriginCardSelect.ClientPlayer, true);
-
-        RefreshCardInSelectWindow(PreviewCardOriginCardSelect, cardCount != 0);
         AudioManager.Instance.SoundPlay("sfx/OnMoneyChange");
         AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
         RefreshUpgradePanel();
         RefreshPreviewCard();
+        HideNoLimitCards();
     }
 
     #endregion

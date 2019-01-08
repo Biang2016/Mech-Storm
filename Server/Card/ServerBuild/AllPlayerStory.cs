@@ -29,10 +29,6 @@ internal class AllPlayerStory
             int playerDefaultBuildId = Database.Instance.SpecialBuildsDict["StoryAdmin"].GetBuildInfo(buildName).BuildID;
 
             //初始解锁卡片
-            string unlock_BuildName = story.ChildNodes.Item(1).Attributes["BuildName"].Value;
-            int playerDefaultUnlockedBuildID = Database.Instance.SpecialBuildsDict["StoryAdmin"].GetBuildInfo(unlock_BuildName).BuildID;
-
-            //初始解锁卡片
             XmlNode gpsNode = story.ChildNodes.Item(2);
             int DrawCardPerRound = int.Parse(gpsNode.Attributes["DrawCardPerRound"].Value);
 
@@ -136,8 +132,9 @@ internal class AllPlayerStory
             }
 
             BuildInfo PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultBuildId).Clone();
-            BuildInfo PlayerCurrentUnlockedBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultUnlockedBuildID).Clone();
-            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo, PlayerCurrentUnlockedBuildInfo, gps);
+            SortedDictionary<int, BuildInfo> playerbuildInfos = new SortedDictionary<int, BuildInfo>();
+            playerbuildInfos.Add(PlayerCurrentBuildInfo.BuildID, PlayerCurrentBuildInfo);
+            Story newStory = new Story(pureName, Levels, BuildInfo.CloneCardCountDict(PlayerCurrentBuildInfo.CardCountDict), playerbuildInfos, gps);
             Database.Instance.StoryStartDict.Add(pureName, newStory);
         }
     }
@@ -154,6 +151,15 @@ internal class AllPlayerStory
             bonus.M_BonusType = (Bonus.BonusType) Enum.Parse(typeof(Bonus.BonusType), bonusInfo.Attributes["name"].Value);
             bonus.Value = int.Parse(bonusInfo.Attributes["value"].Value);
             bg.Bonuses.Add(bonus);
+        }
+
+        if (bg.IsAlways)
+        {
+            bg.Probability = 0;
+        }
+        else
+        {
+            bg.Probability = int.Parse(bonusGroupInfo.Attributes["probability"].Value);
         }
 
         return bg;

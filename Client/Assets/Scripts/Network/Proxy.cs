@@ -197,7 +197,7 @@ public class Proxy : ProxyBase
                 case NetProtocols.CREATE_BUILD_REQUEST_RESPONSE:
                 {
                     CreateBuildRequestResponse request = (CreateBuildRequestResponse) r;
-                    SelectBuildManager.Instance.OnCreateNewBuildResponse(request.buildId);
+                    SelectBuildManager.Instance.OnCreateNewBuildResponse(request.buildInfo);
                     break;
                 }
                 case NetProtocols.BUILD_UPDATE_RESPONSE:

@@ -135,6 +135,42 @@ public partial class Utils
         return res;
     }
 
+    public static List<T> GetRandomWithProbabilityFromList<T>(List<T> OriList, int number) where T:Probability
+    {
+        if (OriList == null) return new List<T>();
+        if (number > OriList.Count) number = OriList.Count;
+
+        int accu = 0;
+        Dictionary<int, T> resDict = new Dictionary<int, T>();
+        foreach (T probability in OriList)
+        {
+            if (probability.Probability > 0)
+            {
+                accu += probability.Probability;
+                resDict.Add(accu, probability);
+            }
+        }
+
+        HashSet<int> indice = new HashSet<int>();
+        Random rd = new Random(DateTime.Now.Millisecond * number);
+        while (indice.Count < number)
+        {
+            int index = rd.Next(0, accu);
+            if (!indice.Contains(index))
+            {
+                indice.Add(index);
+            }
+        }
+
+        List<T> res = new List<T>();
+        foreach (int i in indice)
+        {
+            res.Add(resDict[i]);
+        }
+
+        return res;
+    }
+
     public static void CopyDirectory(string srcPath, string destPath)
     {
         DirectoryInfo dir = new DirectoryInfo(srcPath);

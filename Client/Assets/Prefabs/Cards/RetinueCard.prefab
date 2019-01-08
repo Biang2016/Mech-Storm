@@ -1632,12 +1632,19 @@ MonoBehaviour:
   Text_Metal: {fileID: 114855848052277896}
   Text_Energy: {fileID: 114275302071350130}
   Block_Count: {fileID: 4943116721681788}
+  Block_CountMax: {fileID: 0}
   CoinText: {fileID: 114102912948293060}
   CoinImage: {fileID: 114276274426943368}
   CoinImageBG: {fileID: 114342853549707526}
-  Star1: {fileID: 1271711757473912}
-  Star2: {fileID: 1758397230348160}
-  Star3: {fileID: 1178998514872144}
+  CardLimitCountUpButton: {fileID: 0}
+  CardLimitCountDownButton: {fileID: 0}
+  Star1: {fileID: 114797170062826512}
+  Star2: {fileID: 114095860307721456}
+  Star3: {fileID: 114339567751690024}
+  CardBanner: {fileID: 0}
+  BannerText: {fileID: 0}
+  CardUpgradeArrow: {fileID: 0}
+  UpgradeText: {fileID: 0}
   Text_Life: {fileID: 114176741390208532}
   CoinBGLowerPivot: {fileID: 224355446393818634}
   CoinBGUpperPivot: {fileID: 224307411521857234}
@@ -1650,6 +1657,10 @@ MonoBehaviour:
   PackBloom: {fileID: 114321736088159112}
   MABloom: {fileID: 114984759561336112}
   IconCanvas: {fileID: 223597084664723988}
+  Block_Count_HigherPivot: {fileID: 0}
+  Block_Count_LowerPivot: {fileID: 0}
+  Block_CountMax_HigherPivot: {fileID: 0}
+  Block_CountMax_LowerPivot: {fileID: 0}
 --- !u!114 &114362585524612424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2582,7 +2593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -56.09998, y: 55}
+  m_AnchoredPosition: {x: -58.099987, y: 55}
   m_SizeDelta: {x: 13, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224150337951305316
@@ -2922,7 +2933,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -56.09999, y: 67.4}
+  m_AnchoredPosition: {x: -58.1, y: 67.4}
   m_SizeDelta: {x: 13, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224600074326123238
@@ -2932,7 +2943,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1271711757473912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224307887185032494}
@@ -2940,7 +2951,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -56.1, y: 79.6}
+  m_AnchoredPosition: {x: -58.100006, y: 79.6}
   m_SizeDelta: {x: 13, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224638856035776822

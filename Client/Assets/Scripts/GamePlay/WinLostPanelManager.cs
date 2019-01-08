@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
 {
@@ -136,7 +139,8 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
             SelectBuildManager.Instance.ResetStoryBonusInfo();
 
             AlwaysBonusGroup = StoryManager.Instance.GetCurrentBonusGroup(false); //Always要执行，因为如果Always里面解锁了某些卡片，则要去掉避免重复
-            OptionalBonusGroup = Utils.GetRandomFromList(StoryManager.Instance.GetCurrentBonusGroup(true), Random.Range(2, 4));
+            OptionalBonusGroup = GetRandomWithProbabilityFromList(StoryManager.Instance.GetCurrentBonusGroup(true), Random.Range(3, 4));
+
             foreach (BonusGroup bg in OptionalBonusGroup)
             {
                 BonusButton bb = GameObjectPoolManager.Instance.Pool_BonusButtonPool.AllocateGameObject<BonusButton>(BonusButtonContainer);
@@ -170,6 +174,47 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         }
 
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnGameStopByWin(true), "Co_OnGameStopByWin");
+    }
+
+    public static List<T> GetRandomWithProbabilityFromList<T>(List<T> OriList, int number) where T : Probability
+    {
+        if (OriList == null) return new List<T>();
+        if (number > OriList.Count) number = OriList.Count;
+
+        int accu = 0;
+        SortedDictionary<int, T> resDict = new SortedDictionary<int, T>();
+        foreach (T probability in OriList)
+        {
+            if (probability.Probability > 0)
+            {
+                accu += probability.Probability;
+                resDict.Add(accu, probability);
+            }
+        }
+
+        HashSet<int> indice = new HashSet<int>();
+        System.Random rd = new System.Random(DateTime.Now.Millisecond * number);
+        HashSet<T> res = new HashSet<T>();
+        while (indice.Count < number)
+        {
+            int index = rd.Next(0, accu);
+            foreach (int key in resDict.Keys)
+            {
+                if (key >= index)
+                {
+                    T pr = resDict[key];
+                    if (!res.Contains(pr))
+                    {
+                        res.Add(pr);
+                        indice.Add(index);
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        return res.ToList();
     }
 
     #endregion
@@ -274,6 +319,9 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
             SendAlwaysBonusRequest();
             ShowCardsUpgrade();
         }
+
+        EndLevelRequest request = new EndLevelRequest(Client.Instance.Proxy.ClientId);
+        Client.Instance.Proxy.SendMessage(request);
     }
 
     #region Bonus
@@ -285,6 +333,13 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
             GetBonusBuildChangeInfo(bg);
             BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientId, bg);
             Client.Instance.Proxy.SendMessage(request);
+            foreach (Bonus bgBonus in bg.Bonuses)
+            {
+                if (bgBonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
+                {
+                    SelectBuildManager.Instance.JustGetNewCards.Add(bgBonus.Value);
+                }
+            }
         }
     }
 
@@ -384,15 +439,19 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         isBeginCardUpgradeShow = true;
         if (StoryManager.Instance.IsThisLevelNumberUp)
         {
-            foreach (int cardID in StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs)
+            foreach (int cardID in StoryManager.Instance.M_CurrentStory.Base_CardCountDict.Keys.ToList())
             {
-                CardInfo_Base cb = AllCards.GetCard(cardID);
-                if (cb.UpgradeInfo.UpgradeCardID != -1)
+                if (StoryManager.Instance.M_CurrentStory.Base_CardCountDict[cardID] != 0)
                 {
-                    CardInfo_Base cb_upgrade = AllCards.GetCard(cb.UpgradeInfo.UpgradeCardID);
-                    if (cb_upgrade.BaseInfo.CardRareLevel == StoryManager.Instance.Conquered_LevelNum)
+                    CardInfo_Base cb = AllCards.GetCard(cardID);
+                    if (cb.UpgradeInfo.UpgradeCardID != -1)
                     {
-                        yield return Co_UnlockCardShowOne(cb.CardID, cb.UpgradeInfo.UpgradeCardID);
+                        CardInfo_Base cb_upgrade = AllCards.GetCard(cb.UpgradeInfo.UpgradeCardID);
+                        if (cb_upgrade.BaseInfo.CardRareLevel == StoryManager.Instance.Conquered_LevelNum)
+                        {
+                            SelectBuildManager.Instance.JustUpgradeCards.Add(cb.CardID);
+                            yield return Co_UnlockCardShowOne(cb.CardID, cb.UpgradeInfo.UpgradeCardID);
+                        }
                     }
                 }
             }
@@ -401,8 +460,10 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         isBeginCardUpgradeShow = false;
         CardUpgradeUnlockAnim.SetTrigger("Reset");
         EndWinLostPanel();
-    }
 
+        SelectBuildManager.Instance.ShowNewCardBanner();
+        SelectBuildManager.Instance.ShowUpgradeCardBanner();
+    }
 
     IEnumerator Co_UnlockCardShowOne(int baseCardID, int upgradeCardID)
     {

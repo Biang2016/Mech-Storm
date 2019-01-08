@@ -105,7 +105,6 @@ public partial class SelectBuildManager
     [SerializeField] private Text RightMouseButtonClickTipText;
     [SerializeField] private Text ESCTipText;
 
-
     public void NetworkStateChange_Select(ProxyBase.ClientStates clientState)
     {
         bool isConnected = clientState == ProxyBase.ClientStates.Login || clientState == ProxyBase.ClientStates.Login;
@@ -115,8 +114,8 @@ public partial class SelectBuildManager
 
     #region 选择卡片
 
-    public Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>();
-    public Dictionary<int, CardBase> allUnlockedCards = new Dictionary<int, CardBase>();
+    public Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>(); // 所有卡片都放入窗口，按需隐藏
+    public Dictionary<int, CardBase> allUnlockedCards = new Dictionary<int, CardBase>(); // 所有显示的卡片
     private Dictionary<int, SelectCard> SelectedCards = new Dictionary<int, SelectCard>();
     private Dictionary<int, SelectCard> SelectedHeros = new Dictionary<int, SelectCard>();
 
@@ -192,8 +191,8 @@ public partial class SelectBuildManager
             }
             else
             {
-                SelectCard retinueSelect = GenerateNewSelectCard(card, RetinueContent);
-                SelectedHeros.Add(card.CardInfo.CardID, retinueSelect);
+                SelectCard newSC = GenerateNewSelectCard(card);
+                SelectedHeros.Add(card.CardInfo.CardID, newSC);
                 if (!isSelectAll) //如果是全选，只进行一次排序
                 {
                     SortSelectCards();
@@ -221,7 +220,7 @@ public partial class SelectBuildManager
             }
             else
             {
-                SelectCard newSC = GenerateNewSelectCard(card, SelectionContent);
+                SelectCard newSC = GenerateNewSelectCard(card);
                 SelectedCards.Add(card.CardInfo.CardID, newSC);
                 if (!isSelectAll) //如果是全选，只进行一次排序
                 {
@@ -243,6 +242,20 @@ public partial class SelectBuildManager
             RefreshCoinLifeEnergy();
             if (!isSelectAll) AudioManager.Instance.SoundPlay("sfx/SelectCard");
         }
+    }
+
+    private int GetSelectedCardCount(int cardID)
+    {
+        if (SelectedCards.ContainsKey(cardID))
+        {
+            return SelectedCards[cardID].Count;
+        }
+        else if (SelectedHeros.ContainsKey(cardID))
+        {
+            return SelectedHeros[cardID].Count;
+        }
+
+        return 0;
     }
 
     private void SortSCs(List<SelectCard> SCs)
@@ -296,8 +309,18 @@ public partial class SelectBuildManager
         //}
     }
 
-    private SelectCard GenerateNewSelectCard(CardBase card, Transform parenTransform)
+    private SelectCard GenerateNewSelectCard(CardBase card)
     {
+        Transform parenTransform;
+        if (card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.RetinueInfo.IsSoldier)
+        {
+            parenTransform = RetinueContent;
+        }
+        else
+        {
+            parenTransform = SelectionContent;
+        }
+
         SelectCard newSC = GameObjectPoolManager.Instance.Pool_SelectCardPool.AllocateGameObject<SelectCard>(parenTransform);
         Color cardColor = ClientUtils.HTMLColorToColor(card.CardInfo.GetCardColor());
 
@@ -331,7 +354,7 @@ public partial class SelectBuildManager
             currentPreviewCardContainer.position = CurrentPreviewCardMinPivot.position;
         }
 
-        currentPreviewCard = CardBase.InstantiateCardByCardInfo(selectCard.CardInfo, currentPreviewCardContainer, null, true);
+        currentPreviewCard = CardBase.InstantiateCardByCardInfo(selectCard.CardInfo.Clone(), currentPreviewCardContainer, null, true);
         currentPreviewCard.transform.localPosition = new Vector3(-180f, 0, -290);
         currentPreviewCard.transform.localScale = Vector3.one * 220;
         currentPreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
@@ -339,6 +362,7 @@ public partial class SelectBuildManager
         currentPreviewCard.CardBloom.SetActive(true);
         currentPreviewCard.CoinImageBG.enabled = true;
         currentPreviewCard.CoinImageBG.gameObject.SetActive(true);
+        currentPreviewCard.ChangeCardLimit(0);
 
         AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {selectCard.CardInfo}, null);
     }
@@ -443,48 +467,12 @@ public partial class SelectBuildManager
     {
         isSwitchingBuildInfo = true;
         UnSelectAllCard();
-
-        int multiFrame = 0;
+        UnlockedCards(buildInfo);
         List<CardBase> selectCB = new List<CardBase>();
-        List<int> unExistedCardIDs = new List<int>(); //由于卡片ID配置更新导致服务器数据老旧，删除此部分卡片
         foreach (int cardID in buildInfo.CardIDs)
         {
-            if (!AllCards.CardDict.ContainsKey(cardID))
-            {
-                unExistedCardIDs.Add(cardID);
-                continue;
-            }
-
-            CardBase cb = null;
-            if (!allUnlockedCards.ContainsKey(cardID))
-            {
-                List<int> cardSeriesId = AllCards.GetCardSeries(cardID);
-                foreach (int id in cardSeriesId)
-                {
-                    if (allUnlockedCards.ContainsKey(id))
-                    {
-                        cb = allUnlockedCards[id];
-                        allUnlockedCards.Remove(id);
-                        allUnlockedCards.Add(cardID, cb);
-                        allCards.Remove(id);
-                        allCards.Add(cardID, cb);
-                        cb.Initiate(AllCards.GetCard(cardID), cb.ClientPlayer, true);
-                        RefreshCardInSelectWindow(cb, true);
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                cb = allUnlockedCards[cardID];
-            }
-
+            CardBase cb = allCards[cardID];
             selectCB.Add(cb);
-        }
-
-        foreach (int id in unExistedCardIDs)
-        {
-            buildInfo.CardIDs.Remove(id);
         }
 
         CurrentBuildButtons[buildInfo.BuildID].Initialize(buildInfo);
@@ -503,7 +491,6 @@ public partial class SelectBuildManager
             }
         }
 
-        //SortSelectCards();
         RefreshCoinLifeEnergy();
         RefreshCardNum();
 
@@ -548,7 +535,6 @@ public partial class SelectBuildManager
                 AudioManager.Instance.SoundPlay("sfx/UnSelectCard");
             }
         }
-
 
         SelectCardCount = 0;
         HeroCardCount = 0;

@@ -96,6 +96,13 @@ internal class BonusButton : PoolObject
         WinLostPanelManager.Instance.GetBonusBuildChangeInfo(BonusGroup);
         BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientId, BonusGroup);
         Client.Instance.Proxy.SendMessage(request);
+        foreach (Bonus bgBonus in BonusGroup.Bonuses)
+        {
+            if (bgBonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
+            {
+                SelectBuildManager.Instance.JustGetNewCards.Add(bgBonus.Value);
+            }
+        }
     }
 
     private bool IsSelected = false;

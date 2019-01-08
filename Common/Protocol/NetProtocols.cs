@@ -64,6 +64,7 @@
     RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE, //随从攻击随从_服务器响应
 
     END_ROUND_REQUEST_RESPONSE, //结束回合_服务器响应
+    END_LEVEL_REQUEST_RESPONSE, //结束战斗_服务器响应
     WIN_DIRECTLY_REQUEST_RESPONSE, //直接获胜_服务器响应
 
     #endregion
@@ -138,6 +139,7 @@
     RETINUE_ATTACK_SHIP_REQUEST, //随从攻击战舰
 
     END_ROUND_REQUEST, //结束回合
+    END_LEVEL_REQUEST, //结束战斗
     WIN_DIRECTLY_REQUEST, //直接赢得战斗（GM协议）
 
     #endregion

@@ -1,15 +1,15 @@
 ﻿public class CreateBuildRequestResponse : ServerRequestBase
 {
-    public int buildId;
+    public BuildInfo buildInfo;
 
     public CreateBuildRequestResponse()
     {
     }
 
 
-    public CreateBuildRequestResponse( int buildId)
+    public CreateBuildRequestResponse(BuildInfo buildInfo)
     {
-        this.buildId = buildId;
+        this.buildInfo = buildInfo;
     }
 
     public override NetProtocols GetProtocol()
@@ -21,13 +21,13 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(buildId);
+        buildInfo.Serialize(writer);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        buildId = reader.ReadSInt32();
+        buildInfo = BuildInfo.Deserialize(reader);
     }
 
 }

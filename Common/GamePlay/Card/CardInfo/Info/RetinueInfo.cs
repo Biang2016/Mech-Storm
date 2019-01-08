@@ -56,7 +56,8 @@ public struct RetinueInfo
     {
         foreach (SlotTypes st in Slots)
         {
-            return st == slotType;
+            if (st == slotType)
+                return true;
         }
 
         return false;

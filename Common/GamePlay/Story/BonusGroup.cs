@@ -1,24 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public class BonusGroup
+public class BonusGroup : Probability
 {
     public bool IsAlways;
     public List<Bonus> Bonuses = new List<Bonus>();
+
+    public int Probability { get; set; }
 
     public BonusGroup()
     {
     }
 
-    public BonusGroup(bool isAlways, List<Bonus> bonuses)
+    public BonusGroup(bool isAlways, List<Bonus> bonuses, int probability)
     {
         IsAlways = isAlways;
         Bonuses = bonuses;
+        Probability = probability;
     }
 
     public BonusGroup Clone()
     {
-        return new BonusGroup(IsAlways, Bonuses.ToArray().ToList());
+        return new BonusGroup(IsAlways, Bonuses.ToArray().ToList(), Probability);
     }
 
     public void Serialize(DataStream writer)
@@ -30,6 +33,8 @@ public class BonusGroup
         {
             bonus.Serialize(writer);
         }
+
+        writer.WriteSInt32(Probability);
     }
 
     public static BonusGroup Deserialize(DataStream reader)
@@ -44,6 +49,13 @@ public class BonusGroup
             newBonusGroup.Bonuses.Add(Bonus.Deserialize(reader));
         }
 
+        newBonusGroup.Probability = reader.ReadSInt32();
+
         return newBonusGroup;
     }
+}
+
+public interface Probability
+{
+    int Probability { get; set; }
 }

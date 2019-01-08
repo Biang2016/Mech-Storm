@@ -50,8 +50,8 @@ public class Level
         Level newLevel = new Level();
         newLevel.LevelID = reader.ReadSInt32();
         newLevel.LevelNum = reader.ReadSInt32();
-        newLevel.BigBossFightTimes = reader.ReadSInt32();
         newLevel.IsBigBoss = reader.ReadByte() == 0x01;
+        newLevel.BigBossFightTimes = reader.ReadSInt32();
         int count = reader.ReadSInt32();
         newLevel.Bosses = new SortedDictionary<int, Boss>();
         for (int i = 0; i < count; i++)

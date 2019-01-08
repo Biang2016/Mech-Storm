@@ -7,9 +7,7 @@ public class Story
     public string StoryName;
     public List<Level> Levels = new List<Level>();
 
-    public BuildInfo PlayerCurrentBuildInfo;
-    public BuildInfo PlayerCurrentUnlockedBuildInfo;
-
+    public SortedDictionary<int, int> Base_CardCountDict = new SortedDictionary<int, int>();
     public SortedDictionary<int, BuildInfo> PlayerBuildInfos = new SortedDictionary<int, BuildInfo>();
 
     public GamePlaySettings StoryGamePlaySettings;
@@ -25,12 +23,12 @@ public class Story
     {
     }
 
-    public Story(string storyName, List<Level> levels, BuildInfo playerCurrentBuildInfo, BuildInfo playerCurrentUnlockedBuildInfo, GamePlaySettings storyGamePlaySettings)
+    public Story(string storyName, List<Level> levels, SortedDictionary<int, int> base_CardCountDict, SortedDictionary<int, BuildInfo> playerBuildInfos, GamePlaySettings storyGamePlaySettings)
     {
         StoryName = storyName;
         Levels = levels;
-        PlayerCurrentBuildInfo = playerCurrentBuildInfo;
-        PlayerCurrentUnlockedBuildInfo = playerCurrentUnlockedBuildInfo;
+        PlayerBuildInfos = playerBuildInfos;
+        Base_CardCountDict = base_CardCountDict;
         StoryGamePlaySettings = storyGamePlaySettings;
     }
 
@@ -38,7 +36,14 @@ public class Story
     {
         List<Level> newLevels = new List<Level>();
         Levels.ForEach(level => { newLevels.Add(level.Clone()); });
-        Story newStory = new Story(StoryName, newLevels, PlayerCurrentBuildInfo.Clone(), PlayerCurrentUnlockedBuildInfo.Clone(), StoryGamePlaySettings.Clone());
+        SortedDictionary<int, BuildInfo> playerBuildInfos = new SortedDictionary<int, BuildInfo>();
+        foreach (KeyValuePair<int, BuildInfo> kv in PlayerBuildInfos)
+        {
+            BuildInfo newBuildInfo = kv.Value.Clone();
+            playerBuildInfos.Add(newBuildInfo.BuildID, newBuildInfo);
+        }
+
+        Story newStory = new Story(StoryName, newLevels, BuildInfo.CloneCardCountDict(Base_CardCountDict), playerBuildInfos, StoryGamePlaySettings.Clone());
 
         SortedDictionary<int, int> levelNumBossRemainChoiceCount = new SortedDictionary<int, int>();
         SortedDictionary<int, List<int>> levelNumBigBossRemainChoices = new SortedDictionary<int, List<int>>();
@@ -101,7 +106,8 @@ public class Story
                 }
                 else
                 {
-                    int bossPicID = levelNumBigBossRemainChoices[levelNum][0];
+                    List<int> BigBossesID = levelNumBigBossRemainChoices[levelNum];
+                    int bossPicID = BigBossesID[rd.Next(0, BigBossesID.Count)];
                     Boss temp = level.Bosses[bossPicID];
                     level.Bosses.Clear();
                     level.Bosses.Add(bossPicID, temp);
@@ -153,10 +159,48 @@ public class Story
             }
             else
             {
-                bosses = Utils.GetRandomFromList(LevelNumBigBossRemain[level.LevelNum], nextLevelBossCount);
+                bosses = level.Bosses.Keys.ToList();
             }
 
             LevelUnlockBossInfo.Add(levelID, bosses);
+        }
+    }
+
+    public void EditAllCardCountDict(int cardID, int changeValue)
+    {
+        foreach (KeyValuePair<int, BuildInfo> kv in PlayerBuildInfos)
+        {
+            EditCardCountDict(cardID, changeValue, kv.Value.CardCountDict);
+        }
+
+        EditCardCountDict(cardID, changeValue, Base_CardCountDict);
+    }
+
+    private void EditCardCountDict(int cardID, int changeValue, SortedDictionary<int, int> CardCountDict)
+    {
+        int remainChange = changeValue;
+        if (CardCountDict[cardID] + changeValue >= 0)
+        {
+            CardCountDict[cardID] += changeValue;
+        }
+        else
+        {
+            CardCountDict[cardID] = 0;
+            remainChange += CardCountDict[cardID];
+            List<int> series = AllCards.GetCardSeries(cardID);
+            foreach (int i in series)
+            {
+                if (CardCountDict[i] + remainChange >= 0)
+                {
+                    CardCountDict[i] += remainChange;
+                    break;
+                }
+                else
+                {
+                    CardCountDict[i] = 0;
+                    remainChange += CardCountDict[i];
+                }
+            }
         }
     }
 
@@ -169,8 +213,12 @@ public class Story
             level.Serialize(writer);
         }
 
-        PlayerCurrentBuildInfo.Serialize(writer);
-        PlayerCurrentUnlockedBuildInfo.Serialize(writer);
+        writer.WriteSInt32(Base_CardCountDict.Count);
+        foreach (KeyValuePair<int, int> kv in Base_CardCountDict)
+        {
+            writer.WriteSInt32(kv.Key);
+            writer.WriteSInt32(kv.Value);
+        }
 
         writer.WriteSInt32(PlayerBuildInfos.Count);
         foreach (BuildInfo bi in PlayerBuildInfos.Values)
@@ -246,8 +294,14 @@ public class Story
             newStory.Levels.Add(Level.Deserialize(reader));
         }
 
-        newStory.PlayerCurrentBuildInfo = BuildInfo.Deserialize(reader);
-        newStory.PlayerCurrentUnlockedBuildInfo = BuildInfo.Deserialize(reader);
+        int ccdCount = reader.ReadSInt32();
+        newStory.Base_CardCountDict = new SortedDictionary<int, int>();
+        for (int i = 0; i < ccdCount; i++)
+        {
+            int key = reader.ReadSInt32();
+            int value = reader.ReadSInt32();
+            newStory.Base_CardCountDict.Add(key, value);
+        }
 
         int buildCount = reader.ReadSInt32();
         newStory.PlayerBuildInfos = new SortedDictionary<int, BuildInfo>();

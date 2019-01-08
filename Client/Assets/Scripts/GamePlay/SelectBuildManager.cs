@@ -17,6 +17,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     {
         Canvas.enabled = true;
         InitAddAllCards();
+        InitializeOnlineCardCoundDict();
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         M_StateMachine = new StateMachine();
         Canvas.gameObject.SetActive(false);
@@ -355,24 +356,9 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
             if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
-            if (cardInfo.UpgradeInfo.CardLevel > 1) continue;
             if (cardInfo.BaseInfo.Hide) continue;
-            AddCardIntoCardSelectWindow(cardInfo);
+            AddCardIntoCardSelectWindow(cardInfo.Clone());
         }
-    }
-
-    public void UnlockAllCards()
-    {
-        List<int> CardIDs = new List<int>();
-        foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
-        {
-            if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
-            if (cardInfo.UpgradeInfo.CardLevel > 1) continue;
-            if (cardInfo.BaseInfo.Hide) continue;
-            CardIDs.Add(cardInfo.CardID);
-        }
-
-        UnlockedCards(CardIDs);
     }
 
     private void LockAllCards()
@@ -385,49 +371,118 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         allUnlockedCards.Clear();
     }
 
-    public void UnlockedCards(List<int> CardIDs)
+    public void UnlockAllOnlineCards()
     {
-        foreach (int cardID in CardIDs)
+        UnlockedCards(null);
+    }
+
+    private SortedDictionary<int, int> OnlineCardCountDict;
+
+    private void InitializeOnlineCardCoundDict()
+    {
+        OnlineCardCountDict = new SortedDictionary<int, int>();
+        foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
-            CardBase cb = null;
-            if (!allCards.ContainsKey(cardID))
+            if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
+            if (cardInfo.BaseInfo.Hide) continue;
+            OnlineCardCountDict.Add(cardInfo.CardID, cardInfo.BaseInfo.LimitNum);
+        }
+    }
+
+    public void UnlockedCards(BuildInfo buildInfo)
+    {
+        SortedDictionary<int, int> CardCountDict;
+        if (buildInfo == null)
+        {
+            CardCountDict = OnlineCardCountDict;
+        }
+        else
+        {
+            CardCountDict = buildInfo.CardCountDict;
+        }
+
+        foreach (KeyValuePair<int, int> kv in CardCountDict)
+        {
+            int CardID = kv.Key;
+            int CardLimitCount = kv.Value;
+            if (allCards.ContainsKey(CardID))
             {
-                List<int> cardSeriesId = AllCards.GetCardSeries(cardID);
-                foreach (int id in cardSeriesId)
+                CardBase cb = allCards[CardID];
+                cb.ChangeCardLimit(CardLimitCount);
+
+                if (!allUnlockedCards.ContainsKey(CardID))
                 {
-                    if (allCards.ContainsKey(id))
+                    if (CardLimitCount > 0)
                     {
-                        cb = allCards[id];
-                        if (!cb.gameObject.activeSelf)
-                        {
-                            allCards.Remove(id);
-                            allCards.Add(cardID, cb);
-                            cb.Initiate(AllCards.GetCard(cardID), cb.ClientPlayer, true);
-                            RefreshCardInSelectWindow(cb, true);
-                        }
-
-                        break;
+                        allUnlockedCards.Add(CardID, cb);
+                        cb.gameObject.SetActive(true);
                     }
-                }
-            }
-            else
-            {
-                cb = allCards[cardID];
-            }
-
-            if (cb != null)
-            {
-                if (!allUnlockedCards.ContainsKey(cardID))
-                {
-                    allUnlockedCards.Add(cardID, cb);
+                    else
+                    {
+                        cb.gameObject.SetActive(false);
+                    }
                 }
                 else
                 {
-                    allUnlockedCards[cardID] = cb;
+                    if (!Client.Instance.Proxy.IsSuperAccount && CardLimitCount == 0)
+                    {
+                        cb.gameObject.SetActive(false);
+                        allUnlockedCards.Remove(CardID);
+                    }
                 }
-
-                cb.gameObject.SetActive(true);
             }
+        }
+
+        HideHigherLevelCards();
+    }
+
+    private void HideNoLimitCards()
+    {
+        if (!Client.Instance.Proxy.IsSuperAccount)
+        {
+            List<int> removeCards = new List<int>();
+            foreach (KeyValuePair<int, CardBase> kv in allUnlockedCards)
+            {
+                if (kv.Value.CardInfo.BaseInfo.LimitNum == 0)
+                {
+                    removeCards.Add(kv.Key);
+                }
+            }
+
+            foreach (int cardID in removeCards)
+            {
+                allUnlockedCards[cardID].gameObject.SetActive(false);
+                allUnlockedCards.Remove(cardID);
+            }
+        }
+    }
+
+    private void HideHigherLevelCards()
+    {
+        if (GameMode_State == GameMode.Single)
+        {
+            List<int> removeCards = new List<int>();
+            foreach (KeyValuePair<int, CardBase> kv in allUnlockedCards)
+            {
+                if (kv.Value.CardInfo.BaseInfo.CardRareLevel > StoryManager.Instance.Current_LevelNum)
+                {
+                    removeCards.Add(kv.Key);
+                }
+            }
+
+            foreach (int cardID in removeCards)
+            {
+                allUnlockedCards[cardID].gameObject.SetActive(false);
+                allUnlockedCards.Remove(cardID);
+            }
+        }
+    }
+
+    public void SetAllCardHideElementsByAccount()
+    {
+        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        {
+            kv.Value.SetAccount(Client.Instance.Proxy.IsSuperAccount);
         }
     }
 
@@ -450,6 +505,11 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         {
             newCard.BeDimColor();
         }
+
+        if (newCard.CardInfo.BaseInfo.LimitNum == 0)
+        {
+            newCard.gameObject.SetActive(false);
+        }
     }
 
     #endregion
@@ -463,6 +523,8 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     public bool JustEnergyLost = false; //刚才是否减少了能量
     public bool JustBudgetAdd = false; //刚才是否新增了预算
     public bool JustBudgetLost = false; //刚才是否减少了预算
+    public List<int> JustGetNewCards = new List<int>();
+    public List<int> JustUpgradeCards = new List<int>();
 
     public void ResetStoryBonusInfo()
     {
@@ -473,7 +535,35 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         JustEnergyLost = false;
         JustBudgetAdd = false;
         JustBudgetLost = false;
+        JustGetNewCards.Clear();
+        JustUpgradeCards.Clear();
     }
+
+    public void ShowNewCardBanner()
+    {
+        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        {
+            kv.Value.SetBanner(CardBase.BannerType.None);
+        }
+        foreach (int cardID in JustGetNewCards)
+        {
+            allCards[cardID].SetBanner(CardBase.BannerType.NewCard);
+        }
+    }
+
+    public void ShowUpgradeCardBanner()
+    {
+        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        {
+            kv.Value.SetArrow(CardBase.ArrowType.None);
+        }
+        foreach (int cardID in JustUpgradeCards)
+        {
+            allCards[cardID].SetArrow(CardBase.ArrowType.Upgrade);
+        }
+    }
+
+
 
     #endregion
 }

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class CardSpell : CardBase
 {
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect, int limit = -1)
     {
-        base.Initiate(cardInfo, clientPlayer, isCardSelect);
+        base.Initiate(cardInfo, clientPlayer, isCardSelect, limit);
         CardInfo.TargetInfo.HasTargetRetinue = false;
         CardInfo.TargetInfo.HasTargetEquip = false;
         CardInfo.TargetInfo.HasTargetShip = false;

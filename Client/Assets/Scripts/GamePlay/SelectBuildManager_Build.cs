@@ -57,25 +57,33 @@ public partial class SelectBuildManager
     {
         if (!isForce && GameMode_State == gameMode) return;
         if (StoryManager.Instance.M_CurrentStory == null && gameMode == GameMode.Single) return;
-        InitAllMyBuildInfos(gameMode);
         GameMode_State = gameMode;
+        InitAllMyBuildInfos();
+        SetAllCardHideElementsByAccount();
     }
 
-    private void InitAllMyBuildInfos(GameMode gameMode)
+    private void InitAllMyBuildInfos()
     {
         List<BuildInfo> buildInfos;
-        if (gameMode == GameMode.Online)
+        if (GameMode_State == GameMode.Online)
         {
             buildInfos = M_CurrentOnlineCompete.OnlineBuildInfos.Values.ToList();
+            foreach (BuildInfo buildInfo in buildInfos)
+            {
+                CheckBuildInfoValid(buildInfo);
+            }
+
             GamePlaySettings = M_CurrentOnlineCompete.OnlineGamePlaySettings;
-            UnlockAllCards();
         }
         else
         {
             buildInfos = StoryManager.Instance.M_CurrentStory.PlayerBuildInfos.Values.ToList();
+            foreach (BuildInfo buildInfo in buildInfos)
+            {
+                CheckBuildInfoValid(buildInfo);
+            }
+
             GamePlaySettings = StoryManager.Instance.M_CurrentStory.StoryGamePlaySettings;
-            LockAllCards();
-            UnlockedCards(StoryManager.Instance.M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs);
         }
 
         InitializeSliders();
@@ -122,6 +130,7 @@ public partial class SelectBuildManager
             CurrentEditBuildButton = AllMyBuildsContent.transform.GetChild(0).GetComponent<BuildButton>();
             CurrentEditBuildButton.IsEdit = true;
             lastSaveBuildInfo = CurrentEditBuildButton.BuildInfo.Clone();
+            lastSaveBuildInfo.BuildID = CurrentEditBuildButton.BuildInfo.BuildID;
             CurrentSelectedBuildButton = CurrentEditBuildButton;
             CurrentSelectedBuildButton.IsSelected = true;
             SelectCardsByBuildInfo(CurrentEditBuildButton.BuildInfo);
@@ -137,19 +146,68 @@ public partial class SelectBuildManager
             HideSliders();
         }
 
-        if (gameMode == GameMode.Single)
+        if (GameMode_State == GameMode.Single)
         {
-            if (CurrentBuildButtons.ContainsKey(StoryManager.Instance.M_CurrentStory.PlayerCurrentBuildInfo.BuildID))
+            if (StoryManager.Instance.M_CurrentStory.PlayerBuildInfos.Count != 0)
             {
-                SwitchToBuildButton(StoryManager.Instance.M_CurrentStory.PlayerCurrentBuildInfo.BuildID);
+                int buildID = StoryManager.Instance.M_CurrentStory.PlayerBuildInfos.Keys.ToList()[0];
+                SwitchToBuildButton(buildID);
             }
         }
-        else if (gameMode == GameMode.Online)
+        else if (GameMode_State == GameMode.Online)
         {
             if (CurrentBuildButtons.ContainsKey(M_CurrentOnlineCompete.OnlineGameCurrentBuildID))
             {
                 SwitchToBuildButton(M_CurrentOnlineCompete.OnlineGameCurrentBuildID);
             }
+        }
+    }
+
+    private void CheckBuildInfoValid(BuildInfo buildInfo) //由于卡片ID配置更新导致服务器数据老旧，删除此部分卡片
+    {
+        List<int> unExistedCardIDs = new List<int>();
+
+        foreach (int cardID in buildInfo.CardIDs)
+        {
+            if (!AllCards.CardDict.ContainsKey(cardID))
+            {
+                unExistedCardIDs.Add(cardID);
+            }
+        }
+
+        foreach (int cardID in unExistedCardIDs)
+        {
+            buildInfo.CardIDs.Remove(cardID);
+        }
+
+        unExistedCardIDs = new List<int>();
+
+        foreach (int cardID in buildInfo.CriticalCardIDs)
+        {
+            if (!AllCards.CardDict.ContainsKey(cardID))
+            {
+                unExistedCardIDs.Add(cardID);
+            }
+        }
+
+        foreach (int cardID in unExistedCardIDs)
+        {
+            buildInfo.CriticalCardIDs.Remove(cardID);
+        }
+
+        unExistedCardIDs = new List<int>();
+
+        foreach (int cardID in buildInfo.CardCountDict.Keys)
+        {
+            if (!AllCards.CardDict.ContainsKey(cardID))
+            {
+                unExistedCardIDs.Add(cardID);
+            }
+        }
+
+        foreach (int cardID in unExistedCardIDs)
+        {
+            buildInfo.CardCountDict.Remove(cardID);
         }
     }
 
@@ -199,6 +257,7 @@ public partial class SelectBuildManager
 
         CurrentEditBuildButton = buildButton;
         lastSaveBuildInfo = CurrentEditBuildButton.BuildInfo.Clone();
+        lastSaveBuildInfo.BuildID = CurrentEditBuildButton.BuildInfo.BuildID;
         CurrentEditBuildButton.IsEdit = true;
         SelectCardsByBuildInfo(buildButton.BuildInfo);
         RefreshCoinLifeEnergy();
@@ -208,10 +267,6 @@ public partial class SelectBuildManager
         if (GameMode_State == GameMode.Online)
         {
             M_CurrentOnlineCompete.OnlineGameCurrentBuildID = buildButton.BuildInfo.BuildID;
-        }
-        else
-        {
-            StoryManager.Instance.M_CurrentStory.PlayerCurrentBuildInfo.BuildID = buildButton.BuildInfo.BuildID;
         }
     }
 
@@ -231,17 +286,29 @@ public partial class SelectBuildManager
 
     public void OnCreateNewBuildButtonClick()
     {
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, GameManager.Instance.IsEnglish ? "New Deck" : "新卡组", new List<int>(), new List<int>(), GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy, 0, GamePlaySettings), GameMode_State == GameMode.Single);
+        SortedDictionary<int, int> ccd = null;
+        if (GameMode_State == GameMode.Single)
+        {
+            ccd = StoryManager.Instance.M_CurrentStory.Base_CardCountDict;
+        }
+
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, GameManager.Instance.IsEnglish ? "New Deck" : "新卡组", new List<int>(), new List<int>(), GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy, 0, GamePlaySettings, ccd), GameMode_State == GameMode.Single);
         Client.Instance.Proxy.SendMessage(request);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
     }
 
-    public void OnCreateNewBuildResponse(int buildID)
+    public void OnCreateNewBuildResponse(BuildInfo buildInfo)
     {
-        BuildButton newBuildButton = GenerateNewBuildButton(new BuildInfo(buildID, GameManager.Instance.IsEnglish ? "New Deck" : "新卡组", new List<int>(), new List<int>(), GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy, 0, GamePlaySettings));
-        CurrentBuildButtons.Add(buildID, newBuildButton);
-        CurrentBuildDict.Add(buildID, newBuildButton.BuildInfo);
+        SortedDictionary<int, int> ccd = null;
+        if (GameMode_State == GameMode.Single)
+        {
+            ccd = StoryManager.Instance.M_CurrentStory.Base_CardCountDict;
+        }
+
+        BuildButton newBuildButton = GenerateNewBuildButton(buildInfo);
+        CurrentBuildButtons.Add(buildInfo.BuildID, newBuildButton);
+        CurrentBuildDict.Add(buildInfo.BuildID, newBuildButton.BuildInfo);
         if (GameMode_State == GameMode.Online)
         {
             M_CurrentOnlineCompete.OnlineBuildInfos.Add(newBuildButton.BuildInfo.BuildID, newBuildButton.BuildInfo);
@@ -331,7 +398,7 @@ public partial class SelectBuildManager
     {
         if (CurrentBuildDict.ContainsKey(buildInfo.BuildID)) CurrentBuildDict[buildInfo.BuildID] = buildInfo;
         if (CurrentBuildButtons.ContainsKey(buildInfo.BuildID)) CurrentBuildButtons[buildInfo.BuildID].Initialize(buildInfo);
-        if (CurrentEditBuildButton.BuildInfo.EqualsTo(buildInfo)) SelectCardsByBuildInfo(buildInfo);
+        if (CurrentEditBuildButton.BuildInfo.BuildID == buildInfo.BuildID && !CurrentEditBuildButton.BuildInfo.EqualsTo(buildInfo)) SelectCardsByBuildInfo(buildInfo);
 
         if (GameMode_State == GameMode.Online)
         {

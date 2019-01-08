@@ -134,6 +134,7 @@
     <Compile Include="Protocol\Const.cs" />
     <Compile Include="Protocol\ProxyBase.cs" />
     <Compile Include="GamePlay\GamePlaySettings.cs" />
+    <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\EndLevelRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\WinDirectlyRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\EquipMARequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\EquipPackRequest.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="RequestResponse\ClientToServer\OutGame\ClientValidRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\StartNewStoryRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\OutGame\RegisterRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\EndLevelRequestResponse.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueInactivityStateRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueImmuneStateRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueCanAttackRequest.cs" />

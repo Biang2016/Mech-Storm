@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public class BuildInfo
@@ -15,6 +16,7 @@ public class BuildInfo
     public string BuildName;
 
     public List<int> CardIDs;
+    public SortedDictionary<int, int> CardCountDict; // 卡组中每张牌的选牌上限
 
     public List<int> CriticalCardIDs; //AI专用，重要卡牌起手抽到
 
@@ -69,7 +71,7 @@ public class BuildInfo
         CriticalCardIDs = new List<int>();
     }
 
-    public BuildInfo(int buildID, string buildName, List<int> cardIDs, List<int> criticalCardIDs, int drawCardNum, int life, int energy, int beginMetal, GamePlaySettings gamePlaySettings)
+    public BuildInfo(int buildID, string buildName, List<int> cardIDs, List<int> criticalCardIDs, int drawCardNum, int life, int energy, int beginMetal, GamePlaySettings gamePlaySettings, SortedDictionary<int, int> cardCountDict = null)
     {
         BuildID = buildID;
         BuildName = buildName;
@@ -81,11 +83,35 @@ public class BuildInfo
         BeginMetal = beginMetal;
         BeginMetal = beginMetal;
 
+        if (cardCountDict == null) // 缺省用默认配表
+        {
+            CardCountDict = new SortedDictionary<int, int>();
+        }
+        else
+        {
+            CardCountDict = cardCountDict;
+        }
+
+        foreach (int cardID in AllCards.CardDict.Keys)
+        {
+            if (!CardCountDict.ContainsKey(cardID))
+            {
+                CardInfo_Base cb = AllCards.GetCard(cardID);
+                if (cb != null)
+                {
+                    CardCountDict.Add(cardID, cb.BaseInfo.LimitNum);
+                }
+            }
+        }
+
         CardConsumeCoin = 0;
         foreach (int cardID in cardIDs)
         {
             CardInfo_Base cb = AllCards.GetCard(cardID);
-            if (cb != null) CardConsumeCoin += AllCards.GetCard(cardID).BaseInfo.Coin;
+            if (cb != null)
+            {
+                CardConsumeCoin += AllCards.GetCard(cardID).BaseInfo.Coin;
+            }
         }
 
         GamePlaySettings = gamePlaySettings;
@@ -113,7 +139,18 @@ public class BuildInfo
 
     public BuildInfo Clone()
     {
-        return new BuildInfo(GenerateBuildID(), BuildName, CardIDs.ToArray().ToList(), CriticalCardIDs.ToArray().ToList(), DrawCardNum, Life, Energy, BeginMetal, GamePlaySettings);
+        return new BuildInfo(GenerateBuildID(), BuildName, CardIDs.ToArray().ToList(), CriticalCardIDs.ToArray().ToList(), DrawCardNum, Life, Energy, BeginMetal, GamePlaySettings, CloneCardCountDict(CardCountDict));
+    }
+
+    public static SortedDictionary<int, int> CloneCardCountDict(SortedDictionary<int, int> cardCountDict)
+    {
+        SortedDictionary<int, int> res = new SortedDictionary<int, int>();
+        foreach (KeyValuePair<int, int> kv in cardCountDict)
+        {
+            res.Add(kv.Key, kv.Value);
+        }
+
+        return res;
     }
 
     public bool EqualsTo(BuildInfo targetBuildInfo)
@@ -124,12 +161,28 @@ public class BuildInfo
         if (Life != targetBuildInfo.Life) return false;
         if (Energy != targetBuildInfo.Energy) return false;
         if (CardIDs.Count != targetBuildInfo.CardIDs.Count) return false;
+        if (CardCountDict.Count != targetBuildInfo.CardCountDict.Count) return false;
 
         CardIDs.Sort();
         targetBuildInfo.CardIDs.Sort();
         for (int i = 0; i < CardIDs.Count; i++)
         {
             if (CardIDs[i] != targetBuildInfo.CardIDs[i]) return false;
+        }
+
+        foreach (KeyValuePair<int, int> kv in CardCountDict)
+        {
+            if (targetBuildInfo.CardCountDict.ContainsKey(kv.Key))
+            {
+                if (targetBuildInfo.CardCountDict[kv.Key] != kv.Value)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         return true;
@@ -156,6 +209,13 @@ public class BuildInfo
         writer.WriteSInt32(Life);
         writer.WriteSInt32(Energy);
         writer.WriteSInt32(BeginMetal);
+
+        writer.WriteSInt32(CardCountDict.Count);
+        foreach (KeyValuePair<int, int> kv in CardCountDict)
+        {
+            writer.WriteSInt32(kv.Key);
+            writer.WriteSInt32(kv.Value);
+        }
     }
 
     public static BuildInfo Deserialize(DataStream reader)
@@ -183,7 +243,19 @@ public class BuildInfo
         int Energy = reader.ReadSInt32();
         int BeginMetal = reader.ReadSInt32();
 
-        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs, CriticalCardIDs, DrawCardNum, Life, Energy, BeginMetal, null);
+        SortedDictionary<int, int> CardCountDict = new SortedDictionary<int, int>();
+        int cardCountDictCount = reader.ReadSInt32();
+        for (int i = 0; i < cardCountDictCount; i++)
+        {
+            int key = reader.ReadSInt32();
+            int value = reader.ReadSInt32();
+            if (!CardCountDict.ContainsKey(key))
+            {
+                CardCountDict.Add(key, value);
+            }
+        }
+
+        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, CardIDs, CriticalCardIDs, DrawCardNum, Life, Energy, BeginMetal, null, CardCountDict);
         return buildInfo;
     }
 }

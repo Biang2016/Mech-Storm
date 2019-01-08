@@ -268,9 +268,14 @@ internal class Database
 
         public BuildInfo GetBuildInfo(string buildName)
         {
-            Builds.TryGetValue(buildName, out int id);
-            Instance.BuildInfoDict.TryGetValue(id, out BuildInfo buildInfo);
-            return buildInfo;
+            if (Builds.ContainsKey(buildName))
+            {
+                if (Instance.BuildInfoDict.ContainsKey(Builds[buildName]))
+                {
+                    return Instance.BuildInfoDict[Builds[buildName]];
+                }
+            }
+            return null;
         }
 
         public List<BuildInfo> AllBuildInfo()

@@ -8,7 +8,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     internal ClientPlayer ClientPlayer;
     protected bool IsCardSelect;
     [SerializeField] private DragComponent M_DragComponent;
-    [SerializeField] private BoxCollider M_BoxCollider;
+    public BoxCollider M_BoxCollider;
 
     internal bool IsFlying;
 
@@ -32,8 +32,12 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
 
         if (CardBackRenderer) CardBackRenderer.gameObject.SetActive(true);
+        SetAccount(Client.Instance.Proxy.IsSuperAccount);
         gameObject.SetActive(true);
         CardBloom.SetActive(false);
+
+        SetBanner(BannerType.None);
+        SetArrow(ArrowType.None);
     }
 
     public CardInfo_Base CardInfo; //卡牌原始数值信息
@@ -134,6 +138,9 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         newCard.Initiate(cardInfo, clientPlayer, isCardSelect);
         newCard.Usable = false;
 
+        newCard.SetBanner(BannerType.None);
+        newCard.SetArrow(ArrowType.None);
+
         return newCard;
     }
 
@@ -152,15 +159,30 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     private float MainboardEmissionIntensity = 0f;
 
-    public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect)
+    public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect, int limitNum = -1)
     {
         IsCardSelect = isCardSelect;
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo.Clone();
         if (Block_Count)
         {
-            ClientUtils.InitiateNumbers(ref CardNumberSet_Count, NumberSize.Big, CardNumberSet.TextAlign.Center, Block_Count, 'x');
+            ClientUtils.InitiateNumbers(ref CardNumberSet_Count, NumberSize.Medium, CardNumberSet.TextAlign.Left, Block_Count, 'x');
             CardNumberSet_Count.Clear();
+        }
+
+        if (Block_CountMax)
+        {
+            ClientUtils.InitiateNumbers(ref CardNumberSet_CountMax, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_CountMax, '/');
+            CardNumberSet_CountMax.Clear();
+            if (limitNum == -1)
+            {
+                SetBlockCountMaxValue(cardInfo.BaseInfo.LimitNum);
+            }
+            else
+            {
+                cardInfo.BaseInfo.LimitNum = limitNum;
+                SetBlockCountMaxValue(cardInfo.BaseInfo.LimitNum);
+            }
         }
 
         M_Metal = CardInfo.BaseInfo.Metal;
@@ -181,9 +203,18 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         if (IsCardSelect) CoinText.text = CardInfo.BaseInfo.Coin.ToString();
 
-        if (CardCanvas) CardCanvas.enabled = clientPlayer.WhichPlayer == Players.Self;
+        if (!IsCardSelect && CardCanvas) CardCanvas.enabled = clientPlayer.WhichPlayer == Players.Self;
         SetCardBackColor();
         ChangeColor(cardColor);
+
+        if (CardLimitCountUpButton) CardLimitCountUpButton.gameObject.SetActive(false);
+        if (CardLimitCountDownButton) CardLimitCountDownButton.gameObject.SetActive(false);
+    }
+
+    public void SetAccount(bool isSuperAccount)
+    {
+        if (CardLimitCountUpButton) CardLimitCountUpButton.gameObject.SetActive(isSuperAccount);
+        if (CardLimitCountDownButton) CardLimitCountDownButton.gameObject.SetActive(isSuperAccount);
     }
 
     #region 属性
@@ -347,11 +378,17 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private Text Text_Energy;
 
     [SerializeField] private Transform Block_Count;
+    [SerializeField] private Transform Block_CountMax;
     protected CardNumberSet CardNumberSet_Count;
+    protected CardNumberSet CardNumberSet_CountMax;
 
     [SerializeField] private Text CoinText;
     [SerializeField] private Image CoinImage;
     public Image CoinImageBG;
+
+    // 管理员权限
+    [SerializeField] private Button CardLimitCountUpButton;
+    [SerializeField] private Button CardLimitCountDownButton;
 
 
     public void BeDimColor()
@@ -400,13 +437,13 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
     }
 
-    public void SetBlockCountValue(int value)
+    public void SetBlockCountValue(int value, bool forceShow = false)
     {
-        if (value == 0)
+        if (value == 0 && !forceShow)
         {
             CardNumberSet_Count.Clear();
         }
-        else if (value > 0)
+        else
         {
             CardNumberSet_Count.hasSign = true;
             CardNumberSet_Count.IsSelect = IsCardSelect;
@@ -414,9 +451,32 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
     }
 
-    [SerializeField] private GameObject Star1;
-    [SerializeField] private GameObject Star2;
-    [SerializeField] private GameObject Star3;
+    public void SetBlockCountMaxValue(int value, bool forceShow = false)
+    {
+        if (value == 0 && !forceShow)
+        {
+            CardNumberSet_CountMax.Clear();
+        }
+        else
+        {
+            CardNumberSet_CountMax.IsSelect = IsCardSelect;
+            CardNumberSet_CountMax.Number = value;
+        }
+    }
+
+    protected void SetBlockCountPosition(Vector3 pos)
+    {
+        Block_Count.position = pos;
+    }
+
+    protected void SetBlockCountMaxPosition(Vector3 pos)
+    {
+        Block_CountMax.position = pos;
+    }
+
+    [SerializeField] private RawImage Star1;
+    [SerializeField] private RawImage Star2;
+    [SerializeField] private RawImage Star3;
 
     protected int stars;
 
@@ -427,30 +487,124 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         set
         {
             stars = value;
+            Star1.gameObject.SetActive(true);
+            Star2.gameObject.SetActive(true);
+            Star3.gameObject.SetActive(true);
             switch (value)
             {
                 case 0:
-                    if (Star1) Star1.SetActive(false);
-                    if (Star2) Star2.SetActive(false);
-                    if (Star3) Star3.SetActive(false);
+                    Star1.color = new Color(1, 1, 1, 0);
+                    Star2.color = new Color(1, 1, 1, 0);
+                    Star3.color = new Color(1, 1, 1, 0);
                     break;
                 case 1:
-                    if (Star1) Star1.SetActive(true);
-                    if (Star2) Star2.SetActive(false);
-                    if (Star3) Star3.SetActive(false);
+                    Star1.color = Color.white;
+                    Star2.color = Color.black;
+                    Star3.color = Color.black;
                     break;
                 case 2:
-                    if (Star1) Star1.SetActive(true);
-                    if (Star2) Star2.SetActive(true);
-                    if (Star3) Star3.SetActive(false);
+                    Star1.color = Color.white;
+                    Star2.color = Color.white;
+                    Star3.color = Color.black;
                     break;
                 case 3:
-                    if (Star1) Star1.SetActive(true);
-                    if (Star2) Star2.SetActive(true);
-                    if (Star3) Star3.SetActive(true);
+                    Star1.color = Color.white;
+                    Star2.color = Color.white;
+                    Star3.color = Color.white;
                     break;
                 default: break;
             }
+        }
+    }
+
+    [SerializeField] private Image CardBanner;
+    [SerializeField] private Text BannerText;
+
+    public enum BannerType
+    {
+        None,
+        NewCard,
+    }
+
+    public void SetBanner(BannerType bannerType)
+    {
+        switch (bannerType)
+        {
+            case BannerType.NewCard:
+            {
+                ShowBanner(new Color(1, 0, 0, 0.7f), GameManager.Instance.IsEnglish ? "New!" : "新卡片!");
+                break;
+            }
+            case BannerType.None:
+            {
+                if (CardBanner) CardBanner.enabled = false;
+                if (BannerText) BannerText.enabled = false;
+                break;
+            }
+        }
+    }
+
+    private void ShowBanner(Color color, string text)
+    {
+        if (CardBanner) CardBanner.enabled = true;
+        if (BannerText) BannerText.enabled = true;
+        if (CardBanner) CardBanner.color = color;
+        if (BannerText) BannerText.text = text;
+    }
+
+    [SerializeField] private Image CardUpgradeArrow;
+    [SerializeField] private Text UpgradeText;
+
+    public enum ArrowType
+    {
+        None,
+        Upgrade,
+    }
+
+    public void SetArrow(ArrowType arrowType)
+    {
+        switch (arrowType)
+        {
+            case ArrowType.Upgrade:
+            {
+                ShowUpgradeArrow(new Color(0, 1, 0, 1f), GameManager.Instance.IsEnglish ? "Upgrade!" : "可升级!");
+                break;
+            }
+            case ArrowType.None:
+            {
+                if (CardUpgradeArrow) CardUpgradeArrow.enabled = false;
+                if (UpgradeText) UpgradeText.enabled = false;
+                break;
+            }
+        }
+    }
+
+    private void ShowUpgradeArrow(Color color, string text)
+    {
+        if (CardUpgradeArrow) CardUpgradeArrow.enabled = true;
+        if (UpgradeText) UpgradeText.enabled = true;
+        if (CardUpgradeArrow) CardUpgradeArrow.color = color;
+        if (UpgradeText) UpgradeText.text = text;
+    }
+
+    public void ChangeCardLimit(int value, bool forceShow = false)
+    {
+        SetBlockCountMaxValue(value, forceShow);
+        CardInfo.BaseInfo.LimitNum = value;
+    }
+
+    public void OnCardLimitCountUpButtonClick()
+    {
+        ChangeCardLimit(CardInfo.BaseInfo.LimitNum + 1);
+        SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.CardCountDict[CardInfo.CardID] = CardInfo.BaseInfo.LimitNum;
+    }
+
+    public void OnCardLimitCountDownButtonClick()
+    {
+        if (CardInfo.BaseInfo.LimitNum > 0)
+        {
+            ChangeCardLimit(CardInfo.BaseInfo.LimitNum - 1);
+            SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.CardCountDict[CardInfo.CardID] = CardInfo.BaseInfo.LimitNum;
         }
     }
 

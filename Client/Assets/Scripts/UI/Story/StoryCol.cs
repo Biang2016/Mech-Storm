@@ -14,6 +14,7 @@ public class StoryCol : PoolObject
 
         LevelInfo = null;
         StoryLevelButtons.Clear();
+        SetAsNotCurrentLevel();
         base.PoolRecycle();
     }
 

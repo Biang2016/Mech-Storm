@@ -5,6 +5,7 @@ using System.Xml;
 internal class AllServerBuilds
 {
     public static string DefaultBuildDirectory = "./Config/DefaultBuilds/";
+    public static string ExportBuildDirectory = "../../Config/DefaultBuilds/";
     public static string SuperAccountPassword = "Xuedapao007";
 
     public static void AddAllBuilds()
@@ -35,6 +36,7 @@ internal class AllServerBuilds
                 BuildInfo buildInfo = new BuildInfo();
                 buildInfo.CardIDs = new List<int>();
                 buildInfo.CriticalCardIDs = new List<int>();
+                buildInfo.CardCountDict = new SortedDictionary<int, int>();
                 for (int j = 0; j < build.ChildNodes.Count; j++)
                 {
                     XmlNode cardInfo = build.ChildNodes[j];
@@ -67,6 +69,46 @@ internal class AllServerBuilds
                             }
 
                             break;
+                        case "cardLimitNum":
+                            string[] cardLimitNum = cardInfo.Attributes["ids"].Value.Split(',');
+                            foreach (string s in cardLimitNum)
+                            {
+                                if (string.IsNullOrEmpty(s)) continue;
+                                string[] values = s.Split('(');
+                                if (values.Length == 1)
+                                {
+                                    buildInfo.CriticalCardIDs.Add(int.Parse(values[0]));
+                                }
+                                else if (values.Length == 2)
+                                {
+                                    int cardID = int.Parse(values[0]);
+                                    buildInfo.CriticalCardIDs.Add(cardID);
+                                    int cardLimitCount = int.Parse(values[1].TrimEnd(')'));
+                                    buildInfo.CardCountDict.Add(cardID, cardLimitCount);
+                                }
+                            }
+
+                            break;
+                    }
+                }
+
+                bool isStory = pureName == "StoryAdmin";
+                foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
+                {
+                    if (!buildInfo.CardCountDict.ContainsKey(kv.Key))
+                    {
+                        int limit = kv.Value.BaseInfo.LimitNum;
+                        if (kv.Value.UpgradeInfo.CardLevel > 1)
+                        {
+                            limit = 0;
+                        }
+
+                        if (isStory)
+                        {
+                            limit = 0;
+                        }
+
+                        buildInfo.CardCountDict.Add(kv.Key, limit);
                     }
                 }
 
@@ -113,8 +155,39 @@ internal class AllServerBuilds
             }
 
             cardIDs.SetAttribute("ids", string.Join(",", strs.ToArray()));
+
+            if (builds.ManagerName == "StoryAdmin")
+            {
+                XmlElement cardLimitCount = doc.CreateElement("Info");
+                buildInfo_Node.AppendChild(cardLimitCount);
+                cardLimitCount.SetAttribute("name", "cardLimitNum");
+
+                HashSet<int> unlockedSeriesCardIDs = new HashSet<int>();
+
+                List<string> strs_ccd = new List<string>();
+                foreach (KeyValuePair<int, int> kv in buildInfo.CardCountDict)
+                {
+                    List<int> temp = AllCards.GetCardSeries(kv.Key);
+                    foreach (int cardID in temp)
+                    {
+                        unlockedSeriesCardIDs.Add(cardID);
+                    }
+
+                    strs_ccd.Add(kv.Key + "(" + kv.Value + ")");
+                }
+
+                foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
+                {
+                    if (!unlockedSeriesCardIDs.Contains(kv.Key))
+                    {
+                        strs_ccd.Add(kv.Key + "(0)");
+                    }
+                }
+
+                cardLimitCount.SetAttribute("ids", string.Join(",", strs_ccd.ToArray()));
+            }
         }
 
-        doc.Save(DefaultBuildDirectory + builds.ManagerName + ".xml");
+        doc.Save(ExportBuildDirectory + builds.ManagerName + ".xml");
     }
 }

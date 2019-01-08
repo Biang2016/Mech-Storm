@@ -38,6 +38,7 @@ public class SelectCard : PoolObject
     public Text Text_Count;
     public Button CardButton;
     public Text Text_CardName;
+    public Image CardImage;
 
     private int count;
 
@@ -92,6 +93,7 @@ public class SelectCard : PoolObject
         OnMouseLeaveHandler = leaveHandler;
         CardButton.image.color = color;
         CardButton.onClick.RemoveAllListeners();
+        ClientUtils.ChangePicture(CardImage, cardInfo.BaseInfo.PictureID);
     }
 
     private void RefreshText()

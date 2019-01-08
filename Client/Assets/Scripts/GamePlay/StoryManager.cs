@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -148,7 +149,7 @@ public class StoryManager : MonoSingleton<StoryManager>
     public void InitiateStoryCanvas(Story story)
     {
         Conquered_LevelNum = -1;
-        AllCards.ResetCardLevelDictRemain(story.PlayerCurrentUnlockedBuildInfo.CardIDs); //重置解锁卡牌字典
+
         foreach (StoryCol sc in LevelCols.Values)
         {
             sc.PoolRecycle();
@@ -171,6 +172,8 @@ public class StoryManager : MonoSingleton<StoryManager>
             storyCol.Initialize(story.Levels[i], bossCount, nextBossCount);
             LevelCols.Add(storyCol.LevelInfo.LevelID, storyCol);
         }
+
+        LevelCols[0].SetAsCurrentLevel();
 
         foreach (StoryCol sc in LevelCols.Values)
         {
@@ -230,22 +233,10 @@ public class StoryManager : MonoSingleton<StoryManager>
         foreach (BonusGroup bg in bgs)
         {
             Bonus b = bg.Bonuses[0];
-            if (b.M_BonusType == Bonus.BonusType.UnlockCardByID)
-            {
-                if (M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(b.Value))
-                {
-                    removeBgs.Add(bg);
-                }
-                else
-                {
-                    M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Add(b.Value); //暂时假设这张卡片已经加入到解锁集合中了，这个CardIDs现在可任意修改，因为它在领完奖励就会从服务端同步一遍
-                    AllCards.ResetCardLevelDictRemain(M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs); //这个字典也会重置的
-                }
-            }
-            else if (b.M_BonusType == Bonus.BonusType.UnlockCardByLevelNum)
+            if (b.M_BonusType == Bonus.BonusType.UnlockCardByLevelNum)
             {
                 CardInfo_Base cb = AllCards.GetRandomCardInfoByLevelNum(b.Value);
-                if (cb == null) //该等级的卡片已经全部解锁了
+                if (cb == null) //无该等级的卡片
                 {
                     removeBgs.Add(bg); //这个bonus就失效了
                 }
@@ -254,15 +245,26 @@ public class StoryManager : MonoSingleton<StoryManager>
                     b.M_BonusType = Bonus.BonusType.UnlockCardByID;
                     b.Value = cb.CardID;
                     bg.Bonuses[0] = b;
-
-                    M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs.Add(b.Value); //暂时假设这张卡片已经加入到解锁集合中了，这个CardIDs现在可任意修改，因为它在领完奖励就会从服务端同步一遍
-                    AllCards.ResetCardLevelDictRemain(M_CurrentStory.PlayerCurrentUnlockedBuildInfo.CardIDs); //这个字典也会重置的
                 }
             }
         }
 
         removeBgs.ForEach(bg => { bgs.Remove(bg); });
         return bgs;
+    }
+
+    private List<int> UnlockedCardIDs()
+    {
+        List<int> unlockedCardIDs = new List<int>();
+        foreach (KeyValuePair<int, int> kv in M_CurrentStory.Base_CardCountDict)
+        {
+            if (kv.Value != 0)
+            {
+                unlockedCardIDs.Add(kv.Key);
+            }
+        }
+
+        return unlockedCardIDs;
     }
 
 

@@ -236,10 +236,12 @@ internal class ClientProxy : ProxyBase
                     Story newStory = Database.Instance.StoryStartDict["Story1"].Variant();
                     Database.Instance.RemovePlayerStory(UserName, this);
                     Database.Instance.PlayerStoryStates.Add(UserName, newStory);
-
-                    newStory.PlayerBuildInfos.Add(newStory.PlayerCurrentBuildInfo.BuildID, newStory.PlayerCurrentBuildInfo);
                     newStory.UnlockLevelBosses(0);
-                    Database.Instance.BuildInfoDict.Add(newStory.PlayerCurrentBuildInfo.BuildID, newStory.PlayerCurrentBuildInfo);
+                    foreach (KeyValuePair<int, BuildInfo> kv in newStory.PlayerBuildInfos)
+                    {
+                        Database.Instance.BuildInfoDict.Add(kv.Key, kv.Value);
+                    }
+
                     StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(newStory);
                     SendMessage(response);
                     break;
@@ -289,15 +291,24 @@ internal class ClientProxy : ProxyBase
                                 }
                                 case Bonus.BonusType.UnlockCardByID:
                                 {
-                                    if (!story.PlayerCurrentUnlockedBuildInfo.CardIDs.Contains(bonus.Value)) story.PlayerCurrentUnlockedBuildInfo.CardIDs.Add(bonus.Value);
+                                    story.EditAllCardCountDict(bonus.Value, 1);
                                     break;
                                 }
                             }
                         }
                     }
 
+                    break;
+                }
+
+                case EndLevelRequest _:
+                {
+                    Story story = Database.Instance.PlayerStoryStates[username];
                     StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(story);
                     SendMessage(response);
+
+                    EndLevelRequestResponse request = new EndLevelRequestResponse();
+                    SendMessage(request);
                     break;
                 }
 
@@ -307,7 +318,7 @@ internal class ClientProxy : ProxyBase
                     if (request.BuildInfo.BuildID == -1)
                     {
                         request.BuildInfo.BuildID = BuildInfo.GenerateBuildID();
-                        CreateBuildRequestResponse response = new CreateBuildRequestResponse(request.BuildInfo.BuildID);
+                        CreateBuildRequestResponse response = new CreateBuildRequestResponse(request.BuildInfo);
                         SendMessage(response);
                     }
                     else
