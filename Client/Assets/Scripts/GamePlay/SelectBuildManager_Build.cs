@@ -143,6 +143,15 @@ public partial class SelectBuildManager
         }
         else
         {
+            if (GameMode_State == GameMode.Single)
+            {
+                UnlockedCards(StoryManager.Instance.M_CurrentStory.Base_CardCountDict);
+            }
+            else
+            {
+                UnlockAllOnlineCards();
+            }
+
             HideSliders();
         }
 

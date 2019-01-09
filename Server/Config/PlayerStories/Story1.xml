@@ -35,6 +35,16 @@
     </BossInfo>
     <BossInfo name="Soldier" BuildName="Training_Recruit_Lv0" picID="68">
     </BossInfo>
+    <BossInfo name="Soldier" BuildName="RepairTeam_Lv0" picID="51">
+      <BonusGroupInfo type="Always">
+        <BonusInfo name="UnlockCardByID" value="5101"></BonusInfo>
+      </BonusGroupInfo>
+    </BossInfo>
+    <BossInfo name="Boss" BuildName="Gatlin_Lv0" picID="601">
+      <BonusGroupInfo type="Always">
+        <BonusInfo name="UnlockCardByID" value="60101"></BonusInfo>
+      </BonusGroupInfo>
+    </BossInfo>
     <BossInfo name="Boss" BuildName="StrikeTeam_Lv0" picID="58">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="5800"></BonusInfo>

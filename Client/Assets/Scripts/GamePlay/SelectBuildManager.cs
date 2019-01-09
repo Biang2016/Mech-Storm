@@ -373,7 +373,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
     public void UnlockAllOnlineCards()
     {
-        UnlockedCards(null);
+        UnlockedCards(buildInfo: null);
     }
 
     private SortedDictionary<int, int> OnlineCardCountDict;
@@ -401,7 +401,12 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
             CardCountDict = buildInfo.CardCountDict;
         }
 
-        foreach (KeyValuePair<int, int> kv in CardCountDict)
+        UnlockedCards(CardCountDict);
+    }
+
+    public void UnlockedCards(SortedDictionary<int, int> cardCountDict)
+    {
+        foreach (KeyValuePair<int, int> kv in cardCountDict)
         {
             int CardID = kv.Key;
             int CardLimitCount = kv.Value;
@@ -410,30 +415,42 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
                 CardBase cb = allCards[CardID];
                 cb.ChangeCardLimit(CardLimitCount);
 
-                if (!allUnlockedCards.ContainsKey(CardID))
+                if (Client.Instance.Proxy.IsSuperAccount)
                 {
-                    if (CardLimitCount > 0)
+                    if (!allUnlockedCards.ContainsKey(CardID))
                     {
                         allUnlockedCards.Add(CardID, cb);
-                        cb.gameObject.SetActive(true);
                     }
-                    else
-                    {
-                        cb.gameObject.SetActive(false);
-                    }
+
+                    cb.gameObject.SetActive(true);
                 }
                 else
                 {
-                    if (!Client.Instance.Proxy.IsSuperAccount && CardLimitCount == 0)
+                    if (!allUnlockedCards.ContainsKey(CardID))
                     {
-                        cb.gameObject.SetActive(false);
-                        allUnlockedCards.Remove(CardID);
+                        if (CardLimitCount > 0)
+                        {
+                            allUnlockedCards.Add(CardID, cb);
+                            cb.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            cb.gameObject.SetActive(false);
+                        }
+                    }
+                    else
+                    {
+                        if (CardLimitCount == 0)
+                        {
+                            cb.gameObject.SetActive(false);
+                            allUnlockedCards.Remove(CardID);
+                        }
                     }
                 }
             }
         }
 
-        HideHigherLevelCards();
+        HideHigherLevelNumCardsForStoryMode();
     }
 
     private void HideNoLimitCards()
@@ -457,7 +474,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         }
     }
 
-    private void HideHigherLevelCards()
+    private void HideHigherLevelNumCardsForStoryMode()
     {
         if (GameMode_State == GameMode.Single)
         {
@@ -545,6 +562,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         {
             kv.Value.SetBanner(CardBase.BannerType.None);
         }
+
         foreach (int cardID in JustGetNewCards)
         {
             allCards[cardID].SetBanner(CardBase.BannerType.NewCard);
@@ -557,13 +575,12 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         {
             kv.Value.SetArrow(CardBase.ArrowType.None);
         }
+
         foreach (int cardID in JustUpgradeCards)
         {
             allCards[cardID].SetArrow(CardBase.ArrowType.Upgrade);
         }
     }
-
-
 
     #endregion
 }

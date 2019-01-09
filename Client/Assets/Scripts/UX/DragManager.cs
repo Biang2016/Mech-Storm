@@ -69,10 +69,11 @@ public class DragManager : MonoSingleton<DragManager>
 
     void Update()
     {
-        if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
-        if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show) return;
-        if (!Client.Instance.IsPlaying()) return;
-        if (StartMenuManager.Instance.M_StateMachine.GetState() != StartMenuManager.StateMachine.States.Hide) return;
+        if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) ResetCurrentDrag();
+        if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show) ResetCurrentDrag();
+        if (!Client.Instance.IsPlaying()) ResetCurrentDrag();
+        if (StartMenuManager.Instance.M_StateMachine.GetState() != StartMenuManager.StateMachine.States.Hide) ResetCurrentDrag();
+        if (WinLostPanelManager.Instance.IsShow) ResetCurrentDrag();
         if (!IsSummonPreview)
         {
             CommonDrag();
@@ -111,11 +112,16 @@ public class DragManager : MonoSingleton<DragManager>
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (CurrentDrag)
-            {
-                CurrentDrag.IsOnDrag = false;
-                CurrentDrag = null;
-            }
+            ResetCurrentDrag();
+        }
+    }
+
+    private void ResetCurrentDrag()
+    {
+        if (CurrentDrag)
+        {
+            CurrentDrag.IsOnDrag = false;
+            CurrentDrag = null;
         }
     }
 

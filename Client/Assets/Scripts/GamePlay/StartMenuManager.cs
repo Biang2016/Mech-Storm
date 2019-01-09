@@ -90,10 +90,12 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                 switch (newState)
                 {
                     case States.Hide:
+                    {
                         HideMenu();
                         break;
-
+                    }
                     case States.Show_Main:
+                    {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
@@ -113,7 +115,9 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleCustomStartButton.gameObject.SetActive(false);
                         Instance.SingleCustomDeckButton.gameObject.SetActive(false);
                         break;
+                    }
                     case States.Show_Online:
+                    {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
@@ -133,7 +137,9 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleCustomStartButton.gameObject.SetActive(false);
                         Instance.SingleCustomDeckButton.gameObject.SetActive(false);
                         break;
+                    }
                     case States.Show_Online_Matching:
+                    {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
@@ -152,10 +158,12 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleCustomStartButton.gameObject.SetActive(false);
                         Instance.SingleCustomDeckButton.gameObject.SetActive(false);
                         break;
+                    }
                     case States.Show_Single:
+                    {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
-                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
+                        AudioManager.Instance.BGMLoopInList(new List<string> { "bgm/StartMenuBGM0", "bgm/StartMenuBGM1" });
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
                         Instance.SingleCustomBattleButton.gameObject.SetActive(false);
@@ -171,8 +179,15 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleDeckButton.gameObject.SetActive(StoryManager.Instance.M_CurrentStory != null);
                         Instance.SingleCustomStartButton.gameObject.SetActive(false);
                         Instance.SingleCustomDeckButton.gameObject.SetActive(false);
+
+                        bool newCard = SelectBuildManager.Instance.JustGetNewCards.Count != 0 || SelectBuildManager.Instance.JustUpgradeCards.Count != 0;
+                        Instance.SingleDeckNewImage.gameObject.SetActive(newCard);
+                        Instance.SingleDeckNewText.gameObject.SetActive(newCard);
+
+                        }
                         break;
                     case States.Show_Single_Preparing:
+                    {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
@@ -190,8 +205,14 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleDeckButton.gameObject.SetActive(false);
                         Instance.SingleCustomStartButton.gameObject.SetActive(false);
                         Instance.SingleCustomDeckButton.gameObject.SetActive(false);
+
+                        bool newCard = SelectBuildManager.Instance.JustGetNewCards.Count != 0 || SelectBuildManager.Instance.JustUpgradeCards.Count != 0;
+                        Instance.SingleDeckNewImage.gameObject.SetActive(newCard);
+                        Instance.SingleDeckNewText.gameObject.SetActive(newCard);
                         break;
+                    }
                     case States.Show_SingleCustom:
+                    {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
@@ -211,7 +232,9 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleCustomStartButton.gameObject.SetActive(true);
                         Instance.SingleCustomDeckButton.gameObject.SetActive(true);
                         break;
+                    }
                     case States.Show_SingleCustom_Preparing:
+                    {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
@@ -229,6 +252,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleDeckButton.gameObject.SetActive(false);
                         Instance.SingleCustomStartButton.gameObject.SetActive(false);
                         Instance.SingleCustomDeckButton.gameObject.SetActive(false);
+                    }
                         break;
                 }
 
@@ -382,6 +406,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     [SerializeField] private Button SingleDeckButton;
     [SerializeField] private Text SingleDeckText;
     [SerializeField] private Text SingleDeckTipText;
+    [SerializeField] private Image SingleDeckNewImage;
+    [SerializeField] private Text SingleDeckNewText;
 
     #endregion
 
@@ -661,6 +687,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     public void OnSelectCardDeckWindowButtonClick()
     {
         M_StateMachine.SetState(StateMachine.States.Hide);
+        StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
         if (Client.Instance.IsLogin() && !Client.Instance.IsMatching()) SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
         else if (Client.Instance.IsPlaying() || Client.Instance.IsMatching()) SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show_ReadOnly);
     }

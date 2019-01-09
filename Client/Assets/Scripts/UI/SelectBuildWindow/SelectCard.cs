@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// </summary>
 public class SelectCard : PoolObject
 {
-    public override  void PoolRecycle()
+    public override void PoolRecycle()
     {
         Count = 0;
         base.PoolRecycle();
@@ -16,29 +16,30 @@ public class SelectCard : PoolObject
     {
     }
 
-    public Transform Tran_Metal;
-    public Transform Tran_Energy;
-    public Transform Tran_Metal_s;
-    public Transform Tran_Energy_s;
-    public Transform Tran_NOCOST;
+    [SerializeField] private Transform Tran_Metal;
+    [SerializeField] private Transform Tran_Energy;
+    [SerializeField] private Transform Tran_Metal_s;
+    [SerializeField] private Transform Tran_Energy_s;
+    [SerializeField] private Transform Tran_NOCOST;
 
-    public Text Text_Metal;
-    public Text Text_Energy;
-    public Text Text_Metal_s;
-    public Text Text_Energy_s;
-    public Text Text_NOCOST;
+    [SerializeField] private Text Text_Metal;
+    [SerializeField] private Text Text_Energy;
+    [SerializeField] private Text Text_Metal_s;
+    [SerializeField] private Text Text_Energy_s;
+    [SerializeField] private Text Text_NOCOST;
 
-    public Text Text_MetalBG;
-    public Text Text_EnergyBG;
-    public Text Text_Metal_sBG;
-    public Text Text_Energy_sBG;
-    public Text Text_NOCOSTBG;
+    [SerializeField] private Text Text_MetalBG;
+    [SerializeField] private Text Text_EnergyBG;
+    [SerializeField] private Text Text_Metal_sBG;
+    [SerializeField] private Text Text_Energy_sBG;
+    [SerializeField] private Text Text_NOCOSTBG;
 
 
-    public Text Text_Count;
+    [SerializeField] private Text Text_Count;
     public Button CardButton;
-    public Text Text_CardName;
-    public Image CardImage;
+    [SerializeField] private Text Text_CardName;
+    [SerializeField] private Image CardImage;
+
 
     private int count;
 
@@ -80,9 +81,52 @@ public class SelectCard : PoolObject
         }
     }
 
+    [SerializeField] private Image Star1;
+    [SerializeField] private Image Star2;
+    [SerializeField] private Image Star3;
+
+    protected int stars;
+
+    public int Stars
+    {
+        get { return stars; }
+
+        set
+        {
+            stars = value;
+            Star1.gameObject.SetActive(true);
+            Star2.gameObject.SetActive(true);
+            Star3.gameObject.SetActive(true);
+            switch (value)
+            {
+                case 0:
+                    Star1.color = new Color(1, 1, 1, 0);
+                    Star2.color = new Color(1, 1, 1, 0);
+                    Star3.color = new Color(1, 1, 1, 0);
+                    break;
+                case 1:
+                    Star1.color = Color.white;
+                    Star2.color = Color.black;
+                    Star3.color = Color.black;
+                    break;
+                case 2:
+                    Star1.color = Color.white;
+                    Star2.color = Color.white;
+                    Star3.color = Color.black;
+                    break;
+                case 3:
+                    Star1.color = Color.white;
+                    Star2.color = Color.white;
+                    Star3.color = Color.white;
+                    break;
+                default: break;
+            }
+        }
+    }
+
     public CardInfo_Base CardInfo;
 
-    public void Initiate(int count, int metal, int energy, string text, CardInfo_Base cardInfo,  SelectCardOnMouseEnterHandler enterHandler, SelectCardOnMouseLeaveHandler leaveHandler, Color color)
+    public void Initiate(int count, int metal, int energy, string text, CardInfo_Base cardInfo, SelectCardOnMouseEnterHandler enterHandler, SelectCardOnMouseLeaveHandler leaveHandler, Color color)
     {
         Count = count;
         Metal = metal;
@@ -93,7 +137,8 @@ public class SelectCard : PoolObject
         OnMouseLeaveHandler = leaveHandler;
         CardButton.image.color = color;
         CardButton.onClick.RemoveAllListeners();
-        ClientUtils.ChangePicture(CardImage, cardInfo.BaseInfo.PictureID);
+        ClientUtils.ChangePicture(CardImage, CardInfo.BaseInfo.PictureID);
+        Stars = CardInfo.UpgradeInfo.CardLevel;
     }
 
     private void RefreshText()

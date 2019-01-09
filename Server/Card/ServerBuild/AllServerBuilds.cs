@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 internal class AllServerBuilds
@@ -118,6 +119,8 @@ internal class AllServerBuilds
         }
     }
 
+    static Regex Regex_BuildName_StoryLevel = new Regex("[a-zA-Z0-9]_Lv([0-9]+)");
+
     public static void ExportBuilds(Database.SpecialBuilds builds)
     {
         XmlDocument doc = new XmlDocument();
@@ -129,6 +132,47 @@ internal class AllServerBuilds
         doc.AppendChild(ele);
 
         List<BuildInfo> buildInfos = builds.AllBuildInfo();
+        SortedDictionary<int, List<BuildInfo>> sortedServerAdminBuilds = new SortedDictionary<int, List<BuildInfo>>();
+
+        if (builds.ManagerName == "ServerAdmin")
+        {
+            foreach (BuildInfo buildInfo in buildInfos)
+            {
+                Match match = Regex_BuildName_StoryLevel.Match(buildInfo.BuildName);
+                if (match.Success)
+                {
+                    int levelNum = -1;
+                    foreach (Group matchGroup in match.Groups)
+                    {
+                        int.TryParse(matchGroup.Value, out levelNum);
+                    }
+
+                    if (levelNum != -1)
+                    {
+                        if (!sortedServerAdminBuilds.ContainsKey(levelNum))
+                        {
+                            sortedServerAdminBuilds.Add(levelNum, new List<BuildInfo>());
+                        }
+
+                        sortedServerAdminBuilds[levelNum].Add(buildInfo);
+                    }
+                }
+            }
+
+            foreach (KeyValuePair<int, List<BuildInfo>> kv in sortedServerAdminBuilds)
+            {
+                foreach (BuildInfo bi in kv.Value)
+                {
+                    buildInfos.Remove(bi);
+                }
+            }
+
+            foreach (KeyValuePair<int, List<BuildInfo>> kv in sortedServerAdminBuilds)
+            {
+                buildInfos.AddRange(kv.Value);
+            }
+        }
+
         foreach (BuildInfo buildInfo in buildInfos)
         {
             XmlElement buildInfo_Node = doc.CreateElement("BuildInfo");
