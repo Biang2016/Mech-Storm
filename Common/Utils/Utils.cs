@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
@@ -135,13 +136,12 @@ public partial class Utils
         return res;
     }
 
-    public static List<T> GetRandomWithProbabilityFromList<T>(List<T> OriList, int number) where T:Probability
+    public static List<T> GetRandomWithProbabilityFromList<T>(List<T> OriList, int number) where T : Probability
     {
         if (OriList == null) return new List<T>();
-        if (number > OriList.Count) number = OriList.Count;
 
         int accu = 0;
-        Dictionary<int, T> resDict = new Dictionary<int, T>();
+        SortedDictionary<int, T> resDict = new SortedDictionary<int, T>();
         foreach (T probability in OriList)
         {
             if (probability.Probability > 0)
@@ -151,24 +151,35 @@ public partial class Utils
             }
         }
 
-        HashSet<int> indice = new HashSet<int>();
-        Random rd = new Random(DateTime.Now.Millisecond * number);
-        while (indice.Count < number)
+        System.Random rd = new System.Random(DateTime.Now.Millisecond * number);
+        HashSet<T> res = new HashSet<T>();
+        while (res.Count < number)
         {
             int index = rd.Next(0, accu);
-            if (!indice.Contains(index))
+            foreach (int key in resDict.Keys)
             {
-                indice.Add(index);
+                if (key >= index)
+                {
+                    T pr = resDict[key];
+                    if (!res.Contains(pr))
+                    {
+                        res.Add(pr);
+                    }
+                    else
+                    {
+                        if (!pr.Singleton)
+                        {
+                            res.Add((T) pr.ProbabilityClone());
+                        }
+                    }
+
+
+                    break;
+                }
             }
         }
 
-        List<T> res = new List<T>();
-        foreach (int i in indice)
-        {
-            res.Add(resDict[i]);
-        }
-
-        return res;
+        return res.ToList();
     }
 
     public static void CopyDirectory(string srcPath, string destPath)

@@ -14,7 +14,7 @@
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="Training_Recruit_Lv0" DrawCardNum="2" Life="10" Energy="6" BeginMetal="1" />
-    <Info name="cardIDs" ids="6901,6901,6901,62401,62401,62401,62401,70101,70101,70101,60601,62101,62101" />
+    <Info name="cardIDs" ids="6901,62401,62401,62401,62401,70101,70101,60601,62101" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="StrikeTeam_Lv0" DrawCardNum="2" Life="20" Energy="10" BeginMetal="1" />

@@ -36,12 +36,31 @@ public static class AllCards
         }
     }
 
-    public static CardInfo_Base GetRandomCardInfoByLevelNum(int levelNum)
+    public static CardInfo_Base GetRandomCardInfoByLevelNum(int levelNum, HashSet<int> exceptCardIDs = null)
     {
+        if (exceptCardIDs == null)
+        {
+            exceptCardIDs = new HashSet<int>();
+        }
+
         CardInfo_Base res = null;
         if (AllCards.CardLevelDict_Remain.ContainsKey(levelNum))
         {
             List<CardInfo_Base> levelCards = AllCards.CardLevelDict_Remain[levelNum];
+            List<CardInfo_Base> removeLevelCards = new List<CardInfo_Base>();
+            foreach (CardInfo_Base cb in levelCards)
+            {
+                if (exceptCardIDs.Contains(cb.CardID))
+                {
+                    removeLevelCards.Add(cb);
+                }
+            }
+
+            foreach (CardInfo_Base cb in removeLevelCards)
+            {
+                levelCards.Remove(cb);
+            }
+
             if (levelCards.Count >= 1)
             {
                 res = Utils.GetRandomFromList(levelCards, 1)[0];
@@ -125,7 +144,6 @@ public static class AllCards
                             int.Parse(cardInfo.Attributes["effectFactor"].Value),
                             int.Parse(cardInfo.Attributes["limitNum"].Value),
                             int.Parse(cardInfo.Attributes["cardRareLevel"].Value),
-                            (DragPurpose) Enum.Parse(typeof(DragPurpose), cardInfo.Attributes["dragPurpose"].Value),
                             (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value));
                         break;
                     case "upgradeInfo":

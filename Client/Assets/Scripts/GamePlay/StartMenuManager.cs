@@ -163,7 +163,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                     {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
-                        AudioManager.Instance.BGMLoopInList(new List<string> { "bgm/StartMenuBGM0", "bgm/StartMenuBGM1" });
+                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
                         Instance.SingleCustomBattleButton.gameObject.SetActive(false);
@@ -179,12 +179,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                         Instance.SingleDeckButton.gameObject.SetActive(StoryManager.Instance.M_CurrentStory != null);
                         Instance.SingleCustomStartButton.gameObject.SetActive(false);
                         Instance.SingleCustomDeckButton.gameObject.SetActive(false);
-
-                        bool newCard = SelectBuildManager.Instance.JustGetNewCards.Count != 0 || SelectBuildManager.Instance.JustUpgradeCards.Count != 0;
-                        Instance.SingleDeckNewImage.gameObject.SetActive(newCard);
-                        Instance.SingleDeckNewText.gameObject.SetActive(newCard);
-
-                        }
+                        Instance.CheckSingleModeNewAndUpgradeCards();
+                    }
                         break;
                     case States.Show_Single_Preparing:
                     {
@@ -260,6 +256,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                 state = newState;
             }
         }
+
 
         public void ReturnToPreviousState()
         {
@@ -488,6 +485,13 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     [SerializeField] private Text DeckAbstractText_DrawNum;
 
     #endregion
+
+    public void CheckSingleModeNewAndUpgradeCards()
+    {
+        bool newCard = SelectBuildManager.Instance.JustGetNewCards.Count != 0 || SelectBuildManager.Instance.JustUpgradeCards.Count != 0;
+        SingleDeckNewImage.gameObject.SetActive(newCard);
+        SingleDeckNewText.gameObject.SetActive(newCard);
+    }
 
     public void RefreshBuildInfoAbstract()
     {

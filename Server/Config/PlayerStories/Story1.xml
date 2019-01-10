@@ -11,20 +11,20 @@
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="50">
+      <BonusGroupInfo type="Optional" probability="70" singleton="False">
         <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="3"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="EnergyUpperLimit" value="2"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="10">
+      <BonusGroupInfo type="Optional" probability="10" singleton="True">
         <BonusInfo name="Budget" value="50"></BonusInfo>
       </BonusGroupInfo>
     </CommonBonus>
@@ -63,26 +63,26 @@
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="20">
+      <BonusGroupInfo type="Optional" probability="40" singleton="False">
         <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="50">
+      <BonusGroupInfo type="Optional" probability="80" singleton="False">
         <BonusInfo name="UnlockCardByLevelNum" value="1"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="3"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="EnergyUpperLimit" value="2"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="10">
+      <BonusGroupInfo type="Optional" probability="10" singleton="True">
         <BonusInfo name="Budget" value="75"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="Budget" value="50"></BonusInfo>
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
       </BonusGroupInfo>
@@ -110,30 +110,30 @@
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="10">
+      <BonusGroupInfo type="Optional" probability="20" singleton="False">
         <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="20">
+      <BonusGroupInfo type="Optional" probability="40" singleton="False">
         <BonusInfo name="UnlockCardByLevelNum" value="1"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="50">
+      <BonusGroupInfo type="Optional" probability="70" singleton="False">
         <BonusInfo name="UnlockCardByLevelNum" value="2"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="3"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="EnergyUpperLimit" value="2"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5">
+      <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="Budget" value="75"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="2"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="10">
+      <BonusGroupInfo type="Optional" probability="10" singleton="True">
         <BonusInfo name="Budget" value="100"></BonusInfo>
       </BonusGroupInfo>
     </CommonBonus>

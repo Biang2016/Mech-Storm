@@ -11,6 +11,7 @@
             sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround)
     {
         UpgradeInfo = upgradeInfo;
+        Pro_Initialize();
     }
 
     public override string GetCardDescShow(bool isEnglish)

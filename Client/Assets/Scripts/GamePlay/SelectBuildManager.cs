@@ -540,8 +540,8 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     public bool JustEnergyLost = false; //刚才是否减少了能量
     public bool JustBudgetAdd = false; //刚才是否新增了预算
     public bool JustBudgetLost = false; //刚才是否减少了预算
-    public List<int> JustGetNewCards = new List<int>();
-    public List<int> JustUpgradeCards = new List<int>();
+    public HashSet<int> JustGetNewCards = new HashSet<int>();
+    public HashSet<int> JustUpgradeCards = new HashSet<int>();
 
     public void ResetStoryBonusInfo()
     {

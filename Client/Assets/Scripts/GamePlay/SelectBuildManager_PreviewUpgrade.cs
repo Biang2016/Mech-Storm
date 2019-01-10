@@ -58,6 +58,19 @@ public partial class SelectBuildManager
 
         RefreshUpgradePanel();
 
+        card.SetBanner(CardBase.BannerType.None);
+        card.SetArrow(CardBase.ArrowType.None);
+        if (JustUpgradeCards.Contains(card.CardInfo.CardID))
+        {
+            JustUpgradeCards.Remove(card.CardInfo.CardID);
+        }
+
+        if (JustGetNewCards.Contains(card.CardInfo.CardID))
+        {
+            JustGetNewCards.Remove(card.CardInfo.CardID);
+        }
+
+        StartMenuManager.Instance.CheckSingleModeNewAndUpgradeCards();
         PreviewCardPanel.SetActive(true);
         PreviewCardPanelBG.SetActive(true);
         AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
@@ -392,7 +405,6 @@ public partial class SelectBuildManager
                 return;
             }
 
-            CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - changeCardInfo.BaseInfo.Coin;
             UnSelectCard(PreviewCardOriginCardSelect, false);
             SelectCard(changeCard, false);
             RefreshCoinLifeEnergy();

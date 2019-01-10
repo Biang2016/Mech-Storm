@@ -171,12 +171,15 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     IEnumerator Co_BGMFadeIn(float duration, float targetVolume)
     {
-        float increase = targetVolume / 10;
-        BGMAudioSource.volume = 0;
-        for (int i = 0; i < 10; i++)
+        if (BGMAudioSource != null && BGMAudioSource.gameObject)
         {
-            BGMAudioSource.volume += increase;
-            yield return new WaitForSeconds(duration / 10);
+            float increase = targetVolume / 10;
+            BGMAudioSource.volume = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                BGMAudioSource.volume += increase;
+                yield return new WaitForSeconds(duration / 10);
+            }
         }
     }
 

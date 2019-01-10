@@ -7,6 +7,12 @@ public class BonusGroup : Probability
     public List<Bonus> Bonuses = new List<Bonus>();
 
     public int Probability { get; set; }
+    public bool Singleton { get; set; }
+
+    public Probability ProbabilityClone()
+    {
+        return Clone();
+    }
 
     public BonusGroup()
     {
@@ -58,4 +64,7 @@ public class BonusGroup : Probability
 public interface Probability
 {
     int Probability { get; set; }
+    bool Singleton { get; set; }
+
+    Probability ProbabilityClone();
 }

@@ -28,8 +28,24 @@ public class CardInfo_Base
         BaseInfo = baseInfo;
         SideEffectBundle = sideEffectBundle;
         SideEffectBundle_OnBattleGround = sideEffectBundle_OnBattleGround;
-
         TargetInfo.Initialize(this);
+        Pro_Initialize();
+    }
+
+    protected void Pro_Initialize()
+    {
+        if (EquipInfo.SlotType != SlotTypes.None)
+        {
+            BaseInfo.DragPurpose = DragPurpose.Equip;
+        }
+        else if (TargetInfo.HasNoTarget || BaseInfo.CardType == CardTypes.Retinue)
+        {
+            BaseInfo.DragPurpose = DragPurpose.Summon;
+        }
+        else
+        {
+            BaseInfo.DragPurpose = DragPurpose.Target;
+        }
     }
 
     public virtual string GetCardDescShow(bool isEnglish)

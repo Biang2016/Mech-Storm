@@ -213,7 +213,7 @@ public class StoryManager : MonoSingleton<StoryManager>
         }
     }
 
-    public List<BonusGroup> GetCurrentBonusGroup(bool isOptional)
+    public List<BonusGroup> GetCurrentBonusGroup(bool isOptional, int optionalNumber = 0)
     {
         List<BonusGroup> bgs;
         List<BonusGroup> bgs_opt = M_CurrentStory.Levels[Fighting_LevelID].Bosses[Fighting_BossPicID].OptionalBonusGroup;
@@ -221,21 +221,23 @@ public class StoryManager : MonoSingleton<StoryManager>
 
         List<BonusGroup> removeBgs = new List<BonusGroup>();
 
+
         if (isOptional)
         {
-            bgs = bgs_opt;
+            bgs = Utils.GetRandomWithProbabilityFromList(bgs_opt, optionalNumber);
         }
         else
         {
             bgs = bgs_alw;
         }
 
+        HashSet<int> cardIDHashSet = new HashSet<int>();
         foreach (BonusGroup bg in bgs)
         {
             Bonus b = bg.Bonuses[0];
             if (b.M_BonusType == Bonus.BonusType.UnlockCardByLevelNum)
             {
-                CardInfo_Base cb = AllCards.GetRandomCardInfoByLevelNum(b.Value);
+                CardInfo_Base cb = AllCards.GetRandomCardInfoByLevelNum(b.Value, cardIDHashSet);
                 if (cb == null) //无该等级的卡片
                 {
                     removeBgs.Add(bg); //这个bonus就失效了
@@ -244,6 +246,7 @@ public class StoryManager : MonoSingleton<StoryManager>
                 {
                     b.M_BonusType = Bonus.BonusType.UnlockCardByID;
                     b.Value = cb.CardID;
+                    cardIDHashSet.Add(cb.CardID);
                     bg.Bonuses[0] = b;
                 }
             }

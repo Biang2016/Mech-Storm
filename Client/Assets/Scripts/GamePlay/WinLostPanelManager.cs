@@ -138,8 +138,8 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         {
             SelectBuildManager.Instance.ResetStoryBonusInfo();
 
-            AlwaysBonusGroup = StoryManager.Instance.GetCurrentBonusGroup(false); //Always要执行，因为如果Always里面解锁了某些卡片，则要去掉避免重复
-            OptionalBonusGroup = GetRandomWithProbabilityFromList(StoryManager.Instance.GetCurrentBonusGroup(true), Random.Range(3, 4));
+            AlwaysBonusGroup = StoryManager.Instance.GetCurrentBonusGroup(false, -1); //Always要执行，因为如果Always里面解锁了某些卡片，则要去掉避免重复
+            OptionalBonusGroup = StoryManager.Instance.GetCurrentBonusGroup(true, Random.Range(3, 4));
 
             foreach (BonusGroup bg in OptionalBonusGroup)
             {
@@ -174,47 +174,6 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         }
 
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnGameStopByWin(true), "Co_OnGameStopByWin");
-    }
-
-    public static List<T> GetRandomWithProbabilityFromList<T>(List<T> OriList, int number) where T : Probability
-    {
-        if (OriList == null) return new List<T>();
-        if (number > OriList.Count) number = OriList.Count;
-
-        int accu = 0;
-        SortedDictionary<int, T> resDict = new SortedDictionary<int, T>();
-        foreach (T probability in OriList)
-        {
-            if (probability.Probability > 0)
-            {
-                accu += probability.Probability;
-                resDict.Add(accu, probability);
-            }
-        }
-
-        HashSet<int> indice = new HashSet<int>();
-        System.Random rd = new System.Random(DateTime.Now.Millisecond * number);
-        HashSet<T> res = new HashSet<T>();
-        while (indice.Count < number)
-        {
-            int index = rd.Next(0, accu);
-            foreach (int key in resDict.Keys)
-            {
-                if (key >= index)
-                {
-                    T pr = resDict[key];
-                    if (!res.Contains(pr))
-                    {
-                        res.Add(pr);
-                        indice.Add(index);
-                    }
-
-                    break;
-                }
-            }
-        }
-
-        return res.ToList();
     }
 
     #endregion

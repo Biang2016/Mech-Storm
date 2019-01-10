@@ -14,6 +14,7 @@
         LifeInfo = lifeInfo;
         BattleInfo = battleInfo;
         RetinueInfo = retinueInfo;
+        Pro_Initialize();
     }
 
     public override string GetCardDescShow(bool isEnglish)

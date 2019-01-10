@@ -36,6 +36,7 @@
 
         EquipInfo = equipInfo;
         UpgradeInfo = upgradeInfo;
+        Pro_Initialize();
     }
 
     public override string GetCardDescShow(bool isEnglish)

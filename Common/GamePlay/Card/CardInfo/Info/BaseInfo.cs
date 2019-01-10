@@ -19,7 +19,7 @@ public struct BaseInfo
     public DragPurpose DragPurpose;
     public CardTypes CardType;
 
-    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, bool isTemp, bool hide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, DragPurpose dragPurpose, CardTypes cardType)
+    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, bool isTemp, bool hide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, CardTypes cardType)
     {
         PictureID = pictureID;
         CardName = cardName;
@@ -33,7 +33,7 @@ public struct BaseInfo
         EffectFactor = effectFactor;
         LimitNum = limitNum;
         CardRareLevel = cardRareLevel;
-        DragPurpose = dragPurpose;
+        DragPurpose = DragPurpose.None;
         CardType = cardType;
     }
 
@@ -96,7 +96,7 @@ public struct BaseInfo
         int CardRareLevel = reader.ReadSInt32();
         DragPurpose DragPurpose = (DragPurpose) reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
-        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, IsTemp, Hide, Metal, Energy, Coin, EffectFactor, LimitNum, CardRareLevel, DragPurpose, CardType);
+        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, IsTemp, Hide, Metal, Energy, Coin, EffectFactor, LimitNum, CardRareLevel, CardType);
     }
 
     public static Dictionary<CardTypes, string> CardTypeNameDict_en = new Dictionary<CardTypes, string>
