@@ -151,6 +151,7 @@ public class LoginManager : MonoSingleton<LoginManager>
         {
             Instance.LoginCanvas.enabled = true;
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.None);
+            SelectBuildManager.Instance.GameMode_State = SelectBuildManager.GameMode.None;
             AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/LoginMenu0", "bgm/LoginMenu1"});
             AudioManager.Instance.SoundPlay("sfx/Thunder1");
         }

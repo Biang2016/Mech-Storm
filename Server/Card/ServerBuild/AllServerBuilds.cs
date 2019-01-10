@@ -190,7 +190,6 @@ internal class AllServerBuilds
             XmlElement cardIDs = doc.CreateElement("Info");
             buildInfo_Node.AppendChild(cardIDs);
             cardIDs.SetAttribute("name", "cardIDs");
-
             int[] ids = buildInfo.CardIDs.ToArray();
             List<string> strs = new List<string>();
             foreach (int id in ids)
@@ -199,6 +198,18 @@ internal class AllServerBuilds
             }
 
             cardIDs.SetAttribute("ids", string.Join(",", strs.ToArray()));
+
+            XmlElement criticalCardIDs = doc.CreateElement("Info");
+            buildInfo_Node.AppendChild(criticalCardIDs);
+            criticalCardIDs.SetAttribute("name", "criticalCardIDs");
+            int[] cids = buildInfo.CriticalCardIDs.ToArray();
+            List<string> strs_cids = new List<string>();
+            foreach (int id in cids)
+            {
+                strs_cids.Add(id.ToString());
+            }
+
+            criticalCardIDs.SetAttribute("ids", string.Join(",", strs_cids.ToArray()));
 
             if (builds.ManagerName == "StoryAdmin")
             {

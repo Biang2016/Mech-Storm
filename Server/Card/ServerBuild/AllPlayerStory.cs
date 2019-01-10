@@ -156,10 +156,12 @@ internal class AllPlayerStory
         if (bg.IsAlways)
         {
             bg.Probability = 0;
+            bg.Singleton = true;
         }
         else
         {
             bg.Probability = int.Parse(bonusGroupInfo.Attributes["probability"].Value);
+            bg.Singleton = bonusGroupInfo.Attributes["singleton"].Value == "True";
         }
 
         return bg;

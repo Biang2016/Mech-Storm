@@ -161,6 +161,7 @@ public class BuildInfo
         if (Life != targetBuildInfo.Life) return false;
         if (Energy != targetBuildInfo.Energy) return false;
         if (CardIDs.Count != targetBuildInfo.CardIDs.Count) return false;
+        if (CriticalCardIDs.Count != targetBuildInfo.CriticalCardIDs.Count) return false;
         if (CardCountDict.Count != targetBuildInfo.CardCountDict.Count) return false;
 
         CardIDs.Sort();
@@ -168,6 +169,13 @@ public class BuildInfo
         for (int i = 0; i < CardIDs.Count; i++)
         {
             if (CardIDs[i] != targetBuildInfo.CardIDs[i]) return false;
+        }
+
+        CriticalCardIDs.Sort();
+        targetBuildInfo.CriticalCardIDs.Sort();
+        for (int i = 0; i < CriticalCardIDs.Count; i++)
+        {
+            if (CriticalCardIDs[i] != targetBuildInfo.CriticalCardIDs[i]) return false;
         }
 
         foreach (KeyValuePair<int, int> kv in CardCountDict)

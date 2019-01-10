@@ -209,12 +209,14 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         if (CardLimitCountUpButton) CardLimitCountUpButton.gameObject.SetActive(false);
         if (CardLimitCountDownButton) CardLimitCountDownButton.gameObject.SetActive(false);
+        if (CriticalCardToggle) CriticalCardToggle.gameObject.SetActive(false);
     }
 
     public void SetAccount(bool isSuperAccount)
     {
         if (CardLimitCountUpButton) CardLimitCountUpButton.gameObject.SetActive(isSuperAccount);
         if (CardLimitCountDownButton) CardLimitCountDownButton.gameObject.SetActive(isSuperAccount);
+        if (CriticalCardToggle) CriticalCardToggle.gameObject.SetActive(isSuperAccount);
     }
 
     #region 属性
@@ -349,7 +351,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private Text Text_CardType;
     [SerializeField] private Text Text_CardTypeBG;
 
-
     [SerializeField] private SortingGroup MainBoardSortingGroup;
     [SerializeField] private SortingGroup CardShadowSortingGroup;
     [SerializeField] private SortingGroup CardBloomSortingGroup;
@@ -389,6 +390,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     // 管理员权限
     [SerializeField] private Button CardLimitCountUpButton;
     [SerializeField] private Button CardLimitCountDownButton;
+    [SerializeField] private Toggle CriticalCardToggle;
 
 
     public void BeDimColor()
@@ -606,6 +608,30 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             ChangeCardLimit(CardInfo.BaseInfo.LimitNum - 1);
             SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.CardCountDict[CardInfo.CardID] = CardInfo.BaseInfo.LimitNum;
         }
+    }
+
+    public void OnCriticalCardToggleChange(bool isOn)
+    {
+        List<int> ccids = SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.CriticalCardIDs;
+        if (CriticalCardToggle.isOn)
+        {
+            if (!ccids.Contains(CardInfo.CardID))
+            {
+                ccids.Add(CardInfo.CardID);
+            }
+        }
+        else
+        {
+            if (ccids.Contains(CardInfo.CardID))
+            {
+                ccids.Remove(CardInfo.CardID);
+            }
+        }
+    }
+
+    public void SetCriticalCardToggle(bool on)
+    {
+        CriticalCardToggle.isOn = on;
     }
 
     # endregion

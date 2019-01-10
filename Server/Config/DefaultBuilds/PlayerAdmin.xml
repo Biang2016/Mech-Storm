@@ -3,9 +3,11 @@
   <BuildInfo>
     <Info name="baseInfo" BuildName="Freshman Deck1" DrawCardNum="1" Life="100" Energy="20" BeginMetal="0" />
     <Info name="cardIDs" ids="70201,70201,70201,5101,6901,6400,10101,30201" />
+    <Info name="criticalCardIDs" ids="" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="New Deck" DrawCardNum="2" Life="100" Energy="10" BeginMetal="0" />
     <Info name="cardIDs" ids="" />
+    <Info name="criticalCardIDs" ids="" />
   </BuildInfo>
 </AllBuilds>

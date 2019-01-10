@@ -493,6 +493,23 @@ public partial class SelectBuildManager
 
         RefreshCoinLifeEnergy();
         RefreshCardNum();
+        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        {
+            kv.Value.SetCriticalCardToggle(false);
+        }
+
+        foreach (int cid in buildInfo.CriticalCardIDs)
+        {
+            try
+            {
+                allCards[cid].SetCriticalCardToggle(true);
+            }
+            catch
+            {
+                int a = 0;
+            }
+        }
+
 
         isSwitchingBuildInfo = false;
     }
