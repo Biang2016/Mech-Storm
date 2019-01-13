@@ -202,10 +202,7 @@ public class ModuleRetinue : ModuleBase
         ImmuneIcon.SetActive(false);
         InactivityIcon.SetActive(false);
 
-        RetinueTargetPreviewAnim.SetTrigger("BeginTarget");
-        RetinueTargetPreviewAnim.SetTrigger("EndTarget");
-        RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
-        RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
+        RetinueTargetPreviewAnim.SetBool("ShowTarget", false);
         DefenceText.enabled = false;
         SniperTipText.enabled = false;
         SniperTargetImage.enabled = false;
@@ -1097,6 +1094,11 @@ public class ModuleRetinue : ModuleBase
         get { return canAttack; }
         set
         {
+            if (!RoundManager.Instance.InRound)
+            {
+                value = false;
+            }
+
             canAttack = value;
             RetinueCanAttackBloom.gameObject.SetActive(canAttack);
         }
@@ -1218,21 +1220,39 @@ public class ModuleRetinue : ModuleBase
         return damage;
     }
 
+    private bool targetPreviewArrowShow;
+
+    public bool TargetPreviewArrowShow
+    {
+        get { return targetPreviewArrowShow; }
+
+        set
+        {
+            if (value == targetPreviewArrowShow) return;
+            if (value && !targetPreviewArrowShow)
+            {
+                DefenceText.enabled = IsDefender;
+                RetinueTargetPreviewAnim.SetBool("ShowTarget", true);
+            }
+            else if (!value && targetPreviewArrowShow)
+            {
+                DefenceText.enabled = false;
+                RetinueTargetPreviewAnim.SetBool("ShowTarget", false);
+            }
+
+            targetPreviewArrowShow = value;
+        }
+    }
+
     public void ShowTargetPreviewArrow(bool beSniperTargeted = false)
     {
-        DefenceText.enabled = IsDefender;
+        TargetPreviewArrowShow = true;
         SniperTargetImage.enabled = beSniperTargeted && !IsDefender;
-        RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
-        RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
-        RetinueTargetPreviewAnim.SetTrigger("BeginTarget");
     }
 
     public void HideTargetPreviewArrow()
     {
-        DefenceText.enabled = false;
-        RetinueTargetPreviewAnim.ResetTrigger("BeginTarget");
-        RetinueTargetPreviewAnim.ResetTrigger("EndTarget");
-        RetinueTargetPreviewAnim.SetTrigger("EndTarget");
+        TargetPreviewArrowShow = false;
     }
 
     public void ShowSniperTipText()
@@ -1433,6 +1453,7 @@ public class ModuleRetinue : ModuleBase
             }
         }
     }
+
 
     public override void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {
@@ -1637,6 +1658,7 @@ public class ModuleRetinue : ModuleBase
 
     public void OnEndRound()
     {
+        CanAttack = false;
     }
 
     #endregion

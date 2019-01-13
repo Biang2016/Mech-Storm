@@ -18,7 +18,7 @@ public class BuildInfo
     public List<int> CardIDs;
     public SortedDictionary<int, int> CardCountDict; // 卡组中每张牌的选牌上限
 
-    public List<int> CriticalCardIDs; //AI专用，重要卡牌起手抽到
+    public HashSet<int> CriticalCardIDs; //AI专用，重要卡牌起手抽到
 
     public int CardConsumeCoin;
     public GamePlaySettings GamePlaySettings; //只对客户端选卡起到限制作用，服务端这个字段没有作用
@@ -68,10 +68,10 @@ public class BuildInfo
 
     public BuildInfo()
     {
-        CriticalCardIDs = new List<int>();
+        CriticalCardIDs = new HashSet<int>();
     }
 
-    public BuildInfo(int buildID, string buildName, List<int> cardIDs, List<int> criticalCardIDs, int drawCardNum, int life, int energy, int beginMetal, GamePlaySettings gamePlaySettings, SortedDictionary<int, int> cardCountDict = null)
+    public BuildInfo(int buildID, string buildName, List<int> cardIDs, HashSet<int> criticalCardIDs, int drawCardNum, int life, int energy, int beginMetal, GamePlaySettings gamePlaySettings, SortedDictionary<int, int> cardCountDict = null)
     {
         BuildID = buildID;
         BuildName = buildName;
@@ -139,7 +139,7 @@ public class BuildInfo
 
     public BuildInfo Clone()
     {
-        return new BuildInfo(GenerateBuildID(), BuildName, CardIDs.ToArray().ToList(), CriticalCardIDs.ToArray().ToList(), DrawCardNum, Life, Energy, BeginMetal, GamePlaySettings, CloneCardCountDict(CardCountDict));
+        return new BuildInfo(GenerateBuildID(), BuildName, CardIDs.ToArray().ToList(), Utils.CloneHashSet(CriticalCardIDs), DrawCardNum, Life, Energy, BeginMetal, GamePlaySettings, CloneCardCountDict(CardCountDict));
     }
 
     public static SortedDictionary<int, int> CloneCardCountDict(SortedDictionary<int, int> cardCountDict)
@@ -171,11 +171,13 @@ public class BuildInfo
             if (CardIDs[i] != targetBuildInfo.CardIDs[i]) return false;
         }
 
-        CriticalCardIDs.Sort();
-        targetBuildInfo.CriticalCardIDs.Sort();
-        for (int i = 0; i < CriticalCardIDs.Count; i++)
+        List<int> ccids = CriticalCardIDs.ToList();
+        List<int> ccids_tar = targetBuildInfo.CriticalCardIDs.ToList();
+        ccids.Sort();
+        ccids_tar.Sort();
+        for (int i = 0; i < ccids.Count; i++)
         {
-            if (CriticalCardIDs[i] != targetBuildInfo.CriticalCardIDs[i]) return false;
+            if (ccids[i] != ccids_tar[i]) return false;
         }
 
         foreach (KeyValuePair<int, int> kv in CardCountDict)
@@ -206,8 +208,10 @@ public class BuildInfo
             writer.WriteSInt32(cardID);
         }
 
-        writer.WriteSInt32(CriticalCardIDs.Count);
-        foreach (int cardID in CriticalCardIDs)
+        List<int> ccids = CriticalCardIDs.ToList();
+        ccids.Sort();
+        writer.WriteSInt32(ccids.Count);
+        foreach (int cardID in ccids)
         {
             writer.WriteSInt32(cardID);
         }
@@ -239,7 +243,7 @@ public class BuildInfo
         }
 
         int criticalCardIdCount = reader.ReadSInt32();
-        List<int> CriticalCardIDs = new List<int>();
+        HashSet<int> CriticalCardIDs = new HashSet<int>();
         for (int i = 0; i < criticalCardIdCount; i++)
         {
             CriticalCardIDs.Add(reader.ReadSInt32());

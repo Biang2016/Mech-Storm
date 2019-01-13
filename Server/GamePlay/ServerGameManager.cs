@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 internal class ServerGameManager
 {
@@ -130,7 +131,7 @@ internal class ServerGameManager
 
         if (ClientB is ClientProxyAI)
         {
-            PlayerB.MyHandManager.PutCardsOnTopByID(ClientB.CurrentBuildInfo.CriticalCardIDs); //AI卡组起手手牌可配置
+            PlayerB.MyHandManager.PutCardsOnTopByID(ClientB.CurrentBuildInfo.CriticalCardIDs.ToList()); //AI卡组起手手牌可配置
         }
 
         if (isPlayerAFirst)
@@ -144,8 +145,8 @@ internal class ServerGameManager
             PlayerA.MyHandManager.DrawCards(GamePlaySettings.SecondDrawCard);
         }
 
-        OnBeginRound();
         OnDrawCardPhase();
+        OnBeginRound();
     }
 
     #endregion
@@ -163,21 +164,15 @@ internal class ServerGameManager
         CurrentPlayer.IncreaseMetalMax(GamePlaySettings.MetalIncrease);
         CurrentPlayer.AddAllMetal();
 
-        CurrentPlayer.MyCardDeckManager.BeginRound();
         CurrentPlayer.MyHandManager.BeginRound();
         CurrentPlayer.MyBattleGroundManager.BeginRound();
+        PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
+        Broadcast_AddRequestToOperationResponse(request);
     }
 
     void OnDrawCardPhase()
     {
-        PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
-        Broadcast_AddRequestToOperationResponse(request);
         CurrentPlayer.MyHandManager.DrawHeroCards(100);
-        if (CurrentPlayer.MyClientProxy == ClientB && ClientB is ClientProxyAI)
-        {
-            CurrentPlayer.MyHandManager.PutCardsOnTopByID(ClientB.CurrentBuildInfo.CriticalCardIDs); //AI卡组每回合关键卡牌必抽到
-        }
-
         CurrentPlayer.MyHandManager.DrawCards(CurrentPlayer.MyCardDeckManager.CardDeck.M_BuildInfo.DrawCardNum);
     }
 
@@ -186,8 +181,9 @@ internal class ServerGameManager
         CurrentPlayer.MyHandManager.EndRound();
         CurrentPlayer.MyBattleGroundManager.EndRound();
         OnSwitchPlayer();
-        OnBeginRound();
+        CurrentPlayer.MyCardDeckManager.EndRound();
         OnDrawCardPhase();
+        OnBeginRound();
     }
 
     #endregion
@@ -366,8 +362,8 @@ internal class ServerGameManager
     {
         if (CurrentPlayer.ClientId == r.clientId)
         {
-            ClientA.CurrentClientRequestResponseBundle = new EndRoundRequest_ResponseBundle();
-            ClientB.CurrentClientRequestResponseBundle = new EndRoundRequest_ResponseBundle();
+            ClientA.CurrentClientRequestResponseBundle = new EndRoundRequest_ResponseBundle(r.clientId);
+            ClientB.CurrentClientRequestResponseBundle = new EndRoundRequest_ResponseBundle(r.clientId);
             EndRound();
             Broadcast_SendOperationResponse();
         }

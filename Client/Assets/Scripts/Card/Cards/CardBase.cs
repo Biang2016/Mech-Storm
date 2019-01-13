@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -612,7 +613,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void OnCriticalCardToggleChange(bool isOn)
     {
-        List<int> ccids = SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.CriticalCardIDs;
+        List<int> ccids = SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.CriticalCardIDs.ToList();
         if (CriticalCardToggle.isOn)
         {
             if (!ccids.Contains(CardInfo.CardID))
@@ -651,7 +652,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         set
         {
-            if (ClientPlayer == RoundManager.Instance.CurrentClientPlayer)
+            if (!RoundManager.Instance.InRound)
+            {
+                value = false;
+            }
+            if (ClientPlayer == RoundManager.Instance.CurrentClientPlayer && RoundManager.Instance.InRound)
             {
                 if (!value)
                 {

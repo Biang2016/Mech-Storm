@@ -563,18 +563,25 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
     public void OnSingleStartButtonClick()
     {
-        ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
-        string enDesc = "Do you want to start a new Single Game?" + (StoryManager.Instance.M_CurrentStory != null ? " It will remove your current game." : "");
-        string zhDesc = "是否开始一个新的游戏？" + (StoryManager.Instance.M_CurrentStory != null ? " 当前游戏将被清除。" : "");
+        if (StoryManager.Instance.M_CurrentStory != null)
+        {
+            ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
+            string enDesc = "Do you want to start a new Single Game?" + (StoryManager.Instance.M_CurrentStory != null ? " It will remove your current game." : "");
+            string zhDesc = "是否开始一个新的游戏？" + (StoryManager.Instance.M_CurrentStory != null ? " 当前游戏将被清除。" : "");
 
-        UnityAction action = StartNewStory;
-        cw.Initialize(
-            GameManager.Instance.IsEnglish ? enDesc : zhDesc,
-            GameManager.Instance.IsEnglish ? "Yes" : "是的",
-            GameManager.Instance.IsEnglish ? "No" : "取消",
-            action + ConfirmWindowManager.Instance.RemoveConfirmWindow,
-            ConfirmWindowManager.Instance.RemoveConfirmWindow
-        );
+            UnityAction action = StartNewStory;
+            cw.Initialize(
+                GameManager.Instance.IsEnglish ? enDesc : zhDesc,
+                GameManager.Instance.IsEnglish ? "Yes" : "是的",
+                GameManager.Instance.IsEnglish ? "No" : "取消",
+                action + ConfirmWindowManager.Instance.RemoveConfirmWindow,
+                ConfirmWindowManager.Instance.RemoveConfirmWindow
+            );
+        }
+        else
+        {
+            StartNewStory();
+        }
     }
 
     public void OnSingleCustonStartButtonClick()

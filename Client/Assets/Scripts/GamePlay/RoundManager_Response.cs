@@ -271,11 +271,6 @@ public partial class RoundManager
 
     IEnumerator Co_SetPlayerTurn(PlayerTurnRequest r)
     {
-        if (CurrentClientPlayer != null)
-        {
-            EndRound();
-        }
-
         CurrentClientPlayer = r.clientId == Client.Instance.Proxy.ClientId ? SelfClientPlayer : EnemyClientPlayer;
         IdleClientPlayer = r.clientId == Client.Instance.Proxy.ClientId ? EnemyClientPlayer : SelfClientPlayer;
         if (CurrentClientPlayer == SelfClientPlayer)

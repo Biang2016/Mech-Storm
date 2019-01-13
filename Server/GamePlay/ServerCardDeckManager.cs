@@ -64,7 +64,7 @@ internal class ServerCardDeckManager
         CardDeck.RandomInsertTempCard(cardId);
     }
 
-    public void BeginRound()
+    public void EndRound()
     {
         CardDeck.AbandonCardRecycle();
     }

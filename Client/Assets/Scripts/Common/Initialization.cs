@@ -11,6 +11,6 @@ public class Initialization : MonoSingleton<Initialization>
     void Awake()
     {
         Instantiate(Manager);
-        ClientLog.Instance.PrintClientStates("Start the client...");
+        Debug.Log("Start the client...");
     }
 }

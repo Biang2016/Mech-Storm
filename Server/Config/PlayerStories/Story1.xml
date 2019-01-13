@@ -23,16 +23,16 @@
       <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
-        <BonusInfo name="Budget" value="25"></BonusInfo>
+        <BonusInfo name="Budget" value="50"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="1"></BonusInfo>
-        <BonusInfo name="Budget" value="50"></BonusInfo>
+        <BonusInfo name="Budget" value="75"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional" probability="1" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="3"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="2"></BonusInfo>
-        <BonusInfo name="Budget" value="50"></BonusInfo>
+        <BonusInfo name="Budget" value="150"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional" probability="1" singleton="True">
         <BonusInfo name="EnergyUpperLimit" value="3"></BonusInfo>
@@ -47,6 +47,9 @@
       </BonusGroupInfo>
     </BossInfo>
     <BossInfo name="Soldier" BuildName="Training_Recruit_Lv0" picID="68">
+      <BonusGroupInfo type="Always">
+        <BonusInfo name="UnlockCardByID" value="6901"></BonusInfo>
+      </BonusGroupInfo>
     </BossInfo>
     <BossInfo name="Soldier" BuildName="RepairTeam_Lv0" picID="51">
       <BonusGroupInfo type="Always">
@@ -72,7 +75,7 @@
   <Level Level="1" LevelFightTimes="4" BigBossFightTimes="2">
     <CommonBonus>
       <BonusGroupInfo type="Always">
-        <BonusInfo name="Budget" value="75"></BonusInfo>
+        <BonusInfo name="Budget" value="150"></BonusInfo>
         <BonusInfo name="LifeUpperLimit" value="1"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
       </BonusGroupInfo>
@@ -85,9 +88,12 @@
       <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="3"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
+        <BonusInfo name="Budget" value="75"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional" probability="5" singleton="True">
+        <BonusInfo name="LifeUpperLimit" value="1"></BonusInfo>
         <BonusInfo name="EnergyUpperLimit" value="2"></BonusInfo>
+        <BonusInfo name="Budget" value="125"></BonusInfo>
       </BonusGroupInfo>
       <BonusGroupInfo type="Optional" probability="5" singleton="True">
         <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
@@ -110,9 +116,9 @@
         <BonusInfo name="EnergyUpperLimit" value="3"></BonusInfo>
       </BonusGroupInfo>
     </CommonBonus>
-    <BossInfo name="Soldier" BuildName="Heal_Lv1" picID="52">
+    <BossInfo name="Soldier" BuildName="Heal_Lv1" picID="627">
       <BonusGroupInfo type="Always">
-        <BonusInfo name="UnlockCardByID" value="5101"></BonusInfo>
+        <BonusInfo name="UnlockCardByID" value="6901"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
     <BossInfo name="Soldier" BuildName="Dagger_Lv1" picID="103">

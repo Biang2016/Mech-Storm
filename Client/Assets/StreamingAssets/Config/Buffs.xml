@@ -21,8 +21,7 @@
         TriggerRange="SelfPlayer" TriggerDelayTimes="0" TriggerTimes="99999" RemoveTriggerTime="OnBeginRound" RemoveTriggerRange="SelfPlayer" RemoveTriggerTimes="99999">
     <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
   </Buff>
-  <Buff name="DamageEnemyShipWhenUseCards" desc="本回合内，我方每使用一张牌，对敌舰造成{0}点伤害" desc_en="Deal {0} damage to Enemy's ship when you use a card. " BuffPicId="712" BuffColor="#FF9300" HasNumberShow="True" CanPiled="True" Singleton="True" PiledBy="Value" TriggerTime="OnPlayCard" TriggerRange="SelfPlayer"
-        TriggerDelayTimes="0" TriggerTimes="99999" RemoveTriggerTime="OnEndRound" RemoveTriggerRange="SelfPlayer" RemoveTriggerTimes="1">
+  <Buff name="DamageEnemyShipWhenUseCards" desc="本回合内，我方每使用一张牌，对敌舰造成{0}点伤害，持续{1}回合" desc_en="Deal {0} damage to Enemy's ship when you use a card, which lasts {1} rounds. " BuffPicId="712" BuffColor="#FF9300" HasNumberShow="True" CanPiled="False" Singleton="False" PiledBy="RemoveTriggerTimes" TriggerTime="OnPlayCard" TriggerRange="SelfPlayer" TriggerDelayTimes="0" TriggerTimes="99999" RemoveTriggerTime="OnEndRound" RemoveTriggerRange="SelfPlayer" RemoveTriggerTimes="3">
     <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="1"></SideEffect>
   </Buff>
 

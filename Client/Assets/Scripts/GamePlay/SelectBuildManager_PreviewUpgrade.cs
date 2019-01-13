@@ -386,6 +386,16 @@ public partial class SelectBuildManager
             return;
         }
 
+
+        if (GetSelectedCardCount(currentCardID) > 0)
+        {
+            if ((GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - changeCardInfo.BaseInfo.Coin) < 0)
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
+                return;
+            }
+        }
+
         if (!allUnlockedCards.ContainsKey(changeCardID))
         {
             allUnlockedCards.Add(changeCardID, changeCard);
@@ -396,15 +406,8 @@ public partial class SelectBuildManager
         changeCard.ChangeCardLimit(changeCard.CardInfo.BaseInfo.LimitNum + 1);
         CurrentEditBuildButton.BuildInfo.CardCountDict[currentCardID]--;
         CurrentEditBuildButton.BuildInfo.CardCountDict[changeCardID]++;
-
         if (GetSelectedCardCount(currentCardID) > 0)
         {
-            if ((GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - changeCardInfo.BaseInfo.Coin) < 0)
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
-                return;
-            }
-
             UnSelectCard(PreviewCardOriginCardSelect, false);
             SelectCard(changeCard, false);
             RefreshCoinLifeEnergy();

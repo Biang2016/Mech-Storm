@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AllBuilds>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="CustomBattle" DrawCardNum="2" Life="10" Energy="6" BeginMetal="0" />
-    <Info name="cardIDs" ids="5301,60101,60601,62401,62401,62401,62401,62500,70101,70101,10301,20101,20101,62401" />
-    <Info name="criticalCardIDs" ids="" />
+    <Info name="baseInfo" BuildName="CustomBattle" DrawCardNum="2" Life="30" Energy="12" BeginMetal="0" />
+    <Info name="cardIDs" ids="100,1600,5101,5102,5401,6902,10301,10301,30201,60103,60601,62102,62102,62401,62402,62403,62500,62600,70102,70102,70301" />
+    <Info name="criticalCardIDs" ids="100,5101,6902,10301,30201" />
   </BuildInfo>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="MechMine_Lv0" DrawCardNum="2" Life="10" Energy="6" BeginMetal="1" />
+    <Info name="baseInfo" BuildName="MechMine_Lv0" DrawCardNum="2" Life="10" Energy="10" BeginMetal="1" />
     <Info name="cardIDs" ids="5301,60101,60601,62401,62401,62401,62401,62401,62500,70101,70101" />
     <Info name="criticalCardIDs" ids="5301,62401" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="RepairTeam_Lv0" DrawCardNum="2" Life="12" Energy="5" BeginMetal="0" />
-    <Info name="cardIDs" ids="5101,5101,6901,6901,60601,62101,62401,62401,62401,62401,62500,70101,70101,70101" />
-    <Info name="criticalCardIDs" ids="6901,5101" />
+    <Info name="cardIDs" ids="5101,5101,6901,60601,62101,62401,62401,62401,62401,62500,70101,70101,70101" />
+    <Info name="criticalCardIDs" ids="5101,6901" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="Training_Recruit_Lv0" DrawCardNum="2" Life="10" Energy="6" BeginMetal="1" />
@@ -23,22 +23,22 @@
   <BuildInfo>
     <Info name="baseInfo" BuildName="StrikeTeam_Lv0" DrawCardNum="2" Life="20" Energy="10" BeginMetal="1" />
     <Info name="cardIDs" ids="5101,5800,10301,60102,60501,62402,62402,62402,70101,70101,70601" />
-    <Info name="criticalCardIDs" ids="5800,5101,10301" />
+    <Info name="criticalCardIDs" ids="5101,5800,10301" />
   </BuildInfo>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="SpiritualField_Lv0" DrawCardNum="1" Life="20" Energy="5" BeginMetal="0" />
+    <Info name="baseInfo" BuildName="SpiritualField_Lv0" DrawCardNum="2" Life="20" Energy="5" BeginMetal="0" />
     <Info name="cardIDs" ids="60601,60601,60601,62401,62401,62401,62401,62401,70101,70101,70102" />
     <Info name="criticalCardIDs" ids="60601,62401,70101" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="Gatlin_Lv0" DrawCardNum="2" Life="20" Energy="14" BeginMetal="0" />
-    <Info name="cardIDs" ids="6901,6901,6901,60101,60102,60103,60501,60601,62101,62401,62401,62401,70102,70201,70301" />
-    <Info name="criticalCardIDs" ids="60501,60102,60101,6901" />
+    <Info name="cardIDs" ids="6901,6901,6901,60101,60102,60103,60501,60601,62101,70102,70102,70102,70201,70301" />
+    <Info name="criticalCardIDs" ids="6901,60101,60102,60501,60601,70102,70201,70301" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="Heal_Lv1" DrawCardNum="2" Life="28" Energy="10" BeginMetal="2" />
     <Info name="cardIDs" ids="5101,5101,5401,5401,5700,60501,60601,61101,62101,62401,62401,62500,62500,70102,70102,70102,70301" />
-    <Info name="criticalCardIDs" ids="5700,5101,60501,62101" />
+    <Info name="criticalCardIDs" ids="5101,5700,60501,62101" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="DomTeam_Lv1" DrawCardNum="2" Life="30" Energy="10" BeginMetal="2" />
@@ -48,7 +48,7 @@
   <BuildInfo>
     <Info name="baseInfo" BuildName="Dagger_Lv1" DrawCardNum="2" Life="25" Energy="8" BeginMetal="2" />
     <Info name="cardIDs" ids="5800,5800,10301,10301,60101,62101,62101,62101,62401,62500,70101,70101,70101" />
-    <Info name="criticalCardIDs" ids="10301,5800" />
+    <Info name="criticalCardIDs" ids="5800,10301" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="Strike_Lv1" DrawCardNum="2" Life="36" Energy="12" BeginMetal="0" />
@@ -58,46 +58,46 @@
   <BuildInfo>
     <Info name="baseInfo" BuildName="Armor_Lv1" DrawCardNum="2" Life="33" Energy="19" BeginMetal="3" />
     <Info name="cardIDs" ids="6903,6903,10301,10301,10301,30201,30201,30201,60601,60801,62103,70103,70301,71001" />
-    <Info name="criticalCardIDs" ids="30201,6903,10301,60601" />
+    <Info name="criticalCardIDs" ids="6903,10301,30201,60601" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="GunCanon_Lv2" DrawCardNum="3" Life="33" Energy="10" BeginMetal="3" />
-    <Info name="cardIDs" ids="5600,10301,60101,60301,60501,62101,62401,62401,62500,70101,70101,70101,70601,70601,5401,5101" />
+    <Info name="cardIDs" ids="5101,5401,5600,10301,60103,60103,60301,60501,62101,62401,62401,62500,70101,70101,70101,70601,70601" />
     <Info name="criticalCardIDs" ids="" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="SniperJim_Lv2" DrawCardNum="3" Life="35" Energy="14" BeginMetal="3" />
-    <Info name="cardIDs" ids="60101,62101,62401,62401,62401,62500,70102,70102,20601,5900,5900,20601,5101,5101,5600,70501,62500" />
+    <Info name="cardIDs" ids="5101,5101,5600,5900,5900,20601,20601,60103,60103,62101,62401,62401,62401,62500,62500,70102,70102,70501" />
     <Info name="criticalCardIDs" ids="" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="GAT-X131_Lv2" DrawCardNum="3" Life="40" Energy="14" BeginMetal="3" />
-    <Info name="cardIDs" ids="60101,62102,62401,62401,62401,62500,70102,70102,70102,6000,6901,6901,6901,60301,60501,60601,5401,5101" />
+    <Info name="cardIDs" ids="5102,5401,6000,6901,6902,6903,10301,10301,60103,60301,60501,60601,62102,62401,62401,62401,62500,70102,70102,70102" />
     <Info name="criticalCardIDs" ids="" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="MS-08TX_Lv2" DrawCardNum="3" Life="27" Energy="10" BeginMetal="3" />
-    <Info name="cardIDs" ids="5301,5800,6400,6400,10301,60101,60301,60501,60601,62101,62401,62401,62401,62500,70102,70102" />
+    <Info name="cardIDs" ids="5301,5800,6400,6400,10301,60103,60301,60501,60601,62101,62401,62401,62401,62500,70102,70102" />
     <Info name="criticalCardIDs" ids="" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="ThermalAxe_Lv2" DrawCardNum="3" Life="38" Energy="18" BeginMetal="3" />
-    <Info name="cardIDs" ids="5700,60101,62101,62401,62401,62401,62500,70102,70102,70102,10101,6901,6901,62500,70601,60601,60301,60101" />
+    <Info name="cardIDs" ids="5700,5800,6902,6902,10101,10101,60103,60103,60301,60601,62101,62401,62402,62403,62500,62500,70102,70102,70102,70601,71001" />
     <Info name="criticalCardIDs" ids="" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="Shield_Lv2" DrawCardNum="3" Life="36" Energy="16" BeginMetal="3" />
-    <Info name="cardIDs" ids="10301,60101,62101,62401,62401,62401,62500,70101,70101,70101,30101,5700,6902,6902,5301,60601,62600,70501" />
+    <Info name="cardIDs" ids="5301,5700,6902,6902,10301,30101,60103,60103,60601,62101,62401,62401,62401,62500,62600,70101,70101,70101,70501" />
     <Info name="criticalCardIDs" ids="" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="CriticalAttack_Lv2" DrawCardNum="3" Life="39" Energy="16" BeginMetal="3" />
-    <Info name="cardIDs" ids="62600,62600,70102,70102,70301,6000,6700,6700,10301,5401,5101,5800" />
+    <Info name="cardIDs" ids="5101,5401,5800,6000,6700,10301,60103,60302,62600,62600,70102,70102,70301" />
     <Info name="criticalCardIDs" ids="" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="AIUpgrade_Lv2" DrawCardNum="3" Life="41" Energy="18" BeginMetal="3" />
-    <Info name="cardIDs" ids="70501,70501,70201,71001,62403,62403,62403,60601,10301,6000,5700,5800,5101,6903" />
+    <Info name="cardIDs" ids="5101,5700,5800,6000,6400,6903,10101,10301,30101,60601,62403,62403,62403,70201,70501,70501,71001" />
     <Info name="criticalCardIDs" ids="" />
   </BuildInfo>
 </AllBuilds>

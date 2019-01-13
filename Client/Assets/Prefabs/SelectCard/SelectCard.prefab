@@ -592,9 +592,9 @@ MonoBehaviour:
   CardButton: {fileID: 114587486140247218}
   Text_CardName: {fileID: 114965916724364668}
   CardImage: {fileID: 114189165252607416}
-  Star1: {fileID: 114557569043655918}
+  Star1: {fileID: 114611875403351408}
   Star2: {fileID: 114351930466475978}
-  Star3: {fileID: 114611875403351408}
+  Star3: {fileID: 114557569043655918}
 --- !u!114 &114299565224843350
 MonoBehaviour:
   m_ObjectHideFlags: 1

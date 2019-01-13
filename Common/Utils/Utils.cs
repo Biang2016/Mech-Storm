@@ -203,4 +203,15 @@ public partial class Utils
             }
         }
     }
+
+    public static HashSet<T> CloneHashSet<T>(HashSet<T> src)
+    {
+        HashSet<T> res = new HashSet<T>();
+        foreach (T t in src)
+        {
+            res.Add(t);
+        }
+
+        return res;
+    }
 }

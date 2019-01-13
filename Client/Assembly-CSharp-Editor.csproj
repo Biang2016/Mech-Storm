@@ -55,6 +55,16 @@
      <Compile Include="Assets\Editor\CardScreenShotEditor.cs" />
      <Compile Include="Assets\Editor\ModuleRetinueEditor.cs" />
      <Compile Include="Assets\Editor\NewEditorScript1.cs" />
+     <Compile Include="Assets\Editor\Pack\AssetBundlePacker.cs" />
+     <Compile Include="Assets\Editor\Pack\AssetBundlePacker_Scene.cs" />
+     <Compile Include="Assets\Editor\Pack\AssetBundlePacker_UI.cs" />
+     <Compile Include="Assets\Editor\Pack\AtlasPacker.cs" />
+     <Compile Include="Assets\Editor\Pack\BuildTool.cs" />
+     <Compile Include="Assets\Editor\Pack\FontPacker.cs" />
+     <Compile Include="Assets\Editor\Pack\MetaModifer.cs" />
+     <Compile Include="Assets\Editor\Pack\PackerToolFunc.cs" />
+     <Compile Include="Assets\Editor\Pack\ShaderPacker.cs" />
+     <Compile Include="Assets\Editor\Pack\UIPacker.cs" />
  <Reference Include="Unity.2D.Animation.Runtime">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
  </Reference>

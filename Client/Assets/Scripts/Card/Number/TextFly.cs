@@ -9,7 +9,6 @@ public class TextFly : PoolObject
         if (removeTextFlyHandler != null) removeTextFlyHandler(this);
         transform.localScale = Vector3.one;
         base.PoolRecycle();
-        transform.position = Vector3.zero;
         Anim.SetTrigger("EndFly");
     }
 

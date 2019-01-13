@@ -195,7 +195,7 @@
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="5102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="2"></SideEffect>
     </CardInfo>
@@ -345,7 +345,7 @@
     <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="2" />
   </Card>
   <Card id="6700">
-    <CardInfo name="baseInfo" pictureID="66" cardName="扎古" cardName_en="Zaku" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="250" effectFactor="1" limitNum="3" cardRareLevel="3" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="66" cardName="扎古" cardName_en="Zaku" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="250" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
@@ -511,7 +511,7 @@
     </CardInfo>
   </Card>
   <Card id="60103">
-    <CardInfo name="baseInfo" pictureID="630" cardName="火神扫射" cardName_en="SP Gatlin" cardDesc="" isTemp="False" hide="False" metal="0" energy="4" coin="200" effectFactor="1" limitNum="0" cardRareLevel="3" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="630" cardName="火神扫射" cardName_en="SP Gatlin" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="200" effectFactor="1" limitNum="0" cardRareLevel="2" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60102" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageAll" M_TargetRange="EnemyMechs" Value="1"></SideEffect>
@@ -525,7 +525,7 @@
     </CardInfo>
   </Card>
   <Card id="60302">
-    <CardInfo name="baseInfo" pictureID="631" cardName="精准镭射" cardName_en="Focus Raser" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="400" effectFactor="1" limitNum="3" cardRareLevel="3" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="631" cardName="精准镭射" cardName_en="Focus Raser" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="400" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60301" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="Soldiers" Value="5"></SideEffect>
@@ -594,11 +594,11 @@
     </CardInfo>
   </Card>
   <Card id="60801">
-    <CardInfo name="baseInfo" pictureID="608" cardName="冲撞" cardName_en="Crash" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="350" effectFactor="1" limitNum="3" cardRareLevel="5" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="608" cardName="冲撞" cardName_en="Crash" cardDesc="" isTemp="False" hide="False" metal="0" energy="3" coin="350" effectFactor="1" limitNum="3" cardRareLevel="1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="2"></SideEffect>
-      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyHeros" Value="5"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="1"></SideEffect>
+      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="SelfMechs" Value="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60901">
@@ -717,14 +717,14 @@
     </CardInfo>
   </Card>
   <Card id="62102">
-    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="1" coin="100" effectFactor="1" limitNum="0" cardRareLevel="1" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="2" coin="100" effectFactor="1" limitNum="0" cardRareLevel="1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62103" degradeCardID="62101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62103">
-    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="2" coin="150" effectFactor="1" limitNum="0" cardRareLevel="3" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" hide="False" metal="0" energy="2" coin="150" effectFactor="1" limitNum="0" cardRareLevel="2" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62102" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
@@ -754,7 +754,7 @@
     </CardInfo>
   </Card>
   <Card id="62402">
-    <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="75" effectFactor="1" limitNum="0" cardRareLevel="1" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="75" effectFactor="1" limitNum="0" cardRareLevel="0" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62403" degradeCardID="62401" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="2"></SideEffect>

@@ -47,6 +47,7 @@ public class HandManager : MonoBehaviour
     public void EndRound()
     {
         foreach (CardBase card in cards) card.OnEndRound();
+        RefreshAllCardUsable();
     }
 
     public void ResetAll()
@@ -451,7 +452,7 @@ public class HandManager : MonoBehaviour
         ClientPlayer.MyMetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
     }
 
-    internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard) 
+    internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard)
     {
         if (ClientPlayer.WhichPlayer == Players.Enemy) return;
         if (IsBeginDrag) return;

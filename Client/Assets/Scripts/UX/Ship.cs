@@ -62,9 +62,8 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                     if (DamageNumberPreviewTextMesh) DamageNumberPreviewTextMesh.text = text;
                     if (DamageNumberPreviewBGTextMesh) DamageNumberPreviewBGTextMesh.text = text;
 
-                    string desc = GameManager.Instance.IsEnglish ? AttackFactorDesc_en[attackFactor] : AttackFactorDesc[attackFactor];
-                    if (Desc) Desc.text = desc;
-                    if (DescBG) DescBG.text = desc;
+                    if (Desc) Desc.text = "";
+                    if (DescBG) DescBG.text = "";
                 }
             }
             else if (cs != null && CheckCardSpellCanTarget(cs))
@@ -130,23 +129,9 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     public enum AttackFactor
     {
         None = 0,
-        Sword = 2,
+        Sword = 1,
         Gun = 1,
     }
-
-    public static Dictionary<AttackFactor, string> AttackFactorDesc_en = new Dictionary<AttackFactor, string>
-    {
-        {AttackFactor.None, ""},
-        {AttackFactor.Sword, "Sword Double"},
-        {AttackFactor.Gun, ""},
-    };
-
-    public static Dictionary<AttackFactor, string> AttackFactorDesc = new Dictionary<AttackFactor, string>
-    {
-        {AttackFactor.None, ""},
-        {AttackFactor.Sword, "近战翻倍"},
-        {AttackFactor.Gun, ""},
-    };
 
     private bool CheckCardSpellCanTarget(CardSpell card)
     {

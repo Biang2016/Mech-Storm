@@ -63,7 +63,7 @@ internal class ClientProxyAI : ClientProxy
         TriedCards.Clear();
     }
 
-    private void AIOperation()
+    public void AIOperation()
     {
         while (true)
         {
@@ -360,12 +360,62 @@ internal class ClientProxyAI : ClientProxy
 
     private ServerCardBase FindCardUsable()
     {
+        List<int> noTriedUsableCards = new List<int>();
         foreach (int id in MyHandManager.UsableCards)
         {
             if (!TriedCards.Contains(id))
             {
-                return MyHandManager.GetCardByCardInstanceId(id);
+                noTriedUsableCards.Add(id);
             }
+        }
+
+        if (noTriedUsableCards.Count == 1) return MyHandManager.GetCardByCardInstanceId(noTriedUsableCards[0]);
+        ServerCardBase energyCardID = null;
+        ServerCardBase spellCardID = null;
+        ServerCardBase equipCardID = null;
+        ServerCardBase retinueCardID = null;
+        foreach (int id in noTriedUsableCards)
+        {
+            ServerCardBase card = MyHandManager.GetCardByCardInstanceId(id);
+            if (card.CardInfo.BaseInfo.CardType == CardTypes.Energy)
+            {
+                energyCardID = card;
+            }
+
+            if (card.CardInfo.BaseInfo.CardType == CardTypes.Spell)
+            {
+                spellCardID = card;
+            }
+
+            if (card.CardInfo.BaseInfo.CardType == CardTypes.Equip)
+            {
+                equipCardID = card;
+            }
+
+            if (card.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
+            {
+                retinueCardID = card;
+            }
+        }
+
+        if (energyCardID != null)
+        {
+            return energyCardID;
+        }
+
+        if (spellCardID != null)
+        {
+            return spellCardID;
+        }
+
+        if (equipCardID != null)
+        {
+            return equipCardID;
+        }
+
+        if (retinueCardID != null)
+        {
+            return retinueCardID;
         }
 
         return null;

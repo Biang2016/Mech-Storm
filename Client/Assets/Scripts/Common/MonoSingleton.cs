@@ -13,7 +13,10 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
                 instance = FindObjectOfType(typeof(T)) as T;
                 if (instance == null)
                 {
-                    ClientLog.Instance.PrintError("找不到" + typeof(T).ToString());
+                    if (ClientLog.instance != null)
+                    {
+                        ClientLog.Instance.PrintError("找不到" + typeof(T).ToString());
+                    }
                 }
             }
 

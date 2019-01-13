@@ -38,6 +38,7 @@ internal class PlayerBuff : PoolObject
         if (buffValue >= 0)
         {
             BuffAnim.SetTrigger("Jump");
+            AudioManager.Instance.SoundPlay("sfx/OnBuffTrigger", 0.7f);
         }
 
         yield return new WaitForSeconds(0.2f);

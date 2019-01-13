@@ -410,6 +410,11 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         {
             int CardID = kv.Key;
             int CardLimitCount = kv.Value;
+            if (CardID == 70101)
+            {
+                int a = 0;
+            }
+
             if (allCards.ContainsKey(CardID))
             {
                 CardBase cb = allCards[CardID];
@@ -481,7 +486,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
             List<int> removeCards = new List<int>();
             foreach (KeyValuePair<int, CardBase> kv in allUnlockedCards)
             {
-                if (kv.Value.CardInfo.BaseInfo.CardRareLevel > StoryManager.Instance.Current_LevelNum)
+                if (kv.Value.CardInfo.BaseInfo.CardRareLevel > StoryManager.Instance.Conquered_LevelNum + 1)
                 {
                     removeCards.Add(kv.Key);
                 }

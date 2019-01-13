@@ -56,6 +56,7 @@ public class PlayerBuffManager : MonoBehaviour
     IEnumerator Co_AddBuff(SideEffectExecute buffSee, int buffId)
     {
         PlayerBuff pb = GameObjectPoolManager.Instance.Pool_PlayerBuffPool.AllocateGameObject<PlayerBuff>(Content);
+        AudioManager.Instance.SoundPlay("sfx/OnBuffAdd", 0.5f);
         pb.SetRotation(ClientPlayer.WhichPlayer);
         pb.Init(buffSee, buffId);
         PlayerBuffs.Add(buffId, pb);
@@ -77,6 +78,7 @@ public class PlayerBuffManager : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             PlayerBuffs[buffId].PoolRecycle();
             PlayerBuffs.Remove(buffId);
+            AudioManager.Instance.SoundPlay("sfx/OnBuffRemove", 0.5f);
             BattleEffectsManager.Instance.Effect_Main.EffectEnd();
             yield return null;
         }

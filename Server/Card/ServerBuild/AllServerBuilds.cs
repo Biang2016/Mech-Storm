@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -36,7 +37,7 @@ internal class AllServerBuilds
                 XmlNode build = allBuilds.ChildNodes.Item(i);
                 BuildInfo buildInfo = new BuildInfo();
                 buildInfo.CardIDs = new List<int>();
-                buildInfo.CriticalCardIDs = new List<int>();
+                buildInfo.CriticalCardIDs = new HashSet<int>();
                 buildInfo.CardCountDict = new SortedDictionary<int, int>();
                 for (int j = 0; j < build.ChildNodes.Count; j++)
                 {
@@ -190,6 +191,7 @@ internal class AllServerBuilds
             XmlElement cardIDs = doc.CreateElement("Info");
             buildInfo_Node.AppendChild(cardIDs);
             cardIDs.SetAttribute("name", "cardIDs");
+            buildInfo.CardIDs.Sort();
             int[] ids = buildInfo.CardIDs.ToArray();
             List<string> strs = new List<string>();
             foreach (int id in ids)
@@ -199,17 +201,23 @@ internal class AllServerBuilds
 
             cardIDs.SetAttribute("ids", string.Join(",", strs.ToArray()));
 
-            XmlElement criticalCardIDs = doc.CreateElement("Info");
-            buildInfo_Node.AppendChild(criticalCardIDs);
-            criticalCardIDs.SetAttribute("name", "criticalCardIDs");
-            int[] cids = buildInfo.CriticalCardIDs.ToArray();
-            List<string> strs_cids = new List<string>();
-            foreach (int id in cids)
+            if (builds.ManagerName == "ServerAdmin")
             {
-                strs_cids.Add(id.ToString());
+                XmlElement criticalCardIDs = doc.CreateElement("Info");
+                buildInfo_Node.AppendChild(criticalCardIDs);
+                criticalCardIDs.SetAttribute("name", "criticalCardIDs");
+                List<int> ccid = buildInfo.CriticalCardIDs.ToList();
+                ccid.Sort();
+                int[] cids = ccid.ToArray();
+                List<string> strs_cids = new List<string>();
+                foreach (int id in cids)
+                {
+                    strs_cids.Add(id.ToString());
+                }
+
+                criticalCardIDs.SetAttribute("ids", string.Join(",", strs_cids.ToArray()));
             }
 
-            criticalCardIDs.SetAttribute("ids", string.Join(",", strs_cids.ToArray()));
 
             if (builds.ManagerName == "StoryAdmin")
             {

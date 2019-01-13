@@ -273,8 +273,21 @@ public partial class SelectBuildManager
         SCs.Sort((a, b) =>
         {
             if (a.CardInfo.BaseInfo.Metal == 0 && a.CardInfo.BaseInfo.Energy == 0 && (b.CardInfo.BaseInfo.Metal != 0 || b.CardInfo.BaseInfo.Energy != 0)) return -1;
-            if (a.CardInfo.BaseInfo.Energy.CompareTo(b.CardInfo.BaseInfo.Energy) == 0) return a.CardInfo.BaseInfo.Metal.CompareTo(b.CardInfo.BaseInfo.Metal);
-            return a.CardInfo.BaseInfo.Energy.CompareTo(b.CardInfo.BaseInfo.Energy);
+            if (a.CardInfo.BaseInfo.Energy.CompareTo(b.CardInfo.BaseInfo.Energy) == 0)
+            {
+                if (a.CardInfo.BaseInfo.Metal.CompareTo(b.CardInfo.BaseInfo.Metal) == 0)
+                {
+                    return a.CardInfo.CardID.CompareTo(b.CardInfo.CardID);
+                }
+                else
+                {
+                    return a.CardInfo.BaseInfo.Metal.CompareTo(b.CardInfo.BaseInfo.Metal);
+                }
+            }
+            else
+            {
+                return a.CardInfo.BaseInfo.Energy.CompareTo(b.CardInfo.BaseInfo.Energy);
+            }
         });
     }
 
@@ -493,23 +506,19 @@ public partial class SelectBuildManager
 
         RefreshCoinLifeEnergy();
         RefreshCardNum();
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
-        {
-            kv.Value.SetCriticalCardToggle(false);
-        }
 
-        foreach (int cid in buildInfo.CriticalCardIDs)
+        if (Client.Instance.Proxy.IsSuperAccount)
         {
-            try
+            foreach (KeyValuePair<int, CardBase> kv in allCards)
+            {
+                kv.Value.SetCriticalCardToggle(false);
+            }
+
+            foreach (int cid in buildInfo.CriticalCardIDs)
             {
                 allCards[cid].SetCriticalCardToggle(true);
             }
-            catch
-            {
-                int a = 0;
-            }
         }
-
 
         isSwitchingBuildInfo = false;
     }

@@ -95,15 +95,18 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         }
     }
 
+    public bool InRound = false;
 
     private void BeginRound()
     {
+        InRound = true;
         CurrentClientPlayer.MyHandManager.BeginRound();
         CurrentClientPlayer.MyBattleGroundManager.BeginRound();
     }
 
-    private void EndRound()
+    public void EndRound()
     {
+        InRound = false;
         CurrentClientPlayer.MyHandManager.EndRound();
         CurrentClientPlayer.MyBattleGroundManager.EndRound();
     }
@@ -282,6 +285,10 @@ public partial class RoundManager : MonoSingleton<RoundManager>
                 break;
             case TargetSideEffect.TargetRange.EnemyHeros:
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
+                break;
+            case TargetSideEffect.TargetRange.Soldiers:
+                foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();
                 break;
             case TargetSideEffect.TargetRange.SelfSoldiers:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();

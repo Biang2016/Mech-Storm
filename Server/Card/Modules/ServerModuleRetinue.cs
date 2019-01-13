@@ -281,6 +281,17 @@ internal class ServerModuleRetinue : ServerModuleBase
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addArmor: m_RetinueArmor - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
+
+            if (M_Shield != null)
+            {
+                if (value <= 0)
+                {
+                    if (M_RetinueShield <= 0)
+                    {
+                        M_Shield = null;
+                    }
+                }
+            }
         }
     }
 
@@ -305,6 +316,17 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 RetinueAttributesChangeRequest request = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addShield: m_RetinueShield - before);
                 ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
+            }
+
+            if (M_Shield != null)
+            {
+                if (value <= 0)
+                {
+                    if (M_RetinueArmor <= 0)
+                    {
+                        M_Shield = null;
+                    }
+                }
             }
         }
     }
@@ -474,12 +496,19 @@ internal class ServerModuleRetinue : ServerModuleBase
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Shield = null;
 
-            int shield_before = m_RetinueShield;
-            int armor_before = m_RetinueArmor;
-            m_RetinueShield = CardInfo.BattleInfo.BasicShield;
-            m_RetinueArmor = CardInfo.BattleInfo.BasicArmor;
+            int addShield = 0;
+            if (m_RetinueShield >= CardInfo.BattleInfo.BasicShield)
+            {
+                addShield = CardInfo.BattleInfo.BasicShield - m_RetinueShield;
+            }
 
-            RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addShield: m_RetinueShield - shield_before, addArmor: m_RetinueArmor - armor_before);
+            int addArmor = 0;
+            if (m_RetinueArmor >= CardInfo.BattleInfo.BasicArmor)
+            {
+                addArmor = CardInfo.BattleInfo.BasicArmor - m_RetinueArmor;
+            }
+
+            RetinueAttributesChangeRequest request2 = new RetinueAttributesChangeRequest(ServerPlayer.ClientId, M_RetinueID, addShield: addShield, addArmor: addArmor);
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request2);
         }
     }
@@ -1133,7 +1162,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 case WeaponTypes.Sword:
                     OnAttackShip(WeaponTypes.Sword, ship.ClientId);
-                    damage = M_RetinueAttack * M_RetinueWeaponEnergy * 2;
+                    damage = M_RetinueAttack * M_RetinueWeaponEnergy;
                     ship.DamageLifeAboveZero(damage);
                     OnMakeDamage(damage);
                     if (M_RetinueWeaponEnergy < M_RetinueWeaponEnergyMax) M_RetinueWeaponEnergy++;
@@ -1160,7 +1189,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         else
         {
             OnAttackShip(WeaponTypes.None, ship.ClientId);
-            damage = M_RetinueAttack * 2;
+            damage = M_RetinueAttack;
             ship.DamageLifeAboveZero(damage);
             OnMakeDamage(damage);
         }

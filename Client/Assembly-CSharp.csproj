@@ -163,6 +163,9 @@
      <Compile Include="Assets\Scripts\Network\Client.cs" />
      <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
      <Compile Include="Assets\Scripts\Network\Proxy.cs" />
+     <Compile Include="Assets\Scripts\Network\UpdateManager.cs" />
+     <Compile Include="Assets\Scripts\OutGame\FileUtils.cs" />
+     <Compile Include="Assets\Scripts\OutGame\OutGameManager.cs" />
      <Compile Include="Assets\Scripts\StandaloneServer\StandaloneServer.cs" />
      <Compile Include="Assets\Scripts\UI\Bonus\BigBonusItem.cs" />
      <Compile Include="Assets\Scripts\UI\Bonus\BonusButton.cs" />
@@ -201,6 +204,7 @@
      <None Include="Assets\Materials\Stencil\Mask_Trans.shader" />
      <None Include="Assets\Materials\Effect\Shaders\HiddenPass.shader" />
      <None Include="Assets\Materials\Effect\Shaders\Background+2.shader" />
+     <None Include="Assets\StreamingAssets\Test.txt" />
      <None Include="Assets\Materials\Effect\Shaders\DefaultGrey.shader" />
      <None Include="Assets\StreamingAssets\Config\Cards.xml" />
      <None Include="Assets\Materials\Effect\Shaders\BlendSurfaceTrans.shader" />
@@ -232,7 +236,6 @@
      <None Include="Assets\Materials\Effect\Shaders\LakeTile.shader" />
      <None Include="Assets\Materials\BattleFieldObjs\GameBoardMaterials\BlurShader.shader" />
      <None Include="Assets\Materials\Effect\Shaders\select_shader.shader" />
-     <None Include="Assets\StreamingAssets\RequestLog.txt" />
      <None Include="Assets\StreamingAssets\Config\Colors.xml" />
      <None Include="Assets\Materials\Effect\Shaders\BlendMaskLinear.shader" />
      <None Include="Assets\Materials\Effect\Shaders\BlendLinear.shader" />
