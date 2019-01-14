@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 class ClientUtils
@@ -41,38 +43,47 @@ class ClientUtils
 
     public static void ChangePicture(Renderer rd, int pictureID)
     {
-        Texture tx = Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID), typeof(Texture)) as Texture;
-        if (tx == null)
+        string pid_str = string.Format("{0:000}", pictureID);
+        SpriteAtlas atlas = AssetDatabase.LoadAssetAtPath<SpriteAtlas>("Assets/SpriteAtlas/Cards.spriteatlas");
+        Sprite sprite = atlas.GetSprite(pid_str);
+        if (sprite != null)
         {
-            Debug.LogError("所选卡片没有图片资源：" + pictureID);
-            tx = Resources.Load("CardPictures/" + string.Format("{0:000}", 999), typeof(Texture)) as Texture;
+            ChangePicture(rd, sprite.texture);
         }
-
-        ChangePicture(rd, tx);
+        else
+        {
+            Debug.LogError("所选卡片没有图片资源：" + pid_str);
+        }
     }
 
     public static void ChangePicture(RawImage image, int pictureID)
     {
-        Texture tx = Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID), typeof(Texture)) as Texture;
-        if (tx == null)
+        string pid_str = string.Format("{0:000}", pictureID);
+        SpriteAtlas atlas = AssetDatabase.LoadAssetAtPath<SpriteAtlas>("Assets/SpriteAtlas/Cards.spriteatlas");
+        Sprite sprite = atlas.GetSprite(pid_str);
+        if (sprite != null)
         {
-            Debug.LogError("所选卡片没有图片资源：" + pictureID);
-            tx = Resources.Load("CardPictures/" + string.Format("{0:000}", 999), typeof(Texture)) as Texture;
+            image.texture = sprite.texture;
         }
-
-        image.texture = tx;
+        else
+        {
+            Debug.LogError("所选卡片没有图片资源：" + pid_str);
+        }
     }
 
     public static void ChangePicture(SpriteRenderer image, int pictureID)
     {
-        Sprite sp = Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID), typeof(Sprite)) as Sprite;
-        if (sp == null)
+        string pid_str = string.Format("{0:000}", pictureID);
+        SpriteAtlas atlas = AssetDatabase.LoadAssetAtPath<SpriteAtlas>("Assets/SpriteAtlas/Cards.spriteatlas");
+        Sprite sprite = atlas.GetSprite(pid_str);
+        if (sprite != null)
         {
-            Debug.LogError("所选卡片没有图片资源：" + pictureID);
-            sp = Resources.Load("CardPictures/" + string.Format("{0:000}", 999), typeof(Sprite)) as Sprite;
+            image.sprite = sprite;
         }
-
-        image.sprite = sp;
+        else
+        {
+            Debug.LogError("所选卡片没有图片资源：" + pid_str);
+        }
     }
 
     public static void ChangeColor(RawImage image, Color newColor)

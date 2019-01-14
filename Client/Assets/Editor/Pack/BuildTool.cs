@@ -49,19 +49,19 @@ public class BuildTool
     }
 
 
-    [MenuItem("LocalBuild/SetABMode")]
+    //[MenuItem("LocalBuild/SetABMode")]
     public static void SetABMode()
     {
         PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, "ENABLE_AB_MODE");
     }
 
-    [MenuItem("LocalBuild/ClearABMode")]
+    //[MenuItem("LocalBuild/ClearABMode")]
     public static void ClearABMode()
     {
         PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, "");
     }
 
-    [MenuItem("LocalBuild/PC")]
+    //[MenuItem("LocalBuild/PC")]
     public static void BuildWindows()
     {
         SetABMode();
@@ -76,7 +76,7 @@ public class BuildTool
         BuildPipeline.BuildPlayer(GetBuildScenes(), OutputPath + "/GoldenClient.exe", BuildTarget.StandaloneWindows64, BuildOptions.None);
     }
 
-    [MenuItem("LocalBuild/PC_Dev")]
+    //[MenuItem("LocalBuild/PC_Dev")]
     public static void BuildWindowsDev()
     {
         SetABMode();

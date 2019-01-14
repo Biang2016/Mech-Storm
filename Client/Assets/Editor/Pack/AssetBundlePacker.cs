@@ -11,7 +11,6 @@ public class AssetBundlePacker : ScriptableObject
     static string static_ref_mapper_name = Application.dataPath + "/static_ref_dic.bytes";
     static string asset_ab_ext = "ab";
 
-    [MenuItem("AssetBundle/Packer/PC")]
     static void AssetBundlePacker_StandaloneWindows()
     {
         Pack(BuildTarget.StandaloneWindows64);
@@ -22,66 +21,11 @@ public class AssetBundlePacker : ScriptableObject
         EditorUtility.ClearProgressBar();
 
         // 准备打包 初始化Packer
-        EditorUtility.DisplayProgressBar("AssetBundleMaker", "正在准备打包环境", 1.0f);
-        Debug.Log("InitPacker... " + DateTime.Now.ToShortTimeString());
-        InitPacker();
-        Debug.Log("InitPacker Finished " + DateTime.Now.ToShortTimeString());
-
-        #region 公共资源
-
-        // Shader
-        Debug.Log("Pack Shader... " + DateTime.Now.ToShortTimeString());
-        EditorUtility.DisplayProgressBar("AssetBundleMaker", "正在生成Shader打包配置", 1.0f);
-        ShaderPacker.SetShaderPackGroup();
-        UpdateDynamicBlacklist();
-        Debug.Log("Pack Shader Finished " + DateTime.Now.ToShortTimeString());
-
-        // 字体
-        Debug.Log("Pack Font... " + DateTime.Now.ToShortTimeString());
-        EditorUtility.DisplayProgressBar("AssetBundleMaker", "正在生成Font打包配置", 1.0f);
-        FontPacker.SetFontPackGroup();
-        UpdateDynamicBlacklist();
-        Debug.Log("Pack Font Finished " + DateTime.Now.ToShortTimeString());
-
-        #endregion
-
-        #region 处理Asset目录中的其他文件夹，分为UI和Scene两个部分。
-
-        // Tag UI资源
-        Debug.Log("Pack UI... " + DateTime.Now.ToShortTimeString());
-        AssetBundlePacker_UI.Pack();
-        UpdateDynamicBlacklist();
-        Debug.Log("Pack UI Finished " + DateTime.Now.ToShortTimeString());
-
-        // Tag Scene资源
-        Debug.Log("Pack Scene... " + DateTime.Now.ToShortTimeString());
-        AssetBundlePacker_Scene.Pack();
-        Debug.Log("Pack Scene Finished " + DateTime.Now.ToShortTimeString());
-
-        #endregion
-
-        // 优化动画
-        Debug.Log("Optimize Animation... " + DateTime.Now.ToShortTimeString());
-        //OptimizeAnimationClipF3.OptimizeF3();
-        Debug.Log("Optimize Animation Finished " + DateTime.Now.ToShortTimeString());
-
-        // 执行打包
-        Debug.Log("Execute Packer... " + DateTime.Now.ToShortTimeString());
-        EditorUtility.DisplayProgressBar("AssetBundleMaker", "正在执行打包", 1.0f);
-
         string out_path = Application.dataPath + "/../AssetBundle";
         string platform = "";
         if (build_target == BuildTarget.StandaloneWindows64)
         {
             platform = "/pc";
-        }
-        else if (build_target == BuildTarget.Android)
-        {
-            platform = "/android";
-        }
-        else if (build_target == BuildTarget.iOS)
-        {
-            platform = "/ios";
         }
 
         out_path += platform;
@@ -127,7 +71,6 @@ public class AssetBundlePacker : ScriptableObject
         AssetDatabase.ImportAsset("Assets/Resources/UI_FX", ImportAssetOptions.ImportRecursive | ImportAssetOptions.ForceUpdate); //1min
         Debug.Log("ImportAsset: Assets/Resources/UI_FX end " + DateTime.Now.ToShortTimeString());
 
-
         // 初始化字典
         asset_ab_mapper.Clear();
         if (File.Exists(asset_ab_mapper_name))
@@ -144,25 +87,6 @@ public class AssetBundlePacker : ScriptableObject
         Debug.Log("AssetBundlePacker_Scene.InitPacker() begin " + DateTime.Now.ToShortTimeString());
         AssetBundlePacker_Scene.InitPacker(); //很快
         Debug.Log("AssetBundlePacker_Scene.InitPacker() end " + DateTime.Now.ToShortTimeString());
-    }
-
-    [MenuItem("AssetBundle/Pack ALL Shader(PC)")]
-    public static void PackAllShader()
-    {
-        string out_path = Application.dataPath + "/../AssetBundle/pc";
-        BuildAssetBundleOptions option = BuildAssetBundleOptions.ChunkBasedCompression
-                                         | BuildAssetBundleOptions.DeterministicAssetBundle;
-
-        AssetBundleBuild abb = new AssetBundleBuild();
-        string[] shaderGUIDs = AssetDatabase.FindAssets("t:shader");
-        string[] shaderPaths = new string[shaderGUIDs.Length];
-        for (int idx = 0; idx < shaderGUIDs.Length; ++idx)
-            shaderPaths[idx] = AssetDatabase.GUIDToAssetPath(shaderGUIDs[idx]);
-        abb.assetNames = shaderPaths;
-        abb.assetBundleVariant = "ab";
-        abb.assetBundleName = "allshader";
-
-        BuildPipeline.BuildAssetBundles(out_path, new AssetBundleBuild[] {abb}, option, BuildTarget.StandaloneWindows64);
     }
 
     // AssetBundle打包配置

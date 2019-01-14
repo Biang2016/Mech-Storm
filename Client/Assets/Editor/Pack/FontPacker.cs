@@ -14,7 +14,7 @@ public class FontPacker : MonoBehaviour {
     static List<string> packer_dir_lst = new List<string>();
     static List<string> single_packer_dir_lst = new List<string>();
 
-    [MenuItem("AssetBundle/Packer/FontPacker")]
+    //[MenuItem("AssetBundle/Packer/FontPacker")]
 	public static void SetFontPackGroup()
     {   
         InitPacker();

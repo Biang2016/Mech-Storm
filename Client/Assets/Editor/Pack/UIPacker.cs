@@ -18,7 +18,7 @@ public class UIPacker : MonoBehaviour {
     static List<string> anim_packer_dir_lst = new List<string>();
     static List<string> anim_single_packer_dir_lst = new List<string>();
 
-    [MenuItem("AssetBundle/Packer/UIPacker")]
+    //[MenuItem("AssetBundle/Packer/UIPacker")]
     public static void SetUIPackGroup()
     {
         InitPacker();

@@ -16,7 +16,7 @@ public class ShaderPacker : MonoBehaviour
     static Dictionary<string, string> ref_shader_mapper = new Dictionary<string, string>();
 
     // 设置Shader的Packer Tag
-    [MenuItem("AssetBundle/Packer/ShaderPacker")]
+    //[MenuItem("AssetBundle/Packer/ShaderPacker")]
     public static void SetShaderPackGroup()
     {
         total_shaders.Clear();

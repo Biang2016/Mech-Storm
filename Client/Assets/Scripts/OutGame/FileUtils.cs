@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
 
 public class FileUtils
 {
@@ -95,5 +96,35 @@ public class FileUtils
         stream.Close();
         stream.Dispose();
     }
+
+    public static string GetMD5WithFilePath(string filePath)
+    {
+        FileStream file = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+        byte[] hash_byte = md5.ComputeHash(file);
+        string str = BitConverter.ToString(hash_byte);
+        str = str.Replace("-", "");
+        file.Close();
+        return str;
+    }
+
+    public static string GetAssetsRelativePath(string full_path)
+    {
+        string normalize_path = NormalizePath(full_path);
+        if (normalize_path.IndexOf("/Assets/") < 0)
+        {
+            return normalize_path;
+        }
+        else
+        {
+            return normalize_path.Substring(normalize_path.IndexOf("/Assets/") + 1);
+        }
+    }
+
+    public static string NormalizePath(string path)
+    {
+        return path.Replace("\\", "/");
+    }
+
 
 }

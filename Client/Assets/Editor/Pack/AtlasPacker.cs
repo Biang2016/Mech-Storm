@@ -153,7 +153,7 @@ public class AtlasPacker : MonoBehaviour
         return false;
     }
 
-    [MenuItem("AssetBundle/Packer/AtlasMaker")]
+    //[MenuItem("AssetBundle/Packer/AtlasMaker")]
     public static void SetAtlasPackGroup()
     {
         // 初始化Packer

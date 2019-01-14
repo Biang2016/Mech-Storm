@@ -10,7 +10,7 @@ public class AssetBundlePacker_Scene  {
     static Dictionary<string, string> asset_dir_pack_mapper = new Dictionary<string, string>();
 
     // 初始化Packer
-    [MenuItem("AssetBundle/Packer/InitPacker_Scene")]
+    //[MenuItem("AssetBundle/Packer/InitPacker_Scene")]
     public static void InitPacker()
     {
         asset_black_mapper.Clear();
@@ -129,7 +129,7 @@ public class AssetBundlePacker_Scene  {
     }
 
     // 打包Scene特有的资源
-    [MenuItem("AssetBundle/Packer/Pack_Scene")]
+    //[MenuItem("AssetBundle/Packer/Pack_Scene")]
     public static void Pack()
     {
         List<string> pack_dir_lst = new List<string>();
