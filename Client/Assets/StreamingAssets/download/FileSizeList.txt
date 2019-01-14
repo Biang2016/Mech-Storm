@@ -1,0 +1,4 @@
+0-d41d8cd98f00b204e9800998ecf8427e-./FileSizeList.txt
+351-0247a82d096f495cc8249964e8f26bfd-./GetAllFileNames.sh
+7-f7b34a9f10d88da836c01b91b7820112-./dir/insidedir.txt
+1898600-4f474640736d2037714bb9ed4ca55731-./res.ab

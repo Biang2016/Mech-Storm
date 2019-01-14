@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2018.1/resharper-host/local/Transient/ReSharperHost/v12/SolutionCaches/_MyFirstCardGame.-40997755.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="Common" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Common.csproj" t="IncludeRecursive" />
+        <e p="GamePlay" t="Include">
+          <e p="Card" t="Include">
+            <e p="CardDeck" t="Include">
+              <e p="AllBuffs.cs" t="Include" />
+              <e p="AllCards.cs" t="Include" />
+              <e p="AllColors.cs" t="Include" />
+              <e p="BuildInfo.cs" t="Include" />
+              <e p="CardDeck.cs" t="Include" />
+            </e>
+            <e p="CardInfo" t="Include">
+              <e p="CardInfo_Base.cs" t="Include" />
+              <e p="CardInfo_Equip.cs" t="Include" />
+              <e p="CardInfo_Retinue.cs" t="Include" />
+              <e p="CardInfo_Spell.cs" t="Include" />
+              <e p="Info" t="Include">
+                <e p="BaseInfo.cs" t="Include" />
+                <e p="BattleInfo.cs" t="Include" />
+                <e p="EquipInfo.cs" t="Include" />
+                <e p="LifeInfo.cs" t="Include" />
+                <e p="MAInfo.cs" t="Include" />
+                <e p="PackInfo.cs" t="Include" />
+                <e p="RetinueInfo.cs" t="Include" />
+                <e p="ShieldInfo.cs" t="Include" />
+                <e p="TargetInfo.cs" t="Include" />
+                <e p="UpgradeInfo.cs" t="Include" />
+                <e p="WeaponInfo.cs" t="Include" />
+              </e>
+            </e>
+            <e p="SideEffects" t="Include">
+              <e p="AllSideEffects.cs" t="Include" />
+              <e p="EventManager.cs" t="Include" />
+              <e p="SideEffectExecuter.cs" t="Include" />
+              <e p="SideEffectManager.cs" t="Include" />
+              <e p="SideEffects" t="Include">
+                <e p="AttachedEquipSideEffects" t="Include">
+                  <e p="AddSelfWeaponEnergy_Base.cs" t="Include" />
+                  <e p="AttachedEquipSideEffects.cs" t="Include" />
+                </e>
+                <e p="CardDeckRelatedSideEffects" t="Include">
+                  <e p="AddTempCardToDeck_Base.cs" t="Include" />
+                  <e p="AddTempCardToEnemyDeck_Base.cs" t="Include" />
+                  <e p="CardDeckRelatedSideEffects.cs" t="Include" />
+                  <e p="CopyNextDrawCard_Base.cs" t="Include" />
+                  <e p="DrawCards_Base.cs" t="Include" />
+                  <e p="DrawTypeCards_Base.cs" t="Include" />
+                </e>
+                <e p="CardRelatedSideEffects" t="Include">
+                  <e p="CardRelatedSideEffect.cs" t="Include" />
+                  <e p="GetHandCardCopy_Base.cs" t="Include" />
+                  <e p="TriggerOneHandCard_Base.cs" t="Include" />
+                  <e p="WaitInHandDecreaseEnergy_Base.cs" t="Include" />
+                </e>
+                <e p="DoubleEnergy_Base.cs" t="Include" />
+                <e p="Exile_Base.cs" t="Include" />
+                <e p="PlayerBuffSideEffects" t="Include">
+                  <e p="AddEnergyWhenAttack_Base.cs" t="Include" />
+                  <e p="AddEnergyWhenRoundBegin_Base.cs" t="Include" />
+                  <e p="AddEnergyWhenUseMetal_Base.cs" t="Include" />
+                  <e p="AddPlayerBuff_Base.cs" t="Include" />
+                  <e p="DamageEnemyShipWhenAttack_Base.cs" t="Include" />
+                  <e p="DamageEnemyShipWhenUseCards_Base.cs" t="Include" />
+                  <e p="NextSpellDamageDouble_Base.cs" t="Include" />
+                  <e p="PlayerBuffSideEffects.cs" t="Include" />
+                </e>
+                <e p="SideEffectBase.cs" t="Include" />
+                <e p="SideEffectBundle.cs" t="Include" />
+                <e p="SpecialInterface" t="Include">
+                  <e p="IDamage.cs" t="Include" />
+                  <e p="IEffectFactor.cs" t="Include" />
+                  <e p="ITrigger.cs" t="Include" />
+                </e>
+                <e p="TargetSideEffects" t="Include">
+                  <e p="AddArmorOne_Base.cs" t="Include" />
+                  <e p="AddAttackAll_Base.cs" t="Include" />
+                  <e p="AddAttackOne_Base.cs" t="Include" />
+                  <e p="AddAttackRandom_Base.cs" t="Include" />
+                  <e p="AddEnergy_Base.cs" t="Include" />
+                  <e p="AddEnergyPerMechs_Base.cs" t="Include" />
+                  <e p="AddLifeAll_Base.cs" t="Include" />
+                  <e p="AddLifeOne_Base.cs" t="Include" />
+                  <e p="AddLifeRandom_Base.cs" t="Include" />
+                  <e p="AddShieldOne_Base.cs" t="Include" />
+                  <e p="AddWeaponEnergy_Base.cs" t="Include" />
+                  <e p="Cooperation_Base.cs" t="Include" />
+                  <e p="DamageAll_Base.cs" t="Include" />
+                  <e p="DamageOne_Base.cs" t="Include" />
+                  <e p="DamageRandom_Base.cs" t="Include" />
+                  <e p="Degenerate_Base.cs" t="Include" />
+                  <e p="HalfShield_Base.cs" t="Include" />
+                  <e p="HealAll_Base.cs" t="Include" />
+                  <e p="HealOne_Base.cs" t="Include" />
+                  <e p="HealRandom_Base.cs" t="Include" />
+                  <e p="IllusionToOne_Base.cs" t="Include" />
+                  <e p="KillAll_Base.cs" t="Include" />
+                  <e p="KillOne_Base.cs" t="Include" />
+                  <e p="KillRandom_Base.cs" t="Include" />
+                  <e p="RunAway_Base.cs" t="Include" />
+                  <e p="Sacrifice_Base.cs" t="Include" />
+                  <e p="SummonRetinue_Base.cs" t="Include" />
+                  <e p="SummonRetinuePerMechs_Base.cs" t="Include" />
+                  <e p="TargetSideEffect.cs" t="Include" />
+                  <e p="TargetSideEffectToEquip" t="Include">
+                    <e p="BreakEquip_Base.cs" t="Include" />
+                    <e p="TargetSideEffectToEquip.cs" t="Include" />
+                  </e>
+                </e>
+                <e p="TriggerTriggerSideEffects" t="Include">
+                  <e p="SpellDamageDouble_Base.cs" t="Include" />
+                  <e p="TriggerTriggerSideEffects.cs" t="Include" />
+                </e>
+                <e p="UseAllEnergyDamageShip_Base.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="GamePlaySettings.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
+          <e p="Story" t="Include">
+            <e p="Bonus.cs" t="Include" />
+            <e p="BonusGroup.cs" t="Include" />
+            <e p="Boss.cs" t="Include" />
+            <e p="Level.cs" t="Include" />
+            <e p="Story.cs" t="Include" />
+          </e>
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Protocol" t="Include">
+          <e p="Const.cs" t="Include" />
+          <e p="DataStream" t="Include">
+            <e p="DataHolder.cs" t="Include" />
+            <e p="DataStream.cs" t="Include" />
+          </e>
+          <e p="NetProtocols.cs" t="Include" />
+          <e p="ProtoManager.cs" t="Include" />
+          <e p="ProxyBase.cs" t="Include" />
+        </e>
+        <e p="RequestResponse" t="Include">
+          <e p="ClientToServer" t="Include">
+            <e p="ClientRequestBase.cs" t="Include" />
+            <e p="GamePlayOperations" t="Include">
+              <e p="EndLevelRequest.cs" t="Include" />
+              <e p="EndRoundRequest.cs" t="Include" />
+              <e p="EquipMARequest.cs" t="Include" />
+              <e p="EquipPackRequest.cs" t="Include" />
+              <e p="EquipShieldRequest.cs" t="Include" />
+              <e p="EquipWeaponRequest.cs" t="Include" />
+              <e p="RetinueAttackRetinueRequest.cs" t="Include" />
+              <e p="RetinueAttackShipRequest.cs" t="Include" />
+              <e p="SummonRetinueRequest.cs" t="Include" />
+              <e p="UseSpellCardRequest.cs" t="Include" />
+              <e p="UseSpellCardToEquipRequest.cs" t="Include" />
+              <e p="UseSpellCardToRetinueRequest.cs" t="Include" />
+              <e p="UseSpellCardToShipRequest.cs" t="Include" />
+              <e p="WinDirectlyRequest.cs" t="Include" />
+            </e>
+            <e p="OutGame" t="Include">
+              <e p="BonusGroupRequest.cs" t="Include" />
+              <e p="BuildRequest.cs" t="Include" />
+              <e p="CancelMatchRequest.cs" t="Include" />
+              <e p="ClientValidRequest.cs" t="Include" />
+              <e p="DeleteBuildRequest.cs" t="Include" />
+              <e p="LeaveGameRequest.cs" t="Include" />
+              <e p="LoginRequest.cs" t="Include" />
+              <e p="LogoutRequest.cs" t="Include" />
+              <e p="MatchRequest.cs" t="Include" />
+              <e p="MatchStandAloneRequest.cs" t="Include" />
+              <e p="RegisterRequest.cs" t="Include" />
+              <e p="StartNewStoryRequest.cs" t="Include" />
+            </e>
+          </e>
+          <e p="RequestBase.cs" t="Include" />
+          <e p="ServerToClient" t="Include">
+            <e p="AttachedResponses" t="Include">
+              <e p="BattleGroundAddRetinueRequest.cs" t="Include" />
+              <e p="BattleGroundRemoveRetinueRequest.cs" t="Include" />
+              <e p="CardAttributeChangeRequest.cs" t="Include" />
+              <e p="CardDeckLeftChangeRequest.cs" t="Include" />
+              <e p="DrawCardRequest.cs" t="Include" />
+              <e p="DropCardRequest.cs" t="Include" />
+              <e p="EndLevelRequestResponse.cs" t="Include" />
+              <e p="EquipCardInfoSyncRequest.cs" t="Include" />
+              <e p="EquipMAerverRequest.cs" t="Include" />
+              <e p="EquipPackServerRequest.cs" t="Include" />
+              <e p="EquipShieldServerRequest.cs" t="Include" />
+              <e p="EquipWeaponServerRequest.cs" t="Include" />
+              <e p="GameStopByWinRequest.cs" t="Include" />
+              <e p="HandCardInfoSyncRequest.cs" t="Include" />
+              <e p="PlayerBuffRemoveRequest.cs" t="Include" />
+              <e p="PlayerBuffUpdateRequest.cs" t="Include" />
+              <e p="PlayerEnergyChangeRequest.cs" t="Include" />
+              <e p="PlayerLifeChangeRequest.cs" t="Include" />
+              <e p="PlayerMetalChangeRequest.cs" t="Include" />
+              <e p="PlayerTurnRequest.cs" t="Include" />
+              <e p="RetinueAttackRetinueServerRequest.cs" t="Include" />
+              <e p="RetinueAttackShipServerRequest.cs" t="Include" />
+              <e p="RetinueAttributesChangeRequest.cs" t="Include" />
+              <e p="RetinueCanAttackRequest.cs" t="Include" />
+              <e p="RetinueCardInfoSyncRequest.cs" t="Include" />
+              <e p="RetinueDieRequest.cs" t="Include" />
+              <e p="RetinueDodgeRequest.cs" t="Include" />
+              <e p="RetinueImmuneStateRequest.cs" t="Include" />
+              <e p="RetinueInactivityStateRequest.cs" t="Include" />
+              <e p="RetinueOnAttackRequest.cs" t="Include" />
+              <e p="RetinueOnAttackShipRequest.cs" t="Include" />
+              <e p="RetinueShieldDefenceRequest.cs" t="Include" />
+              <e p="SetPlayerRequest.cs" t="Include" />
+              <e p="ShowSideEffectTriggeredRequest.cs" t="Include" />
+              <e p="UseCardRequest.cs" t="Include" />
+              <e p="UseSpellCardServerRequset.cs" t="Include" />
+              <e p="UseSpellCardToEquipServerRequset.cs" t="Include" />
+              <e p="UseSpellCardToRetinueServerRequset.cs" t="Include" />
+              <e p="UseSpellCardToShipServerRequset.cs" t="Include" />
+            </e>
+            <e p="ClientOperationResponseBundle" t="Include">
+              <e p="EndRoundRequest_ResponseBundle.cs" t="Include" />
+              <e p="EquipMARequest_ResponseBundle.cs" t="Include" />
+              <e p="EquipPackRequest_ResponseBundle.cs" t="Include" />
+              <e p="EquipShieldRequest_ResponseBundle.cs" t="Include" />
+              <e p="EquipWeaponRequest_ResponseBundle.cs" t="Include" />
+              <e p="GameStart_ResponseBundle.cs" t="Include" />
+              <e p="RetinueAttackRetinueRequest_ResponseBundle.cs" t="Include" />
+              <e p="SummonRetinueRequest_ResponseBundle.cs" t="Include" />
+              <e p="UseSpellCardRequset_ResponseBundle.cs" t="Include" />
+              <e p="WinDirectlyRequest_ResponseBundle.cs" t="Include" />
+            </e>
+            <e p="OutGame" t="Include">
+              <e p="BeatBossRequest.cs" t="Include" />
+              <e p="BuildUpdateRequest.cs" t="Include" />
+              <e p="ClientBuildInfosRequest.cs" t="Include" />
+              <e p="ClientIdRequest.cs" t="Include" />
+              <e p="CreateBuildRequestResponse.cs" t="Include" />
+              <e p="DeleteBuildRequestResponse.cs" t="Include" />
+              <e p="GameStopByLeaveRequest.cs" t="Include" />
+              <e p="GameStopByServerErrorRequest.cs" t="Include" />
+              <e p="HeartBeatRequest.cs" t="Include" />
+              <e p="LoginResultRequest.cs" t="Include" />
+              <e p="LogoutResultRequest.cs" t="Include" />
+              <e p="NextLevelBossesRequest.cs" t="Include" />
+              <e p="RandomNumberSeedRequest.cs" t="Include" />
+              <e p="RegisterResultRequest.cs" t="Include" />
+              <e p="StartNewStoryRequestResponse.cs" t="Include" />
+            </e>
+            <e p="ResponseBundleBase.cs" t="Include" />
+            <e p="ServerRequestBase.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Utils" t="Include">
+          <e p="RandomNumberGenerator.cs" t="Include" />
+          <e p="Utils.cs" t="Include" />
+        </e>
+      </e>
+      <e p="MyFirstCardGame.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Server" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Card" t="Include">
+          <e p="Cards" t="Include">
+            <e p="ServerCardBase.cs" t="Include" />
+            <e p="ServerCardEquip.cs" t="Include" />
+            <e p="ServerCardRetinue.cs" t="Include" />
+            <e p="ServerCardSpell.cs" t="Include" />
+          </e>
+          <e p="Modules" t="Include">
+            <e p="ServerModuleBase.cs" t="Include" />
+            <e p="ServerModuleMA.cs" t="Include" />
+            <e p="ServerModulePack.cs" t="Include" />
+            <e p="ServerModuleRetinue.cs" t="Include" />
+            <e p="ServerModuleShield.cs" t="Include" />
+            <e p="ServerModuleWeapon.cs" t="Include" />
+          </e>
+          <e p="ServerBuild" t="Include">
+            <e p="AllPlayerStory.cs" t="Include" />
+            <e p="AllServerBuilds.cs" t="Include" />
+          </e>
+          <e p="SideEffects" t="Include">
+            <e p="AttachedEquipSideEffects" t="Include">
+              <e p="AddSelfWeaponEnergy.cs" t="Include" />
+            </e>
+            <e p="CardDeckRelatedSideEffects" t="Include">
+              <e p="AddTempCardToDeck.cs" t="Include" />
+              <e p="AddTempCardToEnemyDeck.cs" t="Include" />
+              <e p="CopyNextDrawCard.cs" t="Include" />
+              <e p="DrawCards.cs" t="Include" />
+              <e p="DrawTypeCards.cs" t="Include" />
+            </e>
+            <e p="CardRelatedSideEffects" t="Include">
+              <e p="GetHandCardCopy.cs" t="Include" />
+              <e p="TriggerOneHandCard.cs" t="Include" />
+              <e p="WaitInHandDecreaseEnergy.cs" t="Include" />
+            </e>
+            <e p="PlayerBuffSideEffects" t="Include">
+              <e p="AddEnergyWhenAttack.cs" t="Include" />
+              <e p="AddEnergyWhenRoundBegin.cs" t="Include" />
+              <e p="AddEnergyWhenUseMetal.cs" t="Include" />
+              <e p="AddPlayerBuff.cs" t="Include" />
+              <e p="DamageEnemyShipWhenAttack.cs" t="Include" />
+              <e p="DamageEnemyShipWhenUseCards.cs" t="Include" />
+              <e p="NextSpellDamageDouble.cs" t="Include" />
+            </e>
+            <e p="RetinueRelatedSideEffects" t="Include">
+              <e p="AddAttackAll.cs" t="Include" />
+              <e p="AddAttackOne.cs" t="Include" />
+              <e p="AddAttackRandom.cs" t="Include" />
+              <e p="SummonRetinue.cs" t="Include" />
+            </e>
+            <e p="SpellDamageDouble.cs" t="Include" />
+            <e p="TargetSideEffects" t="Include">
+              <e p="AddArmorOne.cs" t="Include" />
+              <e p="AddEnergy.cs" t="Include" />
+              <e p="AddEnergyPerMechs.cs" t="Include" />
+              <e p="AddLifeAll.cs" t="Include" />
+              <e p="AddLifeOne.cs" t="Include" />
+              <e p="AddLifeRandom.cs" t="Include" />
+              <e p="AddShieldOne.cs" t="Include" />
+              <e p="AddWeaponEnergy.cs" t="Include" />
+              <e p="Cooperation.cs" t="Include" />
+              <e p="DamageAll.cs" t="Include" />
+              <e p="DamageOne.cs" t="Include" />
+              <e p="DamageRandom.cs" t="Include" />
+              <e p="Degenerate.cs" t="Include" />
+              <e p="HalfShield.cs" t="Include" />
+              <e p="HealAll.cs" t="Include" />
+              <e p="HealOne.cs" t="Include" />
+              <e p="HealRandom.cs" t="Include" />
+              <e p="IllusionToOne.cs" t="Include" />
+              <e p="KillAll.cs" t="Include" />
+              <e p="KillOne.cs" t="Include" />
+              <e p="KillRandom.cs" t="Include" />
+              <e p="RunAway.cs" t="Include" />
+              <e p="Sacrifice.cs" t="Include" />
+              <e p="SummonRetinuePerMechs.cs" t="Include" />
+              <e p="TargetSideEffectToEquip" t="Include">
+                <e p="BreakEquip.cs" t="Include" />
+              </e>
+            </e>
+            <e p="TriggerTriggerSideEffects" t="Include">
+              <e p="DoubleEnergy.cs" t="Include" />
+              <e p="Exile.cs" t="Include" />
+              <e p="UseAllEnergyDamageShip.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Config" t="Include">
+          <e p="DefaultBuilds" t="Include">
+            <e p="PlayerAdmin.xml" t="Include" />
+            <e p="ServerAdmin.xml" t="Include" />
+            <e p="StoryAdmin.xml" t="Include" />
+          </e>
+          <e p="PlayerStories" t="Include">
+            <e p="Story1.xml" t="Include" />
+          </e>
+          <e p="ServerSwitch.txt" t="Include" />
+        </e>
+        <e p="Database" t="Include">
+          <e p="Database.cs" t="Include" />
+        </e>
+        <e p="DevLog.txt" t="Include" />
+        <e p="DevLog_zh.txt" t="Include" />
+        <e p="GamePlay" t="Include">
+          <e p="ClientProxy.cs" t="Include" />
+          <e p="ClientProxyAI.cs" t="Include" />
+          <e p="ServerAISystem.cs" t="Include" />
+          <e p="ServerBattleGroundManager.cs" t="Include" />
+          <e p="ServerCardDeckManager.cs" t="Include" />
+          <e p="ServerGameManager.cs" t="Include" />
+          <e p="ServerGameMatchManager.cs" t="Include" />
+          <e p="ServerHandManager.cs" t="Include" />
+          <e p="ServerPlayer.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Server.cs" t="Include" />
+        <e p="Server.csproj" t="IncludeRecursive" />
+        <e p="ServerConsole.cs" t="Include" />
+        <e p="ServerLog.cs" t="Include" />
+      </e>
+    </e>
+  </component>
+</project>

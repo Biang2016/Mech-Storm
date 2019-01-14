@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2018.1/resharper-host/local/Transient/ReSharperHost/v12/SolutionCaches/_Client.-244352754.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Editor" t="Include">
+          <e p="CardBaseEditor.cs" t="Include" />
+          <e p="CardScreenShotEditor.cs" t="Include" />
+          <e p="ModuleRetinueEditor.cs" t="Include" />
+          <e p="NewEditorScript1.cs" t="Include" />
+          <e p="Pack" t="Include">
+            <e p="AssetBundlePacker.cs" t="Include" />
+            <e p="AssetBundlePacker_Scene.cs" t="Include" />
+            <e p="AssetBundlePacker_UI.cs" t="Include" />
+            <e p="AtlasPacker.cs" t="Include" />
+            <e p="BuildTool.cs" t="Include" />
+            <e p="FontPacker.cs" t="Include" />
+            <e p="MetaModifer.cs" t="Include" />
+            <e p="PackerToolFunc.cs" t="Include" />
+            <e p="ShaderPacker.cs" t="Include" />
+            <e p="UIPacker.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Fonts" t="Include">
+          <e p="Chars.txt" t="Include" />
+        </e>
+        <e p="Materials" t="Include">
+          <e p="BattleFieldObjs" t="Include">
+            <e p="GameBoardMaterials" t="Include">
+              <e p="BlurShader.shader" t="Include" />
+            </e>
+          </e>
+          <e p="Effect" t="Include">
+            <e p="Shaders" t="Include">
+              <e p="Background+2.shader" t="Include" />
+              <e p="bank_shader.shader" t="Include" />
+              <e p="Base.shader" t="Include" />
+              <e p="BaseLinear.shader" t="Include" />
+              <e p="Battle_shadow.shader" t="Include" />
+              <e p="Blend.shader" t="Include" />
+              <e p="blend2Texture.shader" t="Include" />
+              <e p="blend2Texture_battle.shader" t="Include" />
+              <e p="blend2Texture_battle2.shader" t="Include" />
+              <e p="blend2TextureHua.shader" t="Include" />
+              <e p="BlendCache.shader" t="Include" />
+              <e p="BlendForBloom.shader" t="Include" />
+              <e p="BlendLinear.shader" t="Include" />
+              <e p="BlendMask.shader" t="Include" />
+              <e p="BlendMaskLinear.shader" t="Include" />
+              <e p="BlendSurfaceTrans.shader" t="Include" />
+              <e p="BlurAndFlares.shader" t="Include" />
+              <e p="BlurEffectConeTaps.shader" t="Include" />
+              <e p="Bones.shader" t="Include" />
+              <e p="BrightPassFilter2.shader" t="Include" />
+              <e p="cloud_shader.shader" t="Include" />
+              <e p="color_flicker.shader" t="Include" />
+              <e p="coloration.shader" t="Include" />
+              <e p="coloration_all.shader" t="Include" />
+              <e p="Common.cginc" t="Include" />
+              <e p="DefaultGrey.shader" t="Include" />
+              <e p="difffuse_lightmap.shader" t="Include" />
+              <e p="Distort.shader" t="Include" />
+              <e p="fade_shader.shader" t="Include" />
+              <e p="HiddenPass.shader" t="Include" />
+              <e p="HighLight.shader" t="Include" />
+              <e p="LakeTile.shader" t="Include" />
+              <e p="LandDecoration.shader" t="Include" />
+              <e p="LandTile.shader" t="Include" />
+              <e p="LensFlareCreate.shader" t="Include" />
+              <e p="Line.shader" t="Include" />
+              <e p="line_alphablend.shader" t="Include" />
+              <e p="Mask.shader" t="Include" />
+              <e p="MaskLinear.shader" t="Include" />
+              <e p="MobileBloom.shader" t="Include" />
+              <e p="move_block_shader.shader" t="Include" />
+              <e p="nightMask.shader" t="Include" />
+              <e p="ripple.shader" t="Include" />
+              <e p="ripple_add.shader" t="Include" />
+              <e p="ripple_normal.shader" t="Include" />
+              <e p="RoadTile.shader" t="Include" />
+              <e p="select_shader.shader" t="Include" />
+              <e p="Skeleton.shader" t="Include" />
+              <e p="SkeletonLit.shader" t="Include" />
+              <e p="SpriteAlphaSeperated.shader" t="Include" />
+              <e p="SurfaceTransparent.shader" t="Include" />
+              <e p="SurfaceWater.shader" t="Include" />
+              <e p="Terrian.shader" t="Include" />
+              <e p="TerrianZ.shader" t="Include" />
+              <e p="Transparent+4.shader" t="Include" />
+            </e>
+          </e>
+          <e p="FX" t="Include">
+            <e p="LineRenderer.shader" t="Include" />
+          </e>
+          <e p="Sprite-Gray.shader" t="Include" />
+          <e p="Stencil" t="Include">
+            <e p="Mask.shader" t="Include" />
+            <e p="Mask_Trans.shader" t="Include" />
+            <e p="Standard_BeMasked.shader" t="Include" />
+            <e p="UI_Custom.shader" t="Include" />
+          </e>
+        </e>
+        <e p="Plugins" t="Include">
+          <e p="MaskEffect" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="CircularMaskEffect" t="Include">
+                <e p="CircularMaskEffect.cs" t="Include" />
+                <e p="CircularMaskEffectUpdate" t="Include">
+                  <e p="CircularMaskEffectUpdate.cs" t="Include" />
+                </e>
+              </e>
+              <e p="MaskEffect.cs" t="Include" />
+              <e p="MaskEffectUpdate.cs" t="Include" />
+              <e p="RectMaskEffect" t="Include">
+                <e p="RectMaskEffect.cs" t="Include" />
+                <e p="RectMaskEffectUpdate" t="Include">
+                  <e p="RectMaskEffectUpdate.cs" t="Include" />
+                  <e p="RectMaskEffectUpdateCircle.cs" t="Include" />
+                  <e p="RectMaskEffectUpdateSideToSide" t="Include">
+                    <e p="RectMaskEffectUpdateBToT.cs" t="Include" />
+                    <e p="RectMaskEffectUpdateLToR.cs" t="Include" />
+                    <e p="RectMaskEffectUpdateRToL.cs" t="Include" />
+                    <e p="RectMaskEffectUpdateSideToSide.cs" t="Include" />
+                    <e p="RectMaskEffectUpdateTToB.cs" t="Include" />
+                  </e>
+                  <e p="RectMaskEffectUpdateVertexToVertex" t="Include">
+                    <e p="RectMaskEffectUpdateLBToRT.cs" t="Include" />
+                    <e p="RectMaskEffectUpdateLTToRB.cs" t="Include" />
+                    <e p="RectMaskEffectUpdateRBToLT.cs" t="Include" />
+                    <e p="RectMaskEffectUpdateRTToLB.cs" t="Include" />
+                    <e p="RectMaskEffectUpdateVertexToVertex.cs" t="Include" />
+                  </e>
+                </e>
+              </e>
+            </e>
+            <e p="Shaders" t="Include">
+              <e p="MaskEffect.shader" t="Include" />
+            </e>
+          </e>
+          <e p="Newtonsoft.Json.xml" t="Include" />
+          <e p="Pixelplacement" t="Include">
+            <e p="iTween" t="Include">
+              <e p="iTween.cs" t="Include" />
+              <e p="ReadMe!" t="Include">
+                <e p="ReadMe!.txt" t="Include" />
+              </e>
+              <e p="Sample" t="Include">
+                <e p="MoveSample.cs" t="Include" />
+                <e p="RotateSample.cs" t="Include" />
+                <e p="SampleInfo.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Card" t="Include">
+            <e p="Affixs" t="Include">
+              <e p="Affix.cs" t="Include" />
+            </e>
+            <e p="Cards" t="Include">
+              <e p="CardBase.cs" t="Include" />
+              <e p="CardDeckCard.cs" t="Include" />
+              <e p="CardEquip.cs" t="Include" />
+              <e p="CardRetinue.cs" t="Include" />
+              <e p="CardSpell.cs" t="Include" />
+              <e p="ColliderReplace.cs" t="Include" />
+            </e>
+            <e p="Modules" t="Include">
+              <e p="ModuleBase.cs" t="Include" />
+              <e p="ModuleEquip.cs" t="Include" />
+              <e p="ModuleMA.cs" t="Include" />
+              <e p="ModulePack.cs" t="Include" />
+              <e p="ModuleRetinue.cs" t="Include" />
+              <e p="ModuleShield.cs" t="Include" />
+              <e p="ModuleWeapon.cs" t="Include" />
+              <e p="Slot.cs" t="Include" />
+            </e>
+            <e p="Number" t="Include">
+              <e p="CardNumber.cs" t="Include" />
+              <e p="CardNumberSet.cs" t="Include" />
+              <e p="TextFly.cs" t="Include" />
+              <e p="TextFlyPile.cs" t="Include" />
+            </e>
+            <e p="SideEffects" t="Include">
+              <e p="AttachedEquipSideEffects" t="Include">
+                <e p="AddSelfWeaponEnergy.cs" t="Include" />
+              </e>
+              <e p="CardDeckRelatedSideEffects" t="Include">
+                <e p="AddTempCardToDeck.cs" t="Include" />
+                <e p="AddTempCardToEnemyDeck.cs" t="Include" />
+                <e p="CopyNextDrawCard.cs" t="Include" />
+                <e p="DrawCards.cs" t="Include" />
+                <e p="DrawTypeCards.cs" t="Include" />
+              </e>
+              <e p="CardRelatedSideEffects" t="Include">
+                <e p="GetHandCardCopy.cs" t="Include" />
+                <e p="TriggerOneHandCard.cs" t="Include" />
+                <e p="WaitInHandDecreaseMagic.cs" t="Include" />
+              </e>
+              <e p="DoubleEnergy.cs" t="Include" />
+              <e p="Exile.cs" t="Include" />
+              <e p="PlayerBuff.cs" t="Include" />
+              <e p="PlayerBuffRelatedSideEffects" t="Include">
+                <e p="AddEnergyWhenAttack.cs" t="Include" />
+                <e p="AddEnergyWhenRoundBegin.cs" t="Include" />
+                <e p="AddEnergyWhenUseMetal.cs" t="Include" />
+                <e p="AddPlayerBuff.cs" t="Include" />
+                <e p="DamageEnemyShipWhenAttack.cs" t="Include" />
+                <e p="DamageEnemyShipWhenUseCards.cs" t="Include" />
+                <e p="NextSpellDamageDouble.cs" t="Include" />
+              </e>
+              <e p="RetinueRelatedSideEffects" t="Include">
+                <e p="AddAttackAll.cs" t="Include" />
+                <e p="AddAttackOne.cs" t="Include" />
+                <e p="AddAttackRandom.cs" t="Include" />
+                <e p="SummonRetinue.cs" t="Include" />
+              </e>
+              <e p="TargetSideEffects" t="Include">
+                <e p="AddArmorOne.cs" t="Include" />
+                <e p="AddEnergy.cs" t="Include" />
+                <e p="AddEnergyPerMechs.cs" t="Include" />
+                <e p="AddLifeAll.cs" t="Include" />
+                <e p="AddLifeOne.cs" t="Include" />
+                <e p="AddLifeRandom.cs" t="Include" />
+                <e p="AddShieldOne.cs" t="Include" />
+                <e p="AddWeaponEnergy.cs" t="Include" />
+                <e p="Cooperation.cs" t="Include" />
+                <e p="DamageAll.cs" t="Include" />
+                <e p="DamageOne.cs" t="Include" />
+                <e p="DamageRandom.cs" t="Include" />
+                <e p="Degenerate.cs" t="Include" />
+                <e p="HalfShield.cs" t="Include" />
+                <e p="HealAll.cs" t="Include" />
+                <e p="HealOne.cs" t="Include" />
+                <e p="HealRandom.cs" t="Include" />
+                <e p="IllusionToOne.cs" t="Include" />
+                <e p="KillAll.cs" t="Include" />
+                <e p="KillOne.cs" t="Include" />
+                <e p="KillRandom.cs" t="Include" />
+                <e p="RunAway.cs" t="Include" />
+                <e p="Sacrifice.cs" t="Include" />
+                <e p="SummonRetinuePerMechs.cs" t="Include" />
+                <e p="TargetSideEffectToEquip" t="Include">
+                  <e p="BreakEquip.cs" t="Include" />
+                </e>
+              </e>
+              <e p="TriggerTriggerSideEffects" t="Include">
+                <e p="SpellDamageDouble.cs" t="Include" />
+              </e>
+              <e p="UseAllEnergyDamageShip.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Common" t="Include">
+            <e p="ClientLog.cs" t="Include" />
+            <e p="ClientUtils.cs" t="Include" />
+            <e p="DebugConsole.cs" t="Include" />
+            <e p="GameObjectPool.cs" t="Include" />
+            <e p="GameObjectPoolManager.cs" t="Include" />
+            <e p="Initialization.cs" t="Include" />
+            <e p="MonoSingleton.cs" t="Include" />
+            <e p="MonoSingletonManager.cs" t="Include" />
+            <e p="PoolObject.cs" t="Include" />
+          </e>
+          <e p="Effects" t="Include">
+            <e p="Bullet.cs" t="Include" />
+            <e p="Hit.cs" t="Include" />
+            <e p="HitManager.cs" t="Include" />
+            <e p="LensFlareIdle.cs" t="Include" />
+            <e p="NormalParticle.cs" t="Include" />
+          </e>
+          <e p="GamePlay" t="Include">
+            <e p="AffixManager.cs" t="Include" />
+            <e p="AudioManager.cs" t="Include" />
+            <e p="BattleEffectsManager.cs" t="Include" />
+            <e p="BattleGroundManager.cs" t="Include" />
+            <e p="CardDeckManager.cs" t="Include" />
+            <e p="ClientPlayer.cs" t="Include" />
+            <e p="ExitMenuManager.cs" t="Include" />
+            <e p="GameBoardManager.cs" t="Include" />
+            <e p="GameManager.cs" t="Include" />
+            <e p="HandManager.cs" t="Include" />
+            <e p="InGameUIManager.cs" t="Include" />
+            <e p="LoginManager.cs" t="Include" />
+            <e p="MetalLifeEnergyManager.cs" t="Include" />
+            <e p="NoticeManager.cs" t="Include" />
+            <e p="PlayerBuffManager.cs" t="Include" />
+            <e p="RoundManager.cs" t="Include" />
+            <e p="RoundManager_Response.cs" t="Include" />
+            <e p="SelectBuildManager.cs" t="Include" />
+            <e p="SelectBuildManager_Build.cs" t="Include" />
+            <e p="SelectBuildManager_LifeMagicCoinCardnum.cs" t="Include" />
+            <e p="SelectBuildManager_PreviewUpgrade.cs" t="Include" />
+            <e p="SelectBuildManager_Select.cs" t="Include" />
+            <e p="SettingMenuManager.cs" t="Include" />
+            <e p="StartMenuManager.cs" t="Include" />
+            <e p="StoryManager.cs" t="Include" />
+            <e p="WinLostPanelManager.cs" t="Include" />
+          </e>
+          <e p="Network" t="Include">
+            <e p="Client.cs" t="Include" />
+            <e p="NetworkManager.cs" t="Include" />
+            <e p="Proxy.cs" t="Include" />
+          </e>
+          <e p="OutGame" t="Include">
+            <e p="Download" t="Include">
+              <e p="DownloadItem.cs" t="Include" />
+              <e p="HttpDownloadItem.cs" t="Include" />
+              <e p="UpdateManager.cs" t="Include" />
+              <e p="WWWDownloadItem.cs" t="Include" />
+            </e>
+            <e p="FileUtils.cs" t="Include" />
+            <e p="OutGameManager.cs" t="Include" />
+          </e>
+          <e p="StandaloneServer" t="Include">
+            <e p="StandaloneServer.cs" t="Include" />
+          </e>
+          <e p="UI" t="Include">
+            <e p="Bonus" t="Include">
+              <e p="BigBonusItem.cs" t="Include" />
+              <e p="BonusButton.cs" t="Include" />
+              <e p="BonusItem_Base.cs" t="Include" />
+              <e p="SmallBonusItem.cs" t="Include" />
+            </e>
+            <e p="ButtonEffects.cs" t="Include" />
+            <e p="ConfirmWindow" t="Include">
+              <e p="ConfirmWindow.cs" t="Include" />
+              <e p="ConfirmWindowManager.cs" t="Include" />
+            </e>
+            <e p="CostBar" t="Include">
+              <e p="MetalBarBlock.cs" t="Include" />
+              <e p="MetalBarManager.cs" t="Include" />
+            </e>
+            <e p="DebugUILine.cs" t="Include" />
+            <e p="ImageEffectBlurBox.cs" t="Include" />
+            <e p="InputNavigator.cs" t="Include" />
+            <e p="ScreenFitness.cs" t="Include" />
+            <e p="ScreenSetting.cs" t="Include" />
+            <e p="SelectBuildWindow" t="Include">
+              <e p="BuildButton.cs" t="Include" />
+              <e p="BuildButtonClick.cs" t="Include" />
+              <e p="BuildRenamePanel.cs" t="Include" />
+              <e p="SelectCard.cs" t="Include" />
+            </e>
+            <e p="ShrinkText.cs" t="Include" />
+            <e p="Story" t="Include">
+              <e p="StoryCol.cs" t="Include" />
+              <e p="StoryLevelButton.cs" t="Include" />
+            </e>
+            <e p="TransitManager.cs" t="Include" />
+          </e>
+          <e p="UX" t="Include">
+            <e p="Arrows" t="Include">
+              <e p="Arrow.cs" t="Include" />
+              <e p="ArrowAiming.cs" t="Include" />
+              <e p="ArrowArrow.cs" t="Include" />
+            </e>
+            <e p="DragComponent.cs" t="Include" />
+            <e p="DragManager.cs" t="Include" />
+            <e p="MouseHoverComponent.cs" t="Include" />
+            <e p="MouseHoverManager.cs" t="Include" />
+            <e p="MouseHoverUI.cs" t="Include" />
+            <e p="OnClick.cs" t="Include" />
+            <e p="OnPointerHoverAndLeave.cs" t="Include" />
+            <e p="PreviewPanelBG.cs" t="Include" />
+            <e p="Ship.cs" t="Include" />
+          </e>
+        </e>
+        <e p="StreamingAssets" t="Include">
+          <e p="Config" t="Include">
+            <e p="Buffs.xml" t="Include" />
+            <e p="Cards.xml" t="Include" />
+            <e p="Colors.xml" t="Include" />
+            <e p="SideEffects.xml" t="Include" />
+          </e>
+          <e p="Download" t="Include">
+            <e p="dir" t="Include">
+              <e p="insidedir.txt" t="Include" />
+            </e>
+            <e p="FileSizeList.txt" t="Include" />
+          </e>
+          <e p="Test.txt" t="Include" />
+        </e>
+      </e>
+      <e p="Client.sln" t="IncludeFlat" />
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
+    </e>
+  </component>
+</project>

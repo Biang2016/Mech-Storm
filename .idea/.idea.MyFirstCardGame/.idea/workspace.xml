@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="19cfc5fc-6bac-4bd5-b1c2-bdce8d18978b" name="默认的" comment="">
+      <change afterPath="$PROJECT_DIR$/Client/Assets/Scripts/OutGame/Download/DownloadItem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/Assets/Scripts/OutGame/Download/HttpDownloadItem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/Assets/Scripts/OutGame/Download/WWWDownloadItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assembly-CSharp-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Assembly-CSharp-Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assembly-CSharp-firstpass.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Assembly-CSharp-firstpass.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Assembly-CSharp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assets/Prefabs/OutGameManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Assets/Prefabs/OutGameManager.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assets/Resources/OutGame.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assets/Scenes/FirstScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Assets/Scenes/FirstScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assets/Scripts/Network/Client.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assets/Scripts/Network/UpdateManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Assets/Scripts/OutGame/Download/UpdateManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assets/Scripts/Network/UpdateManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assets/Scripts/OutGame/FileUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Assets/Scripts/OutGame/FileUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assets/Scripts/OutGame/OutGameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Assets/Scripts/OutGame/OutGameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assets/StreamingAssets/AssetBundles/PC.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Assets/Textures/UI/NewCardBanner.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Assets/Textures/UI/NewCardBanner.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Client.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Client.sln" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="Server.cs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Server/Server.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="40">
+              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+              <folding>
+                <marker date="1547050281027" expanded="false" signature="6:140" ph="..." />
+                <marker date="1547050281027" expanded="true" signature="163:10983" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="225:294" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="316:328" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="368:418" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="788:1666" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="1705:1885" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="1786:1879" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="1939:2263" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="2136:2257" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="2269:2375" ph="/// 所有的客户端提前异常退出、正常退出都走此方法 ... " />
+                <marker date="1547050281027" expanded="true" signature="2433:2676" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="2712:3716" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="2730:3426" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="3454:3710" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="3794:3842" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="3868:4588" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="4612:5167" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="4685:5131" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="4819:5121" ph="{...}" />
+                <marker date="1547050281027" expanded="false" signature="5173:8448" ph="接收" />
+                <marker date="1547050281027" expanded="true" signature="5249:7321" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="5392:7315" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="5449:5863" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="5880:6912" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="6028:6469" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="6589:6898" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="6944:7305" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="7358:7503" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="7538:7806" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="7584:7800" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="7863:8432" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="7905:8426" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="8317:8416" ph="{...}" />
+                <marker date="1547050281027" expanded="false" signature="8455:10981" ph="发送信息" />
+                <marker date="1547050281027" expanded="true" signature="8528:10858" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="8604:8831" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="8868:9101" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="9141:9419" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="9432:10612" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="10116:10334" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="10640:10852" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="10916:10965" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="11008:11242" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="11075:11160" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="11277:11447" ph="{...}" />
+                <marker date="1547050281027" expanded="true" signature="11387:11445" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Server/Server.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="MyFirstCardGame (2 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="MyFirstCardGame (2 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="Server" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-file-system" value="false" />
+        <option name="show-all-items" value="false" />
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="reference.idesettings.quicklists" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Default" type="DotNetProject" factoryName=".NET Project">
+      <option name="EXE_PATH" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="PROJECT_PATH" value="" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="None" />
+      <option name="PROJECT_TFM" value="" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="19cfc5fc-6bac-4bd5-b1c2-bdce8d18978b" name="默认的" comment="" />
+      <created>1547395700485</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1547395700485</updated>
+      <workItem from="1547395704520" duration="34000" />
+      <workItem from="1547395816302" duration="201000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="235000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Errors In Solution" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Unit Tests" order="7" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="NuGet" order="7" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19170243" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="运行" order="7" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="调试" order="7" />
+      <window_info anchor="bottom" id="Message" order="0" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Server/Server.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding>
+            <marker date="1547050281027" expanded="false" signature="6:140" ph="..." />
+            <marker date="1547050281027" expanded="true" signature="163:10983" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="225:294" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="316:328" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="368:418" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="788:1666" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="1705:1885" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="1786:1879" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="1939:2263" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="2136:2257" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="2269:2375" ph="/// 所有的客户端提前异常退出、正常退出都走此方法 ... " />
+            <marker date="1547050281027" expanded="true" signature="2433:2676" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="2712:3716" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="2730:3426" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="3454:3710" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="3794:3842" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="3868:4588" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="4612:5167" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="4685:5131" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="4819:5121" ph="{...}" />
+            <marker date="1547050281027" expanded="false" signature="5173:8448" ph="接收" />
+            <marker date="1547050281027" expanded="true" signature="5249:7321" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="5392:7315" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="5449:5863" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="5880:6912" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="6028:6469" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="6589:6898" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="6944:7305" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="7358:7503" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="7538:7806" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="7584:7800" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="7863:8432" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="7905:8426" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="8317:8416" ph="{...}" />
+            <marker date="1547050281027" expanded="false" signature="8455:10981" ph="发送信息" />
+            <marker date="1547050281027" expanded="true" signature="8528:10858" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="8604:8831" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="8868:9101" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="9141:9419" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="9432:10612" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="10116:10334" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="10640:10852" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="10916:10965" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="11008:11242" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="11075:11160" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="11277:11447" ph="{...}" />
+            <marker date="1547050281027" expanded="true" signature="11387:11445" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
