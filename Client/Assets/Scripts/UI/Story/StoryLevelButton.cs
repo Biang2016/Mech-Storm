@@ -41,7 +41,7 @@ public class StoryLevelButton : PoolObject
     public void Initialize(Boss bossInfo)
     {
         M_BossInfo = bossInfo;
-        ClientUtils.ChangePicture(Image, bossInfo.PicID);
+        ClientUtils.ChangeCardPicture(Image, bossInfo.PicID);
         Anim.SetTrigger("Born");
         BeDim();
     }
@@ -102,17 +102,17 @@ public class StoryLevelButton : PoolObject
         {
             case StoryLevelType.Soldier:
             {
-                ClientUtils.ChangePicture(Image, 1000);
+                ClientUtils.ChangeCardPicture(Image, 1000);
                 break;
             }
             case StoryLevelType.Boss:
             {
-                ClientUtils.ChangePicture(Image, 1003);
+                ClientUtils.ChangeCardPicture(Image, 1003);
                 break;
             }
             case StoryLevelType.Shop:
             {
-                ClientUtils.ChangePicture(Image, 1002);
+                ClientUtils.ChangeCardPicture(Image, 1002);
                 break;
             }
         }
@@ -125,7 +125,7 @@ public class StoryLevelButton : PoolObject
     public void SetKnown()
     {
         BossText.enabled = M_BossInfo.Name == "Boss";
-        ClientUtils.ChangePicture(Image, M_BossInfo.PicID);
+        ClientUtils.ChangeCardPicture(Image, M_BossInfo.PicID);
         Button.onClick.RemoveAllListeners();
         Button.onClick.AddListener(delegate { StartMenuManager.Instance.StartGameCore(RoundManager.PlayMode.Single, M_CurrentLevelID, M_BossInfo.PicID); });
         Button.onClick.AddListener(delegate { AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick"); });

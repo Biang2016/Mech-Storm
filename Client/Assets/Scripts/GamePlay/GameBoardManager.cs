@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class GameBoardManager : MonoSingleton<GameBoardManager>
 {
@@ -23,14 +25,16 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
 
     void Awake()
     {
-        float screenScale = ((float)Screen.width / Screen.height) / (16.0f / 9.0f);
+        float screenScale = ((float) Screen.width / Screen.height) / (16.0f / 9.0f);
         BattleShip.transform.localScale = Vector3.one * screenScale;
 
         BattleShip.SetActive(false);
 
         lastBGRenderer = GameBoarderRenderer0;
         idleBGRenderer = GameBoarderRenderer1;
-        BGs = Resources.LoadAll<Texture>("BoardBGPictures/");
+        SpriteAtlas sa = AssetDatabase.LoadAssetAtPath<SpriteAtlas>("Assets/SpriteAtlas/BGs.spriteatlas");
+        BGs = new Sprite[sa.spriteCount];
+        sa.GetSprites(BGs);
         ChangeBoardBG();
     }
 
@@ -43,7 +47,7 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
         }
     }
 
-    private Texture[] BGs;
+    private Sprite[] BGs;
     private int index;
     private Renderer lastBGRenderer;
     private Renderer idleBGRenderer;
@@ -51,6 +55,7 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
     [SerializeField] private float ChangeBGTimeInterval = 60f;
 
     private bool isChanging = false;
+
     public void ChangeBoardBG()
     {
         if (isChanging) return;
@@ -65,16 +70,15 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
         }
 
         Renderer temp = lastBGRenderer;
-        ChangePictureFadeIn(idleBGRenderer, BGs[index]);
+        ChangePictureFadeIn(idleBGRenderer, BGs[index].texture, BGs[index].textureRect);
         ChangePictureFadeOut(lastBGRenderer);
         lastBGRenderer = idleBGRenderer;
         idleBGRenderer = temp;
     }
 
-
-    private void ChangePictureFadeIn(Renderer rd, Texture tx)
+    private void ChangePictureFadeIn(Renderer rd, Texture tx, Rect textureRect)
     {
-        ClientUtils.ChangePicture(rd, tx);
+        ClientUtils.ChangePicture(rd, tx, textureRect);
         StartCoroutine(Co_ChangePictureFade(rd, 1f, FadeOption.FadeIn));
     }
 
@@ -104,6 +108,7 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
             rd.SetPropertyBlock(mpb);
             yield return new WaitForSeconds(0.1f);
         }
+
         isChanging = false;
     }
 

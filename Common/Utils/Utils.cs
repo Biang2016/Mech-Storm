@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
@@ -182,6 +183,11 @@ public partial class Utils
         return res.ToList();
     }
 
+    public static string NormalizeFileSperator(string fullFilename)
+    {
+        return fullFilename.Replace("\\", "/");
+    }
+
     public static void CopyDirectory(string srcPath, string destPath)
     {
         DirectoryInfo dir = new DirectoryInfo(srcPath);
@@ -190,16 +196,16 @@ public partial class Utils
         {
             if (i is DirectoryInfo) //判断是否文件夹
             {
-                if (!Directory.Exists(destPath + "\\" + i.Name))
+                if (!Directory.Exists(destPath + "/" + i.Name))
                 {
-                    Directory.CreateDirectory(destPath + "\\" + i.Name); //目标目录下不存在此文件夹即创建子文件夹
+                    Directory.CreateDirectory(destPath + "/" + i.Name); //目标目录下不存在此文件夹即创建子文件夹
                 }
 
-                CopyDirectory(i.FullName, destPath + "\\" + i.Name); //递归调用复制子文件夹
+                CopyDirectory(i.FullName, destPath + "/" + i.Name); //递归调用复制子文件夹
             }
             else
             {
-                File.Copy(i.FullName, destPath + "\\" + i.Name, true); //不是文件夹即复制文件，true表示可以覆盖同名文件
+                File.Copy(i.FullName, destPath + "/" + i.Name, true); //不是文件夹即复制文件，true表示可以覆盖同名文件
             }
         }
     }

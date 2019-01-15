@@ -137,7 +137,7 @@ public class SelectCard : PoolObject
         OnMouseLeaveHandler = leaveHandler;
         CardButton.image.color = color;
         CardButton.onClick.RemoveAllListeners();
-        ClientUtils.ChangePicture(CardImage, CardInfo.BaseInfo.PictureID);
+        ClientUtils.ChangeCardPicture(CardImage, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
     }
 

@@ -16,6 +16,7 @@
             <e p="AssetBundlePacker.cs" t="Include" />
             <e p="AssetBundlePacker_Scene.cs" t="Include" />
             <e p="AssetBundlePacker_UI.cs" t="Include" />
+            <e p="AssetBundlePackerNew.cs" t="Include" />
             <e p="AtlasPacker.cs" t="Include" />
             <e p="BuildTool.cs" t="Include" />
             <e p="FontPacker.cs" t="Include" />
@@ -380,9 +381,7 @@
             <e p="dir" t="Include">
               <e p="insidedir.txt" t="Include" />
             </e>
-            <e p="FileSizeList.txt" t="Include" />
           </e>
-          <e p="Test.txt" t="Include" />
         </e>
       </e>
       <e p="Client.sln" t="IncludeFlat" />

@@ -120,7 +120,7 @@ internal class Server
         return clientIdGenerator++;
     }
 
-    public void Accept()
+    private void Accept()
     {
         Socket socket = SeverSocket.Accept();
         int clientId = GenerateClientId();

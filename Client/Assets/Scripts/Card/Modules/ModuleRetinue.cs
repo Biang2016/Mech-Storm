@@ -136,7 +136,7 @@ public class ModuleRetinue : ModuleBase
 
         HideRetinueTypeLooking();
 
-        ClientUtils.ChangePicture(Picture, CardInfo.BaseInfo.PictureID);
+        ClientUtils.ChangeCardPicture(Picture, CardInfo.BaseInfo.PictureID);
         ClientUtils.ChangeColor(WeaponBloom, GameManager.Instance.Slot1Color);
         ClientUtils.ChangeColor(ShieldBloom, GameManager.Instance.Slot2Color);
         ClientUtils.ChangeColor(PackBloom, GameManager.Instance.Slot3Color);

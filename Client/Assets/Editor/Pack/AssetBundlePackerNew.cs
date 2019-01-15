@@ -13,6 +13,11 @@ public class AssetBundlePackerNew
     {
         Pack(BuildTarget.StandaloneWindows64);
     }
+    [MenuItem("AssetBundle/Packer/MacOS")]
+    static void AssetBundlePacker_MacOS()
+    {
+        Pack(BuildTarget.StandaloneOSXIntel64);
+    }
 
     public static void Pack(BuildTarget build_target)
     {

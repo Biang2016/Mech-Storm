@@ -19,7 +19,7 @@ internal class PlayerBuff : PoolObject
 
         BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
         BuffId = buffId;
-        ClientUtils.ChangePicture(Image, buff.BuffPicId);
+        ClientUtils.ChangeCardPicture(Image, buff.BuffPicId);
         Color buffColor = ClientUtils.HTMLColorToColor(((PlayerBuffSideEffects) (AllBuffs.GetBuff((buff.Name)).SideEffectBase)).BuffColor);
         BuffBloom.color = buffColor;
         BuffDescText.color = buffColor;

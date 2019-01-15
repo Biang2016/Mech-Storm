@@ -196,7 +196,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
         MainboardEmissionIntensity = CardInfo.GetCardColorIntensity();
         Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
-        ClientUtils.ChangePicture(Picture, CardInfo.BaseInfo.PictureID);
+        ClientUtils.ChangeCardPicture(Picture, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
 
         transform.rotation = Quaternion.Euler(0, 0, 0);

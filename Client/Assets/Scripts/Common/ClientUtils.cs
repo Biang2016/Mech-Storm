@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -19,66 +20,63 @@ class ClientUtils
         return HTMLColorToColor(color);
     }
 
-    public static void ChangePicture(Renderer rd, Texture tx)
+    public static Dictionary<string, SpriteAtlas> SpriteAtlases = new Dictionary<string, SpriteAtlas>();
+
+    public static void InitializeSpriteAtlases()
     {
+        Object[] sas = AssetDatabase.LoadAllAssetsAtPath("Assets/SpriteAtlas/");
+        foreach (Object sa in sas)
+        {
+            if (sa is SpriteAtlas)
+            {
+                if (!SpriteAtlases.ContainsKey(sa.name))
+                {
+                    SpriteAtlases.Add(sa.name.Split('.')[0], (SpriteAtlas) sa);
+                }
+            }
+        }
+    }
+
+    public static void ChangePicture(Renderer rd, Texture tx, Rect textureRect)
+    {
+        Texture2D t2D = (Texture2D) tx;
+        Texture2D tarT2D = new Texture2D((int) textureRect.width, (int) textureRect.height);
+        Color[] cor = t2D.GetPixels((int) textureRect.x,
+            (int) tx.height - (int) textureRect.y - (int) textureRect.height, (int) textureRect.width,
+            (int) textureRect.height);
+        tarT2D.SetPixels(cor);
+        tarT2D.Apply();
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
         rd.GetPropertyBlock(mpb);
-        mpb.SetTexture("_MainTex", tx);
-        mpb.SetTexture("_EmissionMap", tx);
+        mpb.SetTexture("_MainTex", tarT2D);
+        mpb.SetTexture("_EmissionMap", tarT2D);
         rd.SetPropertyBlock(mpb);
     }
 
 
-    public static void ChangePicture(Image image, int pictureID)
-    {
-        Sprite sp = Resources.Load("CardPictures/" + string.Format("{0:000}", pictureID), typeof(Sprite)) as Sprite;
-        if (sp == null)
-        {
-            Debug.LogError("所选卡片没有图片资源：" + pictureID);
-            sp = Resources.Load("CardPictures/" + string.Format("{0:000}", 999), typeof(Sprite)) as Sprite;
-        }
-
-        image.sprite = sp;
-    }
-
-    public static void ChangePicture(Renderer rd, int pictureID)
+    public static void ChangeCardPicture(Image image, int pictureID)
     {
         string pid_str = string.Format("{0:000}", pictureID);
-        SpriteAtlas atlas = AssetDatabase.LoadAssetAtPath<SpriteAtlas>("Assets/SpriteAtlas/Cards.spriteatlas");
-        Sprite sprite = atlas.GetSprite(pid_str);
-        if (sprite != null)
-        {
-            ChangePicture(rd, sprite.texture);
-        }
-        else
-        {
-            Debug.LogError("所选卡片没有图片资源：" + pid_str);
-        }
-    }
-
-    public static void ChangePicture(RawImage image, int pictureID)
-    {
-        string pid_str = string.Format("{0:000}", pictureID);
-        SpriteAtlas atlas = AssetDatabase.LoadAssetAtPath<SpriteAtlas>("Assets/SpriteAtlas/Cards.spriteatlas");
-        Sprite sprite = atlas.GetSprite(pid_str);
-        if (sprite != null)
-        {
-            image.texture = sprite.texture;
-        }
-        else
-        {
-            Debug.LogError("所选卡片没有图片资源：" + pid_str);
-        }
-    }
-
-    public static void ChangePicture(SpriteRenderer image, int pictureID)
-    {
-        string pid_str = string.Format("{0:000}", pictureID);
-        SpriteAtlas atlas = AssetDatabase.LoadAssetAtPath<SpriteAtlas>("Assets/SpriteAtlas/Cards.spriteatlas");
+        SpriteAtlas atlas = SpriteAtlases["CardPics"];
         Sprite sprite = atlas.GetSprite(pid_str);
         if (sprite != null)
         {
             image.sprite = sprite;
+        }
+        else
+        {
+            Debug.LogError("所选卡片没有图片资源：" + pid_str);
+        }
+    }
+
+    public static void ChangeCardPicture(Renderer rd, int pictureID)
+    {
+        string pid_str = string.Format("{0:000}", pictureID);
+        SpriteAtlas atlas = SpriteAtlases["CardPics"];
+        Sprite sprite = atlas.GetSprite(pid_str);
+        if (sprite != null)
+        {
+            ChangePicture(rd, sprite.texture, sprite.textureRect);
         }
         else
         {
@@ -171,7 +169,9 @@ class ClientUtils
         }
     }
 
-    public static IEnumerator MoveGameObject(Transform obj, Vector3 oldPosition, Quaternion oldRotation, Vector3 oldScale, Vector3 targetPosition, Quaternion targetRotation, Vector3 targetScale, float duration, float rotateDuration)
+    public static IEnumerator MoveGameObject(Transform obj, Vector3 oldPosition, Quaternion oldRotation,
+        Vector3 oldScale, Vector3 targetPosition, Quaternion targetRotation, Vector3 targetScale, float duration,
+        float rotateDuration)
     {
         obj.position = oldPosition;
         obj.rotation = oldRotation;
@@ -250,21 +250,25 @@ class ClientUtils
     }
 
     //工具，初始化数字块
-    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, Transform block)
+    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType,
+        CardNumberSet.TextAlign textAlign, Transform block)
     {
         if (!cardNumberSet)
         {
-            cardNumberSet = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject<CardNumberSet>(block);
+            cardNumberSet =
+                GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject<CardNumberSet>(block);
         }
 
         cardNumberSet.initiate(0, numberType, textAlign, false);
     }
 
-    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType, CardNumberSet.TextAlign textAlign, Transform block, char firstSign)
+    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType,
+        CardNumberSet.TextAlign textAlign, Transform block, char firstSign)
     {
         if (!cardNumberSet)
         {
-            cardNumberSet = GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject<CardNumberSet>(block);
+            cardNumberSet =
+                GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject<CardNumberSet>(block);
         }
 
         cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);

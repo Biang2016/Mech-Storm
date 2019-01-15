@@ -1,18 +1,1304 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="abcf0d4d-ece5-4c32-b03b-efe43489aad7" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.Client/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.idea.MyFirstCardGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/.idea.MyFirstCardGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Client/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Client/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp-Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp-firstpass.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp-firstpass.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/Pack/AssetBundlePackerNew.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/Pack/AssetBundlePackerNew.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MyScene.unity3d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MyScene.unity3d.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (1).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (1).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (11).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (11).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (12).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (12).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (13).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (13).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (14).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (14).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (15).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (15).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (16).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (16).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (17).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (17).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (18).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (18).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (2).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (2).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (20).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (20).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (21).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (21).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (22).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (22).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (23).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (23).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (3).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (3).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (4).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (4).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (5).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (5).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (6).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (6).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (7).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (7).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (9).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BoardBGPictures/BG (9).jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/000.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/002.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/003.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/004.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/005.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/006.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/007.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/008.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/009.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/010.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/011.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/011.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/012.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/013.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/014.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/014.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/015.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/016.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/016.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/017.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/018.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/019.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/019.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/020.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/020.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/021.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/021.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/022.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/051.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/052.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/053.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/054.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/054.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/055.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/055.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/056.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/057.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/058.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/059.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/060.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/061.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/061.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/063.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/063.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/064.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/064.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/065.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/065.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/066.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/066.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/067.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/067.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/068.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/068.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/100.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/1000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/1000.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/1001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/1001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/1002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/1002.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/1003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/1003.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/103.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/103.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/200.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/200.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/203.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/203.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/204.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/204.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/205.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/205.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/206.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/206.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/300.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/300.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/350.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/350.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/400.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/401.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/401.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/500.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/500.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/501.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/501.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/601.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/601.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/602.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/602.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/603.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/603.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/604.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/604.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/605.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/605.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/606.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/606.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/607.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/607.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/608.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/608.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/609.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/609.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/610.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/610.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/611.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/611.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/612.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/612.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/613.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/613.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/615.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/615.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/616.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/616.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/617.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/617.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/618.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/618.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/619.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/619.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/620.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/620.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/621.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/621.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/622.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/622.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/623.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/623.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/624.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/624.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/625.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/625.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/627.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/627.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/628.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/628.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/629.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/629.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/630.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/630.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/631.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/631.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/632.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/632.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/633.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/633.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/634.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/634.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/635.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/635.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/636.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/636.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/637.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/637.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/638.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/638.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/701.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/701.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/702.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/702.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/703.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/703.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/704.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/704.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/705.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/705.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/706.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/706.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/707.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/707.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/708.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/708.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/709.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/709.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/710.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/710.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/711.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/711.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/712.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/712.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/881.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/881.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/882.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/882.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/884.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/884.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/886.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/886.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/888.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/888.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/889.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/889.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/891.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/891.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/894.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/894.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/896.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/896.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/897.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/897.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/898.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/898.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/899.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/899.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/930.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/930.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/931.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/931.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/934.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/934.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/935.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/935.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/936.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/936.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/937.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/937.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/942.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/942.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/945.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/945.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/947.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/947.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/948.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/948.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/951.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/951.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/952.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/952.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/954.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/954.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/955.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/955.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/965.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/965.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/966.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/966.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/977.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/977.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/985.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/985.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/986.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/986.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/987.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/987.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/992.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/992.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/993.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/993.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/994.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/994.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/996.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/996.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/998.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/998.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/999.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/CardPictures/999.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/OutGame.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Card/Cards/CardBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Card/Cards/CardBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Card/Modules/ModuleRetinue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Card/Modules/ModuleRetinue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Card/SideEffects/PlayerBuff.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Card/SideEffects/PlayerBuff.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Common/ClientUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Common/ClientUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/GameBoardManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/GameBoardManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/MetalLifeEnergyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/MetalLifeEnergyManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Network/Client.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Bonus/SmallBonusItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Bonus/SmallBonusItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/SelectBuildWindow/SelectCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/SelectBuildWindow/SelectCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Story/StoryLevelButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Story/StoryLevelButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SpriteAtlas/Cards.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpriteAtlas/Cards.spriteatlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SpriteAtlas/Cards.spriteatlas.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpriteAtlas/Cards.spriteatlas.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/0124.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/0124.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/333_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/333_1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/Effects_Textures_804-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/Effects_Textures_804-1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/Effects_Textures_805-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/Effects_Textures_805-1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/Electric_Sprite_000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/Electric_Sprite_000.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/EnergyBall3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/EnergyBall3.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/EnergyBall3a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/EnergyBall3a.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_glow_171.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_glow_171.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_glow_l110.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_glow_l110.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_glow_y150.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_glow_y150.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_particles_215.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_particles_215.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_particles_216.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_particles_216.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_particles_423.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_particles_423.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_particles_425.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_particles_425.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_texture_00095.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_texture_00095.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_texture_00096.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/FX_texture_00096.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/G_6019_skill02_002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/G_6019_skill02_002.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/Ground_Crack_01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/Ground_Crack_01.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/Line.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/Line.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_00821.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_00821.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_009a2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_009a2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_01017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_01017.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_0105.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_0105.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_0106.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_0106.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_0174.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/SF4_dds_0174.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/S_baodian_001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/S_baodian_001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/S_flare2b_001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/S_flare2b_001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/T_Ring_02a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/T_Ring_02a.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/T_Star_008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/T_Star_008.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/T_Trail_02a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/T_Trail_02a.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/ani0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/ani0059.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/baohuzhao_bannian.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/baohuzhao_bannian.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/baohuzhao_yutu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/baohuzhao_yutu.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/baohuzhao_zhongqiu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/baohuzhao_zhongqiu.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/bg_qifu_xing 2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/bg_qifu_xing 2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/bomxulie001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/bomxulie001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/d_knife079a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/d_knife079a.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fangsheguang_00061.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fangsheguang_00061.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fangsheguang_00103.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fangsheguang_00103.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/flare_core_04.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/flare_core_04.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/flash_arcane_02_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/flash_arcane_02_2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_glow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_glow.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_lieduna034.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_lieduna034.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_lightning1x4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_lightning1x4.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_lightningball2x2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_lightningball2x2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_vocals01_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_vocals01_2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_xingxing3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_xingxing3.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_yanhua2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_yanhua2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_yueying_fly 1_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/fx_yueying_fly 1_1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/glow_00012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/glow_00012.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/glow_00057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/glow_00057.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/jianqi.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/jianqi.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/longtoupao_attack_001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/longtoupao_attack_001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/longtoupao_bullet_001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/longtoupao_bullet_001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/longtoupao_hit_001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/longtoupao_hit_001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/magic0103.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/magic0103.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/magic0103a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/magic0103a.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/particles_0000663.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/particles_0000663.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/particles_0000967.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/particles_0000967.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/particles_0000967_01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/particles_0000967_01.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/shandian_00000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/shandian_00000.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/sunshangxiang_arrow002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/sunshangxiang_arrow002.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_denglu_leidian.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_denglu_leidian.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_fxdaoguang1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_fxdaoguang1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_fxdaoguang2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_fxdaoguang2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_sf3xlzfires3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_sf3xlzfires3.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_shandiana02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_shandiana02.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_shandiana03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_shandiana03.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_shandiana04.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/t_fx_shandiana04.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/teff_edge_effect03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/teff_edge_effect03.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/tex_paopao.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/tex_paopao.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/tex_taotie6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/tex_taotie6.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/tex_xiangrong.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/tex_xiangrong.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/tex_xuchu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/tex_xuchu.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/ui_xulie.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/ui_xulie.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/uixulie.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/uixulie.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xiahouyuan_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xiahouyuan_test.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xilie_glow040_4x4_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xilie_glow040_4x4_1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xilie_glow040_4x4_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xilie_glow040_4x4_2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xuanwupao_attack_001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xuanwupao_attack_001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xuanwupao_bullet_001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xuanwupao_bullet_001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xuanwupao_hit_001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xuanwupao_hit_001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xulie_fire022_4x2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/xulie_fire022_4x2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/yan_xulie_6x5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/yan_xulie_6x5.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/zhangfei_daoguang2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/zhangfei_daoguang2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/zhangjiao_fly_attack001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/Effects/Tex/zhangjiao_fly_attack001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-+.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-+.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B--.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B--.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-0.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-3.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-4.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-5.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-6.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-7.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-8.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-9.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-乘号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-乘号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-点号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-点号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-等号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-等号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-除号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Big/B-除号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-+.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-+.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M--.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M--.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-0.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-3.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-4.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-5.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-6.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-7.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-8.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-9.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-乘号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-乘号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-点号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-点号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-等号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-等号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-除号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Medium/M-除号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-+.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-+.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S--.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S--.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-0.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-3.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-4.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-5.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-6.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-7.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-8.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-9.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-乘号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-乘号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-点号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-点号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-等号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-等号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-除号.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Textures/NewNumbers/Small/S-除号.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Client.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Common/Utils/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Common/Utils/Utils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Common/bin/Debug/MyCardGameCommon.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Common/bin/Debug/MyCardGameCommon.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Common/bin/Debug/MyCardGameCommon.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Common/bin/Debug/MyCardGameCommon.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Server.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Server.cs" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="UpdateManager.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/OutGame/Download/UpdateManager.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+              <folding>
+                <marker date="1547514649851" expanded="false" signature="6:209" ph="..." />
+                <marker date="1547514649851" expanded="true" signature="268:9454" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="1348:1428" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="1454:1682" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="1700:1733" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="1807:2875" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="1862:2869" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="1942:2859" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="2067:2257" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="2121:2239" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="2432:2560" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="2581:2845" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="2907:3513" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="3543:3668" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="3814:4243" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="3991:4237" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="4275:4762" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="4406:4458" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="4516:4756" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="4789:5068" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="4904:5062" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="5097:5519" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="5555:8828" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="5721:5839" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="5852:6089" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="6148:6276" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="6418:6522" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="6535:6931" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="6684:6921" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="6747:6907" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="7053:7143" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="7156:8794" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="7298:8628" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="7361:8614" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="7438:8596" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="8062:8361" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="8233:8335" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="8863:9353" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="9127:9347" ph="{...}" />
+                <marker date="1547514649851" expanded="true" signature="9395:9452" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClientUtils.cs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Common/ClientUtils.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="218">
+              <caret line="26" column="65" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
+              <folding>
+                <marker date="1547527545759" expanded="true" signature="6:142" ph="..." />
+                <marker date="1547527545759" expanded="true" signature="161:10312" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="222:345" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="416:516" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="672:1056" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="794:1050" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="839:1040" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="910:1026" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="1137:1761" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="1832:2180" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="2033:2088" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="2101:2174" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="2250:2630" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="2451:2538" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="2551:2624" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="2698:2770" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="2835:2907" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="2996:3270" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="3367:3599" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="3673:4820" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="3837:4779" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="4919:5610" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="4985:5604" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="5860:6759" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="6014:6636" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="6165:6371" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="6459:6594" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="6798:6879" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="6950:7648" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="7427:7622" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="7723:8264" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="7925:8081" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="8094:8258" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="8436:8702" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="8470:8630" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="8874:9151" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="8908:9068" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="9213:9965" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="9228:9306" ph="/* H, S and L input range = 0 ÷ 1.0 ... */" />
+                <marker date="1547527545759" expanded="true" signature="9382:9459" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="9472:9923" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="9565:9630" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="9647:9718" ph="{...}" />
+                <marker date="1547527545759" expanded="true" signature="10044:10310" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameBoardManager.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/GamePlay/GameBoardManager.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="16" column="56" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
+              <folding>
+                <marker date="1547527039045" expanded="false" signature="6:63" ph="..." />
+                <marker date="1547527039045" expanded="true" signature="151:3927" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="184:196" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="853:1354" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="1373:1531" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="1476:1525" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="1829:2284" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="1933:1974" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="1987:2030" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="2365:2506" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="2558:2646" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="2736:3533" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="2830:3498" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="3084:3220" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="3275:3398" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="3554:3599" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="3627:3760" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="3794:3842" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="3876:3925" ph="{...}" />
+                <marker date="1547527039045" expanded="true" signature="3955:4081" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Editor/Pack/AssetBundlePackerNew.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GamePlay/StartMenuManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GamePlay/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/OutGame/Download/UpdateManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Network/Client.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Common/ClientUtils.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GamePlay/GameBoardManager.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Editor/Pack/AssetBundlePackerNew.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GamePlay/GameBoardManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GamePlay/GameManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Common/ClientUtils.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
   <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1440" />
     <option name="height" value="900" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="UnityExplorer" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="SolutionExplorer">
+        <option name="show-file-system" value="false" />
+        <option name="show-all-items" value="false" />
+      </pane>
+      <pane id="Scratches" />
+      <pane id="UnityExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="ad4990d8:FileSystemViewPaneBase$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="Client" type="483dac07:UnityExplorerNode$Root" />
+            </path>
+            <path>
+              <item name="" type="ad4990d8:FileSystemViewPaneBase$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="Client" type="483dac07:UnityExplorerNode$Root" />
+              <item name="" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="" type="ad4990d8:FileSystemViewPaneBase$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="Client" type="483dac07:UnityExplorerNode$Root" />
+              <item name="" type="1045f7f1:UnityExplorerNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-hidden-items" value="false" />
+      </pane>
+    </panes>
+  </component>
   <component name="PropertiesComponent">
     <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="updatema&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="gm&#9;null&#9;null&#10;client&#9;null&#9;null&#10;startme&#9;null&#9;null&#10;gbm&#9;FILE&#9;file:///Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Scripts/GamePlay/GameBoardManager.cs&#10;packnew&#9;null&#9;null&#10;clientu&#9;null&#9;null&#10;updatema&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" pid="9266">
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="9266" />
     </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="abcf0d4d-ece5-4c32-b03b-efe43489aad7" name="Default" comment="" />
+      <created>1547459492571</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1547459492571</updated>
+      <workItem from="1547459494077" duration="4280000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="4280000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Errors In Solution" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Unit Tests" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" weight="0.32363635" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18526466" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Unity" />
+      <window_info anchor="right" id="Database" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.4" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="NuGet" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/GamePlay/GameBoardManager.cs</url>
+          <line>36</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/GameBoardManager.cs" initialLine="35">
+            <startOffsets>
+              <startOffset value="1304" />
+            </startOffsets>
+            <endOffsets>
+              <endOffset value="1323" />
+            </endOffsets>
+          </properties>
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Common/ClientUtils.cs</url>
+          <line>74</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Common/ClientUtils.cs" initialLine="74">
+            <startOffsets>
+              <startOffset value="2327" />
+            </startOffsets>
+            <endOffsets>
+              <endOffset value="2373" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Common/ClientUtils.cs</url>
+          <line>27</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Common/ClientUtils.cs" initialLine="27">
+            <startOffsets>
+              <startOffset value="768" />
+            </startOffsets>
+            <endOffsets>
+              <endOffset value="794" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="4" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/GamePlay/GameManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+          <folding>
+            <marker date="1547527268129" expanded="true" signature="73:5171" ph="{...}" />
+            <marker date="1547527268129" expanded="true" signature="101:113" ph="{...}" />
+            <marker date="1547527268129" expanded="true" signature="139:945" ph="{...}" />
+            <marker date="1547527268129" expanded="true" signature="1179:1438" ph="{...}" />
+            <marker date="1547527268129" expanded="false" signature="1444:4879" ph="游戏全局参数" />
+            <marker date="1547527268129" expanded="true" signature="3448:4863" ph="{...}" />
+            <marker date="1547527268129" expanded="false" signature="4885:5169" ph="其他" />
+            <marker date="1547527268129" expanded="true" signature="5003:5058" ph="{...}" />
+            <marker date="1547527268129" expanded="true" signature="5097:5153" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Network/Client.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <marker date="1547050281002" expanded="false" signature="6:140" ph="..." />
+            <marker date="1547050281002" expanded="true" signature="185:8957" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="208:220" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="691:808" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="845:934" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="952:1087" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="1130:1766" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="1166:1580" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="1207:1570" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="1269:1525" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="1593:1760" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="1788:1818" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="1856:2036" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="1937:2030" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="2090:2414" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="2287:2408" ph="{...}" />
+            <marker date="1547050281002" expanded="false" signature="2420:5537" ph="连接" />
+            <marker date="1547050281002" expanded="true" signature="2560:3243" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="3287:3943" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="3471:3648" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="3569:3638" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="3661:3937" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="4006:4325" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="4073:4230" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="4130:4199" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="4268:4319" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="4362:4490" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="4528:4681" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="4720:4818" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="4856:4953" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="4996:5521" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="5093:5485" ph="{...}" />
+            <marker date="1547050281002" expanded="false" signature="5543:7299" ph="接收" />
+            <marker date="1547050281002" expanded="true" signature="5620:5677" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="5754:7283" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="5825:7277" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="5876:6111" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="6128:6992" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="6241:6303" ph="/* Receive方法中会一直等待服务端回发消息 ... */" />
+            <marker date="1547050281002" expanded="true" signature="6386:6618" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="6727:6978" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="7024:7267" ph="{...}" />
+            <marker date="1547050281002" expanded="false" signature="7305:8955" ph="发送" />
+            <marker date="1547050281002" expanded="true" signature="7349:8814" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="7451:7562" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="7600:7742" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="7755:8636" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="8426:8480" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="8664:8808" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="8872:8939" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="8990:9160" ph="{...}" />
+            <marker date="1547050281002" expanded="true" signature="9100:9158" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/GamePlay/StartMenuManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="39" column="46" lean-forward="true" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
+          <folding>
+            <marker date="1547376636715" expanded="false" signature="6:100" ph="..." />
+            <marker date="1547376636715" expanded="true" signature="165:36204" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="198:210" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="228:400" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="418:489" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="508:520" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="593:1804" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="628:1798" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="1876:14693" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="1912:2012" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="2040:2313" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="2343:2431" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="2547:13802" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="2592:13792" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="2640:13704" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="13848:13905" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="13939:13985" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="14015:14035" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="14068:14304" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="14338:14412" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="14453:14687" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="14720:19517" ph="{...}" />
+            <marker date="1547376636715" expanded="false" signature="20560:20966" ph="OnlineMenu" />
+            <marker date="1547376636715" expanded="false" signature="20972:21543" ph="SingleMenu" />
+            <marker date="1547376636715" expanded="false" signature="21550:21885" ph="SingleCustomMenu" />
+            <marker date="1547376636715" expanded="false" signature="21891:25869" ph="DeckAbstract" />
+            <marker date="1547376636715" expanded="true" signature="21942:25213" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="21992:22673" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="22686:23304" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="25922:26187" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="26231:27270" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="26313:26988" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="27001:27264" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="27313:27530" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="27573:27790" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="27839:28085" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="28122:28323" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="28367:28440" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="28483:28540" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="28583:28640" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="28689:28746" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="28790:29780" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="28854:29712" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="29725:29774" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="29830:29909" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="29943:30104" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="30149:30286" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="30377:32986" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="30462:32980" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="30550:31135" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="31233:31338" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="31440:31683" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="31788:32861" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="31996:32466" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="32487:32822" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="32878:32970" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="33023:33415" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="33480:33917" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="33959:34216" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="34264:34573" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="34626:35146" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="35186:35376" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="35417:36202" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="35971:36040" ph="{...}" />
+            <marker date="1547376636715" expanded="true" signature="36042:36196" ph="/* LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientId, Client.Instance.Proxy.Username); ... */" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Editor/Pack/AssetBundlePackerNew.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="29" column="9" lean-forward="true" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
+          <folding>
+            <marker date="1547523275868" expanded="false" signature="6:140" ph="..." />
+            <marker date="1547523275868" expanded="true" signature="175:4816" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="271:330" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="415:475" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="530:1455" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="764:814" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="887:956" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="1490:1771" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="1663:1765" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="1805:2305" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="1983:2084" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="2590:3033" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="2768:3027" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="2924:3017" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="3115:4037" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="3166:4031" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="3267:3353" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="3370:3665" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="3468:3595" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="3726:3818" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="3835:4021" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="4191:4264" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="4317:4814" ph="{...}" />
+            <marker date="1547523275868" expanded="true" signature="4485:4771" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/GamePlay/GameBoardManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="56" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
+          <folding>
+            <marker date="1547527039045" expanded="false" signature="6:63" ph="..." />
+            <marker date="1547527039045" expanded="true" signature="151:3927" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="184:196" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="853:1354" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="1373:1531" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="1476:1525" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="1829:2284" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="1933:1974" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="1987:2030" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="2365:2506" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="2558:2646" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="2736:3533" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="2830:3498" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="3084:3220" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="3275:3398" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="3554:3599" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="3627:3760" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="3794:3842" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="3876:3925" ph="{...}" />
+            <marker date="1547527039045" expanded="true" signature="3955:4081" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/OutGame/Download/UpdateManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+          <folding>
+            <marker date="1547514649851" expanded="false" signature="6:209" ph="..." />
+            <marker date="1547514649851" expanded="true" signature="268:9454" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="1348:1428" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="1454:1682" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="1700:1733" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="1807:2875" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="1862:2869" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="1942:2859" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="2067:2257" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="2121:2239" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="2432:2560" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="2581:2845" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="2907:3513" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="3543:3668" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="3814:4243" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="3991:4237" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="4275:4762" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="4406:4458" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="4516:4756" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="4789:5068" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="4904:5062" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="5097:5519" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="5555:8828" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="5721:5839" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="5852:6089" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="6148:6276" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="6418:6522" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="6535:6931" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="6684:6921" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="6747:6907" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="7053:7143" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="7156:8794" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="7298:8628" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="7361:8614" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="7438:8596" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="8062:8361" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="8233:8335" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="8863:9353" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="9127:9347" ph="{...}" />
+            <marker date="1547514649851" expanded="true" signature="9395:9452" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Common/ClientUtils.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="26" column="65" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
+          <folding>
+            <marker date="1547527545759" expanded="true" signature="6:142" ph="..." />
+            <marker date="1547527545759" expanded="true" signature="161:10312" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="222:345" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="416:516" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="672:1056" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="794:1050" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="839:1040" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="910:1026" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="1137:1761" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="1832:2180" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="2033:2088" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="2101:2174" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="2250:2630" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="2451:2538" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="2551:2624" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="2698:2770" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="2835:2907" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="2996:3270" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="3367:3599" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="3673:4820" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="3837:4779" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="4919:5610" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="4985:5604" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="5860:6759" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="6014:6636" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="6165:6371" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="6459:6594" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="6798:6879" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="6950:7648" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="7427:7622" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="7723:8264" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="7925:8081" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="8094:8258" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="8436:8702" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="8470:8630" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="8874:9151" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="8908:9068" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="9213:9965" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="9228:9306" ph="/* H, S and L input range = 0 ÷ 1.0 ... */" />
+            <marker date="1547527545759" expanded="true" signature="9382:9459" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="9472:9923" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="9565:9630" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="9647:9718" ph="{...}" />
+            <marker date="1547527545759" expanded="true" signature="10044:10310" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

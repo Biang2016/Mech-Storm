@@ -38,7 +38,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
             EnemyIcon.SetActive(RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single);
             if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
             {
-                ClientUtils.ChangePicture(EnemyIconImage, StoryManager.Instance.Fighting_BossPicID);
+                ClientUtils.ChangeCardPicture(EnemyIconImage, StoryManager.Instance.Fighting_BossPicID);
             }
         }
     }
