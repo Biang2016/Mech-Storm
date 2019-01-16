@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9f581b5128feee44490f72152d829b7f
+guid: beff4660ecb99864fbb90c21bc52702e
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6
@@ -18,5 +18,5 @@ AudioImporter:
   ambisonic: 0
   3D: 1
   userData: 
-  assetBundleName: audio_battle
+  assetBundleName: audio_selectcard
   assetBundleVariant: ab

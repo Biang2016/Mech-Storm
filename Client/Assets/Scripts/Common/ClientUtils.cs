@@ -1,12 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
-class ClientUtils
+public class ClientUtils
 {
+    public static string GetPlatformAbbr()
+    {
+        string res = "";
+        switch (Application.platform)
+        {
+            case RuntimePlatform.OSXPlayer:
+                {
+                    res = "osx";
+                    break;
+                }
+            case RuntimePlatform.OSXEditor:
+                {
+                    res = "osx";
+                    break;
+                }
+            case RuntimePlatform.WindowsPlayer:
+                {
+                    res = "windows";
+                    break;
+                }
+            case RuntimePlatform.WindowsEditor:
+                {
+                    res = "windows";
+                    break;
+                }
+        }
+
+        return res;
+    }
+
+    public static string GetAssetBundleFolderPath()
+    {
+        return Application.streamingAssetsPath + "/AssetBundle/" + GetPlatformAbbr();
+    }
+
     public static Color HTMLColorToColor(string htmlColor)
     {
         Color cl = new Color();
@@ -36,11 +70,11 @@ class ClientUtils
 
     public static void ChangePicture(Renderer rd, Texture tx, Rect textureRect)
     {
-        Texture2D t2D = (Texture2D) tx;
-        Texture2D tarT2D = new Texture2D((int) textureRect.width, (int) textureRect.height);
-        Color[] cor = t2D.GetPixels((int) textureRect.x,
-            (int) textureRect.y, (int) textureRect.width,
-            (int) textureRect.height);
+        Texture2D t2D = (Texture2D)tx;
+        Texture2D tarT2D = new Texture2D((int)textureRect.width, (int)textureRect.height);
+        Color[] cor = t2D.GetPixels((int)textureRect.x,
+            (int)textureRect.y, (int)textureRect.width,
+            (int)textureRect.height);
         tarT2D.SetPixels(cor);
         tarT2D.Apply();
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();

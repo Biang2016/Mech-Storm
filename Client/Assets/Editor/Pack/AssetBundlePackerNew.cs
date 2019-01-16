@@ -5,14 +5,16 @@ using System.Linq;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 
 public class AssetBundlePackerNew
 {
-    [MenuItem("AssetBundle/Packer/PC")]
+    [MenuItem("AssetBundle/Packer/Windows")]
     static void AssetBundlePacker_StandaloneWindows()
     {
         Pack(BuildTarget.StandaloneWindows64);
     }
+
     [MenuItem("AssetBundle/Packer/MacOS")]
     static void AssetBundlePacker_MacOS()
     {
@@ -24,14 +26,8 @@ public class AssetBundlePackerNew
         EditorUtility.ClearProgressBar();
 
         // 准备打包 初始化Packer
-        string out_path = Application.dataPath + "/../AssetBundle";
-        string platform = "";
-        if (build_target == BuildTarget.StandaloneWindows64)
-        {
-            platform = "/pc";
-        }
-
-        out_path += platform;
+        string platform = ClientUtils.GetPlatformAbbr();
+        string out_path = Application.dataPath + "/StreamingAssets/AssetBundle/" + platform;
 
         if (!Directory.Exists(out_path))
         {
@@ -42,41 +38,55 @@ public class AssetBundlePackerNew
                                          | BuildAssetBundleOptions.DeterministicAssetBundle
                                          | BuildAssetBundleOptions.DisableWriteTypeTree;
 
-        Set_PackPrefabs();
+        SetPack("Prefabs", "*.prefab", PackFolderToABOption.UseFileName);
+        SetPack("Animations", "*.anim", PackFolderToABOption.UseABName, "animations");
+        SetPack("Materials", "*.material", PackFolderToABOption.UseABName, "materials");
+        SetPack("Materials", "*.shader", PackFolderToABOption.UseABName, "shaders");
+        SetPack("Materials", "*.png", PackFolderToABOption.UseABName, "material_txs");
+        SetPack("Models", "*.fbx", PackFolderToABOption.UseABName, "models");
+        SetPack("Fonts", "*", PackFolderToABOption.UseABName, "materials");
+        SetPack("Resources/SpriteAtlas", "*.spriteatlas", PackFolderToABOption.UseFileName, "atlas");
+        SetPack("Resources/Audios/sfx", "*", PackFolderToABOption.UseABName, "audio_sfx");
+        SetPack("Resources/Audios/bgm", "*", PackFolderToABOption.UseSubFolderName, "audio_bgm");
+        SetPack("Textures", "*.png", PackFolderToABOption.UseSubFolderName, "textures");
         BuildPipeline.BuildAssetBundles(out_path, GetAssetBundleBuild(), option, build_target);
-
-        CreateSceneALL();
-        BuildPipeline.BuildAssetBundles(out_path, option, build_target);
     }
 
-    static void Set_PackPrefabs()
+    enum PackFolderToABOption
     {
-        DirectoryInfo di = new DirectoryInfo(Application.dataPath + "/Prefabs");
-        foreach (FileInfo fi in di.GetFiles("*.prefab", SearchOption.AllDirectories))
+        UseFileName,
+        UseSubFolderName,
+        UseABName,
+    }
+
+    static void SetPack(string relativeFolderPath, string fileExtension, PackFolderToABOption option, string abName = "")
+    {
+        DirectoryInfo di = new DirectoryInfo(Application.dataPath + "/" + relativeFolderPath);
+        if (option == PackFolderToABOption.UseABName)
         {
-            SetAssetBundlePackGroup(fi.FullName, fi.Name.Replace(".prefab", ""));
+            foreach (FileInfo fi in di.GetFiles(fileExtension, SearchOption.AllDirectories))
+            {
+                SetAssetBundlePackGroup(fi.FullName, abName);
+            }
         }
-    }
-
-    static void CreateSceneALL()
-    {
-        //清空一下缓存  
-        Caching.ClearCache();
-
-        string Path = Application.dataPath + "/MyScene.unity3d";
-
-        //选择的要保存的对象 
-        string[] levels =
+        else if (option == PackFolderToABOption.UseFileName)
         {
-            "Assets/Scenes/FirstScene.unity",
-            "Assets/Scenes/MainScene.unity"
-        };
-
-        //打包场景  
-        BuildPipeline.BuildPlayer(levels, Path, BuildTarget.StandaloneWindows64, BuildOptions.BuildAdditionalStreamedScenes);
-
-        // 刷新，可以直接在Unity工程中看见打包后的文件
-        AssetDatabase.Refresh();
+            foreach (FileInfo fi in di.GetFiles(fileExtension, SearchOption.AllDirectories))
+            {
+                string prefix = string.IsNullOrEmpty(abName) ? "" : (abName + "_");
+                SetAssetBundlePackGroup(fi.FullName, prefix + fi.Name.Replace(fileExtension.Replace("*", ""), ""));
+            }
+        }
+        else if (option == PackFolderToABOption.UseSubFolderName)
+        {
+            foreach (DirectoryInfo sub_di in di.GetDirectories())
+            {
+                foreach (FileInfo fi in sub_di.GetFiles(fileExtension, SearchOption.AllDirectories))
+                {
+                    SetAssetBundlePackGroup(fi.FullName, abName + "_" + sub_di.Name);
+                }
+            }
+        }
     }
 
     static Dictionary<string, List<string>> asset_ab_build_mapper = new Dictionary<string, List<string>>();

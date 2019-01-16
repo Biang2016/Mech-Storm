@@ -210,7 +210,6 @@
      <None Include="Assets\Materials\Stencil\UI_Custom.shader" />
      <None Include="Assets\Fonts\Chars.txt" />
      <None Include="Assets\StreamingAssets\Config\Buffs.xml" />
-     <None Include="Assets\StreamingAssets\download\dir\insidedir.txt" />
      <None Include="Assets\Materials\builtin-shader\Flare.shader" />
      <None Include="Assets\Materials\FX\LineRenderer.shader" />
      <None Include="Assets\Materials\builtin-shader\Particle Add.shader" />
