@@ -3,7 +3,7 @@ using System;
 
 public abstract class DownloadItem
 {
-    public UpdateManager.DownloadFileInfo DownloadFileInfo;
+    public OutGameManager.DownloadFileInfo DownloadFileInfo;
 
     /// <summary>
     /// 网络资源url路径
@@ -45,7 +45,7 @@ public abstract class DownloadItem
         }
     }
 
-    public DownloadItem(string url, string path, UpdateManager.DownloadFileInfo downloadFileInfo = null)
+    public DownloadItem(string url, string path, OutGameManager.DownloadFileInfo downloadFileInfo = null)
     {
         DownloadFileInfo = downloadFileInfo;
         m_srcUrl = url;

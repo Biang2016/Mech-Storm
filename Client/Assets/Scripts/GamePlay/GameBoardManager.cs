@@ -32,9 +32,8 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
 
         lastBGRenderer = GameBoarderRenderer0;
         idleBGRenderer = GameBoarderRenderer1;
-        SpriteAtlas sa = AssetDatabase.LoadAssetAtPath<SpriteAtlas>("Assets/SpriteAtlas/BGs.spriteatlas");
-        BGs = new Sprite[sa.spriteCount];
-        sa.GetSprites(BGs);
+        BGs = new Sprite[ClientUtils.SpriteAtlases["BGs"].spriteCount];
+        ClientUtils.SpriteAtlases["BGs"].GetSprites(BGs);
         ChangeBoardBG();
     }
 

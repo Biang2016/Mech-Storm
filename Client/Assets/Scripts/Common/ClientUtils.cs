@@ -24,15 +24,12 @@ class ClientUtils
 
     public static void InitializeSpriteAtlases()
     {
-        Object[] sas = AssetDatabase.LoadAllAssetsAtPath("Assets/SpriteAtlas/");
-        foreach (Object sa in sas)
+        SpriteAtlas[] sas = Resources.LoadAll<SpriteAtlas>("SpriteAtlas");
+        foreach (SpriteAtlas sa in sas)
         {
-            if (sa is SpriteAtlas)
+            if (!SpriteAtlases.ContainsKey(sa.name))
             {
-                if (!SpriteAtlases.ContainsKey(sa.name))
-                {
-                    SpriteAtlases.Add(sa.name.Split('.')[0], (SpriteAtlas) sa);
-                }
+                SpriteAtlases.Add(sa.name.Split('.')[0], sa);
             }
         }
     }
@@ -42,7 +39,7 @@ class ClientUtils
         Texture2D t2D = (Texture2D) tx;
         Texture2D tarT2D = new Texture2D((int) textureRect.width, (int) textureRect.height);
         Color[] cor = t2D.GetPixels((int) textureRect.x,
-            (int) tx.height - (int) textureRect.y - (int) textureRect.height, (int) textureRect.width,
+            (int) textureRect.y, (int) textureRect.width,
             (int) textureRect.height);
         tarT2D.SetPixels(cor);
         tarT2D.Apply();

@@ -9,7 +9,7 @@ public class WWWDownloadItem : DownloadItem
 
     WWW m_www;
 
-    public WWWDownloadItem(string url, string path, UpdateManager.DownloadFileInfo downloadFileInfo = null) : base(url, path, downloadFileInfo)
+    public WWWDownloadItem(string url, string path, OutGameManager.DownloadFileInfo downloadFileInfo = null) : base(url, path, downloadFileInfo)
     {
 
     }

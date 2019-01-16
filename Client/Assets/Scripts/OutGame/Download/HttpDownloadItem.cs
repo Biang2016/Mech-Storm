@@ -17,7 +17,7 @@ public class HttpDownloadItem : DownloadItem
     /// </summary>
     string m_tempSaveFilePath;
 
-    public HttpDownloadItem(string url, string path, UpdateManager.DownloadFileInfo downloadFileInfo = null) : base(url, path, downloadFileInfo)
+    public HttpDownloadItem(string url, string path, OutGameManager.DownloadFileInfo downloadFileInfo = null) : base(url, path, downloadFileInfo)
     {
         m_tempSaveFilePath = string.Format("{0}/{1}{2}", m_savePath, m_fileNameWithoutExt, m_tempFileExt);
     }

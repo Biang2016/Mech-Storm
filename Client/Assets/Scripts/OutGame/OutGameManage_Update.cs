@@ -7,15 +7,15 @@ using System.IO;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 
-public class UpdateManager : MonoSingleton<UpdateManager>
+public partial class OutGameManager
 {
     [SerializeField] private Text GameNameText;
     [SerializeField] private Text ClientVersionText;
     [SerializeField] private Text ServerVersionText;
-    [SerializeField] private Text DownloadingText;
+    [SerializeField] private Text StageText;
     [SerializeField] private Text SizeText;
     [SerializeField] private Text ProgressText;
-    [SerializeField] private Slider DownloadSlider;
+    [SerializeField] private Slider ProgressSlider;
     [SerializeField] private Button EnterGameButton;
 
     Color TextDefaultColor;
@@ -30,6 +30,7 @@ public class UpdateManager : MonoSingleton<UpdateManager>
     string m_FileListTotalSize_Readable;
     int m_DownloadFileCount = 0;
 
+    bool UpdateCompleted = false;
     UpdateState updateState = UpdateState.None;
 
     enum UpdateState
@@ -40,15 +41,14 @@ public class UpdateManager : MonoSingleton<UpdateManager>
         Finished,
     }
 
-    private void Awake()
+    private void Awake_Update()
     {
-        TextDefaultColor = DownloadingText.color;
+        TextDefaultColor = StageText.color;
         updateState = UpdateState.None;
-        EnterGameButton.gameObject.SetActive(false);
-        m_DownloadPath = Application.streamingAssetsPath + "/download/";
+        m_DownloadPath = Application.streamingAssetsPath + "/AssetBundles/";
     }
 
-    void Start()
+    private void Start_Update()
     {
         TryUpdate();
     }
@@ -56,7 +56,7 @@ public class UpdateManager : MonoSingleton<UpdateManager>
     int frameCount = 0;
     int frameGap = 1;
 
-    private void Update()
+    private void Update_Update()
     {
         if (updateState == UpdateState.Updating)
         {
@@ -75,41 +75,41 @@ public class UpdateManager : MonoSingleton<UpdateManager>
                 SizeText.text = FileUtils.ByteToReadableFileSize(downloadedFileTotalSize) + "/" + m_FileListTotalSize_Readable;
                 if (m_FileListTotalSize == 0)
                 {
-                    DownloadSlider.value = 0;
+                    ProgressSlider.value = 0;
                     ProgressText.text = "0%";
                 }
                 else
                 {
                     float process = (float) downloadedFileTotalSize / m_FileListTotalSize;
-                    DownloadSlider.value = process;
+                    ProgressSlider.value = process;
                     ProgressText.text = string.Format("{0:F}", process * 100) + "%";
                 }
             }
         }
     }
 
-    private void Initialized()
+    private void TryUpdate()
+    {
+        Initialized_Update();
+        GenerateMD5SumForCurrentDownloadFolder();
+        StartCoroutine(UpdateClient());
+    }
+
+    private void Initialized_Update()
     {
         GameNameText.text = "Mech Storm (Loading)";
         ClientVersionText.text = "Client Version:  " + Client.ClientVersion;
         ServerVersionText.text = "Server Version: Unknown";
-        DownloadingText.text = "Downloading...";
+        StageText.text = "Downloading...";
         SizeText.text = FileUtils.ByteToReadableFileSize(0);
-        DownloadSlider.value = 0;
+        ProgressSlider.value = 0;
         ProgressText.text = "0%";
         m_FileListInfos.Clear();
         m_DownloadItems.Clear();
         m_FileListTotalSize = 0;
         m_FileListTotalSize_Readable = "0B";
         m_DownloadFileCount = 0;
-        DownloadingText.color = TextDefaultColor;
-    }
-
-    private void TryUpdate()
-    {
-        Initialized();
-        GenerateMD5SumForCurrentDownloadFolder();
-        StartCoroutine(UpdateClient());
+        StageText.color = TextDefaultColor;
     }
 
     Dictionary<string, string> DownloadFileMD5Sum = new Dictionary<string, string>();
@@ -150,8 +150,8 @@ public class UpdateManager : MonoSingleton<UpdateManager>
         Debug.Log(m_DownloadFileCount);
         if (m_DownloadFileCount == 0)
         {
-            DownloadingText.text = "Update Completed!";
-            DownloadingText.color = Color.yellow;
+            StageText.text = "Update Completed!";
+            StageText.color = Color.yellow;
             FinishedDownload();
         }
     }
@@ -161,13 +161,12 @@ public class UpdateManager : MonoSingleton<UpdateManager>
         GameNameText.text = "Mech Storm (Ready)";
         updateState = UpdateState.Finished;
         SizeText.text = FileUtils.ByteToReadableFileSize(m_FileListTotalSize) + "/" + m_FileListTotalSize_Readable;
-        DownloadSlider.value = 1;
-        DownloadingText.text = "OK.";
+        ProgressSlider.value = 1;
+        StageText.text = "OK.";
         ProgressText.text = "100%";
-        EnterGameButton.gameObject.SetActive(true);
-        EnterGameButton.enabled = true;
+        UpdateCompleted = true;
+        Start_Loading();
     }
-
 
     IEnumerator GetFileSizeList()
     {
@@ -187,7 +186,7 @@ public class UpdateManager : MonoSingleton<UpdateManager>
 
         if (Client.ServerVersion == Client.ClientVersion)
         {
-            DownloadingText.text = "Checking resources...";
+            StageText.text = "Checking resources...";
             updateState = UpdateState.Checking;
         }
 
@@ -275,8 +274,4 @@ public class UpdateManager : MonoSingleton<UpdateManager>
         }
     }
 
-    public void OnEnterGameButtonClick()
-    {
-        SceneManager.LoadScene("MainScene");
-    }
 }
