@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 4124439788
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 95074f6a7b60b656b5e457ef119a4cee
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Audios/bgm/Login/LoginMenu0.mp3
+- Assets/Resources/Audios/bgm/Login/LoginMenu1.mp3
+- Assets/Resources/Audios/bgm/Login/LoginMenu2.mp3
+Dependencies: []

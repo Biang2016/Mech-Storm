@@ -1,0 +1,34 @@
+ManifestFileVersion: 0
+CRC: 2595419950
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a2ac3306352f20232789e5fea450f519
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cc352749d27ef3d664ed10e779562755
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: cf4956c9b0cf5c348bfc052e4b064e55, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/FX/Particle_System.prefab
+Dependencies: []

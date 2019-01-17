@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 3698908427
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 837eb66042cd709f3ce72bf796d44288
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7e9ee104d6bb707fb2602b751e6f78b1
+HashAppended: 0
+ClassTypes:
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Materials/Stencil/Mask_Trans.shader
+- Assets/Materials/Stencil/UI_Custom.shader
+- Assets/Materials/builtin-shader/Flare.shader
+- Assets/Materials/FX/LineRenderer.shader
+- Assets/Materials/builtin-shader/Particle Add.shader
+- Assets/Materials/BattleFieldObjs/GameBoardMaterials/BlurShader.shader
+- Assets/Materials/Sprite-Gray.shader
+- Assets/Materials/Stencil/Standard_BeMasked.shader
+- Assets/Materials/Stencil/Mask.shader
+- Assets/Materials/builtin-shader/Standard.shader
+Dependencies: []

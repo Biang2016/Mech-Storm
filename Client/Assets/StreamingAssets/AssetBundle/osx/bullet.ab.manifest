@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 562811317
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b6c38a54adfa989ddbb4b2be7e9567ab
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5b547fea2e3535603b5c0fecb4c73516
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: ac45cab6affe47147b4ebf3cf4070ab2, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/FX/Bullet.prefab
+Dependencies: []

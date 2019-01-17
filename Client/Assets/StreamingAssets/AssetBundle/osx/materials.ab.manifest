@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 3367981872
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f6ff0816b98ad4e90386bc68275e53de
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6ade0acec489928435626a10cfd8dd8b
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+Assets:
+- Assets/Fonts/swisski.ttf
+- Assets/Fonts/swissk.ttf
+- Assets/Fonts/Bank Gothic Light BT.ttf
+- Assets/Fonts/Chars.txt
+- Assets/Fonts/STLITI.ttf
+- Assets/Fonts/AdobeHeitiStd-Regular.ttf
+Dependencies: []

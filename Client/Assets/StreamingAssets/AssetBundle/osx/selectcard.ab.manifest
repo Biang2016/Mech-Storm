@@ -1,0 +1,60 @@
+ManifestFileVersion: 0
+CRC: 3192086360
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c8529f53f3a28046c92d3eca737b8c6a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 450266cb34b419b6771760f652854462
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fa4b42f43b71f3c4eb86f8915ac187cd, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c8408a063a7874b428f744d719fd138a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 54d4562ee7b724d46a4ab4b9176f542a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/SelectCard/SelectCard.prefab
+Dependencies:
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/animations.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/textures_ui.ab

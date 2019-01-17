@@ -3,4 +3,4 @@ Temp/
 obj/
 Library/
 Release/
-AssetBundle/
+.idea/

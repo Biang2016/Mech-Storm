@@ -1,0 +1,44 @@
+ManifestFileVersion: 0
+CRC: 273515057
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5e2ef0029b079ba5c087a607e5bf10f0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ce03b402470960960f48c6182d23380b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6b0ac43e532d0604f8b0629ab8f82673, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/Bonus/BigBonus.prefab
+Dependencies:
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/shaders.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/textures_card.ab

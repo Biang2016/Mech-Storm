@@ -1,0 +1,323 @@
+ManifestFileVersion: 0
+CRC: 1605585051
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3c0c51ed865cd5c5cfc1ffff724dc355
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1dd89a3bc040f9da0f05f1f48d317d23
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 81
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 102
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f30aab20a6d93ee4394294241a7c237f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 31d4b2405a4f6884591e7896d1a0e55f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fc089a4091fb840c78412f48f40b0d14, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ba4e4f7017b07e9479d6081f27ad43cd, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a23e5ab0be1ea4c4a86dd51032721fc3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ab37bb2160e179e439a811737fb7cf8a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 418a67a1d75283640aa060e68ed97c7c, type: 3}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 853051423, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 575553740, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -2061169968, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1367256648, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 2109663825, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c08886420acce414d8e4f14acfa09df3, type: 3}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a8f280a202af4b34681b63030396727e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6b1dbae2767e6fd408602333d346c5c6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6588e3230495c3f4ab2299e3406fd3d4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 93e5353389333354b819aa93949b6e4c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b8da5533987f49a4e973517ed7d54c50, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c072b5830f88d154f9902382920b00b8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ec8588936981b6a42a2fd881d1cd8b57, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d1d010e35173afa4aab0aff2cd7a4403, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d6a2d2e32a76b474c96631f9c5b12e2f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3ad399f3fa0850540a718dd739948091, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1c3f5d44abb8b5c47b471ed638b08766, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: bd196764b3cfd5d4c84a4b223622a017, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a24cc96475ca7924583382f0174de03f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c54cdf64b80e29444be712c9f08a7da1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 27cb62b4f8cca0b46891fce28037696a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 615d2ce44777ffc45aec520500d95acc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fa4b42f43b71f3c4eb86f8915ac187cd, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 58652a75856277247b23bec2c9e0be73, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f68dad85ea297fc4e8abb8b4356275f1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f46f2ff503822dd4daa3b78fa96d08e3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c8408a063a7874b428f744d719fd138a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0eb82a161a8a4d24eb1dad194738a475, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8340d3662948a294bbd6d5e692d80a55, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4f16ac76cb1d76849b00a57672c2743a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c086a4b641b15104b952b0a956deefdc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ac45cab6affe47147b4ebf3cf4070ab2, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: bf0dd1d690b608246aa4e6f3e234ca1a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 76238ce607409ab4fabdd303eebf21b4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9941f1277a5f2164bb154e27f74844d7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 81611a9776725e74a839d522c521e83f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2275b618e34b51044a5769397fb591e9, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7e019f381e596174a9ad35befb7ad03b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 43ca03985dc58e94183df6c61190e4ee, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: bf160db83ab4ab142949a05629f4fc57, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 512e6e39ccf44304b87f580260dd9988, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0b73a549e18ab824c88b570193e7d286, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 29b48749e92372e4486a8adfc2c72b81, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e1e7c1694c972e9458f63bbfe660c580, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3cf25db98063a40448e52b56ba8d50c0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: eff975c98951c4a42851b18bf76111f4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: cf4956c9b0cf5c348bfc052e4b064e55, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fbfebbc9f74ed1a4b8240ff3ba1eddf8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5ba8664a82a1fae46a552c49337faa93, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d0bfe96a4f5dd4b6aa7ced56c80a1fc0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5cdadcba8874ac14bac36b33eb07117e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: bf31140ba4b40c846b53b37d4bd01d7c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6a10ea1b88c5f644faf5e148f7d49f57, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8781d25b9e6a6f44bbc733ab86880c41, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2aeff3bb93e224844a7a29f4b79d878c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3a2b8f0c652c1f24c8ccc521a3e612da, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9c3c403cf870afe45b1fcf548e435295, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b8b505cc0a5534440bff1c31bc2652d0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b4cdc1dce050e794e963c60502f41322, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 40d33e0dbb3a4de49ae1f0af0ce6a6b6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: df12111d71328dc45b8a5df04111ea39, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 42f3e35d5c17a754c8c853094ca82cea, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4829538d31ebb5248ad8f524134ff89d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: cd8a499dbbf7c3346999a9a7d80f822b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 55117dcd6fcb3454abaabc40444eb800, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a57852edc8548224094ad1832e7f84ee, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6b0ac43e532d0604f8b0629ab8f82673, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fb19961f58d819c489038f016eda3e30, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9f82076f9d056f8428cf094bfd958a35, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6fbe7fcf448ab4b48994bfe48e81d448, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 121
+  Script: {instanceID: 0}
+- Class: 123
+  Script: {instanceID: 0}
+- Class: 124
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 132
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+- Class: 241
+  Script: {instanceID: 0}
+- Class: 243
+  Script: {instanceID: 0}
+- Class: 245
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/Manager.prefab
+Dependencies:
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/arrow_aiming.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/arrow_arrow.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/metalbarblock.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/playerbuff.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/bigbonus.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/bonusbutton.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/smallbonus.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/affix.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/carddeckcard.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/colliderreplace.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/equipcard.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/equipcardselect.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/retinuecard.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/retinuecardselect.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/spellcard.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/spellcardselect.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/bullet.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/emitlight.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/hit0.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/hit1.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/hit2.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/particle_system.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/ma.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/madetail.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/pack.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/packdetail.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/retinue.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/shield.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/shielddetail.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/weapon.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/weapondetail.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/bignumber.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/mediumnumber.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/numberset.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/smallnumber.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/textfly.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/build.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/selectcard.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/storycol.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/storylevelbutton.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/confirmcanvas.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/animations.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/shaders.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/materials.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/textures_card.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/textures_ships.ab
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/textures_ui.ab

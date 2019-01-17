@@ -1,0 +1,129 @@
+ManifestFileVersion: 0
+CRC: 2104199916
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 8d013b7a2c0ddb6e519dc916c16dd285
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b474380d27eb4bc856799e9c585c4864
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_8.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (14).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (22).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (7).png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (6).png
+- Assets/Textures/UI/Tips/MouseLeftClick.png
+- Assets/Textures/UI/ShipShield.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_13.png
+- Assets/Textures/UI/BigUpgradeArrow.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_17.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (2).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (10).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_6.png
+- Assets/Textures/UI/Story/22.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_11.png
+- Assets/Textures/UI/Story/12.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (3).png
+- Assets/Textures/UI/Story/31.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (8).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_7.png
+- Assets/Textures/UI/Story/23.png
+- Assets/Textures/UI/StoryLevelLight.png
+- Assets/Textures/UI/Arrow/ArrowBody.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (17).png
+- Assets/Textures/UI/CoinIconSqr.png
+- Assets/Textures/UI/SliderbarHandler.png
+- Assets/Textures/UI/LifeIconSqr.png
+- Assets/Textures/UI/Coin.png
+- Assets/Textures/UI/StartMenuRotating.png
+- Assets/Textures/UI/PlayerBuff/BuffBloom.png
+- Assets/Textures/UI/Tips/Esc.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (5).png
+- Assets/Textures/UI/PlayerBuff/BuffBorder.png
+- Assets/Textures/UI/ChangeDeckIcon.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (10).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (15).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (6).png
+- Assets/Textures/UI/Story/32/32-31.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (16).png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (18).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_10.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (16).png
+- Assets/Textures/UI/NewCardBanner.png
+- Assets/Textures/UI/Ship.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (20).png
+- Assets/Textures/UI/Story/13.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (4).png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (15).png
+- Assets/Textures/UI/DeckInfoAbstractBG.png
+- Assets/Textures/UI/UITranBanner.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (12).png
+- Assets/Textures/UI/BG/Default.png
+- Assets/Textures/UI/BiangStudioLogo.png
+- Assets/Textures/UI/StartMenuItemParticle.png
+- Assets/Textures/UI/Story/33.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (9).png
+- Assets/Textures/UI/BiangStudioDark.png
+- Assets/Textures/UI/Story/11.png
+- Assets/Textures/UI/Tips/MouseRightClick.png
+- Assets/Textures/UI/Victory.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (9).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (18).png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (1).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_5.png
+- Assets/Textures/UI/BG_White.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1).png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (19).png
+- Assets/Textures/UI/BG/GameName2.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (14).png
+- Assets/Textures/UI/Circle.png
+- Assets/Textures/UI/StartMenuHover.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (5).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (20).png
+- Assets/Textures/UI/Story/32/32-22.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (3).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (11).png
+- Assets/Textures/UI/PlayerBuff/BuffMask.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (21).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (8).png
+- Assets/Textures/UI/SelectCardButton.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (2).png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (7).png
+- Assets/Textures/UI/Story/32.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_4.png
+- Assets/Textures/UI/Star.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_3.png
+- Assets/Textures/UI/BG/GameNameTrans.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (13).png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (17).png
+- Assets/Textures/UI/Story/32/32-12.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_1.png
+- Assets/Textures/UI/StartMenuItemBG.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (13).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_2.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (12).png
+- Assets/Textures/UI/Story/21.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_16.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (4).png
+- Assets/Textures/UI/Story/32/32-32.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_14.png
+- Assets/Textures/UI/Story/32/32-21.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_9.png
+- Assets/Textures/UI/Cursor.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_12.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (11).png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (1)_15.png
+- Assets/Textures/UI/Arrow/ArrowHead.png
+- Assets/Textures/UI/BG/GameName.png
+- Assets/Textures/UI/Story/32/32-11.png
+- Assets/Textures/UI/Arrow/Aiming/AimingOri (21).png
+- Assets/Textures/UI/EnergyIconSqr.png
+- Assets/Textures/UI/Arrow/Aiming/Aiming (19).png
+Dependencies: []

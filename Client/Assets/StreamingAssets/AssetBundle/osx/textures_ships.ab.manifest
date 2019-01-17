@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 1228132042
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cdf0f3574e62285c42ec682d6bcfe637
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b474380d27eb4bc856799e9c585c4864
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Textures/Ships/MyCardDeck.png
+- Assets/Textures/Ships/Gun.png
+- Assets/Textures/Ships/EnemyCardDeck.png
+- Assets/Textures/Ships/Cost.png
+- Assets/Textures/Ships/Fort.png
+- Assets/Textures/Ships/ShipShield.png
+- Assets/Textures/Ships/Ship.png
+- Assets/Textures/Ships/Bar.png
+- Assets/Textures/Ships/Trough.png
+- Assets/Textures/Ships/Ship1.png
+Dependencies: []

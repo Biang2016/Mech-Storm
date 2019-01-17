@@ -18,7 +18,7 @@ public class AssetBundlePackerNew
     [MenuItem("AssetBundle/Packer/MacOS")]
     static void AssetBundlePacker_MacOS()
     {
-        Pack(BuildTarget.StandaloneOSXIntel64);
+        Pack(BuildTarget.StandaloneOSX);
     }
 
     public static void Pack(BuildTarget build_target)

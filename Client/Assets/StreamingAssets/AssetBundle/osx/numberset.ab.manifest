@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 2456658073
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1e92a28c20ff059bbcdb6f0bbfd7cc59
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 19f560684598fbf83ad127e190ed081d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1c3f5d44abb8b5c47b471ed638b08766, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/Number/NumberSet.prefab
+Dependencies:
+- /Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/StreamingAssets/AssetBundle/osx/animations.ab

@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1195415853
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 72d2fec3bd41804ecf8827fc760e66c9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a3777063eba59bbe8aaaf29d1a27d628
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: d0bfe96a4f5dd4b6aa7ced56c80a1fc0, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/Cards/ColliderReplace.prefab
+Dependencies: []

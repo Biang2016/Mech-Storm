@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 2732265348
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c799d12a66d12e77cf66d9c8c31f447f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9c9c86ed13f4b505871e88f9d42be5b7
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/SpriteAtlas/CardPics.spriteatlas
+Dependencies: []
