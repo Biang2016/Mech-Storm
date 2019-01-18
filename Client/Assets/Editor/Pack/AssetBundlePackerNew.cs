@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEditor;
+using UnityEditor.Build.Content;
+using UnityEditor.Build.Pipeline;
+using UnityEditor.Build.Pipeline.Interfaces;
+using UnityEditor.Experimental.UIElements.GraphView;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
+using BuildCompression = UnityEngine.BuildCompression;
 
 public class AssetBundlePackerNew
 {
@@ -21,12 +27,40 @@ public class AssetBundlePackerNew
         Pack(BuildTarget.StandaloneOSX);
     }
 
+    static string GetPlatformForPackRes(BuildTarget target)
+    {
+        string res = "";
+        switch (target)
+        {
+            case BuildTarget.StandaloneOSX:
+            {
+                res = "osx";
+                break;
+            }
+            case BuildTarget.StandaloneWindows:
+            {
+                res = "windows";
+                break;
+            }
+            case BuildTarget.StandaloneWindows64:
+            {
+                res = "windows";
+                break;
+            }
+        }
+
+        return res;
+    }
+
     public static void Pack(BuildTarget build_target)
     {
+        asset_ab_build_mapper.Clear();
+        asset_ab_mapper.Clear();
+        dynamic_ab_blacklist.Clear();
         EditorUtility.ClearProgressBar();
 
         // 准备打包 初始化Packer
-        string platform = ClientUtils.GetPlatformAbbr();
+        string platform = GetPlatformForPackRes(build_target);
         string out_path = Application.dataPath + "/StreamingAssets/AssetBundle/" + platform;
 
         if (!Directory.Exists(out_path))
@@ -36,21 +70,34 @@ public class AssetBundlePackerNew
 
         BuildAssetBundleOptions option = BuildAssetBundleOptions.ChunkBasedCompression
                                          | BuildAssetBundleOptions.DeterministicAssetBundle
-                                         | BuildAssetBundleOptions.DisableWriteTypeTree;
+            //| BuildAssetBundleOptions.DisableWriteTypeTree
+            ;
 
         SetPack("Prefabs", "*.prefab", PackFolderToABOption.UseFileName);
-        SetPack("Animations", "*.anim", PackFolderToABOption.UseABName, "animations");
-        SetPack("Materials", "*.material", PackFolderToABOption.UseABName, "materials");
+        SetPack("Animations", "*", PackFolderToABOption.UseABName, "animations");
+        SetPack("Materials", "*", PackFolderToABOption.UseABName, "materials");
         SetPack("Materials", "*.shader", PackFolderToABOption.UseABName, "shaders");
         SetPack("Materials", "*.png", PackFolderToABOption.UseABName, "material_txs");
         SetPack("Models", "*.fbx", PackFolderToABOption.UseABName, "models");
-        SetPack("Fonts", "*", PackFolderToABOption.UseABName, "materials");
+        SetPack("Models", "*.mesh", PackFolderToABOption.UseABName, "models");
+        SetPack("Fonts", "*", PackFolderToABOption.UseABName, "fonts");
         SetPack("Resources/SpriteAtlas", "*.spriteatlas", PackFolderToABOption.UseFileName, "atlas");
         SetPack("Resources/Audios/sfx", "*", PackFolderToABOption.UseABName, "audio_sfx");
         SetPack("Resources/Audios/bgm", "*", PackFolderToABOption.UseSubFolderName, "audio_bgm");
         SetPack("Textures", "*.png", PackFolderToABOption.UseSubFolderName, "textures");
-        BuildPipeline.BuildAssetBundles(out_path, GetAssetBundleBuild(), option, build_target);
+        SetPack("Textures/Card", "*.png", PackFolderToABOption.UseSubFolderName, "textures_card");
+        SetPack("Textures/Card/CardComponents", "*.png", PackFolderToABOption.UseSubFolderName, "textures_card_cardcomponents");
+        SetPack("Textures/UI", "*.png", PackFolderToABOption.UseSubFolderName, "textures_ui");
+        //BuildPipeline.BuildAssetBundles(out_path, GetAssetBundleBuild(), option, build_target);
+
+        BundleBuildContent buildContent = new BundleBuildContent(GetAssetBundleBuild());
+        BundleBuildParameters buildParams = new BundleBuildParameters(build_target, BuildTargetGroup.Standalone, out_path);
+        buildParams.BundleCompression = BuildCompression.LZ4;
+        IBundleBuildResults results;
+        ReturnCode exitCode;
+        exitCode = ContentPipeline.BuildAssetBundles(buildParams, buildContent, out results);
     }
+
 
     enum PackFolderToABOption
     {
@@ -61,6 +108,7 @@ public class AssetBundlePackerNew
 
     static void SetPack(string relativeFolderPath, string fileExtension, PackFolderToABOption option, string abName = "")
     {
+        abName = abName.ToLower();
         DirectoryInfo di = new DirectoryInfo(Application.dataPath + "/" + relativeFolderPath);
         if (option == PackFolderToABOption.UseABName)
         {
@@ -74,7 +122,7 @@ public class AssetBundlePackerNew
             foreach (FileInfo fi in di.GetFiles(fileExtension, SearchOption.AllDirectories))
             {
                 string prefix = string.IsNullOrEmpty(abName) ? "" : (abName + "_");
-                SetAssetBundlePackGroup(fi.FullName, prefix + fi.Name.Replace(fileExtension.Replace("*", ""), ""));
+                SetAssetBundlePackGroup(fi.FullName, prefix + fi.Name.Replace(fileExtension.Replace("*", ""), "").ToLower());
             }
         }
         else if (option == PackFolderToABOption.UseSubFolderName)
@@ -83,7 +131,7 @@ public class AssetBundlePackerNew
             {
                 foreach (FileInfo fi in sub_di.GetFiles(fileExtension, SearchOption.AllDirectories))
                 {
-                    SetAssetBundlePackGroup(fi.FullName, abName + "_" + sub_di.Name);
+                    SetAssetBundlePackGroup(fi.FullName, abName + "_" + sub_di.Name.ToLower());
                 }
             }
         }

@@ -36,7 +36,7 @@ public class Initialization : MonoSingleton<Initialization>
     private void LoadManager_AB()
     {
         AssetBundle manager_bundle = ABManager.LoadAssetBundle("manager.ab");
-        GameObject manager = manager_bundle.LoadAsset<GameObject>("manage");
+        GameObject manager = manager_bundle.LoadAsset<GameObject>("manage.prefab");
         Instantiate(manager);
         Debug.Log("LoadManager_AB");
     }
