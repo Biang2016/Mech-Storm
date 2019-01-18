@@ -94,7 +94,6 @@ public class ClientUtils
 
     public static void ChangeCardPicture(Renderer rd, int pictureID)
     {
-        Debug.Log(pictureID);
         string pid_str = string.Format("{0:000}", pictureID);
         SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics");
         Texture2D firstSprite = atlas.GetSprite("000").texture;

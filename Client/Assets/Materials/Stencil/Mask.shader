@@ -1,7 +1,8 @@
 ﻿Shader "Custom/Mask" {
 	Properties{
 		_MaskRef("MaskRef", Float) = 2
-	}
+		_MainTex("Albedo", 2D) = "white" {}
+    }
 
 	SubShader{
 		Tags{ "RenderType" = "Opaque" "Queue" = "Geometry-1" }

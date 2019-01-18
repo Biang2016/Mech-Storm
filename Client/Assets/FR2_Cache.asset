@@ -248,7 +248,7 @@ MonoBehaviour:
   - guid: c66c08303cdae684c84ec0d62e06b4e8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547811176
+    stamp: 1547830549
     type: 3
     UseGUIDs:
     - 3a76ec573d008764198fa1f506ac4e17
@@ -1790,38 +1790,6 @@ MonoBehaviour:
     stamp: 1535642682
     type: 2
     UseGUIDs: []
-  - guid: 364677712f8390446b2780e2d31e8505
-    ScriptSymbols:
-    - ShaderPacker
-    ScriptTokens:
-    - MonoBehaviour
-    - Application
-    - List
-    - Dictionary
-    - SetShaderPackGroup
-    - UpdateBuiltinShader
-    - InitPacker
-    - PackerToolFunc
-    - StringComparer
-    - InitBuiltinShader
-    - AssetDatabase
-    - Shader
-    - Material
-    - UpdateMaterialShader
-    - GameObject
-    - Renderer
-    - Graphic
-    - EditorUtility
-    - Directory
-    - DirectoryInfo
-    - FileInfo
-    - SearchOption
-    - Debug
-    - IsShaderBuiltin
-    - IsMaterialBuiltin
-    stamp: 1547475926
-    type: 2
-    UseGUIDs: []
   - guid: 5d73ab71d71254bebbb80824972a3b26
     ScriptSymbols: []
     ScriptTokens: []
@@ -2684,18 +2652,6 @@ MonoBehaviour:
     ScriptTokens: []
     stamp: 0
     type: 9
-    UseGUIDs: []
-  - guid: c23bb85218d06344784c38dce2a95ed2
-    ScriptSymbols:
-    - AssetBundlePacker_UI
-    ScriptTokens:
-    - InitPacker
-    - Pack
-    - EditorUtility
-    - AtlasPacker
-    - UIPacker
-    stamp: 1544431713
-    type: 2
     UseGUIDs: []
   - guid: ce30b952d0723254caf649e8e00627a2
     ScriptSymbols: []
@@ -4220,44 +4176,6 @@ MonoBehaviour:
     stamp: 0
     type: 9
     UseGUIDs: []
-  - guid: b7426473805cff54cadab45bcf57224e
-    ScriptSymbols:
-    - AtlasPacker
-    - AtlasPacker.AtlasPackInfo
-    ScriptTokens:
-    - MonoBehaviour
-    - ATLAS_ROOT
-    - Application
-    - List
-    - Dictionary
-    - StringComparer
-    - IsImageInAtlas
-    - StringComparison
-    - SetAtlasPackGroup
-    - InitPacker
-    - AtlasMaker
-    - InitAtlasMaker
-    - Directory
-    - DirectoryInfo
-    - FileInfo
-    - SearchOption
-    - PackerToolFunc
-    - Path
-    - UnityEngine
-    - AssetDatabase
-    - Sprite
-    - Debug
-    - KeyValuePair
-    - GameObject
-    - Image
-    - PackImageDirDic
-    - PackImageDicWithoutAtlas
-    - PackImageDic
-    - SizeFilter
-    - ClearPacktag
-    stamp: 1547475884
-    type: 2
-    UseGUIDs: []
   - guid: ede2167353c595b4d8860e605690b64a
     ScriptSymbols: []
     ScriptTokens: []
@@ -4895,12 +4813,6 @@ MonoBehaviour:
     UseGUIDs:
     - 32002fac40fdf5a488689398ec3ae778
     - e7c4c8ab6b53b0c4d8481a25c3153017
-  - guid: 0626a4f31705525458b1af62ee5ab0e6
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1531916716
-    type: 1
-    UseGUIDs: []
   - guid: 3ad399f3fa0850540a718dd739948091
     ScriptSymbols:
     - PlayerBuffManager
@@ -8590,89 +8502,6 @@ MonoBehaviour:
     UseGUIDs:
     - 32002fac40fdf5a488689398ec3ae778
     - c9b0b0eb171d5e04cb6334bc41468b23
-  - guid: ed63b7c7244faa94c87a960bbb6d0f79
-    ScriptSymbols:
-    - ASSET_TYPE
-    - PackerToolFunc
-    ScriptTokens:
-    - ASSET_TYPE_NONE
-    - ASSET_TYPE_IMAGE
-    - ASSET_TYPE_SHADER
-    - ASSET_TYPE_PREFAB
-    - ASSET_TYPE_FBX
-    - ASSET_TYPE_MAT
-    - ASSET_TYPE_ANIM_CLIP
-    - ASSET_TYPE_ANIM_CONTROLLER
-    - ASSET_TYPE_SCENE
-    - ASSET_TYPE_SHADER_INC
-    - ASSET_TYPE_CODE
-    - ASSET_TYPE_ALL
-    - MonoBehaviour
-    - NormalizePath
-    - Assets
-    - GetLowestDirName
-    - Path
-    - GetFilePathWithoutExt
-    - ClearAssetBundlePackGroup
-    - SetAssetBundlePackGroup
-    - GetAssetsRelativePath
-    - AssetImporter
-    - AssetBundlePacker
-    - ClearSpritePackGroup
-    - SetSpritePackGroup
-    - EditorUserBuildSettings
-    - BuildTarget
-    - TextureImporter
-    - MetaModifer
-    - IsAssetFile
-    - IsPrefabFile
-    - IsImageFile
-    - IsTpsheetFile
-    - IsShaderFile
-    - IsShaderIncludeFile
-    - IsMatFile
-    - IsFbxFile
-    - IsCodeFile
-    - IsSceneFile
-    - IsAnimationClipFile
-    - IsAnimationControllerFile
-    - IsBuiltinFile
-    - IsNeedBuildFile
-    - IsSpecifyFile
-    - CopyFile
-    - File
-    - FileAttributes
-    - IsSameFile
-    - AssetDatabase
-    - UnityCopyFile
-    - UnityDeleteFile
-    - SetDirAssetsBundlePackGroup
-    - List
-    - Directory
-    - DirectoryInfo
-    - FileInfo
-    - SearchOption
-    - GetAssetBundlePath
-    - ShouldImageBuildAtlas
-    - GetImageSize
-    - Texture2D
-    - IsLog2Image
-    - IsMutiple4Image
-    - SafeInsertDicItem
-    - T1
-    - Dictionary
-    - T2
-    - KeyValuePair
-    - SafeCreateEmptyFolder
-    - IsImageSliced
-    - Sprite
-    - Object
-    - UNITY_5_3
-    - Profiler
-    - UnityEngine
-    stamp: 1544431715
-    type: 2
-    UseGUIDs: []
   - guid: 04f169c7ce981ec48838c5e96a14f32f
     ScriptSymbols: []
     ScriptTokens: []
@@ -8819,19 +8648,6 @@ MonoBehaviour:
     - 16026a42940fe6c45acf68b9520ea6ce
     - 5077966cf71ab154e81c2f73ad25cfa1
     - 9236e03d4d7ee4148939dd31b1d583f9
-  - guid: 0a4e18f7db01e9e4383821d6b397815d
-    ScriptSymbols:
-    - MetaModifer
-    ScriptTokens:
-    - ModifyMetaKey
-    - StreamReader
-    - File
-    - FileAttributes
-    - Exception
-    - StreamWriter
-    stamp: 1544431714
-    type: 2
-    UseGUIDs: []
   - guid: a161b9f722d3b63429369656b8b4612a
     ScriptSymbols: []
     ScriptTokens: []
@@ -8882,53 +8698,6 @@ MonoBehaviour:
     - 8135cf3c19d3f4040b0a321e97637ea8
     - 75e4d36c583818545890305fa87b3dbc
     - c6a2e5920ceb1d044bf7361138ca9a1d
-  - guid: c0d51508a35435f45a300f7d9e25e893
-    ScriptSymbols:
-    - AssetBundlePacker
-    ScriptTokens:
-    - ScriptableObject
-    - Application
-    - AssetBundlePacker_StandaloneWindows
-    - Pack
-    - BuildTarget
-    - EditorUtility
-    - Directory
-    - SaveAssetBundleMapper
-    - SaveStaticRefMapper
-    - BuildAssetBundleOptions
-    - AssetDatabase
-    - PackerToolFunc
-    - ImportAssetOptions
-    - BuildPipeline
-    - GetAssetBundleBuild
-    - Debug
-    - DateTime
-    - GetAuthority
-    - FileInfo
-    - FileAttributes
-    - InitPacker
-    - File
-    - AssetBundlePacker_UI
-    - AssetBundlePacker_Scene
-    - Dictionary
-    - List
-    - UpdateAssetBundleBuild
-    - IsDynamicBlacklist
-    - AssetBundleBuild
-    - KeyValuePair
-    - SeekOrigin
-    - Path
-    - GetAssetTypeStr
-    - AtlasPacker
-    - UpdateDynamicBlacklist
-    - StringComparer
-    - DirectoryInfo
-    - SearchOption
-    - GameObject
-    - Image
-    stamp: 1547475326
-    type: 2
-    UseGUIDs: []
   - guid: 0211d608f26944844a5e5d513c92d4f7
     ScriptSymbols: []
     ScriptTokens: []
@@ -10079,46 +9848,6 @@ MonoBehaviour:
     type: 5
     UseGUIDs:
     - 134913d7186ada34e86c7f8299ef3219
-  - guid: bc9dbc69ddfdd974c98a24b036211011
-    ScriptSymbols:
-    - AssetBundlePacker_Scene
-    ScriptTokens:
-    - Dictionary
-    - InitPacker
-    - SafeInsertBlackMapper
-    - BuildTool
-    - DirectoryInfo
-    - Application
-    - FileInfo
-    - SearchOption
-    - PackerToolFunc
-    - SafeInsertPackMapper
-    - CreateL1DirPackCfg
-    - CreateL2DirPackCfg
-    - CreateDirTexPackCfg
-    - CreateDirMatPackCfg
-    - CreateDirPrefabPackCfg
-    - UNITY_IOS
-    - Pack
-    - List
-    - Directory
-    - IsAssetPackable
-    - EditorUtility
-    - GetAssetPackGroup
-    - KeyValuePair
-    - GetAssetDirPackTag
-    - Path
-    - L1Dir
-    - L2DirInfos
-    - L2DirAssetPath
-    - L1DirFileInfo
-    - L1DirAssetPath
-    - Dir
-    - FileAssetPath
-    - CreateDirControllerPackCfg
-    stamp: 1547475867
-    type: 2
-    UseGUIDs: []
   - guid: 7222ec69ef56fcb408a0d8838dc9fffc
     ScriptSymbols: []
     ScriptTokens: []
@@ -13265,23 +12994,6 @@ MonoBehaviour:
     - 956ad660fe9a0be448df7de77bc4ab77
     - bc31e81f30af0104093aaa753f63a330
     - 45108dc17a8495c4e83e7c6ea9d52589
-  - guid: 0d9914cc62802ca4db76a7629261d433
-    ScriptSymbols:
-    - UIPacker
-    ScriptTokens:
-    - MonoBehaviour
-    - List
-    - SetUIPackGroup
-    - InitPacker
-    - SetUIPanelPackGroup
-    - SetUIFxPackGroup
-    - SetUIAnimPackGroup
-    - Application
-    - PackerToolFunc
-    - ASSET_TYPE
-    stamp: 1547475931
-    type: 2
-    UseGUIDs: []
   - guid: b8b505cc0a5534440bff1c31bc2652d0
     ScriptSymbols:
     - HitManager
@@ -13831,21 +13543,6 @@ MonoBehaviour:
     ScriptTokens: []
     stamp: 0
     type: 9
-    UseGUIDs: []
-  - guid: e04faa9d5ca709543883cf339a5bc656
-    ScriptSymbols:
-    - FontPacker
-    ScriptTokens:
-    - MonoBehaviour
-    - List
-    - SetFontPackGroup
-    - InitPacker
-    - Application
-    - PackerToolFunc
-    - ASSET_TYPE
-    - Path
-    stamp: 1547475904
-    type: 2
     UseGUIDs: []
   - guid: 09ac7e9d10db35b4fbad23be1cc1b294
     ScriptSymbols: []
@@ -14536,35 +14233,6 @@ MonoBehaviour:
     UseGUIDs:
     - 9c90335eaa3c9b0449b7f4efbb0229f5
     - 7b6d4ad084b0e6d45b558c62dbcde2bb
-  - guid: b008e54e50af9e74e8df2df5bbd2e1c8
-    ScriptSymbols:
-    - BuildTool
-    ScriptTokens:
-    - GetBuildScenes
-    - List
-    - EditorBuildSettingsScene
-    - EditorBuildSettings
-    - GetVersion
-    - Client
-    - DeleteDirectory
-    - Directory
-    - File
-    - FileAttributes
-    - SetABMode
-    - PlayerSettings
-    - BuildTargetGroup
-    - ClearABMode
-    - BuildWindows
-    - OutputPath
-    - Application
-    - StrippingLevel
-    - BuildPipeline
-    - BuildTarget
-    - BuildOptions
-    - BuildWindowsDev
-    stamp: 1547475899
-    type: 2
-    UseGUIDs: []
   - guid: ba61484e6696ae742b469479e28d90bf
     ScriptSymbols: []
     ScriptTokens: []
@@ -16126,12 +15794,6 @@ MonoBehaviour:
     stamp: 0
     type: 9
     UseGUIDs: []
-  - guid: 420c1c47e94e5e143b61d4c16887e49a
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
   - guid: 145881b7df87c364ab2af44d71983d0e
     ScriptSymbols: []
     ScriptTokens: []
@@ -16234,12 +15896,6 @@ MonoBehaviour:
     stamp: 0
     type: 9
     UseGUIDs: []
-  - guid: 5d58d01b32403fa499493e06503dd1f9
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
   - guid: ef6cc33b0909b044790623413f78fda6
     ScriptSymbols: []
     ScriptTokens: []
@@ -16247,12 +15903,6 @@ MonoBehaviour:
     type: 9
     UseGUIDs: []
   - guid: 9b59754b2b5ec7140b6be3f8a87e1d5a
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
-  - guid: 8c11315b8bc688b4cace80f09417173b
     ScriptSymbols: []
     ScriptTokens: []
     stamp: 0
@@ -16829,6 +16479,12 @@ MonoBehaviour:
     type: 9
     UseGUIDs: []
   - guid: 0d179a7f33046014aa605b051941ef25
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 10208188e44df4a90974c502f7941249
     ScriptSymbols: []
     ScriptTokens: []
     stamp: 0
