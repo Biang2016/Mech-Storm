@@ -86,8 +86,14 @@
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.ResourceManager">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.ResourceManager.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Addressables.Editor">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.Addressables.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
@@ -106,6 +112,9 @@
  </Reference>
  <Reference Include="Unity.2D.Triangle.Runtime">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Triangle.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Addressables">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.Addressables.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ScriptableBuildPipeline">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>
@@ -361,6 +370,9 @@
  </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/softwares/Unity3D 2018.3.1f/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.OSXStandalone.Extensions">
+ <HintPath>C:/softwares/Unity3D 2018.3.1f/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="MyCardGameCommon">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>

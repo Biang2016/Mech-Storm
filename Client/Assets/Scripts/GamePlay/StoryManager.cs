@@ -14,6 +14,8 @@ public class StoryManager : MonoSingleton<StoryManager>
     {
         M_StateMachine = new StateMachine();
         M_StateMachine.SetState(StateMachine.States.Hide);
+        Sprite sp = AtlasManager.LoadAtlas("BGs").GetSprite("StoryBG");
+        ClientUtils.ChangePicture(StoryBG, sp.texture, sp.textureRect);
     }
 
     void Update()
@@ -106,6 +108,7 @@ public class StoryManager : MonoSingleton<StoryManager>
         yield return null;
     }
 
+    [SerializeField] private RawImage StoryBG;
     [SerializeField] private Canvas StoryCanvas;
     [SerializeField] private ScrollRect StoryScrollRect;
     [SerializeField] private ScrollRect StoryBGScrollRect;

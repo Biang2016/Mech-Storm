@@ -77,8 +77,14 @@
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.ResourceManager">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.ResourceManager.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Addressables.Editor">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.Addressables.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
@@ -97,6 +103,9 @@
  </Reference>
  <Reference Include="Unity.2D.Triangle.Runtime">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Triangle.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Addressables">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.Addressables.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ScriptableBuildPipeline">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>

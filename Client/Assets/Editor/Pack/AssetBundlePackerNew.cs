@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.Build.Content;
 using UnityEditor.Build.Pipeline;
 using UnityEditor.Build.Pipeline.Interfaces;
 using UnityEditor.Experimental.UIElements.GraphView;
 using UnityEngine;
+using UnityEngine.Build.Pipeline;
 using UnityEngine.Experimental.PlayerLoop;
 using BuildCompression = UnityEngine.BuildCompression;
 
@@ -88,14 +91,7 @@ public class AssetBundlePackerNew
         SetPack("Textures/Card", "*.png", PackFolderToABOption.UseSubFolderName, "textures_card");
         SetPack("Textures/Card/CardComponents", "*.png", PackFolderToABOption.UseSubFolderName, "textures_card_cardcomponents");
         SetPack("Textures/UI", "*.png", PackFolderToABOption.UseSubFolderName, "textures_ui");
-        //BuildPipeline.BuildAssetBundles(out_path, GetAssetBundleBuild(), option, build_target);
-
-        BundleBuildContent buildContent = new BundleBuildContent(GetAssetBundleBuild());
-        BundleBuildParameters buildParams = new BundleBuildParameters(build_target, BuildTargetGroup.Standalone, out_path);
-        buildParams.BundleCompression = BuildCompression.LZ4;
-        IBundleBuildResults results;
-        ReturnCode exitCode;
-        exitCode = ContentPipeline.BuildAssetBundles(buildParams, buildContent, out results);
+        CompatibilityBuildPipeline.BuildAssetBundles(out_path, GetAssetBundleBuild(), option, build_target);
     }
 
 
@@ -203,7 +199,10 @@ public class AssetBundlePackerNew
             ab_build.assetBundleName = build_item.Key;
             ab_build.assetBundleVariant = "ab";
             ab_build.assetNames = build_item.Value.ToArray();
-            ab_builds.Add(ab_build);
+            if (ab_build.assetNames.Length > 0)
+            {
+                ab_builds.Add(ab_build);
+            }
         }
 
         return ab_builds.ToArray();

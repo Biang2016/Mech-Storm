@@ -65,6 +65,18 @@ public class ClientUtils
         rd.SetPropertyBlock(mpb);
     }
 
+    public static void ChangePicture(RawImage rd, Texture tx, Rect textureRect)
+    {
+        Texture2D t2D = (Texture2D) tx;
+        Texture2D tarT2D = new Texture2D((int) textureRect.width, (int) textureRect.height);
+        Color[] cor = t2D.GetPixels((int) textureRect.x,
+            (int) textureRect.y, (int) textureRect.width,
+            (int) textureRect.height);
+        tarT2D.SetPixels(cor);
+        tarT2D.Apply();
+        rd.texture = tarT2D;
+    }
+
     public static void ChangeCardPicture(Image image, int pictureID)
     {
         string pid_str = string.Format("{0:000}", pictureID);
@@ -82,12 +94,14 @@ public class ClientUtils
 
     public static void ChangeCardPicture(Renderer rd, int pictureID)
     {
+        Debug.Log(pictureID);
         string pid_str = string.Format("{0:000}", pictureID);
         SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics");
+        Texture2D firstSprite = atlas.GetSprite("000").texture;
         Sprite sprite = atlas.GetSprite(pid_str);
         if (sprite != null)
         {
-            ChangePicture(rd, sprite.texture, sprite.textureRect);
+            ChangePicture(rd, firstSprite, sprite.textureRect);
         }
         else
         {

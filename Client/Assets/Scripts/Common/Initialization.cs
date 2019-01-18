@@ -35,8 +35,8 @@ public class Initialization : MonoSingleton<Initialization>
 
     private void LoadManager_AB()
     {
-        AssetBundle manager_bundle = ABManager.LoadAssetBundle("manager.ab");
-        GameObject manager = manager_bundle.LoadAsset<GameObject>("manage.prefab");
+        AssetBundle manager_bundle = ABManager.LoadAssetBundle("manager");
+        GameObject manager = manager_bundle.LoadAsset<GameObject>("Assets/Prefabs/Manager.prefab");
         Instantiate(manager);
         Debug.Log("LoadManager_AB");
     }
@@ -48,7 +48,7 @@ public class Initialization : MonoSingleton<Initialization>
 
     private void LoadShaders_AB()
     {
-        AssetBundle ab = ABManager.LoadAssetBundle("shaders.ab");
+        AssetBundle ab = ABManager.LoadAssetBundle("shaders");
         ab.LoadAllAssets();
         Shader.WarmupAllShaders();
         Debug.Log("LoadShaders_AB");
@@ -59,6 +59,14 @@ public class Initialization : MonoSingleton<Initialization>
         List<AssetBundle> list = ABManager.LoadAllAssetBundleNamedLike("atlas_");
         foreach (AssetBundle assetBundle in list)
         {
+            SpriteAtlas[] sas = assetBundle.LoadAllAssets<SpriteAtlas>();
+            foreach (SpriteAtlas sp in sas)
+            {
+                if (!AtlasManager.SpriteAtlasDict.ContainsKey(sp.name))
+                {
+                    AtlasManager.SpriteAtlasDict.Add(sp.name, sp);
+                }
+            }
         }
 
         Debug.Log("LoadSpriteAtlas_AB");
