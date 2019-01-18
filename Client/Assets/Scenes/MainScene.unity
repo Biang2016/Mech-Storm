@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36bc6c31dd4d0894d84a3bcec09c28a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsABMode: 0
   Manager: {fileID: 1342658817199374, guid: 8e89b4d3b31ea174ca07e91c54b710c3, type: 2}
 --- !u!4 &1605920170
 Transform:

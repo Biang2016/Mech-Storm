@@ -9,7 +9,6 @@ public class GameManager : MonoSingleton<GameManager>
     private void Awake()
     {
         IsEnglish = !PlayerPrefs.GetString("Language").Equals("Chinese");
-        ClientUtils.InitializeSpriteAtlases();
         InitializeClientGameSettings();
         AllColors.DebugLogHandler = ClientLog.Instance.PrintError;
         AllSideEffects.DebugLogHandler = ClientLog.Instance.PrintError;

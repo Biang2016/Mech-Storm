@@ -257,7 +257,6 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             }
         }
 
-
         public void ReturnToPreviousState()
         {
             SetState(previousState);
@@ -279,7 +278,6 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
         }
-
 
         private void HideMenu()
         {
@@ -407,7 +405,6 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     [SerializeField] private Text SingleDeckNewText;
 
     #endregion
-
 
     #region SingleCustomMenu
 
@@ -677,7 +674,6 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Single;
         StoryManager.Instance.Fighting_LevelID = levelID;
         StoryManager.Instance.Fighting_BossPicID = bossPicID;
-        TransitManager.Instance.ShowTransit(Color.black, 0.3f);
     }
 
     private void StartSingleCustomGame()

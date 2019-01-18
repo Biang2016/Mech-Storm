@@ -51,21 +51,24 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         {
             case PlayMode.Online:
             {
-                TransitManager.Instance.ShowBlackShutTransit(0.5f);
+                TransitManager.Instance.ShowBlackShutTransit(1f, Preparation);
                 break;
             }
             case PlayMode.Single:
             {
-                TransitManager.Instance.HideTransit(Color.black, 0.3f);
+                TransitManager.Instance.ShowBlackShutTransit(1f, Preparation);
                 break;
             }
             case PlayMode.SingleCustom:
             {
-                TransitManager.Instance.ShowBlackShutTransit(0.5f);
+                TransitManager.Instance.ShowBlackShutTransit(1f, Preparation);
                 break;
             }
         }
+    }
 
+    public void Preparation()
+    {
         InGameUIManager.Instance.ShowInGameUI();
 
         InGameUIManager.Instance.SetEndRoundButtonState(false);
@@ -122,18 +125,14 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
     public void OnGameStop()
     {
-        StartCoroutine(Co_OnGameStop());
-    }
-
-    IEnumerator Co_OnGameStop()
-    {
         if (M_PlayMode == PlayMode.Single)
         {
-            TransitManager.Instance.ShowBlackShutTransit(1f);
+            TransitManager.Instance.ShowBlackShutTransit(1f, GameStopPreparation);
         }
+    }
 
-        yield return new WaitForSeconds(1f);
-
+    void GameStopPreparation()
+    {
         CardBase[] cardPreviews = GameBoardManager.Instance.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
         foreach (CardBase cardPreview in cardPreviews)
         {
@@ -205,7 +204,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         }
 
         BattleEffectsManager.Instance.ResetAll();
-        TransitManager.Instance.HideTransit(Color.black, 0.1f);
+//        TransitManager.Instance.HideTransit(Color.black, 0.1f);
 
         if (M_PlayMode == PlayMode.Single)
         {
@@ -225,8 +224,6 @@ public partial class RoundManager : MonoSingleton<RoundManager>
                     delegate { ConfirmWindowManager.Instance.RemoveConfirmWindow(); });
             }
         }
-
-        yield return null;
     }
 
     #region 交互

@@ -20,10 +20,9 @@ public class Proxy : ProxyBase
             if (clientState != value)
             {
                 OnClientStateChange(value);
+                clientState = value;
+                ClientLog.Instance.PrintClientStates("Client states: " + ClientState);
             }
-
-            clientState = value;
-            ClientLog.Instance.PrintClientStates("Client states: " + ClientState);
         }
     }
 

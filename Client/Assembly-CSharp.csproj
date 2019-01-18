@@ -128,6 +128,8 @@
     <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\TargetSideEffectToEquip\BreakEquip.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
     <Compile Include="Assets\Scripts\Card\SideEffects\UseAllEnergyDamageShip.cs" />
+    <Compile Include="Assets\Scripts\Common\ABManager.cs" />
+    <Compile Include="Assets\Scripts\Common\AtlasManager.cs" />
     <Compile Include="Assets\Scripts\Common\ClientLog.cs" />
     <Compile Include="Assets\Scripts\Common\ClientUtils.cs" />
     <Compile Include="Assets\Scripts\Common\DebugConsole.cs" />

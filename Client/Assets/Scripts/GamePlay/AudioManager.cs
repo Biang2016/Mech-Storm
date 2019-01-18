@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class AudioManager : MonoSingleton<AudioManager>
 {
@@ -224,7 +225,6 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-
     /// <summary>
     /// 重新播放
     /// </summary>
@@ -236,41 +236,20 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-
     #region 音效资源路径
 
-    enum eResType
-    {
-        AB = 0,
-        CLIP = 1
-    }
+    public static Dictionary<string, AudioClip> AudioClipDict_ABModeOnly = new Dictionary<string, AudioClip>();
 
-    /// <summary>
-    /// 下载音效
-    /// </summary>
-    /// <param name="aduioname"></param>
-    /// <param name="type"></param>
-    /// <returns></returns>
-    private AudioClip GetAudioClip(string aduioname, eResType type = eResType.CLIP)
+    private AudioClip GetAudioClip(string audioName)
     {
-        AudioClip audioclip = null;
-        switch (type)
+        if (AudioClipDict_ABModeOnly.ContainsKey(audioName))
         {
-            case eResType.AB:
-                break;
-            case eResType.CLIP:
-                audioclip = GetResAudioClip(aduioname);
-                break;
-            default:
-                break;
+            return AudioClipDict_ABModeOnly[audioName];
         }
 
-        return audioclip;
-    }
+        AudioClip audioclip = GetResAudioClip(audioName);
 
-    private IEnumerator GetAbAudioClip(string aduioname)
-    {
-        yield return null;
+        return audioclip;
     }
 
     private AudioClip GetResAudioClip(string aduioname)

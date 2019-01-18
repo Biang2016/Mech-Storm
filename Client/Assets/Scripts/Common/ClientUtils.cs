@@ -12,33 +12,28 @@ public class ClientUtils
         switch (Application.platform)
         {
             case RuntimePlatform.OSXPlayer:
-                {
-                    res = "osx";
-                    break;
-                }
+            {
+                res = "osx";
+                break;
+            }
             case RuntimePlatform.OSXEditor:
-                {
-                    res = "osx";
-                    break;
-                }
+            {
+                res = "osx";
+                break;
+            }
             case RuntimePlatform.WindowsPlayer:
-                {
-                    res = "windows";
-                    break;
-                }
+            {
+                res = "windows";
+                break;
+            }
             case RuntimePlatform.WindowsEditor:
-                {
-                    res = "windows";
-                    break;
-                }
+            {
+                res = "windows";
+                break;
+            }
         }
 
         return res;
-    }
-
-    public static string GetAssetBundleFolderPath()
-    {
-        return Application.streamingAssetsPath + "/AssetBundle/" + GetPlatformAbbr();
     }
 
     public static Color HTMLColorToColor(string htmlColor)
@@ -54,27 +49,13 @@ public class ClientUtils
         return HTMLColorToColor(color);
     }
 
-    public static Dictionary<string, SpriteAtlas> SpriteAtlases = new Dictionary<string, SpriteAtlas>();
-
-    public static void InitializeSpriteAtlases()
-    {
-        SpriteAtlas[] sas = Resources.LoadAll<SpriteAtlas>("SpriteAtlas");
-        foreach (SpriteAtlas sa in sas)
-        {
-            if (!SpriteAtlases.ContainsKey(sa.name))
-            {
-                SpriteAtlases.Add(sa.name.Split('.')[0], sa);
-            }
-        }
-    }
-
     public static void ChangePicture(Renderer rd, Texture tx, Rect textureRect)
     {
-        Texture2D t2D = (Texture2D)tx;
-        Texture2D tarT2D = new Texture2D((int)textureRect.width, (int)textureRect.height);
-        Color[] cor = t2D.GetPixels((int)textureRect.x,
-            (int)textureRect.y, (int)textureRect.width,
-            (int)textureRect.height);
+        Texture2D t2D = (Texture2D) tx;
+        Texture2D tarT2D = new Texture2D((int) textureRect.width, (int) textureRect.height);
+        Color[] cor = t2D.GetPixels((int) textureRect.x,
+            (int) textureRect.y, (int) textureRect.width,
+            (int) textureRect.height);
         tarT2D.SetPixels(cor);
         tarT2D.Apply();
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
@@ -84,11 +65,10 @@ public class ClientUtils
         rd.SetPropertyBlock(mpb);
     }
 
-
     public static void ChangeCardPicture(Image image, int pictureID)
     {
         string pid_str = string.Format("{0:000}", pictureID);
-        SpriteAtlas atlas = SpriteAtlases["CardPics"];
+        SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics");
         Sprite sprite = atlas.GetSprite(pid_str);
         if (sprite != null)
         {
@@ -103,7 +83,7 @@ public class ClientUtils
     public static void ChangeCardPicture(Renderer rd, int pictureID)
     {
         string pid_str = string.Format("{0:000}", pictureID);
-        SpriteAtlas atlas = SpriteAtlases["CardPics"];
+        SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics");
         Sprite sprite = atlas.GetSprite(pid_str);
         if (sprite != null)
         {
