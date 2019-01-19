@@ -29,7 +29,7 @@ MonoBehaviour:
   - guid: 66ca0100fd09b384b9f7e2ab07da20d5
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547786118
+    stamp: 1547902058
     type: 1
     UseGUIDs:
     - a23e5ab0be1ea4c4a86dd51032721fc3
@@ -248,7 +248,7 @@ MonoBehaviour:
   - guid: c66c08303cdae684c84ec0d62e06b4e8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547830549
+    stamp: 1547902010
     type: 3
     UseGUIDs:
     - 3a76ec573d008764198fa1f506ac4e17
@@ -256,12 +256,6 @@ MonoBehaviour:
     - 8e89b4d3b31ea174ca07e91c54b710c3
     - 295dc616b7c47b341951170f7fe0511a
   - guid: 67ba493069af745469e52b6d122d0289
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
-  - guid: 04c48c30f22071145bed3d864ec21c39
     ScriptSymbols: []
     ScriptTokens: []
     stamp: 0
@@ -437,127 +431,83 @@ MonoBehaviour:
   - guid: 0223c060ba39246878ec3b6751a665c8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547785895
+    stamp: 1547901734
     type: 1
     UseGUIDs:
-    - 6f9e8d744bcf4411785bfce545ca5634
-    - 94e56defe4e7b45eba9b667054ab975c
-    - e3561140b67414a8587a3552a7178112
-    - 74d07d1d9c4ac4ecab07d4755c21fbb9
-    - 4b25221f495e14c999c7c947d72363eb
-    - a7c1854bf22bc45f389e25d6d2e23e5e
-    - 595c2f1d6f9394991bfd664b5accc8cc
-    - fa26adfc3db3b47d0baa544bc76d167e
-    - 8d323ddb01c2f4a92bc21f3490c837d5
-    - ec4f7d5dcbb034cb48f91691ed7daf6b
-    - 54ea6cd41cfa2495c9fcf36c77cc0f54
-    - d3d03413abc2c47a2a539dc91d113346
-    - a4e98398d0e76488c8bedfd1199d1754
-    - 7b43f73ba88e64904802666f8d99c410
-    - 7de7d4fbae1ad454a9d9f920e9ad3f4b
-    - 1c01f4ba4c96e4151ab6e848d16f21c8
-    - 92e3ae31be67145cc95f7e87dc2fd0fd
-    - 94340061861714531a768535fe1ca1ea
-    - 54a9c24a610ed4d818f3b6ba9cbf266d
-    - 2a32550de52a4466da736d9eb5fd175e
-    - e2a5e3f3141af44e9b186a25a85dc551
-    - 6031806be3c9444d9b15c4657bafbc87
-    - f404156dbf3374ca49764b820d04ac76
-    - 5bab2f6db388546efbdd1614796ceb57
-    - 5d3cb62b329ff457c9b23965b2aaff90
-    - 3fad5d0946dd2459c853172ce45a7bdf
-    - 962730c408bb64a9492891eb8b5d9be4
-    - 032919a8c3748499c8e3ff722d602254
-    - 2cae986a5adb84f73a77fb3e45829343
-    - ca7e5e96cfcd94cdd8de3ba327f1305f
-    - 3f130774ce05f4759b4d80c721612829
-    - 56de343f5823e45a0bcf3cc3864b2009
-    - e6b27a4e26ccc46c29f9f253ab961b6a
-    - c232930e32c314d2a9d3f1bbfb1df858
-    - 5c3e1c2e8a83843eeaaaeabcaefa8879
-    - 3ef6546117f0f4064a4e70562d0f766f
-    - 8993e951292fe4a30a20f6218414cc89
-    - a1ce8c19ffa6948aa882d667a4b8c033
-    - 4579b67db402548c89d7867a4402deaf
-    - a06ff0d4d649540328f019e2b04c24ce
-    - 7922e909dee1f4cd6871c15745b10914
-    - d51e773d5dc1f4c06b0341d48f5f0c96
-    - 831ac0a862e184fd7bfe673bc82dd61d
-    - 9fd8877971d1e4988b35289c09ea552f
-    - 7ae78c4ce43d24285abc83f15f2275c9
-    - 7ba431e5838ec4c7a94e88890e4b7937
-    - ce0cf7f94231d41efa4a41fb51cf0eeb
-    - da68ceac2bd5b4f6db2965a2d2317600
-    - 8b6d36bb322f44137987ff80340b29d7
-    - 747914239a46448b5b84df8d1ffb69ff
-    - 2335132be34364c02ac367e43b31c2bd
-    - 52efdb42144314aea908b9df5053ed3c
-    - 152e602f2cc7249f3b858a14983d25cb
-    - e470f630d3ae9443fbeafae0f61331e9
-    - e0dcc4dcfe02542d3923019dc45c466d
-    - c1e4624ed5df546bd8800ac2b428ef5f
-    - 1f05d803ff6c94977baa6e866c421416
-    - 0b85fa10d19aa4eaea9272f57200a027
-    - b112327272fe345ef839c1262c1e5f2e
-    - ae61a45e50ecb45209b91a3d355e8e0d
-    - 6ea4d301405e4495b92cf7733d1049ad
-    - 11b9bbb30e89149daa13ad78736ffc07
-    - ed370e31667fb4be68ed324ddffe0edd
-    - 1e32e572d5c4a4c28b35b2bc663d70eb
-    - ab45b9fdda3e04a95b512db6379ac4e1
+    - 906c64f6672d691468308340ea7a1701
+    - df840be9974452649abeca7c871e2f91
+    - d1ee785c2bb0c3d4fa8ca418ea8a6ca2
+    - a43831f69d556ef40af1bfb14a81c143
+    - b0f998da10c6cad478ccd14b0ef571f7
+    - 12622a7c04dcf874b9d1a1f1282cc175
+    - a7047b0aa30c8f041a40c6aa5270d583
+    - 9b59754b2b5ec7140b6be3f8a87e1d5a
+    - e26cd20583eb80040acd1e90f0b6d516
+    - a240674a809183a4aab45ae2d1c95437
+    - 288a20c33eb9a604bb2d7e6919f950f4
+    - 6b0334992afc66343946ff6fb55f2dbf
+    - 997166ebcc1e3d64382de3248662d40e
+    - af92990291387e54db56190b9ddddd56
+    - 6c64f6d4e8a2db449855723ea8c0e179
+    - ef6cc33b0909b044790623413f78fda6
+    - b001a41a7079aba4ba3ce93e141bd7c9
+    - 214a79b5b86006d42b004fe92997288b
+    - 9671d25023ab0974185678827cf5b834
+    - db4352334bbf86f4ca8933bcae5e7d13
+    - 6eecf8699d8dc324698129adb551c749
+    - 5fc4a162fffdc7c4783f276f24dd8741
+    - 7e2bb7ff316c4654b96130f9d186e3b1
+    - 059adde08656015438481b989b43e830
+    - 7c38764367d7a0f469fc818543554bd9
+    - 2650b7278b52f204791a581b43ca6577
+    - 952a51e36dd5a8b45ab479bde4273f0c
+    - 8b64b84fc0c8b8b43911f7c33f42b689
+    - 1891c4b18a5040b4a90d8ac237f1d265
+    - 20c4729cd1a2d1a4f9658f93721cc21f
+    - e6af6c35ae5f6e746a4fd9b4e3ede086
+    - 574dd80df286abf4e876e5281c08db92
+    - 88a0983724c47d54da3d931d2321fe38
     - 10208188e44df4a90974c502f7941249
-    - 46ac4b684b974417086e3821805075f5
-    - 73ad4a465b9ac4fa7af2d695a552a278
-    - 6ecae170a07094549a0eaa13194a3d08
-    - 795e892a432d34c969fd315e3b290b4a
-    - 74676647d2f244f628fbf470f4e37429
-    - 07597005acc6941de9389912a7049107
-    - 7f7113cc386d24e1b8ff8023c2d2985b
-    - ce9a04b4cb21f46b48752d852097777b
-    - 621ecf73f091c4c1eaa23c72683fcd79
-    - 55a052e235802478da3f666e74f134d6
-    - d3e5b468494ce46a8b549efa9d46fa43
-    - 1cb8bde8f10a84c62b4f5b65a3a9c578
-    - bb6cdc29820e64e8a8872d26d9fac1fb
-    - a709a27f722d14480a8d5347cd985699
-    - 68600f81d50744ad797a814b54bbadb8
-    - 1f303ef17c9b84b048f2f8c7956229c3
-    - fee61260c47f84eacb649be756d2e29c
-    - 6ab6ec0db092647f39d1dc529bdf6ce8
-    - 7da7921a9ad334e79a9e1f8dbb095e23
-    - 8e5e2b945578d479a98547a1cbf1c9d2
-    - a8a6b8a33633343588661499f03f244a
-    - 316be6d3b96d44831bc368358d021edc
-    - 1d46d3c7e768042aba4961c6d505c728
-    - 8ad7d9623024444f0987f6960272afe8
-    - b4e9282aa510f44e6b1dbc9480422d8a
-    - a277deb2f30c1497d8052be0c67f4270
-    - 62f8b166d283649a08945d5929ca1a7a
-    - 327a612b1c6894bb7ac19f5c6e4819fe
-    - 0e01dc383af8a4b8cb04da465821bf47
-    - 749851cfcdd9f4ea5a914cbf34ca3f56
-    - 0b7d53a2c9ae84624855db323aba39d7
-    - 19678710927664a838d9ffa5bc77afde
-    - 84284a80aa3374709920b923ffb2fcf8
-    - 88cf1165392184a819649cef1c1aafda
-    - cbc33bfa1d5574a7184f48f2af0ad3cc
-    - a3ca04943adaf48bb83cce806fda270d
-    - 484f9a5d238d647cf924074f954b52d4
-    - 61cb5c129867e4daaa48a273d611ddbc
-    - 3158e5ed3d4cb4f6d8c45d729a5c137a
-    - b5ad2e5225a154ba18a22cf1cbf59dbe
-    - 239d1490082cf40e4b6ded4e5cce5c3a
-    - db2b0f6e19f9847fea681ad22d93a935
-    - 82a63725f504b4d1cab186101e2ace33
-    - 0f41ae5696e1b40879f6e2bd7c4936b0
-    - c777122815fe14154972d7a614763d10
-    - dc015556110064330ac40c75c97857b6
-    - 9f2ba6f2ccb684a018d3bb2103f93081
-    - 06ae3289bb3524b57b915e887f32e421
-    - e3107b7712fe94bf9b0fd9300f856267
-    - 3d0695445f7c142149630832953d9103
-    - 2267d813a03274862a9553b76f5c2444
-    - 999c5beb590b045b6bd577c882128f01
+    - b3a59e08cd59b164e9d6447fb998e0cc
+    - e8ec485f6f639ea42a066dd887871ad0
+    - b12ffcf34778e194cad7ec104becfc32
+    - db99fda8a6fcd80419a3759f40041cd0
+    - ec859c17cd295ea48924d73b228d4779
+    - 3c67cf4ef32988d418f1aa37b5f8a8b9
+    - 1708c4df2b0c7744dba2a51aa4aa8170
+    - 2e247b15343770b448a7f8524ed7b9e2
+    - 145881b7df87c364ab2af44d71983d0e
+    - bfaddbbfbae9fef44b72af609c795124
+    - 7481ed8375819a2498ea6be958320a8c
+    - 23bb227d399ff1f4ea75f04d4de26d48
+    - 258225c9394c9bc4b999019d3ae0689f
+    - 8b374c294e634f949b89c9de58f2144d
+    - b2c26a0355286804ca4e48dacba03248
+    - f9661dba9d14600429ce59b9304ef67f
+    - 60a9a6d92a3cd1a40bc540409f8c8fc9
+    - c0e0ea89066a1e74db5db037ec20f811
+    - 63cb699c47803b4489c8b445e27112be
+    - 3610686b5e469f842967342c3de18784
+    - 497e462a48e1ff64f82c9a2af57bc7ab
+    - 3318498318fb6ad4f85e8ec4c4b93cb8
+    - de88ee01e2b883143981b2efadd1e217
+    - 350f9d456c4e26f43b8753b1628c063a
+    - 1c4b052632c73664ea3a75b0d4e249b3
+    - 425eec1e0a69e1c439a06fcd3244f855
+    - daf9b7d2e556ceb498e22e67ca525f97
+    - 6d3c57ddf191de644800aee180a3b834
+    - 6864eb6c65749524db1f921f3f5ff26d
+    - bdfc79cb57e7f6545aeeb10af60917b3
+    - 51b0fc02fb64ef345bd834d3471a5384
+    - 84fda13d73d6d2543bf68853b4297639
+    - ae794474155d7714db42016fd2f4fe2b
+    - 305a16420d706a44d90fec23b0c4a133
+    - 4efeb8187292fd643af3ebe0d8e7b227
+    - f671413131c901940bb161b8863a6aa0
+    - f65edce6487d9654caf19793f37f839a
+    - eee1b8305abbd5b42b2f77f0e67cafa4
+    - c4e42bcd0f0282341bffcdc103fa04c4
+    - 8ccd237ee48681448880e194fcb3318a
   - guid: b25bc3608c4afb14ea44f1373c26fd08
     ScriptSymbols: []
     ScriptTokens: []
@@ -590,7 +540,7 @@ MonoBehaviour:
   - guid: 7ab1137079c2cd946bebb7cb133253da
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547636178
+    stamp: 1547896959
     type: 1
     UseGUIDs:
     - 4e2c8abc7c1a702498015352717997b5
@@ -1044,7 +994,7 @@ MonoBehaviour:
     ScriptSymbols:
     - StandaloneServer
     ScriptTokens: []
-    stamp: 1547633373
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: 6aaf02c0e69ea234aab8077db8761282
@@ -1294,14 +1244,14 @@ MonoBehaviour:
   - guid: 7649df0164698874fb326763382c2474
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547558397
+    stamp: 1547798309
     type: 1
     UseGUIDs:
+    - f427b3f9df9e9da49b19853262f182d7
+    - 5826ff79029fc6b47ae07a0de318e962
     - 6a36672959a8a8a4fac6912e5fad2e40
-    - 4c3d22df6ac5a02418504a53f6c49d9e
+    - b3b96b3fc59680b45a42aed0ac20a1d2
     - 3744c24beb853734aa80bce4cb1c5db2
-    - c6372eed524f0b64a91748effe288256
-    - 1de6f44331c972f439b62a05410c72ac
   - guid: 896b2511a051919489a1f75c3fada723
     ScriptSymbols: []
     ScriptTokens: []
@@ -1435,11 +1385,11 @@ MonoBehaviour:
     - Shader
     - List
     - SpriteAtlas
-    - Resources
     - AtlasManager
+    - Resources
     - AudioClip
     - AudioManager
-    stamp: 1547786481
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: 07daed31af37bda43a343b34c8c52f4c
@@ -1483,7 +1433,7 @@ MonoBehaviour:
     - OnGUI
     - GUILayout
     - Application
-    stamp: 1535642682
+    stamp: 1547901733
     type: 2
     UseGUIDs: []
   - guid: 90f31151366b55046bf3cc778c39ce6e
@@ -1525,12 +1475,6 @@ MonoBehaviour:
     type: 5
     UseGUIDs: []
   - guid: 52e4d85171c13f5439868fbdb59e6eef
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
-  - guid: 9f581b5128feee44490f72152d829b7f
     ScriptSymbols: []
     ScriptTokens: []
     stamp: 0
@@ -1787,20 +1731,20 @@ MonoBehaviour:
     - Curves
     - Deprecated
     - Renamed
-    stamp: 1535642682
+    stamp: 1547901733
     type: 2
     UseGUIDs: []
   - guid: 5d73ab71d71254bebbb80824972a3b26
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547459681
+    stamp: 1547901733
     type: 1
     UseGUIDs:
     - 377ec4b7afbc2472f814173e1f574425
   - guid: 28e7fc711a4fb524caba11b22f2e39a1
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1541814513
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - bf160db83ab4ab142949a05629f4fc57
@@ -1994,6 +1938,7 @@ MonoBehaviour:
     - Texture
     - Texture2D
     - MaterialPropertyBlock
+    - RawImage
     - ChangeCardPicture
     - Image
     - SpriteAtlas
@@ -2001,7 +1946,6 @@ MonoBehaviour:
     - Sprite
     - Debug
     - ChangeColor
-    - RawImage
     - ChangeEmissionColor
     - ChangeSlotColor
     - SlotTypes
@@ -2026,7 +1970,7 @@ MonoBehaviour:
     - GameObjectPoolManager
     - HSL_2_RGB
     - Hue_2_RGB
-    stamp: 1547785894
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: 9261d0b13348eb34b9f2fabbce0c1d9b
@@ -2068,35 +2012,13 @@ MonoBehaviour:
   - guid: f926bbb19870b0343bbd4ab5e1d6edc7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547647021
+    stamp: 1547798400
     type: 1
     UseGUIDs:
-    - 00bb5f2bb1cfc914fa78b1b7b6a68af6
-    - f427b3f9df9e9da49b19853262f182d7
-    - 5826ff79029fc6b47ae07a0de318e962
-    - fadcb351087e04f49bdbe604a306cf8e
-    - 2c440aa5f42938b41bd61d1b6f1257e4
-    - bd5cbb5bffe70b04691952126e2b3fc5
-    - 1437379468222714fb0915b80d9001d8
-    - 64cbf37437d899245a50bc636817eea0
-    - b3b96b3fc59680b45a42aed0ac20a1d2
-    - 4041c6c814f0a5d419b15e8cbea18b3d
-    - 1da306ff5807c9e41bfa53029e72063d
-    - a45ec684bda5f0e488c805be50a10a87
-    - 75b2d8a75068ba5449a002126c351a66
-    - 97222cdc397f29c40a43a1b2443f9102
-    - bc1e01d7835d22e4da89776cc0dd87a8
-    - 29d77f41415d59a42bd7e6af9cec6c14
-    - b8eb668450d83ed4187bcf90aac531d2
-    - 09ac7e9d10db35b4fbad23be1cc1b294
-    - 2d5a5f7bb8400aa49ab8e5de2d58f5ca
-    - 8425323e012cdfb4a913ddba704b1929
-    - 8cf42b995a73f494a95252b009f02c9a
-    - 6d0e5105d02aec347acbbed4cb314a04
-    - 391a5ab36a0bb29499c4d99ff6365c5e
-    - 0048d6f81eac677458829b4af9e9c8c4
-    - 46c34d1af35a95346a58e444075e6b19
     - e02727ddd73a85c4098f23e02d240af4
+    - 3220118ba45ef724cb6413f68fba4aad
+    - 93983860856b94c4fa32e23be6365706
+    - 0aca4fe812c992a40875d314e8ad927f
     - 7649df0164698874fb326763382c2474
     - db0217043b81c7845a2dd5bcfc93a64d
     - d3596eb52538c464ca42bc0ee037f52c
@@ -2129,12 +2051,6 @@ MonoBehaviour:
     UseGUIDs:
     - 9c90335eaa3c9b0449b7f4efbb0229f5
     - 50208dac22991384e8bfbe9887f52c3a
-  - guid: b4b6e6c19bb24f145a65163256c1672e
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
   - guid: 1aee08c1b50d1a6479336edccf40e3d2
     ScriptSymbols:
     - SideEffects.AddTempCardToDeck
@@ -2376,12 +2292,6 @@ MonoBehaviour:
     stamp: 1547554398
     type: 5
     UseGUIDs: []
-  - guid: 46bb02e13b51b7247a542909d0b9aed0
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
   - guid: 110213f116c0c754eadb6863f994f435
     ScriptSymbols: []
     ScriptTokens: []
@@ -2414,7 +2324,7 @@ MonoBehaviour:
   - guid: 6e5782124dc9fb94eaa7b14546a1c8d7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547558403
+    stamp: 1547793310
     type: 1
     UseGUIDs:
     - 40478bdfa3fde224aa5a69764084812a
@@ -2680,13 +2590,15 @@ MonoBehaviour:
   - guid: a68735620369ca745a4ab2bd0dbbcd80
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1539702984
+    stamp: 1547798543
     type: 1
     UseGUIDs:
     - 3f1b60ed8f236ad46a7cba145b6157b2
+    - 5a838ccdbe1bda54d8ce476b12f03a6a
     - c326fa39d0df6184f9b0c5a362b66265
     - b5012ec5a2fe078449fdd57dec58fc16
-    - 0d6d998a27875264abfbaa6cc5278491
+    - 2d8aabe86b012ce4db5f1994d2337e07
+    - 59bc8627d5e625145a754dceb1963b51
     - 0444cb0cd9c9f37498b272fc51918c67
     - e1b05b9e29e7e9d40a0200bbd4951b3b
   - guid: e3e62f6200505a347933841b743f8fa0
@@ -2832,7 +2744,7 @@ MonoBehaviour:
   - guid: 859a7d8291baca14798ce255b7d2a6e9
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547527655
+    stamp: 1547882819
     type: 1
     UseGUIDs:
     - 6b0ac43e532d0604f8b0629ab8f82673
@@ -2862,7 +2774,7 @@ MonoBehaviour:
     - ExtractResources
     - FinishedExtractAudio
     - FinishedExtract
-    stamp: 1547643530
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: 968f7f82286ae7c45a31ca0fd3daf6b4
@@ -2882,7 +2794,7 @@ MonoBehaviour:
   - guid: 7870f5927c5f92e479f373d7d477eede
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1540821451
+    stamp: 1547882819
     type: 1
     UseGUIDs:
     - 29b48749e92372e4486a8adfc2c72b81
@@ -2897,7 +2809,7 @@ MonoBehaviour:
   - guid: 9227fd9287ad67644a24af6512ec9dd2
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547785894
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - 8e89b4d3b31ea174ca07e91c54b710c3
@@ -3275,7 +3187,7 @@ MonoBehaviour:
   - guid: 1f43d2d21fedc7f4386796c12fd77826
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547785894
+    stamp: 1547882819
     type: 1
     UseGUIDs:
     - 8781d25b9e6a6f44bbc733ab86880c41
@@ -3337,14 +3249,8 @@ MonoBehaviour:
     - KeyValuePair
     - CardBase
     - HandManager
-    stamp: 1537526477
+    stamp: 1547902036
     type: 2
-    UseGUIDs: []
-  - guid: b41a08e27f7a31740aa194f82a144d0e
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
     UseGUIDs: []
   - guid: 6b1dbae2767e6fd408602333d346c5c6
     ScriptSymbols:
@@ -3587,7 +3493,7 @@ MonoBehaviour:
   - guid: 35498ff27f74ae045b334bf24efda235
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547786481
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - 53584c33423648f081384139ec1f124c
@@ -3604,7 +3510,7 @@ MonoBehaviour:
   - guid: fe2f2603fc5bcaa4ba337175e965c35b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547558396
+    stamp: 1547793310
     type: 1
     UseGUIDs:
     - 2b81d83becf2c1a4f9ecb5e03d5d4aaf
@@ -3733,7 +3639,7 @@ MonoBehaviour:
   - guid: 5776422333ef24a33a5d95df664f9853
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547651922
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - 7b3a575cc01da4b2e98ceb6001c7daf5
@@ -4044,13 +3950,24 @@ MonoBehaviour:
     - GetAssetBundleFolderPath
     - Application
     - ClientUtils
-    - AssetBundleManifest
     - AssetBundle
     - LoadAssetBundle
     - IEnumerable
+    - Manifest
+    - Dictionary
     - List
+    - LoadManifestFile
+    - Debug
+    - Boo
     - LoadAllAssetBundleNamedLike
-    stamp: 1547785894
+    - DirectoryInfo
+    - FileInfo
+    - SearchOption
+    - Regex
+    - StreamReader
+    - Match
+    - MatchCollection
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: defdec33444b97e4d9a37975b5b87db5
@@ -4255,7 +4172,7 @@ MonoBehaviour:
     - Animator
     - EnergyIcon
     - EnergyTrough
-    stamp: 1547643530
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: 52493193c5e58a94a9fae87c9efe3854
@@ -4281,7 +4198,7 @@ MonoBehaviour:
   - guid: 20bf6393e5940514cbc93ed1a77d8b3b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1540220236
+    stamp: 1547896958
     type: 5
     UseGUIDs:
     - fc299f694448b494e98e2fd5fbaa2e37
@@ -4436,7 +4353,7 @@ MonoBehaviour:
     - SettingMenuManager
     - OnQuitGameButtonClick
     - Application
-    stamp: 1547785894
+    stamp: 1547901733
     type: 2
     UseGUIDs: []
   - guid: 9fc0ea9365cf306498a67947dd2da50f
@@ -4536,86 +4453,80 @@ MonoBehaviour:
   - guid: 8e89b4d3b31ea174ca07e91c54b710c3
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547785894
+    stamp: 1547901733
     type: 5
     UseGUIDs:
-    - 4f0a2e2f7ac118c44990595f733976c1
-    - 5dbe5e368aece67478a22ab2fee473d8
-    - 9b4501c2147370a4cbe770fece66ce7b
-    - cee5fc4a94e3b664192c4a3c073be752
-    - 28562ae80ea1ee44e9ea876119c62ac9
-    - b98592c9bcbd09b4b92f1fb679b5236d
-    - 295dc616b7c47b341951170f7fe0511a
-    - c96ec5ff4ec15d74b9e9c91f0d76e8f5
-    - b2c32d92ba039784c99a13c262f20182
-    - 6d4482e8f62112a4786059e98a9c1809
-    - 187e39ac522d8f1429e53f12c22b240f
-    - ff234312b4a94094dbada11b32b708a1
-    - f9de99dc293e3dc4ca95845c4d72a356
-    - 00d3f0e5cefaeaa438e5598fc32cfd50
+    - 5c0c60ed7d94b5e48976972508a64804
     - d4704ffe0219d5e4b8586c077c2d1265
-    - 3b4d10d513acbe249a4272d8d2a8ab24
-    - 117a2f30a4e3f534ab5250b5d9007cf7
-    - 6f74b59a91364c740a2c9ed2d887d2cf
-    - 95040811107b46644af00967899c338c
-    - 85065c873819f1b4dbb30bd8cbc9cd97
-    - 85663f7ae4bc1794596602bb4dba9fe3
-    - 5767b969cfe50ce49b50d58b2803fe06
-    - cae94b2b50ed3dd4aad775398b4e759e
-    - 7e47f841cd786184e83ba320a8e4e9b2
-    - 179d2949dd963964bbf052e8e10fa1f2
-    - 9b273636ae741b245841e516f7703571
-    - d481d616f6f31ff449cc520b3364a60e
-    - 5d754945c45f7ce479eca473a45c8bed
-    - d89fd6ddd39a39146abfa5236edab5de
-    - 0b7e61aa68ada5d43afaeb194611c036
-    - 216173ca54f8fa14d86933b2041f5132
-    - 6e0734c571f804043ad63f64e16f1b84
-    - 400c2e73c6cd19349afd0d7b1732b3bb
-    - 2ad9f07551c261842ad40636103fac59
-    - da4eb03e71a40fd4ca9c20e326f54dbf
     - 8781d25b9e6a6f44bbc733ab86880c41
     - 4001d6008e4059f44ae5562fee28fd1f
-    - 8425323e012cdfb4a913ddba704b1929
-    - fadcb351087e04f49bdbe604a306cf8e
-    - 3744c24beb853734aa80bce4cb1c5db2
-    - f46f2ff503822dd4daa3b78fa96d08e3
     - 1437379468222714fb0915b80d9001d8
-    - 5c0c60ed7d94b5e48976972508a64804
-    - d6a2d2e32a76b474c96631f9c5b12e2f
-    - d0ad8d522371a4f4d83a9c5723bc664c
-    - 49d6d7a74670e5846829e20b37496786
-    - fc03c230abe4cf04ba42c23fa6f298f6
-    - 0b73a549e18ab824c88b570193e7d286
-    - 2d5a5f7bb8400aa49ab8e5de2d58f5ca
-    - ab37bb2160e179e439a811737fb7cf8a
-    - 76238ce607409ab4fabdd303eebf21b4
-    - d697dd3df0f805f4fbe6819acef19f79
-    - 0048d6f81eac677458829b4af9e9c8c4
-    - 27cb62b4f8cca0b46891fce28037696a
-    - beea340c7362ce84f9afbeae2cb4d06f
-    - c072b5830f88d154f9902382920b00b8
-    - 4829538d31ebb5248ad8f524134ff89d
-    - 2aeff3bb93e224844a7a29f4b79d878c
-    - 1a1192d58cf9ba045add4c23b07d4234
-    - c8408a063a7874b428f744d719fd138a
-    - 512e6e39ccf44304b87f580260dd9988
-    - 31d4b2405a4f6884591e7896d1a0e55f
-    - 6d0e5105d02aec347acbbed4cb314a04
-    - b8eb668450d83ed4187bcf90aac531d2
-    - a23e5ab0be1ea4c4a86dd51032721fc3
-    - 5cdadcba8874ac14bac36b33eb07117e
-    - dc5decdb4a0ca8949992b4a0d5ec7ecc
-    - 615d2ce44777ffc45aec520500d95acc
-    - a8f280a202af4b34681b63030396727e
-    - a24cc96475ca7924583382f0174de03f
-    - 00bb5f2bb1cfc914fa78b1b7b6a68af6
-    - c54cdf64b80e29444be712c9f08a7da1
-    - da991b560125bad4e80fbb137f9be23f
-    - 5826ff79029fc6b47ae07a0de318e962
     - 3ad399f3fa0850540a718dd739948091
-    - 9f82076f9d056f8428cf094bfd958a35
+    - b2c32d92ba039784c99a13c262f20182
+    - 5dbe5e368aece67478a22ab2fee473d8
+    - d6a2d2e32a76b474c96631f9c5b12e2f
+    - d697dd3df0f805f4fbe6819acef19f79
+    - 6e0734c571f804043ad63f64e16f1b84
+    - 00d3f0e5cefaeaa438e5598fc32cfd50
+    - 0eb82a161a8a4d24eb1dad194738a475
+    - 85663f7ae4bc1794596602bb4dba9fe3
+    - 5cdadcba8874ac14bac36b33eb07117e
+    - d0ad8d522371a4f4d83a9c5723bc664c
+    - cae94b2b50ed3dd4aad775398b4e759e
+    - 295dc616b7c47b341951170f7fe0511a
+    - 03bd14e67b73b4c4d8df9c08100bad82
+    - 418a67a1d75283640aa060e68ed97c7c
+    - d1d010e35173afa4aab0aff2cd7a4403
+    - fc089a4091fb840c78412f48f40b0d14
+    - b8eb668450d83ed4187bcf90aac531d2
+    - c8408a063a7874b428f744d719fd138a
+    - 6f74b59a91364c740a2c9ed2d887d2cf
+    - 179d2949dd963964bbf052e8e10fa1f2
+    - 95040811107b46644af00967899c338c
+    - 7e47f841cd786184e83ba320a8e4e9b2
+    - 2d5a5f7bb8400aa49ab8e5de2d58f5ca
+    - f30aab20a6d93ee4394294241a7c237f
+    - c072b5830f88d154f9902382920b00b8
+    - dc5decdb4a0ca8949992b4a0d5ec7ecc
+    - d481d616f6f31ff449cc520b3364a60e
+    - 8425323e012cdfb4a913ddba704b1929
+    - 117a2f30a4e3f534ab5250b5d9007cf7
+    - b98592c9bcbd09b4b92f1fb679b5236d
+    - df12111d71328dc45b8a5df04111ea39
+    - fc03c230abe4cf04ba42c23fa6f298f6
+    - 187e39ac522d8f1429e53f12c22b240f
+    - 55117dcd6fcb3454abaabc40444eb800
+    - 3744c24beb853734aa80bce4cb1c5db2
+    - 615d2ce44777ffc45aec520500d95acc
+    - 9b4501c2147370a4cbe770fece66ce7b
+    - 5ba8664a82a1fae46a552c49337faa93
+    - 4829538d31ebb5248ad8f524134ff89d
+    - d15b5ebed27ca0e4f9e40f348df70a78
+    - 1aba19b1152972e40a89769a01bdcb49
+    - 2ad9f07551c261842ad40636103fac59
+    - 00bb5f2bb1cfc914fa78b1b7b6a68af6
+    - f9de99dc293e3dc4ca95845c4d72a356
+    - 9b273636ae741b245841e516f7703571
+    - fb19961f58d819c489038f016eda3e30
+    - a8f280a202af4b34681b63030396727e
+    - c447fc41f99e79f4bb37b23e4a9497fa
+    - 1a0c8b767158ad14db8e6f66008a9e3b
+    - fadcb351087e04f49bdbe604a306cf8e
+    - 28562ae80ea1ee44e9ea876119c62ac9
+    - 6fbe7fcf448ab4b48994bfe48e81d448
+    - f0b712ad7091f1c4cb5d675adf576353
     - 58652a75856277247b23bec2c9e0be73
+    - 6d0e5105d02aec347acbbed4cb314a04
+    - 5767b969cfe50ce49b50d58b2803fe06
+    - ff234312b4a94094dbada11b32b708a1
+    - c96ec5ff4ec15d74b9e9c91f0d76e8f5
+    - 4f16ac76cb1d76849b00a57672c2743a
+    - 6a10ea1b88c5f644faf5e148f7d49f57
+    - 9941f1277a5f2164bb154e27f74844d7
+    - 1a1192d58cf9ba045add4c23b07d4234
+    - 3b4d10d513acbe249a4272d8d2a8ab24
+    - a24cc96475ca7924583382f0174de03f
+    - 42f3e35d5c17a754c8c853094ca82cea
     - b8da5533987f49a4e973517ed7d54c50
     - e4aa6364d340a4e28a2de5f51573445e
     - 4daeb3422d4a2c647ba33f30008eb531
@@ -4639,7 +4550,6 @@ MonoBehaviour:
     - dcf57f1bc4c74194db39d4fc9648071a
     - 0a7869b099e35d947bf6527d41c68643
     - 52493193c5e58a94a9fae87c9efe3854
-    - f0b712ad7091f1c4cb5d675adf576353
     - f2c877ef9c7c1d141a7b4544240f135c
     - 5f9b4313de4d7f14db6f37b46ec96d7a
     - 063faedfd081c0f498d7ecc5d0e1d548
@@ -4658,38 +4568,44 @@ MonoBehaviour:
     - b25bc3608c4afb14ea44f1373c26fd08
     - 90f31151366b55046bf3cc778c39ce6e
     - 256ac35383459084d95aacb5e63337d0
-    - b08c2255d9d444f4f8722c51c43c8f0b
-    - 42f3e35d5c17a754c8c853094ca82cea
-    - c447fc41f99e79f4bb37b23e4a9497fa
-    - 1a0c8b767158ad14db8e6f66008a9e3b
-    - 6a10ea1b88c5f644faf5e148f7d49f57
-    - f30aab20a6d93ee4394294241a7c237f
-    - fc089a4091fb840c78412f48f40b0d14
+    - d89fd6ddd39a39146abfa5236edab5de
+    - f68dad85ea297fc4e8abb8b4356275f1
+    - 0b73a549e18ab824c88b570193e7d286
+    - 0048d6f81eac677458829b4af9e9c8c4
+    - 400c2e73c6cd19349afd0d7b1732b3bb
+    - 0b7e61aa68ada5d43afaeb194611c036
+    - 31d4b2405a4f6884591e7896d1a0e55f
+    - e1e7c1694c972e9458f63bbfe660c580
+    - 216173ca54f8fa14d86933b2041f5132
+    - 4f0a2e2f7ac118c44990595f733976c1
+    - beea340c7362ce84f9afbeae2cb4d06f
+    - c54cdf64b80e29444be712c9f08a7da1
+    - da991b560125bad4e80fbb137f9be23f
+    - 27cb62b4f8cca0b46891fce28037696a
+    - 87a9a7411e619734688f2c651befd08e
+    - 29b48749e92372e4486a8adfc2c72b81
+    - 93e5353389333354b819aa93949b6e4c
+    - cee5fc4a94e3b664192c4a3c073be752
+    - 6d4482e8f62112a4786059e98a9c1809
     - bf0dd1d690b608246aa4e6f3e234ca1a
     - 79d9f7b7b8ec987409d5445962dc1b87
-    - d15b5ebed27ca0e4f9e40f348df70a78
-    - 1aba19b1152972e40a89769a01bdcb49
-    - 49160c1ac7265cf4fa15653a68398a88
-    - 87a9a7411e619734688f2c651befd08e
-    - 9941f1277a5f2164bb154e27f74844d7
-    - 5ba8664a82a1fae46a552c49337faa93
-    - 29b48749e92372e4486a8adfc2c72b81
-    - 4041c6c814f0a5d419b15e8cbea18b3d
-    - 6fbe7fcf448ab4b48994bfe48e81d448
-    - 0eb82a161a8a4d24eb1dad194738a475
-    - 418a67a1d75283640aa060e68ed97c7c
+    - a23e5ab0be1ea4c4a86dd51032721fc3
+    - f46f2ff503822dd4daa3b78fa96d08e3
     - b8b505cc0a5534440bff1c31bc2652d0
-    - d1d010e35173afa4aab0aff2cd7a4403
-    - fb19961f58d819c489038f016eda3e30
-    - f68dad85ea297fc4e8abb8b4356275f1
-    - 93e5353389333354b819aa93949b6e4c
-    - 55117dcd6fcb3454abaabc40444eb800
-    - 4f16ac76cb1d76849b00a57672c2743a
-    - e1e7c1694c972e9458f63bbfe660c580
-    - ec8588936981b6a42a2fd881d1cd8b57
-    - df12111d71328dc45b8a5df04111ea39
+    - 4041c6c814f0a5d419b15e8cbea18b3d
+    - 85065c873819f1b4dbb30bd8cbc9cd97
+    - 2aeff3bb93e224844a7a29f4b79d878c
+    - 76238ce607409ab4fabdd303eebf21b4
+    - b08c2255d9d444f4f8722c51c43c8f0b
     - 54fbbf098d116effa00081aba8ad6659
-    - 03bd14e67b73b4c4d8df9c08100bad82
+    - ab37bb2160e179e439a811737fb7cf8a
+    - 512e6e39ccf44304b87f580260dd9988
+    - 49160c1ac7265cf4fa15653a68398a88
+    - 9f82076f9d056f8428cf094bfd958a35
+    - 5826ff79029fc6b47ae07a0de318e962
+    - 5d754945c45f7ce479eca473a45c8bed
+    - ec8588936981b6a42a2fd881d1cd8b57
+    - da4eb03e71a40fd4ca9c20e326f54dbf
   - guid: 7a8217d33a1b1fc47ae97e0fcda54614
     ScriptSymbols: []
     ScriptTokens: []
@@ -4844,12 +4760,6 @@ MonoBehaviour:
     stamp: 1547643530
     type: 2
     UseGUIDs: []
-  - guid: 3720d9f3711f9994ab8606536ea1136e
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
   - guid: 29956cf3e864c8449aa8b1f6f358d463
     ScriptSymbols: []
     ScriptTokens: []
@@ -4877,7 +4787,7 @@ MonoBehaviour:
   - guid: db0217043b81c7845a2dd5bcfc93a64d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547558398
+    stamp: 1547793310
     type: 1
     UseGUIDs:
     - 97185125be34cf846b5a01f39c40f389
@@ -4886,7 +4796,7 @@ MonoBehaviour:
   - guid: 95f4b804d6d3c404ca2c03f742662bfe
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547785894
+    stamp: 1547896958
     type: 1
     UseGUIDs:
     - d2838e2b7a7714c32897ca88b06bcb8f
@@ -5046,7 +4956,7 @@ MonoBehaviour:
     - Left
     - Right
     - Center
-    stamp: 1547643530
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: 8392f05465c012f4eb177020b9508098
@@ -5140,7 +5050,7 @@ MonoBehaviour:
     - ClientUtils
     - OnShieldEquiped
     - EquipAnim
-    stamp: 1547643530
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: a24cc96475ca7924583382f0174de03f
@@ -5316,7 +5226,7 @@ MonoBehaviour:
   - guid: f786f3849728cae4fae479189a1f66c1
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547651922
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - 5328f03d9c4693c489904cc60c82d7cc
@@ -5370,7 +5280,7 @@ MonoBehaviour:
   - guid: ab4ded84becca4d408372ca0a2e25b46
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1535642682
+    stamp: 1547901733
     type: 1
     UseGUIDs:
     - 521257714fc9e437a9163df2d37f2ea2
@@ -5380,7 +5290,7 @@ MonoBehaviour:
   - guid: 7f548e847579e4230b3ce6913812bf3d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547476447
+    stamp: 1547896958
     type: 1
     UseGUIDs:
     - 20bf6393e5940514cbc93ed1a77d8b3b
@@ -5432,7 +5342,7 @@ MonoBehaviour:
   - guid: 3660b9a4cfc6a62498e4b339bfdaedf1
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1538128462
+    stamp: 1547882819
     type: 1
     UseGUIDs:
     - 6830cb745fc809e4c88b944b8f5f5dd8
@@ -5565,7 +5475,7 @@ MonoBehaviour:
   - guid: 08282dc448b569642a8107a94d245331
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547640760
+    stamp: 1547896958
     type: 1
     UseGUIDs:
     - 76f1470f4cee55043a51ab1381bef1c8
@@ -5583,7 +5493,7 @@ MonoBehaviour:
   - guid: 17c6d1d46ed4a4cd19bb7f7a231386ba
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1535642682
+    stamp: 1547901733
     type: 3
     UseGUIDs:
     - 5273cf41de20842a5917d8346dffe707
@@ -5595,7 +5505,7 @@ MonoBehaviour:
     ScriptTokens:
     - MonoBehaviour
     - Start
-    stamp: 1535642682
+    stamp: 1547901733
     type: 2
     UseGUIDs: []
   - guid: 329ff6d4c6c09314cb9831f2cd051d23
@@ -5609,7 +5519,7 @@ MonoBehaviour:
   - guid: 6454ced4774b04840ac1b1e9c6e412e5
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547294722
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - 30dbfad2273d05a4e998c8b8263c483e
@@ -5684,7 +5594,7 @@ MonoBehaviour:
     - AddAffix
     - GameObjectPoolManager
     - RemoveAffix
-    stamp: 1547643530
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: e58142f46f272fa4daeb51b07cac7dea
@@ -6139,7 +6049,7 @@ MonoBehaviour:
     - MouseHoverComponent_OnMousePressLeaveImmediately
     - Utils
     - ReplaceDisplayCardOutOfView
-    stamp: 1547643530
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: b3b9aa6576114c54983a5820150e02ad
@@ -6313,7 +6223,7 @@ MonoBehaviour:
     - MD5
     - FileSize
     - FileReadableSize
-    stamp: 1547651922
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: 7ff65385e6bdfb44989ee5adc339c548
@@ -6457,7 +6367,7 @@ MonoBehaviour:
   - guid: d3596eb52538c464ca42bc0ee037f52c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547558401
+    stamp: 1547798227
     type: 1
     UseGUIDs:
     - fc65210aadf5d21468cda21d3bc47cdb
@@ -6469,6 +6379,9 @@ MonoBehaviour:
     - 1bf4aec2016c7f74ca992b8565150281
     - fc72410d4d2c4c74097494e8e0ce6878
     - a99863c99ec0b8d459fae3a55583e208
+    - bd5cbb5bffe70b04691952126e2b3fc5
+    - 391a5ab36a0bb29499c4d99ff6365c5e
+    - 0048d6f81eac677458829b4af9e9c8c4
     - 6e5782124dc9fb94eaa7b14546a1c8d7
   - guid: 6e0734c571f804043ad63f64e16f1b84
     ScriptSymbols: []
@@ -6495,7 +6408,7 @@ MonoBehaviour:
   - guid: b5012ec5a2fe078449fdd57dec58fc16
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547633374
+    stamp: 1547799416
     type: 1
     UseGUIDs:
     - d68dd88b3a6308a449011c0d5411bc4b
@@ -6587,7 +6500,7 @@ MonoBehaviour:
   - guid: 7d0628f5bdfbb9d4fb70c3a76b399b4d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547633373
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - 359120c0ca94b2c4093958ab15c1ca34
@@ -6650,7 +6563,7 @@ MonoBehaviour:
   - guid: 0e5f0606a14c12e46aea629c3872d669
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547558404
+    stamp: 1547793309
     type: 1
     UseGUIDs:
     - b08c2255d9d444f4f8722c51c43c8f0b
@@ -6727,13 +6640,13 @@ MonoBehaviour:
     - Pack
     - BuildTarget
     - AssetBundlePacker_MacOS
+    - GetPlatformForPackRes
     - EditorUtility
-    - ClientUtils
     - Application
     - Directory
     - BuildAssetBundleOptions
     - SetPack
-    - BuildPipeline
+    - CompatibilityBuildPipeline
     - GetAssetBundleBuild
     - UseFileName
     - UseSubFolderName
@@ -6750,16 +6663,17 @@ MonoBehaviour:
     - IsDynamicBlacklist
     - AssetBundleBuild
     - KeyValuePair
-    stamp: 1547789523
+    stamp: 1547901733
     type: 2
     UseGUIDs: []
   - guid: 295dc616b7c47b341951170f7fe0511a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1539707560
+    stamp: 1547879352
     type: 5
     UseGUIDs:
     - eef2883efd4e3404eb24f1c06416fb6d
+    - 00bb5f2bb1cfc914fa78b1b7b6a68af6
   - guid: d481d616f6f31ff449cc520b3364a60e
     ScriptSymbols: []
     ScriptTokens: []
@@ -7051,7 +6965,7 @@ MonoBehaviour:
   - guid: 199540466a9e66e4ea69ff03cbcb8e57
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1539615673
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - 984a688da18b86f4caff1963bac34c52
@@ -7092,7 +7006,7 @@ MonoBehaviour:
   - guid: 6a421056397a243deae5b71171573c0f
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1539184418
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - 28e7fc711a4fb524caba11b22f2e39a1
@@ -7192,14 +7106,8 @@ MonoBehaviour:
     - OnAttack
     - OnWeaponEquiped
     - EquipAnim
-    stamp: 1547643530
+    stamp: 1547902036
     type: 2
-    UseGUIDs: []
-  - guid: 3dbcd66600ceb8449aa3ae8e8aac4137
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
     UseGUIDs: []
   - guid: ea01b8663381f1046b10643c6919bcfc
     ScriptSymbols: []
@@ -7292,11 +7200,10 @@ MonoBehaviour:
   - guid: 9e1d9e76727c31d47840ecc9256ddead
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547788340
+    stamp: 1547797418
     type: 1
     UseGUIDs:
     - f5844aa488aa82747999396007c85769
-    - a3032c65004eb4d4cb9bfb7417c77f2d
     - 9c90335eaa3c9b0449b7f4efbb0229f5
   - guid: c068c9864d2104958a9de5f3e8c0fd05
     ScriptSymbols:
@@ -7568,7 +7475,7 @@ MonoBehaviour:
     - PlayLoopBGMAudioClip
     - PlayClipEndDestroy
     - Time
-    stamp: 1547785894
+    stamp: 1547901733
     type: 2
     UseGUIDs: []
   - guid: 9613f1d6590e25f4cae7f85c54f583ee
@@ -7707,7 +7614,7 @@ MonoBehaviour:
     - Utils
     - GetPlayerByClientId
     - FindRetinue
-    stamp: 1547785894
+    stamp: 1547901733
     type: 2
     UseGUIDs: []
   - guid: dd3eaee6aa322934d96562cdc3708e37
@@ -7763,7 +7670,7 @@ MonoBehaviour:
   - guid: 584a1317923086b4989a3479c28fd375
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547175523
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - 9c3c403cf870afe45b1fcf548e435295
@@ -8066,7 +7973,7 @@ MonoBehaviour:
   - guid: 068b6f47aa2be8b44bf08cd96679a85a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547651922
+    stamp: 1547901733
     type: 1
     UseGUIDs:
     - 5a6be4312baa0c140b6c064097e225f8
@@ -8082,13 +7989,13 @@ MonoBehaviour:
     - a247cc61ae72b344d85e947aa3d5b4dc
     - 0e5313a6abb10344ebadb6d50b52b0a7
     - c11c732b0fd230744860bbbe0b7e519e
-    - 49d6d7a74670e5846829e20b37496786
     - 0f027e5ab3cda4548a6ff43e718eb994
     - b9755557a7653614da59ce6f135156c4
     - 48faae920b51a1f4faeb138d2f05d733
     - 522040bd0ba321c4aa967ec2670188f7
     - f7906df6f356c804097738950491adac
     - 2dcbe3058b2279041830a2c4791f93b2
+    - 49d6d7a74670e5846829e20b37496786
   - guid: b873df477e29da04fbc9d072fa6585d6
     ScriptSymbols: []
     ScriptTokens: []
@@ -8158,7 +8065,7 @@ MonoBehaviour:
   - guid: c160e3774d94a87418f8777f7d9e884f
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1539615673
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - b0630eac557f44f47aac115f7f83993d
@@ -8245,13 +8152,12 @@ MonoBehaviour:
   - guid: 8ab42897dc99e504a81cf11978bc88db
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547788575
+    stamp: 1547796637
     type: 1
     UseGUIDs:
     - da991b560125bad4e80fbb137f9be23f
     - 4f0a2e2f7ac118c44990595f733976c1
     - ff234312b4a94094dbada11b32b708a1
-    - 9527d0a2fa8f07c4aa586014aefe8714
   - guid: 81611a9776725e74a839d522c521e83f
     ScriptSymbols:
     - ArrowArrow
@@ -8294,133 +8200,88 @@ MonoBehaviour:
   - guid: cc3bf1a7b90b4c448889e9c054899e53
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547789583
+    stamp: 1547901734
     type: 1
     UseGUIDs:
-    - 0869342d96040ea448c043c6eda5c376
-    - 6ce738a7b9a00984e8d1e9ba12a9b744
-    - a0306f5929fb9aa408bdf3bdc028ac58
-    - 4b6abb343bb5cad40a2193c03c0be076
-    - e3ee7526c8a1b1a4697d28dc04178718
-    - 3c33b1b64a54e8b47b7b5f727ac24e10
-    - 7a5082838fcbb584cae68b1da64ed79b
-    - 69b92d8046d4ce34db9c9121651d907a
-    - 012828432680f954e8b272618c9c4fab
-    - 06ee6c83eee5d0949ad722a28e3dfa39
-    - ca51d831fcba8894898b0386eb7478d1
-    - cfb1f981c4d2d1f41bc6fd4555fe0bbb
-    - 92aac13345ce864459cf298c2ee4fe4f
-    - e1e5b9f4fccbd524f837c2cb7a5a8c2c
-    - a48baa58b73410e49a671d5ba32924b8
-    - 0ffc6d16843dabf4dbfd303e2d1fc4e9
-    - f2dc1e9775dde4440a79d729aba339bc
-    - 43b743119f43ff24f8054bd64e9526d2
-    - df697dc9b52f10442bfb2f56abdcba8e
-    - b20c868ac813e54488d5f8036dbbb983
-    - 2e81a7873d235c3449e7c2fbea2bac43
-    - b4b82e4ddff31fd40b2e904d3c4c8450
-    - 44ae7ba2e7b05c84095642a1c991a7b8
-    - 867ea932c955e18458ae62f6a92e3ac5
-    - 3958ab4cf4ee0f941ac656ff410bdc1b
-    - c79c671dcbbbcf74fbff4a047519ee97
-    - 77d1e147d406cf54a932a1d1f3fbd293
-    - db4aca0a41f8b544ab9e3c357712bc95
-    - 370cd31e4ed007d4fa4abb44740271ce
-    - 9d4f96e8a14630446b67522151033b47
-    - 6adce5dcadb86aa4b9704d11392cf0e2
-    - 734c038075bcc3e44bd91da11e51a630
-    - 127f98d762311c44793ae342f0334c7b
-    - 62825f05e6fd27d4e88140900d2e5ac4
-    - 0352027dca7b80044bb73060d7ab9b6c
-    - eacb2ef0573238344bd21b83d1213448
-    - 801b1311420500949858d2eba42a2817
-    - 5685864a48f2a45498b968a13731ee69
-    - b24e31644e282354eb32ee01d00e41b4
-    - ebbbd8d354f81d841bf6578b51d06136
-    - 7e6a67cbb569f2540ae1de0eaa0cbd96
-    - 2439b2f766b383c42b4f4393025e5821
-    - 0eb3e52338a30c94d94d69516f323b42
-    - 4614dd7647787c8489c6fed4d6d9f85f
-    - ecfd0956a4ae90d46964e4329c5b7140
-    - eb5ace8c2eee546499efb4f54d0616ec
-    - d82f6812406607b47a8b6963a606ac9c
-    - a5e2a22027853124fbd39f3612622e05
-    - da0c7aa22dc17b24fa4db80dda6eea6b
-    - be455308cb03c6441bdef916667bd0ac
-    - babbd2149f42c2f42944dcbd1f104787
-    - 386d5f8cfee2621428ed8882d0a3b96e
-    - b698737e486621f449bd27888ddc7575
-    - 095633128d91db54683c68f9267bd13e
-    - 0b4e8e45610094344871bb74a681568c
-    - 42933bb8b05282e4388507a3054bc406
-    - 7526fc91bcaf2b04dadf0238a3539d8f
-    - 505b8c9000119f649a5fa12be2a5c9da
-    - c580b896bb4b8434d8fb5ec3e9898770
-    - 75fc43f75eb6af74fb2c91b9aedba392
-    - e6fba40288d95cc499a12bdd7ccecc31
-    - fa83aa5cd40fc9b4a9e7ec9f17493daa
-    - 4c7a3391143dfeb4a9d82ef634be5897
-    - d3abea92b2673494ba139b8831924488
-    - f867de7f3757e7c49b18a1bf4760565a
-    - 0f97ed2cc4ca9314ea8f2ba5fff9c0b7
-    - 5a5af51e3eeffb247bb8d31655b30e39
-    - 2fb65ee59333f70448b17158a7175311
-    - 0a749c792d478c840b86b0955c936d07
-    - 3019c223e41d52b4f8e7fd76489f4123
-    - aa6039cf25112be48aa9bcbf6dd1cccd
-    - 5beb325031821da44b2b8ce9509d2399
-    - 527db13043a929144b771bb0a105e8d0
-    - 12e2556d55f547f4dbc410c1193c1672
-    - a79d7c764d467ae418e13cf64f8587bb
-    - c734470b12814714ea0a1924c0478a7b
-    - 7a6dd98d41ead984d871af6de417f8ec
-    - b8a9df3654bc6bc4783d796535d7599b
-    - f245c0707b9aba7419c626b77110bfe2
-    - 9c94efedaf305e14e9c809f9a5afb788
-    - f3400b29e2e9d0046a40c46176b83b45
-    - 4bb07b4b7db116741a2c11f965416be4
-    - 56515215c9d29774690545338df146b1
-    - 04f43accd1fa6d04b9f3cae5604ef4a7
-    - b408ed67d11c7f947bbca5dece202703
-    - 29b9ba183f971b948b849a9f11b2e793
-    - 434676b3ae0b2734fa840a81f9117dfa
-    - b1c16b69fab952c4e8469a771abdb35d
-    - a473b6c7fd991ba42b07a6cbeda3054e
-    - 4e90249c5d1acd846af52d807fc9c5c5
-    - dc1eaaa55ddb5334f86480ea5dc9dfe6
-    - 5191778935e74d448a1de780493460d3
-    - 6d107c4bd6bad714b8a028d63c2eb1c7
-    - c3e21e70a20ba91498553826d595ffc6
-    - a7a104f882a38f84ead8b729ab0648a4
-    - 983a351a601d1b4458310074a425cf1e
-    - e9c224e344014904cb45a40e8823d01b
-    - a2a1691cfc46e1b46a148a0c148a87c6
-    - 0c7c1f61eadb60b429407d90be9b93e6
-    - ce0ab692150a0c1468daeba37a78e003
-    - f40b6ed3755405540b19e3b33477764c
-    - 775d1bef4743c994fa7abf6b908a140d
-    - b2e23ad5393782a4e887b5a1662689c7
-    - f023e663d153c0c4b90ed3fb09d93204
-    - f5c8170ff2dc759408a87e10ead6ef9b
-    - ad7da525ff34dee499bac71681a27520
-    - d29263ff6a98c364cab6828a6a821496
-    - 7c60cb39f7aa602498347398cfcfdee0
-    - ee04c76a435cdf94db9013806382a728
-    - 026c4dfb93c0e194cba2ec5daa17134b
-    - 1a37bf4d3859c5741b83f11b6a5c32fd
-    - 364c54e6940319f47af6ad30eaaa69bb
-    - bbfb640ca0c36c74d9a7fd371c93b117
-    - 7ae404de8c963714c88b412ee0f98b40
-    - 227422712bcf2eb458352adf0c049af6
-    - 7d41b961f51cf774b839232b6fca8d05
-    - e3b9b94052e17024eaec1b01f3a445c7
-    - 5b60b6950ed5b574e8622db3999e34c7
-    - 674a9fd7b3f5679429c0a0206d24a96f
-    - e2874f44915f3aa49bbcbb824696afad
+    - 29881898af2bf09459514ccb505df34e
+    - 969bb5352c1b69e4d9c4d79f2bc92bfd
+    - 024f58871135ea44ea9f698f19d40172
+    - 427b31bdf8889e94eb082e93af94d985
+    - c3ed86aca982e994793969fe502a68c5
+    - dfc3161382a297044af1eb0722fd408b
+    - 998920c06fc0dbd4aab4ab5fcffd52b6
+    - 1363fdf58284bb14494c92db2b668779
+    - 2e6e8d0dad9655e408d7905f886fbc26
+    - 56ed9911c7f7d0a4499ae7820163a8ec
+    - 7b0ff7d93e7b7cc4a9d9be9604ed537f
+    - 888fe277ed4a47b4eba28716718082f3
+    - fe21d6fc388dd95448fe72485be9a2ae
+    - 96dc5f3f505f7384f8f9cb7ae0cc0d8a
+    - 5a7a7e2a1fa1e9748bbbaa722070b305
+    - 88fc68f810d849d4f886d5393e1d7ccb
+    - 97d5bdd67813f47438fddfb20297d743
+    - 3ac71caa771c64c43888de97b9a20e70
+    - cd39a9b78264fa5479e66dd83d907638
+    - fe36151004c20a441a54228bc392183c
+    - 73b32ae55fb0e854c931510d3cefde7e
+    - 542f0952a3ca7b64da194803335db778
+    - 8b745e01fc725424cb869af336f4563d
+    - 7bc76c70c95bf864f98f7929b7afe17a
+    - 408fa03ed69df6449aab9eb9bf8c960c
+    - 23c2f8414971a314291844d4691da7ec
+    - 901daeb93f9f18c4180830974cf2369f
+    - 9df7bc981140f8c46ba08076dba5edb0
+    - 35a1bf0f5df0a574f84f05665779af39
+    - 74eae643a4ef240438c094e7e7ec7cc4
+    - 1c46127716740214da214f85f0d78fb2
+    - ac5a1769f4e8107468053bd0d275950f
+    - 9d0147f83f4fd064e865bf1affbed0f3
+    - 0b572e70c75bc98459126cf37f712139
+    - 0afad700824b3f242813e53ea8590157
+    - 63c1de1457ea59b43b820be397943014
+    - 0d179a7f33046014aa605b051941ef25
+    - 0c76ce8ed04266a4b814cb2e59cba2e6
+    - c70f386b2990a594cb669d44c2c3ba8c
+    - 7eb4f2459d528de4d837b8bead526e03
+    - 9f2436150c4832446baeeabd448e5154
+    - db7204e49f5a39a4bbb17db997ceafb7
+    - fb32940423e32794696d9090fb29bb07
+    - c64476b67271b154d866bb3e702d3a99
+    - a0c9e0a152fc14a4f86914dff799d406
+    - ca7e8b7c5ec300347bbfc36bbd0ddaa6
+    - cda23feb90e156a4cb5061b384c9912f
+    - 2c1a8383c783ae243a884aa8206a983b
+    - 8e6929ee81ddb754b925d39930048f5b
+    - df80f406edcd4c441a66cd8e59346ac5
+    - a48458de8f3d2f54f8e0e23247541b8b
+    - 8a47c1513476e6043bdfa744f042e7d7
+    - d58ac35954b66484590bba8dac91eadb
+    - ae1fc1f6e82a15441a3698782d461465
+    - da5a49f65ccf5194db0951e89038f77b
+    - 5fce3d9d292efeb42a678fb9452e20da
+    - 3d378a3d14129be4aaa1e744ce995d9d
+    - 2e4db62706af85642b24b5e1449e6d7a
+    - c8c6104ae449f1e4c9c39fcd6abd4b50
+    - 5bb3afb0fd4d5544c8c12cd88c33bd3a
+    - 085ae593bc8e1a34d9320933c3579d91
+    - ef380303859ae1047b1d00744e28cd51
+    - 7b5eeba34fbf4f44e8d119a8d60b79fe
+    - 34913954f5fb3914b8a30cc4d9ea025a
+    - 93d36cb7a18eb4a4ea223e9d6d1b300c
+    - c2085dcbf560ce94085d4705f53dde4e
+    - 40fbd7d15cd48ef4d9d8f89e77657d3b
+    - 4e5540a58d38f1b4cbd263ea07dc5670
+    - 05cde85ecd5908b4d85e4702c58c58fc
+    - b8b4d98578fe47348804eaffb71b92cb
+    - e6e891e88d40ba148bf9ce4b2564d8f4
+    - 8785065919cf3c94284f9d57560a30cc
+    - a5a0730223aae0c43b1a9cf98af68b8d
+    - 2cc6a46c10961dd4f975e690b17c0aed
+    - 0e83cc9e94add394d81493c346d378cf
   - guid: ab1ac2a71ec91184f827e65557b93920
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1535642682
+    stamp: 1547901733
     type: 1
     UseGUIDs:
     - ab4ded84becca4d408372ca0a2e25b46
@@ -8456,12 +8317,6 @@ MonoBehaviour:
     - 8340d3662948a294bbd6d5e692d80a55
     - 09ac7e9d10db35b4fbad23be1cc1b294
   - guid: b70a3ba710c06e24383640830f5aa12f
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
-  - guid: e6a2a4b757a98e2419952219fae2616d
     ScriptSymbols: []
     ScriptTokens: []
     stamp: 0
@@ -8511,7 +8366,7 @@ MonoBehaviour:
   - guid: 8c4699c7a63e9b74086ed1ca42264a85
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547527655
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - 5f3f28d1974c0814d84a89ebbe7a1390
@@ -8633,19 +8488,19 @@ MonoBehaviour:
   - guid: b1bd87f7dac1a6744ac0a7bd933cb03e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547788575
+    stamp: 1547896958
     type: 1
     UseGUIDs:
     - fc299f694448b494e98e2fd5fbaa2e37
     - f8f302d2b08d2ac4faa13774f198b6c8
     - fe52d594ffbdaac44b3997ebfac029f6
-    - 04f169c7ce981ec48838c5e96a14f32f
     - d8995df9526ec3343ae52f24df629eb8
     - 9e1d9e76727c31d47840ecc9256ddead
     - e122780d4fa57624392e0c1e14046c8b
     - e73e2be7821a8564eaef641d9fbd0f63
     - a72f18df85b76e84c8b178d553f3ddc6
     - 16026a42940fe6c45acf68b9520ea6ce
+    - 8e601907286da8642aa6f73b6c0b3dae
     - 5077966cf71ab154e81c2f73ad25cfa1
     - 9236e03d4d7ee4148939dd31b1d583f9
   - guid: a161b9f722d3b63429369656b8b4612a
@@ -8889,7 +8744,7 @@ MonoBehaviour:
   - guid: 3694b1483a1276c49b2c8638ed0e1660
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1540649018
+    stamp: 1547882819
     type: 1
     UseGUIDs:
     - 3cf25db98063a40448e52b56ba8d50c0
@@ -8916,7 +8771,7 @@ MonoBehaviour:
   - guid: 5d471e4803aabd448be488d4d8f73018
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547651922
+    stamp: 1547882819
     type: 1
     UseGUIDs:
     - 69ab291b718e7434e98961d2d505d697
@@ -8955,8 +8810,8 @@ MonoBehaviour:
     UseGUIDs: []
   - guid: 9a5048589156e8443870d0c2cf1816e9
     ScriptSymbols:
-    - NewEditorScript1
-    - NewEditorScript1.RandomNumberGenerator1
+    - RandomNumberTest
+    - RandomNumberTest.RandomNumberGenerator1
     ScriptTokens:
     - ScriptableObject
     - MenuItem
@@ -8972,7 +8827,7 @@ MonoBehaviour:
     - GetSeed
     - Range
     - Mathf
-    stamp: 1541681360
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: b2909d5862bc3824192fd8886f32024c
@@ -9415,7 +9270,7 @@ MonoBehaviour:
   - guid: 1f118be8d458dbb4bbfdf4d378813e03
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547785894
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - 615d2ce44777ffc45aec520500d95acc
@@ -9491,12 +9346,6 @@ MonoBehaviour:
     UseGUIDs:
     - 32002fac40fdf5a488689398ec3ae778
     - d8e61ed02f0141a429f26e7096f7809f
-  - guid: ed1cac09c3c3afd4eb4666e6db0cdc81
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
   - guid: 3fb85d09a5ee5c346b105648d45b5361
     ScriptSymbols: []
     ScriptTokens: []
@@ -9533,7 +9382,7 @@ MonoBehaviour:
   - guid: 696a5819011335f468077c9685d57a6a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1540104570
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - 7347234b6b3a8b64aa3a1068280fa6bc
@@ -9584,7 +9433,7 @@ MonoBehaviour:
   - guid: c326fa39d0df6184f9b0c5a362b66265
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547633374
+    stamp: 1547799407
     type: 1
     UseGUIDs:
     - b86730d666f132649824e5c96c593e31
@@ -9600,6 +9449,10 @@ MonoBehaviour:
     - MonoSingleton<StoryManager>
     - Awake
     - M_StateMachine
+    - Sprite
+    - AtlasManager
+    - ClientUtils
+    - StoryBG
     - Update
     - Default
     - Hide
@@ -9620,6 +9473,7 @@ MonoBehaviour:
     - Fighting_LevelID
     - M_CurrentStory
     - SerializeField
+    - RawImage
     - Canvas
     - StoryCanvas
     - ScrollRect
@@ -9661,7 +9515,7 @@ MonoBehaviour:
     - StoryLevelButton
     - SetBossState
     - Boss
-    stamp: 1547651922
+    stamp: 1547810778
     type: 2
     UseGUIDs: []
   - guid: 0b73a549e18ab824c88b570193e7d286
@@ -9795,7 +9649,7 @@ MonoBehaviour:
   - guid: 07291169432d24c83936f7f76a19110b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547459681
+    stamp: 1547901733
     type: 1
     UseGUIDs:
     - 5d73ab71d71254bebbb80824972a3b26
@@ -9848,12 +9702,6 @@ MonoBehaviour:
     type: 5
     UseGUIDs:
     - 134913d7186ada34e86c7f8299ef3219
-  - guid: 7222ec69ef56fcb408a0d8838dc9fffc
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
   - guid: fc299f694448b494e98e2fd5fbaa2e37
     ScriptSymbols: []
     ScriptTokens: []
@@ -9915,7 +9763,7 @@ MonoBehaviour:
   - guid: 9286a489ff640374999415e5a260277d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547786933
+    stamp: 1547901950
     type: 1
     UseGUIDs:
     - 8d031d861498d204b933839693944d2c
@@ -9992,7 +9840,7 @@ MonoBehaviour:
   - guid: bb718da9debe8414ea3074bb4355ae56
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547645352
+    stamp: 1547901733
     type: 1
     UseGUIDs:
     - 41511023bbe90e14cbdc3d26ac481ff9
@@ -10001,6 +9849,7 @@ MonoBehaviour:
     - b70a3ba710c06e24383640830f5aa12f
     - ef2591b4a473c1240adb72a69458f0fa
     - 07291169432d24c83936f7f76a19110b
+    - c253968f6e2d04149a6bad14abf06eed
     - ab1ac2a71ec91184f827e65557b93920
   - guid: 73aa0ea920e7e6047a2caa0ac166f9a2
     ScriptSymbols: []
@@ -10248,7 +10097,7 @@ MonoBehaviour:
   - guid: a337cad955ba5e64da95aecd8b5e472b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547651922
+    stamp: 1547823926
     type: 1
     UseGUIDs:
     - ffba5cc083db9e94a9b952a05c060262
@@ -10457,7 +10306,7 @@ MonoBehaviour:
   - guid: d8995df9526ec3343ae52f24df629eb8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547788575
+    stamp: 1547796641
     type: 1
     UseGUIDs:
     - c447fc41f99e79f4bb37b23e4a9497fa
@@ -10465,9 +10314,6 @@ MonoBehaviour:
     - 5dbe5e368aece67478a22ab2fee473d8
     - c96ec5ff4ec15d74b9e9c91f0d76e8f5
     - b98592c9bcbd09b4b92f1fb679b5236d
-    - 14473725a4d8ff34f94afc7fbf40efb1
-    - 43419b80dcf35f546ad31e5b088887f2
-    - b009d78d18619c84880ccde9b70eedbb
     - 187e39ac522d8f1429e53f12c22b240f
     - d15b5ebed27ca0e4f9e40f348df70a78
     - 28562ae80ea1ee44e9ea876119c62ac9
@@ -10484,7 +10330,7 @@ MonoBehaviour:
   - guid: 93f9dff9aa4f904448770d4886e22ae3
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1540374739
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - 768bcc1a388d9bd4cb9605e831e0b452
@@ -10639,7 +10485,7 @@ MonoBehaviour:
   - guid: 6117b82ac399d3142834588b56bc80c9
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547527655
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - bf92f76599cde43ec91a66895f638d3e
@@ -10846,7 +10692,7 @@ MonoBehaviour:
   - guid: 938fb26a096e70a4199186056b6a0e83
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547633387
+    stamp: 1547798396
     type: 1
     UseGUIDs:
     - dc5decdb4a0ca8949992b4a0d5ec7ecc
@@ -10855,7 +10701,6 @@ MonoBehaviour:
     - 0d7b2a0acd62dff48b6da2a3db38c2c1
     - 8d400a12236281e4885a00c43ed93b98
     - 1aba19b1152972e40a89769a01bdcb49
-    - 9b79cd3b6f09bd340be12f43f9c68abe
     - 095d07bf258065846945656624ccdc55
     - 3dc0ed3a27778094cb47af16ab57c19d
     - d697dd3df0f805f4fbe6819acef19f79
@@ -10893,7 +10738,7 @@ MonoBehaviour:
   - guid: e3dea86af4690074487593b6179897cd
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1541430448
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - ac45cab6affe47147b4ebf3cf4070ab2
@@ -10904,7 +10749,7 @@ MonoBehaviour:
   - guid: 20f5496af0a1a4ac1bcc8850db15c00a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1535642682
+    stamp: 1547901733
     type: 1
     UseGUIDs:
     - 70ae88ee4c1a745d0819de61ec68af19
@@ -11197,7 +11042,7 @@ MonoBehaviour:
     - OnEnterGameButtonClick
     - SceneManager
     - LoadSceneMode
-    stamp: 1547651922
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: b68b11cac1ab04f95985e32ea67b8435
@@ -11333,7 +11178,7 @@ MonoBehaviour:
   - guid: b71a3eea19e226a4eb42ff3ebdb38086
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547651921
+    stamp: 1547902010
     type: 1
     UseGUIDs:
     - b4b6e6c19bb24f145a65163256c1672e
@@ -11417,7 +11262,7 @@ MonoBehaviour:
   - guid: 36d4c30b928fed547bfeda0eeaf1ec66
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547527655
+    stamp: 1547882819
     type: 1
     UseGUIDs:
     - 6588e3230495c3f4ab2299e3406fd3d4
@@ -11740,10 +11585,9 @@ MonoBehaviour:
   - guid: d2838e2b7a7714c32897ca88b06bcb8f
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547789653
+    stamp: 1547897648
     type: 1
     UseGUIDs:
-    - 3f9e89e272c07fd4084df7f7db7d3eae
     - 0223c060ba39246878ec3b6751a665c8
     - cc3bf1a7b90b4c448889e9c054899e53
   - guid: 00bb5f2bb1cfc914fa78b1b7b6a68af6
@@ -12034,7 +11878,7 @@ MonoBehaviour:
   - guid: d79ec68b5d3a87348872ff2ec1d0775a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1540220236
+    stamp: 1547896958
     type: 5
     UseGUIDs:
     - fc299f694448b494e98e2fd5fbaa2e37
@@ -12089,7 +11933,7 @@ MonoBehaviour:
     - FontStyle
     - Handles
     - Vector3
-    stamp: 1538058532
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: 23ad3d9b98c3e394bb0d4ede1484c133
@@ -12119,7 +11963,7 @@ MonoBehaviour:
   - guid: eb544cab65e3a8745b8e020db99b1685
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547527655
+    stamp: 1547882819
     type: 1
     UseGUIDs:
     - c086a4b641b15104b952b0a956deefdc
@@ -12306,7 +12150,7 @@ MonoBehaviour:
     ScriptTokens:
     - MonoBehaviour
     - Start
-    stamp: 1535642682
+    stamp: 1547901733
     type: 2
     UseGUIDs: []
   - guid: 95e641ebe42ab6d40a4e3634bdb9a690
@@ -12630,7 +12474,7 @@ MonoBehaviour:
   - guid: ee41f03c72595f24e8c53ad986d947c0
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547558349
+    stamp: 1547793278
     type: 1
     UseGUIDs:
     - 940dc55c0bc36154b8e628fd0e327c94
@@ -12768,13 +12612,11 @@ MonoBehaviour:
   - guid: 5077966cf71ab154e81c2f73ad25cfa1
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1541833252
+    stamp: 1547879352
     type: 1
     UseGUIDs:
     - 295dc616b7c47b341951170f7fe0511a
     - eef2883efd4e3404eb24f1c06416fb6d
-    - 025cc57219ab31d48a6596903275c9b9
-    - 04c48c30f22071145bed3d864ec21c39
     - 32002fac40fdf5a488689398ec3ae778
     - 1e87fac2dfb7e954a8e39c075a7ee0d0
     - da2876ae1ee6f164b9557b1cefa81693
@@ -12886,7 +12728,7 @@ MonoBehaviour:
   - guid: 8e03ef9c6010851469c1fe580a4d4db2
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547554399
+    stamp: 1547902036
     type: 5
     UseGUIDs:
     - 75b2d8a75068ba5449a002126c351a66
@@ -12896,7 +12738,7 @@ MonoBehaviour:
   - guid: b50e31ac7bba7744c9ce87eee159d13b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1541907136
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - ff8d8225c38281849bfdfbf25ad40194
@@ -13109,7 +12951,7 @@ MonoBehaviour:
   - guid: 2b4957ecfb9d44cb59b99d2305c1848c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1535642682
+    stamp: 1547901733
     type: 1
     UseGUIDs:
     - 93cb45d44c16f45a4bbd5099fe096c20
@@ -13220,10 +13062,9 @@ MonoBehaviour:
   - guid: e122780d4fa57624392e0c1e14046c8b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1539775769
+    stamp: 1547796651
     type: 1
     UseGUIDs:
-    - 11b28883f40b1914b81ff452079e03a1
     - d166ca65ef47d8444a8f0f52deffee05
     - cb0691d4c0be23a47b7f089ef8689eed
     - 2c5cf158fe47a314c8922fc9e9f342b2
@@ -13328,7 +13169,7 @@ MonoBehaviour:
   - guid: 9236e03d4d7ee4148939dd31b1d583f9
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1541168041
+    stamp: 1547797410
     type: 1
     UseGUIDs:
     - 5a0525d6e03982c458f65b1c8ba7c9c9
@@ -13377,12 +13218,6 @@ MonoBehaviour:
     type: 5
     UseGUIDs: []
   - guid: b41c115d27d96a141a08d155356c01b6
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
-  - guid: 40af435dd87530641b39ba194cb71421
     ScriptSymbols: []
     ScriptTokens: []
     stamp: 0
@@ -13652,12 +13487,6 @@ MonoBehaviour:
     - b2909d5862bc3824192fd8886f32024c
     - 9b5e5a29096a07041baf8f95ee3117b8
     - b86730d666f132649824e5c96c593e31
-  - guid: b5d4abbdc29bf20488db87f44c714bec
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
   - guid: acc5aebdc827c98468327b2a03cfa145
     ScriptSymbols: []
     ScriptTokens: []
@@ -13767,7 +13596,7 @@ MonoBehaviour:
     - Co_ShowTipText
     - StartCoroutine
     - WaitForSeconds
-    stamp: 1547643530
+    stamp: 1547901733
     type: 2
     UseGUIDs: []
   - guid: 8d3ac1dddf9ff4241826589d33ed22f0
@@ -13839,7 +13668,7 @@ MonoBehaviour:
   - guid: 3f1b60ed8f236ad46a7cba145b6157b2
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547558301
+    stamp: 1547799395
     type: 1
     UseGUIDs:
     - 27eb82740966bfd4589ade9c20709ecb
@@ -13957,7 +13786,7 @@ MonoBehaviour:
   - guid: 3d84b4fd85d78e34fb577d7fb0f7d0ad
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1541908598
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - 4bba2da58c162594e952498ea4a54ea9
@@ -14046,7 +13875,7 @@ MonoBehaviour:
     - GameObject
     - Application
     - System
-    stamp: 1543134833
+    stamp: 1547902036
     type: 2
     UseGUIDs: []
   - guid: 15d8241edee88dd4b8ad4adbf256de20
@@ -14296,7 +14125,7 @@ MonoBehaviour:
   - guid: a2c6a68ecd53e5d48a6a4c13ec4e3a6e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1539615673
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - 1aee08c1b50d1a6479336edccf40e3d2
@@ -14346,7 +14175,7 @@ MonoBehaviour:
   - guid: 99c7619ef1dae0c44aa8b01dbcd15156
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1541904956
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - e41906e7f61328d4383fcd353493589e
@@ -14491,7 +14320,7 @@ MonoBehaviour:
   - guid: f54d75aeef68d404db2b66fa05ee0147
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547636185
+    stamp: 1547896959
     type: 1
     UseGUIDs:
     - a68735620369ca745a4ab2bd0dbbcd80
@@ -14511,7 +14340,7 @@ MonoBehaviour:
   - guid: 7d48f6aec4bef314c853db0247a02b09
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547788578
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - 9d4b4a7fbf670784381266a9e78bb098
@@ -14573,20 +14402,10 @@ MonoBehaviour:
   - guid: 77a92bbe4a6bb6f4e9c304abe6f3e190
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547789523
+    stamp: 1547901740
     type: 1
     UseGUIDs:
-    - c0d51508a35435f45a300f7d9e25e893
     - b5b0a416e3bebff4c8819cf6d3561dd8
-    - bc9dbc69ddfdd974c98a24b036211011
-    - c23bb85218d06344784c38dce2a95ed2
-    - b7426473805cff54cadab45bcf57224e
-    - b008e54e50af9e74e8df2df5bbd2e1c8
-    - e04faa9d5ca709543883cf339a5bc656
-    - 0a4e18f7db01e9e4383821d6b397815d
-    - ed63b7c7244faa94c87a960bbb6d0f79
-    - 364677712f8390446b2780e2d31e8505
-    - 0d9914cc62802ca4db76a7629261d433
   - guid: d15b5ebed27ca0e4f9e40f348df70a78
     ScriptSymbols: []
     ScriptTokens: []
@@ -14757,7 +14576,7 @@ MonoBehaviour:
   - guid: 2c91f4fe0278598428e6ee36cd43bec9
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547633373
+    stamp: 1547902036
     type: 1
     UseGUIDs:
     - 6a421056397a243deae5b71171573c0f
@@ -15061,7 +14880,7 @@ MonoBehaviour:
   - guid: 9d4b4a7fbf670784381266a9e78bb098
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547554400
+    stamp: 1547902036
     type: 3
     UseGUIDs:
     - 36bc6c31dd4d0894d84a3bcec09c28a6
@@ -15134,7 +14953,7 @@ MonoBehaviour:
   - guid: 2d2cb0af9aa924b12bd57127320643a3
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1535642682
+    stamp: 1547901733
     type: 1
     UseGUIDs:
     - b68b11cac1ab04f95985e32ea67b8435
@@ -15365,7 +15184,7 @@ MonoBehaviour:
     - ResetStoryBonusInfo
     - ShowNewCardBanner
     - ShowUpgradeCardBanner
-    stamp: 1547651922
+    stamp: 1547901733
     type: 2
     UseGUIDs: []
   - guid: f09952df4e618dc40b0ca3188a7a1df4
@@ -15377,11 +15196,9 @@ MonoBehaviour:
   - guid: a72f18df85b76e84c8b178d553f3ddc6
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547788575
+    stamp: 1547796664
     type: 1
     UseGUIDs:
-    - 9d89f2446ac954f48a4e7871da529c01
-    - 3c785405b7fc9f240973f980ec265773
     - 03bd14e67b73b4c4d8df9c08100bad82
   - guid: 1f3e5bdfebfd40a4593ab4e41cb94d75
     ScriptSymbols: []
@@ -15522,7 +15339,7 @@ MonoBehaviour:
   - guid: 2b73ebffd77e99748b1505db781e8b97
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547527655
+    stamp: 1547882818
     type: 1
     UseGUIDs:
     - a9c7d83b4c012c84f9b6bdbd8d704e42
@@ -15557,45 +15374,100 @@ MonoBehaviour:
   - guid: 8e601907286da8642aa6f73b6c0b3dae
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1547796862
     type: 1
-    UseGUIDs: []
+    UseGUIDs:
+    - 04f169c7ce981ec48838c5e96a14f32f
   - guid: 93983860856b94c4fa32e23be6365706
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1547798267
     type: 1
-    UseGUIDs: []
+    UseGUIDs:
+    - 00bb5f2bb1cfc914fa78b1b7b6a68af6
   - guid: 59bc8627d5e625145a754dceb1963b51
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1547799443
     type: 1
-    UseGUIDs: []
+    UseGUIDs:
+    - 990c6a7fbbbba574d95a4a9a34b3c862
+    - 5d8208fa0717cb94ba3f2301cf3dec7c
+    - 84f8b6874fcd3204596f78545f06ec28
+    - 1a1192d58cf9ba045add4c23b07d4234
+    - 9c1499a206e68574faee982c98ef19a4
+    - 1714cb08c4f3375488f61319ac85141b
+    - beea340c7362ce84f9afbeae2cb4d06f
+    - b2909d5862bc3824192fd8886f32024c
+    - e6af996b08cddad4798c70e424a7cc3e
+    - 9b5e5a29096a07041baf8f95ee3117b8
+    - 8bf2cbda855aee34e8b091dc1827b6bd
+    - 78450b5593c44584d925473b80f645ad
+    - ec53da0a450c4e345bf1868edbf59576
+    - 137b71b90eb070345a9522fea30bf79d
+    - 4f50a0668f0a0d149b798f84bcd28f82
+    - 832d20876f6438e47bf5eec38cb11fdc
+    - a161b9f722d3b63429369656b8b4612a
+    - 8a55c1c9209a37e4ebf442506f12bade
+    - 22b481bf2d4056249860a739c3d6de96
+    - 04462d1accd203f4e806a1699338223e
+    - 3e576b24a2815d44e9ad8c1021c53610
   - guid: 0aca4fe812c992a40875d314e8ad927f
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1547798246
     type: 1
-    UseGUIDs: []
+    UseGUIDs:
+    - 4041c6c814f0a5d419b15e8cbea18b3d
+    - 2d5a5f7bb8400aa49ab8e5de2d58f5ca
+    - 8425323e012cdfb4a913ddba704b1929
+    - 8cf42b995a73f494a95252b009f02c9a
+    - 6d0e5105d02aec347acbbed4cb314a04
   - guid: 3220118ba45ef724cb6413f68fba4aad
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1547798090
     type: 1
-    UseGUIDs: []
+    UseGUIDs:
+    - fadcb351087e04f49bdbe604a306cf8e
+    - 1ae4df70bb159624ea1613c754f43363
+    - 2c440aa5f42938b41bd61d1b6f1257e4
+    - 1437379468222714fb0915b80d9001d8
+    - 64cbf37437d899245a50bc636817eea0
+    - 1da306ff5807c9e41bfa53029e72063d
+    - a45ec684bda5f0e488c805be50a10a87
+    - 75b2d8a75068ba5449a002126c351a66
+    - 97222cdc397f29c40a43a1b2443f9102
+    - b8eb668450d83ed4187bcf90aac531d2
+    - 09ac7e9d10db35b4fbad23be1cc1b294
+    - e8ccb091546eaa5498a479a498a25c0d
+    - 0629602c444aa154e87f297a5ff9c41a
   - guid: 5a838ccdbe1bda54d8ce476b12f03a6a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1547823222
     type: 1
-    UseGUIDs: []
+    UseGUIDs:
+    - 05a345bf5a377924d8568f755d16594e
+    - 7cd5edfc5ff1259409cf0534e0a329c2
+    - d8dfcd3ce8da27d45bd30f0184c6a492
+    - b39e54d9c0911544abb3b03bf208e2a4
+    - cd199fa2d4a3cbd45b601f26abf63d35
+    - 1f8ccb037943f4d42b9777a3e6c15c0b
   - guid: 2d8aabe86b012ce4db5f1994d2337e07
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1547799432
     type: 1
-    UseGUIDs: []
+    UseGUIDs:
+    - 6a5f4e112c9de4f4babc432a2eba459b
+    - d717ebe72909a984bb875db6bda5f82f
+    - 2377c7dbc3fc82d4b969e9ea0ad963ea
+    - d99f6e808e2b0eb41909290bbf361721
+    - 308ee69a9cdaa114a957add05fefad59
+    - a9997cb8084d63a4f9f0b681efc57f82
+    - 3a7d083122939b14bb3e23e1372d16d0
+    - 236af6e6371b17a479ef3f89802a2b80
   - guid: eee1b8305abbd5b42b2f77f0e67cafa4
     ScriptSymbols: []
     ScriptTokens: []
@@ -16490,5 +16362,90 @@ MonoBehaviour:
     stamp: 0
     type: 9
     UseGUIDs: []
-  timeStamp: 1547789793
+  - guid: 0626a4f31705525458b1af62ee5ab0e6
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1531916716
+    type: 1
+    UseGUIDs: []
+  - guid: 55424c2c43e8fbd45b10efdbee0ea41e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1547902058
+    type: 1
+    UseGUIDs:
+    - 93fab0ef643ee3741b5a49421f583813
+  - guid: 93fab0ef643ee3741b5a49421f583813
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1547897647
+    type: 1
+    UseGUIDs: []
+  - guid: 9f581b5128feee44490f72152d829b7f
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: b4b6e6c19bb24f145a65163256c1672e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 46bb02e13b51b7247a542909d0b9aed0
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: b41a08e27f7a31740aa194f82a144d0e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3720d9f3711f9994ab8606536ea1136e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3dbcd66600ceb8449aa3ae8e8aac4137
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: e6a2a4b757a98e2419952219fae2616d
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: ed1cac09c3c3afd4eb4666e6db0cdc81
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 7222ec69ef56fcb408a0d8838dc9fffc
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 40af435dd87530641b39ba194cb71421
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: b5d4abbdc29bf20488db87f44c714bec
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  timeStamp: 1547902087
   priority: 3
