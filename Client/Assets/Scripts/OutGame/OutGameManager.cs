@@ -2,13 +2,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public partial class OutGameManager : MonoSingleton<OutGameManager>
+public partial class OutGameManager : OutGameMonoSingleton<OutGameManager>
 {
+    public static string ClientVersion = "1.0.1";
+    public static string ServerVersion = "";
+    
     void Awake()
     {
         Initialized();
         Awake_Update();
-        Awake_Loading();
 
         EnterGameButton.gameObject.SetActive(false);
     }
@@ -24,16 +26,12 @@ public partial class OutGameManager : MonoSingleton<OutGameManager>
         {
             Update_Update();
         }
-        else
-        {
-            Update_Loading();
-        }
     }
 
     private void Initialized()
     {
         GameNameText.text = "Mech Storm";
-        ClientVersionText.text = "Client Version:  " + Client.ClientVersion;
+        ClientVersionText.text = "Client Version:  " + ClientVersion;
         ServerVersionText.text = "Server Version: Unknown";
         StageText.text = "Preparing...";
         SizeText.text = FileUtils.ByteToReadableFileSize(0);
@@ -49,7 +47,7 @@ public partial class OutGameManager : MonoSingleton<OutGameManager>
 
     public bool ReadyToLaunch
     {
-        get { return UpdateCompleted && LoadingCompleted; }
+        get { return UpdateCompleted; }
     }
 
     void FinishedExtract()

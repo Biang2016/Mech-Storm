@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class OutGameInitialization : MonoSingleton<OutGameInitialization>
+public class OutGameInitialization : OutGameMonoSingleton<OutGameInitialization>
 {
     public bool IsABMode = false;
 

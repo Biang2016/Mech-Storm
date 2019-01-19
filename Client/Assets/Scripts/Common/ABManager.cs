@@ -46,9 +46,9 @@ public class ABManager
         return bundle;
     }
 
-    public static Boo.Lang.List<AssetBundle> LoadAllAssetBundleNamedLike(string prefix)
+    public static List<AssetBundle> LoadAllAssetBundleNamedLike(string prefix)
     {
-        Boo.Lang.List<AssetBundle> res = new Boo.Lang.List<AssetBundle>();
+        List<AssetBundle> res = new List<AssetBundle>();
         foreach (string ab_name in Manifest.Keys)
         {
             if (ab_name.StartsWith(prefix))

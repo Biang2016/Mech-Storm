@@ -98,7 +98,7 @@ public partial class OutGameManager
     private void Initialized_Update()
     {
         GameNameText.text = "Mech Storm (Loading)";
-        ClientVersionText.text = "Client Version:  " + Client.ClientVersion;
+        ClientVersionText.text = "Client Version:  " + ClientVersion;
         ServerVersionText.text = "Server Version: Unknown";
         StageText.text = "Downloading...";
         SizeText.text = FileUtils.ByteToReadableFileSize(0);
@@ -165,7 +165,6 @@ public partial class OutGameManager
         StageText.text = "OK.";
         ProgressText.text = "100%";
         UpdateCompleted = true;
-        Start_Loading();
     }
 
     IEnumerator GetFileSizeList()
@@ -180,11 +179,11 @@ public partial class OutGameManager
         {
             string content = www_serverVersion.text;
             string version = content.Split('\n')[0];
-            Client.ServerVersion = version;
+            ServerVersion = version;
             ServerVersionText.text = "Server Version: " + version;
         }
 
-        if (Client.ServerVersion == Client.ClientVersion)
+        if (ServerVersion == ClientVersion)
         {
             StageText.text = "Checking resources...";
             updateState = UpdateState.Checking;

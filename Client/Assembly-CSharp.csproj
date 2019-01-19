@@ -55,120 +55,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Card\Affixs\Affix.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardBase.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardDeckCard.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardEquip.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardSpell.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\ColliderReplace.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleBase.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleEquip.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleMA.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModulePack.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleShield.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleWeapon.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\Slot.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\CardNumber.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\TextFly.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\TextFlyPile.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\AttachedEquipSideEffects\AddSelfWeaponEnergy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToDeck.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToEnemyDeck.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawCards.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\GetHandCardCopy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\TriggerOneHandCard.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\DoubleEnergy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\Exile.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuff.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenAttack.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenRoundBegin.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenUseMetal.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddPlayerBuff.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenAttack.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenUseCards.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\NextSpellDamageDouble.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\SummonRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddArmorOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddEnergy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddEnergyPerMechs.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddShieldOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddWeaponEnergy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\Cooperation.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\Degenerate.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HalfShield.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\IllusionToOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\RunAway.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\Sacrifice.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\SummonRetinuePerMechs.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\TargetSideEffectToEquip\BreakEquip.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\UseAllEnergyDamageShip.cs" />
-    <Compile Include="Assets\Scripts\Common\ABManager.cs" />
-    <Compile Include="Assets\Scripts\Common\AtlasManager.cs" />
-    <Compile Include="Assets\Scripts\Common\ClientLog.cs" />
-    <Compile Include="Assets\Scripts\Common\ClientUtils.cs" />
-    <Compile Include="Assets\Scripts\Common\DebugConsole.cs" />
-    <Compile Include="Assets\Scripts\Common\GameObjectPool.cs" />
-    <Compile Include="Assets\Scripts\Common\GameObjectPoolManager.cs" />
-    <Compile Include="Assets\Scripts\Common\Initialization.cs" />
-    <Compile Include="Assets\Scripts\Common\MonoSingleton.cs" />
-    <Compile Include="Assets\Scripts\Common\MonoSingletonManager.cs" />
-    <Compile Include="Assets\Scripts\Common\PoolObject.cs" />
-    <Compile Include="Assets\Scripts\Effects\Bullet.cs" />
-    <Compile Include="Assets\Scripts\Effects\Hit.cs" />
-    <Compile Include="Assets\Scripts\Effects\HitManager.cs" />
-    <Compile Include="Assets\Scripts\Effects\LensFlareIdle.cs" />
-    <Compile Include="Assets\Scripts\Effects\NormalParticle.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\AffixManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\AudioManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\BattleEffectsManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\BattleGroundManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\CardDeckManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ClientPlayer.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ExitMenuManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\GameBoardManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\GameManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\HandManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\InGameUIManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\LoginManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\MetalLifeEnergyManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\NoticeManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\PlayerBuffManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\RoundManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\RoundManager_Response.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_Build.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_LifeMagicCoinCardnum.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_PreviewUpgrade.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_Select.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SettingMenuManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\StartMenuManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\StoryManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\WinLostPanelManager.cs" />
-    <Compile Include="Assets\Scripts\Network\Client.cs" />
-    <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
-    <Compile Include="Assets\Scripts\Network\Proxy.cs" />
     <Compile Include="Assets\Scripts\OutGame\Download\DownloadItem.cs" />
     <Compile Include="Assets\Scripts\OutGame\Download\HttpDownloadItem.cs" />
     <Compile Include="Assets\Scripts\OutGame\Download\WWWDownloadItem.cs" />
@@ -176,42 +62,7 @@
     <Compile Include="Assets\Scripts\OutGame\OutGameInitialization.cs" />
     <Compile Include="Assets\Scripts\OutGame\OutGameManage_Update.cs" />
     <Compile Include="Assets\Scripts\OutGame\OutGameManager.cs" />
-    <Compile Include="Assets\Scripts\OutGame\OutGameManager_Loading.cs" />
-    <Compile Include="Assets\Scripts\StandaloneServer\StandaloneServer.cs" />
-    <Compile Include="Assets\Scripts\UI\Bonus\BigBonusItem.cs" />
-    <Compile Include="Assets\Scripts\UI\Bonus\BonusButton.cs" />
-    <Compile Include="Assets\Scripts\UI\Bonus\BonusItem_Base.cs" />
-    <Compile Include="Assets\Scripts\UI\Bonus\SmallBonusItem.cs" />
-    <Compile Include="Assets\Scripts\UI\ButtonEffects.cs" />
-    <Compile Include="Assets\Scripts\UI\ConfirmWindow\ConfirmWindow.cs" />
-    <Compile Include="Assets\Scripts\UI\ConfirmWindow\ConfirmWindowManager.cs" />
-    <Compile Include="Assets\Scripts\UI\CostBar\MetalBarBlock.cs" />
-    <Compile Include="Assets\Scripts\UI\CostBar\MetalBarManager.cs" />
-    <Compile Include="Assets\Scripts\UI\DebugUILine.cs" />
-    <Compile Include="Assets\Scripts\UI\ImageEffectBlurBox.cs" />
-    <Compile Include="Assets\Scripts\UI\InputNavigator.cs" />
-    <Compile Include="Assets\Scripts\UI\ScreenFitness.cs" />
-    <Compile Include="Assets\Scripts\UI\ScreenSetting.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildButton.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildButtonClick.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildRenamePanel.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\SelectCard.cs" />
-    <Compile Include="Assets\Scripts\UI\ShrinkText.cs" />
-    <Compile Include="Assets\Scripts\UI\Story\StoryCol.cs" />
-    <Compile Include="Assets\Scripts\UI\Story\StoryLevelButton.cs" />
-    <Compile Include="Assets\Scripts\UI\TransitManager.cs" />
-    <Compile Include="Assets\Scripts\UX\Arrows\Arrow.cs" />
-    <Compile Include="Assets\Scripts\UX\Arrows\ArrowAiming.cs" />
-    <Compile Include="Assets\Scripts\UX\Arrows\ArrowArrow.cs" />
-    <Compile Include="Assets\Scripts\UX\DragComponent.cs" />
-    <Compile Include="Assets\Scripts\UX\DragManager.cs" />
-    <Compile Include="Assets\Scripts\UX\MouseHoverComponent.cs" />
-    <Compile Include="Assets\Scripts\UX\MouseHoverManager.cs" />
-    <Compile Include="Assets\Scripts\UX\MouseHoverUI.cs" />
-    <Compile Include="Assets\Scripts\UX\OnClick.cs" />
-    <Compile Include="Assets\Scripts\UX\OnPointerHoverAndLeave.cs" />
-    <Compile Include="Assets\Scripts\UX\PreviewPanelBG.cs" />
-    <Compile Include="Assets\Scripts\UX\Ship.cs" />
+    <Compile Include="Assets\Scripts\OutGame\OutGameMonoSingleton.cs" />
     <None Include="Assets\StreamingAssets\Config\Cards.xml" />
     <None Include="Assets\Materials\Stencil\UI_Custom.shader" />
     <None Include="Assets\Fonts\Chars.txt" />
@@ -224,14 +75,14 @@
     <None Include="Assets\Materials\Stencil\Standard_BeMasked.shader" />
     <None Include="Assets\Materials\Stencil\Mask.shader" />
     <None Include="Assets\Materials\builtin-shader\Standard.shader" />
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+    <Reference Include="Unity.CacheServer.Client.Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.CacheServer.Client.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.AssetBundleBrowser.Editor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.AssetBundleBrowser.Editor.dll</HintPath>
+    <Reference Include="Unity.2D.Animation.Runtime">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.ShaderGraph.Editor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
+    <Reference Include="Unity.ScriptableBuildPipeline.Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
@@ -242,26 +93,14 @@
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.CacheServer.Client.Editor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.CacheServer.Client.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Animation.Runtime">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ScriptableBuildPipeline.Editor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
+    <Reference Include="Unity.AssetBundleBrowser.Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.AssetBundleBrowser.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEngineBridge.001">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
@@ -278,8 +117,20 @@
     <Reference Include="Unity.ScriptableBuildPipeline">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.Common.Editor">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.DataPrivacy">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.001">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>

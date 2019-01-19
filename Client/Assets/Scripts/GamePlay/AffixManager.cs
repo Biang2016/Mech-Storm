@@ -8,7 +8,7 @@ public class AffixManager : MonoSingleton<AffixManager>
     [SerializeField] private VerticalLayoutGroup VerticalLayoutGroup;
     [SerializeField] private Animator AffixPanelAnim;
 
-    private Boo.Lang.List<Affix> Affixs = new Boo.Lang.List<Affix>();
+    private List<Affix> Affixs = new List<Affix>();
     private HashSet<AffixType> AffixTypes = new HashSet<AffixType>();
 
     void Start()
