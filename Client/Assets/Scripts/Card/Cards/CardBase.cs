@@ -167,13 +167,13 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardInfo = cardInfo.Clone();
         if (Block_Count)
         {
-            ClientUtils.InitiateNumbers(ref CardNumberSet_Count, NumberSize.Medium, CardNumberSet.TextAlign.Left, Block_Count, 'x');
+            CardNumberSet.InitiateNumbers(ref CardNumberSet_Count, NumberSize.Medium, CardNumberSet.TextAlign.Left, Block_Count, 'x');
             CardNumberSet_Count.Clear();
         }
 
         if (Block_CountMax)
         {
-            ClientUtils.InitiateNumbers(ref CardNumberSet_CountMax, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_CountMax, '/');
+            CardNumberSet.InitiateNumbers(ref CardNumberSet_CountMax, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_CountMax, '/');
             CardNumberSet_CountMax.Clear();
             if (limitNum == -1)
             {

@@ -132,7 +132,7 @@ public class ModuleWeapon : ModuleEquip
             m_WeaponAttack = value;
             if (Block_WeaponAttack)
             {
-                ClientUtils.InitiateNumbers(ref CardNumberSet_WeaponAttack, my_NumberSize_Attack, my_TextAlign_Attack, Block_WeaponAttack, '+');
+                CardNumberSet.InitiateNumbers(ref CardNumberSet_WeaponAttack, my_NumberSize_Attack, my_TextAlign_Attack, Block_WeaponAttack, '+');
                 CardNumberSet_WeaponAttack.Number = M_ModuleRetinue.M_RetinueAttack;
             }
 
@@ -165,7 +165,7 @@ public class ModuleWeapon : ModuleEquip
     {
         if (Block_WeaponEnergy)
         {
-            ClientUtils.InitiateNumbers(ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy);
+            CardNumberSet.InitiateNumbers(ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy);
             CardNumberSet_WeaponEnergy.Number = value;
         }
 
@@ -193,7 +193,7 @@ public class ModuleWeapon : ModuleEquip
             m_WeaponEnergyMax = value;
             if (Block_WeaponEnergyMax)
             {
-                ClientUtils.InitiateNumbers(ref CardNumberSet_WeaponEnergyMax, my_NumberSize_EnergyMax, my_TextAlign_EnergyMax, Block_WeaponEnergyMax, '/');
+                CardNumberSet.InitiateNumbers(ref CardNumberSet_WeaponEnergyMax, my_NumberSize_EnergyMax, my_TextAlign_EnergyMax, Block_WeaponEnergyMax, '/');
                 CardNumberSet_WeaponEnergyMax.Number = m_WeaponEnergyMax;
             }
         }

@@ -173,6 +173,7 @@
     <Compile Include="Assets\Scripts\OutGame\Download\HttpDownloadItem.cs" />
     <Compile Include="Assets\Scripts\OutGame\Download\WWWDownloadItem.cs" />
     <Compile Include="Assets\Scripts\OutGame\FileUtils.cs" />
+    <Compile Include="Assets\Scripts\OutGame\OutGameInitialization.cs" />
     <Compile Include="Assets\Scripts\OutGame\OutGameManage_Update.cs" />
     <Compile Include="Assets\Scripts\OutGame\OutGameManager.cs" />
     <Compile Include="Assets\Scripts\OutGame\OutGameManager_Loading.cs" />

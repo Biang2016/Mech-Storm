@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c54cdf64b80e29444be712c9f08a7da1
+timeCreated: 1529739422
+licenseType: Pro
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - BlurBoxShader: {fileID: 4800000, guid: da991b560125bad4e80fbb137f9be23f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

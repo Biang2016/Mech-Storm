@@ -3,6 +3,31 @@
 [ExecuteInEditMode]
 public class CardNumberSet : PoolObject
 {
+    //工具，初始化数字块
+    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType,
+        CardNumberSet.TextAlign textAlign, Transform block)
+    {
+        if (!cardNumberSet)
+        {
+            cardNumberSet =
+                GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject<CardNumberSet>(block);
+        }
+
+        cardNumberSet.initiate(0, numberType, textAlign, false);
+    }
+
+    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType,
+        CardNumberSet.TextAlign textAlign, Transform block, char firstSign)
+    {
+        if (!cardNumberSet)
+        {
+            cardNumberSet =
+                GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject<CardNumberSet>(block);
+        }
+
+        cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);
+    }
+
     public override void PoolRecycle()
     {
         hasSign = false;
@@ -248,7 +273,6 @@ public class CardNumberSet : PoolObject
             if (cardNumber) cardNumber.SetNumberColor(color);
         }
     }
-
 
     Vector3 digit4_thousand_position_L;
     Vector3 digit4_hundreds_position_L;

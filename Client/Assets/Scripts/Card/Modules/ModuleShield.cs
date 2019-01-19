@@ -97,7 +97,7 @@ public class ModuleShield : ModuleEquip
             m_ShieldArmor = value;
             if (Block_ShieldArmor)
             {
-                ClientUtils.InitiateNumbers(ref CardNumberSet_ShieldArmor, my_NumberSize_Armor, my_TextAlign_Armor, Block_ShieldArmor, '+');
+                CardNumberSet.InitiateNumbers(ref CardNumberSet_ShieldArmor, my_NumberSize_Armor, my_TextAlign_Armor, Block_ShieldArmor, '+');
                 CardNumberSet_ShieldArmor.Number = m_ShieldArmor;
             }
         }
@@ -114,7 +114,7 @@ public class ModuleShield : ModuleEquip
             m_ShieldShield = value;
             if (Block_ShieldShield)
             {
-                ClientUtils.InitiateNumbers(ref CardNumberSet_ShieldShield, my_NumberSize_Shield, my_TextAlign_Shield, Block_ShieldShield, '+');
+                CardNumberSet.InitiateNumbers(ref CardNumberSet_ShieldShield, my_NumberSize_Shield, my_TextAlign_Shield, Block_ShieldShield, '+');
                 CardNumberSet_ShieldShield.Number = m_ShieldShield;
             }
         }

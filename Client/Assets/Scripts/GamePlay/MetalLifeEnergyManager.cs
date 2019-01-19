@@ -19,7 +19,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     void Awake()
     {
-        ClientUtils.InitiateNumbers(ref NumberSet_MetalNumber, NumberSize.Big, CardNumberSet.TextAlign.Center, MetalNumberBlock);
+        CardNumberSet.InitiateNumbers(ref NumberSet_MetalNumber, NumberSize.Big, CardNumberSet.TextAlign.Center, MetalNumberBlock);
     }
 
     public void ResetAll()

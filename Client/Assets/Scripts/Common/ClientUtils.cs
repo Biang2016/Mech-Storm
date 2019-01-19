@@ -273,30 +273,6 @@ public class ClientUtils
         }
     }
 
-    //工具，初始化数字块
-    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType,
-        CardNumberSet.TextAlign textAlign, Transform block)
-    {
-        if (!cardNumberSet)
-        {
-            cardNumberSet =
-                GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject<CardNumberSet>(block);
-        }
-
-        cardNumberSet.initiate(0, numberType, textAlign, false);
-    }
-
-    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType,
-        CardNumberSet.TextAlign textAlign, Transform block, char firstSign)
-    {
-        if (!cardNumberSet)
-        {
-            cardNumberSet =
-                GameObjectPoolManager.Instance.Pool_CardNumberSetPool.AllocateGameObject<CardNumberSet>(block);
-        }
-
-        cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);
-    }
 
     public static Color HSL_2_RGB(float H, float S, float L)
     {
