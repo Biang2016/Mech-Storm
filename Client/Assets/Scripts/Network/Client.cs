@@ -23,7 +23,7 @@ public class Client : MonoSingleton<Client>
     Queue<ReceiveSocketData> receiveDataQueue = new Queue<ReceiveSocketData>();
     static int mainThreadId;
 
-    public static string ClientVersion = "1.0.1";
+    public static string ClientVersion = "1.0.2";
     public static string ServerVersion = "1.0.0";
 
     public bool ClientInvalid

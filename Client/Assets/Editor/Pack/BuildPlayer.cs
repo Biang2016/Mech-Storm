@@ -68,7 +68,10 @@ public class BuildPlayer
             Directory.Delete(res_back, true);
         }
 
-        Directory.Move(res, res_back);
+        if (Directory.Exists(res))
+        {
+            Directory.Move(res, res_back);
+        }
 
         if (build_target == BuildTarget.StandaloneWindows64)
         {
@@ -96,7 +99,11 @@ public class BuildPlayer
         }
         finally
         {
-            Directory.Move(res_back, res);
+            if (Directory.Exists(res_back))
+            {
+                Directory.Move(res_back, res);
+            }
+
             if (build_target == BuildTarget.StandaloneWindows64)
             {
                 if (Directory.Exists(ab_MacOS_back))

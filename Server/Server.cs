@@ -27,7 +27,7 @@ internal class Server
 
     public string IP;
     public int Port;
-    public static string ServerVersion = "1.0.1";
+    public static string ServerVersion = "1.0.2";
     private Socket SeverSocket;
     public Dictionary<int, ClientProxy> ClientsDict = new Dictionary<int, ClientProxy>();
     private Queue<ReceiveSocketData> ReceiveDataQueue = new Queue<ReceiveSocketData>();
