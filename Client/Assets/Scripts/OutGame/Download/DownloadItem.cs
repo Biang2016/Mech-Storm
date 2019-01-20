@@ -52,7 +52,7 @@ public abstract class DownloadItem
         get { return m_isStartDownload; }
     }
 
-    public DownloadItem(string url, string path, OutGameManager.DownloadFileInfo downloadFileInfo = null)
+    public DownloadItem(string url, string path, OutGameManager.DownloadFileInfo downloadFileInfo = null, string extra_postfix = "")
     {
         DownloadFileInfo = downloadFileInfo;
         m_srcUrl = url;
@@ -60,7 +60,7 @@ public abstract class DownloadItem
         m_isStartDownload = false;
         m_fileNameWithoutExt = Path.GetFileNameWithoutExtension(m_srcUrl);
         m_fileExt = Path.GetExtension(m_srcUrl);
-        m_saveFilePath = string.Format("{0}/{1}{2}", m_savePath, m_fileNameWithoutExt, m_fileExt);
+        m_saveFilePath = string.Format("{0}/{1}{2}", m_savePath, m_fileNameWithoutExt, m_fileExt) + extra_postfix;
     }
 
     /// <summary>

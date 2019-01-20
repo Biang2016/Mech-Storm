@@ -298,9 +298,6 @@
  <Reference Include="Unity.Locator">
  <HintPath>C:/softwares/Unity3D 2018.3.1f/Editor/Data/Managed/Unity.Locator.dll</HintPath>
  </Reference>
- <Reference Include="Assembly-CSharp-firstpass">
- <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/softwares/Unity3D 2018.3.1f/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -21,6 +21,7 @@ public partial class OutGameManager
 
     private static string m_ResourcesURL = "http://www.biangstudio.com/MechStormResources/";
     private static string m_DownloadPath = "";
+    private static string m_DataPath = "";
     Regex m_FileSizeListRegex = new Regex("^(?<size>[0-9]+)-(?<md5>[a-zA-Z0-9]+)-./(?<filepath>.*/)?(?<filename>[^/]+)$");
     List<DownloadFileInfo> m_FileListInfos = new List<DownloadFileInfo>();
     List<string> DownloadIgnoreFileList = new List<string>();
@@ -46,6 +47,7 @@ public partial class OutGameManager
         TextDefaultColor = StageText.color;
         updateState = UpdateState.None;
         m_DownloadPath = Application.streamingAssetsPath + "/";
+        m_DataPath = Application.dataPath + "/";
     }
 
     private void Start_Update()
@@ -116,13 +118,24 @@ public partial class OutGameManager
 
     private void GenerateMD5SumForCurrentDownloadFolder()
     {
-        DirectoryInfo di = new DirectoryInfo(m_DownloadPath);
-        FileInfo[] fis = di.GetFiles("*", SearchOption.AllDirectories);
-        foreach (FileInfo fi in fis)
+        //files inside StreamingAssets
+        DirectoryInfo di_download = new DirectoryInfo(m_DownloadPath);
+        FileInfo[] fis_download = di_download.GetFiles("*", SearchOption.AllDirectories);
+        foreach (FileInfo fi in fis_download)
         {
             if (fi.Extension == ".meta") continue;
             string md5sum = FileUtils.GetMD5WithFilePath(fi.FullName);
             DownloadFileMD5Sum.Add(fi.FullName.Replace("\\", "/").Replace(m_DownloadPath, ""), md5sum);
+        }
+
+        //Dll files
+        DirectoryInfo di_managed = new DirectoryInfo(m_DataPath + "Managed/");
+        FileInfo[] fis_managed = di_managed.GetFiles("*", SearchOption.AllDirectories);
+        foreach (FileInfo fi in fis_managed)
+        {
+            if (fi.Extension == ".meta") continue;
+            string md5sum = FileUtils.GetMD5WithFilePath(fi.FullName);
+            DownloadFileMD5Sum.Add(fi.FullName.Replace("\\", "/").Replace(m_DataPath, "").Replace(".byte", ""), md5sum);
         }
     }
 
@@ -139,12 +152,22 @@ public partial class OutGameManager
         {
             foreach (DownloadFileInfo fi in m_FileListInfos)
             {
-                if (!Directory.Exists(m_DownloadPath + fi.FilePath))
+                string downloadPath = m_DownloadPath;
+                string postfix = "";
+                if (fi.FilePath.StartsWith("Managed/"))
                 {
-                    Directory.CreateDirectory(m_DownloadPath + fi.FilePath);
+                    downloadPath = downloadPath + "../";
+#if UNITY_EDITOR
+                    postfix = ".byte";
+#endif
                 }
 
-                HttpDownloadItem hdi = new HttpDownloadItem(m_ResourcesURL + fi.FilePath + fi.FileName, m_DownloadPath + fi.FilePath, fi);
+                if (!Directory.Exists(downloadPath + fi.FilePath))
+                {
+                    Directory.CreateDirectory(downloadPath + fi.FilePath);
+                }
+
+                HttpDownloadItem hdi = new HttpDownloadItem(m_ResourcesURL + fi.FilePath + fi.FileName, downloadPath + fi.FilePath, fi, postfix);
                 m_DownloadItems.Add(hdi);
                 yield return hdi.StartDownload(DownloadFinish);
             }
@@ -247,6 +270,7 @@ public partial class OutGameManager
                         string fileFullPath = filePath + fileName;
                         if (DownloadIgnoreFileList.Contains(fileFullPath)) continue;
                         string md5sum = match.Groups["md5"].Value.ToUpper();
+
                         if (DownloadFileMD5Sum.ContainsKey(fileFullPath))
                         {
                             string md5sum_local = DownloadFileMD5Sum[fileFullPath];
