@@ -20,10 +20,21 @@ public class BuildPlayer
     {
         // 准备打包 初始化Packer
         string platform = AssetBundlePacker.GetPlatformForPackRes(build_target);
-        string build_path = Application.dataPath + "/../Build/" + platform + ".exe";
+        string build_path = "";
+        string build_ExecutableFile = "";
+        if (platform == "windows")
+        {
+            build_path = Application.dataPath + "/../Build/" + platform + "/";
+            build_ExecutableFile = build_path + "MechStorm.exe";
+        }
+        else if (platform == "osx")
+        {
+            build_path = Application.dataPath + "/../Build/" + platform + "/";
+            build_ExecutableFile = build_path + "MechStorm.app";
+        }
 
         //string[] levels = new string[] {"Assets/Scenes/MainScene.unity"};
-        string[] levels = new string[] { "Assets/Scenes/FirstScene.unity", "Assets/Scenes/MainScene.unity" };
+        string[] levels = new string[] {"Assets/Scenes/FirstScene.unity", "Assets/Scenes/MainScene.unity"};
         BuildOptions option_build = BuildOptions.CompressWithLz4;
 
         string res = Application.dataPath + "/Resources";
@@ -49,6 +60,8 @@ public class BuildPlayer
         {
             Directory.Delete(build_path);
         }
+
+        Directory.CreateDirectory(build_path);
 
         if (Directory.Exists(res_back))
         {
@@ -76,7 +89,7 @@ public class BuildPlayer
         {
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
-            BuildPipeline.BuildPlayer(levels, build_path, build_target, option_build);
+            BuildPipeline.BuildPlayer(levels, build_ExecutableFile, build_target, option_build);
         }
         catch
         {
