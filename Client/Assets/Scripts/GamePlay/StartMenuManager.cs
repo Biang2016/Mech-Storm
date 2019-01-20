@@ -302,7 +302,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         BackText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
         QuitGameText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
 
-        OnlineMenuText.text = GameManager.Instance.IsEnglish ? "Online Mode" : "在线对战";
+        OnlineMenuText.text = GameManager.Instance.IsEnglish ? "11111Online Mode" : "在线对战";
         SingleMenuText.text = GameManager.Instance.IsEnglish ? "Single Mode" : "单人模式";
         SingleCustomBattleText.text = GameManager.Instance.IsEnglish ? "Customize Battle" : "自定义人机";
         SettingText.text = GameManager.Instance.IsEnglish ? "Settings" : "游戏设置";
