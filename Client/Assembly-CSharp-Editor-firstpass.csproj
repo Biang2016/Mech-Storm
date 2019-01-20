@@ -417,10 +417,10 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="InGameLogic.csproj">
-      <Project>{CB263AC7-42BE-3C47-D98A-74A74A6F1B06}</Project>      <Name>InGameLogic</Name>    </ProjectReference>
     <ProjectReference Include="OutGameLogin.csproj">
       <Project>{5F3879D4-CA2D-ADF3-F2DA-EEFB6777B709}</Project>      <Name>OutGameLogin</Name>    </ProjectReference>
+    <ProjectReference Include="InGameLogic.csproj">
+      <Project>{CB263AC7-42BE-3C47-D98A-74A74A6F1B06}</Project>      <Name>InGameLogic</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

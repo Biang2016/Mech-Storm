@@ -52,25 +52,25 @@ public partial class OutGameManager : OutGameMonoSingleton<OutGameManager>
     void FinishedExtract()
     {
         EnterGameButton.gameObject.SetActive(true);
-        //if (JustDownloadNewFiles && OutGameInitialization.Instance.AutoUpdate)
-        //{
-        //    EnterGameButtonText.text = "Please Restart the Game";
-        //}
-        //else
-        //{
+        if (JustDownloadNewDLLFiles && OutGameInitialization.Instance.AutoUpdate)
+        {
+            EnterGameButtonText.text = "Please Restart the Game";
+        }
+        else
+        {
             EnterGameButtonText.text = "Start the Game";
-        //}
     }
+}
 
     public void OnEnterGameButtonClick()
     {
-        //if (JustDownloadNewFiles && OutGameInitialization.Instance.AutoUpdate)
-        //{
-        //    Application.Quit();
-        //}
-        //else
-        //{
+        if (JustDownloadNewDLLFiles && OutGameInitialization.Instance.AutoUpdate)
+        {
+            Application.Quit();
+        }
+        else
+        {
             SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
-        //}
     }
+}
 }

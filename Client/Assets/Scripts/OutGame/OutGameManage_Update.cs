@@ -26,7 +26,7 @@ public partial class OutGameManager
     List<DownloadFileInfo> m_FileListInfos = new List<DownloadFileInfo>();
     List<string> DownloadIgnoreFileList = new List<string>();
     List<DownloadItem> m_DownloadItems = new List<DownloadItem>();
-    public bool JustDownloadNewFiles = false;
+    public bool JustDownloadNewDLLFiles = false;
     long m_FileListTotalSize = 0;
     string m_FileListTotalSize_Readable;
     int m_DownloadFileCount = 0;
@@ -156,6 +156,7 @@ public partial class OutGameManager
                 string postfix = "";
                 if (fi.FilePath.StartsWith("Managed/"))
                 {
+                    JustDownloadNewDLLFiles = true;
                     downloadPath = downloadPath + "../";
 #if UNITY_EDITOR
                     postfix = ".byte";
@@ -283,7 +284,6 @@ public partial class OutGameManager
                         m_FileListTotalSize += fileSize;
                         DownloadFileInfo fi = new DownloadFileInfo(fileName, filePath, md5sum, fileSize);
                         m_FileListInfos.Add(fi);
-                        JustDownloadNewFiles = true;
                     }
                 }
             }
