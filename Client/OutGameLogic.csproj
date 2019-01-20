@@ -11,10 +11,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{5F3879D4-CA2D-ADF3-F2DA-EEFB6777B709}</ProjectGuid>
+    <ProjectGuid>{97C57F31-373C-EFFE-AAD8-03EE13BF3BC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>OutGameLogin</AssemblyName>
+    <AssemblyName>OutGameLogic</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
