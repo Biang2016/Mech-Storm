@@ -18,7 +18,6 @@ public class BuildPlayer
 
     public static void Build(BuildTarget build_target)
     {
-        // 准备打包 初始化Packer
         string platform = AssetBundlePacker.GetPlatformForPackRes(build_target);
         string build_path = "";
         string build_ExecutableFile = "";
@@ -33,7 +32,6 @@ public class BuildPlayer
             build_ExecutableFile = build_path + "MechStorm.app";
         }
 
-        //string[] levels = new string[] {"Assets/Scenes/MainScene.unity"};
         string[] levels = new string[] {"Assets/Scenes/FirstScene.unity", "Assets/Scenes/MainScene.unity"};
         BuildOptions option_build = BuildOptions.CompressWithLz4;
 

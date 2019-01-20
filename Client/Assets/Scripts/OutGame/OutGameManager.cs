@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public partial class OutGameManager : OutGameMonoSingleton<OutGameManager>
 {
-    public static string ClientVersion = "1.5.1";
+    public static string ClientVersion = "1.0.2";
     public static string ServerVersion = "";
 
     void Awake()
