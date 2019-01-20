@@ -7,18 +7,16 @@ using UnityEngine;
 /// </summary>
 public class WWWDownloadItem : DownloadItem
 {
-
     WWW m_www;
 
     public WWWDownloadItem(string url, string path, OutGameManager.DownloadFileInfo downloadFileInfo = null) : base(url, path, downloadFileInfo)
     {
-
     }
 
-    public override void StartDownload(Action callback = null)
+    public override IEnumerator StartDownload(Action callback = null)
     {
         base.StartDownload(null);
-        OutGameManager.Instance.StartCoroutine(Download(callback));
+        yield return Download(callback);
     }
 
     IEnumerator Download(Action callback = null)
@@ -52,6 +50,7 @@ public class WWWDownloadItem : DownloadItem
         {
             return m_www.progress;
         }
+
         return 0;
     }
 
@@ -61,6 +60,7 @@ public class WWWDownloadItem : DownloadItem
         {
             return m_www.bytesDownloaded;
         }
+
         return 0;
     }
 

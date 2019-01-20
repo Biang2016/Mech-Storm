@@ -3,16 +3,16 @@ CompatibilityAssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: prefabs
-      Hash: a9c0eb51248630631c5bf8099f6ea159
-      CRC: 3395193510
+      Hash: 0364f74af92ee4668066491491904825
+      CRC: 2101218646
         Dependency_0: textures_ui_arrow        Dependency_1: textures_ui_cardrelated        Dependency_2: materials        Dependency_3: textures_ui_story        Dependency_4: animations        Dependency_5: textures_ships        Dependency_6: textures_numbers        Dependency_7: textures_card_cardcomponents        Dependency_8: textures_card_pack        Dependency_9: textures_card_retinueicons        Dependency_10: textures_card_weapon        Dependency_11: shaders        Dependency_12: models        Dependency_13: textures_ui_menu        Dependency_14: textures_card_shield        Dependency_15: fonts        Dependency_16: textures_card_ma        Dependency_17: textures_effects        Dependency_18: textures_ui_playerbuff        Dependency_19: textures_card_retinueattrshapes        Dependency_20: textures_ui_outgame        Dependency_21: textures_ui_common        Dependency_22: textures_ui_tips        Dependency_23: textures_card_affix    Info_1:
       Name: animations
       Hash: 98db8ff3c18578f024503937bd94c98e
       CRC: 2803679408
         Dependency_0: textures_ui_arrow    Info_2:
       Name: materials
-      Hash: d9071b3924d3a801a5f3f8cd6813176e
-      CRC: 298163735
+      Hash: a9585cc8b92dad0f4faf8a1dd3bf39e0
+      CRC: 1639306484
         Dependency_0: shaders        Dependency_1: textures_ui_arrow        Dependency_2: textures_ui_cardrelated        Dependency_3: textures_ships        Dependency_4: textures_ui_outgame        Dependency_5: textures_card_cardcomponents        Dependency_6: textures_ui_menu        Dependency_7: textures_card_retinueattrshapes        Dependency_8: textures_card_ma        Dependency_9: textures_card_pack        Dependency_10: textures_card_retinueicons        Dependency_11: textures_effects        Dependency_12: textures_card_shield        Dependency_13: textures_card_weapon        Dependency_14: textures_numbers        Dependency_15: textures_ui_common    Info_3:
       Name: shaders
       Hash: 1c7b23994575890c6a75658b3d2cff83

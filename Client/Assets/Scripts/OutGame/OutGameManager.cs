@@ -1,14 +1,15 @@
-﻿using UnityEngine.SceneManagement;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class OutGameManager : OutGameMonoSingleton<OutGameManager>
 {
     public static string ClientVersion = "1.0.1";
     public static string ServerVersion = "";
-    
+
     void Awake()
     {
-        Initialized();
         Awake_Update();
+        Initialized();
 
         EnterGameButton.gameObject.SetActive(false);
     }
@@ -51,11 +52,25 @@ public partial class OutGameManager : OutGameMonoSingleton<OutGameManager>
     void FinishedExtract()
     {
         EnterGameButton.gameObject.SetActive(true);
+        if (JustDownloadNewFiles)
+        {
+            EnterGameButtonText.text = "Please Restart the Game";
+        }
+        else
+        {
+            EnterGameButtonText.text = "Start the Game";
+        }
     }
-
 
     public void OnEnterGameButtonClick()
     {
-        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        if (JustDownloadNewFiles)
+        {
+            Application.Quit();
+        }
+        else
+        {
+            SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        }
     }
 }

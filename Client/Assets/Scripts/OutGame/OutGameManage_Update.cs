@@ -15,6 +15,7 @@ public partial class OutGameManager
     [SerializeField] private Text ProgressText;
     [SerializeField] private Slider ProgressSlider;
     [SerializeField] private Button EnterGameButton;
+    [SerializeField] private Text EnterGameButtonText;
 
     Color TextDefaultColor;
 
@@ -24,6 +25,7 @@ public partial class OutGameManager
     List<DownloadFileInfo> m_FileListInfos = new List<DownloadFileInfo>();
     List<string> DownloadIgnoreFileList = new List<string>();
     List<DownloadItem> m_DownloadItems = new List<DownloadItem>();
+    public bool JustDownloadNewFiles = false;
     long m_FileListTotalSize = 0;
     string m_FileListTotalSize_Readable;
     int m_DownloadFileCount = 0;
@@ -138,7 +140,7 @@ public partial class OutGameManager
         {
             HttpDownloadItem hdi = new HttpDownloadItem(m_ResourcesURL + fi.FilePath + fi.FileName, m_DownloadPath + fi.FilePath, fi);
             m_DownloadItems.Add(hdi);
-            hdi.StartDownload(DownloadFinish);
+            yield return hdi.StartDownload(DownloadFinish);
         }
     }
 
@@ -226,6 +228,14 @@ public partial class OutGameManager
                         Match match = m_FileSizeListRegex.Match(line);
                         long fileSize = long.Parse(match.Groups["size"].Value);
                         string filePath = match.Groups["filepath"].Value;
+                        if (filePath.StartsWith("AssetBundle/"))
+                        {
+                            if (!filePath.StartsWith("AssetBundle/" + GetPlatformAbbr()))
+                            {
+                                continue;
+                            }
+                        }
+
                         string fileName = match.Groups["filename"].Value;
                         string fileFullPath = filePath + fileName;
                         if (DownloadIgnoreFileList.Contains(fileFullPath)) continue;
@@ -242,6 +252,7 @@ public partial class OutGameManager
                         m_FileListTotalSize += fileSize;
                         DownloadFileInfo fi = new DownloadFileInfo(fileName, filePath, md5sum, fileSize);
                         m_FileListInfos.Add(fi);
+                        JustDownloadNewFiles = true;
                     }
                 }
             }
@@ -271,4 +282,33 @@ public partial class OutGameManager
         }
     }
 
+    public static string GetPlatformAbbr()
+    {
+        string res = "";
+        switch (Application.platform)
+        {
+            case RuntimePlatform.OSXPlayer:
+            {
+                res = "osx";
+                break;
+            }
+            case RuntimePlatform.OSXEditor:
+            {
+                res = "osx";
+                break;
+            }
+            case RuntimePlatform.WindowsPlayer:
+            {
+                res = "windows";
+                break;
+            }
+            case RuntimePlatform.WindowsEditor:
+            {
+                res = "windows";
+                break;
+            }
+        }
+
+        return res;
+    }
 }

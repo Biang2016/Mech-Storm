@@ -22,8 +22,8 @@ public class BuildPlayer
         string platform = AssetBundlePacker.GetPlatformForPackRes(build_target);
         string build_path = Application.dataPath + "/../Build/" + platform + ".exe";
 
-        string[] levels = new string[] {"Assets/Scenes/MainScene.unity"};
-        //string[] levels = new string[] {"Assets/Scenes/FirstScene.unity", "Assets/Scenes/MainScene.unity"};
+        //string[] levels = new string[] {"Assets/Scenes/MainScene.unity"};
+        string[] levels = new string[] { "Assets/Scenes/FirstScene.unity", "Assets/Scenes/MainScene.unity" };
         BuildOptions option_build = BuildOptions.CompressWithLz4;
 
         string res = Application.dataPath + "/Resources";
@@ -86,11 +86,17 @@ public class BuildPlayer
             Directory.Move(res_back, res);
             if (build_target == BuildTarget.StandaloneWindows64)
             {
-                Directory.Move(ab_MacOS_back, ab_MacOS);
+                if (Directory.Exists(ab_MacOS_back))
+                {
+                    Directory.Move(ab_MacOS_back, ab_MacOS);
+                }
             }
             else if (build_target == BuildTarget.StandaloneOSX)
             {
-                Directory.Move(ab_Windows_back, ab_Windows);
+                if (Directory.Exists(ab_Windows_back))
+                {
+                    Directory.Move(ab_Windows_back, ab_Windows);
+                }
             }
         }
     }

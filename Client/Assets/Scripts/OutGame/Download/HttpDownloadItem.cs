@@ -13,6 +13,7 @@ public class HttpDownloadItem : DownloadItem
     /// 临时文件后缀名
     /// </summary>
     string m_tempFileExt = ".temp";
+
     /// <summary>
     /// 临时文件全路径
     /// </summary>
@@ -23,15 +24,15 @@ public class HttpDownloadItem : DownloadItem
         m_tempSaveFilePath = string.Format("{0}/{1}{2}", m_savePath, m_fileNameWithoutExt, m_tempFileExt);
     }
 
-    public override void StartDownload(Action callback = null)
+    public override IEnumerator StartDownload(Action callback = null)
     {
         base.StartDownload(null);
-        OutGameManager.Instance.StartCoroutine(Download(callback));
+        yield return Download(callback);
     }
 
     IEnumerator Download(Action callback = null)
     {
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(m_srcUrl);
+        HttpWebRequest request = (HttpWebRequest) WebRequest.Create(m_srcUrl);
         request.Method = "GET";
 
         FileStream fileStream;
@@ -43,7 +44,7 @@ public class HttpDownloadItem : DownloadItem
             fileStream.Seek(m_currentLength, SeekOrigin.Current);
 
             //设置下载的文件读取的起始位置
-            request.AddRange((int)m_currentLength);
+            request.AddRange((int) m_currentLength);
         }
         else
         {
@@ -52,7 +53,7 @@ public class HttpDownloadItem : DownloadItem
             m_currentLength = 0;
         }
 
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        HttpWebResponse response = (HttpWebResponse) request.GetResponse();
         Stream stream = response.GetResponseStream();
         //总的文件大小=当前需要下载的+已下载的
         m_fileLength = response.ContentLength + m_currentLength;
@@ -63,7 +64,6 @@ public class HttpDownloadItem : DownloadItem
 
         while (m_currentLength < m_fileLength)
         {
-
             byte[] buffer = new byte[bufferMaxLength];
             if (stream.CanRead)
             {
@@ -76,6 +76,7 @@ public class HttpDownloadItem : DownloadItem
             {
                 break;
             }
+
             yield return null;
         }
 
@@ -102,8 +103,9 @@ public class HttpDownloadItem : DownloadItem
     {
         if (m_fileLength > 0)
         {
-            return Mathf.Clamp((float)m_currentLength / m_fileLength, 0, 1);
+            return Mathf.Clamp((float) m_currentLength / m_fileLength, 0, 1);
         }
+
         return 0;
     }
 

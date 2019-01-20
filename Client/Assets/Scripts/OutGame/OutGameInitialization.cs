@@ -1,6 +1,8 @@
-﻿public class OutGameInitialization : OutGameMonoSingleton<OutGameInitialization>
+﻿using UnityEngine;
+
+public class OutGameInitialization : OutGameMonoSingleton<OutGameInitialization>
 {
-    public bool IsABMode = false;
+    [SerializeField] private GameObject Manager;
 
     private OutGameInitialization()
     {
@@ -8,15 +10,6 @@
 
     void Awake()
     {
-#if !UNITY_EDITOR
-            IsABMode = true;
-#endif
-
-        if (IsABMode)
-        {
-        }
-        else
-        {
-        }
+        Instantiate(Manager);
     }
 }
