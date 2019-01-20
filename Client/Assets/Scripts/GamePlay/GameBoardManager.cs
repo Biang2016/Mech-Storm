@@ -30,8 +30,6 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
 
         lastBGRenderer = GameBoarderRenderer0;
         idleBGRenderer = GameBoarderRenderer1;
-        BGs = new Sprite[AtlasManager.LoadAtlas("BGs").spriteCount];
-        AtlasManager.LoadAtlas("BGs").GetSprites(BGs);
         ChangeBoardBG();
     }
 
@@ -44,7 +42,7 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
         }
     }
 
-    private Sprite[] BGs;
+    public static Sprite[] BGs;
     private int index;
     private Renderer lastBGRenderer;
     private Renderer idleBGRenderer;

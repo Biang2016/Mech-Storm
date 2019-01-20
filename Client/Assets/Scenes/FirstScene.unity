@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Manager: {fileID: 675003713113665263, guid: 8e03ef9c6010851469c1fe580a4d4db2, type: 3}
+  AutoUpdate: 0
 --- !u!4 &1605920170
 Transform:
   m_ObjectHideFlags: 0

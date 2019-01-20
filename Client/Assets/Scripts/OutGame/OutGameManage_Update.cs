@@ -131,21 +131,23 @@ public partial class OutGameManager
         yield return GetFileSizeList();
         updateState = UpdateState.Updating;
 
-        if (m_FileListInfos.Count == 0)
+        if (m_FileListInfos.Count == 0 || !OutGameInitialization.Instance.AutoUpdate)
         {
             FinishedDownload();
         }
-
-        foreach (DownloadFileInfo fi in m_FileListInfos)
+        else
         {
-            if (!Directory.Exists(m_DownloadPath + fi.FilePath))
+            foreach (DownloadFileInfo fi in m_FileListInfos)
             {
-                Directory.CreateDirectory(m_DownloadPath + fi.FilePath);
-            }
+                if (!Directory.Exists(m_DownloadPath + fi.FilePath))
+                {
+                    Directory.CreateDirectory(m_DownloadPath + fi.FilePath);
+                }
 
-            HttpDownloadItem hdi = new HttpDownloadItem(m_ResourcesURL + fi.FilePath + fi.FileName, m_DownloadPath + fi.FilePath, fi);
-            m_DownloadItems.Add(hdi);
-            yield return hdi.StartDownload(DownloadFinish);
+                HttpDownloadItem hdi = new HttpDownloadItem(m_ResourcesURL + fi.FilePath + fi.FileName, m_DownloadPath + fi.FilePath, fi);
+                m_DownloadItems.Add(hdi);
+                yield return hdi.StartDownload(DownloadFinish);
+            }
         }
     }
 

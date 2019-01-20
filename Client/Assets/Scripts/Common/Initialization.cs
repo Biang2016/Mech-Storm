@@ -69,6 +69,9 @@ public class Initialization : MonoSingleton<Initialization>
             }
         }
 
+        GameBoardManager.BGs = new Sprite[AtlasManager.LoadAtlas("BGs").spriteCount];
+        AtlasManager.LoadAtlas("BGs").GetSprites(GameBoardManager.BGs);
+
         Debug.Log("LoadSpriteAtlas_AB");
     }
 

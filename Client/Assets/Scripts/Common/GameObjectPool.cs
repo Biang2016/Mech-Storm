@@ -34,7 +34,6 @@ public class GameObjectPool : MonoBehaviour
             isUsed = new bool[initialCapacity];
             capacity = initialCapacity;
             empty = capacity;
-            Debug.Log(name + " prefab ok");
         }
         else
         {
