@@ -45,7 +45,7 @@ public partial class OutGameManager
     {
         TextDefaultColor = StageText.color;
         updateState = UpdateState.None;
-        m_DownloadPath = Application.streamingAssetsPath + "/AssetBundles/";
+        m_DownloadPath = Application.streamingAssetsPath + "/";
     }
 
     private void Start_Update()
@@ -138,6 +138,11 @@ public partial class OutGameManager
 
         foreach (DownloadFileInfo fi in m_FileListInfos)
         {
+            if (!Directory.Exists(m_DownloadPath + fi.FilePath))
+            {
+                Directory.CreateDirectory(m_DownloadPath + fi.FilePath);
+            }
+
             HttpDownloadItem hdi = new HttpDownloadItem(m_ResourcesURL + fi.FilePath + fi.FileName, m_DownloadPath + fi.FilePath, fi);
             m_DownloadItems.Add(hdi);
             yield return hdi.StartDownload(DownloadFinish);
@@ -147,7 +152,6 @@ public partial class OutGameManager
     void DownloadFinish()
     {
         m_DownloadFileCount--;
-        Debug.Log(m_DownloadFileCount);
         if (m_DownloadFileCount == 0)
         {
             StageText.text = "Update Completed!";
@@ -165,6 +169,7 @@ public partial class OutGameManager
         StageText.text = "OK.";
         ProgressText.text = "100%";
         UpdateCompleted = true;
+        FinishedExtract();
     }
 
     IEnumerator GetFileSizeList()

@@ -38,20 +38,19 @@ public class HttpDownloadItem : DownloadItem
         FileStream fileStream;
         if (File.Exists(m_tempSaveFilePath))
         {
-            //若之前已下载了一部分，继续下载
-            fileStream = File.OpenWrite(m_tempSaveFilePath);
-            m_currentLength = fileStream.Length;
-            fileStream.Seek(m_currentLength, SeekOrigin.Current);
+            ////若之前已下载了一部分，继续下载
+            //fileStream = File.OpenWrite(m_tempSaveFilePath);
+            //m_currentLength = fileStream.Length;
+            //fileStream.Seek(m_currentLength, SeekOrigin.Current);
 
-            //设置下载的文件读取的起始位置
-            request.AddRange((int) m_currentLength);
+            ////设置下载的文件读取的起始位置
+            //request.AddRange((int) m_currentLength);
+            File.Delete(m_tempSaveFilePath);
         }
-        else
-        {
-            //第一次下载
-            fileStream = new FileStream(m_tempSaveFilePath, FileMode.Create, FileAccess.Write);
-            m_currentLength = 0;
-        }
+
+        //第一次下载
+        fileStream = new FileStream(m_tempSaveFilePath, FileMode.Create, FileAccess.Write);
+        m_currentLength = 0;
 
         HttpWebResponse response = (HttpWebResponse) request.GetResponse();
         Stream stream = response.GetResponseStream();
