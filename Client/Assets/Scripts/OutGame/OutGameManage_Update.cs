@@ -21,7 +21,6 @@ public partial class OutGameManager
 
     private static string m_ResourcesURL = "http://www.biangstudio.com/MechStormResources/";
     private static string m_DownloadPath = "";
-    private static string m_DataPath = "";
     Regex m_FileSizeListRegex = new Regex("^(?<size>[0-9]+)-(?<md5>[a-zA-Z0-9]+)-./(?<filepath>.*/)?(?<filename>[^/]+)$");
     List<DownloadFileInfo> m_FileListInfos = new List<DownloadFileInfo>();
     List<string> DownloadIgnoreFileList = new List<string>();
@@ -46,8 +45,7 @@ public partial class OutGameManager
     {
         TextDefaultColor = StageText.color;
         updateState = UpdateState.None;
-        m_DownloadPath = Application.streamingAssetsPath + "/";
-        m_DataPath = Application.dataPath + "/";
+        m_DownloadPath = Application.dataPath + "/";
     }
 
     private void Start_Update()
@@ -129,13 +127,20 @@ public partial class OutGameManager
         }
 
         //Dll files
-        DirectoryInfo di_managed = new DirectoryInfo(m_DataPath + "Managed/");
+        DirectoryInfo di_managed = new DirectoryInfo(m_DownloadPath + "Managed/");
         FileInfo[] fis_managed = di_managed.GetFiles("*", SearchOption.AllDirectories);
         foreach (FileInfo fi in fis_managed)
         {
             if (fi.Extension == ".meta") continue;
             string md5sum = FileUtils.GetMD5WithFilePath(fi.FullName);
-            DownloadFileMD5Sum.Add(fi.FullName.Replace("\\", "/").Replace(m_DataPath, "").Replace(".byte", ""), md5sum);
+            DownloadFileMD5Sum.Add(fi.FullName.Replace("\\", "/").Replace(m_DownloadPath, "").Replace(".byte", ""), md5sum);
+        }
+
+        //data.unity file
+        if (File.Exists(m_DownloadPath + "data.unity3d"))
+        {
+            string md5sum_dataUnityFile = FileUtils.GetMD5WithFilePath(m_DataUnityFile);
+            DownloadFileMD5Sum.Add(m_DataUnityFile.Replace("\\", "/").Replace(m_DataPath, ""), md5sum_dataUnityFile);
         }
     }
 
@@ -259,9 +264,9 @@ public partial class OutGameManager
                         Match match = m_FileSizeListRegex.Match(line);
                         long fileSize = long.Parse(match.Groups["size"].Value);
                         string filePath = match.Groups["filepath"].Value;
-                        if (filePath.StartsWith("AssetBundle/"))
+                        if (filePath.StartsWith("StreamingAssets/AssetBundle/"))
                         {
-                            if (!filePath.StartsWith("AssetBundle/" + GetPlatformAbbr()))
+                            if (!filePath.StartsWith("StreamingAssets/AssetBundle/" + GetPlatformAbbr()))
                             {
                                 continue;
                             }
