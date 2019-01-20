@@ -3,8 +3,8 @@ CompatibilityAssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: prefabs
-      Hash: cb41199bddeeb91cb81d84ce32697e27
-      CRC: 2475950091
+      Hash: 5e5d3bf26dd390d524697bf7064b46b0
+      CRC: 2796750078
         Dependency_0: textures_ui_arrow        Dependency_1: textures_ui_cardrelated        Dependency_2: materials        Dependency_3: textures_ui_story        Dependency_4: animations        Dependency_5: textures_ships        Dependency_6: textures_numbers        Dependency_7: textures_card_cardcomponents        Dependency_8: textures_card_pack        Dependency_9: textures_card_retinueicons        Dependency_10: textures_card_weapon        Dependency_11: shaders        Dependency_12: models        Dependency_13: textures_ui_menu        Dependency_14: textures_card_shield        Dependency_15: fonts        Dependency_16: textures_card_ma        Dependency_17: textures_effects        Dependency_18: textures_ui_playerbuff        Dependency_19: textures_card_retinueattrshapes        Dependency_20: textures_ui_outgame        Dependency_21: textures_ui_common        Dependency_22: textures_ui_tips        Dependency_23: textures_card_affix    Info_1:
       Name: animations
       Hash: 98db8ff3c18578f024503937bd94c98e

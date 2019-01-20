@@ -27,7 +27,10 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
         BattleShip.transform.localScale = Vector3.one * screenScale;
 
         BattleShip.SetActive(false);
+    }
 
+    void Start()
+    {
         lastBGRenderer = GameBoarderRenderer0;
         idleBGRenderer = GameBoarderRenderer1;
         ChangeBoardBG();

@@ -16,8 +16,6 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     void Awake()
     {
         Canvas.enabled = true;
-        InitAddAllCards();
-        InitializeOnlineCardCoundDict();
         cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         M_StateMachine = new StateMachine();
         Canvas.gameObject.SetActive(false);
@@ -29,6 +27,8 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
     void Start()
     {
+        InitAddAllCards();
+        InitializeOnlineCardCoundDict();
         M_StateMachine.SetState(StateMachine.States.Hide);
         Start_Select();
     }
@@ -44,7 +44,6 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     [SerializeField] private Animator SelectWindowShowAnim;
 
     public GamePlaySettings GamePlaySettings;
-
 
     void Update()
     {
@@ -240,7 +239,6 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
             HideWindowCore();
             if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.ReturnToPreviousState();
         }
-
 
         private void HideWindowToPlaying()
         {

@@ -52,7 +52,7 @@ public partial class OutGameManager : OutGameMonoSingleton<OutGameManager>
     void FinishedExtract()
     {
         EnterGameButton.gameObject.SetActive(true);
-        if (JustDownloadNewFiles)
+        if (JustDownloadNewFiles && OutGameInitialization.Instance.AutoUpdate)
         {
             EnterGameButtonText.text = "Please Restart the Game";
         }
@@ -64,7 +64,7 @@ public partial class OutGameManager : OutGameMonoSingleton<OutGameManager>
 
     public void OnEnterGameButtonClick()
     {
-        if (JustDownloadNewFiles)
+        if (JustDownloadNewFiles && OutGameInitialization.Instance.AutoUpdate)
         {
             Application.Quit();
         }
