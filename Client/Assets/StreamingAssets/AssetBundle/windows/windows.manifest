@@ -3,12 +3,12 @@ CompatibilityAssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: manager
-      Hash: 1868729f9df09dd4b717cc7badb9095b
-      CRC: 3771882138
+      Hash: b93ba6a062ff45540b641635be0dfe65
+      CRC: 3724224173
         Dependency_0: textures_ui_arrow        Dependency_1: textures_ui_cardrelated        Dependency_2: materials        Dependency_3: smallnumber        Dependency_4: build        Dependency_5: metalbarblock        Dependency_6: textures_ui_story        Dependency_7: animations        Dependency_8: textures_ships        Dependency_9: textures_numbers        Dependency_10: textures_card_cardcomponents        Dependency_11: hit2        Dependency_12: textures_card_pack        Dependency_13: textures_card_retinueicons        Dependency_14: textures_card_weapon        Dependency_15: weapon        Dependency_16: shaders        Dependency_17: models        Dependency_18: textures_ui_menu        Dependency_19: textures_card_shield        Dependency_20: affix        Dependency_21: fonts        Dependency_22: madetail        Dependency_23: retinuecard        Dependency_24: selectcard        Dependency_25: textures_card_ma        Dependency_26: spellcard        Dependency_27: textures_effects        Dependency_28: textures_ui_playerbuff        Dependency_29: textures_card_retinueattrshapes        Dependency_30: arrow_arrow        Dependency_31: textures_ui_outgame        Dependency_32: textures_ui_common        Dependency_33: equipcard        Dependency_34: retinuecardselect        Dependency_35: mediumnumber        Dependency_36: packdetail        Dependency_37: textures_ui_tips        Dependency_38: playerbuff        Dependency_39: pack        Dependency_40: particle_system        Dependency_41: shield        Dependency_42: weapondetail        Dependency_43: storycol        Dependency_44: bullet        Dependency_45: hit0        Dependency_46: storylevelbutton        Dependency_47: emitlight        Dependency_48: hit1        Dependency_49: textures_card_affix        Dependency_50: colliderreplace        Dependency_51: arrow_aiming        Dependency_52: spellcardselect        Dependency_53: shielddetail        Dependency_54: bonusbutton        Dependency_55: carddeckcard        Dependency_56: confirmcanvas        Dependency_57: ma        Dependency_58: textfly        Dependency_59: numberset        Dependency_60: smallbonus        Dependency_61: retinue        Dependency_62: bignumber        Dependency_63: equipcardselect        Dependency_64: bigbonus    Info_1:
       Name: outgamemanager
-      Hash: 0ea99f122370a97f8381acf333eec0b5
-      CRC: 3911843080
+      Hash: 0595ce342d348f3f19417b39a548378c
+      CRC: 1044003070
         Dependency_0: textures_ui_cardrelated        Dependency_1: fonts    Info_2:
       Name: arrow_aiming
       Hash: 27d84f2bfacda17ef98f7fd4e89c2300
@@ -217,23 +217,23 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_51:
       Name: audio_bgm_battle
-      Hash: 7b8c981bddc7de048088473336a7537c
-      CRC: 2438845682
+      Hash: 24ebcdcbdb4b44a521d32e1089cc9b2d
+      CRC: 4082307026
       Dependencies: {}
     Info_52:
       Name: audio_bgm_login
-      Hash: c063568d8a6d72c45a6056f413fcd843
-      CRC: 1991031005
+      Hash: 387258fc52cd9d582b1d49f464cbcf11
+      CRC: 3998641377
       Dependencies: {}
     Info_53:
       Name: audio_bgm_selectcardmenu
-      Hash: 931c540619c691fcd0741cc6c1462cb2
-      CRC: 818928413
+      Hash: 0a83db7140e35d2671763b6b74c55349
+      CRC: 2926647338
       Dependencies: {}
     Info_54:
       Name: audio_bgm_startmenu
-      Hash: f50eeebd75833865083836afe7e9a43e
-      CRC: 3436085778
+      Hash: 16fceea1a50015187228883b12b6734b
+      CRC: 1515484802
       Dependencies: {}
     Info_55:
       Name: textures_effects

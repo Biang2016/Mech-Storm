@@ -98,7 +98,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                     {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
-                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
+                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(true);
                         Instance.SingleMenuButton.gameObject.SetActive(true);
                         Instance.SingleCustomBattleButton.gameObject.SetActive(true);
@@ -120,7 +120,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                     {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
-                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
+                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
                         Instance.SingleCustomBattleButton.gameObject.SetActive(false);
@@ -163,7 +163,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                     {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
-                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
+                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
                         Instance.SingleCustomBattleButton.gameObject.SetActive(false);
@@ -211,7 +211,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
                     {
                         if (!Client.Instance.IsLogin()) return;
                         ShowMenu();
-                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenuBGM0", "bgm/StartMenuBGM1"});
+                        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
                         Instance.OnlineMenuButton.gameObject.SetActive(false);
                         Instance.SingleMenuButton.gameObject.SetActive(false);
                         Instance.SingleCustomBattleButton.gameObject.SetActive(false);

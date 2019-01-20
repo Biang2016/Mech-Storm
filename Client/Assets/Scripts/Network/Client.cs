@@ -212,47 +212,50 @@ public class Client : MonoSingleton<Client>
         Proxy.DataHolder.Reset();
         while (!isStopReceive)
         {
-            if (!ServerSocket.Connected)
+            if (ServerSocket != null)
             {
-                //与服务器断开连接跳出循环  
-                ClientLog.Instance.PrintError("Connect Server Failed.");
-                ServerSocket.Close();
-                SocketErrorFlag = true;
-                break;
-            }
-
-            try
-            {
-                //接受数据保存至bytes当中  
-                byte[] bytes = new byte[4096];
-                //Receive方法中会一直等待服务端回发消息  
-                //如果没有回发会一直在这里等着。  
-
-                int i = ServerSocket.Receive(bytes);
-
-                if (i <= 0)
+                if (!ServerSocket.Connected)
                 {
+                    //与服务器断开连接跳出循环  
+                    ClientLog.Instance.PrintError("Connect Server Failed.");
                     ServerSocket.Close();
-                    RoundManager.Instance.StopGame();
-                    ClientLog.Instance.PrintError("[C]Socket.Close();");
+                    SocketErrorFlag = true;
                     break;
                 }
 
-                Proxy.DataHolder.PushData(bytes, i);
-
-                while (Proxy.DataHolder.IsFinished())
+                try
                 {
-                    ReceiveSocketData rsd = new ReceiveSocketData(Proxy.Socket, Proxy.DataHolder.mRecvData);
-                    receiveDataQueue.Enqueue(rsd);
-                    Proxy.DataHolder.RemoveFromHead();
+                    //接受数据保存至bytes当中  
+                    byte[] bytes = new byte[4096];
+                    //Receive方法中会一直等待服务端回发消息  
+                    //如果没有回发会一直在这里等着。  
+
+                    int i = ServerSocket.Receive(bytes);
+
+                    if (i <= 0)
+                    {
+                        ServerSocket.Close();
+                        RoundManager.Instance.StopGame();
+                        ClientLog.Instance.PrintError("[C]Socket.Close();");
+                        break;
+                    }
+
+                    Proxy.DataHolder.PushData(bytes, i);
+
+                    while (Proxy.DataHolder.IsFinished())
+                    {
+                        ReceiveSocketData rsd = new ReceiveSocketData(Proxy.Socket, Proxy.DataHolder.mRecvData);
+                        receiveDataQueue.Enqueue(rsd);
+                        Proxy.DataHolder.RemoveFromHead();
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                ClientLog.Instance.PrintError("[C]Failed by clientSocket error. " + e);
-                if (ServerSocket != null) ServerSocket.Close();
-                SocketErrorFlag = true;
-                break;
+                catch (Exception e)
+                {
+                    ClientLog.Instance.PrintError("[C]Failed by clientSocket error. " + e);
+                    if (ServerSocket != null) ServerSocket.Close();
+                    SocketErrorFlag = true;
+                    break;
+                }
             }
         }
     }

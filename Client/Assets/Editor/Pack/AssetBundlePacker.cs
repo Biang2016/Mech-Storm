@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Text.RegularExpressions;
 using UnityEditor;
-using UnityEditor.Build.Content;
 using UnityEditor.Build.Pipeline;
-using UnityEditor.Build.Pipeline.Interfaces;
-using UnityEditor.Experimental.UIElements.GraphView;
 using UnityEngine;
-using UnityEngine.Build.Pipeline;
-using UnityEngine.Experimental.PlayerLoop;
-using BuildCompression = UnityEngine.BuildCompression;
 
-public class AssetBundlePackerNew
+public class AssetBundlePacker
 {
     [MenuItem("AssetBundle/Packer/Windows")]
     static void AssetBundlePacker_StandaloneWindows()
@@ -30,7 +18,7 @@ public class AssetBundlePackerNew
         Pack(BuildTarget.StandaloneOSX);
     }
 
-    static string GetPlatformForPackRes(BuildTarget target)
+    public static string GetPlatformForPackRes(BuildTarget target)
     {
         string res = "";
         switch (target)
@@ -86,7 +74,7 @@ public class AssetBundlePackerNew
         SetPack("Fonts", "*", PackFolderToABOption.UseABName, "fonts");
         SetPack("Resources/SpriteAtlas", "*.spriteatlas", PackFolderToABOption.UseFileName, "atlas");
         SetPack("Resources/Audios/sfx", "*", PackFolderToABOption.UseABName, "audio_sfx");
-        SetPack("Resources/Audios/bgm", "*", PackFolderToABOption.UseSubFolderName, "audio_bgm");
+        SetPack("Resources/Audios/bgm", "*", PackFolderToABOption.UseFileNamePrefix, "audio_bgm");
         SetPack("Textures", "*.png", PackFolderToABOption.UseSubFolderName, "textures");
         SetPack("Textures/Card", "*.png", PackFolderToABOption.UseSubFolderName, "textures_card");
         SetPack("Textures/Card/CardComponents", "*.png", PackFolderToABOption.UseSubFolderName, "textures_card_cardcomponents");
@@ -94,10 +82,10 @@ public class AssetBundlePackerNew
         CompatibilityBuildPipeline.BuildAssetBundles(out_path, GetAssetBundleBuild(), option, build_target);
     }
 
-
     enum PackFolderToABOption
     {
         UseFileName,
+        UseFileNamePrefix,
         UseSubFolderName,
         UseABName,
     }
@@ -119,6 +107,14 @@ public class AssetBundlePackerNew
             {
                 string prefix = string.IsNullOrEmpty(abName) ? "" : (abName + "_");
                 SetAssetBundlePackGroup(fi.FullName, prefix + fi.Name.Replace(fileExtension.Replace("*", ""), "").ToLower());
+            }
+        }
+        else if (option == PackFolderToABOption.UseFileNamePrefix)
+        {
+            foreach (FileInfo fi in di.GetFiles(fileExtension, SearchOption.AllDirectories))
+            {
+                string prefix = (string.IsNullOrEmpty(abName) ? "" : (abName + "_")).ToLower();
+                SetAssetBundlePackGroup(fi.FullName, prefix + fi.Name.Split('_')[0].ToLower());
             }
         }
         else if (option == PackFolderToABOption.UseSubFolderName)

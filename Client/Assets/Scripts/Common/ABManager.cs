@@ -56,16 +56,6 @@ public class ABManager
                 res.Add(LoadAssetBundle(ab_name));
             }
         }
-
-        DirectoryInfo di = new DirectoryInfo(GetAssetBundleFolderPath());
-        foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
-        {
-            if (fi.Name.StartsWith(prefix) && !fi.Name.EndsWith(".meta"))
-            {
-                res.Add(LoadAssetBundle(fi.Name));
-            }
-        }
-
         return res;
     }
 

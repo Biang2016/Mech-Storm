@@ -88,15 +88,15 @@ public class Initialization : MonoSingleton<Initialization>
 
     private void LoadAudios_AB()
     {
-        List<AssetBundle> list = ABManager.LoadAllAssetBundleNamedLike("audios_");
+        List<AssetBundle> list = ABManager.LoadAllAssetBundleNamedLike("audio_");
         foreach (AssetBundle assetBundle in list)
         {
             string prefix = "";
-            if (assetBundle.name.StartsWith("audios_sfx"))
+            if (assetBundle.name.StartsWith("audio_sfx"))
             {
                 prefix = "sfx/";
             }
-            else if (assetBundle.name.StartsWith("audios_bgm"))
+            else if (assetBundle.name.StartsWith("audio_bgm"))
             {
                 prefix = "bgm/";
             }

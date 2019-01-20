@@ -1,6 +1,4 @@
-﻿using System.Net.Mime;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine.SceneManagement;
 
 public partial class OutGameManager : OutGameMonoSingleton<OutGameManager>
 {

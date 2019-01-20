@@ -179,7 +179,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
             StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
-            AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/SelectCardMenu0", "bgm/SelectCardMenu1"});
+            AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/SelectCardMenu_0", "bgm/SelectCardMenu_1"});
 
             GameManager.Instance.StartBlurBackGround();
             Instance.Canvas.gameObject.SetActive(true);

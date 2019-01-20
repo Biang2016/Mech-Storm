@@ -1,11 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Text.RegularExpressions;
-using UnityEngine.UI;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
-using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
+using UnityEngine;
+using UnityEngine.UI;
 
 public partial class OutGameManager
 {

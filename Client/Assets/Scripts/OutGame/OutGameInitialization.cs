@@ -1,8 +1,4 @@
-﻿using Boo.Lang;
-using UnityEngine;
-using UnityEngine.U2D;
-
-public class OutGameInitialization : OutGameMonoSingleton<OutGameInitialization>
+﻿public class OutGameInitialization : OutGameMonoSingleton<OutGameInitialization>
 {
     public bool IsABMode = false;
 

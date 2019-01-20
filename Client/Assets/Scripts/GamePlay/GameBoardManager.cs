@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.U2D;
 
 public class GameBoardManager : MonoSingleton<GameBoardManager>
 {

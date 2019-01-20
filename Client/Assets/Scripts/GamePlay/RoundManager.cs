@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -76,7 +75,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.HideForPlay);
         StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
-        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/BattleBGM0", "bgm/BattleBGM1"}, 0.7f);
+        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Battle_0", "bgm/Battle_1"}, 0.7f);
         CardDeckManager.Instance.ResetCardDeckNumberText();
         CardDeckManager.Instance.ShowAll();
     }
