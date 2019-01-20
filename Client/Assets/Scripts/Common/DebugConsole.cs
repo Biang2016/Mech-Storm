@@ -47,18 +47,18 @@ public class DebugConsole : MonoBehaviour
     readonly List<Log> logs = new List<Log>();
     Vector2 scrollPosition;
     bool visible;
-    bool collapse;
+    bool collapse = true;
 
     // Visual elements:
 
     static readonly Dictionary<LogType, Color> logTypeColors = new Dictionary<LogType, Color>
-        {
-            { LogType.Assert, Color.white },
-            { LogType.Error, Color.red },
-            { LogType.Exception, Color.red },
-            { LogType.Log, Color.white },
-            { LogType.Warning, Color.yellow },
-        };
+    {
+        {LogType.Assert, Color.white},
+        {LogType.Error, Color.red},
+        {LogType.Exception, Color.red},
+        {LogType.Log, Color.white},
+        {LogType.Warning, Color.yellow},
+    };
 
     const string windowTitle = "Console";
     const int margin = 20;
@@ -141,7 +141,7 @@ public class DebugConsole : MonoBehaviour
             }
 
             GUI.contentColor = logTypeColors[log.type];
-            GUILayout.Label(log.message);
+            GUILayout.Label(log.message + "\n" + log.stackTrace);
         }
 
         GUILayout.EndScrollView();

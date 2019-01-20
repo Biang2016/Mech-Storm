@@ -37,6 +37,8 @@ public class ABManager
             Debug.Log(bundle.name);
         }
 
+        Debug.Log(" ++++ " + abName);
+
         List<string> dependencies = Manifest[bundle.name];
         foreach (string dependency in dependencies)
         {
@@ -56,6 +58,7 @@ public class ABManager
                 res.Add(LoadAssetBundle(ab_name));
             }
         }
+
         return res;
     }
 

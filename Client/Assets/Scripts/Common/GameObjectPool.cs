@@ -3,7 +3,9 @@
 public class GameObjectPool : MonoBehaviour
 {
     PoolObject[] gameObjectPool; //对象池
-    bool[] isUsed;//已使用的对象
+
+    bool[] isUsed; //已使用的对象
+
     //Todo Temp public
     public int capacity; //对象池容量，根据场景中可能出现的最多数量的该对象预估一个容量
     public int used; //已使用多少个对象
@@ -21,77 +23,61 @@ public class GameObjectPool : MonoBehaviour
 
     public void Initiate(PoolObject prefab, int initialCapacity)
     {
-        transform.position = GameObjectPoolPosition;
-        gameObjectPrefab = prefab;
-        gameObjectDefaultPosition = gameObjectPrefab.transform.position;
-        gameObjectDefaultRotation = gameObjectPrefab.transform.rotation;
-        gameObjectDefaultScale = gameObjectPrefab.transform.localScale;
-        gameObjectPool = new PoolObject[initialCapacity];
-        isUsed = new bool[initialCapacity];
-        capacity = initialCapacity;
-        empty = capacity;
+        if (prefab != null)
+        {
+            transform.position = GameObjectPoolPosition;
+            gameObjectPrefab = prefab;
+            gameObjectDefaultPosition = gameObjectPrefab.transform.position;
+            gameObjectDefaultRotation = gameObjectPrefab.transform.rotation;
+            gameObjectDefaultScale = gameObjectPrefab.transform.localScale;
+            gameObjectPool = new PoolObject[initialCapacity];
+            isUsed = new bool[initialCapacity];
+            capacity = initialCapacity;
+            empty = capacity;
+            Debug.Log(name + " prefab ok");
+        }
+        else
+        {
+            Debug.Log(name + " prefab == null");
+        }
     }
 
     public T AllocateGameObject<T>(Transform parent) where T : PoolObject
     {
-        for (int i = 0; i < capacity; i++)
+        if (gameObjectPrefab != null)
         {
-            if (!isUsed[i])
+            for (int i = 0; i < capacity; i++)
             {
-                if (gameObjectPool[i])
+                if (!isUsed[i])
                 {
-                    gameObjectPool[i].transform.SetParent(parent);
-                    gameObjectPool[i].transform.localPosition = gameObjectDefaultPosition;
-                    gameObjectPool[i].transform.localRotation = gameObjectDefaultRotation;
-                    gameObjectPool[i].transform.localScale = gameObjectDefaultScale;
-                    used++;
-                    notUsed--;
-                }
-                else
-                {
-                    gameObjectPool[i] = Instantiate(gameObjectPrefab, parent);
-                    gameObjectPool[i].name = gameObjectPrefab.name + "_" + i;//便于调试的时候分辨对象
-                    gameObjectPool[i].SetObjectPool(this);
-                    empty--;
-                    used++;
-                }
-                isUsed[i] = true;
-                return (T)gameObjectPool[i];
-            }
-        }
-        expandCapacity();
-        return AllocateGameObject<T>(parent);
-    }
+                    if (gameObjectPool[i])
+                    {
+                        gameObjectPool[i].transform.SetParent(parent);
+                        gameObjectPool[i].transform.localPosition = gameObjectDefaultPosition;
+                        gameObjectPool[i].transform.localRotation = gameObjectDefaultRotation;
+                        gameObjectPool[i].transform.localScale = gameObjectDefaultScale;
+                        used++;
+                        notUsed--;
+                    }
+                    else
+                    {
+                        gameObjectPool[i] = Instantiate(gameObjectPrefab, parent);
+                        gameObjectPool[i].name = gameObjectPrefab.name + "_" + i; //便于调试的时候分辨对象
+                        gameObjectPool[i].SetObjectPool(this);
+                        empty--;
+                        used++;
+                    }
 
-    public PoolObject AllocateGameObject(Transform parent) 
-    {
-        for (int i = 0; i < capacity; i++)
-        {
-            if (!isUsed[i])
-            {
-                if (gameObjectPool[i])
-                {
-                    gameObjectPool[i].transform.SetParent(parent);
-                    gameObjectPool[i].transform.localPosition = gameObjectDefaultPosition;
-                    gameObjectPool[i].transform.localRotation = gameObjectDefaultRotation;
-                    gameObjectPool[i].transform.localScale = gameObjectDefaultScale;
-                    used++;
-                    notUsed--;
+                    isUsed[i] = true;
+                    return (T) gameObjectPool[i];
                 }
-                else
-                {
-                    gameObjectPool[i] = Instantiate(gameObjectPrefab, parent);
-                    gameObjectPool[i].name = gameObjectPrefab.name + "_" + i;//便于调试的时候分辨对象
-                    gameObjectPool[i].SetObjectPool(this);
-                    empty--;
-                    used++;
-                }
-                isUsed[i] = true;
-                return gameObjectPool[i];
             }
+
+            expandCapacity();
+            return AllocateGameObject<T>(parent);
         }
-        expandCapacity();
-        return AllocateGameObject(parent);
+
+        return null;
     }
 
     public void RecycleGameObject(PoolObject recGameObject)
@@ -108,6 +94,7 @@ public class GameObjectPool : MonoBehaviour
                 return;
             }
         }
+
         Destroy(recGameObject.gameObject, 0.1f);
     }
 
@@ -121,10 +108,10 @@ public class GameObjectPool : MonoBehaviour
             new_gameObjectPool[i] = gameObjectPool[i];
             new_isUsed[i] = isUsed[i];
         }
+
         capacity *= 2;
         empty = capacity - used - notUsed;
         gameObjectPool = new_gameObjectPool;
         isUsed = new_isUsed;
     }
-
 }
