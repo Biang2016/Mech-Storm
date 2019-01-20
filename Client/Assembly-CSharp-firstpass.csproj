@@ -53,7 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Plugins\Pixelplacement\iTween\iTween.cs" />
      <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
      <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\RotateSample.cs" />
      <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
@@ -362,6 +361,12 @@
  <Reference Include="Boo.Lang">
  <HintPath>C:/softwares/Unity3D 2018.3.1f/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/Boo.Lang.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="InGameLogic.csproj">
+      <Project>{CB263AC7-42BE-3C47-D98A-74A74A6F1B06}</Project>      <Name>InGameLogic</Name>    </ProjectReference>
+    <ProjectReference Include="OutGameLogin.csproj">
+      <Project>{5F3879D4-CA2D-ADF3-F2DA-EEFB6777B709}</Project>      <Name>OutGameLogin</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

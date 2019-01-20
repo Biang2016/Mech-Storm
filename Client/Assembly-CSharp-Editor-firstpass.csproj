@@ -307,6 +307,9 @@
  <Reference Include="Unity.Locator">
  <HintPath>C:/softwares/Unity3D 2018.3.1f/Editor/Data/Managed/Unity.Locator.dll</HintPath>
  </Reference>
+ <Reference Include="Assembly-CSharp-firstpass">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/softwares/Unity3D 2018.3.1f/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -417,8 +420,10 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{079D398E-4AFC-CD7E-7881-F923D075EBD1}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+    <ProjectReference Include="InGameLogic.csproj">
+      <Project>{CB263AC7-42BE-3C47-D98A-74A74A6F1B06}</Project>      <Name>InGameLogic</Name>    </ProjectReference>
+    <ProjectReference Include="OutGameLogin.csproj">
+      <Project>{5F3879D4-CA2D-ADF3-F2DA-EEFB6777B709}</Project>      <Name>OutGameLogin</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

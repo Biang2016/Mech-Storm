@@ -48,24 +48,24 @@ public class BuildPlayer
 
         if (Directory.Exists(ab_Windows_back))
         {
-            Directory.Delete(ab_Windows_back);
+            Directory.Delete(ab_Windows_back, true);
         }
 
         if (Directory.Exists(ab_MacOS_back))
         {
-            Directory.Delete(ab_MacOS_back);
+            Directory.Delete(ab_MacOS_back, true);
         }
 
         if (Directory.Exists(build_path))
         {
-            Directory.Delete(build_path);
+            Directory.Delete(build_path, true);
         }
 
         Directory.CreateDirectory(build_path);
 
         if (Directory.Exists(res_back))
         {
-            Directory.Delete(res_back);
+            Directory.Delete(res_back, true);
         }
 
         Directory.Move(res, res_back);
