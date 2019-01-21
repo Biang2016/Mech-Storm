@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<AllSideEffects>
+  <SideEffect name="KillAll" desc="破坏{0}, " desc_en="Destroy {0}. "></SideEffect>
+  <SideEffect name="KillOne" desc="破坏{0}, " desc_en="Destroy {0}. "></SideEffect>
+  <SideEffect name="KillRandom" desc="破坏{0}, " desc_en="Destroy {0}. "></SideEffect>
+
+  <SideEffect name="AddLifeAll" desc="使{0}增加{1}点生命, " desc_en="Add {1} life for {0}. "></SideEffect>
+  <SideEffect name="AddLifeOne" desc="使{0}增加{1}点生命, " desc_en="Add {1} life for {0}. "></SideEffect>
+  <SideEffect name="AddLifeRandom" desc="使{0}增加{1}点生命, " desc_en="Add {1} life for {0}. "></SideEffect>
+
+  <SideEffect name="DamageAll" desc="对{0}造成{1}点伤害, " desc_en="Deal {1} damage to {0}. "></SideEffect>
+  <SideEffect name="DamageOne" desc="对{0}造成{1}点伤害, " desc_en="Deal {1} damage to {0}. "></SideEffect>
+  <SideEffect name="DamageRandom" desc="对{0}造成{1}点伤害, " desc_en="Deal {1} damage to {0}. "></SideEffect>
+
+  <SideEffect name="HealAll" desc="使{0}恢复{1}点生命, " desc_en="Heal {1} life for {0}. "></SideEffect>
+  <SideEffect name="HealOne" desc="使{0}恢复{1}点生命, " desc_en="Heal {1} life for {0}. "></SideEffect>
+  <SideEffect name="HealRandom" desc="使{0}恢复{1}点生命, " desc_en="Heal {1} life for {0}. "></SideEffect>
+
+  <SideEffect name="DrawCards" desc="抽{0}张牌, " desc_en="Draw {0} card. "></SideEffect>
+  <SideEffect name="CopyNextDrawCard" desc="抽1张牌, 并获得该牌的{0}张复制, " desc_en="Draw 1 card and get {0} copy of that card. "></SideEffect>
+  <SideEffect name="DrawTypeCards" desc="抽{0}张{1}, " desc_en="Draw {0} {1} card{2}. "></SideEffect>
+  <SideEffect name="AddTempCardToDeck" desc="将{0}张临时的{1}放入你的牌堆, " desc_en="Put {0} temporary {1} into your deck. "></SideEffect>
+  <SideEffect name="AddTempCardToEnemyDeck" desc="将{0}张临时的{1}放入你对手的牌堆, " desc_en="Put {0} temporary {1} into your component's deck. "></SideEffect>
+  <SideEffect name="GetHandCardCopy" desc="获得一张随机手牌的复制, " desc_en="Get a temporary copy of a random hand card."></SideEffect>
+
+  <SideEffect name="AddSelfWeaponEnergy" desc="武器能量增加{0}点, " desc_en="Add {0} weapon energy. "></SideEffect>
+  <SideEffect name="AddWeaponEnergy" desc="使{0}武器能量增加{1}点, " desc_en="Add {1} weapon energy for {0}. "></SideEffect>
+  <SideEffect name="BreakEquip" desc="破坏{0}一个装备" desc_en="Break a equip of {0}"></SideEffect>
+  <SideEffect name="AddAttackOne" desc="为{0}增加{1}点攻击力, " desc_en="Add {1} attack for {0}. "></SideEffect>
+  <SideEffect name="AddAttackAll" desc="为{0}增加{1}点攻击力, " desc_en="Add {1} attack for {0}. "></SideEffect>
+  <SideEffect name="AddAttackRandom" desc="为{0}增加{1}点攻击力, " desc_en="Add {1} attack for {0}. "></SideEffect>
+  <SideEffect name="AddArmorOne" desc="为{0}增加{1}点护甲, " desc_en="Add {1} armor for {0}. "></SideEffect>
+  <SideEffect name="AddShieldOne" desc="为{0}增加{1}点护盾, " desc_en="Add {1} shield for {0}. "></SideEffect>
+
+  <SideEffect name="AddEnergy" desc="为{0}增加{1}点能量, " desc_en="Add {1} energy for {0}. "></SideEffect>
+  <SideEffect name="AddEnergyPerMechs" desc="对每{0},从敌舰偷取{1}点能量, " desc_en="Steal {1} energy from enemy ship for every {0}. "></SideEffect>
+  <SideEffect name="DoubleEnergy" desc="使我方能量翻倍, " desc_en="Double your energy. "></SideEffect>
+
+  <SideEffect name="WaitInHandDecreaseEnergy" desc="该牌的能量花费减少{0}点, " desc_en="Decrease {0} energy cost for this card. "></SideEffect>
+
+  <SideEffect name="SummonRetinue" desc="召唤机甲[{0}]" desc_en="Summon [{0}]"></SideEffect>
+
+  <SideEffect name="Sacrifice" desc="摧毁{0},对敌方全体造成{1}点伤害,该机甲每拥有一个装备,造成的伤害+{2}, " desc_en="Destroy {0} and deal {1} damage to all enemy's mechs. For every equip it has, deal {2} additional damage. "></SideEffect>
+  <SideEffect name="HalfShield" desc="使{0}的护盾值减半, " desc_en="Half the shield of {0}. "></SideEffect>
+  <SideEffect name="Degenerate" desc="使{0}丢去全部装备,每丢弃一个,随机获得一项基础属性提升, " desc_en="Discard all {0}'s equips, for every equip discarded, add random basic attribute for it. "></SideEffect>
+  <SideEffect name="Cooperation" desc="牺牲{0},使一个我方生命值最少的英雄获得其生命、护盾和护甲, " desc_en="Sacrifice {0} then add its life, armor and shield to your hero with least life. "></SideEffect>
+  <SideEffect name="IllusionToOne" desc="使{0}免疫伤害且无法主动攻击,持续{1}回合, " desc_en="{0} get immune to damage but cannot attack, which lasts {1} rounds. "></SideEffect>
+
+  <SideEffect name="SummonRetinuePerMechs" desc="对每{0},召唤一个[{1}], " desc_en="Summon [{1}] for every {0}. "></SideEffect>
+
+  <SideEffect name="AddPlayerBuff" desc="{0}" desc_en="{0}"></SideEffect>
+
+  <SideEffect name="NextSpellDamageDouble" desc="{0}" desc_en="{0}"></SideEffect>
+
+  <SideEffect name="SpellDamageDouble" desc="{0}" desc_en="{0}"></SideEffect>
+
+  <SideEffect name="Exile" desc="" desc_en=""></SideEffect>
+
+  <SideEffect name="UseAllEnergyDamageShip" desc="消耗全部能量,对敌舰造成{0}点伤害,每多消耗1点,对敌方造成额外的{1}点伤害, " desc_en="Consume all energy. Deal {0} damage to enemy ship. Deal extra {1} damage per extra energy used. "></SideEffect>
+
+  <SideEffect name="RunAway" desc="消灭{0},将该机甲牌和其所有装备牌回收至手牌中, " desc_en="Kill {0} and recycle its card and all equipment cards to your hand. "></SideEffect>
+
+  <SideEffect name="TriggerOneHandCard" desc="触发手牌中{0}张法术牌或能量牌(无指定目标)的效果," desc_en="Trigger the effects of {0} handcards (without targets). "></SideEffect>
+</AllSideEffects>

@@ -46,6 +46,7 @@ public partial class OutGameManager
         TextDefaultColor = StageText.color;
         updateState = UpdateState.None;
         m_DownloadPath = Application.dataPath + "/";
+        m_ResourcesURL += GetPlatformAbbr() + "/";
     }
 
     private void Start_Update()
@@ -123,24 +124,7 @@ public partial class OutGameManager
         {
             if (fi.Extension == ".meta") continue;
             string md5sum = FileUtils.GetMD5WithFilePath(fi.FullName);
-            DownloadFileMD5Sum.Add(fi.FullName.Replace("\\", "/").Replace(m_DownloadPath, ""), md5sum);
-        }
-
-        //Dll files
-        DirectoryInfo di_managed = new DirectoryInfo(m_DownloadPath + "Managed/");
-        FileInfo[] fis_managed = di_managed.GetFiles("*", SearchOption.AllDirectories);
-        foreach (FileInfo fi in fis_managed)
-        {
-            if (fi.Extension == ".meta") continue;
-            string md5sum = FileUtils.GetMD5WithFilePath(fi.FullName);
             DownloadFileMD5Sum.Add(fi.FullName.Replace("\\", "/").Replace(m_DownloadPath, "").Replace(".byte", ""), md5sum);
-        }
-
-        //data.unity file
-        if (File.Exists(m_DownloadPath + "data.unity3d"))
-        {
-            string md5sum_dataUnityFile = FileUtils.GetMD5WithFilePath(m_DataUnityFile);
-            DownloadFileMD5Sum.Add(m_DataUnityFile.Replace("\\", "/").Replace(m_DataPath, ""), md5sum_dataUnityFile);
         }
     }
 
@@ -158,11 +142,11 @@ public partial class OutGameManager
             foreach (DownloadFileInfo fi in m_FileListInfos)
             {
                 string downloadPath = m_DownloadPath;
+                downloadPath = downloadPath + "../";
                 string postfix = "";
-                if (fi.FilePath.StartsWith("Managed/"))
+                if (fi.FilePath.StartsWith("MechStorm_Data/Managed/"))
                 {
                     JustDownloadNewDLLFiles = true;
-                    downloadPath = downloadPath + "../";
 #if UNITY_EDITOR
                     postfix = ".byte";
 #endif
@@ -264,9 +248,9 @@ public partial class OutGameManager
                         Match match = m_FileSizeListRegex.Match(line);
                         long fileSize = long.Parse(match.Groups["size"].Value);
                         string filePath = match.Groups["filepath"].Value;
-                        if (filePath.StartsWith("StreamingAssets/AssetBundle/"))
+                        if (filePath.StartsWith("MechStorm_Data/StreamingAssets/AssetBundle/"))
                         {
-                            if (!filePath.StartsWith("StreamingAssets/AssetBundle/" + GetPlatformAbbr()))
+                            if (!filePath.StartsWith("MechStorm_Data/StreamingAssets/AssetBundle/" + GetPlatformAbbr()))
                             {
                                 continue;
                             }

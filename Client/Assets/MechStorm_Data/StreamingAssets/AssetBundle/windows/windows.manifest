@@ -1,0 +1,160 @@
+ManifestFileVersion: 1
+CompatibilityAssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: prefabs
+      Hash: 401be07250f8013b8f606dafa2cdfa57
+      CRC: 4203376037
+        Dependency_0: textures_ui_arrow        Dependency_1: textures_ui_cardrelated        Dependency_2: materials        Dependency_3: textures_ui_story        Dependency_4: animations        Dependency_5: textures_ships        Dependency_6: textures_numbers        Dependency_7: textures_card_cardcomponents        Dependency_8: textures_card_pack        Dependency_9: textures_card_retinueicons        Dependency_10: textures_card_weapon        Dependency_11: shaders        Dependency_12: models        Dependency_13: textures_ui_menu        Dependency_14: textures_card_shield        Dependency_15: fonts        Dependency_16: textures_card_ma        Dependency_17: textures_effects        Dependency_18: textures_ui_playerbuff        Dependency_19: textures_card_retinueattrshapes        Dependency_20: textures_ui_outgame        Dependency_21: textures_ui_common        Dependency_22: textures_ui_tips        Dependency_23: textures_card_affix    Info_1:
+      Name: animations
+      Hash: 98db8ff3c18578f024503937bd94c98e
+      CRC: 2803679408
+        Dependency_0: textures_ui_arrow    Info_2:
+      Name: materials
+      Hash: a9585cc8b92dad0f4faf8a1dd3bf39e0
+      CRC: 1639306484
+        Dependency_0: shaders        Dependency_1: textures_ui_arrow        Dependency_2: textures_ui_cardrelated        Dependency_3: textures_ships        Dependency_4: textures_ui_outgame        Dependency_5: textures_card_cardcomponents        Dependency_6: textures_ui_menu        Dependency_7: textures_card_retinueattrshapes        Dependency_8: textures_card_ma        Dependency_9: textures_card_pack        Dependency_10: textures_card_retinueicons        Dependency_11: textures_effects        Dependency_12: textures_card_shield        Dependency_13: textures_card_weapon        Dependency_14: textures_numbers        Dependency_15: textures_ui_common    Info_3:
+      Name: shaders
+      Hash: 1c7b23994575890c6a75658b3d2cff83
+      CRC: 1385175297
+      Dependencies: {}
+    Info_4:
+      Name: models
+      Hash: b3f9f21b8f5fa7b155fc578c3c6e6c70
+      CRC: 4048576784
+      Dependencies: {}
+    Info_5:
+      Name: fonts
+      Hash: 794723fcea704daa131c74892061d3f6
+      CRC: 3923869668
+      Dependencies: {}
+    Info_6:
+      Name: atlas_bgs
+      Hash: 7337f12952e959c13a6309deb2a49419
+      CRC: 2840751838
+      Dependencies: {}
+    Info_7:
+      Name: atlas_cardpics
+      Hash: 5af2515016bb24a864a6f631189d45c1
+      CRC: 1836614943
+      Dependencies: {}
+    Info_8:
+      Name: audio_sfx
+      Hash: 3b6da3b4aa50c6c66d1407ee3affd616
+      CRC: 2384172058
+      Dependencies: {}
+    Info_9:
+      Name: audio_bgm_battle
+      Hash: 24ebcdcbdb4b44a521d32e1089cc9b2d
+      CRC: 4082307026
+      Dependencies: {}
+    Info_10:
+      Name: audio_bgm_login
+      Hash: 387258fc52cd9d582b1d49f464cbcf11
+      CRC: 3998641377
+      Dependencies: {}
+    Info_11:
+      Name: audio_bgm_selectcardmenu
+      Hash: 0a83db7140e35d2671763b6b74c55349
+      CRC: 2926647338
+      Dependencies: {}
+    Info_12:
+      Name: audio_bgm_startmenu
+      Hash: 16fceea1a50015187228883b12b6734b
+      CRC: 1515484802
+      Dependencies: {}
+    Info_13:
+      Name: textures_effects
+      Hash: 62981b7e1b53486cd15dd987991487f5
+      CRC: 4140262063
+      Dependencies: {}
+    Info_14:
+      Name: textures_numbers
+      Hash: 7c98cf24e1b5e409c0da70000a85ca99
+      CRC: 2840082434
+      Dependencies: {}
+    Info_15:
+      Name: textures_ships
+      Hash: c4be5e8ba1d7df1b64d5701460ef7e29
+      CRC: 3423638546
+      Dependencies: {}
+    Info_16:
+      Name: textures_card_affix
+      Hash: 7123a96726995a00e712e347d13ecabb
+      CRC: 732450470
+      Dependencies: {}
+    Info_17:
+      Name: textures_card_cardcomponents
+      Hash: 26245ed7629ac07fb8160ef3c497f1ee
+      CRC: 3245975800
+      Dependencies: {}
+    Info_18:
+      Name: textures_card_ma
+      Hash: b461bf77ed2ee2f705e971bc61d4cdc3
+      CRC: 2401595920
+      Dependencies: {}
+    Info_19:
+      Name: textures_card_pack
+      Hash: 9a1b49d00228fcf492534cffbe73a154
+      CRC: 239284384
+      Dependencies: {}
+    Info_20:
+      Name: textures_card_retinueattrshapes
+      Hash: 1a6b7f77ea64ebc72971b4cb4cc7b968
+      CRC: 1811858502
+      Dependencies: {}
+    Info_21:
+      Name: textures_card_retinueicons
+      Hash: a2796a7f1d6d63cfca93996dd37ef51f
+      CRC: 1794043209
+      Dependencies: {}
+    Info_22:
+      Name: textures_card_shield
+      Hash: 5b6ada7a06785c07a15a7d04a9affbba
+      CRC: 968689889
+      Dependencies: {}
+    Info_23:
+      Name: textures_card_weapon
+      Hash: 171e1b194bd9cce60ce3b1d6e04dbc50
+      CRC: 258124509
+      Dependencies: {}
+    Info_24:
+      Name: textures_ui_arrow
+      Hash: ffe08727d0f18d9364fd41b30634292f
+      CRC: 2024873367
+      Dependencies: {}
+    Info_25:
+      Name: textures_ui_cardrelated
+      Hash: 2f5b503eb2139351fac69b22d7085efb
+      CRC: 2630956452
+      Dependencies: {}
+    Info_26:
+      Name: textures_ui_common
+      Hash: 6e9920a02372381ee326db2ae4cca8c0
+      CRC: 3914793663
+      Dependencies: {}
+    Info_27:
+      Name: textures_ui_menu
+      Hash: 9c120cc75b610d0bc831f3d4d5d597e8
+      CRC: 3168461830
+      Dependencies: {}
+    Info_28:
+      Name: textures_ui_outgame
+      Hash: 91bccb92a6cdfcb329f717209468e2e5
+      CRC: 742097937
+      Dependencies: {}
+    Info_29:
+      Name: textures_ui_playerbuff
+      Hash: a5ed93fcf0eefc497dd12e36962f5ca4
+      CRC: 3933168497
+      Dependencies: {}
+    Info_30:
+      Name: textures_ui_story
+      Hash: 8ccfe7ecb2ec4212331a62a3216e6952
+      CRC: 775889924
+      Dependencies: {}
+    Info_31:
+      Name: textures_ui_tips
+      Hash: 5b77d8b9e5735f288890eafa52da1613
+      CRC: 2424157798
+      Dependencies: {}
