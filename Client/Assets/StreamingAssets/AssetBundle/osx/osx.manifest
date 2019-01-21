@@ -30,58 +30,58 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_6:
       Name: atlas_cardpics_0
-      Hash: a2ee82d29ddb6d853ab96033fb1b3179
-      CRC: 2266118035
+      Hash: a4fb2a019319b3e2ddf56a95c0997724
+      CRC: 910298982
       Dependencies: {}
     Info_7:
       Name: atlas_cardpics_1
-      Hash: f70daccd7db42b7fc44d930aabf14081
-      CRC: 2267912531
+      Hash: 098dd20b42301decd070cfc6d98f5dfa
+      CRC: 388276705
       Dependencies: {}
     Info_8:
       Name: atlas_cardpics_10
-      Hash: 7aa209bf1fc1d55ba093ec78f5520270
-      CRC: 3732355129
+      Hash: f941e8dc2c6a914e3f97482ef4f7970d
+      CRC: 3400003581
       Dependencies: {}
     Info_9:
       Name: atlas_cardpics_2
-      Hash: bb08865aa2343dba03149fe6e555de93
-      CRC: 3953080362
+      Hash: 4eb0d3c7d5c3e4ebf7b393d415e589d3
+      CRC: 2007538508
       Dependencies: {}
     Info_10:
       Name: atlas_cardpics_3
-      Hash: a8e6fabf80c539a72df7f6f3d1a5c423
-      CRC: 19753696
+      Hash: e75210492151dd13b11943a05b909050
+      CRC: 2373306832
       Dependencies: {}
     Info_11:
       Name: atlas_cardpics_4
-      Hash: 3f6240ff874d096390e98e4c9bde2036
-      CRC: 3957058012
+      Hash: 45782a8f88c62a5acf3da420b232a2cd
+      CRC: 3529672949
       Dependencies: {}
     Info_12:
       Name: atlas_cardpics_5
-      Hash: 40a3db4f14eff386ef757622678f982b
-      CRC: 2927611918
+      Hash: 00773d52b1a5cbda8e33d4ddfa8b38ad
+      CRC: 2131770077
       Dependencies: {}
     Info_13:
       Name: atlas_cardpics_6
-      Hash: e57e2b24e4f5a0b2541009d2608249e3
-      CRC: 4270939980
+      Hash: 9e0f1066600626ab282a3107618127f4
+      CRC: 3354425224
       Dependencies: {}
     Info_14:
       Name: atlas_cardpics_7
-      Hash: 75fd21c0d3cfbc4c7ff6f796c20a0b62
-      CRC: 2557760879
+      Hash: d0cdd35b77b4d93a7f98cc06998826f5
+      CRC: 2019771577
       Dependencies: {}
     Info_15:
       Name: atlas_cardpics_8
-      Hash: ced41113e256b1ac058f29418a368d3d
-      CRC: 1190997181
+      Hash: b0449ead6a132e4234e5128d31897b4b
+      CRC: 196404259
       Dependencies: {}
     Info_16:
       Name: atlas_cardpics_9
-      Hash: 070ed2ce6621c7db64a81c803406d2e7
-      CRC: 3604873333
+      Hash: cf766f52b00f12934609019a505fa169
+      CRC: 3782018650
       Dependencies: {}
     Info_17:
       Name: audio_sfx
