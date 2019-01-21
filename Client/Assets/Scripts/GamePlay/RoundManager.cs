@@ -217,8 +217,8 @@ public partial class RoundManager : MonoSingleton<RoundManager>
                     delegate
                     {
                         ConfirmWindowManager.Instance.RemoveConfirmWindow();
-                        SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
                         StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
+                        SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
                     },
                     delegate { ConfirmWindowManager.Instance.RemoveConfirmWindow(); });
             }

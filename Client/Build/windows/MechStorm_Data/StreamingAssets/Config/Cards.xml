@@ -598,7 +598,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="1"></SideEffect>
-      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="SelfMechs" Value="3"></SideEffect>
+      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60901">
