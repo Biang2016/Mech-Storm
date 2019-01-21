@@ -46,7 +46,10 @@ public partial class OutGameManager
         TextDefaultColor = StageText.color;
         updateState = UpdateState.None;
         m_DownloadPath = Application.dataPath + "/";
-        m_ResourcesURL += GetPlatformAbbr() + "/";
+#if UNITY_EDITOR
+        m_DownloadPath += "MechStorm_Data/";
+#endif
+        m_ResourcesURL += GetPlatformAbbr() + "/MechStorm_Data/";
     }
 
     private void Start_Update()
@@ -142,9 +145,8 @@ public partial class OutGameManager
             foreach (DownloadFileInfo fi in m_FileListInfos)
             {
                 string downloadPath = m_DownloadPath;
-                downloadPath = downloadPath + "../";
                 string postfix = "";
-                if (fi.FilePath.StartsWith("MechStorm_Data/Managed/"))
+                if (fi.FilePath.StartsWith("Managed/"))
                 {
                     JustDownloadNewDLLFiles = true;
 #if UNITY_EDITOR
@@ -248,9 +250,9 @@ public partial class OutGameManager
                         Match match = m_FileSizeListRegex.Match(line);
                         long fileSize = long.Parse(match.Groups["size"].Value);
                         string filePath = match.Groups["filepath"].Value;
-                        if (filePath.StartsWith("MechStorm_Data/StreamingAssets/AssetBundle/"))
+                        if (filePath.StartsWith("StreamingAssets/AssetBundle/"))
                         {
-                            if (!filePath.StartsWith("MechStorm_Data/StreamingAssets/AssetBundle/" + GetPlatformAbbr()))
+                            if (!filePath.StartsWith("StreamingAssets/AssetBundle/" + GetPlatformAbbr()))
                             {
                                 continue;
                             }
