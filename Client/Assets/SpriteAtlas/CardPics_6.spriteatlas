@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CardPics_6
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 1
+      filterMode: 1
+      generateMipMaps: 1
+      readable: 1
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 3
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 7fa07cab82e79114eb68d6217cb75f24, type: 3}
+    totalSpriteSurfaceArea: 2036736
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 9adcd2008aa80d541bce51716344a07a, type: 3}
+  - {fileID: 21300000, guid: e916ca001bfbcb442a5c308a88bcfe28, type: 3}
+  - {fileID: 21300000, guid: 5fd17a20d4247b7439d5ad3445d37b9b, type: 3}
+  - {fileID: 21300000, guid: 293f6f700c5a1a64e84255c0d8584f5a, type: 3}
+  - {fileID: 21300000, guid: 81441ac0f95fc0f418768c78b2541e7c, type: 3}
+  - {fileID: 21300000, guid: 64a69c01d0c394446873816007f68d95, type: 3}
+  - {fileID: 21300000, guid: 2ac9dd02eba704b47b6cbd855fc409f6, type: 3}
+  - {fileID: 21300000, guid: 3cef71526a34d8d4c8fad79b361569c3, type: 3}
+  - {fileID: 21300000, guid: 3a2d6da2d94e74642862966e63735601, type: 3}
+  - {fileID: 21300000, guid: be50a083e1888584e9a0e52492f0c785, type: 3}
+  - {fileID: 21300000, guid: 9cb9df65ccf205d4584453551268c1a1, type: 3}
+  - {fileID: 21300000, guid: d8faf095cefec9b4bb2d215df5191d27, type: 3}
+  - {fileID: 21300000, guid: 9df8f2b59abaf334eb6ade8c09a0ff22, type: 3}
+  - {fileID: 21300000, guid: 896527d51ca0d4c4d8efecb1f3338526, type: 3}
+  - {fileID: 21300000, guid: c74e014680dc3644ab507ce1447abf16, type: 3}
+  - {fileID: 21300000, guid: dd729976c8e80824083ac086aafd8897, type: 3}
+  - {fileID: 21300000, guid: 9613f1d6590e25f4cae7f85c54f583ee, type: 3}
+  - {fileID: 21300000, guid: d02ec727645c14040aedc5cfbededf0d, type: 3}
+  - {fileID: 21300000, guid: cee99a8714c4c28409248df9f76e977a, type: 3}
+  - {fileID: 21300000, guid: 12310c6860b65b648b94ff5d990ea07b, type: 3}
+  - {fileID: 21300000, guid: 9f291df891c66d148812df69f2acbe15, type: 3}
+  - {fileID: 21300000, guid: 1873db2983fa69e4181119a06114c35f, type: 3}
+  - {fileID: 21300000, guid: f0deb94980bfd8847ac6ccdfc9c9d78d, type: 3}
+  - {fileID: 21300000, guid: f60aff2a2ed51fc4499cee225cc32bdc, type: 3}
+  - {fileID: 21300000, guid: a47ee1eadc5f68943a2fe9f3598e0e9b, type: 3}
+  - {fileID: 21300000, guid: 0f7e250b849c9cd4aafbbffa36f514d6, type: 3}
+  - {fileID: 21300000, guid: ef127a7b966927147939d7359b7368fc, type: 3}
+  - {fileID: 21300000, guid: 218728dc304bdf94fb9b918be26b0cec, type: 3}
+  - {fileID: 21300000, guid: f12eb20d386b33e489e01d548083d3a6, type: 3}
+  - {fileID: 21300000, guid: 0ad779fd28d0e144e96fe5611c3e63db, type: 3}
+  - {fileID: 21300000, guid: 9a4f9d6e129485c4ca9dbfe7a139cb1f, type: 3}
+  - {fileID: 21300000, guid: 71d438be8a11c5c419f6161021d02adb, type: 3}
+  - {fileID: 21300000, guid: babf463f39397d441ad3d00c32390d8f, type: 3}
+  - {fileID: 21300000, guid: afdbd55f95d53a144824ab8fd533f2af, type: 3}
+  - {fileID: 21300000, guid: 6c88516fb7d370e4dbd3832c84ea7d5b, type: 3}
+  - {fileID: 21300000, guid: efcd998f0a0de514bbd124b30b063bba, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 603
+  - 631
+  - 608
+  - 607
+  - 636
+  - 622
+  - 605
+  - 638
+  - 632
+  - 609
+  - 615
+  - 610
+  - 637
+  - 611
+  - 629
+  - 620
+  - 616
+  - 630
+  - 606
+  - 618
+  - 628
+  - 617
+  - 619
+  - 604
+  - 621
+  - 627
+  - 635
+  - 625
+  - 613
+  - 623
+  - 633
+  - 612
+  - 624
+  - 601
+  - 634
+  - 602
+  m_Tag: CardPics_6
+  m_IsVariant: 0

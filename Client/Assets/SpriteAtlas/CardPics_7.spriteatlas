@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CardPics_7
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 1
+      filterMode: 1
+      generateMipMaps: 1
+      readable: 1
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 3
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 0a473f22116b59d45ad5089e1ccebf48, type: 3}
+    totalSpriteSurfaceArea: 678912
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 7d34bf508c45631499f0284f655335ae, type: 3}
+  - {fileID: 21300000, guid: bbea70c1ea4e7d74b892ec1f785bdada, type: 3}
+  - {fileID: 21300000, guid: 00e2a073b6679a6428a6bc94222ab72a, type: 3}
+  - {fileID: 21300000, guid: db93fb2495085464f97872de57600ce2, type: 3}
+  - {fileID: 21300000, guid: 9e3dafa456e5d524bb64660d09f94df6, type: 3}
+  - {fileID: 21300000, guid: ea01b8663381f1046b10643c6919bcfc, type: 3}
+  - {fileID: 21300000, guid: 9ee9c5d76841e894e8140b4dca04cfc6, type: 3}
+  - {fileID: 21300000, guid: a7661ed7038e0b648a0ac175a0c97c21, type: 3}
+  - {fileID: 21300000, guid: 55a166789d13ebc4199208af62dbee50, type: 3}
+  - {fileID: 21300000, guid: 3f76542b4ee32a449950ead73068881e, type: 3}
+  - {fileID: 21300000, guid: 34a1522ff6c1ed246a3057a054927bfc, type: 3}
+  - {fileID: 21300000, guid: 03ff9eaf6e7533e4c9b1c8612c1e26ab, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 705
+  - 706
+  - 701
+  - 703
+  - 709
+  - 708
+  - 710
+  - 707
+  - 712
+  - 711
+  - 704
+  - 702
+  m_Tag: CardPics_7
+  m_IsVariant: 0

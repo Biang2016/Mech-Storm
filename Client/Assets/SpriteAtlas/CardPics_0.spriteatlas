@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CardPics_0
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 1
+      filterMode: 1
+      generateMipMaps: 1
+      readable: 1
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 3
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: dd6076daa801a2e469f0838ac0471c89, type: 3}
+    totalSpriteSurfaceArea: 2263040
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 67ba493069af745469e52b6d122d0289, type: 3}
+  - {fileID: 21300000, guid: d28f64504ad92f84f9316996891f9fd6, type: 3}
+  - {fileID: 21300000, guid: c5e771a03783e0c47910511d11ebe99c, type: 3}
+  - {fileID: 21300000, guid: ffba5cc083db9e94a9b952a05c060262, type: 3}
+  - {fileID: 21300000, guid: 52e4d85171c13f5439868fbdb59e6eef, type: 3}
+  - {fileID: 21300000, guid: b9e1af5130eadf3478e521dc848ad5e1, type: 3}
+  - {fileID: 21300000, guid: 66dce57115d506449b1949755582e946, type: 3}
+  - {fileID: 21300000, guid: 8d54db911e6c0ad48bb4223aaf855622, type: 3}
+  - {fileID: 21300000, guid: 2641add10c06db74c99efcfef23ca627, type: 3}
+  - {fileID: 21300000, guid: 6f57bd22db9183b49a97fd9dd9829f7c, type: 3}
+  - {fileID: 21300000, guid: bc39be42f3711244e968c6dda800946c, type: 3}
+  - {fileID: 21300000, guid: c91f2cc2dd669ae45902c2df44f8fe2a, type: 3}
+  - {fileID: 21300000, guid: 6468c49357a77514792a29e9cc43e1c8, type: 3}
+  - {fileID: 21300000, guid: 1258c504859b1994fa7b38f29e1d04b3, type: 3}
+  - {fileID: 21300000, guid: 73401ca4d30b2964d946e05537edf88c, type: 3}
+  - {fileID: 21300000, guid: 960ba805c3b1a7e4bb7b4b0721f87489, type: 3}
+  - {fileID: 21300000, guid: 48d892f5713a9b640bd2311b9df2c5a0, type: 3}
+  - {fileID: 21300000, guid: de727306cbdc8a34a859c8df115420f9, type: 3}
+  - {fileID: 21300000, guid: b90302a636b08e349bf63fdbfb53f912, type: 3}
+  - {fileID: 21300000, guid: efb0dac6ee9e406418232841a385c021, type: 3}
+  - {fileID: 21300000, guid: b1ce1317b21905f47a3055f3ad116078, type: 3}
+  - {fileID: 21300000, guid: b1f96847790c33c4f925b7ff8e69e53f, type: 3}
+  - {fileID: 21300000, guid: 17b83b9740a20884bb571c48b3033a17, type: 3}
+  - {fileID: 21300000, guid: de1eb8e8d8c7b7547ab9c57f78ea50c8, type: 3}
+  - {fileID: 21300000, guid: f9df2019225e92645baba1fef1476589, type: 3}
+  - {fileID: 21300000, guid: ed1c6f89ed29a0c4683538409c60d37f, type: 3}
+  - {fileID: 21300000, guid: 90d948d90ea479a45a75396f897a29c3, type: 3}
+  - {fileID: 21300000, guid: f326191a09feea942951f2be804010dd, type: 3}
+  - {fileID: 21300000, guid: e0ba0e1aa87eba34fa72d12ebfbb87ff, type: 3}
+  - {fileID: 21300000, guid: c45c217af1f998146b8bab626af87cc9, type: 3}
+  - {fileID: 21300000, guid: 270e3cfaafac58a46a28163d0a07964b, type: 3}
+  - {fileID: 21300000, guid: 0424d93b9e950584c80ec8febe63ab0f, type: 3}
+  - {fileID: 21300000, guid: c081bf1c88f7c1f4386afca7b19ba43b, type: 3}
+  - {fileID: 21300000, guid: eeb3873c2eed0a44eb41b441bcd03a04, type: 3}
+  - {fileID: 21300000, guid: 34cee9dc98eb3a4499fbe01860e64df8, type: 3}
+  - {fileID: 21300000, guid: 96cc6b8d2f391d44381df7217bf0005f, type: 3}
+  - {fileID: 21300000, guid: d9189a0e07940654193b3c02424684a0, type: 3}
+  - {fileID: 21300000, guid: 453d1f5e784863843abf7fc52255459a, type: 3}
+  - {fileID: 21300000, guid: aac75aefa2c364a468d3b3e5508d0edb, type: 3}
+  - {fileID: 21300000, guid: b5f43cffee0370a4ebf2d4465e78c2cb, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 060
+  - 059
+  - 020
+  - 000
+  - 010
+  - 005
+  - 052
+  - 013
+  - 065
+  - 068
+  - 021
+  - 006
+  - 002
+  - 004
+  - 063
+  - 058
+  - 067
+  - 009
+  - 054
+  - 014
+  - 061
+  - 056
+  - 008
+  - 011
+  - 055
+  - 053
+  - 057
+  - 012
+  - 017
+  - 066
+  - 015
+  - 018
+  - 051
+  - 019
+  - 016
+  - 022
+  - 001
+  - 064
+  - 007
+  - 003
+  m_Tag: CardPics_0
+  m_IsVariant: 0

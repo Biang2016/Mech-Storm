@@ -79,7 +79,7 @@ public class ClientUtils
     public static void ChangeCardPicture(Image image, int pictureID)
     {
         string pid_str = string.Format("{0:000}", pictureID);
-        SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics");
+        SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));
         Sprite sprite = atlas.GetSprite(pid_str);
         if (sprite != null)
         {
@@ -94,7 +94,7 @@ public class ClientUtils
     public static void ChangeCardPicture(Renderer rd, int pictureID)
     {
         string pid_str = string.Format("{0:000}", pictureID);
-        SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics");
+        SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));
         Texture2D firstSprite = atlas.GetSprite("000").texture;
         Sprite sprite = atlas.GetSprite(pid_str);
         if (sprite != null)
@@ -271,7 +271,6 @@ public class ClientUtils
             return res;
         }
     }
-
 
     public static Color HSL_2_RGB(float H, float S, float L)
     {
