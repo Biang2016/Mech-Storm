@@ -470,12 +470,12 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     protected void SetBlockCountPosition(Vector3 pos)
     {
-        Block_Count.position = pos;
+        Block_Count.localPosition = pos;
     }
 
     protected void SetBlockCountMaxPosition(Vector3 pos)
     {
-        Block_CountMax.position = pos;
+        Block_CountMax.localPosition = pos;
     }
 
     [SerializeField] private RawImage Star1;

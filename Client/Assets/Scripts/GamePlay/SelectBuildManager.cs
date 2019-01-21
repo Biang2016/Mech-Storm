@@ -408,11 +408,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         {
             int CardID = kv.Key;
             int CardLimitCount = kv.Value;
-            if (CardID == 70101)
-            {
-                int a = 0;
-            }
-
+           
             if (allCards.ContainsKey(CardID))
             {
                 CardBase cb = allCards[CardID];

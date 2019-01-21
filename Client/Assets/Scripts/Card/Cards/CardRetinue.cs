@@ -66,13 +66,13 @@ public class CardRetinue : CardBase
         {
             if (cardInfo.RetinueInfo.HasSlotType(SlotTypes.MA))
             {
-                SetBlockCountPosition(Block_Count_LowerPivot.position);
-                SetBlockCountMaxPosition(Block_CountMax_LowerPivot.position);
+                SetBlockCountPosition(Block_Count_LowerPivot.localPosition);
+                SetBlockCountMaxPosition(Block_CountMax_LowerPivot.localPosition);
             }
             else
             {
-                SetBlockCountPosition(Block_Count_HigherPivot.position);
-                SetBlockCountMaxPosition(Block_CountMax_HigherPivot.position);
+                SetBlockCountPosition(Block_Count_HigherPivot.localPosition);
+                SetBlockCountMaxPosition(Block_CountMax_HigherPivot.localPosition);
             }
         }
     }
