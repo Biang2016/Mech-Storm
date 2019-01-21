@@ -462,6 +462,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
         else
         {
+            CardNumberSet_CountMax.hasSign = true;
             CardNumberSet_CountMax.IsSelect = IsCardSelect;
             CardNumberSet_CountMax.Number = value;
         }
