@@ -64,20 +64,20 @@ CompatibilityAssetBundleManifest:
       CRC: 3132194179
         Dependency_0: atlas_cardpics_1    Info_14:
       Name: atlas_cardpics_6
-      Hash: a5ecc7db4550395ef773bc58ce93ceeb
-      CRC: 995572542
+      Hash: 598e5f521f346461200a58e75d89ce61
+      CRC: 1440124276
         Dependency_0: atlas_cardpics_1    Info_15:
       Name: atlas_cardpics_7
-      Hash: 3e4ebedd225292ef5ba8070b1e80f9a0
-      CRC: 1783072915
+      Hash: 3e6121ba866438a7cc99de234ad33f42
+      CRC: 2912497203
         Dependency_0: atlas_cardpics_1    Info_16:
       Name: atlas_cardpics_8
-      Hash: cb8492d59070cb5e8b81a436aaa6cdda
-      CRC: 4177943851
+      Hash: 15ad40f8cda9392868182ddff4499453
+      CRC: 1818654485
         Dependency_0: atlas_cardpics_1    Info_17:
       Name: atlas_cardpics_9
-      Hash: f6a4d1cf78ffcdac6df765556938a214
-      CRC: 4154038292
+      Hash: da695ded2a5ecc69f50289c1d7a2d9f6
+      CRC: 2254126351
         Dependency_0: atlas_cardpics_1    Info_18:
       Name: audio_sfx
       Hash: 3b6da3b4aa50c6c66d1407ee3affd616
