@@ -35,14 +35,14 @@ public class BuildPlayer
         string[] levels = new string[] {"Assets/Scenes/FirstScene.unity", "Assets/Scenes/MainScene.unity"};
         BuildOptions option_build = BuildOptions.CompressWithLz4;
 
-        string res = Application.dataPath + "/Resources";
-        string res_back = Application.dataPath + "/Resources_back";
+        string res = Application.dataPath + "/Resources/";
+        string res_back = Application.dataPath + "/Resources_back/";
 
-        string ab_Windows = Application.streamingAssetsPath + "/AssetBundle/windows";
-        string ab_MacOS = Application.streamingAssetsPath + "/AssetBundle/osx";
+        string ab_Windows = Application.streamingAssetsPath + "/AssetBundle/windows/";
+        string ab_MacOS = Application.streamingAssetsPath + "/AssetBundle/osx/";
 
-        string ab_Windows_back = Application.dataPath + "/StreamingAsset_back/AssetBundle/windows";
-        string ab_MacOS_back = Application.dataPath + "/StreamingAsset_back/AssetBundle/osx";
+        string ab_Windows_back = Application.dataPath + "/StreamingAsset_back/AssetBundle/windows/";
+        string ab_MacOS_back = Application.dataPath + "/StreamingAsset_back/AssetBundle/osx/";
 
         if (Directory.Exists(ab_Windows_back))
         {
@@ -80,7 +80,7 @@ public class BuildPlayer
         }
         else if (build_target == BuildTarget.StandaloneOSX)
         {
-            if (Directory.Exists(ab_Windows_back))
+            if (Directory.Exists(ab_Windows))
             {
                 Directory.Move(ab_Windows, ab_Windows_back);
             }
