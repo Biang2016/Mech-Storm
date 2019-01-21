@@ -95,7 +95,7 @@ public class ClientUtils
     {
         string pid_str = string.Format("{0:000}", pictureID);
         SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));
-        Texture2D firstSprite = atlas.GetSprite("000").texture;
+        Texture2D firstSprite = atlas.GetSprite(pictureID / 100 + "00").texture;
         Sprite sprite = atlas.GetSprite(pid_str);
         if (sprite != null)
         {
