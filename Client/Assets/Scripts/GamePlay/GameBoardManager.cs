@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameBoardManager : MonoSingleton<GameBoardManager>
 {
@@ -7,8 +8,8 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
     {
     }
 
-    [SerializeField] private Renderer GameBoarderRenderer0;
-    [SerializeField] private Renderer GameBoarderRenderer1;
+    [SerializeField] private Image GameBoardBG0;
+    [SerializeField] private Image GameBoardBG1;
     public HandManager SelfHandManager;
     public HandManager EnemyHandManager;
     public BattleGroundManager SelfBattleGroundManager;
@@ -33,8 +34,8 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
 
     void Start()
     {
-        lastBGRenderer = GameBoarderRenderer0;
-        idleBGRenderer = GameBoarderRenderer1;
+        lastBG = GameBoardBG0;
+        idleBG = GameBoardBG1;
         ChangeBoardBG();
     }
 
@@ -49,8 +50,8 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
 
     public static Sprite[] BGs;
     private int index;
-    private Renderer lastBGRenderer;
-    private Renderer idleBGRenderer;
+    private Image lastBG;
+    private Image idleBG;
     private float changeBGTimeTick = 0;
     [SerializeField] private float ChangeBGTimeInterval = 60f;
 
@@ -69,43 +70,39 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
             index = 0;
         }
 
-        Renderer temp = lastBGRenderer;
-        ChangePictureFadeIn(idleBGRenderer, BGs[index].texture, BGs[index].textureRect);
-        ChangePictureFadeOut(lastBGRenderer);
-        lastBGRenderer = idleBGRenderer;
-        idleBGRenderer = temp;
+        Image temp = lastBG;
+        ChangePictureFadeIn(idleBG, BGs[index]);
+        ChangePictureFadeOut(lastBG);
+        lastBG = idleBG;
+        idleBG = temp;
     }
 
-    private void ChangePictureFadeIn(Renderer rd, Texture tx, Rect textureRect)
+    private void ChangePictureFadeIn(Image img, Sprite sp)
     {
-        ClientUtils.ChangePicture(rd, tx, textureRect);
-        StartCoroutine(Co_ChangePictureFade(rd, 1f, FadeOption.FadeIn));
+        img.sprite = sp;
+        StartCoroutine(Co_ChangePictureFade(img, 1f, FadeOption.FadeIn));
     }
 
-    private void ChangePictureFadeOut(Renderer rd)
+    private void ChangePictureFadeOut(Image img)
     {
-        StartCoroutine(Co_ChangePictureFade(rd, 0.9f, FadeOption.FadeOut));
+        StartCoroutine(Co_ChangePictureFade(img, 0.9f, FadeOption.FadeOut));
     }
 
-    IEnumerator Co_ChangePictureFade(Renderer rd, float duration, FadeOption fadeOption)
+    IEnumerator Co_ChangePictureFade(Image img, float duration, FadeOption fadeOption)
     {
         isChanging = true;
         for (float tick = duration; tick >= 0; tick -= 0.1f)
         {
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            rd.GetPropertyBlock(mpb);
-            Color color = mpb.GetColor("_Color");
-            rd.GetPropertyBlock(mpb);
+            Color color = img.color;
             if (fadeOption == FadeOption.FadeIn)
             {
-                mpb.SetColor("_Color", new Color(color.r, color.g, color.b, (duration - tick) / duration));
+                img.color=new Color(color.r, color.g, color.b, (duration - tick) / duration);
             }
             else if (fadeOption == FadeOption.FadeOut)
             {
-                mpb.SetColor("_Color", new Color(color.r, color.g, color.b, tick / duration));
+                img.color = new Color(color.r, color.g, color.b, tick / duration);
             }
 
-            rd.SetPropertyBlock(mpb);
             yield return new WaitForSeconds(0.1f);
         }
 
