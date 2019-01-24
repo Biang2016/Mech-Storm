@@ -366,14 +366,14 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
   </Card>
   <Card id="6902">
-    <CardInfo name="baseInfo" pictureID="68" cardName="训练场老兵" cardName_en="Training Veteran" cardDesc="" isTemp="False" hide="False" metal="1" energy="0" coin="100" effectFactor="1" limitNum="0" cardRareLevel="1" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="68" cardName="训练场老兵" cardName_en="Training Veteran" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="100" effectFactor="1" limitNum="0" cardRareLevel="1" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="6903" degradeCardID="6901" cardLevel="2" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="2" />
   </Card>
   <Card id="6903">
-    <CardInfo name="baseInfo" pictureID="68" cardName="训练场精英" cardName_en="Training Elite" cardDesc="" isTemp="False" hide="False" metal="1" energy="0" coin="200" effectFactor="1" limitNum="0" cardRareLevel="3" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="68" cardName="训练场精英" cardName_en="Training Elite" cardDesc="" isTemp="False" hide="False" metal="2" energy="0" coin="200" effectFactor="1" limitNum="0" cardRareLevel="3" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="6902" cardLevel="3" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
@@ -747,14 +747,14 @@
     </CardInfo>
   </Card>
   <Card id="62401">
-    <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="50" effectFactor="1" limitNum="5" cardRareLevel="0" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="50" effectFactor="1" limitNum="5" cardRareLevel="-1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62402" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62402">
-    <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="75" effectFactor="1" limitNum="0" cardRareLevel="0" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" hide="False" metal="0" energy="0" coin="75" effectFactor="1" limitNum="0" cardRareLevel="-1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62403" degradeCardID="62401" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="2"></SideEffect>

@@ -49,7 +49,7 @@ public partial class OutGameManager
 #if UNITY_EDITOR
         m_DownloadPath += "MechStorm_Data/";
 #endif
-#if UNITY_STANDALONE_OSX
+#if UNITY_STANDALONE_OSX && !UNITY_EDITOR
         m_DownloadPath += "Resources/Data/";
 #endif
 

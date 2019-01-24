@@ -151,8 +151,8 @@ public partial class SelectBuildManager
     {
         if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
         {
-            if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter("You cannot edit your build when Matching.", 0, 0.1f);
-            else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter("You cannot edit your build when Playing.", 0, 0.1f);
+            if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You cannot edit your build when Matching." : "您不能在匹配时编辑卡组", 0, 0.1f);
+            else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You cannot edit your build when Playing." : "您不能在战斗时编辑卡组", 0, 0.1f);
             return;
         }
 
@@ -348,7 +348,6 @@ public partial class SelectBuildManager
             color: new Color(cardColor.r, cardColor.g, cardColor.b, 1f)
         );
         newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card, true); });
-
 
         return newSC;
     }

@@ -3,7 +3,7 @@
 <Story>
   <StartBuildInfo BuildName="Story1" />
   <StartUnlockCardInfo BuildName="Story1_Unlock" />
-  <GamePlaySettings DrawCardPerRound="2" DefaultCoin="1500" DefaultLife="20" DefaultLifeMax="12" DefaultLifeMin="12" DefaultEnergy="6" DefaultEnergyMax="6" DefaultDrawCardNum="2" MinDrawCardNum="2" MaxDrawCardNum="5" />
+  <GamePlaySettings DrawCardPerRound="2" DefaultCoin="1500" DefaultLife="20" DefaultLifeMax="12" DefaultLifeMin="10" DefaultEnergy="6" DefaultEnergyMax="6" DefaultDrawCardNum="2" MinDrawCardNum="2" MaxDrawCardNum="5" />
   <Level Level="0" LevelFightTimes="3" BigBossFightTimes="1">
     <CommonBonus>
       <BonusGroupInfo type="Always">
@@ -136,11 +136,6 @@
         <BonusInfo name="UnlockCardByID" value="30201"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
-    <BossInfo name="Boss" BuildName="Strike_Lv1" picID="1">
-      <BonusGroupInfo type="Always">
-        <BonusInfo name="UnlockCardByID" value="100"></BonusInfo>
-      </BonusGroupInfo>
-    </BossInfo>
   </Level>
   <Level Level="2" LevelFightTimes="4" BigBossFightTimes="1">
     <CommonBonus>
@@ -221,6 +216,11 @@
     <BossInfo name="Boss" BuildName="CriticalAttack_Lv2" picID="634">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="62600"></BonusInfo>
+      </BonusGroupInfo>
+    </BossInfo>
+    <BossInfo name="Boss" BuildName="Strike_Lv2" picID="1">
+      <BonusGroupInfo type="Always">
+        <BonusInfo name="UnlockCardByID" value="100"></BonusInfo>
       </BonusGroupInfo>
     </BossInfo>
   </Level>

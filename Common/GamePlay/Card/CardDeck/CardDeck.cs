@@ -10,6 +10,21 @@ public class CardDeck
 
     private List<CardInfo_Base> Cards = new List<CardInfo_Base>();
     private List<CardInfo_Base> AbandonCards = new List<CardInfo_Base>();
+    public List<CoolingDownCard> CoolingDownCards = new List<CoolingDownCard>();
+
+    public class CoolingDownCard
+    {
+        public CardInfo_Base CardInfoBase;
+        public int LeftRounds;
+        public bool ShowInBattleShip;
+
+        public CoolingDownCard(CardInfo_Base cardInfoBase, int leftRounds, bool showInBattleShip)
+        {
+            CardInfoBase = cardInfoBase;
+            LeftRounds = leftRounds;
+            ShowInBattleShip = showInBattleShip;
+        }
+    }
 
     public bool IsEmpty
     {
@@ -131,7 +146,6 @@ public class CardDeck
 
         return resList;
     }
-
 
     public CardInfo_Base GetFirstCardInfo()
     {
@@ -272,13 +286,41 @@ public class CardDeck
     {
         if (CardInstanceIdDict.ContainsKey(cardInstanceId))
         {
-            AbandonCards.Add(AllCards.GetCard(CardInstanceIdDict[cardInstanceId]));
+            CardInfo_Base cib = AllCards.GetCard(CardInstanceIdDict[cardInstanceId]);
+            if (cib.BaseInfo.CardType == CardTypes.Retinue && !cib.RetinueInfo.IsSoldier)
+            {
+                CoolingDownCards.Add(new CoolingDownCard(cib, 1, true));
+            }
+            else
+            {
+                AbandonCards.Add(cib);
+            }
+
             CardInstanceIdDict.Remove(cardInstanceId);
         }
     }
 
     public void AbandonCardRecycle()
     {
+        List<CoolingDownCard> removeList = new List<CoolingDownCard>();
+        foreach (CoolingDownCard coolingDownCard in CoolingDownCards)
+        {
+            if (coolingDownCard.LeftRounds == 0)
+            {
+                removeList.Add(coolingDownCard);
+                AbandonCards.Add(coolingDownCard.CardInfoBase);
+            }
+            else
+            {
+                coolingDownCard.LeftRounds--;
+            }
+        }
+
+        foreach (CoolingDownCard coolingDownCard in removeList)
+        {
+            CoolingDownCards.Remove(coolingDownCard);
+        }
+
         foreach (CardInfo_Base ac in AbandonCards)
         {
             AppendCard(ac);

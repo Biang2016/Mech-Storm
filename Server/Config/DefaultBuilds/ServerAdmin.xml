@@ -51,14 +51,14 @@
     <Info name="criticalCardIDs" ids="5800,10301" />
   </BuildInfo>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="Strike_Lv1" DrawCardNum="2" Life="36" Energy="12" BeginMetal="0" />
-    <Info name="cardIDs" ids="100,1600,5101,5102,5401,6902,10301,10301,30201,60103,60601,62102,62102,62401,62402,62403,62500,62600,70102,70102,70301" />
-    <Info name="criticalCardIDs" ids="100,5101,6902,10301,30201" />
-  </BuildInfo>
-  <BuildInfo>
     <Info name="baseInfo" BuildName="Armor_Lv1" DrawCardNum="2" Life="33" Energy="19" BeginMetal="3" />
     <Info name="cardIDs" ids="6903,6903,10301,10301,10301,30201,30201,30201,60601,60801,62103,70103,70301,71001" />
     <Info name="criticalCardIDs" ids="6903,10301,30201,60601" />
+  </BuildInfo>
+  <BuildInfo>
+    <Info name="baseInfo" BuildName="Strike_Lv2" DrawCardNum="2" Life="36" Energy="12" BeginMetal="0" />
+    <Info name="cardIDs" ids="100,1600,5101,5102,5401,6902,10301,10301,30201,60103,60601,62102,62102,62401,62402,62403,62500,62600,70102,70102,70301" />
+    <Info name="criticalCardIDs" ids="100,5101,6902,10301,30201" />
   </BuildInfo>
   <BuildInfo>
     <Info name="baseInfo" BuildName="GunCanon_Lv2" DrawCardNum="3" Life="33" Energy="10" BeginMetal="3" />
