@@ -17,6 +17,8 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
     public MetalLifeEnergyManager EnemyMetalLifeEnergyManager;
     public PlayerBuffManager SelfPlayerBuffManager;
     public PlayerBuffManager EnemyPlayerBuffManager;
+    public CoolDownCardManager SelfPlayerCoolDownCardManager;
+    public CoolDownCardManager EnemyPlayerCoolDownCardManager;
     public GameObject CardDetailPreview;
 
     [SerializeField] private GameObject BattleShip;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 
 public class CardDeck
 {
@@ -14,15 +15,34 @@ public class CardDeck
 
     public class CoolingDownCard
     {
-        public CardInfo_Base CardInfoBase;
+        public int CardID;
+        public int CardInstanceID;
         public int LeftRounds;
         public bool ShowInBattleShip;
 
-        public CoolingDownCard(CardInfo_Base cardInfoBase, int leftRounds, bool showInBattleShip)
+        public CoolingDownCard(int cardId, int cardInstanceId, int leftRounds, bool showInBattleShip)
         {
-            CardInfoBase = cardInfoBase;
+            CardID = cardId;
+            CardInstanceID = cardInstanceId;
             LeftRounds = leftRounds;
             ShowInBattleShip = showInBattleShip;
+        }
+
+        public void Serialize(DataStream writer)
+        {
+            writer.WriteSInt32(CardID);
+            writer.WriteSInt32(CardInstanceID);
+            writer.WriteSInt32(LeftRounds);
+            writer.WriteByte((byte) (ShowInBattleShip ? 0x01 : 0x00));
+        }
+
+        public static CoolingDownCard Deserialize(DataStream reader)
+        {
+            int CardID = reader.ReadSInt32();
+            int CardInstanceID = reader.ReadSInt32();
+            int LeftRounds = reader.ReadSInt32();
+            bool ShowInBattleShip = reader.ReadByte() == 0x01;
+            return new CoolingDownCard(CardID, CardInstanceID, LeftRounds, ShowInBattleShip);
         }
     }
 
@@ -45,10 +65,12 @@ public class CardDeck
         return Cards.Count;
     }
 
-    public CardDeck(BuildInfo cdi, OnCardDeckCountChange handler)
+    public CardDeck(BuildInfo cdi, OnCardDeckCountChange onCardDeckCountChangeHandler, Action<CoolingDownCard> onUpdateCoolDownCardHandler, Action<CoolingDownCard> onRemoveCoolDownCardHandler)
     {
         M_BuildInfo = cdi;
-        CardDeckCountChangeHandler = handler;
+        CardDeckCountChangeHandler = onCardDeckCountChangeHandler;
+        UpdateCoolDownCardHandler = onUpdateCoolDownCardHandler;
+        RemoveCoolDownCardHandler = onRemoveCoolDownCardHandler;
         AppendCards(AllCards.GetCards(M_BuildInfo.CardIDs.ToArray()));
         SuffleSelf();
     }
@@ -289,7 +311,9 @@ public class CardDeck
             CardInfo_Base cib = AllCards.GetCard(CardInstanceIdDict[cardInstanceId]);
             if (cib.BaseInfo.CardType == CardTypes.Retinue && !cib.RetinueInfo.IsSoldier)
             {
-                CoolingDownCards.Add(new CoolingDownCard(cib, 1, true));
+                CoolingDownCard cdc = new CoolingDownCard(cib.CardID, cardInstanceId, 2, true);
+                CoolingDownCards.Add(cdc);
+                UpdateCoolDownCardHandler(cdc);
             }
             else
             {
@@ -300,33 +324,49 @@ public class CardDeck
         }
     }
 
-    public void AbandonCardRecycle()
+    public void UpdateCoolDownCards()
     {
         List<CoolingDownCard> removeList = new List<CoolingDownCard>();
         foreach (CoolingDownCard coolingDownCard in CoolingDownCards)
         {
-            if (coolingDownCard.LeftRounds == 0)
+            if (coolingDownCard.LeftRounds == 1)
             {
+                CardInfo_Base cib = AllCards.GetCard(coolingDownCard.CardID);
                 removeList.Add(coolingDownCard);
-                AbandonCards.Add(coolingDownCard.CardInfoBase);
+                AbandonCards.Add(cib);
             }
             else
             {
                 coolingDownCard.LeftRounds--;
+                UpdateCoolDownCardHandler(coolingDownCard);
             }
         }
 
         foreach (CoolingDownCard coolingDownCard in removeList)
         {
             CoolingDownCards.Remove(coolingDownCard);
+            RemoveCoolDownCardHandler(coolingDownCard);
         }
 
-        foreach (CardInfo_Base ac in AbandonCards)
-        {
-            AppendCard(ac);
-        }
-
-        AbandonCards.Clear();
-        Suffle(Cards);
+        AbandonCardRecycle();
     }
+
+    public void AbandonCardRecycle()
+    {
+        bool needRecycle = AbandonCards.Count > 0;
+
+        if (needRecycle)
+        {
+            foreach (CardInfo_Base ac in AbandonCards)
+            {
+                AppendCard(ac);
+            }
+
+            AbandonCards.Clear();
+            Suffle(Cards);
+        }
+    }
+
+    public Action<CoolingDownCard> RemoveCoolDownCardHandler;
+    public Action<CoolingDownCard> UpdateCoolDownCardHandler;
 }

@@ -128,6 +128,10 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         {
             TransitManager.Instance.ShowBlackShutTransit(1f, GameStopPreparation);
         }
+        else
+        {
+            GameStopPreparation();
+        }
     }
 
     void GameStopPreparation()
@@ -152,6 +156,8 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         GameBoardManager.Instance.EnemyHandManager.ResetAll();
         GameBoardManager.Instance.SelfPlayerBuffManager.ResetAll();
         GameBoardManager.Instance.EnemyPlayerBuffManager.ResetAll();
+        GameBoardManager.Instance.SelfPlayerCoolDownCardManager.ResetAll();
+        GameBoardManager.Instance.EnemyPlayerCoolDownCardManager.ResetAll();
 
         SelfClientPlayer = null;
         EnemyClientPlayer = null;

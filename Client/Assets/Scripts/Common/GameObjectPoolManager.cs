@@ -97,6 +97,9 @@
     public GameObjectPool Pool_PlayerBuffPool;
     public PoolObject PlayerBuffPrefab;
 
+    public GameObjectPool Pool_CoolDownCardPool;
+    public PoolObject CoolDownCardPrefab;
+
     public GameObjectPool Pool_ParticleSystemPool;
     public PoolObject ParticleSystemPrefab;
 
@@ -185,6 +188,8 @@
         Pool_ConfirmWindowPool.Initiate(ConfirmWindowPrefab, 3);
 
         Pool_PlayerBuffPool.Initiate(PlayerBuffPrefab, 5);
+
+        Pool_CoolDownCardPool.Initiate(CoolDownCardPrefab, 5);
 
         Pool_ParticleSystemPool.Initiate(ParticleSystemPrefab, 5);
 

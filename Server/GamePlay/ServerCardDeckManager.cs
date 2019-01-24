@@ -64,8 +64,23 @@ internal class ServerCardDeckManager
         CardDeck.RandomInsertTempCard(cardId);
     }
 
+    public void OnDrawCardPhase()
+    {
+        CardDeck.UpdateCoolDownCards();
+    }
+
     public void EndRound()
     {
         CardDeck.AbandonCardRecycle();
+    }
+
+    public void OnUpdatePlayerCoolDownCard(CardDeck.CoolingDownCard cdc)
+    {
+        ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(new PlayerCoolDownCardUpdateRequest(ServerPlayer.ClientId, cdc));
+    }
+
+    public void OnRemovePlayerCoolDownCard(CardDeck.CoolingDownCard cdc)
+    {
+        ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(new PlayerCoolDownCardRemoveRequest(ServerPlayer.ClientId, cdc));
     }
 }

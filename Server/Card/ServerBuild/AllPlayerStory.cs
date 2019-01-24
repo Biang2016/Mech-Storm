@@ -5,7 +5,10 @@ using System.Xml;
 
 internal class AllPlayerStory
 {
-    public static string StoriesDirectory = "./Config/PlayerStories/";
+    public static string StoriesDirectory
+    {
+        get { return ServerConsole.ServerRoot + "Config/PlayerStories/"; }
+    }
 
     public static void AddAllStories()
     {

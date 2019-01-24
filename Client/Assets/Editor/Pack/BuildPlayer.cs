@@ -41,8 +41,16 @@ public class BuildPlayer
         string ab_Windows = Application.streamingAssetsPath + "/AssetBundle/windows/";
         string ab_MacOS = Application.streamingAssetsPath + "/AssetBundle/osx/";
 
+        string ab_back = Application.dataPath + "/StreamingAsset_back/AssetBundle/";
         string ab_Windows_back = Application.dataPath + "/StreamingAsset_back/AssetBundle/windows/";
         string ab_MacOS_back = Application.dataPath + "/StreamingAsset_back/AssetBundle/osx/";
+
+        if (Directory.Exists(ab_back))
+        {
+            Directory.Delete(ab_back, true);
+        }
+
+        Directory.CreateDirectory(ab_back);
 
         if (Directory.Exists(ab_Windows_back))
         {

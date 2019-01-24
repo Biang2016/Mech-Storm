@@ -124,6 +124,16 @@ public partial class RoundManager
                 OnRemovePlayerBuff((PlayerBuffRemoveRequest) r);
                 break;
             }
+            case NetProtocols.SE_PLAYER_COOLDOWNCARD_UPDATE_REQUEST:
+            {
+                OnUpdatePlayerCoolDownCard((PlayerCoolDownCardUpdateRequest) r);
+                break;
+            }
+            case NetProtocols.SE_PLAYER_COOLDOWNCARD_REMOVE_REQUEST:
+            {
+                OnRemovePlayerCoolDownCard((PlayerCoolDownCardRemoveRequest) r);
+                break;
+            }
 
             case NetProtocols.SE_CARDDECT_LEFT_CHANGE:
             {
@@ -294,7 +304,6 @@ public partial class RoundManager
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-
     private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
     {
         ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinueId);
@@ -366,7 +375,6 @@ public partial class RoundManager
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-
     private void OnBattleGroundAddRetinue_PrePass(BattleGroundAddRetinueRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
@@ -412,6 +420,18 @@ public partial class RoundManager
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         cp.MyPlayerBuffManager.RemovePlayerBuff(r.buffId);
+    }
+
+    private void OnUpdatePlayerCoolDownCard(PlayerCoolDownCardUpdateRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyPlayerCoolDownCardManager.UpdateCoolDownCard(r.coolingDownCard);
+    }
+
+    private void OnRemovePlayerCoolDownCard(PlayerCoolDownCardRemoveRequest r)
+    {
+        ClientPlayer cp = GetPlayerByClientId(r.clientId);
+        cp.MyPlayerCoolDownCardManager.RemoveCoolDownCard(r.coolingDownCard.CardInstanceID);
     }
 
     IEnumerator Co_RetinueRemoveFromBattleGround_Logic(List<int> retinueIds) //机甲一起移除战场(逻辑层)

@@ -37,13 +37,13 @@ internal class Server
     public void Start()
     {
         AllColors.DebugLogHandler = ServerLog.PrintError;
-        AllColors.AddAllColors("./Config/Colors.xml");
+        AllColors.AddAllColors(ServerConsole.ServerRoot + "Config/Colors.xml");
         AllSideEffects.DebugLogHandler = ServerLog.PrintError;
-        AllSideEffects.AddAllSideEffects("./Config/SideEffects.xml");
+        AllSideEffects.AddAllSideEffects(ServerConsole.ServerRoot + "Config/SideEffects.xml");
         AllBuffs.DebugLogHandler = ServerLog.PrintError;
-        AllBuffs.AddAllBuffs("./Config/Buffs.xml");
+        AllBuffs.AddAllBuffs(ServerConsole.ServerRoot + "Config/Buffs.xml");
         AllCards.DebugLogHandler = ServerLog.PrintError;
-        AllCards.AddAllCards("./Config/Cards.xml");
+        AllCards.AddAllCards(ServerConsole.ServerRoot + "Config/Cards.xml");
         AllServerBuilds.AddAllBuilds();
         AllPlayerStory.AddAllStories();
         if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
@@ -239,7 +239,6 @@ internal class Server
 
     #endregion
 
-
     #region 发送信息
 
     //对特定客户端发送信息
@@ -310,7 +309,6 @@ internal class Server
 
     #endregion
 }
-
 
 internal class SendMsg
 {

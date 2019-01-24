@@ -3,6 +3,21 @@ using System.IO;
 
 class ServerConsole
 {
+    public static string ServerRoot
+    {
+        get
+        {
+            if (Platform == DEVELOP.FORMAL)
+            {
+                return "./MyFirstCardGame/ServerBuild/";
+            }
+            else
+            {
+                return "./";
+            }
+        }
+    }
+
     public static DEVELOP Platform = DEVELOP.FORMAL;
 
     public enum DEVELOP
@@ -14,7 +29,18 @@ class ServerConsole
 
     static void Main(string[] args)
     {
-        StreamReader sr = new StreamReader("./Config/ServerSwitch.txt");
+        StreamReader sr;
+        FileInfo fi_formal = new FileInfo(ServerRoot + "Config/ServerSwitch.txt");
+        FileInfo fi_develop = new FileInfo("./Config/ServerSwitch.txt");
+        if (fi_formal.Exists)
+        {
+            sr = new StreamReader(fi_formal.FullName);
+        }
+        else
+        {
+            sr = new StreamReader(fi_develop.FullName);
+        }
+
         string platform = sr.ReadToEnd().TrimEnd("\n ".ToCharArray());
         sr.Close();
         Platform = (DEVELOP) Enum.Parse(typeof(DEVELOP), platform);

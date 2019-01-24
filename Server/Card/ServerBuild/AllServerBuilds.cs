@@ -6,8 +6,26 @@ using System.Xml;
 
 internal class AllServerBuilds
 {
-    public static string DefaultBuildDirectory = "./Config/DefaultBuilds/";
-    public static string ExportBuildDirectory = "../../Config/DefaultBuilds/";
+    public static string DefaultBuildDirectory
+    {
+        get { return ServerConsole.ServerRoot + "Config/DefaultBuilds/"; }
+    }
+
+    public static string ExportBuildDirectory
+    {
+        get
+        {
+            if (ServerConsole.Platform == ServerConsole.DEVELOP.FORMAL)
+            {
+                return ServerConsole.ServerRoot + "Config/DefaultBuilds/";
+            }
+            else
+            {
+                return "../../Config/DefaultBuilds/";
+            }
+        }
+    }
+
     public static string SuperAccountPassword = "Xuedapao007";
 
     public static void AddAllBuilds()
@@ -217,7 +235,6 @@ internal class AllServerBuilds
 
                 criticalCardIDs.SetAttribute("ids", string.Join(",", strs_cids.ToArray()));
             }
-
 
             if (builds.ManagerName == "StoryAdmin")
             {
