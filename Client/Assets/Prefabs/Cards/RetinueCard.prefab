@@ -445,7 +445,6 @@ MonoBehaviour:
   CardBackSortingGroup: {fileID: 210170315119132570}
   CardBackBloomSortingGroup: {fileID: 210789812673948408}
   CanvasSortingGroup: {fileID: 210247478965130354}
-  PictureSortingGroup: {fileID: 0}
   MainBoardRenderer: {fileID: 23432915313877264}
   CardBloom: {fileID: 1438005374451038}
   CardBloomRenderer: {fileID: 23461083782208766}
@@ -3310,13 +3309,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5232922809127984209}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224823730318374404}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.29, y: -8.68}
