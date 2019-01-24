@@ -75,7 +75,7 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Text Text_RetinueShield;
     [SerializeField] private Text Text_RetinueArmor;
 
-    [SerializeField] private Renderer Picture;
+    [SerializeField] private Image Picture;
 
     [SerializeField] private TextMesh DamageNumberPreviewTextMesh; //受攻击瞄准时的伤害预览
     [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh; //受攻击瞄准时的伤害预览

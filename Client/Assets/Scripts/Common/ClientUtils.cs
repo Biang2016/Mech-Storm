@@ -91,22 +91,6 @@ public class ClientUtils
         }
     }
 
-    public static void ChangeCardPicture(Renderer rd, int pictureID)
-    {
-        string pid_str = string.Format("{0:000}", pictureID);
-        SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));
-        Texture2D firstSprite = atlas.GetSprite(pictureID / 100 + "00").texture;
-        Sprite sprite = atlas.GetSprite(pid_str);
-        if (sprite != null)
-        {
-            ChangePicture(rd, firstSprite, sprite.textureRect);
-        }
-        else
-        {
-            Debug.LogError("所选卡片没有图片资源：" + pid_str);
-        }
-    }
-
     public static void ChangeColor(RawImage image, Color newColor)
     {
         if (!image) return;

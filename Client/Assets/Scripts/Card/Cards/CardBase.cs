@@ -155,7 +155,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardBloomSortingGroup.sortingOrder = value * 3;
         CardBackSortingGroup.sortingOrder = value * 3;
         CardBackBloomSortingGroup.sortingOrder = value * 3;
-        PictureSortingGroup.sortingOrder = value * 3;
     }
 
     private float MainboardEmissionIntensity = 0f;
@@ -358,12 +357,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private SortingGroup CardBackSortingGroup;
     [SerializeField] private SortingGroup CardBackBloomSortingGroup;
     [SerializeField] private SortingGroup CanvasSortingGroup;
-    [SerializeField] private SortingGroup PictureSortingGroup;
 
     [SerializeField] private Renderer MainBoardRenderer;
     public GameObject CardBloom;
     [SerializeField] private Renderer CardBloomRenderer;
-    [SerializeField] private Renderer Picture;
+    [SerializeField] private Image Picture;
 
     public GameObject CardBackBloom;
     [SerializeField] private Renderer CardBackRenderer;
