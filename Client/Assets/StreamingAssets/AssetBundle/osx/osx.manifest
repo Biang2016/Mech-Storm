@@ -3,16 +3,16 @@ CompatibilityAssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: prefabs
-      Hash: 75595a8162387285c85065733977b308
-      CRC: 948324286
+      Hash: 10e20aec0938db462412131a3c130a90
+      CRC: 393646656
         Dependency_0: textures_ui_arrow        Dependency_1: textures_ui_cardrelated        Dependency_2: materials        Dependency_3: textures_ui_story        Dependency_4: animations        Dependency_5: textures_ships        Dependency_6: textures_numbers        Dependency_7: textures_card_cardcomponents        Dependency_8: textures_card_pack        Dependency_9: textures_card_retinueicons        Dependency_10: textures_card_weapon        Dependency_11: shaders        Dependency_12: textures_ui_menu        Dependency_13: textures_card_shield        Dependency_14: fonts        Dependency_15: textures_card_ma        Dependency_16: textures_effects        Dependency_17: textures_ui_playerbuff        Dependency_18: textures_card_retinueattrshapes        Dependency_19: textures_ui_outgame        Dependency_20: textures_ui_common        Dependency_21: textures_ui_tips        Dependency_22: textures_card_affix    Info_1:
       Name: animations
-      Hash: 94e2b53c6ca7024b9b894701d839ecaa
-      CRC: 3302498693
+      Hash: 41c34e7255d320d50d08239d76565dc6
+      CRC: 3154725841
         Dependency_0: textures_ui_arrow    Info_2:
       Name: materials
-      Hash: 16d70097772402029da77ae4601a8d0b
-      CRC: 1674513940
+      Hash: 1bfdaa90d6bc355811e413467a6a5430
+      CRC: 1388838642
         Dependency_0: shaders        Dependency_1: textures_ui_arrow        Dependency_2: textures_ui_cardrelated        Dependency_3: textures_ships        Dependency_4: textures_ui_outgame        Dependency_5: textures_card_cardcomponents        Dependency_6: textures_ui_menu        Dependency_7: textures_card_retinueattrshapes        Dependency_8: textures_card_ma        Dependency_9: textures_card_pack        Dependency_10: textures_card_retinueicons        Dependency_11: textures_effects        Dependency_12: textures_card_shield        Dependency_13: textures_card_weapon        Dependency_14: textures_numbers        Dependency_15: textures_ui_common    Info_3:
       Name: shaders
       Hash: 69ed025345f62483743ac1461af3b3c3
@@ -25,63 +25,63 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_5:
       Name: atlas_bgs
-      Hash: 54078ac024e509afbd715d8d1836d2d5
-      CRC: 2396407751
+      Hash: dfa86657d111e900838929cb4872ed18
+      CRC: 1409314494
       Dependencies: {}
     Info_6:
       Name: atlas_cardpics_0
-      Hash: a4fb2a019319b3e2ddf56a95c0997724
-      CRC: 910298982
+      Hash: ab38cf272d3d767e3df32fb3849fd8dd
+      CRC: 3424887699
       Dependencies: {}
     Info_7:
       Name: atlas_cardpics_1
-      Hash: 098dd20b42301decd070cfc6d98f5dfa
-      CRC: 388276705
+      Hash: e206f49b6d0c05858888e9daffbbed90
+      CRC: 2287297865
       Dependencies: {}
     Info_8:
       Name: atlas_cardpics_10
-      Hash: f941e8dc2c6a914e3f97482ef4f7970d
-      CRC: 3400003581
+      Hash: 7564d124d5c035627176fe9f54c5072e
+      CRC: 1173776509
       Dependencies: {}
     Info_9:
       Name: atlas_cardpics_2
-      Hash: 4eb0d3c7d5c3e4ebf7b393d415e589d3
-      CRC: 2007538508
+      Hash: f67eeaa255ba16efdef9a650d6dcb7be
+      CRC: 3880534417
       Dependencies: {}
     Info_10:
       Name: atlas_cardpics_3
-      Hash: e75210492151dd13b11943a05b909050
-      CRC: 2373306832
+      Hash: 353357d27a2a17262e0f1c79432fcb46
+      CRC: 1675857711
       Dependencies: {}
     Info_11:
       Name: atlas_cardpics_4
-      Hash: 45782a8f88c62a5acf3da420b232a2cd
-      CRC: 3529672949
+      Hash: 79fa903f0d8b4ed096718f32339631d6
+      CRC: 3428213567
       Dependencies: {}
     Info_12:
       Name: atlas_cardpics_5
-      Hash: 00773d52b1a5cbda8e33d4ddfa8b38ad
-      CRC: 2131770077
+      Hash: e3bcdc50d926bd38f82c34c8153e2b6b
+      CRC: 1751064282
       Dependencies: {}
     Info_13:
       Name: atlas_cardpics_6
-      Hash: 9e0f1066600626ab282a3107618127f4
-      CRC: 3354425224
+      Hash: 7dc36d21d15a0a0c964f794a89ec726f
+      CRC: 2817625517
       Dependencies: {}
     Info_14:
       Name: atlas_cardpics_7
-      Hash: d0cdd35b77b4d93a7f98cc06998826f5
-      CRC: 2019771577
+      Hash: c42c4259980052623dae7a4f89a318c6
+      CRC: 3420521253
       Dependencies: {}
     Info_15:
       Name: atlas_cardpics_8
-      Hash: b0449ead6a132e4234e5128d31897b4b
-      CRC: 196404259
+      Hash: a510cd73088c80aa9374c81bbf8f3fb5
+      CRC: 2672289000
       Dependencies: {}
     Info_16:
       Name: atlas_cardpics_9
-      Hash: cf766f52b00f12934609019a505fa169
-      CRC: 3782018650
+      Hash: 7975187f689e0364055f36f55b666788
+      CRC: 1509752772
       Dependencies: {}
     Info_17:
       Name: audio_sfx
