@@ -6,6 +6,7 @@ public class EventManager
 {
     public EventManager()
     {
+        // Event Manager is arranged and triggered by (enum)TriggerTime.
         foreach (SideEffectBundle.TriggerTime tt in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
         {
             Events.Add(tt, new Dictionary<int, SideEffectExecute>());
@@ -14,12 +15,14 @@ public class EventManager
     }
 
     /// <summary>
-    /// All events stored in this Dict
+    /// All events are stored in this Dict by (key)TriggerTime
     /// </summary>
     private SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>> Events = new SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>>();
 
+    /// <summary>
+    /// All useless events are stored in this Dict for later remove by (key)TriggerTime
+    /// </summary>
     private SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>> RemoveEvents = new SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>>();
-
 
     /// <summary>
     /// Cards, equipments, buffs register their sideeffects
@@ -33,6 +36,10 @@ public class EventManager
         }
     }
 
+    /// <summary>
+    /// Register single SideEffectExecute
+    /// </summary>
+    /// <param name="sideEffectExecute"></param>
     public void RegisterEvent(SideEffectExecute sideEffectExecute)
     {
         if (sideEffectExecute.TriggerTime != SideEffectBundle.TriggerTime.None && sideEffectExecute.TriggerRange != SideEffectBundle.TriggerRange.None)
@@ -42,6 +49,10 @@ public class EventManager
         }
     }
 
+    /// <summary>
+    /// If cards, buffs, equipments are removed from battle, just call this method to UnRegister all sideeffects of them
+    /// </summary>
+    /// <param name="sideEffects"></param>
     public void UnRegisterEvent(SideEffectBundle sideEffects)
     {
         foreach (SideEffectExecute see in sideEffects.SideEffectExecutes)
@@ -59,6 +70,9 @@ public class EventManager
         if (sees_remove.ContainsKey(see.ID)) sees_remove.Remove(see.ID);
     }
 
+    /// <summary>
+    /// Clear all events in EventManager. For game ending or restarting.
+    /// </summary>
     public void ClearAllEvents()
     {
         foreach (SideEffectBundle.TriggerTime tt in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
@@ -71,35 +85,17 @@ public class EventManager
     }
 
     /// <summary>
-    /// When something happens in game, invoke events by TriggerTime enum.
-    /// Invoker info can be found in executerInfo.
-    /// TriggerTime enum is Flag. Master trigger can be triggered by Sub trigger -> e.g. OnHeroInjured also triggers OnRetinueInjured
+    /// Sometimes several events are triggered at the same time (e.g. OnHeroAttack and OnAttack are triggered at the same time because OnAttack has a bigger range)
+    /// So we need a TriggerTimeQueue to manage these.
     /// </summary>
-    /// <param name="tt"></param>
-    /// <param name="executerInfo"></param>
-    public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo) 
-    {
-        foreach (SideEffectBundle.TriggerTime triggerTime in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
-        {
-            if ((tt & triggerTime) == tt)
-            {
-                InvokeTriggerTimeQueue.Enqueue(new InvokeInfo(triggerTime, executerInfo)); //所有事件入队
-            }
-        }
-
-        while (InvokeTriggerTimeQueue.Count > 0) //Dequeue every trigger time and invoke.
-        {
-            InvokeInfo invokeInfo = InvokeTriggerTimeQueue.Dequeue();
-            InvokeCore(invokeInfo);
-        }
-
-        RemoveAllUselessSEEs(); 
-        OnEventInvokeEndHandler(); //Ready to send data to client ends.
-    }
+    Queue<InvokeInfo> InvokeTriggerTimeQueue = new Queue<InvokeInfo>();
 
     struct InvokeInfo
     {
         public SideEffectBundle.TriggerTime TriggerTime;
+        /// <summary>
+        /// ExecuterInfo reflects as more information as possible of the executor of this invoke.
+        /// </summary>
         public SideEffectBase.ExecuterInfo ExecuterInfo;
 
         public InvokeInfo(SideEffectBundle.TriggerTime triggerTime, SideEffectBase.ExecuterInfo executerInfo)
@@ -109,9 +105,34 @@ public class EventManager
         }
     }
 
-    Queue<InvokeInfo> InvokeTriggerTimeQueue = new Queue<InvokeInfo>();
+    /// <summary>
+    /// When something happens in game, invoke events by TriggerTime enum.
+    /// Invoker info can be found in executerInfo.
+    /// TriggerTime enum is Flag. Master trigger can be triggered by Sub trigger -> e.g. OnHeroInjured also triggers OnRetinueInjured
+    /// This method is often used in game logic.
+    /// (e.g. ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierKill, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID, targetRetinueId: targetRetinue.M_RetinueID));)
+    /// </summary>
+    /// <param name="tt"></param>
+    /// <param name="executerInfo"></param>
+    public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
+    {
+        foreach (SideEffectBundle.TriggerTime triggerTime in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
+        {
+            if ((tt & triggerTime) == tt) // this is a Flag Enum compare 
+            {
+                InvokeTriggerTimeQueue.Enqueue(new InvokeInfo(triggerTime, executerInfo)); //all TriggerTimes enqueue
+            }
+        }
 
-    Stack<SideEffectExecute> InvokeStack = new Stack<SideEffectExecute>();
+        while (InvokeTriggerTimeQueue.Count > 0) //Dequeue every trigger time and invoke.
+        {
+            InvokeInfo invokeInfo = InvokeTriggerTimeQueue.Dequeue();
+            InvokeCore(invokeInfo);
+        }
+
+        RemoveAllUselessSEEs(); // if some mechs are dead or cards are removed, their SideEffectExecute would be removed from EventManager 
+        OnEventInvokeEndHandler(); //Ready to send data to client ends.
+    }
 
     private void InvokeCore(InvokeInfo invokeInfo)
     {
@@ -126,12 +147,12 @@ public class EventManager
             if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent executed sideeffects from being executed again.
             if (seeDict.ContainsKey(see.ID))
             {
-                bool isTrigger = IsExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.TriggerRange);//To check out if this event invokes any sideeffect.
-                if (isTrigger) Trigger(see, executerInfo, tt, see.TriggerRange);
+                bool isTrigger = IsExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.TriggerRange); //To check out if this event invokes any sideeffect.
+                if (isTrigger) Trigger(see, executerInfo, tt, see.TriggerRange); // invoke main trigger method.
             }
         }
 
-        Invoke_RemoveSEE(tt, executerInfo);//Remove executed sideeffects with zero time left.
+        Invoke_RemoveSEE(tt, executerInfo); //Remove executed sideeffects with zero time left.
     }
 
     public void Invoke_RemoveSEE(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
@@ -145,7 +166,7 @@ public class EventManager
             if (seeDict.ContainsKey(see.ID))
             {
                 bool isTrigger = IsExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.RemoveTriggerRange);
-                if (isTrigger) Trigger_TryRemove(see);
+                if (isTrigger) Trigger_TryRemove(see); // invoke main trigger_remove method. (some sideeffects like buffs have a remove_time attribute. e.g. Remove this buff after 3 turns)
             }
         }
 
@@ -176,6 +197,15 @@ public class EventManager
         ObsoleteSEEs.Clear();
     }
 
+    
+    /// <summary>
+    /// This is an important method to check is this Event valid to trigger a series of corresponding sideeffects.
+    /// Compare executor's clientID, cardID or other values with those sideeffects recorded in EventManager. If compared successfully, then trigger.
+    /// </summary>
+    /// <param name="executerInfo"></param>
+    /// <param name="se_ExecuterInfo"></param>
+    /// <param name="tr">TriggerRange, the key parameter in this method, used to compare executorInfos between events and sideeffects recorded in EventManager</param>
+    /// <returns></returns>
     private static bool IsExecuteTrigger(SideEffectBase.ExecuterInfo executerInfo, SideEffectBase.ExecuterInfo se_ExecuterInfo, SideEffectBundle.TriggerRange tr)
     {
         bool isTrigger = false;
@@ -219,6 +249,12 @@ public class EventManager
         return isTrigger;
     }
 
+    /// <summary>
+    /// Because during the process of some effects trigger, new events would happen. (e.g. trigger a damage effect and then a mech is injured and dead, then trigger a OnRetinueInjured and OnRetinueDie event)
+    /// So we need a Stack data structure to manage where are we in this trigger tree.
+    /// </summary>
+    Stack<SideEffectExecute> InvokeStack = new Stack<SideEffectExecute>();
+
     private void Trigger(SideEffectExecute see, SideEffectBase.ExecuterInfo ei, SideEffectBundle.TriggerTime tt, SideEffectBundle.TriggerRange tr)
     {
         if (see.TriggerDelayTimes > 0) //TriggerDelayTimes decreases and trigger the event when it's 0
@@ -254,7 +290,7 @@ public class EventManager
                 //Trigger's trigger End
 
                 see.TriggerTimes--;
-                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecuterInfo, tt, tr);//Send request to client
+                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecuterInfo, tt, tr); //Send request to client
                 OnEventInvokeHandler(request);
 
                 InvokeStack.Push(see);
@@ -292,7 +328,6 @@ public class EventManager
             }
         }
     }
-
 
     public delegate void OnEventInvoke(ShowSideEffectTriggeredRequest request);
 

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 /// <summary>
-/// 将SideEffect和其触发时机、触发次数等参数封装起来
+/// Encapsulate sideeffect and its TriggerTime, TriggerRange, number of trigger times, and other attributes. 
 /// </summary>
 public class SideEffectExecute
 {
@@ -31,14 +31,14 @@ public class SideEffectExecute
     public int ID;
     public SideEffectBase SideEffectBase;
 
-    public SideEffectBundle.TriggerTime TriggerTime; //触发SE时机
-    public SideEffectBundle.TriggerRange TriggerRange; //触发SE条件
-    public int TriggerDelayTimes;
-    public int TriggerTimes;
+    public SideEffectBundle.TriggerTime TriggerTime; //when to trigger
+    public SideEffectBundle.TriggerRange TriggerRange; //which range of events can trigger this effect
+    public int TriggerDelayTimes;//how many times we need to trigger it before it can realy trigger
+    public int TriggerTimes;//the max times we can trigger it.
 
-    public SideEffectBundle.TriggerTime RemoveTriggerTime; //移除SE时机
-    public SideEffectBundle.TriggerRange RemoveTriggerRange; //移除SE条件
-    public int RemoveTriggerTimes; //Remove触发多少次后，移除此SE（如：3回合内全体攻击力+1）
+    public SideEffectBundle.TriggerTime RemoveTriggerTime; //when to remove this effect/decrease the remove time of this effect
+    public SideEffectBundle.TriggerRange RemoveTriggerRange; //which range of events can remove this effect
+    public int RemoveTriggerTimes; //how many times of remove before we can remove the effect permenantly. (usually used in buffs)
 
     private SideEffectExecute()
     {
