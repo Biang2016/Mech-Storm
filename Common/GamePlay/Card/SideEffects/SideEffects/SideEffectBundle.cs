@@ -4,11 +4,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 /// <summary>
-/// 一大捆SideEffectExecute，用于附在卡牌、随从、武器、战舰上
+/// a bundle of SideEffectExecute to attach onto cards, mechs, equipment, battleships
+/// because some cards usually have more than one sideeffects.
 /// </summary>
 public class SideEffectBundle
 {
     public List<SideEffectExecute> SideEffectExecutes = new List<SideEffectExecute>();
+    
     public SortedDictionary<TriggerTime, Dictionary<TriggerRange, List<SideEffectExecute>>> SideEffectExecutes_Dict = new SortedDictionary<TriggerTime, Dictionary<TriggerRange, List<SideEffectExecute>>>();
 
     public void AddSideEffectExecute(SideEffectExecute see)
@@ -27,7 +29,7 @@ public class SideEffectBundle
         List<SideEffectExecute> res = new List<SideEffectExecute>();
         if (SideEffectExecutes_Dict.ContainsKey(triggerTime))
         {
-            var temp = SideEffectExecutes_Dict[triggerTime];
+            Dictionary<TriggerRange, List<SideEffectExecute>> temp = SideEffectExecutes_Dict[triggerTime];
             if (temp.ContainsKey(triggerRange))
             {
                 res.AddRange(temp[triggerRange]);
@@ -37,6 +39,12 @@ public class SideEffectBundle
         return res;
     }
 
+    /// <summary>
+    /// To generate SideEffects' description automatically for cards.
+    /// It can generate all sideeffects' description at one time with grammar correct.
+    /// </summary>
+    /// <param name="isEnglish"></param>
+    /// <returns></returns>
     public string GetSideEffectsDesc(bool isEnglish)
     {
         string res = "";
@@ -128,7 +136,11 @@ public class SideEffectBundle
     {
         None = 0,
 
-        OnTrigger = 1 << 0, //例如：某buff为【下一次造成的伤害翻倍】，需要在造成伤害的技能之前触发，且修改该技能的伤害值。
+        /// <summary>
+        /// e.g. a certain buff (double next damage) need to be triggered before next damage skill effect is triggered and double the skill effect number.
+        /// So we need a super trigger to monitor all common triggers.
+        /// </summary>
+        OnTrigger = 1 << 0,
 
         OnBeginRound = 1 << 1,
         OnDrawCard = 1 << 2,
@@ -200,6 +212,9 @@ public class SideEffectBundle
         OnUseMetal = 1 << 26,
     }
 
+    /// <summary>
+    /// TriggerTime description in Chinese
+    /// </summary>
     public static SortedDictionary<TriggerTime, string> TriggerTimeDesc = new SortedDictionary<TriggerTime, string>
     {
         {TriggerTime.OnTrigger, "{0}"},
@@ -250,6 +265,9 @@ public class SideEffectBundle
         {TriggerTime.OnUseMetal, "{0}消耗金属时, "},
     };
 
+    /// <summary>
+    /// TriggerTime description in English
+    /// </summary>
     public static SortedDictionary<TriggerTime, string> TriggerTimeDesc_en = new SortedDictionary<TriggerTime, string>
     {
         {TriggerTime.OnTrigger, "{0}"},
@@ -300,6 +318,10 @@ public class SideEffectBundle
         {TriggerTime.OnUseMetal, "When {0} consume metal, "},
     };
 
+    /// <summary>
+    /// TriggerRange is used together with TriggerTime
+    /// If you use a TriggerTime.OnBeginRound and a TriggerRange.EnemyPlayer, then this sideeffect will be triggered in Enemy's Begin Round Phase.
+    /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum TriggerRange
     {
@@ -315,6 +337,9 @@ public class SideEffectBundle
         Self,
     }
 
+    /// <summary>
+    /// TriggerRanges' description in Chinese
+    /// </summary>
     public static SortedDictionary<TriggerRange, string> TriggerRangeDesc = new SortedDictionary<TriggerRange, string>
     {
         {TriggerRange.SelfPlayer, "我方"},
@@ -327,6 +352,9 @@ public class SideEffectBundle
         {TriggerRange.Self, ""},
     };
 
+    /// <summary>
+    /// TriggerRanges' description in English
+    /// </summary>
     public static SortedDictionary<TriggerRange, string> TriggerRangeDesc_en = new SortedDictionary<TriggerRange, string>
     {
         {TriggerRange.SelfPlayer, "you "},

@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Client/Assets/StreamingAssets/AssetBundle/osx.meta
-guid: f207deb9b5a95074dbb168d2c6fd0988
-=======
-guid: 09b6e6dea997e4563810d41b0ad8a8c6
->>>>>>> 3ed40e65f4483e29be6f04896adbcf11a3ca10b9:Client/Assets/StreamingAssets/AssetBundle/osx.meta
+guid: 6355f812468c74b239c225e2d6c8b5c0
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
