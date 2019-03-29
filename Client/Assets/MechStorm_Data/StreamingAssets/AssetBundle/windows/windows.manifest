@@ -3,12 +3,12 @@ CompatibilityAssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: prefabs
-      Hash: b79bb559b9c3bfa41c1821a6f0a5deca
-      CRC: 1871417050
+      Hash: 5edbcb6c95e3d608912bf29c21c33610
+      CRC: 1836155564
         Dependency_0: textures_ui_arrow        Dependency_1: textures_ui_cardrelated        Dependency_2: materials        Dependency_3: textures_ui_story        Dependency_4: animations        Dependency_5: textures_ships        Dependency_6: textures_numbers        Dependency_7: textures_card_cardcomponents        Dependency_8: textures_card_pack        Dependency_9: textures_card_retinueicons        Dependency_10: textures_card_weapon        Dependency_11: shaders        Dependency_12: models        Dependency_13: textures_ui_menu        Dependency_14: textures_card_shield        Dependency_15: fonts        Dependency_16: textures_card_ma        Dependency_17: textures_effects        Dependency_18: textures_ui_playerbuff        Dependency_19: textures_card_retinueattrshapes        Dependency_20: textures_ui_outgame        Dependency_21: textures_ui_common        Dependency_22: textures_ui_tips        Dependency_23: textures_card_affix    Info_1:
       Name: animations
-      Hash: 98db8ff3c18578f024503937bd94c98e
-      CRC: 2803679408
+      Hash: 41c34e7255d320d50d08239d76565dc6
+      CRC: 1877983500
         Dependency_0: textures_ui_arrow    Info_2:
       Name: materials
       Hash: c66c9bec3e5afa26acff2247362694ee
@@ -170,8 +170,8 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_34:
       Name: textures_ui_arrow
-      Hash: ffe08727d0f18d9364fd41b30634292f
-      CRC: 2024873367
+      Hash: a7282393b0f61aacb8b68f1b2140b55f
+      CRC: 3601797741
       Dependencies: {}
     Info_35:
       Name: textures_ui_cardrelated
@@ -180,13 +180,13 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_36:
       Name: textures_ui_common
-      Hash: 6e9920a02372381ee326db2ae4cca8c0
-      CRC: 3914793663
+      Hash: 3db38a21d8b92ff9119471972016dc3d
+      CRC: 4021252795
       Dependencies: {}
     Info_37:
       Name: textures_ui_menu
-      Hash: aeaca32b421f8559c4e57fb12a3f263b
-      CRC: 3663768958
+      Hash: c356022915baafa779d1a5dd917edd7d
+      CRC: 3919065016
       Dependencies: {}
     Info_38:
       Name: textures_ui_outgame

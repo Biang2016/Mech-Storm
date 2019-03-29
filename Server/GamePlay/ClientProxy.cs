@@ -425,47 +425,47 @@ internal class ClientProxy : ProxyBase
                     {
                         switch (r)
                         {
-                            case WinDirectlyRequest _:
-                                MyServerGameManager?.OnWinDirectlyRequest((WinDirectlyRequest) r, MyPlayer);
+                            case WinDirectlyRequest req:
+                                MyServerGameManager?.OnWinDirectlyRequest(req, MyPlayer);
                                 break;
-                            case EndRoundRequest _:
-                                MyServerGameManager?.OnEndRoundRequest((EndRoundRequest) r);
+                            case EndRoundRequest req:
+                                MyServerGameManager?.OnEndRoundRequest(req);
                                 break;
-                            case SummonRetinueRequest _:
-                                MyServerGameManager?.OnClientSummonRetinueRequest((SummonRetinueRequest) r);
+                            case SummonRetinueRequest req:
+                                MyServerGameManager?.OnClientSummonRetinueRequest(req);
                                 break;
-                            case EquipWeaponRequest _:
-                                MyServerGameManager?.OnClientEquipWeaponRequest((EquipWeaponRequest) r);
+                            case EquipWeaponRequest req:
+                                MyServerGameManager?.OnClientEquipWeaponRequest(req);
                                 break;
-                            case EquipShieldRequest _:
-                                MyServerGameManager?.OnClientEquipShieldRequest((EquipShieldRequest) r);
+                            case EquipShieldRequest req:
+                                MyServerGameManager?.OnClientEquipShieldRequest(req);
                                 break;
-                            case EquipPackRequest _:
-                                MyServerGameManager?.OnClientEquipPackRequest((EquipPackRequest) r);
+                            case EquipPackRequest req:
+                                MyServerGameManager?.OnClientEquipPackRequest(req);
                                 break;
-                            case EquipMARequest _:
-                                MyServerGameManager?.OnClientEquipMARequest((EquipMARequest) r);
+                            case EquipMARequest req:
+                                MyServerGameManager?.OnClientEquipMARequest(req);
                                 break;
-                            case UseSpellCardRequest _:
-                                MyServerGameManager?.OnClientUseSpellCardRequest((UseSpellCardRequest) r);
+                            case UseSpellCardRequest req:
+                                MyServerGameManager?.OnClientUseSpellCardRequest(req);
                                 break;
-                            case UseSpellCardToRetinueRequest _:
-                                MyServerGameManager?.OnClientUseSpellCardToRetinueRequest((UseSpellCardToRetinueRequest) r);
+                            case UseSpellCardToRetinueRequest req:
+                                MyServerGameManager?.OnClientUseSpellCardToRetinueRequest(req);
                                 break;
-                            case UseSpellCardToShipRequest _:
-                                MyServerGameManager?.OnClientUseSpellCardToShipRequest((UseSpellCardToShipRequest) r);
+                            case UseSpellCardToShipRequest req:
+                                MyServerGameManager?.OnClientUseSpellCardToShipRequest(req);
                                 break;
-                            case UseSpellCardToEquipRequest _:
-                                MyServerGameManager?.OnClientUseSpellCardToEquipRequest((UseSpellCardToEquipRequest) r);
+                            case UseSpellCardToEquipRequest req:
+                                MyServerGameManager?.OnClientUseSpellCardToEquipRequest(req);
                                 break;
-                            case LeaveGameRequest _: //quit game normally
-                                MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
+                            case LeaveGameRequest req: //quit game normally
+                                MyServerGameManager?.OnLeaveGameRequest(req);
                                 break;
-                            case RetinueAttackRetinueRequest _:
-                                MyServerGameManager?.OnClientRetinueAttackRetinueRequest((RetinueAttackRetinueRequest) r);
+                            case RetinueAttackRetinueRequest req:
+                                MyServerGameManager?.OnClientRetinueAttackRetinueRequest(req);
                                 break;
-                            case RetinueAttackShipRequest _:
-                                MyServerGameManager?.OnClientRetinueAttackShipRequest((RetinueAttackShipRequest) r);
+                            case RetinueAttackShipRequest req:
+                                MyServerGameManager?.OnClientRetinueAttackShipRequest(req);
                                 break;
                         }
                     }
@@ -473,8 +473,8 @@ internal class ClientProxy : ProxyBase
                     {
                         switch (r)
                         {
-                            case LeaveGameRequest _: //quit game normally
-                                MyServerGameManager?.OnLeaveGameRequest((LeaveGameRequest) r);
+                            case LeaveGameRequest req: //quit game normally
+                                MyServerGameManager?.OnLeaveGameRequest(req);
                                 break;
                         }
                     }
