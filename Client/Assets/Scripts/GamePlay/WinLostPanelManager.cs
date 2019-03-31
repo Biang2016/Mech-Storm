@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
 {
@@ -13,18 +15,22 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
     void Awake()
     {
         WinLostCanvas.enabled = false;
-        WinText.text = LanguageManager.Instance.GetText("WinLostPanelManager_WinText");
-        LostText.text = LanguageManager.Instance.GetText("WinLostPanelManager_LostText");
-        OnlineWinText.text = LanguageManager.Instance.GetText("WinLostPanelManager_OnlineWinText");
-        OnlineLostText.text = LanguageManager.Instance.GetText("WinLostPanelManager_OnlineLostText");
-        LostTipTitle.text = LanguageManager.Instance.GetText("WinLostPanelManager_LostTipTitle");
-        RewardsTitleText.text = LanguageManager.Instance.GetText("WinLostPanelManager_RewardsTitleText");
-        NoRewardText.text = LanguageManager.Instance.GetText("WinLostPanelManager_NoRewardText");
-        FixedBonusText.text = LanguageManager.Instance.GetText("WinLostPanelManager_FixedBonusText");
-        ConfirmButtonText.text = LanguageManager.Instance.GetText("WinLostPanelManager_ConfirmButtonText");
-        GoAheadButtonText.text = LanguageManager.Instance.GetText("WinLostPanelManager_GoAheadButtonText");
-        CardUpgradeUnlockText.text = LanguageManager.Instance.GetText("WinLostPanelManager_CardUpgradeUnlockText");
-        CardUpgradeUnlockDescText.text = LanguageManager.Instance.GetText("WinLostPanelManager_CardUpgradeUnlockDescText");
+        
+        LanguageManager.Instance.RegisterTextKeys(new List<ValueTuple<Text, string>>
+        {
+            (WinText,"WinLostPanelManager_WinText"),
+            (LostText,"WinLostPanelManager_LostText"),
+            (OnlineWinText,"WinLostPanelManager_OnlineWinText"),
+            (OnlineLostText,"WinLostPanelManager_OnlineLostText"),
+            (LostTipTitle,"WinLostPanelManager_LostTipTitle"),
+            (RewardsTitleText,"WinLostPanelManager_RewardsTitleText"),
+            (NoRewardText,"WinLostPanelManager_NoRewardText"),
+            (FixedBonusText,"WinLostPanelManager_FixedBonusText"),
+            (ConfirmButtonText,"WinLostPanelManager_ConfirmButtonText"),
+            (GoAheadButtonText,"WinLostPanelManager_GoAheadButtonText"),
+            (CardUpgradeUnlockText,"WinLostPanelManager_CardUpgradeUnlockText"),
+            (CardUpgradeUnlockDescText,"WinLostPanelManager_CardUpgradeUnlockDescText"),
+        });
     }
 
     #region  Common

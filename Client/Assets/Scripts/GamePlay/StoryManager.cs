@@ -333,11 +333,6 @@ public class StoryManager : MonoSingleton<StoryManager>
             int index = 0;
             foreach (StoryLevelButton button in sc.StoryLevelButtons)
             {
-                if (!sc.LevelInfo.Bosses.ContainsKey(bossPicIDs[index]))
-                {
-                    int a = 0;
-                }
-
                 foreach (KeyValuePair<int, Boss> kv in sc.LevelInfo.Bosses)
                 {
                     Boss boss = kv.Value;

@@ -4,6 +4,10 @@ using UnityEngine.UI;
 
 public class AffixManager : MonoSingleton<AffixManager>
 {
+    private AffixManager()
+    {
+    }
+    
     [SerializeField] private Transform AffixPanel;
     [SerializeField] private VerticalLayoutGroup VerticalLayoutGroup;
     [SerializeField] private Animator AffixPanelAnim;
@@ -11,14 +15,10 @@ public class AffixManager : MonoSingleton<AffixManager>
     private List<Affix> Affixs = new List<Affix>();
     private HashSet<AffixType> AffixTypes = new HashSet<AffixType>();
 
-    void Start()
-    {
-    }
-
     private float hideAffixPanelTicker;
     private float hideAffixPanelInterval = 0.5f;
 
-    void Update()
+    private void Update()
     {
         if (StartMenuManager.Instance.M_StateMachine.IsShow())
         {
@@ -35,9 +35,10 @@ public class AffixManager : MonoSingleton<AffixManager>
     }
 
     /// <summary>
-    /// 根据CardInfo来决定是否要显示AffixPanel
+    /// 根据CardInfo和retinues来决定是否要显示AffixPanel
     /// </summary>
     /// <param name="cardInfos"></param>
+    /// <param name="retinues"></param>
     /// <returns>是否显示</returns>
     public bool ShowAffixTips(List<CardInfo_Base> cardInfos, List<ModuleRetinue> retinues)
     {
