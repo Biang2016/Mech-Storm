@@ -30,7 +30,7 @@
                 case TargetRange.EnemyMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.KillRandomRetinue(retinueId);
                     break;
-                case TargetRange.Heros:
+                case TargetRange.Heroes:
                 {
                     ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.Hero, retinueId);
                     if (retinue != null)
@@ -42,7 +42,7 @@
                     break;
                 }
 
-                case TargetRange.SelfHeros:
+                case TargetRange.SelfHeroes:
                     player.MyBattleGroundManager.KillRandomHero(retinueId);
                     break;
                 case TargetRange.EnemyHeros:

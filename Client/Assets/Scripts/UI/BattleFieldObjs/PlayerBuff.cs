@@ -26,12 +26,12 @@ internal class PlayerBuff : PoolObject
         BuffValuePanel.enabled = buff.HasNumberShow;
         BuffValueText.enabled = buff.HasNumberShow;
         BuffAnim.SetTrigger("Add");
-        BuffDescText.text = buff.GenerateDesc(GameManager.Instance.IsEnglish);
+        BuffDescText.text = buff.GenerateDesc();
     }
 
     public IEnumerator Co_UpdateValue(SideEffectExecute buffSee)
     {
-        BuffDescText.text = ((PlayerBuffSideEffects) buffSee.SideEffectBase).GenerateDesc(GameManager.Instance.IsEnglish);
+        BuffDescText.text = ((PlayerBuffSideEffects) buffSee.SideEffectBase).GenerateDesc();
         PlayerBuffSideEffects buff = (PlayerBuffSideEffects) buffSee.SideEffectBase;
         int buffValue = GetBuffValue(buffSee, buff);
 

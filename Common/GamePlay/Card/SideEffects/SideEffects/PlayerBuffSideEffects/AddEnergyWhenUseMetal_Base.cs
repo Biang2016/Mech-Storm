@@ -1,7 +1,7 @@
 ﻿public class AddEnergyWhenUseMetal_Base : PlayerBuffSideEffects
 {
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, ((AddEnergy_Base) Sub_SideEffect[0]).FinalValue);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], ((AddEnergy_Base) Sub_SideEffect[0]).FinalValue);
     }
 }

@@ -22,6 +22,13 @@ public static class AllBuffs
 
     public static void AddAllBuffs(string buffsXMLPath)
     {
+        SortedDictionary<string, string> descKeyDict = new SortedDictionary<string, string>();
+        foreach (int v in Enum.GetValues(typeof(LanguageShorts)))
+        {
+            string strName = Enum.GetName(typeof(LanguageShorts), v);
+            descKeyDict[strName] = "desc_" + strName;
+        }
+
         string text;
         using (StreamReader sr = new StreamReader(buffsXMLPath))
         {
@@ -45,8 +52,12 @@ public static class AllBuffs
             }
 
             se.Name = sideEffectNode.Attributes["name"].Value;
-            se.DescRaw = sideEffectNode.Attributes["desc"].Value;
-            se.DescRaw_en = sideEffectNode.Attributes["desc_en"].Value;
+
+            se.DescRaws=new SortedDictionary<string, string>();
+            foreach (KeyValuePair<string, string> kv in descKeyDict)
+            {
+                se.DescRaws[kv.Key] = sideEffectNode.Attributes[kv.Value].Value;
+            }
 
             se.BuffColor = sideEffectNode.Attributes["BuffColor"].Value;
             se.BuffPicId = int.Parse(sideEffectNode.Attributes["BuffPicId"].Value);

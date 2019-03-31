@@ -181,7 +181,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
             LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
             if (!HasShowLostConnectNotice)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Disconnected" : "您已离线", 0, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_YouAreOffline"), 0, 1f);
                 HasShowLostConnectNotice = true;
             }
         }
@@ -217,9 +217,9 @@ public partial class RoundManager : MonoSingleton<RoundManager>
             {
                 ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform);
                 cw.Initialize(
-                    GameManager.Instance.IsEnglish ? "You have got some new cards just now! Do you want to adjust your deck?" : "刚刚获得了新卡片，是否去卡组看一看?",
-                    GameManager.Instance.IsEnglish ? "Go to deck" : "去牌库",
-                    GameManager.Instance.IsEnglish ? "Got it." : "知道了",
+                    LanguageManager.Instance.GetText("RoundManager_JustGotANewCard"),
+                    LanguageManager.Instance.GetText("RoundManager_GoToDeck"),
+                    LanguageManager.Instance.GetText("RoundManager_GotIt"),
                     delegate
                     {
                         ConfirmWindowManager.Instance.RemoveConfirmWindow();
@@ -278,11 +278,11 @@ public partial class RoundManager : MonoSingleton<RoundManager>
             case TargetSideEffect.TargetRange.EnemyMechs:
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.Heros:
+            case TargetSideEffect.TargetRange.Heroes:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.SelfHeros:
+            case TargetSideEffect.TargetRange.SelfHeroes:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
                 break;
             case TargetSideEffect.TargetRange.EnemyHeros:

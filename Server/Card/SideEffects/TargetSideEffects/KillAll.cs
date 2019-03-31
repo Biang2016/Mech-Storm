@@ -21,11 +21,11 @@
                 case TargetRange.EnemyMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.KillAllRetinues();
                     break;
-                case TargetRange.Heros:
+                case TargetRange.Heroes:
                     player.MyBattleGroundManager.KillAllHeros();
                     player.MyEnemyPlayer.MyBattleGroundManager.KillAllHeros();
                     break;
-                case TargetRange.SelfHeros:
+                case TargetRange.SelfHeroes:
                     player.MyBattleGroundManager.KillAllHeros();
                     break;
                 case TargetRange.EnemyHeros:

@@ -167,6 +167,7 @@
      <Compile Include="Assets\Scripts\GamePlay\StartMenuManager.cs" />
      <Compile Include="Assets\Scripts\GamePlay\StoryManager.cs" />
      <Compile Include="Assets\Scripts\GamePlay\WinLostPanelManager.cs" />
+     <Compile Include="Assets\Scripts\Localization\LanguageManager.cs" />
      <Compile Include="Assets\Scripts\Network\Client.cs" />
      <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
      <Compile Include="Assets\Scripts\Network\Proxy.cs" />
@@ -814,7 +815,6 @@
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

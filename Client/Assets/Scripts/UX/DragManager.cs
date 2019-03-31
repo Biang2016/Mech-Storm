@@ -211,11 +211,11 @@ public class DragManager : MonoSingleton<DragManager>
                                 if (retinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
                                 else SummonRetinueTargetHandler(-2);
                                 break;
-                            case TargetSideEffect.TargetRange.Heros:
+                            case TargetSideEffect.TargetRange.Heroes:
                                 if (!retinue.CardInfo.RetinueInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
                                 else SummonRetinueTargetHandler(-2);
                                 break;
-                            case TargetSideEffect.TargetRange.SelfHeros:
+                            case TargetSideEffect.TargetRange.SelfHeroes:
                                 if (retinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !retinue.CardInfo.RetinueInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
                                 else SummonRetinueTargetHandler(-2);
                                 break;

@@ -14,48 +14,34 @@ public partial class SelectBuildManager
         SelectCardCount = 0;
         HeroCardCount = 0;
 
-        CardDeckText.text = GameManager.Instance.IsEnglish ? "Decks" : "卡 组";
-        DeleteCardDeckText.text = GameManager.Instance.IsEnglish ? "Delete" : "删除卡组";
-        LifeText.text = GameManager.Instance.IsEnglish ? "Life" : "生命值";
-        EnergyText.text = GameManager.Instance.IsEnglish ? "Energy" : "能量";
-        BuggetText.text = GameManager.Instance.IsEnglish ? "Bugget" : "预算";
-        BuggetIcon.SetActive(!GameManager.Instance.IsEnglish);
-        DrawCardNumText.text = GameManager.Instance.IsEnglish ? "Number of Draws Per Round" : "每回合抽牌数";
-        AllCardDeckText.text = GameManager.Instance.IsEnglish ? "Card Library" : "牌 库";
-        CardDeckRenameText.text = GameManager.Instance.IsEnglish ? "Rename Deck" : "卡组命名";
+        LanguageManager.Instance.RegisterTextKeys(new List<(Text, string)>
+        {
+            (CardDeckText, "SelectBuildManagerSelect_CardDeckText"),
+            (DeleteCardDeckText, "SelectBuildManagerSelect_DeleteCardDeckText"),
+            (LifeText, "SelectBuildManagerSelect_LifeText"),
+            (EnergyText, "SelectBuildManagerSelect_EnergyText"),
+            (BuggetText, "SelectBuildManagerSelect_BudgetText"),
 
-        CardDeckText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeleteCardDeckText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        LifeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        EnergyText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        BuggetText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DrawCardNumText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        AllCardDeckText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        CardDeckRenameText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+            (DrawCardNumText, "SelectBuildManagerSelect_DrawCardNumText"),
+            (AllCardDeckText, "SelectBuildManagerSelect_AllCardDeckText"),
+            (CardDeckRenameText, "SelectBuildManagerSelect_CardDeckRenameText"),
 
-        SelectAllCardText.text = GameManager.Instance.IsEnglish ? "Select All" : "全选";
-        UnSelectAllCardText.text = GameManager.Instance.IsEnglish ? "Unselect All" : "清除选择";
-        ConfirmSelectText.text = GameManager.Instance.IsEnglish ? "Confirm" : "确认出战";
-        CloseText.text = GameManager.Instance.IsEnglish ? "Close (Tab)" : "关闭(Tab)";
+            (SelectAllCardText, "SelectBuildManagerSelect_SelectAllCardText"),
+            (UnSelectAllCardText, "SelectBuildManagerSelect_UnSelectAllCardText"),
+            (ConfirmSelectText, "SelectBuildManagerSelect_ConfirmSelectText"),
+            (CloseText, "SelectBuildManagerSelect_CloseText"),
 
-        SelectAllCardText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        UnSelectAllCardText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        ConfirmSelectText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        CloseText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+            (HerosCardText, "SelectBuildManagerSelect_HeroesCardText"),
+            (OtherCardText, "SelectBuildManagerSelect_OtherCardText"),
+            (HerosCardCountText, "SelectBuildManagerSelect_HeroesCardCountText"),
+            (OtherCardCountText, "SelectBuildManagerSelect_OtherCardCountText"),
 
-        HerosCardText.text = GameManager.Instance.IsEnglish ? "HeroMech" : "英 雄 随 从";
-        OtherCardText.text = GameManager.Instance.IsEnglish ? "Other Cards" : "其 他 卡 片";
-        HerosCardCountText.text = GameManager.Instance.IsEnglish ? "Total:" : "总计";
-        OtherCardCountText.text = GameManager.Instance.IsEnglish ? "Total:" : "数量";
+            (LeftMouseButtonClickTipText, "SelectBuildManagerSelect_LeftMouseButtonClickTipText"),
+            (RightMouseButtonClickTipText, "SelectBuildManagerSelect_RightMouseButtonClickTipText"),
+            (ESCTipText, "SelectBuildManagerSelect_ESCTipText"),
+        });
 
-        HerosCardText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        OtherCardText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        HerosCardCountText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        OtherCardCountText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-
-        LeftMouseButtonClickTipText.text = GameManager.Instance.IsEnglish ? "Select" : "选择";
-        RightMouseButtonClickTipText.text = GameManager.Instance.IsEnglish ? "Upgrade" : "升级";
-        ESCTipText.text = GameManager.Instance.IsEnglish ? "Close" : "关闭";
+        BuggetIcon.SetActive(!LanguageManager.Instance.IsEnglish);
     }
 
     void Start_Select()
@@ -151,21 +137,21 @@ public partial class SelectBuildManager
     {
         if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
         {
-            if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You cannot edit your build when Matching." : "您不能在匹配时编辑卡组", 0, 0.1f);
-            else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You cannot edit your build when Playing." : "您不能在战斗时编辑卡组", 0, 0.1f);
+            if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_Notice_LoginMenu_ClientNeedUpdate"), 0, 0.1f);
+            else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_CannotEditWhenPlaying"), 0, 0.1f);
             return;
         }
 
         if (CurrentEditBuildButton == null)
         {
             OnCreateNewBuildButtonClick();
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Card group created. You can choose cards now." : "已创建卡组，请挑选卡片", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_DeckCreatedPleaseSelectCards"), 0f, 1f);
             return;
         }
 
         if (!isSwitchingBuildInfo && GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin < card.CardInfo.BaseInfo.Coin)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Bugget is Limited" : "预算不足", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_BudgetLimited"), 0f, 1f);
             return;
         }
 
@@ -174,7 +160,7 @@ public partial class SelectBuildManager
         {
             if (isSelectedHeroFull)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "The number of HeroMeches reaches the upper limit." : "可携带英雄卡牌数量已达上限", 0, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_HeroesNumberUpperLimit"), 0, 1f);
                 return;
             }
 
@@ -182,7 +168,7 @@ public partial class SelectBuildManager
             {
                 if (!Client.Instance.Proxy.IsSuperAccount && SelectedHeros[card.CardInfo.CardID].Count >= card.CardInfo.BaseInfo.LimitNum)
                 {
-                    NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You can only take " + card.CardInfo.BaseInfo.LimitNum + " copy of this card." : "该卡牌只能携带" + card.CardInfo.BaseInfo.LimitNum + "张", 0, 0.7f);
+                    NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards"), card.CardInfo.BaseInfo.LimitNum), 0, 0.7f);
                     return;
                 }
 
@@ -211,7 +197,7 @@ public partial class SelectBuildManager
             {
                 if (!Client.Instance.Proxy.IsSuperAccount && SelectedCards[card.CardInfo.CardID].Count >= card.CardInfo.BaseInfo.LimitNum)
                 {
-                    NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You can only take " + card.CardInfo.BaseInfo.LimitNum + " copy of this card." : "该卡牌只能携带" + card.CardInfo.BaseInfo.LimitNum + "张", 0, 0.7f);
+                    NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards"), card.CardInfo.BaseInfo.LimitNum), 0, 0.7f);
                     return;
                 }
 
@@ -339,10 +325,7 @@ public partial class SelectBuildManager
 
         newSC.Initiate(
             count: 1,
-            metal: card.CardInfo.BaseInfo.Metal,
-            energy: card.CardInfo.BaseInfo.Energy,
             cardInfo: card.CardInfo,
-            text: GameManager.Instance.IsEnglish ? card.CardInfo.BaseInfo.CardName_en : card.CardInfo.BaseInfo.CardName,
             enterHandler: SelectCardOnMouseEnter,
             leaveHandler: SelectCardOnMouseLeave,
             color: new Color(cardColor.r, cardColor.g, cardColor.b, 1f)
@@ -350,6 +333,18 @@ public partial class SelectBuildManager
         newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card, true); });
 
         return newSC;
+    }
+
+    public void RefreshSelectCardsLanguage()
+    {
+        foreach (KeyValuePair<int, SelectCard> kv in SelectedCards)
+        {
+            kv.Value.RefreshLanguage();
+        }
+        foreach (KeyValuePair<int, SelectCard> kv in SelectedHeros)
+        {
+            kv.Value.RefreshLanguage();
+        }
     }
 
     private void SelectCardOnMouseEnter(SelectCard selectCard)
@@ -391,15 +386,13 @@ public partial class SelectBuildManager
     {
         if (M_StateMachine.GetState() == StateMachine.States.Show_ReadOnly)
         {
-            if (GameManager.Instance.IsEnglish)
+            if (Client.Instance.IsPlaying())
             {
-                if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter("You cannot edit your build when Matching.", 0, 0.1f);
-                else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter("You cannot edit your build when Playing.", 0, 0.1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_CannotEditWhenPlaying"), 0, 0.1f);
             }
-            else
+            else if (Client.Instance.IsMatching())
             {
-                if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter("匹配时无法修改卡组", 0, 0.1f);
-                else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter("战斗时无法修改卡组", 0, 0.1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_Notice_LoginMenu_ClientNeedUpdate"), 0, 0.1f);
             }
 
             return;
@@ -407,7 +400,7 @@ public partial class SelectBuildManager
 
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Please create your deck." : "请创建卡组!", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerPreviewUpgrade_PleaseCreateDeck"), 0f, 1f);
             return;
         }
 
@@ -457,7 +450,7 @@ public partial class SelectBuildManager
         if (CurrentEditBuildButton == null)
         {
             OnCreateNewBuildButtonClick();
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "First deck is created automatically." : "已自动为您创建第一个卡组", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerPreviewUpgrade_CreateDeckAuto"), 0f, 1f);
         }
         else
         {
@@ -575,12 +568,12 @@ public partial class SelectBuildManager
         if (CurrentEditBuildButton == null)
         {
             OnCreateNewBuildButtonClick();
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Deck created. You can choose cards now." : "已创建卡组,请挑选卡片", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_DeckCreatedPleaseSelectCards"), 0f, 1f);
         }
         else
         {
             Client.Instance.Proxy.OnSendBuildInfo(CurrentEditBuildButton.BuildInfo);
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Update your deck successfully" : "更新卡组成功", 0, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_UpdateDeckSuccess"), 0, 1f);
             if (CurrentSelectedBuildButton) CurrentSelectedBuildButton.IsSelected = false;
             CurrentSelectedBuildButton = CurrentEditBuildButton;
             CurrentSelectedBuildButton.IsSelected = true;

@@ -2,10 +2,10 @@
 {
     public int RetinueCardId;
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
         BaseInfo bi = AllCards.GetCard(RetinueCardId).BaseInfo;
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, false), isEnglish ? bi.CardName_en : bi.CardName);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange,false, false), bi.CardNames[LanguageManager_Common.GetCurrentLanguage()]);
     }
 
     public override void Serialize(DataStream writer)

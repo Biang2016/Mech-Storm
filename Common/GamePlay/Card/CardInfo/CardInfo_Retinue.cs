@@ -17,17 +17,16 @@
         Pro_Initialize();
     }
 
-    public override string GetCardDescShow(bool isEnglish)
+    public override string GetCardDescShow()
     {
-        string CardDescShow = BaseInfo.CardDescRaw;
+        string CardDescShow = "";
+        if (RetinueInfo.IsDefence) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Defense") + ". ");
+        if (RetinueInfo.IsSniper) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sniper") + ". ");
+        if (BattleInfo.BasicAttack != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_AttackValue") + " " + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicAttack) + ", ";
+        if (BattleInfo.BasicArmor != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_Armor") + " " + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicArmor) + ", ";
+        if (BattleInfo.BasicShield != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_Shield") + " " + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicShield) + ", ";
 
-        if (RetinueInfo.IsDefence) CardDescShow += BaseInfo.AddImportantColorToText((isEnglish ? "Defence. " : "嘲讽; "));
-        if (RetinueInfo.IsSniper) CardDescShow += BaseInfo.AddImportantColorToText((isEnglish ? "Sniper. " : "狙击; "));
-        if (BattleInfo.BasicAttack != 0) CardDescShow += (isEnglish ? "Attack " : "攻击力 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicAttack) + ", ";
-        if (BattleInfo.BasicArmor != 0) CardDescShow += (isEnglish ? "Armor " : "护甲 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicArmor) + ", ";
-        if (BattleInfo.BasicShield != 0) CardDescShow += (isEnglish ? "Shield " : "护盾 ") + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicShield) + ", ";
-
-        CardDescShow += base.GetCardDescShow(isEnglish);
+        CardDescShow += base.GetCardDescShow();
 
         CardDescShow = CardDescShow.TrimEnd().TrimEnd(",. ;\n".ToCharArray());
 
@@ -61,9 +60,9 @@
         return cb;
     }
 
-    public override string GetCardTypeDesc(bool isEnglish)
+    public override string GetCardTypeDesc()
     {
-        if (RetinueInfo.IsSoldier) return isEnglish ? "Soldier" : "士兵";
-        else return isEnglish ? "Hero" : "英雄";
+        if (RetinueInfo.IsSoldier) return LanguageManager_Common.GetText("KeyWords_CardRetinue_Soldier");
+        else return LanguageManager_Common.GetText("KeyWords_CardRetinue_Hero");
     }
 }

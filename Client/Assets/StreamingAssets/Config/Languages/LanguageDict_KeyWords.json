@@ -1,0 +1,141 @@
+{
+	"TriggerTime_Battlecry": {
+		"zh": "Õ½ºð",
+		"en": "Battlecry"
+	},
+	"TriggerTime_Die": {
+		"zh": "ÍöÓï",
+		"en": "Die"
+	},
+
+	"TriggerTime_WhenAttack": {
+		"zh": "½ø¹¥Ê±,",
+		"en": "When attacks, "
+	},
+	"TriggerTime_WhenKill": {
+		"zh": "É±µÐÊ±,",
+		"en": "When kills, "
+	},
+
+	"TriggerTime_Disposable": {
+		"zh": "ÒÆ³ý, ",
+		"en": "Disposable. "
+	},
+
+	"KeyWords_Frenzy": {
+		"zh": "¿ñ±©",
+		"en": "Frenzy"
+	},
+	"KeyWords_Sentry": {
+		"zh": "ÉÚ½ä",
+		"en": "Sentry"
+	},
+	"KeyWords_Defense": {
+		"zh": "³°·í",
+		"en": "Defense"
+	},
+	"KeyWords_Dodge": {
+		"zh": "ÉÁ±Ü",
+		"en": "Dodge"
+	},
+	"KeyWords_PRValue": {
+		"zh": "¸ÅÂÊ: {0}, ",
+		"en": "PR: {0}. "
+	},
+	"KeyWords_Armor": {
+		"zh": "»¤¼×",
+		"en": "Armor"
+	},
+	"KeyWords_Shield": {
+		"zh": "»¤¶Ü",
+		"en": "Shield"
+	},
+	"KeyWords_Sniper": {
+		"zh": "¾Ñ»÷",
+		"en": "Sniper"
+	},
+	"KeyWords_Sword": {
+		"zh": "µ¶½£",
+		"en": "Sword"
+	},
+	"KeyWords_AttackValue": {
+		"zh": "¹¥»÷",
+		"en": "Attack"
+	},
+	"KeyWords_AttackPlus": {
+		"zh": "¹¥»÷ +{0}, ",
+		"en": "Attack +{0}. "
+	},
+	"KeyWords_ChargePlus": {
+		"zh": "³äÄÜ {0}, ",
+		"en": "Charge {0}. "
+	},
+	"KeyWords_Gun": {
+		"zh": "Ç¹",
+		"en": "Gun"
+	},
+	"KeyWords_ShootAttackPlus": {
+		"zh": "Ã¿·¢ÉËº¦ +{0}, ",
+		"en": "ShootAttack +{0}. "
+	},
+	"KeyWords_Bullets": {
+		"zh": "µ¯Ò© {0}, ",
+		"en": "Bullets {0}. "
+	},
+	"KeyWords_SniperGun": {
+		"zh": "¾Ñ»÷Ç¹",
+		"en": "SniperGun"
+	},
+	"KeyWords_SniperBulletAttackPlus": {
+		"zh": "µ¯ÍèÉËº¦: {0} µã, ",
+		"en": "Bullet +{0} attack. "
+	},
+	"KeyWords_SniperBulletPlus": {
+		"zh": "µ¯Ò©: {0}, ",
+		"en": "Add +{0} bullets. "
+	},
+
+	"KeyWords_CardEquip_Sword": {
+		"zh": "×°±¸ÅÆ(µ¶½£)",
+		"en": "EQ(Sword)"
+	},
+	"KeyWords_CardEquip_Gun": {
+		"zh": "×°±¸ÅÆ(Ç¹)",
+		"en": "EQ(Gun)"
+	},
+	"KeyWords_CardEquip_SniperGun": {
+		"zh": "×°±¸ÅÆ(¾Ñ»÷Ç¹)",
+		"en": "EQ(SnpGun)"
+	},
+	"KeyWords_CardEquip_Shield": {
+		"zh": "×°±¸ÅÆ(·À¾ß)",
+		"en": "EQ(Shield)"
+	},
+	"KeyWords_CardEquip_Pack": {
+		"zh": "×°±¸ÅÆ(±³°ü)",
+		"en": "EQ(Pack)"
+	},
+	"KeyWords_CardEquip_MA": {
+		"zh": "×°±¸ÅÆ(±¤ÀÝ)",
+		"en": "EQ(MA)"
+	},
+	"KeyWords_CardRetinue_Soldier": {
+		"zh": "Ê¿±ø",
+		"en": "Soldier"
+	},
+	"KeyWords_CardRetinue_Hero": {
+		"zh": "Ó¢ÐÛ",
+		"en": "Hero"
+	},
+
+
+	"KeyWords_DefenseDamage": {
+		"zh": "×èµ² {0} µãÉËº¦, ",
+		"en": "Defence {0} damage. "
+	},
+	"KeyWords_ReduceDamage": {
+		"zh": "ÊÜµ½Ã¿´ÎÉËº¦¼õÉÙ {0} µã, ",
+		"en": "Reduce damage per attack by {0}. "
+	}
+
+}

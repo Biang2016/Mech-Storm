@@ -171,7 +171,6 @@ public class BattleGroundManager : MonoBehaviour
         return null;
     }
 
-
     private Queue<ModuleRetinue> addPrePassRetinueQueue = new Queue<ModuleRetinue>();
 
     public void AddRetinue(int retinuePlaceIndex)
@@ -699,13 +698,12 @@ public class BattleGroundManager : MonoBehaviour
         return null;
     }
 
-
     public void PrintRetinueInfos()
     {
         string log = "BattleGroundInfo: [ClientID]" + ClientPlayer.ClientId + " [Username]" + ClientPlayer.Username;
         foreach (ModuleRetinue retinue in Retinues)
         {
-            log += " [RID]" + retinue.M_RetinueID + " [Name]" + retinue.CardInfo.BaseInfo.CardName;
+            log += " [RID]" + retinue.M_RetinueID + " [Name]" + retinue.CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
         }
 
         ClientLog.Instance.Print(log);

@@ -8,7 +8,6 @@ public class ModuleWeapon : ModuleEquip
         gameObjectPool = GameObjectPoolManager.Instance.Pool_ModuleWeaponPool;
     }
 
-
     [SerializeField] private GameObject M_GunIcon;
     [SerializeField] private GameObject M_SwordIcon;
     [SerializeField] private GameObject M_SniperGunIcon;
@@ -22,11 +21,10 @@ public class ModuleWeapon : ModuleEquip
     [SerializeField] private Transform Block_WeaponEnergyMax;
     protected CardNumberSet CardNumberSet_WeaponEnergyMax;
 
-
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_WeaponName = GameManager.Instance.IsEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
+        M_WeaponName = cardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
         M_WeaponType = cardInfo.WeaponInfo.WeaponType;
         M_WeaponAttack = cardInfo.WeaponInfo.Attack;
         M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;
@@ -87,7 +85,6 @@ public class ModuleWeapon : ModuleEquip
         M_WeaponEnergy = M_WeaponEnergy;
     }
 
-
     public CardInfo_Equip GetCurrentCardInfo()
     {
         CardInfo_Equip currentCI = (CardInfo_Equip) CardInfo.Clone();
@@ -106,8 +103,8 @@ public class ModuleWeapon : ModuleEquip
         set
         {
             m_WeaponName = value;
-            Name.text = GameManager.Instance.IsEnglish ? "" : Utils.TextToVertical(value);
-            Name_en.text = GameManager.Instance.IsEnglish ? value : "";
+            Name.text = LanguageManager.Instance.IsEnglish ? "" : Utils.TextToVertical(value);
+            Name_en.text = LanguageManager.Instance.IsEnglish ? value : "";
         }
     }
 
@@ -119,7 +116,6 @@ public class ModuleWeapon : ModuleEquip
 
         set { m_WeaponType = value; }
     }
-
 
     private int m_WeaponAttack;
 
@@ -199,11 +195,9 @@ public class ModuleWeapon : ModuleEquip
         }
     }
 
-
     public void OnAttack() //特效
     {
     }
-
 
     public void OnWeaponEquiped()
     {

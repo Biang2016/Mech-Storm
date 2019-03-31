@@ -4,10 +4,13 @@ public class AddAttackAll_Base : TargetSideEffect, IEffectFactor, IDamage
 {
     public SideEffectValue Value = new SideEffectValue(0);
 
-    public List<SideEffectValue> Values {
-        get { return new List<SideEffectValue> { Value }; }
+    public List<SideEffectValue> Values
+    {
+        get { return new List<SideEffectValue> {Value}; }
     }
+
     private int factor = 1;
+
     public int GetFactor()
     {
         return factor;
@@ -17,14 +20,15 @@ public class AddAttackAll_Base : TargetSideEffect, IEffectFactor, IDamage
     {
         factor = value;
     }
+
     public int FinalValue
     {
         get { return Value.Value * GetFactor(); }
     }
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, false), FinalValue);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange, false, false), FinalValue);
     }
 
     public override void Serialize(DataStream writer)
@@ -48,6 +52,7 @@ public class AddAttackAll_Base : TargetSideEffect, IEffectFactor, IDamage
     {
         base.CloneParams(copy);
         ((AddEnergy_Base) copy).Value = Value.Clone();
-        ((AddEnergy_Base) copy).SetFactor(GetFactor());;
+        ((AddEnergy_Base) copy).SetFactor(GetFactor());
+        ;
     }
 }

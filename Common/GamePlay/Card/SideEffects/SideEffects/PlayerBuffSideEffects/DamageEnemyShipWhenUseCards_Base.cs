@@ -1,7 +1,7 @@
 ﻿public class DamageEnemyShipWhenUseCards_Base : PlayerBuffSideEffects
 {
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, ((DamageOne_Base) Sub_SideEffect[0]).FinalValue, RemoveTriggerTimes);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], ((DamageOne_Base) Sub_SideEffect[0]).FinalValue, RemoveTriggerTimes);
     }
 }

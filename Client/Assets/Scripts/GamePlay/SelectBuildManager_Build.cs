@@ -34,14 +34,13 @@ public partial class SelectBuildManager
 
     public OnlineCompete M_CurrentOnlineCompete = null;
 
-
     private void Awake_Build()
     {
         Proxy.OnClientStateChange += NetworkStateChange_Build;
 
-        RenameConfirmText.text = GameManager.Instance.IsEnglish ? "Confirm" : "确定";
-        RenameCancelText.text = GameManager.Instance.IsEnglish ? "Cancel" : "取消";
-        CreateBuildText.text = GameManager.Instance.IsEnglish ? "New Deck" : "创建新卡组";
+        RenameConfirmText.text = LanguageManager.Instance.GetText("Common_Confirm");
+        RenameCancelText.text = LanguageManager.Instance.GetText("Common_Cancel");
+        CreateBuildText.text = LanguageManager.Instance.GetText("SelectBuildManagerBuild_CreateNewDeck");
     }
 
     public enum GameMode
@@ -289,7 +288,7 @@ public partial class SelectBuildManager
                 Client.Instance.Proxy.SendMessage(request);
             }
 
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Your deck is saved." : "已保存卡组", 0f, 0.5f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_YourDeckIsSaved"), 0f, 0.5f);
         }
     }
 
@@ -301,7 +300,7 @@ public partial class SelectBuildManager
             ccd = StoryManager.Instance.M_CurrentStory.Base_CardCountDict;
         }
 
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, GameManager.Instance.IsEnglish ? "New Deck" : "新卡组", new List<int>(), new HashSet<int>(), GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy, 0, GamePlaySettings, ccd), GameMode_State == GameMode.Single);
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new List<int>(), new HashSet<int>(), GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy, 0, GamePlaySettings, ccd), GameMode_State == GameMode.Single);
         Client.Instance.Proxy.SendMessage(request);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
@@ -349,7 +348,7 @@ public partial class SelectBuildManager
         }
         else
         {
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "No deck is selected" : "未选择卡组", 0f, 0.5f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_NoDeckSelected"), 0f, 0.5f);
         }
     }
 

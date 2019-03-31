@@ -27,9 +27,9 @@ public class DrawTypeCards_Base : CardDeckRelatedSideEffects, IEffectFactor
         get { return Value.Value * GetFactor(); }
     }
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, FinalValue, isEnglish ? BaseInfo.CardTypeNameDict_en[DrawCardType] : BaseInfo.CardTypeNameDict[DrawCardType], FinalValue <= 1 ? "" : "s");
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, BaseInfo.CardTypeNameDict[LanguageManager_Common.GetCurrentLanguage()][DrawCardType], FinalValue <= 1 ? "" : "s");
     }
 
     public override void Serialize(DataStream writer)

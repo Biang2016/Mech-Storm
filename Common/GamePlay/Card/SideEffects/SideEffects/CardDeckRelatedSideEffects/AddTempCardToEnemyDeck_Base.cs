@@ -27,10 +27,10 @@ public class AddTempCardToEnemyDeck_Base : CardDeckRelatedSideEffects, IEffectFa
         get { return Value.Value * GetFactor(); }
     }
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
         BaseInfo bi = AllCards.GetCard(CardId).BaseInfo;
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, FinalValue, "[" + (isEnglish ? bi.CardName_en : bi.CardName) + "]");
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, "[" + bi.CardNames[LanguageManager_Common.GetCurrentLanguage()] + "]");
     }
 
     public override void Serialize(DataStream writer)

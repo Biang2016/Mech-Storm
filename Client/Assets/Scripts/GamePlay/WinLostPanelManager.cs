@@ -13,20 +13,19 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
     void Awake()
     {
         WinLostCanvas.enabled = false;
-        WinText.text = GameManager.Instance.IsEnglish ? "You win!" : "你赢了！";
-        LostText.text = GameManager.Instance.IsEnglish ? "You lost ..." : "你输了...";
-        OnlineWinText.text = GameManager.Instance.IsEnglish ? "You win!" : "你赢了！";
-        OnlineLostText.text = GameManager.Instance.IsEnglish ? "You lost ..." : "你输了...";
-        LostTipTitle.text = GameManager.Instance.IsEnglish ? "Tips: " : "提示: ";
-        RewardsTitleText.text = GameManager.Instance.IsEnglish ? "Rewards" : "奖励";
-        NoRewardText.text = GameManager.Instance.IsEnglish ? "The designer is so mean that here isn't any reward." : "设计师是个吝啬鬼，这里没有任何奖励";
-        FixedBonusText.text = GameManager.Instance.IsEnglish ? "Fixed Bonus" : "固定\n奖励";
-        ConfirmButtonText.text = GameManager.Instance.IsEnglish ? "Confirm" : "确认";
-        GoAheadButtonText.text = GameManager.Instance.IsEnglish ? "Go ahead" : "继续游戏";
-        CardUpgradeUnlockText.text = GameManager.Instance.IsEnglish ? "Card Upgraded!" : "卡片升级!";
-        CardUpgradeUnlockDescText.text = GameManager.Instance.IsEnglish ? "You can upgrade this card in your deck now." : "现在可以在牌库中升级该卡片了!";
+        WinText.text = LanguageManager.Instance.GetText("WinLostPanelManager_WinText");
+        LostText.text = LanguageManager.Instance.GetText("WinLostPanelManager_LostText");
+        OnlineWinText.text = LanguageManager.Instance.GetText("WinLostPanelManager_OnlineWinText");
+        OnlineLostText.text = LanguageManager.Instance.GetText("WinLostPanelManager_OnlineLostText");
+        LostTipTitle.text = LanguageManager.Instance.GetText("WinLostPanelManager_LostTipTitle");
+        RewardsTitleText.text = LanguageManager.Instance.GetText("WinLostPanelManager_RewardsTitleText");
+        NoRewardText.text = LanguageManager.Instance.GetText("WinLostPanelManager_NoRewardText");
+        FixedBonusText.text = LanguageManager.Instance.GetText("WinLostPanelManager_FixedBonusText");
+        ConfirmButtonText.text = LanguageManager.Instance.GetText("WinLostPanelManager_ConfirmButtonText");
+        GoAheadButtonText.text = LanguageManager.Instance.GetText("WinLostPanelManager_GoAheadButtonText");
+        CardUpgradeUnlockText.text = LanguageManager.Instance.GetText("WinLostPanelManager_CardUpgradeUnlockText");
+        CardUpgradeUnlockDescText.text = LanguageManager.Instance.GetText("WinLostPanelManager_CardUpgradeUnlockDescText");
     }
-
 
     #region  Common
 
@@ -176,7 +175,6 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
 
     #endregion
 
-
     #region Lost
 
     [SerializeField] private GameObject LostContent;
@@ -201,7 +199,7 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
             M_CurrentBonusButtons.Clear();
             LostContent.SetActive(true);
             OnlineResultContent.SetActive(false);
-            List<string> Tips = Utils.GetRandomFromList(LostTips[GameManager.Instance.IsEnglish], 2);
+            List<string> Tips = Utils.GetRandomFromList(LostTips[LanguageManager.Instance.IsEnglish], 2);
 
             foreach (string tip in Tips)
             {
@@ -216,7 +214,6 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
             OnlineWinText.enabled = false;
             OnlineLostText.enabled = true;
         }
-
 
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnGameStopByWin(false), "Co_OnGameStopByWin");
     }
@@ -249,7 +246,6 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
 
     #endregion
 
-
     public void SetBonusButtonSelected(BonusButton bonusButton)
     {
         foreach (BonusButton bb in M_CurrentBonusButtons)
@@ -269,7 +265,7 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         if (OnConfirmButtonClickHandler != null) OnConfirmButtonClickHandler();
         if (OptionalBonusGroup.Count != 0 && OnConfirmButtonClickHandler == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Come on, you should select one reward!" : "你需要选择一个奖励,不要客气!", 0, 0.8f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("WinLostPanelManager_YouNeedToChooseACard"), 0, 0.8f);
         }
         else
         {

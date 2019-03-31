@@ -26,9 +26,9 @@ public class WaitInHandDecreaseEnergy_Base : CardRelatedSideEffect, IEffectFacto
         get { return Value.Value * GetFactor(); }
     }
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, FinalValue);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue);
     }
 
     public override void Serialize(DataStream writer)

@@ -32,9 +32,9 @@ public class Sacrifice_Base : TargetSideEffect, IEffectFactor, IDamage
         get { return ValuePlus.Value * GetFactor(); }
     }
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, false), FinalValueBasic, FinalValuePlus);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange,false, false), FinalValueBasic, FinalValuePlus);
     }
 
     public override void Serialize(DataStream writer)

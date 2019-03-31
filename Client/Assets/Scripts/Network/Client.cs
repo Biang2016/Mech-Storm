@@ -189,7 +189,7 @@ public class Client : MonoSingleton<Client>
             ServerSocket.Shutdown(SocketShutdown.Both);
             ClientLog.Instance.PrintError("[C]Socket close");
             ServerSocket.Close();
-            if (NoticeManager.Instance != null & IsMainThread) NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Disconnected." : "已断开连接", 0f, 1.5f);
+            if (NoticeManager.Instance != null & IsMainThread) NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Notice_NetworkManager_Disconnected"), 0f, 1.5f);
             RoundManager.Instance.StopGame();
         }
 

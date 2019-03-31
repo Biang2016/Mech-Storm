@@ -125,6 +125,7 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SideEffectBase.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffectManager.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeRandom_Base.cs" />
+    <Compile Include="GamePlay\LanguageDefine.cs" />
     <Compile Include="GamePlay\Player.cs" />
     <Compile Include="GamePlay\Story\Bonus.cs" />
     <Compile Include="GamePlay\Story\BonusGroup.cs" />

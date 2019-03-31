@@ -100,6 +100,13 @@ public static class AllCards
 
     public static void AddAllCards(string cardsXMLPath)
     {
+        SortedDictionary<string, string> cardNameKeyDict = new SortedDictionary<string, string>();
+        foreach (int v in Enum.GetValues(typeof(LanguageShorts)))
+        {
+            string strName = Enum.GetName(typeof(LanguageShorts), v);
+            cardNameKeyDict[strName] = "cardName_" + strName;
+        }
+
         string text;
         using (StreamReader sr = new StreamReader(cardsXMLPath))
         {
@@ -132,10 +139,15 @@ public static class AllCards
                 switch (cardInfo.Attributes["name"].Value)
                 {
                     case "baseInfo":
+                        SortedDictionary<string, string> cardNameDict = new SortedDictionary<string, string>();
+                        foreach (KeyValuePair<string, string> kv in cardNameKeyDict)
+                        {
+                            string cardName = cardInfo.Attributes[kv.Value].Value;
+                            cardNameDict[kv.Key] = cardName;
+                        }
+
                         baseInfo = new BaseInfo(int.Parse(cardInfo.Attributes["pictureID"].Value),
-                            cardInfo.Attributes["cardName"].Value,
-                            cardInfo.Attributes["cardName_en"].Value,
-                            cardInfo.Attributes["cardDesc"].Value.Replace("\\n", "\n"),
+                            cardNameDict,
                             cardInfo.Attributes["isTemp"].Value == "True",
                             cardInfo.Attributes["hide"].Value == "True",
                             int.Parse(cardInfo.Attributes["metal"].Value),

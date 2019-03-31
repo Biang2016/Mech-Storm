@@ -18,30 +18,36 @@ public struct Bonus
         Budget,
     }
 
-    public string GetDesc(bool isEnglish)
+    public string GetDesc()
     {
-        Dictionary<BonusType, string> dic = isEnglish ? BonusDescRaw_en : BonusDescRaw;
+        Dictionary<BonusType, string> dic = BonusDescRaw[LanguageManager_Common.GetCurrentLanguage()];
         return string.Format(dic[M_BonusType], Value > 0 ? ("+" + Value) : ("-" + Value));
     }
 
-    static Dictionary<BonusType, string> BonusDescRaw = new Dictionary<BonusType, string>
+    static Dictionary<string, Dictionary<BonusType, string>> BonusDescRaw = new Dictionary<string, Dictionary<BonusType, string>>
     {
-        {BonusType.UnlockCardByID, "解锁卡片"},
-        {BonusType.UnlockCardByLevelNum, "解锁卡片"},
-        {BonusType.AdjustDeck, "获得一次调整卡组的机会"},
-        {BonusType.LifeUpperLimit, "生命上限{0}"},
-        {BonusType.EnergyUpperLimit, "能量上限{0}"},
-        {BonusType.Budget, "预算{0}"},
-    };
-
-    static Dictionary<BonusType, string> BonusDescRaw_en = new Dictionary<BonusType, string>
-    {
-        {BonusType.UnlockCardByID, "Unlock card"},
-        {BonusType.UnlockCardByLevelNum, "Unlock card"},
-        {BonusType.AdjustDeck, "A chance to adjust deck"},
-        {BonusType.LifeUpperLimit, "Life {0}"},
-        {BonusType.EnergyUpperLimit, "Energy {0}"},
-        {BonusType.Budget, "Budget {0}"},
+        {
+            "zh", new Dictionary<BonusType, string>
+            {
+                {BonusType.UnlockCardByID, "解锁卡片"},
+                {BonusType.UnlockCardByLevelNum, "解锁卡片"},
+                {BonusType.AdjustDeck, "获得一次调整卡组的机会"},
+                {BonusType.LifeUpperLimit, "生命上限{0}"},
+                {BonusType.EnergyUpperLimit, "能量上限{0}"},
+                {BonusType.Budget, "预算{0}"},
+            }
+        },
+        {
+            "en", new Dictionary<BonusType, string>
+            {
+                {BonusType.UnlockCardByID, "Unlock card"},
+                {BonusType.UnlockCardByLevelNum, "Unlock card"},
+                {BonusType.AdjustDeck, "A chance to adjust deck"},
+                {BonusType.LifeUpperLimit, "Life {0}"},
+                {BonusType.EnergyUpperLimit, "Energy {0}"},
+                {BonusType.Budget, "Budget {0}"},
+            }
+        }
     };
 
     public void Serialize(DataStream writer)

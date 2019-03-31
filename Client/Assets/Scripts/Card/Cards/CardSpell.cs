@@ -78,10 +78,10 @@ public class CardSpell : CardBase
                         case TargetSideEffect.TargetRange.EnemyMechs:
                             if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                             break;
-                        case TargetSideEffect.TargetRange.Heros:
+                        case TargetSideEffect.TargetRange.Heroes:
                             if (!moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
-                        case TargetSideEffect.TargetRange.SelfHeros:
+                        case TargetSideEffect.TargetRange.SelfHeroes:
                             if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.EnemyHeros:
@@ -109,7 +109,7 @@ public class CardSpell : CardBase
                     else
                     {
                         AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
-                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You should select a " + CardInfo.TargetInfo.targetRetinueRange : "请选择正确的机甲", 0, 1f);
+                        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectMech"), 0, 1f);
                     }
                 }
             }
@@ -146,10 +146,10 @@ public class CardSpell : CardBase
                             case TargetSideEffect.TargetRange.EnemyMechs:
                                 if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                                 break;
-                            case TargetSideEffect.TargetRange.Heros:
+                            case TargetSideEffect.TargetRange.Heroes:
                                 if (!equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
-                            case TargetSideEffect.TargetRange.SelfHeros:
+                            case TargetSideEffect.TargetRange.SelfHeroes:
                                 if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetSideEffect.TargetRange.EnemyHeros:
@@ -177,7 +177,7 @@ public class CardSpell : CardBase
                         else
                         {
                             AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
-                            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You should select a right equip." : "请选择正确的装备", 0, 1f);
+                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectEquip"), 0, 1f);
                         }
                     }
                 }
@@ -217,7 +217,7 @@ public class CardSpell : CardBase
                     else
                     {
                         AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
-                        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You should select a right ship." : "请选择正确的战舰", 0, 1f);
+                        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectShip"), 0, 1f);
                     }
                 }
             }

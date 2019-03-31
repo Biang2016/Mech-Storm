@@ -4,7 +4,7 @@
     {
     }
 
-    public CardInfo_Equip(int cardID,  BaseInfo baseInfo, UpgradeInfo upgradeInfo, EquipInfo equipInfo, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
+    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, EquipInfo equipInfo, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             sideEffectBundle: sideEffectBundle,
@@ -39,85 +39,80 @@
         Pro_Initialize();
     }
 
-    public override string GetCardDescShow(bool isEnglish)
+    public override string GetCardDescShow()
     {
-        string CardDescShow = BaseInfo.CardDescRaw;
+        string CardDescShow = "";
 
         switch (EquipInfo.SlotType)
         {
             case SlotTypes.Weapon:
             {
-                if (WeaponInfo.IsFrenzy) CardDescShow += AddAffixString(isEnglish, "Frenzy", "狂暴");
-                if (WeaponInfo.IsSentry) CardDescShow += AddAffixString(isEnglish, "Sentry", "哨戒");
+                if (WeaponInfo.IsFrenzy) CardDescShow += LanguageManager_Common.GetText("KeyWords_Frenzy") + ". ";
+                if (WeaponInfo.IsSentry) CardDescShow += LanguageManager_Common.GetText("KeyWords_Sentry") + ". ";
                 if (WeaponInfo.WeaponType == WeaponTypes.Sword)
                 {
-                    CardDescShow += AddAffixString(isEnglish, "Sword", "刀剑");
-                    CardDescShow += string.Format(isEnglish ? "Attack +{0}. " : "攻击 +{0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
-                    CardDescShow += string.Format(isEnglish ? "Charge {0}. " : "充能 {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                    CardDescShow += LanguageManager_Common.GetText("KeyWords_Sword") + ". ";
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_AttackPlus"), BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ChargePlus"), BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.Gun)
                 {
-                    CardDescShow += AddAffixString(isEnglish, "Gun", "枪");
-                    CardDescShow += string.Format(isEnglish ? "ShootAttack +{0}. " : "每发伤害 +{0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
-                    CardDescShow += string.Format(isEnglish ? "Bullets {0}. " : "弹药 {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                    CardDescShow += LanguageManager_Common.GetText("KeyWords_Gun") + ". ";
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ShootAttackPlus"), BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_Bullets"), BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.SniperGun)
                 {
-                    CardDescShow += AddAffixString(isEnglish, "SniperGun", "狙击枪");
-                    CardDescShow += string.Format(isEnglish ? "Bullet +{0} attack. " : "弹丸伤害: {0} 点, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
-                    CardDescShow += string.Format(isEnglish ? "Add +{0} bullets. " : "弹药: {0}, ", BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                    CardDescShow += LanguageManager_Common.GetText("KeyWords_SniperGun") + ". ";
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_SniperBulletAttackPlus"), BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_SniperBulletPlus"), BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
 
                 break;
             }
             case SlotTypes.Shield:
             {
-                if (ShieldInfo.IsDefence) CardDescShow += AddAffixString(isEnglish, "Defence", "嘲讽");
+                if (ShieldInfo.IsDefence) CardDescShow += LanguageManager_Common.GetText("KeyWords_Defense");
                 if (ShieldInfo.ShieldType == ShieldTypes.Armor)
                 {
-                    CardDescShow += AddAffixString(isEnglish, "Armor", "护甲");
-                    CardDescShow += string.Format(isEnglish ? "Defence {0} damage. " : "阻挡 {0} 点伤害, ", BaseInfo.AddHightLightColorToText(ShieldInfo.Armor.ToString()));
+                    CardDescShow += LanguageManager_Common.GetText("KeyWords_Armor") + ". ";
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_DefenseDamage"), BaseInfo.AddHightLightColorToText(ShieldInfo.Armor.ToString()));
                 }
                 else if (ShieldInfo.ShieldType == ShieldTypes.Shield)
                 {
-                    CardDescShow += AddAffixString(isEnglish, "Shield", "护盾");
-                    CardDescShow += string.Format(isEnglish ? "Reduce damage per attack by {0}. " : "受到每次伤害减少 {0} 点, ", BaseInfo.AddHightLightColorToText(ShieldInfo.Shield.ToString()));
+                    CardDescShow += LanguageManager_Common.GetText("KeyWords_Shield") + ". ";
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ReduceDamage"), BaseInfo.AddHightLightColorToText(ShieldInfo.Shield.ToString()));
                 }
 
                 break;
             }
             case SlotTypes.Pack:
             {
-                if (PackInfo.IsFrenzy) CardDescShow += AddAffixString(isEnglish, "Frenzy", "狂暴");
-                if (PackInfo.IsSniper) CardDescShow += AddAffixString(isEnglish, "Sniper", "狙击");
-                if (PackInfo.IsDefence) CardDescShow += AddAffixString(isEnglish, "Defence", "嘲讽");
+                if (PackInfo.IsFrenzy) CardDescShow += LanguageManager_Common.GetText("KeyWords_Frenzy") + ". ";
+                if (PackInfo.IsSniper) CardDescShow += LanguageManager_Common.GetText("KeyWords_Sniper") + ". ";
+                if (PackInfo.IsDefence) CardDescShow += LanguageManager_Common.GetText("KeyWords_Defense") + ". ";
                 if (PackInfo.DodgeProp != 0)
                 {
-                    CardDescShow += AddAffixString(isEnglish, "Dodge", "闪避");
-                    CardDescShow += string.Format(isEnglish ? "PR: {0}. " : "概率: {0}, ", BaseInfo.AddHightLightColorToText(PackInfo.DodgeProp + "%"));
+                    CardDescShow += LanguageManager_Common.GetText("KeyWords_Dodge") + ". ";
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_PRValue"), BaseInfo.AddHightLightColorToText(PackInfo.DodgeProp + "%"));
                 }
 
                 break;
             }
             case SlotTypes.MA:
             {
-                if (PackInfo.IsFrenzy) CardDescShow += AddAffixString(isEnglish, "Frenzy", "狂暴");
-                if (PackInfo.IsSniper) CardDescShow += AddAffixString(isEnglish, "Sniper", "狙击");
-                if (PackInfo.IsDefence) CardDescShow += AddAffixString(isEnglish, "Defence", "嘲讽");
+                if (PackInfo.IsFrenzy) CardDescShow += LanguageManager_Common.GetText("KeyWords_Frenzy") + ". ";
+                if (PackInfo.IsSniper) CardDescShow += LanguageManager_Common.GetText("KeyWords_Sniper") + ". ";
+                if (PackInfo.IsDefence) CardDescShow += LanguageManager_Common.GetText("KeyWords_Defense") + ". ";
                 break;
             }
         }
 
-        CardDescShow += base.GetCardDescShow(isEnglish);
+        CardDescShow += base.GetCardDescShow();
 
         CardDescShow = CardDescShow.TrimEnd(",.; \n".ToCharArray());
 
         return CardDescShow;
-    }
-
-    private string AddAffixString(bool isEnglish, string english, string chinese)
-    {
-        return isEnglish ? BaseInfo.AddImportantColorToText(english) + ". " : BaseInfo.AddImportantColorToText(chinese) + ", ";
     }
 
     public override string GetCardColor()
@@ -170,7 +165,7 @@
         return cb;
     }
 
-    public override string GetCardTypeDesc(bool isEnglish)
+    public override string GetCardTypeDesc()
     {
         switch (EquipInfo.SlotType)
         {
@@ -180,15 +175,15 @@
                 {
                     case WeaponTypes.Sword:
                     {
-                        return isEnglish ? "EQ(Sword)" : "装备牌(刀剑)";
+                        return LanguageManager_Common.GetText("KeyWords_CardEquip_Sword");
                     }
                     case WeaponTypes.Gun:
                     {
-                        return isEnglish ? "EQ(Gun)" : "装备牌(枪)";
+                        return LanguageManager_Common.GetText("KeyWords_CardEquip_Gun");
                     }
                     case WeaponTypes.SniperGun:
                     {
-                        return isEnglish ? "EQ(SnpGun)" : "装备牌(狙击枪)";
+                        return LanguageManager_Common.GetText("KeyWords_CardEquip_SniperGun");
                     }
                 }
 
@@ -196,15 +191,15 @@
             }
             case SlotTypes.Shield:
             {
-                return isEnglish ? "EQ(Shield)" : "装备牌(防具)";
+                return LanguageManager_Common.GetText("KeyWords_CardEquip_Shield");
             }
             case SlotTypes.Pack:
             {
-                return isEnglish ? "EQ(Pack)" : "装备牌(背包)";
+                return LanguageManager_Common.GetText("KeyWords_CardEquip_Pack");
             }
             case SlotTypes.MA:
             {
-                return isEnglish ? "EQ(MA)" : "装备牌(堡垒)";
+                return LanguageManager_Common.GetText("KeyWords_CardEquip_MA");
             }
         }
 

@@ -36,7 +36,7 @@ public partial class RoundManager
     public void OnGameStopByServerError(GameStopByServerErrorRequest r)
     {
         OnGameStop();
-        NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Sorry, game ended due to a Server Error." : "由于服务器错误导致游戏结束", 0, 2f);
+        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_EndedByServerError"), 0, 2f);
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
     }
 
@@ -287,7 +287,7 @@ public partial class RoundManager
         {
             InGameUIManager.Instance.SetEndRoundButtonState(true);
             ClientLog.Instance.PrintClientStates("MyRound");
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Your Turn Begins" : "你的回合", 0, 0.8f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_YourTurn"), 0, 0.8f);
             AudioManager.Instance.SoundPlay("sfx/StoryOpen", 0.5f);
             yield return new WaitForSeconds(0.5f);
         }
@@ -295,7 +295,7 @@ public partial class RoundManager
         {
             InGameUIManager.Instance.SetEndRoundButtonState(false);
             ClientLog.Instance.PrintClientStates("EnemyRound");
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Enemy's Turn" : "敌方回合", 0, 0.8f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_EnemyTurn"), 0, 0.8f);
             yield return new WaitForSeconds(0.5f);
         }
 
@@ -612,6 +612,6 @@ public partial class RoundManager
         cb.M_Energy += r.energyChange;
         cb.M_Metal += r.metalChange;
         cb.M_EffectFactor = r.effectFactor;
-        cb.M_Desc = cb.CardInfo.GetCardDescShow(GameManager.Instance.IsEnglish);
+        cb.M_Desc = cb.CardInfo.GetCardDescShow();
     }
 }

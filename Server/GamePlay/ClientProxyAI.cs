@@ -178,7 +178,7 @@ internal class ClientProxyAI : ClientProxy
                     {
                         break;
                     }
-                    case TargetSideEffect.TargetRange.SelfHeros:
+                    case TargetSideEffect.TargetRange.SelfHeroes:
                     {
                         break;
                     }
@@ -196,7 +196,7 @@ internal class ClientProxyAI : ClientProxy
             bool canSummonDirectly = false;
             canSummonDirectly |= ti.HasNoTarget;
             canSummonDirectly |= (ti.targetRetinueRange == TargetSideEffect.TargetRange.SelfMechs && MyBattleGroundManager.RetinueCount == 0);
-            canSummonDirectly |= (ti.targetRetinueRange == TargetSideEffect.TargetRange.SelfHeros && MyBattleGroundManager.HeroCount == 0);
+            canSummonDirectly |= (ti.targetRetinueRange == TargetSideEffect.TargetRange.SelfHeroes && MyBattleGroundManager.HeroCount == 0);
             canSummonDirectly |= (ti.targetRetinueRange == TargetSideEffect.TargetRange.SelfSoldiers && MyBattleGroundManager.SoldierCount == 0);
             canSummonDirectly |= (ti.targetRetinueRange == TargetSideEffect.TargetRange.EnemyMechs && EnemyBattleGroundManager.RetinueCount == 0);
             canSummonDirectly |= (ti.targetRetinueRange == TargetSideEffect.TargetRange.EnemyHeros && EnemyBattleGroundManager.HeroCount == 0);
@@ -297,7 +297,7 @@ internal class ClientProxyAI : ClientProxy
             targetPlayer = MyServerGameManager.PlayerB;
         }
 
-        if ((ti.targetRetinueRange | TargetSideEffect.TargetRange.Heros) == TargetSideEffect.TargetRange.Heros)
+        if ((ti.targetRetinueRange | TargetSideEffect.TargetRange.Heroes) == TargetSideEffect.TargetRange.Heroes)
         {
             targetRetinueType = ServerBattleGroundManager.RetinueType.Hero;
         }

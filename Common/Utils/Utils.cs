@@ -174,7 +174,6 @@ public partial class Utils
                         }
                     }
 
-
                     break;
                 }
             }
@@ -216,6 +215,17 @@ public partial class Utils
         foreach (T t in src)
         {
             res.Add(t);
+        }
+
+        return res;
+    }
+
+    public static SortedDictionary<T1, T2> CloneSortedDictionary<T1, T2>(SortedDictionary<T1, T2> src)
+    {
+        SortedDictionary<T1, T2> res = new SortedDictionary<T1, T2>();
+        foreach (KeyValuePair<T1, T2> kv in src)
+        {
+            res.Add(kv.Key, kv.Value);
         }
 
         return res;

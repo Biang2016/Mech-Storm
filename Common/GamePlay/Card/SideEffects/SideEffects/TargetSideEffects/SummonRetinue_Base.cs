@@ -3,10 +3,10 @@
     public int RetinueID;
     public int SummonRetinueID;
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
         BaseInfo bi = AllCards.GetCard(SummonRetinueID).BaseInfo;
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, isEnglish ? bi.CardName_en : bi.CardName);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], bi.CardNames[LanguageManager_Common.GetCurrentLanguage()]);
     }
 
     public override void Serialize(DataStream writer)

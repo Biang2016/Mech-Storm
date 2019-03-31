@@ -750,7 +750,6 @@
       <Project>{CB263AC7-42BE-3C47-D98A-74A74A6F1B06}</Project>      <Name>InGameLogic</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

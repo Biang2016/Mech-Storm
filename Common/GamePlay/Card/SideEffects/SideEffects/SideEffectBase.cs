@@ -8,8 +8,7 @@ using System.Reflection;
 public partial class SideEffectBase
 {
     public string Name;
-    public string DescRaw;
-    public string DescRaw_en;
+    public SortedDictionary<string,string> DescRaws;
 
     public ExecuterInfo M_ExecuterInfo; //SE携带者信息，触发时和事件执行者信息进行比对，判定是否触发
     public Player Player;
@@ -20,11 +19,10 @@ public partial class SideEffectBase
     }
 
 
-    public SideEffectBase(string name, string descRaw, string descRaw_en)
+    public SideEffectBase(string name, SortedDictionary<string, string> descRaws)
     {
         Name = name;
-        DescRaw = descRaw;
-        DescRaw_en = descRaw_en;
+        DescRaws = descRaws;
     }
 
 
@@ -34,8 +32,13 @@ public partial class SideEffectBase
         string type = GetType().ToString();
         writer.WriteString8(type);
         writer.WriteString8(Name);
-        writer.WriteString8(DescRaw);
-        writer.WriteString8(DescRaw_en);
+        writer.WriteSInt32(DescRaws.Count);
+        foreach (KeyValuePair<string, string> kv in DescRaws)
+        {
+            writer.WriteString8(kv.Key);
+            writer.WriteString8(kv.Value);
+        }
+       
         writer.WriteSInt32(Sub_SideEffect.Count);
         foreach (SideEffectBase sub_SE in Sub_SideEffect)
         {
@@ -54,8 +57,14 @@ public partial class SideEffectBase
     protected virtual void Deserialize(DataStream reader)
     {
         Name = reader.ReadString8();
-        DescRaw = reader.ReadString8();
-        DescRaw_en = reader.ReadString8();
+        DescRaws = new SortedDictionary<string, string>();
+        int descRawCount = reader.ReadSInt32();
+        for (int i = 0; i < descRawCount; i++)
+        {
+            string ls = reader.ReadString8();
+            string value = reader.ReadString8();
+            DescRaws[ls] = value;
+        }
         int sub_SE_Count = reader.ReadSInt32();
         for (int i = 0; i < sub_SE_Count; i++)
         {
@@ -69,8 +78,7 @@ public partial class SideEffectBase
         Assembly assembly = AllSideEffects.CurrentAssembly; // 获取当前程序集 
         SideEffectBase copy = (SideEffectBase) assembly.CreateInstance("SideEffects." + Name);
         copy.Name = Name;
-        copy.DescRaw = DescRaw;
-        copy.DescRaw_en = DescRaw_en;
+        copy.DescRaws = Utils.CloneSortedDictionary(DescRaws);
         foreach (SideEffectBase sub_SE in Sub_SideEffect)
         {
             copy.Sub_SideEffect.Add(sub_SE.Clone());
@@ -85,7 +93,7 @@ public partial class SideEffectBase
     {
     }
 
-    public virtual string GenerateDesc(bool isEnglish)
+    public virtual string GenerateDesc()
     {
         return "";
     }
@@ -102,7 +110,7 @@ public partial class SideEffectBase
             colorStrings[i] = "<color=\"" + AllColors.ColorDict[AllColors.ColorType.CardHightLightColor] + "\">" + args[i].ToString() + "</color>";
         }
 
-        return String.Format(src, colorStrings);
+        return string.Format(src, colorStrings);
     }
 
     public class ExecuterInfo

@@ -13,7 +13,7 @@ namespace SideEffects
             ServerPlayer player = (ServerPlayer) Player;
             switch (M_TargetRange)
             {
-                case TargetRange.SelfHeros:
+                case TargetRange.SelfHeroes:
                     ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(executerInfo.TargetRetinueId);
                     if (retinue.M_Weapon != null)
                     {

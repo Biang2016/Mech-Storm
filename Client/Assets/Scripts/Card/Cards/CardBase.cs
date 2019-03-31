@@ -52,8 +52,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         MetalIcon.color = GameManager.Instance.MetalIconColor;
         EnergyIcon.color = GameManager.Instance.EnergyIconColor;
         if (LifeIcon) LifeIcon.color = GameManager.Instance.LifeIconColor;
-        Text_CardType.fontStyle = GameManager.Instance.IsEnglish ? FontStyle.Bold : FontStyle.Normal;
-        Text_CardTypeBG.fontStyle = GameManager.Instance.IsEnglish ? FontStyle.Bold : FontStyle.Normal;
+        Text_CardType.fontStyle = LanguageManager.Instance.IsEnglish ? FontStyle.Bold : FontStyle.Normal;
+        Text_CardTypeBG.fontStyle = LanguageManager.Instance.IsEnglish ? FontStyle.Bold : FontStyle.Normal;
         Text_Desc.color = ClientUtils.HTMLColorToColor(AllColors.ColorDict[AllColors.ColorType.CardDecsTextColor]);
     }
 
@@ -187,10 +187,10 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
-        M_Name = (GameManager.Instance.IsEnglish ? CardInfo.BaseInfo.CardName_en : CardInfo.BaseInfo.CardName) + (CardInfo.BaseInfo.IsTemp ? "*" : "");
-        M_Desc = CardInfo.GetCardDescShow(GameManager.Instance.IsEnglish);
-        Text_CardType.text = CardInfo.GetCardTypeDesc(GameManager.Instance.IsEnglish);
-        Text_CardTypeBG.text = CardInfo.GetCardTypeDesc(GameManager.Instance.IsEnglish);
+        M_Name = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
+        M_Desc = CardInfo.GetCardDescShow();
+        Text_CardType.text = CardInfo.GetCardTypeDesc();
+        Text_CardTypeBG.text = CardInfo.GetCardTypeDesc();
 
         Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
         MainboardEmissionIntensity = CardInfo.GetCardColorIntensity();
@@ -210,6 +210,14 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         if (CardLimitCountUpButton) CardLimitCountUpButton.gameObject.SetActive(false);
         if (CardLimitCountDownButton) CardLimitCountDownButton.gameObject.SetActive(false);
         if (CriticalCardToggle) CriticalCardToggle.gameObject.SetActive(false);
+    }
+
+    public void RefreshCardText()
+    {
+        M_Name = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
+        M_Desc = CardInfo.GetCardDescShow();
+        Text_CardType.text = CardInfo.GetCardTypeDesc();
+        Text_CardTypeBG.text = CardInfo.GetCardTypeDesc();
     }
 
     public void SetAccount(bool isSuperAccount)
@@ -312,7 +320,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         set
         {
             m_Desc = value;
-            Text_Desc.text = GameManager.Instance.IsEnglish ? value : ReplaceWrapSpace(value);
+            Text_Desc.text = LanguageManager.Instance.IsEnglish ? value : ReplaceWrapSpace(value);
         }
     }
 
@@ -390,7 +398,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private Button CardLimitCountUpButton;
     [SerializeField] private Button CardLimitCountDownButton;
     [SerializeField] private Toggle CriticalCardToggle;
-
 
     public void BeDimColor()
     {
@@ -534,7 +541,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         {
             case BannerType.NewCard:
             {
-                ShowBanner(new Color(1, 0, 0, 0.7f), GameManager.Instance.IsEnglish ? "New!" : "新卡片!");
+                ShowBanner(new Color(1, 0, 0, 0.7f), LanguageManager.Instance.GetText("CardBase_NewCardBanner"));
                 break;
             }
             case BannerType.None:
@@ -569,7 +576,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         {
             case ArrowType.Upgrade:
             {
-                ShowUpgradeArrow(new Color(0, 1, 0, 1f), GameManager.Instance.IsEnglish ? "Upgrade!" : "可升级!");
+                ShowUpgradeArrow(new Color(0, 1, 0, 1f), LanguageManager.Instance.GetText("CardBase_Upgradable"));
                 break;
             }
             case ArrowType.None:
@@ -655,6 +662,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             {
                 value = false;
             }
+
             if (ClientPlayer == RoundManager.Instance.CurrentClientPlayer && RoundManager.Instance.InRound)
             {
                 if (!value)
@@ -745,7 +753,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     {
         transform.position = GameObjectPool.GameObjectPoolPosition;
     }
-
 
     public virtual void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {

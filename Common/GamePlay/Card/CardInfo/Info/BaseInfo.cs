@@ -5,9 +5,7 @@ using Newtonsoft.Json.Converters;
 public struct BaseInfo
 {
     public int PictureID;
-    public string CardName;
-    public string CardName_en;
-    public string CardDescRaw;
+    public SortedDictionary<string, string> CardNames;
     public bool IsTemp;
     public bool Hide;
     public int Metal;
@@ -19,12 +17,10 @@ public struct BaseInfo
     public DragPurpose DragPurpose;
     public CardTypes CardType;
 
-    public BaseInfo(int pictureID, string cardName, string cardName_en, string cardDescRaw, bool isTemp, bool hide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, CardTypes cardType)
+    public BaseInfo(int pictureID, SortedDictionary<string, string> cardNames, bool isTemp, bool hide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, CardTypes cardType)
     {
         PictureID = pictureID;
-        CardName = cardName;
-        CardName_en = cardName_en;
-        CardDescRaw = cardDescRaw;
+        CardNames = cardNames;
         IsTemp = isTemp;
         Hide = hide;
         Metal = metal;
@@ -65,27 +61,36 @@ public struct BaseInfo
     public void Serialize(DataStream writer)
     {
         writer.WriteSInt32(PictureID);
-        writer.WriteString8(CardName);
-        writer.WriteString8(CardName_en);
-        writer.WriteString8(CardDescRaw);
-        writer.WriteByte(Hide ? (byte) 0x01 : (byte) 0x00);
+        writer.WriteSInt32(CardNames.Count);
+        foreach (KeyValuePair<string, string> kv in CardNames)
+        {
+            writer.WriteString8(kv.Key);
+            writer.WriteString8(kv.Value);
+        }
+
         writer.WriteByte(IsTemp ? (byte) 0x01 : (byte) 0x00);
+        writer.WriteByte(Hide ? (byte) 0x01 : (byte) 0x00);
         writer.WriteSInt32(Metal);
         writer.WriteSInt32(Energy);
         writer.WriteSInt32(Coin);
         writer.WriteSInt32(EffectFactor);
         writer.WriteSInt32(LimitNum);
         writer.WriteSInt32(CardRareLevel);
-        writer.WriteSInt32((int) DragPurpose);
         writer.WriteSInt32((int) CardType);
     }
 
     public static BaseInfo Deserialze(DataStream reader)
     {
         int PictureID = reader.ReadSInt32();
-        string CardName = reader.ReadString8();
-        string CardName_en = reader.ReadString8();
-        string CardDesc = reader.ReadString8();
+        int descRawCount = reader.ReadSInt32();
+        SortedDictionary<string, string> CardNames = new SortedDictionary<string, string>();
+        for (int i = 0; i < descRawCount; i++)
+        {
+            string ls = reader.ReadString8();
+            string value = reader.ReadString8();
+            CardNames[ls] = value;
+        }
+
         bool IsTemp = reader.ReadByte() == 0x01;
         bool Hide = reader.ReadByte() == 0x01;
         int Metal = reader.ReadSInt32();
@@ -94,25 +99,30 @@ public struct BaseInfo
         int EffectFactor = reader.ReadSInt32();
         int LimitNum = reader.ReadSInt32();
         int CardRareLevel = reader.ReadSInt32();
-        DragPurpose DragPurpose = (DragPurpose) reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
-        return new BaseInfo(PictureID, CardName, CardName_en, CardDesc, IsTemp, Hide, Metal, Energy, Coin, EffectFactor, LimitNum, CardRareLevel, CardType);
+        return new BaseInfo(PictureID, CardNames, IsTemp, Hide, Metal, Energy, Coin, EffectFactor, LimitNum, CardRareLevel, CardType);
     }
 
-    public static Dictionary<CardTypes, string> CardTypeNameDict_en = new Dictionary<CardTypes, string>
+    public static Dictionary<string, Dictionary<CardTypes, string>> CardTypeNameDict = new Dictionary<string, Dictionary<CardTypes, string>>
     {
-        {CardTypes.Retinue, "Mech"},
-        {CardTypes.Spell, "Spell"},
-        {CardTypes.Energy, "Energy"},
-        {CardTypes.Equip, "Equip"},
-    };
-
-    public static Dictionary<CardTypes, string> CardTypeNameDict = new Dictionary<CardTypes, string>
-    {
-        {CardTypes.Retinue, "机甲牌"},
-        {CardTypes.Spell, "法术牌"},
-        {CardTypes.Energy, "能量牌"},
-        {CardTypes.Equip, "装备牌"},
+        {
+            "zh", new Dictionary<CardTypes, string>
+            {
+                {CardTypes.Retinue, "Mech"},
+                {CardTypes.Spell, "Spell"},
+                {CardTypes.Energy, "Energy"},
+                {CardTypes.Equip, "Equip"},
+            }
+        },
+        {
+            "en", new Dictionary<CardTypes, string>
+            {
+                {CardTypes.Retinue, "机甲牌"},
+                {CardTypes.Spell, "法术牌"},
+                {CardTypes.Energy, "能量牌"},
+                {CardTypes.Equip, "装备牌"},
+            }
+        }
     };
 }
 

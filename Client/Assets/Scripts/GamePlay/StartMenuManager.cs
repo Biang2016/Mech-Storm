@@ -14,7 +14,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += OnClientChangeState;
 
-        Awake_TextFont();
+        Awake_Text();
         Awake_DeckAbstract();
     }
 
@@ -291,60 +291,42 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         }
     }
 
-    void Awake_TextFont()
+    void Awake_Text()
     {
-        OnlineMenuText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        SingleMenuText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        SingleCustomBattleText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        SettingText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        AboutText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DesignerText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        BackText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        QuitGameText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        LanguageManager.Instance.RegisterTextKeys(
+            new List<(Text, string)>
+            {
+                (OnlineMenuText, "StartMenu_OnlineMode"),
+                (SingleMenuText, "StartMenu_SingleMode"),
+                (SingleCustomBattleText, "StartMenu_CustomizeBattle"),
+                (SettingText, "StartMenu_Settings"),
+                (AboutText, "StartMenu_AboutMe"),
+                (DesignerText, "StartMenu_Designer"),
+                (BackText, "StartMenu_Back"),
+                (DesignerText, "StartMenu_Designer"),
+                (QuitGameText, "StartMenu_QuitGame"),
 
-        OnlineMenuText.text = GameManager.Instance.IsEnglish ? "Online Mode" : "在线对战";
-        SingleMenuText.text = GameManager.Instance.IsEnglish ? "Single Mode" : "单人模式";
-        SingleCustomBattleText.text = GameManager.Instance.IsEnglish ? "Customize Battle" : "自定义人机";
-        SettingText.text = GameManager.Instance.IsEnglish ? "Settings" : "游戏设置";
-        AboutText.text = GameManager.Instance.IsEnglish ? "About Me" : "制作人员";
-        DesignerText.text = GameManager.Instance.IsEnglish ? "Designer\nXue Bingsheng" : "制作人: 薛炳晟";
-        BackText.text = GameManager.Instance.IsEnglish ? "Back" : "返回";
-        QuitGameText.text = GameManager.Instance.IsEnglish ? "Quit Game" : "退出游戏";
+                (OnlineStartText, "StartMenu_OnlineStart"),
+                (CancelMatchText, "StartMenu_CancelMatch"),
+                (OnlineDeckText, "StartMenu_OnlineDeck"),
 
-        OnlineStartText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        CancelMatchText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        OnlineDeckText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+                (SingleStartText, "StartMenu_SingleStart"),
+                (SingleResumeText, "StartMenu_SingleResume"),
+                (SingleDeckText, "StartMenu_SingleDeck"),
 
-        OnlineStartText.text = GameManager.Instance.IsEnglish ? "Start Matching" : "开始匹配";
-        CancelMatchText.text = GameManager.Instance.IsEnglish ? "Cancel Matching" : "取消匹配";
-        OnlineDeckText.text = GameManager.Instance.IsEnglish ? "My Decks" : "我的卡组";
+                (SingleCustomStartText, "StartMenu_SingleCustomStart"),
+                (SingleCustomDeckText, "StartMenu_SingleCustomDeck"),
 
-        SingleStartText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        SingleResumeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        SingleDeckText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-
-        SingleStartText.text = GameManager.Instance.IsEnglish ? "New Story" : "新的游戏";
-        SingleResumeText.text = GameManager.Instance.IsEnglish ? "Resume" : "继续游戏";
-        SingleDeckText.text = GameManager.Instance.IsEnglish ? "My Decks" : "我的卡组";
-
-        SingleCustomStartText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        SingleCustomDeckText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-
-        SingleCustomStartText.text = GameManager.Instance.IsEnglish ? "Begin Fighting" : "开始对战";
-        SingleCustomDeckText.text = GameManager.Instance.IsEnglish ? "My Decks" : "我的卡组";
-
-        OnlineMenuTipText.text = GameManager.Instance.IsEnglish ? "Play against players through the Internet with all cards available." : "通过互联网与其他玩家自由对战,全卡组开放";
-        SingleMenuTipText.text = GameManager.Instance.IsEnglish ? "Play in a Rouge-like story mode and collect cards gradually." : "进行单人Rouge-like模式";
-        SingleCustomBattleTipText.text = GameManager.Instance.IsEnglish ? "Play against computer AI with all cards available." : "与电脑AI对战,全卡组开放";
-        SettingTipText.text = GameManager.Instance.IsEnglish ? "Audio and language settings." : "音频与语言设置";
-        BackTipText.text = GameManager.Instance.IsEnglish ? "Back to main menu." : "回到主菜单";
-
-        OnlineDeckTipText.text = GameManager.Instance.IsEnglish ? "(TAB) Open deck editor where life, energy and cards can be modified." : "打开牌库,进行生命值、能量值和卡片的挑选";
-
-        SingleResumeTipText.text = GameManager.Instance.IsEnglish ? "Resume last story." : "继续之前的游戏";
-        SingleDeckTipText.text = GameManager.Instance.IsEnglish ? "(TAB) Open deck editor where life, energy and cards can be modified." : "打开牌库,进行生命值、能量值和卡片的挑选";
-
-        SingleCustomDeckTipText.text = GameManager.Instance.IsEnglish ? "(TAB) Open deck editor where life, energy and cards can be modified." : "打开牌库,进行生命值、能量值和卡片的挑选";
+                (OnlineMenuTipText, "StartMenu_OnlineMenuTipText"),
+                (SingleMenuTipText, "StartMenu_SingleMenuTipText"),
+                (SingleCustomBattleTipText, "StartMenu_SingleCustomBattleTipText"),
+                (SettingTipText, "StartMenu_SettingTipText"),
+                (BackTipText, "StartMenu_BackTipText"),
+                (OnlineDeckTipText, "StartMenu_DeckTipText"),
+                (SingleResumeTipText, "StartMenu_SingleResumeTipText"),
+                (SingleDeckTipText, "StartMenu_DeckTipText"),
+                (SingleCustomDeckTipText, "StartMenu_DeckTipText"),
+            });
     }
 
     [SerializeField] private Canvas StartMenuCanvas;
@@ -421,7 +403,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
 
     void Awake_DeckAbstract()
     {
-        if (GameManager.Instance.IsEnglish)
+        if (LanguageManager.Instance.IsEnglish)
         {
             DeckAbstractText_DeckName.fontStyle = FontStyle.BoldAndItalic;
             DeckAbstractText_Cards.fontStyle = FontStyle.BoldAndItalic;
@@ -446,25 +428,19 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             DeckAbstractText_DrawNum.fontStyle = FontStyle.Italic;
         }
 
-        DeckAbstractText_DeckName.text = GameManager.Instance.IsEnglish ? "No Deck" : "无卡组";
-        DeckAbstractText_Cards.text = GameManager.Instance.IsEnglish ? "Cards" : "卡牌数:";
-        DeckAbstractText_CardNum.text = "";
-        DeckAbstractText_Life.text = GameManager.Instance.IsEnglish ? "Life" : "生命值:";
-        DeckAbstractText_LifeNum.text = "";
-        DeckAbstractText_Energy.text = GameManager.Instance.IsEnglish ? "Energy" : "能量上限:";
-        DeckAbstractText_EnergyNum.text = "";
-        DeckAbstractText_Draws.text = GameManager.Instance.IsEnglish ? "Draws" : "抽牌数:";
-        DeckAbstractText_DrawNum.text = "";
-
-        DeckAbstractText_DeckName.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_Cards.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_CardNum.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_Life.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_LifeNum.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_Energy.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_EnergyNum.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_Draws.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DeckAbstractText_DrawNum.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        LanguageManager.Instance.RegisterTextKeys(
+            new List<(Text, string)>
+            {
+                (DeckAbstractText_DeckName, "StartMenu_DeckAbstractText_DeckName"),
+                (DeckAbstractText_Cards, "StartMenu_DeckAbstractText_Cards"),
+                (DeckAbstractText_CardNum, "StartMenu_DeckAbstractText_CardNum"),
+                (DeckAbstractText_Life, "StartMenu_DeckAbstractText_Life"),
+                (DeckAbstractText_LifeNum, "StartMenu_DeckAbstractText_LifeNum"),
+                (DeckAbstractText_Energy, "StartMenu_DeckAbstractText_Energy"),
+                (DeckAbstractText_EnergyNum, "StartMenu_DeckAbstractText_EnergyNum"),
+                (DeckAbstractText_Draws, "StartMenu_DeckAbstractText_Draws"),
+                (DeckAbstractText_DrawNum, "StartMenu_DeckAbstractText_DrawNum"),
+            });
     }
 
     [SerializeField] private GameObject DeckAbstract;
@@ -563,14 +539,13 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
         if (StoryManager.Instance.M_CurrentStory != null)
         {
             ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
-            string enDesc = "Do you want to start a new Single Game?" + (StoryManager.Instance.M_CurrentStory != null ? " It will remove your current game." : "");
-            string zhDesc = "是否开始一个新的游戏？" + (StoryManager.Instance.M_CurrentStory != null ? " 当前游戏将被清除。" : "");
+            string desc = LanguageManager.Instance.GetText("Notice_StartMenu_DoYouWantToStartANewSingleGame") + (StoryManager.Instance.M_CurrentStory != null ? LanguageManager.Instance.GetText("Notice_StartMenu_CurrentGameWillBeRemoved") : "");
 
             UnityAction action = StartNewStory;
             cw.Initialize(
-                GameManager.Instance.IsEnglish ? enDesc : zhDesc,
-                GameManager.Instance.IsEnglish ? "Yes" : "是的",
-                GameManager.Instance.IsEnglish ? "No" : "取消",
+                desc,
+                LanguageManager.Instance.GetText("Common_Yes"),
+                LanguageManager.Instance.GetText("Common_Cancel"),
                 action + ConfirmWindowManager.Instance.RemoveConfirmWindow,
                 ConfirmWindowManager.Instance.RemoveConfirmWindow
             );
@@ -629,26 +604,18 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
             }
             else if (SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.CardCount == 0)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Your deck is empty" : "您的卡组中没有卡牌", 0, 0.3f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_StartMenu_NoCardInDeck"), 0, 0.3f);
                 OnSelectCardDeckWindowButtonClick();
                 return;
             }
             else if (!SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.IsEnergyEnough())
             {
                 ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
-                if (GameManager.Instance.IsEnglish)
-                {
-                    cw.Initialize("Some cards consume more energy than your upper limit.", "Go ahead", "Edit",
-                        startGameAction + ConfirmWindowManager.Instance.RemoveConfirmWindow,
-                        new UnityAction(OnSelectCardDeckWindowButtonClick) + ConfirmWindowManager.Instance.RemoveConfirmWindow + delegate { StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide); });
-                }
-                else
-                {
-                    cw.Initialize("您的卡组中有些牌的能量消耗大于您的能量上限，是否继续？", "继续", "编辑",
-                        startGameAction + ConfirmWindowManager.Instance.RemoveConfirmWindow,
-                        new UnityAction(OnSelectCardDeckWindowButtonClick) + ConfirmWindowManager.Instance.RemoveConfirmWindow);
-                }
-
+                cw.Initialize(LanguageManager.Instance.GetText("Notice_StartMenu_CardEnergyOverYourEnergy"),
+                    LanguageManager.Instance.GetText("Common_GoAhead"),
+                    LanguageManager.Instance.GetText("Common_Edit"),
+                    startGameAction + ConfirmWindowManager.Instance.RemoveConfirmWindow,
+                    new UnityAction(OnSelectCardDeckWindowButtonClick) + ConfirmWindowManager.Instance.RemoveConfirmWindow + delegate { StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide); });
                 return;
             }
             else
@@ -661,8 +628,8 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     private void StartOnlineMatch()
     {
         Client.Instance.Proxy.OnBeginMatch();
-        ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin matching" : "开始匹配");
-        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Matching" : "匹配中", 0, float.PositiveInfinity);
+        ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_BeginMatching"));
+        NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("StartMenu_Matching"), 0, float.PositiveInfinity);
         DeckAbstract.SetActive(true);
         RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Online;
     }
@@ -670,7 +637,7 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     private void StartNewSingleGame(int levelID, int bossPicID)
     {
         Client.Instance.Proxy.OnBeginSingleMode(levelID, bossPicID);
-        ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin single mode" : "开始单人模式");
+        ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_BeginSingleMode"));
         RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Single;
         StoryManager.Instance.Fighting_LevelID = levelID;
         StoryManager.Instance.Fighting_BossPicID = bossPicID;
@@ -679,15 +646,15 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     private void StartSingleCustomGame()
     {
         Client.Instance.Proxy.OnBeginSingleMode(-1, -1);
-        ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Begin single custom mode" : "开始自定义人机模式");
+        ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_BeginCustomMode"));
         RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.SingleCustom;
     }
 
     public void OnCancelMatchGameButtonClick()
     {
         Client.Instance.Proxy.CancelMatch();
-        ClientLog.Instance.Print(GameManager.Instance.IsEnglish ? "Matching canceled" : "取消匹配");
-        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "Match canceled" : "取消匹配", 0, 1f);
+        ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_CancelMatch"));
+        NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("StartMenu_CancelMatch"), 0, 1f);
         DeckAbstract.SetActive(false);
     }
 
@@ -709,9 +676,9 @@ public class StartMenuManager : MonoSingleton<StartMenuManager>
     {
         ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
         cw.Initialize(
-            GameManager.Instance.IsEnglish ? "Are you sure to Quick the game?" : "退出游戏?",
-            GameManager.Instance.IsEnglish ? "Yes" : "是",
-            GameManager.Instance.IsEnglish ? "No" : "取消",
+            LanguageManager.Instance.GetText("Notice_StartMenu_QuitGameConfirm"),
+            LanguageManager.Instance.GetText("Common_Yes"),
+            LanguageManager.Instance.GetText("Common_Cancel"),
             Application.Quit,
             ConfirmWindowManager.Instance.RemoveConfirmWindow
         );

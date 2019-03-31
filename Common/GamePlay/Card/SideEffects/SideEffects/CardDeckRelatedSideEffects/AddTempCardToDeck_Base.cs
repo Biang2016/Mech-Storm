@@ -4,9 +4,11 @@ public class AddTempCardToDeck_Base : CardDeckRelatedSideEffects, IEffectFactor
 {
     public SideEffectValue Value = new SideEffectValue(0);
 
-    public List<SideEffectValue> Values {
-        get { return new List<SideEffectValue> { Value }; }
+    public List<SideEffectValue> Values
+    {
+        get { return new List<SideEffectValue> {Value}; }
     }
+
     private int factor = 1;
     public int CardId;
 
@@ -25,10 +27,10 @@ public class AddTempCardToDeck_Base : CardDeckRelatedSideEffects, IEffectFactor
         get { return Value.Value * GetFactor(); }
     }
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
         BaseInfo bi = AllCards.GetCard(CardId).BaseInfo;
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, FinalValue, "[" + (isEnglish ? bi.CardName_en : bi.CardName) + "]");
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, "[" + bi.CardNames[LanguageManager_Common.GetCurrentLanguage()] + "]");
     }
 
     public override void Serialize(DataStream writer)
@@ -44,7 +46,6 @@ public class AddTempCardToDeck_Base : CardDeckRelatedSideEffects, IEffectFactor
         Value.Value = reader.ReadSInt32();
         CardId = reader.ReadSInt32();
     }
-
 
     protected override void CloneParams(SideEffectBase copy)
     {

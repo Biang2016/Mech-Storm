@@ -21,11 +21,11 @@
                 case TargetRange.EnemyMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllRetinues(FinalValue);
                     break;
-                case TargetRange.Heros:
+                case TargetRange.Heroes:
                     player.MyBattleGroundManager.AddLifeForAllHeros(FinalValue);
                     player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllHeros(FinalValue);
                     break;
-                case TargetRange.SelfHeros:
+                case TargetRange.SelfHeroes:
                     player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForAllHeros(FinalValue);
                     break;
                 case TargetRange.EnemyHeros:

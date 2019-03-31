@@ -21,11 +21,11 @@
                 case TargetSideEffect.TargetRange.EnemyMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.RemoveEquip(ServerBattleGroundManager.RetinueType.All, executerInfo.TargetEquipId);
                     break;
-                case TargetSideEffect.TargetRange.Heros:
+                case TargetSideEffect.TargetRange.Heroes:
                     player.MyBattleGroundManager.RemoveEquip(ServerBattleGroundManager.RetinueType.Hero, executerInfo.TargetEquipId);
                     player.MyEnemyPlayer.MyBattleGroundManager.RemoveEquip(ServerBattleGroundManager.RetinueType.Hero, executerInfo.TargetEquipId);
                     break;
-                case TargetSideEffect.TargetRange.SelfHeros:
+                case TargetSideEffect.TargetRange.SelfHeroes:
                     player.MyBattleGroundManager.RemoveEquip(ServerBattleGroundManager.RetinueType.Hero, executerInfo.TargetEquipId);
                     break;
                 case TargetSideEffect.TargetRange.EnemyHeros:

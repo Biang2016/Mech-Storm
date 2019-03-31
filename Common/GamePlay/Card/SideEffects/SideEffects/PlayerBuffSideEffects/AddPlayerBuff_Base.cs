@@ -17,9 +17,9 @@
         set => attachedBuffSEE = value;
     }
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return AttachedBuffSEE.SideEffectBase.GenerateDesc(isEnglish);
+        return AttachedBuffSEE.SideEffectBase.GenerateDesc();
     }
 
     public override void Serialize(DataStream writer)

@@ -41,7 +41,7 @@ internal class InGameUIManager : MonoSingleton<InGameUIManager>
         EndRoundButtonAnim.SetTrigger(enable ? "OnEnable" : "OnDisable");
         EndRoundButton.interactable = enable;
         EndRoundButton.image.color = enable ? Color.yellow : Color.gray;
-        EndRoundButtonText.text = enable ? (GameManager.Instance.IsEnglish ? "End Turn" : "结束回合") : (GameManager.Instance.IsEnglish ? "Enemy's Turn" : "敌方回合");
+        EndRoundButtonText.text = enable ? LanguageManager.Instance.GetText("InGameUIManager_EndTurn") : LanguageManager.Instance.GetText("InGameUIManager_EnemyTurn");
     }
 
     public void DirectlyWin()

@@ -32,9 +32,9 @@ public class UseAllEnergyDamageShip_Base : SideEffectBase, IEffectFactor, IDamag
         get { return Value_Plus.Value * GetFactor(); }
     }
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, FinalValue, FinalValue_Plus);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, FinalValue_Plus);
     }
 
 

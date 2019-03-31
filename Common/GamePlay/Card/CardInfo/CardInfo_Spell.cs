@@ -14,14 +14,11 @@
         Pro_Initialize();
     }
 
-    public override string GetCardDescShow(bool isEnglish)
+    public override string GetCardDescShow()
     {
-        string CardDescShow = BaseInfo.CardDescRaw;
-
-        CardDescShow += base.GetCardDescShow(isEnglish);
-
+        string CardDescShow = "";
+        CardDescShow += base.GetCardDescShow();
         CardDescShow = CardDescShow.TrimEnd(",. ;\n".ToCharArray());
-
         return CardDescShow;
     }
 
@@ -49,10 +46,10 @@
         return cs;
     }
 
-    public override string GetCardTypeDesc(bool isEnglish)
+    public override string GetCardTypeDesc()
     {
         string cardTypeName = "";
-        cardTypeName = isEnglish ? BaseInfo.CardTypeNameDict_en[BaseInfo.CardType] : BaseInfo.CardTypeNameDict[BaseInfo.CardType];
+        cardTypeName = BaseInfo.CardTypeNameDict[LanguageManager_Common.GetCurrentLanguage()][BaseInfo.CardType];
         return cardTypeName;
     }
 }

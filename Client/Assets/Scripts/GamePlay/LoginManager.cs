@@ -15,20 +15,18 @@ public class LoginManager : MonoSingleton<LoginManager>
         M_StateMachine = new StateMachine();
         Proxy.OnClientStateChange += OnClientChangeState;
 
-        ServerText.text = GameManager.Instance.IsEnglish ? "Server: " : "服务器: ";
-        UserNameText.text = GameManager.Instance.IsEnglish ? "Username: " : "用户名: ";
-        PasswordText.text = GameManager.Instance.IsEnglish ? "Password: " : "密码: ";
-        RegisterText.text = GameManager.Instance.IsEnglish ? "Register" : "注册";
-        LoginText.text = GameManager.Instance.IsEnglish ? "Login" : "登录";
+        LanguageManager.Instance.RegisterTextKeys(
+            new List<(Text, string)>
+            {
+                (ServerText, "LoginMenu_ServerText"),
+                (UserNameText, "LoginMenu_UserNameText"),
+                (PasswordText, "LoginMenu_PasswordText"),
+                (RegisterText, "LoginMenu_RegisterText"),
+                (LoginText, "LoginMenu_LoginText"),
+            });
 
-        ServerText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        PasswordText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        PasswordText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        RegisterText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        LoginText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-
-        ServerDropdown.options[0] = new Dropdown.OptionData(GameManager.Instance.IsEnglish ? "Formal Server" : "正式服");
-        ServerDropdown.options[1] = new Dropdown.OptionData(GameManager.Instance.IsEnglish ? "Test Server" : "测试服");
+        ServerDropdown.options[0] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_FormalServer"));
+        ServerDropdown.options[1] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_TestServer"));
     }
 
     void Start()
@@ -59,11 +57,11 @@ public class LoginManager : MonoSingleton<LoginManager>
                 SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
                 StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
                 M_StateMachine.SetState(StateMachine.States.Show);
-                ShowTipText(GameManager.Instance.IsEnglish ? "Disconnected" : "已断开连接.", 0, float.PositiveInfinity, false);
+                ShowTipText(LanguageManager.Instance.GetText("LoginMenu_Disconnected"), 0, float.PositiveInfinity, false);
                 break;
             case ProxyBase.ClientStates.GetId:
                 M_StateMachine.SetState(StateMachine.States.Show);
-                ShowTipText(GameManager.Instance.IsEnglish ? "Connected" : "已连接.", 0, float.PositiveInfinity, false);
+                ShowTipText(LanguageManager.Instance.GetText("LoginMenu_Connected"), 0, float.PositiveInfinity, false);
                 break;
             case ProxyBase.ClientStates.Login:
                 M_StateMachine.SetState(StateMachine.States.Hide);
@@ -205,7 +203,7 @@ public class LoginManager : MonoSingleton<LoginManager>
             }
             else
             {
-                ShowTipText(GameManager.Instance.IsEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
+                ShowTipText(LanguageManager.Instance.GetText("LoginMenu_Connecting"), 0, float.PositiveInfinity, true);
                 OnChangeServer(ServerDropdown.value);
             }
         }
@@ -226,7 +224,7 @@ public class LoginManager : MonoSingleton<LoginManager>
             }
             else
             {
-                ShowTipText(GameManager.Instance.IsEnglish ? "Connecting" : "正在连接服务器", 0, float.PositiveInfinity, true);
+                ShowTipText(LanguageManager.Instance.GetText("LoginMenu_Connecting"), 0, float.PositiveInfinity, true);
                 OnChangeServer(ServerDropdown.value);
             }
         }
@@ -242,9 +240,9 @@ public class LoginManager : MonoSingleton<LoginManager>
     {
         ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(LoginManager.Instance.transform.parent);
         cw.Initialize(
-            GameManager.Instance.IsEnglish ? "Your client needs update! Open the download page in browser?" : "您的客户端需要更新,是否在浏览器中打开下载页面?",
-            GameManager.Instance.IsEnglish ? "Yes" : "是",
-            GameManager.Instance.IsEnglish ? "No" : "取消",
+            LanguageManager.Instance.GetText("LoginMenu_ClientNeedUpdate"),
+            LanguageManager.Instance.GetText("Common_Yes"),
+            LanguageManager.Instance.GetText("Common_Cancel"),
             (new UnityAction(delegate { Application.OpenURL("www.biangstudio.com/mech-storm"); })) + ConfirmWindowManager.Instance.RemoveConfirmWindow,
             ConfirmWindowManager.Instance.RemoveConfirmWindow
         );

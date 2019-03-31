@@ -48,11 +48,11 @@ public class CardInfo_Base
         }
     }
 
-    public virtual string GetCardDescShow(bool isEnglish)
+    public virtual string GetCardDescShow()
     {
-        string CardDescShow = BaseInfo.CardDescRaw;
-        CardDescShow += SideEffectBundle.GetSideEffectsDesc(isEnglish);
-        CardDescShow += SideEffectBundle_OnBattleGround.GetSideEffectsDesc(isEnglish);
+        string CardDescShow = "";
+        CardDescShow += SideEffectBundle.GetSideEffectsDesc();
+        CardDescShow += SideEffectBundle_OnBattleGround.GetSideEffectsDesc();
         return CardDescShow;
     }
 
@@ -121,7 +121,7 @@ public class CardInfo_Base
     }
 
 
-    public virtual string GetCardTypeDesc(bool isEnglish)
+    public virtual string GetCardTypeDesc()
     {
         return null;
     }

@@ -26,10 +26,9 @@ public class AddWeaponEnergy_Base : TargetSideEffect, IEffectFactor
         get { return Value.Value * GetFactor(); }
     }
 
-
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, false), FinalValue);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange, false, false), FinalValue);
     }
 
     public override void Serialize(DataStream writer)
@@ -45,7 +44,6 @@ public class AddWeaponEnergy_Base : TargetSideEffect, IEffectFactor
         RetinueID = reader.ReadSInt32();
         Value.Value = reader.ReadSInt32();
     }
-
 
     protected override void CloneParams(SideEffectBase copy)
     {

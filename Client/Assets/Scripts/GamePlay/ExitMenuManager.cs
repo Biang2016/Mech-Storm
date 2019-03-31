@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,15 +14,18 @@ public class ExitMenuManager : MonoSingleton<ExitMenuManager>
     {
         M_StateMachine = new StateMachine();
 
-        SettingMenuText.text = GameManager.Instance.IsEnglish ? "Settings" : "设置";
-        SurrenderText.text = GameManager.Instance.IsEnglish ? "Surrender" : "认输";
-        ConsumeText.text = GameManager.Instance.IsEnglish ? "Consume" : "继续游戏";
-        QuitText.text = GameManager.Instance.IsEnglish ? "Quit" : "退出游戏";
-
-        SettingMenuText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        SurrenderText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        ConsumeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        QuitText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        LanguageManager.Instance.RegisterTextKeys(
+            new List<(Text, string)>
+            {
+                (SettingMenuText, "ExitMenu_SettingMenuText"),
+                (SurrenderText, "ExitMenu_SurrenderText"),
+                (ConsumeText, "ExitMenu_ConsumeText"),
+                (QuitText, "ExitMenu_QuitText"),
+                (SettingMenuText, "ExitMenu_SettingMenuText"),
+                (SurrenderText, "ExitMenu_SurrenderText"),
+                (ConsumeText, "ExitMenu_ConsumeText"),
+                (QuitText, "ExitMenu_QuitText"),
+            });
     }
 
     void Start()
@@ -211,9 +215,9 @@ public class ExitMenuManager : MonoSingleton<ExitMenuManager>
     {
         ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform.parent);
         cw.Initialize(
-            GameManager.Instance.IsEnglish ? "Are you sure to surrender?" : "您确定要认输吗?",
-            GameManager.Instance.IsEnglish ? "Yes" : "是",
-            GameManager.Instance.IsEnglish ? "No" : "取消",
+            LanguageManager.Instance.GetText("ExitMenu_SureToSurrender"),
+            LanguageManager.Instance.GetText("Common_Yes"),
+            LanguageManager.Instance.GetText("Common_Cancel"),
             (new UnityAction(SurrenderCore)) + ConfirmWindowManager.Instance.RemoveConfirmWindow,
             ConfirmWindowManager.Instance.RemoveConfirmWindow
         );
@@ -225,7 +229,7 @@ public class ExitMenuManager : MonoSingleton<ExitMenuManager>
         SelectBuildManager.Instance.ResetStoryBonusInfo();
         RoundManager.Instance.StopGame();
         ClientLog.Instance.Print("You have quit the game");
-        NoticeManager.Instance.ShowInfoPanelTop(GameManager.Instance.IsEnglish ? "You have quit the game" : "您已退出比赛", 0, 1f);
+        NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("ExitMenu_YouHaveQuitGame"), 0, 1f);
         M_StateMachine.SetState(StateMachine.States.Hide);
     }
 

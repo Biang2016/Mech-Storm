@@ -25,9 +25,9 @@ public class HealRandom_Base : TargetSideEffect, IEffectFactor
         get { return Value.Value * GetFactor(); }
     }
 
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw, GetChineseDescOfTargetRange(M_TargetRange, isEnglish, false, true), FinalValue);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange,false, true), FinalValue);
     }
 
     public override void Serialize(DataStream writer)

@@ -8,7 +8,7 @@
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_PackName = GameManager.Instance.IsEnglish ? cardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
+        M_PackName = cardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
     }
 
     public override void SetPreview()
@@ -36,11 +36,10 @@
         set
         {
             m_PackName = value;
-            Name.text = GameManager.Instance.IsEnglish ? "" : Utils.TextToVertical(value);
-            Name_en.text = GameManager.Instance.IsEnglish ? value : "";
+            Name.text = LanguageManager.Instance.IsEnglish ? "" : Utils.TextToVertical(value);
+            Name_en.text = LanguageManager.Instance.IsEnglish ? value : "";
         }
     }
-
 
     public void OnPackEquiped()
     {

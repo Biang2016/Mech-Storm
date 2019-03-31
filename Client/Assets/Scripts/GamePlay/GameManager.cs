@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -8,7 +9,6 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Awake()
     {
-        IsEnglish = !PlayerPrefs.GetString("Language").Equals("Chinese");
         InitializeClientGameSettings();
         AllColors.DebugLogHandler = ClientLog.Instance.PrintError;
         AllSideEffects.DebugLogHandler = ClientLog.Instance.PrintError;
@@ -26,19 +26,7 @@ public class GameManager : MonoSingleton<GameManager>
     public Camera SelectCardWindowBackCamera;
     public Camera SelectCardWindowForeCamera;
 
-    public bool IsEnglish;
-
-    public void SetEnglish(int index)
-    {
-        IsEnglish = index == 0;
-        PlayerPrefs.SetString("Language", IsEnglish ? "English" : "Chinese");
-        NoticeManager.Instance.ShowInfoPanelCenter(IsEnglish ? "It'll be effective after restarting the game" : "设置修改将在重启游戏后生效", 0, 1f);
-    }
-
     #region 游戏全局参数
-
-    public Font EnglishFont;
-    public Font ChineseFont;
 
     internal Vector3 UseCardShowPosition = new Vector3(10, 3, 0);
     internal Vector3 UseCardShowPosition_Overlay = new Vector3(10, 3, 0.2f);
@@ -140,7 +128,6 @@ public class GameManager : MonoSingleton<GameManager>
     {
         ImageEffectBlurBox.enabled = true;
     }
-
 
     public void StopBlurBackGround()
     {

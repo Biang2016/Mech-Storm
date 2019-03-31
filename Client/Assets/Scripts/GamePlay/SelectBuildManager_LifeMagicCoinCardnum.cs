@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -78,10 +79,10 @@ public partial class SelectBuildManager
         MaxEnergyText.text = GamePlaySettings.DefaultEnergyMax.ToString();
         MaxCardNumberText.text = GamePlaySettings.MaxDrawCardNum.ToString();
 
-        TotalCoinText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        MaxLifeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        MaxEnergyText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        MaxCardNumberText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        LanguageManager.Instance.RegisterTextFontBinding(new List<Text>
+        {
+            TotalCoinText, MaxLifeText, MaxEnergyText, MaxCardNumberText
+        });
 
         CoinSlider.onValueChanged.AddListener(OnCoinSliderValueChange);
         LifeSlider.onValueChanged.AddListener(OnLifeSliderValueChange);
@@ -139,7 +140,6 @@ public partial class SelectBuildManager
         MyCoinText.rectTransform.localPosition = Vector3.Lerp(MyCoinTextMinPos.localPosition, MyCoinTextMaxPos.localPosition, value);
     }
 
-
     private float noBudgetNoticeInterval = 3f;
     private float lastNoBudgetNoticeTime;
 
@@ -153,7 +153,7 @@ public partial class SelectBuildManager
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_BudgetLimitedChooseFewerCards"), 0f, 1f);
             }
 
             return;
@@ -164,7 +164,7 @@ public partial class SelectBuildManager
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "It's unsafe if your life is too low." : "生命过低可不安全哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerLifeMagicCoinCardnum_UnsafeIfLifeLow"), 0f, 1f);
             }
 
             return;
@@ -187,7 +187,7 @@ public partial class SelectBuildManager
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_BudgetLimitedChooseFewerCards"), 0f, 1f);
             }
 
             return;
@@ -227,14 +227,13 @@ public partial class SelectBuildManager
             }
         }
 
-
         if (drawCardNum > maxDrawCardNum)
         {
             CardNumberSlider.value = maxDrawCardNum;
             if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
             {
                 lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Bugget is Limited. Please consider choosing fewer cards." : "预算不足,考虑少选一些卡牌哦~", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_BudgetLimitedChooseFewerCards"), 0f, 1f);
             }
 
             return;

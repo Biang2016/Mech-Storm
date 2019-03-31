@@ -125,7 +125,7 @@ public class ModuleRetinue : ModuleBase
         ArmorFillAnim.gameObject.SetActive(false);
         ShieldBar.fillAmount = 0;
         SwordBar.fillAmount = 0;
-        M_RetinueName = GameManager.Instance.IsEnglish ? CardInfo.BaseInfo.CardName_en : cardInfo.BaseInfo.CardName;
+        M_RetinueName = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
         M_RetinueLeftLife = cardInfo.LifeInfo.Life;
         M_RetinueTotalLife = cardInfo.LifeInfo.TotalLife;
         M_RetinueWeaponEnergy = 0;
@@ -255,7 +255,6 @@ public class ModuleRetinue : ModuleBase
         set { m_ClientTempRetinueID = value; }
     }
 
-
     [SerializeField] private GameObject ImmuneIcon;
     [SerializeField] private Text ImmuneCountText;
 
@@ -283,7 +282,6 @@ public class ModuleRetinue : ModuleBase
     [SerializeField] private Text InactivityCountText;
 
     private int m_InactivityRounds = 0;
-
 
     public int M_InactivityRounds
     {
@@ -435,7 +433,6 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-
     private int m_RetinueArmor;
 
     public int M_RetinueArmor
@@ -489,7 +486,7 @@ public class ModuleRetinue : ModuleBase
 
     IEnumerator Co_ShieldChangeNumberFly(int decreaseValue)
     {
-        ShieldDefenceNumberFly.SetText((GameManager.Instance.IsEnglish ? "Dec -" : "阻挡 -") + decreaseValue, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
+        ShieldDefenceNumberFly.SetText(LanguageManager.Instance.GetText("ModuleRetinue_DecreaseDamageNumberFly") + decreaseValue, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -498,7 +495,7 @@ public class ModuleRetinue : ModuleBase
     {
         if (!isInitializing)
         {
-            string text = GameManager.Instance.IsEnglish ? "Life " : "生命 ";
+            string text = LanguageManager.Instance.GetText("ModuleRetinue_LifeNumberFly");
             if (change > 0)
             {
                 if (!isTotalLifeChanging && !isInitializing)
@@ -570,12 +567,11 @@ public class ModuleRetinue : ModuleBase
         LifeText.text = leftLifeValue.ToString();
     }
 
-
     IEnumerator Co_RetinueAttackChange(int retinueAttackValue, int retinueEnergy, int retinueEnergyMax, int change, float duration, bool isInitializing)
     {
         if (!isInitializing)
         {
-            string text = GameManager.Instance.IsEnglish ? "Attack " : "伤害 ";
+            string text = LanguageManager.Instance.GetText("ModuleRetinue_AttackChangeNumberFly");
 
             if (change > 0)
             {
@@ -631,7 +627,7 @@ public class ModuleRetinue : ModuleBase
         NormalParticle particle = null;
         if (!isInitializing)
         {
-            string text = GameManager.Instance.IsEnglish ? "Armor " : "护甲 ";
+            string text = LanguageManager.Instance.GetText("ModuleRetinue_ArmorChangeNumberFly");
             if (change > 0)
             {
                 ArmorChangeNumberFly.SetText(text + "+" + change, "#FFA800", "#FFA800", TextFly.FlyDirection.Up);
@@ -674,16 +670,14 @@ public class ModuleRetinue : ModuleBase
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-
     [SerializeField] private int RetinueShieldFull;
-
 
     IEnumerator Co_ShieldChange(int shieldValue, int change, float duration, bool isInitializing)
     {
         NormalParticle particle = null;
         if (!isInitializing)
         {
-            string text = GameManager.Instance.IsEnglish ? "Shield " : "护盾 ";
+            string text = LanguageManager.Instance.GetText("ModuleRetinue_ShieldChangeNumberFly");
             RetinueShieldFull = Mathf.Max(RetinueShieldFull, shieldValue);
             if (change > 0)
             {
@@ -1104,7 +1098,6 @@ public class ModuleRetinue : ModuleBase
         }
     }
 
-
     private enum AttackLevel
     {
         Sword = 0,
@@ -1278,7 +1271,7 @@ public class ModuleRetinue : ModuleBase
             }
             else
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You should attack the Defenders first." : "你必须先攻击嘲讽机甲", 0, 0.5f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("ModuleRetinue_ShouldAttackDefenderFirst"), 0, 0.5f);
             }
         }
         else if (ship)
@@ -1290,7 +1283,7 @@ public class ModuleRetinue : ModuleBase
             }
             else
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "You should attack the Mechs first." : "你必须先攻击场上机甲", 0, 0.5f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("ModuleRetinue_ShouldAttackMechsFirst"), 0, 0.5f);
             }
         }
 
@@ -1389,7 +1382,7 @@ public class ModuleRetinue : ModuleBase
         if (card.ClientPlayer == ClientPlayer)
         {
             return ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.SelfSoldiers) == TargetSideEffect.TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier) ||
-                   ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.SelfHeros) == TargetSideEffect.TargetRange.SelfHeros && !CardInfo.RetinueInfo.IsSoldier);
+                   ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.SelfHeroes) == TargetSideEffect.TargetRange.SelfHeroes && !CardInfo.RetinueInfo.IsSoldier);
         }
         else
         {
@@ -1453,7 +1446,6 @@ public class ModuleRetinue : ModuleBase
             }
         }
     }
-
 
     public override void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {
@@ -1528,7 +1520,6 @@ public class ModuleRetinue : ModuleBase
         if (IsDead) return;
         IsDead = true;
     }
-
 
     public void OnAttack(WeaponTypes weaponType, ModuleRetinue targetRetinue)
     {
@@ -1634,7 +1625,7 @@ public class ModuleRetinue : ModuleBase
     IEnumerator Co_OnDodge()
     {
         AudioManager.Instance.SoundPlay("sfx/HitShield");
-        DodgeNumberFly.SetText((GameManager.Instance.IsEnglish ? "Dodge" : "闪避"), "#AE70FF", "#AE70FF", TextFly.FlyDirection.Up, showArrow: false);
+        DodgeNumberFly.SetText((LanguageManager.Instance.GetText("KeyWords_Dodge")), "#AE70FF", "#AE70FF", TextFly.FlyDirection.Up, showArrow: false);
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -1650,7 +1641,6 @@ public class ModuleRetinue : ModuleBase
     public void OnBeDamaged(int damage)
     {
     }
-
 
     public void OnBeginRound()
     {

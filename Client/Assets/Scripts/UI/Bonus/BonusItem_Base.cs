@@ -35,7 +35,7 @@ internal class BonusItem_Base : PoolObject
     public virtual void Initialize(Bonus bonus)
     {
         Bonus = bonus;
-        ItemDesc.text = Bonus.GetDesc(GameManager.Instance.IsEnglish);
+        ItemDesc.text = Bonus.GetDesc();
         if (bonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
         {
             BonusCardInfo = AllCards.GetCard(bonus.Value);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -11,7 +12,6 @@ public static class AllSideEffects
 
     public static DebugLog DebugLogHandler;
 
-
     private static void addSideEffect(SideEffectBase sideEffectBase)
     {
         if (!SideEffectsNameDict.ContainsKey(sideEffectBase.Name)) SideEffectsNameDict.Add(sideEffectBase.Name, sideEffectBase);
@@ -21,6 +21,13 @@ public static class AllSideEffects
 
     public static void AddAllSideEffects(string sideEffectsXMLPath)
     {
+        SortedDictionary<string, string> descKeyDict = new SortedDictionary<string, string>();
+        foreach (int v in Enum.GetValues(typeof(LanguageShorts)))
+        {
+            string strName = Enum.GetName(typeof(LanguageShorts), v);
+            descKeyDict[strName] = "desc_" + strName;
+        }
+
         string text;
         using (StreamReader sr = new StreamReader(sideEffectsXMLPath))
         {
@@ -44,8 +51,12 @@ public static class AllSideEffects
             }
 
             se.Name = sideEffectNode.Attributes["name"].Value;
-            se.DescRaw = sideEffectNode.Attributes["desc"].Value;
-            se.DescRaw_en = sideEffectNode.Attributes["desc_en"].Value;
+            se.DescRaws = new SortedDictionary<string, string>();
+            foreach (KeyValuePair<string, string> kv in descKeyDict)
+            {
+                se.DescRaws[kv.Key] = sideEffectNode.Attributes[kv.Value].Value;
+            }
+
             addSideEffect(se);
         }
     }

@@ -21,11 +21,11 @@
                 case TargetRange.EnemyMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(FinalValue);
                     break;
-                case TargetRange.Heros:
+                case TargetRange.Heroes:
                     player.MyBattleGroundManager.HealAllHeros(FinalValue);
                     player.MyEnemyPlayer.MyBattleGroundManager.HealAllHeros(FinalValue);
                     break;
-                case TargetRange.SelfHeros:
+                case TargetRange.SelfHeroes:
                     player.MyBattleGroundManager.HealAllHeros(FinalValue);
                     break;
                 case TargetRange.EnemyHeros:

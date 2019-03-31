@@ -15,7 +15,7 @@
                 case TargetRange.Mechs:
                     value = FinalValue * (player.MyBattleGroundManager.RetinueCount + player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount);
                     break;
-                case TargetRange.Heros:
+                case TargetRange.Heroes:
                     value = FinalValue * (player.MyBattleGroundManager.HeroCount + player.MyEnemyPlayer.MyBattleGroundManager.HeroCount);
                     break;
                 case TargetRange.Soldiers:
@@ -24,7 +24,7 @@
                 case TargetRange.SelfMechs:
                     value = FinalValue * player.MyBattleGroundManager.RetinueCount;
                     break;
-                case TargetRange.SelfHeros:
+                case TargetRange.SelfHeroes:
                     value = FinalValue * player.MyBattleGroundManager.HeroCount;
                     break;
                 case TargetRange.SelfSoldiers:

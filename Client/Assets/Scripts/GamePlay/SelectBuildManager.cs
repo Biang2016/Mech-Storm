@@ -28,19 +28,15 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     void Start()
     {
         InitAddAllCards();
-        InitializeOnlineCardCoundDict();
+        InitializeOnlineCardCountDict();
         M_StateMachine.SetState(StateMachine.States.Hide);
         Start_Select();
     }
 
     [SerializeField] private Transform AllCardsContent;
-
     [SerializeField] private Canvas Canvas;
-
     [SerializeField] private Canvas Canvas_BG;
-
     [SerializeField] private Camera Camera;
-
     [SerializeField] private Animator SelectWindowShowAnim;
 
     public GamePlaySettings GamePlaySettings;
@@ -376,7 +372,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
     private SortedDictionary<int, int> OnlineCardCountDict;
 
-    private void InitializeOnlineCardCoundDict()
+    private void InitializeOnlineCardCountDict()
     {
         OnlineCardCountDict = new SortedDictionary<int, int>();
         foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
@@ -408,7 +404,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         {
             int CardID = kv.Key;
             int CardLimitCount = kv.Value;
-           
+
             if (allCards.ContainsKey(CardID))
             {
                 CardBase cb = allCards[CardID];
@@ -450,6 +446,14 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         }
 
         HideHigherLevelNumCardsForStoryMode();
+    }
+
+    public void RefreshCardTexts()
+    {
+        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        {
+            kv.Value.RefreshCardText();
+        }
     }
 
     private void HideNoLimitCards()

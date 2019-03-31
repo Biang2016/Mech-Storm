@@ -20,7 +20,7 @@ internal class BigBonusItem : BonusItem_Base
 
     void Awake()
     {
-        UnlockText.text = GameManager.Instance.IsEnglish ? "To unlock this card" : "解锁该卡片";
+        UnlockText.text = LanguageManager.Instance.GetText("BigBonusItem_ToUnlockThisCard");
     }
 
     public override void Initialize(Bonus bonus)

@@ -1,8 +1,8 @@
 ﻿public class GetHandCardCopy_Base : CardRelatedSideEffect
 {
-    public override string GenerateDesc(bool isEnglish)
+    public override string GenerateDesc()
     {
-        return HightlightStringFormat(isEnglish ? DescRaw_en : DescRaw);
+        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()]);
     }
 
 }

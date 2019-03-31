@@ -126,12 +126,12 @@ public class SelectCard : PoolObject
 
     public CardInfo_Base CardInfo;
 
-    public void Initiate(int count, int metal, int energy, string text, CardInfo_Base cardInfo, SelectCardOnMouseEnterHandler enterHandler, SelectCardOnMouseLeaveHandler leaveHandler, Color color)
+    public void Initiate(int count,  CardInfo_Base cardInfo, SelectCardOnMouseEnterHandler enterHandler, SelectCardOnMouseLeaveHandler leaveHandler, Color color)
     {
         Count = count;
-        Metal = metal;
-        Energy = energy;
-        Text_CardName.text = text;
+        Metal = cardInfo.BaseInfo.Metal;
+        Energy = cardInfo.BaseInfo.Energy;
+        Text_CardName.text = cardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
         CardInfo = cardInfo;
         OnMouseEnterHandler = enterHandler;
         OnMouseLeaveHandler = leaveHandler;
@@ -139,6 +139,11 @@ public class SelectCard : PoolObject
         CardButton.onClick.RemoveAllListeners();
         ClientUtils.ChangeCardPicture(CardImage, CardInfo.BaseInfo.PictureID);
         Stars = CardInfo.UpgradeInfo.CardLevel;
+    }
+
+    public void RefreshLanguage()
+    {
+        Text_CardName.text = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
     }
 
     private void RefreshText()

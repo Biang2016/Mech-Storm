@@ -389,7 +389,6 @@ public class HandManager : MonoBehaviour
 
     #endregion
 
-
     #region UX
 
     public CardBase CurrentFocusCard;
@@ -579,11 +578,11 @@ public class HandManager : MonoBehaviour
                             HandCardCountPanelAnim.SetTrigger("Jump");
                             if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
                             {
-                                HandCardCountText.text = GameManager.Instance.IsEnglish ? "Your have " + cards.Count + " cards." : "你有" + cards.Count + "张手牌";
+                                HandCardCountText.text = string.Format(LanguageManager.Instance.GetText("HandManager_YouHaveManyCards"), cards.Count);
                             }
                             else
                             {
-                                HandCardCountText.text = GameManager.Instance.IsEnglish ? "Your component has " + cards.Count + " cards." : "你的对手有" + cards.Count + "张手牌";
+                                HandCardCountText.text = string.Format(LanguageManager.Instance.GetText("HandManager_EnemyHaveManyCards"), cards.Count);
                                 foreach (CardBase cb in cards)
                                 {
                                     cb.CardBackBloom.SetActive(true);

@@ -35,18 +35,18 @@ public partial class SelectBuildManager
         PreviewCardPanel.SetActive(false);
         PreviewCardPanelBG.SetActive(false);
 
-        UpgradeText.text = GameManager.Instance.IsEnglish ? "Upgrade" : "升级";
-        DegradeText.text = GameManager.Instance.IsEnglish ? "Degrade" : "降级";
-
-        UpgradeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
-        DegradeText.font = GameManager.Instance.IsEnglish ? GameManager.Instance.EnglishFont : GameManager.Instance.ChineseFont;
+        LanguageManager.Instance.RegisterTextKeys(new List<(Text, string)>
+        {
+            (UpgradeText, "SelectBuildManagerPreviewUpgrade_UpgradeText"),
+            (DegradeText, "SelectBuildManagerPreviewUpgrade_DegradeText"),
+        });
     }
 
     public void ShowPreviewCardPanel(CardBase card)
     {
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Please create a new deck first." : "请先创建一个卡组", 0, 0.5f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerPreviewUpgrade_CreateANewDeck"), 0, 0.5f);
             return;
         }
 
@@ -195,7 +195,6 @@ public partial class SelectBuildManager
         {
             UpgradeArrow.enabled = false;
         }
-
 
         if (hasDegradeCard)
         {
@@ -371,7 +370,7 @@ public partial class SelectBuildManager
     {
         if (CurrentEditBuildButton == null)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Please create your deck." : "请创建卡组!", 0f, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerPreviewUpgrade_PleaseCreateDeck"), 0f, 1f);
             return;
         }
 
@@ -385,12 +384,11 @@ public partial class SelectBuildManager
             return;
         }
 
-
         if (GetSelectedCardCount(currentCardID) > 0)
         {
             if ((GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - changeCardInfo.BaseInfo.Coin) < 0)
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(GameManager.Instance.IsEnglish ? "Not enough bugget." : "预算不足", 0f, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerPreviewUpgrade_NotEnoughBudget"), 0f, 1f);
                 return;
             }
         }
