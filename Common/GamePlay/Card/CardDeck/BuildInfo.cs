@@ -12,15 +12,47 @@ public class BuildInfo
     }
 
     public int BuildID;
-
     public string BuildName;
 
-    public List<int> CardIDs;
-    public SortedDictionary<int, int> CardCountDict; // 卡组中每张牌的选牌上限
+    public SortedDictionary<int, CardSelectInfo> CardSelectInfos; // Key: CardID
 
-    public HashSet<int> CriticalCardIDs; //AI专用，重要卡牌起手抽到
+    public class CardSelectInfo
+    {
+        public int CardID;
+        public int CardSelectUpperLimit;
+        public int CardSelectCount;
 
-    public int CardConsumeCoin;
+        private CardSelectInfo(int cardID, int cardSelectUpperLimit, int cardSelectCount)
+        {
+            CardID = cardID;
+            CardSelectUpperLimit = cardSelectUpperLimit;
+            CardSelectCount = cardSelectCount;
+        }
+
+        public CardSelectInfo Clone()
+        {
+            return new CardSelectInfo(CardID, CardSelectUpperLimit, CardSelectCount);
+        }
+    }
+
+    public int CardConsumeCoin
+    {
+        get
+        {
+            int count = 0;
+            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
+            {
+                CardInfo_Base cb = AllCards.GetCard(kv.Key);
+                if (cb != null)
+                {
+                    count += cb.BaseInfo.Coin;
+                }
+            }
+
+            return count;
+        }
+    }
+
     public GamePlaySettings GamePlaySettings; //只对客户端选卡起到限制作用，服务端这个字段没有作用
 
     public int LifeConsumeCoin
@@ -68,15 +100,13 @@ public class BuildInfo
 
     public BuildInfo()
     {
-        CriticalCardIDs = new HashSet<int>();
     }
 
-    public BuildInfo(int buildID, string buildName, List<int> cardIDs, HashSet<int> criticalCardIDs, int drawCardNum, int life, int energy, int beginMetal, GamePlaySettings gamePlaySettings, SortedDictionary<int, int> cardCountDict = null)
+    public BuildInfo(int buildID, string buildName, SortedDictionary<int, CardSelectInfo> cardSelectInfos, int drawCardNum, int life, int energy, int beginMetal, GamePlaySettings gamePlaySettings)
     {
         BuildID = buildID;
         BuildName = buildName;
-        CardIDs = cardIDs;
-        CriticalCardIDs = criticalCardIDs;
+        CardSelectInfos = CloneCardSelectInfos(cardSelectInfos);
         DrawCardNum = drawCardNum;
         Life = life;
         Energy = energy;
@@ -101,16 +131,6 @@ public class BuildInfo
                 {
                     CardCountDict.Add(cardID, cb.BaseInfo.LimitNum);
                 }
-            }
-        }
-
-        CardConsumeCoin = 0;
-        foreach (int cardID in cardIDs)
-        {
-            CardInfo_Base cb = AllCards.GetCard(cardID);
-            if (cb != null)
-            {
-                CardConsumeCoin += AllCards.GetCard(cardID).BaseInfo.Coin;
             }
         }
 
@@ -139,13 +159,13 @@ public class BuildInfo
 
     public BuildInfo Clone()
     {
-        return new BuildInfo(GenerateBuildID(), BuildName, CardIDs.ToArray().ToList(), Utils.CloneHashSet(CriticalCardIDs), DrawCardNum, Life, Energy, BeginMetal, GamePlaySettings, CloneCardCountDict(CardCountDict));
+        return new BuildInfo(GenerateBuildID(), BuildName, CardSelectInfos,  DrawCardNum, Life, Energy, BeginMetal, GamePlaySettings);
     }
 
-    public static SortedDictionary<int, int> CloneCardCountDict(SortedDictionary<int, int> cardCountDict)
+    public static SortedDictionary<int, CardSelectInfo> CloneCardSelectInfos(SortedDictionary<int, CardSelectInfo> cardSelectInfos)
     {
-        SortedDictionary<int, int> res = new SortedDictionary<int, int>();
-        foreach (KeyValuePair<int, int> kv in cardCountDict)
+        SortedDictionary<int, CardSelectInfo> res = new SortedDictionary<int, CardSelectInfo>();
+        foreach (KeyValuePair<int, CardSelectInfo> kv in cardSelectInfos)
         {
             res.Add(kv.Key, kv.Value);
         }
@@ -160,6 +180,18 @@ public class BuildInfo
         if (DrawCardNum != targetBuildInfo.DrawCardNum) return false;
         if (Life != targetBuildInfo.Life) return false;
         if (Energy != targetBuildInfo.Energy) return false;
+
+        foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
+        {
+
+            if (targetBuildInfo.CardSelectInfos.ContainsKey(kv.Key))
+            {
+                if (targetBuildInfo.CardSelectInfos[kv.Value].)
+            }else
+            {
+                return false;
+            }
+        }
         if (CardIDs.Count != targetBuildInfo.CardIDs.Count) return false;
         if (CriticalCardIDs.Count != targetBuildInfo.CriticalCardIDs.Count) return false;
         if (CardCountDict.Count != targetBuildInfo.CardCountDict.Count) return false;
