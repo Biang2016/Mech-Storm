@@ -43,7 +43,7 @@ public class Story
             playerBuildInfos.Add(newBuildInfo.BuildID, newBuildInfo);
         }
 
-        Story newStory = new Story(StoryName, newLevels, BuildInfo.CloneCardCountDict(Base_CardCountDict), playerBuildInfos, StoryGamePlaySettings.Clone());
+        Story newStory = new Story(StoryName, newLevels, BuildInfo.CloneCardSelectInfos(Base_CardCountDict), playerBuildInfos, StoryGamePlaySettings.Clone());
 
         SortedDictionary<int, int> levelNumBossRemainChoiceCount = new SortedDictionary<int, int>();
         SortedDictionary<int, List<int>> levelNumBigBossRemainChoices = new SortedDictionary<int, List<int>>();
