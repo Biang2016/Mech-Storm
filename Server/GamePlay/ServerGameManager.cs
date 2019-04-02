@@ -128,11 +128,6 @@ internal class ServerGameManager
         PlayerA.MyHandManager.DrawHeroCards(100);
         PlayerB.MyHandManager.DrawHeroCards(100);
 
-        if (ClientB is ClientProxyAI)
-        {
-            PlayerB.MyHandManager.PutCardsOnTopByID(ClientB.CurrentBuildInfo.CriticalCardIDs.ToList()); //AI卡组起手手牌可配置
-        }
-
         if (isPlayerAFirst)
         {
             PlayerA.MyHandManager.DrawCards(GamePlaySettings.FirstDrawCard);

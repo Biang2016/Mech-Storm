@@ -43,7 +43,7 @@ public class Story
             playerBuildInfos.Add(newBuildInfo.BuildID, newBuildInfo);
         }
 
-        Story newStory = new Story(StoryName, newLevels, BuildInfo.CloneCardSelectInfos(Base_CardCountDict), playerBuildInfos, StoryGamePlaySettings.Clone());
+        Story newStory = new Story(StoryName, newLevels, Utils.CloneSortedDictionary(Base_CardCountDict), playerBuildInfos, StoryGamePlaySettings.Clone());
 
         SortedDictionary<int, int> levelNumBossRemainChoiceCount = new SortedDictionary<int, int>();
         SortedDictionary<int, List<int>> levelNumBigBossRemainChoices = new SortedDictionary<int, List<int>>();
@@ -170,38 +170,44 @@ public class Story
     {
         foreach (KeyValuePair<int, BuildInfo> kv in PlayerBuildInfos)
         {
-            EditCardCountDict(cardID, changeValue, kv.Value.CardCountDict);
+            EditCardCountDict(cardID, changeValue, kv.Value.M_BuildCards.CardSelectInfos);
         }
 
         EditCardCountDict(cardID, changeValue, Base_CardCountDict);
     }
 
-    private void EditCardCountDict(int cardID, int changeValue, SortedDictionary<int, int> CardCountDict)
+    private void EditCardCountDict(int cardID, int changeValue, SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo> cardSelectInfos)
     {
         int remainChange = changeValue;
-        if (CardCountDict[cardID] + changeValue >= 0)
+        if (cardSelectInfos[cardID].CardSelectUpperLimit + changeValue >= 0)
         {
-            CardCountDict[cardID] += changeValue;
+            cardSelectInfos[cardID].CardSelectUpperLimit += changeValue;
         }
         else
         {
-            CardCountDict[cardID] = 0;
-            remainChange += CardCountDict[cardID];
+            remainChange += cardSelectInfos[cardID].CardSelectUpperLimit;
+            cardSelectInfos[cardID].CardSelectUpperLimit = 0;
             List<int> series = AllCards.GetCardSeries(cardID);
             foreach (int i in series)
             {
-                if (CardCountDict[i] + remainChange >= 0)
+                if (cardSelectInfos[i].CardSelectUpperLimit + remainChange >= 0)
                 {
-                    CardCountDict[i] += remainChange;
+                    cardSelectInfos[i].CardSelectUpperLimit += remainChange;
                     break;
                 }
                 else
                 {
-                    CardCountDict[i] = 0;
-                    remainChange += CardCountDict[i];
+                    remainChange += cardSelectInfos[i].CardSelectUpperLimit;
+                    cardSelectInfos[i].CardSelectUpperLimit = 0;
                 }
             }
         }
+    }
+
+    private void EditCardCountDict(int cardID, int changeValue, SortedDictionary<int, int> baseCardCountDict)
+    {
+        int baseCardID = AllCards.GetCardBaseCardID(cardID);
+        baseCardCountDict[baseCardID] += changeValue;
     }
 
     public void Serialize(DataStream writer)
@@ -328,7 +334,6 @@ public class Story
             int times = reader.ReadSInt32();
             newStory.LevelNumFightTimes.Add(levelID, times);
         }
-
 
         int levelBossRemainCount = reader.ReadSInt32();
         for (int i = 0; i < levelBossRemainCount; i++)

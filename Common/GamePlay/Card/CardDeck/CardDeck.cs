@@ -71,7 +71,7 @@ public class CardDeck
         CardDeckCountChangeHandler = onCardDeckCountChangeHandler;
         UpdateCoolDownCardHandler = onUpdateCoolDownCardHandler;
         RemoveCoolDownCardHandler = onRemoveCoolDownCardHandler;
-        AppendCards(AllCards.GetCards(M_BuildInfo.GetCardIDs().ToArray()));
+        AppendCards(AllCards.GetCards(M_BuildInfo.M_BuildCards.GetCardIDs().ToArray()));
         SuffleSelf();
     }
 

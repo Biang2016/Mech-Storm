@@ -432,6 +432,16 @@ public static class AllCards
         return false;
     }
 
+    public static int GetCardBaseCardID(int cardID)
+    {
+        CardInfo_Base de = CardDict[cardID];
+        while ((de = GetDegradeCardInfo(de)) != null)
+        {
+        }
+
+        return de.CardID;
+    }
+
     public static List<CardInfo_Base> GetCardSeries(CardInfo_Base cardInfo)
     {
         List<CardInfo_Base> res = new List<CardInfo_Base>();

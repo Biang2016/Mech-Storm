@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -54,9 +55,7 @@ internal class AllServerBuilds
             {
                 XmlNode build = allBuilds.ChildNodes.Item(i);
                 BuildInfo buildInfo = new BuildInfo();
-                buildInfo.CardIDs = new List<int>();
-                buildInfo.CriticalCardIDs = new HashSet<int>();
-                buildInfo.CardCountDict = new SortedDictionary<int, int>();
+                buildInfo.M_BuildCards = new BuildInfo.BuildCards(new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>());
                 for (int j = 0; j < build.ChildNodes.Count; j++)
                 {
                     XmlNode cardInfo = build.ChildNodes[j];
@@ -70,65 +69,32 @@ internal class AllServerBuilds
                             buildInfo.Life = int.Parse(cardInfo.Attributes["Life"].Value);
                             buildInfo.Energy = int.Parse(cardInfo.Attributes["Energy"].Value);
                             buildInfo.BeginMetal = int.Parse(cardInfo.Attributes["BeginMetal"].Value);
+                            buildInfo.IsHighLevelCardLocked = cardInfo.Attributes["IsHighLevelCardLocked"].Value.Equals("True");
                             break;
                         case "cardIDs":
-                            string[] cardID_str = cardInfo.Attributes["ids"].Value.Split(',');
-                            foreach (string s in cardID_str)
+                            string[] cardID_strs = cardInfo.Attributes["ids"].Value.Split(';');
+                            foreach (string s in cardID_strs)
                             {
                                 if (string.IsNullOrEmpty(s)) continue;
-                                buildInfo.CardIDs.Add(int.Parse(s));
+                                string[] cardSelectInfo_strs = s.Trim('(').Trim(')').Split(',');
+                                int cardID = int.Parse(cardSelectInfo_strs[0]);
+                                if (!AllCards.CardDict.ContainsKey(cardID)) continue;
+                                int cardSelectCount = int.Parse(cardSelectInfo_strs[1]);
+                                int cardSelectUpperLimit = int.Parse(cardSelectInfo_strs[2]);
+                                BuildInfo.BuildCards.CardSelectInfo csi = new BuildInfo.BuildCards.CardSelectInfo(cardID, cardSelectCount, cardSelectUpperLimit);
+                                buildInfo.M_BuildCards.CardSelectInfos.Add(csi.CardID, csi);
                             }
 
-                            break;
-                        case "criticalCardIDs":
-                            string[] criticalCardID_str = cardInfo.Attributes["ids"].Value.Split(',');
-                            foreach (string s in criticalCardID_str)
+                            foreach (int cardID in AllCards.CardDict.Keys)
                             {
-                                if (string.IsNullOrEmpty(s)) continue;
-                                buildInfo.CriticalCardIDs.Add(int.Parse(s));
-                            }
-
-                            break;
-                        case "cardLimitNum":
-                            string[] cardLimitNum = cardInfo.Attributes["ids"].Value.Split(',');
-                            foreach (string s in cardLimitNum)
-                            {
-                                if (string.IsNullOrEmpty(s)) continue;
-                                string[] values = s.Split('(');
-                                if (values.Length == 1)
+                                int limit = AllCards.CardDict[cardID].BaseInfo.LimitNum;
+                                if (!buildInfo.M_BuildCards.CardSelectInfos.ContainsKey(cardID))
                                 {
-                                    buildInfo.CriticalCardIDs.Add(int.Parse(values[0]));
-                                }
-                                else if (values.Length == 2)
-                                {
-                                    int cardID = int.Parse(values[0]);
-                                    buildInfo.CriticalCardIDs.Add(cardID);
-                                    int cardLimitCount = int.Parse(values[1].TrimEnd(')'));
-                                    buildInfo.CardCountDict.Add(cardID, cardLimitCount);
+                                    buildInfo.M_BuildCards.CardSelectInfos.Add(cardID, new BuildInfo.BuildCards.CardSelectInfo(cardID, 0, limit));
                                 }
                             }
 
                             break;
-                    }
-                }
-
-                bool isStory = pureName == "StoryAdmin";
-                foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
-                {
-                    if (!buildInfo.CardCountDict.ContainsKey(kv.Key))
-                    {
-                        int limit = kv.Value.BaseInfo.LimitNum;
-                        if (kv.Value.UpgradeInfo.CardLevel > 1)
-                        {
-                            limit = 0;
-                        }
-
-                        if (isStory)
-                        {
-                            limit = 0;
-                        }
-
-                        buildInfo.CardCountDict.Add(kv.Key, limit);
                     }
                 }
 
@@ -205,67 +171,27 @@ internal class AllServerBuilds
             baseInfo.SetAttribute("Life", buildInfo.Life.ToString());
             baseInfo.SetAttribute("Energy", buildInfo.Energy.ToString());
             baseInfo.SetAttribute("BeginMetal", buildInfo.BeginMetal.ToString());
+            baseInfo.SetAttribute("IsHighLevelCardLocked", buildInfo.IsHighLevelCardLocked.ToString());
 
             XmlElement cardIDs = doc.CreateElement("Info");
             buildInfo_Node.AppendChild(cardIDs);
             cardIDs.SetAttribute("name", "cardIDs");
-            buildInfo.CardIDs.Sort();
-            int[] ids = buildInfo.CardIDs.ToArray();
-            List<string> strs = new List<string>();
-            foreach (int id in ids)
+            StringBuilder sb = new StringBuilder();
+            foreach (KeyValuePair<int, BuildInfo.BuildCards.CardSelectInfo> kv in buildInfo.M_BuildCards.CardSelectInfos)
             {
-                strs.Add(id.ToString());
+                sb.Append(string.Format("({0},{1},{2});", kv.Value.CardID, kv.Value.CardSelectCount, kv.Value.CardSelectUpperLimit));
             }
 
-            cardIDs.SetAttribute("ids", string.Join(",", strs.ToArray()));
-
-            if (builds.ManagerName == "ServerAdmin")
+            foreach (int cardID in AllCards.CardDict.Keys)
             {
-                XmlElement criticalCardIDs = doc.CreateElement("Info");
-                buildInfo_Node.AppendChild(criticalCardIDs);
-                criticalCardIDs.SetAttribute("name", "criticalCardIDs");
-                List<int> ccid = buildInfo.CriticalCardIDs.ToList();
-                ccid.Sort();
-                int[] cids = ccid.ToArray();
-                List<string> strs_cids = new List<string>();
-                foreach (int id in cids)
+                if (!buildInfo.M_BuildCards.CardSelectInfos.ContainsKey(cardID))
                 {
-                    strs_cids.Add(id.ToString());
+                    sb.Append(string.Format("({0},{1},{2});", cardID, 0, AllCards.CardDict[cardID].BaseInfo.LimitNum));
                 }
-
-                criticalCardIDs.SetAttribute("ids", string.Join(",", strs_cids.ToArray()));
             }
 
-            if (builds.ManagerName == "StoryAdmin")
-            {
-                XmlElement cardLimitCount = doc.CreateElement("Info");
-                buildInfo_Node.AppendChild(cardLimitCount);
-                cardLimitCount.SetAttribute("name", "cardLimitNum");
-
-                HashSet<int> unlockedSeriesCardIDs = new HashSet<int>();
-
-                List<string> strs_ccd = new List<string>();
-                foreach (KeyValuePair<int, int> kv in buildInfo.CardCountDict)
-                {
-                    List<int> temp = AllCards.GetCardSeries(kv.Key);
-                    foreach (int cardID in temp)
-                    {
-                        unlockedSeriesCardIDs.Add(cardID);
-                    }
-
-                    strs_ccd.Add(kv.Key + "(" + kv.Value + ")");
-                }
-
-                foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
-                {
-                    if (!unlockedSeriesCardIDs.Contains(kv.Key))
-                    {
-                        strs_ccd.Add(kv.Key + "(0)");
-                    }
-                }
-
-                cardLimitCount.SetAttribute("ids", string.Join(",", strs_ccd.ToArray()));
-            }
+            string cardID_str = sb.ToString().Trim(';');
+            cardIDs.SetAttribute("ids", cardID_str);
         }
 
         doc.Save(ExportBuildDirectory + builds.ManagerName + ".xml");

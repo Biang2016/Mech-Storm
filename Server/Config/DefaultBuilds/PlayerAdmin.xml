@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<AllBuilds>
+
+<AllBuilds desc="本文档记录联机对战模式的玩家初始卡组">
   <BuildInfo>
-    <Info name="baseInfo" BuildName="Freshman Deck1" DrawCardNum="1" Life="100" Energy="20" BeginMetal="0" />
+    <Info name="baseInfo" BuildName="Freshman Deck1" DrawCardNum="1" Life="100" Energy="20" BeginMetal="0" IsHighLevelCardLocked="False" />
     <Info name="cardIDs" ids="" />
   </BuildInfo>
   <BuildInfo>
-    <Info name="baseInfo" BuildName="New Deck" DrawCardNum="2" Life="100" Energy="10" BeginMetal="0" />
+    <Info name="baseInfo" BuildName="New Deck" DrawCardNum="2" Life="100" Energy="10" BeginMetal="0" IsHighLevelCardLocked="False" />
     <Info name="cardIDs" ids="" />
   </BuildInfo>
 </AllBuilds>

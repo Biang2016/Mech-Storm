@@ -214,7 +214,13 @@ public partial class Utils
         HashSet<T> res = new HashSet<T>();
         foreach (T t in src)
         {
-            res.Add(t);
+            T res_t = t;
+            if (t is IClone<T> t_Clone)
+            {
+                res_t = t_Clone.Clone();
+            }
+
+            res.Add(res_t);
         }
 
         return res;
@@ -225,7 +231,19 @@ public partial class Utils
         SortedDictionary<T1, T2> res = new SortedDictionary<T1, T2>();
         foreach (KeyValuePair<T1, T2> kv in src)
         {
-            res.Add(kv.Key, kv.Value);
+            T1 res_t1 = kv.Key;
+            T2 res_t2 = kv.Value;
+            if (kv.Key is IClone<T1> t1_Clone)
+            {
+                res_t1 = t1_Clone.Clone();
+            }
+
+            if (kv.Value is IClone<T2> t2_Clone)
+            {
+                res_t2 = t2_Clone.Clone();
+            }
+
+            res.Add(res_t1, res_t2);
         }
 
         return res;

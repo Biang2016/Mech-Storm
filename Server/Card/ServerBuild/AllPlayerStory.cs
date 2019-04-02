@@ -137,7 +137,7 @@ internal class AllPlayerStory
             BuildInfo PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultBuildId).Clone();
             SortedDictionary<int, BuildInfo> playerbuildInfos = new SortedDictionary<int, BuildInfo>();
             playerbuildInfos.Add(PlayerCurrentBuildInfo.BuildID, PlayerCurrentBuildInfo);
-            Story newStory = new Story(pureName, Levels, BuildInfo.CloneCardCountDict(PlayerCurrentBuildInfo.CardCountDict), playerbuildInfos, gps);
+            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo.M_BuildCards.GetBaseCardCountDict(), playerbuildInfos, gps);
             Database.Instance.StoryStartDict.Add(pureName, newStory);
         }
     }
