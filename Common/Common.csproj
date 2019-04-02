@@ -228,6 +228,7 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerTurnRequest.cs" />
     <Compile Include="RequestResponse\ClientToServer\GamePlayOperations\SummonRetinueRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\ClientOperationResponseBundle\SummonRetinueRequest_ResponseBundle.cs" />
+    <Compile Include="Utils\IClone.cs" />
     <Compile Include="Utils\RandomNumberGenerator.cs" />
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
