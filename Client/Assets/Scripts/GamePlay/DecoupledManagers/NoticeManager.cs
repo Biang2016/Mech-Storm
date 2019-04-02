@@ -8,7 +8,7 @@ public class NoticeManager : MonoSingleton<NoticeManager>
     {
     }
 
-    void Awake()
+    private void Awake()
     {
         InfoCanvas.enabled = true;
         InfoPanelTopAnimator.gameObject.SetActive(true);

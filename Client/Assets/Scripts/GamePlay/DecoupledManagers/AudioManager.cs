@@ -5,11 +5,14 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoSingleton<AudioManager>
 {
+    private AudioManager()
+    {
+    }
+
     private Dictionary<string, int> AudioDictionary = new Dictionary<string, int>();
 
     private const int MaxAudioCount = 10;
     private const string ResourcePath = "Audios/";
-    private const string StreamingAssetsPath = "";
     private AudioSource BGMAudioSource;
     private AudioSource LastAudioSource;
 
@@ -17,48 +20,35 @@ public class AudioManager : MonoSingleton<AudioManager>
     public AudioMixerGroup BGMAudioMixerGroup;
     public AudioMixerGroup SoundAudioMixerGroup;
 
-    public void SoundPlay(string audioname)
+    public void SoundPlay(string audioName, float volume = 1)
     {
-        SoundPlay(audioname, 1f);
-    }
-
-    /// <summary>
-    /// 播放
-    /// </summary>
-    /// <param name="audioname"></param>
-    public void SoundPlay(string audioname, float volume = 1)
-    {
-        if (AudioDictionary.ContainsKey(audioname))
+        if (AudioDictionary.ContainsKey(audioName))
         {
-            if (AudioDictionary[audioname] <= MaxAudioCount)
+            if (AudioDictionary[audioName] <= MaxAudioCount)
             {
-                AudioClip sound = GetAudioClip(audioname);
+                AudioClip sound = GetAudioClip(audioName);
                 if (sound != null)
                 {
-                    StartCoroutine(PlayClipEnd(sound, audioname));
+                    StartCoroutine(PlayClipEnd(sound, audioName));
                     PlayClip(sound, volume);
-                    AudioDictionary[audioname]++;
+                    AudioDictionary[audioName]++;
                 }
             }
         }
         else
         {
-            AudioDictionary.Add(audioname, 1);
-            AudioClip sound = GetAudioClip(audioname);
+            AudioDictionary.Add(audioName, 1);
+            AudioClip sound = GetAudioClip(audioName);
             if (sound != null)
             {
-                StartCoroutine(PlayClipEnd(sound, audioname));
+                StartCoroutine(PlayClipEnd(sound, audioName));
                 PlayClip(sound, volume);
-                AudioDictionary[audioname]++;
+                AudioDictionary[audioName]++;
             }
         }
     }
 
-    /// <summary>
-    /// 暂停
-    /// </summary>
-    /// <param name="audioname"></param>
-    public void SoundPause(string audioname)
+    public void SoundPause(string audioName)
     {
         if (LastAudioSource != null)
         {
@@ -66,37 +56,27 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    /// <summary>
-    /// 暂停所有音效音乐
-    /// </summary>
-    public void SoundAllPause()
+    public void AllSoundPause()
     {
-        AudioSource[] allsource = FindObjectsOfType<AudioSource>();
-        if (allsource != null && allsource.Length > 0)
+        AudioSource[] allSource = FindObjectsOfType<AudioSource>();
+        if (allSource != null && allSource.Length > 0)
         {
-            for (int i = 0; i < allsource.Length; i++)
+            for (int i = 0; i < allSource.Length; i++)
             {
-                allsource[i].Pause();
+                allSource[i].Pause();
             }
         }
     }
 
-    /// <summary>
-    /// 停止特定的音效
-    /// </summary>
-    /// <param name="audioname"></param>
-    public void SoundStop(string audioname)
+    public void SoundStop(string audioName)
     {
-        GameObject obj = transform.Find("audioname").gameObject;
+        GameObject obj = transform.Find(audioName).gameObject;
         if (obj != null)
         {
             Destroy(obj);
         }
     }
 
-    /// <summary>
-    /// 设置音量
-    /// </summary>
     public void BGMSetVolume(float volume)
     {
         if (BGMAudioSource != null)
@@ -107,19 +87,18 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     private string currentBGM;
 
-    public void BGMFadeIn(string bgmname, float duration = 1f, float volume = 0.6f)
+    public void BGMFadeIn(string bgmName, float duration = 1f, float volume = 0.6f)
     {
-        if (currentBGM == bgmname) return;
-        else
+        if (currentBGM != bgmName)
         {
-            if (bgmname != null)
+            if (bgmName != null)
             {
-                AudioClip bgmsound = GetAudioClip(bgmname);
-                if (bgmsound != null)
+                AudioClip bgmSound = GetAudioClip(bgmName);
+                if (bgmSound != null)
                 {
-                    currentBGM = bgmname;
+                    currentBGM = bgmName;
                     StartCoroutine(Co_BGMFadeOut(duration));
-                    PlayOnceBGMAudioClip(bgmsound, volume);
+                    PlayOnceBGMAudioClip(bgmSound, volume);
                     StartCoroutine(Co_BGMFadeIn(duration, volume));
                 }
             }
@@ -200,9 +179,6 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    /// <summary>
-    /// 暂停背景音乐
-    /// </summary>
     public void BGMPause()
     {
         if (BGMAudioSource != null)
@@ -211,9 +187,6 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    /// <summary>
-    /// 停止背景音乐
-    /// </summary>
     public void BGMStop()
     {
         if (BGMLoop != null) StopCoroutine(BGMLoop);
@@ -224,9 +197,6 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    /// <summary>
-    /// 重新播放
-    /// </summary>
     public void BGMReplay()
     {
         if (BGMAudioSource != null)
@@ -251,36 +221,25 @@ public class AudioManager : MonoSingleton<AudioManager>
         return audioclip;
     }
 
-    private AudioClip GetResAudioClip(string aduioname)
+    private AudioClip GetResAudioClip(string aduioName)
     {
-        return Resources.Load(ResourcePath + aduioname) as AudioClip;
+        return Resources.Load(ResourcePath + aduioName) as AudioClip;
     }
 
     #endregion
 
     #region 背景音乐
 
-    /// <summary>
-    /// 背景音乐控制器
-    /// </summary>
-    /// <param name="audioClip"></param>
-    /// <param name="volume"></param>
-    /// <param name="isloop"></param>
-    /// <param name="name"></param>
-    private void PlayBGMAudioClip(AudioClip audioClip, float volume = 1f, bool isloop = false, string name = null)
+    private void PlayBGMAudioClip(AudioClip audioClip, float volume = 1f, bool isLoop = false, string name = null)
     {
-        if (audioClip == null)
-        {
-            return;
-        }
-        else
+        if (audioClip != null)
         {
             GameObject obj = new GameObject(name);
             obj.transform.parent = transform;
             AudioSource Clip = obj.AddComponent<AudioSource>();
             Clip.clip = audioClip;
             Clip.volume = volume;
-            Clip.loop = isloop;
+            Clip.loop = isLoop;
             Clip.pitch = 1f;
             Clip.Play();
             Clip.outputAudioMixerGroup = BGMAudioMixerGroup;
@@ -288,38 +247,20 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    /// <summary>
-    /// 播放一次的背景音乐
-    /// </summary>
-    /// <param name="audioClip"></param>
-    /// <param name="volume"></param>
-    /// <param name="name"></param>
     private void PlayOnceBGMAudioClip(AudioClip audioClip, float volume = 1f, string name = null)
     {
-        PlayBGMAudioClip(audioClip, volume, false, name == null ? "BGMSound" : name);
+        PlayBGMAudioClip(audioClip, volume, false, name ?? "BGMSound");
     }
 
-    /// <summary>
-    /// 循环播放的背景音乐
-    /// </summary>
-    /// <param name="audioClip"></param>
-    /// <param name="volume"></param>
-    /// <param name="name"></param>
     private void PlayLoopBGMAudioClip(AudioClip audioClip, float volume = 1f, string name = null)
     {
-        PlayBGMAudioClip(audioClip, volume, true, name == null ? "LoopSound" : name);
+        PlayBGMAudioClip(audioClip, volume, true, name ?? "LoopSound");
     }
 
     #endregion
 
     #region  音效
 
-    /// <summary>
-    /// 播放音效
-    /// </summary>
-    /// <param name="audioClip"></param>
-    /// <param name="volume"></param>
-    /// <param name="name"></param>
     private void PlayClip(AudioClip audioClip, float volume = 1f, string name = null)
     {
         if (audioClip == null)
@@ -328,7 +269,7 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
         else
         {
-            GameObject obj = new GameObject(name == null ? "SoundClip" : name);
+            GameObject obj = new GameObject(name ?? "SoundClip");
             obj.transform.parent = transform;
             AudioSource source = obj.AddComponent<AudioSource>();
             StartCoroutine(PlayClipEndDestroy(audioClip, obj));
@@ -341,42 +282,26 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    /// <summary>
-    /// 播放玩音效删除物体
-    /// </summary>
-    /// <param name="audioclip"></param>
-    /// <param name="soundobj"></param>
-    /// <returns></returns>
-    private IEnumerator PlayClipEndDestroy(AudioClip audioclip, GameObject soundobj)
+    private IEnumerator PlayClipEndDestroy(AudioClip audioClip, GameObject soundGO)
     {
-        if (soundobj == null || audioclip == null)
+        if (soundGO != null && audioClip != null)
         {
-            yield break;
-        }
-        else
-        {
-            yield return new WaitForSeconds(audioclip.length * Time.timeScale);
-            Destroy(soundobj);
+            yield return new WaitForSeconds(audioClip.length * Time.timeScale);
+            Destroy(soundGO);
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator PlayClipEnd(AudioClip audioclip, string audioname)
+    private IEnumerator PlayClipEnd(AudioClip audioClip, string audioName)
     {
-        if (audioclip != null)
+        if (audioClip != null)
         {
-            yield return new WaitForSeconds(audioclip.length * Time.timeScale);
-            AudioDictionary[audioname]--;
-            if (AudioDictionary[audioname] <= 0)
+            yield return new WaitForSeconds(audioClip.length * Time.timeScale);
+            AudioDictionary[audioName]--;
+            if (AudioDictionary[audioName] <= 0)
             {
-                AudioDictionary.Remove(audioname);
+                AudioDictionary.Remove(audioName);
             }
         }
-
-        yield break;
     }
 
     #endregion

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -120,7 +118,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
                         }
                         else
                         {
-                            Debug.Log(ls);
+                            Debug.Log("Key error in file " + fi.FullName + " key: " + ls);
                         }
                     }
                 }
@@ -132,7 +130,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
 
     private Dictionary<Text, string> TextKeyMap = new Dictionary<Text, string>();
     private Dictionary<string, Font> FontDict;
-    internal List<Text> TextFontBingdingList = new List<Text>();
+    private List<Text> TextFontBindingList = new List<Text>();
 
     public void RegisterTextKey(Text text, string s)
     {
@@ -149,12 +147,12 @@ public class LanguageManager : MonoSingleton<LanguageManager>
 
     public void RegisterTextFontBinding(Text text)
     {
-        TextFontBingdingList.Add(text);
+        TextFontBindingList.Add(text);
     }
 
     public void RegisterTextFontBinding(List<Text> texts)
     {
-        TextFontBingdingList.AddRange(texts);
+        TextFontBindingList.AddRange(texts);
     }
 
     public string GetText(string key)
@@ -191,7 +189,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
                 }
             }
 
-            foreach (Text text in TextFontBingdingList)
+            foreach (Text text in TextFontBindingList)
             {
                 if (text != null)
                 {

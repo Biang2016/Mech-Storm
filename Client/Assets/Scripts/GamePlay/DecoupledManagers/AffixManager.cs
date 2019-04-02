@@ -7,12 +7,12 @@ public class AffixManager : MonoSingleton<AffixManager>
     private AffixManager()
     {
     }
-    
+
     [SerializeField] private Transform AffixPanel;
     [SerializeField] private VerticalLayoutGroup VerticalLayoutGroup;
     [SerializeField] private Animator AffixPanelAnim;
 
-    private List<Affix> Affixs = new List<Affix>();
+    private List<Affix> Affixes = new List<Affix>();
     private HashSet<AffixType> AffixTypes = new HashSet<AffixType>();
 
     private float hideAffixPanelTicker;
@@ -62,6 +62,17 @@ public class AffixManager : MonoSingleton<AffixManager>
         ShowAffixPanel(affixTypes);
 
         return affixTypes.Count > 0;
+    }
+
+    public void ClearAllAffixes()
+    {
+        AffixTypes.Clear();
+        foreach (Affix affix in Affixes)
+        {
+            affix.PoolRecycle();
+        }
+
+        Affixes.Clear();
     }
 
     private void GetAffixTypeByCardInfo(HashSet<AffixType> affixTypes, CardInfo_Base cardInfo)
@@ -165,7 +176,6 @@ public class AffixManager : MonoSingleton<AffixManager>
             }
         }
 
-
         if (cardInfo.BaseInfo.CardType == CardTypes.Equip && cardInfo.EquipInfo.SlotType == SlotTypes.Pack)
         {
             if (cardInfo.PackInfo.DodgeProp != 0)
@@ -175,7 +185,7 @@ public class AffixManager : MonoSingleton<AffixManager>
         }
     }
 
-    private void GetAffixTypeByRetinue(HashSet<AffixType> affixTypes, ModuleRetinue retinue)
+    private static void GetAffixTypeByRetinue(HashSet<AffixType> affixTypes, ModuleRetinue retinue)
     {
         if (retinue.M_ImmuneLeftRounds != 0)
         {
@@ -196,8 +206,8 @@ public class AffixManager : MonoSingleton<AffixManager>
         }
         else
         {
-            ClearAllAffixs();
-            AddAffixs(affixTypes);
+            ClearAllAffixes();
+            AddAffixes(affixTypes);
             AffixPanelAnim.SetTrigger("Show");
         }
     }
@@ -207,7 +217,7 @@ public class AffixManager : MonoSingleton<AffixManager>
         AffixPanelAnim.SetTrigger("Hide");
     }
 
-    private void AddAffixs(HashSet<AffixType> affixTypes)
+    private void AddAffixes(HashSet<AffixType> affixTypes)
     {
         foreach (AffixType affixType in affixTypes)
         {
@@ -222,7 +232,7 @@ public class AffixManager : MonoSingleton<AffixManager>
             AffixTypes.Add(affixType);
             Affix newAffix = GameObjectPoolManager.Instance.Pool_AffixPool.AllocateGameObject<Affix>(AffixPanel);
             newAffix.Initialize(affixType);
-            Affixs.Add(newAffix);
+            Affixes.Add(newAffix);
         }
     }
 
@@ -231,25 +241,14 @@ public class AffixManager : MonoSingleton<AffixManager>
         if (AffixTypes.Contains(affixType))
         {
             AffixTypes.Remove(affixType);
-            foreach (Affix affix in Affixs)
+            foreach (Affix affix in Affixes)
             {
                 if (affix.AffixType == affixType)
                 {
-                    Affixs.Remove(affix);
+                    Affixes.Remove(affix);
                     affix.PoolRecycle();
                 }
             }
         }
-    }
-
-    public void ClearAllAffixs()
-    {
-        AffixTypes.Clear();
-        foreach (Affix affix in Affixs)
-        {
-            affix.PoolRecycle();
-        }
-
-        Affixs.Clear();
     }
 }
