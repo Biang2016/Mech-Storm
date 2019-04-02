@@ -65429,7 +65429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -67017.31, y: 306216.88}
+  m_AnchoredPosition: {x: -67467.27, y: 305816.9}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2431361137929023556
@@ -70773,7 +70773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -11188.433, y: 1102042}
+  m_AnchoredPosition: {x: -11263.522, y: 1102942}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &-3960801402098424717
@@ -78792,7 +78792,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -67017.31, y: 1024157.2}
+  m_AnchoredPosition: {x: -67467.27, y: 1024057.25}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &-139393953417987518
@@ -118807,7 +118807,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 29233.303, y: 1077552.2}
+  m_AnchoredPosition: {x: 29428.191, y: 1078432.2}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6614350069682809592
@@ -128169,14 +128169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnglishFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   ChineseFont: {fileID: 12800000, guid: 5c0c60ed7d94b5e48976972508a64804, type: 3}
-  DefaultLanguage: en
-  CurrentLanguage: zh
-  Languages:
-  - English
-  - Chinese
-  LanguagesShorts:
-  - en
-  - zh
 --- !u!1 &9220659434698875976
 GameObject:
   m_ObjectHideFlags: 0
