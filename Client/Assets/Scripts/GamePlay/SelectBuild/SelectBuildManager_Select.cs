@@ -149,7 +149,7 @@ public partial class SelectBuildManager
             return;
         }
 
-        if (!isSwitchingBuildInfo && GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin < card.CardInfo.BaseInfo.Coin)
+        if (!isSwitchingBuildInfo && GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin < card.CardInfo.BaseInfo.Coin)
         {
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_BudgetLimited"), 0f, 1f);
             return;
@@ -224,7 +224,6 @@ public partial class SelectBuildManager
         if (!isSwitchingBuildInfo)
         {
             CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
-            CurrentEditBuildButton.BuildInfo.CardConsumeCoin += card.CardInfo.BaseInfo.Coin;
             RefreshCoinLifeEnergy();
             if (!isSelectAll) AudioManager.Instance.SoundPlay("sfx/SelectCard");
         }
@@ -438,9 +437,7 @@ public partial class SelectBuildManager
         if (!isSwitchingBuildInfo)
         {
             CurrentEditBuildButton.RemoveCard(card.CardInfo.CardID);
-            CurrentEditBuildButton.BuildInfo.CardConsumeCoin -= card.CardInfo.BaseInfo.Coin;
             RefreshCoinLifeEnergy();
-
             if (playSound) AudioManager.Instance.SoundPlay("sfx/UnSelectCard");
         }
     }
@@ -474,7 +471,7 @@ public partial class SelectBuildManager
         UnSelectAllCard();
         UnlockedCards(buildInfo);
         List<CardBase> selectCB = new List<CardBase>();
-        foreach (int cardID in buildInfo.CardIDs)
+        foreach (int cardID in buildInfo.M_BuildCards.GetCardIDs())
         {
             CardBase cb = allCards[cardID];
             selectCB.Add(cb);
@@ -498,19 +495,6 @@ public partial class SelectBuildManager
 
         RefreshCoinLifeEnergy();
         RefreshCardNum();
-
-        if (Client.Instance.Proxy.IsSuperAccount)
-        {
-            foreach (KeyValuePair<int, CardBase> kv in allCards)
-            {
-                kv.Value.SetCriticalCardToggle(false);
-            }
-
-            foreach (int cid in buildInfo.CriticalCardIDs)
-            {
-                allCards[cid].SetCriticalCardToggle(true);
-            }
-        }
 
         isSwitchingBuildInfo = false;
     }
@@ -544,9 +528,8 @@ public partial class SelectBuildManager
         {
             if (CurrentEditBuildButton != null)
             {
-                CurrentEditBuildButton.BuildInfo.CardIDs.Clear();
+                CurrentEditBuildButton.BuildInfo.M_BuildCards.ClearAllCardCounts();
                 CurrentEditBuildButton.RefreshCardCountText();
-                CurrentEditBuildButton.BuildInfo.CardConsumeCoin = 0;
                 CurrentEditBuildButton.BuildInfo.Life = GamePlaySettings.DefaultLife;
                 CurrentEditBuildButton.BuildInfo.Energy = GamePlaySettings.DefaultEnergy;
                 RefreshCoinLifeEnergy();

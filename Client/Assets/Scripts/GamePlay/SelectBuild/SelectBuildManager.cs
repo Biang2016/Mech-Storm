@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.EventSystems;
 
 /// <summary>
@@ -28,7 +29,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     void Start()
     {
         InitAddAllCards();
-        InitializeOnlineCardCountDict();
+        InitializeOnlineCardLimitDict();
         M_StateMachine.SetState(StateMachine.States.Hide);
         Start_Select();
     }
@@ -370,16 +371,16 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         UnlockedCards(buildInfo: null);
     }
 
-    private SortedDictionary<int, int> OnlineCardCountDict;
+    private SortedDictionary<int, int> OnlineCardLimitDict;
 
-    private void InitializeOnlineCardCountDict()
+    private void InitializeOnlineCardLimitDict()
     {
-        OnlineCardCountDict = new SortedDictionary<int, int>();
+        OnlineCardLimitDict = new SortedDictionary<int, int>();
         foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
             if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
             if (cardInfo.BaseInfo.Hide) continue;
-            OnlineCardCountDict.Add(cardInfo.CardID, cardInfo.BaseInfo.LimitNum);
+            OnlineCardLimitDict.Add(cardInfo.CardID, cardInfo.BaseInfo.LimitNum);
         }
     }
 
@@ -388,11 +389,11 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         SortedDictionary<int, int> CardCountDict;
         if (buildInfo == null)
         {
-            CardCountDict = OnlineCardCountDict;
+            CardCountDict = OnlineCardLimitDict;
         }
         else
         {
-            CardCountDict = buildInfo.CardCountDict;
+            CardCountDict = buildInfo.M_BuildCards.GetCardLimitDict();
         }
 
         UnlockedCards(CardCountDict);

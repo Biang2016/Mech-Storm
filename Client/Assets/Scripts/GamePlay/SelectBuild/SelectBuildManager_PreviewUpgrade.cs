@@ -130,7 +130,7 @@ public partial class SelectBuildManager
         }
 
         PreviewCard = CardBase.InstantiateCardByCardInfo(PreviewCardOriginCardSelect.CardInfo, PreviewContent, null, true);
-        PreviewCard.ChangeCardLimit(CurrentEditBuildButton.BuildInfo.CardCountDict[PreviewCard.CardInfo.CardID], true);
+        PreviewCard.ChangeCardLimit(CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
         PreviewCard.SetBlockCountValue(GetSelectedCardCount(PreviewCard.CardInfo.CardID), true);
         PreviewCard.transform.localScale = Vector3.one * 300;
         PreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
@@ -164,7 +164,7 @@ public partial class SelectBuildManager
         if (hasUpgradeCard)
         {
             PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.UpgradeCardID), PreviewContent, null, true);
-            PreviewCardUpgrade.ChangeCardLimit(CurrentEditBuildButton.BuildInfo.CardCountDict[PreviewCardUpgrade.CardInfo.CardID], true);
+            PreviewCardUpgrade.ChangeCardLimit(CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardUpgrade.SetBlockCountValue(GetSelectedCardCount(PreviewCardUpgrade.CardInfo.CardID), true);
             PreviewCardUpgrade.transform.localScale = Vector3.one * 270;
             PreviewCardUpgrade.transform.rotation = Quaternion.Euler(90, 180, 0);
@@ -199,7 +199,7 @@ public partial class SelectBuildManager
         if (hasDegradeCard)
         {
             PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCardOriginCardSelect.CardInfo.UpgradeInfo.DegradeCardID), PreviewContent, null, true);
-            PreviewCardDegrade.ChangeCardLimit(CurrentEditBuildButton.BuildInfo.CardCountDict[PreviewCardDegrade.CardInfo.CardID], true);
+            PreviewCardDegrade.ChangeCardLimit(CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardDegrade.SetBlockCountValue(GetSelectedCardCount(PreviewCardDegrade.CardInfo.CardID), true);
             PreviewCardDegrade.transform.localScale = Vector3.one * 270;
             PreviewCardDegrade.transform.rotation = Quaternion.Euler(90, 180, 0);
@@ -386,7 +386,7 @@ public partial class SelectBuildManager
 
         if (GetSelectedCardCount(currentCardID) > 0)
         {
-            if ((GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - changeCardInfo.BaseInfo.Coin) < 0)
+            if ((GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin) + (PreviewCardOriginCardSelect.CardInfo.BaseInfo.Coin - changeCardInfo.BaseInfo.Coin) < 0)
             {
                 NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerPreviewUpgrade_NotEnoughBudget"), 0f, 1f);
                 return;
@@ -401,8 +401,8 @@ public partial class SelectBuildManager
 
         PreviewCardOriginCardSelect.ChangeCardLimit(PreviewCardOriginCardSelect.CardInfo.BaseInfo.LimitNum - 1);
         changeCard.ChangeCardLimit(changeCard.CardInfo.BaseInfo.LimitNum + 1);
-        CurrentEditBuildButton.BuildInfo.CardCountDict[currentCardID]--;
-        CurrentEditBuildButton.BuildInfo.CardCountDict[changeCardID]++;
+        CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[currentCardID].CardSelectUpperLimit--;
+        CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[changeCardID].CardSelectUpperLimit++;
         if (GetSelectedCardCount(currentCardID) > 0)
         {
             UnSelectCard(PreviewCardOriginCardSelect, false);

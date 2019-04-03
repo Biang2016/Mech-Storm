@@ -1,16 +1,16 @@
-﻿public class EndLevelRequest : ClientRequestBase
+﻿public class EndChapterRequest : ClientRequestBase
 {
-    public EndLevelRequest()
+    public EndChapterRequest()
     {
     }
 
-    public EndLevelRequest(int clientId) : base(clientId)
+    public EndChapterRequest(int clientId) : base(clientId)
     {
     }
 
     public override NetProtocols GetProtocol()
     {
-        return NetProtocols.END_LEVEL_REQUEST;
+        return NetProtocols.END_CHAPTER_REQUEST;
     }
 
 }

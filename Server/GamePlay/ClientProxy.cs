@@ -291,7 +291,7 @@ internal class ClientProxy : ProxyBase
                                 }
                                 case Bonus.BonusType.UnlockCardByID:
                                 {
-                                    story.EditAllCardCountDict(bonus.Value, 1);
+                                    story.EditAllCardLimitDict(bonus.Value, 1);
                                     break;
                                 }
                             }
@@ -301,7 +301,7 @@ internal class ClientProxy : ProxyBase
                     break;
                 }
 
-                case EndLevelRequest _:
+                case EndChapterRequest _:
                 {
                     Story story = Database.Instance.PlayerStoryStates[username];
                     StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(story);

@@ -398,9 +398,9 @@ internal class WinLostPanelManager : MonoSingleton<WinLostPanelManager>
         isBeginCardUpgradeShow = true;
         if (StoryManager.Instance.IsThisLevelNumberUp)
         {
-            foreach (int cardID in StoryManager.Instance.M_CurrentStory.Base_CardCountDict.Keys.ToList())
+            foreach (int cardID in StoryManager.Instance.M_CurrentStory.Base_CardLimitDict.Keys.ToList())
             {
-                if (StoryManager.Instance.M_CurrentStory.Base_CardCountDict[cardID] != 0)
+                if (StoryManager.Instance.M_CurrentStory.Base_CardLimitDict[cardID] != 0)
                 {
                     CardInfo_Base cb = AllCards.GetCard(cardID);
                     if (cb.UpgradeInfo.UpgradeCardID != -1)

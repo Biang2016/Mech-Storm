@@ -81,7 +81,10 @@ public partial class SelectBuildManager
 
         LanguageManager.Instance.RegisterTextFontBinding(new List<Text>
         {
-            TotalCoinText, MaxLifeText, MaxEnergyText, MaxCardNumberText
+            TotalCoinText,
+            MaxLifeText,
+            MaxEnergyText,
+            MaxCardNumberText
         });
 
         CoinSlider.onValueChanged.AddListener(OnCoinSliderValueChange);
@@ -120,7 +123,7 @@ public partial class SelectBuildManager
     private void RefreshCoinLifeEnergy()
     {
         CurrentEditBuildButton.BuildInfo.GamePlaySettings = GamePlaySettings;
-        CoinSlider.value = (float) (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) / GamePlaySettings.DefaultMaxCoin;
+        CoinSlider.value = (float) (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin) / GamePlaySettings.DefaultMaxCoin;
         OnCoinSliderValueChange(CoinSlider.value);
         LifeSlider.value = (float) (CurrentEditBuildButton.BuildInfo.Life) / GamePlaySettings.DefaultLifeMax;
         OnLifeSliderValueChange(LifeSlider.value);
@@ -136,7 +139,7 @@ public partial class SelectBuildManager
 
     private void OnCoinSliderValueChange(float value)
     {
-        MyCoinText.text = (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin).ToString();
+        MyCoinText.text = (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin).ToString();
         MyCoinText.rectTransform.localPosition = Vector3.Lerp(MyCoinTextMinPos.localPosition, MyCoinTextMaxPos.localPosition, value);
     }
 
@@ -145,7 +148,8 @@ public partial class SelectBuildManager
 
     private void OnLifeSliderValueChange(float value)
     {
-        float maxValueNow = (float) ((GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.CardConsumeCoin - CurrentEditBuildButton.BuildInfo.EnergyConsumeCoin - CurrentEditBuildButton.BuildInfo.DrawCardNumConsumeCoin + GamePlaySettings.DefaultLifeMin * GamePlaySettings.LifeToCoin) / GamePlaySettings.LifeToCoin) / GamePlaySettings.DefaultLifeMax;
+        float maxValueNow = (float) ((GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.CardConsumeCoin - CurrentEditBuildButton.BuildInfo.EnergyConsumeCoin - CurrentEditBuildButton.BuildInfo.DrawCardNumConsumeCoin + GamePlaySettings.DefaultLifeMin * GamePlaySettings.LifeToCoin) /
+                                     GamePlaySettings.LifeToCoin) / GamePlaySettings.DefaultLifeMax;
         float minValue = (float) GamePlaySettings.DefaultLifeMin / GamePlaySettings.DefaultLifeMax;
         if (value > maxValueNow)
         {
@@ -174,7 +178,7 @@ public partial class SelectBuildManager
         MyLifeText.text = CurrentEditBuildButton.BuildInfo.Life.ToString();
         MyLifeText.rectTransform.localPosition = Vector3.Lerp(MyLifeTextMinPos.localPosition, MyLifeTextMaxPos.localPosition, value);
 
-        CoinSlider.value = (float) (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) / GamePlaySettings.DefaultMaxCoin;
+        CoinSlider.value = (float) (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin) / GamePlaySettings.DefaultMaxCoin;
     }
 
     private void OnEnergySliderValueChange(float value)
@@ -202,7 +206,7 @@ public partial class SelectBuildManager
         MyEnergyText.text = CurrentEditBuildButton.BuildInfo.Energy.ToString();
         MyEnergyText.rectTransform.localPosition = Vector3.Lerp(MyEnergyTextMinPos.localPosition, MyEnergyTextMaxPos.localPosition, value);
 
-        CoinSlider.value = (float) (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) / GamePlaySettings.DefaultMaxCoin;
+        CoinSlider.value = (float) (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin) / GamePlaySettings.DefaultMaxCoin;
     }
 
     private void OnCardNumSliderValueChange(float value)
@@ -212,7 +216,7 @@ public partial class SelectBuildManager
         {
             CardNumberText.text = drawCardNum.ToString();
             CardNumberText.rectTransform.localPosition = Vector3.Lerp(MyCardNumberTextMinPos.localPosition, MyCardNumberTextMaxPos.localPosition, (float) value / (float) GamePlaySettings.MaxDrawCardNum);
-            CoinSlider.value = (float) (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) / GamePlaySettings.DefaultMaxCoin;
+            CoinSlider.value = (float) (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin) / GamePlaySettings.DefaultMaxCoin;
             return;
         }
 
@@ -248,7 +252,7 @@ public partial class SelectBuildManager
         CardNumberText.text = drawCardNum.ToString();
         CardNumberText.rectTransform.localPosition = Vector3.Lerp(MyCardNumberTextMinPos.localPosition, MyCardNumberTextMaxPos.localPosition, (float) value / (float) GamePlaySettings.MaxDrawCardNum);
 
-        CoinSlider.value = (float) (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.GetBuildConsumeCoin) / GamePlaySettings.DefaultMaxCoin;
+        CoinSlider.value = (float) (GamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin) / GamePlaySettings.DefaultMaxCoin;
 
         AddCardNumberCoinAnim.SetTrigger("Jump");
         DecCardNumberCoinAnim.SetTrigger("Jump");

@@ -60,14 +60,14 @@ internal class AllPlayerStory
             gps.MinDrawCardNum = MinDrawCardNum;
             gps.MaxDrawCardNum = MaxDrawCardNum;
 
-            List<Level> Levels = new List<Level>();
+            List<Chapter> Levels = new List<Chapter>();
             int levelID = 0;
             for (int i = 3; i < story.ChildNodes.Count; i++)
             {
                 XmlNode levelInfo = story.ChildNodes.Item(i);
 
                 int levelFightTimes = int.Parse(levelInfo.Attributes["LevelFightTimes"].Value); //该Level必须击败几个Boss（必须通过几个LevelID才能到下一个Level）
-                int bigBossFightTimes = int.Parse(levelInfo.Attributes["BigBossFightTimes"].Value); //该Level必须击败几个BigBoss
+                int bigBossFightTimes = int.Parse(levelInfo.Attributes["BossFightTimes"].Value); //该Level必须击败几个BigBoss
                 if (levelFightTimes > levelInfo.ChildNodes.Count - 1)
                 {
                     throw new Exception("levelFightTimes < levelInfo.ChildNodes.Count - 1"); //配置错误
@@ -92,8 +92,8 @@ internal class AllPlayerStory
 
                 for (int j = 0; j < levelFightTimes; j++)
                 {
-                    Level level = new Level();
-                    level.LevelID = levelID;
+                    Chapter level = new Chapter();
+                    level.ChapterID = levelID;
                     level.LevelNum = int.Parse(levelInfo.Attributes["Level"].Value);
                     level.BigBossFightTimes = bigBossFightTimes;
                     level.Bosses = new SortedDictionary<int, Boss>();
@@ -137,7 +137,7 @@ internal class AllPlayerStory
             BuildInfo PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultBuildId).Clone();
             SortedDictionary<int, BuildInfo> playerbuildInfos = new SortedDictionary<int, BuildInfo>();
             playerbuildInfos.Add(PlayerCurrentBuildInfo.BuildID, PlayerCurrentBuildInfo);
-            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo.M_BuildCards.GetBaseCardCountDict(), playerbuildInfos, gps);
+            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo.M_BuildCards.GetBaseCardLimitDict(), playerbuildInfos, gps);
             Database.Instance.StoryStartDict.Add(pureName, newStory);
         }
     }

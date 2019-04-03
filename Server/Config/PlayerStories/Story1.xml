@@ -4,7 +4,7 @@
   <StartBuildInfo BuildName="Story1" />
   <StartUnlockCardInfo BuildName="Story1_Unlock" />
   <GamePlaySettings DrawCardPerRound="2" DefaultCoin="1500" DefaultLife="20" DefaultLifeMax="12" DefaultLifeMin="10" DefaultEnergy="6" DefaultEnergyMax="6" DefaultDrawCardNum="2" MinDrawCardNum="2" MaxDrawCardNum="5" />
-  <Level Level="0" LevelFightTimes="0" BigBossFightTimes="1">
+  <Chapter ChapterID="0" LevelFightTimes="0" BossFightTimes="1">
     <CommonBonus>
       <BonusGroupInfo type="Always">
         <BonusInfo name="Budget" value="50"></BonusInfo>
@@ -41,10 +41,10 @@
         <BonusInfo name="LifeUpperLimit" value="4"></BonusInfo>
       </BonusGroupInfo>
     </CommonBonus>
-    <BossInfo name="Soldier" BuildName="MechMine_Lv0" picID="53">
+    <EnemyInfo name="Soldier" BuildName="MechMine_Lv0" picID="53">
       <BonusGroupInfo type="Always">
         <BonusInfo name="UnlockCardByID" value="5301"></BonusInfo>
       </BonusGroupInfo>
-    </BossInfo>
-  </Level>
+    </EnemyInfo>
+  </Chapter>
 </Story>

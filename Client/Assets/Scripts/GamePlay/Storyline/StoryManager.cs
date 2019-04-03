@@ -119,7 +119,6 @@ public class StoryManager : MonoSingleton<StoryManager>
 
     private SortedDictionary<int, StoryCol> LevelCols = new SortedDictionary<int, StoryCol>();
 
-
     public Story M_CurrentStory = null;
     public int Fighting_LevelID;
     public int Fighting_BossPicID;
@@ -223,7 +222,6 @@ public class StoryManager : MonoSingleton<StoryManager>
 
         List<BonusGroup> removeBgs = new List<BonusGroup>();
 
-
         if (isOptional)
         {
             bgs = Utils.GetRandomWithProbabilityFromList(bgs_opt, optionalNumber);
@@ -261,7 +259,7 @@ public class StoryManager : MonoSingleton<StoryManager>
     private List<int> UnlockedCardIDs()
     {
         List<int> unlockedCardIDs = new List<int>();
-        foreach (KeyValuePair<int, int> kv in M_CurrentStory.Base_CardCountDict)
+        foreach (KeyValuePair<int, int> kv in M_CurrentStory.Base_CardLimitDict)
         {
             if (kv.Value != 0)
             {
@@ -271,7 +269,6 @@ public class StoryManager : MonoSingleton<StoryManager>
 
         return unlockedCardIDs;
     }
-
 
     public void SetLevelBeated(int levelID, int bossPicID)
     {
@@ -294,7 +291,6 @@ public class StoryManager : MonoSingleton<StoryManager>
         {
             SetBossState(levelID, j, j == beatBossIndex);
         }
-
 
         if (levelID > 0)
         {

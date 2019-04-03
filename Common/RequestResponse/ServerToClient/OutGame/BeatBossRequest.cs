@@ -1,15 +1,15 @@
 ﻿public class BeatBossRequest : ServerRequestBase
 {
-    public int LevelID;
+    public int ChapterID;
     public int BossPicID;
 
     public BeatBossRequest()
     {
     }
 
-    public BeatBossRequest(int levelID, int bossPicID)
+    public BeatBossRequest(int chapterID, int bossPicID)
     {
-        LevelID = levelID;
+        ChapterID = chapterID;
         BossPicID = bossPicID;
     }
 
@@ -21,14 +21,14 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(LevelID);
+        writer.WriteSInt32(ChapterID);
         writer.WriteSInt32(BossPicID);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        LevelID = reader.ReadSInt32();
+        ChapterID = reader.ReadSInt32();
         BossPicID = reader.ReadSInt32();
     }
 }

@@ -144,7 +144,7 @@ public partial class SelectBuildManager
         {
             if (GameMode_State == GameMode.Single)
             {
-                UnlockedCards(StoryManager.Instance.M_CurrentStory.Base_CardCountDict);
+                UnlockedCards(StoryManager.Instance.M_CurrentStory.Base_CardLimitDict);
             }
             else
             {
@@ -175,7 +175,7 @@ public partial class SelectBuildManager
     {
         List<int> unExistedCardIDs = new List<int>();
 
-        foreach (int cardID in buildInfo.CardIDs)
+        foreach (int cardID in buildInfo.M_BuildCards.GetCardIDs())
         {
             if (!AllCards.CardDict.ContainsKey(cardID))
             {
@@ -185,37 +185,7 @@ public partial class SelectBuildManager
 
         foreach (int cardID in unExistedCardIDs)
         {
-            buildInfo.CardIDs.Remove(cardID);
-        }
-
-        unExistedCardIDs = new List<int>();
-
-        foreach (int cardID in buildInfo.CriticalCardIDs)
-        {
-            if (!AllCards.CardDict.ContainsKey(cardID))
-            {
-                unExistedCardIDs.Add(cardID);
-            }
-        }
-
-        foreach (int cardID in unExistedCardIDs)
-        {
-            buildInfo.CriticalCardIDs.Remove(cardID);
-        }
-
-        unExistedCardIDs = new List<int>();
-
-        foreach (int cardID in buildInfo.CardCountDict.Keys)
-        {
-            if (!AllCards.CardDict.ContainsKey(cardID))
-            {
-                unExistedCardIDs.Add(cardID);
-            }
-        }
-
-        foreach (int cardID in unExistedCardIDs)
-        {
-            buildInfo.CardCountDict.Remove(cardID);
+            buildInfo.M_BuildCards.CardSelectInfos.Remove(cardID);
         }
     }
 
@@ -297,10 +267,12 @@ public partial class SelectBuildManager
         SortedDictionary<int, int> ccd = null;
         if (GameMode_State == GameMode.Single)
         {
-            ccd = StoryManager.Instance.M_CurrentStory.Base_CardCountDict;
+            ccd = StoryManager.Instance.M_CurrentStory.Base_CardLimitDict;
         }
 
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new List<int>(), new HashSet<int>(), GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy, 0, GamePlaySettings, ccd), GameMode_State == GameMode.Single);
+        BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildInfo.BuildCards(new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>()), GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy,
+            0, false, GamePlaySettings);
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, bi, GameMode_State == GameMode.Single);
         Client.Instance.Proxy.SendMessage(request);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
@@ -311,7 +283,7 @@ public partial class SelectBuildManager
         SortedDictionary<int, int> ccd = null;
         if (GameMode_State == GameMode.Single)
         {
-            ccd = StoryManager.Instance.M_CurrentStory.Base_CardCountDict;
+            ccd = StoryManager.Instance.M_CurrentStory.Base_CardLimitDict;
         }
 
         BuildButton newBuildButton = GenerateNewBuildButton(buildInfo);

@@ -605,7 +605,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     public void OnCardLimitCountUpButtonClick()
     {
         ChangeCardLimit(CardInfo.BaseInfo.LimitNum + 1);
-        SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.CardCountDict[CardInfo.CardID] = CardInfo.BaseInfo.LimitNum;
+        SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[CardInfo.CardID].CardSelectUpperLimit = CardInfo.BaseInfo.LimitNum;
     }
 
     public void OnCardLimitCountDownButtonClick()
@@ -613,26 +613,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         if (CardInfo.BaseInfo.LimitNum > 0)
         {
             ChangeCardLimit(CardInfo.BaseInfo.LimitNum - 1);
-            SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.CardCountDict[CardInfo.CardID] = CardInfo.BaseInfo.LimitNum;
-        }
-    }
-
-    public void OnCriticalCardToggleChange(bool isOn)
-    {
-        List<int> ccids = SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.CriticalCardIDs.ToList();
-        if (CriticalCardToggle.isOn)
-        {
-            if (!ccids.Contains(CardInfo.CardID))
-            {
-                ccids.Add(CardInfo.CardID);
-            }
-        }
-        else
-        {
-            if (ccids.Contains(CardInfo.CardID))
-            {
-                ccids.Remove(CardInfo.CardID);
-            }
+            SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[CardInfo.CardID].CardSelectUpperLimit = CardInfo.BaseInfo.LimitNum;
         }
     }
 

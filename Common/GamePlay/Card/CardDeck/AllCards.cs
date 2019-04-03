@@ -435,11 +435,13 @@ public static class AllCards
     public static int GetCardBaseCardID(int cardID)
     {
         CardInfo_Base de = CardDict[cardID];
+        int baseID = de.CardID;
         while ((de = GetDegradeCardInfo(de)) != null)
         {
+            baseID = de.CardID;
         }
 
-        return de.CardID;
+        return baseID;
     }
 
     public static List<CardInfo_Base> GetCardSeries(CardInfo_Base cardInfo)

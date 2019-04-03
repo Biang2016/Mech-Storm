@@ -28,7 +28,7 @@ public class BuildButton : PoolObject
     {
         BuildInfo = buildInfo;
         Text_CardDeckName.text = BuildInfo.BuildName;
-        Text_Count.text = BuildInfo.CardIDs.Count.ToString();
+        Text_Count.text = BuildInfo.M_BuildCards.GetCardIDs().Count.ToString();
     }
 
     private bool isSelected;
@@ -95,13 +95,26 @@ public class BuildButton : PoolObject
 
     public void AddCard(int cardId)
     {
-        BuildInfo.CardIDs.Add(cardId);
+        BuildInfo.M_BuildCards.CardSelectInfos.TryGetValue(cardId, out BuildInfo.BuildCards.CardSelectInfo csi);
+        if (csi != null)
+        {
+            csi.CardSelectCount += 1;
+        }
+
         Text_Count.text = BuildInfo.CardCount.ToString();
     }
 
     public void RemoveCard(int cardId)
     {
-        BuildInfo.CardIDs.Remove(cardId);
+        BuildInfo.M_BuildCards.CardSelectInfos.TryGetValue(cardId, out BuildInfo.BuildCards.CardSelectInfo csi);
+        if (csi != null)
+        {
+            if (csi.CardSelectCount >= 1)
+            {
+                csi.CardSelectCount -= 1;
+            }
+        }
+
         Text_Count.text = BuildInfo.CardCount.ToString();
     }
 
@@ -109,5 +122,4 @@ public class BuildButton : PoolObject
     {
         Text_Count.text = BuildInfo.CardCount.ToString();
     }
-
 }

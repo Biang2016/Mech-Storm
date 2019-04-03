@@ -18,7 +18,7 @@ class ServerConsole
         }
     }
 
-    public static DEVELOP Platform = DEVELOP.FORMAL;
+    public static DEVELOP Platform = DEVELOP.DEVELOP;
 
     public enum DEVELOP
     {

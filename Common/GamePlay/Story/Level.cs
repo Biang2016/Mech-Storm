@@ -1,27 +1,27 @@
 ﻿using System.Collections.Generic;
 
-public class Level
+public class Chapter
 {
-    public int LevelID;
+    public int ChapterID;
     public int LevelNum;
     public bool IsBigBoss;
     public int BigBossFightTimes;
     public SortedDictionary<int, Boss> Bosses = new SortedDictionary<int, Boss>(); //Key : BossPicID
 
-    public Level()
+    public Chapter()
     {
     }
 
-    public Level(int levelID, int levelNum, bool isBigBoss, int bigBossFightTimes, SortedDictionary<int, Boss> bosses)
+    public Chapter(int chapterID, int levelNum, bool isBigBoss, int bigBossFightTimes, SortedDictionary<int, Boss> bosses)
     {
-        LevelID = levelID;
+        ChapterID = chapterID;
         LevelNum = levelNum;
         IsBigBoss = isBigBoss;
         BigBossFightTimes = bigBossFightTimes;
         Bosses = bosses;
     }
 
-    public Level Clone()
+    public Chapter Clone()
     {
         SortedDictionary<int, Boss> newBosses = new SortedDictionary<int, Boss>();
         foreach (KeyValuePair<int, Boss> keyValuePair in Bosses)
@@ -29,12 +29,12 @@ public class Level
             newBosses.Add(keyValuePair.Key, keyValuePair.Value);
         }
 
-        return new Level(LevelID, LevelNum, IsBigBoss, BigBossFightTimes, newBosses);
+        return new Chapter(ChapterID, LevelNum, IsBigBoss, BigBossFightTimes, newBosses);
     }
 
     public void Serialize(DataStream writer)
     {
-        writer.WriteSInt32(LevelID);
+        writer.WriteSInt32(ChapterID);
         writer.WriteSInt32(LevelNum);
         writer.WriteByte((byte) (IsBigBoss ? 0x01 : 0x00));
         writer.WriteSInt32(BigBossFightTimes);
@@ -45,10 +45,10 @@ public class Level
         }
     }
 
-    public static Level Deserialize(DataStream reader)
+    public static Chapter Deserialize(DataStream reader)
     {
-        Level newLevel = new Level();
-        newLevel.LevelID = reader.ReadSInt32();
+        Chapter newLevel = new Chapter();
+        newLevel.ChapterID = reader.ReadSInt32();
         newLevel.LevelNum = reader.ReadSInt32();
         newLevel.IsBigBoss = reader.ReadByte() == 0x01;
         newLevel.BigBossFightTimes = reader.ReadSInt32();

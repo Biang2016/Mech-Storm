@@ -26,7 +26,22 @@ public class BuildInfo : IClone<BuildInfo>
 
         public BuildCards(SortedDictionary<int, CardSelectInfo> cardSelectInfos)
         {
-            CardSelectInfos = cardSelectInfos;
+            CardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
+            foreach (KeyValuePair<int, CardSelectInfo> kv in cardSelectInfos)
+            {
+                if (AllCards.CardDict.ContainsKey(kv.Key))
+                {
+                    CardSelectInfos.Add(kv.Key, kv.Value.Clone());
+                }
+            }
+        }
+
+        public void ClearAllCardCounts()
+        {
+            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
+            {
+                kv.Value.CardSelectCount = 0;
+            }
         }
 
         public List<int> GetCardIDs()
@@ -43,22 +58,30 @@ public class BuildInfo : IClone<BuildInfo>
             return res;
         }
 
-        public SortedDictionary<int, int> GetBaseCardCountDict()
+        public SortedDictionary<int, int> GetCardLimitDict()
         {
             SortedDictionary<int, int> res = new SortedDictionary<int, int>();
             foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
             {
-                if (AllCards.CardDict.ContainsKey(kv.Key))
+                res[kv.Key] = kv.Value.CardSelectUpperLimit;
+            }
+
+            return res;
+        }
+
+        public SortedDictionary<int, int> GetBaseCardLimitDict()
+        {
+            SortedDictionary<int, int> res = new SortedDictionary<int, int>();
+            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
+            {
+                int baseCardID = AllCards.GetCardBaseCardID(kv.Key);
+                if (!res.ContainsKey(baseCardID))
                 {
-                    int baseCardID = AllCards.GetCardBaseCardID(kv.Key);
-                    if (!res.ContainsKey(baseCardID))
-                    {
-                        res.Add(baseCardID, kv.Value.CardSelectUpperLimit);
-                    }
-                    else
-                    {
-                        res[baseCardID] += kv.Value.CardSelectUpperLimit;
-                    }
+                    res.Add(baseCardID, kv.Value.CardSelectUpperLimit);
+                }
+                else
+                {
+                    res[baseCardID] += kv.Value.CardSelectUpperLimit;
                 }
             }
 

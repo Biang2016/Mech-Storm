@@ -5,9 +5,9 @@ using System.Linq;
 public class Story
 {
     public string StoryName;
-    public List<Level> Levels = new List<Level>();
+    public List<Chapter> Levels = new List<Chapter>();
 
-    public SortedDictionary<int, int> Base_CardCountDict = new SortedDictionary<int, int>();
+    public SortedDictionary<int, int> Base_CardLimitDict = new SortedDictionary<int, int>();
     public SortedDictionary<int, BuildInfo> PlayerBuildInfos = new SortedDictionary<int, BuildInfo>();
 
     public GamePlaySettings StoryGamePlaySettings;
@@ -23,18 +23,18 @@ public class Story
     {
     }
 
-    public Story(string storyName, List<Level> levels, SortedDictionary<int, int> base_CardCountDict, SortedDictionary<int, BuildInfo> playerBuildInfos, GamePlaySettings storyGamePlaySettings)
+    public Story(string storyName, List<Chapter> levels, SortedDictionary<int, int> base_CardLimitDict, SortedDictionary<int, BuildInfo> playerBuildInfos, GamePlaySettings storyGamePlaySettings)
     {
         StoryName = storyName;
         Levels = levels;
         PlayerBuildInfos = playerBuildInfos;
-        Base_CardCountDict = base_CardCountDict;
+        Base_CardLimitDict = base_CardLimitDict;
         StoryGamePlaySettings = storyGamePlaySettings;
     }
 
     public Story Variant() //变换关卡
     {
-        List<Level> newLevels = new List<Level>();
+        List<Chapter> newLevels = new List<Chapter>();
         Levels.ForEach(level => { newLevels.Add(level.Clone()); });
         SortedDictionary<int, BuildInfo> playerBuildInfos = new SortedDictionary<int, BuildInfo>();
         foreach (KeyValuePair<int, BuildInfo> kv in PlayerBuildInfos)
@@ -43,11 +43,11 @@ public class Story
             playerBuildInfos.Add(newBuildInfo.BuildID, newBuildInfo);
         }
 
-        Story newStory = new Story(StoryName, newLevels, Utils.CloneSortedDictionary(Base_CardCountDict), playerBuildInfos, StoryGamePlaySettings.Clone());
+        Story newStory = new Story(StoryName, newLevels, Utils.CloneSortedDictionary(Base_CardLimitDict), playerBuildInfos, StoryGamePlaySettings.Clone());
 
         SortedDictionary<int, int> levelNumBossRemainChoiceCount = new SortedDictionary<int, int>();
         SortedDictionary<int, List<int>> levelNumBigBossRemainChoices = new SortedDictionary<int, List<int>>();
-        foreach (Level level in newStory.Levels)
+        foreach (Chapter level in newStory.Levels)
         {
             if (!newStory.LevelNumFightTimes.ContainsKey(level.LevelNum))
             {
@@ -91,7 +91,7 @@ public class Story
 
             for (int j = 0; j < levelFightTimes; j++)
             {
-                Level level = newStory.Levels[levelID];
+                Chapter level = newStory.Levels[levelID];
                 int levelNum = level.LevelNum;
 
                 if (j < levelFightTimes - level.BigBossFightTimes) //还没到bigBoss
@@ -148,7 +148,7 @@ public class Story
 
     public void UnlockLevelBosses(int levelID)
     {
-        Level level = Levels[levelID];
+        Chapter level = Levels[levelID];
         if (levelID < Levels.Count)
         {
             int nextLevelBossCount = LevelBossCount[levelID];
@@ -166,17 +166,17 @@ public class Story
         }
     }
 
-    public void EditAllCardCountDict(int cardID, int changeValue)
+    public void EditAllCardLimitDict(int cardID, int changeValue)
     {
         foreach (KeyValuePair<int, BuildInfo> kv in PlayerBuildInfos)
         {
-            EditCardCountDict(cardID, changeValue, kv.Value.M_BuildCards.CardSelectInfos);
+            EditCardLimitDict(cardID, changeValue, kv.Value.M_BuildCards.CardSelectInfos);
         }
 
-        EditCardCountDict(cardID, changeValue, Base_CardCountDict);
+        EditCardLimitDict(cardID, changeValue, Base_CardLimitDict);
     }
 
-    private void EditCardCountDict(int cardID, int changeValue, SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo> cardSelectInfos)
+    private void EditCardLimitDict(int cardID, int changeValue, SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo> cardSelectInfos)
     {
         int remainChange = changeValue;
         if (cardSelectInfos[cardID].CardSelectUpperLimit + changeValue >= 0)
@@ -204,7 +204,7 @@ public class Story
         }
     }
 
-    private void EditCardCountDict(int cardID, int changeValue, SortedDictionary<int, int> baseCardCountDict)
+    private void EditCardLimitDict(int cardID, int changeValue, SortedDictionary<int, int> baseCardCountDict)
     {
         int baseCardID = AllCards.GetCardBaseCardID(cardID);
         baseCardCountDict[baseCardID] += changeValue;
@@ -214,13 +214,13 @@ public class Story
     {
         writer.WriteString8(StoryName);
         writer.WriteSInt32(Levels.Count);
-        foreach (Level level in Levels)
+        foreach (Chapter level in Levels)
         {
             level.Serialize(writer);
         }
 
-        writer.WriteSInt32(Base_CardCountDict.Count);
-        foreach (KeyValuePair<int, int> kv in Base_CardCountDict)
+        writer.WriteSInt32(Base_CardLimitDict.Count);
+        foreach (KeyValuePair<int, int> kv in Base_CardLimitDict)
         {
             writer.WriteSInt32(kv.Key);
             writer.WriteSInt32(kv.Value);
@@ -294,19 +294,19 @@ public class Story
         Story newStory = new Story();
         newStory.StoryName = reader.ReadString8();
         int levelCount = reader.ReadSInt32();
-        newStory.Levels = new List<Level>();
+        newStory.Levels = new List<Chapter>();
         for (int i = 0; i < levelCount; i++)
         {
-            newStory.Levels.Add(Level.Deserialize(reader));
+            newStory.Levels.Add(Chapter.Deserialize(reader));
         }
 
         int ccdCount = reader.ReadSInt32();
-        newStory.Base_CardCountDict = new SortedDictionary<int, int>();
+        newStory.Base_CardLimitDict = new SortedDictionary<int, int>();
         for (int i = 0; i < ccdCount; i++)
         {
             int key = reader.ReadSInt32();
             int value = reader.ReadSInt32();
-            newStory.Base_CardCountDict.Add(key, value);
+            newStory.Base_CardLimitDict.Add(key, value);
         }
 
         int buildCount = reader.ReadSInt32();
