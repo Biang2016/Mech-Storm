@@ -83,7 +83,12 @@ internal class AllPlayerStory
                 }
 
                 int chapterID = int.Parse(chapterInfo.Attributes["ChapterID"].Value);
-                SortedDictionary<int, Enemy> chapterEnemies = new SortedDictionary<int, Enemy>();
+                SortedDictionary<EnemyType, SortedDictionary<int, Enemy>> chapterEnemies = new SortedDictionary<EnemyType, SortedDictionary<int, Enemy>>
+                {
+                    {EnemyType.Soldier, new SortedDictionary<int, Enemy>()},
+                    {EnemyType.Elite, new SortedDictionary<int, Enemy>()},
+                    {EnemyType.Boss, new SortedDictionary<int, Enemy>()},
+                };
                 SortedDictionary<int, Shop> chapterShops = new SortedDictionary<int, Shop>();
                 Chapter chapter = new Chapter(chapterID, chapterEnemies, chapterShops);
 
@@ -97,40 +102,34 @@ internal class AllPlayerStory
                     for (int m = 0; m < enemyInfo.ChildNodes.Count; m++)
                     {
                         XmlNode enemyTypeInfo = enemyInfo.ChildNodes.Item(m);
+                        EnemyType enemyType = (EnemyType) Enum.Parse(typeof(EnemyType), enemyTypeInfo.Attributes["type"].Value);
+                        string enemyBuildName = enemyTypeInfo.Attributes["BuildName"].Value;
+                        BuildInfo enemyBuildInfo = Database.Instance.SpecialBuildsDict["ServerAdmin"].GetBuildInfo(enemyBuildName).Clone();
+                        List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
+                        List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
+                        Enemy Enemy = new Enemy(Name, enemyBuildInfo, EnemyPicID, enemyType, 100, AlwaysBonusGroup, OptionalBonusGroup);
 
-                    }
-
-                    EnemyType enemyType = EnemyType.None;
-                    if (!string.IsNullOrEmpty(BuildName_Soldier)) enemyType |= EnemyType.Soldier;
-                    if (!string.IsNullOrEmpty(BuildName_Elite)) enemyType |= EnemyType.Elite;
-                    if (!string.IsNullOrEmpty(BuildName_Boss)) enemyType |= EnemyType.Boss;
-                    List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
-                    List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
-                    Enemy Enemy = new Enemy(Name, BuildName_Soldier, BuildName_Elite, BuildName_Boss, EnemyPicID, enemyType, 100, AlwaysBonusGroup, OptionalBonusGroup);
-
-                    chapterCommonBonusGroups_Always.ForEach(bonusGroup => { Enemy.AlwaysBonusGroup.Add(bonusGroup.Clone()); });
-                    chapterCommonBonusGroups_Optional.ForEach(bonusGroup => { Enemy.OptionalBonusGroup.Add(bonusGroup.Clone()); });
-
-                    chapter.ChapterAllEnemies.Add(Enemy.EnemyPicID, Enemy);
-
-                    for (int l = 0; l < enemyInfo.ChildNodes.Count; l++)
-                    {
-                        XmlNode bonusGroupInfo = enemyInfo.ChildNodes.Item(l);
-                        BonusGroup bg = GetBonusGroup(bonusGroupInfo);
-
-                        if (bg.IsAlways)
+                        chapterCommonBonusGroups_Always.ForEach(bonusGroup => { Enemy.AlwaysBonusGroup.Add(bonusGroup.Clone()); });
+                        chapterCommonBonusGroups_Optional.ForEach(bonusGroup => { Enemy.OptionalBonusGroup.Add(bonusGroup.Clone()); });
+                        chapter.ChapterAllEnemies[enemyType].Add(Enemy.EnemyPicID, Enemy);
+                        for (int l = 0; l < enemyTypeInfo.ChildNodes.Count; l++)
                         {
-                            Enemy.AlwaysBonusGroup.Add(bg);
-                        }
-                        else
-                        {
-                            Enemy.OptionalBonusGroup.Add(bg);
+                            XmlNode bonusGroupInfo = enemyTypeInfo.ChildNodes.Item(l);
+                            BonusGroup bg = GetBonusGroup(bonusGroupInfo);
+
+                            if (bg.IsAlways)
+                            {
+                                Enemy.AlwaysBonusGroup.Add(bg);
+                            }
+                            else
+                            {
+                                Enemy.OptionalBonusGroup.Add(bg);
+                            }
                         }
                     }
                 }
 
-                Chapters.Add(chapter);
-                chapterID++;
+                Chapters.Add(chapterID, chapter);
             }
 
             BuildInfo PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultBuildId).Clone();
@@ -143,29 +142,30 @@ internal class AllPlayerStory
 
     private static BonusGroup GetBonusGroup(XmlNode bonusGroupInfo)
     {
-        BonusGroup bg = new BonusGroup();
-        bg.IsAlways = bonusGroupInfo.Attributes["type"].Value == "Always";
-        bg.Bonuses = new List<Bonus>();
-        for (int l = 0; l < bonusGroupInfo.ChildNodes.Count; l++)
+      bool  isAlways = bonusGroupInfo.Attributes["type"].Value == "Always";
+      List<Bonus>  bonuses = new List<Bonus>();
+        int probability = 0;
+        bool singleton = false;
+        if (isAlways)
         {
-            XmlNode bonusInfo = bonusGroupInfo.ChildNodes.Item(l);
-            Bonus bonus = new Bonus();
-            bonus.M_BonusType = (Bonus.BonusType) Enum.Parse(typeof(Bonus.BonusType), bonusInfo.Attributes["name"].Value);
-            bonus.Value = int.Parse(bonusInfo.Attributes["value"].Value);
-            bg.Bonuses.Add(bonus);
-        }
-
-        if (bg.IsAlways)
-        {
-            bg.Probability = 0;
-            bg.Singleton = true;
+            probability = 0;
+            singleton = true;
         }
         else
         {
-            bg.Probability = int.Parse(bonusGroupInfo.Attributes["probability"].Value);
-            bg.Singleton = bonusGroupInfo.Attributes["singleton"].Value == "True";
+            probability = int.Parse(bonusGroupInfo.Attributes["probability"].Value);
+            singleton = bonusGroupInfo.Attributes["singleton"].Value == "True";
+        }   
+        
+        BonusGroup bg = new BonusGroup(isAlways,bonuses,probability,singleton);
+        for (int l = 0; l < bonusGroupInfo.ChildNodes.Count; l++)
+        {
+            XmlNode bonusInfo = bonusGroupInfo.ChildNodes.Item(l);
+            Bonus.BonusType bonusType = (Bonus.BonusType) Enum.Parse(typeof(Bonus.BonusType), bonusInfo.Attributes["name"].Value);
+            HardFactorValue bonusBaseValue = new HardFactorValue(int.Parse(bonusInfo.Attributes["value"].Value));
+            Bonus bonus = new Bonus(bonusType, bonusBaseValue, 100);
+            bg.Bonuses.Add(bonus);
         }
-
         return bg;
     }
 }

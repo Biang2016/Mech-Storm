@@ -19,10 +19,6 @@ public class Shop : ChapterPace
         return newShop;
     }
 
-    public override ChapterPace LeftChapterPace { get; }
-    public override ChapterPace RightChapterPace { get; }
-    public override ChapterPace UpperChapterPace { get; }
-    public override ChapterPace LowerChapterPace { get; }
 
     public override void Serialize(DataStream writer)
     {

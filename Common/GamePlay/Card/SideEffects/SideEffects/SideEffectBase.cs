@@ -77,7 +77,7 @@ public partial class SideEffectBase
         Assembly assembly = AllSideEffects.CurrentAssembly; // 获取当前程序集 
         SideEffectBase copy = (SideEffectBase) assembly.CreateInstance("SideEffects." + Name);
         copy.Name = Name;
-        copy.DescRaws = Utils.CloneSortedDictionary(DescRaws);
+        copy.DescRaws = CloneVariantUtils.SortedDictionary(DescRaws);
         foreach (SideEffectBase sub_SE in Sub_SideEffect)
         {
             copy.Sub_SideEffect.Add(sub_SE.Clone());
