@@ -6,14 +6,14 @@
         {
         }
 
-        public override void Execute(ExecuterInfo executerInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            player.PlayerBuffTrigger(M_ExecuterInfo.SideEffectExecutorID, this);
+            player.PlayerBuffTrigger(M_ExecutorInfo.SideEffectExecutorID, this);
             foreach (SideEffectBase se in Sub_SideEffect)
             {
                 se.Player = player;
-                se.Execute(executerInfo);
+                se.Execute(executorInfo);
             }
         }
     }

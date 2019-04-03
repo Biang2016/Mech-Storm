@@ -60,84 +60,83 @@ internal class AllPlayerStory
             gps.MinDrawCardNum = MinDrawCardNum;
             gps.MaxDrawCardNum = MaxDrawCardNum;
 
-            List<Chapter> Levels = new List<Chapter>();
-            int levelID = 0;
+            SortedDictionary<int, Chapter> Chapters = new SortedDictionary<int, Chapter>();
             for (int i = 3; i < story.ChildNodes.Count; i++)
             {
-                XmlNode levelInfo = story.ChildNodes.Item(i);
+                XmlNode chapterInfo = story.ChildNodes.Item(i);
 
-                int levelFightTimes = int.Parse(levelInfo.Attributes["LevelFightTimes"].Value); //该Level必须击败几个Boss（必须通过几个LevelID才能到下一个Level）
-                int bigBossFightTimes = int.Parse(levelInfo.Attributes["BossFightTimes"].Value); //该Level必须击败几个BigBoss
-                if (levelFightTimes > levelInfo.ChildNodes.Count - 1)
+                XmlNode chapterCommonBonusInfo = chapterInfo.FirstChild;
+                List<BonusGroup> chapterCommonBonusGroups_Optional = new List<BonusGroup>();
+                List<BonusGroup> chapterCommonBonusGroups_Always = new List<BonusGroup>();
+                for (int j = 0; j < chapterCommonBonusInfo.ChildNodes.Count; j++)
                 {
-                    throw new Exception("levelFightTimes < levelInfo.ChildNodes.Count - 1"); //配置错误
-                }
-
-                XmlNode levelCommonBonusInfo = levelInfo.FirstChild;
-                List<BonusGroup> levelCommonBonusGroups_Optional = new List<BonusGroup>();
-                List<BonusGroup> levelCommonBonusGroups_Always = new List<BonusGroup>();
-                for (int j = 0; j < levelCommonBonusInfo.ChildNodes.Count; j++)
-                {
-                    XmlNode commonBonusGroupInfo = levelCommonBonusInfo.ChildNodes.Item(j);
+                    XmlNode commonBonusGroupInfo = chapterCommonBonusInfo.ChildNodes.Item(j);
                     BonusGroup bg = GetBonusGroup(commonBonusGroupInfo);
                     if (bg.IsAlways)
                     {
-                        levelCommonBonusGroups_Always.Add(bg);
+                        chapterCommonBonusGroups_Always.Add(bg);
                     }
                     else
                     {
-                        levelCommonBonusGroups_Optional.Add(bg);
+                        chapterCommonBonusGroups_Optional.Add(bg);
                     }
                 }
 
-                for (int j = 0; j < levelFightTimes; j++)
+                int chapterID = int.Parse(chapterInfo.Attributes["ChapterID"].Value);
+                SortedDictionary<int, Enemy> chapterEnemies = new SortedDictionary<int, Enemy>();
+                SortedDictionary<int, Shop> chapterShops = new SortedDictionary<int, Shop>();
+                Chapter chapter = new Chapter(chapterID, chapterEnemies, chapterShops);
+
+                XmlNode enemyInfos = chapterInfo.ChildNodes.Item(1);
+                for (int k = 0; k < enemyInfos.ChildNodes.Count; k++)
                 {
-                    Chapter level = new Chapter();
-                    level.ChapterID = levelID;
-                    level.LevelNum = int.Parse(levelInfo.Attributes["Level"].Value);
-                    level.BigBossFightTimes = bigBossFightTimes;
-                    level.Bosses = new SortedDictionary<int, Boss>();
+                    XmlNode enemyInfo = enemyInfos.ChildNodes.Item(k);
+                    string Name = enemyInfo.Attributes["name"].Value;
+                    int EnemyPicID = int.Parse(enemyInfo.Attributes["picID"].Value);
 
-                    for (int k = 1; k < levelInfo.ChildNodes.Count; k++)
+                    for (int m = 0; m < enemyInfo.ChildNodes.Count; m++)
                     {
-                        XmlNode bossInfo = levelInfo.ChildNodes.Item(k);
-                        Boss Boss = new Boss();
-                        Boss.Name = bossInfo.Attributes["name"].Value;
-                        Boss.BuildName = bossInfo.Attributes["BuildName"].Value;
-                        Boss.PicID = int.Parse(bossInfo.Attributes["picID"].Value);
-                        Boss.AlwaysBonusGroup = new List<BonusGroup>();
-                        Boss.OptionalBonusGroup = new List<BonusGroup>();
+                        XmlNode enemyTypeInfo = enemyInfo.ChildNodes.Item(m);
 
-                        levelCommonBonusGroups_Always.ForEach(bonusGroup => { Boss.AlwaysBonusGroup.Add(bonusGroup.Clone()); });
-                        levelCommonBonusGroups_Optional.ForEach(bonusGroup => { Boss.OptionalBonusGroup.Add(bonusGroup.Clone()); });
+                    }
 
-                        level.Bosses.Add(Boss.PicID, Boss);
+                    EnemyType enemyType = EnemyType.None;
+                    if (!string.IsNullOrEmpty(BuildName_Soldier)) enemyType |= EnemyType.Soldier;
+                    if (!string.IsNullOrEmpty(BuildName_Elite)) enemyType |= EnemyType.Elite;
+                    if (!string.IsNullOrEmpty(BuildName_Boss)) enemyType |= EnemyType.Boss;
+                    List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
+                    List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
+                    Enemy Enemy = new Enemy(Name, BuildName_Soldier, BuildName_Elite, BuildName_Boss, EnemyPicID, enemyType, 100, AlwaysBonusGroup, OptionalBonusGroup);
 
-                        for (int l = 0; l < bossInfo.ChildNodes.Count; l++)
+                    chapterCommonBonusGroups_Always.ForEach(bonusGroup => { Enemy.AlwaysBonusGroup.Add(bonusGroup.Clone()); });
+                    chapterCommonBonusGroups_Optional.ForEach(bonusGroup => { Enemy.OptionalBonusGroup.Add(bonusGroup.Clone()); });
+
+                    chapter.ChapterAllEnemies.Add(Enemy.EnemyPicID, Enemy);
+
+                    for (int l = 0; l < enemyInfo.ChildNodes.Count; l++)
+                    {
+                        XmlNode bonusGroupInfo = enemyInfo.ChildNodes.Item(l);
+                        BonusGroup bg = GetBonusGroup(bonusGroupInfo);
+
+                        if (bg.IsAlways)
                         {
-                            XmlNode bonusGroupInfo = bossInfo.ChildNodes.Item(l);
-                            BonusGroup bg = GetBonusGroup(bonusGroupInfo);
-
-                            if (bg.IsAlways)
-                            {
-                                Boss.AlwaysBonusGroup.Add(bg);
-                            }
-                            else
-                            {
-                                Boss.OptionalBonusGroup.Add(bg);
-                            }
+                            Enemy.AlwaysBonusGroup.Add(bg);
+                        }
+                        else
+                        {
+                            Enemy.OptionalBonusGroup.Add(bg);
                         }
                     }
-
-                    Levels.Add(level);
-                    levelID++;
                 }
+
+                Chapters.Add(chapter);
+                chapterID++;
             }
 
             BuildInfo PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultBuildId).Clone();
             SortedDictionary<int, BuildInfo> playerbuildInfos = new SortedDictionary<int, BuildInfo>();
             playerbuildInfos.Add(PlayerCurrentBuildInfo.BuildID, PlayerCurrentBuildInfo);
-            Story newStory = new Story(pureName, Levels, PlayerCurrentBuildInfo.M_BuildCards.GetBaseCardLimitDict(), playerbuildInfos, gps);
+            Story newStory = new Story(pureName, Chapters, PlayerCurrentBuildInfo.M_BuildCards.GetBaseCardLimitDict(), playerbuildInfos, gps);
             Database.Instance.StoryStartDict.Add(pureName, newStory);
         }
     }

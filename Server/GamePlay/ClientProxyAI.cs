@@ -7,8 +7,8 @@
 /// </summary>
 internal class ClientProxyAI : ClientProxy
 {
-    public int LevelID;
-    public int BossPicID;
+    public int ChapterID;
+    public int EnemyPicID;
     public bool IsStoryMode = false;
 
     public override ClientStates ClientState
@@ -17,15 +17,15 @@ internal class ClientProxyAI : ClientProxy
         set => clientState = value;
     }
 
-    public ClientProxyAI(int clientId, bool isStopReceive, int levelID, int bossPicID) : base(null, clientId, isStopReceive)
+    public ClientProxyAI(int clientId, bool isStopReceive, int chapterID, int enemyPicID) : base(null, clientId, isStopReceive)
     {
         ClientIdRequest request = new ClientIdRequest(clientId, Server.ServerVersion);
         ClientState = ClientStates.GetId;
         SendMessage(request);
 
-        IsStoryMode = levelID != -1 && bossPicID != -1;
-        LevelID = levelID;
-        BossPicID = bossPicID;
+        IsStoryMode = chapterID != -1 && enemyPicID != -1;
+        ChapterID = chapterID;
+        EnemyPicID = enemyPicID;
     }
 
     public override void SendMessage(ServerRequestBase request)

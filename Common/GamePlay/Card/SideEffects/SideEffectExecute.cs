@@ -77,12 +77,12 @@ public class SideEffectExecute
         writer.WriteSInt32(RemoveTriggerTimes);
     }
 
-    public static SideEffectExecute Deserialze(DataStream reader)
+    public static SideEffectExecute Deserialize(DataStream reader)
     {
         SideEffectExecute see = new SideEffectExecute();
         see.M_SideEffectFrom = (SideEffectFrom) reader.ReadSInt32();
         see.ID = reader.ReadSInt32();
-        see.SideEffectBase = SideEffectBase.BaseDeserialze(reader);
+        see.SideEffectBase = SideEffectBase.BaseDeserialize(reader);
         see.TriggerTime = (SideEffectBundle.TriggerTime) reader.ReadSInt32();
         see.TriggerRange = (SideEffectBundle.TriggerRange) reader.ReadSInt32();
         see.TriggerDelayTimes = reader.ReadSInt32();

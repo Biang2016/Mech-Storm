@@ -8,9 +8,9 @@ using System.Reflection;
 public partial class SideEffectBase
 {
     public string Name;
-    public SortedDictionary<string,string> DescRaws;
+    public SortedDictionary<string, string> DescRaws;
 
-    public ExecuterInfo M_ExecuterInfo; //SE携带者信息，触发时和事件执行者信息进行比对，判定是否触发
+    public ExecutorInfo M_ExecutorInfo; //SE携带者信息，触发时和事件执行者信息进行比对，判定是否触发
     public Player Player;
     public List<SideEffectBase> Sub_SideEffect = new List<SideEffectBase>();
 
@@ -18,15 +18,13 @@ public partial class SideEffectBase
     {
     }
 
-
     public SideEffectBase(string name, SortedDictionary<string, string> descRaws)
     {
         Name = name;
         DescRaws = descRaws;
     }
 
-
-    //序列化时无视player，和M_ExecuterInfo，也就是说效果是无关玩家和执行者的
+    //序列化时无视player，和M_ExecutorInfo，也就是说效果是无关玩家和执行者的
     public virtual void Serialize(DataStream writer)
     {
         string type = GetType().ToString();
@@ -38,7 +36,7 @@ public partial class SideEffectBase
             writer.WriteString8(kv.Key);
             writer.WriteString8(kv.Value);
         }
-       
+
         writer.WriteSInt32(Sub_SideEffect.Count);
         foreach (SideEffectBase sub_SE in Sub_SideEffect)
         {
@@ -46,10 +44,10 @@ public partial class SideEffectBase
         }
     }
 
-    public static SideEffectBase BaseDeserialze(DataStream reader)
+    public static SideEffectBase BaseDeserialize(DataStream reader)
     {
         string type = reader.ReadString8();
-        SideEffectBase se = SideEffectManager.GetNewSideEffec(type);
+        SideEffectBase se = SideEffectManager.GetNewSideEffect(type);
         se.Deserialize(reader);
         return se;
     }
@@ -65,10 +63,11 @@ public partial class SideEffectBase
             string value = reader.ReadString8();
             DescRaws[ls] = value;
         }
+
         int sub_SE_Count = reader.ReadSInt32();
         for (int i = 0; i < sub_SE_Count; i++)
         {
-            SideEffectBase se = BaseDeserialze(reader);
+            SideEffectBase se = BaseDeserialize(reader);
             Sub_SideEffect.Add(se);
         }
     }
@@ -84,7 +83,6 @@ public partial class SideEffectBase
             copy.Sub_SideEffect.Add(sub_SE.Clone());
         }
 
-
         CloneParams(copy);
         return copy;
     }
@@ -98,22 +96,22 @@ public partial class SideEffectBase
         return "";
     }
 
-    public virtual void Execute(ExecuterInfo eventTriggerInfo)
+    public virtual void Execute(ExecutorInfo eventTriggerInfo)
     {
     }
 
-    public static string HightlightStringFormat(string src, params object[] args)
+    public static string HighlightStringFormat(string src, params object[] args)
     {
         string[] colorStrings = new string[args.Length];
         for (int i = 0; i < args.Length; i++)
         {
-            colorStrings[i] = "<color=\"" + AllColors.ColorDict[AllColors.ColorType.CardHightLightColor] + "\">" + args[i].ToString() + "</color>";
+            colorStrings[i] = "<color=\"" + AllColors.ColorDict[AllColors.ColorType.CardHightLightColor] + "\">" + args[i] + "</color>";
         }
 
         return string.Format(src, colorStrings);
     }
 
-    public class ExecuterInfo
+    public class ExecutorInfo
     {
         public const int EXECUTE_INFO_NONE = -999;
         public const int EXECUTOR_ID_EVENTS = -1;
@@ -130,7 +128,7 @@ public partial class SideEffectBase
         public int Value;
         public bool IsPlayerBuff;
 
-        public ExecuterInfo( int clientId, int targetClientId = EXECUTE_INFO_NONE, int sideEffectExecutorID= EXECUTOR_ID_EVENTS, int retinueId = EXECUTE_INFO_NONE, int targetRetinueId = EXECUTE_INFO_NONE, int cardId = EXECUTE_INFO_NONE, int cardInstanceId = EXECUTE_INFO_NONE, int equipId = EXECUTE_INFO_NONE, int targetEquipId = EXECUTE_INFO_NONE, int value = 0, bool isPlayerBuff = false)
+        public ExecutorInfo(int clientId, int targetClientId = EXECUTE_INFO_NONE, int sideEffectExecutorID = EXECUTOR_ID_EVENTS, int retinueId = EXECUTE_INFO_NONE, int targetRetinueId = EXECUTE_INFO_NONE, int cardId = EXECUTE_INFO_NONE, int cardInstanceId = EXECUTE_INFO_NONE, int equipId = EXECUTE_INFO_NONE, int targetEquipId = EXECUTE_INFO_NONE, int value = 0, bool isPlayerBuff = false)
         {
             ClientId = clientId;
             TargetClientId = targetClientId;
@@ -145,9 +143,9 @@ public partial class SideEffectBase
             IsPlayerBuff = isPlayerBuff;
         }
 
-        public ExecuterInfo Clone()
+        public ExecutorInfo Clone()
         {
-            return new ExecuterInfo(ClientId, TargetClientId, SideEffectExecutorID, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId, Value);
+            return new ExecutorInfo(ClientId, TargetClientId, SideEffectExecutorID, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId, Value);
         }
 
         public void Serialize(DataStream writer)
@@ -164,7 +162,7 @@ public partial class SideEffectBase
             writer.WriteSInt32(Value);
         }
 
-        public static ExecuterInfo Deserialize(DataStream reader)
+        public static ExecutorInfo Deserialize(DataStream reader)
         {
             int ClientId = reader.ReadSInt32();
             int TargetClientId = reader.ReadSInt32();
@@ -176,7 +174,7 @@ public partial class SideEffectBase
             int EquipId = reader.ReadSInt32();
             int TargetEquipId = reader.ReadSInt32();
             int Value = reader.ReadSInt32();
-            return new ExecuterInfo(ClientId, TargetClientId, SideEffectExecutorID, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId, Value);
+            return new ExecutorInfo(ClientId, TargetClientId, SideEffectExecutorID, RetinueId, TargetRetinueId, CardId, CardInstanceId, EquipId, TargetEquipId, Value);
         }
     }
 }

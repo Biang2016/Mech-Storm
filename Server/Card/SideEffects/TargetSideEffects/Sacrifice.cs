@@ -6,7 +6,7 @@
         {
         }
 
-        public override void Execute(ExecuterInfo executerInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
             switch (M_TargetRange)
@@ -14,7 +14,7 @@
                 case TargetRange.SelfMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(FinalValueBasic);
 
-                    ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(executerInfo.TargetRetinueId);
+                    ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(executorInfo.TargetRetinueId);
                     if (retinue.M_Weapon != null)
                     {
                         retinue.M_Weapon = null;
@@ -39,7 +39,7 @@
                         player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(FinalValuePlus);
                     }
 
-                    player.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
+                    player.MyBattleGroundManager.KillOneRetinue(executorInfo.TargetRetinueId);
                     break;
             }
         }

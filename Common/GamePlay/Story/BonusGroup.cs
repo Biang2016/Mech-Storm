@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Configuration;
 
-public class BonusGroup : Probability
+public class BonusGroup : Probability, IClone<BonusGroup>
 {
     public bool IsAlways;
     public List<Bonus> Bonuses = new List<Bonus>();
@@ -15,7 +15,7 @@ public class BonusGroup : Probability
         return Clone();
     }
 
-    public BonusGroup()
+    private BonusGroup()
     {
     }
 
@@ -29,7 +29,7 @@ public class BonusGroup : Probability
 
     public BonusGroup Clone()
     {
-        return new BonusGroup(IsAlways, Bonuses.ToArray().ToList(), Probability, Singleton);
+        return new BonusGroup(IsAlways, CloneVariantUtils.List(Bonuses), Probability, Singleton);
     }
 
     public void Serialize(DataStream writer)

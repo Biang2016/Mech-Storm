@@ -4,7 +4,7 @@
   <StartBuildInfo BuildName="Story1" />
   <StartUnlockCardInfo BuildName="Story1_Unlock" />
   <GamePlaySettings DrawCardPerRound="2" DefaultCoin="1500" DefaultLife="20" DefaultLifeMax="12" DefaultLifeMin="10" DefaultEnergy="6" DefaultEnergyMax="6" DefaultDrawCardNum="2" MinDrawCardNum="2" MaxDrawCardNum="5" />
-  <Chapter ChapterID="0" LevelFightTimes="0" BossFightTimes="1">
+  <Chapter ChapterID="0">
     <CommonBonus>
       <BonusGroupInfo type="Always">
         <BonusInfo name="Budget" value="50"></BonusInfo>
@@ -13,38 +13,28 @@
       <BonusGroupInfo type="Optional" probability="70" singleton="False">
         <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
       </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5" singleton="True">
-        <BonusInfo name="LifeUpperLimit" value="3"></BonusInfo>
-        <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
-      </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5" singleton="True">
-        <BonusInfo name="EnergyUpperLimit" value="2"></BonusInfo>
-      </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5" singleton="True">
-        <BonusInfo name="LifeUpperLimit" value="2"></BonusInfo>
-        <BonusInfo name="EnergyUpperLimit" value="1"></BonusInfo>
-        <BonusInfo name="Budget" value="50"></BonusInfo>
-      </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="5" singleton="True">
-        <BonusInfo name="LifeUpperLimit" value="1"></BonusInfo>
-        <BonusInfo name="Budget" value="75"></BonusInfo>
-      </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="1" singleton="True">
-        <BonusInfo name="LifeUpperLimit" value="3"></BonusInfo>
-        <BonusInfo name="EnergyUpperLimit" value="2"></BonusInfo>
-        <BonusInfo name="Budget" value="150"></BonusInfo>
-      </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="1" singleton="True">
-        <BonusInfo name="EnergyUpperLimit" value="3"></BonusInfo>
-      </BonusGroupInfo>
-      <BonusGroupInfo type="Optional" probability="1" singleton="True">
-        <BonusInfo name="LifeUpperLimit" value="4"></BonusInfo>
-      </BonusGroupInfo>
     </CommonBonus>
-    <EnemyInfo name="Soldier" BuildName="MechMine_Lv0" picID="53">
-      <BonusGroupInfo type="Always">
-        <BonusInfo name="UnlockCardByID" value="5301"></BonusInfo>
-      </BonusGroupInfo>
-    </EnemyInfo>
+    <EnemyInfos>
+      <EnemyInfo name="Mind the mines" picID="53">
+        <EnemyTypeInfo type="Soldier" BuildName="MechMine_Soldier_Lv0">
+          <BonusGroupInfo type="Always">
+            <BonusInfo name="UnlockCardByID" value="5301"></BonusInfo>
+          </BonusGroupInfo>
+        </EnemyTypeInfo>
+        <EnemyTypeInfo type="Elite" BuildName="MechMine_Elite_Lv0">
+          <BonusGroupInfo type="Always">
+            <BonusInfo name="UnlockCardByID" value="5308"></BonusInfo>
+          </BonusGroupInfo>
+        </EnemyTypeInfo>
+        <EnemyTypeInfo type="Boss" BuildName="MechMine_Boss_Lv0">
+          <BonusGroupInfo type="Always">
+            <BonusInfo name="UnlockCardByID" value="5309"></BonusInfo>
+          </BonusGroupInfo>
+        </EnemyTypeInfo>
+      </EnemyInfo>
+    </EnemyInfos>
+    <ShopInfos>
+
+    </ShopInfos>
   </Chapter>
 </Story>

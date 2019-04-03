@@ -6,12 +6,12 @@
         {
         }
 
-        public override void Execute(ExecuterInfo executerInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
             if ((M_TargetRange & TargetRange.SelfMechs) != 0)
             {
-                ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(executerInfo.TargetRetinueId);
+                ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(executorInfo.TargetRetinueId);
                 int cardInstanceID = retinue.OriginCardInstanceId;
                 int cardID = retinue.CardInfo.CardID;
                 retinue.OriginCardInstanceId = -1;
@@ -53,7 +53,7 @@
                     retinue.M_MA.OriginCardInstanceId = -1;
                 }
 
-                player.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
+                player.MyBattleGroundManager.KillOneRetinue(executorInfo.TargetRetinueId);
 
                 player.MyHandManager.GetACardByID(cardID, cardInstanceID);
                 if (weaponCardInstanceID != -1) player.MyHandManager.GetACardByID(weaponCardID, weaponCardInstanceID);

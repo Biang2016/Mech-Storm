@@ -6,7 +6,7 @@
         {
         }
 
-        public override void Execute(ExecuterInfo executerInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer sp = (ServerPlayer) Player;
             ServerCardBase ci = sp.MyHandManager.GetCardByCardInstanceId(TargetCardInstanceId);

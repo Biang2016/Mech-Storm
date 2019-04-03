@@ -1,12 +1,12 @@
-﻿public class EndLevelRequestResponse : ServerRequestBase
+﻿public class EndBattleRequestResponse : ServerRequestBase
 {
-    public EndLevelRequestResponse()
+    public EndBattleRequestResponse()
     {
     }
 
     public override NetProtocols GetProtocol()
     {
-        return NetProtocols.END_LEVEL_REQUEST_RESPONSE;
+        return NetProtocols.END_BATTLE_REQUEST_RESPONSE;
     }
 
     public override void Serialize(DataStream writer)

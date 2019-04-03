@@ -75,7 +75,7 @@ internal class ServerPlayer : Player
             PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
             BroadCastRequest(request);
 
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnUseMetal, new SideEffectBase.ExecuterInfo(clientId: ClientId, value: useMetalValue));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnUseMetal, new SideEffectBase.ExecutorInfo(clientId: ClientId, value: useMetalValue));
         }
     }
 
@@ -149,7 +149,7 @@ internal class ServerPlayer : Player
         {
             PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
             BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new SideEffectBase.ExecuterInfo(ClientId, value: addLifeValue));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new SideEffectBase.ExecutorInfo(ClientId, value: addLifeValue));
         }
     }
 
@@ -164,7 +164,7 @@ internal class ServerPlayer : Player
         {
             PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
             BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerLostLife, new SideEffectBase.ExecuterInfo(ClientId, value: useLifeValue));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerLostLife, new SideEffectBase.ExecutorInfo(ClientId, value: useLifeValue));
         }
 
         if (LifeLeft <= 0)
@@ -181,7 +181,7 @@ internal class ServerPlayer : Player
         {
             PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
             BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new SideEffectBase.ExecuterInfo(ClientId, value: LifeLeft - LifeLeftBefore));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new SideEffectBase.ExecutorInfo(ClientId, value: LifeLeft - LifeLeftBefore));
         }
     }
 
@@ -211,7 +211,7 @@ internal class ServerPlayer : Player
         {
             PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax, isOverflow);
             BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerGetEnergy, new SideEffectBase.ExecuterInfo(ClientId, value: addEnergyValue));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerGetEnergy, new SideEffectBase.ExecutorInfo(ClientId, value: addEnergyValue));
         }
     }
 
@@ -226,7 +226,7 @@ internal class ServerPlayer : Player
         {
             PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax);
             BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerUseEnergy, new SideEffectBase.ExecuterInfo(ClientId, value: useEnergyValue));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerUseEnergy, new SideEffectBase.ExecutorInfo(ClientId, value: useEnergyValue));
         }
     }
 

@@ -34,7 +34,7 @@ public class Sacrifice_Base : TargetSideEffect, IEffectFactor, IDamage
 
     public override string GenerateDesc()
     {
-        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange,false, false), FinalValueBasic, FinalValuePlus);
+        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange,false, false), FinalValueBasic, FinalValuePlus);
     }
 
     public override void Serialize(DataStream writer)

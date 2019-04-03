@@ -1,34 +1,34 @@
-﻿public class BeatBossRequest : ServerRequestBase
+﻿public class BeatEnemyRequest : ServerRequestBase
 {
     public int ChapterID;
-    public int BossPicID;
+    public int EnemyPicID;
 
-    public BeatBossRequest()
+    public BeatEnemyRequest()
     {
     }
 
-    public BeatBossRequest(int chapterID, int bossPicID)
+    public BeatEnemyRequest(int chapterID, int enemyPicID)
     {
         ChapterID = chapterID;
-        BossPicID = bossPicID;
+        EnemyPicID = enemyPicID;
     }
 
     public override NetProtocols GetProtocol()
     {
-        return NetProtocols.BEAT_BOSS_REQUSET;
+        return NetProtocols.BEAT_ENEMY_REQUSET;
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
         writer.WriteSInt32(ChapterID);
-        writer.WriteSInt32(BossPicID);
+        writer.WriteSInt32(EnemyPicID);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         ChapterID = reader.ReadSInt32();
-        BossPicID = reader.ReadSInt32();
+        EnemyPicID = reader.ReadSInt32();
     }
 }

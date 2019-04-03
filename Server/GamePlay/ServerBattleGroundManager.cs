@@ -162,7 +162,7 @@ internal class ServerBattleGroundManager
 
         BattleGroundAddRetinue(retinuePlaceIndex, retinue);
 
-        SideEffectBase.ExecuterInfo info = new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId, retinueId: retinueId, targetRetinueId: targetRetinueId);
+        SideEffectBase.ExecutorInfo info = new SideEffectBase.ExecutorInfo(clientId: ServerPlayer.ClientId, retinueId: retinueId, targetRetinueId: targetRetinueId);
         if (retinueCardInfo.RetinueInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierSummon, info);
         else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroSummon, info);
     }
@@ -785,7 +785,7 @@ internal class ServerBattleGroundManager
 
     internal void BeginRound()
     {
-        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnBeginRound, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId));
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnBeginRound, new SideEffectBase.ExecutorInfo(clientId: ServerPlayer.ClientId));
         foreach (ServerModuleRetinue retinue in Retinues)
         {
             retinue.OnBeginRound();
@@ -794,7 +794,7 @@ internal class ServerBattleGroundManager
 
     internal void EndRound()
     {
-        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEndRound, new SideEffectBase.ExecuterInfo(clientId: ServerPlayer.ClientId));
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEndRound, new SideEffectBase.ExecutorInfo(clientId: ServerPlayer.ClientId));
         foreach (ServerModuleRetinue retinue in Retinues)
         {
             retinue.OnEndRound();

@@ -94,33 +94,33 @@ public class EventManager
     {
         public SideEffectBundle.TriggerTime TriggerTime;
         /// <summary>
-        /// ExecuterInfo reflects as more information as possible of the executor of this invoke.
+        /// ExecutorInfo reflects as more information as possible of the executor of this invoke.
         /// </summary>
-        public SideEffectBase.ExecuterInfo ExecuterInfo;
+        public SideEffectBase.ExecutorInfo ExecutorInfo;
 
-        public InvokeInfo(SideEffectBundle.TriggerTime triggerTime, SideEffectBase.ExecuterInfo executerInfo)
+        public InvokeInfo(SideEffectBundle.TriggerTime triggerTime, SideEffectBase.ExecutorInfo executorInfo)
         {
             TriggerTime = triggerTime;
-            ExecuterInfo = executerInfo;
+            ExecutorInfo = executorInfo;
         }
     }
 
     /// <summary>
     /// When something happens in game, invoke events by TriggerTime enum.
-    /// Invoker info can be found in executerInfo.
+    /// Invoker info can be found in executorInfo.
     /// TriggerTime enum is Flag. Master trigger can be triggered by Sub trigger -> e.g. OnHeroInjured also triggers OnRetinueInjured
     /// This method is often used in game logic.
-    /// (e.g. ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierKill, new SideEffectBase.ExecuterInfo(ServerPlayer.ClientId, retinueId: M_RetinueID, targetRetinueId: targetRetinue.M_RetinueID));)
+    /// (e.g. ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierKill, new SideEffectBase.ExecutorInfo(ServerPlayer.ClientId, retinueId: M_RetinueID, targetRetinueId: targetRetinue.M_RetinueID));)
     /// </summary>
     /// <param name="tt"></param>
-    /// <param name="executerInfo"></param>
-    public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
+    /// <param name="executorInfo"></param>
+    public void Invoke(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecutorInfo executorInfo)
     {
         foreach (SideEffectBundle.TriggerTime triggerTime in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
         {
             if ((tt & triggerTime) == tt) // this is a Flag Enum compare 
             {
-                InvokeTriggerTimeQueue.Enqueue(new InvokeInfo(triggerTime, executerInfo)); //all TriggerTimes enqueue
+                InvokeTriggerTimeQueue.Enqueue(new InvokeInfo(triggerTime, executorInfo)); //all TriggerTimes enqueue
             }
         }
 
@@ -137,7 +137,7 @@ public class EventManager
     private void InvokeCore(InvokeInfo invokeInfo)
     {
         SideEffectBundle.TriggerTime tt = invokeInfo.TriggerTime;
-        SideEffectBase.ExecuterInfo executerInfo = invokeInfo.ExecuterInfo;
+        SideEffectBase.ExecutorInfo executorInfo = invokeInfo.ExecutorInfo;
 
         Dictionary<int, SideEffectExecute> seeDict = Events[tt];
         SideEffectExecute[] sees = seeDict.Values.ToArray();
@@ -147,15 +147,15 @@ public class EventManager
             if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent executed sideeffects from being executed again.
             if (seeDict.ContainsKey(see.ID))
             {
-                bool isTrigger = IsExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.TriggerRange); //To check out if this event invokes any sideeffect.
-                if (isTrigger) Trigger(see, executerInfo, tt, see.TriggerRange); // invoke main trigger method.
+                bool isTrigger = IsExecuteTrigger(executorInfo, see.SideEffectBase.M_ExecutorInfo, see.TriggerRange); //To check out if this event invokes any sideeffect.
+                if (isTrigger) Trigger(see, executorInfo, tt, see.TriggerRange); // invoke main trigger method.
             }
         }
 
-        Invoke_RemoveSEE(tt, executerInfo); //Remove executed sideeffects with zero time left.
+        Invoke_RemoveSEE(tt, executorInfo); //Remove executed sideeffects with zero time left.
     }
 
-    public void Invoke_RemoveSEE(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecuterInfo executerInfo)
+    public void Invoke_RemoveSEE(SideEffectBundle.TriggerTime tt, SideEffectBase.ExecutorInfo executorInfo)
     {
         Dictionary<int, SideEffectExecute> seeDict = RemoveEvents[tt];
         SideEffectExecute[] sees = seeDict.Values.ToArray();
@@ -165,7 +165,7 @@ public class EventManager
             if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent removed sideeffects from being removed again.
             if (seeDict.ContainsKey(see.ID))
             {
-                bool isTrigger = IsExecuteTrigger(executerInfo, see.SideEffectBase.M_ExecuterInfo, see.RemoveTriggerRange);
+                bool isTrigger = IsExecuteTrigger(executorInfo, see.SideEffectBase.M_ExecutorInfo, see.RemoveTriggerRange);
                 if (isTrigger) Trigger_TryRemove(see); // invoke main trigger_remove method. (some sideeffects like buffs have a remove_time attribute. e.g. Remove this buff after 3 turns)
             }
         }
@@ -185,7 +185,7 @@ public class EventManager
             Dictionary<int, SideEffectExecute> removeEvent_sees = RemoveEvents[kv.Value.TriggerTime];
             if (removeEvent_sees.ContainsKey(kv.Key)) removeEvent_sees.Remove(kv.Key);
 
-            if (kv.Value.SideEffectBase.M_ExecuterInfo.IsPlayerBuff) //PlayerBuff
+            if (kv.Value.SideEffectBase.M_ExecutorInfo.IsPlayerBuff) //PlayerBuff
             {
                 if (kv.Value.SideEffectBase is PlayerBuffSideEffects buff)
                 {
@@ -202,20 +202,20 @@ public class EventManager
     /// This is an important method to check is this Event valid to trigger a series of corresponding sideeffects.
     /// Compare executor's clientID, cardID or other values with those sideeffects recorded in EventManager. If compared successfully, then trigger.
     /// </summary>
-    /// <param name="executerInfo"></param>
-    /// <param name="se_ExecuterInfo"></param>
+    /// <param name="executorInfo"></param>
+    /// <param name="se_ExecutorInfo"></param>
     /// <param name="tr">TriggerRange, the key parameter in this method, used to compare executorInfos between events and sideeffects recorded in EventManager</param>
     /// <returns></returns>
-    private static bool IsExecuteTrigger(SideEffectBase.ExecuterInfo executerInfo, SideEffectBase.ExecuterInfo se_ExecuterInfo, SideEffectBundle.TriggerRange tr)
+    private static bool IsExecuteTrigger(SideEffectBase.ExecutorInfo executorInfo, SideEffectBase.ExecutorInfo se_ExecutorInfo, SideEffectBundle.TriggerRange tr)
     {
         bool isTrigger = false;
         switch (tr)
         {
             case SideEffectBundle.TriggerRange.SelfPlayer:
-                if (executerInfo.ClientId == se_ExecuterInfo.ClientId) isTrigger = true;
+                if (executorInfo.ClientId == se_ExecutorInfo.ClientId) isTrigger = true;
                 break;
             case SideEffectBundle.TriggerRange.EnemyPlayer:
-                if (executerInfo.ClientId != se_ExecuterInfo.ClientId) isTrigger = true;
+                if (executorInfo.ClientId != se_ExecutorInfo.ClientId) isTrigger = true;
                 break;
             case SideEffectBundle.TriggerRange.OnePlayer:
                 isTrigger = true;
@@ -224,24 +224,24 @@ public class EventManager
                 isTrigger = true;
                 break;
             case SideEffectBundle.TriggerRange.SelfAnother:
-                if (executerInfo.ClientId == se_ExecuterInfo.ClientId &&
-                    ((se_ExecuterInfo.RetinueId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.RetinueId != executerInfo.RetinueId) ||
-                     (se_ExecuterInfo.CardInstanceId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.CardInstanceId != executerInfo.CardInstanceId)))
+                if (executorInfo.ClientId == se_ExecutorInfo.ClientId &&
+                    ((se_ExecutorInfo.RetinueId != SideEffectBase.ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId != executorInfo.RetinueId) ||
+                     (se_ExecutorInfo.CardInstanceId != SideEffectBase.ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.CardInstanceId != executorInfo.CardInstanceId)))
                     isTrigger = true;
                 break;
             case SideEffectBundle.TriggerRange.Another:
-                if ((se_ExecuterInfo.RetinueId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.RetinueId != executerInfo.RetinueId) ||
-                    (se_ExecuterInfo.CardInstanceId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.CardInstanceId != executerInfo.CardInstanceId))
+                if ((se_ExecutorInfo.RetinueId != SideEffectBase.ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId != executorInfo.RetinueId) ||
+                    (se_ExecutorInfo.CardInstanceId != SideEffectBase.ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.CardInstanceId != executorInfo.CardInstanceId))
                     isTrigger = true;
                 break;
             case SideEffectBundle.TriggerRange.Attached:
-                if (se_ExecuterInfo.RetinueId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.RetinueId == executerInfo.RetinueId)
+                if (se_ExecutorInfo.RetinueId != SideEffectBase.ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId == executorInfo.RetinueId)
                     isTrigger = true;
                 break;
             case SideEffectBundle.TriggerRange.Self:
-                if ((se_ExecuterInfo.RetinueId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.RetinueId == executerInfo.RetinueId) ||
-                    (se_ExecuterInfo.CardInstanceId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.CardInstanceId == executerInfo.CardInstanceId) ||
-                    (se_ExecuterInfo.EquipId != SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE && se_ExecuterInfo.EquipId == executerInfo.EquipId))
+                if ((se_ExecutorInfo.RetinueId != SideEffectBase.ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId == executorInfo.RetinueId) ||
+                    (se_ExecutorInfo.CardInstanceId != SideEffectBase.ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.CardInstanceId == executorInfo.CardInstanceId) ||
+                    (se_ExecutorInfo.EquipId != SideEffectBase.ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.EquipId == executorInfo.EquipId))
                     isTrigger = true;
                 break;
         }
@@ -255,7 +255,7 @@ public class EventManager
     /// </summary>
     Stack<SideEffectExecute> InvokeStack = new Stack<SideEffectExecute>();
 
-    private void Trigger(SideEffectExecute see, SideEffectBase.ExecuterInfo ei, SideEffectBundle.TriggerTime tt, SideEffectBundle.TriggerRange tr)
+    private void Trigger(SideEffectExecute see, SideEffectBase.ExecutorInfo ei, SideEffectBundle.TriggerTime tt, SideEffectBundle.TriggerRange tr)
     {
         if (see.TriggerDelayTimes > 0) //TriggerDelayTimes decreases and trigger the event when it's 0
         {
@@ -290,7 +290,7 @@ public class EventManager
                 //Trigger's trigger End
 
                 see.TriggerTimes--;
-                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecuterInfo, tt, tr); //Send request to client
+                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecutorInfo, tt, tr); //Send request to client
                 OnEventInvokeHandler(request);
 
                 InvokeStack.Push(see);

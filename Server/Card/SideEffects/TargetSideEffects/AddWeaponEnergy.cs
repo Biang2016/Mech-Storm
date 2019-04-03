@@ -8,7 +8,7 @@ namespace SideEffects
         {
         }
 
-        public override void Execute(ExecuterInfo executerInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
             ServerModuleRetinue retinue = player.MyGameManager.GetRetinueOnBattleGround(RetinueID);

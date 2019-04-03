@@ -2,20 +2,20 @@
 {
     public int ClientID;
     public int BuildID;
-    public int LevelID;
-    public int BossPicID;
+    public int ChapterID;
+    public int EnemyPicID;
 
 
     public MatchStandAloneRequest()
     {
     }
 
-    public MatchStandAloneRequest(int clientID, int buildID, int levelID, int bossPicID) : base(clientID)
+    public MatchStandAloneRequest(int clientID, int buildID, int chapterID, int enemyPicID) : base(clientID)
     {
         ClientID = clientID;
         BuildID = buildID;
-        LevelID = levelID;
-        BossPicID = bossPicID;
+        ChapterID = chapterID;
+        EnemyPicID = enemyPicID;
     }
 
     public override NetProtocols GetProtocol()
@@ -27,15 +27,15 @@
     {
         base.Serialize(writer);
         writer.WriteSInt32(BuildID);
-        writer.WriteSInt32(LevelID);
-        writer.WriteSInt32(BossPicID);
+        writer.WriteSInt32(ChapterID);
+        writer.WriteSInt32(EnemyPicID);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         BuildID = reader.ReadSInt32();
-        LevelID = reader.ReadSInt32();
-        BossPicID = reader.ReadSInt32();
+        ChapterID = reader.ReadSInt32();
+        EnemyPicID = reader.ReadSInt32();
     }
 }

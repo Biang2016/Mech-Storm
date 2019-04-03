@@ -6,10 +6,10 @@
         {
         }
 
-        public override void Execute(ExecuterInfo executerInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer)Player;
-            player.MyHandManager.GetCardByCardInstanceId(executerInfo.CardInstanceId).CardInfo.BaseInfo.IsTemp = true;
+            player.MyHandManager.GetCardByCardInstanceId(executorInfo.CardInstanceId).CardInfo.BaseInfo.IsTemp = true;
         }
     }
 }

@@ -20,8 +20,8 @@
     DELETE_BUILD_REQUEST_RESPONSE = 13, //删除卡组
     REFRESH_GAMEPLAYSETTINGS_REQUEST = 14, //更新单人模式的GamePlaySettings
 
-    BEAT_BOSS_REQUSET = 15, //打败BOSS
-    NEXT_LEVEL_BOSSINFO_REQUSET = 16, //下一关的boss信息
+    BEAT_ENEMY_REQUSET = 15, //打败enemy
+    NEXT_CHAPTER_ENEMYINFO_REQUSET = 16, //下一章的enemy信息
 
     #endregion
 
@@ -64,7 +64,7 @@
     RETINUE_ATTACK_RETINUE_REQUEST_RESPONSE, //随从攻击随从_服务器响应
 
     END_ROUND_REQUEST_RESPONSE, //结束回合_服务器响应
-    END_LEVEL_REQUEST_RESPONSE, //结束战斗_服务器响应
+    END_BATTLE_REQUEST_RESPONSE, //结束战斗_服务器响应
     WIN_DIRECTLY_REQUEST_RESPONSE, //直接获胜_服务器响应
 
     #endregion
@@ -142,7 +142,7 @@
     RETINUE_ATTACK_SHIP_REQUEST, //随从攻击战舰
 
     END_ROUND_REQUEST, //结束回合
-    END_LEVEL_REQUEST, //结束战斗
+    END_BATTLE_REQUEST, //结束战斗
     WIN_DIRECTLY_REQUEST, //直接赢得战斗（GM协议）
 
     #endregion

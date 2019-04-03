@@ -115,7 +115,7 @@ public class SideEffectBundle
         int SideEffectCount = reader.ReadSInt32();
         for (int i = 0; i < SideEffectCount; i++)
         {
-            SideEffectExecute see = SideEffectExecute.Deserialze(reader);
+            SideEffectExecute see = SideEffectExecute.Deserialize(reader);
             res.AddSideEffectExecute(see);
         }
 

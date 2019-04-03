@@ -11,7 +11,7 @@
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
         {
             see.SideEffectBase.Player = ServerPlayer;
-            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(
+            see.SideEffectBase.M_ExecutorInfo = new SideEffectBase.ExecutorInfo(
                 clientId: ServerPlayer.ClientId,
                 sideEffectExecutorID: see.ID,
                 retinueId: M_ModuleRetinue.M_RetinueID,
@@ -22,7 +22,7 @@
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle_OnBattleGround.SideEffectExecutes)
         {
             see.SideEffectBase.Player = ServerPlayer;
-            see.SideEffectBase.M_ExecuterInfo = new SideEffectBase.ExecuterInfo(
+            see.SideEffectBase.M_ExecutorInfo = new SideEffectBase.ExecutorInfo(
                 clientId: ServerPlayer.ClientId,
                 sideEffectExecutorID: see.ID,
                 retinueId: M_ModuleRetinue.M_RetinueID,

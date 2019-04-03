@@ -143,7 +143,7 @@ internal class ServerHandManager
         if (!dropCard.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
     }
 
-    internal void UseCard(int cardInstanceId, int targetRetinueId = SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE, int targetEquipId = SideEffectBase.ExecuterInfo.EXECUTE_INFO_NONE, int targetClientId = -1, bool onlyTriggerNotUse = false)
+    internal void UseCard(int cardInstanceId, int targetRetinueId = SideEffectBase.ExecutorInfo.EXECUTE_INFO_NONE, int targetEquipId = SideEffectBase.ExecutorInfo.EXECUTE_INFO_NONE, int targetClientId = -1, bool onlyTriggerNotUse = false)
     {
         ServerCardBase useCard = GetCardByCardInstanceId(cardInstanceId);
 
@@ -151,7 +151,7 @@ internal class ServerHandManager
         {
             ServerCardBase copyCard = ServerCardBase.InstantiateCardByCardInfo(useCard.CardInfo.Clone(), useCard.ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
-                new SideEffectBase.ExecuterInfo(
+                new SideEffectBase.ExecutorInfo(
                     clientId: ServerPlayer.ClientId,
                     targetClientId: targetClientId,
                     targetRetinueId: targetRetinueId,
@@ -167,7 +167,7 @@ internal class ServerHandManager
             ServerPlayer.UseMetalAboveZero(useCard.CardInfo.BaseInfo.Metal);
             ServerPlayer.UseEnergyAboveZero(useCard.CardInfo.BaseInfo.Energy);
             ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
-                new SideEffectBase.ExecuterInfo(
+                new SideEffectBase.ExecutorInfo(
                     clientId: ServerPlayer.ClientId,
                     targetClientId: targetClientId,
                     targetRetinueId: targetRetinueId,

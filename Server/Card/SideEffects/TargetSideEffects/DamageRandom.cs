@@ -8,10 +8,10 @@ namespace SideEffects
         {
         }
 
-        public override void Execute(ExecuterInfo executerInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            int retinueId = executerInfo.RetinueId;
+            int retinueId = executorInfo.RetinueId;
             switch (M_TargetRange)
             {
                 case TargetRange.Mechs:

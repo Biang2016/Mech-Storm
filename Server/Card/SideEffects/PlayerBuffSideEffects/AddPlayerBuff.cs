@@ -6,12 +6,12 @@
         {
         }
 
-        public override void Execute(ExecuterInfo executerInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
 
             AttachedBuffSEE.SideEffectBase.Player = player;
-            AttachedBuffSEE.SideEffectBase.M_ExecuterInfo = new ExecuterInfo(clientId: player.ClientId, sideEffectExecutorID: AttachedBuffSEE.ID, isPlayerBuff: true);
+            AttachedBuffSEE.SideEffectBase.M_ExecutorInfo = new ExecutorInfo(clientId: player.ClientId, sideEffectExecutorID: AttachedBuffSEE.ID, isPlayerBuff: true);
             player.UpdatePlayerBuff(AttachedBuffSEE, true);
         }
     }

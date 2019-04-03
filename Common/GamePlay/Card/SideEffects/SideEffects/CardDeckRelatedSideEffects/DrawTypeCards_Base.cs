@@ -29,7 +29,7 @@ public class DrawTypeCards_Base : CardDeckRelatedSideEffects, IEffectFactor
 
     public override string GenerateDesc()
     {
-        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, BaseInfo.CardTypeNameDict[LanguageManager_Common.GetCurrentLanguage()][DrawCardType], FinalValue <= 1 ? "" : "s");
+        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, BaseInfo.CardTypeNameDict[LanguageManager_Common.GetCurrentLanguage()][DrawCardType], FinalValue <= 1 ? "" : "s");
     }
 
     public override void Serialize(DataStream writer)

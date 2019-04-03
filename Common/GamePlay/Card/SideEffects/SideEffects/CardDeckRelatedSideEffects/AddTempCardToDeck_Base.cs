@@ -30,7 +30,7 @@ public class AddTempCardToDeck_Base : CardDeckRelatedSideEffects, IEffectFactor
     public override string GenerateDesc()
     {
         BaseInfo bi = AllCards.GetCard(CardId).BaseInfo;
-        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, "[" + bi.CardNames[LanguageManager_Common.GetCurrentLanguage()] + "]");
+        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, "[" + bi.CardNames[LanguageManager_Common.GetCurrentLanguage()] + "]");
     }
 
     public override void Serialize(DataStream writer)

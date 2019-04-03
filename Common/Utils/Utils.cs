@@ -182,11 +182,6 @@ public partial class Utils
         return res.ToList();
     }
 
-    public static string NormalizeFileSperator(string fullFilename)
-    {
-        return fullFilename.Replace("\\", "/");
-    }
-
     public static void CopyDirectory(string srcPath, string destPath)
     {
         DirectoryInfo dir = new DirectoryInfo(srcPath);
@@ -207,45 +202,5 @@ public partial class Utils
                 File.Copy(i.FullName, destPath + "/" + i.Name, true); //不是文件夹即复制文件，true表示可以覆盖同名文件
             }
         }
-    }
-
-    public static HashSet<T> CloneHashSet<T>(HashSet<T> src)
-    {
-        HashSet<T> res = new HashSet<T>();
-        foreach (T t in src)
-        {
-            T res_t = t;
-            if (t is IClone<T> t_Clone)
-            {
-                res_t = t_Clone.Clone();
-            }
-
-            res.Add(res_t);
-        }
-
-        return res;
-    }
-
-    public static SortedDictionary<T1, T2> CloneSortedDictionary<T1, T2>(SortedDictionary<T1, T2> src)
-    {
-        SortedDictionary<T1, T2> res = new SortedDictionary<T1, T2>();
-        foreach (KeyValuePair<T1, T2> kv in src)
-        {
-            T1 res_t1 = kv.Key;
-            T2 res_t2 = kv.Value;
-            if (kv.Key is IClone<T1> t1_Clone)
-            {
-                res_t1 = t1_Clone.Clone();
-            }
-
-            if (kv.Value is IClone<T2> t2_Clone)
-            {
-                res_t2 = t2_Clone.Clone();
-            }
-
-            res.Add(res_t1, res_t2);
-        }
-
-        return res;
     }
 }

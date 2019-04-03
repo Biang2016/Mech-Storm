@@ -240,6 +240,26 @@
       <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="5"></SideEffect>
     </CardInfo>
   </Card>
+  <Card id="5308">
+    <CardInfo name="baseInfo" pictureID="53" cardName_zh="太空机雷S" cardName_en="Mech Mine S" isTemp="False" hide="True" metal="1" energy="0" coin="100" effectFactor="1" limitNum="0" cardRareLevel="0" cardType="Retinue" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="lifeInfo" life="1" totalLife="1" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="7"></SideEffect>
+    </CardInfo>
+  </Card>
+  <Card id="5309">
+    <CardInfo name="baseInfo" pictureID="53" cardName_zh="太空机雷SP" cardName_en="Mech Mine SP" isTemp="False" hide="True" metal="1" energy="0" coin="100" effectFactor="1" limitNum="0" cardRareLevel="0" cardType="Retinue" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
+    <CardInfo name="lifeInfo" life="1" totalLife="1" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="10"></SideEffect>
+    </CardInfo>
+  </Card>
   <Card id="5401">
     <CardInfo name="baseInfo" pictureID="54" cardName_zh="战场工兵I" cardName_en="Field Engineer" isTemp="False" hide="False" metal="1" energy="0" coin="50" effectFactor="1" limitNum="5" cardRareLevel="0" cardType="Retinue" />
     <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />

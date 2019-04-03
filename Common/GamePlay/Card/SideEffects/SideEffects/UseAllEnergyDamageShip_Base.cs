@@ -34,7 +34,7 @@ public class UseAllEnergyDamageShip_Base : SideEffectBase, IEffectFactor, IDamag
 
     public override string GenerateDesc()
     {
-        return HightlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, FinalValue_Plus);
+        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, FinalValue_Plus);
     }
 
 

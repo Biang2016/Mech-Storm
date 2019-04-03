@@ -119,7 +119,7 @@ internal class ClientProxy : ProxyBase
                         ServerLog.PrintClientStates("Client " + ClientId + " version valid.");
                     clientVersionValid = true;
                     break;
-                case RegisterRequest _:
+                case RegisterRequest request:
                     if (clientVersionValid)
                     {
                         if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
@@ -133,8 +133,6 @@ internal class ClientProxy : ProxyBase
 
                         if (ClientState == ClientStates.GetId)
                         {
-                            RegisterRequest request = (RegisterRequest) r;
-
                             bool suc = Database.Instance.AddUser(request.username, request.password);
                             RegisterResultRequest response = new RegisterResultRequest(suc);
 
@@ -143,7 +141,7 @@ internal class ClientProxy : ProxyBase
                     }
 
                     break;
-                case LoginRequest _:
+                case LoginRequest request:
                     if (clientVersionValid)
                     {
                         if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
@@ -157,7 +155,6 @@ internal class ClientProxy : ProxyBase
 
                         if (ClientState == ClientStates.GetId)
                         {
-                            LoginRequest request = (LoginRequest) r;
                             LoginResultRequest response;
 
                             string password = Database.Instance.GetUserPasswordByUsername(request.username);
@@ -208,12 +205,11 @@ internal class ClientProxy : ProxyBase
                     }
 
                     break;
-                case LogoutRequest _:
+                case LogoutRequest request:
                 {
                     if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
                         ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
-                    LogoutRequest request = (LogoutRequest) r;
                     LogoutResultRequest response;
                     if (ClientState != ClientStates.GetId)
                     {
@@ -236,7 +232,7 @@ internal class ClientProxy : ProxyBase
                     Story newStory = Database.Instance.StoryStartDict["Story1"].Variant();
                     Database.Instance.RemovePlayerStory(UserName, this);
                     Database.Instance.PlayerStoryStates.Add(UserName, newStory);
-                    newStory.UnlockLevelBosses(0);
+                    newStory.UnlockChapterEnemies(0);
                     foreach (KeyValuePair<int, BuildInfo> kv in newStory.PlayerBuildInfos)
                     {
                         Database.Instance.BuildInfoDict.Add(kv.Key, kv.Value);
@@ -247,9 +243,8 @@ internal class ClientProxy : ProxyBase
                     break;
                 }
 
-                case BonusGroupRequest _:
+                case BonusGroupRequest request:
                 {
-                    BonusGroupRequest request = (BonusGroupRequest) r;
                     Story story = Database.Instance.PlayerStoryStates[username];
                     if (story != null)
                     {
@@ -301,20 +296,19 @@ internal class ClientProxy : ProxyBase
                     break;
                 }
 
-                case EndChapterRequest _:
+                case EndBattleRequest _:
                 {
                     Story story = Database.Instance.PlayerStoryStates[username];
                     StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(story);
                     SendMessage(response);
 
-                    EndLevelRequestResponse request = new EndLevelRequestResponse();
+                    EndBattleRequestResponse request = new EndBattleRequestResponse();
                     SendMessage(request);
                     break;
                 }
 
-                case BuildRequest _:
+                case BuildRequest request:
                 {
-                    BuildRequest request = (BuildRequest) r;
                     if (request.BuildInfo.BuildID == -1)
                     {
                         request.BuildInfo.BuildID = BuildInfo.GenerateBuildID();
@@ -340,16 +334,15 @@ internal class ClientProxy : ProxyBase
                     break;
                 }
 
-                case DeleteBuildRequest _:
+                case DeleteBuildRequest request:
                 {
-                    DeleteBuildRequest request = (DeleteBuildRequest) r;
                     Database.Instance.DeleteBuild(username, request.buildID, request.isSingle);
                     DeleteBuildRequestResponse response = new DeleteBuildRequestResponse(request.buildID);
                     SendMessage(response);
                     break;
                 }
 
-                case MatchRequest _:
+                case MatchRequest request:
                     if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
                         ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
@@ -361,7 +354,6 @@ internal class ClientProxy : ProxyBase
 
                     if (ClientState == ClientStates.Login)
                     {
-                        MatchRequest request = (MatchRequest) r;
                         CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.buildID);
                         ClientState = ClientStates.Matching;
                         Server.SV.SGMM.OnClientMatchGames(this);
@@ -369,7 +361,7 @@ internal class ClientProxy : ProxyBase
 
                     break;
 
-                case MatchStandAloneRequest _:
+                case MatchStandAloneRequest request:
                     if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
                         ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
@@ -381,16 +373,15 @@ internal class ClientProxy : ProxyBase
 
                     if (ClientState == ClientStates.Login)
                     {
-                        MatchStandAloneRequest request = (MatchStandAloneRequest) r;
                         CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.BuildID);
                         ClientState = ClientStates.Matching;
-                        if (request.LevelID == -1 && request.BossPicID == -1)
+                        if (request.ChapterID == -1 && request.EnemyPicID == -1)
                         {
                             Server.SV.SGMM.OnClientMatchStandAloneCustomGames(this);
                         }
                         else
                         {
-                            Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.LevelID, request.BossPicID);
+                            Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.ChapterID, request.EnemyPicID);
                         }
                     }
 

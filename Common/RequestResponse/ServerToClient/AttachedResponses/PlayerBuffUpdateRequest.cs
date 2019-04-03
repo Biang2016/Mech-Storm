@@ -33,7 +33,7 @@
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
         buffId = reader.ReadSInt32();
-        buffSEE = SideEffectExecute.Deserialze(reader);
+        buffSEE = SideEffectExecute.Deserialize(reader);
     }
 
 }

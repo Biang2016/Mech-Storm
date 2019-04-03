@@ -6,23 +6,23 @@
         {
         }
 
-        public override void Execute(ExecuterInfo executerInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
 
             if ((M_TargetRange & TargetRange.Mechs) != 0)
             {
-                player.MyBattleGroundManager.DamageOneRetinue(executerInfo.TargetRetinueId, FinalValue);
-                player.MyEnemyPlayer.MyBattleGroundManager.DamageOneRetinue(executerInfo.TargetRetinueId, FinalValue);
+                player.MyBattleGroundManager.DamageOneRetinue(executorInfo.TargetRetinueId, FinalValue);
+                player.MyEnemyPlayer.MyBattleGroundManager.DamageOneRetinue(executorInfo.TargetRetinueId, FinalValue);
             }
 
             if ((M_TargetRange & TargetRange.Ships) != 0)
             {
-                if (executerInfo.TargetClientId == player.ClientId)
+                if (executorInfo.TargetClientId == player.ClientId)
                 {
                     player.DamageLifeAboveZero(FinalValue);
                 }
-                else if (executerInfo.TargetClientId == player.EnemyClientId)
+                else if (executorInfo.TargetClientId == player.EnemyClientId)
                 {
                     player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
                 }
@@ -35,7 +35,7 @@
 
             if (M_TargetRange == TargetRange.Self)
             {
-                player.MyBattleGroundManager.DamageOneRetinue(executerInfo.RetinueId, FinalValue);
+                player.MyBattleGroundManager.DamageOneRetinue(executorInfo.RetinueId, FinalValue);
             }
         }
     }

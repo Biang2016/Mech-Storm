@@ -1,6 +1,6 @@
 ﻿public class ShowSideEffectTriggeredRequest : ServerRequestBase
 {
-    public SideEffectBase.ExecuterInfo ExecuterInfo;
+    public SideEffectBase.ExecutorInfo ExecutorInfo;
     public SideEffectBundle.TriggerTime TriggerTime;
     public SideEffectBundle.TriggerRange TriggerRange;
 
@@ -9,9 +9,9 @@
     {
     }
 
-    public ShowSideEffectTriggeredRequest(SideEffectBase.ExecuterInfo executerInfo, SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
+    public ShowSideEffectTriggeredRequest(SideEffectBase.ExecutorInfo executorInfo, SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
     {
-        ExecuterInfo = executerInfo;
+        ExecutorInfo = executorInfo;
         TriggerTime = triggerTime;
         TriggerRange = triggerRange;
     }
@@ -24,7 +24,7 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        ExecuterInfo.Serialize(writer);
+        ExecutorInfo.Serialize(writer);
         writer.WriteSInt32((int) TriggerTime);
         writer.WriteSInt32((int)TriggerRange);
     }
@@ -32,7 +32,7 @@
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        ExecuterInfo = SideEffectBase.ExecuterInfo.Deserialize(reader);
+        ExecutorInfo = SideEffectBase.ExecutorInfo.Deserialize(reader);
         TriggerTime = (SideEffectBundle.TriggerTime) reader.ReadSInt32();
         TriggerRange = (SideEffectBundle.TriggerRange) reader.ReadSInt32();
     }

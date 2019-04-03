@@ -6,19 +6,19 @@
         {
         }
 
-        public override void Execute(ExecuterInfo executerInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
 
             if ((M_TargetRange & TargetRange.Mechs) != 0)
             {
-                player.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
-                player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(executerInfo.TargetRetinueId);
+                player.MyBattleGroundManager.KillOneRetinue(executorInfo.TargetRetinueId);
+                player.MyEnemyPlayer.MyBattleGroundManager.KillOneRetinue(executorInfo.TargetRetinueId);
             }
 
             if (M_TargetRange == TargetRange.Self)
             {
-                player.MyBattleGroundManager.KillOneRetinue(executerInfo.RetinueId);
+                player.MyBattleGroundManager.KillOneRetinue(executorInfo.RetinueId);
             }
         }
     }

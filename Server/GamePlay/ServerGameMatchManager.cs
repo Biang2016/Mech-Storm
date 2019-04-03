@@ -85,7 +85,7 @@ internal class ServerGameMatchManager
         int AI_ClientId = Server.SV.GenerateClientId();
         ClientProxy clientB = new ClientProxyAI(AI_ClientId, false, LevelID, BossPicID);
 
-        string bossBuildName = Database.Instance.PlayerStoryStates[clientProxy.UserName].Levels[LevelID].Bosses[BossPicID].BuildName;
+        string bossBuildName = Database.Instance.PlayerStoryStates[clientProxy.UserName].Chapters[LevelID].Enemies[BossPicID].BuildName;
         BuildInfo buildInfo = Database.Instance.SpecialBuildsDict["ServerAdmin"].GetBuildInfo(bossBuildName).Clone();
         clientB.CurrentBuildInfo = buildInfo;
 

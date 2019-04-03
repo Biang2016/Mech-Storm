@@ -2,7 +2,7 @@
 {
     public override string GenerateDesc()
     {
-        return HightlightStringFormat( DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange,false, true));
+        return HighlightStringFormat( DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange,false, true));
     }
 
 }
