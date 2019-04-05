@@ -21,7 +21,6 @@
     REFRESH_GAMEPLAYSETTINGS_REQUEST = 14, //更新单人模式的GamePlaySettings
 
     BEAT_ENEMY_REQUSET = 15, //打败enemy
-    NEXT_CHAPTER_ENEMYINFO_REQUSET = 16, //下一章的enemy信息
 
     #endregion
 

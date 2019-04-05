@@ -3,7 +3,6 @@
     internal ServerPlayer ServerPlayer;
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
 
-
     public static ServerCardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, ServerPlayer serverPlayer, int cardInstanceId)
     {
         ServerCardBase newCard;

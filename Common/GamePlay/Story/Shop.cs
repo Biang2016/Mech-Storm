@@ -1,18 +1,19 @@
 ﻿
-public class Shop : ChapterPace
+public class Shop : StoryPace
 {
-    public int ShopID;
-
     private Shop()
     {
     }
 
-    public override ChapterPace Clone()
+    public override Story M_Story { get; set; }
+
+    public override StoryPace Clone()
     {
+        //TODO
         return this;
     }
 
-    public override ChapterPace Variant()
+    public override StoryPace Variant()
     {
         Shop newShop = new Shop();
         //TODO

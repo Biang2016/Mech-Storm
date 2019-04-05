@@ -55,7 +55,7 @@ public partial class SelectBuildManager
     public void SwitchGameMode(GameMode gameMode, bool isForce = false)
     {
         if (!isForce && GameMode_State == gameMode) return;
-        if (StoryManager.Instance.M_CurrentStory == null && gameMode == GameMode.Single) return;
+        if (!StoryManager.Instance.HasStory && gameMode == GameMode.Single) return;
         GameMode_State = gameMode;
         InitAllMyBuildInfos();
         SetAllCardHideElementsByAccount();
@@ -76,13 +76,13 @@ public partial class SelectBuildManager
         }
         else
         {
-            buildInfos = StoryManager.Instance.M_CurrentStory.PlayerBuildInfos.Values.ToList();
+            buildInfos = StoryManager.Instance.GetStory().PlayerBuildInfos.Values.ToList();
             foreach (BuildInfo buildInfo in buildInfos)
             {
                 CheckBuildInfoValid(buildInfo);
             }
 
-            GamePlaySettings = StoryManager.Instance.M_CurrentStory.StoryGamePlaySettings;
+            GamePlaySettings = StoryManager.Instance.GetStory().StoryGamePlaySettings;
         }
 
         InitializeSliders();
@@ -134,7 +134,7 @@ public partial class SelectBuildManager
             CurrentSelectedBuildButton.IsSelected = true;
             SelectCardsByBuildInfo(CurrentEditBuildButton.BuildInfo);
 
-            StartMenuManager.Instance.RefreshBuildInfoAbstract();
+            UIManager.Instance.GetBaseUIForm<StartMenuPanel>()?.RefreshBuildInfoAbstract();
 
             ShowSliders();
             RefreshCoinLifeEnergy();
@@ -144,7 +144,7 @@ public partial class SelectBuildManager
         {
             if (GameMode_State == GameMode.Single)
             {
-                UnlockedCards(StoryManager.Instance.M_CurrentStory.Base_CardLimitDict);
+                UnlockedCards(StoryManager.Instance.GetStory().Base_CardLimitDict);
             }
             else
             {
@@ -156,9 +156,9 @@ public partial class SelectBuildManager
 
         if (GameMode_State == GameMode.Single)
         {
-            if (StoryManager.Instance.M_CurrentStory.PlayerBuildInfos.Count != 0)
+            if (StoryManager.Instance.GetStory().PlayerBuildInfos.Count != 0)
             {
-                int buildID = StoryManager.Instance.M_CurrentStory.PlayerBuildInfos.Keys.ToList()[0];
+                int buildID = StoryManager.Instance.GetStory().PlayerBuildInfos.Keys.ToList()[0];
                 SwitchToBuildButton(buildID);
             }
         }
@@ -197,7 +197,7 @@ public partial class SelectBuildManager
 
     private BuildButton GenerateNewBuildButton(BuildInfo m_BuildInfo)
     {
-        BuildButton newBuildButton = GameObjectPoolManager.Instance.Pool_BuildButtonPool.AllocateGameObject<BuildButton>(AllMyBuildsContent);
+        BuildButton newBuildButton = GameObjectPoolManager.Instance.PoolDict["BuildButton"].AllocateGameObject<BuildButton>(AllMyBuildsContent);
         newBuildButton.Initialize(m_BuildInfo);
 
         CreateNewBuildButton.transform.parent.SetAsLastSibling();
@@ -267,7 +267,7 @@ public partial class SelectBuildManager
         SortedDictionary<int, int> ccd = null;
         if (GameMode_State == GameMode.Single)
         {
-            ccd = StoryManager.Instance.M_CurrentStory.Base_CardLimitDict;
+            ccd = StoryManager.Instance.GetStory().Base_CardLimitDict;
         }
 
         BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildInfo.BuildCards(new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>()), GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy,
@@ -283,7 +283,7 @@ public partial class SelectBuildManager
         SortedDictionary<int, int> ccd = null;
         if (GameMode_State == GameMode.Single)
         {
-            ccd = StoryManager.Instance.M_CurrentStory.Base_CardLimitDict;
+            ccd = StoryManager.Instance.GetStory().Base_CardLimitDict;
         }
 
         BuildButton newBuildButton = GenerateNewBuildButton(buildInfo);
@@ -295,7 +295,7 @@ public partial class SelectBuildManager
         }
         else if (GameMode_State == GameMode.Single)
         {
-            StoryManager.Instance.M_CurrentStory.PlayerBuildInfos.Add(newBuildButton.BuildInfo.BuildID, newBuildButton.BuildInfo);
+            StoryManager.Instance.GetStory().PlayerBuildInfos.Add(newBuildButton.BuildInfo.BuildID, newBuildButton.BuildInfo);
         }
 
         OnSwitchEditBuild(newBuildButton);
@@ -327,7 +327,7 @@ public partial class SelectBuildManager
     public void OnDeleteBuildResponse(int buildID)
     {
         M_CurrentOnlineCompete.OnlineBuildInfos.Remove(buildID);
-        if (StoryManager.Instance.M_CurrentStory != null) StoryManager.Instance.M_CurrentStory.PlayerBuildInfos.Remove(buildID);
+        if (StoryManager.Instance.GetStory() != null) StoryManager.Instance.GetStory().PlayerBuildInfos.Remove(buildID);
 
         if (CurrentBuildButtons.ContainsKey(buildID))
         {
@@ -386,7 +386,7 @@ public partial class SelectBuildManager
         }
         else if (GameMode_State == GameMode.Single)
         {
-            StoryManager.Instance.M_CurrentStory.PlayerBuildInfos[buildInfo.BuildID] = buildInfo;
+            StoryManager.Instance.GetStory().PlayerBuildInfos[buildInfo.BuildID] = buildInfo;
         }
     }
 }

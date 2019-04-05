@@ -136,7 +136,14 @@ public class BuildInfo : IClone<BuildInfo>
             for (int i = 0; i < cardSelectInfoCount; i++)
             {
                 CardSelectInfo csi = CardSelectInfo.Deserialize(reader);
-                cardSelectInfos.Add(csi.CardID, csi);
+                if (cardSelectInfos.ContainsKey(csi.CardID))
+                {
+                    Utils.DebugLog("key duplicated : " + csi.CardID);
+                }
+                else
+                {
+                    cardSelectInfos.Add(csi.CardID, csi);
+                }
             }
 
             return new BuildCards(cardSelectInfos);

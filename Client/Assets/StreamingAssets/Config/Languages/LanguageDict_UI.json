@@ -203,6 +203,10 @@
 		"zh": "开始自定义人机模式",
 		"en": "Begin single custom mode"
 	},
+	"StartMenu_NewCardTipText": {
+		"zh": "新卡片",
+		"en": "New!"
+	},
 
 	"Notice_StartMenu_DoYouWantToStartANewSingleGame": {
 		"zh": "是否开始一个新的游戏？",

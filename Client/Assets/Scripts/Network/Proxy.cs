@@ -65,10 +65,10 @@ public class Proxy : ProxyBase
         ClientState = ClientStates.Matching;
     }
 
-    public void OnBeginSingleMode(int levelID, int bossPicID)
+    public void OnBeginSingleMode(int storyPaceID)
     {
         ClientRequestBase req = null;
-        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID, levelID, bossPicID);
+        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID, storyPaceID);
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
@@ -105,7 +105,7 @@ public class Proxy : ProxyBase
                     Client.ServerVersion = request.serverVersion;
                     if (Client.Instance.ClientInvalid)
                     {
-                        LoginManager.Instance.ShowUpdateConfirmWindow();
+                        UIManager.Instance.GetBaseUIForm<LoginPanel>().ShowUpdateConfirmPanel();
                     }
                     else
                     {
@@ -141,8 +141,8 @@ public class Proxy : ProxyBase
                             IsSuperAccount = Username == "ServerAdmin" || Username == "StoryAdmin";
                             ClientState = ClientStates.Login;
                             NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Proxy_LoginSuccess"), 0, 0.5f);
-                            LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Hide);
-                            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Main);
+                            UIManager.Instance.CloseUIForms<LoginPanel>();
+                            UIManager.Instance.ShowUIForms<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Main);
                             break;
                         }
                         case LoginResultRequest.StateCodes.WrongPassword:
@@ -173,9 +173,9 @@ public class Proxy : ProxyBase
                         ClientState = ClientStates.GetId;
                         NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Proxy_LogOutSuccess"), 0, 0.5f);
                         Client.Instance.Proxy.ClientState = ClientStates.GetId;
-                        StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+                        UIManager.Instance.CloseUIForms<StartMenuPanel>();
                         SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
-                        LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
+                        UIManager.Instance.ShowUIForms<LoginPanel>();
                     }
                     else
                     {
@@ -187,9 +187,9 @@ public class Proxy : ProxyBase
                 case NetProtocols.START_NEW_STORY_REQUEST_RESPONSE:
                 {
                     StartNewStoryRequestResponse request = (StartNewStoryRequestResponse) r;
-                    StoryManager.Instance.InitiateStoryCanvas(request.Story);
+                    //StoryPanel.Instance.InitiateStoryCanvas(request.Story);
                     SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single, true);
-                    StartMenuManager.Instance.M_StateMachine.RefreshStoryState();
+                    UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Single_HasStory);
                     AudioManager.Instance.SoundPlay("sfx/OnStoryStart");
                     break;
                 }
@@ -217,28 +217,13 @@ public class Proxy : ProxyBase
                     SelectBuildManager.Instance.M_CurrentOnlineCompete = new SelectBuildManager.OnlineCompete();
                     SelectBuildManager.Instance.M_CurrentOnlineCompete.OnlineGamePlaySettings = request.OnlineGamePlaySettings;
                     SelectBuildManager.Instance.M_CurrentOnlineCompete.OnlineBuildInfos = request.OnlineBuildInfos;
-                    if (request.HasStory)
-                    {
-                        StoryManager.Instance.M_CurrentStory = request.Story;
-                        StoryManager.Instance.InitiateStoryCanvas(request.Story);
-                    }
-                    else
-                    {
-                        StoryManager.Instance.M_CurrentStory = null;
-                    }
-
+                    StoryManager.Instance.InitializeStory(request.Story);
                     break;
                 }
-                case NetProtocols.BEAT_BOSS_REQUSET:
+                case NetProtocols.BEAT_ENEMY_REQUSET:
                 {
-                    BeatBossRequest request = (BeatBossRequest) r;
-                    StoryManager.Instance.SetLevelBeated(request.LevelID, request.BossPicID);
-                    break;
-                }
-                case NetProtocols.NEXT_LEVEL_BOSSINFO_REQUSET:
-                {
-                    NextLevelBossesRequest request = (NextLevelBossesRequest) r;
-                    StoryManager.Instance.SetLevelKnown(request.LevelID, request.NextLevelBossPicIDs);
+                    BeatEnemyRequest request = (BeatEnemyRequest) r;
+                    StoryManager.Instance.SetStoryPaceBeated(request.StoryPaceID);
                     break;
                 }
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:

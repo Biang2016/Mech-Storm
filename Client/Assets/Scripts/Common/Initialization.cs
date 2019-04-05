@@ -22,15 +22,19 @@ public class Initialization : MonoSingleton<Initialization>
             LoadShaders_AB();
             LoadSpriteAtlas_AB();
             LoadAudios_AB();
+            LoadPrefabs_AB();
             LoadManager_AB();
         }
         else
         {
             LoadSpriteAtlas_Editor();
+            LoadPrefabs_Editor();
             LoadManager_Editor();
         }
 
         Debug.Log("Start the client...");
+
+        UIManager.Instance.ShowUIForms<LoginPanel>();
     }
 
     private void LoadManager_AB()
@@ -94,6 +98,7 @@ public class Initialization : MonoSingleton<Initialization>
 
     private void LoadAudios_AB()
     {
+        AudioManager.ClearAudioClipDict();
         List<AssetBundle> list = ABManager.LoadAllAssetBundleNamedLike("audio_");
         foreach (AssetBundle assetBundle in list)
         {
@@ -110,10 +115,36 @@ public class Initialization : MonoSingleton<Initialization>
             AudioClip[] audioClips = assetBundle.LoadAllAssets<AudioClip>();
             foreach (AudioClip audioClip in audioClips)
             {
-                AudioManager.AudioClipDict_ABModeOnly.Add(prefix + audioClip.name, audioClip);
+                AudioManager.AddAudioRes(prefix + audioClip.name, audioClip);
             }
         }
 
         Debug.Log("LoadAudios_AB");
+    }
+
+    private void LoadPrefabs_Editor()
+    {
+        PrefabManager.ClearPrefabDict();
+        GameObject[] prefabs = Resources.LoadAll<GameObject>("Prefabs/");
+        foreach (GameObject prefab in prefabs)
+        {
+            PrefabManager.AddPrefabRes(prefab.name, prefab);
+        }
+
+        Debug.Log("LoadPrefabs_Editor");
+    }
+
+    private void LoadPrefabs_AB()
+    {
+        PrefabManager.ClearPrefabDict();
+        AssetBundle assetBundle = ABManager.LoadAssetBundle("prefabs");
+
+        GameObject[] prefabs = assetBundle.LoadAllAssets<GameObject>();
+        foreach (GameObject prefab in prefabs)
+        {
+            PrefabManager.AddPrefabRes(prefab.name, prefab);
+        }
+
+        Debug.Log("LoadPrefabs_AB");
     }
 }

@@ -47,7 +47,6 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
             writer.WriteSInt32(KV.Value.Count);
             foreach (KeyValuePair<int, Enemy> kv in KV.Value)
             {
-                writer.WriteSInt32(kv.Key);
                 kv.Value.Serialize(writer);
             }
         }
@@ -55,7 +54,6 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         writer.WriteSInt32(ChapterAllShops.Count);
         foreach (KeyValuePair<int, Shop> kv in ChapterAllShops)
         {
-            writer.WriteSInt32(kv.Key);
             kv.Value.Serialize(writer);
         }
     }
@@ -72,9 +70,8 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
             int _count = reader.ReadSInt32();
             for (int j = 0; j < _count; j++)
             {
-                int picID = reader.ReadSInt32();
                 Enemy enemy = Enemy.Deserialize(reader);
-                newLevel.ChapterAllEnemies[enemyType].Add(picID, enemy);
+                newLevel.ChapterAllEnemies[enemyType].Add(enemy.StoryPaceID, enemy);
             }
         }
 
@@ -82,7 +79,7 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         for (int i = 0; i < count; i++)
         {
             Shop shop = Shop.Deserialize(reader);
-            newLevel.ChapterAllShops.Add(shop.ShopID, shop);
+            newLevel.ChapterAllShops.Add(shop.StoryPaceID, shop);
         }
 
         return newLevel;

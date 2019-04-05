@@ -14,7 +14,7 @@ public class MetalBarBlock : PoolObject
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.Pool_MetalBarBlockPool;
+        gameObjectPool = GameObjectPoolManager.Instance.PoolDict["MetalBarBlock"];
     }
 
     [SerializeField] private Renderer My_Renderer;

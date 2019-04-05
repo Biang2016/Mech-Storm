@@ -8,7 +8,6 @@ namespace SideEffects
         {
         }
 
-
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;

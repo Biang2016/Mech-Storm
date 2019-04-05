@@ -24,8 +24,8 @@ internal class ClientProxy : ProxyBase
         {
             ClientStates before = ClientState;
             clientState = value;
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintClientStates("Client " + ClientId + " state change: " + before + " -> " + ClientState);
+
+            ServerLog.PrintClientStates("Client " + ClientId + " state change: " + before + " -> " + ClientState);
         }
     }
 
@@ -35,7 +35,6 @@ internal class ClientProxy : ProxyBase
         ClientState = ClientStates.GetId;
         SendMessage(request);
     }
-
 
     protected ServerPlayer MyPlayer;
     protected ServerPlayer EnemyPlayer;
@@ -115,15 +114,14 @@ internal class ClientProxy : ProxyBase
             switch (r)
             {
                 case ClientVersionValidRequest _:
-                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                        ServerLog.PrintClientStates("Client " + ClientId + " version valid.");
+
+                    ServerLog.PrintClientStates("Client " + ClientId + " version valid.");
                     clientVersionValid = true;
                     break;
                 case RegisterRequest request:
                     if (clientVersionValid)
                     {
-                        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                            ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                         if (ClientState != ClientStates.GetId)
                         {
@@ -144,8 +142,7 @@ internal class ClientProxy : ProxyBase
                 case LoginRequest request:
                     if (clientVersionValid)
                     {
-                        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                            ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                         if (ClientState != ClientStates.GetId)
                         {
@@ -207,8 +204,7 @@ internal class ClientProxy : ProxyBase
                     break;
                 case LogoutRequest request:
                 {
-                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                     LogoutResultRequest response;
                     if (ClientState != ClientStates.GetId)
@@ -232,7 +228,9 @@ internal class ClientProxy : ProxyBase
                     Story newStory = Database.Instance.StoryStartDict["Story1"].Variant();
                     Database.Instance.RemovePlayerStory(UserName, this);
                     Database.Instance.PlayerStoryStates.Add(UserName, newStory);
-                    newStory.UnlockChapterEnemies(0);
+
+                    //TODO
+
                     foreach (KeyValuePair<int, BuildInfo> kv in newStory.PlayerBuildInfos)
                     {
                         Database.Instance.BuildInfoDict.Add(kv.Key, kv.Value);
@@ -259,34 +257,34 @@ internal class ClientProxy : ProxyBase
                                 }
                                 case Bonus.BonusType.LifeUpperLimit:
                                 {
-                                    story.StoryGamePlaySettings.DefaultLifeMax += bonus.Value;
-                                    story.StoryGamePlaySettings.DefaultLife += bonus.Value;
+                                    story.StoryGamePlaySettings.DefaultLifeMax += bonus.BonusFinalValue;
+                                    story.StoryGamePlaySettings.DefaultLife += bonus.BonusFinalValue;
                                     foreach (KeyValuePair<int, BuildInfo> kv in story.PlayerBuildInfos)
                                     {
-                                        kv.Value.Life += bonus.Value;
+                                        kv.Value.Life += bonus.BonusFinalValue;
                                     }
 
                                     break;
                                 }
                                 case Bonus.BonusType.EnergyUpperLimit:
                                 {
-                                    story.StoryGamePlaySettings.DefaultEnergyMax += bonus.Value;
-                                    story.StoryGamePlaySettings.DefaultEnergy += bonus.Value;
+                                    story.StoryGamePlaySettings.DefaultEnergyMax += bonus.BonusFinalValue;
+                                    story.StoryGamePlaySettings.DefaultEnergy += bonus.BonusFinalValue;
                                     foreach (KeyValuePair<int, BuildInfo> kv in story.PlayerBuildInfos)
                                     {
-                                        kv.Value.Energy += bonus.Value;
+                                        kv.Value.Energy += bonus.BonusFinalValue;
                                     }
 
                                     break;
                                 }
                                 case Bonus.BonusType.Budget:
                                 {
-                                    story.StoryGamePlaySettings.DefaultCoin += bonus.Value;
+                                    story.StoryGamePlaySettings.DefaultCoin += bonus.BonusFinalValue;
                                     break;
                                 }
                                 case Bonus.BonusType.UnlockCardByID:
                                 {
-                                    story.EditAllCardLimitDict(bonus.Value, 1);
+                                    story.EditAllCardLimitDict(bonus.BonusFinalValue, 1);
                                     break;
                                 }
                             }
@@ -343,8 +341,8 @@ internal class ClientProxy : ProxyBase
                 }
 
                 case MatchRequest request:
-                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                     if (ClientState == ClientStates.Playing)
                     {
@@ -362,8 +360,8 @@ internal class ClientProxy : ProxyBase
                     break;
 
                 case MatchStandAloneRequest request:
-                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                     if (ClientState == ClientStates.Playing)
                     {
@@ -375,20 +373,20 @@ internal class ClientProxy : ProxyBase
                     {
                         CurrentBuildInfo = Database.Instance.GetBuildInfoByID(request.BuildID);
                         ClientState = ClientStates.Matching;
-                        if (request.ChapterID == -1 && request.EnemyPicID == -1)
+                        if (request.StoryPaceID == -1)
                         {
                             Server.SV.SGMM.OnClientMatchStandAloneCustomGames(this);
                         }
                         else
                         {
-                            Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.ChapterID, request.EnemyPicID);
+                            Server.SV.SGMM.OnClientMatchStandAloneGames(this, request.StoryPaceID);
                         }
                     }
 
                     break;
                 case CancelMatchRequest _:
-                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                        ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
+
+                    ServerLog.PrintClientStates("Client " + ClientId + " state: " + ClientState);
 
                     if (ClientState == ClientStates.Playing)
                     {
@@ -408,7 +406,6 @@ internal class ClientProxy : ProxyBase
             if (ClientState == ClientStates.Playing)
             {
                 if (MyServerGameManager == null) return;
-
 
                 try
                 {
@@ -472,8 +469,7 @@ internal class ClientProxy : ProxyBase
                 }
                 catch (Exception e)
                 {
-                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                        ServerLog.PrintError(e.ToString());
+                    ServerLog.PrintError(e.ToString());
 
                     if (MyServerGameManager != null && !MyServerGameManager.IsStopped)
                     {

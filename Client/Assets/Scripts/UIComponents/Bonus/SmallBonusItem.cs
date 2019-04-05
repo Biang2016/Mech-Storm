@@ -68,7 +68,7 @@ internal class SmallBonusItem : BonusItem_Base
         if (BonusCardInfo != null)
         {
             CardImageBorderAnim.SetTrigger("Hover");
-            WinLostPanelManager.Instance.ShowCardPreview(BonusCardInfo);
+            UIManager.Instance.GetBaseUIForm<BattleResultPanel>().ShowCardPreview(BonusCardInfo);
             AudioManager.Instance.SoundPlay("sfx/BonusHover");
         }
     }
@@ -79,7 +79,7 @@ internal class SmallBonusItem : BonusItem_Base
         if (BonusCardInfo != null)
         {
             CardImageBorderAnim.SetTrigger("Exit");
-            WinLostPanelManager.Instance.HideCardPreview();
+            UIManager.Instance.GetBaseUIForm<BattleResultPanel>().HideCardPreview();
         }
     }
 }

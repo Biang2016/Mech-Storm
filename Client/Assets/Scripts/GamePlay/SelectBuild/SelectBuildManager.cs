@@ -113,14 +113,12 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
         public void Update()
         {
-            if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
-            if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) return;
-            if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromExitMenu) return;
-            if (SettingMenuManager.Instance.M_StateMachine.GetState() == SettingMenuManager.StateMachine.States.ShowFromStartMenu) return;
-            if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show_Main) return;
-            if (StartMenuManager.Instance.M_StateMachine.GetState() == StartMenuManager.StateMachine.States.Show_Single && StoryManager.Instance.M_CurrentStory == null) return;
-            if (StoryManager.Instance.M_StateMachine.GetState() == StoryManager.StateMachine.States.Show) return;
-            if (WinLostPanelManager.Instance.IsShow) return;
+            //if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
+            //if (ExitMenuPanel.Instance.M_StateMachine.GetState() == ExitMenuPanel.StateMachine.States.Show) return;
+            //if (StartMenuPanel.Instance.M_StateMachine.GetState() == StartMenuPanel.StateMachine.States.Show_Main) return;
+            //if (StartMenuPanel.Instance.M_StateMachine.GetState() == StartMenuPanel.StateMachine.States.Show_Single && StoryManager.Instance.M_CurrentStory == null) return;
+            //if (StoryPanel.Instance.M_StateMachine.GetState() == StoryPanel.StateMachine.States.Show) return;
+            //if (BattleResultPanel.Instance.IsShow) return;
             if (state == States.Hide || state == States.HideForPlay)
             {
                 if (Input.GetKeyUp(KeyCode.Tab))
@@ -174,7 +172,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         private void ShowWindow()
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+            //StartMenuPanel.Instance.M_StateMachine.SetState(StartMenuPanel.StateMachine.States.Hide);
             AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/SelectCardMenu_0", "bgm/SelectCardMenu_1"});
 
             GameManager.Instance.StartBlurBackGround();
@@ -205,7 +203,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         private void ShowWindowReadOnly()
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            if (StartMenuManager.Instance.M_StateMachine.IsShow()) StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Hide);
+            //if (StartMenuPanel.Instance.M_StateMachine.IsShow()) StartMenuPanel.Instance.M_StateMachine.SetState(StartMenuPanel.StateMachine.States.Hide);
             GameManager.Instance.StartBlurBackGround();
             Instance.Canvas.gameObject.SetActive(true);
             Instance.Canvas_BG.gameObject.SetActive(true);
@@ -234,7 +232,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         private void HideWindow()
         {
             HideWindowCore();
-            if (Client.Instance.IsLogin()) StartMenuManager.Instance.M_StateMachine.ReturnToPreviousState();
+            //if (Client.Instance.IsLogin()) StartMenuPanel.Instance.M_StateMachine.ReturnToPreviousState();
         }
 
         private void HideWindowToPlaying()
@@ -485,10 +483,10 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
             List<int> removeCards = new List<int>();
             foreach (KeyValuePair<int, CardBase> kv in allUnlockedCards)
             {
-                if (kv.Value.CardInfo.BaseInfo.CardRareLevel > StoryManager.Instance.Conquered_LevelNum + 1)
-                {
-                    removeCards.Add(kv.Key);
-                }
+                //if (kv.Value.CardInfo.BaseInfo.CardRareLevel > StoryManager.Instance.Conquered_LevelNum + 1)
+                //{
+                //    removeCards.Add(kv.Key);
+                //}
             }
 
             foreach (int cardID in removeCards)

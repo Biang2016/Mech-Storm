@@ -14,10 +14,10 @@
             see.SideEffectBase.Player = ServerPlayer;
             see.SideEffectBase.M_ExecutorInfo = new SideEffectBase.ExecutorInfo(
                 clientId: ServerPlayer.ClientId,
-                sideEffectExecutorID:see.ID,
+                sideEffectExecutorID: see.ID,
                 retinueId: M_ModuleRetinue.M_RetinueID,
                 equipId: M_EquipID
-                );
+            );
         }
 
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle_OnBattleGround.SideEffectExecutes)
@@ -25,10 +25,10 @@
             see.SideEffectBase.Player = ServerPlayer;
             see.SideEffectBase.M_ExecutorInfo = new SideEffectBase.ExecutorInfo(
                 clientId: ServerPlayer.ClientId,
-                sideEffectExecutorID:see.ID,
+                sideEffectExecutorID: see.ID,
                 retinueId: M_ModuleRetinue.M_RetinueID,
                 equipId: M_EquipID
-                );
+            );
         }
     }
 
@@ -46,7 +46,6 @@
             sideEffectBundle: CardInfo.SideEffectBundle,
             sideEffectBundle_OnBattleGround: CardInfo.SideEffectBundle_OnBattleGround);
     }
-
 
     #region 属性
 

@@ -64,7 +64,7 @@ public class AssetBundlePacker
             //| BuildAssetBundleOptions.DisableWriteTypeTree
             ;
 
-        SetPack("Prefabs", "*.prefab", PackFolderToABOption.UseABName,"prefabs");
+        SetPack("Resources/Prefabs", "*.prefab", PackFolderToABOption.UseABName,"prefabs");
         SetPack("Animations", "*", PackFolderToABOption.UseABName, "animations");
         SetPack("Materials", "*", PackFolderToABOption.UseABName, "materials");
         SetPack("Materials", "*.shader", PackFolderToABOption.UseABName, "shaders");

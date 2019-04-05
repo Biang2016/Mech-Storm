@@ -31,7 +31,7 @@ public class MetalBarManager : MonoBehaviour
         {
             for (int i = MetalBarBlockCount; i < value; i++)
             {
-                MetalBarBlock newMetalBarBlock = GameObjectPoolManager.Instance.Pool_MetalBarBlockPool.AllocateGameObject<MetalBarBlock>(transform);
+                MetalBarBlock newMetalBarBlock = GameObjectPoolManager.Instance.PoolDict["MetalBarBlock"].AllocateGameObject<MetalBarBlock>(transform);
                 newMetalBarBlock.ClientPlayer = ClientPlayer;
                 newMetalBarBlock.ResetColor();
                 newMetalBarBlock.transform.localPosition = i * offset;

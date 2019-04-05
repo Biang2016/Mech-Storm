@@ -71,7 +71,6 @@ internal class ServerBattleGroundManager
         ServerPlayer = serverPlayer;
     }
 
-
     #region SideEffects
 
     private void BattleGroundAddRetinue(int retinuePlaceIndex, ServerModuleRetinue retinue)
@@ -108,8 +107,7 @@ internal class ServerBattleGroundManager
         int battleGroundIndex = Retinues.IndexOf(retinue);
         if (battleGroundIndex == -1)
         {
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintWarning("BattleGroundRemoveRetinue not exist retinue：" + retinue.M_RetinueID);
+            ServerLog.PrintWarning("BattleGroundRemoveRetinue not exist retinue：" + retinue.M_RetinueID);
 
             return;
         }
@@ -235,7 +233,6 @@ internal class ServerBattleGroundManager
         }
     }
 
-
     public void KillAllHeros()
     {
         List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
@@ -267,7 +264,6 @@ internal class ServerBattleGroundManager
             serverModuleRetinue.OnDieTogether();
         }
     }
-
 
     public void KillOneRetinue(int retinueId)
     {
@@ -775,8 +771,7 @@ internal class ServerBattleGroundManager
             log += " [RID]" + retinue.M_RetinueID + " [Name]" + retinue.CardInfo.BaseInfo.CardNames[LanguageManager_Common.GetCurrentLanguage()];
         }
 
-        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-            ServerLog.Print(log);
+        ServerLog.Print(log);
     }
 
     #endregion

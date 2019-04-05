@@ -55,7 +55,7 @@ public class PlayerBuffManager : MonoBehaviour
 
     IEnumerator Co_AddBuff(SideEffectExecute buffSee, int buffId)
     {
-        PlayerBuff pb = GameObjectPoolManager.Instance.Pool_PlayerBuffPool.AllocateGameObject<PlayerBuff>(Content);
+        PlayerBuff pb = GameObjectPoolManager.Instance.PoolDict["PlayerBuff"].AllocateGameObject<PlayerBuff>(Content);
         AudioManager.Instance.SoundPlay("sfx/OnBuffAdd", 0.5f);
         pb.SetRotation(ClientPlayer.WhichPlayer);
         pb.Init(buffSee, buffId);

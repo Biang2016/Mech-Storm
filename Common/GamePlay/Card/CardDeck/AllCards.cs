@@ -345,10 +345,6 @@ public static class AllCards
         }
     }
 
-    public delegate void DebugLog(string log);
-
-    public static DebugLog DebugLogHandler;
-
     private static void SetAttr(object obj, XmlAttribute attr, FieldInfo fi)
     {
         if (fi == null)

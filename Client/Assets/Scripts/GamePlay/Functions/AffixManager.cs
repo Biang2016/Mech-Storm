@@ -20,7 +20,7 @@ public class AffixManager : MonoSingleton<AffixManager>
 
     private void Update()
     {
-        if (StartMenuManager.Instance.M_StateMachine.IsShow())
+        //if (StartMenuPanel.Instance.M_StateMachine.IsShow())
         {
             if (hideAffixPanelTicker > hideAffixPanelInterval)
             {
@@ -230,7 +230,7 @@ public class AffixManager : MonoSingleton<AffixManager>
         if (!AffixTypes.Contains(affixType))
         {
             AffixTypes.Add(affixType);
-            Affix newAffix = GameObjectPoolManager.Instance.Pool_AffixPool.AllocateGameObject<Affix>(AffixPanel);
+            Affix newAffix = GameObjectPoolManager.Instance.PoolDict["AffixPanel"].AllocateGameObject<Affix>(AffixPanel);
             newAffix.Initialize(affixType);
             Affixes.Add(newAffix);
         }

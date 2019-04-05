@@ -59,7 +59,7 @@ public class DragComponent : MonoBehaviour
                     }
                     else //拖拽一定距离产生效果
                     {
-                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowArrow)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowArrowPool.AllocateGameObject<ArrowArrow>(DragManager.Instance.transform);
+                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowArrow)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.PoolDict["ArrowArrow"].AllocateGameObject<ArrowArrow>(DragManager.Instance.transform);
                         DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                     }
 
@@ -78,7 +78,7 @@ public class DragComponent : MonoBehaviour
                     }
                     else //拖拽一定距离产生效果
                     {
-                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowAiming)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject<ArrowAiming>(DragManager.Instance.transform);
+                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowAiming)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.PoolDict["ArrowAiming"].AllocateGameObject<ArrowAiming>(DragManager.Instance.transform);
                         DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                     }
 

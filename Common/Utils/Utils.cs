@@ -9,6 +9,11 @@ using Newtonsoft.Json;
 
 public partial class Utils
 {
+
+    public delegate void DebugLogDelegate(string log);
+
+    public static DebugLogDelegate DebugLog;
+
     public static List<Type> GetClassesByNameSpace(string nameSpace)
     {
         Assembly asm = Assembly.GetCallingAssembly();

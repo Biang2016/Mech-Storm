@@ -234,6 +234,7 @@ internal class Database
             {
                 DeleteBuildRequestResponse response = new DeleteBuildRequestResponse(removeBuildID);
                 proxy.SendMessage(response);
+                BuildInfoDict.Remove(removeBuildID);
             }
 
             PlayerStoryStates.Remove(username);
@@ -275,6 +276,7 @@ internal class Database
                     return Instance.BuildInfoDict[Builds[buildName]];
                 }
             }
+
             return null;
         }
 

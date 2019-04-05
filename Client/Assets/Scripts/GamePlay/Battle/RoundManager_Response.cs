@@ -21,15 +21,16 @@ public partial class RoundManager
 
     public void OnGameStopByWin(GameStopByWinRequest r)
     {
+            BattleResultPanel brp = UIManager.Instance.ShowUIForms<BattleResultPanel>();
         if (r.winnerClientId == Client.Instance.Proxy.ClientId)
         {
-            ClientLog.Instance.PrintClientStates("You win");
-            WinLostPanelManager.Instance.WinGame();
+            ClientLog.Instance.PrintClientStates("你赢了");
+            brp.WinGame();
         }
         else
         {
             ClientLog.Instance.PrintReceive("你输了");
-            WinLostPanelManager.Instance.LostGame();
+            brp.LostGame(); 
         }
     }
 
@@ -285,7 +286,7 @@ public partial class RoundManager
         IdleClientPlayer = r.clientId == Client.Instance.Proxy.ClientId ? EnemyClientPlayer : SelfClientPlayer;
         if (CurrentClientPlayer == SelfClientPlayer)
         {
-            InGameUIManager.Instance.SetEndRoundButtonState(true);
+            UIManager.Instance.GetBaseUIForm<GameBoardUIPanel>().SetEndRoundButtonState(true);
             ClientLog.Instance.PrintClientStates("MyRound");
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_YourTurn"), 0, 0.8f);
             AudioManager.Instance.SoundPlay("sfx/StoryOpen", 0.5f);
@@ -293,7 +294,7 @@ public partial class RoundManager
         }
         else
         {
-            InGameUIManager.Instance.SetEndRoundButtonState(false);
+            UIManager.Instance.GetBaseUIForm<GameBoardUIPanel>().SetEndRoundButtonState(true);
             ClientLog.Instance.PrintClientStates("EnemyRound");
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_EnemyTurn"), 0, 0.8f);
             yield return new WaitForSeconds(0.5f);
@@ -582,25 +583,25 @@ public partial class RoundManager
 
     private void OnShowSideEffect(ShowSideEffectTriggeredRequest r)
     {
-        ClientPlayer cp = GetPlayerByClientId(r.ExecuterInfo.ClientId);
-        if (r.ExecuterInfo.IsPlayerBuff) //PlayerBuff
+        ClientPlayer cp = GetPlayerByClientId(r.ExecutorInfo.ClientId);
+        if (r.ExecutorInfo.IsPlayerBuff) //PlayerBuff
         {
             ClientLog.Instance.Print("Playerbuff ");
             return;
         }
 
-        if (r.ExecuterInfo.RetinueId != -999) //随从触发
+        if (r.ExecutorInfo.RetinueId != -999) //随从触发
         {
-            if (r.ExecuterInfo.EquipId == -999)
+            if (r.ExecutorInfo.EquipId == -999)
             {
-                cp.MyBattleGroundManager.GetRetinue(r.ExecuterInfo.RetinueId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+                cp.MyBattleGroundManager.GetRetinue(r.ExecutorInfo.RetinueId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             }
             else
             {
-                cp.MyBattleGroundManager.GetEquip(r.ExecuterInfo.RetinueId, r.ExecuterInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+                cp.MyBattleGroundManager.GetEquip(r.ExecutorInfo.RetinueId, r.ExecutorInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             }
         }
-        else if (r.ExecuterInfo.CardInstanceId != -999) //手牌触发
+        else if (r.ExecutorInfo.CardInstanceId != -999) //手牌触发
         {
             //Todo 手牌SE效果
         }

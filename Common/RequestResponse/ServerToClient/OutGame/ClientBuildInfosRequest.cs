@@ -6,7 +6,7 @@ public class ClientBuildInfosRequest : ServerRequestBase
     public GamePlaySettings OnlineGamePlaySettings;
 
     public bool HasStory;
-    public Story Story;
+    public Story Story = null;
 
     public ClientBuildInfosRequest()
     {

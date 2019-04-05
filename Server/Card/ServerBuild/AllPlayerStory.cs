@@ -111,7 +111,7 @@ internal class AllPlayerStory
 
                         chapterCommonBonusGroups_Always.ForEach(bonusGroup => { Enemy.AlwaysBonusGroup.Add(bonusGroup.Clone()); });
                         chapterCommonBonusGroups_Optional.ForEach(bonusGroup => { Enemy.OptionalBonusGroup.Add(bonusGroup.Clone()); });
-                        chapter.ChapterAllEnemies[enemyType].Add(Enemy.EnemyPicID, Enemy);
+                        chapter.ChapterAllEnemies[enemyType].Add(Enemy.StoryPaceID, Enemy);
                         for (int l = 0; l < enemyTypeInfo.ChildNodes.Count; l++)
                         {
                             XmlNode bonusGroupInfo = enemyTypeInfo.ChildNodes.Item(l);
@@ -133,17 +133,17 @@ internal class AllPlayerStory
             }
 
             BuildInfo PlayerCurrentBuildInfo = Database.Instance.GetBuildInfoByID(playerDefaultBuildId).Clone();
-            SortedDictionary<int, BuildInfo> playerbuildInfos = new SortedDictionary<int, BuildInfo>();
-            playerbuildInfos.Add(PlayerCurrentBuildInfo.BuildID, PlayerCurrentBuildInfo);
-            Story newStory = new Story(pureName, Chapters, PlayerCurrentBuildInfo.M_BuildCards.GetBaseCardLimitDict(), playerbuildInfos, gps);
+            SortedDictionary<int, BuildInfo> playerBuildInfos = new SortedDictionary<int, BuildInfo>();
+            playerBuildInfos.Add(PlayerCurrentBuildInfo.BuildID, PlayerCurrentBuildInfo);
+            Story newStory = new Story(pureName, Chapters, PlayerCurrentBuildInfo.M_BuildCards.GetBaseCardLimitDict(), playerBuildInfos, gps);
             Database.Instance.StoryStartDict.Add(pureName, newStory);
         }
     }
 
     private static BonusGroup GetBonusGroup(XmlNode bonusGroupInfo)
     {
-      bool  isAlways = bonusGroupInfo.Attributes["type"].Value == "Always";
-      List<Bonus>  bonuses = new List<Bonus>();
+        bool isAlways = bonusGroupInfo.Attributes["type"].Value == "Always";
+        List<Bonus> bonuses = new List<Bonus>();
         int probability = 0;
         bool singleton = false;
         if (isAlways)
@@ -155,9 +155,9 @@ internal class AllPlayerStory
         {
             probability = int.Parse(bonusGroupInfo.Attributes["probability"].Value);
             singleton = bonusGroupInfo.Attributes["singleton"].Value == "True";
-        }   
-        
-        BonusGroup bg = new BonusGroup(isAlways,bonuses,probability,singleton);
+        }
+
+        BonusGroup bg = new BonusGroup(isAlways, bonuses, probability, singleton);
         for (int l = 0; l < bonusGroupInfo.ChildNodes.Count; l++)
         {
             XmlNode bonusInfo = bonusGroupInfo.ChildNodes.Item(l);
@@ -166,6 +166,7 @@ internal class AllPlayerStory
             Bonus bonus = new Bonus(bonusType, bonusBaseValue, 100);
             bg.Bonuses.Add(bonus);
         }
+
         return bg;
     }
 }

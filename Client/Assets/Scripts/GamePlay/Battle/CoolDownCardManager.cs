@@ -55,7 +55,7 @@ public class CoolDownCardManager : MonoBehaviour
 
     IEnumerator Co_AddCoolDownCard(CardDeck.CoolingDownCard cdc)
     {
-        CoolDownCardIcon cdci = GameObjectPoolManager.Instance.Pool_CoolDownCardPool.AllocateGameObject<CoolDownCardIcon>(Content);
+        CoolDownCardIcon cdci = GameObjectPoolManager.Instance.PoolDict["CoolDownCard"].AllocateGameObject<CoolDownCardIcon>(Content);
         cdci.transform.SetAsFirstSibling();
         cdci.SetRotation(ClientPlayer.WhichPlayer);
         cdci.Init(cdc, ClientPlayer);

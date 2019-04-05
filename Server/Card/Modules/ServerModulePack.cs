@@ -25,7 +25,7 @@
             see.SideEffectBase.M_ExecutorInfo = new SideEffectBase.ExecutorInfo(
                 clientId: ServerPlayer.ClientId,
                 sideEffectExecutorID: see.ID,
-                retinueId: M_ModuleRetinue.M_RetinueID, 
+                retinueId: M_ModuleRetinue.M_RetinueID,
                 equipId: M_EquipID
             );
         }
@@ -45,7 +45,6 @@
             sideEffectBundle: CardInfo.SideEffectBundle,
             sideEffectBundle_OnBattleGround: CardInfo.SideEffectBundle_OnBattleGround);
     }
-
 
     #region 属性
 

@@ -87,20 +87,20 @@ internal class BonusButton : PoolObject
 
     public void OnButtonClick()
     {
-        WinLostPanelManager.Instance.SetBonusButtonSelected(this);
+        UIManager.Instance.GetBaseUIForm<BattleResultPanel>().SetBonusButtonSelected(this);
         AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick");
     }
 
     public void OnConfirmButtonClickDelegate()
     {
-        WinLostPanelManager.Instance.GetBonusBuildChangeInfo(BonusGroup);
+        UIManager.Instance.GetBaseUIForm<BattleResultPanel>().GetBonusBuildChangeInfo(BonusGroup);
         BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientId, BonusGroup);
         Client.Instance.Proxy.SendMessage(request);
         foreach (Bonus bgBonus in BonusGroup.Bonuses)
         {
             if (bgBonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
             {
-                SelectBuildManager.Instance.JustGetNewCards.Add(bgBonus.Value);
+                SelectBuildManager.Instance.JustGetNewCards.Add(bgBonus.BonusFinalValue);
             }
         }
     }

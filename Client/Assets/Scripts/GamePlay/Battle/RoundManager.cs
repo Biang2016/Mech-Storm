@@ -68,13 +68,9 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
     public void Preparation()
     {
-        InGameUIManager.Instance.ShowInGameUI();
-
-        InGameUIManager.Instance.SetEndRoundButtonState(false);
-
+        UIManager.Instance.ShowUIForms<GameBoardUIPanel>().SetEndRoundButtonState(false);
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.HideForPlay);
-        StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Battle_0", "bgm/Battle_1"}, 0.7f);
         CardDeckManager.Instance.ResetCardDeckNumberText();
         CardDeckManager.Instance.ShowAll();
@@ -117,7 +113,14 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
     public void StopGame()
     {
-        isStop = true; //标记为，待Update的时候正式处理OnGameStop
+        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Playing)
+        {
+            isStop = true; //标记为，待Update的时候正式处理OnGameStop
+        }
+        else
+        {
+            isStop = false;
+        }
     }
 
     public bool HasShowLostConnectNotice = true;
@@ -134,7 +137,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         }
     }
 
-    void GameStopPreparation()
+    private void GameStopPreparation()
     {
         CardBase[] cardPreviews = GameBoardManager.Instance.CardDetailPreview.transform.GetComponentsInChildren<CardBase>();
         foreach (CardBase cardPreview in cardPreviews)
@@ -165,7 +168,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         IdleClientPlayer = null;
         RoundNumber = 0;
 
-        InGameUIManager.Instance.HideInGameUI();
+        UIManager.Instance.CloseUIForms<GameBoardUIPanel>();
         GameBoardManager.Instance.ResetAll();
 
         CardDeckManager.Instance.HideAll();
@@ -178,7 +181,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         else if (!Client.Instance.IsConnect() && !Client.Instance.IsLogin() && !Client.Instance.IsPlaying())
         {
             SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
-            LoginManager.Instance.M_StateMachine.SetState(LoginManager.StateMachine.States.Show);
+            UIManager.Instance.ShowUIForms<LoginPanel>();
             if (!HasShowLostConnectNotice)
             {
                 NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_YouAreOffline"), 0, 1f);
@@ -190,20 +193,17 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         {
             case PlayMode.Online:
             {
-                StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Online);
-                StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
+                UIManager.Instance.ShowUIForms<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Online);
                 break;
             }
             case PlayMode.Single:
             {
-                StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_Single);
-                StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Show);
+                UIManager.Instance.ShowUIForms<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Single);
                 break;
             }
             case PlayMode.SingleCustom:
             {
-                StartMenuManager.Instance.M_StateMachine.SetState(StartMenuManager.StateMachine.States.Show_SingleCustom);
-                StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
+                UIManager.Instance.ShowUIForms<StartMenuPanel>().SetState(StartMenuPanel.States.Show_SingleCustom);
                 break;
             }
         }
@@ -215,18 +215,17 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         {
             if (SelectBuildManager.Instance.JustGetSomeCard)
             {
-                ConfirmWindow cw = GameObjectPoolManager.Instance.Pool_ConfirmWindowPool.AllocateGameObject<ConfirmWindow>(transform);
-                cw.Initialize(
+                ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                cp.Initialize(
                     LanguageManager.Instance.GetText("RoundManager_JustGotANewCard"),
                     LanguageManager.Instance.GetText("RoundManager_GoToDeck"),
                     LanguageManager.Instance.GetText("RoundManager_GotIt"),
                     delegate
                     {
-                        ConfirmWindowManager.Instance.RemoveConfirmWindow();
-                        StoryManager.Instance.M_StateMachine.SetState(StoryManager.StateMachine.States.Hide);
+                        cp.CloseUIForm();
                         SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
                     },
-                    delegate { ConfirmWindowManager.Instance.RemoveConfirmWindow(); });
+                    cp.CloseUIForm);
             }
         }
     }
@@ -239,7 +238,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         {
             EndRoundRequest request = new EndRoundRequest(Client.Instance.Proxy.ClientId);
             Client.Instance.Proxy.SendMessage(request);
-            InGameUIManager.Instance.SetEndRoundButtonState(false);
+            UIManager.Instance.GetBaseUIForm<GameBoardUIPanel>().SetEndRoundButtonState(false);
         }
         else
         {

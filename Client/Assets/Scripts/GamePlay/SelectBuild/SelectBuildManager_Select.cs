@@ -319,7 +319,7 @@ public partial class SelectBuildManager
             parenTransform = SelectionContent;
         }
 
-        SelectCard newSC = GameObjectPoolManager.Instance.Pool_SelectCardPool.AllocateGameObject<SelectCard>(parenTransform);
+        SelectCard newSC = GameObjectPoolManager.Instance.PoolDict["SelectCard"].AllocateGameObject<SelectCard>(parenTransform);
         Color cardColor = ClientUtils.HTMLColorToColor(card.CardInfo.GetCardColor());
 
         newSC.Initiate(
@@ -348,7 +348,6 @@ public partial class SelectBuildManager
 
     private void SelectCardOnMouseEnter(SelectCard selectCard)
     {
-        if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
         if (PreviewCardOriginCardSelect != null) return;
         currentPreviewCardContainer.position = selectCard.transform.position;
         if (currentPreviewCardContainer.position.y > CurrentPreviewCardMaxPivot.position.y)
@@ -375,7 +374,7 @@ public partial class SelectBuildManager
 
     private void SelectCardOnMouseLeave(SelectCard selectCard)
     {
-        if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
+        //if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
         if (PreviewCardOriginCardSelect != null) return;
         if (currentPreviewCard) currentPreviewCard.PoolRecycle();
         AffixManager.Instance.HideAffixPanel();

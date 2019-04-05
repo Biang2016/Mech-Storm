@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
@@ -10,10 +11,7 @@ public class GameManager : MonoSingleton<GameManager>
     private void Awake()
     {
         InitializeClientGameSettings();
-        AllColors.DebugLogHandler = ClientLog.Instance.PrintError;
-        AllSideEffects.DebugLogHandler = ClientLog.Instance.PrintError;
-        AllBuffs.DebugLogHandler = ClientLog.Instance.PrintError;
-        AllCards.DebugLogHandler = ClientLog.Instance.PrintError;
+        Utils.DebugLog = ClientLog.Instance.PrintError;
 
         AllColors.AddAllColors(Application.streamingAssetsPath + "/Config/Colors.xml");
         AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
@@ -126,12 +124,40 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void StartBlurBackGround()
     {
+        if (StartBlurBackGroundCoroutine != null) StopCoroutine(StartBlurBackGroundCoroutine);
         ImageEffectBlurBox.enabled = true;
+        ImageEffectBlurBox.BlurSize = 0.5f;
     }
 
     public void StopBlurBackGround()
     {
+        if (StartBlurBackGroundCoroutine != null) StopCoroutine(StartBlurBackGroundCoroutine);
         ImageEffectBlurBox.enabled = false;
+        ImageEffectBlurBox.BlurSize = 0.5f;
+    }
+
+    public void StartBlurBackGround(float duration)
+    {
+        StartBlurBackGroundCoroutine = StartCoroutine(Co_StartBlurBackGroundShow(duration));
+    }
+
+    private Coroutine StartBlurBackGroundCoroutine;
+
+    IEnumerator Co_StartBlurBackGroundShow(float duration)
+    {
+        if (StartBlurBackGroundCoroutine != null) StopCoroutine(StartBlurBackGroundCoroutine);
+        ImageEffectBlurBox.enabled = true;
+        float blurSizeStart = 0;
+        float blurSizeEnd = 0.5f;
+        int frame = Mathf.RoundToInt(duration / 0.05f);
+        for (int i = 0; i < frame; i++)
+        {
+            float blurSize = blurSizeStart + (blurSizeEnd - blurSizeStart) / frame * i;
+            ImageEffectBlurBox.BlurSize = blurSize;
+            yield return new WaitForSeconds(duration / frame);
+        }
+
+        ImageEffectBlurBox.BlurSize = blurSizeEnd;
     }
 
     #endregion

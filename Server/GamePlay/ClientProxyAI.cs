@@ -7,25 +7,17 @@
 /// </summary>
 internal class ClientProxyAI : ClientProxy
 {
-    public int ChapterID;
-    public int EnemyPicID;
-    public bool IsStoryMode = false;
-
     public override ClientStates ClientState
     {
         get => clientState;
         set => clientState = value;
     }
 
-    public ClientProxyAI(int clientId, bool isStopReceive, int chapterID, int enemyPicID) : base(null, clientId, isStopReceive)
+    public ClientProxyAI(int clientId, bool isStopReceive) : base(null, clientId, isStopReceive)
     {
         ClientIdRequest request = new ClientIdRequest(clientId, Server.ServerVersion);
         ClientState = ClientStates.GetId;
         SendMessage(request);
-
-        IsStoryMode = chapterID != -1 && enemyPicID != -1;
-        ChapterID = chapterID;
-        EnemyPicID = enemyPicID;
     }
 
     public override void SendMessage(ServerRequestBase request)
@@ -283,7 +275,6 @@ internal class ClientProxyAI : ClientProxy
         return false;
     }
 
-
     private ServerModuleRetinue GetTargetRetinueByTargetInfo(TargetInfo ti)
     {
         ServerPlayer targetPlayer = null;
@@ -475,7 +466,6 @@ internal class ClientProxyAI : ClientProxy
         }
     }
 
-
     enum EvaluationOption
     {
         Retinue,
@@ -484,7 +474,6 @@ internal class ClientProxyAI : ClientProxy
         Pack,
         MA
     }
-
 
     enum EvaluationDirection
     {
@@ -502,7 +491,6 @@ internal class ClientProxyAI : ClientProxy
         {EvaluationOption.Pack, CountRetinuePackValue},
         {EvaluationOption.MA, CountRetinueMAValue}
     };
-
 
     private ServerModuleRetinue GetRetinueByEvaluation(List<ServerModuleRetinue> optionalRetinue, EvaluationOption evaluationOption, EvaluationDirection evaluationDirection)
     {
@@ -532,7 +520,6 @@ internal class ClientProxyAI : ClientProxy
 
         return res;
     }
-
 
     private static float CountRetinueValue(ServerModuleRetinue retinue)
     {

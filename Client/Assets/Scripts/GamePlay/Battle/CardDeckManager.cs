@@ -53,8 +53,8 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
 
         for (int i = 0; i < GameManager.Instance.CardDeckCardNum; i++)
         {
-            self_CardDeckCards[i] = GameObjectPoolManager.Instance.Pool_CardDeckCardPool.AllocateGameObject<CardDeckCard>(SelfCardDeckArea);
-            enemy_CardDeckCards[i] = GameObjectPoolManager.Instance.Pool_CardDeckCardPool.AllocateGameObject<CardDeckCard>(EnemyCardDeckArea);
+            self_CardDeckCards[i] = GameObjectPoolManager.Instance.PoolDict["CardDeckCard"].AllocateGameObject<CardDeckCard>(SelfCardDeckArea);
+            enemy_CardDeckCards[i] = GameObjectPoolManager.Instance.PoolDict["CardDeckCard"].AllocateGameObject<CardDeckCard>(EnemyCardDeckArea);
             self_CardDeckCards[i].ResetColor(true);
             enemy_CardDeckCards[i].ResetColor(false);
             self_CardDeckCards[i].transform.Translate(GameManager.Instance.Self_CardDeckCardInterval * i);

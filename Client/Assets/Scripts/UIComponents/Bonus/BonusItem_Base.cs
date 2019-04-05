@@ -21,11 +21,11 @@ internal class BonusItem_Base : PoolObject
         BonusItem_Base bib;
         if (bonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
         {
-            bib = GameObjectPoolManager.Instance.Pool_BigBonusItemPool.AllocateGameObject<BonusItem_Base>(parent);
+            bib = GameObjectPoolManager.Instance.PoolDict["BigBonusItem"].AllocateGameObject<BonusItem_Base>(parent);
         }
         else
         {
-            bib = GameObjectPoolManager.Instance.Pool_SmallBonusItemPool.AllocateGameObject<BonusItem_Base>(parent);
+            bib = GameObjectPoolManager.Instance.PoolDict["SmallBonusItem"].AllocateGameObject<BonusItem_Base>(parent);
         }
 
         bib.Initialize(bonus);
@@ -38,7 +38,7 @@ internal class BonusItem_Base : PoolObject
         ItemDesc.text = Bonus.GetDesc();
         if (bonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
         {
-            BonusCardInfo = AllCards.GetCard(bonus.Value);
+            BonusCardInfo = AllCards.GetCard(bonus.BonusFinalValue);
         }
     }
 

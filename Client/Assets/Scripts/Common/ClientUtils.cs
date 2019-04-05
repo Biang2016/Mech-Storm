@@ -289,4 +289,44 @@ public class ClientUtils
         if ((3 * vH) < 2) return (v1 + (v2 - v1) * ((2.0f / 3.0f) - vH) * 6);
         return v1;
     }
+
+    /// <summary>
+    /// 查找子节点对象
+    /// 内部使用“递归算法”
+    /// </summary>
+    /// <param name="goParent">父对象</param>
+    /// <param name="childName">查找的子对象名称</param>
+    /// <returns></returns>
+    public static Transform FindTheChildNode(GameObject goParent, string childName)
+    {
+        Transform searchTrans = null; //查找结果
+
+        searchTrans = goParent.transform.Find(childName);
+        if (searchTrans == null)
+        {
+            foreach (Transform trans in goParent.transform)
+            {
+                searchTrans = FindTheChildNode(trans.gameObject, childName);
+                if (searchTrans != null)
+                {
+                    return searchTrans;
+                }
+            }
+        }
+
+        return searchTrans;
+    }
+
+    /// <summary>
+    /// 给子节点添加父对象
+    /// </summary>
+    /// <param name="parents">父对象的方位</param>
+    /// <param name="child">子对象的方法</param>
+    public static void AddChildNodeToParentNode(Transform parents, Transform child)
+    {
+        child.SetParent(parents, false);
+        child.localPosition = Vector3.zero;
+        child.localScale = Vector3.one;
+        child.localEulerAngles = Vector3.zero;
+    }
 }

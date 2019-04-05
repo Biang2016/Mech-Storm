@@ -149,8 +149,8 @@ public class BattleGroundManager : MonoBehaviour
 
         if (!isSummonedBeforeByPreview)
         {
-            ModuleRetinue retinue = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool.AllocateGameObject<ModuleRetinue>(transform);
-            retinue.transform.position = GameObjectPoolManager.Instance.Pool_ModuleRetinuePool.transform.position;
+            ModuleRetinue retinue = GameObjectPoolManager.Instance.PoolDict["ModuleRetinue"].AllocateGameObject<ModuleRetinue>(transform);
+            retinue.transform.position = GameObjectPoolManager.Instance.PoolDict["ModuleRetinue"].transform.position;
             retinue.Initiate(retinueCardInfo, ClientPlayer);
             retinue.transform.Rotate(Vector3.up, 180);
             retinue.M_RetinueID = retinueId;
@@ -553,7 +553,7 @@ public class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         if (cardInfo != null)
         {
-            ModuleWeapon newModueWeapon = GameObjectPoolManager.Instance.Pool_ModuleWeaponPool.AllocateGameObject<ModuleWeapon>(retinue.transform);
+            ModuleWeapon newModueWeapon = GameObjectPoolManager.Instance.PoolDict["ModuleWeapon"].AllocateGameObject<ModuleWeapon>(retinue.transform);
             newModueWeapon.M_ModuleRetinue = retinue;
             newModueWeapon.Initiate(cardInfo, ClientPlayer);
             newModueWeapon.M_EquipID = equipId;
@@ -578,7 +578,7 @@ public class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         if (cardInfo != null)
         {
-            ModuleShield newModuleShield = GameObjectPoolManager.Instance.Pool_ModuleShieldPool.AllocateGameObject<ModuleShield>(retinue.transform);
+            ModuleShield newModuleShield = GameObjectPoolManager.Instance.PoolDict["ModuleShield"].AllocateGameObject<ModuleShield>(retinue.transform);
             newModuleShield.M_ModuleRetinue = retinue;
             newModuleShield.Initiate(cardInfo, ClientPlayer);
             newModuleShield.M_EquipID = equipId;
@@ -603,7 +603,7 @@ public class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         if (cardInfo != null)
         {
-            ModulePack newModulePack = GameObjectPoolManager.Instance.Pool_ModulePackPool.AllocateGameObject<ModulePack>(retinue.transform);
+            ModulePack newModulePack = GameObjectPoolManager.Instance.PoolDict["ModulePack"].AllocateGameObject<ModulePack>(retinue.transform);
             newModulePack.M_ModuleRetinue = retinue;
             newModulePack.Initiate(cardInfo, ClientPlayer);
             newModulePack.M_EquipID = equipId;
@@ -628,7 +628,7 @@ public class BattleGroundManager : MonoBehaviour
         ModuleRetinue retinue = GetRetinue(retinueId);
         if (cardInfo != null)
         {
-            ModuleMA newModuleMA = GameObjectPoolManager.Instance.Pool_ModuleMAPool.AllocateGameObject<ModuleMA>(retinue.transform);
+            ModuleMA newModuleMA = GameObjectPoolManager.Instance.PoolDict["ModuleMA"].AllocateGameObject<ModuleMA>(retinue.transform);
             newModuleMA.M_ModuleRetinue = retinue;
             newModuleMA.Initiate(cardInfo, ClientPlayer);
             newModuleMA.M_EquipID = equipId;

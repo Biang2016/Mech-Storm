@@ -42,7 +42,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
     {
         isReconnecting = false;
         NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Notice_NetworkManager_Disconnecting"), 0f, float.PositiveInfinity);
-        LoginManager.Instance.ShowTipText(LanguageManager.Instance.GetText("Notice_NetworkManager_Disconnecting"), 0f, float.PositiveInfinity, true);
+        UIManager.Instance.GetBaseUIForm<LoginPanel>().ShowTipText(LanguageManager.Instance.GetText("Notice_NetworkManager_Disconnecting"), 0f, float.PositiveInfinity, true);
         try
         {
             if (CurrentTryConnectServer != null) StopCoroutine(CurrentTryConnectServer);
@@ -64,7 +64,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         }
 
         NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Notice_NetworkManager_Disconnected"), 0f, 1f);
-        LoginManager.Instance.ShowTipText(LanguageManager.Instance.GetText("Notice_NetworkManager_Disconnected"), 0f, 1f, false);
+        UIManager.Instance.GetBaseUIForm<LoginPanel>().ShowTipText(LanguageManager.Instance.GetText("Notice_NetworkManager_Disconnected"), 0f, 1f, false);
     }
 
     private void CheckConnectState()
@@ -82,7 +82,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         {
             if (!isReconnecting)
             {
-                LoginManager.Instance.ShowTipText(LanguageManager.Instance.GetText("Notice_NetworkManager_Connecting"), 0f, float.PositiveInfinity, true);
+                UIManager.Instance.GetBaseUIForm<LoginPanel>().ShowTipText(LanguageManager.Instance.GetText("Notice_NetworkManager_Connecting"), 0f, float.PositiveInfinity, true);
                 isReconnecting = true;
             }
         }

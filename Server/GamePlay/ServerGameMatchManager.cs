@@ -4,13 +4,13 @@ internal class ServerGameMatchManager
 {
     List<ServerGameManager> SMGS = new List<ServerGameManager>();
     Dictionary<int, ServerGameManager> clientGameMapping = new Dictionary<int, ServerGameManager>();
-    List<ClientProxy> matchingClients = new List<ClientProxy>(); 
+    List<ClientProxy> matchingClients = new List<ClientProxy>();
 
     public void OnClientMatchGames(ClientProxy clientProxy)
     {
         matchingClients.Add(clientProxy);
-        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-            ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " begin matching. Currently " + matchingClients.Count + " people are matching");
+
+        ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " begin matching. Currently " + matchingClients.Count + " people are matching");
 
         if (matchingClients.Count == 2)
         {
@@ -22,19 +22,18 @@ internal class ServerGameMatchManager
             SMGS.Add(sgm);
             clientGameMapping.Add(clientA.ClientId, sgm);
             clientGameMapping.Add(clientB.ClientId, sgm);
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintServerStates("Player " + clientA.ClientId + " and " + clientB.ClientId + " begin game, currently " + clientGameMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
+
+            ServerLog.PrintServerStates("Player " + clientA.ClientId + " and " + clientB.ClientId + " begin game, currently " + clientGameMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
         }
     }
-
 
     public void OnClientCancelMatch(ClientProxy clientProxy)
     {
         if (matchingClients.Contains(clientProxy))
         {
             matchingClients.Remove(clientProxy);
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " cancels matching. Currently " + clientGameMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
+
+            ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " cancels matching. Currently " + clientGameMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
         }
     }
 
@@ -48,8 +47,8 @@ internal class ServerGameMatchManager
             int b = sgm.ClientB.ClientId;
             clientGameMapping.Remove(a);
             clientGameMapping.Remove(b);
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintServerStates("Player " + a + " and " + b + " stop game, currently " + clientGameMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
+
+            ServerLog.PrintServerStates("Player " + a + " and " + b + " stop game, currently " + clientGameMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
         }
 
         if (clientGameMapping_Standalone.ContainsKey(client.ClientId))
@@ -60,8 +59,8 @@ internal class ServerGameMatchManager
             int b = sgm.ClientB.ClientId;
             clientGameMapping_Standalone.Remove(a);
             clientGameMapping_Standalone.Remove(b);
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintServerStates("Player " + a + " and AI:" + b + " stop game, currently " + clientGameMapping_Standalone.Count / 2 + " people are in StandAlone games.");
+
+            ServerLog.PrintServerStates("Player " + a + " and AI:" + b + " stop game, currently " + clientGameMapping_Standalone.Count / 2 + " people are in StandAlone games.");
         }
     }
 
@@ -70,48 +69,43 @@ internal class ServerGameMatchManager
     List<ServerGameManager> SMGS_Standalone = new List<ServerGameManager>();
     Dictionary<int, ServerGameManager> clientGameMapping_Standalone = new Dictionary<int, ServerGameManager>();
 
-    public void OnClientMatchStandAloneGames(ClientProxy clientProxy, int LevelID, int BossPicID)
+    public void OnClientMatchStandAloneGames(ClientProxy clientProxy, int storyPaceID)
     {
-        if (LevelID == -1 && BossPicID == -1)
+        if (storyPaceID == -1)
         {
             OnClientMatchStandAloneCustomGames(clientProxy);
             return;
         }
 
-        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-            ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " begin standalone game.");
+        ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " begin standalone game.");
 
         ClientProxy clientA = clientProxy;
         int AI_ClientId = Server.SV.GenerateClientId();
-        ClientProxy clientB = new ClientProxyAI(AI_ClientId, false, LevelID, BossPicID);
-
-        string bossBuildName = Database.Instance.PlayerStoryStates[clientProxy.UserName].Chapters[LevelID].Enemies[BossPicID].BuildName;
-        BuildInfo buildInfo = Database.Instance.SpecialBuildsDict["ServerAdmin"].GetBuildInfo(bossBuildName).Clone();
-        clientB.CurrentBuildInfo = buildInfo;
+        ClientProxy clientB = new ClientProxyAI(AI_ClientId, false);
+        clientB.CurrentBuildInfo = ((Enemy) Database.Instance.PlayerStoryStates[clientProxy.UserName].StoryPaces[storyPaceID]).BuildInfo.Clone();
 
         ServerGameManager sgm = new ServerGameManager(clientA, clientB);
         SMGS_Standalone.Add(sgm);
         clientGameMapping_Standalone.Add(clientA.ClientId, sgm);
         clientGameMapping_Standalone.Add(clientB.ClientId, sgm);
-        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-            ServerLog.PrintServerStates("Player " + clientA.ClientId + " and AI:" + clientB.ClientId + " begin game, currently " + clientGameMapping_Standalone.Count + " people are in AI games.");
+
+        ServerLog.PrintServerStates("Player " + clientA.ClientId + " and AI:" + clientB.ClientId + " begin game, currently " + clientGameMapping_Standalone.Count + " people are in AI games.");
     }
 
     public void OnClientMatchStandAloneCustomGames(ClientProxy clientProxy)
     {
-        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-            ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " begin standalone custom game.");
+        ServerLog.PrintServerStates("Player " + clientProxy.ClientId + " begin standalone custom game.");
         ClientProxy clientA = clientProxy;
         int AI_ClientId = Server.SV.GenerateClientId();
-        ClientProxy clientB = new ClientProxyAI(AI_ClientId, false, -1, -1);
+        ClientProxy clientB = new ClientProxyAI(AI_ClientId, false);
         clientB.CurrentBuildInfo = Database.Instance.SpecialBuildsDict["ServerAdmin"].GetBuildInfo("CustomBattle").Clone();
 
         ServerGameManager sgm = new ServerGameManager(clientA, clientB);
         SMGS_Standalone.Add(sgm);
         clientGameMapping_Standalone.Add(clientA.ClientId, sgm);
         clientGameMapping_Standalone.Add(clientB.ClientId, sgm);
-        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-            ServerLog.PrintServerStates("Player " + clientA.ClientId + " and AI:" + clientB.ClientId + " begin game, currently " + clientGameMapping_Standalone.Count + " people are in AI games.");
+
+        ServerLog.PrintServerStates("Player " + clientA.ClientId + " and AI:" + clientB.ClientId + " begin game, currently " + clientGameMapping_Standalone.Count + " people are in AI games.");
     }
 
     #endregion

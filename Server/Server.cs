@@ -36,18 +36,15 @@ internal class Server
 
     public void Start()
     {
-        AllColors.DebugLogHandler = ServerLog.PrintError;
+        Utils.DebugLog = ServerLog.PrintError;
         AllColors.AddAllColors(ServerConsole.ServerRoot + "Config/Colors.xml");
-        AllSideEffects.DebugLogHandler = ServerLog.PrintError;
         AllSideEffects.AddAllSideEffects(ServerConsole.ServerRoot + "Config/SideEffects.xml");
-        AllBuffs.DebugLogHandler = ServerLog.PrintError;
         AllBuffs.AddAllBuffs(ServerConsole.ServerRoot + "Config/Buffs.xml");
-        AllCards.DebugLogHandler = ServerLog.PrintError;
         AllCards.AddAllCards(ServerConsole.ServerRoot + "Config/Cards.xml");
         AllServerBuilds.AddAllBuilds();
         AllPlayerStory.AddAllStories();
-        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-            ServerLog.PrintServerStates("CardDeck Loaded");
+
+        ServerLog.PrintServerStates("CardDeck Loaded");
 
         SGMM = new ServerGameMatchManager();
 
@@ -97,8 +94,8 @@ internal class Server
             SeverSocket.Bind(new IPEndPoint(IPAddress.Parse(IP), Port));
             //为服务器sokect添加监听
             SeverSocket.Listen(200);
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintServerStates("------------------ Server Start ------------------\n");
+
+            ServerLog.PrintServerStates("------------------ Server Start ------------------\n");
 
             //开始服务器时 一般接受一个服务就会被挂起所以要用多线程来解决
             Thread threadAccept = new Thread(Accept);
@@ -107,8 +104,7 @@ internal class Server
         }
         catch (Exception e)
         {
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintError(e.Message);
+            ServerLog.PrintError(e.Message);
             ServerLog.PrintError("Server start failed!");
         }
     }
@@ -127,8 +123,8 @@ internal class Server
         ClientProxy clientProxy = new ClientProxy(socket, clientId, false);
         ClientsDict.Add(clientId, clientProxy);
         IPEndPoint point = socket.RemoteEndPoint as IPEndPoint;
-        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-            ServerLog.PrintClientStates("New client connection " + point.Address + ":" + point.Port + "  Clients count: " + ClientsDict.Count);
+
+        ServerLog.PrintClientStates("New client connection " + point.Address + ":" + point.Port + "  Clients count: " + ClientsDict.Count);
 
         Thread threadReceive = new Thread(ReceiveSocket);
         threadReceive.IsBackground = true;
@@ -143,8 +139,7 @@ internal class Server
             ClientProxy clientProxy = kv.Value;
             if (clientProxy.Socket != null && clientProxy.Socket.Connected)
             {
-                if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintClientStates("Client " + clientProxy.ClientId + " quit");
+                ServerLog.PrintClientStates("Client " + clientProxy.ClientId + " quit");
 
                 ClientProxyClose(clientProxy);
             }
@@ -165,8 +160,8 @@ internal class Server
             if (!clientProxy.Socket.Connected)
             {
                 //与客户端连接失败跳出循环  
-                if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintClientStates("Client connect failed, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
+
+                ServerLog.PrintClientStates("Client connect failed, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
 
                 ClientProxyClose(clientProxy);
                 break;
@@ -178,8 +173,7 @@ internal class Server
                 int i = clientProxy.Socket.Receive(bytes);
                 if (i <= 0)
                 {
-                    if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                        ServerLog.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint + "  Clients count: " + ClientsDict.Count);
+                    ServerLog.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint + "  Clients count: " + ClientsDict.Count);
 
                     ClientProxyClose(clientProxy);
                     break;
@@ -196,8 +190,7 @@ internal class Server
             }
             catch (Exception e)
             {
-                if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId + " Error:" + e.ToString());
+                ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId + " Error:" + e.ToString());
 
                 ClientProxyClose(clientProxy);
                 break;
@@ -226,8 +219,7 @@ internal class Server
     {
         if (r is ClientRequestBase)
         {
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintReceive("GetFrom clientId: " + ((ClientRequestBase) r).clientId + " <" + r.GetProtocol() + "> " + r.DeserializeLog());
+            ServerLog.PrintReceive("GetFrom clientId: " + ((ClientRequestBase) r).clientId + " <" + r.GetProtocol() + "> " + r.DeserializeLog());
 
             ClientRequestBase request = (ClientRequestBase) r;
             if (ClientsDict.ContainsKey(request.clientId))
@@ -247,24 +239,21 @@ internal class Server
         SendMsg sendMsg = (SendMsg) obj;
         if (sendMsg == null)
         {
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintError("SendMsg is null");
+            ServerLog.PrintError("SendMsg is null");
 
             return;
         }
 
         if (sendMsg.Client == null)
         {
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintError("Client socket is null");
+            ServerLog.PrintError("Client socket is null");
 
             return;
         }
 
         if (!sendMsg.Client.Connected)
         {
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintError("Not connected to client socket");
+            ServerLog.PrintError("Not connected to client socket");
 
             sendMsg.Client.Close();
             return;
@@ -287,18 +276,16 @@ internal class Server
             bool success = asyncSend.AsyncWaitHandle.WaitOne(1000, true);
             if (!success)
             {
-                if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                    ServerLog.PrintError("Send failed");
+                ServerLog.PrintError("Send failed");
             }
 
             string log = "SendTo clientId: " + sendMsg.ClientId + sendMsg.Req.DeserializeLog();
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintSend(log);
+
+            ServerLog.PrintSend(log);
         }
         catch (Exception e)
         {
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintError("Send Exception : " + e);
+            ServerLog.PrintError("Send Exception : " + e);
         }
     }
 

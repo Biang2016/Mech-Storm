@@ -20,7 +20,22 @@ public class AudioManager : MonoSingleton<AudioManager>
     public AudioMixerGroup BGMAudioMixerGroup;
     public AudioMixerGroup SoundAudioMixerGroup;
 
-    public void SoundPlay(string audioName, float volume = 1)
+    void Start()
+    {
+        float masterVolume = PlayerPrefs.GetFloat("MasterVolume");
+        AudioMixer.SetFloat("MasterVolume", masterVolume.Equals(0.0f) ? -8 : masterVolume);
+        float soundVolume = PlayerPrefs.GetFloat("SoundVolume");
+        AudioMixer.SetFloat("SoundVolume", soundVolume.Equals(0.0f) ? -8 : soundVolume);
+        float bgmVolume = PlayerPrefs.GetFloat("BGMVolume");
+        AudioMixer.SetFloat("BGMVolume", bgmVolume.Equals(0.0f) ? -8 : bgmVolume);
+    }
+
+    public void SoundPlay(string audioName)
+    {
+        SoundPlay(audioName, 1f);
+    }
+
+    internal void SoundPlay(string audioName, float volume = 1)
     {
         if (AudioDictionary.ContainsKey(audioName))
         {
@@ -207,23 +222,34 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     #region 音效资源路径
 
-    public static Dictionary<string, AudioClip> AudioClipDict_ABModeOnly = new Dictionary<string, AudioClip>();
+    private static Dictionary<string, AudioClip> AudioClipDict_ABModeOnly = new Dictionary<string, AudioClip>();
+
+    public static void ClearAudioClipDict()
+    {
+        AudioClipDict_ABModeOnly.Clear();
+    }
+
+    public static void AddAudioRes(string audioName, AudioClip ac)
+    {
+        AudioClipDict_ABModeOnly.Add(audioName, ac);
+    }
 
     private AudioClip GetAudioClip(string audioName)
     {
-        if (AudioClipDict_ABModeOnly.ContainsKey(audioName))
+        if (Initialization.Instance.IsABMode)
         {
-            return AudioClipDict_ABModeOnly[audioName];
+            if (AudioClipDict_ABModeOnly.ContainsKey(audioName))
+            {
+                return AudioClipDict_ABModeOnly[audioName];
+            }
+        }
+        else
+        {
+            AudioClip audioClip = Resources.Load(ResourcePath + audioName) as AudioClip;
+            return audioClip;
         }
 
-        AudioClip audioclip = GetResAudioClip(audioName);
-
-        return audioclip;
-    }
-
-    private AudioClip GetResAudioClip(string aduioName)
-    {
-        return Resources.Load(ResourcePath + aduioName) as AudioClip;
+        return null;
     }
 
     #endregion

@@ -46,8 +46,8 @@
             sideEffectBundle_OnBattleGround: CardInfo.SideEffectBundle_OnBattleGround);
     }
 
-
     #region 属性
+
     private int m_EquipID;
 
     public int M_EquipID

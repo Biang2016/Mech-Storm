@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Enemy : ChapterPace
+public class Enemy : StoryPace
 {
-    public string Name;
+    public override Story M_Story { get; set; }
     public BuildInfo BuildInfo;
     public int EnemyPicID;
     public EnemyType EnemyType;
@@ -26,12 +26,12 @@ public class Enemy : ChapterPace
         OptionalBonusGroup = optionalBonusGroup;
     }
 
-    public override ChapterPace Clone()
+    public override StoryPace Clone()
     {
         return new Enemy(Name, BuildInfo, EnemyPicID, EnemyType, hardFactor, CloneVariantUtils.List(AlwaysBonusGroup), CloneVariantUtils.List(OptionalBonusGroup));
     }
 
-    public override ChapterPace Variant()
+    public override StoryPace Variant()
     {
         //TODO
         return new Enemy();
@@ -39,7 +39,7 @@ public class Enemy : ChapterPace
 
     public override void Serialize(DataStream writer)
     {
-        writer.WriteString8(Name);
+        base.Serialize(writer);
         BuildInfo.Serialize(writer);
         writer.WriteSInt32(EnemyPicID);
         writer.WriteSInt32((int) EnemyType);
@@ -61,7 +61,6 @@ public class Enemy : ChapterPace
     public static Enemy Deserialize(DataStream reader)
     {
         Enemy newEnemy = new Enemy();
-        newEnemy.Name = reader.ReadString8();
         newEnemy.BuildInfo = BuildInfo.Deserialize(reader);
         newEnemy.EnemyPicID = reader.ReadSInt32();
         newEnemy.EnemyType = (EnemyType) (reader.ReadSInt32());

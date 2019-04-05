@@ -69,11 +69,16 @@ public class DragManager : MonoSingleton<DragManager>
 
     void Update()
     {
-        if (ExitMenuManager.Instance.M_StateMachine.GetState() == ExitMenuManager.StateMachine.States.Show) ResetCurrentDrag();
+        //if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
+        //if (ExitMenuPanel.Instance.M_StateMachine.GetState() == ExitMenuPanel.StateMachine.States.Show) ResetCurrentDrag();
         if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show) ResetCurrentDrag();
         if (!Client.Instance.IsPlaying()) ResetCurrentDrag();
-        if (StartMenuManager.Instance.M_StateMachine.GetState() != StartMenuManager.StateMachine.States.Hide) ResetCurrentDrag();
-        if (WinLostPanelManager.Instance.IsShow) ResetCurrentDrag();
+        if (UIManager.Instance.GetBaseUIForm<StartMenuPanel>())
+        {
+            ResetCurrentDrag();
+            //TODO
+        }
+        //if (BattleResultPanel.Instance.IsShow) ResetCurrentDrag();
         if (!IsSummonPreview)
         {
             CommonDrag();
@@ -147,7 +152,7 @@ public class DragManager : MonoSingleton<DragManager>
     {
         if (IsArrowShowBegin)
         {
-            if (!CurrentArrow || !(CurrentArrow is ArrowAiming)) CurrentArrow = GameObjectPoolManager.Instance.Pool_ArrowAimingPool.AllocateGameObject<ArrowAiming>(transform);
+            if (!CurrentArrow || !(CurrentArrow is ArrowAiming)) CurrentArrow = GameObjectPoolManager.Instance.PoolDict["ArrowAiming"].AllocateGameObject<ArrowAiming>(transform);
             Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             CurrentArrow.Render(CurrentSummonPreviewRetinue.transform.position, cameraPosition);
         }

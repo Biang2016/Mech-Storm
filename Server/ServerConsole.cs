@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-class ServerConsole
+internal class ServerConsole
 {
     public static string ServerRoot
     {
@@ -29,6 +29,7 @@ class ServerConsole
 
     static void Main(string[] args)
     {
+        ServerLog.ServerLogVerbosity = ServerLogVerbosity.All;
         StreamReader sr;
         FileInfo fi_formal = new FileInfo(ServerRoot + "Config/ServerSwitch.txt");
         FileInfo fi_develop = new FileInfo("./Config/ServerSwitch.txt");
@@ -49,6 +50,7 @@ class ServerConsole
         {
             case DEVELOP.DEVELOP:
             {
+                ServerLog.ServerLogVerbosity = ServerLogVerbosity.All;
                 Server.SV = new Server("127.0.0.1", 9999);
 
                 if (Directory.Exists("./Config"))
@@ -66,12 +68,14 @@ class ServerConsole
             }
             case DEVELOP.TEST:
             {
+                ServerLog.ServerLogVerbosity = ServerLogVerbosity.All;
                 ServerLog.Print("TEST SERVER");
                 Server.SV = new Server("127.0.0.1", 9999);
                 break;
             }
             case DEVELOP.FORMAL:
             {
+                ServerLog.ServerLogVerbosity = ServerLogVerbosity.States;
                 ServerLog.Print("FORMAL SERVER");
                 Server.SV = new Server("95.169.26.10", 9999);
                 break;

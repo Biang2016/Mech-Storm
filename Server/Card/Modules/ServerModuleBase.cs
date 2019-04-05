@@ -17,7 +17,6 @@
 
     protected abstract void Initiate();
 
-
     protected abstract void InitializeSideEffects();
 
     public void UnRegisterSideEffect()
@@ -38,7 +37,11 @@
         set { stars = value; }
     }
 
-    public int OriginCardInstanceId { get => originCardInstanceId; set => originCardInstanceId = value; }
+    public int OriginCardInstanceId
+    {
+        get => originCardInstanceId;
+        set => originCardInstanceId = value;
+    }
 
     private int originCardInstanceId;
 

@@ -17,7 +17,6 @@
                 {
                     player.MyHandManager.GetACardByID(ci.CardID);
                 }
-
             }
         }
     }

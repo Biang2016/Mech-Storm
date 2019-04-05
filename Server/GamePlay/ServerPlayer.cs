@@ -101,7 +101,6 @@ internal class ServerPlayer : Player
         }
     }
 
-
     public void IncreaseMetalMax(int increaseValue)
     {
         if (MetalMax + increaseValue <= GamePlaySettings.MaxMetal)
@@ -470,7 +469,6 @@ internal class ServerPlayer : Player
     }
 
     #endregion
-
 
     private void BroadCastRequest(ServerRequestBase request)
     {

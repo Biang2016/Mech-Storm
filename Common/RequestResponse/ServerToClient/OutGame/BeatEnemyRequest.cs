@@ -1,16 +1,14 @@
 ﻿public class BeatEnemyRequest : ServerRequestBase
 {
-    public int ChapterID;
-    public int EnemyPicID;
+    public int StoryPaceID;
 
     public BeatEnemyRequest()
     {
     }
 
-    public BeatEnemyRequest(int chapterID, int enemyPicID)
+    public BeatEnemyRequest(int storyPaceID)
     {
-        ChapterID = chapterID;
-        EnemyPicID = enemyPicID;
+        StoryPaceID = storyPaceID;
     }
 
     public override NetProtocols GetProtocol()
@@ -21,14 +19,12 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(ChapterID);
-        writer.WriteSInt32(EnemyPicID);
+        writer.WriteSInt32(StoryPaceID);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        ChapterID = reader.ReadSInt32();
-        EnemyPicID = reader.ReadSInt32();
+        StoryPaceID = reader.ReadSInt32();
     }
 }

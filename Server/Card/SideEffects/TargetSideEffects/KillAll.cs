@@ -8,7 +8,7 @@
 
         public override void Execute(ExecutorInfo executorInfo)
         {
-            ServerPlayer player = (ServerPlayer)Player;
+            ServerPlayer player = (ServerPlayer) Player;
             switch (M_TargetRange)
             {
                 case TargetRange.Mechs:
@@ -50,5 +50,4 @@
             }
         }
     }
-
 }

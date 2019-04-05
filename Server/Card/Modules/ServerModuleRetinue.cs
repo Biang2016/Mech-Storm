@@ -64,7 +64,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         set { m_RetinueID = value; }
     }
 
-
     private int m_UsedClientRetinueTempId;
 
     public int M_UsedClientRetinueTempId //曾用过的客户端临时Id
@@ -80,7 +79,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         get { return m_IsDead; }
         set { m_IsDead = value; }
     }
-
 
     private int m_ImmuneLeftRounds = 0;
 
@@ -148,7 +146,6 @@ internal class ServerModuleRetinue : ServerModuleBase
             }
         }
     }
-
 
     private int m_RetinueTotalLife;
 
@@ -763,7 +760,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         return true;
     }
 
-
     private bool isFirstRound = true; //是否是召唤的第一回合
 
     public bool IsFirstRound
@@ -814,7 +810,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         CanAttack = res;
     }
 
-
     private bool canCharge = false; //冲锋
 
     public bool CanCharge
@@ -822,7 +817,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         get => canCharge;
         set => canCharge = value;
     }
-
 
     private bool endRound = false; //回合结束后
 
@@ -900,7 +894,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
-
     private void OnBeAttacked()
     {
     }
@@ -910,7 +903,6 @@ internal class ServerModuleRetinue : ServerModuleBase
         RetinueDodgeRequest request = new RetinueDodgeRequest(ServerPlayer.ClientId, M_RetinueID);
         ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
-
 
     private enum AttackLevel
     {
@@ -929,7 +921,6 @@ internal class ServerModuleRetinue : ServerModuleBase
             return AttackLevel.Sword;
         }
     }
-
 
     public bool BeforeAttack(ServerModuleRetinue targetRetinue, bool isCounterAttack)
     {
@@ -1065,7 +1056,6 @@ internal class ServerModuleRetinue : ServerModuleBase
 
         //死亡结算
         if (isCounterAttack) return; //逻辑集中在攻击方处理，反击方不处理后续效果
-
 
         if (M_RetinueLeftLife == 0 && targetRetinue.M_RetinueLeftLife != 0) //攻击方挂了
         {

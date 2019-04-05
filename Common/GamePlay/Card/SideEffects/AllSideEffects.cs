@@ -8,10 +8,6 @@ public static class AllSideEffects
 {
     public static Dictionary<string, SideEffectBase> SideEffectsNameDict = new Dictionary<string, SideEffectBase>();
 
-    public delegate void DebugLog(string log);
-
-    public static DebugLog DebugLogHandler;
-
     private static void addSideEffect(SideEffectBase sideEffectBase)
     {
         if (!SideEffectsNameDict.ContainsKey(sideEffectBase.Name)) SideEffectsNameDict.Add(sideEffectBase.Name, sideEffectBase);
@@ -46,7 +42,7 @@ public static class AllSideEffects
             SideEffectBase se = (SideEffectBase) CurrentAssembly.CreateInstance("SideEffects." + name);
             if (se == null)
             {
-                DebugLogHandler("SideEffects: " + name + " does not exist");
+                Utils.DebugLog("SideEffects: " + name + " does not exist");
                 continue;
             }
 

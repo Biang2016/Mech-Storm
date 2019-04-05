@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 internal class ServerGameManager
 {
@@ -33,7 +32,6 @@ internal class ServerGameManager
         Initialized();
     }
 
-
     #region 游戏初始化
 
     private int gameRetinueIdGenerator = 1000;
@@ -62,8 +60,7 @@ internal class ServerGameManager
         ClientA.ClientState = ProxyBase.ClientStates.Playing;
         ClientB.ClientState = ProxyBase.ClientStates.Playing;
 
-        if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-            ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
+        ServerLog.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
 
         SyncRandomNumber();
 
@@ -75,7 +72,7 @@ internal class ServerGameManager
         int PB_BEGINMETAL = ClientB.CurrentBuildInfo.BeginMetal;
 
         PlayerA = new ServerPlayer(ClientA.UserName, ClientA.ClientId, ClientB.ClientId, 0, PA_BEGINMETAL, PA_LIFE, PA_LIFE, 0, PA_MAGIC, this);
-        PlayerA.MyCardDeckManager.CardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange,PlayerA.MyCardDeckManager.OnUpdatePlayerCoolDownCard, PlayerA.MyCardDeckManager.OnRemovePlayerCoolDownCard);
+        PlayerA.MyCardDeckManager.CardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange, PlayerA.MyCardDeckManager.OnUpdatePlayerCoolDownCard, PlayerA.MyCardDeckManager.OnRemovePlayerCoolDownCard);
         PlayerA.MyClientProxy = ClientA;
 
         PlayerB = new ServerPlayer(ClientB.UserName, ClientB.ClientId, ClientA.ClientId, 0, PB_BEGINMETAL, PB_LIFE, PB_LIFE, 0, PB_MAGIC, this);
@@ -202,7 +199,6 @@ internal class ServerGameManager
 
         Broadcast_SendOperationResponse();
     }
-
 
     public void OnClientEquipWeaponRequest(EquipWeaponRequest r)
     {
@@ -383,28 +379,33 @@ internal class ServerGameManager
         if (IsStopped) return;
         GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
         Broadcast_AddRequestToOperationResponse(request);
-        if (ClientB is ClientProxyAI AI && AI.IsStoryMode)
-        {
-            if (winner == PlayerA)
-            {
-                BeatEnemyRequest request2 = new BeatEnemyRequest(AI.LevelID, AI.EnemyPicID);
-                ClientA.SendMessage(request2);
+        OnEndGameHandler(winner);
+        //if (ClientB is ClientProxyAI AI && AI.IsStoryMode)
+        //{
+        //    if (winner == PlayerA)
+        //    {
+        //        BeatEnemyRequest request2 = new BeatEnemyRequest();
+        //        ClientA.SendMessage(request2);
 
-                Story story = Database.Instance.PlayerStoryStates[ClientA.UserName];
-                story.BeatEnemy(AI.LevelID, AI.EnemyPicID);
-                if (AI.LevelID < story.Chapters.Count - 1)
-                {
-                    story.UnlockChapterEnemies(AI.LevelID + 1);
-                    List<int> nextLevelBossPicIDs = new List<int>();
-                    nextLevelBossPicIDs = story.LevelUnlockBossInfo[AI.LevelID + 1];
-                    NextChapterEnemiesRequest request3 = new NextChapterEnemiesRequest(AI.LevelID + 1, nextLevelBossPicIDs);
-                    ClientA.SendMessage(request3);
-                }
-            }
-        }
+        //        Story story = Database.Instance.PlayerStoryStates[ClientA.UserName];
+        //        story.BeatEnemy(AI.LevelID, AI.EnemyPicID);
+        //        if (AI.LevelID < story.Chapters.Count - 1)
+        //        {
+        //            story.UnlockChapterEnemies(AI.LevelID + 1);
+        //            List<int> nextLevelBossPicIDs = new List<int>();
+        //            nextLevelBossPicIDs = story.LevelUnlockBossInfo[AI.LevelID + 1];
+        //            NextChapterEnemiesRequest request3 = new NextChapterEnemiesRequest(AI.LevelID + 1, nextLevelBossPicIDs);
+        //            ClientA.SendMessage(request3);
+        //        }
+        //    }
+        //}
 
         IsStopped = true;
     }
+
+    public delegate void OnEndGameDelegate(ServerPlayer winner);
+
+    public OnEndGameDelegate OnEndGameHandler;
 
     public void OnEndGameByServerError()
     {
@@ -418,14 +419,13 @@ internal class ServerGameManager
     {
         if (IsStopped)
         {
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                if (ClientA == null)
-                    ServerLog.Print(ClientA.ClientId + "   ClientA==null");
+            if (ClientA == null)
+                ServerLog.Print(ClientA.ClientId + "   ClientA==null");
 
             ClientA.ClientState = ProxyBase.ClientStates.Login;
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                if (ClientB == null)
-                    ServerLog.Print(ClientB.ClientId + "   ClientB==null");
+
+            if (ClientB == null)
+                ServerLog.Print(ClientB.ClientId + "   ClientB==null");
 
             ClientB.ClientState = ProxyBase.ClientStates.Login;
 
@@ -436,8 +436,7 @@ internal class ServerGameManager
 
             EventManager.ClearAllEvents();
 
-            if (ServerConsole.Platform == ServerConsole.DEVELOP.DEVELOP || ServerConsole.Platform == ServerConsole.DEVELOP.TEST)
-                ServerLog.PrintClientStates("GameStopSucBetween: " + PlayerA.ClientId + ", " + PlayerB.ClientId);
+            ServerLog.PrintClientStates("GameStopSucBetween: " + PlayerA.ClientId + ", " + PlayerB.ClientId);
         }
 
         IsStopped = false;

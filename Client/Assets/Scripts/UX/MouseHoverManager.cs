@@ -108,7 +108,6 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
             States.BattleNormal,
             States.DragEquipment,
             States.DragRetinueTo,
-            States.DragRetinueTo,
             States.DragSpellTo,
             States.SummonRetinueTargetOn,
         };
@@ -118,7 +117,7 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
 
         public void SetState(States newState)
         {
-            if (WinLostPanelManager.Instance.IsShow && state == States.StartMenu) return;
+            //if (BattleResultPanel.Instance.IsShow && state == States.StartMenu) return;
             if (state != newState)
             {
                 Instance.hi_MouseFocusUIHover.Release();
@@ -176,7 +175,7 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
 
         public void Update()
         {
-            if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
+            //if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
             if (InGameState.Contains(state) && DragManager.Instance.CurrentDrag == null && DragManager.Instance.CurrentSummonPreviewRetinue == null)
             {
                 if (state != States.SelectCardWindow_ReadOnly) Instance.M_StateMachine.SetState(States.BattleNormal);

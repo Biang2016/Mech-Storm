@@ -28,7 +28,7 @@
                     }
                 }
 
-                player.MyBattleGroundManager.AddLifeForOneRetinue(targetHeroRetinue.M_RetinueID,life);
+                player.MyBattleGroundManager.AddLifeForOneRetinue(targetHeroRetinue.M_RetinueID, life);
                 targetHeroRetinue.M_RetinueShield += shield;
                 targetHeroRetinue.M_RetinueArmor += armor;
             }

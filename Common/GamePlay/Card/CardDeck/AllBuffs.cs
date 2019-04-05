@@ -8,11 +8,6 @@ public static class AllBuffs
 {
     public static Dictionary<string, SideEffectExecute> BuffDict = new Dictionary<string, SideEffectExecute>();
 
-    public delegate void DebugLog(string log);
-
-    public static DebugLog DebugLogHandler;
-
-
     private static void addBuff(SideEffectExecute seb)
     {
         if (!BuffDict.ContainsKey(seb.SideEffectBase.Name)) BuffDict.Add(seb.SideEffectBase.Name, seb);
@@ -47,13 +42,13 @@ public static class AllBuffs
             PlayerBuffSideEffects se = (PlayerBuffSideEffects) CurrentAssembly.CreateInstance("SideEffects." + name);
             if (se == null)
             {
-                DebugLogHandler("Buffs: " + name + " does not exist");
+                Utils.DebugLog("Buffs: " + name + " does not exist");
                 continue;
             }
 
             se.Name = sideEffectNode.Attributes["name"].Value;
 
-            se.DescRaws=new SortedDictionary<string, string>();
+            se.DescRaws = new SortedDictionary<string, string>();
             foreach (KeyValuePair<string, string> kv in descKeyDict)
             {
                 se.DescRaws[kv.Key] = sideEffectNode.Attributes[kv.Value].Value;
@@ -88,7 +83,6 @@ public static class AllBuffs
             addBuff(see);
         }
     }
-
 
     public static SideEffectExecute GetBuff(string buffName)
     {

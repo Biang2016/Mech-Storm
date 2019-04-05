@@ -1,5 +1,3 @@
 ﻿internal class ServerCardEquip : ServerCardBase
 {
-
-
 }

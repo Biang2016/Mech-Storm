@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class Story : IClone<Story>,IVariant<Story>
+public class Story : IClone<Story>, IVariant<Story>
 {
     public string StoryName;
-    public SortedDictionary<int,Chapter> Chapters = new SortedDictionary<int, Chapter>();
+    public SortedDictionary<int, Chapter> Chapters = new SortedDictionary<int, Chapter>();
+    public SortedDictionary<int, StoryPace> StoryPaces = new SortedDictionary<int, StoryPace>(); //方便查询的数据结构，不进行序列化
 
     public SortedDictionary<int, int> Base_CardLimitDict = new SortedDictionary<int, int>(); // 玩家牌库已解锁各牌的上限信息（以基本牌为key）
     public SortedDictionary<int, BuildInfo> PlayerBuildInfos = new SortedDictionary<int, BuildInfo>();
 
     public GamePlaySettings StoryGamePlaySettings;
+
+    private int storyPaceIDGenerator = 1000;
+
+    public int GetStoryPaceID()
+    {
+        return storyPaceIDGenerator++;
+    }
 
     private Story()
     {
@@ -18,22 +26,23 @@ public class Story : IClone<Story>,IVariant<Story>
 
     public Story(string storyName, SortedDictionary<int, Chapter> chapters, SortedDictionary<int, int> base_CardLimitDict, SortedDictionary<int, BuildInfo> playerBuildInfos, GamePlaySettings storyGamePlaySettings)
     {
+        storyPaceIDGenerator = 1000;
         StoryName = storyName;
         Chapters = chapters;
         PlayerBuildInfos = playerBuildInfos;
         Base_CardLimitDict = base_CardLimitDict;
         StoryGamePlaySettings = storyGamePlaySettings;
+        RefreshStoryPacesPointer();
     }
 
     public Story Variant() //变换关卡
     {
         Story newStory = new Story(
             StoryName,
-            CloneVariantUtils.SortedDictionary(Chapters,CloneVariantUtils.OperationType.Variant),
+            CloneVariantUtils.SortedDictionary(Chapters, CloneVariantUtils.OperationType.Variant),
             CloneVariantUtils.SortedDictionary(Base_CardLimitDict),
             CloneVariantUtils.SortedDictionary(PlayerBuildInfos),
             StoryGamePlaySettings.Clone());
-
         return newStory;
     }
 
@@ -41,10 +50,33 @@ public class Story : IClone<Story>,IVariant<Story>
     {
         Story newStory = new Story(
             StoryName,
-            CloneVariantUtils.SortedDictionary(Chapters), 
-            CloneVariantUtils.SortedDictionary(Base_CardLimitDict), 
+            CloneVariantUtils.SortedDictionary(Chapters),
+            CloneVariantUtils.SortedDictionary(Base_CardLimitDict),
             PlayerBuildInfos, StoryGamePlaySettings.Clone());
         return newStory;
+    }
+
+    private void RefreshStoryPacesPointer()
+    {
+        foreach (KeyValuePair<int, Chapter> kv in Chapters)
+        {
+            foreach (KeyValuePair<EnemyType, SortedDictionary<int, Enemy>> KV in kv.Value.ChapterAllEnemies)
+            {
+                foreach (KeyValuePair<int, Enemy> _kv in KV.Value)
+                {
+                    _kv.Value.M_Story = this;
+                    _kv.Value.StoryPaceID = GetStoryPaceID();
+                    StoryPaces.Add(_kv.Value.StoryPaceID, _kv.Value);
+                }
+            }
+
+            foreach (KeyValuePair<int, Shop> KV in kv.Value.ChapterAllShops)
+            {
+                KV.Value.M_Story = this;
+                KV.Value.StoryPaceID = GetStoryPaceID();
+                StoryPaces.Add(KV.Value.StoryPaceID, KV.Value);
+            }
+        }
     }
 
     public delegate string StoryInfoRefreshDelegate();
