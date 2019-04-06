@@ -63,21 +63,6 @@ public class SettingPanel : BaseUIForm
         LanguageDropdown.onValueChanged.AddListener(LanguageManager.Instance.LanguageDropdownChange);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            CloseUIForm();
-            return;
-        }
-
-        bool isClickElseWhere = (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) || Input.GetMouseButtonDown(1);
-        if (isClickElseWhere)
-        {
-            CloseUIForm();
-        }
-    }
-
     private void OnMasterSliderValueChange(float value)
     {
         float volume = value;

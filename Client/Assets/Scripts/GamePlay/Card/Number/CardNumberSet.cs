@@ -4,25 +4,21 @@
 public class CardNumberSet : PoolObject
 {
     //工具，初始化数字块
-    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType,
-        CardNumberSet.TextAlign textAlign, Transform block)
+    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType, TextAlign textAlign, Transform block)
     {
         if (!cardNumberSet)
         {
-            cardNumberSet =
-                GameObjectPoolManager.Instance.PoolDict["NumberSet"].AllocateGameObject<CardNumberSet>(block);
+            cardNumberSet = GameObjectPoolManager.Instance.PoolDict["NumberSet"].AllocateGameObject<CardNumberSet>(block);
         }
 
         cardNumberSet.initiate(0, numberType, textAlign, false);
     }
 
-    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType,
-        CardNumberSet.TextAlign textAlign, Transform block, char firstSign)
+    public static void InitiateNumbers(ref CardNumberSet cardNumberSet, NumberSize numberType, TextAlign textAlign, Transform block, char firstSign)
     {
         if (!cardNumberSet)
         {
-            cardNumberSet =
-                GameObjectPoolManager.Instance.PoolDict["NumberSet"].AllocateGameObject<CardNumberSet>(block);
+            cardNumberSet = GameObjectPoolManager.Instance.PoolDict["NumberSet"].AllocateGameObject<CardNumberSet>(block);
         }
 
         cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);

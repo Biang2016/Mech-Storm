@@ -2,36 +2,31 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AffixManager : MonoSingleton<AffixManager>
+public class AffixPanel : BaseUIForm
 {
-    private AffixManager()
+    private AffixPanel()
     {
     }
 
-    [SerializeField] private Transform AffixPanel;
-    [SerializeField] private VerticalLayoutGroup VerticalLayoutGroup;
+    [SerializeField] private Transform AffixContainer;
     [SerializeField] private Animator AffixPanelAnim;
 
     private List<Affix> Affixes = new List<Affix>();
     private HashSet<AffixType> AffixTypes = new HashSet<AffixType>();
 
-    private float hideAffixPanelTicker;
-    private float hideAffixPanelInterval = 0.5f;
-
-    private void Update()
+    void Awake()
     {
-        //if (StartMenuPanel.Instance.M_StateMachine.IsShow())
-        {
-            if (hideAffixPanelTicker > hideAffixPanelInterval)
-            {
-                hideAffixPanelTicker = 0;
-                HideAffixPanel();
-            }
-            else
-            {
-                hideAffixPanelTicker += Time.deltaTime;
-            }
-        }
+        UIType.IsClearStack = false;
+        UIType.IsClickElsewhereClose = false;
+        UIType.IsESCClose = false;
+        UIType.UIForms_ShowMode = UIFormShowModes.Normal;
+        UIType.UIForms_Type = UIFormTypes.Normal;
+        UIType.UIForm_LucencyType = UIFormLucencyTypes.Penetrable;
+    }
+
+    public override void Hide()
+    {
+        HideAffixPanel();
     }
 
     /// <summary>
@@ -212,7 +207,7 @@ public class AffixManager : MonoSingleton<AffixManager>
         }
     }
 
-    public void HideAffixPanel()
+    private void HideAffixPanel()
     {
         AffixPanelAnim.SetTrigger("Hide");
     }
@@ -230,7 +225,7 @@ public class AffixManager : MonoSingleton<AffixManager>
         if (!AffixTypes.Contains(affixType))
         {
             AffixTypes.Add(affixType);
-            Affix newAffix = GameObjectPoolManager.Instance.PoolDict["AffixPanel"].AllocateGameObject<Affix>(AffixPanel);
+            Affix newAffix = GameObjectPoolManager.Instance.PoolDict["AffixPanel"].AllocateGameObject<Affix>(AffixContainer);
             newAffix.Initialize(affixType);
             Affixes.Add(newAffix);
         }

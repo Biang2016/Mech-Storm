@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -10,41 +11,46 @@ public class ExitMenuPanel : BaseUIForm
     {
     }
 
-    [SerializeField] private Button SurrenderButton;
-    [SerializeField] private Button ConsumeButton;
-    [SerializeField] private Button QuitGameButton;
-
-    [SerializeField] private Text SettingMenuText;
-    [SerializeField] private Text SurrenderText;
-    [SerializeField] private Text ConsumeText;
-    [SerializeField] private Text QuitText;
+    [SerializeField] private Transform ButtonContainer;
 
     void Awake()
     {
         UIType.IsClearStack = false;
+        UIType.IsESCClose = true;
+        UIType.IsClickElsewhereClose = true;
         UIType.UIForm_LucencyType = UIFormLucencyTypes.Blur;
         UIType.UIForms_ShowMode = UIFormShowModes.Return;
         UIType.UIForms_Type = UIFormTypes.PopUp;
 
-        LanguageManager.Instance.RegisterTextKeys(
-            new List<(Text, string)>
-            {
-                (SettingMenuText, "ExitMenu_SettingMenuText"),
-                (SurrenderText, "ExitMenu_SurrenderText"),
-                (ConsumeText, "ExitMenu_ConsumeText"),
-                (QuitText, "ExitMenu_QuitText"),
-                (SettingMenuText, "ExitMenu_SettingMenuText"),
-                (SurrenderText, "ExitMenu_SurrenderText"),
-                (ConsumeText, "ExitMenu_ConsumeText"),
-                (QuitText, "ExitMenu_QuitText"),
-            });
+        AddButton("Surrender", "ExitMenu_SurrenderText", OnSurrenderButtonClick);
+        AddButton("Consume", "ExitMenu_ConsumeText", OnConsumeGameButtonClick);
+        AddButton("Setting", "ExitMenu_SettingMenuText", OnSettingMenuButtonClick);
+        AddButton("Quit", "ExitMenu_QuitText", OnQuitGameButtonClick);
+
+        ExitMenuButtonListDict.Add(States.Show_MainMenu, new List<string> {"Consume", "Setting", "Quit"});
+        ExitMenuButtonListDict.Add(States.Show_Playing, new List<string> {"Consume", "Surrender", "Setting", "Quit"});
+    }
+
+    private Dictionary<string, ExitMenuButton> ExitMenuButtonDict = new Dictionary<string, ExitMenuButton>();
+    private Dictionary<States, List<string>> ExitMenuButtonListDict = new Dictionary<States, List<string>>();
+
+    [Flags]
+    public enum States
+    {
+        Show_MainMenu,
+        Show_Playing
+    }
+
+    private void AddButton(string goName, string textKey, UnityAction buttonClick)
+    {
+        ExitMenuButton emb = GameObjectPoolManager.Instance.PoolDict["ExitMenuButton"].AllocateGameObject<ExitMenuButton>(ButtonContainer);
+        emb.name = goName + "Button";
+        emb.BindTextKey(textKey, buttonClick);
+        ExitMenuButtonDict.Add(goName, emb);
     }
 
     void Start()
     {
-        SurrenderButton.gameObject.SetActive(false);
-        ConsumeButton.gameObject.SetActive(true);
-        QuitGameButton.gameObject.SetActive(true);
         Proxy.OnClientStateChange += OnClientChangeState;
     }
 
@@ -53,46 +59,40 @@ public class ExitMenuPanel : BaseUIForm
         switch (clientState)
         {
             case ProxyBase.ClientStates.Offline:
-                SurrenderButton.gameObject.SetActive(false);
-                ConsumeButton.gameObject.SetActive(false);
-                QuitGameButton.gameObject.SetActive(false);
+                UIManager.Instance.CloseUIForms<ExitMenuPanel>();
                 break;
             case ProxyBase.ClientStates.GetId:
-                SurrenderButton.gameObject.SetActive(false);
-                ConsumeButton.gameObject.SetActive(false);
-                QuitGameButton.gameObject.SetActive(false);
+                UIManager.Instance.CloseUIForms<ExitMenuPanel>();
                 break;
             case ProxyBase.ClientStates.Login:
-                SurrenderButton.gameObject.SetActive(false);
-                ConsumeButton.gameObject.SetActive(true);
-                QuitGameButton.gameObject.SetActive(true);
+                SetState(States.Show_MainMenu);
                 break;
             case ProxyBase.ClientStates.Matching:
-                SurrenderButton.gameObject.SetActive(false);
-                ConsumeButton.gameObject.SetActive(true);
-                QuitGameButton.gameObject.SetActive(true);
+                SetState(States.Show_MainMenu);
                 break;
             case ProxyBase.ClientStates.Playing:
-                SurrenderButton.gameObject.SetActive(true);
-                ConsumeButton.gameObject.SetActive(true);
-                QuitGameButton.gameObject.SetActive(true);
+                SetState(States.Show_Playing);
                 break;
         }
     }
 
-    void Update()
+    private States state;
+
+    public void SetState(States newState)
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        List<string> showButtons = ExitMenuButtonListDict[newState];
+        foreach (KeyValuePair<string, ExitMenuButton> kv in ExitMenuButtonDict)
         {
-            CloseUIForm();
-            return;
+            bool isShow = showButtons.Contains(kv.Key);
+            kv.Value.gameObject.SetActive(isShow);
         }
 
-        bool isClickElseWhere = (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) || Input.GetMouseButtonDown(1);
-        if (isClickElseWhere)
+        foreach (string btnName in showButtons)
         {
-            CloseUIForm();
+            ExitMenuButtonDict[btnName].transform.SetAsLastSibling();
         }
+
+        state = newState;
     }
 
     public void OnSettingMenuButtonClick()

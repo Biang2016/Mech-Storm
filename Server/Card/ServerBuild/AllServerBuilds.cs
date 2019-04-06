@@ -54,7 +54,6 @@ internal class AllServerBuilds
             {
                 XmlNode build = allBuilds.ChildNodes.Item(i);
                 BuildInfo buildInfo = new BuildInfo();
-                buildInfo.M_BuildCards = new BuildInfo.BuildCards(new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>());
                 for (int j = 0; j < build.ChildNodes.Count; j++)
                 {
                     XmlNode cardInfo = build.ChildNodes[j];
@@ -71,6 +70,7 @@ internal class AllServerBuilds
                             buildInfo.IsHighLevelCardLocked = cardInfo.Attributes["IsHighLevelCardLocked"].Value.Equals("True");
                             break;
                         case "cardIDs":
+                            buildInfo.M_BuildCards = new BuildInfo.BuildCards(buildInfo.BuildName, new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>());
                             string[] cardID_strs = cardInfo.Attributes["ids"].Value.Split(';');
                             foreach (string s in cardID_strs)
                             {

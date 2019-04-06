@@ -160,7 +160,7 @@
      <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\TargetSideEffectToEquip\BreakEquip.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\UseAllEnergyDamageShip.cs" />
-     <Compile Include="Assets\Scripts\GamePlay\Functions\AffixManager.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\Functions\AffixPanel.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Functions\AudioManager.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Functions\NoticeManager.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Functions\ShowCardDetailInBattleManager.cs" />
@@ -196,6 +196,7 @@
      <Compile Include="Assets\Scripts\UIComponents\ButtonEffects.cs" />
      <Compile Include="Assets\Scripts\UIComponents\CostBar\MetalBarBlock.cs" />
      <Compile Include="Assets\Scripts\UIComponents\CostBar\MetalBarManager.cs" />
+     <Compile Include="Assets\Scripts\UIComponents\ExitMenuButton.cs" />
      <Compile Include="Assets\Scripts\UIComponents\ShrinkText.cs" />
      <Compile Include="Assets\Scripts\UIComponents\StartMenuButton.cs" />
      <Compile Include="Assets\Scripts\UIComponents\TransitManager.cs" />

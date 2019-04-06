@@ -172,7 +172,6 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         private void ShowWindow()
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            //StartMenuPanel.Instance.M_StateMachine.SetState(StartMenuPanel.StateMachine.States.Hide);
             AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/SelectCardMenu_0", "bgm/SelectCardMenu_1"});
 
             GameManager.Instance.StartBlurBackGround();
@@ -203,7 +202,6 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         private void ShowWindowReadOnly()
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            //if (StartMenuPanel.Instance.M_StateMachine.IsShow()) StartMenuPanel.Instance.M_StateMachine.SetState(StartMenuPanel.StateMachine.States.Hide);
             GameManager.Instance.StartBlurBackGround();
             Instance.Canvas.gameObject.SetActive(true);
             Instance.Canvas_BG.gameObject.SetActive(true);
@@ -232,7 +230,6 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         private void HideWindow()
         {
             HideWindowCore();
-            //if (Client.Instance.IsLogin()) StartMenuPanel.Instance.M_StateMachine.ReturnToPreviousState();
         }
 
         private void HideWindowToPlaying()
@@ -252,7 +249,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
             //Instance.Canvas.gameObject.SetActive(false);
             Instance.Canvas_BG.gameObject.SetActive(false);
-            AffixManager.Instance.HideAffixPanel();
+            UIManager.Instance.CloseUIForms<AffixPanel>();
             if (Instance.currentPreviewCard) Instance.currentPreviewCard.PoolRecycle();
             GameManager.Instance.StopBlurBackGround();
             MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();

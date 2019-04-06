@@ -13,20 +13,11 @@ public class ConfirmPanel : BaseUIForm
     void Awake()
     {
         UIType.IsClearStack = false;
+        UIType.IsESCClose = true;
+        UIType.IsClickElsewhereClose = true;
         UIType.UIForm_LucencyType = UIFormLucencyTypes.Blur;
         UIType.UIForms_ShowMode = UIFormShowModes.Return;
         UIType.UIForms_Type = UIFormTypes.PopUp;
-    }
-
-    void Update()
-    {
-        if (gameObject.activeInHierarchy)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                CloseUIForm();
-            }
-        }
     }
 
     public void Initialize(string descText, string leftButtonText, string rightButtonText, UnityAction leftButtonClick, UnityAction rightButtonClick)

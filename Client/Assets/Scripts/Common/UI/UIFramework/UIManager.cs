@@ -38,6 +38,15 @@ public class UIManager : MonoSingleton<UIManager>
         return peek != null && peek is T;
     }
 
+    public void ClosePeekUIForm()
+    {
+        BaseUIForm ui = GetPeekUIForm();
+        if (ui != null && ui.UIType.IsClickElsewhereClose)
+        {
+            ui.CloseUIForm();
+        }
+    }
+
     /// <summary>
     /// 显示（打开）UI窗体
     /// 功能：

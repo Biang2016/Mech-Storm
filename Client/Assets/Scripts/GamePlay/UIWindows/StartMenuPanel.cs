@@ -12,10 +12,14 @@ public class StartMenuPanel : BaseUIForm
     }
 
     [SerializeField] private Transform ButtonContainer;
+    private Dictionary<string, StartMenuButton> StartMenuButtonDict = new Dictionary<string, StartMenuButton>();
+    private Dictionary<States, List<string>> StateMenuButtonListDict = new Dictionary<States, List<string>>();
 
     void Awake()
     {
         UIType.IsClearStack = true;
+        UIType.IsESCClose = false;
+        UIType.IsClickElsewhereClose = false;
         UIType.UIForm_LucencyType = UIFormLucencyTypes.ImPenetrable;
         UIType.UIForms_ShowMode = UIFormShowModes.Normal;
         UIType.UIForms_Type = UIFormTypes.Fixed;
@@ -40,28 +44,23 @@ public class StartMenuPanel : BaseUIForm
         AddButton("SingleCustomStart", "StartMenu_SingleCustomStart", null, OnSingleCustomStartButtonClick);
         AddButton("SingleCustomDeck", "StartMenu_SingleCustomDeck", "StartMenu_DeckTipText", OnSingleCustomDeckButtonClick, StartMenuButton.TipImageType.NewCard);
 
-        StateButtonListDict.Add(States.Show_Main, new List<string> {"OnlineMenu", "SingleMenu", "SingleCustomBattle", "Setting", "QuitGame"});
-        StateButtonListDict.Add(States.Show_Online, new List<string> {"OnlineStart", "OnlineDeck", "Back"});
-        StateButtonListDict.Add(States.Show_Online_Matching, new List<string> {"CancelMatch", "OnlineDeck", "Back"});
-        StateButtonListDict.Add(States.Show_Single, new List<string> {"SingleStart", "Back"});
-        StateButtonListDict.Add(States.Show_Single_HasStory, new List<string> {"SingleStart", "SingleResume", "SingleDeck", "Back"});
-        StateButtonListDict.Add(States.Show_SingleCustom, new List<string> {"SingleCustomStart", "SingleCustomDeck", "Back"});
+        StateMenuButtonListDict.Add(States.Show_Main, new List<string> {"OnlineMenu", "SingleMenu", "SingleCustomBattle", "Setting", "QuitGame"});
+        StateMenuButtonListDict.Add(States.Show_Online, new List<string> {"OnlineStart", "OnlineDeck", "Back"});
+        StateMenuButtonListDict.Add(States.Show_Online_Matching, new List<string> {"CancelMatch", "OnlineDeck", "Back"});
+        StateMenuButtonListDict.Add(States.Show_Single, new List<string> {"SingleStart", "Back"});
+        StateMenuButtonListDict.Add(States.Show_Single_HasStory, new List<string> {"SingleStart", "SingleResume", "SingleDeck", "Back"});
+        StateMenuButtonListDict.Add(States.Show_SingleCustom, new List<string> {"SingleCustomStart", "SingleCustomDeck", "Back"});
 
-        LanguageManager.Instance.RegisterTextKeys(
-            new List<(Text, string)>
-            {
-                (DesignerText, "StartMenu_Designer"),
-            });
         Awake_DeckAbstract();
     }
 
     void Update()
     {
-        if (UIManager.Instance.IsPeekUIForm<StartMenuPanel>())
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (UIManager.Instance.GetPeekUIForm() == null)
             {
-                if ((state & States.Show_SecondaryMenu) == States.Show_SecondaryMenu)
+                if ((state & States.Show_SecondaryMenu) == state)
                 {
                     OnBackButtonClick();
                 }
@@ -72,9 +71,6 @@ public class StartMenuPanel : BaseUIForm
             }
         }
     }
-
-    private Dictionary<string, StartMenuButton> StartMenuButtonDict = new Dictionary<string, StartMenuButton>();
-    private Dictionary<States, List<string>> StateButtonListDict = new Dictionary<States, List<string>>();
 
     private void AddButton(string goName, string textKey, string tipTextKey, UnityAction buttonClick, StartMenuButton.TipImageType tipImageType = StartMenuButton.TipImageType.None)
     {
@@ -122,19 +118,18 @@ public class StartMenuPanel : BaseUIForm
     [Flags]
     public enum States
     {
-        Show_Main,
-        Show_Online,
-        Show_Online_Matching,
-        Show_Single,
-        Show_Single_HasStory,
-        Show_SingleCustom,
-        Show_SecondaryMenu = Show_Online | Show_Single | Show_SingleCustom,
-        Show_ChangeBGM = Show_Main | Show_Online | Show_Single | Show_SingleCustom,
+        Show_Main = 1,
+        Show_Online = 2,
+        Show_Online_Matching = 4,
+        Show_Single = 8,
+        Show_Single_HasStory = 16,
+        Show_SingleCustom = 32,
+        Show_SecondaryMenu = Show_Online | Show_Single | Show_Single_HasStory | Show_SingleCustom,
     }
 
     public void SetState(States newState)
     {
-        List<string> showButtons = StateButtonListDict[newState];
+        List<string> showButtons = StateMenuButtonListDict[newState];
         foreach (KeyValuePair<string, StartMenuButton> kv in StartMenuButtonDict)
         {
             bool isShow = showButtons.Contains(kv.Key);
@@ -148,15 +143,24 @@ public class StartMenuPanel : BaseUIForm
 
         RefreshBuildInfoAbstract();
 
-        if (newState == States.Show_ChangeBGM)
-        {
-            AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
-        }
+        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
 
         state = newState;
     }
 
     #region DeckAbstract
+
+    [SerializeField] private GameObject DeckAbstract;
+
+    [SerializeField] private Text DeckAbstractText_DeckName;
+    [SerializeField] private Text DeckAbstractText_Cards;
+    [SerializeField] private Text DeckAbstractText_CardNum;
+    [SerializeField] private Text DeckAbstractText_Life;
+    [SerializeField] private Text DeckAbstractText_LifeNum;
+    [SerializeField] private Text DeckAbstractText_Energy;
+    [SerializeField] private Text DeckAbstractText_EnergyNum;
+    [SerializeField] private Text DeckAbstractText_Draws;
+    [SerializeField] private Text DeckAbstractText_DrawNum;
 
     void Awake_DeckAbstract()
     {
@@ -200,20 +204,6 @@ public class StartMenuPanel : BaseUIForm
             });
     }
 
-    [SerializeField] private GameObject DeckAbstract;
-
-    [SerializeField] private Text DesignerText;
-
-    [SerializeField] private Text DeckAbstractText_DeckName;
-    [SerializeField] private Text DeckAbstractText_Cards;
-    [SerializeField] private Text DeckAbstractText_CardNum;
-    [SerializeField] private Text DeckAbstractText_Life;
-    [SerializeField] private Text DeckAbstractText_LifeNum;
-    [SerializeField] private Text DeckAbstractText_Energy;
-    [SerializeField] private Text DeckAbstractText_EnergyNum;
-    [SerializeField] private Text DeckAbstractText_Draws;
-    [SerializeField] private Text DeckAbstractText_DrawNum;
-
     #endregion
 
     public void RefreshBuildInfoAbstract()
@@ -245,7 +235,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSingleMenuButtonClick()
     {
-        SetState(States.Show_Single);
+        SetState(StoryManager.Instance.HasStory ? States.Show_Single_HasStory : States.Show_Single);
         SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single);
         GameBoardManager.Instance.ChangeBoardBG();
     }
@@ -410,9 +400,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSelectCardDeckWindowButtonClick()
     {
-        //UIManager.Instance.ShowUIForms<>()
-        //if (Client.Instance.IsLogin() && !Client.Instance.IsMatching()) SelectBuildManager.Instance.SetState(SelectBuildManager.States.Show);
-        //else if (Client.Instance.IsPlaying() || Client.Instance.IsMatching()) SelectBuildManager.Instance.SetState(SelectBuildManager.States.Show_ReadOnly);
+        SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
     }
 
     public void OnSettingButtonClick()

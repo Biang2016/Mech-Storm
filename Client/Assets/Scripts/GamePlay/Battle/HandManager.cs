@@ -516,7 +516,7 @@ public class HandManager : MonoBehaviour
 
         lostFocusCard.ResetColliderAndReplace();
         currentFocusCardTickerBegin = false;
-        AffixManager.Instance.HideAffixPanel();
+        UIManager.Instance.CloseUIForms<AffixPanel>();
         isEnlarge = false;
     }
 
@@ -538,7 +538,7 @@ public class HandManager : MonoBehaviour
                 currentFocusCardTicker = 0;
                 if (CurrentFocusCard)
                 {
-                    AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {CurrentFocusCard.CardInfo}, null);
+                    UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(new List<CardInfo_Base> {CurrentFocusCard.CardInfo}, null);
                 }
 
                 currentFocusCardTickerBegin = false;

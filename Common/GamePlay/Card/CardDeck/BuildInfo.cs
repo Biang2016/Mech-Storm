@@ -22,10 +22,12 @@ public class BuildInfo : IClone<BuildInfo>
 
     public class BuildCards : IClone<BuildCards>
     {
+        public string BuildName;
         public SortedDictionary<int, CardSelectInfo> CardSelectInfos; // Key: CardID
 
-        public BuildCards(SortedDictionary<int, CardSelectInfo> cardSelectInfos)
+        public BuildCards(string buildName, SortedDictionary<int, CardSelectInfo> cardSelectInfos)
         {
+            BuildName = buildName;
             CardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
             foreach (KeyValuePair<int, CardSelectInfo> kv in cardSelectInfos)
             {
@@ -96,7 +98,7 @@ public class BuildInfo : IClone<BuildInfo>
                 res.Add(kv.Key, kv.Value.Clone());
             }
 
-            return new BuildCards(res);
+            return new BuildCards(BuildName, res);
         }
 
         public bool Equals(BuildCards o)
@@ -122,6 +124,7 @@ public class BuildInfo : IClone<BuildInfo>
 
         public void Serialize(DataStream writer)
         {
+            writer.WriteString8(BuildName);
             writer.WriteSInt32(CardSelectInfos.Count);
             foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
             {
@@ -131,6 +134,7 @@ public class BuildInfo : IClone<BuildInfo>
 
         public static BuildCards Deserialize(DataStream reader)
         {
+            string buildName = reader.ReadString8();
             int cardSelectInfoCount = reader.ReadSInt32();
             SortedDictionary<int, CardSelectInfo> cardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
             for (int i = 0; i < cardSelectInfoCount; i++)
@@ -138,7 +142,7 @@ public class BuildInfo : IClone<BuildInfo>
                 CardSelectInfo csi = CardSelectInfo.Deserialize(reader);
                 if (cardSelectInfos.ContainsKey(csi.CardID))
                 {
-                    Utils.DebugLog("key duplicated : " + csi.CardID);
+                    Utils.DebugLog("key duplicated : " + csi.CardID + " my buildname = " + buildName);
                 }
                 else
                 {
@@ -146,7 +150,7 @@ public class BuildInfo : IClone<BuildInfo>
                 }
             }
 
-            return new BuildCards(cardSelectInfos);
+            return new BuildCards(buildName, cardSelectInfos);
         }
 
         public class CardSelectInfo : IClone<CardSelectInfo>
@@ -181,10 +185,19 @@ public class BuildInfo : IClone<BuildInfo>
 
             public static CardSelectInfo Deserialize(DataStream reader)
             {
-                int cardID = reader.ReadSInt32();
-                int cardSelectCount = reader.ReadSInt32();
-                int cardSelectUpperLimit = reader.ReadSInt32();
-                return new CardSelectInfo(cardID, cardSelectCount, cardSelectUpperLimit);
+                try
+                {
+                    int cardID = reader.ReadSInt32();
+                    int cardSelectCount = reader.ReadSInt32();
+                    int cardSelectUpperLimit = reader.ReadSInt32();
+                    return new CardSelectInfo(cardID, cardSelectCount, cardSelectUpperLimit);
+                }
+                catch
+                {
+                    int a = 0;
+                }
+
+                return null;
             }
         }
     }

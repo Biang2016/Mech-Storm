@@ -268,7 +268,7 @@ internal class Server
             byte[] buffer = new byte[msg.Length + 4];
             DataStream writer = new DataStream(buffer, true);
 
-            writer.WriteInt32((uint) msg.Length); //增加数据长度
+            writer.WriteSInt32(msg.Length); //增加数据长度
             writer.WriteRaw(msg);
 
             byte[] data = writer.ToByteArray();

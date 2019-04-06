@@ -369,7 +369,7 @@ public partial class SelectBuildManager
         currentPreviewCard.CoinImageBG.gameObject.SetActive(true);
         currentPreviewCard.ChangeCardLimit(0);
 
-        AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {selectCard.CardInfo}, null);
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(new List<CardInfo_Base> {selectCard.CardInfo}, null);
     }
 
     private void SelectCardOnMouseLeave(SelectCard selectCard)
@@ -377,7 +377,7 @@ public partial class SelectBuildManager
         //if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
         if (PreviewCardOriginCardSelect != null) return;
         if (currentPreviewCard) currentPreviewCard.PoolRecycle();
-        AffixManager.Instance.HideAffixPanel();
+        UIManager.Instance.CloseUIForms<AffixPanel>();
     }
 
     private void UnSelectCard(CardBase card, bool playSound)

@@ -1,11 +1,33 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BaseUIForm : MonoBehaviour
 {
     public UIType UIType = new UIType();
 
     #region  窗体的四种(生命周期)状态
+
+    void Update()
+    {
+        if (UIType.IsESCClose)
+        {
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                CloseUIForm();
+                return;
+            }
+        }
+
+        if (UIType.IsClickElsewhereClose)
+        {
+            bool isClickElseWhere = (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) || Input.GetMouseButtonDown(1);
+            if (isClickElseWhere)
+            {
+                CloseUIForm();
+            }
+        }
+    }
 
     public virtual void Display()
     {

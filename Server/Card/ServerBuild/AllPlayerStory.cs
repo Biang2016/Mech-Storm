@@ -83,14 +83,9 @@ internal class AllPlayerStory
                 }
 
                 int chapterID = int.Parse(chapterInfo.Attributes["ChapterID"].Value);
-                SortedDictionary<EnemyType, SortedDictionary<int, Enemy>> chapterEnemies = new SortedDictionary<EnemyType, SortedDictionary<int, Enemy>>
-                {
-                    {EnemyType.Soldier, new SortedDictionary<int, Enemy>()},
-                    {EnemyType.Elite, new SortedDictionary<int, Enemy>()},
-                    {EnemyType.Boss, new SortedDictionary<int, Enemy>()},
-                };
+                SortedDictionary<int,StoryPace> allStoryPaces = new SortedDictionary<int, StoryPace>();
                 SortedDictionary<int, Shop> chapterShops = new SortedDictionary<int, Shop>();
-                Chapter chapter = new Chapter(chapterID, chapterEnemies, chapterShops);
+                Chapter chapter = new Chapter(chapterID, allStoryPaces);
 
                 XmlNode enemyInfos = chapterInfo.ChildNodes.Item(1);
                 for (int k = 0; k < enemyInfos.ChildNodes.Count; k++)

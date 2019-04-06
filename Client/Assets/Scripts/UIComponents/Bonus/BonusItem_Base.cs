@@ -46,7 +46,7 @@ internal class BonusItem_Base : PoolObject
     {
         if (BonusCardInfo != null)
         {
-            AffixManager.Instance.ShowAffixTips(new List<CardInfo_Base> {BonusCardInfo}, null);
+            UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(new List<CardInfo_Base> { BonusCardInfo }, null);
         }
     }
 
@@ -54,7 +54,7 @@ internal class BonusItem_Base : PoolObject
     {
         if (BonusCardInfo != null)
         {
-            AffixManager.Instance.HideAffixPanel();
+            UIManager.Instance.CloseUIForms<AffixPanel>();
         }
     }
 }

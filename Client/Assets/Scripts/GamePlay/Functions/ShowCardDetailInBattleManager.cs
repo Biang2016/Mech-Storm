@@ -158,7 +158,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
         if (detailCard_Shield != null) cardInfos.Add(detailCard_Shield.CardInfo);
         if (detailCard_Pack != null) cardInfos.Add(detailCard_Pack.CardInfo);
         if (detailCard_MA != null) cardInfos.Add(detailCard_MA.CardInfo);
-        AffixManager.Instance.ShowAffixTips(cardInfos, moduleBase is ModuleRetinue ? new List<ModuleRetinue> {(ModuleRetinue) moduleBase} : null);
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(cardInfos, moduleBase is ModuleRetinue ? new List<ModuleRetinue> { (ModuleRetinue)moduleBase } : null);
     }
 
     public enum ShowPlaces
@@ -204,7 +204,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
         detailCard.CardBloom.SetActive(true);
         List<CardInfo_Base> cardInfos = new List<CardInfo_Base>();
         if (detailCard != null) cardInfos.Add(detailCard.CardInfo);
-        AffixManager.Instance.ShowAffixTips(cardInfos, null);
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(cardInfos, null);
     }
 
     public void HideCardDetail()
@@ -239,6 +239,6 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
             detailCard_MA = null;
         }
 
-        AffixManager.Instance.HideAffixPanel();
+        UIManager.Instance.CloseUIForms<AffixPanel>();
     }
 }

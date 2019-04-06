@@ -187,7 +187,7 @@ public class Proxy : ProxyBase
                 case NetProtocols.START_NEW_STORY_REQUEST_RESPONSE:
                 {
                     StartNewStoryRequestResponse request = (StartNewStoryRequestResponse) r;
-                    //StoryPanel.Instance.InitiateStoryCanvas(request.Story);
+                    StoryManager.Instance.InitializeStory(request.Story);
                     SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single, true);
                     UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Single_HasStory);
                     AudioManager.Instance.SoundPlay("sfx/OnStoryStart");

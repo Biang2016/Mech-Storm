@@ -270,7 +270,7 @@ public partial class SelectBuildManager
             ccd = StoryManager.Instance.GetStory().Base_CardLimitDict;
         }
 
-        BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildInfo.BuildCards(new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>()), GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy,
+        BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildInfo.BuildCards("New deck", new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>()), GamePlaySettings.DefaultDrawCardNum, GamePlaySettings.DefaultLife, GamePlaySettings.DefaultEnergy,
             0, false, GamePlaySettings);
         BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, bi, GameMode_State == GameMode.Single);
         Client.Instance.Proxy.SendMessage(request);

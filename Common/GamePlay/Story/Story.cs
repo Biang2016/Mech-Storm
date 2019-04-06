@@ -168,17 +168,17 @@ public class Story : IClone<Story>, IVariant<Story>
     {
         Story newStory = new Story();
         newStory.StoryName = reader.ReadString8();
-        int levelCount = reader.ReadSInt32();
+        int chapterCount = reader.ReadSInt32();
         newStory.Chapters = new SortedDictionary<int, Chapter>();
-        for (int i = 0; i < levelCount; i++)
+        for (int i = 0; i < chapterCount; i++)
         {
             Chapter chapter = Chapter.Deserialize(reader);
             newStory.Chapters.Add(chapter.ChapterID, chapter);
         }
 
-        int ccdCount = reader.ReadSInt32();
+        int cldCount = reader.ReadSInt32();
         newStory.Base_CardLimitDict = new SortedDictionary<int, int>();
-        for (int i = 0; i < ccdCount; i++)
+        for (int i = 0; i < cldCount; i++)
         {
             int key = reader.ReadSInt32();
             int value = reader.ReadSInt32();

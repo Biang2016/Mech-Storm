@@ -121,12 +121,28 @@ public class AudioManager : MonoSingleton<AudioManager>
     }
 
     private Coroutine BGMLoop;
+    private List<string> CurrentLoopList = new List<string>();
 
     public void BGMLoopInList(List<string> bgmNames, float volume = 1.0f)
     {
+        bool isLoopingSameList = true;
+        if (CurrentLoopList.Count == bgmNames.Count)
+        {
+            foreach (string bgmName in bgmNames)
+            {
+                if (!CurrentLoopList.Contains(bgmName)) isLoopingSameList = false;
+            }
+        }
+        else
+        {
+            isLoopingSameList = false;
+        }
+
+        if (isLoopingSameList) return;
         if (BGMLoop != null) StopCoroutine(BGMLoop);
         StartCoroutine(Co_BGMFadeOut(0.5f));
         BGMLoop = StartCoroutine(Co_BGMLoopInList(bgmNames, volume));
+        CurrentLoopList = bgmNames;
     }
 
     IEnumerator Co_BGMLoopInList(List<string> bgmNames, float volume = 1.0f)

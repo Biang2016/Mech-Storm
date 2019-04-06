@@ -2,7 +2,7 @@
 
 public class DataHolder
 {
-    public byte[] mRecvDataCache=new byte[4096]; //use array as buffer for efficiency consideration
+    public byte[] mRecvDataCache=new byte[16384]; //use array as buffer for efficiency consideration
     public byte[] mRecvData;
 
     private int mTail = -1;
@@ -35,7 +35,7 @@ public class DataHolder
         if (this.Count >= 4)
         {
             DataStream reader = new DataStream(mRecvDataCache, true);
-            packLen = (int) reader.ReadInt32();
+            packLen = reader.ReadSInt32();
             if (packLen > 0)
             {
                 if (this.Count - 4 >= packLen)

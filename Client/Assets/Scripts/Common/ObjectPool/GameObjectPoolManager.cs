@@ -48,6 +48,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {"SmallBonusItem", 5},
         {"BonusButton", 3},
         {"StartMenuButton", 10},
+        {"ExitMenuButton", 10},
     };
 
     public Dictionary<string, GameObjectPool> PoolDict = new Dictionary<string, GameObjectPool>();

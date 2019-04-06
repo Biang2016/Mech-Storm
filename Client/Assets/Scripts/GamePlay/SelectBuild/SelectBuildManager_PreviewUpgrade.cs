@@ -88,7 +88,7 @@ public partial class SelectBuildManager
             UpgradeArrow.enabled = false;
             UpgradeCardButton.gameObject.SetActive(false);
             DegradeCardButton.gameObject.SetActive(false);
-            AffixManager.Instance.HideAffixPanel();
+            UIManager.Instance.CloseUIForms<AffixPanel>();
             if (PreviewCardDegrade)
             {
                 PreviewCardDegrade.PoolRecycle();
@@ -236,7 +236,7 @@ public partial class SelectBuildManager
         cardInfos.Add(PreviewCard.CardInfo);
         if (PreviewCardDegrade) cardInfos.Add(PreviewCardDegrade.CardInfo);
         if (PreviewCardUpgrade) cardInfos.Add(PreviewCardUpgrade.CardInfo);
-        bool isShowAffixTips = AffixManager.Instance.ShowAffixTips(cardInfos, null);
+        bool isShowAffixTips = UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(cardInfos, null);
 
         //如果显示Tips占据屏幕空间的话，右移预览卡牌窗口
         if (!isShowAffixTips || PreviewCardDegrade == null)
@@ -342,8 +342,7 @@ public partial class SelectBuildManager
             UpgradeCoinText.text = "";
             DegradeCoinText.text = "";
         }
-
-        AffixManager.Instance.HideAffixPanel();
+        UIManager.Instance.CloseUIForms<AffixPanel>();
     }
 
     public GameObject PreviewCardPanel;
