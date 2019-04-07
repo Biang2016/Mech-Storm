@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class BuildButtonClick : MonoBehaviour, IPointerClickHandler,IPointerEnterHandler
+public class BuildButtonClick : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
     public UnityEvent leftClick;
     public UnityEvent middleClick;
@@ -53,6 +53,6 @@ public class BuildButtonClick : MonoBehaviour, IPointerClickHandler,IPointerEnte
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        AudioManager.Instance.SoundPlay("sfx/MouseHoverBuildButton",0.75f);
+        AudioManager.Instance.SoundPlay("sfx/MouseHoverBuildButton", 0.75f);
     }
 }

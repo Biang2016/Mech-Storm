@@ -31,6 +31,7 @@ public class ShrinkText : Text
     }
 
     private readonly UIVertex[] _tmpVerts = new UIVertex[4];
+
     protected override void OnPopulateMesh(VertexHelper toFill)
     {
         if (null == font) return;
@@ -72,6 +73,7 @@ public class ShrinkText : Text
                     toFill.AddUIVertexQuad(_tmpVerts);
             }
         }
+
         m_DisableFontTextureRebuiltCallback = false;
         VisibleLines = cachedTextGenerator.lineCount;
     }

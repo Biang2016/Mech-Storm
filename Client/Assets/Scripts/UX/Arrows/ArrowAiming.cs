@@ -8,7 +8,6 @@ public class ArrowAiming : Arrow
         base.PoolRecycle();
     }
 
-
     Animator animator;
 
     void Awake()

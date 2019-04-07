@@ -70,7 +70,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     {
         UIManager.Instance.ShowUIForms<GameBoardUIPanel>().SetEndRoundButtonState(false);
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
-        SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.HideForPlay);
+        UIManager.Instance.CloseUIForms<SelectBuildPanel>();
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Battle_0", "bgm/Battle_1"}, 0.7f);
         CardDeckManager.Instance.ResetCardDeckNumberText();
         CardDeckManager.Instance.ShowAll();
@@ -180,7 +180,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         }
         else if (!Client.Instance.IsConnect() && !Client.Instance.IsLogin() && !Client.Instance.IsPlaying())
         {
-            SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
+            UIManager.Instance.CloseUIForms<SelectBuildPanel>();
             UIManager.Instance.ShowUIForms<LoginPanel>();
             if (!HasShowLostConnectNotice)
             {
@@ -213,7 +213,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
         if (M_PlayMode == PlayMode.Single)
         {
-            if (SelectBuildManager.Instance.JustGetSomeCard)
+            if (StoryManager.Instance.JustGetSomeCard)
             {
                 ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
                 cp.Initialize(
@@ -223,7 +223,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
                     delegate
                     {
                         cp.CloseUIForm();
-                        SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
+                        UIManager.Instance.ShowUIForms<SelectBuildPanel>();
                     },
                     cp.CloseUIForm);
             }

@@ -102,7 +102,7 @@ public class
     }
 }
 
-class Log
+internal class Log
 {
     public string LogStr;
     public string Color;

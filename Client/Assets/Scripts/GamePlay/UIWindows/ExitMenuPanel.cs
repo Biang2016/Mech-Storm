@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class ExitMenuPanel : BaseUIForm
 {
@@ -43,7 +41,7 @@ public class ExitMenuPanel : BaseUIForm
 
     private void AddButton(string goName, string textKey, UnityAction buttonClick)
     {
-        ExitMenuButton emb = GameObjectPoolManager.Instance.PoolDict["ExitMenuButton"].AllocateGameObject<ExitMenuButton>(ButtonContainer);
+        ExitMenuButton emb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ExitMenuButton].AllocateGameObject<ExitMenuButton>(ButtonContainer);
         emb.name = goName + "Button";
         emb.BindTextKey(textKey, buttonClick);
         ExitMenuButtonDict.Add(goName, emb);
@@ -120,7 +118,7 @@ public class ExitMenuPanel : BaseUIForm
     private void SurrenderCore()
     {
         Client.Instance.Proxy.LeaveGame();
-        SelectBuildManager.Instance.ResetStoryBonusInfo();
+        StoryManager.Instance.ResetStoryBonusInfo();
         RoundManager.Instance.StopGame();
         ClientLog.Instance.Print("You have quit the game");
         NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("ExitMenu_YouHaveQuitGame"), 0, 1f);

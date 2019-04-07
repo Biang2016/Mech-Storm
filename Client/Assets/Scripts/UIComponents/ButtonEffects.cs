@@ -13,7 +13,7 @@ public class ButtonEffects : MonoBehaviour
     public void OnMouseEnter()
     {
         anim.SetTrigger("OnMouseEnter");
-    }   
+    }
 
     public void OnMouseExit()
     {

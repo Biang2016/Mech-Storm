@@ -164,8 +164,8 @@
 		"en": ""
 	},
 	"StartMenu_DeckAbstractText_Life": {
-		"zh": "Life",
-		"en": "生命值:"
+		"zh": "生命值:",
+		"en": "Life"
 	},
 	"StartMenu_DeckAbstractText_LifeNum": {
 		"zh": "",
@@ -431,86 +431,98 @@
 	},
 
 	"HandManager_YouHaveManyCards": {
-		"zh": "You have %s cards.",
-		"en": "你有%s张手牌"
+		"zh": "你有%s张手牌",
+		"en": "You have %s cards."
 	},
 	"HandManager_EnemyHaveManyCards": {
-		"zh": "Your opponent have %s cards.",
-		"en": "你的对手有%s张手牌"
+		"zh": "你的对手有%s张手牌",
+		"en": "Your opponent have %s cards."
 	},
 
 	"WinLostPanelManager_WinText": {
-		"zh": "You win!",
-		"en": "你赢了！"
+		"zh": "你赢了！",
+		"en": "You win!"
 	},
 	"WinLostPanelManager_LostText": {
-		"zh": "You lost ...",
-		"en": "你输了..."
+		"zh": "你输了...",
+		"en": "You lost ..."
 	},
 	"WinLostPanelManager_OnlineWinText": {
-		"zh": "You win!",
-		"en": "你赢了！"
+		"zh": "你赢了！",
+		"en": "You win!"
 	},
 	"WinLostPanelManager_OnlineLostText": {
-		"zh": "You lost ...",
-		"en": "你输了..."
+		"zh": "你输了...",
+		"en": "You lost ..."
 	},
 	"WinLostPanelManager_LostTipTitle": {
-		"zh": "Tips: ",
-		"en": "提示: "
+		"zh": "提示: ",
+		"en": "Tips: "
 	},
 	"WinLostPanelManager_RewardsTitleText": {
-		"zh": "Rewards",
-		"en": "奖励"
+		"zh": "奖励",
+		"en": "Rewards"
 	},
 	"WinLostPanelManager_NoRewardText": {
-		"zh": "The designer is so mean that here isn't any reward.",
-		"en": "设计师是个吝啬鬼，这里没有任何奖励"
+		"zh": "设计师是个吝啬鬼，这里没有任何奖励",
+		"en": "The designer is so mean that here isn't any reward."
 	},
 	"WinLostPanelManager_FixedBonusText": {
-		"zh": "Fixed Bonus",
-		"en": "固定\n奖励"
+		"zh": "固定\n奖励",
+		"en": "Fixed Bonus"
 	},
 	"WinLostPanelManager_ConfirmButtonText": {
-		"zh": "Confirm",
-		"en": "确认"
+		"zh": "确认",
+		"en": "Confirm"
 	},
 	"WinLostPanelManager_GoAheadButtonText": {
-		"zh": "Go ahead",
-		"en": "继续游戏"
+		"zh": "继续游戏",
+		"en": "Go ahead"
 	},
 	"WinLostPanelManager_CardUpgradeUnlockText": {
-		"zh": "Card Upgraded!",
-		"en": "卡片升级!"
+		"zh": "卡片升级!",
+		"en": "Card Upgraded!"
 	},
 	"WinLostPanelManager_CardUpgradeUnlockDescText": {
-		"zh": "You can upgrade this card in your deck now.",
-		"en": "现在可以在牌库中升级该卡片了!"
+		"zh": "现在可以在牌库中升级该卡片了!",
+		"en": "You can upgrade this card in your deck now."
 	},
 	"WinLostPanelManager_YouNeedToChooseACard": {
-		"zh": "Come on, you should select one reward!",
-		"en": "你需要选择一个奖励,不要客气!"
+		"zh": "你需要选择一个奖励,不要客气!",
+		"en": "Come on, you should select one reward!"
 	},
 
 	"SelectBuildManagerBuild_NewDeck": {
-		"zh": "New Deck",
-		"en": "新卡组"
+		"zh": "新卡组",
+		"en": "New Deck"
 	},
 	"SelectBuildManagerBuild_CreateNewDeck": {
-		"zh": "New Deck",
-		"en": "创建新卡组"
+		"zh": "创建新卡组",
+		"en": "New Deck"
 	},
 	"SelectBuildManagerBuild_NoDeckSelected": {
-		"zh": "No deck is selected",
-		"en": "未选择卡组"
+		"zh": "未选择卡组",
+		"en": "No deck is selected"
 	},
 	"SelectBuildManagerBuild_YourDeckIsSaved": {
-		"zh": "Your deck is saved.",
-		"en": "已保存卡组"
+		"zh": "已保存卡组",
+		"en": "Your deck is saved."
 	},
 	"SelectBuildManagerBuild_BudgetLimitedChooseFewerCards": {
-		"zh": "Budget is Limited. Please consider choosing fewer cards.",
-		"en": "预算不足,考虑少选一些卡牌哦~"
+		"zh": "预算不足,考虑少选一些卡牌哦~",
+		"en": "Budget is Limited. Please consider choosing fewer cards."
+	},
+	"SelectBuildManagerBuild_RenameBuild_NoNameWarning": {
+		"zh": "卡组名称不能为空",
+		"en": "Build name cannot be empty."
+	},
+	"SelectBuildManagerBuild_RenameBuild_TitleText": {
+		"zh": "卡组命名",
+		"en": "Rename Build"
+	},
+	"SelectBuildManagerBuild_RenameBuild_PlaceHolderText": {
+		"zh": "输入卡组名",
+		"en": "Input build name here.."
 	},
 
 	"SelectBuildManagerPreviewUpgrade_UpgradeText": {
@@ -550,10 +562,6 @@
 	"SelectBuildManagerSelect_AllCardDeckText": {
 		"zh": "牌 库",
 		"en": "Card Library"
-	},
-	"SelectBuildManagerSelect_CardDeckRenameText": {
-		"zh": "卡组命名",
-		"en": "Rename Deck"
 	},
 
 	"SelectBuildManagerSelect_SelectAllCardText": {

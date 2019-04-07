@@ -168,7 +168,6 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     {
     }
 
-
     public void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
         ShipBG.SetActive(false);

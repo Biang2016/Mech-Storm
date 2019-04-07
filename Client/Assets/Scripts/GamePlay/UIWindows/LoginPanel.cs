@@ -69,7 +69,7 @@ public class LoginPanel : BaseUIForm
     {
         base.Display();
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.None);
-        SelectBuildManager.Instance.GameMode_State = SelectBuildManager.GameMode.None;
+        SelectBuildManager.Instance.CurrentGameMode = SelectBuildManager.GameMode.None;
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Login_0", "bgm/Login_1"});
         AudioManager.Instance.SoundPlay("sfx/Thunder1");
     }

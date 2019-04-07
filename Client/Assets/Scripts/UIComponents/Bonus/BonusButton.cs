@@ -100,7 +100,7 @@ internal class BonusButton : PoolObject
         {
             if (bgBonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
             {
-                SelectBuildManager.Instance.JustGetNewCards.Add(bgBonus.BonusFinalValue);
+                StoryManager.Instance.JustGetNewCards.Add(bgBonus.BonusFinalValue);
             }
         }
     }
@@ -122,7 +122,7 @@ internal class BonusButton : PoolObject
     {
         if (card)
         {
-            UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(new List<CardInfo_Base> { card.CardInfo }, null);
+            UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(new List<CardInfo_Base> {card.CardInfo}, null);
         }
 
         if (IsSelected) return;

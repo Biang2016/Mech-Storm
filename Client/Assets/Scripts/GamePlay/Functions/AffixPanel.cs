@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AffixPanel : BaseUIForm
 {
@@ -225,7 +224,7 @@ public class AffixPanel : BaseUIForm
         if (!AffixTypes.Contains(affixType))
         {
             AffixTypes.Add(affixType);
-            Affix newAffix = GameObjectPoolManager.Instance.PoolDict["AffixPanel"].AllocateGameObject<Affix>(AffixContainer);
+            Affix newAffix = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Affix].AllocateGameObject<Affix>(AffixContainer);
             newAffix.Initialize(affixType);
             Affixes.Add(newAffix);
         }

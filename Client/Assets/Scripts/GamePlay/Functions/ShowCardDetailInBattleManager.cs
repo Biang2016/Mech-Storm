@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattleManager>
 {
@@ -36,7 +35,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                 {
                     if (!cardRetinue.Weapon)
                     {
-                        cardRetinue.Weapon = GameObjectPoolManager.Instance.PoolDict["ModuleWeaponDetail"].AllocateGameObject<ModuleWeapon>(cardRetinue.transform);
+                        cardRetinue.Weapon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.WeaponDetail].AllocateGameObject<ModuleWeapon>(cardRetinue.transform);
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) moduleBase).M_Weapon.CardInfo;
@@ -62,7 +61,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                 {
                     if (!cardRetinue.Shield)
                     {
-                        cardRetinue.Shield = GameObjectPoolManager.Instance.PoolDict["ModuleShieldDetail"].AllocateGameObject<ModuleShield>(cardRetinue.transform);
+                        cardRetinue.Shield = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ShieldDetail].AllocateGameObject<ModuleShield>(cardRetinue.transform);
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) moduleBase).M_Shield.CardInfo;
@@ -88,7 +87,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                 {
                     if (!cardRetinue.Pack)
                     {
-                        cardRetinue.Pack = GameObjectPoolManager.Instance.PoolDict["ModulePackDetail"].AllocateGameObject<ModulePack>(cardRetinue.transform);
+                        cardRetinue.Pack = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.PackDetail].AllocateGameObject<ModulePack>(cardRetinue.transform);
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) moduleBase).M_Pack.CardInfo;
@@ -114,7 +113,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                 {
                     if (!cardRetinue.MA)
                     {
-                        cardRetinue.MA = GameObjectPoolManager.Instance.PoolDict["ModuleMADetail"].AllocateGameObject<ModuleMA>(cardRetinue.transform);
+                        cardRetinue.MA = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.MADetail].AllocateGameObject<ModuleMA>(cardRetinue.transform);
                     }
 
                     CardInfo_Base cw = ((ModuleRetinue) moduleBase).M_MA.CardInfo;
@@ -158,7 +157,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
         if (detailCard_Shield != null) cardInfos.Add(detailCard_Shield.CardInfo);
         if (detailCard_Pack != null) cardInfos.Add(detailCard_Pack.CardInfo);
         if (detailCard_MA != null) cardInfos.Add(detailCard_MA.CardInfo);
-        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(cardInfos, moduleBase is ModuleRetinue ? new List<ModuleRetinue> { (ModuleRetinue)moduleBase } : null);
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(cardInfos, moduleBase is ModuleRetinue ? new List<ModuleRetinue> {(ModuleRetinue) moduleBase} : null);
     }
 
     public enum ShowPlaces

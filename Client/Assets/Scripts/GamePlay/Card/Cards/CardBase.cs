@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -65,20 +64,20 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             switch (cardInfo.BaseInfo.CardType)
             {
                 case CardTypes.Retinue:
-                    newCard = GameObjectPoolManager.Instance.PoolDict["RetinueCard"].AllocateGameObject<CardRetinue>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.RetinueCard].AllocateGameObject<CardRetinue>(parent);
                     break;
                 case CardTypes.Equip:
-                    newCard = GameObjectPoolManager.Instance.PoolDict["EquipCard"].AllocateGameObject<CardEquip>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.EquipCard].AllocateGameObject<CardEquip>(parent);
                     ((CardEquip) newCard).M_EquipType = cardInfo.EquipInfo.SlotType;
                     break;
                 case CardTypes.Spell:
-                    newCard = GameObjectPoolManager.Instance.PoolDict["SpellCard"].AllocateGameObject<CardSpell>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SpellCard].AllocateGameObject<CardSpell>(parent);
                     break;
                 case CardTypes.Energy:
-                    newCard = GameObjectPoolManager.Instance.PoolDict["SpellCard"].AllocateGameObject<CardSpell>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SpellCard].AllocateGameObject<CardSpell>(parent);
                     break;
                 default:
-                    newCard = GameObjectPoolManager.Instance.PoolDict["RetinueCard"].AllocateGameObject<CardRetinue>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.RetinueCard].AllocateGameObject<CardRetinue>(parent);
                     break;
             }
 
@@ -99,20 +98,20 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             switch (cardInfo.BaseInfo.CardType)
             {
                 case CardTypes.Retinue:
-                    newCard = GameObjectPoolManager.Instance.PoolDict["RetinueCardSelect"].AllocateGameObject<CardRetinue>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.RetinueCardSelect].AllocateGameObject<CardRetinue>(parent);
                     break;
                 case CardTypes.Equip:
-                    newCard = GameObjectPoolManager.Instance.PoolDict["EquipCardSelect"].AllocateGameObject<CardEquip>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.EquipCardSelect].AllocateGameObject<CardEquip>(parent);
                     ((CardEquip) newCard).M_EquipType = cardInfo.EquipInfo.SlotType;
                     break;
                 case CardTypes.Spell:
-                    newCard = GameObjectPoolManager.Instance.PoolDict["SpellCardSelect"].AllocateGameObject<CardSpell>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SpellCardSelect].AllocateGameObject<CardSpell>(parent);
                     break;
                 case CardTypes.Energy:
-                    newCard = GameObjectPoolManager.Instance.PoolDict["SpellCardSelect"].AllocateGameObject<CardSpell>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SpellCardSelect].AllocateGameObject<CardSpell>(parent);
                     break;
                 default:
-                    newCard = GameObjectPoolManager.Instance.PoolDict["RetinueCardSelect"].AllocateGameObject<CardRetinue>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.RetinueCardSelect].AllocateGameObject<CardRetinue>(parent);
                     break;
             }
 
@@ -212,7 +211,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         if (CriticalCardToggle) CriticalCardToggle.gameObject.SetActive(false);
     }
 
-    public void RefreshCardText()
+    public void RefreshCardTextLanguage()
     {
         M_Name = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
         M_Desc = CardInfo.GetCardDescShow();
@@ -605,7 +604,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     public void OnCardLimitCountUpButtonClick()
     {
         ChangeCardLimit(CardInfo.BaseInfo.LimitNum + 1);
-        SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[CardInfo.CardID].CardSelectUpperLimit = CardInfo.BaseInfo.LimitNum;
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[CardInfo.CardID].CardSelectUpperLimit = CardInfo.BaseInfo.LimitNum;
     }
 
     public void OnCardLimitCountDownButtonClick()
@@ -613,7 +612,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         if (CardInfo.BaseInfo.LimitNum > 0)
         {
             ChangeCardLimit(CardInfo.BaseInfo.LimitNum - 1);
-            SelectBuildManager.Instance.CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[CardInfo.CardID].CardSelectUpperLimit = CardInfo.BaseInfo.LimitNum;
+            UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[CardInfo.CardID].CardSelectUpperLimit = CardInfo.BaseInfo.LimitNum;
         }
     }
 

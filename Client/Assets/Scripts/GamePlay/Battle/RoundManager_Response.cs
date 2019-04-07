@@ -21,7 +21,7 @@ public partial class RoundManager
 
     public void OnGameStopByWin(GameStopByWinRequest r)
     {
-            BattleResultPanel brp = UIManager.Instance.ShowUIForms<BattleResultPanel>();
+        BattleResultPanel brp = UIManager.Instance.ShowUIForms<BattleResultPanel>();
         if (r.winnerClientId == Client.Instance.Proxy.ClientId)
         {
             ClientLog.Instance.PrintClientStates("你赢了");
@@ -30,7 +30,7 @@ public partial class RoundManager
         else
         {
             ClientLog.Instance.PrintReceive("你输了");
-            brp.LostGame(); 
+            brp.LostGame();
         }
     }
 

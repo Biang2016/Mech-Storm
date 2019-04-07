@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Resources;
 using UnityEngine;
 
 public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
@@ -8,72 +7,116 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
     {
     }
 
-    public Dictionary<string, int> PoolConfigs = new Dictionary<string, int>
+    public enum PrefabNames
     {
-        {"ColliderReplace", 20},
-        {"NumberSet", 20},
-        {"SmallNumber", 20},
-        {"MediumNumber", 20},
-        {"BigNumber", 20},
-        {"ArrowAiming", 1},
-        {"ArrowArrow", 1},
-        {"Retinue", 12},
-        {"Weapon", 12},
-        {"WeaponDetail", 1},
-        {"Shield", 12},
-        {"ShieldDetail", 1},
-        {"Pack", 12},
-        {"PackDetail", 1},
-        {"MA", 12},
-        {"MADetail", 1},
-        {"RetinueCard", 5},
-        {"EquipCard", 5},
-        {"SpellCard", 5},
-        {"RetinueCardSelect", 20},
-        {"EquipCardSelect", 20},
-        {"SpellCardSelect", 20},
-        {"SelectCard", 5},
-        {"BuildButton", 5},
-        {"CardDeckCard", 30},
-        {"MetalBarBlock", 20},
-        {"TextFly", 10},
-        {"Affix", 5},
-        {"PlayerBuff", 5},
-        {"CoolDownCard", 6},
-        {"ParticleSystem", 5},
-        {"StoryLevelButton", 5},
-        {"StoryLevelCol", 5},
-        {"Bullet", 2},
-        {"BigBonusItem", 3},
-        {"SmallBonusItem", 5},
-        {"BonusButton", 3},
-        {"StartMenuButton", 10},
-        {"ExitMenuButton", 10},
+        ColliderReplace,
+        NumberSet,
+        SmallNumber,
+        MediumNumber,
+        BigNumber,
+        ArrowAiming,
+        ArrowArrow,
+        Retinue,
+        Weapon,
+        WeaponDetail,
+        Shield,
+        ShieldDetail,
+        Pack,
+        PackDetail,
+        MA,
+        MADetail,
+        RetinueCard,
+        EquipCard,
+        SpellCard,
+        RetinueCardSelect,
+        EquipCardSelect,
+        SpellCardSelect,
+        SelectCard,
+        BuildButton,
+        CardDeckCard,
+        MetalBarBlock,
+        TextFly,
+        Affix,
+        PlayerBuff,
+        CoolDownCard,
+        ParticleSystem,
+        StoryLevelButton,
+        StoryLevelCol,
+        Bullet,
+        BigBonusItem,
+        SmallBonusItem,
+        BonusButton,
+        StartMenuButton,
+        ExitMenuButton,
+    }
+
+    public Dictionary<PrefabNames, int> PoolConfigs = new Dictionary<PrefabNames, int>
+    {
+        {PrefabNames.ColliderReplace, 20},
+        {PrefabNames.NumberSet, 20},
+        {PrefabNames.SmallNumber, 20},
+        {PrefabNames.MediumNumber, 20},
+        {PrefabNames.BigNumber, 20},
+        {PrefabNames.ArrowAiming, 1},
+        {PrefabNames.ArrowArrow, 1},
+        {PrefabNames.Retinue, 12},
+        {PrefabNames.Weapon, 12},
+        {PrefabNames.WeaponDetail, 1},
+        {PrefabNames.Shield, 12},
+        {PrefabNames.ShieldDetail, 1},
+        {PrefabNames.Pack, 12},
+        {PrefabNames.PackDetail, 1},
+        {PrefabNames.MA, 12},
+        {PrefabNames.MADetail, 1},
+        {PrefabNames.RetinueCard, 5},
+        {PrefabNames.EquipCard, 5},
+        {PrefabNames.SpellCard, 5},
+        {PrefabNames.RetinueCardSelect, 20},
+        {PrefabNames.EquipCardSelect, 20},
+        {PrefabNames.SpellCardSelect, 20},
+        {PrefabNames.SelectCard, 5},
+        {PrefabNames.BuildButton, 5},
+        {PrefabNames.CardDeckCard, 30},
+        {PrefabNames.MetalBarBlock, 20},
+        {PrefabNames.TextFly, 10},
+        {PrefabNames.Affix, 5},
+        {PrefabNames.PlayerBuff, 5},
+        {PrefabNames.CoolDownCard, 6},
+        {PrefabNames.ParticleSystem, 5},
+        {PrefabNames.StoryLevelButton, 5},
+        {PrefabNames.StoryLevelCol, 5},
+        {PrefabNames.Bullet, 2},
+        {PrefabNames.BigBonusItem, 3},
+        {PrefabNames.SmallBonusItem, 5},
+        {PrefabNames.BonusButton, 3},
+        {PrefabNames.StartMenuButton, 10},
+        {PrefabNames.ExitMenuButton, 10},
     };
 
-    public Dictionary<string, GameObjectPool> PoolDict = new Dictionary<string, GameObjectPool>();
+    public Dictionary<PrefabNames, GameObjectPool> PoolDict = new Dictionary<PrefabNames, GameObjectPool>();
 
     public GameObjectPool[] Pool_HitPool;
     public PoolObject[] HitPrefab;
 
     void Awake()
     {
-        foreach (KeyValuePair<string, int> kv in PoolConfigs)
+        foreach (KeyValuePair<PrefabNames, int> kv in PoolConfigs)
         {
-            GameObject go = new GameObject("Pool_" + kv.Key);
+            string prefabName = kv.Key.ToString();
+            GameObject go = new GameObject("Pool_" + prefabName);
             GameObjectPool pool = go.AddComponent<GameObjectPool>();
             PoolDict.Add(kv.Key, pool);
-            GameObject go_Prefab = PrefabManager.Instance.GetPrefab(kv.Key);
+            GameObject go_Prefab = PrefabManager.Instance.GetPrefab(prefabName);
             if (!go_Prefab)
             {
-                ClientLog.Instance.PrintError("Prefab not found: " + kv.Key);
+                ClientLog.Instance.PrintError("Prefab not found: " + prefabName);
                 continue;
             }
 
             PoolObject po = go_Prefab.GetComponent<PoolObject>();
             if (!po)
             {
-                ClientLog.Instance.PrintError("Prefab doesn't have PoolObject: " + kv.Key);
+                ClientLog.Instance.PrintError("Prefab doesn't have PoolObject: " + prefabName);
                 continue;
             }
 

@@ -14,14 +14,14 @@ public class MetalBarBlock : PoolObject
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.PoolDict["MetalBarBlock"];
+        gameObjectPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.MetalBarBlock];
     }
 
     [SerializeField] private Renderer My_Renderer;
 
     public void Shine()
     {
-        ClientUtils.ChangeColor(My_Renderer,ClientUtils.HTMLColorToColor("#FFFFFF"));
+        ClientUtils.ChangeColor(My_Renderer, ClientUtils.HTMLColorToColor("#FFFFFF"));
     }
 
     public void ResetColor()

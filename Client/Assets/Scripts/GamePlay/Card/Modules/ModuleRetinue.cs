@@ -42,7 +42,7 @@ public class ModuleRetinue : ModuleBase
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.PoolDict["ModuleRetinue"];
+        gameObjectPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Retinue];
         DamageNumberPreviewTextMesh.text = "";
         DamageNumberPreviewBGTextMesh.text = "";
     }
@@ -642,7 +642,7 @@ public class ModuleRetinue : ModuleBase
             if (armorValue == 0)
             {
                 AudioManager.Instance.SoundPlay("sfx/BreakArmor", 1f);
-                particle = GameObjectPoolManager.Instance.PoolDict["ParticleSystem"].AllocateGameObject<NormalParticle>(ShieldBar.transform);
+                particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ShieldBar.transform);
                 particle.ParticleSystem.Play(true);
                 particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#FFA800");
             }
@@ -652,7 +652,7 @@ public class ModuleRetinue : ModuleBase
         {
             ArmorFillAnim.gameObject.SetActive(false);
             AudioManager.Instance.SoundPlay("sfx/BreakArmor", 1f);
-            particle = GameObjectPoolManager.Instance.PoolDict["ParticleSystem"].AllocateGameObject<NormalParticle>(ShieldBar.transform);
+            particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ShieldBar.transform);
             particle.ParticleSystem.Play(true);
             particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#FFA800");
         }
@@ -693,7 +693,7 @@ public class ModuleRetinue : ModuleBase
             if (shieldValue == 0)
             {
                 AudioManager.Instance.SoundPlay("sfx/BreakShield", 1f);
-                particle = GameObjectPoolManager.Instance.PoolDict["ParticleSystem"].AllocateGameObject<NormalParticle>(ShieldBar.transform);
+                particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ShieldBar.transform);
                 particle.ParticleSystem.Play(true);
                 particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#00FFF2");
             }
@@ -706,7 +706,7 @@ public class ModuleRetinue : ModuleBase
         if (shieldValue == 0)
         {
             AudioManager.Instance.SoundPlay("sfx/BreakShield", 1f);
-            particle = GameObjectPoolManager.Instance.PoolDict["ParticleSystem"].AllocateGameObject<NormalParticle>(ShieldBar.transform);
+            particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ShieldBar.transform);
             particle.ParticleSystem.Play(true);
             particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#00FFF2");
 
@@ -1550,14 +1550,14 @@ public class ModuleRetinue : ModuleBase
             }
             case WeaponTypes.Gun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict["Bullet"].AllocateGameObject<Bullet>(transform);
+                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
                 bl.Move(transform.position, targetRetinue.transform.position, Color.white, Color.white, 1, 0.03f, 0.1f, 0);
                 AudioManager.Instance.SoundPlay("sfx/AttackGun");
                 break;
             }
             case WeaponTypes.SniperGun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict["Bullet"].AllocateGameObject<Bullet>(transform);
+                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
                 bl.Move(transform.position, targetRetinue.transform.position, Color.yellow, Color.yellow, 1, 0.03f, 0.15f, 0);
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;
@@ -1599,14 +1599,14 @@ public class ModuleRetinue : ModuleBase
             }
             case WeaponTypes.Gun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict["Bullet"].AllocateGameObject<Bullet>(transform);
+                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
                 bl.Move(transform.position, targetShip.transform.position, Color.white, Color.white, 1, 0.03f, 0.1f, 0);
                 AudioManager.Instance.SoundPlay("sfx/AttackGun");
                 break;
             }
             case WeaponTypes.SniperGun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict["Bullet"].AllocateGameObject<Bullet>(transform);
+                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
                 bl.Move(transform.position, targetShip.transform.position, Color.yellow, Color.yellow, 1, 0.03f, 0.15f, 0);
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;

@@ -5,7 +5,7 @@ public class ModuleWeapon : ModuleEquip
 {
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.PoolDict["ModuleWeapon"];
+        gameObjectPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Weapon];
     }
 
     [SerializeField] private GameObject M_GunIcon;

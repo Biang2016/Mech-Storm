@@ -52,7 +52,6 @@ public class BattleEffectsManager : MonoSingleton<BattleEffectsManager>
     {
         public bool IsExcuting = false;
 
-
         public Queue<Stack<SideEffect>> EffectsQueue = new Queue<Stack<SideEffect>>();
         private SideEffect CurrentEffect;
         public string Name;

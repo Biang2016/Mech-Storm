@@ -8,7 +8,6 @@ public class MouseHoverComponent : MonoBehaviour
     /// </summary>
     private IMouseHoverComponent caller;
 
-
     void Awake()
     {
         caller = GetComponent<IMouseHoverComponent>();
@@ -120,8 +119,8 @@ public interface IMouseHoverComponent
     /// <summary>
     /// 此接口用于将除了MouseHoverComponent通用效果之外的效果还给调用者自行处理
     /// </summary>
-
     void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition);
+
     void MouseHoverComponent_OnHover1End();
     void MouseHoverComponent_OnHover2Begin(Vector3 mousePosition);
     void MouseHoverComponent_OnHover2End();

@@ -14,7 +14,6 @@ internal class SmallBonusItem : BonusItem_Base
     [SerializeField] private Image CardImage;
     [SerializeField] private Animator CardImageBorderAnim;
 
-
     public override void Initialize(Bonus bonus)
     {
         base.Initialize(bonus);

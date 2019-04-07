@@ -50,19 +50,19 @@ public class CardSpellEditor : Editor
     }
 }
 
-[CustomEditor(typeof(SelectBuildManager))]
-public class SelectBuildManagerEditor : Editor
+[CustomEditor(typeof(SelectBuildPanel))]
+public class SelectBuildPanelEditor : Editor
 {
     [DrawGizmo(GizmoType.Selected)]
     void OnSceneGUI()
     {
-        SelectBuildManager sbm = target as SelectBuildManager;
+        SelectBuildPanel sbp = target as SelectBuildPanel;
         GUIStyle style = new GUIStyle();
         style.normal.textColor = new Color(1, 0, 0, 1);
         style.fontSize = 15;
         style.fontStyle = FontStyle.Bold;
 
-        foreach (KeyValuePair<int, CardBase> kv in sbm.allCards)
+        foreach (KeyValuePair<int, CardBase> kv in sbp.allCards)
         {
             if (kv.Value.CardInfo != null) Handles.Label(kv.Value.transform.position, "CIID: " + kv.Value.M_CardInstanceId + "\n" + "CID: " + kv.Value.CardInfo.CardID, style);
         }

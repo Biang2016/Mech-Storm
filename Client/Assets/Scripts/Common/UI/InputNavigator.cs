@@ -7,9 +7,9 @@ using UnityEngine.UI;
 /// </summary>
 public class InputNavigator : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-
     private EventSystem system;
     private bool isSelect = false;
+
     void Start()
     {
         system = EventSystem.current;

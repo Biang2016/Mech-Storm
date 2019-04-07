@@ -3,7 +3,7 @@ guid: f0deb94980bfd8847ac6ccdfc9c9d78d
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 9
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -73,7 +73,7 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 256
     resizeAlgorithm: 0
-    textureFormat: 3
+    textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
     crunchedCompression: 0
@@ -84,7 +84,7 @@ TextureImporter:
     buildTarget: WebGL
     maxTextureSize: 256
     resizeAlgorithm: 0
-    textureFormat: 3
+    textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
     crunchedCompression: 0

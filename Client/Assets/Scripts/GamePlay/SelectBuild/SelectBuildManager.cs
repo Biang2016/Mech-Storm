@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions.Must;
-using UnityEngine.EventSystems;
+using System.Linq;
 
 /// <summary>
 /// 选牌窗口
@@ -12,574 +10,147 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     {
     }
 
-    private int cardSelectLayer;
-
     void Awake()
     {
-        Canvas.enabled = true;
-        cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
-        M_StateMachine = new StateMachine();
-        Canvas.gameObject.SetActive(false);
-
-        Awake_Select();
-        Awake_Build();
-        Awake_PreviewAndUpgrade();
     }
 
-    void Start()
+    public GamePlaySettings CurrentGamePlaySettings;
+
+    public SortedDictionary<int, BuildInfo> BuildInfoDict = new SortedDictionary<int, BuildInfo>(); //全卡组信息集合
+
+    public BuildInfo CurrentSelectedBuildInfo; //和UI层的当前选中的BuildInfo始终保持引用一致
+
+    private BuildInfo currentEditBuildInfo;
+
+    public BuildInfo CurrentEditBuildInfo // 该项始终与UI层保持引用一致
     {
-        InitAddAllCards();
-        InitializeOnlineCardLimitDict();
-        M_StateMachine.SetState(StateMachine.States.Hide);
-        Start_Select();
-    }
-
-    [SerializeField] private Transform AllCardsContent;
-    [SerializeField] private Canvas Canvas;
-    [SerializeField] private Canvas Canvas_BG;
-    [SerializeField] private Camera Camera;
-    [SerializeField] private Animator SelectWindowShowAnim;
-
-    public GamePlaySettings GamePlaySettings;
-
-    void Update()
-    {
-        M_StateMachine.Update();
-    }
-
-    public StateMachine M_StateMachine;
-
-    public class StateMachine
-    {
-        public StateMachine()
+        get { return currentEditBuildInfo; }
+        set
         {
-            state = States.Default;
-            previousState = States.Default;
+            if (currentEditBuildInfo != null) OnSaveBuildInfo(currentEditBuildInfo);
+            currentEditBuildInfo = value;
+            lastSaveBuildInfo = currentEditBuildInfo.Clone();
+            lastSaveBuildInfo.BuildID = currentEditBuildInfo.BuildID;
+        }
+    }
+
+    private BuildInfo lastSaveBuildInfo; //上一次保存的卡组信息，一旦切换编辑卡组，就自动发送服务端保存卡组，并刷新lastSaveBuildInfo
+
+    public enum GameMode
+    {
+        None,
+        Online,
+        Single,
+    }
+
+    public GameMode CurrentGameMode = GameMode.None;
+
+    public void SwitchGameMode(GameMode gameMode, bool isForce = false)
+    {
+        if (!isForce && CurrentGameMode == gameMode) return;
+        if (!StoryManager.Instance.HasStory && gameMode == GameMode.Single) return;
+        CurrentGameMode = gameMode;
+        InitBuildInfos();
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.SetAllCardHideElementsByAccount();
+    }
+
+    private void InitBuildInfos()
+    {
+        BuildInfoDict.Clear();
+        List<BuildInfo> buildInfos = new List<BuildInfo>();
+        if (CurrentGameMode == GameMode.Single)
+        {
+            buildInfos = StoryManager.Instance.GetStory().PlayerBuildInfos.Values.ToList();
+            CurrentGamePlaySettings = StoryManager.Instance.GetStory().StoryGamePlaySettings;
+        }
+        else if (CurrentGameMode == GameMode.Online)
+        {
+            buildInfos = OnlineManager.Instance.OnlineBuildInfos.Values.ToList();
+            CurrentGamePlaySettings = OnlineManager.Instance.OnlineGamePlaySettings;
         }
 
-        public enum States
+        foreach (BuildInfo buildInfo in buildInfos)
         {
-            Default,
-            Hide,
-            HideForPlay,
-            Show,
-            Show_ReadOnly,
+            CheckBuildInfoValid(buildInfo);
+            BuildInfoDict.Add(buildInfo.BuildID, buildInfo);
         }
+    }
 
-        private States state;
-        private States previousState;
+    private void CheckBuildInfoValid(BuildInfo buildInfo) //由于卡片ID配置更新导致服务器数据老旧，删除此部分卡片
+    {
+        //TODO 在服务端发送前就删除
+        List<int> unExistedCardIDs = new List<int>();
 
-        private bool isNowOnline;
-
-        public void SetState(States newState)
+        foreach (int cardID in buildInfo.M_BuildCards.GetCardIDs())
         {
-            if (state != newState)
+            if (!AllCards.CardDict.ContainsKey(cardID))
             {
-                switch (newState)
-                {
-                    case States.Hide:
-                        if (Client.Instance.IsLogin()) HideWindow();
-                        else if (Client.Instance.IsPlaying()) HideWindowToPlaying();
-                        break;
-                    case States.HideForPlay:
-                        if (state != States.Hide && Client.Instance.IsLogin()) HideWindowToPlaying();
-                        break;
-                    case States.Show:
-                        if (Client.Instance.IsLogin() && !Client.Instance.IsMatching()) ShowWindow();
-                        break;
-                    case States.Show_ReadOnly:
-                        if (Client.Instance.IsPlaying() || Client.Instance.IsMatching())
-                        {
-                            ShowWindowReadOnly();
-                        }
-
-                        break;
-                }
-
-                previousState = state;
-                state = newState;
+                unExistedCardIDs.Add(cardID);
             }
         }
 
-        public void ReturnToPreviousState()
+        foreach (int cardID in unExistedCardIDs)
         {
-            SetState(previousState);
-        }
-
-        public States GetState()
-        {
-            return state;
-        }
-
-        public void Update()
-        {
-            //if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
-            //if (ExitMenuPanel.Instance.M_StateMachine.GetState() == ExitMenuPanel.StateMachine.States.Show) return;
-            //if (StartMenuPanel.Instance.M_StateMachine.GetState() == StartMenuPanel.StateMachine.States.Show_Main) return;
-            //if (StartMenuPanel.Instance.M_StateMachine.GetState() == StartMenuPanel.StateMachine.States.Show_Single && StoryManager.Instance.M_CurrentStory == null) return;
-            //if (StoryPanel.Instance.M_StateMachine.GetState() == StoryPanel.StateMachine.States.Show) return;
-            //if (BattleResultPanel.Instance.IsShow) return;
-            if (state == States.Hide || state == States.HideForPlay)
-            {
-                if (Input.GetKeyUp(KeyCode.Tab))
-                {
-                    if (Client.Instance.IsLogin() && !Client.Instance.IsMatching()) SetState(States.Show);
-                    else if (Client.Instance.IsPlaying() || Client.Instance.IsMatching()) SetState(States.Show_ReadOnly);
-                }
-            }
-            else
-            {
-                bool isMouseDown = ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && EventSystem.current.IsPointerOverGameObject());
-                bool isMouseUp = ((Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)) && EventSystem.current.IsPointerOverGameObject());
-                if (Instance.PreviewCardOriginCardSelect)
-                {
-                    if (Input.GetKeyUp(KeyCode.Escape))
-                    {
-                        Instance.HidePreviewCardPanel();
-                    }
-                    else if (Input.GetKeyUp(KeyCode.Tab))
-                    {
-                        SetState(States.Hide);
-                        Instance.HidePreviewCardPanel();
-                    }
-                }
-                else if (Instance.BuildRenamePanel.gameObject.activeSelf)
-                {
-                    if (Input.GetKeyUp(KeyCode.Escape)) Instance.BuildRenamePanel.HidePanel();
-                    else if (Input.GetKeyUp(KeyCode.Tab))
-                    {
-                        Instance.BuildRenamePanel.HidePanel();
-                    }
-                }
-                else
-                {
-                    if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.Tab))
-                    {
-                        SetState(States.Hide);
-                    }
-                    else if (isMouseDown)
-                    {
-                        Instance.OnMouseDown();
-                    }
-                    else if (isMouseUp)
-                    {
-                        Instance.OnMouseUp();
-                    }
-                }
-            }
-        }
-
-        private void ShowWindow()
-        {
-            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/SelectCardMenu_0", "bgm/SelectCardMenu_1"});
-
-            GameManager.Instance.StartBlurBackGround();
-            Instance.Canvas.gameObject.SetActive(true);
-            Instance.Canvas_BG.gameObject.SetActive(true);
-
-            Instance.SelectWindowShowAnim.SetTrigger("Show");
-
-            Instance.SelectAllButton.gameObject.SetActive(true);
-            Instance.UnSelectAllButton.gameObject.SetActive(true);
-            Instance.ConfirmButton.gameObject.SetActive(true);
-            Instance.DeleteBuildButton.gameObject.SetActive(true);
-            Instance.CreateNewBuildButton.enabled = true;
-
-            Instance.UpgradeCardButton.enabled = true;
-            Instance.DegradeCardButton.enabled = true;
-            Instance.UpgradeCoinText.gameObject.SetActive(true);
-            Instance.UpgradeCoin.gameObject.SetActive(true);
-            Instance.DegradeCoinText.gameObject.SetActive(true);
-            Instance.DegradeCoin.gameObject.SetActive(true);
-
-            Instance.LifeSlider.interactable = true;
-            Instance.EnergySlider.interactable = true;
-            Instance.CoinSlider.interactable = false;
-            Instance.CardNumberSlider.interactable = true;
-        }
-
-        private void ShowWindowReadOnly()
-        {
-            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
-            GameManager.Instance.StartBlurBackGround();
-            Instance.Canvas.gameObject.SetActive(true);
-            Instance.Canvas_BG.gameObject.SetActive(true);
-
-            Instance.SelectWindowShowAnim.SetTrigger("Show");
-
-            Instance.SelectAllButton.gameObject.SetActive(false);
-            Instance.UnSelectAllButton.gameObject.SetActive(false);
-            Instance.ConfirmButton.gameObject.SetActive(false);
-            Instance.DeleteBuildButton.gameObject.SetActive(false);
-            Instance.CreateNewBuildButton.enabled = false;
-
-            Instance.UpgradeCardButton.enabled = false;
-            Instance.DegradeCardButton.enabled = false;
-            Instance.UpgradeCoinText.gameObject.SetActive(false);
-            Instance.UpgradeCoin.gameObject.SetActive(false);
-            Instance.DegradeCoinText.gameObject.SetActive(false);
-            Instance.DegradeCoin.gameObject.SetActive(false);
-
-            Instance.LifeSlider.interactable = false;
-            Instance.EnergySlider.interactable = false;
-            Instance.CoinSlider.interactable = false;
-            Instance.CardNumberSlider.interactable = false;
-        }
-
-        private void HideWindow()
-        {
-            HideWindowCore();
-        }
-
-        private void HideWindowToPlaying()
-        {
-            HideWindowCore();
-            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
-        }
-
-        private void HideWindowCore()
-        {
-            Instance.SelectWindowShowAnim.SetTrigger("Reset");
-
-            if (Instance.M_StateMachine.GetState() != StateMachine.States.Show_ReadOnly && Instance.CurrentEditBuildButton != null)
-            {
-                Instance.OnSaveBuildInfo();
-            }
-
-            //Instance.Canvas.gameObject.SetActive(false);
-            Instance.Canvas_BG.gameObject.SetActive(false);
-            UIManager.Instance.CloseUIForms<AffixPanel>();
-            if (Instance.currentPreviewCard) Instance.currentPreviewCard.PoolRecycle();
-            GameManager.Instance.StopBlurBackGround();
-            MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
+            buildInfo.M_BuildCards.CardSelectInfos.Remove(cardID);
         }
     }
 
-    private CardBase mouseLeftDownCard;
-    private CardBase mouseRightDownCard;
-    private Vector3 mouseDownPosition;
-
-    private void OnMouseDown()
+    public void OnSaveBuildInfo(BuildInfo buildInfo)
     {
-        if (BuildRenamePanel.gameObject.activeSelf) return;
-
-        if (PreviewCardPanel.activeSelf) return;
-
-        mouseDownPosition = Input.mousePosition;
-        Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit raycast;
-        Physics.Raycast(ray, out raycast, 10f, cardSelectLayer);
-        if (raycast.collider != null)
+        if (lastSaveBuildInfo == null || !lastSaveBuildInfo.EqualsTo(buildInfo))
         {
-            CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
-            if (Input.GetMouseButtonDown(1))
-            {
-                if (card)
-                {
-                    mouseRightDownCard = card;
-                }
-                else
-                {
-                    mouseRightDownCard = null;
-                }
-            }
-            else if (Input.GetMouseButtonDown(0) && card)
-            {
-                mouseLeftDownCard = card;
-            }
-        }
-        else
-        {
-            mouseRightDownCard = null;
-            mouseLeftDownCard = null;
+            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, buildInfo, CurrentGameMode == GameMode.Single);
+            Client.Instance.Proxy.SendMessage(request);
+
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_YourDeckIsSaved"), 0f, 0.5f);
+            lastSaveBuildInfo = buildInfo.Clone();
+            lastSaveBuildInfo.BuildID = buildInfo.BuildID;
         }
     }
 
-    private void OnMouseUp()
+    public void OnCreateNewBuildResponse(BuildInfo buildInfo)
     {
-        if (BuildRenamePanel.gameObject.activeSelf) return;
-
-        if (PreviewCardPanel.activeSelf) return;
-
-        Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit raycast;
-        Physics.Raycast(ray, out raycast, 10f, cardSelectLayer);
-        if (raycast.collider != null)
+        SortedDictionary<int, int> cld = null;
+        if (CurrentGameMode == GameMode.Single)
         {
-            CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
-            if (Input.GetMouseButtonUp(1))
-            {
-                if (card && mouseRightDownCard == card)
-                {
-                    ShowPreviewCardPanel(card);
-                }
-                else
-                {
-                    HidePreviewCardPanel();
-                }
-            }
-            else if (Input.GetMouseButtonUp(0) && card)
-            {
-                if ((Input.mousePosition - mouseDownPosition).magnitude < 50)
-                {
-                    if (mouseLeftDownCard == card)
-                    {
-                        SelectCard(card, false);
-                    }
-                }
-            }
-        }
-        else
-        {
-            HidePreviewCardPanel();
+            cld = StoryManager.Instance.GetStory().Base_CardLimitDict;
         }
 
-        mouseLeftDownCard = null;
-        mouseRightDownCard = null;
+        BuildInfoDict.Add(buildInfo.BuildID, buildInfo);
+        if (CurrentGameMode == GameMode.Online)
+        {
+            OnlineManager.Instance.OnlineBuildInfos.Add(buildInfo.BuildID, buildInfo);
+        }
+        else if (CurrentGameMode == GameMode.Single)
+        {
+            StoryManager.Instance.GetStory().PlayerBuildInfos.Add(buildInfo.BuildID, buildInfo);
+        }
+
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.OnCreateNewBuildButton(buildInfo);
     }
 
-    #region 卡片初始化
-
-    public void InitAddAllCards()
+    public void OnDeleteBuildResponse(int buildID)
     {
-        foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
-        {
-            if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
-            if (cardInfo.BaseInfo.Hide) continue;
-            AddCardIntoCardSelectWindow(cardInfo.Clone());
-        }
+        OnlineManager.Instance.OnlineBuildInfos.Remove(buildID);
+        if (StoryManager.Instance.GetStory() != null) StoryManager.Instance.GetStory().PlayerBuildInfos.Remove(buildID);
+        BuildInfoDict.Remove(buildID);
+
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.OnDeleteBuildButton(buildID);
     }
 
-    private void LockAllCards()
+    public void RefreshSomeBuild(BuildInfo buildInfo)
     {
-        foreach (CardBase cardBase in allCards.Values)
+        if (BuildInfoDict.ContainsKey(buildInfo.BuildID)) BuildInfoDict[buildInfo.BuildID] = buildInfo;
+
+        if (CurrentGameMode == GameMode.Online)
         {
-            cardBase.gameObject.SetActive(false);
+            OnlineManager.Instance.OnlineBuildInfos[buildInfo.BuildID] = buildInfo;
+        }
+        else if (CurrentGameMode == GameMode.Single)
+        {
+            StoryManager.Instance.GetStory().PlayerBuildInfos[buildInfo.BuildID] = buildInfo;
         }
 
-        allUnlockedCards.Clear();
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.RefreshSomeBuild(buildInfo);
     }
-
-    public void UnlockAllOnlineCards()
-    {
-        UnlockedCards(buildInfo: null);
-    }
-
-    private SortedDictionary<int, int> OnlineCardLimitDict;
-
-    private void InitializeOnlineCardLimitDict()
-    {
-        OnlineCardLimitDict = new SortedDictionary<int, int>();
-        foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
-        {
-            if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
-            if (cardInfo.BaseInfo.Hide) continue;
-            OnlineCardLimitDict.Add(cardInfo.CardID, cardInfo.BaseInfo.LimitNum);
-        }
-    }
-
-    public void UnlockedCards(BuildInfo buildInfo)
-    {
-        SortedDictionary<int, int> CardCountDict;
-        if (buildInfo == null)
-        {
-            CardCountDict = OnlineCardLimitDict;
-        }
-        else
-        {
-            CardCountDict = buildInfo.M_BuildCards.GetCardLimitDict();
-        }
-
-        UnlockedCards(CardCountDict);
-    }
-
-    public void UnlockedCards(SortedDictionary<int, int> cardCountDict)
-    {
-        foreach (KeyValuePair<int, int> kv in cardCountDict)
-        {
-            int CardID = kv.Key;
-            int CardLimitCount = kv.Value;
-
-            if (allCards.ContainsKey(CardID))
-            {
-                CardBase cb = allCards[CardID];
-                cb.ChangeCardLimit(CardLimitCount);
-
-                if (Client.Instance.Proxy.IsSuperAccount)
-                {
-                    if (!allUnlockedCards.ContainsKey(CardID))
-                    {
-                        allUnlockedCards.Add(CardID, cb);
-                    }
-
-                    cb.gameObject.SetActive(true);
-                }
-                else
-                {
-                    if (!allUnlockedCards.ContainsKey(CardID))
-                    {
-                        if (CardLimitCount > 0)
-                        {
-                            allUnlockedCards.Add(CardID, cb);
-                            cb.gameObject.SetActive(true);
-                        }
-                        else
-                        {
-                            cb.gameObject.SetActive(false);
-                        }
-                    }
-                    else
-                    {
-                        if (CardLimitCount == 0)
-                        {
-                            cb.gameObject.SetActive(false);
-                            allUnlockedCards.Remove(CardID);
-                        }
-                    }
-                }
-            }
-        }
-
-        HideHigherLevelNumCardsForStoryMode();
-    }
-
-    public void RefreshCardTexts()
-    {
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
-        {
-            kv.Value.RefreshCardText();
-        }
-    }
-
-    private void HideNoLimitCards()
-    {
-        if (!Client.Instance.Proxy.IsSuperAccount)
-        {
-            List<int> removeCards = new List<int>();
-            foreach (KeyValuePair<int, CardBase> kv in allUnlockedCards)
-            {
-                if (kv.Value.CardInfo.BaseInfo.LimitNum == 0)
-                {
-                    removeCards.Add(kv.Key);
-                }
-            }
-
-            foreach (int cardID in removeCards)
-            {
-                allUnlockedCards[cardID].gameObject.SetActive(false);
-                allUnlockedCards.Remove(cardID);
-            }
-        }
-    }
-
-    private void HideHigherLevelNumCardsForStoryMode()
-    {
-        if (GameMode_State == GameMode.Single)
-        {
-            List<int> removeCards = new List<int>();
-            foreach (KeyValuePair<int, CardBase> kv in allUnlockedCards)
-            {
-                //if (kv.Value.CardInfo.BaseInfo.CardRareLevel > StoryManager.Instance.Conquered_LevelNum + 1)
-                //{
-                //    removeCards.Add(kv.Key);
-                //}
-            }
-
-            foreach (int cardID in removeCards)
-            {
-                allUnlockedCards[cardID].gameObject.SetActive(false);
-                allUnlockedCards.Remove(cardID);
-            }
-        }
-    }
-
-    public void SetAllCardHideElementsByAccount()
-    {
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
-        {
-            kv.Value.SetAccount(Client.Instance.Proxy.IsSuperAccount);
-        }
-    }
-
-    public void AddCardIntoCardSelectWindow(CardInfo_Base cardInfo)
-    {
-        CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, AllCardsContent, null, true);
-        RefreshCardInSelectWindow(newCard, false);
-        allCards.Add(newCard.CardInfo.CardID, newCard);
-    }
-
-    private static void RefreshCardInSelectWindow(CardBase newCard, bool isSelected)
-    {
-        newCard.transform.localScale = Vector3.one * 120;
-        newCard.transform.rotation = Quaternion.Euler(90, 180, 0);
-        if (isSelected)
-        {
-            newCard.BeBrightColor();
-        }
-        else
-        {
-            newCard.BeDimColor();
-        }
-
-        if (newCard.CardInfo.BaseInfo.LimitNum == 0)
-        {
-            newCard.gameObject.SetActive(false);
-        }
-    }
-
-    #endregion
-
-    #region Story模式过关奖励记录
-
-    public bool JustGetSomeCard = false; //刚才是否选择了新卡片
-    public bool JustLifeAdd = false; //刚才是否增加了生命
-    public bool JustLifeLost = false; //刚才是否减少了生命
-    public bool JustEnergyAdd = false; //刚才是否增加了能量
-    public bool JustEnergyLost = false; //刚才是否减少了能量
-    public bool JustBudgetAdd = false; //刚才是否新增了预算
-    public bool JustBudgetLost = false; //刚才是否减少了预算
-    public HashSet<int> JustGetNewCards = new HashSet<int>();
-    public HashSet<int> JustUpgradeCards = new HashSet<int>();
-
-    public void ResetStoryBonusInfo()
-    {
-        JustGetSomeCard = false;
-        JustLifeAdd = false;
-        JustLifeLost = false;
-        JustEnergyAdd = false;
-        JustEnergyLost = false;
-        JustBudgetAdd = false;
-        JustBudgetLost = false;
-        JustGetNewCards.Clear();
-        JustUpgradeCards.Clear();
-    }
-
-    public void ShowNewCardBanner()
-    {
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
-        {
-            kv.Value.SetBanner(CardBase.BannerType.None);
-        }
-
-        foreach (int cardID in JustGetNewCards)
-        {
-            allCards[cardID].SetBanner(CardBase.BannerType.NewCard);
-        }
-    }
-
-    public void ShowUpgradeCardBanner()
-    {
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
-        {
-            kv.Value.SetArrow(CardBase.ArrowType.None);
-        }
-
-        foreach (int cardID in JustUpgradeCards)
-        {
-            allCards[cardID].SetArrow(CardBase.ArrowType.Upgrade);
-        }
-    }
-
-    #endregion
 }

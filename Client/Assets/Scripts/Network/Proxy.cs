@@ -52,7 +52,7 @@ public class Proxy : ProxyBase
 
     public void OnSendBuildInfo(BuildInfo buildInfo)
     {
-        BuildRequest req = new BuildRequest(ClientId, buildInfo, SelectBuildManager.Instance.GameMode_State == SelectBuildManager.GameMode.Single);
+        BuildRequest req = new BuildRequest(ClientId, buildInfo, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
         SendMessage(req);
         ClientState = ClientStates.Login;
     }
@@ -60,7 +60,7 @@ public class Proxy : ProxyBase
     public void OnBeginMatch()
     {
         ClientRequestBase req = null;
-        req = new MatchRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID);
+        req = new MatchRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID);
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
@@ -68,7 +68,7 @@ public class Proxy : ProxyBase
     public void OnBeginSingleMode(int storyPaceID)
     {
         ClientRequestBase req = null;
-        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildID, storyPaceID);
+        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID, storyPaceID);
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
@@ -174,7 +174,7 @@ public class Proxy : ProxyBase
                         NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Proxy_LogOutSuccess"), 0, 0.5f);
                         Client.Instance.Proxy.ClientState = ClientStates.GetId;
                         UIManager.Instance.CloseUIForms<StartMenuPanel>();
-                        SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
+                        UIManager.Instance.CloseUIForms<SelectBuildPanel>();
                         UIManager.Instance.ShowUIForms<LoginPanel>();
                     }
                     else
@@ -214,9 +214,8 @@ public class Proxy : ProxyBase
                 case NetProtocols.CLIENT_BUILDINFOS_REQUEST:
                 {
                     ClientBuildInfosRequest request = (ClientBuildInfosRequest) r;
-                    SelectBuildManager.Instance.M_CurrentOnlineCompete = new SelectBuildManager.OnlineCompete();
-                    SelectBuildManager.Instance.M_CurrentOnlineCompete.OnlineGamePlaySettings = request.OnlineGamePlaySettings;
-                    SelectBuildManager.Instance.M_CurrentOnlineCompete.OnlineBuildInfos = request.OnlineBuildInfos;
+                    OnlineManager.Instance.OnlineBuildInfos = request.OnlineBuildInfos;
+                    OnlineManager.Instance.OnlineGamePlaySettings = request.OnlineGamePlaySettings;
                     StoryManager.Instance.InitializeStory(request.Story);
                     break;
                 }

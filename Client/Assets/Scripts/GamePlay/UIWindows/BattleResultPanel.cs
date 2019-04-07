@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 internal class BattleResultPanel : BaseUIForm
 {
@@ -113,7 +112,7 @@ internal class BattleResultPanel : BaseUIForm
     IEnumerator Co_OnGameStopByWin(bool isWin)
     {
         IsShow = true;
-        if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show_ReadOnly) SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Hide);
+        UIManager.Instance.CloseUIForms<SelectBuildPanel>();
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
         AudioManager.Instance.BGMStop();
         if (isWin)
@@ -153,14 +152,14 @@ internal class BattleResultPanel : BaseUIForm
 
         if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
         {
-            SelectBuildManager.Instance.ResetStoryBonusInfo();
+            StoryManager.Instance.ResetStoryBonusInfo();
 
             //AlwaysBonusGroup = StoryManager.Instance.GetCurrentBonusGroup(false, -1); //Always要执行，因为如果Always里面解锁了某些卡片，则要去掉避免重复
             //OptionalBonusGroup = StoryManager.Instance.GetCurrentBonusGroup(true, Random.Range(3, 4));
 
             foreach (BonusGroup bg in OptionalBonusGroup)
             {
-                BonusButton bb = GameObjectPoolManager.Instance.PoolDict["BonusButton"].AllocateGameObject<BonusButton>(BonusButtonContainer);
+                BonusButton bb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BonusButton].AllocateGameObject<BonusButton>(BonusButtonContainer);
                 bb.Initialize(bg);
                 M_CurrentBonusButtons.Add(bb);
             }
@@ -169,7 +168,7 @@ internal class BattleResultPanel : BaseUIForm
             {
                 foreach (Bonus bonus in bg.Bonuses)
                 {
-                    SmallBonusItem sbi = GameObjectPoolManager.Instance.PoolDict["SmallBonusItem"].AllocateGameObject<SmallBonusItem>(FixedBonusContainer);
+                    SmallBonusItem sbi = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SmallBonusItem].AllocateGameObject<SmallBonusItem>(FixedBonusContainer);
                     sbi.Initialize(bonus);
                     M_CurrentFixedBonusItems.Add(sbi);
                 }
@@ -208,7 +207,7 @@ internal class BattleResultPanel : BaseUIForm
                 bb.PoolRecycle();
             }
 
-            SelectBuildManager.Instance.ResetStoryBonusInfo();
+            StoryManager.Instance.ResetStoryBonusInfo();
 
             M_CurrentBonusButtons.Clear();
             LostContent.SetActive(true);
@@ -304,7 +303,7 @@ internal class BattleResultPanel : BaseUIForm
             {
                 if (bgBonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
                 {
-                    SelectBuildManager.Instance.JustGetNewCards.Add(bgBonus.BonusFinalValue);
+                    StoryManager.Instance.JustGetNewCards.Add(bgBonus.BonusFinalValue);
                 }
             }
         }
@@ -312,19 +311,19 @@ internal class BattleResultPanel : BaseUIForm
 
     public void GetBonusBuildChangeInfo(BonusGroup bg)
     {
-        if (!SelectBuildManager.Instance.JustGetSomeCard)
+        if (!StoryManager.Instance.JustGetSomeCard)
         {
-            if (bg.Bonuses[0].M_BonusType == Bonus.BonusType.UnlockCardByID) SelectBuildManager.Instance.JustGetSomeCard = true;
+            if (bg.Bonuses[0].M_BonusType == Bonus.BonusType.UnlockCardByID) StoryManager.Instance.JustGetSomeCard = true;
         }
 
         foreach (Bonus b in bg.Bonuses)
         {
-            if (b.M_BonusType == Bonus.BonusType.LifeUpperLimit && b.BonusFinalValue > 0) SelectBuildManager.Instance.JustLifeAdd = true;
-            if (b.M_BonusType == Bonus.BonusType.LifeUpperLimit && b.BonusFinalValue < 0) SelectBuildManager.Instance.JustLifeLost = true;
-            if (b.M_BonusType == Bonus.BonusType.EnergyUpperLimit && b.BonusFinalValue > 0) SelectBuildManager.Instance.JustLifeAdd = true;
-            if (b.M_BonusType == Bonus.BonusType.EnergyUpperLimit && b.BonusFinalValue < 0) SelectBuildManager.Instance.JustEnergyLost = true;
-            if (b.M_BonusType == Bonus.BonusType.Budget && b.BonusFinalValue > 0) SelectBuildManager.Instance.JustBudgetAdd = true;
-            if (b.M_BonusType == Bonus.BonusType.Budget && b.BonusFinalValue < 0) SelectBuildManager.Instance.JustBudgetLost = true;
+            if (b.M_BonusType == Bonus.BonusType.LifeUpperLimit && b.BonusFinalValue > 0) StoryManager.Instance.JustLifeAdd = true;
+            if (b.M_BonusType == Bonus.BonusType.LifeUpperLimit && b.BonusFinalValue < 0) StoryManager.Instance.JustLifeLost = true;
+            if (b.M_BonusType == Bonus.BonusType.EnergyUpperLimit && b.BonusFinalValue > 0) StoryManager.Instance.JustLifeAdd = true;
+            if (b.M_BonusType == Bonus.BonusType.EnergyUpperLimit && b.BonusFinalValue < 0) StoryManager.Instance.JustEnergyLost = true;
+            if (b.M_BonusType == Bonus.BonusType.Budget && b.BonusFinalValue > 0) StoryManager.Instance.JustBudgetAdd = true;
+            if (b.M_BonusType == Bonus.BonusType.Budget && b.BonusFinalValue < 0) StoryManager.Instance.JustBudgetLost = true;
         }
     }
 
@@ -416,7 +415,7 @@ internal class BattleResultPanel : BaseUIForm
                         CardInfo_Base cb_upgrade = AllCards.GetCard(cb.UpgradeInfo.UpgradeCardID);
                         if (cb_upgrade.BaseInfo.CardRareLevel == StoryManager.Instance.UnlockedCardLevelNum)
                         {
-                            SelectBuildManager.Instance.JustUpgradeCards.Add(cb.CardID);
+                            StoryManager.Instance.JustUpgradeCards.Add(cb.CardID);
                             yield return Co_UnlockCardShowOne(cb.CardID, cb.UpgradeInfo.UpgradeCardID);
                         }
                     }
@@ -428,8 +427,8 @@ internal class BattleResultPanel : BaseUIForm
         CardUpgradeUnlockAnim.SetTrigger("Reset");
         EndWinLostPanel();
 
-        SelectBuildManager.Instance.ShowNewCardBanner();
-        SelectBuildManager.Instance.ShowUpgradeCardBanner();
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowNewCardBanner();
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowUpgradeCardBanner();
     }
 
     IEnumerator Co_UnlockCardShowOne(int baseCardID, int upgradeCardID)

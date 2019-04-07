@@ -4,7 +4,7 @@ public class ModuleShield : ModuleEquip
 {
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.PoolDict["ModuleShield"];
+        gameObjectPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Shield];
     }
 
     #region 各模块、自身数值和初始化

@@ -486,7 +486,7 @@ public class HandManager : MonoBehaviour
         iTween.Stop(focusCard.gameObject);
 
         //Replace the card by a boxcollider
-        ColliderReplace colliderReplace = GameObjectPoolManager.Instance.PoolDict["ColliderReplace"].AllocateGameObject<ColliderReplace>(GameBoardManager.Instance.transform);
+        ColliderReplace colliderReplace = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ColliderReplace].AllocateGameObject<ColliderReplace>(GameBoardManager.Instance.transform);
         colliderReplace.Initiate(focusCard);
         //Enlarge the card and put it in upright position
         focusCard.transform.localScale = Vector3.one * GameManager.Instance.PullOutCardSize;

@@ -12,7 +12,6 @@ public abstract class Arrow : PoolObject
 
     public ArrowType M_ArrowType;
 
-
     public abstract void Render(Vector3 StartPosition, Vector3 EndPosition);
 }
 

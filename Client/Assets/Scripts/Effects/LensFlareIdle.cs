@@ -36,7 +36,6 @@ public class LensFlareIdle : MonoBehaviour
 
     IEnumerator Co_Flicker()
     {
-       
         bool isBrighter = false;
         while (true)
         {
@@ -62,5 +61,4 @@ public class LensFlareIdle : MonoBehaviour
             }
         }
     }
-
 }

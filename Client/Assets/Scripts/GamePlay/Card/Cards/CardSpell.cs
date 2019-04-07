@@ -10,7 +10,6 @@ public class CardSpell : CardBase
         CardInfo.TargetInfo.HasTargetEquip = false;
         CardInfo.TargetInfo.HasTargetShip = false;
 
-
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
         {
             SideEffectBase se = see.SideEffectBase;

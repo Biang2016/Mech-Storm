@@ -213,7 +213,6 @@ public class CardRetinue : CardBase
         }
     }
 
-
     #region 卡牌效果
 
     //召唤机甲
@@ -230,7 +229,6 @@ public class CardRetinue : CardBase
         Client.Instance.Proxy.SendMessage(request);
         Usable = false;
     }
-
 
     //召唤机甲带目标
     private void summonRetinueTarget(Vector3 dragLastPosition, TargetSideEffect.TargetRange targetRange)

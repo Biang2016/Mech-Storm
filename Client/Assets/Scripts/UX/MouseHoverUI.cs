@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-class MouseHoverUI : MonoBehaviour, IMouseHoverComponent
+internal class MouseHoverUI : MonoBehaviour, IMouseHoverComponent
 {
     [SerializeField] private Animator Anim;
     [SerializeField] private string SFX;
@@ -32,7 +32,6 @@ class MouseHoverUI : MonoBehaviour, IMouseHoverComponent
     public delegate void MousePressEnter();
 
     public delegate void MousePressLeave();
-
 
     public void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {

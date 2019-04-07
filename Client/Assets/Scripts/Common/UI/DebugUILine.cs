@@ -17,7 +17,6 @@ public class DebugUILine : MonoBehaviour
                 Gizmos.color = Color.blue;
                 for (int i = 0; i < 4; i++)
                     Gizmos.DrawLine(fourCorners[i], fourCorners[(i + 1) % 4]);
-
             }
         }
     }

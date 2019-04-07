@@ -2,7 +2,7 @@
 {
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.PoolDict["ModulePack"];
+        gameObjectPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Pack];
     }
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)

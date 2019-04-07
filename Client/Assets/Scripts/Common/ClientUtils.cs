@@ -79,6 +79,21 @@ public class ClientUtils
         }
     }
 
+    public static void ChangeCardPicture(SpriteRenderer image, int pictureID)
+    {
+        string pid_str = string.Format("{0:000}", pictureID);
+        SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));
+        Sprite sprite = atlas.GetSprite(pid_str);
+        if (sprite != null)
+        {
+            image.sprite = sprite;
+        }
+        else
+        {
+            Debug.LogError("所选卡片没有图片资源：" + pid_str);
+        }
+    }
+
     public static void ChangeColor(RawImage image, Color newColor)
     {
         if (!image) return;

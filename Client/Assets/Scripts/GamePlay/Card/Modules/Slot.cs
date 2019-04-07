@@ -93,7 +93,6 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
     {
     }
 
-
     public void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
         HideHoverShowGO();

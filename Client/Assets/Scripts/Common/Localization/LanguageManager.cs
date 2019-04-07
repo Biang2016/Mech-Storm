@@ -205,8 +205,8 @@ public class LanguageManager : MonoSingleton<LanguageManager>
                 }
             }
 
-            SelectBuildManager.Instance.RefreshCardTexts();
-            SelectBuildManager.Instance.RefreshSelectCardsLanguage();
+            UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.RefreshCardTextLanguage();
+            UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.RefreshSelectCardTextLanguage();
         }
     }
 

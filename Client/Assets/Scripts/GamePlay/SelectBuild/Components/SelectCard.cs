@@ -34,12 +34,10 @@ public class SelectCard : PoolObject
     [SerializeField] private Text Text_Energy_sBG;
     [SerializeField] private Text Text_NOCOSTBG;
 
-
     [SerializeField] private Text Text_Count;
     public Button CardButton;
     [SerializeField] private Text Text_CardName;
     [SerializeField] private Image CardImage;
-
 
     private int count;
 
@@ -66,7 +64,6 @@ public class SelectCard : PoolObject
             RefreshText();
         }
     }
-
 
     private int energy;
 
@@ -126,7 +123,7 @@ public class SelectCard : PoolObject
 
     public CardInfo_Base CardInfo;
 
-    public void Initiate(int count,  CardInfo_Base cardInfo, SelectCardOnMouseEnterHandler enterHandler, SelectCardOnMouseLeaveHandler leaveHandler, Color color)
+    public void Initiate(int count, CardInfo_Base cardInfo, SelectCardOnMouseEnterHandler enterHandler, SelectCardOnMouseLeaveHandler leaveHandler, Color color)
     {
         Count = count;
         Metal = cardInfo.BaseInfo.Metal;
@@ -141,7 +138,7 @@ public class SelectCard : PoolObject
         Stars = CardInfo.UpgradeInfo.CardLevel;
     }
 
-    public void RefreshLanguage()
+    public void RefreshTextLanguage()
     {
         Text_CardName.text = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
     }

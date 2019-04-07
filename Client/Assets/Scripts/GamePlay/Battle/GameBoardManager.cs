@@ -96,7 +96,7 @@ public class GameBoardManager : MonoSingleton<GameBoardManager>
             Color color = img.color;
             if (fadeOption == FadeOption.FadeIn)
             {
-                img.color=new Color(color.r, color.g, color.b, (duration - tick) / duration);
+                img.color = new Color(color.r, color.g, color.b, (duration - tick) / duration);
             }
             else if (fadeOption == FadeOption.FadeOut)
             {

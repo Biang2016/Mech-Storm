@@ -108,10 +108,12 @@ public class UIMaskMgr : MonoSingleton<UIMaskMgr>
         {
             MaskPanel.SetActive(false);
         }
+
         if (MaskPanel_Blur.activeInHierarchy)
         {
             MaskPanel_Blur.SetActive(false);
         }
+
         GameManager.Instance.StopBlurBackGround();
     }
 }

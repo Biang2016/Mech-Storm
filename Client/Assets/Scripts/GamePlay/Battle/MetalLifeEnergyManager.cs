@@ -16,7 +16,6 @@ public class MetalLifeEnergyManager : MonoBehaviour
     [SerializeField] private GameObject EnemyIcon;
     [SerializeField] private Image EnemyIconImage;
 
-
     void Awake()
     {
         CardNumberSet.InitiateNumbers(ref NumberSet_MetalNumber, NumberSize.Big, CardNumberSet.TextAlign.Center, MetalNumberBlock);
@@ -102,7 +101,6 @@ public class MetalLifeEnergyManager : MonoBehaviour
     {
         TotalEnergyNumber.text = "/" + value;
     }
-
 
     public void OnEnergyChange(int change)
     {

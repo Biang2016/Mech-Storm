@@ -22,8 +22,7 @@ public class TextFly : PoolObject
 
     public RemoveTextFlyHandler removeTextFlyHandler;
 
-
-    public void SetText(string text, Color textColor, Color arrowColor, FlyDirection flyDirection, float duration,bool showArrow=true)
+    public void SetText(string text, Color textColor, Color arrowColor, FlyDirection flyDirection, float duration, bool showArrow = true)
     {
         Text.text = text;
         TextBG.text = text;

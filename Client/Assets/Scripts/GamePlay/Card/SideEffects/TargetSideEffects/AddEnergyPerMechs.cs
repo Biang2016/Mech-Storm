@@ -8,7 +8,6 @@
 
         public override void Execute(SideEffectBase.ExecutorInfo executorInfo)
         {
-
         }
     }
 }

@@ -185,7 +185,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
     {
         if (DragManager.Instance.IsSummonPreview) return;
         ShowCardDetailInBattleManager.Instance.HideCardDetail();
-        if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show_ReadOnly) return;
+        if (UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().IsReadOnly) return;
         GameManager.Instance.StopBlurBackGround();
     }
 

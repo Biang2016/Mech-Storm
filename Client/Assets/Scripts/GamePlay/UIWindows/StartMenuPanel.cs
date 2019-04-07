@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -74,7 +73,7 @@ public class StartMenuPanel : BaseUIForm
 
     private void AddButton(string goName, string textKey, string tipTextKey, UnityAction buttonClick, StartMenuButton.TipImageType tipImageType = StartMenuButton.TipImageType.None)
     {
-        StartMenuButton smb = GameObjectPoolManager.Instance.PoolDict["StartMenuButton"].AllocateGameObject<StartMenuButton>(ButtonContainer);
+        StartMenuButton smb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StartMenuButton].AllocateGameObject<StartMenuButton>(ButtonContainer);
         smb.name = goName + "Button";
         smb.BindTextKey(textKey, tipTextKey, buttonClick, tipImageType);
         StartMenuButtonDict.Add(goName, smb);
@@ -141,7 +140,7 @@ public class StartMenuPanel : BaseUIForm
             StartMenuButtonDict[btnName].transform.SetAsLastSibling();
         }
 
-        RefreshBuildInfoAbstract();
+        RefreshBuildInfoAbstract(SelectBuildManager.Instance.CurrentSelectedBuildInfo);
 
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
 
@@ -206,15 +205,15 @@ public class StartMenuPanel : BaseUIForm
 
     #endregion
 
-    public void RefreshBuildInfoAbstract()
+    public void RefreshBuildInfoAbstract(BuildInfo buildInfo)
     {
-        if (SelectBuildManager.Instance.CurrentSelectedBuildButton != null)
+        if (buildInfo != null)
         {
-            DeckAbstractText_DeckName.text = "[ " + SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.BuildName + " ]";
-            DeckAbstractText_CardNum.text = SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.CardCount.ToString();
-            DeckAbstractText_LifeNum.text = SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.Life.ToString();
-            DeckAbstractText_EnergyNum.text = SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.Energy.ToString();
-            DeckAbstractText_DrawNum.text = SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.DrawCardNum.ToString();
+            DeckAbstractText_DeckName.text = "[ " + buildInfo.BuildName + " ]";
+            DeckAbstractText_CardNum.text = buildInfo.CardCount.ToString();
+            DeckAbstractText_LifeNum.text = buildInfo.Life.ToString();
+            DeckAbstractText_EnergyNum.text = buildInfo.Energy.ToString();
+            DeckAbstractText_DrawNum.text = buildInfo.DrawCardNum.ToString();
         }
         else
         {
@@ -336,18 +335,18 @@ public class StartMenuPanel : BaseUIForm
                 }
             }
 
-            if (SelectBuildManager.Instance.CurrentSelectedBuildButton == null) //未发送卡组则跳出选择卡组界面
+            if (SelectBuildManager.Instance.CurrentSelectedBuildInfo == null) //未发送卡组则跳出选择卡组界面
             {
                 OnSelectCardDeckWindowButtonClick();
                 return;
             }
-            else if (SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.CardCount == 0)
+            else if (SelectBuildManager.Instance.CurrentSelectedBuildInfo.CardCount == 0)
             {
                 NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_StartMenu_NoCardInDeck"), 0, 0.3f);
                 OnSelectCardDeckWindowButtonClick();
                 return;
             }
-            else if (!SelectBuildManager.Instance.CurrentSelectedBuildButton.BuildInfo.IsEnergyEnough())
+            else if (!SelectBuildManager.Instance.CurrentSelectedBuildInfo.IsEnergyEnough())
             {
                 ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
                 cp.Initialize(LanguageManager.Instance.GetText("Notice_StartMenu_CardEnergyOverYourEnergy"),
@@ -400,7 +399,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSelectCardDeckWindowButtonClick()
     {
-        SelectBuildManager.Instance.M_StateMachine.SetState(SelectBuildManager.StateMachine.States.Show);
+        UIManager.Instance.ShowUIForms<SelectBuildPanel>();
     }
 
     public void OnSettingButtonClick()

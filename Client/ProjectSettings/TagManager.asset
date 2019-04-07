@@ -10,8 +10,6 @@ TagManager:
   - SelfBattleGroundArea
   - EnemyBattleGroundArea
   - Retinue
-  - _TagCanvas
-  - _TagUICamera
   layers:
   - Default
   - TransparentFX

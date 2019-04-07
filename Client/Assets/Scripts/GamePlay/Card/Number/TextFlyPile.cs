@@ -11,7 +11,7 @@ public class TextFlyPile : MonoBehaviour
 
     public void SetText(string text, string textColor, string arrowColor, TextFly.FlyDirection flyDirection, float duration = 1f, bool showArrow = true)
     {
-        TextFly textFly = GameObjectPoolManager.Instance.PoolDict["TextFly"].AllocateGameObject<TextFly>(transform);
+        TextFly textFly = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.TextFly].AllocateGameObject<TextFly>(transform);
         textFly.removeTextFlyHandler = OnRemoveTextFly;
         textFly.SetText(text, ClientUtils.HTMLColorToColor(textColor), ClientUtils.HTMLColorToColor(arrowColor), flyDirection, duration, showArrow);
         TextFlies.Add(textFly);

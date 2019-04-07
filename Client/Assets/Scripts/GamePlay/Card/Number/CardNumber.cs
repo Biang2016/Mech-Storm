@@ -11,13 +11,13 @@ public class CardNumber : PoolObject
             switch (MyNumberSize)
             {
                 case NumberSize.Small:
-                    SetObjectPool(GameObjectPoolManager.Instance.PoolDict["SmallNumber"]);
+                    SetObjectPool(GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SmallNumber]);
                     break;
                 case NumberSize.Medium:
-                    SetObjectPool(GameObjectPoolManager.Instance.PoolDict["MediumNumber"]);
+                    SetObjectPool(GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.MediumNumber]);
                     break;
                 case NumberSize.Big:
-                    SetObjectPool(GameObjectPoolManager.Instance.PoolDict["BigNumber"]);
+                    SetObjectPool(GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BigNumber]);
                     break;
             }
         }
@@ -32,13 +32,13 @@ public class CardNumber : PoolObject
         switch (MyNumberSize)
         {
             case NumberSize.Small:
-                SetObjectPool(GameObjectPoolManager.Instance.PoolDict["SmallNumber"]);
+                SetObjectPool(GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SmallNumber]);
                 break;
             case NumberSize.Medium:
-                SetObjectPool(GameObjectPoolManager.Instance.PoolDict["MediumNumber"]);
+                SetObjectPool(GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.MediumNumber]);
                 break;
             case NumberSize.Big:
-                SetObjectPool(GameObjectPoolManager.Instance.PoolDict["BigNumber"]);
+                SetObjectPool(GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BigNumber]);
                 break;
         }
     }

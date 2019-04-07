@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
+    public Camera UICamera;
+
     //UI窗体预设路径(参数1：窗体预设名称，2：表示窗体预设路径)
     private Dictionary<string, string> FormsPathDict = new Dictionary<string, string>();
 

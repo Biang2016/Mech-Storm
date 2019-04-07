@@ -41,14 +41,14 @@ public class PreviewPanelBG : MonoBehaviour
                     }
                     else
                     {
-                        SelectBuildManager.Instance.HidePreviewCardPanel();
+                        UIManager.Instance.CloseUIForms<CardPreviewPanel>();
                     }
                 }
             }
 
             if (Input.GetMouseButton(1))
             {
-                SelectBuildManager.Instance.HidePreviewCardPanel();
+                UIManager.Instance.CloseUIForms<CardPreviewPanel>();
             }
         }
     }

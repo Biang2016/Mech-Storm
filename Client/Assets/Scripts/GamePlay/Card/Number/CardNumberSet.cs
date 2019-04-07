@@ -8,7 +8,7 @@ public class CardNumberSet : PoolObject
     {
         if (!cardNumberSet)
         {
-            cardNumberSet = GameObjectPoolManager.Instance.PoolDict["NumberSet"].AllocateGameObject<CardNumberSet>(block);
+            cardNumberSet = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.NumberSet].AllocateGameObject<CardNumberSet>(block);
         }
 
         cardNumberSet.initiate(0, numberType, textAlign, false);
@@ -18,7 +18,7 @@ public class CardNumberSet : PoolObject
     {
         if (!cardNumberSet)
         {
-            cardNumberSet = GameObjectPoolManager.Instance.PoolDict["NumberSet"].AllocateGameObject<CardNumberSet>(block);
+            cardNumberSet = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.NumberSet].AllocateGameObject<CardNumberSet>(block);
         }
 
         cardNumberSet.initiate(firstSign, 0, numberType, textAlign, false);
@@ -90,7 +90,7 @@ public class CardNumberSet : PoolObject
         switch (value)
         {
             case NumberSize.Small:
-                childrenPool = GameObjectPoolManager.Instance.PoolDict["SmallNumber"];
+                childrenPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SmallNumber];
                 for (int i = 0; i < 4; i++)
                 {
                     if (cardNumbers[i] != null)
@@ -105,7 +105,7 @@ public class CardNumberSet : PoolObject
                 initiateDigitPlace();
                 break;
             case NumberSize.Medium:
-                childrenPool = GameObjectPoolManager.Instance.PoolDict["MediumNumber"];
+                childrenPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.MediumNumber];
                 for (int i = 0; i < 4; i++)
                 {
                     if (cardNumbers[i] != null)
@@ -120,7 +120,7 @@ public class CardNumberSet : PoolObject
                 initiateDigitPlace();
                 break;
             case NumberSize.Big:
-                childrenPool = GameObjectPoolManager.Instance.PoolDict["BigNumber"];
+                childrenPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BigNumber];
                 for (int i = 0; i < 4; i++)
                 {
                     if (cardNumbers[i] != null)

@@ -11,19 +11,15 @@ public class ScreenSetting : MonoBehaviour
     public int scaleHeight;
     private static int originalScreenWidth = 0;
     private static int originalScreenHeight = 0;
+
     public static int OriginalScreenWidth
     {
-        get
-        {
-            return originalScreenWidth;
-        }
+        get { return originalScreenWidth; }
     }
+
     public static int OriginalScreenHeight
     {
-        get
-        {
-            return originalScreenHeight;
-        }
+        get { return originalScreenHeight; }
     }
 
     EventSystem current = null;

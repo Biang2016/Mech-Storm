@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-class Hit : PoolObject
+internal class Hit : PoolObject
 {
     [SerializeField] private Animator Anim;
     [SerializeField] private SpriteRenderer SR;

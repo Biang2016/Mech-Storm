@@ -305,7 +305,6 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
         }
     }
 
-
     //判定鼠标未按下时的Hover，停留一定时间生效
     class Hover1 : HoverActionBase
     {
@@ -579,7 +578,6 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
                 currentTarget = null;
             }
         }
-
 
         public void PrintCurrentTarget()
         {
