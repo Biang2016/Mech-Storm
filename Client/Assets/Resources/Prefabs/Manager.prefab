@@ -4576,7 +4576,6 @@ GameObject:
   - component: {fileID: 7912273825238822865}
   - component: {fileID: 419915485327259809}
   - component: {fileID: 5460515636925877662}
-  - component: {fileID: -5973160872638322981}
   m_Layer: 0
   m_Name: EnergyText
   m_TagString: Untagged
@@ -4645,30 +4644,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: ENERGY
---- !u!132 &-5973160872638322981
-GUIText:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: -2441634891159628373}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Text: 
-  m_Anchor: 0
-  m_Alignment: 0
-  m_PixelOffset: {x: 0, y: 0}
-  m_LineSpacing: 1
-  m_TabSize: 4
-  m_Font: {fileID: 12800000, guid: 5c0c60ed7d94b5e48976972508a64804, type: 3}
-  m_Material: {fileID: 0}
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_Color:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_PixelCorrect: 1
-  m_RichText: 1
 --- !u!1 &-2400381746036705489
 GameObject:
   m_ObjectHideFlags: 0
@@ -13130,4 +13105,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnglishFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-  ChineseFont: {fileID: 12800000, guid: 5c0c60ed7d94b5e48976972508a64804, type: 3}
+  ChineseFont: {fileID: 12800000, guid: 2fe79e4206e8c434c863f7d63c33a8f1, type: 3}
