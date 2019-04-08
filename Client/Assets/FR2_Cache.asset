@@ -1607,13 +1607,6 @@ MonoBehaviour:
     stamp: 1554622695
     type: 2
     UseGUIDs: []
-  - guid: 5d73ab71d71254bebbb80824972a3b26
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554648977
-    type: 1
-    UseGUIDs:
-    - a3eb618d14901f74ba214381b396680f
   - guid: 28e7fc711a4fb524caba11b22f2e39a1
     ScriptSymbols: []
     ScriptTokens: []
@@ -4610,40 +4603,6 @@ MonoBehaviour:
     - MouseHoverComponent_OnFocusBegin
     - MouseHoverComponent_OnFocusEnd
     - MouseHoverComponent_OnMousePressLeaveImmediately
-    stamp: 1554622695
-    type: 2
-    UseGUIDs: []
-  - guid: 1c3f5d44abb8b5c47b471ed638b08766
-    ScriptSymbols:
-    - CardNumberSet
-    - CardNumberSet.TextAlign
-    ScriptTokens:
-    - ExecuteInEditMode
-    - PoolObject
-    - InitiateNumbers
-    - NumberSize
-    - Transform
-    - GameObjectPoolManager
-    - PoolRecycle
-    - MyNumberSize
-    - GameObjectPool
-    - SerializeField
-    - Animator
-    - NumberSetChangeAnim
-    - Awake
-    - IsSelect
-    - Number
-    - MyTextAlign
-    - ClientLog
-    - IntervalFactor
-    - CardNumber
-    - Clear
-    - SetNumberSetColor
-    - Color
-    - Vector3
-    - Left
-    - Right
-    - Center
     stamp: 1554622695
     type: 2
     UseGUIDs: []
@@ -7979,12 +7938,6 @@ MonoBehaviour:
     ScriptTokens: []
     stamp: 0
     type: 9
-    UseGUIDs: []
-  - guid: 377ec4b7afbc2472f814173e1f574425
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 4
     UseGUIDs: []
   - guid: 7867d5b7caaa4eb43bc412ca14e4a07e
     ScriptSymbols: []
@@ -12214,40 +12167,6 @@ MonoBehaviour:
     type: 1
     UseGUIDs:
     - f969ea368ce5ae74081d8f514ab181a9
-  - guid: 9c3c403cf870afe45b1fcf548e435295
-    ScriptSymbols:
-    - CardNumber
-    - NumberSize
-    ScriptTokens:
-    - PoolObject
-    - PoolRecycle
-    - SetNumberColor
-    - GameManager
-    - Pool
-    - MyNumberSize
-    - SetObjectPool
-    - GameObjectPoolManager
-    - SerializeField
-    - Renderer
-    - Awake
-    - Start
-    - Number
-    - Material
-    - NumberMaterial
-    - NumberSignMaterial
-    - NumberMaterial_Select
-    - NumberSignMaterial_Select
-    - IsSelect
-    - SetSign
-    - ClientLog
-    - Color
-    - MaterialPropertyBlock
-    - Small
-    - Medium
-    - Big
-    stamp: 1554622695
-    type: 2
-    UseGUIDs: []
   - guid: ee41f03c72595f24e8c53ad986d947c0
     ScriptSymbols: []
     ScriptTokens: []
@@ -20714,13 +20633,6 @@ MonoBehaviour:
     - 18aa0eb1f8e743f46a980751abe87c2b
     - b70a3ba710c06e24383640830f5aa12f
     - ef2591b4a473c1240adb72a69458f0fa
-  - guid: a3eb618d14901f74ba214381b396680f
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554648977
-    type: 1
-    UseGUIDs:
-    - 377ec4b7afbc2472f814173e1f574425
   - guid: 7b6eda93bb541492d964a4133b6eea3b
     ScriptSymbols: []
     ScriptTokens: []
@@ -20743,12 +20655,6 @@ MonoBehaviour:
     UseGUIDs:
     - 89f0137620f6af44b9ba852b4190e64e
     - dca26082f9cb439469295791d9f76fe5
-  - guid: 36d4c30b928fed547bfeda0eeaf1ec66
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554345152
-    type: 1
-    UseGUIDs: []
   - guid: 8cf4d3fc47e51e843bf4b4739589037f
     ScriptSymbols:
     - CardSelectCountComponent
@@ -20886,12 +20792,6 @@ MonoBehaviour:
     stamp: 1554690549
     type: 2
     UseGUIDs: []
-  - guid: 3c622cd2af5da2e469048187d7a80f28
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554690615
-    type: 1
-    UseGUIDs: []
   - guid: 947221d14593b0f4db9f99b99c63cccc
     ScriptSymbols:
     - CardStarsComponent
@@ -20904,6 +20804,50 @@ MonoBehaviour:
     - Color
     stamp: 1554691486
     type: 2
+    UseGUIDs: []
+  - guid: c2d892171d0a2470190e7bb6d0dd3f02
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1554697847
+    type: 1
+    UseGUIDs:
+    - d883b6293273645099712cdff71addbe
+  - guid: ab1ac2a71ec91184f827e65557b93920
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1547991322
+    type: 1
+    UseGUIDs: []
+  - guid: d883b6293273645099712cdff71addbe
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1554697848
+    type: 1
+    UseGUIDs:
+    - 889314dd7caaf4b6ba4e530b5c3b936c
+  - guid: 4a161d49ff924410db56e4923e810b8e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1548258752
+    type: 1
+    UseGUIDs: []
+  - guid: dab43e1bdd743254baab7ad2983a9164
+    ScriptSymbols:
+    - CardComponentBaseEditor
+    ScriptTokens:
+    - CardBasicComponent
+    - Editor
+    - OnEnable
+    - OnInspectorGUI
+    - EditorGUILayout
+    stamp: 1554704284
+    type: 2
+    UseGUIDs: []
+  - guid: 889314dd7caaf4b6ba4e530b5c3b936c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 4
     UseGUIDs: []
   timeStamp: 1554689860
   priority: 5

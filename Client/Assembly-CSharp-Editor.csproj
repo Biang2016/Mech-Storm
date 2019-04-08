@@ -308,7 +308,7 @@
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/JetBrains/Editor/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.2d.common@1.0.10-preview/Tests/Editor/Lib/NSubstitute/NSubstitute.dll</HintPath>
@@ -327,9 +327,6 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -694,6 +691,14 @@
     <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
       <Project>{2292066C-03A4-5733-4636-43653C20A180}</Project>
       <Name>Assembly-CSharp-Editor-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="OutGameLogic.csproj">
+      <Project>{97C57F31-373C-EFFE-AAD8-03EE13BF3BC9}</Project>
+      <Name>OutGameLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="InGameLogic.csproj">
+      <Project>{CB263AC7-42BE-3C47-D98A-74A74A6F1B06}</Project>
+      <Name>InGameLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

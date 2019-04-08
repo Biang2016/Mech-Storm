@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
-using UnityEditor.Build.Pipeline;
+//using UnityEditor.Build.Pipeline;
 using UnityEngine;
 
 public class AssetBundlePacker
@@ -79,7 +79,7 @@ public class AssetBundlePacker
         SetPack("Textures/Card", "*.png", PackFolderToABOption.UseSubFolderName, "textures_card");
         SetPack("Textures/Card/CardComponents", "*.png", PackFolderToABOption.UseSubFolderName, "textures_card_cardcomponents");
         SetPack("Textures/UI", "*.png", PackFolderToABOption.UseSubFolderName, "textures_ui");
-        CompatibilityBuildPipeline.BuildAssetBundles(out_path, GetAssetBundleBuild(), option, build_target);
+//        CompatibilityBuildPipeline.BuildAssetBundles(out_path, GetAssetBundleBuild(), option, build_target);
     }
 
     enum PackFolderToABOption

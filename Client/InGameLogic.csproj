@@ -9,8 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{CB263AC7-42BE-3C47-D98A-74A74A6F1B06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -474,7 +473,7 @@
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/JetBrains/Editor/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.2d.common@1.0.10-preview/Tests/Editor/Lib/NSubstitute/NSubstitute.dll</HintPath>
@@ -493,9 +492,6 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
