@@ -31,7 +31,7 @@ public class CardStarsComponent : CardComponentBase
     {
         foreach (SpriteRenderer star in Stars)
         {
-            star.sortingOrder = StarDefaultSortingOrder;
+            star.sortingOrder = cardSortingIndex * 50 +  StarDefaultSortingOrder;
         }
     }
 }

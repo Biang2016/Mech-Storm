@@ -125,7 +125,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3076561093217076677}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ef2024387e322e4bb67715db2a75000, type: 3}
   m_Name: 
@@ -135,6 +135,7 @@ MonoBehaviour:
   Panel: {fileID: 3077758917609895444}
   CoinText: {fileID: 3077758917017827816}
   CoinImage: {fileID: 3076978955717804428}
+  CoinImageBG: {fileID: 3077758916454797032}
 --- !u!1 &3076978955717804429
 GameObject:
   m_ObjectHideFlags: 0

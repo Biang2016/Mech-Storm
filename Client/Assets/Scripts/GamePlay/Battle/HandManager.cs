@@ -272,12 +272,8 @@ public class HandManager : MonoBehaviour
         iTween.MoveTo(newCardBase.gameObject, arg);
         iTween.RotateTo(newCardBase.gameObject, arg);
 
-        newCardBase.IsFlying = true;
         AudioManager.Instance.SoundPlay("sfx/DrawCard0", 0.4f);
-
         yield return new WaitForSeconds(duration);
-        newCardBase.IsFlying = false;
-
         yield return new WaitForSeconds(0.1f);
     }
 

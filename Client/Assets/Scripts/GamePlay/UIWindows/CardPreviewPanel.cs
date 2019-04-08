@@ -118,7 +118,7 @@ public class CardPreviewPanel : BaseUIForm
         if (PreviewCard is CardRetinue)
         {
             ((CardRetinue) PreviewCard).ShowAllSlotHover();
-            ((CardRetinue) PreviewCard).MoveCoinBGLower();
+            PreviewCard.MoveCoinBGLower();
         }
 
         bool hasUpgradeCard = false;
@@ -162,8 +162,8 @@ public class CardPreviewPanel : BaseUIForm
             PreviewCardUpgrade.M_BoxCollider.enabled = false;
             if (PreviewCardUpgrade is CardRetinue)
             {
-                ((CardRetinue) PreviewCardUpgrade).ShowAllSlotHover();
-                ((CardRetinue) PreviewCardUpgrade).MoveCoinBGLower();
+                PreviewCardUpgrade.ShowAllSlotHover();
+                PreviewCardUpgrade.SetCoinBlockPos(CardCoinComponent.Position.Lower);
             }
         }
         else

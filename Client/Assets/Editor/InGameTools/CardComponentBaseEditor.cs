@@ -1,13 +1,13 @@
 ﻿using UnityEditor;
 
-[CustomEditor(typeof(CardBasicComponent))]
+[CustomEditor(typeof(CardComponentBase), true)]
 class CardComponentBaseEditor : Editor
 {
-    private CardBasicComponent cardComponentBase;
+    private CardComponentBase cardComponentBase;
 
     void OnEnable()
     {
-        cardComponentBase = target as CardBasicComponent;
+        cardComponentBase = target as CardComponentBase;
     }
 
     public override void OnInspectorGUI()

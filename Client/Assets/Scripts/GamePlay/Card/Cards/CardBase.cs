@@ -7,12 +7,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 {
     internal ClientPlayer ClientPlayer;
     protected bool IsCardSelect;
-    [SerializeField] private DragComponent M_DragComponent;
-    public BoxCollider M_BoxCollider;
+    public CardInfo_Base CardInfo; //卡牌原始数值信息
 
     public Dictionary<CardComponentTypes, CardComponentBase> CardComponents = new Dictionary<CardComponentTypes, CardComponentBase>();
-
-    internal bool IsFlying;
+    [SerializeField] private DragComponent DragComponent;
+    public BoxCollider M_BoxCollider;
 
     public override void PoolRecycle()
     {
@@ -26,36 +25,23 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             transform.localScale = Vector3.one * 2;
             transform.rotation = Quaternion.Euler(0, -180, 0);
             DragComponent.enabled = true;
-            IsFlying = false;
         }
         else
         {
             base.PoolRecycle();
         }
 
-        if (CardBackRenderer) CardBackRenderer.gameObject.SetActive(true);
         SetAccount(Client.Instance.Proxy.IsSuperAccount);
         gameObject.SetActive(true);
-        CardBloom.SetActive(false);
+        CardBasicComponent.SetBloomShow(false);
 
-        SetBanner(BannerType.None);
-        SetArrow(ArrowType.None);
+        SetBannerType(CardNoticeComponent.BannerTypes.None);
+        SetArrowType(CardNoticeComponent.ArrowTypes.None);
     }
 
-    public CardInfo_Base CardInfo; //卡牌原始数值信息
-    internal DragComponent DragComponent;
-
-    protected virtual void Awake()
+    void Awake()
     {
-        myCollider = GetComponent<BoxCollider>();
-        DragComponent = GetComponent<DragComponent>();
-
-        MetalIcon.color = GameManager.Instance.MetalIconColor;
-        EnergyIcon.color = GameManager.Instance.EnergyIconColor;
-        if (LifeIcon) LifeIcon.color = GameManager.Instance.LifeIconColor;
-        Text_CardType.fontStyle = LanguageManager.Instance.IsEnglish ? FontStyle.Bold : FontStyle.Normal;
-        Text_CardTypeBG.fontStyle = LanguageManager.Instance.IsEnglish ? FontStyle.Bold : FontStyle.Normal;
-        Text_Desc.color = ClientUtils.HTMLColorToColor(AllColors.ColorDict[AllColors.ColorType.CardDecsTextColor]);
+        CardDescComponent.SetCardDescTextColor(ClientUtils.HTMLColorToColor(AllColors.ColorDict[AllColors.ColorType.CardDecsTextColor]));
     }
 
     public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, ClientPlayer clientPlayer, bool isCardSelect)
@@ -85,63 +71,43 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
             newCard.ChangeCardBloomColor(GameManager.Instance.CardBloomColor);
 
-            newCard.CoinText.text = "";
-            newCard.CoinImage.enabled = false;
-            newCard.CoinImageBG.enabled = false;
-            newCard.CoinImageBG.gameObject.SetActive(false);
-
             newCard.DragComponent.enabled = true;
             newCard.M_BoxCollider.enabled = true;
-
-            if (newCard.CardBackRenderer) newCard.CardBackRenderer.gameObject.SetActive(true);
         }
         else
         {
             switch (cardInfo.BaseInfo.CardType)
             {
                 case CardTypes.Retinue:
-                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.RetinueCardSelect].AllocateGameObject<CardRetinue>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.RetinueCard].AllocateGameObject<CardRetinue>(parent);
                     break;
                 case CardTypes.Equip:
-                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.EquipCardSelect].AllocateGameObject<CardEquip>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.EquipCard].AllocateGameObject<CardEquip>(parent);
                     ((CardEquip) newCard).M_EquipType = cardInfo.EquipInfo.SlotType;
                     break;
                 case CardTypes.Spell:
-                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SpellCardSelect].AllocateGameObject<CardSpell>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SpellCard].AllocateGameObject<CardSpell>(parent);
                     break;
                 case CardTypes.Energy:
-                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SpellCardSelect].AllocateGameObject<CardSpell>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SpellCard].AllocateGameObject<CardSpell>(parent);
                     break;
                 default:
-                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.RetinueCardSelect].AllocateGameObject<CardRetinue>(parent);
+                    newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.RetinueCard].AllocateGameObject<CardRetinue>(parent);
                     break;
             }
 
             newCard.transform.localScale = Vector3.one * 120;
             newCard.transform.rotation = Quaternion.Euler(90, 0, 0);
             newCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#A1F7FF"));
-
-            newCard.CoinText.text = cardInfo.BaseInfo.Coin.ToString();
-            newCard.CoinImage.enabled = true;
-            newCard.CoinImageBG.enabled = false;
-            newCard.CoinImageBG.gameObject.SetActive(true);
-            if (clientPlayer == null || clientPlayer.WhichPlayer == Players.Self)
-            {
-                if (newCard.CardBackRenderer) newCard.CardBackRenderer.gameObject.SetActive(false);
-            }
-            else
-            {
-                if (newCard.CardBackRenderer) newCard.CardBackRenderer.gameObject.SetActive(true);
-            }
-
+            newCard.CardCoinComponent.SetCoin(cardInfo.BaseInfo.Coin);
             newCard.M_BoxCollider.enabled = true;
         }
 
         newCard.Initiate(cardInfo, clientPlayer, isCardSelect);
         newCard.Usable = false;
 
-        newCard.SetBanner(BannerType.None);
-        newCard.SetArrow(ArrowType.None);
+        newCard.SetBannerType(CardNoticeComponent.BannerTypes.None);
+        newCard.SetArrowType(CardNoticeComponent.ArrowTypes.None);
 
         return newCard;
     }
@@ -167,21 +133,19 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         M_Energy = CardInfo.BaseInfo.Energy;
         M_Name = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
         M_Desc = CardInfo.GetCardDescShow();
-        Text_CardType.text = CardInfo.GetCardTypeDesc();
-        Text_CardTypeBG.text = CardInfo.GetCardTypeDesc();
+        CardDescComponent.SetCardTypeText(CardInfo.GetCardTypeDesc());
 
         Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
         MainboardEmissionIntensity = CardInfo.GetCardColorIntensity();
-        Text_CardType.color = ClientUtils.ChangeColorToWhite(cardColor, 0.3f);
-        ClientUtils.ChangeCardPicture(Picture, CardInfo.BaseInfo.PictureID);
-        Stars = CardInfo.UpgradeInfo.CardLevel;
+        CardDescComponent.SetCardTypeTextColor(ClientUtils.ChangeColorToWhite(cardColor, 0.3f));
+        CardBasicComponent.ChangePicture(CardInfo.BaseInfo.PictureID);
+        SetStarNumber(CardInfo.UpgradeInfo.CardLevel);
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Rotate(Vector3.up, 180);
 
-        if (IsCardSelect) CoinText.text = CardInfo.BaseInfo.Coin.ToString();
+        if (IsCardSelect) CardCoinComponent.SetCoin(CardInfo.BaseInfo.Coin);
 
-        if (!IsCardSelect && CardCanvas) CardCanvas.enabled = clientPlayer.WhichPlayer == Players.Self;
         SetCardBackColor();
         ChangeColor(cardColor);
 
@@ -194,8 +158,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     {
         M_Name = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
         M_Desc = CardInfo.GetCardDescShow();
-        Text_CardType.text = CardInfo.GetCardTypeDesc();
-        Text_CardTypeBG.text = CardInfo.GetCardTypeDesc();
+        CardDescComponent.SetCardTypeText(CardInfo.GetCardTypeDesc());
     }
 
     public void SetAccount(bool isSuperAccount)
@@ -214,20 +177,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         get { return m_Metal; }
         set
         {
-            if (value != 0)
-            {
-                if (!MetalIcon.gameObject.activeSelf) MetalIcon.gameObject.SetActive(true);
-            }
-            else
-            {
-                if (MetalIcon.gameObject.activeSelf) MetalIcon.gameObject.SetActive(false);
-            }
-
             if (m_Metal != value)
             {
                 m_Metal = value;
                 CardInfo.BaseInfo.Metal = value;
-                Text_Metal.text = value.ToString();
+                CardCostIconComponent.SetMetal(m_Metal);
             }
         }
     }
@@ -239,20 +193,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         get { return m_Energy; }
         set
         {
-            if (value != 0)
-            {
-                if (!EnergyIcon.gameObject.activeSelf) EnergyIcon.gameObject.SetActive(true);
-            }
-            else
-            {
-                if (EnergyIcon.gameObject.activeSelf) EnergyIcon.gameObject.SetActive(false);
-            }
-
             if (m_Energy != value)
             {
                 m_Energy = value;
                 CardInfo.BaseInfo.Energy = value;
-                Text_Energy.text = value.ToString();
+                CardCostIconComponent.SetEnergy(m_Energy);
             }
         }
     }
@@ -286,7 +231,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         set
         {
             m_Name = value;
-            Text_Name.text = value;
+            CardDescComponent.SetCardName(value);
         }
     }
 
@@ -298,7 +243,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         set
         {
             m_Desc = value;
-            Text_Desc.text = LanguageManager.Instance.IsEnglish ? value : ReplaceWrapSpace(value);
+            CardDescComponent.SetDescText(LanguageManager.Instance.IsEnglish ? value : ReplaceWrapSpace(value));
         }
     }
 
@@ -332,35 +277,14 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     #region 卡牌上各模块
 
-    [SerializeField] private Text Text_Name;
-    [SerializeField] private Text Text_Desc;
-    [SerializeField] private Text Text_CardType;
-    [SerializeField] private Text Text_CardTypeBG;
-
-    [SerializeField] private Renderer MainBoardRenderer;
-    public GameObject CardBloom;
-    [SerializeField] private Renderer CardBloomRenderer;
-    [SerializeField] private Image Picture;
-
-    public GameObject CardBackBloom;
-    [SerializeField] private Renderer CardBackRenderer;
-    [SerializeField] private Renderer CardBackBloomRenderer;
-
-    public Canvas CardCanvas;
-
-    [SerializeField] private Image Image_DescPanel;
-
-    [SerializeField] private Image LifeIcon;
-    [SerializeField] private Image MetalIcon;
-    [SerializeField] private Image EnergyIcon;
-    [SerializeField] private Text Text_Metal;
-    [SerializeField] private Text Text_Energy;
-
+    [SerializeField] private CardBasicComponent CardBasicComponent;
+    [SerializeField] private CardDescComponent CardDescComponent;
+    [SerializeField] private CardBackComponent CardBackComponent;
+    [SerializeField] private CardCostIconComponent CardCostIconComponent;
     [SerializeField] private CardSelectCountComponent CardSelectCountComponent;
-
-    [SerializeField] private Text CoinText;
-    [SerializeField] private Image CoinImage;
-    public Image CoinImageBG;
+    [SerializeField] private CardStarsComponent CardStarsComponent;
+    [SerializeField] private CardNoticeComponent CardNoticeComponent;
+    [SerializeField] private CardCoinComponent CardCoinComponent;
 
     // 管理员权限
     [SerializeField] private Button CardLimitCountUpButton;
@@ -383,33 +307,29 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void ChangeColor(Color color)
     {
-        ClientUtils.ChangeEmissionColor(MainBoardRenderer, color, MainboardEmissionIntensity);
-
-        if (Image_DescPanel)
-        {
-            Image_DescPanel.color = new Color(color.r / 3, color.g / 3, color.b / 3, 0.5f);
-        }
+        CardBasicComponent.SetMainBoardColor(color, MainboardEmissionIntensity);
+        CardDescComponent.SetCardDescBGColor(new Color(color.r / 3, color.g / 3, color.b / 3, 0.5f));
     }
 
     public void ChangeCardBloomColor(Color color)
     {
-        ClientUtils.ChangeColor(CardBloomRenderer, color, 1.3f);
+        CardBasicComponent.SetCardBloomColor(color, 1.3f);
     }
 
     public void ChangePictureColor(Color color)
     {
-        ClientUtils.ChangeColor(Picture, color);
+        CardBasicComponent.SetPictureColor(color, 1.0f);
     }
 
     public void SetCardBackColor()
     {
         if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
         {
-            ClientUtils.ChangeColor(CardBackRenderer, GameManager.Instance.SelfCardDeckCardColor);
+            CardBackComponent.SetCardBackColor(GameManager.Instance.SelfCardDeckCardColor, 1.0f);
         }
         else
         {
-            ClientUtils.ChangeColor(CardBackRenderer, GameManager.Instance.EnemyCardDeckCardColor);
+            CardBackComponent.SetCardBackColor(GameManager.Instance.EnemyCardDeckCardColor, 1.0f);
         }
     }
 
@@ -425,135 +345,35 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardSelectCountComponent.IsForceShow = forceShow;
     }
 
-    protected void SetBlockCountPosition(Vector3 pos)
+    public void SetSelectCountBlockPosition(CardSelectCountComponent.Position pos)
     {
-        //TODO
-//        Block_Count.localPosition = pos;
+        CardSelectCountComponent.SetPosition(pos);
     }
 
-    protected void SetBlockCountMaxPosition(Vector3 pos)
+    private void SetStarNumber(int starNumber)
     {
-        //TODO
-//        Block_CountMax.localPosition = pos;
+        if (CardStarsComponent) CardStarsComponent.SetStarNumber(starNumber);
     }
 
-    [SerializeField] private RawImage Star1;
-    [SerializeField] private RawImage Star2;
-    [SerializeField] private RawImage Star3;
-
-    protected int stars;
-
-    public int Stars
+    public void SetBannerType(CardNoticeComponent.BannerTypes bannerType)
     {
-        get { return stars; }
-
-        set
-        {
-            stars = value;
-            Star1.gameObject.SetActive(true);
-            Star2.gameObject.SetActive(true);
-            Star3.gameObject.SetActive(true);
-            switch (value)
-            {
-                case 0:
-                    Star1.color = new Color(1, 1, 1, 0);
-                    Star2.color = new Color(1, 1, 1, 0);
-                    Star3.color = new Color(1, 1, 1, 0);
-                    break;
-                case 1:
-                    Star1.color = Color.white;
-                    Star2.color = Color.black;
-                    Star3.color = Color.black;
-                    break;
-                case 2:
-                    Star1.color = Color.white;
-                    Star2.color = Color.white;
-                    Star3.color = Color.black;
-                    break;
-                case 3:
-                    Star1.color = Color.white;
-                    Star2.color = Color.white;
-                    Star3.color = Color.white;
-                    break;
-                default: break;
-            }
-        }
+        if (CardNoticeComponent) CardNoticeComponent.SetBannerType(bannerType);
     }
 
-    [SerializeField] private Image CardBanner;
-    [SerializeField] private Text BannerText;
-
-    public enum BannerType
+    public void SetArrowType(CardNoticeComponent.ArrowTypes arrowType)
     {
-        None,
-        NewCard,
-    }
-
-    public void SetBanner(BannerType bannerType)
-    {
-        switch (bannerType)
-        {
-            case BannerType.NewCard:
-            {
-                ShowBanner(new Color(1, 0, 0, 0.7f), LanguageManager.Instance.GetText("CardBase_NewCardBanner"));
-                break;
-            }
-            case BannerType.None:
-            {
-                if (CardBanner) CardBanner.enabled = false;
-                if (BannerText) BannerText.enabled = false;
-                break;
-            }
-        }
-    }
-
-    private void ShowBanner(Color color, string text)
-    {
-        if (CardBanner) CardBanner.enabled = true;
-        if (BannerText) BannerText.enabled = true;
-        if (CardBanner) CardBanner.color = color;
-        if (BannerText) BannerText.text = text;
-    }
-
-    [SerializeField] private Image CardUpgradeArrow;
-    [SerializeField] private Text UpgradeText;
-
-    public enum ArrowType
-    {
-        None,
-        Upgrade,
-    }
-
-    public void SetArrow(ArrowType arrowType)
-    {
-        switch (arrowType)
-        {
-            case ArrowType.Upgrade:
-            {
-                ShowUpgradeArrow(new Color(0, 1, 0, 1f), LanguageManager.Instance.GetText("CardBase_Upgradable"));
-                break;
-            }
-            case ArrowType.None:
-            {
-                if (CardUpgradeArrow) CardUpgradeArrow.enabled = false;
-                if (UpgradeText) UpgradeText.enabled = false;
-                break;
-            }
-        }
-    }
-
-    private void ShowUpgradeArrow(Color color, string text)
-    {
-        if (CardUpgradeArrow) CardUpgradeArrow.enabled = true;
-        if (UpgradeText) UpgradeText.enabled = true;
-        if (CardUpgradeArrow) CardUpgradeArrow.color = color;
-        if (UpgradeText) UpgradeText.text = text;
+        if (CardNoticeComponent) CardNoticeComponent.SetArrowType(arrowType);
     }
 
     public void ChangeCardLimit(int value, bool forceShow = false)
     {
         SetBlockCountMaxValue(value, forceShow);
         CardInfo.BaseInfo.LimitNum = value;
+    }
+
+    public void SetCoinBlockPos(CardCoinComponent.Position pos)
+    {
+        CardCoinComponent.SetPosition(pos);
     }
 
     public void OnCardLimitCountUpButtonClick()
@@ -581,7 +401,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     #region 卡牌交互
 
     internal ColliderReplace myColliderReplace;
-    internal BoxCollider myCollider;
 
     internal bool CanBecomeBigger = true;
 
@@ -603,18 +422,18 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
                 if (!value)
                 {
                     BeDimColor();
-                    CardBloom.SetActive(false);
+                    CardBasicComponent.SetBloomShow(false);
                 }
                 else
                 {
                     BeBrightColor();
-                    CardBloom.SetActive(true);
+                    CardBasicComponent.SetBloomShow(true);
                 }
             }
             else
             {
                 BeBrightColor();
-                CardBloom.SetActive(false);
+                CardBasicComponent.SetBloomShow(false);
             }
 
             usable = value;
@@ -628,7 +447,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     public void SetBonusCardBloom(bool isOpen)
     {
         ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#A1F7FF"));
-        CardBloom.SetActive(isOpen);
+        CardBasicComponent.SetBloomShow(isOpen);
     }
 
     public virtual void OnBeginRound()
@@ -646,9 +465,9 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     internal void ResetColliderAndReplace()
     {
-        if (myCollider)
+        if (M_BoxCollider)
         {
-            myCollider.enabled = true;
+            M_BoxCollider.enabled = true;
         }
 
         if (myColliderReplace)

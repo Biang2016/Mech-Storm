@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CardBackComponent : CardComponentBase
 {
     [SerializeField] private MeshRenderer CardBack;
     [SerializeField] private MeshRenderer CardBloom;
+    [SerializeField] private SortingGroup CardBackSG;
+    [SerializeField] private SortingGroup CardBloomSG;
 
     public void SetCardBackColor(Color color, float intensity)
     {
@@ -22,8 +25,8 @@ public class CardBackComponent : CardComponentBase
 
     void Awake()
     {
-        CardBackDefaultSortingOrder = CardBack.sortingOrder;
-        CardBloomDefaultSortingOrder = CardBloom.sortingOrder;
+        CardBackDefaultSortingOrder = CardBackSG.sortingOrder;
+        CardBloomDefaultSortingOrder = CardBloomSG.sortingOrder;
     }
 
     private int CardBackDefaultSortingOrder;
@@ -31,7 +34,7 @@ public class CardBackComponent : CardComponentBase
 
     protected override void SetSortingIndexOfCard(int cardSortingIndex)
     {
-        CardBack.sortingOrder = cardSortingIndex * 50 + CardBackDefaultSortingOrder;
-        CardBack.sortingOrder = cardSortingIndex * 50 + CardBloomDefaultSortingOrder;
+        CardBackSG.sortingOrder = cardSortingIndex * 50 + CardBackDefaultSortingOrder;
+        CardBloomSG.sortingOrder = cardSortingIndex * 50 + CardBloomDefaultSortingOrder;
     }
 }

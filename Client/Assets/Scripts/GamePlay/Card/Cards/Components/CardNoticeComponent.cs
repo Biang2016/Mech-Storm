@@ -4,60 +4,70 @@ using UnityEngine;
 public class CardNoticeComponent : CardComponentBase
 {
     [SerializeField] private GameObject BannerBlock;
-    [SerializeField] private TextMeshPro NewCardBannerText;
+    [SerializeField] private TextMeshPro BannerText;
     [SerializeField] private SpriteRenderer NewCardBanner;
-    [SerializeField] private GameObject UpgradeBlock;
-    [SerializeField] private TextMeshPro UpgradeText;
-    [SerializeField] private SpriteRenderer UpgradeArrow;
+    [SerializeField] private GameObject ArrowBlock;
+    [SerializeField] private TextMeshPro ArrowText;
+    [SerializeField] private SpriteRenderer Arrow;
 
-    public void SetBannerShow(bool isShow)
+    public enum BannerTypes
     {
-        BannerBlock.SetActive(isShow);
+        None,
+        NewCard,
     }
 
-    public void SetUpgradeShow(bool isShow)
+    public enum ArrowTypes
     {
-        UpgradeBlock.SetActive(isShow);
+        None,
+        Upgrade,
     }
 
-    public void SetNewCardBannerText(string bannerText)
+    public void SetBannerType(BannerTypes bannerType)
     {
-        NewCardBannerText.text = bannerText;
+        switch (bannerType)
+        {
+            case BannerTypes.None:
+                BannerBlock.SetActive(false);
+                break;
+            case BannerTypes.NewCard:
+                BannerBlock.SetActive(true);
+                BannerText.text = LanguageManager.Instance.GetText("CardBase_NewCardBanner");
+                break;
+        }
     }
 
-    public void SetUpgradeText(string upgradeText)
+    public void SetArrowType(ArrowTypes arrowType)
     {
-        UpgradeText.text = upgradeText;
-    }
-
-    public void SetCardBannerColor(Color color)
-    {
-        ClientUtils.ChangeColor(NewCardBanner, color);
-    }
-
-    public void SetUpgradeArrowColor(Color color)
-    {
-        ClientUtils.ChangeColor(UpgradeArrow, color);
+        switch (arrowType)
+        {
+            case ArrowTypes.None:
+                ArrowBlock.SetActive(false);
+                break;
+            case ArrowTypes.Upgrade:
+                ArrowBlock.SetActive(true);
+                ArrowText.text = LanguageManager.Instance.GetText("CardBase_Upgradable");
+                break;
+        }
     }
 
     void Awake()
     {
-        NewCardBannerTextDefaultSortingOrder = NewCardBannerText.sortingOrder;
-        NewCardBannerDefaultSortingOrder = NewCardBanner.sortingOrder;
-        UpgradeTextDefaultSortingOrder = UpgradeText.sortingOrder;
-        UpgradeArrowDefaultSortingOrder = UpgradeArrow.sortingOrder;
+        BannerTextDefaultSortingOrder = BannerText.sortingOrder;
+        BannerDefaultSortingOrder = NewCardBanner.sortingOrder;
+        ArrowTextDefaultSortingOrder = ArrowText.sortingOrder;
+        ArrowDefaultSortingOrder = Arrow.sortingOrder;
     }
 
-    private int NewCardBannerTextDefaultSortingOrder;
-    private int NewCardBannerDefaultSortingOrder;
-    private int UpgradeTextDefaultSortingOrder;
-    private int UpgradeArrowDefaultSortingOrder;
+    private int BannerTextDefaultSortingOrder;
+    private int BannerDefaultSortingOrder;
+    private int ArrowTextDefaultSortingOrder;
+    private int ArrowDefaultSortingOrder;
 
     protected override void SetSortingIndexOfCard(int cardSortingIndex)
     {
-        NewCardBannerText.sortingOrder = cardSortingIndex * 50 + NewCardBannerTextDefaultSortingOrder;
-        NewCardBanner.sortingOrder = cardSortingIndex * 50 + NewCardBannerDefaultSortingOrder;
-        UpgradeText.sortingOrder = cardSortingIndex * 50 + UpgradeTextDefaultSortingOrder;
-        UpgradeArrow.sortingOrder = cardSortingIndex * 50 + UpgradeArrowDefaultSortingOrder;
+        BannerText.sortingOrder = cardSortingIndex * 50 + BannerTextDefaultSortingOrder;
+        NewCardBanner.sortingOrder = cardSortingIndex * 50 + BannerDefaultSortingOrder;
+        ArrowText.sortingOrder = cardSortingIndex * 50 + ArrowTextDefaultSortingOrder;
+        Arrow.sortingOrder = cardSortingIndex * 50 + ArrowDefaultSortingOrder;
     }
 }

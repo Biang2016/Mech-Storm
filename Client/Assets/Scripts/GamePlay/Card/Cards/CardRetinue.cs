@@ -32,9 +32,6 @@ public class CardRetinue : CardBase
             MA.PoolRecycle();
             MA = null;
         }
-
-        if (Block_Count_HigherPivot) SetBlockCountPosition(Block_Count_HigherPivot.position);
-        if (Block_CountMax_HigherPivot) SetBlockCountMaxPosition(Block_CountMax_HigherPivot.position);
     }
 
     #region 卡牌上各模块
@@ -66,13 +63,11 @@ public class CardRetinue : CardBase
         {
             if (cardInfo.RetinueInfo.HasSlotType(SlotTypes.MA))
             {
-                SetBlockCountPosition(Block_Count_LowerPivot.localPosition);
-                SetBlockCountMaxPosition(Block_CountMax_LowerPivot.localPosition);
+                SetSelectCountBlockPosition(CardSelectCountComponent.Position.Lower);
             }
             else
             {
-                SetBlockCountPosition(Block_Count_HigherPivot.localPosition);
-                SetBlockCountMaxPosition(Block_CountMax_HigherPivot.localPosition);
+                SetSelectCountBlockPosition(CardSelectCountComponent.Position.Higher);
             }
         }
     }

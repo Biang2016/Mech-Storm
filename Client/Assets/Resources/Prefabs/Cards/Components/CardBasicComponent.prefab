@@ -149,6 +149,9 @@ MonoBehaviour:
   CardBloom: {fileID: 1065425885526815503}
   MainBoard: {fileID: 1065451597810847457}
   CardShadow: {fileID: 1065274305734132835}
+  CardBloomSG: {fileID: 896402643816481493}
+  MainBoardSG: {fileID: 898084820033416335}
+  CardShadowSG: {fileID: 896269631473259523}
   Picture: {fileID: 2746162907180907441}
 --- !u!1 &1052946725025456907
 GameObject:

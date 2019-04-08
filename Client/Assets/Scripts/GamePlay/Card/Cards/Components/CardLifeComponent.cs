@@ -1,11 +1,13 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CardLifeComponent : CardComponentBase
 {
     [SerializeField] private TextMeshPro LifeText;
     [SerializeField] private MeshRenderer LifeIcon;
+    [SerializeField] private SortingGroup LifeIconSG;
 
     public void SetLife(int lifeValue)
     {
@@ -20,7 +22,7 @@ public class CardLifeComponent : CardComponentBase
     void Awake()
     {
         LifeTextDefaultSortingOrder = LifeText.sortingOrder;
-        LifeIconDefaultSortingOrder = LifeIcon.sortingOrder;
+        LifeIconDefaultSortingOrder = LifeIconSG.sortingOrder;
     }
 
     private int LifeTextDefaultSortingOrder;
@@ -29,6 +31,6 @@ public class CardLifeComponent : CardComponentBase
     protected override void SetSortingIndexOfCard(int cardSortingIndex)
     {
         LifeText.sortingOrder = cardSortingIndex * 50 + LifeTextDefaultSortingOrder;
-        LifeIcon.sortingOrder = cardSortingIndex * 50 + LifeIconDefaultSortingOrder;
+        LifeIconSG.sortingOrder = cardSortingIndex * 50 + LifeIconDefaultSortingOrder;
     }
 }

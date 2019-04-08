@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[ExecuteInEditMode]
 public abstract class CardComponentBase : MonoBehaviour
 {
     private int cardOrder;

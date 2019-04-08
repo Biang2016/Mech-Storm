@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CardBasicComponent : CardComponentBase
 {
     [SerializeField] private MeshRenderer CardBloom;
     [SerializeField] private MeshRenderer MainBoard;
     [SerializeField] private MeshRenderer CardShadow;
+    [SerializeField] private SortingGroup CardBloomSG;
+    [SerializeField] private SortingGroup MainBoardSG;
+    [SerializeField] private SortingGroup CardShadowSG;
     [SerializeField] private SpriteRenderer Picture;
 
     public void SetMainBoardColor(Color color, float intensity)
@@ -15,6 +19,11 @@ public class CardBasicComponent : CardComponentBase
     public void SetCardBloomColor(Color color, float intensity)
     {
         ClientUtils.ChangeColor(CardBloom, color, intensity);
+    }
+
+    public void SetPictureColor(Color color, float intensity)
+    {
+        ClientUtils.ChangeColor(Picture, color, intensity);
     }
 
     public void SetBloomShow(bool isShow)
@@ -29,9 +38,9 @@ public class CardBasicComponent : CardComponentBase
 
     void Awake()
     {
-        CardBloomDefaultSortingOrder = CardBloom.sortingOrder;
-        MainBoardDefaultSortingOrder = MainBoard.sortingOrder;
-        CardShadowDefaultSortingOrder = CardShadow.sortingOrder;
+        CardBloomDefaultSortingOrder = CardBloomSG.sortingOrder;
+        MainBoardDefaultSortingOrder = MainBoardSG.sortingOrder;
+        CardShadowDefaultSortingOrder = CardShadowSG.sortingOrder;
         PictureDefaultSortingOrder = Picture.sortingOrder;
     }
 
@@ -42,9 +51,9 @@ public class CardBasicComponent : CardComponentBase
 
     protected override void SetSortingIndexOfCard(int cardSortingIndex)
     {
-        CardBloom.sortingOrder = cardSortingIndex * 50 + CardBloomDefaultSortingOrder;
-        MainBoard.sortingOrder = cardSortingIndex * 50 + MainBoardDefaultSortingOrder;
-        CardShadow.sortingOrder = cardSortingIndex * 50 + CardShadowDefaultSortingOrder;
+        CardBloomSG.sortingOrder = cardSortingIndex * 50 + CardBloomDefaultSortingOrder;
+        MainBoardSG.sortingOrder = cardSortingIndex * 50 + MainBoardDefaultSortingOrder;
+        CardShadowSG.sortingOrder = cardSortingIndex * 50 + CardShadowDefaultSortingOrder;
         Picture.sortingOrder = cardSortingIndex * 50 + PictureDefaultSortingOrder;
     }
 }

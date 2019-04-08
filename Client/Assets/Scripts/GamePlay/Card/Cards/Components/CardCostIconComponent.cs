@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CardCostIconComponent : CardComponentBase
@@ -7,9 +8,11 @@ public class CardCostIconComponent : CardComponentBase
     [SerializeField] private GameObject EnergyBlock;
     [SerializeField] private TextMeshPro EnergyText;
     [SerializeField] private MeshRenderer EnergyIcon;
+    [SerializeField] private SortingGroup EnergyIconSG;
     [SerializeField] private GameObject MetalBlock;
     [SerializeField] private TextMeshPro MetalText;
     [SerializeField] private MeshRenderer MetalIcon;
+    [SerializeField] private SortingGroup MetalIconSG;
 
     public void SetEnergy(int energyValue)
     {
@@ -26,9 +29,9 @@ public class CardCostIconComponent : CardComponentBase
     void Awake()
     {
         EnergyTextDefaultSortingOrder = EnergyText.sortingOrder;
-        EnergyIconDefaultSortingOrder = EnergyIcon.sortingOrder;
+        EnergyIconDefaultSortingOrder = EnergyIconSG.sortingOrder;
         MetalTextDefaultSortingOrder = MetalText.sortingOrder;
-        MetalIconDefaultSortingOrder = MetalIcon.sortingOrder;
+        MetalIconDefaultSortingOrder = MetalIconSG.sortingOrder;
     }
 
     private int EnergyTextDefaultSortingOrder;
@@ -39,8 +42,8 @@ public class CardCostIconComponent : CardComponentBase
     protected override void SetSortingIndexOfCard(int cardSortingIndex)
     {
         EnergyText.sortingOrder = cardSortingIndex * 50 + EnergyTextDefaultSortingOrder;
-        EnergyIcon.sortingOrder = cardSortingIndex * 50 + EnergyIconDefaultSortingOrder;
+        EnergyIconSG.sortingOrder = cardSortingIndex * 50 + EnergyIconDefaultSortingOrder;
         MetalText.sortingOrder = cardSortingIndex * 50 + MetalTextDefaultSortingOrder;
-        MetalIcon.sortingOrder = cardSortingIndex * 50 + MetalIconDefaultSortingOrder;
+        MetalIconSG.sortingOrder = cardSortingIndex * 50 + MetalIconDefaultSortingOrder;
     }
 }

@@ -240,3 +240,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardBack: {fileID: 8933230481892233036}
   CardBloom: {fileID: 8933230482971472542}
+  CardBackSG: {fileID: 8933230481892233043}
+  CardBloomSG: {fileID: 8933230482971472541}

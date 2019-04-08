@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LifeText: {fileID: 5450498831657863345}
   LifeIcon: {fileID: 5450498832408162687}
+  LifeIconSG: {fileID: 5450498832408162672}
 --- !u!1 &5450498831657863347
 GameObject:
   m_ObjectHideFlags: 0

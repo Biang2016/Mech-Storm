@@ -99,6 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 0}
   SlotBloom: {fileID: 0}
+  SlotLightSG: {fileID: 0}
+  SlotBloomSG: {fileID: 0}
 --- !u!114 &5690998763005455446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 5690998763005455445}
   SlotBloom: {fileID: 5690998764349274138}
+  SlotLightSG: {fileID: 5690998763005455444}
+  SlotBloomSG: {fileID: 5690998764349274117}
 --- !u!114 &3279249861160249400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 0}
   SlotBloom: {fileID: 0}
+  SlotLightSG: {fileID: 0}
+  SlotBloomSG: {fileID: 0}
 --- !u!210 &5690998763140905413
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -349,6 +355,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 5690998764386498588}
   SlotBloom: {fileID: 5690998763772057730}
+  SlotLightSG: {fileID: 5690998764386498585}
+  SlotBloomSG: {fileID: 5690998763772057740}
 --- !u!114 &3637055014222520668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,6 +467,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 0}
   SlotBloom: {fileID: 0}
+  SlotLightSG: {fileID: 0}
+  SlotBloomSG: {fileID: 0}
 --- !u!210 &5690998763772057740
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -523,6 +533,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 5690998764344771141}
   SlotBloom: {fileID: 5690998764518029580}
+  SlotLightSG: {fileID: 5690998764344771142}
+  SlotBloomSG: {fileID: 5690998764518029582}
 --- !u!114 &5766441774398131424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,6 +646,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 0}
   SlotBloom: {fileID: 0}
+  SlotLightSG: {fileID: 0}
+  SlotBloomSG: {fileID: 0}
 --- !u!114 &5690998764317824475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,6 +724,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 5690998764317824473}
   SlotBloom: {fileID: 5690998763140905435}
+  SlotLightSG: {fileID: 5690998764317824474}
+  SlotBloomSG: {fileID: 5690998763140905413}
 --- !u!114 &5120642292489185094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -821,6 +837,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 0}
   SlotBloom: {fileID: 0}
+  SlotLightSG: {fileID: 0}
+  SlotBloomSG: {fileID: 0}
 --- !u!114 &5690998764344771143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -942,6 +960,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 0}
   SlotBloom: {fileID: 0}
+  SlotLightSG: {fileID: 0}
+  SlotBloomSG: {fileID: 0}
 --- !u!210 &5690998764349274117
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -1052,6 +1072,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 0}
   SlotBloom: {fileID: 0}
+  SlotLightSG: {fileID: 0}
+  SlotBloomSG: {fileID: 0}
 --- !u!114 &5690998764386498590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,6 +1195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlotLight: {fileID: 0}
   SlotBloom: {fileID: 0}
+  SlotLightSG: {fileID: 0}
+  SlotBloomSG: {fileID: 0}
 --- !u!210 &5690998764518029582
 SortingGroup:
   m_ObjectHideFlags: 0

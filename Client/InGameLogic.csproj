@@ -111,7 +111,6 @@
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardSelectCountComponent.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardSlotsComponent.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardStarsComponent.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardTypeComponent.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleBase.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleEquip.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleMA.cs" />

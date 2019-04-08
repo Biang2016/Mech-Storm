@@ -9,6 +9,7 @@ public class CardCoinComponent : CardComponentBase
     [SerializeField] private Transform Panel;
     [SerializeField] private TextMeshPro CoinText;
     [SerializeField] private SpriteRenderer CoinImage;
+    [SerializeField] private SpriteRenderer CoinImageBG;
 
     public enum Position
     {
@@ -38,14 +39,17 @@ public class CardCoinComponent : CardComponentBase
     {
         CoinTextDefaultSortingOrder = CoinText.sortingOrder;
         CoinImageDefaultSortingOrder = CoinImage.sortingOrder;
+        CoinImageBGDefaultSortingOrder = CoinImageBG.sortingOrder;
     }
 
     private int CoinTextDefaultSortingOrder;
     private int CoinImageDefaultSortingOrder;
+    private int CoinImageBGDefaultSortingOrder;
 
     protected override void SetSortingIndexOfCard(int cardSortingIndex)
     {
         CoinText.sortingOrder = cardSortingIndex * 50 + CoinTextDefaultSortingOrder;
         CoinImage.sortingOrder = cardSortingIndex * 50 + CoinImageDefaultSortingOrder;
+        CoinImageBG.sortingOrder = cardSortingIndex * 50 + CoinImageBGDefaultSortingOrder;
     }
 }

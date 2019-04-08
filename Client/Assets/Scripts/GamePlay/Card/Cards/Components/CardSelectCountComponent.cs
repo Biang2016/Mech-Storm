@@ -6,6 +6,28 @@ public class CardSelectCountComponent : CardComponentBase
     [SerializeField] private TextMeshPro SelectCountText;
     [SerializeField] private TextMeshPro SelectLimitText;
     [SerializeField] private TextMeshPro SlashText;
+    [SerializeField] private Transform Panel;
+    [SerializeField] private Transform HigherPivot;
+    [SerializeField] private Transform LowerPivot;
+
+    public enum Position
+    {
+        Higher,
+        Lower
+    }
+
+    public void SetPosition(Position pos)
+    {
+        switch (pos)
+        {
+            case Position.Higher:
+                Panel.position = HigherPivot.position;
+                break;
+            case Position.Lower:
+                Panel.position = LowerPivot.position;
+                break;
+        }
+    }
 
     private bool isForceShow;
 

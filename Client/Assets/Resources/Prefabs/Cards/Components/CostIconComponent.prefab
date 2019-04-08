@@ -789,6 +789,8 @@ MonoBehaviour:
   EnergyBlock: {fileID: 3396875965573599162}
   EnergyText: {fileID: 6305436882233418978}
   EnergyIcon: {fileID: 3396875964939360714}
+  EnergyIconSG: {fileID: 3396875964939360715}
   MetalBlock: {fileID: 3396875964884485159}
   MetalText: {fileID: 1669234996861237922}
   MetalIcon: {fileID: 3396875964534409896}
+  MetalIconSG: {fileID: 3396875964534409897}
