@@ -29,3 +29,15 @@ public abstract class CardComponentBase : MonoBehaviour
 
     protected abstract void SetSortingIndexOfCard(int cardSortingIndex);
 }
+
+public enum CardComponentTypes
+{
+    Basic,
+    Back,
+    Desc,
+    CostBlock,
+    LifeBlock,
+    CoinBlock,
+    Slots,
+    SelectCount,
+}

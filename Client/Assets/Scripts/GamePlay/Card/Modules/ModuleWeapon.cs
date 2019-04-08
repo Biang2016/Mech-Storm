@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class ModuleWeapon : ModuleEquip
@@ -12,14 +13,11 @@ public class ModuleWeapon : ModuleEquip
     [SerializeField] private GameObject M_SwordIcon;
     [SerializeField] private GameObject M_SniperGunIcon;
 
-    [SerializeField] private Transform Block_WeaponAttack;
-    protected CardNumberSet CardNumberSet_WeaponAttack;
+    [SerializeField] private TextMeshPro WeaponAttackText;
+    [SerializeField] private TextMeshPro WeaponEnergyText;
+    [SerializeField] private TextMeshPro WeaponEnergyMaxText;
 
-    [SerializeField] private Transform Block_WeaponEnergy;
-    protected CardNumberSet CardNumberSet_WeaponEnergy;
-
-    [SerializeField] private Transform Block_WeaponEnergyMax;
-    protected CardNumberSet CardNumberSet_WeaponEnergyMax;
+    [SerializeField] private DragComponent M_DragComponent;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
@@ -49,22 +47,9 @@ public class ModuleWeapon : ModuleEquip
         }
     }
 
-    private NumberSize my_NumberSize_Attack = NumberSize.Big;
-    private NumberSize my_NumberSize_Energy = NumberSize.Medium;
-    private NumberSize my_NumberSize_EnergyMax = NumberSize.Medium;
-    private CardNumberSet.TextAlign my_TextAlign_Attack = CardNumberSet.TextAlign.Center;
-    private CardNumberSet.TextAlign my_TextAlign_Energy = CardNumberSet.TextAlign.Left;
-    private CardNumberSet.TextAlign my_TextAlign_EnergyMax = CardNumberSet.TextAlign.Right;
-
     public override void SetPreview()
     {
         base.SetPreview();
-        my_NumberSize_Attack = NumberSize.Small;
-        my_TextAlign_Attack = CardNumberSet.TextAlign.Center;
-        my_NumberSize_Energy = NumberSize.Small;
-        my_TextAlign_Energy = CardNumberSet.TextAlign.Left;
-        my_NumberSize_EnergyMax = NumberSize.Small;
-        my_TextAlign_EnergyMax = CardNumberSet.TextAlign.Right;
         M_WeaponAttack = M_WeaponAttack;
         M_WeaponEnergyMax = M_WeaponEnergyMax;
         M_WeaponEnergy = M_WeaponEnergy;
@@ -74,12 +59,6 @@ public class ModuleWeapon : ModuleEquip
     public override void SetNoPreview()
     {
         base.SetNoPreview();
-        my_NumberSize_Attack = NumberSize.Big;
-        my_TextAlign_Attack = CardNumberSet.TextAlign.Center;
-        my_NumberSize_Energy = NumberSize.Medium;
-        my_TextAlign_Energy = CardNumberSet.TextAlign.Left;
-        my_NumberSize_EnergyMax = NumberSize.Medium;
-        my_TextAlign_EnergyMax = CardNumberSet.TextAlign.Right;
         M_WeaponEnergy = M_WeaponEnergy;
         M_WeaponEnergyMax = M_WeaponEnergyMax;
         M_WeaponEnergy = M_WeaponEnergy;
@@ -126,20 +105,8 @@ public class ModuleWeapon : ModuleEquip
         set
         {
             m_WeaponAttack = value;
-            if (Block_WeaponAttack)
-            {
-                CardNumberSet.InitiateNumbers(ref CardNumberSet_WeaponAttack, my_NumberSize_Attack, my_TextAlign_Attack, Block_WeaponAttack, '+');
-                CardNumberSet_WeaponAttack.Number = M_ModuleRetinue.M_RetinueAttack;
-            }
-
-            if (M_ModuleRetinue.M_RetinueAttack == 0)
-            {
-                GetComponent<DragComponent>().enabled = false;
-            }
-            else
-            {
-                GetComponent<DragComponent>().enabled = true;
-            }
+            WeaponAttackText.text = M_ModuleRetinue.M_RetinueAttack.ToString();
+            M_DragComponent.enabled = M_ModuleRetinue.M_RetinueAttack != 0;
         }
     }
 
@@ -152,18 +119,13 @@ public class ModuleWeapon : ModuleEquip
         set
         {
             m_WeaponEnergy = Mathf.Min(value, M_WeaponEnergyMax);
-
             BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_WeaponEnergyChange(m_WeaponEnergy), "Co_WeaponEnergyChange");
         }
     }
 
     IEnumerator Co_WeaponEnergyChange(int value)
     {
-        if (Block_WeaponEnergy)
-        {
-            CardNumberSet.InitiateNumbers(ref CardNumberSet_WeaponEnergy, my_NumberSize_Energy, my_TextAlign_Energy, Block_WeaponEnergy);
-            CardNumberSet_WeaponEnergy.Number = value;
-        }
+        WeaponEnergyText.text = value.ToString();
 
         if (value == 0)
         {
@@ -187,11 +149,8 @@ public class ModuleWeapon : ModuleEquip
         set
         {
             m_WeaponEnergyMax = value;
-            if (Block_WeaponEnergyMax)
-            {
-                CardNumberSet.InitiateNumbers(ref CardNumberSet_WeaponEnergyMax, my_NumberSize_EnergyMax, my_TextAlign_EnergyMax, Block_WeaponEnergyMax, '/');
-                CardNumberSet_WeaponEnergyMax.Number = m_WeaponEnergyMax;
-            }
+
+            WeaponEnergyMaxText.text = m_WeaponEnergyMax.ToString();
         }
     }
 

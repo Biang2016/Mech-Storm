@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class ModuleShield : ModuleEquip
 {
@@ -9,11 +10,8 @@ public class ModuleShield : ModuleEquip
 
     #region 各模块、自身数值和初始化
 
-    [SerializeField] private Transform Block_ShieldArmor;
-    protected CardNumberSet CardNumberSet_ShieldArmor;
-
-    [SerializeField] private Transform Block_ShieldShield;
-    protected CardNumberSet CardNumberSet_ShieldShield;
+    [SerializeField] private TextMeshPro ArmorText;
+    [SerializeField] private TextMeshPro ShieldText;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
@@ -24,18 +22,10 @@ public class ModuleShield : ModuleEquip
         M_ShieldShield = cardInfo.ShieldInfo.Shield;
     }
 
-    private NumberSize my_NumberSize_Armor = NumberSize.Medium;
-    private NumberSize my_NumberSize_Shield = NumberSize.Medium;
-    private CardNumberSet.TextAlign my_TextAlign_Armor = CardNumberSet.TextAlign.Center;
-    private CardNumberSet.TextAlign my_TextAlign_Shield = CardNumberSet.TextAlign.Center;
-
     public override void SetPreview()
     {
         base.SetPreview();
-        my_NumberSize_Armor = NumberSize.Small;
-        my_NumberSize_Shield = NumberSize.Small;
-        my_TextAlign_Armor = CardNumberSet.TextAlign.Left;
-        my_TextAlign_Shield = CardNumberSet.TextAlign.Left;
+        //Todo 改字大小？
         M_ShieldArmor = M_ShieldArmor;
         M_ShieldShield = M_ShieldShield;
     }
@@ -43,10 +33,7 @@ public class ModuleShield : ModuleEquip
     public override void SetNoPreview()
     {
         base.SetNoPreview();
-        my_NumberSize_Armor = NumberSize.Medium;
-        my_NumberSize_Shield = NumberSize.Medium;
-        my_TextAlign_Armor = CardNumberSet.TextAlign.Center;
-        my_TextAlign_Shield = CardNumberSet.TextAlign.Center;
+        //Todo 改字大小？
         M_ShieldArmor = M_ShieldArmor;
         M_ShieldShield = M_ShieldShield;
     }
@@ -95,11 +82,7 @@ public class ModuleShield : ModuleEquip
         set
         {
             m_ShieldArmor = value;
-            if (Block_ShieldArmor)
-            {
-                CardNumberSet.InitiateNumbers(ref CardNumberSet_ShieldArmor, my_NumberSize_Armor, my_TextAlign_Armor, Block_ShieldArmor, '+');
-                CardNumberSet_ShieldArmor.Number = m_ShieldArmor;
-            }
+            ArmorText.text = m_ShieldArmor.ToString();
         }
     }
 
@@ -112,11 +95,7 @@ public class ModuleShield : ModuleEquip
         set
         {
             m_ShieldShield = value;
-            if (Block_ShieldShield)
-            {
-                CardNumberSet.InitiateNumbers(ref CardNumberSet_ShieldShield, my_NumberSize_Shield, my_TextAlign_Shield, Block_ShieldShield, '+');
-                CardNumberSet_ShieldShield.Number = m_ShieldShield;
-            }
+            ShieldText.text = m_ShieldShield.ToString();
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MetalLifeEnergyManager : MonoBehaviour
@@ -6,7 +7,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
     internal ClientPlayer ClientPlayer;
 
     [SerializeField] private Transform MetalNumberBlock;
-    private CardNumberSet NumberSet_MetalNumber;
+    [SerializeField]private TextMeshPro MetalNumberText;
 
     [SerializeField] private Text LifeNumber;
     [SerializeField] private Text TotalLifeNumber;
@@ -18,7 +19,6 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     void Awake()
     {
-        CardNumberSet.InitiateNumbers(ref NumberSet_MetalNumber, NumberSize.Big, CardNumberSet.TextAlign.Center, MetalNumberBlock);
     }
 
     public void ResetAll()
@@ -46,7 +46,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
     {
         MetalBarManager.ClientPlayer = ClientPlayer;
         MetalBarManager.SetMetalNumber(value);
-        NumberSet_MetalNumber.Number = value;
+        MetalNumberText.text = value.ToString();
         MetalNumberBlock.transform.localPosition = Vector3.Lerp(MetalNumberMinPos.localPosition, MetalNumberMaxPos.localPosition, (float) value / GamePlaySettings.MaxMetal);
         ClientPlayer.MyHandManager.RefreshAllCardUsable();
     }

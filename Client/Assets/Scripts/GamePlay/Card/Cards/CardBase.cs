@@ -10,6 +10,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private DragComponent M_DragComponent;
     public BoxCollider M_BoxCollider;
 
+    public Dictionary<CardComponentTypes, CardComponentBase> CardComponents = new Dictionary<CardComponentTypes, CardComponentBase>();
+
     internal bool IsFlying;
 
     public override void PoolRecycle()
@@ -146,14 +148,10 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void SetOrderInLayer(int value)
     {
-        CardCanvas.overrideSorting = true;
-        CardCanvas.sortingOrder = value * 3 + 1;
-        CanvasSortingGroup.sortingOrder = value * 3 + 1;
-        MainBoardSortingGroup.sortingOrder = value * 3;
-        CardShadowSortingGroup.sortingOrder = value * 3;
-        CardBloomSortingGroup.sortingOrder = value * 3;
-        CardBackSortingGroup.sortingOrder = value * 3;
-        CardBackBloomSortingGroup.sortingOrder = value * 3;
+        foreach (KeyValuePair<CardComponentTypes, CardComponentBase> kv in CardComponents)
+        {
+            kv.Value.CardOrder = value;
+        }
     }
 
     private float MainboardEmissionIntensity = 0f;
@@ -163,26 +161,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         IsCardSelect = isCardSelect;
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo.Clone();
-        if (Block_Count)
-        {
-            CardNumberSet.InitiateNumbers(ref CardNumberSet_Count, NumberSize.Medium, CardNumberSet.TextAlign.Left, Block_Count, 'x');
-            CardNumberSet_Count.Clear();
-        }
-
-        if (Block_CountMax)
-        {
-            CardNumberSet.InitiateNumbers(ref CardNumberSet_CountMax, NumberSize.Small, CardNumberSet.TextAlign.Right, Block_CountMax, '/');
-            CardNumberSet_CountMax.Clear();
-            if (limitNum == -1)
-            {
-                SetBlockCountMaxValue(cardInfo.BaseInfo.LimitNum);
-            }
-            else
-            {
-                cardInfo.BaseInfo.LimitNum = limitNum;
-                SetBlockCountMaxValue(cardInfo.BaseInfo.LimitNum);
-            }
-        }
+        //TODO limitnum set
 
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
@@ -358,13 +337,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private Text Text_CardType;
     [SerializeField] private Text Text_CardTypeBG;
 
-    [SerializeField] private SortingGroup MainBoardSortingGroup;
-    [SerializeField] private SortingGroup CardShadowSortingGroup;
-    [SerializeField] private SortingGroup CardBloomSortingGroup;
-    [SerializeField] private SortingGroup CardBackSortingGroup;
-    [SerializeField] private SortingGroup CardBackBloomSortingGroup;
-    [SerializeField] private SortingGroup CanvasSortingGroup;
-
     [SerializeField] private Renderer MainBoardRenderer;
     public GameObject CardBloom;
     [SerializeField] private Renderer CardBloomRenderer;
@@ -384,10 +356,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private Text Text_Metal;
     [SerializeField] private Text Text_Energy;
 
-    [SerializeField] private Transform Block_Count;
-    [SerializeField] private Transform Block_CountMax;
-    protected CardNumberSet CardNumberSet_Count;
-    protected CardNumberSet CardNumberSet_CountMax;
+    [SerializeField] private CardSelectCountComponent CardSelectCountComponent;
 
     [SerializeField] private Text CoinText;
     [SerializeField] private Image CoinImage;
@@ -446,40 +415,26 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void SetBlockCountValue(int value, bool forceShow = false)
     {
-        if (value == 0 && !forceShow)
-        {
-            CardNumberSet_Count.Clear();
-        }
-        else
-        {
-            CardNumberSet_Count.hasSign = true;
-            CardNumberSet_Count.IsSelect = IsCardSelect;
-            CardNumberSet_Count.Number = value;
-        }
+        CardSelectCountComponent.SelectCount = value;
+        CardSelectCountComponent.IsForceShow = forceShow;
     }
 
     public void SetBlockCountMaxValue(int value, bool forceShow = false)
     {
-        if (value == 0 && !forceShow)
-        {
-            CardNumberSet_CountMax.Clear();
-        }
-        else
-        {
-            CardNumberSet_CountMax.hasSign = true;
-            CardNumberSet_CountMax.IsSelect = IsCardSelect;
-            CardNumberSet_CountMax.Number = value;
-        }
+        CardSelectCountComponent.SelectLimitCount = value;
+        CardSelectCountComponent.IsForceShow = forceShow;
     }
 
     protected void SetBlockCountPosition(Vector3 pos)
     {
-        Block_Count.localPosition = pos;
+        //TODO
+//        Block_Count.localPosition = pos;
     }
 
     protected void SetBlockCountMaxPosition(Vector3 pos)
     {
-        Block_CountMax.localPosition = pos;
+        //TODO
+//        Block_CountMax.localPosition = pos;
     }
 
     [SerializeField] private RawImage Star1;
