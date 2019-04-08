@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1392117949238161495}
   - component: {fileID: 4274578315342274158}
   m_Layer: 8
-  m_Name: NewCardText
+  m_Name: BannerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 8599722602034392389}
   - component: {fileID: 5116823337650709596}
   m_Layer: 8
-  m_Name: UpgradableText
+  m_Name: UpgradeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -421,6 +421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2067825224928225179}
+  - component: {fileID: 6156755877351213740}
   m_Layer: 8
   m_Name: NoticeComponent
   m_TagString: Untagged
@@ -449,6 +450,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6156755877351213740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239978170434864326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b97b700ff31704e88727cadf5e76e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BannerBlock: {fileID: 4236560459761216161}
+  NewCardBannerText: {fileID: 4274578315342274158}
+  NewCardBanner: {fileID: 5275476968838778481}
+  UpgradeBlock: {fileID: 8642800857190995719}
+  UpgradeText: {fileID: 5116823337650709596}
+  UpgradeArrow: {fileID: 5719940376575751133}
 --- !u!1 &4236560459761216161
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3933115075640938148}
   m_Layer: 8
-  m_Name: NewCardBanner
+  m_Name: BannerBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,7 +600,7 @@ GameObject:
   - component: {fileID: 4314993046113347122}
   - component: {fileID: 5719940376575751133}
   m_Layer: 8
-  m_Name: Arrow
+  m_Name: UpgradeArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -664,7 +683,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8785141903974510686}
   m_Layer: 8
-  m_Name: UpgradableTip
+  m_Name: UpgradeBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

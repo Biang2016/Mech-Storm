@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CardBasicComponent : MonoBehaviour
+public class CardBasicComponent : CardComponentBase
 {
     [SerializeField] private MeshRenderer CardBloom;
     [SerializeField] private MeshRenderer MainBoard;
@@ -25,5 +25,26 @@ public class CardBasicComponent : MonoBehaviour
     public void ChangePicture(int picID)
     {
         ClientUtils.ChangeCardPicture(Picture, picID);
+    }
+
+    void Awake()
+    {
+        CardBloomDefaultSortingOrder = CardBloom.sortingOrder;
+        MainBoardDefaultSortingOrder = MainBoard.sortingOrder;
+        CardShadowDefaultSortingOrder = CardShadow.sortingOrder;
+        PictureDefaultSortingOrder = Picture.sortingOrder;
+    }
+
+    private int CardBloomDefaultSortingOrder;
+    private int MainBoardDefaultSortingOrder;
+    private int CardShadowDefaultSortingOrder;
+    private int PictureDefaultSortingOrder;
+
+    protected override void SetSortingIndexOfCard(int cardSortingIndex)
+    {
+        CardBloom.sortingOrder = cardSortingIndex * 50 + CardBloomDefaultSortingOrder;
+        MainBoard.sortingOrder = cardSortingIndex * 50 + MainBoardDefaultSortingOrder;
+        CardShadow.sortingOrder = cardSortingIndex * 50 + CardShadowDefaultSortingOrder;
+        Picture.sortingOrder = cardSortingIndex * 50 + PictureDefaultSortingOrder;
     }
 }

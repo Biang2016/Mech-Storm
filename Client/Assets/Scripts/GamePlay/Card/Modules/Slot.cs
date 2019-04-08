@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Slot : MonoBehaviour, IMouseHoverComponent
@@ -6,8 +7,17 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
     internal ClientPlayer ClientPlayer;
     internal ModuleRetinue M_ModuleRetinue;
 
-    [SerializeField] private RawImage My_Renderer;
-    [SerializeField] private RawImage OnHoverShowBloom;
+    [SerializeField] private MeshRenderer SlotLight;
+    [SerializeField] private MeshRenderer SlotBloom;
+    [SerializeField] private SortingGroup SlotLightSG;
+    [SerializeField] private SortingGroup SlotBloomSG;
+
+    void Awake()
+    {
+        SlotLightDefaultSortingOrder = SlotLightSG.sortingOrder;
+        SlotBloomDefaultSortingOrder = SlotBloomSG.sortingOrder;
+    }
+
     private SlotTypes _mSlotTypes = SlotTypes.None;
 
     public SlotTypes MSlotTypes
@@ -17,24 +27,24 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
         set
         {
             _mSlotTypes = value;
-            ClientUtils.ChangeSlotColor(My_Renderer, value, 1.5f);
-            ClientUtils.ChangeSlotColor(OnHoverShowBloom, value, 1.5f);
+            ClientUtils.ChangeSlotColor(SlotLight, value);
+            ClientUtils.ChangeSlotColor(SlotBloom, value);
             if (value != SlotTypes.None)
             {
-                My_Renderer.enabled = true;
+                SlotLight.enabled = true;
             }
             else
             {
-                My_Renderer.enabled = false;
+                SlotLight.enabled = false;
             }
         }
     }
 
     public void ShowHoverGO(bool isSniper = false)
     {
-        if (OnHoverShowBloom)
+        if (SlotBloom)
         {
-            OnHoverShowBloom.enabled = true;
+            SlotBloom.enabled = true;
         }
 
         if (isSniper && M_ModuleRetinue)
@@ -48,12 +58,21 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
 
     public void HideHoverShowGO()
     {
-        if (OnHoverShowBloom)
+        if (SlotBloom)
         {
-            OnHoverShowBloom.enabled = false;
+            SlotBloom.enabled = false;
         }
 
         if (M_ModuleRetinue) M_ModuleRetinue.HideSniperTipText();
+    }
+
+    private int SlotLightDefaultSortingOrder;
+    private int SlotBloomDefaultSortingOrder;
+
+    public void SetSortingLayer(int index)
+    {
+        SlotLightSG.sortingOrder = index * 50 + SlotLightDefaultSortingOrder;
+        SlotBloomSG.sortingOrder = index * 50 + SlotBloomDefaultSortingOrder;
     }
 
     public void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)

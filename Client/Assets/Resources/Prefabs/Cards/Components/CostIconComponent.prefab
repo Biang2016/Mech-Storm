@@ -104,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3396875964884485158}
   m_Layer: 8
-  m_Name: MetalCost
+  m_Name: MetalBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -710,7 +710,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3396875965573599165}
   m_Layer: 8
-  m_Name: EnergyCost
+  m_Name: EnergyBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -746,6 +746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3396875965574512611}
+  - component: {fileID: 5505982779367465388}
   m_Layer: 8
   m_Name: CostIconComponent
   m_TagString: Untagged
@@ -773,3 +774,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5505982779367465388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396875965574512608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6ffb118df3bb243b625b58b5c4784c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnergyBlock: {fileID: 3396875965573599162}
+  EnergyText: {fileID: 6305436882233418978}
+  EnergyIcon: {fileID: 3396875964939360714}
+  MetalBlock: {fileID: 3396875964884485159}
+  MetalText: {fileID: 1669234996861237922}
+  MetalIcon: {fileID: 3396875964534409896}

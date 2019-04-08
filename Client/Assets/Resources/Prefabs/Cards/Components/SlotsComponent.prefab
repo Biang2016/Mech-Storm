@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5690998763005455446}
   - component: {fileID: 5690998763005455444}
   m_Layer: 8
-  m_Name: Slot1
+  m_Name: WeaponSlotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  My_Renderer: {fileID: 0}
-  OnHoverShowBloom: {fileID: 0}
+  SlotLight: {fileID: 0}
+  SlotBloom: {fileID: 0}
 --- !u!114 &5690998763005455446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +131,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5690998763015409011}
+  - component: {fileID: 30225028222972608}
+  - component: {fileID: 3279249861160249400}
   m_Layer: 8
   m_Name: Weapon
   m_TagString: Untagged
@@ -159,6 +161,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &30225028222972608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690998763015409010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlotLight: {fileID: 5690998763005455445}
+  SlotBloom: {fileID: 5690998764349274138}
+--- !u!114 &3279249861160249400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690998763015409010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5690998763140905415
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,8 +283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  My_Renderer: {fileID: 0}
-  OnHoverShowBloom: {fileID: 0}
+  SlotLight: {fileID: 0}
+  SlotBloom: {fileID: 0}
 --- !u!210 &5690998763140905413
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -277,6 +305,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5690998763288865564}
+  - component: {fileID: 4289875318302695196}
+  - component: {fileID: 3637055014222520668}
   m_Layer: 8
   m_Name: Shield
   m_TagString: Untagged
@@ -305,6 +335,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4289875318302695196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690998763288865567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlotLight: {fileID: 5690998764386498588}
+  SlotBloom: {fileID: 5690998763772057730}
+--- !u!114 &3637055014222520668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690998763288865567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5690998763772057742
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,8 +457,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  My_Renderer: {fileID: 0}
-  OnHoverShowBloom: {fileID: 0}
+  SlotLight: {fileID: 0}
+  SlotBloom: {fileID: 0}
 --- !u!210 &5690998763772057740
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -423,6 +479,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5690998764020560754}
+  - component: {fileID: 660106237518862374}
+  - component: {fileID: 5766441774398131424}
   m_Layer: 8
   m_Name: Pack
   m_TagString: Untagged
@@ -451,6 +509,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &660106237518862374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690998764020560765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlotLight: {fileID: 5690998764344771141}
+  SlotBloom: {fileID: 5690998764518029580}
+--- !u!114 &5766441774398131424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690998764020560765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5690998764317824452
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +550,7 @@ GameObject:
   - component: {fileID: 5690998764317824475}
   - component: {fileID: 5690998764317824474}
   m_Layer: 8
-  m_Name: Slot4
+  m_Name: MASlotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -548,8 +632,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  My_Renderer: {fileID: 0}
-  OnHoverShowBloom: {fileID: 0}
+  SlotLight: {fileID: 0}
+  SlotBloom: {fileID: 0}
 --- !u!114 &5690998764317824475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,6 +666,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5690998764325749593}
+  - component: {fileID: 3191093307041346099}
+  - component: {fileID: 5120642292489185094}
   m_Layer: 8
   m_Name: MA
   m_TagString: Untagged
@@ -610,6 +696,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3191093307041346099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690998764325749592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlotLight: {fileID: 5690998764317824473}
+  SlotBloom: {fileID: 5690998763140905435}
+--- !u!114 &5120642292489185094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690998764325749592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4001d6008e4059f44ae5562fee28fd1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5690998764344771136
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +737,7 @@ GameObject:
   - component: {fileID: 5690998764344771143}
   - component: {fileID: 5690998764344771142}
   m_Layer: 8
-  m_Name: Slot3
+  m_Name: PackSlotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -707,8 +819,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  My_Renderer: {fileID: 0}
-  OnHoverShowBloom: {fileID: 0}
+  SlotLight: {fileID: 0}
+  SlotBloom: {fileID: 0}
 --- !u!114 &5690998764344771143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,8 +940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  My_Renderer: {fileID: 0}
-  OnHoverShowBloom: {fileID: 0}
+  SlotLight: {fileID: 0}
+  SlotBloom: {fileID: 0}
 --- !u!210 &5690998764349274117
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -856,7 +968,7 @@ GameObject:
   - component: {fileID: 5690998764386498590}
   - component: {fileID: 5690998764386498585}
   m_Layer: 8
-  m_Name: Slot2
+  m_Name: ShieldSlotLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -938,8 +1050,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  My_Renderer: {fileID: 0}
-  OnHoverShowBloom: {fileID: 0}
+  SlotLight: {fileID: 0}
+  SlotBloom: {fileID: 0}
 --- !u!114 &5690998764386498590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1059,8 +1171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  My_Renderer: {fileID: 0}
-  OnHoverShowBloom: {fileID: 0}
+  SlotLight: {fileID: 0}
+  SlotBloom: {fileID: 0}
 --- !u!210 &5690998764518029582
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -1081,6 +1193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5613459241606882100}
+  - component: {fileID: 3001730513848894013}
   m_Layer: 8
   m_Name: SlotsComponent
   m_TagString: Untagged
@@ -1111,3 +1224,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3001730513848894013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5692245077926631662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9e37429d13461c4e86c756bde00d5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Slots:
+  - {fileID: 30225028222972608}
+  - {fileID: 4289875318302695196}
+  - {fileID: 660106237518862374}
+  - {fileID: 3191093307041346099}
