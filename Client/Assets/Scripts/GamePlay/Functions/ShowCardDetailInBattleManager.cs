@@ -19,7 +19,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
         switch (CardInfo.BaseInfo.CardType)
         {
             case CardTypes.Retinue:
-                detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
+                detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
                 detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailRetinueCardSize;
                 detailCard.transform.position = new Vector3(0, 8f, 0);
                 detailCard.transform.Translate(Vector3.left * 5f);
@@ -45,7 +45,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     cardRetinue.Weapon.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Weapon.SetPreview();
 
-                    detailCard_Weapon = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
+                    detailCard_Weapon = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
                     detailCard_Weapon.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Weapon.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Weapon.transform.Translate(Vector3.right * 0.5f);
@@ -53,7 +53,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     detailCard_Weapon.transform.Translate(Vector3.up * 7f);
                     detailCard_Weapon.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Weapon.BeBrightColor();
-                    detailCard_Weapon.CardBloom.SetActive(true);
+                    detailCard_Weapon.ShowCardBloom(true);
                     detailCard_Weapon.SetOrderInLayer(200);
                 }
 
@@ -71,7 +71,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     cardRetinue.Shield.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Shield.SetPreview();
 
-                    detailCard_Shield = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
+                    detailCard_Shield = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
                     detailCard_Shield.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Shield.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Shield.transform.Translate(Vector3.right * 0.5f);
@@ -79,7 +79,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     detailCard_Shield.transform.Translate(Vector3.up * 7f);
                     detailCard_Shield.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Shield.BeBrightColor();
-                    detailCard_Shield.CardBloom.SetActive(true);
+                    detailCard_Shield.ShowCardBloom(true);
                     detailCard_Shield.SetOrderInLayer(200);
                 }
 
@@ -97,7 +97,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     cardRetinue.Pack.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Pack.SetPreview();
 
-                    detailCard_Pack = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
+                    detailCard_Pack = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
                     detailCard_Pack.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Pack.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Pack.transform.Translate(Vector3.left * 10.5f);
@@ -105,7 +105,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     detailCard_Pack.transform.Translate(Vector3.up * 7f);
                     detailCard_Pack.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Pack.BeBrightColor();
-                    detailCard_Pack.CardBloom.SetActive(true);
+                    detailCard_Pack.ShowCardBloom(true);
                     detailCard_Pack.SetOrderInLayer(200);
                 }
 
@@ -123,7 +123,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     cardRetinue.MA.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.MA.SetPreview();
 
-                    detailCard_MA = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
+                    detailCard_MA = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
                     detailCard_MA.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_MA.transform.position = new Vector3(0, 2f, 0);
                     detailCard_MA.transform.Translate(Vector3.left * 10.5f);
@@ -131,13 +131,13 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     detailCard_MA.transform.Translate(Vector3.up * 7f);
                     detailCard_MA.GetComponent<BoxCollider>().enabled = false;
                     detailCard_MA.BeBrightColor();
-                    detailCard_MA.CardBloom.SetActive(true);
+                    detailCard_MA.ShowCardBloom(true);
                     detailCard_MA.SetOrderInLayer(200);
                 }
 
                 break;
             case CardTypes.Equip:
-                detailCard = (CardEquip) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
+                detailCard = (CardEquip) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
                 detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailSingleCardSize;
                 detailCard.transform.position = new Vector3(0, 2f, 0);
                 detailCard.transform.Translate(Vector3.left * 3.5f);
@@ -150,7 +150,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                 break;
         }
 
-        detailCard.CardBloom.SetActive(true);
+        detailCard.ShowCardBloom(true);
         List<CardInfo_Base> cardInfos = new List<CardInfo_Base>();
         if (detailCard != null) cardInfos.Add(detailCard.CardInfo);
         if (detailCard_Weapon != null) cardInfos.Add(detailCard_Weapon.CardInfo);
@@ -169,7 +169,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
 
     public void ShowCardDetail(CardInfo_Base CardInfo, ShowPlaces showPlace = ShowPlaces.RightCenter) //鼠标悬停放大查看原卡牌信息
     {
-        detailCard = CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, false);
+        detailCard = CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
         detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailSingleCardSize;
         Vector3 targetPos;
         switch (showPlace)
@@ -200,7 +200,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
         detailCard.GetComponent<BoxCollider>().enabled = false;
         detailCard.BeBrightColor();
         detailCard.SetOrderInLayer(200);
-        detailCard.CardBloom.SetActive(true);
+        detailCard.ShowCardBloom(true);
         List<CardInfo_Base> cardInfos = new List<CardInfo_Base>();
         if (detailCard != null) cardInfos.Add(detailCard.CardInfo);
         UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(cardInfos, null);

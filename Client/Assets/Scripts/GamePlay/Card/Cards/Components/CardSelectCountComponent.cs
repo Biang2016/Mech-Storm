@@ -31,16 +31,12 @@ public class CardSelectCountComponent : CardComponentBase
 
     private bool isForceShow;
 
-    public bool IsForceShow
+    public void SetForceShow(bool value)
     {
-        get { return isForceShow; }
-        set
+        if (isForceShow != value)
         {
-            if (isForceShow != value)
-            {
-                isForceShow = value;
-                RefreshShow();
-            }
+            isForceShow = value;
+            RefreshShow();
         }
     }
 
@@ -48,12 +44,12 @@ public class CardSelectCountComponent : CardComponentBase
     {
         if (!isForceShow)
         {
-            if (SelectCount == 0)
+            if (selectCount == 0)
             {
                 SelectCountText.text = "";
             }
 
-            if (SelectLimitCount == 0)
+            if (selectLimitCount == 0)
             {
                 SelectLimitText.text = "";
                 SlashText.text = "";
@@ -61,12 +57,12 @@ public class CardSelectCountComponent : CardComponentBase
         }
         else
         {
-            if (SelectCount == 0)
+            if (selectCount == 0)
             {
                 SelectCountText.text = "0";
             }
 
-            if (SelectLimitCount == 0)
+            if (selectLimitCount == 0)
             {
                 SelectLimitText.text = "0";
             }
@@ -77,33 +73,25 @@ public class CardSelectCountComponent : CardComponentBase
 
     private int selectCount;
 
-    public int SelectCount
+    public void SetSelectCount(int value)
     {
-        get { return selectCount; }
-        set
+        if (selectCount != value)
         {
-            if (selectCount != value)
-            {
-                SelectCountText.text = value.ToString();
-                selectCount = value;
-                RefreshShow();
-            }
+            SelectCountText.text = value.ToString();
+            selectCount = value;
+            RefreshShow();
         }
     }
 
     private int selectLimitCount;
 
-    public int SelectLimitCount
+    public void SetSelectLimitCount(int value)
     {
-        get { return selectLimitCount; }
-        set
+        if (selectLimitCount != value)
         {
-            if (selectLimitCount != value)
-            {
-                SelectLimitText.text = value.ToString();
-                selectLimitCount = value;
-                RefreshShow();
-            }
+            SelectLimitText.text = value.ToString();
+            selectLimitCount = value;
+            RefreshShow();
         }
     }
 

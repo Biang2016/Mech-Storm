@@ -22,8 +22,8 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
     [SerializeField] private Text EnemyCardLeftNumText;
     [SerializeField] private Text EnemyCardLeftNumText_BG;
 
-    private CardDeckCard[] self_CardDeckCards;
-    private CardDeckCard[] enemy_CardDeckCards;
+    private CardBase[] self_CardDeckCards;
+    private CardBase[] enemy_CardDeckCards;
 
     private int[] cardDeckShowCardNumMap; //剩余卡牌数量和卡堆模型中显示的卡牌数量映射关系
 
@@ -48,15 +48,15 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
 
     private void InitializeCardDeckCard()
     {
-        self_CardDeckCards = new CardDeckCard[GameManager.Instance.CardDeckCardNum];
-        enemy_CardDeckCards = new CardDeckCard[GameManager.Instance.CardDeckCardNum];
+        self_CardDeckCards = new CardBase[GameManager.Instance.CardDeckCardNum];
+        enemy_CardDeckCards = new CardBase[GameManager.Instance.CardDeckCardNum];
 
         for (int i = 0; i < GameManager.Instance.CardDeckCardNum; i++)
         {
             self_CardDeckCards[i] = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardDeckCard].AllocateGameObject<CardDeckCard>(SelfCardDeckArea);
             enemy_CardDeckCards[i] = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardDeckCard].AllocateGameObject<CardDeckCard>(EnemyCardDeckArea);
-            self_CardDeckCards[i].ResetColor(true);
-            enemy_CardDeckCards[i].ResetColor(false);
+            self_CardDeckCards[i].SetCardBackColor();
+            enemy_CardDeckCards[i].SetCardBackColor();
             self_CardDeckCards[i].transform.Translate(GameManager.Instance.Self_CardDeckCardInterval * i);
             enemy_CardDeckCards[i].transform.Translate(GameManager.Instance.Enemy_CardDeckCardInterval * i);
 
@@ -137,7 +137,7 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
         }
     }
 
-    private void SetCardDeckShowCardNum(CardDeckCard[] targetCardDeckShowCards, int number)
+    private void SetCardDeckShowCardNum(CardBase[] targetCardDeckShowCards, int number)
     {
         int showCardNumber = 0;
         if (number <= 0) showCardNumber = 0;

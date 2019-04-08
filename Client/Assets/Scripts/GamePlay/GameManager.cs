@@ -11,7 +11,6 @@ public class GameManager : MonoSingleton<GameManager>
     {
         InitializeClientGameSettings();
         Utils.DebugLog = ClientLog.Instance.PrintError;
-
         AllColors.AddAllColors(Application.streamingAssetsPath + "/Config/Colors.xml");
         AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
         AllBuffs.AddAllBuffs(Application.streamingAssetsPath + "/Config/Buffs.xml");
@@ -58,61 +57,9 @@ public class GameManager : MonoSingleton<GameManager>
     public Vector3 Self_CardDeckCardInterval = new Vector3(0.05f, 0.01f, 0.1f);
     public Vector3 Enemy_CardDeckCardInterval = new Vector3(-0.05f, 0.01f, 0.1f);
 
-    public Color CardBloomColor;
-    public Color RetinueBloomColor;
-    public Color RetinueOnEnemyHoverBloomColor;
-    public Color RetinueOnSelfHoverBloomColor;
-
-    public Color Slot1Color;
-    public Color Slot2Color;
-    public Color Slot3Color;
-    public Color Slot4Color;
-
-    public Color DefaultLifeNumberColor;
-    public Color InjuredLifeNumberColor;
-    public Color OverFlowTotalLifeColor;
-
-    public Color BuildButtonEditColor;
-    public Color BuildButtonDefaultColor;
-
-    public Color SelfMetalBarColor;
-    public Color EnemyMetalBarColor;
-
-    public Color SelfCardDeckCardColor;
-    public Color EnemyCardDeckCardColor;
-
-    public Color LifeIconColor;
-    public Color MetalIconColor;
-    public Color EnergyIconColor;
-
     private void InitializeClientGameSettings()
     {
-        CardBloomColor = ClientUtils.HTMLColorToColor("#F1FF74");
-        RetinueBloomColor = ClientUtils.HTMLColorToColor("#06FF00");
-        RetinueOnEnemyHoverBloomColor = ClientUtils.HTMLColorToColor("#FF0000");
-        RetinueOnSelfHoverBloomColor = ClientUtils.HTMLColorToColor("#FFF69F");
 
-        Slot1Color = ClientUtils.HTMLColorToColor("#FF0000");
-        Slot2Color = ClientUtils.HTMLColorToColor("#FFED00");
-        Slot3Color = ClientUtils.HTMLColorToColor("#0049BC");
-        Slot4Color = ClientUtils.HTMLColorToColor("#7F8AFF");
-
-        DefaultLifeNumberColor = ClientUtils.HTMLColorToColor("#FFFFFF");
-        InjuredLifeNumberColor = ClientUtils.HTMLColorToColor("#E2FF00");
-        OverFlowTotalLifeColor = ClientUtils.HTMLColorToColor("#00FF28");
-
-        BuildButtonEditColor = ClientUtils.HTMLColorToColor("#FF4B00");
-        BuildButtonDefaultColor = ClientUtils.HTMLColorToColor("#858585");
-
-        SelfMetalBarColor = ClientUtils.HTMLColorToColor("#9E00FF");
-        EnemyMetalBarColor = ClientUtils.HTMLColorToColor("#9E00FF");
-
-        SelfCardDeckCardColor = ClientUtils.HTMLColorToColor("#69B1FF");
-        EnemyCardDeckCardColor = ClientUtils.HTMLColorToColor("#FF6C6F");
-
-        LifeIconColor = ClientUtils.HTMLColorToColor("#A22A2E");
-        MetalIconColor = ClientUtils.HTMLColorToColor("#8335FF");
-        EnergyIconColor = ClientUtils.HTMLColorToColor("#007AFF");
     }
 
     #endregion

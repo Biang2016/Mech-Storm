@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class CardSpell : CardBase
 {
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect, int limit = -1)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, CardShowMode cardShowMode)
     {
-        base.Initiate(cardInfo, clientPlayer, isCardSelect, limit);
+        base.Initiate(cardInfo, clientPlayer, cardShowMode);
         CardInfo.TargetInfo.HasTargetRetinue = false;
         CardInfo.TargetInfo.HasTargetEquip = false;
         CardInfo.TargetInfo.HasTargetShip = false;
@@ -228,9 +228,9 @@ public class CardSpell : CardBase
         ClientPlayer.MyHandManager.RefreshCardsPlace();
     }
 
-    public override void DragComponnet_DragOutEffects()
+    public override void DragComponent_DragOutEffects()
     {
-        base.DragComponnet_DragOutEffects();
+        base.DragComponent_DragOutEffects();
         DragManager.Instance.DragOutDamage = CalculateAttack();
         RoundManager.Instance.ShowTargetPreviewArrow(CardInfo.TargetInfo.targetRetinueRange);
     }
@@ -249,7 +249,7 @@ public class CardSpell : CardBase
         return 0;
     }
 
-    public override float DragComponnet_DragDistance()
+    public override float DragComponent_DragDistance()
     {
         return GameManager.Instance.PullOutCardDistanceThreshold;
     }

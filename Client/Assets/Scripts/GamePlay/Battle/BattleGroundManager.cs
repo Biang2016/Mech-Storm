@@ -490,7 +490,7 @@ public class BattleGroundManager : MonoBehaviour
         {
             foreach (Slot sa in relatedSlots)
             {
-                sa.ShowHoverGO();
+                sa.ShowSlotBloom();
                 if (cardEquip.CardInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
                 {
                     if (sa.M_ModuleRetinue.CardInfo.RetinueInfo.IsSniper) sa.M_ModuleRetinue.ShowSniperTipText();
@@ -500,7 +500,7 @@ public class BattleGroundManager : MonoBehaviour
             yield return new WaitForSeconds(0.4f);
             foreach (Slot sa in relatedSlots)
             {
-                sa.HideHoverShowGO();
+                sa.HideSlotBloom();
                 sa.M_ModuleRetinue.HideSniperTipText();
             }
 
@@ -523,7 +523,7 @@ public class BattleGroundManager : MonoBehaviour
 
         foreach (Slot sa in relatedSlots)
         {
-            sa.HideHoverShowGO();
+            sa.HideSlotBloom();
             sa.M_ModuleRetinue.HideSniperTipText();
         }
 

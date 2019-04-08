@@ -22,9 +22,9 @@
         string CardDescShow = "";
         if (RetinueInfo.IsDefence) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Defense") + ". ");
         if (RetinueInfo.IsSniper) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sniper") + ". ");
-        if (BattleInfo.BasicAttack != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_AttackValue") + " " + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicAttack) + ", ";
-        if (BattleInfo.BasicArmor != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_Armor") + " " + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicArmor) + ", ";
-        if (BattleInfo.BasicShield != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_Shield") + " " + BaseInfo.AddHightLightColorToText("+" + BattleInfo.BasicShield) + ", ";
+        if (BattleInfo.BasicAttack != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_AttackValue") + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicAttack) + ", ";
+        if (BattleInfo.BasicArmor != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_Armor") + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicArmor) + ", ";
+        if (BattleInfo.BasicShield != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_Shield") + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicShield) + ", ";
 
         CardDescShow += base.GetCardDescShow();
 

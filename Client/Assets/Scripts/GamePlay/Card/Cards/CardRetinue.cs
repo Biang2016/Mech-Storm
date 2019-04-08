@@ -7,96 +7,29 @@ public class CardRetinue : CardBase
     public override void PoolRecycle()
     {
         base.PoolRecycle();
-        HideAllSlotHover();
-        MoveCoinBGUpper();
-        if (Weapon)
-        {
-            Weapon.PoolRecycle();
-            Weapon = null;
-        }
-
-        if (Shield)
-        {
-            Shield.PoolRecycle();
-            Shield = null;
-        }
-
-        if (Pack)
-        {
-            Pack.PoolRecycle();
-            Pack = null;
-        }
-
-        if (MA)
-        {
-            MA.PoolRecycle();
-            MA = null;
-        }
+        Weapon?.PoolRecycle();
+        Weapon = null;
+        Shield?.PoolRecycle();
+        Shield = null;
+        Pack?.PoolRecycle();
+        Pack = null;
+        MA?.PoolRecycle();
+        MA = null;
     }
 
-    #region 卡牌上各模块
-
-    [SerializeField] private Text Text_Life;
-    [SerializeField] private Transform CoinBGLowerPivot;
-    [SerializeField] private Transform CoinBGUpperPivot;
-
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, bool isCardSelect, int limitNum = -1)
+    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, CardShowMode cardShowMode)
     {
-        base.Initiate(cardInfo, clientPlayer, isCardSelect, limitNum);
+        base.Initiate(cardInfo, clientPlayer, cardShowMode);
         M_RetinueTotalLife = CardInfo.LifeInfo.TotalLife;
         M_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
         M_RetinueArmor = CardInfo.BattleInfo.BasicArmor;
         M_RetinueShield = CardInfo.BattleInfo.BasicShield;
 
-        Slot1.ClientPlayer = ClientPlayer;
-        Slot1.MSlotTypes = CardInfo.RetinueInfo.Slots[0];
-        Slot2.ClientPlayer = ClientPlayer;
-        Slot2.MSlotTypes = CardInfo.RetinueInfo.Slots[1];
-        Slot3.ClientPlayer = ClientPlayer;
-        Slot3.MSlotTypes = CardInfo.RetinueInfo.Slots[2];
-        Slot4.ClientPlayer = ClientPlayer;
-        Slot4.MSlotTypes = CardInfo.RetinueInfo.Slots[3];
-
-        HideAllSlotHover();
-
-        if (isCardSelect)
-        {
-            if (cardInfo.RetinueInfo.HasSlotType(SlotTypes.MA))
-            {
-                SetSelectCountBlockPosition(CardSelectCountComponent.Position.Lower);
-            }
-            else
-            {
-                SetSelectCountBlockPosition(CardSelectCountComponent.Position.Higher);
-            }
-        }
+        SetSlots();
+        SetSelectCountBlockPosition();
     }
 
-    public void MoveCoinBGLower()
-    {
-        if (IsCardSelect && !CardInfo.RetinueInfo.IsSoldier) CoinImageBG.transform.position = CoinBGLowerPivot.transform.position;
-    }
-
-    public void MoveCoinBGUpper()
-    {
-        if (IsCardSelect && !CardInfo.RetinueInfo.IsSoldier) CoinImageBG.transform.position = CoinBGUpperPivot.transform.position;
-    }
-
-    public void ShowAllSlotHover()
-    {
-        if (Slot1.MSlotTypes != SlotTypes.None) Slot1.ShowHoverGO();
-        if (Slot2.MSlotTypes != SlotTypes.None) Slot2.ShowHoverGO();
-        if (Slot3.MSlotTypes != SlotTypes.None) Slot3.ShowHoverGO();
-        if (Slot4.MSlotTypes != SlotTypes.None) Slot4.ShowHoverGO();
-    }
-
-    public void HideAllSlotHover()
-    {
-        Slot1.HideHoverShowGO();
-        Slot2.HideHoverShowGO();
-        Slot3.HideHoverShowGO();
-        Slot4.HideHoverShowGO();
-    }
+    #region 属性
 
     private int m_RetinueTotalLife;
 
@@ -106,7 +39,7 @@ public class CardRetinue : CardBase
         set
         {
             m_RetinueTotalLife = value;
-            Text_Life.text = value.ToString();
+            SetLifeText(value);
         }
     }
 
@@ -138,27 +71,10 @@ public class CardRetinue : CardBase
 
     #region 拼装上的模块
 
-    [SerializeField] private Slot Slot1;
-    [SerializeField] private Slot Slot2;
-    [SerializeField] private Slot Slot3;
-    [SerializeField] private Slot Slot4;
-
-    [SerializeField] private RawImage WeaponBloom;
-    [SerializeField] private RawImage ShieldBloom;
-    [SerializeField] private RawImage PackBloom;
-    [SerializeField] private RawImage MABloom;
-
     internal ModuleWeapon Weapon;
     internal ModuleShield Shield;
     internal ModulePack Pack;
     internal ModuleMA MA;
-
-    [SerializeField] private Canvas IconCanvas;
-
-    [SerializeField] private Transform Block_Count_HigherPivot;
-    [SerializeField] private Transform Block_Count_LowerPivot;
-    [SerializeField] private Transform Block_CountMax_HigherPivot;
-    [SerializeField] private Transform Block_CountMax_LowerPivot;
 
     # endregion
 

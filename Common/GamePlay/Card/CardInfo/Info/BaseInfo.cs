@@ -33,9 +33,9 @@ public struct BaseInfo
         CardType = cardType;
     }
 
-    private static string GetHightLightColor()
+    private static string GetHighLightColor()
     {
-        return AllColors.ColorDict[AllColors.ColorType.CardHightLightColor];
+        return AllColors.ColorDict[AllColors.ColorType.CardHighLightColor];
     }
 
     private static string GetImportantColor()
@@ -43,14 +43,14 @@ public struct BaseInfo
         return AllColors.ColorDict[AllColors.ColorType.CardImportantColor];
     }
 
-    public static string AddHightLightColorToText(string hightLightText)
+    public static string AddHighLightColorToText(string highLightText)
     {
-        return "<color=\"" + GetHightLightColor() + "\">" + hightLightText + "</color>";
+        return "<" + GetHighLightColor() + ">" + highLightText + "</color>";
     }
 
-    public static string AddImportantColorToText(string hightLightText)
+    public static string AddImportantColorToText(string highLightText)
     {
-        return "<color=\"" + GetImportantColor() + "\">" + hightLightText + "</color>";
+        return "<" + GetImportantColor() + ">" + highLightText + "</color>";
     }
 
     public float BaseValue()

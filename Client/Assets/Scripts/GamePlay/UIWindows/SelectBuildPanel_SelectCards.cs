@@ -128,7 +128,7 @@ public partial class SelectBuildPanel
 
                 card.SetBlockCountValue(1);
                 card.BeBrightColor();
-                card.CardBloom.SetActive(true);
+                card.ShowCardBloom(true);
             }
 
             HeroCardCount++;
@@ -157,7 +157,7 @@ public partial class SelectBuildPanel
 
                 card.SetBlockCountValue(1);
                 card.BeBrightColor();
-                card.CardBloom.SetActive(true);
+                card.ShowCardBloom(true);
             }
 
             SelectCardCount++;
@@ -290,15 +290,13 @@ public partial class SelectBuildPanel
             currentPreviewCardContainer.position = CurrentPreviewCardMinPivot.position;
         }
 
-        currentPreviewCard = CardBase.InstantiateCardByCardInfo(selectCard.CardInfo.Clone(), currentPreviewCardContainer, null, true);
+        currentPreviewCard = CardBase.InstantiateCardByCardInfo(selectCard.CardInfo.Clone(), currentPreviewCardContainer, null, CardBase.CardShowMode.SelectedCardPreview);
         currentPreviewCard.transform.localPosition = new Vector3(-180f, 0, -290);
         currentPreviewCard.transform.localScale = Vector3.one * 220;
         currentPreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
         currentPreviewCard.BeBrightColor();
-        currentPreviewCard.CardBloom.SetActive(true);
-        currentPreviewCard.CoinImageBG.enabled = true;
-        currentPreviewCard.CoinImageBG.gameObject.SetActive(true);
-        currentPreviewCard.ChangeCardLimit(0);
+        currentPreviewCard.ShowCardBloom(true);
+        currentPreviewCard.ChangeCardSelectLimit(0);
 
         UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(new List<CardInfo_Base> {selectCard.CardInfo}, null);
     }
@@ -342,7 +340,7 @@ public partial class SelectBuildPanel
                 SelectedHeroes[card.CardInfo.CardID].PoolRecycle();
                 SelectedHeroes.Remove(card.CardInfo.CardID);
                 card.BeDimColor();
-                card.CardBloom.SetActive(false);
+                card.ShowCardBloom(false);
             }
 
             HeroCardCount--;
@@ -356,7 +354,7 @@ public partial class SelectBuildPanel
                 SelectedCards[card.CardInfo.CardID].PoolRecycle();
                 SelectedCards.Remove(card.CardInfo.CardID);
                 card.BeDimColor();
-                card.CardBloom.SetActive(false);
+                card.ShowCardBloom(false);
             }
 
             SelectCardCount--;
@@ -437,7 +435,7 @@ public partial class SelectBuildPanel
         foreach (KeyValuePair<int, CardBase> kv in allCards)
         {
             kv.Value.BeDimColor();
-            kv.Value.CardBloom.SetActive(false);
+            kv.Value.ShowCardBloom(false);
             kv.Value.SetBlockCountValue(0);
             if (SelectedCards.ContainsKey(kv.Key))
             {

@@ -100,9 +100,9 @@ public class DragComponent : MonoBehaviour
                 {
                     dragLastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     caller.DragComponent_OnMouseDown();
-                    dragDistance = caller.DragComponnet_DragDistance();
+                    dragDistance = caller.DragComponent_DragDistance();
                     isOnDrag = value;
-                    if (dragPurpose != DragPurpose.Summon) caller.DragComponnet_DragOutEffects();
+                    if (dragPurpose != DragPurpose.Summon) caller.DragComponent_DragOutEffects();
                 }
                 else
                 {
@@ -237,6 +237,6 @@ internal interface IDragComponent
         Quaternion dragBeginQuaternion);
 
     void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose);
-    float DragComponnet_DragDistance();
-    void DragComponnet_DragOutEffects();
+    float DragComponent_DragDistance();
+    void DragComponent_DragOutEffects();
 }

@@ -6,7 +6,12 @@ using System.Xml;
 
 public static class AllBuffs
 {
-    public static Dictionary<string, SideEffectExecute> BuffDict = new Dictionary<string, SideEffectExecute>();
+    private static Dictionary<string, SideEffectExecute> BuffDict = new Dictionary<string, SideEffectExecute>();
+
+    public static void Reset()
+    {
+        BuffDict.Clear();
+    }
 
     private static void addBuff(SideEffectExecute seb)
     {
@@ -17,6 +22,7 @@ public static class AllBuffs
 
     public static void AddAllBuffs(string buffsXMLPath)
     {
+        Reset();
         SortedDictionary<string, string> descKeyDict = new SortedDictionary<string, string>();
         foreach (int v in Enum.GetValues(typeof(LanguageShorts)))
         {
@@ -30,7 +36,7 @@ public static class AllBuffs
             text = sr.ReadToEnd();
         }
 
-        CurrentAssembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
+        if (CurrentAssembly == null) CurrentAssembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
         XmlElement allBuffs = doc.DocumentElement;

@@ -72,7 +72,7 @@ public class SideEffectBundle
                     }
                     else
                     {
-                        res += string.Format(TriggerTimeDesc[LanguageManager_Common.GetCurrentLanguage()][kv.Key], BaseInfo.AddHightLightColorToText(TriggerRangeDesc[LanguageManager_Common.GetCurrentLanguage()][SEEs.Key]));
+                        res += string.Format(TriggerTimeDesc[LanguageManager_Common.GetCurrentLanguage()][kv.Key], BaseInfo.AddHighLightColorToText(TriggerRangeDesc[LanguageManager_Common.GetCurrentLanguage()][SEEs.Key]));
                     }
 
                     foreach (SideEffectExecute see in SEEs.Value)

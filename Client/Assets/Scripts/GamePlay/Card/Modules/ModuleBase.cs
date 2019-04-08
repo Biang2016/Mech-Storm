@@ -157,7 +157,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
         dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 
-    public virtual float DragComponnet_DragDistance()
+    public virtual float DragComponent_DragDistance()
     {
         return 0;
     }
@@ -206,7 +206,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
         hasTarget = true;
     }
 
-    public virtual void DragComponnet_DragOutEffects()
+    public virtual void DragComponent_DragOutEffects()
     {
     }
 

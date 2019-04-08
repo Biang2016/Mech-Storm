@@ -41,4 +41,6 @@ public enum CardComponentTypes
     CoinBlock,
     Slots,
     SelectCount,
+    Notice,
+    Stars,
 }

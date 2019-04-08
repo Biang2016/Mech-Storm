@@ -246,7 +246,7 @@ public class HandManager : MonoBehaviour
     IEnumerator SubCo_GetCard(int indexNumber, int totalCardNumber, DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId, float duration) //animation of draw single card
     {
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardIdAndInstanceId.CardId);
-        CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, false);
+        CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, CardBase.CardShowMode.HandCard);
         newCardBase.M_CardInstanceId = cardIdAndInstanceId.CardInstanceId;
 
         cards.Add(newCardBase);
@@ -332,7 +332,7 @@ public class HandManager : MonoBehaviour
                     iTween.ScaleTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
                 }
 
-                currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer, false);
+                currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer, CardBase.CardShowMode.ShowCard);
                 currentShowCard.transform.position = cardBase.transform.position;
                 currentShowCard.transform.rotation = cardBase.transform.rotation;
                 currentShowCard.transform.localScale = cardBase.transform.localScale;
@@ -342,9 +342,8 @@ public class HandManager : MonoBehaviour
                 currentShowCard.DragComponent.enabled = false;
                 currentShowCard.Usable = false;
                 currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
-                currentShowCard.CardBloom.SetActive(true);
+                currentShowCard.ShowCardBloom(true);
                 currentShowCard.BeBrightColor();
-                currentShowCard.CardCanvas.enabled = true;
 
                 Hashtable currentCardMove = new Hashtable();
                 currentCardMove.Add("time", GameManager.Instance.ShowCardFlyDuration);
@@ -504,10 +503,10 @@ public class HandManager : MonoBehaviour
         iTween.Stop(lostFocusCard.gameObject);
 
         lostFocusCard.transform.localScale = Vector3.one * GameManager.Instance.HandCardSize;
-        if (lostFocusCard.myColliderReplace)
+        if (lostFocusCard.MyColliderReplace)
         {
-            lostFocusCard.transform.position = lostFocusCard.myColliderReplace.transform.position;
-            lostFocusCard.transform.rotation = lostFocusCard.myColliderReplace.transform.rotation;
+            lostFocusCard.transform.position = lostFocusCard.MyColliderReplace.transform.position;
+            lostFocusCard.transform.rotation = lostFocusCard.MyColliderReplace.transform.rotation;
         }
 
         lostFocusCard.ResetColliderAndReplace();
@@ -581,7 +580,7 @@ public class HandManager : MonoBehaviour
                                 HandCardCountText.text = string.Format(LanguageManager.Instance.GetText("HandManager_EnemyHaveManyCards"), cards.Count);
                                 foreach (CardBase cb in cards)
                                 {
-                                    cb.CardBackBloom.SetActive(true);
+                                    cb.ShowCardBloom(true);
                                 }
                             }
                         }
@@ -594,7 +593,7 @@ public class HandManager : MonoBehaviour
                     HandCardCountPanelAnim.SetTrigger("Reset");
                     foreach (CardBase cb in cards)
                     {
-                        cb.CardBackBloom.SetActive(false);
+                        cb.ShowCardBloom(false);
                     }
                 }
             }

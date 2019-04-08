@@ -337,14 +337,13 @@ internal class BattleResultPanel : BaseUIForm
             CurrentPreivewCard = null;
         }
 
-        CurrentPreivewCard = CardBase.InstantiateCardByCardInfo(cb, CardPreviewContainer, RoundManager.Instance.SelfClientPlayer, false);
+        CurrentPreivewCard = CardBase.InstantiateCardByCardInfo(cb, CardPreviewContainer, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardReward);
         CurrentPreivewCard.transform.localScale = CardRotationSample.localScale;
         CurrentPreivewCard.transform.rotation = CardRotationSample.rotation;
         Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CurrentPreivewCard.transform.parent.position = new Vector3(cameraPosition.x, CardRotationSample.position.y, CardRotationSample.position.z);
         CurrentPreivewCard.SetOrderInLayer(2);
         CurrentPreivewCard.BeBrightColor();
-        CurrentPreivewCard.SetBonusCardBloom(true);
         CardPreviewContainerAnim.SetTrigger("Hover");
     }
 
@@ -436,20 +435,18 @@ internal class BattleResultPanel : BaseUIForm
         if (Cur_BaseCard != null) Cur_BaseCard.PoolRecycle();
         if (Cur_UpgradeCard != null) Cur_UpgradeCard.PoolRecycle();
         isOneCardUpgradeShowOver = false;
-        Cur_BaseCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(baseCardID), CardUpgradeUnlockCardContainter, RoundManager.Instance.SelfClientPlayer, false);
+        Cur_BaseCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(baseCardID), CardUpgradeUnlockCardContainter, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardUpgradeAnim);
         Cur_BaseCard.transform.position = CardUpgradeUnlockCardSample.position;
         Cur_BaseCard.transform.rotation = CardUpgradeUnlockCardSample.rotation;
         Cur_BaseCard.transform.localScale = CardUpgradeUnlockCardSample.localScale;
         Cur_BaseCard.SetOrderInLayer(20);
         Cur_BaseCard.BeBrightColor();
-        Cur_BaseCard.SetBonusCardBloom(true);
-        Cur_UpgradeCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(upgradeCardID), CardUpgradeUnlockCardContainter_Upgrade, RoundManager.Instance.SelfClientPlayer, false);
+        Cur_UpgradeCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(upgradeCardID), CardUpgradeUnlockCardContainter_Upgrade, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardUpgradeAnim);
         Cur_UpgradeCard.transform.position = CardUpgradeUnlockCardSample_Upgrade.position;
         Cur_UpgradeCard.transform.rotation = CardUpgradeUnlockCardSample_Upgrade.rotation;
         Cur_UpgradeCard.transform.localScale = CardUpgradeUnlockCardSample_Upgrade.localScale;
         Cur_UpgradeCard.SetOrderInLayer(19);
         Cur_UpgradeCard.BeBrightColor();
-        Cur_UpgradeCard.SetBonusCardBloom(true);
 
         CardUpgradeUnlockAnim.speed = 3;
         CardUpgradeUnlockAnim.SetTrigger("Jump");

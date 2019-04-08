@@ -8,6 +8,11 @@ public static class AllSideEffects
 {
     public static Dictionary<string, SideEffectBase> SideEffectsNameDict = new Dictionary<string, SideEffectBase>();
 
+    public static void Reset()
+    {
+        SideEffectsNameDict.Clear();
+    }
+
     private static void addSideEffect(SideEffectBase sideEffectBase)
     {
         if (!SideEffectsNameDict.ContainsKey(sideEffectBase.Name)) SideEffectsNameDict.Add(sideEffectBase.Name, sideEffectBase);
@@ -17,6 +22,7 @@ public static class AllSideEffects
 
     public static void AddAllSideEffects(string sideEffectsXMLPath)
     {
+        Reset();
         SortedDictionary<string, string> descKeyDict = new SortedDictionary<string, string>();
         foreach (int v in Enum.GetValues(typeof(LanguageShorts)))
         {
@@ -30,7 +36,7 @@ public static class AllSideEffects
             text = sr.ReadToEnd();
         }
 
-        CurrentAssembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
+        if (CurrentAssembly == null) CurrentAssembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
         XmlElement allSideEffects = doc.DocumentElement;

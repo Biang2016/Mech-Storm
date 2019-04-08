@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[ExecuteInEditMode]
 public class CardCoinComponent : CardComponentBase
 {
     [SerializeField] private Transform UpperPivot;
@@ -13,7 +14,7 @@ public class CardCoinComponent : CardComponentBase
 
     public enum Position
     {
-        Upper,
+        Higher,
         Lower
     }
 
@@ -21,7 +22,7 @@ public class CardCoinComponent : CardComponentBase
     {
         switch (pos)
         {
-            case Position.Upper:
+            case Position.Higher:
                 Panel.position = UpperPivot.position;
                 break;
             case Position.Lower:

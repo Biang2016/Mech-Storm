@@ -51,7 +51,6 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         if (!StoryManager.Instance.HasStory && gameMode == GameMode.Single) return;
         CurrentGameMode = gameMode;
         InitBuildInfos();
-        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.SetAllCardHideElementsByAccount();
     }
 
     private void InitBuildInfos()

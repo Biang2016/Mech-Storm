@@ -10,6 +10,11 @@ public static class AllColors
     public static Dictionary<ColorType, string> ColorDict = new Dictionary<ColorType, string>();
     public static Dictionary<ColorType, float> IntensityDict = new Dictionary<ColorType, float>();
 
+    public static void Reset()
+    {
+        ColorDict.Clear();
+        IntensityDict.Clear();
+    }
 
     [JsonConverter(typeof(StringEnumConverter))]
     public enum ColorType
@@ -22,9 +27,9 @@ public static class AllColors
         ShieldCardColor,
         PackCardColor,
         MACardColor,
-        CardHightLightColor,
+        CardHighLightColor,
         CardImportantColor,
-        CardDecsTextColor,
+        CardDescTextColor,
         StoryLevelColor1,
         StoryLevelColor2,
         StoryLevelColor3,
@@ -32,10 +37,32 @@ public static class AllColors
         StoryLevelColor5,
         StoryLevelColor6,
         StoryLevelColor7,
+
+        CardBloomColor,
+        RetinueBloomColor,
+        RetinueOnEnemyHoverBloomColor,
+        RetinueOnSelfHoverBloomColor,
+        Slot1Color,
+        Slot2Color,
+        Slot3Color,
+        Slot4Color,
+        DefaultLifeNumberColor,
+        InjuredLifeNumberColor,
+        OverFlowTotalLifeColor,
+        BuildButtonEditColor,
+        BuildButtonDefaultColor,
+        SelfMetalBarColor,
+        EnemyMetalBarColor,
+        SelfCardDeckCardColor,
+        EnemyCardDeckCardColor,
+        LifeIconColor,
+        MetalIconColor,
+        EnergyIconColor,
     }
 
     public static void AddAllColors(string colorXMLPath)
     {
+        Reset();
         string text;
         using (StreamReader sr = new StreamReader(colorXMLPath))
         {

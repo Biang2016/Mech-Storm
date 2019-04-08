@@ -10,7 +10,7 @@ public class ColliderReplace : PoolObject
     internal void Initiate(CardBase callerCard)
     {
         MyCallerCard = callerCard;
-        callerCard.myColliderReplace = this;
+        callerCard.MyColliderReplace = this;
         transform.position = callerCard.transform.position;
         transform.rotation = callerCard.transform.rotation;
         transform.localScale = callerCard.transform.localScale;

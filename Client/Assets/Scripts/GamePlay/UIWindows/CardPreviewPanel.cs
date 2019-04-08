@@ -58,8 +58,8 @@ public class CardPreviewPanel : BaseUIForm
         OperationUIs.SetActive(!isReadOnly);
 
         PreviewCard_Src = card;
-        card.SetBanner(CardBase.BannerType.None);
-        card.SetArrow(CardBase.ArrowType.None);
+        card.SetBannerType(CardNoticeComponent.BannerTypes.None);
+        card.SetArrowType(CardNoticeComponent.ArrowTypes.None);
 
         RefreshPreviewCard();
         RefreshUpgradePanel();
@@ -85,41 +85,37 @@ public class CardPreviewPanel : BaseUIForm
     {
         if (PreviewCard)
         {
-            PreviewCard.CardBloom.SetActive(true);
+            PreviewCard.ShowCardBloom(true);
             PreviewCard.PoolRecycle();
             PreviewCard = null;
         }
 
         if (PreviewCardUpgrade)
         {
-            PreviewCardUpgrade.CardBloom.SetActive(true);
+            PreviewCardUpgrade.ShowCardBloom(true);
             PreviewCardUpgrade.PoolRecycle();
             PreviewCardUpgrade = null;
         }
 
         if (PreviewCardDegrade)
         {
-            PreviewCardDegrade.CardBloom.SetActive(true);
+            PreviewCardDegrade.ShowCardBloom(true);
             PreviewCardDegrade.PoolRecycle();
             PreviewCardDegrade = null;
         }
 
-        PreviewCard = CardBase.InstantiateCardByCardInfo(PreviewCard_Src.CardInfo, PreviewContent, null, true);
-        PreviewCard.ChangeCardLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
+        PreviewCard = CardBase.InstantiateCardByCardInfo(PreviewCard_Src.CardInfo, PreviewContent, null, CardBase.CardShowMode.CardUpgradePreview);
+        PreviewCard.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
         PreviewCard.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCard.CardInfo.CardID), true);
         PreviewCard.transform.localScale = Vector3.one * 300;
         PreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
         PreviewCard.transform.localPosition = new Vector3(0, 50, 0);
-        PreviewCard.CardBloom.SetActive(true);
+        PreviewCard.ShowCardBloom(true);
         PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"));
         PreviewCard.BeBrightColor();
         PreviewCard.M_BoxCollider.enabled = false;
-
-        if (PreviewCard is CardRetinue)
-        {
-            ((CardRetinue) PreviewCard).ShowAllSlotHover();
-            PreviewCard.MoveCoinBGLower();
-        }
+        PreviewCard.ShowAllSlotBlooms(true);
+        PreviewCard.RefreshCoinPosition();
 
         bool hasUpgradeCard = false;
         bool hasDegradeCard = false;
@@ -138,8 +134,8 @@ public class CardPreviewPanel : BaseUIForm
 
         if (hasUpgradeCard)
         {
-            PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID), PreviewContent, null, true);
-            PreviewCardUpgrade.ChangeCardLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
+            PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID), PreviewContent, null, CardBase.CardShowMode.CardUpgradePreview);
+            PreviewCardUpgrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardUpgrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardUpgrade.CardInfo.CardID), true);
             PreviewCardUpgrade.transform.localScale = Vector3.one * 270;
             PreviewCardUpgrade.transform.rotation = Quaternion.Euler(90, 180, 0);
@@ -156,15 +152,12 @@ public class CardPreviewPanel : BaseUIForm
 
             UpgradeArrow.enabled = true;
 
-            PreviewCardUpgrade.CardBloom.SetActive(true);
+            PreviewCardUpgrade.ShowCardBloom(true);
             PreviewCardUpgrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FD5400"));
             PreviewCardUpgrade.BeBrightColor();
             PreviewCardUpgrade.M_BoxCollider.enabled = false;
-            if (PreviewCardUpgrade is CardRetinue)
-            {
-                PreviewCardUpgrade.ShowAllSlotHover();
-                PreviewCardUpgrade.SetCoinBlockPos(CardCoinComponent.Position.Lower);
-            }
+            PreviewCardUpgrade.ShowAllSlotBlooms(true);
+            PreviewCardUpgrade.RefreshCardTextLanguage();
         }
         else
         {
@@ -173,8 +166,8 @@ public class CardPreviewPanel : BaseUIForm
 
         if (hasDegradeCard)
         {
-            PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID), PreviewContent, null, true);
-            PreviewCardDegrade.ChangeCardLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
+            PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID), PreviewContent, null, CardBase.CardShowMode.CardUpgradePreview);
+            PreviewCardDegrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardDegrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardDegrade.CardInfo.CardID), true);
             PreviewCardDegrade.transform.localScale = Vector3.one * 270;
             PreviewCardDegrade.transform.rotation = Quaternion.Euler(90, 180, 0);
@@ -189,15 +182,12 @@ public class CardPreviewPanel : BaseUIForm
                 DegradeArrow.transform.position = DegradeArrowPivot_normal.position;
             }
 
-            PreviewCardDegrade.CardBloom.SetActive(true);
+            PreviewCardDegrade.ShowCardBloom(true);
             PreviewCardDegrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#0CE9FF"));
             PreviewCardDegrade.BeBrightColor();
             PreviewCardDegrade.M_BoxCollider.enabled = false;
-            if (PreviewCardDegrade is CardRetinue)
-            {
-                ((CardRetinue) PreviewCardDegrade).ShowAllSlotHover();
-                ((CardRetinue) PreviewCardDegrade).MoveCoinBGLower();
-            }
+            PreviewCardDegrade.ShowAllSlotBlooms(true);
+            PreviewCardDegrade.RefreshCoinPosition();
 
             DegradeArrow.enabled = true;
         }

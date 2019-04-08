@@ -178,7 +178,7 @@ public partial class SelectBuildPanel
 
     public void AddCardIntoCardSelectWindow(CardInfo_Base cardInfo)
     {
-        CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, AllCardsContainer, null, true);
+        CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, AllCardsContainer, null, CardBase.CardShowMode.CardSelect);
         RefreshCardInSelectWindow(newCard, false);
         allCards.Add(newCard.CardInfo.CardID, newCard);
     }
@@ -252,7 +252,7 @@ public partial class SelectBuildPanel
             if (allCards.ContainsKey(CardID))
             {
                 CardBase cb = allCards[CardID];
-                cb.ChangeCardLimit(CardLimitCount);
+                cb.ChangeCardSelectLimit(CardLimitCount);
 
                 if (Client.Instance.Proxy.IsSuperAccount)
                 {
@@ -347,17 +347,6 @@ public partial class SelectBuildPanel
         }
     }
 
-    /// <summary>
-    /// 显示管理员模式下卡牌的其他控件
-    /// </summary>
-    public void SetAllCardHideElementsByAccount()
-    {
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
-        {
-            kv.Value.SetAccount(Client.Instance.Proxy.IsSuperAccount);
-        }
-    }
-
     private static void RefreshCardInSelectWindow(CardBase newCard, bool isSelected)
     {
         newCard.transform.localScale = Vector3.one * 120;
@@ -406,8 +395,8 @@ public partial class SelectBuildPanel
         }
 
         CardBase changeCard = allCards[changeCardID];
-        previewCard.ChangeCardLimit(previewCard.CardInfo.BaseInfo.LimitNum - 1);
-        changeCard.ChangeCardLimit(changeCard.CardInfo.BaseInfo.LimitNum + 1);
+        previewCard.ChangeCardSelectLimit(previewCard.CardInfo.BaseInfo.LimitNum - 1);
+        changeCard.ChangeCardSelectLimit(changeCard.CardInfo.BaseInfo.LimitNum + 1);
         CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[previewCard.CardInfo.CardID].CardSelectUpperLimit--;
         CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[changeCardID].CardSelectUpperLimit++;
         if (GetSelectedCardCount(previewCard.CardInfo.CardID) > 0)
@@ -426,12 +415,12 @@ public partial class SelectBuildPanel
     {
         foreach (KeyValuePair<int, CardBase> kv in allCards)
         {
-            kv.Value.SetBanner(CardBase.BannerType.None);
+            kv.Value.SetBannerType(CardNoticeComponent.BannerTypes.None);
         }
 
         foreach (int cardID in StoryManager.Instance.JustGetNewCards)
         {
-            allCards[cardID].SetBanner(CardBase.BannerType.NewCard);
+            allCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.NewCard);
         }
     }
 
@@ -439,12 +428,12 @@ public partial class SelectBuildPanel
     {
         foreach (KeyValuePair<int, CardBase> kv in allCards)
         {
-            kv.Value.SetArrow(CardBase.ArrowType.None);
+            kv.Value.SetArrowType(CardNoticeComponent.ArrowTypes.None);
         }
 
         foreach (int cardID in StoryManager.Instance.JustUpgradeCards)
         {
-            allCards[cardID].SetArrow(CardBase.ArrowType.Upgrade);
+            allCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.Upgrade);
         }
     }
 }

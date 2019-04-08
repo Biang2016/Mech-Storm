@@ -28,11 +28,11 @@ public class MetalBarBlock : PoolObject
     {
         if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
         {
-            ClientUtils.ChangeColor(My_Renderer, GameManager.Instance.SelfMetalBarColor);
+            ClientUtils.ChangeColor(My_Renderer, ClientUtils.GetColorFromColorDict(AllColors.ColorType.SelfMetalBarColor));
         }
         else
         {
-            ClientUtils.ChangeColor(My_Renderer, GameManager.Instance.EnemyMetalBarColor);
+            ClientUtils.ChangeColor(My_Renderer, ClientUtils.GetColorFromColorDict(AllColors.ColorType.EnemyMetalBarColor));
         }
     }
 }

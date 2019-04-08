@@ -60,6 +60,7 @@ public class Initialization : MonoSingleton<Initialization>
 
     private void LoadSpriteAtlas_AB()
     {
+        AtlasManager.Reset();
         List<AssetBundle> list = ABManager.LoadAllAssetBundleNamedLike("atlas_");
         foreach (AssetBundle assetBundle in list)
         {
@@ -81,6 +82,7 @@ public class Initialization : MonoSingleton<Initialization>
 
     private void LoadSpriteAtlas_Editor()
     {
+        AtlasManager.Reset();
         SpriteAtlas[] sas = Resources.LoadAll<SpriteAtlas>("SpriteAtlas");
         foreach (SpriteAtlas sa in sas)
         {

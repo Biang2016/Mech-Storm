@@ -85,12 +85,12 @@ public class BuildButton : PoolObject
 
     private void OnEdit()
     {
-        ButtonImage.color = GameManager.Instance.BuildButtonEditColor;
+        ButtonImage.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.BuildButtonEditColor);
     }
 
     private void OnUnEdit()
     {
-        ButtonImage.color = GameManager.Instance.BuildButtonDefaultColor;
+        ButtonImage.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.BuildButtonDefaultColor);
     }
 
     public void AddCard(int cardId)

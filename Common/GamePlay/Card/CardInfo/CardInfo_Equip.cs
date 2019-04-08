@@ -52,20 +52,20 @@
                 if (WeaponInfo.WeaponType == WeaponTypes.Sword)
                 {
                     CardDescShow += LanguageManager_Common.GetText("KeyWords_Sword") + ". ";
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_AttackPlus"), BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ChargePlus"), BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_AttackPlus"), BaseInfo.AddHighLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ChargePlus"), BaseInfo.AddHighLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.Gun)
                 {
                     CardDescShow += LanguageManager_Common.GetText("KeyWords_Gun") + ". ";
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ShootAttackPlus"), BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_Bullets"), BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ShootAttackPlus"), BaseInfo.AddHighLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_Bullets"), BaseInfo.AddHighLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.SniperGun)
                 {
                     CardDescShow += LanguageManager_Common.GetText("KeyWords_SniperGun") + ". ";
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_SniperBulletAttackPlus"), BaseInfo.AddHightLightColorToText(WeaponInfo.Attack.ToString()));
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_SniperBulletPlus"), BaseInfo.AddHightLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_SniperBulletAttackPlus"), BaseInfo.AddHighLightColorToText(WeaponInfo.Attack.ToString()));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_SniperBulletPlus"), BaseInfo.AddHighLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
 
                 break;
@@ -76,12 +76,12 @@
                 if (ShieldInfo.ShieldType == ShieldTypes.Armor)
                 {
                     CardDescShow += LanguageManager_Common.GetText("KeyWords_Armor") + ". ";
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_DefenseDamage"), BaseInfo.AddHightLightColorToText(ShieldInfo.Armor.ToString()));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_DefenseDamage"), BaseInfo.AddHighLightColorToText(ShieldInfo.Armor.ToString()));
                 }
                 else if (ShieldInfo.ShieldType == ShieldTypes.Shield)
                 {
                     CardDescShow += LanguageManager_Common.GetText("KeyWords_Shield") + ". ";
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ReduceDamage"), BaseInfo.AddHightLightColorToText(ShieldInfo.Shield.ToString()));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ReduceDamage"), BaseInfo.AddHighLightColorToText(ShieldInfo.Shield.ToString()));
                 }
 
                 break;
@@ -94,7 +94,7 @@
                 if (PackInfo.DodgeProp != 0)
                 {
                     CardDescShow += LanguageManager_Common.GetText("KeyWords_Dodge") + ". ";
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_PRValue"), BaseInfo.AddHightLightColorToText(PackInfo.DodgeProp + "%"));
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_PRValue"), BaseInfo.AddHighLightColorToText(PackInfo.DodgeProp + "%"));
                 }
 
                 break;

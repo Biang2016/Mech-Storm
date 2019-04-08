@@ -68,7 +68,7 @@ public class CardInfo_Base
 
     public string GetCardDecsTextColor()
     {
-        return AllColors.ColorDict[AllColors.ColorType.CardDecsTextColor];
+        return AllColors.ColorDict[AllColors.ColorType.CardDescTextColor];
     }
 
     public virtual CardInfo_Base Clone()

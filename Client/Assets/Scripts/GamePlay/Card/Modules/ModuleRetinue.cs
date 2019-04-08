@@ -137,10 +137,10 @@ public class ModuleRetinue : ModuleBase
         HideRetinueTypeLooking();
 
         ClientUtils.ChangeCardPicture(Picture, CardInfo.BaseInfo.PictureID);
-        ClientUtils.ChangeColor(WeaponBloom, GameManager.Instance.Slot1Color);
-        ClientUtils.ChangeColor(ShieldBloom, GameManager.Instance.Slot2Color);
-        ClientUtils.ChangeColor(PackBloom, GameManager.Instance.Slot3Color);
-        ClientUtils.ChangeColor(MABloom, GameManager.Instance.Slot4Color);
+        ClientUtils.ChangeColor(WeaponBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.Slot1Color));
+        ClientUtils.ChangeColor(ShieldBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.Slot2Color));
+        ClientUtils.ChangeColor(PackBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.Slot3Color));
+        ClientUtils.ChangeColor(MABloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.Slot4Color));
 
         SideEffectBGCommonIcon.gameObject.SetActive(false);
         SideEffectCommonIcon.gameObject.SetActive(false);
@@ -230,8 +230,8 @@ public class ModuleRetinue : ModuleBase
     public override void ChangeColor(Color color)
     {
         ClientUtils.ChangeEmissionColor(MainBoardRenderer, color, MainboardEmissionIntensity);
-        ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor, 2f);
-        ClientUtils.ChangeColor(RetinueCanAttackBloom, GameManager.Instance.RetinueBloomColor, 2f);
+        ClientUtils.ChangeColor(OnHoverBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.RetinueOnEnemyHoverBloomColor), 2f);
+        ClientUtils.ChangeColor(RetinueCanAttackBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.RetinueBloomColor), 2f);
     }
 
     private int m_RetinueID;
@@ -553,15 +553,15 @@ public class ModuleRetinue : ModuleBase
     {
         if (leftLifeValue < totalLifeValue)
         {
-            LifeText.color = GameManager.Instance.InjuredLifeNumberColor;
+            LifeText.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.InjuredLifeNumberColor);
         }
         else if (leftLifeValue == totalLifeValue && totalLifeValue > CardInfo.LifeInfo.TotalLife)
         {
-            LifeText.color = GameManager.Instance.OverFlowTotalLifeColor;
+            LifeText.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.OverFlowTotalLifeColor);
         }
         else
         {
-            LifeText.color = GameManager.Instance.DefaultLifeNumberColor;
+            LifeText.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.DefaultLifeNumberColor);
         }
 
         LifeText.text = leftLifeValue.ToString();
@@ -1296,14 +1296,14 @@ public class ModuleRetinue : ModuleBase
         dragPurpose = DragPurpose.Target;
     }
 
-    public override float DragComponnet_DragDistance()
+    public override float DragComponent_DragDistance()
     {
         return 0.2f;
     }
 
-    public override void DragComponnet_DragOutEffects()
+    public override void DragComponent_DragOutEffects()
     {
-        base.DragComponnet_DragOutEffects();
+        base.DragComponent_DragOutEffects();
         DragManager.Instance.DragOutDamage = CalculateAttack();
         RoundManager.Instance.ShowRetinueAttackPreviewArrow(this);
     }
@@ -1323,7 +1323,7 @@ public class ModuleRetinue : ModuleBase
             isBeDraggedHover = value;
             if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this))
             {
-                ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
+                ClientUtils.ChangeColor(OnHoverBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.RetinueOnEnemyHoverBloomColor));
                 OnHoverBloom.gameObject.SetActive(value);
             }
         }
@@ -1435,11 +1435,11 @@ public class ModuleRetinue : ModuleBase
             {
                 if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
                 {
-                    ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnEnemyHoverBloomColor);
+                    ClientUtils.ChangeColor(OnHoverBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.RetinueOnEnemyHoverBloomColor));
                 }
                 else
                 {
-                    ClientUtils.ChangeColor(OnHoverBloom, GameManager.Instance.RetinueOnSelfHoverBloomColor);
+                    ClientUtils.ChangeColor(OnHoverBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.RetinueOnSelfHoverBloomColor));
                 }
 
                 OnHoverBloom.gameObject.SetActive(value);

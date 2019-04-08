@@ -30,14 +30,14 @@ internal class SmallBonusItem : BonusItem_Base
             case Bonus.BonusType.LifeUpperLimit:
             {
                 ItemImage.sprite = LifeIcon;
-                ItemImage.color = GameManager.Instance.LifeIconColor;
+                ItemImage.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.LifeIconColor);
                 ItemImage.preserveAspect = true;
                 break;
             }
             case Bonus.BonusType.EnergyUpperLimit:
             {
                 ItemImage.sprite = EnergyIcon;
-                ItemImage.color = GameManager.Instance.EnergyIconColor;
+                ItemImage.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.EnergyIconColor);
                 ItemImage.preserveAspect = true;
                 break;
             }

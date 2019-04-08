@@ -14,6 +14,14 @@ public static class AllCards
     public static Dictionary<int, List<CardInfo_Base>> CardLevelDict = new Dictionary<int, List<CardInfo_Base>>();
     public static Dictionary<int, List<CardInfo_Base>> CardLevelDict_Remain = new Dictionary<int, List<CardInfo_Base>>(); //某等级的卡片还剩哪些还没解锁
 
+    public static void Reset()
+    {
+        CardDict.Clear();
+        CardPicIDDict.Clear();
+        CardLevelDict.Clear();
+        CardLevelDict_Remain.Clear();
+    }
+
     private static void addCard(CardInfo_Base cardInfo)
     {
         if (!CardDict.ContainsKey(cardInfo.CardID)) CardDict.Add(cardInfo.CardID, cardInfo);
@@ -44,9 +52,9 @@ public static class AllCards
         }
 
         CardInfo_Base res = null;
-        if (AllCards.CardLevelDict_Remain.ContainsKey(levelNum))
+        if (CardLevelDict_Remain.ContainsKey(levelNum))
         {
-            List<CardInfo_Base> levelCards = AllCards.CardLevelDict_Remain[levelNum];
+            List<CardInfo_Base> levelCards = CardLevelDict_Remain[levelNum];
             List<CardInfo_Base> removeLevelCards = new List<CardInfo_Base>();
             foreach (CardInfo_Base cb in levelCards)
             {
@@ -100,6 +108,7 @@ public static class AllCards
 
     public static void AddAllCards(string cardsXMLPath)
     {
+        Reset();
         SortedDictionary<string, string> cardNameKeyDict = new SortedDictionary<string, string>();
         foreach (int v in Enum.GetValues(typeof(LanguageShorts)))
         {

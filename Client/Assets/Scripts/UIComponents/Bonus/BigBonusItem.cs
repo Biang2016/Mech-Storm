@@ -33,7 +33,7 @@ internal class BigBonusItem : BonusItem_Base
         {
             case Bonus.BonusType.UnlockCardByID:
             {
-                CurrentCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(bonus.BonusFinalValue), CardContainer, RoundManager.Instance.SelfClientPlayer, false);
+                CurrentCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(bonus.BonusFinalValue), CardContainer, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardReward);
                 CurrentCard.transform.localScale = CardRotationSample.localScale;
                 CurrentCard.transform.rotation = CardRotationSample.rotation;
                 CurrentCard.transform.position = CardRotationSample.position;

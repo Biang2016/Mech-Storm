@@ -112,10 +112,6 @@ internal class BonusButton : PoolObject
         IsSelected = isSelected;
         BorderSelected.enabled = isSelected;
         Particle.gameObject.SetActive(!card && isSelected);
-        if (card)
-        {
-            card.SetBonusCardBloom(isSelected);
-        }
     }
 
     public void OnHover()
@@ -126,14 +122,6 @@ internal class BonusButton : PoolObject
         }
 
         if (IsSelected) return;
-        if (card)
-        {
-            card.SetBonusCardBloom(true);
-        }
-        else
-        {
-            Particle.gameObject.SetActive(true);
-        }
     }
 
     public void OnExit()
@@ -144,13 +132,5 @@ internal class BonusButton : PoolObject
         }
 
         if (IsSelected) return;
-        if (card)
-        {
-            card.SetBonusCardBloom(false);
-        }
-        else
-        {
-            Particle.gameObject.SetActive(false);
-        }
     }
 }

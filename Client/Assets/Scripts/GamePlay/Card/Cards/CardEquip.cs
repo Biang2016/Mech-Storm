@@ -3,11 +3,7 @@ using UnityEngine;
 
 public class CardEquip : CardBase
 {
-    #region 卡牌上各模块
-
     internal SlotTypes M_EquipType;
-
-    #endregion
 
     #region 卡牌交互
 
@@ -77,7 +73,7 @@ public class CardEquip : CardBase
         return false;
     }
 
-    public override float DragComponnet_DragDistance()
+    public override float DragComponent_DragDistance()
     {
         return GameManager.Instance.PullOutCardDistanceThreshold;
     }
