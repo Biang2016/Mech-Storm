@@ -104,11 +104,12 @@ public class CardPreviewPanel : BaseUIForm
             PreviewCardDegrade = null;
         }
 
-        PreviewCard = CardBase.InstantiateCardByCardInfo(PreviewCard_Src.CardInfo, PreviewContent, null, CardBase.CardShowMode.CardUpgradePreview);
+        PreviewCard = CardBase.InstantiateCardByCardInfo(PreviewCard_Src.CardInfo, PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
+        PreviewCard.CardOrder = 1;
         PreviewCard.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
         PreviewCard.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCard.CardInfo.CardID), true);
-        PreviewCard.transform.localScale = Vector3.one * 300;
-        PreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
+        PreviewCard.transform.localScale = Vector3.one * 20;
+        //PreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
         PreviewCard.transform.localPosition = new Vector3(0, 50, 0);
         PreviewCard.ShowCardBloom(true);
         PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"));
@@ -134,11 +135,12 @@ public class CardPreviewPanel : BaseUIForm
 
         if (hasUpgradeCard)
         {
-            PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID), PreviewContent, null, CardBase.CardShowMode.CardUpgradePreview);
+            PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID), PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
+            PreviewCardUpgrade.CardOrder = 1;
             PreviewCardUpgrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardUpgrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardUpgrade.CardInfo.CardID), true);
-            PreviewCardUpgrade.transform.localScale = Vector3.one * 270;
-            PreviewCardUpgrade.transform.rotation = Quaternion.Euler(90, 180, 0);
+            PreviewCardUpgrade.transform.localScale = Vector3.one * 15;
+            //PreviewCardUpgrade.transform.rotation = Quaternion.Euler(90, 180, 0);
             if (PreviewCardUpgrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
             {
                 PreviewCardUpgrade.transform.localPosition = new Vector3(retinueCardPreviewDistance, 50, 0);
@@ -166,11 +168,12 @@ public class CardPreviewPanel : BaseUIForm
 
         if (hasDegradeCard)
         {
-            PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID), PreviewContent, null, CardBase.CardShowMode.CardUpgradePreview);
+            PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID), PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
+            PreviewCardDegrade.CardOrder = 1;
             PreviewCardDegrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardDegrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardDegrade.CardInfo.CardID), true);
-            PreviewCardDegrade.transform.localScale = Vector3.one * 270;
-            PreviewCardDegrade.transform.rotation = Quaternion.Euler(90, 180, 0);
+            PreviewCardDegrade.transform.localScale = Vector3.one * 15;
+            //PreviewCardDegrade.transform.rotation = Quaternion.Euler(90, 180, 0);
             if (PreviewCardDegrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
             {
                 PreviewCardDegrade.transform.localPosition = new Vector3(-retinueCardPreviewDistance, 50, 0);
@@ -255,6 +258,12 @@ public class CardPreviewPanel : BaseUIForm
     public override void Hide()
     {
         base.Hide();
+        PreviewCard?.PoolRecycle();
+        PreviewCardDegrade?.PoolRecycle();
+        PreviewCardUpgrade?.PoolRecycle();
+        PreviewCard = null;
+        PreviewCardDegrade = null;
+        PreviewCardUpgrade = null;
         PreviewCard_Src = null;
         UIManager.Instance.CloseUIForms<AffixPanel>();
     }

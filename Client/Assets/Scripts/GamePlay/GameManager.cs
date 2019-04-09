@@ -18,9 +18,7 @@ public class GameManager : MonoSingleton<GameManager>
     }
 
     public Camera BattleGroundCamera;
-    public Camera ForeGroundCamera;
-    public Camera SelectCardWindowBackCamera;
-    public Camera SelectCardWindowForeCamera;
+    public Camera CardSelectCamera;
 
     #region 游戏全局参数
 

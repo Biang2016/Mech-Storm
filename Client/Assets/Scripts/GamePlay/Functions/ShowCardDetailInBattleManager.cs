@@ -19,7 +19,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
         switch (CardInfo.BaseInfo.CardType)
         {
             case CardTypes.Retinue:
-                detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
+                detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                 detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailRetinueCardSize;
                 detailCard.transform.position = new Vector3(0, 8f, 0);
                 detailCard.transform.Translate(Vector3.left * 5f);
@@ -45,7 +45,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     cardRetinue.Weapon.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Weapon.SetPreview();
 
-                    detailCard_Weapon = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
+                    detailCard_Weapon = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_Weapon.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Weapon.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Weapon.transform.Translate(Vector3.right * 0.5f);
@@ -71,7 +71,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     cardRetinue.Shield.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Shield.SetPreview();
 
-                    detailCard_Shield = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
+                    detailCard_Shield = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_Shield.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Shield.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Shield.transform.Translate(Vector3.right * 0.5f);
@@ -97,7 +97,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     cardRetinue.Pack.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.Pack.SetPreview();
 
-                    detailCard_Pack = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
+                    detailCard_Pack = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_Pack.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_Pack.transform.position = new Vector3(0, 2f, 0);
                     detailCard_Pack.transform.Translate(Vector3.left * 10.5f);
@@ -123,7 +123,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
                     cardRetinue.MA.GetComponent<MouseHoverComponent>().enabled = false;
                     cardRetinue.MA.SetPreview();
 
-                    detailCard_MA = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
+                    detailCard_MA = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, GameBoardManager.Instance.CardDetailPreview.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_MA.transform.localScale = Vector3.one * GameManager.Instance.DetailEquipmentCardSize;
                     detailCard_MA.transform.position = new Vector3(0, 2f, 0);
                     detailCard_MA.transform.Translate(Vector3.left * 10.5f);
@@ -137,7 +137,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
 
                 break;
             case CardTypes.Equip:
-                detailCard = (CardEquip) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
+                detailCard = (CardEquip) CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                 detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailSingleCardSize;
                 detailCard.transform.position = new Vector3(0, 2f, 0);
                 detailCard.transform.Translate(Vector3.left * 3.5f);
@@ -169,7 +169,7 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
 
     public void ShowCardDetail(CardInfo_Base CardInfo, ShowPlaces showPlace = ShowPlaces.RightCenter) //鼠标悬停放大查看原卡牌信息
     {
-        detailCard = CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardPreviewBattle);
+        detailCard = CardBase.InstantiateCardByCardInfo(CardInfo, GameBoardManager.Instance.CardDetailPreview.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
         detailCard.transform.localScale = Vector3.one * GameManager.Instance.DetailSingleCardSize;
         Vector3 targetPos;
         switch (showPlace)

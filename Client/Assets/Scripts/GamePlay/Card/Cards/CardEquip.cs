@@ -15,8 +15,7 @@ public class CardEquip : CardBase
         if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
             foreach (Slot sa in slots)
             {
-                string info = "";
-                if (CheckRetinueCanEquipMe(sa, out info))
+                if (CheckRetinueCanEquipMe(sa, out string info))
                 {
                     summonEquipRequest(sa.M_ModuleRetinue, dragLastPosition);
                     return;

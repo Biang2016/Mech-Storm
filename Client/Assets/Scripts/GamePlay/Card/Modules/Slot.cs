@@ -27,30 +27,24 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
         set
         {
             _mSlotTypes = value;
-            ClientUtils.ChangeSlotColor(SlotLight, value);
-            ClientUtils.ChangeSlotColor(SlotBloom, value);
-            SlotLight.gameObject.SetActive(value != SlotTypes.None);
-            SlotBloom.gameObject.SetActive(value != SlotTypes.None);
+            //ClientUtils.ChangeSlotColor(SlotLight, value);
+            //ClientUtils.ChangeSlotColor(SlotBloom, value);
+            SlotLight.enabled = value != SlotTypes.None;
+            SlotBloom.enabled = value != SlotTypes.None;
         }
     }
 
-    public void ShowSlotBloom(bool isSniper = false)
+    public void ShowSlotBloom(bool isShow, bool isSniper)
     {
-        SlotBloom.gameObject.SetActive(true);
+        SlotBloom.gameObject.SetActive(isShow);
 
         if (isSniper && M_ModuleRetinue)
         {
             if (MSlotTypes == SlotTypes.Weapon && M_ModuleRetinue.CardInfo.RetinueInfo.IsSniper)
             {
-                M_ModuleRetinue.ShowSniperTipText();
+                M_ModuleRetinue?.ShowSniperTipText(isShow);
             }
         }
-    }
-
-    public void HideSlotBloom()
-    {
-        SlotBloom.gameObject.SetActive(false);
-        M_ModuleRetinue?.HideSniperTipText();
     }
 
     public void ShowSlotLight(bool isShow)
@@ -74,7 +68,7 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
             CardEquip cw = DragManager.Instance.CurrentDrag_CardEquip;
             if (cw && cw.ClientPlayer == ClientPlayer)
             {
-                if (_mSlotTypes != SlotTypes.None) ShowSlotBloom();
+                if (_mSlotTypes != SlotTypes.None) ShowSlotBloom(true, false);
             }
         }
     }
@@ -85,7 +79,7 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
 
     public void MouseHoverComponent_OnHover1End()
     {
-        HideSlotBloom();
+        ShowSlotBloom(false, false);
     }
 
     public void MouseHoverComponent_OnHover2Begin(Vector3 mousePosition)
@@ -106,6 +100,6 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
 
     public void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
-        HideSlotBloom();
+        ShowSlotBloom(false, false);
     }
 }

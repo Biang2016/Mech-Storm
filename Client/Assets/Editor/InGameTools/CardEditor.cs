@@ -14,7 +14,6 @@ public class CardBaseEditor : Editor
         LoadSpriteAtlas_Editor();
     }
 
-
     [MenuItem("CardEditor/ReloadConfigs")]
     public static void ReloadConfigs()
     {
@@ -68,7 +67,7 @@ public class CardBaseEditor : Editor
         {
             CardBase.CardOrder = cardOrder;
             CardInfo_Base ci = AllCards.GetCard(previewCardID);
-            if (ci != null) CardBase.Initiate(ci, null, CardBase.CardShowMode.ShowCard);
+            if (ci != null) CardBase.Initiate(ci, CardBase.CardShowMode.ShowCard);
         }
     }
 }

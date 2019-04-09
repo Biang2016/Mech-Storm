@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Common\CameraEffects\ImageEffectBlurBox.cs" />
+     <Compile Include="Assets\Scripts\Common\CardEditorInitialization.cs" />
      <Compile Include="Assets\Scripts\Common\ClientUtils.cs" />
      <Compile Include="Assets\Scripts\Common\Initialization.cs" />
      <Compile Include="Assets\Scripts\Common\iTween.cs" />
@@ -67,8 +68,6 @@
      <Compile Include="Assets\Scripts\Common\PrefabManager.cs" />
      <Compile Include="Assets\Scripts\Common\UI\DebugUILine.cs" />
      <Compile Include="Assets\Scripts\Common\UI\InputNavigator.cs" />
-     <Compile Include="Assets\Scripts\Common\UI\ScreenFitness.cs" />
-     <Compile Include="Assets\Scripts\Common\UI\ScreenSetting.cs" />
      <Compile Include="Assets\Scripts\Common\UI\UIFramework\BaseUIForm.cs" />
      <Compile Include="Assets\Scripts\Common\UI\UIFramework\EventTriggerListener.cs" />
      <Compile Include="Assets\Scripts\Common\UI\UIFramework\UIDefines.cs" />
@@ -97,6 +96,7 @@
      <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardDeckCard.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardEquip.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardRetinue.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardSelectWindowCardContainer.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardSpell.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\Cards\ColliderReplace.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardBackComponent.cs" />
@@ -169,6 +169,7 @@
      <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\TargetSideEffectToEquip\BreakEquip.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\UseAllEnergyDamageShip.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\CardEditorManager.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Functions\AffixPanel.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Functions\AudioManager.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Functions\NoticeManager.cs" />
@@ -182,6 +183,7 @@
      <Compile Include="Assets\Scripts\GamePlay\SelectBuild\SelectBuildManager.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Storyline\StoryManager.cs" />
      <Compile Include="Assets\Scripts\GamePlay\UIWindows\BattleResultPanel.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\UIWindows\CardEditorPanel.cs" />
      <Compile Include="Assets\Scripts\GamePlay\UIWindows\CardPreviewPanel.cs" />
      <Compile Include="Assets\Scripts\GamePlay\UIWindows\ExitMenuPanel.cs" />
      <Compile Include="Assets\Scripts\GamePlay\UIWindows\GameBoardUIPanel.cs" />

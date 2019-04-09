@@ -85,7 +85,7 @@ public class UIMaskMgr : MonoSingleton<UIMaskMgr>
         if (BlurShowCoroutine != null) StopCoroutine(BlurShowCoroutine);
         GameManager.Instance.StartBlurBackGround(duration);
         float blurSizeStart = 0f;
-        float blurSizeEnd = 128f;
+        float blurSizeEnd = 2f;
         int frame = Mathf.RoundToInt(duration / 0.05f);
         for (int i = 0; i < frame; i++)
         {

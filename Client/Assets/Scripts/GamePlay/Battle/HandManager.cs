@@ -246,7 +246,7 @@ public class HandManager : MonoBehaviour
     IEnumerator SubCo_GetCard(int indexNumber, int totalCardNumber, DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId, float duration) //animation of draw single card
     {
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardIdAndInstanceId.CardId);
-        CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, ClientPlayer, CardBase.CardShowMode.HandCard);
+        CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, CardBase.CardShowMode.HandCard, ClientPlayer);
         newCardBase.M_CardInstanceId = cardIdAndInstanceId.CardInstanceId;
 
         cards.Add(newCardBase);
@@ -332,7 +332,7 @@ public class HandManager : MonoBehaviour
                     iTween.ScaleTo(lastShowCard.gameObject, lastShowCardMoveBeneath);
                 }
 
-                currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, ClientPlayer, CardBase.CardShowMode.ShowCard);
+                currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, CardBase.CardShowMode.ShowCard, ClientPlayer);
                 currentShowCard.transform.position = cardBase.transform.position;
                 currentShowCard.transform.rotation = cardBase.transform.rotation;
                 currentShowCard.transform.localScale = cardBase.transform.localScale;

@@ -14,13 +14,24 @@ public class CardStarsComponent : CardComponentBase
         }
     }
 
-    public void SetStarNumber(int number)
+    public void SetStarNumber(int number, int maxNumber)
     {
+        if (maxNumber == 1)
+        {
+            foreach (SpriteRenderer star in Stars)
+            {
+                star?.gameObject.SetActive(false);
+            }
+
+            return;
+        }
+
         for (int i = 0; i < Stars.Length; i++)
         {
             if (Stars[i] != null)
             {
                 Stars[i].color = i < number ? Color.white : Color.black;
+                Stars[i].gameObject.SetActive(i < maxNumber);
             }
         }
     }
@@ -31,7 +42,7 @@ public class CardStarsComponent : CardComponentBase
     {
         foreach (SpriteRenderer star in Stars)
         {
-            star.sortingOrder = cardSortingIndex * 50 +  StarDefaultSortingOrder;
+            star.sortingOrder = cardSortingIndex * 50 + StarDefaultSortingOrder;
         }
     }
 }

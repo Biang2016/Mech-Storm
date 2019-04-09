@@ -137,10 +137,6 @@ public class ModuleRetinue : ModuleBase
         HideRetinueTypeLooking();
 
         ClientUtils.ChangeCardPicture(Picture, CardInfo.BaseInfo.PictureID);
-        ClientUtils.ChangeColor(WeaponBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.Slot1Color));
-        ClientUtils.ChangeColor(ShieldBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.Slot2Color));
-        ClientUtils.ChangeColor(PackBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.Slot3Color));
-        ClientUtils.ChangeColor(MABloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.Slot4Color));
 
         SideEffectBGCommonIcon.gameObject.SetActive(false);
         SideEffectCommonIcon.gameObject.SetActive(false);
@@ -1248,15 +1244,11 @@ public class ModuleRetinue : ModuleBase
         TargetPreviewArrowShow = false;
     }
 
-    public void ShowSniperTipText()
+    public void ShowSniperTipText(bool isShow)
     {
-        SniperTipText.enabled = true;
+        SniperTipText.enabled = isShow;
     }
 
-    public void HideSniperTipText()
-    {
-        SniperTipText.enabled = false;
-    }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {

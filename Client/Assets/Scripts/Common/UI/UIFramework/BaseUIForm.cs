@@ -7,31 +7,41 @@ public class BaseUIForm : MonoBehaviour
 
     #region  窗体的四种(生命周期)状态
 
-    void Update()
+    protected virtual void Update()
     {
-        if (UIType.IsESCClose)
+        BaseUIForm peek = UIManager.Instance.GetPeekUIForm();
+        if (peek == null || peek == this)
         {
-            if (Input.GetKeyUp(KeyCode.Escape))
+            if (UIType.IsESCClose)
             {
-                CloseUIForm();
-                return;
+                if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    CloseUIForm();
+                    return;
+                }
             }
-        }
 
-        if (UIType.IsClickElsewhereClose)
-        {
-            bool isClickElseWhere = (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) || Input.GetMouseButtonDown(1);
-            if (isClickElseWhere)
+            if (UIType.IsClickElsewhereClose)
             {
-                CloseUIForm();
+                bool isClickElseWhere = (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) || Input.GetMouseButtonDown(1);
+                if (isClickElseWhere)
+                {
+                    CloseUIForm();
+                    return;
+                }
             }
+
+            ChildUpdate();
         }
+    }
+
+    protected virtual void ChildUpdate()
+    {
     }
 
     public virtual void Display()
     {
         gameObject.SetActive(true);
-        //设置模态窗体调用(必须是弹出窗体)
         UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
     }
 

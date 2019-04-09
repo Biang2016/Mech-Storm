@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5690998763005455441}
   - component: {fileID: 5690998763005455466}
   - component: {fileID: 5690998763005455445}
-  - component: {fileID: 5690998763005455447}
   - component: {fileID: 5690998763005455446}
   - component: {fileID: 5690998763005455444}
   m_Layer: 8
@@ -85,22 +84,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5690998763005455447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690998763005455440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlotLight: {fileID: 0}
-  SlotBloom: {fileID: 0}
-  SlotLightSG: {fileID: 0}
-  SlotBloomSG: {fileID: 0}
 --- !u!114 &5690998763005455446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +185,6 @@ GameObject:
   - component: {fileID: 5690998763140905412}
   - component: {fileID: 5690998763140905432}
   - component: {fileID: 5690998763140905435}
-  - component: {fileID: 5690998763140905434}
   - component: {fileID: 5690998763140905413}
   m_Layer: 8
   m_Name: MABloom
@@ -275,22 +257,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5690998763140905434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690998763140905415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlotLight: {fileID: 0}
-  SlotBloom: {fileID: 0}
-  SlotLightSG: {fileID: 0}
-  SlotBloomSG: {fileID: 0}
 --- !u!210 &5690998763140905413
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -380,7 +346,6 @@ GameObject:
   - component: {fileID: 5690998763772057743}
   - component: {fileID: 5690998763772057731}
   - component: {fileID: 5690998763772057730}
-  - component: {fileID: 5690998763772057741}
   - component: {fileID: 5690998763772057740}
   m_Layer: 8
   m_Name: ShieldBloom
@@ -453,22 +418,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5690998763772057741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690998763772057742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlotLight: {fileID: 0}
-  SlotBloom: {fileID: 0}
-  SlotLightSG: {fileID: 0}
-  SlotBloomSG: {fileID: 0}
 --- !u!210 &5690998763772057740
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -558,7 +507,6 @@ GameObject:
   - component: {fileID: 5690998764317824453}
   - component: {fileID: 5690998764317824478}
   - component: {fileID: 5690998764317824473}
-  - component: {fileID: 5690998764317824472}
   - component: {fileID: 5690998764317824475}
   - component: {fileID: 5690998764317824474}
   m_Layer: 8
@@ -632,22 +580,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5690998764317824472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690998764317824452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlotLight: {fileID: 0}
-  SlotBloom: {fileID: 0}
-  SlotLightSG: {fileID: 0}
-  SlotBloomSG: {fileID: 0}
 --- !u!114 &5690998764317824475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,7 +681,6 @@ GameObject:
   - component: {fileID: 5690998764344771137}
   - component: {fileID: 5690998764344771162}
   - component: {fileID: 5690998764344771141}
-  - component: {fileID: 5690998764344771140}
   - component: {fileID: 5690998764344771143}
   - component: {fileID: 5690998764344771142}
   m_Layer: 8
@@ -823,22 +754,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5690998764344771140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690998764344771136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlotLight: {fileID: 0}
-  SlotBloom: {fileID: 0}
-  SlotLightSG: {fileID: 0}
-  SlotBloomSG: {fileID: 0}
 --- !u!114 &5690998764344771143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -873,7 +788,6 @@ GameObject:
   - component: {fileID: 5690998764349274119}
   - component: {fileID: 5690998764349274139}
   - component: {fileID: 5690998764349274138}
-  - component: {fileID: 5690998764349274116}
   - component: {fileID: 5690998764349274117}
   m_Layer: 8
   m_Name: WeaponBloom
@@ -946,22 +860,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5690998764349274116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690998764349274118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlotLight: {fileID: 0}
-  SlotBloom: {fileID: 0}
-  SlotLightSG: {fileID: 0}
-  SlotBloomSG: {fileID: 0}
 --- !u!210 &5690998764349274117
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -984,7 +882,6 @@ GameObject:
   - component: {fileID: 5690998764386498584}
   - component: {fileID: 5690998764386498589}
   - component: {fileID: 5690998764386498588}
-  - component: {fileID: 5690998764386498591}
   - component: {fileID: 5690998764386498590}
   - component: {fileID: 5690998764386498585}
   m_Layer: 8
@@ -1058,22 +955,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5690998764386498591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690998764386498587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlotLight: {fileID: 0}
-  SlotBloom: {fileID: 0}
-  SlotLightSG: {fileID: 0}
-  SlotBloomSG: {fileID: 0}
 --- !u!114 &5690998764386498590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,7 +989,6 @@ GameObject:
   - component: {fileID: 5690998764518029577}
   - component: {fileID: 5690998764518029581}
   - component: {fileID: 5690998764518029580}
-  - component: {fileID: 5690998764518029583}
   - component: {fileID: 5690998764518029582}
   m_Layer: 8
   m_Name: PackBloom
@@ -1181,22 +1061,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5690998764518029583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690998764518029576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e5a854430220154b919b12d85254d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlotLight: {fileID: 0}
-  SlotBloom: {fileID: 0}
-  SlotLightSG: {fileID: 0}
-  SlotBloomSG: {fileID: 0}
 --- !u!210 &5690998764518029582
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -1219,7 +1083,7 @@ GameObject:
   - component: {fileID: 5613459241606882100}
   - component: {fileID: 3001730513848894013}
   m_Layer: 8
-  m_Name: SlotsComponent
+  m_Name: CardSlotsComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

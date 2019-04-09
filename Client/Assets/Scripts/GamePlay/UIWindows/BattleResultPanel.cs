@@ -337,7 +337,7 @@ internal class BattleResultPanel : BaseUIForm
             CurrentPreivewCard = null;
         }
 
-        CurrentPreivewCard = CardBase.InstantiateCardByCardInfo(cb, CardPreviewContainer, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardReward);
+        CurrentPreivewCard = CardBase.InstantiateCardByCardInfo(cb, CardPreviewContainer, CardBase.CardShowMode.CardReward, RoundManager.Instance.SelfClientPlayer);
         CurrentPreivewCard.transform.localScale = CardRotationSample.localScale;
         CurrentPreivewCard.transform.rotation = CardRotationSample.rotation;
         Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -435,13 +435,13 @@ internal class BattleResultPanel : BaseUIForm
         if (Cur_BaseCard != null) Cur_BaseCard.PoolRecycle();
         if (Cur_UpgradeCard != null) Cur_UpgradeCard.PoolRecycle();
         isOneCardUpgradeShowOver = false;
-        Cur_BaseCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(baseCardID), CardUpgradeUnlockCardContainter, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardUpgradeAnim);
+        Cur_BaseCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(baseCardID), CardUpgradeUnlockCardContainter, CardBase.CardShowMode.CardUpgradeAnim, RoundManager.Instance.SelfClientPlayer);
         Cur_BaseCard.transform.position = CardUpgradeUnlockCardSample.position;
         Cur_BaseCard.transform.rotation = CardUpgradeUnlockCardSample.rotation;
         Cur_BaseCard.transform.localScale = CardUpgradeUnlockCardSample.localScale;
         Cur_BaseCard.SetOrderInLayer(20);
         Cur_BaseCard.BeBrightColor();
-        Cur_UpgradeCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(upgradeCardID), CardUpgradeUnlockCardContainter_Upgrade, RoundManager.Instance.SelfClientPlayer, CardBase.CardShowMode.CardUpgradeAnim);
+        Cur_UpgradeCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(upgradeCardID), CardUpgradeUnlockCardContainter_Upgrade, CardBase.CardShowMode.CardUpgradeAnim, RoundManager.Instance.SelfClientPlayer);
         Cur_UpgradeCard.transform.position = CardUpgradeUnlockCardSample_Upgrade.position;
         Cur_UpgradeCard.transform.rotation = CardUpgradeUnlockCardSample_Upgrade.rotation;
         Cur_UpgradeCard.transform.localScale = CardUpgradeUnlockCardSample_Upgrade.localScale;

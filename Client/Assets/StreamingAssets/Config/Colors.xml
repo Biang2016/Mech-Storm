@@ -24,10 +24,6 @@
   <Color name="RetinueBloomColor" color="#06FF00" intensity="1"></Color>
   <Color name="RetinueOnEnemyHoverBloomColor" color="#FF0000" intensity="1"></Color>
   <Color name="RetinueOnSelfHoverBloomColor" color="#FFF69F" intensity="1"></Color>
-  <Color name="Slot1Color" color="#FF0000" intensity="1"></Color>
-  <Color name="Slot2Color" color="#FFED00" intensity="1"></Color>
-  <Color name="Slot3Color" color="#0049BC" intensity="1"></Color>
-  <Color name="Slot4Color" color="#7F8AFF" intensity="1"></Color>
   <Color name="DefaultLifeNumberColor" color="#FFFFFF" intensity="1"></Color>
   <Color name="InjuredLifeNumberColor" color="#E2FF00" intensity="1"></Color>
   <Color name="OverFlowTotalLifeColor" color="#00FF28" intensity="1"></Color>

@@ -4,13 +4,16 @@ using UnityEngine;
 
 public partial class SelectBuildPanel : BaseUIForm
 {
-    private int cardSelectLayer;
+    private int cardsLayer;
 
     [SerializeField] private Animator SelectWindowShowAnim;
+    [SerializeField] private Transform LeftWindowTransform;
+    [SerializeField] private Transform CenterWindowTransform;
+    [SerializeField] private Transform RightWindowTransform;
 
     void Awake()
     {
-        cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
+        cardsLayer = 1 << LayerMask.NameToLayer("Cards");
 
         UIType.IsClearStack = false;
         UIType.IsClickElsewhereClose = false;
@@ -26,8 +29,9 @@ public partial class SelectBuildPanel : BaseUIForm
         Init();
     }
 
-    void Update()
+    protected override void ChildUpdate()
     {
+        base.ChildUpdate();
         Update_Cards();
     }
 
@@ -52,9 +56,20 @@ public partial class SelectBuildPanel : BaseUIForm
 
     private GamePlaySettings CurrentGamePlaySettings => SelectBuildManager.Instance.CurrentGamePlaySettings;
 
+    public override void Display()
+    {
+        if (!gameObject.activeInHierarchy)
+        {
+            gameObject.SetActive(true);
+            //TODO 加载等待标志
+        }
+        UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
+        SelectWindowShowAnim.SetTrigger("Show");
+    }
+
     public override void Hide()
     {
-        base.Hide();
+        UIMaskMgr.Instance.CancelMaskWindow();
         SelectWindowShowAnim.SetTrigger("Reset");
         SelectBuildManager.Instance.OnSaveBuildInfo(CurrentEditBuildButton.BuildInfo);
         UIManager.Instance.CloseUIForms<AffixPanel>();
@@ -63,6 +78,7 @@ public partial class SelectBuildPanel : BaseUIForm
     }
 
     public Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>(); // 所有卡片都放入窗口，按需隐藏
+    public Dictionary<int, PoolObject> allCardContainers = new Dictionary<int, PoolObject>(); // 每张卡片都有一个容器
     public Dictionary<int, CardBase> allShownCards = new Dictionary<int, CardBase>(); // 所有显示的卡片
 
     private void Init()

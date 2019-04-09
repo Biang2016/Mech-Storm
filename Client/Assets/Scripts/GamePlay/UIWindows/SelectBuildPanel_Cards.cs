@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public partial class SelectBuildPanel
 {
     [SerializeField] private Transform AllCardsContainer;
+    [SerializeField] private GridLayoutGroup CardGridLayoutGroup;
     [SerializeField] private Text CardLibraryText;
 
     [SerializeField] private Button SelectAllButton;
@@ -52,18 +53,19 @@ public partial class SelectBuildPanel
 
     void Update_Cards()
     {
+        Ray ray = GameManager.Instance.CardSelectCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycast;
         if (Input.GetMouseButtonDown(0))
         {
-            mouseDownPosition = Input.mousePosition;
-            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycast;
-            Physics.Raycast(ray, out raycast, 500f, cardSelectLayer);
-            if (raycast.collider != null)
+            Physics.Raycast(ray, out raycast, 500f, cardsLayer);
+            if (raycast.collider)
             {
                 CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
                 if (card)
                 {
+                    mouseDownPosition = Input.mousePosition;
                     mouseLeftDownCard = card;
+                    Debug.Log("Click card left");
                 }
             }
             else
@@ -75,20 +77,15 @@ public partial class SelectBuildPanel
 
         if (Input.GetMouseButtonDown(1))
         {
-            mouseDownPosition = Input.mousePosition;
-            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycast;
-            Physics.Raycast(ray, out raycast, 500f, cardSelectLayer);
+            Physics.Raycast(ray, out raycast, 500f, cardsLayer);
             if (raycast.collider != null)
             {
                 CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
                 if (card)
                 {
+                    mouseDownPosition = Input.mousePosition;
                     mouseRightDownCard = card;
-                }
-                else
-                {
-                    mouseRightDownCard = null;
+                    Debug.Log("Click card right");
                 }
             }
             else
@@ -100,14 +97,13 @@ public partial class SelectBuildPanel
 
         if (Input.GetMouseButtonUp(0))
         {
-            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycast;
-            Physics.Raycast(ray, out raycast, 500f, cardSelectLayer);
+            Physics.Raycast(ray, out raycast, 500f, cardsLayer);
             if (raycast.collider != null)
             {
                 CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
                 if (card)
                 {
+                    Debug.Log("Click up card left");
                     if ((Input.mousePosition - mouseDownPosition).magnitude < 50)
                     {
                         if (mouseLeftDownCard == card)
@@ -128,14 +124,13 @@ public partial class SelectBuildPanel
 
         if (Input.GetMouseButtonUp(1))
         {
-            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycast;
-            Physics.Raycast(ray, out raycast, 500f, cardSelectLayer);
+            Physics.Raycast(ray, out raycast, 500f, cardsLayer);
             if (raycast.collider != null)
             {
                 CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
                 if (Input.GetMouseButtonUp(1))
                 {
+                    Debug.Log("Click up card right");
                     if (card && mouseRightDownCard == card)
                     {
                         UIManager.Instance.ShowUIForms<CardPreviewPanel>().ShowPreviewCardPanel(card, IsReadOnly);
@@ -178,18 +173,20 @@ public partial class SelectBuildPanel
 
     public void AddCardIntoCardSelectWindow(CardInfo_Base cardInfo)
     {
-        CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, AllCardsContainer, null, CardBase.CardShowMode.CardSelect);
-        RefreshCardInSelectWindow(newCard, false);
-        allCards.Add(newCard.CardInfo.CardID, newCard);
+        CardSelectWindowCardContainer newCardContainer = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardSelectWindowCardContainer].AllocateGameObject<CardSelectWindowCardContainer>(AllCardsContainer);
+        newCardContainer.Initialize(cardInfo);
+        RefreshCardInSelectWindow(newCardContainer, false);
+        allCards.Add(cardInfo.CardID, newCardContainer.M_ChildCard);
+        allCardContainers.Add(cardInfo.CardID, newCardContainer);
     }
 
     #region 卡片的隐藏与显示
 
     private void HideAllCards()
     {
-        foreach (CardBase cardBase in allCards.Values)
+        foreach (CardSelectWindowCardContainer ccc in allCardContainers.Values)
         {
-            cardBase.gameObject.SetActive(false);
+            ccc.gameObject.SetActive(false);
         }
 
         allShownCards.Clear();
@@ -201,7 +198,7 @@ public partial class SelectBuildPanel
         if (!allShownCards.ContainsKey(cardID))
         {
             allShownCards.Add(cardID, cb);
-            cb.gameObject.SetActive(true);
+            allCardContainers[cardID].gameObject.SetActive(true);
         }
     }
 
@@ -261,7 +258,7 @@ public partial class SelectBuildPanel
                         allShownCards.Add(CardID, cb);
                     }
 
-                    cb.gameObject.SetActive(true);
+                    allCardContainers[CardID].gameObject.SetActive(true);
                 }
                 else
                 {
@@ -270,18 +267,18 @@ public partial class SelectBuildPanel
                         if (CardLimitCount > 0)
                         {
                             allShownCards.Add(CardID, cb);
-                            cb.gameObject.SetActive(true);
+                            allCardContainers[CardID].gameObject.SetActive(true);
                         }
                         else
                         {
-                            cb.gameObject.SetActive(false);
+                            allCardContainers[CardID].gameObject.SetActive(false);
                         }
                     }
                     else
                     {
                         if (CardLimitCount == 0)
                         {
-                            cb.gameObject.SetActive(false);
+                            allCardContainers[CardID].gameObject.SetActive(false);
                             allShownCards.Remove(CardID);
                         }
                     }
@@ -331,7 +328,7 @@ public partial class SelectBuildPanel
 
             foreach (int cardID in removeCards)
             {
-                allShownCards[cardID].gameObject.SetActive(false);
+                allCardContainers[cardID].gameObject.SetActive(false);
                 allShownCards.Remove(cardID);
             }
         }
@@ -347,22 +344,20 @@ public partial class SelectBuildPanel
         }
     }
 
-    private static void RefreshCardInSelectWindow(CardBase newCard, bool isSelected)
+    private static void RefreshCardInSelectWindow(CardSelectWindowCardContainer container, bool isSelected)
     {
-        newCard.transform.localScale = Vector3.one * 120;
-        newCard.transform.rotation = Quaternion.Euler(90, 180, 0);
         if (isSelected)
         {
-            newCard.BeBrightColor();
+            container.M_ChildCard.BeBrightColor();
         }
         else
         {
-            newCard.BeDimColor();
+            container.M_ChildCard.BeDimColor();
         }
 
-        if (newCard.CardInfo.BaseInfo.LimitNum == 0)
+        if (container.M_ChildCard.CardInfo.BaseInfo.LimitNum == 0)
         {
-            newCard.gameObject.SetActive(false);
+            container.gameObject.SetActive(false);
         }
     }
 

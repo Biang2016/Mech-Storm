@@ -17,7 +17,7 @@ public class PreviewPanelBG : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                Ray ray = GameManager.Instance.SelectCardWindowForeCamera.ScreenPointToRay(Input.mousePosition);
+                Ray ray = GameManager.Instance.BattleGroundCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit[] raycasts = Physics.RaycastAll(ray, 10f, UXLayer);
 
                 PreviewPanelBG positivePreviewPanelBG = null;

@@ -15,10 +15,12 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     {
         iTween.Stop(gameObject);
         ResetColliderAndReplace();
+        CardOrder = 0;
         Usable = false;
         base.PoolRecycle();
-        transform.localScale = Vector3.one * 2;
-        transform.rotation = Quaternion.Euler(0, -180, 0);
+        transform.localScale = Vector3.one;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.Rotate(Vector3.up, 180);
         DragComponent.enabled = true;
     }
 
@@ -70,18 +72,15 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
 
         //TODO 特例
-        switch (value)
-        {
-            case CardShowMode.CardBack:
-            {
-                break;
-            }
-        }
+        ShowAllSlotBlooms(value != CardShowMode.CardSelect);
+        if (value == CardShowMode.CardSelect) ResetCoinPosition();
+        if (value == CardShowMode.SelectedCardPreview || value == CardShowMode.CardUpgradePreview) RefreshCoinPosition();
+        ShowCardBloom(value != CardShowMode.CardSelect);
 
         M_CardShowMode = value;
     }
 
-    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, ClientPlayer clientPlayer, CardShowMode cardShowMode)
+    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, Transform parent, CardShowMode cardShowMode, ClientPlayer clientPlayer = null)
     {
         CardBase newCard;
 
@@ -105,7 +104,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
                 break;
         }
 
-        newCard.Initiate(cardInfo, clientPlayer, cardShowMode);
+        newCard.Initiate(cardInfo, cardShowMode, clientPlayer);
         return newCard;
     }
 
@@ -134,27 +133,24 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         cardOrder = value;
     }
 
-    public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, CardShowMode cardShowMode)
+    public virtual void Initiate(CardInfo_Base cardInfo, CardShowMode cardShowMode, ClientPlayer clientPlayer = null)
     {
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo.Clone();
         SetCardShowMode(cardShowMode);
-
-        //transform.localScale = Vector3.one * 120;
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        //transform.Rotate(Vector3.up, 180);
-
-#if !UNITY_EDITOR
+        transform.Rotate(Vector3.up, 180);
+//#if !UNITY_EDITOR
         Usable = false;
         DragComponent.enabled = true;
         M_BoxCollider.enabled = true;
-#endif
+//#endif
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
         string cur_Language = "zh";
-#if !UNITY_EDITOR
+//#if !UNITY_EDITOR
         cur_Language = LanguageManager.Instance.GetCurrentLanguage();
-#endif
+//#endif
         M_Name = CardInfo.BaseInfo.CardNames[cur_Language] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
         M_Desc = CardInfo.GetCardDescShow();
 
@@ -170,7 +166,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardDescComponent?.SetCardTypeTextColor(ClientUtils.ChangeColorToWhite(cardColor, 0.3f));
         SetBannerType(CardNoticeComponent.BannerTypes.None);
         SetArrowType(CardNoticeComponent.ArrowTypes.None);
-        SetStarNumber(CardInfo.UpgradeInfo.CardLevel);
+        SetStarNumber(CardInfo.UpgradeInfo.CardLevel, CardInfo.UpgradeInfo.CardLevelMax);
     }
 
     #region 属性
@@ -350,7 +346,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardSelectCountComponent?.SetForceShow(forceShow);
     }
 
-    public void SetSelectCountBlockPosition()
+    public void RefreshSelectCountBlockPosition()
     {
         if (CardInfo.RetinueInfo.HasSlotType(SlotTypes.MA))
         {
@@ -362,9 +358,14 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
     }
 
-    private void SetStarNumber(int starNumber)
+    public void ResetSelectCountBlockPosition()
     {
-        CardStarsComponent?.SetStarNumber(starNumber);
+        CardSelectCountComponent?.SetPosition(CardSelectCountComponent.Position.Higher);
+    }
+
+    private void SetStarNumber(int starNumber, int starMaxNumber)
+    {
+        CardStarsComponent?.SetStarNumber(starNumber, starMaxNumber);
     }
 
     public void SetBannerType(CardNoticeComponent.BannerTypes bannerType)
@@ -395,14 +396,19 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
     }
 
+    public void ResetCoinPosition()
+    {
+        CardCoinComponent?.SetPosition(CardCoinComponent.Position.Higher);
+    }
+
     public void ShowAllSlotLights(bool isShow)
     {
-        CardSlotsComponent.ShowAllSlotLights(isShow);
+        CardSlotsComponent?.ShowAllSlotLights(isShow);
     }
 
     public void ShowAllSlotBlooms(bool isShow)
     {
-        CardSlotsComponent.ShowAllSlotBlooms(isShow);
+        CardSlotsComponent?.ShowAllSlotBlooms(isShow);
     }
 
     protected void SetLifeText(int value)

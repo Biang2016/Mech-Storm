@@ -1300,7 +1300,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 672, y: 404}
+  m_SizeDelta: {x: 1000, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3097572456409409616
 CanvasRenderer:
@@ -1359,7 +1359,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb86b5889b6c584fbdc8c33039966f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SettingMenuCanvas: {fileID: 0}
   MasterSliderText: {fileID: 1888994278726895082}
   SoundSliderText: {fileID: 516345643220529207}
   BGMSliderText: {fileID: 3112900318994842402}

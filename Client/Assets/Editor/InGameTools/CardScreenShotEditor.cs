@@ -14,7 +14,7 @@ public class CardScreenShotEditor : ScriptableObject
             cpp?.ShowPreviewCardPanel(kv.Value, false);
             cpp?.HideOtherThingsExceptShowCard();
 
-            Camera camera = GameManager.Instance.SelectCardWindowForeCamera;
+            Camera camera = GameManager.Instance.BattleGroundCamera;
             RenderTexture rt = new RenderTexture(Screen.width, Screen.height, 0);
 
             camera.targetTexture = rt;

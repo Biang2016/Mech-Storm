@@ -144,19 +144,19 @@ public class ClientUtils
         {
             case SlotTypes.Weapon:
                 //mpb.SetColor("_Color", GetColorFromColorDict(AllColors.ColorType.Slot1Color));
-                mpb.SetColor("_EmissionColor", GetColorFromColorDict(AllColors.ColorType.Slot1Color));
+                //mpb.SetColor("_EmissionColor", GetColorFromColorDict(AllColors.ColorType.Slot1Color));
                 break;
             case SlotTypes.Shield:
                 //mpb.SetColor("_Color", GetColorFromColorDict(AllColors.ColorType.Slot2Color));
-                mpb.SetColor("_EmissionColor", GetColorFromColorDict(AllColors.ColorType.Slot2Color));
+                //mpb.SetColor("_EmissionColor", GetColorFromColorDict(AllColors.ColorType.Slot2Color));
                 break;
             case SlotTypes.Pack:
                 //mpb.SetColor("_Color", GetColorFromColorDict(AllColors.ColorType.Slot3Color));
-                mpb.SetColor("_EmissionColor", GetColorFromColorDict(AllColors.ColorType.Slot3Color));
+                //mpb.SetColor("_EmissionColor", GetColorFromColorDict(AllColors.ColorType.Slot3Color));
                 break;
             case SlotTypes.MA:
                 //mpb.SetColor("_Color", GetColorFromColorDict(AllColors.ColorType.Slot4Color));
-                mpb.SetColor("_EmissionColor", GetColorFromColorDict(AllColors.ColorType.Slot4Color));
+                //mpb.SetColor("_EmissionColor", GetColorFromColorDict(AllColors.ColorType.Slot4Color));
                 break;
             default:
                 rd.gameObject.SetActive(false);
@@ -172,16 +172,16 @@ public class ClientUtils
         switch (slotTypes)
         {
             case SlotTypes.Weapon:
-                img.color = GetColorFromColorDict(AllColors.ColorType.Slot1Color) * intensity;
+                //img.color = GetColorFromColorDict(AllColors.ColorType.Slot1Color) * intensity;
                 break;
             case SlotTypes.Shield:
-                img.color = GetColorFromColorDict(AllColors.ColorType.Slot2Color) * intensity;
+                //img.color = GetColorFromColorDict(AllColors.ColorType.Slot2Color) * intensity;
                 break;
             case SlotTypes.Pack:
-                img.color = GetColorFromColorDict(AllColors.ColorType.Slot3Color) * intensity;
+                //img.color = GetColorFromColorDict(AllColors.ColorType.Slot3Color) * intensity;
                 break;
             case SlotTypes.MA:
-                img.color = GetColorFromColorDict(AllColors.ColorType.Slot4Color) * intensity;
+                //img.color = GetColorFromColorDict(AllColors.ColorType.Slot4Color) * intensity;
                 break;
             default:
                 img.enabled = false;

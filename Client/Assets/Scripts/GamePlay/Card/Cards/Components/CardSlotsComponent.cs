@@ -39,7 +39,7 @@
         {
             if (slot != null)
             {
-                slot.ShowSlotBloom(isShow);
+                slot.ShowSlotBloom(isShow, false);
             }
         }
     }

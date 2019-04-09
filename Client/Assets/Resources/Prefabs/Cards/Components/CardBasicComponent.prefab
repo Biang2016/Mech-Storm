@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 1072631611551565827}
   - component: {fileID: 1065425885526815503}
   - component: {fileID: 896402643816481493}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CardBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ RectTransform:
   m_GameObject: {fileID: 5045558908906271648}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.5, y: 4.5658774, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1052292593246700742}
   m_RootOrder: 3
@@ -418,8 +418,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 2.3500001, y: 2.71}
+  m_DrawMode: 1
+  m_Size: {x: 10.575, y: 12.37}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

@@ -290,7 +290,7 @@ public partial class SelectBuildPanel
             currentPreviewCardContainer.position = CurrentPreviewCardMinPivot.position;
         }
 
-        currentPreviewCard = CardBase.InstantiateCardByCardInfo(selectCard.CardInfo.Clone(), currentPreviewCardContainer, null, CardBase.CardShowMode.SelectedCardPreview);
+        currentPreviewCard = CardBase.InstantiateCardByCardInfo(selectCard.CardInfo.Clone(), currentPreviewCardContainer, CardBase.CardShowMode.SelectedCardPreview);
         currentPreviewCard.transform.localPosition = new Vector3(-180f, 0, -290);
         currentPreviewCard.transform.localScale = Vector3.one * 220;
         currentPreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);

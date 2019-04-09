@@ -68,9 +68,12 @@ public class DebugConsole : MonoBehaviour
     readonly Rect titleBarRect = new Rect(0, 0, 10000, 20);
     Rect windowRect = new Rect(margin, margin, Screen.width - (margin * 2), Screen.height - (margin * 2));
 
+    private bool logShow;
+
     void OnEnable()
     {
         Application.logMessageReceived += HandleLog;
+        logShow = (GameManager.Instance && GameManager.Instance.ShowClientLogs) || (CardEditorManager.Instance && CardEditorManager.Instance.ShowClientLogs);
     }
 
     void OnDisable()
@@ -80,7 +83,7 @@ public class DebugConsole : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.ShowClientLogs)
+        if (logShow)
         {
             if (Input.GetKeyDown(toggleKey))
             {

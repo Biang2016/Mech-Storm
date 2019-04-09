@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 8933230482971472543}
   - component: {fileID: 8933230482971472542}
   - component: {fileID: 8933230482971472541}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CardBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}

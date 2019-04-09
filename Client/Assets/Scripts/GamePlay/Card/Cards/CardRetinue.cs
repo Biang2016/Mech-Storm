@@ -17,16 +17,17 @@ public class CardRetinue : CardBase
         MA = null;
     }
 
-    public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer, CardShowMode cardShowMode)
+    public override void Initiate(CardInfo_Base cardInfo, CardShowMode cardShowMode, ClientPlayer clientPlayer = null)
     {
-        base.Initiate(cardInfo, clientPlayer, cardShowMode);
+        base.Initiate(cardInfo, cardShowMode, clientPlayer);
         M_RetinueTotalLife = CardInfo.LifeInfo.TotalLife;
         M_RetinueAttack = CardInfo.BattleInfo.BasicAttack;
         M_RetinueArmor = CardInfo.BattleInfo.BasicArmor;
         M_RetinueShield = CardInfo.BattleInfo.BasicShield;
 
         SetSlots();
-        SetSelectCountBlockPosition();
+        if (M_CardShowMode == CardShowMode.CardSelect) ResetSelectCountBlockPosition();
+        if (M_CardShowMode == CardShowMode.SelectedCardPreview || M_CardShowMode == CardShowMode.CardUpgradePreview) RefreshSelectCountBlockPosition();
     }
 
     #region 属性

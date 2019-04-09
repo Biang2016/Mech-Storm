@@ -169,7 +169,7 @@ public static class AllCards
                         break;
                     case "upgradeInfo":
                         upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value), int.Parse(cardInfo.Attributes["degradeCardID"].Value),
-                            int.Parse(cardInfo.Attributes["cardLevel"].Value));
+                            int.Parse(cardInfo.Attributes["cardLevel"].Value), 1);
                         break;
                     case "lifeInfo":
                         lifeInfo = new LifeInfo(int.Parse(cardInfo.Attributes["life"].Value),
@@ -282,6 +282,12 @@ public static class AllCards
                         sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround));
                     break;
             }
+        }
+
+        foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+        {
+            int cardLevelMax = GetCardSeries(kv.Key).Count;
+            kv.Value.UpgradeInfo.CardLevelMax = cardLevelMax;
         }
     }
 
