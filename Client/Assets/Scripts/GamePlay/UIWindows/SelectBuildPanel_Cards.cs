@@ -113,10 +113,6 @@ public partial class SelectBuildPanel
                     }
                 }
             }
-            else
-            {
-                UIManager.Instance.CloseUIForms<CardPreviewPanel>();
-            }
 
             mouseLeftDownCard = null;
             mouseRightDownCard = null;
@@ -135,15 +131,7 @@ public partial class SelectBuildPanel
                     {
                         UIManager.Instance.ShowUIForms<CardPreviewPanel>().ShowPreviewCardPanel(card, IsReadOnly);
                     }
-                    else
-                    {
-                        UIManager.Instance.CloseUIForms<CardPreviewPanel>();
-                    }
                 }
-            }
-            else
-            {
-                UIManager.Instance.CloseUIForms<CardPreviewPanel>();
             }
 
             mouseLeftDownCard = null;

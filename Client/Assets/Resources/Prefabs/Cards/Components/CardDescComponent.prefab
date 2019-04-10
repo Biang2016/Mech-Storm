@@ -56,7 +56,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 21451982309046590, guid: 7b6eda93bb541492d964a4133b6eea3b, type: 2}
+  - {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,9 +114,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Sample text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7b6eda93bb541492d964a4133b6eea3b, type: 2}
-  m_sharedMaterial: {fileID: 21451982309046590, guid: 7b6eda93bb541492d964a4133b6eea3b,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -140,7 +139,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 14
+  m_fontSize: 12.6
   m_fontSizeBase: 17.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -489,7 +488,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 21451982309046590, guid: 7b6eda93bb541492d964a4133b6eea3b, type: 2}
+  - {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -547,9 +546,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Card Type
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7b6eda93bb541492d964a4133b6eea3b, type: 2}
-  m_sharedMaterial: {fileID: 21451982309046590, guid: 7b6eda93bb541492d964a4133b6eea3b,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -696,7 +694,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 21451982309046590, guid: 7b6eda93bb541492d964a4133b6eea3b, type: 2}
+  - {fileID: 21500401214870318, guid: e3059be6fe65841aeb56998fafb3beba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -752,11 +750,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Description DescriptionDescription DescriptionDescription DescriptionDescription
-    DescriptionDescription DescriptionDescription Description
+  m_text: "\u4E2D\u6587\u4E2D\u6587Description DescriptionDescription DescriptionDescription
+    DescriptionDescription DescriptionDescription DescriptionDescription Description"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7b6eda93bb541492d964a4133b6eea3b, type: 2}
-  m_sharedMaterial: {fileID: 21451982309046590, guid: 7b6eda93bb541492d964a4133b6eea3b,
+  m_fontAsset: {fileID: 11400000, guid: e3059be6fe65841aeb56998fafb3beba, type: 2}
+  m_sharedMaterial: {fileID: 21500401214870318, guid: e3059be6fe65841aeb56998fafb3beba,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -781,7 +779,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 7.1
+  m_fontSize: 7.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -822,7 +820,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: -3.2830355}
   m_textInfo:
     textComponent: {fileID: 724039549225431369}
-    characterCount: 138
+    characterCount: 142
     spriteCount: 0
     spaceCount: 6
     wordCount: 7

@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnglishFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-  ChineseFont: {fileID: 12800000, guid: 2fe79e4206e8c434c863f7d63c33a8f1, type: 3}
+  ChineseFont: {fileID: 12800000, guid: 6fec9a8fc56ecc447bb5eac824eddbf3, type: 3}
 --- !u!1 &3583450422855721537
 GameObject:
   m_ObjectHideFlags: 0

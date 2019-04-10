@@ -5362,7 +5362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1456562365
 Transform:
   m_ObjectHideFlags: 0
@@ -11759,7 +11759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnglishFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-  ChineseFont: {fileID: 12800000, guid: 2fe79e4206e8c434c863f7d63c33a8f1, type: 3}
+  ChineseFont: {fileID: 12800000, guid: 6fec9a8fc56ecc447bb5eac824eddbf3, type: 3}
 --- !u!1001 &2288919009582738850
 PrefabInstance:
   m_ObjectHideFlags: 0

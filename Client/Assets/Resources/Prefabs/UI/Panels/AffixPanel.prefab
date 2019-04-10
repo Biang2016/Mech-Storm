@@ -101,6 +101,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615d2ce44777ffc45aec520500d95acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AffixPanel: {fileID: 5875550919549774094}
-  VerticalLayoutGroup: {fileID: 5258782281037433863}
+  AffixContainer: {fileID: 5875550919549774094}
   AffixPanelAnim: {fileID: 2737669457224865103}
