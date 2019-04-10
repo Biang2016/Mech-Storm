@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class CardPreviewPanel : BaseUIForm
 {
+    [SerializeField] private Transform AllContainer;
     [SerializeField] private Transform PreviewContent;
     [SerializeField] private Transform PreviewCardPanelRightPivot;
     [SerializeField] private Transform PreviewCardPanelCenterPivot;
@@ -140,7 +141,6 @@ public class CardPreviewPanel : BaseUIForm
             PreviewCardUpgrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardUpgrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardUpgrade.CardInfo.CardID), true);
             PreviewCardUpgrade.transform.localScale = Vector3.one * 15;
-            //PreviewCardUpgrade.transform.rotation = Quaternion.Euler(90, 180, 0);
             if (PreviewCardUpgrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
             {
                 PreviewCardUpgrade.transform.localPosition = new Vector3(retinueCardPreviewDistance, 50, 0);
@@ -173,7 +173,6 @@ public class CardPreviewPanel : BaseUIForm
             PreviewCardDegrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardDegrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardDegrade.CardInfo.CardID), true);
             PreviewCardDegrade.transform.localScale = Vector3.one * 15;
-            //PreviewCardDegrade.transform.rotation = Quaternion.Euler(90, 180, 0);
             if (PreviewCardDegrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
             {
                 PreviewCardDegrade.transform.localPosition = new Vector3(-retinueCardPreviewDistance, 50, 0);
@@ -208,11 +207,11 @@ public class CardPreviewPanel : BaseUIForm
         //如果显示Tips占据屏幕空间的话，右移预览卡牌窗口
         if (!isShowAffixTips || PreviewCardDegrade == null)
         {
-            transform.position = PreviewCardPanelCenterPivot.position;
+            AllContainer.position = PreviewCardPanelCenterPivot.position;
         }
         else
         {
-            transform.position = PreviewCardPanelRightPivot.position;
+            AllContainer.position = PreviewCardPanelRightPivot.position;
         }
     }
 
