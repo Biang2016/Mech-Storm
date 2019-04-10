@@ -20446,14 +20446,6 @@ MonoBehaviour:
     - 18aa0eb1f8e743f46a980751abe87c2b
     - b70a3ba710c06e24383640830f5aa12f
     - ef2591b4a473c1240adb72a69458f0fa
-  - guid: 7b6eda93bb541492d964a4133b6eea3b
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554729620
-    type: 5
-    UseGUIDs:
-    - 89f0137620f6af44b9ba852b4190e64e
-    - dca26082f9cb439469295791d9f76fe5
   - guid: 2fe79e4206e8c434c863f7d63c33a8f1
     ScriptSymbols: []
     ScriptTokens: []
@@ -20721,18 +20713,6 @@ MonoBehaviour:
     stamp: 0
     type: 4
     UseGUIDs: []
-  - guid: 3c622cd2af5da2e469048187d7a80f28
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554690615
-    type: 1
-    UseGUIDs: []
-  - guid: 36d4c30b928fed547bfeda0eeaf1ec66
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554345152
-    type: 1
-    UseGUIDs: []
   - guid: e6c1b091d9137c740be3a4615910812f
     ScriptSymbols: []
     ScriptTokens: []
@@ -20971,12 +20951,6 @@ MonoBehaviour:
     stamp: 1554774995
     type: 2
     UseGUIDs: []
-  - guid: 0095026a33b4ddd49b7c0dc2a40ee2d5
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554774194
-    type: 1
-    UseGUIDs: []
   - guid: 2861e3a55a8585f4eb0a509223be6906
     ScriptSymbols: []
     ScriptTokens: []
@@ -21040,6 +21014,18 @@ MonoBehaviour:
     - SetChildCardSize
     stamp: 1554792811
     type: 2
+    UseGUIDs: []
+  - guid: ab1ac2a71ec91184f827e65557b93920
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1547991322
+    type: 1
+    UseGUIDs: []
+  - guid: 4a161d49ff924410db56e4923e810b8e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1548258752
+    type: 1
     UseGUIDs: []
   timeStamp: 1554778651
   priority: 5
