@@ -53,7 +53,7 @@ public partial class SelectBuildPanel
 
     void Update_Cards()
     {
-        Ray ray = GameManager.Instance.CardSelectCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;
         if (Input.GetMouseButtonDown(0))
         {
