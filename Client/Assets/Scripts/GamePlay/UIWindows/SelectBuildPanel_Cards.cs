@@ -153,7 +153,7 @@ public partial class SelectBuildPanel
         foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
             if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
-            if (cardInfo.BaseInfo.Hide) continue;
+            if (cardInfo.BaseInfo.IsHide) continue;
             if (cardInfo.BaseInfo.IsTemp) continue;
             AddCardIntoCardSelectWindow(cardInfo.Clone());
         }
@@ -207,7 +207,7 @@ public partial class SelectBuildPanel
         foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
             if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
-            if (cardInfo.BaseInfo.Hide) continue;
+            if (cardInfo.BaseInfo.IsHide) continue;
             OnlineCardLimitDict.Add(cardInfo.CardID, cardInfo.BaseInfo.LimitNum);
         }
     }

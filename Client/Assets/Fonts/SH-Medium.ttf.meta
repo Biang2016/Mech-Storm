@@ -10,7 +10,7 @@ TrueTypeFontImporter:
   includeFontData: 1
   fontName: Source Han Sans K
   fontNames:
-  - 
+  - Source Han Sans K
   fallbackFontReferences:
   - {fileID: 12800000, guid: 95020d49e58b8904e9167b796c0ea2a5, type: 3}
   customCharacters: 

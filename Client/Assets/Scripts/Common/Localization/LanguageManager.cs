@@ -91,7 +91,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
     internal List<string> Languages = new List<string>();
     internal List<string> LanguageDescs = new List<string>();
     internal List<string> LanguagesShorts = new List<string>();
-    public static string LanguageDictFolder = Application.streamingAssetsPath + "/Config/Languages/";
+    public static string LanguageDictFolder = Application.streamingAssetsPath + "/Config/Languages/"; 
     private Dictionary<string, Dictionary<string, string>> LanguageDict = new Dictionary<string, Dictionary<string, string>>();
     private Dictionary<string, string> CurrentLanguageDict;
 

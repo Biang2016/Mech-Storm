@@ -728,6 +728,18 @@
 		"zh": "能量消耗",
 		"en": "Energy Cost"
 	},
+	"CardEditorWindow_CardSelectLimitLabelText": {
+		"zh": "卡牌上限",
+		"en": "Select Limit"
+	},
+	"CardEditorWindow_CardIsTempLabelText": {
+		"zh": "临时卡",
+		"en": "Temp"
+	},
+	"CardEditorWindow_CardIsHideLabelText": {
+		"zh": "隐藏卡",
+		"en": "Hide"
+	},
 	"CardEditorWindow_RetinueLifeLabelText": {
 		"zh": "生命值",
 		"en": "Life"

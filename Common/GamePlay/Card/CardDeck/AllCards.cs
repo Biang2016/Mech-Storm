@@ -28,7 +28,7 @@ public static class AllCards
         if (!CardPicIDDict.ContainsKey(cardInfo.CardID)) CardPicIDDict.Add(cardInfo.CardID, cardInfo.BaseInfo.PictureID);
         if (cardInfo.UpgradeInfo.CardLevel <= 1) //按照不同星级的同一张卡片不存储两次
         {
-            if (!cardInfo.BaseInfo.Hide && !cardInfo.BaseInfo.IsTemp)
+            if (!cardInfo.BaseInfo.IsHide && !cardInfo.BaseInfo.IsTemp)
             {
                 if (!CardLevelDict.ContainsKey(cardInfo.BaseInfo.CardRareLevel))
                 {
@@ -158,7 +158,7 @@ public static class AllCards
                         baseInfo = new BaseInfo(int.Parse(cardInfo.Attributes["pictureID"].Value),
                             cardNameDict,
                             cardInfo.Attributes["isTemp"].Value == "True",
-                            cardInfo.Attributes["hide"].Value == "True",
+                            cardInfo.Attributes["isHide"].Value == "True",
                             int.Parse(cardInfo.Attributes["metal"].Value),
                             int.Parse(cardInfo.Attributes["energy"].Value),
                             int.Parse(cardInfo.Attributes["coin"].Value),

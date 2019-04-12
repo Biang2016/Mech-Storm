@@ -118,6 +118,9 @@ public class CardEditorPanel : BaseUIForm
         CardPropertyFormRow Row_CardCoinCost = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardCoinCostLabelText", OnCardCoinCostChange, out SetCardCoinCost);
         CardPropertyFormRow Row_CardMetalCost = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardMetalCostLabelText", OnCardMetalCostChange, out SetCardMetalCost);
         CardPropertyFormRow Row_CardEnergyCost = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardEnergyCostLabelText", OnCardEnergyCostChange, out SetCardEnergyCost);
+        CardPropertyFormRow Row_CardSelectLimit = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardSelectLimitLabelText", OnCardSelectLimitChange, out SetCardSelectLimit);
+        CardPropertyFormRow Row_CardIsTemp = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_CardIsTempLabelText", OnCardIsTempChange, out SetCardIsTemp);
+        CardPropertyFormRow Row_CardIsHide = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_CardIsHideLabelText", OnCardIsHideChange, out SetCardIsHide);
 
         CardPropertyFormRow Row_RetinueLife = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_RetinueLifeLabelText", OnRetinueLifeChange, out SetRetinueLife);
         CardPropertyFormRow Row_RetinueAttack = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_RetinueAttackLabelText", OnRetinueAttackChange, out SetRetinueAttack);
@@ -150,6 +153,9 @@ public class CardEditorPanel : BaseUIForm
             Row_CardCoinCost,
             Row_CardMetalCost,
             Row_CardEnergyCost,
+            Row_CardSelectLimit,
+            Row_CardIsTemp,
+            Row_CardIsHide,
         };
         CardTypePropertiesDict[CardTypes.Retinue] = new List<CardPropertyFormRow>
         {
@@ -386,6 +392,45 @@ public class CardEditorPanel : BaseUIForm
                 cur_PreviewCard.CardInfo.BaseInfo.Energy = value;
                 cur_PreviewCard.M_Energy = value;
             }
+        }
+    }
+
+    private UnityAction<string> SetCardSelectLimit;
+
+    private void OnCardSelectLimitChange(string value_str)
+    {
+        int value = -1;
+        int.TryParse(value_str, out value);
+        if (value != -1)
+        {
+            if (cur_PreviewCard)
+            {
+                cur_PreviewCard.CardInfo.BaseInfo.LimitNum = value;
+                cur_PreviewCard.ChangeCardSelectLimit(value, true);
+            }
+        }
+    }
+
+    private UnityAction<string> SetCardIsTemp;
+
+    private void OnCardIsTempChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.BaseInfo.IsTemp = value;
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+    private UnityAction<string> SetCardIsHide;
+
+    private void OnCardIsHideChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.BaseInfo.IsHide = value;
+            cur_PreviewCard.RefreshCardTextLanguage();
         }
     }
 
@@ -758,6 +803,9 @@ public class CardEditorPanel : BaseUIForm
         SetCardCoinCost(cur_PreviewCard.CardInfo.BaseInfo.Coin.ToString());
         SetCardMetalCost(cur_PreviewCard.CardInfo.BaseInfo.Metal.ToString());
         SetCardEnergyCost(cur_PreviewCard.CardInfo.BaseInfo.Energy.ToString());
+        SetCardSelectLimit(cur_PreviewCard.CardInfo.BaseInfo.LimitNum.ToString());
+        SetCardIsTemp(cur_PreviewCard.CardInfo.BaseInfo.IsTemp.ToString());
+        SetCardIsHide(cur_PreviewCard.CardInfo.BaseInfo.IsHide.ToString());
 
         switch (ci.BaseInfo.CardType)
         {

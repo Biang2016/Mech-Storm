@@ -6,8 +6,8 @@ public struct BaseInfo
 {
     public int PictureID;
     public SortedDictionary<string, string> CardNames;
-    public bool IsTemp;
-    public bool Hide;
+    public bool IsTemp;//临时卡，如卡牌的召唤物、临时复制等。无法在选牌界面看见
+    public bool IsHide;//隐藏卡，如boss专用卡，打败boss后的特殊奖励等。无法在选牌界面看见
     public int Metal;
     public int Energy;
     public int Coin;
@@ -17,12 +17,12 @@ public struct BaseInfo
     public DragPurpose DragPurpose;
     public CardTypes CardType;
 
-    public BaseInfo(int pictureID, SortedDictionary<string, string> cardNames, bool isTemp, bool hide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, CardTypes cardType)
+    public BaseInfo(int pictureID, SortedDictionary<string, string> cardNames, bool isTemp, bool isHide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, CardTypes cardType)
     {
         PictureID = pictureID;
         CardNames = cardNames;
         IsTemp = isTemp;
-        Hide = hide;
+        IsHide = isHide;
         Metal = metal;
         Energy = energy;
         Coin = coin;
@@ -69,7 +69,7 @@ public struct BaseInfo
         }
 
         writer.WriteByte(IsTemp ? (byte) 0x01 : (byte) 0x00);
-        writer.WriteByte(Hide ? (byte) 0x01 : (byte) 0x00);
+        writer.WriteByte(IsHide ? (byte) 0x01 : (byte) 0x00);
         writer.WriteSInt32(Metal);
         writer.WriteSInt32(Energy);
         writer.WriteSInt32(Coin);
@@ -92,7 +92,7 @@ public struct BaseInfo
         }
 
         bool IsTemp = reader.ReadByte() == 0x01;
-        bool Hide = reader.ReadByte() == 0x01;
+        bool IsHide = reader.ReadByte() == 0x01;
         int Metal = reader.ReadSInt32();
         int Energy = reader.ReadSInt32();
         int Coin = reader.ReadSInt32();
@@ -100,7 +100,7 @@ public struct BaseInfo
         int LimitNum = reader.ReadSInt32();
         int CardRareLevel = reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
-        return new BaseInfo(PictureID, CardNames, IsTemp, Hide, Metal, Energy, Coin, EffectFactor, LimitNum, CardRareLevel, CardType);
+        return new BaseInfo(PictureID, CardNames, IsTemp, IsHide, Metal, Energy, Coin, EffectFactor, LimitNum, CardRareLevel, CardType);
     }
 
     public static Dictionary<string, Dictionary<CardTypes, string>> CardTypeNameDict = new Dictionary<string, Dictionary<CardTypes, string>>
