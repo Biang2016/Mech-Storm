@@ -40,8 +40,10 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardShowModeComponentList.Add(CardShowMode.HandCard, new List<CardComponentTypes> {CardComponentTypes.Back, CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars});
         CardShowModeComponentList.Add(CardShowMode.ShowCard, new List<CardComponentTypes> {CardComponentTypes.Back, CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars});
         CardShowModeComponentList.Add(CardShowMode.CardPreviewBattle, new List<CardComponentTypes> {CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars});
-        CardShowModeComponentList.Add(CardShowMode.CardSelect, new List<CardComponentTypes> {CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars, CardComponentTypes.CoinBlock, CardComponentTypes.Notice, CardComponentTypes.SelectCount});
-        CardShowModeComponentList.Add(CardShowMode.CardUpgradePreview, new List<CardComponentTypes> {CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars, CardComponentTypes.CoinBlock, CardComponentTypes.Notice, CardComponentTypes.SelectCount});
+        CardShowModeComponentList.Add(CardShowMode.CardSelect,
+            new List<CardComponentTypes> {CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars, CardComponentTypes.CoinBlock, CardComponentTypes.Notice, CardComponentTypes.SelectCount});
+        CardShowModeComponentList.Add(CardShowMode.CardUpgradePreview,
+            new List<CardComponentTypes> {CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars, CardComponentTypes.CoinBlock, CardComponentTypes.Notice, CardComponentTypes.SelectCount});
         CardShowModeComponentList.Add(CardShowMode.SelectedCardPreview, new List<CardComponentTypes> {CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars, CardComponentTypes.CoinBlock});
         CardShowModeComponentList.Add(CardShowMode.CardReward, new List<CardComponentTypes> {CardComponentTypes.Back, CardComponentTypes.CostBlock, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars});
         CardShowModeComponentList.Add(CardShowMode.CardUpgradeAnim, new List<CardComponentTypes> {CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars});
@@ -140,33 +142,22 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         SetCardShowMode(cardShowMode);
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Rotate(Vector3.up, 180);
-//#if !UNITY_EDITOR
         Usable = false;
         DragComponent.enabled = true;
         M_BoxCollider.enabled = true;
-//#endif
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
-        string cur_Language = "zh";
-//#if !UNITY_EDITOR
-        cur_Language = LanguageManager.Instance.GetCurrentLanguage();
-//#endif
+        M_Coin = CardInfo.BaseInfo.Coin;
+        string cur_Language = LanguageManager.Instance ? LanguageManager.Instance.GetCurrentLanguage() : "zh";
         M_Name = CardInfo.BaseInfo.CardNames[cur_Language] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
         M_Desc = CardInfo.GetCardDescShow();
 
-        Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
-
-        ChangeMainBoardColor(cardColor);
         CardBasicComponent?.ChangePicture(CardInfo.BaseInfo.PictureID);
-        SetCardBackColor();
-        ChangeCardBloomColor(ClientUtils.GetColorFromColorDict(AllColors.ColorType.CardBloomColor));
-        CardCoinComponent?.SetCoin(CardInfo.BaseInfo.Coin);
-        CardDescComponent?.SetCardDescTextColor(ClientUtils.HTMLColorToColor(AllColors.ColorDict[AllColors.ColorType.CardDescTextColor]));
         CardDescComponent?.SetCardTypeText(CardInfo.GetCardTypeDesc());
-        CardDescComponent?.SetCardTypeTextColor(ClientUtils.ChangeColorToWhite(cardColor, 0.3f));
         SetBannerType(CardNoticeComponent.BannerTypes.None);
         SetArrowType(CardNoticeComponent.ArrowTypes.None);
         SetStarNumber(CardInfo.UpgradeInfo.CardLevel, CardInfo.UpgradeInfo.CardLevelMax);
+        RefreshCardAllColors();
     }
 
     #region 属性
@@ -199,6 +190,22 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
                 m_Energy = value;
                 CardInfo.BaseInfo.Energy = value;
                 CardCostIconComponent?.SetEnergy(m_Energy);
+            }
+        }
+    }
+
+    private int m_Coin = -1;
+
+    public int M_Coin
+    {
+        get { return m_Coin; }
+        set
+        {
+            if (m_Coin != value)
+            {
+                m_Coin = value;
+                CardInfo.BaseInfo.Coin = value;
+                CardCoinComponent?.SetCoin(m_Coin);
             }
         }
     }
@@ -244,14 +251,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         set
         {
             m_Desc = value;
-            CardDescComponent?.SetDescText(
-#if !UNITY_EDITOR
-                LanguageManager.Instance.IsEnglish
-#else
-                false
-#endif
-                    ? value
-                    : ClientUtils.ReplaceWrapSpace(value));
+            CardDescComponent?.SetDescText(LanguageManager.Instance.IsEnglish ? value : ClientUtils.ReplaceWrapSpace(value));
         }
     }
 
@@ -297,6 +297,16 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardDescComponent?.SetCardDescBGColor(new Color(color.r / 3, color.g / 3, color.b / 3, 0.5f));
     }
 
+    public void RefreshCardAllColors()
+    {
+        Color cardColor = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
+        CardDescComponent?.SetCardDescTextColor(ClientUtils.HTMLColorToColor(AllColors.ColorDict[AllColors.ColorType.CardDescTextColor]));
+        ChangeMainBoardColor(cardColor);
+        CardDescComponent?.SetCardTypeTextColor(ClientUtils.ChangeColorToWhite(cardColor, 0.3f));
+        SetCardBackColor();
+        ChangeCardBloomColor(ClientUtils.GetColorFromColorDict(AllColors.ColorType.CardBloomColor));
+    }
+
     public void ChangeCardBloomColor(Color color)
     {
         CardBasicComponent?.SetCardBloomColor(color, 1.3f);
@@ -309,26 +319,23 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void SetCardBackColor()
     {
-#if UNITY_EDITOR
         CardBackComponent?.SetCardBackColor(ClientUtils.GetColorFromColorDict(AllColors.ColorType.SelfCardDeckCardColor), 1.0f);
-#else
-        if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+        if (RoundManager.Instance)
         {
-            CardBackComponent?.SetCardBackColor(ClientUtils.GetColorFromColorDict(AllColors.ColorType.SelfCardDeckCardColor), 1.0f);
+            if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+            {
+                CardBackComponent?.SetCardBackColor(ClientUtils.GetColorFromColorDict(AllColors.ColorType.SelfCardDeckCardColor), 1.0f);
+            }
+            else
+            {
+                CardBackComponent?.SetCardBackColor(ClientUtils.GetColorFromColorDict(AllColors.ColorType.EnemyCardDeckCardColor), 1.0f);
+            }
         }
-        else
-        {
-            CardBackComponent?.SetCardBackColor(ClientUtils.GetColorFromColorDict(AllColors.ColorType.EnemyCardDeckCardColor), 1.0f);
-        }
-#endif
     }
 
     public void RefreshCardTextLanguage()
     {
-        string cur_Language = "zh";
-#if !UNITY_EDITOR
-        cur_Language = LanguageManager.Instance.GetCurrentLanguage();
-#endif
+        string cur_Language = LanguageManager.Instance.GetCurrentLanguage();
         M_Name = CardInfo.BaseInfo.CardNames[cur_Language] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
         M_Desc = CardInfo.GetCardDescShow();
         CardDescComponent?.SetCardTypeText(CardInfo.GetCardTypeDesc());
@@ -401,6 +408,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardCoinComponent?.SetPosition(CardCoinComponent.Position.Higher);
     }
 
+    public void InitSlots()
+    {
+        CardSlotsComponent.SetSlot(ClientPlayer, CardInfo.RetinueInfo);
+    }
+
     public void ShowAllSlotLights(bool isShow)
     {
         CardSlotsComponent?.ShowAllSlotLights(isShow);
@@ -414,11 +426,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     protected void SetLifeText(int value)
     {
         CardLifeComponent.SetLife(value);
-    }
-
-    protected void SetSlots()
-    {
-        CardSlotsComponent.SetSlot(ClientPlayer, CardInfo.RetinueInfo);
     }
 
     #region 编辑区
@@ -454,28 +461,31 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         set
         {
-            if (!RoundManager.Instance.InRound)
+            if (RoundManager.Instance && ClientPlayer != null)
             {
-                value = false;
-            }
-
-            if (ClientPlayer == RoundManager.Instance.CurrentClientPlayer && RoundManager.Instance.InRound)
-            {
-                if (!value)
+                if (!RoundManager.Instance.InRound)
                 {
-                    BeDimColor();
-                    CardBasicComponent?.SetBloomShow(false);
+                    value = false;
+                }
+
+                if (ClientPlayer == RoundManager.Instance.CurrentClientPlayer && RoundManager.Instance.InRound)
+                {
+                    if (!value)
+                    {
+                        BeDimColor();
+                        CardBasicComponent?.SetBloomShow(false);
+                    }
+                    else
+                    {
+                        BeBrightColor();
+                        CardBasicComponent?.SetBloomShow(true);
+                    }
                 }
                 else
                 {
                     BeBrightColor();
-                    CardBasicComponent?.SetBloomShow(true);
+                    CardBasicComponent?.SetBloomShow(false);
                 }
-            }
-            else
-            {
-                BeBrightColor();
-                CardBasicComponent?.SetBloomShow(false);
             }
 
             usable = value;

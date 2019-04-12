@@ -1,198 +1,198 @@
 {
 	"TargetRange_Single_Mechs": {
-		"zh": "Ò»¸ö»ú¼×",
+		"zh": "ä¸€ä¸ªæœºç”²",
 		"en": "A Mech "
 	},
 	"TargetRange_Single_SelfMechs": {
-		"zh": "Ò»¸öÎÒ·½»ú¼×",
+		"zh": "ä¸€ä¸ªæˆ‘æ–¹æœºç”²",
 		"en": "One of Your Mechs "
 	},
 	"TargetRange_Single_EnemyMechs": {
-		"zh": "Ò»¸öµĞ·½»ú¼×",
+		"zh": "ä¸€ä¸ªæ•Œæ–¹æœºç”²",
 		"en": "One of Enemy's Mechs "
 	},
 	"TargetRange_Single_Heroes": {
-		"zh": "Ò»¸öÓ¢ĞÛ",
+		"zh": "ä¸€ä¸ªè‹±é›„",
 		"en": "One HeroMech "
 	},
 	"TargetRange_Single_SelfHeroes": {
-		"zh": "Ò»¸öÎÒ·½Ó¢ĞÛ",
+		"zh": "ä¸€ä¸ªæˆ‘æ–¹è‹±é›„",
 		"en": "One of Your HeroMechs "
 	},
 	"TargetRange_Single_EnemyHeroes": {
-		"zh": "Ò»¸öµĞ·½Ó¢ĞÛ",
+		"zh": "ä¸€ä¸ªæ•Œæ–¹è‹±é›„",
 		"en": "One of Enemy's HeroMechs "
 	},
 	"TargetRange_Single_Soldiers": {
-		"zh": "Ò»¸öÊ¿±ø",
+		"zh": "ä¸€ä¸ªå£«å…µ",
 		"en": "One SoldierMech "
 	},
 	"TargetRange_Single_SelfSoldiers": {
-		"zh": "Ò»¸öÎÒ·½Ê¿±ø",
+		"zh": "ä¸€ä¸ªæˆ‘æ–¹å£«å…µ",
 		"en": "One of Your SoldierMechs "
 	},
 	"TargetRange_Single_EnemySoldiers": {
-		"zh": "Ò»¸öµĞ·½Ê¿±ø",
+		"zh": "ä¸€ä¸ªæ•Œæ–¹å£«å…µ",
 		"en": "One of Your SoldierMechs "
 	},
 	"TargetRange_Single_SelfShip": {
-		"zh": "ÎÒ·½Õ½½¢",
+		"zh": "æˆ‘æ–¹æˆ˜èˆ°",
 		"en": "Your Spaceship "
 	},
 	"TargetRange_Single_EnemyShip": {
-		"zh": "µĞ·½Õ½½¢",
+		"zh": "æ•Œæ–¹æˆ˜èˆ°",
 		"en": "Enemy's Spaceship "
 	},
 	"TargetRange_Single_Ships": {
-		"zh": "Ò»¸öÕ½½¢",
+		"zh": "ä¸€ä¸ªæˆ˜èˆ°",
 		"en": "A Spaceship "
 	},
 	"TargetRange_Single_AllLife": {
-		"zh": "Ò»¸ö½ÇÉ«",
+		"zh": "ä¸€ä¸ªè§’è‰²",
 		"en": "A Target "
 	},
 	"TargetRange_Single_SelfLife": {
-		"zh": "Ò»¸öÎÒ·½½ÇÉ«",
+		"zh": "ä¸€ä¸ªæˆ‘æ–¹è§’è‰²",
 		"en": "One of Your Object "
 	},
 	"TargetRange_Single_EnemyLife": {
-		"zh": "Ò»¸öµĞ·½½ÇÉ«",
+		"zh": "ä¸€ä¸ªæ•Œæ–¹è§’è‰²",
 		"en": "One of Enemy's Object "
 	},
 	"TargetRange_Single_Self": {
-		"zh": "×ÔÉí",
+		"zh": "è‡ªèº«",
 		"en": "Self "
 	},
 
 
 	"TargetRange_Single_Random_Mechs": {
-		"zh": "Ò»¸öËæ»ú»ú¼×",
+		"zh": "ä¸€ä¸ªéšæœºæœºç”²",
 		"en": "A Random Mech "
 	},
 	"TargetRange_Single_Random_SelfMechs": {
-		"zh": "Ò»¸öËæ»úÎÒ·½»ú¼×",
+		"zh": "ä¸€ä¸ªéšæœºæˆ‘æ–¹æœºç”²",
 		"en": "A Random Mech of Yours "
 	},
 	"TargetRange_Single_Random_EnemyMechs": {
-		"zh": "Ò»¸öËæ»úµĞ·½»ú¼×",
+		"zh": "ä¸€ä¸ªéšæœºæ•Œæ–¹æœºç”²",
 		"en": "A Random Mech of Enemy's "
 	},
 	"TargetRange_Single_Random_Heroes": {
-		"zh": "Ò»¸öËæ»úÓ¢ĞÛ",
+		"zh": "ä¸€ä¸ªéšæœºè‹±é›„",
 		"en": "A Random HeroMech "
 	},
 	"TargetRange_Single_Random_SelfHeroes": {
-		"zh": "Ò»¸öËæ»úÎÒ·½Ó¢ĞÛ",
+		"zh": "ä¸€ä¸ªéšæœºæˆ‘æ–¹è‹±é›„",
 		"en": "A Random HeroMech of Yours "
 	},
 	"TargetRange_Single_Random_EnemyHeroes": {
-		"zh": "Ò»¸öËæ»úµĞ·½Ó¢ĞÛ",
+		"zh": "ä¸€ä¸ªéšæœºæ•Œæ–¹è‹±é›„",
 		"en": "A Random HeroMech of Enemy's "
 	},
 	"TargetRange_Single_Random_Soldiers": {
-		"zh": "Ò»¸öËæ»úÊ¿±ø",
+		"zh": "ä¸€ä¸ªéšæœºå£«å…µ",
 		"en": "A Random SoldierMech "
 	},
 	"TargetRange_Single_Random_SelfSoldiers": {
-		"zh": "Ò»¸öËæ»úÎÒ·½Ê¿±ø",
+		"zh": "ä¸€ä¸ªéšæœºæˆ‘æ–¹å£«å…µ",
 		"en": "A Random SoldierMech of Yours "
 	},
 	"TargetRange_Single_Random_EnemySoldiers": {
-		"zh": "Ò»¸öËæ»úµĞ·½Ê¿±ø",
+		"zh": "ä¸€ä¸ªéšæœºæ•Œæ–¹å£«å…µ",
 		"en": "A Random SoldierMech of Enemy's "
 	},
 	"TargetRange_Single_Random_SelfShip": {
-		"zh": "ÎÒ·½Õ½½¢",
+		"zh": "æˆ‘æ–¹æˆ˜èˆ°",
 		"en": "Your Spaceship "
 	},
 	"TargetRange_Single_Random_EnemyShip": {
-		"zh": "µĞ·½Õ½½¢",
+		"zh": "æ•Œæ–¹æˆ˜èˆ°",
 		"en": "Enemy's Spaceship "
 	},
 	"TargetRange_Single_Random_Ships": {
-		"zh": "Ò»¸öËæ»úÕ½½¢",
+		"zh": "ä¸€ä¸ªéšæœºæˆ˜èˆ°",
 		"en": "A Random Spaceship "
 	},
 	"TargetRange_Single_Random_AllLife": {
-		"zh": "Ò»¸öËæ»ú½ÇÉ«",
+		"zh": "ä¸€ä¸ªéšæœºè§’è‰²",
 		"en": "A Random Target "
 	},
 	"TargetRange_Single_Random_SelfLife": {
-		"zh": "Ò»¸öËæ»úÎÒ·½½ÇÉ«",
+		"zh": "ä¸€ä¸ªéšæœºæˆ‘æ–¹è§’è‰²",
 		"en": "A Random Object of Yours "
 	},
 	"TargetRange_Single_Random_EnemyLife": {
-		"zh": "Ò»¸öËæ»úµĞ·½½ÇÉ«",
+		"zh": "ä¸€ä¸ªéšæœºæ•Œæ–¹è§’è‰²",
 		"en": "A Random Object of Enemy's "
 	},
 	"TargetRange_Single_Random_Self": {
-		"zh": "×ÔÉí",
+		"zh": "è‡ªèº«",
 		"en": "Self "
 	},
 
 
 	"TargetRange_Mechs": {
-		"zh": "ËùÓĞ»ú¼×",
+		"zh": "æ‰€æœ‰æœºç”²",
 		"en": "All Mechs "
 	},
 	"TargetRange_SelfMechs": {
-		"zh": "ËùÓĞÎÒ·½»ú¼×",
+		"zh": "æ‰€æœ‰æˆ‘æ–¹æœºç”²",
 		"en": "All Your Mechs "
 	},
 	"TargetRange_EnemyMechs": {
-		"zh": "ËùÓĞµĞ·½»ú¼×",
+		"zh": "æ‰€æœ‰æ•Œæ–¹æœºç”²",
 		"en": "All Enemy's Mechs "
 	},
 	"TargetRange_Heroes": {
-		"zh": "ËùÓĞÓ¢ĞÛ",
+		"zh": "æ‰€æœ‰è‹±é›„",
 		"en": "All HeroMech "
 	},
 	"TargetRange_SelfHeroes": {
-		"zh": "ËùÓĞÎÒ·½Ó¢ĞÛ",
+		"zh": "æ‰€æœ‰æˆ‘æ–¹è‹±é›„",
 		"en": "All Your HeroMechs "
 	},
 	"TargetRange_EnemyHeroes": {
-		"zh": "ËùÓĞµĞ·½Ó¢ĞÛ",
+		"zh": "æ‰€æœ‰æ•Œæ–¹è‹±é›„",
 		"en": "All Enemy's HeroMechs "
 	},
 	"TargetRange_Soldiers": {
-		"zh": "ËùÓĞÊ¿±ø",
+		"zh": "æ‰€æœ‰å£«å…µ",
 		"en": "All SoldierMechs "
 	},
 	"TargetRange_SelfSoldiers": {
-		"zh": "ËùÓĞÎÒ·½Ê¿±ø",
+		"zh": "æ‰€æœ‰æˆ‘æ–¹å£«å…µ",
 		"en": "All Your SoldierMechs "
 	},
 	"TargetRange_EnemySoldiers": {
-		"zh": "ËùÓĞµĞ·½Ê¿±ø",
+		"zh": "æ‰€æœ‰æ•Œæ–¹å£«å…µ",
 		"en": "All Enemy's SoldierMechs "
 	},
 	"TargetRange_SelfShip": {
-		"zh": "ÎÒ·½Õ½½¢",
+		"zh": "æˆ‘æ–¹æˆ˜èˆ°",
 		"en": "Your Spaceship "
 	},
 	"TargetRange_EnemyShip": {
-		"zh": "µĞ·½Õ½½¢",
+		"zh": "æ•Œæ–¹æˆ˜èˆ°",
 		"en": "Enemy's Spaceship "
 	},
 	"TargetRange_Ships": {
-		"zh": "ËùÓĞÕ½½¢",
+		"zh": "æ‰€æœ‰æˆ˜èˆ°",
 		"en": "All Spaceships "
 	},
 	"TargetRange_AllLife": {
-		"zh": "ËùÓĞ½ÇÉ«",
+		"zh": "æ‰€æœ‰è§’è‰²",
 		"en": "All Targets "
 	},
 	"TargetRange_SelfLife": {
-		"zh": "ËùÓĞÎÒ·½½ÇÉ«",
+		"zh": "æ‰€æœ‰æˆ‘æ–¹è§’è‰²",
 		"en": "All Your Objects "
 	},
 	"TargetRange_EnemyLife": {
-		"zh": "ËùÓĞµĞ·½½ÇÉ«",
+		"zh": "æ‰€æœ‰æ•Œæ–¹è§’è‰²",
 		"en": "All Enemy's Objects "
 	},
 	"TargetRange_Self": {
-		"zh": "×ÔÉí",
+		"zh": "è‡ªèº«",
 		"en": "Self "
 	}
 

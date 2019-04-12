@@ -6,11 +6,11 @@
 
     public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, RetinueInfo retinueInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
         : base(cardID: cardID,
+            upgradeInfo: upgradeInfo,
             baseInfo: baseInfo,
             sideEffectBundle: sideEffectBundle,
             sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround)
     {
-        UpgradeInfo = upgradeInfo;
         LifeInfo = lifeInfo;
         BattleInfo = battleInfo;
         RetinueInfo = retinueInfo;
@@ -22,9 +22,9 @@
         string CardDescShow = "";
         if (RetinueInfo.IsDefence) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Defense") + ". ");
         if (RetinueInfo.IsSniper) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sniper") + ". ");
-        if (BattleInfo.BasicAttack != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_AttackValue") + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicAttack) + ", ";
-        if (BattleInfo.BasicArmor != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_Armor") + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicArmor) + ", ";
-        if (BattleInfo.BasicShield != 0) CardDescShow += LanguageManager_Common.GetText("KeyWords_Shield") + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicShield) + ", ";
+        if (BattleInfo.BasicAttack != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_AttackValue")) + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicAttack) + ", ";
+        if (BattleInfo.BasicArmor != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Armor")) + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicArmor) + ", ";
+        if (BattleInfo.BasicShield != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Shield")) + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicShield) + ", ";
 
         CardDescShow += base.GetCardDescShow();
 

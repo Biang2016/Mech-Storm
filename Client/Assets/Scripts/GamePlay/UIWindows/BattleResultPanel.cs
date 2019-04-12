@@ -126,7 +126,7 @@ internal class BattleResultPanel : BaseUIForm
         }
 
         PanelAnimator.SetTrigger("Show");
-        GameManager.Instance.StartBlurBackGround();
+        RootManager.Instance.StartBlurBackGround();
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -134,7 +134,7 @@ internal class BattleResultPanel : BaseUIForm
     public void EndWinLostPanel()
     {
         PanelAnimator.SetTrigger("Hide");
-        GameManager.Instance.StopBlurBackGround();
+        RootManager.Instance.StopBlurBackGround();
         RoundManager.Instance.OnGameStop();
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
         IsShow = false;

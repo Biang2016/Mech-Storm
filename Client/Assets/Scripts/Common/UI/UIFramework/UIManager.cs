@@ -58,6 +58,12 @@ public class UIManager : MonoSingleton<UIManager>
     public T ShowUIForms<T>() where T : BaseUIForm
     {
         string uiFormNameStr = typeof(T).ToString();
+        BaseUIForm uiForm = ShowUIForms(uiFormNameStr);
+        return (T) uiForm;
+    }
+
+    public BaseUIForm ShowUIForms(string uiFormNameStr)
+    {
         BaseUIForm baseUIForms = LoadFormsToAllUIFormsCache(uiFormNameStr); //根据UI窗体的名称，加载到“所有UI窗体”缓存集合中
         if (baseUIForms == null) return null;
         if (baseUIForms.UIType.IsClearStack) ClearStackArray(); //是否清空“栈集合”中得数据
@@ -77,7 +83,7 @@ public class UIManager : MonoSingleton<UIManager>
                 break;
         }
 
-        return (T) baseUIForms;
+        return baseUIForms;
     }
 
     /// <summary>

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class SettingPanel : BaseUIForm
@@ -32,11 +34,14 @@ public class SettingPanel : BaseUIForm
         SoundSlider.onValueChanged.AddListener(OnSoundSliderValueChange);
         BGMSlider.onValueChanged.AddListener(OnBGMSliderValueChange);
 
-        LanguageManager.Instance.RegisterTextKey(SettingText, "SettingMenu_Settings");
-        LanguageManager.Instance.RegisterTextKey(LanguageDropdownText, "SettingMenu_Languages");
-        LanguageManager.Instance.RegisterTextKey(MasterSliderText, "SettingMenu_MasterSliderText");
-        LanguageManager.Instance.RegisterTextKey(SoundSliderText, "SettingMenu_SoundSliderText");
-        LanguageManager.Instance.RegisterTextKey(BGMSliderText, "SettingMenu_BGMSliderText");
+        LanguageManager.Instance.RegisterTextKeys(new List<ValueTuple<Text, string>>
+        {
+            (SettingText, "SettingMenu_Settings"),
+            (LanguageDropdownText, "SettingMenu_Languages"),
+            (MasterSliderText, "SettingMenu_MasterSliderText"),
+            (SoundSliderText, "SettingMenu_SoundSliderText"),
+            (BGMSliderText, "SettingMenu_BGMSliderText"),
+        });
     }
 
     void Start()

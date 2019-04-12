@@ -5105,9 +5105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BattleGroundCamera: {fileID: 3773136430506393187}
-  CardSelectCamera: {fileID: 0}
   ShowBEMMessages: 0
-  ShowClientLogs: 1
   HandCardSize: 1.5
   HandCardInterval: 1
   HandCardRotate: 1
@@ -5127,7 +5125,6 @@ MonoBehaviour:
   CardDeckCardSize: 1.4
   Self_CardDeckCardInterval: {x: 0.05, y: 0.01, z: 0.1}
   Enemy_CardDeckCardInterval: {x: -0.05, y: 0.01, z: 0.1}
-  ImageEffectBlurBox: {fileID: -7480829249337346885}
 --- !u!1 &-886858360840834995
 GameObject:
   m_ObjectHideFlags: 0
@@ -9579,6 +9576,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: -3201438887945825591}
+  - component: {fileID: 8539236677115644909}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -9608,6 +9606,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8539236677115644909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6822180163831748953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9be8ee7b2247bda978e047ddac7323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowClientLogs: 0
+  ImageEffectBlurBox: {fileID: -7480829249337346885}
 --- !u!1 &6836251493811307281
 GameObject:
   m_ObjectHideFlags: 0

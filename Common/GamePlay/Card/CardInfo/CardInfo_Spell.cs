@@ -7,10 +7,10 @@
     public CardInfo_Spell(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
+            upgradeInfo: upgradeInfo,
             sideEffectBundle: sideEffectBundle,
             sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround)
     {
-        UpgradeInfo = upgradeInfo;
         Pro_Initialize();
     }
 

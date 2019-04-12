@@ -83,7 +83,7 @@ public class UIMaskMgr : MonoSingleton<UIMaskMgr>
     IEnumerator Co_UIMaskPanelBlurTransShow(float duration)
     {
         if (BlurShowCoroutine != null) StopCoroutine(BlurShowCoroutine);
-        GameManager.Instance.StartBlurBackGround(duration);
+        RootManager.Instance.StartBlurBackGround(duration);
         float blurSizeStart = 0f;
         float blurSizeEnd = 2f;
         int frame = Mathf.RoundToInt(duration / 0.05f);
@@ -114,6 +114,6 @@ public class UIMaskMgr : MonoSingleton<UIMaskMgr>
             MaskPanel_Blur.SetActive(false);
         }
 
-        GameManager.Instance.StopBlurBackGround();
+        RootManager.Instance.StopBlurBackGround();
     }
 }

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class
-    ClientLog : MonoSingleton<ClientLog>
+public class ClientLog : MonoSingleton<ClientLog>
 {
     private ClientLog()
     {
@@ -47,7 +46,7 @@ public class
             Log log = LogMessages.Dequeue();
             if (log != null)
             {
-                if (GameManager.Instance.ShowClientLogs)
+                if (RootManager.Instance.ShowClientLogs)
                 {
                     Debug.Log("<color=#" + log.Color + ">" + log.LogStr + "</color>");
 #if DEBUG

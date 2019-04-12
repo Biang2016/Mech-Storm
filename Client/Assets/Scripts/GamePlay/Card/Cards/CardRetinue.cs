@@ -25,7 +25,7 @@ public class CardRetinue : CardBase
         M_RetinueArmor = CardInfo.BattleInfo.BasicArmor;
         M_RetinueShield = CardInfo.BattleInfo.BasicShield;
 
-        SetSlots();
+        InitSlots();
         if (M_CardShowMode == CardShowMode.CardSelect) ResetSelectCountBlockPosition();
         if (M_CardShowMode == CardShowMode.SelectedCardPreview || M_CardShowMode == CardShowMode.CardUpgradePreview) RefreshSelectCountBlockPosition();
     }

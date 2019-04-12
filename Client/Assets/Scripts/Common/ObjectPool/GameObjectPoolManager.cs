@@ -40,6 +40,10 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         BonusButton,
         StartMenuButton,
         ExitMenuButton,
+        CardPreviewButton,
+        CardPropertyFormRow_InputField,
+        CardPropertyFormRow_Dropdown,
+        CardPropertyFormRow_Toggle,
     }
 
     public Dictionary<PrefabNames, int> PoolConfigs = new Dictionary<PrefabNames, int>
@@ -75,6 +79,10 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.BonusButton, 3},
         {PrefabNames.StartMenuButton, 10},
         {PrefabNames.ExitMenuButton, 10},
+        {PrefabNames.CardPreviewButton, 50},
+        {PrefabNames.CardPropertyFormRow_InputField, 10},
+        {PrefabNames.CardPropertyFormRow_Dropdown, 5},
+        {PrefabNames.CardPropertyFormRow_Toggle, 3},
     };
 
     public Dictionary<PrefabNames, GameObjectPool> PoolDict = new Dictionary<PrefabNames, GameObjectPool>();

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 
 public class CardInfo_Base
 {
@@ -22,10 +23,11 @@ public class CardInfo_Base
     {
     }
 
-    protected CardInfo_Base(int cardID, BaseInfo baseInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
+    protected CardInfo_Base(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
     {
         CardID = cardID;
         BaseInfo = baseInfo;
+        UpgradeInfo = upgradeInfo;
         SideEffectBundle = sideEffectBundle;
         SideEffectBundle_OnBattleGround = sideEffectBundle_OnBattleGround;
         TargetInfo.Initialize(this);
@@ -73,7 +75,7 @@ public class CardInfo_Base
 
     public virtual CardInfo_Base Clone()
     {
-        return new CardInfo_Base(CardID, BaseInfo, SideEffectBundle.Clone(), SideEffectBundle_OnBattleGround.Clone());
+        return new CardInfo_Base(CardID, BaseInfo, UpgradeInfo, SideEffectBundle.Clone(), SideEffectBundle_OnBattleGround.Clone());
     }
 
     public void Serialize(DataStream writer)
@@ -120,9 +122,123 @@ public class CardInfo_Base
         return newCardInfo_Base;
     }
 
-
     public virtual string GetCardTypeDesc()
     {
+        return null;
+    }
+
+    public static T ConvertCardInfo<T>(CardInfo_Base src) where T : CardInfo_Base
+    {
+        switch (src)
+        {
+            case CardInfo_Retinue ci:
+            {
+                switch (typeof(T).Name)
+                {
+                    case "CardInfo_Retinue":
+                    {
+                        return (T) ci.Clone();
+                    }
+                    case "CardInfo_Equip":
+                    {
+                        CardInfo_Base res = new CardInfo_Equip(
+                            ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
+                            new EquipInfo(SlotTypes.Weapon),
+                            new WeaponInfo(1, 1, 1, WeaponTypes.Sword, false, false),
+                            new ShieldInfo(),
+                            new PackInfo(),
+                            new MAInfo(),
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_OnBattleGround.Clone());
+                        res.BaseInfo.CardType = CardTypes.Equip;
+                        return (T) res;
+                    }
+                    case "CardInfo_Spell":
+                    {
+                        CardInfo_Base res = new CardInfo_Spell(
+                            ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_OnBattleGround.Clone());
+                        res.BaseInfo.CardType = CardTypes.Spell;
+                        return (T) res;
+                    }
+                }
+
+                break;
+            }
+            case CardInfo_Equip ci:
+            {
+                switch (typeof(T).Name)
+                {
+                    case "CardInfo_Retinue":
+                    {
+                        CardInfo_Base res = new CardInfo_Retinue(
+                            ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
+                            new LifeInfo(1, 1),
+                            new BattleInfo(0, 0, 0),
+                            new RetinueInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_OnBattleGround.Clone());
+                        res.BaseInfo.CardType = CardTypes.Retinue;
+                        return (T) res;
+                    }
+                    case "CardInfo_Equip":
+                    {
+                        return (T) ci.Clone();
+                    }
+                    case "CardInfo_Spell":
+                    {
+                        CardInfo_Base res = new CardInfo_Spell(
+                            ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_OnBattleGround.Clone());
+                        res.BaseInfo.CardType = CardTypes.Spell;
+                        return (T) res;
+                    }
+                }
+
+                break;
+            }
+            case CardInfo_Spell ci:
+            {
+                switch (typeof(T).Name)
+                {
+                    case "CardInfo_Retinue":
+                    {
+                        CardInfo_Base res = new CardInfo_Retinue(
+                            ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
+                            new LifeInfo(1, 1),
+                            new BattleInfo(0, 0, 0),
+                            new RetinueInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_OnBattleGround.Clone());
+                        res.BaseInfo.CardType = CardTypes.Retinue;
+                        return (T) res;
+                    }
+                    case "CardInfo_Equip":
+                    {
+                        CardInfo_Base res = new CardInfo_Equip(
+                            ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
+                            new EquipInfo(SlotTypes.Weapon),
+                            new WeaponInfo(1, 1, 1, WeaponTypes.Sword, false, false),
+                            new ShieldInfo(),
+                            new PackInfo(),
+                            new MAInfo(),
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_OnBattleGround.Clone());
+                        res.BaseInfo.CardType = CardTypes.Equip;
+                        return (T) res;
+                    }
+                    case "CardInfo_Spell":
+                    {
+                        return (T) ci.Clone();
+                    }
+                }
+
+                break;
+            }
+        }
+
         return null;
     }
 }

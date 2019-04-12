@@ -1,162 +1,162 @@
 {
 	"Common_Yes": {
-		"zh": "ÊÇ",
+		"zh": "æ˜¯",
 		"en": "Yes"
 	},
 	"Common_No": {
-		"zh": "·ñ",
+		"zh": "å¦",
 		"en": "No"
 	},
 	"Common_Confirm": {
-		"zh": "È·ÈÏ",
+		"zh": "ç¡®è®¤",
 		"en": "Confirm"
 	},
 	"Common_Cancel": {
-		"zh": "È¡Ïû",
+		"zh": "å–æ¶ˆ",
 		"en": "Cancel"
 	},
 	"Common_Continue": {
-		"zh": "¼ÌĞø",
+		"zh": "ç»§ç»­",
 		"en": "Consume"
 	},
 	"Common_GoAhead": {
-		"zh": "¼ÌĞø",
+		"zh": "ç»§ç»­",
 		"en": "Go Ahead"
 	},
 	"Common_Edit": {
-		"zh": "±à¼­",
+		"zh": "ç¼–è¾‘",
 		"en": "Edit"
 	},
 
 	"SettingMenu_ChangeLanguageNotice": {
-		"zh": "¸ü¸ÄÓïÑÔ³É¹¦",
+		"zh": "æ›´æ”¹è¯­è¨€æˆåŠŸ",
 		"en": "Language changed successfully!"
 	},
 	"SettingMenu_Settings": {
-		"zh": "ÉèÖÃ",
+		"zh": "è®¾ç½®",
 		"en": "Settings"
 	},
 	"SettingMenu_Languages": {
-		"zh": "ÓïÑÔ",
+		"zh": "è¯­è¨€",
 		"en": "Language"
 	},
 	"SettingMenu_MasterSliderText": {
-		"zh": "Ö÷ÒôÁ¿",
+		"zh": "ä¸»éŸ³é‡",
 		"en": "Master"
 	},
 	"SettingMenu_SoundSliderText": {
-		"zh": "ÒôĞ§",
+		"zh": "éŸ³æ•ˆ",
 		"en": "Sound"
 	},
 	"SettingMenu_BGMSliderText": {
-		"zh": "±³¾°ÒôÀÖ",
+		"zh": "èƒŒæ™¯éŸ³ä¹",
 		"en": "BGM"
 	},
 
 
 	"StartMenu_OnlineMode": {
-		"zh": "ÔÚÏß¶ÔÕ½",
+		"zh": "åœ¨çº¿å¯¹æˆ˜",
 		"en": "Online Mode"
 	},
 	"StartMenu_SingleMode": {
-		"zh": "µ¥ÈËÄ£Ê½",
+		"zh": "å•äººæ¨¡å¼",
 		"en": "Single Mode"
 	},
 	"StartMenu_CustomizeBattle": {
-		"zh": "×Ô¶¨ÒåÈË»ú",
+		"zh": "è‡ªå®šä¹‰äººæœº",
 		"en": "Customize Battle"
 	},
 	"StartMenu_Settings": {
-		"zh": "ÓÎÏ·ÉèÖÃ",
+		"zh": "æ¸¸æˆè®¾ç½®",
 		"en": "Settings"
 	},
 	"StartMenu_AboutMe": {
-		"zh": "ÖÆ×÷ÈËÔ±",
+		"zh": "åˆ¶ä½œäººå‘˜",
 		"en": "About Me"
 	},
 	"StartMenu_Designer": {
-		"zh": "ÖÆ×÷ÈË: Ñ¦±şêÉ",
+		"zh": "åˆ¶ä½œäºº: è–›ç‚³æ™Ÿ",
 		"en": "Designer\nXue Bingsheng"
 	},
 	"StartMenu_Back": {
-		"zh": "·µ»Ø",
+		"zh": "è¿”å›",
 		"en": "Back"
 	},
 	"StartMenu_QuitGame": {
-		"zh": "ÍË³öÓÎÏ·",
+		"zh": "é€€å‡ºæ¸¸æˆ",
 		"en": "Quit Game"
 	},
 
 	"StartMenu_OnlineStart": {
-		"zh": "¿ªÊ¼Æ¥Åä",
+		"zh": "å¼€å§‹åŒ¹é…",
 		"en": "Start Matching"
 	},
 	"StartMenu_CancelMatch": {
-		"zh": "È¡ÏûÆ¥Åä",
+		"zh": "å–æ¶ˆåŒ¹é…",
 		"en": "Cancel Matching"
 	},
 	"StartMenu_OnlineDeck": {
-		"zh": "ÎÒµÄ¿¨×é",
+		"zh": "æˆ‘çš„å¡ç»„",
 		"en": "My Decks"
 	},
 
 	"StartMenu_SingleStart": {
-		"zh": "ĞÂµÄÓÎÏ·",
+		"zh": "æ–°çš„æ¸¸æˆ",
 		"en": "New Story"
 	},
 	"StartMenu_SingleResume": {
-		"zh": "¼ÌĞøÓÎÏ·",
+		"zh": "ç»§ç»­æ¸¸æˆ",
 		"en": "Resume"
 	},
 	"StartMenu_SingleDeck": {
-		"zh": "ÎÒµÄ¿¨×é",
+		"zh": "æˆ‘çš„å¡ç»„",
 		"en": "My Decks"
 	},
 
 	"StartMenu_SingleCustomStart": {
-		"zh": "¿ªÊ¼¶ÔÕ½",
+		"zh": "å¼€å§‹å¯¹æˆ˜",
 		"en": "Begin Fighting"
 	},
 	"StartMenu_SingleCustomDeck": {
-		"zh": "ÎÒµÄ¿¨×é",
+		"zh": "æˆ‘çš„å¡ç»„",
 		"en": "My Decks"
 	},
 
 	"StartMenu_OnlineMenuTipText": {
-		"zh": "Í¨¹ı»¥ÁªÍøÓëÆäËûÍæ¼Ò×ÔÓÉ¶ÔÕ½,È«¿¨×é¿ª·Å",
+		"zh": "é€šè¿‡äº’è”ç½‘ä¸å…¶ä»–ç©å®¶è‡ªç”±å¯¹æˆ˜,å…¨å¡ç»„å¼€æ”¾",
 		"en": "Play against players through the Internet with all cards available."
 	},
 	"StartMenu_SingleMenuTipText": {
-		"zh": "½øĞĞµ¥ÈËRouge-likeÄ£Ê½",
+		"zh": "è¿›è¡Œå•äººRouge-likeæ¨¡å¼",
 		"en": "Play in a Rouge-like story mode and collect cards gradually."
 	},
 	"StartMenu_SingleCustomBattleTipText": {
-		"zh": "ÓëµçÄÔAI¶ÔÕ½,È«¿¨×é¿ª·Å",
+		"zh": "ä¸ç”µè„‘AIå¯¹æˆ˜,å…¨å¡ç»„å¼€æ”¾",
 		"en": "Play against computer AI with all cards available."
 	},
 	"StartMenu_SettingTipText": {
-		"zh": "ÒôÆµÓëÓïÑÔÉèÖÃ",
+		"zh": "éŸ³é¢‘ä¸è¯­è¨€è®¾ç½®",
 		"en": "Audio and language settings."
 	},
 	"StartMenu_BackTipText": {
-		"zh": "»Øµ½Ö÷²Ëµ¥",
+		"zh": "å›åˆ°ä¸»èœå•",
 		"en": "Back to main menu."
 	},
 	"StartMenu_DeckTipText": {
-		"zh": "´ò¿ªÅÆ¿â,½øĞĞÉúÃüÖµ¡¢ÄÜÁ¿ÖµºÍ¿¨Æ¬µÄÌôÑ¡",
+		"zh": "æ‰“å¼€ç‰Œåº“,è¿›è¡Œç”Ÿå‘½å€¼ã€èƒ½é‡å€¼å’Œå¡ç‰‡çš„æŒ‘é€‰",
 		"en": "(TAB) Open deck editor where life, energy and cards can be modified."
 	},
 	"StartMenu_SingleResumeTipText": {
-		"zh": "¼ÌĞøÖ®Ç°µÄÓÎÏ·",
+		"zh": "ç»§ç»­ä¹‹å‰çš„æ¸¸æˆ",
 		"en": "Resume last story."
 	},
 
 	"StartMenu_DeckAbstractText_DeckName": {
-		"zh": "ÎŞ¿¨×é",
+		"zh": "æ— å¡ç»„",
 		"en": "No Deck"
 	},
 	"StartMenu_DeckAbstractText_Cards": {
-		"zh": "¿¨ÅÆÊı:",
+		"zh": "å¡ç‰Œæ•°:",
 		"en": "Cards"
 	},
 	"StartMenu_DeckAbstractText_CardNum": {
@@ -164,7 +164,7 @@
 		"en": ""
 	},
 	"StartMenu_DeckAbstractText_Life": {
-		"zh": "ÉúÃüÖµ:",
+		"zh": "ç”Ÿå‘½å€¼:",
 		"en": "Life"
 	},
 	"StartMenu_DeckAbstractText_LifeNum": {
@@ -172,7 +172,7 @@
 		"en": ""
 	},
 	"StartMenu_DeckAbstractText_Energy": {
-		"zh": "ÄÜÁ¿ÉÏÏŞ:",
+		"zh": "èƒ½é‡ä¸Šé™:",
 		"en": "Energy"
 	},
 	"StartMenu_DeckAbstractText_EnergyNum": {
@@ -180,7 +180,7 @@
 		"en": ""
 	},
 	"StartMenu_DeckAbstractText_Draws": {
-		"zh": "³éÅÆÊı:",
+		"zh": "æŠ½ç‰Œæ•°:",
 		"en": "Draws"
 	},
 	"StartMenu_DeckAbstractText_DrawNum": {
@@ -188,514 +188,620 @@
 		"en": ""
 	},
 	"StartMenu_BeginMatching": {
-		"zh": "¿ªÊ¼Æ¥Åä",
+		"zh": "å¼€å§‹åŒ¹é…",
 		"en": "Begin matching"
 	},
 	"StartMenu_Matching": {
-		"zh": "Æ¥ÅäÖĞ",
+		"zh": "åŒ¹é…ä¸­",
 		"en": "Matching"
 	},
 	"StartMenu_BeginSingleMode": {
-		"zh": "¿ªÊ¼µ¥ÈËÄ£Ê½",
+		"zh": "å¼€å§‹å•äººæ¨¡å¼",
 		"en": "Begin single mode"
 	},
 	"StartMenu_BeginCustomMode": {
-		"zh": "¿ªÊ¼×Ô¶¨ÒåÈË»úÄ£Ê½",
+		"zh": "å¼€å§‹è‡ªå®šä¹‰äººæœºæ¨¡å¼",
 		"en": "Begin single custom mode"
 	},
 	"StartMenu_NewCardTipText": {
-		"zh": "ĞÂ¿¨Æ¬",
+		"zh": "æ–°å¡ç‰‡",
 		"en": "New!"
 	},
 
 	"Notice_StartMenu_DoYouWantToStartANewSingleGame": {
-		"zh": "ÊÇ·ñ¿ªÊ¼Ò»¸öĞÂµÄÓÎÏ·£¿",
+		"zh": "æ˜¯å¦å¼€å§‹ä¸€ä¸ªæ–°çš„æ¸¸æˆï¼Ÿ",
 		"en": "Do you want to start a new Single Game?"
 	},
 	"Notice_StartMenu_CurrentGameWillBeRemoved": {
-		"zh": " µ±Ç°ÓÎÏ·½«±»Çå³ı¡£",
+		"zh": " å½“å‰æ¸¸æˆå°†è¢«æ¸…é™¤ã€‚",
 		"en": " It will remove your current game."
 	},
 	"Notice_StartMenu_NoCardInDeck": {
-		"zh": " ÄúµÄ¿¨×éÖĞÃ»ÓĞ¿¨ÅÆ¡£",
+		"zh": " æ‚¨çš„å¡ç»„ä¸­æ²¡æœ‰å¡ç‰Œã€‚",
 		"en": " Your deck is empty"
 	},
 	"Notice_StartMenu_CardEnergyOverYourEnergy": {
-		"zh": " ÄúµÄ¿¨×éÖĞÓĞĞ©ÅÆµÄÄÜÁ¿ÏûºÄ´óÓÚÄúµÄÄÜÁ¿ÉÏÏŞ£¬ÊÇ·ñ¼ÌĞø£¿",
+		"zh": " æ‚¨çš„å¡ç»„ä¸­æœ‰äº›ç‰Œçš„èƒ½é‡æ¶ˆè€—å¤§äºæ‚¨çš„èƒ½é‡ä¸Šé™ï¼Œæ˜¯å¦ç»§ç»­ï¼Ÿ",
 		"en": " Some cards consume more energy than your upper limit."
 	},
 	"Notice_StartMenu_QuitGameConfirm": {
-		"zh": " ÍË³öÓÎÏ·?",
+		"zh": " é€€å‡ºæ¸¸æˆ?",
 		"en": " Are you sure to Quick the game?"
 	},
 
 
 	"ExitMenu_SettingMenuText": {
-		"zh": "ÉèÖÃ",
+		"zh": "è®¾ç½®",
 		"en": "Settings"
 	},
 	"ExitMenu_SurrenderText": {
-		"zh": "ÈÏÊä",
+		"zh": "è®¤è¾“",
 		"en": "Surrender"
 	},
 	"ExitMenu_ConsumeText": {
-		"zh": "¼ÌĞøÓÎÏ·",
+		"zh": "ç»§ç»­æ¸¸æˆ",
 		"en": "Consume"
 	},
 	"ExitMenu_QuitText": {
-		"zh": "ÍË³öÓÎÏ·",
+		"zh": "é€€å‡ºæ¸¸æˆ",
 		"en": "Quit"
 	},
 	"ExitMenu_SureToSurrender": {
-		"zh": "ÄúÈ·¶¨ÒªÈÏÊäÂğ?",
+		"zh": "æ‚¨ç¡®å®šè¦è®¤è¾“å—?",
 		"en": "Are you sure to surrender?"
 	},
 	"ExitMenu_YouHaveQuitGame": {
-		"zh": "ÄúÒÑÍË³ö±ÈÈü",
+		"zh": "æ‚¨å·²é€€å‡ºæ¯”èµ›",
 		"en": "You have quit the game"
 	},
 
 
 	"LoginMenu_ServerText": {
-		"zh": "·şÎñÆ÷: ",
+		"zh": "æœåŠ¡å™¨: ",
 		"en": "Server: "
 	},
 	"LoginMenu_UserNameText": {
-		"zh": "ÓÃ»§Ãû: ",
+		"zh": "ç”¨æˆ·å: ",
 		"en": "Username: "
 	},
 	"LoginMenu_PasswordText": {
-		"zh": "ÃÜÂë: ",
+		"zh": "å¯†ç : ",
 		"en": "Password: "
 	},
 	"LoginMenu_RegisterText": {
-		"zh": "×¢²á",
+		"zh": "æ³¨å†Œ",
 		"en": "Register"
 	},
 	"LoginMenu_LoginText": {
-		"zh": "µÇÂ¼",
+		"zh": "ç™»å½•",
 		"en": "Login"
 	},
 	"LoginMenu_Disconnected": {
-		"zh": "ÒÑ¶Ï¿ªÁ¬½Ó.",
+		"zh": "å·²æ–­å¼€è¿æ¥.",
 		"en": "Disconnected"
 	},
 	"LoginMenu_Connected": {
-		"zh": "ÒÑÁ¬½Ó.",
+		"zh": "å·²è¿æ¥.",
 		"en": "Connected"
 	},
 	"LoginMenu_Connecting": {
-		"zh": "ÕıÔÚÁ¬½Ó·şÎñÆ÷",
+		"zh": "æ­£åœ¨è¿æ¥æœåŠ¡å™¨",
 		"en": "Connecting"
 	},
 	"Notice_LoginMenu_ClientNeedUpdate": {
-		"zh": "ÄúµÄ¿Í»§¶ËĞèÒª¸üĞÂ,ÊÇ·ñÔÚä¯ÀÀÆ÷ÖĞ´ò¿ªÏÂÔØÒ³Ãæ?",
+		"zh": "æ‚¨çš„å®¢æˆ·ç«¯éœ€è¦æ›´æ–°,æ˜¯å¦åœ¨æµè§ˆå™¨ä¸­æ‰“å¼€ä¸‹è½½é¡µé¢?",
 		"en": "Your client needs update! Open the download page in browser?"
 	},
 
 	"Server_FormalServer": {
-		"zh": "ÕıÊ½·ş",
+		"zh": "æ­£å¼æœ",
 		"en": "Formal Server"
 	},
 	"Server_TestServer": {
-		"zh": "²âÊÔ·ş",
+		"zh": "æµ‹è¯•æœ",
 		"en": "Test Server"
 	},
 
 	"Notice_NetworkManager_Disconnecting": {
-		"zh": "ÕıÔÚ¶Ï¿ªÁ¬½Ó",
+		"zh": "æ­£åœ¨æ–­å¼€è¿æ¥",
 		"en": "Disconnecting"
 	},
 	"Notice_NetworkManager_Disconnected": {
-		"zh": "ÒÑ¶Ï¿ªÁ¬½Ó",
+		"zh": "å·²æ–­å¼€è¿æ¥",
 		"en": "Disconnected."
 	},
 	"Notice_NetworkManager_Connected": {
-		"zh": "Á¬½Ó·şÎñÆ÷³É¹¦",
+		"zh": "è¿æ¥æœåŠ¡å™¨æˆåŠŸ",
 		"en": "Connected."
 	},
 	"Notice_NetworkManager_Connecting": {
-		"zh": "ÕıÔÚÁ¬½Ó·şÎñÆ÷",
+		"zh": "æ­£åœ¨è¿æ¥æœåŠ¡å™¨",
 		"en": "Connecting"
 	},
 	"Notice_NetworkManager_MatchSuccess": {
-		"zh": "Æ¥Åä³É¹¦£¬¿ªÊ¼±ÈÈü",
+		"zh": "åŒ¹é…æˆåŠŸï¼Œå¼€å§‹æ¯”èµ›",
 		"en": "Match success! Game begin!"
 	},
 
 
 	"BigBonusItem_ToUnlockThisCard": {
-		"zh": "½âËø¸Ã¿¨Æ¬",
+		"zh": "è§£é”è¯¥å¡ç‰‡",
 		"en": "To unlock this card"
 	},
 
 	"ModuleRetinue_DecreaseDamageNumberFly": {
-		"zh": "×èµ² -",
+		"zh": "é˜»æŒ¡ -",
 		"en": "Dec -"
 	},
 	"ModuleRetinue_LifeNumberFly": {
-		"zh": "ÉúÃü ",
+		"zh": "ç”Ÿå‘½ ",
 		"en": "Life "
 	},
 	"ModuleRetinue_AttackChangeNumberFly": {
-		"zh": "ÉËº¦ ",
+		"zh": "ä¼¤å®³ ",
 		"en": "Attack "
 	},
 	"ModuleRetinue_ArmorChangeNumberFly": {
-		"zh": "»¤¼× ",
+		"zh": "æŠ¤ç”² ",
 		"en": "Armor "
 	},
 	"ModuleRetinue_ShieldChangeNumberFly": {
-		"zh": "»¤¶Ü ",
+		"zh": "æŠ¤ç›¾ ",
 		"en": "Shield "
 	},
 	"ModuleRetinue_ShouldAttackDefenderFirst": {
-		"zh": "Äã±ØĞëÏÈ¹¥»÷³°·í»ú¼×",
+		"zh": "ä½ å¿…é¡»å…ˆæ”»å‡»å˜²è®½æœºç”²",
 		"en": "You should attack the Defenders first."
 	},
 	"ModuleRetinue_ShouldAttackMechsFirst": {
-		"zh": "Äã±ØĞëÏÈ¹¥»÷³¡ÉÏ»ú¼×",
+		"zh": "ä½ å¿…é¡»å…ˆæ”»å‡»åœºä¸Šæœºç”²",
 		"en": "You should attack the Mechs first."
 	},
 
 
 	"Proxy_RegisterSuccess": {
-		"zh": "×¢²á³É¹¦",
+		"zh": "æ³¨å†ŒæˆåŠŸ",
 		"en": "Register Success"
 	},
 	"Proxy_UserNameUsed": {
-		"zh": "¸ÃÓÃ»§ÃûÒÑ±»×¢²á",
+		"zh": "è¯¥ç”¨æˆ·åå·²è¢«æ³¨å†Œ",
 		"en": "This username has been used"
 	},
 	"Proxy_LoginSuccess": {
-		"zh": "µÇÂ¼³É¹¦",
+		"zh": "ç™»å½•æˆåŠŸ",
 		"en": "Login Success"
 	},
 	"Proxy_WrongPassword": {
-		"zh": "ÄúµÄÃÜÂëÓĞÎó",
+		"zh": "æ‚¨çš„å¯†ç æœ‰è¯¯",
 		"en": "Wrong Password"
 	},
 	"Proxy_UserNameNotExisted": {
-		"zh": "¸ÃÓÃ»§Ãû²»´æÔÚ",
+		"zh": "è¯¥ç”¨æˆ·åä¸å­˜åœ¨",
 		"en": "Username does not Exist"
 	},
 	"Proxy_AlreadyLogin": {
-		"zh": "¸ÃÕËºÅÒÑµÇÂ¼",
+		"zh": "è¯¥è´¦å·å·²ç™»å½•",
 		"en": "The account is logged in"
 	},
 	"Proxy_LogOutSuccess": {
-		"zh": "ÍË³ö³É¹¦",
+		"zh": "é€€å‡ºæˆåŠŸ",
 		"en": "Logout Success"
 	},
 	"Proxy_LogOutFailed": {
-		"zh": "ÍË³öÊ§°Ü",
+		"zh": "é€€å‡ºå¤±è´¥",
 		"en": "Logout Failed"
 	},
 
 	"InGameUIManager_EndTurn": {
-		"zh": "½áÊø»ØºÏ",
+		"zh": "ç»“æŸå›åˆ",
 		"en": "End Turn"
 	},
 	"InGameUIManager_EnemyTurn": {
-		"zh": "µĞ·½»ØºÏ",
+		"zh": "æ•Œæ–¹å›åˆ",
 		"en": "Enemy's Turn"
 	},
 
 	"RoundManager_EndedByServerError": {
-		"zh": "ÓÉÓÚ·şÎñÆ÷´íÎóµ¼ÖÂÓÎÏ·½áÊø",
+		"zh": "ç”±äºæœåŠ¡å™¨é”™è¯¯å¯¼è‡´æ¸¸æˆç»“æŸ",
 		"en": "Sorry, game ended due to a Server Error."
 	},
 	"RoundManager_YourTurn": {
-		"zh": "ÄãµÄ»ØºÏ",
+		"zh": "ä½ çš„å›åˆ",
 		"en": "Your Turn Begins"
 	},
 	"RoundManager_EnemyTurn": {
-		"zh": "µĞ·½»ØºÏ",
+		"zh": "æ•Œæ–¹å›åˆ",
 		"en": "Enemy's Turn"
 	},
 	"RoundManager_YouAreOffline": {
-		"zh": "ÄúÒÑÀëÏß",
+		"zh": "æ‚¨å·²ç¦»çº¿",
 		"en": "Disconnected"
 	},
 	"RoundManager_JustGotANewCard": {
-		"zh": "¸Õ¸Õ»ñµÃÁËĞÂ¿¨Æ¬£¬ÊÇ·ñÈ¥¿¨×é¿´Ò»¿´?",
+		"zh": "åˆšåˆšè·å¾—äº†æ–°å¡ç‰‡ï¼Œæ˜¯å¦å»å¡ç»„çœ‹ä¸€çœ‹?",
 		"en": "You have got some new cards just now! Do you want to adjust your deck?"
 	},
 	"RoundManager_GoToDeck": {
-		"zh": "È¥ÅÆ¿â",
+		"zh": "å»ç‰Œåº“",
 		"en": "Go to deck"
 	},
 	"RoundManager_GotIt": {
-		"zh": "ÖªµÀÁË",
+		"zh": "çŸ¥é“äº†",
 		"en": "Got it."
 	},
 
 	"HandManager_YouHaveManyCards": {
-		"zh": "ÄãÓĞ%sÕÅÊÖÅÆ",
+		"zh": "ä½ æœ‰%så¼ æ‰‹ç‰Œ",
 		"en": "You have %s cards."
 	},
 	"HandManager_EnemyHaveManyCards": {
-		"zh": "ÄãµÄ¶ÔÊÖÓĞ%sÕÅÊÖÅÆ",
+		"zh": "ä½ çš„å¯¹æ‰‹æœ‰%så¼ æ‰‹ç‰Œ",
 		"en": "Your opponent have %s cards."
 	},
 
 	"WinLostPanelManager_WinText": {
-		"zh": "ÄãÓ®ÁË£¡",
+		"zh": "ä½ èµ¢äº†ï¼",
 		"en": "You win!"
 	},
 	"WinLostPanelManager_LostText": {
-		"zh": "ÄãÊäÁË...",
+		"zh": "ä½ è¾“äº†...",
 		"en": "You lost ..."
 	},
 	"WinLostPanelManager_OnlineWinText": {
-		"zh": "ÄãÓ®ÁË£¡",
+		"zh": "ä½ èµ¢äº†ï¼",
 		"en": "You win!"
 	},
 	"WinLostPanelManager_OnlineLostText": {
-		"zh": "ÄãÊäÁË...",
+		"zh": "ä½ è¾“äº†...",
 		"en": "You lost ..."
 	},
 	"WinLostPanelManager_LostTipTitle": {
-		"zh": "ÌáÊ¾: ",
+		"zh": "æç¤º: ",
 		"en": "Tips: "
 	},
 	"WinLostPanelManager_RewardsTitleText": {
-		"zh": "½±Àø",
+		"zh": "å¥–åŠ±",
 		"en": "Rewards"
 	},
 	"WinLostPanelManager_NoRewardText": {
-		"zh": "Éè¼ÆÊ¦ÊÇ¸öÁßØÄ¹í£¬ÕâÀïÃ»ÓĞÈÎºÎ½±Àø",
+		"zh": "è®¾è®¡å¸ˆæ˜¯ä¸ªåå•¬é¬¼ï¼Œè¿™é‡Œæ²¡æœ‰ä»»ä½•å¥–åŠ±",
 		"en": "The designer is so mean that here isn't any reward."
 	},
 	"WinLostPanelManager_FixedBonusText": {
-		"zh": "¹Ì¶¨\n½±Àø",
+		"zh": "å›ºå®š\nå¥–åŠ±",
 		"en": "Fixed Bonus"
 	},
 	"WinLostPanelManager_ConfirmButtonText": {
-		"zh": "È·ÈÏ",
+		"zh": "ç¡®è®¤",
 		"en": "Confirm"
 	},
 	"WinLostPanelManager_GoAheadButtonText": {
-		"zh": "¼ÌĞøÓÎÏ·",
+		"zh": "ç»§ç»­æ¸¸æˆ",
 		"en": "Go ahead"
 	},
 	"WinLostPanelManager_CardUpgradeUnlockText": {
-		"zh": "¿¨Æ¬Éı¼¶!",
+		"zh": "å¡ç‰‡å‡çº§!",
 		"en": "Card Upgraded!"
 	},
 	"WinLostPanelManager_CardUpgradeUnlockDescText": {
-		"zh": "ÏÖÔÚ¿ÉÒÔÔÚÅÆ¿âÖĞÉı¼¶¸Ã¿¨Æ¬ÁË!",
+		"zh": "ç°åœ¨å¯ä»¥åœ¨ç‰Œåº“ä¸­å‡çº§è¯¥å¡ç‰‡äº†!",
 		"en": "You can upgrade this card in your deck now."
 	},
 	"WinLostPanelManager_YouNeedToChooseACard": {
-		"zh": "ÄãĞèÒªÑ¡ÔñÒ»¸ö½±Àø,²»Òª¿ÍÆø!",
+		"zh": "ä½ éœ€è¦é€‰æ‹©ä¸€ä¸ªå¥–åŠ±,ä¸è¦å®¢æ°”!",
 		"en": "Come on, you should select one reward!"
 	},
 
 	"SelectBuildManagerBuild_NewDeck": {
-		"zh": "ĞÂ¿¨×é",
+		"zh": "æ–°å¡ç»„",
 		"en": "New Deck"
 	},
 	"SelectBuildManagerBuild_CreateNewDeck": {
-		"zh": "´´½¨ĞÂ¿¨×é",
+		"zh": "åˆ›å»ºæ–°å¡ç»„",
 		"en": "New Deck"
 	},
 	"SelectBuildManagerBuild_NoDeckSelected": {
-		"zh": "Î´Ñ¡Ôñ¿¨×é",
+		"zh": "æœªé€‰æ‹©å¡ç»„",
 		"en": "No deck is selected"
 	},
 	"SelectBuildManagerBuild_YourDeckIsSaved": {
-		"zh": "ÒÑ±£´æ¿¨×é",
+		"zh": "å·²ä¿å­˜å¡ç»„",
 		"en": "Your deck is saved."
 	},
 	"SelectBuildManagerBuild_BudgetLimitedChooseFewerCards": {
-		"zh": "Ô¤Ëã²»×ã,¿¼ÂÇÉÙÑ¡Ò»Ğ©¿¨ÅÆÅ¶~",
+		"zh": "é¢„ç®—ä¸è¶³,è€ƒè™‘å°‘é€‰ä¸€äº›å¡ç‰Œå“¦~",
 		"en": "Budget is Limited. Please consider choosing fewer cards."
 	},
 	"SelectBuildManagerBuild_RenameBuild_NoNameWarning": {
-		"zh": "¿¨×éÃû³Æ²»ÄÜÎª¿Õ",
+		"zh": "å¡ç»„åç§°ä¸èƒ½ä¸ºç©º",
 		"en": "Build name cannot be empty."
 	},
 	"SelectBuildManagerBuild_RenameBuild_TitleText": {
-		"zh": "¿¨×éÃüÃû",
+		"zh": "å¡ç»„å‘½å",
 		"en": "Rename Build"
 	},
 	"SelectBuildManagerBuild_RenameBuild_PlaceHolderText": {
-		"zh": "ÊäÈë¿¨×éÃû",
+		"zh": "è¾“å…¥å¡ç»„å",
 		"en": "Input build name here.."
 	},
 
 	"SelectBuildManagerPreviewUpgrade_UpgradeText": {
-		"zh": "Éı¼¶",
+		"zh": "å‡çº§",
 		"en": "Upgrade"
 	},
 	"SelectBuildManagerPreviewUpgrade_DegradeText": {
-		"zh": "½µ¼¶",
+		"zh": "é™çº§",
 		"en": "Degrade"
 	},
 
 	"SelectBuildManagerSelect_CardDeckText": {
-		"zh": "¿¨ ×é",
+		"zh": "å¡ ç»„",
 		"en": "Decks"
 	},
 	"SelectBuildManagerSelect_DeleteCardDeckText": {
-		"zh": "É¾³ı¿¨×é",
+		"zh": "åˆ é™¤å¡ç»„",
 		"en": "Delete"
 	},
 	"SelectBuildManagerSelect_LifeText": {
-		"zh": "ÉúÃüÖµ",
+		"zh": "ç”Ÿå‘½å€¼",
 		"en": "Life"
 	},
 	"SelectBuildManagerSelect_EnergyText": {
-		"zh": "ÄÜÁ¿",
+		"zh": "èƒ½é‡",
 		"en": "Energy"
 	},
 	"SelectBuildManagerSelect_BudgetText": {
-		"zh": "Ô¤Ëã",
+		"zh": "é¢„ç®—",
 		"en": "Budget"
 	},
 
 	"SelectBuildManagerSelect_DrawCardNumText": {
-		"zh": "Ã¿»ØºÏ³éÅÆÊı",
+		"zh": "æ¯å›åˆæŠ½ç‰Œæ•°",
 		"en": "Number of Draws Per Round"
 	},
 	"SelectBuildManagerSelect_AllCardDeckText": {
-		"zh": "ÅÆ ¿â",
+		"zh": "ç‰Œ åº“",
 		"en": "Card Library"
 	},
 
 	"SelectBuildManagerSelect_SelectAllCardText": {
-		"zh": "È«Ñ¡",
+		"zh": "å…¨é€‰",
 		"en": "Select All"
 	},
 	"SelectBuildManagerSelect_UnSelectAllCardText": {
-		"zh": "Çå³ıÑ¡Ôñ",
+		"zh": "æ¸…é™¤é€‰æ‹©",
 		"en": "Unselect All"
 	},
 	"SelectBuildManagerSelect_ConfirmSelectText": {
-		"zh": "È·ÈÏ³öÕ½",
+		"zh": "ç¡®è®¤å‡ºæˆ˜",
 		"en": "Confirm"
 	},
 	"SelectBuildManagerSelect_CloseText": {
-		"zh": "¹Ø±Õ(Tab)",
+		"zh": "å…³é—­(Tab)",
 		"en": "Close (Tab)"
 	},
 
 	"SelectBuildManagerSelect_HeroesCardText": {
-		"zh": "Ó¢ ĞÛ Ëæ ´Ó",
+		"zh": "è‹± é›„ éš ä»",
 		"en": "HeroMech"
 	},
 	"SelectBuildManagerSelect_OtherCardText": {
-		"zh": "Æä Ëû ¿¨ Æ¬",
+		"zh": "å…¶ ä»– å¡ ç‰‡",
 		"en": "Other Cards"
 	},
 	"SelectBuildManagerSelect_HeroesCardCountText": {
-		"zh": "×Ü¼Æ",
+		"zh": "æ€»è®¡",
 		"en": "Total:"
 	},
 	"SelectBuildManagerSelect_OtherCardCountText": {
-		"zh": "ÊıÁ¿",
+		"zh": "æ•°é‡",
 		"en": "Total:"
 	},
 
 	"SelectBuildManagerSelect_LeftMouseButtonClickTipText": {
-		"zh": "Ñ¡Ôñ",
+		"zh": "é€‰æ‹©",
 		"en": "Select"
 	},
 	"SelectBuildManagerSelect_RightMouseButtonClickTipText": {
-		"zh": "Éı¼¶",
+		"zh": "å‡çº§",
 		"en": "Upgrade"
 	},
 	"SelectBuildManagerSelect_ESCTipText": {
-		"zh": "¹Ø±Õ",
+		"zh": "å…³é—­",
 		"en": "Close"
 	},
 
 	"SelectBuildManagerLifeMagicCoinCardnum_UnsafeIfLifeLow": {
-		"zh": "ÉúÃü¹ıµÍ¿É²»°²È«Å¶~",
+		"zh": "ç”Ÿå‘½è¿‡ä½å¯ä¸å®‰å…¨å“¦~",
 		"en": "It's unsafe if your life is too low."
 	},
 
 
 	"Notice_SelectBuildManagerSelect_CannotEditWhenMatching": {
-		"zh": "Äú²»ÄÜÔÚÆ¥ÅäÊ±±à¼­¿¨×é",
+		"zh": "æ‚¨ä¸èƒ½åœ¨åŒ¹é…æ—¶ç¼–è¾‘å¡ç»„",
 		"en": "You cannot edit your build when Matching."
 	},
 	"Notice_SelectBuildManagerSelect_CannotEditWhenPlaying": {
-		"zh": "Äú²»ÄÜÔÚÕ½¶·Ê±±à¼­¿¨×é",
+		"zh": "æ‚¨ä¸èƒ½åœ¨æˆ˜æ–—æ—¶ç¼–è¾‘å¡ç»„",
 		"en": "You cannot edit your build when Playing."
 	},
 	"Notice_SelectBuildManagerSelect_DeckCreatedPleaseSelectCards": {
-		"zh": "ÒÑ´´½¨¿¨×é£¬ÇëÌôÑ¡¿¨Æ¬",
+		"zh": "å·²åˆ›å»ºå¡ç»„ï¼Œè¯·æŒ‘é€‰å¡ç‰‡",
 		"en": "Card group created. You can choose cards now."
 	},
 	"Notice_SelectBuildManagerSelect_BudgetLimited": {
-		"zh": "Ô¤Ëã²»×ã",
+		"zh": "é¢„ç®—ä¸è¶³",
 		"en": "Budget is Limited"
 	},
 	"Notice_SelectBuildManagerSelect_HeroesNumberUpperLimit": {
-		"zh": "¿ÉĞ¯´øÓ¢ĞÛ¿¨ÅÆÊıÁ¿ÒÑ´ïÉÏÏŞ",
+		"zh": "å¯æºå¸¦è‹±é›„å¡ç‰Œæ•°é‡å·²è¾¾ä¸Šé™",
 		"en": "The number of HeroMeches reaches the upper limit."
 	},
 	"Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards": {
-		"zh": "¸Ã¿¨ÅÆÖ»ÄÜĞ¯´ø%sÕÅ",
+		"zh": "è¯¥å¡ç‰Œåªèƒ½æºå¸¦%så¼ ",
 		"en": "You can only take %s copy of this card."
 	},
 	"Notice_SelectBuildManagerSelect_UpdateDeckSuccess": {
-		"zh": "¸üĞÂ¿¨×é³É¹¦",
+		"zh": "æ›´æ–°å¡ç»„æˆåŠŸ",
 		"en": "Update your deck successfully"
 	},
 	"Notice_SelectBuildManagerPreviewUpgrade_CreateANewDeck": {
-		"zh": "ÇëÏÈ´´½¨Ò»¸ö¿¨×é",
+		"zh": "è¯·å…ˆåˆ›å»ºä¸€ä¸ªå¡ç»„",
 		"en": "Please create a new deck first."
 	},
 	"Notice_SelectBuildManagerPreviewUpgrade_PleaseCreateDeck": {
-		"zh": "Çë´´½¨¿¨×é!",
+		"zh": "è¯·åˆ›å»ºå¡ç»„!",
 		"en": "Please create your deck."
 	},
 	"Notice_SelectBuildManagerPreviewUpgrade_NotEnoughBudget": {
-		"zh": "Ô¤Ëã²»×ã",
+		"zh": "é¢„ç®—ä¸è¶³",
 		"en": "Not enough budget."
 	},
 	"Notice_SelectBuildManagerPreviewUpgrade_CreateDeckAuto": {
-		"zh": "ÒÑ×Ô¶¯ÎªÄú´´½¨µÚÒ»¸ö¿¨×é",
+		"zh": "å·²è‡ªåŠ¨ä¸ºæ‚¨åˆ›å»ºç¬¬ä¸€ä¸ªå¡ç»„",
 		"en": "First deck is created automatically."
 	},
 
 
 	"Notice_CardEquip_SniperGunOnlySniper": {
-		"zh": "¾Ñ»÷Ç¹Ö»ÄÜ×°ÔÚ¾Ñ»÷ÊÖÉÏ",
+		"zh": "ç‹™å‡»æªåªèƒ½è£…åœ¨ç‹™å‡»æ‰‹ä¸Š",
 		"en": "Sniper gun can only be equiped on snipers."
 	},
 
 	"Notice_CardEquip_MANeedAllEquiped": {
-		"zh": "ÆäËûËùÓĞ²å²Û¶¼ÓĞ×°±¸Ê±²ÅÄÜ×°±¸MA",
+		"zh": "å…¶ä»–æ‰€æœ‰æ’æ§½éƒ½æœ‰è£…å¤‡æ—¶æ‰èƒ½è£…å¤‡MA",
 		"en": "MA can only be equiped when all other slots are equiped."
 	},
 	"Notice_CardEquip_SelectCorrectSlot": {
-		"zh": "ÇëÑ¡ÔñÕıÈ·µÄ²å²Û×°±¸",
+		"zh": "è¯·é€‰æ‹©æ­£ç¡®çš„æ’æ§½è£…å¤‡",
 		"en": "You should select a right Slot to Equip."
 	},
 
 
 	"CardBase_NewCardBanner": {
-		"zh": "ĞÂ¿¨Æ¬",
+		"zh": "æ–°å¡ç‰‡",
 		"en": "New!"
 	},
 	"CardBase_Upgradable": {
-		"zh": "¿ÉÉı¼¶",
+		"zh": "å¯å‡çº§",
 		"en": "Upgrade!"
 	},
 	"CardSpell_SelectCorrectMech": {
-		"zh": "ÇëÑ¡ÔñÕıÈ·µÄ»ú¼×",
+		"zh": "è¯·é€‰æ‹©æ­£ç¡®çš„æœºç”²",
 		"en": "You should select a correct mech!"
 	},
 	"CardSpell_SelectCorrectEquip": {
-		"zh": "ÇëÑ¡ÔñÕıÈ·µÄ×°±¸",
+		"zh": "è¯·é€‰æ‹©æ­£ç¡®çš„è£…å¤‡",
 		"en": "You should select a correct equip!"
 	},
 	"CardSpell_SelectCorrectShip": {
-		"zh": "ÇëÑ¡ÔñÕıÈ·µÄÕ½½¢",
+		"zh": "è¯·é€‰æ‹©æ­£ç¡®çš„æˆ˜èˆ°",
 		"en": "You should select a correct ship!"
-	}
+	},
+
+
+	"CardEditorWindow_CardEditorWindowText": {
+		"zh": "å¡ç‰Œç¼–è¾‘å™¨",
+		"en": "Card Editor Window"
+	},
+	"CardEditorWindow_CardType": {
+		"zh": "å¡ç‰Œç±»å‹",
+		"en": "Card Type"
+	},
+	"CardEditorWindow_CardIDLabelText": {
+		"zh": "å¡ç‰ŒID",
+		"en": "Card ID"
+	},
+	"CardEditorWindow_CardNameLabelText": {
+		"zh": "å¡ç‰Œåç§°",
+		"en": "Card Name"
+	},
+	"CardEditorWindow_CardCoinCostLabelText": {
+		"zh": "é¢„ç®—",
+		"en": "Coin Cost",
+	},
+	"CardEditorWindow_CardMetalCostLabelText": {
+		"zh": "é‡‘å±æ¶ˆè€—",
+		"en": "Metal Cost",
+	},
+	"CardEditorWindow_CardEnergyCostLabelText": {
+		"zh": "èƒ½é‡æ¶ˆè€—",
+		"en": "Energy Cost"
+	},
+	"CardEditorWindow_RetinueLifeLabelText": {
+		"zh": "ç”Ÿå‘½å€¼",
+		"en": "Life"
+	},
+	"CardEditorWindow_RetinueAttackLabelText": {
+		"zh": "åŸºç¡€æ”»å‡»",
+		"en": "Basic Attack"
+	},
+	"CardEditorWindow_RetinueArmorLabelText": {
+		"zh": "åŸºç¡€æŠ¤ç”²",
+		"en": "Basic Armor"
+	},
+	"CardEditorWindow_RetinueShieldLabelText": {
+		"zh": "åŸºç¡€æŠ¤ç›¾",
+		"en": "Basic Shield"
+	},
+	"CardEditorWindow_SlotType": {
+		"zh": "è£…å¤‡ç±»å‹",
+		"en": "Equip Type"
+	},
+	"CardEditorWindow_RetinueWeaponSlotLabelText": {
+		"zh": "æ­¦å™¨æ§½",
+		"en": "Weapon Slot"
+	},
+	"CardEditorWindow_RetinueShieldSlotLabelText": {
+		"zh": "é˜²å…·æ§½",
+		"en": "Shield Slot"
+	},
+	"CardEditorWindow_RetinuePackSlotLabelText": {
+		"zh": "èƒŒåŒ…æ§½",
+		"en": "Pack Slot"
+	},
+	"CardEditorWindow_RetinueMASlotLabelText": {
+		"zh": "MAæ§½",
+		"en": "MA Slot"
+	},
+	"CardEditorWindow_WeaponTypeLabelText": {
+		"zh": "æ­¦å™¨ç±»å‹",
+		"en": "Weaoon Type"
+	},
+	"CardEditorWindow_WeaponSwordAttackLabelText": {
+		"zh": "å‰‘æ”»å‡»åŠ›",
+		"en": "Sword Attack"
+	},
+	"CardEditorWindow_WeaponSwordEnergyLabelText": {
+		"zh": "åˆå§‹å……èƒ½",
+		"en": "Energy"
+	},
+	"CardEditorWindow_WeaponSwordMaxEnergyLabelText": {
+		"zh": "æœ€å¤§èƒ½é‡",
+		"en": "Energy Max"
+	},
+	"CardEditorWindow_WeaponGunAttackLabelText": {
+		"zh": "å­å¼¹ä¼¤å®³",
+		"en": "Bullet Damage"
+	},
+	"CardEditorWindow_WeaponGunBulletLabelText": {
+		"zh": "åˆå§‹å¼¹è¯",
+		"en": "Default Ammo"
+	},
+	"CardEditorWindow_WeaponGunMaxBulletLabelText": {
+		"zh": "å¼¹å¤¹å®¹é‡",
+		"en": "Clip Size"
+	},
+	"CardEditorWindow_ShieldTypeLabelText": {
+		"zh": "é˜²å…·ç±»å‹",
+		"en": "Shield Type"
+	},
+	"CardEditorWindow_ShieldBasicArmorLabelText": {
+		"zh": "åŸºç¡€æŠ¤ç”²",
+		"en": "Basic Armor"
+	},
+	"CardEditorWindow_ShieldBasicShieldLabelText": {
+		"zh": "åŸºç¡€æŠ¤ç›¾",
+		"en": "Basic Shield"
+	},
 }

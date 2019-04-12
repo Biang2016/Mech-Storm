@@ -54,6 +54,7 @@ public class CardBaseEditor : Editor
     }
 
     int previewCardID = 0;
+    string curLang = "zh";
 
     public override void OnInspectorGUI()
     {

@@ -9,7 +9,7 @@
   <Color name="ShieldCardColor" color="#FFD500" intensity="1.5"></Color>
   <Color name="PackCardColor" color="#6151ED" intensity="1.5"></Color>
   <Color name="MACardColor" color="#8EE3B3" intensity="1.5"></Color>
-  <Color name="CardHightLightColor" color="#FFFF00" intensity="1"></Color>
+  <Color name="CardHighLightColor" color="#FFFF00" intensity="1"></Color>
   <Color name="CardImportantColor" color="#70DFFF" intensity="1"></Color>
   <Color name="CardDecsTextColor" color="#FFFFFF" intensity="1"></Color>
   <Color name="StoryLevelColor1" color="#A54BFF" intensity="1"></Color>

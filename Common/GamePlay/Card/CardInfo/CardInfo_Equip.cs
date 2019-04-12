@@ -7,6 +7,7 @@
     public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, EquipInfo equipInfo, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
         : base(cardID: cardID,
             baseInfo: baseInfo,
+            upgradeInfo: upgradeInfo,
             sideEffectBundle: sideEffectBundle,
             sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround)
     {
@@ -35,7 +36,6 @@
         }
 
         EquipInfo = equipInfo;
-        UpgradeInfo = upgradeInfo;
         Pro_Initialize();
     }
 
@@ -47,23 +47,23 @@
         {
             case SlotTypes.Weapon:
             {
-                if (WeaponInfo.IsFrenzy) CardDescShow += LanguageManager_Common.GetText("KeyWords_Frenzy") + ". ";
-                if (WeaponInfo.IsSentry) CardDescShow += LanguageManager_Common.GetText("KeyWords_Sentry") + ". ";
+                if (WeaponInfo.IsFrenzy) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Frenzy")) + ". ";
+                if (WeaponInfo.IsSentry) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sentry")) + ". ";
                 if (WeaponInfo.WeaponType == WeaponTypes.Sword)
                 {
-                    CardDescShow += LanguageManager_Common.GetText("KeyWords_Sword") + ". ";
+                    CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sword")) + ". ";
                     CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_AttackPlus"), BaseInfo.AddHighLightColorToText(WeaponInfo.Attack.ToString()));
                     CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ChargePlus"), BaseInfo.AddHighLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.Gun)
                 {
-                    CardDescShow += LanguageManager_Common.GetText("KeyWords_Gun") + ". ";
+                    CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Gun")) + ". ";
                     CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ShootAttackPlus"), BaseInfo.AddHighLightColorToText(WeaponInfo.Attack.ToString()));
                     CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_Bullets"), BaseInfo.AddHighLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
                 else if (WeaponInfo.WeaponType == WeaponTypes.SniperGun)
                 {
-                    CardDescShow += LanguageManager_Common.GetText("KeyWords_SniperGun") + ". ";
+                    CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_SniperGun")) + ". ";
                     CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_SniperBulletAttackPlus"), BaseInfo.AddHighLightColorToText(WeaponInfo.Attack.ToString()));
                     CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_SniperBulletPlus"), BaseInfo.AddHighLightColorToText(WeaponInfo.Energy + "/" + WeaponInfo.EnergyMax));
                 }
@@ -72,15 +72,21 @@
             }
             case SlotTypes.Shield:
             {
-                if (ShieldInfo.IsDefence) CardDescShow += LanguageManager_Common.GetText("KeyWords_Defense");
+                if (ShieldInfo.IsDefence) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Defense")) + ". ";
                 if (ShieldInfo.ShieldType == ShieldTypes.Armor)
                 {
-                    CardDescShow += LanguageManager_Common.GetText("KeyWords_Armor") + ". ";
+                    CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Armor")) + ". ";
                     CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_DefenseDamage"), BaseInfo.AddHighLightColorToText(ShieldInfo.Armor.ToString()));
                 }
                 else if (ShieldInfo.ShieldType == ShieldTypes.Shield)
                 {
-                    CardDescShow += LanguageManager_Common.GetText("KeyWords_Shield") + ". ";
+                    CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Shield")) + ". ";
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ReduceDamage"), BaseInfo.AddHighLightColorToText(ShieldInfo.Shield.ToString()));
+                }
+                else if (ShieldInfo.ShieldType == ShieldTypes.Mixed)
+                {
+                    CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Mixed")) + ". ";
+                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_DefenseDamage"), BaseInfo.AddHighLightColorToText(ShieldInfo.Armor.ToString()));
                     CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_ReduceDamage"), BaseInfo.AddHighLightColorToText(ShieldInfo.Shield.ToString()));
                 }
 
@@ -88,12 +94,12 @@
             }
             case SlotTypes.Pack:
             {
-                if (PackInfo.IsFrenzy) CardDescShow += LanguageManager_Common.GetText("KeyWords_Frenzy") + ". ";
-                if (PackInfo.IsSniper) CardDescShow += LanguageManager_Common.GetText("KeyWords_Sniper") + ". ";
-                if (PackInfo.IsDefence) CardDescShow += LanguageManager_Common.GetText("KeyWords_Defense") + ". ";
+                if (PackInfo.IsFrenzy) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Frenzy")) + ". ";
+                if (PackInfo.IsSniper) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sniper")) + ". ";
+                if (PackInfo.IsDefence) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Defense")) + ". ";
                 if (PackInfo.DodgeProp != 0)
                 {
-                    CardDescShow += LanguageManager_Common.GetText("KeyWords_Dodge") + ". ";
+                    CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Dodge")) + ". ";
                     CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_PRValue"), BaseInfo.AddHighLightColorToText(PackInfo.DodgeProp + "%"));
                 }
 
@@ -101,9 +107,9 @@
             }
             case SlotTypes.MA:
             {
-                if (PackInfo.IsFrenzy) CardDescShow += LanguageManager_Common.GetText("KeyWords_Frenzy") + ". ";
-                if (PackInfo.IsSniper) CardDescShow += LanguageManager_Common.GetText("KeyWords_Sniper") + ". ";
-                if (PackInfo.IsDefence) CardDescShow += LanguageManager_Common.GetText("KeyWords_Defense") + ". ";
+                if (PackInfo.IsFrenzy) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Frenzy")) + ". ";
+                if (PackInfo.IsSniper) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sniper")) + ". ";
+                if (PackInfo.IsDefence) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Defense")) + ". ";
                 break;
             }
         }

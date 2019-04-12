@@ -73,7 +73,7 @@ public class DebugConsole : MonoBehaviour
     void OnEnable()
     {
         Application.logMessageReceived += HandleLog;
-        logShow = (GameManager.Instance && GameManager.Instance.ShowClientLogs) || (CardEditorManager.Instance && CardEditorManager.Instance.ShowClientLogs);
+        logShow = RootManager.Instance.ShowClientLogs;
     }
 
     void OnDisable()

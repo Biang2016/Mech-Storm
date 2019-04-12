@@ -158,7 +158,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1464533218356478573}
   - component: {fileID: 456616855477673187}
-  - component: {fileID: 1672033046823318448}
   m_Layer: 5
   m_Name: CardsCamera
   m_TagString: Untagged
@@ -222,14 +221,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1672033046823318448
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90637884934693117}
-  m_Enabled: 1
 --- !u!1 &234762145631741970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,7 +1778,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000011304964}
+  m_AnchoredPosition: {x: -0.00012207031, y: -0.000022875403}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3776524657462983685

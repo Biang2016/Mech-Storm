@@ -6,6 +6,7 @@ public class Initialization : MonoSingleton<Initialization>
 {
     public bool IsABMode = false;
     [SerializeField] private GameObject Manager;
+    [SerializeField] private string StartUIPanel;
 
     private Initialization()
     {
@@ -33,8 +34,7 @@ public class Initialization : MonoSingleton<Initialization>
         }
 
         Debug.Log("Start the client...");
-
-        UIManager.Instance.ShowUIForms<LoginPanel>();
+        UIManager.Instance.ShowUIForms(StartUIPanel);
     }
 
     private void LoadManager_AB()

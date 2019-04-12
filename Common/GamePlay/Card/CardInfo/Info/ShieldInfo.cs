@@ -33,7 +33,8 @@
 
 public enum ShieldTypes
 {
-    Armor = 0,
-    Shield = 1,
-    Mixed = 2
+    None = 0,
+    Armor = 1,
+    Shield = 2,
+    Mixed = 3
 }

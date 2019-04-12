@@ -112,11 +112,11 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1077045369586634107}
   m_HandleRect: {fileID: 2417665983689732035}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999976
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0.00015258789, y: 0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2064040045981326322
@@ -1043,10 +1043,10 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1507902709170349562}
   m_HandleRect: {fileID: 2251570421564010895}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 0.0000013290737
   m_Size: 0.58742225
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1424,19 +1424,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512e6e39ccf44304b87f580260dd9988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoryBG: {fileID: 7264634196153849671}
-  StoryCanvas: {fileID: 0}
-  StoryScrollRect: {fileID: 2768646820165156041}
-  StoryBGScrollRect: {fileID: 1930901508859121472}
-  StoryBGScrollbar: {fileID: 1934555705040766549}
-  StoryScrollbar: {fileID: 8796576223921327903}
-  StoryLevelScrollView: {fileID: 2093866657967770408}
-  StoryLevelContainer: {fileID: 6706669858042944247}
-  Anim: {fileID: 7377196569445518935}
-  Fighting_LevelID: 0
-  Fighting_BossPicID: 0
-  Current_LevelNum: 0
-  Conquered_LevelNum: -1
 --- !u!1 &7584461419602497547
 GameObject:
   m_ObjectHideFlags: 0

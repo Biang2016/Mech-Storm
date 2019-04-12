@@ -100,7 +100,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         DirectoryInfo di = new DirectoryInfo(LanguageDictFolder);
         foreach (FileInfo fi in di.GetFiles("*.json"))
         {
-            StreamReader sr = new StreamReader(fi.FullName, Encoding.GetEncoding("gb2312"));
+            StreamReader sr = new StreamReader(fi.FullName, Encoding.UTF8);
             string content = sr.ReadToEnd();
             JObject jo = (JObject) JsonConvert.DeserializeObject(content);
             foreach (KeyValuePair<string, JToken> kv in jo)
@@ -216,4 +216,5 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         NoticeManager.Instance.ShowInfoPanelCenter(GetText("ChangeLanguageNotice"), 0, 1f);
         SetLanguage(LanguagesAbbrDict[LanguageIndices[index]]);
     }
+
 }

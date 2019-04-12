@@ -1,140 +1,144 @@
 {
 	"TriggerTime_Battlecry": {
-		"zh": "Õ½ºğ",
+		"zh": "æˆ˜å¼",
 		"en": "Battlecry"
 	},
 	"TriggerTime_Die": {
-		"zh": "ÍöÓï",
+		"zh": "äº¡è¯­",
 		"en": "Die"
 	},
 
 	"TriggerTime_WhenAttack": {
-		"zh": "½ø¹¥Ê±,",
+		"zh": "è¿›æ”»æ—¶,",
 		"en": "When attacks, "
 	},
 	"TriggerTime_WhenKill": {
-		"zh": "É±µĞÊ±,",
+		"zh": "æ€æ•Œæ—¶,",
 		"en": "When kills, "
 	},
 
 	"TriggerTime_Disposable": {
-		"zh": "ÒÆ³ı, ",
+		"zh": "ç§»é™¤, ",
 		"en": "Disposable. "
 	},
 
 	"KeyWords_Frenzy": {
-		"zh": "¿ñ±©",
+		"zh": "ç‹‚æš´",
 		"en": "Frenzy"
 	},
 	"KeyWords_Sentry": {
-		"zh": "ÉÚ½ä",
+		"zh": "å“¨æˆ’",
 		"en": "Sentry"
 	},
 	"KeyWords_Defense": {
-		"zh": "³°·í",
+		"zh": "å˜²è®½",
 		"en": "Defense"
 	},
 	"KeyWords_Dodge": {
-		"zh": "ÉÁ±Ü",
+		"zh": "é—ªé¿",
 		"en": "Dodge"
 	},
 	"KeyWords_PRValue": {
-		"zh": "¸ÅÂÊ: {0}, ",
+		"zh": "æ¦‚ç‡: {0}, ",
 		"en": "PR: {0}. "
 	},
 	"KeyWords_Armor": {
-		"zh": "»¤¼×",
+		"zh": "æŠ¤ç”²",
 		"en": "Armor"
 	},
 	"KeyWords_Shield": {
-		"zh": "»¤¶Ü",
+		"zh": "æŠ¤ç›¾",
 		"en": "Shield"
 	},
+	"KeyWords_Mixed": {
+		"zh": "å¤åˆç›¾",
+		"en": "MixedShield"
+	},
 	"KeyWords_Sniper": {
-		"zh": "¾Ñ»÷",
+		"zh": "ç‹™å‡»",
 		"en": "Sniper"
 	},
 	"KeyWords_Sword": {
-		"zh": "µ¶½£",
+		"zh": "åˆ€å‰‘",
 		"en": "Sword"
 	},
 	"KeyWords_AttackValue": {
-		"zh": "¹¥»÷",
+		"zh": "æ”»å‡»",
 		"en": "Attack"
 	},
 	"KeyWords_AttackPlus": {
-		"zh": "¹¥»÷ +{0}, ",
+		"zh": "æ”»å‡» +{0}, ",
 		"en": "Attack +{0}. "
 	},
 	"KeyWords_ChargePlus": {
-		"zh": "³äÄÜ {0}, ",
+		"zh": "å……èƒ½ {0}, ",
 		"en": "Charge {0}. "
 	},
 	"KeyWords_Gun": {
-		"zh": "Ç¹",
+		"zh": "æª",
 		"en": "Gun"
 	},
 	"KeyWords_ShootAttackPlus": {
-		"zh": "Ã¿·¢ÉËº¦ +{0}, ",
+		"zh": "æ¯å‘ä¼¤å®³ +{0}, ",
 		"en": "ShootAttack +{0}. "
 	},
 	"KeyWords_Bullets": {
-		"zh": "µ¯Ò© {0}, ",
+		"zh": "å¼¹è¯ {0}, ",
 		"en": "Bullets {0}. "
 	},
 	"KeyWords_SniperGun": {
-		"zh": "¾Ñ»÷Ç¹",
+		"zh": "ç‹™å‡»æª",
 		"en": "SniperGun"
 	},
 	"KeyWords_SniperBulletAttackPlus": {
-		"zh": "µ¯ÍèÉËº¦: {0} µã, ",
+		"zh": "å¼¹ä¸¸ä¼¤å®³: {0} ç‚¹, ",
 		"en": "Bullet +{0} attack. "
 	},
 	"KeyWords_SniperBulletPlus": {
-		"zh": "µ¯Ò©: {0}, ",
+		"zh": "å¼¹è¯: {0}, ",
 		"en": "Add +{0} bullets. "
 	},
 
 	"KeyWords_CardEquip_Sword": {
-		"zh": "×°±¸ÅÆ(µ¶½£)",
+		"zh": "è£…å¤‡ç‰Œ(åˆ€å‰‘)",
 		"en": "EQ(Sword)"
 	},
 	"KeyWords_CardEquip_Gun": {
-		"zh": "×°±¸ÅÆ(Ç¹)",
+		"zh": "è£…å¤‡ç‰Œ(æª)",
 		"en": "EQ(Gun)"
 	},
 	"KeyWords_CardEquip_SniperGun": {
-		"zh": "×°±¸ÅÆ(¾Ñ»÷Ç¹)",
+		"zh": "è£…å¤‡ç‰Œ(ç‹™å‡»æª)",
 		"en": "EQ(SnpGun)"
 	},
 	"KeyWords_CardEquip_Shield": {
-		"zh": "×°±¸ÅÆ(·À¾ß)",
+		"zh": "è£…å¤‡ç‰Œ(é˜²å…·)",
 		"en": "EQ(Shield)"
 	},
 	"KeyWords_CardEquip_Pack": {
-		"zh": "×°±¸ÅÆ(±³°ü)",
+		"zh": "è£…å¤‡ç‰Œ(èƒŒåŒ…)",
 		"en": "EQ(Pack)"
 	},
 	"KeyWords_CardEquip_MA": {
-		"zh": "×°±¸ÅÆ(±¤Àİ)",
+		"zh": "è£…å¤‡ç‰Œ(å ¡å’)",
 		"en": "EQ(MA)"
 	},
 	"KeyWords_CardRetinue_Soldier": {
-		"zh": "Ê¿±ø",
+		"zh": "å£«å…µ",
 		"en": "Soldier"
 	},
 	"KeyWords_CardRetinue_Hero": {
-		"zh": "Ó¢ĞÛ",
+		"zh": "è‹±é›„",
 		"en": "Hero"
 	},
 
 
 	"KeyWords_DefenseDamage": {
-		"zh": "×èµ² {0} µãÉËº¦, ",
+		"zh": "é˜»æŒ¡ {0} ç‚¹ä¼¤å®³, ",
 		"en": "Defence {0} damage. "
 	},
 	"KeyWords_ReduceDamage": {
-		"zh": "ÊÜµ½Ã¿´ÎÉËº¦¼õÉÙ {0} µã, ",
+		"zh": "å—åˆ°æ¯æ¬¡ä¼¤å®³å‡å°‘ {0} ç‚¹, ",
 		"en": "Reduce damage per attack by {0}. "
 	}
 
