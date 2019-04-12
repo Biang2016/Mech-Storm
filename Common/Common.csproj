@@ -166,7 +166,7 @@
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueImmuneStateRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueCanAttackRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueOnAttackShipRequest.cs" />
-    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueShieldDefenceRequest.cs" />
+    <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueShieldDefenseRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueOnAttackRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\RetinueDodgeRequest.cs" />
     <Compile Include="RequestResponse\ServerToClient\AttachedResponses\PlayerBuffRemoveRequest.cs" />

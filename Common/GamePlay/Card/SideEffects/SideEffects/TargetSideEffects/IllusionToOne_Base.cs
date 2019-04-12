@@ -2,7 +2,7 @@
 
 public class IllusionToOne_Base : TargetSideEffect, IEffectFactor
 {
-    public List<SideEffectValue> Values
+    public override List<SideEffectValue> Values
     {
         get { return new List<SideEffectValue> {Value}; }
     }

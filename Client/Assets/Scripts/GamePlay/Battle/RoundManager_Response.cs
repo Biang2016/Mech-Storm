@@ -228,9 +228,9 @@ public partial class RoundManager
                 OnRetinueOnAttackShip((RetinueOnAttackShipRequest) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_SHIELD_DEFENCE:
+            case NetProtocols.SE_RETINUE_SHIELD_DEFENSE:
             {
-                OnRetinueShieldDefence((RetinueShieldDefenceRequest) r);
+                OnRetinueShieldDefence((RetinueShieldDefenseRequest) r);
                 break;
             }
             case NetProtocols.SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT:
@@ -574,7 +574,7 @@ public partial class RoundManager
         retinue.OnAttackShip(r.weaponType, cp_target.MyBattleGroundManager.M_Ship);
     }
 
-    private void OnRetinueShieldDefence(RetinueShieldDefenceRequest r)
+    private void OnRetinueShieldDefence(RetinueShieldDefenseRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);

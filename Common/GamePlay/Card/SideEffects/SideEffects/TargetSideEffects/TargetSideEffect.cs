@@ -5,13 +5,13 @@ using Newtonsoft.Json.Converters;
 
 public abstract class TargetSideEffect : SideEffectBase
 {
-    public bool IsNeedChoise;
+    public bool IsNeedChoice;
     public TargetRange M_TargetRange; //限定范围
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        if (IsNeedChoise)
+        if (IsNeedChoice)
         {
             writer.WriteByte(0x01);
         }
@@ -23,7 +23,7 @@ public abstract class TargetSideEffect : SideEffectBase
     protected override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        IsNeedChoise = reader.ReadByte() == 0x01;
+        IsNeedChoice = reader.ReadByte() == 0x01;
         M_TargetRange = (TargetRange) reader.ReadSInt32();
     }
 
@@ -63,7 +63,7 @@ public abstract class TargetSideEffect : SideEffectBase
     protected override void CloneParams(SideEffectBase copy)
     {
         base.CloneParams(copy);
-        ((TargetSideEffect) copy).IsNeedChoise = IsNeedChoise;
+        ((TargetSideEffect) copy).IsNeedChoice = IsNeedChoice;
         ((TargetSideEffect) copy).M_TargetRange = M_TargetRange;
     }
 }

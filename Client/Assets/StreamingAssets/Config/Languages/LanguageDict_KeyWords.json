@@ -62,6 +62,14 @@
 		"zh": "刀剑",
 		"en": "Sword"
 	},
+	"KeyWords_Charger": {
+		"zh": "冲锋",
+		"en": "Charger"
+	},
+	"KeyWords_Frenzy": {
+		"zh": "狂暴",
+		"en": "Frenzy"
+	},
 	"KeyWords_AttackValue": {
 		"zh": "攻击",
 		"en": "Attack"

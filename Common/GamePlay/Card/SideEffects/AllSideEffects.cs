@@ -13,6 +13,18 @@ public static class AllSideEffects
         SideEffectsNameDict.Clear();
     }
 
+    public static SideEffectBase GetSideEffect(string sideEffectName)
+    {
+        if (SideEffectsNameDict.ContainsKey(sideEffectName))
+        {
+            return SideEffectsNameDict[sideEffectName];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     private static void addSideEffect(SideEffectBase sideEffectBase)
     {
         if (!SideEffectsNameDict.ContainsKey(sideEffectBase.Name)) SideEffectsNameDict.Add(sideEffectBase.Name, sideEffectBase);

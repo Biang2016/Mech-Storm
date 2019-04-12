@@ -94,7 +94,7 @@ public class AffixPanel : BaseUIForm
             affixTypes.Add(AffixType.Frenzy);
         }
 
-        if (cardInfo.RetinueInfo.IsDefence || cardInfo.ShieldInfo.IsDefence || cardInfo.PackInfo.IsDefence || cardInfo.MAInfo.IsDefence)
+        if (cardInfo.RetinueInfo.IsDefense || cardInfo.ShieldInfo.IsDefense || cardInfo.PackInfo.IsDefense || cardInfo.MAInfo.IsDefense)
         {
             affixTypes.Add(AffixType.Defence);
         }

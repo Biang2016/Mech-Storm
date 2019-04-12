@@ -2,7 +2,7 @@
 
 public class UseAllEnergyDamageShip_Base : SideEffectBase, IEffectFactor, IDamage
 {
-    public List<SideEffectValue> Values
+    public override List<SideEffectValue> Values
     {
         get { return new List<SideEffectValue> {Value, Value_Plus}; }
     }

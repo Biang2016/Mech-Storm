@@ -767,10 +767,10 @@ public class ModuleRetinue : ModuleBase
     {
         get
         {
-            return CardInfo.RetinueInfo.IsDefence ||
-                   (M_Shield != null && M_Shield.CardInfo.ShieldInfo.IsDefence) ||
-                   (M_Pack != null && M_Pack.CardInfo.PackInfo.IsDefence) ||
-                   (M_MA != null && M_MA.CardInfo.MAInfo.IsDefence);
+            return CardInfo.RetinueInfo.IsDefense ||
+                   (M_Shield != null && M_Shield.CardInfo.ShieldInfo.IsDefense) ||
+                   (M_Pack != null && M_Pack.CardInfo.PackInfo.IsDefense) ||
+                   (M_MA != null && M_MA.CardInfo.MAInfo.IsDefense);
         }
     }
 

@@ -47,7 +47,7 @@ internal class ServerBattleGroundManager
         get { return SoldierCount == 0; }
     }
 
-    public bool HasDefenceRetinue
+    public bool HasDefenseRetinue
     {
         get
         {

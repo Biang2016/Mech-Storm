@@ -704,6 +704,14 @@
 		"zh": "卡牌编辑器",
 		"en": "Card Editor Window"
 	},
+	"CardEditorWindow_CardPreviewButtonHideText": {
+		"zh": "隐",
+		"en": "H"
+	},
+	"CardEditorWindow_CardPreviewButtonTempText": {
+		"zh": "临",
+		"en": "T"
+	},
 	"CardEditorWindow_CardType": {
 		"zh": "卡牌类型",
 		"en": "Card Type"
@@ -712,9 +720,25 @@
 		"zh": "卡牌ID",
 		"en": "Card ID"
 	},
-	"CardEditorWindow_CardNameLabelText": {
-		"zh": "卡牌名称",
-		"en": "Card Name"
+	"CardEditorWindow_CardPicIDLabelText": {
+		"zh": "图片ID",
+		"en": "Picture ID"
+	},
+	"CardEditorWindow_CardUpgradeIDLabelText": {
+		"zh": "升级卡牌ID",
+		"en": "UpCardID"
+	},
+	"CardEditorWindow_CardDegradeIDLabelText": {
+		"zh": "降级卡牌ID",
+		"en": "DeCardID"
+	},
+	"CardEditorWindow_CardNameLabelText_zh": {
+		"zh": "卡牌中文名称",
+		"en": "ChineseName"
+	},
+	"CardEditorWindow_CardNameLabelText_en": {
+		"zh": "卡牌英文名称",
+		"en": "EnglishName"
 	},
 	"CardEditorWindow_CardCoinCostLabelText": {
 		"zh": "预算",
@@ -759,6 +783,26 @@
 	"CardEditorWindow_SlotType": {
 		"zh": "装备类型",
 		"en": "Equip Type"
+	},
+	"CardEditorWindow_RetinueIsSoldierLabelText": {
+		"zh": "士兵",
+		"en": "Is Soldier"
+	},
+	"CardEditorWindow_RetinueIsDefenseLabelText": {
+		"zh": "嘲讽",
+		"en": "Is Defense"
+	},
+	"CardEditorWindow_RetinueIsSniperLabelText": {
+		"zh": "狙击",
+		"en": "Is Sniper"
+	},
+	"CardEditorWindow_RetinueIsChargerLabelText": {
+		"zh": "冲锋",
+		"en": "Is Charger"
+	},
+	"CardEditorWindow_RetinueIsFrenzyLabelText": {
+		"zh": "狂暴",
+		"en": "Is Frenzy"
 	},
 	"CardEditorWindow_RetinueWeaponSlotLabelText": {
 		"zh": "武器槽",
@@ -815,5 +859,13 @@
 	"CardEditorWindow_ShieldBasicShieldLabelText": {
 		"zh": "基础护盾",
 		"en": "Basic Shield"
+	},
+	"CardEditorWindow_NoSuchCard": {
+		"zh": "无此ID对应的卡片",
+		"en": "No Card has this ID."
+	},
+	"CardEditorWindow_SideEffectType": {
+		"zh": "卡牌效果",
+		"en": "Effect"
 	},
 }

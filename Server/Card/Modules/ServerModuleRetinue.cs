@@ -706,10 +706,10 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         get
         {
-            return CardInfo.RetinueInfo.IsDefence ||
-                   (M_Shield != null && M_Shield.CardInfo.ShieldInfo.IsDefence) ||
-                   (M_Pack != null && M_Pack.CardInfo.PackInfo.IsDefence) ||
-                   (M_MA != null && M_MA.CardInfo.MAInfo.IsDefence);
+            return CardInfo.RetinueInfo.IsDefense ||
+                   (M_Shield != null && M_Shield.CardInfo.ShieldInfo.IsDefense) ||
+                   (M_Pack != null && M_Pack.CardInfo.PackInfo.IsDefense) ||
+                   (M_MA != null && M_MA.CardInfo.MAInfo.IsDefense);
         }
     }
 
@@ -756,7 +756,7 @@ internal class ServerModuleRetinue : ServerModuleBase
     {
         if (M_ImmuneLeftRounds != 0) return false;
         if (attackRetinue.M_Weapon != null && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽机甲，其他武器只能攻击嘲讽机甲
-        if (ServerPlayer.MyBattleGroundManager.HasDefenceRetinue && !IsDefender) return false;
+        if (ServerPlayer.MyBattleGroundManager.HasDefenseRetinue && !IsDefender) return false;
         return true;
     }
 
@@ -838,7 +838,7 @@ internal class ServerModuleRetinue : ServerModuleBase
         {
             if (M_RetinueShield >= remainAttackNumber)
             {
-                ShieldDefenceDamage(remainAttackNumber, M_RetinueShield);
+                ShieldDefenseDamage(remainAttackNumber, M_RetinueShield);
                 remainAttackNumber = 0;
                 return;
             }
@@ -846,7 +846,7 @@ internal class ServerModuleRetinue : ServerModuleBase
             {
                 int shieldDecrease = remainAttackNumber - M_RetinueShield;
                 remainAttackNumber -= M_RetinueShield;
-                ShieldDefenceDamage(M_RetinueShield, M_RetinueShield);
+                ShieldDefenseDamage(M_RetinueShield, M_RetinueShield);
                 M_RetinueShield -= Math.Min(m_RetinueShield, shieldDecrease);
                 if (m_RetinueShield == 0 && m_RetinueArmor == 0)
                 {
@@ -887,10 +887,10 @@ internal class ServerModuleRetinue : ServerModuleBase
         }
     }
 
-    private void ShieldDefenceDamage(int decreaseValue, int shieldValue)
+    private void ShieldDefenseDamage(int decreaseValue, int shieldValue)
     {
         float duration = 0;
-        RetinueShieldDefenceRequest request = new RetinueShieldDefenceRequest(ServerPlayer.ClientId, M_RetinueID, decreaseValue, shieldValue);
+        RetinueShieldDefenseRequest request = new RetinueShieldDefenseRequest(ServerPlayer.ClientId, M_RetinueID, decreaseValue, shieldValue);
         ServerPlayer.MyGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 

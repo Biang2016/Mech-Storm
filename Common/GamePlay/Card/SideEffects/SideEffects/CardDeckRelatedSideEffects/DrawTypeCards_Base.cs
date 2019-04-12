@@ -5,7 +5,7 @@ public class DrawTypeCards_Base : CardDeckRelatedSideEffects, IEffectFactor
     public SideEffectValue Value = new SideEffectValue(0);
     private int factor = 1;
 
-    public List<SideEffectValue> Values
+    public override List<SideEffectValue> Values
     {
         get { return new List<SideEffectValue> {Value}; }
     }

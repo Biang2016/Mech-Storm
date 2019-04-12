@@ -152,7 +152,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         M_Name = CardInfo.BaseInfo.CardNames[cur_Language] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
         M_Desc = CardInfo.GetCardDescShow();
 
-        CardBasicComponent?.ChangePicture(CardInfo.BaseInfo.PictureID);
+        ChangeCardPicture(CardInfo.BaseInfo.PictureID);
         CardDescComponent?.SetCardTypeText(CardInfo.GetCardTypeDesc());
         SetBannerType(CardNoticeComponent.BannerTypes.None);
         SetArrowType(CardNoticeComponent.ArrowTypes.None);
@@ -315,6 +315,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     public void ChangePictureColor(Color color)
     {
         CardBasicComponent?.SetPictureColor(color, 1.0f);
+    }
+
+    public void ChangeCardPicture(int picID)
+    {
+        CardBasicComponent?.ChangePicture(picID);
     }
 
     public void SetCardBackColor()

@@ -2,7 +2,7 @@
 
 public class Sacrifice_Base : TargetSideEffect, IEffectFactor, IDamage
 {
-    public List<SideEffectValue> Values
+    public override List<SideEffectValue> Values
     {
         get { return new List<SideEffectValue> {ValueBasic, ValuePlus}; }
     }

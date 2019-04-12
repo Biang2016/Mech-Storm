@@ -13,7 +13,7 @@ public class CardPropertyFormRow_Toggle : CardPropertyFormRow
         base.PoolRecycle();
     }
 
-    protected override void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList = null)
+    protected override void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
         Toggle.onValueChanged.AddListener(delegate { onValueChangeAction(Toggle.isOn.ToString()); });
     }

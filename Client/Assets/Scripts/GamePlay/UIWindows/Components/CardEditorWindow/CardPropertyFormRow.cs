@@ -21,7 +21,7 @@ public abstract class CardPropertyFormRow : PoolObject
         Toggle
     }
 
-    public static CardPropertyFormRow BaseInitialize(CardPropertyFormRowType type, Transform parent, string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string> setValue, List<string> dropdownOptionList = null)
+    public static CardPropertyFormRow BaseInitialize(CardPropertyFormRowType type, Transform parent, string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
         CardPropertyFormRow res = null;
         switch (type)
@@ -29,21 +29,21 @@ public abstract class CardPropertyFormRow : PoolObject
             case CardPropertyFormRowType.InputFiled:
             {
                 CardPropertyFormRow_InputField row = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyFormRow_InputField].AllocateGameObject<CardPropertyFormRow_InputField>(parent);
-                row.Initialize(labelStrKey, onValueChangeAction, out setValue);
+                row.Initialize(labelStrKey, onValueChangeAction: onValueChangeAction, setValue: out setValue, onButtonClick: onButtonClick);
                 res = row;
                 break;
             }
             case CardPropertyFormRowType.Dropdown:
             {
                 CardPropertyFormRow_Dropdown row = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyFormRow_Dropdown].AllocateGameObject<CardPropertyFormRow_Dropdown>(parent);
-                row.Initialize(labelStrKey, onValueChangeAction, out setValue, dropdownOptionList);
+                row.Initialize(labelStrKey, onValueChangeAction: onValueChangeAction, setValue: out setValue, dropdownOptionList: dropdownOptionList, onButtonClick: onButtonClick);
                 res = row;
                 break;
             }
             case CardPropertyFormRowType.Toggle:
             {
                 CardPropertyFormRow_Toggle row = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyFormRow_Toggle].AllocateGameObject<CardPropertyFormRow_Toggle>(parent);
-                row.Initialize(labelStrKey, onValueChangeAction, out setValue);
+                row.Initialize(labelStrKey, onValueChangeAction: onValueChangeAction, setValue: out setValue, onButtonClick: onButtonClick);
                 res = row;
                 break;
             }
@@ -57,18 +57,18 @@ public abstract class CardPropertyFormRow : PoolObject
         return res;
     }
 
-    protected void Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string> setValue, List<string> dropdownOptionList = null)
+    protected void Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
         LanguageManager.Instance.RegisterTextKeys(new List<ValueTuple<Text, string>>
         {
             (Label, labelStrKey),
         });
 
-        Child_Initialize(labelStrKey, onValueChangeAction, dropdownOptionList);
+        Child_Initialize(labelStrKey, onValueChangeAction, dropdownOptionList, onButtonClick);
         setValue = SetValue;
     }
 
-    protected virtual void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList = null)
+    protected virtual void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
     }
 

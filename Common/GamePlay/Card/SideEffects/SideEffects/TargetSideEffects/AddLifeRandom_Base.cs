@@ -4,7 +4,7 @@ public class AddLifeRandom_Base : TargetSideEffect, IEffectFactor
 {
     public SideEffectValue Value = new SideEffectValue(0);
 
-    public List<SideEffectValue> Values
+    public override List<SideEffectValue> Values
     {
         get { return new List<SideEffectValue> {Value}; }
     }

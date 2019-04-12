@@ -5,7 +5,7 @@ public class AddAttackOne_Base : TargetSideEffect, IEffectFactor, IDamage
     public SideEffectValue Value = new SideEffectValue(0);
     private int factor = 1;
 
-    public List<SideEffectValue> Values
+    public override List<SideEffectValue> Values
     {
         get { return new List<SideEffectValue> {Value}; }
     }
@@ -29,6 +29,7 @@ public class AddAttackOne_Base : TargetSideEffect, IEffectFactor, IDamage
     {
         return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange,false, false), FinalValue);
     }
+
 
     public override void Serialize(DataStream writer)
     {

@@ -38,9 +38,9 @@ public struct TargetInfo
     bool FindTarget(SideEffectExecute see)
     {
         SideEffectBase se = see.SideEffectBase;
-        if (se is TargetSideEffect tse && tse.IsNeedChoise)
+        if (se is TargetSideEffect tse && tse.IsNeedChoice)
         {
-            if (tse is TargetSideEffectEquip && ((TargetSideEffectEquip) tse).IsNeedChoise)
+            if (tse is TargetSideEffectEquip && ((TargetSideEffectEquip) tse).IsNeedChoice)
             {
                 HasTargetEquip = true;
                 targetEquipRange = ((TargetSideEffectEquip) tse).M_TargetRange;

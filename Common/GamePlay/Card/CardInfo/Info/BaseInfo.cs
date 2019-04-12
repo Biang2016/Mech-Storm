@@ -108,19 +108,19 @@ public struct BaseInfo
         {
             "zh", new Dictionary<CardTypes, string>
             {
-                {CardTypes.Retinue, "Mech"},
-                {CardTypes.Spell, "Spell"},
-                {CardTypes.Energy, "Energy"},
-                {CardTypes.Equip, "Equip"},
+                {CardTypes.Retinue, "机甲牌"},
+                {CardTypes.Spell, "法术牌"},
+                {CardTypes.Energy, "能量牌"},
+                {CardTypes.Equip, "装备牌"},
             }
         },
         {
             "en", new Dictionary<CardTypes, string>
             {
-                {CardTypes.Retinue, "机甲牌"},
-                {CardTypes.Spell, "法术牌"},
-                {CardTypes.Energy, "能量牌"},
-                {CardTypes.Equip, "装备牌"},
+                {CardTypes.Retinue, "Mech"},
+                {CardTypes.Spell, "Spell"},
+                {CardTypes.Energy, "Energy"},
+                {CardTypes.Equip, "Equip"}, 
             }
         }
     };

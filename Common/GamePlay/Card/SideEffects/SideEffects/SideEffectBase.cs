@@ -5,7 +5,7 @@ using System.Reflection;
 /// <summary>
 /// 副作用最小单元，包含对战场进行改变的功能和信息
 /// </summary>
-public partial class SideEffectBase
+public abstract class SideEffectBase
 {
     public string Name;
     public SortedDictionary<string, string> DescRaws;
@@ -13,6 +13,8 @@ public partial class SideEffectBase
     public ExecutorInfo M_ExecutorInfo; //SE携带者信息，触发时和事件执行者信息进行比对，判定是否触发
     public Player Player;
     public List<SideEffectBase> Sub_SideEffect = new List<SideEffectBase>();
+
+    public abstract List<SideEffectValue> Values { get; }
 
     public SideEffectBase()
     {

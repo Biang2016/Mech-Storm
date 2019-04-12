@@ -2,7 +2,7 @@
 
 public class WaitInHandDecreaseEnergy_Base : CardRelatedSideEffect, IEffectFactor
 {
-    public List<SideEffectValue> Values
+    public override List<SideEffectValue> Values
     {
         get { return new List<SideEffectValue> {Value}; }
     }

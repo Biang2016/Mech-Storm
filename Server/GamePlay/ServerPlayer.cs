@@ -260,7 +260,7 @@ internal class ServerPlayer : Player
                 case WeaponTypes.Gun:
                     if (attackRetinue.M_RetinueWeaponEnergy != 0)
                     {
-                        if (MyBattleGroundManager.HasDefenceRetinue) return false;
+                        if (MyBattleGroundManager.HasDefenseRetinue) return false;
                         return true;
                     }
                     else

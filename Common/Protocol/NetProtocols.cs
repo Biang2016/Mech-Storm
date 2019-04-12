@@ -114,7 +114,7 @@
     SE_RETINUE_DODGE, //随从成功闪避
     SE_RETINUE_ONATTACK, //随从发起进攻动作
     SE_RETINUE_ONATTACKSHIP, //随从对战舰发起进攻动作
-    SE_RETINUE_SHIELD_DEFENCE, //随从护盾抵消攻击
+    SE_RETINUE_SHIELD_DEFENSE, //随从护盾抵消攻击
     SE_RETINUE_CANATTACK, //随从能否进攻
     SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT, //特效触发通知
 

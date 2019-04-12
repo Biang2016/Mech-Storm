@@ -3,7 +3,7 @@
 <AllCards>
   <Card id="999">
     <CardInfo name="baseInfo" pictureID="999" cardName_zh="空牌" cardName_en="Empty" isTemp="False" isHide="False" metal="0" energy="0" coin="0" effectFactor="1" limitNum="3" cardRareLevel="9" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="0" totalLife="0" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -11,7 +11,7 @@
 
   <Card id="0">
     <CardInfo name="baseInfo" pictureID="0" cardName_zh="G-Custom" cardName_en="G-Custom" isTemp="False" isHide="False" metal="6" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="6" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="MA" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="MA" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="12" totalLife="12" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
@@ -21,7 +21,7 @@
   </Card>
   <Card id="100">
     <CardInfo name="baseInfo" pictureID="1" cardName_zh="强袭" cardName_en="Strike" isTemp="False" isHide="False" metal="2" energy="0" coin="200" effectFactor="1" limitNum="1" cardRareLevel="1" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="1600" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -31,7 +31,7 @@
   </Card>
   <Card id="1600">
     <CardInfo name="baseInfo" pictureID="16" cardName_zh="重装强袭" cardName_en="FA Strike" isTemp="False" isHide="False" metal="6" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="4" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="100" cardLevel="2" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="6" />
@@ -41,7 +41,7 @@
   </Card>
   <Card id="200">
     <CardInfo name="baseInfo" pictureID="2" cardName_zh="元祖高达" cardName_en="RX-782" isTemp="False" isHide="False" metal="5" energy="0" coin="350" effectFactor="1" limitNum="1" cardRareLevel="5" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
@@ -51,7 +51,7 @@
   </Card>
   <Card id="300">
     <CardInfo name="baseInfo" pictureID="3" cardName_zh="神秘人" cardName_en="Mistery" isTemp="False" isHide="False" metal="9" energy="0" coin="700" effectFactor="1" limitNum="1" cardRareLevel="6" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="18" totalLife="18" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="2" />
@@ -61,7 +61,7 @@
   </Card>
   <Card id="400">
     <CardInfo name="baseInfo" pictureID="4" cardName_zh="恶魔高达" cardName_en="Evil Gundam" isTemp="False" isHide="False" metal="3" energy="0" coin="250" effectFactor="1" limitNum="1" cardRareLevel="2" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
@@ -71,7 +71,7 @@
   </Card>
   <Card id="500">
     <CardInfo name="baseInfo" pictureID="5" cardName_zh="独角兽高达" cardName_en="Unicorn" isTemp="False" isHide="False" metal="7" energy="0" coin="500" effectFactor="1" limitNum="1" cardRareLevel="7" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="1000" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="7" totalLife="7" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
@@ -81,42 +81,42 @@
   </Card>
   <Card id="1000">
     <CardInfo name="baseInfo" pictureID="10" cardName_zh="全装甲独角兽" cardName_en="FA Unicorn" isTemp="False" isHide="False" metal="8" energy="0" coin="700" effectFactor="1" limitNum="0" cardRareLevel="9" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="500" cardLevel="2" />
     <CardInfo name="lifeInfo" life="16" totalLife="16" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="2" basicArmor="2" />
   </Card>
   <Card id="501">
     <CardInfo name="baseInfo" pictureID="8" cardName_zh="独角兽高达[H]" cardName_en="Unicorn[H]" isTemp="True" isHide="True" metal="7" energy="0" coin="0" effectFactor="1" limitNum="1" cardRareLevel="7" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="7" totalLife="7" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="2" basicArmor="2" />
   </Card>
   <Card id="600">
     <CardInfo name="baseInfo" pictureID="6" cardName_zh="新安洲" cardName_en="New Zeon" isTemp="False" isHide="False" metal="6" energy="0" coin="250" effectFactor="1" limitNum="1" cardRareLevel="4" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="12" totalLife="12" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="1" />
   </Card>
   <Card id="700">
     <CardInfo name="baseInfo" pictureID="7" cardName_zh="强袭自由" cardName_en="Strike Freedom" isTemp="False" isHide="False" metal="8" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="8" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="16" totalLife="16" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="2" basicArmor="0" />
   </Card>
   <Card id="900">
     <CardInfo name="baseInfo" pictureID="9" cardName_zh="水翼" cardName_en="Water Swing" isTemp="False" isHide="False" metal="0" energy="12" coin="200" effectFactor="1" limitNum="1" cardRareLevel="2" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="4" />
   </Card>
   <Card id="1100">
     <CardInfo name="baseInfo" pictureID="11" cardName_zh="能天使高达" cardName_en="Gundam Exia" isTemp="False" isHide="False" metal="5" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="4" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="2000" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
@@ -126,7 +126,7 @@
   </Card>
   <Card id="2000">
     <CardInfo name="baseInfo" pictureID="20" cardName_zh="能天使高达X" cardName_en="Gundam Exia X" isTemp="False" isHide="False" metal="5" energy="5" coin="300" effectFactor="1" limitNum="0" cardRareLevel="7" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="1100" cardLevel="2" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="2" />
@@ -136,35 +136,35 @@
   </Card>
   <Card id="1200">
     <CardInfo name="baseInfo" pictureID="12" cardName_zh="力天使高达" cardName_en="Gundam Dynames" isTemp="False" isHide="False" metal="4" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="4" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="2200" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="2" />
   </Card>
   <Card id="2200">
     <CardInfo name="baseInfo" pictureID="22" cardName_zh="力天使高达X" cardName_en="Gundam Dynames X" isTemp="False" isHide="False" metal="4" energy="5" coin="300" effectFactor="1" limitNum="0" cardRareLevel="7" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="1200" cardLevel="2" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="2" />
   </Card>
   <Card id="1300">
     <CardInfo name="baseInfo" pictureID="13" cardName_zh="德天使高达" cardName_en="Gundam Virtue" isTemp="False" isHide="False" metal="4" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="4" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="1800" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="4" />
   </Card>
   <Card id="1800">
     <CardInfo name="baseInfo" pictureID="18" cardName_zh="德天使高达X" cardName_en="Gundam Virtue X" isTemp="False" isHide="False" metal="4" energy="5" coin="300" effectFactor="1" limitNum="0" cardRareLevel="7" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="1300" cardLevel="2" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="4" />
   </Card>
   <Card id="1400">
     <CardInfo name="baseInfo" pictureID="14" cardName_zh="主天使高达" cardName_en="Gundam Kyrios" isTemp="False" isHide="False" metal="4" energy="5" coin="250" effectFactor="1" limitNum="1" cardRareLevel="4" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="1500" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="0" />
@@ -174,7 +174,7 @@
   </Card>
   <Card id="1500">
     <CardInfo name="baseInfo" pictureID="15" cardName_zh="主天使高达X" cardName_en="Gundam Kyrios X" isTemp="False" isHide="False" metal="4" energy="5" coin="300" effectFactor="1" limitNum="0" cardRareLevel="7" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="1400" cardLevel="2" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="4" basicShield="2" basicArmor="1" />
@@ -184,7 +184,7 @@
   </Card>
   <Card id="1700">
     <CardInfo name="baseInfo" pictureID="17" cardName_zh="神高达" cardName_en="God Gundam" isTemp="False" isHide="False" metal="4" energy="15" coin="400" effectFactor="1" limitNum="1" cardRareLevel="5" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="False" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="6" basicArmor="0" />
@@ -192,17 +192,17 @@
 
   <Card id="5101">
     <CardInfo name="baseInfo" pictureID="51" cardName_zh="支援小队" cardName_en="Repair Team X" isTemp="False" isHide="False" metal="1" energy="0" coin="50" effectFactor="1" limitNum="2" cardRareLevel="0" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="5102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="2"></SideEffect>
+      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Va lue="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="5102">
     <CardInfo name="baseInfo" pictureID="52" cardName_zh="支援中队" cardName_en="Repair Team XX" isTemp="False" isHide="False" metal="2" energy="0" coin="100" effectFactor="1" limitNum="0" cardRareLevel="2" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="5103" degradeCardID="5101" cardLevel="2" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" />
@@ -212,7 +212,7 @@
   </Card>
   <Card id="5103">
     <CardInfo name="baseInfo" pictureID="61" cardName_zh="支援大队" cardName_en="Repair Team XXX" isTemp="False" isHide="False" metal="2" energy="0" coin="150" effectFactor="1" limitNum="0" cardRareLevel="4" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5102" cardLevel="3" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
@@ -222,7 +222,7 @@
   </Card>
   <Card id="5301">
     <CardInfo name="baseInfo" pictureID="53" cardName_zh="太空机雷I" cardName_en="Mech Mine I" isTemp="False" isHide="False" metal="2" energy="0" coin="50" effectFactor="1" limitNum="2" cardRareLevel="0" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="5302" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -232,7 +232,7 @@
   </Card>
   <Card id="5302">
     <CardInfo name="baseInfo" pictureID="53" cardName_zh="太空机雷II" cardName_en="Mech Mine II" isTemp="False" isHide="False" metal="1" energy="0" coin="100" effectFactor="1" limitNum="0" cardRareLevel="0" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5301" cardLevel="2" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -242,7 +242,7 @@
   </Card>
   <Card id="5308">
     <CardInfo name="baseInfo" pictureID="53" cardName_zh="太空机雷S" cardName_en="Mech Mine S" isTemp="False" isHide="True" metal="1" energy="0" coin="100" effectFactor="1" limitNum="0" cardRareLevel="0" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -252,7 +252,7 @@
   </Card>
   <Card id="5309">
     <CardInfo name="baseInfo" pictureID="53" cardName_zh="太空机雷SP" cardName_en="Mech Mine SP" isTemp="False" isHide="True" metal="1" energy="0" coin="100" effectFactor="1" limitNum="0" cardRareLevel="0" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -262,7 +262,7 @@
   </Card>
   <Card id="5401">
     <CardInfo name="baseInfo" pictureID="54" cardName_zh="战场工兵I" cardName_en="Field Engineer" isTemp="False" isHide="False" metal="1" energy="0" coin="50" effectFactor="1" limitNum="5" cardRareLevel="0" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="5402" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -272,7 +272,7 @@
   </Card>
   <Card id="5402">
     <CardInfo name="baseInfo" pictureID="55" cardName_zh="战场工兵II" cardName_en="Field Engineer" isTemp="False" isHide="False" metal="2" energy="0" coin="50" effectFactor="1" limitNum="0" cardRareLevel="2" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5401" cardLevel="2" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -282,14 +282,14 @@
   </Card>
   <Card id="5600">
     <CardInfo name="baseInfo" pictureID="56" cardName_zh="钢加农" cardName_en="Gun Canon" isTemp="False" isHide="False" metal="3" energy="0" coin="100" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="2" />
   </Card>
   <Card id="5700">
     <CardInfo name="baseInfo" pictureID="57" cardName_zh="大魔分队" cardName_en="Dom Team" isTemp="False" isHide="False" metal="3" energy="0" coin="400" effectFactor="1" limitNum="1" cardRareLevel="1" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
@@ -300,21 +300,21 @@
   </Card>
   <Card id="5701">
     <CardInfo name="baseInfo" pictureID="57" cardName_zh="大魔[攻击]" cardName_en="Dom(Attack)" isTemp="True" isHide="True" metal="2" energy="0" coin="0" effectFactor="1" limitNum="1" cardRareLevel="1" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
   </Card>
   <Card id="5702">
     <CardInfo name="baseInfo" pictureID="57" cardName_zh="大魔[防守]" cardName_en="Dom(Defence)" isTemp="True" isHide="True" metal="2" energy="0" coin="0" effectFactor="1" limitNum="1" cardRareLevel="1" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="1" basicArmor="0" />
   </Card>
   <Card id="5800">
     <CardInfo name="baseInfo" pictureID="58" cardName_zh="突袭小队" cardName_en="Strike Team" isTemp="False" isHide="False" metal="2" energy="0" coin="200" effectFactor="1" limitNum="3" cardRareLevel="0" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
@@ -324,77 +324,77 @@
   </Card>
   <Card id="5801">
     <CardInfo name="baseInfo" pictureID="58" cardName_zh="突袭者" cardName_en="Striker" isTemp="True" isHide="True" metal="1" energy="0" coin="0" effectFactor="1" limitNum="3" cardRareLevel="0" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
   </Card>
   <Card id="5900">
     <CardInfo name="baseInfo" pictureID="59" cardName_zh="狙击型吉姆" cardName_en="Sniper Jim" isTemp="False" isHide="False" metal="3" energy="0" coin="350" effectFactor="1" limitNum="2" cardRareLevel="2" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="1" />
   </Card>
   <Card id="6000">
     <CardInfo name="baseInfo" pictureID="60" cardName_zh="GAT-X131" cardName_en="GAT-X131" isTemp="False" isHide="False" metal="3" energy="0" coin="200" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="7" totalLife="7" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
   </Card>
   <Card id="6300">
     <CardInfo name="baseInfo" pictureID="63" cardName_zh="RX-785" cardName_en="RX-785" isTemp="False" isHide="False" metal="5" energy="0" coin="200" effectFactor="1" limitNum="3" cardRareLevel="4" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="5" />
   </Card>
   <Card id="6400">
     <CardInfo name="baseInfo" pictureID="64" cardName_zh="伊芙利特改" cardName_en="MS-08TX[EXAM]" isTemp="False" isHide="False" metal="2" energy="0" coin="200" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
   </Card>
   <Card id="6600">
     <CardInfo name="baseInfo" pictureID="65" cardName_zh="杰斯塔" cardName_en="Jesta" isTemp="False" isHide="False" metal="4" energy="0" coin="200" effectFactor="1" limitNum="3" cardRareLevel="4" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="2" />
   </Card>
   <Card id="6700">
     <CardInfo name="baseInfo" pictureID="66" cardName_zh="扎古" cardName_en="Zaku" isTemp="False" isHide="False" metal="2" energy="0" coin="250" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="4" />
   </Card>
   <Card id="6800">
     <CardInfo name="baseInfo" pictureID="67" cardName_zh="狙击格鲁古古" cardName_en="Gelgoog" isTemp="False" isHide="False" metal="5" energy="0" coin="200" effectFactor="1" limitNum="3" cardRareLevel="3" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="4" />
   </Card>
   <Card id="6901">
     <CardInfo name="baseInfo" pictureID="68" cardName_zh="训练场新兵" cardName_en="Training Recruit" isTemp="False" isHide="False" metal="1" energy="0" coin="50" effectFactor="1" limitNum="5" cardRareLevel="0" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="6902" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
   </Card>
   <Card id="6902">
     <CardInfo name="baseInfo" pictureID="68" cardName_zh="训练场老兵" cardName_en="Training Veteran" isTemp="False" isHide="False" metal="2" energy="0" coin="100" effectFactor="1" limitNum="0" cardRareLevel="1" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="6903" degradeCardID="6901" cardLevel="2" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="2" />
   </Card>
   <Card id="6903">
     <CardInfo name="baseInfo" pictureID="68" cardName_zh="训练场精英" cardName_en="Training Elite" isTemp="False" isHide="False" metal="2" energy="0" coin="200" effectFactor="1" limitNum="0" cardRareLevel="3" cardType="Retinue" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="6902" cardLevel="3" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="3" />
@@ -475,45 +475,45 @@
   <Card id="30101">
     <CardInfo name="baseInfo" pictureID="300" cardName_zh="护盾Ⅰ" cardName_en="Shield Ⅰ" isTemp="False" isHide="False" metal="2" energy="0" coin="300" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="30102" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="shieldInfo" armor="0" shield="1" shieldType="Shield" isDefence="False" />
+    <CardInfo name="shieldInfo" armor="0" shield="1" shieldType="Shield" isDefense="False" />
   </Card>
   <Card id="30102">
     <CardInfo name="baseInfo" pictureID="300" cardName_zh="护盾Ⅱ" cardName_en="Shield Ⅱ" isTemp="False" isHide="False" metal="2" energy="0" coin="400" effectFactor="1" limitNum="0" cardRareLevel="3" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="30103" degradeCardID="30101" cardLevel="2" />
-    <CardInfo name="shieldInfo" armor="0" shield="2" shieldType="Shield" isDefence="False" />
+    <CardInfo name="shieldInfo" armor="0" shield="2" shieldType="Shield" isDefense="False" />
   </Card>
   <Card id="30103">
     <CardInfo name="baseInfo" pictureID="300" cardName_zh="护盾Ⅲ" cardName_en="Shield Ⅲ" isTemp="False" isHide="False" metal="3" energy="0" coin="500" effectFactor="1" limitNum="0" cardRareLevel="4" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="30102" cardLevel="3" />
-    <CardInfo name="shieldInfo" armor="0" shield="3" shieldType="Shield" isDefence="True" />
+    <CardInfo name="shieldInfo" armor="0" shield="3" shieldType="Shield" isDefense="True" />
   </Card>
 
   <Card id="30201">
     <CardInfo name="baseInfo" pictureID="350" cardName_zh="新兵盾牌Ⅰ" cardName_en="Armor Ⅰ" isTemp="False" isHide="False" metal="1" energy="0" coin="100" effectFactor="1" limitNum="3" cardRareLevel="1" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="30202" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="shieldInfo" armor="4" shield="0" shieldType="Armor" isDefence="False" />
+    <CardInfo name="shieldInfo" armor="4" shield="0" shieldType="Armor" isDefense="False" />
   </Card>
   <Card id="30202">
     <CardInfo name="baseInfo" pictureID="350" cardName_zh="新兵盾牌Ⅱ" cardName_en="Armor Ⅱ" isTemp="False" isHide="False" metal="2" energy="0" coin="200" effectFactor="1" limitNum="0" cardRareLevel="2" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="30203" degradeCardID="30201" cardLevel="2" />
-    <CardInfo name="shieldInfo" armor="6" shield="0" shieldType="Armor" isDefence="False" />
+    <CardInfo name="shieldInfo" armor="6" shield="0" shieldType="Armor" isDefense="False" />
   </Card>
   <Card id="30203">
     <CardInfo name="baseInfo" pictureID="350" cardName_zh="新兵盾牌Ⅲ" cardName_en="Armor Ⅲ" isTemp="False" isHide="False" metal="3" energy="0" coin="300" effectFactor="1" limitNum="0" cardRareLevel="3" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="30202" cardLevel="3" />
-    <CardInfo name="shieldInfo" armor="8" shield="0" shieldType="Armor" isDefence="True" />
+    <CardInfo name="shieldInfo" armor="8" shield="0" shieldType="Armor" isDefense="True" />
   </Card>
 
   <Card id="40101">
     <CardInfo name="baseInfo" pictureID="401" cardName_zh="Pack测试" cardName_en="Pack" isTemp="False" isHide="False" metal="1" energy="0" coin="100" effectFactor="1" limitNum="3" cardRareLevel="9" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="packInfo" isFrenzy="False" isDefence="False" isSniper="False" dodgeProp="30" />
+    <CardInfo name="packInfo" isFrenzy="False" isDefense="False" isSniper="False" dodgeProp="30" />
   </Card>
 
   <Card id="50101">
     <CardInfo name="baseInfo" pictureID="501" cardName_zh="MA测试" cardName_en="MA_Test" isTemp="False" isHide="False" metal="1" energy="0" coin="100" effectFactor="1" limitNum="3" cardRareLevel="9" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
-    <CardInfo name="maInfo" isFrenzy="False" isDefence="False" isSniper="False" />
+    <CardInfo name="maInfo" isFrenzy="False" isDefense="False" isSniper="False" />
   </Card>
 
   <Card id="60101">
@@ -725,7 +725,7 @@
   <Card id="6500">
     <CardInfo name="baseInfo" pictureID="620" cardName_zh="减速机器人" cardName_en="Spider" isTemp="True" isHide="True" metal="0" energy="3" coin="400" effectFactor="1" limitNum="3" cardRareLevel="3" cardType="Retinue" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
-    <CardInfo name="retinueInfo" isSoldier="True" isDefence="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="retinueInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
   </Card>

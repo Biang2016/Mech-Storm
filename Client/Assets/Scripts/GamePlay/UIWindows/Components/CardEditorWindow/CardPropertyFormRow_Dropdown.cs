@@ -13,7 +13,7 @@ public class CardPropertyFormRow_Dropdown : CardPropertyFormRow
         base.PoolRecycle();
     }
 
-    protected override void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList)
+    protected override void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList, UnityAction<string> onButtonClick = null)
     {
         Dropdown.options.Clear();
         foreach (string option in dropdownOptionList)

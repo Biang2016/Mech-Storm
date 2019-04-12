@@ -237,11 +237,11 @@ Art Update the UI of cards.
 
 28th, Sep
 [Dev] Card balance design.
-[Dev] Add Sniper and Defence logic.
+[Dev] Add Sniper and Defense logic.
 
 7th, Oct
 [Dev] Add the game name picture. Change the game's name to MechStorm.
-[Dev] Add the looking for Defence mechs.
+[Dev] Add the looking for Defense mechs.
 [Bug] Fix the bug that if battleground is full, mechs cannot be summoned.
 
 8th, Oct

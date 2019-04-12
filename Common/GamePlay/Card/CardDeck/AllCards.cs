@@ -183,7 +183,7 @@ public static class AllCards
                     case "retinueInfo":
                         retinueInfo = new RetinueInfo(
                             cardInfo.Attributes["isSoldier"].Value == "True",
-                            cardInfo.Attributes["isDefence"].Value == "True",
+                            cardInfo.Attributes["isDefense"].Value == "True",
                             cardInfo.Attributes["isSniper"].Value == "True",
                             cardInfo.Attributes["isCharger"].Value == "True",
                             cardInfo.Attributes["isFrenzy"].Value == "True",
@@ -205,13 +205,13 @@ public static class AllCards
                         shieldInfo = new ShieldInfo(int.Parse(cardInfo.Attributes["armor"].Value),
                             int.Parse(cardInfo.Attributes["shield"].Value),
                             (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value),
-                            cardInfo.Attributes["isDefence"].Value == "True");
+                            cardInfo.Attributes["isDefense"].Value == "True");
                         equipInfo = new EquipInfo(SlotTypes.Shield);
                         break;
                     case "packInfo":
                         packInfo = new PackInfo(
                             cardInfo.Attributes["isFrenzy"].Value == "True",
-                            cardInfo.Attributes["isDefence"].Value == "True",
+                            cardInfo.Attributes["isDefense"].Value == "True",
                             cardInfo.Attributes["isSniper"].Value == "True",
                             int.Parse(cardInfo.Attributes["dodgeProp"].Value)
                         );
@@ -220,7 +220,7 @@ public static class AllCards
                     case "maInfo":
                         maInfo = new MAInfo(
                             cardInfo.Attributes["isFrenzy"].Value == "True",
-                            cardInfo.Attributes["isDefence"].Value == "True",
+                            cardInfo.Attributes["isDefense"].Value == "True",
                             cardInfo.Attributes["isSniper"].Value == "True"
                         );
                         equipInfo = new EquipInfo(SlotTypes.MA);

@@ -6,7 +6,7 @@ public class AddWeaponEnergy_Base : TargetSideEffect, IEffectFactor
     public SideEffectValue Value = new SideEffectValue(0);
     private int factor = 1;
 
-    public List<SideEffectValue> Values
+    public override List<SideEffectValue> Values
     {
         get { return new List<SideEffectValue> {Value}; }
     }

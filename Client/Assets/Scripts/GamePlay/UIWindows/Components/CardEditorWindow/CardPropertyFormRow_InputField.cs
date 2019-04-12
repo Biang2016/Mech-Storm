@@ -8,6 +8,7 @@ public class CardPropertyFormRow_InputField : CardPropertyFormRow
 {
     [SerializeField] private InputField InputField;
     [SerializeField] private Text PlaceHolderText;
+    [SerializeField] private Button Button;
 
     public override void PoolRecycle()
     {
@@ -15,7 +16,7 @@ public class CardPropertyFormRow_InputField : CardPropertyFormRow
         LanguageManager.Instance.UnregisterTextKey(PlaceHolderText);
     }
 
-    protected override void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList)
+    protected override void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList, UnityAction<string> onButtonClick)
     {
         LanguageManager.Instance.RegisterTextKeys(new List<ValueTuple<Text, string>>
         {
@@ -24,6 +25,11 @@ public class CardPropertyFormRow_InputField : CardPropertyFormRow
 
         InputField.onValueChanged.RemoveAllListeners();
         InputField.onValueChanged.AddListener(delegate { onValueChangeAction(InputField.text); });
+
+        Button.gameObject.SetActive(onButtonClick != null);
+
+        Button.onClick.RemoveAllListeners();
+        if (onButtonClick != null) Button.onClick.AddListener(delegate { onButtonClick(InputField.text); });
     }
 
     protected override void SetValue(string value_str)

@@ -60,6 +60,25 @@ public class ClientUtils
         return HTMLColorToColor(color);
     }
 
+    public static bool IsCardPictureValid(int pictureID)
+    {
+        string pid_str = string.Format("{0:000}", pictureID);
+        if (string.IsNullOrEmpty(pid_str))
+        {
+            return false;
+        }
+        SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));
+        if (atlas)
+        {
+            Sprite sprite = atlas.GetSprite(pid_str);
+            return sprite != null;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static void ChangePicture(Renderer rd, Texture tx, Rect textureRect)
     {
         Texture2D t2D = (Texture2D) tx;
@@ -356,5 +375,4 @@ public class ClientUtils
         child.localScale = Vector3.one;
         child.localEulerAngles = Vector3.zero;
     }
-
 }

@@ -3,14 +3,14 @@
     public int Armor;
     public int Shield;
     public ShieldTypes ShieldType;
-    public bool IsDefence;
+    public bool IsDefense;
 
-    public ShieldInfo(int armor, int shield, ShieldTypes shieldType, bool isDefence)
+    public ShieldInfo(int armor, int shield, ShieldTypes shieldType, bool isDefense)
     {
         Armor = armor;
         Shield = shield;
         ShieldType = shieldType;
-        IsDefence = isDefence;
+        IsDefense = isDefense;
     }
 
     public void Serialize(DataStream writer)
@@ -18,7 +18,7 @@
         writer.WriteSInt32(Armor);
         writer.WriteSInt32(Shield);
         writer.WriteSInt32((int) ShieldType);
-        writer.WriteByte((byte) (IsDefence ? 0x01 : 0x00));
+        writer.WriteByte((byte) (IsDefense ? 0x01 : 0x00));
     }
 
     public static ShieldInfo Deserialze(DataStream reader)
@@ -26,8 +26,8 @@
         int Armor = reader.ReadSInt32();
         int Shield = reader.ReadSInt32();
         ShieldTypes ShieldType = (ShieldTypes) reader.ReadSInt32();
-        bool IsDefence = reader.ReadByte() == 0x01;
-        return new ShieldInfo(Armor, Shield, ShieldType, IsDefence);
+        bool IsDefense = reader.ReadByte() == 0x01;
+        return new ShieldInfo(Armor, Shield, ShieldType, IsDefense);
     }
 }
 
