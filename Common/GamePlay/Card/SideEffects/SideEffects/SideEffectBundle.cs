@@ -24,6 +24,11 @@ public class SideEffectBundle
         sees.Add(see);
     }
 
+    public void RefreshSideEffectExecutesDict()
+    {
+
+    }
+
     public List<SideEffectExecute> GetSideEffectExecutes(TriggerTime triggerTime, TriggerRange triggerRange)
     {
         List<SideEffectExecute> res = new List<SideEffectExecute>();

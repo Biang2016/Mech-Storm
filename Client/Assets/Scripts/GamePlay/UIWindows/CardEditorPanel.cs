@@ -74,6 +74,9 @@ public class CardEditorPanel : BaseUIForm
     private Dictionary<WeaponTypes, List<CardPropertyFormRow>> WeaponTypePropertiesDict = new Dictionary<WeaponTypes, List<CardPropertyFormRow>>();
     private Dictionary<ShieldTypes, List<CardPropertyFormRow>> ShieldTypePropertiesDict = new Dictionary<ShieldTypes, List<CardPropertyFormRow>>();
 
+    private CardPropertyForm_SideEffectBundle Row_SideEffectBundle = null;
+    private CardPropertyForm_SideEffectBundle Row_SideEffectBundle_OnBattleGround = null;
+
     private void InitializeCardPropertyForm()
     {
         foreach (CardPropertyFormRow cpfr in MyPropertiesRows)
@@ -159,6 +162,14 @@ public class CardEditorPanel : BaseUIForm
         CardPropertyFormRow Row_ShieldBasicShield = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_ShieldBasicShieldLabelText", OnShieldBasicShieldChange, out SetShieldBasicShield);
 
         CardPropertyFormRow Row_SideEffectType = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_SideEffectType", OnSideEffectTypeChange, out SetSideEffectType, AllSideEffects.SideEffectsNameDict.Keys.ToList());
+
+        Row_SideEffectBundle?.PoolRecycle();
+        Row_SideEffectBundle_OnBattleGround?.PoolRecycle();
+        Row_SideEffectBundle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
+        Row_SideEffectBundle_OnBattleGround = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
+
+        Row_SideEffectBundle.Initialize("CardEditorWindow_SideEffectBundle", null, null);
+        Row_SideEffectBundle_OnBattleGround.Initialize("CardEditorWindow_SideEffectBundle_OnBattleGround", null, null);
 
         CardPropertiesCommon = new List<CardPropertyFormRow>
         {
@@ -1099,6 +1110,9 @@ public class CardEditorPanel : BaseUIForm
             }
         }
 
+        Row_SideEffectBundle.Initialize("CardEditorWindow_SideEffectBundle", ci.SideEffectBundle, cur_PreviewCard.RefreshCardTextLanguage);
+        Row_SideEffectBundle_OnBattleGround.Initialize("CardEditorWindow_SideEffectBundle_OnBattleGround", ci.SideEffectBundle_OnBattleGround, cur_PreviewCard.RefreshCardTextLanguage);
+
         cur_PreviewCard.RefreshCardTextLanguage();
         cur_PreviewCard.RefreshCardAllColors();
 
@@ -1144,6 +1158,7 @@ public class CardEditorPanel : BaseUIForm
     private void InitializePicSelectGrid()
     {
         PicSelectGridPanel.SetActive(false);
+        PicSelectGridCloseButton.gameObject.SetActive(false);
         foreach (PicPreviewButton ppb in PicPreviewButtons)
         {
             ppb.PoolRecycle();

@@ -1,6 +1,10 @@
 ﻿public class AddPlayerBuff_Base : SideEffectBase
 {
-    public string BuffName;
+    public string BuffName
+    {
+        get { return M_SideEffectParam.GetParam_String("BuffName"); }
+    }
+
     private SideEffectExecute attachedBuffSEE;
 
     public SideEffectExecute AttachedBuffSEE
@@ -19,24 +23,11 @@
 
     protected override void InitSideEffectParam()
     {
+        M_SideEffectParam.SetParam_String("BuffName", "");
     }
 
     public override string GenerateDesc()
     {
         return AttachedBuffSEE.SideEffectBase.GenerateDesc();
-    }
-
-    public override void Serialize(DataStream writer)
-    {
-        base.Serialize(writer);
-        writer.WriteString8(BuffName);
-        //AttachedBuffSEE.Serialize(writer);
-    }
-
-    protected override void Deserialize(DataStream reader)
-    {
-        base.Deserialize(reader);
-        BuffName = reader.ReadString8();
-        //AttachedBuffSEE = SideEffectExecute.Deserialze(reader);
     }
 }

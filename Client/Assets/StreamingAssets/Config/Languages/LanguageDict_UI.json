@@ -868,4 +868,45 @@
 		"zh": "卡牌效果",
 		"en": "Effect"
 	},
+
+	"CardEditorWindow_SideEffectBundle": {
+		"zh": "出牌效果",
+		"en": "Playout Effects"
+	},
+	"CardEditorWindow_SideEffectBundle_OnBattleGround": {
+		"zh": "在场效果",
+		"en": "Battleground Effects"
+	},
+	"CardEditorWindow_TriggerTime": {
+		"zh": "触发时机",
+		"en": "TriggerTime"
+	},
+	"CardEditorWindow_TriggerRange": {
+		"zh": "对象范围",
+		"en": "TriggerRange"
+	},
+	"CardEditorWindow_TriggerDelayTimes": {
+		"zh": "延迟触发次数",
+		"en": "TriggerDelayTimes"
+	},
+	"CardEditorWindow_TriggerDelayTimes": {
+		"zh": "延迟触发次数",
+		"en": "TriggerDelayTimes"
+	},
+	"CardEditorWindow_TriggerTimes": {
+		"zh": "触发次数",
+		"en": "TriggerTimes"
+	},
+	"CardEditorWindow_RemoveTriggerTime": {
+		"zh": "效果移除时机",
+		"en": "RemoveTriggerTime"
+	},
+	"CardEditorWindow_RemoveTriggerRange": {
+		"zh": "效果移除触发范围",
+		"en": "RemoveTriggerRange"
+	},
+	"CardEditorWindow_RemoveTriggerTimes": {
+		"zh": "效果移除触发次数",
+		"en": "RemoveTriggerTimes"
+	},
 }
