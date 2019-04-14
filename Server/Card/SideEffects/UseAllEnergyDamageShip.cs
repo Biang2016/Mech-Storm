@@ -10,10 +10,10 @@
         {
             ServerPlayer player = (ServerPlayer) Player;
 
-            player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
+            player.MyEnemyPlayer.DamageLifeAboveZero(M_SideEffectParam.GetParam("Value"));
             int plus_damage = player.EnergyLeft;
             player.UseEnergyAboveZero(player.EnergyLeft);
-            player.MyEnemyPlayer.DamageLifeAboveZero(plus_damage * FinalValue_Plus);
+            player.MyEnemyPlayer.DamageLifeAboveZero(plus_damage * M_SideEffectParam.GetParam("ValuePlus"));
         }
     }
 }
