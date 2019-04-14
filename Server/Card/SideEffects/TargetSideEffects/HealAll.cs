@@ -9,53 +9,54 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
+            int value = M_SideEffectParam.GetParam_MultipliedInt("HealValue");
             switch (M_TargetRange)
             {
                 case TargetRange.Mechs:
-                    player.MyBattleGroundManager.HealAllRetinues(FinalValue);
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(FinalValue);
+                    player.MyBattleGroundManager.HealAllRetinues(value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(value);
                     break;
                 case TargetRange.SelfMechs:
-                    player.MyBattleGroundManager.HealAllRetinues(FinalValue);
+                    player.MyBattleGroundManager.HealAllRetinues(value);
                     break;
                 case TargetRange.EnemyMechs:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(value);
                     break;
                 case TargetRange.Heroes:
-                    player.MyBattleGroundManager.HealAllHeros(FinalValue);
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllHeros(FinalValue);
+                    player.MyBattleGroundManager.HealAllHeros(value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllHeros(value);
                     break;
                 case TargetRange.SelfHeroes:
-                    player.MyBattleGroundManager.HealAllHeros(FinalValue);
+                    player.MyBattleGroundManager.HealAllHeros(value);
                     break;
                 case TargetRange.EnemyHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllHeros(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllHeros(value);
                     break;
                 case TargetRange.Soldiers:
-                    player.MyBattleGroundManager.HealAllSoldiers(FinalValue);
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllSoldiers(FinalValue);
+                    player.MyBattleGroundManager.HealAllSoldiers(value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllSoldiers(value);
                     break;
                 case TargetRange.SelfSoldiers:
-                    player.MyBattleGroundManager.HealAllSoldiers(FinalValue);
+                    player.MyBattleGroundManager.HealAllSoldiers(value);
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllSoldiers(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllSoldiers(value);
                     break;
                 case TargetRange.Ships:
-                    player.AddLifeWithinMax(FinalValue);
-                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
+                    player.AddLifeWithinMax(value);
+                    player.MyEnemyPlayer.AddLifeWithinMax(value);
                     break;
                 case TargetRange.SelfShip:
-                    player.AddLifeWithinMax(FinalValue);
+                    player.AddLifeWithinMax(value);
                     break;
                 case TargetRange.EnemyShip:
-                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
+                    player.MyEnemyPlayer.AddLifeWithinMax(value);
                     break;
                 case TargetRange.AllLife:
-                    player.MyBattleGroundManager.HealAllRetinues(FinalValue);
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(FinalValue);
-                    player.AddLifeWithinMax(FinalValue);
-                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
+                    player.MyBattleGroundManager.HealAllRetinues(value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealAllRetinues(value);
+                    player.AddLifeWithinMax(value);
+                    player.MyEnemyPlayer.AddLifeWithinMax(value);
                     break;
             }
         }

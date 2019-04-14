@@ -9,40 +9,41 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            int value = 0;
+            int finalValue = 0;
+            int energyValue = M_SideEffectParam.GetParam_MultipliedInt("EnergyValue");
             switch (M_TargetRange)
             {
                 case TargetRange.Mechs:
-                    value = FinalValue * (player.MyBattleGroundManager.RetinueCount + player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount);
+                    finalValue = energyValue * (player.MyBattleGroundManager.RetinueCount + player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount);
                     break;
                 case TargetRange.Heroes:
-                    value = FinalValue * (player.MyBattleGroundManager.HeroCount + player.MyEnemyPlayer.MyBattleGroundManager.HeroCount);
+                    finalValue = energyValue * (player.MyBattleGroundManager.HeroCount + player.MyEnemyPlayer.MyBattleGroundManager.HeroCount);
                     break;
                 case TargetRange.Soldiers:
-                    value = FinalValue * (player.MyBattleGroundManager.SoldierCount + player.MyEnemyPlayer.MyBattleGroundManager.SoldierCount);
+                    finalValue = energyValue * (player.MyBattleGroundManager.SoldierCount + player.MyEnemyPlayer.MyBattleGroundManager.SoldierCount);
                     break;
                 case TargetRange.SelfMechs:
-                    value = FinalValue * player.MyBattleGroundManager.RetinueCount;
+                    finalValue = energyValue * player.MyBattleGroundManager.RetinueCount;
                     break;
                 case TargetRange.SelfHeroes:
-                    value = FinalValue * player.MyBattleGroundManager.HeroCount;
+                    finalValue = energyValue * player.MyBattleGroundManager.HeroCount;
                     break;
                 case TargetRange.SelfSoldiers:
-                    value = FinalValue * player.MyBattleGroundManager.SoldierCount;
+                    finalValue = energyValue * player.MyBattleGroundManager.SoldierCount;
                     break;
                 case TargetRange.EnemyMechs:
-                    value = FinalValue * player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount;
+                    finalValue = energyValue * player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount;
                     break;
                 case TargetRange.EnemyHeros:
-                    value = FinalValue * player.MyEnemyPlayer.MyBattleGroundManager.HeroCount;
+                    finalValue = energyValue * player.MyEnemyPlayer.MyBattleGroundManager.HeroCount;
                     break;
                 case TargetRange.EnemySoldiers:
-                    value = FinalValue * player.MyEnemyPlayer.MyBattleGroundManager.SoldierCount;
+                    finalValue = energyValue * player.MyEnemyPlayer.MyBattleGroundManager.SoldierCount;
                     break;
             }
 
-            player.AddEnergyWithinMax(value);
-            player.MyEnemyPlayer.UseEnergyAboveZero(value);
+            player.AddEnergyWithinMax(finalValue);
+            player.MyEnemyPlayer.UseEnergyAboveZero(finalValue);
         }
     }
 }

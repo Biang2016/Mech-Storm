@@ -1,80 +1,25 @@
 ﻿public abstract class PlayerBuffSideEffects : SideEffectBase
 {
-    public int BuffPicId;
-    public string BuffColor = "";
-    public bool HasNumberShow;
-    public bool CanPiled;
-    public bool Singleton;
-    public BuffPiledBy PiledBy;
-
     public enum BuffPiledBy
     {
-        RemoveTriggerTimes,
-        Value,
+        RemoveTriggerTimes = 0,
+        Value = 1,
     }
 
-    public SideEffectBundle.TriggerTime TriggerTime; //触发SE时机
-    public SideEffectBundle.TriggerRange TriggerRange; //触发SE条件
-    public int TriggerDelayTimes;
-    public int TriggerTimes;
-    public SideEffectBundle.TriggerTime RemoveTriggerTime; //移除SE时机
-    public SideEffectBundle.TriggerRange RemoveTriggerRange; //移除SE条件
-    public int RemoveTriggerTimes; //Remove触发多少次后，移除此SE（如：3回合内全体攻击力+1）
-
-    public override void Serialize(DataStream writer)
+    protected override void InitSideEffectParam()
     {
-        base.Serialize(writer);
-        writer.WriteSInt32(BuffPicId);
-        writer.WriteString8(BuffColor);
-        writer.WriteByte((byte) (HasNumberShow ? 0x01 : 0x00));
-        writer.WriteByte((byte) (CanPiled ? 0x01 : 0x00));
-        writer.WriteByte((byte) (Singleton ? 0x01 : 0x00));
-        writer.WriteSInt32((int) PiledBy);
+        M_SideEffectParam.SetParam_ConstInt("BuffPicId", 0);
+        M_SideEffectParam.SetParam_Bool("HasNumberShow", false);
+        M_SideEffectParam.SetParam_Bool("CanPiled", false);
+        M_SideEffectParam.SetParam_Bool("Singleton", false);
+        M_SideEffectParam.SetParam_ConstInt("PiledBy", (int) BuffPiledBy.RemoveTriggerTimes, typeof(BuffPiledBy));
 
-        writer.WriteSInt32((int) TriggerTime);
-        writer.WriteSInt32((int) TriggerRange);
-        writer.WriteSInt32(TriggerDelayTimes);
-        writer.WriteSInt32(TriggerTimes);
-        writer.WriteSInt32((int) RemoveTriggerTime);
-        writer.WriteSInt32((int) RemoveTriggerRange);
-        writer.WriteSInt32(RemoveTriggerTimes);
-    }
-
-    protected override void Deserialize(DataStream reader)
-    {
-        base.Deserialize(reader);
-        BuffPicId = reader.ReadSInt32();
-        BuffColor = reader.ReadString8();
-        HasNumberShow = reader.ReadByte() == 0x01;
-        CanPiled = reader.ReadByte() == 0x01;
-        Singleton = reader.ReadByte() == 0x01;
-        PiledBy = (BuffPiledBy) reader.ReadSInt32();
-
-        TriggerTime = (SideEffectBundle.TriggerTime) reader.ReadSInt32();
-        TriggerRange = (SideEffectBundle.TriggerRange) reader.ReadSInt32();
-        TriggerDelayTimes = reader.ReadSInt32();
-        TriggerTimes = reader.ReadSInt32();
-        RemoveTriggerTime = (SideEffectBundle.TriggerTime) reader.ReadSInt32();
-        RemoveTriggerRange = (SideEffectBundle.TriggerRange) reader.ReadSInt32();
-        RemoveTriggerTimes = reader.ReadSInt32();
-    }
-
-    protected override void CloneParams(SideEffectBase copy)
-    {
-        base.CloneParams(copy);
-        ((PlayerBuffSideEffects) copy).BuffPicId = BuffPicId;
-        ((PlayerBuffSideEffects) copy).BuffColor = BuffColor;
-        ((PlayerBuffSideEffects) copy).HasNumberShow = HasNumberShow;
-        ((PlayerBuffSideEffects) copy).CanPiled = CanPiled;
-        ((PlayerBuffSideEffects) copy).Singleton = Singleton;
-        ((PlayerBuffSideEffects) copy).PiledBy = PiledBy;
-
-        ((PlayerBuffSideEffects) copy).TriggerTime = TriggerTime;
-        ((PlayerBuffSideEffects) copy).TriggerRange = TriggerRange;
-        ((PlayerBuffSideEffects) copy).TriggerDelayTimes = TriggerDelayTimes;
-        ((PlayerBuffSideEffects) copy).TriggerTimes = TriggerTimes;
-        ((PlayerBuffSideEffects) copy).RemoveTriggerTime = RemoveTriggerTime;
-        ((PlayerBuffSideEffects) copy).RemoveTriggerRange = RemoveTriggerRange;
-        ((PlayerBuffSideEffects) copy).RemoveTriggerTimes = RemoveTriggerTimes;
+        M_SideEffectParam.SetParam_ConstInt("TriggerTime", (int) SideEffectBundle.TriggerTime.None, typeof(SideEffectBundle.TriggerTime)); //触发SE时机
+        M_SideEffectParam.SetParam_ConstInt("TriggerRange", (int) SideEffectBundle.TriggerRange.None, typeof(SideEffectBundle.TriggerRange)); //触发SE条件
+        M_SideEffectParam.SetParam_ConstInt("TriggerDelayTimes", 0);
+        M_SideEffectParam.SetParam_ConstInt("TriggerTimes", 0);
+        M_SideEffectParam.SetParam_ConstInt("RemoveTriggerTime", (int) SideEffectBundle.TriggerTime.None, typeof(SideEffectBundle.TriggerTime)); //移除SE时机
+        M_SideEffectParam.SetParam_ConstInt("RemoveTriggerRange", (int) SideEffectBundle.TriggerRange.None, typeof(SideEffectBundle.TriggerRange)); //移除SE条件
+        M_SideEffectParam.SetParam_ConstInt("RemoveTriggerTimes", 0); //Remove触发多少次后，移除此SE（如：3回合内全体攻击力+1）
     }
 }

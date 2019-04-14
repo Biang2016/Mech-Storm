@@ -9,15 +9,16 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
+            int value = M_SideEffectParam.GetParam_MultipliedInt("ShieldValue");
             if ((M_TargetRange & TargetRange.Mechs) != 0)
             {
-                player.MyBattleGroundManager.AddShieldForOneRetinue(executorInfo.TargetRetinueId, FinalValue);
-                player.MyEnemyPlayer.MyBattleGroundManager.AddShieldForOneRetinue(executorInfo.TargetRetinueId, FinalValue);
+                player.MyBattleGroundManager.AddShieldForOneRetinue(executorInfo.TargetRetinueId, value);
+                player.MyEnemyPlayer.MyBattleGroundManager.AddShieldForOneRetinue(executorInfo.TargetRetinueId, value);
             }
 
             if (M_TargetRange == TargetRange.Self)
             {
-                player.MyBattleGroundManager.AddShieldForOneRetinue(executorInfo.RetinueId, FinalValue);
+                player.MyBattleGroundManager.AddShieldForOneRetinue(executorInfo.RetinueId, value);
             }
         }
     }

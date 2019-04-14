@@ -1,7 +1,14 @@
 ﻿/// <summary>
-/// 卡牌属性倍率
+/// 带伤害的效果
 /// </summary>
 public interface IDamage
 {
     int CalculateDamage();
+    IDamageType IDamageType { get; }
+}
+
+public enum IDamageType
+{
+    UnknownValue,
+    Known
 }

@@ -6,7 +6,7 @@
         {
         }
 
-        public override void Execute(SideEffectBase.ExecutorInfo executorInfo)
+        public override void Execute(ExecutorInfo executorInfo)
         {
         }
     }

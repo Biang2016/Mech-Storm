@@ -13,9 +13,9 @@ public class CardSpell : CardBase
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
         {
             SideEffectBase se = see.SideEffectBase;
-            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
+            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoice)
             {
-                if (se is TargetSideEffectEquip && ((TargetSideEffectEquip) se).IsNeedChoise)
+                if (se is TargetSideEffectEquip && ((TargetSideEffectEquip) se).IsNeedChoice)
                 {
                     CardInfo.TargetInfo.HasTargetEquip = true;
                     CardInfo.TargetInfo.targetEquipRange = ((TargetSideEffectEquip) se).M_TargetRange;
@@ -240,7 +240,7 @@ public class CardSpell : CardBase
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
         {
             SideEffectBase se = see.SideEffectBase;
-            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoise)
+            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoice)
             {
                 if (se is IDamage) return ((IDamage) se).CalculateDamage();
             }

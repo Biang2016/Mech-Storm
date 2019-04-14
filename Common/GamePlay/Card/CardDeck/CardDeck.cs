@@ -99,7 +99,7 @@ public class CardDeck
         CardDeckCountChangeHandler(Cards.Count);
     }
 
-    public void RandomInsertTempCard(int cardId)
+    public void RandomInsertTempCard(int cardId,int count)
     {
         CardInfo_Base cb = AllCards.GetCard(cardId);
         int index = new Random().Next(0, Cards.Count);

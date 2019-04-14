@@ -11,9 +11,9 @@
             ServerPlayer sp = (ServerPlayer) Player;
             ServerCardBase ci = sp.MyHandManager.GetCardByCardInstanceId(TargetCardInstanceId);
 
-            if (ci.CardInfo.BaseInfo.Energy >= FinalValue)
+            if (ci.CardInfo.BaseInfo.Energy >= M_SideEffectParam.GetParam_MultipliedInt("DecValue"))
             {
-                ci.M_Energy -= FinalValue;
+                ci.M_Energy -= M_SideEffectParam.GetParam_MultipliedInt("DecValue");
             }
         }
     }

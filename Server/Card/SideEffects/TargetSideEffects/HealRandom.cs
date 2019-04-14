@@ -12,6 +12,7 @@ namespace SideEffects
         {
             ServerPlayer player = (ServerPlayer) Player;
             int retinueId = executorInfo.RetinueId;
+            int value = M_SideEffectParam.GetParam_MultipliedInt("HealValue");
             switch (M_TargetRange)
             {
                 case TargetRange.Mechs:
@@ -19,72 +20,72 @@ namespace SideEffects
                     ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.All, retinueId);
                     if (retinue != null)
                     {
-                        player.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, FinalValue);
-                        player.MyEnemyPlayer.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, FinalValue);
+                        player.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, value);
+                        player.MyEnemyPlayer.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, value);
                     }
 
                     break;
                 }
                 case TargetRange.SelfMechs:
-                    player.MyBattleGroundManager.HealRandomRetinue(FinalValue, retinueId);
+                    player.MyBattleGroundManager.HealRandomRetinue(value, retinueId);
                     break;
                 case TargetRange.EnemyMechs:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomRetinue(FinalValue, retinueId);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomRetinue(value, retinueId);
                     break;
                 case TargetRange.Heroes:
                 {
                     ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.Hero, retinueId);
                     if (retinue != null)
                     {
-                        player.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, FinalValue);
-                        player.MyEnemyPlayer.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, FinalValue);
+                        player.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, value);
+                        player.MyEnemyPlayer.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, value);
                     }
 
                     break;
                 }
                 case TargetRange.SelfHeroes:
-                    player.MyBattleGroundManager.HealRandomHero(FinalValue, retinueId);
+                    player.MyBattleGroundManager.HealRandomHero(value, retinueId);
                     break;
                 case TargetRange.EnemyHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomHero(FinalValue, retinueId);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomHero(value, retinueId);
                     break;
                 case TargetRange.Soldiers:
                 {
                     ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.Soldier, retinueId);
                     if (retinue != null)
                     {
-                        player.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, FinalValue);
-                        player.MyEnemyPlayer.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, FinalValue);
+                        player.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, value);
+                        player.MyEnemyPlayer.MyBattleGroundManager.HealOneRetinue(retinue.M_RetinueID, value);
                     }
 
                     break;
                 }
 
                 case TargetRange.SelfSoldiers:
-                    player.MyBattleGroundManager.HealRandomSoldier(FinalValue, retinueId);
+                    player.MyBattleGroundManager.HealRandomSoldier(value, retinueId);
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomSoldier(FinalValue, retinueId);
+                    player.MyEnemyPlayer.MyBattleGroundManager.HealRandomSoldier(value, retinueId);
                     break;
                 case TargetRange.Ships:
                 {
                     Random rd = new Random();
                     if (rd.Next(0, 2) == 1)
                     {
-                        player.AddLifeWithinMax(FinalValue);
+                        player.AddLifeWithinMax(value);
                     }
                     else
                     {
-                        player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
+                        player.MyEnemyPlayer.AddLifeWithinMax(value);
                     }
 
                     break;
                 }
                 case TargetRange.SelfShip:
-                    player.AddLifeWithinMax(FinalValue);
+                    player.AddLifeWithinMax(value);
                     break;
                 case TargetRange.EnemyShip:
-                    player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
+                    player.MyEnemyPlayer.AddLifeWithinMax(value);
                     break;
                 case TargetRange.AllLife:
                 {
@@ -97,17 +98,17 @@ namespace SideEffects
                         ServerModuleRetinue retinue = player.MyGameManager.GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType.All, retinueId);
                         if (retinue != null)
                         {
-                            player.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, FinalValue);
-                            player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, FinalValue);
+                            player.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, value);
+                            player.MyEnemyPlayer.MyBattleGroundManager.AddLifeForOneRetinue(retinue.M_RetinueID, value);
                         }
                     }
                     else if (ranResult == retinueNum)
                     {
-                        player.AddLifeWithinMax(FinalValue);
+                        player.AddLifeWithinMax(value);
                     }
                     else
                     {
-                        player.MyEnemyPlayer.AddLifeWithinMax(FinalValue);
+                        player.MyEnemyPlayer.AddLifeWithinMax(value);
                     }
 
                     break;

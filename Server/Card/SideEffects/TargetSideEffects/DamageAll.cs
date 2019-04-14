@@ -9,53 +9,54 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
+            int value = M_SideEffectParam.GetParam_MultipliedInt("Damage");
             switch (M_TargetRange)
             {
                 case TargetRange.Mechs:
-                    player.MyBattleGroundManager.DamageAllRetinues(FinalValue);
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(FinalValue);
+                    player.MyBattleGroundManager.DamageAllRetinues(value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(value);
                     break;
                 case TargetRange.SelfMechs:
-                    player.MyBattleGroundManager.DamageAllRetinues(FinalValue);
+                    player.MyBattleGroundManager.DamageAllRetinues(value);
                     break;
                 case TargetRange.EnemyMechs:
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(value);
                     break;
                 case TargetRange.Heroes:
-                    player.MyBattleGroundManager.DamageAllHeros(FinalValue);
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllHeros(FinalValue);
+                    player.MyBattleGroundManager.DamageAllHeros(value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllHeros(value);
                     break;
                 case TargetRange.SelfHeroes:
-                    player.MyBattleGroundManager.DamageAllHeros(FinalValue);
+                    player.MyBattleGroundManager.DamageAllHeros(value);
                     break;
                 case TargetRange.EnemyHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllHeros(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllHeros(value);
                     break;
                 case TargetRange.Soldiers:
-                    player.MyBattleGroundManager.DamageAllSoldiers(FinalValue);
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSoldiers(FinalValue);
+                    player.MyBattleGroundManager.DamageAllSoldiers(value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSoldiers(value);
                     break;
                 case TargetRange.SelfSoldiers:
-                    player.MyBattleGroundManager.DamageAllSoldiers(FinalValue);
+                    player.MyBattleGroundManager.DamageAllSoldiers(value);
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSoldiers(FinalValue);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllSoldiers(value);
                     break;
                 case TargetRange.Ships:
-                    player.DamageLifeAboveZero(FinalValue);
-                    player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
+                    player.DamageLifeAboveZero(value);
+                    player.MyEnemyPlayer.DamageLifeAboveZero(value);
                     break;
                 case TargetRange.SelfShip:
-                    player.DamageLifeAboveZero(FinalValue);
+                    player.DamageLifeAboveZero(value);
                     break;
                 case TargetRange.EnemyShip:
-                    player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
+                    player.MyEnemyPlayer.DamageLifeAboveZero(value);
                     break;
                 case TargetRange.AllLife:
-                    player.DamageLifeAboveZero(FinalValue);
-                    player.MyEnemyPlayer.DamageLifeAboveZero(FinalValue);
-                    player.MyBattleGroundManager.DamageAllRetinues(FinalValue);
-                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(FinalValue);
+                    player.DamageLifeAboveZero(value);
+                    player.MyEnemyPlayer.DamageLifeAboveZero(value);
+                    player.MyBattleGroundManager.DamageAllRetinues(value);
+                    player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(value);
                     break;
             }
         }

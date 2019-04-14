@@ -990,13 +990,13 @@ public class CardEditorPanel : BaseUIForm
     private void OnSideEffectTypeChange(string sideEffectName)
     {
         SideEffectBase se = AllSideEffects.GetSideEffect(sideEffectName).Clone();
-        if (se != null)
-        {
-            foreach (var VARIABLE in se)
-            {
-                
-            }
-        }
+//        if (se != null)
+//        {
+//            foreach (var VARIABLE in se)
+//            {
+//                
+//            }
+//        }
     }
 
     #endregion

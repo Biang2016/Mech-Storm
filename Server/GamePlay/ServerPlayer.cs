@@ -75,7 +75,7 @@ internal class ServerPlayer : Player
             PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
             BroadCastRequest(request);
 
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnUseMetal, new SideEffectBase.ExecutorInfo(clientId: ClientId, value: useMetalValue));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnUseMetal, new ExecutorInfo(clientId: ClientId, value: useMetalValue));
         }
     }
 
@@ -148,7 +148,7 @@ internal class ServerPlayer : Player
         {
             PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
             BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new SideEffectBase.ExecutorInfo(ClientId, value: addLifeValue));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new ExecutorInfo(ClientId, value: addLifeValue));
         }
     }
 
@@ -163,7 +163,7 @@ internal class ServerPlayer : Player
         {
             PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
             BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerLostLife, new SideEffectBase.ExecutorInfo(ClientId, value: useLifeValue));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerLostLife, new ExecutorInfo(ClientId, value: useLifeValue));
         }
 
         if (LifeLeft <= 0)
@@ -180,7 +180,7 @@ internal class ServerPlayer : Player
         {
             PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
             BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new SideEffectBase.ExecutorInfo(ClientId, value: LifeLeft - LifeLeftBefore));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new ExecutorInfo(ClientId, value: LifeLeft - LifeLeftBefore));
         }
     }
 
@@ -210,7 +210,7 @@ internal class ServerPlayer : Player
         {
             PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax, isOverflow);
             BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerGetEnergy, new SideEffectBase.ExecutorInfo(ClientId, value: addEnergyValue));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerGetEnergy, new ExecutorInfo(ClientId, value: addEnergyValue));
         }
     }
 
@@ -225,7 +225,7 @@ internal class ServerPlayer : Player
         {
             PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax);
             BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerUseEnergy, new SideEffectBase.ExecutorInfo(ClientId, value: useEnergyValue));
+            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerUseEnergy, new ExecutorInfo(ClientId, value: useEnergyValue));
         }
     }
 
@@ -312,7 +312,7 @@ internal class ServerPlayer : Player
                 Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.Name];
                 if (sees.Count != 0) //存在该buff
                 {
-                    if (buff.Singleton) //buff是单例，只能存在一个
+                    if (buff.M_SideEffectParam.GetParam_Bool("Singleton")) //buff是单例，只能存在一个
                     {
                         if (sees.Count > 1) //多于一个，清空重来
                         {
@@ -324,7 +324,7 @@ internal class ServerPlayer : Player
 
                             ClearSEEByBuffName(buff.Name, sees);
 
-                            if (buff.CanPiled) //可以堆叠
+                            if (buff.M_SideEffectParam.GetParam_Bool("CanPiled")) //可以堆叠
                             {
                                 newSee.RemoveTriggerTimes = RemainRemoveTriggerTime;
                             }
@@ -387,27 +387,21 @@ internal class ServerPlayer : Player
     private static void PileBuff(SideEffectExecute see, SideEffectExecute newSee)
     {
         PlayerBuffSideEffects buff = (PlayerBuffSideEffects) newSee.SideEffectBase;
-        if (buff.CanPiled) //可以堆叠
+        if (buff.M_SideEffectParam.GetParam_Bool("CanPiled")) //可以堆叠
         {
-            if (buff.PiledBy == PlayerBuffSideEffects.BuffPiledBy.RemoveTriggerTimes)
+            if ((PlayerBuffSideEffects.BuffPiledBy) buff.M_SideEffectParam.GetParam_ConstInt("PiledBy") == PlayerBuffSideEffects.BuffPiledBy.RemoveTriggerTimes)
             {
                 see.RemoveTriggerTimes += newSee.RemoveTriggerTimes;
             }
-            else if (buff.PiledBy == PlayerBuffSideEffects.BuffPiledBy.Value)
+            else if ((PlayerBuffSideEffects.BuffPiledBy) buff.M_SideEffectParam.GetParam_ConstInt("PiledBy") == PlayerBuffSideEffects.BuffPiledBy.Value)
             {
                 foreach (SideEffectBase ori_buff in see.SideEffectBase.Sub_SideEffect)
                 {
                     foreach (SideEffectBase add_buff in buff.Sub_SideEffect)
                     {
-                        if (ori_buff.GetType() == add_buff.GetType()) //同类buff同类值叠加
+                        if (ori_buff.GetType() == add_buff.GetType()) //同类buff同类值叠加,并将倍率重置为1
                         {
-                            if (ori_buff is IEffectFactor ie_ori && add_buff is IEffectFactor ie_add)
-                            {
-                                for (int i = 0; i < ie_ori.Values.Count; i++)
-                                {
-                                    ie_ori.Values[i].Value += ie_add.Values[i].Value;
-                                }
-                            }
+                            ori_buff.M_SideEffectParam.Plus(add_buff.M_SideEffectParam);
                         }
                     }
                 }
@@ -422,7 +416,7 @@ internal class ServerPlayer : Player
             Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.Name];
             if (sees.Count != 0) //存在该buff
             {
-                if (buff.Singleton) //buff是单例，全删
+                if (buff.M_SideEffectParam.GetParam_Bool("Singleton")) //buff是单例，全删
                 {
                     ClearSEEByBuffName(buff.Name, sees);
                 }

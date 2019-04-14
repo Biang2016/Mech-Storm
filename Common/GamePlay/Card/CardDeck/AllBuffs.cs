@@ -60,23 +60,16 @@ public static class AllBuffs
                 se.DescRaws[kv.Key] = sideEffectNode.Attributes[kv.Value].Value;
             }
 
-            se.BuffColor = sideEffectNode.Attributes["BuffColor"].Value;
-            se.BuffPicId = int.Parse(sideEffectNode.Attributes["BuffPicId"].Value);
-            se.HasNumberShow = sideEffectNode.Attributes["HasNumberShow"].Value == "True";
-            se.CanPiled = sideEffectNode.Attributes["CanPiled"].Value == "True";
-            se.Singleton = sideEffectNode.Attributes["Singleton"].Value == "True";
-            se.PiledBy = (PlayerBuffSideEffects.BuffPiledBy) Enum.Parse(typeof(PlayerBuffSideEffects.BuffPiledBy), sideEffectNode.Attributes["PiledBy"].Value);
-
-            se.TriggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), sideEffectNode.Attributes["TriggerTime"].Value);
-            se.TriggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), sideEffectNode.Attributes["TriggerRange"].Value);
-            se.TriggerDelayTimes = int.Parse(sideEffectNode.Attributes["TriggerDelayTimes"].Value);
-            se.TriggerTimes = int.Parse(sideEffectNode.Attributes["TriggerTimes"].Value);
-            se.RemoveTriggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), sideEffectNode.Attributes["RemoveTriggerTime"].Value);
-            se.RemoveTriggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), sideEffectNode.Attributes["RemoveTriggerRange"].Value);
-            se.RemoveTriggerTimes = int.Parse(sideEffectNode.Attributes["RemoveTriggerTimes"].Value);
-
-            SideEffectExecute see = new SideEffectExecute(SideEffectExecute.SideEffectFrom.Buff, se, se.TriggerTime, se.TriggerRange, se.TriggerDelayTimes, se.TriggerTimes, se.RemoveTriggerTime, se.RemoveTriggerRange, se.RemoveTriggerTimes);
-
+            se.M_SideEffectParam.GetParamsFromXMLNode(sideEffectNode);
+            SideEffectExecute see = new SideEffectExecute(
+                SideEffectExecute.SideEffectFrom.Buff, se,
+                (SideEffectBundle.TriggerTime) se.M_SideEffectParam.GetParam_ConstInt("TriggerTime"),
+                (SideEffectBundle.TriggerRange) se.M_SideEffectParam.GetParam_ConstInt("TriggerRange"),
+                se.M_SideEffectParam.GetParam_ConstInt("TriggerDelayTimes"),
+                se.M_SideEffectParam.GetParam_ConstInt("TriggerTimes"),
+                (SideEffectBundle.TriggerTime) se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerTime"),
+                (SideEffectBundle.TriggerRange) se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerRange"),
+                se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerTimes"));
             for (int k = 0; k < sideEffectNode.ChildNodes.Count; k++)
             {
                 XmlNode buffInfo = sideEffectNode.ChildNodes[k];

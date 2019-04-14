@@ -1,6 +1,10 @@
 ﻿public abstract class CardRelatedSideEffect : SideEffectBase
 {
-    public bool IsNeedChoise;
+    protected override void InitSideEffectParam()
+    {
+        M_SideEffectParam.SetParam_Bool("IsNeedChoise", false);
+    }
+
     public int TargetCardInstanceId;
 
     public override void Serialize(DataStream writer)
@@ -13,12 +17,5 @@
     {
         base.Deserialize(reader);
         TargetCardInstanceId = reader.ReadSInt32();
-    }
-
-    protected override void CloneParams(SideEffectBase copy)
-    {
-        base.CloneParams(copy);
-        ((CardRelatedSideEffect) copy).IsNeedChoise = IsNeedChoise;
-        ((CardRelatedSideEffect) copy).TargetCardInstanceId = TargetCardInstanceId;
     }
 }

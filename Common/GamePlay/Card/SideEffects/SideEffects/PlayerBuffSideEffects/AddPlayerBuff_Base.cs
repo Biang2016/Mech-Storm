@@ -17,6 +17,10 @@
         set => attachedBuffSEE = value;
     }
 
+    protected override void InitSideEffectParam()
+    {
+    }
+
     public override string GenerateDesc()
     {
         return AttachedBuffSEE.SideEffectBase.GenerateDesc();
@@ -34,15 +38,5 @@
         base.Deserialize(reader);
         BuffName = reader.ReadString8();
         //AttachedBuffSEE = SideEffectExecute.Deserialze(reader);
-    }
-
-    protected override void CloneParams(SideEffectBase copy)
-    {
-        base.CloneParams(copy);
-        ((AddPlayerBuff_Base) copy).BuffName = BuffName;
-        if (attachedBuffSEE != null)
-        {
-            ((AddPlayerBuff_Base) copy).AttachedBuffSEE = AttachedBuffSEE?.Clone();
-        }
     }
 }

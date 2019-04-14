@@ -1,28 +1,14 @@
 ﻿public class SummonRetinuePerMechs_Base : TargetSideEffect
 {
-    public int RetinueCardId;
+    protected override void InitSideEffectParam()
+    {
+        base.InitSideEffectParam();
+        M_SideEffectParam.SetParam_ConstInt("SummonCardId", 0);
+    }
 
     public override string GenerateDesc()
     {
-        BaseInfo bi = AllCards.GetCard(RetinueCardId).BaseInfo;
-        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange,false, false), bi.CardNames[LanguageManager_Common.GetCurrentLanguage()]);
-    }
-
-    public override void Serialize(DataStream writer)
-    {
-        base.Serialize(writer);
-        writer.WriteSInt32(RetinueCardId);
-    }
-
-    protected override void Deserialize(DataStream reader)
-    {
-        base.Deserialize(reader);
-        RetinueCardId = reader.ReadSInt32();
-    }
-
-    protected override void CloneParams(SideEffectBase copy)
-    {
-        base.CloneParams(copy);
-        ((SummonRetinuePerMechs_Base) copy).RetinueCardId = RetinueCardId;
+        BaseInfo bi = AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardId")).BaseInfo;
+        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange((TargetRange) M_SideEffectParam.GetParam_ConstInt("M_TargetRange"), false, false), bi.CardNames[LanguageManager_Common.GetCurrentLanguage()]);
     }
 }

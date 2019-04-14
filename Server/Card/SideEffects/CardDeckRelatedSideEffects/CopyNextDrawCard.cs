@@ -13,7 +13,7 @@
             if (ci != null)
             {
                 player.MyHandManager.DrawCards(1);
-                for (int i = 0; i < FinalValue; i++)
+                for (int i = 0; i < M_SideEffectParam.GetParam_MultipliedInt("CardCount"); i++)
                 {
                     player.MyHandManager.GetACardByID(ci.CardID);
                 }

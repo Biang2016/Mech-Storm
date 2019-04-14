@@ -12,7 +12,7 @@ namespace SideEffects
         {
             ServerPlayer player = (ServerPlayer) Player;
 
-            List<int> cardInstanceIds = player.MyHandManager.GetRandomSpellCardInstanceIds(FinalValue, executorInfo.CardInstanceId);
+            List<int> cardInstanceIds = player.MyHandManager.GetRandomSpellCardInstanceIds(M_SideEffectParam.GetParam_MultipliedInt("CardCount"), executorInfo.CardInstanceId);
             foreach (int cardInstanceId in cardInstanceIds)
             {
                 player.MyHandManager.UseCard(cardInstanceId, onlyTriggerNotUse: true);

@@ -96,10 +96,8 @@
     <Compile Include="Card\SideEffects\TargetSideEffects\AddArmorOne.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\IllusionToOne.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\Cooperation.cs" />
-    <Compile Include="Card\SideEffects\TriggerTriggerSideEffects\UseAllEnergyDamageShip.cs" />
     <Compile Include="Card\SideEffects\TriggerTriggerSideEffects\Exile.cs" />
     <Compile Include="Card\SideEffects\TriggerTriggerSideEffects\DoubleEnergy.cs" />
-    <Compile Include="Card\SideEffects\SpellDamageDouble.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\NextSpellDamageDouble.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenAttack.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddPlayerBuff.cs" />
@@ -128,6 +126,8 @@
     <Compile Include="Card\SideEffects\TargetSideEffects\KillOne.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\KillRandom.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\KillAll.cs" />
+    <Compile Include="Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
+    <Compile Include="Card\SideEffects\UseAllEnergyDamageShip.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="GamePlay\ClientProxyAI.cs" />
     <Compile Include="GamePlay\ClientProxy.cs" />

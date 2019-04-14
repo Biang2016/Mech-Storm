@@ -4,4 +4,8 @@
     {
         return false;
     }
+
+    protected override void InitSideEffectParam()
+    {
+    }
 }

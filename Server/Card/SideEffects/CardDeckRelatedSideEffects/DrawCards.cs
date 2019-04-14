@@ -9,7 +9,7 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            player.MyHandManager.DrawCards(FinalValue);
+            player.MyHandManager.DrawCards(M_SideEffectParam.GetParam_MultipliedInt("CardCount"));
         }
     }
 }

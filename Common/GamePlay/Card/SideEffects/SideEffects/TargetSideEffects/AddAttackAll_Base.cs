@@ -1,58 +1,13 @@
-﻿using System.Collections.Generic;
-
-public class AddAttackAll_Base : TargetSideEffect, IEffectFactor, IDamage
+﻿public class AddAttackAll_Base : TargetSideEffect
 {
-    public SideEffectValue Value = new SideEffectValue(0);
-
-    public override List<SideEffectValue> Values
+    protected override void InitSideEffectParam()
     {
-        get { return new List<SideEffectValue> {Value}; }
-    }
-
-    private int factor = 1;
-
-    public int GetFactor()
-    {
-        return factor;
-    }
-
-    public void SetFactor(int value)
-    {
-        factor = value;
-    }
-
-    public int FinalValue
-    {
-        get { return Value.Value * GetFactor(); }
+        base.InitSideEffectParam();
+        M_SideEffectParam.SetParam_MultipliedInt("AttackValue", 0);
     }
 
     public override string GenerateDesc()
     {
-        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange, false, false), FinalValue);
-    }
-
-    public override void Serialize(DataStream writer)
-    {
-        base.Serialize(writer);
-        writer.WriteSInt32(Value.Value);
-    }
-
-    protected override void Deserialize(DataStream reader)
-    {
-        base.Deserialize(reader);
-        Value.Value = reader.ReadSInt32();
-    }
-
-    public int CalculateDamage()
-    {
-        return FinalValue;
-    }
-
-    protected override void CloneParams(SideEffectBase copy)
-    {
-        base.CloneParams(copy);
-        ((AddEnergy_Base) copy).Value = Value.Clone();
-        ((AddEnergy_Base) copy).SetFactor(GetFactor());
-        ;
+        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange((TargetRange) M_SideEffectParam.GetParam_ConstInt("M_TargetRange"), true, false), M_SideEffectParam.GetParam_MultipliedInt("AttackValue"));
     }
 }

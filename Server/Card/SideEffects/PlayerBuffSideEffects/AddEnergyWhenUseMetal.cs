@@ -13,7 +13,7 @@
             foreach (SideEffectBase se in Sub_SideEffect)
             {
                 se.Player = player;
-                ((AddEnergy) se).SetFactor(executorInfo.Value);
+                ((AddEnergy) se).M_SideEffectParam.Factor= executorInfo.Value;
                 se.Execute(executorInfo);
             }
         }

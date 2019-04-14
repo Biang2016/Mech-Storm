@@ -1,56 +1,14 @@
-﻿using System.Collections.Generic;
-
-public class DrawTypeCards_Base : CardDeckRelatedSideEffects, IEffectFactor
+﻿public class DrawTypeCards_Base : CardDeckRelatedSideEffects
 {
-    public SideEffectValue Value = new SideEffectValue(0);
-    private int factor = 1;
-
-    public override List<SideEffectValue> Values
+    protected override void InitSideEffectParam()
     {
-        get { return new List<SideEffectValue> {Value}; }
-    }
-
-    public int GetFactor()
-    {
-        return factor;
-    }
-
-    public void SetFactor(int value)
-    {
-        factor = value;
-    }
-
-    public CardTypes DrawCardType = CardTypes.Energy;
-
-    public int FinalValue
-    {
-        get { return Value.Value * GetFactor(); }
+        M_SideEffectParam.SetParam_MultipliedInt("CardCount", 0);
+        M_SideEffectParam.SetParam_ConstInt("DrawCardType", (int) CardTypes.Energy, typeof(CardTypes));
     }
 
     public override string GenerateDesc()
     {
-        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], FinalValue, BaseInfo.CardTypeNameDict[LanguageManager_Common.GetCurrentLanguage()][DrawCardType], FinalValue <= 1 ? "" : "s");
-    }
-
-    public override void Serialize(DataStream writer)
-    {
-        base.Serialize(writer);
-        writer.WriteSInt32(Value.Value);
-        writer.WriteSInt32((int) DrawCardType);
-    }
-
-    protected override void Deserialize(DataStream reader)
-    {
-        base.Deserialize(reader);
-        Value.Value = reader.ReadSInt32();
-        DrawCardType = (CardTypes) reader.ReadSInt32();
-    }
-
-    protected override void CloneParams(SideEffectBase copy)
-    {
-        base.CloneParams(copy);
-        ((DrawTypeCards_Base) copy).Value = Value.Clone();
-        ((DrawTypeCards_Base) copy).SetFactor(GetFactor());
-        ((DrawTypeCards_Base) copy).DrawCardType = DrawCardType;
+        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], (CardTypes) M_SideEffectParam.GetParam_ConstInt("DrawCardType"), BaseInfo.CardTypeNameDict[LanguageManager_Common.GetCurrentLanguage()][(CardTypes) M_SideEffectParam.GetParam_ConstInt("DrawCardType")],
+            M_SideEffectParam.GetParam_MultipliedInt("CardCount") <= 1 ? "" : "s");
     }
 }

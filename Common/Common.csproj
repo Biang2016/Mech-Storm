@@ -64,6 +64,7 @@
     <Compile Include="GamePlay\Card\CardInfo\Info\WeaponInfo.cs" />
     <Compile Include="GamePlay\Card\SideEffects\AllSideEffects.cs" />
     <Compile Include="GamePlay\Card\SideEffects\EventManager.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\ExecutorInfo.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffectExecute.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\AttachedEquipSideEffects\AttachedEquipSideEffects.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardDeckRelatedSideEffects\AddTempCardToEnemyDeck_Base.cs" />
@@ -109,7 +110,6 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddWeaponEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SideEffectBundle.cs" />
-    <Compile Include="GamePlay\Card\SideEffects\SideEffects\SpecialInterface\IEffectFactor.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddEnergy_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeAll_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\DamageRandom_Base.cs" />
@@ -125,6 +125,8 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\SideEffectBase.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffectManager.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\AddLifeRandom_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffectParams.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffectValue.cs" />
     <Compile Include="GamePlay\Story\EnemyType.cs" />
     <Compile Include="GamePlay\Story\IHardFactor.cs" />
     <Compile Include="Utils\CloneVariantUtils.cs" />

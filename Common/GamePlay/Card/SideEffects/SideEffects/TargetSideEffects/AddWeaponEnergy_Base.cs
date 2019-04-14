@@ -1,55 +1,27 @@
-﻿using System.Collections.Generic;
-
-public class AddWeaponEnergy_Base : TargetSideEffect, IEffectFactor
+﻿public class AddWeaponEnergy_Base : TargetSideEffect
 {
     public int RetinueID;
-    public SideEffectValue Value = new SideEffectValue(0);
-    private int factor = 1;
 
-    public override List<SideEffectValue> Values
+    protected override void InitSideEffectParam()
     {
-        get { return new List<SideEffectValue> {Value}; }
-    }
-
-    public int GetFactor()
-    {
-        return factor;
-    }
-
-    public void SetFactor(int value)
-    {
-        factor = value;
-    }
-
-    public int FinalValue
-    {
-        get { return Value.Value * GetFactor(); }
+        base.InitSideEffectParam();
+        M_SideEffectParam.SetParam_MultipliedInt("EnergyValue", 0);
     }
 
     public override string GenerateDesc()
     {
-        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetChineseDescOfTargetRange(M_TargetRange, false, false), FinalValue);
+        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange((TargetRange) M_SideEffectParam.GetParam_ConstInt("M_TargetRange"), false, false), M_SideEffectParam.GetParam_MultipliedInt("EnergyValue"));
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
         writer.WriteSInt32(RetinueID);
-        writer.WriteSInt32(Value.Value);
     }
 
     protected override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         RetinueID = reader.ReadSInt32();
-        Value.Value = reader.ReadSInt32();
-    }
-
-    protected override void CloneParams(SideEffectBase copy)
-    {
-        base.CloneParams(copy);
-        ((AddWeaponEnergy_Base) copy).RetinueID = RetinueID;
-        ((AddWeaponEnergy_Base) copy).Value = Value.Clone();
-        ((AddWeaponEnergy_Base) copy).SetFactor(GetFactor());
     }
 }

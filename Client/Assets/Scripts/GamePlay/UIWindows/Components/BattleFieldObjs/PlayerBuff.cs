@@ -19,12 +19,12 @@ internal class PlayerBuff : PoolObject
 
         BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
         BuffId = buffId;
-        ClientUtils.ChangeCardPicture(Image, buff.BuffPicId);
-        Color buffColor = ClientUtils.HTMLColorToColor(((PlayerBuffSideEffects) (AllBuffs.GetBuff((buff.Name)).SideEffectBase)).BuffColor);
+        ClientUtils.ChangeCardPicture(Image, buff.M_SideEffectParam.GetParam_ConstInt("BuffPicId"));
+        Color buffColor = ClientUtils.HTMLColorToColor(((PlayerBuffSideEffects) (AllBuffs.GetBuff((buff.Name)).SideEffectBase)).M_SideEffectParam.GetParam_String("BuffColor"));
         BuffBloom.color = buffColor;
         BuffDescText.color = buffColor;
-        BuffValuePanel.enabled = buff.HasNumberShow;
-        BuffValueText.enabled = buff.HasNumberShow;
+        BuffValuePanel.enabled = buff.M_SideEffectParam.GetParam_Bool("HasNumberShow");
+        BuffValueText.enabled = buff.M_SideEffectParam.GetParam_Bool("HasNumberShow");
         BuffAnim.SetTrigger("Add");
         BuffDescText.text = buff.GenerateDesc();
     }
@@ -50,9 +50,9 @@ internal class PlayerBuff : PoolObject
     private int GetBuffValue(SideEffectExecute buffSee, PlayerBuffSideEffects buff)
     {
         int buffValue = 0;
-        if (buff.CanPiled)
+        if (buff.M_SideEffectParam.GetParam_Bool("CanPiled"))
         {
-            switch (buff.PiledBy)
+            switch ((PlayerBuffSideEffects.BuffPiledBy) buff.M_SideEffectParam.GetParam_ConstInt("PiledBy"))
             {
                 case PlayerBuffSideEffects.BuffPiledBy.RemoveTriggerTimes:
                 {
@@ -61,7 +61,9 @@ internal class PlayerBuff : PoolObject
                 }
                 case PlayerBuffSideEffects.BuffPiledBy.Value:
                 {
-                    buffValue = ((IEffectFactor) buff.Sub_SideEffect[0]).Values[0].Value;
+                    //TODO
+                    buffValue = 0;
+//                    buffValue =  ((IEffectFactor) buff.Sub_SideEffect[0]).Values[0].Value;
                     break;
                 }
             }

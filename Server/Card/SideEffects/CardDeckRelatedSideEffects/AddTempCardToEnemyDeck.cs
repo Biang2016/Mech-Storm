@@ -9,7 +9,7 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            player.MyEnemyPlayer.MyCardDeckManager.RandomInsertTempCard(CardId);
+            player.MyEnemyPlayer.MyCardDeckManager.RandomInsertTempCard(M_SideEffectParam.GetParam_ConstInt("CardID"), M_SideEffectParam.GetParam_MultipliedInt("CardCount"));
         }
     }
 }

@@ -5,26 +5,20 @@ using Newtonsoft.Json.Converters;
 
 public abstract class TargetSideEffect : SideEffectBase
 {
-    public bool IsNeedChoice;
-    public TargetRange M_TargetRange; //限定范围
-
-    public override void Serialize(DataStream writer)
+    protected override void InitSideEffectParam()
     {
-        base.Serialize(writer);
-        if (IsNeedChoice)
-        {
-            writer.WriteByte(0x01);
-        }
-        else writer.WriteByte(0x00);
-
-        writer.WriteSInt32((int) M_TargetRange);
+        M_SideEffectParam.SetParam_Bool("IsNeedChoice", false);
+        M_SideEffectParam.SetParam_ConstInt("M_TargetRange", (int) TargetRange.None, typeof(TargetRange));
     }
 
-    protected override void Deserialize(DataStream reader)
+    public bool IsNeedChoice
     {
-        base.Deserialize(reader);
-        IsNeedChoice = reader.ReadByte() == 0x01;
-        M_TargetRange = (TargetRange) reader.ReadSInt32();
+        get { return M_SideEffectParam.GetParam_Bool("IsNeedChoice"); }
+    }
+
+    public TargetRange M_TargetRange
+    {
+        get { return (TargetRange) M_SideEffectParam.GetParam_ConstInt("M_TargetRange"); }
     }
 
     [Flags]
@@ -54,16 +48,9 @@ public abstract class TargetSideEffect : SideEffectBase
         None = 0,
     }
 
-    public string GetChineseDescOfTargetRange(TargetRange targetRange, bool isMulti, bool isRandom)
+    public string GetDescOfTargetRange(TargetRange targetRange, bool isMulti, bool isRandom)
     {
         string textKey = "TargetRange_" + (isMulti ? "" : "Single_") + (isRandom ? "Random_" : "") + targetRange;
         return LanguageManager_Common.GetText(textKey);
-    }
-
-    protected override void CloneParams(SideEffectBase copy)
-    {
-        base.CloneParams(copy);
-        ((TargetSideEffect) copy).IsNeedChoice = IsNeedChoice;
-        ((TargetSideEffect) copy).M_TargetRange = M_TargetRange;
     }
 }

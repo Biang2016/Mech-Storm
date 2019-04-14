@@ -43,7 +43,7 @@
 
             for (int i = 0; i < value; i++)
             {
-                player.MyBattleGroundManager.AddRetinue((CardInfo_Retinue) AllCards.GetCard(RetinueCardId));
+                player.MyBattleGroundManager.AddRetinue((CardInfo_Retinue) AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardId")));
             }
         }
     }

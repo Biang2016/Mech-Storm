@@ -59,9 +59,9 @@ internal class ServerCardDeckManager
         return CardDeck.DrawCardsOnTop(number);
     }
 
-    public void RandomInsertTempCard(int cardId)
+    public void RandomInsertTempCard(int cardId, int count)
     {
-        CardDeck.RandomInsertTempCard(cardId);
+        CardDeck.RandomInsertTempCard(cardId, count);
     }
 
     public void OnDrawCardPhase()
