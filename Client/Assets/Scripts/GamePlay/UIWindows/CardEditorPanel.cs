@@ -137,15 +137,15 @@ public class CardEditorPanel : BaseUIForm
         CardPropertyFormRow Row_RetinueAttack = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_RetinueAttackLabelText", OnRetinueAttackChange, out SetRetinueAttack);
         CardPropertyFormRow Row_RetinueArmor = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_RetinueArmorLabelText", OnRetinueArmorChange, out SetRetinueArmor);
         CardPropertyFormRow Row_RetinueShield = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_RetinueShieldLabelText", OnRetinueShieldChange, out SetRetinueShield);
-        CardPropertyFormRow Row_RetinueIsSoldier = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsSoldierLabelText", OnRetinueIsSoldierChange, out SetRetinueIsSoldier);
-        CardPropertyFormRow Row_RetinueIsDefense = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsDefenseLabelText", OnRetinueIsDefenseChange, out SetRetinueIsDefense);
-        CardPropertyFormRow Row_RetinueIsSniper = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsSniperLabelText", OnRetinueIsSniperChange, out SetRetinueIsSniper);
-        CardPropertyFormRow Row_RetinueIsCharger = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsChargerLabelText", OnRetinueIsChargerChange, out SetRetinueIsCharger);
-        CardPropertyFormRow Row_RetinueIsFrenzy = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsFrenzyLabelText", OnRetinueIsFrenzyChange, out SetRetinueIsFrenzy);
         CardPropertyFormRow Row_RetinueWeaponSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueWeaponSlotLabelText", OnRetinueWeaponSlotChange, out SetRetinueWeaponSlot);
         CardPropertyFormRow Row_RetinueShieldSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueShieldSlotLabelText", OnRetinueShieldSlotChange, out SetRetinueShieldSlot);
         CardPropertyFormRow Row_RetinuePackSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinuePackSlotLabelText", OnRetinuePackSlotChange, out SetRetinuePackSlot);
         CardPropertyFormRow Row_RetinueMASlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueMASlotLabelText", OnRetinueMASlotChange, out SetRetinueMASlot);
+        CardPropertyFormRow Row_RetinueIsDefense = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsDefenseLabelText", OnRetinueIsDefenseChange, out SetRetinueIsDefense);
+        CardPropertyFormRow Row_RetinueIsSniper = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsSniperLabelText", OnRetinueIsSniperChange, out SetRetinueIsSniper);
+        CardPropertyFormRow Row_RetinueIsCharger = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsChargerLabelText", OnRetinueIsChargerChange, out SetRetinueIsCharger);
+        CardPropertyFormRow Row_RetinueIsFrenzy = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsFrenzyLabelText", OnRetinueIsFrenzyChange, out SetRetinueIsFrenzy);
+        CardPropertyFormRow Row_RetinueIsSoldier = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsSoldierLabelText", OnRetinueIsSoldierChange, out SetRetinueIsSoldier);
 
         CardPropertyFormRow Row_SlotType = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_SlotType", OnSlotTypeChange, out SetSlotType, slotTypeList);
 
@@ -168,8 +168,8 @@ public class CardEditorPanel : BaseUIForm
         Row_SideEffectBundle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
         Row_SideEffectBundle_OnBattleGround = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
 
-        Row_SideEffectBundle.Initialize("CardEditorWindow_SideEffectBundle", null, null);
-        Row_SideEffectBundle_OnBattleGround.Initialize("CardEditorWindow_SideEffectBundle_OnBattleGround", null, null);
+        Row_SideEffectBundle.Initialize("CardEditorWindow_SideEffectBundle", "#001167aa", null, null);
+        Row_SideEffectBundle_OnBattleGround.Initialize("CardEditorWindow_SideEffectBundle_OnBattleGround", "#671B00aa", null, null);
 
         CardPropertiesCommon = new List<CardPropertyFormRow>
         {
@@ -194,16 +194,15 @@ public class CardEditorPanel : BaseUIForm
             Row_RetinueAttack,
             Row_RetinueArmor,
             Row_RetinueShield,
+            Row_RetinueWeaponSlot,
+            Row_RetinueShieldSlot,
+            Row_RetinuePackSlot,
+            Row_RetinueMASlot,
             Row_RetinueIsSoldier,
             Row_RetinueIsDefense,
             Row_RetinueIsSniper,
             Row_RetinueIsCharger,
             Row_RetinueIsFrenzy,
-            Row_RetinueWeaponSlot,
-            Row_RetinueWeaponSlot,
-            Row_RetinueShieldSlot,
-            Row_RetinuePackSlot,
-            Row_RetinueMASlot
         };
         CardTypePropertiesDict[CardTypes.Energy] = new List<CardPropertyFormRow>
         {
@@ -290,6 +289,8 @@ public class CardEditorPanel : BaseUIForm
 
         SetCardType("Spell");
         SetCardType("Retinue");
+
+        FormatTwoToggleIntoOneRow();
     }
 
     private CardPropertyFormRow GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
@@ -297,6 +298,54 @@ public class CardEditorPanel : BaseUIForm
         CardPropertyFormRow cpfr = CardPropertyFormRow.BaseInitialize(type, CardPropertiesContainer, labelKey, onValueChange, out setValue, dropdownOptionList, onButtonClick);
         MyPropertiesRows.Add(cpfr);
         return cpfr;
+    }
+
+    List<CardPropertyFormRow> twoToggleRows = new List<CardPropertyFormRow>();
+
+    private void FormatTwoToggleIntoOneRow()
+    {
+        foreach (CardPropertyFormRow row in twoToggleRows)
+        {
+            CardPropertyFormRow_TwoToggleRow twoRow = (CardPropertyFormRow_TwoToggleRow) row;
+            int index = row.transform.GetSiblingIndex();
+            twoRow.ToggleLeft?.transform.SetParent(CardPropertiesContainer);
+            twoRow.ToggleRight?.transform.SetParent(CardPropertiesContainer);
+            twoRow.ToggleRight?.transform.SetSiblingIndex(index);
+            twoRow.ToggleLeft?.transform.SetSiblingIndex(index);
+            twoRow.PoolRecycle();
+        }
+
+        int count = 0;
+        CardPropertyFormRow_Toggle lastToggle = null;
+        UnityAction<string> temp = new UnityAction<string>(delegate(string arg0) { });
+        foreach (CardPropertyFormRow row in MyPropertiesRows)
+        {
+            if (row is CardPropertyFormRow_Toggle toggleRow)
+            {
+                if (toggleRow.gameObject.activeInHierarchy)
+                {
+                    count++;
+                    if (count == 2)
+                    {
+                        CardPropertyFormRow cpfr = CardPropertyFormRow.BaseInitialize(CardPropertyFormRow.CardPropertyFormRowType.TwoToggle, CardPropertiesContainer, "Nulll", null, out temp, null, null);
+                        int index = toggleRow.transform.GetSiblingIndex();
+                        cpfr.transform.SetSiblingIndex(index);
+                        ((CardPropertyFormRow_TwoToggleRow) cpfr).ToggleLeft = lastToggle;
+                        ((CardPropertyFormRow_TwoToggleRow) cpfr).ToggleRight = toggleRow;
+                        lastToggle.transform.SetParent(cpfr.transform);
+                        toggleRow.transform.SetParent(cpfr.transform);
+                        count = 0;
+                        twoToggleRows.Add(cpfr);
+                    }
+
+                    lastToggle = toggleRow;
+                }
+            }
+            else
+            {
+                count = 0;
+            }
+        }
     }
 
     private bool OnChangeCardTypeByEdit = false;
@@ -360,6 +409,8 @@ public class CardEditorPanel : BaseUIForm
                 OnChangeCardTypeByEdit = false;
             }
         }
+
+        FormatTwoToggleIntoOneRow();
     }
 
     private UnityAction<string> SetCardID;
@@ -665,71 +716,6 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetRetinueIsSoldier;
-
-    private void OnRetinueIsSoldierChange(string value_str)
-    {
-        bool value = value_str.Equals("True");
-        if (cur_PreviewCard)
-        {
-            cur_PreviewCard.CardInfo.RetinueInfo.IsSoldier = value;
-            cur_PreviewCard.RefreshCardAllColors();
-            cur_PreviewCard.RefreshCardTextLanguage();
-        }
-    }
-
-    private UnityAction<string> SetRetinueIsDefense;
-
-    private void OnRetinueIsDefenseChange(string value_str)
-    {
-        bool value = value_str.Equals("True");
-        if (cur_PreviewCard)
-        {
-            cur_PreviewCard.CardInfo.RetinueInfo.IsDefense = value;
-            cur_PreviewCard.RefreshCardAllColors();
-            cur_PreviewCard.RefreshCardTextLanguage();
-        }
-    }
-
-    private UnityAction<string> SetRetinueIsSniper;
-
-    private void OnRetinueIsSniperChange(string value_str)
-    {
-        bool value = value_str.Equals("True");
-        if (cur_PreviewCard)
-        {
-            cur_PreviewCard.CardInfo.RetinueInfo.IsSniper = value;
-            cur_PreviewCard.RefreshCardAllColors();
-            cur_PreviewCard.RefreshCardTextLanguage();
-        }
-    }
-
-    private UnityAction<string> SetRetinueIsCharger;
-
-    private void OnRetinueIsChargerChange(string value_str)
-    {
-        bool value = value_str.Equals("True");
-        if (cur_PreviewCard)
-        {
-            cur_PreviewCard.CardInfo.RetinueInfo.IsCharger = value;
-            cur_PreviewCard.RefreshCardAllColors();
-            cur_PreviewCard.RefreshCardTextLanguage();
-        }
-    }
-
-    private UnityAction<string> SetRetinueIsFrenzy;
-
-    private void OnRetinueIsFrenzyChange(string value_str)
-    {
-        bool value = value_str.Equals("True");
-        if (cur_PreviewCard)
-        {
-            cur_PreviewCard.CardInfo.RetinueInfo.IsFrenzy = value;
-            cur_PreviewCard.RefreshCardAllColors();
-            cur_PreviewCard.RefreshCardTextLanguage();
-        }
-    }
-
     private UnityAction<string> SetRetinueWeaponSlot;
 
     private void OnRetinueWeaponSlotChange(string value_str)
@@ -790,6 +776,71 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
+    private UnityAction<string> SetRetinueIsDefense;
+
+    private void OnRetinueIsDefenseChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.RetinueInfo.IsDefense = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetRetinueIsSniper;
+
+    private void OnRetinueIsSniperChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.RetinueInfo.IsSniper = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetRetinueIsCharger;
+
+    private void OnRetinueIsChargerChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.RetinueInfo.IsCharger = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetRetinueIsFrenzy;
+
+    private void OnRetinueIsFrenzyChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.RetinueInfo.IsFrenzy = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetRetinueIsSoldier;
+
+    private void OnRetinueIsSoldierChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.RetinueInfo.IsSoldier = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
     private UnityAction<string> SetSlotType;
 
     private void OnSlotTypeChange(string value_str)
@@ -818,6 +869,8 @@ public class CardEditorPanel : BaseUIForm
             SetWeaponType("None");
             SetShieldType("None");
         }
+
+        FormatTwoToggleIntoOneRow();
     }
 
     private UnityAction<string> SetWeaponType;
@@ -837,6 +890,8 @@ public class CardEditorPanel : BaseUIForm
             cur_PreviewCard.RefreshCardTextLanguage();
             cur_PreviewCard.RefreshCardAllColors();
         }
+
+        FormatTwoToggleIntoOneRow();
     }
 
     private UnityAction<string> SetWeaponSwordAttack;
@@ -958,6 +1013,8 @@ public class CardEditorPanel : BaseUIForm
             cur_PreviewCard.RefreshCardTextLanguage();
             cur_PreviewCard.RefreshCardAllColors();
         }
+
+        FormatTwoToggleIntoOneRow();
     }
 
     private UnityAction<string> SetShieldBasicArmor;
@@ -1110,11 +1167,12 @@ public class CardEditorPanel : BaseUIForm
             }
         }
 
-        Row_SideEffectBundle.Initialize("CardEditorWindow_SideEffectBundle", ci.SideEffectBundle, cur_PreviewCard.RefreshCardTextLanguage);
-        Row_SideEffectBundle_OnBattleGround.Initialize("CardEditorWindow_SideEffectBundle_OnBattleGround", ci.SideEffectBundle_OnBattleGround, cur_PreviewCard.RefreshCardTextLanguage);
+        Row_SideEffectBundle.Initialize("CardEditorWindow_SideEffectBundle", "#001167aa", cur_PreviewCard.CardInfo.SideEffectBundle, cur_PreviewCard.RefreshCardTextLanguage);
+        Row_SideEffectBundle_OnBattleGround.Initialize("CardEditorWindow_SideEffectBundle_OnBattleGround", "#671B00aa", cur_PreviewCard.CardInfo.SideEffectBundle_OnBattleGround, cur_PreviewCard.RefreshCardTextLanguage);
 
         cur_PreviewCard.RefreshCardTextLanguage();
         cur_PreviewCard.RefreshCardAllColors();
+        FormatTwoToggleIntoOneRow();
 
         isPreviewExistingCards = false;
     }

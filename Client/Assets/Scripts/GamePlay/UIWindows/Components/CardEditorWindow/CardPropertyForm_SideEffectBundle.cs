@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CardPropertyForm_SideEffectBundle : PoolObject
 {
+    [SerializeField] private Image BGImage;
     [SerializeField] private Text SideEffectBundleText;
     [SerializeField] private Transform SideEffectRowContainer;
 
@@ -19,8 +20,9 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
     private SideEffectBundle cur_SideEffectBundle;
     private UnityAction OnSideEffectRefresh;
 
-    public void Initialize(string labelStrKey, SideEffectBundle sideEffectBundle, UnityAction onSideEffectRefresh)
+    public void Initialize(string labelStrKey, string color, SideEffectBundle sideEffectBundle, UnityAction onSideEffectRefresh)
     {
+        BGImage.color = ClientUtils.HTMLColorToColor(color);
         LanguageManager.Instance.UnregisterTextKey(SideEffectBundleText);
         LanguageManager.Instance.RegisterTextKey(SideEffectBundleText, labelStrKey);
 
@@ -101,9 +103,10 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
             {
                 see.TriggerTime = value;
             }
-        }
 
-        OnSideEffectRefresh?.Invoke();
+            cur_SideEffectBundle?.RefreshSideEffectExecutesDict();
+            OnSideEffectRefresh?.Invoke();
+        }
     }
 
     private UnityAction<string> SetTriggerRange;
@@ -117,9 +120,10 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
             {
                 see.TriggerRange = value;
             }
-        }
 
-        OnSideEffectRefresh?.Invoke();
+            cur_SideEffectBundle?.RefreshSideEffectExecutesDict();
+            OnSideEffectRefresh?.Invoke();
+        }
     }
 
     private UnityAction<string> SetTriggerDelayTimes;
@@ -136,10 +140,11 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
                 {
                     see.TriggerDelayTimes = value;
                 }
+
+                cur_SideEffectBundle?.RefreshSideEffectExecutesDict();
+                OnSideEffectRefresh?.Invoke();
             }
         }
-
-        OnSideEffectRefresh?.Invoke();
     }
 
     private UnityAction<string> SetTriggerTimes;
@@ -156,10 +161,11 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
                 {
                     see.TriggerTimes = value;
                 }
+
+                cur_SideEffectBundle?.RefreshSideEffectExecutesDict();
+                OnSideEffectRefresh?.Invoke();
             }
         }
-
-        OnSideEffectRefresh?.Invoke();
     }
 
     private UnityAction<string> SetRemoveTriggerTime;
@@ -173,9 +179,10 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
             {
                 see.RemoveTriggerTime = value;
             }
-        }
 
-        OnSideEffectRefresh?.Invoke();
+            cur_SideEffectBundle?.RefreshSideEffectExecutesDict();
+            OnSideEffectRefresh?.Invoke();
+        }
     }
 
     private UnityAction<string> SetRemoveTriggerRange;
@@ -189,9 +196,10 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
             {
                 see.RemoveTriggerRange = value;
             }
-        }
 
-        OnSideEffectRefresh?.Invoke();
+            cur_SideEffectBundle?.RefreshSideEffectExecutesDict();
+            OnSideEffectRefresh?.Invoke();
+        }
     }
 
     private UnityAction<string> SetRemoveTriggerTimes;
@@ -208,9 +216,10 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
                 {
                     see.RemoveTriggerTimes = value;
                 }
+
+                cur_SideEffectBundle?.RefreshSideEffectExecutesDict();
+                OnSideEffectRefresh?.Invoke();
             }
         }
-
-        OnSideEffectRefresh?.Invoke();
     }
 }

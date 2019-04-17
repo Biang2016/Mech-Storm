@@ -16,7 +16,11 @@ public class SideEffectBundle
     public void AddSideEffectExecute(SideEffectExecute see)
     {
         SideEffectExecutes.Add(see);
+        AddToSEEDict(see);
+    }
 
+    private void AddToSEEDict(SideEffectExecute see)
+    {
         if (!SideEffectExecutes_Dict.ContainsKey(see.TriggerTime)) SideEffectExecutes_Dict.Add(see.TriggerTime, new Dictionary<TriggerRange, List<SideEffectExecute>>());
         Dictionary<TriggerRange, List<SideEffectExecute>> des = SideEffectExecutes_Dict[see.TriggerTime];
         if (!des.ContainsKey(see.TriggerRange)) des.Add(see.TriggerRange, new List<SideEffectExecute>());
@@ -26,7 +30,11 @@ public class SideEffectBundle
 
     public void RefreshSideEffectExecutesDict()
     {
-
+        SideEffectExecutes_Dict.Clear();
+        foreach (SideEffectExecute see in SideEffectExecutes)
+        {
+            AddToSEEDict(see);
+        }
     }
 
     public List<SideEffectExecute> GetSideEffectExecutes(TriggerTime triggerTime, TriggerRange triggerRange)
@@ -214,6 +222,7 @@ public class SideEffectBundle
         {
             "zh", new SortedDictionary<TriggerTime, string>
             {
+                {TriggerTime.None, ""},
                 {TriggerTime.OnTrigger, "{0}"},
 
                 {TriggerTime.OnBeginRound, "{0}回合开始时, "},
@@ -265,6 +274,7 @@ public class SideEffectBundle
         {
             "en", new SortedDictionary<TriggerTime, string>
             {
+                {TriggerTime.None, ""},
                 {TriggerTime.OnTrigger, "{0}"},
 
                 {TriggerTime.OnBeginRound, "When {0} turn starts, "},
@@ -339,6 +349,7 @@ public class SideEffectBundle
         {
             "zh", new SortedDictionary<TriggerRange, string>
             {
+                {TriggerRange.None, ""},
                 {TriggerRange.SelfPlayer, "我方"},
                 {TriggerRange.EnemyPlayer, "敌方"},
                 {TriggerRange.OnePlayer, "任一方"},
@@ -352,6 +363,7 @@ public class SideEffectBundle
         {
             "en", new SortedDictionary<TriggerRange, string>
             {
+                {TriggerRange.None, ""},
                 {TriggerRange.SelfPlayer, "you "},
                 {TriggerRange.EnemyPlayer, "enemy "},
                 {TriggerRange.OnePlayer, "one player "},

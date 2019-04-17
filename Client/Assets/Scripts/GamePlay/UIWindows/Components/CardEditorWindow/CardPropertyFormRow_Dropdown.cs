@@ -38,7 +38,6 @@ public class CardPropertyFormRow_Dropdown : CardPropertyFormRow
 
         if (setValue != -1)
         {
-            Dropdown.value = setValue;
             Dropdown.value = 0;
             Dropdown.value = setValue;
         }

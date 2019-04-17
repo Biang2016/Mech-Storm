@@ -18,7 +18,8 @@ public abstract class CardPropertyFormRow : PoolObject
     {
         InputFiled,
         Dropdown,
-        Toggle
+        Toggle,
+        TwoToggle
     }
 
     public static CardPropertyFormRow BaseInitialize(CardPropertyFormRowType type, Transform parent, string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
@@ -44,6 +45,13 @@ public abstract class CardPropertyFormRow : PoolObject
             {
                 CardPropertyFormRow_Toggle row = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyFormRow_Toggle].AllocateGameObject<CardPropertyFormRow_Toggle>(parent);
                 row.Initialize(labelStrKey, onValueChangeAction: onValueChangeAction, setValue: out setValue, onButtonClick: onButtonClick);
+                res = row;
+                break;
+            }
+            case CardPropertyFormRowType.TwoToggle:
+            {
+                CardPropertyFormRow_TwoToggleRow row = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyFormRow_TwoToggleRow].AllocateGameObject<CardPropertyFormRow_TwoToggleRow>(parent);
+                row.Initialize(labelStrKey, null, out setValue);
                 res = row;
                 break;
             }

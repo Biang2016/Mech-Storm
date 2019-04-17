@@ -91,7 +91,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
     internal List<string> Languages = new List<string>();
     internal List<string> LanguageDescs = new List<string>();
     internal List<string> LanguagesShorts = new List<string>();
-    public static string LanguageDictFolder = Application.streamingAssetsPath + "/Config/Languages/"; 
+    public static string LanguageDictFolder = Application.streamingAssetsPath + "/Config/Languages/";
     private Dictionary<string, Dictionary<string, string>> LanguageDict = new Dictionary<string, Dictionary<string, string>>();
     private Dictionary<string, string> CurrentLanguageDict;
 
@@ -133,15 +133,21 @@ public class LanguageManager : MonoSingleton<LanguageManager>
 
     public void RegisterTextKey(Text text, string s)
     {
-        TextKeyMap[text] = s;
-        text.text = GetText(s);
+        if (text)
+        {
+            TextKeyMap[text] = s;
+            text.text = GetText(s);
+        }
     }
 
     public void UnregisterTextKey(Text text)
     {
-        if (TextKeyMap.ContainsKey(text))
+        if (text)
         {
-            TextKeyMap.Remove(text);
+            if (TextKeyMap.ContainsKey(text))
+            {
+                TextKeyMap.Remove(text);
+            }
         }
     }
 
@@ -155,12 +161,21 @@ public class LanguageManager : MonoSingleton<LanguageManager>
 
     public void RegisterTextFontBinding(Text text)
     {
-        TextFontBindingList.Add(text);
+        if (text)
+        {
+            TextFontBindingList.Add(text);
+        }
     }
 
     public void RegisterTextFontBinding(List<Text> texts)
     {
-        TextFontBindingList.AddRange(texts);
+        foreach (Text text in texts)
+        {
+            if (text)
+            {
+                TextFontBindingList.Add(text);
+            }
+        }
     }
 
     public string GetText(string key)
@@ -216,5 +231,4 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         NoticeManager.Instance.ShowInfoPanelCenter(GetText("ChangeLanguageNotice"), 0, 1f);
         SetLanguage(LanguagesAbbrDict[LanguageIndices[index]]);
     }
-
 }

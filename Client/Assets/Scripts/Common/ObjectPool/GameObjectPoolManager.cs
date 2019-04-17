@@ -45,6 +45,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         CardPropertyFormRow_InputField,
         CardPropertyFormRow_Dropdown,
         CardPropertyFormRow_Toggle,
+        CardPropertyFormRow_TwoToggleRow,
         CardPropertyForm_SideEffectBundle,
     }
 
@@ -86,6 +87,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.CardPropertyFormRow_InputField, 10},
         {PrefabNames.CardPropertyFormRow_Dropdown, 5},
         {PrefabNames.CardPropertyFormRow_Toggle, 3},
+        {PrefabNames.CardPropertyFormRow_TwoToggleRow, 3},
         {PrefabNames.CardPropertyForm_SideEffectBundle, 2},
     };
 

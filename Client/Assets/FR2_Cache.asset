@@ -21247,24 +21247,6 @@ MonoBehaviour:
     type: 1
     UseGUIDs:
     - 36d4c30b928fed547bfeda0eeaf1ec66
-  - guid: 3c622cd2af5da2e469048187d7a80f28
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554690615
-    type: 1
-    UseGUIDs: []
-  - guid: 0095026a33b4ddd49b7c0dc2a40ee2d5
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554774194
-    type: 1
-    UseGUIDs: []
-  - guid: 36d4c30b928fed547bfeda0eeaf1ec66
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554345152
-    type: 1
-    UseGUIDs: []
   - guid: 9fe2732853d4041de8e6a74fc5d3486d
     ScriptSymbols: []
     ScriptTokens: []
@@ -21306,22 +21288,107 @@ MonoBehaviour:
     stamp: 1555057278
     type: 5
     UseGUIDs: []
+  - guid: ab1ac2a71ec91184f827e65557b93920
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 4a161d49ff924410db56e4923e810b8e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 10c1a35b695740f99bdf0b33cea7df5a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 102003b57363d394c89843e4afb3054b
+    ScriptSymbols:
+    - CardPropertyForm_SideEffectBundle
+    ScriptTokens:
+    - PoolObject
+    - SerializeField
+    - Text
+    - SideEffectBundleText
+    - Transform
+    - SideEffectRowContainer
+    - PoolRecycle
+    - List
+    - CardPropertyFormRow
+    - CardPropertyFormRows
+    - SideEffectBundle
+    - UnityAction
+    - OnSideEffectRefresh
+    - Initialize
+    - LanguageManager
+    - IEnumerable
+    - Enum
+    - OnTriggerTimeChange
+    - SetTriggerTime
+    - OnTriggerRangeChange
+    - SetTriggerRange
+    - OnTriggerDelayTimesChange
+    - SetTriggerDelayTimes
+    - OnTriggerTimesChange
+    - SetTriggerTimes
+    - OnRemoveTriggerTimeChange
+    - SetRemoveTriggerTime
+    - OnRemoveTriggerRangeChange
+    - SetRemoveTriggerRange
+    - OnRemoveTriggerTimesChange
+    - SetRemoveTriggerTimes
+    - TriggerTime
+    - TriggerRange
+    - TriggerDelayTimes
+    - TriggerTimes
+    - RemoveTriggerTime
+    - RemoveTriggerRange
+    - RemoveTriggerTimes
+    - SideEffectExecute
+    - SideEffectBase
+    stamp: 1555253695
+    type: 2
+    UseGUIDs: []
   - guid: b100a0418970edf4ebd9d39471a9a32b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1555253695
     type: 5
-    UseGUIDs: []
+    UseGUIDs:
+    - 8ef12d986d2543088a874872206cde76
+    - 6fec9a8fc56ecc447bb5eac824eddbf3
   - guid: d6ac19c123afc1046b3c9a0aecb7627b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1555253695
     type: 5
-    UseGUIDs: []
-  - guid: 102003b57363d394c89843e4afb3054b
+    UseGUIDs:
+    - 6fec9a8fc56ecc447bb5eac824eddbf3
+    - 102003b57363d394c89843e4afb3054b
+  - guid: f476aad2bd6e94709a7eb0af1565b6d2
     ScriptSymbols: []
     ScriptTokens: []
     stamp: 0
+    type: 5
+    UseGUIDs: []
+  - guid: 7461a6f87e064cf5a61514c0cd9772bd
+    ScriptSymbols:
+    - CardPropertyFormRow_TwoToggleRow
+    ScriptTokens:
+    - CardPropertyFormRow
+    - CardPropertyFormRow_Toggle
+    - ToggleLeft
+    - ToggleRight
+    - PoolRecycle
+    - Child_Initialize
+    - UnityAction
+    - List
+    - SetValue
+    stamp: 1555258593
     type: 2
     UseGUIDs: []
   timeStamp: 1555236407
