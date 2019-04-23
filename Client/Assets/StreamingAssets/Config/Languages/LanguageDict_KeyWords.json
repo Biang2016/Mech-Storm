@@ -1,7 +1,7 @@
 {
-	"TriggerTime_Battlecry": {
+	"TriggerTime_BattleCry": {
 		"zh": "战吼",
-		"en": "Battlecry"
+		"en": "BattleCry"
 	},
 	"TriggerTime_Die": {
 		"zh": "亡语",
@@ -18,7 +18,7 @@
 	},
 
 	"TriggerTime_Disposable": {
-		"zh": "移除, ",
+		"zh": "移除,",
 		"en": "Disposable. "
 	},
 

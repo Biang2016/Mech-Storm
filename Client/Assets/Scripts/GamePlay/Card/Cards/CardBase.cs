@@ -222,7 +222,10 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
             {
                 foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
                 {
-                    see.SideEffectBase.M_SideEffectParam.Factor = value;
+                    foreach (SideEffectBase se in see.SideEffectBases)
+                    {
+                        se.M_SideEffectParam.Factor = value;
+                    }
                 }
             }
         }

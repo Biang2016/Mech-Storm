@@ -150,30 +150,30 @@ internal class ServerHandManager
         if (onlyTriggerNotUse)
         {
             ServerCardBase copyCard = ServerCardBase.InstantiateCardByCardInfo(useCard.CardInfo.Clone(), useCard.ServerPlayer, ServerPlayer.MyGameManager.GenerateNewCardInstanceId());
-            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayCard,
                 new ExecutorInfo(
                     clientId: ServerPlayer.ClientId,
-                    targetClientId: targetClientId,
-                    targetRetinueId: targetRetinueId,
+                    targetClientIds: new List<int> {targetClientId},
+                    targetRetinueIds: new List<int> {targetRetinueId},
                     cardId: copyCard.CardInfo.CardID,
                     cardInstanceId: copyCard.M_CardInstanceId,
-                    targetEquipId: targetEquipId));
+                    targetEquipIds: new List<int> {targetEquipId}));
             copyCard.UnRegisterSideEffect();
         }
         else
         {
             UseCardRequest request = new UseCardRequest(ServerPlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone());
             ServerPlayer.MyClientProxy.MyServerGameManager.Broadcast_AddRequestToOperationResponse(request);
-            ServerPlayer.UseMetalAboveZero(useCard.CardInfo.BaseInfo.Metal);
-            ServerPlayer.UseEnergyAboveZero(useCard.CardInfo.BaseInfo.Energy);
-            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayCard,
+            ServerPlayer.UseMetal(useCard.CardInfo.BaseInfo.Metal);
+            ServerPlayer.UseEnergy(useCard.CardInfo.BaseInfo.Energy);
+            ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayCard,
                 new ExecutorInfo(
                     clientId: ServerPlayer.ClientId,
-                    targetClientId: targetClientId,
-                    targetRetinueId: targetRetinueId,
+                    targetClientIds: new List<int> { targetClientId },
+                    targetRetinueIds: new List<int> { targetRetinueId },
                     cardId: useCard.CardInfo.CardID,
                     cardInstanceId: cardInstanceId,
-                    targetEquipId: targetEquipId));
+                    targetEquipIds: new List<int> { targetEquipId }));
             if (!useCard.CardInfo.BaseInfo.IsTemp)
             {
                 if (useCard.CardInfo.BaseInfo.CardType == CardTypes.Spell || useCard.CardInfo.BaseInfo.CardType == CardTypes.Energy)

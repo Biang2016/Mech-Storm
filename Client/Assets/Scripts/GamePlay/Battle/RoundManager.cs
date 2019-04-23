@@ -284,7 +284,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
             case TargetSideEffect.TargetRange.SelfHeroes:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.EnemyHeros:
+            case TargetSideEffect.TargetRange.EnemyHeroes:
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
                 break;
             case TargetSideEffect.TargetRange.Soldiers:

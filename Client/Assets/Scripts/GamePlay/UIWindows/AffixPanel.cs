@@ -71,20 +71,23 @@ public class AffixPanel : BaseUIForm
 
     private void GetAffixTypeByCardInfo(HashSet<AffixType> affixTypes, CardInfo_Base cardInfo)
     {
-        foreach (SideEffectExecute se in cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
+        foreach (SideEffectExecute see in cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnPlayCard, SideEffectExecute.TriggerRange.Self))
         {
-            if (se.SideEffectBase is Exile_Base)
+            foreach (SideEffectBase se in see.SideEffectBases)
             {
-                affixTypes.Add(AffixType.Disposable);
+                if (se is Exile_Base)
+                {
+                    affixTypes.Add(AffixType.Disposable);
+                }
             }
         }
 
-        if (cardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
+        if (cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnRetinueDie, SideEffectExecute.TriggerRange.Self).Count != 0)
         {
             affixTypes.Add(AffixType.Die);
         }
 
-        if (cardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self).Count != 0)
+        if (cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnRetinueSummon, SideEffectExecute.TriggerRange.Self).Count != 0)
         {
             affixTypes.Add(AffixType.BattleCry);
         }

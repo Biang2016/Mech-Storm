@@ -89,7 +89,6 @@ internal class ServerBattleGroundManager
             HeroCount = Heroes.Count;
         }
 
-        retinue.CardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self);
         PrintRetinueInfos();
     }
 
@@ -160,9 +159,9 @@ internal class ServerBattleGroundManager
 
         BattleGroundAddRetinue(retinuePlaceIndex, retinue);
 
-        ExecutorInfo info = new ExecutorInfo(clientId: ServerPlayer.ClientId, retinueId: retinueId, targetRetinueId: targetRetinueId);
-        if (retinueCardInfo.RetinueInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierSummon, info);
-        else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnHeroSummon, info);
+        ExecutorInfo info = new ExecutorInfo(clientId: ServerPlayer.ClientId, retinueId: retinueId, targetRetinueIds: new List<int> {targetRetinueId});
+        if (retinueCardInfo.RetinueInfo.IsSoldier) ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierSummon, info);
+        else ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroSummon, info);
     }
 
     public void EquipWeapon(EquipWeaponRequest r, CardInfo_Base cardInfo)
@@ -233,7 +232,7 @@ internal class ServerBattleGroundManager
         }
     }
 
-    public void KillAllHeros()
+    public void KillAllHeroes()
     {
         List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
         for (int i = 0; i < Retinues.Count; i++)
@@ -249,7 +248,7 @@ internal class ServerBattleGroundManager
         }
     }
 
-    public void KillAllSodiers()
+    public void KillAllSoldiers()
     {
         List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
         for (int i = 0; i < Retinues.Count; i++)
@@ -265,26 +264,6 @@ internal class ServerBattleGroundManager
         }
     }
 
-    public void KillOneRetinue(int retinueId)
-    {
-        KillOneRetinue(GetRetinue(retinueId));
-    }
-
-    public void KillRandomRetinue(int exceptRetinueId)
-    {
-        KillOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId));
-    }
-
-    public void KillRandomHero(int exceptRetinueId)
-    {
-        KillOneRetinue(GetRandomRetinue(RetinueType.Hero, exceptRetinueId));
-    }
-
-    public void KillRandomSoldier(int exceptRetinueId)
-    {
-        KillOneRetinue(GetRandomRetinue(RetinueType.Soldier, exceptRetinueId));
-    }
-
     private void KillOneRetinue(ServerModuleRetinue retinue)
     {
         if (retinue != null)
@@ -294,321 +273,76 @@ internal class ServerBattleGroundManager
         }
     }
 
-    private void AddLifeForOneRetinue(ServerModuleRetinue retinue, int value)
+    public enum RetinueValueTypes
     {
-        if (retinue != null)
+        Life,
+        Heal,
+        Damage,
+        Attack,
+        Armor,
+        Shield,
+        WeaponEnergy,
+    }
+
+    private Dictionary<RetinueValueTypes, Action<ServerModuleRetinue, int>> RetinueValueChangeDelegates = new Dictionary<RetinueValueTypes, Action<ServerModuleRetinue, int>>
+    {
+        {RetinueValueTypes.Life, delegate(ServerModuleRetinue retinue, int value) { retinue?.AddLife(value); }},
+        {RetinueValueTypes.Heal, delegate(ServerModuleRetinue retinue, int value) { retinue?.Heal(value); }},
         {
-            retinue.M_RetinueTotalLife += value;
-            retinue.M_RetinueLeftLife += value;
-        }
-    }
+            RetinueValueTypes.Damage, delegate(ServerModuleRetinue targetRetinue, int value)
+            {
+                targetRetinue.BeAttacked(value);
+                targetRetinue.CheckAlive();
+            }
+        },
+        {RetinueValueTypes.Attack, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueAttack += value; }},
+        {RetinueValueTypes.Armor, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueArmor += value; }},
+        {RetinueValueTypes.Shield, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueShield += value; }},
+        {RetinueValueTypes.WeaponEnergy, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueWeaponEnergy += value; }},
+    };
 
-    public void AddLifeForOneRetinue(int retinueId, int value)
+    public void ChangeRetinuesValue(RetinueValueTypes retinueValueType, int value, int count, List<int> retinueIds, TargetSelect targetSelect, RetinueType retinueType, int exceptRetinueId = -1)
     {
-        AddLifeForOneRetinue(GetRetinue(retinueId), value);
-    }
-
-    public void AddLifeForRandomRetinue(int value, int exceptRetinueId)
-    {
-        AddLifeForOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId), value);
-    }
-
-    public void AddLifeForRandomHero(int value, int exceptRetinueId)
-    {
-        AddLifeForOneRetinue(GetRandomRetinue(RetinueType.Hero, exceptRetinueId), value);
-    }
-
-    public void AddLifeForRandomSoldier(int value, int exceptRetinueId)
-    {
-        AddLifeForOneRetinue(GetRandomRetinue(RetinueType.Soldier, exceptRetinueId), value);
-    }
-
-    public void AddLifeForAllRetinues(int value)
-    {
-        foreach (ServerModuleRetinue serverModuleRetinue in Retinues.ToArray())
+        Action<ServerModuleRetinue, int> action = RetinueValueChangeDelegates[retinueValueType];
+        switch (targetSelect)
         {
-            AddLifeForOneRetinue(serverModuleRetinue, value);
-        }
-    }
+            case TargetSelect.All:
+            {
+                foreach (ServerModuleRetinue retinue in GetRetinueByType(retinueType).ToArray())
+                {
+                    action(retinue, value);
+                }
 
-    public void AddLifeForAllHeros(int value)
-    {
-        foreach (ServerModuleRetinue serverModuleRetinue in Heroes.ToArray())
-        {
-            AddLifeForOneRetinue(serverModuleRetinue, value);
-        }
-    }
+                break;
+            }
+            case TargetSelect.Multiple:
+            {
+                foreach (int retinueId in retinueIds)
+                {
+                    action(GetRetinue(retinueId), value);
+                }
 
-    public void AddLifeForAllSoldiers(int value)
-    {
-        foreach (ServerModuleRetinue serverModuleRetinue in Soldiers.ToArray())
-        {
-            AddLifeForOneRetinue(serverModuleRetinue, value);
-        }
-    }
+                break;
+            }
+            case TargetSelect.MultipleRandom:
+            {
+                foreach (ServerModuleRetinue retinue in Utils.GetRandomFromList(GetRetinueByType(retinueType), count))
+                {
+                    action(retinue, value);
+                }
 
-    private void AddArmorForOneRetinue(ServerModuleRetinue retinue, int value)
-    {
-        if (retinue != null)
-        {
-            retinue.M_RetinueArmor += value;
-        }
-    }
-
-    public void AddArmorForOneRetinue(int retinueId, int value)
-    {
-        AddArmorForOneRetinue(GetRetinue(retinueId), value);
-    }
-
-    public void AddArmorForRandomRetinue(int value, int exceptRetinueId)
-    {
-        AddArmorForOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId), value);
-    }
-
-    public void AddArmorForRandomHero(int value, int exceptRetinueId)
-    {
-        AddArmorForOneRetinue(GetRandomRetinue(RetinueType.Hero, exceptRetinueId), value);
-    }
-
-    public void AddArmorForRandomSoldier(int value, int exceptRetinueId)
-    {
-        AddArmorForOneRetinue(GetRandomRetinue(RetinueType.Soldier, exceptRetinueId), value);
-    }
-
-    public void AddArmorForAllRetinues(int value)
-    {
-        foreach (ServerModuleRetinue serverModuleRetinue in Retinues.ToArray())
-        {
-            AddArmorForOneRetinue(serverModuleRetinue, value);
-        }
-    }
-
-    public void AddArmorForAllHeros(int value)
-    {
-        foreach (ServerModuleRetinue serverModuleRetinue in Heroes.ToArray())
-        {
-            AddArmorForOneRetinue(serverModuleRetinue, value);
-        }
-    }
-
-    public void AddArmorForAllSoldiers(int value)
-    {
-        foreach (ServerModuleRetinue serverModuleRetinue in Soldiers.ToArray())
-        {
-            AddArmorForOneRetinue(serverModuleRetinue, value);
-        }
-    }
-
-    private void AddShieldForOneRetinue(ServerModuleRetinue retinue, int value)
-    {
-        if (retinue != null)
-        {
-            retinue.M_RetinueShield += value;
-        }
-    }
-
-    public void AddShieldForOneRetinue(int retinueId, int value)
-    {
-        AddShieldForOneRetinue(GetRetinue(retinueId), value);
-    }
-
-    public void AddShieldForRandomRetinue(int value, int exceptRetinueId)
-    {
-        AddShieldForOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId), value);
-    }
-
-    public void AddShieldForRandomHero(int value, int exceptRetinueId)
-    {
-        AddShieldForOneRetinue(GetRandomRetinue(RetinueType.Hero, exceptRetinueId), value);
-    }
-
-    public void AddShieldForRandomSoldier(int value, int exceptRetinueId)
-    {
-        AddShieldForOneRetinue(GetRandomRetinue(RetinueType.Soldier, exceptRetinueId), value);
-    }
-
-    public void AddShieldForAllRetinues(int value)
-    {
-        foreach (ServerModuleRetinue serverModuleRetinue in Retinues.ToArray())
-        {
-            AddShieldForOneRetinue(serverModuleRetinue, value);
-        }
-    }
-
-    public void AddShieldForAllHeros(int value)
-    {
-        foreach (ServerModuleRetinue serverModuleRetinue in Heroes.ToArray())
-        {
-            AddShieldForOneRetinue(serverModuleRetinue, value);
-        }
-    }
-
-    public void AddShieldForAllSoldiers(int value)
-    {
-        foreach (ServerModuleRetinue serverModuleRetinue in Soldiers.ToArray())
-        {
-            AddShieldForOneRetinue(serverModuleRetinue, value);
-        }
-    }
-
-    private void AddAttackForOneRetinue(ServerModuleRetinue retinue, int value)
-    {
-        if (retinue != null)
-        {
-            retinue.M_RetinueAttack += value;
-        }
-    }
-
-    public void AddAttackForOneRetinue(int retinueId, int value)
-    {
-        AddAttackForOneRetinue(GetRetinue(retinueId), value);
-    }
-
-    public void AddAttackForAllRetinues(int value)
-    {
-        foreach (ServerModuleRetinue retinue in Retinues.ToArray())
-        {
-            AddAttackForOneRetinue(retinue, value);
-        }
-    }
-
-    public void AddAttackForRandomRetinue(int value, int exceptRetinueId)
-    {
-        AddAttackForOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId), value);
-    }
-
-    public void AddAttackForRandomHero(int value, int exceptRetinueId)
-    {
-        AddAttackForOneRetinue(GetRandomRetinue(RetinueType.Hero, exceptRetinueId), value);
-    }
-
-    public void AddAttackForRandomSoldier(int value, int exceptRetinueId)
-    {
-        AddAttackForOneRetinue(GetRandomRetinue(RetinueType.Soldier, exceptRetinueId), value);
-    }
-
-    public void AddAttackForAllHeros(int value)
-    {
-        foreach (ServerModuleRetinue retinue in Heroes.ToArray())
-        {
-            AddAttackForOneRetinue(retinue, value);
-        }
-    }
-
-    public void AddAttackForAllSoldiers(int value)
-    {
-        foreach (ServerModuleRetinue retinue in Soldiers.ToArray())
-        {
-            AddAttackForOneRetinue(retinue, value);
-        }
-    }
-
-    private void HealOneRetinue(ServerModuleRetinue retinue, int value)
-    {
-        if (retinue != null)
-        {
-            int healAmount = Math.Min(value, retinue.M_RetinueTotalLife - retinue.M_RetinueLeftLife);
-            retinue.M_RetinueLeftLife += healAmount;
-        }
-    }
-
-    public void HealRandomRetinue(int value, int exceptRetinueId)
-    {
-        HealOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId), value);
-    }
-
-    public void HealRandomHero(int value, int exceptRetinueId)
-    {
-        HealOneRetinue(GetRandomRetinue(RetinueType.Hero, exceptRetinueId), value);
-    }
-
-    public void HealRandomSoldier(int value, int exceptRetinueId)
-    {
-        HealOneRetinue(GetRandomRetinue(RetinueType.Soldier, exceptRetinueId), value);
-    }
-
-    public void HealOneRetinue(int retinueId, int value)
-    {
-        HealOneRetinue(GetRetinue(retinueId), value);
-    }
-
-    public void HealAllRetinues(int value)
-    {
-        foreach (ServerModuleRetinue retinue in Retinues.ToArray())
-        {
-            HealOneRetinue(retinue, value);
-        }
-    }
-
-    public void HealAllHeros(int value)
-    {
-        foreach (ServerModuleRetinue retinue in Heroes.ToArray())
-        {
-            HealOneRetinue(retinue, value);
-        }
-    }
-
-    public void HealAllSoldiers(int value)
-    {
-        foreach (ServerModuleRetinue retinue in Soldiers.ToArray())
-        {
-            HealOneRetinue(retinue, value);
-        }
-    }
-
-    public void DamageOneRetinue(int retinueId, int value)
-    {
-        DamageOneRetinue(GetRetinue(retinueId), value);
-    }
-
-    public void DamageRandomRetinue(int value, int exceptRetinueId)
-    {
-        DamageOneRetinue(GetRandomRetinue(RetinueType.All, exceptRetinueId), value);
-    }
-
-    public void DamageRandomHero(int value, int exceptRetinueId)
-    {
-        DamageOneRetinue(GetRandomRetinue(RetinueType.Hero, exceptRetinueId), value);
-    }
-
-    public void DamageRandomSoldier(int value, int exceptRetinueId)
-    {
-        DamageOneRetinue(GetRandomRetinue(RetinueType.Soldier, exceptRetinueId), value);
-    }
-
-    public void DamageAllRetinues(int value)
-    {
-        foreach (ServerModuleRetinue retinue in Retinues.ToArray())
-        {
-            retinue.BeAttacked(value);
-            retinue.CheckAlive();
-        }
-    }
-
-    public void DamageAllHeros(int value)
-    {
-        foreach (ServerModuleRetinue retinue in Heroes.ToArray())
-        {
-            retinue.BeAttacked(value);
-            retinue.CheckAlive();
-        }
-    }
-
-    public void DamageAllSoldiers(int value)
-    {
-        foreach (ServerModuleRetinue retinue in Soldiers.ToArray())
-        {
-            retinue.BeAttacked(value);
-            retinue.CheckAlive();
-        }
-    }
-
-    private void DamageOneRetinue(ServerModuleRetinue targetRetinue, int value)
-    {
-        if (targetRetinue != null)
-        {
-            targetRetinue.BeAttacked(value);
-            targetRetinue.CheckAlive();
+                break;
+            }
+            case TargetSelect.Single:
+            {
+                action(GetRetinue(retinueIds[0]), value);
+                break;
+            }
+            case TargetSelect.SingleRandom:
+            {
+                action(GetRandomRetinue(retinueType, exceptRetinueId), value);
+                break;
+            }
         }
     }
 
@@ -721,6 +455,7 @@ internal class ServerBattleGroundManager
 
     public enum RetinueType
     {
+        None,
         All,
         Soldier,
         Hero
@@ -774,13 +509,64 @@ internal class ServerBattleGroundManager
         ServerLog.Print(log);
     }
 
+    public static RetinueType GetRetinueTypeByTargetRange(TargetRange targetRange)
+    {
+        RetinueType retinueType = RetinueType.None;
+        if ((targetRange & TargetRange.Heroes) == targetRange) // 若是Heroes子集
+        {
+            retinueType = RetinueType.Hero;
+        }
+
+        if ((targetRange & TargetRange.Soldiers) == targetRange) // 若是Soldiers子集
+        {
+            retinueType = RetinueType.Soldier;
+        }
+        else
+        {
+            retinueType = RetinueType.All;
+        }
+
+        return retinueType;
+    }
+
+    public static List<ServerPlayer> GetMechsPlayerByTargetRange(TargetRange targetRange, ServerPlayer player)
+    {
+        List<ServerPlayer> res = new List<ServerPlayer>();
+        if ((targetRange & TargetRange.SelfMechs) == TargetRange.SelfMechs)
+        {
+            res.Add(player);
+        }
+
+        if ((targetRange & TargetRange.EnemyMechs) == TargetRange.EnemyMechs)
+        {
+            res.Add(player.MyEnemyPlayer);
+        }
+
+        return res;
+    }
+    public static List<ServerPlayer> GetShipsPlayerByTargetRange(TargetRange targetRange, ServerPlayer player)
+    {
+        List<ServerPlayer> res = new List<ServerPlayer>();
+        if ((targetRange & TargetRange.SelfShip) == TargetRange.SelfShip)
+        {
+            res.Add(player);
+        }
+
+        if ((targetRange & TargetRange.EnemyShip) == TargetRange.EnemyShip)
+        {
+            res.Add(player.MyEnemyPlayer);
+        }
+
+        return res;
+    }
+
     #endregion
 
     #region GameProcess
 
     internal void BeginRound()
     {
-        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnBeginRound, new ExecutorInfo(clientId: ServerPlayer.ClientId));
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnBeginRound, new ExecutorInfo(clientId: ServerPlayer.ClientId));
         foreach (ServerModuleRetinue retinue in Retinues)
         {
             retinue.OnBeginRound();
@@ -789,7 +575,7 @@ internal class ServerBattleGroundManager
 
     internal void EndRound()
     {
-        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnEndRound, new ExecutorInfo(clientId: ServerPlayer.ClientId));
+        ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEndRound, new ExecutorInfo(clientId: ServerPlayer.ClientId));
         foreach (ServerModuleRetinue retinue in Retinues)
         {
             retinue.OnEndRound();

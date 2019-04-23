@@ -16,7 +16,7 @@
     <CardInfo name="lifeInfo" life="12" totalLife="12" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="KillAll" IsNeedChoise="False" M_TargetRange="EnemySoldiers"></SideEffect>
+      <SideEffect name="KillAll" IsNeedChoice="False" TargetRange="EnemySoldiers"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="100">
@@ -26,7 +26,7 @@
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DrawCards" Value="2"></SideEffect>
+      <SideEffect name="DrawCards" CardCount="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="1600">
@@ -36,7 +36,7 @@
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="6" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DrawCards" Value="2"></SideEffect>
+      <SideEffect name="DrawCards" CardCount="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="200">
@@ -46,7 +46,7 @@
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="4"></SideEffect>
+      <SideEffect name="DamageRandom" IsNeedChoice="False" TargetRange="EnemyMechs" Value="4"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="300">
@@ -56,7 +56,7 @@
     <CardInfo name="lifeInfo" life="18" totalLife="18" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="2" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="EnemyPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
+      <SideEffect name="DamageRandom" IsNeedChoice="False" TargetRange="EnemyMechs" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="400">
@@ -66,7 +66,7 @@
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueAttack" triggerRange="Self" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="Self" Value="2"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoice="False" TargetRange="Self" HealValue="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="500">
@@ -121,7 +121,7 @@
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueKill" triggerRange="Self" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddAttackOne" IsNeedChoise="False" M_TargetRange="Self" Value="1"></SideEffect>
+      <SideEffect name="AddAttackOne" IsNeedChoice="False" TargetRange="Self" AttackValue="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="2000">
@@ -131,7 +131,7 @@
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="2" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueKill" triggerRange="Self" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddAttackOne" IsNeedChoise="False" M_TargetRange="Self" Value="1"></SideEffect>
+      <SideEffect name="AddAttackOne" IsNeedChoice="False" TargetRange="Self" AttackValue="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="1200">
@@ -197,7 +197,7 @@
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="2"></SideEffect>
+      <SideEffect name="AddLifeOne" IsNeedChoice="True" TargetRange="SelfMechs" LifeValue="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="5102">
@@ -207,7 +207,7 @@
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="3"></SideEffect>
+      <SideEffect name="AddLifeOne" IsNeedChoice="True" TargetRange="SelfMechs" LifeValue="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="5103">
@@ -217,7 +217,7 @@
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="4"></SideEffect>
+      <SideEffect name="AddLifeOne" IsNeedChoice="True" TargetRange="SelfMechs" LifeValue="4"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="5301">
@@ -227,7 +227,7 @@
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="5"></SideEffect>
+      <SideEffect name="DamageRandom" IsNeedChoice="False" TargetRange="EnemyMechs" Value="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="5302">
@@ -237,7 +237,7 @@
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueDie" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="5"></SideEffect>
+      <SideEffect name="DamageRandom" IsNeedChoice="False" TargetRange="EnemyMechs" Value="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="5401">
@@ -247,7 +247,7 @@
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="3"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoice="True" TargetRange="SelfMechs" HealValue="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="5402">
@@ -257,7 +257,7 @@
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle_OnBattleGround" triggerTime="OnRetinueSummon" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="5"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoice="True" TargetRange="SelfMechs" HealValue="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="5600">
@@ -500,66 +500,66 @@
     <CardInfo name="baseInfo" pictureID="601" cardName="火力防御" cardName_en="Gatlin" cardDesc="" isTemp="False" isHide="False" metal="0" energy="1" coin="100" effectFactor="1" limitNum="3" cardRareLevel="0" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="60102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="EnemyMechs" Value="1"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="EnemyMechs" Value="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60102">
     <CardInfo name="baseInfo" pictureID="602" cardName="火神打击" cardName_en="S Gatlin" cardDesc="" isTemp="False" isHide="False" metal="0" energy="2" coin="150" effectFactor="1" limitNum="0" cardRareLevel="1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="60103" degradeCardID="60101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="EnemyMechs" Value="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60103">
     <CardInfo name="baseInfo" pictureID="630" cardName="火神扫射" cardName_en="SP Gatlin" cardDesc="" isTemp="False" isHide="False" metal="0" energy="3" coin="200" effectFactor="1" limitNum="0" cardRareLevel="2" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60102" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageAll" M_TargetRange="EnemyMechs" Value="1"></SideEffect>
+      <SideEffect name="DamageAll" TargetRange="EnemyMechs" Damage="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60301">
     <CardInfo name="baseInfo" pictureID="603" cardName="月面镭射" cardName_en="Reflective Raser" cardDesc="" isTemp="False" isHide="False" metal="0" energy="2" coin="300" effectFactor="1" limitNum="3" cardRareLevel="0" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="60302" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="Soldiers" Value="2"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="Soldiers" Damage="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60302">
     <CardInfo name="baseInfo" pictureID="631" cardName="精准镭射" cardName_en="Focus Raser" cardDesc="" isTemp="False" isHide="False" metal="0" energy="3" coin="400" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60301" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="Soldiers" Value="5"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="Soldiers" Damage="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60401">
     <CardInfo name="baseInfo" pictureID="623" cardName="蝴蝶效应" cardName_en="Butterfly Effect" cardDesc="" isTemp="False" isHide="False" metal="0" energy="1" coin="600" effectFactor="1" limitNum="1" cardRareLevel="4" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DrawCards" Value="1"></SideEffect>
-      <SideEffect name="AddTempCardToDeck" Value="1" CardId="60402"></SideEffect>
+      <SideEffect name="DrawCards" CardCount="1"></SideEffect>
+      <SideEffect name="AddTempCardToDeck" CardCount="1" CardID="60402"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60402">
     <CardInfo name="baseInfo" pictureID="621" cardName="蝴蝶效应2" cardName_en="Butterfly Effect2" cardDesc="" isTemp="True" isHide="True" metal="0" energy="2" coin="600" effectFactor="1" limitNum="1" cardRareLevel="4" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DrawCards" Value="1"></SideEffect>
-      <SideEffect name="AddTempCardToDeck" Value="1" CardId="60403"></SideEffect>
+      <SideEffect name="DrawCards" CardCount="1"></SideEffect>
+      <SideEffect name="AddTempCardToDeck" CardCount="1" CardID="60403"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60403">
     <CardInfo name="baseInfo" pictureID="604" cardName="蝴蝶效应3" cardName_en="Butterfly Effect3" cardDesc="" isTemp="True" isHide="True" metal="0" energy="3" coin="600" effectFactor="1" limitNum="1" cardRareLevel="4" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DrawCards" Value="1"></SideEffect>
-      <SideEffect name="AddTempCardToDeck" Value="1" CardId="60404"></SideEffect>
+      <SideEffect name="DrawCards" CardCount="1"></SideEffect>
+      <SideEffect name="AddTempCardToDeck" CardCount="1" CardID="60404"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60404">
     <CardInfo name="baseInfo" pictureID="624" cardName="橙色风暴" cardName_en="Orange Storm" cardDesc="" isTemp="True" isHide="True" metal="2" energy="4" coin="600" effectFactor="1" limitNum="1" cardRareLevel="4" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="KillAll" IsNeedChoise="False" M_TargetRange="EnemyMechs"></SideEffect>
+      <SideEffect name="KillAll" IsNeedChoice="False" TargetRange="EnemyMechs"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60504">
@@ -573,104 +573,104 @@
     <CardInfo name="baseInfo" pictureID="605" cardName="钛金魔方" cardName_en="Titanium Cube" cardDesc="" isTemp="False" isHide="False" metal="0" energy="5" coin="200" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="CopyNextDrawCard" Value="1"></SideEffect>
+      <SideEffect name="CopyNextDrawCard" CardCount="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60601">
     <CardInfo name="baseInfo" pictureID="606" cardName="精神领域" cardName_en="Spiritual Field" cardDesc="" isTemp="False" isHide="False" metal="2" energy="3" coin="200" effectFactor="1" limitNum="3" cardRareLevel="0" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DrawCards" Value="2"></SideEffect>
+      <SideEffect name="DrawCards" CardCount="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60701">
     <CardInfo name="baseInfo" pictureID="607" cardName="死亡之光" cardName_en="Light of Death" cardDesc="" isTemp="False" isHide="False" metal="0" energy="20" coin="400" effectFactor="1" limitNum="3" cardRareLevel="4" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="10"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="10"></SideEffect>
     </CardInfo>
     <CardInfo name="sideEffectsBundle" triggerTime="OnEndRound" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="WaitInHandDecreaseEnergy" Value="2"></SideEffect>
+      <SideEffect name="WaitInHandDecreaseEnergy" DecValue="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60801">
     <CardInfo name="baseInfo" pictureID="608" cardName="冲撞" cardName_en="Crash" cardDesc="" isTemp="False" isHide="False" metal="0" energy="3" coin="350" effectFactor="1" limitNum="3" cardRareLevel="1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="1"></SideEffect>
-      <SideEffect name="DamageRandom" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="3"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="SelfMechs" Damage="1"></SideEffect>
+      <SideEffect name="DamageRandom" IsNeedChoice="False" TargetRange="EnemyMechs" Damage="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="60901">
     <CardInfo name="baseInfo" pictureID="609" cardName="堕落" cardName_en="Degenerate" cardDesc="" isTemp="False" isHide="False" metal="0" energy="8" coin="600" effectFactor="1" limitNum="3" cardRareLevel="6" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="Degenerate" IsNeedChoise="True" M_TargetRange="SelfHeros"></SideEffect>
+      <SideEffect name="Degenerate" IsNeedChoice="True" TargetRange="SelfHeros"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61001">
     <CardInfo name="baseInfo" pictureID="610" cardName="黑客入侵" cardName_en="Hack" cardDesc="" isTemp="False" isHide="False" metal="0" energy="10" coin="800" effectFactor="1" limitNum="2" cardRareLevel="6" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="BreakEquip" IsNeedChoise="True" M_TargetRange="EnemyMechs"></SideEffect>
+      <SideEffect name="BreakEquip" IsNeedChoice="True" TargetRange="EnemyMechs"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61101">
     <CardInfo name="baseInfo" pictureID="611" cardName="镀金Ⅰ" cardName_en="Gold Plating Ⅰ" cardDesc="" isTemp="False" isHide="False" metal="0" energy="5" coin="250" effectFactor="1" limitNum="3" cardRareLevel="1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="61102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="2"></SideEffect>
-      <SideEffect name="AddArmorOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="3"></SideEffect>
+      <SideEffect name="AddLifeOne" IsNeedChoice="True" TargetRange="SelfMechs" LifeValue="2"></SideEffect>
+      <SideEffect name="AddArmorOne" IsNeedChoice="True" TargetRange="SelfMechs" ArmorValue="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61102">
     <CardInfo name="baseInfo" pictureID="611" cardName="镀金Ⅱ" cardName_en="Gold Plating Ⅱ" cardDesc="" isTemp="False" isHide="False" metal="0" energy="7" coin="400" effectFactor="1" limitNum="0" cardRareLevel="5" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="61101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddLifeOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="3"></SideEffect>
-      <SideEffect name="AddArmorOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="5"></SideEffect>
+      <SideEffect name="AddLifeOne" IsNeedChoice="True" TargetRange="SelfMechs" LifeValue="3"></SideEffect>
+      <SideEffect name="AddArmorOne" IsNeedChoice="True" TargetRange="SelfMechs" ArmorValue="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61201">
     <CardInfo name="baseInfo" pictureID="612" cardName="幻境" cardName_en="Illusion" cardDesc="" isTemp="False" isHide="False" metal="0" energy="10" coin="400" effectFactor="1" limitNum="1" cardRareLevel="5" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="IllusionToOne" IsNeedChoise="True" M_TargetRange="SelfMechs" Value="1"></SideEffect>
+      <SideEffect name="IllusionToOne" IsNeedChoice="True" TargetRange="SelfMechs" Rounds="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61301">
     <CardInfo name="baseInfo" pictureID="613" cardName="牺牲" cardName_en="Sacrifice" cardDesc="" isTemp="False" isHide="False" metal="0" energy="10" coin="400" effectFactor="1" limitNum="3" cardRareLevel="7" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="Sacrifice" IsNeedChoise="True" M_TargetRange="SelfMechs" ValueBasic="3" ValuePlus="1"></SideEffect>
+      <SideEffect name="Sacrifice" IsNeedChoice="True" TargetRange="SelfMechs" ValueBasic="3" ValuePlus="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61501">
     <CardInfo name="baseInfo" pictureID="615" cardName="偷袭" cardName_en="Sneak Attack" cardDesc="" isTemp="False" isHide="False" metal="0" energy="4" coin="400" effectFactor="1" limitNum="3" cardRareLevel="3" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="61502" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenAttack" RemoveTriggerTimes="1" Value="2" />
+      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenAttack" RemoveTriggerTimes="1" EnergyValue="2" />
     </CardInfo>
   </Card>
   <Card id="61502">
     <CardInfo name="baseInfo" pictureID="615" cardName="偷袭" cardName_en="Sneak Attack2" cardDesc="" isTemp="False" isHide="False" metal="0" energy="6" coin="500" effectFactor="1" limitNum="0" cardRareLevel="4" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="61503" degradeCardID="61501" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenAttack" RemoveTriggerTimes="2" Value="2" />
+      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenAttack" RemoveTriggerTimes="2" EnergyValue="2" />
     </CardInfo>
   </Card>
   <Card id="61503">
     <CardInfo name="baseInfo" pictureID="615" cardName="偷袭" cardName_en="Sneak Attack3" cardDesc="" isTemp="False" isHide="False" metal="0" energy="10" coin="600" effectFactor="1" limitNum="0" cardRareLevel="5" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="61502" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenAttack" RemoveTriggerTimes="2" Value="3" />
+      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenAttack" RemoveTriggerTimes="2" EnergyValue="3" />
     </CardInfo>
   </Card>
   <Card id="61601">
     <CardInfo name="baseInfo" pictureID="616" cardName="入侵" cardName_en="Intrusion" cardDesc="" isTemp="False" isHide="False" metal="0" energy="10" coin="400" effectFactor="1" limitNum="3" cardRareLevel="3" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="SummonRetinuePerMechs" IsNeedChoise="False" M_TargetRange="EnemyMechs" RetinueCardId="5701"></SideEffect>
+      <SideEffect name="SummonRetinuePerMechs" IsNeedChoice="False" TargetRange="EnemyMechs" SummonCardId="5701"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61701">
@@ -684,22 +684,22 @@
     <CardInfo name="baseInfo" pictureID="618" cardName="意志融合" cardName_en="Cooperation" cardDesc="" isTemp="False" isHide="False" metal="0" energy="15" coin="400" effectFactor="1" limitNum="1" cardRareLevel="7" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="Cooperation" IsNeedChoise="True" M_TargetRange="SelfSoldiers"></SideEffect>
+      <SideEffect name="Cooperation" IsNeedChoice="True" TargetRange="SelfSoldiers"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="61901">
     <CardInfo name="baseInfo" pictureID="619" cardName="击落" cardName_en="Meteorite Fall" cardDesc="" isTemp="False" isHide="False" metal="0" energy="10" coin="400" effectFactor="1" limitNum="3" cardRareLevel="6" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="Mechs" Value="10"></SideEffect>
-      <SideEffect name="DrawTypeCards" Value="2" DrawCardType="Equip"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="Mechs" Damage="10"></SideEffect>
+      <SideEffect name="DrawTypeCards" CardCount="2" DrawCardType="Equip"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62001">
     <CardInfo name="baseInfo" pictureID="620" cardName="减速" cardName_en="Decelerate" cardDesc="" isTemp="False" isHide="False" metal="0" energy="10" coin="400" effectFactor="1" limitNum="3" cardRareLevel="3" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddTempCardToEnemyDeck" Value="3" CardId="6500"></SideEffect>
+      <SideEffect name="AddTempCardToEnemyDeck" CardCount="3" CardID="6500"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="6500">
@@ -713,131 +713,131 @@
     <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" isHide="False" metal="0" energy="1" coin="50" effectFactor="1" limitNum="3" cardRareLevel="0" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="1"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoice="False" TargetRange="SelfShip" HealValue="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62102">
     <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" isHide="False" metal="0" energy="2" coin="100" effectFactor="1" limitNum="0" cardRareLevel="1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62103" degradeCardID="62101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="3"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoice="False" TargetRange="SelfShip" HealValue="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62103">
     <CardInfo name="baseInfo" pictureID="627" cardName="自动修复" cardName_en="Healing" cardDesc="" isTemp="False" isHide="False" metal="0" energy="2" coin="150" effectFactor="1" limitNum="0" cardRareLevel="2" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62102" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoice="False" TargetRange="SelfShip" HealValue="4"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62201">
     <CardInfo name="baseInfo" pictureID="628" cardName="虚空遗梦" cardName_en="Vacant Dream" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="400" effectFactor="1" limitNum="3" cardRareLevel="7" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="True" M_TargetRange="EnemyMechs" Value="5"></SideEffect>
-      <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="2"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="EnemyMechs" Damage="5"></SideEffect>
+      <SideEffect name="DamageAll" IsNeedChoice="False" TargetRange="EnemyMechs" Damage="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62301">
     <CardInfo name="baseInfo" pictureID="629" cardName="天堂之路" cardName_en="Free Way" cardDesc="" isTemp="False" isHide="False" metal="0" energy="15" coin="350" effectFactor="1" limitNum="3" cardRareLevel="6" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="HealOne" IsNeedChoise="False" M_TargetRange="SelfShip" Value="12"></SideEffect>
-      <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="4"></SideEffect>
+      <SideEffect name="HealOne" IsNeedChoice="False" TargetRange="SelfShip" HealValue="12"></SideEffect>
+      <SideEffect name="DamageAll" IsNeedChoice="False" TargetRange="EnemyMechs" Damage="4"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62401">
     <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="50" effectFactor="1" limitNum="5" cardRareLevel="-1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62402" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="1"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62402">
     <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="75" effectFactor="1" limitNum="0" cardRareLevel="-1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62403" degradeCardID="62401" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="2"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62403">
     <CardInfo name="baseInfo" pictureID="632" cardName="攻击" cardName_en="Attack" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="100" effectFactor="1" limitNum="0" cardRareLevel="2" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62402" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="3"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62500">
     <CardInfo name="baseInfo" pictureID="633" cardName="伤害转换" cardName_en="Damage Trans" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="150" effectFactor="1" limitNum="3" cardRareLevel="0" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62501" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="3"></SideEffect>
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="3"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62501">
     <CardInfo name="baseInfo" pictureID="633" cardName="伤害转换" cardName_en="Damage Trans" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="175" effectFactor="1" limitNum="0" cardRareLevel="3" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62500" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="4"></SideEffect>
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="3"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="4"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="3"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62502">
     <CardInfo name="baseInfo" pictureID="633" cardName="伤害转换" cardName_en="Damage Trans" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="200" effectFactor="1" limitNum="0" cardRareLevel="6" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62500" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="5"></SideEffect>
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="5"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="4"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62600">
     <CardInfo name="baseInfo" pictureID="634" cardName="暴击" cardName_en="Critical Attack" cardDesc="" isTemp="False" isHide="False" metal="0" energy="3" coin="150" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62601" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="5"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62601">
     <CardInfo name="baseInfo" pictureID="634" cardName="暴击" cardName_en="Critical Attack" cardDesc="" isTemp="False" isHide="False" metal="0" energy="3" coin="200" effectFactor="1" limitNum="0" cardRareLevel="5" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="62602" degradeCardID="62600" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="7"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="7"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62602">
     <CardInfo name="baseInfo" pictureID="634" cardName="暴击" cardName_en="Critical Attack" cardDesc="" isTemp="False" isHide="False" metal="0" energy="3" coin="250" effectFactor="1" limitNum="0" cardRareLevel="7" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62601" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageOne" IsNeedChoise="False" M_TargetRange="EnemyShip" Value="9"></SideEffect>
+      <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="9"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62701">
     <CardInfo name="baseInfo" pictureID="635" cardName="乘胜追击" cardName_en="Pursuit" cardDesc="" isTemp="False" isHide="False" metal="0" energy="4" coin="250" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddPlayerBuff" BuffName="DamageEnemyShipWhenAttack" RemoveTriggerTimes="1" Value="1" />
+      <SideEffect name="AddPlayerBuff" BuffName="DamageEnemyShipWhenAttack" RemoveTriggerTimes="1" Damage="1" />
     </CardInfo>
   </Card>
   <Card id="62801">
     <CardInfo name="baseInfo" pictureID="636" cardName="逃逸" cardName_en="Run Away" cardDesc="" isTemp="False" isHide="False" metal="0" energy="4" coin="350" effectFactor="1" limitNum="3" cardRareLevel="3" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="RunAway" IsNeedChoise="True" M_TargetRange="SelfMechs"></SideEffect>
+      <SideEffect name="RunAway" IsNeedChoice="True" TargetRange="SelfMechs"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="62901">
     <CardInfo name="baseInfo" pictureID="637" cardName="末日" cardName_en="Doomsday" cardDesc="" isTemp="False" isHide="False" metal="0" energy="6" coin="350" effectFactor="1" limitNum="1" cardRareLevel="3" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="DamageAll" IsNeedChoise="False" M_TargetRange="AllLife" Value="5"></SideEffect>
+      <SideEffect name="DamageAll" IsNeedChoice="False" TargetRange="AllLife" Damage="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="63001">
     <CardInfo name="baseInfo" pictureID="638" cardName="点石成金" cardName_en="Realize" cardDesc="" isTemp="False" isHide="False" metal="0" energy="3" coin="350" effectFactor="1" limitNum="1" cardRareLevel="1" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="TriggerOneHandCard" Value="3"></SideEffect>
+      <SideEffect name="TriggerOneHandCard" CardCount="3"></SideEffect>
     </CardInfo>
   </Card>
 
@@ -845,52 +845,52 @@
     <CardInfo name="baseInfo" pictureID="701" cardName="小型能量块" cardName_en="S Energy Cube" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="200" effectFactor="1" limitNum="5" cardRareLevel="0" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="70102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="2"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="2"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70102">
     <CardInfo name="baseInfo" pictureID="701" cardName="中型能量块" cardName_en="M Energy Cube" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="250" effectFactor="1" limitNum="0" cardRareLevel="1" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="70103" degradeCardID="70101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="4"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="4"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70103">
     <CardInfo name="baseInfo" pictureID="701" cardName="大型能量块" cardName_en="L Energy Cube" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="300" effectFactor="1" limitNum="0" cardRareLevel="2" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="70102" cardLevel="3" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="8"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="8"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70201">
     <CardInfo name="baseInfo" pictureID="702" cardName="能量环" cardName_en="Energy Ring" cardDesc="" isTemp="False" isHide="False" metal="1" energy="0" coin="700" effectFactor="1" limitNum="3" cardRareLevel="4" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="10"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="10"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70301">
     <CardInfo name="baseInfo" pictureID="703" cardName="能量球" cardName_en="Energy Ball" cardDesc="" isTemp="False" isHide="False" metal="1" energy="0" coin="250" effectFactor="1" limitNum="3" cardRareLevel="0" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="70302" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="3"></SideEffect>
-      <SideEffect name="DrawCards" Value="1"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="3"></SideEffect>
+      <SideEffect name="DrawCards" CardCount="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70302">
     <CardInfo name="baseInfo" pictureID="704" cardName="极限能量球" cardName_en="X Energy Ball" cardDesc="" isTemp="False" isHide="False" metal="2" energy="0" coin="300" effectFactor="1" limitNum="0" cardRareLevel="4" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="70301" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="5"></SideEffect>
-      <SideEffect name="DrawTypeCards" Value="1" DrawCardType="Energy"></SideEffect>
-      <SideEffect name="DrawTypeCards" Value="1" DrawCardType="Spell"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="5"></SideEffect>
+      <SideEffect name="DrawTypeCards" CardCount="1" DrawCardType="Energy"></SideEffect>
+      <SideEffect name="DrawTypeCards" CardCount="1" DrawCardType="Spell"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70501">
     <CardInfo name="baseInfo" pictureID="705" cardName="AI升级" cardName_en="AI Upgrade" cardDesc="" isTemp="False" isHide="False" metal="2" energy="0" coin="300" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="3"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="3"></SideEffect>
       <SideEffect name="GetHandCardCopy"></SideEffect>
     </CardInfo>
   </Card>
@@ -898,15 +898,15 @@
     <CardInfo name="baseInfo" pictureID="706" cardName="蚊子无人机" cardName_en="Mosquito Drone" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="300" effectFactor="1" limitNum="3" cardRareLevel="0" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddEnergyPerMechs" IsNeedChoise="False" M_TargetRange="EnemyMechs" Value="1"></SideEffect>
+      <SideEffect name="AddEnergyPerMechs" IsNeedChoice="False" TargetRange="EnemyMechs" EnergyValue="1"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70701">
     <CardInfo name="baseInfo" pictureID="707" cardName="机甲回收" cardName_en="Mech Recycle" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="400" effectFactor="1" limitNum="3" cardRareLevel="1" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="KillOne" IsNeedChoise="True" M_TargetRange="SelfMechs"></SideEffect>
-      <SideEffect name="AddEnergy" IsNeedChoise="False" M_TargetRange="SelfShip" Value="5"></SideEffect>
+      <SideEffect name="KillOne" IsNeedChoice="True" TargetRange="SelfMechs"></SideEffect>
+      <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" EnergyValue="5"></SideEffect>
     </CardInfo>
   </Card>
   <Card id="70801">
@@ -922,28 +922,28 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
       <SideEffect name="Exile"></SideEffect>
-      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenUseMetal" Value="2" />
+      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenUseMetal" EnergyValue="2" />
     </CardInfo>
   </Card>
   <Card id="71001">
     <CardInfo name="baseInfo" pictureID="710" cardName="能量种子" cardName_en="Energy Seed" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="200" effectFactor="1" limitNum="1" cardRareLevel="2" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="71002" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenRoundBegin" Value="3" RemoveTriggerTimes="3" />
+      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenRoundBegin" EnergyValue="3" RemoveTriggerTimes="3" />
     </CardInfo>
   </Card>
   <Card id="71002">
     <CardInfo name="baseInfo" pictureID="711" cardName="能量种子X" cardName_en="Energy Seed X" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="250" effectFactor="1" limitNum="0" cardRareLevel="3" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="71001" cardLevel="2" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenRoundBegin" Value="5" RemoveTriggerTimes="3" />
+      <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenRoundBegin" EnergyValue="5" RemoveTriggerTimes="3" />
     </CardInfo>
   </Card>
   <Card id="71101">
     <CardInfo name="baseInfo" pictureID="712" cardName="能量异变" cardName_en="Energy Variation" cardDesc="" isTemp="False" isHide="False" metal="0" energy="0" coin="250" effectFactor="1" limitNum="3" cardRareLevel="2" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle" triggerTime="OnPlayCard" triggerRange="Self" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-      <SideEffect name="AddPlayerBuff" BuffName="DamageEnemyShipWhenUseCards" Value="1" />
+      <SideEffect name="AddPlayerBuff" BuffName="DamageEnemyShipWhenUseCards" Damage="1" />
     </CardInfo>
   </Card>
 </AllCards>

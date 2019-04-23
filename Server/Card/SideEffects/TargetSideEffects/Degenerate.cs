@@ -11,7 +11,7 @@ namespace SideEffects
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            switch (M_TargetRange)
+            switch (TargetRange)
             {
                 case TargetRange.SelfHeroes:
                     ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(executorInfo.TargetRetinueId);

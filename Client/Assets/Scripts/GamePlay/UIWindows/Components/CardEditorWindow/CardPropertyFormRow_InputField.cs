@@ -36,4 +36,11 @@ public class CardPropertyFormRow_InputField : CardPropertyFormRow
     {
         InputField.text = value_str;
     }
+
+
+    public override void SetReadOnly(bool isReadOnly)
+    {
+        base.SetReadOnly(isReadOnly);
+        InputField.interactable = !isReadOnly;
+    }
 }

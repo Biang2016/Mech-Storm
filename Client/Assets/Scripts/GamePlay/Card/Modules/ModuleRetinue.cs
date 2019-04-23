@@ -143,16 +143,16 @@ public class ModuleRetinue : ModuleBase
         SideEffectDieIcon.gameObject.SetActive(false);
         SideEffectBGDieIcon.gameObject.SetActive(false);
 
-        if (CardInfo.SideEffectBundle_OnBattleGround.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueDie, SideEffectBundle.TriggerRange.Self).Count != 0)
+        if (CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnRetinueDie, SideEffectExecute.TriggerRange.Self).Count != 0)
         {
             SideEffectDieIcon.gameObject.SetActive(true);
             SideEffectBGDieIcon.gameObject.SetActive(true);
         }
 
-        foreach (SideEffectExecute see in CardInfo.SideEffectBundle_OnBattleGround.SideEffectExecutes)
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
         {
-            if (!(see.TriggerTime == SideEffectBundle.TriggerTime.OnRetinueDie && see.TriggerRange == SideEffectBundle.TriggerRange.Self)
-                && !(see.TriggerTime == SideEffectBundle.TriggerTime.OnRetinueSummon && see.TriggerRange == SideEffectBundle.TriggerRange.Self))
+            if (!(see.M_ExecuteSetting.TriggerTime == SideEffectExecute.TriggerTime.OnRetinueDie && see.M_ExecuteSetting.TriggerRange == SideEffectExecute.TriggerRange.Self)
+                && !(see.M_ExecuteSetting.TriggerTime == SideEffectExecute.TriggerTime.OnRetinueSummon && see.M_ExecuteSetting.TriggerRange == SideEffectExecute.TriggerRange.Self))
             {
                 SideEffectCommonIcon.gameObject.SetActive(true);
                 SideEffectBGCommonIcon.gameObject.SetActive(true);
@@ -1379,7 +1379,7 @@ public class ModuleRetinue : ModuleBase
         else
         {
             return ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.EnemySoldiers) == TargetSideEffect.TargetRange.EnemySoldiers && CardInfo.RetinueInfo.IsSoldier) ||
-                   ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.EnemyHeros) == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.RetinueInfo.IsSoldier);
+                   ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.EnemyHeroes) == TargetSideEffect.TargetRange.EnemyHeroes && !CardInfo.RetinueInfo.IsSoldier);
         }
     }
 
@@ -1448,7 +1448,7 @@ public class ModuleRetinue : ModuleBase
             if ((ClientPlayer == RoundManager.Instance.EnemyClientPlayer &&
                  (targetRange == TargetSideEffect.TargetRange.EnemyMechs ||
                   (targetRange == TargetSideEffect.TargetRange.EnemySoldiers && CardInfo.RetinueInfo.IsSoldier) ||
-                  targetRange == TargetSideEffect.TargetRange.EnemyHeros && !CardInfo.RetinueInfo.IsSoldier))
+                  targetRange == TargetSideEffect.TargetRange.EnemyHeroes && !CardInfo.RetinueInfo.IsSoldier))
                 ||
                 ClientPlayer == RoundManager.Instance.SelfClientPlayer && ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue != this &&
                 (targetRange == TargetSideEffect.TargetRange.SelfMechs || (targetRange == TargetSideEffect.TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier)))
@@ -1478,14 +1478,14 @@ public class ModuleRetinue : ModuleBase
 
     #region 副作用
 
-    public override void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
+    public override void OnShowEffects(SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange)
     {
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(triggerTime, triggerRange, ClientUtils.HTMLColorToColor("#00FFDA"), 0.4f), "ShowSideEffectBloom");
     }
 
-    IEnumerator Co_ShowSideEffectBloom(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange, Color color, float duration)
+    IEnumerator Co_ShowSideEffectBloom(SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange, Color color, float duration)
     {
-        if (triggerTime == SideEffectBundle.TriggerTime.OnRetinueDie && triggerRange == SideEffectBundle.TriggerRange.Self)
+        if (triggerTime == SideEffectExecute.TriggerTime.OnRetinueDie && triggerRange == SideEffectExecute.TriggerRange.Self)
         {
             SideEffectBGDieAnim.SetTrigger("Jump");
         }

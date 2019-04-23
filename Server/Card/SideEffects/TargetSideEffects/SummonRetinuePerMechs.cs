@@ -10,7 +10,7 @@
         {
             ServerPlayer player = (ServerPlayer) Player;
             int value = 0;
-            switch (M_TargetRange)
+            switch (TargetRange)
             {
                 case TargetRange.Mechs:
                     value = (player.MyBattleGroundManager.RetinueCount + player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount);
@@ -33,7 +33,7 @@
                 case TargetRange.EnemyMechs:
                     value = player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount;
                     break;
-                case TargetRange.EnemyHeros:
+                case TargetRange.EnemyHeroes:
                     value = player.MyEnemyPlayer.MyBattleGroundManager.HeroCount;
                     break;
                 case TargetRange.EnemySoldiers:
@@ -43,7 +43,7 @@
 
             for (int i = 0; i < value; i++)
             {
-                player.MyBattleGroundManager.AddRetinue((CardInfo_Retinue) AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardId")));
+                player.MyBattleGroundManager.AddRetinue((CardInfo_Retinue) AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardID")));
             }
         }
     }

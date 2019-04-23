@@ -7,7 +7,7 @@ public class EventManager
     public EventManager()
     {
         // Event Manager is arranged and triggered by (enum)TriggerTime.
-        foreach (SideEffectBundle.TriggerTime tt in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
+        foreach (SideEffectExecute.TriggerTime tt in Enum.GetValues(typeof(SideEffectExecute.TriggerTime)))
         {
             Events.Add(tt, new Dictionary<int, SideEffectExecute>());
             RemoveEvents.Add(tt, new Dictionary<int, SideEffectExecute>());
@@ -17,12 +17,12 @@ public class EventManager
     /// <summary>
     /// All events are stored in this Dict by (key)TriggerTime
     /// </summary>
-    private SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>> Events = new SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>>();
+    private SortedDictionary<SideEffectExecute.TriggerTime, Dictionary<int, SideEffectExecute>> Events = new SortedDictionary<SideEffectExecute.TriggerTime, Dictionary<int, SideEffectExecute>>();
 
     /// <summary>
     /// All useless events are stored in this Dict for later remove by (key)TriggerTime
     /// </summary>
-    private SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>> RemoveEvents = new SortedDictionary<SideEffectBundle.TriggerTime, Dictionary<int, SideEffectExecute>>();
+    private SortedDictionary<SideEffectExecute.TriggerTime, Dictionary<int, SideEffectExecute>> RemoveEvents = new SortedDictionary<SideEffectExecute.TriggerTime, Dictionary<int, SideEffectExecute>>();
 
     /// <summary>
     /// Cards, equipments, buffs register their sideeffects
@@ -39,13 +39,13 @@ public class EventManager
     /// <summary>
     /// Register single SideEffectExecute
     /// </summary>
-    /// <param name="sideEffectExecute"></param>
-    public void RegisterEvent(SideEffectExecute sideEffectExecute)
+    /// <param name="see"></param>
+    public void RegisterEvent(SideEffectExecute see)
     {
-        if (sideEffectExecute.TriggerTime != SideEffectBundle.TriggerTime.None && sideEffectExecute.TriggerRange != SideEffectBundle.TriggerRange.None)
+        if (see.M_ExecuteSetting.TriggerTime != SideEffectExecute.TriggerTime.None && see.M_ExecuteSetting.TriggerRange != SideEffectExecute.TriggerRange.None)
         {
-            Events[sideEffectExecute.TriggerTime].Add(sideEffectExecute.ID, sideEffectExecute);
-            RemoveEvents[sideEffectExecute.RemoveTriggerTime].Add(sideEffectExecute.ID, sideEffectExecute);
+            Events[see.M_ExecuteSetting.TriggerTime].Add(see.ID, see);
+            RemoveEvents[see.M_ExecuteSetting.RemoveTriggerTime].Add(see.ID, see);
         }
     }
 
@@ -63,10 +63,10 @@ public class EventManager
 
     public void UnRegisterEvent(SideEffectExecute see)
     {
-        Dictionary<int, SideEffectExecute> sees = Events[see.TriggerTime];
+        Dictionary<int, SideEffectExecute> sees = Events[see.M_ExecuteSetting.TriggerTime];
         if (sees.ContainsKey(see.ID)) sees.Remove(see.ID);
 
-        Dictionary<int, SideEffectExecute> sees_remove = RemoveEvents[see.TriggerTime];
+        Dictionary<int, SideEffectExecute> sees_remove = RemoveEvents[see.M_ExecuteSetting.TriggerTime];
         if (sees_remove.ContainsKey(see.ID)) sees_remove.Remove(see.ID);
     }
 
@@ -75,7 +75,7 @@ public class EventManager
     /// </summary>
     public void ClearAllEvents()
     {
-        foreach (SideEffectBundle.TriggerTime tt in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
+        foreach (SideEffectExecute.TriggerTime tt in Enum.GetValues(typeof(SideEffectExecute.TriggerTime)))
         {
             Events[tt] = new Dictionary<int, SideEffectExecute>();
             RemoveEvents[tt] = new Dictionary<int, SideEffectExecute>();
@@ -92,14 +92,14 @@ public class EventManager
 
     struct InvokeInfo
     {
-        public SideEffectBundle.TriggerTime TriggerTime;
+        public SideEffectExecute.TriggerTime TriggerTime;
 
         /// <summary>
         /// ExecutorInfo reflects as more information as possible of the executor of this invoke.
         /// </summary>
         public ExecutorInfo ExecutorInfo;
 
-        public InvokeInfo(SideEffectBundle.TriggerTime triggerTime, ExecutorInfo executorInfo)
+        public InvokeInfo(SideEffectExecute.TriggerTime triggerTime, ExecutorInfo executorInfo)
         {
             TriggerTime = triggerTime;
             ExecutorInfo = executorInfo;
@@ -115,9 +115,9 @@ public class EventManager
     /// </summary>
     /// <param name="tt"></param>
     /// <param name="executorInfo"></param>
-    public void Invoke(SideEffectBundle.TriggerTime tt, ExecutorInfo executorInfo)
+    public void Invoke(SideEffectExecute.TriggerTime tt, ExecutorInfo executorInfo)
     {
-        foreach (SideEffectBundle.TriggerTime triggerTime in Enum.GetValues(typeof(SideEffectBundle.TriggerTime)))
+        foreach (SideEffectExecute.TriggerTime triggerTime in Enum.GetValues(typeof(SideEffectExecute.TriggerTime)))
         {
             if ((tt & triggerTime) == tt) // this is a Flag Enum compare 
             {
@@ -137,7 +137,7 @@ public class EventManager
 
     private void InvokeCore(InvokeInfo invokeInfo)
     {
-        SideEffectBundle.TriggerTime tt = invokeInfo.TriggerTime;
+        SideEffectExecute.TriggerTime tt = invokeInfo.TriggerTime;
         ExecutorInfo executorInfo = invokeInfo.ExecutorInfo;
 
         Dictionary<int, SideEffectExecute> seeDict = Events[tt];
@@ -145,29 +145,35 @@ public class EventManager
         for (int i = 0; i < sees.Length; i++)
         {
             SideEffectExecute see = sees[i];
-            if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent executed sideeffects from being executed again.
+            if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent executed side effects from being executed again.
             if (seeDict.ContainsKey(see.ID))
             {
-                bool isTrigger = IsExecuteTrigger(executorInfo, see.SideEffectBase.M_ExecutorInfo, see.TriggerRange); //To check out if this event invokes any sideeffect.
-                if (isTrigger) Trigger(see, executorInfo, tt, see.TriggerRange); // invoke main trigger method.
+                foreach (SideEffectBase se in see.SideEffectBases)
+                {
+                    bool isTrigger = IsExecuteTrigger(executorInfo, se.M_ExecutorInfo, see.M_ExecuteSetting.TriggerRange); //To check out if this event invokes any side effect.
+                    if (isTrigger) Trigger(see, executorInfo, tt, see.M_ExecuteSetting.TriggerRange); // invoke main trigger method. 
+                }
             }
         }
 
-        Invoke_RemoveSEE(tt, executorInfo); //Remove executed sideeffects with zero time left.
+        Invoke_RemoveSEE(tt, executorInfo); //Remove executed side effects with zero time left.
     }
 
-    public void Invoke_RemoveSEE(SideEffectBundle.TriggerTime tt, ExecutorInfo executorInfo)
+    public void Invoke_RemoveSEE(SideEffectExecute.TriggerTime tt, ExecutorInfo executorInfo)
     {
         Dictionary<int, SideEffectExecute> seeDict = RemoveEvents[tt];
         SideEffectExecute[] sees = seeDict.Values.ToArray();
         for (int i = 0; i < sees.Length; i++)
         {
             SideEffectExecute see = sees[i];
-            if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent removed sideeffects from being removed again.
+            if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent removed side effects from being removed again.
             if (seeDict.ContainsKey(see.ID))
             {
-                bool isTrigger = IsExecuteTrigger(executorInfo, see.SideEffectBase.M_ExecutorInfo, see.RemoveTriggerRange);
-                if (isTrigger) Trigger_TryRemove(see); // invoke main trigger_remove method. (some sideeffects like buffs have a remove_time attribute. e.g. Remove this buff after 3 turns)
+                foreach (SideEffectBase se in see.SideEffectBases)
+                {
+                    bool isTrigger = IsExecuteTrigger(executorInfo, se.M_ExecutorInfo, see.M_ExecuteSetting.RemoveTriggerRange);
+                    if (isTrigger) Trigger_TryRemove(see); // invoke main trigger_remove method. (some side effects like buffs have a remove_time attribute. e.g. Remove this buff after 3 turns)
+                }
             }
         }
 
@@ -180,17 +186,20 @@ public class EventManager
     {
         foreach (KeyValuePair<int, SideEffectExecute> kv in ObsoleteSEEs)
         {
-            Dictionary<int, SideEffectExecute> event_sees = Events[kv.Value.TriggerTime];
+            Dictionary<int, SideEffectExecute> event_sees = Events[kv.Value.M_ExecuteSetting.TriggerTime];
             if (event_sees.ContainsKey(kv.Key)) event_sees.Remove(kv.Key);
 
-            Dictionary<int, SideEffectExecute> removeEvent_sees = RemoveEvents[kv.Value.TriggerTime];
+            Dictionary<int, SideEffectExecute> removeEvent_sees = RemoveEvents[kv.Value.M_ExecuteSetting.TriggerTime];
             if (removeEvent_sees.ContainsKey(kv.Key)) removeEvent_sees.Remove(kv.Key);
 
-            if (kv.Value.SideEffectBase.M_ExecutorInfo.IsPlayerBuff) //PlayerBuff
+            foreach (SideEffectBase se in kv.Value.SideEffectBases)
             {
-                if (kv.Value.SideEffectBase is PlayerBuffSideEffects buff)
+                if (se.M_ExecutorInfo.IsPlayerBuff) //PlayerBuff
                 {
-                    OnEventPlayerBuffRemoveHandler(kv.Value, buff);
+                    if (se is PlayerBuffSideEffects buff)
+                    {
+                        OnEventPlayerBuffRemoveHandler(kv.Value, buff);
+                    }
                 }
             }
         }
@@ -206,39 +215,39 @@ public class EventManager
     /// <param name="se_ExecutorInfo"></param>
     /// <param name="tr">TriggerRange, the key parameter in this method, used to compare executorInfos between events and sideeffects recorded in EventManager</param>
     /// <returns></returns>
-    private static bool IsExecuteTrigger(ExecutorInfo executorInfo, ExecutorInfo se_ExecutorInfo, SideEffectBundle.TriggerRange tr)
+    private static bool IsExecuteTrigger(ExecutorInfo executorInfo, ExecutorInfo se_ExecutorInfo, SideEffectExecute.TriggerRange tr)
     {
         bool isTrigger = false;
         switch (tr)
         {
-            case SideEffectBundle.TriggerRange.SelfPlayer:
+            case SideEffectExecute.TriggerRange.SelfPlayer:
                 if (executorInfo.ClientId == se_ExecutorInfo.ClientId) isTrigger = true;
                 break;
-            case SideEffectBundle.TriggerRange.EnemyPlayer:
+            case SideEffectExecute.TriggerRange.EnemyPlayer:
                 if (executorInfo.ClientId != se_ExecutorInfo.ClientId) isTrigger = true;
                 break;
-            case SideEffectBundle.TriggerRange.OnePlayer:
+            case SideEffectExecute.TriggerRange.OnePlayer:
                 isTrigger = true;
                 break;
-            case SideEffectBundle.TriggerRange.One:
+            case SideEffectExecute.TriggerRange.One:
                 isTrigger = true;
                 break;
-            case SideEffectBundle.TriggerRange.SelfAnother:
+            case SideEffectExecute.TriggerRange.SelfAnother:
                 if (executorInfo.ClientId == se_ExecutorInfo.ClientId &&
                     ((se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId != executorInfo.RetinueId) ||
                      (se_ExecutorInfo.CardInstanceId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.CardInstanceId != executorInfo.CardInstanceId)))
                     isTrigger = true;
                 break;
-            case SideEffectBundle.TriggerRange.Another:
+            case SideEffectExecute.TriggerRange.Another:
                 if ((se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId != executorInfo.RetinueId) ||
                     (se_ExecutorInfo.CardInstanceId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.CardInstanceId != executorInfo.CardInstanceId))
                     isTrigger = true;
                 break;
-            case SideEffectBundle.TriggerRange.Attached:
+            case SideEffectExecute.TriggerRange.Attached:
                 if (se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId == executorInfo.RetinueId)
                     isTrigger = true;
                 break;
-            case SideEffectBundle.TriggerRange.Self:
+            case SideEffectExecute.TriggerRange.Self:
                 if ((se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId == executorInfo.RetinueId) ||
                     (se_ExecutorInfo.CardInstanceId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.CardInstanceId == executorInfo.CardInstanceId) ||
                     (se_ExecutorInfo.EquipId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.EquipId == executorInfo.EquipId))
@@ -255,50 +264,57 @@ public class EventManager
     /// </summary>
     Stack<SideEffectExecute> InvokeStack = new Stack<SideEffectExecute>();
 
-    private void Trigger(SideEffectExecute see, ExecutorInfo ei, SideEffectBundle.TriggerTime tt, SideEffectBundle.TriggerRange tr)
+    private void Trigger(SideEffectExecute see, ExecutorInfo ei, SideEffectExecute.TriggerTime tt, SideEffectExecute.TriggerRange tr)
     {
-        if (see.TriggerDelayTimes > 0) //TriggerDelayTimes decreases and trigger the event when it's 0
+        if (see.M_ExecuteSetting.TriggerDelayTimes > 0) //TriggerDelayTimes decreases and trigger the event when it's 0
         {
-            see.TriggerDelayTimes--;
+            see.M_ExecuteSetting.TriggerDelayTimes--;
             return;
         }
         else
         {
-            if (see.TriggerTimes > 0) //TriggerTimes decreases every time it triggers and stop when it's 0
+            if (see.M_ExecuteSetting.TriggerTimes > 0) //TriggerTimes decreases every time it triggers and stop when it's 0
             {
                 //Trigger's trigger  -- which triggers when other events are being triggered.
                 bool isTriggerTrigger = false;
-                if (tt == SideEffectBundle.TriggerTime.OnTrigger) //Give sideeffect executing info to trigger's trigger for modifying.
+                if (tt == SideEffectExecute.TriggerTime.OnTrigger) //Give sideeffect executing info to trigger's trigger for modifying.
                 {
-                    if (see.SideEffectBase is PlayerBuffSideEffects buffSEE)
+                    foreach (SideEffectBase se in see.SideEffectBases)
                     {
-                        foreach (SideEffectBase se in buffSEE.Sub_SideEffect)
+                        if (se is PlayerBuffSideEffects buffSEE)
                         {
-                            if (se is ITrigger triggerSEE)
+                            foreach (SideEffectBase sub_se in buffSEE.Sub_SideEffect)
                             {
-                                triggerSEE.PeekSEE = InvokeStack.Peek();
-                                if (triggerSEE.IsTrigger())
+                                if (sub_se is ITrigger triggerSEE)
                                 {
-                                    isTriggerTrigger = true;
+                                    triggerSEE.PeekSEE = InvokeStack.Peek();
+                                    if (triggerSEE.IsTrigger())
+                                    {
+                                        isTriggerTrigger = true;
+                                    }
                                 }
                             }
                         }
                     }
                 }
 
-                if (tt == SideEffectBundle.TriggerTime.OnTrigger && !isTriggerTrigger) return;
+                if (tt == SideEffectExecute.TriggerTime.OnTrigger && !isTriggerTrigger) return;
                 //Trigger's trigger End
 
-                see.TriggerTimes--;
-                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBase.M_ExecutorInfo, tt, tr); //Send request to client
+                see.M_ExecuteSetting.TriggerTimes--;
+                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBases[0].M_ExecutorInfo, tt, tr); //Send request to client
                 OnEventInvokeHandler(request);
 
                 InvokeStack.Push(see);
-                Invoke(SideEffectBundle.TriggerTime.OnTrigger, ei);
-                see.SideEffectBase.Execute(ei);
+                Invoke(SideEffectExecute.TriggerTime.OnTrigger, ei);
+                foreach (SideEffectBase se in see.SideEffectBases)
+                {
+                    se.Execute(ei);
+                }
+
                 InvokeStack.Pop();
             }
-            else if (see.TriggerTimes == 0)
+            else if (see.M_ExecuteSetting.TriggerTimes == 0)
             {
                 ObsoleteSEEs.Add(see.ID, see);
             }
@@ -307,23 +323,26 @@ public class EventManager
 
     private void Trigger_TryRemove(SideEffectExecute see)
     {
-        if (see.RemoveTriggerTimes > 0) //RemoveTriggerTimes decreases every time it triggers and removes when it's 0
+        if (see.M_ExecuteSetting.RemoveTriggerTimes > 0) //RemoveTriggerTimes decreases every time it triggers and removes when it's 0
         {
-            see.RemoveTriggerTimes--;
-            if (see.SideEffectBase is PlayerBuffSideEffects buff_se)
+            see.M_ExecuteSetting.RemoveTriggerTimes--;
+            foreach (SideEffectBase se in see.SideEffectBases)
             {
-                buff_se.M_SideEffectParam.SetParam_ConstInt("RemoveTriggerTimes", buff_se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerTimes") - 1);
-            }
-
-            if (see.RemoveTriggerTimes == 0)
-            {
-                ObsoleteSEEs.Add(see.ID, see);
-            }
-            else
-            {
-                if (see.SideEffectBase is PlayerBuffSideEffects)
+                if (se is PlayerBuffSideEffects buff_se)
                 {
-                    OnEventPlayerBuffUpdateHandler(see, false);
+                    buff_se.M_SideEffectParam.SetParam_ConstInt("RemoveTriggerTimes", buff_se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerTimes") - 1);
+                }
+
+                if (see.M_ExecuteSetting.RemoveTriggerTimes == 0)
+                {
+                    ObsoleteSEEs.Add(see.ID, see);
+                }
+                else
+                {
+                    if (se is PlayerBuffSideEffects)
+                    {
+                        OnEventPlayerBuffUpdateHandler(see, false);
+                    }
                 }
             }
         }

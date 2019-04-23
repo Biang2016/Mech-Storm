@@ -25,14 +25,23 @@ public abstract class SideEffectValue : IClone<SideEffectValue>
         {
             case ValueTypes.ConstInt:
             {
-                SideEffectValue_ContInt s = (SideEffectValue_ContInt) this;
-                if (s.EnumType != null)
+                SideEffectValue_ConstInt s = (SideEffectValue_ConstInt) this;
+                if (s.EnumType == typeof(CardDeck))
+                {
+                    if (!AllCards.CardDict.ContainsKey(int.Parse(value)))
+                    {
+                        return;
+                    }
+
+                    ((SideEffectValue_ConstInt) this).Value = int.Parse(value);
+                }
+                else if (s.EnumType != null)
                 {
                     s.Value = (int) Enum.Parse(s.EnumType, value);
                 }
                 else
                 {
-                    ((SideEffectValue_ContInt) this).Value = int.Parse(value);
+                    ((SideEffectValue_ConstInt) this).Value = int.Parse(value);
                 }
 
                 break;
@@ -73,7 +82,7 @@ public abstract class SideEffectValue : IClone<SideEffectValue>
             case ValueTypes.ConstInt:
             {
                 int value = reader.ReadSInt32();
-                sev = new SideEffectValue_ContInt(name, value);
+                sev = new SideEffectValue_ConstInt(name, value);
                 break;
             }
             case ValueTypes.MultipliedInt:
@@ -100,12 +109,12 @@ public abstract class SideEffectValue : IClone<SideEffectValue>
     }
 }
 
-public class SideEffectValue_ContInt : SideEffectValue
+public class SideEffectValue_ConstInt : SideEffectValue
 {
     public int Value;
     public Type EnumType;
 
-    public SideEffectValue_ContInt(string name, int value, Type enumType = null) : base(name, ValueTypes.ConstInt)
+    public SideEffectValue_ConstInt(string name, int value, Type enumType = null) : base(name, ValueTypes.ConstInt)
     {
         Value = value;
         EnumType = enumType;
@@ -113,7 +122,7 @@ public class SideEffectValue_ContInt : SideEffectValue
 
     public override SideEffectValue Clone()
     {
-        return new SideEffectValue_ContInt(Name, Value, EnumType);
+        return new SideEffectValue_ConstInt(Name, Value, EnumType);
     }
 }
 

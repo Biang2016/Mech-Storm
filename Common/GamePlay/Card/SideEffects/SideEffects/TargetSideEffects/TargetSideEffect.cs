@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using System.Collections.Generic;
 
 public abstract class TargetSideEffect : SideEffectBase
 {
     protected override void InitSideEffectParam()
     {
         M_SideEffectParam.SetParam_Bool("IsNeedChoice", false);
-        M_SideEffectParam.SetParam_ConstInt("M_TargetRange", (int) TargetRange.None, typeof(TargetRange));
+        M_SideEffectParam.SetParam_ConstInt("ChoiceCount", 1);
+        M_SideEffectParam.SetParam_ConstInt("TargetSelectorType", (int) TargetSelectorType, typeof(TargetSelector.TargetSelectorTypes));
+        M_SideEffectParam.SetParam_ConstInt("TargetRange", (int) TargetRange.None, typeof(TargetRange));
+        M_SideEffectParam.SetParam_ConstInt("TargetSelect", (int) TargetSelect.All, typeof(TargetSelect));
     }
 
     public bool IsNeedChoice
@@ -16,41 +16,25 @@ public abstract class TargetSideEffect : SideEffectBase
         get { return M_SideEffectParam.GetParam_Bool("IsNeedChoice"); }
     }
 
-    public TargetRange M_TargetRange
+    public int ChoiceCount
     {
-        get { return (TargetRange) M_SideEffectParam.GetParam_ConstInt("M_TargetRange"); }
+        get { return M_SideEffectParam.GetParam_ConstInt("ChoiceCount"); }
     }
 
-    [Flags]
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum TargetRange
+    public abstract TargetSelector.TargetSelectorTypes TargetSelectorType { get; }
+
+    public TargetRange TargetRange
     {
-        AllLife = SelfLife | EnemyLife,
-        SelfLife = SelfMechs | SelfShip,
-        EnemyLife = EnemyMechs | EnemyShip,
-
-        Mechs = SelfMechs | EnemyMechs,
-        SelfMechs = SelfHeroes | SelfSoldiers,
-        EnemyMechs = EnemyHeros | EnemySoldiers,
-
-        Heroes = SelfHeroes | EnemyHeros,
-        SelfHeroes = 1,
-        EnemyHeros = 2,
-
-        Soldiers = SelfSoldiers | EnemySoldiers,
-        SelfSoldiers = 4,
-        EnemySoldiers = 8,
-
-        Ships = SelfShip | EnemyShip,
-        SelfShip = 16,
-        EnemyShip = 32,
-        Self = 64, //该物体自身，如出牌效果、战吼、亡语等
-        None = 0,
+        get { return (TargetRange) M_SideEffectParam.GetParam_ConstInt("TargetRange"); }
     }
 
-    public string GetDescOfTargetRange(TargetRange targetRange, bool isMulti, bool isRandom)
+    public TargetSelect TargetSelect
     {
-        string textKey = "TargetRange_" + (isMulti ? "" : "Single_") + (isRandom ? "Random_" : "") + targetRange;
-        return LanguageManager_Common.GetText(textKey);
+        get { return (TargetSelect) M_SideEffectParam.GetParam_ConstInt("TargetSelect"); }
+    }
+
+    public string GetDescOfTargetRange()
+    {
+        return TargetSelector.GetDescOfTargetSelector(TargetRange, TargetSelect);
     }
 }

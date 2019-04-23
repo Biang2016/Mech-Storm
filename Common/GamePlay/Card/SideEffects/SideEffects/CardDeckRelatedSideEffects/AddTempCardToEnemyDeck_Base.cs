@@ -3,7 +3,7 @@
     protected override void InitSideEffectParam()
     {
         M_SideEffectParam.SetParam_MultipliedInt("CardCount", 0);
-        M_SideEffectParam.SetParam_ConstInt("CardID", 0);
+        M_SideEffectParam.SetParam_ConstInt("CardID", 0, typeof(CardDeck));
     }
 
     public override string GenerateDesc()

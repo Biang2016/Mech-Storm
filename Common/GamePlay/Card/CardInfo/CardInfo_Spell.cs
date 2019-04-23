@@ -1,15 +1,16 @@
-﻿public class CardInfo_Spell : CardInfo_Base
+﻿using System.Collections.Generic;
+
+public class CardInfo_Spell : CardInfo_Base
 {
     public CardInfo_Spell()
     {
     }
 
-    public CardInfo_Spell(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
+    public CardInfo_Spell(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffectBundle)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             upgradeInfo: upgradeInfo,
-            sideEffectBundle: sideEffectBundle,
-            sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround)
+            sideEffectBundle: sideEffectBundle)
     {
         Pro_Initialize();
     }
@@ -41,8 +42,7 @@
             cardID: CardID,
             baseInfo: BaseInfo,
             upgradeInfo: UpgradeInfo,
-            sideEffectBundle: temp.SideEffectBundle.Clone(),
-            sideEffectBundle_OnBattleGround: SideEffectBundle_OnBattleGround.Clone());
+            sideEffectBundle:SideEffectBundle);
         return cs;
     }
 

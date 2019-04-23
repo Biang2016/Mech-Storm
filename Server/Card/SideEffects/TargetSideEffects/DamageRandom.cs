@@ -13,7 +13,7 @@ namespace SideEffects
             ServerPlayer player = (ServerPlayer) Player;
             int retinueId = executorInfo.RetinueId;
             int value = M_SideEffectParam.GetParam_MultipliedInt("Damage");
-            switch (M_TargetRange)
+            switch (TargetRange)
             {
                 case TargetRange.Mechs:
                 {
@@ -46,7 +46,7 @@ namespace SideEffects
                 case TargetRange.SelfHeroes:
                     player.MyBattleGroundManager.DamageRandomHero(value, retinueId);
                     break;
-                case TargetRange.EnemyHeros:
+                case TargetRange.EnemyHeroes:
                     player.MyEnemyPlayer.MyBattleGroundManager.DamageRandomHero(value, retinueId);
                     break;
                 case TargetRange.Soldiers:

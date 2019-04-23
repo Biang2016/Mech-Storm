@@ -47,6 +47,9 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         CardPropertyFormRow_Toggle,
         CardPropertyFormRow_TwoToggleRow,
         CardPropertyForm_SideEffectBundle,
+        CardPropertyForm_SideEffectExecute,
+        CardPropertyForm_ExecuteSetting,
+        CardPropertyForm_SideEffect,
     }
 
     public Dictionary<PrefabNames, int> PoolConfigs = new Dictionary<PrefabNames, int>
@@ -89,6 +92,9 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.CardPropertyFormRow_Toggle, 3},
         {PrefabNames.CardPropertyFormRow_TwoToggleRow, 3},
         {PrefabNames.CardPropertyForm_SideEffectBundle, 2},
+        {PrefabNames.CardPropertyForm_SideEffectExecute, 2},
+        {PrefabNames.CardPropertyForm_ExecuteSetting, 2},
+        {PrefabNames.CardPropertyForm_SideEffect, 2},
     };
 
     public Dictionary<PrefabNames, GameObjectPool> PoolDict = new Dictionary<PrefabNames, GameObjectPool>();

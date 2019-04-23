@@ -10,22 +10,27 @@ using System.Xml;
 public static class AllCards
 {
     public static Dictionary<int, CardInfo_Base> CardDict = new Dictionary<int, CardInfo_Base>();
-    public static Dictionary<int, int> CardPicIDDict = new Dictionary<int, int>();
     public static Dictionary<int, List<CardInfo_Base>> CardLevelDict = new Dictionary<int, List<CardInfo_Base>>();
     public static Dictionary<int, List<CardInfo_Base>> CardLevelDict_Remain = new Dictionary<int, List<CardInfo_Base>>(); //某等级的卡片还剩哪些还没解锁
 
     public static void Reset()
     {
         CardDict.Clear();
-        CardPicIDDict.Clear();
         CardLevelDict.Clear();
         CardLevelDict_Remain.Clear();
     }
 
     private static void addCard(CardInfo_Base cardInfo)
     {
-        if (!CardDict.ContainsKey(cardInfo.CardID)) CardDict.Add(cardInfo.CardID, cardInfo);
-        if (!CardPicIDDict.ContainsKey(cardInfo.CardID)) CardPicIDDict.Add(cardInfo.CardID, cardInfo.BaseInfo.PictureID);
+        if (!CardDict.ContainsKey(cardInfo.CardID))
+        {
+            CardDict.Add(cardInfo.CardID, cardInfo);
+        }
+        else
+        {
+            CardDict[cardInfo.CardID] = cardInfo;
+        }
+
         if (cardInfo.UpgradeInfo.CardLevel <= 1) //按照不同星级的同一张卡片不存储两次
         {
             if (!cardInfo.BaseInfo.IsHide && !cardInfo.BaseInfo.IsTemp)
@@ -128,6 +133,13 @@ public static class AllCards
         for (int i = 0; i < allCards.ChildNodes.Count; i++)
         {
             XmlNode card = allCards.ChildNodes.Item(i);
+            int cardID = int.Parse(card.Attributes["id"].Value);
+            CardDict.Add(cardID, new CardInfo_Base());
+        }
+
+        for (int i = 0; i < allCards.ChildNodes.Count; i++)
+        {
+            XmlNode card = allCards.ChildNodes.Item(i);
             BaseInfo baseInfo = new BaseInfo();
             UpgradeInfo upgradeInfo = new UpgradeInfo();
             LifeInfo lifeInfo = new LifeInfo();
@@ -140,7 +152,6 @@ public static class AllCards
             MAInfo maInfo = new MAInfo();
 
             SideEffectBundle sideEffectBundle = new SideEffectBundle();
-            SideEffectBundle sideEffectBundle_OnBattleGround = new SideEffectBundle();
 
             for (int j = 0; j < card.ChildNodes.Count; j++)
             {
@@ -230,12 +241,6 @@ public static class AllCards
                         ExtractSideEffectBundle(baseInfo.CardType, cardInfo, sideEffectBundle);
                         break;
                     }
-
-                    case "sideEffectsBundle_OnBattleGround":
-                    {
-                        ExtractSideEffectBundle(baseInfo.CardType, cardInfo, sideEffectBundle_OnBattleGround);
-                        break;
-                    }
                 }
             }
 
@@ -249,8 +254,7 @@ public static class AllCards
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
                         retinueInfo: retinueInfo,
-                        sideEffectBundle: sideEffectBundle,
-                        sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround));
+                        sideEffectBundle: sideEffectBundle));
                     break;
                 case CardTypes.Equip:
                     addCard(new CardInfo_Equip(
@@ -262,24 +266,21 @@ public static class AllCards
                         shieldInfo: shieldInfo,
                         packInfo: packInfo,
                         maInfo: maInfo,
-                        sideEffectBundle: sideEffectBundle,
-                        sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround));
+                        sideEffectBundle: sideEffectBundle));
                     break;
                 case CardTypes.Spell:
                     addCard(new CardInfo_Spell(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        sideEffectBundle: sideEffectBundle,
-                        sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround));
+                        sideEffectBundle: sideEffectBundle));
                     break;
                 case CardTypes.Energy:
                     addCard(new CardInfo_Spell(
                         cardID: int.Parse(card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        sideEffectBundle: sideEffectBundle,
-                        sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround));
+                        sideEffectBundle: sideEffectBundle));
                     break;
             }
         }
@@ -291,119 +292,91 @@ public static class AllCards
         }
     }
 
-    private static void ExtractSideEffectBundle(CardTypes cardType, XmlNode cardInfo, SideEffectBundle cur_seb)
+    private static void ExtractSideEffectBundle(CardTypes cardType, XmlNode cardInfo, SideEffectBundle seb)
     {
-        SideEffectBundle.TriggerTime triggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), cardInfo.Attributes["triggerTime"].Value);
-        SideEffectBundle.TriggerRange triggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), cardInfo.Attributes["triggerRange"].Value);
-        int triggerDelayTimes = int.Parse(cardInfo.Attributes["triggerDelayTimes"].Value);
-        int triggerTimes = int.Parse(cardInfo.Attributes["triggerTimes"].Value);
-        SideEffectBundle.TriggerTime removeTriggerTime = (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), cardInfo.Attributes["removeTriggerTime"].Value);
-        SideEffectBundle.TriggerRange removeTriggerRange = (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), cardInfo.Attributes["removeTriggerRange"].Value);
-        int removeTriggerTimes = int.Parse(cardInfo.Attributes["removeTriggerTimes"].Value);
+        SideEffectExecute.SideEffectFrom sideEffectFrom = SideEffectExecute.SideEffectFrom.Unknown;
+        switch (cardType)
+        {
+            case CardTypes.Retinue:
+                sideEffectFrom = SideEffectExecute.SideEffectFrom.RetinueSideEffect;
+                break;
+            case CardTypes.Equip:
+                sideEffectFrom = SideEffectExecute.SideEffectFrom.EquipSideEffect;
+                break;
+            case CardTypes.Spell:
+                sideEffectFrom = SideEffectExecute.SideEffectFrom.SpellCard;
+                break;
+            case CardTypes.Energy:
+                sideEffectFrom = SideEffectExecute.SideEffectFrom.EnergyCard;
+                break;
+        }
 
         for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
         {
-            XmlNode sideEffectInfo = cardInfo.ChildNodes[k];
-            SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
-            GetInfoForSideEffect(sideEffectInfo, sideEffect);
+            XmlNode sideEffectExecuteInfo = cardInfo.ChildNodes.Item(k);
+            SideEffectExecute.ExecuteSetting es = SideEffectExecute.ExecuteSetting.GenerateFromXMLNode(sideEffectExecuteInfo);
 
-            SideEffectExecute.SideEffectFrom sideEffectFrom = SideEffectExecute.SideEffectFrom.Unknown;
-            switch (cardType)
+            List<SideEffectBase> ses = new List<SideEffectBase>();
+
+            for (int m = 0; m < sideEffectExecuteInfo.ChildNodes.Count; m++)
             {
-                case CardTypes.Retinue:
-                    sideEffectFrom = SideEffectExecute.SideEffectFrom.RetinueSideEffect;
-                    break;
-                case CardTypes.Equip:
-                    sideEffectFrom = SideEffectExecute.SideEffectFrom.EquipSideEffect;
-                    break;
-                case CardTypes.Spell:
-                    sideEffectFrom = SideEffectExecute.SideEffectFrom.SpellCard;
-                    break;
-                case CardTypes.Energy:
-                    sideEffectFrom = SideEffectExecute.SideEffectFrom.EnergyCard;
-                    break;
+                XmlNode sideEffectInfo = sideEffectExecuteInfo.ChildNodes.Item(m);
+                SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
+                GetInfoForSideEffect(sideEffectInfo, sideEffect);
+                ses.Add(sideEffect);
             }
 
-            SideEffectExecute see = new SideEffectExecute(sideEffectFrom, sideEffect, triggerTime, triggerRange, triggerDelayTimes, triggerTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes);
-            cur_seb.AddSideEffectExecute(see);
+            SideEffectExecute see = new SideEffectExecute(sideEffectFrom, ses, es);
+            seb.AddSideEffectExecute(see);
         }
     }
 
     public static void GetInfoForSideEffect(XmlNode sideEffectInfo, SideEffectBase sideEffect)
     {
         List<XmlAttribute> noMatchAttrs = sideEffect.M_SideEffectParam.GetParamsFromXMLNode(sideEffectInfo);
-//TODO 覆写参数逻辑梳理
-//        foreach (XmlAttribute attr in noMatchAttrs)
-//        {
-//            if (sideEffect is AddPlayerBuff_Base se)
-//            {
-//                FieldInfo fi = se.AttachedBuffSEE.GetType().GetField(attr.Name); //override其携带的buff的参数
-//                SetAttr(se.AttachedBuffSEE, attr, fi);
-//
-//                SideEffectValue sev = se.AttachedBuffSEE.SideEffectBase.M_SideEffectParam.GetParam(attr.Name);
-//                if (sev != null)
-//                {
-//                    sev.SetValue(attr.Value);
-//                }
-//
-//                fi = se.AttachedBuffSEE.SideEffectBase.GetType().GetField(attr.Name); //override其buff中的se的参数
-//                SetAttr(se.AttachedBuffSEE.SideEffectBase, attr, fi);
-//
-//                foreach (SideEffectBase sub_se in se.AttachedBuffSEE.SideEffectBase.Sub_SideEffect) //override其buff中的se中的sub_se的参数
-//                {
-//                    fi = sub_se.GetType().GetField(attr.Name);
-//                    SetAttr(sub_se, attr, fi);
-//                }
-//            }
-//        }
-//
-//        for (int l = 0; l < sideEffectInfo.Attributes.Count; l++)
-//        {
-//            if (fi == null) //如果fi为空，表明这是override携带的buff的参数
-//            {
-//            }
-//            else
-//            {
-//                SetAttr(sideEffect, attr, fi);
-//            }
-//        }
+        foreach (XmlAttribute attr in noMatchAttrs)
+        {
+            if (sideEffect is AddPlayerBuff_Base se)
+            {
+                if (attr.Name.Contains("Buff."))
+                {
+                    if (!attr.Name.Contains("Buff.SideEffect."))
+                    {
+                        string attrName = attr.Name.Replace("Buff.", "");
+                        SideEffectValue sev = se.AttachedBuffSEE.SideEffectBases[0].M_SideEffectParam.GetParam(attrName); //override其携带的buff的参数
+                        if (sev != null)
+                        {
+                            sev.SetValue(attr.Value);
+                        }
+                        else
+                        {
+                            Utils.DebugLog("OverrideParamForBuff -> NoMatchAttr in " + sideEffect.GetType() + " attrName: " + attr.Name);
+                        }
+                    }
+                    else
+                    {
+                        foreach (SideEffectBase buff_subSE in se.AttachedBuffSEE.SideEffectBases[0].Sub_SideEffect)
+                        {
+                            string attrName = attr.Name.Replace("Buff.SideEffect.", "");
+                            SideEffectValue sev = buff_subSE.M_SideEffectParam.GetParam(attrName); //override其携带的buff的sideEffect的参数
+                            if (sev != null)
+                            {
+                                sev.SetValue(attr.Value);
+                            }
+                            else
+                            {
+                                Utils.DebugLog("OverrideParamForBuff -> NoMatchAttr in " + sideEffect.GetType() + " attrName: " + attr.Name);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Utils.DebugLog("OverrideParamForBuff -> NoMatchAttr in " + sideEffect.GetType());
+            }
+        }
     }
-
-//    private static void SetAttr(object obj, XmlAttribute attr, FieldInfo fi)
-//    {
-//        if (fi == null)
-//        {
-//            return; //!!!
-//        }
-//
-//        switch (fi.FieldType.Name)
-//        {
-//            case "Int32":
-//                fi.SetValue(obj, int.Parse(attr.Value));
-//                break;
-//            case "String":
-//                fi.SetValue(obj, attr.Value);
-//                break;
-//            case "Boolean":
-//                fi.SetValue(obj, attr.Value == "True");
-//                break;
-//            case "TargetRange":
-//                fi.SetValue(obj, (TargetSideEffect.TargetRange) Enum.Parse(typeof(TargetSideEffect.TargetRange), attr.Value));
-//                break;
-//            case "TriggerTime":
-//                fi.SetValue(obj, (SideEffectBundle.TriggerTime) Enum.Parse(typeof(SideEffectBundle.TriggerTime), attr.Value));
-//                break;
-//            case "TriggerRange":
-//                fi.SetValue(obj, (SideEffectBundle.TriggerRange) Enum.Parse(typeof(SideEffectBundle.TriggerRange), attr.Value));
-//                break;
-//            case "CardTypes":
-//                fi.SetValue(obj, (CardTypes) Enum.Parse(typeof(CardTypes), attr.Value));
-//                break;
-//            case "SideEffectValue":
-//                fi.SetValue(obj, new SideEffectValue(int.Parse(attr.Value)));
-//                break;
-//        }
-//    }
 
     public static CardInfo_Base GetCard(int cardID)
     {

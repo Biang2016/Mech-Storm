@@ -9,7 +9,7 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            if ((M_TargetRange & TargetRange.SelfMechs) != 0)
+            if ((TargetRange & TargetRange.SelfMechs) != 0)
             {
                 player.MyBattleGroundManager.GetRetinue(executorInfo.TargetRetinueId).M_ImmuneLeftRounds += M_SideEffectParam.GetParam_MultipliedInt("Rounds");
                 player.MyBattleGroundManager.GetRetinue(executorInfo.TargetRetinueId).M_InactivityRounds += M_SideEffectParam.GetParam_MultipliedInt("Rounds");

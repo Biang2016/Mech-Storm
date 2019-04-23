@@ -9,7 +9,7 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            if ((M_TargetRange & TargetRange.SelfSoldiers) != 0)
+            if ((TargetRange & TargetRange.SelfSoldiers) != 0)
             {
                 ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(executorInfo.TargetRetinueId);
                 int life = retinue.M_RetinueLeftLife;

@@ -12,24 +12,23 @@ public struct TargetInfo
         get { return !HasTargetRetinue && !HasTargetEquip && !HasTargetShip; }
     }
 
-    public TargetSideEffect.TargetRange targetRetinueRange;
-    public TargetSideEffect.TargetRange targetEquipRange;
-    public TargetSideEffect.TargetRange targetShipRange;
+    public TargetRange targetRetinueRange;
+    public TargetRange targetEquipRange;
+    public TargetRange targetShipRange;
 
     public void Initialize(CardInfo_Base CardInfo)
     {
         FindTargetInSideEffectBundle(CardInfo.SideEffectBundle, CardInfo);
-        FindTargetInSideEffectBundle(CardInfo.SideEffectBundle_OnBattleGround, CardInfo);
     }
 
     private void FindTargetInSideEffectBundle(SideEffectBundle seb, CardInfo_Base CardInfo)
     {
-        foreach (SideEffectExecute see in seb.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
+        foreach (SideEffectExecute see in seb.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnPlayCard, SideEffectExecute.TriggerRange.Self))
         {
             if (FindTarget(see)) break;
         }
 
-        foreach (SideEffectExecute see in seb.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnRetinueSummon, SideEffectBundle.TriggerRange.Self))
+        foreach (SideEffectExecute see in seb.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnRetinueSummon, SideEffectExecute.TriggerRange.Self))
         {
             if (FindTarget(see)) break;
         }
@@ -37,29 +36,31 @@ public struct TargetInfo
 
     bool FindTarget(SideEffectExecute see)
     {
-        SideEffectBase se = see.SideEffectBase;
-        if (se is TargetSideEffect tse && tse.IsNeedChoice)
+        foreach (SideEffectBase se in see.SideEffectBases)
         {
-            if (tse is TargetSideEffectEquip && ((TargetSideEffectEquip) tse).IsNeedChoice)
+            if (se is TargetSideEffect tse && tse.IsNeedChoice)
             {
-                HasTargetEquip = true;
-                targetEquipRange = ((TargetSideEffectEquip) tse).M_TargetRange;
-                return true;
-            }
-            else
-            {
-                TargetSideEffect.TargetRange temp = tse.M_TargetRange;
-                if ((temp & TargetSideEffect.TargetRange.Ships) == TargetSideEffect.TargetRange.None)
+                if (tse is TargetSideEffectEquip && ((TargetSideEffectEquip) tse).IsNeedChoice)
                 {
-                    HasTargetRetinue = true;
-                    targetRetinueRange = tse.M_TargetRange;
+                    HasTargetEquip = true;
+                    targetEquipRange = ((TargetSideEffectEquip) tse).TargetRange;
                     return true;
                 }
                 else
                 {
-                    HasTargetShip = true;
-                    targetShipRange = tse.M_TargetRange;
-                    return true;
+                    TargetRange temp = tse.TargetRange;
+                    if ((temp & TargetRange.Ships) == TargetRange.None)
+                    {
+                        HasTargetRetinue = true;
+                        targetRetinueRange = tse.TargetRange;
+                        return true;
+                    }
+                    else
+                    {
+                        HasTargetShip = true;
+                        targetShipRange = tse.TargetRange;
+                        return true;
+                    }
                 }
             }
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Networking.Match;
 using UnityEngine.UI;
 
 public class CardPropertyFormRow_Dropdown : CardPropertyFormRow
@@ -21,6 +22,7 @@ public class CardPropertyFormRow_Dropdown : CardPropertyFormRow
             Dropdown.options.Add(new Dropdown.OptionData(option));
         }
 
+        Dropdown.onValueChanged.RemoveAllListeners();
         Dropdown.onValueChanged.AddListener(delegate { onValueChangeAction(Dropdown.captionText.text); });
     }
 
@@ -41,5 +43,11 @@ public class CardPropertyFormRow_Dropdown : CardPropertyFormRow
             Dropdown.value = 0;
             Dropdown.value = setValue;
         }
+    }
+
+    public override void SetReadOnly(bool isReadOnly)
+    {
+        base.SetReadOnly(isReadOnly);
+        Dropdown.interactable = !isReadOnly;
     }
 }

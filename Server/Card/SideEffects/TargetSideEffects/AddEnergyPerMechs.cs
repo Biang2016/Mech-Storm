@@ -10,8 +10,8 @@
         {
             ServerPlayer player = (ServerPlayer) Player;
             int finalValue = 0;
-            int energyValue = M_SideEffectParam.GetParam_MultipliedInt("EnergyValue");
-            switch (M_TargetRange)
+            int energyValue = M_SideEffectParam.GetParam_MultipliedInt("Energy");
+            switch (TargetRange)
             {
                 case TargetRange.Mechs:
                     finalValue = energyValue * (player.MyBattleGroundManager.RetinueCount + player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount);
@@ -34,7 +34,7 @@
                 case TargetRange.EnemyMechs:
                     finalValue = energyValue * player.MyEnemyPlayer.MyBattleGroundManager.RetinueCount;
                     break;
-                case TargetRange.EnemyHeros:
+                case TargetRange.EnemyHeroes:
                     finalValue = energyValue * player.MyEnemyPlayer.MyBattleGroundManager.HeroCount;
                     break;
                 case TargetRange.EnemySoldiers:

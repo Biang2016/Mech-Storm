@@ -23,4 +23,11 @@ public class CardPropertyFormRow_TwoToggleRow : CardPropertyFormRow
     protected override void SetValue(string value_str)
     {
     }
+
+    public override void SetReadOnly(bool isReadOnly)
+    {
+        base.SetReadOnly(isReadOnly);
+        ToggleLeft.SetReadOnly(isReadOnly);
+        ToggleLeft.SetReadOnly(isReadOnly);
+    }
 }

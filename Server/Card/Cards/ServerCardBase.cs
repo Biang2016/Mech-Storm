@@ -42,13 +42,16 @@
         isInitialized = true;
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
         {
-            see.SideEffectBase.Player = ServerPlayer;
-            if (see.SideEffectBase is CardRelatedSideEffect)
+            foreach (SideEffectBase se in see.SideEffectBases)
             {
-                ((CardRelatedSideEffect) see.SideEffectBase).TargetCardInstanceId = M_CardInstanceId;
-            }
+                se.Player = ServerPlayer;
+                if (se is HandCardRelatedSideEffect)
+                {
+                    ((HandCardRelatedSideEffect)se).TargetCardInstanceId = M_CardInstanceId;
+                }
 
-            see.SideEffectBase.M_ExecutorInfo = new ExecutorInfo(clientId: ServerPlayer.ClientId, sideEffectExecutorID: see.ID, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
+                se.M_ExecutorInfo = new ExecutorInfo(clientId: ServerPlayer.ClientId, sideEffectExecutorID: see.ID, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
+            }
         }
 
         ServerPlayer.MyGameManager.EventManager.RegisterEvent(CardInfo.SideEffectBundle);

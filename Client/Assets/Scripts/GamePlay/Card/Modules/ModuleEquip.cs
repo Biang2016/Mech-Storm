@@ -121,7 +121,7 @@ public abstract class ModuleEquip : ModuleBase
 
     #region SE
 
-    public override void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
+    public override void OnShowEffects(SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange)
     {
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()), 0.5f), "ShowSideEffectBloom");
     }

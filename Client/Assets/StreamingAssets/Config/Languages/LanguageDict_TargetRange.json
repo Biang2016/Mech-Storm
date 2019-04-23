@@ -65,136 +65,207 @@
 	},
 
 
-	"TargetRange_Single_Random_Mechs": {
+	"TargetRange_SingleRandom_Mechs": {
 		"zh": "一个随机机甲",
 		"en": "A Random Mech "
 	},
-	"TargetRange_Single_Random_SelfMechs": {
+	"TargetRange_SingleRandom_SelfMechs": {
 		"zh": "一个随机我方机甲",
 		"en": "A Random Mech of Yours "
 	},
-	"TargetRange_Single_Random_EnemyMechs": {
+	"TargetRange_SingleRandom_EnemyMechs": {
 		"zh": "一个随机敌方机甲",
 		"en": "A Random Mech of Enemy's "
 	},
-	"TargetRange_Single_Random_Heroes": {
+	"TargetRange_SingleRandom_Heroes": {
 		"zh": "一个随机英雄",
 		"en": "A Random HeroMech "
 	},
-	"TargetRange_Single_Random_SelfHeroes": {
+	"TargetRange_SingleRandom_SelfHeroes": {
 		"zh": "一个随机我方英雄",
 		"en": "A Random HeroMech of Yours "
 	},
-	"TargetRange_Single_Random_EnemyHeroes": {
+	"TargetRange_SingleRandom_EnemyHeroes": {
 		"zh": "一个随机敌方英雄",
 		"en": "A Random HeroMech of Enemy's "
 	},
-	"TargetRange_Single_Random_Soldiers": {
+	"TargetRange_SingleRandom_Soldiers": {
 		"zh": "一个随机士兵",
 		"en": "A Random SoldierMech "
 	},
-	"TargetRange_Single_Random_SelfSoldiers": {
+	"TargetRange_SingleRandom_SelfSoldiers": {
 		"zh": "一个随机我方士兵",
 		"en": "A Random SoldierMech of Yours "
 	},
-	"TargetRange_Single_Random_EnemySoldiers": {
+	"TargetRange_SingleRandom_EnemySoldiers": {
 		"zh": "一个随机敌方士兵",
 		"en": "A Random SoldierMech of Enemy's "
 	},
-	"TargetRange_Single_Random_SelfShip": {
+	"TargetRange_SingleRandom_SelfShip": {
 		"zh": "我方战舰",
 		"en": "Your Spaceship "
 	},
-	"TargetRange_Single_Random_EnemyShip": {
+	"TargetRange_SingleRandom_EnemyShip": {
 		"zh": "敌方战舰",
 		"en": "Enemy's Spaceship "
 	},
-	"TargetRange_Single_Random_Ships": {
+	"TargetRange_SingleRandom_Ships": {
 		"zh": "一个随机战舰",
 		"en": "A Random Spaceship "
 	},
-	"TargetRange_Single_Random_AllLife": {
+	"TargetRange_SingleRandom_AllLife": {
 		"zh": "一个随机角色",
 		"en": "A Random Target "
 	},
-	"TargetRange_Single_Random_SelfLife": {
+	"TargetRange_SingleRandom_SelfLife": {
 		"zh": "一个随机我方角色",
 		"en": "A Random Object of Yours "
 	},
-	"TargetRange_Single_Random_EnemyLife": {
+	"TargetRange_SingleRandom_EnemyLife": {
 		"zh": "一个随机敌方角色",
 		"en": "A Random Object of Enemy's "
 	},
-	"TargetRange_Single_Random_Self": {
+	"TargetRange_SingleRandom_Self": {
 		"zh": "自身",
 		"en": "Self "
 	},
 
 
-	"TargetRange_Mechs": {
+	"TargetRange_Multiple_Mechs": {
 		"zh": "所有机甲",
 		"en": "All Mechs "
 	},
-	"TargetRange_SelfMechs": {
+	"TargetRange_Multiple_SelfMechs": {
 		"zh": "所有我方机甲",
 		"en": "All Your Mechs "
 	},
-	"TargetRange_EnemyMechs": {
+	"TargetRange_Multiple_EnemyMechs": {
 		"zh": "所有敌方机甲",
 		"en": "All Enemy's Mechs "
 	},
-	"TargetRange_Heroes": {
+	"TargetRange_Multiple_Heroes": {
 		"zh": "所有英雄",
 		"en": "All HeroMech "
 	},
-	"TargetRange_SelfHeroes": {
+	"TargetRange_Multiple_SelfHeroes": {
 		"zh": "所有我方英雄",
 		"en": "All Your HeroMechs "
 	},
-	"TargetRange_EnemyHeroes": {
+	"TargetRange_Multiple_EnemyHeroes": {
 		"zh": "所有敌方英雄",
 		"en": "All Enemy's HeroMechs "
 	},
-	"TargetRange_Soldiers": {
+	"TargetRange_Multiple_Soldiers": {
 		"zh": "所有士兵",
 		"en": "All SoldierMechs "
 	},
-	"TargetRange_SelfSoldiers": {
+	"TargetRange_Multiple_SelfSoldiers": {
 		"zh": "所有我方士兵",
 		"en": "All Your SoldierMechs "
 	},
-	"TargetRange_EnemySoldiers": {
+	"TargetRange_Multiple_EnemySoldiers": {
 		"zh": "所有敌方士兵",
 		"en": "All Enemy's SoldierMechs "
 	},
-	"TargetRange_SelfShip": {
+	"TargetRange_Multiple_SelfShip": {
 		"zh": "我方战舰",
 		"en": "Your Spaceship "
 	},
-	"TargetRange_EnemyShip": {
+	"TargetRange_Multiple_EnemyShip": {
 		"zh": "敌方战舰",
 		"en": "Enemy's Spaceship "
 	},
-	"TargetRange_Ships": {
+	"TargetRange_Multiple_Ships": {
 		"zh": "所有战舰",
 		"en": "All Spaceships "
 	},
-	"TargetRange_AllLife": {
+	"TargetRange_Multiple_AllLife": {
 		"zh": "所有角色",
 		"en": "All Targets "
 	},
-	"TargetRange_SelfLife": {
+	"TargetRange_Multiple_SelfLife": {
 		"zh": "所有我方角色",
 		"en": "All Your Objects "
 	},
-	"TargetRange_EnemyLife": {
+	"TargetRange_Multiple_EnemyLife": {
 		"zh": "所有敌方角色",
 		"en": "All Enemy's Objects "
 	},
-	"TargetRange_Self": {
+	"TargetRange_Multiple_Self": {
 		"zh": "自身",
 		"en": "Self "
+	},
+	"TargetRange_Multiple_None": {
+		"zh": "",
+		"en": ""
+	},
+
+	"TargetRange_MultipleRandom_Mechs": {
+		"zh": "随机{0}个机甲",
+		"en": "{0} Random Mechs "
+	},
+	"TargetRange_MultipleRandom_SelfMechs": {
+		"zh": "随机{0}个我方机甲",
+		"en": "{0} Random Mechs of Yours "
+	},
+	"TargetRange_MultipleRandom_EnemyMechs": {
+		"zh": "随机{0}个敌方机甲",
+		"en": "{0} Random Mechs of Enemy's "
+	},
+	"TargetRange_MultipleRandom_Heroes": {
+		"zh": "随机{0}个英雄",
+		"en": "{0} Random HeroMechs "
+	},
+	"TargetRange_MultipleRandom_SelfHeroes": {
+		"zh": "随机{0}个我方英雄",
+		"en": "{0} Random HeroMechs of Yours "
+	},
+	"TargetRange_MultipleRandom_EnemyHeroes": {
+		"zh": "随机{0}个敌方英雄",
+		"en": "{0} Random HeroMechs of Enemy's "
+	},
+	"TargetRange_MultipleRandom_Soldiers": {
+		"zh": "随机{0}个士兵",
+		"en": "{0} Random SoldierMechs "
+	},
+	"TargetRange_MultipleRandom_SelfSoldiers": {
+		"zh": "随机{0}个我方士兵",
+		"en": "{0} Random SoldierMechs of Yours "
+	},
+	"TargetRange_MultipleRandom_EnemySoldiers": {
+		"zh": "随机{0}个敌方士兵",
+		"en": "{0} Random SoldierMechs of Enemy's "
+	},
+	"TargetRange_MultipleRandom_SelfShip": {
+		"zh": "我方战舰",
+		"en": "Your Spaceship "
+	},
+	"TargetRange_MultipleRandom_EnemyShip": {
+		"zh": "敌方战舰",
+		"en": "Enemy's Spaceship "
+	},
+	"TargetRange_MultipleRandom_Ships": {
+		"zh": "一个随机战舰",
+		"en": "A Random Spaceship "
+	},
+	"TargetRange_MultipleRandom_AllLife": {
+		"zh": "随机{0}个角色",
+		"en": "{0} Random Targets "
+	},
+	"TargetRange_MultipleRandom_SelfLife": {
+		"zh": "随机{0}个我方角色",
+		"en": "{0} Random Targets of Yours "
+	},
+	"TargetRange_MultipleRandom_EnemyLife": {
+		"zh": "随机{0}个敌方角色",
+		"en": "{0} Random Targets of Enemy's "
+	},
+	"TargetRange_MultipleRandom_Self": {
+		"zh": "自身",
+		"en": "Self "
+	},
+	"TargetRange_MultipleRandom_None": {
+		"zh": "",
+		"en": ""
 	}
-
-
 }

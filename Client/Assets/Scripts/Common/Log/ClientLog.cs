@@ -6,11 +6,11 @@ public class ClientLog : MonoSingleton<ClientLog>
 {
     private ClientLog()
     {
+        LogMessages = new Queue<Log>();
     }
 
     void Awake()
     {
-        LogMessages = new Queue<Log>();
         //sw = new StreamWriter(Application.streamingAssetsPath + "/RequestLog.txt", false);
         //sw.Close();
     }

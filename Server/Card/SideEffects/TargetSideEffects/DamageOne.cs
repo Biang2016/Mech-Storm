@@ -11,13 +11,13 @@
             ServerPlayer player = (ServerPlayer) Player;
             int value = M_SideEffectParam.GetParam_MultipliedInt("Damage");
 
-            if ((M_TargetRange & TargetRange.Mechs) != 0)
+            if ((TargetRange & TargetRange.Mechs) != 0)
             {
                 player.MyBattleGroundManager.DamageOneRetinue(executorInfo.TargetRetinueId, value);
                 player.MyEnemyPlayer.MyBattleGroundManager.DamageOneRetinue(executorInfo.TargetRetinueId, value);
             }
 
-            if ((M_TargetRange & TargetRange.Ships) != 0)
+            if ((TargetRange & TargetRange.Ships) != 0)
             {
                 if (executorInfo.TargetClientId == player.ClientId)
                 {
@@ -29,12 +29,12 @@
                 }
                 else
                 {
-                    if ((M_TargetRange & TargetRange.SelfShip) != 0) player.DamageLifeAboveZero(value);
-                    if ((M_TargetRange & TargetRange.EnemyShip) != 0) player.MyEnemyPlayer.DamageLifeAboveZero(value);
+                    if ((TargetRange & TargetRange.SelfShip) != 0) player.DamageLifeAboveZero(value);
+                    if ((TargetRange & TargetRange.EnemyShip) != 0) player.MyEnemyPlayer.DamageLifeAboveZero(value);
                 }
             }
 
-            if (M_TargetRange == TargetRange.Self)
+            if (TargetRange == TargetRange.Self)
             {
                 player.MyBattleGroundManager.DamageOneRetinue(executorInfo.RetinueId, value);
             }

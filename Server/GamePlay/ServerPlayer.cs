@@ -34,210 +34,99 @@ internal class ServerPlayer : Player
 
     #region MetalChange
 
-    public void AddMetalWithoutLimit(int addMetalValue)
-    {
-        AddMetal(addMetalValue);
-        if (addMetalValue != 0)
-        {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
-            BroadCastRequest(request);
-        }
-    }
-
-    public void AddMetalWithinMax(int addMetalValue)
-    {
-        int metalLeftBefore = MetalLeft;
-        if (MetalMax - MetalLeft > addMetalValue)
-            AddMetal(addMetalValue);
-        else
-            AddMetal(MetalMax - MetalLeft);
-        if (addMetalValue != 0)
-        {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
-            BroadCastRequest(request);
-        }
-    }
-
-    public void UseMetalAboveZero(int useMetalValue)
-    {
-        int metalLeftBefore = MetalLeft;
-        if (MetalLeft > useMetalValue)
-        {
-            AddMetal(-useMetalValue);
-        }
-        else
-        {
-            AddMetal(-MetalLeft);
-        }
-
-        if (useMetalValue != 0)
-        {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
-            BroadCastRequest(request);
-
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnUseMetal, new ExecutorInfo(clientId: ClientId, value: useMetalValue));
-        }
-    }
-
-    public void AddAllMetal()
-    {
-        int metalLeftBefore = MetalLeft;
-        AddMetal(MetalMax - MetalLeft);
-        if (MetalLeft - metalLeftBefore != 0)
-        {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
-            BroadCastRequest(request);
-        }
-    }
-
-    public void UseAllMetal()
-    {
-        int metalLeftBefore = MetalLeft;
-        AddMetal(-MetalLeft);
-        if (MetalLeft - metalLeftBefore != 0)
-        {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
-            BroadCastRequest(request);
-        }
-    }
-
-    public void IncreaseMetalMax(int increaseValue)
-    {
-        if (MetalMax + increaseValue <= GamePlaySettings.MaxMetal)
-            AddMetalMax(increaseValue);
-        else
-            AddMetalMax(GamePlaySettings.MaxMetal - MetalMax);
-        if (increaseValue != 0)
-        {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
-            BroadCastRequest(request);
-        }
-    }
-
-    public void DecreaseMetalMax(int decreaseValue)
-    {
-        if (MetalMax <= decreaseValue)
-            AddMetalMax(-MetalMax);
-        else
-            AddMetalMax(-decreaseValue);
-        if (decreaseValue != 0)
-        {
-            PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
-            BroadCastRequest(request);
-        }
-    }
-
     protected override void OnMetalChanged(int change)
     {
-        base.OnMetalChanged(change);
+        base.OnMaxMetalChanged(change);
         MyHandManager.RefreshAllCardUsable();
+        PlayerMetalChangeRequest request = new PlayerMetalChangeRequest(ClientId, MetalLeft, MetalMax);
+        BroadCastRequest(request);
+    }
+
+    protected override void OnMetalIncrease(int change)
+    {
+        base.OnMetalIncrease(change);
+    }
+
+    protected override void OnMetalUsed(int change)
+    {
+        base.OnMetalUsed(change);
+        MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnUseMetal, new ExecutorInfo(clientId: ClientId, value: change));
+    }
+
+    protected override void OnMetalReduce(int change)
+    {
+        base.OnMetalReduce(change);
     }
 
     #endregion
 
     #region LifeChange
 
-    public void AddLifeWithinMax(int addLifeValue)
+    protected override void OnLifeChanged(int change, bool isOverflow)
     {
-        int LifeLeftBefore = LifeLeft;
-        if (LifeMax - LifeLeft > addLifeValue)
-            AddLife(addLifeValue);
-        else
-            AddLife(LifeMax - LifeLeft);
-        if (addLifeValue != 0)
-        {
-            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
-            BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new ExecutorInfo(ClientId, value: addLifeValue));
-        }
-    }
-
-    public void DamageLifeAboveZero(int useLifeValue)
-    {
-        int LifeLeftBefore = LifeLeft;
-        if (LifeLeft > useLifeValue)
-            AddLife(-useLifeValue);
-        else
-            AddLife(-LifeLeft);
-        if (useLifeValue != 0)
-        {
-            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
-            BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerLostLife, new ExecutorInfo(ClientId, value: useLifeValue));
-        }
-
+        base.OnLifeChanged(change, isOverflow);
+        PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
+        BroadCastRequest(request);
         if (LifeLeft <= 0)
         {
             MyGameManager.OnEndGame(MyEnemyPlayer);
         }
     }
 
-    public void AddAllLife()
+    protected override void OnHeal(int change, bool isOverflow)
     {
-        int LifeLeftBefore = LifeLeft;
-        AddLife(LifeMax - LifeLeft);
-        if (LifeLeft - LifeLeftBefore != 0)
-        {
-            PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
-            BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerAddLife, new ExecutorInfo(ClientId, value: LifeLeft - LifeLeftBefore));
-        }
+        base.OnHeal(change, isOverflow);
+        MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerAddLife, new ExecutorInfo(ClientId, value: change));
+    }
+
+    protected override void OnDamage(int change)
+    {
+        base.OnDamage(change);
+        MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerLostLife, new ExecutorInfo(ClientId, value: change));
+    }
+
+    protected override void OnMaxLifeChanged(int change)
+    {
+        base.OnMaxLifeChanged(change);
+    }
+
+    protected override void OnMaxLifeIncrease(int change)
+    {
+        base.OnMaxLifeIncrease(change);
+    }
+
+    protected override void OnMaxLifeReduce(int change)
+    {
+        base.OnMaxLifeReduce(change);
     }
 
     #endregion
 
     #region EnergyChange
 
-    protected override void OnEnergyChanged(int change)
+    protected override void OnEnergyChanged(int change, bool isOverflow)
     {
-        base.OnEnergyChanged(change);
+        base.OnEnergyChanged(change, isOverflow);
         MyHandManager.RefreshAllCardUsable();
+        PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax, isOverflow);
+        BroadCastRequest(request);
     }
 
-    public void AddEnergyWithinMax(int addEnergyValue)
+    protected override void OnEnergyIncrease(int change, bool isOverflow)
     {
-        int EnergyLeftBefore = EnergyLeft;
-        bool isOverflow = false;
-        if (EnergyMax - EnergyLeft > addEnergyValue)
-            AddEnergy(addEnergyValue);
-        else
-        {
-            AddEnergy(EnergyMax - EnergyLeft);
-            isOverflow = true;
-        }
-
-        if (addEnergyValue != 0)
-        {
-            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax, isOverflow);
-            BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerGetEnergy, new ExecutorInfo(ClientId, value: addEnergyValue));
-        }
+        base.OnEnergyIncrease(change, isOverflow);
+        MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerGetEnergy, new ExecutorInfo(ClientId, value: change));
     }
 
-    public void UseEnergyAboveZero(int useEnergyValue)
+    protected override void OnEnergyReduce(int change)
     {
-        int EnergyLeftBefore = EnergyLeft;
-        if (EnergyLeft > useEnergyValue)
-            AddEnergy(-useEnergyValue);
-        else
-            AddEnergy(-EnergyLeft);
-        if (useEnergyValue != 0)
-        {
-            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax);
-            BroadCastRequest(request);
-            MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnPlayerUseEnergy, new ExecutorInfo(ClientId, value: useEnergyValue));
-        }
+        base.OnEnergyReduce(change);
     }
 
-    public void AddAllEnergy()
+    protected override void OnEnergyUsed(int change)
     {
-        int EnergyLeftBefore = EnergyLeft;
-        AddEnergy(EnergyMax - EnergyLeft);
-        if (EnergyLeft - EnergyLeftBefore != 0)
-        {
-            PlayerEnergyChangeRequest request = new PlayerEnergyChangeRequest(ClientId, EnergyLeft, EnergyMax);
-            BroadCastRequest(request);
-        }
+        base.OnEnergyUsed(change);
+        MyGameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerUseEnergy, new ExecutorInfo(ClientId, value: change));
     }
 
     #endregion
@@ -305,97 +194,100 @@ internal class ServerPlayer : Player
 
     public void UpdatePlayerBuff(SideEffectExecute newSee, bool isAdd = false)
     {
-        if (newSee.SideEffectBase is PlayerBuffSideEffects buff)
+        foreach (SideEffectBase se in newSee.SideEffectBases)
         {
-            if (SideEffectBundles_Player.ContainsKey(buff.Name))
+            if (se is PlayerBuffSideEffects buff)
             {
-                Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.Name];
-                if (sees.Count != 0) //存在该buff
+                if (SideEffectBundles_Player.ContainsKey(buff.Name))
                 {
-                    if (buff.M_SideEffectParam.GetParam_Bool("Singleton")) //buff是单例，只能存在一个
+                    Dictionary<int, SideEffectExecute> sees = SideEffectBundles_Player[buff.Name];
+                    if (sees.Count != 0) //存在该buff
                     {
-                        if (sees.Count > 1) //多于一个，清空重来
+                        if (buff.M_SideEffectParam.GetParam_Bool("Singleton")) //buff是单例，只能存在一个
                         {
-                            int RemainRemoveTriggerTime = 0;
-                            foreach (KeyValuePair<int, SideEffectExecute> kv in sees)
+                            if (sees.Count > 1) //多于一个，清空重来
                             {
-                                RemainRemoveTriggerTime = kv.Value.RemoveTriggerTimes;
-                            }
+                                int RemainRemoveTriggerTime = 0;
+                                foreach (KeyValuePair<int, SideEffectExecute> kv in sees)
+                                {
+                                    RemainRemoveTriggerTime = kv.Value.M_ExecuteSetting.RemoveTriggerTimes;
+                                }
 
-                            ClearSEEByBuffName(buff.Name, sees);
+                                ClearSEEByBuffName(buff.Name, sees);
 
-                            if (buff.M_SideEffectParam.GetParam_Bool("CanPiled")) //可以堆叠
-                            {
-                                newSee.RemoveTriggerTimes = RemainRemoveTriggerTime;
-                            }
+                                if (buff.M_SideEffectParam.GetParam_Bool("CanPiled")) //可以堆叠
+                                {
+                                    newSee.M_ExecuteSetting.RemoveTriggerTimes = RemainRemoveTriggerTime;
+                                }
 
-                            CreateNewBuff(newSee, buff, sees);
-                        }
-                        else
-                        {
-                            SideEffectExecute see = sees.Values.ToList()[0];
-                            if (isAdd)
-                            {
-                                PileBuff(see, newSee);
+                                CreateNewBuff(newSee, buff, sees);
                             }
                             else
                             {
-                                see.RemoveTriggerTimes = newSee.RemoveTriggerTimes;
-                            }
+                                SideEffectExecute see = sees.Values.ToList()[0];
+                                if (isAdd)
+                                {
+                                    PileBuff(see, newSee);
+                                }
+                                else
+                                {
+                                    see.M_ExecuteSetting.RemoveTriggerTimes = newSee.M_ExecuteSetting.RemoveTriggerTimes;
+                                }
 
-                            PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see);
-                            BroadCastRequest(request);
+                                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see);
+                                BroadCastRequest(request);
+                            }
+                        }
+                        else //buff不是单例，则对应加到seeID上去
+                        {
+                            if (sees.ContainsKey(newSee.ID))
+                            {
+                                SideEffectExecute see = sees[newSee.ID];
+                                if (isAdd)
+                                {
+                                    PileBuff(see, newSee);
+                                }
+                                else
+                                {
+                                    see.M_ExecuteSetting.RemoveTriggerTimes = newSee.M_ExecuteSetting.RemoveTriggerTimes;
+                                }
+
+                                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see);
+                                BroadCastRequest(request);
+                            }
+                            else //ID不存在场上，新建一个buff
+                            {
+                                CreateNewBuff(newSee, buff, sees);
+                            }
                         }
                     }
-                    else //buff不是单例，则对应加到seeID上去
+                    else //不存在该buff
                     {
-                        if (sees.ContainsKey(newSee.ID))
-                        {
-                            SideEffectExecute see = sees[newSee.ID];
-                            if (isAdd)
-                            {
-                                PileBuff(see, newSee);
-                            }
-                            else
-                            {
-                                see.RemoveTriggerTimes = newSee.RemoveTriggerTimes;
-                            }
-
-                            PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see);
-                            BroadCastRequest(request);
-                        }
-                        else //ID不存在场上，新建一个buff
-                        {
-                            CreateNewBuff(newSee, buff, sees);
-                        }
+                        CreateNewBuff(newSee, buff, sees);
                     }
                 }
-                else //不存在该buff
+                else
                 {
+                    Dictionary<int, SideEffectExecute> sees = new Dictionary<int, SideEffectExecute>();
+                    SideEffectBundles_Player.Add(buff.Name, sees);
                     CreateNewBuff(newSee, buff, sees);
                 }
-            }
-            else
-            {
-                Dictionary<int, SideEffectExecute> sees = new Dictionary<int, SideEffectExecute>();
-                SideEffectBundles_Player.Add(buff.Name, sees);
-                CreateNewBuff(newSee, buff, sees);
             }
         }
     }
 
     private static void PileBuff(SideEffectExecute see, SideEffectExecute newSee)
     {
-        PlayerBuffSideEffects buff = (PlayerBuffSideEffects) newSee.SideEffectBase;
+        PlayerBuffSideEffects buff = (PlayerBuffSideEffects) newSee.SideEffectBases[0];
         if (buff.M_SideEffectParam.GetParam_Bool("CanPiled")) //可以堆叠
         {
             if ((PlayerBuffSideEffects.BuffPiledBy) buff.M_SideEffectParam.GetParam_ConstInt("PiledBy") == PlayerBuffSideEffects.BuffPiledBy.RemoveTriggerTimes)
             {
-                see.RemoveTriggerTimes += newSee.RemoveTriggerTimes;
+                see.M_ExecuteSetting.RemoveTriggerTimes += newSee.M_ExecuteSetting.RemoveTriggerTimes;
             }
             else if ((PlayerBuffSideEffects.BuffPiledBy) buff.M_SideEffectParam.GetParam_ConstInt("PiledBy") == PlayerBuffSideEffects.BuffPiledBy.Value)
             {
-                foreach (SideEffectBase ori_buff in see.SideEffectBase.Sub_SideEffect)
+                foreach (SideEffectBase ori_buff in see.SideEffectBases[0].Sub_SideEffect)
                 {
                     foreach (SideEffectBase add_buff in buff.Sub_SideEffect)
                     {

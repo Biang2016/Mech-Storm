@@ -9,7 +9,7 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            switch (M_TargetRange)
+            switch (TargetRange)
             {
                 case TargetRange.Mechs:
                     player.MyBattleGroundManager.KillAllRetinues();
@@ -22,24 +22,24 @@
                     player.MyEnemyPlayer.MyBattleGroundManager.KillAllRetinues();
                     break;
                 case TargetRange.Heroes:
-                    player.MyBattleGroundManager.KillAllHeros();
-                    player.MyEnemyPlayer.MyBattleGroundManager.KillAllHeros();
+                    player.MyBattleGroundManager.KillAllHeroes();
+                    player.MyEnemyPlayer.MyBattleGroundManager.KillAllHeroes();
                     break;
                 case TargetRange.SelfHeroes:
-                    player.MyBattleGroundManager.KillAllHeros();
+                    player.MyBattleGroundManager.KillAllHeroes();
                     break;
-                case TargetRange.EnemyHeros:
-                    player.MyEnemyPlayer.MyBattleGroundManager.KillAllHeros();
+                case TargetRange.EnemyHeroes:
+                    player.MyEnemyPlayer.MyBattleGroundManager.KillAllHeroes();
                     break;
                 case TargetRange.Soldiers:
-                    player.MyBattleGroundManager.KillAllSodiers();
-                    player.MyEnemyPlayer.MyBattleGroundManager.KillAllSodiers();
+                    player.MyBattleGroundManager.KillAllSoldiers();
+                    player.MyEnemyPlayer.MyBattleGroundManager.KillAllSoldiers();
                     break;
                 case TargetRange.SelfSoldiers:
-                    player.MyBattleGroundManager.KillAllSodiers();
+                    player.MyBattleGroundManager.KillAllSoldiers();
                     break;
                 case TargetRange.EnemySoldiers:
-                    player.MyEnemyPlayer.MyBattleGroundManager.KillAllSodiers();
+                    player.MyEnemyPlayer.MyBattleGroundManager.KillAllSoldiers();
                     break;
                 case TargetRange.SelfShip:
                     break;

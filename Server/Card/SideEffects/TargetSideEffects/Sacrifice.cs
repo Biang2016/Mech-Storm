@@ -9,7 +9,7 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            switch (M_TargetRange)
+            switch (TargetRange)
             {
                 case TargetRange.SelfMechs:
                     player.MyEnemyPlayer.MyBattleGroundManager.DamageAllRetinues(M_SideEffectParam.GetParam_MultipliedInt("ValueBasic"));

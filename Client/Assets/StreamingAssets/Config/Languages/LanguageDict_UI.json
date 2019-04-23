@@ -716,6 +716,10 @@
 		"zh": "临",
 		"en": "T"
 	},
+	"CardEditorWindow_SideEffectBundleText": {
+		"zh": "卡牌效果",
+		"en": "Card Effects"
+	},
 	"CardEditorWindow_CardType": {
 		"zh": "卡牌类型",
 		"en": "Card Type"
@@ -876,10 +880,6 @@
 	"CardEditorWindow_SideEffectBundle": {
 		"zh": "出牌效果",
 		"en": "Playout Effects"
-	},
-	"CardEditorWindow_SideEffectBundle_OnBattleGround": {
-		"zh": "在场效果",
-		"en": "Battleground Effects"
 	},
 	"CardEditorWindow_TriggerTime": {
 		"zh": "触发时机",

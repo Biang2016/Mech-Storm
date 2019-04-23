@@ -28,6 +28,12 @@
 
     public override string GenerateDesc()
     {
-        return AttachedBuffSEE.SideEffectBase.GenerateDesc();
+        string desc = "";
+        foreach (SideEffectBase se in AttachedBuffSEE.SideEffectBases)
+        {
+            desc += se.GenerateDesc() + ",";
+        }
+
+        return desc.TrimEnd(",".ToCharArray());
     }
 }

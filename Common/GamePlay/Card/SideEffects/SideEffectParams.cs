@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 
 public class SideEffectParam : IClone<SideEffectParam>
@@ -22,6 +23,20 @@ public class SideEffectParam : IClone<SideEffectParam>
     public int Factor = 1;
     Dictionary<SideEffectValue.ValueTypes, Dictionary<string, SideEffectValue>> ParamsDict = new Dictionary<SideEffectValue.ValueTypes, Dictionary<string, SideEffectValue>>(); // 按类型分
 
+    public List<SideEffectValue> SideEffectValues
+    {
+        get
+        {
+            List<SideEffectValue> res = new List<SideEffectValue>();
+            foreach (KeyValuePair<SideEffectValue.ValueTypes, Dictionary<string, SideEffectValue>> kv in ParamsDict)
+            {
+                res.AddRange(kv.Value.Values.ToList());
+            }
+
+            return res;
+        }
+    }
+
     public SideEffectValue GetParam(string name)
     {
         foreach (KeyValuePair<SideEffectValue.ValueTypes, Dictionary<string, SideEffectValue>> kv in ParamsDict)
@@ -37,11 +52,11 @@ public class SideEffectParam : IClone<SideEffectParam>
     {
         if (!ParamsDict[SideEffectValue.ValueTypes.ConstInt].ContainsKey(name))
         {
-            ParamsDict[SideEffectValue.ValueTypes.ConstInt].Add(name, new SideEffectValue_ContInt(name, value, enumType));
+            ParamsDict[SideEffectValue.ValueTypes.ConstInt].Add(name, new SideEffectValue_ConstInt(name, value, enumType));
         }
         else
         {
-            ParamsDict[SideEffectValue.ValueTypes.ConstInt][name] = new SideEffectValue_ContInt(name, value, enumType);
+            ParamsDict[SideEffectValue.ValueTypes.ConstInt][name] = new SideEffectValue_ConstInt(name, value, enumType);
         }
     }
 
@@ -86,7 +101,7 @@ public class SideEffectParam : IClone<SideEffectParam>
         ParamsDict[SideEffectValue.ValueTypes.ConstInt].TryGetValue(name, out SideEffectValue sev);
         if (sev != null)
         {
-            return ((SideEffectValue_ContInt) sev).Value;
+            return ((SideEffectValue_ConstInt) sev).Value;
         }
         else
         {
@@ -174,14 +189,17 @@ public class SideEffectParam : IClone<SideEffectParam>
         for (int i = 0; i < node.Attributes.Count; i++)
         {
             XmlAttribute attr = node.Attributes[i];
-            SideEffectValue sev = GetParam(attr.Name);
-            if (sev != null)
+            if (!attr.Name.Equals("name") && !attr.Name.Contains("desc"))
             {
-                sev.SetValue(attr.Value);
-            }
-            else
-            {
-                notMatchAttrs.Add(attr);
+                SideEffectValue sev = GetParam(attr.Name);
+                if (sev != null)
+                {
+                    sev.SetValue(attr.Value);
+                }
+                else
+                {
+                    notMatchAttrs.Add(attr);
+                }
             }
         }
 

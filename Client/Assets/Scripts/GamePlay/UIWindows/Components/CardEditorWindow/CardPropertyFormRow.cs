@@ -16,7 +16,7 @@ public abstract class CardPropertyFormRow : PoolObject
 
     public enum CardPropertyFormRowType
     {
-        InputFiled,
+        InputField,
         Dropdown,
         Toggle,
         TwoToggle
@@ -27,7 +27,7 @@ public abstract class CardPropertyFormRow : PoolObject
         CardPropertyFormRow res = null;
         switch (type)
         {
-            case CardPropertyFormRowType.InputFiled:
+            case CardPropertyFormRowType.InputField:
             {
                 CardPropertyFormRow_InputField row = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyFormRow_InputField].AllocateGameObject<CardPropertyFormRow_InputField>(parent);
                 row.Initialize(labelStrKey, onValueChangeAction: onValueChangeAction, setValue: out setValue, onButtonClick: onButtonClick);
@@ -67,13 +67,28 @@ public abstract class CardPropertyFormRow : PoolObject
 
     protected void Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
-        LanguageManager.Instance.RegisterTextKeys(new List<ValueTuple<Text, string>>
+        if (LanguageManager.Instance.GetText(labelStrKey) != null)
         {
-            (Label, labelStrKey),
-        });
+            LanguageManager.Instance.RegisterTextKeys(new List<ValueTuple<Text, string>>
+            {
+                (Label, labelStrKey),
+            });
+        }
+        else
+        {
+            if (Label)
+            {
+                Label.text = labelStrKey;
+            }
+        }
 
         Child_Initialize(labelStrKey, onValueChangeAction, dropdownOptionList, onButtonClick);
         setValue = SetValue;
+    }
+
+    public virtual void SetReadOnly(bool isReadOnly)
+    {
+
     }
 
     protected virtual void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)

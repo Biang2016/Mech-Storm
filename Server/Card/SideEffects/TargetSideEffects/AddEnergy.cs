@@ -9,19 +9,15 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            int value = M_SideEffectParam.GetParam_MultipliedInt("EnergyValue");
-            switch (M_TargetRange)
+            int value = M_SideEffectParam.GetParam_MultipliedInt("Energy");
+            foreach (ServerPlayer serverPlayer in ServerBattleGroundManager.GetMechsPlayerByTargetRange(TargetRange, player))
             {
-                case TargetRange.Ships:
-                    player.AddEnergyWithinMax(value);
-                    player.MyEnemyPlayer.AddEnergyWithinMax(value);
-                    break;
-                case TargetRange.SelfShip:
-                    player.AddEnergyWithinMax(value);
-                    break;
-                case TargetRange.EnemyShip:
-                    player.MyEnemyPlayer.AddEnergyWithinMax(value);
-                    break;
+                serverPlayer.MyGameManager.ChangePlayerValue(
+                    ServerGameManager.PlayerValueType.Energy,
+                    value, 
+                    ChoiceCount, 
+                    TargetSelect,
+                    executorInfo.TargetClientIds);
             }
         }
     }

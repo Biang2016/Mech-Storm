@@ -10,31 +10,33 @@ public class CardSpell : CardBase
         CardInfo.TargetInfo.HasTargetEquip = false;
         CardInfo.TargetInfo.HasTargetShip = false;
 
-        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnPlayCard, SideEffectExecute.TriggerRange.Self))
         {
-            SideEffectBase se = see.SideEffectBase;
-            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoice)
+            foreach (SideEffectBase se in see.SideEffectBases)
             {
-                if (se is TargetSideEffectEquip && ((TargetSideEffectEquip) se).IsNeedChoice)
+                if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoice)
                 {
-                    CardInfo.TargetInfo.HasTargetEquip = true;
-                    CardInfo.TargetInfo.targetEquipRange = ((TargetSideEffectEquip) se).M_TargetRange;
-                    break;
-                }
-                else
-                {
-                    TargetSideEffect.TargetRange temp = ((TargetSideEffect) se).M_TargetRange;
-                    if (temp != TargetSideEffect.TargetRange.Ships && temp != TargetSideEffect.TargetRange.SelfShip && temp != TargetSideEffect.TargetRange.EnemyShip && temp != TargetSideEffect.TargetRange.AllLife)
+                    if (se is TargetSideEffectEquip && ((TargetSideEffectEquip) se).IsNeedChoice)
                     {
-                        CardInfo.TargetInfo.HasTargetRetinue = true;
-                        CardInfo.TargetInfo.targetRetinueRange = ((TargetSideEffect) se).M_TargetRange;
+                        CardInfo.TargetInfo.HasTargetEquip = true;
+                        CardInfo.TargetInfo.targetEquipRange = ((TargetSideEffectEquip) se).TargetRange;
                         break;
                     }
                     else
                     {
-                        CardInfo.TargetInfo.HasTargetShip = true;
-                        CardInfo.TargetInfo.targetShipRange = ((TargetSideEffect) se).M_TargetRange;
-                        break;
+                        TargetSideEffect.TargetRange temp = ((TargetSideEffect) se).TargetRange;
+                        if (temp != TargetSideEffect.TargetRange.Ships && temp != TargetSideEffect.TargetRange.SelfShip && temp != TargetSideEffect.TargetRange.EnemyShip && temp != TargetSideEffect.TargetRange.AllLife)
+                        {
+                            CardInfo.TargetInfo.HasTargetRetinue = true;
+                            CardInfo.TargetInfo.targetRetinueRange = ((TargetSideEffect) se).TargetRange;
+                            break;
+                        }
+                        else
+                        {
+                            CardInfo.TargetInfo.HasTargetShip = true;
+                            CardInfo.TargetInfo.targetShipRange = ((TargetSideEffect) se).TargetRange;
+                            break;
+                        }
                     }
                 }
             }
@@ -83,7 +85,7 @@ public class CardSpell : CardBase
                         case TargetSideEffect.TargetRange.SelfHeroes:
                             if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
-                        case TargetSideEffect.TargetRange.EnemyHeros:
+                        case TargetSideEffect.TargetRange.EnemyHeroes:
                             if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetSideEffect.TargetRange.Soldiers:
@@ -151,7 +153,7 @@ public class CardSpell : CardBase
                             case TargetSideEffect.TargetRange.SelfHeroes:
                                 if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
-                            case TargetSideEffect.TargetRange.EnemyHeros:
+                            case TargetSideEffect.TargetRange.EnemyHeroes:
                                 if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetSideEffect.TargetRange.Soldiers:
@@ -237,16 +239,19 @@ public class CardSpell : CardBase
 
     private int CalculateAttack()
     {
-        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectBundle.TriggerTime.OnPlayCard, SideEffectBundle.TriggerRange.Self))
+        int damage = 0;
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnPlayCard, SideEffectExecute.TriggerRange.Self))
         {
-            SideEffectBase se = see.SideEffectBase;
-            if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoice)
+            foreach (SideEffectBase se in see.SideEffectBases)
             {
-                if (se is IDamage) return ((IDamage) se).CalculateDamage();
+                if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoice)
+                {
+                    if (se is IDamage damageSE) damage += damageSE.CalculateDamage();
+                }
             }
         }
 
-        return 0;
+        return damage;
     }
 
     public override float DragComponent_DragDistance()

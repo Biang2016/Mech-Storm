@@ -1,15 +1,16 @@
-﻿public class CardInfo_Retinue : CardInfo_Base
+﻿using System.Collections.Generic;
+
+public class CardInfo_Retinue : CardInfo_Base
 {
     public CardInfo_Retinue()
     {
     }
 
-    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, RetinueInfo retinueInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
+    public CardInfo_Retinue(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, RetinueInfo retinueInfo, SideEffectBundle sideEffectBundle)
         : base(cardID: cardID,
             upgradeInfo: upgradeInfo,
             baseInfo: baseInfo,
-            sideEffectBundle: sideEffectBundle,
-            sideEffectBundle_OnBattleGround: sideEffectBundle_OnBattleGround)
+            sideEffectBundle: sideEffectBundle)
     {
         LifeInfo = lifeInfo;
         BattleInfo = battleInfo;
@@ -57,8 +58,7 @@
             lifeInfo: LifeInfo,
             battleInfo: BattleInfo,
             retinueInfo: RetinueInfo,
-            sideEffectBundle: temp.SideEffectBundle.Clone(),
-            sideEffectBundle_OnBattleGround: SideEffectBundle_OnBattleGround.Clone());
+            sideEffectBundle:SideEffectBundle);
         return cb;
     }
 

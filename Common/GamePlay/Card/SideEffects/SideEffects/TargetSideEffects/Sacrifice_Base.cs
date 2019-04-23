@@ -7,9 +7,13 @@
         M_SideEffectParam.SetParam_MultipliedInt("ValuePlus", 0);
     }
 
+    public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.RetinueBased;
+
     public override string GenerateDesc()
     {
-        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange((TargetRange) M_SideEffectParam.GetParam_ConstInt("M_TargetRange"), false, false), M_SideEffectParam.GetParam_MultipliedInt("ValueBasic"),
+        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+            GetDescOfTargetRange(),
+            M_SideEffectParam.GetParam_MultipliedInt("ValueBasic"),
             M_SideEffectParam.GetParam_MultipliedInt("ValuePlus"));
     }
 

@@ -152,7 +152,7 @@ internal class ServerGameManager
 
     void OnBeginRound()
     {
-        CurrentPlayer.IncreaseMetalMax(GamePlaySettings.MetalIncrease);
+        CurrentPlayer.MetalMaxChange(GamePlaySettings.MetalIncrease);
         CurrentPlayer.AddAllMetal();
         CurrentPlayer.MyHandManager.BeginRound();
         CurrentPlayer.MyBattleGroundManager.BeginRound();
@@ -448,7 +448,7 @@ internal class ServerGameManager
 
     public List<int> DieRetinueList = new List<int>();
 
-    public void AddDieTogatherRetinuesInfo(int dieRetinueId)
+    public void AddDieTogetherRetinuesInfo(int dieRetinueId)
     {
         DieRetinueList.Add(dieRetinueId);
     }
@@ -479,17 +479,196 @@ internal class ServerGameManager
 
     public void OnPlayerBuffReduce(SideEffectExecute see, bool isAdd) //buff剩余次数减少
     {
-        ((ServerPlayer) see.SideEffectBase.Player).UpdatePlayerBuff(see, isAdd);
+        foreach (SideEffectBase se in see.SideEffectBases)
+        {
+            ((ServerPlayer) se.Player).UpdatePlayerBuff(see, isAdd);
+        }
     }
 
     public void OnPlayerBuffRemove(SideEffectExecute see, PlayerBuffSideEffects buff) //buff剩余次数减少
     {
-        ((ServerPlayer) see.SideEffectBase.Player).RemovePlayerBuff(see, buff);
+        foreach (SideEffectBase se in see.SideEffectBases)
+        {
+            ((ServerPlayer) se.Player).RemovePlayerBuff(see, buff);
+        }
     }
 
     #endregion
 
     #region Utils
+
+    public enum PlayerValueType
+    {
+        AddLife,
+        Heal,
+        Energy,
+    }
+
+    private Dictionary<PlayerValueType, Action<ServerPlayer, int>> PlayerValueChangeDelegates = new Dictionary<PlayerValueType, Action<ServerPlayer, int>>
+    {
+        {PlayerValueType.AddLife, delegate(ServerPlayer player, int value) { ((ILife) player).AddLife(value); }},
+        {PlayerValueType.Heal, delegate(ServerPlayer player, int value) { ((ILife) player).Heal(value); }},
+        {PlayerValueType.Energy, delegate(ServerPlayer player, int value) { player.AddEnergy(value); }},
+    };
+
+    public void ChangePlayerValue(PlayerValueType playerValueType, int value, int count, TargetSelect targetSelect, List<int> targetClientIds)
+    {
+        Action<ServerPlayer, int> action = PlayerValueChangeDelegates[playerValueType];
+        switch (targetSelect)
+        {
+            case TargetSelect.All:
+            {
+                action(PlayerA, value);
+                action(PlayerB, value);
+
+                break;
+            }
+            case TargetSelect.Multiple:
+            {
+                foreach (int clientId in targetClientIds)
+                {
+                    action(GetPlayerByClientId(clientId), value);
+                }
+
+                break;
+            }
+            case TargetSelect.MultipleRandom:
+            {
+                List<int> clientIds = Utils.GetRandomFromList(targetClientIds, count);
+                foreach (int clientId in clientIds)
+                {
+                    action(GetPlayerByClientId(clientId), value);
+                }
+
+                break;
+            }
+            case TargetSelect.Single:
+            {
+                action(GetPlayerByClientId(targetClientIds[0]), value);
+                break;
+            }
+            case TargetSelect.SingleRandom:
+            {
+                action(GetRandomPlayer(1)[0], value);
+                break;
+            }
+        }
+    }
+
+    public enum ILifeOperationType
+    {
+        AddLife,
+        Heal,
+        Damage,
+        Change,
+        HealAll,
+        ChangeMaxLife,
+    }
+
+    private Dictionary<ILifeOperationType, Action<ILife, int>> ILifeOperationDelegates = new Dictionary<ILifeOperationType, Action<ILife, int>>
+    {
+        {ILifeOperationType.AddLife, delegate(ILife life, int value) { life.AddLife(value); }},
+        {ILifeOperationType.Heal, delegate(ILife life, int value) { life.Heal(value); }},
+        {ILifeOperationType.Damage, delegate(ILife life, int value) { life.Damage(value); }},
+        {ILifeOperationType.Change, delegate(ILife life, int value) { life.Change(value); }},
+        {ILifeOperationType.HealAll, delegate(ILife life, int value) { life.HealAll(); }},
+        {ILifeOperationType.ChangeMaxLife, delegate(ILife life, int value) { life.ChangeMaxLife(value); }},
+    };
+
+    public void ChangeAllILifeValue(List<ServerPlayer> players, ILifeOperationType iLifeOperationType, int value, int count, TargetSelect targetSelect, List<int> targetClientIds, List<int> targetRetinueIds)
+    {
+        Action<ILife, int> action = ILifeOperationDelegates[iLifeOperationType];
+        switch (targetSelect)
+        {
+            case TargetSelect.All:
+            {
+                foreach (ServerPlayer player in players)
+                {
+                    action(player, value);
+                    foreach (ServerModuleRetinue retinue in player.MyBattleGroundManager.Retinues)
+                    {
+                        action(retinue, value);
+                    }
+                }
+
+                break;
+            }
+            case TargetSelect.Multiple:
+            {
+                foreach (int clientId in targetClientIds)
+                {
+                    action(GetPlayerByClientId(clientId), value);
+                }
+
+                foreach (int retinueId in targetRetinueIds)
+                {
+                    action(GetRetinueOnBattleGround(retinueId), value);
+                }
+
+                break;
+            }
+            case TargetSelect.MultipleRandom:
+            {
+                List<ILife> lives = GetAllLifeInBattleGround(players);
+                List<ILife> selectedLives = Utils.GetRandomFromList(lives, count);
+                foreach (ILife life in selectedLives)
+                {
+                    action(life, value);
+                }
+
+                break;
+            }
+            case TargetSelect.Single:
+            {
+                foreach (int clientId in targetClientIds)
+                {
+                    action(GetPlayerByClientId(clientId), value);
+                    break;
+                }
+
+                foreach (int retinueId in targetRetinueIds)
+                {
+                    action(GetRetinueOnBattleGround(retinueId), value);
+                    break;
+                }
+
+                break;
+            }
+            case TargetSelect.SingleRandom:
+            {
+                List<ILife> lives = GetAllLifeInBattleGround(players);
+                List<ILife> selectedLives = Utils.GetRandomFromList(lives, 1);
+                foreach (ILife life in selectedLives)
+                {
+                    action(life, value);
+                    break;
+                }
+
+                break;
+            }
+        }
+    }
+
+    public List<ILife> GetAllLifeInBattleGround(List<ServerPlayer> players)
+    {
+        List<ILife> res = new List<ILife>();
+        foreach (ServerPlayer player in players)
+        {
+            foreach (ServerModuleRetinue smr in player.MyBattleGroundManager.Retinues)
+            {
+                res.Add(smr);
+            }
+
+            res.Add(player);
+        }
+
+        return res;
+    }
+
+    public List<ServerPlayer> GetRandomPlayer(int count)
+    {
+        return Utils.GetRandomFromList(new List<ServerPlayer> {PlayerA, PlayerB}, count);
+    }
 
     public void Broadcast_AddRequestToOperationResponse(ServerRequestBase request)
     {

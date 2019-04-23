@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverComponent
@@ -133,7 +134,7 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
 
     #region SE
 
-    public virtual void OnShowEffects(SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
+    public virtual void OnShowEffects(SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange)
     {
     }
 

@@ -1,7 +1,7 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
+﻿using System.Collections.Generic;
+using System.Reflection;
 
-public class CardInfo_Base
+public class CardInfo_Base : IClone<CardInfo_Base>
 {
     public int CardID;
     public BaseInfo BaseInfo;
@@ -16,20 +16,18 @@ public class CardInfo_Base
     public PackInfo PackInfo;
     public MAInfo MAInfo;
 
-    public SideEffectBundle SideEffectBundle = new SideEffectBundle();
-    public SideEffectBundle SideEffectBundle_OnBattleGround = new SideEffectBundle(); //只有在战场上才会生效的特效（如装备牌和随从牌）
+    public SideEffectBundle SideEffectBundle;
 
     public CardInfo_Base()
     {
     }
 
-    protected CardInfo_Base(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_OnBattleGround)
+    protected CardInfo_Base(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffectBundle)
     {
         CardID = cardID;
         BaseInfo = baseInfo;
         UpgradeInfo = upgradeInfo;
         SideEffectBundle = sideEffectBundle;
-        SideEffectBundle_OnBattleGround = sideEffectBundle_OnBattleGround;
         TargetInfo.Initialize(this);
         Pro_Initialize();
     }
@@ -54,7 +52,6 @@ public class CardInfo_Base
     {
         string CardDescShow = "";
         CardDescShow += SideEffectBundle.GetSideEffectsDesc();
-        CardDescShow += SideEffectBundle_OnBattleGround.GetSideEffectsDesc();
         return CardDescShow;
     }
 
@@ -68,14 +65,14 @@ public class CardInfo_Base
         return 0f;
     }
 
-    public string GetCardDecsTextColor()
+    public string GetCardDescTextColor()
     {
         return AllColors.ColorDict[AllColors.ColorType.CardDescTextColor];
     }
 
     public virtual CardInfo_Base Clone()
     {
-        return new CardInfo_Base(CardID, BaseInfo, UpgradeInfo, SideEffectBundle.Clone(), SideEffectBundle_OnBattleGround.Clone());
+        return new CardInfo_Base(CardID, BaseInfo, UpgradeInfo, SideEffectBundle.Clone());
     }
 
     public void Serialize(DataStream writer)
@@ -93,9 +90,7 @@ public class CardInfo_Base
         ShieldInfo.Serialize(writer);
         PackInfo.Serialize(writer);
         MAInfo.Serialize(writer);
-
         SideEffectBundle.Serialize(writer);
-        SideEffectBundle_OnBattleGround.Serialize(writer);
     }
 
     public static CardInfo_Base Deserialze(DataStream reader)
@@ -115,10 +110,7 @@ public class CardInfo_Base
         newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
         newCardInfo_Base.PackInfo = PackInfo.Deserialze(reader);
         newCardInfo_Base.MAInfo = MAInfo.Deserialze(reader);
-
-        newCardInfo_Base.SideEffectBundle = SideEffectBundle.Deserialze(reader);
-        newCardInfo_Base.SideEffectBundle_OnBattleGround = SideEffectBundle.Deserialze(reader);
-
+        newCardInfo_Base.SideEffectBundle = global::SideEffectBundle.Deserialize(reader);
         return newCardInfo_Base;
     }
 
@@ -127,19 +119,19 @@ public class CardInfo_Base
         return null;
     }
 
-    public static T ConvertCardInfo<T>(CardInfo_Base src) where T : CardInfo_Base
+    public static CardInfo_Base ConvertCardInfo(CardInfo_Base src, CardTypes cardType)
     {
         switch (src)
         {
             case CardInfo_Retinue ci:
             {
-                switch (typeof(T).Name)
+                switch (cardType)
                 {
-                    case "CardInfo_Retinue":
+                    case CardTypes.Retinue:
                     {
-                        return (T) ci.Clone();
+                        return (CardInfo_Retinue) ci.Clone();
                     }
-                    case "CardInfo_Equip":
+                    case CardTypes.Equip:
                     {
                         CardInfo_Base res = new CardInfo_Equip(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
@@ -148,19 +140,25 @@ public class CardInfo_Base
                             new ShieldInfo(),
                             new PackInfo(),
                             new MAInfo(),
-                            ci.SideEffectBundle.Clone(),
-                            ci.SideEffectBundle_OnBattleGround.Clone());
+                            ci.SideEffectBundle.Clone());
                         res.BaseInfo.CardType = CardTypes.Equip;
-                        return (T) res;
+                        return (CardInfo_Equip) res;
                     }
-                    case "CardInfo_Spell":
+                    case CardTypes.Spell:
                     {
                         CardInfo_Base res = new CardInfo_Spell(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
-                            ci.SideEffectBundle.Clone(),
-                            ci.SideEffectBundle_OnBattleGround.Clone());
+                            ci.SideEffectBundle.Clone());
                         res.BaseInfo.CardType = CardTypes.Spell;
-                        return (T) res;
+                        return (CardInfo_Spell) res;
+                    }
+                    case CardTypes.Energy:
+                    {
+                        CardInfo_Base res = new CardInfo_Spell(
+                            ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
+                            ci.SideEffectBundle.Clone());
+                        res.BaseInfo.CardType = CardTypes.Energy;
+                        return (CardInfo_Spell) res;
                     }
                 }
 
@@ -168,32 +166,38 @@ public class CardInfo_Base
             }
             case CardInfo_Equip ci:
             {
-                switch (typeof(T).Name)
+                switch (cardType)
                 {
-                    case "CardInfo_Retinue":
+                    case CardTypes.Retinue:
                     {
                         CardInfo_Base res = new CardInfo_Retinue(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
                             new LifeInfo(1, 1),
                             new BattleInfo(0, 0, 0),
                             new RetinueInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
-                            ci.SideEffectBundle.Clone(),
-                            ci.SideEffectBundle_OnBattleGround.Clone());
+                            ci.SideEffectBundle.Clone());
                         res.BaseInfo.CardType = CardTypes.Retinue;
-                        return (T) res;
+                        return (CardInfo_Retinue) res;
                     }
-                    case "CardInfo_Equip":
+                    case CardTypes.Equip:
                     {
-                        return (T) ci.Clone();
+                        return (CardInfo_Equip) ci.Clone();
                     }
-                    case "CardInfo_Spell":
+                    case CardTypes.Spell:
                     {
                         CardInfo_Base res = new CardInfo_Spell(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
-                            ci.SideEffectBundle.Clone(),
-                            ci.SideEffectBundle_OnBattleGround.Clone());
+                            ci.SideEffectBundle.Clone());
                         res.BaseInfo.CardType = CardTypes.Spell;
-                        return (T) res;
+                        return (CardInfo_Spell) res;
+                    }
+                    case CardTypes.Energy:
+                    {
+                        CardInfo_Base res = new CardInfo_Spell(
+                            ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
+                            ci.SideEffectBundle.Clone());
+                        res.BaseInfo.CardType = CardTypes.Energy;
+                        return (CardInfo_Spell) res;
                     }
                 }
 
@@ -201,21 +205,20 @@ public class CardInfo_Base
             }
             case CardInfo_Spell ci:
             {
-                switch (typeof(T).Name)
+                switch (cardType)
                 {
-                    case "CardInfo_Retinue":
+                    case CardTypes.Retinue:
                     {
                         CardInfo_Base res = new CardInfo_Retinue(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
                             new LifeInfo(1, 1),
                             new BattleInfo(0, 0, 0),
                             new RetinueInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
-                            ci.SideEffectBundle.Clone(),
-                            ci.SideEffectBundle_OnBattleGround.Clone());
+                            ci.SideEffectBundle.Clone());
                         res.BaseInfo.CardType = CardTypes.Retinue;
-                        return (T) res;
+                        return (CardInfo_Retinue) res;
                     }
-                    case "CardInfo_Equip":
+                    case CardTypes.Equip:
                     {
                         CardInfo_Base res = new CardInfo_Equip(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
@@ -224,14 +227,21 @@ public class CardInfo_Base
                             new ShieldInfo(),
                             new PackInfo(),
                             new MAInfo(),
-                            ci.SideEffectBundle.Clone(),
-                            ci.SideEffectBundle_OnBattleGround.Clone());
+                            ci.SideEffectBundle.Clone());
                         res.BaseInfo.CardType = CardTypes.Equip;
-                        return (T) res;
+                        return (CardInfo_Equip) res;
                     }
-                    case "CardInfo_Spell":
+                    case CardTypes.Spell:
                     {
-                        return (T) ci.Clone();
+                        CardInfo_Spell cis = (CardInfo_Spell) ci.Clone();
+                        cis.BaseInfo.CardType = CardTypes.Spell;
+                        return cis;
+                    }
+                    case CardTypes.Energy:
+                    {
+                        CardInfo_Spell cis = (CardInfo_Spell) ci.Clone();
+                        cis.BaseInfo.CardType = CardTypes.Energy;
+                        return cis;
                     }
                 }
 

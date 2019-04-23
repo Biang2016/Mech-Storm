@@ -1,15 +1,15 @@
 ﻿public class ShowSideEffectTriggeredRequest : ServerRequestBase
 {
     public ExecutorInfo ExecutorInfo;
-    public SideEffectBundle.TriggerTime TriggerTime;
-    public SideEffectBundle.TriggerRange TriggerRange;
+    public SideEffectExecute.TriggerTime TriggerTime;
+    public SideEffectExecute.TriggerRange TriggerRange;
 
 
     public ShowSideEffectTriggeredRequest()
     {
     }
 
-    public ShowSideEffectTriggeredRequest(ExecutorInfo executorInfo, SideEffectBundle.TriggerTime triggerTime, SideEffectBundle.TriggerRange triggerRange)
+    public ShowSideEffectTriggeredRequest(ExecutorInfo executorInfo, SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange)
     {
         ExecutorInfo = executorInfo;
         TriggerTime = triggerTime;
@@ -33,8 +33,8 @@
     {
         base.Deserialize(reader);
         ExecutorInfo = ExecutorInfo.Deserialize(reader);
-        TriggerTime = (SideEffectBundle.TriggerTime) reader.ReadSInt32();
-        TriggerRange = (SideEffectBundle.TriggerRange) reader.ReadSInt32();
+        TriggerTime = (SideEffectExecute.TriggerTime) reader.ReadSInt32();
+        TriggerRange = (SideEffectExecute.TriggerRange) reader.ReadSInt32();
     }
 
 }

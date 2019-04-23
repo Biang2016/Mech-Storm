@@ -10,19 +10,25 @@
         {
             ServerPlayer player = (ServerPlayer) Player;
 
-            if (PeekSEE.SideEffectBase is IDamage)
+            foreach (SideEffectBase se in PeekSEE.SideEffectBases)
             {
-                PeekSEE.SideEffectBase.M_SideEffectParam.Factor *= 2;
+                if (se is IDamage)
+                {
+                    se.M_SideEffectParam.Factor *= 2;
+                }
             }
         }
 
         public override bool IsTrigger()
         {
-            if (PeekSEE.SideEffectBase is IDamage)
+            foreach (SideEffectBase se in PeekSEE.SideEffectBases)
             {
-                if (PeekSEE.SideEffectBase.M_SideEffectParam.HasParamCanBeMultiplied())
+                if (se is IDamage)
                 {
-                    return true;
+                    if (se.M_SideEffectParam.HasParamCanBeMultiplied())
+                    {
+                        return true;
+                    }
                 }
             }
 

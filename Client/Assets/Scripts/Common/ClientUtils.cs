@@ -67,6 +67,7 @@ public class ClientUtils
         {
             return false;
         }
+
         SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));
         if (atlas)
         {
@@ -374,5 +375,17 @@ public class ClientUtils
         child.localPosition = Vector3.zero;
         child.localScale = Vector3.one;
         child.localEulerAngles = Vector3.zero;
+    }
+
+    public static IEnumerator UpdateLayout(RectTransform rect)
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+        yield return new WaitForEndOfFrame();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+        yield return new WaitForEndOfFrame();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+        yield return new WaitForEndOfFrame();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+        yield return null;
     }
 }

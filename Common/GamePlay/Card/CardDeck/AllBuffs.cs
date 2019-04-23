@@ -6,16 +6,19 @@ using System.Xml;
 
 public static class AllBuffs
 {
-    private static Dictionary<string, SideEffectExecute> BuffDict = new Dictionary<string, SideEffectExecute>();
+    public static Dictionary<string, SideEffectExecute> BuffDict = new Dictionary<string, SideEffectExecute>();
 
     public static void Reset()
     {
         BuffDict.Clear();
     }
 
-    private static void addBuff(SideEffectExecute seb)
+    private static void addBuff(SideEffectExecute see)
     {
-        if (!BuffDict.ContainsKey(seb.SideEffectBase.Name)) BuffDict.Add(seb.SideEffectBase.Name, seb);
+        foreach (SideEffectBase se in see.SideEffectBases)
+        {
+            if (!BuffDict.ContainsKey(se.Name)) BuffDict.Add(se.Name, see);
+        }
     }
 
     public static Assembly CurrentAssembly;
@@ -62,21 +65,22 @@ public static class AllBuffs
 
             se.M_SideEffectParam.GetParamsFromXMLNode(sideEffectNode);
             SideEffectExecute see = new SideEffectExecute(
-                SideEffectExecute.SideEffectFrom.Buff, se,
-                (SideEffectBundle.TriggerTime) se.M_SideEffectParam.GetParam_ConstInt("TriggerTime"),
-                (SideEffectBundle.TriggerRange) se.M_SideEffectParam.GetParam_ConstInt("TriggerRange"),
-                se.M_SideEffectParam.GetParam_ConstInt("TriggerDelayTimes"),
-                se.M_SideEffectParam.GetParam_ConstInt("TriggerTimes"),
-                (SideEffectBundle.TriggerTime) se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerTime"),
-                (SideEffectBundle.TriggerRange) se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerRange"),
-                se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerTimes"));
+                SideEffectExecute.SideEffectFrom.Buff, new List<SideEffectBase> {se},
+                new SideEffectExecute.ExecuteSetting(
+                    (SideEffectExecute.TriggerTime) se.M_SideEffectParam.GetParam_ConstInt("TriggerTime"),
+                    (SideEffectExecute.TriggerRange) se.M_SideEffectParam.GetParam_ConstInt("TriggerRange"),
+                    se.M_SideEffectParam.GetParam_ConstInt("TriggerDelayTimes"),
+                    se.M_SideEffectParam.GetParam_ConstInt("TriggerTimes"),
+                    (SideEffectExecute.TriggerTime) se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerTime"),
+                    (SideEffectExecute.TriggerRange) se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerRange"),
+                    se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerTimes")));
             for (int k = 0; k < sideEffectNode.ChildNodes.Count; k++)
             {
                 XmlNode buffInfo = sideEffectNode.ChildNodes[k];
                 SideEffectBase buff = AllSideEffects.SideEffectsNameDict[buffInfo.Attributes["name"].Value].Clone();
                 AllCards.GetInfoForSideEffect(buffInfo, buff);
 
-                see.SideEffectBase.Sub_SideEffect.Add(buff);
+                see.SideEffectBases[0].Sub_SideEffect.Add(buff);
             }
 
             addBuff(see);

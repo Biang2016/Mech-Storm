@@ -10,7 +10,7 @@
         {
             ServerPlayer player = (ServerPlayer) Player;
             int value = M_SideEffectParam.GetParam_MultipliedInt("Damage");
-            switch (M_TargetRange)
+            switch (TargetRange)
             {
                 case TargetRange.Mechs:
                     player.MyBattleGroundManager.DamageAllRetinues(value);
@@ -29,7 +29,7 @@
                 case TargetRange.SelfHeroes:
                     player.MyBattleGroundManager.DamageAllHeros(value);
                     break;
-                case TargetRange.EnemyHeros:
+                case TargetRange.EnemyHeroes:
                     player.MyEnemyPlayer.MyBattleGroundManager.DamageAllHeros(value);
                     break;
                 case TargetRange.Soldiers:

@@ -14,13 +14,13 @@ internal class PlayerBuff : PoolObject
 
     public void Init(SideEffectExecute buffSee, int buffId)
     {
-        PlayerBuffSideEffects buff = ((PlayerBuffSideEffects) buffSee.SideEffectBase);
+        PlayerBuffSideEffects buff = ((PlayerBuffSideEffects) buffSee.SideEffectBases[0]);
         int buffValue = GetBuffValue(buffSee, buff);
 
         BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
         BuffId = buffId;
         ClientUtils.ChangeCardPicture(Image, buff.M_SideEffectParam.GetParam_ConstInt("BuffPicId"));
-        Color buffColor = ClientUtils.HTMLColorToColor(((PlayerBuffSideEffects) (AllBuffs.GetBuff((buff.Name)).SideEffectBase)).M_SideEffectParam.GetParam_String("BuffColor"));
+        Color buffColor = ClientUtils.HTMLColorToColor(((PlayerBuffSideEffects) (AllBuffs.GetBuff((buff.Name)).SideEffectBases[0])).M_SideEffectParam.GetParam_String("BuffColor"));
         BuffBloom.color = buffColor;
         BuffDescText.color = buffColor;
         BuffValuePanel.enabled = buff.M_SideEffectParam.GetParam_Bool("HasNumberShow");
@@ -31,8 +31,8 @@ internal class PlayerBuff : PoolObject
 
     public IEnumerator Co_UpdateValue(SideEffectExecute buffSee)
     {
-        BuffDescText.text = ((PlayerBuffSideEffects) buffSee.SideEffectBase).GenerateDesc();
-        PlayerBuffSideEffects buff = (PlayerBuffSideEffects) buffSee.SideEffectBase;
+        BuffDescText.text = ((PlayerBuffSideEffects) buffSee.SideEffectBases[0]).GenerateDesc();
+        PlayerBuffSideEffects buff = (PlayerBuffSideEffects) buffSee.SideEffectBases[0];
         int buffValue = GetBuffValue(buffSee, buff);
 
         if (buffValue >= 0)
@@ -56,7 +56,7 @@ internal class PlayerBuff : PoolObject
             {
                 case PlayerBuffSideEffects.BuffPiledBy.RemoveTriggerTimes:
                 {
-                    buffValue = buffSee.RemoveTriggerTimes;
+                    buffValue = buffSee.M_ExecuteSetting.RemoveTriggerTimes;
                     break;
                 }
                 case PlayerBuffSideEffects.BuffPiledBy.Value:
@@ -70,7 +70,7 @@ internal class PlayerBuff : PoolObject
         }
         else
         {
-            buffValue = buffSee.RemoveTriggerTimes;
+            buffValue = buffSee.M_ExecuteSetting.RemoveTriggerTimes;
         }
 
         return buffValue;

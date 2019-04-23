@@ -9,7 +9,7 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            if ((M_TargetRange & TargetRange.SelfMechs) != 0)
+            if ((TargetRange & TargetRange.SelfMechs) != 0)
             {
                 ServerModuleRetinue retinue = player.MyBattleGroundManager.GetRetinue(executorInfo.TargetRetinueId);
                 int cardInstanceID = retinue.OriginCardInstanceId;

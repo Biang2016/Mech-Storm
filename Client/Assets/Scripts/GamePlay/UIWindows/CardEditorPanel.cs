@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.U2D;
@@ -52,7 +49,7 @@ public class CardEditorPanel : BaseUIForm
     {
         if (cur_PreviewCard)
         {
-            ChangeCard(cur_PreviewCard.CardInfo.CardID);
+            ChangeCard(cur_PreviewCard.CardInfo);
         }
     }
 
@@ -62,7 +59,7 @@ public class CardEditorPanel : BaseUIForm
 
     #region Left CardProperties
 
-    [SerializeField] private Transform CardPropertiesContainer;
+    public Transform CardPropertiesContainer;
 
     private List<CardPropertyFormRow> MyPropertiesRows = new List<CardPropertyFormRow>();
     private List<CardPropertyFormRow> CardPropertiesCommon = new List<CardPropertyFormRow>();
@@ -75,7 +72,6 @@ public class CardEditorPanel : BaseUIForm
     private Dictionary<ShieldTypes, List<CardPropertyFormRow>> ShieldTypePropertiesDict = new Dictionary<ShieldTypes, List<CardPropertyFormRow>>();
 
     private CardPropertyForm_SideEffectBundle Row_SideEffectBundle = null;
-    private CardPropertyForm_SideEffectBundle Row_SideEffectBundle_OnBattleGround = null;
 
     private void InitializeCardPropertyForm()
     {
@@ -120,23 +116,23 @@ public class CardEditorPanel : BaseUIForm
         }
 
         CardPropertyFormRow Row_CardType = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_CardType", OnCardTypeChange, out SetCardType, cardTypeList);
-        CardPropertyFormRow Row_CardID = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardIDLabelText", OnCardIDChange, out SetCardID);
-        CardPropertyFormRow Row_CardPicID = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardPicIDLabelText", OnCardPicIDChange, out SetCardPicID);
-        CardPropertyFormRow Row_CardUpgradeID = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardUpgradeIDLabelText", OnCardUpgradeIDChange, out SetCardUpgradeID, null, OnUpgradeIDButtonClick);
-        CardPropertyFormRow Row_CardDegradeID = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardDegradeIDLabelText", OnCardDegradeIDChange, out SetCardDegradeID, null, OnDegradeIDButtonClick);
-        CardPropertyFormRow Row_CardName_zh = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardNameLabelText_zh", OnCardNameChange_zh, out SetCardName_zh);
-        CardPropertyFormRow Row_CardName_en = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardNameLabelText_en", OnCardNameChange_en, out SetCardName_en);
-        CardPropertyFormRow Row_CardCoinCost = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardCoinCostLabelText", OnCardCoinCostChange, out SetCardCoinCost);
-        CardPropertyFormRow Row_CardMetalCost = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardMetalCostLabelText", OnCardMetalCostChange, out SetCardMetalCost);
-        CardPropertyFormRow Row_CardEnergyCost = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardEnergyCostLabelText", OnCardEnergyCostChange, out SetCardEnergyCost);
-        CardPropertyFormRow Row_CardSelectLimit = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_CardSelectLimitLabelText", OnCardSelectLimitChange, out SetCardSelectLimit);
+        CardPropertyFormRow Row_CardID = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardIDLabelText", OnCardIDChange, out SetCardID);
+        CardPropertyFormRow Row_CardPicID = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardPicIDLabelText", OnCardPicIDChange, out SetCardPicID);
+        CardPropertyFormRow Row_CardUpgradeID = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardUpgradeIDLabelText", OnCardUpgradeIDChange, out SetCardUpgradeID, null, OnUpgradeIDButtonClick);
+        CardPropertyFormRow Row_CardDegradeID = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardDegradeIDLabelText", OnCardDegradeIDChange, out SetCardDegradeID, null, OnDegradeIDButtonClick);
+        CardPropertyFormRow Row_CardName_zh = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardNameLabelText_zh", OnCardNameChange_zh, out SetCardName_zh);
+        CardPropertyFormRow Row_CardName_en = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardNameLabelText_en", OnCardNameChange_en, out SetCardName_en);
+        CardPropertyFormRow Row_CardCoinCost = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardCoinCostLabelText", OnCardCoinCostChange, out SetCardCoinCost);
+        CardPropertyFormRow Row_CardMetalCost = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardMetalCostLabelText", OnCardMetalCostChange, out SetCardMetalCost);
+        CardPropertyFormRow Row_CardEnergyCost = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardEnergyCostLabelText", OnCardEnergyCostChange, out SetCardEnergyCost);
+        CardPropertyFormRow Row_CardSelectLimit = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardSelectLimitLabelText", OnCardSelectLimitChange, out SetCardSelectLimit);
         CardPropertyFormRow Row_CardIsTemp = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_CardIsTempLabelText", OnCardIsTempChange, out SetCardIsTemp);
         CardPropertyFormRow Row_CardIsHide = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_CardIsHideLabelText", OnCardIsHideChange, out SetCardIsHide);
 
-        CardPropertyFormRow Row_RetinueLife = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_RetinueLifeLabelText", OnRetinueLifeChange, out SetRetinueLife);
-        CardPropertyFormRow Row_RetinueAttack = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_RetinueAttackLabelText", OnRetinueAttackChange, out SetRetinueAttack);
-        CardPropertyFormRow Row_RetinueArmor = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_RetinueArmorLabelText", OnRetinueArmorChange, out SetRetinueArmor);
-        CardPropertyFormRow Row_RetinueShield = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_RetinueShieldLabelText", OnRetinueShieldChange, out SetRetinueShield);
+        CardPropertyFormRow Row_RetinueLife = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_RetinueLifeLabelText", OnRetinueLifeChange, out SetRetinueLife);
+        CardPropertyFormRow Row_RetinueAttack = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_RetinueAttackLabelText", OnRetinueAttackChange, out SetRetinueAttack);
+        CardPropertyFormRow Row_RetinueArmor = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_RetinueArmorLabelText", OnRetinueArmorChange, out SetRetinueArmor);
+        CardPropertyFormRow Row_RetinueShield = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_RetinueShieldLabelText", OnRetinueShieldChange, out SetRetinueShield);
         CardPropertyFormRow Row_RetinueWeaponSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueWeaponSlotLabelText", OnRetinueWeaponSlotChange, out SetRetinueWeaponSlot);
         CardPropertyFormRow Row_RetinueShieldSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueShieldSlotLabelText", OnRetinueShieldSlotChange, out SetRetinueShieldSlot);
         CardPropertyFormRow Row_RetinuePackSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinuePackSlotLabelText", OnRetinuePackSlotChange, out SetRetinuePackSlot);
@@ -150,26 +146,21 @@ public class CardEditorPanel : BaseUIForm
         CardPropertyFormRow Row_SlotType = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_SlotType", OnSlotTypeChange, out SetSlotType, slotTypeList);
 
         CardPropertyFormRow Row_WeaponType = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_WeaponTypeLabelText", OnWeaponTypeChange, out SetWeaponType, weaponTypeList);
-        CardPropertyFormRow Row_WeaponSwordAttack = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_WeaponSwordAttackLabelText", OnWeaponSwordAttackChange, out SetWeaponSwordAttack);
-        CardPropertyFormRow Row_WeaponSwordEnergy = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_WeaponSwordEnergyLabelText", OnWeaponSwordEnergyChange, out SetWeaponSwordEnergy);
-        CardPropertyFormRow Row_WeaponSwordMaxEnergy = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_WeaponSwordMaxEnergyLabelText", OnWeaponSwordMaxEnergyChange, out SetWeaponSwordMaxEnergy);
-        CardPropertyFormRow Row_WeaponGunAttack = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_WeaponGunAttackLabelText", OnWeaponGunAttackChange, out SetWeaponGunAttack);
-        CardPropertyFormRow Row_WeaponGunBullet = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_WeaponGunBulletLabelText", OnWeaponGunBulletChange, out SetWeaponGunBullet);
-        CardPropertyFormRow Row_WeaponGunMaxBullet = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_WeaponGunMaxBulletLabelText", OnWeaponGunMaxBulletChange, out SetWeaponGunMaxBullet);
+        CardPropertyFormRow Row_WeaponSwordAttack = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponSwordAttackLabelText", OnWeaponSwordAttackChange, out SetWeaponSwordAttack);
+        CardPropertyFormRow Row_WeaponSwordEnergy = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponSwordEnergyLabelText", OnWeaponSwordEnergyChange, out SetWeaponSwordEnergy);
+        CardPropertyFormRow Row_WeaponSwordMaxEnergy = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponSwordMaxEnergyLabelText", OnWeaponSwordMaxEnergyChange, out SetWeaponSwordMaxEnergy);
+        CardPropertyFormRow Row_WeaponGunAttack = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponGunAttackLabelText", OnWeaponGunAttackChange, out SetWeaponGunAttack);
+        CardPropertyFormRow Row_WeaponGunBullet = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponGunBulletLabelText", OnWeaponGunBulletChange, out SetWeaponGunBullet);
+        CardPropertyFormRow Row_WeaponGunMaxBullet = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponGunMaxBulletLabelText", OnWeaponGunMaxBulletChange, out SetWeaponGunMaxBullet);
 
         CardPropertyFormRow Row_ShieldType = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_ShieldTypeLabelText", OnShieldTypeChange, out SetShieldType, shieldTypeList);
-        CardPropertyFormRow Row_ShieldBasicArmor = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_ShieldBasicArmorLabelText", OnShieldBasicArmorChange, out SetShieldBasicArmor);
-        CardPropertyFormRow Row_ShieldBasicShield = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputFiled, "CardEditorWindow_ShieldBasicShieldLabelText", OnShieldBasicShieldChange, out SetShieldBasicShield);
-
-        CardPropertyFormRow Row_SideEffectType = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_SideEffectType", OnSideEffectTypeChange, out SetSideEffectType, AllSideEffects.SideEffectsNameDict.Keys.ToList());
+        CardPropertyFormRow Row_ShieldBasicArmor = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_ShieldBasicArmorLabelText", OnShieldBasicArmorChange, out SetShieldBasicArmor);
+        CardPropertyFormRow Row_ShieldBasicShield = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_ShieldBasicShieldLabelText", OnShieldBasicShieldChange, out SetShieldBasicShield);
 
         Row_SideEffectBundle?.PoolRecycle();
-        Row_SideEffectBundle_OnBattleGround?.PoolRecycle();
         Row_SideEffectBundle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
-        Row_SideEffectBundle_OnBattleGround = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
 
-        Row_SideEffectBundle.Initialize("CardEditorWindow_SideEffectBundle", "#001167aa", null, null);
-        Row_SideEffectBundle_OnBattleGround.Initialize("CardEditorWindow_SideEffectBundle_OnBattleGround", "#671B00aa", null, null);
+        Row_SideEffectBundle.Initialize(null, null, null);
 
         CardPropertiesCommon = new List<CardPropertyFormRow>
         {
@@ -186,7 +177,6 @@ public class CardEditorPanel : BaseUIForm
             Row_CardSelectLimit,
             Row_CardIsTemp,
             Row_CardIsHide,
-            Row_SideEffectType,
         };
         CardTypePropertiesDict[CardTypes.Retinue] = new List<CardPropertyFormRow>
         {
@@ -378,34 +368,8 @@ public class CardEditorPanel : BaseUIForm
             if (!OnChangeCardTypeByEdit)
             {
                 OnChangeCardTypeByEdit = true;
-                switch (type)
-                {
-                    case CardTypes.Retinue:
-                    {
-                        CardInfo_Retinue newCI = CardInfo_Base.ConvertCardInfo<CardInfo_Retinue>(cur_PreviewCard.CardInfo);
-                        ChangeCard(newCI);
-                        break;
-                    }
-                    case CardTypes.Equip:
-                    {
-                        CardInfo_Equip newCI = CardInfo_Base.ConvertCardInfo<CardInfo_Equip>(cur_PreviewCard.CardInfo);
-                        ChangeCard(newCI);
-                        break;
-                    }
-                    case CardTypes.Spell:
-                    {
-                        CardInfo_Spell newCI = CardInfo_Base.ConvertCardInfo<CardInfo_Spell>(cur_PreviewCard.CardInfo);
-                        ChangeCard(newCI);
-                        break;
-                    }
-                    case CardTypes.Energy:
-                    {
-                        CardInfo_Spell newCI = CardInfo_Base.ConvertCardInfo<CardInfo_Spell>(cur_PreviewCard.CardInfo);
-                        ChangeCard(newCI);
-                        break;
-                    }
-                }
-
+                CardInfo_Base newCardInfoBase = CardInfo_Base.ConvertCardInfo(cur_PreviewCard.CardInfo, type);
+                ChangeCard(newCardInfoBase);
                 OnChangeCardTypeByEdit = false;
             }
         }
@@ -417,9 +381,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnCardIDChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
         }
     }
@@ -428,9 +390,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnCardPicIDChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1 && !(value == 0 && value_str.Length != 1))
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -453,9 +413,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnCardUpgradeIDChange(string value_str)
     {
-        int value = -2;
-        int.TryParse(value_str, out value);
-        if (value != -2)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -471,9 +429,7 @@ public class CardEditorPanel : BaseUIForm
             return;
         }
 
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             bool suc = ChangeCard(value);
             if (suc)
@@ -490,9 +446,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnCardDegradeIDChange(string value_str)
     {
-        int value = -2;
-        int.TryParse(value_str, out value);
-        if (value != -2)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -508,9 +462,7 @@ public class CardEditorPanel : BaseUIForm
             return;
         }
 
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             bool suc = ChangeCard(value);
             if (suc)
@@ -549,9 +501,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnCardCoinCostChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -565,9 +515,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnCardMetalCostChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -581,9 +529,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnCardEnergyCostChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -597,9 +543,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnCardSelectLimitChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -637,9 +581,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnRetinueLifeChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -657,9 +599,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnRetinueAttackChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -678,9 +618,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnRetinueArmorChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -699,9 +637,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnRetinueShieldChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -915,9 +851,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnWeaponSwordEnergyChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -932,9 +866,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnWeaponSwordMaxEnergyChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -949,9 +881,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnWeaponGunAttackChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -966,9 +896,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnWeaponGunBulletChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -983,9 +911,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnWeaponGunMaxBulletChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -1021,9 +947,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnShieldBasicArmorChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -1038,9 +962,7 @@ public class CardEditorPanel : BaseUIForm
 
     private void OnShieldBasicShieldChange(string value_str)
     {
-        int value = -1;
-        int.TryParse(value_str, out value);
-        if (value != -1)
+        if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
@@ -1052,20 +974,6 @@ public class CardEditorPanel : BaseUIForm
     }
 
     #region SideEffect
-
-    private UnityAction<string> SetSideEffectType;
-
-    private void OnSideEffectTypeChange(string sideEffectName)
-    {
-        SideEffectBase se = AllSideEffects.GetSideEffect(sideEffectName).Clone();
-//        if (se != null)
-//        {
-//            foreach (var VARIABLE in se)
-//            {
-//                
-//            }
-//        }
-    }
 
     #endregion
 
@@ -1084,6 +992,7 @@ public class CardEditorPanel : BaseUIForm
         cur_PreviewCard?.PoolRecycle();
         cur_PreviewCard = CardBase.InstantiateCardByCardInfo(ci, CardPreviewContainer, CardBase.CardShowMode.CardSelect);
         cur_PreviewCard.transform.localScale = Vector3.one * 30;
+        cur_PreviewCard.transform.localPosition = new Vector3(-25, 0, 0);
 
         SetCardType(cur_PreviewCard.CardInfo.BaseInfo.CardType.ToString());
         SetCardID(string.Format("{0:000}", ci.CardID));
@@ -1167,17 +1076,18 @@ public class CardEditorPanel : BaseUIForm
             }
         }
 
-        Row_SideEffectBundle.Initialize("CardEditorWindow_SideEffectBundle", "#001167aa", cur_PreviewCard.CardInfo.SideEffectBundle, cur_PreviewCard.RefreshCardTextLanguage);
-        Row_SideEffectBundle_OnBattleGround.Initialize("CardEditorWindow_SideEffectBundle_OnBattleGround", "#671B00aa", cur_PreviewCard.CardInfo.SideEffectBundle_OnBattleGround, cur_PreviewCard.RefreshCardTextLanguage);
+        Row_SideEffectBundle.Initialize(cur_PreviewCard.CardInfo, cur_PreviewCard.CardInfo.SideEffectBundle, cur_PreviewCard.RefreshCardTextLanguage);
 
         cur_PreviewCard.RefreshCardTextLanguage();
         cur_PreviewCard.RefreshCardAllColors();
         FormatTwoToggleIntoOneRow();
 
+        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) CardPropertiesContainer));
+
         isPreviewExistingCards = false;
     }
 
-    private bool ChangeCard(int cardID)
+    public bool ChangeCard(int cardID)
     {
         if (AllCards.CardDict.ContainsKey(cardID))
         {

@@ -10,8 +10,12 @@
         {
             ServerPlayer player = (ServerPlayer) Player;
 
-            AttachedBuffSEE.SideEffectBase.Player = player;
-            AttachedBuffSEE.SideEffectBase.M_ExecutorInfo = new ExecutorInfo(clientId: player.ClientId, sideEffectExecutorID: AttachedBuffSEE.ID, isPlayerBuff: true);
+            foreach (SideEffectBase se in AttachedBuffSEE.SideEffectBases)
+            {
+                se.Player = player;
+                se.M_ExecutorInfo = new ExecutorInfo(clientId: player.ClientId, sideEffectExecutorID: AttachedBuffSEE.ID, isPlayerBuff: true);
+            }
+
             player.UpdatePlayerBuff(AttachedBuffSEE, true);
         }
     }

@@ -10,7 +10,7 @@
         {
             ServerPlayer player = (ServerPlayer) Player;
             int retinueId = executorInfo.RetinueId;
-            switch (M_TargetRange)
+            switch (TargetRange)
             {
                 case TargetRange.Mechs:
                 {
@@ -45,7 +45,7 @@
                 case TargetRange.SelfHeroes:
                     player.MyBattleGroundManager.KillRandomHero(retinueId);
                     break;
-                case TargetRange.EnemyHeros:
+                case TargetRange.EnemyHeroes:
                     player.MyEnemyPlayer.MyBattleGroundManager.KillRandomHero(retinueId);
                     break;
                 case TargetRange.Soldiers:
