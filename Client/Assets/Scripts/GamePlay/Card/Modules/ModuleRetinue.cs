@@ -1373,13 +1373,13 @@ public class ModuleRetinue : ModuleBase
     {
         if (card.ClientPlayer == ClientPlayer)
         {
-            return ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.SelfSoldiers) == TargetSideEffect.TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier) ||
-                   ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.SelfHeroes) == TargetSideEffect.TargetRange.SelfHeroes && !CardInfo.RetinueInfo.IsSoldier);
+            return ((card.CardInfo.TargetInfo.targetRetinueRange & TargetRange.SelfSoldiers) == TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier) ||
+                   ((card.CardInfo.TargetInfo.targetRetinueRange & TargetRange.SelfHeroes) == TargetRange.SelfHeroes && !CardInfo.RetinueInfo.IsSoldier);
         }
         else
         {
-            return ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.EnemySoldiers) == TargetSideEffect.TargetRange.EnemySoldiers && CardInfo.RetinueInfo.IsSoldier) ||
-                   ((card.CardInfo.TargetInfo.targetRetinueRange & TargetSideEffect.TargetRange.EnemyHeroes) == TargetSideEffect.TargetRange.EnemyHeroes && !CardInfo.RetinueInfo.IsSoldier);
+            return ((card.CardInfo.TargetInfo.targetRetinueRange & TargetRange.EnemySoldiers) == TargetRange.EnemySoldiers && CardInfo.RetinueInfo.IsSoldier) ||
+                   ((card.CardInfo.TargetInfo.targetRetinueRange & TargetRange.EnemyHeroes) == TargetRange.EnemyHeroes && !CardInfo.RetinueInfo.IsSoldier);
         }
     }
 
@@ -1444,14 +1444,14 @@ public class ModuleRetinue : ModuleBase
         base.MouseHoverComponent_OnHover1Begin(mousePosition);
         if (DragManager.Instance.IsSummonPreview)
         {
-            TargetSideEffect.TargetRange targetRange = DragManager.Instance.SummonRetinueTargetRange;
+            TargetRange targetRange = DragManager.Instance.SummonRetinueTargetRange;
             if ((ClientPlayer == RoundManager.Instance.EnemyClientPlayer &&
-                 (targetRange == TargetSideEffect.TargetRange.EnemyMechs ||
-                  (targetRange == TargetSideEffect.TargetRange.EnemySoldiers && CardInfo.RetinueInfo.IsSoldier) ||
-                  targetRange == TargetSideEffect.TargetRange.EnemyHeroes && !CardInfo.RetinueInfo.IsSoldier))
+                 (targetRange == TargetRange.EnemyMechs ||
+                  (targetRange == TargetRange.EnemySoldiers && CardInfo.RetinueInfo.IsSoldier) ||
+                  targetRange == TargetRange.EnemyHeroes && !CardInfo.RetinueInfo.IsSoldier))
                 ||
                 ClientPlayer == RoundManager.Instance.SelfClientPlayer && ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue != this &&
-                (targetRange == TargetSideEffect.TargetRange.SelfMechs || (targetRange == TargetSideEffect.TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier)))
+                (targetRange == TargetRange.SelfMechs || (targetRange == TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier)))
             {
                 IsBeHover = true;
                 if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)

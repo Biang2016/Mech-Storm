@@ -259,42 +259,42 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         }
     }
 
-    public void ShowTargetPreviewArrow(TargetSideEffect.TargetRange targetRange) //当某咒术被拖出进攻时，显示可选目标标记箭头
+    public void ShowTargetPreviewArrow(TargetRange targetRange) //当某咒术被拖出进攻时，显示可选目标标记箭头
     {
         switch (targetRange)
         {
-            case TargetSideEffect.TargetRange.AllLife:
+            case TargetRange.AllLife:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.Mechs:
+            case TargetRange.Mechs:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.SelfMechs:
+            case TargetRange.SelfMechs:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.EnemyMechs:
+            case TargetRange.EnemyMechs:
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.Heroes:
+            case TargetRange.Heroes:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.SelfHeroes:
+            case TargetRange.SelfHeroes:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.EnemyHeroes:
+            case TargetRange.EnemyHeroes:
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.Soldiers:
+            case TargetRange.Soldiers:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.SelfSoldiers:
+            case TargetRange.SelfSoldiers:
                 foreach (ModuleRetinue retinue in SelfClientPlayer.MyBattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();
                 break;
-            case TargetSideEffect.TargetRange.EnemySoldiers:
+            case TargetRange.EnemySoldiers:
                 foreach (ModuleRetinue retinue in EnemyClientPlayer.MyBattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();
                 break;
         }

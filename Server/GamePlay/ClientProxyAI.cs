@@ -278,7 +278,7 @@ internal class ClientProxyAI : ClientProxy
     private ServerModuleRetinue GetTargetRetinueByTargetInfo(TargetInfo ti)
     {
         ServerPlayer targetPlayer = null;
-        ServerBattleGroundManager.RetinueType targetRetinueType = ServerBattleGroundManager.RetinueType.All;
+        RetinueTypes targetRetinueType = RetinueTypes.All;
         if ((ti.targetRetinueRange | TargetRange.EnemyMechs) == TargetRange.EnemyMechs)
         {
             targetPlayer = MyServerGameManager.PlayerA;
@@ -290,15 +290,15 @@ internal class ClientProxyAI : ClientProxy
 
         if ((ti.targetRetinueRange | TargetRange.Heroes) == TargetRange.Heroes)
         {
-            targetRetinueType = ServerBattleGroundManager.RetinueType.Hero;
+            targetRetinueType = RetinueTypes.Hero;
         }
         else if ((ti.targetRetinueRange | TargetRange.Soldiers) == TargetRange.Soldiers)
         {
-            targetRetinueType = ServerBattleGroundManager.RetinueType.Soldier;
+            targetRetinueType = RetinueTypes.Soldier;
         }
         else
         {
-            targetRetinueType = ServerBattleGroundManager.RetinueType.All;
+            targetRetinueType = RetinueTypes.All;
         }
 
         ServerModuleRetinue retinue = null;

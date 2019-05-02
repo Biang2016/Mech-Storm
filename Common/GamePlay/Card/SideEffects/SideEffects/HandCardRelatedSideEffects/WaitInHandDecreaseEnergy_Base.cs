@@ -2,7 +2,6 @@
 {
     protected override void InitSideEffectParam()
     {
-        base.InitSideEffectParam();
         M_SideEffectParam.SetParam_MultipliedInt("DecValue", 0);
     }
 

@@ -17,7 +17,7 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfRetinueDie">
-        <SideEffect name="KillAll" IsNeedChoice="False" TargetRange="EnemySoldiers"></SideEffect>
+        <SideEffect name="Kill" TargetRange="EnemySoldiers" TargetSelect="All"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -53,7 +53,7 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="DamageRandom" IsNeedChoice="False" TargetRange="EnemyMechs" Damage="4"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="SingleRandom" Damage="4"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -65,7 +65,7 @@
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnRetinueSummon" triggerRange="EnemyPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-        <SideEffect name="DamageRandom" IsNeedChoice="False" TargetRange="EnemyMechs" Damage="2"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="SingleRandom" Damage="2"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -77,7 +77,7 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfRetinueAttack">
-        <SideEffect name="HealOne" IsNeedChoice="False" TargetRange="Self" HealValue="2"></SideEffect>
+        <SideEffect name="Heal" TargetRange="Self" TargetSelect="Single" HealValue="2"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -136,7 +136,7 @@
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfRetinueKillOther">
-        <SideEffect name="AddAttackOne" IsNeedChoice="False" TargetRange="Self" AttackValue="1"></SideEffect>
+        <SideEffect name="AddAttack" TargetRange="Self" TargetSelect="Single" AttackValue="1"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -148,7 +148,7 @@
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfRetinueKillOther">
-        <SideEffect name="AddAttackOne" IsNeedChoice="False" TargetRange="Self" AttackValue="1"></SideEffect>
+        <SideEffect name="AddAttack" TargetRange="Self" TargetSelect="Single" AttackValue="1"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -220,7 +220,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="AddLifeOne" IsNeedChoice="True" TargetRange="SelfMechs" LifeValue="2"></SideEffect>
+        <SideEffect name="AddLife" TargetRange="SelfMechs" TargetSelect="Single" LifeValue="2"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -232,7 +232,7 @@
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="AddLifeOne" IsNeedChoice="True" TargetRange="SelfMechs" LifeValue="3"></SideEffect>
+        <SideEffect name="AddLife" TargetRange="SelfMechs" TargetSelect="Single" LifeValue="3"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -244,7 +244,7 @@
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="AddLifeOne" IsNeedChoice="True" TargetRange="SelfMechs" LifeValue="4"></SideEffect>
+        <SideEffect name="AddLife" TargetRange="SelfMechs" TargetSelect="Single" LifeValue="4"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -256,7 +256,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfRetinueDie">
-        <SideEffect name="DamageRandom" IsNeedChoice="False" TargetRange="EnemyMechs" Damage="5"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="SingleRandom" Damage="5"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -268,7 +268,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfRetinueDie">
-        <SideEffect name="DamageRandom" IsNeedChoice="False" TargetRange="EnemyMechs" Damage="5"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="SingleRandom" Damage="5"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -280,7 +280,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="HealOne" IsNeedChoice="True" TargetRange="SelfMechs" HealValue="3"></SideEffect>
+        <SideEffect name="Heal" TargetRange="SelfMechs" TargetSelect="Single" HealValue="3"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -292,7 +292,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="HealOne" IsNeedChoice="True" TargetRange="SelfMechs" HealValue="5"></SideEffect>
+        <SideEffect name="Heal" TargetRange="SelfMechs" TargetSelect="Single" HealValue="5"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -541,7 +541,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="60102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="EnemyMechs" Damage="1"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="Single" Damage="1"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -550,7 +550,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="60103" degradeCardID="60101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="EnemyMechs" Damage="2"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="Single" Damage="2"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -559,7 +559,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60102" cardLevel="3" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageAll" TargetRange="EnemyMechs" Damage="1"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="All" Damage="1"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -568,7 +568,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="60302" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="Soldiers" Damage="2"></SideEffect>
+        <SideEffect name="Damage" TargetRange="Soldiers" TargetSelect="Single" Damage="2"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -577,7 +577,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60301" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="Soldiers" Damage="5"></SideEffect>
+        <SideEffect name="Damage" TargetRange="Soldiers" TargetSelect="Single" Damage="5"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -616,7 +616,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="KillAll" IsNeedChoice="False" TargetRange="EnemyMechs"></SideEffect>
+        <SideEffect name="Kill" TargetRange="EnemyMechs" TargetSelect="All"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -652,7 +652,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="10"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="10"></SideEffect>
       </SideEffectExecute>
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnEndRound" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
         <SideEffect name="WaitInHandDecreaseEnergy" DecValue="2"></SideEffect>
@@ -664,8 +664,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="SelfMechs" Damage="1"></SideEffect>
-        <SideEffect name="DamageRandom" IsNeedChoice="False" TargetRange="EnemyMechs" Damage="3"></SideEffect>
+        <SideEffect name="Damage" TargetRange="SelfMechs" TargetSelect="Single" Damage="1"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="SingleRandom" Damage="3"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -674,7 +674,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Degenerate" IsNeedChoice="True" TargetRange="SelfHeroes"></SideEffect>
+        <SideEffect name="Degenerate" TargetRange="SelfHeroes"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -683,7 +683,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="BreakEquip" IsNeedChoice="True" TargetRange="EnemyMechs"></SideEffect>
+        <SideEffect name="BreakEquip" TargetRange="EnemyMechs"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -692,8 +692,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="61102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddLifeOne" IsNeedChoice="True" TargetRange="SelfMechs" LifeValue="2"></SideEffect>
-        <SideEffect name="AddArmorOne" IsNeedChoice="True" TargetRange="SelfMechs" ArmorValue="3"></SideEffect>
+        <SideEffect name="AddLife" TargetRange="SelfMechs" TargetSelect="Single" LifeValue="2"></SideEffect>
+        <SideEffect name="AddArmor" TargetRange="SelfMechs" TargetSelect="Single" ArmorValue="3"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -702,8 +702,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="61101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddLifeOne" IsNeedChoice="True" TargetRange="SelfMechs" LifeValue="3"></SideEffect>
-        <SideEffect name="AddArmorOne" IsNeedChoice="True" TargetRange="SelfMechs" ArmorValue="5"></SideEffect>
+        <SideEffect name="AddLife" TargetRange="SelfMechs" TargetSelect="Single" LifeValue="3"></SideEffect>
+        <SideEffect name="AddArmor" TargetRange="SelfMechs" TargetSelect="Single" ArmorValue="5"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -712,7 +712,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="IllusionToOne" IsNeedChoice="True" TargetRange="SelfMechs" Rounds="1"></SideEffect>
+        <SideEffect name="Illusion" TargetRange="SelfMechs" TargetSelect="Single" Rounds="1"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -721,7 +721,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Sacrifice" IsNeedChoice="True" TargetRange="SelfMechs" ValueBasic="3" ValuePlus="1"></SideEffect>
+        <SideEffect name="Sacrifice" TargetRange="SelfMechs" ValueBasic="3" ValuePlus="1"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -757,7 +757,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="SummonRetinuePerMechs" IsNeedChoice="False" TargetRange="EnemyMechs" SummonCardID="5701"></SideEffect>
+        <SideEffect name="SummonRetinueByMechCount" TargetRange="EnemyMechs" TargetSelect="All" SummonCardID="5701"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -775,7 +775,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Cooperation" IsNeedChoice="True" TargetRange="SelfSoldiers"></SideEffect>
+        <SideEffect name="Cooperation" TargetRange="SelfSoldiers"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -784,7 +784,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="Mechs" Damage="10"></SideEffect>
+        <SideEffect name="Damage" TargetRange="Mechs" TargetSelect="Single" Damage="10"></SideEffect>
         <SideEffect name="DrawTypeCards" CardCount="2" DrawCardType="Equip"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
@@ -810,7 +810,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="62102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="HealOne" IsNeedChoice="False" TargetRange="SelfShip" HealValue="1"></SideEffect>
+        <SideEffect name="Heal" TargetRange="SelfShip" TargetSelect="Single" HealValue="1"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -819,7 +819,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="62103" degradeCardID="62101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="HealOne" IsNeedChoice="False" TargetRange="SelfShip" HealValue="3"></SideEffect>
+        <SideEffect name="Heal" TargetRange="SelfShip" TargetSelect="Single" HealValue="3"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -828,7 +828,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62102" cardLevel="3" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="HealOne" IsNeedChoice="False" TargetRange="SelfShip" HealValue="4"></SideEffect>
+        <SideEffect name="Heal" TargetRange="SelfShip" TargetSelect="Single" HealValue="4"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -837,8 +837,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="True" TargetRange="EnemyMechs" Damage="5"></SideEffect>
-        <SideEffect name="DamageAll" IsNeedChoice="False" TargetRange="EnemyMechs" Damage="2"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="Single" Damage="5"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="All" Damage="2"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -847,8 +847,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="HealOne" IsNeedChoice="False" TargetRange="SelfShip" HealValue="12"></SideEffect>
-        <SideEffect name="DamageAll" IsNeedChoice="False" TargetRange="EnemyMechs" Damage="4"></SideEffect>
+        <SideEffect name="Heal" TargetRange="SelfShip" TargetSelect="Single" HealValue="12"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="All" Damage="4"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -857,7 +857,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="62402" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="1"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="1"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -866,7 +866,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="62403" degradeCardID="62401" cardLevel="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="2"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="2"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -875,7 +875,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62402" cardLevel="3" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="3"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="3"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -884,8 +884,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="62501" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="3"></SideEffect>
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="2"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="3"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="2"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -894,8 +894,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62500" cardLevel="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="4"></SideEffect>
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="3"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="4"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="3"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -904,8 +904,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62500" cardLevel="3" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="5"></SideEffect>
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="4"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="5"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="4"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -914,7 +914,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="62601" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="5"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="5"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -923,7 +923,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="62602" degradeCardID="62600" cardLevel="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="7"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="7"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -932,7 +932,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="62601" cardLevel="3" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageOne" IsNeedChoice="False" TargetRange="EnemyShip" Damage="9"></SideEffect>
+        <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="9"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -950,7 +950,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="RunAway" IsNeedChoice="True" TargetRange="SelfMechs"></SideEffect>
+        <SideEffect name="RunAway" TargetRange="SelfMechs"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -959,7 +959,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DamageAll" IsNeedChoice="False" TargetRange="AllLife" Damage="5"></SideEffect>
+        <SideEffect name="Damage" TargetRange="AllLife" TargetSelect="All" Damage="5"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -978,7 +978,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="70102" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="2"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="2"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -987,7 +987,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="70103" degradeCardID="70101" cardLevel="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="4"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="4"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -996,7 +996,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="70102" cardLevel="3" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="8"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="8"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -1005,7 +1005,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="10"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="10"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -1014,7 +1014,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="70302" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="3"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="3"></SideEffect>
         <SideEffect name="DrawCards" CardCount="1"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
@@ -1024,7 +1024,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="70301" cardLevel="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="5"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="5"></SideEffect>
         <SideEffect name="DrawTypeCards" CardCount="1" DrawCardType="Energy"></SideEffect>
         <SideEffect name="DrawTypeCards" CardCount="1" DrawCardType="Spell"></SideEffect>
       </SideEffectExecute>
@@ -1035,7 +1035,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="3"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="3"></SideEffect>
         <SideEffect name="GetHandCardCopy"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
@@ -1045,7 +1045,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergyPerMechs" IsNeedChoice="False" TargetRange="EnemyMechs" Energy="1"></SideEffect>
+        <SideEffect name="StealEnergyByMechCount" TargetRange="EnemyMechs" TargetSelect="Single" Energy="1"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -1054,8 +1054,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="KillOne" IsNeedChoice="True" TargetRange="SelfMechs"></SideEffect>
-        <SideEffect name="AddEnergy" IsNeedChoice="False" TargetRange="SelfShip" Energy="5"></SideEffect>
+        <SideEffect name="Kill" TargetRange="SelfMechs" TargetSelect="Single"></SideEffect>
+        <SideEffect name="AddEnergy" TargetRange="SelfShip" TargetSelect="Single" Energy="5"></SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>

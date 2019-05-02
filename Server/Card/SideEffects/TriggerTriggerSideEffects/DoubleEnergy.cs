@@ -9,7 +9,7 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            player.AddEnergyWithinMax(player.EnergyLeft);
+            player.AddEnergy(player.EnergyLeft);
         }
     }
 }

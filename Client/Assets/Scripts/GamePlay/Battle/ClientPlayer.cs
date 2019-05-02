@@ -33,8 +33,8 @@ public class ClientPlayer : Player
         SetTotalLife();
         SetTotalEnergy();
         OnMetalChanged(0);
-        OnLifeChanged(0);
-        OnEnergyChanged(0);
+        OnLifeChanged(0, false);
+        OnEnergyChanged(0, false);
     }
 
     #region Metal
@@ -51,7 +51,7 @@ public class ClientPlayer : Player
 
     IEnumerator Co_ChangeMetal(PlayerMetalChangeRequest request)
     {
-        if (request.metal_max != MetalMax) AddMetalMax(request.metal_max - MetalMax);
+        if (request.metal_max != MetalMax) MetalMaxChange(request.metal_max - MetalMax);
         if (request.metal_left != MetalLeft) AddMetal(request.metal_left - MetalLeft);
 
         MyHandManager.RefreshAllCardUsable();
@@ -64,8 +64,9 @@ public class ClientPlayer : Player
 
     #region Life
 
-    protected override void OnLifeChanged(int change)
+    protected override void OnLifeChanged(int change, bool isOverflow)
     {
+        base.OnLifeChanged(change, isOverflow);
         if (IsInitialized) MyMetalLifeEnergyManager.SetLife(LifeLeft, change);
     }
 
@@ -95,8 +96,9 @@ public class ClientPlayer : Player
 
     #region Energy
 
-    protected override void OnEnergyChanged(int change)
+    protected override void OnEnergyChanged(int change, bool isOverflow)
     {
+        base.OnEnergyChanged(change, isOverflow);
         if (IsInitialized) MyMetalLifeEnergyManager.SetEnergy(EnergyLeft, change);
     }
 

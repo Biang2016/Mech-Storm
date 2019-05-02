@@ -63,7 +63,7 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
                     //todo from buff
                 }
 
-                SideEffectExecute newSEE = new SideEffectExecute(sef, new List<SideEffectBase> {AllSideEffects.GetSideEffect("DamageAll").Clone()}, Cur_ExecuteSetting);
+                SideEffectExecute newSEE = new SideEffectExecute(sef, new List<SideEffectBase> {AllSideEffects.GetSideEffect("Damage").Clone()}, Cur_ExecuteSetting);
 
                 seb.AddSideEffectExecute(newSEE);
                 seb.RefreshSideEffectExecutesDict();

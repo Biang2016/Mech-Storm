@@ -193,7 +193,8 @@ internal class ServerModuleRetinue : ServerModuleBase, ILife
 
     public void Damage(int damage)
     {
-        LifeChange(-damage);
+        BeAttacked(damage);
+        CheckAlive();
     }
 
     public void Change(int changeValue)

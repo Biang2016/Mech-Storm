@@ -2,7 +2,6 @@
 {
     protected override void InitSideEffectParam()
     {
-        base.InitSideEffectParam();
     }
 
     public override string GenerateDesc()

@@ -91,35 +91,31 @@
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenRoundBegin.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\DamageEnemyShipWhenAttack.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenUseMetal.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\RunAway.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\AddShield.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\AddArmor.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\IllusionToOne.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\Cooperation.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\RunAway.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\AddShield.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\AddArmor.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\IllusionToOne.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\Cooperation.cs" />
     <Compile Include="Card\SideEffects\TriggerTriggerSideEffects\Exile.cs" />
     <Compile Include="Card\SideEffects\TriggerTriggerSideEffects\DoubleEnergy.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\NextSpellDamageDouble.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenAttack.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddPlayerBuff.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\AddAttack.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\AddAttack.cs" />
     <Compile Include="Card\SideEffects\SummonRetinue.cs" />
     <Compile Include="Card\SideEffects\AttachedEquipSideEffects\AddSelfWeaponEnergy.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\SummonRetinuePerMechs.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\AddEnergyPerMechs.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\HalfShield.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\Degenerate.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\Sacrifice.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\TargetSideEffectToEquip\BreakEquip.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\AddLife.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\AddEnergy.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\AddWeaponEnergy.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\DamageAll.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\DamageRandom.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\Heal.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\DamageOne.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\KillOne.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\KillRandom.cs" />
-    <Compile Include="Card\SideEffects\TargetSideEffects\KillAll.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\SummonRetinueByMechCount.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\StealEnergyByMechCount.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\HalfShield.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\Degenerate.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\Sacrifice.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\EquipBased\BreakEquip.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\LifeBased\AddLife.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\ShipBased\AddEnergy.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\AddWeaponEnergy.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\LifeBased\Damage.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\LifeBased\Heal.cs" />
+    <Compile Include="Card\SideEffects\TargetSideEffects\LifeBased\Kill.cs" />
     <Compile Include="Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
     <Compile Include="Card\SideEffects\UseAllEnergyDamageShip.cs" />
     <Compile Include="Database\Database.cs" />
@@ -128,6 +124,7 @@
     <Compile Include="GamePlay\ServerBattleGroundManager.cs" />
     <Compile Include="GamePlay\ServerCardDeckManager.cs" />
     <Compile Include="GamePlay\ServerAISystem.cs" />
+    <Compile Include="GamePlay\ServerGameManager_TargetSelect.cs" />
     <Compile Include="GamePlay\ServerGameManager.cs" />
     <Compile Include="GamePlay\ServerGameMatchManager.cs" />
     <Compile Include="GamePlay\ServerHandManager.cs" />
@@ -165,5 +162,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

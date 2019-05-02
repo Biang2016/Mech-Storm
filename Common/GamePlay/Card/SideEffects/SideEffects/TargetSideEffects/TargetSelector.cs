@@ -2,10 +2,20 @@
 
 public class TargetSelector
 {
-    public static string GetDescOfTargetSelector(TargetRange targetRange, TargetSelect targetSelect)
+    public static string GetDescOfTargetSelector(TargetRange targetRange, TargetSelect targetSelect, int choiceCount)
     {
         string textKey = "TargetRange_" + targetSelect + "_" + targetRange;
-        return LanguageManager_Common.GetText(textKey);
+        string rawDesc = "";
+        rawDesc = LanguageManager_Common.GetText(textKey);
+        if (rawDesc != null && rawDesc.Contains("{0}"))
+        {
+            if (targetSelect == TargetSelect.Multiple || targetSelect == TargetSelect.MultipleRandom)
+            {
+                rawDesc = string.Format(rawDesc, choiceCount);
+            }
+        }
+
+        return rawDesc;
     }
 
     public enum TargetSelectorTypes
@@ -13,6 +23,7 @@ public class TargetSelector
         RetinueBased,
         LifeBased,
         ShipBased,
+        EquipBased,
     }
 
     public static Dictionary<TargetSelectorTypes, Dictionary<TargetSelect, List<TargetRange>>> TargetSelectorPresets =>
@@ -21,6 +32,7 @@ public class TargetSelector
             {TargetSelectorTypes.RetinueBased, RetinueBasedSelector},
             {TargetSelectorTypes.LifeBased, LifeBasedSelector},
             {TargetSelectorTypes.ShipBased, ShipBasedSelector},
+            {TargetSelectorTypes.EquipBased, EquipBasedSelector},
         };
 
     public static Dictionary<TargetSelect, List<TargetRange>> RetinueBasedSelector =>
@@ -135,7 +147,6 @@ public class TargetSelector
                     TargetRange.AllLife,
                     TargetRange.SelfLife,
                     TargetRange.EnemyLife,
-                    TargetRange.Ships,
                 }
             },
             {
@@ -153,7 +164,6 @@ public class TargetSelector
                     TargetRange.AllLife,
                     TargetRange.SelfLife,
                     TargetRange.EnemyLife,
-                    TargetRange.Ships,
                 }
             },
             {
@@ -207,18 +217,6 @@ public class TargetSelector
                 }
             },
             {
-                TargetSelect.Multiple, new List<TargetRange>
-                {
-                    TargetRange.Ships,
-                }
-            },
-            {
-                TargetSelect.MultipleRandom, new List<TargetRange>
-                {
-                    TargetRange.Ships,
-                }
-            },
-            {
                 TargetSelect.Single, new List<TargetRange>
                 {
                     TargetRange.Ships,
@@ -230,6 +228,26 @@ public class TargetSelector
                 TargetSelect.SingleRandom, new List<TargetRange>
                 {
                     TargetRange.Ships,
+                }
+            },
+        };
+
+    public static Dictionary<TargetSelect, List<TargetRange>> EquipBasedSelector =>
+        new Dictionary<TargetSelect, List<TargetRange>>
+        {
+            {
+                TargetSelect.Single, new List<TargetRange>
+                {
+                    TargetRange.Self,
+                    TargetRange.Heroes,
+                    TargetRange.Soldiers,
+                    TargetRange.Mechs,
+                    TargetRange.SelfHeroes,
+                    TargetRange.SelfSoldiers,
+                    TargetRange.SelfMechs,
+                    TargetRange.EnemyHeroes,
+                    TargetRange.EnemySoldiers,
+                    TargetRange.EnemyMechs,
                 }
             },
         };

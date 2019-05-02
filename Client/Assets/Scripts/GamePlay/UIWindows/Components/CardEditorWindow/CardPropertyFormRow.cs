@@ -65,8 +65,11 @@ public abstract class CardPropertyFormRow : PoolObject
         return res;
     }
 
+    internal string LabelStrKey = "";
+
     protected void Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
+        LabelStrKey = labelStrKey;
         if (LanguageManager.Instance.GetText(labelStrKey) != null)
         {
             LanguageManager.Instance.RegisterTextKeys(new List<ValueTuple<Text, string>>

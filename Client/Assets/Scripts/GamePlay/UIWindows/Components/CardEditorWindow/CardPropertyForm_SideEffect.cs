@@ -89,18 +89,33 @@ public class CardPropertyForm_SideEffect : PoolObject
                     SideEffectValue_ConstInt s = (SideEffectValue_ConstInt) sev;
                     if (s.EnumType == null)
                     {
-                        CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                            CardPropertyFormRow.CardPropertyFormRowType.InputField,
-                            ParamRowContainer,
-                            sev.Name,
-                            delegate(string value_str)
+                        bool showInputField = true;
+                        if (s.Name == "ChoiceCount")
+                        {
+                            if (se is TargetSideEffect t_se)
                             {
-                                if (int.TryParse(value_str, out int res)) s.Value = res;
-                                onRefreshText?.Invoke();
-                            },
-                            out UnityAction<string> setValue);
-                        setValue(s.Value.ToString());
-                        CardPropertyFormRows.Add(row);
+                                if (t_se.TargetSelect != TargetSelect.Multiple && t_se.TargetSelect != TargetSelect.MultipleRandom)
+                                {
+                                    showInputField = false;
+                                }
+                            }
+                        }
+
+                        if (showInputField)
+                        {
+                            CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
+                                CardPropertyFormRow.CardPropertyFormRowType.InputField,
+                                ParamRowContainer,
+                                sev.Name,
+                                delegate(string value_str)
+                                {
+                                    if (int.TryParse(value_str, out int res)) s.Value = res;
+                                    onRefreshText?.Invoke();
+                                },
+                                out UnityAction<string> setValue);
+                            setValue(s.Value.ToString());
+                            CardPropertyFormRows.Add(row);
+                        }
                     }
                     else
                     {
@@ -125,24 +140,181 @@ public class CardPropertyForm_SideEffect : PoolObject
                         else
                         {
                             List<string> enumList = new List<string>();
-                            foreach (string enumName in Enum.GetNames(s.EnumType))
+                            if (se is TargetSideEffect t_se1 && s.EnumType == typeof(TargetSelect))
                             {
-                                enumList.Add(enumName);
-                            }
-
-                            CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                                CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
-                                ParamRowContainer,
-                                sev.Name,
-                                delegate(string value_str)
+                                List<TargetSelect> nameList = t_se1.ValidTargetSelects;
+                                if (nameList == null)
                                 {
-                                    s.Value = (int) Enum.Parse(s.EnumType, value_str);
-                                    onRefreshText?.Invoke();
-                                },
-                                out UnityAction<string> setValue,
-                                enumList);
-                            setValue(Enum.GetName(s.EnumType, s.Value));
-                            CardPropertyFormRows.Add(row);
+                                    foreach (string enumName in Enum.GetNames(s.EnumType))
+                                    {
+                                        enumList.Add(enumName);
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (TargetSelect targetRange in nameList)
+                                    {
+                                        enumList.Add(targetRange.ToString());
+                                    }
+                                }
+
+                                CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
+                                    CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
+                                    ParamRowContainer,
+                                    sev.Name,
+                                    delegate(string value_str)
+                                    {
+                                        s.Value = (int) Enum.Parse(s.EnumType, value_str);
+                                        CardPropertyFormRow triggerRangeRow = null;
+                                        foreach (CardPropertyFormRow cardPropertyFormRow in CardPropertyFormRows)
+                                        {
+                                            if (cardPropertyFormRow.LabelStrKey.Equals("TargetRange"))
+                                            {
+                                                triggerRangeRow = cardPropertyFormRow;
+                                                break;
+                                            }
+                                        }
+
+                                        if (triggerRangeRow)
+                                        {
+                                            int siblingIndex = triggerRangeRow.transform.GetSiblingIndex();
+                                            triggerRangeRow.PoolRecycle();
+                                            CardPropertyFormRows.Remove(triggerRangeRow);
+
+                                            Dictionary<TargetSelect, List<TargetRange>> dict = TargetSelector.TargetSelectorPresets[t_se1.TargetSelectorType];
+                                            List<string> enumList_TargetRange = new List<string>();
+                                            List<TargetRange> nlist = dict[t_se1.TargetSelect];
+                                            foreach (TargetRange targetRange in nlist)
+                                            {
+                                                enumList_TargetRange.Add(targetRange.ToString());
+                                            }
+
+                                            SideEffectValue_ConstInt targetRangeSEV = (SideEffectValue_ConstInt) se.M_SideEffectParam.GetParam("TargetRange");
+                                            if (targetRangeSEV != null)
+                                            {
+                                                CardPropertyFormRow new_TargetRangeRow = CardPropertyFormRow.BaseInitialize(
+                                                    CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
+                                                    ParamRowContainer,
+                                                    targetRangeSEV.Name,
+                                                    delegate(string v_str)
+                                                    {
+                                                        targetRangeSEV.Value = (int) Enum.Parse(targetRangeSEV.EnumType, v_str);
+                                                        onRefreshText?.Invoke();
+                                                    },
+                                                    out UnityAction<string> _setValue,
+                                                    enumList_TargetRange);
+                                                _setValue(Enum.GetName(targetRangeSEV.EnumType, targetRangeSEV.Value));
+                                                CardPropertyFormRows.Add(new_TargetRangeRow);
+                                                new_TargetRangeRow.transform.SetSiblingIndex(siblingIndex);
+                                            }
+                                        }
+
+                                        if (s.Value == (int) TargetSelect.Multiple || s.Value == (int) TargetSelect.MultipleRandom)
+                                        {
+                                            CardPropertyFormRow choiceCountRow = null;
+                                            foreach (CardPropertyFormRow cardPropertyFormRow in CardPropertyFormRows)
+                                            {
+                                                if (cardPropertyFormRow.LabelStrKey.Equals("ChoiceCount"))
+                                                {
+                                                    choiceCountRow = cardPropertyFormRow;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (!choiceCountRow)
+                                            {
+                                                SideEffectValue_ConstInt choiceCountSEV = (SideEffectValue_ConstInt) se.M_SideEffectParam.GetParam("ChoiceCount");
+                                                if (choiceCountSEV != null)
+                                                {
+                                                    CardPropertyFormRow new_ChoiceCountRow = CardPropertyFormRow.BaseInitialize(
+                                                        CardPropertyFormRow.CardPropertyFormRowType.InputField,
+                                                        ParamRowContainer,
+                                                        choiceCountSEV.Name,
+                                                        delegate(string v_str)
+                                                        {
+                                                            if (int.TryParse(v_str, out int res)) choiceCountSEV.Value = res;
+                                                            onRefreshText?.Invoke();
+                                                        },
+                                                        out UnityAction<string> _setValue);
+                                                    _setValue(choiceCountSEV.Value.ToString());
+                                                    CardPropertyFormRows.Add(new_ChoiceCountRow);
+                                                    StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ParamRowContainer));
+                                                    StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            CardPropertyFormRow choiceCountRow = null;
+                                            foreach (CardPropertyFormRow cardPropertyFormRow in CardPropertyFormRows)
+                                            {
+                                                if (cardPropertyFormRow.LabelStrKey.Equals("ChoiceCount"))
+                                                {
+                                                    choiceCountRow = cardPropertyFormRow;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (choiceCountRow)
+                                            {
+                                                choiceCountRow.PoolRecycle();
+                                                CardPropertyFormRows.Remove(choiceCountRow);
+                                                StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ParamRowContainer));
+                                                StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
+                                            }
+                                        }
+
+                                        onRefreshText?.Invoke();
+                                    },
+                                    out UnityAction<string> setValue,
+                                    enumList);
+                                setValue(Enum.GetName(s.EnumType, s.Value));
+                                CardPropertyFormRows.Add(row);
+                            }
+                            else if (se is TargetSideEffect t_se2 && s.EnumType == typeof(TargetRange))
+                            {
+                                Dictionary<TargetSelect, List<TargetRange>> dict = TargetSelector.TargetSelectorPresets[t_se2.TargetSelectorType];
+                                List<TargetRange> nameList = dict[t_se2.TargetSelect];
+                                foreach (TargetRange targetRange in nameList)
+                                {
+                                    enumList.Add(targetRange.ToString());
+                                }
+
+                                CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
+                                    CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
+                                    ParamRowContainer,
+                                    sev.Name,
+                                    delegate(string value_str)
+                                    {
+                                        s.Value = (int) Enum.Parse(s.EnumType, value_str);
+                                        onRefreshText?.Invoke();
+                                    },
+                                    out UnityAction<string> setValue,
+                                    enumList);
+                                setValue(Enum.GetName(s.EnumType, s.Value));
+                                CardPropertyFormRows.Add(row);
+                            }
+                            else
+                            {
+                                foreach (string enumName in Enum.GetNames(s.EnumType))
+                                {
+                                    enumList.Add(enumName);
+                                }
+
+                                CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
+                                    CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
+                                    ParamRowContainer,
+                                    sev.Name,
+                                    delegate(string value_str)
+                                    {
+                                        s.Value = (int) Enum.Parse(s.EnumType, value_str);
+                                        onRefreshText?.Invoke();
+                                    },
+                                    out UnityAction<string> setValue,
+                                    enumList);
+                                setValue(Enum.GetName(s.EnumType, s.Value));
+                                CardPropertyFormRows.Add(row);
+                            }
                         }
                     }
 

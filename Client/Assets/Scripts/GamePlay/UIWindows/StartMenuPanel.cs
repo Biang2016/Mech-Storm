@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class StartMenuPanel : BaseUIForm
+public class StartMenuPanel :BaseUIForm
 {
     private StartMenuPanel()
     {

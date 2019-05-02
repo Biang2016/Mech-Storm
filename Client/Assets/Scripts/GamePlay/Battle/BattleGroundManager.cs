@@ -295,7 +295,7 @@ public class BattleGroundManager : MonoBehaviour
     private CardRetinue currentSummonPreviewRetinueCard;
     internal ModuleRetinue CurrentSummonPreviewRetinue;
 
-    public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetSideEffect.TargetRange targetRange) //用于具有指定目标的副作用的机甲的召唤预览、显示指定箭头
+    public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetRange targetRange) //用于具有指定目标的副作用的机甲的召唤预览、显示指定箭头
     {
         currentSummonPreviewRetinueCard = retinueCard;
         ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int) Const.CLIENT_TEMP_RETINUE_ID_NORMAL);

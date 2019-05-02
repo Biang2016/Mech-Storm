@@ -216,164 +216,6 @@ internal class ServerBattleGroundManager
         ServerPlayer.MyCardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
-    public void KillAllRetinues()
-    {
-        List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
-        for (int i = 0; i < Retinues.Count; i++)
-        {
-            dieRetinues.Add(Retinues[i]);
-        }
-
-        dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
-
-        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues.ToArray())
-        {
-            serverModuleRetinue.OnDieTogether();
-        }
-    }
-
-    public void KillAllHeroes()
-    {
-        List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
-        for (int i = 0; i < Retinues.Count; i++)
-        {
-            if (!Retinues[i].CardInfo.RetinueInfo.IsSoldier) dieRetinues.Add(Retinues[i]);
-        }
-
-        dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
-
-        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues.ToArray())
-        {
-            serverModuleRetinue.OnDieTogether();
-        }
-    }
-
-    public void KillAllSoldiers()
-    {
-        List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
-        for (int i = 0; i < Retinues.Count; i++)
-        {
-            if (Retinues[i].CardInfo.RetinueInfo.IsSoldier) dieRetinues.Add(Retinues[i]);
-        }
-
-        dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
-
-        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues.ToArray())
-        {
-            serverModuleRetinue.OnDieTogether();
-        }
-    }
-
-    private void KillOneRetinue(ServerModuleRetinue retinue)
-    {
-        if (retinue != null)
-        {
-            retinue.OnDieTogether();
-            PrintRetinueInfos();
-        }
-    }
-
-    public enum RetinueValueTypes
-    {
-        Life,
-        Heal,
-        Damage,
-        Attack,
-        Armor,
-        Shield,
-        WeaponEnergy,
-    }
-
-    private Dictionary<RetinueValueTypes, Action<ServerModuleRetinue, int>> RetinueValueChangeDelegates = new Dictionary<RetinueValueTypes, Action<ServerModuleRetinue, int>>
-    {
-        {RetinueValueTypes.Life, delegate(ServerModuleRetinue retinue, int value) { retinue?.AddLife(value); }},
-        {RetinueValueTypes.Heal, delegate(ServerModuleRetinue retinue, int value) { retinue?.Heal(value); }},
-        {
-            RetinueValueTypes.Damage, delegate(ServerModuleRetinue targetRetinue, int value)
-            {
-                targetRetinue.BeAttacked(value);
-                targetRetinue.CheckAlive();
-            }
-        },
-        {RetinueValueTypes.Attack, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueAttack += value; }},
-        {RetinueValueTypes.Armor, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueArmor += value; }},
-        {RetinueValueTypes.Shield, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueShield += value; }},
-        {RetinueValueTypes.WeaponEnergy, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueWeaponEnergy += value; }},
-    };
-
-    public void ChangeRetinuesValue(RetinueValueTypes retinueValueType, int value, int count, List<int> retinueIds, TargetSelect targetSelect, RetinueType retinueType, int exceptRetinueId = -1)
-    {
-        Action<ServerModuleRetinue, int> action = RetinueValueChangeDelegates[retinueValueType];
-        switch (targetSelect)
-        {
-            case TargetSelect.All:
-            {
-                foreach (ServerModuleRetinue retinue in GetRetinueByType(retinueType).ToArray())
-                {
-                    action(retinue, value);
-                }
-
-                break;
-            }
-            case TargetSelect.Multiple:
-            {
-                foreach (int retinueId in retinueIds)
-                {
-                    action(GetRetinue(retinueId), value);
-                }
-
-                break;
-            }
-            case TargetSelect.MultipleRandom:
-            {
-                foreach (ServerModuleRetinue retinue in Utils.GetRandomFromList(GetRetinueByType(retinueType), count))
-                {
-                    action(retinue, value);
-                }
-
-                break;
-            }
-            case TargetSelect.Single:
-            {
-                action(GetRetinue(retinueIds[0]), value);
-                break;
-            }
-            case TargetSelect.SingleRandom:
-            {
-                action(GetRandomRetinue(retinueType, exceptRetinueId), value);
-                break;
-            }
-        }
-    }
-
-    public void RemoveEquip(RetinueType retinueType, int equipID)
-    {
-        List<ServerModuleRetinue> retinues = GetRetinueByType(retinueType);
-
-        foreach (ServerModuleRetinue retinue in retinues)
-        {
-            if (retinue.M_Weapon != null && retinue.M_Weapon.M_EquipID == equipID)
-            {
-                retinue.M_Weapon = null;
-            }
-
-            if (retinue.M_Shield != null && retinue.M_Shield.M_EquipID == equipID)
-            {
-                retinue.M_Shield = null;
-            }
-
-            if (retinue.M_Pack != null && retinue.M_Pack.M_EquipID == equipID)
-            {
-                retinue.M_Pack = null;
-            }
-
-            if (retinue.M_MA != null && retinue.M_MA.M_EquipID == equipID)
-            {
-                retinue.M_MA = null;
-            }
-        }
-    }
-
     #region Utils
 
     public ServerModuleRetinue GetRetinue(int retinueId)
@@ -415,18 +257,18 @@ internal class ServerBattleGroundManager
         return -1;
     }
 
-    private List<ServerModuleRetinue> GetRetinueByType(RetinueType retinueType)
+    public List<ServerModuleRetinue> GetRetinueByType(RetinueTypes retinueType)
     {
         List<ServerModuleRetinue> retinues;
         switch (retinueType)
         {
-            case RetinueType.All:
+            case RetinueTypes.All:
                 retinues = Retinues;
                 break;
-            case RetinueType.Soldier:
+            case RetinueTypes.Soldier:
                 retinues = Soldiers;
                 break;
-            case RetinueType.Hero:
+            case RetinueTypes.Hero:
                 retinues = Heroes;
                 break;
             default:
@@ -437,7 +279,7 @@ internal class ServerBattleGroundManager
         return retinues;
     }
 
-    public ServerModuleRetinue GetRandomRetinue(RetinueType retinueType, int exceptRetinueId)
+    public ServerModuleRetinue GetRandomRetinue(RetinueTypes retinueType, int exceptRetinueId)
     {
         List<ServerModuleRetinue> retinues = GetRetinueByType(retinueType);
 
@@ -449,19 +291,11 @@ internal class ServerBattleGroundManager
         {
             int aliveCount = CountAliveRetinueExcept(retinueType, exceptRetinueId);
             Random rd = new Random();
-            return GetAliveRetinueExcept(rd.Next(0, aliveCount), retinues, exceptRetinueId);
+            return ServerGameManager.GetAliveRetinueExcept(rd.Next(0, aliveCount), retinues, exceptRetinueId);
         }
     }
 
-    public enum RetinueType
-    {
-        None,
-        All,
-        Soldier,
-        Hero
-    }
-
-    public int CountAliveRetinueExcept(RetinueType retinueType, int exceptRetinueId)
+    public int CountAliveRetinueExcept(RetinueTypes retinueType, int exceptRetinueId)
     {
         List<ServerModuleRetinue> retinues = GetRetinueByType(retinueType);
 
@@ -474,30 +308,6 @@ internal class ServerBattleGroundManager
         return count;
     }
 
-    private ServerModuleRetinue GetAliveRetinue(int index, List<ServerModuleRetinue> retinues)
-    {
-        int count = -1;
-        foreach (ServerModuleRetinue retinue in retinues)
-        {
-            if (!retinue.M_IsDead) count++;
-            if (count == index) return retinue;
-        }
-
-        return null;
-    }
-
-    private ServerModuleRetinue GetAliveRetinueExcept(int index, List<ServerModuleRetinue> retinues, int exceptRetinueId)
-    {
-        int count = -1;
-        foreach (ServerModuleRetinue retinue in retinues)
-        {
-            if (!retinue.M_IsDead && retinue.M_RetinueID != exceptRetinueId) count++;
-            if (count == index) return retinue;
-        }
-
-        return null;
-    }
-
     public void PrintRetinueInfos()
     {
         string log = "BattleGroundInfo: [ClientID]" + ServerPlayer.ClientId + " [Username]" + ServerPlayer.MyClientProxy.UserName;
@@ -507,57 +317,6 @@ internal class ServerBattleGroundManager
         }
 
         ServerLog.Print(log);
-    }
-
-    public static RetinueType GetRetinueTypeByTargetRange(TargetRange targetRange)
-    {
-        RetinueType retinueType = RetinueType.None;
-        if ((targetRange & TargetRange.Heroes) == targetRange) // 若是Heroes子集
-        {
-            retinueType = RetinueType.Hero;
-        }
-
-        if ((targetRange & TargetRange.Soldiers) == targetRange) // 若是Soldiers子集
-        {
-            retinueType = RetinueType.Soldier;
-        }
-        else
-        {
-            retinueType = RetinueType.All;
-        }
-
-        return retinueType;
-    }
-
-    public static List<ServerPlayer> GetMechsPlayerByTargetRange(TargetRange targetRange, ServerPlayer player)
-    {
-        List<ServerPlayer> res = new List<ServerPlayer>();
-        if ((targetRange & TargetRange.SelfMechs) == TargetRange.SelfMechs)
-        {
-            res.Add(player);
-        }
-
-        if ((targetRange & TargetRange.EnemyMechs) == TargetRange.EnemyMechs)
-        {
-            res.Add(player.MyEnemyPlayer);
-        }
-
-        return res;
-    }
-    public static List<ServerPlayer> GetShipsPlayerByTargetRange(TargetRange targetRange, ServerPlayer player)
-    {
-        List<ServerPlayer> res = new List<ServerPlayer>();
-        if ((targetRange & TargetRange.SelfShip) == TargetRange.SelfShip)
-        {
-            res.Add(player);
-        }
-
-        if ((targetRange & TargetRange.EnemyShip) == TargetRange.EnemyShip)
-        {
-            res.Add(player.MyEnemyPlayer);
-        }
-
-        return res;
     }
 
     #endregion

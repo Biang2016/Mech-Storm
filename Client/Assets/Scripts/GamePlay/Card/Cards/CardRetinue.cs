@@ -143,7 +143,7 @@ public class CardRetinue : CardBase
     }
 
     //召唤机甲带目标
-    private void summonRetinueTarget(Vector3 dragLastPosition, TargetSideEffect.TargetRange targetRange)
+    private void summonRetinueTarget(Vector3 dragLastPosition, TargetRange targetRange)
     {
         if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
         {

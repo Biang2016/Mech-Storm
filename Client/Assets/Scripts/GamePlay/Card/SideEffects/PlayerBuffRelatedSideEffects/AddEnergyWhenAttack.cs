@@ -2,7 +2,7 @@
 {
     public class AddEnergyWhenAttack : AddEnergyWhenAttack_Base
     {
-        public AddEnergyWhenAttack()
+        public AddEnergyWhenAttack():base()
         {
         }
 

@@ -1,8 +1,8 @@
 ﻿namespace SideEffects
 {
-    public class TriggerOneHandCard : TriggerOneHandCard_Base
+    public class TriggerHandCard : TriggerHandCard_Base
     {
-        public TriggerOneHandCard()
+        public TriggerHandCard()
         {
         }
 

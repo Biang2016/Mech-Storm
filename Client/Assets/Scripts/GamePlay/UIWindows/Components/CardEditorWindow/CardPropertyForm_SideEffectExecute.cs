@@ -81,7 +81,7 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
         AddSideEffectButton.onClick.RemoveAllListeners();
         AddSideEffectButton.onClick.AddListener(delegate
         {
-            see.SideEffectBases.Add(AllSideEffects.GetSideEffect("DamageAll").Clone());
+            see.SideEffectBases.Add(AllSideEffects.GetSideEffect("Damage").Clone());
             Initialize(see, onRefreshText, onDeleteButtonClick);
             onRefreshText();
             StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));

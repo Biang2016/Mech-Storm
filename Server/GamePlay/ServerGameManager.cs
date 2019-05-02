@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-internal class ServerGameManager
+internal partial class ServerGameManager
 {
     public ClientProxy ClientA;
     public ClientProxy ClientB;
@@ -444,6 +444,26 @@ internal class ServerGameManager
 
     #endregion
 
+    public void Broadcast_AddRequestToOperationResponse(ServerRequestBase request)
+    {
+        ClientA.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
+        ClientB.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
+    }
+
+    private void Broadcast_SendOperationResponse()
+    {
+        ClientA.SendMessage(ClientA.CurrentClientRequestResponseBundle);
+        ClientB.SendMessage(ClientB.CurrentClientRequestResponseBundle);
+        ClientA.CurrentClientRequestResponseBundle = null;
+        ClientB.CurrentClientRequestResponseBundle = null;
+    }
+
+    private void BroadcastRequest(ServerRequestBase request)
+    {
+        ClientA.SendMessage(request);
+        ClientB.SendMessage(request);
+    }
+
     #region SideEffects
 
     public List<int> DieRetinueList = new List<int>();
@@ -461,6 +481,8 @@ internal class ServerGameManager
         {
             tmp.Add(id);
         }
+
+        tmp.Sort();
 
         PlayerA.MyBattleGroundManager.RemoveRetinues(tmp);
         PlayerB.MyBattleGroundManager.RemoveRetinues(tmp);
@@ -491,275 +513,6 @@ internal class ServerGameManager
         {
             ((ServerPlayer) se.Player).RemovePlayerBuff(see, buff);
         }
-    }
-
-    #endregion
-
-    #region Utils
-
-    public enum PlayerValueType
-    {
-        AddLife,
-        Heal,
-        Energy,
-    }
-
-    private Dictionary<PlayerValueType, Action<ServerPlayer, int>> PlayerValueChangeDelegates = new Dictionary<PlayerValueType, Action<ServerPlayer, int>>
-    {
-        {PlayerValueType.AddLife, delegate(ServerPlayer player, int value) { ((ILife) player).AddLife(value); }},
-        {PlayerValueType.Heal, delegate(ServerPlayer player, int value) { ((ILife) player).Heal(value); }},
-        {PlayerValueType.Energy, delegate(ServerPlayer player, int value) { player.AddEnergy(value); }},
-    };
-
-    public void ChangePlayerValue(PlayerValueType playerValueType, int value, int count, TargetSelect targetSelect, List<int> targetClientIds)
-    {
-        Action<ServerPlayer, int> action = PlayerValueChangeDelegates[playerValueType];
-        switch (targetSelect)
-        {
-            case TargetSelect.All:
-            {
-                action(PlayerA, value);
-                action(PlayerB, value);
-
-                break;
-            }
-            case TargetSelect.Multiple:
-            {
-                foreach (int clientId in targetClientIds)
-                {
-                    action(GetPlayerByClientId(clientId), value);
-                }
-
-                break;
-            }
-            case TargetSelect.MultipleRandom:
-            {
-                List<int> clientIds = Utils.GetRandomFromList(targetClientIds, count);
-                foreach (int clientId in clientIds)
-                {
-                    action(GetPlayerByClientId(clientId), value);
-                }
-
-                break;
-            }
-            case TargetSelect.Single:
-            {
-                action(GetPlayerByClientId(targetClientIds[0]), value);
-                break;
-            }
-            case TargetSelect.SingleRandom:
-            {
-                action(GetRandomPlayer(1)[0], value);
-                break;
-            }
-        }
-    }
-
-    public enum ILifeOperationType
-    {
-        AddLife,
-        Heal,
-        Damage,
-        Change,
-        HealAll,
-        ChangeMaxLife,
-    }
-
-    private Dictionary<ILifeOperationType, Action<ILife, int>> ILifeOperationDelegates = new Dictionary<ILifeOperationType, Action<ILife, int>>
-    {
-        {ILifeOperationType.AddLife, delegate(ILife life, int value) { life.AddLife(value); }},
-        {ILifeOperationType.Heal, delegate(ILife life, int value) { life.Heal(value); }},
-        {ILifeOperationType.Damage, delegate(ILife life, int value) { life.Damage(value); }},
-        {ILifeOperationType.Change, delegate(ILife life, int value) { life.Change(value); }},
-        {ILifeOperationType.HealAll, delegate(ILife life, int value) { life.HealAll(); }},
-        {ILifeOperationType.ChangeMaxLife, delegate(ILife life, int value) { life.ChangeMaxLife(value); }},
-    };
-
-    public void ChangeAllILifeValue(List<ServerPlayer> players, ILifeOperationType iLifeOperationType, int value, int count, TargetSelect targetSelect, List<int> targetClientIds, List<int> targetRetinueIds)
-    {
-        Action<ILife, int> action = ILifeOperationDelegates[iLifeOperationType];
-        switch (targetSelect)
-        {
-            case TargetSelect.All:
-            {
-                foreach (ServerPlayer player in players)
-                {
-                    action(player, value);
-                    foreach (ServerModuleRetinue retinue in player.MyBattleGroundManager.Retinues)
-                    {
-                        action(retinue, value);
-                    }
-                }
-
-                break;
-            }
-            case TargetSelect.Multiple:
-            {
-                foreach (int clientId in targetClientIds)
-                {
-                    action(GetPlayerByClientId(clientId), value);
-                }
-
-                foreach (int retinueId in targetRetinueIds)
-                {
-                    action(GetRetinueOnBattleGround(retinueId), value);
-                }
-
-                break;
-            }
-            case TargetSelect.MultipleRandom:
-            {
-                List<ILife> lives = GetAllLifeInBattleGround(players);
-                List<ILife> selectedLives = Utils.GetRandomFromList(lives, count);
-                foreach (ILife life in selectedLives)
-                {
-                    action(life, value);
-                }
-
-                break;
-            }
-            case TargetSelect.Single:
-            {
-                foreach (int clientId in targetClientIds)
-                {
-                    action(GetPlayerByClientId(clientId), value);
-                    break;
-                }
-
-                foreach (int retinueId in targetRetinueIds)
-                {
-                    action(GetRetinueOnBattleGround(retinueId), value);
-                    break;
-                }
-
-                break;
-            }
-            case TargetSelect.SingleRandom:
-            {
-                List<ILife> lives = GetAllLifeInBattleGround(players);
-                List<ILife> selectedLives = Utils.GetRandomFromList(lives, 1);
-                foreach (ILife life in selectedLives)
-                {
-                    action(life, value);
-                    break;
-                }
-
-                break;
-            }
-        }
-    }
-
-    public List<ILife> GetAllLifeInBattleGround(List<ServerPlayer> players)
-    {
-        List<ILife> res = new List<ILife>();
-        foreach (ServerPlayer player in players)
-        {
-            foreach (ServerModuleRetinue smr in player.MyBattleGroundManager.Retinues)
-            {
-                res.Add(smr);
-            }
-
-            res.Add(player);
-        }
-
-        return res;
-    }
-
-    public List<ServerPlayer> GetRandomPlayer(int count)
-    {
-        return Utils.GetRandomFromList(new List<ServerPlayer> {PlayerA, PlayerB}, count);
-    }
-
-    public void Broadcast_AddRequestToOperationResponse(ServerRequestBase request)
-    {
-        ClientA.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
-        ClientB.CurrentClientRequestResponseBundle.AttachedRequests.Add(request);
-    }
-
-    private void Broadcast_SendOperationResponse()
-    {
-        ClientA.SendMessage(ClientA.CurrentClientRequestResponseBundle);
-        ClientB.SendMessage(ClientB.CurrentClientRequestResponseBundle);
-        ClientA.CurrentClientRequestResponseBundle = null;
-        ClientB.CurrentClientRequestResponseBundle = null;
-    }
-
-    private void BroadcastRequest(ServerRequestBase request)
-    {
-        ClientA.SendMessage(request);
-        ClientB.SendMessage(request);
-    }
-
-    public ServerModuleRetinue GetRetinueOnBattleGround(int retinueId)
-    {
-        ServerModuleRetinue retinue = PlayerA.MyBattleGroundManager.GetRetinue(retinueId);
-        if (retinue == null) retinue = PlayerB.MyBattleGroundManager.GetRetinue(retinueId);
-        return retinue;
-    }
-
-    public ServerModuleRetinue GetRandomAliveRetinueExcept(ServerBattleGroundManager.RetinueType retinueType, int exceptRetinueId)
-    {
-        int countA = PlayerA.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
-        int countB = PlayerB.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
-        Random rd = new Random();
-        int ranResult = rd.Next(0, countA + countB);
-        if (ranResult < countA)
-        {
-            return PlayerA.MyBattleGroundManager.GetRandomRetinue(retinueType, exceptRetinueId);
-        }
-        else
-        {
-            return PlayerB.MyBattleGroundManager.GetRandomRetinue(retinueType, exceptRetinueId);
-        }
-    }
-
-    public int CountAliveRetinueExcept(ServerBattleGroundManager.RetinueType retinueType, int exceptRetinueId)
-    {
-        int countA = PlayerA.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
-        int countB = PlayerB.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
-        return countA + countB;
-    }
-
-    public ClientProxy GetClientProxyByClientId(int clientId)
-    {
-        if (ClientA.ClientId == clientId)
-        {
-            return ClientA;
-        }
-        else if (ClientB.ClientId == clientId)
-        {
-            return ClientB;
-        }
-
-        return null;
-    }
-
-    public ClientProxy GetEnemyClientProxyByClientId(int clientId)
-    {
-        if (ClientA.ClientId == clientId)
-        {
-            return ClientB;
-        }
-        else if (ClientB.ClientId == clientId)
-        {
-            return ClientA;
-        }
-
-        return null;
-    }
-
-    public ServerPlayer GetPlayerByClientId(int clientId)
-    {
-        if (PlayerA.ClientId == clientId)
-        {
-            return PlayerA;
-        }
-        else if (PlayerB.ClientId == clientId)
-        {
-            return PlayerB;
-        }
-
-        return null;
     }
 
     #endregion
