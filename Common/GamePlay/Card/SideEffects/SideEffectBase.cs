@@ -91,20 +91,16 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
         copy.DescRaws = CloneVariantUtils.SortedDictionary(DescRaws);
         if (withChange) copy.M_SideEffectParam = M_SideEffectParam.CloneWithFactor();
         else copy.M_SideEffectParam = M_SideEffectParam.Clone();
-        foreach (SideEffectBase sub_SE in Sub_SideEffect)
-        {
-            copy.Sub_SideEffect.Add(sub_SE.Clone());
-        }
-
+        copy.Sub_SideEffect = CloneVariantUtils.List(Sub_SideEffect);
         return copy;
     }
 
-    public SideEffectBase Clone() //只拷贝基础效果
+    public virtual SideEffectBase Clone() //只拷贝基础效果
     {
         return CloneCore(false);
     }
 
-    public SideEffectBase CloneWithChange() // 将附带的变化，如增益效果等一起拷贝
+    public virtual SideEffectBase CloneWithChange() // 将附带的变化，如增益效果等一起拷贝
     {
         return CloneCore(true);
     }

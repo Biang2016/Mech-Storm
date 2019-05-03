@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 
 public class CardInfo_Equip : CardInfo_Base
 {
@@ -167,9 +168,58 @@ public class CardInfo_Equip : CardInfo_Base
             shieldInfo: ShieldInfo,
             packInfo: PackInfo,
             maInfo: MAInfo,
-            sideEffectBundle: SideEffectBundle
+            sideEffectBundle: SideEffectBundle.Clone()
         );
         return cb;
+    }
+
+    protected override void ChildrenExportToXML(XmlElement card_ele)
+    {
+        base.ChildrenExportToXML(card_ele);
+        XmlDocument doc = card_ele.OwnerDocument;
+        XmlElement equipInfo_ele = doc.CreateElement("CardInfo");
+        card_ele.AppendChild(equipInfo_ele);
+
+        switch (EquipInfo.SlotType)
+        {
+            case SlotTypes.Weapon:
+            {
+                equipInfo_ele.SetAttribute("name", "weaponInfo");
+                equipInfo_ele.SetAttribute("energy", WeaponInfo.Energy.ToString());
+                equipInfo_ele.SetAttribute("energyMax", WeaponInfo.EnergyMax.ToString());
+                equipInfo_ele.SetAttribute("attack", WeaponInfo.Attack.ToString());
+                equipInfo_ele.SetAttribute("weaponType", WeaponInfo.WeaponType.ToString());
+                equipInfo_ele.SetAttribute("isSentry", WeaponInfo.IsSentry.ToString());
+                equipInfo_ele.SetAttribute("isFrenzy", WeaponInfo.IsFrenzy.ToString());
+                break;
+            }
+            case SlotTypes.Shield:
+            {
+                equipInfo_ele.SetAttribute("name", "shieldInfo");
+                equipInfo_ele.SetAttribute("armor", ShieldInfo.Armor.ToString());
+                equipInfo_ele.SetAttribute("shield", ShieldInfo.Shield.ToString());
+                equipInfo_ele.SetAttribute("shieldType", ShieldInfo.ShieldType.ToString());
+                equipInfo_ele.SetAttribute("isDefense", ShieldInfo.IsDefense.ToString());
+                break;
+            }
+            case SlotTypes.Pack:
+            {
+                equipInfo_ele.SetAttribute("name", "packInfo");
+                equipInfo_ele.SetAttribute("isFrenzy", PackInfo.IsFrenzy.ToString());
+                equipInfo_ele.SetAttribute("isDefense", PackInfo.IsDefense.ToString());
+                equipInfo_ele.SetAttribute("isSniper", PackInfo.IsSniper.ToString());
+                equipInfo_ele.SetAttribute("dodgeProp", PackInfo.DodgeProp.ToString());
+                break;
+            }
+            case SlotTypes.MA:
+            {
+                equipInfo_ele.SetAttribute("name", "maInfo");
+                equipInfo_ele.SetAttribute("isFrenzy", PackInfo.IsFrenzy.ToString());
+                equipInfo_ele.SetAttribute("isDefense", PackInfo.IsDefense.ToString());
+                equipInfo_ele.SetAttribute("isSniper", PackInfo.IsSniper.ToString());
+                break;
+            }
+        }
     }
 
     public override string GetCardTypeDesc()

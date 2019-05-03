@@ -82,6 +82,7 @@ public class CardPropertyForm_SideEffect : PoolObject
 
         foreach (SideEffectValue sev in se.M_SideEffectParam.SideEffectValues)
         {
+            string sev_Prefix = "SideEffectValueNames_";
             switch (sev.ValueType)
             {
                 case SideEffectValue.ValueTypes.ConstInt:
@@ -106,7 +107,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                             CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
                                 CardPropertyFormRow.CardPropertyFormRowType.InputField,
                                 ParamRowContainer,
-                                sev.Name,
+                                sev_Prefix + sev.Name,
                                 delegate(string value_str)
                                 {
                                     if (int.TryParse(value_str, out int res)) s.Value = res;
@@ -124,11 +125,18 @@ public class CardPropertyForm_SideEffect : PoolObject
                             CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
                                 CardPropertyFormRow.CardPropertyFormRowType.InputField,
                                 ParamRowContainer,
-                                sev.Name,
+                                sev_Prefix + sev.Name,
                                 delegate(string value_str)
                                 {
-                                    if (int.TryParse(value_str, out int res)) s.Value = res;
-                                    onRefreshText?.Invoke();
+                                    if (int.TryParse(value_str, out int res))
+                                    {
+                                        bool hasCard = AllCards.CardDict.ContainsKey(res);
+                                        if (hasCard)
+                                        {
+                                            s.Value = res;
+                                            onRefreshText?.Invoke();
+                                        }
+                                    }
                                 },
                                 out UnityAction<string> setValue,
                                 null,
@@ -142,26 +150,15 @@ public class CardPropertyForm_SideEffect : PoolObject
                             List<string> enumList = new List<string>();
                             if (se is TargetSideEffect t_se1 && s.EnumType == typeof(TargetSelect))
                             {
-                                List<TargetSelect> nameList = t_se1.ValidTargetSelects;
-                                if (nameList == null)
+                                foreach (TargetSelect targetRange in t_se1.ValidTargetSelects)
                                 {
-                                    foreach (string enumName in Enum.GetNames(s.EnumType))
-                                    {
-                                        enumList.Add(enumName);
-                                    }
-                                }
-                                else
-                                {
-                                    foreach (TargetSelect targetRange in nameList)
-                                    {
-                                        enumList.Add(targetRange.ToString());
-                                    }
+                                    enumList.Add(targetRange.ToString());
                                 }
 
                                 CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
                                     CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
                                     ParamRowContainer,
-                                    sev.Name,
+                                    sev_Prefix + sev.Name,
                                     delegate(string value_str)
                                     {
                                         s.Value = (int) Enum.Parse(s.EnumType, value_str);
@@ -195,7 +192,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                                 CardPropertyFormRow new_TargetRangeRow = CardPropertyFormRow.BaseInitialize(
                                                     CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
                                                     ParamRowContainer,
-                                                    targetRangeSEV.Name,
+                                                    sev_Prefix + targetRangeSEV.Name,
                                                     delegate(string v_str)
                                                     {
                                                         targetRangeSEV.Value = (int) Enum.Parse(targetRangeSEV.EnumType, v_str);
@@ -204,6 +201,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                                     out UnityAction<string> _setValue,
                                                     enumList_TargetRange);
                                                 _setValue(Enum.GetName(targetRangeSEV.EnumType, targetRangeSEV.Value));
+                                                onRefreshText?.Invoke();
                                                 CardPropertyFormRows.Add(new_TargetRangeRow);
                                                 new_TargetRangeRow.transform.SetSiblingIndex(siblingIndex);
                                             }
@@ -229,7 +227,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                                     CardPropertyFormRow new_ChoiceCountRow = CardPropertyFormRow.BaseInitialize(
                                                         CardPropertyFormRow.CardPropertyFormRowType.InputField,
                                                         ParamRowContainer,
-                                                        choiceCountSEV.Name,
+                                                        sev_Prefix + choiceCountSEV.Name,
                                                         delegate(string v_str)
                                                         {
                                                             if (int.TryParse(v_str, out int res)) choiceCountSEV.Value = res;
@@ -237,6 +235,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                                         },
                                                         out UnityAction<string> _setValue);
                                                     _setValue(choiceCountSEV.Value.ToString());
+                                                    onRefreshText?.Invoke();
                                                     CardPropertyFormRows.Add(new_ChoiceCountRow);
                                                     StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ParamRowContainer));
                                                     StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
@@ -269,6 +268,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                     out UnityAction<string> setValue,
                                     enumList);
                                 setValue(Enum.GetName(s.EnumType, s.Value));
+                                onRefreshText?.Invoke();
                                 CardPropertyFormRows.Add(row);
                             }
                             else if (se is TargetSideEffect t_se2 && s.EnumType == typeof(TargetRange))
@@ -283,7 +283,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                 CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
                                     CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
                                     ParamRowContainer,
-                                    sev.Name,
+                                    sev_Prefix + sev.Name,
                                     delegate(string value_str)
                                     {
                                         s.Value = (int) Enum.Parse(s.EnumType, value_str);
@@ -292,6 +292,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                     out UnityAction<string> setValue,
                                     enumList);
                                 setValue(Enum.GetName(s.EnumType, s.Value));
+                                onRefreshText?.Invoke();
                                 CardPropertyFormRows.Add(row);
                             }
                             else
@@ -304,7 +305,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                 CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
                                     CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
                                     ParamRowContainer,
-                                    sev.Name,
+                                    sev_Prefix + sev.Name,
                                     delegate(string value_str)
                                     {
                                         s.Value = (int) Enum.Parse(s.EnumType, value_str);
@@ -313,6 +314,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                     out UnityAction<string> setValue,
                                     enumList);
                                 setValue(Enum.GetName(s.EnumType, s.Value));
+                                onRefreshText?.Invoke();
                                 CardPropertyFormRows.Add(row);
                             }
                         }
@@ -326,7 +328,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                     CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
                         CardPropertyFormRow.CardPropertyFormRowType.InputField,
                         ParamRowContainer,
-                        sev.Name,
+                        sev_Prefix + sev.Name,
                         delegate(string value_str)
                         {
                             if (int.TryParse(value_str, out int res)) s.Value = res;
@@ -343,7 +345,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                     CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
                         CardPropertyFormRow.CardPropertyFormRowType.Toggle,
                         ParamRowContainer,
-                        sev.Name,
+                        sev_Prefix + sev.Name,
                         delegate(string value_str)
                         {
                             s.Value = value_str == "True";
@@ -362,7 +364,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                         CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
                             CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
                             ParamRowContainer,
-                            sev.Name,
+                            sev_Prefix + sev.Name,
                             delegate(string value_str)
                             {
                                 s.Value = value_str;
@@ -395,7 +397,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                         CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
                             CardPropertyFormRow.CardPropertyFormRowType.InputField,
                             ParamRowContainer,
-                            sev.Name,
+                            sev_Prefix + sev.Name,
                             delegate(string a)
                             {
                                 s.Value = a;

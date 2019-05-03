@@ -20,8 +20,19 @@ public class ConfirmPanel : BaseUIForm
         UIType.UIForms_Type = UIFormTypes.PopUp;
     }
 
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Return))
+        {
+            ConfirmClick?.Invoke();
+        }
+    }
+
+    private UnityAction ConfirmClick = null;
+
     public void Initialize(string descText, string leftButtonText, string rightButtonText, UnityAction leftButtonClick, UnityAction rightButtonClick)
     {
+        ConfirmClick = leftButtonClick;
         DescText.text = descText;
         LeftButtonText.text = leftButtonText;
         RightButtonText.text = rightButtonText;

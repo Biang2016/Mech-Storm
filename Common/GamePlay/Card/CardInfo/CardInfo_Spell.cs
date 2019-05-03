@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 
 public class CardInfo_Spell : CardInfo_Base
 {
@@ -37,13 +38,18 @@ public class CardInfo_Spell : CardInfo_Base
 
     public override CardInfo_Base Clone()
     {
-        CardInfo_Base temp = base.Clone();
         CardInfo_Spell cs = new CardInfo_Spell(
             cardID: CardID,
             baseInfo: BaseInfo,
             upgradeInfo: UpgradeInfo,
-            sideEffectBundle:SideEffectBundle);
+            sideEffectBundle: SideEffectBundle.Clone());
         return cs;
+    }
+
+    protected override void ChildrenExportToXML(XmlElement card_ele)
+    {
+        base.ChildrenExportToXML(card_ele);
+        XmlDocument doc = card_ele.OwnerDocument;
     }
 
     public override string GetCardTypeDesc()

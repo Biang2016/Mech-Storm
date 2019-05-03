@@ -10,14 +10,30 @@ public class CardPreviewButton : PoolObject
     [SerializeField] private Text HideText;
     [SerializeField] private Image TempImage;
     [SerializeField] private Text TempText;
+    [SerializeField] private Image CurEditBorder;
 
     public void Awake()
     {
         LanguageManager.Instance.RegisterTextKey(HideText, "CardEditorWindow_CardPreviewButtonHideText");
         LanguageManager.Instance.RegisterTextKey(TempText, "CardEditorWindow_CardPreviewButtonTempText");
+        IsEdit = false;
     }
+
+    private bool isEdit;
+
+    public bool IsEdit
+    {
+        get { return isEdit; }
+        set
+        {
+            CurEditBorder.enabled = value;
+            isEdit = value;
+        }
+    }
+
     public void Initialize(CardInfo_Base ci, OnButtonClickDelegate onClick)
     {
+        IsEdit = false;
         Button.onClick.RemoveAllListeners();
         CardIDText.text = string.Format("{0:000}", ci.CardID);
         ClientUtils.ChangeCardPicture(Image, ci.BaseInfo.PictureID);

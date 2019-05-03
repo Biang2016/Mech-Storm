@@ -228,7 +228,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
     public void LanguageDropdownChange(int index)
     {
         PlayerPrefs.SetString("Language", LanguageIndices[index]);
-        NoticeManager.Instance.ShowInfoPanelCenter(GetText("ChangeLanguageNotice"), 0, 1f);
         SetLanguage(LanguagesAbbrDict[LanguageIndices[index]]);
+        NoticeManager.Instance.ShowInfoPanelCenter(GetText("SettingMenu_ChangeLanguageNotice"), 0, 1f);
     }
 }

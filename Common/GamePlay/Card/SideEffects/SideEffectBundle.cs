@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -96,6 +97,7 @@ public class SideEffectBundle : IClone<SideEffectBundle>
     public SideEffectBundle Clone()
     {
         SideEffectBundle copy = new SideEffectBundle();
+
         foreach (SideEffectExecute see in SideEffectExecutes)
         {
             copy.AddSideEffectExecute(see.Clone());

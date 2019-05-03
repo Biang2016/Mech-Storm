@@ -708,9 +708,53 @@
 		"zh": "卡牌编辑器",
 		"en": "Card Editor Window"
 	},
+	"CardEditorWindow_CardTotalCountText": {
+		"zh": "卡牌总数: ",
+		"en": "Total Cards: "
+	},
 	"CardEditorWindow_CardPreviewButtonHideText": {
 		"zh": "隐",
 		"en": "H"
+	},
+	"CardEditorWindow_SaveCardButtonText": {
+		"zh": "保存更改",
+		"en": "Save Changes"
+	},
+	"CardEditorWindow_ResetCardButtonText": {
+		"zh": " 重置卡片",
+		"en": "Reset"
+	},
+	"CardEditorWindow_ResetCardNotice": {
+		"zh": " 重置卡片(ID: {0})",
+		"en": "Reset Card (ID: {0})"
+	},
+	"CardEditorWindow_DeleteCardButtonText": {
+		"zh": "删除卡片",
+		"en": "Delete Card"
+	},
+	"CardEditorPanel_ConfirmSaveCard": {
+		"zh": "是否将该更改保存至ID为{0}的卡牌中？",
+		"en": "Save the changes to the card with ID {0}?"
+	},
+	"CardEditorPanel_ConfirmCreateNewCard": {
+		"zh": "是否新建此卡牌(ID: {0})？",
+		"en": "Create a new card with ID {0}?"
+	},
+	"CardEditorPanel_SaveCardSuccess": {
+		"zh": "保存成功",
+		"en": "Save successfully."
+	},
+	"CardEditorPanel_EmptyCardID": {
+		"zh": "卡牌ID为空，请填写完整",
+		"en": "Please input Card ID."
+	},
+	"CardEditorPanel_ConfirmDeleteCard": {
+		"zh": "是否删除ID为{0}的卡牌？",
+		"en": "Delete the card with ID {0}?"
+	},
+	"CardEditorPanel_DeleteCardSuccess": {
+		"zh": "删除成功",
+		"en": "Delete successfully."
 	},
 	"CardEditorWindow_CardPreviewButtonTempText": {
 		"zh": "临",

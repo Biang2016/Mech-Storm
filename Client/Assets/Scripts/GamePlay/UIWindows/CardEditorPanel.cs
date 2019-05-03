@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.U2D;
@@ -21,15 +22,24 @@ public class CardEditorPanel : BaseUIForm
         UIType.UIForms_ShowMode = UIFormShowModes.HideOther;
         UIType.IsClearStack = true;
 
+        SaveCardButton.onClick.AddListener(SaveCard);
+        ResetCardButton.onClick.AddListener(ResetCard);
+        DeleteCardButton.onClick.AddListener(DeleteCard);
+
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
             {
                 (CardEditorWindowText, "CardEditorWindow_CardEditorWindowText"),
                 (LanguageLabelText, "SettingMenu_Languages"),
+                (SaveCardButtonText, "CardEditorWindow_SaveCardButtonText"),
+                (ResetCardButtonText, "CardEditorWindow_ResetCardButtonText"),
+                (DeleteCardButtonText, "CardEditorWindow_DeleteCardButtonText"),
+                (CardTotalCountText, "CardEditorWindow_CardTotalCountText"),
             });
 
         LanguageDropdown.ClearOptions();
         LanguageDropdown.AddOptions(LanguageManager.Instance.LanguageDescs);
+        CardTotalCountNumberText.text = AllCards.CardDict.Count.ToString();
 
         InitializeCardPropertyForm();
         InitializePreviewCardGrid();
@@ -54,6 +64,8 @@ public class CardEditorPanel : BaseUIForm
     }
 
     [SerializeField] private Text CardEditorWindowText;
+    [SerializeField] private Text CardTotalCountText;
+    [SerializeField] private Text CardTotalCountNumberText;
     [SerializeField] private Text LanguageLabelText;
     [SerializeField] private Dropdown LanguageDropdown;
 
@@ -383,6 +395,26 @@ public class CardEditorPanel : BaseUIForm
     {
         if (int.TryParse(value_str, out int value))
         {
+            if (cur_PreviewCard)
+            {
+                cur_PreviewCard.CardInfo.CardID = value;
+            }
+
+            foreach (KeyValuePair<int, CardPreviewButton> kv in CardPreviewButtons)
+            {
+                kv.Value.IsEdit = false;
+            }
+
+            if (CardPreviewButtons.ContainsKey(value))
+            {
+                CardPreviewButtons[value].IsEdit = true;
+                if (-CardPreviewButtons[value].transform.localPosition.y - ExistingCardGridContainer.transform.localPosition.y > ((RectTransform) ExistingCardGridContainer.transform.parent).rect.height * 0.8f
+                    || -CardPreviewButtons[value].transform.localPosition.y - ExistingCardGridContainer.transform.localPosition.y < ((RectTransform) ExistingCardGridContainer.transform.parent).rect.height * 0.2f
+                )
+                {
+                    ExistingCardGridContainer.transform.localPosition = new Vector3(ExistingCardGridContainer.transform.localPosition.x, -CardPreviewButtons[value].transform.localPosition.y - 260f, ExistingCardGridContainer.transform.localPosition.z);
+                }
+            }
         }
     }
 
@@ -981,8 +1013,12 @@ public class CardEditorPanel : BaseUIForm
 
     #region Center CardPreview
 
+    [SerializeField] private ScrollRect CardPreviewButtonScrollRect;
     [SerializeField] private Transform CardPreviewContainer;
+    [SerializeField] private RawImage CardPreviewRawImage;
     private CardBase cur_PreviewCard;
+    private CardBase cur_PreviewCard_Up;
+    private CardBase cur_PreviewCard_De;
     private bool isPreviewExistingCards = false;
 
     private void ChangeCard(CardInfo_Base ci)
@@ -991,8 +1027,31 @@ public class CardEditorPanel : BaseUIForm
 
         cur_PreviewCard?.PoolRecycle();
         cur_PreviewCard = CardBase.InstantiateCardByCardInfo(ci, CardPreviewContainer, CardBase.CardShowMode.CardSelect);
-        cur_PreviewCard.transform.localScale = Vector3.one * 30;
+        cur_PreviewCard.transform.localScale = Vector3.one * 35;
         cur_PreviewCard.transform.localPosition = new Vector3(-25, 0, 0);
+        cur_PreviewCard.ShowCardBloom(true);
+
+        cur_PreviewCard_Up?.PoolRecycle();
+        cur_PreviewCard_Up = null;
+        if (AllCards.CardDict.ContainsKey(ci.UpgradeInfo.UpgradeCardID))
+        {
+            CardInfo_Base cardInfoBase_Up = AllCards.GetCard(ci.UpgradeInfo.UpgradeCardID);
+            cur_PreviewCard_Up = CardBase.InstantiateCardByCardInfo(cardInfoBase_Up, CardPreviewContainer, CardBase.CardShowMode.CardSelect);
+            cur_PreviewCard_Up.transform.localScale = Vector3.one * 25;
+            cur_PreviewCard_Up.transform.localPosition = new Vector3(475, 0, 0);
+            cur_PreviewCard_Up.ShowCardBloom(true);
+        }
+
+        cur_PreviewCard_De?.PoolRecycle();
+        cur_PreviewCard_De = null;
+        if (AllCards.CardDict.ContainsKey(ci.UpgradeInfo.DegradeCardID))
+        {
+            CardInfo_Base cardInfoBase_De = AllCards.GetCard(ci.UpgradeInfo.DegradeCardID);
+            cur_PreviewCard_De = CardBase.InstantiateCardByCardInfo(cardInfoBase_De, CardPreviewContainer, CardBase.CardShowMode.CardSelect);
+            cur_PreviewCard_De.transform.localScale = Vector3.one * 25;
+            cur_PreviewCard_De.transform.localPosition = new Vector3(-500, 0, 0);
+            cur_PreviewCard_De.ShowCardBloom(true);
+        }
 
         SetCardType(cur_PreviewCard.CardInfo.BaseInfo.CardType.ToString());
         SetCardID(string.Format("{0:000}", ci.CardID));
@@ -1098,18 +1157,220 @@ public class CardEditorPanel : BaseUIForm
         return false;
     }
 
+    [SerializeField] private Button SaveCardButton;
+    [SerializeField] private Button ResetCardButton;
+    [SerializeField] private Button DeleteCardButton;
+    [SerializeField] private Text SaveCardButtonText;
+    [SerializeField] private Text ResetCardButtonText;
+    [SerializeField] private Text DeleteCardButtonText;
+
+    private bool SaveFlag = false;
+
+    void Update()
+    {
+        if (SaveFlag)
+        {
+            SaveCard();
+            SaveFlag = false;
+        }
+        else
+        {
+#if PLATFORM_STANDALONE_OSX
+            if (Input.GetKey(KeyCode.LeftCommand) && Input.GetKeyDown(KeyCode.S))
+            {
+                SaveFlag = true;
+            }
+#elif PLATFORM_STANDALONE
+             if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S))
+            {
+                SaveFlag = true;
+            }
+#endif
+        }
+
+        int curCardID = -1;
+        if (cur_PreviewCard)
+        {
+            curCardID = cur_PreviewCard.CardInfo.CardID;
+        }
+
+        if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
+            {
+                if (kv.Key > curCardID)
+                {
+                    ChangeCard(kv.Key);
+                    break;
+                }
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            int changeCardID = 0;
+            foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
+            {
+                if (kv.Key >= curCardID)
+                {
+                    ChangeCard(changeCardID);
+                    break;
+                }
+
+                changeCardID = kv.Key;
+            }
+        }
+
+        int gridColumns = Mathf.RoundToInt(((RectTransform) ExistingCardGridContainer.transform).rect.width - ExistingCardGridContainer.padding.left) / Mathf.RoundToInt(ExistingCardGridContainer.cellSize.x + ExistingCardGridContainer.spacing.x);
+
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            int count = 0;
+            foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
+            {
+                if (kv.Key > curCardID)
+                {
+                    count++;
+                    if (count >= gridColumns)
+                    {
+                        ChangeCard(kv.Key);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            int[] before = new int[gridColumns];
+            for (int i = 0; i < before.Length; i++)
+            {
+                before[i] = -1;
+            }
+
+            foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
+            {
+                if (kv.Key >= curCardID)
+                {
+                    if (before[0] != -1)
+                    {
+                        ChangeCard(before[0]);
+                        break;
+                    }
+                }
+
+                for (int i = 0; i < before.Length - 1; i++)
+                {
+                    before[i] = before[i + 1];
+                }
+
+                before[before.Length - 1] = kv.Key;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Backspace))
+        {
+            if (cur_PreviewCard)
+            {
+                DeleteCard();
+            }
+        }
+        
+        float size = Mathf.Min(1024f, ((RectTransform) CardPreviewContainer.transform).rect.width);
+        ((RectTransform) CardPreviewRawImage.transform).sizeDelta = new Vector2(size, size);
+    }
+
+    public void SaveCard()
+    {
+        if (cur_PreviewCard)
+        {
+            ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+            string info = "";
+            if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.CardID))
+            {
+                info = string.Format(LanguageManager.Instance.GetText("CardEditorPanel_ConfirmSaveCard"), cur_PreviewCard.CardInfo.CardID);
+            }
+            else
+            {
+                info = string.Format(LanguageManager.Instance.GetText("CardEditorPanel_ConfirmCreateNewCard"), cur_PreviewCard.CardInfo.CardID);
+            }
+
+            cp.Initialize(
+                info,
+                LanguageManager.Instance.GetText("Common_Yes"),
+                LanguageManager.Instance.GetText("Common_No"),
+                delegate
+                {
+                    AllCards.RefreshCardXML(cur_PreviewCard.CardInfo);
+                    AllCards.ReloadCardXML();
+                    InitializePreviewCardGrid();
+                    cp.CloseUIForm();
+                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardSuccess"), 0, 1f);
+                    CardTotalCountNumberText.text = AllCards.CardDict.Count.ToString();
+                },
+                cp.CloseUIForm);
+        }
+        else
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_EmptyCardID"), 0, 1f);
+        }
+    }
+
+    public void ResetCard()
+    {
+        if (cur_PreviewCard)
+        {
+            ChangeCard(cur_PreviewCard.CardInfo.CardID);
+            NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("CardEditorWindow_ResetCardNotice"), cur_PreviewCard.CardInfo.CardID), 0, 1f);
+        }
+    }
+
+    public void DeleteCard()
+    {
+        if (cur_PreviewCard)
+        {
+            ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+            cp.Initialize(
+                string.Format(LanguageManager.Instance.GetText("CardEditorPanel_ConfirmDeleteCard"), cur_PreviewCard.CardInfo.CardID),
+                LanguageManager.Instance.GetText("Common_Yes"),
+                LanguageManager.Instance.GetText("Common_No"),
+                delegate
+                {
+                    AllCards.DeleteCard(cur_PreviewCard.CardInfo.CardID);
+                    AllCards.ReloadCardXML();
+                    InitializePreviewCardGrid();
+                    cp.CloseUIForm();
+                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_DeleteCardSuccess"), 0, 1f);
+                    CardTotalCountNumberText.text = AllCards.CardDict.Count.ToString();
+                },
+                cp.CloseUIForm);
+        }
+        else
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_EmptyCardID"), 0, 1f);
+        }
+    }
+
     #endregion
 
     #region Right CardPics
 
     [SerializeField] private GridLayoutGroup ExistingCardGridContainer;
+    private SortedDictionary<int, CardPreviewButton> CardPreviewButtons = new SortedDictionary<int, CardPreviewButton>();
 
     private void InitializePreviewCardGrid()
     {
+        foreach (KeyValuePair<int, CardPreviewButton> kv in CardPreviewButtons)
+        {
+            kv.Value.PoolRecycle();
+        }
+
+        CardPreviewButtons.Clear();
         foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
         {
             CardPreviewButton cpb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPreviewButton].AllocateGameObject<CardPreviewButton>(ExistingCardGridContainer.transform);
             cpb.Initialize(kv.Value, delegate { ChangeCard(kv.Key); });
+            CardPreviewButtons.Add(kv.Key, cpb);
         }
     }
 

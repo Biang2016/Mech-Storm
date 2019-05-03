@@ -52,11 +52,7 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
             {
                 string optionStr = ExecuteSettingTypeDropdown.options[value].text;
                 SideEffectExecute.ExecuteSettingTypes est = (SideEffectExecute.ExecuteSettingTypes) Enum.Parse(typeof(SideEffectExecute.ExecuteSettingTypes), optionStr);
-                if (est != SideEffectExecute.ExecuteSettingTypes.Others)
-                {
-                    see.M_ExecuteSetting = SideEffectExecute.ExecuteSetting_Presets[est];
-                }
-
+                see.M_ExecuteSetting = SideEffectExecute.ExecuteSetting_Presets[est];
                 Initialize(see, onRefreshText, onDeleteButtonClick);
                 StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
             });

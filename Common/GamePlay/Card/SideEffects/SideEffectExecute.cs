@@ -207,6 +207,16 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 removeTriggerRange: TriggerRange.None,
                 removeTriggerTimes: 1)
         },
+        {
+            ExecuteSettingTypes.Others, new ExecuteSetting(
+                triggerTime: TriggerTime.None,
+                triggerRange: TriggerRange.None,
+                triggerDelayTimes: 0,
+                triggerTimes: 1,
+                removeTriggerTime: TriggerTime.None,
+                removeTriggerRange: TriggerRange.None,
+                removeTriggerTimes: 1)
+        },
     };
 
     private SideEffectExecute()

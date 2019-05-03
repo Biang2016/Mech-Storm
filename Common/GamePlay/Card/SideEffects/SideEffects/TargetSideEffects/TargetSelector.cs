@@ -21,6 +21,7 @@ public class TargetSelector
     public enum TargetSelectorTypes
     {
         RetinueBased,
+        EveryRetinueBased,
         LifeBased,
         ShipBased,
         EquipBased,
@@ -30,6 +31,7 @@ public class TargetSelector
         new Dictionary<TargetSelectorTypes, Dictionary<TargetSelect, List<TargetRange>>>
         {
             {TargetSelectorTypes.RetinueBased, RetinueBasedSelector},
+            {TargetSelectorTypes.EveryRetinueBased, EveryRetinueBasedSelector},
             {TargetSelectorTypes.LifeBased, LifeBasedSelector},
             {TargetSelectorTypes.ShipBased, ShipBasedSelector},
             {TargetSelectorTypes.EquipBased, EquipBasedSelector},
@@ -97,6 +99,25 @@ public class TargetSelector
             },
             {
                 TargetSelect.SingleRandom, new List<TargetRange>
+                {
+                    TargetRange.Heroes,
+                    TargetRange.Soldiers,
+                    TargetRange.Mechs,
+                    TargetRange.SelfHeroes,
+                    TargetRange.SelfSoldiers,
+                    TargetRange.SelfMechs,
+                    TargetRange.EnemyHeroes,
+                    TargetRange.EnemySoldiers,
+                    TargetRange.EnemyMechs,
+                }
+            },
+        };
+
+    public static Dictionary<TargetSelect, List<TargetRange>> EveryRetinueBasedSelector =>
+        new Dictionary<TargetSelect, List<TargetRange>>
+        {
+            {
+                TargetSelect.Single, new List<TargetRange>
                 {
                     TargetRange.Heroes,
                     TargetRange.Soldiers,

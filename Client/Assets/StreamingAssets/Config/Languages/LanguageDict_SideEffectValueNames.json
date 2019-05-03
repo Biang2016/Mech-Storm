@@ -125,5 +125,13 @@
 		"zh": "效果移除触发次数",
 		"en": "Remove Trigger Times"
 	},
+	"SideEffectValueNames_TargetSelect": {
+		"zh": "选择方式",
+		"en": "Select Method"
+	},
+	"SideEffectValueNames_TargetRange": {
+		"zh": "对象范围",
+		"en": "Target Range"
+	},
 	
 }

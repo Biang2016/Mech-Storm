@@ -8,8 +8,8 @@ public class SummonRetinueByMechCount_Base : TargetSideEffect
         M_SideEffectParam.SetParam_ConstInt("SummonCardID", 0, typeof(CardDeck));
     }
 
-    public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.RetinueBased;
-    public override List<TargetSelect> ValidTargetSelects => new List<TargetSelect> {TargetSelect.All};
+    public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.EveryRetinueBased;
+    public override List<TargetSelect> ValidTargetSelects => new List<TargetSelect> {TargetSelect.Single};
 
     public override string GenerateDesc()
     {

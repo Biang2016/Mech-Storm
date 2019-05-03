@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <AllCards>
   <Card id="0">
     <CardInfo name="baseInfo" pictureID="0" cardName_en="G-Custom" cardName_zh="G-Custom" isTemp="False" isHide="False" metal="6" energy="0" coin="400" limitNum="1" cardRareLevel="6" cardType="Retinue" />
@@ -433,10 +433,9 @@
     <CardInfo name="weaponInfo" energy="1" energyMax="3" attack="1" weaponType="Sword" isSentry="False" isFrenzy="False" />
   </Card>
   <Card id="10012">
-    <CardInfo name="baseInfo" pictureID="100" cardName_en="S Thermal Axe" cardName_zh="高能热能斧" isTemp="False" isHide="False" metal="3" energy="0" coin="100" limitNum="0" cardRareLevel="3" cardType="Equip" />
-    <CardInfo name="upgradeInfo" upgradeCardID="10013" degradeCardID="10011" cardLevel="1" />
+    <CardInfo name="baseInfo" pictureID="100" cardName_zh="高能热能斧" cardName_en="S Thermal Axe" isTemp="False" isHide="False" metal="3" energy="0" coin="100" limitNum="0" cardRareLevel="3" cardType="Equip" />
+    <CardInfo name="upgradeInfo" upgradeCardID="10013" degradeCardID="10101" />
     <CardInfo name="weaponInfo" energy="1" energyMax="4" attack="1" weaponType="Sword" isSentry="False" isFrenzy="False" />
-    <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="10013">
     <CardInfo name="baseInfo" pictureID="100" cardName_zh="狂暴热能斧" cardName_en="SP Thermal Axe" isTemp="False" isHide="False" metal="3" energy="0" coin="200" limitNum="0" cardRareLevel="4" cardType="Equip" />

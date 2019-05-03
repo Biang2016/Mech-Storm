@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Xml;
 
 /// <summary>
@@ -9,9 +8,9 @@ using System.Xml;
 /// </summary>
 public static class AllCards
 {
-    public static Dictionary<int, CardInfo_Base> CardDict = new Dictionary<int, CardInfo_Base>();
-    public static Dictionary<int, List<CardInfo_Base>> CardLevelDict = new Dictionary<int, List<CardInfo_Base>>();
-    public static Dictionary<int, List<CardInfo_Base>> CardLevelDict_Remain = new Dictionary<int, List<CardInfo_Base>>(); //某等级的卡片还剩哪些还没解锁
+    public static SortedDictionary<int, CardInfo_Base> CardDict = new SortedDictionary<int, CardInfo_Base>();
+    public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict = new SortedDictionary<int, List<CardInfo_Base>>();
+    public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict_Remain = new SortedDictionary<int, List<CardInfo_Base>>(); //某等级的卡片还剩哪些还没解锁
 
     public static void Reset()
     {
@@ -111,8 +110,16 @@ public static class AllCards
         }
     }
 
+    private static string CardsXMLPath = "";
+
+    public static void ReloadCardXML()
+    {
+        AddAllCards(CardsXMLPath);
+    }
+
     public static void AddAllCards(string cardsXMLPath)
     {
+        CardsXMLPath = cardsXMLPath;
         Reset();
         SortedDictionary<string, string> cardNameKeyDict = new SortedDictionary<string, string>();
         foreach (int v in Enum.GetValues(typeof(LanguageShorts)))
@@ -166,73 +173,81 @@ public static class AllCards
                             cardNameDict[kv.Key] = cardName;
                         }
 
-                        baseInfo = new BaseInfo(int.Parse(cardInfo.Attributes["pictureID"].Value),
-                            cardNameDict,
-                            cardInfo.Attributes["isTemp"].Value == "True",
-                            cardInfo.Attributes["isHide"].Value == "True",
-                            int.Parse(cardInfo.Attributes["metal"].Value),
-                            int.Parse(cardInfo.Attributes["energy"].Value),
-                            int.Parse(cardInfo.Attributes["coin"].Value),
-                            int.Parse(cardInfo.Attributes["effectFactor"].Value),
-                            int.Parse(cardInfo.Attributes["limitNum"].Value),
-                            int.Parse(cardInfo.Attributes["cardRareLevel"].Value),
-                            (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value));
+                        baseInfo = new BaseInfo(
+                            pictureID: int.Parse(cardInfo.Attributes["pictureID"].Value),
+                            cardNames: cardNameDict,
+                            isTemp: cardInfo.Attributes["isTemp"].Value == "True",
+                            isHide: cardInfo.Attributes["isHide"].Value == "True",
+                            metal: int.Parse(cardInfo.Attributes["metal"].Value),
+                            energy: int.Parse(cardInfo.Attributes["energy"].Value),
+                            coin: int.Parse(cardInfo.Attributes["coin"].Value),
+                            effectFactor: 1,
+                            limitNum: int.Parse(cardInfo.Attributes["limitNum"].Value),
+                            cardRareLevel: int.Parse(cardInfo.Attributes["cardRareLevel"].Value),
+                            cardType: (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value));
                         break;
                     case "upgradeInfo":
-                        upgradeInfo = new UpgradeInfo(int.Parse(cardInfo.Attributes["upgradeCardID"].Value), int.Parse(cardInfo.Attributes["degradeCardID"].Value),
-                            int.Parse(cardInfo.Attributes["cardLevel"].Value), 1);
+                        upgradeInfo = new UpgradeInfo(
+                            upgradeCardID: int.Parse(cardInfo.Attributes["upgradeCardID"].Value),
+                            degradeCardID: int.Parse(cardInfo.Attributes["degradeCardID"].Value),
+                            cardLevel: 1,
+                            cardLevelMax: 1);
                         break;
                     case "lifeInfo":
-                        lifeInfo = new LifeInfo(int.Parse(cardInfo.Attributes["life"].Value),
-                            int.Parse(cardInfo.Attributes["totalLife"].Value));
+                        lifeInfo = new LifeInfo(
+                            life: int.Parse(cardInfo.Attributes["life"].Value),
+                            totalLife: int.Parse(cardInfo.Attributes["totalLife"].Value));
                         break;
                     case "battleInfo":
-                        battleInfo = new BattleInfo(int.Parse(cardInfo.Attributes["basicAttack"].Value),
-                            int.Parse(cardInfo.Attributes["basicShield"].Value),
-                            int.Parse(cardInfo.Attributes["basicArmor"].Value));
+                        battleInfo = new BattleInfo(
+                            basicAttack: int.Parse(cardInfo.Attributes["basicAttack"].Value),
+                            basicArmor: int.Parse(cardInfo.Attributes["basicShield"].Value),
+                            basicShield: int.Parse(cardInfo.Attributes["basicArmor"].Value));
                         break;
                     case "retinueInfo":
                         retinueInfo = new RetinueInfo(
-                            cardInfo.Attributes["isSoldier"].Value == "True",
-                            cardInfo.Attributes["isDefense"].Value == "True",
-                            cardInfo.Attributes["isSniper"].Value == "True",
-                            cardInfo.Attributes["isCharger"].Value == "True",
-                            cardInfo.Attributes["isFrenzy"].Value == "True",
-                            (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
-                            (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot2"].Value),
-                            (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot3"].Value),
-                            (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot4"].Value));
+                            isSoldier: cardInfo.Attributes["isSoldier"].Value == "True",
+                            isDefense: cardInfo.Attributes["isDefense"].Value == "True",
+                            isSniper: cardInfo.Attributes["isSniper"].Value == "True",
+                            isCharger: cardInfo.Attributes["isCharger"].Value == "True",
+                            isFrenzy: cardInfo.Attributes["isFrenzy"].Value == "True",
+                            slot1: (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
+                            slot2: (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot2"].Value),
+                            slot3: (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot3"].Value),
+                            slot4: (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot4"].Value));
                         break;
                     case "weaponInfo":
-                        weaponInfo = new WeaponInfo(int.Parse(cardInfo.Attributes["energy"].Value),
-                            int.Parse(cardInfo.Attributes["energyMax"].Value),
-                            int.Parse(cardInfo.Attributes["attack"].Value),
-                            (WeaponTypes) Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value),
-                            cardInfo.Attributes["isSentry"].Value == "True",
-                            cardInfo.Attributes["isFrenzy"].Value == "True");
+                        weaponInfo = new WeaponInfo(
+                            energy: int.Parse(cardInfo.Attributes["energy"].Value),
+                            energyMax: int.Parse(cardInfo.Attributes["energyMax"].Value),
+                            attack: int.Parse(cardInfo.Attributes["attack"].Value),
+                            weaponType: (WeaponTypes) Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value),
+                            isSentry: cardInfo.Attributes["isSentry"].Value == "True",
+                            isFrenzy: cardInfo.Attributes["isFrenzy"].Value == "True");
                         equipInfo = new EquipInfo(SlotTypes.Weapon);
                         break;
                     case "shieldInfo":
-                        shieldInfo = new ShieldInfo(int.Parse(cardInfo.Attributes["armor"].Value),
-                            int.Parse(cardInfo.Attributes["shield"].Value),
-                            (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value),
-                            cardInfo.Attributes["isDefense"].Value == "True");
+                        shieldInfo = new ShieldInfo(
+                            armor: int.Parse(cardInfo.Attributes["armor"].Value),
+                            shield: int.Parse(cardInfo.Attributes["shield"].Value),
+                            shieldType: (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value),
+                            isDefense: cardInfo.Attributes["isDefense"].Value == "True");
                         equipInfo = new EquipInfo(SlotTypes.Shield);
                         break;
                     case "packInfo":
                         packInfo = new PackInfo(
-                            cardInfo.Attributes["isFrenzy"].Value == "True",
-                            cardInfo.Attributes["isDefense"].Value == "True",
-                            cardInfo.Attributes["isSniper"].Value == "True",
-                            int.Parse(cardInfo.Attributes["dodgeProp"].Value)
+                            isFrenzy: cardInfo.Attributes["isFrenzy"].Value == "True",
+                            isDefense: cardInfo.Attributes["isDefense"].Value == "True",
+                            isSniper: cardInfo.Attributes["isSniper"].Value == "True",
+                            dodgeProp: int.Parse(cardInfo.Attributes["dodgeProp"].Value)
                         );
                         equipInfo = new EquipInfo(SlotTypes.Pack);
                         break;
                     case "maInfo":
                         maInfo = new MAInfo(
-                            cardInfo.Attributes["isFrenzy"].Value == "True",
-                            cardInfo.Attributes["isDefense"].Value == "True",
-                            cardInfo.Attributes["isSniper"].Value == "True"
+                            isFrenzy: cardInfo.Attributes["isFrenzy"].Value == "True",
+                            isDefense: cardInfo.Attributes["isDefense"].Value == "True",
+                            isSniper: cardInfo.Attributes["isSniper"].Value == "True"
                         );
                         equipInfo = new EquipInfo(SlotTypes.MA);
                         break;
@@ -287,8 +302,20 @@ public static class AllCards
 
         foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
         {
-            int cardLevelMax = GetCardSeries(kv.Key).Count;
+            List<int> cardSeries = GetCardSeries(kv.Key);
+            int cardLevelMax = cardSeries.Count;
             kv.Value.UpgradeInfo.CardLevelMax = cardLevelMax;
+            int cardLevel = 0;
+            foreach (int cardID in cardSeries)
+            {
+                cardLevel++;
+                if (cardID == kv.Key)
+                {
+                    break;
+                }
+            }
+
+            kv.Value.UpgradeInfo.CardLevel = cardLevel;
         }
     }
 
@@ -378,6 +405,69 @@ public static class AllCards
         }
     }
 
+    public static void RefreshCardXML(CardInfo_Base ci)
+    {
+        string text;
+        using (StreamReader sr = new StreamReader(CardsXMLPath))
+        {
+            text = sr.ReadToEnd();
+        }
+
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(text);
+        XmlElement allCards = doc.DocumentElement;
+        ci.BaseExportToXML(allCards);
+        SortedDictionary<int, XmlElement> cardNodesDict = new SortedDictionary<int, XmlElement>();
+        foreach (XmlElement node in allCards.ChildNodes)
+        {
+            cardNodesDict.Add(int.Parse(node.Attributes["id"].Value), node);
+        }
+
+        allCards.RemoveAll();
+        foreach (KeyValuePair<int, XmlElement> kv in cardNodesDict)
+        {
+            allCards.AppendChild(kv.Value);
+        }
+
+        using (StreamWriter sw = new StreamWriter(CardsXMLPath))
+        {
+            doc.Save(sw);
+        }
+    }
+
+    public static void DeleteCard(int cardID)
+    {
+        string text;
+        using (StreamReader sr = new StreamReader(CardsXMLPath))
+        {
+            text = sr.ReadToEnd();
+        }
+
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(text);
+        XmlElement allCards = doc.DocumentElement;
+        SortedDictionary<int, XmlElement> cardNodesDict = new SortedDictionary<int, XmlElement>();
+        foreach (XmlElement node in allCards.ChildNodes)
+        {
+            int id = int.Parse(node.Attributes["id"].Value);
+            if (cardID != id)
+            {
+                cardNodesDict.Add(id, node);
+            }
+        }
+
+        allCards.RemoveAll();
+        foreach (KeyValuePair<int, XmlElement> kv in cardNodesDict)
+        {
+            allCards.AppendChild(kv.Value);
+        }
+
+        using (StreamWriter sw = new StreamWriter(CardsXMLPath))
+        {
+            doc.Save(sw);
+        }
+    }
+
     public static CardInfo_Base GetCard(int cardID)
     {
         if (CardDict.ContainsKey(cardID))
@@ -403,23 +493,12 @@ public static class AllCards
 
     public static bool IsASeries(CardInfo_Base card1, CardInfo_Base card2)
     {
-        if (card1.CardID == card2.CardID) return true;
-        int level1 = card1.UpgradeInfo.CardLevel;
-        int level2 = card2.UpgradeInfo.CardLevel;
-        if (level1 > level2)
+        foreach (CardInfo_Base ci in GetCardSeries(card1))
         {
-            return IsASeries(card2, card1);
-        }
-
-        int tmpUpgradeID = card1.UpgradeInfo.UpgradeCardID;
-        while (tmpUpgradeID != -1)
-        {
-            if (tmpUpgradeID == card2.CardID)
+            if (card2.CardID == ci.CardID)
             {
                 return true;
             }
-
-            tmpUpgradeID = GetCard((int) tmpUpgradeID).UpgradeInfo.UpgradeCardID;
         }
 
         return false;
@@ -440,20 +519,21 @@ public static class AllCards
     public static List<CardInfo_Base> GetCardSeries(CardInfo_Base cardInfo)
     {
         List<CardInfo_Base> res = new List<CardInfo_Base>();
-        res.Add(cardInfo);
+        CardInfo_Base basic_card = cardInfo;
         CardInfo_Base de = cardInfo;
         while ((de = GetDegradeCardInfo(de)) != null)
         {
-            res.Add(de);
+            basic_card = de;
         }
 
-        CardInfo_Base up = cardInfo;
+        res.Add(basic_card);
+
+        CardInfo_Base up = basic_card;
         while ((up = GetUpgradeCardInfo(up)) != null)
         {
             res.Add(up);
         }
 
-        res.Sort((a, b) => a.UpgradeInfo.CardLevel.CompareTo(b.UpgradeInfo.CardLevel));
         return res;
     }
 

@@ -17,7 +17,7 @@ public static class AllSideEffects
     {
         if (SideEffectsNameDict.ContainsKey(sideEffectName))
         {
-            return SideEffectsNameDict[sideEffectName];
+            return SideEffectsNameDict[sideEffectName].Clone();
         }
         else
         {
@@ -69,6 +69,14 @@ public static class AllSideEffects
             foreach (KeyValuePair<string, string> kv in descKeyDict)
             {
                 se.DescRaws[kv.Key] = sideEffectNode.Attributes[kv.Value].Value;
+            }
+
+            if (se is TargetSideEffect t_se)
+            {
+                t_se.M_SideEffectParam.GetParam("TargetSelect").SetValue(t_se.ValidTargetSelects[0].ToString());
+                Dictionary<TargetSelect, List<TargetRange>> validTargetRangeDict = TargetSelector.TargetSelectorPresets[t_se.TargetSelectorType];
+                TargetRange validTargetRange = validTargetRangeDict[t_se.ValidTargetSelects[0]][0];
+                t_se.M_SideEffectParam.GetParam("TargetRange").SetValue(validTargetRange.ToString());
             }
 
             addSideEffect(se);

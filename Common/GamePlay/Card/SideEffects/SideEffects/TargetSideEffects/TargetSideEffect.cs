@@ -9,7 +9,19 @@ public abstract class TargetSideEffect : SideEffectBase
         M_SideEffectParam.SetParam_ConstInt("ChoiceCount", 1);
     }
 
-    public virtual List<TargetSelect> ValidTargetSelects { get; }
+    public virtual List<TargetSelect> ValidTargetSelects
+    {
+        get
+        {
+            List<TargetSelect> res = new List<TargetSelect>();
+            foreach (KeyValuePair<TargetSelect, List<TargetRange>> kv in TargetSelector.TargetSelectorPresets[TargetSelectorType])
+            {
+                res.Add(kv.Key);
+            }
+
+            return res;
+        }
+    }
 
     public bool IsNeedChoice
     {

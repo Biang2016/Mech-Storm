@@ -40,7 +40,7 @@ internal class Server
         AllColors.AddAllColors(ServerConsole.ServerRoot + "Config/Colors.xml");
         AllSideEffects.AddAllSideEffects(ServerConsole.ServerRoot + "Config/SideEffects.xml");
         AllBuffs.AddAllBuffs(ServerConsole.ServerRoot + "Config/Buffs.xml");
-        AllCards.AddAllCards(ServerConsole.ServerRoot + "Config/Cards.xml");
+        AllCards.AddAllCards(ServerConsole.ServerRoot + "Config/Cards_new.xml");
         AllServerBuilds.AddAllBuilds();
         AllPlayerStory.AddAllStories();
 

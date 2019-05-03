@@ -8,5 +8,5 @@ public class BreakEquip_Base : TargetSideEffectEquip
     }
 
     public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.EquipBased;
-    public override List<TargetSelect> ValidTargetSelects => new List<TargetSelect> {TargetSelect.Single};
+    public override List<TargetSelect> ValidTargetSelects => new List<TargetSelect> {TargetSelect.Single, TargetSelect.SingleRandom};
 }

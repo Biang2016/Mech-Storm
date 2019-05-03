@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Networking.Match;
 using UnityEngine.UI;
 
 public class CardPropertyFormRow_Dropdown : CardPropertyFormRow
@@ -23,7 +21,9 @@ public class CardPropertyFormRow_Dropdown : CardPropertyFormRow
         }
 
         Dropdown.onValueChanged.RemoveAllListeners();
-        Dropdown.onValueChanged.AddListener(delegate { onValueChangeAction(Dropdown.captionText.text); });
+        Dropdown.value = 0;
+        Dropdown.RefreshShownValue();
+        Dropdown.onValueChanged.AddListener(delegate { onValueChangeAction(Dropdown.options[Dropdown.value].text); });
     }
 
     protected override void SetValue(string value_str)

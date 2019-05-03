@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using System.Xml;
 
 public class CardInfo_Base : IClone<CardInfo_Base>
 {
@@ -112,6 +113,112 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         newCardInfo_Base.MAInfo = MAInfo.Deserialze(reader);
         newCardInfo_Base.SideEffectBundle = global::SideEffectBundle.Deserialize(reader);
         return newCardInfo_Base;
+    }
+
+    public void BaseExportToXML(XmlElement allCard_ele)
+    {
+        XmlDocument doc = allCard_ele.OwnerDocument;
+        XmlElement old_node = null;
+        foreach (XmlElement card_node in allCard_ele.ChildNodes)
+        {
+            if (card_node.Attributes["id"].Value.Equals(CardID.ToString()))
+            {
+                old_node = card_node;
+            }
+        }
+
+        if (old_node != null)
+        {
+            allCard_ele.RemoveChild(old_node);
+        }
+
+        XmlElement card_ele = doc.CreateElement("Card");
+        allCard_ele.AppendChild(card_ele);
+        card_ele.SetAttribute("id", CardID.ToString());
+
+        XmlElement baseInfo_ele = doc.CreateElement("CardInfo");
+        card_ele.AppendChild(baseInfo_ele);
+        baseInfo_ele.SetAttribute("name", "baseInfo");
+        baseInfo_ele.SetAttribute("pictureID", BaseInfo.PictureID.ToString());
+        foreach (KeyValuePair<string, string> kv in BaseInfo.CardNames)
+        {
+            baseInfo_ele.SetAttribute("cardName_" + kv.Key, kv.Value);
+        }
+
+        baseInfo_ele.SetAttribute("isTemp", BaseInfo.IsTemp.ToString());
+        baseInfo_ele.SetAttribute("isHide", BaseInfo.IsHide.ToString());
+        baseInfo_ele.SetAttribute("metal", BaseInfo.Metal.ToString());
+        baseInfo_ele.SetAttribute("energy", BaseInfo.Energy.ToString());
+        baseInfo_ele.SetAttribute("coin", BaseInfo.Coin.ToString());
+        baseInfo_ele.SetAttribute("limitNum", BaseInfo.LimitNum.ToString());
+        baseInfo_ele.SetAttribute("cardRareLevel", BaseInfo.CardRareLevel.ToString());
+        baseInfo_ele.SetAttribute("cardType", BaseInfo.CardType.ToString());
+
+        XmlElement upgradeInfo_ele = doc.CreateElement("CardInfo");
+        card_ele.AppendChild(upgradeInfo_ele);
+        upgradeInfo_ele.SetAttribute("name", "upgradeInfo");
+        upgradeInfo_ele.SetAttribute("upgradeCardID", UpgradeInfo.UpgradeCardID.ToString());
+        upgradeInfo_ele.SetAttribute("degradeCardID", UpgradeInfo.DegradeCardID.ToString());
+        upgradeInfo_ele.SetAttribute("cardLevel", UpgradeInfo.CardLevel.ToString());
+
+        ChildrenExportToXML(card_ele);
+
+        XmlElement sideEffectsBundle_ele = doc.CreateElement("CardInfo");
+        card_ele.AppendChild(sideEffectsBundle_ele);
+        sideEffectsBundle_ele.SetAttribute("name", "sideEffectsBundle");
+        foreach (SideEffectExecute see in SideEffectBundle.SideEffectExecutes)
+        {
+            XmlElement sideEffectExecute_ele = doc.CreateElement("SideEffectExecute");
+            sideEffectsBundle_ele.AppendChild(sideEffectExecute_ele);
+            sideEffectExecute_ele.SetAttribute("ExecuteSettingTypes", see.ExecuteSettingType.ToString());
+            if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others)
+            {
+                sideEffectExecute_ele.SetAttribute("triggerTime", see.M_ExecuteSetting.TriggerTime.ToString());
+                sideEffectExecute_ele.SetAttribute("triggerRange", see.M_ExecuteSetting.TriggerRange.ToString());
+                sideEffectExecute_ele.SetAttribute("triggerDelayTimes", see.M_ExecuteSetting.TriggerDelayTimes.ToString());
+                sideEffectExecute_ele.SetAttribute("triggerTimes", see.M_ExecuteSetting.TriggerTimes.ToString());
+                sideEffectExecute_ele.SetAttribute("removeTriggerTime", see.M_ExecuteSetting.RemoveTriggerTime.ToString());
+                sideEffectExecute_ele.SetAttribute("removeTriggerRange", see.M_ExecuteSetting.RemoveTriggerRange.ToString());
+                sideEffectExecute_ele.SetAttribute("removeTriggerTimes", see.M_ExecuteSetting.RemoveTriggerTimes.ToString());
+            }
+
+            foreach (SideEffectBase se in see.SideEffectBases)
+            {
+                XmlElement sideEffect_ele = doc.CreateElement("SideEffect");
+                sideEffectExecute_ele.AppendChild(sideEffect_ele);
+                sideEffect_ele.SetAttribute("name", se.Name);
+                foreach (SideEffectValue sev in se.M_SideEffectParam.SideEffectValues)
+                {
+                    switch (sev)
+                    {
+                        case SideEffectValue_ConstInt sev_ConstInt:
+                        {
+                            sideEffect_ele.SetAttribute(sev.Name, sev_ConstInt.Value.ToString());
+                            break;
+                        }
+                        case SideEffectValue_MultipliedInt sev_MultipliedInt:
+                        {
+                            sideEffect_ele.SetAttribute(sev.Name, sev_MultipliedInt.Value.ToString());
+                            break;
+                        }
+                        case SideEffectValue_Bool sev_Bool:
+                        {
+                            sideEffect_ele.SetAttribute(sev.Name, sev_Bool.Value.ToString());
+                            break;
+                        }
+                        case SideEffectValue_String sev_String:
+                        {
+                            sideEffect_ele.SetAttribute(sev.Name, sev_String.Value);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected virtual void ChildrenExportToXML(XmlElement card_ele)
+    {
     }
 
     public virtual string GetCardTypeDesc()
