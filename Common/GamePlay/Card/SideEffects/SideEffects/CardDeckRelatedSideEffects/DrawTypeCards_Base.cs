@@ -8,7 +8,7 @@
 
     public override string GenerateDesc()
     {
-        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], (CardTypes) M_SideEffectParam.GetParam_ConstInt("DrawCardType"), BaseInfo.CardTypeNameDict[LanguageManager_Common.GetCurrentLanguage()][(CardTypes) M_SideEffectParam.GetParam_ConstInt("DrawCardType")],
+        return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_MultipliedInt("CardCount"), BaseInfo.CardTypeNameDict[LanguageManager_Common.GetCurrentLanguage()][(CardTypes) M_SideEffectParam.GetParam_ConstInt("DrawCardType")],
             M_SideEffectParam.GetParam_MultipliedInt("CardCount") <= 1 ? "" : "s");
     }
 }

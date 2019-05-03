@@ -883,34 +883,30 @@
 	},
 	"CardEditorWindow_TriggerTime": {
 		"zh": "触发时机",
-		"en": "TriggerTime"
+		"en": "Trigger Time"
 	},
 	"CardEditorWindow_TriggerRange": {
 		"zh": "对象范围",
-		"en": "TriggerRange"
+		"en": "Trigger Range"
 	},
 	"CardEditorWindow_TriggerDelayTimes": {
 		"zh": "延迟触发次数",
-		"en": "TriggerDelayTimes"
-	},
-	"CardEditorWindow_TriggerDelayTimes": {
-		"zh": "延迟触发次数",
-		"en": "TriggerDelayTimes"
+		"en": "Trigger Delay Times"
 	},
 	"CardEditorWindow_TriggerTimes": {
 		"zh": "触发次数",
-		"en": "TriggerTimes"
+		"en": "Trigger Times"
 	},
 	"CardEditorWindow_RemoveTriggerTime": {
 		"zh": "效果移除时机",
-		"en": "RemoveTriggerTime"
+		"en": "Remove Trigger Time"
 	},
 	"CardEditorWindow_RemoveTriggerRange": {
 		"zh": "效果移除触发范围",
-		"en": "RemoveTriggerRange"
+		"en": "Remove Trigger Range"
 	},
 	"CardEditorWindow_RemoveTriggerTimes": {
 		"zh": "效果移除触发次数",
-		"en": "RemoveTriggerTimes"
+		"en": "Remove Trigger Times"
 	},
 }
