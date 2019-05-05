@@ -75,7 +75,7 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
             foreach (SideEffectExecute see in seb.SideEffectExecutes)
             {
                 CardPropertyForm_SideEffectExecute cpfsee = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectExecute].AllocateGameObject<CardPropertyForm_SideEffectExecute>(SideEffectExecuteRowContainer);
-                cpfsee.Initialize(see, onRefreshText, delegate
+                cpfsee.Initialize(SideEffectExecute.GetSideEffectFromByCardType(cardInfo.BaseInfo.CardType), see, onRefreshText, delegate
                 {
                     seb.RemoveSideEffectExecute(see);
                     Initialize(cardInfo, seb, onRefreshText);

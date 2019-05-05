@@ -124,4 +124,22 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
 
         return string.Format(src, colorStrings);
     }
+    
+    protected static string HighlightStringFormat(string src,bool[] needTint, params object[] args)
+    {
+        string[] colorStrings = new string[args.Length];
+        for (int i = 0; i < args.Length; i++)
+        {
+            if (needTint[i])
+            {
+                colorStrings[i] = "<" + AllColors.ColorDict[AllColors.ColorType.CardHighLightColor] + ">" + args[i] + "</color>";
+            }
+            else
+            {
+                colorStrings[i] = args[i].ToString();
+            }
+        }
+
+        return string.Format(src, colorStrings);
+    }
 }

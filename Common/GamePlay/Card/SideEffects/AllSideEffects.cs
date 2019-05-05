@@ -51,12 +51,12 @@ public static class AllSideEffects
         if (CurrentAssembly == null) CurrentAssembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
-        XmlElement allSideEffects = doc.DocumentElement;
-        for (int i = 0; i < allSideEffects.ChildNodes.Count; i++)
+        XmlElement node_AllSideEffects = doc.DocumentElement;
+        for (int i = 0; i < node_AllSideEffects.ChildNodes.Count; i++)
         {
-            XmlNode sideEffectNode = allSideEffects.ChildNodes.Item(i);
+            XmlNode node_SideEffect = node_AllSideEffects.ChildNodes.Item(i);
 
-            string name = sideEffectNode.Attributes["name"].Value;
+            string name = node_SideEffect.Attributes["name"].Value;
             SideEffectBase se = (SideEffectBase) CurrentAssembly.CreateInstance("SideEffects." + name);
             if (se == null)
             {
@@ -64,11 +64,11 @@ public static class AllSideEffects
                 continue;
             }
 
-            se.Name = sideEffectNode.Attributes["name"].Value;
+            se.Name = node_SideEffect.Attributes["name"].Value;
             se.DescRaws = new SortedDictionary<string, string>();
             foreach (KeyValuePair<string, string> kv in descKeyDict)
             {
-                se.DescRaws[kv.Key] = sideEffectNode.Attributes[kv.Value].Value;
+                se.DescRaws[kv.Key] = node_SideEffect.Attributes[kv.Value].Value;
             }
 
             if (se is TargetSideEffect t_se)

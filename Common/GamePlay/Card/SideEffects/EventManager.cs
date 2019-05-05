@@ -243,7 +243,11 @@ public class EventManager
                     (se_ExecutorInfo.CardInstanceId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.CardInstanceId != executorInfo.CardInstanceId))
                     isTrigger = true;
                 break;
-            case SideEffectExecute.TriggerRange.Attached:
+            case SideEffectExecute.TriggerRange.AttachedRetinue:
+                if (se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId == executorInfo.RetinueId)
+                    isTrigger = true;
+                break;
+            case SideEffectExecute.TriggerRange.AttachedEquip:
                 if (se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId == executorInfo.RetinueId)
                     isTrigger = true;
                 break;

@@ -1,8 +1,8 @@
 ﻿namespace SideEffects
 {
-    public class DamageEnemyShipWhenAttack : DamageEnemyShipWhenAttack_Base
+    public class DoSthWhenTrigger_RemoveBySomeTime : DoSthWhenTrigger_RemoveBySomeTime_Base
     {
-        public DamageEnemyShipWhenAttack()
+        public DoSthWhenTrigger_RemoveBySomeTime()
         {
         }
 

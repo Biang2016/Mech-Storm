@@ -20,7 +20,7 @@ internal class PlayerBuff : PoolObject
         BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
         BuffId = buffId;
         ClientUtils.ChangeCardPicture(Image, buff.M_SideEffectParam.GetParam_ConstInt("BuffPicId"));
-        Color buffColor = ClientUtils.HTMLColorToColor(((PlayerBuffSideEffects) (AllBuffs.GetBuff((buff.Name)).SideEffectBases[0])).M_SideEffectParam.GetParam_String("BuffColor"));
+        Color buffColor = ClientUtils.HTMLColorToColor(AllBuffs.GetBuff((buff.Name)).M_SideEffectParam.GetParam_String("BuffColor"));
         BuffBloom.color = buffColor;
         BuffDescText.color = buffColor;
         BuffValuePanel.enabled = buff.M_SideEffectParam.GetParam_Bool("HasNumberShow");

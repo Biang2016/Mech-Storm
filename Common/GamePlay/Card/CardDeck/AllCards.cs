@@ -84,7 +84,7 @@ public static class AllCards
 
     public static void ResetCardLevelDictRemain(List<int> unlockedCards)
     {
-        CardLevelDict_Remain = new Dictionary<int, List<CardInfo_Base>>();
+        CardLevelDict_Remain = new SortedDictionary<int, List<CardInfo_Base>>();
         foreach (KeyValuePair<int, List<CardInfo_Base>> kv in CardLevelDict)
         {
             foreach (CardInfo_Base cardInfo in kv.Value)
@@ -136,17 +136,17 @@ public static class AllCards
 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
-        XmlElement allCards = doc.DocumentElement;
-        for (int i = 0; i < allCards.ChildNodes.Count; i++)
+        XmlElement node_AllCards = doc.DocumentElement;
+        for (int i = 0; i < node_AllCards.ChildNodes.Count; i++)
         {
-            XmlNode card = allCards.ChildNodes.Item(i);
-            int cardID = int.Parse(card.Attributes["id"].Value);
+            XmlNode node_Card = node_AllCards.ChildNodes.Item(i);
+            int cardID = int.Parse(node_Card.Attributes["id"].Value);
             CardDict.Add(cardID, new CardInfo_Base());
         }
 
-        for (int i = 0; i < allCards.ChildNodes.Count; i++)
+        for (int i = 0; i < node_AllCards.ChildNodes.Count; i++)
         {
-            XmlNode card = allCards.ChildNodes.Item(i);
+            XmlNode node_Card = node_AllCards.ChildNodes.Item(i);
             BaseInfo baseInfo = new BaseInfo();
             UpgradeInfo upgradeInfo = new UpgradeInfo();
             LifeInfo lifeInfo = new LifeInfo();
@@ -160,100 +160,100 @@ public static class AllCards
 
             SideEffectBundle sideEffectBundle = new SideEffectBundle();
 
-            for (int j = 0; j < card.ChildNodes.Count; j++)
+            for (int j = 0; j < node_Card.ChildNodes.Count; j++)
             {
-                XmlNode cardInfo = card.ChildNodes[j];
-                switch (cardInfo.Attributes["name"].Value)
+                XmlNode node_CardInfo = node_Card.ChildNodes[j];
+                switch (node_CardInfo.Attributes["name"].Value)
                 {
                     case "baseInfo":
                         SortedDictionary<string, string> cardNameDict = new SortedDictionary<string, string>();
                         foreach (KeyValuePair<string, string> kv in cardNameKeyDict)
                         {
-                            string cardName = cardInfo.Attributes[kv.Value].Value;
+                            string cardName = node_CardInfo.Attributes[kv.Value].Value;
                             cardNameDict[kv.Key] = cardName;
                         }
 
                         baseInfo = new BaseInfo(
-                            pictureID: int.Parse(cardInfo.Attributes["pictureID"].Value),
+                            pictureID: int.Parse(node_CardInfo.Attributes["pictureID"].Value),
                             cardNames: cardNameDict,
-                            isTemp: cardInfo.Attributes["isTemp"].Value == "True",
-                            isHide: cardInfo.Attributes["isHide"].Value == "True",
-                            metal: int.Parse(cardInfo.Attributes["metal"].Value),
-                            energy: int.Parse(cardInfo.Attributes["energy"].Value),
-                            coin: int.Parse(cardInfo.Attributes["coin"].Value),
+                            isTemp: node_CardInfo.Attributes["isTemp"].Value == "True",
+                            isHide: node_CardInfo.Attributes["isHide"].Value == "True",
+                            metal: int.Parse(node_CardInfo.Attributes["metal"].Value),
+                            energy: int.Parse(node_CardInfo.Attributes["energy"].Value),
+                            coin: int.Parse(node_CardInfo.Attributes["coin"].Value),
                             effectFactor: 1,
-                            limitNum: int.Parse(cardInfo.Attributes["limitNum"].Value),
-                            cardRareLevel: int.Parse(cardInfo.Attributes["cardRareLevel"].Value),
-                            cardType: (CardTypes) Enum.Parse(typeof(CardTypes), cardInfo.Attributes["cardType"].Value));
+                            limitNum: int.Parse(node_CardInfo.Attributes["limitNum"].Value),
+                            cardRareLevel: int.Parse(node_CardInfo.Attributes["cardRareLevel"].Value),
+                            cardType: (CardTypes) Enum.Parse(typeof(CardTypes), node_CardInfo.Attributes["cardType"].Value));
                         break;
                     case "upgradeInfo":
                         upgradeInfo = new UpgradeInfo(
-                            upgradeCardID: int.Parse(cardInfo.Attributes["upgradeCardID"].Value),
-                            degradeCardID: int.Parse(cardInfo.Attributes["degradeCardID"].Value),
+                            upgradeCardID: int.Parse(node_CardInfo.Attributes["upgradeCardID"].Value),
+                            degradeCardID: int.Parse(node_CardInfo.Attributes["degradeCardID"].Value),
                             cardLevel: 1,
                             cardLevelMax: 1);
                         break;
                     case "lifeInfo":
                         lifeInfo = new LifeInfo(
-                            life: int.Parse(cardInfo.Attributes["life"].Value),
-                            totalLife: int.Parse(cardInfo.Attributes["totalLife"].Value));
+                            life: int.Parse(node_CardInfo.Attributes["life"].Value),
+                            totalLife: int.Parse(node_CardInfo.Attributes["totalLife"].Value));
                         break;
                     case "battleInfo":
                         battleInfo = new BattleInfo(
-                            basicAttack: int.Parse(cardInfo.Attributes["basicAttack"].Value),
-                            basicArmor: int.Parse(cardInfo.Attributes["basicShield"].Value),
-                            basicShield: int.Parse(cardInfo.Attributes["basicArmor"].Value));
+                            basicAttack: int.Parse(node_CardInfo.Attributes["basicAttack"].Value),
+                            basicArmor: int.Parse(node_CardInfo.Attributes["basicShield"].Value),
+                            basicShield: int.Parse(node_CardInfo.Attributes["basicArmor"].Value));
                         break;
                     case "retinueInfo":
                         retinueInfo = new RetinueInfo(
-                            isSoldier: cardInfo.Attributes["isSoldier"].Value == "True",
-                            isDefense: cardInfo.Attributes["isDefense"].Value == "True",
-                            isSniper: cardInfo.Attributes["isSniper"].Value == "True",
-                            isCharger: cardInfo.Attributes["isCharger"].Value == "True",
-                            isFrenzy: cardInfo.Attributes["isFrenzy"].Value == "True",
-                            slot1: (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot1"].Value),
-                            slot2: (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot2"].Value),
-                            slot3: (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot3"].Value),
-                            slot4: (SlotTypes) Enum.Parse(typeof(SlotTypes), cardInfo.Attributes["slot4"].Value));
+                            isSoldier: node_CardInfo.Attributes["isSoldier"].Value == "True",
+                            isDefense: node_CardInfo.Attributes["isDefense"].Value == "True",
+                            isSniper: node_CardInfo.Attributes["isSniper"].Value == "True",
+                            isCharger: node_CardInfo.Attributes["isCharger"].Value == "True",
+                            isFrenzy: node_CardInfo.Attributes["isFrenzy"].Value == "True",
+                            slot1: (SlotTypes) Enum.Parse(typeof(SlotTypes), node_CardInfo.Attributes["slot1"].Value),
+                            slot2: (SlotTypes) Enum.Parse(typeof(SlotTypes), node_CardInfo.Attributes["slot2"].Value),
+                            slot3: (SlotTypes) Enum.Parse(typeof(SlotTypes), node_CardInfo.Attributes["slot3"].Value),
+                            slot4: (SlotTypes) Enum.Parse(typeof(SlotTypes), node_CardInfo.Attributes["slot4"].Value));
                         break;
                     case "weaponInfo":
                         weaponInfo = new WeaponInfo(
-                            energy: int.Parse(cardInfo.Attributes["energy"].Value),
-                            energyMax: int.Parse(cardInfo.Attributes["energyMax"].Value),
-                            attack: int.Parse(cardInfo.Attributes["attack"].Value),
-                            weaponType: (WeaponTypes) Enum.Parse(typeof(WeaponTypes), cardInfo.Attributes["weaponType"].Value),
-                            isSentry: cardInfo.Attributes["isSentry"].Value == "True",
-                            isFrenzy: cardInfo.Attributes["isFrenzy"].Value == "True");
+                            energy: int.Parse(node_CardInfo.Attributes["energy"].Value),
+                            energyMax: int.Parse(node_CardInfo.Attributes["energyMax"].Value),
+                            attack: int.Parse(node_CardInfo.Attributes["attack"].Value),
+                            weaponType: (WeaponTypes) Enum.Parse(typeof(WeaponTypes), node_CardInfo.Attributes["weaponType"].Value),
+                            isSentry: node_CardInfo.Attributes["isSentry"].Value == "True",
+                            isFrenzy: node_CardInfo.Attributes["isFrenzy"].Value == "True");
                         equipInfo = new EquipInfo(SlotTypes.Weapon);
                         break;
                     case "shieldInfo":
                         shieldInfo = new ShieldInfo(
-                            armor: int.Parse(cardInfo.Attributes["armor"].Value),
-                            shield: int.Parse(cardInfo.Attributes["shield"].Value),
-                            shieldType: (ShieldTypes) Enum.Parse(typeof(ShieldTypes), cardInfo.Attributes["shieldType"].Value),
-                            isDefense: cardInfo.Attributes["isDefense"].Value == "True");
+                            armor: int.Parse(node_CardInfo.Attributes["armor"].Value),
+                            shield: int.Parse(node_CardInfo.Attributes["shield"].Value),
+                            shieldType: (ShieldTypes) Enum.Parse(typeof(ShieldTypes), node_CardInfo.Attributes["shieldType"].Value),
+                            isDefense: node_CardInfo.Attributes["isDefense"].Value == "True");
                         equipInfo = new EquipInfo(SlotTypes.Shield);
                         break;
                     case "packInfo":
                         packInfo = new PackInfo(
-                            isFrenzy: cardInfo.Attributes["isFrenzy"].Value == "True",
-                            isDefense: cardInfo.Attributes["isDefense"].Value == "True",
-                            isSniper: cardInfo.Attributes["isSniper"].Value == "True",
-                            dodgeProp: int.Parse(cardInfo.Attributes["dodgeProp"].Value)
+                            isFrenzy: node_CardInfo.Attributes["isFrenzy"].Value == "True",
+                            isDefense: node_CardInfo.Attributes["isDefense"].Value == "True",
+                            isSniper: node_CardInfo.Attributes["isSniper"].Value == "True",
+                            dodgeProp: int.Parse(node_CardInfo.Attributes["dodgeProp"].Value)
                         );
                         equipInfo = new EquipInfo(SlotTypes.Pack);
                         break;
                     case "maInfo":
                         maInfo = new MAInfo(
-                            isFrenzy: cardInfo.Attributes["isFrenzy"].Value == "True",
-                            isDefense: cardInfo.Attributes["isDefense"].Value == "True",
-                            isSniper: cardInfo.Attributes["isSniper"].Value == "True"
+                            isFrenzy: node_CardInfo.Attributes["isFrenzy"].Value == "True",
+                            isDefense: node_CardInfo.Attributes["isDefense"].Value == "True",
+                            isSniper: node_CardInfo.Attributes["isSniper"].Value == "True"
                         );
                         equipInfo = new EquipInfo(SlotTypes.MA);
                         break;
                     case "sideEffectsBundle":
                     {
-                        ExtractSideEffectBundle(baseInfo.CardType, cardInfo, sideEffectBundle);
+                        ExtractSideEffectBundle(baseInfo.CardType, node_CardInfo, sideEffectBundle);
                         break;
                     }
                 }
@@ -263,7 +263,7 @@ public static class AllCards
             {
                 case CardTypes.Retinue:
                     addCard(new CardInfo_Retinue(
-                        cardID: int.Parse(card.Attributes["id"].Value),
+                        cardID: int.Parse(node_Card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         lifeInfo: lifeInfo,
@@ -273,7 +273,7 @@ public static class AllCards
                     break;
                 case CardTypes.Equip:
                     addCard(new CardInfo_Equip(
-                        cardID: int.Parse(card.Attributes["id"].Value),
+                        cardID: int.Parse(node_Card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         equipInfo: equipInfo,
@@ -285,14 +285,14 @@ public static class AllCards
                     break;
                 case CardTypes.Spell:
                     addCard(new CardInfo_Spell(
-                        cardID: int.Parse(card.Attributes["id"].Value),
+                        cardID: int.Parse(node_Card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         sideEffectBundle: sideEffectBundle));
                     break;
                 case CardTypes.Energy:
                     addCard(new CardInfo_Spell(
-                        cardID: int.Parse(card.Attributes["id"].Value),
+                        cardID: int.Parse(node_Card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         sideEffectBundle: sideEffectBundle));
@@ -319,7 +319,7 @@ public static class AllCards
         }
     }
 
-    private static void ExtractSideEffectBundle(CardTypes cardType, XmlNode cardInfo, SideEffectBundle seb)
+    private static void ExtractSideEffectBundle(CardTypes cardType, XmlNode node_CardInfo, SideEffectBundle seb)
     {
         SideEffectExecute.SideEffectFrom sideEffectFrom = SideEffectExecute.SideEffectFrom.Unknown;
         switch (cardType)
@@ -338,18 +338,18 @@ public static class AllCards
                 break;
         }
 
-        for (int k = 0; k < cardInfo.ChildNodes.Count; k++)
+        for (int k = 0; k < node_CardInfo.ChildNodes.Count; k++)
         {
-            XmlNode sideEffectExecuteInfo = cardInfo.ChildNodes.Item(k);
-            SideEffectExecute.ExecuteSetting es = SideEffectExecute.ExecuteSetting.GenerateFromXMLNode(sideEffectExecuteInfo);
+            XmlNode node_SideEffectExecute = node_CardInfo.ChildNodes.Item(k);
+            SideEffectExecute.ExecuteSetting es = SideEffectExecute.ExecuteSetting.GenerateFromXMLNode(node_SideEffectExecute);
 
             List<SideEffectBase> ses = new List<SideEffectBase>();
 
-            for (int m = 0; m < sideEffectExecuteInfo.ChildNodes.Count; m++)
+            for (int m = 0; m < node_SideEffectExecute.ChildNodes.Count; m++)
             {
-                XmlNode sideEffectInfo = sideEffectExecuteInfo.ChildNodes.Item(m);
-                SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[sideEffectInfo.Attributes["name"].Value].Clone();
-                GetInfoForSideEffect(sideEffectInfo, sideEffect);
+                XmlNode node_SideEffect = node_SideEffectExecute.ChildNodes.Item(m);
+                SideEffectBase sideEffect = AllSideEffects.SideEffectsNameDict[node_SideEffect.Attributes["name"].Value].Clone();
+                GetInfoForSideEffect(node_SideEffect, sideEffect);
                 ses.Add(sideEffect);
             }
 
@@ -358,50 +358,27 @@ public static class AllCards
         }
     }
 
-    public static void GetInfoForSideEffect(XmlNode sideEffectInfo, SideEffectBase sideEffect)
+    public static void GetInfoForSideEffect(XmlNode node_SideEffect, SideEffectBase sideEffect)
     {
-        List<XmlAttribute> noMatchAttrs = sideEffect.M_SideEffectParam.GetParamsFromXMLNode(sideEffectInfo);
-        foreach (XmlAttribute attr in noMatchAttrs)
+        sideEffect.M_SideEffectParam.GetParamsFromXMLNode(node_SideEffect);
+        if (sideEffect is AddPlayerBuff_Base se)
         {
-            if (sideEffect is AddPlayerBuff_Base se)
-            {
-                if (attr.Name.Contains("Buff."))
-                {
-                    if (!attr.Name.Contains("Buff.SideEffect."))
-                    {
-                        string attrName = attr.Name.Replace("Buff.", "");
-                        SideEffectValue sev = se.AttachedBuffSEE.SideEffectBases[0].M_SideEffectParam.GetParam(attrName); //override其携带的buff的参数
-                        if (sev != null)
-                        {
-                            sev.SetValue(attr.Value);
-                        }
-                        else
-                        {
-                            Utils.DebugLog("OverrideParamForBuff -> NoMatchAttr in " + sideEffect.GetType() + " attrName: " + attr.Name);
-                        }
-                    }
-                    else
-                    {
-                        foreach (SideEffectBase buff_subSE in se.AttachedBuffSEE.SideEffectBases[0].Sub_SideEffect)
-                        {
-                            string attrName = attr.Name.Replace("Buff.SideEffect.", "");
-                            SideEffectValue sev = buff_subSE.M_SideEffectParam.GetParam(attrName); //override其携带的buff的sideEffect的参数
-                            if (sev != null)
-                            {
-                                sev.SetValue(attr.Value);
-                            }
-                            else
-                            {
-                                Utils.DebugLog("OverrideParamForBuff -> NoMatchAttr in " + sideEffect.GetType() + " attrName: " + attr.Name);
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Utils.DebugLog("OverrideParamForBuff -> NoMatchAttr in " + sideEffect.GetType());
-            }
+            se.BuffName = node_SideEffect.Attributes["BuffName"].Value;
+            XmlNode node_Buff = node_SideEffect.FirstChild;
+            GetInfoForBuff(node_Buff, se);
+        }
+    }
+
+    public static void GetInfoForBuff(XmlNode node_Buff, AddPlayerBuff_Base parentSE)
+    {
+        parentSE.AttachedBuffSEE.M_ExecuteSetting = SideEffectExecute.ExecuteSetting.GenerateFromXMLNode(node_Buff);
+        GetInfoForSideEffect(node_Buff, parentSE.AttachedBuffSEE.SideEffectBases[0]);
+        for (int i = 0; i < node_Buff.ChildNodes.Count; i++)
+        {
+            XmlNode node_Buff_Sub_SideEffect = node_Buff.ChildNodes.Item(i);
+            SideEffectBase sub_SideEffect = AllSideEffects.SideEffectsNameDict[node_Buff_Sub_SideEffect.Attributes["name"].Value].Clone();
+            GetInfoForSideEffect(node_Buff_Sub_SideEffect, sub_SideEffect);
+            parentSE.AttachedBuffSEE.SideEffectBases[0].Sub_SideEffect.Add(sub_SideEffect);
         }
     }
 

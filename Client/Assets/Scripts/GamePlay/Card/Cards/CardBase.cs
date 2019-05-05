@@ -154,6 +154,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         ChangeCardPicture(CardInfo.BaseInfo.PictureID);
         CardDescComponent?.SetCardTypeText(CardInfo.GetCardTypeDesc());
+        SetBlockCountValue(0, true);
+        SetBlockCountMaxValue(CardInfo.BaseInfo.LimitNum, true);
         SetBannerType(CardNoticeComponent.BannerTypes.None);
         SetArrowType(CardNoticeComponent.ArrowTypes.None);
         SetStarNumber(CardInfo.UpgradeInfo.CardLevel, CardInfo.UpgradeInfo.CardLevelMax);

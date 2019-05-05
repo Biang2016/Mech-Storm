@@ -19,7 +19,7 @@ public class GameObjectPool : MonoBehaviour
     Quaternion gameObjectDefaultRotation;
     Vector3 gameObjectDefaultScale;
 
-    public static Vector3 GameObjectPoolPosition = new Vector3(-30f, -30f, 0f);
+    public static Vector3 GameObjectPoolPosition = new Vector3(-3000f, -3000f, 0f);
 
     public void Initiate(PoolObject prefab, int initialCapacity)
     {

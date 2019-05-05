@@ -78,48 +78,7 @@ public class SelectCard : PoolObject
         }
     }
 
-    [SerializeField] private Image Star1;
-    [SerializeField] private Image Star2;
-    [SerializeField] private Image Star3;
-
-    protected int stars;
-
-    public int Stars
-    {
-        get { return stars; }
-
-        set
-        {
-            stars = value;
-            Star1.gameObject.SetActive(true);
-            Star2.gameObject.SetActive(true);
-            Star3.gameObject.SetActive(true);
-            switch (value)
-            {
-                case 0:
-                    Star1.color = new Color(1, 1, 1, 0);
-                    Star2.color = new Color(1, 1, 1, 0);
-                    Star3.color = new Color(1, 1, 1, 0);
-                    break;
-                case 1:
-                    Star1.color = Color.white;
-                    Star2.color = Color.black;
-                    Star3.color = Color.black;
-                    break;
-                case 2:
-                    Star1.color = Color.white;
-                    Star2.color = Color.white;
-                    Star3.color = Color.black;
-                    break;
-                case 3:
-                    Star1.color = Color.white;
-                    Star2.color = Color.white;
-                    Star3.color = Color.white;
-                    break;
-                default: break;
-            }
-        }
-    }
+    [SerializeField] private StarsGroup StarsGroup;
 
     public CardInfo_Base CardInfo;
 
@@ -135,7 +94,7 @@ public class SelectCard : PoolObject
         CardButton.image.color = color;
         CardButton.onClick.RemoveAllListeners();
         ClientUtils.ChangeCardPicture(CardImage, CardInfo.BaseInfo.PictureID);
-        Stars = CardInfo.UpgradeInfo.CardLevel;
+        StarsGroup.SetStarNumber(CardInfo.UpgradeInfo.CardLevel, CardInfo.UpgradeInfo.CardLevelMax);
     }
 
     public void RefreshTextLanguage()

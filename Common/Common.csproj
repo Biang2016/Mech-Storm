@@ -78,7 +78,7 @@
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\HandCardRelatedSideEffects\HandCardRelatedSideEffect.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\DamageEnemyShipWhenUseCards_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\AddEnergyWhenRoundBegin_Base.cs" />
-    <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\DamageEnemyShipWhenAttack_Base.cs" />
+    <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\DoSthWhenTrigger_RemoveBySomeTime_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\AddEnergyWhenUseMetal_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\RetinueBased\RunAway_Base.cs" />
     <Compile Include="GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\RetinueBased\AddShield_Base.cs" />

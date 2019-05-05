@@ -14,7 +14,7 @@
   </Card>
   <Card id="10">
     <CardInfo name="baseInfo" pictureID="1" cardName_en="Strike" cardName_zh="强袭" isTemp="False" isHide="False" metal="2" energy="0" coin="200" limitNum="1" cardRareLevel="1" cardType="Retinue" />
-    <CardInfo name="upgradeInfo" upgradeCardID="11" degradeCardID="-1" cardLevel="1" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="2" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -26,7 +26,7 @@
   </Card>
   <Card id="11">
     <CardInfo name="baseInfo" pictureID="16" cardName_en="FA Strike" cardName_zh="重装强袭" isTemp="False" isHide="False" metal="6" energy="0" coin="400" limitNum="1" cardRareLevel="4" cardType="Retinue" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="100" cardLevel="2" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="6" basicArmor="0" />
@@ -37,15 +37,14 @@
     </CardInfo>
   </Card>
   <Card id="20">
-    <CardInfo name="baseInfo" pictureID="2" cardName_zh="元祖高达" cardName_en="RX-782" isTemp="False" isHide="False" metal="5" energy="0" coin="350" limitNum="1" cardRareLevel="5" cardType="Retinue" />
+    <CardInfo name="baseInfo" pictureID="2" cardName_en="RX-782" cardName_zh="元祖高达" isTemp="False" isHide="False" metal="5" energy="0" coin="350" limitNum="1" cardRareLevel="5" cardType="Retinue" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="Damage" TargetRange="EnemyMechs" TargetSelect="SingleRandom" Damage="4">
-        </SideEffect>
+        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" Damage="4" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -54,10 +53,10 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="lifeInfo" life="18" totalLife="18" />
-    <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="2" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnRetinueSummon" triggerRange="EnemyPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-        <SideEffect name="Damage" TargetSelect="1" TargetRange="10" ChoiceCount="1" Damage="2" />
+        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -79,7 +78,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="51" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="retinueInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="7" totalLife="7" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfRetinueDie">
         <SideEffect name="SummonRetinue" SummonCardID="51" />
@@ -124,7 +123,7 @@
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfRetinueKillOther">
-        <SideEffect name="AddAttack" TargetSelect="0" TargetRange="64" ChoiceCount="1" AttackValue="1" />
+        <SideEffect name="AddAttack" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" AttackValue="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -136,7 +135,7 @@
     <CardInfo name="battleInfo" basicAttack="3" basicShield="2" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfRetinueKillOther">
-        <SideEffect name="AddAttack" TargetSelect="0" TargetRange="64" ChoiceCount="1" AttackValue="1" />
+        <SideEffect name="AddAttack" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" AttackValue="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -433,9 +432,10 @@
     <CardInfo name="weaponInfo" energy="1" energyMax="3" attack="1" weaponType="Sword" isSentry="False" isFrenzy="False" />
   </Card>
   <Card id="10012">
-    <CardInfo name="baseInfo" pictureID="100" cardName_zh="高能热能斧" cardName_en="S Thermal Axe" isTemp="False" isHide="False" metal="3" energy="0" coin="100" limitNum="0" cardRareLevel="3" cardType="Equip" />
-    <CardInfo name="upgradeInfo" upgradeCardID="10013" degradeCardID="10101" />
+    <CardInfo name="baseInfo" pictureID="100" cardName_en="S Thermal Axe" cardName_zh="高能热能斧" isTemp="False" isHide="False" metal="3" energy="0" coin="100" limitNum="0" cardRareLevel="3" cardType="Equip" />
+    <CardInfo name="upgradeInfo" upgradeCardID="10013" degradeCardID="10011" cardLevel="1" />
     <CardInfo name="weaponInfo" energy="1" energyMax="4" attack="1" weaponType="Sword" isSentry="False" isFrenzy="False" />
+    <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="10013">
     <CardInfo name="baseInfo" pictureID="100" cardName_zh="狂暴热能斧" cardName_en="SP Thermal Axe" isTemp="False" isHide="False" metal="3" energy="0" coin="200" limitNum="0" cardRareLevel="4" cardType="Equip" />
@@ -761,27 +761,18 @@
     <CardInfo name="baseInfo" pictureID="615" cardName_zh="偷袭" cardName_en="Sneak Attack" isTemp="False" isHide="False" metal="0" energy="4" coin="400" limitNum="3" cardRareLevel="3" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="50172" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
-      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenAttack" Buff.RemoveTriggerTimes="1" Buff.SideEffect.Energy="2" />
-      </SideEffectExecute>
     </CardInfo>
   </Card>
   <Card id="50172">
     <CardInfo name="baseInfo" pictureID="615" cardName_zh="偷袭" cardName_en="Sneak Attack2" isTemp="False" isHide="False" metal="0" energy="6" coin="500" limitNum="0" cardRareLevel="4" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="50173" degradeCardID="50171" />
     <CardInfo name="sideEffectsBundle">
-      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenAttack" Buff.RemoveTriggerTimes="2" Buff.SideEffect.Energy="2" />
-      </SideEffectExecute>
     </CardInfo>
   </Card>
   <Card id="50173">
     <CardInfo name="baseInfo" pictureID="615" cardName_zh="偷袭" cardName_en="Sneak Attack3" isTemp="False" isHide="False" metal="0" energy="10" coin="600" limitNum="0" cardRareLevel="5" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="50172" />
     <CardInfo name="sideEffectsBundle">
-      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenAttack" Buff.RemoveTriggerTimes="2" Buff.SideEffect.Energy="3" />
-      </SideEffectExecute>
     </CardInfo>
   </Card>
   <Card id="50180">
@@ -798,10 +789,6 @@
     <CardInfo name="baseInfo" pictureID="617" cardName_zh="刺客意志" cardName_en="Assassin's Will" isTemp="False" isHide="False" metal="0" energy="10" coin="400" limitNum="3" cardRareLevel="5" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
-      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddPlayerBuff" BuffName="NextSpellDamageDouble">
-        </SideEffect>
-      </SideEffectExecute>
     </CardInfo>
   </Card>
   <Card id="50200">
@@ -809,7 +796,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Cooperation" TargetRange="SelfSoldiers">
+        <SideEffect name="Cooperation" TargetRange="SelfSoldiers" TargetSelect="Single">
         </SideEffect>
       </SideEffectExecute>
     </CardInfo>
@@ -991,17 +978,21 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddPlayerBuff" BuffName="DamageEnemyShipWhenAttack" Buff.RemoveTriggerTimes="1" Buff.SideEffect.Damage="1" />
+        <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
+          <Buff BuffPicId="635" BuffColor="#FF00A4" HasNumberShow="True" CanPiled="True" Singleton="True" PiledBy="Value" triggerTime="OnRetinueAttack" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnEndRound" removeTriggerRange="SelfPlayer" removeTriggerTimes="1">
+            <SideEffect name="Damage" TargetRange="EnemyShip" TargetSelect="Single" Damage="9">
+            </SideEffect>
+          </Buff>
+        </SideEffect>
       </SideEffectExecute>
     </CardInfo>
   </Card>
   <Card id="50300">
-    <CardInfo name="baseInfo" pictureID="636" cardName_zh="逃逸" cardName_en="Run Away" isTemp="False" isHide="False" metal="0" energy="4" coin="350" limitNum="3" cardRareLevel="3" cardType="Spell" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="baseInfo" pictureID="636" cardName_en="Run Away" cardName_zh="逃逸" isTemp="False" isHide="False" metal="0" energy="4" coin="350" limitNum="3" cardRareLevel="3" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="RunAway" TargetRange="SelfMechs">
-        </SideEffect>
+        <SideEffect name="RunAway" TargetRange="SelfMechs" TargetSelect="Single" ChoiceCount="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -1138,38 +1129,24 @@
     <CardInfo name="baseInfo" pictureID="709" cardName_zh="虚空之路" cardName_en="Virtual Road" isTemp="False" isHide="False" metal="0" energy="10" coin="600" limitNum="3" cardRareLevel="5" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
-      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Exile">
-        </SideEffect>
-        <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenUseMetal" Buff.SideEffect.Energy="2" />
-      </SideEffectExecute>
     </CardInfo>
   </Card>
   <Card id="60091">
-    <CardInfo name="baseInfo" pictureID="710" cardName_zh="能量种子" cardName_en="Energy Seed" isTemp="False" isHide="False" metal="0" energy="0" coin="200" limitNum="1" cardRareLevel="2" cardType="Energy" />
-    <CardInfo name="upgradeInfo" upgradeCardID="60092" degradeCardID="-1" />
+    <CardInfo name="baseInfo" pictureID="710" cardName_en="Energy Seed" cardName_zh="能量种子" isTemp="False" isHide="False" metal="0" energy="0" coin="200" limitNum="1" cardRareLevel="2" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="60092" degradeCardID="-1" cardLevel="1" />
     <CardInfo name="sideEffectsBundle">
-      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenRoundBegin" Buff.RemoveTriggerTimes="3" Buff.SideEffect.Energy="3" />
-      </SideEffectExecute>
     </CardInfo>
   </Card>
   <Card id="60092">
-    <CardInfo name="baseInfo" pictureID="711" cardName_zh="能量种子X" cardName_en="Energy Seed X" isTemp="False" isHide="False" metal="0" energy="0" coin="250" limitNum="0" cardRareLevel="3" cardType="Energy" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60091" />
+    <CardInfo name="baseInfo" pictureID="711" cardName_en="Energy Seed X" cardName_zh="能量种子X" isTemp="False" isHide="False" metal="0" energy="0" coin="250" limitNum="0" cardRareLevel="3" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60091" cardLevel="2" />
     <CardInfo name="sideEffectsBundle">
-      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddPlayerBuff" BuffName="AddEnergyWhenRoundBegin" Buff.RemoveTriggerTimes="3" Buff.SideEffect.Energy="5" />
-      </SideEffectExecute>
     </CardInfo>
   </Card>
   <Card id="60100">
-    <CardInfo name="baseInfo" pictureID="712" cardName_zh="能量异变" cardName_en="Energy Variation" isTemp="False" isHide="False" metal="0" energy="0" coin="250" limitNum="3" cardRareLevel="2" cardType="Energy" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="baseInfo" pictureID="712" cardName_en="Energy Variation" cardName_zh="能量异变" isTemp="False" isHide="False" metal="0" energy="0" coin="250" limitNum="3" cardRareLevel="2" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" cardLevel="3" />
     <CardInfo name="sideEffectsBundle">
-      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddPlayerBuff" BuffName="DamageEnemyShipWhenUseCards" Buff.SideEffect.Damage="1" />
-      </SideEffectExecute>
     </CardInfo>
   </Card>
   <Card id="999999">

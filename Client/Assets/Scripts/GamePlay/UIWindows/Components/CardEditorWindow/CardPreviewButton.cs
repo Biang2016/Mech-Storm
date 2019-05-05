@@ -12,6 +12,8 @@ public class CardPreviewButton : PoolObject
     [SerializeField] private Text TempText;
     [SerializeField] private Image CurEditBorder;
 
+    [SerializeField] private StarsGroup CardPreviewButtonStarsGroup;
+
     public void Awake()
     {
         LanguageManager.Instance.RegisterTextKey(HideText, "CardEditorWindow_CardPreviewButtonHideText");
@@ -40,6 +42,7 @@ public class CardPreviewButton : PoolObject
         Button.onClick.AddListener(delegate { onClick(); });
         HideImage.gameObject.SetActive(ci.BaseInfo.IsHide);
         TempImage.gameObject.SetActive(ci.BaseInfo.IsTemp);
+        CardPreviewButtonStarsGroup.SetStarNumber(ci.UpgradeInfo.CardLevel, ci.UpgradeInfo.CardLevelMax);
     }
 
     public delegate void OnButtonClickDelegate();

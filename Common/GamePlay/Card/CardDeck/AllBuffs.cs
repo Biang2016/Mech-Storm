@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Xml;
 
 public static class AllBuffs
 {
-    public static Dictionary<string, SideEffectExecute> BuffDict = new Dictionary<string, SideEffectExecute>();
+    public static Dictionary<string, PlayerBuffSideEffects> BuffDict = new Dictionary<string, PlayerBuffSideEffects>();
 
     public static void Reset()
     {
         BuffDict.Clear();
     }
 
-    private static void addBuff(SideEffectExecute see)
+    private static void addBuff(PlayerBuffSideEffects se)
     {
-        foreach (SideEffectBase se in see.SideEffectBases)
-        {
-            if (!BuffDict.ContainsKey(se.Name)) BuffDict.Add(se.Name, see);
-        }
+        if (!BuffDict.ContainsKey(se.Name)) BuffDict.Add(se.Name, se);
     }
 
     public static Assembly CurrentAssembly;
@@ -42,12 +40,12 @@ public static class AllBuffs
         if (CurrentAssembly == null) CurrentAssembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
-        XmlElement allBuffs = doc.DocumentElement;
-        for (int i = 0; i < allBuffs.ChildNodes.Count; i++)
+        XmlElement node_AllBuffs = doc.DocumentElement;
+        for (int i = 0; i < node_AllBuffs.ChildNodes.Count; i++)
         {
-            XmlNode sideEffectNode = allBuffs.ChildNodes.Item(i);
+            XmlNode node_Buff = node_AllBuffs.ChildNodes.Item(i);
 
-            string name = sideEffectNode.Attributes["name"].Value;
+            string name = node_Buff.Attributes["name"].Value;
             PlayerBuffSideEffects se = (PlayerBuffSideEffects) CurrentAssembly.CreateInstance("SideEffects." + name);
             if (se == null)
             {
@@ -55,43 +53,22 @@ public static class AllBuffs
                 continue;
             }
 
-            se.Name = sideEffectNode.Attributes["name"].Value;
-
+            se.Name = node_Buff.Attributes["name"].Value;
             se.DescRaws = new SortedDictionary<string, string>();
             foreach (KeyValuePair<string, string> kv in descKeyDict)
             {
-                se.DescRaws[kv.Key] = sideEffectNode.Attributes[kv.Value].Value;
+                se.DescRaws[kv.Key] = node_Buff.Attributes[kv.Value].Value;
             }
 
-            se.M_SideEffectParam.GetParamsFromXMLNode(sideEffectNode);
-            SideEffectExecute see = new SideEffectExecute(
-                SideEffectExecute.SideEffectFrom.Buff, new List<SideEffectBase> {se},
-                new SideEffectExecute.ExecuteSetting(
-                    (SideEffectExecute.TriggerTime) se.M_SideEffectParam.GetParam_ConstInt("TriggerTime"),
-                    (SideEffectExecute.TriggerRange) se.M_SideEffectParam.GetParam_ConstInt("TriggerRange"),
-                    se.M_SideEffectParam.GetParam_ConstInt("TriggerDelayTimes"),
-                    se.M_SideEffectParam.GetParam_ConstInt("TriggerTimes"),
-                    (SideEffectExecute.TriggerTime) se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerTime"),
-                    (SideEffectExecute.TriggerRange) se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerRange"),
-                    se.M_SideEffectParam.GetParam_ConstInt("RemoveTriggerTimes")));
-            for (int k = 0; k < sideEffectNode.ChildNodes.Count; k++)
-            {
-                XmlNode buffInfo = sideEffectNode.ChildNodes[k];
-                SideEffectBase buff = AllSideEffects.SideEffectsNameDict[buffInfo.Attributes["name"].Value].Clone();
-                AllCards.GetInfoForSideEffect(buffInfo, buff);
-
-                see.SideEffectBases[0].Sub_SideEffect.Add(buff);
-            }
-
-            addBuff(see);
+            addBuff(se);
         }
     }
 
-    public static SideEffectExecute GetBuff(string buffName)
+    public static PlayerBuffSideEffects GetBuff(string buffName)
     {
         if (BuffDict.ContainsKey(buffName))
         {
-            return BuffDict[buffName].Clone();
+            return (PlayerBuffSideEffects) BuffDict[buffName].Clone();
         }
         else
         {

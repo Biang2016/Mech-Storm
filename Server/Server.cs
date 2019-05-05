@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
+using System.Xml;
 
 internal class Server
 {
@@ -40,14 +42,29 @@ internal class Server
         AllColors.AddAllColors(ServerConsole.ServerRoot + "Config/Colors.xml");
         AllSideEffects.AddAllSideEffects(ServerConsole.ServerRoot + "Config/SideEffects.xml");
         AllBuffs.AddAllBuffs(ServerConsole.ServerRoot + "Config/Buffs.xml");
-        AllCards.AddAllCards(ServerConsole.ServerRoot + "Config/Cards_new.xml");
+        AllCards.AddAllCards(ServerConsole.ServerRoot + "Config/Cards.xml");
         AllServerBuilds.AddAllBuilds();
         AllPlayerStory.AddAllStories();
 
         ServerLog.PrintServerStates("CardDeck Loaded");
 
-        SGMM = new ServerGameMatchManager();
+        //Here to test cards, sideEffects, buffs
 
+//        CardInfo_Base ci = AllCards.GetCard(50);
+//        string text;
+//        using (StreamReader sr = new StreamReader(ServerConsole.ServerRoot + "Config/Cards.xml"))
+//        {
+//            text = sr.ReadToEnd();
+//        }
+//
+//        XmlDocument doc = new XmlDocument();
+//        doc.LoadXml(text);
+//        XmlElement allCards = doc.DocumentElement;
+//        ci.BaseExportToXML(allCards);
+
+        //End
+
+        SGMM = new ServerGameMatchManager();
         OnRestartProtocols();
         OnRestartSideEffects();
         StartSeverSocket();

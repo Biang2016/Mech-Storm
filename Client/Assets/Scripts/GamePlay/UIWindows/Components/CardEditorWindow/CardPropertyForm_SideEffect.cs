@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SideEffects;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,17 +10,9 @@ using UnityEngine.UI;
 public class CardPropertyForm_SideEffect : PoolObject
 {
     [SerializeField] private Transform ParamRowContainer;
+    [SerializeField] private Button AddButton;
     [SerializeField] private Button DeleteButton;
     [SerializeField] private Dropdown SideEffectTypeDropdown;
-
-    void Awake()
-    {
-        SideEffectTypeDropdown.options.Clear();
-        foreach (string option in AllSideEffects.SideEffectsNameDict.Keys.ToList())
-        {
-            SideEffectTypeDropdown.options.Add(new Dropdown.OptionData(option));
-        }
-    }
 
     public override void PoolRecycle()
     {
@@ -41,18 +34,53 @@ public class CardPropertyForm_SideEffect : PoolObject
 
     private List<CardPropertyFormRow> CardPropertyFormRows = new List<CardPropertyFormRow>();
     private List<CardPropertyForm_SideEffectExecute> CardPropertyForm_SideEffectExecuteRows = new List<CardPropertyForm_SideEffectExecute>(); //内嵌BuffSEE
+    private List<CardPropertyForm_SideEffect> CardPropertyForm_SubSideEffectBaseRows = new List<CardPropertyForm_SideEffect>(); //Buff SE的Sub_SideEffect
 
-    public void Initialize(SideEffectExecute see, SideEffectBase se, UnityAction onRefreshText, UnityAction onDeleteButtonClick)
+    /// <summary>
+    /// Initialize
+    /// </summary>
+    /// <param name="see">Parent see</param>
+    /// <param name="ses">Parent Sub_SideEffectBases of a SideEffectBase</param>
+    /// <param name="se">Self info</param>
+    /// <param name="onRefreshText"></param>
+    /// <param name="onDeleteButtonClick"></param>
+    public void Initialize(SideEffectExecute see, List<SideEffectBase> ses, SideEffectBase se, UnityAction onRefreshText, UnityAction onDeleteButtonClick)
     {
+        SideEffectTypeDropdown.options.Clear();
+        if (se is PlayerBuffSideEffects)
+        {
+            foreach (string option in AllBuffs.BuffDict.Keys.ToList())
+            {
+                SideEffectTypeDropdown.options.Add(new Dropdown.OptionData(option));
+            }
+        }
+        else
+        {
+            foreach (string option in AllSideEffects.SideEffectsNameDict.Keys.ToList())
+            {
+                SideEffectTypeDropdown.options.Add(new Dropdown.OptionData(option));
+            }
+        }
+
         SideEffectTypeDropdown.onValueChanged.RemoveAllListeners();
         SetValue(se.Name);
         SideEffectTypeDropdown.onValueChanged.AddListener(delegate(int index)
         {
             string sideEffectName = SideEffectTypeDropdown.options[index].text;
             SideEffectBase newSE = AllSideEffects.GetSideEffect(sideEffectName);
-            see.SideEffectBases.Remove(se);
-            see.SideEffectBases.Add(newSE);
-            Initialize(see, newSE, onRefreshText, onDeleteButtonClick);
+            if (see != null)
+            {
+                see.SideEffectBases.Remove(se);
+                see.SideEffectBases.Add(newSE);
+            }
+
+            if (ses != null)
+            {
+                ses.Remove(se);
+                ses.Add(newSE);
+            }
+
+            Initialize(see, ses, newSE, onRefreshText, onDeleteButtonClick);
             onRefreshText();
             StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ParamRowContainer));
             StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
@@ -62,10 +90,28 @@ public class CardPropertyForm_SideEffect : PoolObject
         DeleteButton.onClick.AddListener(
             delegate
             {
+                if (se is PlayerBuffSideEffects) return;
                 onDeleteButtonClick();
                 StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ParamRowContainer));
                 StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
             });
+        DeleteButton.gameObject.SetActive(!(se is PlayerBuffSideEffects));
+
+        AddButton.gameObject.SetActive(se is PlayerBuffSideEffects);
+        if (se is PlayerBuffSideEffects buff_SE)
+        {
+            AddButton.onClick.RemoveAllListeners();
+            AddButton.onClick.AddListener(
+                delegate
+                {
+                    buff_SE.Sub_SideEffect.Add(AllSideEffects.GetSideEffect("Damage"));
+                    Initialize(see, ses, se, onRefreshText, onDeleteButtonClick);
+                    StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ParamRowContainer));
+                    StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
+                });
+        }
+
+        SideEffectTypeDropdown.interactable = !(se is PlayerBuffSideEffects);
 
         foreach (CardPropertyFormRow cpfr in CardPropertyFormRows)
         {
@@ -105,15 +151,15 @@ public class CardPropertyForm_SideEffect : PoolObject
                         if (showInputField)
                         {
                             CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                                CardPropertyFormRow.CardPropertyFormRowType.InputField,
-                                ParamRowContainer,
-                                sev_Prefix + sev.Name,
-                                delegate(string value_str)
+                                type: CardPropertyFormRow.CardPropertyFormRowType.InputField,
+                                parent: ParamRowContainer,
+                                labelStrKey: sev_Prefix + sev.Name,
+                                onValueChangeAction: delegate(string value_str)
                                 {
                                     if (int.TryParse(value_str, out int res)) s.Value = res;
                                     onRefreshText?.Invoke();
                                 },
-                                out UnityAction<string> setValue);
+                                setValue: out UnityAction<string> setValue);
                             setValue(s.Value.ToString());
                             CardPropertyFormRows.Add(row);
                         }
@@ -123,10 +169,10 @@ public class CardPropertyForm_SideEffect : PoolObject
                         if (s.EnumType == typeof(CardDeck))
                         {
                             CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                                CardPropertyFormRow.CardPropertyFormRowType.InputField,
-                                ParamRowContainer,
-                                sev_Prefix + sev.Name,
-                                delegate(string value_str)
+                                type: CardPropertyFormRow.CardPropertyFormRowType.InputField,
+                                parent: ParamRowContainer,
+                                labelStrKey: sev_Prefix + sev.Name,
+                                onValueChangeAction: delegate(string value_str)
                                 {
                                     if (int.TryParse(value_str, out int res))
                                     {
@@ -138,9 +184,9 @@ public class CardPropertyForm_SideEffect : PoolObject
                                         }
                                     }
                                 },
-                                out UnityAction<string> setValue,
-                                null,
-                                delegate { UIManager.Instance.GetBaseUIForm<CardEditorPanel>().ChangeCard(s.Value); }
+                                setValue: out UnityAction<string> setValue,
+                                dropdownOptionList: null,
+                                onButtonClick: delegate { UIManager.Instance.GetBaseUIForm<CardEditorPanel>().ChangeCard(s.Value); }
                             );
                             setValue(s.Value.ToString());
                             CardPropertyFormRows.Add(row);
@@ -156,10 +202,10 @@ public class CardPropertyForm_SideEffect : PoolObject
                                 }
 
                                 CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                                    CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
-                                    ParamRowContainer,
-                                    sev_Prefix + sev.Name,
-                                    delegate(string value_str)
+                                    type: CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
+                                    parent: ParamRowContainer,
+                                    labelStrKey: sev_Prefix + sev.Name,
+                                    onValueChangeAction: delegate(string value_str)
                                     {
                                         s.Value = (int) Enum.Parse(s.EnumType, value_str);
                                         CardPropertyFormRow triggerRangeRow = null;
@@ -265,8 +311,8 @@ public class CardPropertyForm_SideEffect : PoolObject
 
                                         onRefreshText?.Invoke();
                                     },
-                                    out UnityAction<string> setValue,
-                                    enumList);
+                                    setValue: out UnityAction<string> setValue,
+                                    dropdownOptionList: enumList);
                                 setValue(Enum.GetName(s.EnumType, s.Value));
                                 onRefreshText?.Invoke();
                                 CardPropertyFormRows.Add(row);
@@ -281,16 +327,16 @@ public class CardPropertyForm_SideEffect : PoolObject
                                 }
 
                                 CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                                    CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
-                                    ParamRowContainer,
-                                    sev_Prefix + sev.Name,
-                                    delegate(string value_str)
+                                    type: CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
+                                    parent: ParamRowContainer,
+                                    labelStrKey: sev_Prefix + sev.Name,
+                                    onValueChangeAction: delegate(string value_str)
                                     {
                                         s.Value = (int) Enum.Parse(s.EnumType, value_str);
                                         onRefreshText?.Invoke();
                                     },
-                                    out UnityAction<string> setValue,
-                                    enumList);
+                                    setValue: out UnityAction<string> setValue,
+                                    dropdownOptionList: enumList);
                                 setValue(Enum.GetName(s.EnumType, s.Value));
                                 onRefreshText?.Invoke();
                                 CardPropertyFormRows.Add(row);
@@ -303,16 +349,16 @@ public class CardPropertyForm_SideEffect : PoolObject
                                 }
 
                                 CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                                    CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
-                                    ParamRowContainer,
-                                    sev_Prefix + sev.Name,
+                                    type: CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
+                                    parent: ParamRowContainer,
+                                    labelStrKey: sev_Prefix + sev.Name,
                                     delegate(string value_str)
                                     {
                                         s.Value = (int) Enum.Parse(s.EnumType, value_str);
                                         onRefreshText?.Invoke();
                                     },
-                                    out UnityAction<string> setValue,
-                                    enumList);
+                                    setValue: out UnityAction<string> setValue,
+                                    dropdownOptionList: enumList);
                                 setValue(Enum.GetName(s.EnumType, s.Value));
                                 onRefreshText?.Invoke();
                                 CardPropertyFormRows.Add(row);
@@ -326,15 +372,15 @@ public class CardPropertyForm_SideEffect : PoolObject
                 {
                     SideEffectValue_MultipliedInt s = (SideEffectValue_MultipliedInt) sev;
                     CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                        CardPropertyFormRow.CardPropertyFormRowType.InputField,
-                        ParamRowContainer,
-                        sev_Prefix + sev.Name,
-                        delegate(string value_str)
+                        type: CardPropertyFormRow.CardPropertyFormRowType.InputField,
+                        parent: ParamRowContainer,
+                        labelStrKey: sev_Prefix + sev.Name,
+                        onValueChangeAction: delegate(string value_str)
                         {
                             if (int.TryParse(value_str, out int res)) s.Value = res;
                             onRefreshText?.Invoke();
                         },
-                        out UnityAction<string> setValue);
+                        setValue: out UnityAction<string> setValue);
                     setValue(s.Value.ToString());
                     CardPropertyFormRows.Add(row);
                     break;
@@ -343,15 +389,15 @@ public class CardPropertyForm_SideEffect : PoolObject
                 {
                     SideEffectValue_Bool s = (SideEffectValue_Bool) sev;
                     CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                        CardPropertyFormRow.CardPropertyFormRowType.Toggle,
-                        ParamRowContainer,
-                        sev_Prefix + sev.Name,
-                        delegate(string value_str)
+                        type: CardPropertyFormRow.CardPropertyFormRowType.Toggle,
+                        parent: ParamRowContainer,
+                        labelStrKey: sev_Prefix + sev.Name,
+                        onValueChangeAction: delegate(string value_str)
                         {
                             s.Value = value_str == "True";
                             onRefreshText?.Invoke();
                         },
-                        out UnityAction<string> setValue);
+                        setValue: out UnityAction<string> setValue);
                     setValue(s.Value.ToString());
                     CardPropertyFormRows.Add(row);
                     break;
@@ -360,34 +406,37 @@ public class CardPropertyForm_SideEffect : PoolObject
                 {
                     if (sev.Name.Equals("BuffName"))
                     {
+                        AddPlayerBuff addBuffSE = (AddPlayerBuff) se;
                         SideEffectValue_String s = (SideEffectValue_String) sev;
                         CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                            CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
-                            ParamRowContainer,
-                            sev_Prefix + sev.Name,
-                            delegate(string value_str)
+                            type: CardPropertyFormRow.CardPropertyFormRowType.Dropdown,
+                            parent: ParamRowContainer,
+                            labelStrKey: sev_Prefix + sev.Name,
+                            onValueChangeAction: delegate(string value_str)
                             {
-                                s.Value = value_str;
-                                onRefreshText?.Invoke();
+                                string buffName = value_str;
+                                if (addBuffSE.BuffName == buffName) return;
+                                addBuffSE.BuffName = buffName;
+                                Initialize(see, ses, addBuffSE, onRefreshText, onDeleteButtonClick);
+                                onRefreshText();
+                                StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ParamRowContainer));
+                                StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
                             },
-                            out UnityAction<string> setValue,
-                            AllBuffs.BuffDict.Keys.ToList());
+                            setValue: out UnityAction<string> setValue,
+                            dropdownOptionList: AllBuffs.BuffDict.Keys.ToList());
+
                         setValue(s.Value);
                         CardPropertyFormRows.Add(row);
 
-                        SideEffectExecute buff_SEE = ((AddPlayerBuff_Base) se).AttachedBuffSEE;
+                        SideEffectExecute buff_SEE = addBuffSE.AttachedBuffSEE;
                         if (buff_SEE != null)
                         {
                             CardPropertyForm_SideEffectExecute newSEERow = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectExecute].AllocateGameObject<CardPropertyForm_SideEffectExecute>(ParamRowContainer);
-                            newSEERow.Initialize(buff_SEE, onRefreshText,
-                                delegate
-                                {
-                                    ((AddPlayerBuff_Base) se).AttachedBuffSEE = null;
-                                    Initialize(see, se, onRefreshText, onDeleteButtonClick);
-                                    onRefreshText();
-                                    StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ParamRowContainer));
-                                    StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
-                                });
+                            newSEERow.Initialize(
+                                sideEffectFrom: SideEffectExecute.SideEffectFrom.Buff,
+                                see: buff_SEE,
+                                onRefreshText: onRefreshText,
+                                onDeleteButtonClick: delegate { });
                             CardPropertyForm_SideEffectExecuteRows.Add(newSEERow);
                         }
                     }
@@ -395,15 +444,15 @@ public class CardPropertyForm_SideEffect : PoolObject
                     {
                         SideEffectValue_String s = (SideEffectValue_String) sev;
                         CardPropertyFormRow row = CardPropertyFormRow.BaseInitialize(
-                            CardPropertyFormRow.CardPropertyFormRowType.InputField,
-                            ParamRowContainer,
-                            sev_Prefix + sev.Name,
-                            delegate(string a)
+                            type: CardPropertyFormRow.CardPropertyFormRowType.InputField,
+                            parent: ParamRowContainer,
+                            labelStrKey: sev_Prefix + sev.Name,
+                            onValueChangeAction: delegate(string a)
                             {
                                 s.Value = a;
                                 onRefreshText?.Invoke();
                             },
-                            out UnityAction<string> setValue);
+                            setValue: out UnityAction<string> setValue);
                         setValue(s.Value);
                         CardPropertyFormRows.Add(row);
                     }
@@ -411,6 +460,24 @@ public class CardPropertyForm_SideEffect : PoolObject
                     break;
                 }
             }
+        }
+
+        foreach (CardPropertyForm_SideEffect cpfse in CardPropertyForm_SubSideEffectBaseRows)
+        {
+            cpfse.PoolRecycle();
+        }
+
+        CardPropertyForm_SubSideEffectBaseRows.Clear();
+        foreach (SideEffectBase sub_se in se.Sub_SideEffect)
+        {
+            CardPropertyForm_SideEffect sub_se_row = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffect].AllocateGameObject<CardPropertyForm_SideEffect>(ParamRowContainer);
+            sub_se_row.Initialize(
+                see: null,
+                ses: se.Sub_SideEffect,
+                se: sub_se,
+                onRefreshText: onRefreshText,
+                onDeleteButtonClick: delegate { });
+            CardPropertyForm_SubSideEffectBaseRows.Add(sub_se_row);
         }
     }
 

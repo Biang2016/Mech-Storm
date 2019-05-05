@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
 
@@ -173,45 +174,82 @@ public class CardInfo_Base : IClone<CardInfo_Base>
             sideEffectExecute_ele.SetAttribute("ExecuteSettingTypes", see.ExecuteSettingType.ToString());
             if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others)
             {
-                sideEffectExecute_ele.SetAttribute("triggerTime", see.M_ExecuteSetting.TriggerTime.ToString());
-                sideEffectExecute_ele.SetAttribute("triggerRange", see.M_ExecuteSetting.TriggerRange.ToString());
-                sideEffectExecute_ele.SetAttribute("triggerDelayTimes", see.M_ExecuteSetting.TriggerDelayTimes.ToString());
-                sideEffectExecute_ele.SetAttribute("triggerTimes", see.M_ExecuteSetting.TriggerTimes.ToString());
-                sideEffectExecute_ele.SetAttribute("removeTriggerTime", see.M_ExecuteSetting.RemoveTriggerTime.ToString());
-                sideEffectExecute_ele.SetAttribute("removeTriggerRange", see.M_ExecuteSetting.RemoveTriggerRange.ToString());
-                sideEffectExecute_ele.SetAttribute("removeTriggerTimes", see.M_ExecuteSetting.RemoveTriggerTimes.ToString());
+                ExportExecuteSettingsToElement(see.M_ExecuteSetting, sideEffectExecute_ele);
             }
 
             foreach (SideEffectBase se in see.SideEffectBases)
             {
                 XmlElement sideEffect_ele = doc.CreateElement("SideEffect");
                 sideEffectExecute_ele.AppendChild(sideEffect_ele);
-                sideEffect_ele.SetAttribute("name", se.Name);
-                foreach (SideEffectValue sev in se.M_SideEffectParam.SideEffectValues)
+                ExportSideEffectBaseToElement(se, sideEffect_ele);
+
+                if (se is AddPlayerBuff_Base addBuff_SE)
                 {
-                    switch (sev)
+                    XmlElement buff_ele = doc.CreateElement("Buff");
+                    sideEffect_ele.AppendChild(buff_ele);
+                    ExportSideEffectBaseToElement(addBuff_SE, buff_ele);
+                    ExportExecuteSettingsToElement(addBuff_SE.AttachedBuffSEE.M_ExecuteSetting, buff_ele);
+                    foreach (SideEffectBase buff_SubSE in addBuff_SE.AttachedBuffSEE.SideEffectBases[0].Sub_SideEffect)
                     {
-                        case SideEffectValue_ConstInt sev_ConstInt:
-                        {
-                            sideEffect_ele.SetAttribute(sev.Name, sev_ConstInt.Value.ToString());
-                            break;
-                        }
-                        case SideEffectValue_MultipliedInt sev_MultipliedInt:
-                        {
-                            sideEffect_ele.SetAttribute(sev.Name, sev_MultipliedInt.Value.ToString());
-                            break;
-                        }
-                        case SideEffectValue_Bool sev_Bool:
-                        {
-                            sideEffect_ele.SetAttribute(sev.Name, sev_Bool.Value.ToString());
-                            break;
-                        }
-                        case SideEffectValue_String sev_String:
-                        {
-                            sideEffect_ele.SetAttribute(sev.Name, sev_String.Value);
-                            break;
-                        }
+                        XmlElement buff_SubSE_ele = doc.CreateElement("SideEffect");
+                        buff_ele.AppendChild(buff_SubSE_ele);
+                        ExportSideEffectBaseToElement(buff_SubSE, buff_SubSE_ele);
                     }
+                }
+            }
+        }
+    }
+
+    private static void ExportExecuteSettingsToElement(SideEffectExecute.ExecuteSetting es, XmlElement ele)
+    {
+        ele.SetAttribute("triggerTime", es.TriggerTime.ToString());
+        ele.SetAttribute("triggerRange", es.TriggerRange.ToString());
+        ele.SetAttribute("triggerDelayTimes", es.TriggerDelayTimes.ToString());
+        ele.SetAttribute("triggerTimes", es.TriggerTimes.ToString());
+        ele.SetAttribute("removeTriggerTime", es.RemoveTriggerTime.ToString());
+        ele.SetAttribute("removeTriggerRange", es.RemoveTriggerRange.ToString());
+        ele.SetAttribute("removeTriggerTimes", es.RemoveTriggerTimes.ToString());
+    }
+
+    private static void ExportSideEffectBaseToElement(SideEffectBase se, XmlElement ele)
+    {
+        ele.SetAttribute("name", se.Name);
+        foreach (SideEffectValue sev in se.M_SideEffectParam.SideEffectValues)
+        {
+            switch (sev)
+            {
+                case SideEffectValue_ConstInt sev_ConstInt:
+                {
+                    if (sev_ConstInt.EnumType == typeof(CardDeck))
+                    {
+                        ele.SetAttribute(sev.Name, sev_ConstInt.Value.ToString());
+                    }
+                    else if (sev_ConstInt.EnumType != null)
+                    {
+                        string enum_name = Enum.ToObject(sev_ConstInt.EnumType, sev_ConstInt.Value).ToString();
+                        ele.SetAttribute(sev.Name, enum_name);
+                    }
+                    else
+                    {
+                        ele.SetAttribute(sev.Name, sev_ConstInt.Value.ToString());
+                    }
+
+                    break;
+                }
+                case SideEffectValue_MultipliedInt sev_MultipliedInt:
+                {
+                    ele.SetAttribute(sev.Name, sev_MultipliedInt.Value.ToString());
+                    break;
+                }
+                case SideEffectValue_Bool sev_Bool:
+                {
+                    ele.SetAttribute(sev.Name, sev_Bool.Value.ToString());
+                    break;
+                }
+                case SideEffectValue_String sev_String:
+                {
+                    ele.SetAttribute(sev.Name, sev_String.Value);
+                    break;
                 }
             }
         }

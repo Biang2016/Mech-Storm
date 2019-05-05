@@ -120,7 +120,7 @@
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />
-    <None Include="Assets\StreamingAssets\Config\Cards_new.xml" />
+    <None Include="Assets\StreamingAssets\Config\Buffs_back.xml" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\StreamingAssets\Config\SideEffects.xml" />
     <None Include="Assets\MechStorm_Data\StreamingAssets\Config\Colors.xml" />

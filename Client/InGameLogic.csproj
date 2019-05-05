@@ -134,8 +134,8 @@
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenRoundBegin.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenUseMetal.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\AddPlayerBuff.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenAttack.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenUseCards.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\DoSthWhenTrigger_RemoveBySomeTime.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\NextSpellDamageDouble.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\SummonRetinue.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\EquipBased\BreakEquip.cs" />
@@ -198,6 +198,7 @@
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\CostBar\MetalBarManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\ExitMenuButton.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\ShrinkText.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\StarsGroup.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\StartMenuButton.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\TransitManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\ExitMenuPanel.cs" />

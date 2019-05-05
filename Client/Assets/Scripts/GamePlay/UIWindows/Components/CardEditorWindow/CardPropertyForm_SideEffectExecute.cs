@@ -11,17 +11,6 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
     [SerializeField] private Button DeleteButton;
     [SerializeField] private Dropdown ExecuteSettingTypeDropdown;
 
-    private List<string> executeSettingTypeList = new List<string>();
-
-    void Awake()
-    {
-        IEnumerable<SideEffectExecute.ExecuteSettingTypes> executeSettingTypeNames = Enum.GetValues(typeof(SideEffectExecute.ExecuteSettingTypes)) as IEnumerable<SideEffectExecute.ExecuteSettingTypes>;
-        foreach (SideEffectExecute.ExecuteSettingTypes est in executeSettingTypeNames)
-        {
-            executeSettingTypeList.Add(est.ToString());
-        }
-    }
-
     public override void PoolRecycle()
     {
         base.PoolRecycle();
@@ -37,13 +26,14 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
     private CardPropertyForm_ExecuteSetting CardPropertyForm_ExecuteSettingRow;
     private List<CardPropertyForm_SideEffect> CardPropertyFormSideEffects = new List<CardPropertyForm_SideEffect>();
 
-    public void Initialize(SideEffectExecute see, UnityAction onRefreshText, UnityAction onDeleteButtonClick)
+    public void Initialize(SideEffectExecute.SideEffectFrom sideEffectFrom, SideEffectExecute see, UnityAction onRefreshText, UnityAction onDeleteButtonClick)
     {
         ExecuteSettingTypeDropdown.onValueChanged.RemoveAllListeners();
         ExecuteSettingTypeDropdown.options.Clear();
-        foreach (string name in executeSettingTypeList)
+
+        foreach (SideEffectExecute.ExecuteSettingTypes est in SideEffectExecute.ValidExecuteSettingTypesForSideEffectFrom[sideEffectFrom])
         {
-            ExecuteSettingTypeDropdown.options.Add(new Dropdown.OptionData(name));
+            ExecuteSettingTypeDropdown.options.Add(new Dropdown.OptionData(est.ToString()));
         }
 
         SetValue(see.ExecuteSettingType.ToString());
@@ -53,7 +43,7 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
                 string optionStr = ExecuteSettingTypeDropdown.options[value].text;
                 SideEffectExecute.ExecuteSettingTypes est = (SideEffectExecute.ExecuteSettingTypes) Enum.Parse(typeof(SideEffectExecute.ExecuteSettingTypes), optionStr);
                 see.M_ExecuteSetting = SideEffectExecute.ExecuteSetting_Presets[est];
-                Initialize(see, onRefreshText, onDeleteButtonClick);
+                Initialize(sideEffectFrom, see, onRefreshText, onDeleteButtonClick);
                 StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
             });
 
@@ -78,7 +68,7 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
         AddSideEffectButton.onClick.AddListener(delegate
         {
             see.SideEffectBases.Add(AllSideEffects.GetSideEffect("Damage").Clone());
-            Initialize(see, onRefreshText, onDeleteButtonClick);
+            Initialize(sideEffectFrom, see, onRefreshText, onDeleteButtonClick);
             onRefreshText();
             StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
         });
@@ -87,14 +77,18 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
         CardPropertyForm_ExecuteSettingRow = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_ExecuteSetting].AllocateGameObject<CardPropertyForm_ExecuteSetting>(SideEffectRowContainer);
         CardPropertyForm_ExecuteSettingRow.Initialize(see, onRefreshText, isReadOnly);
 
+        ExecuteSettingTypeDropdown.interactable = sideEffectFrom != SideEffectExecute.SideEffectFrom.Buff;
+        AddSideEffectButton.gameObject.SetActive(sideEffectFrom != SideEffectExecute.SideEffectFrom.Buff); 
+        DeleteButton.gameObject.SetActive(sideEffectFrom != SideEffectExecute.SideEffectFrom.Buff); 
+
         foreach (SideEffectBase se in see.SideEffectBases)
         {
             CardPropertyForm_SideEffect cpfse = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffect].AllocateGameObject<CardPropertyForm_SideEffect>(SideEffectRowContainer);
-            cpfse.Initialize(see, se, onRefreshText,
+            cpfse.Initialize(see, null, se, onRefreshText,
                 delegate
                 {
                     see.SideEffectBases.Remove(se);
-                    Initialize(see, onRefreshText, onDeleteButtonClick);
+                    Initialize(sideEffectFrom, see, onRefreshText, onDeleteButtonClick);
                     onRefreshText();
                     StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
                 });

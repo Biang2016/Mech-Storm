@@ -726,11 +726,19 @@
 	},
 	"CardEditorWindow_ResetCardNotice": {
 		"zh": " 重置卡片(ID: {0})",
-		"en": "Reset Card (ID: {0})"
+		"en": "Reset card (ID: {0})"
 	},
 	"CardEditorWindow_DeleteCardButtonText": {
 		"zh": "删除卡片",
 		"en": "Delete Card"
+	},
+	"CardEditorPanel_SaveCardUpgradeIDInvalid": {
+		"zh": "错误的卡牌升级ID导致升级链出现循环！请修改",
+		"en": "Invalid upgrade card ID causes cycle in card upgrade chain! Please use another upgradeID."
+	},
+	"CardEditorPanel_SaveCardDegradeIDInvalid": {
+		"zh": "错误的卡牌降级ID导致升级链出现循环！请修改",
+		"en": "Invalid degrade card ID causes cycle in card upgrade chain! Please use another degradeID."
 	},
 	"CardEditorPanel_ConfirmSaveCard": {
 		"zh": "是否将该更改保存至ID为{0}的卡牌中？",

@@ -89,7 +89,7 @@
     <Compile Include="Card\SideEffects\CardRelatedSideEffects\DrawCards.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\DamageEnemyShipWhenUseCards.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenRoundBegin.cs" />
-    <Compile Include="Card\SideEffects\PlayerBuffSideEffects\DamageEnemyShipWhenAttack.cs" />
+    <Compile Include="Card\SideEffects\PlayerBuffSideEffects\DoSthWhenTrigger_RemoveBySomeTime.cs" />
     <Compile Include="Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenUseMetal.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\RunAway.cs" />
     <Compile Include="Card\SideEffects\TargetSideEffects\RetinueBased\AddShield.cs" />

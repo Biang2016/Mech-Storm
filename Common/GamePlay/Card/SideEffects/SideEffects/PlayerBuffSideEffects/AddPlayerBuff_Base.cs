@@ -1,24 +1,23 @@
-﻿public class AddPlayerBuff_Base : SideEffectBase
+﻿using System.Collections.Generic;
+
+public class AddPlayerBuff_Base : SideEffectBase
 {
+    public SideEffectExecute AttachedBuffSEE = new SideEffectExecute(
+        SideEffectExecute.SideEffectFrom.Buff,
+        new List<SideEffectBase>(),
+        new SideEffectExecute.ExecuteSetting());
+
     public string BuffName
     {
         get { return M_SideEffectParam.GetParam_String("BuffName"); }
-    }
-
-    private SideEffectExecute attachedBuffSEE;
-
-    public SideEffectExecute AttachedBuffSEE
-    {
-        get
+        set
         {
-            if (attachedBuffSEE == null)
-            {
-                attachedBuffSEE = AllBuffs.GetBuff(BuffName).Clone();
-            }
-
-            return attachedBuffSEE;
+            AttachedBuffSEE.SideEffectBases.Clear();
+            PlayerBuffSideEffects buff = AllBuffs.GetBuff(value);
+            buff.MyBuffSEE = AttachedBuffSEE;
+            AttachedBuffSEE.SideEffectBases.Add(buff);
+            M_SideEffectParam.SetParam_String("BuffName", value);
         }
-        set => attachedBuffSEE = value;
     }
 
     protected override void InitSideEffectParam()
@@ -35,5 +34,17 @@
         }
 
         return desc.TrimEnd(",".ToCharArray());
+    }
+
+    public override SideEffectBase Clone()
+    {
+        AddPlayerBuff_Base copy = (AddPlayerBuff_Base) base.Clone();
+        copy.AttachedBuffSEE = AttachedBuffSEE.Clone();
+        foreach (SideEffectBase se in copy.AttachedBuffSEE.SideEffectBases)
+        {
+            ((PlayerBuffSideEffects) se).MyBuffSEE = copy.AttachedBuffSEE;
+        }
+
+        return copy;
     }
 }
