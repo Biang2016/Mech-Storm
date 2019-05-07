@@ -13,14 +13,17 @@ public class AffixPanel : BaseUIForm
     private List<Affix> Affixes = new List<Affix>();
     private HashSet<AffixType> AffixTypes = new HashSet<AffixType>();
 
+    public bool IsShow => Affixes.Count != 0;
+
     void Awake()
     {
-        UIType.IsClearStack = false;
-        UIType.IsClickElsewhereClose = false;
-        UIType.IsESCClose = false;
-        UIType.UIForms_ShowMode = UIFormShowModes.Normal;
-        UIType.UIForms_Type = UIFormTypes.Normal;
-        UIType.UIForm_LucencyType = UIFormLucencyTypes.Penetrable;
+        UIType.InitUIType(
+            isClearStack: false,
+            isESCClose: false,
+            isClickElsewhereClose: false,
+            uiForms_Type: UIFormTypes.Fixed,
+            uiForms_ShowMode: UIFormShowModes.Normal,
+            uiForm_LucencyType: UIFormLucencyTypes.Penetrable);
     }
 
     public override void Hide()
@@ -211,6 +214,7 @@ public class AffixPanel : BaseUIForm
 
     private void HideAffixPanel()
     {
+        ClearAllAffixes();
         AffixPanelAnim.SetTrigger("Hide");
     }
 

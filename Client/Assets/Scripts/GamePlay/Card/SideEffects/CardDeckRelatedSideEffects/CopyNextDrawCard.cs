@@ -2,7 +2,7 @@
 {
     public class CopyNextDrawCard : CopyNextDrawCard_Base
     {
-        public CopyNextDrawCard() 
+        public CopyNextDrawCard()
         {
         }
 

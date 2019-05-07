@@ -63,6 +63,10 @@ public partial class SelectBuildPanel
         EnergySlider.interactable = true;
         CoinSlider.interactable = false;
         DrawCardNumberSlider.interactable = true;
+    }
+
+    void Start_Bars()
+    {
         InitializeSliders();
     }
 
@@ -159,7 +163,8 @@ public partial class SelectBuildPanel
 
     private void OnLifeSliderValueChange(float value)
     {
-        float maxValueNow = (float) ((CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.CardConsumeCoin - CurrentEditBuildButton.BuildInfo.EnergyConsumeCoin - CurrentEditBuildButton.BuildInfo.DrawCardNumConsumeCoin + CurrentGamePlaySettings.DefaultLifeMin * GamePlaySettings.LifeToCoin) /
+        float maxValueNow = (float) ((CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.CardConsumeCoin - CurrentEditBuildButton.BuildInfo.EnergyConsumeCoin - CurrentEditBuildButton.BuildInfo.DrawCardNumConsumeCoin +
+                                      CurrentGamePlaySettings.DefaultLifeMin * GamePlaySettings.LifeToCoin) /
                                      GamePlaySettings.LifeToCoin) / CurrentGamePlaySettings.DefaultLifeMax;
         float minValue = (float) CurrentGamePlaySettings.DefaultLifeMin / CurrentGamePlaySettings.DefaultLifeMax;
         if (value > maxValueNow)
@@ -194,7 +199,8 @@ public partial class SelectBuildPanel
 
     private void OnEnergySliderValueChange(float value)
     {
-        float maxValueNow = (float) ((CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.CardConsumeCoin - CurrentEditBuildButton.BuildInfo.LifeConsumeCoin - CurrentEditBuildButton.BuildInfo.DrawCardNumConsumeCoin) / GamePlaySettings.EnergyToCoin) / CurrentGamePlaySettings.DefaultEnergyMax;
+        float maxValueNow = (float) ((CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.CardConsumeCoin - CurrentEditBuildButton.BuildInfo.LifeConsumeCoin - CurrentEditBuildButton.BuildInfo.DrawCardNumConsumeCoin) / GamePlaySettings.EnergyToCoin) /
+                            CurrentGamePlaySettings.DefaultEnergyMax;
         float minValue = 0;
         if (value > maxValueNow)
         {

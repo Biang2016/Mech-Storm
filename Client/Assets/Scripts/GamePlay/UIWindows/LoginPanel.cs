@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,13 +24,13 @@ public class LoginPanel : BaseUIForm
 
     void Awake()
     {
-        UIType.IsClearStack = false;
-        UIType.IsESCClose = false;
-        UIType.IsClickElsewhereClose = false;
-        UIType.UIForms_Type = UIFormTypes.Fixed;
-        UIType.UIForm_LucencyType = UIFormLucencyTypes.ImPenetrable;
-        UIType.UIForms_ShowMode = UIFormShowModes.HideOther;
-        UIType.IsClearStack = true;
+        UIType.InitUIType(
+            isClearStack: false,
+            isESCClose: false,
+            isClickElsewhereClose: false,
+            uiForms_Type: UIFormTypes.Normal,
+            uiForms_ShowMode: UIFormShowModes.Normal,
+            uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
         Proxy.OnClientStateChange += OnClientChangeState;
 
@@ -43,14 +44,30 @@ public class LoginPanel : BaseUIForm
                 (LoginText, "LoginMenu_LoginText"),
             });
 
-        ServerDropdown.options[0] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_FormalServer"));
-        ServerDropdown.options[1] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_TestServer"));
+        foreach (string serverTypeName in Enum.GetNames(typeof(ServerTypes)))
+        {
+            ServerDropdown.options[(int) Enum.Parse(typeof(ServerTypes), serverTypeName)] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_" + serverTypeName));
+        }
+    }
+
+    public enum ServerTypes
+    {
+        FormalServer = 0,
+        TestServer = 1
     }
 
     void Start()
     {
+        string playerPrefServer = PlayerPrefs.GetString("PreferServer");
+        if (string.IsNullOrEmpty(playerPrefServer))
+        {
+            playerPrefServer = ServerTypes.FormalServer.ToString();
+        }
+
+        ServerTypes defaultServerType = (ServerTypes) Enum.Parse(typeof(ServerTypes), playerPrefServer);
+        ServerDropdown.value = (int) defaultServerType;
         ServerDropdown.onValueChanged.AddListener(OnChangeServer);
-        NetworkManager.Instance.ConnectToFormalServer();
+        NetworkManager.Instance.ConnectToServer(defaultServerType);
         UserNameInputField.ActivateInputField();
     }
 
@@ -76,31 +93,27 @@ public class LoginPanel : BaseUIForm
 
     public void OnClientChangeState(ProxyBase.ClientStates clientState)
     {
-        switch (clientState)
+        if (gameObject.activeInHierarchy)
         {
-            case ProxyBase.ClientStates.Offline:
-                ShowTipText(LanguageManager.Instance.GetText("LoginMenu_Disconnected"), 0, float.PositiveInfinity, false);
-                break;
-            case ProxyBase.ClientStates.GetId:
-                ShowTipText(LanguageManager.Instance.GetText("LoginMenu_Connected"), 0, float.PositiveInfinity, false);
-                break;
-            case ProxyBase.ClientStates.Login:
-                CloseUIForm();
-                break;
+            switch (clientState)
+            {
+                case ProxyBase.ClientStates.Offline:
+                    ShowTipText(LanguageManager.Instance.GetText("LoginMenu_Disconnected"), 0, float.PositiveInfinity, false);
+                    break;
+                case ProxyBase.ClientStates.GetId:
+                    ShowTipText(LanguageManager.Instance.GetText("LoginMenu_Connected"), 0, float.PositiveInfinity, false);
+                    break;
+                case ProxyBase.ClientStates.Login:
+                    CloseUIForm();
+                    break;
+            }
         }
     }
 
     public void OnChangeServer(int value)
     {
-        switch (value)
-        {
-            case 0:
-                NetworkManager.Instance.ConnectToFormalServer();
-                break;
-            case 1:
-                NetworkManager.Instance.ConnectToTestServer();
-                break;
-        }
+        NetworkManager.Instance.ConnectToServer((ServerTypes) value);
+        PlayerPrefs.SetString("PreferServer", ((ServerTypes) value).ToString());
     }
 
     public void OnRegisterButtonClick()

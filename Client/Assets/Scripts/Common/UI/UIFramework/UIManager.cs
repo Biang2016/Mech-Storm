@@ -5,22 +5,17 @@ public class UIManager : MonoSingleton<UIManager>
 {
     public Camera UICamera;
 
-    //UI窗体预设路径(参数1：窗体预设名称，2：表示窗体预设路径)
-    private Dictionary<string, string> FormsPathDict = new Dictionary<string, string>();
-
     //缓存所有UI窗体
     private Dictionary<string, BaseUIForm> AllUIFormDict = new Dictionary<string, BaseUIForm>();
 
-    //当前显示的UI窗体
     private Dictionary<string, BaseUIForm> CurrentShowUIFormDict = new Dictionary<string, BaseUIForm>();
 
     //定义“栈”集合,存储显示当前所有[反向切换]的窗体类型
     private Stack<BaseUIForm> CurrentUIFormsStack = new Stack<BaseUIForm>();
 
-    [SerializeField] private Transform UIRoot = null; //UI根节点
-    [SerializeField] private Transform UINormalRoot = null; //全屏幕显示的节点
-    [SerializeField] private Transform UIFixedRoot = null; //固定显示的节点
-    [SerializeField] private Transform UIPopUpRoot = null; //弹出节点
+    [SerializeField] private Transform UINormalRoot = null; //全屏幕显示窗体的根节点
+    [SerializeField] private Transform UIFixedRoot = null; //固定显示窗体的根节点
+    [SerializeField] private Transform UIPopUpRoot = null; //弹出窗体的根节点
 
     public BaseUIForm GetPeekUIForm()
     {
@@ -40,15 +35,6 @@ public class UIManager : MonoSingleton<UIManager>
         return peek != null && peek is T;
     }
 
-    public void ClosePeekUIForm()
-    {
-        BaseUIForm ui = GetPeekUIForm();
-        if (ui != null && ui.UIType.IsClickElsewhereClose)
-        {
-            ui.CloseUIForm();
-        }
-    }
-
     /// <summary>
     /// 显示（打开）UI窗体
     /// 功能：
@@ -62,9 +48,9 @@ public class UIManager : MonoSingleton<UIManager>
         return (T) uiForm;
     }
 
-    public BaseUIForm ShowUIForms(string uiFormNameStr)
+    public BaseUIForm ShowUIForms(string uiFormName)
     {
-        BaseUIForm baseUIForms = LoadFormsToAllUIFormsCache(uiFormNameStr); //根据UI窗体的名称，加载到“所有UI窗体”缓存集合中
+        BaseUIForm baseUIForms = LoadFormsToAllUIFormsCache(uiFormName); //根据UI窗体的名称，加载到“所有UI窗体”缓存集合中
         if (baseUIForms == null) return null;
         if (baseUIForms.UIType.IsClearStack) ClearStackArray(); //是否清空“栈集合”中得数据
 
@@ -73,14 +59,22 @@ public class UIManager : MonoSingleton<UIManager>
         {
             case UIFormShowModes.Normal: //“普通显示”窗口模式
                 //把当前窗体加载到“当前窗体”集合中。
-                LoadUIToCurrentCache(uiFormNameStr);
+                LoadUIToCurrentCache(uiFormName);
                 break;
-            case UIFormShowModes.Return: //需要“反向切换”窗口模式
-                PushUIFormToStack(uiFormNameStr);
+            case UIFormShowModes.Return: //“反向切换”窗口模式
+                PushUIFormToStack(uiFormName);
+                break;
+            case UIFormShowModes.ReturnHideOther: //“反向切换且隐藏其他窗口”窗口模式
+                EnterUIFormsAndHideOtherAndReturn(uiFormName);
                 break;
             case UIFormShowModes.HideOther: //“隐藏其他”窗口模式
-                EnterUIFormsAndHideOther(uiFormNameStr);
+                EnterUIFormsAndHideOther(uiFormName);
                 break;
+        }
+
+        if (CurrentUIFormsStack.Count > 0)
+        {
+            Debug.Log(CurrentUIFormsStack.Peek().GetType());
         }
 
         return baseUIForms;
@@ -96,32 +90,50 @@ public class UIManager : MonoSingleton<UIManager>
         CloseUIForms(uiFormNameStr);
     }
 
-    public void CloseUIForms(string uiFormNameStr)
+    public void CloseUIForms(string uiFormName)
     {
-        AllUIFormDict.TryGetValue(uiFormNameStr, out BaseUIForm baseUIForm); //“所有UI窗体”集合中，如果没有记录，则直接返回
+        AllUIFormDict.TryGetValue(uiFormName, out BaseUIForm baseUIForm); //“所有UI窗体”集合中，如果没有记录，则直接返回
         if (baseUIForm == null) return;
         //根据窗体不同的显示类型，分别作不同的关闭处理
         switch (baseUIForm.UIType.UIForms_ShowMode)
         {
             case UIFormShowModes.Normal:
                 //普通窗体的关闭
-                ExitUIForms(uiFormNameStr);
+                ExitUIForms(uiFormName);
                 break;
             case UIFormShowModes.Return:
                 //反向切换窗体的关闭
                 PopUIForms();
                 break;
+            case UIFormShowModes.ReturnHideOther:
+                //“反向切换且隐藏其他窗口”窗体的的关闭
+                ExitUIFormsAndDisplayOtherAndReturn(uiFormName);
+                break;
             case UIFormShowModes.HideOther:
                 //隐藏其他窗体关闭
-                ExitUIFormsAndDisplayOther(uiFormNameStr);
+                ExitUIFormsAndDisplayOther(uiFormName);
                 break;
+        }
+
+        if (CurrentUIFormsStack.Count > 0)
+        {
+            Debug.Log(CurrentUIFormsStack.Peek().GetType());
+        }
+    }
+
+    public void ClickElsewhereClosePeekUIForm()
+    {
+        BaseUIForm ui = GetPeekUIForm();
+        if (ui && ui.UIType.IsClickElsewhereClose)
+        {
+            ui.CloseUIForm();
         }
     }
 
     public T GetBaseUIForm<T>() where T : BaseUIForm
     {
         string uiFormNameStr = typeof(T).ToString();
-        AllUIFormDict.TryGetValue(uiFormNameStr, out BaseUIForm baseUIForm); //“所有UI窗体”集合中，如果没有记录，则直接返回
+        AllUIFormDict.TryGetValue(uiFormNameStr, out BaseUIForm baseUIForm);
         return (T) baseUIForm;
     }
 
@@ -241,18 +253,13 @@ public class UIManager : MonoSingleton<UIManager>
     /// <param name="uiFormName">窗体预设的名称</param>
     private void LoadUIToCurrentCache(string uiFormName)
     {
-        BaseUIForm baseUiForm; //UI窗体基类
-        BaseUIForm baseUIFormFromAllCache; //从“所有窗体集合”中得到的窗体
-
-        //如果“正在显示”的集合中，存在整个UI窗体，则直接返回
-        CurrentShowUIFormDict.TryGetValue(uiFormName, out baseUiForm);
+        CurrentShowUIFormDict.TryGetValue(uiFormName, out BaseUIForm baseUiForm);
+        AllUIFormDict.TryGetValue(uiFormName, out BaseUIForm baseUIFormFromAllCache);
         if (baseUiForm != null) return;
-        //把当前窗体，加载到“正在显示”集合中
-        AllUIFormDict.TryGetValue(uiFormName, out baseUIFormFromAllCache);
         if (baseUIFormFromAllCache != null)
         {
             CurrentShowUIFormDict.Add(uiFormName, baseUIFormFromAllCache);
-            baseUIFormFromAllCache.Display(); //显示当前窗体
+            baseUIFormFromAllCache.Display();
         }
     }
 
@@ -262,23 +269,16 @@ public class UIManager : MonoSingleton<UIManager>
     /// <param name="uiFormName">窗体的名称</param>
     private void PushUIFormToStack(string uiFormName)
     {
-        BaseUIForm baseUIForm; //UI窗体
-
-        //判断“栈”集合中，是否有其他的窗体，有则“冻结”处理。
         if (CurrentUIFormsStack.Count > 0)
         {
             BaseUIForm topUIForm = CurrentUIFormsStack.Peek();
-            //栈顶元素作冻结处理
             topUIForm.Freeze();
         }
 
-        //判断“UI所有窗体”集合是否有指定的UI窗体，有则处理。
-        AllUIFormDict.TryGetValue(uiFormName, out baseUIForm);
+        AllUIFormDict.TryGetValue(uiFormName, out BaseUIForm baseUIForm);
         if (baseUIForm != null)
         {
-            //当前窗口显示状态
             baseUIForm.Display();
-            //把指定的UI窗体，入栈操作。
             CurrentUIFormsStack.Push(baseUIForm);
         }
         else
@@ -293,12 +293,8 @@ public class UIManager : MonoSingleton<UIManager>
     /// <param name="strUIFormName"></param>
     private void ExitUIForms(string strUIFormName)
     {
-        BaseUIForm baseUIForm; //窗体基类
-
-        //"正在显示集合"中如果没有记录，则直接返回。
-        CurrentShowUIFormDict.TryGetValue(strUIFormName, out baseUIForm);
+        CurrentShowUIFormDict.TryGetValue(strUIFormName, out BaseUIForm baseUIForm);
         if (baseUIForm == null) return;
-        //指定窗体，标记为“隐藏状态”，且从"正在显示集合"中移除。
         baseUIForm.Hide();
         CurrentShowUIFormDict.Remove(strUIFormName);
     }
@@ -308,19 +304,14 @@ public class UIManager : MonoSingleton<UIManager>
     {
         if (CurrentUIFormsStack.Count >= 2)
         {
-            //出栈处理
             BaseUIForm topUIForms = CurrentUIFormsStack.Pop();
-            //做隐藏处理
             topUIForms.Hide();
-            //出栈后，下一个窗体做“重新显示”处理。
             BaseUIForm nextUIForms = CurrentUIFormsStack.Peek();
             nextUIForms.Display();
         }
         else if (CurrentUIFormsStack.Count == 1)
         {
-            //出栈处理
             BaseUIForm topUIForms = CurrentUIFormsStack.Pop();
-            //做隐藏处理
             topUIForms.Hide();
         }
     }
@@ -331,16 +322,12 @@ public class UIManager : MonoSingleton<UIManager>
     /// <param name="strUIName">打开的指定窗体名称</param>
     private void EnterUIFormsAndHideOther(string strUIName)
     {
-        BaseUIForm baseUIForm; //UI窗体基类
-        BaseUIForm baseUIFormFromALL; //从集合中得到的UI窗体基类
-
-        //参数检查
         if (string.IsNullOrEmpty(strUIName)) return;
+        CurrentShowUIFormDict.TryGetValue(strUIName, out BaseUIForm baseUIForm);
+        AllUIFormDict.TryGetValue(strUIName, out BaseUIForm baseUIFormFromALL);
 
-        CurrentShowUIFormDict.TryGetValue(strUIName, out baseUIForm);
         if (baseUIForm != null) return;
 
-        //把“正在显示集合”与“栈集合”中所有窗体都隐藏。
         foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
         {
             baseUI.Hide();
@@ -351,35 +338,80 @@ public class UIManager : MonoSingleton<UIManager>
             staUI.Hide();
         }
 
-        //把当前窗体加入到“正在显示窗体”集合中，且做显示处理。
-        AllUIFormDict.TryGetValue(strUIName, out baseUIFormFromALL);
         if (baseUIFormFromALL != null)
         {
             CurrentShowUIFormDict.Add(strUIName, baseUIFormFromALL);
-            //窗体显示
             baseUIFormFromALL.Display();
         }
     }
 
     /// <summary>
+    /// (“隐藏其他且反向切换”属性)打开窗体，且隐藏其他窗体
+    /// </summary>
+    /// <param name="uiFormName">打开的指定窗体名称</param>
+    private void EnterUIFormsAndHideOtherAndReturn(string uiFormName)
+    {
+        if (string.IsNullOrEmpty(uiFormName)) return;
+
+        CurrentShowUIFormDict.TryGetValue(uiFormName, out BaseUIForm baseUIForm);
+        AllUIFormDict.TryGetValue(uiFormName, out BaseUIForm baseUIFormFromALL);
+        if (baseUIForm != null) return;
+
+        foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
+        {
+            baseUI.Hide();
+        }
+
+        CurrentUIFormsStack.Push(baseUIFormFromALL);
+        foreach (BaseUIForm staUI in CurrentUIFormsStack)
+        {
+            if (staUI != baseUIFormFromALL) staUI.Hide();
+        }
+
+        baseUIFormFromALL.Display();
+        CurrentShowUIFormDict.Add(uiFormName, baseUIFormFromALL);
+    }
+
+    /// <summary>
     /// (“隐藏其他”属性)关闭窗体，且显示其他窗体
     /// </summary>
-    /// <param name="strUIName">打开的指定窗体名称</param>
-    private void ExitUIFormsAndDisplayOther(string strUIName)
+    /// <param name="uiFormName">打开的指定窗体名称</param>
+    private void ExitUIFormsAndDisplayOther(string uiFormName)
     {
-        BaseUIForm baseUIForm; //UI窗体基类
+        if (string.IsNullOrEmpty(uiFormName)) return;
+        CurrentShowUIFormDict.TryGetValue(uiFormName, out BaseUIForm baseUIForm);
 
-        //参数检查
-        if (string.IsNullOrEmpty(strUIName)) return;
-
-        CurrentShowUIFormDict.TryGetValue(strUIName, out baseUIForm);
         if (baseUIForm == null) return;
 
-        //当前窗体隐藏状态，且“正在显示”集合中，移除本窗体
         baseUIForm.Hide();
-        CurrentShowUIFormDict.Remove(strUIName);
+        CurrentShowUIFormDict.Remove(uiFormName);
 
-        //把“正在显示集合”与“栈集合”中所有窗体都定义重新显示状态。
+        foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
+        {
+            baseUI.Display();
+        }
+
+        foreach (BaseUIForm staUI in CurrentUIFormsStack)
+        {
+            if (staUI != baseUIForm) staUI.Display();
+        }
+    }
+
+    /// <summary>
+    /// (“反向切换且隐藏其他”属性)关闭窗体，且显示其他窗体，并显示栈顶窗体
+    /// </summary>
+    /// <param name="uiFormName">打开的指定窗体名称</param>
+    private void ExitUIFormsAndDisplayOtherAndReturn(string uiFormName)
+    {
+        if (string.IsNullOrEmpty(uiFormName)) return;
+        CurrentShowUIFormDict.TryGetValue(uiFormName, out BaseUIForm baseUIForm);
+
+        if (baseUIForm == null) return;
+
+        baseUIForm.Hide();
+        CurrentShowUIFormDict.Remove(uiFormName);
+        if (CurrentUIFormsStack.Count > 0) CurrentUIFormsStack.Pop();
+
         foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
         {
             baseUI.Display();

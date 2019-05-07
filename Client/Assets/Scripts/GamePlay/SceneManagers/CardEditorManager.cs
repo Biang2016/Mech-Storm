@@ -1,5 +1,3 @@
-﻿using UnityEngine;
-
-public class CardEditorManager : MonoSingleton<CardEditorManager>
+﻿public class CardEditorManager : MonoSingleton<CardEditorManager>
 {
 }

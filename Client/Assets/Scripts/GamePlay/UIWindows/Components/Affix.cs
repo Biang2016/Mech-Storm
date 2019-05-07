@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq.Expressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Affix : PoolObject
 {
-    [SerializeField] private Text Text;
+    [SerializeField] private TextMeshProUGUI Text;
     [SerializeField] private Image BoardImage;
 
     internal AffixType AffixType;
@@ -68,8 +70,8 @@ public class Affix : PoolObject
         string text = "";
 
         text = BaseInfo.AddHighLightColorToText(AffixNameDict[LanguageManager.Instance.GetCurrentLanguage()][affixType]) + ": " + AffixDescDict[LanguageManager.Instance.GetCurrentLanguage()][affixType];
-        Text.resizeTextForBestFit = LanguageManager.Instance.IsEnglish;
-
+        Text.enableAutoSizing = LanguageManager.Instance.IsEnglish;
+        
         Text.text = text;
         BoardImage.color = AffixColorDict[affixType];
     }

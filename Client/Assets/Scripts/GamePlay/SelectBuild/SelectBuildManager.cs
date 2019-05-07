@@ -70,6 +70,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
         foreach (BuildInfo buildInfo in buildInfos)
         {
+            buildInfo.GamePlaySettings = CurrentGamePlaySettings;
             CheckBuildInfoValid(buildInfo);
             BuildInfoDict.Add(buildInfo.BuildID, buildInfo);
         }

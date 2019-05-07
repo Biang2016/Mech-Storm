@@ -22,10 +22,13 @@ public class SettingPanel : BaseUIForm
 
     void Awake()
     {
-        UIType.IsClearStack = false;
-        UIType.UIForm_LucencyType = UIFormLucencyTypes.Blur;
-        UIType.UIForms_ShowMode = UIFormShowModes.HideOther;
-        UIType.UIForms_Type = UIFormTypes.Fixed;
+        UIType.InitUIType(
+            isClearStack: false,
+            isESCClose: true,
+            isClickElsewhereClose: true,
+            uiForms_Type: UIFormTypes.PopUp,
+            uiForms_ShowMode: UIFormShowModes.ReturnHideOther,
+            uiForm_LucencyType: UIFormLucencyTypes.Blur);
 
         LanguageDropdown.ClearOptions();
         LanguageDropdown.AddOptions(LanguageManager.Instance.LanguageDescs);

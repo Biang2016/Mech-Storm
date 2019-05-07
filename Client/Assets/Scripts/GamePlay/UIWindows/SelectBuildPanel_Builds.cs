@@ -51,7 +51,11 @@ public partial class SelectBuildPanel
 
         CreateNewBuildButton.onClick.AddListener(OnCreateNewBuildButtonClick);
         DeleteBuildButton.onClick.AddListener(OnDeleteBuildButtonClick);
+    }
 
+    void Start_Build()
+    {
+        InitializeSliders();
         InitBuildButtons(SelectBuildManager.Instance.BuildInfoDict);
     }
 
@@ -151,7 +155,8 @@ public partial class SelectBuildPanel
 
     public void OnCreateNewBuildButtonClick()
     {
-        BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildInfo.BuildCards("New deck", new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>()), CurrentGamePlaySettings.DefaultDrawCardNum, CurrentGamePlaySettings.DefaultLife, CurrentGamePlaySettings.DefaultEnergy,
+        BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildInfo.BuildCards("New deck", new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>()), CurrentGamePlaySettings.DefaultDrawCardNum, CurrentGamePlaySettings.DefaultLife,
+            CurrentGamePlaySettings.DefaultEnergy,
             0, false, CurrentGamePlaySettings);
         BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, bi, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
         Client.Instance.Proxy.SendMessage(request);

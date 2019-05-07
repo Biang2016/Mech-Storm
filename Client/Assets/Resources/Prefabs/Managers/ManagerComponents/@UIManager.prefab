@@ -117,9 +117,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICamera: {fileID: 8243279409502879114}
-  UIRoot: {fileID: 8156519849676883554}
   UINormalRoot: {fileID: 8156730384576550446}
   UIFixedRoot: {fileID: 8157466927014657602}
+  UICoverRoot: {fileID: 0}
   UIPopUpRoot: {fileID: 8156196992244023890}
 --- !u!114 &3064590070043488868
 MonoBehaviour:

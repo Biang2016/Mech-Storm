@@ -2,7 +2,7 @@
 {
     public class RunAway : RunAway_Base
     {
-        public RunAway() 
+        public RunAway()
         {
         }
 

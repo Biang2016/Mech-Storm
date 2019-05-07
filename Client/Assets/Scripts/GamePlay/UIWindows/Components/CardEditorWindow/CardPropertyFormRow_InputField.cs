@@ -13,7 +13,7 @@ public class CardPropertyFormRow_InputField : CardPropertyFormRow
     public override void PoolRecycle()
     {
         base.PoolRecycle();
-        LanguageManager.Instance.UnregisterTextKey(PlaceHolderText);
+        LanguageManager.Instance.UnregisterText(PlaceHolderText);
     }
 
     protected override void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList, UnityAction<string> onButtonClick)
@@ -36,7 +36,6 @@ public class CardPropertyFormRow_InputField : CardPropertyFormRow
     {
         InputField.text = value_str;
     }
-
 
     public override void SetReadOnly(bool isReadOnly)
     {

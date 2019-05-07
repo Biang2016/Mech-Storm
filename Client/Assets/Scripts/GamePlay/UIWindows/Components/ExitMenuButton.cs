@@ -10,7 +10,7 @@ public class ExitMenuButton : PoolObject
     public override void PoolRecycle()
     {
         base.PoolRecycle();
-        LanguageManager.Instance.UnregisterTextKey(Text);
+        LanguageManager.Instance.UnregisterText(Text);
     }
 
     public void BindTextKey(string textKey, UnityAction buttonClick)

@@ -500,7 +500,7 @@ public class BattleGroundManager : MonoBehaviour
             yield return new WaitForSeconds(0.4f);
             foreach (Slot sa in relatedSlots)
             {
-                sa.ShowSlotBloom(false,false);
+                sa.ShowSlotBloom(false, false);
                 sa.M_ModuleRetinue.ShowSniperTipText(false);
             }
 

@@ -74,9 +74,9 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
 
         //TODO 特例
-        ShowAllSlotBlooms(value != CardShowMode.CardSelect);
-        if (value == CardShowMode.CardSelect) ResetCoinPosition();
-        if (value == CardShowMode.SelectedCardPreview || value == CardShowMode.CardUpgradePreview) RefreshCoinPosition();
+        ShowAllSlotBlooms(value != CardShowMode.CardSelect && value != CardShowMode.SelectedCardPreview);
+        if (value == CardShowMode.CardSelect || value == CardShowMode.SelectedCardPreview) ResetCoinPosition();
+        if (value == CardShowMode.CardUpgradePreview) RefreshCoinPosition();
         ShowCardBloom(value != CardShowMode.CardSelect);
 
         M_CardShowMode = value;

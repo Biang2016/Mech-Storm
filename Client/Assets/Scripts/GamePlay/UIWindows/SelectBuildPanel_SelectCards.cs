@@ -30,12 +30,21 @@ public partial class SelectBuildPanel
 
         LanguageManager.Instance.RegisterTextKeys(new List<(Text, string)>
         {
-            (HerosCardText: HeroCardText, "SelectBuildManagerSelect_HeroesCardText"),
+            (HeroCardText, "SelectBuildManagerSelect_HeroesCardText"),
             (OtherCardText, "SelectBuildManagerSelect_OtherCardText"),
-            (HerosCardCountText: HeroCardCountText, "SelectBuildManagerSelect_HeroesCardCountText"),
+            (HeroCardCountText, "SelectBuildManagerSelect_HeroesCardCountText"),
             (OtherCardCountText, "SelectBuildManagerSelect_OtherCardCountText"),
         });
 
+        Dictionary<string, FontStyle> temp = new Dictionary<string, FontStyle> {{"zh", FontStyle.Normal}, {"en", FontStyle.BoldAndItalic}};
+        LanguageManager.Instance.RegisterTextFontBinding(HeroCardText, temp);
+        LanguageManager.Instance.RegisterTextFontBinding(OtherCardText, temp);
+        LanguageManager.Instance.RegisterTextFontBinding(HeroCardCountText, temp);
+        LanguageManager.Instance.RegisterTextFontBinding(OtherCardCountText, temp);
+    }
+
+    void Start_SelectCards()
+    {
         BudgetIcon.SetActive(!LanguageManager.Instance.IsEnglish);
     }
 
@@ -277,23 +286,30 @@ public partial class SelectBuildPanel
         }
     }
 
+    [SerializeField] private RawImage SelectCardPreviewRawImage;
+
     private void SelectCardOnMouseEnter(SelectCard selectCard)
     {
+        SelectCardPreviewRawImage.enabled = true;
         if (UIManager.Instance.IsPeekUIForm<CardPreviewPanel>()) return;
-        currentPreviewCardContainer.position = selectCard.transform.position;
-        if (currentPreviewCardContainer.position.y > CurrentPreviewCardMaxPivot.position.y)
+        if (selectCard.transform.position.y > CurrentPreviewCardMaxPivot.position.y)
         {
-            currentPreviewCardContainer.position = CurrentPreviewCardMaxPivot.position;
+            currentPreviewCardContainer.position = new Vector3(selectCard.transform.position.x, CurrentPreviewCardMaxPivot.position.y, selectCard.transform.position.z);
         }
-        else if (currentPreviewCardContainer.position.y < CurrentPreviewCardMinPivot.position.y)
+        else if (selectCard.transform.position.y < CurrentPreviewCardMinPivot.position.y)
         {
-            currentPreviewCardContainer.position = CurrentPreviewCardMinPivot.position;
+            currentPreviewCardContainer.position = new Vector3(selectCard.transform.position.x, CurrentPreviewCardMinPivot.position.y, selectCard.transform.position.z);
+        }
+        else
+        {
+            currentPreviewCardContainer.position = new Vector3(selectCard.transform.position.x, selectCard.transform.position.y, selectCard.transform.position.z);
         }
 
         currentPreviewCard = CardBase.InstantiateCardByCardInfo(selectCard.CardInfo.Clone(), currentPreviewCardContainer, CardBase.CardShowMode.SelectedCardPreview);
-        currentPreviewCard.transform.localPosition = new Vector3(-180f, 0, -290);
-        currentPreviewCard.transform.localScale = Vector3.one * 220;
-        currentPreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
+        currentPreviewCard.transform.localPosition = new Vector3(-180f, 0, 0);
+        currentPreviewCard.transform.Translate(0, 0, -1, Space.World);
+        currentPreviewCard.transform.localScale = Vector3.one * 20;
+        currentPreviewCard.transform.rotation = Quaternion.Euler(0, 180, 0);
         currentPreviewCard.BeBrightColor();
         currentPreviewCard.ShowCardBloom(true);
         currentPreviewCard.ChangeCardSelectLimit(0);
@@ -303,6 +319,7 @@ public partial class SelectBuildPanel
 
     private void SelectCardOnMouseLeave(SelectCard selectCard)
     {
+        SelectCardPreviewRawImage.enabled = false;
         if (currentPreviewCard) currentPreviewCard.PoolRecycle();
         UIManager.Instance.CloseUIForms<AffixPanel>();
     }

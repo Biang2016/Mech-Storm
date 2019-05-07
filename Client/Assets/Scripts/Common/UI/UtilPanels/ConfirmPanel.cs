@@ -12,12 +12,13 @@ public class ConfirmPanel : BaseUIForm
 
     void Awake()
     {
-        UIType.IsClearStack = false;
-        UIType.IsESCClose = true;
-        UIType.IsClickElsewhereClose = true;
-        UIType.UIForm_LucencyType = UIFormLucencyTypes.Blur;
-        UIType.UIForms_ShowMode = UIFormShowModes.Return;
-        UIType.UIForms_Type = UIFormTypes.PopUp;
+        UIType.InitUIType(
+            isClearStack: false,
+            isESCClose: true,
+            isClickElsewhereClose: true,
+            uiForms_Type: UIFormTypes.PopUp,
+            uiForms_ShowMode: UIFormShowModes.Return,
+            uiForm_LucencyType: UIFormLucencyTypes.Blur);
     }
 
     void Update()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NetworkManager : MonoSingleton<NetworkManager>
@@ -11,14 +12,19 @@ public class NetworkManager : MonoSingleton<NetworkManager>
     bool isReconnecting = false;
     private Coroutine CurrentTryConnectServer;
 
-    IEnumerator TryConnectToServer(bool isTest)
+    private static Dictionary<LoginPanel.ServerTypes, string> ServerIPDict = new Dictionary<LoginPanel.ServerTypes, string>
+    {
+        {LoginPanel.ServerTypes.FormalServer, "95.169.26.10"},
+        {LoginPanel.ServerTypes.TestServer, "127.0.0.1"},
+    };
+
+    IEnumerator TryConnectToServer(LoginPanel.ServerTypes serverType)
     {
         while (true)
         {
             if (Client.Instance.Proxy == null || !Client.Instance.Proxy.Socket.Connected)
             {
-                if (isTest) Client.Instance.Connect("127.0.0.1", 9999, ConnectCallBack, null);
-                else Client.Instance.Connect("95.169.26.10", 9999, ConnectCallBack, null);
+                Client.Instance.Connect(ServerIPDict[serverType], 9999, ConnectCallBack, null);
             }
 
             CheckConnectState();
@@ -26,16 +32,10 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         }
     }
 
-    public void ConnectToTestServer()
+    public void ConnectToServer(LoginPanel.ServerTypes serverType)
     {
         TerminateConnection();
-        CurrentTryConnectServer = StartCoroutine(TryConnectToServer(true));
-    }
-
-    public void ConnectToFormalServer()
-    {
-        TerminateConnection();
-        CurrentTryConnectServer = StartCoroutine(TryConnectToServer(false));
+        CurrentTryConnectServer = StartCoroutine(TryConnectToServer(serverType));
     }
 
     public void TerminateConnection()
@@ -52,10 +52,8 @@ public class NetworkManager : MonoSingleton<NetworkManager>
                 {
                     Client.Instance.Proxy.Socket.Close();
                 }
-                else
-                {
-                    Client.Instance.Proxy = null;
-                }
+
+                Client.Instance.Proxy = null;
             }
         }
         catch (Exception e)

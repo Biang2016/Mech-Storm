@@ -17,4 +17,14 @@
 
     //UI窗体透明度类型
     public UIFormLucencyTypes UIForm_LucencyType = UIFormLucencyTypes.Lucency;
+
+    public void InitUIType(bool isClearStack, bool isESCClose, bool isClickElsewhereClose, UIFormTypes uiForms_Type, UIFormShowModes uiForms_ShowMode, UIFormLucencyTypes uiForm_LucencyType)
+    {
+        IsClearStack = isClearStack;
+        IsESCClose = isESCClose;
+        IsClickElsewhereClose = isClickElsewhereClose;
+        UIForms_Type = uiForms_Type;
+        UIForms_ShowMode = uiForms_ShowMode;
+        UIForm_LucencyType = uiForm_LucencyType;
+    }
 }

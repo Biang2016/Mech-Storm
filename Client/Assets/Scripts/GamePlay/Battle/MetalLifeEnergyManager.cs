@@ -7,7 +7,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
     internal ClientPlayer ClientPlayer;
 
     [SerializeField] private Transform MetalNumberBlock;
-    [SerializeField]private TextMeshPro MetalNumberText;
+    [SerializeField] private TextMeshPro MetalNumberText;
 
     [SerializeField] private Text LifeNumber;
     [SerializeField] private Text TotalLifeNumber;

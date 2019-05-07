@@ -2,7 +2,7 @@
 {
     public class HalfShield : HalfShield_Base
     {
-        public HalfShield() 
+        public HalfShield()
         {
         }
 

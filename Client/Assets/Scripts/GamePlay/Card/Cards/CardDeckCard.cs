@@ -1,4 +1,3 @@
-﻿
-public class CardDeckCard : CardBase
+﻿public class CardDeckCard : CardBase
 {
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class StartMenuPanel :BaseUIForm
+public class StartMenuPanel : BaseUIForm
 {
     private StartMenuPanel()
     {
@@ -16,12 +16,13 @@ public class StartMenuPanel :BaseUIForm
 
     void Awake()
     {
-        UIType.IsClearStack = true;
-        UIType.IsESCClose = false;
-        UIType.IsClickElsewhereClose = false;
-        UIType.UIForm_LucencyType = UIFormLucencyTypes.ImPenetrable;
-        UIType.UIForms_ShowMode = UIFormShowModes.Normal;
-        UIType.UIForms_Type = UIFormTypes.Fixed;
+        UIType.InitUIType(
+            isClearStack: true,
+            isESCClose: false,
+            isClickElsewhereClose: false,
+            uiForms_Type: UIFormTypes.Normal,
+            uiForms_ShowMode: UIFormShowModes.Normal,
+            uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
         Proxy.OnClientStateChange += OnClientChangeState;
 

@@ -365,7 +365,8 @@ public class ModuleRetinue : ModuleBase
                 }
 
                 float duration = isInitializing ? 0 : 0.1f;
-                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, M_RetinueWeaponEnergy == 0 ? (value - before) : M_RetinueWeaponFinalAttack - before_att, duration, isInitializing), "Co_RetinueAttackChange");
+                BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, M_RetinueWeaponEnergy == 0 ? (value - before) : M_RetinueWeaponFinalAttack - before_att, duration, isInitializing),
+                    "Co_RetinueAttackChange");
             }
         }
     }
@@ -387,7 +388,8 @@ public class ModuleRetinue : ModuleBase
                 }
 
                 float duration = isInitializing ? 0 : 0.1f;
-                if (!isInitializing && m_RetinueAttack != 0 && !isAttackChanging) BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, M_RetinueWeaponFinalAttack - before_att, duration, isInitializing), "Co_RetinueAttackChange");
+                if (!isInitializing && m_RetinueAttack != 0 && !isAttackChanging)
+                    BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueAttackChange(M_RetinueAttack, M_RetinueWeaponEnergy, M_RetinueWeaponEnergyMax, M_RetinueWeaponFinalAttack - before_att, duration, isInitializing), "Co_RetinueAttackChange");
             }
         }
     }
@@ -1248,7 +1250,6 @@ public class ModuleRetinue : ModuleBase
     {
         SniperTipText.enabled = isShow;
     }
-
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {

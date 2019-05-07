@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.UI;
 
 public class Slot : MonoBehaviour, IMouseHoverComponent
 {

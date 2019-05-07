@@ -6,7 +6,7 @@ public class StarsGroup : MonoBehaviour
     [SerializeField] private Image[] Stars;
     [SerializeField] private Sprite StarSprite;
     [SerializeField] private Sprite StarEmptySprite;
-    
+
     public void SetStarNumber(int number, int maxNumber)
     {
         if (maxNumber == 1)

@@ -185,19 +185,10 @@ public class BuildInfo : IClone<BuildInfo>
 
             public static CardSelectInfo Deserialize(DataStream reader)
             {
-                try
-                {
-                    int cardID = reader.ReadSInt32();
-                    int cardSelectCount = reader.ReadSInt32();
-                    int cardSelectUpperLimit = reader.ReadSInt32();
-                    return new CardSelectInfo(cardID, cardSelectCount, cardSelectUpperLimit);
-                }
-                catch
-                {
-                    int a = 0;
-                }
-
-                return null;
+                int cardID = reader.ReadSInt32();
+                int cardSelectCount = reader.ReadSInt32();
+                int cardSelectUpperLimit = reader.ReadSInt32();
+                return new CardSelectInfo(cardID, cardSelectCount, cardSelectUpperLimit);
             }
         }
     }
@@ -212,7 +203,7 @@ public class BuildInfo : IClone<BuildInfo>
                 CardInfo_Base cb = AllCards.GetCard(kv.Key);
                 if (cb != null)
                 {
-                    coin += cb.BaseInfo.Coin;
+                    coin += cb.BaseInfo.Coin * kv.Value.CardSelectCount;
                 }
             }
 

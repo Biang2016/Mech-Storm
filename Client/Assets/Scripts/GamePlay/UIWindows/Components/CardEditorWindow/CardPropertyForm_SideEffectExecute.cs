@@ -78,8 +78,8 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
         CardPropertyForm_ExecuteSettingRow.Initialize(see, onRefreshText, isReadOnly);
 
         ExecuteSettingTypeDropdown.interactable = sideEffectFrom != SideEffectExecute.SideEffectFrom.Buff;
-        AddSideEffectButton.gameObject.SetActive(sideEffectFrom != SideEffectExecute.SideEffectFrom.Buff); 
-        DeleteButton.gameObject.SetActive(sideEffectFrom != SideEffectExecute.SideEffectFrom.Buff); 
+        AddSideEffectButton.gameObject.SetActive(sideEffectFrom != SideEffectExecute.SideEffectFrom.Buff);
+        DeleteButton.gameObject.SetActive(sideEffectFrom != SideEffectExecute.SideEffectFrom.Buff);
 
         foreach (SideEffectBase se in see.SideEffectBases)
         {

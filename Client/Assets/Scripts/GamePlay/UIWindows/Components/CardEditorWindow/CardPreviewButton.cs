@@ -29,6 +29,8 @@ public class CardPreviewButton : PoolObject
         set
         {
             CurEditBorder.enabled = value;
+            Image.color = value ? Color.white : new Color(0.5f, 0.5f, 0.5f, 1f);
+            Button.transform.localScale = Vector3.one * (value ? 1.05f : 0.95f);
             isEdit = value;
         }
     }

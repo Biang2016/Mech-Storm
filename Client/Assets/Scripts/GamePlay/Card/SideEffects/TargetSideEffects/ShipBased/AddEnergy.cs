@@ -2,7 +2,7 @@
 {
     public class AddEnergy : AddEnergy_Base
     {
-        public AddEnergy() 
+        public AddEnergy()
         {
         }
 

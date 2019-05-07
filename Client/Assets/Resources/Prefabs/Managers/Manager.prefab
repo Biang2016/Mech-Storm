@@ -11950,6 +11950,11 @@ PrefabInstance:
       propertyPath: m_Depth
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7786461974976695400, guid: 2118a377e4c8baa44b182ea77079d2ea,
+        type: 3}
+      propertyPath: LeftClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickElsewhereClosePeekUIForm
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2118a377e4c8baa44b182ea77079d2ea, type: 3}
 --- !u!224 &2260109447001401769 stripped

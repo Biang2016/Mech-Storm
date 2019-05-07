@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -129,7 +130,8 @@ public class LanguageManager : MonoSingleton<LanguageManager>
 
     private Dictionary<Text, string> TextKeyMap = new Dictionary<Text, string>();
     private Dictionary<string, Font> FontDict;
-    private List<Text> TextFontBindingList = new List<Text>();
+    private HashSet<Text> TextFontBindingList = new HashSet<Text>();
+    private Dictionary<Text, Dictionary<string, FontStyle>> TextFontStyleMap = new Dictionary<Text, Dictionary<string, FontStyle>>();
 
     public void RegisterTextKey(Text text, string s)
     {
@@ -140,13 +142,23 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         }
     }
 
-    public void UnregisterTextKey(Text text)
+    public void UnregisterText(Text text)
     {
         if (text)
         {
             if (TextKeyMap.ContainsKey(text))
             {
                 TextKeyMap.Remove(text);
+            }
+
+            if (TextFontBindingList.Contains(text))
+            {
+                TextFontBindingList.Remove(text);
+            }
+
+            if (TextFontStyleMap.ContainsKey(text))
+            {
+                TextFontStyleMap.Remove(text);
             }
         }
     }
@@ -159,11 +171,18 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         }
     }
 
-    public void RegisterTextFontBinding(Text text)
+    public void RegisterTextFontBinding(Text text, Dictionary<string, FontStyle> fontStyles = null)
     {
         if (text)
         {
             TextFontBindingList.Add(text);
+            if (fontStyles != null)
+            {
+                if (!TextFontStyleMap.ContainsKey(text))
+                {
+                    TextFontStyleMap.Add(text, fontStyles);
+                }
+            }
         }
     }
 
@@ -217,6 +236,14 @@ public class LanguageManager : MonoSingleton<LanguageManager>
                 if (text != null)
                 {
                     text.font = curFont;
+                }
+            }
+
+            foreach (KeyValuePair<Text, Dictionary<string, FontStyle>> kv in TextFontStyleMap)
+            {
+                if (kv.Key != null)
+                {
+                    kv.Key.fontStyle = kv.Value[languageShort];
                 }
             }
 

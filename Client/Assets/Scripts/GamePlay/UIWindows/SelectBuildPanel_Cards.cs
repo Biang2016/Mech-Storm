@@ -42,7 +42,10 @@ public partial class SelectBuildPanel
         UnSelectAllButton.onClick.AddListener(UnSelectAllCard);
         ConfirmButton.onClick.AddListener(OnConfirmSubmitCardDeckButtonClick);
         CloseButton.onClick.AddListener(OnCloseButtonClick);
+    }
 
+    void Start_Cards()
+    {
         InitAddAllCards();
         InitializeOnlineCardLimitDict();
     }
@@ -53,10 +56,13 @@ public partial class SelectBuildPanel
 
     void Update_Cards()
     {
-        Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit raycast;
+        CardPreviewPanel previewPanel = UIManager.Instance.GetBaseUIForm<CardPreviewPanel>();
+        if (previewPanel != null && previewPanel.gameObject.activeInHierarchy) return;
+
         if (Input.GetMouseButtonDown(0))
         {
+            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycast;
             Physics.Raycast(ray, out raycast, 500f, cardsLayer);
             if (raycast.collider)
             {
@@ -65,7 +71,6 @@ public partial class SelectBuildPanel
                 {
                     mouseDownPosition = Input.mousePosition;
                     mouseLeftDownCard = card;
-                    Debug.Log("Click card left");
                 }
             }
             else
@@ -77,6 +82,8 @@ public partial class SelectBuildPanel
 
         if (Input.GetMouseButtonDown(1))
         {
+            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycast;
             Physics.Raycast(ray, out raycast, 500f, cardsLayer);
             if (raycast.collider != null)
             {
@@ -85,7 +92,6 @@ public partial class SelectBuildPanel
                 {
                     mouseDownPosition = Input.mousePosition;
                     mouseRightDownCard = card;
-                    Debug.Log("Click card right");
                 }
             }
             else
@@ -97,13 +103,14 @@ public partial class SelectBuildPanel
 
         if (Input.GetMouseButtonUp(0))
         {
+            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycast;
             Physics.Raycast(ray, out raycast, 500f, cardsLayer);
             if (raycast.collider != null)
             {
                 CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
                 if (card)
                 {
-                    Debug.Log("Click up card left");
                     if ((Input.mousePosition - mouseDownPosition).magnitude < 50)
                     {
                         if (mouseLeftDownCard == card)
@@ -120,13 +127,14 @@ public partial class SelectBuildPanel
 
         if (Input.GetMouseButtonUp(1))
         {
+            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycast;
             Physics.Raycast(ray, out raycast, 500f, cardsLayer);
             if (raycast.collider != null)
             {
                 CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
                 if (Input.GetMouseButtonUp(1))
                 {
-                    Debug.Log("Click up card right");
                     if (card && mouseRightDownCard == card)
                     {
                         UIManager.Instance.ShowUIForms<CardPreviewPanel>().ShowPreviewCardPanel(card, IsReadOnly);
@@ -295,7 +303,7 @@ public partial class SelectBuildPanel
 
             foreach (int cardID in removeCards)
             {
-                allShownCards[cardID].gameObject.SetActive(false);
+                allCardContainers[cardID].gameObject.SetActive(false);
                 allShownCards.Remove(cardID);
             }
         }
@@ -378,10 +386,17 @@ public partial class SelectBuildPanel
         }
 
         CardBase changeCard = allCards[changeCardID];
+        if (changeCard.CardInfo.BaseInfo.LimitNum == 0)
+        {
+            allCardContainers[changeCardID].gameObject.SetActive(true);
+            allShownCards.Add(changeCardID, changeCard);
+        }
+       
         previewCard.ChangeCardSelectLimit(previewCard.CardInfo.BaseInfo.LimitNum - 1);
         changeCard.ChangeCardSelectLimit(changeCard.CardInfo.BaseInfo.LimitNum + 1);
         CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[previewCard.CardInfo.CardID].CardSelectUpperLimit--;
         CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[changeCardID].CardSelectUpperLimit++;
+
         if (GetSelectedCardCount(previewCard.CardInfo.CardID) > 0)
         {
             UnSelectCard(previewCard, false);

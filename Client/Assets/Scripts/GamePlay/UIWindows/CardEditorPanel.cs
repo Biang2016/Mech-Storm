@@ -13,14 +13,14 @@ public class CardEditorPanel : BaseUIForm
 
     void Awake()
     {
-        UIType.IsClearStack = false;
-        UIType.IsESCClose = false;
-        UIType.IsClickElsewhereClose = false;
-        UIType.UIForms_Type = UIFormTypes.Fixed;
-        UIType.UIForm_LucencyType = UIFormLucencyTypes.ImPenetrable;
-        UIType.UIForms_ShowMode = UIFormShowModes.HideOther;
-        UIType.IsClearStack = true;
-
+        UIType.InitUIType(
+            isClearStack: false,
+            isESCClose: false,
+            isClickElsewhereClose: false,
+            uiForms_Type: UIFormTypes.Fixed,
+            uiForms_ShowMode: UIFormShowModes.HideOther,
+            uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
+    
         SaveCardButton.onClick.AddListener(SaveCard);
         ResetCardButton.onClick.AddListener(ResetCard);
         DeleteCardButton.onClick.AddListener(DeleteCard);
@@ -1271,7 +1271,7 @@ public class CardEditorPanel : BaseUIForm
         }
 
         float size = Mathf.Min(1800f, ((RectTransform) CardPreviewContainer.transform).rect.width);
-        ((RectTransform) CardPreviewRawImage.transform).sizeDelta = new Vector2(size, size);
+        ((RectTransform) CardPreviewRawImage.transform).sizeDelta = new Vector2(size, size * 4 / 3);
     }
 
     public void SaveCard()

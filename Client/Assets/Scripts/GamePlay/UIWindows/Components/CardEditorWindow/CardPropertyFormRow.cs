@@ -11,7 +11,7 @@ public abstract class CardPropertyFormRow : PoolObject
     public override void PoolRecycle()
     {
         base.PoolRecycle();
-        LanguageManager.Instance.UnregisterTextKey(Label);
+        LanguageManager.Instance.UnregisterText(Label);
     }
 
     public enum CardPropertyFormRowType
@@ -91,7 +91,6 @@ public abstract class CardPropertyFormRow : PoolObject
 
     public virtual void SetReadOnly(bool isReadOnly)
     {
-
     }
 
     protected virtual void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)

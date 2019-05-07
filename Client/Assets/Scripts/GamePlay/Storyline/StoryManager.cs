@@ -13,7 +13,7 @@ public class StoryManager : MonoSingleton<StoryManager>
         if (story == null)
         {
             //TODO ResetAll
-            UnlockedCardLevelNum = 0;
+            UnlockedCardLevelNum = 9;
         }
 
         Story = story;
@@ -32,7 +32,7 @@ public class StoryManager : MonoSingleton<StoryManager>
     {
     }
 
-    internal int UnlockedCardLevelNum = 0;
+    internal int UnlockedCardLevelNum = 9;
 
     internal bool HasStory => Story != null;
     internal bool IsThisLevelNumberUp = false;

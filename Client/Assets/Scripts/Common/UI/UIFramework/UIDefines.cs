@@ -15,6 +15,7 @@ public enum UIFormShowModes
 {
     Normal,
     Return,
+    ReturnHideOther,
     HideOther
 }
 

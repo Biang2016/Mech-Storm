@@ -173,7 +173,14 @@ public class Story : IClone<Story>, IVariant<Story>
         for (int i = 0; i < chapterCount; i++)
         {
             Chapter chapter = Chapter.Deserialize(reader);
-            newStory.Chapters.Add(chapter.ChapterID, chapter);
+            if (newStory.Chapters.ContainsKey(chapter.ChapterID))
+            {
+                Utils.DebugLog("Duplicate! chapter.ChapterID: " + chapter.ChapterID);
+            }
+            else
+            {
+                newStory.Chapters.Add(chapter.ChapterID, chapter);
+            }
         }
 
         int cldCount = reader.ReadSInt32();
@@ -182,7 +189,14 @@ public class Story : IClone<Story>, IVariant<Story>
         {
             int key = reader.ReadSInt32();
             int value = reader.ReadSInt32();
-            newStory.Base_CardLimitDict.Add(key, value);
+            if (newStory.Base_CardLimitDict.ContainsKey(key))
+            {
+                Utils.DebugLog("Duplicate! Base_CardLimitDict.key: " + key);
+            }
+            else
+            {
+                newStory.Base_CardLimitDict.Add(key, value);
+            }
         }
 
         int buildCount = reader.ReadSInt32();
@@ -190,7 +204,14 @@ public class Story : IClone<Story>, IVariant<Story>
         for (int i = 0; i < buildCount; i++)
         {
             BuildInfo bi = BuildInfo.Deserialize(reader);
-            newStory.PlayerBuildInfos.Add(bi.BuildID, bi);
+            if (newStory.PlayerBuildInfos.ContainsKey(bi.BuildID))
+            {
+                Utils.DebugLog("Duplicate! bi.BuildID: " + bi.BuildID);
+            }
+            else
+            {
+                newStory.PlayerBuildInfos.Add(bi.BuildID, bi);
+            }
         }
 
         newStory.StoryGamePlaySettings = GamePlaySettings.Deserialize(reader);

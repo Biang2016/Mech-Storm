@@ -2,7 +2,7 @@
 {
     public class AddArmor : AddArmor_Base
     {
-        public AddArmor():base()
+        public AddArmor() : base()
         {
         }
 

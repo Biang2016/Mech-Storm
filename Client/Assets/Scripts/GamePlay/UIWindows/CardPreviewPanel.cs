@@ -36,12 +36,13 @@ public class CardPreviewPanel : BaseUIForm
 
     private void Awake()
     {
-        UIType.IsClearStack = false;
-        UIType.IsClickElsewhereClose = true;
-        UIType.IsESCClose = true;
-        UIType.UIForm_LucencyType = UIFormLucencyTypes.Blur;
-        UIType.UIForms_ShowMode = UIFormShowModes.Return;
-        UIType.UIForms_Type = UIFormTypes.PopUp;
+        UIType.InitUIType(
+            isClearStack: false,
+            isESCClose: true,
+            isClickElsewhereClose: true,
+            uiForms_Type: UIFormTypes.Fixed,
+            uiForms_ShowMode: UIFormShowModes.Normal,
+            uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
         UpgradeCardButton.onClick.AddListener(OnUpgradeButtonClick);
         DegradeCardButton.onClick.AddListener(OnDegradeButtonClick);
@@ -79,10 +80,17 @@ public class CardPreviewPanel : BaseUIForm
         Others.SetActive(false);
     }
 
-    float normalCardPreviewDistance = 500f;
-    float retinueCardPreviewDistance = 550f;
+    float normalCardPreviewDistance = 300f;
+    float retinueCardPreviewDistance = 350f;
 
-    public void RefreshPreviewCard()
+    enum UpgradeDegradeOperation
+    {
+        None,
+        Upgrade,
+        Degrade
+    }
+
+    private void RefreshPreviewCard(bool refreshAffixPanel = true, UpgradeDegradeOperation operation = UpgradeDegradeOperation.None)
     {
         if (PreviewCard)
         {
@@ -105,19 +113,28 @@ public class CardPreviewPanel : BaseUIForm
             PreviewCardDegrade = null;
         }
 
+        if (PreviewCard_Src.CardInfo.BaseInfo.LimitNum == 0 && operation != UpgradeDegradeOperation.None)
+        {
+            if (operation == UpgradeDegradeOperation.Degrade)
+            {
+                PreviewCard_Src = UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().allCards[PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID];
+            }
+            else if (operation == UpgradeDegradeOperation.Upgrade)
+            {
+                PreviewCard_Src = UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().allCards[PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID];
+            }
+        }
+
         PreviewCard = CardBase.InstantiateCardByCardInfo(PreviewCard_Src.CardInfo, PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
-        PreviewCard.CardOrder = 1;
         PreviewCard.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
         PreviewCard.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCard.CardInfo.CardID), true);
-        PreviewCard.transform.localScale = Vector3.one * 20;
-        //PreviewCard.transform.rotation = Quaternion.Euler(90, 180, 0);
+        PreviewCard.transform.localScale = Vector3.one * 18;
         PreviewCard.transform.localPosition = new Vector3(0, 50, 0);
         PreviewCard.ShowCardBloom(true);
         PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"));
         PreviewCard.BeBrightColor();
         PreviewCard.M_BoxCollider.enabled = false;
         PreviewCard.ShowAllSlotBlooms(true);
-        PreviewCard.RefreshCoinPosition();
 
         bool hasUpgradeCard = false;
         bool hasDegradeCard = false;
@@ -137,8 +154,7 @@ public class CardPreviewPanel : BaseUIForm
         if (hasUpgradeCard)
         {
             PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID), PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
-            PreviewCardUpgrade.CardOrder = 1;
-            PreviewCardUpgrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
+            PreviewCardUpgrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCardUpgrade.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardUpgrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardUpgrade.CardInfo.CardID), true);
             PreviewCardUpgrade.transform.localScale = Vector3.one * 15;
             if (PreviewCardUpgrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
@@ -169,8 +185,7 @@ public class CardPreviewPanel : BaseUIForm
         if (hasDegradeCard)
         {
             PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID), PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
-            PreviewCardDegrade.CardOrder = 1;
-            PreviewCardDegrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
+            PreviewCardDegrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCardDegrade.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardDegrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardDegrade.CardInfo.CardID), true);
             PreviewCardDegrade.transform.localScale = Vector3.one * 15;
             if (PreviewCardDegrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
@@ -198,24 +213,27 @@ public class CardPreviewPanel : BaseUIForm
             DegradeArrow.enabled = false;
         }
 
-        List<CardInfo_Base> cardInfos = new List<CardInfo_Base>();
-        cardInfos.Add(PreviewCard.CardInfo);
-        if (PreviewCardDegrade) cardInfos.Add(PreviewCardDegrade.CardInfo);
-        if (PreviewCardUpgrade) cardInfos.Add(PreviewCardUpgrade.CardInfo);
-        bool isShowAffixTips = UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(cardInfos, null);
+        if (refreshAffixPanel)
+        {
+            List<CardInfo_Base> cardInfos = new List<CardInfo_Base>();
+            cardInfos.Add(PreviewCard.CardInfo);
+            if (PreviewCardDegrade) cardInfos.Add(PreviewCardDegrade.CardInfo);
+            if (PreviewCardUpgrade) cardInfos.Add(PreviewCardUpgrade.CardInfo);
+            UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(cardInfos, null);
+        }
 
         //如果显示Tips占据屏幕空间的话，右移预览卡牌窗口
-        if (!isShowAffixTips || PreviewCardDegrade == null)
-        {
-            AllContainer.position = PreviewCardPanelCenterPivot.position;
-        }
-        else
+        if (UIManager.Instance.GetBaseUIForm<AffixPanel>().IsShow && PreviewCardDegrade != null)
         {
             AllContainer.position = PreviewCardPanelRightPivot.position;
         }
+        else
+        {
+            AllContainer.position = PreviewCardPanelCenterPivot.position;
+        }
     }
 
-    public void RefreshUpgradePanel()
+    private void RefreshUpgradePanel()
     {
         bool hasUpgradeCard = false;
         bool hasDegradeCard = false;
@@ -270,12 +288,14 @@ public class CardPreviewPanel : BaseUIForm
     internal void OnUpgradeButtonClick()
     {
         UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.UpdateCardUpgradeDegrade(true, PreviewCard_Src);
+        RefreshPreviewCard(false, UpgradeDegradeOperation.Upgrade);
         RefreshUpgradePanel();
     }
 
     internal void OnDegradeButtonClick()
     {
         UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.UpdateCardUpgradeDegrade(false, PreviewCard_Src);
+        RefreshPreviewCard(false, UpgradeDegradeOperation.Degrade);
         RefreshUpgradePanel();
     }
 

@@ -37,7 +37,7 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
 
     private List<CardPropertyFormRow> CardPropertyFormRows = new List<CardPropertyFormRow>();
 
-    public void Initialize(SideEffectExecute see, UnityAction onRefreshText,bool isReadOnly)
+    public void Initialize(SideEffectExecute see, UnityAction onRefreshText, bool isReadOnly)
     {
         foreach (CardPropertyFormRow cpfr in CardPropertyFormRows)
         {
@@ -47,9 +47,9 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         CardPropertyFormRows.Clear();
 
         CardPropertyFormRow cpfr_TriggerTime = CardPropertyFormRow.BaseInitialize(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorWindow_TriggerTime",
-            delegate (string value_str)
+            delegate(string value_str)
             {
-                SideEffectExecute.TriggerTime value = (SideEffectExecute.TriggerTime)Enum.Parse(typeof(SideEffectExecute.TriggerTime), value_str);
+                SideEffectExecute.TriggerTime value = (SideEffectExecute.TriggerTime) Enum.Parse(typeof(SideEffectExecute.TriggerTime), value_str);
                 see.M_ExecuteSetting.TriggerTime = value;
                 onRefreshText?.Invoke();
             },
@@ -59,9 +59,9 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         cpfr_TriggerTime.SetReadOnly(isReadOnly);
 
         CardPropertyFormRow cpfr_TriggerRange = CardPropertyFormRow.BaseInitialize(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorWindow_TriggerRange",
-            delegate (string value_str)
+            delegate(string value_str)
             {
-                SideEffectExecute.TriggerRange value = (SideEffectExecute.TriggerRange)Enum.Parse(typeof(SideEffectExecute.TriggerRange), value_str);
+                SideEffectExecute.TriggerRange value = (SideEffectExecute.TriggerRange) Enum.Parse(typeof(SideEffectExecute.TriggerRange), value_str);
                 see.M_ExecuteSetting.TriggerRange = value;
                 onRefreshText?.Invoke();
             },
@@ -71,7 +71,7 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         cpfr_TriggerRange.SetReadOnly(isReadOnly);
 
         CardPropertyFormRow cpfr_TriggerDelayTimes = CardPropertyFormRow.BaseInitialize(CardPropertyFormRow.CardPropertyFormRowType.InputField, ExecuteRowContainer, "CardEditorWindow_TriggerDelayTimes",
-            delegate (string value_str)
+            delegate(string value_str)
             {
                 if (int.TryParse(value_str, out int value))
                 {
@@ -84,7 +84,7 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         cpfr_TriggerDelayTimes.SetReadOnly(isReadOnly);
 
         CardPropertyFormRow cpfr_TriggerTimes = CardPropertyFormRow.BaseInitialize(CardPropertyFormRow.CardPropertyFormRowType.InputField, ExecuteRowContainer, "CardEditorWindow_TriggerTimes",
-            delegate (string value_str)
+            delegate(string value_str)
             {
                 if (int.TryParse(value_str, out int value))
                 {
@@ -98,9 +98,9 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         cpfr_TriggerTimes.SetReadOnly(isReadOnly);
 
         CardPropertyFormRow cpfr_RemoveTriggerTime = CardPropertyFormRow.BaseInitialize(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorWindow_RemoveTriggerTime",
-            delegate (string value_str)
+            delegate(string value_str)
             {
-                SideEffectExecute.TriggerTime value = (SideEffectExecute.TriggerTime)Enum.Parse(typeof(SideEffectExecute.TriggerTime), value_str);
+                SideEffectExecute.TriggerTime value = (SideEffectExecute.TriggerTime) Enum.Parse(typeof(SideEffectExecute.TriggerTime), value_str);
                 see.M_ExecuteSetting.RemoveTriggerTime = value;
                 onRefreshText?.Invoke();
             },
@@ -110,9 +110,9 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         cpfr_RemoveTriggerTime.SetReadOnly(isReadOnly);
 
         CardPropertyFormRow cpfr_RemoveTriggerRange = CardPropertyFormRow.BaseInitialize(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorWindow_RemoveTriggerRange",
-            delegate (string value_str)
+            delegate(string value_str)
             {
-                SideEffectExecute.TriggerRange value = (SideEffectExecute.TriggerRange)Enum.Parse(typeof(SideEffectExecute.TriggerRange), value_str);
+                SideEffectExecute.TriggerRange value = (SideEffectExecute.TriggerRange) Enum.Parse(typeof(SideEffectExecute.TriggerRange), value_str);
                 see.M_ExecuteSetting.RemoveTriggerRange = value;
                 onRefreshText?.Invoke();
             },
@@ -122,7 +122,7 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         cpfr_RemoveTriggerRange.SetReadOnly(isReadOnly);
 
         CardPropertyFormRow cpfr_RemoveTriggerTimes = CardPropertyFormRow.BaseInitialize(CardPropertyFormRow.CardPropertyFormRowType.InputField, ExecuteRowContainer, "CardEditorWindow_RemoveTriggerTimes",
-            delegate (string value_str)
+            delegate(string value_str)
             {
                 if (int.TryParse(value_str, out int value))
                 {

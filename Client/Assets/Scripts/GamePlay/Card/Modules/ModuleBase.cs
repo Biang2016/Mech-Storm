@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverComponent

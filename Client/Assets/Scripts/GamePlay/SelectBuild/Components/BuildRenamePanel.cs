@@ -15,12 +15,13 @@ public class BuildRenamePanel : BaseUIForm
 
     void Awake()
     {
-        UIType.IsClearStack = false;
-        UIType.IsClickElsewhereClose = true;
-        UIType.IsESCClose = true;
-        UIType.UIForms_Type = UIFormTypes.PopUp;
-        UIType.UIForm_LucencyType = UIFormLucencyTypes.ImPenetrable;
-        UIType.UIForms_ShowMode = UIFormShowModes.Return;
+        UIType.InitUIType(
+            isClearStack: false,
+            isESCClose: true,
+            isClickElsewhereClose: true,
+            uiForms_Type: UIFormTypes.PopUp,
+            uiForms_ShowMode: UIFormShowModes.Return,
+            uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
         LanguageManager.Instance.RegisterTextKeys(new List<(Text, string)>
         {

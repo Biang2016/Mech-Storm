@@ -30,9 +30,9 @@ public class StartMenuButton : PoolObject
     public override void PoolRecycle()
     {
         base.PoolRecycle();
-        LanguageManager.Instance.UnregisterTextKey(Text);
-        LanguageManager.Instance.UnregisterTextKey(TipText);
-        LanguageManager.Instance.UnregisterTextKey(TipImageText);
+        LanguageManager.Instance.UnregisterText(Text);
+        LanguageManager.Instance.UnregisterText(TipText);
+        LanguageManager.Instance.UnregisterText(TipImageText);
     }
 
     public void BindTextKey(string textKey, string tipTextKey, UnityAction buttonClick, TipImageType tipImageType)

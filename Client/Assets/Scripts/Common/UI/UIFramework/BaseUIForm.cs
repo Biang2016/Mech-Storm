@@ -7,31 +7,46 @@ public class BaseUIForm : MonoBehaviour
 
     #region  窗体的四种(生命周期)状态
 
-    protected virtual void Update()
+    private bool closeFlag = false;
+
+    void Update()
     {
-        BaseUIForm peek = UIManager.Instance.GetPeekUIForm();
-        if (peek == null || peek == this)
+        if (UIType.IsESCClose)
         {
-            if (UIType.IsESCClose)
+            if (Input.GetKeyUp(KeyCode.Escape))
             {
-                if (Input.GetKeyUp(KeyCode.Escape))
+                BaseUIForm peek = UIManager.Instance.GetPeekUIForm();
+                if (peek == null || peek == this)
                 {
-                    CloseUIForm();
+                    closeFlag = true;
                     return;
                 }
             }
+        }
 
-            if (UIType.IsClickElsewhereClose)
+        if (UIType.IsClickElsewhereClose)
+        {
+            bool isClickElseWhere = (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) || Input.GetMouseButtonDown(1);
+            if (isClickElseWhere)
             {
-                bool isClickElseWhere = (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) || Input.GetMouseButtonDown(1);
-                if (isClickElseWhere)
+                BaseUIForm peek = UIManager.Instance.GetPeekUIForm();
+                if (peek == null || peek == this)
                 {
-                    CloseUIForm();
+                    closeFlag = true;
                     return;
                 }
             }
+        }
 
-            ChildUpdate();
+        ChildUpdate();
+    }
+
+    private void LateUpdate()
+    {
+        if (closeFlag)
+        {
+            CloseUIForm();
+            closeFlag = false;
         }
     }
 
@@ -48,7 +63,7 @@ public class BaseUIForm : MonoBehaviour
     public virtual void Hide()
     {
         gameObject.SetActive(false);
-        UIMaskMgr.Instance.CancelMaskWindow();
+        UIMaskMgr.Instance.CancelAllMaskWindow(UIType.UIForm_LucencyType);
     }
 
     public virtual void Freeze()

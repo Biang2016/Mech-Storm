@@ -15,17 +15,26 @@ public partial class SelectBuildPanel : BaseUIForm
     {
         cardsLayer = 1 << LayerMask.NameToLayer("Cards");
 
-        UIType.IsClearStack = false;
-        UIType.IsClickElsewhereClose = false;
-        UIType.IsESCClose = true;
-        UIType.UIForms_Type = UIFormTypes.Fixed;
-        UIType.UIForm_LucencyType = UIFormLucencyTypes.Blur;
-        UIType.UIForms_ShowMode = UIFormShowModes.HideOther;
+        UIType.InitUIType(
+            isClearStack: false,
+            isESCClose: true,
+            isClickElsewhereClose: false,
+            uiForms_Type: UIFormTypes.Normal,
+            uiForms_ShowMode: UIFormShowModes.HideOther,
+            uiForm_LucencyType: UIFormLucencyTypes.Blur);
 
-        Awake_Build();
         Awake_Bars();
         Awake_Cards();
+        Awake_Build();
         Awake_SelectCards();
+    }
+
+    void Start()
+    {
+        Start_Bars();
+        Start_Cards();
+        Start_Build();
+        Start_SelectCards();
         Init();
     }
 
@@ -63,13 +72,14 @@ public partial class SelectBuildPanel : BaseUIForm
             gameObject.SetActive(true);
             //TODO 加载等待标志
         }
+
         UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
         SelectWindowShowAnim.SetTrigger("Show");
     }
 
     public override void Hide()
     {
-        UIMaskMgr.Instance.CancelMaskWindow();
+        UIMaskMgr.Instance.CancelAllMaskWindow(UIType.UIForm_LucencyType);
         SelectWindowShowAnim.SetTrigger("Reset");
         SelectBuildManager.Instance.OnSaveBuildInfo(CurrentEditBuildButton.BuildInfo);
         UIManager.Instance.CloseUIForms<AffixPanel>();

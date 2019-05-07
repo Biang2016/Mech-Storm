@@ -18,7 +18,6 @@ class CardSelectWindowCardContainer : PoolObject
         SetChildCardSize();
     }
 
-
     public void SetChildCardSize()
     {
         if (M_ChildCard) M_ChildCard.transform.localScale = Vector3.one * 13.5f;

@@ -2,7 +2,7 @@
 {
     public class Kill : Kill_Base
     {
-        public Kill():base()
+        public Kill() : base()
         {
         }
 
