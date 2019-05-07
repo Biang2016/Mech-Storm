@@ -9,7 +9,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public bool ShowBEMMessages = false;
 
-    public float HandCardSize = 1.5f;
+    public float HandCardSize = 0.3f;
     public float HandCardInterval = 1.0f;
     public float HandCardRotate = 1.0f;
     public float HandCardOffset = 0.4f;

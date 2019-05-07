@@ -167,17 +167,17 @@ internal class ClientProxy : ProxyBase
                                         ClientState = ClientStates.Login;
                                         username = request.username;
 
-                                        bool superAccout = username == "StoryAdmin" || username == "ServerAdmin";
+                                        bool superAccount = username == "StoryAdmin" || username == "ServerAdmin";
 
                                         if (Database.Instance.PlayerStoryStates.ContainsKey(username))
                                         {
                                             Story story = Database.Instance.PlayerStoryStates[username];
-                                            ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), superAccout ? GamePlaySettings.ServerGamePlaySettings : GamePlaySettings.OnlineGamePlaySettings, true, story);
+                                            ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), superAccount ? GamePlaySettings.ServerGamePlaySettings : GamePlaySettings.OnlineGamePlaySettings, true, story);
                                             SendMessage(request1);
                                         }
                                         else
                                         {
-                                            ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), superAccout ? GamePlaySettings.ServerGamePlaySettings : GamePlaySettings.OnlineGamePlaySettings, false);
+                                            ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(Database.Instance.GetPlayerBuilds(username), superAccount ? GamePlaySettings.ServerGamePlaySettings : GamePlaySettings.OnlineGamePlaySettings, false);
                                             SendMessage(request1);
                                         }
                                     }

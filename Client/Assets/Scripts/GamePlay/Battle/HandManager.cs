@@ -182,7 +182,7 @@ public class HandManager : MonoBehaviour
         float factor = (toatalCardNumber - distCardsFromCenter) / toatalCardNumber; //temp param
         GetCardPlacePivot.transform.Translate(-Vector3.back * 0.13f * distCardsFromCenter * (1 - factor * factor) * 0.5f * GameManager.Instance.HandCardSize + Vector3.back * toatalCardNumber / 20 * GameManager.Instance.HandCardOffset); //arc offset
         GetCardPlacePivot.transform.Translate(Vector3.down * 0.1f * (toatalCardNumber - cardIndex) * rev); //vertical offset 
-        GetCardPlacePivot.transform.Rotate(-Vector3.down, rotateAngle); //tiny rotate of cards
+        GetCardPlacePivot.transform.Rotate(Vector3.forward, rotateAngle); //tiny rotate of cards
 
         return GetCardPlacePivot.transform;
     }

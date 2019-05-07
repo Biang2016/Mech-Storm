@@ -39,6 +39,8 @@ public class SelectCard : PoolObject
     [SerializeField] private Text Text_CardName;
     [SerializeField] private Image CardImage;
 
+    [SerializeField] private StarsGroup StarsGroup;
+
     private int count;
 
     public int Count
@@ -78,7 +80,6 @@ public class SelectCard : PoolObject
         }
     }
 
-    [SerializeField] private StarsGroup StarsGroup;
 
     public CardInfo_Base CardInfo;
 

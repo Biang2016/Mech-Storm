@@ -309,7 +309,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSingleResumeButtonClick()
     {
-        //StoryManager.Instance.SetState(StoryManager.States.Show);
+        
     }
 
     public void StartGameCore(RoundManager.PlayMode playMode, int storyPaceID)

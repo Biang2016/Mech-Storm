@@ -157,6 +157,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2428705297796740957}
+  - component: {fileID: 3049112561315269725}
   m_Layer: 0
   m_Name: TransitPanel
   m_TagString: Untagged
@@ -186,6 +187,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &3049112561315269725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5298299807587779401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7612371c4229a0346bcef38fe3d90ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitImage: {fileID: 7754685717740603795}
+  UpperTransitPanel: {fileID: 3223734601579616927}
+  BottomTransitPanel: {fileID: 4787544499246869157}
 --- !u!1 &8860862060166113263
 GameObject:
   m_ObjectHideFlags: 0

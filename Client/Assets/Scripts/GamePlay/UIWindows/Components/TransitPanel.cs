@@ -3,23 +3,21 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-internal class TransitManager : MonoSingleton<TransitManager>
+internal class TransitPanel : BaseUIForm
 {
-    private TransitManager()
+    private TransitPanel()
     {
     }
 
     void Awake()
     {
-        TransitCanvas.enabled = true;
-        TransitPanel.color = new Color(0, 0, 0, 0);
-        TransitPanel.raycastTarget = false;
+        TransitImage.color = new Color(0, 0, 0, 0);
+        TransitImage.raycastTarget = false;
         UpperTransitPanel.transform.localScale = new Vector3(1, 0, 1);
         BottomTransitPanel.transform.localScale = new Vector3(1, 0, 1);
     }
 
-    [SerializeField] private Canvas TransitCanvas;
-    [SerializeField] private Image TransitPanel;
+    [SerializeField] private Image TransitImage;
 
     enum TransitState
     {
@@ -85,17 +83,17 @@ internal class TransitManager : MonoSingleton<TransitManager>
         {
             ClientLog.Instance.Print("Co_ShowTransit");
             M_TransitState = TransitState.Trans;
-            TransitPanel.raycastTarget = true;
+            TransitImage.raycastTarget = true;
             float tick = 0;
             while (tick < duration)
             {
-                TransitPanel.color = new Color(color.r, color.g, color.b, tick / duration);
+                TransitImage.color = new Color(color.r, color.g, color.b, tick / duration);
                 tick += Time.deltaTime;
                 yield return null;
             }
 
             M_TransitState = TransitState.Show;
-            TransitPanel.color = color;
+            TransitImage.color = color;
             yield return null;
         }
     }
@@ -110,14 +108,14 @@ internal class TransitManager : MonoSingleton<TransitManager>
             float tick = 0;
             while (tick < duration)
             {
-                TransitPanel.color = new Color(color.r, color.g, color.b, 1 - tick / duration);
+                TransitImage.color = new Color(color.r, color.g, color.b, 1 - tick / duration);
                 tick += Time.deltaTime;
                 yield return null;
             }
 
-            TransitPanel.raycastTarget = false;
+            TransitImage.raycastTarget = false;
             M_TransitState = TransitState.Hide;
-            TransitPanel.color = new Color(color.r, color.g, color.b, 0);
+            TransitImage.color = new Color(color.r, color.g, color.b, 0);
             yield return null;
         }
     }

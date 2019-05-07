@@ -642,7 +642,7 @@
 		"en": "The number of HeroMeches reaches the upper limit."
 	},
 	"Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards": {
-		"zh": "该卡牌只能携带%s张",
+		"zh": "该卡牌只能携带{0}张",
 		"en": "You can only take %s copy of this card."
 	},
 	"Notice_SelectBuildManagerSelect_UpdateDeckSuccess": {
@@ -732,12 +732,28 @@
 		"zh": "删除卡片",
 		"en": "Delete Card"
 	},
+	"CardEditorPanel_SaveCardUpgradeIDNotExists": {
+		"zh": "升级卡牌ID错误，不存在该卡牌",
+		"en": "No card in library has the Upgrade Card ID."
+	},
+	"CardEditorPanel_SaveCardDegradeIDNotExists": {
+		"zh": "降级卡牌ID错误，不存在该卡牌",
+		"en": "No card in library has the Degrade Card ID."
+	},
+	"CardEditorPanel_SaveCardUpgradeIDIdenticalInvalid": {
+		"zh": "升级卡牌ID不能与卡牌ID相同",
+		"en": "Upgrade Card ID cannot be the same as Card ID."
+	},
+	"CardEditorPanel_SaveCardDegradeIDIdenticalInvalid": {
+		"zh": "降级卡牌ID不能与卡牌ID相同",
+		"en": "Degrade Card ID cannot be the same as Card ID."
+	},
 	"CardEditorPanel_SaveCardUpgradeIDInvalid": {
-		"zh": "错误的卡牌升级ID导致升级链出现循环！请修改",
+		"zh": "错误的升级卡牌ID导致升级链出现循环！请修改",
 		"en": "Invalid upgrade card ID causes cycle in card upgrade chain! Please use another upgradeID."
 	},
 	"CardEditorPanel_SaveCardDegradeIDInvalid": {
-		"zh": "错误的卡牌降级ID导致升级链出现循环！请修改",
+		"zh": "错误的降级卡牌ID导致升级链出现循环！请修改",
 		"en": "Invalid degrade card ID causes cycle in card upgrade chain! Please use another degradeID."
 	},
 	"CardEditorPanel_ConfirmSaveCard": {

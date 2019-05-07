@@ -187,9 +187,21 @@ public static class AllCards
                             cardType: (CardTypes) Enum.Parse(typeof(CardTypes), node_CardInfo.Attributes["cardType"].Value));
                         break;
                     case "upgradeInfo":
+                        int u_id = int.Parse(node_CardInfo.Attributes["upgradeCardID"].Value);
+                        int d_id = int.Parse(node_CardInfo.Attributes["degradeCardID"].Value);
+                        if (!CardDict.ContainsKey(u_id))
+                        {
+                            u_id = -1;
+                        }
+
+                        if (!CardDict.ContainsKey(d_id))
+                        {
+                            d_id = -1;
+                        }
+
                         upgradeInfo = new UpgradeInfo(
-                            upgradeCardID: int.Parse(node_CardInfo.Attributes["upgradeCardID"].Value),
-                            degradeCardID: int.Parse(node_CardInfo.Attributes["degradeCardID"].Value),
+                            upgradeCardID: u_id,
+                            degradeCardID: d_id,
                             cardLevel: 1,
                             cardLevelMax: 1);
                         break;
@@ -384,6 +396,15 @@ public static class AllCards
 
     public static void RefreshCardXML(CardInfo_Base ci)
     {
+        if (CardDict.ContainsKey(ci.CardID))
+        {
+            CardDict[ci.CardID] = ci;
+        }
+        else
+        {
+            CardDict.Add(ci.CardID, ci);
+        }
+
         string text;
         using (StreamReader sr = new StreamReader(CardsXMLPath))
         {
@@ -394,6 +415,40 @@ public static class AllCards
         doc.LoadXml(text);
         XmlElement allCards = doc.DocumentElement;
         ci.BaseExportToXML(allCards);
+        SortedDictionary<int, XmlElement> cardNodesDict = new SortedDictionary<int, XmlElement>();
+        foreach (XmlElement node in allCards.ChildNodes)
+        {
+            cardNodesDict.Add(int.Parse(node.Attributes["id"].Value), node);
+        }
+
+        allCards.RemoveAll();
+        foreach (KeyValuePair<int, XmlElement> kv in cardNodesDict)
+        {
+            allCards.AppendChild(kv.Value);
+        }
+
+        using (StreamWriter sw = new StreamWriter(CardsXMLPath))
+        {
+            doc.Save(sw);
+        }
+    }
+
+    public static void RefreshAllCardXML()
+    {
+        string text;
+        using (StreamReader sr = new StreamReader(CardsXMLPath))
+        {
+            text = sr.ReadToEnd();
+        }
+
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(text);
+        XmlElement allCards = doc.DocumentElement;
+        foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+        {
+            kv.Value.BaseExportToXML(allCards);
+        }
+
         SortedDictionary<int, XmlElement> cardNodesDict = new SortedDictionary<int, XmlElement>();
         foreach (XmlElement node in allCards.ChildNodes)
         {

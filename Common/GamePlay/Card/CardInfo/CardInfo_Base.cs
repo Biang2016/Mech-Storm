@@ -160,7 +160,6 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         upgradeInfo_ele.SetAttribute("name", "upgradeInfo");
         upgradeInfo_ele.SetAttribute("upgradeCardID", UpgradeInfo.UpgradeCardID.ToString());
         upgradeInfo_ele.SetAttribute("degradeCardID", UpgradeInfo.DegradeCardID.ToString());
-        upgradeInfo_ele.SetAttribute("cardLevel", UpgradeInfo.CardLevel.ToString());
 
         ChildrenExportToXML(card_ele);
 

@@ -46,21 +46,22 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
         GameBoardManager.Instance.ChangeBoardBG();
         GameBoardManager.Instance.ShowBattleShip();
+        TransitPanel tp = UIManager.Instance.ShowUIForms<TransitPanel>();
         switch (M_PlayMode)
         {
             case PlayMode.Online:
             {
-                TransitManager.Instance.ShowBlackShutTransit(1f, Preparation);
+                tp.ShowBlackShutTransit(1f, Preparation);
                 break;
             }
             case PlayMode.Single:
             {
-                TransitManager.Instance.ShowBlackShutTransit(1f, Preparation);
+                tp.ShowBlackShutTransit(1f, Preparation);
                 break;
             }
             case PlayMode.SingleCustom:
             {
-                TransitManager.Instance.ShowBlackShutTransit(1f, Preparation);
+                tp.ShowBlackShutTransit(1f, Preparation);
                 break;
             }
         }
@@ -129,7 +130,8 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     {
         if (M_PlayMode == PlayMode.Single)
         {
-            TransitManager.Instance.ShowBlackShutTransit(1f, GameStopPreparation);
+            TransitPanel tp = UIManager.Instance.ShowUIForms<TransitPanel>();
+            tp.ShowBlackShutTransit(1f, GameStopPreparation);
         }
         else
         {

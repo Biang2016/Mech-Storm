@@ -17,10 +17,10 @@ public class CardEditorPanel : BaseUIForm
             isClearStack: false,
             isESCClose: false,
             isClickElsewhereClose: false,
-            uiForms_Type: UIFormTypes.Fixed,
-            uiForms_ShowMode: UIFormShowModes.HideOther,
+            uiForms_Type: UIFormTypes.Normal,
+            uiForms_ShowMode: UIFormShowModes.Normal,
             uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
-    
+
         SaveCardButton.onClick.AddListener(SaveCard);
         ResetCardButton.onClick.AddListener(ResetCard);
         DeleteCardButton.onClick.AddListener(DeleteCard);
@@ -1276,141 +1276,189 @@ public class CardEditorPanel : BaseUIForm
 
     public void SaveCard()
     {
-        if (cur_PreviewCard)
+        if (!cur_PreviewCard)
         {
-            bool upgradeCardIDValid = true;
-            bool degradeCardIDValid = true;
-            List<int> cardSeries = AllCards.GetCardSeries(cur_PreviewCard.CardInfo.CardID);
-            List<int> idCircle_up = new List<int>();
-            List<int> idCircle_de = new List<int>();
-            if (cardSeries.Count != 0)
-            {
-                int thisCardIDIndex = cardSeries.IndexOf(cur_PreviewCard.CardInfo.CardID);
-                for (int i = 0; i < cardSeries.Count; i++)
-                {
-                    int id = cardSeries[i];
-                    if (i > thisCardIDIndex)
-                    {
-                        if (degradeCardIDValid)
-                        {
-                            idCircle_de.Add(id);
-                        }
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_EmptyCardID"), 0, 1f);
+            return;
+        }
 
-                        if (id == cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID)
-                        {
-                            idCircle_de.Add(cur_PreviewCard.CardInfo.CardID);
-                            degradeCardIDValid = false;
-                        }
+        if (cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID != -1 && !AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID))
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardUpgradeIDNotExists"), 0, 2.5f);
+            return;
+        }
+        else if (cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID != -1 && !AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID))
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardDegradeIDNotExists"), 0, 2.5f);
+            return;
+        }
+
+        //升降级ID不能与自身卡牌ID相同
+        bool upgradeCardIDValid = cur_PreviewCard.CardInfo.CardID != cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID;
+        bool degradeCardIDValid = cur_PreviewCard.CardInfo.CardID != cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID;
+        if (!upgradeCardIDValid)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardUpgradeIDIdenticalInvalid"), 0, 2.5f);
+            return;
+        }
+        else if (!degradeCardIDValid)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardDegradeIDIdenticalInvalid"), 0, 2.5f);
+            return;
+        }
+
+        //自身ID、升级ID、降级ID是否构成自身升级链循环
+        List<int> cardSeries = AllCards.GetCardSeries(cur_PreviewCard.CardInfo.CardID);
+        List<int> idCircle_up = new List<int>();
+        List<int> idCircle_de = new List<int>();
+        if (cardSeries.Count != 0)
+        {
+            int thisCardIDIndex = cardSeries.IndexOf(cur_PreviewCard.CardInfo.CardID);
+
+            for (int i = 0; i < cardSeries.Count; i++)
+            {
+                int id = cardSeries[i];
+                if (i > thisCardIDIndex)
+                {
+                    if (degradeCardIDValid)
+                    {
+                        idCircle_de.Add(id);
                     }
-                    else if (i < thisCardIDIndex)
-                    {
-                        if (!upgradeCardIDValid)
-                        {
-                            idCircle_up.Add(id);
-                        }
 
-                        if (id == cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID)
-                        {
-                            idCircle_up.Add(cur_PreviewCard.CardInfo.CardID);
-                            idCircle_up.Add(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID);
-                            upgradeCardIDValid = false;
-                        }
+                    if (id == cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID)
+                    {
+                        idCircle_de.Add(cur_PreviewCard.CardInfo.CardID);
+                        degradeCardIDValid = false;
+                    }
+                }
+                else if (i < thisCardIDIndex)
+                {
+                    if (!upgradeCardIDValid)
+                    {
+                        idCircle_up.Add(id);
+                    }
+
+                    if (id == cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID)
+                    {
+                        idCircle_up.Add(cur_PreviewCard.CardInfo.CardID);
+                        idCircle_up.Add(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID);
+                        upgradeCardIDValid = false;
                     }
                 }
             }
 
-            if (!upgradeCardIDValid)
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardUpgradeIDInvalid") + " ID cycle: " + string.Join(" -> ", idCircle_up), 0, 2.5f);
-            }
-            else if (!degradeCardIDValid)
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardDegradeIDInvalid") + " ID cycle: " + string.Join(" -> ", idCircle_de), 0, 2.5f);
-            }
-            else
-            {
-                string info = "";
-                if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.CardID))
-                {
-                    info = string.Format(LanguageManager.Instance.GetText("CardEditorPanel_ConfirmSaveCard"), cur_PreviewCard.CardInfo.CardID);
-                }
-                else
-                {
-                    info = string.Format(LanguageManager.Instance.GetText("CardEditorPanel_ConfirmCreateNewCard"), cur_PreviewCard.CardInfo.CardID);
-                }
+            idCircle_up.Add(cur_PreviewCard.CardInfo.CardID);
+            idCircle_de.Add(cur_PreviewCard.CardInfo.CardID);
+        }
 
-                ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-                cp.Initialize(
-                    info,
-                    LanguageManager.Instance.GetText("Common_Yes"),
-                    LanguageManager.Instance.GetText("Common_No"),
-                    delegate
+        //升级ID、降级ID是否致使其他卡片升级链循环
+        if (upgradeCardIDValid && degradeCardIDValid)
+        {
+            idCircle_up = new List<int>();
+            if (cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID != -1 && cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID != -1)
+            {
+                cardSeries = AllCards.GetCardSeries(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID);
+                for (int i = cardSeries.IndexOf(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID); i < cardSeries.Count; i++)
+                {
+                    idCircle_up.Add(cardSeries[i]);
+                    if (cardSeries[i] == cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID)
                     {
-                        if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.CardID))
-                        {
-                            CardInfo_Base oriCurCardInfo = AllCards.GetCard(cur_PreviewCard.CardInfo.CardID);
-                            bool removeUpgradeCardDegradeCardID = oriCurCardInfo.UpgradeInfo.UpgradeCardID != -1 && cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID == -1;
-                            bool removeDegradeCardUpgradeCardID = oriCurCardInfo.UpgradeInfo.DegradeCardID != -1 && cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID == -1;
-
-                            if (removeUpgradeCardDegradeCardID)
-                            {
-                                CardInfo_Base ori_up_ci = AllCards.GetCard(oriCurCardInfo.UpgradeInfo.UpgradeCardID);
-                                ori_up_ci.UpgradeInfo.DegradeCardID = -1;
-                                AllCards.RefreshCardXML(ori_up_ci);
-                            }
-
-                            if (removeDegradeCardUpgradeCardID)
-                            {
-                                CardInfo_Base ori_de_ci = AllCards.GetCard(oriCurCardInfo.UpgradeInfo.DegradeCardID);
-                                ori_de_ci.UpgradeInfo.UpgradeCardID = -1;
-                                AllCards.RefreshCardXML(ori_de_ci);
-                            }
-                        }
-
-                        AllCards.RefreshCardXML(cur_PreviewCard.CardInfo);
-
-                        if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID))
-                        {
-                            CardInfo_Base up_ci = AllCards.GetCard(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID);
-                            CardInfo_Base up_ci_de_ori = AllCards.GetCard(up_ci.UpgradeInfo.DegradeCardID);
-                            if (up_ci_de_ori != null)
-                            {
-                                up_ci_de_ori.UpgradeInfo.UpgradeCardID = -1;
-                                AllCards.RefreshCardXML(up_ci_de_ori);
-                            }
-
-                            up_ci.UpgradeInfo.DegradeCardID = cur_PreviewCard.CardInfo.CardID;
-                            AllCards.RefreshCardXML(up_ci);
-                        }
-
-                        if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID))
-                        {
-                            CardInfo_Base de_ci = AllCards.GetCard(cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID);
-                            CardInfo_Base de_ci_up_ori = AllCards.GetCard(de_ci.UpgradeInfo.UpgradeCardID);
-                            if (de_ci_up_ori != null)
-                            {
-                                de_ci_up_ori.UpgradeInfo.DegradeCardID = -1;
-                                AllCards.RefreshCardXML(de_ci_up_ori);
-                            }
-
-                            de_ci.UpgradeInfo.UpgradeCardID = cur_PreviewCard.CardInfo.CardID;
-                            AllCards.RefreshCardXML(de_ci);
-                        }
-
-                        AllCards.ReloadCardXML();
-                        InitializePreviewCardGrid();
-                        cp.CloseUIForm();
-                        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardSuccess"), 0, 1f);
-                        CardTotalCountNumberText.text = AllCards.CardDict.Count.ToString();
-                        ChangeCard(cur_PreviewCard.CardInfo.CardID);
-                    },
-                    cp.CloseUIForm);
+                        upgradeCardIDValid = false;
+                        idCircle_up.Add(cur_PreviewCard.CardInfo.CardID);
+                        idCircle_up.Add(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID);
+                        break;
+                    }
+                }
             }
+        }
+
+        if (!upgradeCardIDValid)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardUpgradeIDInvalid") + " ID cycle: " + string.Join(" -> ", idCircle_up), 0, 2.5f);
+            return;
+        }
+        else if (!degradeCardIDValid)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardDegradeIDInvalid") + " ID cycle: " + string.Join(" -> ", idCircle_de), 0, 2.5f);
+            return;
+        }
+
+        string info = "";
+        if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.CardID))
+        {
+            info = string.Format(LanguageManager.Instance.GetText("CardEditorPanel_ConfirmSaveCard"), cur_PreviewCard.CardInfo.CardID);
         }
         else
         {
-            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_EmptyCardID"), 0, 1f);
+            info = string.Format(LanguageManager.Instance.GetText("CardEditorPanel_ConfirmCreateNewCard"), cur_PreviewCard.CardInfo.CardID);
         }
+
+        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+        cp.Initialize(
+            info,
+            LanguageManager.Instance.GetText("Common_Yes"),
+            LanguageManager.Instance.GetText("Common_No"),
+            delegate
+            {
+                if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.CardID))
+                {
+                    CardInfo_Base oriCurCardInfo = AllCards.GetCard(cur_PreviewCard.CardInfo.CardID);
+                    bool removeUpgradeCardDegradeCardID = oriCurCardInfo.UpgradeInfo.UpgradeCardID != -1 && cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID == -1;
+                    bool removeDegradeCardUpgradeCardID = oriCurCardInfo.UpgradeInfo.DegradeCardID != -1 && cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID == -1;
+
+                    if (removeUpgradeCardDegradeCardID)
+                    {
+                        CardInfo_Base ori_up_ci = AllCards.GetCard(oriCurCardInfo.UpgradeInfo.UpgradeCardID);
+                        ori_up_ci.UpgradeInfo.DegradeCardID = -1;
+                        AllCards.RefreshCardXML(ori_up_ci);
+                    }
+
+                    if (removeDegradeCardUpgradeCardID)
+                    {
+                        CardInfo_Base ori_de_ci = AllCards.GetCard(oriCurCardInfo.UpgradeInfo.DegradeCardID);
+                        ori_de_ci.UpgradeInfo.UpgradeCardID = -1;
+                        AllCards.RefreshCardXML(ori_de_ci);
+                    }
+                }
+
+                AllCards.RefreshCardXML(cur_PreviewCard.CardInfo);
+
+                if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID))
+                {
+                    CardInfo_Base up_ci = AllCards.GetCard(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID);
+                    CardInfo_Base up_ci_de_ori = AllCards.GetCard(up_ci.UpgradeInfo.DegradeCardID);
+                    if (up_ci_de_ori != null && up_ci_de_ori.CardID != cur_PreviewCard.CardInfo.CardID)
+                    {
+                        up_ci_de_ori.UpgradeInfo.UpgradeCardID = -1;
+                        AllCards.RefreshCardXML(up_ci_de_ori);
+                    }
+
+                    up_ci.UpgradeInfo.DegradeCardID = cur_PreviewCard.CardInfo.CardID;
+                    AllCards.RefreshCardXML(up_ci);
+                }
+
+                if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID))
+                {
+                    CardInfo_Base de_ci = AllCards.GetCard(cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID);
+                    CardInfo_Base de_ci_up_ori = AllCards.GetCard(de_ci.UpgradeInfo.UpgradeCardID);
+                    if (de_ci_up_ori != null && de_ci_up_ori.CardID != cur_PreviewCard.CardInfo.CardID)
+                    {
+                        de_ci_up_ori.UpgradeInfo.DegradeCardID = -1;
+                        AllCards.RefreshCardXML(de_ci_up_ori);
+                    }
+
+                    de_ci.UpgradeInfo.UpgradeCardID = cur_PreviewCard.CardInfo.CardID;
+                    AllCards.RefreshCardXML(de_ci);
+                }
+
+                AllCards.ReloadCardXML();
+                InitializePreviewCardGrid();
+                cp.CloseUIForm();
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardSuccess"), 0, 1f);
+                CardTotalCountNumberText.text = AllCards.CardDict.Count.ToString();
+                ChangeCard(cur_PreviewCard.CardInfo.CardID);
+            },
+            cp.CloseUIForm);
     }
 
     public void ResetCard()

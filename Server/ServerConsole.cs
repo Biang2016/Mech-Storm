@@ -81,7 +81,7 @@ internal class ServerConsole
                 break;
             }
         }
-
+        ServerLog.Print("ServerVersion: " + Server.ServerVersion);
         Server.SV.Start();
         while (Console.ReadLine() != "Exit")
         {

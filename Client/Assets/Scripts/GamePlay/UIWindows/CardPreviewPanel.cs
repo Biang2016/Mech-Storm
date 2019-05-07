@@ -99,18 +99,8 @@ public class CardPreviewPanel : BaseUIForm
             PreviewCard = null;
         }
 
-        if (PreviewCardUpgrade)
-        {
-            PreviewCardUpgrade.ShowCardBloom(true);
-            PreviewCardUpgrade.PoolRecycle();
-            PreviewCardUpgrade = null;
-        }
-
         if (PreviewCardDegrade)
         {
-            PreviewCardDegrade.ShowCardBloom(true);
-            PreviewCardDegrade.PoolRecycle();
-            PreviewCardDegrade = null;
         }
 
         if (PreviewCard_Src.CardInfo.BaseInfo.LimitNum == 0 && operation != UpgradeDegradeOperation.None)
@@ -153,7 +143,15 @@ public class CardPreviewPanel : BaseUIForm
 
         if (hasUpgradeCard)
         {
-            PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID), PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
+            if (!PreviewCardUpgrade)
+            {
+                PreviewCardUpgrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID), PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
+            }
+            else
+            {
+                PreviewCardUpgrade.Initiate(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID), CardBase.CardShowMode.CardUpgradePreview);
+            }
+
             PreviewCardUpgrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCardUpgrade.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardUpgrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardUpgrade.CardInfo.CardID), true);
             PreviewCardUpgrade.transform.localScale = Vector3.one * 15;
@@ -179,12 +177,27 @@ public class CardPreviewPanel : BaseUIForm
         }
         else
         {
+            if (PreviewCardUpgrade)
+            {
+                PreviewCardUpgrade.ShowCardBloom(true);
+                PreviewCardUpgrade.PoolRecycle();
+                PreviewCardUpgrade = null;
+            }
+
             UpgradeArrow.enabled = false;
         }
 
         if (hasDegradeCard)
         {
-            PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID), PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
+            if (!PreviewCardDegrade)
+            {
+                PreviewCardDegrade = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID), PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
+            }
+            else
+            {
+                PreviewCardDegrade.Initiate(AllCards.GetCard(PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID), CardBase.CardShowMode.CardUpgradePreview);
+            }
+
             PreviewCardDegrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCardDegrade.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardDegrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardDegrade.CardInfo.CardID), true);
             PreviewCardDegrade.transform.localScale = Vector3.one * 15;
@@ -210,6 +223,13 @@ public class CardPreviewPanel : BaseUIForm
         }
         else
         {
+            if (PreviewCardDegrade)
+            {
+                PreviewCardDegrade.ShowCardBloom(true);
+                PreviewCardDegrade.PoolRecycle();
+                PreviewCardDegrade = null;
+            }
+
             DegradeArrow.enabled = false;
         }
 

@@ -6,7 +6,6 @@ public class MetalLifeEnergyManager : MonoBehaviour
 {
     internal ClientPlayer ClientPlayer;
 
-    [SerializeField] private Transform MetalNumberBlock;
     [SerializeField] private TextMeshPro MetalNumberText;
 
     [SerializeField] private Text LifeNumber;
@@ -37,7 +36,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
             EnemyIcon.SetActive(RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single);
             if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
             {
-                //ClientUtils.ChangeCardPicture(EnemyIconImage, StoryManager.Instance.Fighting_BossPicID);
+                ClientUtils.ChangeCardPicture(EnemyIconImage, 0);
             }
         }
     }
@@ -47,7 +46,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
         MetalBarManager.ClientPlayer = ClientPlayer;
         MetalBarManager.SetMetalNumber(value);
         MetalNumberText.text = value.ToString();
-        MetalNumberBlock.transform.localPosition = Vector3.Lerp(MetalNumberMinPos.localPosition, MetalNumberMaxPos.localPosition, (float) value / GamePlaySettings.MaxMetal);
+        MetalNumberText.transform.localPosition = Vector3.Lerp(MetalNumberMinPos.localPosition, MetalNumberMaxPos.localPosition, (float) value / GamePlaySettings.MaxMetal);
         ClientPlayer.MyHandManager.RefreshAllCardUsable();
     }
 

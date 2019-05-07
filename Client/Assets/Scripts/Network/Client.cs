@@ -24,7 +24,7 @@ public class Client : MonoSingleton<Client>
     static int mainThreadId;
 
     public static string ClientVersion = "1.0.1";
-    public static string ServerVersion = "1.0.0";
+    public static string ServerVersion = "1.0.1";
 
     public bool ClientInvalid
     {

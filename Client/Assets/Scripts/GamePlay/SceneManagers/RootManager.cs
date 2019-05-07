@@ -16,6 +16,7 @@ public class RootManager : MonoSingleton<RootManager>
         AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
         AllBuffs.AddAllBuffs(Application.streamingAssetsPath + "/Config/Buffs.xml");
         AllCards.AddAllCards(Application.streamingAssetsPath + "/Config/Cards.xml");
+        AllCards.RefreshAllCardXML();
     }
 
     #region 其他

@@ -6,6 +6,8 @@ public class CardSelectCountComponent : CardComponentBase
     [SerializeField] private TextMeshPro SelectCountText;
     [SerializeField] private TextMeshPro SelectLimitText;
     [SerializeField] private TextMeshPro SlashText;
+    [SerializeField] private Animator SelectCountNumberAnim;
+    [SerializeField] private Animator SelectLimitNumberAnim;
     [SerializeField] private Transform Panel;
     [SerializeField] private Transform HigherPivot;
     [SerializeField] private Transform LowerPivot;
@@ -52,7 +54,15 @@ public class CardSelectCountComponent : CardComponentBase
             if (selectLimitCount == 0)
             {
                 SelectLimitText.text = "";
+            }
+
+            if (selectLimitCount == 0 && selectCount == 0)
+            {
                 SlashText.text = "";
+            }
+            else
+            {
+                SlashText.text = "/";
             }
         }
         else
@@ -80,6 +90,7 @@ public class CardSelectCountComponent : CardComponentBase
             SelectCountText.text = value.ToString();
             selectCount = value;
             RefreshShow();
+            SelectCountNumberAnim.SetTrigger("Jump");
         }
     }
 
@@ -92,6 +103,7 @@ public class CardSelectCountComponent : CardComponentBase
             SelectLimitText.text = value.ToString();
             selectLimitCount = value;
             RefreshShow();
+            SelectLimitNumberAnim.SetTrigger("Jump");
         }
     }
 
