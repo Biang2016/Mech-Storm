@@ -74,7 +74,7 @@ public class BaseUIForm : MonoBehaviour
     public void CloseUIForm()
     {
         string UIFormName = GetType().ToString();
-        UIManager.Instance.CloseUIForms(UIFormName);
+        UIManager.Instance.CloseUIForm(UIFormName);
     }
 
     #endregion

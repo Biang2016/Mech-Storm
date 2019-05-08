@@ -55,7 +55,10 @@ public partial class SelectBuildPanel
 
     void Start_Build()
     {
-        InitializeSliders();
+    }
+
+    void Init_Build()
+    {
         InitBuildButtons(SelectBuildManager.Instance.BuildInfoDict);
     }
 
@@ -183,6 +186,11 @@ public partial class SelectBuildPanel
 
     public void OnDeleteBuildButtonClick()
     {
+        if (CurrentBuildButtons.Count == 1)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_CannotDeleteLastBuild"), 0f, 0.5f);
+            return;
+        }
         if (CurrentEditBuildButton)
         {
             DeleteBuildRequest request = new DeleteBuildRequest(Client.Instance.Proxy.ClientId, CurrentEditBuildButton.BuildInfo.BuildID, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);

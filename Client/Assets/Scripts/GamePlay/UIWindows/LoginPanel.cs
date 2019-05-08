@@ -22,6 +22,10 @@ public class LoginPanel : BaseUIForm
     [SerializeField] private Text RegisterText;
     [SerializeField] private Text LoginText;
 
+    [SerializeField] private Button QuitButton;
+    [SerializeField] private Button RegisterButton;
+    [SerializeField] private Button LoginButton;
+
     void Awake()
     {
         UIType.InitUIType(
@@ -33,6 +37,10 @@ public class LoginPanel : BaseUIForm
             uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
         Proxy.OnClientStateChange += OnClientChangeState;
+
+        RegisterButton.onClick.AddListener(OnRegisterButtonClick);
+        LoginButton.onClick.AddListener(OnLoginButtonClick);
+        QuitButton.onClick.AddListener(OnQuitButtonClick);
 
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>

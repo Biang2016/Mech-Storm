@@ -354,11 +354,11 @@
 		"en": "Shield "
 	},
 	"ModuleRetinue_ShouldAttackDefenderFirst": {
-		"zh": "你必须先攻击嘲讽机甲",
+		"zh": "您必须先攻击嘲讽机甲",
 		"en": "You should attack the Defenders first."
 	},
 	"ModuleRetinue_ShouldAttackMechsFirst": {
-		"zh": "你必须先攻击场上机甲",
+		"zh": "您必须先攻击场上机甲",
 		"en": "You should attack the Mechs first."
 	},
 
@@ -410,7 +410,7 @@
 		"en": "Sorry, game ended due to a Server Error."
 	},
 	"RoundManager_YourTurn": {
-		"zh": "你的回合",
+		"zh": "您的回合",
 		"en": "Your Turn Begins"
 	},
 	"RoundManager_EnemyTurn": {
@@ -435,28 +435,28 @@
 	},
 
 	"HandManager_YouHaveManyCards": {
-		"zh": "你有%s张手牌",
+		"zh": "您有%s张手牌",
 		"en": "You have %s cards."
 	},
 	"HandManager_EnemyHaveManyCards": {
-		"zh": "你的对手有%s张手牌",
+		"zh": "您的对手有%s张手牌",
 		"en": "Your opponent have %s cards."
 	},
 
 	"WinLostPanelManager_WinText": {
-		"zh": "你赢了！",
+		"zh": "您赢了！",
 		"en": "You win!"
 	},
 	"WinLostPanelManager_LostText": {
-		"zh": "你输了...",
+		"zh": "您输了...",
 		"en": "You lost ..."
 	},
 	"WinLostPanelManager_OnlineWinText": {
-		"zh": "你赢了！",
+		"zh": "您赢了！",
 		"en": "You win!"
 	},
 	"WinLostPanelManager_OnlineLostText": {
-		"zh": "你输了...",
+		"zh": "您输了...",
 		"en": "You lost ..."
 	},
 	"WinLostPanelManager_LostTipTitle": {
@@ -492,7 +492,7 @@
 		"en": "You can upgrade this card in your deck now."
 	},
 	"WinLostPanelManager_YouNeedToChooseACard": {
-		"zh": "你需要选择一个奖励,不要客气!",
+		"zh": "您需要选择一个奖励,不要客气!",
 		"en": "Come on, you should select one reward!"
 	},
 
@@ -503,6 +503,10 @@
 	"SelectBuildManagerBuild_CreateNewDeck": {
 		"zh": "创建新卡组",
 		"en": "New Deck"
+	},
+	"SelectBuildManagerBuild_CannotDeleteLastBuild": {
+		"zh": "您至少需要一个卡组",
+		"en": "You need at least one deck!"
 	},
 	"SelectBuildManagerBuild_NoDeckSelected": {
 		"zh": "未选择卡组",

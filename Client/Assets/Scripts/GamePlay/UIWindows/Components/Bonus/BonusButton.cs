@@ -128,7 +128,7 @@ internal class BonusButton : PoolObject
     {
         if (card)
         {
-            UIManager.Instance.CloseUIForms<AffixPanel>();
+            UIManager.Instance.CloseUIForm<AffixPanel>();
         }
 
         if (IsSelected) return;

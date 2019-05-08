@@ -44,11 +44,11 @@ public class UIManager : MonoSingleton<UIManager>
     public T ShowUIForms<T>() where T : BaseUIForm
     {
         string uiFormNameStr = typeof(T).ToString();
-        BaseUIForm uiForm = ShowUIForms(uiFormNameStr);
+        BaseUIForm uiForm = ShowUIForm(uiFormNameStr);
         return (T) uiForm;
     }
 
-    public BaseUIForm ShowUIForms(string uiFormName)
+    public BaseUIForm ShowUIForm(string uiFormName)
     {
         BaseUIForm baseUIForms = LoadFormsToAllUIFormsCache(uiFormName); //根据UI窗体的名称，加载到“所有UI窗体”缓存集合中
         if (baseUIForms == null) return null;
@@ -84,13 +84,13 @@ public class UIManager : MonoSingleton<UIManager>
     /// 关闭（返回上一个）窗体
     /// </summary>
     /// <param name="uiFormName"></param>
-    public void CloseUIForms<T>() where T : BaseUIForm
+    public void CloseUIForm<T>() where T : BaseUIForm
     {
         string uiFormNameStr = typeof(T).ToString();
-        CloseUIForms(uiFormNameStr);
+        CloseUIForm(uiFormNameStr);
     }
 
-    public void CloseUIForms(string uiFormName)
+    public void CloseUIForm(string uiFormName)
     {
         AllUIFormDict.TryGetValue(uiFormName, out BaseUIForm baseUIForm); //“所有UI窗体”集合中，如果没有记录，则直接返回
         if (baseUIForm == null) return;

@@ -238,6 +238,6 @@ public class ShowCardDetailInBattleManager : MonoSingleton<ShowCardDetailInBattl
             detailCard_MA = null;
         }
 
-        UIManager.Instance.CloseUIForms<AffixPanel>();
+        UIManager.Instance.CloseUIForm<AffixPanel>();
     }
 }

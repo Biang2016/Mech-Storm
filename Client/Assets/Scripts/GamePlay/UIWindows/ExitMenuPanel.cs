@@ -58,10 +58,10 @@ public class ExitMenuPanel : BaseUIForm
         switch (clientState)
         {
             case ProxyBase.ClientStates.Offline:
-                UIManager.Instance.CloseUIForms<ExitMenuPanel>();
+                UIManager.Instance.CloseUIForm<ExitMenuPanel>();
                 break;
             case ProxyBase.ClientStates.GetId:
-                UIManager.Instance.CloseUIForms<ExitMenuPanel>();
+                UIManager.Instance.CloseUIForm<ExitMenuPanel>();
                 break;
             case ProxyBase.ClientStates.Login:
                 SetState(States.Show_MainMenu);

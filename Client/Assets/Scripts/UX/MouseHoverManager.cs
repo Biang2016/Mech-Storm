@@ -52,9 +52,9 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
 
     void Start()
     {
-        hi_MouseFocusUIHover = new Focus(uiLayer, GameManager.Instance.BattleGroundCamera, 0, -1f);
+        hi_MouseFocusUIHover = new Focus(uiLayer, UIManager.Instance.UICamera, 0, -1f);
 
-        hi_CardSelectHover = new Hover1(cardSelectLayer, GameManager.Instance.BattleGroundCamera);
+        hi_CardSelectHover = new Hover1(uiLayer, UIManager.Instance.UICamera);
 
         hi_CardHover = new Hover1(cardsLayer, GameManager.Instance.BattleGroundCamera);
         hi_CardPressHover = new PressHoverImmediately(cardsLayer, GameManager.Instance.BattleGroundCamera);

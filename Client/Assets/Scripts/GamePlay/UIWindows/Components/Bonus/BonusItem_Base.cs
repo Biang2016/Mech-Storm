@@ -54,7 +54,7 @@ internal class BonusItem_Base : PoolObject
     {
         if (BonusCardInfo != null)
         {
-            UIManager.Instance.CloseUIForms<AffixPanel>();
+            UIManager.Instance.CloseUIForm<AffixPanel>();
         }
     }
 }

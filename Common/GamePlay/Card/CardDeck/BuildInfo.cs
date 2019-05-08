@@ -29,6 +29,11 @@ public class BuildInfo : IClone<BuildInfo>
         {
             BuildName = buildName;
             CardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
+            foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
+            {
+                CardSelectInfos.Add(kv.Key, new CardSelectInfo(kv.Key, 0, kv.Value.BaseInfo.LimitNum));
+            }
+
             foreach (KeyValuePair<int, CardSelectInfo> kv in cardSelectInfos)
             {
                 if (AllCards.CardDict.ContainsKey(kv.Key))

@@ -511,7 +511,7 @@ public class HandManager : MonoBehaviour
 
         lostFocusCard.ResetColliderAndReplace();
         currentFocusCardTickerBegin = false;
-        UIManager.Instance.CloseUIForms<AffixPanel>();
+        UIManager.Instance.CloseUIForm<AffixPanel>();
         isEnlarge = false;
     }
 

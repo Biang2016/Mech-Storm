@@ -112,7 +112,7 @@ internal class BattleResultPanel : BaseUIForm
     IEnumerator Co_OnGameStopByWin(bool isWin)
     {
         IsShow = true;
-        UIManager.Instance.CloseUIForms<SelectBuildPanel>();
+        UIManager.Instance.CloseUIForm<SelectBuildPanel>();
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
         AudioManager.Instance.BGMStop();
         if (isWin)

@@ -141,7 +141,7 @@ public class Proxy : ProxyBase
                             IsSuperAccount = Username == "ServerAdmin" || Username == "StoryAdmin";
                             ClientState = ClientStates.Login;
                             NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Proxy_LoginSuccess"), 0, 0.5f);
-                            UIManager.Instance.CloseUIForms<LoginPanel>();
+                            UIManager.Instance.CloseUIForm<LoginPanel>();
                             UIManager.Instance.ShowUIForms<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Main);
                             break;
                         }
@@ -173,8 +173,8 @@ public class Proxy : ProxyBase
                         ClientState = ClientStates.GetId;
                         NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Proxy_LogOutSuccess"), 0, 0.5f);
                         Client.Instance.Proxy.ClientState = ClientStates.GetId;
-                        UIManager.Instance.CloseUIForms<StartMenuPanel>();
-                        UIManager.Instance.CloseUIForms<SelectBuildPanel>();
+                        UIManager.Instance.CloseUIForm<StartMenuPanel>();
+                        UIManager.Instance.CloseUIForm<SelectBuildPanel>();
                         UIManager.Instance.ShowUIForms<LoginPanel>();
                     }
                     else
