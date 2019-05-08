@@ -49,6 +49,9 @@ public partial class SelectBuildPanel
         InitAddAllCards();
         InitializeOnlineCardLimitDict();
     }
+    void Init_Cards()
+    {
+    }
 
     private CardBase mouseLeftDownCard;
     private CardBase mouseRightDownCard;
@@ -56,6 +59,7 @@ public partial class SelectBuildPanel
 
     void Update_Cards()
     {
+        if (!IsInit) return;
         CardPreviewPanel previewPanel = UIManager.Instance.GetBaseUIForm<CardPreviewPanel>();
         if (previewPanel != null && previewPanel.gameObject.activeInHierarchy) return;
 

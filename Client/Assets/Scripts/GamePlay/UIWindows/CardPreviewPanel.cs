@@ -76,7 +76,7 @@ public class CardPreviewPanel : BaseUIForm
 
     public void HideOtherThingsExceptShowCard()
     {
-        UIManager.Instance.CloseUIForms<AffixPanel>();
+        UIManager.Instance.CloseUIForm<AffixPanel>();
         Others.SetActive(false);
     }
 
@@ -302,7 +302,7 @@ public class CardPreviewPanel : BaseUIForm
         PreviewCardDegrade = null;
         PreviewCardUpgrade = null;
         PreviewCard_Src = null;
-        UIManager.Instance.CloseUIForms<AffixPanel>();
+        UIManager.Instance.CloseUIForm<AffixPanel>();
     }
 
     internal void OnUpgradeButtonClick()

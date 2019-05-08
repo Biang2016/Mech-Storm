@@ -35,8 +35,9 @@ public partial class SelectBuildPanel : BaseUIForm
         Start_Cards();
         Start_Build();
         Start_SelectCards();
-        Init();
     }
+
+    public bool IsInit = false;
 
     protected override void ChildUpdate()
     {
@@ -81,8 +82,12 @@ public partial class SelectBuildPanel : BaseUIForm
     {
         UIMaskMgr.Instance.CancelAllMaskWindow(UIType.UIForm_LucencyType);
         SelectWindowShowAnim.SetTrigger("Reset");
-        SelectBuildManager.Instance.OnSaveBuildInfo(CurrentEditBuildButton.BuildInfo);
-        UIManager.Instance.CloseUIForms<AffixPanel>();
+        if (CurrentEditBuildButton)
+        {
+            SelectBuildManager.Instance.OnSaveBuildInfo(CurrentEditBuildButton.BuildInfo);
+        }
+
+        UIManager.Instance.CloseUIForm<AffixPanel>();
         currentPreviewCard?.PoolRecycle();
         MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
     }
@@ -91,8 +96,15 @@ public partial class SelectBuildPanel : BaseUIForm
     public Dictionary<int, PoolObject> allCardContainers = new Dictionary<int, PoolObject>(); // 每张卡片都有一个容器
     public Dictionary<int, CardBase> allShownCards = new Dictionary<int, CardBase>(); // 所有显示的卡片
 
-    private void Init()
+    public void Init(bool force = false)
     {
+        if (!force && IsInit) return;
+
+        Init_Bars();
+        Init_Cards();
+        Init_Build();
+        Init_SelectCards();
+
         ShowSliders(CurrentBuildButtons.Count != 0);
         if (CurrentBuildButtons.Count != 0)
         {
@@ -126,5 +138,7 @@ public partial class SelectBuildPanel : BaseUIForm
                 SwitchToBuildButton(OnlineManager.Instance.CurrentOnlineBuildID);
             }
         }
+
+        IsInit = true;
     }
 }

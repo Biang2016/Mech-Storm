@@ -565,7 +565,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 180, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222094609934105548
 CanvasRenderer:
@@ -636,6 +636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0172ec36b1cae43b82857b64fea5f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoxCollider: {fileID: 0}
   SelectedStar: {fileID: 114444852957017784}
   ButtonImage: {fileID: 114299565224843350}
   Button: {fileID: 114587486140247218}
@@ -698,5 +699,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 180, y: 50, z: 1}
+  m_Size: {x: 200, y: 50, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

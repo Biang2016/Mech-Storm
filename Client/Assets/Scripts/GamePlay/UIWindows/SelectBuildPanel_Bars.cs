@@ -67,6 +67,10 @@ public partial class SelectBuildPanel
 
     void Start_Bars()
     {
+    }
+
+    void Init_Bars()
+    {
         InitializeSliders();
     }
 

@@ -1564,8 +1564,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Anim: {fileID: 95580844172806988}
-  SFX: 
-  volume: 0
+  SFX: MouseHoverSelectCard
+  volume: 0.78
 --- !u!114 &114998686349899772
 MonoBehaviour:
   m_ObjectHideFlags: 0

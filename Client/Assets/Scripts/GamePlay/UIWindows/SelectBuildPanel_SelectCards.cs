@@ -48,6 +48,11 @@ public partial class SelectBuildPanel
         BudgetIcon.SetActive(!LanguageManager.Instance.IsEnglish);
     }
 
+    void Init_SelectCards()
+    {
+        BudgetIcon.SetActive(!LanguageManager.Instance.IsEnglish);
+    }
+
     void SetReadOnly_SelectCards(bool isReadOnly)
     {
     }
@@ -102,81 +107,70 @@ public partial class SelectBuildPanel
 
         if (!isSwitchingBuildInfo && CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin < card.CardInfo.BaseInfo.Coin)
         {
-            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_BudgetLimited"), 0f, 1f);
+            if (!isSelectAll)
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_BudgetLimited"), 0f, 1f);
+            }
+
             return;
         }
 
         bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.RetinueInfo.IsSoldier;
-        if (isHero)
+
+        Dictionary<int, SelectCard> selectCards = isHero ? SelectedHeroes : SelectedCards;
+        if (isHero && isSelectedHeroFull)
         {
-            if (isSelectedHeroFull)
+            if (!isSelectAll)
             {
                 NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_HeroesNumberUpperLimit"), 0, 1f);
+            }
+
+            return;
+        }
+
+        if (selectCards.ContainsKey(card.CardInfo.CardID))
+        {
+            SelectCard sc = selectCards[card.CardInfo.CardID];
+            if (!Client.Instance.Proxy.IsSuperAccount && sc.Count >= card.CardInfo.BaseInfo.LimitNum)
+            {
+                if (!isSelectAll)
+                {
+                    NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards"), card.CardInfo.BaseInfo.LimitNum), 0, 0.7f);
+                }
+
                 return;
             }
 
-            if (SelectedHeroes.ContainsKey(card.CardInfo.CardID))
-            {
-                if (!Client.Instance.Proxy.IsSuperAccount && SelectedHeroes[card.CardInfo.CardID].Count >= card.CardInfo.BaseInfo.LimitNum)
-                {
-                    NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards"), card.CardInfo.BaseInfo.LimitNum), 0, 0.7f);
-                    return;
-                }
+            int count = ++sc.Count;
+            card.SetBlockCountValue(count);
+        }
+        else
+        {
+            SelectCard newSC = GenerateNewSelectCard(card);
+            selectCards.Add(card.CardInfo.CardID, newSC);
+            if (!isSelectAll) SortSelectCards();
+            card.SetBlockCountValue(1);
+            card.BeBrightColor();
+            card.ShowCardBloom(true);
+        }
 
-                int count = ++SelectedHeroes[card.CardInfo.CardID].Count;
-                card.SetBlockCountValue(count);
-            }
-            else
-            {
-                SelectCard newSC = GenerateNewSelectCard(card);
-                SelectedHeroes.Add(card.CardInfo.CardID, newSC);
-                if (!isSelectAll) //如果是全选，只进行一次排序
-                {
-                    SortSelectCards();
-                }
-
-                card.SetBlockCountValue(1);
-                card.BeBrightColor();
-                card.ShowCardBloom(true);
-            }
-
+        if (isHero)
+        {
             HeroCardCount++;
         }
         else
         {
-            if (SelectedCards.ContainsKey(card.CardInfo.CardID))
-            {
-                if (!Client.Instance.Proxy.IsSuperAccount && SelectedCards[card.CardInfo.CardID].Count >= card.CardInfo.BaseInfo.LimitNum)
-                {
-                    NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards"), card.CardInfo.BaseInfo.LimitNum), 0, 0.7f);
-                    return;
-                }
-
-                int count = ++SelectedCards[card.CardInfo.CardID].Count;
-                card.SetBlockCountValue(count);
-            }
-            else
-            {
-                SelectCard newSC = GenerateNewSelectCard(card);
-                SelectedCards.Add(card.CardInfo.CardID, newSC);
-                if (!isSelectAll) //如果是全选，只进行一次排序
-                {
-                    SortSelectCards();
-                }
-
-                card.SetBlockCountValue(1);
-                card.BeBrightColor();
-                card.ShowCardBloom(true);
-            }
-
             SelectCardCount++;
         }
 
         if (!isSwitchingBuildInfo)
         {
             CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
-            RefreshCoinLifeEnergy();
-            if (!isSelectAll) AudioManager.Instance.SoundPlay("sfx/SelectCard");
+            if (!isSelectAll)
+            {
+                RefreshCoinLifeEnergy();
+                AudioManager.Instance.SoundPlay("sfx/SelectCard");
+            }
         }
     }
 
@@ -321,7 +315,7 @@ public partial class SelectBuildPanel
     {
         SelectCardPreviewRawImage.enabled = false;
         if (currentPreviewCard) currentPreviewCard.PoolRecycle();
-        UIManager.Instance.CloseUIForms<AffixPanel>();
+        UIManager.Instance.CloseUIForm<AffixPanel>();
     }
 
     private void UnSelectCard(CardBase card, bool playSound)
@@ -402,6 +396,7 @@ public partial class SelectBuildPanel
             }
 
             SortSelectCards();
+            RefreshCoinLifeEnergy();
             AudioManager.Instance.SoundPlay("sfx/SelectCard");
         }
     }

@@ -35,29 +35,29 @@ internal class MouseHoverUI : MonoBehaviour, IMouseHoverComponent
 
     public void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {
-        if (MouseHover1BeginHandler != null) MouseHover1BeginHandler();
+        MouseHover1BeginHandler?.Invoke();
     }
 
     public void MouseHoverComponent_OnHover1End()
     {
-        if (MouseHover1EndHandler != null) MouseHover1EndHandler();
+        MouseHover1EndHandler?.Invoke();
     }
 
     public void MouseHoverComponent_OnHover2Begin(Vector3 mousePosition)
     {
-        if (MouseHover2BeginHandler != null) MouseHover2BeginHandler();
+        MouseHover2BeginHandler?.Invoke();
     }
 
     public void MouseHoverComponent_OnHover2End()
     {
-        if (MouseHover2EndHandler != null) MouseHover2EndHandler();
+        MouseHover2EndHandler?.Invoke();
     }
 
     public void MouseHoverComponent_OnFocusBegin(Vector3 mousePosition)
     {
         if (isHover) return;
-        if (MouseFocusBeginHandler != null) MouseFocusBeginHandler();
-        Anim.SetTrigger("OnHover");
+        MouseFocusBeginHandler?.Invoke();
+        Anim.SetTrigger("OnMouseEnter");
         isHover = true;
         AudioManager.Instance.SoundPlay("sfx/" + SFX, volume);
     }
@@ -65,18 +65,18 @@ internal class MouseHoverUI : MonoBehaviour, IMouseHoverComponent
     public void MouseHoverComponent_OnFocusEnd()
     {
         if (!isHover) return;
-        if (MouseFocusEndHandler != null) MouseFocusEndHandler();
-        Anim.SetTrigger("OnExit");
+        MouseFocusEndHandler?.Invoke();
+        Anim.SetTrigger("OnMouseLeave");
         isHover = false;
     }
 
     public void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
-        if (MousePressEnterHandler != null) MousePressEnterHandler();
+        MousePressEnterHandler?.Invoke();
     }
 
     public void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
-        if (MousePressLeaveHandler != null) MousePressLeaveHandler();
+        MousePressLeaveHandler?.Invoke();
     }
 }

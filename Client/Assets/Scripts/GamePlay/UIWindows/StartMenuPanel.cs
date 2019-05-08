@@ -94,10 +94,10 @@ public class StartMenuPanel : BaseUIForm
         switch (clientState)
         {
             case ProxyBase.ClientStates.Offline:
-                UIManager.Instance.CloseUIForms<StartMenuPanel>();
+                UIManager.Instance.CloseUIForm<StartMenuPanel>();
                 break;
             case ProxyBase.ClientStates.GetId:
-                UIManager.Instance.CloseUIForms<StartMenuPanel>();
+                UIManager.Instance.CloseUIForm<StartMenuPanel>();
                 break;
             case ProxyBase.ClientStates.Login:
                 UIManager.Instance.ShowUIForms<StartMenuPanel>();
@@ -108,7 +108,7 @@ public class StartMenuPanel : BaseUIForm
                 if (state == States.Show_Online) SetState(States.Show_Online_Matching);
                 break;
             case ProxyBase.ClientStates.Playing:
-                UIManager.Instance.CloseUIForms<StartMenuPanel>();
+                UIManager.Instance.CloseUIForm<StartMenuPanel>();
                 break;
         }
     }
@@ -256,7 +256,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnOnlineStartButtonClick()
     {
-        StartGameCore(RoundManager.PlayMode.Online, -1);
+        StartGameCore(RoundManager.PlayMode.Online);
     }
 
     public void OnOnlineDeckButtonClick()
@@ -312,7 +312,7 @@ public class StartMenuPanel : BaseUIForm
         
     }
 
-    public void StartGameCore(RoundManager.PlayMode playMode, int storyPaceID)
+    public void StartGameCore(RoundManager.PlayMode playMode, int storyPaceID=-1)
     {
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)
         {
@@ -400,7 +400,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSelectCardDeckWindowButtonClick()
     {
-        UIManager.Instance.ShowUIForms<SelectBuildPanel>();
+        UIManager.Instance.ShowUIForms<SelectBuildPanel>().Init();
     }
 
     public void OnSettingButtonClick()

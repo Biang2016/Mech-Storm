@@ -71,7 +71,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     {
         UIManager.Instance.ShowUIForms<GameBoardUIPanel>().SetEndRoundButtonState(false);
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
-        UIManager.Instance.CloseUIForms<SelectBuildPanel>();
+        UIManager.Instance.CloseUIForm<SelectBuildPanel>();
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Battle_0", "bgm/Battle_1"}, 0.7f);
         CardDeckManager.Instance.ResetCardDeckNumberText();
         CardDeckManager.Instance.ShowAll();
@@ -170,7 +170,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         IdleClientPlayer = null;
         RoundNumber = 0;
 
-        UIManager.Instance.CloseUIForms<GameBoardUIPanel>();
+        UIManager.Instance.CloseUIForm<GameBoardUIPanel>();
         GameBoardManager.Instance.ResetAll();
 
         CardDeckManager.Instance.HideAll();
@@ -182,7 +182,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         }
         else if (!Client.Instance.IsConnect() && !Client.Instance.IsLogin() && !Client.Instance.IsPlaying())
         {
-            UIManager.Instance.CloseUIForms<SelectBuildPanel>();
+            UIManager.Instance.CloseUIForm<SelectBuildPanel>();
             UIManager.Instance.ShowUIForms<LoginPanel>();
             if (!HasShowLostConnectNotice)
             {

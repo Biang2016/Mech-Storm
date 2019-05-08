@@ -14,7 +14,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     {
     }
 
-    public GamePlaySettings CurrentGamePlaySettings;
+    public GamePlaySettings CurrentGamePlaySettings = new GamePlaySettings();
 
     public SortedDictionary<int, BuildInfo> BuildInfoDict = new SortedDictionary<int, BuildInfo>(); //全卡组信息集合
 
@@ -51,6 +51,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         if (!StoryManager.Instance.HasStory && gameMode == GameMode.Single) return;
         CurrentGameMode = gameMode;
         InitBuildInfos();
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().Init(true);
     }
 
     private void InitBuildInfos()
