@@ -25,7 +25,7 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
     private CardBase[] self_CardDeckCards;
     private CardBase[] enemy_CardDeckCards;
 
-    private int[] cardDeckShowCardNumMap; //剩余卡牌数量和卡堆模型中显示的卡牌数量映射关系
+    private int[] cardDeckShowCardNumMap = new int[] {0, 1, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10}; //剩余卡牌数量和卡堆模型中显示的卡牌数量映射关系
 
     void Awake()
     {
@@ -35,15 +35,8 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
 
     void Start()
     {
-        InitializeCardDeckShowCardMap();
         InitializeCardDeckCard();
-        ResetCardDeckNumberText();
         HideAll();
-    }
-
-    private void InitializeCardDeckShowCardMap()
-    {
-        cardDeckShowCardNumMap = new int[] {0, 1, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10};
     }
 
     private void InitializeCardDeckCard()
@@ -57,9 +50,8 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
             enemy_CardDeckCards[i] = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardDeckCard].AllocateGameObject<CardDeckCard>(EnemyCardDeckArea);
             self_CardDeckCards[i].SetCardBackColor();
             enemy_CardDeckCards[i].SetCardBackColor();
-            self_CardDeckCards[i].transform.Translate(GameManager.Instance.Self_CardDeckCardInterval * i);
-            enemy_CardDeckCards[i].transform.Translate(GameManager.Instance.Enemy_CardDeckCardInterval * i);
-
+            self_CardDeckCards[i].transform.Translate(-GameManager.Instance.Self_CardDeckCardInterval * i);
+            enemy_CardDeckCards[i].transform.Translate(-GameManager.Instance.Enemy_CardDeckCardInterval * i);
             self_CardDeckCards[i].transform.localScale = Vector3.one * GameManager.Instance.CardDeckCardSize;
             enemy_CardDeckCards[i].transform.localScale = Vector3.one * GameManager.Instance.CardDeckCardSize;
         }

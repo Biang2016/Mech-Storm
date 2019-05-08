@@ -556,11 +556,11 @@ public class HandManager : MonoBehaviour
         //{
         //    handCardCountTicker = 0;
         //}
-
         if (Client.Instance.IsPlaying())
         {
             if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
             {
+                if (ClientPlayer == null) return;
                 if (DragComponent.CheckAreas() == ClientPlayer.MyHandArea)
                 {
                     if (!handCardCountTickerBegin)

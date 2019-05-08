@@ -283,7 +283,7 @@ MonoBehaviour:
   - guid: c66c08303cdae684c84ec0d62e06b4e8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1555036474
+    stamp: 1557242189
     type: 3
     UseGUIDs:
     - 5f5f6f2dbb69af8408fe8e93ba573ff8
@@ -21538,34 +21538,69 @@ MonoBehaviour:
     stamp: 1557192227
     type: 5
     UseGUIDs: []
-  - guid: 3c622cd2af5da2e469048187d7a80f28
+  - guid: ab1ac2a71ec91184f827e65557b93920
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1554690615
+    stamp: 0
     type: 1
     UseGUIDs: []
-  - guid: 0095026a33b4ddd49b7c0dc2a40ee2d5
+  - guid: 4a161d49ff924410db56e4923e810b8e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1554774194
+    stamp: 0
     type: 1
     UseGUIDs: []
-  - guid: 36d4c30b928fed547bfeda0eeaf1ec66
+  - guid: 10c1a35b695740f99bdf0b33cea7df5a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1554345152
+    stamp: 0
     type: 1
     UseGUIDs: []
   - guid: 7a72cc078a3e8fe4db3366276e615b2c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1557240799
     type: 3
     UseGUIDs: []
   - guid: 7612371c4229a0346bcef38fe3d90ae0
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
+    ScriptSymbols:
+    - TransitPanel
+    - TransitPanel.TransitState
+    ScriptTokens:
+    - BaseUIForm
+    - Awake
+    - TransitImage
+    - Color
+    - UpperTransitPanel
+    - Vector3
+    - BottomTransitPanel
+    - SerializeField
+    - Image
+    - Hide
+    - Show
+    - Trans
+    - M_TransitState
+    - Coroutine
+    - Coroutine_ShowTransit
+    - ShowTransit
+    - StopCoroutine
+    - Coroutine_HideTransit
+    - StartCoroutine
+    - Co_ShowTransit
+    - HideTransit
+    - Co_HideTransit
+    - ShowAndHide
+    - Co_ShowAndHideTransit
+    - IEnumerator
+    - ClientLog
+    - Time
+    - ShutTransit
+    - ShowShutTransit
+    - Action
+    - Co_ShowShutTransit
+    - WaitForSeconds
+    - ShowBlackShutTransit
+    stamp: 1557240799
     type: 2
     UseGUIDs: []
   timeStamp: 1557192369
