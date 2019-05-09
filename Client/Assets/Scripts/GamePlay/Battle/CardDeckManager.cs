@@ -4,56 +4,32 @@ using UnityEngine.UI;
 /// <summary>
 /// 卡堆
 /// </summary>
-public class CardDeckManager : MonoSingleton<CardDeckManager>
+public class CardDeckManager : MonoBehaviour
 {
-    private CardDeckManager()
+    internal ClientPlayer ClientPlayer;
+
+    [SerializeField] private Transform CardDeckContainer;
+    [SerializeField] private Text CardLeftNumText;
+    [SerializeField] private Text CardLeftNumText_BG;
+
+    private CardBase[] CardDeckCards = new CardBase[CARD_DECK_CARD_NUM];
+
+    private static readonly int[] CARD_DECK_SHOW_CARD_NUM_MAP = new int[] {0, 1, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10}; //剩余卡牌数量和卡堆模型中显示的卡牌数量映射关系
+    private const int CARD_DECK_CARD_NUM = 10;
+    private const float CARD_DECK_CARD_SIZE = 0.2f;
+    private static readonly Vector3 SELF_CARD_DECK_CARD_INTERVAL = new Vector3(0.05f, 0.01f, 0.1f);
+
+    public void Initialize(ClientPlayer clientPlayer)
     {
-    }
+        ResetAll();
+        ClientPlayer = clientPlayer;
 
-    [SerializeField] private Canvas SelfCardDeckCanvas;
-    [SerializeField] private Canvas EnemyCardDeckCanvas;
-
-    [SerializeField] private Transform SelfCardDeckArea;
-    [SerializeField] private Transform EnemyCardDeckArea;
-
-    [SerializeField] private Text SelfCardLeftNumText;
-    [SerializeField] private Text SelfCardLeftNumText_BG;
-
-    [SerializeField] private Text EnemyCardLeftNumText;
-    [SerializeField] private Text EnemyCardLeftNumText_BG;
-
-    private CardBase[] self_CardDeckCards;
-    private CardBase[] enemy_CardDeckCards;
-
-    private int[] cardDeckShowCardNumMap = new int[] {0, 1, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10}; //剩余卡牌数量和卡堆模型中显示的卡牌数量映射关系
-
-    void Awake()
-    {
-        SelfCardDeckCanvas.enabled = true;
-        EnemyCardDeckCanvas.enabled = true;
-    }
-
-    void Start()
-    {
-        InitializeCardDeckCard();
-        HideAll();
-    }
-
-    private void InitializeCardDeckCard()
-    {
-        self_CardDeckCards = new CardBase[GameManager.Instance.CardDeckCardNum];
-        enemy_CardDeckCards = new CardBase[GameManager.Instance.CardDeckCardNum];
-
-        for (int i = 0; i < GameManager.Instance.CardDeckCardNum; i++)
+        for (int i = 0; i < CARD_DECK_CARD_NUM; i++)
         {
-            self_CardDeckCards[i] = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardDeckCard].AllocateGameObject<CardDeckCard>(SelfCardDeckArea);
-            enemy_CardDeckCards[i] = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardDeckCard].AllocateGameObject<CardDeckCard>(EnemyCardDeckArea);
-            self_CardDeckCards[i].SetCardBackColor();
-            enemy_CardDeckCards[i].SetCardBackColor();
-            self_CardDeckCards[i].transform.Translate(-GameManager.Instance.Self_CardDeckCardInterval * i);
-            enemy_CardDeckCards[i].transform.Translate(-GameManager.Instance.Enemy_CardDeckCardInterval * i);
-            self_CardDeckCards[i].transform.localScale = Vector3.one * GameManager.Instance.CardDeckCardSize;
-            enemy_CardDeckCards[i].transform.localScale = Vector3.one * GameManager.Instance.CardDeckCardSize;
+            CardDeckCards[i] = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardDeckCard].AllocateGameObject<CardDeckCard>(CardDeckContainer);
+            CardDeckCards[i].SetCardBackColor();
+            CardDeckCards[i].transform.Translate(-SELF_CARD_DECK_CARD_INTERVAL * i);
+            CardDeckCards[i].transform.localScale = Vector3.one * CARD_DECK_CARD_SIZE;
         }
 
         ResetCardDeckNumberText();
@@ -61,71 +37,40 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
 
     public void ResetCardDeckNumberText()
     {
-        SetSelfCardDeckNumber(0, true);
-        SetEnemyCardDeckNumber(0, true);
+        SetCardDeckNumber(0, true);
     }
 
-    public void HideAll()
+    public void ResetAll()
     {
-        SelfCardDeckArea.gameObject.SetActive(false);
-        EnemyCardDeckArea.gameObject.SetActive(false);
-        SelfCardLeftNumText.gameObject.SetActive(false);
-        EnemyCardLeftNumText.gameObject.SetActive(false);
-        SelfCardLeftNumText_BG.gameObject.SetActive(false);
-        EnemyCardLeftNumText_BG.gameObject.SetActive(false);
-    }
-
-    public void ShowAll()
-    {
-        SelfCardDeckArea.gameObject.SetActive(true);
-        EnemyCardDeckArea.gameObject.SetActive(true);
-        SelfCardLeftNumText.gameObject.SetActive(true);
-        EnemyCardLeftNumText.gameObject.SetActive(true);
-        SelfCardLeftNumText_BG.gameObject.SetActive(true);
-        EnemyCardLeftNumText_BG.gameObject.SetActive(true);
-    }
-
-    private int selfCardDeckNumber;
-
-    public void SetSelfCardDeckNumber(int value, bool forceUpdate = false)
-    {
-        if (selfCardDeckNumber != value || forceUpdate)
+        ClientPlayer = null;
+        foreach (CardBase cb in CardDeckCards)
         {
-            if (value == 0)
-            {
-                SelfCardLeftNumText.text = "";
-                SelfCardLeftNumText_BG.text = "";
-            }
-            else
-            {
-                SelfCardLeftNumText.text = value.ToString();
-                SelfCardLeftNumText_BG.text = value.ToString();
-            }
-
-            SetCardDeckShowCardNum(self_CardDeckCards, value);
-            selfCardDeckNumber = value;
+            cb?.PoolRecycle();
         }
+
+        CardDeckCards = new CardBase[CARD_DECK_CARD_NUM];
+        ResetCardDeckNumberText();
     }
 
-    private int enemyCardDeckNumber;
+    private int cardDeckNumber;
 
-    public void SetEnemyCardDeckNumber(int value, bool forceUpdate = false)
+    public void SetCardDeckNumber(int value, bool forceUpdate = false)
     {
-        if (enemyCardDeckNumber != value || forceUpdate)
+        if (cardDeckNumber != value || forceUpdate)
         {
             if (value == 0)
             {
-                EnemyCardLeftNumText.text = "";
-                EnemyCardLeftNumText_BG.text = "";
+                CardLeftNumText.text = "";
+                CardLeftNumText_BG.text = "";
             }
             else
             {
-                EnemyCardLeftNumText.text = value.ToString();
-                EnemyCardLeftNumText_BG.text = value.ToString();
+                CardLeftNumText.text = value.ToString();
+                CardLeftNumText_BG.text = value.ToString();
             }
 
-            SetCardDeckShowCardNum(enemy_CardDeckCards, value);
-            enemyCardDeckNumber = value;
+            SetCardDeckShowCardNum(CardDeckCards, value);
+            cardDeckNumber = value;
         }
     }
 
@@ -133,23 +78,29 @@ public class CardDeckManager : MonoSingleton<CardDeckManager>
     {
         int showCardNumber = 0;
         if (number <= 0) showCardNumber = 0;
-        else if (number >= cardDeckShowCardNumMap.Length)
+        else if (number >= CARD_DECK_SHOW_CARD_NUM_MAP.Length)
         {
-            showCardNumber = cardDeckShowCardNumMap[cardDeckShowCardNumMap.Length - 1];
+            showCardNumber = CARD_DECK_SHOW_CARD_NUM_MAP[CARD_DECK_SHOW_CARD_NUM_MAP.Length - 1];
         }
         else
         {
-            showCardNumber = cardDeckShowCardNumMap[number];
+            showCardNumber = CARD_DECK_SHOW_CARD_NUM_MAP[number];
         }
 
         for (int i = targetCardDeckShowCards.Length - 1; i >= showCardNumber; i--)
         {
-            if (targetCardDeckShowCards[i].gameObject.activeSelf) targetCardDeckShowCards[i].gameObject.SetActive(false);
+            if (targetCardDeckShowCards[i] != null)
+            {
+                if (targetCardDeckShowCards[i].gameObject.activeSelf) targetCardDeckShowCards[i].gameObject.SetActive(false);
+            }
         }
 
         for (int i = showCardNumber - 1; i >= 0; i--)
         {
-            if (!targetCardDeckShowCards[i].gameObject.activeSelf) targetCardDeckShowCards[i].gameObject.SetActive(true);
+            if (targetCardDeckShowCards[i] != null)
+            {
+                if (!targetCardDeckShowCards[i].gameObject.activeSelf) targetCardDeckShowCards[i].gameObject.SetActive(true);
+            }
         }
     }
 }

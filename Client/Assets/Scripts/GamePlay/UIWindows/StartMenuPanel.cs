@@ -101,7 +101,7 @@ public class StartMenuPanel : BaseUIForm
                 break;
             case ProxyBase.ClientStates.Login:
                 UIManager.Instance.ShowUIForms<StartMenuPanel>();
-                GameBoardManager.Instance.ChangeBoardBG();
+                BackGroundManager.Instance.ChangeBoardBG();
                 SetState(States.Show_Main);
                 break;
             case ProxyBase.ClientStates.Matching:
@@ -230,28 +230,28 @@ public class StartMenuPanel : BaseUIForm
     {
         SetState(States.Show_Online);
         SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Online);
-        GameBoardManager.Instance.ChangeBoardBG();
+        BackGroundManager.Instance.ChangeBoardBG();
     }
 
     public void OnSingleMenuButtonClick()
     {
         SetState(StoryManager.Instance.HasStory ? States.Show_Single_HasStory : States.Show_Single);
         SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single);
-        GameBoardManager.Instance.ChangeBoardBG();
+        BackGroundManager.Instance.ChangeBoardBG();
     }
 
     public void OnSingleCustomMenuButtonClick()
     {
         SetState(States.Show_SingleCustom);
         SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Online); //自定义模式与online模式共用一套卡组
-        GameBoardManager.Instance.ChangeBoardBG();
+        BackGroundManager.Instance.ChangeBoardBG();
     }
 
     public void OnBackButtonClick()
     {
         SetState(States.Show_Main);
         if (Client.Instance.IsMatching()) OnCancelMatchGameButtonClick();
-        GameBoardManager.Instance.ChangeBoardBG();
+        BackGroundManager.Instance.ChangeBoardBG();
     }
 
     public void OnOnlineStartButtonClick()

@@ -81,16 +81,7 @@ internal class AllServerBuilds
                                 int cardSelectCount = int.Parse(cardSelectInfo_strs[1]);
                                 int cardSelectUpperLimit = int.Parse(cardSelectInfo_strs[2]);
                                 BuildInfo.BuildCards.CardSelectInfo csi = new BuildInfo.BuildCards.CardSelectInfo(cardID, cardSelectCount, cardSelectUpperLimit);
-                                buildInfo.M_BuildCards.CardSelectInfos.Add(csi.CardID, csi);
-                            }
-
-                            foreach (int cardID in AllCards.CardDict.Keys)
-                            {
-                                int limit = AllCards.CardDict[cardID].BaseInfo.LimitNum;
-                                if (!buildInfo.M_BuildCards.CardSelectInfos.ContainsKey(cardID))
-                                {
-                                    buildInfo.M_BuildCards.CardSelectInfos.Add(cardID, new BuildInfo.BuildCards.CardSelectInfo(cardID, 0, limit));
-                                }
+                                buildInfo.M_BuildCards.CardSelectInfos[cardID] = csi;
                             }
 
                             break;
@@ -179,14 +170,6 @@ internal class AllServerBuilds
             foreach (KeyValuePair<int, BuildInfo.BuildCards.CardSelectInfo> kv in buildInfo.M_BuildCards.CardSelectInfos)
             {
                 sb.Append(string.Format("({0},{1},{2});", kv.Value.CardID, kv.Value.CardSelectCount, kv.Value.CardSelectUpperLimit));
-            }
-
-            foreach (int cardID in AllCards.CardDict.Keys)
-            {
-                if (!buildInfo.M_BuildCards.CardSelectInfos.ContainsKey(cardID))
-                {
-                    sb.Append(string.Format("({0},{1},{2});", cardID, 0, AllCards.CardDict[cardID].BaseInfo.LimitNum));
-                }
             }
 
             string cardID_str = sb.ToString().Trim(';');

@@ -13,11 +13,7 @@ public class BuildButton : PoolObject
         base.PoolRecycle();
     }
 
-    void Awake()
-    {
-    }
-
-    public RawImage SelectedStar;
+    public Image SelectedStar;
     public Image ButtonImage;
     public Button Button;
     public Text Text_CardDeckName;

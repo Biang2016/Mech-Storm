@@ -4,8 +4,6 @@ using UnityEngine;
 
 public partial class SelectBuildPanel : BaseUIForm
 {
-    private int cardsLayer;
-
     [SerializeField] private Animator SelectWindowShowAnim;
     [SerializeField] private Transform LeftWindowTransform;
     [SerializeField] private Transform CenterWindowTransform;
@@ -13,8 +11,6 @@ public partial class SelectBuildPanel : BaseUIForm
 
     void Awake()
     {
-        cardsLayer = 1 << LayerMask.NameToLayer("Cards");
-
         UIType.InitUIType(
             isClearStack: false,
             isESCClose: true,

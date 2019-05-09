@@ -6,6 +6,8 @@ public class MetalLifeEnergyManager : MonoBehaviour
 {
     internal ClientPlayer ClientPlayer;
 
+    public MetalBarManager MetalBarManager;
+
     [SerializeField] private TextMeshPro MetalNumberText;
 
     [SerializeField] private Text LifeNumber;
@@ -13,41 +15,40 @@ public class MetalLifeEnergyManager : MonoBehaviour
     [SerializeField] private Text EnergyNumber;
     [SerializeField] private Text TotalEnergyNumber;
 
-    [SerializeField] private GameObject EnemyIcon;
-    [SerializeField] private Image EnemyIconImage;
+    [SerializeField] private GameObject PlayerIcon;
+    [SerializeField] private Image PlayerIconImage;
 
-    void Awake()
+    public void Initialize(ClientPlayer clientPlayer)
     {
+        ResetAll();
+        ClientPlayer = clientPlayer;
+        MetalBarManager.Initialize(ClientPlayer);
     }
 
     public void ResetAll()
     {
         ClientPlayer = null;
-        if (MetalBarManager)
-        {
-            MetalBarManager.ResetAll();
-        }
+        MetalBarManager.ResetAll();
     }
 
     public void SetEnemyIconImage()
     {
         if (ClientPlayer.WhichPlayer == Players.Enemy)
         {
-            EnemyIcon.SetActive(RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single);
+            PlayerIcon.SetActive(RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single);
             if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
             {
-                ClientUtils.ChangeCardPicture(EnemyIconImage, 0);
+                ClientUtils.ChangeCardPicture(PlayerIconImage, 0);
             }
         }
     }
 
     public void SetMetal(int value)
     {
-        MetalBarManager.ClientPlayer = ClientPlayer;
         MetalBarManager.SetMetalNumber(value);
         MetalNumberText.text = value.ToString();
         MetalNumberText.transform.localPosition = Vector3.Lerp(MetalNumberMinPos.localPosition, MetalNumberMaxPos.localPosition, (float) value / GamePlaySettings.MaxMetal);
-        ClientPlayer.MyHandManager.RefreshAllCardUsable();
+        ClientPlayer.BattlePlayer.HandManager.RefreshAllCardUsable();
     }
 
     public void SetLife(int value, int change)
@@ -79,7 +80,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     public void SetEnergy(int value, int change)
     {
-        ClientPlayer.MyHandManager.RefreshAllCardUsable();
+        ClientPlayer.BattlePlayer.HandManager.RefreshAllCardUsable();
         EnergyNumber.text = value.ToString();
         EnergyBar.fillAmount = (float) value / ClientPlayer.EnergyMax;
         EnergyIconAnim.SetTrigger("Jump");
@@ -121,6 +122,4 @@ public class MetalLifeEnergyManager : MonoBehaviour
     [SerializeField] private Animator EnergyIconAnim;
     [SerializeField] private Animator EnergyNumberAnim;
     [SerializeField] private Animator EnergyTotalNumberAnim;
-
-    public MetalBarManager MetalBarManager;
 }

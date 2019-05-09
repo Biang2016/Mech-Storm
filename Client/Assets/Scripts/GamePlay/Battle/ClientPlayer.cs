@@ -3,13 +3,7 @@ using UnityEngine;
 
 public class ClientPlayer : Player
 {
-    public BoardAreaTypes MyBattleGroundArea; //卡牌所属方的战场区
-    public HandManager MyHandManager; //卡牌所属的手部区管理器
-    internal BattleGroundManager MyBattleGroundManager; //卡牌所属方的战场区域管理器
-    internal MetalLifeEnergyManager MyMetalLifeEnergyManager; //Metal、Energy、Life条的管理器
-    internal PlayerBuffManager MyPlayerBuffManager; //Buff的管理器
-    internal CoolDownCardManager MyPlayerCoolDownCardManager; //Buff的管理器
-    internal BoardAreaTypes MyHandArea; //卡牌所属的手部区
+    public BattlePlayer BattlePlayer; // Player的战场具体表现
     internal Players WhichPlayer;
     public int ClientId;
     public bool IsInitialized = false;
@@ -17,18 +11,11 @@ public class ClientPlayer : Player
     internal ClientPlayer(string username, int metalLeft, int metalMax, int lifeLeft, int lifeMax, int energyLeft, int energyMax, Players whichPlayer) : base(username, metalLeft, metalMax, lifeLeft, lifeMax, energyLeft, energyMax)
     {
         WhichPlayer = whichPlayer;
-        MyHandArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfHandArea : BoardAreaTypes.EnemyHandArea;
-        MyBattleGroundArea = whichPlayer == Players.Self ? BoardAreaTypes.SelfBattleGroundArea : BoardAreaTypes.EnemyBattleGroundArea;
-        MyHandManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfHandManager : GameBoardManager.Instance.EnemyHandManager;
-        MyBattleGroundManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfBattleGroundManager : GameBoardManager.Instance.EnemyBattleGroundManager;
-        MyMetalLifeEnergyManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfMetalLifeEnergyManager : GameBoardManager.Instance.EnemyMetalLifeEnergyManager;
-        MyPlayerBuffManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfPlayerBuffManager : GameBoardManager.Instance.EnemyPlayerBuffManager;
-        MyPlayerCoolDownCardManager = whichPlayer == Players.Self ? GameBoardManager.Instance.SelfPlayerCoolDownCardManager : GameBoardManager.Instance.EnemyPlayerCoolDownCardManager;
-        MyHandManager.ClientPlayer = this;
-        MyMetalLifeEnergyManager.ClientPlayer = this;
-        MyBattleGroundManager.ClientPlayer = this;
-        MyPlayerBuffManager.ClientPlayer = this;
-        MyPlayerCoolDownCardManager.ClientPlayer = this;
+
+        BattlePlayer battlePlayer = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BattlePlayer].AllocateGameObject<BattlePlayer>(BattleManager.Instance.transform);
+        battlePlayer.Initialize(this);
+        BattlePlayer = battlePlayer;
+
         IsInitialized = true;
         SetTotalLife();
         SetTotalEnergy();
@@ -41,7 +28,7 @@ public class ClientPlayer : Player
 
     protected override void OnMetalChanged(int change)
     {
-        if (IsInitialized) MyMetalLifeEnergyManager.SetMetal(MetalLeft);
+        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetMetal(MetalLeft);
     }
 
     public void DoChangeMetal(PlayerMetalChangeRequest request)
@@ -54,7 +41,7 @@ public class ClientPlayer : Player
         if (request.metal_max != MetalMax) MetalMaxChange(request.metal_max - MetalMax);
         if (request.metal_left != MetalLeft) AddMetal(request.metal_left - MetalLeft);
 
-        MyHandManager.RefreshAllCardUsable();
+        BattlePlayer.HandManager.RefreshAllCardUsable();
 
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -67,12 +54,12 @@ public class ClientPlayer : Player
     protected override void OnLifeChanged(int change, bool isOverflow)
     {
         base.OnLifeChanged(change, isOverflow);
-        if (IsInitialized) MyMetalLifeEnergyManager.SetLife(LifeLeft, change);
+        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetLife(LifeLeft, change);
     }
 
     protected void SetTotalLife()
     {
-        if (IsInitialized) MyMetalLifeEnergyManager.SetTotalLife(LifeMax);
+        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetTotalLife(LifeMax);
     }
 
     public void DoChangeLife(PlayerLifeChangeRequest request)
@@ -84,8 +71,15 @@ public class ClientPlayer : Player
     {
         if (request.life_left != LifeLeft)
         {
-            if (request.life_left - LifeLeft > 0) AudioManager.Instance.SoundPlay("sfx/OnHeal");
-            AddLife(request.life_left - LifeLeft);
+            if (request.life_left - LifeLeft > 0)
+            {
+                Heal(request.life_left - LifeLeft);
+                AudioManager.Instance.SoundPlay("sfx/OnHeal");
+            }
+            else if (request.life_left - LifeLeft < 0)
+            {
+                Damage(LifeLeft - request.life_left);
+            }
         }
 
         yield return new WaitForSeconds(0.1f);
@@ -99,12 +93,12 @@ public class ClientPlayer : Player
     protected override void OnEnergyChanged(int change, bool isOverflow)
     {
         base.OnEnergyChanged(change, isOverflow);
-        if (IsInitialized) MyMetalLifeEnergyManager.SetEnergy(EnergyLeft, change);
+        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetEnergy(EnergyLeft, change);
     }
 
     protected void SetTotalEnergy()
     {
-        if (IsInitialized) MyMetalLifeEnergyManager.SetTotalEnergy(EnergyMax);
+        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetTotalEnergy(EnergyMax);
     }
 
     public void DoChangeEnergy(PlayerEnergyChangeRequest request)

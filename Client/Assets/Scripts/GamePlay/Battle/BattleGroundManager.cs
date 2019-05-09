@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BattleGroundManager : MonoBehaviour
 {
+    private float RETINUE_INTERVAL = 3.5f;
+
     private int retinueCount;
 
     public int RetinueCount //接到增加机甲协议就更新数量（实体后面才生成）
@@ -63,11 +65,16 @@ public class BattleGroundManager : MonoBehaviour
 
     private Vector3 _defaultRetinuePosition = Vector3.zero;
 
-    public Ship M_Ship;
     internal ClientPlayer ClientPlayer;
     internal List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
     internal List<ModuleRetinue> Heros = new List<ModuleRetinue>();
     internal List<ModuleRetinue> Soldiers = new List<ModuleRetinue>();
+
+    public void Initialize(ClientPlayer clientPlayer)
+    {
+        ResetAll();
+        ClientPlayer = clientPlayer;
+    }
 
     public void ResetAll()
     {
@@ -100,7 +107,7 @@ public class BattleGroundManager : MonoBehaviour
 
     internal int ComputePosition(Vector3 dragLastPosition)
     {
-        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.Instance.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
+        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / RETINUE_INTERVAL - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
         if (index < 0) index = 0;
         if (index >= Retinues.Count) index = Retinues.Count;
         return index;
@@ -114,7 +121,7 @@ public class BattleGroundManager : MonoBehaviour
 
     internal ModuleRetinue CheckRetinueOnPosition(Vector3 dragLastPosition)
     {
-        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / GameManager.Instance.RetinueInterval - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
+        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / RETINUE_INTERVAL - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
         if (index < 0 || index >= Retinues.Count)
             return null;
         return Retinues[index];
@@ -310,7 +317,7 @@ public class BattleGroundManager : MonoBehaviour
         if (targetRetinueId == DragManager.TARGET_SELECT_NONE) //未选择目标
         {
             RemoveRetinue((int) ModuleRetinue.RetinueID.Empty);
-            ClientPlayer.MyHandManager.CancelSummonRetinuePreview();
+            ClientPlayer.BattlePlayer.HandManager.CancelSummonRetinuePreview();
         }
         else
         {
@@ -386,7 +393,7 @@ public class BattleGroundManager : MonoBehaviour
 
             retinue.OnSummon();
             retinue.transform.localPosition = _defaultRetinuePosition;
-            retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * GameManager.Instance.RetinueInterval, Space.Self);
+            retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * RETINUE_INTERVAL, Space.Self);
             //PrintRetinueInfos();
         }
 
@@ -410,7 +417,7 @@ public class BattleGroundManager : MonoBehaviour
             }
 
             Vector3 ori = Retinues[i].transform.position;
-            Vector3 offset = Vector3.left * (actualPlace - actualPlaceCount / 2.0f + 0.5f) * GameManager.Instance.RetinueInterval;
+            Vector3 offset = Vector3.left * (actualPlace - actualPlaceCount / 2.0f + 0.5f) * RETINUE_INTERVAL;
 
             Retinues[i].transform.localPosition = _defaultRetinuePosition;
             Retinues[i].transform.Translate(offset, Space.Self);
@@ -427,7 +434,7 @@ public class BattleGroundManager : MonoBehaviour
             iTween.MoveTo(Retinues[i].gameObject, args);
         }
 
-        ClientPlayer.MyHandManager.RefreshAllCardUsable();
+        ClientPlayer.BattlePlayer.HandManager.RefreshAllCardUsable();
 
         yield return new WaitForSeconds(duration);
         if (isAddRetinue && DragManager.Instance.IsSummonPreview)

@@ -286,7 +286,7 @@ public partial class RoundManager
         IdleClientPlayer = r.clientId == Client.Instance.Proxy.ClientId ? EnemyClientPlayer : SelfClientPlayer;
         if (CurrentClientPlayer == SelfClientPlayer)
         {
-            UIManager.Instance.GetBaseUIForm<GameBoardUIPanel>().SetEndRoundButtonState(true);
+            UIManager.Instance.GetBaseUIForm<BattleUIPanel>().SetEndRoundButtonState(true);
             ClientLog.Instance.PrintClientStates("MyRound");
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_YourTurn"), 0, 0.8f);
             AudioManager.Instance.SoundPlay("sfx/StoryOpen", 0.5f);
@@ -294,7 +294,7 @@ public partial class RoundManager
         }
         else
         {
-            UIManager.Instance.GetBaseUIForm<GameBoardUIPanel>().SetEndRoundButtonState(true);
+            UIManager.Instance.GetBaseUIForm<BattleUIPanel>().SetEndRoundButtonState(true);
             ClientLog.Instance.PrintClientStates("EnemyRound");
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_EnemyTurn"), 0, 0.8f);
             yield return new WaitForSeconds(0.5f);
@@ -307,7 +307,7 @@ public partial class RoundManager
 
     private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
     {
-        ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).MyBattleGroundManager.GetRetinue(r.retinueId);
+        ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
         retinue.isAttackChanging = r.addAttack != 0;
         retinue.M_RetinueWeaponEnergyMax += r.addWeaponEnergyMax;
         retinue.M_RetinueWeaponEnergy += r.addWeaponEnergy;
@@ -326,14 +326,14 @@ public partial class RoundManager
         List<ModuleRetinue> dieRetinues = new List<ModuleRetinue>();
         foreach (int retinueId in r.retinueIds)
         {
-            ModuleRetinue retinue = SelfClientPlayer.MyBattleGroundManager.GetRetinue(retinueId);
+            ModuleRetinue retinue = SelfClientPlayer.BattlePlayer.BattleGroundManager.GetRetinue(retinueId);
             if (retinue != null)
             {
                 dieRetinues.Add(retinue);
             }
             else
             {
-                retinue = EnemyClientPlayer.MyBattleGroundManager.GetRetinue(retinueId);
+                retinue = EnemyClientPlayer.BattlePlayer.BattleGroundManager.GetRetinue(retinueId);
                 if (retinue != null)
                 {
                     dieRetinues.Add(retinue);
@@ -379,27 +379,27 @@ public partial class RoundManager
     private void OnBattleGroundAddRetinue_PrePass(BattleGroundAddRetinueRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.AddRetinue_PrePass(r.cardInfo, r.retinueId, r.clientRetinueTempId);
+        cp.BattlePlayer.BattleGroundManager.AddRetinue_PrePass(r.cardInfo, r.retinueId, r.clientRetinueTempId);
     }
 
     private void OnBattleGroundAddRetinue(BattleGroundAddRetinueRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         if (cp == SelfClientPlayer && r.clientRetinueTempId >= 0) return;
-        cp.MyBattleGroundManager.AddRetinue(r.battleGroundIndex);
+        cp.BattlePlayer.BattleGroundManager.AddRetinue(r.battleGroundIndex);
     }
 
     private void OnBattleGroundRemoveRetinue_PrePass(BattleGroundRemoveRetinueRequest r)
     {
         foreach (int retinueId in r.retinueIds)
         {
-            if (SelfClientPlayer.MyBattleGroundManager.GetRetinue(retinueId) != null)
+            if (SelfClientPlayer.BattlePlayer.BattleGroundManager.GetRetinue(retinueId) != null)
             {
-                SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogetherAdd(retinueId);
+                SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogetherAdd(retinueId);
             }
-            else if (EnemyClientPlayer.MyBattleGroundManager.GetRetinue(retinueId) != null)
+            else if (EnemyClientPlayer.BattlePlayer.BattleGroundManager.GetRetinue(retinueId) != null)
             {
-                EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogetherAdd(retinueId);
+                EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogetherAdd(retinueId);
             }
         }
     }
@@ -407,38 +407,38 @@ public partial class RoundManager
     private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
     {
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround_Logic(r.retinueIds), "Co_RetinueRemoveFromBattleGround_Logic");
-        SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
-        EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogatherEnd();
+        SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogatherEnd();
+        EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogatherEnd();
     }
 
     private void OnUpdatePlayerBuff(PlayerBuffUpdateRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyPlayerBuffManager.UpdatePlayerBuff(r.buffSEE, r.buffId);
+        cp.BattlePlayer.PlayerBuffManager.UpdatePlayerBuff(r.buffSEE, r.buffId);
     }
 
     private void OnRemovePlayerBuff(PlayerBuffRemoveRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyPlayerBuffManager.RemovePlayerBuff(r.buffId);
+        cp.BattlePlayer.PlayerBuffManager.RemovePlayerBuff(r.buffId);
     }
 
     private void OnUpdatePlayerCoolDownCard(PlayerCoolDownCardUpdateRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyPlayerCoolDownCardManager.UpdateCoolDownCard(r.coolingDownCard);
+        cp.BattlePlayer.PlayerCoolDownCardManager.UpdateCoolDownCard(r.coolingDownCard);
     }
 
     private void OnRemovePlayerCoolDownCard(PlayerCoolDownCardRemoveRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyPlayerCoolDownCardManager.RemoveCoolDownCard(r.coolingDownCard.CardInstanceID);
+        cp.BattlePlayer.PlayerCoolDownCardManager.RemoveCoolDownCard(r.coolingDownCard.CardInstanceID);
     }
 
     IEnumerator Co_RetinueRemoveFromBattleGround_Logic(List<int> retinueIds) //机甲一起移除战场(逻辑层)
     {
-        SelfClientPlayer.MyBattleGroundManager.RemoveRetinueTogether(retinueIds);
-        EnemyClientPlayer.MyBattleGroundManager.RemoveRetinueTogether(retinueIds);
+        SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogether(retinueIds);
+        EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogether(retinueIds);
 
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -452,8 +452,7 @@ public partial class RoundManager
 
     IEnumerator Co_OnCardDeckLeftChange(ClientPlayer cp, int left)
     {
-        if (cp == SelfClientPlayer) CardDeckManager.Instance.SetSelfCardDeckNumber(left);
-        else CardDeckManager.Instance.SetEnemyCardDeckNumber(left);
+        cp.BattlePlayer.CardDeckManager.SetCardDeckNumber(left);
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -461,50 +460,50 @@ public partial class RoundManager
     private void OnPlayerDrawCard(DrawCardRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyHandManager.GetCards(r.cardInfos);
+        cp.BattlePlayer.HandManager.GetCards(r.cardInfos);
     }
 
     private void OnPlayerDropCard(DropCardRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyHandManager.DropCard(r.handCardInstanceId);
+        cp.BattlePlayer.HandManager.DropCard(r.handCardInstanceId);
     }
 
     private void OnPlayerUseCard(UseCardRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyHandManager.UseCard(r.handCardInstanceId, r.cardInfo);
+        cp.BattlePlayer.HandManager.UseCard(r.handCardInstanceId, r.cardInfo);
     }
 
     private void OnRetinueCardInfoSync(RetinueCardInfoSyncRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.instanceId);
+        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.instanceId);
         retinue.CardInfo = r.cardInfo.Clone();
     }
 
     private void OnEquipWeapon(EquipWeaponServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.EquipWeapon(r.cardInfo, r.retinueId, r.equipID);
+        cp.BattlePlayer.BattleGroundManager.EquipWeapon(r.cardInfo, r.retinueId, r.equipID);
     }
 
     private void OnEquipShield(EquipShieldServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.EquipShield(r.cardInfo, r.retinueId, r.equipID);
+        cp.BattlePlayer.BattleGroundManager.EquipShield(r.cardInfo, r.retinueId, r.equipID);
     }
 
     private void OnEquipPack(EquipPackServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.EquipPack(r.cardInfo, r.retinueId, r.equipID);
+        cp.BattlePlayer.BattleGroundManager.EquipPack(r.cardInfo, r.retinueId, r.equipID);
     }
 
     private void OnEquipMA(EquipMAServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.MyBattleGroundManager.EquipMA(r.cardInfo, r.retinueId, r.equipID);
+        cp.BattlePlayer.BattleGroundManager.EquipMA(r.cardInfo, r.retinueId, r.equipID);
     }
 
     private void OnUseSpellCard(UseSpellCardServerRequset r)
@@ -517,8 +516,8 @@ public partial class RoundManager
     {
         ClientPlayer cp_attack = GetPlayerByClientId(r.AttackRetinueClientId);
         ClientPlayer cp_beAttack = GetPlayerByClientId(r.BeAttackedRetinueClientId);
-        ModuleRetinue attackRetinue = cp_attack.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
-        ModuleRetinue beAttackRetinue = cp_beAttack.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
+        ModuleRetinue attackRetinue = cp_attack.BattlePlayer.BattleGroundManager.GetRetinue(r.AttackRetinueId);
+        ModuleRetinue beAttackRetinue = cp_beAttack.BattlePlayer.BattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
         attackRetinue.Attack(beAttackRetinue, false);
     }
 
@@ -526,35 +525,35 @@ public partial class RoundManager
     {
         ClientPlayer cp_attack = GetPlayerByClientId(r.AttackRetinueClientId);
         ClientPlayer cp_beAttack = cp_attack.WhichPlayer == Players.Self ? EnemyClientPlayer : SelfClientPlayer;
-        ModuleRetinue attackRetinue = cp_attack.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
+        ModuleRetinue attackRetinue = cp_attack.BattlePlayer.BattleGroundManager.GetRetinue(r.AttackRetinueId);
         attackRetinue.AttackShip(cp_beAttack);
     }
 
     private void OnRetinueDodge(RetinueDodgeRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
         retinue.OnDodge();
     }
 
     private void OnRetinueCanAttackChange(RetinueCanAttackRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
         retinue.SetCanAttack(r.canAttack);
     }
 
     private void OnRetinueImmuneChange(RetinueImmuneStateRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
         retinue.M_ImmuneLeftRounds = r.immuneRounds;
     }
 
     private void OnRetinueInactivityChange(RetinueInactivityStateRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
         retinue.M_InactivityRounds = r.inactivityRounds;
     }
 
@@ -571,13 +570,13 @@ public partial class RoundManager
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         ClientPlayer cp_target = GetPlayerByClientId(r.targetClientId);
         ModuleRetinue retinue = FindRetinue(r.retinueId);
-        retinue.OnAttackShip(r.weaponType, cp_target.MyBattleGroundManager.M_Ship);
+        retinue.OnAttackShip(r.weaponType, cp_target.BattlePlayer.Ship);
     }
 
     private void OnRetinueShieldDefence(RetinueShieldDefenseRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.MyBattleGroundManager.GetRetinue(r.retinueId);
+        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
         retinue.ShieldDefenceDamage(r.decreaseValue, r.shieldValue);
     }
 
@@ -590,18 +589,18 @@ public partial class RoundManager
             return;
         }
 
-        if (r.ExecutorInfo.RetinueId != -999) //随从触发
+        if (r.ExecutorInfo.RetinueId != -99999) //随从触发
         {
-            if (r.ExecutorInfo.EquipId == -999)
+            if (r.ExecutorInfo.EquipId == -99999)
             {
-                cp.MyBattleGroundManager.GetRetinue(r.ExecutorInfo.RetinueId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+                cp.BattlePlayer.BattleGroundManager.GetRetinue(r.ExecutorInfo.RetinueId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             }
             else
             {
-                cp.MyBattleGroundManager.GetEquip(r.ExecutorInfo.RetinueId, r.ExecutorInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+                cp.BattlePlayer.BattleGroundManager.GetEquip(r.ExecutorInfo.RetinueId, r.ExecutorInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             }
         }
-        else if (r.ExecutorInfo.CardInstanceId != -999) //手牌触发
+        else if (r.ExecutorInfo.CardInstanceId != -99999) //手牌触发
         {
             //Todo 手牌SE效果
         }
@@ -609,7 +608,7 @@ public partial class RoundManager
 
     private void OnCardAttributeChange(CardAttributeChangeRequest r)
     {
-        CardBase cb = GetPlayerByClientId(r.clientId).MyHandManager.GetCardByCardInstanceId(r.cardInstanceId);
+        CardBase cb = GetPlayerByClientId(r.clientId).BattlePlayer.HandManager.GetCardByCardInstanceId(r.cardInstanceId);
         cb.M_Energy += r.energyChange;
         cb.M_Metal += r.metalChange;
         cb.M_EffectFactor = r.effectFactor;

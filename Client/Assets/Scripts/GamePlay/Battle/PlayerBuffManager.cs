@@ -14,18 +14,22 @@ public class PlayerBuffManager : MonoBehaviour
     Dictionary<int, PlayerBuff> PlayerBuffs = new Dictionary<int, PlayerBuff>(); //客户端buff按ID进行更改和存储，堆叠等逻辑在服务端处理好分发正确的buffID给客户端，而客户端不考虑堆叠等逻辑。
     HashSet<int> PlayerBuffID_PrepPass = new HashSet<int>(); //buffID 接到协议后预存
 
-    void Start()
+    public void Initialize(ClientPlayer clientPlayer)
     {
+        ResetAll();
+        ClientPlayer = clientPlayer;
     }
 
     public void ResetAll()
     {
+        ClientPlayer = null;
         foreach (KeyValuePair<int, PlayerBuff> kv in PlayerBuffs)
         {
             PlayerBuffs[kv.Key].PoolRecycle();
         }
 
         PlayerBuffs.Clear();
+        PlayerBuffID_PrepPass.Clear();
     }
 
     public void UpdatePlayerBuff(SideEffectExecute buffSee, int buffId)

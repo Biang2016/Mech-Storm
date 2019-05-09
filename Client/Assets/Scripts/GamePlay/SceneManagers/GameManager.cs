@@ -2,37 +2,24 @@
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    public Camera BattleGroundCamera;
+    internal int Layer_Cards;
+    internal int Layer_UI;
+    internal int Layer_Modules;
+    internal int Layer_Retinues;
+    internal int Layer_Ships;
+    internal int Layer_Slots;
+    internal int Layer_BoardAreas;
+    internal int Layer_UX;
 
-    internal Vector3 UseCardShowPosition = new Vector3(10, 3, 0);
-    internal Vector3 UseCardShowPosition_Overlay = new Vector3(10, 3, 0.2f);
-
-    public bool ShowBEMMessages = false;
-
-    public float HandCardSize = 0.3f;
-    public float HandCardInterval = 1.0f;
-    public float HandCardRotate = 1.0f;
-    public float HandCardOffset = 0.4f;
-
-    public float PullOutCardSize = 3.0f;
-    public float PullOutCardDistanceThreshold = 0f;
-
-    public float DetailSingleCardSize = 3.0f;
-    public float DetailEquipmentCardSize = 2.5f;
-    public float DetailRetinueCardSize = 4.0f;
-
-    public float RetinueDefaultSize = 1.75f;
-    public float RetinueInterval = 3.5f;
-    public float RetinueDetailPreviewDelaySeconds = 0.7f;
-
-    public float CardShowScale = 3f;
-
-    public float ShowCardDuration = 1.2f;
-    public float ShowCardFlyDuration = 0.4f;
-
-    public int CardDeckCardNum = 10;
-
-    public float CardDeckCardSize = 1.4f;
-    public Vector3 Self_CardDeckCardInterval = new Vector3(0.05f, 0.01f, 0.1f);
-    public Vector3 Enemy_CardDeckCardInterval = new Vector3(-0.05f, 0.01f, 0.1f);
+    void Awake()
+    {
+        Layer_Cards = 1 << LayerMask.NameToLayer("Cards");
+        Layer_UI = 1 << LayerMask.NameToLayer("UI");
+        Layer_Modules = 1 << LayerMask.NameToLayer("Modules");
+        Layer_Retinues = 1 << LayerMask.NameToLayer("Retinues");
+        Layer_Ships = 1 << LayerMask.NameToLayer("Ships");
+        Layer_Slots = 1 << LayerMask.NameToLayer("Slots");
+        Layer_BoardAreas = 1 << LayerMask.NameToLayer("BoardAreas");
+        Layer_UX = 1 << LayerMask.NameToLayer("UX");
+    }
 }

@@ -40,8 +40,8 @@ public class CardBaseEditor : Editor
             }
         }
 
-        GameBoardManager.BGs = new Sprite[AtlasManager.LoadAtlas("BGs").spriteCount];
-        AtlasManager.LoadAtlas("BGs").GetSprites(GameBoardManager.BGs);
+        BackGroundManager.BGs = new Sprite[AtlasManager.LoadAtlas("BGs").spriteCount];
+        AtlasManager.LoadAtlas("BGs").GetSprites(BackGroundManager.BGs);
 
         Debug.Log("LoadSpriteAtlas_Editor Success");
     }

@@ -283,11 +283,10 @@ MonoBehaviour:
   - guid: c66c08303cdae684c84ec0d62e06b4e8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557277977
+    stamp: 1557318280
     type: 3
     UseGUIDs:
     - 5f5f6f2dbb69af8408fe8e93ba573ff8
-    - 295dc616b7c47b341951170f7fe0511a
     - 34f1c0918f0dd4661b115de28c599e16
   - guid: 67ba493069af745469e52b6d122d0289
     ScriptSymbols: []
@@ -1281,7 +1280,7 @@ MonoBehaviour:
   - guid: c447fc41f99e79f4bb37b23e4a9497fa
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1548061522
+    stamp: 1557327133
     type: 5
     UseGUIDs:
     - 9c90335eaa3c9b0449b7f4efbb0229f5
@@ -6259,7 +6258,7 @@ MonoBehaviour:
   - guid: 5dbe5e368aece67478a22ab2fee473d8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1548061522
+    stamp: 1557327133
     type: 5
     UseGUIDs:
     - 9c90335eaa3c9b0449b7f4efbb0229f5
@@ -8490,7 +8489,7 @@ MonoBehaviour:
   - guid: 28562ae80ea1ee44e9ea876119c62ac9
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1548061522
+    stamp: 1557327133
     type: 5
     UseGUIDs:
     - 9c90335eaa3c9b0449b7f4efbb0229f5
@@ -10803,20 +10802,6 @@ MonoBehaviour:
     UseGUIDs:
     - 9c90335eaa3c9b0449b7f4efbb0229f5
     - 381b3fd42e56c5845a4c28e8e16216bc
-  - guid: 8781d25b9e6a6f44bbc733ab86880c41
-    ScriptSymbols:
-    - ButtonEffects
-    ScriptTokens:
-    - RequireComponent
-    - Animator
-    - MonoBehaviour
-    - Awake
-    - GetComponent
-    - OnMouseEnter
-    - OnMouseExit
-    stamp: 1555036474
-    type: 2
-    UseGUIDs: []
   - guid: 3ffb365bb0e34e6498b640081d2273d5
     ScriptSymbols: []
     ScriptTokens: []
@@ -12340,26 +12325,6 @@ MonoBehaviour:
     stamp: 0
     type: 9
     UseGUIDs: []
-  - guid: df12111d71328dc45b8a5df04111ea39
-    ScriptSymbols:
-    - PreviewPanelBG
-    ScriptTokens:
-    - MonoBehaviour
-    - UXLayer
-    - BoxCollider
-    - CutOutPanel
-    - Awake
-    - LayerMask
-    - Update
-    - Input
-    - Ray
-    - GameManager
-    - RaycastHit
-    - Physics
-    - UIManager
-    stamp: 1557277752
-    type: 2
-    UseGUIDs: []
   - guid: 61c1271d89f30ea4db6a058c139da42a
     ScriptSymbols: []
     ScriptTokens: []
@@ -13729,7 +13694,7 @@ MonoBehaviour:
   - guid: d15b5ebed27ca0e4f9e40f348df70a78
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1548061522
+    stamp: 1557327133
     type: 5
     UseGUIDs:
     - 9c90335eaa3c9b0449b7f4efbb0229f5
@@ -15032,22 +14997,6 @@ MonoBehaviour:
     - RemoveCard
     - RefreshCardCountText
     stamp: 1554733208
-    type: 2
-    UseGUIDs: []
-  - guid: d51ca2ec89f467f409f132363ff044e5
-    ScriptSymbols:
-    - BuildButtonClick
-    ScriptTokens:
-    - MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
-    - UnityEvent
-    - Awake
-    - Start
-    - OnPointerClick
-    - PointerEventData
-    - ResetListeners
-    - OnPointerEnter
-    - AudioManager
-    stamp: 1554622695
     type: 2
     UseGUIDs: []
   - guid: 5f5f6f2dbb69af8408fe8e93ba573ff8
@@ -16605,12 +16554,6 @@ MonoBehaviour:
     - 89f0137620f6af44b9ba852b4190e64e
     - 00bb5f2bb1cfc914fa78b1b7b6a68af6
     - 8a11b2b58a085ad43bee69f549f3fc11
-  - guid: 906929e40df3bf246b3af6608d4c2c63
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
   - guid: 008530050b445ef4699db74e0ca26873
     ScriptSymbols: []
     ScriptTokens: []
@@ -21614,6 +21557,431 @@ MonoBehaviour:
     - WaitForSeconds
     - ShowBlackShutTransit
     stamp: 1557226847
+    type: 2
+    UseGUIDs: []
+  - guid: 093a3f9aaea64f74e8306cd9d5beb1fd
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 4f007001a22b3d24dae350342c4d19c8
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 45d5034162d6cf04dbe46da84fc7d074
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 4
+    UseGUIDs: []
+  - guid: cb297db3fd90c436ebf1d8e836a080bb
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 85ed64e417b054946bbb8e571d894a55
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 18fbb1854ce6e4f799ed0e830f4380a0
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: a811bde74b26b53498b4f6d872b09b6d
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 4
+    UseGUIDs: []
+  - guid: 16e74308dc021471bbe3ce4b8d66670e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 8f46310a8b0a8f04a92993c37c713243
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: a5ef4dfe2b6af43d787f048d23040788
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 63c02322328255542995bd02b47b0457
+    ScriptSymbols:
+    - DG.Tweening.DOTweenModuleUnityVersion
+    - DG.Tweening.DOTweenCYInstruction.WaitForCompletion
+    - DG.Tweening.DOTweenCYInstruction
+    - DG.Tweening.DOTweenCYInstruction.WaitForRewind
+    - DG.Tweening.DOTweenCYInstruction.WaitForKill
+    - DG.Tweening.DOTweenCYInstruction.WaitForElapsedLoops
+    - DG.Tweening.DOTweenCYInstruction.WaitForPosition
+    - DG.Tweening.DOTweenCYInstruction.WaitForStart
+    ScriptTokens:
+    - UNITY_4_4
+    - UNITY_4_5
+    - UNITY_4_6
+    - UNITY_2017_1_OR_NEWER
+    - Unity
+    - Newer
+    - Material
+    - Sequence
+    - DOGradientColor
+    - Gradient
+    - DOTween
+    - GradientColorKey
+    - Ease
+    - UNITY_5_3_OR_NEWER
+    - CustomYieldInstructions
+    - CustomYieldInstruction
+    - Tween
+    - Debugger
+    - UNITY_2018_1_OR_NEWER
+    - TweenerCore
+    - Vector2
+    - VectorOptions
+    - DOOffset
+    - DOTiling
+    stamp: 1552127840
+    type: 2
+    UseGUIDs: []
+  - guid: 230fe34542e175245ba74b4659dae700
+    ScriptSymbols:
+    - DG.Tweening.DOTweenModulePhysics2D
+    ScriptTokens:
+    - UNITY_4_4
+    - UNITY_4_5
+    - UNITY_4_6
+    - UNITY_2017_1_OR_NEWER
+    - Shortcuts
+    - Rigidbody2D
+    - TweenerCore
+    - Vector2
+    - VectorOptions
+    - DOMove
+    - DOTween
+    - DOMoveX
+    - AxisConstraint
+    - DOMoveY
+    - FloatOptions
+    - DORotate
+    - Special
+    - Sequence
+    - DOJump
+    - Tween
+    - Ease
+    - LoopType
+    - Vector3
+    - DOVirtual
+    stamp: 1552127836
+    type: 2
+    UseGUIDs: []
+  - guid: dae9aa560b4242648a3affa2bfabc365
+    ScriptSymbols:
+    - DG.Tweening.DOTweenModulePhysics
+    ScriptTokens:
+    - Shortcuts
+    - Rigidbody
+    - TweenerCore
+    - Vector3
+    - VectorOptions
+    - DOMove
+    - DOTween
+    - DOMoveX
+    - AxisConstraint
+    - DOMoveY
+    - DOMoveZ
+    - Quaternion
+    - QuaternionOptions
+    - DORotate
+    - RotateMode
+    - DOLookAt
+    - SpecialStartupMode
+    - Special
+    - Sequence
+    - DOJump
+    - Tween
+    - Ease
+    - LoopType
+    - DOVirtual
+    - Path
+    - PathOptions
+    - DOPath
+    - PathType
+    - PathMode
+    - Color
+    - PathPlugin
+    - UpdateType
+    - DOLocalPath
+    - Transform
+    stamp: 1552127845
+    type: 2
+    UseGUIDs: []
+  - guid: 7bcaf917d9cf5b84090421a5a2abe42e
+    ScriptSymbols:
+    - DG.Tweening.DOTweenModuleUtils
+    - DG.Tweening.DOTweenModuleUtils.Physics
+    ScriptTokens:
+    - Reflection
+    - UNITY_2018_1_OR_NEWER
+    - UnityEngine
+    - Init
+    - DOTweenExternalCommand
+    - UNITY_EDITOR
+    - UNITY_4_4
+    - UNITY_4_5
+    - UNITY_4_6
+    - UNITY_2017_1
+    - UnityEditor
+    - PlaymodeStateChanged
+    - Preserver
+    - Assembly
+    - MethodInfo
+    - MonoBehaviour
+    - DOTween
+    - SetOrientationOnPath
+    - PathOptions
+    - Tween
+    - Quaternion
+    - Transform
+    - Rigidbody
+    - HasRigidbody2D
+    - Component
+    - Called
+    - HasRigidbody
+    - TweenerCore
+    - Vector3
+    - Path
+    - CreateDOTweenPathTween
+    - PathMode
+    stamp: 1552127842
+    type: 2
+    UseGUIDs: []
+  - guid: b766d08851589514b97afb23c6f30a70
+    ScriptSymbols:
+    - DG.Tweening.DOTweenModuleAudio
+    ScriptTokens:
+    - UNITY_2017_1_OR_NEWER
+    - Shortcuts
+    - Audio
+    - TweenerCore
+    - FloatOptions
+    - DOFade
+    - AudioSource
+    - DOTween
+    - DOPitch
+    - Unity
+    - Newer
+    - DOSetFloat
+    - AudioMixer
+    - Operation
+    - DOComplete
+    - DOKill
+    - DOFlip
+    - DOGoto
+    - DOPause
+    - DOPlay
+    - DOPlayBackwards
+    - DOPlayForward
+    - DORestart
+    - DORewind
+    - DOSmoothRewind
+    - DOTogglePause
+    stamp: 1552127844
+    type: 2
+    UseGUIDs: []
+  - guid: 188918ab119d93148aa0de59ccf5286b
+    ScriptSymbols:
+    - DG.Tweening.DOTweenModuleSprite
+    ScriptTokens:
+    - UNITY_4_4
+    - UNITY_4_5
+    - UNITY_4_6
+    - UNITY_2017_1_OR_NEWER
+    - Shortcuts
+    - SpriteRenderer
+    - TweenerCore
+    - Color
+    - ColorOptions
+    - DOColor
+    - DOTween
+    - DOFade
+    - Sequence
+    - DOGradientColor
+    - Gradient
+    - GradientColorKey
+    - Ease
+    - Blendables
+    - Tweener
+    - DOBlendableColor
+    stamp: 1552127835
+    type: 2
+    UseGUIDs: []
+  - guid: a060394c03331a64392db53a10e7f2d1
+    ScriptSymbols:
+    - DG.Tweening.DOTweenModuleUI
+    - DG.Tweening.DOTweenModuleUI.Utils
+    ScriptTokens:
+    - UNITY_4_6
+    - UNITY_2017_1_OR_NEWER
+    - Shortcuts
+    - CanvasGroup
+    - TweenerCore
+    - FloatOptions
+    - DOFade
+    - DOTween
+    - Graphic
+    - Color
+    - ColorOptions
+    - DOColor
+    - Image
+    - DOFillAmount
+    - Sequence
+    - DOGradientColor
+    - Gradient
+    - GradientColorKey
+    - Ease
+    - LayoutElement
+    - Vector2
+    - VectorOptions
+    - DOFlexibleSize
+    - DOMinSize
+    - DOPreferredSize
+    - Outline
+    - DOScale
+    - RectTransform
+    - DOAnchorPos
+    - DOAnchorPosX
+    - AxisConstraint
+    - DOAnchorPosY
+    - Vector3
+    - DOAnchorPos3D
+    - DOAnchorPos3DX
+    - DOAnchorPos3DY
+    - DOAnchorPos3DZ
+    - DOAnchorMax
+    - DOAnchorMin
+    - DOPivot
+    - DOPivotX
+    - DOPivotY
+    - DOSizeDelta
+    - Tweener
+    - DOPunchAnchorPos
+    - DOShakeAnchorPos
+    - SpecialStartupMode
+    - Special
+    - DOJumpAnchorPos
+    - Tween
+    - LoopType
+    - DOVirtual
+    - ScrollRect
+    - DONormalizedPos
+    - DOHorizontalNormalizedPos
+    - DOVerticalNormalizedPos
+    - Slider
+    - DOValue
+    - Text
+    - StringOptions
+    - DOText
+    - ScrambleMode
+    - Blendables
+    - DOBlendableColor
+    - SwitchToRectTransform
+    - RectTransformUtility
+    stamp: 1552127843
+    type: 2
+    UseGUIDs: []
+  - guid: 8da095e39e9b4df488dfd436f81116d6
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 2e2c6224d345d9249acfa6e8ef40bb2d
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 7051dba417b3d53409f2918f1ea4938d
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 78a59ca99f8987941adb61f9e14a06a7
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: fccfc62abf2eb0a4db614853430894fd
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 34192c5e0d14aee43a0e86cc4823268a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 519694efe2bb2914788b151fbd8c01f4
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 1802c255198854b4a81d28b78a2d65eb
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1557369605
+    type: 5
+    UseGUIDs:
+    - a811bde74b26b53498b4f6d872b09b6d
+  - guid: 954a993272cf403ab3ec8957c302f45a
+    ScriptSymbols:
+    - GamePlay.Functions.GameBoardManager
+    ScriptTokens: []
+    stamp: 1557329961
+    type: 2
+    UseGUIDs: []
+  - guid: 03ed38e9ccc8a41e7a4c6f55c58c952e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1557330952
+    type: 5
+    UseGUIDs:
+    - 6fbe7fcf448ab4b48994bfe48e81d448
+    - 512e6e39ccf44304b87f580260dd9988
+    - b2bd25f5a21b74c4abe66b915f7796f8
+  - guid: 13f6860f420144535b05e7ab775ca200
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1557330920
+    type: 5
+    UseGUIDs:
+    - 954a993272cf403ab3ec8957c302f45a
+    - d42a9540f1c1d414098458694ce22719
+  - guid: 5aa4b51bd9ff46d99c6f07e7dccfcb45
+    ScriptSymbols:
+    - GamePlay.Battle.BattlePlayer
+    ScriptTokens:
+    - MonoBehaviour
+    stamp: 1557365539
     type: 2
     UseGUIDs: []
   timeStamp: 1557293359

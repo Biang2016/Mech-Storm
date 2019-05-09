@@ -56,11 +56,11 @@ internal class CoolDownCardIcon : PoolObject
 
     public void OnHover()
     {
-        ShowCardDetailInBattleManager.Instance.ShowCardDetail(AllCards.GetCard(M_CoolingDownCard.CardID), ClientPlayer.WhichPlayer == Players.Self ? ShowCardDetailInBattleManager.ShowPlaces.LeftLower : ShowCardDetailInBattleManager.ShowPlaces.RightUpper);
+        BattleManager.Instance.ShowCardDetailInBattleManager.ShowCardDetail(AllCards.GetCard(M_CoolingDownCard.CardID), ClientPlayer.WhichPlayer == Players.Self ? ShowCardDetailInBattleManager.ShowPlaces.LeftLower : ShowCardDetailInBattleManager.ShowPlaces.RightUpper);
     }
 
     public void OnExit()
     {
-        ShowCardDetailInBattleManager.Instance.HideCardDetail();
+        BattleManager.Instance.ShowCardDetailInBattleManager.HideCardDetail();
     }
 }

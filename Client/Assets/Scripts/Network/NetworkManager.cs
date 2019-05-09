@@ -71,7 +71,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         {
             if (isReconnecting)
             {
-                RoundManager.Instance.HasShowLostConnectNotice = false;
+                if (Client.Instance.IsPlaying()) RoundManager.Instance.HasShowLostConnectNotice = false;
                 NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Notice_NetworkManager_Connected"), 0f, 2f);
                 isReconnecting = false;
             }

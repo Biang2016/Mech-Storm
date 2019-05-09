@@ -11,15 +11,18 @@ public class CoolDownCardManager : MonoBehaviour
     internal ClientPlayer ClientPlayer;
     [SerializeField] private Transform Content;
 
-    Dictionary<int, CoolDownCardIcon> CoolDownCardIcons = new Dictionary<int, CoolDownCardIcon>();
-    HashSet<int> CoolDownCardIcons_Prepass = new HashSet<int>();
+    private Dictionary<int, CoolDownCardIcon> CoolDownCardIcons = new Dictionary<int, CoolDownCardIcon>();
+    private HashSet<int> CoolDownCardIcons_Prepass = new HashSet<int>();
 
-    void Start()
+    public void Initialize(ClientPlayer clientPlayer)
     {
+        ResetAll();
+        ClientPlayer = clientPlayer;
     }
 
     public void ResetAll()
     {
+        ClientPlayer = null;
         foreach (KeyValuePair<int, CoolDownCardIcon> kv in CoolDownCardIcons)
         {
             kv.Value.PoolRecycle();

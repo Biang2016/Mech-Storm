@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ModuleRetinue : ModuleBase
 {
+    private float RETINUE_DEFAULT_SIZE = 1.75f;
+    
     public override void PoolRecycle()
     {
         if (M_Weapon)
@@ -116,7 +118,7 @@ public class ModuleRetinue : ModuleBase
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
-        transform.localScale = Vector3.one * GameManager.Instance.RetinueDefaultSize;
+        transform.localScale = Vector3.one * RETINUE_DEFAULT_SIZE;
 
         isInitializing = true;
         base.Initiate(cardInfo, clientPlayer);
@@ -1285,7 +1287,7 @@ public class ModuleRetinue : ModuleBase
 
     public override void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        canDrag = CanAttack && ClientPlayer == RoundManager.Instance.CurrentClientPlayer && ClientPlayer == RoundManager.Instance.SelfClientPlayer && !ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this);
+        canDrag = CanAttack && ClientPlayer == RoundManager.Instance.CurrentClientPlayer && ClientPlayer == RoundManager.Instance.SelfClientPlayer && !ClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinues.Contains(this);
         dragPurpose = DragPurpose.Target;
     }
 
@@ -1314,7 +1316,7 @@ public class ModuleRetinue : ModuleBase
         set
         {
             isBeDraggedHover = value;
-            if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this))
+            if (!ClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinues.Contains(this))
             {
                 ClientUtils.ChangeColor(OnHoverBloom, ClientUtils.GetColorFromColorDict(AllColors.ColorType.RetinueOnEnemyHoverBloomColor));
                 OnHoverBloom.gameObject.SetActive(value);
@@ -1364,9 +1366,9 @@ public class ModuleRetinue : ModuleBase
     {
         if (attackRetinue == this) return false;
         if (attackRetinue.ClientPlayer == ClientPlayer) return false;
-        if (RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this)) return false;
+        if (RoundManager.Instance.EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinues.Contains(this)) return false;
         if (attackRetinue.M_Weapon && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽机甲，其他武器只能攻击嘲讽机甲
-        if (ClientPlayer.MyBattleGroundManager.HasDefenceRetinue && !IsDefender) return false;
+        if (ClientPlayer.BattlePlayer.BattleGroundManager.HasDefenceRetinue && !IsDefender) return false;
         return true;
     }
 
@@ -1424,7 +1426,7 @@ public class ModuleRetinue : ModuleBase
         set
         {
             isBeHover = value;
-            if (!ClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(this))
+            if (!ClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinues.Contains(this))
             {
                 if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
                 {
@@ -1451,7 +1453,7 @@ public class ModuleRetinue : ModuleBase
                   (targetRange == TargetRange.EnemySoldiers && CardInfo.RetinueInfo.IsSoldier) ||
                   targetRange == TargetRange.EnemyHeroes && !CardInfo.RetinueInfo.IsSoldier))
                 ||
-                ClientPlayer == RoundManager.Instance.SelfClientPlayer && ClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue != this &&
+                ClientPlayer == RoundManager.Instance.SelfClientPlayer && ClientPlayer.BattlePlayer.BattleGroundManager.CurrentSummonPreviewRetinue != this &&
                 (targetRange == TargetRange.SelfMechs || (targetRange == TargetRange.SelfSoldiers && CardInfo.RetinueInfo.IsSoldier)))
             {
                 IsBeHover = true;

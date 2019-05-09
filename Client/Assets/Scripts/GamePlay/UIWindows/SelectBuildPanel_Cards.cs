@@ -67,7 +67,7 @@ public partial class SelectBuildPanel
         {
             Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
-            Physics.Raycast(ray, out raycast, 500f, cardsLayer);
+            Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
             if (raycast.collider)
             {
                 CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
@@ -88,7 +88,7 @@ public partial class SelectBuildPanel
         {
             Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
-            Physics.Raycast(ray, out raycast, 500f, cardsLayer);
+            Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
             if (raycast.collider != null)
             {
                 CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
@@ -109,7 +109,7 @@ public partial class SelectBuildPanel
         {
             Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
-            Physics.Raycast(ray, out raycast, 500f, cardsLayer);
+            Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
             if (raycast.collider != null)
             {
                 CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
@@ -133,7 +133,7 @@ public partial class SelectBuildPanel
         {
             Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
-            Physics.Raycast(ray, out raycast, 500f, cardsLayer);
+            Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
             if (raycast.collider != null)
             {
                 CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
@@ -164,7 +164,7 @@ public partial class SelectBuildPanel
     {
         foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
-            if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
+            if (cardInfo.CardID == 99999) continue;
             if (cardInfo.BaseInfo.IsHide) continue;
             if (cardInfo.BaseInfo.IsTemp) continue;
             AddCardIntoCardSelectWindow(cardInfo.Clone());
@@ -218,7 +218,7 @@ public partial class SelectBuildPanel
         OnlineCardLimitDict = new SortedDictionary<int, int>();
         foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
         {
-            if (cardInfo.CardID == 999 || cardInfo.CardID == 99) continue;
+            if (cardInfo.CardID == 99999 || cardInfo.CardID == 99999) continue;
             if (cardInfo.BaseInfo.IsHide) continue;
             OnlineCardLimitDict.Add(cardInfo.CardID, cardInfo.BaseInfo.LimitNum);
         }

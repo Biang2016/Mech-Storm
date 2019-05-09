@@ -3,7 +3,7 @@ using System.Linq;
 
 public class ExecutorInfo
 {
-    public const int EXECUTE_INFO_NONE = -999;
+    public const int EXECUTE_INFO_NONE = -99999;
     public const int EXECUTOR_ID_EVENTS = -1;
 
     public int SideEffectExecutorID;
@@ -13,10 +13,10 @@ public class ExecutorInfo
     public int CardInstanceId;
     public int EquipId;
 
-    public List<int> TargetClientIds;
-    public List<int> TargetRetinueIds;
-    public List<int> TargetCardInstanceIds;
-    public List<int> TargetEquipIds;
+    public List<int> TargetClientIds = new List<int>();
+    public List<int> TargetRetinueIds = new List<int>();
+    public List<int> TargetCardInstanceIds = new List<int>();
+    public List<int> TargetEquipIds = new List<int>();
     public int Value;
     public bool IsPlayerBuff;
 
@@ -40,7 +40,7 @@ public class ExecutorInfo
         CardId = cardId;
         CardInstanceId = cardInstanceId;
         EquipId = equipId;
-        TargetClientIds = targetClientIds;
+        TargetClientIds = targetClientIds ?? new List<int>();
         TargetRetinueIds = targetRetinueIds ?? new List<int>();
         TargetCardInstanceIds = targetCardInstanceIds ?? new List<int>();
         TargetEquipIds = targetEquipIds ?? new List<int>();
@@ -115,7 +115,6 @@ public class ExecutorInfo
 
         int EquipId = reader.ReadSInt32();
 
-        int TargetClientId = reader.ReadSInt32();
         int count = reader.ReadSInt32();
         List<int> TargetClientIds = new List<int>();
         for (int i = 0; i < count; i++)

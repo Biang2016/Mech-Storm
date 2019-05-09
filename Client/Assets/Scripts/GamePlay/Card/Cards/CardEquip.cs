@@ -11,8 +11,8 @@ public class CardEquip : CardBase
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
 
-        ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
-        if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
+        ClientPlayer.BattlePlayer.BattleGroundManager.StopShowSlotBloom();
+        if (boardAreaType != ClientPlayer.BattlePlayer.HandArea) //离开手牌区域
             foreach (Slot sa in slots)
             {
                 if (CheckRetinueCanEquipMe(sa, out string info))
@@ -28,7 +28,7 @@ public class CardEquip : CardBase
             }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        ClientPlayer.MyHandManager.RefreshCardsPlace();
+        ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
     }
 
     public bool CheckRetinueCanEquipMe(Slot sa, out string info)
@@ -74,7 +74,7 @@ public class CardEquip : CardBase
 
     public override float DragComponent_DragDistance()
     {
-        return GameManager.Instance.PullOutCardDistanceThreshold;
+        return 0;
     }
 
     #region 卡牌效果

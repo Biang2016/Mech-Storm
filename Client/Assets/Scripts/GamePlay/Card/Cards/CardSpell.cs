@@ -47,7 +47,7 @@ public class CardSpell : CardBase
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         RoundManager.Instance.HideTargetPreviewArrow();
-        if (boardAreaType != ClientPlayer.MyHandArea) //离开手牌区域
+        if (boardAreaType != ClientPlayer.BattlePlayer.HandArea) //离开手牌区域
         {
             if (!CardInfo.TargetInfo.HasTargetRetinue && !CardInfo.TargetInfo.HasTargetEquip && !CardInfo.TargetInfo.HasTargetShip)
             {
@@ -60,7 +60,7 @@ public class CardSpell : CardBase
                 if (moduleRetinue == null || moduleRetinue.IsDead)
                 {
                     transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.MyHandManager.RefreshCardsPlace();
+                    ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
                 }
                 else
                 {
@@ -120,7 +120,7 @@ public class CardSpell : CardBase
                 if (slots.Count == 0)
                 {
                     transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.MyHandManager.RefreshCardsPlace();
+                    ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
                 }
                 else
                 {
@@ -128,7 +128,7 @@ public class CardSpell : CardBase
                     if (equip == null || equip.IsDead)
                     {
                         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                        ClientPlayer.MyHandManager.RefreshCardsPlace();
+                        ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
                     }
                     else
                     {
@@ -189,7 +189,7 @@ public class CardSpell : CardBase
                 if (!ship)
                 {
                     transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.MyHandManager.RefreshCardsPlace();
+                    ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
                 }
                 else
                 {
@@ -227,7 +227,7 @@ public class CardSpell : CardBase
         }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-        ClientPlayer.MyHandManager.RefreshCardsPlace();
+        ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
     }
 
     public override void DragComponent_DragOutEffects()
@@ -256,7 +256,7 @@ public class CardSpell : CardBase
 
     public override float DragComponent_DragDistance()
     {
-        return GameManager.Instance.PullOutCardDistanceThreshold;
+        return 0;
     }
 
     #region 卡牌效果

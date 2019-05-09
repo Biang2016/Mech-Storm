@@ -10,23 +10,8 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
     {
     }
 
-    int uiLayer;
-    int cardsLayer;
-    int modulesLayer;
-    int retinuesLayer;
-    int shipsLayer;
-    int slotsLayer;
-    int cardSelectLayer;
-
     void Awake()
     {
-        uiLayer = 1 << LayerMask.NameToLayer("UI");
-        cardsLayer = 1 << LayerMask.NameToLayer("Cards");
-        modulesLayer = 1 << LayerMask.NameToLayer("Modules");
-        retinuesLayer = 1 << LayerMask.NameToLayer("Retinues");
-        shipsLayer = 1 << LayerMask.NameToLayer("Ships");
-        slotsLayer = 1 << LayerMask.NameToLayer("Slots");
-        cardSelectLayer = 1 << LayerMask.NameToLayer("CardSelect");
         M_StateMachine = new StateMachine();
     }
 
@@ -34,6 +19,8 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
     {
         M_StateMachine.Update();
     }
+
+    private float RETINUE_DETAIL_PREVIEW_DELAY_SECONDS = 0.7f;
 
     private Focus hi_MouseFocusUIHover; //UI
 
@@ -52,23 +39,23 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
 
     void Start()
     {
-        hi_MouseFocusUIHover = new Focus(uiLayer, UIManager.Instance.UICamera, 0, -1f);
+        hi_MouseFocusUIHover = new Focus(GameManager.Instance.Layer_UI, UIManager.Instance.UICamera, 0, -1f);
 
-        hi_CardSelectHover = new Hover1(uiLayer, UIManager.Instance.UICamera);
+        hi_CardSelectHover = new Hover1(GameManager.Instance.Layer_UI, UIManager.Instance.UICamera);
 
-        hi_CardHover = new Hover1(cardsLayer, GameManager.Instance.BattleGroundCamera);
-        hi_CardPressHover = new PressHoverImmediately(cardsLayer, GameManager.Instance.BattleGroundCamera);
-        hi_CardFocus = new Hover1(cardsLayer, GameManager.Instance.BattleGroundCamera, 0, -1f);
-        hi_ModulesHoverShowBloom = new Hover1(modulesLayer, GameManager.Instance.BattleGroundCamera);
+        hi_CardHover = new Hover1(GameManager.Instance.Layer_Cards, BackGroundManager.Instance.BattleGroundCamera);
+        hi_CardPressHover = new PressHoverImmediately(GameManager.Instance.Layer_Cards, BackGroundManager.Instance.BattleGroundCamera);
+        hi_CardFocus = new Hover1(GameManager.Instance.Layer_Cards, BackGroundManager.Instance.BattleGroundCamera, 0, -1f);
+        hi_ModulesHoverShowBloom = new Hover1(GameManager.Instance.Layer_Modules, BackGroundManager.Instance.BattleGroundCamera);
 
-        phi_SlotsPressHoverShowBloom = new PressHoverImmediately(slotsLayer, GameManager.Instance.BattleGroundCamera);
-        phi_SlotsPressHoverShowBloom_Target = new PressHoverImmediately(modulesLayer, GameManager.Instance.BattleGroundCamera);
+        phi_SlotsPressHoverShowBloom = new PressHoverImmediately(GameManager.Instance.Layer_Slots, BackGroundManager.Instance.BattleGroundCamera);
+        phi_SlotsPressHoverShowBloom_Target = new PressHoverImmediately(GameManager.Instance.Layer_Modules, BackGroundManager.Instance.BattleGroundCamera);
 
-        hd_ModulesFocusShowPreview = new Hover2(modulesLayer | retinuesLayer, GameManager.Instance.BattleGroundCamera, GameManager.Instance.RetinueDetailPreviewDelaySeconds, 100f);
+        hd_ModulesFocusShowPreview = new Hover2(GameManager.Instance.Layer_Modules | GameManager.Instance.Layer_Retinues, BackGroundManager.Instance.BattleGroundCamera, RETINUE_DETAIL_PREVIEW_DELAY_SECONDS, 100f);
 
-        hi_RetinueHoverShowTargetedBloom = new Hover1(retinuesLayer, GameManager.Instance.BattleGroundCamera);
-        hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(retinuesLayer, GameManager.Instance.BattleGroundCamera);
-        hd_ShipPressHoverShowTargetedBloom = new PressHoverImmediately(shipsLayer, GameManager.Instance.BattleGroundCamera);
+        hi_RetinueHoverShowTargetedBloom = new Hover1(GameManager.Instance.Layer_Retinues, BackGroundManager.Instance.BattleGroundCamera);
+        hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(GameManager.Instance.Layer_Retinues, BackGroundManager.Instance.BattleGroundCamera);
+        hd_ShipPressHoverShowTargetedBloom = new PressHoverImmediately(GameManager.Instance.Layer_Ships, BackGroundManager.Instance.BattleGroundCamera);
     }
 
     public StateMachine M_StateMachine;

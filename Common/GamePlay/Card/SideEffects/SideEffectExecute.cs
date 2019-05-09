@@ -45,7 +45,7 @@ public class SideEffectExecute : IClone<SideEffectExecute>
 
     public int ID;
     public ExecuteSetting M_ExecuteSetting;
-    public List<SideEffectBase> SideEffectBases;
+    public List<SideEffectBase> SideEffectBases = new List<SideEffectBase>();
 
     /// <summary>
     /// 对于不同的Type，有一些trigger参数的预设值，防止设置错误

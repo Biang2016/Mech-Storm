@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NSubstitute;
+using UnityEngine;
 
 /// <summary>
 /// 鼠标拖拽管理器
@@ -9,15 +10,8 @@ public class DragManager : MonoSingleton<DragManager>
     {
     }
 
-    int modulesLayer;
-    int retinueLayer;
-    int cardLayer;
-
     void Awake()
     {
-        modulesLayer = 1 << LayerMask.NameToLayer("Modules");
-        retinueLayer = 1 << LayerMask.NameToLayer("Retinues");
-        cardLayer = 1 << LayerMask.NameToLayer("Cards");
     }
 
     internal Arrow CurrentArrow;
@@ -49,11 +43,11 @@ public class DragManager : MonoSingleton<DragManager>
                 CurrentDrag_CardSpell = currentDrag.GetComponent<CardSpell>();
                 CurrentDrag_ModuleRetinue = currentDrag.GetComponent<ModuleRetinue>();
 
-                if (CurrentDrag_CardEquip && CurrentDrag_CardEquip.Usable && CurrentDrag_CardEquip.ClientPlayer.MyHandManager.CurrentFocusCard == CurrentDrag_CardEquip)
+                if (CurrentDrag_CardEquip && CurrentDrag_CardEquip.Usable && CurrentDrag_CardEquip.ClientPlayer.BattlePlayer.HandManager.CurrentFocusCard == CurrentDrag_CardEquip)
                 {
                     MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragEquipment);
                 }
-                else if (CurrentDrag_CardSpell && CurrentDrag_CardSpell.Usable && CurrentDrag_CardSpell.ClientPlayer.MyHandManager.CurrentFocusCard == CurrentDrag_CardSpell)
+                else if (CurrentDrag_CardSpell && CurrentDrag_CardSpell.Usable && CurrentDrag_CardSpell.ClientPlayer.BattlePlayer.HandManager.CurrentFocusCard == CurrentDrag_CardSpell)
                 {
                     MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragSpellTo);
                 }
@@ -98,7 +92,7 @@ public class DragManager : MonoSingleton<DragManager>
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit raycast;
-                Physics.Raycast(ray, out raycast, 10f, cardLayer | retinueLayer | modulesLayer);
+                Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Cards | GameManager.Instance.Layer_Retinues | GameManager.Instance.Layer_Modules);
                 if (raycast.collider != null)
                 {
                     ColliderReplace colliderReplace = raycast.collider.gameObject.GetComponent<ColliderReplace>();
@@ -162,7 +156,7 @@ public class DragManager : MonoSingleton<DragManager>
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
-            Physics.Raycast(ray, out raycast, 10f, retinueLayer);
+            Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Retinues);
             if (raycast.collider == null) //没有选中目标，则撤销
             {
                 SummonRetinueTargetHandler(-2);
@@ -182,9 +176,9 @@ public class DragManager : MonoSingleton<DragManager>
                 }
                 else
                 {
-                    if (RoundManager.Instance.SelfClientPlayer.MyBattleGroundManager.CurrentSummonPreviewRetinue == retinue //不可指向自己
-                        || RoundManager.Instance.SelfClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(retinue) //不可是死亡对象
-                        || RoundManager.Instance.EnemyClientPlayer.MyBattleGroundManager.RemoveRetinues.Contains(retinue)) //不可是死亡对象
+                    if (RoundManager.Instance.SelfClientPlayer.BattlePlayer.BattleGroundManager.CurrentSummonPreviewRetinue == retinue //不可指向自己
+                        || RoundManager.Instance.SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinues.Contains(retinue) //不可是死亡对象
+                        || RoundManager.Instance.EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinues.Contains(retinue)) //不可是死亡对象
                     {
                         SummonRetinueTargetHandler(-2);
                         if (CurrentArrow) CurrentArrow.PoolRecycle();

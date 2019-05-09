@@ -177,14 +177,14 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
     public virtual void MouseHoverComponent_OnHover2Begin(Vector3 mousePosition)
     {
         if (DragManager.Instance.IsSummonPreview) return;
-        ShowCardDetailInBattleManager.Instance.ShowCardDetail(this);
+        BattleManager.Instance.ShowCardDetailInBattleManager.ShowCardDetail(this);
         RootManager.Instance.StartBlurBackGround();
     }
 
     public virtual void MouseHoverComponent_OnHover2End()
     {
         if (DragManager.Instance.IsSummonPreview) return;
-        ShowCardDetailInBattleManager.Instance.HideCardDetail();
+        BattleManager.Instance.ShowCardDetailInBattleManager.HideCardDetail();
         if (UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().IsReadOnly) return;
         RootManager.Instance.StopBlurBackGround();
     }

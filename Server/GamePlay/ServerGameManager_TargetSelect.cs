@@ -123,9 +123,9 @@ internal partial class ServerGameManager
         {
             case TargetSelect.All:
             {
-                foreach (ServerPlayer serverPlayer in players)
+                foreach (ServerPlayer p in players)
                 {
-                    action(serverPlayer);
+                    action(p);
                 }
 
                 break;
@@ -141,17 +141,25 @@ internal partial class ServerGameManager
             }
             case TargetSelect.MultipleRandom:
             {
-                List<int> clientIds = Utils.GetRandomFromList(targetClientIds, count);
-                foreach (int clientId in clientIds)
+                List<ServerPlayer> players_selected = Utils.GetRandomFromList(players, count);
+                foreach (ServerPlayer p in players_selected)
                 {
-                    action(GetPlayerByClientId(clientId));
+                    action(p);
                 }
 
                 break;
             }
             case TargetSelect.Single:
             {
-                action(GetPlayerByClientId(targetClientIds[0]));
+                if (targetRange == TargetRange.SelfShip || targetRange == TargetRange.EnemyShip)
+                {
+                    action(players[0]);
+                }
+                else if (targetRange == TargetRange.Ships)
+                {
+                    action(GetPlayerByClientId(targetClientIds[0]));
+                }
+
                 break;
             }
             case TargetSelect.SingleRandom:
@@ -212,16 +220,14 @@ internal partial class ServerGameManager
             }
             case TargetSelect.Single:
             {
-                foreach (int clientId in targetClientIds)
+                if (targetRange == TargetRange.SelfShip || targetRange == TargetRange.EnemyShip)
                 {
-                    action(GetPlayerByClientId(clientId));
-                    break;
+                    action(ship_players[0]);
                 }
-
-                foreach (int retinueId in targetRetinueIds)
+                else
                 {
-                    action(GetRetinueOnBattleGround(retinueId));
-                    break;
+                    action(GetPlayerByClientId(targetClientIds[0]));
+                    action(GetRetinueOnBattleGround(targetRetinueIds[0]));
                 }
 
                 break;

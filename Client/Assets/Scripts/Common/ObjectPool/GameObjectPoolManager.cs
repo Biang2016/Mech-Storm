@@ -9,6 +9,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
 
     public enum PrefabNames
     {
+        BattlePlayer,
         ColliderReplace,
         ArrowAiming,
         ArrowArrow,
@@ -54,6 +55,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
 
     public Dictionary<PrefabNames, int> PoolConfigs = new Dictionary<PrefabNames, int>
     {
+        {PrefabNames.BattlePlayer, 2},
         {PrefabNames.ColliderReplace, 20},
         {PrefabNames.ArrowAiming, 1},
         {PrefabNames.ArrowArrow, 1},

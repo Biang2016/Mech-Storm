@@ -81,8 +81,8 @@ public class Initialization : MonoSingleton<Initialization>
             }
         }
 
-        GameBoardManager.BGs = new Sprite[AtlasManager.LoadAtlas("BGs").spriteCount];
-        AtlasManager.LoadAtlas("BGs").GetSprites(GameBoardManager.BGs);
+        BackGroundManager.BGs = new Sprite[AtlasManager.LoadAtlas("BGs").spriteCount];
+        AtlasManager.LoadAtlas("BGs").GetSprites(BackGroundManager.BGs);
 
         Debug.Log("LoadSpriteAtlas_AB");
     }
@@ -99,8 +99,8 @@ public class Initialization : MonoSingleton<Initialization>
             }
         }
 
-        GameBoardManager.BGs = new Sprite[AtlasManager.LoadAtlas("BGs").spriteCount];
-        AtlasManager.LoadAtlas("BGs").GetSprites(GameBoardManager.BGs);
+        BackGroundManager.BGs = new Sprite[AtlasManager.LoadAtlas("BGs").spriteCount];
+        AtlasManager.LoadAtlas("BGs").GetSprites(BackGroundManager.BGs);
 
         Debug.Log("LoadSpriteAtlas_Editor");
     }

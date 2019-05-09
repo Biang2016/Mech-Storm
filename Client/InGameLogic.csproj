@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Common\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Common\CameraEffects\ImageEffectBlurBox.cs" />
     <Compile Include="Assets\Scripts\Common\ClientUtils.cs" />
     <Compile Include="Assets\Scripts\Common\Initialization.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="Assets\Scripts\Common\PrefabManager.cs" />
     <Compile Include="Assets\Scripts\Common\UI\DebugUILine.cs" />
     <Compile Include="Assets\Scripts\Common\UI\InputNavigator.cs" />
+    <Compile Include="Assets\Scripts\Common\UI\OnMouseClick.cs" />
+    <Compile Include="Assets\Scripts\Common\UI\OnPointerHoverAndLeave.cs" />
     <Compile Include="Assets\Scripts\Common\UI\UIFramework\BaseUIForm.cs" />
     <Compile Include="Assets\Scripts\Common\UI\UIFramework\EventTriggerListener.cs" />
     <Compile Include="Assets\Scripts\Common\UI\UIFramework\UIDefines.cs" />
@@ -82,15 +85,17 @@
     <Compile Include="Assets\Scripts\Effects\NormalParticle.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Battle\BattleEffectsManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Battle\BattleGroundManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Battle\BattleManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Battle\BattlePlayer.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Battle\CardDeckManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Battle\ClientPlayer.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Battle\CoolDownCardManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Battle\GameBoardManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Battle\HandManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Battle\MetalLifeEnergyManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Battle\PlayerBuffManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Battle\RoundManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Battle\RoundManager_Response.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Battle\Ship.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardBase.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardDeckCard.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardEquip.cs" />
@@ -158,21 +163,21 @@
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\ShipBased\AddEnergy.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\UseAllEnergyDamageShip.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Functions\AudioManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Functions\NoticeManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Functions\ShowCardDetailInBattleManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\FunctionManagers\BackGroundManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\FunctionManagers\NoticeManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\FunctionManagers\ShowCardDetailInBattleManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Online\OnlineManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SceneManagers\CardEditorManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SceneManagers\GameManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SceneManagers\RootManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SelectBuild\Components\BuildButton.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuild\Components\BuildButtonClick.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuild\Components\BuildRenamePanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SelectBuild\Components\SelectCard.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SelectBuild\SelectBuildManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Storyline\StoryManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\AffixPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\BattleResultPanel.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\UIWindows\BattleUIPanel.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\UIWindows\BuildRenamePanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\CardEditorPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\CardPreviewPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\Affix.cs" />
@@ -182,7 +187,6 @@
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\Bonus\BonusButton.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\Bonus\BonusItem_Base.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\Bonus\SmallBonusItem.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\ButtonEffects.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\CardEditorWindow\CardPreviewButton.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_ExecuteSetting.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffect.cs" />
@@ -194,15 +198,13 @@
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyFormRow_Toggle.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyFormRow_TwoToggleRow.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\CardEditorWindow\PicPreviewButton.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\CostBar\MetalBarBlock.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\CostBar\MetalBarManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\ExitMenuButton.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\MetalBar\MetalBarBlock.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\MetalBar\MetalBarManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\ShrinkText.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\StarsGroup.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\StartMenuButton.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\UIWindows\Components\TransitPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\ExitMenuPanel.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\UIWindows\GameBoardUIPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\LoginPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\SelectBuildPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\SelectBuildPanel_Bars.cs" />
@@ -212,6 +214,7 @@
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\SettingPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\StartMenuPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\StoryPanel.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\UIWindows\TransitPanel.cs" />
     <Compile Include="Assets\Scripts\Network\Client.cs" />
     <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Network\Proxy.cs" />
@@ -225,10 +228,6 @@
     <Compile Include="Assets\Scripts\UX\MouseHoverComponent.cs" />
     <Compile Include="Assets\Scripts\UX\MouseHoverManager.cs" />
     <Compile Include="Assets\Scripts\UX\MouseHoverUI.cs" />
-    <Compile Include="Assets\Scripts\UX\OnClick.cs" />
-    <Compile Include="Assets\Scripts\UX\OnPointerHoverAndLeave.cs" />
-    <Compile Include="Assets\Scripts\UX\PreviewPanelBG.cs" />
-    <Compile Include="Assets\Scripts\UX\Ship.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -495,6 +494,12 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

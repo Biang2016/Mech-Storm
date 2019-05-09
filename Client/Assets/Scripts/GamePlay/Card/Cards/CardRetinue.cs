@@ -82,14 +82,14 @@ public class CardRetinue : CardBase
     {
         base.DragComponent_OnMousePressed(boardAreaType, slots, moduleRetinue, dragLastPosition);
 
-        if (boardAreaType == ClientPlayer.MyBattleGroundArea && !ClientPlayer.MyBattleGroundManager.BattleGroundIsFull) //拖机甲牌到战场区域
+        if (boardAreaType == ClientPlayer.BattlePlayer.BattleGroundArea && !ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsFull) //拖机甲牌到战场区域
         {
-            int previewPosition = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-            ClientPlayer.MyBattleGroundManager.AddRetinuePreview(previewPosition);
+            int previewPosition = ClientPlayer.BattlePlayer.BattleGroundManager.ComputePosition(dragLastPosition);
+            ClientPlayer.BattlePlayer.BattleGroundManager.AddRetinuePreview(previewPosition);
         }
         else //离开战场区域
         {
-            ClientPlayer.MyBattleGroundManager.RemoveRetinuePreview();
+            ClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinuePreview();
         }
     }
 
@@ -98,28 +98,28 @@ public class CardRetinue : CardBase
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         if (!CardInfo.TargetInfo.HasTargetRetinue) //无指定目标的副作用
         {
-            if (boardAreaType != ClientPlayer.MyHandArea) //脱手即出牌
+            if (boardAreaType != ClientPlayer.BattlePlayer.HandArea) //脱手即出牌
             {
                 summonRetinue(dragLastPosition, Const.TARGET_RETINUE_SELECT_NONE);
             }
             else
             {
-                ClientPlayer.MyBattleGroundManager.RemoveRetinuePreview();
+                ClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinuePreview();
                 transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-                ClientPlayer.MyHandManager.RefreshCardsPlace();
+                ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
             }
         }
         else
         {
-            if (boardAreaType != ClientPlayer.MyHandArea) //脱手即假召唤，开始展示指定目标箭头
+            if (boardAreaType != ClientPlayer.BattlePlayer.HandArea) //脱手即假召唤，开始展示指定目标箭头
             {
                 summonRetinueTarget(dragLastPosition, CardInfo.TargetInfo.targetRetinueRange);
             }
             else
             {
-                ClientPlayer.MyBattleGroundManager.RemoveRetinuePreview();
+                ClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinuePreview();
                 transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-                ClientPlayer.MyHandManager.RefreshCardsPlace();
+                ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
             }
         }
     }
@@ -129,13 +129,13 @@ public class CardRetinue : CardBase
     //召唤机甲
     private void summonRetinue(Vector3 dragLastPosition, int targetRetinueId)
     {
-        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
+        if (ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsFull)
         {
-            ClientPlayer.MyHandManager.RefreshCardsPlace();
+            ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
             return;
         }
 
-        int aliveIndex = ClientPlayer.MyBattleGroundManager.ComputePositionInAliveRetinues(dragLastPosition);
+        int aliveIndex = ClientPlayer.BattlePlayer.BattleGroundManager.ComputePositionInAliveRetinues(dragLastPosition);
         SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, aliveIndex, targetRetinueId, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
         Client.Instance.Proxy.SendMessage(request);
         Usable = false;
@@ -144,22 +144,22 @@ public class CardRetinue : CardBase
     //召唤机甲带目标
     private void summonRetinueTarget(Vector3 dragLastPosition, TargetRange targetRange)
     {
-        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsFull)
+        if (ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsFull)
         {
-            ClientPlayer.MyHandManager.RefreshCardsPlace();
+            ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
             return;
         }
 
-        ClientPlayer.MyHandManager.SetCurrentSummonRetinuePreviewCard(this);
+        ClientPlayer.BattlePlayer.HandManager.SetCurrentSummonRetinuePreviewCard(this);
 
-        if (ClientPlayer.MyBattleGroundManager.BattleGroundIsEmpty) //场上为空直接召唤
+        if (ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsEmpty) //场上为空直接召唤
         {
             summonRetinue(dragLastPosition, Const.TARGET_RETINUE_SELECT_NONE);
         }
         else //预览
         {
-            int battleGroundIndex = ClientPlayer.MyBattleGroundManager.ComputePosition(dragLastPosition);
-            ClientPlayer.MyBattleGroundManager.SummonRetinuePreview(this, battleGroundIndex, targetRange);
+            int battleGroundIndex = ClientPlayer.BattlePlayer.BattleGroundManager.ComputePosition(dragLastPosition);
+            ClientPlayer.BattlePlayer.BattleGroundManager.SummonRetinuePreview(this, battleGroundIndex, targetRange);
         }
     }
 

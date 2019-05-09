@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public partial class SelectBuildPanel
@@ -21,7 +22,14 @@ public partial class SelectBuildPanel
         set
         {
             currentEditBuildButton = value;
-            SelectBuildManager.Instance.CurrentEditBuildInfo = currentEditBuildButton.BuildInfo;
+            if (currentEditBuildButton != null)
+            {
+                SelectBuildManager.Instance.CurrentEditBuildInfo = currentEditBuildButton.BuildInfo;
+            }
+            else
+            {
+                SelectBuildManager.Instance.CurrentEditBuildInfo = null;
+            }
         }
     }
 
@@ -112,11 +120,11 @@ public partial class SelectBuildPanel
 
         CreateNewBuildButton.transform.parent.SetAsLastSibling();
 
-        BuildButtonClick bbc = newBuildButton.Button.GetComponent<BuildButtonClick>();
+        OnMouseClick bbc = newBuildButton.Button.GetComponent<OnMouseClick>();
         bbc.ResetListeners();
-        bbc.leftClick.AddListener(delegate { OnSwitchEditBuild(newBuildButton); });
-        bbc.rightClick.AddListener(delegate { OnRightClickBuildButtonToRename(newBuildButton.BuildInfo); });
-        bbc.leftDoubleClick.AddListener(delegate { OnBuildButtonDoubleClickToSelect(newBuildButton); });
+        bbc.LeftClick.AddListener(delegate { OnSwitchEditBuild(newBuildButton); });
+        bbc.RightClick.AddListener(delegate { OnRightClickBuildButtonToRename(newBuildButton.BuildInfo); });
+        bbc.LeftDoubleClick.AddListener(delegate { OnBuildButtonDoubleClickToSelect(newBuildButton); });
         return newBuildButton;
     }
 

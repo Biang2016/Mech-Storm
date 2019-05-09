@@ -38,7 +38,7 @@ public class BuildInfo : IClone<BuildInfo>
             {
                 if (AllCards.CardDict.ContainsKey(kv.Key))
                 {
-                    CardSelectInfos.Add(kv.Key, kv.Value.Clone());
+                    CardSelectInfos[kv.Key] = kv.Value.Clone();
                 }
             }
         }

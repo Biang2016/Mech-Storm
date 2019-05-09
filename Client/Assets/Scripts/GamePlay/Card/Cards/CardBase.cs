@@ -21,7 +21,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         transform.localScale = Vector3.one;
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Rotate(Vector3.up, 180);
-        DragComponent.enabled = true;
+        if (DragComponent) DragComponent.enabled = true;
     }
 
     void Awake()
@@ -143,7 +143,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.Rotate(Vector3.up, 180);
         Usable = false;
-        DragComponent.enabled = true;
+        if (DragComponent) DragComponent.enabled = true;
         M_BoxCollider.enabled = true;
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
@@ -528,7 +528,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public virtual void DragComponent_OnMouseDown()
     {
-        ClientPlayer.MyHandManager.IsBeginDrag = true;
+        ClientPlayer.BattlePlayer.HandManager.IsBeginDrag = true;
         iTween.Stop(gameObject);
     }
 
@@ -538,12 +538,12 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        ClientPlayer.MyHandManager.IsBeginDrag = false;
+        ClientPlayer.BattlePlayer.HandManager.IsBeginDrag = false;
     }
 
     public virtual void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose)
     {
-        canDrag = Usable && ClientPlayer.MyHandManager.CurrentFocusCard == this && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
+        canDrag = Usable && ClientPlayer.BattlePlayer.HandManager.CurrentFocusCard == this && ClientPlayer == RoundManager.Instance.SelfClientPlayer;
         dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 
@@ -559,7 +559,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public virtual void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
     {
-        ClientPlayer.MyHandManager.CardOnMouseEnter(this);
+        ClientPlayer.BattlePlayer.HandManager.CardOnMouseEnter(this);
     }
 
     public virtual void MouseHoverComponent_OnHover1End()
@@ -588,8 +588,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public virtual void MouseHoverComponent_OnMousePressLeaveImmediately()
     {
-        ClientPlayer.MyHandManager.CardOnMouseLeave(this);
-        ClientPlayer.MyBattleGroundManager.StopShowSlotBloom();
+        ClientPlayer.BattlePlayer.HandManager.CardOnMouseLeave(this);
+        ClientPlayer.BattlePlayer.BattleGroundManager.StopShowSlotBloom();
     }
 
     #endregion

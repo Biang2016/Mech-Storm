@@ -7,10 +7,6 @@ using UnityEngine;
 /// </summary>
 public class DragComponent : MonoBehaviour
 {
-    static int retinuesLayer;
-    static int boardAreasLayer;
-    static int slotsLayer;
-    static int shipsLayer;
     IDragComponent caller;
 
     private CardBase possibleCard;
@@ -18,10 +14,6 @@ public class DragComponent : MonoBehaviour
 
     void Awake()
     {
-        retinuesLayer = 1 << LayerMask.NameToLayer("Retinues");
-        boardAreasLayer = 1 << LayerMask.NameToLayer("BoardAreas");
-        slotsLayer = 1 << LayerMask.NameToLayer("Slots");
-        shipsLayer = 1 << LayerMask.NameToLayer("Ships");
         caller = GetComponent<IDragComponent>();
     }
 
@@ -58,7 +50,8 @@ public class DragComponent : MonoBehaviour
                     }
                     else //拖拽一定距离产生效果
                     {
-                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowArrow)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ArrowArrow].AllocateGameObject<ArrowArrow>(DragManager.Instance.transform);
+                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowArrow))
+                            DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ArrowArrow].AllocateGameObject<ArrowArrow>(DragManager.Instance.transform);
                         DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                     }
 
@@ -77,7 +70,8 @@ public class DragComponent : MonoBehaviour
                     }
                     else //拖拽一定距离产生效果
                     {
-                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowAiming)) DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ArrowAiming].AllocateGameObject<ArrowAiming>(DragManager.Instance.transform);
+                        if (!DragManager.Instance.CurrentArrow || !(DragManager.Instance.CurrentArrow is ArrowAiming))
+                            DragManager.Instance.CurrentArrow = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ArrowAiming].AllocateGameObject<ArrowAiming>(DragManager.Instance.transform);
                         DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                     }
 
@@ -135,7 +129,7 @@ public class DragComponent : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;
-        Physics.Raycast(ray, out raycast, 10f, boardAreasLayer);
+        Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_BoardAreas);
         if (raycast.collider != null)
         {
             if (raycast.collider.gameObject.CompareTag("SelfHandArea"))
@@ -166,7 +160,7 @@ public class DragComponent : MonoBehaviour
     {
         List<Slot> res = new List<Slot>();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] raycasts = Physics.RaycastAll(ray, 10f, slotsLayer);
+        RaycastHit[] raycasts = Physics.RaycastAll(ray, 10f, GameManager.Instance.Layer_Slots);
         foreach (RaycastHit rh in raycasts)
         {
             Slot sa = rh.collider.gameObject.GetComponent<Slot>();
@@ -180,7 +174,7 @@ public class DragComponent : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;
-        Physics.Raycast(ray, out raycast, 10f, retinuesLayer);
+        Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Retinues);
         if (raycast.collider != null)
         {
             ModuleRetinue mr = raycast.collider.gameObject.GetComponent<ModuleRetinue>();
@@ -194,7 +188,7 @@ public class DragComponent : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;
-        Physics.Raycast(ray, out raycast, 10f, shipsLayer);
+        Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Ships);
         if (raycast.collider != null)
         {
             Ship mr = raycast.collider.gameObject.GetComponent<Ship>();

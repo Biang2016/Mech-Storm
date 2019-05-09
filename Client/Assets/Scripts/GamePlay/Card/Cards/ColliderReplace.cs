@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// ÊÖÅÆÖÐÔ¤ÀÀ¿¨ÅÆÊ±Ìæ´úÔ­¿¨ÅÆÎ»ÖÃµÄCollider
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãµï¿½Collider
 /// </summary>
 public class ColliderReplace : PoolObject
 {
@@ -19,6 +19,6 @@ public class ColliderReplace : PoolObject
 
     private void OnMouseExit()
     {
-        MyCallerCard.ClientPlayer.MyHandManager.CardColliderReplaceOnMouseExit(MyCallerCard);
+        MyCallerCard.ClientPlayer.BattlePlayer.HandManager.CardColliderReplaceOnMouseExit(MyCallerCard);
     }
 }
