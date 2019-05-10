@@ -9,12 +9,12 @@ public class LensFlareIdle : MonoBehaviour
     void Start()
     {
         Flicker();
-        Hashtable args = new Hashtable();
-        args.Add("path", paths);
-        args.Add("speed", 0.5f);
-        args.Add("movetopath", true);
-        args.Add("looptype", "loop");
-        iTween.MoveTo(gameObject, args);
+//        Hashtable args = new Hashtable();
+//        args.Add("path", paths);
+//        args.Add("speed", 0.5f);
+//        args.Add("movetopath", true);
+//        args.Add("looptype", "loop");
+//        iTween.MoveTo(gameObject, args);
     }
 
     //void OnDrawGizmos()

@@ -88,8 +88,6 @@ internal class ServerBattleGroundManager
             Heroes.Add(retinue);
             HeroCount = Heroes.Count;
         }
-
-        PrintRetinueInfos();
     }
 
     public void RemoveRetinues(List<int> retinueIds)
@@ -126,7 +124,6 @@ internal class ServerBattleGroundManager
 
         if (!retinue.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(retinue.OriginCardInstanceId);
         retinue.UnRegisterSideEffect();
-        PrintRetinueInfos();
     }
 
     private void BattleGroundRemoveAllRetinue()
@@ -306,17 +303,6 @@ internal class ServerBattleGroundManager
         }
 
         return count;
-    }
-
-    public void PrintRetinueInfos()
-    {
-        string log = "BattleGroundInfo: [ClientID]" + ServerPlayer.ClientId + " [Username]" + ServerPlayer.MyClientProxy.UserName;
-        foreach (ServerModuleRetinue retinue in Retinues)
-        {
-            log += " [RID]" + retinue.M_RetinueID + " [Name]" + retinue.CardInfo.BaseInfo.CardNames[LanguageManager_Common.GetCurrentLanguage()];
-        }
-
-        ServerLog.Print(log);
     }
 
     #endregion

@@ -42,7 +42,6 @@ public class UIMaskMgr : MonoSingleton<UIMaskMgr>
                 MaskPanel.SetActive(false);
                 MaskPanel_Blur.SetActive(needMask_Blur);
                 RootManager.Instance.StartBlurBackGround();
-
                 break;
             //半透明，不能穿透
             case UIFormLucencyTypes.Translucence:

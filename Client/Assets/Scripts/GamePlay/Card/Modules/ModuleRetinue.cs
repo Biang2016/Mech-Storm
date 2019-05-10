@@ -44,14 +44,8 @@ public class ModuleRetinue : ModuleBase
 
     void Awake()
     {
-        gameObjectPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Retinue];
         DamageNumberPreviewTextMesh.text = "";
         DamageNumberPreviewBGTextMesh.text = "";
-    }
-
-    public void SetGoPool(GameObjectPool pool)
-    {
-        gameObjectPool = pool;
     }
 
     #region 各模块、自身数值与初始化
@@ -1528,19 +1522,19 @@ public class ModuleRetinue : ModuleBase
             case WeaponTypes.None:
             {
                 Vector3 oriPos = transform.position;
-                iTween.MoveTo(gameObject, targetRetinue.GetClosestHitPos(transform.position), 0.1f);
-                yield return new WaitForSeconds(0.15f);
-                AudioManager.Instance.SoundPlay("sfx/AttackSword");
-                iTween.MoveTo(gameObject, oriPos, 0.1f);
+//                iTween.MoveTo(gameObject, targetRetinue.GetClosestHitPos(transform.position), 0.1f);
+//                yield return new WaitForSeconds(0.15f);
+//                AudioManager.Instance.SoundPlay("sfx/AttackSword");
+//                iTween.MoveTo(gameObject, oriPos, 0.1f);
                 break;
             }
             case WeaponTypes.Sword:
             {
                 Vector3 oriPos = transform.position;
-                iTween.MoveTo(gameObject, targetRetinue.GetClosestHitPos(transform.position), 0.1f);
-                yield return new WaitForSeconds(0.15f);
-                AudioManager.Instance.SoundPlay("sfx/AttackSword");
-                iTween.MoveTo(gameObject, oriPos, 0.1f);
+//                iTween.MoveTo(gameObject, targetRetinue.GetClosestHitPos(transform.position), 0.1f);
+//                yield return new WaitForSeconds(0.15f);
+//                AudioManager.Instance.SoundPlay("sfx/AttackSword");
+//                iTween.MoveTo(gameObject, oriPos, 0.1f);
                 break;
             }
             case WeaponTypes.Gun:
@@ -1575,21 +1569,21 @@ public class ModuleRetinue : ModuleBase
             case WeaponTypes.None:
             {
                 Vector3 oriPos = transform.position;
-                iTween.MoveTo(gameObject, targetShip.GetClosestHitPosition(transform.position), 0.15f);
-                yield return new WaitForSeconds(0.17f);
-                AudioManager.Instance.SoundPlay("sfx/AttackNone");
-                iTween.MoveTo(gameObject, oriPos, 0.15f);
-                yield return new WaitForSeconds(0.17f);
+//                iTween.MoveTo(gameObject, targetShip.GetClosestHitPosition(transform.position), 0.15f);
+//                yield return new WaitForSeconds(0.17f);
+//                AudioManager.Instance.SoundPlay("sfx/AttackNone");
+//                iTween.MoveTo(gameObject, oriPos, 0.15f);
+//                yield return new WaitForSeconds(0.17f);
                 break;
             }
             case WeaponTypes.Sword:
             {
                 Vector3 oriPos = transform.position;
-                iTween.MoveTo(gameObject, targetShip.GetClosestHitPosition(transform.position), 0.15f);
-                yield return new WaitForSeconds(0.17f);
-                AudioManager.Instance.SoundPlay("sfx/AttackSword");
-                iTween.MoveTo(gameObject, oriPos, 0.15f);
-                yield return new WaitForSeconds(0.17f);
+//                iTween.MoveTo(gameObject, targetShip.GetClosestHitPosition(transform.position), 0.15f);
+//                yield return new WaitForSeconds(0.17f);
+//                AudioManager.Instance.SoundPlay("sfx/AttackSword");
+//                iTween.MoveTo(gameObject, oriPos, 0.15f);
+//                yield return new WaitForSeconds(0.17f);
                 break;
             }
             case WeaponTypes.Gun:

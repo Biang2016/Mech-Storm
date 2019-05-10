@@ -29,6 +29,7 @@ public class MetalBarManager : MonoBehaviour
         }
 
         MetalBarBlocks.Clear();
+        MetalBarBlockCount = 0;
         ClientPlayer = null;
     }
 

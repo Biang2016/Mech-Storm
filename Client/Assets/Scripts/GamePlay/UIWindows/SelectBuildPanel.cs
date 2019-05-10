@@ -38,7 +38,7 @@ public partial class SelectBuildPanel : BaseUIForm
     protected override void ChildUpdate()
     {
         base.ChildUpdate();
-        Update_Cards();
+        if (isShow) Update_Cards();
     }
 
     private States state;
@@ -72,7 +72,10 @@ public partial class SelectBuildPanel : BaseUIForm
 
         UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
         SelectWindowShowAnim.SetTrigger("Show");
+        isShow = true;
     }
+
+    private bool isShow = false;
 
     public override void Hide()
     {
@@ -86,6 +89,7 @@ public partial class SelectBuildPanel : BaseUIForm
         UIManager.Instance.CloseUIForm<AffixPanel>();
         currentPreviewCard?.PoolRecycle();
         MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
+        isShow = false;
     }
 
     public Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>(); // 所有卡片都放入窗口，按需隐藏

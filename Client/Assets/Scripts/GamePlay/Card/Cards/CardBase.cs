@@ -13,7 +13,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public override void PoolRecycle()
     {
-        iTween.Stop(gameObject);
+//        iTween.Stop(gameObject);
         ResetColliderAndReplace();
         CardOrder = 0;
         Usable = false;
@@ -529,7 +529,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     public virtual void DragComponent_OnMouseDown()
     {
         ClientPlayer.BattlePlayer.HandManager.IsBeginDrag = true;
-        iTween.Stop(gameObject);
+//        iTween.Stop(gameObject);
     }
 
     public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)

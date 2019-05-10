@@ -91,8 +91,6 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\StreamingAssets\Config\Cards.xml" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
-    <None Include="Assets\MechStorm_Data\StreamingAssets\Config\Buffs.xml" />
-    <None Include="Assets\MechStorm_Data\StreamingAssets\Config\SideEffects.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Materials\Stencil\UI_Custom.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
@@ -111,7 +109,6 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald Bold - OFL.txt" />
     <None Include="Assets\Materials\Shaders\Sprite-Gray.shader" />
-    <None Include="Assets\MechStorm_Data\StreamingAssets\Config\Cards.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\NotoSans - License.txt" />
@@ -123,7 +120,6 @@
     <None Include="Assets\StreamingAssets\Config\Buffs_back.xml" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\StreamingAssets\Config\SideEffects.xml" />
-    <None Include="Assets\MechStorm_Data\StreamingAssets\Config\Colors.xml" />
     <None Include="Assets\Materials\Stencil\Standard_BeMasked.shader" />
     <None Include="Assets\Materials\Stencil\Mask.shader" />
     <None Include="Assets\Materials\builtin-shader\Standard.shader" />

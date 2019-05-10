@@ -119,7 +119,6 @@ MonoBehaviour:
   UICamera: {fileID: 8243279409502879114}
   UINormalRoot: {fileID: 8156730384576550446}
   UIFixedRoot: {fileID: 8157466927014657602}
-  UICoverRoot: {fileID: 0}
   UIPopUpRoot: {fileID: 8156196992244023890}
 --- !u!114 &3064590070043488868
 MonoBehaviour:
@@ -372,7 +371,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 32
@@ -590,7 +589,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 267357700287726232}
-        m_MethodName: ClosePeekUIForm
+        m_MethodName: ClickElsewhereClosePeekUIForm
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

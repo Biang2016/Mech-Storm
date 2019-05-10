@@ -46,25 +46,25 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
         BackGroundManager.Instance.ChangeBoardBG();
         BattleManager.Instance.ShowBattleShips();
-        TransitPanel tp = UIManager.Instance.ShowUIForms<TransitPanel>();
-        switch (M_PlayMode)
-        {
-            case PlayMode.Online:
-            {
-                tp.ShowBlackShutTransit(1f, Preparation);
-                break;
-            }
-            case PlayMode.Single:
-            {
-                tp.ShowBlackShutTransit(1f, Preparation);
-                break;
-            }
-            case PlayMode.SingleCustom:
-            {
-                tp.ShowBlackShutTransit(1f, Preparation);
-                break;
-            }
-        }
+//        TransitPanel tp = UIManager.Instance.ShowUIForms<TransitPanel>();
+//        switch (M_PlayMode)
+//        {
+//            case PlayMode.Online:
+//            {
+//                tp.ShowBlackShutTransit(1f, Preparation);
+//                break;
+//            }
+//            case PlayMode.Single:
+//            {
+//                tp.ShowBlackShutTransit(1f, Preparation);
+//                break;
+//            }
+//            case PlayMode.SingleCustom:
+//            {
+//                tp.ShowBlackShutTransit(1f, Preparation);
+//                break;
+//            }
+//        }
     }
 
     public void Preparation()
@@ -130,8 +130,8 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     {
         if (M_PlayMode == PlayMode.Single)
         {
-            TransitPanel tp = UIManager.Instance.ShowUIForms<TransitPanel>();
-            tp.ShowBlackShutTransit(1f, GameStopPreparation);
+//            TransitPanel tp = UIManager.Instance.ShowUIForms<TransitPanel>();
+//            tp.ShowBlackShutTransit(1f, GameStopPreparation);
         }
         else
         {

@@ -17,9 +17,9 @@ public class HandManager : MonoBehaviour
     private readonly float HAND_CARD_ROTATE = 1.0f;
     private readonly float HAND_CARD_OFFSET = 2f;
     private readonly float PULL_OUT_CARD_SIZE = 0.4f;
-    private readonly float CARD_SHOW_SCALE = 0.25f;
-    private readonly float SHOW_CARD_DURATION = 1.2f;
-    private readonly float SHOW_CARD_FLY_DURATION = 0.4f;
+    private readonly float SHOW_CARD_SIZE = 0.35f;
+    private readonly float SHOW_CARD_DURATION = 0.8f;
+    private readonly float SHOW_CARD_FLY_DURATION = 0.3f;
     private static readonly Vector3 USE_CARD_SHOW_POSITION = new Vector3(10, 3, 0);
     private static readonly Vector3 USE_CARD_SHOW_POSITION_OVERLAY = new Vector3(10, 3, 0.2f);
 
@@ -174,6 +174,8 @@ public class HandManager : MonoBehaviour
     private Transform GetCardPlace(int cardIndex, int toatalCardNumber)
     {
         int rev = m_HandCardOrientation == HandCardOrientation.LeftToRight ? 1 : -1;
+        int rev_player = ClientPlayer.WhichPlayer == Players.Self ? 1 : -1;
+        int rev_player_180 = ClientPlayer.WhichPlayer == Players.Self ? 0 : 1;
 
         if (toatalCardNumber == 0) return null;
         if (GetCardPlacePivot == null) GetCardPlacePivot = new GameObject("GetCardPlacePivot");
@@ -192,9 +194,9 @@ public class HandManager : MonoBehaviour
         GetCardPlacePivot.transform.Translate(rev * (-Vector3.right * horrizonDistance * HAND_CARD_SIZE)); //horizontal offset, fro
         float distCardsFromCenter = Mathf.Abs(((toatalCardNumber - 1) / 2.0f + 1) - cardIndex); //the number of cards between this card and center card
         float factor = (toatalCardNumber - distCardsFromCenter) / toatalCardNumber; //temp param
-        GetCardPlacePivot.transform.Translate(-1 * (-Vector3.down * 1f * distCardsFromCenter * (1 - factor * factor) * 0.5f * HAND_CARD_SIZE + Vector3.down * toatalCardNumber / 30 * HAND_CARD_OFFSET)); //arc offset
-        GetCardPlacePivot.transform.Rotate(Vector3.forward, rev * rotateAngle); //tiny rotate of cards
-        GetCardPlacePivot.transform.Translate(-1 * Vector3.back * 0.01f * cardIndex); //vertical offset
+        GetCardPlacePivot.transform.Translate(rev_player * -1 * (-Vector3.down * 1f * distCardsFromCenter * (1 - factor * factor) * 0.5f * HAND_CARD_SIZE + Vector3.down * toatalCardNumber / 30 * HAND_CARD_OFFSET)); //arc offset
+        GetCardPlacePivot.transform.Rotate(rev_player * Vector3.forward, rev * rotateAngle + rev_player_180 * 180); //tiny rotate of cards
+        GetCardPlacePivot.transform.Translate(rev_player * -1 * Vector3.back * 0.01f * cardIndex); //vertical offset
         return GetCardPlacePivot.transform;
     }
 
@@ -232,8 +234,8 @@ public class HandManager : MonoBehaviour
 
     IEnumerator Co_GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds) //animation of drawing multiple cards
     {
-        float cardFlyTime = 1f;
-        float intervalTime = 0.5f;
+        float cardFlyTime = 0.3f;
+        float intervalTime = 0.2f;
 
         RefreshCardsPlace(cards.Count + cardIdAndInstanceIds.Count, 0.1f);
         yield return new WaitForSeconds(0.2f);
@@ -335,7 +337,7 @@ public class HandManager : MonoBehaviour
 
                     lastShowCard.transform.DOMove(USE_CARD_SHOW_POSITION, SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
                     lastShowCard.transform.DORotate(new Vector3(0, 180, 0), SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
-                    lastShowCard.transform.DOScale(Vector3.one * CARD_SHOW_SCALE, SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
+                    lastShowCard.transform.DOScale(Vector3.one * SHOW_CARD_SIZE, SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
                 }
 
                 currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, CardBase.CardShowMode.ShowCard, ClientPlayer);
@@ -351,10 +353,10 @@ public class HandManager : MonoBehaviour
                 currentShowCard.ShowCardBloom(true);
                 currentShowCard.BeBrightColor();
 
-                currentShowCard.transform.DOMove(USE_CARD_SHOW_POSITION_OVERLAY,SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
-                currentShowCard.transform.DORotate(new Vector3(0, 180, 0),SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
-                currentShowCard.transform.DOScale(Vector3.one * CARD_SHOW_SCALE,SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
-                
+                currentShowCard.transform.DOMove(USE_CARD_SHOW_POSITION_OVERLAY, SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
+                currentShowCard.transform.DORotate(new Vector3(-90, 180, 0), SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
+                currentShowCard.transform.DOScale(Vector3.one * SHOW_CARD_SIZE, SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
+
                 RefreshCardsPlace();
                 yield return new WaitForSeconds(SHOW_CARD_FLY_DURATION);
 

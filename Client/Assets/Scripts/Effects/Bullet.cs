@@ -27,7 +27,7 @@ internal class Bullet : PoolObject
         TrailRenderer.enabled = true;
         transform.position = startPos;
 
-        iTween.MoveTo(gameObject, endPos, duration);
+//        iTween.MoveTo(gameObject, endPos, duration);
         yield return new WaitForSeconds(duration + 0.1f);
         PoolRecycle();
         yield return null;

@@ -425,13 +425,13 @@ public class BattleGroundManager : MonoBehaviour
             targetPos[i] = Retinues[i].transform.position;
             Retinues[i].transform.position = ori;
 
-            iTween.Stop(Retinues[i].gameObject);
+//            iTween.Stop(Retinues[i].gameObject);
 
-            Hashtable args = new Hashtable();
-            args.Add("position", targetPos[i]);
-            args.Add("time", duration);
-            args.Add("easeType", iTween.EaseType.linear);
-            iTween.MoveTo(Retinues[i].gameObject, args);
+//            Hashtable args = new Hashtable();
+//            args.Add("position", targetPos[i]);
+//            args.Add("time", duration);
+//            args.Add("easeType", iTween.EaseType.linear);
+//            iTween.MoveTo(Retinues[i].gameObject, args);
         }
 
         ClientPlayer.BattlePlayer.HandManager.RefreshAllCardUsable();

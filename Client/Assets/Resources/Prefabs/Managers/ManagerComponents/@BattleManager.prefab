@@ -91,9 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9941f1277a5f2164bb154e27f74844d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelfBattlePlayer: {fileID: 0}
-  EnemyBattlePlayer: {fileID: 0}
-  CardDetailPreview: {fileID: 3598051529232504097}
+  ShowBEMMessages: 0
+  ShowCardDetailInBattleManager: {fileID: 3331186827634357235}
 --- !u!1 &3580115158256677165
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,8 +226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76238ce607409ab4fabdd303eebf21b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelfShip: {fileID: 0}
-  EnemyShip: {fileID: 0}
   M_PlayMode: 0
   InRound: 0
   HasShowLostConnectNotice: 1

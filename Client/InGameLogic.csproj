@@ -58,7 +58,6 @@
     <Compile Include="Assets\Scripts\Common\CameraEffects\ImageEffectBlurBox.cs" />
     <Compile Include="Assets\Scripts\Common\ClientUtils.cs" />
     <Compile Include="Assets\Scripts\Common\Initialization.cs" />
-    <Compile Include="Assets\Scripts\Common\iTween.cs" />
     <Compile Include="Assets\Scripts\Common\Localization\LanguageManager.cs" />
     <Compile Include="Assets\Scripts\Common\Log\ClientLog.cs" />
     <Compile Include="Assets\Scripts\Common\Log\DebugConsole.cs" />
@@ -114,6 +113,15 @@
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardSelectCountComponent.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardSlotsComponent.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardStarsComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueAttrShapesComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueBattleInfoComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueBattleInfoIcon.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueBloomComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueComponentBase.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueLifeIconComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueTargetPreviewArrowsComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueTriggerIcon.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueTriggerIconComponent.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleBase.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleEquip.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleMA.cs" />
@@ -214,7 +222,6 @@
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\SettingPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\StartMenuPanel.cs" />
     <Compile Include="Assets\Scripts\GamePlay\UIWindows\StoryPanel.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\UIWindows\TransitPanel.cs" />
     <Compile Include="Assets\Scripts\Network\Client.cs" />
     <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Network\Proxy.cs" />
@@ -462,12 +469,6 @@
     <Reference Include="UnityEditor.OSXStandalone.Extensions">
       <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="TextMeshPro-2017.3-Editor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="TextMeshPro-2017.3-Runtime">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="MyCardGameCommon">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
     </Reference>
@@ -480,9 +481,6 @@
     <Reference Include="NSubstitute">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.2d.common@1.0.10-preview/Tests/Editor/Lib/NSubstitute/NSubstitute.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.Advertisements">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
@@ -492,14 +490,17 @@
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.Purchasing">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
-    </Reference>
     <Reference Include="DOTweenEditor">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Runtime">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

@@ -224,10 +224,20 @@ internal partial class ServerGameManager
                 {
                     action(ship_players[0]);
                 }
-                else
+
+                foreach (int targetClientId in targetClientIds)
                 {
-                    action(GetPlayerByClientId(targetClientIds[0]));
-                    action(GetRetinueOnBattleGround(targetRetinueIds[0]));
+                    action(GetPlayerByClientId(targetClientId));
+                    break;
+                }
+
+                foreach (int targetRetinueId in targetRetinueIds)
+                {
+                    if (targetRetinueId != Const.TARGET_RETINUE_SELECT_NONE)
+                    {
+                        action(GetRetinueOnBattleGround(targetRetinueId));
+                        break;
+                    }
                 }
 
                 break;
