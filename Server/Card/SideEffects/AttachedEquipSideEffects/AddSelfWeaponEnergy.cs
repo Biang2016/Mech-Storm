@@ -12,11 +12,11 @@ namespace SideEffects
         {
             ServerPlayer player = (ServerPlayer) Player;
 
-            ServerModuleRetinue retinue = player.MyGameManager.GetRetinueOnBattleGround(M_ExecutorInfo.RetinueId);
-            if (retinue?.M_Weapon != null)
+            ServerModuleMech mech = player.MyGameManager.GetMechOnBattleGround(M_ExecutorInfo.MechId);
+            if (mech?.M_Weapon != null)
             {
-                int increase = Math.Min(retinue.M_RetinueWeaponEnergyMax - retinue.M_RetinueWeaponEnergy, M_SideEffectParam.GetParam_MultipliedInt("Energy"));
-                retinue.M_RetinueWeaponEnergy += increase;
+                int increase = Math.Min(mech.M_MechWeaponEnergyMax - mech.M_MechWeaponEnergy, M_SideEffectParam.GetParam_MultipliedInt("Energy"));
+                mech.M_MechWeaponEnergy += increase;
             }
         }
     }

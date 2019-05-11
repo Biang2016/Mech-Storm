@@ -143,7 +143,7 @@ internal class ServerHandManager
         if (!dropCard.CardInfo.BaseInfo.IsTemp) ServerPlayer.MyCardDeckManager.CardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
     }
 
-    internal void UseCard(int cardInstanceId, int targetRetinueId = ExecutorInfo.EXECUTE_INFO_NONE, int targetEquipId = ExecutorInfo.EXECUTE_INFO_NONE, int targetClientId = -1, bool onlyTriggerNotUse = false)
+    internal void UseCard(int cardInstanceId, int targetMechId = ExecutorInfo.EXECUTE_INFO_NONE, int targetEquipId = ExecutorInfo.EXECUTE_INFO_NONE, int targetClientId = -1, bool onlyTriggerNotUse = false)
     {
         ServerCardBase useCard = GetCardByCardInstanceId(cardInstanceId);
 
@@ -154,7 +154,7 @@ internal class ServerHandManager
                 new ExecutorInfo(
                     clientId: ServerPlayer.ClientId,
                     targetClientIds: new List<int> {targetClientId},
-                    targetRetinueIds: new List<int> {targetRetinueId},
+                    targetMechIds: new List<int> {targetMechId},
                     cardId: copyCard.CardInfo.CardID,
                     cardInstanceId: copyCard.M_CardInstanceId,
                     targetEquipIds: new List<int> {targetEquipId}));
@@ -170,7 +170,7 @@ internal class ServerHandManager
                 new ExecutorInfo(
                     clientId: ServerPlayer.ClientId,
                     targetClientIds: new List<int> { targetClientId },
-                    targetRetinueIds: new List<int> { targetRetinueId },
+                    targetMechIds: new List<int> { targetMechId },
                     cardId: useCard.CardInfo.CardID,
                     cardInstanceId: cardInstanceId,
                     targetEquipIds: new List<int> { targetEquipId }));

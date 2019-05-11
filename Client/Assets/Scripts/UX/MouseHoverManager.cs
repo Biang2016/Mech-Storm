@@ -20,7 +20,7 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
         M_StateMachine.Update();
     }
 
-    private float RETINUE_DETAIL_PREVIEW_DELAY_SECONDS = 0.7f;
+    private float MECH_DETAIL_PREVIEW_DELAY_SECONDS = 0.7f;
 
     private Focus hi_MouseFocusUIHover; //UI
 
@@ -30,11 +30,11 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
     private PressHoverImmediately hi_CardPressHover; //当鼠标按住牌上
     private Hover1 hi_CardFocus; //当鼠标聚焦牌上
     private Hover1 hi_ModulesHoverShowBloom; //当鼠标移到装备上时显示轮廓荧光
-    private Hover1 hi_RetinueHoverShowTargetedBloom; //当鼠标移到到机甲上时显示被瞄准的轮廓荧光
+    private Hover1 hi_MechHoverShowTargetedBloom; //当鼠标移到到机甲上时显示被瞄准的轮廓荧光
     private Hover2 hd_ModulesFocusShowPreview; //当鼠标移到机甲上一定时间后显示卡牌详情
     private PressHoverImmediately phi_SlotsPressHoverShowBloom_Target; //当Slot装备位被鼠标拖动瞄准时，显示Slot轮廓荧光
     private PressHoverImmediately phi_SlotsPressHoverShowBloom; //当鼠标拖动装备牌到Slot装备位上时，显示Slot轮廓荧光
-    private PressHoverImmediately hd_RetinuePressHoverShowTargetedBloom; //当鼠标拖拽到机甲上时显示被瞄准的轮廓荧光
+    private PressHoverImmediately hd_MechPressHoverShowTargetedBloom; //当鼠标拖拽到机甲上时显示被瞄准的轮廓荧光
     private PressHoverImmediately hd_ShipPressHoverShowTargetedBloom; //当鼠标拖拽到战舰上时显示被瞄准的轮廓荧光
 
     void Start()
@@ -51,10 +51,10 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
         phi_SlotsPressHoverShowBloom = new PressHoverImmediately(GameManager.Instance.Layer_Slots, BackGroundManager.Instance.BattleGroundCamera);
         phi_SlotsPressHoverShowBloom_Target = new PressHoverImmediately(GameManager.Instance.Layer_Modules, BackGroundManager.Instance.BattleGroundCamera);
 
-        hd_ModulesFocusShowPreview = new Hover2(GameManager.Instance.Layer_Modules | GameManager.Instance.Layer_Retinues, BackGroundManager.Instance.BattleGroundCamera, RETINUE_DETAIL_PREVIEW_DELAY_SECONDS, 100f);
+        hd_ModulesFocusShowPreview = new Hover2(GameManager.Instance.Layer_Modules | GameManager.Instance.Layer_Mechs, BackGroundManager.Instance.BattleGroundCamera, MECH_DETAIL_PREVIEW_DELAY_SECONDS, 100f);
 
-        hi_RetinueHoverShowTargetedBloom = new Hover1(GameManager.Instance.Layer_Retinues, BackGroundManager.Instance.BattleGroundCamera);
-        hd_RetinuePressHoverShowTargetedBloom = new PressHoverImmediately(GameManager.Instance.Layer_Retinues, BackGroundManager.Instance.BattleGroundCamera);
+        hi_MechHoverShowTargetedBloom = new Hover1(GameManager.Instance.Layer_Mechs, BackGroundManager.Instance.BattleGroundCamera);
+        hd_MechPressHoverShowTargetedBloom = new PressHoverImmediately(GameManager.Instance.Layer_Mechs, BackGroundManager.Instance.BattleGroundCamera);
         hd_ShipPressHoverShowTargetedBloom = new PressHoverImmediately(GameManager.Instance.Layer_Ships, BackGroundManager.Instance.BattleGroundCamera);
     }
 
@@ -77,9 +77,9 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
             SelectCardWindow_ReadOnly, //选卡界面_战斗内
             BattleNormal, //战斗一般状态
             DragEquipment, //拖动装备牌过程中
-            DragRetinueTo, //机甲拖动攻击
+            DragMechTo, //机甲拖动攻击
             DragSpellTo, //法术牌拖动瞄准
-            SummonRetinueTargetOn, //召唤带目标的机甲时，选择目标期间
+            SummonMechTargetOn, //召唤带目标的机甲时，选择目标期间
         }
 
         public static HashSet<States> OutGameState = new HashSet<States>
@@ -94,9 +94,9 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
             States.SelectCardWindow_ReadOnly,
             States.BattleNormal,
             States.DragEquipment,
-            States.DragRetinueTo,
+            States.DragMechTo,
             States.DragSpellTo,
-            States.SummonRetinueTargetOn,
+            States.SummonMechTargetOn,
         };
 
         private States state;
@@ -128,17 +128,17 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
                     case States.DragEquipment:
                         Instance.phi_SlotsPressHoverShowBloom.Release();
                         break;
-                    case States.DragRetinueTo:
-                        Instance.hd_RetinuePressHoverShowTargetedBloom.Release();
+                    case States.DragMechTo:
+                        Instance.hd_MechPressHoverShowTargetedBloom.Release();
                         Instance.hd_ShipPressHoverShowTargetedBloom.Release();
                         break;
                     case States.DragSpellTo:
-                        Instance.hd_RetinuePressHoverShowTargetedBloom.Release();
+                        Instance.hd_MechPressHoverShowTargetedBloom.Release();
                         Instance.hd_ShipPressHoverShowTargetedBloom.Release();
                         Instance.phi_SlotsPressHoverShowBloom_Target.Release();
                         break;
-                    case States.SummonRetinueTargetOn:
-                        Instance.hi_RetinueHoverShowTargetedBloom.Release();
+                    case States.SummonMechTargetOn:
+                        Instance.hi_MechHoverShowTargetedBloom.Release();
                         break;
                 }
 
@@ -162,7 +162,7 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
         public void Update()
         {
             //if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
-            if (InGameState.Contains(state) && DragManager.Instance.CurrentDrag == null && DragManager.Instance.CurrentSummonPreviewRetinue == null)
+            if (InGameState.Contains(state) && DragManager.Instance.CurrentDrag == null && DragManager.Instance.CurrentSummonPreviewMech == null)
             {
                 if (state != States.SelectCardWindow_ReadOnly) Instance.M_StateMachine.SetState(States.BattleNormal);
             }
@@ -189,17 +189,17 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
                 case States.DragEquipment:
                     Instance.phi_SlotsPressHoverShowBloom.Check<Slot>();
                     break;
-                case States.DragRetinueTo:
-                    Instance.hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
+                case States.DragMechTo:
+                    Instance.hd_MechPressHoverShowTargetedBloom.Check<ModuleMech>();
                     Instance.hd_ShipPressHoverShowTargetedBloom.Check<Ship>();
                     break;
                 case States.DragSpellTo:
-                    Instance.hd_RetinuePressHoverShowTargetedBloom.Check<ModuleRetinue>();
+                    Instance.hd_MechPressHoverShowTargetedBloom.Check<ModuleMech>();
                     Instance.hd_ShipPressHoverShowTargetedBloom.Check<Ship>();
                     Instance.phi_SlotsPressHoverShowBloom_Target.Check<ModuleEquip>();
                     break;
-                case States.SummonRetinueTargetOn:
-                    Instance.hi_RetinueHoverShowTargetedBloom.Check<ModuleRetinue>();
+                case States.SummonMechTargetOn:
+                    Instance.hi_MechHoverShowTargetedBloom.Check<ModuleMech>();
                     break;
             }
         }

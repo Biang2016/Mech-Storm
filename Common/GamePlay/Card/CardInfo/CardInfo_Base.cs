@@ -10,7 +10,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
     public UpgradeInfo UpgradeInfo;
     public LifeInfo LifeInfo;
     public BattleInfo BattleInfo;
-    public RetinueInfo RetinueInfo;
+    public MechInfo MechInfo;
     public EquipInfo EquipInfo;
     public TargetInfo TargetInfo;
     public WeaponInfo WeaponInfo;
@@ -40,7 +40,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         {
             BaseInfo.DragPurpose = DragPurpose.Equip;
         }
-        else if (TargetInfo.HasNoTarget || BaseInfo.CardType == CardTypes.Retinue)
+        else if (TargetInfo.HasNoTarget || BaseInfo.CardType == CardTypes.Mech)
         {
             BaseInfo.DragPurpose = DragPurpose.Summon;
         }
@@ -86,7 +86,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         UpgradeInfo.Serialize(writer);
         LifeInfo.Serialize(writer);
         BattleInfo.Serialize(writer);
-        RetinueInfo.Serialize(writer);
+        MechInfo.Serialize(writer);
         EquipInfo.Serialize(writer);
         WeaponInfo.Serialize(writer);
         ShieldInfo.Serialize(writer);
@@ -106,7 +106,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         newCardInfo_Base.UpgradeInfo = UpgradeInfo.Deserialze(reader);
         newCardInfo_Base.LifeInfo = LifeInfo.Deserialze(reader);
         newCardInfo_Base.BattleInfo = BattleInfo.Deserialze(reader);
-        newCardInfo_Base.RetinueInfo = RetinueInfo.Deserialze(reader);
+        newCardInfo_Base.MechInfo = MechInfo.Deserialze(reader);
         newCardInfo_Base.EquipInfo = EquipInfo.Deserialze(reader);
         newCardInfo_Base.WeaponInfo = WeaponInfo.Deserialze(reader);
         newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
@@ -267,13 +267,13 @@ public class CardInfo_Base : IClone<CardInfo_Base>
     {
         switch (src)
         {
-            case CardInfo_Retinue ci:
+            case CardInfo_Mech ci:
             {
                 switch (cardType)
                 {
-                    case CardTypes.Retinue:
+                    case CardTypes.Mech:
                     {
-                        return (CardInfo_Retinue) ci.Clone();
+                        return (CardInfo_Mech) ci.Clone();
                     }
                     case CardTypes.Equip:
                     {
@@ -312,16 +312,16 @@ public class CardInfo_Base : IClone<CardInfo_Base>
             {
                 switch (cardType)
                 {
-                    case CardTypes.Retinue:
+                    case CardTypes.Mech:
                     {
-                        CardInfo_Base res = new CardInfo_Retinue(
+                        CardInfo_Base res = new CardInfo_Mech(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
                             new LifeInfo(1, 1),
                             new BattleInfo(0, 0, 0),
-                            new RetinueInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
+                            new MechInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
                             ci.SideEffectBundle.Clone());
-                        res.BaseInfo.CardType = CardTypes.Retinue;
-                        return (CardInfo_Retinue) res;
+                        res.BaseInfo.CardType = CardTypes.Mech;
+                        return (CardInfo_Mech) res;
                     }
                     case CardTypes.Equip:
                     {
@@ -351,16 +351,16 @@ public class CardInfo_Base : IClone<CardInfo_Base>
             {
                 switch (cardType)
                 {
-                    case CardTypes.Retinue:
+                    case CardTypes.Mech:
                     {
-                        CardInfo_Base res = new CardInfo_Retinue(
+                        CardInfo_Base res = new CardInfo_Mech(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
                             new LifeInfo(1, 1),
                             new BattleInfo(0, 0, 0),
-                            new RetinueInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
+                            new MechInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
                             ci.SideEffectBundle.Clone());
-                        res.BaseInfo.CardType = CardTypes.Retinue;
-                        return (CardInfo_Retinue) res;
+                        res.BaseInfo.CardType = CardTypes.Mech;
+                        return (CardInfo_Mech) res;
                     }
                     case CardTypes.Equip:
                     {

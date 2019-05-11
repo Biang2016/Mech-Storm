@@ -419,8 +419,8 @@ internal class ClientProxy : ProxyBase
                             case EndRoundRequest req:
                                 MyServerGameManager?.OnEndRoundRequest(req);
                                 break;
-                            case SummonRetinueRequest req:
-                                MyServerGameManager?.OnClientSummonRetinueRequest(req);
+                            case SummonMechRequest req:
+                                MyServerGameManager?.OnClientSummonMechRequest(req);
                                 break;
                             case EquipWeaponRequest req:
                                 MyServerGameManager?.OnClientEquipWeaponRequest(req);
@@ -437,8 +437,8 @@ internal class ClientProxy : ProxyBase
                             case UseSpellCardRequest req:
                                 MyServerGameManager?.OnClientUseSpellCardRequest(req);
                                 break;
-                            case UseSpellCardToRetinueRequest req:
-                                MyServerGameManager?.OnClientUseSpellCardToRetinueRequest(req);
+                            case UseSpellCardToMechRequest req:
+                                MyServerGameManager?.OnClientUseSpellCardToMechRequest(req);
                                 break;
                             case UseSpellCardToShipRequest req:
                                 MyServerGameManager?.OnClientUseSpellCardToShipRequest(req);
@@ -449,11 +449,11 @@ internal class ClientProxy : ProxyBase
                             case LeaveGameRequest req: //quit game normally
                                 MyServerGameManager?.OnLeaveGameRequest(req);
                                 break;
-                            case RetinueAttackRetinueRequest req:
-                                MyServerGameManager?.OnClientRetinueAttackRetinueRequest(req);
+                            case MechAttackMechRequest req:
+                                MyServerGameManager?.OnClientMechAttackMechRequest(req);
                                 break;
-                            case RetinueAttackShipRequest req:
-                                MyServerGameManager?.OnClientRetinueAttackShipRequest(req);
+                            case MechAttackShipRequest req:
+                                MyServerGameManager?.OnClientMechAttackShipRequest(req);
                                 break;
                         }
                     }

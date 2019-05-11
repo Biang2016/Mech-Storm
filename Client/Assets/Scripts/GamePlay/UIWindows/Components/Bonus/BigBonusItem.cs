@@ -37,7 +37,7 @@ internal class BigBonusItem : BonusItem_Base
                 CurrentCard.transform.localScale = CardRotationSample.localScale;
                 CurrentCard.transform.rotation = CardRotationSample.rotation;
                 CurrentCard.transform.position = CardRotationSample.position;
-                CurrentCard.SetOrderInLayer(1);
+                CurrentCard.CardOrder = 1;
                 UnlockText.enabled = true;
                 UnlockImage.enabled = true;
                 CardMask.enabled = true;

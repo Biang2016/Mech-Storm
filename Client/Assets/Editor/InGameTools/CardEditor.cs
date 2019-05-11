@@ -89,13 +89,13 @@ public class CardEquipEditor : CardBaseEditor
     }
 }
 
-[CustomEditor(typeof(CardRetinue))]
-public class CardRetinueEditor : CardBaseEditor
+[CustomEditor(typeof(CardMech))]
+public class CardMechEditor : CardBaseEditor
 {
     [DrawGizmo(GizmoType.Selected)]
     void OnSceneGUI()
     {
-        CardRetinue cb = target as CardRetinue;
+        CardMech cb = target as CardMech;
         GUIStyle style = new GUIStyle();
         style.normal.textColor = new Color(1, 0, 0, 1);
         style.fontSize = 15;

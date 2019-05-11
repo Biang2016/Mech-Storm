@@ -39,9 +39,9 @@ public static class AllColors
         StoryLevelColor7,
 
         CardBloomColor,
-        RetinueBloomColor,
-        RetinueOnEnemyHoverBloomColor,
-        RetinueOnSelfHoverBloomColor,
+        MechBloomColor,
+        MechOnEnemyHoverBloomColor,
+        MechOnSelfHoverBloomColor,
         DefaultLifeNumberColor,
         InjuredLifeNumberColor,
         OverFlowTotalLifeColor,

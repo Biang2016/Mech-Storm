@@ -72,7 +72,7 @@
 [Dev] A border bloom of equip slot besides mechs will show when press-hovered by mouse or relative equip card is hovered.
 [Polish] Optimize the number displaying of mechs.
 [Dev] Swordbar's mask of mech panel.
-[Dev] Add sideeffect of AddRetinueLife.
+[Dev] Add sideeffect of AddMechLife.
 
 28th, July
 [Refactor] The animations of selecting, hovering equip card are extracted into another effect queue to avoid conflicts.
@@ -299,7 +299,7 @@ Art Update the UI of cards.
 [Dev] Realize the animation of mechs' attack.
 
 TodoList
-增加retinue的武器图标样式，普通和枪
+增加mech的武器图标样式，普通和枪
 onhover 的时候伤害预览 增加是否生效的逻辑，增加一个不能产生伤害的标识
 
 交互性及bug：

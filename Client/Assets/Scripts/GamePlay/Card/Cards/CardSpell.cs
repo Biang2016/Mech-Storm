@@ -6,7 +6,7 @@ public class CardSpell : CardBase
     public override void Initiate(CardInfo_Base cardInfo, CardShowMode cardShowMode, ClientPlayer clientPlayer = null)
     {
         base.Initiate(cardInfo, cardShowMode, clientPlayer);
-        CardInfo.TargetInfo.HasTargetRetinue = false;
+        CardInfo.TargetInfo.HasTargetMech = false;
         CardInfo.TargetInfo.HasTargetEquip = false;
         CardInfo.TargetInfo.HasTargetShip = false;
 
@@ -27,8 +27,8 @@ public class CardSpell : CardBase
                         TargetRange temp = ((TargetSideEffect) se).TargetRange;
                         if (temp != TargetRange.Ships && temp != TargetRange.SelfShip && temp != TargetRange.EnemyShip && temp != TargetRange.AllLife)
                         {
-                            CardInfo.TargetInfo.HasTargetRetinue = true;
-                            CardInfo.TargetInfo.targetRetinueRange = ((TargetSideEffect) se).TargetRange;
+                            CardInfo.TargetInfo.HasTargetMech = true;
+                            CardInfo.TargetInfo.targetMechRange = ((TargetSideEffect) se).TargetRange;
                             break;
                         }
                         else
@@ -43,21 +43,21 @@ public class CardSpell : CardBase
         }
     }
 
-    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
-        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleRetinue, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        base.DragComponent_OnMouseUp(boardAreaType, slots, moduleMech, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         RoundManager.Instance.HideTargetPreviewArrow();
         if (boardAreaType != ClientPlayer.BattlePlayer.HandArea) //离开手牌区域
         {
-            if (!CardInfo.TargetInfo.HasTargetRetinue && !CardInfo.TargetInfo.HasTargetEquip && !CardInfo.TargetInfo.HasTargetShip)
+            if (!CardInfo.TargetInfo.HasTargetMech && !CardInfo.TargetInfo.HasTargetEquip && !CardInfo.TargetInfo.HasTargetShip)
             {
                 summonSpellRequest(dragLastPosition);
                 return;
             }
-            else if (CardInfo.TargetInfo.HasTargetRetinue)
+            else if (CardInfo.TargetInfo.HasTargetMech)
             {
-                //To Retinue
-                if (moduleRetinue == null || moduleRetinue.IsDead)
+                //To Mech
+                if (moduleMech == null || moduleMech.IsDead)
                 {
                     transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
                     ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
@@ -65,7 +65,7 @@ public class CardSpell : CardBase
                 else
                 {
                     bool validTarget = false;
-                    switch (CardInfo.TargetInfo.targetRetinueRange)
+                    switch (CardInfo.TargetInfo.targetMechRange)
                     {
                         case TargetRange.None:
                             validTarget = false;
@@ -74,28 +74,28 @@ public class CardSpell : CardBase
                             validTarget = true;
                             break;
                         case TargetRange.SelfMechs:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
+                            if (moduleMech.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
                             break;
                         case TargetRange.EnemyMechs:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
+                            if (moduleMech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                             break;
                         case TargetRange.Heroes:
-                            if (!moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                            if (!moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetRange.SelfHeroes:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                            if (moduleMech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetRange.EnemyHeroes:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                            if (moduleMech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetRange.Soldiers:
-                            if (moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                            if (moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetRange.SelfSoldiers:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                            if (moduleMech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetRange.EnemySoldiers:
-                            if (moduleRetinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && moduleRetinue.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                            if (moduleMech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                             break;
                         case TargetRange.AllLife:
                             validTarget = true;
@@ -104,12 +104,12 @@ public class CardSpell : CardBase
 
                     if (validTarget)
                     {
-                        summonSpellRequestToRetinue(moduleRetinue, dragLastPosition);
+                        summonSpellRequestToMech(moduleMech, dragLastPosition);
                         return;
                     }
                     else
                     {
-                        AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
+                        AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
                         NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectMech"), 0, 1f);
                     }
                 }
@@ -124,7 +124,7 @@ public class CardSpell : CardBase
                 }
                 else
                 {
-                    ModuleEquip equip = slots[0].M_ModuleRetinue.GetEquipBySlotType(slots[0].MSlotTypes);
+                    ModuleEquip equip = slots[0].Mech.GetEquipBySlotType(slots[0].MSlotTypes);
                     if (equip == null || equip.IsDead)
                     {
                         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
@@ -148,22 +148,22 @@ public class CardSpell : CardBase
                                 if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                                 break;
                             case TargetRange.Heroes:
-                                if (!equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                                if (!equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.SelfHeroes:
-                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.EnemyHeroes:
-                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.Soldiers:
-                                if (equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                                if (equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.SelfSoldiers:
-                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.EnemySoldiers:
-                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && equip.CardInfo.RetinueInfo.IsSoldier) validTarget = true;
+                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.AllLife:
                                 validTarget = true;
@@ -177,7 +177,7 @@ public class CardSpell : CardBase
                         }
                         else
                         {
-                            AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
+                            AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
                             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectEquip"), 0, 1f);
                         }
                     }
@@ -217,7 +217,7 @@ public class CardSpell : CardBase
                     }
                     else
                     {
-                        AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
+                        AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
                         NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectShip"), 0, 1f);
                     }
                 }
@@ -234,7 +234,7 @@ public class CardSpell : CardBase
     {
         base.DragComponent_DragOutEffects();
         DragManager.Instance.DragOutDamage = CalculateAttack();
-        RoundManager.Instance.ShowTargetPreviewArrow(CardInfo.TargetInfo.targetRetinueRange);
+        RoundManager.Instance.ShowTargetPreviewArrow(CardInfo.TargetInfo.targetMechRange);
     }
 
     private int CalculateAttack()
@@ -268,16 +268,16 @@ public class CardSpell : CardBase
         Usable = false;
     }
 
-    private void summonSpellRequestToRetinue(ModuleRetinue targetModuleRetinue, Vector3 dragLastPosition)
+    private void summonSpellRequestToMech(ModuleMech targetModuleMech, Vector3 dragLastPosition)
     {
-        if (targetModuleRetinue.M_ClientTempRetinueID != Const.CLIENT_TEMP_RETINUE_ID_NORMAL)
+        if (targetModuleMech.M_ClientTempMechID != Const.CLIENT_TEMP_MECH_ID_NORMAL)
         {
-            UseSpellCardToRetinueRequest request = new UseSpellCardToRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, targetModuleRetinue.M_RetinueID, true, targetModuleRetinue.M_ClientTempRetinueID);
+            UseSpellCardToMechRequest request = new UseSpellCardToMechRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, targetModuleMech.M_MechID, true, targetModuleMech.M_ClientTempMechID);
             Client.Instance.Proxy.SendMessage(request);
         }
         else
         {
-            UseSpellCardToRetinueRequest request = new UseSpellCardToRetinueRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, targetModuleRetinue.M_RetinueID, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
+            UseSpellCardToMechRequest request = new UseSpellCardToMechRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, targetModuleMech.M_MechID, false, Const.CLIENT_TEMP_MECH_ID_NORMAL);
             Client.Instance.Proxy.SendMessage(request);
         }
 

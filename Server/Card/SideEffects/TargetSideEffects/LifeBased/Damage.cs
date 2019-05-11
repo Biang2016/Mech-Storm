@@ -12,7 +12,7 @@
             int value = M_SideEffectParam.GetParam_MultipliedInt("Damage");
             if (TargetRange == TargetRange.Self) // 对自身
             {
-                player.MyBattleGroundManager.GetRetinue(executorInfo.RetinueId).Damage(value);
+                player.MyBattleGroundManager.GetMech(executorInfo.MechId).Damage(value);
             }
             else
             {
@@ -23,7 +23,7 @@
                     TargetRange,
                     TargetSelect,
                     executorInfo.TargetClientIds,
-                    executorInfo.TargetRetinueIds
+                    executorInfo.TargetMechIds
                 );
             }
         }

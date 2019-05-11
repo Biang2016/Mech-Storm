@@ -244,7 +244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7847378704177768703}
   m_Layer: 5
-  m_Name: BigUpgradeArrowPivotRetinue
+  m_Name: BigUpgradeArrowPivotMech
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1088,7 +1088,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5328294855484056520}
   m_Layer: 5
-  m_Name: BigDegradeArrowPivotRetinue
+  m_Name: BigDegradeArrowPivotMech
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1399,10 +1399,10 @@ MonoBehaviour:
   Others: {fileID: 8525191058914131147}
   UpgradeArrow: {fileID: 2428618163896000142}
   UpgradeArrowPivot_normal: {fileID: 2744211318279692253}
-  UpgradeArrowPivot_retinueCards: {fileID: 7847378704177768703}
+  UpgradeArrowPivot_mechCards: {fileID: 7847378704177768703}
   DegradeArrow: {fileID: 4383966629297285689}
   DegradeArrowPivot_normal: {fileID: 4569704061034198821}
-  DegradeArrowPivot_retinueCards: {fileID: 5328294855484056520}
+  DegradeArrowPivot_mechCards: {fileID: 5328294855484056520}
   OperationUIs: {fileID: 5822258329262020645}
   UpgradeCardButton: {fileID: 8100711196583847910}
   UpgradeText: {fileID: 6409640826944915093}

@@ -223,7 +223,7 @@ public class CardDeck
         foreach (CardInfo_Base cb in Cards)
         {
             if (cb == null) continue;
-            if (cb.BaseInfo.CardType == CardTypes.Retinue && !cb.RetinueInfo.IsSoldier)
+            if (cb.BaseInfo.CardType == CardTypes.Mech && !cb.MechInfo.IsSoldier)
             {
                 number--;
                 res.Add(cb);
@@ -309,7 +309,7 @@ public class CardDeck
         if (CardInstanceIdDict.ContainsKey(cardInstanceId))
         {
             CardInfo_Base cib = AllCards.GetCard(CardInstanceIdDict[cardInstanceId]);
-            if (cib.BaseInfo.CardType == CardTypes.Retinue && !cib.RetinueInfo.IsSoldier)
+            if (cib.BaseInfo.CardType == CardTypes.Mech && !cib.MechInfo.IsSoldier)
             {
                 CoolingDownCard cdc = new CoolingDownCard(cib.CardID, cardInstanceId, 2, true);
                 CoolingDownCards.Add(cdc);

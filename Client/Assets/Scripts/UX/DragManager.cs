@@ -16,10 +16,10 @@ public class DragManager : MonoSingleton<DragManager>
 
     internal Arrow CurrentArrow;
 
-    internal CardRetinue CurrentDrag_CardRetinue;
+    internal CardMech CurrentDrag_CardMech;
     internal CardEquip CurrentDrag_CardEquip;
     internal CardSpell CurrentDrag_CardSpell;
-    internal ModuleRetinue CurrentDrag_ModuleRetinue;
+    internal ModuleMech CurrentDrag_ModuleMech;
 
     private DragComponent currentDrag;
 
@@ -31,17 +31,17 @@ public class DragManager : MonoSingleton<DragManager>
             currentDrag = value;
             if (currentDrag == null)
             {
-                CurrentDrag_CardRetinue = null;
+                CurrentDrag_CardMech = null;
                 CurrentDrag_CardEquip = null;
                 CurrentDrag_CardSpell = null;
-                CurrentDrag_ModuleRetinue = null;
+                CurrentDrag_ModuleMech = null;
             }
             else
             {
-                CurrentDrag_CardRetinue = currentDrag.GetComponent<CardRetinue>();
+                CurrentDrag_CardMech = currentDrag.GetComponent<CardMech>();
                 CurrentDrag_CardEquip = currentDrag.GetComponent<CardEquip>();
                 CurrentDrag_CardSpell = currentDrag.GetComponent<CardSpell>();
-                CurrentDrag_ModuleRetinue = currentDrag.GetComponent<ModuleRetinue>();
+                CurrentDrag_ModuleMech = currentDrag.GetComponent<ModuleMech>();
 
                 if (CurrentDrag_CardEquip && CurrentDrag_CardEquip.Usable && CurrentDrag_CardEquip.ClientPlayer.BattlePlayer.HandManager.CurrentFocusCard == CurrentDrag_CardEquip)
                 {
@@ -51,9 +51,9 @@ public class DragManager : MonoSingleton<DragManager>
                 {
                     MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragSpellTo);
                 }
-                else if (CurrentDrag_ModuleRetinue)
+                else if (CurrentDrag_ModuleMech)
                 {
-                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragRetinueTo);
+                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.DragMechTo);
                 }
             }
         }
@@ -66,13 +66,12 @@ public class DragManager : MonoSingleton<DragManager>
         //if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
         //if (ExitMenuPanel.Instance.M_StateMachine.GetState() == ExitMenuPanel.StateMachine.States.Show) ResetCurrentDrag();
         //if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show) ResetCurrentDrag();
-        if (!Client.Instance.IsPlaying()) ResetCurrentDrag();
-        if (UIManager.Instance.GetBaseUIForm<StartMenuPanel>())
+        if (!Client.Instance.IsPlaying())
         {
             ResetCurrentDrag();
-            //TODO
+            return;
         }
-
+        
         //if (BattleResultPanel.Instance.IsShow) ResetCurrentDrag();
         if (!IsSummonPreview)
         {
@@ -92,7 +91,7 @@ public class DragManager : MonoSingleton<DragManager>
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit raycast;
-                Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Cards | GameManager.Instance.Layer_Retinues | GameManager.Instance.Layer_Modules);
+                Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Cards | GameManager.Instance.Layer_Mechs | GameManager.Instance.Layer_Modules);
                 if (raycast.collider != null)
                 {
                     ColliderReplace colliderReplace = raycast.collider.gameObject.GetComponent<ColliderReplace>();
@@ -129,18 +128,18 @@ public class DragManager : MonoSingleton<DragManager>
 
     internal bool IsSummonPreview;
     internal bool IsArrowShowBegin;
-    internal ModuleRetinue CurrentSummonPreviewRetinue;
-    public BattleGroundManager.SummonRetinueTarget SummonRetinueTargetHandler;
-    public TargetRange SummonRetinueTargetRange;
+    internal ModuleMech CurrentSummonPreviewMech;
+    public BattleGroundManager.SummonMechTarget SummonMechTargetHandler;
+    public TargetRange SummonMechTargetRange;
 
     public const int TARGET_SELECT_NONE = -2;
 
-    public void StartArrowAiming(ModuleRetinue retinue, TargetRange targetRange)
+    public void StartArrowAiming(ModuleMech mech, TargetRange targetRange)
     {
         IsSummonPreview = true;
-        CurrentSummonPreviewRetinue = retinue;
-        SummonRetinueTargetRange = targetRange;
-        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SummonRetinueTargetOn);
+        CurrentSummonPreviewMech = mech;
+        SummonMechTargetRange = targetRange;
+        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SummonMechTargetOn);
     }
 
     private void SummonPreviewDrag()
@@ -149,100 +148,100 @@ public class DragManager : MonoSingleton<DragManager>
         {
             if (!CurrentArrow || !(CurrentArrow is ArrowAiming)) CurrentArrow = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ArrowAiming].AllocateGameObject<ArrowAiming>(transform);
             Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            CurrentArrow.Render(CurrentSummonPreviewRetinue.transform.position, cameraPosition);
+            CurrentArrow.Render(CurrentSummonPreviewMech.transform.position, cameraPosition);
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
-            Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Retinues);
+            Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Mechs);
             if (raycast.collider == null) //没有选中目标，则撤销
             {
-                SummonRetinueTargetHandler(-2);
+                SummonMechTargetHandler(-2);
                 if (CurrentArrow) CurrentArrow.PoolRecycle();
                 IsSummonPreview = false;
                 IsArrowShowBegin = false;
             }
             else
             {
-                ModuleRetinue retinue = raycast.collider.GetComponent<ModuleRetinue>();
-                if (retinue == null)
+                ModuleMech mech = raycast.collider.GetComponent<ModuleMech>();
+                if (mech == null)
                 {
-                    SummonRetinueTargetHandler(-2);
+                    SummonMechTargetHandler(-2);
                     if (CurrentArrow) CurrentArrow.PoolRecycle();
                     IsSummonPreview = false;
                     IsArrowShowBegin = false;
                 }
                 else
                 {
-                    if (RoundManager.Instance.SelfClientPlayer.BattlePlayer.BattleGroundManager.CurrentSummonPreviewRetinue == retinue //不可指向自己
-                        || RoundManager.Instance.SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinues.Contains(retinue) //不可是死亡对象
-                        || RoundManager.Instance.EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinues.Contains(retinue)) //不可是死亡对象
+                    if (RoundManager.Instance.SelfClientPlayer.BattlePlayer.BattleGroundManager.CurrentSummonPreviewMech == mech //不可指向自己
+                        || RoundManager.Instance.SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechs.Contains(mech) //不可是死亡对象
+                        || RoundManager.Instance.EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechs.Contains(mech)) //不可是死亡对象
                     {
-                        SummonRetinueTargetHandler(-2);
+                        SummonMechTargetHandler(-2);
                         if (CurrentArrow) CurrentArrow.PoolRecycle();
                         IsSummonPreview = false;
                         IsArrowShowBegin = false;
                     }
                     else
                     {
-                        int targetRetinueID = retinue.M_RetinueID;
-                        bool isClientRetinueTempId = false;
-                        if (retinue.M_RetinueID == -1) //如果该机甲还未从服务器取得ID，则用tempID
+                        int targetMechID = mech.M_MechID;
+                        bool isClientMechTempId = false;
+                        if (mech.M_MechID == -1) //如果该机甲还未从服务器取得ID，则用tempID
                         {
-                            targetRetinueID = retinue.M_ClientTempRetinueID;
-                            isClientRetinueTempId = true;
+                            targetMechID = mech.M_ClientTempMechID;
+                            isClientMechTempId = true;
                         }
 
-                        switch (SummonRetinueTargetRange)
+                        switch (SummonMechTargetRange)
                         {
                             case TargetRange.None:
-                                SummonRetinueTargetHandler(-2);
+                                SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.Mechs:
-                                SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                SummonMechTargetHandler(targetMechID, isClientMechTempId);
                                 break;
                             case TargetRange.SelfMechs:
-                                if (retinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
-                                else SummonRetinueTargetHandler(-2);
+                                if (mech.ClientPlayer == RoundManager.Instance.SelfClientPlayer) SummonMechTargetHandler(targetMechID, isClientMechTempId);
+                                else SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.EnemyMechs:
-                                if (retinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
-                                else SummonRetinueTargetHandler(-2);
+                                if (mech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) SummonMechTargetHandler(targetMechID, isClientMechTempId);
+                                else SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.Heroes:
-                                if (!retinue.CardInfo.RetinueInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
-                                else SummonRetinueTargetHandler(-2);
+                                if (!mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
+                                else SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.SelfHeroes:
-                                if (retinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !retinue.CardInfo.RetinueInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
-                                else SummonRetinueTargetHandler(-2);
+                                if (mech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
+                                else SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.EnemyHeroes:
-                                if (retinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !retinue.CardInfo.RetinueInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
-                                else SummonRetinueTargetHandler(-2);
+                                if (mech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
+                                else SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.Soldiers:
-                                if (retinue.CardInfo.RetinueInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
-                                else SummonRetinueTargetHandler(-2);
+                                if (mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
+                                else SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.SelfSoldiers:
-                                if (retinue.ClientPlayer == RoundManager.Instance.SelfClientPlayer && retinue.CardInfo.RetinueInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
-                                else SummonRetinueTargetHandler(-2);
+                                if (mech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
+                                else SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.EnemySoldiers:
-                                if (retinue.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && retinue.CardInfo.RetinueInfo.IsSoldier) SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
-                                else SummonRetinueTargetHandler(-2);
+                                if (mech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
+                                else SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.SelfShip:
-                                SummonRetinueTargetHandler(-2);
+                                SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.EnemyShip:
-                                SummonRetinueTargetHandler(-2);
+                                SummonMechTargetHandler(-2);
                                 break;
                             case TargetRange.AllLife:
-                                SummonRetinueTargetHandler(targetRetinueID, isClientRetinueTempId);
+                                SummonMechTargetHandler(targetMechID, isClientMechTempId);
                                 break;
                         }
                     }
@@ -257,7 +256,7 @@ public class DragManager : MonoSingleton<DragManager>
         }
         else if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonUp(1))
         {
-            SummonRetinueTargetHandler(-2);
+            SummonMechTargetHandler(-2);
             if (CurrentArrow) CurrentArrow.PoolRecycle();
             IsSummonPreview = false;
             IsArrowShowBegin = false;

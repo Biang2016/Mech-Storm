@@ -2,18 +2,18 @@
 {
     public int clientId;
     public CardInfo_Equip cardInfo;
-    public int retinueId;
+    public int mechId;
     public int equipID;
 
     public EquipShieldServerRequest()
     {
     }
 
-    public EquipShieldServerRequest(int clientId, CardInfo_Equip cardInfo, int retinueId,  int equipID)
+    public EquipShieldServerRequest(int clientId, CardInfo_Equip cardInfo, int mechId,  int equipID)
     {
         this.clientId = clientId;
         this.cardInfo = cardInfo;
-        this.retinueId = retinueId;
+        this.mechId = mechId;
         this.equipID = equipID;
     }
 
@@ -35,7 +35,7 @@
             writer.WriteByte(0x01);
             cardInfo.Serialize(writer);
         }
-        writer.WriteSInt32(retinueId);
+        writer.WriteSInt32(mechId);
         writer.WriteSInt32(equipID);
     }
 
@@ -47,7 +47,7 @@
         {
             cardInfo = (CardInfo_Equip)(CardInfo_Base.Deserialze(reader));
         }
-        retinueId = reader.ReadSInt32();
+        mechId = reader.ReadSInt32();
         equipID = reader.ReadSInt32();
     }
 

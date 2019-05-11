@@ -109,9 +109,9 @@ public class EventManager
     /// <summary>
     /// When something happens in game, invoke events by TriggerTime enum.
     /// Invoker info can be found in executorInfo.
-    /// TriggerTime enum is Flag. Master trigger can be triggered by Sub trigger -> e.g. OnHeroInjured also triggers OnRetinueInjured
+    /// TriggerTime enum is Flag. Master trigger can be triggered by Sub trigger -> e.g. OnHeroInjured also triggers OnMechInjured
     /// This method is often used in game logic.
-    /// (e.g. ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierKill, new ExecutorInfo(ServerPlayer.ClientId, retinueId: M_RetinueID, targetRetinueId: targetRetinue.M_RetinueID));)
+    /// (e.g. ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierKill, new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID, targetMechId: targetMech.M_MechID));)
     /// </summary>
     /// <param name="tt"></param>
     /// <param name="executorInfo"></param>
@@ -234,25 +234,25 @@ public class EventManager
                 break;
             case SideEffectExecute.TriggerRange.SelfAnother:
                 if (executorInfo.ClientId == se_ExecutorInfo.ClientId &&
-                    ((se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId != executorInfo.RetinueId) ||
+                    ((se_ExecutorInfo.MechId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.MechId != executorInfo.MechId) ||
                      (se_ExecutorInfo.CardInstanceId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.CardInstanceId != executorInfo.CardInstanceId)))
                     isTrigger = true;
                 break;
             case SideEffectExecute.TriggerRange.Another:
-                if ((se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId != executorInfo.RetinueId) ||
+                if ((se_ExecutorInfo.MechId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.MechId != executorInfo.MechId) ||
                     (se_ExecutorInfo.CardInstanceId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.CardInstanceId != executorInfo.CardInstanceId))
                     isTrigger = true;
                 break;
-            case SideEffectExecute.TriggerRange.AttachedRetinue:
-                if (se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId == executorInfo.RetinueId)
+            case SideEffectExecute.TriggerRange.AttachedMech:
+                if (se_ExecutorInfo.MechId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.MechId == executorInfo.MechId)
                     isTrigger = true;
                 break;
             case SideEffectExecute.TriggerRange.AttachedEquip:
-                if (se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId == executorInfo.RetinueId)
+                if (se_ExecutorInfo.MechId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.MechId == executorInfo.MechId)
                     isTrigger = true;
                 break;
             case SideEffectExecute.TriggerRange.Self:
-                if ((se_ExecutorInfo.RetinueId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.RetinueId == executorInfo.RetinueId) ||
+                if ((se_ExecutorInfo.MechId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.MechId == executorInfo.MechId) ||
                     (se_ExecutorInfo.CardInstanceId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.CardInstanceId == executorInfo.CardInstanceId) ||
                     (se_ExecutorInfo.EquipId != ExecutorInfo.EXECUTE_INFO_NONE && se_ExecutorInfo.EquipId == executorInfo.EquipId))
                     isTrigger = true;
@@ -263,7 +263,7 @@ public class EventManager
     }
 
     /// <summary>
-    /// Because during the process of some effects trigger, new events would happen. (e.g. trigger a damage effect and then a mech is injured and dead, then trigger a OnRetinueInjured and OnRetinueDie event)
+    /// Because during the process of some effects trigger, new events would happen. (e.g. trigger a damage effect and then a mech is injured and dead, then trigger a OnMechInjured and OnMechDie event)
     /// So we need a Stack data structure to manage where are we in this trigger tree.
     /// </summary>
     Stack<SideEffectExecute> InvokeStack = new Stack<SideEffectExecute>();

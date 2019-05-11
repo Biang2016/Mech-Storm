@@ -21,9 +21,9 @@
   <Color name="StoryLevelColor7" color="#A60086" intensity="1"></Color>
 
   <Color name="CardBloomColor" color="#F1FF74" intensity="1"></Color>
-  <Color name="RetinueBloomColor" color="#06FF00" intensity="1"></Color>
-  <Color name="RetinueOnEnemyHoverBloomColor" color="#FF0000" intensity="1"></Color>
-  <Color name="RetinueOnSelfHoverBloomColor" color="#FFF69F" intensity="1"></Color>
+  <Color name="MechBloomColor" color="#06FF00" intensity="1"></Color>
+  <Color name="MechOnEnemyHoverBloomColor" color="#FF0000" intensity="1"></Color>
+  <Color name="MechOnSelfHoverBloomColor" color="#FFF69F" intensity="1"></Color>
   <Color name="DefaultLifeNumberColor" color="#FFFFFF" intensity="1"></Color>
   <Color name="InjuredLifeNumberColor" color="#E2FF00" intensity="1"></Color>
   <Color name="OverFlowTotalLifeColor" color="#00FF28" intensity="1"></Color>

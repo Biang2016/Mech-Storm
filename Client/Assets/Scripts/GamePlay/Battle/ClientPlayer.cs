@@ -116,7 +116,7 @@ public class ClientPlayer : Player
         }
         else if (request.isOverflow)
         {
-            AudioManager.Instance.SoundPlay("sfx/OnSelectRetinueFalse");
+            AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
         }
 
         yield return new WaitForSeconds(0.1f);

@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class ModuleWeapon : ModuleEquip
 {
-    void Awake()
-    {
-        gameObjectPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Weapon];
-    }
-
     [SerializeField] private GameObject M_GunIcon;
     [SerializeField] private GameObject M_SwordIcon;
     [SerializeField] private GameObject M_SniperGunIcon;
@@ -105,8 +100,8 @@ public class ModuleWeapon : ModuleEquip
         set
         {
             m_WeaponAttack = value;
-            WeaponAttackText.text = M_ModuleRetinue.M_RetinueAttack.ToString();
-            M_DragComponent.enabled = M_ModuleRetinue.M_RetinueAttack != 0;
+            WeaponAttackText.text = M_ModuleMech.M_MechAttack.ToString();
+            M_DragComponent.enabled = M_ModuleMech.M_MechAttack != 0;
         }
     }
 

@@ -131,11 +131,11 @@
 		"zh": "装备牌(堡垒)",
 		"en": "EQ(MA)"
 	},
-	"KeyWords_CardRetinue_Soldier": {
+	"KeyWords_CardMech_Soldier": {
 		"zh": "士兵",
 		"en": "Soldier"
 	},
-	"KeyWords_CardRetinue_Hero": {
+	"KeyWords_CardMech_Hero": {
 		"zh": "英雄",
 		"en": "Hero"
 	},

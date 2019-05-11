@@ -14,7 +14,7 @@ namespace SideEffects
             int value = M_SideEffectParam.GetParam_MultipliedInt("HealValue");
             if (TargetRange == TargetRange.Self) // 对自身
             {
-                player.MyBattleGroundManager.GetRetinue(executorInfo.RetinueId).Heal(value);
+                player.MyBattleGroundManager.GetMech(executorInfo.MechId).Heal(value);
             }
             else
             {
@@ -25,7 +25,7 @@ namespace SideEffects
                     TargetRange,
                     TargetSelect,
                     executorInfo.TargetClientIds,
-                    executorInfo.TargetRetinueIds
+                    executorInfo.TargetMechIds
                 );
             }
         }

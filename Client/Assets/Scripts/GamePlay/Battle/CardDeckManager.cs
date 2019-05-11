@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using TMPro;
+using UnityEngine;
 
 /// <summary>
 /// 卡堆
@@ -8,9 +8,10 @@ public class CardDeckManager : MonoBehaviour
 {
     internal ClientPlayer ClientPlayer;
 
+    [SerializeField] private Material[] DeckMaterials;
     [SerializeField] private Transform CardDeckContainer;
-    [SerializeField] private Text CardLeftNumText;
-    [SerializeField] private Text CardLeftNumText_BG;
+    [SerializeField] private TextMeshPro CardLeftNumText;
+    [SerializeField] private MeshRenderer CardDeckImage;
 
     private CardBase[] CardDeckCards = new CardBase[CARD_DECK_CARD_NUM];
 
@@ -23,13 +24,14 @@ public class CardDeckManager : MonoBehaviour
     {
         ResetAll();
         ClientPlayer = clientPlayer;
-
+        CardDeckImage.material = DeckMaterials[(int) ClientPlayer.WhichPlayer];
         for (int i = 0; i < CARD_DECK_CARD_NUM; i++)
         {
             CardDeckCards[i] = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardDeckCard].AllocateGameObject<CardDeckCard>(CardDeckContainer);
             CardDeckCards[i].SetCardBackColor();
             CardDeckCards[i].transform.Translate(-SELF_CARD_DECK_CARD_INTERVAL * i);
             CardDeckCards[i].transform.localScale = Vector3.one * CARD_DECK_CARD_SIZE;
+            CardDeckCards[i].CardOrder = i;
         }
 
         ResetCardDeckNumberText();
@@ -61,12 +63,10 @@ public class CardDeckManager : MonoBehaviour
             if (value == 0)
             {
                 CardLeftNumText.text = "";
-                CardLeftNumText_BG.text = "";
             }
             else
             {
                 CardLeftNumText.text = value.ToString();
-                CardLeftNumText_BG.text = value.ToString();
             }
 
             SetCardDeckShowCardNum(CardDeckCards, value);

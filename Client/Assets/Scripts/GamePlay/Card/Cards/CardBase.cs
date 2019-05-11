@@ -35,6 +35,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardComponents.Add(CardComponentTypes.Notice, CardNoticeComponent);
         CardComponents.Add(CardComponentTypes.CoinBlock, CardCoinComponent);
         CardComponents.Add(CardComponentTypes.Slots, CardSlotsComponent);
+        CardComponents.Add(CardComponentTypes.Life, CardLifeComponent);
 
         CardShowModeComponentList.Add(CardShowMode.CardBack, new List<CardComponentTypes> {CardComponentTypes.Back});
         CardShowModeComponentList.Add(CardShowMode.HandCard, new List<CardComponentTypes> {CardComponentTypes.Back, CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars});
@@ -66,7 +67,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public CardShowMode M_CardShowMode;
 
-    public void SetCardShowMode(CardShowMode value)
+    private void SetCardShowMode(CardShowMode value)
     {
         foreach (KeyValuePair<CardComponentTypes, CardComponentBase> kv in CardComponents)
         {
@@ -77,6 +78,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         ShowAllSlotBlooms(value != CardShowMode.CardSelect && value != CardShowMode.SelectedCardPreview);
         if (value == CardShowMode.CardSelect || value == CardShowMode.SelectedCardPreview) ResetCoinPosition();
         if (value == CardShowMode.CardUpgradePreview) RefreshCoinPosition();
+        CardLifeComponent?.gameObject.SetActive(CardInfo != null && CardInfo.BaseInfo.CardType == CardTypes.Mech);
         ShowCardBloom(value != CardShowMode.CardSelect);
 
         M_CardShowMode = value;
@@ -88,8 +90,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
         switch (cardInfo.BaseInfo.CardType)
         {
-            case CardTypes.Retinue:
-                newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.RetinueCard].AllocateGameObject<CardRetinue>(parent);
+            case CardTypes.Mech:
+                newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.MechCard].AllocateGameObject<CardMech>(parent);
                 break;
             case CardTypes.Equip:
                 newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.EquipCard].AllocateGameObject<CardEquip>(parent);
@@ -102,7 +104,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
                 newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SpellCard].AllocateGameObject<CardSpell>(parent);
                 break;
             default:
-                newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.RetinueCard].AllocateGameObject<CardRetinue>(parent);
+                newCard = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.MechCard].AllocateGameObject<CardMech>(parent);
                 break;
         }
 
@@ -125,7 +127,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
     }
 
-    public void SetOrderInLayer(int value)
+    private void SetOrderInLayer(int value)
     {
         foreach (KeyValuePair<CardComponentTypes, CardComponentBase> kv in CardComponents)
         {
@@ -362,7 +364,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void RefreshSelectCountBlockPosition()
     {
-        if (CardInfo.RetinueInfo.HasSlotType(SlotTypes.MA))
+        if (CardInfo.MechInfo.HasSlotType(SlotTypes.MA))
         {
             CardSelectCountComponent?.SetPosition(CardSelectCountComponent.Position.Lower);
         }
@@ -400,7 +402,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void RefreshCoinPosition()
     {
-        if (CardInfo.BaseInfo.CardType == CardTypes.Retinue && CardInfo.RetinueInfo.HasSlotType(SlotTypes.MA))
+        if (CardInfo.BaseInfo.CardType == CardTypes.Mech && CardInfo.MechInfo.HasSlotType(SlotTypes.MA))
         {
             CardCoinComponent?.SetPosition(CardCoinComponent.Position.Lower);
         }
@@ -417,7 +419,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public void InitSlots()
     {
-        CardSlotsComponent.SetSlot(ClientPlayer, CardInfo.RetinueInfo);
+        CardSlotsComponent.SetSlot(ClientPlayer, null, CardInfo.MechInfo);
     }
 
     public void ShowAllSlotLights(bool isShow)
@@ -532,11 +534,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 //        iTween.Stop(gameObject);
     }
 
-    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
+    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Vector3 dragLastPosition)
     {
     }
 
-    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         ClientPlayer.BattlePlayer.HandManager.IsBeginDrag = false;
     }

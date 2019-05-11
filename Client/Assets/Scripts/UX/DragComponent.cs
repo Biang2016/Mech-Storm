@@ -55,7 +55,7 @@ public class DragComponent : MonoBehaviour
                         DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                     }
 
-                    caller.DragComponent_OnMousePressed(BoardAreaTypes.Others, checkMoveToSlot(), checkMoveToRetinue(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
+                    caller.DragComponent_OnMousePressed(BoardAreaTypes.Others, checkMoveToSlot(), checkMoveToMech(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
                     break;
                 case DragPurpose.Summon:
                     transform.position = transform.position + cameraPosition - dragLastPosition;
@@ -75,7 +75,7 @@ public class DragComponent : MonoBehaviour
                         DragManager.Instance.CurrentArrow.Render(dragBeginPosition, cameraPosition);
                     }
 
-                    caller.DragComponent_OnMousePressed(BoardAreaTypes.Others, null, checkMoveToRetinue(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
+                    caller.DragComponent_OnMousePressed(BoardAreaTypes.Others, null, checkMoveToMech(), dragLastPosition); //将鼠标悬停的区域告知拖动对象主体
                     break;
             }
         }
@@ -109,7 +109,7 @@ public class DragComponent : MonoBehaviour
                 if (canDrag)
                 {
                     //将鼠标放开的区域告知拖动对象主体，并提供拖动起始姿态信息以供还原
-                    caller.DragComponent_OnMouseUp(CheckAreas(), checkMoveToSlot(), checkMoveToRetinue(), checkMoveToShip(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+                    caller.DragComponent_OnMouseUp(CheckAreas(), checkMoveToSlot(), checkMoveToMech(), checkMoveToShip(), dragLastPosition, dragBeginPosition, dragBeginQuaternion);
                     dragLastPosition = Vector3.zero;
                     isBegin = true;
                     if (DragManager.Instance.CurrentArrow) DragManager.Instance.CurrentArrow.PoolRecycle();
@@ -132,24 +132,14 @@ public class DragComponent : MonoBehaviour
         Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_BoardAreas);
         if (raycast.collider != null)
         {
-            if (raycast.collider.gameObject.CompareTag("SelfHandArea"))
+            if (raycast.collider.gameObject.CompareTag("HandArea"))
             {
-                return BoardAreaTypes.SelfHandArea;
+                return raycast.collider.gameObject.GetComponent<HandManager>().ClientPlayer.BattlePlayer.HandArea;
             }
 
-            if (raycast.collider.gameObject.CompareTag("EnemyHandArea"))
+            if (raycast.collider.gameObject.CompareTag("BattleGroundArea"))
             {
-                return BoardAreaTypes.EnemyHandArea;
-            }
-
-            if (raycast.collider.gameObject.CompareTag("SelfBattleGroundArea"))
-            {
-                return BoardAreaTypes.SelfBattleGroundArea;
-            }
-
-            if (raycast.collider.gameObject.CompareTag("EnemyBattleGroundArea"))
-            {
-                return BoardAreaTypes.EnemyBattleGroundArea;
+                return raycast.collider.gameObject.GetComponent<BattleGroundManager>().ClientPlayer.BattlePlayer.BattleGroundArea;
             }
         }
 
@@ -170,14 +160,14 @@ public class DragComponent : MonoBehaviour
         return res;
     }
 
-    private ModuleRetinue checkMoveToRetinue() //检查鼠标悬停在哪个Retinue上
+    private ModuleMech checkMoveToMech() //检查鼠标悬停在哪个Mech上
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycast;
-        Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Retinues);
+        Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Mechs);
         if (raycast.collider != null)
         {
-            ModuleRetinue mr = raycast.collider.gameObject.GetComponent<ModuleRetinue>();
+            ModuleMech mr = raycast.collider.gameObject.GetComponent<ModuleMech>();
             if (mr) return mr;
         }
 
@@ -211,23 +201,23 @@ internal interface IDragComponent
     /// </summary>
     /// <param name="boardAreaType">移动到了战场的哪个区域</param>
     /// <param name="slots">移动到了哪个slot上</param>
-    /// <param name="moduleRetinue">移动到了哪个机甲上</param>
+    /// <param name="moduleMech">移动到了哪个机甲上</param>
     /// <param name="dragLastPosition"></param>
     void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots,
-        ModuleRetinue moduleRetinue, Vector3 dragLastPosition);
+        ModuleMech moduleMech, Vector3 dragLastPosition);
 
     /// <summary>
     ///     传达鼠标左键松开时的鼠标位置信息
     /// </summary>
     /// <param name="boardAreaType">移动到了战场的哪个区域</param>
     /// <param name="slots">移动到了哪个slot上</param>
-    /// <param name="moduleRetinue">移动到了哪个机甲上</param>
+    /// <param name="moduleMech">移动到了哪个机甲上</param>
     /// <param name="ship">移动到了哪个战舰</param>
     /// <param name="dragLastPosition">移动的最后位置</param>
     /// <param name="dragBeginPosition">移动的初始位置</param>
     /// <param name="dragBeginQuaternion">被拖动对象的初始旋转</param>
     void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots,
-        ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition,
+        ModuleMech moduleMech, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition,
         Quaternion dragBeginQuaternion);
 
     void DragComponent_SetStates(ref bool canDrag, ref DragPurpose dragPurpose);

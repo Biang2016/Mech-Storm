@@ -108,7 +108,7 @@ public struct BaseInfo
         {
             "zh", new Dictionary<CardTypes, string>
             {
-                {CardTypes.Retinue, "机甲牌"},
+                {CardTypes.Mech, "机甲牌"},
                 {CardTypes.Spell, "法术牌"},
                 {CardTypes.Energy, "能量牌"},
                 {CardTypes.Equip, "装备牌"},
@@ -117,7 +117,7 @@ public struct BaseInfo
         {
             "en", new Dictionary<CardTypes, string>
             {
-                {CardTypes.Retinue, "Mech"},
+                {CardTypes.Mech, "Mech"},
                 {CardTypes.Spell, "Spell"},
                 {CardTypes.Energy, "Energy"},
                 {CardTypes.Equip, "Equip"}, 
@@ -129,7 +129,7 @@ public struct BaseInfo
 [JsonConverter(typeof(StringEnumConverter))]
 public enum CardTypes
 {
-    Retinue,
+    Mech,
     Spell,
     Energy,
     Equip,

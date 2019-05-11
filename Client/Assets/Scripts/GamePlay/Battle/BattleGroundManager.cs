@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class BattleGroundManager : MonoBehaviour
 {
-    private float RETINUE_INTERVAL = 3.5f;
+    private float MECH_INTERVAL = 3.5f;
 
-    private int retinueCount;
+    private int mechCount;
 
-    public int RetinueCount //接到增加机甲协议就更新数量（实体后面才生成）
+    public int MechCount //接到增加机甲协议就更新数量（实体后面才生成）
     {
-        get { return retinueCount; }
-        set { retinueCount = value; }
+        get { return mechCount; }
+        set { mechCount = value; }
     }
 
     private int heroCount;
@@ -32,21 +33,21 @@ public class BattleGroundManager : MonoBehaviour
 
     public bool BattleGroundIsFull
     {
-        get { return RetinueCount == GamePlaySettings.MaxRetinueNumber; }
+        get { return MechCount == GamePlaySettings.MaxMechNumber; }
     }
 
     public bool BattleGroundIsEmpty
     {
-        get { return RetinueCount == 0; }
+        get { return MechCount == 0; }
     }
 
-    public bool HasDefenceRetinue
+    public bool HasDefenceMech
     {
         get
         {
-            foreach (ModuleRetinue retinue in Retinues)
+            foreach (ModuleMech mech in Mechs)
             {
-                if (retinue.IsDefender) return true;
+                if (mech.IsDefender) return true;
             }
 
             return false;
@@ -63,12 +64,12 @@ public class BattleGroundManager : MonoBehaviour
         get { return SoldierCount == 0; }
     }
 
-    private Vector3 _defaultRetinuePosition = Vector3.zero;
+    [SerializeField] private Transform DefaultMechPivot;
 
     internal ClientPlayer ClientPlayer;
-    internal List<ModuleRetinue> Retinues = new List<ModuleRetinue>();
-    internal List<ModuleRetinue> Heros = new List<ModuleRetinue>();
-    internal List<ModuleRetinue> Soldiers = new List<ModuleRetinue>();
+    internal List<ModuleMech> Mechs = new List<ModuleMech>();
+    internal List<ModuleMech> Heros = new List<ModuleMech>();
+    internal List<ModuleMech> Soldiers = new List<ModuleMech>();
 
     public void Initialize(ClientPlayer clientPlayer)
     {
@@ -78,76 +79,76 @@ public class BattleGroundManager : MonoBehaviour
 
     public void ResetAll()
     {
-        foreach (ModuleRetinue moduleRetinue in Retinues)
+        foreach (ModuleMech moduleMech in Mechs)
         {
-            moduleRetinue.PoolRecycle();
+            moduleMech.PoolRecycle();
         }
 
-        RetinueCount = 0;
+        MechCount = 0;
         HeroCount = 0;
         SoldierCount = 0;
 
         ClientPlayer = null;
-        previewRetinuePlace = PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW;
-        Retinues.Clear();
+        previewMechPlace = PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW;
+        Mechs.Clear();
         Heros.Clear();
         Soldiers.Clear();
-        RetinueCount = 0;
+        MechCount = 0;
         HeroCount = 0;
         SoldierCount = 0;
-        RemoveRetinues.Clear();
-        addPrePassRetinueQueue.Clear();
-        clientRetinueTempId = 0;
+        RemoveMechs.Clear();
+        addPrePassMechQueue.Clear();
+        clientMechTempId = 0;
         relatedSlots.Clear();
-        if (currentSummonPreviewRetinueCard) currentSummonPreviewRetinueCard.PoolRecycle();
-        if (CurrentSummonPreviewRetinue) CurrentSummonPreviewRetinue.PoolRecycle();
+        if (currentSummonPreviewMechCard) currentSummonPreviewMechCard.PoolRecycle();
+        if (CurrentSummonPreviewMech) CurrentSummonPreviewMech.PoolRecycle();
     }
 
     #region 位置计算
 
     internal int ComputePosition(Vector3 dragLastPosition)
     {
-        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / RETINUE_INTERVAL - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
+        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / MECH_INTERVAL - (Mechs.Count + 1) % 2 * 0.5f) + (Mechs.Count / 2 + 1));
         if (index < 0) index = 0;
-        if (index >= Retinues.Count) index = Retinues.Count;
+        if (index >= Mechs.Count) index = Mechs.Count;
         return index;
     }
 
-    internal int ComputePositionInAliveRetinues(Vector3 dragLastPosition)
+    internal int ComputePositionInAliveMechs(Vector3 dragLastPosition)
     {
         int battleGroundIndex = ComputePosition(dragLastPosition);
-        return GetIndexOfAliveRetinues(battleGroundIndex);
+        return GetIndexOfAliveMechs(battleGroundIndex);
     }
 
-    internal ModuleRetinue CheckRetinueOnPosition(Vector3 dragLastPosition)
+    internal ModuleMech CheckMechOnPosition(Vector3 dragLastPosition)
     {
-        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / RETINUE_INTERVAL - (Retinues.Count + 1) % 2 * 0.5f) + (Retinues.Count / 2 + 1));
-        if (index < 0 || index >= Retinues.Count)
+        int index = Mathf.RoundToInt(Mathf.Floor(dragLastPosition.x / MECH_INTERVAL - (Mechs.Count + 1) % 2 * 0.5f) + (Mechs.Count / 2 + 1));
+        if (index < 0 || index >= Mechs.Count)
             return null;
-        return Retinues[index];
+        return Mechs[index];
     }
 
     #endregion
 
     #region 召唤和移除
 
-    public ModuleRetinue AddRetinue_PrePass(CardInfo_Retinue retinueCardInfo, int retinueId, int clientRetinueTempId)
+    public ModuleMech AddMech_PrePass(CardInfo_Mech mechCardInfo, int mechId, int clientMechTempId)
     {
         if (ClientPlayer == null) return null;
-        if (previewRetinuePlace != PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW)
+        if (previewMechPlace != PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW)
         {
-            previewRetinuePlace = PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW;
+            previewMechPlace = PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW;
         }
 
         bool isSummonedBeforeByPreview = false;
-        if (clientRetinueTempId >= 0)
+        if (clientMechTempId >= 0)
         {
-            foreach (ModuleRetinue moduleRetinue in Retinues)
+            foreach (ModuleMech moduleMech in Mechs)
             {
-                if (moduleRetinue.M_ClientTempRetinueID == clientRetinueTempId) //匹配
+                if (moduleMech.M_ClientTempMechID == clientMechTempId) //匹配
                 {
-                    moduleRetinue.M_RetinueID = retinueId; //赋予正常ID
-                    moduleRetinue.M_ClientTempRetinueID = Const.CLIENT_TEMP_RETINUE_ID_NORMAL; //恢复普通
+                    moduleMech.M_MechID = mechId; //赋予正常ID
+                    moduleMech.M_ClientTempMechID = Const.CLIENT_TEMP_MECH_ID_NORMAL; //恢复普通
                     isSummonedBeforeByPreview = true;
                     break;
                 }
@@ -156,14 +157,14 @@ public class BattleGroundManager : MonoBehaviour
 
         if (!isSummonedBeforeByPreview)
         {
-            ModuleRetinue retinue = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Retinue].AllocateGameObject<ModuleRetinue>(transform);
-            retinue.transform.position = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Retinue].transform.position;
-            retinue.Initiate(retinueCardInfo, ClientPlayer);
-            retinue.transform.Rotate(Vector3.up, 180);
-            retinue.M_RetinueID = retinueId;
-            addPrePassRetinueQueue.Enqueue(retinue);
-            RetinueCount++;
-            if (!retinueCardInfo.RetinueInfo.IsSoldier)
+            ModuleMech mech = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleMech].AllocateGameObject<ModuleMech>(transform);
+            mech.transform.position = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleMech].transform.position;
+            mech.Initiate(mechCardInfo, ClientPlayer);
+            mech.transform.Rotate(Vector3.up, 180);
+            mech.M_MechID = mechId;
+            addPrePassMechQueue.Enqueue(mech);
+            MechCount++;
+            if (!mechCardInfo.MechInfo.IsSoldier)
             {
                 HeroCount++;
             }
@@ -172,32 +173,32 @@ public class BattleGroundManager : MonoBehaviour
                 SoldierCount++;
             }
 
-            return retinue;
+            return mech;
         }
 
         return null;
     }
 
-    private Queue<ModuleRetinue> addPrePassRetinueQueue = new Queue<ModuleRetinue>();
+    private Queue<ModuleMech> addPrePassMechQueue = new Queue<ModuleMech>();
 
-    public void AddRetinue(int retinuePlaceIndex)
+    public void AddMech(int mechPlaceIndex)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main, retinuePlaceIndex), "Co_RefreshBattleGroundAnim");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main, mechPlaceIndex), "Co_RefreshBattleGroundAnim");
     }
 
-    public void RemoveRetinue(int retinueId)
+    public void RemoveMech(int mechId)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RemoveRetinue(GetRetinue(retinueId)), "Co_RemoveRetinue");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RemoveMech(GetMech(mechId)), "Co_RemoveMech");
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main), "Co_RefreshBattleGroundAnim");
     }
 
-    internal List<ModuleRetinue> RemoveRetinues = new List<ModuleRetinue>(); //即将要被移除的机甲名单
+    internal List<ModuleMech> RemoveMechs = new List<ModuleMech>(); //即将要被移除的机甲名单
 
-    public void RemoveRetinueTogetherAdd(int retinueId)
+    public void RemoveMechTogetherAdd(int mechId)
     {
-        ModuleRetinue retinue = GetRetinue(retinueId);
-        RetinueCount--;
-        if (!retinue.CardInfo.RetinueInfo.IsSoldier)
+        ModuleMech mech = GetMech(mechId);
+        MechCount--;
+        if (!mech.CardInfo.MechInfo.IsSoldier)
         {
             HeroCount--;
         }
@@ -206,55 +207,55 @@ public class BattleGroundManager : MonoBehaviour
             SoldierCount--;
         }
 
-        RemoveRetinues.Add(retinue);
+        RemoveMechs.Add(mech);
     }
 
-    public void RemoveRetinueTogether(List<int> removeRetinueList)
+    public void RemoveMechTogether(List<int> removeMechList)
     {
-        foreach (int rid in removeRetinueList)
+        foreach (int rid in removeMechList)
         {
-            ModuleRetinue retinue = GetRetinue(rid);
-            if (retinue)
+            ModuleMech mech = GetMech(rid);
+            if (mech)
             {
-                retinue.PoolRecycle();
-                Retinues.Remove(retinue);
-                RemoveRetinues.Remove(retinue);
-                if (!retinue.CardInfo.RetinueInfo.IsSoldier)
+                mech.PoolRecycle();
+                Mechs.Remove(mech);
+                RemoveMechs.Remove(mech);
+                if (!mech.CardInfo.MechInfo.IsSoldier)
                 {
-                    Heros.Remove(retinue);
+                    Heros.Remove(mech);
                 }
                 else
                 {
-                    Soldiers.Remove(retinue);
+                    Soldiers.Remove(mech);
                 }
 
-                ClientLog.Instance.Print("remove:" + retinue.M_RetinueID);
+                ClientLog.Instance.Print("remove:" + mech.M_MechID);
             }
         }
     }
 
-    public void RemoveRetinueTogatherEnd()
+    public void RemoveMechTogatherEnd()
     {
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main), "Co_RefreshBattleGroundAnim");
     }
 
-    IEnumerator Co_RemoveRetinue(ModuleRetinue retinue)
+    IEnumerator Co_RemoveMech(ModuleMech mech)
     {
-        retinue.PoolRecycle();
-        Retinues.Remove(retinue);
-        RetinueCount--;
-        if (!retinue.CardInfo.RetinueInfo.IsSoldier)
+        mech.PoolRecycle();
+        Mechs.Remove(mech);
+        MechCount--;
+        if (!mech.CardInfo.MechInfo.IsSoldier)
         {
-            Heros.Remove(retinue);
+            Heros.Remove(mech);
             HeroCount--;
         }
         else
         {
-            Soldiers.Remove(retinue);
+            Soldiers.Remove(mech);
             SoldierCount--;
         }
 
-        //PrintRetinueInfos();
+        //PrintMechInfos();
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -263,25 +264,25 @@ public class BattleGroundManager : MonoBehaviour
 
     #region 出牌召唤预览
 
-    private int previewRetinuePlace;
+    private int previewMechPlace;
 
-    private const int PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW = -1; //无预览召唤机甲
+    private const int PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW = -1; //无预览召唤机甲
 
-    public void AddRetinuePreview(int placeIndex)
+    public void AddMechPreview(int placeIndex)
     {
-        if (Retinues.Count == 0) return;
-        if (previewRetinuePlace == PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW || previewRetinuePlace != placeIndex)
+        if (Mechs.Count == 0) return;
+        if (previewMechPlace == PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW || previewMechPlace != placeIndex)
         {
-            previewRetinuePlace = placeIndex;
-            BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddRetinue.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddRetinue), "Co_RefreshBattleGroundAnim");
+            previewMechPlace = placeIndex;
+            BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddMech.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_RefreshBattleGroundOnAddMech), "Co_RefreshBattleGroundAnim");
         }
     }
 
-    public void RemoveRetinuePreview()
+    public void RemoveMechPreview()
     {
-        if (previewRetinuePlace != PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW)
+        if (previewMechPlace != PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW)
         {
-            previewRetinuePlace = PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW;
+            previewMechPlace = PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW;
             BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RefreshBattleGroundAnim(BattleEffectsManager.Instance.Effect_Main), "Co_RefreshBattleGroundAnim");
         }
     }
@@ -290,51 +291,51 @@ public class BattleGroundManager : MonoBehaviour
 
     #region 能指定目标的机甲的预召唤
 
-    private static int clientRetinueTempId = 0;
+    private static int clientMechTempId = 0;
 
-    public static int GenerateClientRetinueTempId()
+    public static int GenerateClientMechTempId()
     {
-        return clientRetinueTempId++;
+        return clientMechTempId++;
     }
 
-    public delegate void SummonRetinueTarget(int targetRetinueId, bool isClientRetinueTempId = false);
+    public delegate void SummonMechTarget(int targetMechId, bool isClientMechTempId = false);
 
-    private CardRetinue currentSummonPreviewRetinueCard;
-    internal ModuleRetinue CurrentSummonPreviewRetinue;
+    private CardMech currentSummonPreviewMechCard;
+    internal ModuleMech CurrentSummonPreviewMech;
 
-    public void SummonRetinuePreview(CardRetinue retinueCard, int retinuePlaceIndex, TargetRange targetRange) //用于具有指定目标的副作用的机甲的召唤预览、显示指定箭头
+    public void SummonMechPreview(CardMech mechCard, int mechPlaceIndex, TargetRange targetRange) //用于具有指定目标的副作用的机甲的召唤预览、显示指定箭头
     {
-        currentSummonPreviewRetinueCard = retinueCard;
-        ModuleRetinue retinue = AddRetinue_PrePass((CardInfo_Retinue) retinueCard.CardInfo, (int) ModuleRetinue.RetinueID.Empty, (int) Const.CLIENT_TEMP_RETINUE_ID_NORMAL);
-        CurrentSummonPreviewRetinue = retinue;
-        AddRetinue(retinuePlaceIndex);
-        DragManager.Instance.SummonRetinueTargetHandler = SummonRetinueTargetConfirm;
-        DragManager.Instance.StartArrowAiming(retinue, targetRange);
+        currentSummonPreviewMechCard = mechCard;
+        ModuleMech mech = AddMech_PrePass((CardInfo_Mech) mechCard.CardInfo, (int) ModuleMech.MechID.Empty, (int) Const.CLIENT_TEMP_MECH_ID_NORMAL);
+        CurrentSummonPreviewMech = mech;
+        AddMech(mechPlaceIndex);
+        DragManager.Instance.SummonMechTargetHandler = SummonMechTargetConfirm;
+        DragManager.Instance.StartArrowAiming(mech, targetRange);
     }
 
-    public void SummonRetinueTargetConfirm(int targetRetinueId, bool isClientRetinueTempId)
+    public void SummonMechTargetConfirm(int targetMechId, bool isClientMechTempId)
     {
-        if (targetRetinueId == DragManager.TARGET_SELECT_NONE) //未选择目标
+        if (targetMechId == DragManager.TARGET_SELECT_NONE) //未选择目标
         {
-            RemoveRetinue((int) ModuleRetinue.RetinueID.Empty);
-            ClientPlayer.BattlePlayer.HandManager.CancelSummonRetinuePreview();
+            RemoveMech((int) ModuleMech.MechID.Empty);
+            ClientPlayer.BattlePlayer.HandManager.CancelSummonMechPreview();
         }
         else
         {
-            StartCoroutine(Co_RetrySummonRequest(CurrentSummonPreviewRetinue, currentSummonPreviewRetinueCard.M_CardInstanceId, targetRetinueId, isClientRetinueTempId));
+            StartCoroutine(Co_RetrySummonRequest(CurrentSummonPreviewMech, currentSummonPreviewMechCard.M_CardInstanceId, targetMechId, isClientMechTempId));
         }
     }
 
-    IEnumerator Co_RetrySummonRequest(ModuleRetinue retinue, int cardInstanceId, int targetRetinueId, bool isClientRetinueTempId)
+    IEnumerator Co_RetrySummonRequest(ModuleMech mech, int cardInstanceId, int targetMechId, bool isClientMechTempId)
     {
         while (true)
         {
-            int battleGroundIndex = GetIndexOfAliveRetinues(retinue); //确定的时候再获取位置信息（召唤的过程中可能会有协议没有跑完，会有机甲生成）
+            int battleGroundIndex = GetIndexOfAliveMechs(mech); //确定的时候再获取位置信息（召唤的过程中可能会有协议没有跑完，会有机甲生成）
 
             if (battleGroundIndex != -1)
             {
-                retinue.M_ClientTempRetinueID = GenerateClientRetinueTempId();
-                SummonRetinueRequest request = new SummonRetinueRequest(Client.Instance.Proxy.ClientId, cardInstanceId, battleGroundIndex, targetRetinueId, isClientRetinueTempId, retinue.M_ClientTempRetinueID);
+                mech.M_ClientTempMechID = GenerateClientMechTempId();
+                SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientId, cardInstanceId, battleGroundIndex, targetMechId, isClientMechTempId, mech.M_ClientTempMechID);
                 Client.Instance.Proxy.SendMessage(request);
                 break;
             }
@@ -345,99 +346,84 @@ public class BattleGroundManager : MonoBehaviour
         yield return null;
     }
 
-    private int GetIndexOfAliveRetinues(ModuleRetinue retinue)
+    private int GetIndexOfAliveMechs(ModuleMech mech)
     {
-        int battleGroundIndex = Retinues.IndexOf(retinue);
-        return GetIndexOfAliveRetinues(battleGroundIndex);
+        int battleGroundIndex = Mechs.IndexOf(mech);
+        return GetIndexOfAliveMechs(battleGroundIndex);
     }
 
-    private int GetIndexOfAliveRetinues(int battleGroundIndex)
+    private int GetIndexOfAliveMechs(int battleGroundIndex)
     {
         //去除掉已经死亡但还没移除战场的机甲（避免服务器指针错误）
-        int countDieRetinue = 0;
+        int countDieMech = 0;
         for (int i = 0; i < battleGroundIndex; i++)
         {
-            if (RemoveRetinues.Contains(Retinues[i]))
+            if (RemoveMechs.Contains(Mechs[i]))
             {
-                countDieRetinue++;
+                countDieMech++;
             }
         }
 
-        int aliveIndex = battleGroundIndex - countDieRetinue;
+        int aliveIndex = battleGroundIndex - countDieMech;
         return aliveIndex;
     }
 
     #endregion
 
-    private enum retinuePlaceIndex
+    private enum mechPlaceIndex
     {
-        NoNewRetinue = -1,
+        NoNewMech = -1,
     }
 
-    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects, int retinuePlaceIndex = (int) retinuePlaceIndex.NoNewRetinue)
+    IEnumerator Co_RefreshBattleGroundAnim(BattleEffectsManager.Effects myParentEffects, int mechPlaceIndex = (int) mechPlaceIndex.NoNewMech)
     {
-        bool isAddRetinue = retinuePlaceIndex != (int) BattleGroundManager.retinuePlaceIndex.NoNewRetinue;
-        if (isAddRetinue) //新增机甲
+        bool isAddMech = mechPlaceIndex != (int) BattleGroundManager.mechPlaceIndex.NoNewMech;
+        if (isAddMech) //新增机甲
         {
-            ModuleRetinue retinue = addPrePassRetinueQueue.Dequeue();
+            ModuleMech mech = addPrePassMechQueue.Dequeue();
 
-            Retinues.Insert(retinuePlaceIndex, retinue);
-            if (retinue.CardInfo.RetinueInfo.IsSoldier)
+            Mechs.Insert(mechPlaceIndex, mech);
+            if (mech.CardInfo.MechInfo.IsSoldier)
             {
-                Soldiers.Add(retinue);
+                Soldiers.Add(mech);
             }
             else
             {
-                Heros.Add(retinue);
+                Heros.Add(mech);
             }
 
-            retinue.OnSummon();
-            retinue.transform.localPosition = _defaultRetinuePosition;
-            retinue.transform.transform.Translate(Vector3.left * (Retinues.IndexOf(retinue) - Retinues.Count / 2.0f + 0.5f) * RETINUE_INTERVAL, Space.Self);
-            //PrintRetinueInfos();
+            mech.OnSummon();
+            mech.transform.position = DefaultMechPivot.transform.position;
+            mech.transform.transform.Translate(Vector3.left * (Mechs.IndexOf(mech) - Mechs.Count / 2.0f + 0.5f) * MECH_INTERVAL, Space.Self);
         }
 
-        float duration = 0.05f;
-        float tick = 0;
+        float duration = 0.1f;
+        Vector3[] targetPos = new Vector3[Mechs.Count];
+        int actualPlaceCount = previewMechPlace == PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW ? Mechs.Count : Mechs.Count + 1;
 
-        Vector3[] targetPos = new Vector3[Retinues.Count];
-
-        int actualPlaceCount = previewRetinuePlace == PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW ? Retinues.Count : Retinues.Count + 1;
-
-        List<ModuleRetinue> movingRetinues = new List<ModuleRetinue>();
-
-        for (int i = 0; i < Retinues.Count; i++)
+        for (int i = 0; i < Mechs.Count; i++)
         {
-            movingRetinues.Add(Retinues[i]);
-
             int actualPlace = i;
-            if (previewRetinuePlace != PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW && i >= previewRetinuePlace)
+            if (previewMechPlace != PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW && i >= previewMechPlace)
             {
                 actualPlace += 1;
             }
 
-            Vector3 ori = Retinues[i].transform.position;
-            Vector3 offset = Vector3.left * (actualPlace - actualPlaceCount / 2.0f + 0.5f) * RETINUE_INTERVAL;
+            Vector3 ori = Mechs[i].transform.position;
+            Vector3 offset = Vector3.left * (actualPlace - actualPlaceCount / 2.0f + 0.5f) * MECH_INTERVAL;
 
-            Retinues[i].transform.localPosition = _defaultRetinuePosition;
-            Retinues[i].transform.Translate(offset, Space.Self);
+            Mechs[i].transform.position = DefaultMechPivot.transform.position;
+            Mechs[i].transform.Translate(offset, Space.Self);
 
-            targetPos[i] = Retinues[i].transform.position;
-            Retinues[i].transform.position = ori;
-
-//            iTween.Stop(Retinues[i].gameObject);
-
-//            Hashtable args = new Hashtable();
-//            args.Add("position", targetPos[i]);
-//            args.Add("time", duration);
-//            args.Add("easeType", iTween.EaseType.linear);
-//            iTween.MoveTo(Retinues[i].gameObject, args);
+            targetPos[i] = Mechs[i].transform.position;
+            Mechs[i].transform.position = ori;
+            Mechs[i].transform.DOMove(targetPos[i], duration).SetEase(Ease.Linear);
         }
 
         ClientPlayer.BattlePlayer.HandManager.RefreshAllCardUsable();
 
         yield return new WaitForSeconds(duration);
-        if (isAddRetinue && DragManager.Instance.IsSummonPreview)
+        if (isAddMech && DragManager.Instance.IsSummonPreview)
         {
             DragManager.Instance.IsArrowShowBegin = true;
         }
@@ -457,33 +443,37 @@ public class BattleGroundManager : MonoBehaviour
     {
         StopShowSlotBloom();
         SlotTypes slotType = cardEquip.M_EquipType;
-        foreach (ModuleRetinue retinue in Retinues)
+        foreach (ModuleMech mech in Mechs)
         {
-            if (retinue.Slot1.MSlotTypes == slotType)
+            Slot slot1 = mech.CardSlotsComponent.Slots[0];
+            if (slot1.MSlotTypes == slotType)
             {
                 if (cardEquip.CardInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
                 {
-                    if (retinue.CardInfo.RetinueInfo.IsSniper) relatedSlots.Add(retinue.Slot1);
+                    if (mech.CardInfo.MechInfo.IsSniper) relatedSlots.Add(slot1);
                 }
                 else
                 {
-                    relatedSlots.Add(retinue.Slot1);
+                    relatedSlots.Add(slot1);
                 }
             }
 
-            if (retinue.Slot2.MSlotTypes == slotType)
+            Slot slot2 = mech.CardSlotsComponent.Slots[1];
+            if (slot2.MSlotTypes == slotType)
             {
-                relatedSlots.Add(retinue.Slot2);
+                relatedSlots.Add(slot2);
             }
 
-            if (retinue.Slot3.MSlotTypes == slotType)
+            Slot slot3 = mech.CardSlotsComponent.Slots[2];
+            if (slot3.MSlotTypes == slotType)
             {
-                relatedSlots.Add(retinue.Slot3);
+                relatedSlots.Add(slot3);
             }
 
-            if (retinue.Slot4.MSlotTypes == slotType)
+            Slot slot4 = mech.CardSlotsComponent.Slots[3];
+            if (slot4.MSlotTypes == slotType)
             {
-                relatedSlots.Add(retinue.Slot4);
+                relatedSlots.Add(slot4);
             }
         }
 
@@ -500,7 +490,7 @@ public class BattleGroundManager : MonoBehaviour
                 sa.ShowSlotBloom(true, false);
                 if (cardEquip.CardInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
                 {
-                    if (sa.M_ModuleRetinue.CardInfo.RetinueInfo.IsSniper) sa.M_ModuleRetinue.ShowSniperTipText(true);
+                    if (sa.Mech.CardInfo.MechInfo.IsSniper) sa.Mech.ShowSniperTipText(true);
                 }
             }
 
@@ -508,7 +498,7 @@ public class BattleGroundManager : MonoBehaviour
             foreach (Slot sa in relatedSlots)
             {
                 sa.ShowSlotBloom(false, false);
-                sa.M_ModuleRetinue.ShowSniperTipText(false);
+                sa.Mech.ShowSniperTipText(false);
             }
 
             yield return new WaitForSeconds(0.4f);
@@ -531,7 +521,7 @@ public class BattleGroundManager : MonoBehaviour
         foreach (Slot sa in relatedSlots)
         {
             sa.ShowSlotBloom(false, false);
-            sa.M_ModuleRetinue.ShowSniperTipText(false);
+            sa.Mech.ShowSniperTipText(false);
         }
 
         relatedSlots.Clear();
@@ -539,186 +529,175 @@ public class BattleGroundManager : MonoBehaviour
 
     public void ShowTipModuleBloomSE(float seconds)
     {
-        foreach (ModuleRetinue retinue in Retinues)
+        foreach (ModuleMech mech in Mechs)
         {
-            if (retinue.M_Weapon) retinue.M_Weapon.ShowEquipBloomSE(seconds);
-            if (retinue.M_Shield) retinue.M_Shield.ShowEquipBloomSE(seconds);
-            if (retinue.M_Pack) retinue.M_Pack.ShowEquipBloomSE(seconds);
-            if (retinue.M_MA) retinue.M_MA.ShowEquipBloomSE(seconds);
+            if (mech.M_Weapon) mech.M_Weapon.ShowEquipBloomSE(seconds);
+            if (mech.M_Shield) mech.M_Shield.ShowEquipBloomSE(seconds);
+            if (mech.M_Pack) mech.M_Pack.ShowEquipBloomSE(seconds);
+            if (mech.M_MA) mech.M_MA.ShowEquipBloomSE(seconds);
         }
     }
 
     #endregion
 
-    public void EquipWeapon(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    public void EquipWeapon(CardInfo_Equip cardInfo, int mechId, int equipId)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipWeapon(cardInfo, retinueId, equipId), "Co_EquipWeapon");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipWeapon(cardInfo, mechId, equipId), "Co_EquipWeapon");
     }
 
-    IEnumerator Co_EquipWeapon(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    IEnumerator Co_EquipWeapon(CardInfo_Equip cardInfo, int mechId, int equipId)
     {
-        ModuleRetinue retinue = GetRetinue(retinueId);
+        ModuleMech mech = GetMech(mechId);
         if (cardInfo != null)
         {
-            ModuleWeapon newModueWeapon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Weapon].AllocateGameObject<ModuleWeapon>(retinue.transform);
-            newModueWeapon.M_ModuleRetinue = retinue;
+            ModuleWeapon newModueWeapon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleWeapon].AllocateGameObject<ModuleWeapon>(mech.transform);
+            newModueWeapon.M_ModuleMech = mech;
             newModueWeapon.Initiate(cardInfo, ClientPlayer);
             newModueWeapon.M_EquipID = equipId;
-            retinue.M_Weapon = newModueWeapon;
+            mech.M_Weapon = newModueWeapon;
         }
         else
         {
-            retinue.M_Weapon = null;
+            mech.M_Weapon = null;
         }
 
         yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    public void EquipShield(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    public void EquipShield(CardInfo_Equip cardInfo, int mechId, int equipId)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipShield(cardInfo, retinueId, equipId), "Co_EquipShield");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipShield(cardInfo, mechId, equipId), "Co_EquipShield");
     }
 
-    IEnumerator Co_EquipShield(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    IEnumerator Co_EquipShield(CardInfo_Equip cardInfo, int mechId, int equipId)
     {
-        ModuleRetinue retinue = GetRetinue(retinueId);
+        ModuleMech mech = GetMech(mechId);
         if (cardInfo != null)
         {
-            ModuleShield newModuleShield = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Shield].AllocateGameObject<ModuleShield>(retinue.transform);
-            newModuleShield.M_ModuleRetinue = retinue;
+            ModuleShield newModuleShield = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleShield].AllocateGameObject<ModuleShield>(mech.transform);
+            newModuleShield.M_ModuleMech = mech;
             newModuleShield.Initiate(cardInfo, ClientPlayer);
             newModuleShield.M_EquipID = equipId;
-            retinue.M_Shield = newModuleShield;
+            mech.M_Shield = newModuleShield;
         }
         else
         {
-            retinue.M_Shield = null;
+            mech.M_Shield = null;
         }
 
         yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    public void EquipPack(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    public void EquipPack(CardInfo_Equip cardInfo, int mechId, int equipId)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipPack(cardInfo, retinueId, equipId), "Co_EquipPack");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipPack(cardInfo, mechId, equipId), "Co_EquipPack");
     }
 
-    IEnumerator Co_EquipPack(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    IEnumerator Co_EquipPack(CardInfo_Equip cardInfo, int mechId, int equipId)
     {
-        ModuleRetinue retinue = GetRetinue(retinueId);
+        ModuleMech mech = GetMech(mechId);
         if (cardInfo != null)
         {
-            ModulePack newModulePack = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Pack].AllocateGameObject<ModulePack>(retinue.transform);
-            newModulePack.M_ModuleRetinue = retinue;
+            ModulePack newModulePack = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModulePack].AllocateGameObject<ModulePack>(mech.transform);
+            newModulePack.M_ModuleMech = mech;
             newModulePack.Initiate(cardInfo, ClientPlayer);
             newModulePack.M_EquipID = equipId;
-            retinue.M_Pack = newModulePack;
+            mech.M_Pack = newModulePack;
         }
         else
         {
-            retinue.M_Pack = null;
+            mech.M_Pack = null;
         }
 
         yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    public void EquipMA(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    public void EquipMA(CardInfo_Equip cardInfo, int mechId, int equipId)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipMA(cardInfo, retinueId, equipId), "Co_EquipMA");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_EquipMA(cardInfo, mechId, equipId), "Co_EquipMA");
     }
 
-    IEnumerator Co_EquipMA(CardInfo_Equip cardInfo, int retinueId, int equipId)
+    IEnumerator Co_EquipMA(CardInfo_Equip cardInfo, int mechId, int equipId)
     {
-        ModuleRetinue retinue = GetRetinue(retinueId);
+        ModuleMech mech = GetMech(mechId);
         if (cardInfo != null)
         {
-            ModuleMA newModuleMA = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.MA].AllocateGameObject<ModuleMA>(retinue.transform);
-            newModuleMA.M_ModuleRetinue = retinue;
+            ModuleMA newModuleMA = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleMA].AllocateGameObject<ModuleMA>(mech.transform);
+            newModuleMA.M_ModuleMech = mech;
             newModuleMA.Initiate(cardInfo, ClientPlayer);
             newModuleMA.M_EquipID = equipId;
-            retinue.M_MA = newModuleMA;
+            mech.M_MA = newModuleMA;
         }
         else
         {
-            retinue.M_MA = null;
+            mech.M_MA = null;
         }
 
         yield return new WaitForSeconds(0.2f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    public void DamageOneRetinue(int targetRetinueId, int value)
+    public void DamageOneMech(int targetMechId, int value)
     {
-        GetRetinue(targetRetinueId).BeAttacked(value);
+        GetMech(targetMechId).BeAttacked(value);
     }
 
     #region Utils
 
-    public ModuleRetinue GetRetinue(int retinueId)
+    public ModuleMech GetMech(int mechId)
     {
-        foreach (ModuleRetinue moduleRetinue in Retinues)
+        foreach (ModuleMech moduleMech in Mechs)
         {
-            if (moduleRetinue.M_RetinueID == retinueId)
+            if (moduleMech.M_MechID == mechId)
             {
-                return moduleRetinue;
+                return moduleMech;
             }
         }
 
-        foreach (ModuleRetinue moduleRetinue in addPrePassRetinueQueue) //预加载的机甲也要遍历一遍
+        foreach (ModuleMech moduleMech in addPrePassMechQueue) //预加载的机甲也要遍历一遍
         {
-            if (moduleRetinue.M_RetinueID == retinueId)
+            if (moduleMech.M_MechID == mechId)
             {
-                return moduleRetinue;
-            }
-        }
-
-        return null;
-    }
-
-    public ModuleBase GetEquip(int retinueId, int equipId)
-    {
-        foreach (ModuleRetinue moduleRetinue in Retinues)
-        {
-            if (moduleRetinue.M_RetinueID == retinueId)
-            {
-                if (moduleRetinue.M_Weapon && moduleRetinue.M_Weapon.M_EquipID == equipId) return moduleRetinue.M_Weapon;
-                if (moduleRetinue.M_Shield && moduleRetinue.M_Shield.M_EquipID == equipId) return moduleRetinue.M_Shield;
-                if (moduleRetinue.M_Pack && moduleRetinue.M_Pack.M_EquipID == equipId) return moduleRetinue.M_Pack;
-                if (moduleRetinue.M_MA && moduleRetinue.M_MA.M_EquipID == equipId) return moduleRetinue.M_MA;
-            }
-        }
-
-        foreach (ModuleRetinue moduleRetinue in addPrePassRetinueQueue) //预加载的机甲也要遍历一遍
-        {
-            if (moduleRetinue.M_RetinueID == retinueId)
-            {
-                if (moduleRetinue.M_Weapon && moduleRetinue.M_Weapon.M_EquipID == equipId) return moduleRetinue.M_Weapon;
-                if (moduleRetinue.M_Shield && moduleRetinue.M_Shield.M_EquipID == equipId) return moduleRetinue.M_Shield;
-                if (moduleRetinue.M_Pack && moduleRetinue.M_Pack.M_EquipID == equipId) return moduleRetinue.M_Pack;
-                if (moduleRetinue.M_MA && moduleRetinue.M_MA.M_EquipID == equipId) return moduleRetinue.M_MA;
+                return moduleMech;
             }
         }
 
         return null;
     }
 
-    public void PrintRetinueInfos()
+    public ModuleBase GetEquip(int mechId, int equipId)
     {
-        string log = "BattleGroundInfo: [ClientID]" + ClientPlayer.ClientId + " [Username]" + ClientPlayer.Username;
-        foreach (ModuleRetinue retinue in Retinues)
+        foreach (ModuleMech moduleMech in Mechs)
         {
-            log += " [RID]" + retinue.M_RetinueID + " [Name]" + retinue.CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
+            if (moduleMech.M_MechID == mechId)
+            {
+                if (moduleMech.M_Weapon && moduleMech.M_Weapon.M_EquipID == equipId) return moduleMech.M_Weapon;
+                if (moduleMech.M_Shield && moduleMech.M_Shield.M_EquipID == equipId) return moduleMech.M_Shield;
+                if (moduleMech.M_Pack && moduleMech.M_Pack.M_EquipID == equipId) return moduleMech.M_Pack;
+                if (moduleMech.M_MA && moduleMech.M_MA.M_EquipID == equipId) return moduleMech.M_MA;
+            }
         }
 
-        ClientLog.Instance.Print(log);
+        foreach (ModuleMech moduleMech in addPrePassMechQueue) //预加载的机甲也要遍历一遍
+        {
+            if (moduleMech.M_MechID == mechId)
+            {
+                if (moduleMech.M_Weapon && moduleMech.M_Weapon.M_EquipID == equipId) return moduleMech.M_Weapon;
+                if (moduleMech.M_Shield && moduleMech.M_Shield.M_EquipID == equipId) return moduleMech.M_Shield;
+                if (moduleMech.M_Pack && moduleMech.M_Pack.M_EquipID == equipId) return moduleMech.M_Pack;
+                if (moduleMech.M_MA && moduleMech.M_MA.M_EquipID == equipId) return moduleMech.M_MA;
+            }
+        }
+
+        return null;
     }
 
-    public int GetRetinuePlaceIndex(ModuleRetinue moduleRetinue)
+    public int GetMechPlaceIndex(ModuleMech moduleMech)
     {
-        return Retinues.IndexOf(moduleRetinue);
+        return Mechs.IndexOf(moduleMech);
     }
 
     #endregion
@@ -727,12 +706,12 @@ public class BattleGroundManager : MonoBehaviour
 
     internal void BeginRound()
     {
-        foreach (ModuleRetinue mr in Retinues) mr.OnBeginRound();
+        foreach (ModuleMech mr in Mechs) mr.OnBeginRound();
     }
 
     internal void EndRound()
     {
-        foreach (ModuleRetinue mr in Retinues) mr.OnEndRound();
+        foreach (ModuleMech mr in Mechs) mr.OnEndRound();
     }
 
     #endregion

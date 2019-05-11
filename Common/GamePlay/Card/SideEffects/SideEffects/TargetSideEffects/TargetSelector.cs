@@ -20,8 +20,8 @@ public class TargetSelector
 
     public enum TargetSelectorTypes
     {
-        RetinueBased,
-        EveryRetinueBased,
+        MechBased,
+        EveryMechBased,
         LifeBased,
         ShipBased,
         EquipBased,
@@ -30,14 +30,14 @@ public class TargetSelector
     public static Dictionary<TargetSelectorTypes, Dictionary<TargetSelect, List<TargetRange>>> TargetSelectorPresets =>
         new Dictionary<TargetSelectorTypes, Dictionary<TargetSelect, List<TargetRange>>>
         {
-            {TargetSelectorTypes.RetinueBased, RetinueBasedSelector},
-            {TargetSelectorTypes.EveryRetinueBased, EveryRetinueBasedSelector},
+            {TargetSelectorTypes.MechBased, MechBasedSelector},
+            {TargetSelectorTypes.EveryMechBased, EveryMechBasedSelector},
             {TargetSelectorTypes.LifeBased, LifeBasedSelector},
             {TargetSelectorTypes.ShipBased, ShipBasedSelector},
             {TargetSelectorTypes.EquipBased, EquipBasedSelector},
         };
 
-    public static Dictionary<TargetSelect, List<TargetRange>> RetinueBasedSelector =>
+    public static Dictionary<TargetSelect, List<TargetRange>> MechBasedSelector =>
         new Dictionary<TargetSelect, List<TargetRange>>
         {
             {
@@ -113,7 +113,7 @@ public class TargetSelector
             },
         };
 
-    public static Dictionary<TargetSelect, List<TargetRange>> EveryRetinueBasedSelector =>
+    public static Dictionary<TargetSelect, List<TargetRange>> EveryMechBasedSelector =>
         new Dictionary<TargetSelect, List<TargetRange>>
         {
             {

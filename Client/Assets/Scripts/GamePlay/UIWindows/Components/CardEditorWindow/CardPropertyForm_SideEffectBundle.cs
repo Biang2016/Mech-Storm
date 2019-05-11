@@ -47,8 +47,8 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
                 SideEffectExecute.SideEffectFrom sef = SideEffectExecute.SideEffectFrom.Unknown;
                 switch (cardInfo.BaseInfo.CardType)
                 {
-                    case CardTypes.Retinue:
-                        sef = SideEffectExecute.SideEffectFrom.RetinueSideEffect;
+                    case CardTypes.Mech:
+                        sef = SideEffectExecute.SideEffectFrom.MechSideEffect;
                         break;
                     case CardTypes.Equip:
                         sef = SideEffectExecute.SideEffectFrom.EquipSideEffect;

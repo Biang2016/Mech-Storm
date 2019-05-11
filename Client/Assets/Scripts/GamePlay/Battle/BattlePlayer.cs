@@ -40,8 +40,8 @@ public class BattlePlayer : PoolObject
         CardDeckManager.Initialize(ClientPlayer);
         Ship.Initialize(ClientPlayer);
 
-        BattleGroundArea = clientPlayer.WhichPlayer == Players.Self ? BoardAreaTypes.SelfHandArea : BoardAreaTypes.EnemyHandArea;
-        HandArea = clientPlayer.WhichPlayer == Players.Self ? BoardAreaTypes.SelfBattleGroundArea : BoardAreaTypes.EnemyBattleGroundArea;
+        HandArea = clientPlayer.WhichPlayer == Players.Self ? BoardAreaTypes.SelfHandArea : BoardAreaTypes.EnemyHandArea;
+        BattleGroundArea = clientPlayer.WhichPlayer == Players.Self ? BoardAreaTypes.SelfBattleGroundArea : BoardAreaTypes.EnemyBattleGroundArea;
     }
 
     public void RefreshBattlePlayerSize()

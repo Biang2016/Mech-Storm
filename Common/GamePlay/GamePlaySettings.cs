@@ -29,7 +29,7 @@
     public static int MaxHandCard = 30;
     public static int FirstDrawCard = 3;
     public static int SecondDrawCard = 3;
-    public static int MaxRetinueNumber = 6;
+    public static int MaxMechNumber = 6;
 
     public static int MaxHeroNumber = 4;
 

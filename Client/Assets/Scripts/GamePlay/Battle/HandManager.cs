@@ -16,10 +16,10 @@ public class HandManager : MonoBehaviour
     private readonly float HAND_CARD_INTERVAL = 8f;
     private readonly float HAND_CARD_ROTATE = 1.0f;
     private readonly float HAND_CARD_OFFSET = 2f;
-    private readonly float PULL_OUT_CARD_SIZE = 0.4f;
+    private readonly float PULL_OUT_CARD_SIZE = 0.3f;
     private readonly float SHOW_CARD_SIZE = 0.35f;
-    private readonly float SHOW_CARD_DURATION = 0.8f;
-    private readonly float SHOW_CARD_FLY_DURATION = 0.3f;
+    private readonly float SHOW_CARD_DURATION = 0.4f;
+    private readonly float SHOW_CARD_FLY_DURATION = 0.1f;
     private static readonly Vector3 USE_CARD_SHOW_POSITION = new Vector3(10, 3, 0);
     private static readonly Vector3 USE_CARD_SHOW_POSITION_OVERLAY = new Vector3(10, 3, 0.2f);
 
@@ -92,14 +92,14 @@ public class HandManager : MonoBehaviour
             currentFocusEquipmentCard = null;
         }
 
-        if (currentSummonRetinuePreviewCard)
+        if (currentSummonMechPreviewCard)
         {
-            currentSummonRetinuePreviewCard.PoolRecycle();
-            currentSummonRetinuePreviewCard = null;
+            currentSummonMechPreviewCard.PoolRecycle();
+            currentSummonMechPreviewCard = null;
         }
 
         ClientPlayer = null;
-        summonRetinuePreviewCardIndex = 0;
+        summonMechPreviewCardIndex = 0;
     }
 
     #endregion
@@ -208,7 +208,7 @@ public class HandManager : MonoBehaviour
             if (ClientPlayer == RoundManager.Instance.CurrentClientPlayer)
             {
                 card.Usable = (ClientPlayer == RoundManager.Instance.SelfClientPlayer) && (card.M_Metal <= ClientPlayer.MetalLeft && card.M_Energy <= ClientPlayer.EnergyLeft);
-                if (card is CardRetinue) card.Usable &= !ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsFull;
+                if (card is CardMech) card.Usable &= !ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsFull;
             }
             else
             {
@@ -294,10 +294,10 @@ public class HandManager : MonoBehaviour
     {
         for (int i = 0; i < cards.Count; i++)
         {
-            cards[i].SetOrderInLayer(i);
+            cards[i].CardOrder = i;
         }
 
-        if (CurrentFocusCard) CurrentFocusCard.SetOrderInLayer(100);
+        if (CurrentFocusCard) CurrentFocusCard.CardOrder = 80;
     }
 
     public void DropCard(int handCardInstanceId)
@@ -491,7 +491,7 @@ public class HandManager : MonoBehaviour
         focusCard.transform.position = new Vector3(focusCard.transform.position.x, focusCard.transform.position.y, focusCard.transform.position.z + 5f);
         //Disenable the card's boxcollider
         focusCard.M_BoxCollider.enabled = false;
-        focusCard.SetOrderInLayer(100);
+        focusCard.CardOrder = 80;
         isEnlarge = true;
     }
 
@@ -553,10 +553,6 @@ public class HandManager : MonoBehaviour
 
     private void UpdateHandCardCountTicker()
     {
-        //if (BattleResultPanel.Instance.IsShow)
-        //{
-        //    handCardCountTicker = 0;
-        //}
         if (Client.Instance.IsPlaying())
         {
             if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
@@ -572,13 +568,10 @@ public class HandManager : MonoBehaviour
                             handCardCountTickerBegin = true;
                             handCardCountTicker = 0;
                             HandCardCountPanelAnim.SetTrigger("Jump");
-                            if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+                            
+                            HandCardCountText.text = string.Format(LanguageManager.Instance.GetText("HandManager_TotalCards"), cards.Count);
+                            if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
                             {
-                                HandCardCountText.text = string.Format(LanguageManager.Instance.GetText("HandManager_YouHaveManyCards"), cards.Count);
-                            }
-                            else
-                            {
-                                HandCardCountText.text = string.Format(LanguageManager.Instance.GetText("HandManager_EnemyHaveManyCards"), cards.Count);
                                 foreach (CardBase cb in cards)
                                 {
                                     cb.ShowCardBloom(true);
@@ -592,9 +585,12 @@ public class HandManager : MonoBehaviour
                     handCardCountTicker = 0;
                     handCardCountTickerBegin = false;
                     HandCardCountPanelAnim.SetTrigger("Reset");
-                    foreach (CardBase cb in cards)
+                    if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
                     {
-                        cb.ShowCardBloom(false);
+                        foreach (CardBase cb in cards)
+                        {
+                            cb.ShowCardBloom(false);
+                        }
                     }
                 }
             }
@@ -633,19 +629,19 @@ public class HandManager : MonoBehaviour
 
     #region Pre_summon mechs that have target SideEffects.
 
-    private CardRetinue currentSummonRetinuePreviewCard;
-    private int summonRetinuePreviewCardIndex;
+    private CardMech currentSummonMechPreviewCard;
+    private int summonMechPreviewCardIndex;
 
-    public void SetCurrentSummonRetinuePreviewCard(CardRetinue retinueCard)
+    public void SetCurrentSummonMechPreviewCard(CardMech mechCard)
     {
-        currentSummonRetinuePreviewCard = retinueCard;
-        summonRetinuePreviewCardIndex = cards.IndexOf(currentSummonRetinuePreviewCard);
-        currentSummonRetinuePreviewCard.gameObject.SetActive(false);
+        currentSummonMechPreviewCard = mechCard;
+        summonMechPreviewCardIndex = cards.IndexOf(currentSummonMechPreviewCard);
+        currentSummonMechPreviewCard.gameObject.SetActive(false);
     }
 
-    public void CancelSummonRetinuePreview()
+    public void CancelSummonMechPreview()
     {
-        currentSummonRetinuePreviewCard.gameObject.SetActive(true);
+        currentSummonMechPreviewCard.gameObject.SetActive(true);
     }
 
     #endregion

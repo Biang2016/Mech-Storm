@@ -9,7 +9,7 @@ internal partial class ServerGameManager
         switch (targetRange)
         {
             case TargetRange.Mechs:
-                count = callerPlayer.MyBattleGroundManager.RetinueCount + callerPlayer.MyEnemyPlayer.MyBattleGroundManager.RetinueCount;
+                count = callerPlayer.MyBattleGroundManager.MechCount + callerPlayer.MyEnemyPlayer.MyBattleGroundManager.MechCount;
                 break;
             case TargetRange.Heroes:
                 count = callerPlayer.MyBattleGroundManager.HeroCount + callerPlayer.MyEnemyPlayer.MyBattleGroundManager.HeroCount;
@@ -18,7 +18,7 @@ internal partial class ServerGameManager
                 count = callerPlayer.MyBattleGroundManager.SoldierCount + callerPlayer.MyEnemyPlayer.MyBattleGroundManager.SoldierCount;
                 break;
             case TargetRange.SelfMechs:
-                count = callerPlayer.MyBattleGroundManager.RetinueCount;
+                count = callerPlayer.MyBattleGroundManager.MechCount;
                 break;
             case TargetRange.SelfHeroes:
                 count = callerPlayer.MyBattleGroundManager.HeroCount;
@@ -27,7 +27,7 @@ internal partial class ServerGameManager
                 count = callerPlayer.MyBattleGroundManager.SoldierCount;
                 break;
             case TargetRange.EnemyMechs:
-                count = callerPlayer.MyEnemyPlayer.MyBattleGroundManager.RetinueCount;
+                count = callerPlayer.MyEnemyPlayer.MyBattleGroundManager.MechCount;
                 break;
             case TargetRange.EnemyHeroes:
                 count = callerPlayer.MyEnemyPlayer.MyBattleGroundManager.HeroCount;
@@ -40,77 +40,77 @@ internal partial class ServerGameManager
         return count;
     }
 
-    public ServerModuleRetinue GetRetinue(int retinueId)
+    public ServerModuleMech GetMech(int mechId)
     {
-        foreach (ServerModuleRetinue serverModuleRetinue in PlayerA.MyBattleGroundManager.Retinues)
+        foreach (ServerModuleMech serverModuleMech in PlayerA.MyBattleGroundManager.Mechs)
         {
-            if (serverModuleRetinue.M_RetinueID == retinueId) return serverModuleRetinue;
+            if (serverModuleMech.M_MechID == mechId) return serverModuleMech;
         }
 
-        foreach (ServerModuleRetinue serverModuleRetinue in PlayerB.MyBattleGroundManager.Retinues)
+        foreach (ServerModuleMech serverModuleMech in PlayerB.MyBattleGroundManager.Mechs)
         {
-            if (serverModuleRetinue.M_RetinueID == retinueId) return serverModuleRetinue;
+            if (serverModuleMech.M_MechID == mechId) return serverModuleMech;
         }
 
         return null;
     }
 
-    public ServerModuleRetinue GetRandomRetinue(List<ServerPlayer> players, RetinueTypes retinueType, int exceptRetinueId)
+    public ServerModuleMech GetRandomMech(List<ServerPlayer> players, MechTypes mechType, int exceptMechId)
     {
-        List<ServerModuleRetinue> retinues = GetRetinuesByType(players, retinueType);
+        List<ServerModuleMech> mechs = GetMechsByType(players, mechType);
 
-        if (retinues.Count == 0)
+        if (mechs.Count == 0)
         {
             return null;
         }
         else
         {
-            int aliveCount = CountAliveRetinueExcept(players, retinueType, exceptRetinueId);
+            int aliveCount = CountAliveMechExcept(players, mechType, exceptMechId);
             Random rd = new Random();
-            return GetAliveRetinueExcept(rd.Next(0, aliveCount), retinues, exceptRetinueId);
+            return GetAliveMechExcept(rd.Next(0, aliveCount), mechs, exceptMechId);
         }
     }
 
-    public int CountAliveRetinueExcept(List<ServerPlayer> players, RetinueTypes retinueType, int exceptRetinueId)
+    public int CountAliveMechExcept(List<ServerPlayer> players, MechTypes mechType, int exceptMechId)
     {
         int count = 0;
         foreach (ServerPlayer serverPlayer in players)
         {
-            count += serverPlayer.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
+            count += serverPlayer.MyBattleGroundManager.CountAliveMechExcept(mechType, exceptMechId);
         }
 
         return count;
     }
 
-    public List<ServerModuleRetinue> GetRetinuesByType(List<ServerPlayer> players, RetinueTypes retinueType)
+    public List<ServerModuleMech> GetMechsByType(List<ServerPlayer> players, MechTypes mechType)
     {
-        List<ServerModuleRetinue> retinues = new List<ServerModuleRetinue>();
+        List<ServerModuleMech> mechs = new List<ServerModuleMech>();
         foreach (ServerPlayer ServerPlayer in players)
         {
-            switch (retinueType)
+            switch (mechType)
             {
-                case RetinueTypes.All:
-                    retinues.AddRange(ServerPlayer.MyBattleGroundManager.Retinues.ToArray());
+                case MechTypes.All:
+                    mechs.AddRange(ServerPlayer.MyBattleGroundManager.Mechs.ToArray());
                     break;
-                case RetinueTypes.Soldier:
-                    retinues.AddRange(ServerPlayer.MyBattleGroundManager.Soldiers.ToArray());
+                case MechTypes.Soldier:
+                    mechs.AddRange(ServerPlayer.MyBattleGroundManager.Soldiers.ToArray());
                     break;
-                case RetinueTypes.Hero:
-                    retinues.AddRange(ServerPlayer.MyBattleGroundManager.Heroes.ToArray());
+                case MechTypes.Hero:
+                    mechs.AddRange(ServerPlayer.MyBattleGroundManager.Heroes.ToArray());
                     break;
             }
         }
 
-        return retinues;
+        return mechs;
     }
 
-    public static ServerModuleRetinue GetAliveRetinueExcept(int index, List<ServerModuleRetinue> retinues, int exceptRetinueId)
+    public static ServerModuleMech GetAliveMechExcept(int index, List<ServerModuleMech> mechs, int exceptMechId)
     {
         int count = -1;
-        foreach (ServerModuleRetinue retinue in retinues)
+        foreach (ServerModuleMech mech in mechs)
         {
-            if (!retinue.M_IsDead && retinue.M_RetinueID != exceptRetinueId) count++;
-            if (count == index) return retinue;
+            if (!mech.M_IsDead && mech.M_MechID != exceptMechId) count++;
+            if (count == index) return mech;
         }
 
         return null;
@@ -170,7 +170,7 @@ internal partial class ServerGameManager
         }
     }
 
-    public void SideEffect_ILifeAction(Action<ILife> action, ServerPlayer callerPlayer, int count, TargetRange targetRange, TargetSelect targetSelect, List<int> targetClientIds, List<int> targetRetinueIds)
+    public void SideEffect_ILifeAction(Action<ILife> action, ServerPlayer callerPlayer, int count, TargetRange targetRange, TargetSelect targetSelect, List<int> targetClientIds, List<int> targetMechIds)
     {
         List<ServerPlayer> mech_players = GetMechsPlayerByTargetRange(targetRange, callerPlayer);
         List<ServerPlayer> ship_players = GetShipsPlayerByTargetRange(targetRange, callerPlayer);
@@ -180,9 +180,9 @@ internal partial class ServerGameManager
             {
                 foreach (ServerPlayer player in mech_players)
                 {
-                    foreach (ServerModuleRetinue retinue in player.MyBattleGroundManager.Retinues)
+                    foreach (ServerModuleMech mech in player.MyBattleGroundManager.Mechs)
                     {
-                        action(retinue);
+                        action(mech);
                     }
                 }
 
@@ -200,9 +200,9 @@ internal partial class ServerGameManager
                     action(GetPlayerByClientId(clientId));
                 }
 
-                foreach (int retinueId in targetRetinueIds)
+                foreach (int mechId in targetMechIds)
                 {
-                    action(GetRetinueOnBattleGround(retinueId));
+                    action(GetMechOnBattleGround(mechId));
                 }
 
                 break;
@@ -224,19 +224,21 @@ internal partial class ServerGameManager
                 {
                     action(ship_players[0]);
                 }
-
-                foreach (int targetClientId in targetClientIds)
+                else
                 {
-                    action(GetPlayerByClientId(targetClientId));
-                    break;
-                }
-
-                foreach (int targetRetinueId in targetRetinueIds)
-                {
-                    if (targetRetinueId != Const.TARGET_RETINUE_SELECT_NONE)
+                    foreach (int targetClientId in targetClientIds)
                     {
-                        action(GetRetinueOnBattleGround(targetRetinueId));
+                        action(GetPlayerByClientId(targetClientId));
                         break;
+                    }
+
+                    foreach (int targetMechId in targetMechIds)
+                    {
+                        if (targetMechId != Const.TARGET_MECH_SELECT_NONE)
+                        {
+                            action(GetMechOnBattleGround(targetMechId));
+                            break;
+                        }
                     }
                 }
 
@@ -262,7 +264,7 @@ internal partial class ServerGameManager
         List<ILife> res = new List<ILife>();
         foreach (ServerPlayer player in mech_players)
         {
-            foreach (ServerModuleRetinue smr in player.MyBattleGroundManager.Retinues)
+            foreach (ServerModuleMech smr in player.MyBattleGroundManager.Mechs)
             {
                 res.Add(smr);
             }
@@ -276,7 +278,7 @@ internal partial class ServerGameManager
         return res;
     }
 
-    public enum RetinueValueTypes
+    public enum MechValueTypes
     {
         Life,
         Heal,
@@ -287,156 +289,156 @@ internal partial class ServerGameManager
         WeaponEnergy,
     }
 
-    private Dictionary<RetinueValueTypes, Action<ServerModuleRetinue, int>> RetinueValueChangeDelegates = new Dictionary<RetinueValueTypes, Action<ServerModuleRetinue, int>>
+    private Dictionary<MechValueTypes, Action<ServerModuleMech, int>> MechValueChangeDelegates = new Dictionary<MechValueTypes, Action<ServerModuleMech, int>>
     {
-        {RetinueValueTypes.Life, delegate(ServerModuleRetinue retinue, int value) { retinue?.AddLife(value); }},
-        {RetinueValueTypes.Heal, delegate(ServerModuleRetinue retinue, int value) { retinue?.Heal(value); }},
+        {MechValueTypes.Life, delegate(ServerModuleMech mech, int value) { mech?.AddLife(value); }},
+        {MechValueTypes.Heal, delegate(ServerModuleMech mech, int value) { mech?.Heal(value); }},
         {
-            RetinueValueTypes.Damage, delegate(ServerModuleRetinue targetRetinue, int value)
+            MechValueTypes.Damage, delegate(ServerModuleMech targetMech, int value)
             {
-                targetRetinue.BeAttacked(value);
-                targetRetinue.CheckAlive();
+                targetMech.BeAttacked(value);
+                targetMech.CheckAlive();
             }
         },
-        {RetinueValueTypes.Attack, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueAttack += value; }},
-        {RetinueValueTypes.Armor, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueArmor += value; }},
-        {RetinueValueTypes.Shield, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueShield += value; }},
-        {RetinueValueTypes.WeaponEnergy, delegate(ServerModuleRetinue retinue, int value) { retinue.M_RetinueWeaponEnergy += value; }},
+        {MechValueTypes.Attack, delegate(ServerModuleMech mech, int value) { mech.M_MechAttack += value; }},
+        {MechValueTypes.Armor, delegate(ServerModuleMech mech, int value) { mech.M_MechArmor += value; }},
+        {MechValueTypes.Shield, delegate(ServerModuleMech mech, int value) { mech.M_MechShield += value; }},
+        {MechValueTypes.WeaponEnergy, delegate(ServerModuleMech mech, int value) { mech.M_MechWeaponEnergy += value; }},
     };
 
-    public void SideEffect_RetinueAction(Action<ServerModuleRetinue> action, ServerPlayer callerPlayer, int count, List<int> retinueIds, TargetRange targetRange, TargetSelect targetSelect, int exceptRetinueId = -1)
+    public void SideEffect_MechAction(Action<ServerModuleMech> action, ServerPlayer callerPlayer, int count, List<int> mechIds, TargetRange targetRange, TargetSelect targetSelect, int exceptMechId = -1)
     {
         List<ServerPlayer> serverPlayers = GetMechsPlayerByTargetRange(targetRange, callerPlayer);
-        RetinueTypes retinueType = GetRetinueTypeByTargetRange(targetRange);
+        MechTypes mechType = GetMechTypeByTargetRange(targetRange);
         switch (targetSelect)
         {
             case TargetSelect.All:
             {
-                foreach (ServerModuleRetinue retinue in GetRetinuesByType(serverPlayers, retinueType).ToArray())
+                foreach (ServerModuleMech mech in GetMechsByType(serverPlayers, mechType).ToArray())
                 {
-                    action(retinue);
+                    action(mech);
                 }
 
                 break;
             }
             case TargetSelect.Multiple:
             {
-                foreach (int retinueId in retinueIds)
+                foreach (int mechId in mechIds)
                 {
-                    action(GetRetinue(retinueId));
+                    action(GetMech(mechId));
                 }
 
                 break;
             }
             case TargetSelect.MultipleRandom:
             {
-                foreach (ServerModuleRetinue retinue in Utils.GetRandomFromList(GetRetinuesByType(serverPlayers, retinueType), count))
+                foreach (ServerModuleMech mech in Utils.GetRandomFromList(GetMechsByType(serverPlayers, mechType), count))
                 {
-                    action(retinue);
+                    action(mech);
                 }
 
                 break;
             }
             case TargetSelect.Single:
             {
-                action(GetRetinue(retinueIds[0]));
+                action(GetMech(mechIds[0]));
                 break;
             }
             case TargetSelect.SingleRandom:
             {
-                action(GetRandomRetinue(serverPlayers, retinueType, exceptRetinueId));
+                action(GetRandomMech(serverPlayers, mechType, exceptMechId));
                 break;
             }
         }
     }
 
-    public void KillRetinues(List<int> retinueIds)
+    public void KillMechs(List<int> mechIds)
     {
-        List<ServerModuleRetinue> dieRetinues = new List<ServerModuleRetinue>();
-        foreach (int retinueId in retinueIds)
+        List<ServerModuleMech> dieMechs = new List<ServerModuleMech>();
+        foreach (int mechId in mechIds)
         {
-            dieRetinues.Add(GetRetinue(retinueId));
+            dieMechs.Add(GetMech(mechId));
         }
 
-        KillRetinues(dieRetinues);
+        KillMechs(dieMechs);
     }
 
-    private void KillRetinues(List<ServerModuleRetinue> dieRetinues)
+    private void KillMechs(List<ServerModuleMech> dieMechs)
     {
-        dieRetinues.Sort((a, b) => a.M_RetinueID.CompareTo(b.M_RetinueID)); //按照上场顺序加入死亡队列
+        dieMechs.Sort((a, b) => a.M_MechID.CompareTo(b.M_MechID)); //按照上场顺序加入死亡队列
 
-        foreach (ServerModuleRetinue serverModuleRetinue in dieRetinues.ToArray())
+        foreach (ServerModuleMech serverModuleMech in dieMechs.ToArray())
         {
-            serverModuleRetinue.OnDieTogether();
+            serverModuleMech.OnDieTogether();
         }
     }
 
-    public void KillRetinues(int count, List<int> retinueIds, ServerPlayer callerPlayer, TargetRange targetRange, TargetSelect targetSelect, int exceptRetinueId = -1)
+    public void KillMechs(int count, List<int> mechIds, ServerPlayer callerPlayer, TargetRange targetRange, TargetSelect targetSelect, int exceptMechId = -1)
     {
         List<ServerPlayer> serverPlayers = GetMechsPlayerByTargetRange(targetRange, callerPlayer);
-        RetinueTypes retinueType = GetRetinueTypeByTargetRange(targetRange);
+        MechTypes mechType = GetMechTypeByTargetRange(targetRange);
         switch (targetSelect)
         {
             case TargetSelect.All:
             {
-                KillRetinues(GetRetinuesByType(serverPlayers, retinueType));
+                KillMechs(GetMechsByType(serverPlayers, mechType));
                 break;
             }
             case TargetSelect.Multiple:
             {
-                List<ServerModuleRetinue> retinues = new List<ServerModuleRetinue>();
-                foreach (int retinueId in retinueIds)
+                List<ServerModuleMech> mechs = new List<ServerModuleMech>();
+                foreach (int mechId in mechIds)
                 {
-                    retinues.Add(GetRetinue(retinueId));
+                    mechs.Add(GetMech(mechId));
                 }
 
-                KillRetinues(retinues);
+                KillMechs(mechs);
 
                 break;
             }
             case TargetSelect.MultipleRandom:
             {
-                List<ServerModuleRetinue> retinues = new List<ServerModuleRetinue>();
-                foreach (ServerModuleRetinue retinue in Utils.GetRandomFromList(GetRetinuesByType(serverPlayers, retinueType), count))
+                List<ServerModuleMech> mechs = new List<ServerModuleMech>();
+                foreach (ServerModuleMech mech in Utils.GetRandomFromList(GetMechsByType(serverPlayers, mechType), count))
                 {
-                    retinues.Add(retinue);
+                    mechs.Add(mech);
                 }
 
-                KillRetinues(retinues);
+                KillMechs(mechs);
 
                 break;
             }
             case TargetSelect.Single:
             {
-                KillRetinues(new List<ServerModuleRetinue> {GetRetinue(retinueIds[0])});
+                KillMechs(new List<ServerModuleMech> {GetMech(mechIds[0])});
                 break;
             }
             case TargetSelect.SingleRandom:
             {
-                KillRetinues(new List<ServerModuleRetinue> {GetRandomRetinue(serverPlayers, retinueType, exceptRetinueId)});
+                KillMechs(new List<ServerModuleMech> {GetRandomMech(serverPlayers, mechType, exceptMechId)});
                 break;
             }
         }
     }
 
-    public static RetinueTypes GetRetinueTypeByTargetRange(TargetRange targetRange)
+    public static MechTypes GetMechTypeByTargetRange(TargetRange targetRange)
     {
-        RetinueTypes retinueType = RetinueTypes.None;
+        MechTypes mechType = MechTypes.None;
         if ((targetRange & TargetRange.Heroes) == targetRange) // 若是Heroes子集
         {
-            retinueType = RetinueTypes.Hero;
+            mechType = MechTypes.Hero;
         }
 
         if ((targetRange & TargetRange.Soldiers) == targetRange) // 若是Soldiers子集
         {
-            retinueType = RetinueTypes.Soldier;
+            mechType = MechTypes.Soldier;
         }
         else
         {
-            retinueType = RetinueTypes.All;
+            mechType = MechTypes.All;
         }
 
-        return retinueType;
+        return mechType;
     }
 
     public static ILifeCompositionTypes GetILifeCompositionTypesByTargetRange(TargetRange targetRange)
@@ -494,26 +496,26 @@ internal partial class ServerGameManager
         return Utils.GetRandomFromList(new List<ServerPlayer> {PlayerA, PlayerB}, count);
     }
 
-    public ServerModuleRetinue GetRetinueOnBattleGround(int retinueId)
+    public ServerModuleMech GetMechOnBattleGround(int mechId)
     {
-        ServerModuleRetinue retinue = PlayerA.MyBattleGroundManager.GetRetinue(retinueId);
-        if (retinue == null) retinue = PlayerB.MyBattleGroundManager.GetRetinue(retinueId);
-        return retinue;
+        ServerModuleMech mech = PlayerA.MyBattleGroundManager.GetMech(mechId);
+        if (mech == null) mech = PlayerB.MyBattleGroundManager.GetMech(mechId);
+        return mech;
     }
 
-    public ServerModuleRetinue GetRandomAliveRetinueExcept(RetinueTypes retinueType, int exceptRetinueId)
+    public ServerModuleMech GetRandomAliveMechExcept(MechTypes mechType, int exceptMechId)
     {
-        int countA = PlayerA.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
-        int countB = PlayerB.MyBattleGroundManager.CountAliveRetinueExcept(retinueType, exceptRetinueId);
+        int countA = PlayerA.MyBattleGroundManager.CountAliveMechExcept(mechType, exceptMechId);
+        int countB = PlayerB.MyBattleGroundManager.CountAliveMechExcept(mechType, exceptMechId);
         Random rd = new Random();
         int ranResult = rd.Next(0, countA + countB);
         if (ranResult < countA)
         {
-            return PlayerA.MyBattleGroundManager.GetRandomRetinue(retinueType, exceptRetinueId);
+            return PlayerA.MyBattleGroundManager.GetRandomMech(mechType, exceptMechId);
         }
         else
         {
-            return PlayerB.MyBattleGroundManager.GetRandomRetinue(retinueType, exceptRetinueId);
+            return PlayerB.MyBattleGroundManager.GetRandomMech(mechType, exceptMechId);
         }
     }
 
@@ -561,32 +563,32 @@ internal partial class ServerGameManager
 
     public void RemoveEquipByEquipID(int equipID)
     {
-        foreach (ServerModuleRetinue retinue in GetRetinuesByType(new List<ServerPlayer> {PlayerA, PlayerB}, RetinueTypes.All))
+        foreach (ServerModuleMech mech in GetMechsByType(new List<ServerPlayer> {PlayerA, PlayerB}, MechTypes.All))
         {
-            if (retinue.M_Weapon != null && retinue.M_Weapon.M_EquipID == equipID)
+            if (mech.M_Weapon != null && mech.M_Weapon.M_EquipID == equipID)
             {
-                retinue.M_Weapon = null;
+                mech.M_Weapon = null;
             }
 
-            if (retinue.M_Shield != null && retinue.M_Shield.M_EquipID == equipID)
+            if (mech.M_Shield != null && mech.M_Shield.M_EquipID == equipID)
             {
-                retinue.M_Shield = null;
+                mech.M_Shield = null;
             }
 
-            if (retinue.M_Pack != null && retinue.M_Pack.M_EquipID == equipID)
+            if (mech.M_Pack != null && mech.M_Pack.M_EquipID == equipID)
             {
-                retinue.M_Pack = null;
+                mech.M_Pack = null;
             }
 
-            if (retinue.M_MA != null && retinue.M_MA.M_EquipID == equipID)
+            if (mech.M_MA != null && mech.M_MA.M_EquipID == equipID)
             {
-                retinue.M_MA = null;
+                mech.M_MA = null;
             }
         }
     }
 }
 
-public enum RetinueTypes
+public enum MechTypes
 {
     None,
     All,

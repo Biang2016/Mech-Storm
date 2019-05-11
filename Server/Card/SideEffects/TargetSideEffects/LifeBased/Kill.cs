@@ -9,7 +9,7 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             ServerPlayer player = (ServerPlayer) Player;
-            player.MyGameManager.KillRetinues(ChoiceCount,executorInfo.TargetRetinueIds,player,TargetRange,TargetSelect,-1);
+            player.MyGameManager.KillMechs(ChoiceCount,executorInfo.TargetMechIds,player,TargetRange,TargetSelect,-1);
         }
     }
 }

@@ -115,7 +115,7 @@ public partial class SelectBuildPanel
             return;
         }
 
-        bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.RetinueInfo.IsSoldier;
+        bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Mech && !card.CardInfo.MechInfo.IsSoldier;
 
         Dictionary<int, SelectCard> selectCards = isHero ? SelectedHeroes : SelectedCards;
         if (isHero && isSelectedHeroFull)
@@ -243,7 +243,7 @@ public partial class SelectBuildPanel
     private SelectCard GenerateNewSelectCard(CardBase card)
     {
         Transform parenTransform;
-        if (card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.RetinueInfo.IsSoldier)
+        if (card.CardInfo.BaseInfo.CardType == CardTypes.Mech && !card.CardInfo.MechInfo.IsSoldier)
         {
             parenTransform = HeroCardsContainer;
         }
@@ -340,9 +340,9 @@ public partial class SelectBuildPanel
             return;
         }
 
-        bool isRetinue = card.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !card.CardInfo.RetinueInfo.IsSoldier;
+        bool isMech = card.CardInfo.BaseInfo.CardType == CardTypes.Mech && !card.CardInfo.MechInfo.IsSoldier;
 
-        if (isRetinue)
+        if (isMech)
         {
             int count = --SelectedHeroes[card.CardInfo.CardID].Count;
             card.SetBlockCountValue(count);
@@ -421,7 +421,7 @@ public partial class SelectBuildPanel
 
         foreach (CardBase cb in selectCB)
         {
-            if (cb.CardInfo.BaseInfo.CardType == CardTypes.Retinue && !cb.CardInfo.RetinueInfo.IsSoldier)
+            if (cb.CardInfo.BaseInfo.CardType == CardTypes.Mech && !cb.CardInfo.MechInfo.IsSoldier)
             {
                 SelectCard(cb, true);
             }

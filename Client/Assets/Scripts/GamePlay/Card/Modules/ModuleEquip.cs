@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class ModuleEquip : ModuleBase
 {
     public int M_EquipID;
-    internal ModuleRetinue M_ModuleRetinue;
+    internal ModuleMech M_ModuleMech;
     public TextMesh Name;
     public TextMesh Name_en;
 
@@ -113,7 +113,7 @@ public abstract class ModuleEquip : ModuleBase
         dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
 
-    public override void ChangeColor(Color color)
+    protected override void ChangeColor(Color color)
     {
         base.ChangeColor(color);
         ClientUtils.ChangeColor(M_Bloom, color, 2);

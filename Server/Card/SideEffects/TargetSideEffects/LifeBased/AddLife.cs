@@ -14,7 +14,7 @@ namespace SideEffects
             int value = M_SideEffectParam.GetParam_MultipliedInt("LifeValue");
             if (TargetRange == TargetRange.Self) // 对自身
             {
-                player.MyBattleGroundManager.GetRetinue(executorInfo.RetinueId).AddLife(value);
+                player.MyBattleGroundManager.GetMech(executorInfo.MechId).AddLife(value);
             }
             else
             {
@@ -25,7 +25,7 @@ namespace SideEffects
                     TargetRange,
                     TargetSelect,
                     executorInfo.TargetClientIds,
-                    executorInfo.TargetRetinueIds
+                    executorInfo.TargetMechIds
                 );
             }
         }

@@ -9,42 +9,42 @@ public class BattleEffectsManager : MonoSingleton<BattleEffectsManager>
     }
 
     public Effects Effect_Main;
-    public Effects Effect_RefreshBattleGroundOnAddRetinue;
+    public Effects Effect_RefreshBattleGroundOnAddMech;
     public Effects Effect_TipSlotBloom;
 
     public bool isExecuting_Main;
-    public bool isExecuting_RefreshBattleGroundOnAddRetinue;
+    public bool isExecuting_RefreshBattleGroundOnAddMech;
     public bool isExecuting_TipSlotBloom;
 
     void Start()
     {
         Effect_Main = new Effects("Effect_M");
-        Effect_RefreshBattleGroundOnAddRetinue = new Effects("Effect_R");
+        Effect_RefreshBattleGroundOnAddMech = new Effects("Effect_R");
         Effect_TipSlotBloom = new Effects("Effect_T");
     }
 
     void Update()
     {
         Effect_Main.Update();
-        Effect_RefreshBattleGroundOnAddRetinue.Update();
+        Effect_RefreshBattleGroundOnAddMech.Update();
         Effect_TipSlotBloom.Update();
 
         isExecuting_Main = Effect_Main.IsExcuting;
-        isExecuting_RefreshBattleGroundOnAddRetinue = Effect_RefreshBattleGroundOnAddRetinue.IsExcuting;
+        isExecuting_RefreshBattleGroundOnAddMech = Effect_RefreshBattleGroundOnAddMech.IsExcuting;
         isExecuting_TipSlotBloom = Effect_TipSlotBloom.IsExcuting;
     }
 
     public void ResetAll()
     {
         Effect_Main.AllEffectsEnd();
-        Effect_RefreshBattleGroundOnAddRetinue.AllEffectsEnd();
+        Effect_RefreshBattleGroundOnAddMech.AllEffectsEnd();
         Effect_TipSlotBloom.AllEffectsEnd();
 
         Effect_Main = new Effects("Effect_M");
-        Effect_RefreshBattleGroundOnAddRetinue = new Effects("Effect_R");
+        Effect_RefreshBattleGroundOnAddMech = new Effects("Effect_R");
         Effect_TipSlotBloom = new Effects("Effect_T");
         isExecuting_Main = false;
-        isExecuting_RefreshBattleGroundOnAddRetinue = false;
+        isExecuting_RefreshBattleGroundOnAddMech = false;
         isExecuting_TipSlotBloom = false;
     }
 

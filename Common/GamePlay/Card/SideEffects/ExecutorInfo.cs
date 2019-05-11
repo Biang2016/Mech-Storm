@@ -8,13 +8,13 @@ public class ExecutorInfo
 
     public int SideEffectExecutorID;
     public int ClientId;
-    public int RetinueId;
+    public int MechId;
     public int CardId;
     public int CardInstanceId;
     public int EquipId;
 
     public List<int> TargetClientIds = new List<int>();
-    public List<int> TargetRetinueIds = new List<int>();
+    public List<int> TargetMechIds = new List<int>();
     public List<int> TargetCardInstanceIds = new List<int>();
     public List<int> TargetEquipIds = new List<int>();
     public int Value;
@@ -23,12 +23,12 @@ public class ExecutorInfo
     public ExecutorInfo(
         int clientId,
         int sideEffectExecutorID = EXECUTOR_ID_EVENTS,
-        int retinueId = EXECUTE_INFO_NONE,
+        int mechId = EXECUTE_INFO_NONE,
         int cardId = EXECUTE_INFO_NONE,
         int cardInstanceId = EXECUTE_INFO_NONE,
         int equipId = EXECUTE_INFO_NONE,
         List<int> targetClientIds = null,
-        List<int> targetRetinueIds = null,
+        List<int> targetMechIds = null,
         List<int> targetCardInstanceIds = null,
         List<int> targetEquipIds = null,
         int value = 0,
@@ -36,12 +36,12 @@ public class ExecutorInfo
     {
         ClientId = clientId;
         SideEffectExecutorID = sideEffectExecutorID;
-        RetinueId = retinueId;
+        MechId = mechId;
         CardId = cardId;
         CardInstanceId = cardInstanceId;
         EquipId = equipId;
         TargetClientIds = targetClientIds ?? new List<int>();
-        TargetRetinueIds = targetRetinueIds ?? new List<int>();
+        TargetMechIds = targetMechIds ?? new List<int>();
         TargetCardInstanceIds = targetCardInstanceIds ?? new List<int>();
         TargetEquipIds = targetEquipIds ?? new List<int>();
         Value = value;
@@ -53,12 +53,12 @@ public class ExecutorInfo
         return new ExecutorInfo(
             ClientId,
             SideEffectExecutorID,
-            RetinueId,
+            MechId,
             CardId,
             CardInstanceId,
             EquipId,
             CloneVariantUtils.List(TargetClientIds),
-            CloneVariantUtils.List(TargetRetinueIds),
+            CloneVariantUtils.List(TargetMechIds),
             CloneVariantUtils.List(TargetCardInstanceIds),
             CloneVariantUtils.List(TargetEquipIds),
             Value,
@@ -69,7 +69,7 @@ public class ExecutorInfo
     {
         writer.WriteSInt32(ClientId);
         writer.WriteSInt32(SideEffectExecutorID);
-        writer.WriteSInt32(RetinueId);
+        writer.WriteSInt32(MechId);
 
         writer.WriteSInt32(CardId);
         writer.WriteSInt32(CardInstanceId);
@@ -82,10 +82,10 @@ public class ExecutorInfo
             writer.WriteSInt32(targetClientId);
         }
 
-        writer.WriteSInt32(TargetRetinueIds.Count);
-        foreach (int targetRetinueId in TargetRetinueIds)
+        writer.WriteSInt32(TargetMechIds.Count);
+        foreach (int targetMechId in TargetMechIds)
         {
-            writer.WriteSInt32(targetRetinueId);
+            writer.WriteSInt32(targetMechId);
         }
 
         writer.WriteSInt32(TargetCardInstanceIds.Count);
@@ -108,7 +108,7 @@ public class ExecutorInfo
     {
         int ClientId = reader.ReadSInt32();
         int SideEffectExecutorID = reader.ReadSInt32();
-        int RetinueId = reader.ReadSInt32();
+        int MechId = reader.ReadSInt32();
 
         int CardId = reader.ReadSInt32();
         int CardInstanceId = reader.ReadSInt32();
@@ -123,10 +123,10 @@ public class ExecutorInfo
         }
 
         count = reader.ReadSInt32();
-        List<int> TargetRetinueIds = new List<int>();
+        List<int> TargetMechIds = new List<int>();
         for (int i = 0; i < count; i++)
         {
-            TargetRetinueIds.Add(reader.ReadSInt32());
+            TargetMechIds.Add(reader.ReadSInt32());
         }
 
         count = reader.ReadSInt32();
@@ -149,12 +149,12 @@ public class ExecutorInfo
         return new ExecutorInfo(
             ClientId,
             SideEffectExecutorID,
-            RetinueId,
+            MechId,
             CardId,
             CardInstanceId,
             EquipId,
             TargetClientIds,
-            TargetRetinueIds,
+            TargetMechIds,
             TargetCardInstanceIds,
             TargetEquipIds,
             Value,

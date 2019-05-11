@@ -24,7 +24,7 @@ public class SideEffectExecute : IClone<SideEffectExecute>
         Buff = 1,
         SpellCard = 2,
         EnergyCard = 4,
-        RetinueSideEffect = 8,
+        MechSideEffect = 8,
         EquipSideEffect = 16,
     }
 
@@ -32,7 +32,7 @@ public class SideEffectExecute : IClone<SideEffectExecute>
     {
         switch (cardType)
         {
-            case CardTypes.Retinue: return SideEffectFrom.RetinueSideEffect;
+            case CardTypes.Mech: return SideEffectFrom.MechSideEffect;
             case CardTypes.Equip: return SideEffectFrom.EquipSideEffect;
             case CardTypes.Energy: return SideEffectFrom.EnergyCard;
             case CardTypes.Spell: return SideEffectFrom.SpellCard;
@@ -54,14 +54,14 @@ public class SideEffectExecute : IClone<SideEffectExecute>
     {
         PlayOutEffect,
         BattleCry,
-        SelfRetinueDie,
-        AttachedRetinueDie,
+        SelfMechDie,
+        AttachedMechDie,
         SelfEquipDie,
         AttachedEquipDie,
-        WhenSelfRetinueAttack,
-        WhenSelfRetinueKillOther,
-        WhenAttachedRetinueAttack,
-        WhenAttachedRetinueKillOther,
+        WhenSelfMechAttack,
+        WhenSelfMechKillOther,
+        WhenAttachedMechAttack,
+        WhenAttachedMechKillOther,
         Others // 高级自定义
     }
 
@@ -182,7 +182,7 @@ public class SideEffectExecute : IClone<SideEffectExecute>
         },
         {
             ExecuteSettingTypes.BattleCry, new ExecuteSetting(
-                triggerTime: TriggerTime.OnRetinueSummon,
+                triggerTime: TriggerTime.OnMechSummon,
                 triggerRange: TriggerRange.Self,
                 triggerDelayTimes: 0,
                 triggerTimes: 99999,
@@ -191,8 +191,8 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 removeTriggerTimes: 1)
         },
         {
-            ExecuteSettingTypes.SelfRetinueDie, new ExecuteSetting(
-                triggerTime: TriggerTime.OnRetinueDie,
+            ExecuteSettingTypes.SelfMechDie, new ExecuteSetting(
+                triggerTime: TriggerTime.OnMechDie,
                 triggerRange: TriggerRange.Self,
                 triggerDelayTimes: 0,
                 triggerTimes: 1,
@@ -201,9 +201,9 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 removeTriggerTimes: 1)
         },
         {
-            ExecuteSettingTypes.AttachedRetinueDie, new ExecuteSetting(
-                triggerTime: TriggerTime.OnRetinueDie,
-                triggerRange: TriggerRange.AttachedRetinue,
+            ExecuteSettingTypes.AttachedMechDie, new ExecuteSetting(
+                triggerTime: TriggerTime.OnMechDie,
+                triggerRange: TriggerRange.AttachedMech,
                 triggerDelayTimes: 0,
                 triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
@@ -231,8 +231,8 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 removeTriggerTimes: 1)
         },
         {
-            ExecuteSettingTypes.WhenSelfRetinueAttack, new ExecuteSetting(
-                triggerTime: TriggerTime.OnRetinueAttack,
+            ExecuteSettingTypes.WhenSelfMechAttack, new ExecuteSetting(
+                triggerTime: TriggerTime.OnMechAttack,
                 triggerRange: TriggerRange.Self,
                 triggerDelayTimes: 0,
                 triggerTimes: 1,
@@ -241,8 +241,8 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 removeTriggerTimes: 1)
         },
         {
-            ExecuteSettingTypes.WhenSelfRetinueKillOther, new ExecuteSetting(
-                triggerTime: TriggerTime.OnRetinueKill,
+            ExecuteSettingTypes.WhenSelfMechKillOther, new ExecuteSetting(
+                triggerTime: TriggerTime.OnMechKill,
                 triggerRange: TriggerRange.Self,
                 triggerDelayTimes: 0,
                 triggerTimes: 1,
@@ -265,14 +265,14 @@ public class SideEffectExecute : IClone<SideEffectExecute>
     public static Dictionary<SideEffectFrom, List<ExecuteSettingTypes>> ValidExecuteSettingTypesForSideEffectFrom = new Dictionary<SideEffectFrom, List<ExecuteSettingTypes>>
     {
         {
-            SideEffectFrom.RetinueSideEffect,
+            SideEffectFrom.MechSideEffect,
             new List<ExecuteSettingTypes>
             {
                 ExecuteSettingTypes.BattleCry,
-                ExecuteSettingTypes.SelfRetinueDie,
+                ExecuteSettingTypes.SelfMechDie,
                 ExecuteSettingTypes.AttachedEquipDie,
-                ExecuteSettingTypes.WhenSelfRetinueAttack,
-                ExecuteSettingTypes.WhenSelfRetinueKillOther,
+                ExecuteSettingTypes.WhenSelfMechAttack,
+                ExecuteSettingTypes.WhenSelfMechKillOther,
                 ExecuteSettingTypes.Others
             }
         },
@@ -281,10 +281,10 @@ public class SideEffectExecute : IClone<SideEffectExecute>
             new List<ExecuteSettingTypes>
             {
                 ExecuteSettingTypes.BattleCry,
-                ExecuteSettingTypes.AttachedRetinueDie,
+                ExecuteSettingTypes.AttachedMechDie,
                 ExecuteSettingTypes.SelfEquipDie,
-                ExecuteSettingTypes.WhenAttachedRetinueAttack,
-                ExecuteSettingTypes.WhenAttachedRetinueKillOther,
+                ExecuteSettingTypes.WhenAttachedMechAttack,
+                ExecuteSettingTypes.WhenAttachedMechKillOther,
                 ExecuteSettingTypes.Others
             }
         },
@@ -363,9 +363,9 @@ public class SideEffectExecute : IClone<SideEffectExecute>
     {
         string res = "";
         if (ExecuteSettingType == ExecuteSettingTypes.BattleCry) res += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("TriggerTime_BattleCry") + ": ");
-        else if (ExecuteSettingType == ExecuteSettingTypes.SelfRetinueDie || ExecuteSettingType == ExecuteSettingTypes.SelfEquipDie) res += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("TriggerTime_Die") + ": ");
-        else if (ExecuteSettingType == ExecuteSettingTypes.WhenSelfRetinueAttack) res += LanguageManager_Common.GetText("TriggerTime_WhenAttack");
-        else if (ExecuteSettingType == ExecuteSettingTypes.WhenSelfRetinueKillOther) res += LanguageManager_Common.GetText("TriggerTime_WhenKill");
+        else if (ExecuteSettingType == ExecuteSettingTypes.SelfMechDie || ExecuteSettingType == ExecuteSettingTypes.SelfEquipDie) res += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("TriggerTime_Die") + ": ");
+        else if (ExecuteSettingType == ExecuteSettingTypes.WhenSelfMechAttack) res += LanguageManager_Common.GetText("TriggerTime_WhenAttack");
+        else if (ExecuteSettingType == ExecuteSettingTypes.WhenSelfMechKillOther) res += LanguageManager_Common.GetText("TriggerTime_WhenKill");
         else if (ExecuteSettingType == ExecuteSettingTypes.PlayOutEffect)
         {
             foreach (SideEffectBase se in SideEffectBases)
@@ -417,49 +417,49 @@ public class SideEffectExecute : IClone<SideEffectExecute>
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
-        OnRetinueSummon = OnHeroSummon | OnSoldierSummon,
+        OnMechSummon = OnHeroSummon | OnSoldierSummon,
         OnHeroSummon = 1 << 4,
         OnSoldierSummon = 1 << 5,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
-        OnRetinueAttack = OnHeroAttack | OnSoldierAttack,
+        OnMechAttack = OnHeroAttack | OnSoldierAttack,
         OnHeroAttack = 1 << 6,
         OnSoldierAttack = 1 << 7,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
-        OnRetinueInjured = OnHeroInjured | OnSoldierInjured,
+        OnMechInjured = OnHeroInjured | OnSoldierInjured,
         OnHeroInjured = 1 << 8,
         OnSoldierInjured = 1 << 9,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
-        OnRetinueKill = OnHeroKill | OnSoldierKill,
+        OnMechKill = OnHeroKill | OnSoldierKill,
         OnHeroKill = 1 << 10,
         OnSoldierKill = 1 << 11,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
-        OnRetinueMakeDamage = OnHeroMakeDamage | OnSoldierMakeDamage,
+        OnMechMakeDamage = OnHeroMakeDamage | OnSoldierMakeDamage,
         OnHeroMakeDamage = 1 << 12,
         OnSoldierMakeDamage = 1 << 13,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
-        OnRetinueBeHealed = OnHeroBeHealed | OnSoldierBeHealed,
+        OnMechBeHealed = OnHeroBeHealed | OnSoldierBeHealed,
         OnHeroBeHealed = 1 << 14,
         OnSoldierBeHealed = 1 << 15,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
-        OnRetinueDie = OnHeroDie | OnSoldierDie,
+        OnMechDie = OnHeroDie | OnSoldierDie,
         OnHeroDie = 1 << 16,
         OnSoldierDie = 1 << 17,
 
@@ -468,7 +468,7 @@ public class SideEffectExecute : IClone<SideEffectExecute>
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
-        OnMakeDamage = OnMakeSpellDamage | OnRetinueMakeDamage,
+        OnMakeDamage = OnMakeSpellDamage | OnMechMakeDamage,
         OnMakeSpellDamage = 1 << 19,
 
         OnPlayerGetEnergy = 1 << 21,
@@ -492,31 +492,31 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnDrawCard, "{0}抽牌时, "},
                 {TriggerTime.OnPlayCard, "{0}出牌时, "},
 
-                {TriggerTime.OnRetinueSummon, "{0}召唤机甲时, "},
+                {TriggerTime.OnMechSummon, "{0}召唤机甲时, "},
                 {TriggerTime.OnHeroSummon, "{0}召唤英雄时, "},
                 {TriggerTime.OnSoldierSummon, "{0}召唤士兵时, "},
 
-                {TriggerTime.OnRetinueAttack, "当{0}机甲进攻时, "},
+                {TriggerTime.OnMechAttack, "当{0}机甲进攻时, "},
                 {TriggerTime.OnHeroAttack, "当{0}英雄进攻时, "},
                 {TriggerTime.OnSoldierAttack, "当{0}士兵进攻时, "},
 
-                {TriggerTime.OnRetinueInjured, "当{0}机甲受损时, "},
+                {TriggerTime.OnMechInjured, "当{0}机甲受损时, "},
                 {TriggerTime.OnHeroInjured, "当{0}英雄受损时, "},
                 {TriggerTime.OnSoldierInjured, "当{0}士兵受损时, "},
 
-                {TriggerTime.OnRetinueKill, "当{0}机甲成功击杀, "},
+                {TriggerTime.OnMechKill, "当{0}机甲成功击杀, "},
                 {TriggerTime.OnHeroKill, "当{0}英雄成功击杀, "},
                 {TriggerTime.OnSoldierKill, "当{0}士兵成功击杀, "},
 
-                {TriggerTime.OnRetinueMakeDamage, "当{0}机甲造成伤害时, "},
+                {TriggerTime.OnMechMakeDamage, "当{0}机甲造成伤害时, "},
                 {TriggerTime.OnHeroMakeDamage, "当{0}英雄造成伤害时, "},
                 {TriggerTime.OnSoldierMakeDamage, "当{0}士兵造成伤害时, "},
 
-                {TriggerTime.OnRetinueBeHealed, "当{0}机甲得到修复时, "},
+                {TriggerTime.OnMechBeHealed, "当{0}机甲得到修复时, "},
                 {TriggerTime.OnHeroBeHealed, "当{0}英雄得到修复时, "},
                 {TriggerTime.OnSoldierBeHealed, "当{0}士兵得到修复时, "},
 
-                {TriggerTime.OnRetinueDie, "当{0}机甲死亡时, "},
+                {TriggerTime.OnMechDie, "当{0}机甲死亡时, "},
                 {TriggerTime.OnHeroDie, "当{0}英雄死亡时, "},
                 {TriggerTime.OnSoldierDie, "当{0}士兵死亡时, "},
 
@@ -544,31 +544,31 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnDrawCard, "When {0} draws, "},
                 {TriggerTime.OnPlayCard, "When {0} plays a card, "},
 
-                {TriggerTime.OnRetinueSummon, "When {0} Mech summoned, "},
+                {TriggerTime.OnMechSummon, "When {0} Mech summoned, "},
                 {TriggerTime.OnHeroSummon, "When {0} HeroMech summoned, "},
                 {TriggerTime.OnSoldierSummon, "When {0} SoldierMech summoned, "},
 
-                {TriggerTime.OnRetinueAttack, "When {0} Mech attacks, "},
+                {TriggerTime.OnMechAttack, "When {0} Mech attacks, "},
                 {TriggerTime.OnHeroAttack, "When {0} HeroMech attacks, "},
                 {TriggerTime.OnSoldierAttack, "When {0} SoldierMech attacks, "},
 
-                {TriggerTime.OnRetinueInjured, "When {0} Mech damaged, "},
+                {TriggerTime.OnMechInjured, "When {0} Mech damaged, "},
                 {TriggerTime.OnHeroInjured, "When {0} HeroMech damaged, "},
                 {TriggerTime.OnSoldierInjured, "When {0} SoldierMech damaged, "},
 
-                {TriggerTime.OnRetinueKill, "When {0} Mech kill enemy, "},
+                {TriggerTime.OnMechKill, "When {0} Mech kill enemy, "},
                 {TriggerTime.OnHeroKill, "When {0} HeroMech kill enemy, "},
                 {TriggerTime.OnSoldierKill, "When {0} SoldierMech kill enemy, "},
 
-                {TriggerTime.OnRetinueMakeDamage, "When {0} Mech make damage, "},
+                {TriggerTime.OnMechMakeDamage, "When {0} Mech make damage, "},
                 {TriggerTime.OnHeroMakeDamage, "When {0} HeroMech make damage, "},
                 {TriggerTime.OnSoldierMakeDamage, "When {0} SoldierMech make damage, "},
 
-                {TriggerTime.OnRetinueBeHealed, "When {0} Mech is healed, "},
+                {TriggerTime.OnMechBeHealed, "When {0} Mech is healed, "},
                 {TriggerTime.OnHeroBeHealed, "When {0} HeroMech is healed, "},
                 {TriggerTime.OnSoldierBeHealed, "When {0} SoldierMech is healed, "},
 
-                {TriggerTime.OnRetinueDie, "When {0} Mech died, "},
+                {TriggerTime.OnMechDie, "When {0} Mech died, "},
                 {TriggerTime.OnHeroDie, "When {0} HeroMech died, "},
                 {TriggerTime.OnSoldierDie, "When {0} SoldierMech died, "},
 
@@ -600,31 +600,31 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnDrawCard, "在此后的第{0}次{1}抽牌前, "},
                 {TriggerTime.OnPlayCard, "在此后的第{0}次{1}出牌前, "},
 
-                {TriggerTime.OnRetinueSummon, "在此后的第{0}次{1}召唤机甲前, "},
+                {TriggerTime.OnMechSummon, "在此后的第{0}次{1}召唤机甲前, "},
                 {TriggerTime.OnHeroSummon, "在此后的第{0}次{1}召唤英雄前, "},
                 {TriggerTime.OnSoldierSummon, "在此后的第{0}次{1}召唤士兵前, "},
 
-                {TriggerTime.OnRetinueAttack, "在此后的第{0}次{1}机甲进攻前, "},
+                {TriggerTime.OnMechAttack, "在此后的第{0}次{1}机甲进攻前, "},
                 {TriggerTime.OnHeroAttack, "在此后的第{0}次{1}英雄进攻前, "},
                 {TriggerTime.OnSoldierAttack, "在此后的第{0}次{1}士兵进攻前, "},
 
-                {TriggerTime.OnRetinueInjured, "在此后的第{0}次{1}机甲受损前, "},
+                {TriggerTime.OnMechInjured, "在此后的第{0}次{1}机甲受损前, "},
                 {TriggerTime.OnHeroInjured, "在此后的第{0}次{1}英雄受损前, "},
                 {TriggerTime.OnSoldierInjured, "在此后的第{0}次{1}士兵受损前, "},
 
-                {TriggerTime.OnRetinueKill, "在此后的第{0}次{1}机甲成功击杀前, "},
+                {TriggerTime.OnMechKill, "在此后的第{0}次{1}机甲成功击杀前, "},
                 {TriggerTime.OnHeroKill, "在此后的第{0}次{1}英雄成功击杀前, "},
                 {TriggerTime.OnSoldierKill, "在此后的第{0}次{1}士兵成功击杀前, "},
 
-                {TriggerTime.OnRetinueMakeDamage, "在此后的第{0}次{1}机甲造成伤害前, "},
+                {TriggerTime.OnMechMakeDamage, "在此后的第{0}次{1}机甲造成伤害前, "},
                 {TriggerTime.OnHeroMakeDamage, "在此后的第{0}次{1}英雄造成伤害前, "},
                 {TriggerTime.OnSoldierMakeDamage, "在此后的第{0}次{1}士兵造成伤害前, "},
 
-                {TriggerTime.OnRetinueBeHealed, "在此后的第{0}次{1}机甲得到修复前, "},
+                {TriggerTime.OnMechBeHealed, "在此后的第{0}次{1}机甲得到修复前, "},
                 {TriggerTime.OnHeroBeHealed, "在此后的第{0}次{1}英雄得到修复前, "},
                 {TriggerTime.OnSoldierBeHealed, "在此后的第{0}次{1}士兵得到修复前, "},
 
-                {TriggerTime.OnRetinueDie, "在此后的第{0}次{1}机甲死亡前, "},
+                {TriggerTime.OnMechDie, "在此后的第{0}次{1}机甲死亡前, "},
                 {TriggerTime.OnHeroDie, "在此后的第{0}次{1}英雄死亡前, "},
                 {TriggerTime.OnSoldierDie, "在此后的第{0}次{1}士兵死亡前, "},
 
@@ -652,31 +652,31 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnDrawCard, "Before {1}'s next {0}th draw, "},
                 {TriggerTime.OnPlayCard, "Before {1}'s next {0}th playing card, "},
 
-                {TriggerTime.OnRetinueSummon, "Before {1} next {0}th Mech-summon, "},
+                {TriggerTime.OnMechSummon, "Before {1} next {0}th Mech-summon, "},
                 {TriggerTime.OnHeroSummon, "Before {1} next {0}th HeroMech-summon, "},
                 {TriggerTime.OnSoldierSummon, "Before {1} next {0}th SoldierMech-summon, "},
 
-                {TriggerTime.OnRetinueAttack, "Before {1} next {0}th Mech-attack, "},
+                {TriggerTime.OnMechAttack, "Before {1} next {0}th Mech-attack, "},
                 {TriggerTime.OnHeroAttack, "Before {1} next {0}th HeroMech-attack, "},
                 {TriggerTime.OnSoldierAttack, "Before {1} next {0}th SoldierMech-attack, "},
 
-                {TriggerTime.OnRetinueInjured, "Before {1} next {0}th Mech-injured, "},
+                {TriggerTime.OnMechInjured, "Before {1} next {0}th Mech-injured, "},
                 {TriggerTime.OnHeroInjured, "Before {1} next {0}th HeroMech-injured, "},
                 {TriggerTime.OnSoldierInjured, "Before {1} next {0}th SoldierMech-injured, "},
 
-                {TriggerTime.OnRetinueKill, "Before {1} next {0}th Mech-kills-enemy, "},
+                {TriggerTime.OnMechKill, "Before {1} next {0}th Mech-kills-enemy, "},
                 {TriggerTime.OnHeroKill, "Before {1} next {0}th HeroMech-kills-enemy, "},
                 {TriggerTime.OnSoldierKill, "Before {1} next {0}th SoldierMech-kills-enemy, "},
 
-                {TriggerTime.OnRetinueMakeDamage, "Before {1} next {0}th Mech-make-damage, "},
+                {TriggerTime.OnMechMakeDamage, "Before {1} next {0}th Mech-make-damage, "},
                 {TriggerTime.OnHeroMakeDamage, "Before {1} next {0}th HeroMech-make-damage, "},
                 {TriggerTime.OnSoldierMakeDamage, "Before {1} next {0}th SoldierMech-make-damage, "},
 
-                {TriggerTime.OnRetinueBeHealed, "Before {1} next {0}th Mech-healed, "},
+                {TriggerTime.OnMechBeHealed, "Before {1} next {0}th Mech-healed, "},
                 {TriggerTime.OnHeroBeHealed, "Before {1} next {0}th HeroMech-healed, "},
                 {TriggerTime.OnSoldierBeHealed, "Before {1} next {0}th SoldierMech-healed, "},
 
-                {TriggerTime.OnRetinueDie, "Before {1} next {0}th Mech-die, "},
+                {TriggerTime.OnMechDie, "Before {1} next {0}th Mech-die, "},
                 {TriggerTime.OnHeroDie, "Before {1} next {0}th HeroMech-die, "},
                 {TriggerTime.OnSoldierDie, "Before {1} next {0}th SoldierMech-die, "},
 
@@ -711,7 +711,7 @@ public class SideEffectExecute : IClone<SideEffectExecute>
         One,
         SelfAnother,
         Another,
-        AttachedRetinue,
+        AttachedMech,
         AttachedEquip,
         Self,
     }
@@ -728,7 +728,7 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerRange.One, "一个"},
                 {TriggerRange.SelfAnother, "我方其他"},
                 {TriggerRange.Another, "其他"},
-                {TriggerRange.AttachedRetinue, "属主"},
+                {TriggerRange.AttachedMech, "属主"},
                 {TriggerRange.AttachedEquip, "附属"},
                 {TriggerRange.Self, ""},
             }
@@ -743,7 +743,7 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerRange.One, "one"},
                 {TriggerRange.SelfAnother, "your another"},
                 {TriggerRange.Another, "another"},
-                {TriggerRange.AttachedRetinue, "attached"},
+                {TriggerRange.AttachedMech, "attached"},
                 {TriggerRange.AttachedEquip, "attached"},
                 {TriggerRange.Self, "this"},
             }

@@ -3,16 +3,16 @@
 /// </summary>
 public struct TargetInfo
 {
-    public bool HasTargetRetinue;
+    public bool HasTargetMech;
     public bool HasTargetEquip;
     public bool HasTargetShip;
 
     public bool HasNoTarget
     {
-        get { return !HasTargetRetinue && !HasTargetEquip && !HasTargetShip; }
+        get { return !HasTargetMech && !HasTargetEquip && !HasTargetShip; }
     }
 
-    public TargetRange targetRetinueRange;
+    public TargetRange targetMechRange;
     public TargetRange targetEquipRange;
     public TargetRange targetShipRange;
 
@@ -28,7 +28,7 @@ public struct TargetInfo
             if (FindTarget(see)) break;
         }
 
-        foreach (SideEffectExecute see in seb.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnRetinueSummon, SideEffectExecute.TriggerRange.Self))
+        foreach (SideEffectExecute see in seb.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnMechSummon, SideEffectExecute.TriggerRange.Self))
         {
             if (FindTarget(see)) break;
         }
@@ -51,8 +51,8 @@ public struct TargetInfo
                     TargetRange temp = tse.TargetRange;
                     if ((temp & TargetRange.Ships) == TargetRange.None)
                     {
-                        HasTargetRetinue = true;
-                        targetRetinueRange = tse.TargetRange;
+                        HasTargetMech = true;
+                        targetMechRange = tse.TargetRange;
                         return true;
                     }
                     else

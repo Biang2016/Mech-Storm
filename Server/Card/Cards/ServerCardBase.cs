@@ -8,8 +8,8 @@
         ServerCardBase newCard;
         switch (cardInfo.BaseInfo.CardType)
         {
-            case CardTypes.Retinue:
-                newCard = new ServerCardRetinue();
+            case CardTypes.Mech:
+                newCard = new ServerCardMech();
                 break;
             case CardTypes.Equip:
                 newCard = new ServerCardEquip();
@@ -21,7 +21,7 @@
                 newCard = new ServerCardSpell();
                 break;
             default:
-                newCard = new ServerCardRetinue();
+                newCard = new ServerCardMech();
                 break;
         }
 

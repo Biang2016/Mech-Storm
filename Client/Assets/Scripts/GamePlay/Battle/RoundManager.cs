@@ -46,25 +46,6 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
         BackGroundManager.Instance.ChangeBoardBG();
         BattleManager.Instance.ShowBattleShips();
-//        TransitPanel tp = UIManager.Instance.ShowUIForms<TransitPanel>();
-//        switch (M_PlayMode)
-//        {
-//            case PlayMode.Online:
-//            {
-//                tp.ShowBlackShutTransit(1f, Preparation);
-//                break;
-//            }
-//            case PlayMode.Single:
-//            {
-//                tp.ShowBlackShutTransit(1f, Preparation);
-//                break;
-//            }
-//            case PlayMode.SingleCustom:
-//            {
-//                tp.ShowBlackShutTransit(1f, Preparation);
-//                break;
-//            }
-//        }
     }
 
     public void Preparation()
@@ -91,6 +72,11 @@ public partial class RoundManager : MonoSingleton<RoundManager>
             EnemyClientPlayer.ClientId = r.clientId;
             BattleManager.Instance.EnemyBattlePlayer = EnemyClientPlayer.BattlePlayer;
             EnemyClientPlayer.BattlePlayer.MetalLifeEnergyManager.SetEnemyIconImage();
+        }
+
+        if (SelfClientPlayer != null && EnemyClientPlayer != null)
+        {
+            Preparation();
         }
     }
 
@@ -224,16 +210,16 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         }
     }
 
-    public void ShowRetinueAttackPreviewArrow(ModuleRetinue attackRetinue) //当某机甲被拖出进攻时，显示可选目标标记箭头
+    public void ShowMechAttackPreviewArrow(ModuleMech attackMech) //当某机甲被拖出进攻时，显示可选目标标记箭头
     {
-        foreach (ModuleRetinue targetRetinue in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Retinues)
+        foreach (ModuleMech targetMech in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Mechs)
         {
-            if (EnemyClientPlayer.BattlePlayer.BattleGroundManager.HasDefenceRetinue)
+            if (EnemyClientPlayer.BattlePlayer.BattleGroundManager.HasDefenceMech)
             {
-                if (attackRetinue.M_Weapon != null && attackRetinue.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackRetinue.M_RetinueWeaponEnergy != 0) targetRetinue.ShowTargetPreviewArrow(true);
-                else if (targetRetinue.IsDefender) targetRetinue.ShowTargetPreviewArrow();
+                if (attackMech.M_Weapon != null && attackMech.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackMech.M_MechWeaponEnergy != 0) targetMech.ShowTargetPreviewArrow(true);
+                else if (targetMech.IsDefender) targetMech.ShowTargetPreviewArrow();
             }
-            else targetRetinue.ShowTargetPreviewArrow();
+            else targetMech.ShowTargetPreviewArrow();
         }
     }
 
@@ -242,38 +228,38 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         switch (targetRange)
         {
             case TargetRange.AllLife:
-                foreach (ModuleRetinue retinue in SelfClientPlayer.BattlePlayer.BattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
-                foreach (ModuleRetinue retinue in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in SelfClientPlayer.BattlePlayer.BattleGroundManager.Mechs) mech.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Mechs) mech.ShowTargetPreviewArrow();
                 break;
             case TargetRange.Mechs:
-                foreach (ModuleRetinue retinue in SelfClientPlayer.BattlePlayer.BattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
-                foreach (ModuleRetinue retinue in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in SelfClientPlayer.BattlePlayer.BattleGroundManager.Mechs) mech.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Mechs) mech.ShowTargetPreviewArrow();
                 break;
             case TargetRange.SelfMechs:
-                foreach (ModuleRetinue retinue in SelfClientPlayer.BattlePlayer.BattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in SelfClientPlayer.BattlePlayer.BattleGroundManager.Mechs) mech.ShowTargetPreviewArrow();
                 break;
             case TargetRange.EnemyMechs:
-                foreach (ModuleRetinue retinue in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Retinues) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Mechs) mech.ShowTargetPreviewArrow();
                 break;
             case TargetRange.Heroes:
-                foreach (ModuleRetinue retinue in SelfClientPlayer.BattlePlayer.BattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
-                foreach (ModuleRetinue retinue in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in SelfClientPlayer.BattlePlayer.BattleGroundManager.Heros) mech.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Heros) mech.ShowTargetPreviewArrow();
                 break;
             case TargetRange.SelfHeroes:
-                foreach (ModuleRetinue retinue in SelfClientPlayer.BattlePlayer.BattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in SelfClientPlayer.BattlePlayer.BattleGroundManager.Heros) mech.ShowTargetPreviewArrow();
                 break;
             case TargetRange.EnemyHeroes:
-                foreach (ModuleRetinue retinue in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Heros) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Heros) mech.ShowTargetPreviewArrow();
                 break;
             case TargetRange.Soldiers:
-                foreach (ModuleRetinue retinue in SelfClientPlayer.BattlePlayer.BattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();
-                foreach (ModuleRetinue retinue in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in SelfClientPlayer.BattlePlayer.BattleGroundManager.Soldiers) mech.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Soldiers) mech.ShowTargetPreviewArrow();
                 break;
             case TargetRange.SelfSoldiers:
-                foreach (ModuleRetinue retinue in SelfClientPlayer.BattlePlayer.BattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in SelfClientPlayer.BattlePlayer.BattleGroundManager.Soldiers) mech.ShowTargetPreviewArrow();
                 break;
             case TargetRange.EnemySoldiers:
-                foreach (ModuleRetinue retinue in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Soldiers) retinue.ShowTargetPreviewArrow();
+                foreach (ModuleMech mech in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Soldiers) mech.ShowTargetPreviewArrow();
                 break;
         }
     }
@@ -281,11 +267,11 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     public void HideTargetPreviewArrow()
     {
         if (SelfClientPlayer != null)
-            foreach (ModuleRetinue retinue in SelfClientPlayer.BattlePlayer.BattleGroundManager.Retinues)
-                retinue.HideTargetPreviewArrow();
+            foreach (ModuleMech mech in SelfClientPlayer.BattlePlayer.BattleGroundManager.Mechs)
+                mech.HideTargetPreviewArrow();
         if (EnemyClientPlayer != null)
-            foreach (ModuleRetinue retinue in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Retinues)
-                retinue.HideTargetPreviewArrow();
+            foreach (ModuleMech mech in EnemyClientPlayer.BattlePlayer.BattleGroundManager.Mechs)
+                mech.HideTargetPreviewArrow();
     }
 
     #endregion
@@ -299,12 +285,12 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         return null;
     }
 
-    private ModuleRetinue FindRetinue(int retinueId)
+    private ModuleMech FindMech(int mechId)
     {
-        ModuleRetinue selfRetinue = SelfClientPlayer.BattlePlayer.BattleGroundManager.GetRetinue(retinueId);
-        if (selfRetinue) return selfRetinue;
-        ModuleRetinue enemyRetinue = EnemyClientPlayer.BattlePlayer.BattleGroundManager.GetRetinue(retinueId);
-        if (enemyRetinue) return enemyRetinue;
+        ModuleMech selfMech = SelfClientPlayer.BattlePlayer.BattleGroundManager.GetMech(mechId);
+        if (selfMech) return selfMech;
+        ModuleMech enemyMech = EnemyClientPlayer.BattlePlayer.BattleGroundManager.GetMech(mechId);
+        if (enemyMech) return enemyMech;
         return null;
     }
 

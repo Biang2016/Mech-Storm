@@ -333,31 +333,31 @@
 		"en": "To unlock this card"
 	},
 
-	"ModuleRetinue_DecreaseDamageNumberFly": {
+	"ModuleMech_DecreaseDamageNumberFly": {
 		"zh": "阻挡 -",
 		"en": "Dec -"
 	},
-	"ModuleRetinue_LifeNumberFly": {
+	"ModuleMech_LifeNumberFly": {
 		"zh": "生命 ",
 		"en": "Life "
 	},
-	"ModuleRetinue_AttackChangeNumberFly": {
+	"ModuleMech_AttackChangeNumberFly": {
 		"zh": "伤害 ",
 		"en": "Attack "
 	},
-	"ModuleRetinue_ArmorChangeNumberFly": {
+	"ModuleMech_ArmorChangeNumberFly": {
 		"zh": "护甲 ",
 		"en": "Armor "
 	},
-	"ModuleRetinue_ShieldChangeNumberFly": {
+	"ModuleMech_ShieldChangeNumberFly": {
 		"zh": "护盾 ",
 		"en": "Shield "
 	},
-	"ModuleRetinue_ShouldAttackDefenderFirst": {
+	"ModuleMech_ShouldAttackDefenderFirst": {
 		"zh": "您必须先攻击嘲讽机甲",
 		"en": "You should attack the Defenders first."
 	},
-	"ModuleRetinue_ShouldAttackMechsFirst": {
+	"ModuleMech_ShouldAttackMechsFirst": {
 		"zh": "您必须先攻击场上机甲",
 		"en": "You should attack the Mechs first."
 	},
@@ -434,13 +434,9 @@
 		"en": "Got it."
 	},
 
-	"HandManager_YouHaveManyCards": {
-		"zh": "您有%s张手牌",
-		"en": "You have %s cards."
-	},
-	"HandManager_EnemyHaveManyCards": {
-		"zh": "您的对手有%s张手牌",
-		"en": "Your opponent have %s cards."
+	"HandManager_TotalCards": {
+		"zh": "共有{0}张手牌",
+		"en": "{0} cards in total."
 	},
 
 	"WinLostPanelManager_WinText": {
@@ -844,19 +840,19 @@
 		"zh": "隐藏卡",
 		"en": "Hide"
 	},
-	"CardEditorWindow_RetinueLifeLabelText": {
+	"CardEditorWindow_MechLifeLabelText": {
 		"zh": "生命值",
 		"en": "Life"
 	},
-	"CardEditorWindow_RetinueAttackLabelText": {
+	"CardEditorWindow_MechAttackLabelText": {
 		"zh": "基础攻击",
 		"en": "Basic Attack"
 	},
-	"CardEditorWindow_RetinueArmorLabelText": {
+	"CardEditorWindow_MechArmorLabelText": {
 		"zh": "基础护甲",
 		"en": "Basic Armor"
 	},
-	"CardEditorWindow_RetinueShieldLabelText": {
+	"CardEditorWindow_MechShieldLabelText": {
 		"zh": "基础护盾",
 		"en": "Basic Shield"
 	},
@@ -864,39 +860,39 @@
 		"zh": "装备类型",
 		"en": "Equip Type"
 	},
-	"CardEditorWindow_RetinueIsSoldierLabelText": {
+	"CardEditorWindow_MechIsSoldierLabelText": {
 		"zh": "士兵",
 		"en": "Is Soldier"
 	},
-	"CardEditorWindow_RetinueIsDefenseLabelText": {
+	"CardEditorWindow_MechIsDefenseLabelText": {
 		"zh": "嘲讽",
 		"en": "Is Defense"
 	},
-	"CardEditorWindow_RetinueIsSniperLabelText": {
+	"CardEditorWindow_MechIsSniperLabelText": {
 		"zh": "狙击",
 		"en": "Is Sniper"
 	},
-	"CardEditorWindow_RetinueIsChargerLabelText": {
+	"CardEditorWindow_MechIsChargerLabelText": {
 		"zh": "冲锋",
 		"en": "Is Charger"
 	},
-	"CardEditorWindow_RetinueIsFrenzyLabelText": {
+	"CardEditorWindow_MechIsFrenzyLabelText": {
 		"zh": "狂暴",
 		"en": "Is Frenzy"
 	},
-	"CardEditorWindow_RetinueWeaponSlotLabelText": {
+	"CardEditorWindow_MechWeaponSlotLabelText": {
 		"zh": "武器槽",
 		"en": "Weapon Slot"
 	},
-	"CardEditorWindow_RetinueShieldSlotLabelText": {
+	"CardEditorWindow_MechShieldSlotLabelText": {
 		"zh": "防具槽",
 		"en": "Shield Slot"
 	},
-	"CardEditorWindow_RetinuePackSlotLabelText": {
+	"CardEditorWindow_MechPackSlotLabelText": {
 		"zh": "背包槽",
 		"en": "Pack Slot"
 	},
-	"CardEditorWindow_RetinueMASlotLabelText": {
+	"CardEditorWindow_MechMASlotLabelText": {
 		"zh": "MA槽",
 		"en": "MA Slot"
 	},

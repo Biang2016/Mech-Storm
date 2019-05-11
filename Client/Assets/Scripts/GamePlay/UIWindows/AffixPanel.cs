@@ -32,12 +32,12 @@ public class AffixPanel : BaseUIForm
     }
 
     /// <summary>
-    /// 根据CardInfo和retinues来决定是否要显示AffixPanel
+    /// 根据CardInfo和mechs来决定是否要显示AffixPanel
     /// </summary>
     /// <param name="cardInfos"></param>
-    /// <param name="retinues"></param>
+    /// <param name="mechs"></param>
     /// <returns>是否显示</returns>
-    public bool ShowAffixTips(List<CardInfo_Base> cardInfos, List<ModuleRetinue> retinues)
+    public bool ShowAffixTips(List<CardInfo_Base> cardInfos, List<ModuleMech> mechs)
     {
         HashSet<AffixType> affixTypes = new HashSet<AffixType>();
         if (cardInfos != null)
@@ -48,11 +48,11 @@ public class AffixPanel : BaseUIForm
             }
         }
 
-        if (retinues != null)
+        if (mechs != null)
         {
-            foreach (ModuleRetinue retinue in retinues)
+            foreach (ModuleMech mech in mechs)
             {
-                GetAffixTypeByRetinue(affixTypes, retinue);
+                GetAffixTypeByMech(affixTypes, mech);
             }
         }
 
@@ -85,32 +85,32 @@ public class AffixPanel : BaseUIForm
             }
         }
 
-        if (cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnRetinueDie, SideEffectExecute.TriggerRange.Self).Count != 0)
+        if (cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnMechDie, SideEffectExecute.TriggerRange.Self).Count != 0)
         {
             affixTypes.Add(AffixType.Die);
         }
 
-        if (cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnRetinueSummon, SideEffectExecute.TriggerRange.Self).Count != 0)
+        if (cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnMechSummon, SideEffectExecute.TriggerRange.Self).Count != 0)
         {
             affixTypes.Add(AffixType.BattleCry);
         }
 
-        if (cardInfo.RetinueInfo.IsFrenzy || cardInfo.WeaponInfo.IsFrenzy || cardInfo.PackInfo.IsFrenzy || cardInfo.MAInfo.IsFrenzy)
+        if (cardInfo.MechInfo.IsFrenzy || cardInfo.WeaponInfo.IsFrenzy || cardInfo.PackInfo.IsFrenzy || cardInfo.MAInfo.IsFrenzy)
         {
             affixTypes.Add(AffixType.Frenzy);
         }
 
-        if (cardInfo.RetinueInfo.IsDefense || cardInfo.ShieldInfo.IsDefense || cardInfo.PackInfo.IsDefense || cardInfo.MAInfo.IsDefense)
+        if (cardInfo.MechInfo.IsDefense || cardInfo.ShieldInfo.IsDefense || cardInfo.PackInfo.IsDefense || cardInfo.MAInfo.IsDefense)
         {
             affixTypes.Add(AffixType.Defence);
         }
 
-        if (cardInfo.RetinueInfo.IsSniper || cardInfo.PackInfo.IsSniper || cardInfo.MAInfo.IsSniper)
+        if (cardInfo.MechInfo.IsSniper || cardInfo.PackInfo.IsSniper || cardInfo.MAInfo.IsSniper)
         {
             affixTypes.Add(AffixType.Sniper);
         }
 
-        if (cardInfo.RetinueInfo.IsCharger)
+        if (cardInfo.MechInfo.IsCharger)
         {
             affixTypes.Add(AffixType.Charger);
         }
@@ -138,7 +138,7 @@ public class AffixPanel : BaseUIForm
             affixTypes.Add(AffixType.MA);
         }
 
-        if (cardInfo.BaseInfo.CardType == CardTypes.Retinue && cardInfo.RetinueInfo.Slots[3] == SlotTypes.MA)
+        if (cardInfo.BaseInfo.CardType == CardTypes.Mech && cardInfo.MechInfo.Slots[3] == SlotTypes.MA)
         {
             affixTypes.Add(AffixType.MA);
         }
@@ -185,14 +185,14 @@ public class AffixPanel : BaseUIForm
         }
     }
 
-    private static void GetAffixTypeByRetinue(HashSet<AffixType> affixTypes, ModuleRetinue retinue)
+    private static void GetAffixTypeByMech(HashSet<AffixType> affixTypes, ModuleMech mech)
     {
-        if (retinue.M_ImmuneLeftRounds != 0)
+        if (mech.M_ImmuneLeftRounds != 0)
         {
             affixTypes.Add(AffixType.Immune);
         }
 
-        if (retinue.M_InactivityRounds != 0)
+        if (mech.M_InactivityRounds != 0)
         {
             affixTypes.Add(AffixType.Inactivity);
         }

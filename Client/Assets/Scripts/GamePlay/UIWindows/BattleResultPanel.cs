@@ -342,7 +342,7 @@ internal class BattleResultPanel : BaseUIForm
         CurrentPreivewCard.transform.rotation = CardRotationSample.rotation;
         Vector3 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CurrentPreivewCard.transform.parent.position = new Vector3(cameraPosition.x, CardRotationSample.position.y, CardRotationSample.position.z);
-        CurrentPreivewCard.SetOrderInLayer(2);
+        CurrentPreivewCard.CardOrder = 2;
         CurrentPreivewCard.BeBrightColor();
         CardPreviewContainerAnim.SetTrigger("Hover");
     }
@@ -439,13 +439,13 @@ internal class BattleResultPanel : BaseUIForm
         Cur_BaseCard.transform.position = CardUpgradeUnlockCardSample.position;
         Cur_BaseCard.transform.rotation = CardUpgradeUnlockCardSample.rotation;
         Cur_BaseCard.transform.localScale = CardUpgradeUnlockCardSample.localScale;
-        Cur_BaseCard.SetOrderInLayer(20);
+        Cur_BaseCard.CardOrder = 20;
         Cur_BaseCard.BeBrightColor();
         Cur_UpgradeCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(upgradeCardID), CardUpgradeUnlockCardContainter_Upgrade, CardBase.CardShowMode.CardUpgradeAnim, RoundManager.Instance.SelfClientPlayer);
         Cur_UpgradeCard.transform.position = CardUpgradeUnlockCardSample_Upgrade.position;
         Cur_UpgradeCard.transform.rotation = CardUpgradeUnlockCardSample_Upgrade.rotation;
         Cur_UpgradeCard.transform.localScale = CardUpgradeUnlockCardSample_Upgrade.localScale;
-        Cur_UpgradeCard.SetOrderInLayer(19);
+        Cur_UpgradeCard.CardOrder = 19;
         Cur_UpgradeCard.BeBrightColor();
 
         CardUpgradeUnlockAnim.speed = 3;

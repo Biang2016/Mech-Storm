@@ -34,11 +34,11 @@ internal partial class ServerGameManager
 
     #region 游戏初始化
 
-    private int gameRetinueIdGenerator = 1000;
+    private int gameMechIdGenerator = 1000;
 
-    public int GenerateNewRetinueId()
+    public int GenerateNewMechId()
     {
-        return gameRetinueIdGenerator++;
+        return gameMechIdGenerator++;
     }
 
     private int gameCardInstanceIdGenerator = 2000;
@@ -181,21 +181,21 @@ internal partial class ServerGameManager
 
     #region ClientOperationResponses
 
-    public void OnClientSummonRetinueRequest(SummonRetinueRequest r)
+    public void OnClientSummonMechRequest(SummonMechRequest r)
     {
-        ClientA.CurrentClientRequestResponseBundle = new SummonRetinueRequest_ResponseBundle();
-        ClientB.CurrentClientRequestResponseBundle = new SummonRetinueRequest_ResponseBundle();
+        ClientA.CurrentClientRequestResponseBundle = new SummonMechRequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new SummonMechRequest_ResponseBundle();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
-        CardInfo_Retinue info = (CardInfo_Retinue) sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
-        int targetRetinueId = r.targetRetinueId;
-        if (r.isTargetRetinueIdTempId)
+        CardInfo_Mech info = (CardInfo_Mech) sp.MyHandManager.GetHandCardInfo(r.handCardInstanceId);
+        int targetMechId = r.targetMechId;
+        if (r.isTargetMechIdTempId)
         {
-            targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
+            targetMechId = sp.MyBattleGroundManager.GetMechIdByClientMechTempId(r.clientMechTempId);
         }
 
-        sp.MyHandManager.UseCard(r.handCardInstanceId, targetRetinueId);
-        sp.MyBattleGroundManager.AddRetinue(info, r.battleGroundIndex, targetRetinueId, r.clientRetinueTempId, r.handCardInstanceId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, targetMechId);
+        sp.MyBattleGroundManager.AddMech(info, r.battleGroundIndex, targetMechId, r.clientMechTempId, r.handCardInstanceId);
 
         Broadcast_SendOperationResponse();
     }
@@ -261,20 +261,20 @@ internal partial class ServerGameManager
         Broadcast_SendOperationResponse();
     }
 
-    public void OnClientUseSpellCardToRetinueRequest(UseSpellCardToRetinueRequest r)
+    public void OnClientUseSpellCardToMechRequest(UseSpellCardToMechRequest r)
     {
         ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
 
         ServerPlayer sp = GetPlayerByClientId(r.clientId);
 
-        int targetRetinueId = r.targetRetinueId;
-        if (r.isTargetRetinueIdTempId)
+        int targetMechId = r.targetMechId;
+        if (r.isTargetMechIdTempId)
         {
-            targetRetinueId = sp.MyBattleGroundManager.GetRetinueIdByClientRetinueTempId(r.clientRetinueTempId);
+            targetMechId = sp.MyBattleGroundManager.GetMechIdByClientMechTempId(r.clientMechTempId);
         }
 
-        sp.MyHandManager.UseCard(r.handCardInstanceId, targetRetinueId: targetRetinueId);
+        sp.MyHandManager.UseCard(r.handCardInstanceId, targetMechId: targetMechId);
         Broadcast_SendOperationResponse();
     }
 
@@ -296,43 +296,43 @@ internal partial class ServerGameManager
         Broadcast_SendOperationResponse();
     }
 
-    public void OnClientRetinueAttackRetinueRequest(RetinueAttackRetinueRequest r)
+    public void OnClientMechAttackMechRequest(MechAttackMechRequest r)
     {
-        ClientA.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
-        ClientB.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
+        ClientA.CurrentClientRequestResponseBundle = new MechAttackMechRequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new MechAttackMechRequest_ResponseBundle();
 
         ServerPlayer cpat = GetPlayerByClientId(r.clientId);
-        ServerPlayer cpba = GetPlayerByClientId(r.BeAttackedRetinueClientId);
+        ServerPlayer cpba = GetPlayerByClientId(r.BeAttackedMechClientId);
 
-        ServerModuleRetinue attackRetinue = cpat.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
-        ServerModuleRetinue beAttackedRetinue = cpba.MyBattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
+        ServerModuleMech attackMech = cpat.MyBattleGroundManager.GetMech(r.AttackMechId);
+        ServerModuleMech beAttackedMech = cpba.MyBattleGroundManager.GetMech(r.BeAttackedMechId);
 
-        bool isAttackValid = attackRetinue.BeforeAttack(beAttackedRetinue, false);
+        bool isAttackValid = attackMech.BeforeAttack(beAttackedMech, false);
         if (isAttackValid)
         {
-            RetinueAttackRetinueServerRequest request = new RetinueAttackRetinueServerRequest(r.clientId, r.AttackRetinueId, r.BeAttackedRetinueClientId, r.BeAttackedRetinueId);
+            MechAttackMechServerRequest request = new MechAttackMechServerRequest(r.clientId, r.AttackMechId, r.BeAttackedMechClientId, r.BeAttackedMechId);
             Broadcast_AddRequestToOperationResponse(request);
 
-            attackRetinue.Attack(beAttackedRetinue, false);
+            attackMech.Attack(beAttackedMech, false);
         }
 
         Broadcast_SendOperationResponse();
     }
 
-    public void OnClientRetinueAttackShipRequest(RetinueAttackShipRequest r)
+    public void OnClientMechAttackShipRequest(MechAttackShipRequest r)
     {
-        ClientA.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
-        ClientB.CurrentClientRequestResponseBundle = new RetinueAttackRetinueRequest_ResponseBundle();
+        ClientA.CurrentClientRequestResponseBundle = new MechAttackMechRequest_ResponseBundle();
+        ClientB.CurrentClientRequestResponseBundle = new MechAttackMechRequest_ResponseBundle();
 
-        RetinueAttackShipServerRequest request = new RetinueAttackShipServerRequest(r.clientId, r.AttackRetinueId);
+        MechAttackShipServerRequest request = new MechAttackShipServerRequest(r.clientId, r.AttackMechId);
         Broadcast_AddRequestToOperationResponse(request);
 
         ServerPlayer cpat = GetPlayerByClientId(r.clientId);
         ServerPlayer cpba = cpat.MyEnemyPlayer;
 
-        ServerModuleRetinue attackRetinue = cpat.MyBattleGroundManager.GetRetinue(r.AttackRetinueId);
+        ServerModuleMech attackMech = cpat.MyBattleGroundManager.GetMech(r.AttackMechId);
 
-        attackRetinue.AttackShip(cpba);
+        attackMech.AttackShip(cpba);
 
         Broadcast_SendOperationResponse();
     }
@@ -466,32 +466,32 @@ internal partial class ServerGameManager
 
     #region SideEffects
 
-    public List<int> DieRetinueList = new List<int>();
+    public List<int> DieMechList = new List<int>();
 
-    public void AddDieTogetherRetinuesInfo(int dieRetinueId)
+    public void AddDieTogetherMechsInfo(int dieMechId)
     {
-        DieRetinueList.Add(dieRetinueId);
+        DieMechList.Add(dieMechId);
     }
 
     public void SendAllDieInfos()
     {
-        if (DieRetinueList.Count == 0) return;
+        if (DieMechList.Count == 0) return;
         List<int> tmp = new List<int>();
-        foreach (int id in DieRetinueList)
+        foreach (int id in DieMechList)
         {
             tmp.Add(id);
         }
 
         tmp.Sort();
 
-        PlayerA.MyBattleGroundManager.RemoveRetinues(tmp);
-        PlayerB.MyBattleGroundManager.RemoveRetinues(tmp);
+        PlayerA.MyBattleGroundManager.RemoveMechs(tmp);
+        PlayerB.MyBattleGroundManager.RemoveMechs(tmp);
 
-        RetinueDieRequest request1 = new RetinueDieRequest(tmp);
+        MechDieRequest request1 = new MechDieRequest(tmp);
         Broadcast_AddRequestToOperationResponse(request1);
-        BattleGroundRemoveRetinueRequest request2 = new BattleGroundRemoveRetinueRequest(tmp);
+        BattleGroundRemoveMechRequest request2 = new BattleGroundRemoveMechRequest(tmp);
         Broadcast_AddRequestToOperationResponse(request2);
-        DieRetinueList.Clear();
+        DieMechList.Clear();
     }
 
     public void OnSETriggered(ShowSideEffectTriggeredRequest request)

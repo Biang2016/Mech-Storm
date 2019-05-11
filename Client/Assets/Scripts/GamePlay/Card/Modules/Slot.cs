@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 public class Slot : MonoBehaviour, IMouseHoverComponent
 {
     internal ClientPlayer ClientPlayer;
-    internal ModuleRetinue M_ModuleRetinue;
+    internal ModuleMech Mech;
 
     [SerializeField] private MeshRenderer SlotLight;
     [SerializeField] private MeshRenderer SlotBloom;
@@ -37,11 +37,11 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
     {
         SlotBloom.gameObject.SetActive(isShow);
 
-        if (isSniper && M_ModuleRetinue)
+        if (isSniper && Mech)
         {
-            if (MSlotTypes == SlotTypes.Weapon && M_ModuleRetinue.CardInfo.RetinueInfo.IsSniper)
+            if (MSlotTypes == SlotTypes.Weapon && Mech.CardInfo.MechInfo.IsSniper)
             {
-                M_ModuleRetinue?.ShowSniperTipText(isShow);
+                Mech?.ShowSniperTipText(isShow);
             }
         }
     }

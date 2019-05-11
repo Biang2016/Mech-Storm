@@ -39,7 +39,7 @@ Unity版本升级为2018.1.0，修复了许多和自带包的命名冲突 --OK
 卡牌描述换行bug --OK
 
 7.18上午
-dropcard 和summonretinue分为两个request --OK
+dropcard 和summonmech分为两个request --OK
 所有协议整合成大小包模式，客户端服务端调通，并预设了随从、卡牌特殊效果的接口 --OK
 
 7.18下午
@@ -63,8 +63,8 @@ sideEffect全部改为结构体，并增加序列化方法 --OK
 
 7.23一天
 修复协议bug，所有cardinfo分拆成若干个struct组件 --OK
-武器防具信息（详图）只显示增益，（小图）只显示名称，绝对数值体现在retinue面板上，做大图标和数值显示，一目了然 --OK
-所有伤害结算集中在Retinue层面，武器防具的损坏由retinue决定 --OK
+武器防具信息（详图）只显示增益，（小图）只显示名称，绝对数值体现在mech面板上，做大图标和数值显示，一目了然 --OK
+所有伤害结算集中在Mech层面，武器防具的损坏由mech决定 --OK
 
 7.24上午
 防具、生命受伤效果序列 --OK
@@ -86,17 +86,17 @@ sideEffect序列化问题有bug
 修复了第一回合随从就能进攻的bug
 修复了卡牌描述显示错误的bug
 增加选中、hover装备牌显示对应slotbloom的功能
-优化retinue面板数值显示
+优化mech面板数值显示
 制作了SwordBar的mask
-添加了AddRetinueLife技能
+添加了AddMechLife技能
 
 7.28
 选中、hover装备牌时的动画提到一个单独的动画序列，避免冲突
 制作了LifeBar的mask
-将retinue和card的placeindex全部替换为id，还没改完
+将mech和card的placeindex全部替换为id，还没改完
 
 7.29
-retinue和card的placeindex替换为id遗留的bug全部改完
+mech和card的placeindex替换为id遗留的bug全部改完
 动画序列的bug修改完毕
 随从数值更改放入动画序列
 

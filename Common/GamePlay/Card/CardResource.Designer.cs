@@ -64,7 +64,7 @@ namespace MyCardGameCommon.GamePlay.Card {
         ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;AllCards&gt;
         ///    &lt;Card id=&quot;999&quot;&gt;
-        ///        &lt;CardInfo name=&quot;baseInfo&quot; cardName=&quot;空牌&quot; cardDesc=&quot;&quot; cost=&quot;0&quot; dragPurpose=&quot;Summon&quot; cardType=&quot;Retinue&quot; cardColor=&quot;#787878&quot; hightLightColor=&quot;#FFFF00&quot;/&gt;
+        ///        &lt;CardInfo name=&quot;baseInfo&quot; cardName=&quot;空牌&quot; cardDesc=&quot;&quot; cost=&quot;0&quot; dragPurpose=&quot;Summon&quot; cardType=&quot;Mech&quot; cardColor=&quot;#787878&quot; hightLightColor=&quot;#FFFF00&quot;/&gt;
         ///        &lt;CardInfo name=&quot;upgradeInfo&quot; upgradeCardID=&quot;-1&quot; cardLevel=&quot;0&quot; /&gt;
         ///        &lt;CardInfo name=&quot;lifeInfo&quot; life=&quot;0&quot; totalLife=&quot;0&quot; /&gt;
         ///        &lt;CardInfo name=&quot;battleInfo&quot; basicAttack=&quot;0&quot; basicShield=&quot;0&quot; basicArmor=&quot;0&quot; isSodier=&quot;False&quot; /&gt;
@@ -84,7 +84,7 @@ namespace MyCardGameCommon.GamePlay.Card {
         ///    &lt;params name=&quot;IsNeedChoise&quot; type=&quot;bool&quot;&gt;&lt;/params&gt;
         ///    &lt;params name=&quot;M_TargetRange&quot; type=&quot;enum&quot;&gt;&lt;/params&gt;
         ///  &lt;/SideEffect&gt;
-        ///  &lt;SideEffect id=&quot;1&quot; name=&quot;AddLifeForSomeRetinue&quot; desc=&quot;使一个{0}增加{1}点生命&quot;&gt;
+        ///  &lt;SideEffect id=&quot;1&quot; name=&quot;AddLifeForSomeMech&quot; desc=&quot;使一个{0}增加{1}点生命&quot;&gt;
         ///    &lt;params name=&quot;IsNeedChoise&quot; type=&quot;bool&quot;&gt;&lt;/params&gt;
         ///    &lt;params name=&quot;M_TargetRange&quot; type=&quot;enum&quot;&gt;&lt;/params&gt;
         ///    &lt;params name=&quot;Value&quot; type=&quot;int&quot;&gt;&lt;/params&gt;

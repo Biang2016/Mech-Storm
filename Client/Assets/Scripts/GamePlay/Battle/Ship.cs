@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class Ship : MonoBehaviour, IMouseHoverComponent
 {
@@ -7,29 +8,32 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
 
     [SerializeField] private GameObject ShipBG;
 
-    [SerializeField] private TextMesh DamageNumberPreviewTextMesh;
-    [SerializeField] private TextMesh DamageNumberPreviewBGTextMesh;
+    [SerializeField] private TextMeshPro DamageNumberPreviewTextMesh;
+    [SerializeField] private TextMeshPro Desc;
 
-    [SerializeField] private TextMesh Desc;
-    [SerializeField] private TextMesh DescBG;
+    [SerializeField] private Transform[] Trans_NeedRotate180ByPlayer;
 
     public void Initialize(ClientPlayer clientPlayer)
     {
         ResetAll();
+        foreach (Transform t in Trans_NeedRotate180ByPlayer)
+        {
+            if (t != null)
+            {
+                t.localRotation = Quaternion.Euler(clientPlayer.WhichPlayer == Players.Enemy ? 180 : 0, clientPlayer.WhichPlayer == Players.Enemy ? 180 : 0, t.localRotation.z);
+            }
+        }
+
         ClientPlayer = clientPlayer;
         DamageNumberPreviewTextMesh.gameObject.SetActive(clientPlayer.WhichPlayer == Players.Enemy);
-        DamageNumberPreviewBGTextMesh.gameObject.SetActive(clientPlayer.WhichPlayer == Players.Enemy);
         Desc.gameObject.SetActive(clientPlayer.WhichPlayer == Players.Enemy);
-        DescBG.gameObject.SetActive(clientPlayer.WhichPlayer == Players.Enemy);
     }
 
     public void ResetAll()
     {
         ClientPlayer = null;
         DamageNumberPreviewTextMesh.text = "";
-        DamageNumberPreviewBGTextMesh.text = "";
         Desc.text = "";
-        DescBG.text = "";
     }
 
     public Vector3 GetClosestHitPosition(Vector3 from)
@@ -55,11 +59,11 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
         {
             if (DragManager.Instance.CurrentDrag)
             {
-                ModuleRetinue mr = DragManager.Instance.CurrentDrag_ModuleRetinue;
+                ModuleMech mr = DragManager.Instance.CurrentDrag_ModuleMech;
                 CardSpell cs = DragManager.Instance.CurrentDrag_CardSpell;
                 if (mr != null)
                 {
-                    AttackFactor attackFactor = CheckModuleRetinueCanAttackMe(mr);
+                    AttackFactor attackFactor = CheckModuleMechCanAttackMe(mr);
                     if (attackFactor > 0)
                     {
                         ShipBG.SetActive(true);
@@ -71,9 +75,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                         string factorText = (int) attackFactor > 1 ? "x" + (int) attackFactor : "";
                         string text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage + factorText;
                         DamageNumberPreviewTextMesh.text = text;
-                        DamageNumberPreviewBGTextMesh.text = text;
                         Desc.text = "";
-                        DescBG.text = "";
                     }
                 }
                 else if (cs != null && CheckCardSpellCanTarget(cs))
@@ -86,9 +88,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
 
                     string text = DragManager.Instance.DragOutDamage == 0 ? "" : "-" + DragManager.Instance.DragOutDamage;
                     DamageNumberPreviewTextMesh.text = text;
-                    DamageNumberPreviewBGTextMesh.text = text;
                     Desc.text = "";
-                    DescBG.text = "";
                 }
             }
         }
@@ -97,22 +97,22 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     /// <summary>
     /// 当对方场上有机甲，剑及近战攻击无法攻击ship；当对方场上有Defence，枪无法攻击ship；SniperGun随时可以攻击Ship
     /// </summary>
-    /// <param name="attackRetinue"></param>
+    /// <param name="attackMech"></param>
     /// <returns></returns>
-    public AttackFactor CheckModuleRetinueCanAttackMe(ModuleRetinue attackRetinue)
+    public AttackFactor CheckModuleMechCanAttackMe(ModuleMech attackMech)
     {
-        if (attackRetinue.ClientPlayer == ClientPlayer) return AttackFactor.None;
-        if (attackRetinue.M_Weapon)
+        if (attackMech.ClientPlayer == ClientPlayer) return AttackFactor.None;
+        if (attackMech.M_Weapon)
         {
-            switch (attackRetinue.M_Weapon.M_WeaponType)
+            switch (attackMech.M_Weapon.M_WeaponType)
             {
                 case WeaponTypes.Sword:
                     if (ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsEmpty) return AttackFactor.Sword;
                     return 0;
                 case WeaponTypes.Gun:
-                    if (attackRetinue.M_RetinueWeaponEnergy != 0)
+                    if (attackMech.M_MechWeaponEnergy != 0)
                     {
-                        if (ClientPlayer.BattlePlayer.BattleGroundManager.HasDefenceRetinue) return 0;
+                        if (ClientPlayer.BattlePlayer.BattleGroundManager.HasDefenceMech) return 0;
                         return AttackFactor.Gun;
                     }
                     else
@@ -121,7 +121,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                         return 0;
                     }
                 case WeaponTypes.SniperGun:
-                    if (attackRetinue.M_RetinueWeaponEnergy != 0) return AttackFactor.Gun;
+                    if (attackMech.M_MechWeaponEnergy != 0) return AttackFactor.Gun;
                     else
                     {
                         if (ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsEmpty) return AttackFactor.Sword;
@@ -148,11 +148,11 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     {
         if (card.ClientPlayer == ClientPlayer)
         {
-            return (card.CardInfo.TargetInfo.targetRetinueRange & TargetRange.SelfShip) == TargetRange.SelfShip;
+            return (card.CardInfo.TargetInfo.targetMechRange & TargetRange.SelfShip) == TargetRange.SelfShip;
         }
         else
         {
-            return (card.CardInfo.TargetInfo.targetRetinueRange & TargetRange.EnemyShip) == TargetRange.EnemyShip;
+            return (card.CardInfo.TargetInfo.targetMechRange & TargetRange.EnemyShip) == TargetRange.EnemyShip;
         }
     }
 
@@ -191,9 +191,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
             }
 
             DamageNumberPreviewTextMesh.text = "";
-            DamageNumberPreviewBGTextMesh.text = "";
             Desc.text = "";
-            DescBG.text = "";
         }
     }
 }

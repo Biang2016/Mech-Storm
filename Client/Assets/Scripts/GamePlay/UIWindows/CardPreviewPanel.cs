@@ -13,11 +13,11 @@ public class CardPreviewPanel : BaseUIForm
 
     [SerializeField] private Image UpgradeArrow;
     [SerializeField] private Transform UpgradeArrowPivot_normal;
-    [SerializeField] private Transform UpgradeArrowPivot_retinueCards;
+    [SerializeField] private Transform UpgradeArrowPivot_mechCards;
 
     [SerializeField] private Image DegradeArrow;
     [SerializeField] private Transform DegradeArrowPivot_normal;
-    [SerializeField] private Transform DegradeArrowPivot_retinueCards;
+    [SerializeField] private Transform DegradeArrowPivot_mechCards;
 
     [SerializeField] private GameObject OperationUIs;
     [SerializeField] private Button UpgradeCardButton;
@@ -81,7 +81,7 @@ public class CardPreviewPanel : BaseUIForm
     }
 
     float normalCardPreviewDistance = 300f;
-    float retinueCardPreviewDistance = 350f;
+    float mechCardPreviewDistance = 350f;
 
     enum UpgradeDegradeOperation
     {
@@ -155,10 +155,10 @@ public class CardPreviewPanel : BaseUIForm
             PreviewCardUpgrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCardUpgrade.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardUpgrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardUpgrade.CardInfo.CardID), true);
             PreviewCardUpgrade.transform.localScale = Vector3.one * 15;
-            if (PreviewCardUpgrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
+            if (PreviewCardUpgrade.CardInfo.BaseInfo.CardType == CardTypes.Mech)
             {
-                PreviewCardUpgrade.transform.localPosition = new Vector3(retinueCardPreviewDistance, 50, 0);
-                UpgradeArrow.transform.position = UpgradeArrowPivot_retinueCards.position;
+                PreviewCardUpgrade.transform.localPosition = new Vector3(mechCardPreviewDistance, 50, 0);
+                UpgradeArrow.transform.position = UpgradeArrowPivot_mechCards.position;
             }
             else
             {
@@ -201,10 +201,10 @@ public class CardPreviewPanel : BaseUIForm
             PreviewCardDegrade.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCardDegrade.CardInfo.CardID].CardSelectUpperLimit, true);
             PreviewCardDegrade.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCardDegrade.CardInfo.CardID), true);
             PreviewCardDegrade.transform.localScale = Vector3.one * 15;
-            if (PreviewCardDegrade.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
+            if (PreviewCardDegrade.CardInfo.BaseInfo.CardType == CardTypes.Mech)
             {
-                PreviewCardDegrade.transform.localPosition = new Vector3(-retinueCardPreviewDistance, 50, 0);
-                DegradeArrow.transform.position = DegradeArrowPivot_retinueCards.position;
+                PreviewCardDegrade.transform.localPosition = new Vector3(-mechCardPreviewDistance, 50, 0);
+                DegradeArrow.transform.position = DegradeArrowPivot_mechCards.position;
             }
             else
             {

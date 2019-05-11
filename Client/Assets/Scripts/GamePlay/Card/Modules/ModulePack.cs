@@ -1,10 +1,5 @@
 ﻿public class ModulePack : ModuleEquip
 {
-    void Awake()
-    {
-        gameObjectPool = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Pack];
-    }
-
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);

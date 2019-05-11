@@ -98,7 +98,7 @@
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardBase.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardDeckCard.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardEquip.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardRetinue.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardMech.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardSelectWindowCardContainer.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\CardSpell.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\ColliderReplace.cs" />
@@ -113,20 +113,21 @@
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardSelectCountComponent.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardSlotsComponent.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Cards\Components\CardStarsComponent.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueAttrShapesComponent.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueBattleInfoComponent.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueBattleInfoIcon.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueBloomComponent.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueComponentBase.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueLifeIconComponent.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueTargetPreviewArrowsComponent.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueTriggerIcon.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\RetinueComponents\RetinueTriggerIconComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechAttrShapesComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechBattleInfoComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechBattleInfoIcon.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechBloomComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechComponentBase.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechLifeComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechSwordShieldArmorComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechTargetPreviewArrowsComponent.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechTriggerIcon.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechTriggerIconComponent.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleBase.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleEquip.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleMA.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleMech.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModulePack.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleRetinue.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleShield.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\ModuleWeapon.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Slot.cs" />
@@ -150,24 +151,24 @@
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenUseCards.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\DoSthWhenTrigger_RemoveBySomeTime.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\NextSpellDamageDouble.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\SummonRetinue.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\SummonMech.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\EquipBased\BreakEquip.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\LifeBased\AddLife.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\LifeBased\Damage.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\LifeBased\Heal.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\LifeBased\Kill.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\AddArmor.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\AddAttack.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\AddShield.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\AddWeaponEnergy.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\Cooperation.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\Degenerate.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\HalfShield.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\Illusion.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\RunAway.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\Sacrifice.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\StealEnergyByMechCount.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\RetinueBased\SummonRetinueByMechCount.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\AddArmor.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\AddAttack.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\AddShield.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\AddWeaponEnergy.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\Cooperation.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\Degenerate.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\HalfShield.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\Illusion.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\RunAway.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\Sacrifice.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\StealEnergyByMechCount.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\SummonMechByMechCount.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TargetSideEffects\ShipBased\AddEnergy.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
     <Compile Include="Assets\Scripts\GamePlay\Card\SideEffects\UseAllEnergyDamageShip.cs" />
@@ -472,8 +473,20 @@
     <Reference Include="MyCardGameCommon">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
     </Reference>
+    <Reference Include="TextMeshPro-2017.3-Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Runtime">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
@@ -489,18 +502,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
-    </Reference>
-    <Reference Include="TextMeshPro-2017.3-Runtime">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="TextMeshPro-2017.3-Editor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

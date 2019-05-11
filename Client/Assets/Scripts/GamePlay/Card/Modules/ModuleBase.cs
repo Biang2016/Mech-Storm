@@ -3,26 +3,27 @@ using UnityEngine;
 
 public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverComponent
 {
-    internal int GameObjectID;
-    protected GameObjectPool gameObjectPool;
     internal ClientPlayer ClientPlayer;
+
+    [SerializeField] private DragComponent DragComponent;
+    [SerializeField] private MouseHoverComponent MouseHoverComponent;
+    [SerializeField] private BoxCollider BoxCollider;
 
     public override void PoolRecycle()
     {
-        GameObjectID = -1;
-        if (GetComponent<DragComponent>())
+        if (DragComponent)
         {
-            GetComponent<DragComponent>().enabled = true;
+            DragComponent.enabled = true;
         }
 
-        if (GetComponent<MouseHoverComponent>())
+        if (MouseHoverComponent)
         {
-            GetComponent<MouseHoverComponent>().enabled = true;
+            MouseHoverComponent.enabled = true;
         }
 
-        if (GetComponent<BoxCollider>())
+        if (BoxCollider)
         {
-            GetComponent<BoxCollider>().enabled = true;
+            BoxCollider.enabled = true;
         }
 
         if (this is ModuleWeapon)
@@ -45,7 +46,6 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
             ((ModuleMA) this).SetNoPreview();
         }
 
-        gameObject.SetActive(true);
         base.PoolRecycle();
     }
 
@@ -62,67 +62,33 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
     {
         ClientPlayer = clientPlayer;
         CardInfo = cardInfo;
-        MainboardEmissionIntensity = CardInfo.GetCardColorIntensity();
         ChangeColor(ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()));
-        Stars = cardInfo.UpgradeInfo.CardLevel;
         BeBrightColor();
+    }
+
+    protected virtual void InitializeComponents()
+    {
+        CardStarsComponent.SetStarNumber(CardInfo.UpgradeInfo.CardLevel, CardInfo.UpgradeInfo.CardLevelMax);
     }
 
     #region 各模块
 
-    public GameObject Star1;
-    public GameObject Star2;
-    public GameObject Star3;
-    [SerializeField] protected int stars;
-
-    public virtual int Stars
-    {
-        get { return stars; }
-
-        set
-        {
-            stars = value;
-            switch (value)
-            {
-                case 0:
-                    if (Star1) Star1.SetActive(false);
-                    if (Star2) Star2.SetActive(false);
-                    if (Star3) Star3.SetActive(false);
-                    break;
-                case 1:
-                    if (Star1) Star1.SetActive(true);
-                    if (Star2) Star2.SetActive(false);
-                    if (Star3) Star3.SetActive(false);
-                    break;
-                case 2:
-                    if (Star1) Star1.SetActive(true);
-                    if (Star2) Star2.SetActive(true);
-                    if (Star3) Star3.SetActive(false);
-                    break;
-                case 3:
-                    if (Star1) Star1.SetActive(true);
-                    if (Star2) Star2.SetActive(true);
-                    if (Star3) Star3.SetActive(true);
-                    break;
-                default: break;
-            }
-        }
-    }
+    public CardStarsComponent CardStarsComponent;
 
     public Renderer MainBoardRenderer;
     protected float MainboardEmissionIntensity = 0f;
 
-    public virtual void ChangeColor(Color color)
+    protected virtual void ChangeColor(Color color)
     {
         ClientUtils.ChangeColor(MainBoardRenderer, color);
     }
 
-    public void BeDimColor()
+    protected void BeDimColor()
     {
         ChangeColor(Color.gray);
     }
 
-    public void BeBrightColor()
+    protected void BeBrightColor()
     {
         ClientUtils.ChangeColor(MainBoardRenderer, ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()));
     }
@@ -143,11 +109,11 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
     {
     }
 
-    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Vector3 dragLastPosition)
+    public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Vector3 dragLastPosition)
     {
     }
 
-    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleRetinue moduleRetinue, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    public virtual void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
     }
 

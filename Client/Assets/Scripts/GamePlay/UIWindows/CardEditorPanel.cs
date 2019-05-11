@@ -141,19 +141,19 @@ public class CardEditorPanel : BaseUIForm
         CardPropertyFormRow Row_CardIsTemp = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_CardIsTempLabelText", OnCardIsTempChange, out SetCardIsTemp);
         CardPropertyFormRow Row_CardIsHide = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_CardIsHideLabelText", OnCardIsHideChange, out SetCardIsHide);
 
-        CardPropertyFormRow Row_RetinueLife = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_RetinueLifeLabelText", OnRetinueLifeChange, out SetRetinueLife);
-        CardPropertyFormRow Row_RetinueAttack = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_RetinueAttackLabelText", OnRetinueAttackChange, out SetRetinueAttack);
-        CardPropertyFormRow Row_RetinueArmor = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_RetinueArmorLabelText", OnRetinueArmorChange, out SetRetinueArmor);
-        CardPropertyFormRow Row_RetinueShield = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_RetinueShieldLabelText", OnRetinueShieldChange, out SetRetinueShield);
-        CardPropertyFormRow Row_RetinueWeaponSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueWeaponSlotLabelText", OnRetinueWeaponSlotChange, out SetRetinueWeaponSlot);
-        CardPropertyFormRow Row_RetinueShieldSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueShieldSlotLabelText", OnRetinueShieldSlotChange, out SetRetinueShieldSlot);
-        CardPropertyFormRow Row_RetinuePackSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinuePackSlotLabelText", OnRetinuePackSlotChange, out SetRetinuePackSlot);
-        CardPropertyFormRow Row_RetinueMASlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueMASlotLabelText", OnRetinueMASlotChange, out SetRetinueMASlot);
-        CardPropertyFormRow Row_RetinueIsDefense = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsDefenseLabelText", OnRetinueIsDefenseChange, out SetRetinueIsDefense);
-        CardPropertyFormRow Row_RetinueIsSniper = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsSniperLabelText", OnRetinueIsSniperChange, out SetRetinueIsSniper);
-        CardPropertyFormRow Row_RetinueIsCharger = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsChargerLabelText", OnRetinueIsChargerChange, out SetRetinueIsCharger);
-        CardPropertyFormRow Row_RetinueIsFrenzy = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsFrenzyLabelText", OnRetinueIsFrenzyChange, out SetRetinueIsFrenzy);
-        CardPropertyFormRow Row_RetinueIsSoldier = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_RetinueIsSoldierLabelText", OnRetinueIsSoldierChange, out SetRetinueIsSoldier);
+        CardPropertyFormRow Row_MechLife = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_MechLifeLabelText", OnMechLifeChange, out SetMechLife);
+        CardPropertyFormRow Row_MechAttack = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_MechAttackLabelText", OnMechAttackChange, out SetMechAttack);
+        CardPropertyFormRow Row_MechArmor = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_MechArmorLabelText", OnMechArmorChange, out SetMechArmor);
+        CardPropertyFormRow Row_MechShield = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_MechShieldLabelText", OnMechShieldChange, out SetMechShield);
+        CardPropertyFormRow Row_MechWeaponSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechWeaponSlotLabelText", OnMechWeaponSlotChange, out SetMechWeaponSlot);
+        CardPropertyFormRow Row_MechShieldSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechShieldSlotLabelText", OnMechShieldSlotChange, out SetMechShieldSlot);
+        CardPropertyFormRow Row_MechPackSlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechPackSlotLabelText", OnMechPackSlotChange, out SetMechPackSlot);
+        CardPropertyFormRow Row_MechMASlot = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechMASlotLabelText", OnMechMASlotChange, out SetMechMASlot);
+        CardPropertyFormRow Row_MechIsDefense = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechIsDefenseLabelText", OnMechIsDefenseChange, out SetMechIsDefense);
+        CardPropertyFormRow Row_MechIsSniper = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechIsSniperLabelText", OnMechIsSniperChange, out SetMechIsSniper);
+        CardPropertyFormRow Row_MechIsCharger = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechIsChargerLabelText", OnMechIsChargerChange, out SetMechIsCharger);
+        CardPropertyFormRow Row_MechIsFrenzy = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechIsFrenzyLabelText", OnMechIsFrenzyChange, out SetMechIsFrenzy);
+        CardPropertyFormRow Row_MechIsSoldier = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechIsSoldierLabelText", OnMechIsSoldierChange, out SetMechIsSoldier);
 
         CardPropertyFormRow Row_SlotType = GeneralizeRow(CardPropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_SlotType", OnSlotTypeChange, out SetSlotType, slotTypeList);
 
@@ -190,21 +190,21 @@ public class CardEditorPanel : BaseUIForm
             Row_CardIsTemp,
             Row_CardIsHide,
         };
-        CardTypePropertiesDict[CardTypes.Retinue] = new List<CardPropertyFormRow>
+        CardTypePropertiesDict[CardTypes.Mech] = new List<CardPropertyFormRow>
         {
-            Row_RetinueLife,
-            Row_RetinueAttack,
-            Row_RetinueArmor,
-            Row_RetinueShield,
-            Row_RetinueWeaponSlot,
-            Row_RetinueShieldSlot,
-            Row_RetinuePackSlot,
-            Row_RetinueMASlot,
-            Row_RetinueIsSoldier,
-            Row_RetinueIsDefense,
-            Row_RetinueIsSniper,
-            Row_RetinueIsCharger,
-            Row_RetinueIsFrenzy,
+            Row_MechLife,
+            Row_MechAttack,
+            Row_MechArmor,
+            Row_MechShield,
+            Row_MechWeaponSlot,
+            Row_MechShieldSlot,
+            Row_MechPackSlot,
+            Row_MechMASlot,
+            Row_MechIsSoldier,
+            Row_MechIsDefense,
+            Row_MechIsSniper,
+            Row_MechIsCharger,
+            Row_MechIsFrenzy,
         };
         CardTypePropertiesDict[CardTypes.Energy] = new List<CardPropertyFormRow>
         {
@@ -290,7 +290,7 @@ public class CardEditorPanel : BaseUIForm
         };
 
         SetCardType("Spell");
-        SetCardType("Retinue");
+        SetCardType("Mech");
 
         FormatTwoToggleIntoOneRow();
     }
@@ -609,9 +609,9 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetRetinueLife;
+    private UnityAction<string> SetMechLife;
 
-    private void OnRetinueLifeChange(string value_str)
+    private void OnMechLifeChange(string value_str)
     {
         if (int.TryParse(value_str, out int value))
         {
@@ -619,26 +619,26 @@ public class CardEditorPanel : BaseUIForm
             {
                 cur_PreviewCard.CardInfo.LifeInfo.TotalLife = value;
                 cur_PreviewCard.CardInfo.LifeInfo.Life = value;
-                if (cur_PreviewCard as CardRetinue)
+                if (cur_PreviewCard as CardMech)
                 {
-                    ((CardRetinue) cur_PreviewCard).M_RetinueTotalLife = value;
+                    ((CardMech) cur_PreviewCard).M_MechTotalLife = value;
                 }
             }
         }
     }
 
-    private UnityAction<string> SetRetinueAttack;
+    private UnityAction<string> SetMechAttack;
 
-    private void OnRetinueAttackChange(string value_str)
+    private void OnMechAttackChange(string value_str)
     {
         if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
                 cur_PreviewCard.CardInfo.BattleInfo.BasicAttack = value;
-                if (cur_PreviewCard as CardRetinue)
+                if (cur_PreviewCard as CardMech)
                 {
-                    ((CardRetinue) cur_PreviewCard).M_RetinueAttack = value;
+                    ((CardMech) cur_PreviewCard).M_MechAttack = value;
                     cur_PreviewCard.RefreshCardTextLanguage();
                     cur_PreviewCard.RefreshCardAllColors();
                 }
@@ -646,18 +646,18 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetRetinueArmor;
+    private UnityAction<string> SetMechArmor;
 
-    private void OnRetinueArmorChange(string value_str)
+    private void OnMechArmorChange(string value_str)
     {
         if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
                 cur_PreviewCard.CardInfo.BattleInfo.BasicArmor = value;
-                if (cur_PreviewCard as CardRetinue)
+                if (cur_PreviewCard as CardMech)
                 {
-                    ((CardRetinue) cur_PreviewCard).M_RetinueArmor = value;
+                    ((CardMech) cur_PreviewCard).M_MechArmor = value;
                     cur_PreviewCard.RefreshCardTextLanguage();
                     cur_PreviewCard.RefreshCardAllColors();
                 }
@@ -665,18 +665,18 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetRetinueShield;
+    private UnityAction<string> SetMechShield;
 
-    private void OnRetinueShieldChange(string value_str)
+    private void OnMechShieldChange(string value_str)
     {
         if (int.TryParse(value_str, out int value))
         {
             if (cur_PreviewCard)
             {
                 cur_PreviewCard.CardInfo.BattleInfo.BasicShield = value;
-                if (cur_PreviewCard as CardRetinue)
+                if (cur_PreviewCard as CardMech)
                 {
-                    ((CardRetinue) cur_PreviewCard).M_RetinueShield = value;
+                    ((CardMech) cur_PreviewCard).M_MechShield = value;
                     cur_PreviewCard.RefreshCardTextLanguage();
                     cur_PreviewCard.RefreshCardAllColors();
                 }
@@ -684,126 +684,126 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetRetinueWeaponSlot;
+    private UnityAction<string> SetMechWeaponSlot;
 
-    private void OnRetinueWeaponSlotChange(string value_str)
+    private void OnMechWeaponSlotChange(string value_str)
     {
         bool value = value_str.Equals("True");
         if (cur_PreviewCard)
         {
-            cur_PreviewCard.CardInfo.RetinueInfo.Slots[0] = value ? SlotTypes.Weapon : SlotTypes.None;
-            if (cur_PreviewCard as CardRetinue)
+            cur_PreviewCard.CardInfo.MechInfo.Slots[0] = value ? SlotTypes.Weapon : SlotTypes.None;
+            if (cur_PreviewCard as CardMech)
             {
-                ((CardRetinue) cur_PreviewCard).InitSlots();
+                ((CardMech) cur_PreviewCard).InitSlots();
             }
         }
     }
 
-    private UnityAction<string> SetRetinueShieldSlot;
+    private UnityAction<string> SetMechShieldSlot;
 
-    private void OnRetinueShieldSlotChange(string value_str)
+    private void OnMechShieldSlotChange(string value_str)
     {
         bool value = value_str.Equals("True");
         if (cur_PreviewCard)
         {
-            cur_PreviewCard.CardInfo.RetinueInfo.Slots[1] = value ? SlotTypes.Shield : SlotTypes.None;
-            if (cur_PreviewCard as CardRetinue)
+            cur_PreviewCard.CardInfo.MechInfo.Slots[1] = value ? SlotTypes.Shield : SlotTypes.None;
+            if (cur_PreviewCard as CardMech)
             {
-                ((CardRetinue) cur_PreviewCard).InitSlots();
+                ((CardMech) cur_PreviewCard).InitSlots();
             }
         }
     }
 
-    private UnityAction<string> SetRetinuePackSlot;
+    private UnityAction<string> SetMechPackSlot;
 
-    private void OnRetinuePackSlotChange(string value_str)
+    private void OnMechPackSlotChange(string value_str)
     {
         bool value = value_str.Equals("True");
         if (cur_PreviewCard)
         {
-            cur_PreviewCard.CardInfo.RetinueInfo.Slots[2] = value ? SlotTypes.Pack : SlotTypes.None;
-            if (cur_PreviewCard as CardRetinue)
+            cur_PreviewCard.CardInfo.MechInfo.Slots[2] = value ? SlotTypes.Pack : SlotTypes.None;
+            if (cur_PreviewCard as CardMech)
             {
-                ((CardRetinue) cur_PreviewCard).InitSlots();
+                ((CardMech) cur_PreviewCard).InitSlots();
             }
         }
     }
 
-    private UnityAction<string> SetRetinueMASlot;
+    private UnityAction<string> SetMechMASlot;
 
-    private void OnRetinueMASlotChange(string value_str)
+    private void OnMechMASlotChange(string value_str)
     {
         bool value = value_str.Equals("True");
         if (cur_PreviewCard)
         {
-            cur_PreviewCard.CardInfo.RetinueInfo.Slots[3] = value ? SlotTypes.MA : SlotTypes.None;
-            if (cur_PreviewCard as CardRetinue)
+            cur_PreviewCard.CardInfo.MechInfo.Slots[3] = value ? SlotTypes.MA : SlotTypes.None;
+            if (cur_PreviewCard as CardMech)
             {
-                ((CardRetinue) cur_PreviewCard).InitSlots();
+                ((CardMech) cur_PreviewCard).InitSlots();
             }
         }
     }
 
-    private UnityAction<string> SetRetinueIsDefense;
+    private UnityAction<string> SetMechIsDefense;
 
-    private void OnRetinueIsDefenseChange(string value_str)
+    private void OnMechIsDefenseChange(string value_str)
     {
         bool value = value_str.Equals("True");
         if (cur_PreviewCard)
         {
-            cur_PreviewCard.CardInfo.RetinueInfo.IsDefense = value;
+            cur_PreviewCard.CardInfo.MechInfo.IsDefense = value;
             cur_PreviewCard.RefreshCardAllColors();
             cur_PreviewCard.RefreshCardTextLanguage();
         }
     }
 
-    private UnityAction<string> SetRetinueIsSniper;
+    private UnityAction<string> SetMechIsSniper;
 
-    private void OnRetinueIsSniperChange(string value_str)
+    private void OnMechIsSniperChange(string value_str)
     {
         bool value = value_str.Equals("True");
         if (cur_PreviewCard)
         {
-            cur_PreviewCard.CardInfo.RetinueInfo.IsSniper = value;
+            cur_PreviewCard.CardInfo.MechInfo.IsSniper = value;
             cur_PreviewCard.RefreshCardAllColors();
             cur_PreviewCard.RefreshCardTextLanguage();
         }
     }
 
-    private UnityAction<string> SetRetinueIsCharger;
+    private UnityAction<string> SetMechIsCharger;
 
-    private void OnRetinueIsChargerChange(string value_str)
+    private void OnMechIsChargerChange(string value_str)
     {
         bool value = value_str.Equals("True");
         if (cur_PreviewCard)
         {
-            cur_PreviewCard.CardInfo.RetinueInfo.IsCharger = value;
+            cur_PreviewCard.CardInfo.MechInfo.IsCharger = value;
             cur_PreviewCard.RefreshCardAllColors();
             cur_PreviewCard.RefreshCardTextLanguage();
         }
     }
 
-    private UnityAction<string> SetRetinueIsFrenzy;
+    private UnityAction<string> SetMechIsFrenzy;
 
-    private void OnRetinueIsFrenzyChange(string value_str)
+    private void OnMechIsFrenzyChange(string value_str)
     {
         bool value = value_str.Equals("True");
         if (cur_PreviewCard)
         {
-            cur_PreviewCard.CardInfo.RetinueInfo.IsFrenzy = value;
+            cur_PreviewCard.CardInfo.MechInfo.IsFrenzy = value;
             cur_PreviewCard.RefreshCardAllColors();
             cur_PreviewCard.RefreshCardTextLanguage();
         }
     }
 
-    private UnityAction<string> SetRetinueIsSoldier;
+    private UnityAction<string> SetMechIsSoldier;
 
-    private void OnRetinueIsSoldierChange(string value_str)
+    private void OnMechIsSoldierChange(string value_str)
     {
         bool value = value_str.Equals("True");
         if (cur_PreviewCard)
         {
-            cur_PreviewCard.CardInfo.RetinueInfo.IsSoldier = value;
+            cur_PreviewCard.CardInfo.MechInfo.IsSoldier = value;
             cur_PreviewCard.RefreshCardAllColors();
             cur_PreviewCard.RefreshCardTextLanguage();
         }
@@ -1069,21 +1069,21 @@ public class CardEditorPanel : BaseUIForm
 
         switch (ci.BaseInfo.CardType)
         {
-            case CardTypes.Retinue:
+            case CardTypes.Mech:
             {
-                SetRetinueLife(ci.LifeInfo.Life.ToString());
-                SetRetinueAttack(ci.BattleInfo.BasicAttack.ToString());
-                SetRetinueArmor(ci.BattleInfo.BasicArmor.ToString());
-                SetRetinueShield(ci.BattleInfo.BasicShield.ToString());
-                SetRetinueIsSoldier((ci.RetinueInfo.IsSoldier).ToString());
-                SetRetinueIsDefense((ci.RetinueInfo.IsDefense).ToString());
-                SetRetinueIsSniper((ci.RetinueInfo.IsSniper).ToString());
-                SetRetinueIsCharger((ci.RetinueInfo.IsCharger).ToString());
-                SetRetinueIsFrenzy((ci.RetinueInfo.IsFrenzy).ToString());
-                SetRetinueWeaponSlot((ci.RetinueInfo.Slots[0] == SlotTypes.Weapon).ToString());
-                SetRetinueShieldSlot((ci.RetinueInfo.Slots[1] == SlotTypes.Shield).ToString());
-                SetRetinuePackSlot((ci.RetinueInfo.Slots[2] == SlotTypes.Pack).ToString());
-                SetRetinueMASlot((ci.RetinueInfo.Slots[3] == SlotTypes.MA).ToString());
+                SetMechLife(ci.LifeInfo.Life.ToString());
+                SetMechAttack(ci.BattleInfo.BasicAttack.ToString());
+                SetMechArmor(ci.BattleInfo.BasicArmor.ToString());
+                SetMechShield(ci.BattleInfo.BasicShield.ToString());
+                SetMechIsSoldier((ci.MechInfo.IsSoldier).ToString());
+                SetMechIsDefense((ci.MechInfo.IsDefense).ToString());
+                SetMechIsSniper((ci.MechInfo.IsSniper).ToString());
+                SetMechIsCharger((ci.MechInfo.IsCharger).ToString());
+                SetMechIsFrenzy((ci.MechInfo.IsFrenzy).ToString());
+                SetMechWeaponSlot((ci.MechInfo.Slots[0] == SlotTypes.Weapon).ToString());
+                SetMechShieldSlot((ci.MechInfo.Slots[1] == SlotTypes.Shield).ToString());
+                SetMechPackSlot((ci.MechInfo.Slots[2] == SlotTypes.Pack).ToString());
+                SetMechMASlot((ci.MechInfo.Slots[3] == SlotTypes.MA).ToString());
                 break;
             }
             case CardTypes.Equip:

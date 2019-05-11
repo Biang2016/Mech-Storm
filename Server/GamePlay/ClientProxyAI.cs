@@ -48,7 +48,7 @@ internal class ClientProxyAI : ClientProxy
     #region AIOperation
 
     HashSet<int> TriedCards = new HashSet<int>();
-    HashSet<int> TriedRetinues = new HashSet<int>();
+    HashSet<int> TriedMechs = new HashSet<int>();
 
     public void ResetTriedCards()
     {
@@ -64,8 +64,8 @@ internal class ClientProxyAI : ClientProxy
             while (true)
             {
                 ServerCardBase card = FindCardUsable();
-                ServerModuleRetinue retinue = FindRetinueMovable();
-                if (card == null && retinue == null)
+                ServerModuleMech mech = FindMechMovable();
+                if (card == null && mech == null)
                 {
                     if (!lastOperation)
                     {
@@ -88,22 +88,22 @@ internal class ClientProxyAI : ClientProxy
                         }
                     }
 
-                    if (retinue != null)
+                    if (mech != null)
                     {
-                        if (TryAttack(retinue)) //成功
+                        if (TryAttack(mech)) //成功
                         {
                             lastOperation = true;
                         }
                         else
                         {
-                            TriedRetinues.Add(retinue.M_RetinueID); //尝试过的随从不再尝试
+                            TriedMechs.Add(mech.M_MechID); //尝试过的随从不再尝试
                         }
                     }
                 }
             }
 
             TriedCards.Clear();
-            TriedRetinues.Clear();
+            TriedMechs.Clear();
 
             if (failedAgain) break;
         }
@@ -125,12 +125,12 @@ internal class ClientProxyAI : ClientProxy
                 MyServerGameManager.OnClientUseSpellCardRequest(new UseSpellCardRequest(ClientId, card.M_CardInstanceId));
                 return true;
             }
-            else if (ti.HasTargetRetinue)
+            else if (ti.HasTargetMech)
             {
-                ServerModuleRetinue retinue = GetTargetRetinueByTargetInfo(ti);
-                if (retinue != null)
+                ServerModuleMech mech = GetTargetMechByTargetInfo(ti);
+                if (mech != null)
                 {
-                    MyServerGameManager.OnClientUseSpellCardToRetinueRequest(new UseSpellCardToRetinueRequest(ClientId, card.M_CardInstanceId, retinue.M_RetinueID, false, 0));
+                    MyServerGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientId, card.M_CardInstanceId, mech.M_MechID, false, 0));
                     return true;
                 }
             }
@@ -152,7 +152,7 @@ internal class ClientProxyAI : ClientProxy
             }
             else if (ti.HasTargetEquip) //Todo
             {
-                switch (ti.targetRetinueRange)
+                switch (ti.targetMechRange)
                 {
                     case TargetRange.EnemyMechs:
                     {
@@ -181,32 +181,32 @@ internal class ClientProxyAI : ClientProxy
                 }
             }
         }
-        else if (card.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
+        else if (card.CardInfo.BaseInfo.CardType == CardTypes.Mech)
         {
             if (MyBattleGroundManager.BattleGroundIsFull) return false;
 
             bool canSummonDirectly = false;
             canSummonDirectly |= ti.HasNoTarget;
-            canSummonDirectly |= (ti.targetRetinueRange == TargetRange.SelfMechs && MyBattleGroundManager.RetinueCount == 0);
-            canSummonDirectly |= (ti.targetRetinueRange == TargetRange.SelfHeroes && MyBattleGroundManager.HeroCount == 0);
-            canSummonDirectly |= (ti.targetRetinueRange == TargetRange.SelfSoldiers && MyBattleGroundManager.SoldierCount == 0);
-            canSummonDirectly |= (ti.targetRetinueRange == TargetRange.EnemyMechs && EnemyBattleGroundManager.RetinueCount == 0);
-            canSummonDirectly |= (ti.targetRetinueRange == TargetRange.EnemyHeroes && EnemyBattleGroundManager.HeroCount == 0);
-            canSummonDirectly |= (ti.targetRetinueRange == TargetRange.EnemySoldiers && EnemyBattleGroundManager.SoldierCount == 0);
+            canSummonDirectly |= (ti.targetMechRange == TargetRange.SelfMechs && MyBattleGroundManager.MechCount == 0);
+            canSummonDirectly |= (ti.targetMechRange == TargetRange.SelfHeroes && MyBattleGroundManager.HeroCount == 0);
+            canSummonDirectly |= (ti.targetMechRange == TargetRange.SelfSoldiers && MyBattleGroundManager.SoldierCount == 0);
+            canSummonDirectly |= (ti.targetMechRange == TargetRange.EnemyMechs && EnemyBattleGroundManager.MechCount == 0);
+            canSummonDirectly |= (ti.targetMechRange == TargetRange.EnemyHeroes && EnemyBattleGroundManager.HeroCount == 0);
+            canSummonDirectly |= (ti.targetMechRange == TargetRange.EnemySoldiers && EnemyBattleGroundManager.SoldierCount == 0);
             //Todo 针对装备等还没处理
 
             if (canSummonDirectly)
             {
-                MyServerGameManager.OnClientSummonRetinueRequest(new SummonRetinueRequest(ClientId, card.M_CardInstanceId, MyBattleGroundManager.RetinueCount, Const.TARGET_RETINUE_SELECT_NONE, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL));
+                MyServerGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientId, card.M_CardInstanceId, MyBattleGroundManager.MechCount, Const.TARGET_MECH_SELECT_NONE, false, Const.CLIENT_TEMP_MECH_ID_NORMAL));
                 return true;
             }
 
-            if (ti.HasTargetRetinue)
+            if (ti.HasTargetMech)
             {
-                ServerModuleRetinue retinue = GetTargetRetinueByTargetInfo(ti);
-                if (retinue != null)
+                ServerModuleMech mech = GetTargetMechByTargetInfo(ti);
+                if (mech != null)
                 {
-                    MyServerGameManager.OnClientSummonRetinueRequest(new SummonRetinueRequest(ClientId, card.M_CardInstanceId, MyBattleGroundManager.RetinueCount, retinue.M_RetinueID, false, Const.CLIENT_TEMP_RETINUE_ID_NORMAL));
+                    MyServerGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientId, card.M_CardInstanceId, MyBattleGroundManager.MechCount, mech.M_MechID, false, Const.CLIENT_TEMP_MECH_ID_NORMAL));
                     return true;
                 }
             }
@@ -221,31 +221,31 @@ internal class ClientProxyAI : ClientProxy
         }
         else if (card.CardInfo.BaseInfo.CardType == CardTypes.Equip)
         {
-            ServerModuleRetinue retinue = SelectRetinueToEquipWeapon(MyBattleGroundManager.Heroes, (CardInfo_Equip) card.CardInfo); //优先装备英雄
-            if (retinue == null) retinue = SelectRetinueToEquipWeapon(MyBattleGroundManager.Soldiers, (CardInfo_Equip) card.CardInfo);
+            ServerModuleMech mech = SelectMechToEquipWeapon(MyBattleGroundManager.Heroes, (CardInfo_Equip) card.CardInfo); //优先装备英雄
+            if (mech == null) mech = SelectMechToEquipWeapon(MyBattleGroundManager.Soldiers, (CardInfo_Equip) card.CardInfo);
 
-            if (retinue != null)
+            if (mech != null)
             {
                 switch (card.CardInfo.EquipInfo.SlotType)
                 {
                     case SlotTypes.Weapon:
                     {
-                        MyServerGameManager.OnClientEquipWeaponRequest(new EquipWeaponRequest(ClientId, card.M_CardInstanceId, retinue.M_RetinueID));
+                        MyServerGameManager.OnClientEquipWeaponRequest(new EquipWeaponRequest(ClientId, card.M_CardInstanceId, mech.M_MechID));
                         return true;
                     }
                     case SlotTypes.Shield:
                     {
-                        MyServerGameManager.OnClientEquipShieldRequest(new EquipShieldRequest(ClientId, card.M_CardInstanceId, retinue.M_RetinueID));
+                        MyServerGameManager.OnClientEquipShieldRequest(new EquipShieldRequest(ClientId, card.M_CardInstanceId, mech.M_MechID));
                         return true;
                     }
                     case SlotTypes.Pack:
                     {
-                        MyServerGameManager.OnClientEquipPackRequest(new EquipPackRequest(ClientId, card.M_CardInstanceId, retinue.M_RetinueID));
+                        MyServerGameManager.OnClientEquipPackRequest(new EquipPackRequest(ClientId, card.M_CardInstanceId, mech.M_MechID));
                         return true;
                     }
                     case SlotTypes.MA:
                     {
-                        MyServerGameManager.OnClientEquipMARequest(new EquipMARequest(ClientId, card.M_CardInstanceId, retinue.M_RetinueID));
+                        MyServerGameManager.OnClientEquipMARequest(new EquipMARequest(ClientId, card.M_CardInstanceId, mech.M_MechID));
                         return true;
                     }
                 }
@@ -255,19 +255,19 @@ internal class ClientProxyAI : ClientProxy
         return false;
     }
 
-    private bool TryAttack(ServerModuleRetinue retinue)
+    private bool TryAttack(ServerModuleMech mech)
     {
-        if (EnemyPlayer.CheckModuleRetinueCanAttackMe(retinue)) //优先打脸
+        if (EnemyPlayer.CheckModuleMechCanAttackMe(mech)) //优先打脸
         {
-            MyServerGameManager.OnClientRetinueAttackShipRequest(new RetinueAttackShipRequest(ClientId, retinue.M_RetinueID));
+            MyServerGameManager.OnClientMechAttackShipRequest(new MechAttackShipRequest(ClientId, mech.M_MechID));
             return true;
         }
 
-        foreach (ServerModuleRetinue targetRetinue in EnemyBattleGroundManager.Retinues)
+        foreach (ServerModuleMech targetMech in EnemyBattleGroundManager.Mechs)
         {
-            if (targetRetinue.CheckRetinueCanAttackMe(retinue))
+            if (targetMech.CheckMechCanAttackMe(mech))
             {
-                MyServerGameManager.OnClientRetinueAttackRetinueRequest(new RetinueAttackRetinueRequest(ClientId, retinue.M_RetinueID, EnemyPlayer.ClientId, targetRetinue.M_RetinueID));
+                MyServerGameManager.OnClientMechAttackMechRequest(new MechAttackMechRequest(ClientId, mech.M_MechID, EnemyPlayer.ClientId, targetMech.M_MechID));
                 return true;
             }
         }
@@ -275,52 +275,52 @@ internal class ClientProxyAI : ClientProxy
         return false;
     }
 
-    private ServerModuleRetinue GetTargetRetinueByTargetInfo(TargetInfo ti)
+    private ServerModuleMech GetTargetMechByTargetInfo(TargetInfo ti)
     {
         ServerPlayer targetPlayer = null;
-        RetinueTypes targetRetinueType = RetinueTypes.All;
-        if ((ti.targetRetinueRange | TargetRange.EnemyMechs) == TargetRange.EnemyMechs)
+        MechTypes targetMechType = MechTypes.All;
+        if ((ti.targetMechRange | TargetRange.EnemyMechs) == TargetRange.EnemyMechs)
         {
             targetPlayer = MyServerGameManager.PlayerA;
         }
-        else if ((ti.targetRetinueRange | TargetRange.SelfMechs) == TargetRange.SelfMechs)
+        else if ((ti.targetMechRange | TargetRange.SelfMechs) == TargetRange.SelfMechs)
         {
             targetPlayer = MyServerGameManager.PlayerB;
         }
 
-        if ((ti.targetRetinueRange | TargetRange.Heroes) == TargetRange.Heroes)
+        if ((ti.targetMechRange | TargetRange.Heroes) == TargetRange.Heroes)
         {
-            targetRetinueType = RetinueTypes.Hero;
+            targetMechType = MechTypes.Hero;
         }
-        else if ((ti.targetRetinueRange | TargetRange.Soldiers) == TargetRange.Soldiers)
+        else if ((ti.targetMechRange | TargetRange.Soldiers) == TargetRange.Soldiers)
         {
-            targetRetinueType = RetinueTypes.Soldier;
+            targetMechType = MechTypes.Soldier;
         }
         else
         {
-            targetRetinueType = RetinueTypes.All;
+            targetMechType = MechTypes.All;
         }
 
-        ServerModuleRetinue retinue = null;
+        ServerModuleMech mech = null;
         if (targetPlayer != null)
         {
-            retinue = targetPlayer.MyBattleGroundManager.GetRandomRetinue(targetRetinueType, -1);
+            mech = targetPlayer.MyBattleGroundManager.GetRandomMech(targetMechType, -1);
         }
         else
         {
-            retinue = MyServerGameManager.GetRandomAliveRetinueExcept(targetRetinueType, -1);
+            mech = MyServerGameManager.GetRandomAliveMechExcept(targetMechType, -1);
         }
 
-        return retinue;
+        return mech;
     }
 
-    public bool CheckRetinueCanEquipMe(ServerModuleRetinue retinue, CardInfo_Equip equipInfo)
+    public bool CheckMechCanEquipMe(ServerModuleMech mech, CardInfo_Equip equipInfo)
     {
-        if (MyPlayer == retinue.ServerPlayer && retinue.CardInfo.RetinueInfo.HasSlotType(equipInfo.EquipInfo.SlotType) && !retinue.M_IsDead)
+        if (MyPlayer == mech.ServerPlayer && mech.CardInfo.MechInfo.HasSlotType(equipInfo.EquipInfo.SlotType) && !mech.M_IsDead)
         {
             if (equipInfo.EquipInfo.SlotType == SlotTypes.Weapon && equipInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
             {
-                if (retinue.CardInfo.RetinueInfo.IsSniper)
+                if (mech.CardInfo.MechInfo.IsSniper)
                 {
                     return true; //狙击枪只能装在狙击手上
                 }
@@ -331,7 +331,7 @@ internal class ClientProxyAI : ClientProxy
             }
             else if (equipInfo.EquipInfo.SlotType == SlotTypes.MA)
             {
-                if (retinue.IsAllEquipExceptMA)
+                if (mech.IsAllEquipExceptMA)
                 {
                     return true;
                 }
@@ -364,7 +364,7 @@ internal class ClientProxyAI : ClientProxy
         ServerCardBase energyCardID = null;
         ServerCardBase spellCardID = null;
         ServerCardBase equipCardID = null;
-        ServerCardBase retinueCardID = null;
+        ServerCardBase mechCardID = null;
         foreach (int id in noTriedUsableCards)
         {
             ServerCardBase card = MyHandManager.GetCardByCardInstanceId(id);
@@ -383,9 +383,9 @@ internal class ClientProxyAI : ClientProxy
                 equipCardID = card;
             }
 
-            if (card.CardInfo.BaseInfo.CardType == CardTypes.Retinue)
+            if (card.CardInfo.BaseInfo.CardType == CardTypes.Mech)
             {
-                retinueCardID = card;
+                mechCardID = card;
             }
         }
 
@@ -404,21 +404,21 @@ internal class ClientProxyAI : ClientProxy
             return equipCardID;
         }
 
-        if (retinueCardID != null)
+        if (mechCardID != null)
         {
-            return retinueCardID;
+            return mechCardID;
         }
 
         return null;
     }
 
-    private ServerModuleRetinue FindRetinueMovable()
+    private ServerModuleMech FindMechMovable()
     {
-        foreach (int id in MyBattleGroundManager.CanAttackRetinues)
+        foreach (int id in MyBattleGroundManager.CanAttackMechs)
         {
-            if (!TriedRetinues.Contains(id))
+            if (!TriedMechs.Contains(id))
             {
-                return MyBattleGroundManager.GetRetinue(id);
+                return MyBattleGroundManager.GetMech(id);
             }
         }
 
@@ -434,41 +434,41 @@ internal class ClientProxyAI : ClientProxy
 
     #region AI_Mark_System 评分系统
 
-    private ServerModuleRetinue SelectRetinueToEquipWeapon(List<ServerModuleRetinue> retinues, CardInfo_Equip cardInfo)
+    private ServerModuleMech SelectMechToEquipWeapon(List<ServerModuleMech> mechs, CardInfo_Equip cardInfo)
     {
-        ServerModuleRetinue res = null;
-        List<ServerModuleRetinue> retinues_NoWeapon = new List<ServerModuleRetinue>(); //优先给没有武器的装备
+        ServerModuleMech res = null;
+        List<ServerModuleMech> mechs_NoWeapon = new List<ServerModuleMech>(); //优先给没有武器的装备
 
-        List<ServerModuleRetinue> optionalRetinue = new List<ServerModuleRetinue>();
-        foreach (ServerModuleRetinue retinue in retinues) //满足可以装备的前提
+        List<ServerModuleMech> optionalMech = new List<ServerModuleMech>();
+        foreach (ServerModuleMech mech in mechs) //满足可以装备的前提
         {
-            if (CheckRetinueCanEquipMe(retinue, cardInfo))
+            if (CheckMechCanEquipMe(mech, cardInfo))
             {
-                optionalRetinue.Add(retinue);
+                optionalMech.Add(mech);
             }
         }
 
-        foreach (ServerModuleRetinue retinue in optionalRetinue)
+        foreach (ServerModuleMech mech in optionalMech)
         {
-            if (retinue.M_Weapon == null)
+            if (mech.M_Weapon == null)
             {
-                retinues_NoWeapon.Add(retinue);
+                mechs_NoWeapon.Add(mech);
             }
         }
 
-        if (retinues_NoWeapon.Count != 0) //没有武器的里面，挑最强的
+        if (mechs_NoWeapon.Count != 0) //没有武器的里面，挑最强的
         {
-            return GetRetinueByEvaluation(retinues_NoWeapon, EvaluationOption.Retinue, EvaluationDirection.Max);
+            return GetMechByEvaluation(mechs_NoWeapon, EvaluationOption.Mech, EvaluationDirection.Max);
         }
         else //都有武器情况下，给武器最差的装备
         {
-            return GetRetinueByEvaluation(retinues_NoWeapon, EvaluationOption.Weapon, EvaluationDirection.Min);
+            return GetMechByEvaluation(mechs_NoWeapon, EvaluationOption.Weapon, EvaluationDirection.Min);
         }
     }
 
     enum EvaluationOption
     {
-        Retinue,
+        Mech,
         Weapon,
         Shield,
         Pack,
@@ -481,30 +481,30 @@ internal class ClientProxyAI : ClientProxy
         Min
     }
 
-    delegate float GetRetinueByEvaluationDelegate(ServerModuleRetinue retinue);
+    delegate float GetMechByEvaluationDelegate(ServerModuleMech mech);
 
-    Dictionary<EvaluationOption, GetRetinueByEvaluationDelegate> EvaluationMethodDict = new Dictionary<EvaluationOption, GetRetinueByEvaluationDelegate>
+    Dictionary<EvaluationOption, GetMechByEvaluationDelegate> EvaluationMethodDict = new Dictionary<EvaluationOption, GetMechByEvaluationDelegate>
     {
-        {EvaluationOption.Retinue, CountRetinueValue},
-        {EvaluationOption.Weapon, CountRetinueWeaponValue},
-        {EvaluationOption.Shield, CountRetinueShieldValue},
-        {EvaluationOption.Pack, CountRetinuePackValue},
-        {EvaluationOption.MA, CountRetinueMAValue}
+        {EvaluationOption.Mech, CountMechValue},
+        {EvaluationOption.Weapon, CountMechWeaponValue},
+        {EvaluationOption.Shield, CountMechShieldValue},
+        {EvaluationOption.Pack, CountMechPackValue},
+        {EvaluationOption.MA, CountMechMAValue}
     };
 
-    private ServerModuleRetinue GetRetinueByEvaluation(List<ServerModuleRetinue> optionalRetinue, EvaluationOption evaluationOption, EvaluationDirection evaluationDirection)
+    private ServerModuleMech GetMechByEvaluation(List<ServerModuleMech> optionalMech, EvaluationOption evaluationOption, EvaluationDirection evaluationDirection)
     {
-        ServerModuleRetinue res = null;
+        ServerModuleMech res = null;
         float resMard = 0;
-        foreach (ServerModuleRetinue retinue in optionalRetinue)
+        foreach (ServerModuleMech mech in optionalMech)
         {
-            float mark = EvaluationMethodDict[evaluationOption](retinue);
+            float mark = EvaluationMethodDict[evaluationOption](mech);
 
             if (evaluationDirection == EvaluationDirection.Max)
             {
                 if (mark > resMard)
                 {
-                    res = retinue;
+                    res = mech;
                     resMard = mark;
                 }
             }
@@ -512,7 +512,7 @@ internal class ClientProxyAI : ClientProxy
             {
                 if (mark < resMard)
                 {
-                    res = retinue;
+                    res = mech;
                     resMard = mark;
                 }
             }
@@ -521,63 +521,63 @@ internal class ClientProxyAI : ClientProxy
         return res;
     }
 
-    private static float CountRetinueValue(ServerModuleRetinue retinue)
+    private static float CountMechValue(ServerModuleMech mech)
     {
         float mark = 0;
 
-        mark += retinue.CardInfo.BaseInfo.BaseValue();
-        mark += retinue.M_RetinueLeftLife;
-        mark += retinue.M_RetinueShield * 3 + retinue.M_RetinueArmor;
+        mark += mech.CardInfo.BaseInfo.BaseValue();
+        mark += mech.M_MechLeftLife;
+        mark += mech.M_MechShield * 3 + mech.M_MechArmor;
 
-        mark += CountRetinueWeaponValue(retinue);
-        mark += CountRetinueShieldValue(retinue);
-        mark += CountRetinuePackValue(retinue);
-        mark += CountRetinueMAValue(retinue);
+        mark += CountMechWeaponValue(mech);
+        mark += CountMechShieldValue(mech);
+        mark += CountMechPackValue(mech);
+        mark += CountMechMAValue(mech);
 
         return mark;
     }
 
-    private static float CountRetinueWeaponValue(ServerModuleRetinue retinue)
+    private static float CountMechWeaponValue(ServerModuleMech mech)
     {
         float mark = 0;
-        if (retinue.M_Weapon != null)
+        if (mech.M_Weapon != null)
         {
-            mark += retinue.M_Weapon.CardInfo.BaseInfo.BaseValue();
-            mark += retinue.M_RetinueWeaponEnergy * retinue.M_RetinueAttack;
+            mark += mech.M_Weapon.CardInfo.BaseInfo.BaseValue();
+            mark += mech.M_MechWeaponEnergy * mech.M_MechAttack;
         }
 
         return mark;
     }
 
-    private static float CountRetinueShieldValue(ServerModuleRetinue retinue)
+    private static float CountMechShieldValue(ServerModuleMech mech)
     {
         float mark = 0;
-        if (retinue.M_Shield != null)
+        if (mech.M_Shield != null)
         {
-            mark += retinue.M_Shield.CardInfo.BaseInfo.BaseValue();
+            mark += mech.M_Shield.CardInfo.BaseInfo.BaseValue();
         }
 
         return mark;
     }
 
-    private static float CountRetinuePackValue(ServerModuleRetinue retinue)
+    private static float CountMechPackValue(ServerModuleMech mech)
     {
         float mark = 0;
-        if (retinue.M_Pack != null)
+        if (mech.M_Pack != null)
         {
-            mark += retinue.M_Pack.CardInfo.BaseInfo.BaseValue();
+            mark += mech.M_Pack.CardInfo.BaseInfo.BaseValue();
         }
 
         return mark;
     }
 
-    private static float CountRetinueMAValue(ServerModuleRetinue retinue)
+    private static float CountMechMAValue(ServerModuleMech mech)
     {
         float mark = 0;
 
-        if (retinue.M_MA != null)
+        if (mech.M_MA != null)
         {
-            mark += retinue.M_MA.CardInfo.BaseInfo.BaseValue();
+            mark += mech.M_MA.CardInfo.BaseInfo.BaseValue();
         }
 
         return mark;

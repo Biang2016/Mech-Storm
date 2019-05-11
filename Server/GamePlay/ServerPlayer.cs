@@ -137,19 +137,19 @@ internal class ServerPlayer : Player
         BroadCastRequest(request);
     }
 
-    public bool CheckModuleRetinueCanAttackMe(ServerModuleRetinue attackRetinue)
+    public bool CheckModuleMechCanAttackMe(ServerModuleMech attackMech)
     {
-        if (attackRetinue.M_Weapon != null)
+        if (attackMech.M_Weapon != null)
         {
-            switch (attackRetinue.M_Weapon.M_WeaponType)
+            switch (attackMech.M_Weapon.M_WeaponType)
             {
                 case WeaponTypes.Sword:
                     if (MyBattleGroundManager.BattleGroundIsEmpty) return true;
                     return false;
                 case WeaponTypes.Gun:
-                    if (attackRetinue.M_RetinueWeaponEnergy != 0)
+                    if (attackMech.M_MechWeaponEnergy != 0)
                     {
-                        if (MyBattleGroundManager.HasDefenseRetinue) return false;
+                        if (MyBattleGroundManager.HasDefenseMech) return false;
                         return true;
                     }
                     else
@@ -158,7 +158,7 @@ internal class ServerPlayer : Player
                         return false;
                     }
                 case WeaponTypes.SniperGun:
-                    if (attackRetinue.M_RetinueWeaponEnergy != 0) return true;
+                    if (attackMech.M_MechWeaponEnergy != 0) return true;
                     else
                     {
                         if (MyBattleGroundManager.BattleGroundIsEmpty) return true;

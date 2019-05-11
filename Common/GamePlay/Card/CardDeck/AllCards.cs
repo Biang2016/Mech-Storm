@@ -151,7 +151,7 @@ public static class AllCards
             UpgradeInfo upgradeInfo = new UpgradeInfo();
             LifeInfo lifeInfo = new LifeInfo();
             BattleInfo battleInfo = new BattleInfo();
-            RetinueInfo retinueInfo = new RetinueInfo();
+            MechInfo mechInfo = new MechInfo();
             EquipInfo equipInfo = new EquipInfo();
             WeaponInfo weaponInfo = new WeaponInfo();
             ShieldInfo shieldInfo = new ShieldInfo();
@@ -216,8 +216,8 @@ public static class AllCards
                             basicArmor: int.Parse(node_CardInfo.Attributes["basicShield"].Value),
                             basicShield: int.Parse(node_CardInfo.Attributes["basicArmor"].Value));
                         break;
-                    case "retinueInfo":
-                        retinueInfo = new RetinueInfo(
+                    case "mechInfo":
+                        mechInfo = new MechInfo(
                             isSoldier: node_CardInfo.Attributes["isSoldier"].Value == "True",
                             isDefense: node_CardInfo.Attributes["isDefense"].Value == "True",
                             isSniper: node_CardInfo.Attributes["isSniper"].Value == "True",
@@ -273,14 +273,14 @@ public static class AllCards
 
             switch (baseInfo.CardType)
             {
-                case CardTypes.Retinue:
-                    addCard(new CardInfo_Retinue(
+                case CardTypes.Mech:
+                    addCard(new CardInfo_Mech(
                         cardID: int.Parse(node_Card.Attributes["id"].Value),
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
-                        retinueInfo: retinueInfo,
+                        mechInfo: mechInfo,
                         sideEffectBundle: sideEffectBundle));
                     break;
                 case CardTypes.Equip:
@@ -336,8 +336,8 @@ public static class AllCards
         SideEffectExecute.SideEffectFrom sideEffectFrom = SideEffectExecute.SideEffectFrom.Unknown;
         switch (cardType)
         {
-            case CardTypes.Retinue:
-                sideEffectFrom = SideEffectExecute.SideEffectFrom.RetinueSideEffect;
+            case CardTypes.Mech:
+                sideEffectFrom = SideEffectExecute.SideEffectFrom.MechSideEffect;
                 break;
             case CardTypes.Equip:
                 sideEffectFrom = SideEffectExecute.SideEffectFrom.EquipSideEffect;

@@ -56,14 +56,14 @@ public partial class RoundManager
                 OnSetPlayer_PrePass(r);
                 break;
             }
-            case NetProtocols.SE_BATTLEGROUND_ADD_RETINUE:
+            case NetProtocols.SE_BATTLEGROUND_ADD_MECH:
             {
-                OnBattleGroundAddRetinue_PrePass((BattleGroundAddRetinueRequest) r);
+                OnBattleGroundAddMech_PrePass((BattleGroundAddMechRequest) r);
                 break;
             }
-            case NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE:
+            case NetProtocols.SE_BATTLEGROUND_REMOVE_MECH:
             {
-                OnBattleGroundRemoveRetinue_PrePass((BattleGroundRemoveRetinueRequest) r);
+                OnBattleGroundRemoveMech_PrePass((BattleGroundRemoveMechRequest) r);
                 break;
             }
         }
@@ -94,25 +94,25 @@ public partial class RoundManager
                 break;
             }
 
-            case NetProtocols.SE_RETINUE_ATTRIBUTES_CHANGE:
+            case NetProtocols.SE_MECH_ATTRIBUTES_CHANGE:
             {
-                OnRetinueAttributesChange((RetinueAttributesChangeRequest) r);
+                OnMechAttributesChange((MechAttributesChangeRequest) r);
                 break;
             }
 
-            case NetProtocols.SE_RETINUE_DIE:
+            case NetProtocols.SE_MECH_DIE:
             {
-                OnRetinueDie((RetinueDieRequest) r);
+                OnMechDie((MechDieRequest) r);
                 break;
             }
-            case NetProtocols.SE_BATTLEGROUND_ADD_RETINUE:
+            case NetProtocols.SE_BATTLEGROUND_ADD_MECH:
             {
-                OnBattleGroundAddRetinue((BattleGroundAddRetinueRequest) r);
+                OnBattleGroundAddMech((BattleGroundAddMechRequest) r);
                 break;
             }
-            case NetProtocols.SE_BATTLEGROUND_REMOVE_RETINUE:
+            case NetProtocols.SE_BATTLEGROUND_REMOVE_MECH:
             {
-                OnBattleGroundRemoveRetinue((BattleGroundRemoveRetinueRequest) r);
+                OnBattleGroundRemoveMech((BattleGroundRemoveMechRequest) r);
                 break;
             }
             case NetProtocols.SE_PLAYER_BUFF_UPDATE_REQUEST:
@@ -157,9 +157,9 @@ public partial class RoundManager
                 break;
             }
 
-            case NetProtocols.SE_RETINUE_CARDINFO_SYNC:
+            case NetProtocols.SE_MECH_CARDINFO_SYNC:
             {
-                OnRetinueCardInfoSync((RetinueCardInfoSyncRequest) r);
+                OnMechCardInfoSync((MechCardInfoSyncRequest) r);
                 break;
             }
 
@@ -188,49 +188,49 @@ public partial class RoundManager
                 OnUseSpellCard((UseSpellCardServerRequset) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_ATTACK_RETINUE_SERVER_REQUEST:
+            case NetProtocols.SE_MECH_ATTACK_MECH_SERVER_REQUEST:
             {
-                OnRetinueAttackRetinue((RetinueAttackRetinueServerRequest) r);
+                OnMechAttackMech((MechAttackMechServerRequest) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_ATTACK_SHIP_SERVER_REQUEST:
+            case NetProtocols.SE_MECH_ATTACK_SHIP_SERVER_REQUEST:
             {
-                OnRetinueAttackShip((RetinueAttackShipServerRequest) r);
+                OnMechAttackShip((MechAttackShipServerRequest) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_DODGE:
+            case NetProtocols.SE_MECH_DODGE:
             {
-                OnRetinueDodge((RetinueDodgeRequest) r);
+                OnMechDodge((MechDodgeRequest) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_CANATTACK:
+            case NetProtocols.SE_MECH_CANATTACK:
             {
-                OnRetinueCanAttackChange((RetinueCanAttackRequest) r);
+                OnMechCanAttackChange((MechCanAttackRequest) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_IMMUNE:
+            case NetProtocols.SE_MECH_IMMUNE:
             {
-                OnRetinueImmuneChange((RetinueImmuneStateRequest) r);
+                OnMechImmuneChange((MechImmuneStateRequest) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_INACTIVITY:
+            case NetProtocols.SE_MECH_INACTIVITY:
             {
-                OnRetinueInactivityChange((RetinueInactivityStateRequest) r);
+                OnMechInactivityChange((MechInactivityStateRequest) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_ONATTACK:
+            case NetProtocols.SE_MECH_ONATTACK:
             {
-                OnRetinueOnAttack((RetinueOnAttackRequest) r);
+                OnMechOnAttack((MechOnAttackRequest) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_ONATTACKSHIP:
+            case NetProtocols.SE_MECH_ONATTACKSHIP:
             {
-                OnRetinueOnAttackShip((RetinueOnAttackShipRequest) r);
+                OnMechOnAttackShip((MechOnAttackShipRequest) r);
                 break;
             }
-            case NetProtocols.SE_RETINUE_SHIELD_DEFENSE:
+            case NetProtocols.SE_MECH_SHIELD_DEFENSE:
             {
-                OnRetinueShieldDefence((RetinueShieldDefenseRequest) r);
+                OnMechShieldDefence((MechShieldDefenseRequest) r);
                 break;
             }
             case NetProtocols.SE_SHOW_SIDEEFFECT_TRIGGERED_EFFECT:
@@ -305,110 +305,110 @@ public partial class RoundManager
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    private void OnRetinueAttributesChange(RetinueAttributesChangeRequest r)
+    private void OnMechAttributesChange(MechAttributesChangeRequest r)
     {
-        ModuleRetinue retinue = GetPlayerByClientId(r.clinetId).BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
-        retinue.isAttackChanging = r.addAttack != 0;
-        retinue.M_RetinueWeaponEnergyMax += r.addWeaponEnergyMax;
-        retinue.M_RetinueWeaponEnergy += r.addWeaponEnergy;
-        retinue.M_RetinueAttack += r.addAttack;
-        retinue.isAttackChanging = false;
-        retinue.M_RetinueArmor += r.addArmor;
-        retinue.M_RetinueShield += r.addShield;
-        retinue.isTotalLifeChanging = r.addMaxLife != 0;
-        retinue.M_RetinueTotalLife += r.addMaxLife;
-        retinue.M_RetinueLeftLife += r.addLeftLife;
-        retinue.isTotalLifeChanging = false;
+        ModuleMech mech = GetPlayerByClientId(r.clinetId).BattlePlayer.BattleGroundManager.GetMech(r.mechId);
+        mech.MechSwordShieldArmorComponent.IsAttackChanging = r.addAttack != 0;
+        mech.M_MechWeaponEnergyMax += r.addWeaponEnergyMax;
+        mech.M_MechWeaponEnergy += r.addWeaponEnergy;
+        mech.M_MechAttack += r.addAttack;
+        mech.MechSwordShieldArmorComponent.IsAttackChanging = false;
+        mech.M_MechArmor += r.addArmor;
+        mech.M_MechShield += r.addShield;
+        mech.MechLifeComponent.IsTotalLifeChanging = r.addMaxLife != 0;
+        mech.M_MechTotalLife += r.addMaxLife;
+        mech.M_MechLeftLife += r.addLeftLife;
+        mech.MechLifeComponent.IsTotalLifeChanging = false;
     }
 
-    private void OnRetinueDie(RetinueDieRequest r)
+    private void OnMechDie(MechDieRequest r)
     {
-        List<ModuleRetinue> dieRetinues = new List<ModuleRetinue>();
-        foreach (int retinueId in r.retinueIds)
+        List<ModuleMech> dieMechs = new List<ModuleMech>();
+        foreach (int mechId in r.mechIds)
         {
-            ModuleRetinue retinue = SelfClientPlayer.BattlePlayer.BattleGroundManager.GetRetinue(retinueId);
-            if (retinue != null)
+            ModuleMech mech = SelfClientPlayer.BattlePlayer.BattleGroundManager.GetMech(mechId);
+            if (mech != null)
             {
-                dieRetinues.Add(retinue);
+                dieMechs.Add(mech);
             }
             else
             {
-                retinue = EnemyClientPlayer.BattlePlayer.BattleGroundManager.GetRetinue(retinueId);
-                if (retinue != null)
+                mech = EnemyClientPlayer.BattlePlayer.BattleGroundManager.GetMech(mechId);
+                if (mech != null)
                 {
-                    dieRetinues.Add(retinue);
+                    dieMechs.Add(mech);
                 }
             }
         }
 
-        foreach (ModuleRetinue moduleRetinue in dieRetinues)
+        foreach (ModuleMech moduleMech in dieMechs)
         {
-            moduleRetinue.OnDie();
+            moduleMech.OnDie();
         }
 
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueDieShock(dieRetinues), "Co_RetinueDieShock");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_MechDieShock(dieMechs), "Co_MechDieShock");
     }
 
-    IEnumerator Co_RetinueDieShock(List<ModuleRetinue> dieRetinues) //机甲一起死亡效果
+    IEnumerator Co_MechDieShock(List<ModuleMech> dieMechs) //机甲一起死亡效果
     {
         int shockTimes = 3;
         AudioManager.Instance.SoundPlay("sfx/OnDie");
         for (int i = 0; i < shockTimes; i++)
         {
-            foreach (ModuleRetinue moduleRetinue in dieRetinues)
+            foreach (ModuleMech moduleMech in dieMechs)
             {
-                moduleRetinue.transform.Rotate(Vector3.up, 3, Space.Self);
+                moduleMech.transform.Rotate(Vector3.up, 3, Space.Self);
             }
 
             yield return new WaitForSeconds(0.04f);
-            foreach (ModuleRetinue moduleRetinue in dieRetinues)
+            foreach (ModuleMech moduleMech in dieMechs)
             {
-                moduleRetinue.transform.Rotate(Vector3.up, -6, Space.Self);
+                moduleMech.transform.Rotate(Vector3.up, -6, Space.Self);
             }
 
             yield return new WaitForSeconds(0.04f);
-            foreach (ModuleRetinue moduleRetinue in dieRetinues)
+            foreach (ModuleMech moduleMech in dieMechs)
             {
-                moduleRetinue.transform.Rotate(Vector3.up, 3, Space.Self);
+                moduleMech.transform.Rotate(Vector3.up, 3, Space.Self);
             }
         }
 
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
-    private void OnBattleGroundAddRetinue_PrePass(BattleGroundAddRetinueRequest r)
+    private void OnBattleGroundAddMech_PrePass(BattleGroundAddMechRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.BattlePlayer.BattleGroundManager.AddRetinue_PrePass(r.cardInfo, r.retinueId, r.clientRetinueTempId);
+        cp.BattlePlayer.BattleGroundManager.AddMech_PrePass(r.cardInfo, r.mechId, r.clientMechTempId);
     }
 
-    private void OnBattleGroundAddRetinue(BattleGroundAddRetinueRequest r)
+    private void OnBattleGroundAddMech(BattleGroundAddMechRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        if (cp == SelfClientPlayer && r.clientRetinueTempId >= 0) return;
-        cp.BattlePlayer.BattleGroundManager.AddRetinue(r.battleGroundIndex);
+        if (cp == SelfClientPlayer && r.clientMechTempId >= 0) return;
+        cp.BattlePlayer.BattleGroundManager.AddMech(r.battleGroundIndex);
     }
 
-    private void OnBattleGroundRemoveRetinue_PrePass(BattleGroundRemoveRetinueRequest r)
+    private void OnBattleGroundRemoveMech_PrePass(BattleGroundRemoveMechRequest r)
     {
-        foreach (int retinueId in r.retinueIds)
+        foreach (int mechId in r.mechIds)
         {
-            if (SelfClientPlayer.BattlePlayer.BattleGroundManager.GetRetinue(retinueId) != null)
+            if (SelfClientPlayer.BattlePlayer.BattleGroundManager.GetMech(mechId) != null)
             {
-                SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogetherAdd(retinueId);
+                SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechTogetherAdd(mechId);
             }
-            else if (EnemyClientPlayer.BattlePlayer.BattleGroundManager.GetRetinue(retinueId) != null)
+            else if (EnemyClientPlayer.BattlePlayer.BattleGroundManager.GetMech(mechId) != null)
             {
-                EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogetherAdd(retinueId);
+                EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechTogetherAdd(mechId);
             }
         }
     }
 
-    private void OnBattleGroundRemoveRetinue(BattleGroundRemoveRetinueRequest r)
+    private void OnBattleGroundRemoveMech(BattleGroundRemoveMechRequest r)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_RetinueRemoveFromBattleGround_Logic(r.retinueIds), "Co_RetinueRemoveFromBattleGround_Logic");
-        SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogatherEnd();
-        EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogatherEnd();
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_MechRemoveFromBattleGround_Logic(r.mechIds), "Co_MechRemoveFromBattleGround_Logic");
+        SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechTogatherEnd();
+        EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechTogatherEnd();
     }
 
     private void OnUpdatePlayerBuff(PlayerBuffUpdateRequest r)
@@ -435,10 +435,10 @@ public partial class RoundManager
         cp.BattlePlayer.PlayerCoolDownCardManager.RemoveCoolDownCard(r.coolingDownCard.CardInstanceID);
     }
 
-    IEnumerator Co_RetinueRemoveFromBattleGround_Logic(List<int> retinueIds) //机甲一起移除战场(逻辑层)
+    IEnumerator Co_MechRemoveFromBattleGround_Logic(List<int> mechIds) //机甲一起移除战场(逻辑层)
     {
-        SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogether(retinueIds);
-        EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveRetinueTogether(retinueIds);
+        SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechTogether(mechIds);
+        EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechTogether(mechIds);
 
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -475,35 +475,35 @@ public partial class RoundManager
         cp.BattlePlayer.HandManager.UseCard(r.handCardInstanceId, r.cardInfo);
     }
 
-    private void OnRetinueCardInfoSync(RetinueCardInfoSyncRequest r)
+    private void OnMechCardInfoSync(MechCardInfoSyncRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.instanceId);
-        retinue.CardInfo = r.cardInfo.Clone();
+        ModuleMech mech = cp.BattlePlayer.BattleGroundManager.GetMech(r.instanceId);
+        mech.CardInfo = r.cardInfo.Clone();
     }
 
     private void OnEquipWeapon(EquipWeaponServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.BattlePlayer.BattleGroundManager.EquipWeapon(r.cardInfo, r.retinueId, r.equipID);
+        cp.BattlePlayer.BattleGroundManager.EquipWeapon(r.cardInfo, r.mechId, r.equipID);
     }
 
     private void OnEquipShield(EquipShieldServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.BattlePlayer.BattleGroundManager.EquipShield(r.cardInfo, r.retinueId, r.equipID);
+        cp.BattlePlayer.BattleGroundManager.EquipShield(r.cardInfo, r.mechId, r.equipID);
     }
 
     private void OnEquipPack(EquipPackServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.BattlePlayer.BattleGroundManager.EquipPack(r.cardInfo, r.retinueId, r.equipID);
+        cp.BattlePlayer.BattleGroundManager.EquipPack(r.cardInfo, r.mechId, r.equipID);
     }
 
     private void OnEquipMA(EquipMAServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.BattlePlayer.BattleGroundManager.EquipMA(r.cardInfo, r.retinueId, r.equipID);
+        cp.BattlePlayer.BattleGroundManager.EquipMA(r.cardInfo, r.mechId, r.equipID);
     }
 
     private void OnUseSpellCard(UseSpellCardServerRequset r)
@@ -512,72 +512,72 @@ public partial class RoundManager
         //Todo
     }
 
-    public void OnRetinueAttackRetinue(RetinueAttackRetinueServerRequest r)
+    public void OnMechAttackMech(MechAttackMechServerRequest r)
     {
-        ClientPlayer cp_attack = GetPlayerByClientId(r.AttackRetinueClientId);
-        ClientPlayer cp_beAttack = GetPlayerByClientId(r.BeAttackedRetinueClientId);
-        ModuleRetinue attackRetinue = cp_attack.BattlePlayer.BattleGroundManager.GetRetinue(r.AttackRetinueId);
-        ModuleRetinue beAttackRetinue = cp_beAttack.BattlePlayer.BattleGroundManager.GetRetinue(r.BeAttackedRetinueId);
-        attackRetinue.Attack(beAttackRetinue, false);
+        ClientPlayer cp_attack = GetPlayerByClientId(r.AttackMechClientId);
+        ClientPlayer cp_beAttack = GetPlayerByClientId(r.BeAttackedMechClientId);
+        ModuleMech attackMech = cp_attack.BattlePlayer.BattleGroundManager.GetMech(r.AttackMechId);
+        ModuleMech beAttackMech = cp_beAttack.BattlePlayer.BattleGroundManager.GetMech(r.BeAttackedMechId);
+        attackMech.Attack(beAttackMech, false);
     }
 
-    private void OnRetinueAttackShip(RetinueAttackShipServerRequest r)
+    private void OnMechAttackShip(MechAttackShipServerRequest r)
     {
-        ClientPlayer cp_attack = GetPlayerByClientId(r.AttackRetinueClientId);
+        ClientPlayer cp_attack = GetPlayerByClientId(r.AttackMechClientId);
         ClientPlayer cp_beAttack = cp_attack.WhichPlayer == Players.Self ? EnemyClientPlayer : SelfClientPlayer;
-        ModuleRetinue attackRetinue = cp_attack.BattlePlayer.BattleGroundManager.GetRetinue(r.AttackRetinueId);
-        attackRetinue.AttackShip(cp_beAttack);
+        ModuleMech attackMech = cp_attack.BattlePlayer.BattleGroundManager.GetMech(r.AttackMechId);
+        attackMech.AttackShip(cp_beAttack);
     }
 
-    private void OnRetinueDodge(RetinueDodgeRequest r)
+    private void OnMechDodge(MechDodgeRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
-        retinue.OnDodge();
+        ModuleMech mech = cp.BattlePlayer.BattleGroundManager.GetMech(r.mechId);
+        mech.MechSwordShieldArmorComponent.OnDodge();
     }
 
-    private void OnRetinueCanAttackChange(RetinueCanAttackRequest r)
+    private void OnMechCanAttackChange(MechCanAttackRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
-        retinue.SetCanAttack(r.canAttack);
+        ModuleMech mech = cp.BattlePlayer.BattleGroundManager.GetMech(r.mechId);
+        mech.SetCanAttack(r.canAttack);
     }
 
-    private void OnRetinueImmuneChange(RetinueImmuneStateRequest r)
+    private void OnMechImmuneChange(MechImmuneStateRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
-        retinue.M_ImmuneLeftRounds = r.immuneRounds;
+        ModuleMech mech = cp.BattlePlayer.BattleGroundManager.GetMech(r.mechId);
+        mech.M_ImmuneLeftRounds = r.immuneRounds;
     }
 
-    private void OnRetinueInactivityChange(RetinueInactivityStateRequest r)
+    private void OnMechInactivityChange(MechInactivityStateRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
-        retinue.M_InactivityRounds = r.inactivityRounds;
+        ModuleMech mech = cp.BattlePlayer.BattleGroundManager.GetMech(r.mechId);
+        mech.M_InactivityRounds = r.inactivityRounds;
     }
 
-    private void OnRetinueOnAttack(RetinueOnAttackRequest r)
+    private void OnMechOnAttack(MechOnAttackRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = FindRetinue(r.retinueId);
-        ModuleRetinue targetRetinue = FindRetinue(r.targetRetinueId);
-        retinue.OnAttack(r.weaponType, targetRetinue);
+        ModuleMech mech = FindMech(r.mechId);
+        ModuleMech targetMech = FindMech(r.targetMechId);
+        mech.OnAttack(r.weaponType, targetMech);
     }
 
-    private void OnRetinueOnAttackShip(RetinueOnAttackShipRequest r)
+    private void OnMechOnAttackShip(MechOnAttackShipRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         ClientPlayer cp_target = GetPlayerByClientId(r.targetClientId);
-        ModuleRetinue retinue = FindRetinue(r.retinueId);
-        retinue.OnAttackShip(r.weaponType, cp_target.BattlePlayer.Ship);
+        ModuleMech mech = FindMech(r.mechId);
+        mech.OnAttackShip(r.weaponType, cp_target.BattlePlayer.Ship);
     }
 
-    private void OnRetinueShieldDefence(RetinueShieldDefenseRequest r)
+    private void OnMechShieldDefence(MechShieldDefenseRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleRetinue retinue = cp.BattlePlayer.BattleGroundManager.GetRetinue(r.retinueId);
-        retinue.ShieldDefenceDamage(r.decreaseValue, r.shieldValue);
+        ModuleMech mech = cp.BattlePlayer.BattleGroundManager.GetMech(r.mechId);
+        mech.MechSwordShieldArmorComponent.ShieldDefenceDamage(r.decreaseValue, r.shieldValue);
     }
 
     private void OnShowSideEffect(ShowSideEffectTriggeredRequest r)
@@ -589,15 +589,15 @@ public partial class RoundManager
             return;
         }
 
-        if (r.ExecutorInfo.RetinueId != -99999) //随从触发
+        if (r.ExecutorInfo.MechId != -99999) //随从触发
         {
             if (r.ExecutorInfo.EquipId == -99999)
             {
-                cp.BattlePlayer.BattleGroundManager.GetRetinue(r.ExecutorInfo.RetinueId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+                cp.BattlePlayer.BattleGroundManager.GetMech(r.ExecutorInfo.MechId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             }
             else
             {
-                cp.BattlePlayer.BattleGroundManager.GetEquip(r.ExecutorInfo.RetinueId, r.ExecutorInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+                cp.BattlePlayer.BattleGroundManager.GetEquip(r.ExecutorInfo.MechId, r.ExecutorInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             }
         }
         else if (r.ExecutorInfo.CardInstanceId != -99999) //手牌触发

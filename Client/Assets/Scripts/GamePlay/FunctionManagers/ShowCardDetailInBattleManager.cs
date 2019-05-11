@@ -11,39 +11,39 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
     
     private float DETAIL_SINGLE_CARD_SIZE = 3.0f;
     private float DETAIL_EQUIPMENT_CARD_SIZE = 2.5f;
-    private float DETAIL_RETINUE_CARD_SIZE = 4.0f;
+    private float DETAIL_MECH_CARD_SIZE = 4.0f;
 
     public void ShowCardDetail(ModuleBase moduleBase) //鼠标悬停放大查看原卡牌信息
     {
         CardInfo_Base CardInfo = moduleBase.CardInfo;
         switch (CardInfo.BaseInfo.CardType)
         {
-            case CardTypes.Retinue:
-                detailCard = (CardRetinue) CardBase.InstantiateCardByCardInfo(CardInfo, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
-                detailCard.transform.localScale = Vector3.one * DETAIL_RETINUE_CARD_SIZE;
+            case CardTypes.Mech:
+                detailCard = (CardMech) CardBase.InstantiateCardByCardInfo(CardInfo, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
+                detailCard.transform.localScale = Vector3.one * DETAIL_MECH_CARD_SIZE;
                 detailCard.transform.position = new Vector3(0, 8f, 0);
                 detailCard.transform.Translate(Vector3.left * 5f);
                 detailCard.GetComponent<BoxCollider>().enabled = false;
                 detailCard.GetComponent<DragComponent>().enabled = false;
                 detailCard.BeBrightColor();
-                detailCard.SetOrderInLayer(200);
+                detailCard.CardOrder = 100;
 
-                CardRetinue cardRetinue = (CardRetinue) detailCard;
-                //cardRetinue.ShowAllSlotHover();
+                CardMech cardMech = (CardMech) detailCard;
+                //cardMech.ShowAllSlotHover();
 
-                if (((ModuleRetinue) moduleBase).M_Weapon)
+                if (((ModuleMech) moduleBase).M_Weapon)
                 {
-                    if (!cardRetinue.Weapon)
+                    if (!cardMech.Weapon)
                     {
-                        cardRetinue.Weapon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.WeaponDetail].AllocateGameObject<ModuleWeapon>(cardRetinue.transform);
+                        cardMech.Weapon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleWeaponDetail].AllocateGameObject<ModuleWeapon>(cardMech.transform);
                     }
 
-                    CardInfo_Base cw = ((ModuleRetinue) moduleBase).M_Weapon.CardInfo;
-                    cardRetinue.Weapon.M_ModuleRetinue = (ModuleRetinue) moduleBase;
-                    cardRetinue.Weapon.Initiate(((ModuleRetinue) moduleBase).M_Weapon.GetCurrentCardInfo(), moduleBase.ClientPlayer);
-                    cardRetinue.Weapon.GetComponent<DragComponent>().enabled = false;
-                    cardRetinue.Weapon.GetComponent<MouseHoverComponent>().enabled = false;
-                    cardRetinue.Weapon.SetPreview();
+                    CardInfo_Base cw = ((ModuleMech) moduleBase).M_Weapon.CardInfo;
+                    cardMech.Weapon.M_ModuleMech = (ModuleMech) moduleBase;
+                    cardMech.Weapon.Initiate(((ModuleMech) moduleBase).M_Weapon.GetCurrentCardInfo(), moduleBase.ClientPlayer);
+                    cardMech.Weapon.GetComponent<DragComponent>().enabled = false;
+                    cardMech.Weapon.GetComponent<MouseHoverComponent>().enabled = false;
+                    cardMech.Weapon.SetPreview();
 
                     detailCard_Weapon = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_Weapon.transform.localScale = Vector3.one * DETAIL_EQUIPMENT_CARD_SIZE;
@@ -54,22 +54,22 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     detailCard_Weapon.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Weapon.BeBrightColor();
                     detailCard_Weapon.ShowCardBloom(true);
-                    detailCard_Weapon.SetOrderInLayer(200);
+                    detailCard_Weapon.CardOrder = 100;
                 }
 
-                if (((ModuleRetinue) moduleBase).M_Shield)
+                if (((ModuleMech) moduleBase).M_Shield)
                 {
-                    if (!cardRetinue.Shield)
+                    if (!cardMech.Shield)
                     {
-                        cardRetinue.Shield = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ShieldDetail].AllocateGameObject<ModuleShield>(cardRetinue.transform);
+                        cardMech.Shield = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleShieldDetail].AllocateGameObject<ModuleShield>(cardMech.transform);
                     }
 
-                    CardInfo_Base cw = ((ModuleRetinue) moduleBase).M_Shield.CardInfo;
-                    cardRetinue.Shield.M_ModuleRetinue = (ModuleRetinue) moduleBase;
-                    cardRetinue.Shield.Initiate(((ModuleRetinue) moduleBase).M_Shield.GetCurrentCardInfo(), moduleBase.ClientPlayer);
-                    cardRetinue.Shield.GetComponent<DragComponent>().enabled = false;
-                    cardRetinue.Shield.GetComponent<MouseHoverComponent>().enabled = false;
-                    cardRetinue.Shield.SetPreview();
+                    CardInfo_Base cw = ((ModuleMech) moduleBase).M_Shield.CardInfo;
+                    cardMech.Shield.M_ModuleMech = (ModuleMech) moduleBase;
+                    cardMech.Shield.Initiate(((ModuleMech) moduleBase).M_Shield.GetCurrentCardInfo(), moduleBase.ClientPlayer);
+                    cardMech.Shield.GetComponent<DragComponent>().enabled = false;
+                    cardMech.Shield.GetComponent<MouseHoverComponent>().enabled = false;
+                    cardMech.Shield.SetPreview();
 
                     detailCard_Shield = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_Shield.transform.localScale = Vector3.one * DETAIL_EQUIPMENT_CARD_SIZE;
@@ -80,22 +80,22 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     detailCard_Shield.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Shield.BeBrightColor();
                     detailCard_Shield.ShowCardBloom(true);
-                    detailCard_Shield.SetOrderInLayer(200);
+                    detailCard_Shield.CardOrder = 100;
                 }
 
-                if (((ModuleRetinue) moduleBase).M_Pack)
+                if (((ModuleMech) moduleBase).M_Pack)
                 {
-                    if (!cardRetinue.Pack)
+                    if (!cardMech.Pack)
                     {
-                        cardRetinue.Pack = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.PackDetail].AllocateGameObject<ModulePack>(cardRetinue.transform);
+                        cardMech.Pack = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModulePackDetail].AllocateGameObject<ModulePack>(cardMech.transform);
                     }
 
-                    CardInfo_Base cw = ((ModuleRetinue) moduleBase).M_Pack.CardInfo;
-                    cardRetinue.Pack.M_ModuleRetinue = (ModuleRetinue) moduleBase;
-                    cardRetinue.Pack.Initiate(((ModuleRetinue) moduleBase).M_Pack.GetCurrentCardInfo(), moduleBase.ClientPlayer);
-                    cardRetinue.Pack.GetComponent<DragComponent>().enabled = false;
-                    cardRetinue.Pack.GetComponent<MouseHoverComponent>().enabled = false;
-                    cardRetinue.Pack.SetPreview();
+                    CardInfo_Base cw = ((ModuleMech) moduleBase).M_Pack.CardInfo;
+                    cardMech.Pack.M_ModuleMech = (ModuleMech) moduleBase;
+                    cardMech.Pack.Initiate(((ModuleMech) moduleBase).M_Pack.GetCurrentCardInfo(), moduleBase.ClientPlayer);
+                    cardMech.Pack.GetComponent<DragComponent>().enabled = false;
+                    cardMech.Pack.GetComponent<MouseHoverComponent>().enabled = false;
+                    cardMech.Pack.SetPreview();
 
                     detailCard_Pack = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_Pack.transform.localScale = Vector3.one * DETAIL_EQUIPMENT_CARD_SIZE;
@@ -106,22 +106,22 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     detailCard_Pack.GetComponent<BoxCollider>().enabled = false;
                     detailCard_Pack.BeBrightColor();
                     detailCard_Pack.ShowCardBloom(true);
-                    detailCard_Pack.SetOrderInLayer(200);
+                    detailCard_Pack.CardOrder = 100;
                 }
 
-                if (((ModuleRetinue) moduleBase).M_MA)
+                if (((ModuleMech) moduleBase).M_MA)
                 {
-                    if (!cardRetinue.MA)
+                    if (!cardMech.MA)
                     {
-                        cardRetinue.MA = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.MADetail].AllocateGameObject<ModuleMA>(cardRetinue.transform);
+                        cardMech.MA = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleMADetail].AllocateGameObject<ModuleMA>(cardMech.transform);
                     }
 
-                    CardInfo_Base cw = ((ModuleRetinue) moduleBase).M_MA.CardInfo;
-                    cardRetinue.MA.M_ModuleRetinue = (ModuleRetinue) moduleBase;
-                    cardRetinue.MA.Initiate(((ModuleRetinue) moduleBase).M_MA.GetCurrentCardInfo(), moduleBase.ClientPlayer);
-                    cardRetinue.MA.GetComponent<DragComponent>().enabled = false;
-                    cardRetinue.MA.GetComponent<MouseHoverComponent>().enabled = false;
-                    cardRetinue.MA.SetPreview();
+                    CardInfo_Base cw = ((ModuleMech) moduleBase).M_MA.CardInfo;
+                    cardMech.MA.M_ModuleMech = (ModuleMech) moduleBase;
+                    cardMech.MA.Initiate(((ModuleMech) moduleBase).M_MA.GetCurrentCardInfo(), moduleBase.ClientPlayer);
+                    cardMech.MA.GetComponent<DragComponent>().enabled = false;
+                    cardMech.MA.GetComponent<MouseHoverComponent>().enabled = false;
+                    cardMech.MA.SetPreview();
 
                     detailCard_MA = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_MA.transform.localScale = Vector3.one * DETAIL_EQUIPMENT_CARD_SIZE;
@@ -132,7 +132,7 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     detailCard_MA.GetComponent<BoxCollider>().enabled = false;
                     detailCard_MA.BeBrightColor();
                     detailCard_MA.ShowCardBloom(true);
-                    detailCard_MA.SetOrderInLayer(200);
+                    detailCard_MA.CardOrder = 100;
                 }
 
                 break;
@@ -144,7 +144,7 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                 detailCard.transform.Translate(Vector3.up * 5f);
                 detailCard.GetComponent<BoxCollider>().enabled = false;
                 detailCard.BeBrightColor();
-                detailCard.SetOrderInLayer(200);
+                detailCard.CardOrder = 100;
                 break;
             default:
                 break;
@@ -157,7 +157,7 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
         if (detailCard_Shield != null) cardInfos.Add(detailCard_Shield.CardInfo);
         if (detailCard_Pack != null) cardInfos.Add(detailCard_Pack.CardInfo);
         if (detailCard_MA != null) cardInfos.Add(detailCard_MA.CardInfo);
-        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(cardInfos, moduleBase is ModuleRetinue ? new List<ModuleRetinue> {(ModuleRetinue) moduleBase} : null);
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(cardInfos, moduleBase is ModuleMech ? new List<ModuleMech> {(ModuleMech) moduleBase} : null);
     }
 
     public enum ShowPlaces
@@ -199,7 +199,7 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
         detailCard.transform.position = targetPos;
         detailCard.GetComponent<BoxCollider>().enabled = false;
         detailCard.BeBrightColor();
-        detailCard.SetOrderInLayer(200);
+        detailCard.CardOrder = 100;
         detailCard.ShowCardBloom(true);
         List<CardInfo_Base> cardInfos = new List<CardInfo_Base>();
         if (detailCard != null) cardInfos.Add(detailCard.CardInfo);

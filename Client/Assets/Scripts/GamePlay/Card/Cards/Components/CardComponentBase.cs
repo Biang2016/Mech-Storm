@@ -3,7 +3,7 @@
 [ExecuteInEditMode]
 public abstract class CardComponentBase : MonoBehaviour
 {
-    private int cardOrder;
+    private int cardOrder = -1;
 
     public int CardOrder
     {
@@ -37,7 +37,7 @@ public enum CardComponentTypes
     Back,
     Desc,
     CostBlock,
-    LifeBlock,
+    Life,
     CoinBlock,
     Slots,
     SelectCount,

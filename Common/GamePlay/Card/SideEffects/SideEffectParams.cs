@@ -146,6 +146,20 @@ public class SideEffectParam : IClone<SideEffectParam>
         return ParamsDict[SideEffectValue.ValueTypes.MultipliedInt].Count == 1;
     }
 
+    private int CountSideEffectValue()
+    {
+        int count = 0;
+        foreach (KeyValuePair<SideEffectValue.ValueTypes, Dictionary<string, SideEffectValue>> kv in ParamsDict)
+        {
+            foreach (KeyValuePair<string, SideEffectValue> kvv in kv.Value)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
     public void Plus(SideEffectParam target) //如果是buff则令factor = 1
     {
         Factor = 1;
@@ -209,7 +223,7 @@ public class SideEffectParam : IClone<SideEffectParam>
     public void Serialize(DataStream writer)
     {
         writer.WriteSInt32(Factor);
-        writer.WriteSInt32(ParamsDict.Count);
+        writer.WriteSInt32(CountSideEffectValue());
         foreach (KeyValuePair<SideEffectValue.ValueTypes, Dictionary<string, SideEffectValue>> kv in ParamsDict)
         {
             foreach (KeyValuePair<string, SideEffectValue> kvv in kv.Value)

@@ -1,6 +1,6 @@
 ﻿internal class ServerModuleMA : ServerModuleBase
 {
-    internal ServerModuleRetinue M_ModuleRetinue;
+    internal ServerModuleMech M_ModuleMech;
 
     protected override void Initiate()
     {
@@ -16,7 +16,7 @@
                 se.M_ExecutorInfo = new ExecutorInfo(
                     clientId: ServerPlayer.ClientId,
                     sideEffectExecutorID: see.ID,
-                    retinueId: M_ModuleRetinue.M_RetinueID,
+                    mechId: M_ModuleMech.M_MechID,
                     equipId: M_EquipID
                 );
             }
