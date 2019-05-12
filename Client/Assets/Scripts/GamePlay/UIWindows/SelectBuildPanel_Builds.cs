@@ -234,7 +234,7 @@ public partial class SelectBuildPanel
             {
                 CurrentEditBuildButton = null;
                 CurrentSelectedBuildButton = null;
-                UnSelectAllCard();
+                UnSelectAllCard(SelectCardMethods.DeleteBuild);
                 ShowSliders(false);
                 AudioManager.Instance.SoundPlay("sfx/SwitchBuild");
                 return;

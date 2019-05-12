@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CSharp;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public abstract class StoryPace : IClone<StoryPace>, IVariant<StoryPace>
 {
@@ -13,7 +15,7 @@ public abstract class StoryPace : IClone<StoryPace>, IVariant<StoryPace>
 
     public virtual void Serialize(DataStream writer)
     {
-        writer.WriteSInt32((int)StoryPaceType);
+        writer.WriteSInt32((int) StoryPaceType);
         writer.WriteSInt32(StoryPaceID);
         writer.WriteString8(Name);
     }
@@ -42,9 +44,9 @@ public abstract class StoryPace : IClone<StoryPace>, IVariant<StoryPace>
 
         return null;
     }
-
-
 }
+
+[JsonConverter(typeof(StringEnumConverter))]
 public enum StoryPaceType
 {
     Enemy,

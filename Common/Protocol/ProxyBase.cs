@@ -1,4 +1,6 @@
 ﻿using System.Net.Sockets;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public abstract class ProxyBase
 {
@@ -27,6 +29,7 @@ public abstract class ProxyBase
 
     protected abstract void Response();
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ClientStates
     {
         Offline,

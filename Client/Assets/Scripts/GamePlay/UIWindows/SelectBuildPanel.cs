@@ -41,6 +41,17 @@ public partial class SelectBuildPanel : BaseUIForm
         if (isShow) Update_Cards();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            if (isShow)
+            {
+                CloseUIForm();
+            }
+        }
+    }
+
     private States state;
 
     public enum States
@@ -71,6 +82,14 @@ public partial class SelectBuildPanel : BaseUIForm
         }
 
         UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
+        if (Client.Instance.IsPlaying())
+        {
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow_ReadOnly);
+        }
+        else
+        {
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
+        }
         SelectWindowShowAnim.SetTrigger("Show");
         isShow = true;
     }

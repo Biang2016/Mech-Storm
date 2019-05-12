@@ -1,10 +1,13 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public abstract class SideEffectValue : IClone<SideEffectValue>
 {
     public string Name;
     public ValueTypes ValueType;
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ValueTypes
     {
         ConstInt, //常量int值,不会随倍率变化而变化,包括枚举

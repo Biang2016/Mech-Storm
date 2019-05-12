@@ -286,7 +286,7 @@ public partial class RoundManager
         IdleClientPlayer = r.clientId == Client.Instance.Proxy.ClientId ? EnemyClientPlayer : SelfClientPlayer;
         if (CurrentClientPlayer == SelfClientPlayer)
         {
-            UIManager.Instance.GetBaseUIForm<BattleUIPanel>().SetEndRoundButtonState(true);
+            BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(true);
             ClientLog.Instance.PrintClientStates("MyRound");
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_YourTurn"), 0, 0.8f);
             AudioManager.Instance.SoundPlay("sfx/StoryOpen", 0.5f);
@@ -294,7 +294,7 @@ public partial class RoundManager
         }
         else
         {
-            UIManager.Instance.GetBaseUIForm<BattleUIPanel>().SetEndRoundButtonState(true);
+            BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(true);
             ClientLog.Instance.PrintClientStates("EnemyRound");
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_EnemyTurn"), 0, 0.8f);
             yield return new WaitForSeconds(0.5f);

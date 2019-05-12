@@ -50,6 +50,7 @@ public class SideEffectExecute : IClone<SideEffectExecute>
     /// <summary>
     /// 对于不同的Type，有一些trigger参数的预设值，防止设置错误
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ExecuteSettingTypes
     {
         PlayOutEffect,

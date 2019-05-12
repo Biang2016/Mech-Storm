@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -86,91 +87,6 @@ public partial class SelectBuildPanel
         {
             heroCardCount = value;
             HeroSelectCountNumberText.text = heroCardCount.ToString();
-        }
-    }
-
-    private void SelectCard(CardBase card, bool isSelectAll)
-    {
-        if (IsReadOnly)
-        {
-            if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_Notice_LoginMenu_ClientNeedUpdate"), 0, 0.1f);
-            else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_CannotEditWhenPlaying"), 0, 0.1f);
-            return;
-        }
-
-        if (CurrentEditBuildButton == null)
-        {
-            OnCreateNewBuildButtonClick();
-            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_DeckCreatedPleaseSelectCards"), 0f, 1f);
-            return;
-        }
-
-        if (!isSwitchingBuildInfo && CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin < card.CardInfo.BaseInfo.Coin)
-        {
-            if (!isSelectAll)
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_BudgetLimited"), 0f, 1f);
-            }
-
-            return;
-        }
-
-        bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Mech && !card.CardInfo.MechInfo.IsSoldier;
-
-        Dictionary<int, SelectCard> selectCards = isHero ? SelectedHeroes : SelectedCards;
-        if (isHero && isSelectedHeroFull)
-        {
-            if (!isSelectAll)
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_HeroesNumberUpperLimit"), 0, 1f);
-            }
-
-            return;
-        }
-
-        if (selectCards.ContainsKey(card.CardInfo.CardID))
-        {
-            SelectCard sc = selectCards[card.CardInfo.CardID];
-            if (!Client.Instance.Proxy.IsSuperAccount && sc.Count >= card.CardInfo.BaseInfo.LimitNum)
-            {
-                if (!isSelectAll)
-                {
-                    NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards"), card.CardInfo.BaseInfo.LimitNum), 0, 0.7f);
-                }
-
-                return;
-            }
-
-            int count = ++sc.Count;
-            card.SetBlockCountValue(count);
-        }
-        else
-        {
-            SelectCard newSC = GenerateNewSelectCard(card);
-            selectCards.Add(card.CardInfo.CardID, newSC);
-            if (!isSelectAll) SortSelectCards();
-            card.SetBlockCountValue(1);
-            card.BeBrightColor();
-            card.ShowCardBloom(true);
-        }
-
-        if (isHero)
-        {
-            HeroCardCount++;
-        }
-        else
-        {
-            SelectCardCount++;
-        }
-
-        if (!isSwitchingBuildInfo)
-        {
-            CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
-            if (!isSelectAll)
-            {
-                RefreshCoinLifeEnergy();
-                AudioManager.Instance.SoundPlay("sfx/SelectCard");
-            }
         }
     }
 
@@ -262,7 +178,7 @@ public partial class SelectBuildPanel
             leaveHandler: SelectCardOnMouseLeave,
             color: new Color(cardColor.r, cardColor.g, cardColor.b, 1f)
         );
-        newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card, true); });
+        newSC.CardButton.onClick.AddListener(delegate { UnSelectCard(card, SelectCardMethods.CardClick); });
 
         return newSC;
     }
@@ -318,7 +234,113 @@ public partial class SelectBuildPanel
         UIManager.Instance.CloseUIForm<AffixPanel>();
     }
 
-    private void UnSelectCard(CardBase card, bool playSound)
+    [Flags]
+    public enum SelectCardMethods
+    {
+        CardClick = 1, //单卡单机选择
+        UpgradeDegrade = 2, //升级降级导致的卡片数量变化
+        ButtonClick = 4, //全选、清楚选择按钮
+        SwitchBuildButton = 8, //切换卡组引起的选择
+        DeleteBuild = 16, //切换卡组引起的选择
+        SingleSelect = CardClick | UpgradeDegrade,
+        MuiltiSelect = ButtonClick | SwitchBuildButton,
+    }
+
+    private bool SelectCard(CardBase card, SelectCardMethods selectCardMethod, int leftCoin_SelectAll = 0)
+    {
+        if (IsReadOnly)
+        {
+            if (Client.Instance.IsPlaying()) NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_Notice_LoginMenu_ClientNeedUpdate"), 0, 0.1f);
+            else if (Client.Instance.IsMatching()) NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_CannotEditWhenPlaying"), 0, 0.1f);
+            return false;
+        }
+
+        if (CurrentEditBuildButton == null)
+        {
+            OnCreateNewBuildButtonClick();
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_DeckCreatedPleaseSelectCards"), 0f, 1f);
+            return false;
+        }
+
+        if (selectCardMethod != SelectCardMethods.SwitchBuildButton)
+        {
+            int leftCoin = (selectCardMethod == SelectCardMethods.ButtonClick) ? leftCoin_SelectAll : (CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin);
+            if (leftCoin < card.CardInfo.BaseInfo.Coin)
+            {
+                if ((selectCardMethod & SelectCardMethods.SingleSelect) == selectCardMethod)
+                {
+                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_BudgetLimited"), 0f, 1f);
+                }
+
+                return false;
+            }
+        }
+
+        bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Mech && !card.CardInfo.MechInfo.IsSoldier;
+        Dictionary<int, SelectCard> selectCards = isHero ? SelectedHeroes : SelectedCards;
+        if (isHero && isSelectedHeroFull)
+        {
+            if ((selectCardMethod & SelectCardMethods.SingleSelect) == selectCardMethod)
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_HeroesNumberUpperLimit"), 0, 1f);
+            }
+
+            return false;
+        }
+
+        if (selectCards.ContainsKey(card.CardInfo.CardID))
+        {
+            SelectCard sc = selectCards[card.CardInfo.CardID];
+            if (!Client.Instance.Proxy.IsSuperAccount && sc.Count >= card.CardInfo.BaseInfo.LimitNum)
+            {
+                if ((selectCardMethod & SelectCardMethods.SingleSelect) == selectCardMethod)
+                {
+                    NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards"), card.CardInfo.BaseInfo.LimitNum), 0, 0.7f);
+                }
+
+                return false;
+            }
+
+            int count = ++sc.Count;
+            card.SetBlockCountValue(count);
+        }
+        else
+        {
+            SelectCard newSC = GenerateNewSelectCard(card);
+            selectCards.Add(card.CardInfo.CardID, newSC);
+            if ((selectCardMethod & SelectCardMethods.SingleSelect) == selectCardMethod) SortSelectCards();
+            card.SetBlockCountValue(1);
+            card.BeBrightColor();
+            card.ShowCardBloom(true);
+        }
+
+        if (isHero)
+        {
+            HeroCardCount++;
+        }
+        else
+        {
+            SelectCardCount++;
+        }
+
+        if (selectCardMethod != SelectCardMethods.SwitchBuildButton)
+        {
+            CurrentEditBuildButton.AddCard(card.CardInfo.CardID);
+            if (selectCardMethod == SelectCardMethods.CardClick)
+            {
+                AudioManager.Instance.SoundPlay("sfx/SelectCard");
+            }
+
+            if ((selectCardMethod & SelectCardMethods.SingleSelect) == selectCardMethod)
+            {
+                RefreshCoinLifeEnergy();
+            }
+        }
+
+        return true;
+    }
+
+    private void UnSelectCard(CardBase card, SelectCardMethods selectCardMethod)
     {
         if (IsReadOnly)
         {
@@ -340,42 +362,33 @@ public partial class SelectBuildPanel
             return;
         }
 
-        bool isMech = card.CardInfo.BaseInfo.CardType == CardTypes.Mech && !card.CardInfo.MechInfo.IsSoldier;
+        bool isHero = card.CardInfo.BaseInfo.CardType == CardTypes.Mech && !card.CardInfo.MechInfo.IsSoldier;
+        Dictionary<int, SelectCard> selectCards = isHero ? SelectedHeroes : SelectedCards;
 
-        if (isMech)
+        int count = --selectCards[card.CardInfo.CardID].Count;
+        card.SetBlockCountValue(count);
+        if (selectCards[card.CardInfo.CardID].Count == 0)
         {
-            int count = --SelectedHeroes[card.CardInfo.CardID].Count;
-            card.SetBlockCountValue(count);
-            if (SelectedHeroes[card.CardInfo.CardID].Count == 0)
-            {
-                SelectedHeroes[card.CardInfo.CardID].PoolRecycle();
-                SelectedHeroes.Remove(card.CardInfo.CardID);
-                card.BeDimColor();
-                card.ShowCardBloom(false);
-            }
+            selectCards[card.CardInfo.CardID].PoolRecycle();
+            selectCards.Remove(card.CardInfo.CardID);
+            card.BeDimColor();
+            card.ShowCardBloom(false);
+        }
 
+        if (isHero)
+        {
             HeroCardCount--;
         }
         else
         {
-            int count = --SelectedCards[card.CardInfo.CardID].Count;
-            card.SetBlockCountValue(count);
-            if (SelectedCards[card.CardInfo.CardID].Count == 0)
-            {
-                SelectedCards[card.CardInfo.CardID].PoolRecycle();
-                SelectedCards.Remove(card.CardInfo.CardID);
-                card.BeDimColor();
-                card.ShowCardBloom(false);
-            }
-
             SelectCardCount--;
         }
 
-        if (!isSwitchingBuildInfo)
+        if (selectCardMethod != SelectCardMethods.SwitchBuildButton)
         {
             CurrentEditBuildButton.RemoveCard(card.CardInfo.CardID);
             RefreshCoinLifeEnergy();
-            if (playSound) AudioManager.Instance.SoundPlay("sfx/UnSelectCard");
+            if (selectCardMethod == SelectCardMethods.CardClick) AudioManager.Instance.SoundPlay("sfx/UnSelectCard");
         }
     }
 
@@ -388,11 +401,14 @@ public partial class SelectBuildPanel
         }
         else
         {
-            foreach (CardBase cardBase in allShownCards.Values)
+            int buildLeftCoin = CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin;
+            foreach (KeyValuePair<int, CardBase> kv in allShownCards)
             {
-                if (SelectedCards.ContainsKey(cardBase.CardInfo.CardID)) continue;
-                if (SelectedHeroes.ContainsKey(cardBase.CardInfo.CardID)) continue;
-                SelectCard(cardBase, true);
+                if (SelectedCards.ContainsKey(kv.Value.CardInfo.CardID)) continue;
+                if (SelectedHeroes.ContainsKey(kv.Value.CardInfo.CardID)) continue;
+
+                bool suc = SelectCard(kv.Value, SelectCardMethods.ButtonClick, buildLeftCoin);
+                if (suc) buildLeftCoin -= kv.Value.CardInfo.BaseInfo.Coin;
             }
 
             SortSelectCards();
@@ -401,12 +417,9 @@ public partial class SelectBuildPanel
         }
     }
 
-    private bool isSwitchingBuildInfo;
-
     private void SelectCardsByBuildInfo(BuildInfo buildInfo)
     {
-        isSwitchingBuildInfo = true;
-        UnSelectAllCard();
+        UnSelectAllCard(SelectCardMethods.SwitchBuildButton);
         SetCardLimit(buildInfo);
         List<CardBase> selectCB = new List<CardBase>();
         foreach (int cardID in buildInfo.M_BuildCards.GetCardIDs())
@@ -419,25 +432,18 @@ public partial class SelectBuildPanel
 
         SortCBs(selectCB);
 
+        int buildLeftCoin = CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin;
         foreach (CardBase cb in selectCB)
         {
-            if (cb.CardInfo.BaseInfo.CardType == CardTypes.Mech && !cb.CardInfo.MechInfo.IsSoldier)
-            {
-                SelectCard(cb, true);
-            }
-            else
-            {
-                SelectCard(cb, true);
-            }
+            bool suc = SelectCard(cb, SelectCardMethods.SwitchBuildButton, buildLeftCoin);
+            if (suc) buildLeftCoin -= cb.CardInfo.BaseInfo.Coin;
         }
 
         RefreshCoinLifeEnergy();
         RefreshDrawCardNum();
-
-        isSwitchingBuildInfo = false;
     }
 
-    public void UnSelectAllCard()
+    public void UnSelectAllCard(SelectCardMethods selectCardMethod)
     {
         if (IsReadOnly)
         {
@@ -462,7 +468,7 @@ public partial class SelectBuildPanel
             }
         }
 
-        if (!isSwitchingBuildInfo)
+        if (selectCardMethod == SelectCardMethods.ButtonClick && selectCardMethod != SelectCardMethods.DeleteBuild)
         {
             if (CurrentEditBuildButton != null)
             {

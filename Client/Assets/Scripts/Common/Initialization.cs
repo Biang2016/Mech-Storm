@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
 
 public class Initialization : MonoSingleton<Initialization>
@@ -35,6 +36,26 @@ public class Initialization : MonoSingleton<Initialization>
         }
 
         Debug.Log("Start the client...");
+
+        //Scene scene = SceneManager.GetActiveScene();
+        //if (scene.name == "MainScene")
+        //{
+        //    List<PoolObject> POs = new List<PoolObject>();
+        //    foreach (KeyValuePair<GameObjectPoolManager.PrefabNames, int> kv in GameObjectPoolManager.Instance.PoolWarmUpDict)
+        //    {
+        //        for (int i = 0; i < kv.Value; i++)
+        //        {
+        //            PoolObject PO = GameObjectPoolManager.Instance.PoolDict[kv.Key].AllocateGameObject<PoolObject>(transform);
+        //            POs.Add(PO);
+        //        }
+        //    }
+
+        //    foreach (PoolObject PO in POs)
+        //    {
+        //        PO.PoolRecycle();
+        //    }
+        //}
+
         foreach (string warmUpUiPanel in WarmUpUIPanels)
         {
             UIManager.Instance.ShowUIForm(warmUpUiPanel);

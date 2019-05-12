@@ -30,6 +30,18 @@ public class ExitMenuPanel : BaseUIForm
         ExitMenuButtonListDict.Add(States.Show_Playing, new List<string> {"Consume", "Surrender", "Setting", "Quit"});
     }
 
+    public override void Display()
+    {
+        base.Display();
+        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.ExitMenu);
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+        MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
+    }
+
     private Dictionary<string, ExitMenuButton> ExitMenuButtonDict = new Dictionary<string, ExitMenuButton>();
     private Dictionary<States, List<string>> ExitMenuButtonListDict = new Dictionary<States, List<string>>();
 

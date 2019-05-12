@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Reflection;
+using Newtonsoft.Json;
 
 /// <summary>
 /// 副作用最小单元，包含对战场进行改变的功能和信息
@@ -23,6 +25,8 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
     public SortedDictionary<string, string> DescRaws; // key: languageshort, value: desc
 
     public ExecutorInfo M_ExecutorInfo; //SE携带者信息，触发时和事件执行者信息进行比对，判定是否触发
+
+    [JsonIgnore]
     public Player Player;
 
     public List<SideEffectBase> Sub_SideEffect = new List<SideEffectBase>();

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public class TargetSelector
 {
@@ -18,6 +20,7 @@ public class TargetSelector
         return rawDesc;
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum TargetSelectorTypes
     {
         MechBased,

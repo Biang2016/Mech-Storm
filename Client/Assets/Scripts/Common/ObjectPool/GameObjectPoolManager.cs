@@ -92,7 +92,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.ColliderReplace, 20},
 
         {PrefabNames.CardSelectWindowCardContainer, 30},
-        {PrefabNames.SelectCard, 5},
+        {PrefabNames.SelectCard, 50},
         {PrefabNames.BuildButton, 5},
         
         {PrefabNames.TextFly, 10},
@@ -117,6 +117,15 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.CardPropertyForm_SideEffectExecute, 2},
         {PrefabNames.CardPropertyForm_ExecuteSetting, 2},
         {PrefabNames.CardPropertyForm_SideEffect, 2},
+    };
+
+    public Dictionary<PrefabNames, int> PoolWarmUpDict = new Dictionary<PrefabNames, int>
+    {
+        {PrefabNames.MechCard, 30},
+        {PrefabNames.EquipCard, 20},
+        {PrefabNames.SpellCard, 30},
+        { PrefabNames.CardSelectWindowCardContainer, 30},
+        {PrefabNames.SelectCard, 50},
     };
 
     public Dictionary<PrefabNames, GameObjectPool> PoolDict = new Dictionary<PrefabNames, GameObjectPool>();

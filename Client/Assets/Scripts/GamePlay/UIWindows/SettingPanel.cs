@@ -66,6 +66,13 @@ public class SettingPanel : BaseUIForm
         LanguageDropdown.onValueChanged.RemoveAllListeners();
         LanguageDropdown.value = LanguageManager.Instance.LanguagesShorts.IndexOf(LanguageManager.Instance.GetCurrentLanguage());
         LanguageDropdown.onValueChanged.AddListener(LanguageManager.Instance.LanguageDropdownChange);
+        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SettingMenu);
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+        MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
     }
 
     private void OnMasterSliderValueChange(float value)

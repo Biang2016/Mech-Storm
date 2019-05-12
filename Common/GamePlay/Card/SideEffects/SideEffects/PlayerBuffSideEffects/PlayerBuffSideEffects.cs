@@ -1,7 +1,11 @@
-﻿public abstract class PlayerBuffSideEffects : SideEffectBase
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+public abstract class PlayerBuffSideEffects : SideEffectBase
 {
     public SideEffectExecute MyBuffSEE;
-    
+
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum BuffPiledBy
     {
         RemoveTriggerTimes = 0,

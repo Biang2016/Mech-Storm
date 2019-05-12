@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-internal class BattleUIPanel : BaseUIForm
+public class BattleUIPanel : MonoBehaviour
 {
     private BattleUIPanel()
     {
@@ -9,14 +9,6 @@ internal class BattleUIPanel : BaseUIForm
 
     void Awake()
     {
-        UIType.InitUIType(
-            isClearStack: false,
-            isESCClose: false,
-            isClickElsewhereClose: false,
-            uiForms_Type: UIFormTypes.Fixed,
-            uiForms_ShowMode: UIFormShowModes.Normal,
-            uiForm_LucencyType: UIFormLucencyTypes.Penetrable);
-
         DirectlyWinButton.gameObject.SetActive(true);
         DirectlyWinButton.onClick.AddListener(DirectlyWin);
         EndRoundButton.onClick.AddListener(RoundManager.Instance.OnEndRoundButtonClick);

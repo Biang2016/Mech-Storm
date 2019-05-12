@@ -73,6 +73,7 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
             None, //禁用
             StartMenu, //开始界面
             ExitMenu, //Exit菜单
+            SettingMenu, //Setting菜单
             SelectCardWindow, //选卡界面
             SelectCardWindow_ReadOnly, //选卡界面_战斗内
             BattleNormal, //战斗一般状态
@@ -115,6 +116,9 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
                         Instance.hi_CardSelectHover.Release();
                         break;
                     case States.ExitMenu:
+                        Instance.hi_CardSelectHover.Release();
+                        break;
+                    case States.SettingMenu:
                         Instance.hi_CardSelectHover.Release();
                         break;
                     case States.SelectCardWindow:

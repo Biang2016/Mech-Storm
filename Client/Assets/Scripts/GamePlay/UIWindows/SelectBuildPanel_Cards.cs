@@ -39,7 +39,7 @@ public partial class SelectBuildPanel
         });
 
         SelectAllButton.onClick.AddListener(SelectAllCard);
-        UnSelectAllButton.onClick.AddListener(UnSelectAllCard);
+        UnSelectAllButton.onClick.AddListener(delegate { UnSelectAllCard(SelectCardMethods.ButtonClick); });
         ConfirmButton.onClick.AddListener(OnConfirmSubmitCardDeckButtonClick);
         CloseButton.onClick.AddListener(OnCloseButtonClick);
     }
@@ -119,7 +119,7 @@ public partial class SelectBuildPanel
                     {
                         if (mouseLeftDownCard == card)
                         {
-                            SelectCard(card, false);
+                            SelectCard(card, SelectCardMethods.CardClick);
                         }
                     }
                 }
@@ -403,8 +403,8 @@ public partial class SelectBuildPanel
 
         if (GetSelectedCardCount(previewCard.CardInfo.CardID) > 0)
         {
-            UnSelectCard(previewCard, false);
-            SelectCard(changeCard, false);
+            UnSelectCard(previewCard, SelectCardMethods.UpgradeDegrade);
+            SelectCard(changeCard, SelectCardMethods.UpgradeDegrade);
             RefreshCoinLifeEnergy();
         }
 

@@ -1,4 +1,7 @@
-﻿public struct ShieldInfo
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+public struct ShieldInfo
 {
     public int Armor;
     public int Shield;
@@ -31,6 +34,7 @@
     }
 }
 
+[JsonConverter(typeof(StringEnumConverter))]
 public enum ShieldTypes
 {
     None = 0,

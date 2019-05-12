@@ -50,8 +50,8 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
     public void Preparation()
     {
-        UIManager.Instance.ShowUIForms<BattleUIPanel>().SetEndRoundButtonState(false);
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().SetState(SelectBuildPanel.States.ReadOnly);
         UIManager.Instance.CloseUIForm<SelectBuildPanel>();
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Battle_0", "bgm/Battle_1"}, 0.7f);
         SelfClientPlayer.BattlePlayer.CardDeckManager.ResetCardDeckNumberText();
@@ -128,7 +128,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     private void GameStopPreparation()
     {
         BattleManager.Instance.ResetAll();
-        UIManager.Instance.CloseUIForm<BattleUIPanel>();
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().SetState(SelectBuildPanel.States.Normal);
 
         SelfClientPlayer = null;
         EnemyClientPlayer = null;
@@ -199,10 +199,10 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     public void OnEndRoundButtonClick()
     {
         if (CurrentClientPlayer == SelfClientPlayer)
-        {
+        {   
             EndRoundRequest request = new EndRoundRequest(Client.Instance.Proxy.ClientId);
             Client.Instance.Proxy.SendMessage(request);
-            UIManager.Instance.GetBaseUIForm<BattleUIPanel>().SetEndRoundButtonState(false);
+            BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(false);
         }
         else
         {
