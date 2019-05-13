@@ -17,7 +17,8 @@ public class CardDeckManager : MonoBehaviour
 
     private static readonly int[] CARD_DECK_SHOW_CARD_NUM_MAP = new int[] {0, 1, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10}; //剩余卡牌数量和卡堆模型中显示的卡牌数量映射关系
     private const int CARD_DECK_CARD_NUM = 10;
-    private const float CARD_DECK_CARD_SIZE = 0.2f;
+    private int Cur_CardShowNumber = 0;
+    private const float CARD_DECK_CARD_SIZE = 0.3f;
     private static readonly Vector3 SELF_CARD_DECK_CARD_INTERVAL = new Vector3(0.05f, 0.01f, 0.1f);
 
     public void Initialize(ClientPlayer clientPlayer)
@@ -29,7 +30,7 @@ public class CardDeckManager : MonoBehaviour
         {
             CardDeckCards[i] = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardDeckCard].AllocateGameObject<CardDeckCard>(CardDeckContainer);
             CardDeckCards[i].SetCardBackColor();
-            CardDeckCards[i].transform.Translate(-SELF_CARD_DECK_CARD_INTERVAL * i);
+            CardDeckCards[i].transform.Translate(-SELF_CARD_DECK_CARD_INTERVAL * i, Space.Self);
             CardDeckCards[i].transform.localScale = Vector3.one * CARD_DECK_CARD_SIZE;
             CardDeckCards[i].CardOrder = i;
         }
@@ -69,12 +70,17 @@ public class CardDeckManager : MonoBehaviour
                 CardLeftNumText.text = value.ToString();
             }
 
-            SetCardDeckShowCardNum(CardDeckCards, value);
+            SetCardDeckShowCardNum(value);
             cardDeckNumber = value;
         }
     }
 
-    private void SetCardDeckShowCardNum(CardBase[] targetCardDeckShowCards, int number)
+    public Transform GetFirstCardDeckCardPos()
+    {
+        return CardDeckCards[Cur_CardShowNumber - 1].transform;
+    }
+
+    private void SetCardDeckShowCardNum(int number)
     {
         int showCardNumber = 0;
         if (number <= 0) showCardNumber = 0;
@@ -87,20 +93,16 @@ public class CardDeckManager : MonoBehaviour
             showCardNumber = CARD_DECK_SHOW_CARD_NUM_MAP[number];
         }
 
-        for (int i = targetCardDeckShowCards.Length - 1; i >= showCardNumber; i--)
+        Cur_CardShowNumber = showCardNumber;
+
+        foreach (CardBase card in CardDeckCards)
         {
-            if (targetCardDeckShowCards[i] != null)
-            {
-                if (targetCardDeckShowCards[i].gameObject.activeSelf) targetCardDeckShowCards[i].gameObject.SetActive(false);
-            }
+            card?.gameObject.SetActive(false);
         }
 
-        for (int i = showCardNumber - 1; i >= 0; i--)
+        for (int i = 0; i < showCardNumber; i++)
         {
-            if (targetCardDeckShowCards[i] != null)
-            {
-                if (!targetCardDeckShowCards[i].gameObject.activeSelf) targetCardDeckShowCards[i].gameObject.SetActive(true);
-            }
+            CardDeckCards[i].gameObject.SetActive(true);
         }
     }
 }

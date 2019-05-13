@@ -51,6 +51,7 @@ public class GameObjectPool : MonoBehaviour
                 {
                     if (gameObjectPool[i])
                     {
+                        gameObjectPool[i].gameObject.SetActive(true);
                         gameObjectPool[i].transform.SetParent(parent);
                         gameObjectPool[i].transform.localPosition = gameObjectDefaultPosition;
                         gameObjectPool[i].transform.localRotation = gameObjectDefaultRotation;

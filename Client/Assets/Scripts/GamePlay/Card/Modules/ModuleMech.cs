@@ -50,25 +50,19 @@ public class ModuleMech : ModuleBase
         {
             if (mechOrder != value)
             {
-                SetOrderInLayer(value);
+                foreach (KeyValuePair<MechComponentTypes, MechComponentBase> kv in MechComponents)
+                {
+                    if (kv.Value) kv.Value.CardOrder = value;
+                }
+
+                foreach (KeyValuePair<CardComponentTypes, CardComponentBase> kv in CardComponents)
+                {
+                    if (kv.Value) kv.Value.CardOrder = value;
+                }
+
                 mechOrder = value;
             }
         }
-    }
-
-    private void SetOrderInLayer(int value)
-    {
-        foreach (KeyValuePair<MechComponentTypes, MechComponentBase> kv in MechComponents)
-        {
-            if (kv.Value) kv.Value.CardOrder = value;
-        }
-
-        foreach (KeyValuePair<CardComponentTypes, CardComponentBase> kv in CardComponents)
-        {
-            if (kv.Value) kv.Value.CardOrder = value;
-        }
-
-        mechOrder = value;
     }
 
     public Dictionary<CardComponentTypes, CardComponentBase> CardComponents = new Dictionary<CardComponentTypes, CardComponentBase>();
@@ -204,7 +198,7 @@ public class ModuleMech : ModuleBase
         get { return m_MechLeftLife; }
         set
         {
-            if (m_MechLeftLife != value)
+            if (m_MechLeftLife != value || IsInitializing)
             {
                 MechLifeComponent.LifeChange(value, m_MechTotalLife, m_MechLeftLife, IsInitializing);
                 m_MechLeftLife = value;
@@ -219,7 +213,7 @@ public class ModuleMech : ModuleBase
         get { return m_MechTotalLife; }
         set
         {
-            if (m_MechTotalLife != value)
+            if (m_MechTotalLife != value || IsInitializing)
             {
                 MechLifeComponent.TotalLifeChange(m_MechLeftLife, value, m_MechTotalLife, IsInitializing);
                 m_MechTotalLife = value;
@@ -253,7 +247,7 @@ public class ModuleMech : ModuleBase
         get { return m_MechWeaponEnergy; }
         set
         {
-            if (m_MechWeaponEnergy != value)
+            if (m_MechWeaponEnergy != value || IsInitializing)
             {
                 MechSwordShieldArmorComponent.AttackChange(value, CalculateFinalAttack(m_MechAttack, value));
                 m_MechWeaponEnergy = value;
@@ -272,7 +266,7 @@ public class ModuleMech : ModuleBase
         get { return m_MechWeaponEnergyMax; }
         set
         {
-            if (m_MechWeaponEnergyMax != value)
+            if (m_MechWeaponEnergyMax != value || IsInitializing)
             {
                 MechSwordShieldArmorComponent.WeaponEnergyMaxChange(value);
                 m_MechWeaponEnergyMax = value;
@@ -305,7 +299,7 @@ public class ModuleMech : ModuleBase
         get { return m_MechArmor; }
         set
         {
-            if (m_MechArmor != value)
+            if (m_MechArmor != value || IsInitializing)
             {
                 MechSwordShieldArmorComponent.ArmorChange(value, m_MechArmor, IsInitializing);
                 m_MechArmor = value;
@@ -324,7 +318,7 @@ public class ModuleMech : ModuleBase
         get { return m_MechShield; }
         set
         {
-            if (m_MechShield != value)
+            if (m_MechShield != value || IsInitializing)
             {
                 MechSwordShieldArmorComponent.ShieldChange(value, m_MechShield, IsInitializing);
                 m_MechShield = value;

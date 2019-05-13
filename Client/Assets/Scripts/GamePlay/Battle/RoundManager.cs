@@ -50,9 +50,9 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
     public void Preparation()
     {
-        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().SetState(SelectBuildPanel.States.ReadOnly);
         UIManager.Instance.CloseUIForm<SelectBuildPanel>();
+        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Battle_0", "bgm/Battle_1"}, 0.7f);
         SelfClientPlayer.BattlePlayer.CardDeckManager.ResetCardDeckNumberText();
         EnemyClientPlayer.BattlePlayer.CardDeckManager.ResetCardDeckNumberText();
@@ -173,7 +173,6 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         }
 
         BattleEffectsManager.Instance.ResetAll();
-//        TransitManager.Instance.HideTransit(Color.black, 0.1f);
 
         if (M_PlayMode == PlayMode.Single)
         {

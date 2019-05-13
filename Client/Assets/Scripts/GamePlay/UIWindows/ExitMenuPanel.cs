@@ -39,7 +39,10 @@ public class ExitMenuPanel : BaseUIForm
     public override void Hide()
     {
         base.Hide();
-        MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
+        if (Client.Instance.IsPlaying())
+        {
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+        }
     }
 
     private Dictionary<string, ExitMenuButton> ExitMenuButtonDict = new Dictionary<string, ExitMenuButton>();

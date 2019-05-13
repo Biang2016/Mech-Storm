@@ -116,12 +116,19 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
                         Instance.hi_CardSelectHover.Release();
                         break;
                     case States.ExitMenu:
+                        Instance.hi_CardHover.Release();
                         Instance.hi_CardSelectHover.Release();
                         break;
                     case States.SettingMenu:
                         Instance.hi_CardSelectHover.Release();
                         break;
                     case States.SelectCardWindow:
+                        break;
+                    case States.SelectCardWindow_ReadOnly:
+                        Instance.hi_CardHover.Release();
+                        Instance.hi_CardFocus.Release();
+                        Instance.hi_CardPressHover.Release();
+                        Instance.hd_ModulesFocusShowPreview.Release();
                         break;
                     case States.BattleNormal:
                         Instance.hi_CardHover.Release();

@@ -151,6 +151,8 @@ MonoBehaviour:
     - HAND_CARD_ROTATE
     - HAND_CARD_OFFSET
     - PULL_OUT_CARD_SIZE
+    - DRAW_CARD_FLY_TIME
+    - DRAW_CARD_INTERVAL_TIME
     - SHOW_CARD_SIZE
     - SHOW_CARD_DURATION
     - SHOW_CARD_FLY_DURATION
@@ -172,6 +174,7 @@ MonoBehaviour:
     - Update_CheckSlotBloomTipOff
     - UpdateCurrentFocusCardTicker
     - UpdateHandCardCountTicker
+    - SetLanguage
     - Game
     - Process
     - BeginRound
@@ -192,7 +195,6 @@ MonoBehaviour:
     - Transform
     - DefaultCardPivot
     - GetCardPlace
-    - Tweener
     - Ease
     - RefreshCardsOrderInLayer
     - GameObject
@@ -201,7 +203,7 @@ MonoBehaviour:
     - RightToLeft
     - Players
     - Mathf
-    - CardRetinue
+    - CardMech
     - SetAllCardUnusable
     - Draw
     - GetCards
@@ -215,6 +217,7 @@ MonoBehaviour:
     - DrawCardPivots
     - CardInfo_Base
     - AllCards
+    - Tweener
     - AudioManager
     - DropCard
     - GetCardByCardInstanceId
@@ -243,10 +246,10 @@ MonoBehaviour:
     - ShowAndHideEquipSlotBloomTip
     - Pre_summon
     - SideEffects
-    - SetCurrentSummonRetinuePreviewCard
-    - CancelSummonRetinuePreview
+    - SetCurrentSummonMechPreviewCard
+    - CancelSummonMechPreview
     - Utils
-    stamp: 1557404511
+    stamp: 1557673149
     type: 2
     UseGUIDs: []
   - guid: 424a5e20c5142584eae1d93978534750
@@ -381,143 +384,75 @@ MonoBehaviour:
     UseGUIDs: []
   - guid: ba4e4f7017b07e9479d6081f27ad43cd
     ScriptSymbols:
-    - ModuleRetinue
-    - ModuleRetinue.RetinueID
-    - ModuleRetinue.AttackLevel
+    - ModuleMech
+    - ModuleMech.MechID
+    - ModuleMech.AttackLevel
     ScriptTokens:
     - ModuleBase
-    - RETINUE_DEFAULT_SIZE
+    - MECH_DEFAULT_SIZE
     - PoolRecycle
     - M_Weapon
     - M_Shield
     - M_Pack
     - M_MA
-    - ArmorFillAnim
-    - M_ClientTempRetinueID
-    - DamageNumberPreviewTextMesh
-    - DamageNumberPreviewBGTextMesh
-    - ResetRetinue
+    - M_ClientTempMechID
+    - ResetMech
+    - MechOrder
+    - KeyValuePair
+    - MechComponentTypes
+    - MechComponentBase
+    - MechComponents
+    - CardComponentTypes
+    - CardComponentBase
+    - CardComponents
+    - Dictionary
     - Awake
-    - SerializeField
-    - Text
-    - Text_RetinueName
-    - Renderer
-    - RetinueCanAttackBloom
-    - OnHoverBloom
-    - SideEffcetBloom
-    - RawImage
-    - WeaponBloom
-    - ShieldBloom
-    - PackBloom
-    - MABloom
-    - Slot
-    - Slot1
-    - Slot2
-    - Slot3
-    - Slot4
-    - LifeText
-    - Text_RetinueAttack
-    - Text_RetinueShield
-    - Text_RetinueArmor
-    - Image
-    - Picture
-    - TextMesh
-    - Animator
-    - LifeIconAnim
-    - ShieldBar
-    - ShieldBarAnim
-    - SwordBar
-    - SwordBarAnim
-    - RetinueTargetPreviewAnim
-    - DefenceText
-    - SniperTargetImage
-    - SniperTipText
-    - TextFlyPile
-    - LifeChangeNumberFly
-    - ArmorChangeNumberFly
-    - ShieldChangeNumberFly
-    - WeaponAttackChangeNumberFly
-    - WeaponEnergyChangeNumberFly
-    - ShieldDefenceNumberFly
-    - DodgeNumberFly
-    - SideEffectBGCommonIcon
-    - SideEffectCommonIcon
-    - SideEffectDieIcon
-    - SideEffectBGDieIcon
-    - SideEffectBGCommonAnim
-    - SideEffectBGDieAnim
+    - CardBackComponent
+    - CardBasicComponent
+    - CardDescComponent
+    - CardSlotsComponent
+    - MechLifeComponent
+    - MechAttrShapesComponent
+    - MechBattleInfoComponent
+    - MechBloomComponent
+    - MechTargetPreviewArrowsComponent
+    - MechTriggerIconComponent
+    - MechSwordShieldArmorComponent
     - Transform
     - HitPoints
+    - SerializeField
+    - IsInitializing
     - Initiate
     - CardInfo_Base
     - ClientPlayer
     - Vector3
-    - M_RetinueName
+    - InitializeComponents
+    - M_MechLeftLife
+    - M_MechTotalLife
+    - M_MechWeaponEnergy
+    - M_MechWeaponEnergyMax
+    - M_MechAttack
+    - M_MechArmor
+    - M_MechShield
+    - CanAttack
+    - IsDead
     - CardInfo
     - LanguageManager
-    - M_RetinueLeftLife
-    - M_RetinueTotalLife
-    - M_RetinueWeaponEnergy
-    - M_RetinueWeaponEnergyMax
-    - M_RetinueAttack
-    - M_RetinueArmor
-    - M_RetinueShield
-    - HideRetinueTypeLooking
-    - ClientUtils
-    - SideEffectExecute
-    - CanAttack
-    - MA_BG
-    - ImmuneIcon
-    - InactivityIcon
-    - IsDead
     - ChangeColor
     - Color
-    - MainBoardRenderer
-    - MainboardEmissionIntensity
-    - AllColors
-    - M_RetinueID
+    - M_MechID
     - Empty
-    - GameObject
-    - ImmuneCountText
     - M_ImmuneLeftRounds
-    - InactivityCountText
+    - MechBattleInfoIcon
     - M_InactivityRounds
-    - BattleEffectsManager
-    - Co_LifeChange
-    - Co_TotalLifeChange
-    - M_RetinueWeaponFinalAttack
-    - Co_RetinueAttackChange
-    - Co_RetinueWeaponEnergyMaxChange
-    - Co_ArmorChange
-    - Co_ShieldChange
-    - ShieldDefenceDamage
-    - Co_ShieldChangeNumberFly
-    - IEnumerator
-    - TextFly
-    - WaitForSeconds
-    - AudioManager
-    - HitManager
-    - LifeTextChange
-    - RefreshSwordBarMask
-    - NormalParticle
-    - GameObjectPoolManager
-    - RetinueShieldFull
-    - Mathf
-    - RetinueTypeLooking
-    - DefenceShow
-    - DefenceHoverShow
-    - SentryShow
-    - SentryHoverShow
-    - FrenzyShow
-    - FrenzyHoverShow
-    - SniperShow
-    - SniperHoverShow
+    - CalculateFinalAttack
+    - M_MechWeaponFinalAttack
+    - MechAttr
     - IsFrenzy
     - IsSentry
     - IsSniper
     - IsDefender
     - DodgeProp
-    - ShowRetinueTypeLooking
     - IsAllEquipExceptMA
     - SlotTypes
     - ModuleEquip
@@ -526,6 +461,7 @@ MonoBehaviour:
     - On_WeaponDown
     - On_WeaponEquiped
     - On_WeaponChanged
+    - AudioManager
     - ModuleShield
     - On_ShieldDown
     - On_ShieldEquiped
@@ -540,7 +476,9 @@ MonoBehaviour:
     - On_MAEquiped
     - On_MAChanged
     - SetCanAttack
+    - BattleEffectsManager
     - Co_SetCanAttack
+    - IEnumerator
     - RoundManager
     - Sword
     - Gun
@@ -561,44 +499,49 @@ MonoBehaviour:
     - DragComponent_OnMouseUp
     - BoardAreaTypes
     - List
+    - Slot
     - Ship
     - Quaternion
-    - RetinueAttackRetinueRequest
+    - MechAttackMechRequest
     - Client
     - NoticeManager
-    - RetinueAttackShipRequest
+    - MechAttackShipRequest
     - DragManager
     - DragComponent_SetStates
     - DragPurpose
     - DragComponent_DragDistance
     - DragComponent_DragOutEffects
     - IsBeDraggedHover
+    - ClientUtils
+    - AllColors
     - MouseHoverComponent_OnMousePressEnterImmediately
     - CardSpell
-    - CheckModuleRetinueCanAttackMe
-    - ArrowAiming
+    - CheckModuleMechCanAttackMe
     - CheckCardSpellCanTarget
+    - ArrowAiming
     - TargetRange
     - MouseHoverComponent_OnMousePressLeaveImmediately
     - IsBeHover
     - MouseHoverComponent_OnHover1Begin
     - MouseHoverComponent_OnHover1End
     - OnShowEffects
+    - SideEffectExecute
     - Co_ShowSideEffectBloom
+    - MechTriggerIcon
+    - WaitForSeconds
     - OnSummon
     - OnDie
     - OnAttack
     - Co_OnAttack
     - Bullet
+    - GameObjectPoolManager
     - OnAttackShip
     - Co_OnAttackShip
-    - OnDodge
-    - Co_OnDodge
     - OnMakeDamage
     - OnBeDamaged
     - OnBeginRound
     - OnEndRound
-    stamp: 1557410209
+    stamp: 1557670505
     type: 2
     UseGUIDs: []
   - guid: 293f6f700c5a1a64e84255c0d8584f5a
@@ -971,13 +914,12 @@ MonoBehaviour:
     - Transform
     - Start
     - Flicker
-    - Hashtable
     - Update
     - StartCoroutine
     - Co_Flicker
     - IEnumerator
     - WaitForSeconds
-    stamp: 1557400515
+    stamp: 1557505516
     type: 2
     UseGUIDs: []
   - guid: 5a6be4312baa0c140b6c064097e225f8
@@ -1014,6 +956,7 @@ MonoBehaviour:
     - LoadPrefabs_Editor
     - LoadManager_Editor
     - Debug
+    - Start
     - UIManager
     - AssetBundle
     - ABManager
@@ -1028,7 +971,7 @@ MonoBehaviour:
     - AudioManager
     - AudioClip
     - PrefabManager
-    stamp: 1557400515
+    stamp: 1557657826
     type: 2
     UseGUIDs: []
   - guid: 87a9a7411e619734688f2c651befd08e
@@ -1240,6 +1183,10 @@ MonoBehaviour:
     - OnQuitGameButtonClick
     - ExitMenuButtonListDict
     - List
+    - Display
+    - MouseHoverManager
+    - Hide
+    - Client
     - Dictionary
     - ExitMenuButton
     - ExitMenuButtonDict
@@ -1259,14 +1206,13 @@ MonoBehaviour:
     - ConfirmPanel
     - LanguageManager
     - SurrenderCore
-    - Client
     - StoryManager
     - RoundManager
     - ClientLog
     - NoticeManager
     - NetworkManager
     - Application
-    stamp: 1557400516
+    stamp: 1557666447
     type: 2
     UseGUIDs: []
   - guid: 605cdca116db1be46b0031af46fbfe50
@@ -1515,11 +1461,12 @@ MonoBehaviour:
     - ModuleBase
     ScriptTokens:
     - PoolObject, IDragComponent, IMouseHoverComponent
-    - GameObjectID
-    - GameObjectPool
     - ClientPlayer
+    - SerializeField
+    - DragComponent
+    - MouseHoverComponent
+    - BoxCollider
     - PoolRecycle
-    - GetComponent
     - ModuleWeapon
     - ModuleShield
     - ModulePack
@@ -1528,18 +1475,14 @@ MonoBehaviour:
     - CardInfo
     - IsDead
     - Initiate
-    - MainboardEmissionIntensity
     - ChangeColor
     - ClientUtils
-    - Stars
     - BeBrightColor
-    - GameObject
-    - Star1
-    - Star2
-    - Star3
-    - SerializeField
+    - InitializeComponents
+    - CardStarsComponent
     - Renderer
     - MainBoardRenderer
+    - MainboardEmissionIntensity
     - Color
     - BeDimColor
     - SE
@@ -1550,7 +1493,7 @@ MonoBehaviour:
     - BoardAreaTypes
     - List
     - Slot
-    - ModuleRetinue
+    - ModuleMech
     - Vector3
     - DragComponent_OnMouseUp
     - Ship
@@ -1567,13 +1510,12 @@ MonoBehaviour:
     - BattleManager
     - RootManager
     - MouseHoverComponent_OnHover2End
-    - UIManager
     - MouseHoverComponent_OnFocusBegin
     - MouseHoverComponent_OnFocusEnd
     - MouseHoverComponent_OnMousePressLeaveImmediately
     - DragComponent_SetHasTarget
     - DragComponent_DragOutEffects
-    stamp: 1557400515
+    stamp: 1557673032
     type: 2
     UseGUIDs: []
   - guid: 2641add10c06db74c99efcfef23ca627
@@ -1651,7 +1593,7 @@ MonoBehaviour:
   - guid: 6355f812468c74b239c225e2d6c8b5c0
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557534444
     type: 1
     UseGUIDs:
     - 168cbe06d26f84f27b0ac93171e95213
@@ -1680,9 +1622,9 @@ MonoBehaviour:
     - 25272c3db54bc4495b190da6b915388e
     - b79b3e193041e424cb52f4f00dffcef4
     - affc642554e1647b2985183ca6fbcefc
-    - 297e0986adfc24e3e84712829be71ebb
     - adc2ea77c1f8e4cb193d54c8ac08dba1
     - 327ace6f8e5ac43c6ba14dd10438011c
+    - 297e0986adfc24e3e84712829be71ebb
     - 25fdb17b3a6c14c2dba99d861985d54e
     - c2fea0b8ff7d24abda761afdfd0771a7
     - 13c10df676bba46a58e140a26a10063d
@@ -1892,15 +1834,15 @@ MonoBehaviour:
   - guid: a68735620369ca745a4ab2bd0dbbcd80
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547801800
+    stamp: 1557534391
     type: 1
     UseGUIDs:
     - 3f1b60ed8f236ad46a7cba145b6157b2
     - 5a838ccdbe1bda54d8ce476b12f03a6a
     - c326fa39d0df6184f9b0c5a362b66265
-    - b5012ec5a2fe078449fdd57dec58fc16
     - 2d8aabe86b012ce4db5f1994d2337e07
     - 59bc8627d5e625145a754dceb1963b51
+    - b5012ec5a2fe078449fdd57dec58fc16
     - 0444cb0cd9c9f37498b272fc51918c67
     - e1b05b9e29e7e9d40a0200bbd4951b3b
   - guid: 42937372c424a1e459975bc81fa5a3e6
@@ -1940,11 +1882,10 @@ MonoBehaviour:
   - guid: c7397c826945c4d458de022ed2aeb9af
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1548325105
+    stamp: 1557562784
     type: 1
     UseGUIDs:
     - 84aec08c37b7a0a4390efeab228981cc
-    - 158854d2f3e0a5b4a93118da8623b21c
     - 12f987ae59256ed4d89b5e26e1a5b70e
     - 0fa812de74d918d44a1edee221044c9e
     - acc5aebdc827c98468327b2a03cfa145
@@ -1955,12 +1896,11 @@ MonoBehaviour:
     - 1e08fe6367d529540a2c5f4b4a096413
     - 896b2511a051919489a1f75c3fada723
     - 15d8241edee88dd4b8ad4adbf256de20
-    - b184fffca1c78dc4990252d27031a1ca
-    - 2e482dba22fbcd1449f546e2d0568176
-    - 482f2ece2a9a29e46877f0b5e85d8b56
-    - 9f0b9c82f90b8f2489f27e3e3b9e0128
     - 4d26cef906c7dd54d88d864432ec53cf
     - f45fe44eaee2807439b131fa374c0522
+    - b184fffca1c78dc4990252d27031a1ca
+    - 2e482dba22fbcd1449f546e2d0568176
+    - 9f0b9c82f90b8f2489f27e3e3b9e0128
     - 29956cf3e864c8449aa8b1f6f358d463
     - e81f585da1f672143961f58108d5ea44
     - dd2b6c0f50758ed41a68fa9c7051e1c8
@@ -1991,7 +1931,7 @@ MonoBehaviour:
   - guid: 859a7d8291baca14798ce255b7d2a6e9
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557574537
     type: 1
     UseGUIDs:
     - 6b0ac43e532d0604f8b0629ab8f82673
@@ -2377,15 +2317,15 @@ MonoBehaviour:
   - guid: 158854d2f3e0a5b4a93118da8623b21c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547698537
+    stamp: 1557573201
     type: 1
     UseGUIDs:
-    - 23affcdf1851d284c98bdc63f98dd8b4
     - 550ecf93ad522404dad53ae3ff80988c
+    - 23affcdf1851d284c98bdc63f98dd8b4
     - fddb8f05b8393bc4cbcebb4389c7105b
   - guid: 6b1dbae2767e6fd408602333d346c5c6
     ScriptSymbols:
-    - CardRetinue
+    - CardMech
     ScriptTokens:
     - CardBase
     - PoolRecycle
@@ -2397,11 +2337,11 @@ MonoBehaviour:
     - CardInfo_Base
     - CardShowMode
     - ClientPlayer
-    - M_RetinueTotalLife
+    - M_MechTotalLife
     - CardInfo
-    - M_RetinueAttack
-    - M_RetinueArmor
-    - M_RetinueShield
+    - M_MechAttack
+    - M_MechArmor
+    - M_MechShield
     - InitSlots
     - M_CardShowMode
     - ResetSelectCountBlockPosition
@@ -2415,18 +2355,18 @@ MonoBehaviour:
     - BoardAreaTypes
     - List
     - Slot
-    - ModuleRetinue
+    - ModuleMech
     - Vector3
     - DragComponent_OnMouseUp
     - Ship
     - Quaternion
     - Const
-    - SummonRetinueRequest
+    - SummonMechRequest
     - Client
     - M_CardInstanceId
     - Usable
     - TargetRange
-    stamp: 1557400515
+    stamp: 1557534670
     type: 2
     UseGUIDs: []
   - guid: 47e7eae22b4713c4295cf4e5ea3d2089
@@ -2474,15 +2414,15 @@ MonoBehaviour:
     - ServerRequestBase
     - NetProtocols
     - OnSetPlayer_PrePass
-    - BattleGroundAddRetinueRequest
-    - BattleGroundRemoveRetinueRequest
+    - BattleGroundAddMechRequest
+    - BattleGroundRemoveMechRequest
     - ResponseToSideEffects
     - PlayerTurnRequest
     - PlayerMetalChangeRequest
     - PlayerLifeChangeRequest
     - PlayerEnergyChangeRequest
-    - RetinueAttributesChangeRequest
-    - RetinueDieRequest
+    - MechAttributesChangeRequest
+    - MechDieRequest
     - PlayerBuffUpdateRequest
     - PlayerBuffRemoveRequest
     - PlayerCoolDownCardUpdateRequest
@@ -2491,21 +2431,21 @@ MonoBehaviour:
     - DrawCardRequest
     - DropCardRequest
     - UseCardRequest
-    - RetinueCardInfoSyncRequest
+    - MechCardInfoSyncRequest
     - EquipWeaponServerRequest
     - EquipShieldServerRequest
     - EquipPackServerRequest
     - EquipMAServerRequest
     - UseSpellCardServerRequset
-    - RetinueAttackRetinueServerRequest
-    - RetinueAttackShipServerRequest
-    - RetinueDodgeRequest
-    - RetinueCanAttackRequest
-    - RetinueImmuneStateRequest
-    - RetinueInactivityStateRequest
-    - RetinueOnAttackRequest
-    - RetinueOnAttackShipRequest
-    - RetinueShieldDefenseRequest
+    - MechAttackMechServerRequest
+    - MechAttackShipServerRequest
+    - MechDodgeRequest
+    - MechCanAttackRequest
+    - MechImmuneStateRequest
+    - MechInactivityStateRequest
+    - MechOnAttackRequest
+    - MechOnAttackShipRequest
+    - MechShieldDefenseRequest
     - ShowSideEffectTriggeredRequest
     - CardAttributeChangeRequest
     - NetworkManager
@@ -2523,21 +2463,22 @@ MonoBehaviour:
     - SelfClientPlayer
     - EnemyClientPlayer
     - IdleClientPlayer
+    - BattleManager
     - AudioManager
     - WaitForSeconds
     - BeginRound
-    - OnRetinueAttributesChange
-    - ModuleRetinue
-    - OnRetinueDie
+    - OnMechAttributesChange
+    - ModuleMech
+    - OnMechDie
     - List
-    - Co_RetinueDieShock
+    - Co_MechDieShock
     - Vector3
     - Space
-    - OnBattleGroundAddRetinue_PrePass
-    - OnBattleGroundAddRetinue
-    - OnBattleGroundRemoveRetinue_PrePass
-    - OnBattleGroundRemoveRetinue
-    - Co_RetinueRemoveFromBattleGround_Logic
+    - OnBattleGroundAddMech_PrePass
+    - OnBattleGroundAddMech
+    - OnBattleGroundRemoveMech_PrePass
+    - OnBattleGroundRemoveMech
+    - Co_MechRemoveFromBattleGround_Logic
     - OnUpdatePlayerBuff
     - OnRemovePlayerBuff
     - OnUpdatePlayerCoolDownCard
@@ -2547,33 +2488,33 @@ MonoBehaviour:
     - OnPlayerDrawCard
     - OnPlayerDropCard
     - OnPlayerUseCard
-    - OnRetinueCardInfoSync
+    - OnMechCardInfoSync
     - OnEquipWeapon
     - OnEquipShield
     - OnEquipPack
     - OnEquipMA
     - OnUseSpellCard
-    - OnRetinueAttackRetinue
-    - OnRetinueAttackShip
+    - OnMechAttackMech
+    - OnMechAttackShip
     - Players
-    - OnRetinueDodge
-    - OnRetinueCanAttackChange
-    - OnRetinueImmuneChange
-    - OnRetinueInactivityChange
-    - OnRetinueOnAttack
-    - FindRetinue
-    - OnRetinueOnAttackShip
-    - OnRetinueShieldDefence
+    - OnMechDodge
+    - OnMechCanAttackChange
+    - OnMechImmuneChange
+    - OnMechInactivityChange
+    - OnMechOnAttack
+    - FindMech
+    - OnMechOnAttackShip
+    - OnMechShieldDefence
     - OnShowSideEffect
     - OnCardAttributeChange
     - CardBase
-    stamp: 1557400515
+    stamp: 1557656985
     type: 2
     UseGUIDs: []
   - guid: 35498ff27f74ae045b334bf24efda235
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557657826
     type: 1
     UseGUIDs:
     - bf0dd1d690b608246aa4e6f3e234ca1a
@@ -2581,7 +2522,6 @@ MonoBehaviour:
     - 36bc6c31dd4d0894d84a3bcec09c28a6
     - a470622d302881f4bb38e634a6cc4dc9
     - d7556c8f5f35a9b41ba308add4fb0ddf
-    - 521257714fc9e437a9163df2d37f2ea2
     - 88cf37d18b1254648893265f13ff99a1
     - 341a63f780376c94db542cb3cb9855f2
     - cfebd8a87e5b2334cbfecd3243d29424
@@ -2880,14 +2820,20 @@ MonoBehaviour:
     - TextMeshPro
     - MetalNumberText
     - Text
+    - LifeText
     - LifeNumber
     - TotalLifeNumber
+    - EnergyText
     - EnergyNumber
     - TotalEnergyNumber
     - GameObject
     - PlayerIcon
     - Image
     - PlayerIconImage
+    - Awake
+    - LanguageManager
+    - List
+    - ValueTuple
     - Initialize
     - ResetAll
     - SetEnemyIconImage
@@ -2924,7 +2870,7 @@ MonoBehaviour:
     - Animator
     - EnergyIcon
     - EnergyTrough
-    stamp: 1557400515
+    stamp: 1557668368
     type: 2
     UseGUIDs: []
   - guid: ba11809309307564d8f58c127f36493d
@@ -3013,10 +2959,13 @@ MonoBehaviour:
     - OnSingleCustomStartButtonClick
     - OnSingleCustomDeckButtonClick
     - Awake_DeckAbstract
-    - Update
+    - LateUpdate
     - Input
     - KeyCode
     - UIManager
+    - Display
+    - MouseHoverManager
+    - Hide
     - UnityAction
     - GameObjectPoolManager
     - SetButtonTipImageShow
@@ -3064,7 +3013,7 @@ MonoBehaviour:
     - NoticeManager
     - ClientLog
     - LogoutRequest
-    stamp: 1557400516
+    stamp: 1557666425
     type: 2
     UseGUIDs: []
   - guid: 9fc0ea9365cf306498a67947dd2da50f
@@ -3153,7 +3102,7 @@ MonoBehaviour:
   - guid: 5ec149b3b0c41114fa04375ac46f2d8a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557406930
+    stamp: 1557656985
     type: 1
     UseGUIDs:
     - 5f9b4313de4d7f14db6f37b46ec96d7a
@@ -3163,7 +3112,6 @@ MonoBehaviour:
     - 00a4922be29717441943cceeefce637f
     - d982a4bd9d589c0479c78b8cfa7e6574
     - 02e71c6c580c8d0468c7f0ae8df46f5b
-    - a73790f1f8895304099e825c3612a8a2
     - 1c927e6da8ac4c74f947d5b787335e8e
   - guid: 391a5ab36a0bb29499c4d99ff6365c5e
     ScriptSymbols: []
@@ -3212,14 +3160,14 @@ MonoBehaviour:
     - Awake
     - Arrow
     - CurrentArrow
-    - CardRetinue
-    - CurrentDrag_CardRetinue
+    - CardMech
+    - CurrentDrag_CardMech
     - CardEquip
     - CurrentDrag_CardEquip
     - CardSpell
     - CurrentDrag_CardSpell
-    - ModuleRetinue
-    - CurrentDrag_ModuleRetinue
+    - ModuleMech
+    - CurrentDrag_ModuleMech
     - DragComponent
     - CurrentDrag
     - MouseHoverManager
@@ -3227,7 +3175,6 @@ MonoBehaviour:
     - Update
     - Client
     - ResetCurrentDrag
-    - UIManager
     - IsSummonPreview
     - CommonDrag
     - SummonPreviewDrag
@@ -3239,18 +3186,18 @@ MonoBehaviour:
     - GameManager
     - ColliderReplace
     - IsArrowShowBegin
-    - CurrentSummonPreviewRetinue
+    - CurrentSummonPreviewMech
     - BattleGroundManager
-    - SummonRetinueTargetHandler
+    - SummonMechTargetHandler
     - TargetRange
-    - SummonRetinueTargetRange
+    - SummonMechTargetRange
     - TARGET_SELECT_NONE
     - StartArrowAiming
     - ArrowAiming
     - GameObjectPoolManager
     - Vector3
     - RoundManager
-    stamp: 1557400516
+    stamp: 1557538954
     type: 2
     UseGUIDs: []
   - guid: 180e99e3480a25a4290359e2d69598e0
@@ -3437,8 +3384,8 @@ MonoBehaviour:
     ScriptTokens:
     - MonoBehaviour, IMouseHoverComponent
     - ClientPlayer
-    - ModuleRetinue
-    - M_ModuleRetinue
+    - ModuleMech
+    - Mech
     - SerializeField
     - MeshRenderer
     - SlotLight
@@ -3465,7 +3412,7 @@ MonoBehaviour:
     - MouseHoverComponent_OnFocusBegin
     - MouseHoverComponent_OnFocusEnd
     - MouseHoverComponent_OnMousePressLeaveImmediately
-    stamp: 1557400515
+    stamp: 1557560433
     type: 2
     UseGUIDs: []
   - guid: 8392f05465c012f4eb177020b9508098
@@ -3528,8 +3475,6 @@ MonoBehaviour:
     - ModuleShield
     ScriptTokens:
     - ModuleEquip
-    - Awake
-    - GameObjectPoolManager
     - SerializeField
     - TextMeshPro
     - ArmorText
@@ -3553,7 +3498,7 @@ MonoBehaviour:
     - ShieldTypes
     - OnShieldEquiped
     - EquipAnim
-    stamp: 1557400515
+    stamp: 1557561156
     type: 2
     UseGUIDs: []
   - guid: a24cc96475ca7924583382f0174de03f
@@ -3564,14 +3509,14 @@ MonoBehaviour:
     - Layer_Cards
     - Layer_UI
     - Layer_Modules
-    - Layer_Retinues
+    - Layer_Mechs
     - Layer_Ships
     - Layer_Slots
     - Layer_BoardAreas
     - Layer_UX
     - Awake
     - LayerMask
-    stamp: 1557400515
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: 27eb82740966bfd4589ade9c20709ecb
@@ -3647,7 +3592,7 @@ MonoBehaviour:
   - guid: 7f548e847579e4230b3ce6913812bf3d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557670487
     type: 1
     UseGUIDs:
     - 20bf6393e5940514cbc93ed1a77d8b3b
@@ -3776,9 +3721,9 @@ MonoBehaviour:
     - HideAffixPanel
     - ShowAffixTips
     - CardInfo_Base
-    - ModuleRetinue
+    - ModuleMech
     - GetAffixTypeByCardInfo
-    - GetAffixTypeByRetinue
+    - GetAffixTypeByMech
     - ShowAffixPanel
     - ClearAllAffixes
     - SideEffectExecute
@@ -3792,7 +3737,7 @@ MonoBehaviour:
     - AddAffix
     - GameObjectPoolManager
     - RemoveAffix
-    stamp: 1557400516
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: c250bce49cc49a4408598c4484918e42
@@ -3816,7 +3761,7 @@ MonoBehaviour:
   - guid: 97b8e7f4819af8548bc78f75959edc14
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547698537
+    stamp: 1557563469
     type: 1
     UseGUIDs:
     - 3b71fa018f4ef4b4fab3b6a2a583e313
@@ -3876,15 +3821,13 @@ MonoBehaviour:
   - guid: 6b07cb05601b4644e83c6915642eadb7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547801799
+    stamp: 1557534703
     type: 1
     UseGUIDs:
     - 604b469035cf0524faedc4c0bf838236
     - b2c32d92ba039784c99a13c262f20182
-    - 80406ee2f35098c4dadcba1afd2996a0
     - 00d3f0e5cefaeaa438e5598fc32cfd50
     - f9de99dc293e3dc4ca95845c4d72a356
-    - 6702244e7f4f80044bf520023a9821ca
   - guid: fddb8f05b8393bc4cbcebb4389c7105b
     ScriptSymbols: []
     ScriptTokens: []
@@ -4071,9 +4014,10 @@ MonoBehaviour:
     - RegisterTextKeys
     - RegisterTextFontBinding
     - ClientLog
+    - BattleManager
     - LanguageDropdownChange
     - NoticeManager
-    stamp: 1557400515
+    stamp: 1557668123
     type: 2
     UseGUIDs: []
   - guid: 5cb293659135ece4581338f137872b31
@@ -4115,6 +4059,7 @@ MonoBehaviour:
     - CardNoticeComponent
     - CardCoinComponent
     - CardSlotsComponent
+    - CardLifeComponent
     - CardShowModeComponentList
     - List
     - CardBack
@@ -4132,10 +4077,10 @@ MonoBehaviour:
     - ShowAllSlotBlooms
     - ResetCoinPosition
     - RefreshCoinPosition
+    - CardTypes
     - ShowCardBloom
     - InstantiateCardByCardInfo
     - Transform
-    - CardTypes
     - GameObjectPoolManager
     - CardEquip
     - SetOrderInLayer
@@ -4159,7 +4104,6 @@ MonoBehaviour:
     - ClientUtils
     - M_CardInstanceId
     - SerializeField
-    - CardLifeComponent
     - BeDimColor
     - Color
     - ChangeMainBoardColor
@@ -4189,7 +4133,7 @@ MonoBehaviour:
     - DragComponent_OnMousePressed
     - BoardAreaTypes
     - Slot
-    - ModuleRetinue
+    - ModuleMech
     - DragComponent_OnMouseUp
     - Ship
     - DragComponent_SetStates
@@ -4205,7 +4149,7 @@ MonoBehaviour:
     - MouseHoverComponent_OnFocusEnd
     - MouseHoverComponent_OnMousePressEnterImmediately
     - MouseHoverComponent_OnMousePressLeaveImmediately
-    stamp: 1557400515
+    stamp: 1557575253
     type: 2
     UseGUIDs: []
   - guid: b3b9aa6576114c54983a5820150e02ad
@@ -4742,68 +4686,71 @@ MonoBehaviour:
   - guid: 0eb82a161a8a4d24eb1dad194738a475
     ScriptSymbols:
     - BattleGroundManager
-    - BattleGroundManager.SummonRetinueTarget
-    - BattleGroundManager.retinuePlaceIndex
+    - BattleGroundManager.SummonMechTarget
+    - BattleGroundManager.mechPlaceIndex
     ScriptTokens:
     - MonoBehaviour
-    - RETINUE_INTERVAL
-    - RetinueCount
+    - MECH_INTERVAL
+    - MechCount
     - HeroCount
     - SoldierCount
     - BattleGroundIsFull
     - GamePlaySettings
     - BattleGroundIsEmpty
-    - HasDefenceRetinue
-    - ModuleRetinue
-    - Retinues
+    - HasDefenceMech
+    - ModuleMech
+    - Mechs
     - HerosIsEmpty
     - SoldiersIsEmpty
-    - Vector3
+    - SerializeField
+    - Transform
+    - DefaultMechPivot
     - ClientPlayer
     - List
     - Heros
     - Soldiers
     - Initialize
     - ResetAll
-    - PREVIEW_RETINUE_PLACES_NO_PREVIEW_RETINUE_NOW
-    - RemoveRetinues
-    - CurrentSummonPreviewRetinue
+    - PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW
+    - RemoveMechs
+    - CurrentSummonPreviewMech
     - ComputePosition
+    - Vector3
     - Mathf
-    - ComputePositionInAliveRetinues
-    - GetIndexOfAliveRetinues
-    - CheckRetinueOnPosition
-    - AddRetinue_PrePass
-    - CardInfo_Retinue
+    - ComputePositionInAliveMechs
+    - GetIndexOfAliveMechs
+    - CheckMechOnPosition
+    - AddMech_PrePass
+    - CardInfo_Mech
     - Const
     - GameObjectPoolManager
     - Queue
-    - AddRetinue
+    - AddMech
     - BattleEffectsManager
     - Co_RefreshBattleGroundAnim
-    - RemoveRetinue
-    - Co_RemoveRetinue
-    - GetRetinue
-    - RemoveRetinueTogetherAdd
-    - RemoveRetinueTogether
+    - RemoveMech
+    - Co_RemoveMech
+    - GetMech
+    - RemoveMechTogetherAdd
+    - RemoveMechTogether
     - ClientLog
-    - RemoveRetinueTogatherEnd
+    - RemoveMechTogatherEnd
     - IEnumerator
-    - AddRetinuePreview
-    - RemoveRetinuePreview
-    - GenerateClientRetinueTempId
-    - CardRetinue
-    - SummonRetinuePreview
+    - AddMechPreview
+    - RemoveMechPreview
+    - GenerateClientMechTempId
+    - CardMech
+    - SummonMechPreview
     - TargetRange
     - DragManager
-    - SummonRetinueTargetConfirm
+    - SummonMechTargetConfirm
     - StartCoroutine
     - Co_RetrySummonRequest
-    - SummonRetinueRequest
+    - SummonMechRequest
     - Client
-    - NoNewRetinue
+    - NoNewMech
     - Space
-    - Hashtable
+    - Ease
     - WaitForSeconds
     - Slot
     - ShowTipSlotBlooms
@@ -4826,17 +4773,15 @@ MonoBehaviour:
     - EquipMA
     - Co_EquipMA
     - ModuleMA
-    - DamageOneRetinue
+    - DamageOneMech
     - Utils
     - ModuleBase
     - GetEquip
-    - PrintRetinueInfos
-    - LanguageManager
-    - GetRetinuePlaceIndex
+    - GetMechPlaceIndex
     - GameProcess
     - BeginRound
     - EndRound
-    stamp: 1557400515
+    stamp: 1557579711
     type: 2
     UseGUIDs: []
   - guid: dcde5226b0fea3a4c873beb1e326434c
@@ -4904,7 +4849,7 @@ MonoBehaviour:
     - AddEnergy
     - Self
     - Enemy
-    stamp: 1557400515
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: 9b273636ae741b245841e516f7703571
@@ -4959,8 +4904,6 @@ MonoBehaviour:
     - ModuleWeapon
     ScriptTokens:
     - ModuleEquip
-    - Awake
-    - GameObjectPoolManager
     - SerializeField
     - GameObject
     - M_GunIcon
@@ -4991,7 +4934,7 @@ MonoBehaviour:
     - Name
     - Utils
     - Name_en
-    - M_ModuleRetinue
+    - M_ModuleMech
     - Mathf
     - BattleEffectsManager
     - Co_WeaponEnergyChange
@@ -5001,7 +4944,7 @@ MonoBehaviour:
     - OnAttack
     - OnWeaponEquiped
     - EquipAnim
-    stamp: 1557400515
+    stamp: 1557561150
     type: 2
     UseGUIDs: []
   - guid: bf20956637cc5884ebd535e326d54c2c
@@ -5196,7 +5139,7 @@ MonoBehaviour:
     - Co_Move
     - IEnumerator
     - WaitForSeconds
-    stamp: 1545846994
+    stamp: 1557506444
     type: 2
     UseGUIDs: []
   - guid: efb0dac6ee9e406418232841a385c021
@@ -5293,7 +5236,7 @@ MonoBehaviour:
   - guid: ec5c18d6145c4e8c8faa44e3c1fcea9b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557576403
     type: 1
     UseGUIDs:
     - 954a993272cf403ab3ec8957c302f45a
@@ -5364,9 +5307,9 @@ MonoBehaviour:
     - Initialize
     - BackGroundManager
     - BattleManager
-    - TransitPanel
-    - UIManager
     - Preparation
+    - UIManager
+    - SelectBuildPanel
     - MouseHoverManager
     - AudioManager
     - List
@@ -5390,16 +5333,16 @@ MonoBehaviour:
     - OnEndRoundButtonClick
     - EndRoundRequest
     - ClientLog
-    - ShowRetinueAttackPreviewArrow
-    - ModuleRetinue
+    - ShowMechAttackPreviewArrow
+    - ModuleMech
     - WeaponTypes
     - ShowTargetPreviewArrow
     - TargetRange
     - HideTargetPreviewArrow
     - Utils
     - GetPlayerByClientId
-    - FindRetinue
-    stamp: 1557400515
+    - FindMech
+    stamp: 1557665564
     type: 2
     UseGUIDs: []
   - guid: dd3eaee6aa322934d96562cdc3708e37
@@ -5516,22 +5459,31 @@ MonoBehaviour:
     - BattlePlayer
     - SelfBattlePlayer
     - EnemyBattlePlayer
+    - BattleUIPanel
     - ShowCardDetailInBattleManager
+    - Awake
+    - Update
+    - LateUpdate
+    - Input
+    - KeyCode
+    - Client
+    - UIManager
     - ResetAll
     - ShowBattleShips
     - HideBattleShips
+    - SetLanguage
     - Others
     - SelfHandArea
     - EnemyHandArea
     - SelfBattleGroundArea
     - EnemyBattleGroundArea
-    stamp: 1557400515
+    stamp: 1557668107
     type: 2
     UseGUIDs: []
   - guid: 59bc8627d5e625145a754dceb1963b51
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557562696
     type: 1
     UseGUIDs:
     - 990c6a7fbbbba574d95a4a9a34b3c862
@@ -5542,9 +5494,9 @@ MonoBehaviour:
     - 1714cb08c4f3375488f61319ac85141b
     - beea340c7362ce84f9afbeae2cb4d06f
     - b2909d5862bc3824192fd8886f32024c
+    - 8bf2cbda855aee34e8b091dc1827b6bd
     - e6af996b08cddad4798c70e424a7cc3e
     - 9b5e5a29096a07041baf8f95ee3117b8
-    - 8bf2cbda855aee34e8b091dc1827b6bd
     - 78450b5593c44584d925473b80f645ad
     - ec53da0a450c4e345bf1868edbf59576
     - 137b71b90eb070345a9522fea30bf79d
@@ -5906,7 +5858,7 @@ MonoBehaviour:
   - guid: cc3bf1a7b90b4c448889e9c054899e53
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557534449
     type: 1
     UseGUIDs:
     - 969bb5352c1b69e4d9c4d79f2bc92bfd
@@ -5935,9 +5887,9 @@ MonoBehaviour:
     - ae1fc1f6e82a15441a3698782d461465
     - da5a49f65ccf5194db0951e89038f77b
     - 5fce3d9d292efeb42a678fb9452e20da
-    - 3d378a3d14129be4aaa1e744ce995d9d
     - 2e4db62706af85642b24b5e1449e6d7a
     - c8c6104ae449f1e4c9c39fcd6abd4b50
+    - 3d378a3d14129be4aaa1e744ce995d9d
     - 5bb3afb0fd4d5544c8c12cd88c33bd3a
     - 085ae593bc8e1a34d9320933c3579d91
     - ef380303859ae1047b1d00744e28cd51
@@ -6012,14 +5964,14 @@ MonoBehaviour:
   - guid: 8c4699c7a63e9b74086ed1ca42264a85
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557410209
+    stamp: 1557673032
     type: 1
     UseGUIDs:
     - 5f3f28d1974c0814d84a89ebbe7a1390
     - cd5a0ab93b8d90d428c8677a2c67a18f
     - 40d33e0dbb3a4de49ae1f0af0ce6a6b6
-    - 7e019f381e596174a9ad35befb7ad03b
     - ba4e4f7017b07e9479d6081f27ad43cd
+    - 7e019f381e596174a9ad35befb7ad03b
     - bd196764b3cfd5d4c84a4b223622a017
     - 8340d3662948a294bbd6d5e692d80a55
     - 2e5a854430220154b919b12d85254d13
@@ -6271,8 +6223,6 @@ MonoBehaviour:
     - ModulePack
     ScriptTokens:
     - ModuleEquip
-    - Awake
-    - GameObjectPoolManager
     - Initiate
     - CardInfo_Base
     - ClientPlayer
@@ -6288,7 +6238,7 @@ MonoBehaviour:
     - Name_en
     - OnPackEquiped
     - EquipAnim
-    stamp: 1557400515
+    stamp: 1557561162
     type: 2
     UseGUIDs: []
   - guid: 4d53a0484039ca94188ddf67e0447e2c
@@ -6310,7 +6260,7 @@ MonoBehaviour:
   - guid: 5d471e4803aabd448be488d4d8f73018
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557672575
     type: 1
     UseGUIDs:
     - 69ab291b718e7434e98961d2d505d697
@@ -6322,13 +6272,13 @@ MonoBehaviour:
   - guid: 2c5cf158fe47a314c8922fc9e9f342b2
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1540270853
+    stamp: 1557534327
     type: 1
     UseGUIDs:
     - 527cd3ccc7883a848b19baab98dcac1c
     - 7b33366a5cdddaa4684ab94bb37ab10b
-    - e8a9ca17fd63b404e9ce1a4e90f9ffa8
     - c1fec737f2aea4840ad51051c2b8d864
+    - e8a9ca17fd63b404e9ce1a4e90f9ffa8
     - 6aa11f49d8f80f447b8be4cea0f105c8
     - 110213f116c0c754eadb6863f994f435
   - guid: 65aa08586153a344d97b8007f47aae4c
@@ -6630,7 +6580,7 @@ MonoBehaviour:
   - guid: 1f118be8d458dbb4bbfdf4d378813e03
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557656989
     type: 1
     UseGUIDs:
     - 6c3a279a6cb94b1fb71916509dd7c6af
@@ -6751,7 +6701,7 @@ MonoBehaviour:
   - guid: 4dff3f19263574f60b43b74454c746d0
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557407996
+    stamp: 1557534493
     type: 1
     UseGUIDs:
     - a553a76be93d351439e665b543a79ec8
@@ -6833,12 +6783,8 @@ MonoBehaviour:
     ScriptSymbols:
     - BattleUIPanel
     ScriptTokens:
-    - BaseUIForm
+    - MonoBehaviour
     - Awake
-    - UIType
-    - UIFormTypes
-    - UIFormShowModes
-    - UIFormLucencyTypes
     - DirectlyWinButton
     - DirectlyWin
     - EndRoundButton
@@ -6854,7 +6800,7 @@ MonoBehaviour:
     - LanguageManager
     - WinDirectlyRequest
     - Client
-    stamp: 1557405590
+    stamp: 1557656985
     type: 2
     UseGUIDs: []
   - guid: b3d0a64929c6bbd44916c239f30502a9
@@ -6962,11 +6908,14 @@ MonoBehaviour:
     - MonoBehaviour
     - ClientPlayer
     - SerializeField
+    - Material
+    - DeckMaterials
     - Transform
     - CardDeckContainer
-    - Text
+    - TextMeshPro
     - CardLeftNumText
-    - CardLeftNumText_BG
+    - MeshRenderer
+    - CardDeckImage
     - CardBase
     - CardDeckCards
     - CARD_DECK_CARD_NUM
@@ -6980,7 +6929,7 @@ MonoBehaviour:
     - ResetCardDeckNumberText
     - SetCardDeckNumber
     - SetCardDeckShowCardNum
-    stamp: 1557400515
+    stamp: 1557672888
     type: 2
     UseGUIDs: []
   - guid: fa1ee769cc30ead4fb05102f492ffe1e
@@ -7009,13 +6958,12 @@ MonoBehaviour:
   - guid: 04f1a5793285c184bab9736f899e8b79
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557534589
     type: 1
     UseGUIDs:
     - fbb24dc27d8166945aec3ac67ceda922
     - df6fb3fa69af94befa3e6e98de71f505
     - cee36351dfb642a4b8c6307ebb9e4317
-    - 79d323653750543d1971df2e2ff6a7f2
     - c4d118b6a182c2146b3849bb61107358
     - 23ad3d9b98c3e394bb0d4ede1484c133
     - 1f3957eb2905fac458876db637e5211a
@@ -7046,7 +6994,7 @@ MonoBehaviour:
   - guid: 9286a489ff640374999415e5a260277d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557410017
+    stamp: 1557668809
     type: 1
     UseGUIDs:
     - 8d031d861498d204b933839693944d2c
@@ -7116,7 +7064,7 @@ MonoBehaviour:
   - guid: bb718da9debe8414ea3074bb4355ae56
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557656985
     type: 1
     UseGUIDs:
     - 41511023bbe90e14cbdc3d26ac481ff9
@@ -7124,7 +7072,7 @@ MonoBehaviour:
     - c2d892171d0a2470190e7bb6d0dd3f02
     - c253968f6e2d04149a6bad14abf06eed
     - fb7163d016376964e80e5b0cc6fc0f76
-    - ab1ac2a71ec91184f827e65557b93920
+    - f54d1bd14bd3ca042bd867b519fee8cc
   - guid: 73aa0ea920e7e6047a2caa0ac166f9a2
     ScriptSymbols: []
     ScriptTokens: []
@@ -7157,8 +7105,8 @@ MonoBehaviour:
     ScriptTokens:
     - ModuleBase
     - M_EquipID
-    - ModuleRetinue
-    - M_ModuleRetinue
+    - ModuleMech
+    - M_ModuleMech
     - TextMesh
     - Name
     - Name_en
@@ -7202,7 +7150,7 @@ MonoBehaviour:
     - BattleEffectsManager
     - Co_ShowSideEffectBloom
     - AudioManager
-    stamp: 1557400515
+    stamp: 1557561084
     type: 2
     UseGUIDs: []
   - guid: 8a55c1c9209a37e4ebf442506f12bade
@@ -7248,12 +7196,12 @@ MonoBehaviour:
     - BoardAreaTypes
     - List
     - Slot
-    - ModuleRetinue
+    - ModuleMech
     - Ship
     - Vector3
     - Quaternion
     - ClientPlayer
-    - CheckRetinueCanEquipMe
+    - CheckMechCanEquipMe
     - AudioManager
     - NoticeManager
     - CardInfo
@@ -7267,7 +7215,7 @@ MonoBehaviour:
     - EquipPackRequest
     - EquipMARequest
     - Usable
-    stamp: 1557400515
+    stamp: 1557560430
     type: 2
     UseGUIDs: []
   - guid: cf4956c9b0cf5c348bfc052e4b064e55
@@ -7298,7 +7246,7 @@ MonoBehaviour:
     - BoardAreaTypes
     - List
     - Slot
-    - ModuleRetinue
+    - ModuleMech
     - Ship
     - Vector3
     - Quaternion
@@ -7317,10 +7265,10 @@ MonoBehaviour:
     - M_CardInstanceId
     - Usable
     - Const
-    - UseSpellCardToRetinueRequest
+    - UseSpellCardToMechRequest
     - UseSpellCardToEquipRequest
     - UseSpellCardToShipRequest
-    stamp: 1557400515
+    stamp: 1557560430
     type: 2
     UseGUIDs: []
   - guid: b39e54d9c0911544abb3b03bf208e2a4
@@ -7338,7 +7286,7 @@ MonoBehaviour:
   - guid: c24137d9a11244218c329277b5ca09db
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557656990
     type: 1
     UseGUIDs:
     - 512e6e39ccf44304b87f580260dd9988
@@ -7375,7 +7323,7 @@ MonoBehaviour:
   - guid: 216e5dd92c4124946b680fd26bc4c226
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557672611
     type: 1
     UseGUIDs:
     - 5cae4c4083a9c4f9dbbde42b99cea8ed
@@ -7444,10 +7392,13 @@ MonoBehaviour:
   - guid: 4d26cef906c7dd54d88d864432ec53cf
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547698537
+    stamp: 1557563472
     type: 1
     UseGUIDs:
+    - 158854d2f3e0a5b4a93118da8623b21c
     - e15d03a8fe606774e8b8854bf0c76954
+    - 97b8e7f4819af8548bc78f75959edc14
+    - 8f9b01fb3ffed47c9b319503aaa5a744
   - guid: 93f9dff9aa4f904448770d4886e22ae3
     ScriptSymbols: []
     ScriptTokens: []
@@ -7576,7 +7527,7 @@ MonoBehaviour:
   - guid: 6117b82ac399d3142834588b56bc80c9
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557575253
     type: 1
     UseGUIDs:
     - bf92f76599cde43ec91a66895f638d3e
@@ -7681,7 +7632,7 @@ MonoBehaviour:
   - guid: 938fb26a096e70a4199186056b6a0e83
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557583681
     type: 1
     UseGUIDs:
     - dc5decdb4a0ca8949992b4a0d5ec7ecc
@@ -7720,7 +7671,7 @@ MonoBehaviour:
   - guid: e3dea86af4690074487593b6179897cd
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557403070
+    stamp: 1557506444
     type: 1
     UseGUIDs:
     - ac45cab6affe47147b4ebf3cf4070ab2
@@ -7855,7 +7806,7 @@ MonoBehaviour:
   - guid: 6c3a279a6cb94b1fb71916509dd7c6af
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557404511
+    stamp: 1557673149
     type: 1
     UseGUIDs:
     - 9f82076f9d056f8428cf094bfd958a35
@@ -8276,7 +8227,7 @@ MonoBehaviour:
     - GameManager
     - List
     - Slot
-    - ModuleRetinue
+    - ModuleMech
     - Ship
     - DragComponent_OnMouseDown
     - DragComponent_OnMousePressed
@@ -8284,7 +8235,7 @@ MonoBehaviour:
     - DragComponent_SetStates
     - DragComponent_DragDistance
     - DragComponent_DragOutEffects
-    stamp: 1557400516
+    stamp: 1557672575
     type: 2
     UseGUIDs: []
   - guid: 6a10ea1b88c5f644faf5e148f7d49f57
@@ -8391,7 +8342,7 @@ MonoBehaviour:
     - Co_UnlockCardShowOne
     - WaitForSeconds
     - Update
-    stamp: 1557400516
+    stamp: 1557574537
     type: 2
     UseGUIDs: []
   - guid: c11c732b0fd230744860bbbe0b7e519e
@@ -8511,17 +8462,17 @@ MonoBehaviour:
     - CardBase
     - DETAIL_SINGLE_CARD_SIZE
     - DETAIL_EQUIPMENT_CARD_SIZE
-    - DETAIL_RETINUE_CARD_SIZE
+    - DETAIL_MECH_CARD_SIZE
     - ShowCardDetail
     - ModuleBase
     - CardInfo_Base
     - CardInfo
     - CardTypes
-    - CardRetinue
+    - CardMech
     - BattleManager
     - RoundManager
     - Vector3
-    - ModuleRetinue
+    - ModuleMech
     - GameObjectPoolManager
     - CardEquip
     - List
@@ -8530,7 +8481,7 @@ MonoBehaviour:
     - LeftLower
     - RightUpper
     - HideCardDetail
-    stamp: 1557400515
+    stamp: 1557576403
     type: 2
     UseGUIDs: []
   - guid: 3744c24beb853734aa80bce4cb1c5db2
@@ -8774,9 +8725,9 @@ MonoBehaviour:
     UseGUIDs: []
   - guid: 81af1b9b1e4df814cacdb464f62082fe
     ScriptSymbols:
-    - ModuleRetinueEditor
+    - ModuleMechEditor
     ScriptTokens:
-    - ModuleRetinue
+    - ModuleMech
     - Editor
     - DrawGizmo
     - GizmoType
@@ -8786,7 +8737,7 @@ MonoBehaviour:
     - FontStyle
     - Handles
     - Vector3
-    stamp: 1547867032
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: 23ad3d9b98c3e394bb0d4ede1484c133
@@ -8877,7 +8828,7 @@ MonoBehaviour:
     - Awake
     - M_StateMachine
     - Update
-    - RETINUE_DETAIL_PREVIEW_DELAY_SECONDS
+    - MECH_DETAIL_PREVIEW_DELAY_SECONDS
     - Start
     - GameManager
     - UIManager
@@ -8885,13 +8836,14 @@ MonoBehaviour:
     - None
     - StartMenu
     - ExitMenu
+    - SettingMenu
     - SelectCardWindow
     - SelectCardWindow_ReadOnly
     - BattleNormal
     - DragEquipment
-    - DragRetinueTo
+    - DragMechTo
     - DragSpellTo
-    - SummonRetinueTargetOn
+    - SummonMechTargetOn
     - HashSet
     - OutGameState
     - InGameState
@@ -8917,7 +8869,7 @@ MonoBehaviour:
     - MouseSpeedThreshold
     - Time
     - PrintCurrentTarget
-    stamp: 1557400516
+    stamp: 1557665306
     type: 2
     UseGUIDs: []
   - guid: 99068abb46944a94a9b33b73e657b1ff
@@ -9080,7 +9032,7 @@ MonoBehaviour:
   - guid: 657a810cba5e428ea47259d01f429f21
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557405609
+    stamp: 1557667011
     type: 1
     UseGUIDs:
     - 615d2ce44777ffc45aec520500d95acc
@@ -9099,7 +9051,6 @@ MonoBehaviour:
     - dfb86b5889b6c584fbdc8c33039966f9
     - ec8588936981b6a42a2fd881d1cd8b57
     - ee84060d09c6c2e49acb7d52f2041953
-    - 7612371c4229a0346bcef38fe3d90ae0
     - a0c24a8335cd414e9281c0652c97f577
   - guid: beea340c7362ce84f9afbeae2cb4d06f
     ScriptSymbols: []
@@ -9616,7 +9567,7 @@ MonoBehaviour:
   - guid: b184fffca1c78dc4990252d27031a1ca
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547698537
+    stamp: 1557562779
     type: 1
     UseGUIDs:
     - 8e5f3c704c53f4c4fac66a12bd3e254d
@@ -9625,7 +9576,6 @@ MonoBehaviour:
     - 43ea77fabeae5bb48b780d12f6a33b00
     - 86a01edc2f11f844d90cc66e568ac3dc
     - a9d0d86d132e30a4cbd2831500610209
-    - 97b8e7f4819af8548bc78f75959edc14
     - 92b4a0139660590428b1181ae10fbcd4
     - b3d0a64929c6bbd44916c239f30502a9
     - 7adb1f9d9a1a8b44cac1d9d222301e9e
@@ -9663,8 +9613,6 @@ MonoBehaviour:
     - ModuleMA
     ScriptTokens:
     - ModuleEquip
-    - Awake
-    - GameObjectPoolManager
     - Initiate
     - CardInfo_Base
     - ClientPlayer
@@ -9679,7 +9627,7 @@ MonoBehaviour:
     - Name_en
     - OnMAEquiped
     - EquipAnim
-    stamp: 1557400515
+    stamp: 1557561144
     type: 2
     UseGUIDs: []
   - guid: a470622d302881f4bb38e634a6cc4dc9
@@ -9870,21 +9818,21 @@ MonoBehaviour:
     - SerializeField
     - GameObject
     - ShipBG
-    - TextMesh
+    - TextMeshPro
     - DamageNumberPreviewTextMesh
-    - DamageNumberPreviewBGTextMesh
     - Desc
-    - DescBG
+    - Trans_NeedRotate180ByPlayer
     - Initialize
     - ResetAll
+    - Quaternion
     - Players
     - Vector3
     - GetClosestHitPosition
     - MouseHoverComponent_OnMousePressEnterImmediately
     - DragManager
-    - ModuleRetinue
+    - ModuleMech
     - CardSpell
-    - CheckModuleRetinueCanAttackMe
+    - CheckModuleMechCanAttackMe
     - ArrowAiming
     - CheckCardSpellCanTarget
     - WeaponTypes
@@ -9899,7 +9847,7 @@ MonoBehaviour:
     - MouseHoverComponent_OnFocusBegin
     - MouseHoverComponent_OnFocusEnd
     - MouseHoverComponent_OnMousePressLeaveImmediately
-    stamp: 1557400515
+    stamp: 1557668228
     type: 2
     UseGUIDs: []
   - guid: 96cc6b8d2f391d44381df7217bf0005f
@@ -10013,19 +9961,12 @@ MonoBehaviour:
   - guid: 2b7d34dd4d7c4f74f8a57d61d29492a0
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557418292
+    stamp: 1557670046
     type: 1
     UseGUIDs:
-    - b966c772d0030044daa496e5d9091c3f
-    - 9402f1cd772e63e4c8413c5f40032eec
-    - 42f66688082a95c4cb213c107f31fd00
-    - b1ba0bda792ddc044a4bba52199f81d0
     - 449d55f000c8cdf40bc992ec6f66596b
-    - f85006f74e7ad814d8df1ead0135b75e
-    - ebd2f9639146b844e86a377f1a4ca844
-    - baf997ae7be8ac24485425bd095fc052
-    - 0453baa7506155e4b9c34028a7ed5e1c
     - 5cae10c825123473ead8c8b76d321e48
+    - f335bada9388548e58f0e82d5906fc0f
   - guid: ab9dc4dd8e4bbe84087d0b045d5ecde1
     ScriptSymbols: []
     ScriptTokens: []
@@ -10274,7 +10215,7 @@ MonoBehaviour:
     - RoundManager
     - Color
     - ClientUtils
-    stamp: 1557400516
+    stamp: 1557574537
     type: 2
     UseGUIDs: []
   - guid: 781f783e47a367e4b8bd04157681fc90
@@ -10325,7 +10266,7 @@ MonoBehaviour:
   - guid: f45fe44eaee2807439b131fa374c0522
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557411174
+    stamp: 1557534710
     type: 1
     UseGUIDs:
     - ce8a91a7afa25634294d74a62c368d03
@@ -10435,7 +10376,7 @@ MonoBehaviour:
   - guid: 99c7619ef1dae0c44aa8b01dbcd15156
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557533693
     type: 1
     UseGUIDs:
     - 09b7aa87648f9c14dba6a71e4c0bcb2b
@@ -10676,7 +10617,7 @@ MonoBehaviour:
   - guid: b9d929def6daae2488b4e91c3609ee55
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557534250
     type: 1
     UseGUIDs:
     - ef80fa9182220924eb76707bc283063a
@@ -10950,7 +10891,7 @@ MonoBehaviour:
     ScriptTokens:
     - MonoSingleton<BattleEffectsManager>
     - Effect_Main
-    - Effect_RefreshBattleGroundOnAddRetinue
+    - Effect_RefreshBattleGroundOnAddMech
     - Effect_TipSlotBloom
     - Start
     - Update
@@ -10974,7 +10915,7 @@ MonoBehaviour:
     - Enumerator
     - MethodName
     - EffectId
-    stamp: 1557400515
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: 23d02c6f8632da14eaf4ec026f14034a
@@ -11094,7 +11035,7 @@ MonoBehaviour:
   - guid: dfc66fbff4c0cec478473a810492b606
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1547698537
+    stamp: 1557563469
     type: 1
     UseGUIDs:
     - f09952df4e618dc40b0ca3188a7a1df4
@@ -11234,7 +11175,7 @@ MonoBehaviour:
   - guid: 2b73ebffd77e99748b1505db781e8b97
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557534592
     type: 1
     UseGUIDs:
     - a9c7d83b4c012c84f9b6bdbd8d704e42
@@ -11366,13 +11307,13 @@ MonoBehaviour:
     - PoolRecycle
     - SoundPlay
     - AudioManager
-    stamp: 1557400515
+    stamp: 1557505423
     type: 2
     UseGUIDs: []
   - guid: a0993713bb0d9fa41a950d3f000d2003
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557656985
     type: 1
     UseGUIDs:
     - 02bd2a8ea8310644cbdc453f03393d22
@@ -11441,7 +11382,7 @@ MonoBehaviour:
   - guid: 341a63f780376c94db542cb3cb9855f2
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557668123
     type: 1
     UseGUIDs:
     - 96d65365470801c49a7a6c8e41fb1cdc
@@ -11492,7 +11433,7 @@ MonoBehaviour:
     - Instantiate
     - PrefabManager
     - UIFormTypes
-    stamp: 1557400515
+    stamp: 1557667691
     type: 2
     UseGUIDs: []
   - guid: cfebd8a87e5b2334cbfecd3243d29424
@@ -11562,30 +11503,32 @@ MonoBehaviour:
     ScriptTokens:
     - MonoSingleton<GameObjectPoolManager>
     - BattlePlayer
-    - ColliderReplace
+    - MetalBarBlock
+    - PlayerBuff
+    - CoolDownCard
     - ArrowAiming
     - ArrowArrow
-    - Retinue
-    - Weapon
-    - WeaponDetail
-    - Shield
-    - ShieldDetail
-    - Pack
-    - PackDetail
-    - MA
-    - MADetail
-    - RetinueCard
+    - ModuleMech
+    - MechBattleInfoIcon
+    - MechTriggerIcon
+    - ModuleWeapon
+    - ModuleWeaponDetail
+    - ModuleShield
+    - ModuleShieldDetail
+    - ModulePack
+    - ModulePackDetail
+    - ModuleMA
+    - ModuleMADetail
+    - MechCard
     - EquipCard
     - SpellCard
     - CardDeckCard
+    - ColliderReplace
     - CardSelectWindowCardContainer
     - SelectCard
     - BuildButton
-    - MetalBarBlock
     - TextFly
     - Affix
-    - PlayerBuff
-    - CoolDownCard
     - ParticleSystem
     - Bullet
     - BigBonusItem
@@ -11605,6 +11548,7 @@ MonoBehaviour:
     - CardPropertyForm_SideEffect
     - Dictionary
     - PoolConfigs
+    - PoolWarmUpDict
     - GameObjectPool
     - PoolDict
     - Pool_HitPool
@@ -11615,13 +11559,13 @@ MonoBehaviour:
     - GameObject
     - PrefabManager
     - ClientLog
-    stamp: 1557400515
+    stamp: 1557656985
     type: 2
     UseGUIDs: []
   - guid: d8e2ee3afb0081e4c94438453deb5d6a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557403239
+    stamp: 1557667691
     type: 1
     UseGUIDs:
     - 74033f1fc2964c741b0bc8264c790b24
@@ -11977,8 +11921,10 @@ MonoBehaviour:
     - Start
     - PlayerPrefs
     - Display
+    - MouseHoverManager
+    - Hide
     - AudioManager
-    stamp: 1557400516
+    stamp: 1557656985
     type: 2
     UseGUIDs: []
   - guid: ee84060d09c6c2e49acb7d52f2041953
@@ -12059,7 +12005,7 @@ MonoBehaviour:
   - guid: 85fc4391f34ec384b90b55151f0b2e54
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557535449
     type: 1
     UseGUIDs:
     - c4369894c60dde84298b46179e6414f5
@@ -12075,13 +12021,13 @@ MonoBehaviour:
     - 92364f1d65cb0da4dad84584b1655e80
     - 7b4f17000e2ba3148b5f544e4be213a5
     - 8635e0302f0a36c4ebd0eee59477d6d4
-    - 45557ab77cc0b2242b64754f085fd48d
   - guid: d723da2b17028de4b911b61a4a4191a5
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557561281
     type: 1
     UseGUIDs:
+    - 31b9610e5edf81a4fb1af5410fdc7368
     - f5efd09da770e4cae8bb33791a0e08c9
     - ee5cc79df0a604ccf88efe9d061b96cb
     - 8ff5b72fcf70f443b8f8b346b9a6b020
@@ -12127,10 +12073,10 @@ MonoBehaviour:
     - Image
     - UpgradeArrow
     - UpgradeArrowPivot_normal
-    - UpgradeArrowPivot_retinueCards
+    - UpgradeArrowPivot_mechCards
     - DegradeArrow
     - DegradeArrowPivot_normal
-    - DegradeArrowPivot_retinueCards
+    - DegradeArrowPivot_mechCards
     - OperationUIs
     - Button
     - UpgradeCardButton
@@ -12172,7 +12118,7 @@ MonoBehaviour:
     - List
     - CardInfo_Base
     - Hide
-    stamp: 1557400516
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: a7aa60b397093ff41936fc8b07028dc1
@@ -12276,6 +12222,7 @@ MonoBehaviour:
     - Start_SelectCards
     - IsInit
     - ChildUpdate
+    - IsShow
     - Update_Cards
     - Normal
     - ReadOnly
@@ -12290,10 +12237,11 @@ MonoBehaviour:
     - SelectBuildManager
     - Display
     - UIMaskMgr
+    - Client
+    - MouseHoverManager
     - Hide
     - CurrentEditBuildButton
     - UIManager
-    - MouseHoverManager
     - Dictionary
     - CardBase
     - PoolObject
@@ -12311,7 +12259,7 @@ MonoBehaviour:
     - ShowAllOnlineCards
     - SwitchToBuildButton
     - OnlineManager
-    stamp: 1557405135
+    stamp: 1557667011
     type: 2
     UseGUIDs: []
   - guid: b2bd25f5a21b74c4abe66b915f7796f8
@@ -12385,13 +12333,15 @@ MonoBehaviour:
     - DeleteBuildRequest
     - OnDeleteBuildButton
     - UnSelectAllCard
+    - SelectCardMethods
     - RefreshSomeBuild
-    stamp: 1557400516
+    stamp: 1557656985
     type: 2
     UseGUIDs: []
   - guid: c5bcb34da9479ed45ab178cf3f813845
     ScriptSymbols:
     - SelectBuildPanel
+    - SelectBuildPanel.{
     ScriptTokens:
     - SerializeField
     - Transform
@@ -12416,6 +12366,7 @@ MonoBehaviour:
     - LanguageManager
     - SelectAllCard
     - UnSelectAllCard
+    - SelectCardMethods
     - OnConfirmSubmitCardDeckButtonClick
     - OnCloseButtonClick
     - Start_Cards
@@ -12470,13 +12421,14 @@ MonoBehaviour:
     - CardNoticeComponent
     - StoryManager
     - ShowUpgradeCardBanner
-    stamp: 1557400516
+    stamp: 1557656985
     type: 2
     UseGUIDs: []
   - guid: 02919a8e3d142574eb2e343bf38c7c91
     ScriptSymbols:
     - SelectBuildPanel
     - SelectBuildPanel.{
+    - SelectBuildPanel.SelectCardMethods
     ScriptTokens:
     - SerializeField
     - Transform
@@ -12507,22 +12459,14 @@ MonoBehaviour:
     - SelectCard
     - SelectedCards
     - SelectedHeroes
-    - IsReadOnly
-    - Client
-    - NoticeManager
-    - CurrentEditBuildButton
-    - OnCreateNewBuildButtonClick
-    - CurrentGamePlaySettings
-    - CardTypes
-    - GenerateNewSelectCard
-    - SortSelectCards
-    - RefreshCoinLifeEnergy
-    - AudioManager
     - GetSelectedCardCount
     - SortSCs
     - List
     - SCs
     - SortCBs
+    - SortSelectCards
+    - GenerateNewSelectCard
+    - CardTypes
     - GameObjectPoolManager
     - Color
     - ClientUtils
@@ -12538,6 +12482,22 @@ MonoBehaviour:
     - Space
     - Quaternion
     - CardInfo_Base
+    - Flags
+    - CardClick
+    - UpgradeDegrade
+    - ButtonClick
+    - SwitchBuildButton
+    - DeleteBuild
+    - SingleSelect
+    - MuiltiSelect
+    - IsReadOnly
+    - Client
+    - NoticeManager
+    - CurrentEditBuildButton
+    - OnCreateNewBuildButtonClick
+    - CurrentGamePlaySettings
+    - AudioManager
+    - RefreshCoinLifeEnergy
     - SelectAllCard
     - SelectCardsByBuildInfo
     - BuildInfo
@@ -12549,7 +12509,7 @@ MonoBehaviour:
     - CurrentSelectedBuildButton
     - CloseUIForm
     - OnCloseButtonClick
-    stamp: 1557400516
+    stamp: 1557656985
     type: 2
     UseGUIDs: []
   - guid: 11349d0391c0363468a5fd26367940ba
@@ -12675,7 +12635,7 @@ MonoBehaviour:
   - guid: 1c927e6da8ac4c74f947d5b787335e8e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557656985
     type: 1
     UseGUIDs:
     - 17ae6d673cca33b4eb5f6e879f2ef344
@@ -12725,37 +12685,38 @@ MonoBehaviour:
   - guid: 449d55f000c8cdf40bc992ec6f66596b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557418292
+    stamp: 1557670046
     type: 5
     UseGUIDs:
-    - 33db60c37b63f08448ded4b385e74e38
-    - 89f0137620f6af44b9ba852b4190e64e
-    - 715b80e429c437e40867928a4e1fc975
-    - 5cdadcba8874ac14bac36b33eb07117e
-    - 5d8208fa0717cb94ba3f2301cf3dec7c
-    - 3f189898278fb094a972ffef4a2aef4b
-    - 9c1499a206e68574faee982c98ef19a4
-    - 4f50a0668f0a0d149b798f84bcd28f82
-    - 42937372c424a1e459975bc81fa5a3e6
-    - 8a55c1c9209a37e4ebf442506f12bade
     - 69ab291b718e7434e98961d2d505d697
     - 4001d6008e4059f44ae5562fee28fd1f
     - ba4e4f7017b07e9479d6081f27ad43cd
-    - 04462d1accd203f4e806a1699338223e
-    - 1714cb08c4f3375488f61319ac85141b
-    - ec53da0a450c4e345bf1868edbf59576
-    - 84f8b6874fcd3204596f78545f06ec28
-    - f9de99dc293e3dc4ca95845c4d72a356
-    - 84fe9a37839746b4b870d33419998e79
-    - 898973b3837b47b4ba192679b78b0581
     - 0672527a15b33486ebd8a4e61f0ab711
+    - ebbdeec53bcd4aa5a6616ea678ca92d4
     - b91985d82ad45467bade64f4ea6d1639
+    - be18ab454554445ebce3f3eb14da767a
+    - 90a03ef044fcc174797e4aeaa8317f3e
+    - a9e37429d13461c4e86c756bde00d5dc
+    - 8afe33c2d9c314ab6be436663c1db42b
+    - 432886119855448f92e7f2c24f0cabe9
+    - 5cdadcba8874ac14bac36b33eb07117e
     - 82b6743ef04cc4a4c82089ba1123d0c4
+    - 00883543fb6c4975b687d319d3648293
     - 17ae6d673cca33b4eb5f6e879f2ef344
+    - b8ff39cca341d6e44924d7a1305a9e67
+    - 6e70ad45d5d194ddca9bc455eacf2f11
+    - 5df452eca57947338b1cc61c8439f5e8
     - 779dbd6a4c0334a89b6f749e5d437095
+    - fe0606f0dc6a44249a8c7e1503ef31a9
     - d48f8fd43c5fc0848a5cae34a6a02a92
+    - 8a11b2b58a085ad43bee69f549f3fc11
     - ac06e4c009df3ca4f95f8c41302a264a
+    - 3629ea48af5f347479eabcff0b4ba05e
     - 49e9c9357b5c94e8f883bd1d7f66e81d
+    - 89f0137620f6af44b9ba852b4190e64e
+    - 99ae8c3c7b2e41b6a46a34747d4bf677
+    - c2583568347d7024a91ab9fe4cc38d4e
+    - 947221d14593b0f4db9f99b99c63cccc
   - guid: f13e5b116f15ce6429d09528aed4468e
     ScriptSymbols: []
     ScriptTokens: []
@@ -12851,7 +12812,7 @@ MonoBehaviour:
   - guid: 5f9b4313de4d7f14db6f37b46ec96d7a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557580530
     type: 5
     UseGUIDs:
     - b4cdc1dce050e794e963c60502f41322
@@ -12902,12 +12863,12 @@ MonoBehaviour:
   - guid: 20bf6393e5940514cbc93ed1a77d8b3b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557670487
     type: 5
     UseGUIDs:
     - fc299f694448b494e98e2fd5fbaa2e37
-    - 3d00edd3b84f82641966bb5dccaa28c8
     - bf31140ba4b40c846b53b37d4bd01d7c
+    - 3d00edd3b84f82641966bb5dccaa28c8
   - guid: 350504930160dba4cb1a26432dab521f
     ScriptSymbols: []
     ScriptTokens: []
@@ -12917,7 +12878,7 @@ MonoBehaviour:
   - guid: 8e89b4d3b31ea174ca07e91c54b710c3
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557403377
+    stamp: 1557656985
     type: 5
     UseGUIDs:
     - 7a29b561e597c5e47a7c1355dd3715eb
@@ -12936,6 +12897,8 @@ MonoBehaviour:
     - 96d65365470801c49a7a6c8e41fb1cdc
     - 6fec9a8fc56ecc447bb5eac824eddbf3
     - 386c9dc95ead08d42af7a7917f8dd151
+    - b9bd96825c9a638418c28b4842b041e1
+    - 0b73a549e18ab824c88b570193e7d286
     - 13f6860f420144535b05e7ab775ca200
     - 9be5a4ab56bc28846b262e20bedee40b
     - 03ed38e9ccc8a41e7a4c6f55c58c952e
@@ -13326,7 +13289,7 @@ MonoBehaviour:
   - guid: 00a4922be29717441943cceeefce637f
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557406930
+    stamp: 1557656985
     type: 5
     UseGUIDs:
     - eff975c98951c4a42851b18bf76111f4
@@ -13391,7 +13354,7 @@ MonoBehaviour:
   - guid: 02e71c6c580c8d0468c7f0ae8df46f5b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557406924
+    stamp: 1557535237
     type: 5
     UseGUIDs:
     - fbfebbc9f74ed1a4b8240ff3ba1eddf8
@@ -13485,13 +13448,12 @@ MonoBehaviour:
   - guid: d982a4bd9d589c0479c78b8cfa7e6574
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557406927
+    stamp: 1557574009
     type: 5
     UseGUIDs:
     - 6b1dbae2767e6fd408602333d346c5c6
     - 69ab291b718e7434e98961d2d505d697
     - 4001d6008e4059f44ae5562fee28fd1f
-    - 89f0137620f6af44b9ba852b4190e64e
     - fa42e59f3d69b044caec5f2a898ad8bf
     - 3ef2024387e322e4bb67715db2a75000
     - dd924dedd26539546b3744965a6e93db
@@ -13560,20 +13522,20 @@ MonoBehaviour:
   - guid: baf997ae7be8ac24485425bd095fc052
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557561209
     type: 5
     UseGUIDs:
-    - cda67ea4263552a4985c33f3712939fd
-    - 1e6d6f1e6fb25bd429fc8ac1455ec1f6
-    - d8452d9f6ac42e248bc9512f551ad331
+    - 09ac7e9d10db35b4fbad23be1cc1b294
     - f9de99dc293e3dc4ca95845c4d72a356
-    - 5689c4c248e103d4594ffb5629c8d985
-    - 26bb3ef3ac440ca468b02c4564acf25b
+    - cda67ea4263552a4985c33f3712939fd
     - a4453b115738e4f42b2970843935d0c5
+    - 1e6d6f1e6fb25bd429fc8ac1455ec1f6
+    - 26bb3ef3ac440ca468b02c4564acf25b
+    - d8452d9f6ac42e248bc9512f551ad331
     - 8340d3662948a294bbd6d5e692d80a55
     - 69ab291b718e7434e98961d2d505d697
     - 4001d6008e4059f44ae5562fee28fd1f
-    - 09ac7e9d10db35b4fbad23be1cc1b294
+    - 5689c4c248e103d4594ffb5629c8d985
   - guid: d94102fec2ea56c4b84a9a2b36443744
     ScriptSymbols: []
     ScriptTokens: []
@@ -13708,13 +13670,13 @@ MonoBehaviour:
     - CardShadowDefaultSortingOrder
     - PictureDefaultSortingOrder
     - SetSortingIndexOfCard
-    stamp: 1557400515
+    stamp: 1557544449
     type: 2
     UseGUIDs: []
   - guid: f8ef11296e54940449859dc702ca5df9
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557575397
     type: 1
     UseGUIDs:
     - b8ff39cca341d6e44924d7a1305a9e67
@@ -14252,7 +14214,7 @@ MonoBehaviour:
   - guid: 33db60c37b63f08448ded4b385e74e38
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557497188
     type: 5
     UseGUIDs:
     - cafd18099dfc0114896e0a8b277b81b6
@@ -14278,7 +14240,7 @@ MonoBehaviour:
   - guid: 5de014f3d5add03479fa8fc56ad3c967
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557581103
     type: 1
     UseGUIDs:
     - 250a1a103b3b4914c9707e6a423446d6
@@ -15615,7 +15577,7 @@ MonoBehaviour:
   - guid: 102e7c5c5e3b1f3468518cb166967d77
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557581103
     type: 5
     UseGUIDs:
     - cafd18099dfc0114896e0a8b277b81b6
@@ -16222,13 +16184,13 @@ MonoBehaviour:
     - Back
     - Desc
     - CostBlock
-    - LifeBlock
+    - Life
     - CoinBlock
     - Slots
     - SelectCount
     - Notice
     - Stars
-    stamp: 1557400515
+    stamp: 1557575397
     type: 2
     UseGUIDs: []
   - guid: 8a11b2b58a085ad43bee69f549f3fc11
@@ -16304,13 +16266,14 @@ MonoBehaviour:
     - Slots
     - SetSlot
     - ClientPlayer
-    - RetinueInfo
+    - ModuleMech
+    - MechInfo
     - ShowSlot
     - SlotTypes
     - ShowAllSlotLights
     - ShowAllSlotBlooms
     - SetSortingIndexOfCard
-    stamp: 1557400515
+    stamp: 1557560433
     type: 2
     UseGUIDs: []
   - guid: 947221d14593b0f4db9f99b99c63cccc
@@ -16418,7 +16381,7 @@ MonoBehaviour:
     ScriptSymbols:
     - CardBaseEditor
     - CardEquipEditor
-    - CardRetinueEditor
+    - CardMechEditor
     - CardSpellEditor
     ScriptTokens:
     - CardBase
@@ -16454,9 +16417,9 @@ MonoBehaviour:
     - Color
     - FontStyle
     - Handles
-    - CardRetinue
+    - CardMech
     - CardSpell
-    stamp: 1557400515
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: d2d6567e560b7f24883717dd5c0f2576
@@ -16470,9 +16433,10 @@ MonoBehaviour:
   - guid: 36505bc5dbc02c844be103413a7aa7ab
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557403377
+    stamp: 1557656985
     type: 1
     UseGUIDs:
+    - b9bd96825c9a638418c28b4842b041e1
     - 5d163651323c1aa41b26e8d0b5bfe1e8
     - 34f1c0918f0dd4661b115de28c599e16
     - 8e89b4d3b31ea174ca07e91c54b710c3
@@ -16589,45 +16553,45 @@ MonoBehaviour:
     - Row_CardIsHide
     - OnCardIsHideChange
     - SetCardIsHide
-    - Row_RetinueLife
-    - OnRetinueLifeChange
-    - SetRetinueLife
-    - Row_RetinueAttack
-    - OnRetinueAttackChange
-    - SetRetinueAttack
-    - Row_RetinueArmor
-    - OnRetinueArmorChange
-    - SetRetinueArmor
-    - Row_RetinueShield
-    - OnRetinueShieldChange
-    - SetRetinueShield
-    - Row_RetinueWeaponSlot
-    - OnRetinueWeaponSlotChange
-    - SetRetinueWeaponSlot
-    - Row_RetinueShieldSlot
-    - OnRetinueShieldSlotChange
-    - SetRetinueShieldSlot
-    - Row_RetinuePackSlot
-    - OnRetinuePackSlotChange
-    - SetRetinuePackSlot
-    - Row_RetinueMASlot
-    - OnRetinueMASlotChange
-    - SetRetinueMASlot
-    - Row_RetinueIsDefense
-    - OnRetinueIsDefenseChange
-    - SetRetinueIsDefense
-    - Row_RetinueIsSniper
-    - OnRetinueIsSniperChange
-    - SetRetinueIsSniper
-    - Row_RetinueIsCharger
-    - OnRetinueIsChargerChange
-    - SetRetinueIsCharger
-    - Row_RetinueIsFrenzy
-    - OnRetinueIsFrenzyChange
-    - SetRetinueIsFrenzy
-    - Row_RetinueIsSoldier
-    - OnRetinueIsSoldierChange
-    - SetRetinueIsSoldier
+    - Row_MechLife
+    - OnMechLifeChange
+    - SetMechLife
+    - Row_MechAttack
+    - OnMechAttackChange
+    - SetMechAttack
+    - Row_MechArmor
+    - OnMechArmorChange
+    - SetMechArmor
+    - Row_MechShield
+    - OnMechShieldChange
+    - SetMechShield
+    - Row_MechWeaponSlot
+    - OnMechWeaponSlotChange
+    - SetMechWeaponSlot
+    - Row_MechShieldSlot
+    - OnMechShieldSlotChange
+    - SetMechShieldSlot
+    - Row_MechPackSlot
+    - OnMechPackSlotChange
+    - SetMechPackSlot
+    - Row_MechMASlot
+    - OnMechMASlotChange
+    - SetMechMASlot
+    - Row_MechIsDefense
+    - OnMechIsDefenseChange
+    - SetMechIsDefense
+    - Row_MechIsSniper
+    - OnMechIsSniperChange
+    - SetMechIsSniper
+    - Row_MechIsCharger
+    - OnMechIsChargerChange
+    - SetMechIsCharger
+    - Row_MechIsFrenzy
+    - OnMechIsFrenzyChange
+    - SetMechIsFrenzy
+    - Row_MechIsSoldier
+    - OnMechIsSoldierChange
+    - SetMechIsSoldier
     - Row_SlotType
     - OnSlotTypeChange
     - SetSlotType
@@ -16676,7 +16640,7 @@ MonoBehaviour:
     - Vector3
     - ClientUtils
     - NoticeManager
-    - CardRetinue
+    - CardMech
     - SideEffect
     - Center
     - CardPreview
@@ -16716,7 +16680,7 @@ MonoBehaviour:
     - Sprites
     - OnPicSelectGridOpenButtonClick
     - OnPicSelectGridCloseButtonClick
-    stamp: 1557400516
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: 2459b42bf9825684981ea0b44716a967
@@ -16760,7 +16724,7 @@ MonoBehaviour:
   - guid: 9da8ea25e79f449485f751b6d81e019e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557533793
     type: 1
     UseGUIDs:
     - 73715ec2bb8d8674d89e8179b6c2d350
@@ -16850,7 +16814,7 @@ MonoBehaviour:
   - guid: d8433b3464ae4f2398ca49102846109a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400516
+    stamp: 1557533793
     type: 1
     UseGUIDs:
     - 60918a332e2d48b985f30d5be5283c76
@@ -16974,7 +16938,7 @@ MonoBehaviour:
   - guid: 1f43d2d21fedc7f4386796c12fd77826
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557240849
+    stamp: 1557656989
     type: 1
     UseGUIDs: []
   - guid: 9fe2732853d4041de8e6a74fc5d3486d
@@ -17042,7 +17006,7 @@ MonoBehaviour:
     - RectTransform
     - UIManager
     - GameObjectPoolManager
-    stamp: 1557400516
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: 7461a6f87e064cf5a61514c0cd9772bd
@@ -17230,12 +17194,12 @@ MonoBehaviour:
     UseGUIDs: []
   - guid: c07cf607053ba604a956a7cb2150f523
     ScriptSymbols:
-    - SideEffects.SummonRetinueByMechCount
+    - SideEffects.SummonMechByMechCount
     ScriptTokens:
-    - SummonRetinueByMechCount_Base
+    - SummonMechByMechCount_Base
     - Execute
     - ExecutorInfo
-    stamp: 1557400515
+    stamp: 1557534592
     type: 2
     UseGUIDs: []
   - guid: 1b882627563772f48a7edff26eb5c85b
@@ -17378,7 +17342,7 @@ MonoBehaviour:
   - guid: 6173991f5ab3291428c707e5bdbe6dfb
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557534592
     type: 1
     UseGUIDs:
     - f6c8859c6b35e0744844260d7f77547f
@@ -17405,12 +17369,12 @@ MonoBehaviour:
     UseGUIDs: []
   - guid: 4fcb0b8f5ac48084c8e79556c034f5be
     ScriptSymbols:
-    - SideEffects.SummonRetinue
+    - SideEffects.SummonMech
     ScriptTokens:
-    - SummonRetinue_Base
+    - SummonMech_Base
     - Execute
     - ExecutorInfo
-    stamp: 1557400515
+    stamp: 1557534592
     type: 2
     UseGUIDs: []
   - guid: 3eb8de90db69e874b9cdc80ea8ddcc66
@@ -17939,7 +17903,7 @@ MonoBehaviour:
     - Vector3
     - ShowBattleShip
     - HideBattleShip
-    stamp: 1557400515
+    stamp: 1557586304
     type: 2
     UseGUIDs: []
   - guid: ad1b35e2298c04c2eab72fa6e0a47e75
@@ -17981,7 +17945,7 @@ MonoBehaviour:
   - guid: 8635e0302f0a36c4ebd0eee59477d6d4
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557535449
     type: 5
     UseGUIDs:
     - 512e6e39ccf44304b87f580260dd9988
@@ -17995,16 +17959,16 @@ MonoBehaviour:
   - guid: 5cae4c4083a9c4f9dbbde42b99cea8ed
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557672611
     type: 5
     UseGUIDs:
     - dc5decdb4a0ca8949992b4a0d5ec7ecc
-    - 95b60e6ad320ed248b0be1aa7abb479f
     - d697dd3df0f805f4fbe6819acef19f79
     - d0ad8d522371a4f4d83a9c5723bc664c
     - 7e47f841cd786184e83ba320a8e4e9b2
     - b2c32d92ba039784c99a13c262f20182
     - 187e39ac522d8f1429e53f12c22b240f
+    - 6fec9a8fc56ecc447bb5eac824eddbf3
     - b98592c9bcbd09b4b92f1fb679b5236d
     - cee5fc4a94e3b664192c4a3c073be752
     - 5cb2f6a44d0834430a8bbac32df48027
@@ -18012,24 +17976,27 @@ MonoBehaviour:
     - 5dbe5e368aece67478a22ab2fee473d8
     - 3ad399f3fa0850540a718dd739948091
     - 00bb5f2bb1cfc914fa78b1b7b6a68af6
+    - 4829538d31ebb5248ad8f524134ff89d
+    - 4001d6008e4059f44ae5562fee28fd1f
+    - 95b60e6ad320ed248b0be1aa7abb479f
     - f30aab20a6d93ee4394294241a7c237f
-    - 00d3f0e5cefaeaa438e5598fc32cfd50
     - c072b5830f88d154f9902382920b00b8
     - e1e7c1694c972e9458f63bbfe660c580
+    - d15b5ebed27ca0e4f9e40f348df70a78
+    - c447fc41f99e79f4bb37b23e4a9497fa
     - 964cc4ebc94752542ad8bea23663aa3f
+    - 102e7c5c5e3b1f3468518cb166967d77
+    - d62a573c923f5cb47b8ff65261033b90
     - beea340c7362ce84f9afbeae2cb4d06f
     - 3b4d10d513acbe249a4272d8d2a8ab24
     - 0eb82a161a8a4d24eb1dad194738a475
+    - 00d3f0e5cefaeaa438e5598fc32cfd50
     - 1a1192d58cf9ba045add4c23b07d4234
-    - 4829538d31ebb5248ad8f524134ff89d
-    - 4001d6008e4059f44ae5562fee28fd1f
-    - f9de99dc293e3dc4ca95845c4d72a356
     - 5aa4b51bd9ff46d99c6f07e7dccfcb45
     - 9b273636ae741b245841e516f7703571
     - 5cdadcba8874ac14bac36b33eb07117e
     - a8f280a202af4b34681b63030396727e
-    - d15b5ebed27ca0e4f9e40f348df70a78
-    - 1aba19b1152972e40a89769a01bdcb49
+    - 9fe2732853d4041de8e6a74fc5d3486d
   - guid: 43c927508205ead4ca1aa33e1e75205f
     ScriptSymbols: []
     ScriptTokens: []
@@ -18065,7 +18032,7 @@ MonoBehaviour:
   - guid: ca0075f0f1b076145b93e89cf28ea1f7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557535436
     type: 5
     UseGUIDs:
     - 8a27fde9170c96b48867d53c5be3a7f5
@@ -18087,7 +18054,7 @@ MonoBehaviour:
   - guid: 90a03ef044fcc174797e4aeaa8317f3e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557563603
     type: 5
     UseGUIDs:
     - cbcfb4769072a8f44a3296bca94d8464
@@ -18212,7 +18179,7 @@ MonoBehaviour:
   - guid: aa74dfe2cb433b34c9c81b22d4d4b900
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557535428
     type: 5
     UseGUIDs:
     - fadcb351087e04f49bdbe604a306cf8e
@@ -18288,7 +18255,7 @@ MonoBehaviour:
   - guid: 1ef4add4f2282d74f8b6db6b10ea238c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557535817
     type: 5
     UseGUIDs:
     - 9fe2732853d4041de8e6a74fc5d3486d
@@ -18299,7 +18266,7 @@ MonoBehaviour:
   - guid: d48f8fd43c5fc0848a5cae34a6a02a92
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557535795
     type: 5
     UseGUIDs:
     - 9fe2732853d4041de8e6a74fc5d3486d
@@ -18343,7 +18310,7 @@ MonoBehaviour:
   - guid: 70652796e6be1d0438e072042a8caa26
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557535019
     type: 5
     UseGUIDs:
     - 69ab291b718e7434e98961d2d505d697
@@ -18365,6 +18332,7 @@ MonoBehaviour:
     - 1ef4add4f2282d74f8b6db6b10ea238c
     - 98b97b700ff31704e88727cadf5e76e2
     - ed6a54d2b99dc46438108f290c5a7b1f
+    - cd5a706b56c930d4bb310dc1b22810ff
     - c2583568347d7024a91ab9fe4cc38d4e
     - 947221d14593b0f4db9f99b99c63cccc
     - 90a03ef044fcc174797e4aeaa8317f3e
@@ -18404,7 +18372,7 @@ MonoBehaviour:
   - guid: c2583568347d7024a91ab9fe4cc38d4e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557535202
     type: 5
     UseGUIDs:
     - 485c6164f6957456a81b220095c6bcd2
@@ -18583,7 +18551,7 @@ MonoBehaviour:
   - guid: dd924dedd26539546b3744965a6e93db
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557535197
     type: 5
     UseGUIDs:
     - 19ff8ad34289a4b4481c19dd5028b825
@@ -18606,7 +18574,7 @@ MonoBehaviour:
   - guid: 8f88413e5f3c2124c8fa07ea2d4c70cf
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557656985
     type: 5
     UseGUIDs:
     - 8cf4d3fc47e51e843bf4b4739589037f
@@ -18655,7 +18623,7 @@ MonoBehaviour:
   - guid: fa42e59f3d69b044caec5f2a898ad8bf
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557400515
+    stamp: 1557535803
     type: 5
     UseGUIDs:
     - 3ef2024387e322e4bb67715db2a75000
@@ -18666,15 +18634,15 @@ MonoBehaviour:
   - guid: d0f1a1b226334d69b9f3f44313067f30
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557407174
+    stamp: 1557533730
     type: 1
     UseGUIDs:
     - 3496bbf89db240eaaf859fa76b0763f6
   - guid: ebbdeec53bcd4aa5a6616ea678ca92d4
     ScriptSymbols:
-    - RetinueBloomComponent
+    - MechBloomComponent
     ScriptTokens:
-    - RetinueComponentBase
+    - MechComponentBase
     - SerializeField
     - MeshRenderer
     - OnHoverBloom
@@ -18699,18 +18667,20 @@ MonoBehaviour:
     - SetCanAttackBloomShow
     - SetSideEffectTriggerBloomShow
     - Awake
-    - HideAll
+    - Reset
     - OnHoverBloomDefaultSortingOrder
     - CanAttackBloomDefaultSortingOrder
     - SideEffectTriggerBloomDefaultSortingOrder
+    - Child_Initialize
+    - AllColors
     - SetSortingIndexOfCard
-    stamp: 1557411024
+    stamp: 1557544164
     type: 2
     UseGUIDs: []
   - guid: 3496bbf89db240eaaf859fa76b0763f6
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557495465
+    stamp: 1557671414
     type: 1
     UseGUIDs:
     - be18ab454554445ebce3f3eb14da767a
@@ -18719,73 +18689,80 @@ MonoBehaviour:
     - ebbdeec53bcd4aa5a6616ea678ca92d4
     - 81f1480078364071bac72ee1b4bff0cd
     - 99ae8c3c7b2e41b6a46a34747d4bf677
+    - 432886119855448f92e7f2c24f0cabe9
     - 00883543fb6c4975b687d319d3648293
+    - edb56604f97d40839e64cd95927c1644
     - fe0606f0dc6a44249a8c7e1503ef31a9
   - guid: 81f1480078364071bac72ee1b4bff0cd
     ScriptSymbols:
-    - RetinueComponentBase
-    - RetinueComponentTypes
+    - MechComponentBase
+    - MechComponentTypes
     ScriptTokens:
     - ExecuteInEditMode
     - MonoBehaviour
+    - ModuleMech
+    - Mech
+    - Initialize
+    - Reset
+    - Child_Initialize
     - CardOrder
     - SetSortingIndexOfCard
     - Show
     - Hide
-    - Basic
-    - Back
-    - Desc
-    - LifeBlock
-    - Slots
-    - Notice
-    - Stars
-    stamp: 1557407305
+    - Life
+    - AttrShapes
+    - BattleInfo
+    - Bloom
+    - TargetPreviewArrows
+    - TriggerIcon
+    - SwordShieldArmor
+    stamp: 1557574327
     type: 2
     UseGUIDs: []
   - guid: f4701bf03ff940948b820ef1cccd95c2
     ScriptSymbols:
-    - RetinueComponentBaseEditor
+    - MechComponentBaseEditor
     ScriptTokens:
-    - RetinueComponentBase
+    - MechComponentBase
     - Editor
     - OnEnable
     - OnInspectorGUI
     - EditorGUILayout
     - GUILayout
     - GUI
-    stamp: 1557408093
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: 7278c624b13a4efbba0e7a3a6415c68e
     ScriptSymbols:
-    - RetinueBloomComponentEditor
+    - MechBloomComponentEditor
     ScriptTokens:
-    - RetinueBloomComponent
-    - RetinueComponentBaseEditor
+    - MechBloomComponent
+    - MechComponentBaseEditor
     - OnEnable
     - OnInspectorGUI
     - EditorGUILayout
     - GUI
-    stamp: 1557408276
+    stamp: 1557533793
     type: 2
     UseGUIDs: []
   - guid: 55435245eabe4877b599bec0a940dc66
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557408276
+    stamp: 1557534377
     type: 1
     UseGUIDs:
     - 7278c624b13a4efbba0e7a3a6415c68e
     - f4701bf03ff940948b820ef1cccd95c2
   - guid: be18ab454554445ebce3f3eb14da767a
     ScriptSymbols:
-    - RetinueAttrShapesComponent
+    - MechAttrShapesComponent
     ScriptTokens:
-    - RetinueComponentBase
+    - MechComponentBase
     - SerializeField
     - MeshRenderer
-    - Defence
-    - DefenceHover
+    - Defender
+    - DefenderHover
     - Sentry
     - SentryHover
     - Sniper
@@ -18793,37 +18770,45 @@ MonoBehaviour:
     - Frenzy
     - FrenzyHover
     - SortingGroup
-    - DefenceSG
-    - DefenceHoverSG
+    - DefenderSG
+    - DefenderHoverSG
     - SentrySG
     - SentryHoverSG
     - SniperSG
     - SniperHoverSG
     - FrenzySG
     - FrenzyHoverSG
-    - Awake
-    - HideAll
-    - DefenceSortingOrder
-    - SentrySortingOrder
-    - SniperSortingOrder
-    - FrenzySortingOrder
+    - Child_Initialize
+    - OnMousePressEnterImmediately
+    - DragManager
+    - ModuleMech
+    - CardSpell
+    - Mech
+    - OnAttrShapeHoverShow
+    - Reset
     - ShowDefence
     - ShowSentry
     - ShowSniper
     - ShowFrenzy
-    - HoverDefence
+    - OnAttrShapeShow
+    - HoverDefender
     - HoverSentry
     - HoverSniper
     - HoverFrenzy
+    - Awake
+    - DefenceSortingOrder
+    - SentrySortingOrder
+    - SniperSortingOrder
+    - FrenzySortingOrder
     - SetSortingIndexOfCard
-    stamp: 1557411102
+    stamp: 1557543853
     type: 2
     UseGUIDs: []
   - guid: 99ae8c3c7b2e41b6a46a34747d4bf677
     ScriptSymbols:
-    - RetinueLifeIconComponent
+    - MechLifeComponent
     ScriptTokens:
-    - RetinueComponentBase
+    - MechComponentBase
     - SerializeField
     - TextMeshPro
     - LifeText
@@ -18833,22 +18818,40 @@ MonoBehaviour:
     - LifeIconAnim
     - SortingGroup
     - LifeIconSG
-    - SetLife
+    - TextFlyPile
+    - LifeChangeNumberFly
     - ChangeLifeIconColor
     - Color
     - ClientUtils
     - Awake
+    - Reset
     - LifeTextDefaultSortingOrder
     - LifeIconDefaultSortingOrder
+    - Child_Initialize
+    - IsTotalLifeChanging
+    - LifeChange
+    - Mech
+    - BattleEffectsManager
+    - Co_LifeChange
+    - IEnumerator
+    - LanguageManager
+    - TextFly
+    - AudioManager
+    - HitManager
+    - LifeTextChange
+    - WaitForSeconds
+    - AllColors
+    - TotalLifeChange
+    - Co_TotalLifeChange
     - SetSortingIndexOfCard
-    stamp: 1557417637
+    stamp: 1557576052
     type: 2
     UseGUIDs: []
   - guid: 00883543fb6c4975b687d319d3648293
     ScriptSymbols:
-    - RetinueTargetPreviewArrowsComponent
+    - MechTargetPreviewArrowsComponent
     ScriptTokens:
-    - RetinueComponentBase
+    - MechComponentBase
     - SerializeField
     - SpriteRenderer
     - TargetArrows
@@ -18858,25 +18861,37 @@ MonoBehaviour:
     - TextMeshPro
     - DamagePreviewBG
     - DamagePreview
+    - DenfenderText
+    - SniperText
     - Awake
-    - HideAll
+    - Reset
     - TargetArrowsDefaultSortingOrder
     - SniperTargetImageDefaultSortingOrder
     - DamagePreviewDefaultSortingOrder
-    - SetSortingIndexOfCard
-    - SetDamagePreviewTest
-    - TargetArrowAnimStart
+    - TextDefaultSortingOrder
+    - Child_Initialize
+    - SetDamagePreviewText
     - TargetArrowAnimEnd
     - ShowSniperTargetImage
-    stamp: 1557411909
+    - ShowDenfenderText
+    - ShowSniperText
+    - OnMousePressEnterImmediately
+    - DragManager
+    - ModuleMech
+    - CardSpell
+    - Mech
+    - SetSortingIndexOfCard
+    - TargetArrowAnimStart
+    stamp: 1557544194
     type: 2
     UseGUIDs: []
   - guid: 49e9c9357b5c94e8f883bd1d7f66e81d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557410036
+    stamp: 1557546009
     type: 5
     UseGUIDs:
+    - 5cdadcba8874ac14bac36b33eb07117e
     - 3f189898278fb094a972ffef4a2aef4b
     - 99ae8c3c7b2e41b6a46a34747d4bf677
     - 9fe2732853d4041de8e6a74fc5d3486d
@@ -18885,18 +18900,22 @@ MonoBehaviour:
   - guid: 5cae10c825123473ead8c8b76d321e48
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557416488
+    stamp: 1557577559
     type: 1
     UseGUIDs:
     - b91985d82ad45467bade64f4ea6d1639
+    - 6e70ad45d5d194ddca9bc455eacf2f11
+    - bad69375e1d4c474d90642afb9981de2
     - 0672527a15b33486ebd8a4e61f0ab711
     - 49e9c9357b5c94e8f883bd1d7f66e81d
+    - 8afe33c2d9c314ab6be436663c1db42b
     - 82b6743ef04cc4a4c82089ba1123d0c4
+    - 7edf1f24d1c0f464b9493440920faa32
     - 779dbd6a4c0334a89b6f749e5d437095
   - guid: b91985d82ad45467bade64f4ea6d1639
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557410034
+    stamp: 1557545721
     type: 5
     UseGUIDs:
     - f9de99dc293e3dc4ca95845c4d72a356
@@ -18922,72 +18941,72 @@ MonoBehaviour:
   - guid: 82b6743ef04cc4a4c82089ba1123d0c4
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557411940
+    stamp: 1557545974
     type: 5
     UseGUIDs:
-    - 715b80e429c437e40867928a4e1fc975
+    - 9fe2732853d4041de8e6a74fc5d3486d
     - 89f0137620f6af44b9ba852b4190e64e
+    - 715b80e429c437e40867928a4e1fc975
     - 00883543fb6c4975b687d319d3648293
     - 990c6a7fbbbba574d95a4a9a34b3c862
     - 8bf2cbda855aee34e8b091dc1827b6bd
     - fa1ee769cc30ead4fb05102f492ffe1e
   - guid: fe0606f0dc6a44249a8c7e1503ef31a9
     ScriptSymbols:
-    - RetinueTriggerIconComponent
+    - MechTriggerIconComponent
     ScriptTokens:
-    - RetinueComponentBase
+    - MechComponentBase
+    - MechTriggerIcon
+    - MechTriggerIcons
     - SerializeField
-    - SpriteRenderer
-    - Troughs
-    - Icons
-    - Animator
-    - TriggerAnim
-    - DieAnim
+    - Transform
+    - PosPivots
     - Awake
-    - HideAll
-    - TroughsDefaultSortingOrder
-    - IconsDefaultSortingOrder
+    - Enum
+    - GameObjectPoolManager
+    - Reset
+    - Child_Initialize
+    - Mech
+    - SideEffectExecute
+    - ShowIcon
+    - ReplaceAllIcons
     - SetSortingIndexOfCard
-    - ShowTriggerIcon
-    - ShowDieIcon
-    - TriggerAnimStart
-    - TriggerAnimEnd
-    - DieAnimStart
-    - DieAnimEnd
-    stamp: 1557416394
+    - IconJump
+    stamp: 1557577373
     type: 2
     UseGUIDs: []
   - guid: 779dbd6a4c0334a89b6f749e5d437095
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557416488
+    stamp: 1557497173
     type: 5
     UseGUIDs:
-    - 78450b5593c44584d925473b80f645ad
-    - fee7326bc4b2c534db338025a10f4178
     - fe0606f0dc6a44249a8c7e1503ef31a9
-    - a161b9f722d3b63429369656b8b4612a
-    - 832d20876f6438e47bf5eec38cb11fdc
   - guid: 5df452eca57947338b1cc61c8439f5e8
     ScriptSymbols:
-    - RetinueBattleInfoComponent
+    - MechBattleInfoComponent
     ScriptTokens:
-    - RetinueComponentBase
-    - SerializeField
-    - RetinueBattleInfoIcon
+    - MechComponentBase
+    - MechBattleInfoIcon
     - BattleInfoIcons
+    - SerializeField
     - Transform
     - PosPivots
     - Awake
+    - Enum
+    - GameObjectPoolManager
+    - Reset
+    - Child_Initialize
+    - ReplaceAllIcons
     - SetValue
     - SetSortingIndexOfCard
-    stamp: 1557495465
+    stamp: 1557544118
     type: 2
     UseGUIDs: []
   - guid: 4efb3b104b2d4bfcbb8fe5237b35b077
     ScriptSymbols:
-    - RetinueBattleInfoIcon
-    - RetinueBattleInfoIcon.IconTypes
+    - MechBattleInfoIcon
+    - MechBattleInfoIcon.IconTypes
     ScriptTokens:
     - PoolObject
     - SerializeField
@@ -19006,8 +19025,9 @@ MonoBehaviour:
     - IconDefaultSortingOrder
     - TextDefaultSortingOrder
     - Initialize
+    - Value
     - SetSortingIndexOfCard
-    stamp: 1557495378
+    stamp: 1557534592
     type: 2
     UseGUIDs: []
   - guid: bad69375e1d4c474d90642afb9981de2
@@ -19025,10 +19045,29 @@ MonoBehaviour:
     - 1714cb08c4f3375488f61319ac85141b
   - guid: edb56604f97d40839e64cd95927c1644
     ScriptSymbols:
-    - RetinueTriggerIcon
+    - MechTriggerIcon
+    - MechTriggerIcon.IconTypes
     ScriptTokens:
     - PoolObject
-    stamp: 1557496457
+    - SerializeField
+    - Sprite
+    - IconSprites
+    - Trigger
+    - Die
+    - Animator
+    - Anim
+    - SpriteRenderer
+    - Icon
+    - IconTrough
+    - Awake
+    - ShowIcon
+    - IconDefaultSortingOrder
+    - IconTroughDefaultSortingOrder
+    - Initialize
+    - IsShow
+    - IconJump
+    - SetSortingIndexOfCard
+    stamp: 1557534592
     type: 2
     UseGUIDs: []
   - guid: 6e70ad45d5d194ddca9bc455eacf2f11
@@ -19041,9 +19080,14 @@ MonoBehaviour:
   - guid: 7edf1f24d1c0f464b9493440920faa32
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1557497169
     type: 5
-    UseGUIDs: []
+    UseGUIDs:
+    - a161b9f722d3b63429369656b8b4612a
+    - 78450b5593c44584d925473b80f645ad
+    - fee7326bc4b2c534db338025a10f4178
+    - edb56604f97d40839e64cd95927c1644
+    - 832d20876f6438e47bf5eec38cb11fdc
   - guid: a2f14ab0a72494955841da1476620078
     ScriptSymbols: []
     ScriptTokens: []
@@ -19055,11 +19099,72 @@ MonoBehaviour:
     - MechSwordShieldArmorComponent
     ScriptTokens:
     - MechComponentBase
+    - SerializeField
+    - Animator
+    - SwordIconAnim
+    - Image
+    - SwordBar
+    - SpriteRenderer
+    - SwordTrough
+    - TextMeshPro
+    - SwordText
+    - TextFlyPile
+    - WeaponAttackChangeNumberFly
+    - WeaponEnergyChangeNumberFly
+    - ShieldIconAnim
+    - ShieldBar
+    - ShieldTrough
+    - ShieldText
+    - ShieldChangeNumberFly
+    - ShieldDefenceNumberFly
+    - ArmorIconAnim
+    - ArmorIcon
+    - ArmorTrough
+    - ArmorText
+    - ArmorChangeNumberFly
+    - DodgeNumberFly
+    - GameObject
+    - MA_BG
+    - Awake
+    - TextDefaultSortingOrder
+    - BarDefaultSortingOrder
+    - TroughDefaultSortingOrder
     - Child_Initialize
-    - System
     - Reset
+    - MechShieldFull
+    - IsAttackChanging
     - SetSortingIndexOfCard
-    stamp: 1557563790
+    - Attack
+    - AttackChange
+    - Mech
+    - BattleEffectsManager
+    - Co_MechAttackChange
+    - WeaponEnergyChange
+    - WeaponEnergyMaxChange
+    - Co_MechWeaponEnergyMaxChange
+    - IEnumerator
+    - LanguageManager
+    - TextFly
+    - ModuleMech
+    - ClientUtils
+    - RefreshSwordBarMask
+    - WaitForSeconds
+    - Armor
+    - ArmorChange
+    - Co_ArmorChange
+    - NormalParticle
+    - HitManager
+    - AudioManager
+    - Shield
+    - ShieldChange
+    - Co_ShieldChange
+    - Mathf
+    - ShieldDefenceDamage
+    - Co_ShieldChangeNumberFly
+    - Dodge
+    - OnDodge
+    - Co_OnDodge
+    stamp: 1557671414
     type: 2
     UseGUIDs: []
   - guid: dfd1dda93bb19446db7d29440a1b338f
@@ -19085,7 +19190,7 @@ MonoBehaviour:
   - guid: 8f9b01fb3ffed47c9b319503aaa5a744
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557563488
+    stamp: 1557564029
     type: 1
     UseGUIDs:
     - dfd1dda93bb19446db7d29440a1b338f
@@ -19102,7 +19207,7 @@ MonoBehaviour:
   - guid: 8afe33c2d9c314ab6be436663c1db42b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557573197
+    stamp: 1557577559
     type: 5
     UseGUIDs:
     - 5cdadcba8874ac14bac36b33eb07117e
@@ -19121,5 +19226,20 @@ MonoBehaviour:
     - 42937372c424a1e459975bc81fa5a3e6
     - 4f50a0668f0a0d149b798f84bcd28f82
     - 432886119855448f92e7f2c24f0cabe9
-  timeStamp: 1557495485
+  - guid: 55424c2c43e8fbd45b10efdbee0ea41e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1557656989
+    type: 1
+    UseGUIDs: []
+  - guid: b9bd96825c9a638418c28b4842b041e1
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1557656985
+    type: 5
+    UseGUIDs:
+    - 0b73a549e18ab824c88b570193e7d286
+    - 6fec9a8fc56ecc447bb5eac824eddbf3
+    - 85663f7ae4bc1794596602bb4dba9fe3
+  timeStamp: 1557673162
   priority: 5

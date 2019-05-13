@@ -620,6 +620,15 @@
 		"en": "It's unsafe if your life is too low."
 	},
 
+	"Ship_LifeText": {
+		"zh": "战舰生命",
+		"en": "LIFE"
+	},
+	"Ship_EnergyText": {
+		"zh": "战舰能量",
+		"en": "ENERGY"
+	},
+
 
 	"Notice_SelectBuildManagerSelect_CannotEditWhenMatching": {
 		"zh": "您不能在匹配时编辑卡组",

@@ -111,6 +111,7 @@ public class MechSwordShieldArmorComponent : MechComponentBase
 
         int finalAttack = ModuleMech.CalculateFinalAttack(mechAttackValue, mechEnergy);
         SwordText.text = finalAttack > 0 ? finalAttack.ToString() : "";
+        SwordTrough.color = finalAttack > 0 ? ClientUtils.HTMLColorToColor("#ffffff") : ClientUtils.HTMLColorToColor("#333333");
         RefreshSwordBarMask(mechEnergy, mechEnergyMax);
         yield return new WaitForSeconds(duration);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -177,23 +178,24 @@ public class MechSwordShieldArmorComponent : MechComponentBase
             if (armorValue == 0)
             {
                 AudioManager.Instance.SoundPlay("sfx/BreakArmor", 1f);
-                particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ArmorIconAnim.transform);
-                particle.ParticleSystem.Play(true);
-                particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#FFA800");
+//                particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ArmorIconAnim.transform);
+//                particle.ParticleSystem.Play(true);
+//                particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#FFA800");
             }
         }
 
         if (armorValue == 0)
         {
             ArmorIconAnim.gameObject.SetActive(false);
-            AudioManager.Instance.SoundPlay("sfx/BreakArmor", 1f);
-            particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ArmorIconAnim.transform);
-            particle.ParticleSystem.Play(true);
-            particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#FFA800");
+            ArmorTrough.color = ClientUtils.HTMLColorToColor("#333333");
+//            particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ArmorIconAnim.transform);
+//            particle.ParticleSystem.Play(true);
+//            particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#FFA800");
         }
         else
         {
             ArmorIconAnim.gameObject.SetActive(true);
+            ArmorTrough.color = ClientUtils.HTMLColorToColor("#ffffff");
             ArmorText.text = armorValue.ToString();
         }
 
@@ -237,9 +239,10 @@ public class MechSwordShieldArmorComponent : MechComponentBase
             if (shieldValue == 0)
             {
                 AudioManager.Instance.SoundPlay("sfx/BreakShield", 1f);
-                particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ShieldIconAnim.transform);
-                particle.ParticleSystem.Play(true);
-                particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#00FFF2");
+
+//                particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ShieldIconAnim.transform);
+//                particle.ParticleSystem.Play(true);
+//                particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#00FFF2");
             }
         }
         else
@@ -249,16 +252,16 @@ public class MechSwordShieldArmorComponent : MechComponentBase
 
         if (shieldValue == 0)
         {
-            AudioManager.Instance.SoundPlay("sfx/BreakShield", 1f);
-            particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ShieldIconAnim.transform);
-            particle.ParticleSystem.Play(true);
-            particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#00FFF2");
-
+//            particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ShieldIconAnim.transform);
+//            particle.ParticleSystem.Play(true);
+//            particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#00FFF2");
+            ShieldTrough.color = ClientUtils.HTMLColorToColor("#333333");
             ShieldBar.fillAmount = 0;
             ShieldText.text = "";
         }
         else
         {
+            ShieldTrough.color = ClientUtils.HTMLColorToColor("#ffffff");
             ShieldBar.fillAmount = (float) shieldValue / MechShieldFull;
             ShieldText.text = shieldValue.ToString();
         }

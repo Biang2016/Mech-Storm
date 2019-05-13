@@ -54,7 +54,7 @@ public class StartMenuPanel : BaseUIForm
         Awake_DeckAbstract();
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
@@ -70,6 +70,25 @@ public class StartMenuPanel : BaseUIForm
                 }
             }
         }
+
+        if ((state & States.Show_SecondaryMenu) == state)
+        {
+            if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                UIManager.Instance.ShowUIForms<SelectBuildPanel>();
+            }
+        }
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
     }
 
     private void AddButton(string goName, string textKey, string tipTextKey, UnityAction buttonClick, StartMenuButton.TipImageType tipImageType = StartMenuButton.TipImageType.None)

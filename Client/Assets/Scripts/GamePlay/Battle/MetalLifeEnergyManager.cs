@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,14 +12,26 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     [SerializeField] private TextMeshPro MetalNumberText;
 
+    [SerializeField] private Text LifeText;
     [SerializeField] private Text LifeNumber;
     [SerializeField] private Text TotalLifeNumber;
+    [SerializeField] private Text EnergyText;
     [SerializeField] private Text EnergyNumber;
     [SerializeField] private Text TotalEnergyNumber;
 
     [SerializeField] private GameObject PlayerIcon;
     [SerializeField] private Image PlayerIconImage;
 
+    void Awake()
+    {
+     LanguageManager.Instance.RegisterTextKeys(
+         new List<ValueTuple<Text, string>>
+         {
+             (LifeText,"Ship_LifeText"),
+             (EnergyText,"Ship_EnergyText"),
+         });   
+    }
+    
     public void Initialize(ClientPlayer clientPlayer)
     {
         ResetAll();

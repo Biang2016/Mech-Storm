@@ -134,7 +134,7 @@ public class DragComponent : MonoBehaviour
         {
             if (raycast.collider.gameObject.CompareTag("HandArea"))
             {
-                return raycast.collider.gameObject.GetComponent<HandManager>().ClientPlayer.BattlePlayer.HandArea;
+                return raycast.collider.transform.parent.GetComponent<HandManager>().ClientPlayer.BattlePlayer.HandArea;
             }
 
             if (raycast.collider.gameObject.CompareTag("BattleGroundArea"))

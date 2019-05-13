@@ -24,13 +24,20 @@ public class BattleManager : MonoSingleton<BattleManager>
 
     void Update()
     {
+    }
+
+    private void LateUpdate()
+    {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             if (Client.Instance.IsPlaying())
             {
-                if (UIManager.Instance.GetPeekUIForm() == null)
+                if (!UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().IsShow)
                 {
-                    UIManager.Instance.ShowUIForms<ExitMenuPanel>();
+                    if (UIManager.Instance.GetPeekUIForm() == null)
+                    {
+                        UIManager.Instance.ShowUIForms<ExitMenuPanel>();
+                    }
                 }
             }
         }
@@ -39,9 +46,12 @@ public class BattleManager : MonoSingleton<BattleManager>
         {
             if (Client.Instance.IsPlaying())
             {
-                if (UIManager.Instance.GetPeekUIForm() == null)
+                if (!UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().IsShow)
                 {
-                    UIManager.Instance.ShowUIForms<SelectBuildPanel>();
+                    if (UIManager.Instance.GetPeekUIForm() == null)
+                    {
+                        UIManager.Instance.ShowUIForms<SelectBuildPanel>();
+                    }
                 }
             }
         }
@@ -66,6 +76,12 @@ public class BattleManager : MonoSingleton<BattleManager>
     {
         SelfBattlePlayer?.HideBattleShip();
         EnemyBattlePlayer?.HideBattleShip();
+    }
+
+    public void SetLanguage(string languageShort)
+    {
+        SelfBattlePlayer?.HandManager.SetLanguage(languageShort);
+        EnemyBattlePlayer?.HandManager.SetLanguage(languageShort);
     }
 }
 

@@ -12,12 +12,15 @@ public class HandManager : MonoBehaviour
     //distances between hand cards
     private static readonly float[] HORRIZON_DISTANCE_DICT = new float[30] {1.5f, 1.6f, 1.8f, 2.3f, 2.8f, 3.3f, 4.2f, 4.9f, 5.6f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f, 6.3f};
 
-    private readonly float HAND_CARD_SIZE = 0.2f;
-    private readonly float HAND_CARD_INTERVAL = 8f;
+    private readonly float HAND_CARD_SIZE = 0.3f;
+    private readonly float HAND_CARD_INTERVAL = 5f;
     private readonly float HAND_CARD_ROTATE = 1.0f;
     private readonly float HAND_CARD_OFFSET = 2f;
-    private readonly float PULL_OUT_CARD_SIZE = 0.3f;
-    private readonly float SHOW_CARD_SIZE = 0.35f;
+    private readonly float PULL_OUT_CARD_SIZE = 0.5f;
+    private readonly float DRAW_CARD_FLY_TIME = 0.3f;
+    private readonly float DRAW_CARD_INTERVAL_TIME = 0.7f;
+
+    private readonly float SHOW_CARD_SIZE = 0.6f;
     private readonly float SHOW_CARD_DURATION = 0.4f;
     private readonly float SHOW_CARD_FLY_DURATION = 0.1f;
     private static readonly Vector3 USE_CARD_SHOW_POSITION = new Vector3(10, 3, 0);
@@ -43,6 +46,14 @@ public class HandManager : MonoBehaviour
         Update_CheckSlotBloomTipOff();
         UpdateCurrentFocusCardTicker();
         UpdateHandCardCountTicker();
+    }
+
+    public void SetLanguage(string languageShort)
+    {
+        foreach (CardBase card in cards)
+        {
+            card.RefreshCardTextLanguage();
+        }
     }
 
     #region Game Process
@@ -152,9 +163,9 @@ public class HandManager : MonoBehaviour
             Vector3 rotation = result.rotation.eulerAngles;
             Vector3 scale = result.localScale;
 
-            Tweener tweener_m = card.transform.DOMove(position, duration).SetEase(Ease.Linear);
-            Tweener tweener_r = card.transform.DORotate(rotation, duration).SetEase(Ease.Linear);
-            Tweener tweener_s = card.transform.DOScale(scale, duration).SetEase(Ease.Linear);
+            card.transform.DOMove(position, duration).SetEase(Ease.Linear);
+            card.transform.DORotate(rotation, duration).SetEase(Ease.Linear);
+            card.transform.DOScale(scale, duration).SetEase(Ease.Linear);
         }
 
         RefreshAllCardUsable();
@@ -234,9 +245,6 @@ public class HandManager : MonoBehaviour
 
     IEnumerator Co_GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds) //animation of drawing multiple cards
     {
-        float cardFlyTime = 0.3f;
-        float intervalTime = 0.2f;
-
         RefreshCardsPlace(cards.Count + cardIdAndInstanceIds.Count, 0.1f);
         yield return new WaitForSeconds(0.2f);
 
@@ -245,16 +253,20 @@ public class HandManager : MonoBehaviour
         foreach (DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId in cardIdAndInstanceIds)
         {
             count++;
-            StartCoroutine(SubCo_GetCard(currentCount + count, currentCount + cardIdAndInstanceIds.Count, cardIdAndInstanceId, cardFlyTime));
-            yield return new WaitForSeconds(intervalTime);
+            StartCoroutine(SubCo_GetCard(currentCount + count, currentCount + cardIdAndInstanceIds.Count, cardIdAndInstanceId, DRAW_CARD_FLY_TIME));
+            yield return new WaitForSeconds(DRAW_CARD_INTERVAL_TIME);
         }
+
+        yield return new WaitForSeconds(DRAW_CARD_FLY_TIME - DRAW_CARD_INTERVAL_TIME);
 
         RefreshAllCardUsable();
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
         yield return null;
     }
 
-    [SerializeField] private Transform[] DrawCardPivots;
+    [SerializeField] private Transform[] SelfDrawCardPivots;
+    [SerializeField] private Transform[] EnemyDrawCardPivots;
+    private Transform[] DrawCardPivots => ClientPlayer.WhichPlayer == Players.Self ? SelfDrawCardPivots : EnemyDrawCardPivots;
 
     IEnumerator SubCo_GetCard(int indexNumber, int totalCardNumber, DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId, float duration) //animation of draw single card
     {
@@ -268,13 +280,15 @@ public class HandManager : MonoBehaviour
 
         RefreshAllCardUsable();
 
+        Transform deckCardTran = ClientPlayer.BattlePlayer.CardDeckManager.GetFirstCardDeckCardPos();
         Transform srcTran = DrawCardPivots[0];
         Transform tarTran = GetCardPlace(indexNumber, totalCardNumber);
 
-        newCardBase.transform.position = srcTran.position;
+        newCardBase.transform.position = deckCardTran.position;
         newCardBase.transform.rotation = srcTran.rotation;
         newCardBase.transform.localScale = Vector3.one * HAND_CARD_SIZE;
 
+        newCardBase.M_BoxCollider.enabled = false;
         for (int i = 1; i < DrawCardPivots.Length; i++)
         {
             Tweener tweener_m = newCardBase.transform.DOMove(DrawCardPivots[i].position, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
@@ -285,9 +299,9 @@ public class HandManager : MonoBehaviour
         Tweener tweener_m_final = newCardBase.transform.DOMove(tarTran.position, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
         Tweener tweener_r_final = newCardBase.transform.DORotateQuaternion(tarTran.rotation, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
         yield return new WaitForSeconds(duration / DrawCardPivots.Length);
+        newCardBase.M_BoxCollider.enabled = true;
 
         AudioManager.Instance.SoundPlay("sfx/DrawCard0", 0.4f);
-        yield return new WaitForSeconds(0.1f);
     }
 
     private void RefreshCardsOrderInLayer()
@@ -491,7 +505,7 @@ public class HandManager : MonoBehaviour
         focusCard.transform.position = new Vector3(focusCard.transform.position.x, focusCard.transform.position.y, focusCard.transform.position.z + 5f);
         //Disenable the card's boxcollider
         focusCard.M_BoxCollider.enabled = false;
-        focusCard.CardOrder = 80;
+        focusCard.CardOrder = 200;
         isEnlarge = true;
     }
 
@@ -568,7 +582,7 @@ public class HandManager : MonoBehaviour
                             handCardCountTickerBegin = true;
                             handCardCountTicker = 0;
                             HandCardCountPanelAnim.SetTrigger("Jump");
-                            
+
                             HandCardCountText.text = string.Format(LanguageManager.Instance.GetText("HandManager_TotalCards"), cards.Count);
                             if (ClientPlayer == RoundManager.Instance.EnemyClientPlayer)
                             {

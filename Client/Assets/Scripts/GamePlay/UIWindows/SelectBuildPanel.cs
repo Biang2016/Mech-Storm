@@ -38,17 +38,9 @@ public partial class SelectBuildPanel : BaseUIForm
     protected override void ChildUpdate()
     {
         base.ChildUpdate();
-        if (isShow) Update_Cards();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Tab))
+        if (IsShow)
         {
-            if (isShow)
-            {
-                CloseUIForm();
-            }
+            Update_Cards();
         }
     }
 
@@ -86,15 +78,16 @@ public partial class SelectBuildPanel : BaseUIForm
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow_ReadOnly);
         }
-        else
+        else if (Client.Instance.IsLogin())
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
         }
+
         SelectWindowShowAnim.SetTrigger("Show");
-        isShow = true;
+        IsShow = true;
     }
 
-    private bool isShow = false;
+    internal bool IsShow = false;
 
     public override void Hide()
     {
@@ -108,7 +101,7 @@ public partial class SelectBuildPanel : BaseUIForm
         UIManager.Instance.CloseUIForm<AffixPanel>();
         currentPreviewCard?.PoolRecycle();
         MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
-        isShow = false;
+        IsShow = false;
     }
 
     public Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>(); // 所有卡片都放入窗口，按需隐藏

@@ -55,7 +55,10 @@ public class Initialization : MonoSingleton<Initialization>
         //        PO.PoolRecycle();
         //    }
         //}
+    }
 
+    void Start()
+    {
         foreach (string warmUpUiPanel in WarmUpUIPanels)
         {
             UIManager.Instance.ShowUIForm(warmUpUiPanel);

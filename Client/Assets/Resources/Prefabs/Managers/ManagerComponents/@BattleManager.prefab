@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isExecuting_Main: 0
-  isExecuting_RefreshBattleGroundOnAddRetinue: 0
+  isExecuting_RefreshBattleGroundOnAddMech: 0
   isExecuting_TipSlotBloom: 0
 --- !u!1 &2283996144318582503
 GameObject:
@@ -75,6 +75,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7159209070151654935}
+  - {fileID: 6097784832178038516}
   - {fileID: 6565863665108042218}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -92,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowBEMMessages: 0
+  BattleUIPanel: {fileID: 0}
   ShowCardDetailInBattleManager: {fileID: 3331186827634357235}
 --- !u!1 &3580115158256677165
 GameObject:
@@ -229,6 +231,79 @@ MonoBehaviour:
   M_PlayMode: 0
   InRound: 0
   HasShowLostConnectNotice: 1
+--- !u!1 &4154931027898092078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6097784832178038516}
+  - component: {fileID: 2691029065333081618}
+  m_Layer: 0
+  m_Name: BattleGroundPreviewCardCamera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6097784832178038516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4154931027898092078}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5624501484578031430}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!20 &2691029065333081618
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4154931027898092078}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.7205882, g: 0.7205882, b: 0.7205882, a: 0}
+  m_projectionMatrixMode: 1
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_GateFitMode: 2
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0
+  far clip plane: 5
+  field of view: 71.5
+  orthographic: 1
+  orthographic size: 7.5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1 &5704486303857191680
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +337,7 @@ Transform:
   - {fileID: 6049555199019880540}
   - {fileID: 8173447725512927732}
   m_Father: {fileID: 5624501484578031430}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7487716621980315848
 GameObject:
@@ -308,7 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DragOutDamage: 0
-  SummonRetinueTargetRange: 0
+  SummonMechTargetRange: 0
 --- !u!1 &7986502593659828708
 GameObject:
   m_ObjectHideFlags: 0

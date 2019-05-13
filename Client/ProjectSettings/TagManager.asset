@@ -12,6 +12,8 @@ TagManager:
   - Retinue
   - _TagCanvas
   - _TagUICamera
+  - HandArea
+  - BattleGroundArea
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - 
   - 
   - Cards
-  - Retinues
+  - Mechs
   - BoardAreas
   - Slots
   - Modules

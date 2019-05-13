@@ -10,7 +10,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
 
     [SerializeField] private TextMeshPro DamageNumberPreviewTextMesh;
     [SerializeField] private TextMeshPro Desc;
-
+    
     [SerializeField] private Transform[] Trans_NeedRotate180ByPlayer;
 
     public void Initialize(ClientPlayer clientPlayer)
