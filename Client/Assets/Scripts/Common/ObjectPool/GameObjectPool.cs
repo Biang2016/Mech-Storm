@@ -6,11 +6,10 @@ public class GameObjectPool : MonoBehaviour
 
     bool[] isUsed; //已使用的对象
 
-    //Todo Temp public
-    public int capacity; //对象池容量，根据场景中可能出现的最多数量的该对象预估一个容量
-    public int used; //已使用多少个对象
-    public int notUsed; //多少个对象已实例化但未使用
-    public int empty; //对象池中未实例化的空位置的个数
+    private int capacity; //对象池容量，根据场景中可能出现的最多数量的该对象预估一个容量
+    private int used; //已使用多少个对象
+    private int notUsed; //多少个对象已实例化但未使用
+    private int empty; //对象池中未实例化的空位置的个数
 
     PoolObject gameObjectPrefab;
 
@@ -21,8 +20,11 @@ public class GameObjectPool : MonoBehaviour
 
     public static Vector3 GameObjectPoolPosition = new Vector3(-3000f, -3000f, 0f);
 
+    private int InitialCapacity = 0;
+
     public void Initiate(PoolObject prefab, int initialCapacity)
     {
+        InitialCapacity = initialCapacity;
         if (prefab != null)
         {
             transform.position = GameObjectPoolPosition;
@@ -78,6 +80,53 @@ public class GameObjectPool : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void OptimizePool()
+    {
+        int usedCount = 0;
+        for (int i = 0; i < capacity; i++)
+        {
+            if (isUsed[i])
+            {
+                usedCount++;
+            }
+        }
+
+        if (usedCount < InitialCapacity && capacity > InitialCapacity)
+        {
+            PoolObject[] newGameObjectPool = new PoolObject[InitialCapacity];
+            bool[] newIsUsed = new bool[InitialCapacity];
+
+            int index = 0;
+            for (int i = 0; i < capacity; i++)
+            {
+                if (isUsed[i])
+                {
+                    if (gameObjectPool[i])
+                    {
+                        newGameObjectPool[index] = gameObjectPool[i];
+                        newGameObjectPool[index].PoolRecycle();
+                        newIsUsed[index] = true;
+                        index++;
+                    }
+                }
+                else
+                {
+                    if (gameObjectPool[i])
+                    {
+                        Destroy(gameObjectPool[i].gameObject);
+                    }
+                }
+            }
+
+            capacity = InitialCapacity;
+            used = usedCount;
+            notUsed = 0;
+            empty = capacity - used - notUsed;
+
+            gameObjectPool = newGameObjectPool;
+        }
     }
 
     public void RecycleGameObject(PoolObject recGameObject)

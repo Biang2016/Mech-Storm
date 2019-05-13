@@ -79,6 +79,7 @@ public class BattleGroundManager : MonoBehaviour
 
     public void ResetAll()
     {
+        StopAllCoroutines();
         foreach (ModuleMech moduleMech in Mechs)
         {
             moduleMech.PoolRecycle();

@@ -126,7 +126,12 @@ public class ExitMenuPanel : BaseUIForm
             LanguageManager.Instance.GetText("ExitMenu_SureToSurrender"),
             LanguageManager.Instance.GetText("Common_Yes"),
             LanguageManager.Instance.GetText("Common_Cancel"),
-            (new UnityAction(SurrenderCore)) + cp.CloseUIForm,
+            delegate
+            {
+                cp.CloseUIForm();
+                CloseUIForm();
+                SurrenderCore();
+            },
             cp.CloseUIForm
         );
     }

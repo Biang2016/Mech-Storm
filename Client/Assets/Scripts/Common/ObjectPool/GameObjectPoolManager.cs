@@ -164,4 +164,12 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
             Pool_HitPool[i].Initiate(HitPrefab[i], 3);
         }
     }
+
+    public void OptimizeAllGameObjectPools()
+    {
+        foreach (KeyValuePair<PrefabNames, GameObjectPool> kv in PoolDict)
+        {
+            kv.Value.OptimizePool();
+        }
+    }
 }

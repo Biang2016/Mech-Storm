@@ -52,6 +52,12 @@ public class BattlePlayer : PoolObject
 
     public void ResetAll()
     {
+        HandManager.StopAllCoroutines();
+        BattleGroundManager.StopAllCoroutines();
+        MetalLifeEnergyManager.StopAllCoroutines();
+        PlayerBuffManager.StopAllCoroutines();
+        CardDeckManager.StopAllCoroutines();
+        Ship.StopAllCoroutines();
         ClientPlayer = null;
         HandManager.ResetAll();
         BattleGroundManager.ResetAll();

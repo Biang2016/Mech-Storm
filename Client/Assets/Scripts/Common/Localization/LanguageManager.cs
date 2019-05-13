@@ -249,7 +249,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
 
             UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.RefreshCardTextLanguage();
             UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.RefreshSelectCardTextLanguage();
-            BattleManager.Instance.SetLanguage(languageShort);
+            BattleManager.Instance?.SetLanguage(languageShort);
         }
     }
 

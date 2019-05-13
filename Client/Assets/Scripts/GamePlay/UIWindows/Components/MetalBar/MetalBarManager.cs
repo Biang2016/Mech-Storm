@@ -65,9 +65,11 @@ public class MetalBarManager : MonoBehaviour
                 MetalBarBlockCount--;
             }
         }
+
+        ResetHighlightTopBlocks();
     }
 
-    public void HightlightTopBlocks(int value)
+    public void HighlightTopBlocks(int value)
     {
         if (MetalBarBlockCount >= value)
         {
@@ -78,7 +80,7 @@ public class MetalBarManager : MonoBehaviour
         }
     }
 
-    public void ResetHightlightTopBlocks()
+    public void ResetHighlightTopBlocks()
     {
         foreach (MetalBarBlock metalBarBlock in MetalBarBlocks)
         {

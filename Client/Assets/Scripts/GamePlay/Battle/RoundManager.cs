@@ -127,8 +127,10 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
     private void GameStopPreparation()
     {
+        BattleEffectsManager.Instance.ResetAll();
         BattleManager.Instance.ResetAll();
         UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().SetState(SelectBuildPanel.States.Normal);
+        GameObjectPoolManager.Instance.OptimizeAllGameObjectPools();
 
         SelfClientPlayer = null;
         EnemyClientPlayer = null;
@@ -171,8 +173,6 @@ public partial class RoundManager : MonoSingleton<RoundManager>
                 break;
             }
         }
-
-        BattleEffectsManager.Instance.ResetAll();
 
         if (M_PlayMode == PlayMode.Single)
         {

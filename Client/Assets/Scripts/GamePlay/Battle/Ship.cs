@@ -6,12 +6,11 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     internal ClientPlayer ClientPlayer;
     public Transform[] M_Ship_AttackPoints;
 
-    [SerializeField] private GameObject ShipBG;
-
     [SerializeField] private TextMeshPro DamageNumberPreviewTextMesh;
     [SerializeField] private TextMeshPro Desc;
-    
+
     [SerializeField] private Transform[] Trans_NeedRotate180ByPlayer;
+    public ShipStyleManager ShipStyleManager;
 
     public void Initialize(ClientPlayer clientPlayer)
     {
@@ -27,10 +26,12 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
         ClientPlayer = clientPlayer;
         DamageNumberPreviewTextMesh.gameObject.SetActive(clientPlayer.WhichPlayer == Players.Enemy);
         Desc.gameObject.SetActive(clientPlayer.WhichPlayer == Players.Enemy);
+        ShipStyleManager.Initialize(ClientPlayer);
     }
 
     public void ResetAll()
     {
+        StopAllCoroutines();
         ClientPlayer = null;
         DamageNumberPreviewTextMesh.text = "";
         Desc.text = "";
@@ -66,7 +67,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                     AttackFactor attackFactor = CheckModuleMechCanAttackMe(mr);
                     if (attackFactor > 0)
                     {
-                        ShipBG.SetActive(true);
+                        ShipStyleManager.ShowShipShapeHover(true);
                         if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
                         {
                             ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
@@ -80,7 +81,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                 }
                 else if (cs != null && CheckCardSpellCanTarget(cs))
                 {
-                    ShipBG.SetActive(true);
+                    ShipStyleManager.ShowShipShapeHover(true);
                     if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
                     {
                         ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = true; //箭头动画
@@ -184,7 +185,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     {
         if (ClientPlayer.WhichPlayer == Players.Enemy)
         {
-            ShipBG.SetActive(false);
+            ShipStyleManager.ShowShipShapeHover(false);
             if (DragManager.Instance.CurrentArrow && DragManager.Instance.CurrentArrow is ArrowAiming)
             {
                 ((ArrowAiming) DragManager.Instance.CurrentArrow).IsOnHover = false; //箭头动画

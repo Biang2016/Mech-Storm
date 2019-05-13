@@ -639,7 +639,7 @@ public class ModuleMech : ModuleBase
 
     public void Attack(ModuleMech targetMech, bool isCounterAttack)
     {
-        //BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_Attack(targetMech, isCounterAttack), "Co_Attack");
+        //BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_Attack( targetMech, isCounterAttack), "Co_Attack");
     }
 
     public void AttackShip(ClientPlayer ship)

@@ -16,18 +16,21 @@ public class HandManager : MonoBehaviour
     private readonly float HAND_CARD_INTERVAL = 5f;
     private readonly float HAND_CARD_ROTATE = 1.0f;
     private readonly float HAND_CARD_OFFSET = 2f;
-    private readonly float PULL_OUT_CARD_SIZE = 0.5f;
-    private readonly float DRAW_CARD_FLY_TIME = 0.3f;
-    private readonly float DRAW_CARD_INTERVAL_TIME = 0.7f;
 
-    private readonly float SHOW_CARD_SIZE = 0.6f;
-    private readonly float SHOW_CARD_DURATION = 0.4f;
-    private readonly float SHOW_CARD_FLY_DURATION = 0.1f;
+    private readonly float PULL_OUT_CARD_SIZE = 0.5f;
+    private readonly float PULL_OUT_CARD_OFFSET = 3.5f;
+
+    private readonly float DRAW_CARD_FLY_TIME = 0.4f;
+    private readonly float DRAW_CARD_INTERVAL_TIME = 0.3f;
+
+    private readonly float USE_CARD_SHOW_SIZE = 0.6f;
+    private readonly float USE_CARD_SHOW_DURATION = 0.4f;
+    private readonly float USE_CARD_SHOW_FLY_DURATION = 0.1f;
     private static readonly Vector3 USE_CARD_SHOW_POSITION = new Vector3(10, 3, 0);
     private static readonly Vector3 USE_CARD_SHOW_POSITION_OVERLAY = new Vector3(10, 3, 0.2f);
 
     internal ClientPlayer ClientPlayer;
-    private List<CardBase> cards = new List<CardBase>();
+    public List<CardBase> cards = new List<CardBase>();
     private CardBase currentShowCard;
     private CardBase lastShowCard;
 
@@ -38,6 +41,7 @@ public class HandManager : MonoBehaviour
     {
         ResetAll();
         ClientPlayer = clientPlayer;
+        DrawCardPivots = ClientPlayer.WhichPlayer == Players.Self ? SelfDrawCardPivots : EnemyDrawCardPivots;
     }
 
     void Update()
@@ -73,8 +77,11 @@ public class HandManager : MonoBehaviour
 
     public void ResetAll()
     {
+        StopAllCoroutines();
+
         foreach (CardBase cardBase in cards)
         {
+            cardBase.transform.DOPause();
             cardBase.PoolRecycle();
         }
 
@@ -159,6 +166,7 @@ public class HandManager : MonoBehaviour
         {
             count++;
             Transform result = GetCardPlace(count, cardCount);
+            Debug.Log("Replace: " + count + "/" + cardCount);
             Vector3 position = result.position;
             Vector3 rotation = result.rotation.eulerAngles;
             Vector3 scale = result.localScale;
@@ -182,13 +190,13 @@ public class HandManager : MonoBehaviour
 
     private HandCardOrientation m_HandCardOrientation = HandCardOrientation.RightToLeft;
 
-    private Transform GetCardPlace(int cardIndex, int toatalCardNumber)
+    private Transform GetCardPlace(int cardIndex, int totalCardNumber)
     {
         int rev = m_HandCardOrientation == HandCardOrientation.LeftToRight ? 1 : -1;
         int rev_player = ClientPlayer.WhichPlayer == Players.Self ? 1 : -1;
         int rev_player_180 = ClientPlayer.WhichPlayer == Players.Self ? 0 : 1;
 
-        if (toatalCardNumber == 0) return null;
+        if (totalCardNumber == 0) return null;
         if (GetCardPlacePivot == null) GetCardPlacePivot = new GameObject("GetCardPlacePivot");
         GetCardPlacePivot.transform.SetParent(transform);
 
@@ -196,16 +204,16 @@ public class HandManager : MonoBehaviour
         GetCardPlacePivot.transform.rotation = DefaultCardPivot.rotation;
         GetCardPlacePivot.transform.localScale = Vector3.one * HAND_CARD_SIZE;
 
-        float angle = ANGLES_DICT[toatalCardNumber - 1] * HAND_CARD_ROTATE;
-        float horrizonDist = HORRIZON_DISTANCE_DICT[toatalCardNumber - 1] * HAND_CARD_INTERVAL;
-        float rotateAngle = angle / toatalCardNumber * (((toatalCardNumber - 1) / 2.0f + 1) - cardIndex);
+        float angle = ANGLES_DICT[totalCardNumber - 1] * HAND_CARD_ROTATE;
+        float horizonDist = HORRIZON_DISTANCE_DICT[totalCardNumber - 1] * HAND_CARD_INTERVAL;
+        float rotateAngle = angle / totalCardNumber * (((totalCardNumber - 1) / 2.0f + 1) - cardIndex);
         if (ClientPlayer.WhichPlayer == Players.Enemy) GetCardPlacePivot.transform.Rotate(-Vector3.right * 180);
         GetCardPlacePivot.transform.position = new Vector3(GetCardPlacePivot.transform.position.x, 4f, GetCardPlacePivot.transform.position.z);
-        float horrizonDistance = horrizonDist / toatalCardNumber * (((toatalCardNumber - 1) / 2.0f + 1) - cardIndex);
-        GetCardPlacePivot.transform.Translate(rev * (-Vector3.right * horrizonDistance * HAND_CARD_SIZE)); //horizontal offset, fro
-        float distCardsFromCenter = Mathf.Abs(((toatalCardNumber - 1) / 2.0f + 1) - cardIndex); //the number of cards between this card and center card
-        float factor = (toatalCardNumber - distCardsFromCenter) / toatalCardNumber; //temp param
-        GetCardPlacePivot.transform.Translate(rev_player * -1 * (-Vector3.down * 1f * distCardsFromCenter * (1 - factor * factor) * 0.5f * HAND_CARD_SIZE + Vector3.down * toatalCardNumber / 30 * HAND_CARD_OFFSET)); //arc offset
+        float horizonDistance = horizonDist / totalCardNumber * (((totalCardNumber - 1) / 2.0f + 1) - cardIndex);
+        GetCardPlacePivot.transform.Translate(rev * (-Vector3.right * horizonDistance * HAND_CARD_SIZE)); //horizontal offset, fro
+        float distCardsFromCenter = Mathf.Abs(((totalCardNumber - 1) / 2.0f + 1) - cardIndex); //the number of cards between this card and center card
+        float factor = (totalCardNumber - distCardsFromCenter) / totalCardNumber; //temp param
+        GetCardPlacePivot.transform.Translate(rev_player * -1 * (-Vector3.down * 1f * distCardsFromCenter * (1 - factor * factor) * 0.5f * HAND_CARD_SIZE + Vector3.down * totalCardNumber / 30 * HAND_CARD_OFFSET)); //arc offset
         GetCardPlacePivot.transform.Rotate(rev_player * Vector3.forward, rev * rotateAngle + rev_player_180 * 180); //tiny rotate of cards
         GetCardPlacePivot.transform.Translate(rev_player * -1 * Vector3.back * 0.01f * cardIndex); //vertical offset
         return GetCardPlacePivot.transform;
@@ -257,7 +265,7 @@ public class HandManager : MonoBehaviour
             yield return new WaitForSeconds(DRAW_CARD_INTERVAL_TIME);
         }
 
-        yield return new WaitForSeconds(DRAW_CARD_FLY_TIME - DRAW_CARD_INTERVAL_TIME);
+        yield return new WaitForSeconds((DRAW_CARD_FLY_TIME - DRAW_CARD_INTERVAL_TIME) * cardIdAndInstanceIds.Count);
 
         RefreshAllCardUsable();
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -266,7 +274,7 @@ public class HandManager : MonoBehaviour
 
     [SerializeField] private Transform[] SelfDrawCardPivots;
     [SerializeField] private Transform[] EnemyDrawCardPivots;
-    private Transform[] DrawCardPivots => ClientPlayer.WhichPlayer == Players.Self ? SelfDrawCardPivots : EnemyDrawCardPivots;
+    private Transform[] DrawCardPivots;
 
     IEnumerator SubCo_GetCard(int indexNumber, int totalCardNumber, DrawCardRequest.CardIdAndInstanceId cardIdAndInstanceId, float duration) //animation of draw single card
     {
@@ -291,13 +299,13 @@ public class HandManager : MonoBehaviour
         newCardBase.M_BoxCollider.enabled = false;
         for (int i = 1; i < DrawCardPivots.Length; i++)
         {
-            Tweener tweener_m = newCardBase.transform.DOMove(DrawCardPivots[i].position, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
-            Tweener tweener_r = newCardBase.transform.DORotateQuaternion(DrawCardPivots[i].rotation, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
+            newCardBase.transform.DOMove(DrawCardPivots[i].position, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
+            newCardBase.transform.DORotateQuaternion(DrawCardPivots[i].rotation, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
             yield return new WaitForSeconds(duration / DrawCardPivots.Length);
         }
 
-        Tweener tweener_m_final = newCardBase.transform.DOMove(tarTran.position, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
-        Tweener tweener_r_final = newCardBase.transform.DORotateQuaternion(tarTran.rotation, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
+        newCardBase.transform.DOMove(tarTran.position, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
+        newCardBase.transform.DORotateQuaternion(tarTran.rotation, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
         yield return new WaitForSeconds(duration / DrawCardPivots.Length);
         newCardBase.M_BoxCollider.enabled = true;
 
@@ -349,9 +357,9 @@ public class HandManager : MonoBehaviour
                     lastShowCard = currentShowCard;
                     lastShowCard.transform.DOPause();
 
-                    lastShowCard.transform.DOMove(USE_CARD_SHOW_POSITION, SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
-                    lastShowCard.transform.DORotate(new Vector3(0, 180, 0), SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
-                    lastShowCard.transform.DOScale(Vector3.one * SHOW_CARD_SIZE, SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
+                    lastShowCard.transform.DOMove(USE_CARD_SHOW_POSITION, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
+                    lastShowCard.transform.DORotate(new Vector3(0, 180, 0), USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
+                    lastShowCard.transform.DOScale(Vector3.one * USE_CARD_SHOW_SIZE, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
                 }
 
                 currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, CardBase.CardShowMode.ShowCard, ClientPlayer);
@@ -366,13 +374,14 @@ public class HandManager : MonoBehaviour
                 currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
                 currentShowCard.ShowCardBloom(true);
                 currentShowCard.BeBrightColor();
+                currentShowCard.CardOrder = 200;
 
-                currentShowCard.transform.DOMove(USE_CARD_SHOW_POSITION_OVERLAY, SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
-                currentShowCard.transform.DORotate(new Vector3(-90, 180, 0), SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
-                currentShowCard.transform.DOScale(Vector3.one * SHOW_CARD_SIZE, SHOW_CARD_FLY_DURATION).SetEase(Ease.Linear);
+                currentShowCard.transform.DOMove(USE_CARD_SHOW_POSITION_OVERLAY, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
+                currentShowCard.transform.DORotate(new Vector3(-90, 180, 0), USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
+                currentShowCard.transform.DOScale(Vector3.one * USE_CARD_SHOW_SIZE, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
 
                 RefreshCardsPlace();
-                yield return new WaitForSeconds(SHOW_CARD_FLY_DURATION);
+                yield return new WaitForSeconds(USE_CARD_SHOW_FLY_DURATION);
 
                 if (lastShowCard)
                 {
@@ -380,7 +389,7 @@ public class HandManager : MonoBehaviour
                     lastShowCard = null;
                 }
 
-                yield return new WaitForSeconds(SHOW_CARD_DURATION - SHOW_CARD_FLY_DURATION);
+                yield return new WaitForSeconds(USE_CARD_SHOW_DURATION - USE_CARD_SHOW_FLY_DURATION);
 
                 currentShowCard.PoolRecycle();
                 currentShowCard = null;
@@ -428,7 +437,7 @@ public class HandManager : MonoBehaviour
         {
             HandCardShrink(CurrentFocusCard);
             RefreshCardsPlace();
-            ClientPlayer.BattlePlayer.MetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
+            ClientPlayer.BattlePlayer.MetalLifeEnergyManager.MetalBarManager.ResetHighlightTopBlocks();
         }
 
         CurrentFocusCard = focusCard;
@@ -442,7 +451,7 @@ public class HandManager : MonoBehaviour
                 currentFocusEquipmentCard = CurrentFocusCard;
             }
 
-            ClientPlayer.BattlePlayer.MetalLifeEnergyManager.MetalBarManager.HightlightTopBlocks(focusCard.CardInfo.BaseInfo.Metal);
+            ClientPlayer.BattlePlayer.MetalLifeEnergyManager.MetalBarManager.HighlightTopBlocks(focusCard.CardInfo.BaseInfo.Metal);
         }
 
         if (focusCard is CardSpell && ((CardSpell) focusCard).CardInfo.TargetInfo.HasTargetEquip)
@@ -459,7 +468,7 @@ public class HandManager : MonoBehaviour
         if (ClientPlayer.WhichPlayer == Players.Enemy) return;
         if (IsBeginDrag) return;
         RefreshCardsPlace();
-        ClientPlayer.BattlePlayer.MetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
+        ClientPlayer.BattlePlayer.MetalLifeEnergyManager.MetalBarManager.ResetHighlightTopBlocks();
     }
 
     internal void CardColliderReplaceOnMouseExit(CardBase lostFocusCard)
@@ -469,7 +478,7 @@ public class HandManager : MonoBehaviour
         HandCardShrink(lostFocusCard);
         RefreshCardsPlace();
         if (currentFocusEquipmentCard == lostFocusCard) currentFocusEquipmentCard = null;
-        ClientPlayer.BattlePlayer.MetalLifeEnergyManager.MetalBarManager.ResetHightlightTopBlocks();
+        ClientPlayer.BattlePlayer.MetalLifeEnergyManager.MetalBarManager.ResetHighlightTopBlocks();
         if (!Input.GetMouseButton(0)) ClientPlayer.BattlePlayer.BattleGroundManager.StopShowSlotBloom();
     }
 
@@ -502,7 +511,7 @@ public class HandManager : MonoBehaviour
         //Enlarge the card and put it in upright position
         focusCard.transform.localScale = Vector3.one * PULL_OUT_CARD_SIZE;
         focusCard.transform.rotation = DefaultCardPivot.rotation;
-        focusCard.transform.position = new Vector3(focusCard.transform.position.x, focusCard.transform.position.y, focusCard.transform.position.z + 5f);
+        focusCard.transform.position = new Vector3(focusCard.transform.position.x, focusCard.transform.position.y, focusCard.transform.position.z + PULL_OUT_CARD_OFFSET);
         //Disenable the card's boxcollider
         focusCard.M_BoxCollider.enabled = false;
         focusCard.CardOrder = 200;
