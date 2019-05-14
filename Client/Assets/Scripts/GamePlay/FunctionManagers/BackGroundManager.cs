@@ -1,11 +1,12 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BackGroundManager : MonoSingleton<BackGroundManager>
 {
     public Camera BattleGroundCamera;
-    
+
     private BackGroundManager()
     {
     }
@@ -65,38 +66,24 @@ public class BackGroundManager : MonoSingleton<BackGroundManager>
     private void ChangePictureFadeIn(Image img, Sprite sp)
     {
         img.sprite = sp;
-        StartCoroutine(Co_ChangePictureFade(img, 1f, FadeOption.FadeIn));
+
+        img.DOPause();
+        img.transform.DOPause();
+        img.transform.localScale = 1.5f * Vector3.one;
+        img.DOFade(1, 3f);
+        img.transform.DOScale(1, 3f).OnComplete(delegate
+        {
+            img.transform.DOScale(1.2f, 10f).SetLoops(-1, LoopType.Yoyo);
+        });
     }
 
     private void ChangePictureFadeOut(Image img)
     {
-        StartCoroutine(Co_ChangePictureFade(img, 0.9f, FadeOption.FadeOut));
-    }
-
-    IEnumerator Co_ChangePictureFade(Image img, float duration, FadeOption fadeOption)
-    {
-        isChanging = true;
-        for (float tick = duration; tick >= 0; tick -= 0.1f)
+        img.transform.DOScale(3, 3f);
+        img.DOFade(0, 3f).OnComplete(delegate
         {
-            Color color = img.color;
-            if (fadeOption == FadeOption.FadeIn)
-            {
-                img.color = new Color(color.r, color.g, color.b, (duration - tick) / duration);
-            }
-            else if (fadeOption == FadeOption.FadeOut)
-            {
-                img.color = new Color(color.r, color.g, color.b, tick / duration);
-            }
-
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        isChanging = false;
-    }
-
-    enum FadeOption
-    {
-        FadeIn,
-        FadeOut,
+            img.DOPause();
+            img.transform.DOPause();
+        });
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class ShipStyleManager : MonoBehaviour
 {
@@ -32,6 +33,19 @@ public class ShipStyleManager : MonoBehaviour
     public void ShowShipShapeHover(bool isShow)
     {
         ShipShapeHover.gameObject.SetActive(isShow);
+    }
+
+    public void ShowShipShapeHoverForTime(float duration)
+    {
+        StartCoroutine(Co_ShowShipShapeHoverForTime(duration));
+    }
+
+    IEnumerator Co_ShowShipShapeHoverForTime(float duration)
+    {
+        ShipShapeHover.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        ShipShapeHover.gameObject.SetActive(false);
+        yield return null;
     }
 
     public void ResetAll()

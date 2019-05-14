@@ -27,6 +27,7 @@ public abstract class TargetSideEffect : SideEffectBase
     {
         get
         {
+            if (TargetSelectorType == TargetSelector.TargetSelectorTypes.EveryMechBased) return false;
             if (TargetSelect == TargetSelect.Multiple) return true;
             if (TargetSelect == TargetSelect.Single)
             {

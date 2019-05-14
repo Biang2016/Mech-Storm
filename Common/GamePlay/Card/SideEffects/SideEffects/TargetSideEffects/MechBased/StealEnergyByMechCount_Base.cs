@@ -6,7 +6,7 @@
         M_SideEffectParam.SetParam_MultipliedInt("Energy", 0);
     }
 
-    public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.MechBased;
+    public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.EveryMechBased;
 
     public override string GenerateDesc()
     {

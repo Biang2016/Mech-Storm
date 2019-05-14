@@ -77,7 +77,14 @@ public class CardDeckManager : MonoBehaviour
 
     public Transform GetFirstCardDeckCardPos()
     {
-        return CardDeckCards[Cur_CardShowNumber - 1].transform;
+        if (Cur_CardShowNumber == 0)
+        {
+            return CardDeckCards[0].transform;
+        }
+        else
+        {
+            return CardDeckCards[Cur_CardShowNumber - 1].transform;
+        }
     }
 
     private void SetCardDeckShowCardNum(int number)

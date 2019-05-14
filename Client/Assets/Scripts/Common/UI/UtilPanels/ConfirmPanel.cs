@@ -21,8 +21,9 @@ public class ConfirmPanel : BaseUIForm
             uiForm_LucencyType: UIFormLucencyTypes.Blur);
     }
 
-    void Update()
+    protected override void ChildUpdate()
     {
+        base.ChildUpdate();
         if (Input.GetKeyUp(KeyCode.Return))
         {
             ConfirmClick?.Invoke();

@@ -15,17 +15,17 @@ public class HandManager : MonoBehaviour
     private readonly float HAND_CARD_SIZE = 0.3f;
     private readonly float HAND_CARD_INTERVAL = 5f;
     private readonly float HAND_CARD_ROTATE = 1.0f;
-    private readonly float HAND_CARD_OFFSET = 2f;
+    private readonly float HAND_CARD_OFFSET = 1.2f;
 
     private readonly float PULL_OUT_CARD_SIZE = 0.5f;
     private readonly float PULL_OUT_CARD_OFFSET = 3.5f;
 
     private readonly float DRAW_CARD_FLY_TIME = 0.4f;
-    private readonly float DRAW_CARD_INTERVAL_TIME = 0.3f;
+    private readonly float DRAW_CARD_INTERVAL_TIME = 0.15f;
 
-    private readonly float USE_CARD_SHOW_SIZE = 0.6f;
-    private readonly float USE_CARD_SHOW_DURATION = 0.4f;
-    private readonly float USE_CARD_SHOW_FLY_DURATION = 0.1f;
+    private readonly float USE_CARD_SHOW_SIZE = 0.5f;
+    private readonly float USE_CARD_SHOW_DURATION = 0.5f;
+    private readonly float USE_CARD_SHOW_FLY_DURATION = 0.15f;
     private static readonly Vector3 USE_CARD_SHOW_POSITION = new Vector3(10, 3, 0);
     private static readonly Vector3 USE_CARD_SHOW_POSITION_OVERLAY = new Vector3(10, 3, 0.2f);
 
@@ -77,11 +77,8 @@ public class HandManager : MonoBehaviour
 
     public void ResetAll()
     {
-        StopAllCoroutines();
-
         foreach (CardBase cardBase in cards)
         {
-            cardBase.transform.DOPause();
             cardBase.PoolRecycle();
         }
 
@@ -171,9 +168,9 @@ public class HandManager : MonoBehaviour
             Vector3 rotation = result.rotation.eulerAngles;
             Vector3 scale = result.localScale;
 
-            card.transform.DOMove(position, duration).SetEase(Ease.Linear);
-            card.transform.DORotate(rotation, duration).SetEase(Ease.Linear);
-            card.transform.DOScale(scale, duration).SetEase(Ease.Linear);
+            card.transform.DOMove(position, duration).SetEase(Ease.InOutQuart);
+            card.transform.DORotate(rotation, duration).SetEase(Ease.InOutQuart);
+            card.transform.DOScale(scale, duration).SetEase(Ease.InOutQuart);
         }
 
         RefreshAllCardUsable();
@@ -188,7 +185,7 @@ public class HandManager : MonoBehaviour
         RightToLeft,
     }
 
-    private HandCardOrientation m_HandCardOrientation = HandCardOrientation.RightToLeft;
+    private HandCardOrientation m_HandCardOrientation = HandCardOrientation.LeftToRight;
 
     private Transform GetCardPlace(int cardIndex, int totalCardNumber)
     {
@@ -253,8 +250,8 @@ public class HandManager : MonoBehaviour
 
     IEnumerator Co_GetCards(List<DrawCardRequest.CardIdAndInstanceId> cardIdAndInstanceIds) //animation of drawing multiple cards
     {
-        RefreshCardsPlace(cards.Count + cardIdAndInstanceIds.Count, 0.1f);
-        yield return new WaitForSeconds(0.2f);
+        RefreshCardsPlace(cards.Count + cardIdAndInstanceIds.Count, 0.3f);
+        yield return new WaitForSeconds(0.3f);
 
         int count = 0;
         int currentCount = cards.Count;
@@ -265,7 +262,7 @@ public class HandManager : MonoBehaviour
             yield return new WaitForSeconds(DRAW_CARD_INTERVAL_TIME);
         }
 
-        yield return new WaitForSeconds((DRAW_CARD_FLY_TIME - DRAW_CARD_INTERVAL_TIME) * cardIdAndInstanceIds.Count);
+        yield return new WaitForSeconds(DRAW_CARD_FLY_TIME - DRAW_CARD_INTERVAL_TIME);
 
         RefreshAllCardUsable();
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -281,35 +278,47 @@ public class HandManager : MonoBehaviour
         CardInfo_Base newCardInfoBase = AllCards.GetCard(cardIdAndInstanceId.CardId);
         CardBase newCardBase = CardBase.InstantiateCardByCardInfo(newCardInfoBase, transform, CardBase.CardShowMode.HandCard, ClientPlayer);
         newCardBase.M_CardInstanceId = cardIdAndInstanceId.CardInstanceId;
-
         cards.Add(newCardBase);
 
         RefreshCardsOrderInLayer();
-
         RefreshAllCardUsable();
 
         Transform deckCardTran = ClientPlayer.BattlePlayer.CardDeckManager.GetFirstCardDeckCardPos();
         Transform srcTran = DrawCardPivots[0];
         Transform tarTran = GetCardPlace(indexNumber, totalCardNumber);
+        Vector3 tarPos = tarTran.position;
+        Quaternion tarRotation = tarTran.rotation;
 
         newCardBase.transform.position = deckCardTran.position;
         newCardBase.transform.rotation = srcTran.rotation;
         newCardBase.transform.localScale = Vector3.one * HAND_CARD_SIZE;
 
         newCardBase.M_BoxCollider.enabled = false;
+
+        Vector3[] path = new Vector3[DrawCardPivots.Length];
         for (int i = 1; i < DrawCardPivots.Length; i++)
         {
-            newCardBase.transform.DOMove(DrawCardPivots[i].position, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
-            newCardBase.transform.DORotateQuaternion(DrawCardPivots[i].rotation, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
-            yield return new WaitForSeconds(duration / DrawCardPivots.Length);
+            path[i - 1] = DrawCardPivots[i].position;
         }
 
-        newCardBase.transform.DOMove(tarTran.position, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
-        newCardBase.transform.DORotateQuaternion(tarTran.rotation, duration / DrawCardPivots.Length).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(duration / DrawCardPivots.Length);
-        newCardBase.M_BoxCollider.enabled = true;
+        path[path.Length - 1] = tarPos;
+        newCardBase.transform.DOPath(path, duration, PathType.CatmullRom);
 
         AudioManager.Instance.SoundPlay("sfx/DrawCard0", 0.4f);
+
+        Sequence seq = DOTween.Sequence();
+
+        for (int i = 1; i < DrawCardPivots.Length - 1; i++)
+        {
+            seq.Append(newCardBase.transform.DORotateQuaternion(DrawCardPivots[i].rotation, duration / DrawCardPivots.Length).SetEase(Ease.InOutQuart));
+        }
+
+        seq.Append(newCardBase.transform.DORotateQuaternion(tarRotation, duration / DrawCardPivots.Length).SetEase(Ease.InOutQuart));
+        seq.Append(newCardBase.transform.DORotateQuaternion(tarRotation, duration / DrawCardPivots.Length).SetEase(Ease.Linear));
+        seq.Play();
+        yield return new WaitForSeconds(duration);
+        newCardBase.M_BoxCollider.enabled = true;
+        yield return null;
     }
 
     private void RefreshCardsOrderInLayer()

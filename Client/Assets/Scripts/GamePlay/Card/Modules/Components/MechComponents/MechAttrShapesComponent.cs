@@ -23,6 +23,7 @@ public class MechAttrShapesComponent : MechComponentBase
 
     protected override void Child_Initialize()
     {
+        OnAttrShapeShow();
     }
 
     public void OnMousePressEnterImmediately()
@@ -44,7 +45,7 @@ public class MechAttrShapesComponent : MechComponentBase
 
     protected override void Reset()
     {
-        ShowDefence(false);
+        ShowDefender(false);
         ShowSentry(false);
         ShowSniper(false);
         ShowFrenzy(false);
@@ -52,7 +53,7 @@ public class MechAttrShapesComponent : MechComponentBase
 
     public void OnAttrShapeShow()
     {
-        ShowDefence(Mech.IsDefender);
+        ShowDefender(Mech.IsDefender);
         ShowSentry(Mech.IsSentry);
         ShowSniper(Mech.IsSniper);
         ShowFrenzy(Mech.IsFrenzy);
@@ -75,7 +76,7 @@ public class MechAttrShapesComponent : MechComponentBase
         FrenzySortingOrder = FrenzySG.sortingOrder;
     }
 
-    public void ShowDefence(bool isShow)
+    public void ShowDefender(bool isShow)
     {
         Defender.gameObject.SetActive(isShow);
         DefenderHover.gameObject.SetActive(false);

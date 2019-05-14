@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -13,7 +14,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public override void PoolRecycle()
     {
-//        iTween.Stop(gameObject);
+        transform.DOPause();
         ResetColliderAndReplace();
         CardOrder = 0;
         Usable = false;

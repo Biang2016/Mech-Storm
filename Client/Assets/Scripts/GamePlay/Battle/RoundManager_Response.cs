@@ -509,7 +509,8 @@ public partial class RoundManager
     private void OnUseSpellCard(UseSpellCardServerRequset r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        //Todo
+        CardInfo_Base cb = cp.BattlePlayer.HandManager.GetCardByCardInstanceId(r.handCardInstanceId).CardInfo;
+        cp.BattlePlayer.HandManager.UseCard(r.handCardInstanceId, cb);
     }
 
     public void OnMechAttackMech(MechAttackMechServerRequest r)

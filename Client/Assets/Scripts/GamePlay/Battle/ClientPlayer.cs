@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class ClientPlayer : Player
@@ -55,6 +56,13 @@ public class ClientPlayer : Player
     {
         base.OnLifeChanged(change, isOverflow);
         if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetLife(LifeLeft, change);
+        if (change < 0)
+        {
+            BattlePlayer.Ship.transform.DOShakePosition(0.2f, new Vector3(0.5f, 0, 0.5f));
+        }else if (change > 0)
+        {
+            BattlePlayer.Ship.ShipStyleManager.ShowShipShapeHoverForTime(0.5f);
+        }
     }
 
     protected void SetTotalLife()

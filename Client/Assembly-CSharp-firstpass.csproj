@@ -53,13 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
      <Compile Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -101,6 +94,7 @@
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+     <None Include="Assets\Plugins\DOTween\readme.txt" />
      <None Include="Assets\Plugins\NewtonsoftJson\Newtonsoft.Json.xml" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
@@ -109,13 +103,15 @@
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\NotoSans - License.txt" />
+     <None Include="Assets\Plugins\DOTween\DOTween50.xml" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />
-     <None Include="Assets\Plugins\Demigiant\DOTween\readme.txt" />
+     <None Include="Assets\Plugins\DOTween\DOTween43.xml" />
      <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
+     <None Include="Assets\Plugins\DOTween\DOTween46.xml" />
  <Reference Include="Unity.2D.Animation.Runtime">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
  </Reference>
@@ -350,9 +346,6 @@
  <Reference Include="MyCardGameCommon">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
  </Reference>
- <Reference Include="DOTween">
- <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
- </Reference>
  <Reference Include="Newtonsoft.Json">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll</HintPath>
  </Reference>
@@ -370,6 +363,18 @@
  </Reference>
  <Reference Include="Unity.Analytics.Tracker">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween43.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/softwares/Unity3D 2018.3.10f/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

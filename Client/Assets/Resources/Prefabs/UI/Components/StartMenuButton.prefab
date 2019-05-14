@@ -129,7 +129,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -15.400002, y: -61.7}
-  m_SizeDelta: {x: 559.98, y: 104.2}
+  m_SizeDelta: {x: 559.98, y: 118.7}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &1653002649546734139
 CanvasRenderer:
@@ -5203,7 +5203,6 @@ GameObject:
   - component: {fileID: 1008448345433090848}
   - component: {fileID: 1360821843481453455}
   - component: {fileID: 1944708931230715355}
-  - component: {fileID: 5244918047618144236}
   - component: {fileID: 487581972849939755}
   - component: {fileID: 2822897462062734383}
   - component: {fileID: 7677037372849965300}
@@ -5313,18 +5312,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1008448345433090848}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnOnlineMenuButtonClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!95 &1944708931230715355
@@ -5346,18 +5334,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5244918047618144236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6382020520554760392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8781d25b9e6a6f44bbc733ab86880c41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &487581972849939755
 MonoBehaviour:
   m_ObjectHideFlags: 0

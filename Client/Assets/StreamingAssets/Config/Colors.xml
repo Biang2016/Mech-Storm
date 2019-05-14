@@ -9,9 +9,11 @@
   <Color name="ShieldCardColor" color="#FFD500" intensity="1.5"></Color>
   <Color name="PackCardColor" color="#6151ED" intensity="1.5"></Color>
   <Color name="MACardColor" color="#8EE3B3" intensity="1.5"></Color>
+
   <Color name="CardHighLightColor" color="#FFFF00" intensity="1"></Color>
   <Color name="CardImportantColor" color="#70DFFF" intensity="1"></Color>
   <Color name="CardDescTextColor" color="#FFFFFF" intensity="1"></Color>
+
   <Color name="StoryLevelColor1" color="#A54BFF" intensity="1"></Color>
   <Color name="StoryLevelColor2" color="#333333" intensity="1"></Color>
   <Color name="StoryLevelColor3" color="#13FF00" intensity="1"></Color>
@@ -20,15 +22,18 @@
   <Color name="StoryLevelColor6" color="#BC7300" intensity="1"></Color>
   <Color name="StoryLevelColor7" color="#A60086" intensity="1"></Color>
 
-  <Color name="CardBloomColor" color="#F1FF74" intensity="1"></Color>
+  <Color name="CardBloomColor" color="#70DFFF" intensity="1"></Color>
   <Color name="MechBloomColor" color="#06FF00" intensity="1"></Color>
   <Color name="MechOnEnemyHoverBloomColor" color="#FF0000" intensity="1"></Color>
   <Color name="MechOnSelfHoverBloomColor" color="#FFF69F" intensity="1"></Color>
+
   <Color name="DefaultLifeNumberColor" color="#FFFFFF" intensity="1"></Color>
   <Color name="InjuredLifeNumberColor" color="#E2FF00" intensity="1"></Color>
   <Color name="OverFlowTotalLifeColor" color="#00FF28" intensity="1"></Color>
+
   <Color name="BuildButtonEditColor" color="#FF4B00" intensity="1"></Color>
   <Color name="BuildButtonDefaultColor" color="#858585" intensity="1"></Color>
+  
   <Color name="SelfMetalBarColor" color="#9E00FF" intensity="1"></Color>
   <Color name="EnemyMetalBarColor" color="#9E00FF" intensity="1"></Color>
   <Color name="SelfCardDeckCardColor" color="#69B1FF" intensity="1"></Color>
