@@ -4,8 +4,9 @@ using UnityEngine;
 public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverComponent
 {
     internal ClientPlayer ClientPlayer;
+    internal CardInfo_Base CardInfo; //卡牌原始数值信息
 
-    [SerializeField] private DragComponent DragComponent;
+    public DragComponent DragComponent;
     [SerializeField] private MouseHoverComponent MouseHoverComponent;
     [SerializeField] private BoxCollider BoxCollider;
 
@@ -26,36 +27,12 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
             BoxCollider.enabled = true;
         }
 
-        if (this is ModuleWeapon)
+        if (this is ModuleEquip)
         {
-            ((ModuleWeapon) this).SetNoPreview();
-        }
-
-        if (this is ModuleShield)
-        {
-            ((ModuleShield) this).SetNoPreview();
-        }
-
-        if (this is ModulePack)
-        {
-            ((ModulePack) this).SetNoPreview();
-        }
-
-        if (this is ModuleMA)
-        {
-            ((ModuleMA) this).SetNoPreview();
+            ((ModuleEquip) this).SetNoPreview();
         }
 
         base.PoolRecycle();
-    }
-
-    internal CardInfo_Base CardInfo; //卡牌原始数值信息
-    private bool isDead;
-
-    public bool IsDead
-    {
-        get { return isDead; }
-        set { isDead = value; }
     }
 
     public virtual void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
@@ -66,44 +43,30 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
         BeBrightColor();
     }
 
+    public CardStarsComponent CardStarsComponent;
+
     protected virtual void InitializeComponents()
     {
         CardStarsComponent.SetStarNumber(CardInfo.UpgradeInfo.CardLevel, CardInfo.UpgradeInfo.CardLevelMax);
     }
 
-    #region 各模块
+    public abstract void SetLanguage(string languageShort);
 
-    public CardStarsComponent CardStarsComponent;
+    #region Color
 
-    public Renderer MainBoardRenderer;
-    protected float MainboardEmissionIntensity = 0f;
+    protected abstract void ChangeColor(Color color);
+    protected abstract void BeBrightColor();
+    protected abstract void BeDimColor();
 
-    protected virtual void ChangeColor(Color color)
-    {
-        ClientUtils.ChangeColor(MainBoardRenderer, color);
-    }
+    #endregion
 
-    protected void BeDimColor()
-    {
-        ChangeColor(Color.gray);
-    }
+    #region SE
 
-    protected void BeBrightColor()
-    {
-        ClientUtils.ChangeColor(MainBoardRenderer, ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()));
-    }
+    public abstract void OnShowEffects(SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange);
 
     #endregion
 
     #region 模块交互
-
-    #region SE
-
-    public virtual void OnShowEffects(SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange)
-    {
-    }
-
-    #endregion
 
     public virtual void DragComponent_OnMouseDown()
     {

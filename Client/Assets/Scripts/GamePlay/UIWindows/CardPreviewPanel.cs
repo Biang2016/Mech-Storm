@@ -121,7 +121,7 @@ public class CardPreviewPanel : BaseUIForm
         PreviewCard.transform.localScale = Vector3.one * 18;
         PreviewCard.transform.localPosition = new Vector3(0, 50, 0);
         PreviewCard.ShowCardBloom(true);
-        PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"));
+        PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"), 2);
         PreviewCard.BeBrightColor();
         PreviewCard.M_BoxCollider.enabled = false;
         PreviewCard.ShowAllSlotBlooms(true);
@@ -169,7 +169,7 @@ public class CardPreviewPanel : BaseUIForm
             UpgradeArrow.enabled = true;
 
             PreviewCardUpgrade.ShowCardBloom(true);
-            PreviewCardUpgrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FD5400"));
+            PreviewCardUpgrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FD5400"), 2);
             PreviewCardUpgrade.BeBrightColor();
             PreviewCardUpgrade.M_BoxCollider.enabled = false;
             PreviewCardUpgrade.ShowAllSlotBlooms(true);
@@ -213,7 +213,7 @@ public class CardPreviewPanel : BaseUIForm
             }
 
             PreviewCardDegrade.ShowCardBloom(true);
-            PreviewCardDegrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#0CE9FF"));
+            PreviewCardDegrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#0CE9FF"), 2);
             PreviewCardDegrade.BeBrightColor();
             PreviewCardDegrade.M_BoxCollider.enabled = false;
             PreviewCardDegrade.ShowAllSlotBlooms(true);

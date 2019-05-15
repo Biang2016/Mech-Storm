@@ -81,7 +81,9 @@ public class BattleManager : MonoSingleton<BattleManager>
     public void SetLanguage(string languageShort)
     {
         SelfBattlePlayer?.HandManager.SetLanguage(languageShort);
+        SelfBattlePlayer?.BattleGroundManager.SetLanguage(languageShort);
         EnemyBattlePlayer?.HandManager.SetLanguage(languageShort);
+        EnemyBattlePlayer?.BattleGroundManager.SetLanguage(languageShort);
     }
 }
 

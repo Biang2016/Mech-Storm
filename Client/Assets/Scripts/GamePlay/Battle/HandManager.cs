@@ -380,7 +380,7 @@ public class HandManager : MonoBehaviour
 
                 currentShowCard.DragComponent.enabled = false;
                 currentShowCard.Usable = false;
-                currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"));
+                currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"),1);
                 currentShowCard.ShowCardBloom(true);
                 currentShowCard.BeBrightColor();
                 currentShowCard.CardOrder = 200;
@@ -606,7 +606,7 @@ public class HandManager : MonoBehaviour
                             {
                                 foreach (CardBase cb in cards)
                                 {
-                                    cb.ShowCardBloom(true);
+                                    cb.ShowCardBackBloom(true);
                                 }
                             }
                         }
@@ -621,7 +621,7 @@ public class HandManager : MonoBehaviour
                     {
                         foreach (CardBase cb in cards)
                         {
-                            cb.ShowCardBloom(false);
+                            cb.ShowCardBackBloom(false);
                         }
                     }
                 }

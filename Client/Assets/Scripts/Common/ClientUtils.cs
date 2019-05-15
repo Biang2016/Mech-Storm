@@ -37,11 +37,7 @@ public class ClientUtils
 
     public static string ReplaceWrapSpace(string src)
     {
-        if (src.Contains(" "))
-        {
-            src = src.Replace(" ", "\u00A0");
-        }
-
+        src = src.Replace(" ", "\u00A0");
         return src;
     }
 

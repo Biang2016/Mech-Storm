@@ -22,10 +22,11 @@
   <Color name="StoryLevelColor6" color="#BC7300" intensity="1"></Color>
   <Color name="StoryLevelColor7" color="#A60086" intensity="1"></Color>
 
-  <Color name="CardBloomColor" color="#70DFFF" intensity="1"></Color>
+  <Color name="CardBloomColor" color="#ffffff" intensity="2"></Color>
+  <Color name="CardUsableBloomColor" color="#14FF00" intensity="2"></Color>
   <Color name="MechBloomColor" color="#06FF00" intensity="1"></Color>
   <Color name="MechOnEnemyHoverBloomColor" color="#FF0000" intensity="1"></Color>
-  <Color name="MechOnSelfHoverBloomColor" color="#FFF69F" intensity="1"></Color>
+  <Color name="MechOnSelfHoverBloomColor" color="#DA00FF" intensity="1"></Color>
 
   <Color name="DefaultLifeNumberColor" color="#FFFFFF" intensity="1"></Color>
   <Color name="InjuredLifeNumberColor" color="#E2FF00" intensity="1"></Color>

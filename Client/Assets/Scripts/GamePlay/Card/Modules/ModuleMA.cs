@@ -3,8 +3,9 @@
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_MAName = cardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
     }
+
+    #region Preview Details
 
     public override void SetPreview()
     {
@@ -16,28 +17,20 @@
         base.SetNoPreview();
     }
 
-    public CardInfo_Equip GetCurrentCardInfo()
+    #endregion
+
+    #region 属性
+
+    public override CardInfo_Equip GetCurrentCardInfo()
     {
         CardInfo_Equip currentCI = (CardInfo_Equip) CardInfo.Clone();
         return currentCI;
     }
 
-    private string m_MAName;
+    #endregion
 
-    public string M_MAName
+    public void OnMAEquipped()
     {
-        get { return m_MAName; }
-
-        set
-        {
-            m_MAName = value;
-            Name.text = LanguageManager.Instance.IsEnglish ? "" : value;
-            Name_en.text = LanguageManager.Instance.IsEnglish ? value : "";
-        }
-    }
-
-    public void OnMAEquiped()
-    {
-        EquipAnim.SetTrigger("MAEquiped");
+        EquipAnim.SetTrigger("MAEquipped");
     }
 }

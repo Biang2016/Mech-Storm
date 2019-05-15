@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ModuleMech : ModuleBase
 {
@@ -98,7 +97,7 @@ public class ModuleMech : ModuleBase
     [SerializeField] private MechTriggerIconComponent MechTriggerIconComponent;
     public MechSwordShieldArmorComponent MechSwordShieldArmorComponent;
 
-    public bool IsInitializing = false;
+    internal bool IsInitializing = false;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
@@ -141,6 +140,11 @@ public class ModuleMech : ModuleBase
         MechSwordShieldArmorComponent.Initialize(this);
     }
 
+    public override void SetLanguage(string languageShort)
+    {
+        CardDescComponent.SetCardName(CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()]);
+    }
+
     private void ResetMech()
     {
         m_MechLeftLife = 0;
@@ -156,6 +160,22 @@ public class ModuleMech : ModuleBase
     protected override void ChangeColor(Color color)
     {
         CardBasicComponent.SetMainBoardColor(color, CardInfo.GetCardColorIntensity());
+    }
+
+    protected override void BeBrightColor()
+    {
+    }
+
+    protected override void BeDimColor()
+    {
+    }
+
+    private bool isDead;
+
+    public bool IsDead
+    {
+        get { return isDead; }
+        set { isDead = value; }
     }
 
     public int M_MechID { get; set; }
@@ -421,14 +441,14 @@ public class ModuleMech : ModuleBase
 
     private void On_WeaponEquiped()
     {
-        M_Weapon.OnWeaponEquiped();
+        M_Weapon.OnWeaponEquipped();
         MechAttrShapesComponent.OnAttrShapeShow();
         AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
 
     private void On_WeaponChanged()
     {
-        M_Weapon.OnWeaponEquiped();
+        M_Weapon.OnWeaponEquipped();
         MechAttrShapesComponent.OnAttrShapeShow();
         AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
@@ -472,14 +492,14 @@ public class ModuleMech : ModuleBase
 
     private void On_ShieldEquiped()
     {
-        M_Shield.OnShieldEquiped();
+        M_Shield.OnShieldEquipped();
         MechAttrShapesComponent.OnAttrShapeShow();
         AudioManager.Instance.SoundPlay("sfx/OnEquipShield");
     }
 
     private void On_ShieldChanged()
     {
-        M_Shield.OnShieldEquiped();
+        M_Shield.OnShieldEquipped();
         MechAttrShapesComponent.OnAttrShapeShow();
         AudioManager.Instance.SoundPlay("sfx/OnEquipShield");
     }
@@ -504,7 +524,7 @@ public class ModuleMech : ModuleBase
             else if (!m_Pack && value)
             {
                 m_Pack = value;
-                On_PackEquiped();
+                On_PackEquipped();
             }
             else if (m_Pack != value)
             {
@@ -520,15 +540,15 @@ public class ModuleMech : ModuleBase
         AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
     }
 
-    private void On_PackEquiped()
+    private void On_PackEquipped()
     {
-        M_Pack.OnPackEquiped();
+        M_Pack.OnPackEquipped();
         AudioManager.Instance.SoundPlay("sfx/OnEquipPack");
     }
 
     private void On_PackChanged()
     {
-        M_Pack.OnPackEquiped();
+        M_Pack.OnPackEquipped();
         AudioManager.Instance.SoundPlay("sfx/OnEquipPack");
     }
 
@@ -571,14 +591,14 @@ public class ModuleMech : ModuleBase
 
     private void On_MAEquiped()
     {
-        M_MA.OnMAEquiped();
+        M_MA.OnMAEquipped();
         MechSwordShieldArmorComponent.MA_BG.SetActive(true);
         AudioManager.Instance.SoundPlay("sfx/OnEquipMA");
     }
 
     private void On_MAChanged()
     {
-        M_MA.OnMAEquiped();
+        M_MA.OnMAEquipped();
         AudioManager.Instance.SoundPlay("sfx/OnEquipMA");
     }
 
@@ -780,26 +800,32 @@ public class ModuleMech : ModuleBase
         RoundManager.Instance.HideTargetPreviewArrow();
         if (moduleMech)
         {
-            if (moduleMech.CheckModuleMechCanAttackMe(this))
+            if (moduleMech.ClientPlayer != ClientPlayer)
             {
-                MechAttackMechRequest request = new MechAttackMechRequest(ClientPlayer.ClientId, M_MechID, RoundManager.Instance.EnemyClientPlayer.ClientId, moduleMech.M_MechID);
-                Client.Instance.Proxy.SendMessage(request);
-            }
-            else
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("ModuleMech_ShouldAttackDefenderFirst"), 0, 0.5f);
+                if (moduleMech.CheckModuleMechCanAttackMe(this))
+                {
+                    MechAttackMechRequest request = new MechAttackMechRequest(ClientPlayer.ClientId, M_MechID, RoundManager.Instance.EnemyClientPlayer.ClientId, moduleMech.M_MechID);
+                    Client.Instance.Proxy.SendMessage(request);
+                }
+                else
+                {
+                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("ModuleMech_ShouldAttackDefenderFirst"), 0, 0.5f);
+                }
             }
         }
         else if (ship)
         {
-            if (ship.CheckModuleMechCanAttackMe(this) != 0)
+            if (ship.ClientPlayer != ClientPlayer)
             {
-                MechAttackShipRequest request = new MechAttackShipRequest(Client.Instance.Proxy.ClientId, M_MechID);
-                Client.Instance.Proxy.SendMessage(request);
-            }
-            else
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("ModuleMech_ShouldAttackMechsFirst"), 0, 0.5f);
+                if (ship.CheckModuleMechCanAttackMe(this) != 0)
+                {
+                    MechAttackShipRequest request = new MechAttackShipRequest(Client.Instance.Proxy.ClientId, M_MechID);
+                    Client.Instance.Proxy.SendMessage(request);
+                }
+                else
+                {
+                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("ModuleMech_ShouldAttackMechsFirst"), 0, 0.5f);
+                }
             }
         }
 
@@ -1028,19 +1054,19 @@ public class ModuleMech : ModuleBase
             case WeaponTypes.None:
             {
                 Vector3 oriPos = transform.position;
-//                iTween.MoveTo(gameObject, targetMech.GetClosestHitPos(transform.position), 0.1f);
-//                yield return new WaitForSeconds(0.15f);
-//                AudioManager.Instance.SoundPlay("sfx/AttackSword");
-//                iTween.MoveTo(gameObject, oriPos, 0.1f);
+                transform.DOMove(targetMech.GetClosestHitPos(transform.position), 0.1f);
+                yield return new WaitForSeconds(0.15f);
+                AudioManager.Instance.SoundPlay("sfx/AttackSword");
+                transform.DOMove(oriPos, 0.1f);
                 break;
             }
             case WeaponTypes.Sword:
             {
                 Vector3 oriPos = transform.position;
-//                iTween.MoveTo(gameObject, targetMech.GetClosestHitPos(transform.position), 0.1f);
-//                yield return new WaitForSeconds(0.15f);
-//                AudioManager.Instance.SoundPlay("sfx/AttackSword");
-//                iTween.MoveTo(gameObject, oriPos, 0.1f);
+                transform.DOMove(targetMech.GetClosestHitPos(transform.position), 0.1f);
+                yield return new WaitForSeconds(0.15f);
+                transform.DOMove(oriPos, 0.1f);
+                AudioManager.Instance.SoundPlay("sfx/AttackSword");
                 break;
             }
             case WeaponTypes.Gun:
@@ -1075,21 +1101,21 @@ public class ModuleMech : ModuleBase
             case WeaponTypes.None:
             {
                 Vector3 oriPos = transform.position;
-//                iTween.MoveTo(gameObject, targetShip.GetClosestHitPosition(transform.position), 0.15f);
-//                yield return new WaitForSeconds(0.17f);
-//                AudioManager.Instance.SoundPlay("sfx/AttackNone");
-//                iTween.MoveTo(gameObject, oriPos, 0.15f);
-//                yield return new WaitForSeconds(0.17f);
+                transform.DOMove(targetShip.GetClosestHitPosition(transform.position), 0.15f);
+                yield return new WaitForSeconds(0.17f);
+                AudioManager.Instance.SoundPlay("sfx/AttackNone");
+                transform.DOMove(oriPos, 0.15f);
+                yield return new WaitForSeconds(0.17f);
                 break;
             }
             case WeaponTypes.Sword:
             {
                 Vector3 oriPos = transform.position;
-//                iTween.MoveTo(gameObject, targetShip.GetClosestHitPosition(transform.position), 0.15f);
-//                yield return new WaitForSeconds(0.17f);
-//                AudioManager.Instance.SoundPlay("sfx/AttackSword");
-//                iTween.MoveTo(gameObject, oriPos, 0.15f);
-//                yield return new WaitForSeconds(0.17f);
+                transform.DOMove(targetShip.GetClosestHitPosition(transform.position), 0.15f);
+                yield return new WaitForSeconds(0.17f);
+                AudioManager.Instance.SoundPlay("sfx/AttackSword");
+                transform.DOMove(oriPos, 0.15f);
+                yield return new WaitForSeconds(0.17f);
                 break;
             }
             case WeaponTypes.Gun:

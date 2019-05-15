@@ -277,6 +277,11 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private CardSlotsComponent CardSlotsComponent;
     [SerializeField] private CardLifeComponent CardLifeComponent;
 
+    public void ShowCardBackBloom(bool isShow)
+    {
+        CardBackComponent?.SetBloomShow(isShow);
+    }
+
     public void ShowCardBloom(bool isShow)
     {
         CardBasicComponent?.SetBloomShow(isShow);
@@ -309,12 +314,12 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         ChangeMainBoardColor(cardColor);
         CardDescComponent?.SetCardTypeTextColor(ClientUtils.ChangeColorToWhite(cardColor, 0.3f));
         SetCardBackColor();
-        ChangeCardBloomColor(ClientUtils.GetColorFromColorDict(AllColors.ColorType.CardBloomColor));
+        ChangeCardBloomColor(ClientUtils.GetColorFromColorDict(AllColors.ColorType.CardBloomColor), AllColors.IntensityDict[AllColors.ColorType.CardBloomColor]);
     }
 
-    public void ChangeCardBloomColor(Color color)
+    public void ChangeCardBloomColor(Color color, float intensity)
     {
-        CardBasicComponent?.SetCardBloomColor(color, 1.3f);
+        CardBasicComponent?.SetCardBloomColor(color, intensity);
     }
 
     public void ChangePictureColor(Color color)
@@ -488,6 +493,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
                     else
                     {
                         BeBrightColor();
+                        CardBasicComponent?.SetCardBloomColor(ClientUtils.HTMLColorToColor(AllColors.ColorDict[AllColors.ColorType.CardUsableBloomColor]), AllColors.IntensityDict[AllColors.ColorType.CardUsableBloomColor]);
                         CardBasicComponent?.SetBloomShow(true);
                     }
                 }

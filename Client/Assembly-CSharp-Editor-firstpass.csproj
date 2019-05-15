@@ -331,6 +331,21 @@
  <Reference Include="MyCardGameCommon">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
  </Reference>
+ <Reference Include="DOTween">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
  <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
  </Reference>
@@ -354,21 +369,6 @@
  </Reference>
  <Reference Include="Unity.Analytics.Tracker">
  <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
- </Reference>
- <Reference Include="DOTween">
- <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenEditor">
- <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/Editor/DOTweenEditor.dll</HintPath>
- </Reference>
- <Reference Include="DOTween50">
- <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween50.dll</HintPath>
- </Reference>
- <Reference Include="DOTween46">
- <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween46.dll</HintPath>
- </Reference>
- <Reference Include="DOTween43">
- <HintPath>G:/项目/CardGame/MyFirstCardGame/Client/Assets/Plugins/DOTween/DOTween43.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/softwares/Unity3D 2018.3.10f/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

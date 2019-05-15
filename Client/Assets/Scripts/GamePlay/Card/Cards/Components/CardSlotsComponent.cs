@@ -2,15 +2,13 @@
 {
     public Slot[] Slots;
 
-    public void SetSlot(ClientPlayer clientPlayer,ModuleMech mech, MechInfo mechInfo)
+    public void SetSlot(ClientPlayer clientPlayer, ModuleMech mech, MechInfo mechInfo)
     {
         for (int i = 0; i < Slots.Length; i++)
         {
             if (Slots[i] != null)
             {
-                Slots[i].ClientPlayer = clientPlayer;
-                Slots[i].Mech = mech;
-                Slots[i].MSlotTypes = mechInfo.Slots[i];
+                Slots[i].Initialize(clientPlayer, mech, mechInfo.Slots[i]);
             }
         }
     }

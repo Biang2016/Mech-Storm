@@ -125,7 +125,7 @@ public class CardSpell : CardBase
                 else
                 {
                     ModuleEquip equip = slots[0].Mech.GetEquipBySlotType(slots[0].MSlotTypes);
-                    if (equip == null || equip.IsDead)
+                    if (equip == null || equip.M_ModuleMech.IsDead)
                     {
                         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
                         ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();

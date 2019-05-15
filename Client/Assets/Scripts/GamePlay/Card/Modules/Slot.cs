@@ -10,11 +10,20 @@ public class Slot : MonoBehaviour, IMouseHoverComponent
     [SerializeField] private MeshRenderer SlotBloom;
     [SerializeField] private SortingGroup SlotLightSG;
     [SerializeField] private SortingGroup SlotBloomSG;
+    [SerializeField] private BoxCollider SlotBoxCollider;
 
     void Awake()
     {
         SlotLightDefaultSortingOrder = SlotLightSG.sortingOrder;
         SlotBloomDefaultSortingOrder = SlotBloomSG.sortingOrder;
+    }
+
+    public void Initialize(ClientPlayer clientPlayer, ModuleMech mech, SlotTypes slotType)
+    {
+        ClientPlayer = clientPlayer;
+        Mech = mech;
+        MSlotTypes = slotType;
+        SlotBoxCollider.enabled = Mech != null;
     }
 
     private SlotTypes _mSlotTypes = SlotTypes.None;

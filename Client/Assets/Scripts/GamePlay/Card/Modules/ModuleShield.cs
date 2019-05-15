@@ -3,19 +3,18 @@ using UnityEngine;
 
 public class ModuleShield : ModuleEquip
 {
-    #region 各模块、自身数值和初始化
-
     [SerializeField] private TextMeshPro ArmorText;
     [SerializeField] private TextMeshPro ShieldText;
 
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_ShieldName = cardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
         M_ShieldType = cardInfo.ShieldInfo.ShieldType;
         M_ShieldArmor = cardInfo.ShieldInfo.Armor;
         M_ShieldShield = cardInfo.ShieldInfo.Shield;
     }
+
+    #region Preview Details
 
     public override void SetPreview()
     {
@@ -37,26 +36,12 @@ public class ModuleShield : ModuleEquip
 
     #region 属性
 
-    public CardInfo_Equip GetCurrentCardInfo()
+    public override CardInfo_Equip GetCurrentCardInfo()
     {
         CardInfo_Equip currentCI = (CardInfo_Equip) CardInfo.Clone();
         currentCI.ShieldInfo.Armor = M_ShieldArmor;
         currentCI.ShieldInfo.Shield = M_ShieldShield;
         return currentCI;
-    }
-
-    private string m_ShieldName;
-
-    public string M_ShieldName
-    {
-        get { return m_ShieldName; }
-
-        set
-        {
-            m_ShieldName = value;
-            Name.text = LanguageManager.Instance.IsEnglish ? "" : Utils.TextToVertical(value);
-            Name_en.text = LanguageManager.Instance.IsEnglish ? value : "";
-        }
     }
 
     private ShieldTypes m_ShieldType;
@@ -96,8 +81,8 @@ public class ModuleShield : ModuleEquip
 
     #endregion
 
-    public void OnShieldEquiped()
+    public void OnShieldEquipped()
     {
-        EquipAnim.SetTrigger("ShieldEquiped");
+        EquipAnim.SetTrigger("ShieldEquipped");
     }
 }

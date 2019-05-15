@@ -3,8 +3,9 @@
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_PackName = cardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
     }
+
+    #region Preview Details
 
     public override void SetPreview()
     {
@@ -16,28 +17,20 @@
         base.SetNoPreview();
     }
 
-    public CardInfo_Equip GetCurrentCardInfo()
+    #endregion
+
+    #region 属性
+
+    public override CardInfo_Equip GetCurrentCardInfo()
     {
         CardInfo_Equip currentCI = (CardInfo_Equip) CardInfo.Clone();
         return currentCI;
     }
 
-    private string m_PackName;
+    #endregion
 
-    public string M_PackName
+    public void OnPackEquipped()
     {
-        get { return m_PackName; }
-
-        set
-        {
-            m_PackName = value;
-            Name.text = LanguageManager.Instance.IsEnglish ? "" : Utils.TextToVertical(value);
-            Name_en.text = LanguageManager.Instance.IsEnglish ? value : "";
-        }
-    }
-
-    public void OnPackEquiped()
-    {
-        EquipAnim.SetTrigger("PackEquiped");
+        EquipAnim.SetTrigger("PackEquipped");
     }
 }

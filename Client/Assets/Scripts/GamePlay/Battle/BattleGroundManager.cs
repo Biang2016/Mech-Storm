@@ -105,6 +105,14 @@ public class BattleGroundManager : MonoBehaviour
         if (CurrentSummonPreviewMech) CurrentSummonPreviewMech.PoolRecycle();
     }
 
+    public void SetLanguage(string languageShort)
+    {
+        foreach (ModuleMech mech in Mechs)
+        {
+            mech.SetLanguage(languageShort);
+        }
+    }
+
     #region 位置计算
 
     internal int ComputePosition(Vector3 dragLastPosition)

@@ -4,43 +4,23 @@ using UnityEngine;
 
 public class ModuleWeapon : ModuleEquip
 {
-    [SerializeField] private GameObject M_GunIcon;
-    [SerializeField] private GameObject M_SwordIcon;
-    [SerializeField] private GameObject M_SniperGunIcon;
+    [SerializeField] private SpriteRenderer M_WeaponTypeIcon;
+    [SerializeField] private Sprite[] WeaponTypeIcons;
 
     [SerializeField] private TextMeshPro WeaponAttackText;
     [SerializeField] private TextMeshPro WeaponEnergyText;
     [SerializeField] private TextMeshPro WeaponEnergyMaxText;
 
-    [SerializeField] private DragComponent M_DragComponent;
-
     public override void Initiate(CardInfo_Base cardInfo, ClientPlayer clientPlayer)
     {
         base.Initiate(cardInfo, clientPlayer);
-        M_WeaponName = cardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
         M_WeaponType = cardInfo.WeaponInfo.WeaponType;
         M_WeaponAttack = cardInfo.WeaponInfo.Attack;
         M_WeaponEnergyMax = cardInfo.WeaponInfo.EnergyMax;
         M_WeaponEnergy = cardInfo.WeaponInfo.Energy;
-        if (M_WeaponType == WeaponTypes.Gun)
-        {
-            if (M_GunIcon) M_GunIcon.SetActive(true);
-            if (M_SwordIcon) M_SwordIcon.SetActive(false);
-            if (M_SniperGunIcon) M_SniperGunIcon.SetActive(false);
-        }
-        else if (M_WeaponType == WeaponTypes.Sword)
-        {
-            if (M_GunIcon) M_GunIcon.SetActive(false);
-            if (M_SwordIcon) M_SwordIcon.SetActive(true);
-            if (M_SniperGunIcon) M_SniperGunIcon.SetActive(false);
-        }
-        else if (M_WeaponType == WeaponTypes.SniperGun)
-        {
-            if (M_GunIcon) M_GunIcon.SetActive(false);
-            if (M_SwordIcon) M_SwordIcon.SetActive(false);
-            if (M_SniperGunIcon) M_SniperGunIcon.SetActive(true);
-        }
     }
+
+    #region Preview Details
 
     public override void SetPreview()
     {
@@ -49,6 +29,18 @@ public class ModuleWeapon : ModuleEquip
         M_WeaponEnergyMax = M_WeaponEnergyMax;
         M_WeaponEnergy = M_WeaponEnergy;
         if (M_Bloom) M_Bloom.gameObject.SetActive(true);
+        if (M_WeaponType == WeaponTypes.Gun)
+        {
+            M_WeaponTypeIcon.sprite = WeaponTypeIcons[1];
+        }
+        else if (M_WeaponType == WeaponTypes.Sword)
+        {
+            M_WeaponTypeIcon.sprite = WeaponTypeIcons[0];
+        }
+        else if (M_WeaponType == WeaponTypes.SniperGun)
+        {
+            M_WeaponTypeIcon.sprite = WeaponTypeIcons[2];
+        }
     }
 
     public override void SetNoPreview()
@@ -59,27 +51,17 @@ public class ModuleWeapon : ModuleEquip
         M_WeaponEnergy = M_WeaponEnergy;
     }
 
-    public CardInfo_Equip GetCurrentCardInfo()
+    #endregion
+
+    #region 属性
+
+    public override CardInfo_Equip GetCurrentCardInfo()
     {
         CardInfo_Equip currentCI = (CardInfo_Equip) CardInfo.Clone();
         currentCI.WeaponInfo.Attack = M_WeaponAttack;
         currentCI.WeaponInfo.Energy = M_WeaponEnergy;
         currentCI.WeaponInfo.EnergyMax = M_WeaponEnergyMax;
         return currentCI;
-    }
-
-    private string m_WeaponName;
-
-    public string M_WeaponName
-    {
-        get { return m_WeaponName; }
-
-        set
-        {
-            m_WeaponName = value;
-            Name.text = LanguageManager.Instance.IsEnglish ? "" : Utils.TextToVertical(value);
-            Name_en.text = LanguageManager.Instance.IsEnglish ? value : "";
-        }
     }
 
     private WeaponTypes m_WeaponType;
@@ -101,7 +83,7 @@ public class ModuleWeapon : ModuleEquip
         {
             m_WeaponAttack = value;
             WeaponAttackText.text = M_ModuleMech.M_MechAttack.ToString();
-            M_DragComponent.enabled = M_ModuleMech.M_MechAttack != 0;
+            DragComponent.enabled = M_ModuleMech.M_MechAttack != 0;
         }
     }
 
@@ -149,12 +131,10 @@ public class ModuleWeapon : ModuleEquip
         }
     }
 
-    public void OnAttack() //特效
-    {
-    }
+    #endregion
 
-    public void OnWeaponEquiped()
+    public void OnWeaponEquipped()
     {
-        EquipAnim.SetTrigger("WeaponEquiped");
+        EquipAnim.SetTrigger("WeaponEquipped");
     }
 }

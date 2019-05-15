@@ -1,12 +1,13 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public abstract class ModuleEquip : ModuleBase
 {
     public int M_EquipID;
     internal ModuleMech M_ModuleMech;
-    public TextMesh Name;
-    public TextMesh Name_en;
+    public TextMeshPro Name;
+    public TextMeshPro Name_en;
 
     public Renderer M_Bloom;
     public Renderer M_BloomSE;
@@ -28,7 +29,17 @@ public abstract class ModuleEquip : ModuleBase
         if (M_Bloom) M_Bloom.gameObject.SetActive(false);
         if (M_BloomSE) M_BloomSE.gameObject.SetActive(false);
         if (M_BloomSE_Sub) M_BloomSE_Sub.gameObject.SetActive(false);
+        M_Name = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
     }
+
+    public override void SetLanguage(string languageShort) 
+    {
+        M_Name = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
+    }
+
+    #region Preview Details
+
+    public abstract CardInfo_Equip GetCurrentCardInfo();
 
     public virtual void SetPreview()
     {
@@ -39,16 +50,71 @@ public abstract class ModuleEquip : ModuleBase
     {
     }
 
-    public override void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
+    #endregion
+
+    #region 属性
+
+    private string m_Name;
+
+    public string M_Name
     {
-        base.MouseHoverComponent_OnHover1Begin(mousePosition);
-        if (M_Bloom) M_Bloom.gameObject.SetActive(true);
+        get { return m_Name; }
+
+        set
+        {
+            m_Name = value;
+            Name.text = LanguageManager.Instance.IsEnglish ? "" : Utils.TextToVertical(value);
+            Name_en.text = LanguageManager.Instance.IsEnglish ? value : "";
+        }
     }
 
-    public override void MouseHoverComponent_OnHover1End()
+    #endregion
+
+    #region Color
+
+    public MeshRenderer MainBoardRenderer;
+    protected float MainBoardEmissionIntensity = 1f;
+
+    protected override void ChangeColor(Color color)
     {
-        base.MouseHoverComponent_OnHover1End();
-        if (M_Bloom) M_Bloom.gameObject.SetActive(false);
+        ClientUtils.ChangeColor(MainBoardRenderer, color, MainBoardEmissionIntensity);
+        ClientUtils.ChangeColor(M_Bloom, color, 2);
+    }
+
+    protected override void BeDimColor()
+    {
+        ChangeColor(Color.gray);
+    }
+
+    protected override void BeBrightColor()
+    {
+        ClientUtils.ChangeColor(MainBoardRenderer, ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()));
+    }
+
+    #endregion
+
+    #region Blooms
+
+    public override void OnShowEffects(SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange)
+    {
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()), 0.5f), "ShowSideEffectBloom");
+    }
+
+    IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
+    {
+        M_BloomSE.gameObject.SetActive(true);
+        M_BloomSE_Sub.gameObject.SetActive(true);
+        BloomSEAnim.SetTrigger("OnSE");
+        BloomSE_SubAnim.SetTrigger("OnSE");
+        ClientUtils.ChangeColor(M_BloomSE, color);
+        ClientUtils.ChangeColor(M_BloomSE_Sub, color);
+        AudioManager.Instance.SoundPlay("sfx/OnSE");
+        yield return new WaitForSeconds(duration);
+        BloomSEAnim.SetTrigger("Reset");
+        BloomSE_SubAnim.SetTrigger("Reset");
+        M_BloomSE.gameObject.SetActive(false);
+        M_BloomSE_Sub.gameObject.SetActive(false);
+        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     public void ShowEquipBloomSE(float seconds = 0.1f)
@@ -82,6 +148,20 @@ public abstract class ModuleEquip : ModuleBase
         M_BloomSE_Sub.gameObject.SetActive(false);
     }
 
+    #endregion
+
+    public override void MouseHoverComponent_OnHover1Begin(Vector3 mousePosition)
+    {
+        base.MouseHoverComponent_OnHover1Begin(mousePosition);
+        if (M_Bloom) M_Bloom.gameObject.SetActive(true);
+    }
+
+    public override void MouseHoverComponent_OnHover1End()
+    {
+        base.MouseHoverComponent_OnHover1End();
+        if (M_Bloom) M_Bloom.gameObject.SetActive(false);
+    }
+
     public override void MouseHoverComponent_OnMousePressEnterImmediately(Vector3 mousePosition)
     {
         base.MouseHoverComponent_OnMousePressEnterImmediately(mousePosition);
@@ -112,36 +192,4 @@ public abstract class ModuleEquip : ModuleBase
         canDrag = false;
         dragPurpose = CardInfo.BaseInfo.DragPurpose;
     }
-
-    protected override void ChangeColor(Color color)
-    {
-        base.ChangeColor(color);
-        ClientUtils.ChangeColor(M_Bloom, color, 2);
-    }
-
-    #region SE
-
-    public override void OnShowEffects(SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange)
-    {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(ClientUtils.HTMLColorToColor(CardInfo.GetCardColor()), 0.5f), "ShowSideEffectBloom");
-    }
-
-    IEnumerator Co_ShowSideEffectBloom(Color color, float duration)
-    {
-        M_BloomSE.gameObject.SetActive(true);
-        M_BloomSE_Sub.gameObject.SetActive(true);
-        BloomSEAnim.SetTrigger("OnSE");
-        BloomSE_SubAnim.SetTrigger("OnSE");
-        ClientUtils.ChangeColor(M_BloomSE, color);
-        ClientUtils.ChangeColor(M_BloomSE_Sub, color);
-        AudioManager.Instance.SoundPlay("sfx/OnSE");
-        yield return new WaitForSeconds(duration);
-        BloomSEAnim.SetTrigger("Reset");
-        BloomSE_SubAnim.SetTrigger("Reset");
-        M_BloomSE.gameObject.SetActive(false);
-        M_BloomSE_Sub.gameObject.SetActive(false);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    #endregion
 }

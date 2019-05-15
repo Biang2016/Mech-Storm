@@ -39,6 +39,7 @@ public static class AllColors
         StoryLevelColor7,
 
         CardBloomColor,
+        CardUsableBloomColor,
         MechBloomColor,
         MechOnEnemyHoverBloomColor,
         MechOnSelfHoverBloomColor,
