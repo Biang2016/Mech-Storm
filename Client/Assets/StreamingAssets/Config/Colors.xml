@@ -22,7 +22,7 @@
   <Color name="StoryLevelColor6" color="#BC7300" intensity="1"></Color>
   <Color name="StoryLevelColor7" color="#A60086" intensity="1"></Color>
 
-  <Color name="CardBloomColor" color="#ffffff" intensity="2"></Color>
+  <Color name="CardBloomColor" color="#0E67BF" intensity="2"></Color>
   <Color name="CardUsableBloomColor" color="#14FF00" intensity="2"></Color>
   <Color name="MechBloomColor" color="#06FF00" intensity="1"></Color>
   <Color name="MechOnEnemyHoverBloomColor" color="#FF0000" intensity="1"></Color>

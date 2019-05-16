@@ -215,7 +215,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         {
             if (EnemyClientPlayer.BattlePlayer.BattleGroundManager.HasDefenceMech)
             {
-                if (attackMech.M_Weapon != null && attackMech.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackMech.M_MechWeaponEnergy != 0) targetMech.ShowTargetPreviewArrow(true);
+                if (attackMech.MechEquipSystemComponent.M_Weapon != null && attackMech.MechEquipSystemComponent.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackMech.M_MechWeaponEnergy != 0) targetMech.ShowTargetPreviewArrow(true);
                 else if (targetMech.IsDefender) targetMech.ShowTargetPreviewArrow();
             }
             else targetMech.ShowTargetPreviewArrow();

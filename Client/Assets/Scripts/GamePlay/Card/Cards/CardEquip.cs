@@ -50,7 +50,7 @@ public class CardEquip : CardBase
             }
             else if (M_EquipType == SlotTypes.MA)
             {
-                if (sa.Mech.IsAllEquipExceptMA)
+                if (sa.Mech.MechEquipSystemComponent.IsAllEquipExceptMA)
                 {
                     info = "";
                     return true;

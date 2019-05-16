@@ -40,7 +40,7 @@ public class ClientPlayer : Player
     IEnumerator Co_ChangeMetal(PlayerMetalChangeRequest request)
     {
         if (request.metal_max != MetalMax) MetalMaxChange(request.metal_max - MetalMax);
-        if (request.metal_left != MetalLeft) AddMetal(request.metal_left - MetalLeft);
+        if (request.metal_left != MetalLeft) MetalChange(request.metal_left - MetalLeft);
 
         BattlePlayer.HandManager.RefreshAllCardUsable();
 

@@ -540,10 +540,10 @@ public class BattleGroundManager : MonoBehaviour
     {
         foreach (ModuleMech mech in Mechs)
         {
-            if (mech.M_Weapon) mech.M_Weapon.ShowEquipBloomSE(seconds);
-            if (mech.M_Shield) mech.M_Shield.ShowEquipBloomSE(seconds);
-            if (mech.M_Pack) mech.M_Pack.ShowEquipBloomSE(seconds);
-            if (mech.M_MA) mech.M_MA.ShowEquipBloomSE(seconds);
+            if (mech.MechEquipSystemComponent.M_Weapon) mech.MechEquipSystemComponent.M_Weapon.ShowEquipBloomSE(seconds);
+            if (mech.MechEquipSystemComponent.M_Shield) mech.MechEquipSystemComponent.M_Shield.ShowEquipBloomSE(seconds);
+            if (mech.MechEquipSystemComponent.M_Pack) mech.MechEquipSystemComponent.M_Pack.ShowEquipBloomSE(seconds);
+            if (mech.MechEquipSystemComponent.M_MA) mech.MechEquipSystemComponent.M_MA.ShowEquipBloomSE(seconds);
         }
     }
 
@@ -559,15 +559,11 @@ public class BattleGroundManager : MonoBehaviour
         ModuleMech mech = GetMech(mechId);
         if (cardInfo != null)
         {
-            ModuleWeapon newModueWeapon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleWeapon].AllocateGameObject<ModuleWeapon>(mech.transform);
-            newModueWeapon.M_ModuleMech = mech;
-            newModueWeapon.Initiate(cardInfo, ClientPlayer);
-            newModueWeapon.M_EquipID = equipId;
-            mech.M_Weapon = newModueWeapon;
+            mech.MechEquipSystemComponent.EquipWeapon(cardInfo, equipId);
         }
         else
         {
-            mech.M_Weapon = null;
+            mech.MechEquipSystemComponent.M_Weapon = null;
         }
 
         yield return new WaitForSeconds(0.2f);
@@ -584,15 +580,11 @@ public class BattleGroundManager : MonoBehaviour
         ModuleMech mech = GetMech(mechId);
         if (cardInfo != null)
         {
-            ModuleShield newModuleShield = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleShield].AllocateGameObject<ModuleShield>(mech.transform);
-            newModuleShield.M_ModuleMech = mech;
-            newModuleShield.Initiate(cardInfo, ClientPlayer);
-            newModuleShield.M_EquipID = equipId;
-            mech.M_Shield = newModuleShield;
+            mech.MechEquipSystemComponent.EquipShield(cardInfo, equipId);
         }
         else
         {
-            mech.M_Shield = null;
+            mech.MechEquipSystemComponent.M_Shield = null;
         }
 
         yield return new WaitForSeconds(0.2f);
@@ -609,15 +601,11 @@ public class BattleGroundManager : MonoBehaviour
         ModuleMech mech = GetMech(mechId);
         if (cardInfo != null)
         {
-            ModulePack newModulePack = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModulePack].AllocateGameObject<ModulePack>(mech.transform);
-            newModulePack.M_ModuleMech = mech;
-            newModulePack.Initiate(cardInfo, ClientPlayer);
-            newModulePack.M_EquipID = equipId;
-            mech.M_Pack = newModulePack;
+            mech.MechEquipSystemComponent.EquipPack(cardInfo, equipId);
         }
         else
         {
-            mech.M_Pack = null;
+            mech.MechEquipSystemComponent.M_Pack = null;
         }
 
         yield return new WaitForSeconds(0.2f);
@@ -634,15 +622,11 @@ public class BattleGroundManager : MonoBehaviour
         ModuleMech mech = GetMech(mechId);
         if (cardInfo != null)
         {
-            ModuleMA newModuleMA = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleMA].AllocateGameObject<ModuleMA>(mech.transform);
-            newModuleMA.M_ModuleMech = mech;
-            newModuleMA.Initiate(cardInfo, ClientPlayer);
-            newModuleMA.M_EquipID = equipId;
-            mech.M_MA = newModuleMA;
+            mech.MechEquipSystemComponent.EquipMA(cardInfo, equipId);
         }
         else
         {
-            mech.M_MA = null;
+            mech.MechEquipSystemComponent.M_MA = null;
         }
 
         yield return new WaitForSeconds(0.2f);
@@ -683,10 +667,10 @@ public class BattleGroundManager : MonoBehaviour
         {
             if (moduleMech.M_MechID == mechId)
             {
-                if (moduleMech.M_Weapon && moduleMech.M_Weapon.M_EquipID == equipId) return moduleMech.M_Weapon;
-                if (moduleMech.M_Shield && moduleMech.M_Shield.M_EquipID == equipId) return moduleMech.M_Shield;
-                if (moduleMech.M_Pack && moduleMech.M_Pack.M_EquipID == equipId) return moduleMech.M_Pack;
-                if (moduleMech.M_MA && moduleMech.M_MA.M_EquipID == equipId) return moduleMech.M_MA;
+                if (moduleMech.MechEquipSystemComponent.M_Weapon && moduleMech.MechEquipSystemComponent.M_Weapon.M_EquipID == equipId) return moduleMech.MechEquipSystemComponent.M_Weapon;
+                if (moduleMech.MechEquipSystemComponent.M_Shield && moduleMech.MechEquipSystemComponent.M_Shield.M_EquipID == equipId) return moduleMech.MechEquipSystemComponent.M_Shield;
+                if (moduleMech.MechEquipSystemComponent.M_Pack && moduleMech.MechEquipSystemComponent.M_Pack.M_EquipID == equipId) return moduleMech.MechEquipSystemComponent.M_Pack;
+                if (moduleMech.MechEquipSystemComponent.M_MA && moduleMech.MechEquipSystemComponent.M_MA.M_EquipID == equipId) return moduleMech.MechEquipSystemComponent.M_MA;
             }
         }
 
@@ -694,10 +678,10 @@ public class BattleGroundManager : MonoBehaviour
         {
             if (moduleMech.M_MechID == mechId)
             {
-                if (moduleMech.M_Weapon && moduleMech.M_Weapon.M_EquipID == equipId) return moduleMech.M_Weapon;
-                if (moduleMech.M_Shield && moduleMech.M_Shield.M_EquipID == equipId) return moduleMech.M_Shield;
-                if (moduleMech.M_Pack && moduleMech.M_Pack.M_EquipID == equipId) return moduleMech.M_Pack;
-                if (moduleMech.M_MA && moduleMech.M_MA.M_EquipID == equipId) return moduleMech.M_MA;
+                if (moduleMech.MechEquipSystemComponent.M_Weapon && moduleMech.MechEquipSystemComponent.M_Weapon.M_EquipID == equipId) return moduleMech.MechEquipSystemComponent.M_Weapon;
+                if (moduleMech.MechEquipSystemComponent.M_Shield && moduleMech.MechEquipSystemComponent.M_Shield.M_EquipID == equipId) return moduleMech.MechEquipSystemComponent.M_Shield;
+                if (moduleMech.MechEquipSystemComponent.M_Pack && moduleMech.MechEquipSystemComponent.M_Pack.M_EquipID == equipId) return moduleMech.MechEquipSystemComponent.M_Pack;
+                if (moduleMech.MechEquipSystemComponent.M_MA && moduleMech.MechEquipSystemComponent.M_MA.M_EquipID == equipId) return moduleMech.MechEquipSystemComponent.M_MA;
             }
         }
 

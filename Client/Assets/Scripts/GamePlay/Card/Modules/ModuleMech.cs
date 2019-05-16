@@ -9,30 +9,7 @@ public class ModuleMech : ModuleBase
 
     public override void PoolRecycle()
     {
-        if (M_Weapon)
-        {
-            M_Weapon.PoolRecycle();
-            M_Weapon = null;
-        }
-
-        if (M_Shield)
-        {
-            M_Shield.PoolRecycle();
-            M_Shield = null;
-        }
-
-        if (M_Pack)
-        {
-            M_Pack.PoolRecycle();
-            M_Pack = null;
-        }
-
-        if (M_MA)
-        {
-            M_MA.PoolRecycle();
-            M_MA = null;
-        }
-
+        MechEquipSystemComponent.PoolRecycle();
         M_ClientTempMechID = -1;
         base.PoolRecycle();
         ResetMech();
@@ -81,6 +58,7 @@ public class ModuleMech : ModuleBase
         MechComponents.Add(MechComponentTypes.TargetPreviewArrows, MechTargetPreviewArrowsComponent);
         MechComponents.Add(MechComponentTypes.TriggerIcon, MechTriggerIconComponent);
         MechComponents.Add(MechComponentTypes.SwordShieldArmor, MechSwordShieldArmorComponent);
+        MechComponents.Add(MechComponentTypes.EquipSystem, MechEquipSystemComponent);
     }
 
     public Transform[] HitPoints;
@@ -90,12 +68,13 @@ public class ModuleMech : ModuleBase
     [SerializeField] private CardDescComponent CardDescComponent;
     public CardSlotsComponent CardSlotsComponent;
     public MechLifeComponent MechLifeComponent;
-    [SerializeField] private MechAttrShapesComponent MechAttrShapesComponent;
+    public MechAttrShapesComponent MechAttrShapesComponent;
     [SerializeField] private MechBattleInfoComponent MechBattleInfoComponent;
     [SerializeField] private MechBloomComponent MechBloomComponent;
     public MechTargetPreviewArrowsComponent MechTargetPreviewArrowsComponent;
     [SerializeField] private MechTriggerIconComponent MechTriggerIconComponent;
     public MechSwordShieldArmorComponent MechSwordShieldArmorComponent;
+    public MechEquipSystemComponent MechEquipSystemComponent;
 
     internal bool IsInitializing = false;
 
@@ -130,6 +109,7 @@ public class ModuleMech : ModuleBase
         CardDescComponent.SetCardName(CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()]);
         CardBasicComponent.ChangePicture(CardInfo.BaseInfo.PictureID);
         CardSlotsComponent.SetSlot(ClientPlayer, this, CardInfo.MechInfo);
+        CardSlotsComponent.ShowAllSlotBlooms(false);
 
         MechLifeComponent.Initialize(this);
         MechAttrShapesComponent.Initialize(this);
@@ -138,6 +118,7 @@ public class ModuleMech : ModuleBase
         MechTargetPreviewArrowsComponent.Initialize(this);
         MechTriggerIconComponent.Initialize(this);
         MechSwordShieldArmorComponent.Initialize(this);
+        MechEquipSystemComponent.Initialize(this);
     }
 
     public override void SetLanguage(string languageShort)
@@ -252,9 +233,9 @@ public class ModuleMech : ModuleBase
             {
                 MechSwordShieldArmorComponent.AttackChange(value, CalculateFinalAttack(value, M_MechWeaponEnergy));
                 m_MechAttack = value;
-                if (M_Weapon)
+                if (MechEquipSystemComponent.M_Weapon)
                 {
-                    M_Weapon.M_WeaponAttack = value;
+                    MechEquipSystemComponent.M_Weapon.M_WeaponAttack = value;
                 }
             }
         }
@@ -271,9 +252,9 @@ public class ModuleMech : ModuleBase
             {
                 MechSwordShieldArmorComponent.AttackChange(value, CalculateFinalAttack(m_MechAttack, value));
                 m_MechWeaponEnergy = value;
-                if (M_Weapon)
+                if (MechEquipSystemComponent.M_Weapon)
                 {
-                    M_Weapon.M_WeaponEnergy = value;
+                    MechEquipSystemComponent.M_Weapon.M_WeaponEnergy = value;
                 }
             }
         }
@@ -290,9 +271,9 @@ public class ModuleMech : ModuleBase
             {
                 MechSwordShieldArmorComponent.WeaponEnergyMaxChange(value);
                 m_MechWeaponEnergyMax = value;
-                if (M_Weapon)
+                if (MechEquipSystemComponent.M_Weapon)
                 {
-                    M_Weapon.M_WeaponEnergyMax = value;
+                    MechEquipSystemComponent.M_Weapon.M_WeaponEnergyMax = value;
                 }
             }
         }
@@ -323,9 +304,9 @@ public class ModuleMech : ModuleBase
             {
                 MechSwordShieldArmorComponent.ArmorChange(value, m_MechArmor, IsInitializing);
                 m_MechArmor = value;
-                if (M_Shield)
+                if (MechEquipSystemComponent.M_Shield)
                 {
-                    M_Shield.M_ShieldArmor = value;
+                    MechEquipSystemComponent.M_Shield.M_ShieldArmor = value;
                 }
             }
         }
@@ -342,9 +323,9 @@ public class ModuleMech : ModuleBase
             {
                 MechSwordShieldArmorComponent.ShieldChange(value, m_MechShield, IsInitializing);
                 m_MechShield = value;
-                if (M_Shield)
+                if (MechEquipSystemComponent.M_Shield)
                 {
-                    M_Shield.M_ShieldShield = value;
+                    MechEquipSystemComponent.M_Shield.M_ShieldShield = value;
                 }
             }
         }
@@ -355,256 +336,25 @@ public class ModuleMech : ModuleBase
     #region MechAttr
 
     public bool IsFrenzy => CardInfo.MechInfo.IsFrenzy ||
-                            (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsFrenzy) ||
-                            (M_Pack != null && M_Pack.CardInfo.PackInfo.IsFrenzy) ||
-                            (M_MA != null && M_MA.CardInfo.MAInfo.IsFrenzy);
+                            (MechEquipSystemComponent.M_Weapon != null && MechEquipSystemComponent.M_Weapon.CardInfo.WeaponInfo.IsFrenzy) ||
+                            (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsFrenzy) ||
+                            (MechEquipSystemComponent.M_MA != null && MechEquipSystemComponent.M_MA.CardInfo.MAInfo.IsFrenzy);
 
-    public bool IsSentry => (M_Weapon != null && M_Weapon.CardInfo.WeaponInfo.IsSentry);
+    public bool IsSentry => (MechEquipSystemComponent.M_Weapon != null && MechEquipSystemComponent.M_Weapon.CardInfo.WeaponInfo.IsSentry);
 
     public bool IsSniper => CardInfo.MechInfo.IsSniper ||
-                            (M_Pack != null && M_Pack.CardInfo.PackInfo.IsSniper) ||
-                            (M_MA != null && M_MA.CardInfo.MAInfo.IsSniper);
+                            (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsSniper) ||
+                            (MechEquipSystemComponent.M_MA != null && MechEquipSystemComponent.M_MA.CardInfo.MAInfo.IsSniper);
 
     public bool IsDefender => CardInfo.MechInfo.IsDefense ||
-                              (M_Shield != null && M_Shield.CardInfo.ShieldInfo.IsDefense) ||
-                              (M_Pack != null && M_Pack.CardInfo.PackInfo.IsDefense) ||
-                              (M_MA != null && M_MA.CardInfo.MAInfo.IsDefense);
+                              (MechEquipSystemComponent.M_Shield != null && MechEquipSystemComponent.M_Shield.CardInfo.ShieldInfo.IsDefense) ||
+                              (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsDefense) ||
+                              (MechEquipSystemComponent.M_MA != null && MechEquipSystemComponent.M_MA.CardInfo.MAInfo.IsDefense);
 
-    public int DodgeProp => M_Pack ? 0 : M_Pack.CardInfo.PackInfo.DodgeProp;
-
-    #endregion
-
-    #region 拼装上的模块
-
-    internal bool IsAllEquipExceptMA
-    {
-        get
-        {
-            if (CardInfo.MechInfo.Slots[0] != SlotTypes.None && M_Weapon == null) return false;
-            if (CardInfo.MechInfo.Slots[1] != SlotTypes.None && M_Shield == null) return false;
-            if (CardInfo.MechInfo.Slots[2] != SlotTypes.None && M_Pack == null) return false;
-            return true;
-        }
-    }
-
-    #region 武器相关
-
-    public ModuleEquip GetEquipBySlotType(SlotTypes slotType)
-    {
-        switch (slotType)
-        {
-            case SlotTypes.Weapon:
-                return M_Weapon;
-            case SlotTypes.Shield:
-                return M_Shield;
-            case SlotTypes.Pack:
-                return M_Pack;
-            case SlotTypes.MA:
-                return M_MA;
-        }
-
-        return null;
-    }
-
-    private ModuleWeapon m_Weapon;
-
-    public ModuleWeapon M_Weapon
-    {
-        get { return m_Weapon; }
-        set
-        {
-            if (m_Weapon && !value)
-            {
-                m_Weapon.PoolRecycle();
-                m_Weapon = value;
-                On_WeaponDown();
-            }
-            else if (!m_Weapon && value)
-            {
-                m_Weapon = value;
-                On_WeaponEquiped();
-            }
-            else if (m_Weapon != value)
-            {
-                m_Weapon.PoolRecycle();
-                m_Weapon = value;
-                On_WeaponChanged();
-            }
-        }
-    }
-
-    private void On_WeaponDown()
-    {
-        AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
-        MechAttrShapesComponent.OnAttrShapeShow();
-    }
-
-    private void On_WeaponEquiped()
-    {
-        M_Weapon.OnWeaponEquipped();
-        MechAttrShapesComponent.OnAttrShapeShow();
-        AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
-    }
-
-    private void On_WeaponChanged()
-    {
-        M_Weapon.OnWeaponEquipped();
-        MechAttrShapesComponent.OnAttrShapeShow();
-        AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
-    }
+    public int DodgeProp => MechEquipSystemComponent.M_Pack ? 0 : MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.DodgeProp;
 
     #endregion
 
-    #region 防具相关
-
-    private ModuleShield m_Shield;
-
-    public ModuleShield M_Shield
-    {
-        get { return m_Shield; }
-        set
-        {
-            if (m_Shield && !value)
-            {
-                m_Shield.PoolRecycle();
-                m_Shield = value;
-                On_ShieldDown();
-            }
-            else if (!m_Shield && value)
-            {
-                m_Shield = value;
-                On_ShieldEquiped();
-            }
-            else if (m_Shield != value)
-            {
-                m_Shield.PoolRecycle();
-                m_Shield = value;
-                On_ShieldChanged();
-            }
-        }
-    }
-
-    private void On_ShieldDown()
-    {
-        AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
-        MechAttrShapesComponent.OnAttrShapeShow();
-    }
-
-    private void On_ShieldEquiped()
-    {
-        M_Shield.OnShieldEquipped();
-        MechAttrShapesComponent.OnAttrShapeShow();
-        AudioManager.Instance.SoundPlay("sfx/OnEquipShield");
-    }
-
-    private void On_ShieldChanged()
-    {
-        M_Shield.OnShieldEquipped();
-        MechAttrShapesComponent.OnAttrShapeShow();
-        AudioManager.Instance.SoundPlay("sfx/OnEquipShield");
-    }
-
-    #endregion
-
-    #region 飞行背包相关
-
-    private ModulePack m_Pack;
-
-    public ModulePack M_Pack
-    {
-        get { return m_Pack; }
-        set
-        {
-            if (m_Pack && !value)
-            {
-                m_Pack.PoolRecycle();
-                m_Pack = value;
-                On_PackDown();
-            }
-            else if (!m_Pack && value)
-            {
-                m_Pack = value;
-                On_PackEquipped();
-            }
-            else if (m_Pack != value)
-            {
-                m_Pack.PoolRecycle();
-                m_Pack = value;
-                On_PackChanged();
-            }
-        }
-    }
-
-    private void On_PackDown()
-    {
-        AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
-    }
-
-    private void On_PackEquipped()
-    {
-        M_Pack.OnPackEquipped();
-        AudioManager.Instance.SoundPlay("sfx/OnEquipPack");
-    }
-
-    private void On_PackChanged()
-    {
-        M_Pack.OnPackEquipped();
-        AudioManager.Instance.SoundPlay("sfx/OnEquipPack");
-    }
-
-    #endregion
-
-    #region MA相关
-
-    private ModuleMA m_MA;
-
-    public ModuleMA M_MA
-    {
-        get { return m_MA; }
-        set
-        {
-            if (m_MA && !value)
-            {
-                m_MA.PoolRecycle();
-                m_MA = value;
-                On_MADown();
-            }
-            else if (!m_MA && value)
-            {
-                m_MA = value;
-                On_MAEquiped();
-            }
-            else if (m_MA != value)
-            {
-                m_MA.PoolRecycle();
-                m_MA = value;
-                On_MAChanged();
-            }
-        }
-    }
-
-    private void On_MADown()
-    {
-        AudioManager.Instance.SoundPlay("sfx/OnEquipDown");
-        MechSwordShieldArmorComponent.MA_BG.SetActive(false);
-    }
-
-    private void On_MAEquiped()
-    {
-        M_MA.OnMAEquipped();
-        MechSwordShieldArmorComponent.MA_BG.SetActive(true);
-        AudioManager.Instance.SoundPlay("sfx/OnEquipMA");
-    }
-
-    private void On_MAChanged()
-    {
-        M_MA.OnMAEquipped();
-        AudioManager.Instance.SoundPlay("sfx/OnEquipMA");
-    }
-
-    #endregion
-
-    #endregion
 
     #region 模块交互
 
@@ -650,9 +400,9 @@ public class ModuleMech : ModuleBase
     {
         get
         {
-            if (M_Weapon == null || M_MechWeaponEnergy == 0) return AttackLevel.Sword;
-            if (M_Weapon.M_WeaponType == WeaponTypes.Gun) return AttackLevel.Gun;
-            if (M_Weapon.M_WeaponType == WeaponTypes.SniperGun) return AttackLevel.SniperGun;
+            if (MechEquipSystemComponent.M_Weapon == null || M_MechWeaponEnergy == 0) return AttackLevel.Sword;
+            if (MechEquipSystemComponent.M_Weapon.M_WeaponType == WeaponTypes.Gun) return AttackLevel.Gun;
+            if (MechEquipSystemComponent.M_Weapon.M_WeaponType == WeaponTypes.SniperGun) return AttackLevel.SniperGun;
             return AttackLevel.Sword;
         }
     }
@@ -697,12 +447,12 @@ public class ModuleMech : ModuleBase
 
     public int CalculateCounterAttack(ModuleMech targetMech) //计算对方反击数值
     {
-        bool enemyUseGun = targetMech.M_Weapon && targetMech.M_Weapon.M_WeaponType == WeaponTypes.Gun && targetMech.M_MechWeaponEnergy != 0;
+        bool enemyUseGun = targetMech.MechEquipSystemComponent.M_Weapon && targetMech.MechEquipSystemComponent.M_Weapon.M_WeaponType == WeaponTypes.Gun && targetMech.M_MechWeaponEnergy != 0;
 
         int damage = 0;
-        if (M_Weapon && M_MechWeaponEnergy != 0)
+        if (MechEquipSystemComponent.M_Weapon && M_MechWeaponEnergy != 0)
         {
-            switch (M_Weapon.M_WeaponType)
+            switch (MechEquipSystemComponent.M_Weapon.M_WeaponType)
             {
                 case WeaponTypes.Sword:
                     if (enemyUseGun) damage = 0; //无远程武器不能反击枪械攻击
@@ -897,7 +647,7 @@ public class ModuleMech : ModuleBase
         if (attackMech == this) return false;
         if (attackMech.ClientPlayer == ClientPlayer) return false;
         if (RoundManager.Instance.EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechs.Contains(this)) return false;
-        if (attackMech.M_Weapon && attackMech.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackMech.M_MechWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽机甲，其他武器只能攻击嘲讽机甲
+        if (attackMech.MechEquipSystemComponent.M_Weapon && attackMech.MechEquipSystemComponent.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackMech.M_MechWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽机甲，其他武器只能攻击嘲讽机甲
         if (ClientPlayer.BattlePlayer.BattleGroundManager.HasDefenceMech && !IsDefender) return false;
         return true;
     }

@@ -118,6 +118,7 @@
      <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechBattleInfoIcon.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechBloomComponent.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechComponentBase.cs" />
+     <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechEquipSystemComponent.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechLifeComponent.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechSwordShieldArmorComponent.cs" />
      <Compile Include="Assets\Scripts\GamePlay\Card\Modules\Components\MechComponents\MechTargetPreviewArrowsComponent.cs" />

@@ -103,9 +103,9 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     public AttackFactor CheckModuleMechCanAttackMe(ModuleMech attackMech)
     {
         if (attackMech.ClientPlayer == ClientPlayer) return AttackFactor.None;
-        if (attackMech.M_Weapon)
+        if (attackMech.MechEquipSystemComponent.M_Weapon)
         {
-            switch (attackMech.M_Weapon.M_WeaponType)
+            switch (attackMech.MechEquipSystemComponent.M_Weapon.M_WeaponType)
             {
                 case WeaponTypes.Sword:
                     if (ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsEmpty) return AttackFactor.Sword;

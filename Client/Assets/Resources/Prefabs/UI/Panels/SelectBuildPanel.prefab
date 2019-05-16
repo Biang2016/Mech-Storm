@@ -209,7 +209,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2304
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 8a27fde9170c96b48867d53c5be3a7f5, type: 2}
   m_TargetDisplay: 0
@@ -1538,7 +1538,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00004277855}
+  m_AnchoredPosition: {x: 0, y: -0.00004277866}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6691626823319201842
@@ -1841,7 +1841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000025701558}
+  m_AnchoredPosition: {x: -0.00012207031, y: -0.000041757277}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3776524657462983685
@@ -2030,7 +2030,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2304
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 0a48b23bc054346d6a16be840a453d55, type: 2}
   m_TargetDisplay: 0
@@ -2875,7 +2875,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000025701558}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0.000004019001}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7765827298561472003

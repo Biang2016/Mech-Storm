@@ -82,7 +82,7 @@ public class ModuleWeapon : ModuleEquip
         set
         {
             m_WeaponAttack = value;
-            WeaponAttackText.text = M_ModuleMech.M_MechAttack.ToString();
+            if (WeaponAttackText) WeaponAttackText.text = M_ModuleMech.M_MechAttack.ToString();
             DragComponent.enabled = M_ModuleMech.M_MechAttack != 0;
         }
     }
@@ -102,7 +102,7 @@ public class ModuleWeapon : ModuleEquip
 
     IEnumerator Co_WeaponEnergyChange(int value)
     {
-        WeaponEnergyText.text = value.ToString();
+        if (WeaponEnergyText) WeaponEnergyText.text = value.ToString();
 
         if (value == 0)
         {
@@ -127,7 +127,7 @@ public class ModuleWeapon : ModuleEquip
         {
             m_WeaponEnergyMax = value;
 
-            WeaponEnergyMaxText.text = m_WeaponEnergyMax.ToString();
+            if (WeaponEnergyMaxText) WeaponEnergyMaxText.text = m_WeaponEnergyMax.ToString();
         }
     }
 

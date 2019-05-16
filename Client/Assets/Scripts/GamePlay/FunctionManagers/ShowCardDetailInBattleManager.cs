@@ -33,16 +33,16 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                 CardMech cardMech = (CardMech) detailCard;
                 //cardMech.ShowAllSlotHover();
 
-                if (((ModuleMech) moduleBase).M_Weapon)
+                if (((ModuleMech) moduleBase).MechEquipSystemComponent.M_Weapon)
                 {
                     if (!cardMech.Weapon)
                     {
                         cardMech.Weapon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleWeaponDetail].AllocateGameObject<ModuleWeapon>(cardMech.transform);
                     }
 
-                    CardInfo_Base cw = ((ModuleMech) moduleBase).M_Weapon.CardInfo;
+                    CardInfo_Base cw = ((ModuleMech) moduleBase).MechEquipSystemComponent.M_Weapon.CardInfo;
                     cardMech.Weapon.M_ModuleMech = (ModuleMech) moduleBase;
-                    cardMech.Weapon.Initiate(((ModuleMech) moduleBase).M_Weapon.GetCurrentCardInfo(), moduleBase.ClientPlayer);
+                    cardMech.Weapon.Initiate(((ModuleMech) moduleBase).MechEquipSystemComponent.M_Weapon.GetCurrentCardInfo(), moduleBase.ClientPlayer);
                     cardMech.Weapon.GetComponent<DragComponent>().enabled = false;
                     cardMech.Weapon.GetComponent<MouseHoverComponent>().enabled = false;
                     cardMech.Weapon.SetPreview();
@@ -60,16 +60,16 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     detailCard_Weapon.CardOrder = 200;
                 }
 
-                if (((ModuleMech) moduleBase).M_Shield)
+                if (((ModuleMech) moduleBase).MechEquipSystemComponent.M_Shield)
                 {
                     if (!cardMech.Shield)
                     {
                         cardMech.Shield = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleShieldDetail].AllocateGameObject<ModuleShield>(cardMech.transform);
                     }
 
-                    CardInfo_Base cw = ((ModuleMech) moduleBase).M_Shield.CardInfo;
+                    CardInfo_Base cw = ((ModuleMech) moduleBase).MechEquipSystemComponent.M_Shield.CardInfo;
                     cardMech.Shield.M_ModuleMech = (ModuleMech) moduleBase;
-                    cardMech.Shield.Initiate(((ModuleMech) moduleBase).M_Shield.GetCurrentCardInfo(), moduleBase.ClientPlayer);
+                    cardMech.Shield.Initiate(((ModuleMech) moduleBase).MechEquipSystemComponent.M_Shield.GetCurrentCardInfo(), moduleBase.ClientPlayer);
                     cardMech.Shield.GetComponent<DragComponent>().enabled = false;
                     cardMech.Shield.GetComponent<MouseHoverComponent>().enabled = false;
                     cardMech.Shield.SetPreview();
@@ -87,16 +87,16 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     detailCard_Shield.CardOrder = 200;
                 }
 
-                if (((ModuleMech) moduleBase).M_Pack)
+                if (((ModuleMech) moduleBase).MechEquipSystemComponent.M_Pack)
                 {
                     if (!cardMech.Pack)
                     {
                         cardMech.Pack = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModulePackDetail].AllocateGameObject<ModulePack>(cardMech.transform);
                     }
 
-                    CardInfo_Base cw = ((ModuleMech) moduleBase).M_Pack.CardInfo;
+                    CardInfo_Base cw = ((ModuleMech) moduleBase).MechEquipSystemComponent.M_Pack.CardInfo;
                     cardMech.Pack.M_ModuleMech = (ModuleMech) moduleBase;
-                    cardMech.Pack.Initiate(((ModuleMech) moduleBase).M_Pack.GetCurrentCardInfo(), moduleBase.ClientPlayer);
+                    cardMech.Pack.Initiate(((ModuleMech) moduleBase).MechEquipSystemComponent.M_Pack.GetCurrentCardInfo(), moduleBase.ClientPlayer);
                     cardMech.Pack.GetComponent<DragComponent>().enabled = false;
                     cardMech.Pack.GetComponent<MouseHoverComponent>().enabled = false;
                     cardMech.Pack.SetPreview();
@@ -114,16 +114,16 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     detailCard_Pack.CardOrder = 200;
                 }
 
-                if (((ModuleMech) moduleBase).M_MA)
+                if (((ModuleMech) moduleBase).MechEquipSystemComponent.M_MA)
                 {
                     if (!cardMech.MA)
                     {
                         cardMech.MA = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ModuleMADetail].AllocateGameObject<ModuleMA>(cardMech.transform);
                     }
 
-                    CardInfo_Base cw = ((ModuleMech) moduleBase).M_MA.CardInfo;
+                    CardInfo_Base cw = ((ModuleMech) moduleBase).MechEquipSystemComponent.M_MA.CardInfo;
                     cardMech.MA.M_ModuleMech = (ModuleMech) moduleBase;
-                    cardMech.MA.Initiate(((ModuleMech) moduleBase).M_MA.GetCurrentCardInfo(), moduleBase.ClientPlayer);
+                    cardMech.MA.Initiate(((ModuleMech) moduleBase).MechEquipSystemComponent.M_MA.GetCurrentCardInfo(), moduleBase.ClientPlayer);
                     cardMech.MA.GetComponent<DragComponent>().enabled = false;
                     cardMech.MA.GetComponent<MouseHoverComponent>().enabled = false;
                     cardMech.MA.SetPreview();

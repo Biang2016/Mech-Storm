@@ -76,11 +76,12 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
 
         //TODO 特例
-        ShowAllSlotBlooms(value != CardShowMode.CardSelect && value != CardShowMode.SelectedCardPreview);
+        ShowCardBloom(value != CardShowMode.CardSelect);
+        ShowAllSlotBlooms(value != CardShowMode.CardSelect);
+        ShowAllSlotLights(true);
         if (value == CardShowMode.CardSelect || value == CardShowMode.SelectedCardPreview) ResetCoinPosition();
         if (value == CardShowMode.CardUpgradePreview) RefreshCoinPosition();
         CardLifeComponent?.gameObject.SetActive(CardInfo != null && CardInfo.BaseInfo.CardType == CardTypes.Mech);
-        ShowCardBloom(value != CardShowMode.CardSelect);
 
         M_CardShowMode = value;
     }
@@ -290,8 +291,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     public void BeDimColor()
     {
         Color color = ClientUtils.HTMLColorToColor(CardInfo.GetCardColor());
-        ChangeMainBoardColor(new Color(color.r / 2, color.g / 2, color.b / 2, color.a));
-        ChangePictureColor(new Color(0.5f, 0.5f, 0.5f));
+        ChangeMainBoardColor(new Color(color.r / 3, color.g / 3, color.b / 3, color.a));
+        ChangePictureColor(new Color(0.3f, 0.3f, 0.3f));
     }
 
     public void BeBrightColor()

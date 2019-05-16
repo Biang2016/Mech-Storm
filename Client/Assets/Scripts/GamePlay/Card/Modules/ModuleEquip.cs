@@ -30,6 +30,7 @@ public abstract class ModuleEquip : ModuleBase
         if (M_BloomSE) M_BloomSE.gameObject.SetActive(false);
         if (M_BloomSE_Sub) M_BloomSE_Sub.gameObject.SetActive(false);
         M_Name = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
+        InitializeComponents();
     }
 
     public override void SetLanguage(string languageShort) 

@@ -53,4 +53,5 @@ public enum MechComponentTypes
     TargetPreviewArrows,
     TriggerIcon,
     SwordShieldArmor,
+    EquipSystem
 }
