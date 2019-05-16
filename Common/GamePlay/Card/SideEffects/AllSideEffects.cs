@@ -58,6 +58,7 @@ public static class AllSideEffects
 
             string name = node_SideEffect.Attributes["name"].Value;
             SideEffectBase se = (SideEffectBase) CurrentAssembly.CreateInstance("SideEffects." + name);
+            
             if (se == null)
             {
                 Utils.DebugLog("SideEffects: " + name + " does not exist");

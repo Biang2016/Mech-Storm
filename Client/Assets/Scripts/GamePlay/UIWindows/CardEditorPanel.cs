@@ -1173,6 +1173,7 @@ public class CardEditorPanel : BaseUIForm
 #endif
 
         bool controlPress = Input.GetKey(controlKey);
+        bool leftShiftPress = Input.GetKey(KeyCode.LeftShift);
 
         if (controlPress)
         {
@@ -1188,7 +1189,7 @@ public class CardEditorPanel : BaseUIForm
             curCardID = cur_PreviewCard.CardInfo.CardID;
         }
 
-        if (Input.GetKeyUp(KeyCode.RightArrow))
+        if (leftShiftPress && Input.GetKeyUp(KeyCode.RightArrow))
         {
             foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
             {
@@ -1200,7 +1201,7 @@ public class CardEditorPanel : BaseUIForm
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
+        if (leftShiftPress && Input.GetKeyUp(KeyCode.LeftArrow))
         {
             int changeCardID = 0;
             foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
@@ -1217,7 +1218,7 @@ public class CardEditorPanel : BaseUIForm
 
         int gridColumns = Mathf.RoundToInt(((RectTransform) ExistingCardGridContainer.transform).rect.width - ExistingCardGridContainer.padding.left) / Mathf.RoundToInt(ExistingCardGridContainer.cellSize.x + ExistingCardGridContainer.spacing.x);
 
-        if (Input.GetKeyUp(KeyCode.DownArrow))
+        if (leftShiftPress && Input.GetKeyUp(KeyCode.DownArrow))
         {
             int count = 0;
             foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
@@ -1234,7 +1235,7 @@ public class CardEditorPanel : BaseUIForm
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.UpArrow))
+        if (leftShiftPress && Input.GetKeyUp(KeyCode.UpArrow))
         {
             int[] before = new int[gridColumns];
             for (int i = 0; i < before.Length; i++)

@@ -62,6 +62,14 @@ public static class AllBuffs
 
             addBuff(se);
         }
+
+        foreach (KeyValuePair<string, SideEffectBase> kv in AllSideEffects.SideEffectsNameDict)
+        {
+            if (kv.Value is AddPlayerBuff_Base addPlayerBuffBase)
+            {
+                addPlayerBuffBase.BuffName = "DoSthWhenTrigger_RemoveBySomeTime";
+            }
+        }
     }
 
     public static PlayerBuffSideEffects GetBuff(string buffName)

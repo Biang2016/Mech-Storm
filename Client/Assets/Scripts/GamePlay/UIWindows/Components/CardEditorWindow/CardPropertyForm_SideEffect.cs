@@ -475,7 +475,11 @@ public class CardPropertyForm_SideEffect : PoolObject
                 ses: se.Sub_SideEffect,
                 se: sub_se,
                 onRefreshText: onRefreshText,
-                onDeleteButtonClick: delegate { });
+                onDeleteButtonClick: delegate
+                {
+                    se.Sub_SideEffect.Remove(sub_se);
+                    Initialize(see, ses, se, onRefreshText, onDeleteButtonClick);
+                });
             CardPropertyForm_SubSideEffectBaseRows.Add(sub_se_row);
         }
     }
