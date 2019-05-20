@@ -257,7 +257,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                             CardPropertyFormRow choiceCountRow = null;
                                             foreach (CardPropertyFormRow cardPropertyFormRow in CardPropertyFormRows)
                                             {
-                                                if (cardPropertyFormRow.LabelStrKey.Equals("ChoiceCount"))
+                                                if (cardPropertyFormRow.LabelStrKey.Equals(sev_Prefix + "ChoiceCount"))
                                                 {
                                                     choiceCountRow = cardPropertyFormRow;
                                                     break;
@@ -292,7 +292,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                             CardPropertyFormRow choiceCountRow = null;
                                             foreach (CardPropertyFormRow cardPropertyFormRow in CardPropertyFormRows)
                                             {
-                                                if (cardPropertyFormRow.LabelStrKey.Equals("ChoiceCount"))
+                                                if (cardPropertyFormRow.LabelStrKey.Equals(sev_Prefix + "ChoiceCount"))
                                                 {
                                                     choiceCountRow = cardPropertyFormRow;
                                                     break;

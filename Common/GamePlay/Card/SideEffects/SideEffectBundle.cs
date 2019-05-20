@@ -87,7 +87,7 @@ public class SideEffectBundle : IClone<SideEffectBundle>
             {
                 foreach (SideEffectExecute see in SEEs.Value)
                 {
-                    res += see.GenerateDesc() + ";";
+                    res += see.GenerateDesc() + "; ";
                 }
             }
         }

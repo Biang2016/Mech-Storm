@@ -43,6 +43,10 @@ public class CardEditorPanel : BaseUIForm
         InitializeCardPropertyForm();
         InitializePreviewCardGrid();
         InitializePicSelectGrid();
+    }
+
+    void Start()
+    {
         ChangeCard(0);
     }
 

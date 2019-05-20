@@ -501,13 +501,13 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.None, ""},
                 {TriggerTime.OnTrigger, "{0}"},
 
-                {TriggerTime.OnBeginRound, "{0}回合开始时, "},
-                {TriggerTime.OnDrawCard, "{0}抽牌时, "},
-                {TriggerTime.OnPlayCard, "{0}出牌时, "},
+                {TriggerTime.OnBeginRound, "当{0}回合开始时, "},
+                {TriggerTime.OnDrawCard, "当{0}抽牌时, "},
+                {TriggerTime.OnPlayCard, "当{0}出牌时, "},
 
-                {TriggerTime.OnMechSummon, "{0}召唤机甲时, "},
-                {TriggerTime.OnHeroSummon, "{0}召唤英雄时, "},
-                {TriggerTime.OnSoldierSummon, "{0}召唤士兵时, "},
+                {TriggerTime.OnMechSummon, "当{0}召唤机甲时, "},
+                {TriggerTime.OnHeroSummon, "当{0}召唤英雄时, "},
+                {TriggerTime.OnSoldierSummon, "当{0}召唤士兵时, "},
 
                 {TriggerTime.OnMechAttack, "当{0}机甲进攻时, "},
                 {TriggerTime.OnHeroAttack, "当{0}英雄进攻时, "},
@@ -533,18 +533,18 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnHeroDie, "当{0}英雄死亡时, "},
                 {TriggerTime.OnSoldierDie, "当{0}士兵死亡时, "},
 
-                {TriggerTime.OnEquipDie, "{0}装备破坏时, "},
+                {TriggerTime.OnEquipDie, "当{0}装备破坏时, "},
 
-                {TriggerTime.OnMakeDamage, "{0}造成伤害时, "},
+                {TriggerTime.OnMakeDamage, "当{0}造成伤害时, "},
                 {TriggerTime.OnMakeSpellDamage, "{0}造成法术伤害时, "},
 
                 {TriggerTime.OnPlayerGetEnergy, "当{0}获得能量时, "},
                 {TriggerTime.OnPlayerUseEnergy, "当{0}消耗能量时, "},
                 {TriggerTime.OnPlayerAddLife, "当{0}获得生命时, "},
                 {TriggerTime.OnPlayerLostLife, "当{0}生命减少时, "},
-                {TriggerTime.OnEndRound, "{0}回合结束时, "},
+                {TriggerTime.OnEndRound, "当{0}回合结束时, "},
 
-                {TriggerTime.OnUseMetal, "{0}消耗金属时, "},
+                {TriggerTime.OnUseMetal, "当{0}消耗金属时, "},
             }
         },
         {
